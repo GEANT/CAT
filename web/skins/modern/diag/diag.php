@@ -42,13 +42,14 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
 
 </head>
 <body>
+<div id='wrap'>
+<?php echo $divs->div_heading(); ?>
 <div id="main_page">
     <div id="loading_ico">
           <span id='load_comment'></span><br><img src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES", "icons/loading51.gif"); ?>" alt="Loading stuff ..."/>
     </div>
     <form id="cat_form" name="cat_form" method="POST"  accept-charset="UTF-8" action="">
     <input name="myNonce" id="myNonce" type="hidden" value="<?php echo my_nonce($_SERVER['SCRIPT_NAME']); ?>">
-    <?php echo $divs->div_heading(); ?>
     <div id="info_overlay"> <!-- device info -->
         <div id="info_window"></div>
         <img id="info_menu_close" class="close_button" src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES", "icons/button_cancel.png"); ?>" ALT="Close"/>
@@ -142,38 +143,52 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
     </div>
    </form>
 </div>
+</div>
 <?php echo $divs->div_footer(); 
     
 ?>
 <script>
-    function countryAddSelect(select, options, type) {
-        select = select + options + '</select></td>';
-        $('#select_'+type+'_country').hide();
-        var shtml = '<table><tbody><tr id="row_'+type+'_country"></tr>';
-        shtml = shtml + '<tr id="row_'+type+'_institution" style="visibility: collapse;">';
-        shtml = shtml + '<td>' + <?php echo '"' . _("Select institiution") . '"'; ?> + '</td><td></td></tr>';
-        if (type === 'idp') {
-            shtml = shtml + '<tr id="row_idp_realm"></tr>';
+    function countryAddSelect(selecthead, select, type) {
+        if (selecthead !== '') {
+            select = selecthead + select + '</td>';
         }
-        shtml = shtml + '</tbody></table>';
-        $('#select_'+type+'_area').html(shtml);
-        $('#select_'+type+'_area').show();
-        $('#row_'+type+'_country').append(select);
+        $('#select_'+type+'_country').hide();
+        var shtml = '';
+        if (type === 'idp' || type === 'sp') {
+            shtml = '<table><tbody><tr id="row_'+type+'_country"></tr>';
+            shtml = shtml + '<tr id="row_'+type+'_institution" style="visibility: collapse;">';
+            shtml = shtml + '<td>' + <?php echo '"' . _("Select institiution") . '"'; ?> + '</td><td></td></tr>';
+            if (type === 'idp') {
+                shtml = shtml + '<tr id="row_idp_realm"></tr>';
+            }
+            shtml = shtml + '</tbody></table>';  
+            $('#select_' + type+'_area').html(shtml);
+            $('#select_' + type+'_area').show();
+            $('#row_' + type+'_country').append(select);
+        } else {
+            shtml = '<div id="inst_asp_area"></div>';
+            $('#select_' + type+'_area').html(select + shtml);
+            $('#select_' + type+'_area').show();
+        }  
     }
     function countrySelection(type1) {
         var type2;
-        if (type1 === 'sp') {
+        if (type1 === 'sp' || type1 === 'asp') {
             type2 = 'idp';
         }
         if (type1 === 'idp') {
             type2 = 'sp';
         }
         var options = '';
-        var select = <?php echo '"<td>' . _("Select country:") . ' </td>"'; ?>;
-        select = select + '<td><select id="' + type1 + '_country" name="' + type1 + '_country" style="width:400px;">';
+        var selecthead = '';
+        if (type1 === 'sp' || type1 === 'idp') {
+            selecthead = <?php echo '"<td>' . _("Select country:") . ' </td>"'; ?>;
+            selecthead = selecthead + '<td>\n';
+        }
+        var select = '<select id="' + type1 + '_country" name="' + type1 + '_country" style="margin-left:0px; width:400px;">';
         if ($("#"+type2+"_country").is('select')) {
             options = ($('#'+type2+'_country').html());
-            countryAddSelect(select, options, type1);
+            countryAddSelect(selecthead, select + options + '</select>', type1);
         } else {
             var comment = <?php echo '"' . _("Fetching countries list") . '..."'; ?>;
             inProgress(1, comment);
@@ -189,7 +204,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                         for (var key in countries) {
                             options  = options + '<option value="'+key+'">' + countries[key] + '</option>';
                         }
-                        countryAddSelect(select, options, type1);
+                        countryAddSelect(selecthead, select + options + '</select>', type1);
                     }
                 },
                 error:function() {
@@ -244,7 +259,6 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                             $('#current_query').html(data['TEXT']);
                         }
                    } else {
-                        console.log('lądujemy...');
                         var realm = $('#tested_realm').val();
                         $('#tested_realm').remove();
                         $('#sociopath_query_area').hide();
@@ -375,7 +389,6 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             $('#select_idp_area').html('');
             $('#select_idp_country').show();
             $('#select_sp_area').html('');
-            $('#select_sp_area').html('');
             $('#sociopath_queries').show();
             $('#diagnostic_admin').show();
             if ($('#isadmin').val() === "1") {
@@ -390,11 +403,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         }
        
     });
-    $('#user_realm').bind('autocompleteSelect', function(event, node) {
-        console.log(node);
-    });
     $('#user_realm').bind('change keyup blur input', function(e)  {
-        console.log($('#user_realm').val());
         if (isDomain($('#user_realm').val())) {
             $('#start_test_area').show();
         } else {
@@ -411,13 +420,13 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         countrySelection("idp");
         return false;
     });
-    $('#sp_countries_list').click(function(event){
-        /*$('#countries_list').removeAttr("href");*/
+    $(document).on('click', '#sp_countries_list, #asp_countries_list' , function(event) {
         event.preventDefault();
-        countrySelection("sp");
+        var t = $(this).attr('id').substring(0, $(this).attr('id').indexOf('_'));
+        countrySelection(t);
         return false;
     });
-    $(document).on('change', '#idp_country, #sp_country' , function() {
+    $(document).on('change', '#idp_country, #sp_country, #asp_country' , function() {
         var comment = <?php echo '"' . _("Fetching institutions list") . '..."'; ?>;  
         var id = $(this).attr('id');
         var k = id.indexOf('_');
@@ -433,16 +442,26 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                     if (data.status === 1) {
                         inProgress(0);
                         var institutions = data.institutions;
-                        var select = <?php echo '"<td>' . _("Select institution:") . '</td>"'; ?>;
-                        select = select + '<td><select id="' + type + '_inst" name="' + type + '_inst" style="width:400px;"><option value=""></option>';
+                        var shtml = '';
+                        var select = '';
+                        if (type !== 'asp') {
+                            shtml = <?php echo '"<td>' . _("Select institution:") . '</td><td>"'; ?>;
+                        }
+                        select = '<select id="' + type + '_inst" name="' + type + '_inst" style="margin-left:0px; width:400px;"><option value=""></option>';
                         for (var i in institutions) {
                             select = select + '<option value="' + institutions[i].ID + '">' + institutions[i].name + '</option>';
                         }
-                        select = select + '</select></td>';
-                        $('#row_' + type + '_institution').html('');
-                        $('#row_' +type + '_institution').append(select);
-                        $('#row_' +type + '_realm').html('');
-                        $('#row_' +type + '_institution').css('visibility', 'visible');
+                        select = select + '</select>';
+                        if (type !== 'asp') {
+                            shtml = shtml + select + '</td>';
+                            $('#row_' + type + '_institution').html('');
+                            $('#row_' + type + '_institution').append(shtml);
+                            $('#row_' + type + '_realm').html('');
+                            $('#row_' + type + '_institution').css('visibility', 'visible');
+                        } else {
+                            $('#inst_' + type + '_area').html(select);
+                            $('#' + type + '_desc').show();
+                        }    
                     }
                 },
                 error:function() {
@@ -478,9 +497,8 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                     var realmselect = '';
                     if (realms.length > 1) {
                         realmselect = <?php echo '"<td>' . _("Check realm(s):") . '</td>"'; ?>;
-                        realmselect = realmselect + '<td>' + "<span style='margin-left: 19px'>";
+                        realmselect = realmselect + '<td>' + "<span style='margin-left: 10px'>";
                         for (var i in realms) {
-                            console.log("i = "+i);
                             realmselect = realmselect + '<input type="radio" name="realm" ';
                             realmselect = realmselect + 'value="' + realms[i] + '"';
                             if (i === "0") {
@@ -491,7 +509,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                         realmselect = realmselect + '</span></td>';
                     } else {
                         realmselect = <?php echo '"<td>' . _("Realm:") . '</td>"'; ?>;
-                        realmselect = realmselect + '<td>' + "<span style='margin-left: 19px'>";
+                        realmselect = realmselect + '<td>' + "<span style='margin-left: 10px'>";
                         realmselect = realmselect + realms[0] + '</span>';
                         realmselect = realmselect + '<input type="hidden" name="realm" value="' + realms[0] + '">';
                         realmselect = realmselect + '</span></td>';
@@ -595,7 +613,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 }
             },
             error: function (error) {
-                alert('ERROR!');
+                alert('error');
             }
         });
         return false;
@@ -607,7 +625,6 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             answer = 2; /* Yes */
         }
         if ($(this).attr('id') == 'answer_noidea') {
-            console.log('I do not know');
             answer = 3; /* No idea */
         }
         testSociopath('', answer);
@@ -671,7 +688,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 },
                 error: function (error) {
                     inProgress(0);
-                    alert('ERROR!');
+                    alert('error');
                 }
             });
         }
@@ -749,7 +766,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 }
             },
             error: function (error) {
-                alert('ERROR!');
+                alert('error');
             }
         });
         return false;
@@ -784,7 +801,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 }
             },
             error: function (error) {
-                alert('ERROR!');
+                alert('error');
             }
         });
         return false;
@@ -810,6 +827,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             }
          }
          if ($('#timestamp').val().length > 0  && $('#mac').val().length == 17 && $('#email').val().length > 0 && isEmail($('#email').val())) {
+             alert('here');
              $('#send_query_to_idp').removeClass('hidden_row').addClass('visible_row');
          } else {
              $('#send_query_to_idp').removeClass('visible_row').addClass('hidden_row');
@@ -817,16 +835,18 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
     });
     $('input[name="problem_type"]').click(function() {  
         var t = $('input[name=problem_type]:checked').val();
-        if (t == 1) {
+        if (t == 1) { 
+            /* show SP problem block */
             if ($('#sp_abuse').html() === '') {
                 $.get("adminQuery.php?type=sp", function(data, status) {
                     $('#sp_abuse').html(data);
-                    $('#sp_abuse').show();
-                    $('#idp_problem').hide();
+                    $('#sp_abuse').show();         
+                    $('#idp_problem').html('');
                 });
             }
             
         } else {
+            /* show IdP problem block */
             $('#sp_abuse').html('');
             if ($('#idp_problem').html() === '') {
                 $.get("adminQuery.php?type=idp", function(data, status) {
@@ -837,8 +857,16 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             }
         }
     });
-    $('#email').bind('keypress', function(e)  {
-        if(e.keyCode == 13) {
+    $(document).on('change', '#asp_inst' , function() {
+        if ($('#asp_inst').val()) {
+            $('#asp_desc').val('');
+            $('#asp_desc').hide();
+        } else {
+            $('#asp_desc').show();
+        }
+    });
+    $(document).on('keypress', '#email', function(e)  {
+        if (e.keyCode == 13) {
             if ($('#timestamp').val().length > 0  && $('#mac').val().length == 17 && $('#email').val().length > 0 && isEmail($('#email').val())) {
                 $('#send_query_to_idp').removeClass('hidden_row').addClass('visible_row');
             } else {
@@ -847,6 +875,15 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             return false;
         }
     }); 
+    $(document).on('keypress', '#opname', function(e)  {
+        if (e.keyCode == 13 || e.keyCode == 9) {
+            if ($('#opname').val() !== '') {
+                $('#spmanually').hide();
+            } else {
+                $('#spmanually').show();
+            }
+        }
+    });
     $('#answer_yes, #answer_no').click(function(e) {
         e.preventDefault();
     });
