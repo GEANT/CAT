@@ -692,11 +692,7 @@ network={
         ];
     }
 
-    private function checkRadiusPacketFlow(&$testresults, $tmpDir, $probeindex, $eaptype, $innerUser, $password, $opnameCheck, $frag) {
-        $runtime_results = $this->executeEapolTest($tmpDir, $probeindex, $eaptype, $innerUser, $password, $opnameCheck, $frag);
-
-        $testresults['time_millisec'] = $runtime_results['time'];
-        $packetflow_orig = $runtime_results['output'];
+    private function checkRadiusPacketFlow(&$testresults, $packetflow_orig) {
 
         $packetflow = $this->filterPackettype($packetflow_orig);
 
@@ -722,6 +718,125 @@ network={
 
 // calculate packet counts and see what the overall flow was
         return $this->packetCountEvaluation($testresults, $packetcount);
+    }
+
+    /**
+     * parses the eapol_test output to determine whether we got to a point where
+     * an EAP type was mutually agreed
+     * 
+     * @param array $testresults by-reference, we add our findings if something is noteworthy
+     * @param array $packetflow_orig the array of text output from eapol_test
+     * @return bool
+     */
+    private function wasEapTypeNegotiated(&$testresults, $packetflow_orig) {
+        $testresults['cert_oddities'] = [];
+
+        $negotiatedEapType = $this->checkLineparse($packetflow_orig, self::LINEPARSE_EAPACK);
+        if (!$negotiatedEapType) {
+            $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_NO_COMMON_EAP_METHOD;
+        }
+
+        return $negotiatedEapType;
+    }
+
+    private function extractIncomingCAsFromEAP(&$testresults, $tmpDir) {
+
+        /*
+         *  EAP's house rules:
+         * 1) it is unnecessary to include the root CA itself (adding it has
+         *    detrimental effects on performance)
+         * 2) TLS Web Server OID presence (Windows OSes need that)
+         * 3) MD5 signature algorithm disallowed (iOS barks if so)
+         * 4) CDP URL (Windows Phone 8 barks if not present)
+         * 5) there should be exactly one server cert in the chain
+         */
+
+        $x509 = new \core\common\X509();
+// $eap_certarray holds all certs received in EAP conversation
+        $eapCertArray = [];
+        $chainHandle = fopen($tmpDir . "/serverchain.pem", "r");
+        if ($chainHandle !== FALSE) {
+            $content = fread($chainHandle, "1000000");
+            if ($content !== FALSE) {
+                $eapCertArray = $x509->splitCertificate($content);
+            }
+        }
+// we want no root cert, and exactly one server cert
+        $numberRoot = 0;
+        $numberServer = 0;
+        $eapIntermediates = [];
+        $eapIntermediateCRLs = [];
+        $servercert = FALSE;
+        $totallySelfsigned = FALSE;
+        $intermOdditiesEAP = [];
+
+        $testresults['certdata'] = [];
+
+
+        foreach ($eapCertArray as $certPem) {
+            $cert = $x509->processCertificate($certPem);
+            if ($cert == FALSE) {
+                continue;
+            }
+// consider the certificate a server cert 
+// a) if it is not a CA and is not a self-signed root
+// b) if it is a CA, and self-signed, and it is the only cert in
+//    the incoming cert chain
+//    (meaning the self-signed is itself the server cert)
+            if (($cert['ca'] == 0 && $cert['root'] != 1) || ($cert['ca'] == 1 && $cert['root'] == 1 && count($eapCertArray) == 1)) {
+                if ($cert['ca'] == 1 && $cert['root'] == 1 && count($eapCertArray) == 1) {
+                    $totallySelfsigned = TRUE;
+                    $cert['full_details']['type'] = 'totally_selfsigned';
+                }
+                $numberServer++;
+
+                $servercert = $cert;
+                if ($numberServer == 1) {
+                    if (file_put_contents($tmpDir . "/incomingserver.pem", $certPem . "\n") === FALSE) {
+                        $this->loggerInstance->debug(4, "The (first) server certificate could not be written to $tmpDir/incomingserver.pem!\n");
+                    }
+                    $this->loggerInstance->debug(4, "This is the (first) server certificate, with CRL content if applicable: " . print_r($servercert, true));
+                }
+            } else
+            if ($cert['root'] == 1) {
+                $numberRoot++;
+// do not save the root CA, it serves no purpose
+// chain checks need to be against the UPLOADED CA of the
+// IdP/profile, not against an EAP-discovered CA
+            } else {
+                $intermOdditiesEAP = array_merge($intermOdditiesEAP, $this->propertyCheckIntermediate($cert));
+                $eapIntermediates[] = $certPem;
+
+                if (isset($cert['CRL']) && isset($cert['CRL'][0])) {
+                    $eapIntermediateCRLs[] = $cert['CRL'][0];
+                }
+            }
+            $testresults['certdata'][] = $cert['full_details'];
+        }
+
+        if ($numberRoot > 0 && !$totallySelfsigned) {
+            $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_ROOT_INCLUDED;
+        }
+        if ($numberServer > 1) {
+            $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_TOO_MANY_SERVER_CERTS;
+        }
+        if ($numberServer == 0) {
+            $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_NO_SERVER_CERT;
+        }
+// check server cert properties
+        if ($numberServer > 0) {
+            if ($servercert === FALSE) {
+                throw new Exception("We incremented the numberServer counter and added a certificate. Now it's gone?!");
+            }
+            $testresults['cert_oddities'] = array_merge($testresults['cert_oddities'], $this->propertyCheckServercert($servercert));
+            $testresults['incoming_server_names'] = $servercert['incoming_server_names'];
+        }
+        return [
+            "SERVERCERT" => $servercert,
+            "INTERMEDIATE_CA" => $eapIntermediates,
+            "INTERMEDIATE_CRL" => $eapIntermediateCRLs,
+            "INTERMEDIATE_OBSERVED_ODDITIES" => $intermOdditiesEAP,
+        ];
     }
 
     /**
@@ -764,39 +879,23 @@ network={
         if ($clientcertdata !== NULL) {
             file_put_contents($tmpDir . "/client.p12", $clientcertdata);
         }
-
         $testresults = [];
-        /** execute RADIUS/EAP converation */
-        $radiusResult = $this->checkRadiusPacketFlow($testresults, $tmpDir, $probeindex, $eaptype, $innerUser, $password, $opnameCheck, $frag);
-
-// only to make sure we've defined this in all code paths
-// not setting it has no real-world effect, but Scrutinizer mocks
-        $ackedmethod = FALSE;
-        $testresults['cert_oddities'] = [];
-        if ($radiusResult == RADIUSTests::RETVAL_CONVERSATION_REJECT) {
-            $ackedmethod = $this->checkLineparse($packetflow_orig, self::LINEPARSE_EAPACK);
-            if (!$ackedmethod) {
-                $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_NO_COMMON_EAP_METHOD;
-            }
-        }
-
-
+        // execute RADIUS/EAP converation
+        $runtime_results = $this->executeEapolTest($tmpDir, $probeindex, $eaptype, $innerUser, $password, $opnameCheck, $frag);
+        $testresults['time_millisec'] = $runtime_results['time'];
+        $packetflow_orig = $runtime_results['output'];
+        $radiusResult = $this->checkRadiusPacketFlow($testresults, $packetflow_orig);
+        $negotiatedEapType = $this->wasEapTypeNegotiated($testresults, $packetflow_orig);
         // now let's look at the server cert+chain, if we got a cert at all
         // that's not the case if we do EAP-pwd or could not negotiate an EAP method at
         // all
         if (
                 $eaptype != \core\common\EAP::EAPTYPE_PWD &&
-                (($radiusResult == RADIUSTests::RETVAL_CONVERSATION_REJECT && $ackedmethod) || $radiusResult == RADIUSTests::RETVAL_OK)
+                (($radiusResult == RADIUSTests::RETVAL_CONVERSATION_REJECT && $negotiatedEapType) || $radiusResult == RADIUSTests::RETVAL_OK)
         ) {
 
+            $bundle = $this->extractIncomingCAsfromEAP($testresults, $tmpDir);
 
-// ALWAYS check: 
-// 1) it is unnecessary to include the root CA itself (adding it has
-//    detrimental effects on performance)
-// 2) TLS Web Server OID presence (Windows OSes need that)
-// 3) MD5 signature algorithm (iOS barks if so)
-// 4) CDP URL (Windows Phone 8 barks if not present)
-// 5) there should be exactly one server cert in the chain
 // FOR OWN REALMS check:
 // 1) does the incoming chain have a root in one of the configured roots
 //    if not, this is a signficant configuration error
@@ -804,87 +903,6 @@ network={
 // TRUST_ROOT_NOT_REACHED
 // TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES
 // then check the presented names
-            $x509 = new \core\common\X509();
-// $eap_certarray holds all certs received in EAP conversation
-            $eapCertArray = [];
-            $chainHandle = fopen($tmpDir . "/serverchain.pem", "r");
-            if ($chainHandle !== FALSE) {
-                $content = fread($chainHandle, "1000000");
-                if ($content !== FALSE) {
-                    $eapCertArray = $x509->splitCertificate($content);
-                }
-            }
-// we want no root cert, and exactly one server cert
-            $numberRoot = 0;
-            $numberServer = 0;
-            $eapIntermediates = [];
-            $eapIntermediateCRLs = [];
-            $servercert = FALSE;
-            $totallySelfsigned = FALSE;
-            $intermOdditiesEAP = [];
-
-            $testresults['certdata'] = [];
-
-
-            foreach ($eapCertArray as $certPem) {
-                $cert = $x509->processCertificate($certPem);
-                if ($cert == FALSE) {
-                    continue;
-                }
-// consider the certificate a server cert 
-// a) if it is not a CA and is not a self-signed root
-// b) if it is a CA, and self-signed, and it is the only cert in
-//    the incoming cert chain
-//    (meaning the self-signed is itself the server cert)
-                if (($cert['ca'] == 0 && $cert['root'] != 1) || ($cert['ca'] == 1 && $cert['root'] == 1 && count($eapCertArray) == 1)) {
-                    if ($cert['ca'] == 1 && $cert['root'] == 1 && count($eapCertArray) == 1) {
-                        $totallySelfsigned = TRUE;
-                        $cert['full_details']['type'] = 'totally_selfsigned';
-                    }
-                    $numberServer++;
-
-                    $servercert = $cert;
-                    if ($numberServer == 1) {
-                        if (file_put_contents($tmpDir . "/incomingserver.pem", $certPem . "\n") === FALSE) {
-                            $this->loggerInstance->debug(4, "The (first) server certificate could not be written to $tmpDir/incomingserver.pem!\n");
-                        }
-                        $this->loggerInstance->debug(4, "This is the (first) server certificate, with CRL content if applicable: " . print_r($servercert, true));
-                    }
-                } else
-                if ($cert['root'] == 1) {
-                    $numberRoot++;
-// do not save the root CA, it serves no purpose
-// chain checks need to be against the UPLOADED CA of the
-// IdP/profile, not against an EAP-discovered CA
-                } else {
-                    $intermOdditiesEAP = array_merge($intermOdditiesEAP, $this->propertyCheckIntermediate($cert));
-                    $eapIntermediates[] = $certPem;
-
-                    if (isset($cert['CRL']) && isset($cert['CRL'][0])) {
-                        $eapIntermediateCRLs[] = $cert['CRL'][0];
-                    }
-                }
-                $testresults['certdata'][] = $cert['full_details'];
-            }
-
-            if ($numberRoot > 0 && !$totallySelfsigned) {
-                $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_ROOT_INCLUDED;
-            }
-            if ($numberServer > 1) {
-                $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_TOO_MANY_SERVER_CERTS;
-            }
-            if ($numberServer == 0) {
-                $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_NO_SERVER_CERT;
-            }
-// check server cert properties
-            if ($numberServer > 0) {
-                if ($servercert === FALSE) {
-                    throw new Exception("We incremented the numberServer counter and added a certificate. Now it's gone?!");
-                }
-                $testresults['cert_oddities'] = array_merge($testresults['cert_oddities'], $this->propertyCheckServercert($servercert));
-                $testresults['incoming_server_names'] = $servercert['incoming_server_names'];
-            }
-
 // check intermediate ca cert properties
 // check trust chain for completeness
 // works only for thorough checks, not shallow, so:
@@ -892,11 +910,11 @@ network={
             $verifyResult = 0;
 
             if ($this->opMode == self::RADIUS_TEST_OPERATION_MODE_THOROUGH) {
-                $verifyResult = $this->thoroughChainChecks($testresults, $intermOdditiesCAT, $tmpDir, $servercert, $eapIntermediates, $eapIntermediateCRLs);
-                $this->thoroughNameChecks($servercert, $testresults);
+                $verifyResult = $this->thoroughChainChecks($testresults, $intermOdditiesCAT, $tmpDir, $bundle["SERVERCERT"], $bundle["INTERMEDIATE_CA"], $bundle["INTERMEDIATE_CRL"]);
+                $this->thoroughNameChecks($bundle["SERVERCERT"], $testresults);
             }
 
-            $testresults['cert_oddities'] = array_merge($testresults['cert_oddities'], $intermOdditiesEAP);
+            $testresults['cert_oddities'] = array_merge($testresults['cert_oddities'], $bundle["INTERMEDIATE_OBSERVED_ODDITIES"]);
             if (in_array(RADIUSTests::CERTPROB_OUTSIDE_VALIDITY_PERIOD, $intermOdditiesCAT) && $verifyResult == 3) {
                 $key = array_search(RADIUSTests::CERTPROB_OUTSIDE_VALIDITY_PERIOD, $intermOdditiesCAT);
                 $intermOdditiesCAT[$key] = RADIUSTests::CERTPROB_OUTSIDE_VALIDITY_PERIOD_WARN;
