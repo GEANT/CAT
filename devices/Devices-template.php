@@ -53,6 +53,11 @@ class Devices{
  *         used in place of this index; when defined as empty will cause
  *         the omission of the device part the filename.
  *         The default is unset, so it is not listed in the Options array.
+ * - 'args' - currently this option can use only one value - 'gl' and this will be used
+ *         only for Windows 8 and Windows 10 installers. Setting this option 
+ *         turns on usage of GEANTLink for TTLS support. This option should be used
+ *         for Windows 10 where TTLS is broken, but not for Windows 8 where the 
+ *         system method works well.
  * - 'mime' - used to set the MIME type of the installer file;
  *         if not set will default to the value provided by PHP finfo.
  *         The default is unset, so it is not listed in the Options array.
@@ -105,11 +110,12 @@ public static function listDevices() {
    'display'=>_("MS Windows 10"),
    'match'=>'Windows NT 10',
    'directory'=>'ms',
-   'module'=>'W10',
+   'module'=>'W8_10',
    'signer'=>'ms_windows_sign',
     'options'=>[
        'sign'=>1,
        'device_id'=>'W10',
+        'args' => 'gl',
        'mime'=>'application/x-dosexec',
       ],
    ],
@@ -119,7 +125,7 @@ public static function listDevices() {
    'display'=>_("MS Windows 8, 8.1"),
    'match'=>'Windows NT 6[._][23]',
    'directory'=>'ms',
-   'module'=>'W8',
+   'module'=>'W8_10',
    'signer'=>'ms_windows_sign',
     'options'=>[
        'sign'=>1,

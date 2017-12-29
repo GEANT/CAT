@@ -15,13 +15,13 @@ session_start();
 $answer = filter_input(INPUT_GET, 'answer', FILTER_SANITIZE_NUMBER_INT);
 $sociopath = new \core\diag\Sociopath();
 if ($answer > 0) {
-    if (!isset($_SESSION['EVIDENCE']['QUESTIONSASKED'])) {
-        $QNUM = 1;
+    if (isset($_SESSION['LAST_QUESTION'])) {
+        $QNUM = $_SESSION['LAST_QUESTION'];
     } else {
-        $QNUM = count($_SESSION['EVIDENCE']['QUESTIONSASKED']) + 1;
+        return NULL;
     }
-    $loggerInstance->debug(4, $_SESSION['EVIDENCE']);
-    $loggerInstance->debug(4, "Answer question " . $QNUM . "\n");
+    $loggerInstance->debug(4, $_SESSION['EVIDENCE']['QUESTIONSASKED']);
+    $loggerInstance->debug(4, "\nAnswer question " . $QNUM . "\n");
     switch ($answer) {
         case 1:
             $loggerInstance->debug(4, "Revaluate with FALSE");
@@ -39,14 +39,18 @@ if ($answer > 0) {
 }
 $QJSON = $sociopath->questionOracle();
 $QPHP = json_decode($QJSON, TRUE);
+$loggerInstance->debug(4, "QPHP\n");
+$loggerInstance->debug(4, $QPHP);
 if ($QPHP['NEXTEXISTS']) {
+    $_SESSION['LAST_QUESTION'] = $QPHP['NUMBER'];
     echo $QJSON;
 } else {
-    $logopath = new \core\diag\Logopath();
+    /*$logopath = new \core\diag\Logopath();
     if ($logopath->isEndUserContactUseful()) {
         $loggerInstance->debug(4, "Sociopath End User contact useful");
     } else {
         $loggerInstance->debug(4, "Sociopath End User contact NOT useful");
-    }
+    }*/
+    unset($_SESSION['LAST_QUESTION']);
     echo $sociopath->getCurrentGuessState();
 }

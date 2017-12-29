@@ -83,7 +83,7 @@
     }
     if ($queryType == 'idp') {
         $select = "<div id='idp_reported_problem' style='display:;'>
-<select id='select_idp_problem'>";
+<select style='margin-left:0px;' id='select_idp_problem'>";
         foreach ($idp_problem as $pname => $pdesc) {
             $select = $select . "<option value='$pname'>$pdesc</option>\n";
         }
@@ -93,6 +93,50 @@
     <tr>
         <td>" . _("Select your problem") . "</td>
         <td>$select</td>
+    </tr>
+    <tr>
+        <td>" . _("Can you identify the SP by means of its Operator-Name attribute?") . "</td>
+        <td><input type='text' id='opname' name='opname' value=''></td>
+    </tr>
+    <tr id='spmanually'>
+        <td>" . _("or") . '<br>' . _("select the SP manually:") . "</td>
+        <td>
+            <div id='select_asp_country'><a href='' id='asp_countries_list'>
+            <span id='opnameselect'>" . _("click to select country and organisation") . "</a></span>
+            </div>
+            <div id='select_asp_area'></div>
+        </td>
+    </tr>
+    <tr id='asp_desc' style='display: none;'>
+        <td>" . _("or") . ' ' . _("at least describe the SP location") . "</td>
+        <td><input type='text' id='asp_location' name='asp_location' value=''></td>
+    </tr>
+    <tr>
+        <td>" . _("What is the outer ID of the user session in question?") . "</td>
+        <td><input type='text' id='outer_id' name='outer_id' value=''></td>
+    </tr>
+    <tr>
+        <td>" . _("What is the authentication timestamp of the user session in question?") . "</td>
+        <td>
+            <input type='text' id='timestamp' name='timestamp'>
+            <div id='datepicker'></div>
+        </td>
+    </tr>
+    <tr>
+        <td>" . _("What is the MAC address of the user session in question?") . "</td>
+        <td><input type='text' id='mac' name='mac'></td>
+    </tr>
+    <tr>
+        <td>" . _("Additional comments about the problem") . "</td>
+        <td><textarea id='freetext' name='freetext' cols='60' rows='5'></textarea></td>
+    </tr>
+    <tr>
+        <td>" . _("Do you have any contact details by which the user wishes to be contacted by the SP?") . "</td>
+        <td><textarea id='freetext' name='freetext' cols='60' rows='5'></textarea></td>
+    </tr>
+    <tr>
+        <td>" . _("Please specify an email address on which the SP can contact you") . "</td>
+        <td><input type='text' id='email' name='email'></td>
     </tr>
 </table>";
         $res = $res . $javascript;
