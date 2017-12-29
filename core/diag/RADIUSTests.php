@@ -778,10 +778,9 @@ network={
         if ($incomingData !== FALSE) {
             $eapCertArray = $x509->splitCertificate($incomingData);
         }
-        $numberServer = 0;
         $eapIntermediates = [];
         $eapIntermediateCRLs = [];
-        $servercert = FALSE;
+        $servercert = [];
         $intermOdditiesEAP = [];
 
         $testresults['certdata'] = [];
@@ -802,14 +801,13 @@ network={
                 case RADIUSTests::SERVER_CA_SELFSIGNED:
                     $numberServer = $numberServer + 1;
 
-                    $servercert = $cert;
-                    if ($numberServer == 1) {
+                    $servercert[] = $cert;
+                    if (count($servercert) == 1) {
                         if (file_put_contents($tmpDir . "/incomingserver.pem", $certPem . "\n") === FALSE) {
                             $this->loggerInstance->debug(4, "The (first) server certificate could not be written to $tmpDir/incomingserver.pem!\n");
                         }
-                        $this->loggerInstance->debug(4, "This is the (first) server certificate, with CRL content if applicable: " . print_r($servercert, true));
-                    }
-                    if ($numberServer > 1 && !in_array(RADIUSTests::CERTPROB_TOO_MANY_SERVER_CERTS, $testresults['cert_oddities'])) {
+                        $this->loggerInstance->debug(4, "This is the (first) server certificate, with CRL content if applicable: " . print_r($servercert[0], true));
+                    } elseif (!in_array(RADIUSTests::CERTPROB_TOO_MANY_SERVER_CERTS, $testresults['cert_oddities'])) {
                         $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_TOO_MANY_SERVER_CERTS;
                     }
                     break;
@@ -835,16 +833,14 @@ network={
             $testresults['certdata'][] = $cert['full_details'];
         }
 
-        if ($numberServer == 0) {
-            $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_NO_SERVER_CERT;
-        }
-// check server cert properties
-        if ($numberServer > 0) {
-            if ($servercert === FALSE) {
-                throw new Exception("We incremented the numberServer counter and added a certificate. Now it's gone?!");
-            }
-            $testresults['cert_oddities'] = array_merge($testresults['cert_oddities'], $this->propertyCheckServercert($servercert));
-            $testresults['incoming_server_names'] = $servercert['incoming_server_names'];
+        switch (count($servercert)) {
+            case 0:
+                $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_NO_SERVER_CERT;
+                break;
+            default:
+// check (first) server cert's properties
+                $testresults['cert_oddities'] = array_merge($testresults['cert_oddities'], $this->propertyCheckServercert($servercert[0]));
+                $testresults['incoming_server_names'] = $servercert['incoming_server_names'];
         }
         return [
             "SERVERCERT" => $servercert,
