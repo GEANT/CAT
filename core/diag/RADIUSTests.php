@@ -772,17 +772,12 @@ network={
          */
 
         $x509 = new \core\common\X509();
-// $eap_certarray holds all certs received in EAP conversation
         $eapCertArray = [];
-        $chainHandle = fopen($tmpDir . "/serverchain.pem", "r");
-        if ($chainHandle !== FALSE) {
-            $content = fread($chainHandle, "1000000");
-            if ($content !== FALSE) {
-                $eapCertArray = $x509->splitCertificate($content);
-            }
+// $eap_certarray holds all certs received in EAP conversation
+        $incomingData = file_get_contents($tmpDir . "/serverchain.pem");
+        if ($incomingData !== FALSE) {
+            $eapCertArray = $x509->splitCertificate($incomingData);
         }
-// we want no root cert, and exactly one server cert
-        $numberRoot = 0;
         $numberServer = 0;
         $eapIntermediates = [];
         $eapIntermediateCRLs = [];
@@ -819,7 +814,6 @@ network={
                     }
                     break;
                 case RADIUSTests::CA_ROOT:
-                    $numberRoot++;
                     if (!in_array(RADIUSTests::CERTPROB_ROOT_INCLUDED, $testresults['cert_oddities'])) {
                         $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_ROOT_INCLUDED;
                     }
