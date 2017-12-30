@@ -64,6 +64,8 @@ abstract class Device_XML extends \core\DeviceConfig {
 //ID attribute
 //lang attribute
         $methodList = [];
+        $this->loggerInstance->debug(4,"ALLEAP\n");
+        $this->loggerInstance->debug(4,$attr['all_eaps']);
         if ($this->allEaps) {
             $eapmethods = [];
             foreach ($attr['all_eaps'] as $eap) {
@@ -115,22 +117,6 @@ abstract class Device_XML extends \core\DeviceConfig {
         'support:info_file' => 'TermsOfUse',
         'general:logo_file' => 'ProviderLogo',
     ];
-
-    private function getSimpleAttribute($attrName) {
-        if ((!isset($this->attributes[$attrName][0]) || !$this->attributes[$attrName][0])) {
-            return '';
-        }
-
-        $attributeList = $this->attributes[$attrName];
-        if (!isset($this->AttributeNames[$attrName])) {
-            $this->loggerInstance->debug(4, "Missing class definition for $attrName\n");
-            return;
-        }
-        $className = $this->AttributeNames[$attrName];
-        $obj = new $className();
-        $obj->setValue($attributeList[0]);
-        return($obj);
-    }
 
     /**
      * 
