@@ -238,7 +238,7 @@ abstract class WindowsCommon extends \core\DeviceConfig {
     }
     
     
-    protected function writeNsisDefines($eap, $attr) {
+    protected function writeNsisDefines($attr) {
         $fcontents = "\n" . '!define NSIS_MAJOR_VERSION ' . CONFIG_CONFASSISTANT['NSIS_VERSION'];
         if ($attr['internal:profile_count'][0] > 1) {
             $fcontents .= "\n" . '!define USER_GROUP "' . $this->translateString(str_replace('"', '$\\"', $attr['profile:name'][0]), $this->codePage) . '"

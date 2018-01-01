@@ -434,7 +434,7 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
 
         $fcontents .= '!define ' . $eapStr;
         $fcontents .= "\n" . '!define EXECLEVEL "' . $execLevel . '"';
-        $fcontents .= $this->writeNsisDefines($eap, $attr);
+        $fcontents .= $this->writeNsisDefines($attr);
         $fileHandle = fopen('main.nsh', 'w');
         fwrite($fileHandle, $fcontents);
         fclose($fileHandle);

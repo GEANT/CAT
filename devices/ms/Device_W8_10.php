@@ -484,7 +484,7 @@ use \Exception;
         }
         $fcontents .= '!define ' . $eapStr;
         $fcontents .= "\n" . '!define EXECLEVEL "' . $execLevel . '"';
-        $fcontents .= $this->writeNsisDefines($eap, $attr);
+        $fcontents .= $this->writeNsisDefines($attr);
         file_put_contents('main.nsh', $fcontents);
     }
 
