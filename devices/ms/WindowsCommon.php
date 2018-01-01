@@ -226,6 +226,18 @@ abstract class WindowsCommon extends \core\DeviceConfig {
         $this->loggerInstance->debug(4, "compileNSIS:$command\n");
     }
 
+    private function getSupport($attr, $type) {
+        $supportString = [
+            'email' => 'SUPPORT',
+            'url' => 'URL',
+        ];
+        $s = "support_" . $type . "_substitute";
+        $substitute = $this->translateString($this->$s, $this->codePage);
+        $returnValue = !empty($attr['support:' . $type][0]) ? $attr['support:' .  $type][0] : $substitute;
+        return('!define ' . $supportString[$type] . ' "' . $returnValue . '"' . "\n");
+    }
+    
+    
     protected function writeNsisDefines($eap, $attr) {
         $fcontents = "\n" . '!define NSIS_MAJOR_VERSION ' . CONFIG_CONFASSISTANT['NSIS_VERSION'];
         if ($attr['internal:profile_count'][0] > 1) {
@@ -241,12 +253,10 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
 !define LOCALE "' . preg_replace('/\..*$/', '', CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['locale']) . '"
 ;--------------------------------
 !define ORGANISATION "' . $this->translateString($attr['general:instname'][0], $this->codePage) . '"
-!define SUPPORT "' . ((isset($attr['support:email'][0]) && $attr['support:email'][0] ) ? $attr['support:email'][0] : $this->translateString($this->support_email_substitute, $this->codePage)) . '"
-!define URL "' . ((isset($attr['support:url'][0]) && $attr['support:url'][0] ) ? $attr['support:url'][0] : $this->translateString($this->support_url_substitute, $this->codePage)) . '"
-    ';
-
-
-        if (isset($this->attributes['media:wired'][0]) && $attr['media:wired'][0] == 'on') {
+';
+        $fcontents .= $this->getSupport($attr, 'email');
+        $fcontents .= $this->getSupport($attr, 'url');                
+        if (\core\common\Entity::getAttributeValue($attr, 'media:wired', 0) == 'on') {
             $fcontents .= '!define WIRED
         ';
         }
@@ -264,21 +274,11 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
             $fcontents .= '!define VERIFY_USER_REALM_INPUT "' . $attr['internal:verify_userinput_suffix'][0] . '"
 ';
         }
-        $fcontents .= '
-!ifdef TLS
-';
-//TODO this must be changed with a new option
-        if ($eap != \core\common\EAP::EAPTYPE_SILVERBULLET) {
-            $fcontents .= '!define TLS_CERT_STRING "certyfikaty.umk.pl"
-';
-        }
-        $fcontents .= '!define TLS_FILE_NAME "cert*.p12"
-!endif
-';
         $fcontents .= $this->msInfoFile($attr);
-    return($fcontents);
+        return($fcontents);
            
     }
+    
     protected function msInfoFile($attr) {
         $out = '';
         if (isset($attr['support:info_file'])) {

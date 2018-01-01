@@ -453,14 +453,13 @@ use \Exception;
         $this->loggerInstance->debug(4, "writeMainNSH");
         $this->loggerInstance->debug(4, $attr);
         $this->loggerInstance->debug(4, "Device_id = " . $this->device_id . "\n");
+        $fcontents = "!define W8\n";
         if ($this->device_id == 'w10') {
-            $fcontents = "!define W10\n";
+            $fcontents .= "!define W10\n";
         }
-        $fcontents .= "!define W8\n";
         if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
             $fcontents .= "Unicode true\n";
         }
-
         $eapOptions = [
             \core\common\EAP::PEAP => ['str' => 'PEAP', 'exec' => 'user'],
             \core\common\EAP::TLS => ['str' => 'TLS', 'exec' => 'user'],
