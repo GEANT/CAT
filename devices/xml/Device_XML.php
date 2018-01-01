@@ -19,7 +19,7 @@
  * @package ModuleWriting
  */
 namespace devices\xml;
-require_once(dirname(__FILE__).'/XML.inc.php');
+require_once(dirname(__FILE__) . '/XML.inc.php');
 
 /**
  * This class implements full functionality of the generic XML device
@@ -64,8 +64,8 @@ abstract class Device_XML extends \core\DeviceConfig {
 //ID attribute
 //lang attribute
         $methodList = [];
-        $this->loggerInstance->debug(4,"ALLEAP\n");
-        $this->loggerInstance->debug(4,$attr['all_eaps']);
+        $this->loggerInstance->debug(4, "ALLEAP\n");
+        $this->loggerInstance->debug(4, $attr['all_eaps']);
         if ($this->allEaps) {
             $eapmethods = [];
             foreach ($attr['all_eaps'] as $eap) {
@@ -137,7 +137,7 @@ abstract class Device_XML extends \core\DeviceConfig {
         $objs = [];
         if ($this->langScope === 'global') {
             foreach ($attributeList['langs'] as $language => $value) {
-                $language = ( $language === 'C' ? 'any' : $language );
+                $language = ($language === 'C' ? 'any' : $language);
                 $obj = new $className();
                 $obj->setValue($value);
                 $obj->setAttributes(['lang' => $language]);
@@ -161,7 +161,7 @@ abstract class Device_XML extends \core\DeviceConfig {
                 $profileNameLangs = $attr['profile:name']['langs'];
             }
             foreach ($instNameLangs as $language => $value) {
-                $language = ( $language === 'C' ? 'any' : $language );
+                $language = ($language === 'C' ? 'any' : $language);
                 $displayname = new DisplayName();
                 if (isset($profileNameLangs)) {
                     $langOrC = isset($profileNameLangs[$language]) ? $profileNameLangs[$language] : $profileNameLangs['C'];
@@ -312,7 +312,7 @@ abstract class Device_XML extends \core\DeviceConfig {
             $clientCertificateObject = new ClientCertificate();
             $clientCertificateObject->setValue(base64_encode($this->clientCert["certdata"]));
             $clientCertificateObject->setAttributes(['format' => 'PKCS12', 'encoding' => 'base64']);
-            $clientsidecredential->setProperty('ClientCertificate',$clientCertificateObject);
+            $clientsidecredential->setProperty('ClientCertificate', $clientCertificateObject);
         }
         return($clientsidecredential);
     }
