@@ -163,7 +163,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         $eaps = $profile->getEapMethodsinOrderOfPreference(1);
         $this->calculatePreferredEapType($eaps);
         if (count($this->selectedEap) == 0) {
-            throw new Exception("No EAP type specified.");
+            throw new Exception("No EAP type available.");
         }
         $this->attributes = $this->getProfileAttributes($profile);
         $this->deviceUUID = $this->uuid('', 'CAT' . $profile->institution . "-" . $profile->identifier . "-" . $this->device_id);
