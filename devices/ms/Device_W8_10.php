@@ -236,13 +236,8 @@ use \Exception;
         if ($this->useAnon) {
             $profileFileCont .= '<IdentityPrivacy>true</IdentityPrivacy>
 ';
-            if (isset($outerId) && $outerId) {
-                $profileFileCont .= '<AnonymousIdentity>' . $outerId . '</AnonymousIdentity>
+            $profileFileCont .= '<AnonymousIdentity>' . $this->outerId . '</AnonymousIdentity>
                 ';
-            } else {
-                $profileFileCont .= '<AnonymousIdentity/>
-                ';
-            }
         } else {
             $profileFileCont .= '<IdentityPrivacy>false</IdentityPrivacy>
 ';
