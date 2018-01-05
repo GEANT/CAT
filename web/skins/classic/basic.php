@@ -260,7 +260,7 @@ class SimpleGUI extends \core\UserAPI {
         return $out;
     }
     
-    private function displaydownloadHeader() {
+    private function displayDownloadHeader() {
         $attributes = $this->profileAttributes($this->profile->identifier);
         $out1 = '';
         $out = '';
@@ -286,11 +286,11 @@ class SimpleGUI extends \core\UserAPI {
     }
 
     private function processDevices() {
-        $out = '';
         $this->languageInstance->setTextDomain('devices');
         $attributes = $this->profileAttributes($this->profile->identifier);
         $thedevices = $attributes['devices'];
         $this->languageInstance->setTextDomain("web_user");
+        $oneDevice = NULL;
         foreach ($thedevices as $oneDevice) {
             if (\core\common\Entity::getAttributeValue($oneDevice, 'options', 'hidden') === 1) {
                 continue;
@@ -309,8 +309,11 @@ class SimpleGUI extends \core\UserAPI {
 
     public function displayDeviceDownload() {
         $this->languageInstance->setTextDomain("web_user");
-        print $this->displaydownloadHeader();
+        print $this->displayDownloadHeader();
         $oneDevice = $this->processDevices();
+        if ($oneDevice === NULL) {
+            throw new Exception("No useable device found");
+        }
         $this->languageInstance->setTextDomain("web_user");
 
         $installer = $this->generateInstaller($this->args['device'], $this->profile->identifier);
