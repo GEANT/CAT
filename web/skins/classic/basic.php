@@ -259,34 +259,40 @@ class SimpleGUI extends \core\UserAPI {
         $out .= '<script type="text/javascript">' . $deviceRedirects . '</script>';
         return $out;
     }
+    
+    private function displaydownloadHeader() {
+        $attributes = $this->profileAttributes($this->profile->identifier);
+        $out1 = '';
+        $out = '';
+        if (!empty($attributes['description'])) {
+           $out1 .= '<div>' . $attributes['description'] . '</div>';
+        }
+        if (!empty($attributes['local_email'])) {
+            $out .= '<p>Email: <a href="mailto:' . $attributes['local_email'] . '">' . $attributes['local_email'] . '</a>';
+        }
+        if (!empty($attributes['local_url'])) {
+            $out .= '<p>WWW: <a href="' . $attributes['local_url'] . '">' . $attributes['local_url'] . '</a>';
+        }
+        if (!empty($attributes['local_phone'])) {
+            $out .= '<p>Tel: <a href="' . $attributes['local_phone'] . '">' . $attributes['local_phone'] . '</a>';
+        }
+        if ($out !== '') {
+            $out1 .= '<div class="user_info">';
+            $out1 .=  sprintf(_("If you encounter problems you should ask for help at your %s"), $this->nomenclature_inst);
+            $out1 .=  $out;
+            $out1 .=  "</div>\n";
+        }
+        return($out1);
+    }
 
-    public function displayDeviceDownload() {
+    private function processDevices() {
+        $out = '';
         $this->languageInstance->setTextDomain('devices');
         $attributes = $this->profileAttributes($this->profile->identifier);
         $thedevices = $attributes['devices'];
         $this->languageInstance->setTextDomain("web_user");
-        $out = '';
-        if (isset($attributes['description']) && $attributes['description']) {
-            print '<div>' . $attributes['description'] . '</div>';
-        }
-        if (isset($attributes['local_email']) && $attributes['local_email']) {
-            $out .= '<p>Email: <a href="mailto:' . $attributes['local_email'] . '">' . $attributes['local_email'] . '</a>';
-        }
-        if (isset($attributes['local_url']) && $attributes['local_url']) {
-            $out .= '<p>WWW: <a href="' . $attributes['local_url'] . '">' . $attributes['local_url'] . '</a>';
-        }
-        if (isset($attributes['local_phone']) && $attributes['local_phone']) {
-            $out .= '<p>Tel: <a href="' . $attributes['local_phone'] . '">' . $attributes['local_phone'] . '</a>';
-        }
-        if ($out !== '') {
-            print '<div class="user_info">';
-            print sprintf(_("If you encounter problems you should ask for help at your %s"), $this->nomenclature_inst);
-            print $out;
-            print "</div>\n";
-        }
-
         foreach ($thedevices as $oneDevice) {
-            if (isset($oneDevice['options']) && isset($oneDevice['options']['hidden']) && $oneDevice['options']['hidden']) {
+            if (\core\common\Entity::getAttributeValue($oneDevice, 'options', 'hidden') === 1) {
                 continue;
             }
             if ($oneDevice['id'] === '0') {
@@ -298,6 +304,13 @@ class SimpleGUI extends \core\UserAPI {
                 break;
             }
         }
+        return($oneDevice);
+    }
+
+    public function displayDeviceDownload() {
+        $this->languageInstance->setTextDomain("web_user");
+        print $this->displaydownloadHeader();
+        $oneDevice = $this->processDevices();
         $this->languageInstance->setTextDomain("web_user");
 
         $installer = $this->generateInstaller($this->args['device'], $this->profile->identifier);
@@ -355,11 +368,10 @@ class SimpleGUI extends \core\UserAPI {
      * displays the navigation bar showing the current location of the page
      */
     public function yourChoice() {
-        $out = '';
         $capitalisedCountry = strtoupper($this->country->tld);
-        $name = isset($this->knownFederations[$capitalisedCountry]) ? $this->knownFederations[$capitalisedCountry] : $capitalisedCountry;
-        $name = preg_replace('/ +/', '&nbsp;', $name);
-        $out .= "$name; ";
+        $countryName = isset($this->knownFederations[$capitalisedCountry]) ? $this->knownFederations[$capitalisedCountry] : $capitalisedCountry;
+        $countryName = preg_replace('/ +/', '&nbsp;', $name);
+        $out = "$countryName; ";
         $name = $this->idp->name;
         $name = preg_replace('/ +/', '&nbsp;', $name);
         $out .= "$name";
