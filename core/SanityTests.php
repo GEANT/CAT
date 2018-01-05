@@ -72,7 +72,7 @@ class SanityTests extends CAT {
     public $out;
     public $name;
 
-    /** 
+    /**
      * initialise the tests. Includes counting the number of expected rows in the profile_option_dict table.
      */
     public function __construct() {
@@ -538,31 +538,48 @@ class SanityTests extends CAT {
     const DEFAULTS = [
         ["SETTING" => CONFIG['APPEARANCE']['from-mail'],
             "DEFVALUE" => "cat-invite@your-cat-installation.example",
-            "COMPLAINTSTRING" => "APPEARANCE/from-mail "],
+            "COMPLAINTSTRING" => "APPEARANCE/from-mail ",
+            "REQUIRED" => FALSE,],
         ["SETTING" => CONFIG['APPEARANCE']['support-contact']['url'],
             "DEFVALUE" => "cat-support@our-cat-installation.example?body=Only%20English%20language%20please!",
-            "COMPLAINTSTRING" => "APPEARANCE/support-contact/url "],
+            "COMPLAINTSTRING" => "APPEARANCE/support-contact/url ",
+            "REQUIRED" => FALSE,],
         ["SETTING" => CONFIG['APPEARANCE']['support-contact']['display'],
             "DEFVALUE" => "cat-support@our-cat-installation.example",
-            "COMPLAINTSTRING" => "APPEARANCE/support-contact/display "],
+            "COMPLAINTSTRING" => "APPEARANCE/support-contact/display ",
+            "REQUIRED" => FALSE,],
         ["SETTING" => CONFIG['APPEARANCE']['support-contact']['developer-mail'],
             "DEFVALUE" => "cat-develop@our-cat-installation.example",
-            "COMPLAINTSTRING" => "APPEARANCE/support-contact/mail "],
+            "COMPLAINTSTRING" => "APPEARANCE/support-contact/mail ",
+            "REQUIRED" => FALSE,],
         ["SETTING" => CONFIG['APPEARANCE']['abuse-mail'],
             "DEFVALUE" => "my-abuse-contact@your-cat-installation.example",
-            "COMPLAINTSTRING" => "APPEARANCE/abuse-mail "],
+            "COMPLAINTSTRING" => "APPEARANCE/abuse-mail ",
+            "REQUIRED" => FALSE,],
         ["SETTING" => CONFIG['APPEARANCE']['MOTD'],
             "DEFVALUE" => "Release Candidate. All bugs to be shot on sight!",
-            "COMPLAINTSTRING" => "APPEARANCE/MOTD "],
+            "COMPLAINTSTRING" => "APPEARANCE/MOTD ",
+            "REQUIRED" => FALSE,],
         ["SETTING" => CONFIG['APPEARANCE']['webcert_CRLDP'],
             "DEFVALUE" => ['list', 'of', 'CRL', 'pointers'],
-            "COMPLAINTSTRING" => "APPEARANCE/webcert_CRLDP "],
+            "COMPLAINTSTRING" => "APPEARANCE/webcert_CRLDP ",
+            "REQUIRED" => TRUE,],
+        ["SETTING" => CONFIG['APPEARANCE']['webcert_OCSP'],
+            "DEFVALUE" => ['list', 'of', 'OCSP', 'pointers'],
+            "COMPLAINTSTRING" => "APPEARANCE/webcert_OCSP ",
+            "REQUIRED" => TRUE,],
         ["SETTING" => CONFIG['DB']['INST']['host'],
             "DEFVALUE" => "db.host.example",
-            "COMPLAINTSTRING" => "DB/INST "],
+            "COMPLAINTSTRING" => "DB/INST ",
+            "REQUIRED" => TRUE,],
         ["SETTING" => CONFIG['DB']['INST']['host'],
             "DEFVALUE" => "db.host.example",
-            "COMPLAINTSTRING" => "DB/USER "],
+            "COMPLAINTSTRING" => "DB/USER ",
+            "REQUIRED" => TRUE,],
+        ["SETTING" => CONFIG['DB']['EXTERNAL']['host'],
+            "DEFVALUE" => "customerdb.otherhost.example",
+            "COMPLAINTSTRING" => "DB/EXTERNAL ",
+            "REQUIRED" => FALSE,],
     ];
 
     /**
@@ -573,38 +590,28 @@ class SanityTests extends CAT {
         $missingvalues = "";
         // all the checks for equality with a shipped default value
         foreach (SanityTests::DEFAULTS as $oneCheckItem) {
-            if ($oneCheckItem['SETTING'] == $oneCheckItem["DEFVALUE"]) {
+            if ($oneCheckItem['REQUIRED'] && !$oneCheckItem['SETTING']) {
+                $missingvalues .= $oneCheckItem["COMPLAINTSTRING"];
+            } elseif ($oneCheckItem['SETTING'] == $oneCheckItem["DEFVALUE"]) {
                 $defaultvalues .= $oneCheckItem["COMPLAINTSTRING"];
             }
         }
         // additional checks for defaults, which are not simple equality checks
-        if (empty(CONFIG['APPEARANCE']['webcert_OCSP'])) {
-            $missingvalues .= "APPEARANCE/webcert_OCSP ";
-        } elseif (CONFIG['APPEARANCE']['webcert_OCSP'] == ['list', 'of', 'OCSP', 'pointers']) {
-            $defaultvalues .= "APPEARANCE/webcert_OCSP ";
-        }
         if (isset(CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][0]) && CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][0]['ip'] == "192.0.2.1") {
             $defaultvalues .= "RADIUSTESTS/UDP-hosts ";
         }
-        if (!empty(CONFIG['DB']['EXTERNAL']) && CONFIG['DB']['EXTERNAL']['host'] == "customerdb.otherhost.example") {
-            $defaultvalues .= "DB/EXTERNAL ";
-        }
-        $files = [];
+
         foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-clientcerts'] as $cadata) {
             foreach ($cadata['certificates'] as $cert_files) {
-                $files[] = $cert_files['public'];
-                $files[] = $cert_files['private'];
+                if (file_get_contents(ROOT . "/config/cli-certs/" . $cert_files['public']) === FALSE) {
+                    $defaultvalues .= "CERTIFICATE/" . $cert_files['public'] . " ";
+                }
+                if (file_get_contents(ROOT . "/config/cli-certs/" . $cert_files['private']) === FALSE) {
+                    $defaultvalues .= "CERTIFICATE/" . $cert_files['private'] . " ";
+                }
             }
         }
 
-        foreach ($files as $file) {
-            $handle = fopen(ROOT . "/config/cli-certs/" . $file, 'r');
-            if (!$handle) {
-                $defaultvalues .= "CERTIFICATE/$file ";
-            } else {
-                fclose($handle);
-            }
-        }
         if ($defaultvalues != "") {
             $this->test_return(\core\common\Entity::L_WARN, "Your configuration in config/config.php contains unchanged default values or links to inexistent files: <strong>$defaultvalues</strong>!");
         } else {
