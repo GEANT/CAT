@@ -215,7 +215,7 @@ class Telepath extends AbstractTest {
     private function checkFedEtlrUplink($whichSide) {
         // TODO: we always check the European TLRs even though the connection in question might go via others and/or this one
         // needs a table to determine what goes where :-(
-                switch ($whichSide) {
+        switch ($whichSide) {
             case AbstractTest::INFRA_NRO_IDP:
                 $fed = $this->idPFederation;
                 $linkVariant = AbstractTest::INFRA_LINK_ETLR_NRO_IDP;
@@ -224,27 +224,27 @@ class Telepath extends AbstractTest {
                 $fed = $this->visitedFlr;
                 $linkVariant = AbstractTest::INFRA_LINK_ETLR_NRO_SP;
             default:
-            throw new Exception("This function operates on the IdP- or SP-side FLR, nothing else!");
+                throw new Exception("This function operates on the IdP- or SP-side FLR, nothing else!");
         }
 
         $ret = $this->genericAPIStatus("federation_via_tlr", $fed);
         $this->additionalFindings[AbstractTest::INFRA_NRO_IDP][] = $ret;
-                switch ($ret["STATUS"]) {
-                    case AbstractTest::STATUS_GOOD:
-                        unset($this->possibleFailureReasons[$whichSide]);
-                        unset($this->possibleFailureReasons[$linkVariant]);
-                        break;
-                    case AbstractTest::STATUS_PARTIAL:
-                        // a subset of the FLRs is down? This probably doesn't impact the user unless he's unlucky and has his session fall into failover.
-                        // keep FLR as a possible problem with original probability
-                        break;
-                    case AbstractTest::STATUS_DOWN:
-                        // Raise probability by much (even monitoring is sometimes wrong, or a few minutes behind reality)
-                        // if earlier test found the server itself to be the problem, keep it, otherwise put the blame on the link
-                        if ($this->possibleFailureReasons[$whichSide] != 0.95) {
-                            $this->possibleFailureReasons[$linkVariant] = 0.95;
-                        }
+        switch ($ret["STATUS"]) {
+            case AbstractTest::STATUS_GOOD:
+                unset($this->possibleFailureReasons[$whichSide]);
+                unset($this->possibleFailureReasons[$linkVariant]);
+                break;
+            case AbstractTest::STATUS_PARTIAL:
+                // a subset of the FLRs is down? This probably doesn't impact the user unless he's unlucky and has his session fall into failover.
+                // keep FLR as a possible problem with original probability
+                break;
+            case AbstractTest::STATUS_DOWN:
+                // Raise probability by much (even monitoring is sometimes wrong, or a few minutes behind reality)
+                // if earlier test found the server itself to be the problem, keep it, otherwise put the blame on the link
+                if ($this->possibleFailureReasons[$whichSide] != 0.95) {
+                    $this->possibleFailureReasons[$linkVariant] = 0.95;
                 }
+        }
     }
 
     /**
@@ -260,9 +260,9 @@ class Telepath extends AbstractTest {
             case AbstractTest::INFRA_NRO_SP:
                 $fed = $this->visitedFlr;
             default:
-            throw new Exception("This function operates on the IdP- or SP-side FLR, nothing else!");
+                throw new Exception("This function operates on the IdP- or SP-side FLR, nothing else!");
         }
-        
+
         $ret = $this->genericAPIStatus("flrs_test", $fed);
         $this->additionalFindings[$whichSide][] = $ret;
         switch ($ret["STATUS"]) {
