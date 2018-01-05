@@ -28,6 +28,7 @@ class Telepath extends AbstractTest {
     private $visitedHotspot;
     private $catProfile;
     private $dbIdP;
+
     /**
      *
      * @var string|null
@@ -182,29 +183,100 @@ class Telepath extends AbstractTest {
     private function checkEtlrStatus() {
         // TODO: we always check the European TLRs even though the connection in question might go via others and/or this one
         // needs a table to determine what goes where :-(
-        return $this->genericAPIStatus("tlr_test", "TLR_EU");
+        $ret = $this->genericAPIStatus("tlr_test", "TLR_EU");
+        $this->additionalFindings[AbstractTest::INFRA_ETLR][] = $ret;
+        switch ($ret["STATUS"]) {
+            case AbstractTest::STATUS_GOOD:
+                unset($this->possibleFailureReasons[AbstractTest::INFRA_ETLR]);
+                break;
+            case AbstractTest::STATUS_PARTIAL:
+            case AbstractTest::STATUS_MONITORINGFAIL:
+                // one of the ETLRs is down, or there is a failure in the monitoring system? 
+                // This probably doesn't impact the user unless he's unlucky and has his session fall into failover.
+                // keep ETLR as a possible problem with original probability
+                break;
+            case AbstractTest::STATUS_DOWN:
+                // Oh! Well if it is not international roaming, that still doesn't have an effect /in this case/. 
+                if ($this->idPFederation == $this->visitedFlr) {
+                    unset($this->possibleFailureReasons[AbstractTest::INFRA_ETLR]);
+                    break;
+                }
+                // But it is about int'l roaming, and we are spot on here.
+                // Raise probability by much (even monitoring is sometimes wrong, or a few minutes behind reality)
+                $this->possibleFailureReasons[AbstractTest::INFRA_ETLR] = 0.95;
+        }
     }
 
     /**
      * Is the uplink between an NRO server and the ETLRs in order?
-     * @param string $fed
+     * @param int $whichSide
      * @return array
      */
-    private function checkFedEtlrUplink($fed) {
+    private function checkFedEtlrUplink($whichSide) {
         // TODO: we always check the European TLRs even though the connection in question might go via others and/or this one
         // needs a table to determine what goes where :-(
-        return $this->genericAPIStatus("federation_via_tlr", $fed);
+                switch ($whichSide) {
+            case AbstractTest::INFRA_NRO_IDP:
+                $fed = $this->idPFederation;
+                $linkVariant = AbstractTest::INFRA_LINK_ETLR_NRO_IDP;
+                break;
+            case AbstractTest::INFRA_NRO_SP:
+                $fed = $this->visitedFlr;
+                $linkVariant = AbstractTest::INFRA_LINK_ETLR_NRO_SP;
+            default:
+            throw new Exception("This function operates on the IdP- or SP-side FLR, nothing else!");
+        }
+
+        $ret = $this->genericAPIStatus("federation_via_tlr", $fed);
+        $this->additionalFindings[AbstractTest::INFRA_NRO_IDP][] = $ret;
+                switch ($ret["STATUS"]) {
+                    case AbstractTest::STATUS_GOOD:
+                        unset($this->possibleFailureReasons[$whichSide]);
+                        unset($this->possibleFailureReasons[$linkVariant]);
+                        break;
+                    case AbstractTest::STATUS_PARTIAL:
+                        // a subset of the FLRs is down? This probably doesn't impact the user unless he's unlucky and has his session fall into failover.
+                        // keep FLR as a possible problem with original probability
+                        break;
+                    case AbstractTest::STATUS_DOWN:
+                        // Raise probability by much (even monitoring is sometimes wrong, or a few minutes behind reality)
+                        // if earlier test found the server itself to be the problem, keep it, otherwise put the blame on the link
+                        if ($this->possibleFailureReasons[$whichSide] != 0.95) {
+                            $this->possibleFailureReasons[$linkVariant] = 0.95;
+                        }
+                }
     }
 
     /**
      * Is the NRO server itself in order?
-     * @param string $fed
+     * @param int $whichSide
      * @return array
      */
-    private function checkFlrServerStatus($fed) {
-        // TODO: we always check the European TLRs even though the connection in question might go via others and/or this one
-        // needs a table to determine what goes where :-(
-        return $this->genericAPIStatus("flrs_test", $fed);
+    private function checkFlrServerStatus($whichSide) {
+        switch ($whichSide) {
+            case AbstractTest::INFRA_NRO_IDP:
+                $fed = $this->idPFederation;
+                break;
+            case AbstractTest::INFRA_NRO_SP:
+                $fed = $this->visitedFlr;
+            default:
+            throw new Exception("This function operates on the IdP- or SP-side FLR, nothing else!");
+        }
+        
+        $ret = $this->genericAPIStatus("flrs_test", $fed);
+        $this->additionalFindings[$whichSide][] = $ret;
+        switch ($ret["STATUS"]) {
+            case AbstractTest::STATUS_GOOD:
+                unset($this->possibleFailureReasons[$whichSide]);
+                break;
+            case AbstractTest::STATUS_PARTIAL:
+                // a subset of the FLRs is down? This probably doesn't impact the user unless he's unlucky and has his session fall into failover.
+                // keep FLR as a possible problem with original probability
+                break;
+            case AbstractTest::STATUS_DOWN:
+                // Raise probability by much (even monitoring is sometimes wrong, or a few minutes behind reality)
+                $this->possibleFailureReasons[$whichSide] = 0.95;
+        }
     }
 
     /**
@@ -283,27 +355,7 @@ class Telepath extends AbstractTest {
         }
     }
 
-    /**
-     * Does the main meditation job
-     * @return array the findings
-     */
-    public function magic() {
-
-        // simple things first: do we know anything about the realm, either
-        // because it's a CAT participant or because it's in the eduroam DB?
-        // if so, we can exclude the INFRA_NONEXISTENTREALM cause
-
-        $this->additionalFindings[AbstractTest::INFRA_NONEXISTENTREALM]['DATABASE_STATUS'] = ["ID1" => $this->catProfile, "ID2" => $this->dbIdP];
-
-        if ($this->catProfile != \core\Federation::UNKNOWN_IDP || $this->dbIdP != \core\Federation::UNKNOWN_IDP) {
-            unset($this->possibleFailureReasons[AbstractTest::INFRA_NONEXISTENTREALM]);
-        }
-
-        // let's do the least amount of testing needed:
-        // - The CAT reachability test already covers ELTRs, IdP NRO level and the IdP itself.
-        //   if the realm maps to a CAT IdP, we can run the more thorough tests; otherwise just
-        //   the normal shallow ones
-
+    private function determineTestsuiteParameters() {
         if ($this->catProfile > 0) {
             $profileObject = \core\ProfileFactory::instantiate($this->catProfile);
             $readinessLevel = $profileObject->readinessLevel();
@@ -323,7 +375,28 @@ class Telepath extends AbstractTest {
         } else {
             $this->testsuite = new RADIUSTests($this->realm, "anonymous@" . $this->realm);
         }
+    }
 
+    /**
+     * Does the main meditation job
+     * @return array the findings
+     */
+    public function magic() {
+
+        // simple things first: do we know anything about the realm, either
+        // because it's a CAT participant or because it's in the eduroam DB?
+        // if so, we can exclude the INFRA_NONEXISTENTREALM cause
+        $this->additionalFindings[AbstractTest::INFRA_NONEXISTENTREALM]['DATABASE_STATUS'] = ["ID1" => $this->catProfile, "ID2" => $this->dbIdP];
+        if ($this->catProfile != \core\Federation::UNKNOWN_IDP || $this->dbIdP != \core\Federation::UNKNOWN_IDP) {
+            unset($this->possibleFailureReasons[AbstractTest::INFRA_NONEXISTENTREALM]);
+        }
+        // do we operate on a non-ambiguous, fully configured CAT profile? Then
+        // we run the more thorough check, otherwise the shallow one.
+        $this->determineTestSuiteParameters();
+        // let's do the least amount of testing needed:
+        // - The CAT reachability test already covers ELTRs, IdP NRO level and the IdP itself.
+        //   if the realm maps to a CAT IdP, we can run the more thorough tests; otherwise just
+        //   the normal shallow ones
         // these are the normal "realm check" tests covering ETLR, LINK_NRO_IDP, NRO, IDP_RADIUS
         $this->CATInternalTests();
         // - if the test does NOT go through, we need to find out which of the three is guilty
@@ -332,110 +405,26 @@ class Telepath extends AbstractTest {
         //   closes the loop.
         // let's see if the ETLRs are up
         if (array_key_exists(AbstractTest::INFRA_ETLR, $this->possibleFailureReasons)) {
-
-            $etlrStatus = $this->checkEtlrStatus();
-            $this->additionalFindings[AbstractTest::INFRA_ETLR][] = $etlrStatus;
-            switch ($etlrStatus["STATUS"]) {
-                case AbstractTest::STATUS_GOOD:
-                    unset($this->possibleFailureReasons[AbstractTest::INFRA_ETLR]);
-                    break;
-                case AbstractTest::STATUS_PARTIAL:
-                case AbstractTest::STATUS_MONITORINGFAIL:
-                    // one of the ETLRs is down, or there is a failure in the monitoring system? 
-                    // This probably doesn't impact the user unless he's unlucky and has his session fall into failover.
-                    // keep ETLR as a possible problem with original probability
-                    break;
-                case AbstractTest::STATUS_DOWN:
-                    // Oh! Well if it is not international roaming, that still doesn't have an effect /in this case/. 
-                    if ($this->idPFederation == $this->visitedFlr) {
-                        unset($this->possibleFailureReasons[AbstractTest::INFRA_ETLR]);
-                        break;
-                    }
-                    // But it is about int'l roaming, and we are spot on here.
-                    // Raise probability by much (even monitoring is sometimes wrong, or a few minutes behind reality)
-                    $this->possibleFailureReasons[AbstractTest::INFRA_ETLR] = 0.95;
-            }
+            $this->checkEtlrStatus();
         }
 
         // then let's check the IdP's FLR, if we know the IdP federation at all
         if ($this->idPFederation !== NULL) {
             if (array_key_exists(AbstractTest::INFRA_NRO_IDP, $this->possibleFailureReasons)) {
                 // first the direct connectivity to the server
-                $flrServerStatus = $this->checkFlrServerStatus($this->idPFederation);
-                $this->additionalFindings[AbstractTest::INFRA_NRO_IDP][] = $flrServerStatus;
-                switch ($flrServerStatus["STATUS"]) {
-                    case AbstractTest::STATUS_GOOD:
-                        unset($this->possibleFailureReasons[AbstractTest::INFRA_NRO_IDP]);
-                        break;
-                    case AbstractTest::STATUS_PARTIAL:
-                        // a subset of the FLRs is down? This probably doesn't impact the user unless he's unlucky and has his session fall into failover.
-                        // keep FLR as a possible problem with original probability
-                        break;
-                    case AbstractTest::STATUS_DOWN:
-                        // Raise probability by much (even monitoring is sometimes wrong, or a few minutes behind reality)
-                        $this->possibleFailureReasons[AbstractTest::INFRA_NRO_IDP] = 0.95;
-                }
+                $this->checkFlrServerStatus(AbstractTest::INFRA_NRO_IDP);
             }
-
             // now let's theck the link
             if (array_key_exists(AbstractTest::INFRA_LINK_ETLR_NRO_IDP, $this->possibleFailureReasons)) {
-                $flrUplinkStatus = $this->checkFedEtlrUplink($this->idPFederation);
-                $this->additionalFindings[AbstractTest::INFRA_NRO_IDP][] = $flrUplinkStatus;
-                switch ($flrUplinkStatus["STATUS"]) {
-                    case AbstractTest::STATUS_GOOD:
-                        unset($this->possibleFailureReasons[AbstractTest::INFRA_NRO_IDP]);
-                        unset($this->possibleFailureReasons[AbstractTest::INFRA_LINK_ETLR_NRO_IDP]);
-                        break;
-                    case AbstractTest::STATUS_PARTIAL:
-                        // a subset of the FLRs is down? This probably doesn't impact the user unless he's unlucky and has his session fall into failover.
-                        // keep FLR as a possible problem with original probability
-                        break;
-                    case AbstractTest::STATUS_DOWN:
-                        // Raise probability by much (even monitoring is sometimes wrong, or a few minutes behind reality)
-                        // if earlier test found the server itself to be the problem, keep it, otherwise put the blame on the link
-                        if ($this->possibleFailureReasons[AbstractTest::INFRA_NRO_IDP] != 0.95) {
-                            $this->possibleFailureReasons[AbstractTest::INFRA_LINK_ETLR_NRO_IDP] = 0.95;
-                        }
-                }
+                $this->checkFedEtlrUplink(AbstractTest::INFRA_NRO_IDP);
             }
         }
         // now, if we know the country the user is currently in, let's see 
         // if the NRO SP-side is up
         if ($this->visitedFlr !== NULL) {
-            $visitedFlrStatus = $this->checkFlrServerStatus($this->visitedFlr);
-            $this->additionalFindings[AbstractTest::INFRA_NRO_SP][] = $visitedFlrStatus;
-            // direct query to server
-            switch ($visitedFlrStatus["STATUS"]) {
-                case AbstractTest::STATUS_GOOD:
-                    unset($this->possibleFailureReasons[AbstractTest::INFRA_NRO_SP]);
-                    break;
-                case AbstractTest::STATUS_PARTIAL:
-                    // a subset of the FLRs is down? This probably doesn't impact the user unless he's unlucky and has his session fall into failover.
-                    // keep FLR as a possible problem with original probability
-                    break;
-                case AbstractTest::STATUS_DOWN:
-                    // Raise probability by much (even monitoring is sometimes wrong, or a few minutes behind reality)
-                    $this->possibleFailureReasons[AbstractTest::INFRA_NRO_SP] = 0.95;
-            }
+            $this->checkFlrServerStatus(AbstractTest::INFRA_NRO_SP);
             // and again its uplink to the ETLR
-            $visitedFlrUplinkStatus = $this->checkFedEtlrUplink($this->visitedFlr);
-            $this->additionalFindings[AbstractTest::INFRA_NRO_SP][] = $visitedFlrUplinkStatus;
-            switch ($visitedFlrUplinkStatus["STATUS"]) {
-                case AbstractTest::STATUS_GOOD:
-                    unset($this->possibleFailureReasons[AbstractTest::INFRA_NRO_SP]);
-                    unset($this->possibleFailureReasons[AbstractTest::INFRA_LINK_ETLR_NRO_SP]);
-                    break;
-                case AbstractTest::STATUS_PARTIAL:
-                    // a subset of the FLRs is down? This probably doesn't impact the user unless he's unlucky and has his session fall into failover.
-                    // keep FLR as a possible problem with original probability
-                    break;
-                case AbstractTest::STATUS_DOWN:
-                    // Raise probability by much (even monitoring is sometimes wrong, or a few minutes behind reality)
-                    // if earlier test found the server itself to be the problem, keep it, otherwise put the blame on the link
-                    if ($this->possibleFailureReasons[AbstractTest::INFRA_NRO_SP] != 0.95) {
-                        $this->possibleFailureReasons[AbstractTest::INFRA_LINK_ETLR_NRO_SP] = 0.95;
-                    }
-            }
+            $this->checkFedEtlrUplink(AbstractTest::INFRA_NRO_SP);
         }
         // the last thing we can do (but it's a bit redundant): check the country-to-country link
         // it's only needed if all three and their links are up, but we want to exclude funny routing blacklists 
