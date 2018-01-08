@@ -116,7 +116,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                                 break;
                             case \core\SilverbulletInvitation::SB_TOKENSTATUS_EXPIRED:
                                 echo "<h2>Invitation link expired</h2>";
-                                echo "<p>" . sprintf(_("Unfortunately, the invitation link you just used is too old. The eduroam sign-up invitation was valid until %s. You cannot use this link any more. Please ask your administrator to issue you a new invitation link."), $statusInfo['invitation_object']->invitationTokenExpiry) . "</p>";
+                                echo "<p>" . sprintf(_("Unfortunately, the invitation link you just used is too old. The eduroam sign-up invitation was valid until %s. You cannot use this link any more. Please ask your administrator to issue you a new invitation link."), $statusInfo['invitation_object']->expiry) . "</p>";
                                 echo "<p>Below is all the information about your account's other login details, if any.</p>";
 // do NOT break, display full account info instead (this was a previously valid token after all)
                             case \core\SilverbulletInvitation::SB_TOKENSTATUS_REDEEMED:

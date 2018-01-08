@@ -63,7 +63,7 @@ class SilverbulletInvitation extends common\Entity {
      * 
      * @var string
      */
-    public $invitationTokenExpiry;
+    public $expiry;
 
     /**
      * How many devices were allowed to be activated in total? 0 on invalid invitations.
@@ -85,6 +85,13 @@ class SilverbulletInvitation extends common\Entity {
      */
     public $associatedCertificates;
 
+    /**
+     * handle to the database
+     * 
+     * @var \mysqli_object
+     */
+    private $databaseHandle;
+    
     const SB_TOKENSTATUS_VALID = 0;
     const SB_TOKENSTATUS_PARTIALLY_REDEEMED = 1;
     const SB_TOKENSTATUS_REDEEMED = 2;
@@ -94,13 +101,13 @@ class SilverbulletInvitation extends common\Entity {
     public function __construct($invitationId) {
         parent::__construct();
         $this->invitationTokenString = $invitationId;
-        $databaseHandle = DBConnection::handle("INST");
+        $this->databaseHandle = DBConnection::handle("INST");
         /*
          * Finds invitation by its token attribute and loads all certificates generated using the token.
          * Certificate details will always be empty, since code still needs to be adapted to return multiple certificates information.
          */
         $invColumnNames = "`id`, `profile_id`, `silverbullet_user_id`, `token`, `quantity`, `expiry`";
-        $invitationsResult = $databaseHandle->exec("SELECT $invColumnNames FROM `silverbullet_invitation` WHERE `token`=? ORDER BY `expiry` DESC", "s", $this->invitationTokenString);
+        $invitationsResult = $this->databaseHandle->exec("SELECT $invColumnNames FROM `silverbullet_invitation` WHERE `token`=? ORDER BY `expiry` DESC", "s", $this->invitationTokenString);
         if ($invitationsResult->num_rows == 0) {
             $this->loggerInstance->debug(2, "Token $this->invitationTokenString not found in database or database query error!\n");
             $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_INVALID;
@@ -122,16 +129,16 @@ class SilverbulletInvitation extends common\Entity {
             $this->expiry = $invitationRow->expiry;
             $this->activationsTotal = $invitationRow->quantity;
             $certColumnNames = "`id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn`, `issued`, `expiry`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp`";
-            $certificatesResult = $databaseHandle->exec("SELECT $certColumnNames FROM `silverbullet_certificate` WHERE `silverbullet_invitation_id` = ? ORDER BY `revocation_status`, `expiry` DESC", "i", $this->identifier);
+            $certificatesResult = $this->databaseHandle->exec("SELECT $certColumnNames FROM `silverbullet_certificate` WHERE `silverbullet_invitation_id` = ? ORDER BY `revocation_status`, `expiry` DESC", "i", $this->identifier);
             $certificatesNumber = ($certificatesResult ? $certificatesResult->num_rows : 0);
             $this->loggerInstance->debug(5, "At token validation level, " . $certificatesNumber . " certificates exist.\n");
             $this->associatedCertificates = \core\ProfileSilverbullet::enumerateCertDetails(/** @scrutinizer ignore-type */ $certificatesResult);
-            $this->activationsRemaining = $this->activationsTotal - $certificatesNumber;
+            $this->activationsRemaining = (int)$this->activationsTotal - (int)$certificatesNumber;
             switch ($certificatesNumber) {
                 case 0:
                     // find out if it has expired
                     $now = new \DateTime();
-                    $expiryObject = new \DateTime($this->invitationTokenExpiry);
+                    $expiryObject = new \DateTime($this->expiry);
                     $delta = $now->diff($expiryObject);
                     if ($delta->invert == 1) {
                         $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_EXPIRED;
@@ -188,7 +195,6 @@ class SilverbulletInvitation extends common\Entity {
 
     /**
      * returns the body to use in an invitation mail
-     * @param string $invitationLink the activation token link to embed
      * @return string
      */
     public function invitationMailBody() {

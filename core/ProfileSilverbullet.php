@@ -319,7 +319,7 @@ class ProfileSilverbullet extends AbstractProfile {
     public function issueCertificate($token, $importPassword) {
         $this->loggerInstance->debug(5, "generateCertificate() - starting.\n");
         $invitationObject = new SilverbulletInvitation($token);
-        $this->loggerInstance->debug(5, "tokenStatus: done, got " . $invitationObject->invitationTokenStatus . ", " . $invitationObject->profile . ", " . $invitationObject->userId . ", " . $invitationObject->invitationTokenExpiry . ", " . $invitationObject->invitationTokenString . "\n");
+        $this->loggerInstance->debug(5, "tokenStatus: done, got " . $invitationObject->invitationTokenStatus . ", " . $invitationObject->profile . ", " . $invitationObject->userId . ", " . $invitationObject->expiry . ", " . $invitationObject->invitationTokenString . "\n");
         if ($invitationObject->invitationTokenStatus != SilverbulletInvitation::SB_TOKENSTATUS_VALID && $invitationObject->invitationTokenStatus != SilverbulletInvitation::SB_TOKENSTATUS_PARTIALLY_REDEEMED) {
             throw new Exception("Attempt to generate a SilverBullet installer with an invalid/redeemed/expired token. The user should never have gotten that far!");
         }
@@ -673,7 +673,8 @@ class ProfileSilverbullet extends AbstractProfile {
         $exec = $this->databaseHandle->exec($query, "i", $userId);
         // SELECT -> resource, not boolean
         while ($result = mysqli_fetch_object(/** @scrutinizer ignore-type */ $exec)) {
-            $this->revokeInvitation($result->id);
+            $invitation = new SilverbulletInvitation($result->id);
+            $invitation->revokeInvitation();
         }
         // and revoke all certificates
         $query2 = "SELECT serial_number FROM silverbullet_certificate WHERE profile_id = $this->identifier AND silverbullet_user_id = ? AND expiry >= NOW() AND revocation_status = 'NOT_REVOKED'";

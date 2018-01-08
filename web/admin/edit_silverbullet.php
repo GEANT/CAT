@@ -76,7 +76,7 @@ $formtext = "<form enctype='multipart/form-data' action='edit_silverbullet.php?i
 
 $invitationObject = NULL;
 if (isset($_POST['token'])) {
-    $invitationObject = new core\SilverbulletInvitation($validator->token($_POST['token']));
+    $invitationObject = new core\SilverbulletInvitation($validator->token(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)));
 }
 
 if (isset($_POST['command'])) {
@@ -145,7 +145,8 @@ if (isset($_POST['command'])) {
                 if ($filteredId === FALSE) { // not a real invitation ID, ignore
                     continue;
                 }
-                $profile->revokeInvitation($filteredId);
+                $invitationObject = new core\SilverbulletInvitation($filteredId);
+                $invitationObject->revokeInvitation();
                 sleep(1); // make sure the expiry timestamps of invitations and certs are at least one second in the past
             }
             break;
@@ -457,7 +458,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
                                 </table>
                                 </form>
                                 </td>";
-                                    $tokenHtmlBuffer .= "<td>" . _("Expiry Date:") . " " . $invitationObject->invitationTokenExpiry . "<br>" . _("Activations remaining:") . " " . sprintf(_("%d of %d"), $invitationObject->activationsRemaining, $invitationObject->activationsTotal) . "</td>";
+                                    $tokenHtmlBuffer .= "<td>" . _("Expiry Date:") . " " . $invitationObject->expiry . "<br>" . _("Activations remaining:") . " " . sprintf(_("%d of %d"), $invitationObject->activationsRemaining, $invitationObject->activationsTotal) . "</td>";
                                     $tokenHtmlBuffer .= "<td>"
                                             . $formtext
                                             . "<input type='hidden' name='invitationid' value='" . $invitationObject->identifier . "'/>"
