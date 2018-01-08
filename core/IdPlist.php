@@ -22,12 +22,12 @@ class IdPlist {
      */
     public static function orderIdentityProviders($country, $currentLocation = NULL) {
         $idps = IdPlist::listAllIdentityProviders(1, $country);
-        $here = $this->setCurrentLocation($currentLocation);
+        $here = IdPlist::setCurrentLocation($currentLocation);
         $idpTitle = [];
         $resultSet = [];
         foreach ($idps as $idp) {
             $idpTitle[$idp['entityID']] = $idp['title'];
-            $d = $this->getIdpDistance($idp, $here);
+            $d = IdPlist::getIdpDistance($idp, $here);
             $resultSet[$idp['entityID']] = $d . " " . $idp['title'];
         }
         asort($resultSet);
@@ -113,7 +113,7 @@ class IdPlist {
     }
 
 
-    private function setCurrentLocation($currentLocation) {
+    private static function setCurrentLocation($currentLocation) {
         if (is_null($currentLocation)) {
             $currentLocation = ['lat' => "90", 'lon' => "0"];
             $loc = new \core\DeviceLocation();
@@ -125,18 +125,18 @@ class IdPlist {
         return($currentLocation);
     }
     
-    private function getIdpDistance($idp, $location) {
+    private static function getIdpDistance($idp, $location) {
         $dist = 10000;
         if (isset($idp['geo'])) {
             $G = $idp['geo'];
             if (isset($G['lon'])) {
-                $d1 = $this->geoDistance($location, $G);
+                $d1 = IdPlist::geoDistance($location, $G);
                 if ($d1 < $dist) {
                     $dist = $d1;
                 }
             } else {
                 foreach ($G as $g) {
-                    $d1 = $this->geoDistance($location, $g);
+                    $d1 = IdPlist::geoDistance($location, $g);
                     if ($d1 < $dist) {
                         $dist = $d1;
                     }
@@ -156,7 +156,7 @@ class IdPlist {
      * @param array $profile1 - second point as an 'lat', 'lon' array 
      * @return float distance in km
      */
-    private function geoDistance($point1, $profile1) {
+    private static function geoDistance($point1, $profile1) {
 
         $distIntermediate = sin(deg2rad($point1['lat'])) * sin(deg2rad($profile1['lat'])) +
                 cos(deg2rad($point1['lat'])) * cos(deg2rad($profile1['lat'])) * cos(deg2rad($point1['lon'] - $profile1['lon']));
