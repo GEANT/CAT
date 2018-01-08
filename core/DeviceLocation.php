@@ -25,7 +25,7 @@ class DeviceLocation {
      * set $location with the discovered value
      */
     
-    public static locateDevice() {
+    public static function locateDevice() {
         $geoipVersion = CONFIG['GEOIP']['version'] ?? 0;
         switch ($geoipVersion) {
             case 0:
