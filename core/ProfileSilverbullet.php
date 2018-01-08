@@ -232,9 +232,10 @@ class ProfileSilverbullet extends AbstractProfile {
         $federation = strtoupper($inst->federation);
         $usernameIsUnique = FALSE;
         $username = "";
+        $realmsuffix = $this->getAttributes("internal:realm");
         while ($usernameIsUnique === FALSE) {
-            $usernameLocalPart = self::randomString(64 - 1 - strlen($this->realm), "0123456789abcdefghijklmnopqrstuvwxyz");
-            $username = $usernameLocalPart . "@" . $this->realm;
+            $usernameLocalPart = self::randomString(64 - 1 - strlen($realmsuffix[0]['value']), "0123456789abcdefghijklmnopqrstuvwxyz");
+            $username = $usernameLocalPart . "@" . $realmsuffix[0]['value'];
             $uniquenessQuery = $this->databaseHandle->exec("SELECT cn from silverbullet_certificate WHERE cn = ?", "s", $username);
             // SELECT -> resource, not boolean
             if (mysqli_num_rows(/** @scrutinizer ignore-type */ $uniquenessQuery) == 0) {
