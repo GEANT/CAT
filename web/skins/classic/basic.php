@@ -56,7 +56,7 @@ class SimpleGUI extends \core\UserAPI {
         if (isset($_REQUEST['country']) && $_REQUEST['country']) {
             $country = strtoupper($_REQUEST['country']);
         } else {
-            $location = $this->locateUser();
+            $location = $this->locateDevice();
             if ($location['status'] == 'ok') {
                 $country = strtoupper($location['country']);
             } else {
