@@ -24,25 +24,22 @@ class DeviceLocation {
      * find out where the user is currently located
      * set $location with the discovered value
      */
-    public function __construct() {
+    
+    public static locateDevice() {
         $geoipVersion = CONFIG['GEOIP']['version'] ?? 0;
         switch ($geoipVersion) {
             case 0:
-                $this->location = ['status' => 'error', 'error' => 'Geolocation not supported'];
-                break;
+                return(['status' => 'error', 'error' => 'Geolocation not supported']);
             case 1:
-                $this->location = $this->locateDevice1();
-                break;
+                return(self::locateDevice1());
             case 2:
-                $this->location = $this->locateDevice2();
-                break;
+                return(self::locateDevice2());
             default:
                 throw new Exception("This version of GeoIP is not known!");
         }
     }
     
-    
-    private function locateDevice1() {
+    private static function locateDevice1() {
         if (CONFIG['GEOIP']['version'] != 1) {
             return ['status' => 'error', 'error' => 'Function for GEOIPv1 called, but config says this is not the version to use!'];
         }
@@ -67,7 +64,7 @@ class DeviceLocation {
      * find out where the user is currently located, using GeoIP2
      * @return array
      */
-    private function locateDevice2() {
+    private static function locateDevice2() {
         if (CONFIG['GEOIP']['version'] != 2) {
             return ['status' => 'error', 'error' => 'Function for GEOIPv2 called, but config says this is not the version to use!'];
         }
@@ -91,5 +88,5 @@ class DeviceLocation {
         $result['geo'] = ['lat' => (float) $record->location->latitude, 'lon' => (float) $record->location->longitude];
         return($result);
     }
-    public $location;
+    
 }

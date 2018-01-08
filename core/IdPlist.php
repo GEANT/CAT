@@ -21,13 +21,13 @@ class IdPlist {
      * @return array $IdPs -  list of arrays ('id', 'name');
      */
     public static function orderIdentityProviders($country, $currentLocation = NULL) {
-        $idps = IdPlist::listAllIdentityProviders(1, $country);
-        $here = IdPlist::setCurrentLocation($currentLocation);
+        $idps = self::listAllIdentityProviders(1, $country);
+        $here = self::setCurrentLocation($currentLocation);
         $idpTitle = [];
         $resultSet = [];
         foreach ($idps as $idp) {
             $idpTitle[$idp['entityID']] = $idp['title'];
-            $d = IdPlist::getIdpDistance($idp, $here);
+            $d = self::getIdpDistance($idp, $here);
             $resultSet[$idp['entityID']] = $d . " " . $idp['title'];
         }
         asort($resultSet);
@@ -130,13 +130,13 @@ class IdPlist {
         if (isset($idp['geo'])) {
             $G = $idp['geo'];
             if (isset($G['lon'])) {
-                $d1 = IdPlist::geoDistance($location, $G);
+                $d1 = self::geoDistance($location, $G);
                 if ($d1 < $dist) {
                     $dist = $d1;
                 }
             } else {
                 foreach ($G as $g) {
-                    $d1 = IdPlist::geoDistance($location, $g);
+                    $d1 = self::geoDistance($location, $g);
                     if ($d1 < $dist) {
                         $dist = $d1;
                     }

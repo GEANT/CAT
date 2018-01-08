@@ -392,10 +392,8 @@ class UserAPI extends CAT {
      * @return array
      */
     public function locateDevice() {
-        $loc = new \core\DeviceLocation();
-        return($loc->location);
+        return(\core\DeviceLocation::locateDevice());
     }
-
     
         /**
      * Lists all identity providers in the database
