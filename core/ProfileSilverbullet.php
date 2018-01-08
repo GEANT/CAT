@@ -10,7 +10,7 @@
  */
 
 /**
- * This file contains the Profile class.
+ * This file contains the ProfileSilverbullet class.
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
@@ -24,10 +24,14 @@ namespace core;
 use \Exception;
 
 /**
- * This class represents an EAP Profile.
- * Profiles can inherit attributes from their IdP, if the IdP has some. Otherwise,
- * one can set attribute in the Profile directly. If there is a conflict between
- * IdP-wide and Profile-wide attributes, the more specific ones (i.e. Profile) win.
+ * Silverbullet (marketed as "Managed IdP") is a RADIUS profile which 
+ * corresponds directly to a built-in RADIUS server and CA. 
+ * It provides all functions needed for a admin-side web interface where users
+ * can be added and removed, and new devices be enabled.
+ * 
+ * When downloading a Silverbullet based profile, the profile includes per-user
+ * per-device client certificates which can be immediately used to log into 
+ * eduroam.
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
@@ -38,11 +42,6 @@ use \Exception;
  */
 class ProfileSilverbullet extends AbstractProfile {
 
-    const SB_TOKENSTATUS_VALID = 0;
-    const SB_TOKENSTATUS_PARTIALLY_REDEEMED = 1;
-    const SB_TOKENSTATUS_REDEEMED = 2;
-    const SB_TOKENSTATUS_EXPIRED = 3;
-    const SB_TOKENSTATUS_INVALID = 4;
     const SB_CERTSTATUS_VALID = 1;
     const SB_CERTSTATUS_EXPIRED = 2;
     const SB_CERTSTATUS_REVOKED = 3;
@@ -173,35 +172,6 @@ class ProfileSilverbullet extends AbstractProfile {
             <li>Each access credential carries a different pseudonym, even if it pertains to the same username.</li>
             <li>If you choose to deposit users' email addresses in the system, you authorise the system to send emails on your behalf regarding operationally relevant events to the users in question (e.g. notification of nearing expiry dates of credentials, notification of access revocation).
         </ul>";
-    }
-
-    /**
-     * returns the subject to use in an invitation mail
-     * @return string
-     */
-    public function invitationMailSubject() {
-            return sprintf(_("Your %s access is ready"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
-    }
-    
-    /**
-     * returns the body to use in an invitation mail
-     * @param string $invitationLink the activation token link to embed
-     * @return string
-     */
-    public function invitationMailBody($invitationLink) {
-        $text = _("Hello!");
-        $text .= "\n\n";
-        $text .= sprintf(_("A new %s access credential has been created for you by your network administrator."),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
-        $text .= " ";
-        $text .= sprintf(_("Please follow the following link with the device you want to enable for %s to get a custom %s installation program just for you. You can click on the link, copy and paste it into a browser or scan the attached QR code."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
-        $text .= "\n\n$invitationLink\n\n"; // gets replaced with the token value by getBody()
-        $text .= sprintf(_("Please keep this email or bookmark this link for future use. After picking up your %s installation program, you can use the same link to get status information about your %s account."),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
-        $text .= "\n\n";
-        $text .= _("Regards,");
-        $text .= "\n\n";
-        $text .= sprintf("%s", CONFIG['APPEARANCE']['productname_long']);
-        
-        return $text;
     }
     
     /**
@@ -348,17 +318,17 @@ class ProfileSilverbullet extends AbstractProfile {
      */
     public function issueCertificate($token, $importPassword) {
         $this->loggerInstance->debug(5, "generateCertificate() - starting.\n");
-        $tokenStatus = ProfileSilverbullet::tokenStatus($token);
-        $this->loggerInstance->debug(5, "tokenStatus: done, got " . $tokenStatus['status'] . ", " . $tokenStatus['profile'] . ", " . $tokenStatus['user'] . ", " . $tokenStatus['expiry'] . ", " . $tokenStatus['value'] . "\n");
-        if ($tokenStatus['status'] != self::SB_TOKENSTATUS_VALID && $tokenStatus['status'] != self::SB_TOKENSTATUS_PARTIALLY_REDEEMED) {
+        $invitationObject = new SilverbulletInvitation($token);
+        $this->loggerInstance->debug(5, "tokenStatus: done, got " . $invitationObject->invitationTokenStatus . ", " . $invitationObject->profile . ", " . $invitationObject->userId . ", " . $invitationObject->invitationTokenExpiry . ", " . $invitationObject->invitationTokenString . "\n");
+        if ($invitationObject->invitationTokenStatus != SilverbulletInvitation::SB_TOKENSTATUS_VALID && $invitationObject->invitationTokenStatus != SilverbulletInvitation::SB_TOKENSTATUS_PARTIALLY_REDEEMED) {
             throw new Exception("Attempt to generate a SilverBullet installer with an invalid/redeemed/expired token. The user should never have gotten that far!");
         }
-        if ($tokenStatus['profile'] != $this->identifier) {
+        if ($invitationObject->profile != $this->identifier) {
             throw new Exception("Attempt to generate a SilverBullet installer, but the profile ID (constructor) and the profile from token do not match!");
         }
         // SQL query to find the expiry date of the *user* to find the correct ValidUntil for the cert
-        $userStatus = $tokenStatus['user'];
-        $userrow = $this->databaseHandle->exec("SELECT expiry FROM silverbullet_user WHERE id = ?", "i", $userStatus);
+        $user = $invitationObject->userId;
+        $userrow = $this->databaseHandle->exec("SELECT expiry FROM silverbullet_user WHERE id = ?", "i", $user);
         // SELECT -> resource, not boolean
         if ($userrow->num_rows != 1) {
             throw new Exception("Despite a valid token, the corresponding user was not found in database or database query error!");
@@ -407,7 +377,7 @@ class ProfileSilverbullet extends AbstractProfile {
         $realExpiryDate = date_create_from_format("U", $parsedCert['full_details']['validTo_time_t'])->format("Y-m-d H:i:s");
 
         // store new cert info in DB
-        $newCertificateResult = $this->databaseHandle->exec("INSERT INTO `silverbullet_certificate` (`profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`) VALUES (?, ?, ?, ?, ?, ?)", "iiisss", $tokenStatus['profile'], $tokenStatus['user'], $tokenStatus['db_id'], $serial, $csr["USERNAME"], $realExpiryDate);
+        $newCertificateResult = $this->databaseHandle->exec("INSERT INTO `silverbullet_certificate` (`profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`) VALUES (?, ?, ?, ?, ?, ?)", "iiisss", $invitationObject->profile, $invitationObject->userId, $invitationObject->identifier, $serial, $csr["USERNAME"], $realExpiryDate);
         if ($newCertificateResult === false) {
             throw new Exception("Unable to update database with new cert details!");
         }
@@ -565,7 +535,7 @@ class ProfileSilverbullet extends AbstractProfile {
      * @param \mysqli_result $certQuery
      * @return array properties of the cert in questions
      */
-    private static function enumerateCertDetails($certQuery) {
+    public static function enumerateCertDetails($certQuery) {
         $retval = [];
         while ($resource = mysqli_fetch_object($certQuery)) {
             // is the cert expired?
@@ -590,76 +560,6 @@ class ProfileSilverbullet extends AbstractProfile {
     }
 
     /**
-     * find out about the properties of an activation token
-     * 
-     * @param string $tokenvalue
-     * @return array the token properties
-     */
-    public static function tokenStatus($tokenvalue) {
-        $databaseHandle = DBConnection::handle("INST");
-        $loggerInstance = new \core\common\Logging();
-
-        /*
-         * Finds invitation by its token attribute and loads all certificates generated using the token.
-         * Certificate details will always be empty, since code still needs to be adapted to return multiple certificates information.
-         */
-        $invColumnNames = "`id`, `profile_id`, `silverbullet_user_id`, `token`, `quantity`, `expiry`";
-        $invitationsResult = $databaseHandle->exec("SELECT $invColumnNames FROM `silverbullet_invitation` WHERE `token`=? ORDER BY `expiry` DESC", "s", $tokenvalue);
-        // SELECT -> resource, no boolean
-        if ($invitationsResult->num_rows == 0) {
-            $loggerInstance->debug(2, "Token  $tokenvalue not found in database or database query error!\n");
-            return ["status" => self::SB_TOKENSTATUS_INVALID,
-                "cert_status" => [],];
-        }
-        // if not returned, we found the token in the DB
-        $invitationRow = mysqli_fetch_object(/** @scrutinizer ignore-type */ $invitationsResult);
-        $rowId = $invitationRow->id;
-        $certColumnNames = "`id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn`, `issued`, `expiry`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp`";
-        $certificatesResult = $databaseHandle->exec("SELECT $certColumnNames FROM `silverbullet_certificate` WHERE `silverbullet_invitation_id` = ? ORDER BY `revocation_status`, `expiry` DESC", "i", $rowId);
-        $certificatesNumber = ($certificatesResult ? $certificatesResult->num_rows : 0);
-        $loggerInstance->debug(5, "At token validation level, " . $certificatesNumber . " certificates exist.\n");
-
-        $retArray = [
-            // $certificatesResult was the result of a SELECT query; it is always a mysqli_result and not a boolean
-            "cert_status" => \core\ProfileSilverbullet::enumerateCertDetails(/** @scrutinizer ignore-type */ $certificatesResult),
-            "profile" => $invitationRow->profile_id,
-            "user" => $invitationRow->silverbullet_user_id,
-            "expiry" => $invitationRow->expiry,
-            "activations_remaining" => $invitationRow->quantity - $certificatesNumber,
-            "activations_total" => $invitationRow->quantity,
-            "value" => $invitationRow->token,
-            "db_id" => $invitationRow->id,
-        ];
-
-        switch ($certificatesNumber) {
-            case 0:
-                // find out if it has expired
-                $now = new \DateTime();
-                $expiryObject = new \DateTime($invitationRow->expiry);
-                $delta = $now->diff($expiryObject);
-                if ($delta->invert == 1) {
-                    $retArray['status'] = self::SB_TOKENSTATUS_EXPIRED;
-                    $retArray['activations_remaining'] = 0;
-                    break;
-                }
-                $retArray['status'] = self::SB_TOKENSTATUS_VALID;
-                break;
-            case $invitationRow->quantity:
-                $retArray['status'] = self::SB_TOKENSTATUS_REDEEMED;
-                break;
-            default:
-                assert($certificatesNumber > 0); // no negatives allowed
-                assert($certificatesNumber < $invitationRow->quantity || $invitationRow->quantity == 0); // not more than max quantity allowed (unless quantity is zero)
-                $retArray['status'] = self::SB_TOKENSTATUS_PARTIALLY_REDEEMED;
-        }
-
-        // now, look up certificate details and put them all in the cert_status property
-
-        $loggerInstance->debug(5, "tokenStatus: done, returning " . $retArray['status'] . ", " . count($retArray['cert_status']) . ", " . $retArray['profile'] . ", " . $retArray['user'] . ", " . $retArray['expiry'] . ", " . $retArray['value'] . "\n");
-        return $retArray;
-    }
-
-    /**
      * For a given certificate username, find the profile and username in CAT
      * this needs to be static because we do not have a known profile instance
      * 
@@ -678,14 +578,14 @@ class ProfileSilverbullet extends AbstractProfile {
     /**
      * find out about the status of a given SB user; retrieves the info regarding all his tokens (and thus all his certificates)
      * @param int $userId
-     * @return array of tokenStatus arrays
+     * @return array of invitationObjects
      */
     public function userStatus($userId) {
         $retval = [];
         $userrows = $this->databaseHandle->exec("SELECT `token` FROM `silverbullet_invitation` WHERE `silverbullet_user_id` = ? AND `profile_id` = ? ", "ii", $userId, $this->identifier);
         // SELECT -> resource, not boolean
         while ($returnedData = mysqli_fetch_object(/** @scrutinizer ignore-type */ $userrows)) {
-            $retval[] = ProfileSilverbullet::tokenStatus($returnedData->token);
+            $retval[] = new SilverbulletInvitation($returnedData->token);
         }
         return $retval;
     }
@@ -787,69 +687,6 @@ class ProfileSilverbullet extends AbstractProfile {
         $this->databaseHandle->exec($query3, "i", $userId);
     }
     
-    /**
-     * creates a full HTTP link from the hex value of the token itself
-     * 
-     * @param string $token
-     * @return string
-     */
-    public static function generateTokenLink(string $token) {
-
-        if (isset($_SERVER['HTTPS'])) {
-            $link = 'https://';
-        } else {
-            $link = 'http://';
-        }
-        $link .= $_SERVER['SERVER_NAME'];
-        $relPath = dirname(dirname($_SERVER['SCRIPT_NAME']));
-        if (substr($relPath, -1) == '/') {
-            $relPath = substr($relPath, 0, -1);
-            if ($relPath === FALSE) {
-                throw new Exception("Uh. Something went seriously wrong with URL path mangling.");
-            }
-        }
-        $link = $link . $relPath;
-
-        if (preg_match('/admin$/', $link)) {
-            $link = substr($link, 0, -6);
-            if ($link === FALSE) {
-                throw new Exception("Impossible: the string ends with '/admin' but it's not possible to cut six characters from the end?!");
-            }
-        }
-        $link .= '/accountstatus/accountstatus.php?token='.$token;
-        return $link;
-    }
-
-    /**
-     * generates a new hex string to be used as an activation token
-     * 
-     * @return string
-     */
-    private function generateToken() {
-        return hash("sha512", base_convert(rand(0, (int) 10e16), 10, 36));
-    }
-
-    /**
-     * creates a new invitation in the database
-     * @param int $userId
-     * @param int $activationCount
-     */
-    public function createInvitation($userId, $activationCount) {
-        $query = "INSERT INTO silverbullet_invitation (profile_id, silverbullet_user_id, token, quantity, expiry) VALUES (?, ?, ?, ?, DATE_ADD(NOW(), INTERVAL 7 DAY))";
-        $newToken = $this->generateToken();
-        $this->databaseHandle->exec($query, "iisi", $this->identifier, $userId, $newToken, $activationCount);
-    }
-    
-    /**
-     * revokes an invitation
-     * 
-     * @param int $invitationId
-     */
-    public function revokeInvitation($invitationId) {
-        $query = "UPDATE silverbullet_invitation SET expiry = NOW() WHERE id = ? AND profile_id = ?";
-        $this->databaseHandle->exec($query, "ii", $invitationId, $this->identifier);
-    }
-
     /**
      * updates the last_ack for all users (invoked when the admin claims to have re-verified continued eligibility of all users)
      */

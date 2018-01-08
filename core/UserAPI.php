@@ -602,19 +602,18 @@ class UserAPI extends CAT {
         if ($cleanToken) {
             // check status of this silverbullet token according to info in DB:
             // it can be VALID (exists and not redeemed, EXPIRED, REDEEMED or INVALID (non existent)
-            $tokenStatus = \core\ProfileSilverbullet::tokenStatus($cleanToken);
+            $invitationObject = new \core\SilverbulletInvitation($cleanToken);
         } else {
             return false;
         }
-        $profile = new \core\ProfileSilverbullet($tokenStatus['profile'], NULL);
-        $userdata = $profile->userStatus($tokenStatus['db_id']);
+        $profile = new \core\ProfileSilverbullet($invitationObject->profile, NULL);
+        $userdata = $profile->userStatus($invitationObject->userId);
         $allcerts = [];
-        foreach ($userdata as $index => $content) {
-            $allcerts = array_merge($allcerts, $content['cert_status']);
+        foreach ($userdata as $content) {
+            $allcerts = array_merge($allcerts, $content->associatedCertificates);
         }
         return $allcerts;
     }
-
 
     public $device;
     private $installerPath;

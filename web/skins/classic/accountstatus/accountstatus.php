@@ -26,15 +26,15 @@ $loggerInstance->debug(4, $operatingSystem);
 $deco = new \web\lib\admin\PageDecoration();
 $uiElements = new web\lib\admin\UIElements();
 
-if (isset($_POST['action']) && $_POST['action'] == \web\lib\common\FormElements::BUTTON_DELETE && isset($_POST['serial']) && $statusInfo['tokenstatus'] != \core\ProfileSilverbullet::SB_TOKENSTATUS_INVALID) {
+if (isset($_POST['action']) && $_POST['action'] == \web\lib\common\FormElements::BUTTON_DELETE && isset($_POST['serial']) && $statusInfo['invitation_object']->invitationTokenStatus != \core\ProfileSilverbullet::SB_TOKENSTATUS_INVALID) {
     $serial = filter_input(INPUT_POST, "serial", FILTER_SANITIZE_NUMBER_INT);
-    $userdata = $profile->userStatus($statusInfo['tokenstatus']['db_id']);
+    $userdata = $profile->userStatus($statusInfo['invitation_object']->userId);
     // if the requested serial belongs to the user, AND it is currently valid, revoke it
     $allcerts = [];
-    foreach ($userdata as $index => $content) {
-        $allcerts = array_merge($allcerts, $content['cert_status']);
+    foreach ($userdata as $content) {
+        $allcerts = array_merge($allcerts, $content->associatedCertificates);
     }
-    foreach ($allcerts as $index => $onecert) {
+    foreach ($allcerts as $onecert) {
         if ($onecert['serial'] == $serial && $onecert['status'] == \core\ProfileSilverbullet::SB_CERTSTATUS_VALID) {
             $statusInfo['profile']->revokeCertificate($serial);
             header("Location: accountstatus.php?token=" . $statusInfo['token']);
@@ -99,10 +99,10 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                 if ($statusInfo['tokenstatus']['status'] != \core\ProfileSilverbullet::SB_TOKENSTATUS_INVALID) {
                     echo "<h2>" . _("We have the following information on file for you:") . "</h2>";
                     $profile = new \core\ProfileSilverbullet($statusInfo['profile']->identifier, NULL);
-                    $userdata = $profile->userStatus($statusInfo['tokenstatus']['user']);
+                    $userdata = $profile->userStatus($statusInfo['invitation_object']->userId);
                     $allcerts = [];
-                    foreach ($userdata as $index => $content) {
-                        $allcerts = array_merge($allcerts, $content['cert_status']);
+                    foreach ($userdata as $content) {
+                        $allcerts = array_merge($allcerts, $content->associatedCertificates);
                     }
                     switch (count($allcerts)) {
                         case 0:

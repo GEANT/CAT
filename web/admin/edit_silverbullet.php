@@ -74,6 +74,11 @@ $displaySendStatus = "NOSTIPULATION";
 
 $formtext = "<form enctype='multipart/form-data' action='edit_silverbullet.php?inst_id=$inst->identifier&profile_id=$profile->identifier' method='post' accept-charset='UTF-8'>";
 
+$invitationObject = NULL;
+if (isset($_POST['token'])) {
+    $invitationObject = new core\SilverbulletInvitation($validator->token($_POST['token']));
+}
+
 if (isset($_POST['command'])) {
     switch ($_POST['command']) {
         case \web\lib\common\FormElements::BUTTON_TERMSOFUSE:
@@ -119,7 +124,7 @@ if (isset($_POST['command'])) {
                     }
 
                     $newId = $profile->addUser($properName, $properDate);
-                    $profile->createInvitation($newId, $number);
+                    core\SilverbulletInvitation::createInvitation($profile->identifier, $newId, $number);
                 }
                 fclose($content);
             }
@@ -168,7 +173,7 @@ if (isset($_POST['command'])) {
                 if ($properId === FALSE || $number === FALSE) { // bogus inputs, ignore
                     continue;
                 }
-                $profile->createInvitation($properId, $number);
+                core\SilverbulletInvitation::createInvitation($profile->identifier, $properId, $number);
             }
             break;
         case \web\lib\common\FormElements::BUTTON_ACKUSERELIGIBILITY:
@@ -177,11 +182,10 @@ if (isset($_POST['command'])) {
             }
             break;
         case \web\lib\common\FormElements::BUTTON_SENDINVITATIONMAILBYCAT:
-            if (!isset($_POST['address']) || !isset($_POST['token'])) {
+            if (!isset($_POST['address']) || $invitationObject === NULL) {
                 break;
             }
             $mail = \core\common\OutsideComm::mailHandle();
-            $invitationToken = \core\ProfileSilverbullet::generateTokenLink($_POST['token']);
             $properEmail = $validator->email(filter_input(INPUT_POST, 'address'));
             if ($properEmail === FALSE) {
                 $domainStatus = \core\common\OutsideComm::MAILDOMAIN_INVALID;
@@ -203,7 +207,7 @@ if (isset($_POST['command'])) {
                         echo $formtext;
                         echo "<input type='hidden' name='command' value='" . \web\lib\common\FormElements::BUTTON_SENDINVITATIONMAILBYCAT . "'</>";
                         echo "<input type='hidden' name='address' value='$properEmail'</>";
-                        echo "<input type='hidden' name='token' value='" . $validator->token(filter_input(INPUT_POST, 'token')) . "'</>";
+                        echo "<input type='hidden' name='token' value='" . $invitationObject->invitationTokenString . "'</>";
                         echo "<input type='hidden' name='insecureconfirm' value='CONFIRM'/>";
                         echo "<button type='submit'>" . _("Send anyway.") . "</button>";
                         echo "</form>";
@@ -212,10 +216,10 @@ if (isset($_POST['command'])) {
                     }
                 // otherwise (insecure confirmed), intentional fall through to send the mail
                 case \core\common\OutsideComm::MAILDOMAIN_STARTTLS:
-                    $bytestream = $uiElements->pngInjectConsortiumLogo(\QRcode::png($invitationToken, FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL), QRCODE_PIXELS_PER_SYMBOL);
+                    $bytestream = $uiElements->pngInjectConsortiumLogo(\QRcode::png($invitationObject->link(), FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL), QRCODE_PIXELS_PER_SYMBOL);
                     $mail->FromName = sprintf(_("%s Invitation System"), CONFIG['APPEARANCE']['productname']);
-                    $mail->Subject = $profile->invitationMailSubject();
-                    $mail->Body = $profile->invitationMailBody($invitationToken);
+                    $mail->Subject = $invitationObject->invitationMailSubject();
+                    $mail->Body = $invitationObject->invitationMailBody();
                     $mail->addStringAttachment($bytestream, "qr-code-invitation.png", "base64", "image/png");
                     $mail->addAddress($properEmail);
                     if ($mail->send()) {
@@ -229,15 +233,14 @@ if (isset($_POST['command'])) {
             }
             break;
         case \web\lib\common\FormElements::BUTTON_SENDINVITATIONSMS:
-            if (!isset($_POST['smsnumber']) || !isset($_POST['token'])) {
+            if (!isset($_POST['smsnumber']) || $invitationObject === NULL) {
                 break;
             }
             $number = str_replace(' ', '', str_replace(".", "", str_replace("+", "", $_POST['smsnumber'])));
             if (!is_numeric($number)) {
                 break;
             }
-            $tokenlink = \core\ProfileSilverbullet::generateTokenLink($validator->token($_POST['token']));
-            $sent = core\common\OutsideComm::sendSMS($number, "Your eduroam access is ready! Click here to continue: $tokenlink (on Android, install the app 'eduroam CAT' before that!)");
+            $sent = core\common\OutsideComm::sendSMS($number, sprintf(_("Your eduroam access is ready! Click here to continue: %s (on Android, install the app 'eduroam CAT' before that!)"), $invitationObject->link()));
             switch ($sent) {
                 case core\common\OutsideComm::SMS_SENT:
                     $displaySendStatus = "SMS-SENT";
@@ -355,13 +358,11 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
                     $allCerts = [];
                     $validCerts = [];
                     $tokensWithoutCerts = [];
-                    foreach ($userStatus as $oneToken) {
-                        if (count($oneToken['cert_status']) == 0 || $oneToken['status'] == core\ProfileSilverbullet::SB_TOKENSTATUS_PARTIALLY_REDEEMED) {
-                            $tokensWithoutCerts[] = $oneToken;
+                    foreach ($userStatus as $oneInvitationObject) {
+                        if (count($oneInvitationObject->associatedCertificates) == 0 || $oneInvitationObject->invitationTokenStatus == core\SilverbulletInvitation::SB_TOKENSTATUS_PARTIALLY_REDEEMED) {
+                            $tokensWithoutCerts[] = $oneInvitationObject;
                         }
-                        if (count($oneToken['cert_status']) > 0) {
-                            $allCerts = array_merge($allCerts, $oneToken['cert_status']);
-                        }
+                        $allCerts = array_merge($allCerts, $oneInvitationObject->associatedCertificates);
                     }
 
                     // show all info about the user
@@ -419,37 +420,36 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
                         <?php
                         $tokenHtmlBuffer = "";
                         $hasOnePendingInvite = FALSE;
-                        foreach ($tokensWithoutCerts as $tokenWithoutCert) {
-                            switch ($tokenWithoutCert['status']) {
-                                case core\ProfileSilverbullet::SB_TOKENSTATUS_VALID:
-                                case core\ProfileSilverbullet::SB_TOKENSTATUS_PARTIALLY_REDEEMED:
+                        foreach ($tokensWithoutCerts as $invitationObject) {
+                            switch ($invitationObject->invitationTokenStatus) {
+                                case core\SilverbulletInvitation::SB_TOKENSTATUS_VALID:
+                                case core\SilverbulletInvitation::SB_TOKENSTATUS_PARTIALLY_REDEEMED:
                                     $hasOnePendingInvite = TRUE;
                                     $tokenHtmlBuffer .= "<tr class='sb-certificate-row'><td></td>";
-                                    $link = \core\ProfileSilverbullet::generateTokenLink($tokenWithoutCert['value']);
-                                    $jsEncodedBody = str_replace('\n', '%0D%0A', str_replace('"', '', json_encode($profile->invitationMailBody($link))));
+                                    $jsEncodedBody = str_replace('\n', '%0D%0A', str_replace('"', '', json_encode($invitationObject->invitationMailBody())));
                                     $tokenHtmlBuffer .= "<td>
                                 
-                                    The invitation token <input type='text' readonly='readonly' color='grey' size='60' value='$link' name='token' class='identifiedtokenarea-" . $tokenWithoutCert['db_id'] . "'>(…)<br/> is ready for sending! Choose how to send it:
+                                    The invitation token <input type='text' readonly='readonly' color='grey' size='60' value='" . $invitationObject->link() . "' name='token' class='identifiedtokenarea-" . $invitationObject->identifier . "'>(…)<br/> is ready for sending! Choose how to send it:
                                     <table>
                                     <tr><td style='vertical-align:bottom;'>E-Mail:</td><td>
                                     $formtext
-                                <input type='hidden' value='" . $tokenWithoutCert['value'] . "' name='token'><br/>
+                                <input type='hidden' value='" . $invitationObject->invitationTokenString . "' name='token'><br/>
                                 <input type='text' name='address' id='address'/>
-                                <button type='button' id='sb-compose-email-client' onclick='window.location=\"mailto:\"+document.getElementById(\"address\").value+\"?subject=" . $profile->invitationMailSubject() . "&body=$jsEncodedBody\"; return false;'>" . _("Local mail client") . "</button>
+                                <button type='button' id='sb-compose-email-client' onclick='window.location=\"mailto:\"+document.getElementById(\"address\").value+\"?subject=" . $invitationObject->invitationMailSubject() . "&body=$jsEncodedBody\"; return false;'>" . _("Local mail client") . "</button>
                                 <button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_SENDINVITATIONMAILBYCAT . "'>Send with CAT</button>
                                     </form>
                                     </td></tr>
                                     <tr><td style='vertical-align:bottom;'>SMS:</td><td>
                                     $formtext
-                                    <input type='hidden' value='" . $tokenWithoutCert['value'] . "' name='token'><br/>
+                                    <input type='hidden' value='" . $invitationObject->invitationTokenString . "' name='token'><br/>
                                     <input type='text' name='smsnumber' id='smsnumber'/>
 				<button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_SENDINVITATIONSMS . "'>" . _("Send in SMS...") . "</button>
                                     </form>
 				</td></tr>
                                     <tr><td style='vertical-align:bottom;'>Manual:</td><td>
-				<button type='button' class='clipboardButton' onclick='clipboardCopy(" . $tokenWithoutCert['db_id'] . ");'>" . _("Copy to Clipboard") . "</button>
+				<button type='button' class='clipboardButton' onclick='clipboardCopy(" . $invitationObject->identifier . ");'>" . _("Copy to Clipboard") . "</button>
                                     <form style='display:inline-block;' method='post' action='inc/displayQRcode.inc.php' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
-                                    <input type='hidden' value='" . $tokenWithoutCert['value'] . "' name='token'><br/>
+                                    <input type='hidden' value='" . $invitationObject->invitationTokenString . "' name='token'><br/>
                                       <button type='submit'>" . _("Display QR code") . "</button>
                                   </form>
                                         </td></tr>
@@ -457,15 +457,15 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
                                 </table>
                                 </form>
                                 </td>";
-                                    $tokenHtmlBuffer .= "<td>" . _("Expiry Date:") . " " . $tokenWithoutCert['expiry'] . "<br>" . _("Activations remaining:") . " " . sprintf(_("%d of %d"), $tokenWithoutCert['activations_remaining'], $tokenWithoutCert['activations_total']) . "</td>";
+                                    $tokenHtmlBuffer .= "<td>" . _("Expiry Date:") . " " . $invitationObject->invitationTokenExpiry . "<br>" . _("Activations remaining:") . " " . sprintf(_("%d of %d"), $invitationObject->activationsRemaining, $invitationObject->activationsTotal) . "</td>";
                                     $tokenHtmlBuffer .= "<td>"
                                             . $formtext
-                                            . "<input type='hidden' name='invitationid' value='" . $tokenWithoutCert['db_id'] . "'/>"
+                                            . "<input type='hidden' name='invitationid' value='" . $invitationObject->identifier . "'/>"
                                             . "<button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_REVOKEINVITATION . "' class='delete'>Revoke</button></form>"
                                             . "</td></tr>";
                                     break;
-                                case core\ProfileSilverbullet::SB_TOKENSTATUS_EXPIRED:
-                                case core\ProfileSilverbullet::SB_TOKENSTATUS_REDEEMED:
+                                case core\SilverbulletInvitation::SB_TOKENSTATUS_EXPIRED:
+                                case core\SilverbulletInvitation::SB_TOKENSTATUS_REDEEMED:
                                     break;
                                 default: // ??? INVALID - not possible
                                     $tokenHtmlBuffer .= "<td>INTERNAL ERROR - token state is INVALID?</td>";
@@ -612,3 +612,4 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
         <?php
     }
     echo $deco->footer();
+    

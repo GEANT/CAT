@@ -20,8 +20,7 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 $cleanToken = FALSE;
-$tokenStatus = ["status" => \core\ProfileSilverbullet::SB_TOKENSTATUS_INVALID,
-    "cert_status" => [],];
+$invitationObject = new core\SilverbulletInvitation("INVALID");
 $profile = NULL;
 $idp = NULL;
 $fed = NULL;
@@ -35,7 +34,7 @@ if (isset($_REQUEST['token'])) {
     if ($cleanToken) {
         // check status of this silverbullet token according to info in DB:
         // it can be VALID (exists and not redeemed, EXPIRED, REDEEMED or INVALID (non existent)
-        $tokenStatus = \core\ProfileSilverbullet::tokenStatus($cleanToken);
+        $invitationObject = new core\SilverbulletInvitation($cleanToken);
     }
 } elseif (isset($_SERVER['SSL_CLIENT_SAN_Email']) || isset($_SERVER['SSL_CLIENT_SAN_Email_0']) ) {
     // maybe the user authenticated with his client cert? Then pick any of his
@@ -44,13 +43,12 @@ if (isset($_REQUEST['token'])) {
     $userInfo = \core\ProfileSilverbullet::findUserIdFromCert($certname);
     $profile = new \core\ProfileSilverbullet($userInfo['profile']);
     $allTokens = $profile->userStatus($userInfo['user']);
-    $cleanToken = $allTokens[0]['value'];
-    
-    $tokenStatus = $profile->userStatus($userInfo['user'])[0];
+    $invitationObject = $allTokens[0];
+    $cleanToken = $invitationObject->invitationTokenString;
 }
 
-if ($tokenStatus['status'] != \core\ProfileSilverbullet::SB_TOKENSTATUS_INVALID) { // determine skin to use based on NROs preference
-    $profile = new \core\ProfileSilverbullet($tokenStatus['profile'], NULL);
+if ($invitationObject->invitationTokenStatus != \core\SilverbulletInvitation::SB_TOKENSTATUS_INVALID) { // determine skin to use based on NROs preference
+    $profile = new \core\ProfileSilverbullet($invitationObject->profile, NULL);
     $idp = new \core\IdP($profile->institution);
     $fed = $validator->Federation(strtoupper($idp->federation));
     $fedskin = $fed->getAttributes("fed:desired_skin"); 
@@ -59,25 +57,26 @@ if ($tokenStatus['status'] != \core\ProfileSilverbullet::SB_TOKENSTATUS_INVALID)
 // ... with last resort being the default skin (first one in the configured skin list is the default)
 
 $skinObject = new \web\lib\user\Skinjob($_REQUEST['skin'] ?? $fedskin[0] ?? CONFIG['APPEARANCE']['skins'][0]);
-$hasLogo = 0;
-$logo = $idp->getAttributes('general:logo_file');
-if (count($logo) > 0) {
-    $hasLogo = 1;
-}
 
-$attributes = $Gui->profileAttributes($profile->identifier);
 $statusInfo = ["token" => $cleanToken,
-    "tokenstatus" => $tokenStatus,
-    "OS" => $Gui->operatingSystem,
-    "profile" => $profile,
-    "attributes" => $Gui->profileAttributes($profile->identifier),
-    "profile_id" => $tokenStatus['profile'],
-    "idp" => $idp,
-    "idp_id" => $idp->identifier,
-    "idp_logo" => $hasLogo,
-    "idp_name" => $idp->name,
-    "fed" => $fed,
-];
+    "invitation_object" => $invitationObject,
+    "OS" => $Gui->operatingSystem,];
+
+if ($profile !== NULL) {
+    $attributes = $Gui->profileAttributes($profile->identifier);
+    $statusInfo["profile"] = $profile;
+    $statusInfo["attributes"] = $Gui->profileAttributes($profile->identifier);
+    $statusInfo["profile_id"] = $invitationObject->profile;
+};
+
+if ($idp !== NULL) {
+    $logo = $idp->getAttributes('general:logo_file');
+    $statusInfo["idp"] = $idp;
+    $statusInfo["idp_id"] = $idp->identifier;
+    $statusInfo["idp_logo"] = (count($logo) == 0 ? 0 : 1);
+    $statusInfo["idp_name"] = $idp->name;
+    $statusInfo["fed"] = new core\Federation($idp->federation);
+}
 
 const KNOWN_ERRORCODES = ["GENERATOR_CONSUMED"];
 $errorcode = $_REQUEST['errorcode'] ?? "";
