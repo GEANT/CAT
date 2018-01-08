@@ -21,7 +21,7 @@ class IdPlist {
      * @return array $IdPs -  list of arrays ('id', 'name');
      */
     public static function orderIdentityProviders($country, $currentLocation = NULL) {
-        $idps = $this->listAllIdentityProviders(1, $country);
+        $idps = IdPlist::listAllIdentityProviders(1, $country);
         $here = $this->setCurrentLocation($currentLocation);
         $idpTitle = [];
         $resultSet = [];
@@ -117,7 +117,7 @@ class IdPlist {
         if (is_null($currentLocation)) {
             $currentLocation = ['lat' => "90", 'lon' => "0"];
             $loc = new \core\DeviceLocation();
-            $userLocation = $loc->locateDevice;
+            $userLocation = $loc->location;
             if ($userLocation['status'] == 'ok') {
                 $currentLocation = $userLocation['geo'];
             }

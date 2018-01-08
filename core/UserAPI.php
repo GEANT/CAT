@@ -407,7 +407,7 @@ class UserAPI extends CAT {
      *
      */
     public function listAllIdentityProviders($activeOnly = 0, $country = "") {
-        return(\core\IdPlist::listAllIdentityProviders($activeOnly, $country));
+        return(IdPlist::listAllIdentityProviders($activeOnly, $country));
     }
     
     /**
@@ -416,7 +416,7 @@ class UserAPI extends CAT {
      * @return array $IdPs -  list of arrays ('id', 'name');
      */
     public function orderIdentityProviders($country, $currentLocation = NULL) {
-        return(\core\IdPlist::orderIdentityProviders($country, $currentLocation));
+        return(IdPlist::orderIdentityProviders($country, $currentLocation));
     }
 
     /**
