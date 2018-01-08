@@ -198,7 +198,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 allArray[<?php echo \core\ProfileSilverbullet::SB_CERTSTATUS_VALID; ?>] = {color: "#000000", categoryText: "<?php escaped_echo(_("Current login tokens")) ?>", rows: validCerts};
                 allArray[<?php echo \core\ProfileSilverbullet::SB_CERTSTATUS_EXPIRED; ?>] = {color: "#999999", categoryText: "<?php escaped_echo(_("Previous login tokens")) ?>", rows: expiredCerts};
                 allArray[<?php echo \core\ProfileSilverbullet::SB_CERTSTATUS_REVOKED; ?>] = {color: "#ff0000", categoryText: "<?php escaped_echo(_("Revoked login tokens")) ?>", rows: revokedCerts};
-                var headerLine = "<tr><th><?php escaped_echo(_("Pseudonym")); ?></th><th><?php escaped_echo(_("Device Type")); ?></th><th><?php escaped_echo(_("Serial Number")); ?></th><th><?php escaped_echo(_("Issue Date")); ?></th><th><?php escaped_echo(_("Expiry Date")); ?></th></tr>";
+                var headerLine = "<tr><th><?php escaped_echo(_("Serial Number")); ?></th><th><?php escaped_echo(_("Pseudonym")); ?></th><th><?php escaped_echo(_("Device Type")); ?></th><th><?php escaped_echo(_("Issue Date")); ?></th><th><?php escaped_echo(_("Expiry Date")); ?></th></tr>";
                 $.each(allArray, function (index, value) {
                     if (value !== undefined) {
                         value.rows.push('<tr style="color:' + value.color + ';"><th class="th1" colspan="5">' + value.categoryText + '</th></tr>');

@@ -88,7 +88,7 @@ class SilverbulletInvitation extends common\Entity {
     /**
      * handle to the database
      * 
-     * @var \mysqli_object
+     * @var DBConnection
      */
     private $databaseHandle;
     
