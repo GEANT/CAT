@@ -223,6 +223,7 @@ class Telepath extends AbstractTest {
             case AbstractTest::INFRA_NRO_SP:
                 $fed = $this->visitedFlr;
                 $linkVariant = AbstractTest::INFRA_LINK_ETLR_NRO_SP;
+                break;
             default:
                 throw new Exception("This function operates on the IdP- or SP-side FLR, nothing else!");
         }
@@ -259,6 +260,7 @@ class Telepath extends AbstractTest {
                 break;
             case AbstractTest::INFRA_NRO_SP:
                 $fed = $this->visitedFlr;
+                break;
             default:
                 throw new Exception("This function operates on the IdP- or SP-side FLR, nothing else!");
         }

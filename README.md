@@ -4,6 +4,8 @@ CAT, the Configuration Assistant Tool for Enterprise Wi-Fi networks such as edur
 CAT collects information about RADIUS/EAP deployments from Wi-Fi network administrators and generates simple-to-use, good-looking, and secure installation programs for users of these networks. The goal is to vastly improve the network security by pushing secure Wi-Fi settings to all users without the need to expose them to or require them to understand all of the underlying technologies and configuration parameters.
 
 [![Code Climate](https://codeclimate.com/github/GEANT/CAT/badges/gpa.svg)](https://codeclimate.com/github/GEANT/CAT)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/GEANT/CAT/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/GEANT/CAT/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/GEANT/CAT/badges/build.png?b=master)](https://scrutinizer-ci.com/g/GEANT/CAT/build-status/master)
 
 eduroam CAT User Manuals
 ------------------------
