@@ -388,7 +388,7 @@ class UserAPI extends CAT {
     }
 
     /**
-     * find out where the user is currently located
+     * find out where the device is currently located
      * @return array
      */
     public function locateDevice() {
@@ -396,78 +396,27 @@ class UserAPI extends CAT {
         return($loc->location);
     }
 
-
-    /**
-     * Calculate the distance in km between two points given their
-     * geo coordinates.
-     * @param array $point1 - first point as an 'lat', 'lon' array 
-     * @param array $profile1 - second point as an 'lat', 'lon' array 
-     * @return float distance in km
+    
+        /**
+     * Lists all identity providers in the database
+     * adding information required by DiscoJuice.
+     * 
+     * @param int $activeOnly if set to non-zero will cause listing of only those institutions which have some valid profiles defined.
+     * @param string $country if set, only list IdPs in a specific country
+     * @return array the list of identity providers
+     *
      */
-    private function geoDistance($point1, $profile1) {
-
-        $distIntermediate = sin(deg2rad($point1['lat'])) * sin(deg2rad($profile1['lat'])) +
-                cos(deg2rad($point1['lat'])) * cos(deg2rad($profile1['lat'])) * cos(deg2rad($point1['lon'] - $profile1['lon']));
-        $dist = rad2deg(acos($distIntermediate)) * 60 * 1.1852;
-        return(round($dist));
+    public function listAllIdentityProviders($activeOnly = 0, $country = "") {
+        return(\core\IdPlist::listAllIdentityProviders($activeOnly, $country));
     }
-
+    
     /**
      * Order active identity providers according to their distance and name
      * @param array $currentLocation - current location
      * @return array $IdPs -  list of arrays ('id', 'name');
      */
     public function orderIdentityProviders($country, $currentLocation = NULL) {
-        $idps = $this->listAllIdentityProviders(1, $country);
-        $here = $this->setCurrentLocation($currentLocation);
-        $idpTitle = [];
-        $resultSet = [];
-        foreach ($idps as $idp) {
-            $idpTitle[$idp['entityID']] = $idp['title'];
-            $d = $this->getIdpDistance($idp, $here);
-            $resultSet[$idp['entityID']] = $d . " " . $idp['title'];
-        }
-        asort($resultSet);
-        $outarray = [];
-        foreach (array_keys($resultSet) as $r) {
-            $outarray[] = ['idp' => $r, 'title' => $idpTitle[$r]];
-        }
-        return($outarray);
-    }
-
-    private function setCurrentLocation($currentLocation) {
-        if (is_null($currentLocation)) {
-            $currentLocation = ['lat' => "90", 'lon' => "0"];
-            $userLocation = $this->locateDevice();
-            if ($userLocation['status'] == 'ok') {
-                $currentLocation = $userLocation['geo'];
-            }
-        }
-        return($currentLocation);
-    }
-    
-    private function getIdpDistance($idp, $location) {
-        $dist = 10000;
-        if (isset($idp['geo'])) {
-            $G = $idp['geo'];
-            if (isset($G['lon'])) {
-                $d1 = $this->geoDistance($location, $G);
-                if ($d1 < $dist) {
-                    $dist = $d1;
-                }
-            } else {
-                foreach ($G as $g) {
-                    $d1 = $this->geoDistance($location, $g);
-                    if ($d1 < $dist) {
-                        $dist = $d1;
-                    }
-                }
-            }
-        }
-        if ($dist > 100) {
-            $dist = 10000;
-        }
-        return(sprintf("%06d", $dist));
+        return(\core\IdPlist::orderIdentityProviders($country, $currentLocation));
     }
 
     /**
