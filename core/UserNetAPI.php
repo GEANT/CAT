@@ -220,7 +220,7 @@ class UserNetAPI extends UserAPI {
      */
     public function JSON_locateUser() {
         header('Content-type: application/json; utf-8');
-        echo json_encode($this->locateUser());
+        echo json_encode($this->locateDevice());
     }
 
     /**

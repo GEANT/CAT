@@ -391,8 +391,8 @@ class UserAPI extends CAT {
      * find out where the user is currently located
      * @return array
      */
-    public function locateUser() {
-        $loc = new \core\UserLocation();
+    public function locateDevice() {
+        $loc = new \core\DeviceLocation();
         return($loc->location);
     }
 
@@ -438,7 +438,7 @@ class UserAPI extends CAT {
     private function setCurrentLocation($currentLocation) {
         if (is_null($currentLocation)) {
             $currentLocation = ['lat' => "90", 'lon' => "0"];
-            $userLocation = $this->locateUser();
+            $userLocation = $this->locateDevice();
             if ($userLocation['status'] == 'ok') {
                 $currentLocation = $userLocation['geo'];
             }
