@@ -12,8 +12,6 @@
 
 namespace core;
 
-use \Exception;
-
 class IdPlist {
     /**
      * Order active identity providers according to their distance and name
@@ -116,8 +114,7 @@ class IdPlist {
     private static function setCurrentLocation($currentLocation) {
         if (is_null($currentLocation)) {
             $currentLocation = ['lat' => "90", 'lon' => "0"];
-            $loc = new \core\DeviceLocation();
-            $userLocation = $loc->location;
+            $userLocation = DeviceLocation::locateDevice();
             if ($userLocation['status'] == 'ok') {
                 $currentLocation = $userLocation['geo'];
             }
