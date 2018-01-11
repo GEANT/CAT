@@ -169,10 +169,11 @@ class ServerSideCredential extends XMLElement {
 
     protected $CA; // multi
     protected $ServerID; //multi
+    protected $EAPType;
 
     public function getAll() {
-        if (isset(XMLElement::$authMethodElements['server'][$this->EAPMethod]) && XMLElement::$authMethodElements['server'][$this->EAPMethod]) {
-            $element = XMLElement::$authMethodElements['server'][$this->EAPMethod];
+        if (isset(XMLElement::$authMethodElements['server'][$this->EAPType]) && XMLElement::$authMethodElements['server'][$this->EAPType]) {
+            $element = XMLElement::$authMethodElements['server'][$this->EAPType];
             $objectVariables = get_object_vars($this);
             $outArray = [];
             foreach ($objectVariables as $o => $v) {
@@ -199,10 +200,12 @@ class ClientSideCredential extends XMLElement {
     protected $Passphrase;
     protected $PAC;
     protected $ProvisionPAC;
+    protected $EAPType;
+
 
     public function getAll() {
-        if (isset(XMLElement::$authMethodElements['client'][$this->EAPMethod]) && XMLElement::$authMethodElements['client'][$this->EAPMethod]) {
-            $element = XMLElement::$authMethodElements['client'][$this->EAPMethod];
+        if (isset(XMLElement::$authMethodElements['client'][$this->EAPType]) && XMLElement::$authMethodElements['client'][$this->EAPType]) {
+            $element = XMLElement::$authMethodElements['client'][$this->EAPType];
             $objectVars = get_object_vars($this);
             $outputArray = [];
             foreach ($objectVars as $name => $value) {
