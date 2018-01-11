@@ -59,7 +59,7 @@ const CONFIG = [
         // in "About CAT" then)
         'webcert_CRLDP' => ['list', 'of', 'CRL', 'pointers'],
         'webcert_OCSP' => ['list', 'of', 'OCSP', 'pointers'],
-        'skins' => ["modern", "classic", "example"],
+        'skins' => ["modern", "example"],
         // get your key here: https://developers.google.com/maps/documentation/javascript/get-api-key?refresh=1
         'google_maps_api_key' => '',
     ],
