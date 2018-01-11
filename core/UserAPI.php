@@ -395,7 +395,7 @@ class UserAPI extends CAT {
         return(\core\DeviceLocation::locateDevice());
     }
     
-        /**
+    /**
      * Lists all identity providers in the database
      * adding information required by DiscoJuice.
      * 
@@ -428,7 +428,7 @@ class UserAPI extends CAT {
         $Dev = \devices\Devices::listDevices();
         $this->languageInstance->setTextDomain($oldDomain);
         $devId = $this->deviceFromRequest();
-        if ($devId !== FALSE) {
+        if ($devId !== NULL) {
             $ret = $this->returnDevice($devId, $Dev[$devId]);
             if ($ret !== FALSE) {
                 return($ret);
@@ -463,18 +463,18 @@ class UserAPI extends CAT {
    
     /**
      * This methods cheks if the devide has been specified as the HTTP parameters
-     * @return device id|FALSE if correcty specified or FALSE otherwise
+     * @return device id|NULL if correcty specified or FALSE otherwise
      */
     private function deviceFromRequest() {
         $devId = filter_input(INPUT_GET, 'device', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'device', FILTER_SANITIZE_STRING);
         if ($devId === NULL || $devId === FALSE) {
             $this->loggerInstance->debug(2, "Invalid device id provided\n");
-            return(FALSE);
+            return(NULL);
         }
         $Dev = \devices\Devices::listDevices();
         if (!isset($Dev['$devId'])) {
             $this->loggerInstance->debug(2, "Unrecognised system: $devId\n");
-            return(FALSE);
+            return(NULL);
         }
         return($devId);
     }
