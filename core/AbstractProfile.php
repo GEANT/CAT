@@ -556,7 +556,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         $collapsedList = [];
         foreach ($this->getAttributes() as $attribute) {
             // filter out eap-level attributes not pertaining to EAP type $eap
-            if (count($eap) > 0 && isset($attrib['eapmethod']) && $attrib['eapmethod'] != 0 && $attrib['eapmethod'] != $eap) {
+            if (count($eap) > 0 && isset($attribute['eapmethod']) && $attribute['eapmethod'] != 0 && $attribute['eapmethod'] != $eap) {
                 continue;
             }
             // create new array indexed by attribute name

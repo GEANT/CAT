@@ -788,7 +788,7 @@ network={
 
         foreach ($eapCertArray as $certPem) {
             $cert = $x509->processCertificate($certPem);
-            if ($cert == FALSE) {
+            if ($cert === FALSE) {
                 continue;
             }
 // consider the certificate a server cert 

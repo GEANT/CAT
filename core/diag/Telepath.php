@@ -363,7 +363,7 @@ class Telepath extends AbstractTest {
             $readinessLevel = $profileObject->readinessLevel();
 
             switch ($readinessLevel) {
-                case \core\AbstractProfile::READINESS_LEVEL_SHOWTIME:
+                case \core\AbstractProfile::READINESS_LEVEL_SHOWTIME: // fall-througuh intended: use the data even if non-public but complete
                 case \core\AbstractProfile::READINESS_LEVEL_SUFFICIENTCONFIG:
                     $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][] = ["Profile" => $profileObject->identifier];
                     $this->testsuite = new RADIUSTests($this->realm, $profileObject->getRealmCheckOuterUsername(), $profileObject->getEapMethodsinOrderOfPreference(1), $profileObject->getCollapsedAttributes()['eap:server_name'], $profileObject->getCollapsedAttributes()["eap:ca_file"]);
