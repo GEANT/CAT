@@ -238,8 +238,6 @@ class SilverbulletInvitation extends common\Entity {
 
     /**
      * revokes an invitation
-     * 
-     * @param int $invitationId
      */
     public function revokeInvitation() {
         $query = "UPDATE silverbullet_invitation SET expiry = NOW() WHERE id = ? AND profile_id = ?";
