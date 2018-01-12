@@ -24,9 +24,9 @@ $API = new \core\UserAPI();
 $loggerInstance = new \core\common\Logging();
 $validator = new \web\lib\common\InputValidation();
 
-$profileId = $_REQUEST['profile'] ?? FALSE;
+$profileId = $_REQUEST['profile'] ?? -1;
 $instId = $_REQUEST['idp'] ?? FALSE;
-$device = $_REQUEST['device'] ?? FALSE;
+$device = $_REQUEST['device'] ?? "INVALID";
 $generatedFor = $_REQUEST['generatedfor'] ?? 'user';
 
 const VALID_GENERATOR_TARGETS = ['admin', 'user', 'silverbullet'];

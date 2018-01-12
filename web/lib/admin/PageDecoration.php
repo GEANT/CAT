@@ -202,7 +202,11 @@ class PageDecoration {
             $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "/");
         }
 
-        $cssUrl = "//" . $this->validator->hostname($_SERVER['SERVER_NAME']) . substr($_SERVER['PHP_SELF'], 0, $cutoffPosition )."/resources/css/cat.css.php";
+        $host = $this->validator->hostname($_SERVER['SERVER_NAME']);
+        if ($host === FALSE) {
+            throw new Exception("We don't know our own hostname!");
+        }
+        $cssUrl = "//$host" . substr($_SERVER['PHP_SELF'], 0, $cutoffPosition )."/resources/css/cat.css.php";
         
         $retval .= "<link rel='stylesheet' type='text/css' href='$cssUrl' />";
         $retval .= "<title>" . htmlspecialchars($pagetitle) . "</title>";
@@ -229,8 +233,11 @@ class PageDecoration {
         } else {
             $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "/");
         }
-        
-        $logoBase = "//" . $this->validator->hostname($_SERVER['SERVER_NAME']) . substr($_SERVER['PHP_SELF'], 0, $cutoffPosition)."/resources/images";
+        $host = $this->validator->hostname($_SERVER['SERVER_NAME']);
+        if ($host === FALSE) {
+            throw new Exception("We don't know our own hostname!");
+        }
+        $logoBase = "//$host" . substr($_SERVER['PHP_SELF'], 0, $cutoffPosition)."/resources/images";
 
         return "<span id='logos' style='position:fixed; left:50%;'><img src='$logoBase/dante.png' alt='DANTE' style='height:23px;width:47px'/>
               <img src='$logoBase/eu.png' alt='EU' style='height:23px;width:27px;border-width:0px;'/></span>

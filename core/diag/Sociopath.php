@@ -152,7 +152,7 @@ class Sociopath extends AbstractTest {
     
     /**
      * constructs the final diagnosis result text to show to the user
-     * @param int $area
+     * @param string $area
      * @return string
      */
     public function verdictText($area) {

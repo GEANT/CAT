@@ -209,7 +209,7 @@ class Telepath extends AbstractTest {
 
     /**
      * Is the uplink between an NRO server and the ETLRs in order?
-     * @param int $whichSide
+     * @param string $whichSide
      * @return array
      */
     private function checkFedEtlrUplink($whichSide) {
@@ -250,7 +250,7 @@ class Telepath extends AbstractTest {
 
     /**
      * Is the NRO server itself in order?
-     * @param int $whichSide
+     * @param string $whichSide
      * @return array
      */
     private function checkFlrServerStatus($whichSide) {

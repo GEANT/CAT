@@ -572,7 +572,8 @@ class CAT extends \core\common\Entity {
             $federations = $handle->exec("SELECT DISTINCT UPPER(country) AS country FROM view_active_idp_institution ORDER BY country");
             $timeEnd = microtime(true);
             $timeElapsed = $timeEnd - $timeStart;
-            while ($eduroamFederations = mysqli_fetch_object($federations)) {
+            // the query yielded a mysqli_result because it's a SELECT, this never gives back a boolean
+            while ($eduroamFederations = mysqli_fetch_object(/** @scrutinizer ignore-type */ $federations)) {
                 $fedIdentifier = $eduroamFederations->country;
                 $returnArray[$fedIdentifier] = isset($this->knownFederations[$fedIdentifier]) ? $this->knownFederations[$fedIdentifier] : $fedIdentifier;
             }

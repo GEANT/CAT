@@ -889,6 +889,8 @@ network={
             file_put_contents($tmpDir . "/client.p12", $clientcertdata);
         }
         $testresults = [];
+        // initialise the sub-array for cleaner parsing
+        $testresults['cert_oddities'] = [];
         // execute RADIUS/EAP converation
         $runtime_results = $this->executeEapolTest($tmpDir, $probeindex, $eaptype, $innerUser, $password, $opnameCheck, $frag);
         $testresults['time_millisec'] = $runtime_results['time'];

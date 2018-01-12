@@ -152,7 +152,7 @@ if (isset($_POST['command'])) {
             break;
         case \web\lib\common\FormElements::BUTTON_REVOKECREDENTIAL:
             if (isset($_POST['certSerial'])) {
-                $certSerial = $validator->integer(filter_input(INPUT_POST, 'certSerial'));
+                $certSerial = $validator->integer(filter_input(INPUT_POST, 'certSerial', FILTER_SANITIZE_STRING));
                 $profile->revokeCertificate($certSerial);
                 sleep(1); // make sure the expiry timestamps of invitations and certs are at least one second in the past
             }

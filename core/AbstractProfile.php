@@ -278,7 +278,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         if ($result && $cache = mysqli_fetch_object(/** @scrutinizer ignore-type */ $result)) {
             $execUpdate = $this->databaseHandle->exec("SELECT UNIX_TIMESTAMP(last_change) AS last_change FROM profile WHERE profile_id = $this->identifier");
             // SELECT queries always return a resource, not a boolean
-            if ($lastChange = /** @scrutinizer ignore-type */ mysqli_fetch_object($execUpdate)->last_change) {
+            if ($lastChange = mysqli_fetch_object(/** @scrutinizer ignore-type */ $execUpdate)->last_change) {
                 if ($lastChange < $cache->tm) {
                     $this->loggerInstance->debug(4, "Installer cached:$cache->download_path\n");
                     $returnValue = ['cache' => $cache->download_path, 'mime' => $cache->mime];
