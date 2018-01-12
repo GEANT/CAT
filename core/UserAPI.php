@@ -323,7 +323,7 @@ class UserAPI extends CAT {
      * When called for DiscoJuice, first check if file cache exists
      * If not then generate the file and save it in the cache
      * @param int $identifier IdP of Federation identifier
-     * @param string either 'idp' or 'federation' is allowed 
+     * @param string $type either 'idp' or 'federation' is allowed 
      * @param int $width maximum width of the generated image - if 0 then it is treated as no upper bound
      * @param int $height  maximum height of the generated image - if 0 then it is treated as no upper bound
      * @return array|null array with image information or NULL if there is no logo

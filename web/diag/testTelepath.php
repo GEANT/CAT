@@ -14,11 +14,15 @@ $therealm = filter_input(INPUT_GET, 'realm', FILTER_SANITIZE_STRING);
 $thevisited = filter_input(INPUT_GET, 'visited', FILTER_SANITIZE_STRING);
 
 if ($therealm !== FALSE && $thevisited !== FALSE) {
-    $telepath = new \core\diag\Telepath($_GET['realm'], $_GET['visited']);
+    $validatedRealm = $validator->realm($therealm);
+    if ($validatedRealm === FALSE) {
+        throw new Exception("That realm looked suspicious.");
+    }
+    $telepath = new \core\diag\Telepath($validatedRealm, $_GET['visited']);
     $validator = new \web\lib\common\InputValidation();
-
+    
     echo "<pre>";
-    echo "Testing " . $validator->realm($therealm) . " in " . $validator->string($thevisited);
+    echo "Testing " . $validatedRealm . " in " . $validator->string($thevisited);
     print_r($telepath->magic());
     echo "</pre>";
 }

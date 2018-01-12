@@ -204,7 +204,7 @@ class PageDecoration {
 
         $host = $this->validator->hostname($_SERVER['SERVER_NAME']);
         if ($host === FALSE) {
-            throw new Exception("We don't know our own hostname!");
+            throw new \Exception("We don't know our own hostname!");
         }
         $cssUrl = "//$host" . substr($_SERVER['PHP_SELF'], 0, $cutoffPosition )."/resources/css/cat.css.php";
         

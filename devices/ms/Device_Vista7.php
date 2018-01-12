@@ -388,14 +388,10 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
         if (!is_dir('vista')) {
             mkdir('vista');
         }
-        $vistaFileName = "vista/lan_prof.xml";
-        $vistaFileHandle = fopen($vistaFileName, 'w');
-        fwrite($vistaFileHandle, $profileFileCont . $eapConfig['vista'] . $closing);
-        fclose($vistaFileHandle);
-        $sevenFileName = "w7/lan_prof.xml";
-        $sevenFileHandle = fopen($sevenFileName, 'w');
-        fwrite($sevenFileHandle, $profileFileCont . $eapConfig['w7'] . $closing);
-        fclose($sevenFileHandle);
+        
+        file_put_contents("vista/lan_prof.xml", $profileFileCont . $eapConfig['vista'] . $closing);
+        file_put_contents("w7/lan_prof.xml", $profileFileCont . $eapConfig['w7'] . $closing);
+        
     }
 
     private function writeMainNSH($eap, $attr) {
