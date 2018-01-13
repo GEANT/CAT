@@ -431,9 +431,7 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
         $fcontents .= '!define ' . $eapStr;
         $fcontents .= "\n" . '!define EXECLEVEL "' . $execLevel . '"';
         $fcontents .= $this->writeNsisDefines($attr);
-        $fileHandle = fopen('main.nsh', 'w');
-        fwrite($fileHandle, $fcontents);
-        fclose($fileHandle);
+        file_put_contents('main.nsh', $fcontents);
     }
 
     private function writeProfilesNSH($wlanProfiles, $caArray) {
