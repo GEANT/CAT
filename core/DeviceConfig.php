@@ -412,7 +412,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      *
      * Certificate files will be saved in the module working directory.
      * @param string $format  only "der" and "pem" are currently allowed
-     * @return array an array of arrays or FALSE on error
+     * @return array an array of arrays or empty array on error
      * saved certificate file names are avalable under the 'file' index
      * additional array entries are indexed as 'sha1', 'md5', and 'root'.
      * sha1 and md5 are correcponding certificate hashes
@@ -426,7 +426,7 @@ abstract class DeviceConfig extends \core\common\Entity {
                 $caFiles = [];
                 $caArray = $this->attributes['internal:CAs'][0];
                 if (!$caArray) {
-                    return(FALSE);
+                    return([]);
                 }
                 foreach ($caArray as $certAuthority) {
                     $fileHandle = fopen("cert-$iterator.crt", "w");
@@ -450,7 +450,7 @@ abstract class DeviceConfig extends \core\common\Entity {
                 return($caFiles);
             default:
                 $this->loggerInstance->debug(2, 'incorrect format value specified');
-                return(FALSE);
+                return([]);
         }
     }
 

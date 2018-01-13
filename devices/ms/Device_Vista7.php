@@ -451,13 +451,11 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
         if ($fileHandleCerts === FALSE) {
             throw new Exception("Unable to open new file certs.nsh to write CAs!");
         }
-        if ($caArray) {
-            foreach ($caArray as $certAuthority) {
-                $store = $certAuthority['root'] ? "root" : "ca";
-                $contentCerts .= '!insertmacro install_ca_cert "' . $certAuthority['file'] . '" "' . $certAuthority['sha1'] . '" "' . $store . "\"\n";
-            }
-            fwrite($fileHandleCerts, $contentCerts);
+        foreach ($caArray as $certAuthority) {
+            $store = $certAuthority['root'] ? "root" : "ca";
+            $contentCerts .= '!insertmacro install_ca_cert "' . $certAuthority['file'] . '" "' . $certAuthority['sha1'] . '" "' . $store . "\"\n";
         }
+        fwrite($fileHandleCerts, $contentCerts);
         fclose($fileHandleCerts);
     }
 

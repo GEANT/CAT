@@ -89,7 +89,7 @@ class Device_TestModule extends \core\DeviceConfig {
         $this->loggerInstance->debug(4, "Test Module Installer start\n");
         // create certificate files and save their names in $cAfiles arrary
         $cAfiles = $this->saveCertificateFiles('der');
-        if ($cAfiles === FALSE) {
+        if ($cAfiles === []) {
             $this->loggerInstance->debug(2, "copying of certificates failed\n");
         }
 

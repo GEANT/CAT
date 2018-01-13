@@ -474,13 +474,11 @@ use \Exception;
         if ($fileHandleCerts === FALSE) {
             throw new Exception("Unable to open new certs.nsh file for writing CAs.");
         }
-        if ($caArray) {
-            foreach ($caArray as $certAuthority) {
-                $store = $certAuthority['root'] ? "root" : "ca";
-                $fcontentsCerts .= '!insertmacro install_ca_cert "' . $certAuthority['file'] . '" "' . $certAuthority['sha1'] . '" "' . $store . "\"\n";
-            }
-            fwrite($fileHandleCerts, $fcontentsCerts);
+        foreach ($caArray as $certAuthority) {
+            $store = $certAuthority['root'] ? "root" : "ca";
+            $fcontentsCerts .= '!insertmacro install_ca_cert "' . $certAuthority['file'] . '" "' . $certAuthority['sha1'] . '" "' . $store . "\"\n";
         }
+        fwrite($fileHandleCerts, $fcontentsCerts);
         fclose($fileHandleCerts);
     }
 
