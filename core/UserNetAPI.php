@@ -234,7 +234,7 @@ class UserNetAPI extends UserAPI {
     /**
      * outputs a logo
      * 
-     * @param int $identifier
+     * @param int|string $identifier
      * @param string $type "federation" or "idp"
      * @param int $width
      * @param int $height

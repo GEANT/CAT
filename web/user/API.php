@@ -101,6 +101,9 @@ switch ($action) {
         $API->JSON_listProfiles($idp, $sort);
         break;
     case 'listDevices':
+        if ($profile === FALSE) {
+            exit;
+        }
         $API->JSON_listDevices($profile);
         break;
     case 'generateInstaller': // needs $device and $profile set
@@ -165,4 +168,4 @@ switch ($action) {
         break;
 }
 
-$loggerInstance->debug(4, "UserAPI action: " . $action . ':' . $lang . ':' . $profile . ':' . $device . "\n");
+$loggerInstance->debug(4, "UserAPI action: " . $action . ':' . $lang !== FALSE ? $lang : '' . ':' . $profile . ':' . $device . "\n");
