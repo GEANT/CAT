@@ -24,6 +24,8 @@
 
 namespace core;
 
+require_once(dirname(__DIR__) . "/config/_config.php");
+
 if (session_status() != PHP_SESSION_ACTIVE) {
     session_start();
 }
