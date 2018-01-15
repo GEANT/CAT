@@ -69,7 +69,7 @@ class InputValidation {
      * @return \core\IdP
      * @throws Exception
      */
-    public function IdP(int $input, $owner = NULL) {
+    public function IdP($input, $owner = NULL) {
         if (!is_numeric($input)) {
             throw new Exception($this->inputValidationError("Value for IdP is not an integer!"));
         }
