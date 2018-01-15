@@ -64,13 +64,12 @@ abstract class Device_XML extends \core\DeviceConfig {
 //ID attribute
 //lang attribute
         $methodList = [];
-        $this->loggerInstance->debug(4, "ALLEAP\n");
-        $this->loggerInstance->debug(4, $attr['all_eaps']);
         if ($this->allEaps) {
             $eapmethods = [];
             foreach ($attr['all_eaps'] as $eap) {
-                if (in_array($eap, $this->supportedEapMethods)) {
-                    $eapmethods[] = $eap;
+                $eapRep = $eap->getArrayRep();
+                if (in_array($eapRep, $this->supportedEapMethods)) {
+                    $eapmethods[] = $eapRep;
                 }
             }
         } else {
