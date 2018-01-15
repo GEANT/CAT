@@ -67,10 +67,19 @@ class XMLElement {
         return $this->attributes;
     }
 
+    /**
+     * 
+     * @param string $value
+     * @return void
+     */
     public function setValue($value) {
         $this->value = $value;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getValue() {
         return $this->value;
     }
@@ -352,21 +361,19 @@ function marshalObject($node, $object) {
         $val = '';
     }
     if ($val) {
-        if (getType($val) == 'string') {
-            $val = preg_replace('/&/', '&amp;', $val);
-        }
-        $node = $node->addChild($name, $val);
+        $val = preg_replace('/&/', '&amp;', $val);
+        $childNode = $node->addChild($name, $val);
     } else {
-        $node = $node->addChild($name);
+        $childNode = $node->addChild($name);
     }
     if ($object->areAttributes()) {
         $attrs = $object->getAttributes();
         foreach ($attrs as $attrt => $attrv) {
-            $node->addAttribute($attrt, $attrv);
+            $childNode->addAttribute($attrt, $attrv);
         }
     }
     if ($simplexmlelement !== NULL) {
-        SimpleXMLElement_append($node, $simplexmlelement);
+        SimpleXMLElement_append($childNode, $simplexmlelement);
         return;
     }
     $fields = $object->getAll();
@@ -376,17 +383,17 @@ function marshalObject($node, $object) {
 
     foreach ($fields as $name => $value) {
         if (getType($value) == 'string' || getType($value) == 'integer' || getType($value) == 'double') {
-            $node->addChild($name, $value);
+            $childNode->addChild($name, strval($value));
         } else {
             if (getType($value) == 'array') {
                 foreach ($value as $insideValue) {
                     if (is_object($insideValue)) {
-                        marshalObject($node, $insideValue);
+                        marshalObject($childNode, $insideValue);
                     }
                 }
             } else {
                 if (getType($value) == 'object') {
-                    marshalObject($node, $value);
+                    marshalObject($childNode, $value);
                 }
             }
         }
