@@ -32,7 +32,7 @@ class InputValidation {
     /**
      * Is this a known Federation? Optionally, also check if the authenticated
      * user is a federation admin of that federation
-     * @param string $input the ISO code of the federation
+     * @param mixed $input the ISO code of the federation
      * @param string|NULL $owner the authenticated username, optional
      * @return \core\Federation
      * @throws Exception
@@ -64,7 +64,7 @@ class InputValidation {
     /**
      * Is this a known IdP? Optionally, also check if the authenticated
      * user is an admin of that IdP
-     * @param int $input the numeric ID of the IdP in the system
+     * @param mixed $input the numeric ID of the IdP in the system
      * @param string $owner the authenticated username, optional
      * @return \core\IdP
      * @throws Exception
@@ -92,7 +92,7 @@ class InputValidation {
      * IdP identifier and then checks if the Profile belongs to the refernced 
      * IdP
      * 
-     * @param int $input the numeric ID of the Profile in the system
+     * @param mixed $input the numeric ID of the Profile in the system
      * @param int|NULL $idpIdentifier the numeric ID of the IdP in the system, optional
      * @return \core\AbstractProfile
      * @throws Exception
@@ -112,7 +112,7 @@ class InputValidation {
 
     /**
      * Checks if this is a device known to the system
-     * @param string $input the name of the device (index in the Devices.php array)
+     * @param mixed $input the name of the device (index in the Devices.php array)
      * @return string returns the same string on success, throws an Exception on failure
      * @throws Exception
      */
@@ -129,7 +129,7 @@ class InputValidation {
     /**
      * Checks if the input was a valid string.
      * 
-     * @param string $input a string to be made SQL-safe
+     * @param mixed $input a string to be made SQL-safe
      * @param boolean $allowWhitespace whether some whitespace (e.g. newlines should be preserved (true) or redacted (false)
      * @return string the massaged string
      */
@@ -162,7 +162,7 @@ class InputValidation {
 /**
  * Is this an integer, or a string that represents an integer?
  * 
- * @param string|int $input
+ * @param mixed $input
  * @return false|string|int returns the input, or FALSE if it is not an integer-like value
  */
 public function integer($input) {
@@ -176,7 +176,7 @@ public function integer($input) {
  * Checks if the input is the hex representation of a Consortium OI (i.e. three
  * or five bytes)
  * 
- * @param string $input
+ * @param mixed $input
  * @return false|string returns the input, or FALSE on validation failure
  */
 public function consortiumOI($input) {
@@ -193,7 +193,7 @@ public function consortiumOI($input) {
 /**
  * Is the input an NAI realm? Throws HTML error and returns FALSE if not.
  * 
- * @param string $input the input to check
+ * @param mixed $input the input to check
  * @return false|string returns the realm, or FALSE if it was malformed
  */
 public function realm($input) {
@@ -237,7 +237,7 @@ public function realm($input) {
  * 
  * Only checks correct form, not if the user actually exists in the system.
  * 
- * @param string $input
+ * @param mixed $input
  * @return string echoes back the input string, or throws an Exception if bogus
  * @throws Exception
  */
@@ -260,7 +260,7 @@ public function User($input) {
  * could this be a valid token? 
  * 
  * Only checks correct form, not if the token actually exists in the system.
- * @param string $input
+ * @param mixed $input
  * @return string echoes back the input string, or throws an Exception if bogus
  * @throws Exception
  */
@@ -275,7 +275,7 @@ public function token($input) {
 /**
  * Is this be a valid coordinate vector on one axis?
  * 
- * @param string $input a numeric value in range of a geo coordinate [-180;180]
+ * @param mixed $input a numeric value in range of a geo coordinate [-180;180]
  * @return string returns back the input if all is good; throws an Exception if out of bounds or not numeric
  * @throws Exception
  */
@@ -296,7 +296,7 @@ public function coordinate($input) {
 /**
  * Is this a valid coordinate pair in JSON encoded representation?
  * 
- * @param string $input the string to be checked: is this a serialised array with lat/lon keys in a valid number range?
+ * @param mixed $input the string to be checked: is this a serialised array with lat/lon keys in a valid number range?
  * @return string returns $input if checks have passed; throws an Exception if something's wrong
  * @throws Exception
  */
@@ -316,7 +316,7 @@ public function coordJsonEncoded($input) {
  * If not checked, no value is submitted at all; if checked, has the word "on". 
  * Anything else is a big error.
  * 
- * @param string $input the string to test
+ * @param mixed $input the string to test
  * @return bool TRUE if the input was "on". It is not possible in HTML to signal "off"
  * @throws Exception
  */
@@ -337,7 +337,7 @@ const TABLEMAPPING = [
  * Is this a valid database reference? Has the form <tablename>-<rowID> and there
  * needs to be actual data at that place
  * 
- * @param string $input the reference to check
+ * @param mixed $input the reference to check
  * @return false|array the reference split up into "table" and "rowindex", or FALSE
  */
 public function databaseReference($input) {
@@ -351,7 +351,7 @@ public function databaseReference($input) {
 /**
  * is this a valid hostname?
  * 
- * @param string $input
+ * @param mixed $input
  * @return false|string echoes the hostname, or FALSE if bogus
  */
 public function hostname($input) {
@@ -367,7 +367,7 @@ public function hostname($input) {
 /**
  * is this a valid email address?
  * 
- * @param string $input
+ * @param mixed $input
  * @return false|string echoes the mail address, or FALSE if bogus
  */
 public function email($input) {
@@ -382,7 +382,7 @@ public function email($input) {
 /**
  * Is this is a language we support? If not, sanitise to our configured default language.
  * 
- * @param string $input the candidate language identifier
+ * @param mixed $input the candidate language identifier
  * @return string
  */
 public function supportedLanguage($input) {
@@ -402,7 +402,7 @@ public function supportedLanguage($input) {
  * Makes sure we are not receiving a bogus option name. The called function throws
  * an assertion if the name is not known.
  * 
- * @param string $input
+ * @param mixed $input
  * @return string
  */
 public function optionName($input) {
@@ -410,6 +410,12 @@ public function optionName($input) {
     return $object->assertValidOptionName($input);
 }
 
+/**
+ * Checks to see if the input is a valid image of sorts
+ * 
+ * @param mixed $binary blob that may or may not be a parseable image
+ * @return boolean
+ */
 public function image($binary) {
     $image = new \Imagick();
     try {
