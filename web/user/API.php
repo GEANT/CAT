@@ -168,4 +168,4 @@ switch ($action) {
         break;
 }
 
-$loggerInstance->debug(4, "UserAPI action: " . $action . ':' . $lang !== FALSE ? $lang : '' . ':' . $profile . ':' . $device . "\n");
+// $loggerInstance->debug(4, "UserAPI action: " . $action . ':' . $lang !== FALSE ? $lang : '' . ':' . $profile . ':' . $device . "\n");
