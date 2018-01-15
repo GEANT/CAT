@@ -157,7 +157,7 @@ switch ($sanitised_action) {
                         break;
                 }
             }
-            if ($therealm != "") {
+            if ($therealm != "" && $therealm !== FALSE) {
                 $newprofile->setRealm($theanonid . "@" . $therealm);
                 if ($useAnon) {
                     $newprofile->setAnonymousIDSupport(true);
