@@ -73,7 +73,9 @@ class XMLElement {
      * @return void
      */
     public function setValue($value) {
-        $this->value = $value;
+        if (gettype($value) === "string") {
+            $this->value = $value;
+        }
     }
 
     /**
@@ -382,17 +384,17 @@ function marshalObject($node, $object) {
     }
 
     foreach ($fields as $name => $value) {
-        if (getType($value) == 'string' || getType($value) == 'integer' || getType($value) == 'double') {
+        if (gettype($value) == 'string' || gettype($value) == 'integer' || gettype($value) == 'double') {
             $childNode->addChild($name, strval($value));
         } else {
-            if (getType($value) == 'array') {
+            if (gettype($value) == 'array') {
                 foreach ($value as $insideValue) {
                     if (is_object($insideValue)) {
                         marshalObject($childNode, $insideValue);
                     }
                 }
             } else {
-                if (getType($value) == 'object') {
+                if (gettype($value) == 'object') {
                     marshalObject($childNode, $value);
                 }
             }
