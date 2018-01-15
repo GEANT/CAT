@@ -69,7 +69,7 @@ class UserAPI extends CAT {
         $installerProperties['device'] = $device;
         $cache = $this->getCache($device, $profile);
         $this->installerPath = $cache['path'];
-        if ($this->installerPath && $token == NULL && $password == NULL) {
+        if ($this->installerPath !== NULL && $token == NULL && $password == NULL) {
             $this->loggerInstance->debug(4, "Using cached installer for: $device\n");
             $installerProperties['link'] = "API.php?action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=$profileId&device=$device&generatedfor=$generatedFor";
             $installerProperties['mime'] = $cache['mime'];
@@ -110,7 +110,7 @@ class UserAPI extends CAT {
      * combination of Profile and device
      * @param string $device
      * @param AbstractProfile $profile
-     * @return boolean|string the string with the path to the cached copy, or FALSE if no cached copy exists
+     * @return array containing path to the installer and mime type of the file, the path is set to NULL if no cache can be returned
      */
     private function getCache($device, $profile) {
         $deviceList = \devices\Devices::listDevices();
@@ -121,7 +121,7 @@ class UserAPI extends CAT {
         }
         if ($noCache) {
             $this->loggerInstance->debug(5, "getCache: the no_cache option set for this device\n");
-            return(FALSE);
+            return(['path' => NULL, 'mime' => NULL]);
         }
         $this->loggerInstance->debug(5, "getCache: caching option set for this device\n");
         $cache = $profile->testCache($device);
@@ -129,7 +129,7 @@ class UserAPI extends CAT {
         if ($iPath && is_file($iPath)) {
             return(['path' => $iPath, 'mime' => $cache['mime']]);
         }
-        return(FALSE);
+        return(['path' => NULL, 'mime' => NULL]);
     }
 
     /**
