@@ -123,14 +123,13 @@ abstract class Device_XML extends \core\DeviceConfig {
      * @return array of values for this attribute
      */
     private function getSimpleMLAttribute($attrName) {
-        if ((!isset($this->attributes[$attrName][0]) || !$this->attributes[$attrName][0])) {
-            return '';
+        if (empty($this->attributes[$attrName][0])) {
+            return([]);
         }
-
         $attributeList = $this->attributes[$attrName];
         if (!isset($this->AttributeNames[$attrName])) {
             $this->loggerInstance->debug(4, "Missing class definition for $attrName\n");
-            return;
+            return([]);
         }
         $className = "\devices\xml\\" . $this->AttributeNames[$attrName];
         $objs = [];
@@ -147,7 +146,6 @@ abstract class Device_XML extends \core\DeviceConfig {
             $obj->setValue($attributeList[0]);
             $objs[] = $obj;
         }
-
         return($objs);
     }
 
