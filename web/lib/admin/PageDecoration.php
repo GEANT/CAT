@@ -235,7 +235,7 @@ class PageDecoration {
         }
         $host = $this->validator->hostname($_SERVER['SERVER_NAME']);
         if ($host === FALSE) {
-            throw new Exception("We don't know our own hostname!");
+            throw new \Exception("We don't know our own hostname!");
         }
         $logoBase = "//$host" . substr($_SERVER['PHP_SELF'], 0, $cutoffPosition)."/resources/images";
 

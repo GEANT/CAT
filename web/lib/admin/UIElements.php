@@ -271,7 +271,7 @@ class UIElements {
         $validator = new \web\lib\common\InputValidation();
         $reference = $validator->databaseReference($ref);
 
-        if ($reference == FALSE) {
+        if ($reference === FALSE) {
             return FALSE;
         }
 
