@@ -10,15 +10,7 @@
  */
 require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
 
-$workingwith = [
-    \core\diag\AbstractTest::INFRA_DEVICE => 0.65217391304348,
-    \core\diag\AbstractTest::INFRA_SP_80211 => 0.10869565217391,
-    \core\diag\AbstractTest::INFRA_SP_LAN => 0.10869565217391,
-    \core\diag\AbstractTest::INFRA_SP_RADIUS => 0.08695652173913,
-    \core\diag\AbstractTest::INFRA_IDP_AUTHBACKEND => 0.043478260869565,
-];
-
-$sociopath = new \core\diag\Sociopath($workingwith);
+$sociopath = new \core\diag\Sociopath();
 
 // with this input, and no questions asked yet, we should get a question related to INFRA_DEVICE:
 
