@@ -23,12 +23,6 @@ namespace devices\xml;
 class XMLElement {
 
     private $attributes;
-    
-    /**
-     * The value of the element.
-     * 
-     * @var string
-     */
     private $value;
 
     protected function getObjectVars($obj) {
@@ -62,7 +56,7 @@ class XMLElement {
 
     public function __construct() {
         $this->attributes = [];
-        $this->value = [];
+        $this->value = '';
     }
 
     public function setAttributes($attributes) {
