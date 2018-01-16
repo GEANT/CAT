@@ -73,7 +73,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
       <key>PayloadType</key>
          <string>Configuration</string>
       <key>PayloadUUID</key>
-         <string>" . $this->uuid('', self::$iPhonePayloadPrefix . $this->massagedConsortium . $this->massagedCountry . $this->massagedInst . $this->massagedProfile) . "</string>
+         <string>" . \core\common\Entity::uuid('', self::$iPhonePayloadPrefix . $this->massagedConsortium . $this->massagedCountry . $this->massagedInst . $this->massagedProfile) . "</string>
       <key>PayloadVersion</key>
          <integer>1</integer>";
     }
@@ -312,7 +312,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         $retval .= "
                          </array>";
         if ($eapType['INNER'] == \core\common\EAP::NE_SILVERBULLET) {
-            $retval .= "<key>UserName</key><string>" . $this->clientCert["username"] . "</string>";
+            $retval .= "<key>UserName</key><string>" . $this->clientCert["certObject"]->username . "</string>";
         }
         $retval .= "
                       <key>TTLSInnerAuthentication</key>
@@ -387,7 +387,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         }
         $retval .= "
                <key>PayloadUUID</key>
-                  <string>" . $this->uuid() . "</string>
+                  <string>" . \core\common\Entity::uuid() . "</string>
                <key>PayloadVersion</key>
                   <integer>1</integer>
                   $wifiNetworkIdentification</dict>";
@@ -415,7 +415,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
 	<key>PayloadType</key>
 	<string>com.apple.wifi.managed</string>
 	<key>PayloadUUID</key>
-	<string>" . $this->uuid() . "</string>
+	<string>" . \core\common\Entity::uuid() . "</string>
 	<key>PayloadVersion</key>
 	<real>1</real>";
         if (get_class($this) != "Device_mobileconfig_ios_56") {
@@ -466,7 +466,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         $binaryBlob = $this->clientCert["certdata"];
         $mimeBlob = base64_encode($binaryBlob);
         $mimeFormatted = chunk_split($mimeBlob, 52, "\r\n");
-        $payloadUUID = $this->uuid('', $mimeBlob);
+        $payloadUUID = \core\common\Entity::uuid('', $mimeBlob);
         return ["block" => "<dict>" .
             // we don't include the import password. It's displayed on screen, and should be input by the user.
             // <key>Password</key>
@@ -497,7 +497,7 @@ $mimeFormatted
         if (!is_array($this->clientCert)) {
             throw new Exception("the expiry block was called but there is no client certificate!");
         }
-        $expiryTime = $this->clientCert['expiry'];
+        $expiryTime = $this->clientCert['certObject']->expiry;
         return "<key>RemovalDate</key>
         <date>$expiryTime</date>";
     }

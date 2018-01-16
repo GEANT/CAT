@@ -150,4 +150,47 @@ abstract class Entity {
         rmdir($dir);
     }
 
+    /**
+     * generates a UUID, for the devices which identify file contents by UUID
+     *
+     * @param string $prefix an extra prefix to set before the UUID
+     * @return string UUID (possibly prefixed)
+     */
+    public static function uuid($prefix = '', $deterministicSource = NULL) {
+        if ($deterministicSource === NULL) {
+            $chars = md5(uniqid(mt_rand(), true));
+        } else {
+            $chars = md5($deterministicSource);
+        }
+        // these substr() are guaranteed to yield actual string data, as the
+        // base string is an MD5 hash - has sufficient length
+        $uuid = /** @scrutinizer ignore-type */ substr($chars, 0, 8) . '-';
+        $uuid .= /** @scrutinizer ignore-type */ substr($chars, 8, 4) . '-';
+        $uuid .= /** @scrutinizer ignore-type */ substr($chars, 12, 4) . '-';
+        $uuid .= /** @scrutinizer ignore-type */ substr($chars, 16, 4) . '-';
+        $uuid .= /** @scrutinizer ignore-type */ substr($chars, 20, 12);
+        return $prefix . $uuid;
+    }
+    
+        /**
+     * produces a random string
+     * @param int $length the length of the string to produce
+     * @param string $keyspace the pool of characters to use for producing the string
+     * @return string
+     * @throws Exception
+     */
+    public static function randomString(
+    $length, $keyspace = '23456789abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    ) {
+        $str = '';
+        $max = strlen($keyspace) - 1;
+        if ($max < 1) {
+            throw new Exception('$keyspace must be at least two characters long');
+        }
+        for ($i = 0; $i < $length; ++$i) {
+            $str .= $keyspace[random_int(0, $max)];
+        }
+        return $str;
+    }
+
 }

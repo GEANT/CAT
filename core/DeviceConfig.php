@@ -113,28 +113,6 @@ abstract class DeviceConfig extends \core\common\Entity {
     }
 
     /**
-     * generates a UUID, for the devices which identify file contents by UUID
-     *
-     * @param string $prefix an extra prefix to set before the UUID
-     * @return string UUID (possibly prefixed)
-     */
-    public function uuid($prefix = '', $deterministicSource = NULL) {
-        if ($deterministicSource === NULL) {
-            $chars = md5(uniqid(mt_rand(), true));
-        } else {
-            $chars = md5($deterministicSource);
-        }
-        // these substr() are guaranteed to yield actual string data, as the
-        // base string is an MD5 hash - has sufficient length
-        $uuid = /** @scrutinizer ignore-type */ substr($chars, 0, 8) . '-';
-        $uuid .= /** @scrutinizer ignore-type */ substr($chars, 8, 4) . '-';
-        $uuid .= /** @scrutinizer ignore-type */ substr($chars, 12, 4) . '-';
-        $uuid .= /** @scrutinizer ignore-type */ substr($chars, 16, 4) . '-';
-        $uuid .= /** @scrutinizer ignore-type */ substr($chars, 20, 12);
-        return $prefix . $uuid;
-    }
-
-    /**
      * Set up working environment for a device module
      *
      * Sets up the device module environment taking into account the actual profile
@@ -166,7 +144,7 @@ abstract class DeviceConfig extends \core\common\Entity {
             throw new Exception("No EAP type available.");
         }
         $this->attributes = $this->getProfileAttributes($profile);
-        $this->deviceUUID = $this->uuid('', 'CAT' . $profile->institution . "-" . $profile->identifier . "-" . $this->device_id);
+        $this->deviceUUID = common\Entity::uuid('', 'CAT' . $profile->institution . "-" . $profile->identifier . "-" . $this->device_id);
 
 
         // if we are instantiating a Silverbullet profile AND have been given
@@ -177,16 +155,14 @@ abstract class DeviceConfig extends \core\common\Entity {
 
         $this->loggerInstance->debug(5, "DeviceConfig->setup() - preliminaries done.\n");
         if ($profile instanceof ProfileSilverbullet && $token !== NULL && $importPassword !== NULL) {
-            $this->clientCert = $profile->issueCertificate($token, $importPassword);
-            // add a UUID identifier for the devices that want one
-            $this->clientCert['GUID'] = $this->uuid("", $this->clientCert['certdata']);
+            $this->clientCert = SilverbulletCertificate::issueCertificate($token, $importPassword);
             // we need to drag this along; ChromeOS needs it outside the P12 container to encrypt the entire *config* with it.
             // Because encrypted private keys are not supported as per spec!
             $purpose = 'silverbullet';
             // let's keep a record for which device type this token was consumed
             $dbInstance = DBConnection::handle("INST");
             $devicename = \devices\Devices::listDevices()[$this->device_id]['display'];
-            $certId = $this->clientCert['certificateId'];
+            $certId = $this->clientCert['certObject']->dbId;
             $dbInstance->exec("UPDATE `silverbullet_certificate` SET `device` = ? WHERE `id` = ?", "si", $devicename, $certId);    
         }
         $this->loggerInstance->debug(5, "DeviceConfig->setup() - silverbullet checks done.\n");
@@ -202,7 +178,7 @@ abstract class DeviceConfig extends \core\common\Entity {
                 $processedCert = $x509->processCertificate($ca);
                 if (is_array($processedCert)) {
                     // add a UUID for convenience (some devices refer to their CAs by a UUID value)
-                    $processedCert['uuid'] = $this->uuid("", $processedCert['pem']);
+                    $processedCert['uuid'] = common\Entity::uuid("", $processedCert['pem']);
                     $caList[] = $processedCert;
                 }
             }

@@ -88,7 +88,7 @@ class Device_Chromebook extends \core\DeviceConfig {
     }
 
     private function encryptConfig($clearJson, $password) {
-        $salt = \core\ProfileSilverbullet::randomString(12);
+        $salt = \core\common\Entity::randomString(12);
         $encryptionKey = hash_pbkdf2("sha1", $password, $salt, Device_Chromebook::PBKDF2_ITERATIONS, 32, TRUE); // the spec is not clear about the algo. Source code in Chromium makes clear it's SHA1.
         $strong = FALSE; // should become TRUE if strong crypto is available like it should.
         $initVector = openssl_random_pseudo_bytes(16, $strong);
@@ -117,7 +117,7 @@ class Device_Chromebook extends \core\DeviceConfig {
 
     private function wifiBlock($ssid, $eapdetails) {
         return [
-                "GUID" => $this->uuid('', $ssid),
+                "GUID" => \core\common\Entity::uuid('', $ssid),
                 "Name" => "$ssid",
                 "Remove" => false,
                 "Type" => "WiFi",
@@ -134,7 +134,7 @@ class Device_Chromebook extends \core\DeviceConfig {
     
     private function wiredBlock($eapdetails) {
         return [
-                "GUID" => $this->uuid('', "wired-dot1x-ethernet") . "}",
+                "GUID" => \core\common\Entity::uuid('', "wired-dot1x-ethernet") . "}",
                 "Name" => "eduroam configuration (wired network)",
                 "Remove" => false,
                 "Type" => "Ethernet",
@@ -182,7 +182,7 @@ class Device_Chromebook extends \core\DeviceConfig {
             $eaparray["AnonymousIdentity"] = $outerId;
         }
         if ($selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
-            $eaparray["Identity"] = $this->clientCert["username"];
+            $eaparray["Identity"] = $this->clientCert["certObject"]->username;
         }
         return $eaparray;
     }

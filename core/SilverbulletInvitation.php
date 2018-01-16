@@ -91,7 +91,7 @@ class SilverbulletInvitation extends common\Entity {
      * @var DBConnection
      */
     private $databaseHandle;
-    
+
     const SB_TOKENSTATUS_VALID = 0;
     const SB_TOKENSTATUS_PARTIALLY_REDEEMED = 1;
     const SB_TOKENSTATUS_REDEEMED = 2;
@@ -108,54 +108,56 @@ class SilverbulletInvitation extends common\Entity {
          */
         $invColumnNames = "`id`, `profile_id`, `silverbullet_user_id`, `token`, `quantity`, `expiry`";
         $invitationsResult = $this->databaseHandle->exec("SELECT $invColumnNames FROM `silverbullet_invitation` WHERE `token`=? ORDER BY `expiry` DESC", "s", $this->invitationTokenString);
+        $this->associatedCertificates = [];
         if ($invitationsResult->num_rows == 0) {
             $this->loggerInstance->debug(2, "Token $this->invitationTokenString not found in database or database query error!\n");
             $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_INVALID;
-            $this->associatedCertificates = [];
             $this->identifier = 0;
             $this->profile = 0;
             $this->userId = 0;
             $this->expiry = "2000-01-01 00:00:00";
             $this->activationsTotal = 0;
             $this->activationsRemaining = 0;
-        } else {
-            // if not returned, we found the token in the DB
-            // -> instantiate the class
-            // SELECT -> resource, no boolean
-            $invitationRow = mysqli_fetch_object(/** @scrutinizer ignore-type */ $invitationsResult);
-            $this->identifier = $invitationRow->id;
-            $this->profile = $invitationRow->profile_id;
-            $this->userId = $invitationRow->silverbullet_user_id;
-            $this->expiry = $invitationRow->expiry;
-            $this->activationsTotal = $invitationRow->quantity;
-            $certColumnNames = "`id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn`, `issued`, `expiry`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp`";
-            $certificatesResult = $this->databaseHandle->exec("SELECT $certColumnNames FROM `silverbullet_certificate` WHERE `silverbullet_invitation_id` = ? ORDER BY `revocation_status`, `expiry` DESC", "i", $this->identifier);
-            $certificatesNumber = ($certificatesResult ? $certificatesResult->num_rows : 0);
-            $this->loggerInstance->debug(5, "At token validation level, " . $certificatesNumber . " certificates exist.\n");
-            $this->associatedCertificates = \core\ProfileSilverbullet::enumerateCertDetails(/** @scrutinizer ignore-type */ $certificatesResult);
-            $this->activationsRemaining = (int)$this->activationsTotal - (int)$certificatesNumber;
-            switch ($certificatesNumber) {
-                case 0:
-                    // find out if it has expired
-                    $now = new \DateTime();
-                    $expiryObject = new \DateTime($this->expiry);
-                    $delta = $now->diff($expiryObject);
-                    if ($delta->invert == 1) {
-                        $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_EXPIRED;
-                        $this->activationsRemaining = 0;
-                        break;
-                    }
-                    $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_VALID;
-                    break;
-                case $invitationRow->quantity:
-                    $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_REDEEMED;
-                    break;
-                default:
-                    assert($certificatesNumber > 0); // no negatives allowed
-                    assert($certificatesNumber < $invitationRow->quantity || $invitationRow->quantity == 0); // not more than max quantity allowed (unless quantity is zero)
-                    $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_PARTIALLY_REDEEMED;
-            }
+            return;
         }
+        // if not returned, we found the token in the DB
+        // -> instantiate the class
+        // SELECT -> resource, no boolean
+        $invitationRow = mysqli_fetch_object(/** @scrutinizer ignore-type */ $invitationsResult);
+        $this->identifier = $invitationRow->id;
+        $this->profile = $invitationRow->profile_id;
+        $this->userId = $invitationRow->silverbullet_user_id;
+        $this->expiry = $invitationRow->expiry;
+        $this->activationsTotal = $invitationRow->quantity;
+        $certificatesResult = $this->databaseHandle->exec("SELECT `serial_number` FROM `silverbullet_certificate` WHERE `silverbullet_invitation_id` = ? ORDER BY `revocation_status`, `expiry` DESC", "i", $this->identifier);
+        $certificatesNumber = ($certificatesResult ? $certificatesResult->num_rows : 0);
+        $this->loggerInstance->debug(5, "At token validation level, " . $certificatesNumber . " certificates exist.\n");
+        while ($runner = mysqli_fetch_object($certificatesResult)) {
+            $this->associatedCertificates[] = new \core\SilverbulletCertificate($runner->serial_number);
+        }
+        $this->activationsRemaining = (int) $this->activationsTotal - (int) $certificatesNumber;
+        switch ($certificatesNumber) {
+            case 0:
+                // find out if it has expired
+                $now = new \DateTime();
+                $expiryObject = new \DateTime($this->expiry);
+                $delta = $now->diff($expiryObject);
+                if ($delta->invert == 1) {
+                    $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_EXPIRED;
+                    $this->activationsRemaining = 0;
+                    break;
+                }
+                $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_VALID;
+                break;
+            case $invitationRow->quantity:
+                $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_REDEEMED;
+                break;
+            default:
+                assert($certificatesNumber > 0); // no negatives allowed
+                assert($certificatesNumber < $invitationRow->quantity || $invitationRow->quantity == 0); // not more than max quantity allowed (unless quantity is zero)
+                $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_PARTIALLY_REDEEMED;
+        }
+
         $this->loggerInstance->debug(5, "Done creating invitation token state from DB.\n");
     }
 

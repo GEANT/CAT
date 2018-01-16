@@ -21,7 +21,8 @@ $allSerials = $dbLink->exec("SELECT serial_number FROM silverbullet_certificate 
 // SELECT query -> always returns a mysql_result, not boolean
 while ($serialRow = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allSerials)) {
 #    echo "Updating OCSP statement for serial number $serialRow->serial_number\n";
-    core\ProfileSilverbullet::triggerNewOCSPStatement($serialRow->serial_number);
+    $certObject = new \core\SilverbulletCertificate($serialRow->serial_number);
+    $certObject->triggerNewOCSPStatement();
 }
 
  /* 

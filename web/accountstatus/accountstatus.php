@@ -40,9 +40,9 @@ if (isset($_REQUEST['token'])) {
     // maybe the user authenticated with his client cert? Then pick any of his
     // tokens to go on
     $certname = $_SERVER['SSL_CLIENT_SAN_Email'] ?? $_SERVER['SSL_CLIENT_SAN_Email_0'];
-    $userInfo = \core\ProfileSilverbullet::findUserIdFromCert($certname);
-    $profile = new \core\ProfileSilverbullet($userInfo['profile']);
-    $allTokens = $profile->userStatus($userInfo['user']);
+    $certObject = new \core\SilverbulletCertificate($certname);
+    $profile = new \core\ProfileSilverbullet($certObject->profileId);
+    $allTokens = $profile->userStatus($certObject->userId);
     $invitationObject = $allTokens[0];
     $cleanToken = $invitationObject->invitationTokenString;
 }

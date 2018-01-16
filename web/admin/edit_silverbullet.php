@@ -153,7 +153,8 @@ if (isset($_POST['command'])) {
         case \web\lib\common\FormElements::BUTTON_REVOKECREDENTIAL:
             if (isset($_POST['certSerial'])) {
                 $certSerial = $validator->integer(filter_input(INPUT_POST, 'certSerial', FILTER_SANITIZE_STRING));
-                $profile->revokeCertificate($certSerial);
+                $certObject = new \core\SilverbulletCertificate($certSerial);
+                $certObject->revokeCertificate();
                 sleep(1); // make sure the expiry timestamps of invitations and certs are at least one second in the past
             }
             break;
@@ -374,13 +375,13 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
                             <!-- list of certificates for the user-->
                             <?php
                             foreach ($allCerts as $oneCert) {
-                                switch ($oneCert['status']) {
-                                    case core\ProfileSilverbullet::SB_CERTSTATUS_REVOKED:
+                                switch ($oneCert->status) {
+                                    case core\SilverbulletCertificate::CERTSTATUS_REVOKED:
                                         $style = "style:'background-color:#F0C0C0;' ";
                                         $buttonStyle = "style:'height:22px; margin-top:7px; text-align:center;'";
                                         $buttonText = _("REVOKED");
                                         break;
-                                    case core\ProfileSilverbullet::SB_CERTSTATUS_EXPIRED:
+                                    case core\SilverbulletCertificate::CERTSTATUS_EXPIRED:
                                         $style = "style:'background-color:lightgrey;'";
                                         $buttonStyle = "style:'height:22px; margin-top:7px; text-align:center;'";
                                         $buttonText = _("EXPIRED");
@@ -394,17 +395,17 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
                                 ?>
 
                                 <div class="sb-certificate-summary ca-summary">
-                                    <div class="sb-certificate-details" <?php echo $style; ?> ><?php echo _("Device:") . " " . $oneCert['device']; ?>
-                                        <br><?php echo _("Serial Number:") . "&nbsp;" . dechex($oneCert['serial']); ?>
-                                        <br><?php echo _("CN:") . "&nbsp;" . explode('@', $oneCert['name'])[0] . "@…"; ?>
-                                        <br><?php echo _("Expiry:") . "&nbsp;" . $oneCert['expiry']; ?>
-                                        <br><?php echo _("Issued:") . "&nbsp;" . $oneCert['issued']; ?>
+                                    <div class="sb-certificate-details" <?php echo $style; ?> ><?php echo _("Device:") . " " . $oneCert->device; ?>
+                                        <br><?php echo _("Serial Number:") . "&nbsp;" . dechex($oneCert->serial); ?>
+                                        <br><?php echo _("CN:") . "&nbsp;" . explode('@', $oneCert->username)[0] . "@…"; ?>
+                                        <br><?php echo _("Expiry:") . "&nbsp;" . $oneCert->expiry; ?>
+                                        <br><?php echo _("Issued:") . "&nbsp;" . $oneCert->issued; ?>
                                     </div>
                                     <div style="text-align:right;padding-top: 5px; <?php echo $buttonStyle; ?>">
                                         <?php
                                         if ($buttonText == "") {
                                             echo "$formtext"
-                                            . "<input type='hidden' name='certSerial' value='" . $oneCert['serial'] . "'/>"
+                                            . "<input type='hidden' name='certSerial' value='" . $oneCert->serial . "'/>"
                                             . "<button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_REVOKECREDENTIAL . "' class='delete'>" . _("Revoke") . "</button>"
                                             . "</form>";
                                         } else {

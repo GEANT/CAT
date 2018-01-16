@@ -58,20 +58,7 @@ class MockProfileSilverbullet extends \core\ProfileSilverbullet{
     public function generateCertificate($serial, $cn){
         $this->generatedCertificates[$serial] = $cn;
     }
-    
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \core\ProfileSilverbullet::revokeCertificate()
-     */
-    public function revokeCertificate($serial){
-        if(isset($this->generatedCertificates[$serial])){
-            unset($this->generatedCertificates[$serial]);
-            $nowSql = (new \DateTime())->format("Y-m-d H:i:s");
-            $this->databaseHandle->exec("UPDATE silverbullet_certificate SET revocation_status = 'REVOKED', revocation_time = ? WHERE serial_number = ?", "si", $nowSql, $serial);
-        }
-    }
-    
+        
     /**
      * 
      * @param string $serial

@@ -66,9 +66,9 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                                 echo _("You are a new user without a history of eduroam credentials.");
                             } else {
                                 $stats = array_count_values(array_column($allcerts, 'status'));
-                                $numValid = $stats[\core\ProfileSilverbullet::SB_CERTSTATUS_VALID] ?? 0;
-                                $numExpired = $stats[\core\ProfileSilverbullet::SB_CERTSTATUS_EXPIRED] ?? 0;
-                                $numRevoked = $stats[\core\ProfileSilverbullet::SB_CERTSTATUS_REVOKED] ?? 0;
+                                $numValid = $stats[\core\SilverbulletCertificate::CERTSTATUS_VALID] ?? 0;
+                                $numExpired = $stats[\core\SilverbulletCertificate::CERTSTATUS_EXPIRED] ?? 0;
+                                $numRevoked = $stats[\core\SilverbulletCertificate::CERTSTATUS_REVOKED] ?? 0;
                                 echo sprintf(ngettext("You have <strong>%d</strong> currently valid %s credential.", "You have <strong>%d</strong> currently valid %s credentials.", $numValid), $numValid, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
                                 $noGoodCerts = $numRevoked + $numExpired;
                                 if ($noGoodCerts > 0) {
@@ -104,7 +104,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                                 echo "<p style='color:red;'>" . _("When the system detects abuse such as sharing login data with others, all access rights for you will be revoked and you may be sanctioned by your local eduroam administrator.") . "</p>";
                                 echo "<p>" . _("During the installation process, you will be asked for the following import PIN. This only happens once during the installation. You do not have to write down this PIN.") . "</p></div>";
 
-                                $importPassword = \core\ProfileSilverbullet::randomString(4, "0123456789");
+                                $importPassword = \core\common\Entity::randomString(4, "0123456789");
                                 $profile = new \core\ProfileSilverbullet($statusInfo['profile']->identifier, NULL);
 
                                 echo "<h2>" . sprintf(_("Import PIN: %s"), $importPassword) . "</h2>";
@@ -195,9 +195,9 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 var allArray = new Array();
                 var statusCount = new Array();
 
-                allArray[<?php echo \core\ProfileSilverbullet::SB_CERTSTATUS_VALID; ?>] = {color: "#000000", categoryText: "<?php escaped_echo(_("Current login tokens")) ?>", rows: validCerts};
-                allArray[<?php echo \core\ProfileSilverbullet::SB_CERTSTATUS_EXPIRED; ?>] = {color: "#999999", categoryText: "<?php escaped_echo(_("Previous login tokens")) ?>", rows: expiredCerts};
-                allArray[<?php echo \core\ProfileSilverbullet::SB_CERTSTATUS_REVOKED; ?>] = {color: "#ff0000", categoryText: "<?php escaped_echo(_("Revoked login tokens")) ?>", rows: revokedCerts};
+                allArray[<?php echo \core\SilverbulletCertificate::CERTSTATUS_VALID; ?>] = {color: "#000000", categoryText: "<?php escaped_echo(_("Current login tokens")) ?>", rows: validCerts};
+                allArray[<?php echo \core\SilverbulletCertificate::CERTSTATUS_EXPIRED; ?>] = {color: "#999999", categoryText: "<?php escaped_echo(_("Previous login tokens")) ?>", rows: expiredCerts};
+                allArray[<?php echo \core\SilverbulletCertificate::CERTSTATUS_REVOKED; ?>] = {color: "#ff0000", categoryText: "<?php escaped_echo(_("Revoked login tokens")) ?>", rows: revokedCerts};
                 var headerLine = "<tr><th><?php escaped_echo(_("Serial Number")); ?></th><th><?php escaped_echo(_("Pseudonym")); ?></th><th><?php escaped_echo(_("Device Type")); ?></th><th><?php escaped_echo(_("Issue Date")); ?></th><th><?php escaped_echo(_("Expiry Date")); ?></th></tr>";
                 $.each(allArray, function (index, value) {
                     if (value !== undefined) {
@@ -219,7 +219,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                     if (value !== undefined && value.rows.length > 2) {
                         $.each(value.rows, function (i, line) {
                             if (i > 1) {
-                                if (index === <?php echo \core\ProfileSilverbullet::SB_CERTSTATUS_VALID; ?>)
+                                if (index === <?php echo \core\SilverbulletCertificate::CERTSTATUS_VALID; ?>)
                                     line = line + '<td class="revoke"><a href="" TITLE="revoke certificate">revoke</a></td></tr>';
                                 else
                                     line = line + '</tr>';
