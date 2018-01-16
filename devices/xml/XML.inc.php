@@ -23,6 +23,12 @@ namespace devices\xml;
 class XMLElement {
 
     private $attributes;
+    
+    /**
+     * The value of the element.
+     * 
+     * @var string
+     */
     private $value;
 
     protected function getObjectVars($obj) {
