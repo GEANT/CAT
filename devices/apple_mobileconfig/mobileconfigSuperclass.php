@@ -497,9 +497,9 @@ $mimeFormatted
         if (!is_array($this->clientCert)) {
             throw new Exception("the expiry block was called but there is no client certificate!");
         }
-        $expiryTime = $this->clientCert['certObject']->expiry;
+        $expiryTime = new \DateTime($this->clientCert['certObject']->expiry);
         return "<key>RemovalDate</key>
-        <date>$expiryTime</date>";
+        <date>".$expiryTime->format("Y-m-d")."T".$expiryTime->format("H:i:s")."Z</date>";
     }
 
     private function caBlob($uuid, $pem, $serial) {
