@@ -78,28 +78,30 @@ class SilverbulletCertificate extends EntityWithDBProperties {
             $incoming = $this->databaseHandle->exec("SELECT `id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`, `issued`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp` FROM `silverbullet_certificate` WHERE cn = ?", "s", $identifier);
         }
         // if no result, foreach doesn't get executed and class members stay as they are
-        while ($oneResult = mysqli_fetch_object($incoming)) { // there is only at most one
-            $this->username = $oneResult->cn;
-            $this->expiry = $oneResult->expiry;
-            $this->serial = $oneResult->serial_number;
-            $this->dbId = $oneResult->id;
-            $this->invitationId = $oneResult->silverbullet_invitation_id;
-            $this->userId = $oneResult->silverbullet_user_id;
-            $this->profileId = $oneResult->profile_id;
-            $this->issued = $oneResult->issued;
-            $this->device = $oneResult->device;
-            $this->revocationStatus = $oneResult->revocation_status;
-            $this->revocationTime = $oneResult->revocation_time;
-            $this->ocsp = $oneResult->OCSP;
-            $this->ocspTimestamp = $oneResult->OCSP_timestamp;
-            // is the cert expired?
-            $now = new \DateTime();
-            $cert_expiry = new \DateTime($this->expiry);
-            $delta = $now->diff($cert_expiry);
-            $this->status = ($delta->invert == 1 ? SilverbulletCertificate::CERTSTATUS_EXPIRED : SilverbulletCertificate::CERTSTATUS_VALID);
-            // expired is expired; even if it was previously revoked. But do update status for revoked ones...
-            if ($this->status == SilverbulletCertificate::CERTSTATUS_VALID && $this->revocationStatus == "REVOKED") {
-                $this->status = SilverbulletCertificate::CERTSTATUS_REVOKED;
+        if ($incoming !== FALSE) {
+            while ($oneResult = mysqli_fetch_object($incoming)) { // there is only at most one
+                $this->username = $oneResult->cn;
+                $this->expiry = $oneResult->expiry;
+                $this->serial = $oneResult->serial_number;
+                $this->dbId = $oneResult->id;
+                $this->invitationId = $oneResult->silverbullet_invitation_id;
+                $this->userId = $oneResult->silverbullet_user_id;
+                $this->profileId = $oneResult->profile_id;
+                $this->issued = $oneResult->issued;
+                $this->device = $oneResult->device;
+                $this->revocationStatus = $oneResult->revocation_status;
+                $this->revocationTime = $oneResult->revocation_time;
+                $this->ocsp = $oneResult->OCSP;
+                $this->ocspTimestamp = $oneResult->OCSP_timestamp;
+                // is the cert expired?
+                $now = new \DateTime();
+                $cert_expiry = new \DateTime($this->expiry);
+                $delta = $now->diff($cert_expiry);
+                $this->status = ($delta->invert == 1 ? SilverbulletCertificate::CERTSTATUS_EXPIRED : SilverbulletCertificate::CERTSTATUS_VALID);
+                // expired is expired; even if it was previously revoked. But do update status for revoked ones...
+                if ($this->status == SilverbulletCertificate::CERTSTATUS_VALID && $this->revocationStatus == "REVOKED") {
+                    $this->status = SilverbulletCertificate::CERTSTATUS_REVOKED;
+                }
             }
         }
     }
@@ -126,7 +128,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         if ($invitationObject->invitationTokenStatus != SilverbulletInvitation::SB_TOKENSTATUS_VALID && $invitationObject->invitationTokenStatus != SilverbulletInvitation::SB_TOKENSTATUS_PARTIALLY_REDEEMED) {
             throw new Exception("Attempt to generate a SilverBullet installer with an invalid/redeemed/expired token. The user should never have gotten that far!");
         }
-        
+
         // SQL query to find the expiry date of the *user* to find the correct ValidUntil for the cert
         $user = $invitationObject->userId;
         $userrow = $databaseHandle->exec("SELECT expiry FROM silverbullet_user WHERE id = ?", "i", $user);
@@ -149,7 +151,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         }
 
         $privateKey = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
-        
+
         $csr = SilverbulletCertificate::generateCsr($privateKey, strtoupper($inst->federation), $profile->getAttributes("internal:realm")[0]['value']);
 
         $loggerInstance->debug(5, "generateCertificate: proceeding to sign cert.\n");
