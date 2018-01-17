@@ -283,51 +283,7 @@ switch ($test_type) {
         }
         $returnarray['result'] = $testresult;
         break;
-    case 'tls':
-        $bracketaddr = ($addr["family"] == "IPv6" ? "[" . $addr["IP"] . "]" : $addr["IP"]);
-        $opensslbabble = [];
-        $loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " s_client -connect " . $bracketaddr . ":" . $addr['port'] . " -tls1 -CApath " . ROOT . "/config/ca-certs/ 2>&1\n");
-        $time_start = microtime(true);
-        exec(CONFIG['PATHS']['openssl'] . " s_client -connect " . $bracketaddr . ":" . $addr['port'] . " -tls1 -CApath " . ROOT . "/config/ca-certs/ 2>&1", $opensslbabble);
-        $time_stop = microtime(true);
-        $measure = ($time_stop - $time_start) * 1000;
-        $returnarray['result'] = $testresult;
-        $returnarray['time_millisec'] = sprintf("%d", $testsuite->UDP_reachability_result[$host]['time_millisec']);
 
-        if (preg_match('/verify error:num=19/', implode($opensslbabble))) {
-            $printedres .= "<tr><td>"._("<strong>ERROR</strong>: the server presented a certificate which is from an unknown authority!") . $measure ."</td></tr>";
-            $my_ip_addrs[$key]["status"] = "FAILED";
-            $goterror = 1;
-        }
-        if (preg_match('/verify return:1/', implode($opensslbabble))) {
-            $printedres .= "<tr><td>"._("Completed.") . $measure . "</td></tr>";
-            $printedres .= "<tr><td></td><td><div class=\"more\">";
-            $my_ip_addrs[$key]["status"] = "OK";
-            $servercertRaw = implode("\n", $opensslbabble);
-            $servercert = preg_replace("/.*(-----BEGIN CERTIFICATE-----.*-----END CERTIFICATE-----\n).*/s", "$1", $servercertRaw);
-            $printedres .= 'XXXXXXXXXXXXXXXXXXXX<br>' . _("Server certificate") . '<ul>';
-            $data = openssl_x509_parse($servercert);
-            $printedres .= '<li>' . _("Subject") . ': ' . $data['name'];
-            $printedres .= '<li>' . _("Issuer") . ': ' . certificate_get_issuer($data);
-            if (($altname = certificate_get_field($data, 'subjectAltName'))) {
-                $printedres .= '<li>' . _("SubjectAltName") . ': ' . $altname;
-            }
-            $oids = check_policy($data);
-            if (!empty($oids)) {
-                $printedres .= '<li>' . _("Certificate policies") . ':';
-                foreach ($oids as $k => $o) {
-                    $printedres .= " $o ($k)";
-                }
-            }
-            if (($crl = certificate_get_field($data, 'crlDistributionPoints'))) {
-                $printedres .= '<li>' . _("crlDistributionPoints") . ': ' . $crl;
-            }
-            if (($ocsp = certificate_get_field($data, 'authorityInfoAccess'))) {
-                $printedres .= '<li>' . _("authorityInfoAccess") . ': ' . $ocsp;
-            }
-            $printedres .= '</ul></div></tr></td>';
-        }
-        break;
     default:
         throw new Exception("Unknown test requested: default case reached!");
 }
