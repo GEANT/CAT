@@ -112,6 +112,7 @@ class UIElements {
             sprintf(_("Enable %s"), \core\ProfileSilverbullet::PRODUCTNAME) => "fed:silverbullet",
             sprintf(_("%s: Do not terminate EAP"), \core\ProfileSilverbullet::PRODUCTNAME) => "fed:silverbullet-noterm",
             sprintf(_("%s: max users per profile"), \core\ProfileSilverbullet::PRODUCTNAME) => "fed:silverbullet-maxusers",
+            _("Mint IdPs with CA on creation") => "fed:minted_ca_file",
             $ssidText => "media:SSID",
             $ssidLegacyText => "media:SSID_with_legacy",
             $passpointOiText => "media:consortium_OI",
@@ -178,6 +179,8 @@ class UIElements {
                                 $retval .= $this->previewImageinHTML('ROWID-' . $option['level'] . '-' . $option['row']);
                                 break;
                             case "eap:ca_file":
+                                // fall-through intended: display both the same way
+                            case "fed:minted_ca_file":
                                 $retval .= $this->previewCAinHTML('ROWID-' . $option['level'] . '-' . $option['row']);
                                 break;
                             case "support:info_file":

@@ -70,6 +70,8 @@ class OptionParser {
                 // we check logo_file with ImageMagick
                 return $this->validator->image($incomingBinary);
             case "eap:ca_file":
+                // fall-through intended: both CA types are treated the same
+            case "fed:minted_ca_file":
                 // echo "Checking $optiontype with file $filename";
                 $func = new \core\common\X509;
                 $cert = $func->processCertificate($incomingBinary);
@@ -130,11 +132,18 @@ class OptionParser {
                             $bad[] = $name;
                         }
                         break;
-                    case "eap:ca_file": // CA files get split (PEM files can contain more than one CA cert)
+                    case "eap:ca_file": 
+                    case "fed:minted_ca_file":
+                        // CA files get split (PEM files can contain more than one CA cert)
                         // the data being processed here is always "good": 
                         // if it was eap:ca_file initially then its sanity was checked in step 1;
                         // if it was eap:ca_url then it was checked after we downloaded it
-                        if (empty($optionPayload['content']) || preg_match('/^ROWID-/', $optionPayload['content'])) {
+                        if (empty($optionPayload['content'])) {
+                            break;    
+                        }
+                        if (preg_match('/^ROWID-/', $optionPayload['content'])) {
+                            // accounted for, already in DB
+                            $good[] = $name;
                             break;
                         }
                         $content = base64_decode($optionPayload['content']);
@@ -142,7 +151,7 @@ class OptionParser {
                         $x509 = new \core\common\X509();
                         $cAFiles = $x509->splitCertificate($content);
                         foreach ($cAFiles as $cAFile) {
-                            $options[] = ["eap:ca_file" => ['lang' => NULL, 'content' => base64_encode($x509->pem2der($cAFile))]];
+                            $options[] = [$name => ['lang' => NULL, 'content' => base64_encode($x509->pem2der($cAFile))]];
                         }
                         $good[] = $name;
                         break;
@@ -439,7 +448,7 @@ class OptionParser {
         // two values forming one attribute; extract those two as an extra step
 
         $options = array_merge($optionsStep2, $this->postProcessCoordinates($postArray, $good));
-
+        
         // Step 5: push all the received options to the database. Keep mind of 
         // the list of existing database entries that are to be deleted.
         // 5a: first deletion step: purge all old content except file-based attributes;

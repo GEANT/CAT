@@ -165,6 +165,16 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     $my_profile = NULL;
     $prefill_methods = [];
     $profile_options = [];
+    $fed = new \core\Federation($my_inst->federation);
+    $minting = $fed->getAttributes("fed:minted_ca_file");
+    if (count($minting) > 0) {
+        $temp_profile = $my_inst->newProfile("RADIUS");
+        foreach ($minting as $oneMint) {
+            $temp_profile->addAttribute("eap:ca_file", $oneMint['lang'], base64_encode($oneMint['value']));
+        }
+        $my_profile = new \core\ProfileRADIUS($temp_profile->identifier);
+        $profile_options = $my_profile->getAttributes();
+    }
 }
 ?>
 </head>

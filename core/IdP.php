@@ -155,14 +155,14 @@ class IdP extends EntityWithDBProperties {
      * @return bool TRUE if this user is an admin with FED-level blessing
      */
     public function isPrimaryOwner($user) {
-       foreach ($this->listOwners() as $oneOwner) {
-           if ($oneOwner['ID'] == $user && $oneOwner['LEVEL'] == "FED") {
-               return TRUE;
-           }
-       }
-       return FALSE;
+        foreach ($this->listOwners() as $oneOwner) {
+            if ($oneOwner['ID'] == $user && $oneOwner['LEVEL'] == "FED") {
+                return TRUE;
+            }
+        }
+        return FALSE;
     }
-    
+
     /**
      * This function gets the profile count for a given IdP.
      * 
@@ -197,12 +197,11 @@ class IdP extends EntityWithDBProperties {
      * Only creates the DB entry for the Profile. If you want to add attributes later, see Profile::addAttribute().
      *
      * @param string $type exactly "RADIUS" or "SILVERBULLET", all other values throw an Exception
-     * @return object new Profile object if successful, or FALSE if an error occured
+     * @return Profile|NULL new Profile object if successful, or NULL if an error occured
      */
     public function newProfile(string $type) {
         $this->databaseHandle->exec("INSERT INTO profile (inst_id) VALUES($this->identifier)");
         $identifier = $this->databaseHandle->lastID();
-
         if ($identifier > 0) {
             switch ($type) {
                 case "RADIUS":
@@ -210,7 +209,7 @@ class IdP extends EntityWithDBProperties {
                 case "SILVERBULLET":
                     $theProfile = new ProfileSilverbullet($identifier, $this);
                     $theProfile->addSupportedEapMethod(new \core\common\EAP(\core\common\EAP::EAPTYPE_SILVERBULLET), 1);
-                    $theProfile->setRealm($this->identifier."-".$theProfile->identifier."." . strtolower($this->federation) . strtolower(CONFIG_CONFASSISTANT['SILVERBULLET']['realm_suffix']));
+                    $theProfile->setRealm($this->identifier . "-" . $theProfile->identifier . "." . strtolower($this->federation) . strtolower(CONFIG_CONFASSISTANT['SILVERBULLET']['realm_suffix']));
                     return $theProfile;
                 default:
                     throw new Exception("This type of profile is unknown and can not be added.");

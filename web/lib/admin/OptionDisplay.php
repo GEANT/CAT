@@ -277,9 +277,12 @@ class OptionDisplay {
                 $uiElements = new UIElements();
                 switch ($optionName) {
                     case "eap:ca_file":
+                        // fall-through intentional: display both types the same way
+                    case "fed:minted_ca_file":
                         $retval .= $uiElements->previewCAinHTML($optionValue);
                         break;
                     case "general:logo_file":
+                        // fall-through intentional: display both types the same way
                     case "fed:logo_file":
                         $retval .= $uiElements->previewImageinHTML($optionValue);
                         break;

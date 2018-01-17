@@ -196,7 +196,8 @@ INSERT INTO `profile_option_dict` VALUES
 ('fed:include_logo_installers','whether or not the fed logo should be visible in installers','boolean', NULL),
 ('fed:silverbullet','enable Silver Bullet in this federation','boolean',NULL),
 ('fed:silverbullet-noterm','to tell us we should not terminate EAP for this federation silverbullet','boolean',NULL),
-('fed:silverbullet-maxusers','maximum number of users per silverbullet profile','integer',NULL);
+('fed:silverbullet-maxusers','maximum number of users per silverbullet profile','integer',NULL),
+('fed:minted_ca_file','set of default CAs to add to new IdPs on signup','file',NULL);
 
 CREATE TABLE `silverbullet_user` (
   `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
