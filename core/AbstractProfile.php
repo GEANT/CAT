@@ -299,6 +299,13 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      */
     abstract public function updateCache($device, $path, $mime, $integerEapType);
 
+    /** Toggle anonymous outer ID support.
+     *
+     * @param boolean $shallwe TRUE to enable outer identities (needs valid $realm), FALSE to disable
+     *
+     */
+    abstract public function setAnonymousIDSupport($shallwe) ;
+    
     /**
      * Log a new download for our stats
      * 
