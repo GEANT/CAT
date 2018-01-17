@@ -690,7 +690,16 @@ if ($check_realm === FALSE) {
                 <legend><strong>" . _("Live login test") . "</strong></legend>";
                 $prof_compl = $my_profile->getEapMethodsinOrderOfPreference(1);
                 if (count($prof_compl) > 0) {
-
+                    $passwordReqired = FALSE;
+                    $clientCertRequired = FALSE;
+                    foreach ($prof_compl as $eap) {
+                        if ($eap->isPasswordRequired()) {
+                            $passwordReqired = TRUE;
+                        }
+                        if ($eap->isClientCertRequired()) {
+                            $clientCertRequired = TRUE;
+                        }
+                    }
                     echo "<div id='disposable_credential_container'><p>" . _("If you enter an existing login credential here, you can test the actual authentication from various checkpoints all over the world.") . "</p>
                     <p>" . _("The test will use all EAP types you have set in your profile information to check whether the right CAs and server names are used, and of course whether the login with these credentials and the given EAP type actually worked. If you have set anonymous outer ID, the test will use that.") . "</p>
                     <p>" . _("Note: the tool purposefully does not offer you to save these credentials, and they will never be saved in any way on the server side. Please use only <strong>temporary test accounts</strong> here; permanently valid test accounts in the wild are considered harmful!") . "</p></div>
@@ -700,20 +709,14 @@ if ($check_realm === FALSE) {
                     <input type='hidden' name='profile_id' value='" . $my_profile->identifier . "'>
                     <table id='live_tests'>";
 // if any password based EAP methods are available enable this section
-                    if (in_array(\core\common\EAP::EAPTYPE_PEAP_MSCHAP2, $prof_compl) ||
-                            in_array(\core\common\EAP::EAPTYPE_TTLS_MSCHAP2, $prof_compl) ||
-                            in_array(\core\common\EAP::EAPTYPE_TTLS_GTC, $prof_compl) ||
-                            in_array(\core\common\EAP::EAPTYPE_FAST_GTC, $prof_compl) ||
-                            in_array(\core\common\EAP::EAPTYPE_PWD, $prof_compl) ||
-                            in_array(\core\common\EAP::EAPTYPE_TTLS_PAP, $prof_compl)
-                    ) {
+                        if ($passwordReqired)    {
                         echo "<tr><td colspan='2'><strong>" . _("Password-based EAP types") . "</strong></td></tr>
                         <tr><td>" . _("Real (inner) username:") . "</td><td><input type='text' id='username' class='mandatory' name='username'/></td></tr>";
                         echo "<tr><td>" . _("Anonymous outer ID (optional):") . "</td><td><input type='text' id='outer_username' name='outer_username'/></td></tr>";
                         echo "<tr><td>" . _("Password:") . "</td><td><input type='text' id='password' class='mandatory' name='password'/></td></tr>";
                     }
                     // ask for cert + privkey if TLS-based method is active
-                    if (in_array(\core\common\EAP::EAPTYPE_TLS, $prof_compl)) {
+                    if ($clientCertRequired) {
                         echo "<tr><td colspan='2'><strong>" . _("Certificate-based EAP types") . "</strong></td></tr>
                         <tr><td>" . _("Certificate file (.p12 or .pfx):") . "</td><td><input type='file' id='cert' accept='application/x-pkcs12' name='cert'/></td></tr>
                         <tr><td>" . _("Certificate password, if any:") . "</td><td><input type='text' id='privkey' name='privkey_pass'/></td></tr>

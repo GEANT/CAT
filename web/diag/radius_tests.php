@@ -122,10 +122,10 @@ switch ($test_type) {
                 }
                 if ($run_test) {
                     $loggerInstance->debug(4, "TLS-USERNAME=$tls_username\n");
-                    $testresult = $testsuite->udpLogin($hostindex, $eap, $tls_username, $privkey_pass, TRUE, TRUE, $clientcertdata);
+                    $testresult = $testsuite->udpLogin($hostindex, $eap->getArrayRep(), $tls_username, $privkey_pass, TRUE, TRUE, $clientcertdata);
                 }
             } else {
-                $testresult = $testsuite->udpLogin($hostindex, $eap, $user_name, $user_password);
+                $testresult = $testsuite->udpLogin($hostindex, $eap->getArrayRep(), $user_name, $user_password);
             }
             $returnarray['result'][$i] = $testsuite->consolidateUdpResult($hostindex);
             $returnarray['result'][$i]['eap'] = $eap->getPrintableRep();
