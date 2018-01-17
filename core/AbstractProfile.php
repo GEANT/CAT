@@ -45,6 +45,9 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     const INCOMPLETE = 2;
     const NOTCONFIGURED = 3;
 
+    const PROFILETYPE_RADIUS = "RADIUS";
+    const PROFILETYPE_SILVERBULLET = "SILVERBULLET";
+    
     /**
      * DB identifier of the parent institution of this profile
      * @var int

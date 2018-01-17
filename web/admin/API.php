@@ -112,7 +112,7 @@ switch ($sanitised_action) {
         }
         // if we do have profile-level options - create a profile and fill in the values!
         if (count($profileWideOptions['option']) > 0) {
-            $newprofile = $idp->newProfile("RADIUS");
+            $newprofile = $idp->newProfile(core\AbstractProfile::PROFILETYPE_RADIUS);
             $parse = new \web\lib\admin\OptionParser;
             $parser->processSubmittedFields($newprofile, $profileWideOptions, $_FILES, 0, "");
             // sift through the options to find API ones (these are not caught by pSF() )

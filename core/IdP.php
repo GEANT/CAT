@@ -204,9 +204,9 @@ class IdP extends EntityWithDBProperties {
         $identifier = $this->databaseHandle->lastID();
         if ($identifier > 0) {
             switch ($type) {
-                case "RADIUS":
+                case AbstractProfile::PROFILETYPE_RADIUS:
                     return new ProfileRADIUS($identifier, $this);
-                case "SILVERBULLET":
+                case AbstractProfile::PROFILETYPE_SILVERBULLET:
                     $theProfile = new ProfileSilverbullet($identifier, $this);
                     $theProfile->addSupportedEapMethod(new \core\common\EAP(\core\common\EAP::EAPTYPE_SILVERBULLET), 1);
                     $theProfile->setRealm($this->identifier . "-" . $theProfile->identifier . "." . strtolower($this->federation) . strtolower(CONFIG_CONFASSISTANT['SILVERBULLET']['realm_suffix']));

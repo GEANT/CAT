@@ -55,7 +55,7 @@ if (!isset($_REQUEST['profile_id'])) {
         throw new Exception("Attempt to create a new SB profile, but the inst does not have a support:email attribute!");
     }
     // Create one.
-    $newProfile = $inst->newProfile("SILVERBULLET");
+    $newProfile = $inst->newProfile(core\AbstractProfile::PROFILETYPE_SILVERBULLET);
     // and modify the REQUEST_URI to add the new profile ID
     $_SERVER['REQUEST_URI'] = $_SERVER['REQUEST_URI'] . "&profile_id=" . $newProfile->identifier;
     $_GET['profile_id'] = $newProfile->identifier;

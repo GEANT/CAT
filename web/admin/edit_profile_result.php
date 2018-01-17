@@ -104,7 +104,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\Fo
     if ($my_profile instanceof \core\AbstractProfile) {
         $profile = $my_profile;
     } else {
-        $profile = $my_inst->newProfile("RADIUS");
+        $profile = $my_inst->newProfile(core\AbstractProfile::PROFILETYPE_RADIUS);
         $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $my_inst->identifier . " - Profile created");
     }
 }
