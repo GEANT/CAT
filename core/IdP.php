@@ -197,7 +197,7 @@ class IdP extends EntityWithDBProperties {
      * Only creates the DB entry for the Profile. If you want to add attributes later, see Profile::addAttribute().
      *
      * @param string $type exactly "RADIUS" or "SILVERBULLET", all other values throw an Exception
-     * @return Profile|NULL new Profile object if successful, or NULL if an error occured
+     * @return AbstractProfile|NULL new Profile object if successful, or NULL if an error occured
      */
     public function newProfile(string $type) {
         $this->databaseHandle->exec("INSERT INTO profile (inst_id) VALUES($this->identifier)");
