@@ -79,7 +79,8 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         }
         // if no result, foreach doesn't get executed and class members stay as they are
         if ($incoming !== FALSE) {
-            while ($oneResult = mysqli_fetch_object($incoming)) { // there is only at most one
+            // SELECT -> mysqli_resource, not boolean
+            while ($oneResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $incoming)) { // there is only at most one
                 $this->username = $oneResult->cn;
                 $this->expiry = $oneResult->expiry;
                 $this->serial = $oneResult->serial_number;
