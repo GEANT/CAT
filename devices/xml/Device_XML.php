@@ -19,6 +19,7 @@
  * @package ModuleWriting
  */
 namespace devices\xml;
+use Exception;
 require_once(dirname(__FILE__) . '/XML.inc.php');
 
 /**
@@ -103,7 +104,9 @@ abstract class Device_XML extends \core\DeviceConfig {
         marshalObject($root, $eapIdp);
         $dom = dom_import_simplexml($root)->ownerDocument;
         //TODO schema validation makes sense so probably should be used
-        $res = $dom->schemaValidate(ROOT . '/devices/xml/eap-metadata.xsd');
+        if ($dom->schemaValidate(ROOT . '/devices/xml/eap-metadata.xsd') === FALSE) {
+            throw new Exception("Schema validation failed for eap-metadata");
+        }
         file_put_contents($this->installerBasename . '.eap-config', $dom->saveXML());
         return($this->installerBasename . '.eap-config');
     }
@@ -315,7 +318,6 @@ abstract class Device_XML extends \core\DeviceConfig {
     }
     
     private function setEapMethod($eaptype) {
-        $attr = $this->attributes;
         $eapmethod = new EAPMethod();
         $eapmethod->setProperty('Type', $eaptype);
         if (isset($this->VendorSpecific)) {

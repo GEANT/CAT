@@ -17,6 +17,8 @@
  * @package ModuleWriting
  */
 namespace devices\xml;
+use Exception;
+
 /**
  * base class extended by every element
  */
@@ -73,12 +75,14 @@ class XMLElement {
 
     /**
      * 
-     * @param string $value
+     * @param scalar $value
      * @return void
      */
     public function setValue($value) {
-        if (gettype($value) === "string") {
-            $this->value = $value;
+        if (is_scalar($value)) {
+            $this->value = strval($value);
+        } else {
+            throw new Exception("unexpected value type passed" . gettype($value));
         }
     }
 
@@ -352,22 +356,13 @@ function SimpleXMLElement_append($key, $value) {
  * @return void
  */
 function marshalObject($node, $object) {
-    $val = '';
     $qualClassName = get_class($object);
     // remove namespace qualifier
     $pos = strrpos($qualClassName, '\\');
     $className =  substr($qualClassName, $pos + 1);
     $name = preg_replace("/_/", "-", $className);
     if ($object->getValue()) {
-        $val = $object->getValue();
-    }
-    $simplexmlelement = NULL;
-    if ($val instanceof \SimpleXMLElement) {
-        $simplexmlelement = $val;
-        $val = '';
-    }
-    if ($val) {
-        $val = preg_replace('/&/', '&amp;', $val);
+        $val = preg_replace('/&/', '&amp;', $object->getValue());
         $childNode = $node->addChild($name, $val);
     } else {
         $childNode = $node->addChild($name);
@@ -378,30 +373,25 @@ function marshalObject($node, $object) {
             $childNode->addAttribute($attrt, $attrv);
         }
     }
-    if ($simplexmlelement !== NULL) {
-        SimpleXMLElement_append($childNode, $simplexmlelement);
-        return;
-    }
     $fields = $object->getAll();
     if (empty($fields)) {
         return;
     }
-
     foreach ($fields as $name => $value) {
-        if (gettype($value) == 'string' || gettype($value) == 'integer' || gettype($value) == 'double') {
+        if (is_scalar($value)) {
             $childNode->addChild($name, strval($value));
-        } else {
-            if (gettype($value) == 'array') {
-                foreach ($value as $insideValue) {
-                    if (is_object($insideValue)) {
-                        marshalObject($childNode, $insideValue);
-                    }
-                }
-            } else {
-                if (gettype($value) == 'object') {
-                    marshalObject($childNode, $value);
+            continue;
+        } 
+        if (gettype($value) == 'array') {
+            foreach ($value as $insideValue) {
+                if (is_object($insideValue)) {
+                    marshalObject($childNode, $insideValue);
                 }
             }
+            continue;
+        } 
+        if (gettype($value) == 'object') {
+            marshalObject($childNode, $value);
         }
     }
 }

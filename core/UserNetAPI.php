@@ -210,8 +210,14 @@ class UserNetAPI extends UserAPI {
      * @param string $token
      */
     public function JSON_getUserCerts($token) {
-        $returnArray = $this->getUserCerts($token);
-        $status = is_array($returnArray) ? 1 : 0;
+        $returnArrayE = $this->getUserCerts($token);
+        $status = is_array($returnArrayE) ? 1 : 0;
+        if ($status === 1) {
+            $returnArray = [];
+            foreach ($returnArrayE as $element) {
+                $returnArray[] = $element->getBasicInfo();
+            }
+        }
         echo $this->returnJSON($returnArray, $status);
     }
     

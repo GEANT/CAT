@@ -106,6 +106,17 @@ class SilverbulletCertificate extends EntityWithDBProperties {
             }
         }
     }
+    
+    /**
+     * 
+     * @return array of basic certificate details
+     */
+    public function getBasicInfo() {
+        foreach (['status', 'serial', 'name', 'device', 'issued', 'expiry'] as $key) {
+            $returnArray[$key] = $this->$key;
+        }
+        return($returnArray);
+    }
 
     public function updateFreshness() {
         // nothing to be done here.
