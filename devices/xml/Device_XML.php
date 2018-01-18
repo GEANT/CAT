@@ -19,6 +19,7 @@
  * @package ModuleWriting
  */
 namespace devices\xml;
+use Exception;
 require_once(dirname(__FILE__) . '/XML.inc.php');
 
 /**
