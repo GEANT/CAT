@@ -5,7 +5,7 @@
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * ******************************************************************************o
  */
 ?>
 <?php
@@ -18,7 +18,8 @@ $validator = new \web\lib\common\InputValidation();
 $gui = new \web\lib\user\Gui();
 
 $ourlocale = $gui->langObject->getLang();
-header("Content-Type:text/html;charset=utf-8");
+echo $deco->defaultPagePrelude(sprintf(_("%s: IdP Dashboard"), CONFIG['APPEARANCE']['productname']));
+/* header("Content-Type:text/html;charset=utf-8");
 echo "<!DOCTYPE html>
           <html xmlns='http://www.w3.org/1999/xhtml' lang='" . $ourlocale . "'>
           <head lang='" . $ourlocale . "'>
@@ -27,16 +28,21 @@ echo "<!DOCTYPE html>
 $cssUrl = $gui->skinObject->findResourceUrl("CSS", "cat.css.php");
 echo "<link rel='stylesheet' type='text/css' href='$cssUrl' />";
 echo "<title>" . htmlspecialchars(_("Sanity check for dynamic discovery of realms")) . "</title>";
-
+*/
 $my_profile = NULL;
 $check_realm = FALSE; // we will need to populate this with a real realm below, or have to die horribly.
 
 $error_message = '';
-$my_inst = $validator->IdP($_REQUEST['inst_id'], $_SESSION['user']);
-
-
-if (isset($_GET['profile_id'])) {
-    $my_profile = $validator->Profile($_GET['profile_id'], $my_inst->identifier);
+$user = NULL;
+if (isset($_SESSION['user'])) {
+    $user = $_SESSION['user'];
+}
+$inst_id = filter_input(INPUT_GET, 'inst_id', FILTER_SANITIZE_NUMBER_INT);
+$my_inst = $validator->IdP($inst_id, $user);
+$profile_id = filter_input(INPUT_GET, 'profile_id', FILTER_SANITIZE_NUMBER_INT);
+$realm = filter_input(INPUT_GET, 'realm', FILTER_SANITIZE_STRING);
+if ($profile_id) {
+    $my_profile = $validator->Profile($profile_id, $my_inst->identifier);
     if (!$my_profile instanceof \core\ProfileRADIUS) {
         throw new Exception("realm checks are only supported for RADIUS Profiles!");
     }
@@ -50,7 +56,7 @@ if (isset($_GET['profile_id'])) {
         $error_message = _("You asked for a realm check, but we don't know the realm for this profile!") . "</p>";
     }
 } else { // someone else's realm... only shallow checks
-    $check_realm = $validator->realm($_REQUEST['realm'] ?? $_SESSION['check_realm'] ?? "");
+    $check_realm = $validator->realm($realm ?? $_SESSION['check_realm'] ?? "");
     if ($check_realm !== FALSE) {
         $_SESSION['check_realm'] = $check_realm;
         $testsuite = new \core\diag\RADIUSTests($check_realm, "@" . $check_realm);
@@ -128,6 +134,13 @@ $errorstate = [];
     var lessalltext = "<?php echo _("Hide detailed information for all tests") ?>";
     var addresses = new Array();
     var clients_level = L_OK;
+    var server_cert = new Object();
+    server_cert.subject = "<?php echo _("Subject:") ?>";
+    server_cert.issuer = "<?php echo _("Issuer:") ?>";
+    server_cert.validFrom = "<?php echo _("Valid from:") ?>";
+    server_cert.validTo = "<?php echo _("Valid to:") ?>";
+    server_cert.serialNumber = "<?php echo _("Serial number:") ?>";
+    server_cert.sha1 = "<?php echo _("SHA1 fingerprint:") ?>";
     $(document).ready(function () {
         $('.caresult, .eap_test_results, .udp_results').on('click', '.morelink', function () {
             if ($(this).hasClass('less')) {
@@ -306,15 +319,6 @@ $errorstate = [];
         ajax_end();
     }
 
-    var server_cert = new Object();
-    server_cert.subject = "<?php echo _("Subject:") ?>";
-    server_cert.issuer = "<?php echo _("Issuer:") ?>";
-    server_cert.validFrom = "<?php echo _("Valid from:") ?>";
-    server_cert.validTo = "<?php echo _("Valid to:") ?>";
-    server_cert.serialNumber = "<?php echo _("Serial number:") ?>";
-    server_cert.sha1 = "<?php echo _("SHA1 fingerprint:") ?>";
-
-
     function udp(data, status) {
         show_debug(JSON.stringify(data));
         var v = data.result[0];
@@ -368,12 +372,14 @@ $errorstate = [];
         show_debug(data);
         $("#live_src" + data.hostindex + "_img").hide();
         $.each(data.result, function (i, v) {
+            console.log('udp_login');
             var o = '<table><tr><td colspan=2>';
             var cert_data = '';
             if (v.server !== 0) {
                 o = o + '<strong>' + v.server + '</strong><p>';
                 cert_data = "<tr><td>&nbsp;</td><td><p><strong><?php echo _("Server certificate details:") ?></strong><dl class='udp_login'>";
                 $.each(server_cert, function (l, s) {
+                    console.log("l="+l);
                     cert_data = cert_data + "<dt>" + s + "</dt><dd>" + v.server_cert[l] + "</dd>";
                 });
 
@@ -456,7 +462,7 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
     }
 
     function show_debug(text) {
-        // comment out the line below if you want to see deboug output from tests
+        // comment out the line below if you want to see debug output from tests
         return;
         var t = $("#debug_out").html();
         $("#debug_out").html(t + "<p>" + JSON.stringify(text));
@@ -503,7 +509,6 @@ if ($check_realm === FALSE) {
                     echo "</td></tr>";
 
                     // compliance checks for NAPTRs
-
                     if ($naptr > 0) {
                         echo "<tr><td>" . _("Checking NAPTR compliance (flag = S and regex = {empty}):") . "</td><td>";
                         $naptr_valid = $rfc7585suite->relevantNAPTRcompliance();
@@ -611,7 +616,6 @@ if ($check_realm === FALSE) {
                 <?php
                 echo _("This check sends a request for the realm through various entry points of the roaming consortium infrastructure. The request will contain the 'Operator-Name' attribute, and will be larger than 1500 Bytes to catch two common configuration problems.<br/>Since we don't have actual credentials for the realm, we can't authenticate successfully - so the expected outcome is to get an Access-Reject after having gone through an EAP conversation.");
                 print "<p>";
-
                 foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
                     print "<hr>";
                     printf(_("Testing from: %s"), "<strong>" . CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$hostindex]['display_name'] . "</strong>");
