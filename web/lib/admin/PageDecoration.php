@@ -32,15 +32,10 @@ class PageDecoration {
                     . (isset($_SESSION['name']) ? $_SESSION['name'] : _("Unnamed User")) . "
               <br/>
               <br/>
-              <a href='overview_user.php'>" . _("Go to your Profile page") . "</a> 
-              <a href='inc/logout.php'>" . _("Logout") . "</a> ";
+              <a href='" . \core\CAT::getRootUrlPath() . "/admin/overview_user.php'>" . _("Go to your Profile page") . "</a> 
+              <a href='" . \core\CAT::getRootUrlPath() . "/admin/inc/logout.php'>" . _("Logout") . "</a> ";
         }
-        $startPageUrl = "../";
-        if (strpos($_SERVER['PHP_SELF'], "admin/") === FALSE && strpos($_SERVER['PHP_SELF'], "diag/") === FALSE) {
-            $startPageUrl = dirname($_SERVER['SCRIPT_NAME']) . "/";
-        }
-
-        $retval .= "<a href='" . $startPageUrl . "'>" . _("Start page") . "</a>
+        $retval .= "<a href='" . \core\CAT::getRootUrlPath() . "'>" . _("Start page") . "</a>
             </p>
         </div> <!-- sidebar -->";
         return $retval;
@@ -76,11 +71,7 @@ class PageDecoration {
         }
         $retval .= "</form>
                 </div><!--langselection-->";
-        $host = $this->validator->hostname($_SERVER['SERVER_NAME']);
-        if ($host === FALSE) {
-            throw new \Exception("We don't know our own hostname?!? Giving up.");
-        }
-        $logoUrl = "//" . $host . CONFIG['PATHS']['cat_base_url'] . "/resources/images/consortium_logo.png";        
+        $logoUrl = \core\CAT::getRootUrlPath() . "/resources/images/consortium_logo.png";        
         $retval .= "<div class='consortium_logo'>
                     <img id='test_locate' src='$logoUrl' alt='Consortium Logo'>
                 </div> <!-- consortium_logo -->
@@ -190,24 +181,7 @@ class PageDecoration {
           <html xmlns='http://www.w3.org/1999/xhtml' lang='$ourlocale'>
           <head lang='$ourlocale'>
           <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
-
-        if (strrpos($_SERVER['PHP_SELF'], "admin/")) {
-            $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "admin/");
-        } elseif (strrpos($_SERVER['PHP_SELF'], "accountstatus/")) {
-            $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "accountstatus/");
-        } elseif (strrpos($_SERVER['PHP_SELF'], "diag/")) {
-            $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "diag/");
-        }
-            else {
-            $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "/");
-        }
-
-        $host = $this->validator->hostname($_SERVER['SERVER_NAME']);
-        if ($host === FALSE) {
-            throw new \Exception("We don't know our own hostname!");
-        }
-        $cssUrl = "//$host" . substr($_SERVER['PHP_SELF'], 0, $cutoffPosition )."/resources/css/cat.css.php";
-        
+        $cssUrl = \core\CAT::getRootUrlPath() . "/resources/css/cat.css.php";
         $retval .= "<link rel='stylesheet' type='text/css' href='$cssUrl' />";
         $retval .= "<title>" . htmlspecialchars($pagetitle) . "</title>";
         return $retval;

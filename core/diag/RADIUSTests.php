@@ -157,7 +157,6 @@ class RADIUSTests extends AbstractTest {
      * @return array of oddities; the array is empty if everything is fine
      */
     private function propertyCheckServercert(&$servercert) {
-        $this->loggerInstance->debug(5, "SERVER CERT IS: " . print_r($servercert, TRUE));
 // we share the same checks as for CAs when it comes to signature algorithm and basicconstraints
 // so call that function and memorise the outcome
         $returnarray = $this->propertyCheckIntermediate($servercert, TRUE);
@@ -186,8 +185,7 @@ class RADIUSTests extends AbstractTest {
             $commonName = $servercert['full_details']['subject']['CN'];
             $returnarray[] = RADIUSTests::CERTPROB_MULTIPLE_CN;
         }
-
-        $allnames = array_unique(array_merge($commonName, $sANdns));
+        $allnames = array_values(array_unique(array_merge($commonName, $sANdns)));
 // check for wildcards
 // check for real hostnames, and whether there is a wildcard in a name
         foreach ($allnames as $onename) {
@@ -830,7 +828,6 @@ network={
             }
             $testresults['certdata'][] = $cert['full_details'];
         }
-
         switch (count($servercert)) {
             case 0:
                 $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_NO_SERVER_CERT;
@@ -838,7 +835,7 @@ network={
             default:
 // check (first) server cert's properties
                 $testresults['cert_oddities'] = array_merge($testresults['cert_oddities'], $this->propertyCheckServercert($servercert[0]));
-                $testresults['incoming_server_names'] = $servercert['incoming_server_names'];
+                $testresults['incoming_server_names'] = $servercert[0]['incoming_server_names'];
         }
         return [
             "SERVERCERT" => $servercert,
@@ -862,7 +859,6 @@ network={
      * @throws Exception
      */
     public function udpLogin($probeindex, $eaptype, $innerUser, $password, $opnameCheck = TRUE, $frag = TRUE, $clientcertdata = NULL) {
-
         /** preliminaries */
         $eapText = \core\common\EAP::eapDisplayName($eaptype);
         // no host to send probes to? Nothing to do then
@@ -904,9 +900,7 @@ network={
                 $eaptype != \core\common\EAP::EAPTYPE_PWD &&
                 (($radiusResult == RADIUSTests::RETVAL_CONVERSATION_REJECT && $negotiatedEapType) || $radiusResult == RADIUSTests::RETVAL_OK)
         ) {
-
             $bundle = $this->extractIncomingCertsfromEAP($testresults, $tmpDir);
-
 // FOR OWN REALMS check:
 // 1) does the incoming chain have a root in one of the configured roots
 //    if not, this is a signficant configuration error
@@ -944,9 +938,6 @@ network={
                 }
             }
         }
-        $this->loggerInstance->debug(4, "UDP_LOGIN\n");
-        $this->loggerInstance->debug(4, $testresults);
-        $this->loggerInstance->debug(4, "\nEND\n");
         $this->UDP_reachability_result[$probeindex] = $testresults;
         $this->UDP_reachability_executed = $radiusResult;
         return $radiusResult;
