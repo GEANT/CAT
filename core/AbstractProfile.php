@@ -405,10 +405,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      *
      */
     public function addSupportedEapMethod(\core\common\EAP $type, $preference) {
-        $this->databaseHandle->exec("INSERT INTO supported_eap (profile_id, eap_method_id, preference) VALUES ("
-                . $this->identifier . ", "
-                . $type->getIntegerRep() . ", "
-                . $preference . ")");
+        $this->databaseHandle->exec("INSERT INTO supported_eap (profile_id, eap_method_id, preference) VALUES (?, ?, ?)", "iii", $this->identifier, $type->getIntegerRep(), $preference);
         $this->updateFreshness();
     }
 
