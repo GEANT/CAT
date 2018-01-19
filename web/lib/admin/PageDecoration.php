@@ -181,22 +181,6 @@ class PageDecoration {
           <html xmlns='http://www.w3.org/1999/xhtml' lang='$ourlocale'>
           <head lang='$ourlocale'>
           <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
-
-        if (strrpos($_SERVER['PHP_SELF'], "admin/")) {
-            $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "admin/");
-        } elseif (strrpos($_SERVER['PHP_SELF'], "accountstatus/")) {
-            $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "accountstatus/");
-        } elseif (strrpos($_SERVER['PHP_SELF'], "diag/")) {
-            $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "diag/");
-        }
-            else {
-            $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "/");
-        }
-
-        $host = $this->validator->hostname($_SERVER['SERVER_NAME']);
-        if ($host === FALSE) {
-            throw new \Exception("We don't know our own hostname!");
-        }
         $cssUrl = \core\CAT::getRootUrlPath() . "/resources/css/cat.css.php";
         $retval .= "<link rel='stylesheet' type='text/css' href='$cssUrl' />";
         $retval .= "<title>" . htmlspecialchars($pagetitle) . "</title>";
