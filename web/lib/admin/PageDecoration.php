@@ -32,15 +32,14 @@ class PageDecoration {
                     . (isset($_SESSION['name']) ? $_SESSION['name'] : _("Unnamed User")) . "
               <br/>
               <br/>
-              <a href='overview_user.php'>" . _("Go to your Profile page") . "</a> 
-              <a href='inc/logout.php'>" . _("Logout") . "</a> ";
+              <a href='" . \core\CAT::getRootUrlPath() . "/admin/overview_user.php'>" . _("Go to your Profile page") . "</a> 
+              <a href='" . \core\CAT::getRootUrlPath() . "/admin/inc/logout.php'>" . _("Logout") . "</a> ";
         }
-        $startPageUrl = "../";
-        if (strpos($_SERVER['PHP_SELF'], "admin/") === FALSE && strpos($_SERVER['PHP_SELF'], "diag/") === FALSE) {
-            $startPageUrl = dirname($_SERVER['SCRIPT_NAME']) . "/";
+        $host = $this->validator->hostname($_SERVER['SERVER_NAME']);
+        if ($host === FALSE) {
+            throw new \Exception("We don't know our own hostname?!? Giving up.");
         }
-
-        $retval .= "<a href='" . $startPageUrl . "'>" . _("Start page") . "</a>
+        $retval .= "<a href='" . \core\CAT::getRootUrlPath() . "'>" . _("Start page") . "</a>
             </p>
         </div> <!-- sidebar -->";
         return $retval;

@@ -18,17 +18,7 @@ $validator = new \web\lib\common\InputValidation();
 $gui = new \web\lib\user\Gui();
 
 $ourlocale = $gui->langObject->getLang();
-echo $deco->defaultPagePrelude(sprintf(_("%s: IdP Dashboard"), CONFIG['APPEARANCE']['productname']));
-/* header("Content-Type:text/html;charset=utf-8");
-echo "<!DOCTYPE html>
-          <html xmlns='http://www.w3.org/1999/xhtml' lang='" . $ourlocale . "'>
-          <head lang='" . $ourlocale . "'>
-          <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
-// diag area needs its own CSS at some point, but use the user area one for now
-$cssUrl = $gui->skinObject->findResourceUrl("CSS", "cat.css.php");
-echo "<link rel='stylesheet' type='text/css' href='$cssUrl' />";
-echo "<title>" . htmlspecialchars(_("Sanity check for dynamic discovery of realms")) . "</title>";
-*/
+echo $deco->defaultPagePrelude(sprintf(_("Sanity check for dynamic discovery of realms"), CONFIG['APPEARANCE']['productname']));
 $my_profile = NULL;
 $check_realm = FALSE; // we will need to populate this with a real realm below, or have to die horribly.
 
@@ -469,7 +459,11 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
         $("#debug_out").show();
     }
 </script>
+</head>
+<body>
 <?php
+echo $deco->productheader("ADMIN");
+
 if ($check_realm === FALSE) {
     print "<p>$error_message</p>";
 } else {
@@ -772,6 +766,5 @@ if ($check_realm === FALSE) {
             }
             echo "</script>";
         }
-        ?>
-        </body>
 
+    echo $deco->footer();
