@@ -472,7 +472,7 @@ class UserAPI extends CAT {
             return(NULL);
         }
         $Dev = \devices\Devices::listDevices();
-        if (!isset($Dev['$devId'])) {
+        if (!isset($Dev[$devId])) {
             $this->loggerInstance->debug(2, "Unrecognised system: $devId\n");
             return(NULL);
         }
