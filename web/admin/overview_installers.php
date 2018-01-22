@@ -56,11 +56,10 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
         // okay, input is valid. Now create a table: columns are the EAP types supported in the profile,
         // rows are known devices
 
-        $devices = \devices\Devices::listDevices();
         $footnotes = [];
         $num_footnotes = 0;
 
-        foreach ($devices as $index => $description) {
+        foreach (\devices\Devices::listDevices() as $index => $description) {
 
             echo "<tr>";
             echo "<td align='center'><img src='../resources/images/vendorlogo/" . $description['group'] . ".png' alt='logo'></td><td>" . $description['display'] . "<br/>

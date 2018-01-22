@@ -113,8 +113,7 @@ class UserAPI extends CAT {
      * @return array containing path to the installer and mime type of the file, the path is set to NULL if no cache can be returned
      */
     private function getCache($device, $profile) {
-        $deviceList = \devices\Devices::listDevices();
-        $deviceConfig = $deviceList[$device];
+        $deviceConfig = \devices\Devices::listDevices()[$device];
         $noCache = (isset(\devices\Devices::$Options['no_cache']) && \devices\Devices::$Options['no_cache']) ? 1 : 0;
         if (isset($deviceConfig['options']['no_cache'])) {
             $noCache = $deviceConfig['options']['no_cache'] ? 1 : 0;
@@ -179,13 +178,12 @@ class UserAPI extends CAT {
      * interface to Devices::listDevices() 
      */
     public function listDevices($showHidden = 0) {
-        $dev = \devices\Devices::listDevices();
         $returnList = [];
         $count = 0;
         if ($showHidden !== 0 && $showHidden != 1) {
             throw new Exception("show_hidden is only be allowed to be 0 or 1, but it is $showHidden!");
         }
-        foreach ($dev as $device => $deviceProperties) {
+        foreach (\devices\Devices::listDevices() as $device => $deviceProperties) {
             if (\core\common\Entity::getAttributeValue($deviceProperties, 'options', 'hidden') === 1 && $showHidden === 0) {
                 continue;
             }
@@ -471,8 +469,7 @@ class UserAPI extends CAT {
             $this->loggerInstance->debug(2, "Invalid device id provided\n");
             return(NULL);
         }
-        $Dev = \devices\Devices::listDevices();
-        if (!isset($Dev[$devId])) {
+        if (!isset(\devices\Devices::listDevices()[$devId])) {
             $this->loggerInstance->debug(2, "Unrecognised system: $devId\n");
             return(NULL);
         }
