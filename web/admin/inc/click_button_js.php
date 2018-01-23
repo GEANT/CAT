@@ -17,7 +17,7 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 <!-- JQuery --> 
 <script>
     function click_button() {
-        $(this).fadeOut(100).fadeIn(100);
+        $(this).fadeOut(150).fadeIn(150);
     }
     $(document).on("click", "button", click_button);
 </script>
