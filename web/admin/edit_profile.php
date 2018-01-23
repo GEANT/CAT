@@ -23,11 +23,12 @@ $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
 
 echo $deco->defaultPagePrelude(sprintf(_("%s: IdP Enrollment Wizard (Step 3)"), CONFIG['APPEARANCE']['productname']));
+require_once("inc/click_button_js.php");
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/option_expand.js" type="text/javascript"></script>
+
 <!-- JQuery --> 
-<script type="text/javascript" src="../external/jquery/jquery.js"></script> 
 <script type="text/javascript" src="../external/jquery/jquery-migrate.js"></script> 
 <script type="text/javascript" src="../external/jquery/jquery-ui.js"></script> 
 <!-- EAP sorting code -->

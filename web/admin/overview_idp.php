@@ -26,6 +26,7 @@ $validator = new \web\lib\common\InputValidation();
 const QRCODE_PIXELS_PER_SYMBOL = 12;
 
 echo $deco->defaultPagePrelude(sprintf(_("%s: IdP Dashboard"), CONFIG['APPEARANCE']['productname']));
+require_once("inc/click_button_js.php");
 
 // let's check if the inst handle actually exists in the DB
 $my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);

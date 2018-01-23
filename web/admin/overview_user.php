@@ -18,11 +18,12 @@ $uiElements = new \web\lib\admin\UIElements();
 
 echo $deco->defaultPagePrelude(sprintf(_("%s: User Management"), CONFIG['APPEARANCE']['productname']));
 $user = new \core\User($_SESSION['user']);
+require_once("inc/click_button_js.php");
 ?>
-<!-- JQuery --> 
-<script type="text/javascript" src="../external/jquery/jquery.js"></script> 
-<!-- JQuery --> 
-<script type="text/javascript"><?php require_once("inc/overview_js.php") ?></script>
+
+<script type="text/javascript"><?php require_once("inc/overview_js.php") ?> </script>
+
+
 <script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/popup_redirect.js" type="text/javascript"></script>
 </head>
@@ -169,3 +170,5 @@ $user = new \core\User($_SESSION['user']);
     ?>
     <?php
     echo $deco->footer();
+    ?>
+
