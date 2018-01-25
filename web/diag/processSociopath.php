@@ -9,9 +9,10 @@
  * ******************************************************************************
  */
 require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
+CAT_session_start();
 $loggerInstance = new \core\common\Logging();
 $loggerInstance->debug(4, "Sociopath test\n");
-session_start();
+
 $answer = filter_input(INPUT_GET, 'answer', FILTER_SANITIZE_NUMBER_INT);
 $sociopath = new \core\diag\Sociopath();
 if ($answer > 0) {

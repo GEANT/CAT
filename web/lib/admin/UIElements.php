@@ -283,9 +283,8 @@ class UIElements {
         if ($checkpublic) {
             // we might be called without session context (filepreview) so get the
             // context if needed
-            if (session_status() != PHP_SESSION_ACTIVE) {
-                session_start();
-            }
+            CAT_session_start();
+            
             $owners = \core\EntityWithDBProperties::isDataRestricted($reference["table"], $reference["rowindex"]);
 
             $ownersCondensed = [];

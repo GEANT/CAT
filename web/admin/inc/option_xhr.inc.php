@@ -13,9 +13,7 @@
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 
-if (session_status() != PHP_SESSION_ACTIVE) {
-    session_start();
-}
+CAT_session_start();
 
 const DO_NOT_DISPLAY = [
     "general" => ["general:geo_coordinates"],
