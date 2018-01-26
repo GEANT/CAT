@@ -30,7 +30,7 @@ if (isset($_SESSION['user'])) {
 $inst_id = filter_input(INPUT_GET, 'inst_id', FILTER_SANITIZE_NUMBER_INT);
 $my_inst = $validator->IdP($inst_id, $user);
 $profile_id = filter_input(INPUT_GET, 'profile_id', FILTER_SANITIZE_NUMBER_INT);
-$realm = filter_input(INPUT_GET, 'realm', FILTER_SANITIZE_STRING);
+$realm = filter_input(INPUT_GET, 'realm', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'realm', FILTER_SANITIZE_STRING);
 if ($profile_id) {
     $my_profile = $validator->Profile($profile_id, $my_inst->identifier);
     if (!$my_profile instanceof \core\ProfileRADIUS) {
