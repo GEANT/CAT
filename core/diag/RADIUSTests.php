@@ -943,6 +943,10 @@ network={
         return $radiusResult;
     }
 
+    public function setOuterIdentity($id) {
+        $this->outerUsernameForChecks = $id;
+    }
+    
     public function consolidateUdpResult($host) {
         $ret = [];
         $serverCert = [];

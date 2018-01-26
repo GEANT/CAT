@@ -91,6 +91,7 @@ switch ($test_type) {
         $eaps = $my_profile->getEapMethodsinOrderOfPreference(1);
         $user_name = $validator->User(isset($_REQUEST['username']) && $_REQUEST['username'] ? $_REQUEST['username'] : "");
         $outer_user_name = $validator->User(isset($_REQUEST['outer_username']) && $_REQUEST['outer_username'] ? $_REQUEST['outer_username'] : $user_name);
+        $testsuite->setOuterIdentity($outer_user_name);
         $user_password = isset($_REQUEST['password']) && $_REQUEST['password'] ? $_REQUEST['password'] : ""; //!!
         $returnarray['result'] = [];
         foreach ($eaps as $eap) {
