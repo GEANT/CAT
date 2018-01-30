@@ -197,22 +197,7 @@ class PageDecoration {
         // we may need to jump up one dir if we are either in admin/ or accountstatus/
         // (accountstatus courtesy of my good mood. It's userspace not admin space so
         // it shouldn't be using this function any more.)
-        
-        if (strrpos($_SERVER['PHP_SELF'], "admin/")) {
-            $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "admin/");
-        } elseif (strrpos($_SERVER['PHP_SELF'], "accountstatus/")) {
-            $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "accountstatus/");
-        } elseif (strrpos($_SERVER['PHP_SELF'], "diag/")) {
-            $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "diag/");
-        } else {
-            $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "/");
-        }
-        $host = $this->validator->hostname($_SERVER['SERVER_NAME']);
-        if ($host === FALSE) {
-            throw new \Exception("We don't know our own hostname!");
-        }
-        $logoBase = "//$host" . substr($_SERVER['PHP_SELF'], 0, $cutoffPosition)."/resources/images";
-
+        $logoBase = \core\CAT::getRootUrlPath() . "/resources/images";
         return "<span id='logos' style='position:fixed; left:50%;'><img src='$logoBase/dante.png' alt='DANTE' style='height:23px;width:47px'/>
               <img src='$logoBase/eu.png' alt='EU' style='height:23px;width:27px;border-width:0px;'/></span>
               <span id='eu_text' style='text-align:right;'><a href='http://ec.europa.eu/dgs/connect/index_en.htm' style='text-decoration:none; vertical-align:top;'>European Commission Communications Networks, Content and Technology</a></span>";
