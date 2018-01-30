@@ -44,9 +44,9 @@ class Authentication {
     public function authenticate() {
         $loggerInstance = new \core\common\Logging();
         $authSimple = new \SimpleSAML\Auth\Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
-        $session = \SimpleSAML_Session::getSessionFromRequest();
         $authSimple->requireAuth();
         $admininfo = $authSimple->getAttributes();
+        $session = \SimpleSAML_Session::getSessionFromRequest();
         $session->cleanup();
 
         if (!isset($admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-identifier']][0])) {
