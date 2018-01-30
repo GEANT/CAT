@@ -108,16 +108,8 @@ class Skinjob {
             $extrapath = "";
         } else {
             return FALSE;
-        }
-
-        $validator = new \web\lib\common\InputValidation();
-        $host = $validator->hostname($_SERVER['SERVER_NAME']); 
-        if ($host === FALSE) {
-            throw new Exception("We don't know our own hostname?!");
-        }
-        $url = "//" . $host; // omitting http or https means "on same protocol"
-        
-        return htmlspecialchars($url . CONFIG['PATHS']['cat_base_url'] . $extrapath . $path . $filename, ENT_QUOTES);
+        }       
+        return htmlspecialchars(\core\CAT::getRootUrlPath() . $extrapath . $path . $filename, ENT_QUOTES);
     }
 
 }
