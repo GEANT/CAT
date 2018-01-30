@@ -31,7 +31,15 @@ Here are some extra configuration hints for these packages:
 	
 	the CAT log dir (configurable, defaults to /var/log/CAT/ ) needs to be accessible for writing
 	
-	for general server hardening, the following vhost configuration tokens should be set: "ServerSignature Off" and "ServerTokens ProductOnly"
+	for general server hardening, the following configuration tokens should be set: 
+           - ServerSignature Off
+           - ServerTokens ProductOnly
+           - TraceEnable Off
+
+        the following header directives should be configured:
+           - Header always set x-xss-protection "1; mode=block"
+           - Header always set x-frame-options "SAMEORIGIN"
+           - Header always set x-content-type-options "nosniff"
 	
 	if you want to use client certificates for administrative user authentication, be sure set a sufficiently large SSL Renegotiation Buffer size (e.g. SSLRenegBufferSize 10486000 for 10 MB max. upload size)
 	
