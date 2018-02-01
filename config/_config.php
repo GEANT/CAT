@@ -104,6 +104,7 @@ if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == 'LOCAL') {
 
 function CAT_session_start() {
     if (session_status() != PHP_SESSION_ACTIVE) {
+        session_name("CAT");
         session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], (isset($_SERVER['HTTPS']) ? TRUE : FALSE ));
         session_start();
     }
