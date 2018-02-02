@@ -8,6 +8,7 @@ Changes in 2.0-alpha2
 - [FEATURE #3]  allow fed admins to upload a "minted" CA which will be auto-added
                 to new IdPs when they sign up. Good for federations where IdP
                 certificates come from one well-known CA.
+- [FEATURE #4]  add options to force HTTP/HTTPS proxies in the installers
 
 Configuration parameter changes
 -------------------------------
