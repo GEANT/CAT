@@ -142,6 +142,21 @@ class OptionDisplay {
         return $retval;
     }
 
+    private function tooltip($rowid, $input, $isVisible) {
+        $descriptions = [];
+        if (count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0) {
+            $descriptions["media:SSID"] = sprintf(_("This attribute can be set if you want to configure an additional SSID besides the default SSIDs for %s. It is almost always a bad idea not to use the default SSIDs. The only exception is if you have premises with an overlap of the radio signal with another %s hotspot. Typical misconceptions about additional SSIDs include: I want to have a local SSID for my own users. It is much better to use the default SSID and separate user groups with VLANs. That approach has two advantages: 1) your users will configure %s properly because it is their everyday SSID; 2) if you use a custom name and advertise this one as extra secure, your users might at some point roam to another place which happens to have the same SSID name. They might then be misled to believe that they are connecting to an extra secure network while they are not."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        }
+        $descriptions["media:force_proxy_http"] = sprintf(_("Forcing your users through a content filter of your own is a significant invasion of user self-determination. It also has technical issues. Please throughly read the discussion at %s before specifying a proxy with this option."), "https://github.com/GEANT/CAT/issues/96");
+        // same
+        $descriptions["media:force_proxy_https"] = $descriptions["media:force_proxy_http"];
+
+        if (!isset($descriptions[$input])) {
+            return "";
+        }
+        return "<span class='tooltip' id='S$rowid-tooltip-$input' style='display:".($isVisible ? "block" : "none")."' onclick='alert(\"" . $descriptions[$input] . "\")'><img src='../resources/images/icons/question-mark-icon.png" . "'></span>";
+    }
+
     private function selectElement($rowid, $list) {
         $jsmagic = "onchange='
                                if (/#ML#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
@@ -158,12 +173,28 @@ class OptionDisplay {
                                   document.getElementById(\"S$rowid-input-integer\").style.display = \"" . ($key == \core\Options::TYPECODE_INTEGER ? "block" : "none") . "\";
                              }
                              ";
+            // hide all tooltips (each is a <span>, and there are no other <span>s)
+            $jsmagic .= <<< FOO
+                    var ourtooltips = document.querySelectorAll(&#34;[id^=&#39;S$rowid-tooltip-&#39;]&#34;);
+                    for (var i=0; i<ourtooltips.length; i++) {
+                      ourtooltips[i].style.display = "none";
+                    }
+                    var optionnamefull = document.getElementById("option-S$rowid-select").value;
+                    var firstdelimiter = optionnamefull.indexOf("#");
+                    var optionname = optionnamefull.substring(0,firstdelimiter);
+                    var tooltipifany = document.getElementById("S$rowid-tooltip-"+optionname);
+                    if (tooltipifany != null) {
+                      tooltipifany.style.display = "block";
+                    }
+FOO;
         }
         $jsmagic .= "'";
 
         $optioninfo = \core\Options::instance();
-        $retval = "<select id='option-S$rowid-select' name='option[S$rowid]' $jsmagic>";
+        $retval = "<span style='display:flex';>";
+        $retval .= "<select id='option-S$rowid-select' name='option[S$rowid]' $jsmagic>";
         $iterator = 0;
+        $tooltips = "";
         $uiElements = new UIElements();
         $activelisttype = [];
         foreach ($list as $value) {
@@ -172,6 +203,9 @@ class OptionDisplay {
             if ($iterator == $this->optionIterator) {
                 $retval .= "selected='selected'";
                 $activelisttype = $listtype;
+                $tooltips .= $this->tooltip($rowid, $value, TRUE);
+            } else {
+                $tooltips .= $this->tooltip($rowid, $value, FALSE);
             }
             $retval .= ">" . $uiElements->displayName($value) . "</option>";
             $iterator++;
@@ -180,6 +214,9 @@ class OptionDisplay {
             throw new \Exception("We should have found the active list type by now!");
         }
         $retval .= "</select>";
+        $retval .= $tooltips;
+        $retval .= "</span>";
+
         return ["TEXT" => $retval, "ACTIVE" => $activelisttype];
     }
 
@@ -247,8 +284,8 @@ class OptionDisplay {
         $retval .= "<td>";
         $uiElements = new UIElements();
         $listtype = $optioninfo->optionType($optionName);
-        $retval .= $uiElements->displayName($optionName);
-        $retval .= $uiElements->tooltip($optionName);
+        $retval .= "<span style='display:flex;'>".$uiElements->displayName($optionName);
+        $retval .= $this->tooltip($rowid, $optionName, TRUE) . "</span>";
         $retval .= "<input type='hidden' id='option-S$rowid-select' name='option[S$rowid]' value='$optionName#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ></td>";
 
         // language tag if any
@@ -273,16 +310,16 @@ class OptionDisplay {
                 $retval .= "<input readonly style='display:none' type='text' name='value[S$rowid-" . \core\Options::TYPECODE_TEXT . "]' id='S$rowid-input-text' value='$optionValue'>$link";
                 break;
             case \core\Options::TYPECODE_FILE:
-                $retval .= "<input readonly type='text' name='value[S$rowid-".\core\Options::TYPECODE_STRING."]' id='S" . $rowid . "-input-string' style='display:none' value='" . urlencode($optionValue) . "'>";
+                $retval .= "<input readonly type='text' name='value[S$rowid-" . \core\Options::TYPECODE_STRING . "]' id='S" . $rowid . "-input-string' style='display:none' value='" . urlencode($optionValue) . "'>";
                 $uiElements = new UIElements();
                 switch ($optionName) {
                     case "eap:ca_file":
-                        // fall-through intentional: display both types the same way
+                    // fall-through intentional: display both types the same way
                     case "fed:minted_ca_file":
                         $retval .= $uiElements->previewCAinHTML($optionValue);
                         break;
                     case "general:logo_file":
-                        // fall-through intentional: display both types the same way
+                    // fall-through intentional: display both types the same way
                     case "fed:logo_file":
                         $retval .= $uiElements->previewImageinHTML($optionValue);
                         break;

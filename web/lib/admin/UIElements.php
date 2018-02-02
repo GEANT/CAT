@@ -128,21 +128,6 @@ class UIElements {
         return $find[0];
     }
 
-    public function tooltip($input) {
-        $descriptions = [];
-        if (count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0) {
-            $descriptions["media:SSID"] = sprintf(_("This attribute can be set if you want to configure an additional SSID besides the default SSIDs for %s. It is almost always a bad idea not to use the default SSIDs. The only exception is if you have premises with an overlap of the radio signal with another %s hotspot. Typical misconceptions about additional SSIDs include: I want to have a local SSID for my own users. It is much better to use the default SSID and separate user groups with VLANs. That approach has two advantages: 1) your users will configure %s properly because it is their everyday SSID; 2) if you use a custom name and advertise this one as extra secure, your users might at some point roam to another place which happens to have the same SSID name. They might then be misled to believe that they are connecting to an extra secure network while they are not."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
-        }
-        $descriptions["media:force_proxy_http"] = sprintf(_("Forcing your users through a content filter of your own is a significant invasion of user self-determination. It also has technical issues. Please throughly read the discussion at %s before specifying a proxy with this option."), "https://github.com/GEANT/CAT/issues/96");
-        // same
-        $descriptions["media:force_proxy_https"] = $descriptions["media:force_proxy_http"];
-
-        if (!isset($descriptions[$input])) {
-            return "";
-        }
-        return "<span class='tooltip' onclick='alert(\"" . $descriptions[$input] . "\")'><img src='../resources/images/icons/question-mark-icon.png" . "'></span>";
-    }
-
     /**
      * creates an HTML information block with a list of options from a given category and level
      * @param array $optionlist list of options
