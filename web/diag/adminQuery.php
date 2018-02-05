@@ -9,6 +9,10 @@
  */
 ?>
 <?php
+    $o = new stdClass();
+    if (isset($_REQUEST['data'])) {
+        $o = json_decode($_REQUEST['data']);
+    }
     $sp_problem = array(
     'technical' =>  _("I suspect a Technical Problem with the IdP"),
     'abuse-copyright' => _("A user from this IdP has allegedly infringed copyrights"),
@@ -132,35 +136,54 @@
     </tr>
     <tr>
         <td>" . _("Do you have any contact details by which the user wishes to be contacted by the SP?") . "</td>
-        <td><textarea id='freetext' name='freetext' cols='60' rows='5'></textarea></td>
+        <td><textarea id='c_details' name='c_details' cols='60' rows='5'></textarea></td>
     </tr>
     <tr>
         <td>" . _("Please specify an email address on which the SP can contact you") . "</td>
         <td><input type='text' id='email' name='email'></td>
     </tr>
+    <tr class='hidden_row' id='send_query_to_sp'>
+        <td>" . _("Now you can send your query") . "</td>
+        <td><button type='submit' id='submit_sp_query' name='go'>" . _("Send") . "</button></td>
+    </tr>
 </table>";
         $res = $res . $javascript;
     }
-    if ($queryType == 'idp_send') {
+    if ($queryType == 'idp_send' || $queryType == 'sp_send') {
         require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
         $languageInstance = new \core\common\Language();
         $languageInstance->setTextDomain("web_user");
         $cat = new \core\CAT();
-        $realm = filter_input(INPUT_GET, 'realm', FILTER_SANITIZE_STRING);
-        $email = filter_input(INPUT_GET, 'email', FILTER_SANITIZE_STRING);
-        $mac = filter_input(INPUT_GET, 'mac', FILTER_SANITIZE_STRING);
-        $freetext = filter_input(INPUT_GET, 'freetext', FILTER_SANITIZE_STRING);
-        $timestamp = filter_input(INPUT_GET, 'timestamp', FILTER_SANITIZE_STRING);
-        $idpcontact = filter_input(INPUT_GET, 'idpcontact', FILTER_SANITIZE_STRING);
-        $reason = filter_input(INPUT_GET, 'reason', FILTER_SANITIZE_STRING);
         $returnArray = array();
-        $returnArray['realm'] = $realm;
-        $returnArray['spcontact'] = $email;
-        $returnArray['mac'] = $mac;
-        $returnArray['description'] = $freetext;
-        $returnArray['timestamp'] = $timestamp;
-        $returnArray['idpcontact'] = base64_decode($idpcontact);
-        $returnArray['reason'] = $sp_problem[$reason];
+        if (count((array)$o)  > 0) {
+            foreach ($o as $key => $value) {
+                $value = trim($value);
+                switch ($key) {
+                    case 'realm':                       
+                    case 'email':
+                    case 'mac':
+                    case 'freetext':
+                    case 'timestamp':
+                    case 'opname':
+                    case 'outerid':
+                    case 'cdetails':
+                        $returnArray[$key] = $value;
+                        break;
+                    case 'idpcontact':
+                        $returnArray[$key] = base64_decode($value);
+                        break;
+                    case 'reason':
+                        if ($queryType == 'idp_send') {
+                            $returnArray[$key] = $sp_problem[$value];
+                        } else {
+                            $returnArray[$key] = $idp_problem[$value];
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
         $returnArray['status'] = 1;
         $res = json_encode($returnArray);
     }

@@ -75,19 +75,20 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 ?>
                 </p>
                 <?php
-                    echo '<h3>' . _("We need some information on your home institiution - issuer of your account") . '</h3>';
+                    echo '<div id="before_stage_1"><h3>' . _("We need some information on your home institiution - issuer of your account") . '</h3>';
                     echo _("State your realm:");
                 ?>
                 <input type='text' name='user_realm' id='user_realm' value=''>
                 <?php
-                    echo '<br/>' . _("or") . '<br/>';
-                    echo _("we will try to guess your realm:") . '<br/>';
+                    echo '<div id="realm_by_select"><br/>' . _("alternatively") . '<br/>';
+                    echo _("we can try to guess your realm") . '<br/>';
                     echo '<div id="select_idp_country"><a href="" id="idp_countries_list">';    
                     echo '<span id="realmselect">' . _("click to select your country and organisation") . '</a></span></div>';
                 ?>
                 <div id="select_idp_area" style="display:none;">
                 </div>
-                <div>
+                </div>
+                <div id="position_info">
                     <?php
                         echo '<h3>' . _("Optionally, to improve tests, you can provide information on your current location") . '</h3>';
                         echo '<div id="select_sp_country"><a href="" id="sp_countries_list">';    
@@ -96,6 +97,12 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                     <div id="select_sp_area" style="display:none;">
                     </div>
                 </div>
+                </div>
+                <div id="after_stage_1" style="display:none;">
+                    <h3><?php echo _("Testing realm "); ?><span id="realm_name"></span></h3>
+                    <?php echo _("First stage completed."); ?>
+                    <br>
+                </div>
                 <div id="sociopath_query_area" style="margin-top:20px; display:none;">
                     <b>
                         <?php echo _("Now we have a few questions..."); ?>
@@ -103,7 +110,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                     <div id="sociopath_queries"></div>
                 </div>
                 <div id="start_test_area" style="padding-top: 10px; display:none; text-align:center;">
-                    <button id='realmtest' accesskey="T" type='button'><?php echo _("Go!"); ?>
+                    <button id='realmtest' accesskey="T" type='button'><?php echo _("Run tests"); ?>
                     </button>
                 </div>
             </div>
@@ -190,7 +197,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             options = ($('#'+type2+'_country').html());
             countryAddSelect(selecthead, select + options + '</select>', type1);
         } else {
-            var comment = <?php echo '"' . _("Fetching countries list") . '..."'; ?>;
+            var comment = <?php echo '"<br><br>' . _("Fetching countries list") . '..."'; ?>;
             inProgress(1, comment);
             $.ajax({
                 url: "findRealm.php",
@@ -232,7 +239,6 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 value: realm
             }).appendTo('form');
         }  
-        console.log('realm - '+realm+', answer='+answer);
         $.ajax({
             url: "processSociopath.php",
             data: {answer: answer},
@@ -264,9 +270,14 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                         $('#sociopath_query_area').hide();
                         $('#sociopath_queries').html('');
                         $('#start_test_area').show();
+                        $('#after_stage_1').hide();
+                        $('#before_stage_1').show();
+                        $('#realm_by_select').show();
+                        $('#position_info').show();
                         finalVerdict(realm, data['SUSPECTS'])
                    }
                 }
+                
             },
             error:function() {
                 inProgress(0);
@@ -346,10 +357,18 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         }
         e.target.value = str.slice(0, 17);
     };
-    function isEmail(email) {
-        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    function isEmail(email, emptyuser) {
+        if (typeof emptyuser === 'undefined') {
+            re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        } else {
+            re = /^((([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))|)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        }
         return re.test(email);
     };
+    function isOperatorName(str) {
+        var re = /^(?=.{1,254}$)((?=[a-z0-9-]{1,63}\.)(xn--+)?[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}$/;
+        return re.test(str);
+    }
     function inProgress(s, comment) {
         var b = true;
         if (s === 1) {
@@ -613,7 +632,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 }
             },
             error: function (error) {
-                alert('error');
+                alert('Error');
             }
         });
         return false;
@@ -621,22 +640,31 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
     $(document).on('click', '#answer_yes, #answer_no, #answer_noidea' , function(e) {
         e.preventDefault();
         var answer = 1; /* No */
-        if ($(this).attr('id') == 'answer_yes') {
+        if ($(this).attr('id') === 'answer_yes') {
             answer = 2; /* Yes */
         }
-        if ($(this).attr('id') == 'answer_noidea') {
+        if ($(this).attr('id') === 'answer_noidea') {
             answer = 3; /* No idea */
         }
+        console.log('answer '+answer);
         testSociopath('', answer);
     });
     $('#realmtest').click(function(event){
-        inProgress(1);
+        var comment = <?php echo '"<br><br>' . _("Running realm tests") . '..."'; ?>;
+        inProgress(1, comment);
+        $('#start_test_area').hide();
+        if ($('#select_sp_area').is(':hidden')) {
+            $('#position_info').hide();
+        }
+        if ($('#select_idp_area').is(':hidden')) {
+            $('#realm_by_select').hide();
+        }
         var realm = '';
         if ($('#user_realm').val()) {
             realm = $('#user_realm').val();
         }
         if ($('#idp_inst').val()) {
-            if ($('input[name="realm"]').attr('type') == 'hidden') {
+            if ($('input[name="realm"]').attr('type') === 'hidden') {
                 realm = $('input[name="realm"]').val();
             } else {
                 $('input[name="realm"]').each(function() {
@@ -651,7 +679,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         if ($('#sp_inst').val()) {
             visited = $('#sp_inst').val();
         }
-        if (realm != '') {
+        if (realm !== '') {
             $.ajax({
                 url: "magicTelepath.php",
                 data: {realm: realm, lang: lang, visited: visited},
@@ -662,6 +690,9 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                         var realm =  data.realm;
                         console.log('realm '+realm);
                         console.log(data.suspects);
+                        $('#before_stage_1').hide();
+                        $('#realm_name').text(realm);
+                        $('#after_stage_1').show();
                         testSociopath(realm, 0);
                     } else {
                         var title = <?php echo '"' . _("Diagnistic tests results for selected realms") . '"'; ?>;
@@ -682,13 +713,16 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                         result = result + '.<br>';
                         result = result + <?php echo '"' . _("You should report this to") . '"'; ?> + ' <a href="mailto:admin@eduroam.pl">admin@eduroam.pl</a>';
                         result = result + '</div>';
+                        $('#after_stage_1').hide();
+                        $('#before_stage_1').show();
+                        $('#realm_by_select').show();
+                        $('#position_info').show();
                         showInfo(result, title);
-                    }
-                    
+                    }  
                 },
                 error: function (error) {
                     inProgress(0);
-                    alert('error');
+                    alert('magicTelepath error');
                 }
             });
         }
@@ -771,44 +805,73 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         });
         return false;
     });
-    $(document).on('click', '#submit_idp_query' , function() {
-        realm = $('#admin_realm').val();
-        email = $('#email').val();
-        mac = $('#mac').val();
-        why = $('#select_sp_problem').val();
-        tst = $('#timestamp').val();
-        txt = $('#freetext').val();
-        idpc = $('#idp_contact').val();
+    $(document).on('click', '#submit_idp_query, #submit_sp_query' , function() {
+        var type;
+        var o = new Object();
+        if ($(this).attr('id') === 'submit_idp_query') {
+            o['realm'] = $('#admin_realm').val();
+            o['email'] = $('#email').val();
+            o['mac'] = $('#mac').val();
+            o['reason'] = $('#select_sp_problem').val();
+            o['timestamp'] = $('#timestamp').val();
+            o['freetext'] = $('#freetext').val();
+            o['idpcontact'] = $('#idp_contact').val();
+            type = 'idp_send';
+        } else {
+            o['opname'] = $('#opname').val();
+            o['outerid'] = $('#outer_id').val();
+            o['email'] = $('#email').val();
+            o['mac'] = $('#mac').val();
+            o['reason'] = $('#select_idp_problem').val();
+            o['timestamp'] = $('#timestamp').val();
+            o['freetext'] = $('#freetext').val();
+            o['cdetails'] = $('#c_details').val();
+            type = 'sp_send';
+        }
         $.ajax({
             url: "adminQuery.php",
-            data: {realm: realm, type: 'idp_send', reason: why, mac: mac, email: email, timestamp: tst, freetext: txt, idpcontact: idpc,lang: lang},
+            data: {type: type, data: JSON.stringify(o)},
             dataType: "json",
             success:function(data) {
                 if (data.status === 1) {
                     var result = '';
                     var title = <?php echo '"' . _("eduroam admin report submission") . '"'; ?>;
                     result = '<div class="padding">';
-                    result = result + '<h3>'+ <?php echo '"' . _("SP contacting IdP due to technical problems or abuse") . '"'; ?> + '</h3>';
-                    result = result + '<table>';
-                    result = result + '<tr><td>' + <?php echo '"' . _("Reason") . '"'; ?> + '</td><td>' + data.reason + '</td></tr>';
-                    result = result + '<tr><td>' + <?php echo '"' . _("SP email") . '"'; ?> + '</td><td>' + data.spcontact + '</td></tr>';
-                    result = result + '<tr><td>' + <?php echo '"' . _("IdP email(s)") . '"'; ?> + '</td><td>' + data.idpcontact + '</td></tr>';
-                    result = result + '<tr><td>' + <?php echo '"' . _("Event's timestamp") . '"'; ?> + '</td><td>' + data.timestamp + '</td></tr>';
-                    result = result + '<tr><td>' + <?php echo '"' . _("Suspected MAC address") . '"'; ?> + '</td><td>' + data.mac + '</td></tr>';
-                    result = result + '<tr><td>' + <?php echo '"' . _("Additional description") . '"'; ?> +'</td><td>' + data.description + '</td></tr>';
+                    if (type == 'idp_send') {
+                        result = result + '<h3>'+ <?php echo '"' . _("SP contacting IdP due to technical problems or abuse") . '"'; ?> + '</h3>';
+                        result = result + '<table>';
+                        result = result + '<tr><td>' + <?php echo '"' . _("Reason") . '"'; ?> + '</td><td>' + data.reason + '</td></tr>';
+                        result = result + '<tr><td>' + <?php echo '"' . _("SP email") . '"'; ?> + '</td><td>' + data.email + '</td></tr>';
+                        result = result + '<tr><td>' + <?php echo '"' . _("IdP email(s)") . '"'; ?> + '</td><td>' + data.idpcontact + '</td></tr>';
+                        result = result + '<tr><td>' + <?php echo '"' . _("Event's timestamp") . '"'; ?> + '</td><td>' + data.timestamp + '</td></tr>';
+                        result = result + '<tr><td>' + <?php echo '"' . _("Suspected MAC address") . '"'; ?> + '</td><td>' + data.mac + '</td></tr>';
+                        result = result + '<tr><td>' + <?php echo '"' . _("Additional description") . '"'; ?> +'</td><td>' + data.freetext + '</td></tr>';
+                    }
+                    if (type == 'sp_send') {
+                        result = result + '<h3>'+ <?php echo '"' . _("IdP contacting SP due to technical problems or abuse") . '"'; ?> + '</h3>';
+                        result = result + '<table>';
+                        result = result + '<tr><td>' + <?php echo '"' . _("Reason") . '"'; ?> + '</td><td>' + data.reason + '</td></tr>';
+                        result = result + '<tr><td>' + <?php echo '"' . _("SP's Operator-Name") . '"'; ?> + '</td><td>' + data.opname + '</td></tr>';
+                        result = result + '<tr><td>' + <?php echo '"' . _("User's outer ID") . '"'; ?> + '</td><td>' + data.outerid + '</td></tr>';
+                        result = result + '<tr><td>' + <?php echo '"' . _("IdP email") . '"'; ?> + '</td><td>' + data.email + '</td></tr>';
+                        result = result + '<tr><td>' + <?php echo '"' . _("Event's timestamp") . '"'; ?> + '</td><td>' + data.timestamp + '</td></tr>';
+                        result = result + '<tr><td>' + <?php echo '"' . _("Suspected MAC address") . '"'; ?> + '</td><td>' + data.mac + '</td></tr>';
+                        result = result + '<tr><td>' + <?php echo '"' . _("Additional description") . '"'; ?> +'</td><td>' + data.freetext + '</td></tr>';
+                        result = result + '<tr><td>' + <?php echo '"' . _("How to contact the user") . '"'; ?> +'</td><td>' + data.cdetails + '</td></tr>';
+                    }
                     result = result + '</div>';
                     showInfo(result, title);
                 }
             },
             error: function (error) {
-                alert('error');
+                alert('adminQuery error');
             }
         });
         return false;
     });
-    $(document).on('blur', '#timestamp, #mac, #email' , function() {
-         $(this).val($.trim($(this).val()));
-         if ($('#mac').val().length > 0) {
+    $(document).on('blur', '#timestamp, #mac, #email, #opname, #outer_id' , function() {
+        $(this).val($.trim($(this).val()));
+        if ($('#mac').val().length > 0) {
             if ($('#mac').val().length != 17) {
                 $('#mac').addClass('error_input');
                 $('#mac').attr('title', <?php echo '"' . _("MAC address is incomplete") . '"'; ?>);
@@ -816,8 +879,8 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 $('#mac').removeClass('error_input'); 
                 $('#mac').attr('title', '');
             }
-         } 
-         if ($(this).attr('id') == 'email' &&  $(this).val().length > 0) {
+        } 
+        if ($(this).attr('id') == 'email' &&  $(this).val().length > 0) {
             if (!isEmail($(this).val())) {
                 $('#email').addClass('error_input');
                 $('#email').attr('title', <?php echo '"' . _("Wrong format of email") . '"'; ?>);
@@ -825,13 +888,45 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 $('#email').removeClass('error_input');
                 $('#email').attr('title', '');
             }
-         }
-         if ($('#timestamp').val().length > 0  && $('#mac').val().length == 17 && $('#email').val().length > 0 && isEmail($('#email').val())) {
-             alert('here');
-             $('#send_query_to_idp').removeClass('hidden_row').addClass('visible_row');
-         } else {
-             $('#send_query_to_idp').removeClass('visible_row').addClass('hidden_row');
-         }
+        }
+        if ($(this).attr('id') == 'outer_id' &&  $(this).val().length > 0) {
+            if (!isEmail($(this).val(), true)) {
+                $('#outer_id').addClass('error_input');
+                $('#outer_id').attr('title', <?php echo '"' . _("Wrong format of outer ID") . '"'; ?>);
+            } else {
+                $('#outer_id').removeClass('error_input');
+                $('#outer_id').attr('title', '');
+            }
+        }
+        if ($(this).attr('id') == 'opname' && $('#opname').val().length > 0) {
+            if (!isOperatorName($(this).val())) {
+                $('#opname').addClass('error_input');
+                $('#opname').attr('title', <?php echo '"' . _("Wrong string given as OperatorName") . '"'; ?>);
+            } else {
+                $('#opname').removeClass('error_input');
+                $('#opname').attr('title', '');
+            }
+        }
+        if ($('#timestamp').val().length > 0  && $('#mac').val().length == 17 && $('#email').val().length > 0 && isEmail($('#email').val())) {
+            if ($('#send_query_to_idp').length > 0) {
+                $('#send_query_to_idp').removeClass('hidden_row').addClass('visible_row');
+            } else {
+                if ($('#opname').val().length > 0 && $('#outer_id').val().length > 0) {
+                    if (isOperatorName($('#opname').val()) && isEmail($('#email').val(), true)  && $('#send_query_to_sp').length > 0) {
+                        $('#send_query_to_sp').removeClass('hidden_row').addClass('visible_row');
+                    }
+                } else {
+                    $('#send_query_to_sp').removeClass('visible_row').addClass('hidden_row');
+                }
+            }
+        } else {
+            if ($('#send_query_to_idp').length > 0) {
+                $('#send_query_to_idp').removeClass('visible_row').addClass('hidden_row');
+            }
+            if ($('#send_query_to_sp').length > 0) {
+                $('#send_query_to_sp').removeClass('visible_row').addClass('hidden_row');
+            }
+        }
     });
     $('input[name="problem_type"]').click(function() {  
         var t = $('input[name=problem_type]:checked').val();
@@ -874,7 +969,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             }
             return false;
         }
-    }); 
+    });
     $(document).on('keypress', '#opname', function(e)  {
         if (e.keyCode == 13 || e.keyCode == 9) {
             if ($('#opname').val() !== '') {
