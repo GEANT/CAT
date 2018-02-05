@@ -78,7 +78,7 @@ class Menu {
                 if (!empty($menuItem['link']) && substr($menuItem['link'], 0, 1) === '/') {
                     $menuItem['link'] = \core\CAT::getRootUrlPath() . $menuItem['link'];
                 }
-                $link = $catInfo ?? $menuItem['link'] ?? CONFIG['PATHS']['cat_base_url'];
+                $link = $catInfo ?? $menuItem['link'] ?? \core\CAT::getRootUrlPath();
                 $class = empty($menuItem['class']) ? '' : ' class="' . $menuItem['class'] . '"';
                 $submenu = $menuItem['submenu'] ?? [];
                 $out .= $this->printMenuItem($menuItem['text'], $link, $class);
