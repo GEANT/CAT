@@ -176,8 +176,9 @@ if (count($pending_invites) > 0) {
 }
 ?>
 <br/>
+<img src='../resources/images/icons/loading51.gif' id='spin' style='position:absolute;left: 50%; top: 50%; transform: translate(-100px, -50px); display:none;'>
 <form action='inc/sendinvite.inc.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
-    <?php echo _("New administrator's email address(es) (comma-separated):"); ?><input type="text" name="mailaddr"/><button type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_SAVE; ?>'><?php echo _("Invite new administrator"); ?></button>
+    <?php echo _("New administrator's email address(es) (comma-separated):"); ?><input type="text" name="mailaddr"/><button type='submit' name='submitbutton' onclick='document.getElementById("spin").style.display ="block"' value='<?php echo web\lib\common\FormElements::BUTTON_SAVE; ?>'><?php echo _("Invite new administrator"); ?></button>
 </form>
 <br/>
 <?php
