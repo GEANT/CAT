@@ -33,11 +33,11 @@ if ($wizardStyle) {
 } else {
     echo $deco->defaultPagePrelude(sprintf(_("%s: Editing IdP '%s'"), CONFIG['APPEARANCE']['productname'], $inst_name));
 }
+require_once("inc/click_button_js.php");
 // let's check if the inst handle actually exists in the DB and user is authorised
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/option_expand.js" type="text/javascript"></script>
-<script type="text/javascript" src="../external/jquery/jquery.js"></script> 
 <script type="text/javascript" src="../external/jquery/jquery-migrate.js"></script> 
 
 <?php
