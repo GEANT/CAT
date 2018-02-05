@@ -71,7 +71,7 @@ class PageDecoration {
         }
         $retval .= "</form>
                 </div><!--langselection-->";
-        $logoUrl = \core\CAT::getRootUrlPath() . "/resources/images/consortium_logo.png";        
+        $logoUrl = \core\CAT::getRootUrlPath() . "/resources/images/consortium_logo.png";
         $retval .= "<div class='consortium_logo'>
                     <img id='test_locate' src='$logoUrl' alt='Consortium Logo'>
                 </div> <!-- consortium_logo -->
@@ -148,7 +148,7 @@ class PageDecoration {
         // content from here on will SCROLL instead of being fixed at the top
         $retval .= "<div class='pagecontent'>"; // closes in footer again
         $retval .= "<div class='trick'>"; // closes in footer again
-        $retval .= "<div id='secondrow' style='border-bottom:5px solid ".CONFIG['APPEARANCE']['colour1']."; min-height:100px;'>
+        $retval .= "<div id='secondrow'>
             <div id='secondarycaptions' style='display:inline-block; float:left'>
                 <h2>$cap2</h2>
             </div><!--secondarycaptions-->";
@@ -159,7 +159,7 @@ class PageDecoration {
               </div><!--header_MOTD-->";
         }
         $retval .= $this->sidebar($advancedControls);
-        $retval .= "</div><!--secondrow-->";
+        $retval .= "</div><!--secondrow--><div id='thirdrow'>";
         return $retval;
     }
 
@@ -210,7 +210,7 @@ class PageDecoration {
      */
     public function footer() {
         $cat = new \core\CAT();
-        $retval = "</div><!-- trick -->
+        $retval = "</div><!-- thirdrow --></div><!-- trick -->
           </div><!-- pagecontent -->
         <div class='footer'>
             <hr />

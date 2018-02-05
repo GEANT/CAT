@@ -48,8 +48,6 @@ button {
     border-bottom-style: outset; 
     border-bottom-width: 2px; 
     border-bottom-color: #043d52;
-    border-radius: 6px;
-    box-shadow: 5px 5px 5px #666666;
 }
 
 button.pressed {
@@ -57,7 +55,6 @@ button.pressed {
     border-style:inset;
     position: relative;
     left: 3px;
-    box-shadow: 2px 2px 5px #888888;
 }
 
 button.pressedDisabled {
@@ -65,7 +62,6 @@ button.pressedDisabled {
     border-style:inset;
     position: relative;
     left: 3px;
-    box-shadow: 2px 2px 5px #888888;
 }
 
 button.delete {
@@ -101,7 +97,6 @@ button.delete {
     border-bottom-style: outset; 
     border-bottom-width: 2px; 
     border-bottom-color: #444;
-    box-shadow: 10px 10px 5px rgba(100,100,100,0.4);
 }
 
 
@@ -120,7 +115,6 @@ button.delete {
     border-bottom-style: outset; 
     border-bottom-width: 2px; 
     border-bottom-color: #444;
-    box-shadow: 10px 10px 5px rgba(100,100,100,0.4);
 }
 
 button[disabled] {
@@ -161,8 +155,6 @@ div.infobox {
     min-width: 20em;
     min-height: 150px;
     vertical-align: top;
-    border-radius: 10px 10px 10px 10px;
-    box-shadow: 5px 5px 5px #666666;
 }
 
 div.buttongroupprofilebox {
@@ -189,8 +181,6 @@ div.profilebox {
     min-width: 40em;
     min-height: 150px;
     vertical-align: top;
-    border-radius: 10px 10px 10px 10px;
-    box-shadow: 5px 5px 5px #666666;
 }
 
 div.consortium_logo {
@@ -207,17 +197,16 @@ div.sidebar {
     float: right;
     padding-right: 20px;
 }
+div.sidebar a {
+    color: white;
+}
 
 div.header {
     height: 54px;
-    background: #ffffff;
-    border-top-style:solid; 
-    border-bottom-style:solid;
-    border-top-width:5px; 
-    border-bottom-width:5px; 
-    border-color: <?php echo $colour1;?>;
+    background: #FFFFFF;
     padding-left:30px;
-    color: <?php echo $colour2;?>;
+    padding-bottom: 10px;
+    color: <?php echo $colour2?>;
 }
 
 div.pagecontent {
@@ -225,13 +214,27 @@ div.pagecontent {
     top: 54px;
     bottom: 50px;
     padding-top: 10px;
-    padding-left: 10px;
-    width:99%;
+    padding-left: 0px;
+    padding-right: 0px;
+    width:100%;
 }
 
 div.pagecontent div.trick {
     height: 100%;
     overflow: auto;
+}
+
+#secondrow {
+    background:#1d4a74;
+    color: #FFFFFF;
+    min-height:100px;
+    overflow: auto;
+    padding-left:20px'
+}
+
+#thirdrow {
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 div.footer {
@@ -272,8 +275,6 @@ div.device_info {
     padding: 5px;
     padding-bottom: 22px;
     vertical-align: top;
-    border-radius: 10px 10px 10px 10px;
-    box-shadow: 5px 5px 5px #666666;
     width: 350px;
     font-weight: normal;
     font-style: normal;
@@ -446,32 +447,27 @@ table.compatmatrix th {
 
 table.compatmatrix td.compat_incomplete {
     background-color: gray;
-    border-radius: 5px;
     text-align: center;
 }
 
 table.compatmatrix td.compat_default {
     background-color: #3fb75e;
-    border-radius: 5px;
     text-align: left;
     white-space:nowrap;
 }
 
 table.compatmatrix td.compat_secondary {
     background-color: #00a8ff;
-    border-radius: 5px;
     text-align: center;
 }
 
 table.compatmatrix td.compat_unsupported {
     background-color: #f15151;
-    border-radius: 5px;
     text-align: center;
 }
 
 table.compatmatrix td.compat_redirected {
     background-color: white;
-    border-radius: 5px;
     text-align: left;
     white-space:nowrap;
 }
@@ -503,7 +499,6 @@ p.MOTD {
     border-bottom-style: outset; 
     border-bottom-width: 2px; 
     border-bottom-color: #043d52;
-    border-radius: 6px;
 }
 
 
@@ -582,7 +577,6 @@ span.redirect_link {
     border-top-style: inset; border-top-width: 1px; border-top-color: #8bbacb;
     border-right-style: outset; border-right-width: 2px; border-right-color: #043d52;
     border-bottom-style: outset; border-bottom-width: 2px; border-bottom-color: #043d52;
-    border-radius: 6px;
     padding-left: 5px;
     padding-right: 5px;
     padding-top: 1px;
@@ -639,7 +633,6 @@ span.redirect_link a:active {
     border-bottom-style: outset; 
     border-bottom-width: 2px; 
     border-bottom-color: #043d52;
-    border-radius: 6px;
     padding-left: 5px;
     padding-right: 5px;
     padding-top: 1px;
@@ -669,7 +662,6 @@ span.redirect_link a:active {
     left: 200px;
     text-align: justify;
     top: 200px;
-    border-radius: 10px 10px 10px 10px;
     box-shadow: 5px 5px 5px #666666;
     border: 1px solid #dddddd;
 }
@@ -812,7 +804,6 @@ span.redirect_link a:active {
                     padding-right: 25px;
                     padding-bottom: 10px;
                     vertical-align: top;
-                    border-radius: 10px 10px 10px 10px;
                     box-shadow: 5px 5px 5px #666666;
                     text-align: justify
 }
@@ -876,7 +867,6 @@ span.redirect_link a:active {
     min-width: 30em;
     min-height: 25px;
     vertical-align: top;
-    border-radius: 6px;
     box-shadow: 5px 5px 5px #666666;
 }
 
