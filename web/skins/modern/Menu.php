@@ -26,7 +26,7 @@ class Menu {
             }
         }
         $this->menu = [['id' => 'start',
-        'text' => _("Start page"),
+        'text' => _("Start page"), 'link' => '/',
         'visibility' => 'index'],
             ['id' => 'about',
                 'text' => _("About"), 'link' => '', 'submenu' => [
@@ -46,6 +46,7 @@ class Menu {
                     ['text' => _("FAQ"), 'catInfo' => ['faq', _("FAQ")]],
                     ['text' => _("Contact"), 'catInfo' => ['contact', _("FAQ")]],
                     ['text' => _("Diagnostics"), 'link' => '/diag/diag.php'], 
+                    ['text' => _("Documentation"), 'link' => '/phpdoc' ],
                 ]],
             ['id' => 'manage',
                 'text' => _("Manage"), 'submenu' => [
@@ -53,7 +54,6 @@ class Menu {
                         'catInfo' => ['admin', sprintf(_("%s admin:<br>manage your IdP"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'])]],
                     ['text' => _("Become a CAT developer"),
                         'catInfo' => ['develop', _("Become a CAT developer")]],
-                    ['text' => _("Documentation")],
                 ],
                 'visibility' => 'index'],
             ['id' => 'tou',
@@ -78,7 +78,7 @@ class Menu {
                 if (!empty($menuItem['link']) && substr($menuItem['link'], 0, 1) === '/') {
                     $menuItem['link'] = \core\CAT::getRootUrlPath() . $menuItem['link'];
                 }
-                $link = $catInfo ?? $menuItem['link'] ?? \core\CAT::getRootUrlPath();
+                $link = $catInfo ?? $menuItem['link'] ?? '';
                 $class = empty($menuItem['class']) ? '' : ' class="' . $menuItem['class'] . '"';
                 $submenu = $menuItem['submenu'] ?? [];
                 $out .= $this->printMenuItem($menuItem['text'], $link, $class);
@@ -92,6 +92,9 @@ class Menu {
 
     private function printMenuItem($itemText, $itemLink = '', $itemClass = '') {
         
+        if ($itemLink === '') {
+            return("<li><span>$itemText</span>");
+        }
         return "<li><a href='" . $itemLink . "'" . $itemClass . '>' . $itemText . "</a>";
     }
     

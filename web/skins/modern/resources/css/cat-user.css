@@ -726,7 +726,7 @@ button.guess_os {
 /*   max-width: 15vw;*/
 }
 
-#menu_top > ul li a {
+#menu_top > ul li a, #menu_top > ul li span {
     transition-delay: 0s;
     transition-duration: 0.3s;
     transition-property: all;
@@ -745,11 +745,11 @@ button.guess_os {
    background: lightgreen;
 }
 
-
-#menu_top > ul li a:hover {
+#menu_top > ul li a:hover, #menu_top > ul li span:hover {
     background: #1d4a74;
     color: white;
 }
+
 #menu_top > ul li:hover ul {
     display: block;
 }
