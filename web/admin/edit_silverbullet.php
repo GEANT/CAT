@@ -299,8 +299,9 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
     <?php
     echo $deco->productHeader("ADMIN-IDP-USERS");
     ?>
+    <img src='../resources/images/icons/loading51.gif' id='spin' style='position:absolute;left: 50%; top: 50%; transform: translate(-100px, -50px); display:none; z-index: 100;'>
     <div class='infobox'>
-        <h2><?php echo sprintf(_('Current %s users'), $uiElements->nomenclature_inst); ?></h2>
+        <h2><?php echo sprintf(_('cCurrent %s users'), $uiElements->nomenclature_inst); ?></h2>
         <table>
             <tr>
                 <td><strong><?php echo _("Assigned Realm"); ?></strong></td><td><?php echo $profile->realm; ?></td>
@@ -438,7 +439,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
                                 <input type='hidden' value='" . $invitationObject->invitationTokenString . "' name='token'><br/>
                                 <input type='text' name='address' id='address'/>
                                 <button type='button' id='sb-compose-email-client' onclick='window.location=\"mailto:\"+document.getElementById(\"address\").value+\"?subject=" . $invitationObject->invitationMailSubject() . "&body=$jsEncodedBody\"; return false;'>" . _("Local mail client") . "</button>
-                                <button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_SENDINVITATIONMAILBYCAT . "'>Send with CAT</button>
+                                <button type='submit' name='command' onclick='document.getElementById(\"spin\").style.display =\"block\"' value='" . \web\lib\common\FormElements::BUTTON_SENDINVITATIONMAILBYCAT . "'>Send with CAT</button>
                                     </form>
                                     </td></tr>
                                     <tr><td style='vertical-align:bottom;'>SMS:</td><td>
