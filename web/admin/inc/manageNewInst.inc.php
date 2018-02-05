@@ -52,6 +52,7 @@ if (CONFIG['DB']['enforce-external-sync']) {
 }
 ?>
 <hr/>
+<img src='../resources/images/icons/loading51.gif' id='spin' style='position:absolute;left: 50%; top: 50%; transform: translate(-100px, -50px); display:none;'>
 <form name='sendinvite' action='inc/sendinvite.inc.php' method='post' accept-charset='UTF-8'>
     <table>
         <?php
@@ -109,7 +110,7 @@ if (CONFIG['DB']['enforce-external-sync']) {
         </tr>
     </table>
     <hr/>
-    <button type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_SAVE; ?>'><?php echo _("Send invitation"); ?></button>
+    <button type='submit' name='submitbutton' onclick='document.getElementById("spin").style.display ="block"' value='<?php echo web\lib\common\FormElements::BUTTON_SAVE; ?>'><?php echo _("Send invitation"); ?></button>
 </form>
 <br/>
 <form action='inc/manageNewInst.inc.php' method='post' accept-charset='UTF-8'>
