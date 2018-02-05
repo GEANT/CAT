@@ -52,7 +52,7 @@ const CONFIG = [
         'defaultlocale' => 'en',
         'MOTD' => "Release Candidate. All bugs to be shot on sight!",
         // # signs before the colour code
-        'colour1' => '#BCD7E8',
+        'colour1' => '#FFFFFF',
         'colour2' => '#0A698E',
         // the web server certificate may be checked by browsers against a CRL or OCSP Responder
         // to tell captive portal admins which hosts to allow, list the URLs here (they show up
