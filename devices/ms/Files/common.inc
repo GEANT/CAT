@@ -913,7 +913,7 @@ Function writeTlsUserProfle
     DetailPrint "<?php WindowsCommon::echo_nsi(_("installing credentials TLS"))?>"
     !insertmacro debug_cat 3 "Installing TLS credentials profile"
     FileOpen $9 "$TEMP\user_cred.xml" w
-    ${If} ${NSIS_MAJOR_VERSION} >= 3
+    !if NSIS_MAJOR_VERSION >= 3
        FileWriteUTF16LE $9 '<?xml version=$\"1.0$\"?>$\r$\n\
 <EapHostUserCredentials xmlns=$\"http://www.microsoft.com/provisioning/EapHostUserCredentials$\" xmlns:eapCommon=$\"http://www.microsoft.com/provisioning/EapCommon$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapMethodUserCredentials$\">$\r$\n\
   <EapMethod>$\r$\n\
@@ -924,7 +924,7 @@ Function writeTlsUserProfle
     <baseEap:Eap>$\r$\n\
       <baseEap:Type>13</baseEap:Type>$\r$\n\
       <eapTls:EapType>$\r$\n'
-    ${Else}
+    !else
        FileWrite $9 '<?xml version=$\"1.0$\"?>$\r$\n\
        <EapHostUserCredentials xmlns=$\"http://www.microsoft.com/provisioning/EapHostUserCredentials$\" xmlns:eapCommon=$\"http://www.microsoft.com/provisioning/EapCommon$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapMethodUserCredentials$\">$\r$\n\
   <EapMethod>$\r$\n\
@@ -935,28 +935,28 @@ Function writeTlsUserProfle
     <baseEap:Eap>$\r$\n\
       <baseEap:Type>13</baseEap:Type>$\r$\n\
       <eapTls:EapType>$\r$\n'
-    ${EndIf}
+    !endif
 
 !ifdef PFX_USERNAME
-   ${If} ${NSIS_MAJOR_VERSION} >= 3
+   !if NSIS_MAJOR_VERSION >= 3
       FileWriteUTF16LE $9 "<eapTls:Username>$UNAME</eapTls:Username>$\r$\n"
-   ${Else}
+   !else
       FileWrite $9 "<eapTls:Username>$UNAME</eapTls:Username>$\r$\n"
-   ${EndIf}
+   !endif
 !endif
-${If} ${NSIS_MAJOR_VERSION} >= 3
+!if NSIS_MAJOR_VERSION >= 3
 FileWriteUTF16LE $9 "<eapTls:UserCert>$tlsFingerprint</eapTls:UserCert>$\r$\n\
       </eapTls:EapType>$\r$\n\
     </baseEap:Eap>$\r$\n\
   </Credentials>$\r$\n\
 </EapHostUserCredentials>$\r$\n"
-${Else}
+!else
 FileWrite $9 "<eapTls:UserCert>$tlsFingerprint</eapTls:UserCert>$\r$\n\
       </eapTls:EapType>$\r$\n\
     </baseEap:Eap>$\r$\n\
   </Credentials>$\r$\n\
 </EapHostUserCredentials>$\r$\n"
-${EndIf}
+!endif
    FileClose $9
    nsArray::Set Delete_files "user_cred.xml"
 FunctionEnd
@@ -964,7 +964,7 @@ FunctionEnd
 
 Function writePeapUserProfle
     FileOpen $9 "$TEMP\user_cred.xml" w
-    ${If} ${NSIS_MAJOR_VERSION} >= 3
+    !if NSIS_MAJOR_VERSION >= 3
     FileWriteUTF16LE $9 '<?xml version=$\"1.0$\"?>$\r$\n\
 <EapHostUserCredentials xmlns=$\"http://www.microsoft.com/provisioning/EapHostUserCredentials$\" xmlns:eapCommon=$\"http://www.microsoft.com/provisioning/EapCommon$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapMethodUserCredentials$\">$\r$\n\
 <EapMethod>$\r$\n\
@@ -987,7 +987,7 @@ FileWriteUTF16LE $9 "<MsChapV2:Username>$UNAME</MsChapV2:Username>$\r$\n\
 </baseEap:Eap>$\r$\n\
 </Credentials>$\r$\n\
 </EapHostUserCredentials>$\r$\n"
-${Else}
+!else
     FileWrite $9 '<?xml version=$\"1.0$\"?>$\r$\n\
 <EapHostUserCredentials xmlns=$\"http://www.microsoft.com/provisioning/EapHostUserCredentials$\" xmlns:eapCommon=$\"http://www.microsoft.com/provisioning/EapCommon$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapMethodUserCredentials$\">$\r$\n\
 <EapMethod>$\r$\n\
@@ -1010,7 +1010,7 @@ FileWrite $9 "<MsChapV2:Username>$UNAME</MsChapV2:Username>$\r$\n\
 </baseEap:Eap>$\r$\n\
 </Credentials>$\r$\n\
 </EapHostUserCredentials>$\r$\n"
-${EndIf}
+!endif
    FileClose $9
    nsArray::Set Delete_files "user_cred.xml"
 FunctionEnd
