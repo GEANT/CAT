@@ -1,0 +1,12 @@
+
+td.icon_td {
+   vertical-align: top;
+   width:30px;
+   min-height: 80px;
+}
+
+td.icon_td img {
+   width: 24px;
+}
+
+
