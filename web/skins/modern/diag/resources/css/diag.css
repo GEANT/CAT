@@ -9,4 +9,17 @@ td.icon_td img {
    width: 24px;
 }
 
+.error_row td {
+    color: red;
+}
+.hidden_row {
+    visibility:collapse;
+}
+.visible_row {
+    visibility:visible;
+}
+.error_input {
+    border:1px solid red;
+}
+
 

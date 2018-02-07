@@ -39,7 +39,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
 <link rel="stylesheet" media="screen" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("CSS", "cat-user.css"); ?>" />
-
+<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("CSS", "diag.css", "diag"); ?>" />
 </head>
 <body>
 <div id='wrap'>
@@ -984,18 +984,5 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
     });
     
 </script>
-<style>
-.error_row td {
-        color: red;
-    }
-    .hidden_row {
-        visibility:collapse;
-    }
-    .visible_row {
-        visibility:visible;
-    }
-    .error_input {
-        border:1px solid red;
-    }
-</style>
+
 </body>
