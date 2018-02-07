@@ -42,8 +42,6 @@ class Gui extends \core\UserAPI {
           <html xmlns='http://www.w3.org/1999/xhtml' lang='" . $ourlocale . "'>
           <head lang='" . $ourlocale . "'>
           <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
-        $cssUrl = $this->skinObject->findResourceUrl("CSS", "cat.css.php");
-        echo "<link rel='stylesheet' media='screen' type='text/css' href='$cssUrl' />";
         echo "<title>" . htmlspecialchars($pagetitle) . "</title>";
         echo '<script type="text/javascript">ie_version = 0;</script>
 <!--[if IE]>
