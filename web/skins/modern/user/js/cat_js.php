@@ -146,11 +146,15 @@ function resetDevices() {
   if(button_id.substr(0,7) == "info_b_") {
     var device_id = button_id.substr(7);
     $("#info_window").html("<h2>"+$('#'+device_id).text()+"</h2>");
-  $.post('<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>', {action: 'deviceInfo', api_version: 2, lang: lang, device: device_id, profile: profile}, function(data) {
+    $.post('<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>', {action: 'deviceInfo', api_version: 2, lang: lang, device: device_id, profile: profile}, function(data) {
     var h = $("#info_window").html();
     $("#info_window").html(h+data);
     $("#main_body").fadeTo("fast", 0.2,function() {
     var x = getWindowHCenter() - 350;
+    var top = $("#main_body").get(0).getBoundingClientRect().top;
+    if (rect < -150) {
+        $("#info_overlay").css("top", -top + 50);
+    }
     $("#info_overlay").show();
 }
 );
@@ -158,9 +162,10 @@ function resetDevices() {
   } else {
      $('.device_info').html('');
       $('.device_info').hide();
-      if($(this).hasClass('disabledDevice')) 
+      if($(this).hasClass('disabledDevice')) {
+        $(this).removeClass('disabledDevice');
         $(this).addClass('pressedDisabled');
-      else 
+     } else 
         $(this).addClass('pressed');
       pressedButton = $(this);
       if($(this).hasClass('additionalInfo')) {
