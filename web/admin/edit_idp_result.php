@@ -70,10 +70,9 @@ echo $optionParser->processSubmittedFields($my_inst, $_POST, $_FILES);
 echo "</table>";
 
 // delete cached logo, if present
-$logofile = dirname(dirname(__FILE__)) . "/downloads/logos/" . $my_inst->identifier . ".png";
-if (is_file($logofile)) {
-    unlink($logofile);
-}
+$dir = ROOT . '/web/downloads/logos/';
+array_map('unlink', glob($dir . $my_inst->identifier . "_*.png"));
+$loggerInstance->debug(4, "UNLINK from $dir\n");
 
 $loggerInstance->writeAudit($_SESSION['user'], "MOD", "IdP " . $my_inst->identifier . " - attributes changed");
 
