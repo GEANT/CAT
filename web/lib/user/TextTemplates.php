@@ -78,7 +78,7 @@ class TextTemplates {
         $this->templates[FRONTPAGE_BIGDOWNLOADBUTTON] = sprintf(_("Click here to download your %s installer"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $this->templates[PROFILE_SELECTION] = _("Select the user group");
         $this->templates[INSTITUTION_SELECTION] = _("select another");
-        $this->templates[DOWNLOAD_CHOOSE] = _("Choose an installer to download");
+        $this->templates[DOWNLOAD_CHOOSE] = _("Choose another installer to download");
         $this->templates[DOWNLOAD_ALLPLATFORMS] = _("All platforms");
         $this->templates[DOWNLOAD_MESSAGE] = sprintf(_("Download your %s installer"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $this->templates[DOWNLOAD_REDIRECT] = _("Your local administrator has specified a redirect to a local support page.<br>When you click <b>Continue</b> this support page will be opened in a new window/tab.");
