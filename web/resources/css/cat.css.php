@@ -506,36 +506,6 @@ td.vendor img {
     height: 40px;
 }
 
-span.redirect_link {
-    background: <?php echo $colour2;?>; color: #FFFFFF; height: 23px;
-    border-left-style: inset; border-left-width: 1px; border-left-color: #8bbacb;
-    border-top-style: inset; border-top-width: 1px; border-top-color: #8bbacb;
-    border-right-style: outset; border-right-width: 2px; border-right-color: #043d52;
-    border-bottom-style: outset; border-bottom-width: 2px; border-bottom-color: #043d52;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 1px;
-    padding-bottom: 1px;
-    position: relative;
-    cursor:pointer;
-    float: right;
-    height: 14px;
-}
-
-span.redirect_link a:link {
-    color: white; 
-    text-decoration: none;
-}
-
-span.redirect_link a:visited {
-    color: white; 
-    text-decoration: none;
-}
-
-span.redirect_link a:active {
-    color: white; 
-    text-decoration: none;
-}
 
 .signin_large {
     vertical-align: top;

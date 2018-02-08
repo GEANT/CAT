@@ -121,7 +121,7 @@ button.pressed {
     background:#095e80;
 }
 
-button.pressedDisabled {
+#device_list button.pressedDisabled {
     background:#f00;
 }
 
@@ -356,12 +356,8 @@ div.device_info {
 }
 
 span.redirect_link {
-    background: <?php echo $colour2; ?>; color: #FFFFFF; height: 23px;
-    border-left-style: inset; border-left-width: 1px; border-left-color: #8bbacb;
-    border-top-style: inset; border-top-width: 1px; border-top-color: #8bbacb;
-    border-right-style: outset; border-right-width: 2px; border-right-color: #043d52;
-    border-bottom-style: outset; border-bottom-width: 2px; border-bottom-color: #043d52;
-    border-radius: 6px;
+    background: var(--color2);
+    color: #FFFFFF; height: 23px;
     padding-left: 5px;
     padding-right: 5px;
     padding-top: 1px;

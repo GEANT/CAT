@@ -152,7 +152,7 @@ function resetDevices() {
     $("#main_body").fadeTo("fast", 0.2,function() {
     var x = getWindowHCenter() - 350;
     var top = $("#main_body").get(0).getBoundingClientRect().top;
-    if (rect < -150) {
+    if (top < -150) {
         $("#info_overlay").css("top", -top + 50);
     }
     $("#info_overlay").show();
@@ -162,11 +162,6 @@ function resetDevices() {
   } else {
      $('.device_info').html('');
       $('.device_info').hide();
-      if($(this).hasClass('disabledDevice')) {
-        $(this).removeClass('disabledDevice');
-        $(this).addClass('pressedDisabled');
-     } else 
-        $(this).addClass('pressed');
       pressedButton = $(this);
       if($(this).hasClass('additionalInfo')) {
         info_id = 'info_'+pressedButton.attr('id');
