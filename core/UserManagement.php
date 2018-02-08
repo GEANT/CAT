@@ -247,7 +247,7 @@ Best regards,
      * @return mixed The function returns either the token (as string) or FALSE if something went wrong
      */
     public function createToken($isByFedadmin, $for, $instIdentifier, $externalId = 0, $country = 0) {
-        $token = sha1(base_convert(rand(0, 10e16), 10, 36)) . sha1(base_convert(rand(0, 10e16), 10, 36));
+        $token =  bin2hex(random_bytes(40));
         $level = ($isByFedadmin ? "FED" : "INST");
 
         if ($instIdentifier instanceof IdP) {
