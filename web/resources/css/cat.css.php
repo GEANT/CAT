@@ -100,23 +100,6 @@ button.delete {
 }
 
 
-.use_borders button.disabledDevice {
-    color: #444; 
-    background: #bbb; 
-    border-left-style: outset; 
-    border-left-width: 1px; 
-    border-left-color: #eee;
-    border-top-style: outset; 
-    border-top-width: 1px; 
-    border-top-color: #eee;
-    border-right-style: outset; 
-    border-right-width: 2px; 
-    border-right-color: #444;
-    border-bottom-style: outset; 
-    border-bottom-width: 2px; 
-    border-bottom-color: #444;
-}
-
 button[disabled] {
     background: #bababa;
     color: #6a6a6a;
@@ -155,11 +138,6 @@ div.infobox {
     min-width: 20em;
     min-height: 150px;
     vertical-align: top;
-}
-
-div.buttongroupprofilebox {
-    position: inherit;
-    bottom: 5px;
 }
 
 div.profilemodulebuttons {
@@ -333,23 +311,6 @@ div.graybox img {
     margin: 0px 0px 10px 10px;
 }
 
-div.mainpagehorizontalblock {
-    display:block;
-    width:100%;
-    float:left;
-    padding-top:70px;
-}
-
-div.mainpageleftside {
-    float: left;
-    width: 50%;
-}
-
-div.mainpagerightside {
-    float: right;
-    width: 50%;
-}
-
 img.icon {
     float: left;
     margin-right: 5px;
@@ -368,17 +329,6 @@ fieldset.option_container {
 }
 
 
-fieldset.option_container-w {
-    display: inline-block;
-    position: relative;
-    margin: 5px;
-    padding: 5px;
-    min-width: 500px;
-    width: 95%;
-    min-height: 150px;
-    vertical-align: top;
-}
-
 div.googlemap {
     min-width: 300px;
     max-width: 500px;
@@ -394,10 +344,6 @@ div.acceptable {
     display: inline;
 }
 
-div.secondary {
-    color: blue;
-    display: inline;
-}
 div.notacceptable {
     color: red;
     display: inline;
@@ -420,17 +366,6 @@ span.tooltip {
 }
 div.infobox td {
     vertical-align: top;
-}
-
-div.eap_selection {
-    display: inline-table;
-    border: 1px solid #dddddd;
-    margin: 5px;
-    padding: 5px;
-}
-
-div.known_info {
-    display: block;
 }
 
 table.compatmatrix {
@@ -666,10 +601,6 @@ span.redirect_link a:active {
     border: 1px solid #dddddd;
 }
 
-#institution_list {
-    width: 30em
-}
-
 #user_info {
     padding-left: 30px; 
     font-size: 11px;  
@@ -701,16 +632,6 @@ span.redirect_link a:active {
     color: white; 
     box-shadow: 10px 10px 5px #888888;
 }
-
-#profile_list2 {
-    width: 30em; 
-    padding-left: 10px; 
-    padding-right: 00px; 
-    background: <?php echo $colour2;?>; 
-    color: #FFFFFF; 
-    box-shadow: 10px 10px 5px #888888;
-}
-
 
 #profile_redirect {
     padding-left: 30px;
@@ -916,14 +837,6 @@ span.redirect_link a:active {
     font-size:16px;
 }
 
-
-#left_menu td {
-    border: 0 none;
-    padding: 0;
-    padding-top: 3px;
-    padding-bottom: 3px;
-}
-
 .img.img_roll {
     z-index: 90;
 }
@@ -935,17 +848,6 @@ span.redirect_link a:active {
     border-collapse:collapse;
     padding-left:200px;
     padding-top:10px;
-}
-
-#menu_column {
-    border-right:solid;
-    border-color: <?php echo $colour1;?>;
-    border-width:5px;
-    min-height:400px;
-    padding-left: 10px;
-    vertical-align:top;
-    width:110px;
-    padding-top:30px;
 }
 
 #front_page_leftmenu {
@@ -965,10 +867,6 @@ span.redirect_link a:active {
     background: #fff;
     padding-left: 20px;
     padding-right: 20px;
-}
-
-#user_button1 {
-   position: relative;
 }
 
 #user_button_td {
