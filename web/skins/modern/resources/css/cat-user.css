@@ -56,7 +56,10 @@ button[disabled] {
 
 input {
     margin-right: 5px;
+}
 
+input[button] {
+    background: var(--color1);
 }
 
 select {
@@ -109,7 +112,7 @@ a:active {
 
 button {
     cursor: pointer;
-    background: var(--color1); 
+    background: var(--color2); 
     color: #FFFFFF; 
     height: 23px;
 }
