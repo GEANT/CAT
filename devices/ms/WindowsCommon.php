@@ -222,7 +222,7 @@ abstract class WindowsCommon extends \core\DeviceConfig {
         } else {
             $makensis = CONFIG_CONFASSISTANT['PATHS']['makensis'];
         }
-        $command = $makensis . ' -V4 cat.NSI > nsis.log';
+        $command = $makensis . ' -V4 cat.NSI > nsis.log 2>&1';
         system($command);
         $this->loggerInstance->debug(4, "compileNSIS:$command\n");
     }

@@ -32,7 +32,7 @@ StrCmp $0 0 Koniec
         ; Error Label, show error box and then quit
         ;
 
-        MessageBox MB_OK|MB_ICONEXCLAMATION "<?php echo _("EAP-pwd installation error. Please try again or contact ${SUPPORT}.")?>"
+        MessageBox MB_OK|MB_ICONEXCLAMATION "<?php echo _("EAP-pwd installation error. Please try again or contact Support.")?>"
         Delete Aruba_Networks_EAP-pwd_x32.msi
         Delete Aruba_Networks_EAP-pwd_x64.msi
         Call Cleanup
