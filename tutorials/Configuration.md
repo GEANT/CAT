@@ -76,6 +76,7 @@ Here are some extra configuration hints for these packages:
 Installing CAT
 --------------
 1.  unpack the distribution
+1A. if you use a clone of the Git repo instead, remember to "git submodule --init --recursive" at least for the GEANTlink repo in devices/ms/Files/ (there are more submodules referenced in core/ which you may already have on your system, you should double-check)
 2.  create the config/config.php file from the supplied template config-template.php
 3.  create the devices/devices.php file from the supplied template
 4.  on a MySQL/MariaDB server, create the databases as per the schema definition in schema/schema.sql
