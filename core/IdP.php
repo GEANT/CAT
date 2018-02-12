@@ -60,13 +60,14 @@ class IdP extends EntityWithDBProperties {
      * @param int $instId the database row identifier
      */
     public function __construct(int $instId) {
+        if (!is_numeric($instId)) {
+            throw new Exception("An " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_inst'] . " is identified by an integer index!");
+        }
         $this->databaseType = "INST";
         parent::__construct(); // now databaseHandle and logging is available
         $this->entityOptionTable = "institution_option";
         $this->entityIdColumn = "institution_id";
-        if (!is_numeric($instId)) {
-            throw new Exception("An " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_inst'] . " is identified by an integer index!");
-        }
+        
         $this->identifier = (int) $instId;
 
         $idp = $this->databaseHandle->exec("SELECT inst_id, country,external_db_syncstate FROM institution WHERE inst_id = $this->identifier");
