@@ -274,7 +274,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
             case "institution_option":
                 $blobId = -1;
                 $columnName = $columnName ?? "institution_id";
-                $blobQuery = $handle->exec("SELECT $columnName as id from $table WHERE row = $row");
+                $blobQuery = $handle->exec("SELECT $columnName as id from $table WHERE row = ?", "i", $row);
                 // SELECT always returns a resourse, never a boolean
                 while ($idQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $blobQuery)) { // only one row
                     $blobId = $idQuery->id;
