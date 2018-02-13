@@ -341,10 +341,10 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
     }
 
     private function networkBlock($blocktype, $toBeConfigured) {
+        $eapType = $this->selectedEap;
         switch ($blocktype) {
             case mobileconfigSuperclass::NETWORK_BLOCK_TYPE_SSID:
                 $escapedSSID = htmlspecialchars($toBeConfigured, ENT_XML1, 'UTF-8');
-                $eapType = $this->selectedEap;
                 $payloadIdentifier = "wifi." . $this->serial;
                 $payloadShortName = sprintf(_("SSID %s"), $escapedSSID);
                 $payloadName = sprintf(_("%s configuration for network name %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $escapedSSID);
@@ -370,6 +370,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
                 $payloadShortName = _("Hotspot 2.0 Settings");
                 $payloadName = sprintf(_("%s Hotspot 2.0 configuration"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
                 $encryptionTypeString = "WPA";
+                $setupModesString = "";
                 $wifiNetworkIdentification = $this->passPointBlock($toBeConfigured);
                 break;
             default:
