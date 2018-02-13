@@ -152,12 +152,6 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         $outputXml .= "<key>PayloadContent</key>
          <array>";
 
-        // did the admin want wired config?
-        $includeWired = FALSE;
-        if (isset($this->attributes['media:wired']) && get_class($this) == "Device_mobileconfig_os_x") {
-            $includeWired = TRUE;
-        }
-
         // if we are in silverbullet, we will need a whole own block for the client credential
         // and also for the profile expiry
 
@@ -168,10 +162,9 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
             $clientCertUUID = $blockinfo['UUID'];
         }
 
-        $outputXml .= $this->allCA($this->attributes['internal:CAs'][0]);
+        $outputXml .= $this->allCA();
 
-        $outputXml .= $this->allNetworkBlocks(
-                $this->attributes['internal:SSID'], $this->attributes['internal:consortia'], $this->attributes['eap:server_name'], $this->listCAUuids($this->attributes['internal:CAs'][0]), $this->selectedEap, $includeWired, $clientCertUUID, $this->determineOuterIdString());
+        $outputXml .= $this->allNetworkBlocks($clientCertUUID);
 
         $outputXml .= "</array>";
         $outputXml .= $this->generalPayload();
@@ -272,7 +265,8 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
 
     private $serial;
 
-    private function eapBlock($eapType, $realm, $cAUUIDList, $serverList) {
+    private function eapBlock($eapType) {
+        $realm = $this->determineOuterIdString();
         $retval = "<key>EAPClientConfiguration</key>
                   <dict>
                       <key>AcceptEAPTypes</key>
@@ -295,7 +289,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         }
         $retval .= "<key>PayloadCertificateAnchorUUID</key>
                          <array>";
-        foreach ($cAUUIDList as $uuid) {
+        foreach ($this->listCAUuids($this->attributes['internal:CAs'][0]) as $uuid) {
             $retval .= "
 <string>$uuid</string>";
         }
@@ -305,7 +299,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
                          <false />
                       <key>TLSTrustedServerNames</key>
                          <array>";
-        foreach ($serverList as $commonName) {
+        foreach ($this->attributes['eap:server_name'] as $commonName) {
             $retval .= "
 <string>$commonName</string>";
         }
@@ -321,9 +315,31 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         return $retval;
     }
 
-    private function networkBlock($ssid, $consortiumOi, $serverList, $cAUUIDList, $eapType, $wired, $clientCertUUID, $realm = 0) {
-        $escapedSSID = htmlspecialchars($ssid, ENT_XML1, 'UTF-8');
+    protected function proxySettings() {
+        $buffer = "<key>ProxyType</key>";
+        if (isset($this->attributes['media:force_proxy_http'])) {
+            // find the port delimiter. In case of IPv6, there are multiple ':' 
+            // characters, so we have to find the LAST one
+            $serverAndPort = explode(':', strrev($this->attributes['media:force_proxy_http'][0]), 2);
+            // characters are still reversed, invert on use!
+            $buffer .= "<string>Manual</string>
+                  <key>ProxyServer</key>
+                  <string>".strrev($serverAndPort[1])."</string>
+                  <key>ProxyServerPort</key>
+                  <integer>".strrev($serverAndPort[0])."</integer>
+                  <key>ProxyPACFallbackAllowed</key>
+                  <false/>";
+        } else {
+            $buffer .= "<string>Auto</string>
+                  <key>ProxyPACFallbackAllowed</key>
+                  <true/>";
+        }
+        return $buffer;
+    }
 
+    private function networkBlock($ssid, $consortiumOi, $wired, $clientCertUUID) {
+        $escapedSSID = htmlspecialchars($ssid, ENT_XML1, 'UTF-8');
+        $eapType = $this->selectedEap;
         $payloadIdentifier = "wifi." . $this->serial;
         $payloadShortName = sprintf(_("SSID %s"), $escapedSSID);
         $payloadName = sprintf(_("%s configuration for network name %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $escapedSSID);
@@ -354,7 +370,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         }
 
         $retval = "<dict>";
-        $retval .= $this->eapBlock($eapType, $realm, $cAUUIDList, $serverList);
+        $retval .= $this->eapBlock($eapType);
         $retval .= "<key>EncryptionType</key>
                   <string>$encryptionTypeString</string>
                <key>HIDDEN_NETWORK</key>
@@ -369,14 +385,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
                   <string>" . $this->massagedConsortium . ".1x-config.org</string>
                <key>PayloadType</key>
                   <string>com.apple." . ($wired ? "firstactiveethernet" : "wifi") . ".managed</string>";
-        $this->loggerInstance->debug(2, get_class($this));
-        if (get_class($this) != "Device_mobileconfig_ios_56") {
-            $retval .= "<key>ProxyType</key>
-                  <string>Auto</string>
-                  <key>ProxyPACFallbackAllowed</key>
-                  <true/>
-                ";
-        }
+        $retval .= $this->proxySettings();
         $retval .= $setupModesString;
         if ($eapType['INNER'] == \core\common\EAP::NE_SILVERBULLET) {
             if ($clientCertUUID === NULL) {
@@ -429,17 +438,18 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         return $retval;
     }
 
-    private function allNetworkBlocks($sSIDList, $consortiumOIList, $serverNameList, $cAUUIDList, $eapType, $includeWired, $clientcertUUID, $realm = 0) {
+    private function allNetworkBlocks($clientcertUUID) {
         $retval = "";
         $this->serial = 0;
-        foreach (array_keys($sSIDList) as $ssid) {
-            $retval .= $this->networkBlock($ssid, NULL, $serverNameList, $cAUUIDList, $eapType, FALSE, $clientcertUUID, $realm);
+
+        foreach (array_keys($this->attributes['internal:SSID']) as $ssid) {
+            $retval .= $this->networkBlock($ssid, NULL, FALSE, $clientcertUUID);
         }
-        if ($includeWired) {
-            $retval .= $this->networkBlock("IRRELEVANT", NULL, $serverNameList, $cAUUIDList, $eapType, TRUE, $clientcertUUID, $realm);
+        if (isset($this->attributes['media:wired']) && get_class($this) == "Device_mobileconfig_os_x") {
+            $retval .= $this->networkBlock("IRRELEVANT", NULL, TRUE, $clientcertUUID);
         }
-        if (count($consortiumOIList) > 0) {
-            $retval .= $this->networkBlock("IRRELEVANT", $consortiumOIList, $serverNameList, $cAUUIDList, $eapType, FALSE, $clientcertUUID, $realm);
+        if (count($this->attributes['internal:consortia']) > 0) {
+            $retval .= $this->networkBlock("IRRELEVANT", $this->attributes['internal:consortia'], FALSE, $clientcertUUID);
         }
         if (isset($this->attributes['media:remove_SSID'])) {
             foreach ($this->attributes['media:remove_SSID'] as $index => $removeSSID) {
@@ -449,10 +459,10 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         return $retval;
     }
 
-    private function allCA($caArray) {
+    private function allCA() {
         $retval = "";
         $iterator = 0;
-        foreach ($caArray as $ca) {
+        foreach ($this->attributes['internal:CAs'][0] as $ca) {
             $retval .= $this->caBlob($ca['uuid'], $ca['pem'], $iterator);
             $iterator = $iterator + 1;
         }
@@ -499,7 +509,7 @@ $mimeFormatted
         }
         $expiryTime = new \DateTime($this->clientCert['certObject']->expiry);
         return "<key>RemovalDate</key>
-        <date>".$expiryTime->format("Y-m-d")."T".$expiryTime->format("H:i:s")."Z</date>";
+        <date>" . $expiryTime->format("Y-m-d") . "T" . $expiryTime->format("H:i:s") . "Z</date>";
     }
 
     private function caBlob($uuid, $pem, $serial) {

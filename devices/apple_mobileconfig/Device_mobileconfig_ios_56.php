@@ -19,6 +19,7 @@
 /**
  * 
  */
+
 namespace devices\apple_mobileconfig;
 
 /**
@@ -31,5 +32,11 @@ namespace devices\apple_mobileconfig;
  * @package Developer
  */
 class Device_mobileconfig_ios_56 extends mobileconfigSuperclass {
+
+    protected function proxySettings() {
+        // iOS 5 and 6 do not support the Proxy block properly, so override
+        // the function to do nothing.
+        return "";
+    }
 
 }

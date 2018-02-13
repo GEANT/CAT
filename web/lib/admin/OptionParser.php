@@ -367,6 +367,20 @@ class OptionParser {
                                         continue 3;
                                     }
                                     break;
+                                case "media:force_proxy_http":
+                                    // fall-through intended, treat identical
+                                case "media:force_proxy_https":
+                                    $content = $this->validator->string($listOfEntries["$objId-" . \core\Options::TYPECODE_STRING]);
+                                    $serverAndPort = explode(':', strrev($content), 2);
+                                    if (count($serverAndPort) != 2) {
+                                        $bad[] = $objValue;
+                                        continue 3;
+                                    }
+                                    $port = strrev($serverAndPort[0]);
+                                    if (!is_numeric($port)) {
+                                        $bad[] = $objValue;
+                                        continue 3;
+                                    }
                                 default:
                                     $content = $this->validator->string($listOfEntries["$objId-" . \core\Options::TYPECODE_STRING]);
                                     break;
