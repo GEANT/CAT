@@ -40,9 +40,8 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
     private $massagedConsortium;
     private $lang;
     static private $iPhonePayloadPrefix = "org.1x-config";
-
     private $clientCertUUID;
-    
+
     public function __construct() {
         parent::__construct();
         // that's what all variants support. Sub-classes can change it.
@@ -341,38 +340,41 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         return $buffer;
     }
 
-    private function networkBlock($ssid, $consortiumOi, $wired) {
-        $escapedSSID = htmlspecialchars($ssid, ENT_XML1, 'UTF-8');
-        $eapType = $this->selectedEap;
-        $payloadIdentifier = "wifi." . $this->serial;
-        $payloadShortName = sprintf(_("SSID %s"), $escapedSSID);
-        $payloadName = sprintf(_("%s configuration for network name %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $escapedSSID);
-        $encryptionTypeString = "WPA";
-        $setupModesString = "";
-        $wifiNetworkIdentification = "<key>SSID_STR</key>
+    private function networkBlock($blocktype, $toBeConfigured) {
+        switch ($blocktype) {
+            case mobileconfigSuperclass::NETWORK_BLOCK_TYPE_SSID:
+                $escapedSSID = htmlspecialchars($toBeConfigured, ENT_XML1, 'UTF-8');
+                $eapType = $this->selectedEap;
+                $payloadIdentifier = "wifi." . $this->serial;
+                $payloadShortName = sprintf(_("SSID %s"), $escapedSSID);
+                $payloadName = sprintf(_("%s configuration for network name %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $escapedSSID);
+                $encryptionTypeString = "WPA";
+                $setupModesString = "";
+                $wifiNetworkIdentification = "<key>SSID_STR</key>
                   <string>$escapedSSID</string>";
-
-        if ($wired) { // override the above defaults for wired interfaces
-            $payloadIdentifier = "firstactiveethernet";
-            $payloadShortName = _("Wired Network");
-            $payloadName = sprintf(_("%s configuration for wired network"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
-            $encryptionTypeString = "any";
-            $setupModesString = "
+                break;
+            case mobileconfigSuperclass::NETWORK_BLOCK_TYPE_WIRED:
+                $payloadIdentifier = "firstactiveethernet";
+                $payloadShortName = _("Wired Network");
+                $payloadName = sprintf(_("%s configuration for wired network"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+                $encryptionTypeString = "any";
+                $setupModesString = "
                <key>SetupModes</key>
                   <array>
                      <string>System</string>
                   </array>";
-            $wifiNetworkIdentification = "";
+                $wifiNetworkIdentification = "";
+                break;
+            case mobileconfigSuperclass::NETWORK_BLOCK_TYPE_CONSORTIUMOIS:
+                $payloadIdentifier = "hs20";
+                $payloadShortName = _("Hotspot 2.0 Settings");
+                $payloadName = sprintf(_("%s Hotspot 2.0 configuration"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+                $encryptionTypeString = "WPA";
+                $wifiNetworkIdentification = $this->passPointBlock($toBeConfigured);
+                break;
+            default:
+                throw new Exception("This type of network block is unknown!");
         }
-
-        if (count($consortiumOi) > 0) { // override the above defaults for HS20 configuration
-            $payloadIdentifier = "hs20";
-            $payloadShortName = _("Hotspot 2.0 Settings");
-            $payloadName = sprintf(_("%s Hotspot 2.0 configuration"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
-            $encryptionTypeString = "WPA";
-            $wifiNetworkIdentification = $this->passPointBlock($consortiumOi);
-        }
-
         $retval = "<dict>";
         $retval .= $this->eapBlock($eapType);
         $retval .= "<key>EncryptionType</key>
@@ -388,7 +390,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
                <key>PayloadOrganization</key>
                   <string>" . $this->massagedConsortium . ".1x-config.org</string>
                <key>PayloadType</key>
-                  <string>com.apple." . ($wired ? "firstactiveethernet" : "wifi") . ".managed</string>";
+                  <string>com.apple." . ($blocktype == mobileconfigSuperclass::NETWORK_BLOCK_TYPE_WIRED ? "firstactiveethernet" : "wifi") . ".managed</string>";
         $retval .= $this->proxySettings();
         $retval .= $setupModesString;
         if ($eapType['INNER'] == \core\common\EAP::NE_SILVERBULLET) {
@@ -439,18 +441,22 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         return $retval;
     }
 
+    const NETWORK_BLOCK_TYPE_SSID = 100;
+    const NETWORK_BLOCK_TYPE_CONSORTIUMOIS = 101;
+    const NETWORK_BLOCK_TYPE_WIRED = 102;
+
     private function allNetworkBlocks() {
         $retval = "";
         $this->serial = 0;
 
         foreach (array_keys($this->attributes['internal:SSID']) as $ssid) {
-            $retval .= $this->networkBlock($ssid, NULL, FALSE);
+            $retval .= $this->networkBlock(mobileconfigSuperclass::NETWORK_BLOCK_TYPE_SSID, $ssid);
         }
         if (isset($this->attributes['media:wired']) && get_class($this) == "Device_mobileconfig_os_x") {
-            $retval .= $this->networkBlock("IRRELEVANT", NULL, TRUE);
+            $retval .= $this->networkBlock(mobileconfigSuperclass::NETWORK_BLOCK_TYPE_WIRED, TRUE);
         }
         if (count($this->attributes['internal:consortia']) > 0) {
-            $retval .= $this->networkBlock("IRRELEVANT", $this->attributes['internal:consortia'], FALSE);
+            $retval .= $this->networkBlock(mobileconfigSuperclass::NETWORK_BLOCK_TYPE_CONSORTIUMOIS, $this->attributes['internal:consortia']);
         }
         if (isset($this->attributes['media:remove_SSID'])) {
             $this->removeSerial = 0;
@@ -524,7 +530,7 @@ $mimeFormatted
         $stream = "
             <dict>
                <key>PayloadCertificateFileName</key>
-               <string>".$ca['uuid'].".der</string>
+               <string>" . $ca['uuid'] . ".der</string>
                <key>PayloadContent</key>
                <data>
 " . $trimmedPem . "</data>
