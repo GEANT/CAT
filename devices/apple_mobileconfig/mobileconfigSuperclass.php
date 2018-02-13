@@ -324,9 +324,9 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
             // characters are still reversed, invert on use!
             $buffer .= "<string>Manual</string>
                   <key>ProxyServer</key>
-                  <string>".strrev($serverAndPort[1])."</string>
+                  <string>" . strrev($serverAndPort[1]) . "</string>
                   <key>ProxyServerPort</key>
-                  <integer>".strrev($serverAndPort[0])."</integer>
+                  <integer>" . strrev($serverAndPort[0]) . "</integer>
                   <key>ProxyPACFallbackAllowed</key>
                   <false/>";
         } else {
@@ -427,10 +427,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
 	<string>" . \core\common\Entity::uuid() . "</string>
 	<key>PayloadVersion</key>
 	<real>1</real>";
-        if (get_class($this) != "Device_mobileconfig_ios_56") {
-            $retval .= "<key>ProxyType</key>
-	<string>Auto</string>";
-        }
+        $retval .= $this->proxySettings();
         $retval .= "<key>SSID_STR</key>
 	<string>$ssid</string>
 </dict>
