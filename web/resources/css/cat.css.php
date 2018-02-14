@@ -402,7 +402,7 @@ table.compatmatrix td.compat_unsupported {
 }
 
 table.compatmatrix td.compat_redirected {
-    background-color: white;
+    background-color: khaki;
     text-align: left;
     white-space:nowrap;
 }
