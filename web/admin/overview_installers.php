@@ -56,7 +56,7 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
         // okay, input is valid. Now create a table: columns are the EAP types supported in the profile,
         // rows are known devices
 
-        $footnotes = [];
+        $distinctFootnotes = [];
         $num_footnotes = 0;
 
         foreach (\devices\Devices::listDevices() as $index => $description) {
@@ -71,6 +71,7 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
             $factory = new \core\DeviceFactory($index);
             $defaultisset = FALSE;
             foreach ($preflist as $method) {
+                $footnotesForDevEapCombo = [];
                 $display_footnote = FALSE;
                 $langObject = new \core\common\Language();
                 $downloadform = "<form action='" . rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/') . "/user/API.php?action=downloadInstaller&profile=$my_profile->identifier&lang=" . $langObject->getLang() . "' method='post' accept-charset='UTF-8'>
@@ -105,25 +106,24 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
                             // next line: we DO want loose comparison; no matter if "" or FALSE or a 0 - if something's not set, don't add the footnote
                             if ($value != FALSE && isset($factory->device->specialities[$oneOption])) {
                                 if (isset($factory->device->specialities[$oneOption][serialize($method->getArrayRep())])) {
-                                    $footnotetext = $factory->device->specialities[$oneOption][serialize($method->getArrayRep())];
-                                    $display_footnote = TRUE;
+                                    $footnotesForDevEapCombo[] = $factory->device->specialities[$oneOption][serialize($method->getArrayRep())];
                                 } else if (!is_array($factory->device->specialities[$oneOption])) {
-                                    $footnotetext = $factory->device->specialities[$oneOption];
-                                    $display_footnote = TRUE;
+                                    $footnotesForDevEapCombo[] = $factory->device->specialities[$oneOption];
                                 }
                             }
                         }
                         echo "<td class='compat_default'>$downloadform";
-                        if ($display_footnote) {
-                            $isfootnoteknown = array_search($footnotetext, $footnotes);
-                            if ($isfootnoteknown !== FALSE) {
-                                $thefootnote = $isfootnoteknown;
-                            } else {
-                                $num_footnotes = $num_footnotes + 1;
-                                $thefootnote = $num_footnotes;
-                                $footnotes[$num_footnotes] = $footnotetext;
+                        if (count($footnotesForDevEapCombo) > 0) {
+                            foreach ($footnotesForDevEapCombo as $oneFootnote) {
+                                // if that particular text is not already a numbered footnote, assign it a number
+                                if (array_search($oneFootnote, $distinctFootnotes) === FALSE) {
+                                    $num_footnotes = $num_footnotes + 1;
+                                    $distinctFootnotes[$num_footnotes] = $oneFootnote;
+                                }
+                                $numberToDisplay = array_keys($distinctFootnotes, $oneFootnote);
+                                echo "(".$numberToDisplay[0].")";
                             }
-                            echo "($thefootnote)";
+                            
                         }
                         echo "</form></td>";
                         $defaultisset = TRUE;
@@ -147,9 +147,9 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
         <tr><td class="compat_unsupported">&nbsp;&nbsp;&nbsp;</td><td><?php echo _("not supported by CAT"); ?></td></tr>
     </table>
     <?php
-    if (count($footnotes)) {
+    if (count($distinctFootnotes)) {
         echo "<p><strong>" . _("Footnotes:") . "</strong></p><table>";
-        foreach ($footnotes as $number => $text) {
+        foreach ($distinctFootnotes as $number => $text) {
             echo "<tr><td>($number) - </td><td>$text</td></tr>";
         }
         echo "</table>";
@@ -162,3 +162,4 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
     </form>
     <?php
     echo $deco->footer();
+    
