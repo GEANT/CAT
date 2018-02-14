@@ -90,7 +90,7 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
 
                 if (count($redirectAttribs) > 0) {
                     echo "<td class='compat_redirected'>";
-                    if (in_array($method->getArrayRep(), $factory->device->supportedEapMethods) && $my_profile->isEapTypeDefinitionComplete($method->getArrayRep()) === true && ($method->getArrayRep() === $preflist[0] || $defaultisset === FALSE)) {
+                    if (in_array($method->getArrayRep(), $factory->device->supportedEapMethods) && $my_profile->isEapTypeDefinitionComplete($method) === true && ($method->getArrayRep() === $preflist[0] || $defaultisset === FALSE)) {
                         echo "$downloadform</form>";
                         $defaultisset = TRUE;
                     }
