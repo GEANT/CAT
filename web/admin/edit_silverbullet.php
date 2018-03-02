@@ -301,7 +301,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
     ?>
     <img src='../resources/images/icons/loading51.gif' id='spin' style='position:absolute;left: 50%; top: 50%; transform: translate(-100px, -50px); display:none; z-index: 100;'>
     <div class='infobox'>
-        <h2><?php echo sprintf(_('cCurrent %s users'), $uiElements->nomenclature_inst); ?></h2>
+        <h2><?php echo sprintf(_('Current %s users'), $uiElements->nomenclature_inst); ?></h2>
         <table>
             <tr>
                 <td><strong><?php echo _("Assigned Realm"); ?></strong></td><td><?php echo $profile->realm; ?></td>
