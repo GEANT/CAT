@@ -35,7 +35,7 @@ class PageDecoration {
               <a href='" . \core\CAT::getRootUrlPath() . "/admin/overview_user.php'>" . _("Go to your Profile page") . "</a> 
               <a href='" . \core\CAT::getRootUrlPath() . "/admin/inc/logout.php'>" . _("Logout") . "</a> ";
         }
-        $retval .= "<a href='" . \core\CAT::getRootUrlPath() . "'>" . _("Start page") . "</a>
+        $retval .= "<a href='" . \core\CAT::getRootUrlPath() . "/'>" . _("Start page") . "</a>
             </p>
         </div> <!-- sidebar -->";
         return $retval;
