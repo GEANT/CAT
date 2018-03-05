@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 
 /** This file contains the X509 class.
@@ -15,8 +16,11 @@
  *
  * @package Developer
  */
+
 namespace core\common;
+
 use Exception;
+
 /**
  * This class contains handling functions for X.509 certificates
  *
@@ -29,7 +33,9 @@ use Exception;
  */
 class X509 {
 
-    /** 
+    const KNOWN_PUBLIC_KEY_ALGORITHMS = [0 => "rsaEncryption", 1 => "id-ecPublicKey"];
+
+    /**
      * transform PEM formatted certificate to DER format
      *
      *  @param string $pemData blob of data, which is hopefully a PEM certificate
@@ -107,7 +113,7 @@ class X509 {
             $authorityDer = $cadata;
             $authorityPem = $this->der2pem($cadata);
         }
-        
+
         // check that the certificate is OK
         $myca = openssl_x509_read($authorityPem);
         if ($myca == FALSE) {
@@ -120,7 +126,7 @@ class X509 {
         $md5 = openssl_digest($authorityDer, 'MD5');
         $sha1 = openssl_digest($authorityDer, 'SHA1');
         $out = ["pem" => $authorityPem, "der" => $authorityDer, "md5" => $md5, "sha1" => $sha1, "name" => $mydetails['name']];
-        
+
         $out['root'] = 0; // default, unless concinved otherwise below
         if ($mydetails['issuer'] === $mydetails['subject']) {
             $out['root'] = 1;
@@ -135,7 +141,7 @@ class X509 {
             $out['ca'] = preg_match('/^CA:TRUE/', $mydetails['extensions']['basicConstraints']);
             $out['basicconstraints_set'] = 1;
         }
-        
+
         if ($out['ca'] > 0 && $out['root'] == 0) {
             $mydetails['type'] = 'interm_ca';
         }
@@ -146,15 +152,21 @@ class X509 {
         // the signature algorithm is available in PHP7 with the property "signatureTypeSN", example "RSA-SHA512"
         $out['full_details'] = $mydetails;
 
-        $match = [];
-        
-        // we are also interested in the length of public key,
-        // whith ..._parse doesn't tell us :-(
+        $algoMatch = [];
+        $keyLengthMatch = [];
+        // we are also interested in the type and length of public key,
+        // which ..._parse doesn't tell us :-(
         openssl_x509_export($myca, $output, FALSE);
-        if ((preg_match('/^\s+Public-Key:\s*\((.*) bit\)\s*$/m', $output, $match)) && is_numeric($match[1])) {
-            $out['full_details']['public_key_length'] = $match[1];
+        if (preg_match('/^\s+Public Key Algorithm:\s*(.*)\s*$/m', $output, $algoMatch) && in_array($algoMatch[1], X509::KNOWN_PUBLIC_KEY_ALGORITHMS)) {
+            $out['full_details']['public_key_algorithm'] = $algoMatch[1];
         } else {
-            $out['full_details']['public_key_length'] = $output;
+            $out['full_details']['public_key_algorithm'] = "UNKNOWN";
+        }
+        
+        if ((preg_match('/^\s+Public-Key:\s*\((.*) bit\)\s*$/m', $output, $keyLengthMatch)) && is_numeric($keyLengthMatch[1])) {
+            $out['full_details']['public_key_length'] = $keyLengthMatch[1];
+        } else {
+            $out['full_details']['public_key_length'] = 0; // if we don't know, assume an unsafe key length -> will trigger warning
         }
         return $out;
     }
@@ -180,8 +192,8 @@ class X509 {
         if ($startPem !== FALSE) {
             $cadata = substr($cadata, $startPem);
             if ($cadata === FALSE) {
-                    throw new Exception("Impossible: despite having found BEGIN marker, unable to cut out substring!");
-                }
+                throw new Exception("Impossible: despite having found BEGIN marker, unable to cut out substring!");
+            }
             $endPem = strpos($cadata, "-----END CERTIFICATE-----") + 25;
             $nextPem = strpos($cadata, "-----BEGIN CERTIFICATE-----", 30);
             while ($nextPem !== FALSE) {

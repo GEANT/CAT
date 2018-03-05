@@ -215,8 +215,13 @@ class AbstractTest extends \core\common\Entity {
     /**
      * Diffie-Hellman groups need to be 1024 bit at least, starting with OS X 10.11
      */
-    const CERTPROB_DH_GROUP_TOO_SMALL = -225;
+    const CERTPROB_DH_GROUP_TOO_SMALL = -228;
 
+    /**
+     * cert has a public key algorithm which is rather unusual
+     */
+    const CERTPROB_UNKNOWN_PUBLIC_KEY_ALGORITHM = -229;
+    
     /**
      * There is more than one CN in the certificate
      */
@@ -523,6 +528,13 @@ class AbstractTest extends \core\common\Entity {
         $code40 = RADIUSTests::CERTPROB_MULTIPLE_CN;
         $this->returnCodes[$code40]["message"] = _("The certificate contains more than one CommonName (CN) field. This is reportedly problematic on many supplicants.");
         $this->returnCodes[$code40]["severity"] = \core\common\Entity::L_WARN;
+        
+        /**
+         * The server certificate algorithm is nothing we know.
+         */
+        $code41 = RADIUSTests::CERTPROB_UNKNOWN_PUBLIC_KEY_ALGORITHM;
+        $this->returnCodes[$code41]["message"] = _("The certificate public key algorithm is unknown to the system. Please submit the certificate as a sample to the developers.");
+        $this->returnCodes[$code41]["severity"] = \core\common\Entity::L_REMARK;
 
         $this->languageInstance->setTextDomain($oldlocale);
     }
