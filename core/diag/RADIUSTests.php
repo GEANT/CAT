@@ -226,7 +226,7 @@ class RADIUSTests extends AbstractTest {
             $returnarray[] = RADIUSTests::CERTPROB_LOW_KEY_LENGTH;
         }
         if (!in_array($intermediateCa['full_details']['public_key_algorithm'], \core\common\X509::KNOWN_PUBLIC_KEY_ALGORITHMS)) {
-            $returnarray[] = RADIUSTests::CERTPROB_UNKNOWN_KEY_ALGORITHM;
+            $returnarray[] = RADIUSTests::CERTPROB_UNKNOWN_PUBLIC_KEY_ALGORITHM;
         }
         $validFrom = $intermediateCa['full_details']['validFrom_time_t'];
         $now = time();
