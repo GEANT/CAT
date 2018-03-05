@@ -13,7 +13,7 @@ The CAT generates installers for numerous operating systems. Consequently, many 
 * simpleSAMLphp version 1.15.0 or higher
 * NSIS 3.00 or higher - either as a native Linux binary or on Wine
 * zip
-* wpa_supplicant (eapol_test utility)
+* wpa_supplicant (eapol_test utility, with support for all contemporary EAP methods compiled in - esp. EAP-FAST)
 * OpenSSL
 
 Configuring the required prerequisite packages
