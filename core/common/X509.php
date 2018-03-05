@@ -77,6 +77,53 @@ class X509 {
         return $pem;
     }
 
+    private function opensslTextParse($myca, &$out) {
+        $algoMatch = [];
+        $keyLengthMatch = [];
+        $output = "";
+        // we are also interested in the type and length of the public key,
+        // which ..._parse doesn't tell us :-(
+        openssl_x509_export($myca, $output, FALSE);
+        if (preg_match('/^\s+Public Key Algorithm:\s*(.*)\s*$/m', $output, $algoMatch) && in_array($algoMatch[1], X509::KNOWN_PUBLIC_KEY_ALGORITHMS)) {
+            $out['full_details']['public_key_algorithm'] = $algoMatch[1];
+        } else {
+            $out['full_details']['public_key_algorithm'] = "UNKNOWN";
+        }
+
+        if ((preg_match('/^\s+Public-Key:\s*\((.*) bit\)\s*$/m', $output, $keyLengthMatch)) && is_numeric($keyLengthMatch[1])) {
+            $out['full_details']['public_key_length'] = $keyLengthMatch[1];
+        } else {
+            $out['full_details']['public_key_length'] = 0; // if we don't know, assume an unsafe key length -> will trigger warning
+        }
+    }
+
+    private function typeOfCertificate($myca, &$out) {
+        $mydetails = openssl_x509_parse($myca);
+        $out['root'] = 0; // default not a root, unless concinved otherwise below
+        if ($mydetails['issuer'] === $mydetails['subject']) {
+            $out['root'] = 1;
+            $mydetails['type'] = 'root';
+        }
+
+        // default: not a CA unless convinced otherwise
+        $out['ca'] = 0; // we need to resolve this ambiguity
+        $out['basicconstraints_set'] = 0;
+        // if no basicContraints are set at all, this is a problem in itself
+        // is this a CA? or not? Treat as server, but add a warning...
+        if (isset($mydetails['extensions']['basicConstraints'])) {
+            $out['ca'] = preg_match('/^CA:TRUE/', $mydetails['extensions']['basicConstraints']);
+            $out['basicconstraints_set'] = 1;
+        }
+
+        if ($out['ca'] > 0 && $out['root'] == 0) {
+            $mydetails['type'] = 'interm_ca';
+        }
+        if ($out['ca'] == 0 && $out['root'] == 0) {
+            $mydetails['type'] = 'server';
+        }
+        return $mydetails;
+    }
+
     /**
      * prepare PEM and DER formats, MD5 and SHA1 fingerprints and subject of the certificate
      *
@@ -119,55 +166,20 @@ class X509 {
         if ($myca == FALSE) {
             return FALSE;
         }
-        $mydetails = openssl_x509_parse($myca);
+        
+        $out = [];
+        $mydetails = $this->typeOfCertificate($myca, $out);
         if (!isset($mydetails['subject'])) {
             return FALSE;
         }
-        $md5 = openssl_digest($authorityDer, 'MD5');
-        $sha1 = openssl_digest($authorityDer, 'SHA1');
-        $out = ["pem" => $authorityPem, "der" => $authorityDer, "md5" => $md5, "sha1" => $sha1, "name" => $mydetails['name']];
-
-        $out['root'] = 0; // default, unless concinved otherwise below
-        if ($mydetails['issuer'] === $mydetails['subject']) {
-            $out['root'] = 1;
-            $mydetails['type'] = 'root';
-        }
-        // again default: not a CA unless convinced otherwise
-        $out['ca'] = 0; // we need to resolve this ambiguity
-        $out['basicconstraints_set'] = 0;
-        // if no basicContraints are set at all, this is a problem in itself
-        // is this a CA? or not? Treat as server, but add a warning...
-        if (isset($mydetails['extensions']['basicConstraints'])) {
-            $out['ca'] = preg_match('/^CA:TRUE/', $mydetails['extensions']['basicConstraints']);
-            $out['basicconstraints_set'] = 1;
-        }
-
-        if ($out['ca'] > 0 && $out['root'] == 0) {
-            $mydetails['type'] = 'interm_ca';
-        }
-        if ($out['ca'] == 0 && $out['root'] == 0) {
-            $mydetails['type'] = 'server';
-        }
-        $mydetails['sha1'] = $sha1;
-        // the signature algorithm is available in PHP7 with the property "signatureTypeSN", example "RSA-SHA512"
+        $out["pem"] = $authorityPem;
+        $out["der"] = $authorityDer;
+        $out["md5"] = openssl_digest($authorityDer, 'MD5');
+        $out["sha1"] = openssl_digest($authorityDer, 'SHA1');
+        $out["name"] = $mydetails['name'];
+        $mydetails['sha1'] = $out['sha1'];
         $out['full_details'] = $mydetails;
-
-        $algoMatch = [];
-        $keyLengthMatch = [];
-        // we are also interested in the type and length of public key,
-        // which ..._parse doesn't tell us :-(
-        openssl_x509_export($myca, $output, FALSE);
-        if (preg_match('/^\s+Public Key Algorithm:\s*(.*)\s*$/m', $output, $algoMatch) && in_array($algoMatch[1], X509::KNOWN_PUBLIC_KEY_ALGORITHMS)) {
-            $out['full_details']['public_key_algorithm'] = $algoMatch[1];
-        } else {
-            $out['full_details']['public_key_algorithm'] = "UNKNOWN";
-        }
-        
-        if ((preg_match('/^\s+Public-Key:\s*\((.*) bit\)\s*$/m', $output, $keyLengthMatch)) && is_numeric($keyLengthMatch[1])) {
-            $out['full_details']['public_key_length'] = $keyLengthMatch[1];
-        } else {
-            $out['full_details']['public_key_length'] = 0; // if we don't know, assume an unsafe key length -> will trigger warning
-        }
+        $this->opensslTextParse($myca, $out);
         return $out;
     }
 
