@@ -919,7 +919,7 @@ network={
 
             if ($this->opMode == self::RADIUS_TEST_OPERATION_MODE_THOROUGH) {
                 $verifyResult = $this->thoroughChainChecks($testresults, $intermOdditiesCAT, $tmpDir, $bundle["SERVERCERT"], $bundle["INTERMEDIATE_CA"], $bundle["INTERMEDIATE_CRL"]);
-                $this->thoroughNameChecks($bundle["SERVERCERT"], $testresults);
+                $this->thoroughNameChecks($bundle["SERVERCERT"][0], $testresults);
             }
 
             $testresults['cert_oddities'] = array_merge($testresults['cert_oddities'], $bundle["INTERMEDIATE_OBSERVED_ODDITIES"]);
