@@ -101,6 +101,10 @@ $Tou['full'] . "
                     $out = "<div  class='padding'>$out</div>";
                     }
                 break;
+            case 'develop' :
+                        require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/user/devel.inc.php");
+                        $out = "<div class='padding'>$out</div>";
+                break;
         }
         break;
     default:
