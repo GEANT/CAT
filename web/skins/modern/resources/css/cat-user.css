@@ -619,7 +619,7 @@ td.vendor {
     left: 0px;
     top: 20px;
     padding-right: 2vw;
-    z-index: 140;
+    z-index: 150;
     background: #e7e7e7;
 }
 
@@ -803,7 +803,7 @@ button.guess_os {
     left: 0px;
     top: 20px;
     padding-right: 2vw;
-    z-index: 140;
+    z-index: 150;
     background: #e7e7e7;
 }
 
@@ -976,7 +976,7 @@ button.guess_os {
     position: absolute;
     right: 10px;
     top: 20px;
-    z-index: 90;
+    z-index: 150;
 
 }
 
@@ -1051,7 +1051,7 @@ button.guess_os {
    padding: 5px 15px 5px 15px;
    text-align: left;
     border: 1px solid  #e7e7e7;
-   z-index: 140;
+   z-index: 150;
    box-shadow: 0px 3px 2px 1px rgba(0,0,0,0.06)
 }
 
