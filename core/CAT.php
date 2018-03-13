@@ -49,7 +49,7 @@ class CAT extends \core\common\Entity {
     const VERSION_MINOR = 0;
     const VERSION_PATCH = 0;
     const VERSION_EXTRA = "alpha2";
-    const RELEASE_VERSION = FALSE;
+    const RELEASE_VERSION = TRUE;
     const USER_API_VERSION = 2;
 
     /**
@@ -59,7 +59,7 @@ class CAT extends \core\common\Entity {
     const COPYRIGHT_HOLDER = "DANTE Ltd. and G&Eacute;ANT";
     const COPYRIGHT_CONSORTIA = "the GN3, GN3+, GN4-1 and GN4-2 consortia";
     const COPYRIGHT_MIN_YEAR = 2011;
-    const COPYRIGHT_MAX_YEAR = 2017;
+    const COPYRIGHT_MAX_YEAR = 2018;
 
     /*
      * This is the user-displayed string; controlled by the four options above
