@@ -14,6 +14,6 @@ $out = "<h3>" . _("Access the sources") . "</h3>" .
         "<h3>" . _("Join the developpers mailing list.") . "</h3>" .
         sprintf(_("The list is availabe at: %s"), CONFIG['APPEARANCE']['support-contact']['display']) .
         "<h3>" . _("Add a translation") . "</h3>" .
-        _("If you waould like to add a new languege to CAT then please contact us ...");
+        _("If you would like to add a new languege to CAT then please contact us ...");
         
 
