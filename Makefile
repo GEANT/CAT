@@ -12,12 +12,13 @@ translation:
 	echo "****************************************"
 	echo "*** Generating templates from source ***"
 	echo "****************************************"
-	xgettext --from-code=UTF-8 --add-comments=/ -L php core/RADIUSTests.php -o translation/diagnostics.pot
-	xgettext --from-code=UTF-8 --add-comments=/ -L php $$(ls -1 core/*.php |grep -v RADIUSTests |xargs) -o translation/core.pot
-	xgettext --from-code=UTF-8 --add-comments=/ -L php devices/*.php devices/apple_mobileconfig/*.php devices/ms/*.php devices/ms/Files/*.inc devices/linux/Linux.php devices/test_module/*.php devices/redirect_dev/*.php devices/xml/*.php -o translation/devices.pot
-	xgettext --from-code=UTF-8 --add-comments=/ -L php web/admin/*.php web/admin/inc/*.php -o translation/web_admin.pot
-	xgettext --from-code=UTF-8 --add-comments=/ -L php web/user/*.php web/user/inc/*.php web/user/js/*.php web/*.php -o translation/web_user.pot
-	for lang in `find translation/ -maxdepth 1 -mindepth 1 -type d | grep -v .svn`; do \
+	xgettext --from-code=UTF-8 --add-comments=/ -c -L php core/diag/*.php web/skins/*/diag/*.php -o translation/diagnostics.pot
+	xgettext --from-code=UTF-8 --add-comments=/ -c -L php core/*.php core/common/*.php web/lib/common/*.php -o translation/core.pot
+	xgettext --from-code=UTF-8 --add-comments=/ -c -L php devices/*.php devices/*/*.php devices/ms/Files/*.inc -o translation/devices.pot
+	xgettext --from-code=UTF-8 --add-comments=/ -c -L php web/admin/*.php web/admin/inc/*.php web/lib/admin/*.php -o translation/web_admin.pot
+	xgettext --from-code=UTF-8 --add-comments=/ -c -L php web/user/*.php web/*.php web/lib/user/*.php -o translation/web_user.pot
+	xgettext --from-code=UTF-8 --add-comments=/ -c -L php --join-existing web/skins/*/*.php web/skins/*/accountstatus/*.php web/skins/modern/user/*.php web/skins/modern/user/js/*.php -o translation/web_user.pot
+	for lang in `find translation/ -maxdepth 1 -mindepth 1 -type d | grep -v .git`; do \
 		echo "********************************************"; \
                 echo "*** Now translating in $$lang ***"; \
 		echo "********************************************"; \
@@ -30,7 +31,7 @@ translation:
 	echo "********************"; \
 	echo "*** Syntax check ***"; \
 	echo "********************"; \
-	for lang in `find translation/ -maxdepth 1 -mindepth 1 -type d | grep -v .svn`; do \
+	for lang in `find translation/ -maxdepth 1 -mindepth 1 -type d | grep -v .git`; do \
 		for area in web_admin web_user devices core diagnostics ; do \
 			msgfmt --check-header --check-domain $$lang/$$area.po; \
 		done; \
