@@ -372,6 +372,7 @@ function resetDevices() {
        }
        if (j.status == 0) {
            $("#remindIdPh").html("<?php echo _("No providers found for this email") ?>");
+           waiting('stop');
            return;
        }
        if (j.data.length == 1) {
