@@ -76,7 +76,8 @@ require_once("inc/click_button_js.php");
     if (sizeof($hasInst) > 0) {
         // we need to run the Federation constructor
         $cat = new \core\CAT;
-        echo "<h2>" . sprintf(ngettext("You are managing the following %s:", "You are managing the following <strong>%d</strong> %ss:", sizeof($hasInst)), sizeof($hasInst), $uiElements->nomenclature_inst) . "</h2>";
+        /// first parameter: number of Identity Providers; if more than one, second param is the literal configured term for 'Identity Provider'
+        echo "<h2>" . sprintf(ngettext("You are managing the following %s:", "You are managing the following <strong>%d</strong> %s:", sizeof($hasInst)), sizeof($hasInst), $uiElements->nomenclature_inst) . "</h2>";
         echo $helptext;
         $instlist = [];
         $my_idps = [];
