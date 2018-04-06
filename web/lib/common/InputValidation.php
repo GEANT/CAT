@@ -307,7 +307,7 @@ public function coordJsonEncoded($input) {
             return $input;
         }
     }
-    throw new Exception($this->inputValidationError(_("Wrong coordinate encoding (2.0 uses JSON, not serialize!")));
+    throw new Exception($this->inputValidationError(_("Wrong coordinate encoding (2.0 uses JSON, not serialize)!")));
 }
 
 /**
