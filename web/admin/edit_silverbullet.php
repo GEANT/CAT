@@ -153,6 +153,9 @@ if (isset($_POST['command'])) {
         case \web\lib\common\FormElements::BUTTON_REVOKECREDENTIAL:
             if (isset($_POST['certSerial'])) {
                 $certSerial = $validator->integer(filter_input(INPUT_POST, 'certSerial', FILTER_SANITIZE_STRING));
+                if ($certSerial === FALSE) {
+                    continue;
+                }
                 $certObject = new \core\SilverbulletCertificate($certSerial);
                 $certObject->revokeCertificate();
                 sleep(1); // make sure the expiry timestamps of invitations and certs are at least one second in the past
@@ -191,9 +194,10 @@ if (isset($_POST['command'])) {
             $properEmail = $validator->email(filter_input(INPUT_POST, 'address'));
             if ($properEmail === FALSE) {
                 $domainStatus = \core\common\OutsideComm::MAILDOMAIN_INVALID;
-            } else {
-                $domainStatus = \core\common\OutsideComm::mailAddressValidSecure($properEmail);
+                $displaySendStatus = "EMAIL-NOTSENT";
+                break;
             }
+            $domainStatus = \core\common\OutsideComm::mailAddressValidSecure($properEmail);
             // send mail if all is good, otherwise UI a warning and confirmation
             switch ($domainStatus) {
                 case \core\common\OutsideComm::MAILDOMAIN_NO_STARTTLS:
