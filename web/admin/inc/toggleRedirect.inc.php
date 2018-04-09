@@ -72,8 +72,8 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\Fo
         $optionParser->processSubmittedFields($my_profile, $_POST, $_FILES, 0, $device_key);
     }
     if ($device === NULL) {
-        $remaining_attribs = $my_profile->beginFlushMethodLevelAttributes($eaptype->getIntegerRep(), "");
-        $optionParser->processSubmittedFields($my_profile, $_POST, $_FILES, $eaptype->getIntegerRep(), "");
+        $remaining_attribs = $my_profile->beginFlushMethodLevelAttributes($eaptype->getIntegerRep(), NULL);
+        $optionParser->processSubmittedFields($my_profile, $_POST, $_FILES, $eaptype->getIntegerRep(), NULL);
     }
     $loggerInstance->writeAudit($_SESSION['user'], "MOD", "Profile " . $my_profile->identifier . " - device/EAP-Type settings changed");
     header("Location: ../overview_installers.php?inst_id=$my_inst->identifier&profile_id=$my_profile->identifier");
