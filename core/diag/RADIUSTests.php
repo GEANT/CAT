@@ -288,22 +288,23 @@ class RADIUSTests extends AbstractTest {
         $crlUrl = [];
         $returnresult = 0;
         if (!isset($cert['full_details']['extensions']['crlDistributionPoints'])) {
-            $returnresult = RADIUSTests::CERTPROB_NO_CDP;
-        } else if (!preg_match("/^.*URI\:(http)(.*)$/", str_replace(["\r", "\n"], ' ', $cert['full_details']['extensions']['crlDistributionPoints']), $crlUrl)) {
-            $returnresult = RADIUSTests::CERTPROB_NO_CDP_HTTP;
-        } else { // first and second sub-match is the full URL... check it
-            $crlcontent = \core\common\OutsideComm::downloadFile(trim($crlUrl[1] . $crlUrl[2]));
-            if ($crlcontent === FALSE) {
-                $returnresult = RADIUSTests::CERTPROB_NO_CRL_AT_CDP_URL;
-            }
-            $crlBegin = strpos($crlcontent, "-----BEGIN X509 CRL-----");
-            if ($crlBegin === FALSE) {
-                $pem = chunk_split(base64_encode($crlcontent), 64, "\n");
-                $crlcontent = "-----BEGIN X509 CRL-----\n" . $pem . "-----END X509 CRL-----\n";
-            }
-            $cert['CRL'] = [];
-            $cert['CRL'][] = $crlcontent;
+            return RADIUSTests::CERTPROB_NO_CDP;
         }
+        if (!preg_match("/^.*URI\:(http)(.*)$/", str_replace(["\r", "\n"], ' ', $cert['full_details']['extensions']['crlDistributionPoints']), $crlUrl)) {
+            return RADIUSTests::CERTPROB_NO_CDP_HTTP;
+        }
+        // first and second sub-match is the full URL... check it
+        $crlcontent = \core\common\OutsideComm::downloadFile(trim($crlUrl[1] . $crlUrl[2]));
+        if ($crlcontent === FALSE) {
+            return RADIUSTests::CERTPROB_NO_CRL_AT_CDP_URL;
+        }
+        $crlBegin = strpos($crlcontent, "-----BEGIN X509 CRL-----");
+        if ($crlBegin === FALSE) {
+            $pem = chunk_split(base64_encode($crlcontent), 64, "\n");
+            $crlcontent = "-----BEGIN X509 CRL-----\n" . $pem . "-----END X509 CRL-----\n";
+        }
+        $cert['CRL'] = [];
+        $cert['CRL'][] = $crlcontent;
         return $returnresult;
     }
 
@@ -949,7 +950,7 @@ network={
     public function setOuterIdentity($id) {
         $this->outerUsernameForChecks = $id;
     }
-    
+
     public function consolidateUdpResult($host) {
         $ret = [];
         $serverCert = [];
