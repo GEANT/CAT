@@ -124,17 +124,26 @@ class Options {
      * @return array of options
      */
     public function availableOptions($className = 0) {
-        $returnArray = [];
+        $tempArray = [];
         $this->loggerInstance->debug(3, "CLASSNAME IS $className\n");
 
         foreach (array_keys($this->typeDb) as $name) {
             if ($className === 0) {
-                $returnArray[] = $name;
+                $tempArray[] = $name;
             } elseif (preg_match('/^' . $className . ':/', $name) > 0) {
-                $returnArray[] = $name;
+                $tempArray[] = $name;
             }
         }
-
+        $returnArray = $tempArray;
+        // remove silverbullet-specific options if this deployment is not SB
+        foreach ($tempArray as $key => $val) {
+            if (( CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] != 'LOCAL') && (preg_match('/^fed:silverbullet/', $val) > 0)) {
+                unset($returnArray[$key]);
+            }
+            if (( CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != 'LOCAL') && (preg_match('/^fed:minted_ca_file/', $val) > 0)) {
+                unset($returnArray[$key]);
+            }
+        }
         return $returnArray;
     }
 
