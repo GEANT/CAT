@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-28 15:58+0200\n"
+"POT-Creation-Date: 2018-03-16 14:23+0100\n"
 "PO-Revision-Date: 2015-04-03 14:41+0000\n"
 "Last-Translator: Marko Eremija <marko.eremija@amres.ac.rs>\n"
 "Language-Team: Serbian (http://www.transifex.com/projects/p/cat/language/"
@@ -22,295 +22,312 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: core/CAT.php:77
-msgid "Unreleased SVN Revision"
+#: core/CAT.php:111
+msgid ""
+"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git "
+"Revision</a>"
 msgstr ""
 
-#: core/CAT.php:86
+#: core/CAT.php:121
 #, php-format
-msgid "Release %s"
+msgid "Release <a href='%s'>%s</a>"
 msgstr ""
 
-#: core/DeviceConfig.php:134
+#. some config elements are displayable. We need some dummies to
+#. translate the common values for them. If a deployment chooses a
+#. different wording, no translation, sorry
+#: core/CAT.php:134 core/DeviceConfig.php:101
+msgid "National Roaming Operator"
+msgstr ""
+
+#: core/CAT.php:135 core/DeviceConfig.php:102
+msgid "identity provider"
+msgstr ""
+
+#: core/CAT.php:136 core/DeviceConfig.php:103
+msgid "organisation"
+msgstr ""
+
+#: core/CAT.php:137
+msgid "Identity Provider"
+msgstr ""
+
+#: core/CAT.php:146
+msgid "Andorra"
+msgstr "Andora"
+
+#: core/CAT.php:147
+msgid "Austria"
+msgstr "Austrija"
+
+#: core/CAT.php:148
+msgid "Belgium"
+msgstr "Belgija"
+
+#: core/CAT.php:149
+msgid "Bulgaria"
+msgstr "Bugarska"
+
+#: core/CAT.php:150
+msgid "Cyprus"
+msgstr "Kipar"
+
+#: core/CAT.php:151
+msgid "Czech Republic"
+msgstr "Češka"
+
+#: core/CAT.php:152
+msgid "Denmark"
+msgstr "Danska"
+
+#: core/CAT.php:153
+msgid "Estonia"
+msgstr "Estonija"
+
+#: core/CAT.php:154
+msgid "Finland"
+msgstr "Finska"
+
+#: core/CAT.php:155
+msgid "France"
+msgstr "Francuska"
+
+#: core/CAT.php:156
+msgid "Germany"
+msgstr "Nemačka"
+
+#: core/CAT.php:157
+msgid "Greece"
+msgstr "Grčka"
+
+#: core/CAT.php:158
+msgid "Croatia"
+msgstr "Hrvatska"
+
+#: core/CAT.php:159
+msgid "Ireland"
+msgstr "Irska "
+
+#: core/CAT.php:160
+msgid "Iceland"
+msgstr "Island"
+
+#: core/CAT.php:161
+msgid "Italy"
+msgstr "Italija"
+
+#: core/CAT.php:162
+msgid "Hungary"
+msgstr "Mađarska"
+
+#: core/CAT.php:163
+msgid "Luxembourg"
+msgstr "Luksemburg"
+
+#: core/CAT.php:164
+msgid "Latvia"
+msgstr "Letonija"
+
+#: core/CAT.php:165
+msgid "Lithuania"
+msgstr "Litvanija"
+
+#: core/CAT.php:166
+msgid "Macedonia"
+msgstr "Makednonija"
+
+#: core/CAT.php:167
+msgid "Serbia"
+msgstr "Srbija"
+
+#: core/CAT.php:168
+msgid "Netherlands"
+msgstr "Holandija"
+
+#: core/CAT.php:169
+msgid "Norway"
+msgstr "Norveška"
+
+#: core/CAT.php:170
+msgid "Poland"
+msgstr "Poljska"
+
+#: core/CAT.php:171
+msgid "Portugal"
+msgstr "Portugalija"
+
+#: core/CAT.php:172
+msgid "Romania"
+msgstr "Rumunija"
+
+#: core/CAT.php:173
+msgid "Slovenia"
+msgstr "Slovenija"
+
+#: core/CAT.php:174
+msgid "Spain"
+msgstr "Španija"
+
+#: core/CAT.php:175
+msgid "Sweden"
+msgstr "Švedska"
+
+#: core/CAT.php:176
+msgid "Slovakia"
+msgstr "Slovačka"
+
+#: core/CAT.php:177
+msgid "Switzerland"
+msgstr "Švajcarska"
+
+#: core/CAT.php:178
+msgid "Turkey"
+msgstr "Turska"
+
+#: core/CAT.php:179
+msgid "United Kingdom"
+msgstr "Velika Britanija"
+
+#: core/CAT.php:181
+msgid "Australia"
+msgstr "Australija"
+
+#: core/CAT.php:182
+msgid "Canada"
+msgstr "Kanada"
+
+#: core/CAT.php:183
+msgid "Israel"
+msgstr "Izrael"
+
+#: core/CAT.php:184
+msgid "Japan"
+msgstr "Japan"
+
+#: core/CAT.php:185
+msgid "New Zealand"
+msgstr "Novi Zeland"
+
+#: core/CAT.php:186
+msgid "U.S.A."
+msgstr "U.S.A"
+
+#: core/CAT.php:187
+msgid "Brazil"
+msgstr "Brazil"
+
+#: core/CAT.php:188
+msgid "Chile"
+msgstr "Čile"
+
+#: core/CAT.php:189
+msgid "Peru"
+msgstr "Peru"
+
+#: core/CAT.php:190
+msgid "Venezuela"
+msgstr "Venecuela"
+
+#: core/CAT.php:191
+msgid "Default"
+msgstr "Osnovna podešavanja"
+
+#: core/CAT.php:192
+msgid "Armenia"
+msgstr "Jermenija"
+
+#: core/CAT.php:193
+msgid "Azerbaijan"
+msgstr "Azerbejdžan"
+
+#: core/CAT.php:194
+msgid "Belarus"
+msgstr "Belorusija"
+
+#: core/CAT.php:195
+msgid "Ecuador"
+msgstr "Ekvador"
+
+#: core/CAT.php:196
+msgid "Hong Kong"
+msgstr "Hong Kong"
+
+#: core/CAT.php:197
+msgid "Kenya"
+msgstr "Kenija"
+
+#: core/CAT.php:198
+msgid "Kyrgyzstan"
+msgstr "Kirgistan"
+
+#: core/CAT.php:199
+msgid "Korea"
+msgstr "Koreja"
+
+#: core/CAT.php:200
+msgid "Kazakhstan"
+msgstr "Kazahstan"
+
+#: core/CAT.php:201
+msgid "Morocco"
+msgstr "Maroko"
+
+#: core/CAT.php:202
+msgid "Moldova"
+msgstr "Moldavija"
+
+#: core/CAT.php:203
+msgid "Montenegro"
+msgstr "Crna Gora"
+
+#: core/CAT.php:204
+msgid "Macau"
+msgstr "Makao"
+
+#: core/CAT.php:205
+msgid "Malta"
+msgstr "Malta"
+
+#: core/CAT.php:206
+msgid "Russia"
+msgstr "Rusija"
+
+#: core/CAT.php:207
+msgid "Singapore"
+msgstr "Singapur"
+
+#: core/CAT.php:208
+msgid "Thailand"
+msgstr "Tajland"
+
+#: core/CAT.php:209
+msgid "Taiwan"
+msgstr "Tajvan"
+
+#: core/CAT.php:210
+msgid "South Africa"
+msgstr "Južna Afrika"
+
+#: core/CAT.php:484 core/IdPlist.php:99
+msgid "Unnamed Entity"
+msgstr ""
+
+#: core/DeviceConfig.php:205
 #, php-format
 msgid "your local %s support"
 msgstr "vaša lokalna %s podrška"
 
-#: core/DeviceConfig.php:135
+#: core/DeviceConfig.php:206
 #, php-format
 msgid "your local %s support page"
 msgstr "vaša lokalna %s stranica za podršku"
 
-#: core/DeviceConfig.php:167
+#: core/DeviceConfig.php:239
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 "Izvinite, ovo ne bi trebalo da se desi - dodatne informacije nisu dostupne"
 
-#: core/Federation.php:136
-msgid "Andorra"
-msgstr "Andora"
-
-#: core/Federation.php:137
-msgid "Austria"
-msgstr "Austrija"
-
-#: core/Federation.php:138
-msgid "Belgium"
-msgstr "Belgija"
-
-#: core/Federation.php:139
-msgid "Bulgaria"
-msgstr "Bugarska"
-
-#: core/Federation.php:140
-msgid "Cyprus"
-msgstr "Kipar"
-
-#: core/Federation.php:141
-msgid "Czech Republic"
-msgstr "Češka"
-
-#: core/Federation.php:142
-msgid "Denmark"
-msgstr "Danska"
-
-#: core/Federation.php:143
-msgid "Estonia"
-msgstr "Estonija"
-
-#: core/Federation.php:144
-msgid "Finland"
-msgstr "Finska"
-
-#: core/Federation.php:145
-msgid "France"
-msgstr "Francuska"
-
-#: core/Federation.php:146
-msgid "Germany"
-msgstr "Nemačka"
-
-#: core/Federation.php:147
-msgid "Greece"
-msgstr "Grčka"
-
-#: core/Federation.php:148
-msgid "Croatia"
-msgstr "Hrvatska"
-
-#: core/Federation.php:149
-msgid "Ireland"
-msgstr "Irska "
-
-#: core/Federation.php:150
-msgid "Iceland"
-msgstr "Island"
-
-#: core/Federation.php:151
-msgid "Italy"
-msgstr "Italija"
-
-#: core/Federation.php:152
-msgid "Hungary"
-msgstr "Mađarska"
-
-#: core/Federation.php:153
-msgid "Luxembourg"
-msgstr "Luksemburg"
-
-#: core/Federation.php:154
-msgid "Latvia"
-msgstr "Letonija"
-
-#: core/Federation.php:155
-msgid "Lithuania"
-msgstr "Litvanija"
-
-#: core/Federation.php:156
-msgid "Macedonia"
-msgstr "Makednonija"
-
-#: core/Federation.php:157
-msgid "Serbia"
-msgstr "Srbija"
-
-#: core/Federation.php:158
-msgid "Netherlands"
-msgstr "Holandija"
-
-#: core/Federation.php:159
-msgid "Norway"
-msgstr "Norveška"
-
-#: core/Federation.php:160
-msgid "Poland"
-msgstr "Poljska"
-
-#: core/Federation.php:161
-msgid "Portugal"
-msgstr "Portugalija"
-
-#: core/Federation.php:162
-msgid "Romania"
-msgstr "Rumunija"
-
-#: core/Federation.php:163
-msgid "Slovenia"
-msgstr "Slovenija"
-
-#: core/Federation.php:164
-msgid "Spain"
-msgstr "Španija"
-
-#: core/Federation.php:165
-msgid "Sweden"
-msgstr "Švedska"
-
-#: core/Federation.php:166
-msgid "Slovakia"
-msgstr "Slovačka"
-
-#: core/Federation.php:167
-msgid "Switzerland"
-msgstr "Švajcarska"
-
-#: core/Federation.php:168
-msgid "Turkey"
-msgstr "Turska"
-
-#: core/Federation.php:169
-msgid "United Kingdom"
-msgstr "Velika Britanija"
-
-#: core/Federation.php:171
-msgid "Australia"
-msgstr "Australija"
-
-#: core/Federation.php:172
-msgid "Canada"
-msgstr "Kanada"
-
-#: core/Federation.php:173
-msgid "Israel"
-msgstr "Izrael"
-
-#: core/Federation.php:174
-msgid "Japan"
-msgstr "Japan"
-
-#: core/Federation.php:175
-msgid "New Zealand"
-msgstr "Novi Zeland"
-
-#: core/Federation.php:176
-msgid "U.S.A."
-msgstr "U.S.A"
-
-#: core/Federation.php:177
-msgid "Brazil"
-msgstr "Brazil"
-
-#: core/Federation.php:178
-msgid "Chile"
-msgstr "Čile"
-
-#: core/Federation.php:179
-msgid "Peru"
-msgstr "Peru"
-
-#: core/Federation.php:180
-msgid "Venezuela"
-msgstr "Venecuela"
-
-#: core/Federation.php:181
-msgid "Default"
-msgstr "Osnovna podešavanja"
-
-#: core/Federation.php:182
-msgid "Armenia"
-msgstr "Jermenija"
-
-#: core/Federation.php:183
-msgid "Azerbaijan"
-msgstr "Azerbejdžan"
-
-#: core/Federation.php:184
-msgid "Belarus"
-msgstr "Belorusija"
-
-#: core/Federation.php:185
-msgid "Ecuador"
-msgstr "Ekvador"
-
-#: core/Federation.php:186
-msgid "Hong Kong"
-msgstr "Hong Kong"
-
-#: core/Federation.php:187
-msgid "Kenya"
-msgstr "Kenija"
-
-#: core/Federation.php:188
-msgid "Kyrgyzstan"
-msgstr "Kirgistan"
-
-#: core/Federation.php:189
-msgid "Korea"
-msgstr "Koreja"
-
-#: core/Federation.php:190
-msgid "Kazakhstan"
-msgstr "Kazahstan"
-
-#: core/Federation.php:191
-msgid "Morocco"
-msgstr "Maroko"
-
-#: core/Federation.php:192
-msgid "Moldova"
-msgstr "Moldavija"
-
-#: core/Federation.php:193
-msgid "Montenegro"
-msgstr "Crna Gora"
-
-#: core/Federation.php:194
-msgid "Macau"
-msgstr "Makao"
-
-#: core/Federation.php:195
-msgid "Malta"
-msgstr "Malta"
-
-#: core/Federation.php:196
-msgid "Russia"
-msgstr "Rusija"
-
-#: core/Federation.php:197
-msgid "Singapore"
-msgstr "Singapur"
-
-#: core/Federation.php:198
-msgid "Thailand"
-msgstr "Tajland"
-
-#: core/Federation.php:199
-msgid "Taiwan"
-msgstr "Tajvan"
-
-#: core/Federation.php:200
-msgid "South Africa"
-msgstr "Južna Afrika"
-
-#: core/Federation.php:413
-msgid "Could not create a new Institution!"
-msgstr "Neuspelo kreiranje nove institucije!"
-
-#: core/Federation.php:632
-msgid "Unnamed Entity"
-msgstr ""
-
-#: core/IdP.php:243
+#: core/IdP.php:246
 #, php-format
 msgid ""
 "Hi,\n"
@@ -333,12 +350,45 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/IdP.php:252
+#: core/IdP.php:255
 msgid "IdP in your federation was deleted"
 msgstr "Davalac identiteta u vašoj federaciji je obrisan"
 
-#: core/ProfileSilverbullet.php:94
-msgid "eduroam-as-a-service"
+#: core/SilverbulletInvitation.php:196
+#, php-format
+msgid "Your %s access is ready"
+msgstr ""
+
+#: core/SilverbulletInvitation.php:204
+msgid "Hello!"
+msgstr ""
+
+#: core/SilverbulletInvitation.php:206
+#, php-format
+msgid ""
+"A new %s access credential has been created for you by your network "
+"administrator."
+msgstr ""
+
+#: core/SilverbulletInvitation.php:208
+#, php-format
+msgid ""
+"Please follow the following link with the device you want to enable for %s "
+"to get a custom %s installation program just for you. You can click on the "
+"link, copy and paste it into a browser or scan the attached QR code."
+msgstr ""
+
+#. gets replaced with the token value by getBody()
+#: core/SilverbulletInvitation.php:210
+#, php-format
+msgid ""
+"Please keep this email or bookmark this link for future use. After picking "
+"up your %s installation program, you can use the same link to get status "
+"information about your %s account."
+msgstr ""
+
+#: core/SilverbulletInvitation.php:212
+msgid "Regards,"
 msgstr ""
 
 #. / arguments are: 1. IdP name;
@@ -346,7 +396,7 @@ msgstr ""
 #. /                3. federation shortname, e.g. "LU";
 #. /                4. product name (e.g. eduroam CAT);
 #. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/UserManagement.php:158
+#: core/UserManagement.php:179
 #, php-format
 msgid ""
 "Hi,\n"
@@ -371,13 +421,76 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/UserManagement.php:167
+#: core/UserManagement.php:188
 msgid "IdP in your federation was created"
 msgstr "Davalac identiteta u vašoj federaciji je kreiran"
 
-#: core/User.php:136
+#: core/User.php:145
 msgid "Feedback"
 msgstr "Feedback"
+
+#: core/common/EAP.php:368
+msgid "PEAP-MSCHAPv2"
+msgstr ""
+
+#: core/common/EAP.php:369
+msgid "TLS"
+msgstr ""
+
+#: core/common/EAP.php:370
+msgid "TTLS-PAP"
+msgstr ""
+
+#: core/common/EAP.php:371
+msgid "TTLS-MSCHAPv2"
+msgstr ""
+
+#: core/common/EAP.php:372
+msgid "TTLS-GTC"
+msgstr ""
+
+#: core/common/EAP.php:373
+msgid "FAST-GTC"
+msgstr ""
+
+#: core/common/EAP.php:374
+msgid "EAP-pwd"
+msgstr ""
+
+#: web/lib/common/InputValidation.php:29
+msgid "Input validation error: "
+msgstr ""
+
+#: web/lib/common/InputValidation.php:201
+msgid "Realm is empty!"
+msgstr ""
+
+#: web/lib/common/InputValidation.php:209
+msgid "Realm contains an @ sign!"
+msgstr ""
+
+#: web/lib/common/InputValidation.php:210
+msgid "Realm begins with a . (dot)!"
+msgstr ""
+
+#: web/lib/common/InputValidation.php:211
+msgid "Realm ends with a . (dot)!"
+msgstr ""
+
+#: web/lib/common/InputValidation.php:212
+msgid "Realm contains spaces!"
+msgstr ""
+
+#: web/lib/common/InputValidation.php:224
+msgid "Realm does not contain at least one . (dot)!"
+msgstr ""
+
+#: web/lib/common/InputValidation.php:310
+msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize!"
+msgstr ""
+
+#~ msgid "Could not create a new Institution!"
+#~ msgstr "Neuspelo kreiranje nove institucije!"
 
 #~ msgid "eduPKI"
 #~ msgstr "eduPKI"

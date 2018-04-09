@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-28 15:58+0200\n"
+"POT-Creation-Date: 2018-03-16 14:23+0100\n"
 "PO-Revision-Date: 2015-04-03 17:02+0000\n"
 "Last-Translator: José Manuel\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/cat/language/"
@@ -23,33 +23,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: web/user/cat_info.php:39 web/user/faq.php:32
-#, php-format
-msgid ""
-"eduroam is a global WiFi roaming consortium which gives members of education "
-"and research access to the internet <i>for free</i> on all eduroam hotspots "
-"on the planet. There are several million eduroam users already, enjoying "
-"free internet access on more than 6.000 hotspots! Visit <a href='http://www."
-"eduroam.org'>the eduroam homepage</a> for more details."
-msgstr ""
-"eduroam es un consorcio de roaming WiFi global, que permite ofrece a "
-"miembros de la comunidad educativa y de investigación acceso a Internet "
-"<i>gratis</i> en todas las localizaciones del planeta. ¡Ya hay varios "
-"usuarios de eduroam disfrutando de acceso gratuito a Internet en más de "
-"6.000 localizaciones! Visita <a href='http://www.eduroam.org'>la página web "
-"de eduroam</a> para más detalles."
-
-#: web/user/cat_info.php:45
-#, php-format
+#: web/user/about_cat.inc.php:28
+#, fuzzy, php-format
 msgid ""
 "<span class='edu_cat'>%s</span> is built as a cooperation platform.<p>Local "
 "%s administrators enter their %s configuration details and based on them, "
 "<span class='edu_cat'>%s</span> builds customised installers for a number of "
-"popular platforms. An installer prepared for one institution will not work "
-"for users of another one, therefore if your institution is not on the list, "
-"you cannot use this system. Please contact your local administrators and try "
-"to influence them to add your institution configuration to <span "
-"class='edu_cat'>%s</span>."
+"popular platforms. An installer prepared for one %s will not work for users "
+"of another one, therefore if your %s is not on the list, you cannot use this "
+"system. Please contact your local administrators and try to influence them "
+"to add your %s configuration to <span class='edu_cat'>%s</span>."
 msgstr ""
 "<span class='edu_cat'>%s</span> se construye como una plataforma de "
 "colaboración.<p>Los administradores locales de %s introducen los detalles de "
@@ -61,22 +44,22 @@ msgstr ""
 "intenta convencerlos para que añadan la configuración de tu institución a "
 "<span class='edu_cat'>%s</span>."
 
-#: web/user/cat_info.php:46
+#: web/user/about_cat.inc.php:29
 #, php-format
 msgid ""
 "<span class='edu_cat'>%s</span> currently supports the following devices and "
 "EAP type combinations:"
 msgstr ""
 
-#: web/user/cat_info.php:47
+#: web/user/about_cat.inc.php:30
 msgid "Device Group"
 msgstr ""
 
-#: web/user/cat_info.php:47
+#: web/user/about_cat.inc.php:30
 msgid "Device"
 msgstr ""
 
-#: web/user/cat_info.php:76
+#: web/user/about_cat.inc.php:61
 #, php-format
 msgid ""
 "<p><span class='edu_cat'>%s</span> is publicly accessible. To enable its use "
@@ -86,7 +69,7 @@ msgid ""
 "(the service itself)</li>"
 msgstr ""
 
-#: web/user/cat_info.php:81
+#: web/user/about_cat.inc.php:66
 #, php-format
 msgid ""
 "<li><b>%s</b> (the CRL Distribution Point for the site certificate), also "
@@ -97,7 +80,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: web/user/cat_info.php:84
+#: web/user/about_cat.inc.php:69
 #, php-format
 msgid ""
 "<li><b>%s</b> (the OCSP Responder for the site certificate), also TCP/80</li>"
@@ -106,7 +89,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: web/user/cat_info.php:86
+#: web/user/about_cat.inc.php:71
 #, php-format
 msgid ""
 "<li><b>android.l.google.com</b> (Google Play access for Android App)</"
@@ -119,77 +102,61 @@ msgid ""
 "li><li><b>googleusercontent.com</b></li><li><b>ajax.googleapis.com</b></"
 "li><li><b>play.google-apis.com</b></li><li><b>googleapis.l.google.com</b></"
 "li><li><b>apis.google.com</b></li><li><b>gstatic.com</b></li><li><b>www."
-"google-analystics.com</b></li><li><b>wallet.google.com</b></li><li><b>plus."
+"google-analytics.com</b></li><li><b>wallet.google.com</b></li><li><b>plus."
 "google.com</b></li><li><b>checkout.google.com</b></li></ul>"
 msgstr ""
 
-#: web/user/cat_info.php:112
+#.
+#. * ******************************************************************************
+#. * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1
+#. * and GN4-2 consortia
+#. *
+#. * License: see the web/copyright.php file in the file structure
+#. * ******************************************************************************
+#.
+#: web/user/devel.inc.php:12
+msgid "Access the sources"
+msgstr ""
+
+#: web/user/devel.inc.php:13
 #, php-format
 msgid ""
-"The most important need is adding new installer modules, which will "
-"configure particular devices.  CAT is making this easy for you. If you know "
-"how to create an automatic installer then fitting it into CAT should be a "
-"piece of cake. You should start by contacting us at <a href='mailto:%s'>%s</"
-"a>, but please also take a look at <a href='%s'>CAT documentation</a>."
+"%s is an opensource project. If you are interested in the details of the "
+"implementation, please visit GitHub."
 msgstr ""
-"La necesidad más importante en CAT es añadir nuevos módulos de instalador, "
-"que configurarán dispositivos concretos. CAT hace que esto sea fácil para "
-"tí. Si sabes cómo crear un instalador automático añadirlo a CAT debería ser "
-"muy sencillo. Deberías comenzar por contactar con nosotros en <a "
-"href='mailto:%s'>%s</a> pero, por favor, échale antes un ojo a <a "
-"href='%s'>la documentación de CAT</a>."
 
-#: web/user/cat_info.php:115
+#: web/user/devel.inc.php:14
+msgid "Join the developpers mailing list."
+msgstr ""
+
+#: web/user/devel.inc.php:15
+#, php-format
+msgid "The list is availabe at: %s"
+msgstr ""
+
+#: web/user/devel.inc.php:16
+msgid "Add a translation"
+msgstr ""
+
+#: web/user/devel.inc.php:17
+msgid ""
+"If you would like to add a new languege to CAT then please contact us ..."
+msgstr ""
+
+#: web/user/faq.inc.php:17 web/user/faq.php:14
 #, fuzzy, php-format
-msgid ""
-"Please send a problem report to <a href='%s'>%s</a>. Some screen dumps are "
-"very welcome."
-msgstr ""
-"Por favor, envía cualquier error a <a href='mailto:%s'>%s</a>. Si puedes "
-"hacernos alguna captura lo agradeceremos."
-
-#: web/user/cat_info.php:117
-#, php-format
-msgid ""
-"<br/><br/>If you are a copyright holder and believe that content on this "
-"website infringes on your copyright, or find any other inappropriate "
-"content, please notify us at <a href='mailto:%s'>%s</a>."
-msgstr ""
-
-#: web/user/cat_info.php:133
-#, php-format
-msgid ""
-"You must have received an invitation from your national %s operator before "
-"being able to manage your institution. If that is the case, please continue "
-"and log in."
-msgstr ""
-"Debes haber recibido una invitación del operador nacional de %s antes de "
-"poder administrar tu institución. Si ese es el caso, por favor continúa e "
-"inicia sesión."
-
-#: web/user/cat_info.php:135
-msgid "Please authenticate yourself and login"
-msgstr "Por favor, identifícate e inicia sesión"
-
-#: web/user/cat_info.php:137
-msgid "Login"
-msgstr "Inicio de sesión"
-
-#: web/user/faq.php:6
-#, php-format
-msgid "My institution is not listed. Can't I just use any of the other ones?"
+msgid "My %s is not listed. Can't I just use any of the other ones?"
 msgstr ""
 "Mi institución no aparece en la lista. ¿No puedo usar el instalador de otra "
 "institución?"
 
-#: web/user/faq.php:7
-#, php-format
+#: web/user/faq.inc.php:18 web/user/faq.php:15
+#, fuzzy, php-format
 msgid ""
-"No! The installers contain security settings which are specific to the "
-"institution. If you are not from that institution, your computer will detect "
-"that you are about to send your username and credential to an unauthorised "
-"server and will abort the login. Using a different institution installer is "
-"<i>guaranteed to not work</i>!"
+"No! The installers contain security settings which are specific to the %s. "
+"If you are not from that %s, your computer will detect that you are about to "
+"send your username and credential to an unauthorised server and will abort "
+"the login. Using a different %s installer is <i>guaranteed to not work</i>!"
 msgstr ""
 "¡No! Los instaladores contienen configuraciones de seguridad específicos de "
 "cada institución. Si no perteneces a esa institución tu ordenador detectará "
@@ -197,28 +164,28 @@ msgstr ""
 "autorizado y abortará el inicio de sesión. El usar el instalador de una "
 "institución distinta a la tuya es <i>garantía de que no te funcionará</i>"
 
-#: web/user/faq.php:12
-#, php-format
-msgid "What can I do to get my institution listed?"
+#: web/user/faq.inc.php:22 web/user/faq.php:19
+#, fuzzy, php-format
+msgid "What can I do to get my %s listed?"
 msgstr "¿Qué puedo hacer para que mi institución aparezca?"
 
-#: web/user/faq.php:13
-#, php-format
+#: web/user/faq.inc.php:23 web/user/faq.php:20
+#, fuzzy, php-format
 msgid ""
-"Contact %s administrators at your home institution and complain. It will "
-"take at most one hour of their time to get things done."
+"Contact %s administrators at your %s and complain. It will take at most one "
+"hour of their time to get things done."
 msgstr ""
 "Contacta a los administradores de %s en tu institución y quéjate. Sólo les "
 "llevará una hora de su tiempo hacer lo necesario para aparecer aquí."
 
-#: web/user/faq.php:18
+#: web/user/faq.inc.php:27 web/user/faq.php:24
 #, php-format
 msgid "My device is not listed! Does that mean I can't do %s?"
 msgstr ""
 "¡Mi dispositivo no aparece listado! ¿Eso significa que no podré conectarme a "
 "%s?"
 
-#: web/user/faq.php:19
+#: web/user/faq.inc.php:28 web/user/faq.php:25
 #, php-format
 msgid ""
 "No. The CAT tool can only support Operating Systems which can be "
@@ -232,7 +199,7 @@ msgstr ""
 "favor, contacta con tu institución %s para que te ayuden a configurar tu "
 "dispositivo."
 
-#: web/user/faq.php:24
+#: web/user/faq.inc.php:32 web/user/faq.php:29
 #, php-format
 msgid ""
 "I can connect to %s simply by providing username and password, what is the "
@@ -241,7 +208,7 @@ msgstr ""
 "Si puedo conectarme a %s simplemente usando usuario y contraseña, ¿qué gano "
 "usando un instalador?"
 
-#: web/user/faq.php:25
+#: web/user/faq.inc.php:33 web/user/faq.php:30
 #, php-format
 msgid ""
 "When you are connecting from an unconfigured device your security is at "
@@ -255,17 +222,12 @@ msgstr ""
 "habla con el servidor de autenticación correcto, y que nunca enviará tus "
 "credenciales a un servidor no confiable."
 
-#: web/user/faq.php:31
-#, php-format
-msgid "What is this eduroam thing anyway?"
-msgstr "¿De qué va esto de eduroam?"
-
-#: web/user/faq.php:38
+#: web/user/faq.inc.php:36 web/user/faq.php:41
 #, php-format
 msgid "Is it safe to use %s installers?"
 msgstr "¿Es seguro usar los instaladores de %s?"
 
-#: web/user/faq.php:39
+#: web/user/faq.inc.php:37 web/user/faq.php:42
 #, php-format
 msgid ""
 "%s installers configure security settings on your device, therefore you "
@@ -274,7 +236,7 @@ msgstr ""
 "Los instaladores %s configuran los parámetros de seguridad en su "
 "dispositivo, por tanto, debería estar seguro de usar instaladores genuinos."
 
-#: web/user/faq.php:39
+#: web/user/faq.inc.php:37 web/user/faq.php:42
 #, php-format
 msgid ""
 "This is why %s installers are digitally signed by %s. Watch out for a system "
@@ -283,7 +245,7 @@ msgstr ""
 "Éste es el motivo por el que los instaladores %s están firmados digitalmente "
 "por %s. Comprueba que aparece un mensaje confirmándolo."
 
-#: web/user/faq.php:45
+#: web/user/faq.inc.php:41 web/user/faq.php:46
 msgid ""
 "Windows 'SmartScreen' or 'Internet Explorer' tell me that the file is not "
 "commonly downloaded and possibly harmful. Should I be concerned?"
@@ -292,7 +254,7 @@ msgstr ""
 "fichero no es descargado habitualmente y que posiblemente podría ser dañino. "
 "¿Debería preocuparme?"
 
-#: web/user/faq.php:46
+#: web/user/faq.inc.php:42 web/user/faq.php:47
 msgid ""
 "Contrary to what the name suggests, 'SmartScreen' isn't actually very smart. "
 "The warning merely means that the file has not yet been downloaded by enough "
@@ -305,7 +267,7 @@ msgstr ""
 "popular (lo cual extrañamente bastaría para considerarlo \"seguro\"). Ese "
 "mensaje por sí sólo no es un problema de seguridad."
 
-#: web/user/faq.php:46
+#: web/user/faq.inc.php:42 web/user/faq.php:47
 #, php-format
 msgid ""
 "So long as the file is carrying a valid signature from %s, the download is "
@@ -313,13 +275,13 @@ msgid ""
 msgstr ""
 "Siempre que este fichero lleve una firma válida de %s, la descarga es segura."
 
-#: web/user/faq.php:46
+#: web/user/faq.inc.php:42 web/user/faq.php:47
 #, php-format
 msgid "Please see also Microsoft's FAQ regarding SmartScreen at %s."
 msgstr ""
 "Por favor, consulta también la FAQ de Microsoft sobre SmartScreen en %s."
 
-#: web/user/faq.php:52
+#: web/user/faq.inc.php:46 web/user/faq.php:51
 #, php-format
 msgid ""
 "I can see %s network and my device is configured but it does not connect, "
@@ -328,8 +290,8 @@ msgstr ""
 "Puedo ver la red %s y mi dispositivo está configurado, pero no se conecta. "
 "¿Cuál puede ser la causa?"
 
-#: web/user/faq.php:53
-#, php-format
+#: web/user/faq.inc.php:47 web/user/faq.php:52
+#, fuzzy, php-format
 msgid ""
 "There can be a number of different reasons. The network you see may not be a "
 "genuine %s one and your device silently drops the connection attempt; there "
@@ -337,8 +299,8 @@ msgid ""
 "may have expired; there may be a connection problem with your home "
 "authentication server; you may have broken the regulations of the network "
 "you are using and have been refused access as a consequence. You should "
-"contact your home institution and report the problem, the administrators "
-"should be able to trace your connections."
+"contact your %s and report the problem, the administrators should be able to "
+"trace your connections."
 msgstr ""
 "Puede haber distintos motivos. La red que ves puede no ser una red %s "
 "auténtica y que tu dispositivo interrumpa silenciosamente el intento de "
@@ -350,235 +312,74 @@ msgstr ""
 "informar el problema, los administradores deberían poder rastrear tus "
 "problemas de conexión."
 
-#: web/user/faq.php:59
+#: web/user/faq.inc.php:51 web/user/faq.php:56
 #, php-format
 msgid "I have a question about this web site. Whom should I contact?"
 msgstr "Tengo una pregunta sobre este sitio web. ¿Con quién debo contactar?"
 
-#: web/user/faq.php:60
+#: web/user/faq.inc.php:52 web/user/faq.php:57
 #, php-format
 msgid "You should send a mail to %s."
 msgstr "Envía un correo electrónico a %s."
 
-#: web/user/faq.php:78
+#: web/user/faq.inc.php:60 web/user/faq.php:35
+#, fuzzy, php-format
+msgid "What is this %s thing anyway?"
+msgstr "¿De qué va esto de eduroam?"
+
+#: web/user/faq.inc.php:61 web/user/faq.php:36
+#, fuzzy, php-format
+msgid ""
+"%s is a global WiFi roaming consortium which gives members of education and "
+"research access to the internet <i>for free</i> on all %s hotspots on the "
+"planet. There are several million %s users already, enjoying free internet "
+"access on more than 6.000 hotspots! Visit <a href='http://www.eduroam."
+"org'>the %s homepage</a> for more details."
+msgstr ""
+"eduroam es un consorcio de roaming WiFi global, que permite ofrece a "
+"miembros de la comunidad educativa y de investigación acceso a Internet "
+"<i>gratis</i> en todas las localizaciones del planeta. ¡Ya hay varios "
+"usuarios de eduroam disfrutando de acceso gratuito a Internet en más de "
+"6.000 localizaciones! Visita <a href='http://www.eduroam.org'>la página web "
+"de eduroam</a> para más detalles."
+
+#. *
+#. * This is a template for further FAQ entries. Simply copy&paste and add more
+#. * FAQ text in 'title' and 'text' respectively.
+#. *
+#. array_push($FAQ,
+#. array(
+#. 'title'=>sprintf(_("")),
+#. 'text'=>sprintf(_(""))
+#. ));
+#.
+#: web/user/faq.php:74 web/skins/modern/user/cat_info.php:70
 msgid "Frequently Asked Questions"
 msgstr "Preguntas Frecuentemente Preguntadas"
 
-#: web/user/tou.php:3
+#: web/user/tou.inc.php:15 web/user/tou.php:13
 msgid "Terms of Use"
 msgstr "Términos de uso"
 
-#: web/user/js/cat_js.php:26 web/basic.php:306
-msgid ""
-"This is embarrassing. Generation of your installer failed. System admins "
-"have been notified. We will try to take care of the problem as soon as "
-"possible."
-msgstr ""
-"Esto es embarazoso. La generación de tu instalador ha fallado. Los "
-"administradores del sistema han sido notificados. Trataremos de encargarnos "
-"del problema tan pronto nos sea posible."
-
-#: web/user/js/cat_js.php:62
-msgid "no matching data found"
-msgstr "no se encontraron datos coincidentes"
-
-#: web/user/js/cat_js.php:71
-msgid "Selected institution:"
-msgstr "Institución seleccionada:"
-
-#: web/user/js/cat_js.php:76
-msgid "select"
-msgstr "seleccionar"
-
-#: web/user/js/cat_js.php:191
-msgid "WWW:"
-msgstr "Página web:"
-
-#: web/user/js/cat_js.php:193
-msgid "email:"
-msgstr "correo electrónico:"
-
-#: web/user/js/cat_js.php:195
-msgid "tel:"
-msgstr "teléfono:"
-
-#: web/user/js/cat_js.php:197
-msgid ""
-"If you encounter problems, then you can obtain direct assistance from you "
-"home organisation at:"
-msgstr "Si encuentras problemas, puedes obtener ayuda de tu organización en:"
-
-#: web/user/js/cat_js.php:199 web/basic.php:284
-msgid ""
-"If you encounter problems you should ask for help at your home institution"
-msgstr "Si encuentras problemas deberías pedir ayuda a tu institución"
-
-#: web/user/js/cat_js.php:212 web/user/js/cat_js.php:237
-msgid ""
-"This device cannot be configured with settings provided by your institution"
-msgstr ""
-"Este dispositivo no puede ser configurado con la configuración proporcionada "
-"por tu institución"
-
-#: web/user/js/cat_js.php:224
-msgid ""
-"Your site administrator has specified that this device should be configured "
-"with resources located on a local page. When you click <b>Continue</b> this "
-"page will be opened in a new window/tab."
-msgstr ""
-"El administrador para tu organización ha especificado que este dispositivo "
-"debería ser configurado con recursos propios en una página de tu "
-"organización. Cuando hagas click en <b>Continuar</b> la página se abrirá en "
-"una nueva ventana/solapa."
-
-#: web/user/js/cat_js.php:224 web/user/js/cat_js.php:232 web/index.php:260
-msgid "Continue"
-msgstr "Continuar"
-
-#: web/user/js/cat_js.php:238 web/index.php:149
-msgid "Close"
-msgstr "Cerrar"
-
-#: web/user/js/cat_js.php:502
-msgid "Home institution"
-msgstr "Institución"
-
-#: web/user/js/cat_js.php:503
-msgid "Select your <strong>institution<\\/strong>"
-msgstr "Selecciona tu <strong>institucion<\\/strong>"
-
-#: web/user/js/cat_js.php:504
-msgid "Help, my institution is not on the list"
-msgstr "Ayuda, mi institución no está en la lista"
-
-#: web/user/js/cat_js.php:505
-#, php-format
-msgid ""
-"This system relies on information supplied by local %s administrators. If "
-"your institution is not on the list, then nag them to add information to the "
-"%s database."
-msgstr ""
-"Este sistema hace uso de la información que han proporcionado los "
-"administradores de %s. Si tu institución no está en la lista, solicítales "
-"que añadan la información a la base de datos de %s."
-
-#: web/user/js/cat_js.php:506
-msgid "Locate me more accurately using HTML5 Geo-Location"
-msgstr "Localízame con mayor fiabilidad usando geolocalización HTML5"
-
-#: web/user/js/cat_js.php:507
-msgid "Show institutions in"
-msgstr "Mostrar instituciones en"
-
-#: web/user/js/cat_js.php:508
-msgid "all countries"
-msgstr "todos los países"
-
-#: web/user/js/cat_js.php:509
-msgid "or search for an institution, in example Univerity of Oslo"
-msgstr "o busca una institución. Por ejemplo, \"Universidad de Sevilla\""
-
-#: web/user/js/cat_js.php:510
-msgid "show all countries"
-msgstr "mostrar todos los países"
-
-#: web/user/js/cat_js.php:511
-msgid "Results limited to"
-msgstr "Resultados limitados a "
-
-#: web/user/js/cat_js.php:512
-msgid "entries - show more"
-msgstr "entradas - mostrar más"
-
-#: web/user/js/cat_js.php:513
-msgid "Nearby"
-msgstr "Próximo"
-
-#: web/user/js/cat_js.php:514
-msgid "Location timeout"
-msgstr "Expirado el tiempo de espera para la localización"
-
-#: web/user/js/cat_js.php:515
-msgid "Could not get your position"
-msgstr "No se pudo determinar tu posición"
-
-#: web/user/js/cat_js.php:516
-msgid "Your browser has denied access to your location"
-msgstr "Tu navegador ha denegado el acceso a tu localización"
-
-#: web/user/js/cat_js.php:517
-msgid "Unknown location error"
-msgstr "Error de localización desconocida"
-
-#: web/user/js/cat_js.php:518
-msgid "You are here:"
-msgstr "Te encuentras aquí:"
-
-#: web/user/js/cat_js.php:519
-msgid "Getting your location..."
-msgstr "Obteniendo tu localización..."
-
-#: web/user/js/cat_js.php:520
-msgid "Nearby providers shown on top."
-msgstr "Los proveedores cercanos se muestran primero."
-
-#. /devices.php
-#.
-#: web/user/js/roll.php:127
-msgid "MS Windows"
-msgstr "MS Windows"
-
-#: web/user/js/roll.php:127
-#, fuzzy
-msgid "10, 8, 7, Vista"
-msgstr "8, 7, Vista, XP"
-
-#: web/user/js/roll.php:128
-msgid "Apple OS X"
-msgstr "OS X de Apple"
-
-#: web/user/js/roll.php:129
-msgid "Android"
-msgstr ""
-
-#: web/user/js/roll.php:129
-msgid "4.3+"
-msgstr ""
-
-#: web/user/js/roll.php:130
-msgid "Apple iOS devices"
-msgstr "Dispositivos iOS de Apple"
-
-#: web/user/js/roll.php:130
-msgid "iPhone, iPad, iPod touch"
-msgstr "iPhone, iPad, iPod touch"
-
-#: web/user/js/roll.php:131
-msgid "Linux"
-msgstr "Linux"
-
-#: web/user/js/roll.php:131
-msgid "all major distributions"
-msgstr "distribuciones principales"
-
-#: web/4013.php:32 web/404.php:31 web/index.php:132
+#: web/4013.php:34 web/404.php:33 web/lib/user/TextTemplates.php:74
 #, php-format
 msgid "Welcome to %s"
 msgstr "Bienvenido a %s"
 
-#: web/4013.php:35 web/404.php:34 web/basic.php:342 web/index.php:135
+#: web/4013.php:37 web/404.php:36
 msgid "View this page in"
 msgstr "Ver esta página en"
 
-#: web/4013.php:41 web/404.php:40 web/copyright.php:31 web/index.php:141
+#: web/4013.php:43 web/404.php:42 web/copyright.php:33
+#: web/skins/modern/Menu.php:29
 msgid "Start page"
 msgstr "Página de inicio"
 
-#: web/4013.php:45
+#: web/4013.php:47
 msgid "Maybe this is the CAT you are looking for..."
 msgstr "Quizás este es el CAT que estabas buscando..."
 
-#: web/4013.php:46
+#: web/4013.php:48
 #, fuzzy
 msgid ""
 "but we don't want to show it to you. You need to be authenticated and "
@@ -589,7 +390,7 @@ msgstr ""
 "ver este contenido. Dado que no lo estás, llegaste a a esta página de error "
 "conocida como  "
 
-#: web/4013.php:48
+#: web/4013.php:50
 #, php-format
 msgid ""
 "Your mistake? Our error? Who knows! Maybe you should go back to the <a "
@@ -598,11 +399,11 @@ msgstr ""
 "¿tu error? ¿el nuestro? ¡Quién sabe! Quizá deberías regresar a la <a "
 "href='%s'>Página de Inicio</a>."
 
-#: web/404.php:44
+#: web/404.php:46
 msgid "This is not the CAT you are looking for."
 msgstr "Este no es el CAT que buscabas."
 
-#: web/404.php:45
+#: web/404.php:47
 msgid ""
 "Whatever you expected to see at this URL - it's not here. The only thing "
 "here is the number"
@@ -610,7 +411,7 @@ msgstr ""
 "Lo que quiera que esperabas encontrar en esta URL - no está aquí. La única "
 "cosa aquí es el número"
 
-#: web/404.php:47
+#: web/404.php:49
 #, php-format
 msgid ""
 "staring at you. Your mistake? Our error? Who knows! Maybe you should go back "
@@ -619,141 +420,17 @@ msgstr ""
 "delante tuya. ¿tu error? ¿el nuestro? ¡Quién sabe! Quizá deberías regresar a "
 "la <a href='%s'>Página de Inicio</a>."
 
-#: web/basic.php:133
-msgid "Select your country"
-msgstr "Selecciona tu país"
-
-#: web/basic.php:149
-msgid "Select your institution"
-msgstr "Selecciona tu institución"
-
-#: web/basic.php:180 web/index.php:223
-msgid "Select the user group"
-msgstr "Selecciona el grupo de usuarios"
-
-#: web/basic.php:207
-msgid ""
-"Your operating system was not properly detected, is not supported yet or "
-"cannot be configured with settings provided by your institution"
-msgstr ""
-"Tu sistema operativo no pudo ser detectado adecuadamente, no está soportado "
-"o no puede ser configurado con las propiedades aportadas por tu institución."
-
-#: web/basic.php:215 web/index.php:308
-msgid "Choose an installer to download"
-msgstr "Elige el instalador que quieres descargar"
-
-#: web/basic.php:252 web/basic.php:294
-msgid ""
-"Your local administrator has specified a redirect to a local support page."
-msgstr ""
-"Tu administrador local ha aportado una redirección a una página de soporte "
-"local."
-
-#: web/basic.php:252
-msgid "When you click <b>CONTINUE</b> this support page will be opened."
-msgstr "Cuando hagas click en <b>CONTINUAR</b> se abrirá la página de soporte."
-
-#: web/basic.php:254
-msgid "CONTINUE to local support page"
-msgstr "CONTINÚA en la página de soporte local"
-
-#: web/basic.php:258
-msgid "Do you have an account at this institution?"
-msgstr "¿Tienes una cuenta en esta institución?"
-
-#: web/basic.php:258
-msgid ""
-"If so and if the other settings above are OK then click here to download..."
-msgstr ""
-"Si es así y si las otras opciones con correctas entonces haz click para "
-"descargar..."
-
-#: web/basic.php:294
-msgid "Click on the link below to continue."
-msgstr "Haz click en el enlace inferior para continuar."
-
-#: web/basic.php:332
-msgid "Download installer for"
-msgstr "Descarga el instalador para"
-
-#: web/basic.php:334
-msgid "Start over"
-msgstr "Comenzar de nuevo"
-
-#: web/basic.php:473 web/index.php:162
-#, php-format
-msgid "Terms of use"
-msgstr "Términos de uso"
-
-#: web/copyright.php:28
+#: web/copyright.php:30
 #, php-format
 msgid "%s Copyright and Licensing"
 msgstr ""
 
-#: web/index.php:105
-#, php-format
-msgid "Download your %s installer"
-msgstr "Descarga el instalador para %s"
-
-#: web/index.php:145
-msgid "Authenticating"
-msgstr "Autenticando"
-
-#: web/index.php:160 web/index.php:161
-#, php-format
-msgid "About %s"
-msgstr "Acerca de %s"
-
-#: web/index.php:163
-#, php-format
-msgid "FAQ"
-msgstr "FAQ"
-
-#: web/index.php:164
-#, php-format
-msgid "Report a problem"
-msgstr "Reportar un problema"
-
-#: web/index.php:165
-#, php-format
-msgid "Become a CAT developer"
-msgstr "Conviértete en desarrollador de CAT"
-
-#: web/index.php:166
-#, php-format
-msgid "%s admin:<br>manage your IdP"
-msgstr "Administrador de %s:<br>administra tu IdP"
-
-#: web/index.php:182
-#, php-format
-msgid "%s installation made easy:"
-msgstr "La instalación de %s hecha fácil:"
-
-#: web/index.php:185
-msgid "Custom built for your home institution"
-msgstr "Paquete construido para tu institución"
-
-#: web/index.php:189
-#, php-format
-msgid "Digitally signed by the organisation that coordinates %s: %s"
-msgstr "Firmado digitalmente por la organización que coordina %s: %s"
-
-#: web/index.php:203
-#, php-format
-msgid "%s user:<br>download your %s installer"
-msgstr "Usuario de %s:<br>descarga tu instalador %s"
-
-#: web/index.php:215
-msgid "select another"
-msgstr "selecciona otra"
-
-#: web/index.php:234
-msgid "Welcome aboard the eduroam® user community!"
+#: web/lib/user/TextTemplates.php:67
+#, fuzzy, php-format
+msgid "Welcome aboard the %s user community!"
 msgstr "¡Bienvenido a bordo de la comunidad de usuarios de eduroam®!"
 
-#. / the empty href is dynamically exchanged with the actual path by jQuery at runtime
-#: web/index.php:238
+#: web/lib/user/TextTemplates.php:68
 #, fuzzy
 msgid ""
 "Your download will start shortly. In case of problems with the automatic "
@@ -762,12 +439,130 @@ msgstr ""
 "La descarga comenzará en breve. En caso de que haya algún problema con la "
 "descarga automática puedes usar este <a href=''>enlace directo</a>."
 
-#: web/index.php:241
+#: web/lib/user/TextTemplates.php:69 web/skins/modern/div_user_welcome.php:9
 #, php-format
 msgid "Dear user from %s,"
 msgstr "Estimado usuario de %s,"
 
-#: web/index.php:244
+#: web/lib/user/TextTemplates.php:70
+#, fuzzy, php-format
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an %s hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Ahora que has descargado y configurado eduroam®, todo lo que tendrás que "
+"hacer es encontrar una ubicación en tu proximidad donde se ofrezca el "
+"servicio e introducir tus credenciales de usuario (este es el nombre que "
+"damos a tu 'identificador de usuario y contraseña' o a tu 'certificado "
+"personal'). ¡Y ya estarás conectado!"
+
+#: web/lib/user/TextTemplates.php:71 web/skins/modern/div_user_welcome.php:17
+#, php-format
+msgid ""
+"Should you have any problems using this service, please always contact the "
+"helpdesk of %s. They will diagnose the problem and help you out. You can "
+"reach them via the means shown above."
+msgstr ""
+"Si hubiera algún problema usando este servicio, por favor contacta con el "
+"soporte al usuario de %s. Ellos diagnosticarán el problema y podrán "
+"ayudarte. Puedes contactar con ellos a través de las vías mostradas en la "
+"parte superior."
+
+#: web/lib/user/TextTemplates.php:72 web/skins/modern/div_user_welcome.php:20
+msgid "Back to downloads"
+msgstr "Volver a la zona de descargas"
+
+#: web/lib/user/TextTemplates.php:73
+#, fuzzy, php-format
+msgid ""
+"we would like to warmly welcome you among the several million users of %s! "
+"From now on, you will be able to use internet access resources on thousands "
+"of universities, research centres and other places all over the globe. All "
+"of this completely free of charge!"
+msgstr ""
+"quisiéramos darte una calurosa bienvenida a una comunidad de varios millones "
+"de usuarios de eduroam®. A partir de este momento, podrás acceder Internet "
+"desde miles de universidades, centros de investigación y otros lugares de "
+"todo el mundo. ¡Todo ello de manera gratuita!"
+
+#: web/lib/user/TextTemplates.php:75
+#, php-format
+msgid "Connect your device to %s"
+msgstr ""
+
+#: web/lib/user/TextTemplates.php:76
+#, php-format
+msgid "%s installation made easy:"
+msgstr "La instalación de %s hecha fácil:"
+
+#: web/lib/user/TextTemplates.php:77
+#, fuzzy, php-format
+msgid "Custom built for your %s"
+msgstr "Paquete construido para tu institución"
+
+#: web/lib/user/TextTemplates.php:78
+#, fuzzy, php-format
+msgid "Click here to download your %s installer"
+msgstr "Descarga el instalador para %s"
+
+#: web/lib/user/TextTemplates.php:79
+msgid "Select the user group"
+msgstr "Selecciona el grupo de usuarios"
+
+#: web/lib/user/TextTemplates.php:80
+msgid "select another"
+msgstr "selecciona otra"
+
+#: web/lib/user/TextTemplates.php:81
+#, fuzzy
+msgid "Choose another installer to download"
+msgstr "Elige el instalador que quieres descargar"
+
+#: web/lib/user/TextTemplates.php:82
+msgid "All platforms"
+msgstr "Todas las plataformas"
+
+#: web/lib/user/TextTemplates.php:83
+#, fuzzy, php-format
+msgid "Download your %s installer"
+msgstr "Usuario de %s:<br>descarga tu instalador %s"
+
+#: web/lib/user/TextTemplates.php:84
+#, fuzzy
+msgid ""
+"Your local administrator has specified a redirect to a local support page."
+"<br>When you click <b>Continue</b> this support page will be opened in a new "
+"window/tab."
+msgstr ""
+"Tu administrador local ha aportado una redirección a una página de soporte "
+"local.<br>\n"
+"                            Cuando hagas click en <b>Continue</b> la página "
+"de soporte se abrirá en una nueva ventana o pestaña."
+
+#: web/lib/user/TextTemplates.php:85 web/skins/modern/user/js/cat_js.php:250
+#: web/skins/modern/user/js/cat_js.php:258
+msgid "Continue"
+msgstr "Continuar"
+
+#: web/lib/user/TextTemplates.php:86
+#, fuzzy, php-format
+msgid "Digitally signed by the organisation that coordinates %s"
+msgstr "Firmado digitalmente por la organización que coordina %s: %s"
+
+#: web/lib/user/TextTemplates.php:88
+#, php-format
+msgid "Digitally signed by the organisation that coordinates %s: %s"
+msgstr "Firmado digitalmente por la organización que coordina %s: %s"
+
+#: web/skins/modern/Divs.php:85
+msgid ""
+"You can download your eduroam installer via a personalised invitation link "
+"sent from your IT support. Please talk to the IT department to get this link."
+msgstr ""
+
+#: web/skins/modern/div_user_welcome.php:12
 msgid ""
 "we would like to warmly welcome you among the several million users of "
 "eduroam®! From now on, you will be able to use internet access resources on "
@@ -779,7 +574,7 @@ msgstr ""
 "desde miles de universidades, centros de investigación y otros lugares de "
 "todo el mundo. ¡Todo ello de manera gratuita!"
 
-#: web/index.php:247
+#: web/skins/modern/div_user_welcome.php:15
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
 "need to do is find an eduroam® hotspot in your vicinity and enter your user "
@@ -792,46 +587,584 @@ msgstr ""
 "damos a tu 'identificador de usuario y contraseña' o a tu 'certificado "
 "personal'). ¡Y ya estarás conectado!"
 
-#: web/index.php:249
+#: web/skins/modern/index.php:67 web/skins/modern/test.php:70
+msgid "Authenticating"
+msgstr "Autenticando"
+
+#: web/skins/modern/Menu.php:32
+#, fuzzy
+msgid "About"
+msgstr "Acerca de %s"
+
+#: web/skins/modern/Menu.php:33 web/skins/modern/Menu.php:34
+#: web/skins/modern/Menu.php:35
+#, php-format
+msgid "About %s"
+msgstr "Acerca de %s"
+
+#: web/skins/modern/Menu.php:39
+msgid "Language"
+msgstr ""
+
+#: web/skins/modern/Menu.php:41 web/skins/modern/user/cat_info.php:60
+msgid "Help"
+msgstr ""
+
+#: web/skins/modern/Menu.php:42
+#, fuzzy
+msgid "My institution is not listed"
+msgstr "Ayuda, mi institución no está en la lista"
+
+#: web/skins/modern/Menu.php:42 web/skins/modern/Menu.php:43
+#: web/skins/modern/Menu.php:45 web/skins/modern/Menu.php:46
+#: web/skins/modern/Menu.php:47
+msgid "FAQ"
+msgstr "FAQ"
+
+#: web/skins/modern/Menu.php:43
+msgid "My device is not listed"
+msgstr ""
+
+#: web/skins/modern/Menu.php:44
+msgid "SB help item"
+msgstr ""
+
+#: web/skins/modern/Menu.php:45
+#, fuzzy
+msgid "What is eduroam"
+msgstr "¿De qué va esto de eduroam?"
+
+#: web/skins/modern/Menu.php:47
+msgid "Contact"
+msgstr ""
+
+#: web/skins/modern/Menu.php:48
+msgid "Diagnostics"
+msgstr ""
+
+#: web/skins/modern/Menu.php:49
+#, fuzzy
+msgid "Documentation"
+msgstr "Institución"
+
+#: web/skins/modern/Menu.php:52
+msgid "Manage"
+msgstr ""
+
+#: web/skins/modern/Menu.php:53
+#, php-format
+msgid "%s admin access"
+msgstr ""
+
+#: web/skins/modern/Menu.php:54
+#, php-format
+msgid "%s admin:<br>manage your IdP"
+msgstr "Administrador de %s:<br>administra tu IdP"
+
+#: web/skins/modern/Menu.php:55 web/skins/modern/Menu.php:56
+msgid "Become a CAT developer"
+msgstr "Conviértete en desarrollador de CAT"
+
+#: web/skins/modern/Menu.php:60
+msgid "Terms of use"
+msgstr "Términos de uso"
+
+#: web/skins/modern/accountstatus/accountstatus.php:56
+msgid ""
+"You attempted to download an installer that was already downloaded before. "
+"Please request a new token from your administrator instead."
+msgstr ""
+
+#: web/skins/modern/accountstatus/accountstatus.php:56
+msgid "Attempt to re-use download link"
+msgstr ""
+
+#: web/skins/modern/accountstatus/accountstatus.php:67
+msgid "You are a new user without a history of eduroam credentials."
+msgstr ""
+
+#: web/skins/modern/accountstatus/accountstatus.php:73
+#, php-format
+msgid "You have <strong>%d</strong> currently valid %s credential."
+msgid_plural "You have <strong>%d</strong> currently valid %s credentials."
+msgstr[0] ""
+msgstr[1] ""
+
+#: web/skins/modern/accountstatus/accountstatus.php:77
+#, php-format
+msgid "<strong>%d</strong> of your credentials is not valid any more."
+msgid_plural "<strong>%d</strong> of your credentials are not valid any more."
+msgstr[0] ""
+msgstr[1] ""
+
+#: web/skins/modern/accountstatus/accountstatus.php:79
+msgid "I want to see the details."
+msgstr ""
+
+#. only show this extra info in the non-trivial case.
+#: web/skins/modern/accountstatus/accountstatus.php:88
 #, php-format
 msgid ""
-"Should you have any problems using this service, please always contact the "
-"helpdesk of %s. They will diagnose the problem and help you out. You can "
-"reach them via the means shown above."
+"Your invitation token is valid for %d more device activations (%d have "
+"already been used)."
 msgstr ""
-"Si hubiera algún problema usando este servicio, por favor contacta con el "
-"soporte al usuario de %s. Ellos diagnosticarán el problema y podrán "
-"ayudarte. Puedes contactar con ellos a través de las vías mostradas en la "
-"parte superior."
 
-#: web/index.php:252
-msgid "Back to downloads"
-msgstr "Volver a la zona de descargas"
-
-#: web/index.php:256
+#: web/skins/modern/accountstatus/accountstatus.php:91
 msgid ""
-"Your local administrator has specified a redirect to a local support page."
-"<br>\n"
-"                            When you click <b>Continue</b> this support page "
-"will be opened in a new window/tab."
+"Unfortunately, we are unable to determine your device's operating system. If "
+"you have made modifications on your device which prevent it from being "
+"recognised (e.g. custom 'User Agent' settings), please undo such "
+"modifications. You can come back to this page again; the invitation link has "
+"not been used up yet."
 msgstr ""
-"Tu administrador local ha aportado una redirección a una página de soporte "
-"local.<br>\n"
-"                            Cuando hagas click en <b>Continue</b> la página "
-"de soporte se abrirá en una nueva ventana o pestaña."
 
-#: web/index.php:302
-msgid "All platforms"
-msgstr "Todas las plataformas"
-
-#: web/tou.php:54
+#: web/skins/modern/accountstatus/accountstatus.php:98
 #, php-format
-msgid "Release %s"
-msgstr "Versión %s"
+msgid ""
+"Unfortunately, the operating system your device uses (%s) is currently not "
+"supported for hosted end-user accounts. You can visit this page with a "
+"supported operating system later; the invitation link has not been used up "
+"yet."
+msgstr ""
 
-#: web/tou.php:56
-msgid "Unreleased SVN Revision"
-msgstr "Versión de SVN no publicada"
+#: web/skins/modern/accountstatus/accountstatus.php:102
+#, php-format
+msgid "You can now download a personalised  %s installation program."
+msgstr ""
+
+#. echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
+#: web/skins/modern/accountstatus/accountstatus.php:104
+#, php-format
+msgid ""
+"The installation program is <span class='emph'>strictly personal</span>, to "
+"be used <span class='emph'>only on this device (%s)</span>, and it is <span "
+"class='emph'>not permitted to share</span> this information with anyone."
+msgstr ""
+
+#: web/skins/modern/accountstatus/accountstatus.php:105
+msgid ""
+"When the system detects abuse such as sharing login data with others, all "
+"access rights for you will be revoked and you may be sanctioned by your "
+"local eduroam administrator."
+msgstr ""
+
+#: web/skins/modern/accountstatus/accountstatus.php:106
+msgid ""
+"During the installation process, you will be asked for the following import "
+"PIN. This only happens once during the installation. You do not have to "
+"write down this PIN."
+msgstr ""
+
+#: web/skins/modern/accountstatus/accountstatus.php:111
+#, php-format
+msgid "Import PIN: %s"
+msgstr ""
+
+#: web/skins/modern/accountstatus/accountstatus.php:116
+#, fuzzy, php-format
+msgid "Click here to download your %s installer!"
+msgstr "Descarga el instalador para %s"
+
+#: web/skins/modern/accountstatus/accountstatus.php:120
+#, php-format
+msgid ""
+"Unfortunately, the invitation link you just used is too old. The eduroam "
+"sign-up invitation was valid until %s. You cannot use this link any more. "
+"Please ask your administrator to issue you a new invitation link."
+msgstr ""
+
+#: web/skins/modern/accountstatus/accountstatus.php:127
+msgid "Account information not found"
+msgstr ""
+
+#: web/skins/modern/accountstatus/accountstatus.php:128
+msgid ""
+"The invitation link you followed does not map to any invititation we have on "
+"file."
+msgstr ""
+
+#: web/skins/modern/accountstatus/accountstatus.php:128
+msgid ""
+"You should use the exact link you got during sign-up to come here. "
+"Alternatively, if you have a valid eduroam login token already, you can "
+"visit this page and Accept the question about logging in with a client "
+"certificate (select a certificate with a name ending in '...hosted.eduroam."
+"org')."
+msgstr ""
+
+#: web/skins/modern/accountstatus/accountstatus.php:158
+#: web/skins/modern/user/js/cat_js.php:217
+#, fuzzy, php-format
+msgid ""
+"If you encounter problems, then you can obtain direct assistance from your "
+"%s at:"
+msgstr "Si encuentras problemas, puedes obtener ayuda de tu organización en:"
+
+#: web/skins/modern/accountstatus/accountstatus.php:160
+#: web/skins/modern/user/js/cat_js.php:219
+#, fuzzy, php-format
+msgid "If you encounter problems you should ask for help at your %s"
+msgstr "Si encuentras problemas deberías pedir ayuda a tu institución"
+
+#: web/skins/modern/accountstatus/accountstatus.php:171
+#, php-format
+msgid "Your personal %s account status page"
+msgstr ""
+
+#: web/skins/modern/accountstatus/accountstatus.php:199
+msgid "Current login tokens"
+msgstr ""
+
+#: web/skins/modern/accountstatus/accountstatus.php:200
+msgid "Previous login tokens"
+msgstr ""
+
+#: web/skins/modern/accountstatus/accountstatus.php:201
+msgid "Revoked login tokens"
+msgstr ""
+
+#: web/skins/modern/accountstatus/accountstatus.php:202
+msgid "Serial Number"
+msgstr ""
+
+#: web/skins/modern/accountstatus/accountstatus.php:202
+msgid "Pseudonym"
+msgstr ""
+
+#: web/skins/modern/accountstatus/accountstatus.php:202
+msgid "Device Type"
+msgstr ""
+
+#: web/skins/modern/accountstatus/accountstatus.php:202
+msgid "Issue Date"
+msgstr ""
+
+#: web/skins/modern/accountstatus/accountstatus.php:202
+msgid "Expiry Date"
+msgstr ""
+
+#: web/skins/modern/accountstatus/accountstatus.php:212
+msgid "invalid token"
+msgstr ""
+
+#: web/skins/modern/accountstatus/accountstatus.php:236
+msgid "The details are displayed below."
+msgstr ""
+
+#: web/skins/modern/accountstatus/accountstatus.php:241
+msgid "really revoke this certificate?"
+msgstr ""
+
+#: web/skins/modern/user/cat_info.php:90
+#, fuzzy, php-format
+msgid ""
+"You must have received an invitation from your %s %s before being able to "
+"manage your %s. If that is the case, please continue and log in."
+msgstr ""
+"Debes haber recibido una invitación del operador nacional de %s antes de "
+"poder administrar tu institución. Si ese es el caso, por favor continúa e "
+"inicia sesión."
+
+#: web/skins/modern/user/cat_info.php:92
+msgid "Please authenticate yourself and login"
+msgstr "Por favor, identifícate e inicia sesión"
+
+#: web/skins/modern/user/cat_info.php:97
+msgid "Login"
+msgstr "Inicio de sesión"
+
+#: web/skins/modern/user/cat_info.php:98
+msgid ""
+"Did you forget with which Identity Provider you logged in to the system? We "
+"can try to find out if you specify the email address with which you were "
+"invited to the system in the box below. This may not work if you were "
+"invited from a third-party website via the AdminAPI."
+msgstr ""
+
+#: web/skins/modern/user/cat_info.php:99
+msgid "Get IdP Reminder"
+msgstr ""
+
+#: web/skins/modern/user/js/cat_js.php:34
+msgid ""
+"This is embarrassing. Generation of your installer failed. System admins "
+"have been notified. We will try to take care of the problem as soon as "
+"possible."
+msgstr ""
+"Esto es embarazoso. La generación de tu instalador ha fallado. Los "
+"administradores del sistema han sido notificados. Trataremos de encargarnos "
+"del problema tan pronto nos sea posible."
+
+#: web/skins/modern/user/js/cat_js.php:78
+#: web/skins/modern/user/js/cat_js.php:199
+msgid "no matching data found"
+msgstr "no se encontraron datos coincidentes"
+
+#: web/skins/modern/user/js/cat_js.php:92
+msgid "select"
+msgstr "seleccionar"
+
+#: web/skins/modern/user/js/cat_js.php:211
+msgid "WWW:"
+msgstr "Página web:"
+
+#: web/skins/modern/user/js/cat_js.php:213
+msgid "email:"
+msgstr "correo electrónico:"
+
+#: web/skins/modern/user/js/cat_js.php:215
+msgid "tel:"
+msgstr "teléfono:"
+
+#: web/skins/modern/user/js/cat_js.php:237
+#: web/skins/modern/user/js/cat_js.php:263
+#, fuzzy, php-format
+msgid "This device cannot be configured with settings provided by your %s"
+msgstr ""
+"Este dispositivo no puede ser configurado con la configuración proporcionada "
+"por tu institución"
+
+#: web/skins/modern/user/js/cat_js.php:250
+msgid ""
+"Your site administrator has specified that this device should be configured "
+"with resources located on a local page. When you click <b>Continue</b> this "
+"page will be opened in a new window/tab."
+msgstr ""
+"El administrador para tu organización ha especificado que este dispositivo "
+"debería ser configurado con recursos propios en una página de tu "
+"organización. Cuando hagas click en <b>Continuar</b> la página se abrirá en "
+"una nueva ventana/solapa."
+
+#: web/skins/modern/user/js/cat_js.php:264
+msgid "Close"
+msgstr "Cerrar"
+
+#: web/skins/modern/user/js/cat_js.php:360
+msgid "Missing email address"
+msgstr ""
+
+#: web/skins/modern/user/js/cat_js.php:374
+msgid "No providers found for this email"
+msgstr ""
+
+#: web/skins/modern/user/js/cat_js.php:378
+msgid "Your IdP is:"
+msgstr ""
+
+#: web/skins/modern/user/js/cat_js.php:380
+msgid "Your IdP could be one of:"
+msgstr ""
+
+#: web/skins/modern/user/js/cat_js.php:532
+#, fuzzy, php-format
+msgid "Select your <strong>%s<\\/strong>"
+msgstr "Selecciona tu <strong>institucion<\\/strong>"
+
+#: web/skins/modern/user/js/cat_js.php:533
+#, fuzzy, php-format
+msgid "Help, my %s is not on the list"
+msgstr "Ayuda, mi institución no está en la lista"
+
+#: web/skins/modern/user/js/cat_js.php:534
+#, fuzzy, php-format
+msgid ""
+"This system relies on information supplied by local %s administrators. If "
+"your %s is not on the list, then nag them to add information to the %s "
+"database."
+msgstr ""
+"Este sistema hace uso de la información que han proporcionado los "
+"administradores de %s. Si tu institución no está en la lista, solicítales "
+"que añadan la información a la base de datos de %s."
+
+#: web/skins/modern/user/js/cat_js.php:535
+msgid "Locate me more accurately using HTML5 Geo-Location"
+msgstr "Localízame con mayor fiabilidad usando geolocalización HTML5"
+
+#: web/skins/modern/user/js/cat_js.php:536
+#, fuzzy, php-format
+msgid "Show %ss in"
+msgstr "Mostrar instituciones en"
+
+#: web/skins/modern/user/js/cat_js.php:537
+msgid "all countries"
+msgstr "todos los países"
+
+#: web/skins/modern/user/js/cat_js.php:538
+#, fuzzy, php-format
+msgid "or search for an %s, in example Univerity of Oslo"
+msgstr "o busca una institución. Por ejemplo, \"Universidad de Sevilla\""
+
+#: web/skins/modern/user/js/cat_js.php:539
+msgid "show all countries"
+msgstr "mostrar todos los países"
+
+#: web/skins/modern/user/js/cat_js.php:540
+msgid "Results limited to"
+msgstr "Resultados limitados a "
+
+#: web/skins/modern/user/js/cat_js.php:541
+msgid "entries - show more"
+msgstr "entradas - mostrar más"
+
+#: web/skins/modern/user/js/cat_js.php:542
+msgid "Nearby"
+msgstr "Próximo"
+
+#: web/skins/modern/user/js/cat_js.php:543
+msgid "Location timeout"
+msgstr "Expirado el tiempo de espera para la localización"
+
+#: web/skins/modern/user/js/cat_js.php:544
+msgid "Could not get your position"
+msgstr "No se pudo determinar tu posición"
+
+#: web/skins/modern/user/js/cat_js.php:545
+msgid "Your browser has denied access to your location"
+msgstr "Tu navegador ha denegado el acceso a tu localización"
+
+#: web/skins/modern/user/js/cat_js.php:546
+msgid "Unknown location error"
+msgstr "Error de localización desconocida"
+
+#: web/skins/modern/user/js/cat_js.php:547
+msgid "You are here:"
+msgstr "Te encuentras aquí:"
+
+#: web/skins/modern/user/js/cat_js.php:548
+msgid "Getting your location..."
+msgstr "Obteniendo tu localización..."
+
+#: web/skins/modern/user/js/cat_js.php:549
+msgid "Nearby providers shown on top."
+msgstr "Los proveedores cercanos se muestran primero."
+
+#. *
+#. The OS objects define individual frames
+#. the last argument of the OS call specifies whether the module is
+#. signed.  Make sure that this is in sync with your settings
+#. in devices/devices.php
+#.
+#: web/skins/modern/user/js/roll.php:134
+msgid "MS Windows"
+msgstr "MS Windows"
+
+#: web/skins/modern/user/js/roll.php:134
+#, fuzzy
+msgid "10, 8, 7, Vista"
+msgstr "8, 7, Vista, XP"
+
+#: web/skins/modern/user/js/roll.php:135
+msgid "Apple OS X"
+msgstr "OS X de Apple"
+
+#: web/skins/modern/user/js/roll.php:136
+msgid "Android"
+msgstr ""
+
+#: web/skins/modern/user/js/roll.php:136
+msgid "4.3+"
+msgstr ""
+
+#: web/skins/modern/user/js/roll.php:137
+msgid "Apple iOS devices"
+msgstr "Dispositivos iOS de Apple"
+
+#: web/skins/modern/user/js/roll.php:137
+msgid "iPhone, iPad, iPod touch"
+msgstr "iPhone, iPad, iPod touch"
+
+#: web/skins/modern/user/js/roll.php:138
+msgid "Linux"
+msgstr "Linux"
+
+#: web/skins/modern/user/js/roll.php:138
+msgid "all major distributions"
+msgstr "distribuciones principales"
+
+#: web/skins/modern/user/js/roll.php:139
+msgid "Chrome OS"
+msgstr ""
+
+#~ msgid ""
+#~ "The most important need is adding new installer modules, which will "
+#~ "configure particular devices.  CAT is making this easy for you. If you "
+#~ "know how to create an automatic installer then fitting it into CAT should "
+#~ "be a piece of cake. You should start by contacting us at <a href='mailto:"
+#~ "%s'>%s</a>, but please also take a look at <a href='%s'>CAT "
+#~ "documentation</a>."
+#~ msgstr ""
+#~ "La necesidad más importante en CAT es añadir nuevos módulos de "
+#~ "instalador, que configurarán dispositivos concretos. CAT hace que esto "
+#~ "sea fácil para tí. Si sabes cómo crear un instalador automático añadirlo "
+#~ "a CAT debería ser muy sencillo. Deberías comenzar por contactar con "
+#~ "nosotros en <a href='mailto:%s'>%s</a> pero, por favor, échale antes un "
+#~ "ojo a <a href='%s'>la documentación de CAT</a>."
+
+#, fuzzy
+#~ msgid ""
+#~ "Please send a problem report to <a href='%s'>%s</a>. Some screen dumps "
+#~ "are very welcome."
+#~ msgstr ""
+#~ "Por favor, envía cualquier error a <a href='mailto:%s'>%s</a>. Si puedes "
+#~ "hacernos alguna captura lo agradeceremos."
+
+#~ msgid "Selected institution:"
+#~ msgstr "Institución seleccionada:"
+
+#~ msgid "Select your country"
+#~ msgstr "Selecciona tu país"
+
+#~ msgid "Select your institution"
+#~ msgstr "Selecciona tu institución"
+
+#~ msgid ""
+#~ "Your operating system was not properly detected, is not supported yet or "
+#~ "cannot be configured with settings provided by your institution"
+#~ msgstr ""
+#~ "Tu sistema operativo no pudo ser detectado adecuadamente, no está "
+#~ "soportado o no puede ser configurado con las propiedades aportadas por tu "
+#~ "institución."
+
+#~ msgid ""
+#~ "Your local administrator has specified a redirect to a local support page."
+#~ msgstr ""
+#~ "Tu administrador local ha aportado una redirección a una página de "
+#~ "soporte local."
+
+#~ msgid "When you click <b>CONTINUE</b> this support page will be opened."
+#~ msgstr ""
+#~ "Cuando hagas click en <b>CONTINUAR</b> se abrirá la página de soporte."
+
+#~ msgid "CONTINUE to local support page"
+#~ msgstr "CONTINÚA en la página de soporte local"
+
+#~ msgid "Do you have an account at this institution?"
+#~ msgstr "¿Tienes una cuenta en esta institución?"
+
+#~ msgid ""
+#~ "If so and if the other settings above are OK then click here to "
+#~ "download..."
+#~ msgstr ""
+#~ "Si es así y si las otras opciones con correctas entonces haz click para "
+#~ "descargar..."
+
+#~ msgid "Click on the link below to continue."
+#~ msgstr "Haz click en el enlace inferior para continuar."
+
+#~ msgid "Download installer for"
+#~ msgstr "Descarga el instalador para"
+
+#~ msgid "Start over"
+#~ msgstr "Comenzar de nuevo"
+
+#~ msgid "Report a problem"
+#~ msgstr "Reportar un problema"
+
+#~ msgid "Release %s"
+#~ msgstr "Versión %s"
+
+#~ msgid "Unreleased SVN Revision"
+#~ msgstr "Versión de SVN no publicada"
 
 #~ msgid "Why is there no support for Android?"
 #~ msgstr "¿Cómo es que no hay soporte para Android?"

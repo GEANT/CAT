@@ -142,18 +142,14 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         $this->databaseType = "INST";
         parent::__construct(); // we now have access to our INST database handle and logging
         $this->frontendHandle = DBConnection::handle("FRONTEND");
-        // first make sure that we are operating on numeric identifiers
-        if (!is_numeric($profileIdRaw)) {
-            throw new Exception("Non-numeric Profile identifier was passed to AbstractProfile constructor!");
-        }
-        $profileId = (int) $profileIdRaw; // no, it can not possibly be a double. Try to convince Scrutinizer...
-        $profile = $this->databaseHandle->exec("SELECT inst_id FROM profile WHERE profile_id = $profileId");
+        
+        $profile = $this->databaseHandle->exec("SELECT inst_id FROM profile WHERE profile_id = ?", i, $profileIdRaw);
         // SELECT always yields a resource, never a boolean
         if ($profile->num_rows == 0) {
-            $this->loggerInstance->debug(2, "Profile $profileId not found in database!\n");
-            throw new Exception("Profile $profileId not found in database!");
+            $this->loggerInstance->debug(2, "Profile $profileIdRaw not found in database!\n");
+            throw new Exception("Profile $profileIdRaw not found in database!");
         }
-        $this->identifier = $profileId;
+        $this->identifier = $profileIdRaw;
         $profileQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $profile);
         if (!($idpObject instanceof IdP)) {
             $this->institution = $profileQuery->inst_id;
