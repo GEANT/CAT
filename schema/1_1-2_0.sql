@@ -58,8 +58,8 @@ ALTER TABLE `federation_option` ADD COLUMN `option_lang` varchar(8) DEFAULT NULL
 ALTER TABLE `institution_option` ADD COLUMN `option_lang` varchar(8) DEFAULT NULL;
 ALTER TABLE `profile_option` ADD COLUMN `option_lang` varchar(8) DEFAULT NULL;
 
+ALTER TABLE `downloads` CHANGE COLUMN `installer_time` `installer_time` timestamp NOT NULL DEFAULT '2000-01-01 00:00:00';
 ALTER TABLE `downloads` ADD COLUMN `downloads_silverbullet` int(11) NOT NULL DEFAULT '0';
-ALTER TABLE `downloads` ADD `eap_type` int(4) NULL DEFAULT NULL;
 
 ALTER TABLE `user_options` DROP KEY `rowindex`, CHANGE COLUMN `id` `row` int primary key auto_increment, ADD KEY `rowindex` (`row`);
 
