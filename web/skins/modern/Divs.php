@@ -10,6 +10,7 @@
  */
 
 use web\lib\user;
+
 require("Menu.php");
 
 /**
@@ -33,16 +34,20 @@ class Divs {
     public function div_heading($visibility = 'all') {
         $selectedLang = $this->Gui->langObject->getLang();
         $menu = new Menu($visibility, $selectedLang);
-        $retval = "
-    <div id='heading'>
-        <div id='cat_logo'>
-            <img id='logo_img' src='" . $this->Gui->skinObject->findResourceUrl("IMAGES", "consortium_logo.png") . "' alt='Consortium Logo'/>
+        $retval = "<div id='heading'>";
+        $location = $this->Gui->skinObject->findResourceUrl("IMAGES", "consortium_logo.png");
+        if ($location !== FALSE) {
+            $retval .= "<div id='cat_logo'>
+            <img id='logo_img' src='$location' alt='Consortium Logo'/>
             <span>Configuration Assistant Tool</span>
-        </div>
-        <div id='motd'>" . (isset(CONFIG['APPEARANCE']['MOTD']) ? CONFIG['APPEARANCE']['MOTD'] : '&nbsp') . "</div>
-        <img id='hamburger' src='" . $this->Gui->skinObject->findResourceUrl("IMAGES", "icons/menu.png") . "' alt='Menu'/>
-        <div id='menu_top'>
-";
+            </div>";
+        }
+        $retval .= "<div id='motd'>" . (isset(CONFIG['APPEARANCE']['MOTD']) ? CONFIG['APPEARANCE']['MOTD'] : '&nbsp') . "</div>";
+        $loc2 = $this->Gui->skinObject->findResourceUrl("IMAGES", "icons/menu.png");
+        if ($loc2 !== FALSE) {
+            $retval .= "<img id='hamburger' src='$loc2' alt='Menu'/>";
+        }
+        $retval .= "<div id='menu_top'>";
         $retval .= $menu->printMenu();
 
         $retval .= "</div></div>\n";
@@ -78,12 +83,12 @@ class Divs {
 ";
         return $retval;
     }
-    
+
     public function div_silverbullet() {
         $retval = "
 <div id='silverbullet'>" .
-_("You can download your eduroam installer via a personalised invitation link sent from your IT support. Please talk to the IT department to get this link.") .
-"</div>
+                _("You can download your eduroam installer via a personalised invitation link sent from your IT support. Please talk to the IT department to get this link.") .
+                "</div>
     ";
         return $retval;
     }
@@ -112,11 +117,14 @@ _("You can download your eduroam installer via a personalised invitation link se
         }
         $retval .= "
         </span>
-    </div>
-    <div id = 'img_roll'>
-        <img id='img_roll_0' src='" . $this->Gui->skinObject->findResourceUrl("IMAGES", "empty.png") . "' alt='Rollover 0'/> <img id='img_roll_1' src='" . $this->Gui->skinObject->findResourceUrl("IMAGES", "empty.png") . "' alt='Rollover 1'/>
-    </div>
-</div>";
+    </div>";
+        $rollLocation = $this->Gui->skinObject->findResourceUrl("IMAGES", "empty.png");
+        if ($rollLocation !== FALSE) {
+            $retval .= "<div id = 'img_roll'>
+                <img id='img_roll_0' src='$rollLocation' alt='Rollover 0'/> <img id='img_roll_1' src='$rollLocation' alt='Rollover 1'/>
+            </div>";
+        }
+        $retval .= "</div>";
         return $retval;
     }
 
@@ -153,16 +161,19 @@ _("You can download your eduroam installer via a personalised invitation link se
     <span id='inst_name_span'>$mainText</span> <div id='inst_extra_text'>$extraText</div> 
 </div>";
     }
-    
+
     public function div_institution($selectButton = TRUE) {
-        return "
-<div id='institution_name'>
-    <span id='inst_name_span'></span> <div id='inst_extra_text'></div><!-- this will be filled with the IdP name -->" . 
-($selectButton ? "<a  id='select_another' class='signin' href=\"\">" . $this->Gui->textTemplates->templates[user\INSTITUTION_SELECTION] . "</a>" : "") .
-"</div>
-<div> <!-- IdP logo, if present -->
-    <img id='idp_logo' src='" . $this->Gui->skinObject->findResourceUrl("IMAGES", "empty.png") . "' alt='IdP Logo'/>
-</div>";
+        $idPLocation = $this->Gui->skinObject->findResourceUrl("IMAGES", "empty.png");
+        $retval = "<div id='institution_name'>
+    <span id='inst_name_span'></span> <div id='inst_extra_text'></div><!-- this will be filled with the IdP name -->" .
+                ($selectButton ? "<a  id='select_another' class='signin' href=\"\">" . $this->Gui->textTemplates->templates[user\INSTITUTION_SELECTION] . "</a>" : "") .
+                "</div>";
+        if ($idPLocation !== FALSE) {
+            $retval .= "<div> <!-- IdP logo, if present -->
+    <img id='idp_logo' src='$idPLocation' alt='IdP Logo'/>
+ </div>";
+        }
+        return $retval;
     }
 
     public function div_otherinstallers() {
@@ -175,7 +186,13 @@ _("You can download your eduroam installer via a personalised invitation link se
         foreach ($this->Gui->listDevices(isset($_REQUEST['hidden']) ? $_REQUEST['hidden'] : 0) as $group => $deviceGroup) {
             $groupIndex = count($deviceGroup);
             $deviceIndex = 0;
-            $retval .= '<tbody><tr><td class="vendor" rowspan="' . $groupIndex . '"><img src="' . $this->Gui->skinObject->findResourceUrl("IMAGES", "vendorlogo/" . $group . ".png") . '" alt="' . $group . ' Device" title="' . $group . ' Device"></td>';
+
+            $imgTag = "";
+            $imgLocation = $this->Gui->skinObject->findResourceUrl("IMAGES", "vendorlogo/" . $group . ".png");
+            if ($imgLocation !== FALSE) {
+                $imgTag = '<img src="' . $imgLocation . '" alt="' . $group . ' Device" title="' . $group . ' Device">';
+            }
+            $retval .= '<tbody><tr><td class="vendor" rowspan="' . $groupIndex . '">' . $imgTag . '</td>';
             foreach ($deviceGroup as $d => $D) {
                 if ($deviceIndex) {
                     $retval .= '<tr>';
@@ -197,15 +214,24 @@ _("You can download your eduroam installer via a personalised invitation link se
     }
 
     public function div_guess_os($operatingSystem) {
+        $vendorlogo = $this->Gui->skinObject->findResourceUrl("IMAGES", "vendorlogo/" . $operatingSystem['group'] . ".png");
+        $vendorstyle = "";
+        if ($vendorlogo !== FALSE) {
+            $vendorstyle = "style='background-image:url(\"" . $vendorlogo . "\")'";
+        }
+        $deleteIcon = $this->Gui->skinObject->findResourceUrl("IMAGES", "icons/delete_32.png");
+        $deleteImg = "";
+        if ($deleteIcon !== FALSE) {
+            $deleteImg = "<img id='cross_icon_" . $operatingSystem['device'] . "' src='$deleteIcon' >";
+        }
         return "
 <div class='sub_h' id='guess_os'>
     <!-- table browser -->
     <table id='browser'>
         <tr>
             <td>
-                <button class='large_button guess_os' style='background-image:url(\"" . $this->Gui->skinObject->findResourceUrl("IMAGES", "vendorlogo/" . $operatingSystem['group'] . ".png") . "\"'
-                                                    id='g_" . $operatingSystem['device'] . "'>
-                    <img id='cross_icon_" . $operatingSystem['device'] . "' src='" . $this->Gui->skinObject->findResourceUrl("IMAGES", "icons/delete_32.png") . "' >
+                <button class='large_button guess_os' $vendorstyle id='g_" . $operatingSystem['device'] . "'>
+                    $deleteImg
                     <div class='download_button_text_1' id='download_button_header_" . $operatingSystem['device'] . "'> " . $this->Gui->textTemplates->templates[user\DOWNLOAD_MESSAGE] . "
                     </div>
                     <div class='download_button_text'>" .
@@ -236,9 +262,13 @@ _("You can download your eduroam installer via a personalised invitation link se
             </td>
             <td>";
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {
-            $retval .= "<span id='logos'><img src='" . $this->Gui->skinObject->findResourceUrl("IMAGES", "dante.png") . "' alt='DANTE' style='height:23px;width:47px'/>
-              <img src='" . $this->Gui->skinObject->findResourceUrl("IMAGES", "eu.png") . "' alt='EU' style='height:23px;width:27px;border-width:0px;'/></span>
-              <span id='eu_text' style='text-align:right; padding-left: 60px; display: block; '><a href='http://ec.europa.eu/dgs/connect/index_en.htm' style='text-decoration:none; vertical-align:top; text-align:right'>European Commission Communications Networks, Content and Technology</a></span>";
+            $geant = $this->Gui->skinObject->findResourceUrl("IMAGES", "dante.png");
+            $eu = $this->Gui->skinObject->findResourceUrl("IMAGES", "eu.png");
+            if ($geant !== FALSE && $eu !== FALSE) {
+                $retval .= "<span id='logos'><img src='$geant' alt='GEANT' style='height:23px;width:47px'/>
+              <img src='$eu' alt='EU' style='height:23px;width:27px;border-width:0px;'/></span>";
+            }
+            $retval .= "<span id='eu_text' style='text-align:right; padding-left: 60px; display: block; '><a href='http://ec.europa.eu/dgs/connect/index_en.htm' style='text-decoration:none; vertical-align:top; text-align:right'>European Commission Communications Networks, Content and Technology</a></span>";
         } else {
             $retval .= "&nbsp;";
         }
