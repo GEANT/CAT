@@ -298,11 +298,12 @@ class RADIUSTests extends AbstractTest {
         if ($crlcontent === FALSE) {
             return RADIUSTests::CERTPROB_NO_CRL_AT_CDP_URL;
         }
-        $crlBegin = strpos($crlcontent, "-----BEGIN X509 CRL-----");
-        if ($crlBegin === FALSE) {
-            $pem = chunk_split(base64_encode($crlcontent), 64, "\n");
-            $crlcontent = "-----BEGIN X509 CRL-----\n" . $pem . "-----END X509 CRL-----\n";
-        }
+        // CRLs are always in DER form, so need encoding
+        // note that what we ACTUALLY got can be arbitrary junk; we just deposit
+        // it on the filesystem and let openssl figure out if it is usable or not
+        $pem = chunk_split(base64_encode($crlcontent), 64, "\n");
+        $crlcontent = "-----BEGIN X509 CRL-----\n" . $pem . "-----END X509 CRL-----\n";
+
         $cert['CRL'] = [];
         $cert['CRL'][] = $crlcontent;
         return $returnresult;
