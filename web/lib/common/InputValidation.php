@@ -70,7 +70,8 @@ class InputValidation {
      * @throws Exception
      */
     public function IdP($input, $owner = NULL) {
-        if (!is_numeric($input)) {
+        $clean = $this->integer($input);
+        if ($clean === FALSE) {
             throw new Exception($this->inputValidationError("Value for IdP is not an integer!"));
         }
 
@@ -98,11 +99,11 @@ class InputValidation {
      * @throws Exception
      */
     public function Profile($input, $idpIdentifier = NULL) {
-        if (!is_numeric($input)) {
-            throw new Exception($this->inputValidationError("Value for profile is not an integer!"));
+        $clean = $this->integer($input);
+        if ($clean === FALSE) {
+            throw new Exception("Non-integer was passed to Profile validator!");
         }
-
-        $temp = \core\ProfileFactory::instantiate((int) $input); // constructor throws an exception if NX, game over
+        $temp = \core\ProfileFactory::instantiate($clean); // constructor throws an exception if NX, game over
 
         if ($idpIdentifier !== NULL && $temp->institution != $idpIdentifier) {
             throw new Exception($this->inputValidationError("The profile does not belong to the IdP!"));
