@@ -475,7 +475,7 @@ class OptionParser {
             $killlist = $this->sendOptionsToDatabase($object, $options, $remaining, $device);
         } else {
             $remaining = $object->beginFlushMethodLevelAttributes($eaptype, "");
-            $killlist = $this->sendOptionsToDatabase($object, $options, $remaining, "", $eaptype);
+            $killlist = $this->sendOptionsToDatabase($object, $options, $remaining, NULL, $eaptype);
         }
         // 5b: finally, kill the stale file-based attributes which are not wanted any more.
         $object->commitFlushAttributes($killlist);
