@@ -115,8 +115,12 @@ class Telepath extends AbstractTest {
         $this->loggerInstance->debug(4, "Doing Monitoring API check with $endpoints[$type]\n");
         $jsonResult = \core\common\OutsideComm::downloadFile($endpoints[$type]);
         $this->loggerInstance->debug(4, "Monitoring API Result: $jsonResult\n");
-        $decoded = json_decode($jsonResult, TRUE);
         $retval = [];
+        if ($jsonResult === FALSE) { // monitoring API didn't respond at all!
+            $retval["STATUS"] = AbstractTest::STATUS_MONITORINGFAIL;
+            return $retval;
+        }
+        $decoded = json_decode($jsonResult, TRUE);
         $retval["RAW"] = $decoded;
         $atLeastOneFunctional = FALSE;
         $allFunctional = TRUE;
