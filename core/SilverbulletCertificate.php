@@ -277,9 +277,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                 if ($return !== 0) {
                     throw new Exception("Non-zero return value from openssl ocsp!");
                 }
-                $ocspFile = fopen($tempdir . "/$serialHex.response.der", "r");
-                $ocsp = fread($ocspFile, 1000000);
-                fclose($ocspFile);
+                $ocsp = file_get_contents($tempdir . "/$serialHex.response.der");
                 break;
             default:
                 /* HTTP POST the serial to the CA. The CA knows about the state of
