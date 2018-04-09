@@ -167,7 +167,7 @@ class InputValidation {
  */
 public function integer($input) {
     if (is_numeric($input)) {
-        return $input;
+        return (int)$input;
     }
     return FALSE;
 }
