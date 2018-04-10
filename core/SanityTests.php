@@ -640,11 +640,15 @@ class SanityTests extends CAT {
         if (!$db2) {
             $this->test_return(\core\common\Entity::L_ERROR, "Connection to the  $databaseName2 database failed");
         } else {
-            $r = mysqli_query($db2, 'desc view_admin');
-            if ($r->num_rows == $this->view_admin_ct) {
-                $this->test_return(\core\common\Entity::L_OK, "The $databaseName2 database appears to be OK.");
+            if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+                $r = mysqli_query($db2, 'desc view_admin');
+                if ($r->num_rows == $this->view_admin_ct) {
+                    $this->test_return(\core\common\Entity::L_OK, "The $databaseName2 database appears to be OK.");
+                } else {
+                    $this->test_return(\core\common\Entity::L_ERROR, "The $databaseName2 is reacheable but there is something wrong with the schema");
+                }
             } else {
-                $this->test_return(\core\common\Entity::L_ERROR, "The $databaseName2 is reacheable but there is something wrong with the schema");
+                $this->test_return(\core\common\Entity::L_OK, "The $databaseName2 database appears to be OK.");
             }
         }
         $databaseName3 = 'EXTERNAL';
@@ -653,11 +657,15 @@ class SanityTests extends CAT {
             if (!$db3) {
                 $this->test_return(\core\common\Entity::L_ERROR, "Connection to the  $databaseName3 database failed");
             } else {
-                $r = mysqli_query($db3, 'desc view_admin');
-                if ($r->num_rows == $this->view_admin_ct) {
-                    $this->test_return(\core\common\Entity::L_OK, "The $databaseName3 database appears to be OK.");
+                if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+                    $r = mysqli_query($db3, 'desc view_admin');
+                    if ($r->num_rows == $this->view_admin_ct) {
+                        $this->test_return(\core\common\Entity::L_OK, "The $databaseName3 database appears to be OK.");
+                    } else {
+                        $this->test_return(\core\common\Entity::L_ERROR, "The $databaseName3 is reacheable but there is something wrong with the schema");
+                    }
                 } else {
-                    $this->test_return(\core\common\Entity::L_ERROR, "The $databaseName3 is reacheable but there is something wrong with the schema");
+                    $this->test_return(\core\common\Entity::L_OK, "The $databaseName3 database appears to be OK.");
                 }
             }
         }
