@@ -306,10 +306,30 @@ class RADIUSTests extends AbstractTest {
          * data to the filesystem. Let's see if we can make things better.
          */
         
-        $pem = chunk_split(base64_encode($crlcontent), 64, "\n");
+        // $pem = chunk_split(base64_encode($crlcontent), 64, "\n");
         
+        // inspired by https://stackoverflow.com/questions/2390604/how-to-pass-variables-as-stdin-into-command-line-from-php
+        $proc = "openssl crl -inform der";
+        $descriptorspec = [
+          0 => ["pipe", "r"],
+          1 => ["pipe", "w"],
+          2 => NULL,
+        ];
+        $process = proc_open($proc, $descriptorspec, $pipes);
+        if (!is_resource($process)) {
+            throw new Exception("Unable to execute openssl cmdline for CRL conversion!");
+        }
+        fwrite($pipes[0], $crlcontent);
+        fclose($pipes[0]);
+        $pem = stream_get_contents($pipes[1]);
+        fclose($pipes[1]);
+        $retval = proc_close($process);
+        if ($retval != 0 || !preg_match("BEGIN X509 CRL",$pem)) {
+            // this was not a real CRL
+            return RADIUSTests::CERTPROB_NO_CRL_AT_CDP_URL;
+        }
         $cert['CRL'] = [];
-        $cert['CRL'][] = "-----BEGIN X509 CRL-----\n" . $pem . "-----END X509 CRL-----\n";
+        $cert['CRL'][] = $pem;
         return $returnresult;
     }
 
