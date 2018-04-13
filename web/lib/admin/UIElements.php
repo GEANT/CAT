@@ -317,7 +317,11 @@ class UIElements {
      */
     public function previewCAinHTML($cAReference) {
         $this->checkROWIDpresence($cAReference);
-        $cAblob = base64_decode(UIElements::getBlobFromDB($cAReference, FALSE));
+        $rawResult = UIElements::getBlobFromDB($cAReference, FALSE);
+        if ($rawResult === FALSE) { // we didn't actually get a CA!
+            return "<div class='ca-summary'>"._("There was an error while retrieving the certificate from the database!")."</div>";
+        }
+        $cAblob = base64_decode($rawResult);
 
         $func = new \core\common\X509;
         $details = $func->processCertificate($cAblob);
@@ -354,6 +358,9 @@ class UIElements {
     public function previewInfoFileinHTML($fileReference) {
         $this->checkROWIDpresence($fileReference);
         $fileBlob = UIElements::getBlobFromDB($fileReference, FALSE);
+        if ($fileBlob === FALSE) { // we didn't actually get a file!
+            return "<div class='ca-summary'>"._("There was an error while retrieving the file from the database!")."</div>";
+        }
         $decodedFileBlob = base64_decode($fileBlob);
         $fileinfo = new \finfo();
         return "<div class='ca-summary'>" . _("File exists") . " (" . $fileinfo->buffer($decodedFileBlob, FILEINFO_MIME_TYPE) . ", " . $this->displaySize(strlen($decodedFileBlob)) . ")<br/><a href='inc/filepreview.php?id=$fileReference'>" . _("Preview") . "</a></div>";
