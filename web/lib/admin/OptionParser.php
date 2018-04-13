@@ -381,6 +381,7 @@ class OptionParser {
                                         $bad[] = $objValue;
                                         continue 3;
                                     }
+                                    break;
                                 default:
                                     $content = $this->validator->string($listOfEntries["$objId-" . \core\Options::TYPECODE_STRING]);
                                     break;
