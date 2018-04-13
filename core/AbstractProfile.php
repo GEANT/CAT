@@ -143,7 +143,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         parent::__construct(); // we now have access to our INST database handle and logging
         $this->frontendHandle = DBConnection::handle("FRONTEND");
         
-        $profile = $this->databaseHandle->exec("SELECT inst_id FROM profile WHERE profile_id = ?", i, $profileIdRaw);
+        $profile = $this->databaseHandle->exec("SELECT inst_id FROM profile WHERE profile_id = ?", "i", $profileIdRaw);
         // SELECT always yields a resource, never a boolean
         if ($profile->num_rows == 0) {
             $this->loggerInstance->debug(2, "Profile $profileIdRaw not found in database!\n");
