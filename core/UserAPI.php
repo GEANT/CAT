@@ -322,13 +322,12 @@ class UserAPI extends CAT {
      * If not then generate the file and save it in the cache
      * @param int|string $identifier IdP of Federation identifier
      * @param string $type either 'idp' or 'federation' is allowed 
-     * @param int $width maximum width of the generated image - if 0 then it is treated as no upper bound
-     * @param int $height  maximum height of the generated image - if 0 then it is treated as no upper bound
+     * @param int $widthIn maximum width of the generated image - if 0 then it is treated as no upper bound
+     * @param int $heightIn  maximum height of the generated image - if 0 then it is treated as no upper bound
      * @return array|null array with image information or NULL if there is no logo
      */
-    protected function getLogo($identifier, $type, $width = 0, $height = 0) {
+    protected function getLogo($identifier, $type, $widthIn = 0, $heightIn = 0) {
         $expiresString = '';
-        $resize = FALSE;
         $attributeName = [
             'federation' => "fed:logo_file",
             'idp' => "general:logo_file",
@@ -347,7 +346,7 @@ class UserAPI extends CAT {
                 throw new Exception("Unknown type of logo requested!");
         }
         $filetype = 'image/png'; // default, only one code path where it can become different
-        list($width, $height, $resize) = $this->testForResize($width, $height);
+        list($width, $height, $resize) = $this->testForResize($widthIn, $heightIn);
         if ($resize) {
             $logoFile = ROOT . '/web/downloads/logos/' . $identifier . '_' . $width . '_' . $height . '.png';
         }
