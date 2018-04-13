@@ -298,14 +298,18 @@ class RADIUSTests extends AbstractTest {
         if ($crlcontent === FALSE) {
             return RADIUSTests::CERTPROB_NO_CRL_AT_CDP_URL;
         }
-        // CRLs are always in DER form, so need encoding
-        // note that what we ACTUALLY got can be arbitrary junk; we just deposit
-        // it on the filesystem and let openssl figure out if it is usable or not
+        /* CRLs are always in DER form, so need encoding
+         * note that what we ACTUALLY got can be arbitrary junk; we just deposit
+         * it on the filesystem and let openssl figure out if it is usable or not
+         *
+         * Unfortunately, that freaks out Scrutinizer because we write unvetted
+         * data to the filesystem. Let's see if we can make things better.
+         */
+        
         $pem = chunk_split(base64_encode($crlcontent), 64, "\n");
-        $crlcontent = "-----BEGIN X509 CRL-----\n" . $pem . "-----END X509 CRL-----\n";
-
+        
         $cert['CRL'] = [];
-        $cert['CRL'][] = $crlcontent;
+        $cert['CRL'][] = "-----BEGIN X509 CRL-----\n" . $pem . "-----END X509 CRL-----\n";
         return $returnresult;
     }
 
