@@ -404,7 +404,7 @@ class AbstractTest extends \core\common\Entity {
          * The server certificate's CRL Distribution Point URL couldn't be accessed and/or did not contain a CRL.
          */
         $code22 = RADIUSTests::CERTPROB_NO_CRL_AT_CDP_URL;
-        $this->returnCodes[$code22]["message"] = _("The extension 'CRL Distribution Point' in the server certificate points to a non-existing location. Some Operating Systems check certificate validity by consulting the CRL and will fail to validate the certificate. Checking server certificate validity against a CRL will not be possible.");
+        $this->returnCodes[$code22]["message"] = _("The extension 'CRL Distribution Point' in the server certificate points to a location where no DER-encoded CRL can be found. Some Operating Systems check certificate validity by consulting the CRL and will fail to validate the certificate. Checking server certificate validity against a CRL will not be possible.");
         $this->returnCodes[$code22]["severity"] = \core\common\Entity::L_ERROR;
 
         /**
