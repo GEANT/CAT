@@ -22,12 +22,10 @@ function getObjectFromDB($id) {
     // check if data is public for this blob call
     
     $blob = \web\lib\admin\UIElements::getBlobFromDB($id, TRUE);
-    $finalBlob = base64_decode($blob);
-
-    if ($finalBlob === FALSE) {
+    if ($blob === FALSE) {
         return;
     }
-
+    $finalBlob = base64_decode($blob);
     // Set data type and caching for 30 days
     $info = new finfo();
     $filetype = $info->buffer($finalBlob, FILEINFO_MIME_TYPE);
