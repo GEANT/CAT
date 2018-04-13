@@ -152,11 +152,11 @@ class EAP {
             return;
         }
         if (is_array($eapType)) {
-            // add a type cast to int to make Scrutinizer realise that the key found is always an integer
-            $key = (int)(array_search($eapType, EAP::EAPTYPES_CONVERSION));
+            $key = array_search($eapType, EAP::EAPTYPES_CONVERSION);
             if ($key !== FALSE) {
-                $this->intRep = $key; // array index is always an integer
-                $this->arrayRep = EAP::EAPTYPES_CONVERSION[$key];
+                // add a type cast to int to make Scrutinizer realise that the key found is always an integer
+                $this->intRep = (int)$key; // array index is always an integer
+                $this->arrayRep = EAP::EAPTYPES_CONVERSION[(int)$key];
                 return;
             }
         }
