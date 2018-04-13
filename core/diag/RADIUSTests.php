@@ -313,7 +313,7 @@ class RADIUSTests extends AbstractTest {
         $descriptorspec = [
           0 => ["pipe", "r"],
           1 => ["pipe", "w"],
-          2 => NULL,
+          2 => ["pipe", "w"],
         ];
         $process = proc_open($proc, $descriptorspec, $pipes);
         if (!is_resource($process)) {
@@ -323,8 +323,9 @@ class RADIUSTests extends AbstractTest {
         fclose($pipes[0]);
         $pem = stream_get_contents($pipes[1]);
         fclose($pipes[1]);
+        fclose($pipes[2]);
         $retval = proc_close($process);
-        if ($retval != 0 || !preg_match("BEGIN X509 CRL",$pem)) {
+        if ($retval != 0 || !preg_match("/BEGIN X509 CRL/",$pem)) {
             // this was not a real CRL
             return RADIUSTests::CERTPROB_NO_CRL_AT_CDP_URL;
         }
