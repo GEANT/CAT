@@ -197,7 +197,6 @@ class Divs {
                 if ($deviceIndex) {
                     $retval .= '<tr>';
                 }
-                $j = ($deviceIndex + 1) * 20;
                 $retval .= "<td><button id='" . $d . "'>" . $D['display'] . "</button>"
                         . "<div class='device_info' id='info_" . $d . "'></div></td>"
                         . "<td><button class='more_info_b' id='info_b_" . $d . "'>i</button></td></tr>\n";
