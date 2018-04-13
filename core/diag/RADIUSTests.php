@@ -309,7 +309,7 @@ class RADIUSTests extends AbstractTest {
         // $pem = chunk_split(base64_encode($crlcontent), 64, "\n");
         
         // inspired by https://stackoverflow.com/questions/2390604/how-to-pass-variables-as-stdin-into-command-line-from-php
-        $proc = "openssl crl -inform der";
+        $proc = CONFIG['PATHS']['openssl']." crl -inform der";
         $descriptorspec = [
           0 => ["pipe", "r"],
           1 => ["pipe", "w"],
