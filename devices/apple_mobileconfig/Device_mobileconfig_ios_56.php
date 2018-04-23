@@ -35,8 +35,7 @@ class Device_mobileconfig_ios_56 extends mobileconfigSuperclass {
 
     public function __construct() {
         parent::__construct();
-        $this->specialities['media:force_proxy_http'] = _("This device does not support forcing setting an HTTP proxy.");
-        $this->specialities['media:force_proxy_https'] = _("This device does not support forcing setting an HTTPS proxy.");
+        $this->specialities['media:force_proxy'] = _("This device does not support forcing setting an HTTPS proxy.");
     }
     protected function proxySettings() {
         // iOS 5 and 6 do not support the Proxy auto-detect block properly, so 

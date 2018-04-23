@@ -11,8 +11,7 @@
  * Created: 17.12.2015
  */
 INSERT INTO `profile_option_dict` VALUES 
-('media:force_proxy_http','URL of a content filter proxy, HTTP','string',NULL),
-('media:force_proxy_https','URL of a content filter proxy, HTTPS','string',NULL),
+('media:force_proxy','URL of a mandatory content filter proxy','string',NULL),
 ('fed:realname','a friendly display name of the NRO/federation','string', 'ML'),
 ('fed:logo_file','logo of the NRO/federation','file', NULL),
 ('fed:css_file','custom CSS to be applied on any skin','file',NULL),

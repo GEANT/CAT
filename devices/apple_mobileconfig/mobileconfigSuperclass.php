@@ -320,10 +320,10 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
 
     protected function proxySettings() {
         $buffer = "<key>ProxyType</key>";
-        if (isset($this->attributes['media:force_proxy_http'])) {
+        if (isset($this->attributes['media:force_proxy'])) {
             // find the port delimiter. In case of IPv6, there are multiple ':' 
             // characters, so we have to find the LAST one
-            $serverAndPort = explode(':', strrev($this->attributes['media:force_proxy_https'][0]), 2);
+            $serverAndPort = explode(':', strrev($this->attributes['media:force_proxy'][0]), 2);
             // characters are still reversed, invert on use!
             $buffer .= "<string>Manual</string>
                   <key>ProxyServer</key>

@@ -367,9 +367,7 @@ class OptionParser {
                                         continue 3;
                                     }
                                     break;
-                                case "media:force_proxy_http":
-                                    // fall-through intended, treat identical
-                                case "media:force_proxy_https":
+                                case "media:force_proxy":
                                     $content = $this->validator->string($listOfEntries["$objId-" . \core\Options::TYPECODE_STRING]);
                                     $serverAndPort = explode(':', strrev($content), 2);
                                     if (count($serverAndPort) != 2) {
