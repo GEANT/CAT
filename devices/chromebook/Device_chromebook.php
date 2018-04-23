@@ -34,6 +34,7 @@
  */
 
 namespace devices\chromebook;
+
 use Exception;
 
 /**
@@ -117,35 +118,53 @@ class Device_Chromebook extends \core\DeviceConfig {
 
     private function wifiBlock($ssid, $eapdetails) {
         return [
-                "GUID" => \core\common\Entity::uuid('', $ssid),
-                "Name" => "$ssid",
-                "Remove" => false,
-                "Type" => "WiFi",
-                "WiFi" => [
-                    "AutoConnect" => true,
-                    "EAP" => $eapdetails,
-                    "HiddenSSID" => false,
-                    "SSID" => $ssid,
-                    "Security" => "WPA-EAP",
-                ],
-                "ProxySettings" => ["Type" => "WPAD"],
-            ];
+            "GUID" => \core\common\Entity::uuid('', $ssid),
+            "Name" => "$ssid",
+            "Remove" => false,
+            "Type" => "WiFi",
+            "WiFi" => [
+                "AutoConnect" => true,
+                "EAP" => $eapdetails,
+                "HiddenSSID" => false,
+                "SSID" => $ssid,
+                "Security" => "WPA-EAP",
+            ],
+            "ProxySettings" => $this->proxySettings(),
+        ];
     }
-    
+
+    protected function proxySettings() {
+        if (isset($this->attributes['media:force_proxy'])) {
+            // find the port delimiter. In case of IPv6, there are multiple ':' 
+            // characters, so we have to find the LAST one
+            $serverAndPort = explode(':', strrev($this->attributes['media:force_proxy'][0]), 2);
+            // characters are still reversed, invert on use!
+            return ["Type" => "Manual",
+                "Manual" => [
+                    "SecureHTTPProxy" => [
+                        "Host" => strrev($serverAndPort[1]),
+                        "Port" => strrev($serverAndPort[0])
+                    ]
+                ]
+            ];
+        }
+        return ["Type" => "WPAD"];
+    }
+
     private function wiredBlock($eapdetails) {
         return [
-                "GUID" => \core\common\Entity::uuid('', "wired-dot1x-ethernet") . "}",
-                "Name" => "eduroam configuration (wired network)",
-                "Remove" => false,
-                "Type" => "Ethernet",
-                "Ethernet" => [
-                    "Authentication" => "8021X",
-                    "EAP" => $eapdetails,
-                ],
-                "ProxySettings" => ["Type" => "WPAD"],
-            ];
+            "GUID" => \core\common\Entity::uuid('', "wired-dot1x-ethernet") . "}",
+            "Name" => "eduroam configuration (wired network)",
+            "Remove" => false,
+            "Type" => "Ethernet",
+            "Ethernet" => [
+                "Authentication" => "8021X",
+                "EAP" => $eapdetails,
+            ],
+            "ProxySettings" => ["Type" => "WPAD"],
+        ];
     }
-    
+
     private function eapBlock($selectedEap, $outerId, $caRefs) {
         $eapPrettyprint = \core\common\EAP::eapDisplayName($selectedEap);
         // ONC has its own enums, and guess what, they don't always match
@@ -186,6 +205,7 @@ class Device_Chromebook extends \core\DeviceConfig {
         }
         return $eaparray;
     }
+
     /**
      * prepare a ONC file
      *
