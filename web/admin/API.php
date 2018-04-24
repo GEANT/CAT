@@ -61,7 +61,7 @@ if ($checkval == "FAIL") {
 $fed = new \core\Federation($federation);
 // it's a valid admin; what does he want to do?
 if (!array_key_exists($inputDecoded['ACTION'], web\lib\admin\API::ACTIONS)) {
-    return_error(ERROR_NO_ACTION, "JSON request structure did not contain a valid ACTION");
+    return_error(web\lib\admin\API::ERROR_NO_ACTION, "JSON request structure did not contain a valid ACTION");
     exit(1);
 }
 // it's a valid ACTION, so let's sanitise the input parameters
