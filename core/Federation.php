@@ -194,7 +194,7 @@ class Federation extends EntityWithDBProperties {
      * @param string $mail e-mail address with which the user was invited to administer (useful for later user identification if the user chooses a "funny" real name)
      * @return int identifier of the new IdP
      */
-    public function newIdP($ownerId, $level, $mail) {
+    public function newIdP($ownerId, $level, $mail = NULL) {
         $this->databaseHandle->exec("INSERT INTO institution (country) VALUES('$this->tld')");
         $identifier = $this->databaseHandle->lastID();
 
@@ -205,6 +205,9 @@ class Federation extends EntityWithDBProperties {
         }
 
         if ($ownerId != "PENDING") {
+            if ($mail === NULL) {
+                throw new Exception("New IdPs in a federation need a mail address UNLESS created by API without OwnerId");
+            }
             $this->databaseHandle->exec("INSERT INTO ownership (user_id,institution_id, blesslevel, orig_mail) VALUES(?,?,?,?)", "siss", $ownerId, $identifier, $level, $mail);
         }
         return $identifier;
