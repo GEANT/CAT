@@ -268,9 +268,6 @@ class UIElements {
         // the data is either public (just give it away) or not; in this case, only
         // release if the data belongs to admin himself
         if ($checkpublic) {
-            // we might be called without session context (filepreview) so get the
-            // context if needed
-            CAT_session_start();
             
             $owners = \core\EntityWithDBProperties::isDataRestricted($reference["table"], $reference["rowindex"]);
 
@@ -281,6 +278,10 @@ class UIElements {
                 if (!$auth->isAuthenticated()) {
                     return FALSE; // admin-only, but we are not an admin
                 }
+                // we might be called without session context (filepreview) so get the
+                // context if needed
+                CAT_session_start();
+            
                 foreach ($owners as $oneowner) {
                     $ownersCondensed[] = $oneowner['ID'];
                 }
