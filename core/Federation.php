@@ -108,7 +108,7 @@ class Federation extends EntityWithDBProperties {
 
     /**
      * gets the download statistics for the federation
-     * @param string $format either as an html *table* or *XML*
+     * @param string $format either as an html *table* or *XML* or *JSON*
      * @return string
      */
     public function downloadStats($format) {
@@ -137,6 +137,8 @@ class Federation extends EntityWithDBProperties {
                 $retstring .= "<total>\n  <downloads group='admin'>" . $data['TOTAL']['ADMIN'] . "</downloads>\n  <downloads group='managed_idp'>" . $data['TOTAL']['SILVERBULLET'] . "</downloads>\n  <downloads group='user'>" . $data['TOTAL']['USER'] . "</downloads>\n</total>\n";
                 $retstring .= "</federation>";
                 break;
+            case "array":
+                return $data;
             default:
                 throw new Exception("Statistics can be requested only in 'table' or 'XML' format!");
         }

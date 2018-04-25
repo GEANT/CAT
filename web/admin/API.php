@@ -157,6 +157,8 @@ switch ($inputDecoded['ACTION']) {
         }
         return_error(web\lib\admin\API::ERROR_INVALID_PARAMETER, "The admin with ID $toBeDeleted is not associated to IdP ".$idp->identifier);
         break;
+    case web\lib\admin\API::ACTION_STATISTICS_FED:
+        return_success($fed->downloadStats("array"));
     default:
         return_error(web\lib\admin\API::ERROR_INVALID_ACTION, "Not implemented yet.");
 }

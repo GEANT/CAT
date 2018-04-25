@@ -32,6 +32,7 @@ class API {
     const ACTION_ADMIN_ADD = "ADMIN-ADD";
     const ACTION_ADMIN_DEL = "ADMIN-DEL";
     const ACTION_STATISTICS_INST = "STATISTICS-INST";
+    const ACTION_STATISTICS_FED = "STATISTICS-FED";
     const ACTION_NEWPROF_RADIUS = "NEWPROF-RADIUS";
     const ACTION_NEWPROF_SB = "NEWPROF-SB";
     const ACTION_ENDUSER_NEW = "ENDUSER-NEW";
@@ -65,6 +66,7 @@ class API {
             "REQ" => [API::AUXATTRIB_CAT_INST_ID],
             "OPT" => []
         ],
+        # inst administrator management
         API::ACTION_ADMIN_LIST => [
             "REQ" => [API::AUXATTRIB_CAT_INST_ID],
             "OPT" => []
@@ -74,10 +76,15 @@ class API {
             "OPT" => [API::AUXATTRIB_ADMINEMAIL]
         ],
         API::ACTION_ADMIN_DEL => [
-            "REQ" => [],
+            "REQ" => [API::AUXATTRIB_ADMINID, API::AUXATTRIB_CAT_INST_ID],
             "OPT" => []
         ],
+        # statistics
         API::ACTION_STATISTICS_INST => [
+            "REQ" => [API::AUXATTRIB_CAT_INST_ID],
+            "OPT" => []
+        ],
+        API::ACTION_STATISTICS_FED => [
             "REQ" => [],
             "OPT" => []
         ],
@@ -140,9 +147,10 @@ class API {
      * Also sanitise by enforcing LANG attribute in multi-lang attributes.
      * 
      * @param array $inputJson the incoming JSON request
+     * @param \core\Federation $fedObject the federation the user is acting within
      * @return array the scrubbed attributes
      */
-    public function scrub($inputJson) {
+    public function scrub($inputJson, $fedObject) {
         $optionInstance = \core\Options::instance();
         $parameters = [];
         $allPossibleAttribs = array_merge(API::ACTIONS[$inputJson['ACTION']]['REQ'], API::ACTIONS[$inputJson['ACTION']]['OPT']);
@@ -165,8 +173,12 @@ class API {
                 switch ($oneIncomingParam['NAME']) {
                     case API::AUXATTRIB_CAT_INST_ID:
                         try {
-                            $this->validator->IdP($oneIncomingParam['VALUE']);
+                            $inst = $this->validator->IdP($oneIncomingParam['VALUE']);
                         } catch (Exception $e) {
+                            continue;
+                        }
+                        if (strtoupper($inst->federation) != strtoupper($fedObject->tld)) {
+                            // IdP in different fed, scrub it.
                             continue;
                         }
                         break;
