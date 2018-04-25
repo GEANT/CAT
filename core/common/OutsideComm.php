@@ -221,15 +221,15 @@ class OutsideComm {
      * @param string $targets one or more mail addresses, comma-separated
      * @param string $introtext introductory sentence (varies by situation)
      * @param string $newtoken the token to send
-     * @param core\Federation $federation if not NULL, indicates that invitation comes from authorised fed admin of that federation
+     * @param \core\Federation $federation if not NULL, indicates that invitation comes from authorised fed admin of that federation
      * @return boolean
      */
     public static function adminInvitationMail($targets, $introtext, $newtoken, $idpPrettyName, $federation) {
         if (!in_array($introtext, OutsideComm::INVITE_CONTEXTS)) {
-            throw new Exception("Unknown invite mode!");
+            throw new \Exception("Unknown invite mode!");
         }
         if ($introtext == OutsideComm::INVITE_CONTEXTS[1] && $federation === NULL) { // comes from fed admin, so federation must be set
-            throw new Exception("Invitation from a fed admin, but we do not know the corresponding federation!");
+            throw new \Exception("Invitation from a fed admin, but we do not know the corresponding federation!");
         }
         $cat = new \core\CAT();
         // we have a few stock intro texts on file
@@ -336,7 +336,7 @@ Your friendly folks from %s Operations"), CONFIG_CONFASSISTANT['CONSORTIUM']['di
         $mail->Subject = sprintf(_("%s: you have been invited to manage an %s"), CONFIG['APPEARANCE']['productname'], $cat->nomenclature_inst);
         $mail->Body = $message;
 
-        return $mail->send();
+        return ["SENT" => $mail->send(), "TRANSPORT" => $secStatus];
     }
 
 }

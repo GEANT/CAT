@@ -165,7 +165,7 @@ class API {
                 switch ($oneIncomingParam['NAME']) {
                     case API::AUXATTRIB_CAT_INST_ID:
                         try {
-                            $inst = $this->validator->IdP($oneIncomingParam['VALUE']);
+                            $this->validator->IdP($oneIncomingParam['VALUE']);
                         } catch (Exception $e) {
                             continue;
                         }

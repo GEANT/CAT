@@ -96,14 +96,22 @@ switch ($inputDecoded['ACTION']) {
         }
         // here is the token
         $mgmt = new core\UserManagement();
-        $newtoken = $mgmt->createToken(true, $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_ADMINID), $idp);
+        // we know we have an admin ID but scrutinizer wants this checked more explicitly
+        $admin = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_ADMINID);
+        if ($admin === FALSE) {
+            throw new Exception("A required parameter is missing, and this wasn't caught earlier?!");
+        }
+        $newtoken = $mgmt->createToken(true, $admin, $idp);
         $URL = "https://" . $_SERVER['SERVER_NAME'] . dirname($_SERVER['SCRIPT_NAME']) . "/action_enrollment.php?token=$newtoken";
         $success = ["TOKEN URL" => $URL];
         // done with the essentials - display in response. But if we also have an email address, send it there
         $email = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_ADMINEMAIL);
         if ($email !== FALSE) {
             $sent = \core\common\OutsideComm::adminInvitationMail($email, "EXISTING-FED", $newtoken, $idp->name, $fed);
-            $success["EMAIL SENT"] = $sent;
+            $success["EMAIL SENT"] = $sent["SENT"];
+            if ($sent["SENT"] === TRUE) {
+                $success["EMAIL TRANSPORT SECURE"] = $sent["TRANSPORT"];
+            }
         }
         return_success($success);
         break;

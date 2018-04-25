@@ -158,10 +158,11 @@ switch ($operationMode) {
 }
 
 // send, and invalidate the token immediately if the mail could not be sent!
-if (! \core\common\OutsideComm::adminInvitationMail($mailaddress, $introtext, $newtoken, $prettyprintname, $federation)) {
+$sent = \core\common\OutsideComm::adminInvitationMail($mailaddress, $introtext, $newtoken, $prettyprintname, $federation);
+if ($sent["SENT"] === FALSE ) {
     $mgmt->invalidateToken($newtoken);
     header("Location: $redirect_destination" . "invitation=FAILURE");
     exit;
 }
 
-header("Location: $redirect_destination" . "invitation=SUCCESS&transportsecurity=" . ($secStatus ? "ENCRYPTED" : "CLEAR"));
+header("Location: $redirect_destination" . "invitation=SUCCESS&transportsecurity=" . ($sent["TRANSPORT"] ? "ENCRYPTED" : "CLEAR"));
