@@ -217,6 +217,7 @@ class API {
         }
         return FALSE;
     }
+
     /**
      * we are coercing the submitted JSON-style parameters into the same format
      * we use for the HTML POST user-interactively.
@@ -268,6 +269,16 @@ class API {
             }
         }
         return ["POST" => $coercedInline, "FILES" => $coercedFile];
+    }
+
+    public function return_error($code, $description) {
+        echo json_encode(["result" => "ERROR", "details" => ["errorcode" => $code, "description" => $description]], JSON_PRETTY_PRINT);
+        exit(1);
+    }
+
+    public function return_success($details) {
+        echo json_encode(["result" => "SUCCESS", "details" => $details], JSON_PRETTY_PRINT);
+        exit(0);
     }
 
 }
