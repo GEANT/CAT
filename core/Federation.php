@@ -109,7 +109,7 @@ class Federation extends EntityWithDBProperties {
     /**
      * gets the download statistics for the federation
      * @param string $format either as an html *table* or *XML* or *JSON*
-     * @return string
+     * @return string|array
      */
     public function downloadStats($format) {
         $data = $this->downloadStatsCore();

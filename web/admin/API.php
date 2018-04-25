@@ -159,6 +159,7 @@ switch ($inputDecoded['ACTION']) {
         break;
     case web\lib\admin\API::ACTION_STATISTICS_FED:
         return_success($fed->downloadStats("array"));
+        break;
     default:
         return_error(web\lib\admin\API::ERROR_INVALID_ACTION, "Not implemented yet.");
 }
