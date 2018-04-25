@@ -223,7 +223,7 @@ class OutsideComm {
      * @param string $introtext introductory sentence (varies by situation)
      * @param string $newtoken the token to send
      * @param \core\Federation $federation if not NULL, indicates that invitation comes from authorised fed admin of that federation
-     * @return boolean
+     * @return array
      */
     public static function adminInvitationMail($targets, $introtext, $newtoken, $idpPrettyName, $federation) {
         if (!in_array($introtext, OutsideComm::INVITE_CONTEXTS)) {
@@ -250,7 +250,7 @@ class OutsideComm {
         // then, send out the mail
         $message = _("Hello,") . "\n\n" . wordwrap($introTexts[$introtext] . " " . $validity, 72) . "\n\n";
         // default means we don't have a Reply-To.
-        $replyToMessage .= wordwrap(_("manually. Please do not reply to this mail; this is a send-only address."));
+        $replyToMessage = wordwrap(_("manually. Please do not reply to this mail; this is a send-only address."));
 
         if ($federation !== NULL) {
             // see if we are supposed to add a custom message
