@@ -132,6 +132,31 @@ switch ($inputDecoded['ACTION']) {
         }
         return_success($success);
         break;
+    case web\lib\admin\API::ACTION_ADMIN_DEL:
+        // IdP in question
+        try {
+        $idp = $validator->IdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
+        } catch(Exception $e) {
+            return_error(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
+        }
+        $currentAdmins = $idp->listOwners();
+        $toBeDeleted = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_ADMINID);
+        if ($toBeDeleted === FALSE) {
+            throw new Exception("A required parameter is missing, and this wasn't caught earlier?!");
+        }
+        $found = FALSE;
+        foreach($currentAdmins as $oneAdmin) {
+            if ($oneAdmin['MAIL'] == $toBeDeleted) {
+                $found = TRUE;
+                $mgmt = new core\UserManagement();
+                $mgmt->removeAdminFromIdP($idp, $oneAdmin['ID']);
+            }
+        }
+        if ($found) {
+            return_success([]);
+        }
+        return_error(web\lib\admin\API::ERROR_INVALID_PARAMETER, "The admin with ID $toBeDeleted is not associated to IdP ".$idp->identifier);
+        break;
     default:
         return_error(web\lib\admin\API::ERROR_INVALID_ACTION, "Not implemented yet.");
 }
