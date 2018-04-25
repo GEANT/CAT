@@ -87,6 +87,15 @@ switch ($inputDecoded['ACTION']) {
         $optionParser->processSubmittedFields($idp, $inputs["POST"], $inputs["FILES"]);
         return_success([web\lib\admin\API::AUXATTRIB_CAT_INST_ID => $idp->identifier]);
         break;
+    case web\lib\admin\API::ACTION_DELINST:
+        try {
+        $idp = $validator->IdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
+        } catch(Exception $e) {
+            return_error(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
+        }
+        $idp->destroy();
+        return_success();
+        break;
     case web\lib\admin\API::ACTION_ADMIN_ADD:
         // IdP in question
         try {
