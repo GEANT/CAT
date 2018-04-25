@@ -66,7 +66,7 @@ if (!array_key_exists($inputDecoded['ACTION'], web\lib\admin\API::ACTIONS)) {
     return_error(web\lib\admin\API::ERROR_NO_ACTION, "JSON request structure did not contain a valid ACTION");
 }
 // it's a valid ACTION, so let's sanitise the input parameters
-$scrubbedParameters = $adminApi->scrub($inputDecoded);
+$scrubbedParameters = $adminApi->scrub($inputDecoded, $fed);
 $paramNames = [];
 foreach ($scrubbedParameters as $oneParam) {
     $paramNames[] = $oneParam['NAME'];
