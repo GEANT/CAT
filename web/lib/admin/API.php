@@ -43,7 +43,9 @@ class API {
     const ACTION_CERT_LIST = "CERT-LIST";
     const ACTION_CERT_REVOKE = "CERT-REVOKE";
     const AUXATTRIB_ADMINID = "ATTRIB-ADMINID";
+    const AUXATTRIB_ADMINEMAIL = "ATTRIB-ADMINEMAIL";
     const AUXATTRIB_EXTERNALID = "ATTRIB-EXTERNALID";
+    const AUXATTRIB_CAT_INST_ID = "ATTRIB-CAT-INSTID";
 
     /*
      * ACTIONS consists of a list of keywords, and associated REQuired and OPTional parameters
@@ -60,16 +62,16 @@ class API {
             "OPT" => ['general:instname', 'general:geo_coordinates', 'general:logo_file', 'media:SSID', 'media:SSID_with_legacy', 'media:wired', 'media:remove_SSID', 'media:consortium_OI', 'media:force_proxy', 'support:email', 'support:info_file', 'support:phone', 'support:url'],
         ],
         API::ACTION_DELINST => [
-            "REQ" => [],
+            "REQ" => [API::AUXATTRIB_CAT_INST_ID],
             "OPT" => []
         ],
         API::ACTION_ADMIN_LIST => [
-            "REQ" => [],
+            "REQ" => [API::AUXATTRIB_CAT_INST_ID],
             "OPT" => []
         ],
         API::ACTION_ADMIN_ADD => [
-            "REQ" => [],
-            "OPT" => []
+            "REQ" => [API::AUXATTRIB_ADMINID, API::AUXATTRIB_CAT_INST_ID],
+            "OPT" => [API::AUXATTRIB_ADMINEMAIL]
         ],
         API::ACTION_ADMIN_DEL => [
             "REQ" => [],
@@ -124,6 +126,16 @@ class API {
     ];
 
     /**
+     *
+     * @var \web\lib\common\InputValidation
+     */
+    private $validator;
+
+    public function __construct() {
+        $this->validator = new \web\lib\common\InputValidation();
+    }
+
+    /**
      * Only leave attributes in the request which are related to the ACTION.
      * Also sanitise by enforcing LANG attribute in multi-lang attributes.
      * 
@@ -139,16 +151,40 @@ class API {
             if (!is_int($number)) {
                 continue;
             }
+            // do we actually have a value?
+            if (!array_key_exists("VALUE", $oneIncomingParam)) {
+                continue;
+            }
             // is this multi-lingual, and not an AUX attrib? Then check for presence of LANG and CONTENT before considering to add
             if (!preg_match("/^ATTRIB-/", $oneIncomingParam['NAME'])) {
                 $optionProperties = $optionInstance->optionType($oneIncomingParam['NAME']);
                 if ($optionProperties["flag"] == "ML" && !array_key_exists("LANG", $oneIncomingParam)) {
                     continue;
                 }
-            }
-            // do we actually have a value?
-            if (!array_key_exists("VALUE", $oneIncomingParam)) {
-                continue;
+            } else { // sanitise the AUX attr 
+                switch ($oneIncomingParam['NAME']) {
+                    case API::AUXATTRIB_CAT_INST_ID:
+                        try {
+                            $inst = $this->validator->IdP($oneIncomingParam['VALUE']);
+                        } catch (Exception $e) {
+                            continue;
+                        }
+                        break;
+                    case API::AUXATTRIB_ADMINEMAIL:
+                        if ($this->validator->email($oneIncomingParam['VALUE']) === FALSE) {
+                            continue;
+                        }
+                        break;
+                    case API::AUXATTRIB_ADMINID:
+                        try {
+                            $oneIncomingParam['VALUE'] = $this->validator->string($oneIncomingParam['VALUE']);
+                        } catch (Exception $e) {
+                            continue;
+                        }
+                        break;
+                    default:
+                        continue;
+                }
             }
             if (in_array($oneIncomingParam['NAME'], $allPossibleAttribs)) {
                 $parameters[$number] = $oneIncomingParam;
@@ -157,6 +193,14 @@ class API {
         return $parameters;
     }
 
+    public function firstParameterInstance($inputs, $expected) {
+        foreach ($inputs as $attrib) {
+            if ($attrib['NAME'] == $expected) {
+                return $attrib['VALUE'];
+            }
+        }
+        return FALSE;
+    }
     /**
      * we are coercing the submitted JSON-style parameters into the same format
      * we use for the HTML POST user-interactively.
@@ -178,7 +222,7 @@ class API {
 
                 case \core\Options::TYPECODE_COORDINATES:
                     $extension = \core\Options::TYPECODE_TEXT;
-                    $coercedInline["option"][$basename] = $oneAttrib['NAME']."#";
+                    $coercedInline["option"][$basename] = $oneAttrib['NAME'] . "#";
                     $coercedInline["value"][$basename . "-" . $extension] = $oneAttrib['VALUE'];
                     break;
                 case \core\Options::TYPECODE_TEXT:
@@ -189,7 +233,7 @@ class API {
                 // fall-through: they all get the same treatment
                 case \core\Options::TYPECODE_INTEGER:
                     $extension = $optionInfo['type'];
-                    $coercedInline["option"][$basename] = $oneAttrib['NAME']."#";
+                    $coercedInline["option"][$basename] = $oneAttrib['NAME'] . "#";
                     $coercedInline["value"][$basename . "-" . $extension] = $oneAttrib['VALUE'];
                     if ($optionInfo['flag'] == "ML") {
                         $coercedInline["value"][$basename . "-lang"] = $oneAttrib['LANG'];
@@ -199,9 +243,9 @@ class API {
                     // binary data is expected in base64 encoding. This is true
                     // also for PEM files!
                     $extension = $optionInfo['type'];
-                    $coercedInline["option"][$basename] = $oneAttrib['NAME']."#";
-                    file_put_contents($dir['dir']."/".$basename."-".$extension, base64_decode($oneAttrib['VALUE']));
-                    $coercedFile["value"]['tmp_name'][$basename."-".$extension] = $dir['dir']."/".$basename."-".$extension;
+                    $coercedInline["option"][$basename] = $oneAttrib['NAME'] . "#";
+                    file_put_contents($dir['dir'] . "/" . $basename . "-" . $extension, base64_decode($oneAttrib['VALUE']));
+                    $coercedFile["value"]['tmp_name'][$basename . "-" . $extension] = $dir['dir'] . "/" . $basename . "-" . $extension;
                     break;
                 default:
                     throw new Exception("We don't seem to know this type code!");

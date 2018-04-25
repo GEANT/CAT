@@ -124,7 +124,7 @@ class UserManagement extends \core\common\Entity {
                 // possibly too long), so run a query to find there's an
                 // tuple already; and act accordingly
                 $catId = $invitationDetails->cat_institution_id;
-                $level = $invitationDetails->cat_institution_id;
+                $level = $invitationDetails->invite_issuer_level;
                 $destMail = $invitationDetails->invite_dest_mail;
                 $existing = $this->databaseHandle->exec("SELECT user_id FROM ownership WHERE user_id = ? AND institution_id = ?", "si", $owner, $catId);
                 // SELECT -> resource, not boolean

@@ -54,7 +54,7 @@ $newcountry = "";
 // we are either inviting to co-manage an existing inst ...
 
 $userObject = new \core\User($_SESSION['user']);
-$federation = FALSE;
+$federation = NULL;
 
 const OPERATION_MODE_INVALID = 0;
 const OPERATION_MODE_EDIT = 1;
@@ -96,7 +96,7 @@ switch ($operationMode) {
         $prettyprintname = $idp->name;
         $newtoken = $mgmt->createToken($fedadmin, $mailaddress, $idp);
         $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $idp->identifier . " - Token created for " . $mailaddress);
-        $introtext = sprintf(_("a %s of the %s %s \"%s\" has invited you to manage the %s together with him."), $uiElements->nomenclature_fed, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $uiElements->nomenclature_inst, $prettyprintname, $uiElements->nomenclature_inst) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
+        $introtext = "CO-ADMIN";
         break;
     case OPERATION_MODE_NEWUNLINKED:
         $redirect_destination = "../overview_federation.php?";
@@ -110,7 +110,7 @@ switch ($operationMode) {
         }
         $federation = $validator->Federation($newcountry);
         $prettyprintname = $newinstname;
-        $introtext = sprintf(_("a %s %s has invited you to manage the future %s  \"%s\" (%s)."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $uiElements->nomenclature_fed, $uiElements->nomenclature_inst, $prettyprintname, $newcountry) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
+        $introtext = "NEW-FED";
         // send the user back to his federation overview page, append the result of the operation later
         // do the token creation magic
         $newtoken = $mgmt->createToken(TRUE, $mailaddress, $newinstname, 0, $newcountry);
@@ -144,7 +144,7 @@ switch ($operationMode) {
             }
         }
         // fill the rest of the text
-        $introtext = sprintf(_("a %s %s has invited you to manage the %s  \"%s\"."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $uiElements->nomenclature_fed, $uiElements->nomenclature_inst, $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
+        $introtext = "EXISTING-FED";
         // do the token creation magic
         $newtoken = $mgmt->createToken(TRUE, $mailaddress, $prettyprintname, $newexternalid);
         $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . $mailaddress);
@@ -156,107 +156,9 @@ switch ($operationMode) {
 </pre>";
         exit(1);
 }
-// are we on https?
-$proto = "http://";
-if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") {
-    $proto = "https://";
-}
 
-// then, send out the mail
-$message = _("Hello,") . "
-    
-" . wordwrap($introtext, 72) . "
-    
-";
-
-if ($new_idp_authorized_fedadmin) { // see if we are supposed to add a custom message
-    $customtext = $federation->getAttributes('fed:custominvite');
-    if (count($customtext) > 0) {
-        $message .= wordwrap(sprintf(_("Additional message from your %s administrator:"), $uiElements->nomenclature_fed), 72) . "
----------------------------------
-"
-                . wordwrap($customtext[0]['value'], 72) . "
----------------------------------
-
-    ";
-    }
-}
-
-$message .= wordwrap(sprintf(_("To enlist as an administrator for that %s, please click on the following link:"), $uiElements->nomenclature_inst), 72) . "
-    
-$proto" . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "/action_enrollment.php?token=$newtoken
-    
-" . wordwrap(sprintf(_("If clicking the link doesn't work, you can also go to the %s Administrator Interface at"), CONFIG['APPEARANCE']['productname']), 72) . "
-    
-$proto" . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "/ 
-    
-" .
-        _("and enter the invitation token") . "
-    $newtoken
-" . ( /* $new_idp_authorized_fedadmin */ FALSE ?
-        wordwrap(sprintf(_("manually. If you reply to this mail, you will reach your %s administrators."), $uiElements->nomenclature_fed), 72) :
-        wordwrap(_("manually. Please do not reply to this mail; this is a send-only address.")) ) . "
-
-" . wordwrap(_("Do NOT forward the mail before the token has expired - or the recipients may be able to consume the token on your behalf!"), 72) . "
-
-" . wordwrap(sprintf(_("We wish you a lot of fun with the %s."), CONFIG['APPEARANCE']['productname']), 72) . "
-        
-" . sprintf(_("Sincerely,
-
-Your friendly folks from %s Operations"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
-
-$mail = \core\common\OutsideComm::mailHandle();
-// who to whom?
-$mail->FromName = CONFIG['APPEARANCE']['productname'] . " Invitation System";
-if ($new_idp_authorized_fedadmin) {
-    foreach ($federation->listFederationAdmins() as $fedadmin_id) {
-        $fedadmin = new \core\User($fedadmin_id);
-        $mailaddrAttrib = $fedadmin->getAttributes("user:email");
-        $nameAttrib = $fedadmin->getAttributes("user:realname");
-        $name = $nameAttrib[0]['value'] ?? sprintf(_("%s administrator"), $uiElements->nomenclature_fed);
-        if (count($mailaddrAttrib) > 0) {
-            $mail->addReplyTo($mailaddrAttrib[0]['value'], $name);
-        }
-    }
-}
-if (isset(CONFIG['APPEARANCE']['invitation-bcc-mail']) && CONFIG['APPEARANCE']['invitation-bcc-mail'] !== NULL) {
-    $mail->addBCC(CONFIG['APPEARANCE']['invitation-bcc-mail']);
-}
-
-// all addresses are wrapped in a string, but PHPMailer needs a structured list of addressees
-// sigh... so convert as needed
-// first split multiple into one if needed
-$recipients = explode(", ", $newmailaddress);
-
-$secStatus = TRUE;
-$domainStatus = TRUE;
-
-// fill the destinations in PHPMailer API
-foreach ($recipients as $recipient) {
-    $mail->addAddress($recipient);
-    $status = \core\common\OutsideComm::mailAddressValidSecure($recipient);
-    if ($status < \core\common\OutsideComm::MAILDOMAIN_STARTTLS) {
-        $secStatus = FALSE;
-    }
-    if ($status < 0) {
-        $domainStatus = FALSE;
-    }
-}
-
-if (!$domainStatus) {
-    $mgmt->invalidateToken($newtoken);
-    header("Location: $redirect_destination" . "invitation=FAILURE");
-    exit;
-}
-
-// what do we want to say?
-$mail->Subject = sprintf(_("%s: you have been invited to manage an %s"), CONFIG['APPEARANCE']['productname'], $uiElements->nomenclature_inst);
-$mail->Body = $message;
-
-$sent = $mail->send();
-
-// invalidate the token immediately if the mail could not be sent!
-if (!$sent) {
+// send, and invalidate the token immediately if the mail could not be sent!
+if (! \core\common\OutsideComm::adminInvitationMail($mailaddress, $introtext, $newtoken, $prettyprintname, $federation)) {
     $mgmt->invalidateToken($newtoken);
     header("Location: $redirect_destination" . "invitation=FAILURE");
     exit;

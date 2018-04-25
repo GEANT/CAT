@@ -448,11 +448,7 @@ class OptionParser {
         $iterator = $this->collateOptionArrays($postArray, $filesArray);
         
         // Step 2: sieve out malformed input
-        var_export($postArray);
-        var_export($filesArray);
-        var_export($iterator);
         $cleanData = $this->sanitiseInputs($iterator, $multilangAttrsWithC, $bad);
-        var_export($cleanData);
         // Step 3: now we have clean input data. Some attributes need special care:
         // URL-based attributes need to be downloaded to get their actual content
         // CA files may need to be split (PEM can contain multiple CAs 

@@ -24,23 +24,26 @@ $optionParser = new \web\lib\admin\OptionParser();
 
 function return_error($code, $description) {
     echo json_encode(["result" => "ERROR", "details" => ["errorcode" => $code, "description" => $description]], JSON_PRETTY_PRINT);
+    exit(1);
+}
+
+function return_success($details) {
+    echo json_encode(["result" => "SUCCESS", "details" => $details], JSON_PRETTY_PRINT);
+    exit(0);
 }
 
 if (!isset(CONFIG['registration_API_keys']) || count(CONFIG['registration_API_keys']) == 0) {
     return_error(web\lib\admin\API::ERROR_API_DISABLED, "API is disabled in this instance of CAT");
-    exit(1);
 }
 
 $inputRaw = file_get_contents('php://input');
 $inputDecoded = json_decode($inputRaw, TRUE);
 if (!is_array($inputDecoded)) {
     return_error(web\lib\admin\API::ERROR_MALFORMED_REQUEST, "Unable to decode JSON POST data.");
-    exit(1);
 }
 
 if (!isset($inputDecoded['APIKEY'])) {
     return_error(web\lib\admin\API::ERROR_NO_APIKEY, "JSON request structure did not contain an APIKEY");
-    exit(1);
 }
 
 $checkval = "FAIL";
@@ -54,7 +57,6 @@ foreach (CONFIG['registration_API_keys'] as $key => $fed_name) {
 
 if ($checkval == "FAIL") {
     return_error(web\lib\admin\API::ERROR_INVALID_APIKEY, "APIKEY is invalid");
-    exit(1);
 }
 
 // let's instantiate the fed, we will need it later
@@ -62,13 +64,16 @@ $fed = new \core\Federation($federation);
 // it's a valid admin; what does he want to do?
 if (!array_key_exists($inputDecoded['ACTION'], web\lib\admin\API::ACTIONS)) {
     return_error(web\lib\admin\API::ERROR_NO_ACTION, "JSON request structure did not contain a valid ACTION");
-    exit(1);
 }
 // it's a valid ACTION, so let's sanitise the input parameters
 $scrubbedParameters = $adminApi->scrub($inputDecoded);
+$paramNames = [];
+foreach ($scrubbedParameters as $oneParam) {
+    $paramNames[] = $oneParam['NAME'];
+}
 // are all the required parameters (still) in the request?
 foreach (web\lib\admin\API::ACTIONS[$inputDecoded['ACTION']]['REQ'] as $oneRequiredAttribute) {
-    if (!in_array($oneRequiredAttribute, $scrubbedParameters)) {
+    if (!in_array($oneRequiredAttribute, $paramNames)) {
         return_error(web\lib\admin\API::ERROR_MISSING_PARAMETER, "At least one required parameter for this ACTION is missing: $oneRequiredAttribute");
     }
 }
@@ -80,18 +85,28 @@ switch ($inputDecoded['ACTION']) {
         // now add all submitted attributes
         $inputs = $adminApi->uglify($scrubbedParameters);
         $optionParser->processSubmittedFields($idp, $inputs["POST"], $inputs["FILES"]);
+        return_success([web\lib\admin\API::AUXATTRIB_CAT_INST_ID => $idp->identifier]);
         break;
     case web\lib\admin\API::ACTION_ADMIN_ADD:
-        // generate the token
-        $newtoken = $mgmt->createToken(true, $validator->string($_POST['NEWINST_PRIMARYADMIN']), $idp);
-        // and send it back to the caller
+        // IdP in question
+        try {
+        $idp = $validator->IdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
+        } catch(Exception $e) {
+            return_error(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
+        }
+        // here is the token
+        $mgmt = new core\UserManagement();
+        $newtoken = $mgmt->createToken(true, $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_ADMINID), $idp);
         $URL = "https://" . $_SERVER['SERVER_NAME'] . dirname($_SERVER['SCRIPT_NAME']) . "/action_enrollment.php?token=$newtoken";
-        echo "<CAT-API-Response>\n";
-        echo "  <success action='NEWINST'>\n    <enrollment_URL>$URL</enrollment_URL>\n    <inst_unique_id>" . $idp->identifier . "</inst_unique_id>\n  </success>\n";
-        echo "</CAT-API-Response>\n";
-        exit(0);
+        $success = ["TOKEN URL" => $URL];
+        // done with the essentials - display in response. But if we also have an email address, send it there
+        $email = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_ADMINEMAIL);
+        if ($email !== FALSE) {
+            $sent = \core\common\OutsideComm::adminInvitationMail($email, "EXISTING-FED", $newtoken, $idp->name, $fed);
+            $success["EMAIL SENT"] = $sent;
+        }
+        return_success($success);
         break;
     default:
         return_error(web\lib\admin\API::ERROR_INVALID_ACTION, "Not implemented yet.");
-        exit(1);
 }
