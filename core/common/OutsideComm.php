@@ -311,7 +311,7 @@ class OutsideComm {
         }
 
         if (!$domainStatus) {
-            return FALSE;
+            return ["SENT" => FALSE, "TRANSPORT" => FALSE];
         }
 
 // what do we want to say?
