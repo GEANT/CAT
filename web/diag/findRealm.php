@@ -27,6 +27,10 @@ function check_my_nonce($nonce, $optSalt='') {
     }
 }
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
+
+// we are referring to $_SESSION later in the file
+CAT_session_start();
+
 $loggerInstance = new \core\common\Logging();
 $returnArray = [];
 $headers = apache_request_headers();
