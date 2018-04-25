@@ -94,7 +94,7 @@ switch ($inputDecoded['ACTION']) {
             return_error(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
         }
         $idp->destroy();
-        return_success();
+        return_success([]);
         break;
     case web\lib\admin\API::ACTION_ADMIN_ADD:
         // IdP in question
