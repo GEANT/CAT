@@ -42,11 +42,6 @@ CREATE TABLE `federation_option` (
   CONSTRAINT `federation_option_ibfk_1` FOREIGN KEY (`option_name`) REFERENCES `profile_option_dict` (`name`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-ALTER TABLE `profile` ADD COLUMN `status_dns` int(11) DEFAULT NULL;
-ALTER TABLE `profile` ADD COLUMN `status_cert` int(11) DEFAULT NULL;
-ALTER TABLE `profile` ADD COLUMN `status_reachability` int(11) DEFAULT NULL;
-ALTER TABLE `profile` ADD COLUMN `status_TLS` int(11) DEFAULT NULL;
-ALTER TABLE `profile` ADD COLUMN `last_status_check` timestamp NULL DEFAULT NULL;
 ALTER TABLE `profile` ADD COLUMN `checkuser_outer` int(1) NOT NULL DEFAULT '0';
 ALTER TABLE `profile` ADD COLUMN `checkuser_value` varchar(128) DEFAULT NULL;
 ALTER TABLE `profile` ADD COLUMN `verify_userinput_suffix` int(1) NOT NULL DEFAULT '0';
