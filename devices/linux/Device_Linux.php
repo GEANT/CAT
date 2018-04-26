@@ -108,6 +108,7 @@ class Device_Linux extends \core\DeviceConfig {
         $out .= 'Messages.wrongUsernameFormat = "' ._("Error: Your username must be of the form 'xxx@institutionID' e.g. 'john@example.net'!") . "\"\n";
         $out .= 'Messages.wrong_realm = "' . _("Error: your username must be in the form of 'xxx@{}'. Please enter the username in the correct format.") . "\"\n";
         $out .= 'Messages.wrong_realm_suffix = "' . _("Error: your username must be in the form of 'xxx@institutionID' and end with '{}'. Please enter the username in the correct format.") . "\"\n";
+        $out .= 'Messages.user_cert_missing = "' . _("personal certificate file not found") . "\"\n";
     
         return $out;
     }
