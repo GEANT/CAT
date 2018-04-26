@@ -184,7 +184,7 @@ abstract class DeviceConfig extends \core\common\Entity {
             }
             $this->attributes['internal:CAs'][0] = $caList;
         }
-
+        
         if (isset($this->attributes['support:info_file'])) {
             $this->attributes['internal:info_file'][0] = $this->saveInfoFile($this->attributes['support:info_file'][0]);
         }
@@ -239,6 +239,10 @@ abstract class DeviceConfig extends \core\common\Entity {
         return _("Sorry, this should not happen - no additional information is available");
     }
     
+    public function getAttibute($attrName) {
+        return(empty($this->attributes[$attrName]) ? NULL : $this->attributes[$attrName]);
+    }
+
     /**
      * some modules have a complex directory structure. This helper finds resources
      * in that structure. Mostly used in the Windows modules.

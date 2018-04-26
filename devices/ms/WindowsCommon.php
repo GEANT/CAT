@@ -105,7 +105,8 @@ abstract class WindowsCommon extends \core\DeviceConfig {
     }
 
     public function writeDeviceInfo() {
-        $ssidCount = count($this->attributes['internal:SSID']);
+        $ssids = $this->getAttibute('internal:SSID');
+        $ssidCount = count($ssids);
         $out = "<p>";
         $out .= sprintf(_("%s installer will be in the form of an EXE file. It will configure %s on your device, by creating wireless network profiles.<p>When you click the download button, the installer will be saved by your browser. Copy it to the machine you want to configure and execute."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $out .= "<p>";
@@ -115,7 +116,7 @@ abstract class WindowsCommon extends \core\DeviceConfig {
             } else {
                 $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to:"), implode(', ', CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) . " ";
             }
-            $out .= '<strong>' . join('</strong>, <strong>', array_diff(array_keys($this->attributes['internal:SSID']), CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) . '</strong>';
+            $out .= '<strong>' . join('</strong>, <strong>', array_diff(array_keys($ssids), CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) . '</strong>';
             $out .= "<p>";
         }
 // TODO - change this below
@@ -132,7 +133,7 @@ abstract class WindowsCommon extends \core\DeviceConfig {
             if ($ssidCount > 1) {
                 $out .= "<p>";
                 $out .= _("You will be required to enter the same credentials for each of the configured notworks:") . " ";
-                $out .= '<strong>' . join('</strong>, <strong>', array_keys($this->attributes['internal:SSID'])) . '</strong>';
+                $out .= '<strong>' . join('</strong>, <strong>', array_keys($ssids)) . '</strong>';
             }
         }
         return($out);
@@ -176,7 +177,7 @@ abstract class WindowsCommon extends \core\DeviceConfig {
         $this->background = [];
         $this->background['freeHeight'] = $bgImageSize['height'] - $freeTop - $freeBottom;
 
-        if (empty($this->attributes['fed:include_logo_installers'])) {
+        if ($this->getAttibute('fed:include_logo_installers') === NULL) {
             $fedLogo = NULL;
         }
         if ($fedLogo != NULL) {
