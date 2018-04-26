@@ -44,7 +44,7 @@ use \Exception;
         textdomain("devices");
         // create certificate files and save their names in $caFiles arrary
         $caFiles = $this->saveCertificateFiles('der');
-        $this->caArray = $this->getAttibute('internal:CAs',1);
+        $this->caArray = $this->getAttibute('internal:CAs');
         $this->useAnon = $this->attributes['internal:use_anon_outer'] [0] === NULL ? FALSE : TRUE;
         $this->servers = empty($this->attributes['eap:server_name']) ? '' :  implode(';', $this->attributes['eap:server_name']);
         $allSSID = $this->attributes['internal:SSID'];
