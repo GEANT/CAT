@@ -222,6 +222,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         foreach ($eapArrayofObjects as $eap) {
             if (in_array($eap->getArrayRep(), $this->supportedEapMethods)) {
                 $this->selectedEap = $eap->getArrayRep();
+                break;
             }
         }
         if ($this->selectedEap != []) {
