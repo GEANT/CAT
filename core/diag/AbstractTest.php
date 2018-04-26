@@ -405,7 +405,7 @@ class AbstractTest extends \core\common\Entity {
          */
         $code22 = RADIUSTests::CERTPROB_NO_CRL_AT_CDP_URL;
         $this->returnCodes[$code22]["message"] = _("The extension 'CRL Distribution Point' in the server certificate points to a location where no DER-encoded CRL can be found. Some Operating Systems check certificate validity by consulting the CRL and will fail to validate the certificate. Checking server certificate validity against a CRL will not be possible.");
-        $this->returnCodes[$code22]["severity"] = \core\common\Entity::L_ERROR;
+        $this->returnCodes[$code22]["severity"] = \core\common\Entity::L_WARN;
 
         /**
          * The server certificate has been revoked by its CA.
