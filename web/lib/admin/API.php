@@ -25,6 +25,7 @@ class API {
     const ERROR_NO_ACTION = 6;
     const ERROR_INVALID_ACTION = 7;
     const ERROR_MALFORMED_REQUEST = 8;
+    const ERROR_INTERNAL_ERROR = 9;
     const ACTION_NEWINST_BY_REF = "NEWINST-BY-REF";
     const ACTION_NEWINST = "NEWINST";
     const ACTION_DELINST = "DELINST";
@@ -47,6 +48,13 @@ class API {
     const AUXATTRIB_ADMINEMAIL = "ATTRIB-ADMINEMAIL";
     const AUXATTRIB_EXTERNALID = "ATTRIB-EXTERNALID";
     const AUXATTRIB_CAT_INST_ID = "ATTRIB-CAT-INSTID";
+    const AUXATTRIB_CAT_PROFILE_ID = "ATTRIB-CAT-PROFILEID";
+    const AUXATTRIB_PROFILE_REALM = 'ATTRIB-PROFILE-REALM';
+    const AUXATTRIB_PROFILE_OUTERVALUE = 'ATTRIB-PROFILE-OUTERVALUE';
+    const AUXATTRIB_PROFILE_TESTUSER = 'ATTRIB-PROFILE-TESTUSER';
+    const AUXATTRIB_PROFILE_INPUT_HINT = 'ATTRIB-PROFILE-HINTREALM';
+    const AUXATTRIB_PROFILE_INPUT_VERIFY = 'ATTRIB-PROFILE-VERIFYREALM';
+    const AUXATTRIB_PROFILE_EAPTYPE = "ATTRIB-PROFILE-EAPTYPE";
 
     /*
      * ACTIONS consists of a list of keywords, and associated REQuired and OPTional parameters
@@ -56,11 +64,38 @@ class API {
         # inst-level actions
         API::ACTION_NEWINST_BY_REF => [
             "REQ" => [API::AUXATTRIB_EXTERNALID,],
-            "OPT" => ['general:geo_coordinates', 'general:logo_file', 'media:SSID', 'media:SSID_with_legacy', 'media:wired', 'media:remove_SSID', 'media:consortium_OI', 'media:force_proxy', 'support:email', 'support:info_file', 'support:phone', 'support:url'],
+            "OPT" => [
+                'general:geo_coordinates',
+                'general:logo_file',
+                'media:SSID',
+                'media:SSID_with_legacy',
+                'media:wired',
+                'media:remove_SSID',
+                'media:consortium_OI',
+                'media:force_proxy',
+                'support:email',
+                'support:info_file',
+                'support:phone',
+                'support:url'
+            ],
         ],
         API::ACTION_NEWINST => [
             "REQ" => [],
-            "OPT" => ['general:instname', 'general:geo_coordinates', 'general:logo_file', 'media:SSID', 'media:SSID_with_legacy', 'media:wired', 'media:remove_SSID', 'media:consortium_OI', 'media:force_proxy', 'support:email', 'support:info_file', 'support:phone', 'support:url'],
+            "OPT" => [
+                'general:instname',
+                'general:geo_coordinates',
+                'general:logo_file',
+                'media:SSID',
+                'media:SSID_with_legacy',
+                'media:wired',
+                'media:remove_SSID',
+                'media:consortium_OI',
+                'media:force_proxy',
+                'support:email',
+                'support:info_file',
+                'support:phone',
+                'support:url'
+            ],
         ],
         API::ACTION_DELINST => [
             "REQ" => [API::AUXATTRIB_CAT_INST_ID],
@@ -72,11 +107,17 @@ class API {
             "OPT" => []
         ],
         API::ACTION_ADMIN_ADD => [
-            "REQ" => [API::AUXATTRIB_ADMINID, API::AUXATTRIB_CAT_INST_ID],
+            "REQ" => [
+                API::AUXATTRIB_ADMINID,
+                API::AUXATTRIB_CAT_INST_ID
+            ],
             "OPT" => [API::AUXATTRIB_ADMINEMAIL]
         ],
         API::ACTION_ADMIN_DEL => [
-            "REQ" => [API::AUXATTRIB_ADMINID, API::AUXATTRIB_CAT_INST_ID],
+            "REQ" => [
+                API::AUXATTRIB_ADMINID,
+                API::AUXATTRIB_CAT_INST_ID
+            ],
             "OPT" => []
         ],
         # statistics
@@ -90,8 +131,31 @@ class API {
         ],
         # RADIUS profile actions
         API::ACTION_NEWPROF_RADIUS => [
-            "REQ" => [],
-            "OPT" => []
+            "REQ" => [API::AUXATTRIB_CAT_INST_ID],
+            "OPT" => [
+                'eap:ca_file',
+                'eap:server_name',
+                'media:SSID',
+                'media:SSID_with_legacy',
+                'media:wired',
+                'media:remove_SSID',
+                'media:consortium_OI',
+                'media:force_proxy',
+                'profile:name',
+                'profile:customsuffix',
+                'profile:description',
+                'profile:production',
+                'support:email',
+                'support:info_file',
+                'support:phone',
+                'support:url',
+                API::AUXATTRIB_PROFILE_INPUT_HINT,
+                API::AUXATTRIB_PROFILE_INPUT_VERIFY,
+                API::AUXATTRIB_PROFILE_OUTERVALUE,
+                API::AUXATTRIB_PROFILE_REALM,
+                API::AUXATTRIB_PROFILE_TESTUSER,
+                API::AUXATTRIB_PROFILE_EAPTYPE,
+            ]
         ],
         # Silverbullet profile actions
         API::ACTION_NEWPROF_SB => [
@@ -209,6 +273,13 @@ class API {
         return $parameters;
     }
 
+    /**
+     * extracts the first occurence of a given parameter name from the set of inputs
+     * 
+     * @param array $inputs incoming set of arrays
+     * @param string $expected attribute that is to be extracted
+     * @return mixed the value, or FALSE if none was found
+     */
     public function firstParameterInstance($inputs, $expected) {
         foreach ($inputs as $attrib) {
             if ($attrib['NAME'] == $expected) {
@@ -232,6 +303,9 @@ class API {
         $cat = new \core\CAT();
         $dir = $cat->createTemporaryDirectory('test');
         foreach ($parameters as $number => $oneAttrib) {
+            if (preg_match("/^ATTRIB-/", $oneAttrib['NAME'])) {
+                continue;
+            }
             $optionInfo = $optionObject->optionType($oneAttrib['NAME']);
             $basename = "S$number";
             $extension = "";
@@ -271,12 +345,12 @@ class API {
         return ["POST" => $coercedInline, "FILES" => $coercedFile];
     }
 
-    public function return_error($code, $description) {
+    public function returnError($code, $description) {
         echo json_encode(["result" => "ERROR", "details" => ["errorcode" => $code, "description" => $description]], JSON_PRETTY_PRINT);
         exit(1);
     }
 
-    public function return_success($details) {
+    public function returnSuccess($details) {
         echo json_encode(["result" => "SUCCESS", "details" => $details], JSON_PRETTY_PRINT);
         exit(0);
     }
