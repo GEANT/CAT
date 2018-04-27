@@ -13,7 +13,7 @@
 
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-function commonSbProfileChecks($id) {
+function commonSbProfileChecks($fed, $id) {
     $validator = new \web\lib\common\InputValidation();
     $adminApi = new \web\lib\admin\API();
     try {
@@ -24,7 +24,7 @@ function commonSbProfileChecks($id) {
         if (!$profile instanceof core\ProfileSilverbullet) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Profile identifier is not SB!");
         }
-        $idp = $profile->identifier;
+        $idp = new \core\IdP($profile->identifier);
         if (strtoupper($idp->federation) != strtoupper($fed->tld)) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Profile is not in the federation for this APIKEY!");
         }
@@ -239,13 +239,20 @@ switch ($inputDecoded['ACTION']) {
         $adminApi->returnSuccess([\web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID => $profile->identifier]);
         break;
     case web\lib\admin\API::ACTION_ENDUSER_NEW:
-        list($idp, $profile) = commonSbProfileChecks($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID));
+        list($idp, $profile) = commonSbProfileChecks($fed, $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID));
         $user = $validator->string($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_USERNAME));
         $expiryRaw = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_EXPIRY);
+        if ($expiryRaw === FALSE) {
+            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "The expiry date wasn't found in the request.");
+        }
         $expiry = new DateTime($expiryRaw);
-        $retval = $profile->addUser($user, $expiry);
-        if ($retval == 0) {// that didn't work, it seems
+        try {
+            $retval = $profile->addUser($user, $expiry);
+        } catch(Exception $e) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INTERNAL_ERROR, "The operation failed. Maybe a duplicate username, or malformed expiry date?");
+        }
+        if ($retval == 0) {// that didn't work, it seems
+            $adminApi->returnError(web\lib\admin\API::ERROR_INTERNAL_ERROR, "The operation failed subtly. Contact the administrators.");
         }
         $adminApi->returnSuccess([web\lib\admin\API::AUXATTRIB_SB_USERNAME => $user]);
         
