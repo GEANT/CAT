@@ -26,6 +26,7 @@ class API {
     const ERROR_INVALID_ACTION = 7;
     const ERROR_MALFORMED_REQUEST = 8;
     const ERROR_INTERNAL_ERROR = 9;
+    const ERROR_NO_TOU = 10;
     const ACTION_NEWINST_BY_REF = "NEWINST-BY-REF";
     const ACTION_NEWINST = "NEWINST";
     const ACTION_DELINST = "DELINST";
@@ -56,6 +57,8 @@ class API {
     const AUXATTRIB_PROFILE_INPUT_VERIFY = 'ATTRIB-PROFILE-VERIFYREALM';
     const AUXATTRIB_PROFILE_EAPTYPE = "ATTRIB-PROFILE-EAPTYPE";
     const AUXATTRIB_SB_TOU = "ATTRIB-SB-TOU";
+    const AUXATTRIB_SB_USERNAME = "ATTRIB-SB-USERNAME";
+    const AUXATTRIB_SB_EXPIRY = "ATTRIB-SB-EXPIRY"; /* MySQL timestamp format */
 
     /*
      * ACTIONS consists of a list of keywords, and associated REQuired and OPTional parameters
@@ -164,11 +167,11 @@ class API {
             "OPT" => [API::AUXATTRIB_SB_TOU]
         ],
         API::ACTION_ENDUSER_NEW => [
-            "REQ" => [],
+            "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_USERNAME, API::AUXATTRIB_SB_EXPIRY],
             "OPT" => []
         ],
         API::ACTION_ENDUSER_DEACTIVATE => [
-            "REQ" => [],
+            "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_USERNAME],
             "OPT" => []
         ],
         API::ACTION_ENDUSER_LIST => [

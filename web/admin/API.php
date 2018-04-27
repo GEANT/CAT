@@ -13,6 +13,26 @@
 
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
+function commonSbProfileChecks($id) {
+    $validator = new \web\lib\common\InputValidation();
+    $adminApi = new \web\lib\admin\API();
+    try {
+        $profile = $validator->Profile($id);
+        } catch(Exception $e) {
+            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Profile identifier does not exist!");
+        }
+        if (!$profile instanceof core\ProfileSilverbullet) {
+            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Profile identifier is not SB!");
+        }
+        $idp = $profile->identifier;
+        if (strtoupper($idp->federation) != strtoupper($fed->tld)) {
+            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Profile is not in the federation for this APIKEY!");
+        }
+        if (count($profile->getAttributes("hiddenprofile:tou_accepted")) < 1) {
+            $adminApi->returnError(web\lib\admin\API::ERROR_NO_TOU, "The terms of use have not yet been accepted for this profile!");
+        }
+        return [$idp, $profile];
+}
 
 // no SAML auth on this page. The API key authenticates the entity
 
@@ -218,6 +238,17 @@ switch ($inputDecoded['ACTION']) {
         }
         $adminApi->returnSuccess([\web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID => $profile->identifier]);
         break;
+    case web\lib\admin\API::ACTION_ENDUSER_NEW:
+        list($idp, $profile) = commonSbProfileChecks($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID));
+        $user = $validator->string($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_USERNAME));
+        $expiryRaw = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_EXPIRY);
+        $expiry = new DateTime($expiryRaw);
+        $retval = $profile->addUser($user, $expiry);
+        if ($retval == 0) {// that didn't work, it seems
+            $adminApi->returnError(web\lib\admin\API::ERROR_INTERNAL_ERROR, "The operation failed. Maybe a duplicate username, or malformed expiry date?");
+        }
+        $adminApi->returnSuccess([web\lib\admin\API::AUXATTRIB_SB_USERNAME => $user]);
+        
     default:
         $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_ACTION, "Not implemented yet.");
 }
