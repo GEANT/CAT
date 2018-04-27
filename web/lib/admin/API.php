@@ -55,6 +55,7 @@ class API {
     const AUXATTRIB_PROFILE_INPUT_HINT = 'ATTRIB-PROFILE-HINTREALM';
     const AUXATTRIB_PROFILE_INPUT_VERIFY = 'ATTRIB-PROFILE-VERIFYREALM';
     const AUXATTRIB_PROFILE_EAPTYPE = "ATTRIB-PROFILE-EAPTYPE";
+    const AUXATTRIB_SB_TOU = "ATTRIB-SB-TOU";
 
     /*
      * ACTIONS consists of a list of keywords, and associated REQuired and OPTional parameters
@@ -159,8 +160,8 @@ class API {
         ],
         # Silverbullet profile actions
         API::ACTION_NEWPROF_SB => [
-            "REQ" => [],
-            "OPT" => []
+            "REQ" => [API::AUXATTRIB_CAT_INST_ID],
+            "OPT" => [API::AUXATTRIB_SB_TOU]
         ],
         API::ACTION_ENDUSER_NEW => [
             "REQ" => [],

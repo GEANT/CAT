@@ -151,20 +151,36 @@ switch ($inputDecoded['ACTION']) {
         $adminApi->returnSuccess($fed->downloadStats("array"));
         break;
     case \web\lib\admin\API::ACTION_NEWPROF_RADIUS:
+        // fall-through intended: both get mostly identical treatment
+    case web\lib\admin\API::ACTION_NEWPROF_SB:
         try {
         $idp = $validator->IdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
         } catch(Exception $e) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
         }
-        $profile = $idp->newProfile("RADIUS");
+        if ($inputDecoded['ACTION'] == web\lib\admin\API::ACTION_NEWPROF_RADIUS) {
+            $type = "RADIUS";
+        } else {
+            $type = "SILVERBULLET";
+        }
+        $profile = $idp->newProfile($type);
         if ($profile === NULL) {
             $adminApi->returnError(\web\lib\admin\API::ERROR_INTERNAL_ERROR, "Unable to create a new Profile, for no apparent reason. Please contact support.");
+        }
+        $inputs = $adminApi->uglify($scrubbedParameters);
+        $optionParser->processSubmittedFields($profile, $inputs["POST"], $inputs["FILES"]);
+        if ($inputDecoded['ACTION'] == web\lib\admin\API::ACTION_NEWPROF_SB) {
+            // auto-accept ToU?
+            if ($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_TOU) !== FALSE) {
+                $profile->addAttribute("hiddenprofile:tou_accepted", NULL, TRUE);
+            }
+            // we're done at this point
+            $adminApi->returnSuccess([\web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID => $profile->identifier]);
+            continue;
         }
         if (!$profile instanceof core\ProfileRADIUS) {
             throw new Exception("Can't be. This is only here to convince Scrutinizer that we're really talking RADIUS.");
         }
-        $inputs = $adminApi->uglify($scrubbedParameters);
-        $optionParser->processSubmittedFields($profile, $inputs["POST"], $inputs["FILES"]);
         /* const AUXATTRIB_PROFILE_REALM = 'ATTRIB-PROFILE-REALM';
            const AUXATTRIB_PROFILE_OUTERVALUE = 'ATTRIB-PROFILE-OUTERVALUE';*/
         $realm = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_PROFILE_REALM);
