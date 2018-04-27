@@ -158,7 +158,10 @@ switch ($inputDecoded['ACTION']) {
         }
         $profile = $idp->newProfile("RADIUS");
         if ($profile === NULL) {
-            return_error(\web\lib\admin\API::ERROR_INTERNAL_ERROR, "Unable to create a new Profile, for no apparent reason. Please contact support.");
+            $adminApi->returnError(\web\lib\admin\API::ERROR_INTERNAL_ERROR, "Unable to create a new Profile, for no apparent reason. Please contact support.");
+        }
+        if (!$profile instanceof core\ProfileRADIUS) {
+            throw new Exception("Can't be. This is only here to convince Scrutinizer that we're really talking RADIUS.");
         }
         $inputs = $adminApi->uglify($scrubbedParameters);
         $optionParser->processSubmittedFields($profile, $inputs["POST"], $inputs["FILES"]);
