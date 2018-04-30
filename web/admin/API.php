@@ -106,6 +106,7 @@ switch ($inputDecoded['ACTION']) {
         $idp = $validator->IdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
         } catch(Exception $e) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
+            exit(1);
         }
         $idp->destroy();
         $adminApi->returnSuccess([]);
@@ -115,6 +116,7 @@ switch ($inputDecoded['ACTION']) {
         $idp = $validator->IdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
         } catch(Exception $e) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
+            exit(1);
         }
         $adminApi->returnSuccess($idp->listOwners());
         break;
@@ -124,6 +126,7 @@ switch ($inputDecoded['ACTION']) {
         $idp = $validator->IdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
         } catch(Exception $e) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
+            exit(1);
         }
         // here is the token
         $mgmt = new core\UserManagement();
@@ -152,6 +155,7 @@ switch ($inputDecoded['ACTION']) {
         $idp = $validator->IdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
         } catch(Exception $e) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
+            exit(1);
         }
         $currentAdmins = $idp->listOwners();
         $toBeDeleted = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_ADMINID);
@@ -181,6 +185,7 @@ switch ($inputDecoded['ACTION']) {
         $idp = $validator->IdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
         } catch(Exception $e) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
+            exit(1);
         }
         if ($inputDecoded['ACTION'] == web\lib\admin\API::ACTION_NEWPROF_RADIUS) {
             $type = "RADIUS";
@@ -190,6 +195,7 @@ switch ($inputDecoded['ACTION']) {
         $profile = $idp->newProfile($type);
         if ($profile === NULL) {
             $adminApi->returnError(\web\lib\admin\API::ERROR_INTERNAL_ERROR, "Unable to create a new Profile, for no apparent reason. Please contact support.");
+            exit(1);
         }
         $inputs = $adminApi->uglify($scrubbedParameters);
         $optionParser->processSubmittedFields($profile, $inputs["POST"], $inputs["FILES"]);
@@ -248,15 +254,18 @@ switch ($inputDecoded['ACTION']) {
         $expiryRaw = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_EXPIRY);
         if ($expiryRaw === FALSE) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "The expiry date wasn't found in the request.");
+            exit(1);
         }
         $expiry = new DateTime($expiryRaw);
         try {
             $retval = $profile->addUser($user, $expiry);
         } catch(Exception $e) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INTERNAL_ERROR, "The operation failed. Maybe a duplicate username, or malformed expiry date?");
+            exit(1);
         }
         if ($retval == 0) {// that didn't work, it seems
             $adminApi->returnError(web\lib\admin\API::ERROR_INTERNAL_ERROR, "The operation failed subtly. Contact the administrators.");
+            exit(1);
         }
         $adminApi->returnSuccess([web\lib\admin\API::AUXATTRIB_SB_USERNAME => $user]);
         break;
@@ -266,6 +275,7 @@ switch ($inputDecoded['ACTION']) {
         $result = $profile->deactivateUser($userId);
         if ($result !== TRUE) {
             $adminApi->returnError(\web\lib\admin\API::ERROR_INVALID_PARAMETER, "These parameters did not lead to an existing, active user.");
+            exit(1);
         }
         $adminApi->returnSuccess([]);
         break;
