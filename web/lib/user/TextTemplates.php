@@ -35,6 +35,9 @@ const DOWNLOAD_ALLPLATFORMS = 1051;
 const DOWNLOAD_MESSAGE = 1052;
 const DOWNLOAD_REDIRECT = 1053;
 const DOWNLOAD_REDIRECT_CONTINUE = 1054;
+const SB_GO_AWAY = 1060;
+const SB_FRONTPAGE_BIGDOWNLOADBUTTON = 1061;
+const SB_FRONTPAGE_ROLLER_CUSTOMBUILT= 1062;
 
 /**
  * some of the texts we write are consortium-specific.
@@ -84,6 +87,9 @@ class TextTemplates {
         $this->templates[DOWNLOAD_REDIRECT] = _("Your local administrator has specified a redirect to a local support page.<br>When you click <b>Continue</b> this support page will be opened in a new window/tab.");
         $this->templates[DOWNLOAD_REDIRECT_CONTINUE] = _("Continue");
         $this->templates[FRONTPAGE_ROLLER_SIGNEDBY] = sprintf(_("Digitally signed by the organisation that coordinates %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        $this->templates[SB_GO_AWAY] = _("You can download your eduroam installer via a personalised invitation link sent from your IT support. Please talk to the IT department to get this link.");
+        $this->templates[SB_FRONTPAGE_BIGDOWNLOADBUTTON] = "This site provides eduroam installers for a limited number of insititions, click here to see if your institution is on the list.";
+        $this->templates[SB_FRONTPAGE_ROLLER_CUSTOMBUILT] = _("Custom built for you");
         if (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['signer_name'])) {
             $this->templates[FRONTPAGE_ROLLER_SIGNEDBY] = sprintf(_("Digitally signed by the organisation that coordinates %s: %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['signer_name']);
         }
