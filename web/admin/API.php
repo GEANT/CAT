@@ -67,8 +67,9 @@ foreach (CONFIG['registration_API_keys'] as $key => $fed_name) {
 
 if ($checkval == "FAIL") {
     $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_APIKEY, "APIKEY is invalid");
+    exit(1);
 }
-exit(1);
+
 
 // let's instantiate the fed, we will need it later
 $fed = new \core\Federation($federation);
