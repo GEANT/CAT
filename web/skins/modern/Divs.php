@@ -86,9 +86,9 @@ class Divs {
 
     public function div_silverbullet() {
         $retval = "
-<div id='silverbullet'>" .
-                _("You can download your eduroam installer via a personalised invitation link sent from your IT support. Please talk to the IT department to get this link.") .
-                "</div>
+<div id='silverbullet'>"
+    . $this->Gui->textTemplates->templates[user\SB_GO_AWAY] . 
+    "</div>
     ";
         return $retval;
     }
@@ -110,7 +110,15 @@ class Divs {
         <span id='line1'>" . $this->Gui->textTemplates->templates[user\FRONTPAGE_ROLLER_EASY] . "</span>
         <span id='line2'></span>
         <span id='line3'></span>
-        <span id='line4'>" . $this->Gui->textTemplates->templates[user\FRONTPAGE_ROLLER_CUSTOMBUILT] . "</span>
+        <span id='line4'>";
+        
+        if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL") {
+            $retval .= $this->Gui->textTemplates->templates[user\FRONTPAGE_ROLLER_CUSTOMBUILT];
+        } elseif (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
+            $retval .= $this->Gui->textTemplates->templates[user\SB_FRONTPAGE_ROLLER_CUSTOMBUILT];
+        }
+                
+        $retval .= "</span>
         <span id='line5'>";
         if (!empty(CONFIG_CONFASSISTANT['CONSORTIUM']['signer_name'])) {
             $retval .= $this->Gui->textTemplates->templates[user\FRONTPAGE_ROLLER_SIGNEDBY];
@@ -129,16 +137,24 @@ class Divs {
     }
 
     public function div_main_button() {
-        return "
+        $retval = "
 <div id='user_button_td'>
   <span id='signin'>
      <button class='large_button signin signin_large' id='user_button1'>
-        <span id='user_button'>" . $this->Gui->textTemplates->templates[user\FRONTPAGE_BIGDOWNLOADBUTTON] . "
+        <span id='user_button'>";
+        if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL") {
+            $retval .= $this->Gui->textTemplates->templates[user\FRONTPAGE_BIGDOWNLOADBUTTON];
+        } elseif (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
+            $retval .= $this->Gui->textTemplates->templates[user\SB_FRONTPAGE_BIGDOWNLOADBUTTON];
+        }
+        
+        $retval .= "
         </span>
      </button>
   </span>
   <span style='padding-left:50px'>&nbsp;</span>
 </div>";
+        return $retval;
     }
 
     public function div_profiles() {
