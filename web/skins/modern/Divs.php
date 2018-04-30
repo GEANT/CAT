@@ -161,18 +161,19 @@ class Divs {
     <span id='inst_name_span'>$mainText</span> <div id='inst_extra_text'>$extraText</div> 
 </div>";
     }
+    
 
     public function div_institution($selectButton = TRUE) {
-        $idPLocation = $this->Gui->skinObject->findResourceUrl("IMAGES", "empty.png");
         $retval = "<div id='institution_name'>
     <span id='inst_name_span'></span> <div id='inst_extra_text'></div><!-- this will be filled with the IdP name -->" .
                 ($selectButton ? "<a  id='select_another' class='signin' href=\"\">" . $this->Gui->textTemplates->templates[user\INSTITUTION_SELECTION] . "</a>" : "") .
                 "</div>";
-        if ($idPLocation !== FALSE) {
-            $retval .= "<div> <!-- IdP logo, if present -->
-    <img id='idp_logo' src='$idPLocation' alt='IdP Logo'/>
- </div>";
-        }
+        $retval .= $this->emptyImage('idp_logo', 'IdP Logo');
+        return $retval;
+    }
+    
+    public function div_federation() {
+        $retval = $this->emptyImage('fed_logo', 'Federation Logo');
         return $retval;
     }
 
@@ -277,6 +278,17 @@ class Divs {
         </tr>
     </table>
 </div>";
+        return $retval;
+    }
+
+    private function emptyImage($id, $alt) {
+        $empty = $this->Gui->skinObject->findResourceUrl("IMAGES", "empty.png");
+        $retval = '';
+        if ($empty !== FALSE) {
+            $retval = "<div>
+    <img id='$id' src='$empty' alt='$alt'/>
+ </div>";
+        }
         return $retval;
     }
 

@@ -88,6 +88,7 @@ include("user/js/cat_js.php");
             <div id="user_page">
                 <?php  
                     echo $divs->div_institution();
+                    echo $divs->div_federation();
                     echo $divs->div_profiles(); ?>
                 <div id="user_info"></div> <!-- this will be filled with the profile contact information -->
                 <?php echo $divs->div_user_welcome() ?>

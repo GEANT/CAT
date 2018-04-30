@@ -70,7 +70,7 @@ $idp = $idpR ? $validator->IdP($idpR)->identifier : FALSE;
 $profileR = getRequest('profile', 'int');
 $profile = $profileR ? $validator->Profile($profileR)->identifier : FALSE;
 $federationR = getRequest('federation', 'safe_text');
-$federation = $federationR ? $validator->Federation($deviceR)->tld : FALSE;
+$federation = $federationR ? $validator->Federation($federationR)->tld : FALSE;
 $disco = getRequest('disco', 'int');
 $width = getRequest('width', 'int') ?? 0;
 $height = getRequest('height', 'int') ?? 0;
@@ -136,9 +136,13 @@ switch ($action) {
         break;
     case 'sendFedLogo': // needs $federation
         if ($federation === FALSE) {
+            if ($idp === FALSE) {
             exit;
         }
-        $API->sendLogo($federation, "federation", $width, $height);
+            $API->sendLogo($idp, "federation_from_idp", $width, $height);
+        } else {
+            $API->sendLogo($federation, "federation", $width, $height);
+        }
         break;        
     case 'deviceInfo': // needsdevice and profile set
         if ($device === FALSE || $profile === FALSE) {

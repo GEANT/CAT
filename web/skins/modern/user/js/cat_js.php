@@ -60,6 +60,7 @@ $.fn.redraw = function(){
     $("#silverbullet").hide();
     $('#user_welcome').hide();
     $("#idp_logo").hide();
+    $("#fed_logo").hide();
     $("#inst_id").val(inst_id);
     $("#profile_id").val('');
     $(".signin_large").hide();
@@ -96,6 +97,8 @@ $.fn.redraw = function(){
     if(logo) {
     $("#idp_logo").attr("src","<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendLogo&api_version=2&idp="+inst_id);
     $("#idp_logo").show();
+    $("#fed_logo").attr("src","<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendFedLogo&api_version=2&idp="+inst_id);
+    $("#fed_logo").show();
     }
     if (n > 1) {
        if(n <= profile_list_size) {

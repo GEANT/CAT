@@ -330,17 +330,24 @@ class UserAPI extends CAT {
         $expiresString = '';
         $attributeName = [
             'federation' => "fed:logo_file",
+            'federation_from_idp' => "fed:logo_file",
             'idp' => "general:logo_file",
         ];
         
         $logoFile = "";
         $validator = new \web\lib\common\InputValidation();
+//        print "Type=$type; $identifier";
+//        exit;
         switch ($type) {
             case "federation":
                 $entity = $validator->Federation($identifier);
                 break;
             case "idp":
                 $entity = $validator->IdP($identifier);
+                break;
+            case "federation_from_idp":
+                $idp = $validator->IdP($identifier);
+                $entity = $validator->Federation($idp->federation);
                 break;
             default:
                 throw new Exception("Unknown type of logo requested!");
