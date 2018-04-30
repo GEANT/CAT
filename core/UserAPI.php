@@ -336,8 +336,6 @@ class UserAPI extends CAT {
         
         $logoFile = "";
         $validator = new \web\lib\common\InputValidation();
-//        print "Type=$type; $identifier";
-//        exit;
         switch ($type) {
             case "federation":
                 $entity = $validator->Federation($identifier);
