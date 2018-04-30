@@ -306,8 +306,9 @@ class ProfileSilverbullet extends AbstractProfile {
      */
     public function deactivateUser($userId) {
         // does the user exist and is active, anyway?
-        $queryEx = "SELECT id FROM silverbullet_user WHERE profile_id = $this->identifier AND id = ? AND expiry >= NOW()";
-        if (mysqli_num_rows($queryEx) < 1) {
+        $queryExisting = "SELECT id FROM silverbullet_user WHERE profile_id = $this->identifier AND id = ? AND expiry >= NOW()";
+        $execExisting = $this->databaseHandle->exec($queryExisting, "i", $userId);
+        if (mysqli_num_rows($execExisting) < 1) {
             return FALSE;
         }
         // set the expiry date of any still valid invitations to NOW()
@@ -328,7 +329,8 @@ class ProfileSilverbullet extends AbstractProfile {
         }
         // and finally set the user expiry date to NOW(), too
         $query3 = "UPDATE silverbullet_user SET expiry = NOW() WHERE profile_id = $this->identifier AND id = ?";
-        return $this->databaseHandle->exec($query3, "i", $userId);
+        $ret = $this->databaseHandle->exec($query3, "i", $userId);
+        return $ret;
     }
     
     /**
