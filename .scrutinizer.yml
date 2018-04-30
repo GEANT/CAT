@@ -4,7 +4,11 @@ build:
             project_setup:
                 override: true
             tests:
-                override: [php-scrutinizer-run --enable-security-analysis]
+                override:
+                    -
+                        command: phpcs-run
+                        use_website_config: true
+                    - php-scrutinizer-run --enable-security-analysis
     environment:
         php:
             version: 7.0.20
