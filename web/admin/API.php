@@ -272,6 +272,10 @@ switch ($inputDecoded['ACTION']) {
     case \web\lib\admin\API::ACTION_ENDUSER_DEACTIVATE:
         list($idp, $profile) = commonSbProfileChecks($fed, $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID));
         $userId = $validator->integer($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_USERID));
+        if ($userId === FALSE) {
+            $adminApi->returnError(\web\lib\admin\API::ERROR_INVALID_PARAMETER, "User ID is not an integer.");
+            exit(1);
+        }
         $result = $profile->deactivateUser($userId);
         if ($result !== TRUE) {
             $adminApi->returnError(\web\lib\admin\API::ERROR_INVALID_PARAMETER, "These parameters did not lead to an existing, active user.");
