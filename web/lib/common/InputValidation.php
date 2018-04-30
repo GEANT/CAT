@@ -168,7 +168,7 @@ class InputValidation {
  */
 public function integer($input) {
     if (is_numeric($input)) {
-        return (int)$input;
+        return (int) $input;
     }
     return FALSE;
 }
@@ -378,6 +378,14 @@ public function email($input) {
     }
     // if we get here, it's bogus
     return FALSE;
+}
+
+public function sms($input) {
+    $number = str_replace(' ', '', str_replace(".", "", str_replace("+", "", $input)));
+    if (!is_numeric($number)) {
+        return FALSE;
+    }
+    return $number;
 }
 
 /**

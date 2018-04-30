@@ -190,7 +190,6 @@ if (isset($_POST['command'])) {
             if (!isset($_POST['address']) || $invitationObject === NULL) {
                 break;
             }
-            $mail = \core\common\OutsideComm::mailHandle();
             $properEmail = $validator->email(filter_input(INPUT_POST, 'address'));
             if ($properEmail === FALSE) {
                 $domainStatus = \core\common\OutsideComm::MAILDOMAIN_INVALID;
@@ -222,13 +221,8 @@ if (isset($_POST['command'])) {
                     }
                 // otherwise (insecure confirmed), intentional fall through to send the mail
                 case \core\common\OutsideComm::MAILDOMAIN_STARTTLS:
-                    $bytestream = $uiElements->pngInjectConsortiumLogo(\QRcode::png($invitationObject->link(), FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL), QRCODE_PIXELS_PER_SYMBOL);
-                    $mail->FromName = sprintf(_("%s Invitation System"), CONFIG['APPEARANCE']['productname']);
-                    $mail->Subject = $invitationObject->invitationMailSubject();
-                    $mail->Body = $invitationObject->invitationMailBody();
-                    $mail->addStringAttachment($bytestream, "qr-code-invitation.png", "base64", "image/png");
-                    $mail->addAddress($properEmail);
-                    if ($mail->send()) {
+                    $result = $invitationObject->sendByMail($properEmail);
+                    if ($result["SENT"]) {
                         $displaySendStatus = "EMAIL-SENT";
                     } else {
                         $displaySendStatus = "EMAIL-NOTSENT";
@@ -242,11 +236,12 @@ if (isset($_POST['command'])) {
             if (!isset($_POST['smsnumber']) || $invitationObject === NULL) {
                 break;
             }
-            $number = str_replace(' ', '', str_replace(".", "", str_replace("+", "", $_POST['smsnumber'])));
-            if (!is_numeric($number)) {
+            
+            $number = $validator->sms($_POST['smsnumber']);
+            if ($number === FALSE) {
                 break;
             }
-            $sent = core\common\OutsideComm::sendSMS($number, sprintf(_("Your eduroam access is ready! Click here to continue: %s (on Android, install the app 'eduroam CAT' before that!)"), $invitationObject->link()));
+            $sent = $invitationObject->sendBySms($number);
             switch ($sent) {
                 case core\common\OutsideComm::SMS_SENT:
                     $displaySendStatus = "SMS-SENT";

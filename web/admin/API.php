@@ -20,20 +20,20 @@ function commonSbProfileChecks($fed, $id) {
         $profile = $validator->Profile($id);
         } catch(Exception $e) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Profile identifier does not exist!");
-            exit(1);
+            return FALSE;
         }
         if (!$profile instanceof core\ProfileSilverbullet) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Profile identifier is not SB!");
-            exit(1);
+            return FALSE;
         }
         $idp = new \core\IdP($profile->identifier);
         if (strtoupper($idp->federation) != strtoupper($fed->tld)) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Profile is not in the federation for this APIKEY!");
-            exit(1);
+            return FALSE;
         }
         if (count($profile->getAttributes("hiddenprofile:tou_accepted")) < 1) {
             $adminApi->returnError(web\lib\admin\API::ERROR_NO_TOU, "The terms of use have not yet been accepted for this profile!");
-            exit(1);
+            return FALSE;
         }
         return [$idp, $profile];
 }
@@ -143,7 +143,7 @@ switch ($inputDecoded['ACTION']) {
         $URL = "https://" . $_SERVER['SERVER_NAME'] . dirname($_SERVER['SCRIPT_NAME']) . "/action_enrollment.php?token=$newtoken";
         $success = ["TOKEN URL" => $URL];
         // done with the essentials - display in response. But if we also have an email address, send it there
-        $email = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_ADMINEMAIL);
+        $email = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_TARGETMAIL);
         if ($email !== FALSE) {
             $sent = \core\common\OutsideComm::adminInvitationMail($email, "EXISTING-FED", $newtoken, $idp->name, $fed);
             $success["EMAIL SENT"] = $sent["SENT"];
@@ -253,7 +253,11 @@ switch ($inputDecoded['ACTION']) {
         $adminApi->returnSuccess([\web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID => $profile->identifier]);
         break;
     case web\lib\admin\API::ACTION_ENDUSER_NEW:
-        list($idp, $profile) = commonSbProfileChecks($fed, $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID));
+        $evaluation = commonSbProfileChecks($fed, $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID));
+        if ($evaluation === FALSE) {
+            exit(1);
+        }
+        list($idp, $profile) = $evaluation;
         $user = $validator->string($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_USERNAME));
         $expiryRaw = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_EXPIRY);
         if ($expiryRaw === FALSE) {
@@ -274,21 +278,65 @@ switch ($inputDecoded['ACTION']) {
         $adminApi->returnSuccess([web\lib\admin\API::AUXATTRIB_SB_USERNAME => $user]);
         break;
     case \web\lib\admin\API::ACTION_ENDUSER_DEACTIVATE:
-        list($idp, $profile) = commonSbProfileChecks($fed, $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID));
+        // fall-through intended: both actions are very similar
+    case \web\lib\admin\API::ACTION_TOKEN_NEW:
+        $evaluation = commonSbProfileChecks($fed, $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID));
+        if ($evaluation === FALSE) {
+            exit(1);
+        }
+        list($idp, $profile) = $evaluation;
         $userId = $validator->integer($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_USERID));
         if ($userId === FALSE) {
             $adminApi->returnError(\web\lib\admin\API::ERROR_INVALID_PARAMETER, "User ID is not an integer.");
             exit(1);
         }
-        $result = $profile->deactivateUser($userId);
+        $additionalInfo = [];
+        switch ($inputDecoded['ACTION']) { // this is where the two differ
+            case \web\lib\admin\API::ACTION_ENDUSER_DEACTIVATE:
+                $result = $profile->deactivateUser($userId);
+                break;
+            case \web\lib\admin\API::ACTION_TOKEN_NEW:
+                $counter = $validator->integer($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_TOKEN_ACTIVATIONS));
+                if (!is_integer($counter)) {
+                    $counter = 1;
+                }
+                $invitation = core\SilverbulletInvitation::createInvitation($profile->identifier, $userId, $counter);
+                $result = TRUE;
+                $additionalInfo["TOKEN URL"] = $invitation->link();
+                $emailRaw = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_TARGETMAIL);
+                if ($emailRaw) { // an email parameter was specified
+                    $email = $validator->email($emailRaw);
+                    if ($email) { // it's a valid address
+                        $retval = $invitation->sendByMail($email);
+                        $additionalInfo["EMAIL SENT"] = $retval;
+                        if ($retval) {
+                            $additionalInfo["EMAIL TRANSPORT SECURE"] = $retval["TRANSPORT"];
+                        }
+                    }
+                }
+                $smsRaw = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_TARGETMAIL);
+                if ($smsRaw) {
+                    $sms = $validator->sms($smsRaw);
+                    if ($sms) {
+                        $wasSent = $invitation->sendBySms($sms);
+                        $additionalInfo["SMS SENT"] = $wasSent == core\common\OutsideComm::SMS_SENT ? TRUE : FALSE;
+                    }
+                }
+                break;
+        }
+        
         if ($result !== TRUE) {
             $adminApi->returnError(\web\lib\admin\API::ERROR_INVALID_PARAMETER, "These parameters did not lead to an existing, active user.");
             exit(1);
         }
-        $adminApi->returnSuccess([]);
+        $adminApi->returnSuccess($additionalInfo);
         break;
     case \web\lib\admin\API::ACTION_ENDUSER_LIST:
-        list($idp, $profile) = commonSbProfileChecks($fed, $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID));
+        $evaluation = commonSbProfileChecks($fed, $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID));
+        if ($evaluation === FALSE) {
+            exit(1);
+        }
+        list($idp, $profile) = $evaluation;
         $adminApi->returnSuccess($profile->listAllUsers());
         break;
     default:

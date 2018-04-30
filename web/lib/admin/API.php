@@ -46,7 +46,8 @@ class API {
     const ACTION_CERT_LIST = "CERT-LIST";
     const ACTION_CERT_REVOKE = "CERT-REVOKE";
     const AUXATTRIB_ADMINID = "ATTRIB-ADMINID";
-    const AUXATTRIB_ADMINEMAIL = "ATTRIB-ADMINEMAIL";
+    const AUXATTRIB_TARGETMAIL = "ATTRIB-TARGETMAIL";
+    const AUXATTRIB_TARGETSMS = "ATTRIB-TARGETSMS";
     const AUXATTRIB_EXTERNALID = "ATTRIB-EXTERNALID";
     const AUXATTRIB_CAT_INST_ID = "ATTRIB-CAT-INSTID";
     const AUXATTRIB_CAT_PROFILE_ID = "ATTRIB-CAT-PROFILEID";
@@ -60,6 +61,7 @@ class API {
     const AUXATTRIB_SB_USERNAME = "ATTRIB-SB-USERNAME";
     const AUXATTRIB_SB_USERID = "ATTRIB-SB-USERID";
     const AUXATTRIB_SB_EXPIRY = "ATTRIB-SB-EXPIRY"; /* MySQL timestamp format */
+    const AUXATTRIB_TOKEN_ACTIVATIONS = "ATTRIB-TOKEN-ACTIVATIONS";
 
     /*
      * ACTIONS consists of a list of keywords, and associated REQuired and OPTional parameters
@@ -116,7 +118,7 @@ class API {
                 API::AUXATTRIB_ADMINID,
                 API::AUXATTRIB_CAT_INST_ID
             ],
-            "OPT" => [API::AUXATTRIB_ADMINEMAIL]
+            "OPT" => [API::AUXATTRIB_TARGETMAIL]
         ],
         API::ACTION_ADMIN_DEL => [
             "REQ" => [
@@ -180,8 +182,8 @@ class API {
             "OPT" => []
         ],
         API::ACTION_TOKEN_NEW => [
-            "REQ" => [],
-            "OPT" => []
+            "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_USERID],
+            "OPT" => [API::AUXATTRIB_TOKEN_ACTIVATIONS, API::AUXATTRIB_TARGETMAIL, API::AUXATTRIB_TARGETSMS]
         ],
         API::ACTION_TOKEN_REVOKE => [
             "REQ" => [],
@@ -255,7 +257,7 @@ class API {
                             continue;
                         }
                         break;
-                    case API::AUXATTRIB_ADMINEMAIL:
+                    case API::AUXATTRIB_TARGETMAIL:
                         if ($this->validator->email($oneIncomingParam['VALUE']) === FALSE) {
                             continue;
                         }
