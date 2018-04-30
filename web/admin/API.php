@@ -308,8 +308,8 @@ switch ($inputDecoded['ACTION']) {
                     $email = $validator->email($emailRaw);
                     if ($email) { // it's a valid address
                         $retval = $invitation->sendByMail($email);
-                        $additionalInfo["EMAIL SENT"] = $retval;
-                        if ($retval) {
+                        $additionalInfo["EMAIL SENT"] = $retval["SENT"];
+                        if ($retval["SENT"]) {
                             $additionalInfo["EMAIL TRANSPORT SECURE"] = $retval["TRANSPORT"];
                         }
                     }
