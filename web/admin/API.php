@@ -68,12 +68,14 @@ foreach (CONFIG['registration_API_keys'] as $key => $fed_name) {
 if ($checkval == "FAIL") {
     $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_APIKEY, "APIKEY is invalid");
 }
+exit(1);
 
 // let's instantiate the fed, we will need it later
 $fed = new \core\Federation($federation);
 // it's a valid admin; what does he want to do?
 if (!array_key_exists($inputDecoded['ACTION'], web\lib\admin\API::ACTIONS)) {
     $adminApi->returnError(web\lib\admin\API::ERROR_NO_ACTION, "JSON request structure did not contain a valid ACTION");
+    exit(1);
 }
 // it's a valid ACTION, so let's sanitise the input parameters
 $scrubbedParameters = $adminApi->scrub($inputDecoded, $fed);
@@ -85,6 +87,7 @@ foreach ($scrubbedParameters as $oneParam) {
 foreach (web\lib\admin\API::ACTIONS[$inputDecoded['ACTION']]['REQ'] as $oneRequiredAttribute) {
     if (!in_array($oneRequiredAttribute, $paramNames)) {
         $adminApi->returnError(web\lib\admin\API::ERROR_MISSING_PARAMETER, "At least one required parameter for this ACTION is missing: $oneRequiredAttribute");
+        exit(1);
     }
 }
 
@@ -255,6 +258,7 @@ switch ($inputDecoded['ACTION']) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INTERNAL_ERROR, "The operation failed subtly. Contact the administrators.");
         }
         $adminApi->returnSuccess([web\lib\admin\API::AUXATTRIB_SB_USERNAME => $user]);
+        break;
     case \web\lib\admin\API::ACTION_ENDUSER_DEACTIVATE:
         list($idp, $profile) = commonSbProfileChecks($fed, $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID));
         $userId = $validator->integer($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_USERID));
