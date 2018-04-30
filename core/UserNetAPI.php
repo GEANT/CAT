@@ -211,9 +211,9 @@ class UserNetAPI extends UserAPI {
      */
     public function JSON_getUserCerts($token) {
         $returnArrayE = $this->getUserCerts($token);
+        $returnArray = [];
         $status = is_array($returnArrayE) ? 1 : 0;
         if ($status === 1) {
-            $returnArray = [];
             foreach ($returnArrayE as $element) {
                 $returnArray[] = $element->getBasicInfo();
             }
