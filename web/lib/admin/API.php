@@ -58,6 +58,7 @@ class API {
     const AUXATTRIB_PROFILE_EAPTYPE = "ATTRIB-PROFILE-EAPTYPE";
     const AUXATTRIB_SB_TOU = "ATTRIB-SB-TOU";
     const AUXATTRIB_SB_USERNAME = "ATTRIB-SB-USERNAME";
+    const AUXATTRIB_SB_USERID = "ATTRIB-SB-USERID";
     const AUXATTRIB_SB_EXPIRY = "ATTRIB-SB-EXPIRY"; /* MySQL timestamp format */
 
     /*
@@ -171,11 +172,11 @@ class API {
             "OPT" => []
         ],
         API::ACTION_ENDUSER_DEACTIVATE => [
-            "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_USERNAME],
+            "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_USERID],
             "OPT" => []
         ],
         API::ACTION_ENDUSER_LIST => [
-            "REQ" => [],
+            "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID],
             "OPT" => []
         ],
         API::ACTION_TOKEN_NEW => [

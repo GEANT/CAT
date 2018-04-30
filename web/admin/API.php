@@ -255,7 +255,19 @@ switch ($inputDecoded['ACTION']) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INTERNAL_ERROR, "The operation failed subtly. Contact the administrators.");
         }
         $adminApi->returnSuccess([web\lib\admin\API::AUXATTRIB_SB_USERNAME => $user]);
-        
+    case \web\lib\admin\API::ACTION_ENDUSER_DEACTIVATE:
+        list($idp, $profile) = commonSbProfileChecks($fed, $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID));
+        $userId = $validator->integer($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_USERID));
+        $result = $profile->deactivateUser($userId);
+        if ($result !== TRUE) {
+            $adminApi->returnError(\web\lib\admin\API::ERROR_INVALID_PARAMETER, "These parameters did not lead to an existing, active user.");
+        }
+        $adminApi->returnSuccess([]);
+        break;
+    case \web\lib\admin\API::ACTION_ENDUSER_LIST:
+        list($idp, $profile) = commonSbProfileChecks($fed, $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID));
+        $adminApi->returnSuccess($profile->listAllUsers());
+        break;
     default:
         $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_ACTION, "Not implemented yet.");
 }
