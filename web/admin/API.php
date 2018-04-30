@@ -20,16 +20,20 @@ function commonSbProfileChecks($fed, $id) {
         $profile = $validator->Profile($id);
         } catch(Exception $e) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Profile identifier does not exist!");
+            exit(1);
         }
         if (!$profile instanceof core\ProfileSilverbullet) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Profile identifier is not SB!");
+            exit(1);
         }
         $idp = new \core\IdP($profile->identifier);
         if (strtoupper($idp->federation) != strtoupper($fed->tld)) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Profile is not in the federation for this APIKEY!");
+            exit(1);
         }
         if (count($profile->getAttributes("hiddenprofile:tou_accepted")) < 1) {
             $adminApi->returnError(web\lib\admin\API::ERROR_NO_TOU, "The terms of use have not yet been accepted for this profile!");
+            exit(1);
         }
         return [$idp, $profile];
 }
