@@ -23,6 +23,10 @@ namespace core;
 
 use \Exception;
 
+require_once("phpqrcode.php");
+const QRCODE_PIXELS_PER_SYMBOL = 12;
+
+
 class SilverbulletInvitation extends common\Entity {
 
     /**
@@ -192,7 +196,7 @@ class SilverbulletInvitation extends common\Entity {
      * returns the subject to use in an invitation mail
      * @return string
      */
-    private function invitationMailSubject() {
+    public function invitationMailSubject() {
         return sprintf(_("Your %s access is ready"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
     }
 
@@ -200,7 +204,7 @@ class SilverbulletInvitation extends common\Entity {
      * returns the body to use in an invitation mail
      * @return string
      */
-    private function invitationMailBody() {
+    public function invitationMailBody() {
         $text = _("Hello!");
         $text .= "\n\n";
         $text .= sprintf(_("A new %s access credential has been created for you by your network administrator."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
@@ -253,7 +257,7 @@ class SilverbulletInvitation extends common\Entity {
      * @return int an OutsideComm constant indicating how the sending went
      */
     public function sendBySms($number) {
-        return \core\common\OutsideComm::sendSMS($number, sprintf(_("Your %s access is ready! Click here to continue: %s (on Android, install the app 'eduroam CAT' before that!)"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $this->link()));
+        return \core\common\OutsideComm::sendSMS($number, sprintf(_("Your %s access is ready! Click here to continue: %s (on Android, install the app 'eduroam CAT' before that!)"), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $this->link()));
     }
 
     public function sendByMail($properEmail) {

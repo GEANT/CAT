@@ -314,7 +314,7 @@ switch ($inputDecoded['ACTION']) {
                         }
                     }
                 }
-                $smsRaw = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_TARGETMAIL);
+                $smsRaw = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_TARGETSMS);
                 if ($smsRaw) {
                     $sms = $validator->sms($smsRaw);
                     if ($sms) {
