@@ -100,7 +100,6 @@ $.fn.redraw = function(){
     }
     $("#fed_logo").attr("src","<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendFedLogo&api_version=2&idp="+inst_id);
     $("#fed_logo").show();
-    }
     if (n > 1) {
        if(n <= profile_list_size) {
        $("#profile_list").attr('size',n+1);
