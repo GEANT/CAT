@@ -56,7 +56,7 @@ class Federation extends EntityWithDBProperties {
      * @var string
      */
     public $tld;
-    
+
     /**
      * retrieve the statistics from the database in an internal array representation
      * 
@@ -68,32 +68,15 @@ class Federation extends EntityWithDBProperties {
         $grossSilverbullet = 0;
         $dataArray = [];
         // first, find out which profiles belong to this federation
-        $cohesionQuery = "SELECT profile_id FROM profile, institution WHERE profile.inst_id = institution.inst_id AND institution.country = ?";
+        $cohesionQuery = "SELECT downloads.device_id as dev_id, sum(downloads.downloads_user) as dl_user, sum(downloads.downloads_silverbullet) as dl_sb, sum(downloads.downloads_admin) as dl_admin FROM profile, institution, downloads WHERE profile.inst_id = institution.inst_id AND institution.country = ? AND profile.profile_id = downloads.profile_id group by device_id";
         $profilesList = $this->databaseHandle->exec($cohesionQuery, "s", $this->tld);
-        $profilesArray = [];
-        // SELECT -> resource is returned, no boolean
-        while ($result = mysqli_fetch_object(/** @scrutinizer ignore-type */ $profilesList)) {
-            $profilesArray[] = $result->profile_id;
-        }
-        foreach (\devices\Devices::listDevices() as $index => $deviceArray) {
-            $countDevice = [];
-            $countDevice['ADMIN'] = 0;
-            $countDevice['SILVERBULLET'] = 0;
-            $countDevice['USER'] = 0;
-            foreach ($profilesArray as $profileNumber) {
-                $deviceQuery = "SELECT downloads_admin, downloads_silverbullet, downloads_user FROM downloads WHERE device_id = ? AND profile_id = ?";
-                $statsList = $this->frontendHandle->exec($deviceQuery, "si", $index, $profileNumber);
-                // SELECT -> resource, no boolean
-                while ($queryResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $statsList)) {
-                    $countDevice['ADMIN'] = $countDevice['ADMIN'] + $queryResult->downloads_admin;
-                    $countDevice['SILVERBULLET'] = $countDevice['SILVERBULLET'] + $queryResult->downloads_silverbullet;
-                    $countDevice['USER'] = $countDevice['USER'] + $queryResult->downloads_user;
-                    $grossAdmin = $grossAdmin + $queryResult->downloads_admin;
-                    $grossSilverbullet = $grossSilverbullet + $queryResult->downloads_silverbullet;
-                    $grossUser = $grossUser + $queryResult->downloads_user;
-                }
-                $dataArray[$deviceArray['display']] = ["ADMIN" => $countDevice['ADMIN'], "SILVERBULLET" => $countDevice['SILVERBULLET'], "USER" => $countDevice['USER']];
-            }
+        $deviceArray = \devices\Devices::listDevices();
+        // SELECT -> resource, no boolean
+        while ($queryResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $profilesList)) {
+            $dataArray[$deviceArray[$queryResult->dev_id]['display']] = ["ADMIN" => $queryResult->dl_admin, "SILVERBULLET" => $queryResult->dl_sb, "USER" => $queryResult->dl_user];
+            $grossAdmin = $grossAdmin + $queryResult->dl_admin;
+            $grossSilverbullet = $grossSilverbullet + $queryResult->dl_sb;
+            $grossUser = $grossUser + $queryResult->dl_user;
         }
         $dataArray["TOTAL"] = ["ADMIN" => $grossAdmin, "SILVERBULLET" => $grossSilverbullet, "USER" => $grossUser];
         return $dataArray;
