@@ -26,7 +26,7 @@ function commonSbProfileChecks($fed, $id) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Profile identifier is not SB!");
             return FALSE;
         }
-        $idp = new \core\IdP($profile->identifier);
+        $idp = new \core\IdP($profile->institution);
         if (strtoupper($idp->federation) != strtoupper($fed->tld)) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Profile is not in the federation for this APIKEY!");
             return FALSE;
@@ -46,22 +46,25 @@ $adminApi = new \web\lib\admin\API();
 $validator = new \web\lib\common\InputValidation();
 $optionParser = new \web\lib\admin\OptionParser();
 
-if (!isset(CONFIG['registration_API_keys']) || count(CONFIG['registration_API_keys']) == 0) {
+if (!isset(CONFIG_CONFASSISTANT['CONSORTIUM']['registration_API_keys']) || count(CONFIG_CONFASSISTANT['CONSORTIUM']['registration_API_keys']) == 0) {
     $adminApi->returnError(web\lib\admin\API::ERROR_API_DISABLED, "API is disabled in this instance of CAT");
+    exit(1);
 }
 
 $inputRaw = file_get_contents('php://input');
 $inputDecoded = json_decode($inputRaw, TRUE);
 if (!is_array($inputDecoded)) {
     $adminApi->returnError(web\lib\admin\API::ERROR_MALFORMED_REQUEST, "Unable to decode JSON POST data.");
+    exit(1);
 }
 
 if (!isset($inputDecoded['APIKEY'])) {
     $adminApi->returnError(web\lib\admin\API::ERROR_NO_APIKEY, "JSON request structure did not contain an APIKEY");
+    exit(1);
 }
 
 $checkval = "FAIL";
-foreach (CONFIG['registration_API_keys'] as $key => $fed_name) {
+foreach (CONFIG_CONFASSISTANT['CONSORTIUM']['registration_API_keys'] as $key => $fed_name) {
     if ($inputDecoded['APIKEY'] == $key) {
         $mode = "API";
         $federation = $fed_name;
@@ -141,7 +144,7 @@ switch ($inputDecoded['ACTION']) {
         }
         $newtoken = $mgmt->createToken(true, $admin, $idp);
         $URL = "https://" . $_SERVER['SERVER_NAME'] . dirname($_SERVER['SCRIPT_NAME']) . "/action_enrollment.php?token=$newtoken";
-        $success = ["TOKEN URL" => $URL];
+        $success = ["TOKEN URL" => $URL, "TOKEN" => $newtoken];
         // done with the essentials - display in response. But if we also have an email address, send it there
         $email = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_TARGETMAIL);
         if ($email !== FALSE) {
@@ -275,7 +278,7 @@ switch ($inputDecoded['ACTION']) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INTERNAL_ERROR, "The operation failed subtly. Contact the administrators.");
             exit(1);
         }
-        $adminApi->returnSuccess([web\lib\admin\API::AUXATTRIB_SB_USERNAME => $user]);
+        $adminApi->returnSuccess([web\lib\admin\API::AUXATTRIB_SB_USERNAME => $user, \web\lib\admin\API::AUXATTRIB_SB_USERID => $retval]);
         break;
     case \web\lib\admin\API::ACTION_ENDUSER_DEACTIVATE:
         // fall-through intended: both actions are very similar
@@ -303,6 +306,7 @@ switch ($inputDecoded['ACTION']) {
                 $invitation = core\SilverbulletInvitation::createInvitation($profile->identifier, $userId, $counter);
                 $result = TRUE;
                 $additionalInfo["TOKEN URL"] = $invitation->link();
+                $additionalInfo["TOKEN"] = $invitation->invitationTokenString;
                 $emailRaw = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_TARGETMAIL);
                 if ($emailRaw) { // an email parameter was specified
                     $email = $validator->email($emailRaw);

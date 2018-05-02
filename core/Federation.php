@@ -169,6 +169,9 @@ class Federation extends EntityWithDBProperties {
             "level" => "FED",
             "row" => 0,
             "flag" => NULL);
+        
+        $this->idpListActive = [];
+        $this->idpListAll = [];
     }
 
     /**
@@ -198,6 +201,9 @@ class Federation extends EntityWithDBProperties {
         return $identifier;
     }
 
+    private $idpListAll;
+    private $idpListActive;
+    
     /**
      * Lists all Identity Providers in this federation
      *
@@ -206,6 +212,13 @@ class Federation extends EntityWithDBProperties {
      *
      */
     public function listIdentityProviders($activeOnly = 0) {
+        // maybe we did this exercise before?
+        if ($activeOnly != 0 && count($this->idpListActive) > 0) {
+            return $this->idpListActive;
+        }
+        if ($activeOnly == 0 && count($this->idpListAll) > 0) {
+            return $this->idpListAll;
+        }
         // default query is:
         $allIDPs = $this->databaseHandle->exec("SELECT inst_id FROM institution
                WHERE country = '$this->tld' ORDER BY inst_id");
@@ -229,6 +242,11 @@ class Federation extends EntityWithDBProperties {
                 'country' => strtoupper($idp->federation),
                 'instance' => $idp];
             $returnarray[$idp->identifier] = $idpInfo;
+        }
+        if ($activeOnly != 0) { // we're only doing this once.
+            $this->idpListActive = $returnarray;
+        } else {
+            $this->idpListAll = $returnarray;
         }
         return $returnarray;
     }

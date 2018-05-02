@@ -321,4 +321,19 @@ class OutsideComm {
         return ["SENT" => $mail->send(), "TRANSPORT" => $secStatus];
     }
 
+    public static function postJson($url, $dataArray) {
+        $ch = \curl_init($url);
+        \curl_setopt_array($ch, array(
+            CURLOPT_POST => TRUE,
+            CURLOPT_RETURNTRANSFER => TRUE,
+            CURLOPT_POSTFIELDS => json_encode($dataArray),
+            CURLOPT_FRESH_CONNECT => TRUE,
+        ));
+        $response = \curl_exec($ch);
+        if ($response === FALSE || $response === NULL) {
+            throw new Exception("the POST didn't work!");
+        }
+        return json_decode($response, TRUE);
+    }
+
 }
