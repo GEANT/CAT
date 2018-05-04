@@ -18,24 +18,24 @@ function commonSbProfileChecks($fed, $id) {
     $adminApi = new \web\lib\admin\API();
     try {
         $profile = $validator->Profile($id);
-        } catch(Exception $e) {
-            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Profile identifier does not exist!");
-            return FALSE;
-        }
-        if (!$profile instanceof core\ProfileSilverbullet) {
-            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Profile identifier is not SB!");
-            return FALSE;
-        }
-        $idp = new \core\IdP($profile->institution);
-        if (strtoupper($idp->federation) != strtoupper($fed->tld)) {
-            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Profile is not in the federation for this APIKEY!");
-            return FALSE;
-        }
-        if (count($profile->getAttributes("hiddenprofile:tou_accepted")) < 1) {
-            $adminApi->returnError(web\lib\admin\API::ERROR_NO_TOU, "The terms of use have not yet been accepted for this profile!");
-            return FALSE;
-        }
-        return [$idp, $profile];
+    } catch (Exception $e) {
+        $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Profile identifier does not exist!");
+        return FALSE;
+    }
+    if (!$profile instanceof core\ProfileSilverbullet) {
+        $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Profile identifier is not SB!");
+        return FALSE;
+    }
+    $idp = new \core\IdP($profile->institution);
+    if (strtoupper($idp->federation) != strtoupper($fed->tld)) {
+        $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Profile is not in the federation for this APIKEY!");
+        return FALSE;
+    }
+    if (count($profile->getAttributes("hiddenprofile:tou_accepted")) < 1) {
+        $adminApi->returnError(web\lib\admin\API::ERROR_NO_TOU, "The terms of use have not yet been accepted for this profile!");
+        return FALSE;
+    }
+    return [$idp, $profile];
 }
 
 // no SAML auth on this page. The API key authenticates the entity
@@ -110,8 +110,8 @@ switch ($inputDecoded['ACTION']) {
         break;
     case web\lib\admin\API::ACTION_DELINST:
         try {
-        $idp = $validator->IdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
-        } catch(Exception $e) {
+            $idp = $validator->IdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
+        } catch (Exception $e) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
             exit(1);
         }
@@ -120,8 +120,8 @@ switch ($inputDecoded['ACTION']) {
         break;
     case web\lib\admin\API::ACTION_ADMIN_LIST:
         try {
-        $idp = $validator->IdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
-        } catch(Exception $e) {
+            $idp = $validator->IdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
+        } catch (Exception $e) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
             exit(1);
         }
@@ -130,8 +130,8 @@ switch ($inputDecoded['ACTION']) {
     case web\lib\admin\API::ACTION_ADMIN_ADD:
         // IdP in question
         try {
-        $idp = $validator->IdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
-        } catch(Exception $e) {
+            $idp = $validator->IdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
+        } catch (Exception $e) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
             exit(1);
         }
@@ -159,8 +159,8 @@ switch ($inputDecoded['ACTION']) {
     case web\lib\admin\API::ACTION_ADMIN_DEL:
         // IdP in question
         try {
-        $idp = $validator->IdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
-        } catch(Exception $e) {
+            $idp = $validator->IdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
+        } catch (Exception $e) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
             exit(1);
         }
@@ -170,7 +170,7 @@ switch ($inputDecoded['ACTION']) {
             throw new Exception("A required parameter is missing, and this wasn't caught earlier?!");
         }
         $found = FALSE;
-        foreach($currentAdmins as $oneAdmin) {
+        foreach ($currentAdmins as $oneAdmin) {
             if ($oneAdmin['MAIL'] == $toBeDeleted) {
                 $found = TRUE;
                 $mgmt = new core\UserManagement();
@@ -180,17 +180,17 @@ switch ($inputDecoded['ACTION']) {
         if ($found) {
             $adminApi->returnSuccess([]);
         }
-        $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "The admin with ID $toBeDeleted is not associated to IdP ".$idp->identifier);
+        $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "The admin with ID $toBeDeleted is not associated to IdP " . $idp->identifier);
         break;
     case web\lib\admin\API::ACTION_STATISTICS_FED:
         $adminApi->returnSuccess($fed->downloadStats("array"));
         break;
     case \web\lib\admin\API::ACTION_NEWPROF_RADIUS:
-        // fall-through intended: both get mostly identical treatment
+    // fall-through intended: both get mostly identical treatment
     case web\lib\admin\API::ACTION_NEWPROF_SB:
         try {
-        $idp = $validator->IdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
-        } catch(Exception $e) {
+            $idp = $validator->IdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
+        } catch (Exception $e) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
             exit(1);
         }
@@ -219,7 +219,7 @@ switch ($inputDecoded['ACTION']) {
             throw new Exception("Can't be. This is only here to convince Scrutinizer that we're really talking RADIUS.");
         }
         /* const AUXATTRIB_PROFILE_REALM = 'ATTRIB-PROFILE-REALM';
-           const AUXATTRIB_PROFILE_OUTERVALUE = 'ATTRIB-PROFILE-OUTERVALUE';*/
+          const AUXATTRIB_PROFILE_OUTERVALUE = 'ATTRIB-PROFILE-OUTERVALUE'; */
         $realm = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_PROFILE_REALM);
         $outer = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_PROFILE_OUTERVALUE);
         if ($realm !== FALSE) {
@@ -227,18 +227,18 @@ switch ($inputDecoded['ACTION']) {
                 $outer = "";
                 $profile->setAnonymousIDSupport(FALSE);
             } else {
-                $outer = $outer."@";
+                $outer = $outer . "@";
                 $profile->setAnonymousIDSupport(TRUE);
             }
-            $profile->setRealm($outer.$realm);
+            $profile->setRealm($outer . $realm);
         }
-        /* const AUXATTRIB_PROFILE_TESTUSER = 'ATTRIB-PROFILE-TESTUSER';*/
+        /* const AUXATTRIB_PROFILE_TESTUSER = 'ATTRIB-PROFILE-TESTUSER'; */
         $testuser = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_PROFILE_TESTUSER);
         if ($testuser !== FALSE) {
             $profile->setRealmCheckUser(TRUE, $testuser);
-        }        
+        }
         /* const AUXATTRIB_PROFILE_INPUT_HINT = 'ATTRIB-PROFILE-HINTREALM';
-           const AUXATTRIB_PROFILE_INPUT_VERIFY = 'ATTRIB-PROFILE-VERIFYREALM'; */
+          const AUXATTRIB_PROFILE_INPUT_VERIFY = 'ATTRIB-PROFILE-VERIFYREALM'; */
         $hint = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_PROFILE_INPUT_HINT);
         $enforce = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_PROFILE_INPUT_VERIFY);
         if ($enforce !== FALSE) {
@@ -250,7 +250,7 @@ switch ($inputDecoded['ACTION']) {
             if ($oneParam['NAME'] == web\lib\admin\API::AUXATTRIB_PROFILE_EAPTYPE && is_int($oneParam["VALUE"])) {
                 $type = new \core\common\EAP($oneParam["VALUE"]);
                 $profile->addSupportedEapMethod($type, $iterator);
-                $iterator = $iterator+1;
+                $iterator = $iterator + 1;
             }
         }
         $adminApi->returnSuccess([\web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID => $profile->identifier]);
@@ -270,7 +270,7 @@ switch ($inputDecoded['ACTION']) {
         $expiry = new DateTime($expiryRaw);
         try {
             $retval = $profile->addUser($user, $expiry);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INTERNAL_ERROR, "The operation failed. Maybe a duplicate username, or malformed expiry date?");
             exit(1);
         }
@@ -281,7 +281,7 @@ switch ($inputDecoded['ACTION']) {
         $adminApi->returnSuccess([web\lib\admin\API::AUXATTRIB_SB_USERNAME => $user, \web\lib\admin\API::AUXATTRIB_SB_USERID => $retval]);
         break;
     case \web\lib\admin\API::ACTION_ENDUSER_DEACTIVATE:
-        // fall-through intended: both actions are very similar
+    // fall-through intended: both actions are very similar
     case \web\lib\admin\API::ACTION_TOKEN_NEW:
         $evaluation = commonSbProfileChecks($fed, $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID));
         if ($evaluation === FALSE) {
@@ -305,8 +305,8 @@ switch ($inputDecoded['ACTION']) {
                 }
                 $invitation = core\SilverbulletInvitation::createInvitation($profile->identifier, $userId, $counter);
                 $result = TRUE;
-                $additionalInfo["TOKEN URL"] = $invitation->link();
-                $additionalInfo["TOKEN"] = $invitation->invitationTokenString;
+                $additionalInfo[\web\lib\admin\API::AUXATTRIB_TOKENURL] = $invitation->link();
+                $additionalInfo[\web\lib\admin\API::AUXATTRIB_TOKEN] = $invitation->invitationTokenString;
                 $emailRaw = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_TARGETMAIL);
                 if ($emailRaw) { // an email parameter was specified
                     $email = $validator->email($emailRaw);
@@ -328,7 +328,7 @@ switch ($inputDecoded['ACTION']) {
                 }
                 break;
         }
-        
+
         if ($result !== TRUE) {
             $adminApi->returnError(\web\lib\admin\API::ERROR_INVALID_PARAMETER, "These parameters did not lead to an existing, active user.");
             exit(1);
@@ -336,12 +336,39 @@ switch ($inputDecoded['ACTION']) {
         $adminApi->returnSuccess($additionalInfo);
         break;
     case \web\lib\admin\API::ACTION_ENDUSER_LIST:
+        // fall-through: those two are similar
+            case \web\lib\admin\API::ACTION_TOKEN_LIST:
         $evaluation = commonSbProfileChecks($fed, $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID));
         if ($evaluation === FALSE) {
             exit(1);
         }
         list($idp, $profile) = $evaluation;
-        $adminApi->returnSuccess($profile->listAllUsers());
+        $allUsers = $profile->listAllUsers();
+        // this is where they differ
+        switch ($inputDecoded['ACTION']) {
+            case \web\lib\admin\API::ACTION_ENDUSER_LIST:
+                $adminApi->returnSuccess($allUsers);
+                break;
+            case \web\lib\admin\API::ACTION_TOKEN_LIST:
+                $user = $validator->integer($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_USERID));
+                if ($user !== FALSE) {
+                    $allUsers = [$user];
+                }
+                $tokens = [];
+                foreach ($allUsers as $oneUser) {
+                    $tokens = array_merge($tokens, $profile->userStatus($oneUser));
+                }
+                $adminApi->returnSuccess($tokens);
+        }
+        break;
+    case \web\lib\admin\API::ACTION_TOKEN_REVOKE:
+        $token = new core\SilverbulletInvitation($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_TOKEN));
+        if ($token->invitationTokenStatus !== core\SilverbulletInvitation::SB_TOKENSTATUS_VALID && $token->invitationTokenStatus !== core\SilverbulletInvitation::SB_TOKENSTATUS_PARTIALLY_REDEEMED) {
+            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "This is not a currently valid token.");
+            exit(1);
+        }
+        $token->revokeInvitation();
+        $adminApi->returnSuccess([]);
         break;
     default:
         $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_ACTION, "Not implemented yet.");

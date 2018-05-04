@@ -61,6 +61,8 @@ class API {
     const AUXATTRIB_SB_USERNAME = "ATTRIB-MANAGED-USERNAME";
     const AUXATTRIB_SB_USERID = "ATTRIB-MANAGED-USERID";
     const AUXATTRIB_SB_EXPIRY = "ATTRIB-MANAGED-EXPIRY"; /* MySQL timestamp format */
+    const AUXATTRIB_TOKEN = "ATTRIB-TOKEN";
+    const AUXATTRIB_TOKENURL = "ATTRIB-TOKENURL";
     const AUXATTRIB_TOKEN_ACTIVATIONS = "ATTRIB-TOKEN-ACTIVATIONS";
 
     /*
@@ -186,15 +188,15 @@ class API {
             "OPT" => [API::AUXATTRIB_TOKEN_ACTIVATIONS, API::AUXATTRIB_TARGETMAIL, API::AUXATTRIB_TARGETSMS]
         ],
         API::ACTION_TOKEN_REVOKE => [
-            "REQ" => [],
+            "REQ" => [API::AUXATTRIB_TOKEN],
             "OPT" => []
         ],
         API::ACTION_TOKEN_LIST => [
-            "REQ" => [],
-            "OPT" => []
+            "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID],
+            "OPT" => [API::AUXATTRIB_SB_USERID]
         ],
         API::ACTION_CERT_LIST => [
-            "REQ" => [],
+            "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_USERID],
             "OPT" => []
         ],
         API::ACTION_CERT_REVOKE => [
@@ -359,4 +361,5 @@ class API {
     public function returnSuccess($details) {
         echo json_encode(["result" => "SUCCESS", "details" => $details], JSON_PRETTY_PRINT);
     }
+
 }

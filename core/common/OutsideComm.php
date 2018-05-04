@@ -331,7 +331,7 @@ class OutsideComm {
         ));
         $response = \curl_exec($ch);
         if ($response === FALSE || $response === NULL) {
-            throw new Exception("the POST didn't work!");
+            throw new \Exception("the POST didn't work!");
         }
         return json_decode($response, TRUE);
     }
