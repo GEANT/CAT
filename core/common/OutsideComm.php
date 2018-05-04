@@ -273,9 +273,9 @@ class OutsideComm {
         }
 
         $message .= wordwrap(sprintf(_("To enlist as an administrator for that %s, please click on the following link:"), $cat->nomenclature_inst), 72) . "\n\n" .
-                $proto . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "/admin/action_enrollment.php?token=$newtoken\n\n" .
+                $proto . $_SERVER['SERVER_NAME'] . CONFIG['PATHS']['cat_base_url'] . "/admin/action_enrollment.php?token=$newtoken\n\n" .
                 wordwrap(sprintf(_("If clicking the link doesn't work, you can also go to the %s Administrator Interface at"), CONFIG['APPEARANCE']['productname']), 72) . "\n\n" .
-                $proto . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "/admin/\n\n" .
+                $proto . $_SERVER['SERVER_NAME'] . CONFIG['PATHS']['cat_base_url'] . "/admin/\n\n" .
                 _("and enter the invitation token") . "\n\n" .
                 $newtoken . "\n\n$replyToMessage\n\n" .
                 wordwrap(_("Do NOT forward the mail before the token has expired - or the recipients may be able to consume the token on your behalf!"), 72) . "\n\n" .
@@ -317,7 +317,6 @@ class OutsideComm {
 // what do we want to say?
         $mail->Subject = sprintf(_("%s: you have been invited to manage an %s"), CONFIG['APPEARANCE']['productname'], $cat->nomenclature_inst);
         $mail->Body = $message;
-
         return ["SENT" => $mail->send(), "TRANSPORT" => $secStatus];
     }
 
