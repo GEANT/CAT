@@ -107,11 +107,10 @@ if ($nameHash != OUR_NAME_HASH || $keyHash != OUR_KEY_HASH) {
 }
 error_log("base64-encoded request: " . base64_encode($ocspRequestDer));
 $response = fopen(__DIR__ . "/statements/" . $serialHex . ".der", "r");
-if (!$response) {
-
+if ($response === FALSE) {
     $response = fopen(__DIR__ . "/statements/UNAUTHORIZED.der", "r");
     error_log("Serving OCSP UNAUTHORIZED response (no statement for serial number found)!");
-    if (!$response) {
+    if ($response === FALSE) {
         instantDeath("Unable to open our canned UNAUTHORIZED response!");
     }
 } else {
