@@ -233,12 +233,14 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         var comment = <?php echo '"' . _("Testing realm") . '..."'; ?>; 
         inProgress(1, comment);
         if ($('#tested_realm').length == 0) {
+            console.log('MGW, tested_realm=0')
             $('<input>').attr({
                 type: 'hidden',
                 id: 'tested_realm',
                 value: realm
             }).appendTo('form');
         }  
+        console.log('call processSociopath');
         $.ajax({
             url: "processSociopath.php",
             data: {answer: answer},
@@ -680,12 +682,14 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             visited = $('#sp_inst').val();
         }
         if (realm !== '') {
+            console.log('call magicTelepath');
             $.ajax({
                 url: "magicTelepath.php",
                 data: {realm: realm, lang: lang, visited: visited},
                 dataType: "json",
                 success:function(data) {
                     inProgress(0);
+                    console.log('magiceTelepath status '+ data.status)
                     if (data.status === 1) {
                         var realm =  data.realm;
                         console.log('realm '+realm);
@@ -693,6 +697,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                         $('#before_stage_1').hide();
                         $('#realm_name').text(realm);
                         $('#after_stage_1').show();
+                        console.log('calling testSociopath');
                         testSociopath(realm, 0);
                     } else {
                         var title = <?php echo '"' . _("Diagnistic tests results for selected realms") . '"'; ?>;
@@ -902,9 +907,11 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             if (!isOperatorName($(this).val())) {
                 $('#opname').addClass('error_input');
                 $('#opname').attr('title', <?php echo '"' . _("Wrong string given as OperatorName") . '"'; ?>);
+                $('#spmanually').show();
             } else {
                 $('#opname').removeClass('error_input');
                 $('#opname').attr('title', '');
+                $('#spmanually').hide();
             }
         }
         if ($('#timestamp').val().length > 0  && $('#mac').val().length == 17 && $('#email').val().length > 0 && isEmail($('#email').val())) {
@@ -954,9 +961,12 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
     });
     $(document).on('change', '#asp_inst' , function() {
         if ($('#asp_inst').val()) {
+            $('#by_opname').hide();
+            $('#opname').val('');
             $('#asp_desc').val('');
             $('#asp_desc').hide();
         } else {
+            $('#by_opname').show();
             $('#asp_desc').show();
         }
     });
