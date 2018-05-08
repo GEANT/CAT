@@ -99,11 +99,15 @@
         <td>$select</td>
     </tr>
     <tr>
-        <td>" . _("Can you identify the SP by means of its Operator-Name attribute?") . "</td>
+        <td>" . _("Identify the SP by one of following means") . "</td>
+        <td></td>
+    </tr>
+    <tr id='by_opname'>
+        <td>" . _("SP Operator-Name attribute") . "</td>
         <td><input type='text' id='opname' name='opname' value=''></td>
     </tr>
     <tr id='spmanually'>
-        <td>" . _("or") . '<br>' . _("select the SP manually:") . "</td>
+        <td>" . _("Select the SP manually:") . "</td>
         <td>
             <div id='select_asp_country'><a href='' id='asp_countries_list'>
             <span id='opnameselect'>" . _("click to select country and organisation") . "</a></span>
