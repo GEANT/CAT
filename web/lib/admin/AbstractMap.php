@@ -41,17 +41,15 @@ abstract class AbstractMap {
      * 
      * @param \core\IdP $inst
      * @param boolean $readonly
-     * @return \web\lib\admin\MapBing|\web\lib\admin\MapNull|\web\lib\admin\MapOpenstreepmap|\web\lib\admin\MapGoogle
+     * @return \web\lib\admin\MapNone|\web\lib\admin\MapOpenstreepmap|\web\lib\admin\MapGoogle
      * @throws Exception
      */
     public static function instance($inst, $readonly) {
         switch (CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER']) {
             case "Google":
                 return new MapGoogle($inst, $readonly);
-            case "Bing":
-                return new MapBing($inst, $readonly);
             case "OpenStreetMaps":
-                return new MapOpenstreepmap($inst, $readonly);
+                return new MapOpenStreepMaps($inst, $readonly);
             case "None":
                 return new MapNone($inst, $readonly);
             default:

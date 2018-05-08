@@ -18,7 +18,7 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
  * 
  * @author Stefan Winter <stefan.winter@restena.lu>
  */
-class MapNone extends AbstractMap {
+class MapOpenStreetMaps extends AbstractMap {
 
     public function __construct($inst, $readonly) {
         parent::__construct($inst, $readonly);
@@ -26,22 +26,22 @@ class MapNone extends AbstractMap {
     }
 
     public function htmlHeadCode() {
-        // no magic required if you want to nothing at all.
+        // your magic here
         return "";
     }
 
     public function htmlBodyCode() {
-        // no magic required if you want to nothing at all.
+        // your magic here
         return "";
     }
 
     public function htmlShowtime($wizard = FALSE, $additional = FALSE) {
-        if (!$this->readOnly) {
-            return $this->htmlPreEdit($wizard, $additional) . $this->htmlPostEdit(TRUE);
-        }
+        // your magic here
+        return "";
     }
     
     public function bodyTagCode() {
+        // your magic here
         return "";
     }
 }
