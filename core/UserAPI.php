@@ -423,7 +423,7 @@ class UserAPI extends CAT {
      * Detect the best device driver form the browser
      * Detects the operating system and returns its id 
      * display name and group membership (as in devices.php)
-     * @return array|FALSE OS information, indexed by 'id', 'display', 'group'
+     * @return array|boolean OS information, indexed by 'id', 'display', 'group'
      */
     public function detectOS() {
         $oldDomain = $this->languageInstance->setTextDomain("devices");
