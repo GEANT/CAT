@@ -74,7 +74,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         $incoming = FALSE;
         if (is_numeric($identifier)) {
             $incoming = $this->databaseHandle->exec("SELECT `id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`, `issued`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp` FROM `silverbullet_certificate` WHERE serial_number = ?", "i", $identifier);
-        } elseif (is_string($identifier)) {
+        } else { // it's a string instead
             $incoming = $this->databaseHandle->exec("SELECT `id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`, `issued`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp` FROM `silverbullet_certificate` WHERE cn = ?", "s", $identifier);
         }
         // if no result, foreach doesn't get executed and class members stay as they are

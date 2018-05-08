@@ -133,11 +133,6 @@ abstract class DeviceConfig extends \core\common\Entity {
     final public function setup(AbstractProfile $profile, $token = NULL, $importPassword = NULL) {
         $this->loggerInstance->debug(4, "module setup start\n");
         $purpose = 'installer';
-        if (!$profile instanceof AbstractProfile) {
-            $this->loggerInstance->debug(2, "No profile has been set\n");
-            throw new Exception("No profile has been set");
-        }
-
         $eaps = $profile->getEapMethodsinOrderOfPreference(1);
         $this->calculatePreferredEapType($eaps);
         if (count($this->selectedEap) == 0) {
@@ -341,7 +336,7 @@ abstract class DeviceConfig extends \core\common\Entity {
             }
         }
         $fileHandle = fopen("$output_name", "w");
-        if (!$fileHandle) {
+        if ($fileHandle === FALSE) {
             $this->loggerInstance->debug(2, "translateFile($source, $output_name, $encoding) failed\n");
             return FALSE;
         }
@@ -607,7 +602,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         $ext = isset($this->mime_extensions[$mime]) ? $this->mime_extensions[$mime] : 'usupported';
         $this->loggerInstance->debug(5, "saveInfoFile: $mime : $ext\n");
         $fileHandle = fopen('local-info.' . $ext, "w");
-        if (!$fileHandle) {
+        if ($fileHandle === FALSE) {
             throw new Exception("problem opening the file");
         }
         fwrite($fileHandle, $blob);
