@@ -12,11 +12,11 @@ $FAQ = [];
 
 array_push($FAQ, [
     'title' => sprintf(_("My %s is not listed. Can't I just use any of the other ones?"), $skinObject->nomenclature_inst),
-    'text' => sprintf(_("No! The installers contain security settings which are specific to the %s. If you are not from that %s, your computer will detect that you are about to send your username and credential to an unauthorised server and will abort the login. Using a different %s installer is <i>guaranteed to not work</i>!"),$skinObject->nomenclature_inst,$skinObject->nomenclature_inst,$skinObject->nomenclature_inst)
+    'text' => sprintf(_("No! The installers contain security settings which are specific to the %s. If you are not from that %s, your computer will detect that you are about to send your username and credential to an unauthorised server and will abort the login. Using a different %s installer is <i>guaranteed to not work</i>!"), $skinObject->nomenclature_inst, $skinObject->nomenclature_inst, $skinObject->nomenclature_inst)
 ]);
 
 array_push($FAQ, [
-    'title' => sprintf(_("What can I do to get my %s listed?"),$skinObject->nomenclature_inst),
+    'title' => sprintf(_("What can I do to get my %s listed?"), $skinObject->nomenclature_inst),
     'text' => sprintf(_("Contact %s administrators at your %s and complain. It will take at most one hour of their time to get things done."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $skinObject->nomenclature_inst)
 ]);
 
@@ -32,8 +32,8 @@ array_push($FAQ, [
 
 if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam") {
     array_push($FAQ, [
-        'title' => sprintf(_("What is this %s thing anyway?"),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']),
-        'text' => sprintf(_("%s is a global WiFi roaming consortium which gives members of education and research access to the internet <i>for free</i> on all %s hotspots on the planet. There are several million %s users already, enjoying free internet access on more than 6.000 hotspots! Visit <a href='http://www.eduroam.org'>the %s homepage</a> for more details."),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'],CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'],CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'],CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'])
+        'title' => sprintf(_("What is this %s thing anyway?"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']),
+        'text' => sprintf(_("%s is a global WiFi roaming consortium which gives members of education and research access to the internet <i>for free</i> on all %s hotspots on the planet. There are several million %s users already, enjoying free internet access on more than 6.000 hotspots! Visit <a href='http://www.eduroam.org'>the %s homepage</a> for more details."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'])
     ]);
 }
 
@@ -47,9 +47,19 @@ array_push($FAQ, [
     'text' => _("Contrary to what the name suggests, 'SmartScreen' isn't actually very smart. The warning merely means that the file has not yet been downloaded by enough users to make Microsoft consider it popular (which would strangely enough make it be considered 'safe'). This message alone is not a security problem.") . " " . (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['signer_name']) && CONFIG_CONFASSISTANT['CONSORTIUM']['signer_name'] != "" ? sprintf(_("So long as the file is carrying a valid signature from %s, the download is safe."), CONFIG_CONFASSISTANT['CONSORTIUM']['signer_name']) . " " : "") . sprintf(_("Please see also Microsoft's FAQ regarding SmartScreen at %s."), "<a href='http://windows.microsoft.com/en-US/windows7/SmartScreen-Filter-frequently-asked-questions-IE9?SignedIn=1'>Microsoft FAQ</a>")
 ]);
 
+if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == NULL) {
+    $text = sprintf(_("There can be a number of different reasons. The network you see may not be a genuine %s one and your device silently drops the connection attempt; there may be something wrong with the configuration of the network; your account may have expired; there may be a connection problem with your home authentication server; you may have broken the regulations of the network you are using and have been refused access as a consequence. You should contact your %s and report the problem, the administrators should be able to trace your connections."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $skinObject->nomenclature_inst);
+} else {
+    if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == 'LOCAL') {
+        $diagUrl = CONFIG['PATHS']['cat_base_url'] . "diag/";
+    } else {
+        $diagUrl = CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'];
+    }
+    $text = sprintf(_("There can be a number of different reasons. The network you see may not be a genuine %s one and your device silently drops the connection attempt; your account may have expired; you may have broken the regulations of the network you are using and have been refused access as a consequence; or maybe there is an actual technical problem. To exclude the latter, you should first visit the %s Diagnostics tool <a href=''>here</a>, which can find many reasons for failure. It also allows you to contact your %s and report the problem to them."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $diagUrl, $skinObject->nomenclature_inst);
+}
 array_push($FAQ, [
     'title' => sprintf(_("I can see %s network and my device is configured but it does not connect, what can be the cause?"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']),
-    'text' => sprintf(_("There can be a number of different reasons. The network you see may not be a genuine %s one and your device silently drops the connection attempt; there may be something wrong with the configuration of the network; your account may have expired; there may be a connection problem with your home authentication server; you may have broken the regulations of the network you are using and have been refused access as a consequence. You should contact your %s and report the problem, the administrators should be able to trace your connections."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $skinObject->nomenclature_inst)
+    'text' => $text
 ]);
 
 array_push($FAQ, [
