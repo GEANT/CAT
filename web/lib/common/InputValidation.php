@@ -164,7 +164,7 @@ class InputValidation {
  * Is this an integer, or a string that represents an integer?
  * 
  * @param mixed $input
- * @return false|int returns the input, or FALSE if it is not an integer-like value
+ * @return boolean|int returns the input, or FALSE if it is not an integer-like value
  */
 public function integer($input) {
     if (is_numeric($input)) {
@@ -178,7 +178,7 @@ public function integer($input) {
  * or five bytes)
  * 
  * @param mixed $input
- * @return false|string returns the input, or FALSE on validation failure
+ * @return boolean|string returns the input, or FALSE on validation failure
  */
 public function consortiumOI($input) {
     $shallow = $this->string($input);
@@ -195,7 +195,7 @@ public function consortiumOI($input) {
  * Is the input an NAI realm? Throws HTML error and returns FALSE if not.
  * 
  * @param mixed $input the input to check
- * @return false|string returns the realm, or FALSE if it was malformed
+ * @return boolean|string returns the realm, or FALSE if it was malformed
  */
 public function realm($input) {
     if (strlen($input) == 0) {
@@ -318,7 +318,7 @@ public function coordJsonEncoded($input) {
  * Anything else is a big error.
  * 
  * @param mixed $input the string to test
- * @return bool TRUE if the input was "on". It is not possible in HTML to signal "off"
+ * @return boolean TRUE if the input was "on". It is not possible in HTML to signal "off"
  * @throws Exception
  */
 public function boolean($input) {
@@ -339,7 +339,7 @@ const TABLEMAPPING = [
  * needs to be actual data at that place
  * 
  * @param mixed $input the reference to check
- * @return false|array the reference split up into "table" and "rowindex", or FALSE
+ * @return boolean|array the reference split up into "table" and "rowindex", or FALSE
  */
 public function databaseReference($input) {
     $pregMatches = [];
@@ -353,7 +353,7 @@ public function databaseReference($input) {
  * is this a valid hostname?
  * 
  * @param mixed $input
- * @return false|string echoes the hostname, or FALSE if bogus
+ * @return boolean|string echoes the hostname, or FALSE if bogus
  */
 public function hostname($input) {
     // is it a valid IP address (IPv4 or IPv6), or a hostname?
@@ -369,7 +369,7 @@ public function hostname($input) {
  * is this a valid email address?
  * 
  * @param mixed $input
- * @return false|string echoes the mail address, or FALSE if bogus
+ * @return boolean|string echoes the mail address, or FALSE if bogus
  */
 public function email($input) {
 

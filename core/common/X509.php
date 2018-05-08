@@ -139,7 +139,7 @@ class X509 {
      *
      * </pre>
      * @param string $cadata certificate in either PEM or DER format
-     * @return array|false
+     * @return array|boolean
      */
     public function processCertificate($cadata) {
         if ($cadata === FALSE) { // we are expecting a string anyway

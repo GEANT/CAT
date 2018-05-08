@@ -483,7 +483,7 @@ class UserAPI extends CAT {
     /**
      * finds all the user certificates that originated in a given token
      * @param string $token
-     * @return array|false returns FALSE if a token is invalid, otherwise array of certs
+     * @return array|boolean returns FALSE if a token is invalid, otherwise array of certs
      */
     public function getUserCerts($token) {
         $validator = new \web\lib\common\InputValidation();

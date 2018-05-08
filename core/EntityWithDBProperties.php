@@ -231,7 +231,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * 
      * @param string $table institution_option or profile_option
      * @param string $row rowindex
-     * @return string|FALSE the data, or FALSE if something went wrong
+     * @return string|boolean the data, or FALSE if something went wrong
      */
     public static function fetchRawDataByIndex($table, $row) {
         // only for select tables!

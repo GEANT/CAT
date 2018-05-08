@@ -223,7 +223,7 @@ class Logopath extends AbstractTest {
 
     /**
      * sees if it is useful to ask the user for his contact details or screenshots
-     * @return bool
+     * @return boolean
      */
     public function isEndUserContactUseful() {
         $contactUseful = FALSE;

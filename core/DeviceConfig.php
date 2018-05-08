@@ -229,14 +229,14 @@ abstract class DeviceConfig extends \core\common\Entity {
      * prepare usage information for the installer
      * every device module should override this method
      *
-     * @return String HTML text to be displayed
+     * @return string HTML text to be displayed
      */
     public function writeDeviceInfo() {
         return _("Sorry, this should not happen - no additional information is available");
     }
     
     public function getAttibute($attrName) {
-        return(empty($this->attributes[$attrName]) ? NULL : $this->attributes[$attrName]);
+        return empty($this->attributes[$attrName]) ? NULL : $this->attributes[$attrName];
     }
 
     /**
@@ -244,7 +244,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * in that structure. Mostly used in the Windows modules.
      * 
      * @param string $file the filename to search for (without path)
-     * @return string|false the filename as found, with path, or FALSE if it does not exist
+     * @return string|boolean the filename as found, with path, or FALSE if it does not exist
      */
     private function findSourceFile($file) {
         if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $file)) {
@@ -253,7 +253,7 @@ abstract class DeviceConfig extends \core\common\Entity {
             return $this->module_path . '/Files/' . $file;
         } else {
             $this->loggerInstance->debug(2, "requested file $file does not exist\n");
-            return(FALSE);
+            return FALSE;
         }
     }
 
@@ -269,7 +269,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @param string $source_name The source file name
      * @param string $output_name The destination file name
      *
-     * @return bool result of the copy operation
+     * @return boolean result of the copy operation
      * @final not to be redefined
      */
     final protected function copyFile($source_name, $output_name = NULL) {

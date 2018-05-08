@@ -165,7 +165,7 @@ class EAP {
 
     /**
      * Is this a password-based EAP method?
-     * @return bool
+     * @return boolean
      * @throws Exception
      */
     public function isPasswordRequired() {
@@ -196,7 +196,7 @@ class EAP {
 
     /**
      * Is this a certificate-based EAP method?
-     * @return bool
+     * @return boolean
      * @throws Exception
      */
     public function isClientCertRequired() {
@@ -218,7 +218,7 @@ class EAP {
 
     /**
      * Does an EAP type optionally allow to send a client certificate?
-     * @return bool
+     * @return boolean
      * @throws Exception
      */
     public function isClientCertOptional() {
@@ -240,7 +240,7 @@ class EAP {
 
     /**
      * Does the EAP type require the specification of trusted CAs to be secure?
-     * @return bool
+     * @return boolean
      * @throws Exception
      */
     public function needsServerCACert() {
@@ -263,7 +263,7 @@ class EAP {
     /**
      * Does the EAP type require the specification of a server name to be secure?
      * EAP-pwd has one, but it is not really required.
-     * @return bool
+     * @return boolean
      * @throws Exception
      */
     public function needsServerName() {

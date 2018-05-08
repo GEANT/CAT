@@ -150,7 +150,7 @@ class IdP extends EntityWithDBProperties {
      * Primary owners are allowed to invite other (secondary) admins to the institution
      * 
      * @param string $user ID of a logged-in user
-     * @return bool TRUE if this user is an admin with FED-level blessing
+     * @return boolean TRUE if this user is an admin with FED-level blessing
      */
     public function isPrimaryOwner($user) {
         foreach ($this->listOwners() as $oneOwner) {
@@ -316,7 +316,7 @@ Best regards,
     /**
      * Retrieves the external DB identifier of this institution. Returns FALSE if no ID is known.
      * 
-     * @return string|FALSE the external identifier; or FALSE if no external ID is known
+     * @return string|boolean the external identifier; or FALSE if no external ID is known
      */
     public function getExternalDBId() {
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED

@@ -111,7 +111,7 @@ class Psr4Autoloader
      * Loads the class file for a given class name.
      *
      * @param string $class The fully-qualified class name.
-     * @return string|bool The mapped file name on success, or boolean false on
+     * @return string|boolean The mapped file name on success, or boolean false on
      * failure.
      */
     public function loadClass($class)

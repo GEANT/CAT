@@ -26,7 +26,7 @@ class Authentication {
     /**
      * finds out whether the user is already authenticated. Does not trigger an authentication if not.
      *
-     * @return bool auth state
+     * @return boolean auth state
      */
     public function isAuthenticated() {
         $authSimple = new \SimpleSAML\Auth\Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);

@@ -255,7 +255,7 @@ class UIElements {
      * 
      * @param string $ref the database reference string
      * @param boolean $checkpublic should we check if the requested piece of data is public?
-     * @return string|FALSE the requested data, or FALSE if something went wrong
+     * @return string|boolean the requested data, or FALSE if something went wrong
      */
     public static function getBlobFromDB($ref, $checkpublic) {
         $validator = new \web\lib\common\InputValidation();
