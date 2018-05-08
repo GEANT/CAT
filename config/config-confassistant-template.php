@@ -88,6 +88,7 @@ const CONFIG_CONFASSISTANT = [
      */
 
     'SILVERBULLET' => [
+        'documentation' => 'https://wiki.geant.org/pages/viewpage.action?pageId=66650390',
         'default_maxusers' => 200,
         'realm_suffix' => '.hosted.eduroam.org',
         'server_suffix' => '.hosted.eduroam.org',
