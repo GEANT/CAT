@@ -110,6 +110,8 @@ const CONFIG_CONFASSISTANT = [
     /**
      * NSIS version - with version 3 UTF installers will be created
      * see also $PATHS['makensis']
+     * 
+     * @var int
      */
     'NSIS_VERSION' => 3,
 

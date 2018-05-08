@@ -62,6 +62,7 @@ build:
               'nomenclature_federation' => 'National Roaming Operator',
               'nomenclature_institution' => 'Identity Provider',
               ],
+              'NSIS_VERSION' => 3,
               ];" >/home/scrutinizer/build/config/config-confassistant.php
             - |
               echo "<?php const CONFIG_DIAGNOSTICS = 
