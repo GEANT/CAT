@@ -33,13 +33,13 @@ CAT_session_start();
 
 $loggerInstance = new \core\common\Logging();
 $returnArray = [];
-$headers = apache_request_headers();
-$is_ajax = (isset($headers['X-Requested-With']) && $headers['X-Requested-With'] == 'XMLHttpRequest');
-$nonce = filter_input(INPUT_GET, 'myNonce', FILTER_SANITIZE_STRING);
-$loggerInstance->debug(4, "AJAX $nonce");
-if (!$is_ajax || check_my_nonce($nonce, $_SESSION['current_page'])) {
-    $loggerInstance->debug(4, 'A hostile AJAX call');
-} else {
+//$headers = apache_request_headers();
+//$is_ajax = (isset($headers['X-Requested-With']) && $headers['X-Requested-With'] == 'XMLHttpRequest');
+//$nonce = filter_input(INPUT_GET, 'myNonce', FILTER_SANITIZE_STRING);
+
+//if (!$is_ajax || check_my_nonce($nonce, $_SESSION['current_page'])) {
+//    $loggerInstance->debug(4, 'A hostile AJAX call');
+//} else {
     $languageInstance = new \core\common\Language();
     $languageInstance->setTextDomain("web_user");
     $cat = new \core\CAT();
@@ -99,6 +99,6 @@ if (!$is_ajax || check_my_nonce($nonce, $_SESSION['current_page'])) {
     if (empty($returnArray)) {
         $returnArray['status'] = 0;
     }
-}
+//}
 echo(json_encode($returnArray));
 
