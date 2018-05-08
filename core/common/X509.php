@@ -138,7 +138,7 @@ class X509 {
      * ca   value 1 if CA certificate 0 otherwise
      *
      * </pre>
-     * @param string $cadata certificate in ether PEM or DER format
+     * @param string $cadata certificate in either PEM or DER format
      * @return array|false
      */
     public function processCertificate($cadata) {

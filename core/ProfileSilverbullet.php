@@ -308,7 +308,8 @@ class ProfileSilverbullet extends AbstractProfile {
         // does the user exist and is active, anyway?
         $queryExisting = "SELECT id FROM silverbullet_user WHERE profile_id = $this->identifier AND id = ? AND expiry >= NOW()";
         $execExisting = $this->databaseHandle->exec($queryExisting, "i", $userId);
-        if (mysqli_num_rows($execExisting) < 1) {
+        // this is a SELECT, and won't return TRUE
+        if (mysqli_num_rows(/** @scrutinizer ignore-type */ $execExisting) < 1) {
             return FALSE;
         }
         // set the expiry date of any still valid invitations to NOW()
@@ -330,7 +331,12 @@ class ProfileSilverbullet extends AbstractProfile {
         // and finally set the user expiry date to NOW(), too
         $query3 = "UPDATE silverbullet_user SET expiry = NOW() WHERE profile_id = $this->identifier AND id = ?";
         $ret = $this->databaseHandle->exec($query3, "i", $userId);
-        return $ret;
+        // this is an UPDATE, and always returns TRUE. Need to tell Scrutinizer all about it.
+        if ($ret === TRUE) {
+        return TRUE;
+        } else {
+            throw new Exception("The UPDATE statement could not be executed successfully.");
+        }
     }
     
     /**

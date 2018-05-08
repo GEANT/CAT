@@ -273,7 +273,7 @@ class UIElements {
 
             $ownersCondensed = [];
 
-            if ($owners !== FALSE) { // restricted datam see if we're authenticated and owners of the data
+            if ($owners !== FALSE) { // restricted data, see if we're authenticated and owners of the data
                 $auth = new \web\lib\admin\Authentication();
                 if (!$auth->isAuthenticated()) {
                     return FALSE; // admin-only, but we are not an admin
