@@ -137,7 +137,10 @@ class Device_Linux extends \core\DeviceConfig {
         $tou = $this->mkUserConsent();
         $out .= 'Config.tou = ' . ( $tou ? '"""' . $tou . '"""' : 'None' ) . "\n"; 
         $out .= 'Config.CA = """' . $this->mkCAfile()  . '"""' . "\n";
-        $out .= "Config.anonymous_identity = '" . $this->determineOuterIdString() . "'\n";
+        $outerId = $this->determineOuterIdString();
+        if ($outerId !== NULL) {
+            $out .= "Config.anonymous_identity = '$outerId'\n";
+        }
         $out .= 'Config.init_info = """' . $this->mkIntro() . '"""' . "\n";
         $out .= 'Config.init_confirmation = "' . $this->mkProfileConfirmation() . "\"\n";
         

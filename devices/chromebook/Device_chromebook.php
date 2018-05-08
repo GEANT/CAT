@@ -165,7 +165,9 @@ class Device_Chromebook extends \core\DeviceConfig {
         ];
     }
 
-    private function eapBlock($selectedEap, $outerId, $caRefs) {
+    private function eapBlock($caRefs) {
+        $selectedEap = $this->selectedEap;
+        $outerId = $this->determineOuterIdString();
         $eapPrettyprint = \core\common\EAP::eapDisplayName($selectedEap);
         // ONC has its own enums, and guess what, they don't always match
         if ($eapPrettyprint["INNER"] == "MSCHAPV2") {
@@ -197,7 +199,7 @@ class Device_Chromebook extends \core\DeviceConfig {
         $eaparray["ServerCARefs"] = $caRefs; // maybe takes just one CA?
         $eaparray["UseSystemCAs"] = false;
 
-        if ($outerId) {
+        if ($outerId !== NULL) {
             $eaparray["AnonymousIdentity"] = $outerId;
         }
         if ($selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
@@ -238,7 +240,7 @@ class Device_Chromebook extends \core\DeviceConfig {
         if ($this->selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
             $jsonArray["Certificates"][] = ["GUID" => "[" . $this->clientCert['GUID'] . "]", "PKCS12" => base64_encode($this->clientCert['certdataclear']), "Remove" => false, "Type" => "Client"];
         }
-        $eaparray = $this->eapBlock($this->selectedEap, $this->determineOuterIdString(), $caRefs);
+        $eaparray = $this->eapBlock($caRefs);
         // define Wi-Fi networks
         foreach ($this->attributes['internal:SSID'] as $ssid => $cryptolevel) {
             $jsonArray["NetworkConfigurations"][] = $this->wifiBlock($ssid, $eaparray);

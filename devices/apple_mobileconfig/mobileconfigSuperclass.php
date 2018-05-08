@@ -285,7 +285,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
                       <key>OneTimeUserPassword</key>
                             <false />
 ";
-        if ($realm !== 0) {
+        if ($realm !== NULL) {
             $retval .= "<key>OuterIdentity</key>
                                     <string>" . htmlspecialchars($realm, ENT_XML1, 'UTF-8') . "</string>
 ";

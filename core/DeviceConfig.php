@@ -657,10 +657,10 @@ abstract class DeviceConfig extends \core\common\Entity {
     /**
      * collates the string to use as EAP outer ID
      * 
-     * @return string
+     * @return string|NULL
      */
     protected function determineOuterIdString() {
-        $outerId = 0;
+        $outerId = NULL;
         if (isset($this->attributes['internal:use_anon_outer']) && $this->attributes['internal:use_anon_outer'][0] == "1" && isset($this->attributes['internal:realm'])) {
             $outerId = "@" . $this->attributes['internal:realm'][0];
             if (isset($this->attributes['internal:anon_local_value'])) {
