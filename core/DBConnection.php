@@ -138,7 +138,8 @@ class DBConnection {
             $statementObject->close();
         }
 
-        if ($result === FALSE && $this->connection->errno) {
+        // all cases where $result could be FALSE have been caught earlier
+        if ($this->connection->errno) {
             throw new Exception("ERROR: Cannot execute query in $this->databaseInstance database - (hopefully escaped) query was '$querystring', errno was " . $this->connection->errno . "!");
         }
 
