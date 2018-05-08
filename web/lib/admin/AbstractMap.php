@@ -41,7 +41,7 @@ abstract class AbstractMap {
      * 
      * @param \core\IdP $inst
      * @param boolean $readonly
-     * @return \web\lib\admin\MapNone|\web\lib\admin\MapOpenstreepmap|\web\lib\admin\MapGoogle
+     * @return \web\lib\admin\MapNone|\web\lib\admin\MapOpenstreetMaps|\web\lib\admin\MapGoogle
      * @throws Exception
      */
     public static function instance($inst, $readonly) {
@@ -49,7 +49,7 @@ abstract class AbstractMap {
             case "Google":
                 return new MapGoogle($inst, $readonly);
             case "OpenStreetMaps":
-                return new MapOpenStreepMaps($inst, $readonly);
+                return new MapOpenStreetMaps($inst, $readonly);
             case "None":
                 return new MapNone($inst, $readonly);
             default:
