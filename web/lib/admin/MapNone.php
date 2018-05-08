@@ -36,7 +36,7 @@ class MapNone extends AbstractMap {
     }
 
     public function htmlShowtime($wizard = FALSE, $additional = FALSE) {
-        if (!$this->readonly) {
+        if (!$this->readOnly) {
             return $this->htmlPreEdit($wizard, $additional) . $this->htmlPostEdit(TRUE);
         }
     }
