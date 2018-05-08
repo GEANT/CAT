@@ -65,7 +65,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             <div id='diagnostic_choice'>
                 <?php echo _("We will try our best to help you diagnose your problem.") . '<br>' . _("Are you a") . ' '; ?>
                 <input type='radio' name='diagnostic_usertype' value='0'><?php echo _("an end-user") . ' ' . _("or"); ?>   
-                <input type='radio' name='diagnostic_usertype' value='1' <?php if ($admin == 1) { echo " checked"; } ?> > <?php echo _("an eduroam administrator"); ?>
+                <input type='radio' name='diagnostic_usertype' value='1' <?php if ($admin == 1) { echo " checked"; } ?> > <?php echo _("an eduroam administrator") .'?'; ?>
             </div>
             <div id='diagnostic_enduser' style='display: none;'>
                 <h2><?php echo '<h2>' . _("Tools for End Users"); ?></h2>
