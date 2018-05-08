@@ -18,6 +18,7 @@ include_once(dirname(__DIR__) . '/Divs.php');
 $divs = new Divs($Gui);
 $visibility = 'sb';
 $operatingSystem = $Gui->detectOS();
+
 $Gui->loggerInstance->debug(4, $operatingSystem);
 $uiElements = new web\lib\admin\UIElements();
 if ($operatingSystem) {
@@ -238,8 +239,13 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
 
         $("#cert_details").on("click", "td.revoke>a", function (event) {
             event.preventDefault();
-            if (confirm("<?php escaped_echo(_("really revoke this certificate?")); ?>"))
+            serial = $(this).parent().siblings().first().html();    
+            if (confirm("<?php escaped_echo(_("really revoke this certificate?")); ?>" + serial)) {
                 alert("deleting - not yet implemented");
+                link = "accountstatus.php?serial=" + serial + "&action=2" + "&token=" + "<?php echo $statusInfo['token']; ?>";
+                alert(link);
+                document.location = link;
+            }
         })
         loadIdpData();
     </script> 

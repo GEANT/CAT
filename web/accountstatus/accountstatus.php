@@ -56,8 +56,6 @@ if ($invitationObject->invitationTokenStatus != \core\SilverbulletInvitation::SB
 // ... unless overwritten by direct GET/POST parameter in the request
 // ... with last resort being the default skin (first one in the configured skin list is the default)
 
-$skinObject = new \web\lib\user\Skinjob($_REQUEST['skin'] ?? $fedskin[0] ?? CONFIG['APPEARANCE']['skins'][0]);
-
 $statusInfo = ["token" => $cleanToken,
     "invitation_object" => $invitationObject,
     "OS" => $Gui->operatingSystem,];
@@ -68,6 +66,31 @@ if ($profile !== NULL) {
     $statusInfo["attributes"] = $Gui->profileAttributes($profile->identifier);
     $statusInfo["profile_id"] = $invitationObject->profile;
 };
+
+$action = filter_input(INPUT_GET, 'action', FILTER_VALIDATE_INT);
+$serial = filter_input(INPUT_GET, 'serial', FILTER_VALIDATE_INT);
+
+if ($action !== NULL && $action !== FALSE && $action === \web\lib\common\FormElements::BUTTON_DELETE && $serial !== NULL && $serial !== FALSE) {
+    if ($statusInfo['invitation_object']->invitationTokenStatus != \core\SilverbulletInvitation::SB_TOKENSTATUS_INVALID) {
+        $userdata = $profile->userStatus($statusInfo['invitation_object']->userId);
+        // if the requested serial belongs to the user, AND it is currently valid, revoke it
+        $allcerts = [];
+        foreach ($userdata as $content) {
+            $allcerts = array_merge($allcerts, $content->associatedCertificates);
+        }
+        foreach ($allcerts as $onecert) {
+            if ($onecert->serial == $serial && $onecert->revocationStatus == 'NOT_REVOKED') {
+                print "//REVOKING\n";
+                $certObject = new \core\SilverbulletCertificate($serial);
+                $certObject->revokeCertificate();
+                header("Location: accountstatus.php?token=" . $statusInfo['token']);
+                exit;
+            }
+        }
+    }
+                    header("Location: accountstatus.php?token=" . $statusInfo['token']);
+exit;
+}
 
 if ($idp !== NULL) {
     $logo = $idp->getAttributes('general:logo_file');
@@ -87,6 +110,6 @@ switch ($errorcode) {
     default:
         $statusInfo['errorcode'] = NULL;
 }
-
+$skinObject = new \web\lib\user\Skinjob($_REQUEST['skin'] ?? $fedskin[0] ?? CONFIG['APPEARANCE']['skins'][0]);
 // and now, serve actual data
 include("../skins/" . $skinObject->skin . "/accountstatus/accountstatus.php");
