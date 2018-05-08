@@ -77,36 +77,34 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         } else { // it's a string instead
             $incoming = $this->databaseHandle->exec("SELECT `id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`, `issued`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp` FROM `silverbullet_certificate` WHERE cn = ?", "s", $identifier);
         }
-        // if no result, foreach doesn't get executed and class members stay as they are
-        if ($incoming !== FALSE) {
-            // SELECT -> mysqli_resource, not boolean
-            while ($oneResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $incoming)) { // there is only at most one
-                $this->username = $oneResult->cn;
-                $this->expiry = $oneResult->expiry;
-                $this->serial = $oneResult->serial_number;
-                $this->dbId = $oneResult->id;
-                $this->invitationId = $oneResult->silverbullet_invitation_id;
-                $this->userId = $oneResult->silverbullet_user_id;
-                $this->profileId = $oneResult->profile_id;
-                $this->issued = $oneResult->issued;
-                $this->device = $oneResult->device;
-                $this->revocationStatus = $oneResult->revocation_status;
-                $this->revocationTime = $oneResult->revocation_time;
-                $this->ocsp = $oneResult->OCSP;
-                $this->ocspTimestamp = $oneResult->OCSP_timestamp;
-                // is the cert expired?
-                $now = new \DateTime();
-                $cert_expiry = new \DateTime($this->expiry);
-                $delta = $now->diff($cert_expiry);
-                $this->status = ($delta->invert == 1 ? SilverbulletCertificate::CERTSTATUS_EXPIRED : SilverbulletCertificate::CERTSTATUS_VALID);
-                // expired is expired; even if it was previously revoked. But do update status for revoked ones...
-                if ($this->status == SilverbulletCertificate::CERTSTATUS_VALID && $this->revocationStatus == "REVOKED") {
-                    $this->status = SilverbulletCertificate::CERTSTATUS_REVOKED;
-                }
+
+        // SELECT -> mysqli_resource, not boolean
+        while ($oneResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $incoming)) { // there is only at most one
+            $this->username = $oneResult->cn;
+            $this->expiry = $oneResult->expiry;
+            $this->serial = $oneResult->serial_number;
+            $this->dbId = $oneResult->id;
+            $this->invitationId = $oneResult->silverbullet_invitation_id;
+            $this->userId = $oneResult->silverbullet_user_id;
+            $this->profileId = $oneResult->profile_id;
+            $this->issued = $oneResult->issued;
+            $this->device = $oneResult->device;
+            $this->revocationStatus = $oneResult->revocation_status;
+            $this->revocationTime = $oneResult->revocation_time;
+            $this->ocsp = $oneResult->OCSP;
+            $this->ocspTimestamp = $oneResult->OCSP_timestamp;
+            // is the cert expired?
+            $now = new \DateTime();
+            $cert_expiry = new \DateTime($this->expiry);
+            $delta = $now->diff($cert_expiry);
+            $this->status = ($delta->invert == 1 ? SilverbulletCertificate::CERTSTATUS_EXPIRED : SilverbulletCertificate::CERTSTATUS_VALID);
+            // expired is expired; even if it was previously revoked. But do update status for revoked ones...
+            if ($this->status == SilverbulletCertificate::CERTSTATUS_VALID && $this->revocationStatus == "REVOKED") {
+                $this->status = SilverbulletCertificate::CERTSTATUS_REVOKED;
             }
         }
     }
-    
+
     /**
      * 
      * @return array of basic certificate details
@@ -194,10 +192,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         $realExpiryDate = date_create_from_format("U", $parsedCert['full_details']['validTo_time_t'])->format("Y-m-d H:i:s");
 
         // store new cert info in DB
-        $newCertificateResult = $databaseHandle->exec("INSERT INTO `silverbullet_certificate` (`profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`) VALUES (?, ?, ?, ?, ?, ?)", "iiisss", $invitationObject->profile, $invitationObject->userId, $invitationObject->identifier, $serial, $csr["USERNAME"], $realExpiryDate);
-        if ($newCertificateResult === false) {
-            throw new Exception("Unable to update database with new cert details!");
-        }
+        $databaseHandle->exec("INSERT INTO `silverbullet_certificate` (`profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`) VALUES (?, ?, ?, ?, ?, ?)", "iiisss", $invitationObject->profile, $invitationObject->userId, $invitationObject->identifier, $serial, $csr["USERNAME"], $realExpiryDate);
         // newborn cert immediately gets its "valid" OCSP response
         $certObject = new SilverbulletCertificate($serial);
         $certObject->triggerNewOCSPStatement();
