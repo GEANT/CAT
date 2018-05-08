@@ -11,33 +11,23 @@
 
 namespace web\lib\admin;
 
-?>
-<?php
-
-// embed this into a page which should display the geo widget
-// needs to be called twice:
-//   in <head>, insert javascript voodoo
-//   in <body>, insert <div>
-// and should have $inst_country, $inst_name set to a meaningful name of a site to locate
-?>
-<?php
+require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 
 /**
- * helper class which defines Google Maps geo widgets and their integration into
- * the admin-side UI.
+ * This class provides map display functionality
+ * 
+ * @author Stefan Winter <stefan.winter@restena.lu>
  */
-class GeoWidget {
+class MapGoogle extends AbstractMap {
 
-    /**
-     * generates JavaScript code to be embedded in <head> of pages which need a
-     * GeoWidget.
-     * @param string $inst_country two-digit country identifier where the IdP is in
-     * @param string $inst_name name of institution
-     * @return string the code for <head>
-     */
-    public function insertInHead($inst_country, $inst_name) {
+    public function __construct($inst, $readonly) {
+        parent::__construct($inst, $readonly);
+        return $this;
+    }
+
+    public function htmlHeadCode() {
         $cat = new \core\CAT();
-        return "<script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?key=".CONFIG['APPEARANCE']['google_maps_api_key']."'></script>
+        return "<script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?key=" . CONFIG['APPEARANCE']['google_maps_api_key'] . "'></script>
     <script type='text/javascript'>
         // some global variables;
         var center_lat=49.6114885608729;
@@ -93,19 +83,19 @@ class GeoWidget {
          *
          */
         function locator_magic() {
-            geocoder.geocode({'address':\"" . preg_replace("/\"/", "&quot;", $inst_name) . "\", 'region':\"" . strtolower($inst_country) . "\"},
+            geocoder.geocode({'address':\"" . preg_replace("/\"/", "&quot;", $this->instName) . "\", 'region':\"" . strtolower($this->fedName) . "\"},
             function(r,status) {
                 if(status != google.maps.GeocoderStatus.OK) {
-                    locate_country(\"" . $cat->knownFederations[strtoupper($inst_country)] . "\");
+                    locate_country(\"" . $cat->knownFederations[strtoupper($this->fedName)] . "\");
                 } else {
                     var i;
                     for(i = 0; i < r.length; i++) {
                         Addr = getAddressElements(r[i].address_components);
-                        if(Addr.country == \"" . strtoupper($inst_country) . "\")
+                        if(Addr.country == \"" . strtoupper($this->fedName) . "\")
                         break;
                     }
-                    if(Addr.country != \"" . strtoupper($inst_country) . "\")
-                    locate_country(\"" . $cat->knownFederations[strtoupper($inst_country)] . "\");
+                    if(Addr.country != \"" . strtoupper($this->fedName) . "\")
+                    locate_country(\"" . $cat->knownFederations[strtoupper($this->fedName)] . "\");
                     else {
                         addMarker(r[i].geometry.location,15,null);
                     }
@@ -297,40 +287,22 @@ class GeoWidget {
     </script>";
     }
 
-    /**
-     * generates HTML code to display a geo widget. Needs preceding code in <head>,
-     * see above.
-     * @param boolean $wizard Are we in wizard mode? Be more talkative then.
-     * @param boolean $additional is this about an additional (non-first) location?
-     * @return string the HTML code
-     */
-    public function insertInBody($wizard, $additional) {
-        $retval = "<fieldset class='option_container'>
-        <legend><strong>" . _("Location") . "</strong></legend>";
-
-        if ($wizard) {
-            $retval .= "<p>" .
-            _("The user download interface (see <a href='../'>here</a>), uses geolocation to suggest possibly matching IdPs to the user. The more precise you define the location here, the easier your users will find you.") .
-            "</p>
-                     <ul>" .
-            _("<li>Drag the marker in the map to your place, or</li>
-<li>enter your street address in the field below for lookup, or</li>
-<li>use the 'Locate Me!' button</li>") .
-            "</ul>
-                     <strong>" .
-            _("We will use the coordinates as indicated by the marker for geolocation.") .
-            "</strong>";
-        }
-        if ($additional) {
-            $retval .= _("You can enter an <strong>additional</strong> location here. You can see the already defined locations in the 'General Information' field.");
-        }
-        $retval .= "<p>" . _("Address:") . " <input name='address' id='address' /><button type='button' onclick='getAddressLocation()'>" . _("Find address") . "</button> <button type='button' onclick='locateMe()'>" . _("Locate Me!") . "</button></p>";
-
-        $retval .= "            <div class='googlemap' id='map'></div>";
-        $retval .= "<br/>" . _("Latitude:") . " <input style='width:80px' name='geo_lat' id='geo_lat' readonly>" . _("Longitude:") . " <input name='geo_long' id='geo_long' style='width:80px' readonly>";
-        $retval .= "        </fieldset>";
-        
-        return $retval;
+    public function htmlBodyCode() {
     }
 
+    public function htmlShowtime($wizard = FALSE, $additional = FALSE) {
+        if ($this->readOnly) {
+            return "<div id='map' class='googlemap'></div>";
+        } else {
+            return $this->htmlPreEdit($wizard, $additional) . $this->findLocationHtml() . "<div id='map' class='googlemap'></div>" . $this->htmlPostEdit(FALSE);
+        }
+    }
+    
+    public function bodyTagCode() {
+        return "onload='load(" . ($this->readOnly ? "0" : "1") . ")'";
+    }
+
+    private function findLocationHtml() {
+        return "<p>" . _("Address:") . " <input name='address' id='address' /><button type='button' onclick='getAddressLocation()'>" . _("Find address") . "</button> <button type='button' onclick='locateMe()'>" . _("Locate Me!") . "</button></p>";
+    }
 }

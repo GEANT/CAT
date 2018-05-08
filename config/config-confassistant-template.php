@@ -110,8 +110,12 @@ const CONFIG_CONFASSISTANT = [
      * NSIS version - with version 3 UTF installers will be created
      * see also $PATHS['makensis']
      */
-    'NSIS_VERSION' => 2,
-    
+    'NSIS_VERSION' => 3,
+
+    'MAPPROVIDER' => [
+        'PROVIDER' => 'Google', // recognised values: Google, Bing, OpenStreetMaps, None
+        'USERNAME' => '' // or equivalent; for Google, this is the APIKEY
+    ],
     /**
      * Configures SMS gateway settings
      */

@@ -152,7 +152,7 @@ class OptionDisplay {
         if (!isset($descriptions[$input])) {
             return "";
         }
-        return "<span class='tooltip' id='S$rowid-tooltip-$input' style='display:".($isVisible ? "block" : "none")."' onclick='alert(\"" . $descriptions[$input] . "\")'><img src='../resources/images/icons/question-mark-icon.png" . "'></span>";
+        return "<span class='tooltip' id='S$rowid-tooltip-$input' style='display:" . ($isVisible ? "block" : "none") . "' onclick='alert(\"" . $descriptions[$input] . "\")'><img src='../resources/images/icons/question-mark-icon.png" . "'></span>";
     }
 
     private function selectElement($rowid, $list) {
@@ -282,7 +282,7 @@ FOO;
         $retval .= "<td>";
         $uiElements = new UIElements();
         $listtype = $optioninfo->optionType($optionName);
-        $retval .= "<span style='display:flex;'>".$uiElements->displayName($optionName);
+        $retval .= "<span style='display:flex;'>" . $uiElements->displayName($optionName);
         $retval .= $this->tooltip($rowid, $optionName, TRUE) . "</span>";
         $retval .= "<input type='hidden' id='option-S$rowid-select' name='option[S$rowid]' value='$optionName#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ></td>";
 
@@ -304,7 +304,15 @@ FOO;
         switch ($listtype["type"]) {
             case \core\Options::TYPECODE_COORDINATES:
                 $this->allLocationCount = $this->allLocationCount + 1;
-                $link = "<button id='location_b_" . $this->allLocationCount . "' class='location_button'>" . _("Click to see location") . " $this->allLocationCount</button>";
+                // display of the locations varies by map provider
+                switch (CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER']) {
+                    case "None":
+                        $pair = json_decode($optionValue, true);
+                        $link = "<table><tr><td>Latitude</td><td><strong>".$pair['lat']."</strong></td></tr><tr><td>Longitude</td><td><strong>".$pair['lon']."</strong></td></tr></table>";
+                        break;
+                    default:
+                        $link = "<button id='location_b_" . $this->allLocationCount . "' class='location_button'>" . _("Click to see location") . " $this->allLocationCount</button>";
+                }
                 $retval .= "<input readonly style='display:none' type='text' name='value[S$rowid-" . \core\Options::TYPECODE_TEXT . "]' id='S$rowid-input-text' value='$optionValue'>$link";
                 break;
             case \core\Options::TYPECODE_FILE:
