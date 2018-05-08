@@ -16,7 +16,8 @@ build:
         redis: false
         mysql: 5.7
     dependencies:
-        before: 
+        before:
+            - composer require --dev phpunit/phpunit 
             - mysql -h 127.0.0.1 -u root -e 'create database cat'
             - mysql -h 127.0.0.1 -u root cat < schema/schema.sql
             - mysql -h 127.0.0.1 -u root cat < schema/cat_integration_scrutinizer.sql
