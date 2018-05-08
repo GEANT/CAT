@@ -626,8 +626,8 @@ class SanityTests extends CAT {
         $databaseName1 = 'INST';
         try {
             $db1 = DBConnection::handle($databaseName1);
-            $r = $db1->exec('SELECT * FROM profile_option_dict');
-            if ($r->num_rows == $this->profile_option_ct) {
+            $res1 = $db1->exec('SELECT * FROM profile_option_dict');
+            if ($res1->num_rows == $this->profile_option_ct) {
                 $this->test_return(\core\common\Entity::L_OK, "The $databaseName1 database appears to be OK.");
             } else {
                 $this->test_return(\core\common\Entity::L_ERROR, "The $databaseName1 database is reacheable but probably not updated to this version of CAT.");
@@ -640,8 +640,8 @@ class SanityTests extends CAT {
         try {
             $db2 = DBConnection::handle($databaseName2);
             if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-                $r = $db2->exec('desc view_admin');
-                if ($r->num_rows == $this->view_admin_ct) {
+                $res2 = $db2->exec('desc view_admin');
+                if ($res2->num_rows == $this->view_admin_ct) {
                     $this->test_return(\core\common\Entity::L_OK, "The $databaseName2 database appears to be OK.");
                 } else {
                     $this->test_return(\core\common\Entity::L_ERROR, "The $databaseName2 is reacheable but there is something wrong with the schema");
@@ -658,8 +658,8 @@ class SanityTests extends CAT {
             try {
                 $db3 = DBConnection::handle($databaseName3);
                 if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-                    $r = $db3->exec('desc view_admin');
-                    if ($r->num_rows == $this->view_admin_ct) {
+                    $res3 = $db3->exec('desc view_admin');
+                    if ($res3->num_rows == $this->view_admin_ct) {
                         $this->test_return(\core\common\Entity::L_OK, "The $databaseName3 database appears to be OK.");
                     } else {
                         $this->test_return(\core\common\Entity::L_ERROR, "The $databaseName3 is reacheable but there is something wrong with the schema");
