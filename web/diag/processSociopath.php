@@ -13,7 +13,7 @@ CAT_session_start();
 $loggerInstance = new \core\common\Logging();
 $loggerInstance->debug(4, "Sociopath test\n");
 
-$answer = filter_input(INPUT_GET, 'answer', FILTER_SANITIZE_NUMBER_INT);
+$answer = filter_input(INPUT_GET, 'answer', FILTER_VALIDATE_INT);
 $sociopath = new \core\diag\Sociopath();
 if ($answer > 0) {
     if (isset($_SESSION['LAST_QUESTION'])) {

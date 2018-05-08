@@ -23,7 +23,7 @@ $_SESSION['current_page'] = $_SERVER['SCRIPT_NAME'];
     var dir = "<?php echo dirname(__DIR__); ?>";
 
 <?php
-$admin = filter_input(INPUT_GET, 'admin', FILTER_SANITIZE_NUMBER_INT);
+$admin = filter_input(INPUT_GET, 'admin', FILTER_VALIDATE_INT);
 $profile_list_size = 1;
 include_once(dirname(__DIR__) . '/Divs.php');
 $divs = new Divs($Gui);

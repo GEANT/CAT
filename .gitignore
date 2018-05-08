@@ -7,3 +7,6 @@
 /config/config-master.php
 /config/config-diagnostics.php
 /web/certprops.php
+/utils/stresstest/generator
+/utils/stresstest/Doctor_Who_Planets_Wikipedia.html
+/utils/stresstest/Doctor_Who_Cast_Wikipedia.html
