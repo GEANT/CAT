@@ -51,25 +51,6 @@ $mapCode = web\lib\admin\AbstractMap::instance($my_inst, FALSE);
 
 echo $mapCode->htmlHeadCode();
 ?>
-<script>
-    $(document).ready(function () {
-        $(".location_button").click(function (event) {
-            event.preventDefault();
-            marker_index = $(this).attr("id").substr(11) - 1;
-            marks[marker_index].setOptions({icon: icon_red});
-            setTimeout('marks[marker_index].setOptions({icon: icon})', 1000);
-        });
-
-        $("#address").keypress(function (event) {
-            if (event.which === 13) {
-                event.preventDefault();
-                getAddressLocation();
-            }
-
-        });
-
-    });
-</script>
 </head>
 <?php
 ?>
