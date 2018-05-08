@@ -114,7 +114,7 @@ if (isset($_POST['submitbutton'])) {
             echo "</td><td>";
             // right-hand side: external DB
             $externalid = $my_inst->getExternalDBId();
-            if ($externalid === FALSE) { // we are in SYNCED state so this cannot happen
+            if (is_bool($externalid)) { // we are in SYNCED state so this cannot happen
                 throw new Exception("We are in SYNCSTATE_SYNCED but still there is no external DB Id available for the " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] . "!");
             }
 

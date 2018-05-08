@@ -22,7 +22,7 @@ function getObjectFromDB($id) {
     // check if data is public for this blob call
     
     $blob = \web\lib\admin\UIElements::getBlobFromDB($id, TRUE);
-    if ($blob === FALSE) {
+    if (is_bool($blob)) {
         return;
     }
     $finalBlob = base64_decode($blob);

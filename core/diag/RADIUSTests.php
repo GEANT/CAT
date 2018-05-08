@@ -551,7 +551,7 @@ network={
         foreach ($this->expectedCABundle as $oneCA) {
             $x509 = new \core\common\X509();
             $decoded = $x509->processCertificate($oneCA);
-            if ($decoded === FALSE) {
+            if (is_bool($decoded)) {
                 throw new Exception("Unable to parse an expected CA certificate.");
             }
             if ($decoded['ca'] == 1) {

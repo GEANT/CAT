@@ -191,7 +191,7 @@ if (isset($_POST['command'])) {
                 break;
             }
             $properEmail = $validator->email(filter_input(INPUT_POST, 'address'));
-            if ($properEmail === FALSE) {
+            if (is_bool($properEmail)) {
                 $domainStatus = \core\common\OutsideComm::MAILDOMAIN_INVALID;
                 $displaySendStatus = "EMAIL-NOTSENT";
                 break;

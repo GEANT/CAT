@@ -318,7 +318,7 @@ class UIElements {
     public function previewCAinHTML($cAReference) {
         $this->checkROWIDpresence($cAReference);
         $rawResult = UIElements::getBlobFromDB($cAReference, FALSE);
-        if ($rawResult === FALSE) { // we didn't actually get a CA!
+        if (is_bool($rawResult)) { // we didn't actually get a CA!
             return "<div class='ca-summary'>"._("There was an error while retrieving the certificate from the database!")."</div>";
         }
         $cAblob = base64_decode($rawResult);
@@ -358,7 +358,7 @@ class UIElements {
     public function previewInfoFileinHTML($fileReference) {
         $this->checkROWIDpresence($fileReference);
         $fileBlob = UIElements::getBlobFromDB($fileReference, FALSE);
-        if ($fileBlob === FALSE) { // we didn't actually get a file!
+        if (is_bool($fileBlob)) { // we didn't actually get a file!
             return "<div class='ca-summary'>"._("There was an error while retrieving the file from the database!")."</div>";
         }
         $decodedFileBlob = base64_decode($fileBlob);
