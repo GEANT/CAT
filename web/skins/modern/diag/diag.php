@@ -63,7 +63,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             <?php echo $divs->div_pagetitle(_("Diagnostics site"), _("We will do our best to resolve your problems!<br>Help us and answer precisely to our questions.")); ?>
             <div id="user_info" style='padding-top: 10px;'>
             <div id='diagnostic_choice'>
-                <?php echo _("Are you reporting the problem as"); ?>
+                <?php echo _("We will try our best to help you diagnose your problem.") . '<br>' . _("Are you a") . ' '; ?>
                 <input type='radio' name='diagnostic_usertype' value='0'><?php echo _("an end-user") . ' ' . _("or"); ?>   
                 <input type='radio' name='diagnostic_usertype' value='1' <?php if ($admin == 1) { echo " checked"; } ?> > <?php echo _("an eduroam administrator"); ?>
             </div>
