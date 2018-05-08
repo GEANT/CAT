@@ -36,12 +36,11 @@ $my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
 if (isset($_SESSION['check_realm'])) {
     unset($_SESSION['check_realm']);
 }
-$widget = new \web\lib\admin\GeoWidget();
-
-echo $widget->insertInHead($my_inst->federation, $my_inst->name);
+$mapCode = web\lib\admin\AbstractMap::instance($my_inst, TRUE);
+echo $mapCode->htmlHeadCode();
 ?>
 </head>
-<body  onload='load(0)'>
+<body <?php echo $mapCode->bodyTagCode(); ?>>
     <?php
     echo $deco->productheader("ADMIN-IDP");
 
@@ -66,18 +65,13 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
             <?php echo "<a href='$displayurl'>$displayurl</a>"; ?>
         </div>
         <?php
-        $loadmap = FALSE;
         foreach ($idpoptions as $optionname => $optionvalue) {
             if ($optionvalue['name'] == "general:geo_coordinates") {
-                $loadmap = TRUE;
+                echo '<div class="infobox">';
+                echo $mapCode->htmlShowtime();
+                echo '</div>';
+                break;
             }
-        }
-        if ($loadmap === TRUE) {
-            echo '
-<div class="infobox"  style="width:270px;">
-<div id="map" style="width:100%; height:150px"></div>
-</div>
-';
         }
         ?>
     </div>
@@ -144,8 +138,8 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
     if (count($profiles_for_this_idp) > 0) { // no profiles yet.
         echo "<h2>" . sprintf(_("Profiles for this %s"), $uiElements->nomenclature_inst) . "</h2>";
     }
-    // if there is one profile and it is of type Silver Bullet, display a very
-    // simple widget with just a "Manage" button
+// if there is one profile and it is of type Silver Bullet, display a very
+// simple widget with just a "Manage" button
     $sbProfileExists = FALSE;
 
     foreach ($profiles_for_this_idp as $profile_list) {
@@ -378,3 +372,4 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         }
     }
     echo $deco->footer();
+    

@@ -1,12 +1,20 @@
 # -*- coding: utf-8 -*-
 import subprocess 
 import sys
+
+def missing_dbus():
+    print("Cannot import the dbus module")
+    sys.exit(1)
+    
 try:
     import dbus
 except:
     if sys.version_info.major == 3:
-        sys.exit(1)
-    subprocess.call(['python3'] + sys.argv)
+        missing_dbus()
+    try:
+        subprocess.call(['python3'] + sys.argv)
+    except:
+        missing_dbus()
     sys.exit(0)
 import re
 import os
@@ -91,6 +99,7 @@ class Messages:
     wrongUsernameFormat = "Error: Your username must be of the form 'xxx@institutionID' e.g. 'john@example.net'!"
     wrong_realm = "Error: your username must be in the form of 'xxx@{}'. Please enter the username in the correct format."
     wrong_realm_suffix = "Error: your username must be in the form of 'xxx@institutionID' and end with '{}'. Please enter the username in the correct format."
+    user_cert_missing = "personal certificate file not found"
     
 #    "File %s exists; it will be overwritten."
 #    "Output written to %s"
@@ -394,7 +403,6 @@ class InstallerData:
 
         if self.graphics == 'zenity':
             command = ['zenity', '--file-selection',  '--file-filter=' + Messages.p12_filter + ' | *.p12 *.P12 *.pfx *.PFX', '--file-filter=' + Messages.all_filter + ' | *', '--title=' + Messages.p12_title]
-            print(command)
             q = subprocess.Popen(command,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             cert, err = q.communicate()
         if self.graphics == 'kdialog':
@@ -417,7 +425,11 @@ class InstallerData:
             self.__save_sb_pfx()
         else:
             pfx_file = self.__select_p12_file()
-            copyfile(pfx_file, os.environ['HOME'] + '/.cat_installer/user.p12')
+            try:
+                copyfile(pfx_file, os.environ['HOME'] + '/.cat_installer/user.p12')
+            except (OSError, RuntimeError):
+                print(Messages.user_cert_missing)
+                sys.exit()
         self.PASSWORD = ''
         self.USERNAME = ''
         while not self.PASSWORD:

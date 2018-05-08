@@ -23,6 +23,10 @@ namespace core;
 
 use \Exception;
 
+require_once("phpqrcode.php");
+const QRCODE_PIXELS_PER_SYMBOL = 12;
+
+
 class SilverbulletInvitation extends common\Entity {
 
     /**
@@ -245,6 +249,28 @@ class SilverbulletInvitation extends common\Entity {
     public function revokeInvitation() {
         $query = "UPDATE silverbullet_invitation SET expiry = NOW() WHERE id = ? AND profile_id = ?";
         $this->databaseHandle->exec($query, "ii", $this->invitationTokenString, $this->identifier);
+    }
+
+    /**
+     * 
+     * @param string $number the number to send to
+     * @return int an OutsideComm constant indicating how the sending went
+     */
+    public function sendBySms($number) {
+        return \core\common\OutsideComm::sendSMS($number, sprintf(_("Your %s access is ready! Click here to continue: %s (on Android, install the app 'eduroam CAT' before that!)"), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $this->link()));
+    }
+
+    public function sendByMail($properEmail) {
+        $mail = \core\common\OutsideComm::mailHandle();
+        $uiElements = new \web\lib\admin\UIElements();
+        $bytestream = $uiElements->pngInjectConsortiumLogo(\QRcode::png($this->link(), FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL), QRCODE_PIXELS_PER_SYMBOL);
+        $mail->FromName = sprintf(_("%s Invitation System"), CONFIG['APPEARANCE']['productname']);
+        $mail->Subject = $this->invitationMailSubject();
+        $mail->Body = $this->invitationMailBody();
+        $mail->addStringAttachment($bytestream, "qr-code-invitation.png", "base64", "image/png");
+        $mail->addAddress($properEmail);
+        $domainStatus = \core\common\OutsideComm::mailAddressValidSecure($properEmail);
+        return ["SENT" => $mail->send(), "TRANSPORT" => $domainStatus == common\OutsideComm::MAILDOMAIN_STARTTLS ? TRUE : FALSE];
     }
 
 }

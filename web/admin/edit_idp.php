@@ -47,9 +47,9 @@ foreach ($idpoptions as $optionname => $optionvalue) {
         $additional = TRUE;
     }
 }
-$widget = new \web\lib\admin\GeoWidget();
+$mapCode = web\lib\admin\AbstractMap::instance($my_inst, FALSE);
 
-echo $widget->insertInHead($my_inst->federation, $inst_name);
+echo $mapCode->htmlHeadCode();
 ?>
 <script>
     $(document).ready(function () {
@@ -71,7 +71,9 @@ echo $widget->insertInHead($my_inst->federation, $inst_name);
     });
 </script>
 </head>
-<body onload='load(1)'>
+<?php
+?>
+<body <?php echo $mapCode->bodyTagCode(); ?>>
     <?php
     $langObject = new \core\common\Language();
     echo $deco->productheader("ADMIN-IDP");
@@ -127,7 +129,7 @@ echo $widget->insertInHead($my_inst->federation, $inst_name);
         <button type='button' class='newoption' onclick='getXML("general")'><?php echo _("Add new option"); ?></button>
     </fieldset>
     <?php
-    echo $widget->insertInBody($wizardStyle, $additional);
+    echo $mapCode->htmlShowtime($wizardStyle, $additional);
     ?>
     <fieldset class="option_container">
         <legend><strong><?php echo _("Media Properties"); ?></strong></legend>

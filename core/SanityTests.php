@@ -624,25 +624,24 @@ class SanityTests extends CAT {
      */
     private function databases_test() {
         $databaseName1 = 'INST';
-        $db1 = mysqli_connect(CONFIG['DB'][$databaseName1]['host'], CONFIG['DB'][$databaseName1]['user'], CONFIG['DB'][$databaseName1]['pass'], CONFIG['DB'][$databaseName1]['db']);
-        if (!$db1) {
-            $this->test_return(\core\common\Entity::L_ERROR, "Connection to the  $databaseName1 database failed");
-        } else {
-            $r = mysqli_query($db1, 'select * from profile_option_dict');
-            if ($r->num_rows == $this->profile_option_ct) {
+        try {
+            $db1 = DBConnection::handle($databaseName1);
+            $res1 = $db1->exec('SELECT * FROM profile_option_dict');
+            if ($res1->num_rows == $this->profile_option_ct) {
                 $this->test_return(\core\common\Entity::L_OK, "The $databaseName1 database appears to be OK.");
             } else {
                 $this->test_return(\core\common\Entity::L_ERROR, "The $databaseName1 database is reacheable but probably not updated to this version of CAT.");
             }
+        } catch (Exception $e) {
+            $this->test_return(\core\common\Entity::L_ERROR, "Connection to the  $databaseName1 database failed");
         }
+
         $databaseName2 = 'USER';
-        $db2 = mysqli_connect(CONFIG['DB'][$databaseName2]['host'], CONFIG['DB'][$databaseName2]['user'], CONFIG['DB'][$databaseName2]['pass'], CONFIG['DB'][$databaseName2]['db']);
-        if (!$db2) {
-            $this->test_return(\core\common\Entity::L_ERROR, "Connection to the  $databaseName2 database failed");
-        } else {
+        try {
+            $db2 = DBConnection::handle($databaseName2);
             if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-                $r = mysqli_query($db2, 'desc view_admin');
-                if ($r->num_rows == $this->view_admin_ct) {
+                $res2 = $db2->exec('desc view_admin');
+                if ($res2->num_rows == $this->view_admin_ct) {
                     $this->test_return(\core\common\Entity::L_OK, "The $databaseName2 database appears to be OK.");
                 } else {
                     $this->test_return(\core\common\Entity::L_ERROR, "The $databaseName2 is reacheable but there is something wrong with the schema");
@@ -650,16 +649,17 @@ class SanityTests extends CAT {
             } else {
                 $this->test_return(\core\common\Entity::L_OK, "The $databaseName2 database appears to be OK.");
             }
+        } catch (Exception $e) {
+            $this->test_return(\core\common\Entity::L_ERROR, "Connection to the  $databaseName2 database failed");
         }
+
         $databaseName3 = 'EXTERNAL';
         if (!empty(CONFIG['DB'][$databaseName3])) {
-            $db3 = mysqli_connect(CONFIG['DB'][$databaseName3]['host'], CONFIG['DB'][$databaseName3]['user'], CONFIG['DB'][$databaseName3]['pass'], CONFIG['DB'][$databaseName3]['db']);
-            if (!$db3) {
-                $this->test_return(\core\common\Entity::L_ERROR, "Connection to the  $databaseName3 database failed");
-            } else {
+            try {
+                $db3 = DBConnection::handle($databaseName3);
                 if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-                    $r = mysqli_query($db3, 'desc view_admin');
-                    if ($r->num_rows == $this->view_admin_ct) {
+                    $res3 = $db3->exec('desc view_admin');
+                    if ($res3->num_rows == $this->view_admin_ct) {
                         $this->test_return(\core\common\Entity::L_OK, "The $databaseName3 database appears to be OK.");
                     } else {
                         $this->test_return(\core\common\Entity::L_ERROR, "The $databaseName3 is reacheable but there is something wrong with the schema");
@@ -667,6 +667,9 @@ class SanityTests extends CAT {
                 } else {
                     $this->test_return(\core\common\Entity::L_OK, "The $databaseName3 database appears to be OK.");
                 }
+            } catch (Exception $e) {
+
+                $this->test_return(\core\common\Entity::L_ERROR, "Connection to the  $databaseName3 database failed");
             }
         }
     }

@@ -211,9 +211,9 @@ class UserNetAPI extends UserAPI {
      */
     public function JSON_getUserCerts($token) {
         $returnArrayE = $this->getUserCerts($token);
+        $returnArray = [];
         $status = is_array($returnArrayE) ? 1 : 0;
         if ($status === 1) {
-            $returnArray = [];
             foreach ($returnArrayE as $element) {
                 $returnArray[] = $element->getBasicInfo();
             }
@@ -247,10 +247,11 @@ class UserNetAPI extends UserAPI {
      */
     public function sendLogo($identifier, $type, $width = 0, $height = 0) {
         $logo = $this->getLogo($identifier, $type, $width, $height);
+        $blob = $logo === NULL ? file_get_contents(ROOT . '/web/resources/images/empty.png') : $logo['blob'];
         header("Content-type: " . $logo['filetype']);
         header("Cache-Control:max-age=36000, must-revalidate");
         header($logo['expires']);
-        echo $logo['blob'];
+        echo $blob;
     }
     
 }

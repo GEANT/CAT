@@ -105,11 +105,6 @@ CREATE TABLE `profile` (
   `showtime` tinyint(1) DEFAULT '1',
   `sufficient_config` tinyint(1) NULL DEFAULT NULL,
   `last_change` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `status_dns` int(11) DEFAULT NULL,
-  `status_cert` int(11) DEFAULT NULL,
-  `status_reachability` int(11) DEFAULT NULL,
-  `status_TLS` int(11) DEFAULT NULL,
-  `last_status_check` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`profile_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

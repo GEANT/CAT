@@ -327,6 +327,15 @@ td.vendor img {
    padding-top:10px;
 }
 
+#fed_logo {
+   display:none;
+   position:absolute;
+   right:30px;
+   max-height:150px;
+   padding-bottom:10px;
+   bottom: 50px;
+}
+
 #inst_extra_text {
    position: absolute;
    max-width: 30vw;
@@ -638,6 +647,11 @@ td.vendor {
    padding-top:30px;
 }
 
+#fed_logo {
+   max-width:20vw;
+   padding-top:30px;
+}
+
 #inst_extra_text {
    position: absolute;
    max-width: 30vw;
@@ -822,6 +836,11 @@ button.guess_os {
    padding-top:30px;
 }
 
+#fed_logo {
+   max-width:20vw;
+   padding-top:30px;
+}
+
 #inst_extra_text {
    position: absolute;
    max-width: 30vw;
@@ -873,6 +892,10 @@ button.guess_os {
 
 
 #idp_logo {
+   max-width:150px;
+}
+
+#fed_logo {
    max-width:150px;
 }
 

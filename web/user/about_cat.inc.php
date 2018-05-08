@@ -97,5 +97,6 @@ $out .= sprintf(_("<li><b>android.l.google.com</b> (Google Play access for Andro
                 . "<li><b>wallet.google.com</b></li>"
                 . "<li><b>plus.google.com</b></li>"
                 . "<li><b>checkout.google.com</b></li>"
+                . "<li><b>*.gvt1.com</li>"
                 . "</ul>"
         ));

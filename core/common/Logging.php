@@ -1,17 +1,19 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 
 namespace core\common;
+
 use \Exception;
 
-require_once(dirname(dirname(__DIR__))."/config/_config.php");
+require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
 
 class Logging {
 
@@ -46,7 +48,7 @@ class Logging {
         if (CONFIG['DEBUG_LEVEL'] < $level) {
             return;
         }
-        
+
         $output = " ($level) ";
         if ($level > 3) {
             $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
@@ -83,16 +85,8 @@ class Logging {
             case "MOD": // modified existing object
             case "DEL": // deleted an object
                 ob_start();
-                echo " ($category) ";
-                echo " " . $user . ": ";
-                if (is_string($message)) {
-                    echo $message ."\n";
-                } else {
-                    var_export($message);
-                }
-                
+                echo " ($category)  $user : $message\n";
                 $output = ob_get_clean();
-
                 $this->writeToFile("audit-activity.log", $output);
                 return TRUE;
             default:
@@ -112,9 +106,9 @@ class Logging {
         $logTextStep1 = preg_replace("/[\n\r]/", "", $query);
         $logTextStep2 = preg_replace("/ +/", " ", $logTextStep1);
         $logTextStep3 = iconv("UTF-8", "UTF-8//TRANSLIT", $logTextStep2);
-        
+
         ob_start();
-        
+
         print(" " . $logTextStep3 . "\n");
         $output = ob_get_clean();
 

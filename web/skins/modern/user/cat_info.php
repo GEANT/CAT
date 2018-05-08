@@ -94,7 +94,7 @@ $Tou['full'] . "
                     $rn = uniqid();
                     $_SESSION['remindIdP'] = $rn;
                     $out .= "<input type='hidden' id='remindIdPs' value='$rn'>";
-                    $out .= "<p><button onclick='goAdmin(); return(false);'>" . _("Login") . "</button>";
+                    $out .= "<p><button type='button' onclick='goAdmin(); return(false);'>" . _("Login") . "</button>";
                     $out .= "<br/><br/><p>" . _("Did you forget with which Identity Provider you logged in to the system? We can try to find out if you specify the email address with which you were invited to the system in the box below. This may not work if you were invited from a third-party website via the AdminAPI.") . "</p>";
                     $out .= "<input id='remindIdP' type='text'/><button onclick='remindIdPF(); return false;'>" . _("Get IdP Reminder") . "</button>";
                     $out .= "<div id='remindIdPd'><span id='remindIdPh'></span><ul id='remindIdPl'></ul></div>";

@@ -48,7 +48,7 @@ class UserAPI extends CAT {
      * @param string $device identifier as in {@link devices.php}
      * @param int $profileId profile identifier
      *
-     * @return array 
+     * @return array|NULL
      *  array with the following fields: 
      *  profile - the profile identifier; 
      *  device - the device identifier; 
@@ -81,7 +81,7 @@ class UserAPI extends CAT {
             $installerProperties['link'] = $myInstaller['link'];
         }
         $this->languageInstance->setTextDomain("web_user");
-        return($installerProperties);
+        return $installerProperties;
     }
     
     private function verifyDownloadAccess($profile) {
@@ -92,17 +92,17 @@ class UserAPI extends CAT {
             if (!$auth->isAuthenticated()) {
                 $this->loggerInstance->debug(2, "User NOT authenticated, rejecting request for a non-production installer\n");
                 header("HTTP/1.0 403 Not Authorized");
-                return(FALSE);
+                return FALSE;
             }
             $userObject = new User($_SESSION['user']);
             if (!$userObject->isIdPOwner($profile->institution)) {
                 $this->loggerInstance->debug(2, "User not an owner of a non-production profile - access forbidden\n");
                 header("HTTP/1.0 403 Not Authorized");
-                return(FALSE);
+                return FALSE;
             }
             $this->loggerInstance->debug(4, "User is the owner - allowing access\n");
         }
-        return(TRUE);
+        return TRUE;
     }
 
     /**
@@ -120,15 +120,15 @@ class UserAPI extends CAT {
         }
         if ($noCache) {
             $this->loggerInstance->debug(5, "getCache: the no_cache option set for this device\n");
-            return(['path' => NULL, 'mime' => NULL]);
+            return ['path' => NULL, 'mime' => NULL];
         }
         $this->loggerInstance->debug(5, "getCache: caching option set for this device\n");
         $cache = $profile->testCache($device);
         $iPath = $cache['cache'];
         if ($iPath && is_file($iPath)) {
-            return(['path' => $iPath, 'mime' => $cache['mime']]);
+            return ['path' => $iPath, 'mime' => $cache['mime']];
         }
-        return(['path' => NULL, 'mime' => NULL]);
+        return ['path' => NULL, 'mime' => NULL];
     }
 
     /**
@@ -171,7 +171,7 @@ class UserAPI extends CAT {
                 $out['link'] = 0;
             }
         }
-        return($out);
+        return $out;
     }
 
     /**
@@ -251,7 +251,7 @@ class UserAPI extends CAT {
         }
         $returnArray['devices'] = $profile->listDevices();
         $this->languageInstance->setTextDomain("web_user");
-        return($returnArray);
+        return $returnArray;
     }
 
     /**
@@ -330,6 +330,7 @@ class UserAPI extends CAT {
         $expiresString = '';
         $attributeName = [
             'federation' => "fed:logo_file",
+            'federation_from_idp' => "fed:logo_file",
             'idp' => "general:logo_file",
         ];
         
@@ -341,6 +342,10 @@ class UserAPI extends CAT {
                 break;
             case "idp":
                 $entity = $validator->IdP($identifier);
+                break;
+            case "federation_from_idp":
+                $idp = $validator->IdP($identifier);
+                $entity = $validator->Federation($idp->federation);
                 break;
             default:
                 throw new Exception("Unknown type of logo requested!");
@@ -356,7 +361,7 @@ class UserAPI extends CAT {
         } else {
             $logoAttribute = $entity->getAttributes($attributeName[$type]);
             if (count($logoAttribute) == 0) {
-                return(NULL);
+                return NULL;
             }
             $this->loggerInstance->debug(4,"RESIZE:$width:$height\n");
             $meta = $this->processImage($logoAttribute[0]['value'], $logoFile, $width, $height, $resize);
@@ -381,7 +386,7 @@ class UserAPI extends CAT {
             $height = 0;
             $resize = FALSE;
         }
-        return ([$width, $height, $resize]);
+        return [$width, $height, $resize];
     }
 
     /**
@@ -389,7 +394,7 @@ class UserAPI extends CAT {
      * @return array
      */
     public function locateDevice() {
-        return(\core\DeviceLocation::locateDevice());
+        return \core\DeviceLocation::locateDevice();
     }
     
     /**
@@ -402,7 +407,7 @@ class UserAPI extends CAT {
      *
      */
     public function listAllIdentityProviders($activeOnly = 0, $country = "") {
-        return(IdPlist::listAllIdentityProviders($activeOnly, $country));
+        return IdPlist::listAllIdentityProviders($activeOnly, $country);
     }
     
     /**
@@ -411,7 +416,7 @@ class UserAPI extends CAT {
      * @return array $IdPs -  list of arrays ('id', 'name');
      */
     public function orderIdentityProviders($country, $currentLocation = NULL) {
-        return(IdPlist::orderIdentityProviders($country, $currentLocation));
+        return IdPlist::orderIdentityProviders($country, $currentLocation);
     }
 
     /**
@@ -428,7 +433,7 @@ class UserAPI extends CAT {
         if ($devId !== NULL) {
             $ret = $this->returnDevice($devId, $Dev[$devId]);
             if ($ret !== FALSE) {
-                return($ret);
+                return $ret;
             } 
         }
 // the device has not been specified or not specified correctly, try to detect if from the browser ID
@@ -439,11 +444,11 @@ class UserAPI extends CAT {
                 continue;
             }
             if (preg_match('/' . $device['match'] . '/', $browser)) {
-                return ($this->returnDevice($devId, $device));
+                return $this->returnDevice($devId, $device);
             }
         }
         $this->loggerInstance->debug(2, "Unrecognised system: $browser\n");
-        return(false);
+        return FALSE;
     }
     
     /*
@@ -453,9 +458,9 @@ class UserAPI extends CAT {
     private function returnDevice($devId, $device) {
         if (\core\common\Entity::getAttributeValue($device, 'options', 'hidden') !== 1) {
             $this->loggerInstance->debug(4, "Browser_id: $devId\n");
-            return(['device' => $devId, 'display' => $device['display'], 'group' => $device['group']]);
+            return ['device' => $devId, 'display' => $device['display'], 'group' => $device['group']];
         }
-        return(FALSE);
+        return FALSE;
     }
    
     /**
@@ -466,13 +471,13 @@ class UserAPI extends CAT {
         $devId = filter_input(INPUT_GET, 'device', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'device', FILTER_SANITIZE_STRING);
         if ($devId === NULL || $devId === FALSE) {
             $this->loggerInstance->debug(2, "Invalid device id provided\n");
-            return(NULL);
+            return NULL;
         }
         if (!isset(\devices\Devices::listDevices()[$devId])) {
             $this->loggerInstance->debug(2, "Unrecognised system: $devId\n");
-            return(NULL);
+            return NULL;
         }
-        return($devId);
+        return $devId;
     }
 
     /**

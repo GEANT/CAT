@@ -133,11 +133,6 @@ abstract class DeviceConfig extends \core\common\Entity {
     final public function setup(AbstractProfile $profile, $token = NULL, $importPassword = NULL) {
         $this->loggerInstance->debug(4, "module setup start\n");
         $purpose = 'installer';
-        if (!$profile instanceof AbstractProfile) {
-            $this->loggerInstance->debug(2, "No profile has been set\n");
-            throw new Exception("No profile has been set");
-        }
-
         $eaps = $profile->getEapMethodsinOrderOfPreference(1);
         $this->calculatePreferredEapType($eaps);
         if (count($this->selectedEap) == 0) {
@@ -222,6 +217,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         foreach ($eapArrayofObjects as $eap) {
             if (in_array($eap->getArrayRep(), $this->supportedEapMethods)) {
                 $this->selectedEap = $eap->getArrayRep();
+                break;
             }
         }
         if ($this->selectedEap != []) {
@@ -340,7 +336,7 @@ abstract class DeviceConfig extends \core\common\Entity {
             }
         }
         $fileHandle = fopen("$output_name", "w");
-        if (!$fileHandle) {
+        if ($fileHandle === FALSE) {
             $this->loggerInstance->debug(2, "translateFile($source, $output_name, $encoding) failed\n");
             return FALSE;
         }
@@ -606,7 +602,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         $ext = isset($this->mime_extensions[$mime]) ? $this->mime_extensions[$mime] : 'usupported';
         $this->loggerInstance->debug(5, "saveInfoFile: $mime : $ext\n");
         $fileHandle = fopen('local-info.' . $ext, "w");
-        if (!$fileHandle) {
+        if ($fileHandle === FALSE) {
             throw new Exception("problem opening the file");
         }
         fwrite($fileHandle, $blob);
@@ -656,10 +652,10 @@ abstract class DeviceConfig extends \core\common\Entity {
     /**
      * collates the string to use as EAP outer ID
      * 
-     * @return string
+     * @return string|NULL
      */
     protected function determineOuterIdString() {
-        $outerId = 0;
+        $outerId = NULL;
         if (isset($this->attributes['internal:use_anon_outer']) && $this->attributes['internal:use_anon_outer'][0] == "1" && isset($this->attributes['internal:realm'])) {
             $outerId = "@" . $this->attributes['internal:realm'][0];
             if (isset($this->attributes['internal:anon_local_value'])) {

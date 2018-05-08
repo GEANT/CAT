@@ -108,6 +108,7 @@ class Device_Linux extends \core\DeviceConfig {
         $out .= 'Messages.wrongUsernameFormat = "' ._("Error: Your username must be of the form 'xxx@institutionID' e.g. 'john@example.net'!") . "\"\n";
         $out .= 'Messages.wrong_realm = "' . _("Error: your username must be in the form of 'xxx@{}'. Please enter the username in the correct format.") . "\"\n";
         $out .= 'Messages.wrong_realm_suffix = "' . _("Error: your username must be in the form of 'xxx@institutionID' and end with '{}'. Please enter the username in the correct format.") . "\"\n";
+        $out .= 'Messages.user_cert_missing = "' . _("personal certificate file not found") . "\"\n";
     
         return $out;
     }
@@ -136,7 +137,10 @@ class Device_Linux extends \core\DeviceConfig {
         $tou = $this->mkUserConsent();
         $out .= 'Config.tou = ' . ( $tou ? '"""' . $tou . '"""' : 'None' ) . "\n"; 
         $out .= 'Config.CA = """' . $this->mkCAfile()  . '"""' . "\n";
-        $out .= "Config.anonymous_identity = '" . $this->determineOuterIdString() . "'\n";
+        $outerId = $this->determineOuterIdString();
+        if ($outerId !== NULL) {
+            $out .= "Config.anonymous_identity = '$outerId'\n";
+        }
         $out .= 'Config.init_info = """' . $this->mkIntro() . '"""' . "\n";
         $out .= 'Config.init_confirmation = "' . $this->mkProfileConfirmation() . "\"\n";
         
