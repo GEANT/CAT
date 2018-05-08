@@ -626,7 +626,7 @@ class SanityTests extends CAT {
         $databaseName1 = 'INST';
         try {
             $db1 = DBConnection::handle($databaseName1);
-            $r = mysqli_query($db1, 'select * from profile_option_dict');
+            $r = $db1->exec('SELECT * FROM profile_option_dict');
             if ($r->num_rows == $this->profile_option_ct) {
                 $this->test_return(\core\common\Entity::L_OK, "The $databaseName1 database appears to be OK.");
             } else {
@@ -640,7 +640,7 @@ class SanityTests extends CAT {
         try {
             $db2 = DBConnection::handle($databaseName2);
             if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-                $r = mysqli_query($db2, 'desc view_admin');
+                $r = $db2->exec('desc view_admin');
                 if ($r->num_rows == $this->view_admin_ct) {
                     $this->test_return(\core\common\Entity::L_OK, "The $databaseName2 database appears to be OK.");
                 } else {
@@ -658,7 +658,7 @@ class SanityTests extends CAT {
             try {
                 $db3 = DBConnection::handle($databaseName3);
                 if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-                    $r = mysqli_query($db3, 'desc view_admin');
+                    $r = $db3->exec('desc view_admin');
                     if ($r->num_rows == $this->view_admin_ct) {
                         $this->test_return(\core\common\Entity::L_OK, "The $databaseName3 database appears to be OK.");
                     } else {
