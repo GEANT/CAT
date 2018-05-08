@@ -65,7 +65,7 @@ abstract class AbstractMap {
     /**
      * If the map needs to inject code into <body> to enable a map (like 
      * JavaScript code), it is generated in this function. The actual HTML
-     * is in the *Field functions below.
+     * is defined in the htmlShowtime() function below.
      */
     abstract public function htmlBodyCode();
 
@@ -78,7 +78,13 @@ abstract class AbstractMap {
     /**
      * Code to display the map and surrounding HTML to display the map. Providers
      * probably will want to return different pieces of code depending on whether
-     * we're readonly or not
+     * we're $this->readOnly or not.
+     * 
+     * For edit mode, the option parser (after hitting Submit) expects a coordinate
+     * pair in the HTML parameters 'geo_lat' and 'geo_long'. The code in this
+     * function should fill these parameters. The parameters themselves are
+     * generated if making use of the htmlPostEdit() function, or can of course
+     * be written by this htmlShowtime function itself.
      */
     abstract public function htmlShowtime($wizard, $additional);
 
