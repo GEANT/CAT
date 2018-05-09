@@ -20,7 +20,7 @@ function getXML(attribute_class) {
     client.send();
 }
 
-function addOption(attribute_class) {
+function addOption() {
     if (this.readyState === 4 && this.status === 200) {
         var field = document.getElementById("expandable_" + this.attribute_class + "_options");
         var div = document.createElement('tbody');
