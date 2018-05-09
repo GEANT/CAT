@@ -18,10 +18,9 @@ $(function () {
             $(".eapm").removeAttr('value');
             $(".eapmv").removeAttr('value');
             $("#sortable1").children().each(function (index) {
-                i = index + 1;
-                v = $(this).html();
+                var v = $(this).html();
                 $("#EAP-" + v).val(v);
-                $("#EAP-" + v + "-priority").val(i);
+                $("#EAP-" + v + "-priority").val(index + 1);
             });
         }
     }).disableSelection();
