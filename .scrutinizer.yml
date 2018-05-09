@@ -9,6 +9,7 @@ build:
                         command: phpcs-run
                         use_website_config: true
                     - php-scrutinizer-run --enable-security-analysis
+                    - js-scrutinizer-run
     environment:
         php:
             version: 7.0.20
