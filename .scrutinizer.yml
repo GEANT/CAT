@@ -170,6 +170,3 @@ tools:
 filter:
     excluded_paths: [web/external/*]
     dependency_paths: [core/PHPMailer/, core/phpqrcode.php, core/GeoIP2/, core/PHPUnit/, core/simpleSAMLphp/]
-
-checks:
-    javascript: true
