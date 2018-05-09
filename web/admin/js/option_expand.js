@@ -9,6 +9,8 @@
 
 /* General function for doing HTTP XML GET requests. */
 
+/* global marks */
+
 function getXML(attribute_class) {
     var client = new XMLHttpRequest();
     client.attribute_class = attribute_class;
@@ -41,7 +43,6 @@ function deleteOption(e, identifier) {
     /* the marks variable is set by a script in edit_idp.php */
     var field = document.getElementById(identifier);
     if (e) {
-        /** global: marks */
         marks[e - 1].setOptions({visible: false});
     }
     field.parentNode.removeChild(field);
