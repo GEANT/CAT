@@ -170,6 +170,18 @@ class Federation extends EntityWithDBProperties {
             "row" => 0,
             "flag" => NULL);
         
+        if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != 'LOCAL' && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == 'LOCAL') {
+            // this instance exclusively does SB, so it is not necessary to ask
+            // fed ops whether they want to enable it or not. So always add it
+            // to the list of fed attributes
+            $this->attributes[] = array("name" => "fed:silverbullet",
+            "lang" => NULL,
+            "value" => TRUE,
+            "level" => "FED",
+            "row" => 0,
+            "flag" => NULL);
+        }
+        
         $this->idpListActive = [];
         $this->idpListAll = [];
     }
