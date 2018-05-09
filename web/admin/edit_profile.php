@@ -32,86 +32,8 @@ require_once("inc/click_button_js.php");
 <script type="text/javascript" src="../external/jquery/jquery-migrate.js"></script> 
 <script type="text/javascript" src="../external/jquery/jquery-ui.js"></script> 
 <!-- EAP sorting code -->
-<style>
-    li.eap1 {list-style-type: none;}
-    ol.eapmethods { list-style-position: inside; margin: 0; padding: 0px; padding-top: 20px; padding-bottom: 0px; width: 20em; }
-    ol.eapmethods li{
-        background: #CCF;
-        border-left-style: inset;
-        border-left-width: 1px;
-        border-left-color: #8BBACB;
-        border-top-style: inset;
-        border-top-width: 1px;
-        border-top-color: #8BBACB;
-        border-right-style: outset;
-        border-right-width: 2px;
-        border-right-color: #043D52;
-        border-bottom-style: outset;
-        border-bottom-width: 2px;
-        border-bottom-color: #043D52;
-        border-radius: 6px;
-        box-shadow: 4px 4px 4px #888888;
-        background-image:url('../resources/images/icons/strzalka5.png');
-        background-repeat:no-repeat;
-        background-position:95% 50%;
-        margin: 2px 0px 2px 0px;
-        padding: 3px;
-        padding-left: 1em;
-        padding-right: 0px;
-    }
-
-    table.eaptable td {
-        background:#F0F0F0;
-    }
-
-    table.eaptable th {
-        background:#F0F0F0;
-    }
-
-    #eap_bottom_row td {
-        border-top-color: #888;
-        border-top-style: solid;
-        border-top-width: 2px;
-    }
-
-    #eap_bottom_row th {
-        border-top-color: #888;
-        border-top-style: solid;
-        border-top-width: 2px;
-    }
-
-    #supported_eap {
-        background: green;
-        padding: 5px;
-    }
-
-    #unsupported_eap {
-        background: red;
-        padding: 5px;
-    }
-
-</style>
-<script>
-    $(function () {
-        $("#sortable1, #sortable2").sortable({
-            connectWith: "ol.eapmethods",
-            tolerance: 'pointer',
-            out: function (event, ui) {
-                ui.item.toggleClass("eap1");
-            },
-            stop: function (event, ui) {
-                $(".eapm").removeAttr('value');
-                $(".eapmv").removeAttr('value');
-                $("#sortable1").children().each(function (index) {
-                    i = index + 1;
-                    v = $(this).html();
-                    $("#EAP-" + v).val(v);
-                    $("#EAP-" + v + "-priority").val(i);
-                });
-            }
-        }).disableSelection();
-    });
-</script>
+<script type="text/javascript" src="js/eapSorter.js"></script> 
+<link rel='stylesheet' type='text/css' href='css/eapSorter.css' />
 <!-- EAP sorting code end -->
 <?php
 // initialize inputs

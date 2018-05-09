@@ -10,6 +10,7 @@
 /* General function for doing HTTP XML GET requests. */
 
 /* global marks */
+/** global: marks */
 
 function getXML(attribute_class) {
     var client = new XMLHttpRequest();
