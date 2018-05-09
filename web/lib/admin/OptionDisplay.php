@@ -383,8 +383,8 @@ FOO;
        <td>
           <button type='button' class='delete' onclick='";
         if ($prefillValue !== NULL && $item == "general:geo_coordinates") {
-            "Map".CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER'];
-                $retval .= 'Map'.CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER'].'DeleteCoord('.$this->allLocationCount.'); ';
+            $funcname = "Map".CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER'].'DeleteCoord';
+                $retval .= 'if (typeof '.$funcname.' === "function") { '.$funcname.'('.$this->allLocationCount.'); } ';
             
         }
         $retval .= 'deleteOption("option-S'.$rowid.'")';

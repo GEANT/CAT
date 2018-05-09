@@ -48,7 +48,3 @@ function deleteOption(identifier) {
 function MapGoogleDeleteCoord(e) {
     marks[e - 1].setOptions({visible: false});
 }
-
-function MapNoneDeleteCoord(e) {
-    // we don't do anything special because there is no map widget at all
-}
