@@ -11,6 +11,7 @@
 
 /* global marks */
 /** global: marks */
+/** global marks */
 
 function getXML(attribute_class) {
     var client = new XMLHttpRequest();
