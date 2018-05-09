@@ -197,21 +197,6 @@ class ProfileSilverbullet extends AbstractProfile {
     }
 
     /**
-     * performs an HTTP request. Currently unused, will be for external CA API calls.
-     * 
-     * @param string $url the URL to send the request to
-     * @param array $postValues POST values to send
-     * @return string the returned HTTP content
-     */
-    private function httpRequest($url, $postValues) {
-        $options = [
-            'http' => ['header' => 'Content-type: application/x-www-form-urlencoded\r\n', "method" => 'POST', 'content' => http_build_query($postValues)]
-        ];
-        $context = stream_context_create($options);
-        return file_get_contents($url, false, $context);
-    }
-
-    /**
      * find out about the status of a given SB user; retrieves the info regarding all his tokens (and thus all his certificates)
      * @param int $userId
      * @return array of invitationObjects
