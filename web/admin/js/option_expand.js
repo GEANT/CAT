@@ -51,5 +51,4 @@ function MapGoogleDeleteCoord(e) {
 
 function MapNoneDeleteCoord(e) {
     // we don't do anything special because there is no map widget at all
-    e++;
 }
