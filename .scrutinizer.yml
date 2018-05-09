@@ -1,3 +1,88 @@
+checks:
+    php:
+        check_method_contracts:
+            verify_interface_like_constraints: true
+            verify_documented_constraints: true
+            verify_parent_constraints: true
+        return_doc_comments: true
+        simplify_boolean_return: true
+        no_long_variable_names:
+            maximum: '20'
+        more_specific_types_in_doc_comments: true
+        return_doc_comment_if_not_inferrable: true
+        param_doc_comment_if_not_inferrable: true
+    javascript:
+        var_sometimes_initialized: true
+        var_never_initialized: true
+        use_isnan: true
+        unsafe_undefined: true
+        unsafe_mutable_variable_usage: true
+        nsp_vulnerabilities: true
+        no_with: true
+        no_void: true
+        no_use_before_define: true
+        no_unused_vars: true
+        no_unused_function: true
+        no_unused_expressions: true
+        no_unused_const: true
+        no_unused_assignment: true
+        no_unreachable: true
+        no_undef_init: true
+        no_undef: true
+        no_shadow_builtins: true
+        no_sequences: true
+        no_return_assign: true
+        no_redeclared_const: true
+        no_redeclare: true
+        no_process_exit: true
+        no_path_concat: true
+        no_param_assign: true
+        no_new_wrappers: true
+        no_new_require: true
+        no_new_func: true
+        no_native_reassign: true
+        no_loop_var_assign: true
+        no_label_var: true
+        no_invalid_regexp: true
+        no_inner_declarations: true
+        no_implied_eval: true
+        no_implicit_undefined_return: true
+        no_func_assign: true
+        no_extra_bind: true
+        no_extend_native: true
+        no_ex_assign: true
+        no_eval: true
+        no_empty_label: true
+        no_else_return: true
+        no_dupe_keys: true
+        no_delete_var: true
+        no_debugger: true
+        no_constant_condition: true
+        no_caller: true
+        no_bitwise: true
+        no_array_constructor: true
+        no_alias_builtins: true
+        no_alert: true
+        new_cap: true
+        jsdoc_non_existent_params: true
+        guard_for_in: true
+        eqeqeq: true
+        consistent_return: true
+        code_rating: true
+        check_unused_parameters: true
+        check_unused_object_creation: true
+        check_unnecessary_return: true
+        check_unnecessary_continue: true
+        check_undeclared_vars: true
+        check_try_statement: true
+        check_too_many_arguments: true
+        check_switch_unintended label: true
+        check_switch_no_uncommented_fallthrough: true
+        check_switch_default_only: true
+        check_switch_ambiguous_test: true
+        check_loop_no_body: true
+        check_for_loops_test: true
+
 build:
     nodes:
         analysis:
