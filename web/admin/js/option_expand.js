@@ -40,11 +40,16 @@ function doCredentialCheck(form) {
     postXML(processCredentials, form);
 }
 
-function deleteOption(e, identifier) {
-    /* the marks variable is set by a script in edit_idp.php */
+function deleteOption(identifier) {
     var field = document.getElementById(identifier);
-    if (e) {
-        marks[e - 1].setOptions({visible: false});
-    }
     field.parentNode.removeChild(field);
+}
+
+function MapGoogleDeleteCoord(e) {
+    marks[e - 1].setOptions({visible: false});
+}
+
+function MapNoneDeleteCoord(e) {
+    // we don't do anything special because there is no map widget at all
+    e++;
 }

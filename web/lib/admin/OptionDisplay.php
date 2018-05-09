@@ -305,14 +305,8 @@ FOO;
             case \core\Options::TYPECODE_COORDINATES:
                 $this->allLocationCount = $this->allLocationCount + 1;
                 // display of the locations varies by map provider
-                switch (CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER']) {
-                    case "None":
-                        $pair = json_decode($optionValue, true);
-                        $link = "<table><tr><td>Latitude</td><td><strong>".$pair['lat']."</strong></td></tr><tr><td>Longitude</td><td><strong>".$pair['lon']."</strong></td></tr></table>";
-                        break;
-                    default:
-                        $link = "<button id='location_b_" . $this->allLocationCount . "' class='location_button'>" . _("Click to see location") . " $this->allLocationCount</button>";
-                }
+                $classname = "\web\lib\admin\Map".CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER'];
+                $link = $classname::optionListDisplayCode($optionValue, $this->allLocationCount);
                 $retval .= "<input readonly style='display:none' type='text' name='value[S$rowid-" . \core\Options::TYPECODE_TEXT . "]' id='S$rowid-input-text' value='$optionValue'>$link";
                 break;
             case \core\Options::TYPECODE_FILE:
@@ -387,7 +381,14 @@ FOO;
         $retval .= "
 
        <td>
-          <button type='button' class='delete' onclick='deleteOption(" . ( $prefillValue !== NULL && $item == "general:geo_coordinates" ? $this->allLocationCount : 0 ) . ",\"option-S" . $rowid . "\")'>-</button>
+          <button type='button' class='delete' onclick='";
+        if ($prefillValue !== NULL && $item == "general:geo_coordinates") {
+            "Map".CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER'];
+                $retval .= 'Map'.CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER'].'DeleteCoord('.$this->allLocationCount.'); ';
+            
+        }
+        $retval .= 'deleteOption("option-S'.$rowid.'")';
+        $retval .= "'>-</button>
        </td>
     </tr>";
         return $retval;

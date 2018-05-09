@@ -284,7 +284,7 @@ class MapGoogle extends AbstractMap {
             if(addLocations() == 0)
                 locator_magic();
         } " .
-            '$(document).ready(function () {
+                '$(document).ready(function () {
         $(".location_button").click(function (event) {
             event.preventDefault();
             marker_index = $(this).attr("id").substr(11) - 1;
@@ -301,10 +301,11 @@ class MapGoogle extends AbstractMap {
         });
 
     });' .
-    "</script>";
+                "</script>";
     }
 
     public function htmlBodyCode() {
+        
     }
 
     public function htmlShowtime($wizard = FALSE, $additional = FALSE) {
@@ -314,7 +315,11 @@ class MapGoogle extends AbstractMap {
             return $this->htmlPreEdit($wizard, $additional) . $this->findLocationHtml() . "<div id='map' class='googlemap'></div>" . $this->htmlPostEdit(FALSE);
         }
     }
-    
+
+    public static function optionListDisplayCode($coords, $number) {
+        return "<button id='location_b_" . $number . "' class='location_button'>" . _("Click to see location") . " $number</button>";
+    }
+
     public function bodyTagCode() {
         return "onload='load(" . ($this->readOnly ? "0" : "1") . ")'";
     }
@@ -322,4 +327,5 @@ class MapGoogle extends AbstractMap {
     private function findLocationHtml() {
         return "<p>" . _("Address:") . " <input name='address' id='address' /><button type='button' onclick='getAddressLocation()'>" . _("Find address") . "</button> <button type='button' onclick='locateMe()'>" . _("Locate Me!") . "</button></p>";
     }
+
 }

@@ -89,6 +89,14 @@ abstract class AbstractMap {
     abstract public function htmlShowtime($wizard, $additional);
 
     /**
+     * How are coordinates displayed in the enumeration of inst options?
+     * This function provides the HTML for that.
+     * 
+     * The parameter is the JSON representation of a coordinate pair.
+     */
+    abstract public static function optionListDisplayCode($coords, $number);
+    
+    /**
      * This HTML goes above the actual map, and is map provider independent.
      * 
      * @param boolean $wizardMode are we in wizard mode?

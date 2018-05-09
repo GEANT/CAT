@@ -40,8 +40,13 @@ class MapNone extends AbstractMap {
             return $this->htmlPreEdit($wizard, $additional) . $this->htmlPostEdit(TRUE);
         }
     }
-    
+
     public function bodyTagCode() {
         return "";
+    }
+
+    public static function optionListDisplayCode($coords, $number) {
+        $pair = json_decode($coords, true);
+        return "<table><tr><td>Latitude</td><td><strong>" . $pair['lat'] . "</strong></td></tr><tr><td>Longitude</td><td><strong>" . $pair['lon'] . "</strong></td></tr></table>";
     }
 }

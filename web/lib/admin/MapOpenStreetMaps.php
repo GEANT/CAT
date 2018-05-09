@@ -39,9 +39,13 @@ class MapOpenStreetMaps extends AbstractMap {
         // your magic here
         return "";
     }
-    
+
     public function bodyTagCode() {
         // your magic here
         return "";
+    }
+
+    public static function optionListDisplayCode($coords, $number) {
+        // your magic here
     }
 }
