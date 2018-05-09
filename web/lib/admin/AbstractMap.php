@@ -45,16 +45,8 @@ abstract class AbstractMap {
      * @throws Exception
      */
     public static function instance($inst, $readonly) {
-        switch (CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER']) {
-            case "Google":
-                return new MapGoogle($inst, $readonly);
-            case "OpenStreetMaps":
-                return new MapOpenStreetMaps($inst, $readonly);
-            case "None":
-                return new MapNone($inst, $readonly);
-            default:
-                throw new \Exception("Unknown map provider.");
-        }
+        $classname = "\web\lib\admin\Map".CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER'];
+        return new $classname($inst, $readonly);
     }
 
     /**
