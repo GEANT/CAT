@@ -171,5 +171,3 @@ require_once("inc/click_button_js.php");
     ?>
     <?php
     echo $deco->footer();
-    ?>
-
