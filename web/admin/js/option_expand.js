@@ -39,9 +39,9 @@ function doCredentialCheck(form) {
 
 function deleteOption(e, identifier) {
     /* the marks variable is set by a script in edit_idp.php */
-    /** global: marks */
     var field = document.getElementById(identifier);
     if (e) {
+        /** global: marks */
         marks[e - 1].setOptions({visible: false});
     }
     field.parentNode.removeChild(field);
