@@ -27,7 +27,20 @@ class MapNone extends AbstractMap {
 
     public function htmlHeadCode() {
         // no magic required if you want to nothing at all.
-        return "";
+        return "<script>
+            function locateMe() {
+                navigator.geolocation.getCurrentPosition(locate_succes,locate_fail,{maximumAge:3600000, timeout:5000});
+            }
+
+            function locate_succes(p) {
+                $('#geo_long').val(p.coords.longitude);
+                $('#geo_lat').val(p.coords.latitude);
+            }
+            function locate_fail(p) {
+                alert('failure: '+p.message);
+            }
+        </script>
+        ";
     }
 
     public function htmlBodyCode() {
@@ -37,7 +50,8 @@ class MapNone extends AbstractMap {
 
     public function htmlShowtime($wizard = FALSE, $additional = FALSE) {
         if (!$this->readOnly) {
-            return $this->htmlPreEdit($wizard, $additional) . $this->htmlPostEdit(TRUE);
+ //           return $this->htmlPreEdit($wizard, $additional) . $this->htmlPostEdit(TRUE);
+            return $this->htmlPreEdit($wizard, $additional) . $this->findLocationHtml() . $this->htmlPostEdit(TRUE);
         }
     }
 
@@ -48,5 +62,8 @@ class MapNone extends AbstractMap {
     public static function optionListDisplayCode($coords, $number) {
         $pair = json_decode($coords, true);
         return "<table><tr><td>Latitude</td><td><strong>" . $pair['lat'] . "</strong></td></tr><tr><td>Longitude</td><td><strong>" . $pair['lon'] . "</strong></td></tr></table>";
+    }
+    private function findLocationHtml() {
+        return "<button type='button' onclick='locateMe()'>" . _("Locate Me!") . "</button></p>";
     }
 }
