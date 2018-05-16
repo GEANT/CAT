@@ -335,6 +335,13 @@ div.googlemap {
     min-height: 300px;
 }
 
+div.locationmap{
+    width: 100%;
+    height: 100%;
+    min-width: 300px;
+    min-height: 200px;
+}
+
 div.sub_h {
     padding-top: 15px;
 }

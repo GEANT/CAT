@@ -41,7 +41,7 @@ abstract class AbstractMap {
      * 
      * @param \core\IdP $inst
      * @param boolean $readonly
-     * @return \web\lib\admin\MapNone|\web\lib\admin\MapOpenstreetMaps|\web\lib\admin\MapGoogle
+     * @return \web\lib\admin\MapNone|\web\lib\admin\MapOpenLayers|\web\lib\admin\MapGoogle
      * @throws Exception
      */
     public static function instance($inst, $readonly) {
