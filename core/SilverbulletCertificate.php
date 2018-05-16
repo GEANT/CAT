@@ -275,6 +275,8 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                 $ocsp = file_get_contents($tempdir . "/$serialHex.response.der");
                 // remove the temp dir!
                 unlink($tempdir . "/$serialHex.response.der");
+                unlink($tempdir . "/index.txt.attr");
+                unlink($tempdir . "/index.txt");
                 rmdir($tempdir);
                 break;
             default:
