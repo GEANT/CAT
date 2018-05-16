@@ -20,7 +20,7 @@ class Logopath extends AbstractTest {
 
     /**
      * storing the end user's email, if he has given it to us
-     * @var string|FALSE
+     * @var string|boolean
      */
     private $userEmail;
 
