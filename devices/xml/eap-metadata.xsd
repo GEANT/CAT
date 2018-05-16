@@ -194,8 +194,8 @@
 
     <xs:complexType name="CredentialApplicability">
         <xs:sequence minOccurs="1" maxOccurs="1">
-            <xs:element name="IEEE80211" type="IEEE80211-Properties" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="IEEE8023" type="IEEE8023-Properties" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="IEEE80211" type="IEEE80211-Properties" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="IEEE8023" type="IEEE8023-Properties" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 
