@@ -105,14 +105,8 @@ class Logging {
         // also clean up non UTF-8 to sanitise possibly malicious inputs
         $logTextStep1 = preg_replace("/[\n\r]/", "", $query);
         $logTextStep2 = preg_replace("/ +/", " ", $logTextStep1);
-        $logTextStep3 = iconv("UTF-8", "UTF-8//TRANSLIT", $logTextStep2);
-
-        ob_start();
-
-        print(" " . $logTextStep3 . "\n");
-        $output = ob_get_clean();
-
-        $this->writeToFile("audit-SQL.log", $output);
+        $logTextStep3 = iconv("UTF-8", "UTF-8//IGNORE", $logTextStep2);
+        $this->writeToFile("audit-SQL.log", " " . $logTextStep3 . "\n");
     }
 
 }

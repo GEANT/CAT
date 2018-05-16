@@ -107,6 +107,10 @@
         </xs:annotation>
         <xs:sequence minOccurs="1" maxOccurs="1">
             <xs:element name="OuterIdentity" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="InnerIdentityPrefix" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="InnerIdentitySuffix" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="InnerIdentityHint" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="InnerIdentityEnforce" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
             <xs:element name="UserName" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="Password" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="ClientCertificate" type="CertData" minOccurs="0" maxOccurs="1"/>
@@ -188,11 +192,12 @@
         </xs:sequence>
     </xs:complexType>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
 
-    <xs:complexType name="ABFAB-Properties">
+    <xs:complexType name="CredentialApplicabilityType">
         <xs:sequence minOccurs="1" maxOccurs="1">
-            <xs:element name="ServiceIdentifier" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="IEEE80211" type="IEEE80211-Properties" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="IEEE8023" type="IEEE8023-Properties" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
-    </xs:complexType>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+    </xs:complexType>
 
     <xs:complexType name="LocalizedInteractive">
         <xs:simpleContent>
@@ -252,6 +257,7 @@
                                 </xs:complexType>                                                                
                             </xs:element>
 -->
+                            <xs:element name="CredentialApplicability" type="CredentialApplicabilityType" minOccurs="1" maxOccurs="1"/>
                             <xs:element name="ProviderInfo" type="ProviderInfoElements" minOccurs="0" maxOccurs="1"/>
                             <xs:element name="VendorSpecific" type="VendorSpecificExtension" minOccurs="0"/>
                         </xs:sequence>
