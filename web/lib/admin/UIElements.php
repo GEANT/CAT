@@ -135,7 +135,7 @@ class UIElements {
      * @return string HTML code
      */
     public function infoblock(array $optionlist, string $class, string $level) {
-        $googleMarkers = [];
+        $locationMarkers = [];
         $retval = "";
         $optioninfo = \core\Options::instance();
 
@@ -156,7 +156,7 @@ class UIElements {
                 switch ($type["type"]) {
                     case "coordinates":
                         $coords = json_decode($option['value'], true);
-                        $googleMarkers[] = $coords;
+                        $locationMarkers[] = $coords;
                         break;
                     case "file":
                         $retval .= "<tr><td>" . $this->displayName($option['name']) . "</td><td>$language</td><td>";
@@ -184,15 +184,16 @@ class UIElements {
                 }
             }
         }
-        if (count($googleMarkers)) {
+        if (count($locationMarkers)) {
             $marker = '<markers>';
             $locationCount = 0;
-            foreach ($googleMarkers as $g) {
+            foreach ($locationMarkers as $g) {
                 $locationCount++;
                 $marker .= '<marker name="' . $locationCount . '" lat="' . $g['lat'] . '" lng="' . $g['lon'] . '" />';
             }
             $marker .= '</markers>';
-            $retval .= '<tr><td><script>markers=\'' . $marker . '\';</script></td><td></td><td></td></tr>';
+            $jMarker = json_encode($locationMarkers);
+            $retval .= '<tr><td><script>markers=\'' . $marker . '\'; jmarkers = \'' . $jMarker . '\';</script></td><td></td><td></td></tr>';
         }
         return $retval;
     }
