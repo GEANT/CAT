@@ -30,6 +30,7 @@ class MapOpenLayers extends AbstractMap {
         return "
         <link href='../external/OpenLayers/ol.css' rel='stylesheet' type='text/css'>
         <script src='../external/OpenLayers/ol.js'></script>
+        <script src='../lib/admin/ol_drag.js'></script>
         <script>
         var addressService = 'https://nominatim.openstreetmap.org/search'; // the address search service
         var map; // the main map
@@ -151,14 +152,25 @@ class MapOpenLayers extends AbstractMap {
             view.setCenter(loc);
             view.setZoom(16);
         }
+        
+        function setTmpPointer(coord) {
+            var lonlat = ol.proj.transform(coord, 'EPSG:3857', 'EPSG:4326');
+            $('#geo_long').val(lonlat[0]);
+            $('#geo_lat').val(lonlat[1]);
+        }
+        
+        function MapOpenLayersDeleteCoord(j) {
+        markersSource.removeFeature(markersArray[j - 1]);
+        }
 
 // the main map display funtion
         function generateMap(mapName) {
         // Instanciate a Map, set the object target to the map DOM id
             map = new ol.Map({
-              controls: ol.control.defaults().extend([
-    new ol.control.FullScreen()
-  ]),
+                controls: ol.control.defaults().extend([
+                    new ol.control.FullScreen()
+                ]),
+                interactions: ol.interaction.defaults().extend([new app.Drag()]),
                 target: mapName
             });
             var view = new ol.View();
@@ -202,7 +214,7 @@ class MapOpenLayers extends AbstractMap {
             city = city.replace(/ +/,'+');
             $.get(addressService+'?format=json&addressdetails=0&q='+city, '',  function(data) {
                 if (data[0] === undefined) {
-                    alert('" . _("Address not found, perhaps try another form.") . "');
+                    alert('" . _("Address not found, perhaps try another form, like putting the street number to the front.") . "');
                     return;
                 }
                 showTmpPointer(data[0].lon, data[0].lat);
