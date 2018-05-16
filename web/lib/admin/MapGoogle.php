@@ -65,7 +65,7 @@ class MapGoogle extends AbstractMap {
 
 
         /**
-         *  Loceate country center
+         *  Locate country center
          */
 
         function locate_country(country) {
