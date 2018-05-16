@@ -913,7 +913,7 @@ Function writeTlsUserProfle
     DetailPrint "<?php WindowsCommon::echo_nsi(_("installing credentials TLS"))?>"
     !insertmacro debug_cat 3 "Installing TLS credentials profile"
     FileOpen $9 "$TEMP\user_cred.xml" w
-    !if NSIS_MAJOR_VERSION >= 3
+    !if ${NSIS_MAJOR_VERSION} >= 3
        FileWriteUTF16LE $9 '<?xml version=$\"1.0$\"?>$\r$\n\
 <EapHostUserCredentials xmlns=$\"http://www.microsoft.com/provisioning/EapHostUserCredentials$\" xmlns:eapCommon=$\"http://www.microsoft.com/provisioning/EapCommon$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapMethodUserCredentials$\">$\r$\n\
   <EapMethod>$\r$\n\
@@ -938,13 +938,13 @@ Function writeTlsUserProfle
     !endif
 
 !ifdef PFX_USERNAME
-   !if NSIS_MAJOR_VERSION >= 3
+   !if ${NSIS_MAJOR_VERSION} >= 3
       FileWriteUTF16LE $9 "<eapTls:Username>$UNAME</eapTls:Username>$\r$\n"
    !else
       FileWrite $9 "<eapTls:Username>$UNAME</eapTls:Username>$\r$\n"
    !endif
 !endif
-!if NSIS_MAJOR_VERSION >= 3
+!if ${NSIS_MAJOR_VERSION} >= 3
 FileWriteUTF16LE $9 "<eapTls:UserCert>$tlsFingerprint</eapTls:UserCert>$\r$\n\
       </eapTls:EapType>$\r$\n\
     </baseEap:Eap>$\r$\n\
@@ -964,7 +964,7 @@ FunctionEnd
 
 Function writePeapUserProfle
     FileOpen $9 "$TEMP\user_cred.xml" w
-    !if NSIS_MAJOR_VERSION >= 3
+    !if ${NSIS_MAJOR_VERSION} >= 3
     FileWriteUTF16LE $9 '<?xml version=$\"1.0$\"?>$\r$\n\
 <EapHostUserCredentials xmlns=$\"http://www.microsoft.com/provisioning/EapHostUserCredentials$\" xmlns:eapCommon=$\"http://www.microsoft.com/provisioning/EapCommon$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapMethodUserCredentials$\">$\r$\n\
 <EapMethod>$\r$\n\
