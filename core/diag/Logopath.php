@@ -26,7 +26,7 @@ class Logopath extends AbstractTest {
 
     /**
      * maybe the user has some additional evidence directly on his device?
-     * @var string|FALSE
+     * @var string|boolean
      */
     private $additionalScreenshot;
 
@@ -144,9 +144,10 @@ class Logopath extends AbstractTest {
             $imagick->readimageblob($binaryData);
             $imagick->setimageformat("png");
             $this->additionalScreenshot = $imagick->getimageblob();
+        } else {
+            // whatever we got, it didn't parse as an image
+            $this->additionalScreenshot = FALSE;
         }
-        // whatever we got, it didn't parse as an image
-        $this->additionalScreenshot = FALSE;
     }
 
     /**
