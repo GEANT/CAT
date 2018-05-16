@@ -116,7 +116,7 @@ const CONFIG_CONFASSISTANT = [
     'NSIS_VERSION' => 3,
 
     'MAPPROVIDER' => [
-        'PROVIDER' => 'Google', // recognised values: Google, Bing, OpenStreetMaps, None
+        'PROVIDER' => 'Google', // recognised values: Google, Bing, OpenLayers, None
         'USERNAME' => '' // or equivalent; for Google, this is the APIKEY
     ],
     /**
