@@ -335,11 +335,17 @@ div.googlemap {
     min-height: 300px;
 }
 
-div.locationmap{
+div.locationmap {
     width: 100%;
     height: 100%;
     min-width: 300px;
     min-height: 200px;
+}
+
+#location-prompt {
+    display: none;
+    font-weight: bold;
+    color: #1d4a74;
 }
 
 div.sub_h {

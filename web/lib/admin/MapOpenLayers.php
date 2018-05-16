@@ -70,8 +70,6 @@ class MapOpenLayers extends AbstractMap {
 // on geolocation success set variables and show the temporaty marker
         function locate_succes(p) {
             $('#address').val('');
-            $('#geo_long').val(p.coords.longitude);
-            $('#geo_lat').val(p.coords.latitude);
             showTmpPointer(p.coords.longitude, p.coords.latitude);
         }
         
@@ -151,6 +149,9 @@ class MapOpenLayers extends AbstractMap {
             view = map.getView();
             view.setCenter(loc);
             view.setZoom(16);
+            $('#location-prompt').show();
+            $('#geo_long').val(lon);
+            $('#geo_lat').val(lat);
         }
         
         function setTmpPointer(coord) {
@@ -219,8 +220,6 @@ class MapOpenLayers extends AbstractMap {
                 }
                 showTmpPointer(data[0].lon, data[0].lat);
                 map.getView().setZoom(16);
-                $('#geo_long').val(data[0].lon);
-                $('#geo_lat').val(data[0].lat);
             }, 'json');
         }
         
@@ -253,7 +252,7 @@ class MapOpenLayers extends AbstractMap {
         if ($this->readOnly) {
             return "<div id='map' class='locationmap'></div><script>generateMap('map')</script>";
         } else {
-            return $this->htmlPreEdit($wizard, $additional) . $this->findLocationHtml() . "<div id='map' class='locationmap'></div><script>generateMap('map')</script>" . $this->htmlPostEdit(FALSE);
+            return $this->htmlPreEdit($wizard, $additional) . $this->findLocationHtml() . "<span id='location-prompt'>You can drag the pointer to the final location before you save the results.</span><div id='map' class='locationmap'></div><script>generateMap('map')</script>" . $this->htmlPostEdit(FALSE);
         }
     }
 
