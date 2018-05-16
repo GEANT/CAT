@@ -145,6 +145,8 @@ class Logopath extends AbstractTest {
             $imagick->setimageformat("png");
             $this->additionalScreenshot = $imagick->getimageblob();
         }
+        // whatever we got, it didn't parse as an image
+        $this->additionalScreenshot = FALSE;
     }
 
     /**
