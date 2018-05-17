@@ -224,19 +224,19 @@ class MapOpenLayers extends AbstractMap {
         
         "  .
         '$(document).ready(function () {
-            $(".location_button").click(function (event) {
+            $(".location_button").on("click", (function (event) {
                 event.preventDefault();
                 marker_index = $(this).attr("id").substr(11) - 1;
                 show_location(marker_index);
-            });
+            }));
 
-            $("#address").keypress(function (event) {
+            $("#address").on("keypress", (function (event) {
                 if (event.which === 13) {
                     event.preventDefault();
                     getAddressLocation();
                 }
 
-            });
+            }));
         });' .
         "</script>
         ";
