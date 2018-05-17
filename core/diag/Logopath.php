@@ -273,7 +273,7 @@ class Logopath extends AbstractTest {
             // and add what to say
             $handle->Subject = $theMail['subject'];
             $handle->Body = $theMail['body'];
-            if ($this->additionalScreenshot !== FALSE) {
+            if (is_string($this->additionalScreenshot)) {
                 $handle->addStringAttachment($this->additionalScreenshot, "screenshot.png", "base64", "image/png", "attachment");
             }
             $handle->send();
