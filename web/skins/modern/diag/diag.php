@@ -60,12 +60,12 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
     </div>
     <div id="main_body">
         <div id="user_page">
-            <?php echo $divs->div_pagetitle(_("Diagnostics site"), _("We will do our best to resolve your problems!<br>Help us and answer precisely to our questions.")); ?>
+            <?php echo $divs->div_pagetitle(_("Diagnostics site"), _("The diagnostics system will do its best to identify and resolve your problems!"). "<br>"._("Please help the system by answering the questions as precisely as possible.")); ?>
             <div id="user_info" style='padding-top: 10px;'>
             <div id='diagnostic_choice'>
-                <?php echo _("We will try our best to help you diagnose your problem.") . '<br>' . _("Are you a") . ' '; ?>
-                <input type='radio' name='diagnostic_usertype' value='0'><?php echo _("an end-user") . ' ' . _("or"); ?>   
-                <input type='radio' name='diagnostic_usertype' value='1' <?php if ($admin == 1) { echo " checked"; } ?> > <?php echo _("an eduroam administrator") .'?'; ?>
+                <?php echo _("The diagnostics system will do its best to identify and resolve your problems!") . '<br>' . _("Are you a") . ' '; ?>
+                <input type='radio' name='diagnostic_usertype' value='0'><?php echo _("end-user") . ' ' . _("or"); ?>   
+                <input type='radio' name='diagnostic_usertype' value='1' <?php if ($admin == 1) { echo " checked"; } ?> > <?php echo _("eduroam administrator") .'?'; ?>
             </div>
             <div id='diagnostic_enduser' style='display: none;'>
                 <h2><?php echo '<h2>' . _("Tools for End Users"); ?></h2>
@@ -75,15 +75,15 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 ?>
                 </p>
                 <?php
-                    echo '<div id="before_stage_1"><h3>' . _("We need some information on your home institiution - issuer of your account") . '</h3>';
-                    echo _("State your realm:");
+                    echo '<div id="before_stage_1"><h3>' . _("The system needs some information on your home institution - issuer of your account") . '</h3>';
+                    echo _("What is the realm part of your user account (the part behind the @ of 'your.username@<b>realm.tld</b>):");
                 ?>
                 <input type='text' name='user_realm' id='user_realm' value=''>
                 <?php
                     echo '<div id="realm_by_select"><br/>' . _("alternatively") . '<br/>';
-                    echo _("we can try to guess your realm") . '<br/>';
+                    echo _("You can select your hoem institution from the following list") . '<br/>';
                     echo '<div id="select_idp_country"><a href="" id="idp_countries_list">';    
-                    echo '<span id="realmselect">' . _("click to select your country and organisation") . '</a></span></div>';
+                    echo '<span id="realmselect">' . _("Click to select your country and organisation") . '</a></span></div>';
                 ?>
                 <div id="select_idp_area" style="display:none;">
                 </div>
@@ -92,7 +92,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                     <?php
                         echo '<h3>' . _("Optionally, to improve tests, you can provide information on your current location") . '</h3>';
                         echo '<div id="select_sp_country"><a href="" id="sp_countries_list">';    
-                        echo '<span id="spselect">' . _("click to select a location in which you have an eduroam problem") . '</a></span></div>';
+                        echo '<span id="spselect">' . _("Click to select a location in which you have an eduroam problem") . '</a></span></div>';
                     ?>
                     <div id="select_sp_area" style="display:none;">
                     </div>
@@ -105,7 +105,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 </div>
                 <div id="sociopath_query_area" style="margin-top:20px; display:none;">
                     <b>
-                        <?php echo _("Now we have a few questions..."); ?>
+                        <?php echo _("To narrow down the problem, please answer the following few questions."); ?>
                     </b>
                     <div id="sociopath_queries"></div>
                 </div>
@@ -164,7 +164,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         if (type === 'idp' || type === 'sp') {
             shtml = '<table><tbody><tr id="row_'+type+'_country"></tr>';
             shtml = shtml + '<tr id="row_'+type+'_institution" style="visibility: collapse;">';
-            shtml = shtml + '<td>' + <?php echo '"' . _("Select institiution") . '"'; ?> + '</td><td></td></tr>';
+            shtml = shtml + '<td>' + <?php echo '"' . _("Select institiution:") . '"'; ?> + '</td><td></td></tr>';
             if (type === 'idp') {
                 shtml = shtml + '<tr id="row_idp_realm"></tr>';
             }
@@ -189,7 +189,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         var options = '';
         var selecthead = '';
         if (type1 === 'sp' || type1 === 'idp') {
-            selecthead = <?php echo '"<td>' . _("Select country:") . ' </td>"'; ?>;
+            selecthead = <?php echo '"<td>' . _("Select country or region:") . ' </td>"'; ?>;
             selecthead = selecthead + '<td>\n';
         }
         var select = '<select id="' + type1 + '_country" name="' + type1 + '_country" style="margin-left:0px; width:400px;">';
@@ -197,7 +197,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             options = ($('#'+type2+'_country').html());
             countryAddSelect(selecthead, select + options + '</select>', type1);
         } else {
-            var comment = <?php echo '"<br><br>' . _("Fetching countries list") . '..."'; ?>;
+            var comment = <?php echo '"<br><br>' . _("Fetching country/region list") . '..."'; ?>;
             inProgress(1, comment);
             $.ajax({
                 url: "findRealm.php",
@@ -293,7 +293,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         result = result + '<div><h3>';
         result = result + <?php echo '"' . _("The result for tested realm:") . ' "'; ?> + realm;
         result = result + '</h3></p><div style="padding: 5px;"><div style="padding: 0px;">';
-        result = result + <?php echo '"' . _("We located") . '" '; ?>  + ' ';
+        result = result + <?php echo '"' . _("The system identified") . '" '; ?>  + ' ';
         result = result + Object.keys(verdict).length + ' ';
         result = result + <?php echo '"' . _("suspected areas which potentially can cause a problem.") . '"'; ?> + '<br>';
         result = result + <?php echo '"' . _("Next to the problem description we show a speculated probability of this event.") . '"'; ?>;
@@ -306,43 +306,37 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 result = result + '<td>' + <?php echo '"' . _("Your device configuration is broken") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_SP_80211') {
-                result = result + '<td>' + <?php echo '"' . _("WIFI network around you sucks") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The Wi-Fi network in your vicinity has quality issues") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_SP_LAN') {
                 result = result + '<td>' + <?php echo '"' . _("The network environment around you is broken") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_SP_RADIUS') {
-                result = result + '<td>' + <?php echo '"' . _("RADIUS server of your service provider has a problem") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The RADIUS server of your service provider has a problem") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_IDP_AUTHBACKEND') {
-                result = result + '<td>' + <?php echo '"' . _("RADIUS server in your home institution has a problem to authenticate users") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The RADIUS server in your home institution has a problem to authenticate users") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_NRO_SP') {
-                result = result + '<td>' + <?php echo '"' . _("The link between your current location and your federation server is broken") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The national server in the country you are visiting is not functioning correctly") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_LINK_ETLR_NRO_SP') {
-                result = result + '<td>' + <?php echo '"' . _("The link between your current location, your federation server and top level server is broken") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The link between the national server of the country you are visiting and the top-level server is broken") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_LINK_ETLR_NRO_IdP') {
-                result = result + '<td>' + <?php echo '"' . _("The link between your home institution, your federation server and top level server is broken") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The link between the national server of your home country and the top-level server is broken") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_ETLR') {
-                result = result + '<td>' + <?php echo '"' . _("The communication to top level server is down") . '"'; ?> + '</td>';
-            }
-            if (key === 'INFRA_ETLR_NRO_IdP') {
-                result = result + '<td>' + <?php echo '"' . _("The link between top level server and your federation server is broken") . '"'; ?> + '</td>';
-            }
-            if (key === 'INFRA_ETLR_NRO_SP') {
-                result = result + '<td>' + <?php echo '"' . _("The link between top level server and your service provider is broken") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The communication to the top-level server is down") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_NRO_IdP') {
-                result = result + '<td>' + <?php echo '"' . _("The link between your federation server and your institution server is broken") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The national server in your home country is not functioning properly.") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_IdP_RADIUS') {
-                result = result + '<td>' + <?php echo '"' . _("RADIUS server of your home institution has a problem") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The RADIUS server of your home institution has a problem") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_NONEXISTENTREALM') {
-                result = result + '<td>' + <?php echo '"' . _("Entered realm doesn't exist") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("This realm does not exist") . '"'; ?> + '</td>';
             }
             result = result + '<td style="padding-left: 5px;">' + (verdict[key] * 100).toFixed(2) + "%</td></tr>";
         }
@@ -700,13 +694,13 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                         console.log('calling testSociopath');
                         testSociopath(realm, 0);
                     } else {
-                        var title = <?php echo '"' . _("Diagnistic tests results for selected realms") . '"'; ?>;
-                        result = '<div class="padding"><h3>' + <?php echo '"' . _("An unknown problem appears") . '"'; ?>;
+                        var title = <?php echo '"' . _("Diagnostics results for selected realms") . '"'; ?>;
+                        result = '<div class="padding"><h3>' + <?php echo '"' . _("An unknown problem occured") . '"'; ?>;
                         result = result + '</h3>'
                         if (r.length == 1) {
-                            result = result + <?php echo '"' . _("This test includes checking of following realm") . '"'; ?>;
+                            result = result + <?php echo '"' . _("This test includes checking of the following realm") . '"'; ?>;
                         } else {    
-                            result = result + <?php echo '"' . _("This test includes checking of following realms") . '"'; ?>;
+                            result = result + <?php echo '"' . _("This test includes checking of the following realms") . '"'; ?>;
                         }
                         result = result + ': '
                         for (var i=0; i < r.length; i++) {
@@ -849,7 +843,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                         result = result + '<tr><td>' + <?php echo '"' . _("SP email") . '"'; ?> + '</td><td>' + data.email + '</td></tr>';
                         result = result + '<tr><td>' + <?php echo '"' . _("IdP email(s)") . '"'; ?> + '</td><td>' + data.idpcontact + '</td></tr>';
                         result = result + '<tr><td>' + <?php echo '"' . _("Event's timestamp") . '"'; ?> + '</td><td>' + data.timestamp + '</td></tr>';
-                        result = result + '<tr><td>' + <?php echo '"' . _("Suspected MAC address") . '"'; ?> + '</td><td>' + data.mac + '</td></tr>';
+                        result = result + '<tr><td>' + <?php echo '"' . _("Calling-Station-Id") . '"'; ?> + '</td><td>' + data.mac + '</td></tr>';
                         result = result + '<tr><td>' + <?php echo '"' . _("Additional description") . '"'; ?> +'</td><td>' + data.freetext + '</td></tr>';
                     }
                     if (type == 'sp_send') {

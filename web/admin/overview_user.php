@@ -102,6 +102,7 @@ require_once("inc/click_button_js.php");
         }
         echo "<tr><th>" . sprintf(_("%s Name"), $uiElements->nomenclature_inst) . "</th><th>" . sprintf(_("Other admins of this %s"), $uiElements->nomenclature_inst) . "</th><th>" . ( CONFIG['DB']['INST']['readonly'] === FALSE ? _("Administrator Management") : "") . "</th></tr>";
         foreach ($myFeds as $fed_id => $fed_name) {
+            /// nomenclature 'fed', fed name, nomenclature 'inst'
             echo "<tr><td colspan='3'><strong>" . sprintf(_("%s %s: %s list"), $uiElements->nomenclature_fed, $fed_name, $uiElements->nomenclature_inst) . "</strong></td></tr>";
 
             $fed_idps = $my_idps[$fed_id];

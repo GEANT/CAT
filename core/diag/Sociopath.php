@@ -68,7 +68,7 @@ class Sociopath extends AbstractTest {
                   "FACTOR" => 3,
                   "VERDICTLECTURE" => _("Accounts only need to be configured once, and can then be used anywhere on the planet without any changes. If you recently changed the configuration, that change may very well be at fault. You should never change your network configuration unless explicitly instructed so by your Identity Provider; even in the case of temporary login issues.")],
             4 => ["AREA" => AbstractTest::INFRA_DEVICE, 
-                  "TXT" => _("Do your other devices still work?"),
+                  "TXT" => _("If you use more than one device: do your other devices still work?"),
                   "VERDICTLECTURE" => _("If all devices stopped working simultaneously, there may be a problem with your account as such. Maybe your account expired, or you were forced to change the password? These questions are best answered by your Identity Provider [MGW: display contact info]"),
                   "FACTOR" => 0.33],
             5 => ["AREA" => AbstractTest::INFRA_SP_80211, 

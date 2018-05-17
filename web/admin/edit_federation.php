@@ -30,7 +30,7 @@ $fedPost = $_POST['fed_id'];
 
 $my_fed = $validator->Federation($fedPost, $_SESSION['user']);
 $fed_options = $my_fed->getAttributes();
-
+/// product name (eduroam CAT), then term used for "federation", then actual name of federation.
 echo $deco->defaultPagePrelude(sprintf(_("%s: Editing %s '%s'"), CONFIG['APPEARANCE']['productname'], $uiElements->nomenclature_fed, $my_fed->name));
 $langObject = new \core\common\Language();
 ?>
@@ -45,6 +45,7 @@ $langObject = new \core\common\Language();
 
     <h1>
         <?php
+        /// nomenclature for federation, then actual federation name
         printf(_("Editing %s information for '%s'"), $uiElements->nomenclature_fed, $my_fed->name);
         ?>
     </h1>

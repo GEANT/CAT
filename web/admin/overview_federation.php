@@ -185,6 +185,7 @@ require_once("inc/click_button_js.php");
         <?php
         foreach ($feds as $onefed) {
             $thefed = new \core\Federation(strtoupper($onefed['value']));
+            /// nomenclature for 'federation', federation name, nomenclature for 'inst'
             echo "<tr><td colspan='8'><strong>" . sprintf(_("Your %s %s contains the following %s list:"), $uiElements->nomenclature_fed, '<span style="color:green">' . $thefed->name . '</span>', $uiElements->nomenclature_inst) . "</strong></td></tr>";
 
             // extract only pending invitations for *this* fed

@@ -503,7 +503,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
                                     echo $formtext;
                                     ?>
                                     <input type='hidden' name='userid' value='<?php echo $oneUserId ?>'/>
-                                    <button type='submit' id='userinvite' name='command' value='<?php echo \web\lib\common\FormElements::BUTTON_NEWINVITATION ?>'><?php echo _("New Credential"); ?></button>
+                                    <button type='submit' id='userinvite' name='command' value='<?php echo \web\lib\common\FormElements::BUTTON_NEWINVITATION ?>'><?php echo _("New Invitation"); ?></button>
 
                                     <label>
                                         <?php echo _("Activations:"); ?>
@@ -535,7 +535,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
                     . "
                     <p>$acknowledgeText</p>
                     <input type='checkbox' name='acknowledge' value='true'>
-                    <label>" . _("I have verified that all configured users are still eligible for eduroam.") . "</label>
+                    <label>" . sprintf(_("I have verified that all configured users are still eligible for %s."),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</label>
                 </div>
                 <button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_ACKUSERELIGIBILITY . "'>Save</button></form>";
                 }

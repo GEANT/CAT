@@ -99,7 +99,7 @@ class Logopath extends AbstractTest {
                 . "\n"
                 . _("Yours sincerely,") . "\n"
                 . "\n"
-                . _("The eduroam diagnostics algorithms");
+                . _("Ed U. Roam, the eduroam diagnostics algorithm");
 
         $this->mailStack = [
             Logopath::IDP_EXISTS_BUT_NO_DATABASE => [

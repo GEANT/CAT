@@ -114,7 +114,7 @@ class PageDecoration {
         $advancedControls = TRUE;
         switch ($area) {
             case "ADMIN-IDP":
-                $cap2 = sprintf(_("Administrator Interface - Identity Provider"),$this->ui->nomenclature_inst);
+                $cap2 = sprintf(_("Administrator Interface - %s"),$this->ui->nomenclature_inst);
                 break;
             case "ADMIN-IDP-USERS":
                 $cap2 = sprintf(_("Administrator Interface - %s User Management"), \core\ProfileSilverbullet::PRODUCTNAME);
