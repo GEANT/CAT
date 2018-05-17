@@ -181,7 +181,6 @@ class MapOpenLayers extends AbstractMap {
             if (jmarkers !== undefined) { // no locations saved
                 addMarkers(jmarkers, markersSource);
                 view.setMaxZoom(14);
-                view.fit(extent, {padding: [10, 0, 10, 0]});
                 map.setView(view);
                 view.fit(extent, {padding: [10, 0, 10, 0]});
             } else {
@@ -225,19 +224,19 @@ class MapOpenLayers extends AbstractMap {
         
         "  .
         '$(document).ready(function () {
-            $(".location_button").click(function (event) {
+            $(".location_button").on("click", (function (event) {
                 event.preventDefault();
                 marker_index = $(this).attr("id").substr(11) - 1;
                 show_location(marker_index);
-            });
+            }));
 
-            $("#address").keypress(function (event) {
+            $("#address").on("keypress", (function (event) {
                 if (event.which === 13) {
                     event.preventDefault();
                     getAddressLocation();
                 }
 
-            });
+            }));
         });' .
         "</script>
         ";
