@@ -181,7 +181,6 @@ class MapOpenLayers extends AbstractMap {
             if (jmarkers !== undefined) { // no locations saved
                 addMarkers(jmarkers, markersSource);
                 view.setMaxZoom(14);
-                view.fit(extent, {padding: [10, 0, 10, 0]});
                 map.setView(view);
                 view.fit(extent, {padding: [10, 0, 10, 0]});
             } else {
