@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-16 14:23+0100\n"
+"POT-Creation-Date: 2018-05-17 15:52+0200\n"
 "PO-Revision-Date: 2015-04-08 16:27+0000\n"
 "Last-Translator: Daniele Albrizio <daniele@albrizio.it>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/projects/p/cat/"
@@ -311,23 +311,23 @@ msgstr "Sud Africa"
 msgid "Unnamed Entity"
 msgstr ""
 
-#: core/DeviceConfig.php:205
+#: core/DeviceConfig.php:200
 #, php-format
 msgid "your local %s support"
 msgstr "il tuo supporto locale %s"
 
-#: core/DeviceConfig.php:206
+#: core/DeviceConfig.php:201
 #, php-format
 msgid "your local %s support page"
 msgstr "la pagina del tuo supporto locale %s"
 
-#: core/DeviceConfig.php:239
+#: core/DeviceConfig.php:235
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 "Spiacenti, questo non dovrebbe succedere - nessuna ulteriore informazione è "
 "disponibile"
 
-#: core/IdP.php:246
+#: core/IdP.php:243
 #, php-format
 msgid ""
 "Hi,\n"
@@ -351,27 +351,27 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/IdP.php:255
+#: core/IdP.php:252
 msgid "IdP in your federation was deleted"
 msgstr "E' stato cancellato un IdP nella tua federazione"
 
-#: core/SilverbulletInvitation.php:196
+#: core/SilverbulletInvitation.php:200
 #, php-format
 msgid "Your %s access is ready"
 msgstr ""
 
-#: core/SilverbulletInvitation.php:204
+#: core/SilverbulletInvitation.php:208
 msgid "Hello!"
 msgstr ""
 
-#: core/SilverbulletInvitation.php:206
+#: core/SilverbulletInvitation.php:210
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
 "administrator."
 msgstr ""
 
-#: core/SilverbulletInvitation.php:208
+#: core/SilverbulletInvitation.php:212
 #, php-format
 msgid ""
 "Please follow the following link with the device you want to enable for %s "
@@ -380,7 +380,7 @@ msgid ""
 msgstr ""
 
 #. gets replaced with the token value by getBody()
-#: core/SilverbulletInvitation.php:210
+#: core/SilverbulletInvitation.php:214
 #, php-format
 msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
@@ -388,8 +388,20 @@ msgid ""
 "information about your %s account."
 msgstr ""
 
-#: core/SilverbulletInvitation.php:212
+#: core/SilverbulletInvitation.php:216
 msgid "Regards,"
+msgstr ""
+
+#: core/SilverbulletInvitation.php:260
+#, php-format
+msgid ""
+"Your %s access is ready! Click here to continue: %s (on Android, install the "
+"app 'eduroam CAT' before that!)"
+msgstr ""
+
+#: core/SilverbulletInvitation.php:267
+#, php-format
+msgid "%s Invitation System"
 msgstr ""
 
 #. / arguments are: 1. IdP name;
@@ -430,64 +442,155 @@ msgstr "E' stato creato un IdP nella tua federazione"
 msgid "Feedback"
 msgstr "Feedback"
 
-#: core/common/EAP.php:368
+#: core/common/EAP.php:369
 msgid "PEAP-MSCHAPv2"
 msgstr ""
 
-#: core/common/EAP.php:369
+#: core/common/EAP.php:370
 msgid "TLS"
 msgstr ""
 
-#: core/common/EAP.php:370
+#: core/common/EAP.php:371
 msgid "TTLS-PAP"
 msgstr ""
 
-#: core/common/EAP.php:371
+#: core/common/EAP.php:372
 msgid "TTLS-MSCHAPv2"
 msgstr ""
 
-#: core/common/EAP.php:372
+#: core/common/EAP.php:373
 msgid "TTLS-GTC"
 msgstr ""
 
-#: core/common/EAP.php:373
+#: core/common/EAP.php:374
 msgid "FAST-GTC"
 msgstr ""
 
-#: core/common/EAP.php:374
+#: core/common/EAP.php:375
 msgid "EAP-pwd"
+msgstr ""
+
+#: core/common/OutsideComm.php:239
+#, php-format
+msgid ""
+"a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
+msgstr ""
+
+#: core/common/OutsideComm.php:240
+#, php-format
+msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
+msgstr ""
+
+#: core/common/OutsideComm.php:241
+#, php-format
+msgid "a %s %s has invited you to manage the %s  \"%s\"."
+msgstr ""
+
+#: core/common/OutsideComm.php:243
+#, php-format
+msgid "This invitation is valid for 24 hours from now, i.e. until %s."
+msgstr ""
+
+#. then, send out the mail
+#: core/common/OutsideComm.php:251
+msgid "Hello,"
+msgstr ""
+
+#. default means we don't have a Reply-To.
+#: core/common/OutsideComm.php:253
+msgid ""
+"manually. Please do not reply to this mail; this is a send-only address."
+msgstr ""
+
+#: core/common/OutsideComm.php:259
+#, php-format
+msgid "Additional message from your %s administrator:"
+msgstr ""
+
+#: core/common/OutsideComm.php:267
+#, php-format
+msgid "%s administrator"
+msgstr ""
+
+#: core/common/OutsideComm.php:270
+#, php-format
+msgid ""
+"manually. If you reply to this mail, you will reach your %s administrators."
+msgstr ""
+
+#: core/common/OutsideComm.php:275
+#, php-format
+msgid ""
+"To enlist as an administrator for that %s, please click on the following "
+"link:"
+msgstr ""
+
+#: core/common/OutsideComm.php:277
+#, php-format
+msgid ""
+"If clicking the link doesn't work, you can also go to the %s Administrator "
+"Interface at"
+msgstr ""
+
+#: core/common/OutsideComm.php:279
+msgid "and enter the invitation token"
+msgstr ""
+
+#: core/common/OutsideComm.php:281
+msgid ""
+"Do NOT forward the mail before the token has expired - or the recipients may "
+"be able to consume the token on your behalf!"
+msgstr ""
+
+#: core/common/OutsideComm.php:282
+#, php-format
+msgid "We wish you a lot of fun with the %s."
+msgstr ""
+
+#: core/common/OutsideComm.php:283
+#, php-format
+msgid ""
+"Sincerely,\n"
+"\n"
+"Your friendly folks from %s Operations"
+msgstr ""
+
+#. what do we want to say?
+#: core/common/OutsideComm.php:318
+#, php-format
+msgid "%s: you have been invited to manage an %s"
 msgstr ""
 
 #: web/lib/common/InputValidation.php:29
 msgid "Input validation error: "
 msgstr ""
 
-#: web/lib/common/InputValidation.php:201
+#: web/lib/common/InputValidation.php:202
 msgid "Realm is empty!"
 msgstr ""
 
-#: web/lib/common/InputValidation.php:209
+#: web/lib/common/InputValidation.php:210
 msgid "Realm contains an @ sign!"
 msgstr ""
 
-#: web/lib/common/InputValidation.php:210
+#: web/lib/common/InputValidation.php:211
 msgid "Realm begins with a . (dot)!"
 msgstr ""
 
-#: web/lib/common/InputValidation.php:211
+#: web/lib/common/InputValidation.php:212
 msgid "Realm ends with a . (dot)!"
 msgstr ""
 
-#: web/lib/common/InputValidation.php:212
+#: web/lib/common/InputValidation.php:213
 msgid "Realm contains spaces!"
 msgstr ""
 
-#: web/lib/common/InputValidation.php:224
+#: web/lib/common/InputValidation.php:225
 msgid "Realm does not contain at least one . (dot)!"
 msgstr ""
 
-#: web/lib/common/InputValidation.php:310
-msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize!"
+#: web/lib/common/InputValidation.php:311
+msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
 msgstr ""
 
 #~ msgid "Could not create a new Institution!"

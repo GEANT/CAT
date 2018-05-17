@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-16 14:22+0100\n"
+"POT-Creation-Date: 2018-05-17 15:52+0200\n"
 "PO-Revision-Date: 2015-04-08 16:33+0000\n"
 "Last-Translator: Daniele Albrizio <daniele@albrizio.it>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/projects/p/cat/"
@@ -160,10 +160,6 @@ msgid "Test"
 msgstr "Test"
 
 #: devices/apple_mobileconfig/Device_mobileconfig_ios_56.php:38
-msgid "This device does not support forcing setting an HTTP proxy."
-msgstr ""
-
-#: devices/apple_mobileconfig/Device_mobileconfig_ios_56.php:39
 msgid "This device does not support forcing setting an HTTPS proxy."
 msgstr ""
 
@@ -297,7 +293,7 @@ msgstr "L'Autorità di Certificazione del proprio Identity Provider"
 msgid "Identity Provider's CA"
 msgstr "CA dell'Identity Provider"
 
-#: devices/chromebook/Device_chromebook.php:266
+#: devices/chromebook/Device_chromebook.php:288
 msgid ""
 "This installer is an example only. It produces a zip file containig the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
@@ -320,7 +316,7 @@ msgstr ""
 "versione di Network Manager è troppo vecchia, verrà creato invece un file di "
 "configurazione per wpa_supplicant."
 
-#: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:114
+#: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:115
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
@@ -329,7 +325,7 @@ msgstr ""
 "In aggiunta a  <strong>%s</strong>, il programma di installazione "
 "configurerà anche l'accesso alle seguenti reti:"
 
-#: devices/linux/Device_Linux.php:58 devices/ms/WindowsCommon.php:116
+#: devices/linux/Device_Linux.php:58 devices/ms/WindowsCommon.php:117
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
@@ -364,7 +360,7 @@ msgstr ""
 "file p12 sarà copiato nella directory .cat_installer ."
 
 #. not EAP-TLS
-#: devices/linux/Device_Linux.php:76 devices/ms/WindowsCommon.php:127
+#: devices/linux/Device_Linux.php:76 devices/ms/WindowsCommon.php:128
 #, fuzzy, php-format
 msgid ""
 "In order to connect to the network you will need an account from your %s. "
@@ -494,21 +490,26 @@ msgid ""
 "'{}'. Please enter the username in the correct format."
 msgstr ""
 
-#: devices/linux/Device_Linux.php:224
+#: devices/linux/Device_Linux.php:111
+#, fuzzy
+msgid "personal certificate file not found"
+msgstr "file del certificato personale (p12 or pfx)"
+
+#: devices/linux/Device_Linux.php:228
 #, fuzzy
 msgid "This installer has been prepared for {0}"
 msgstr "Il programma di installazione è stato preparato per ${ORGANISATION}"
 
-#: devices/linux/Device_Linux.php:224 devices/ms/Files/common.inc:444
+#: devices/linux/Device_Linux.php:228 devices/ms/Files/common.inc:444
 #: devices/ms/Files/common.inc:451
 msgid "More information and comments:"
 msgstr "Maggiori informazioni e commenti:"
 
-#: devices/linux/Device_Linux.php:225 devices/ms/Files/common.inc:477
+#: devices/linux/Device_Linux.php:229 devices/ms/Files/common.inc:477
 msgid "Installer created with software from the GEANT project."
 msgstr "Programma di installazione creato con software del progetto GEANT"
 
-#: devices/linux/Device_Linux.php:241
+#: devices/linux/Device_Linux.php:245
 #, fuzzy
 msgid ""
 "This installer will only work properly if you are a member of {0} and the "
@@ -517,7 +518,7 @@ msgstr ""
 "Questo programma di installazione funzionerà correttamente solo se sei un "
 "membro di %s e del gruppo di utenti: %s."
 
-#: devices/linux/Device_Linux.php:243
+#: devices/linux/Device_Linux.php:247
 #, fuzzy
 msgid "This installer will only work properly if you are a member of {0}."
 msgstr ""
@@ -532,7 +533,7 @@ msgstr ""
 "Le identità anonime non usano il realm come specificato nel profilo - è "
 "invece derivato dal suffisso dello username inserito dall'utente."
 
-#: devices/ms/WindowsCommon.php:110
+#: devices/ms/WindowsCommon.php:111
 #, php-format
 msgid ""
 "%s installer will be in the form of an EXE file. It will configure %s on "
@@ -544,7 +545,7 @@ msgstr ""
 "profilo per la rete wireless.<p>Premedo sul pulsante  download, l'installer "
 "sarà salvato dal tuo browser. Copialo sul dispositivo desiderato ed eseguilo."
 
-#: devices/ms/WindowsCommon.php:123
+#: devices/ms/WindowsCommon.php:124
 #, fuzzy, php-format
 msgid ""
 "In order to connect to the network you will need an a personal certificate "
@@ -560,7 +561,7 @@ msgstr ""
 "da password. Dovrai avere sia la password sia il file disponibili durante il "
 "processo di installazione."
 
-#: devices/ms/WindowsCommon.php:131
+#: devices/ms/WindowsCommon.php:132
 msgid ""
 "When you are connecting to the network for the first time, Windows will pop "
 "up a login box, where you should enter your user name and password. This "
@@ -572,7 +573,7 @@ msgstr ""
 "Questa informazione verrà salvata così ti riconnetterai automaticamente alla "
 "rete ogni qualvolta sarai a portata."
 
-#: devices/ms/WindowsCommon.php:134
+#: devices/ms/WindowsCommon.php:135
 msgid ""
 "You will be required to enter the same credentials for each of the "
 "configured notworks:"
@@ -580,7 +581,7 @@ msgstr ""
 "Ti verrà richiesto di inserire le stesse credenziali per oguna delle reti "
 "configurate:"
 
-#: devices/ms/WindowsCommon.php:249 devices/ms/WindowsCommon.php:250
+#: devices/ms/WindowsCommon.php:250 devices/ms/WindowsCommon.php:251
 #, php-format
 msgid "%s installer for %s"
 msgstr "%s programma di installazione per %s"

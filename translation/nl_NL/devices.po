@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-16 14:22+0100\n"
+"POT-Creation-Date: 2018-05-17 15:52+0200\n"
 "PO-Revision-Date: 2012-08-07 13:23+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/cat/language/nl/)\n"
@@ -143,10 +143,6 @@ msgid "Test"
 msgstr ""
 
 #: devices/apple_mobileconfig/Device_mobileconfig_ios_56.php:38
-msgid "This device does not support forcing setting an HTTP proxy."
-msgstr ""
-
-#: devices/apple_mobileconfig/Device_mobileconfig_ios_56.php:39
 msgid "This device does not support forcing setting an HTTPS proxy."
 msgstr ""
 
@@ -283,7 +279,7 @@ msgstr "De certificaat autoriteit van jouw identiteit-aanbieder"
 msgid "Identity Provider's CA"
 msgstr "CA van identiteit aanbieder"
 
-#: devices/chromebook/Device_chromebook.php:266
+#: devices/chromebook/Device_chromebook.php:288
 msgid ""
 "This installer is an example only. It produces a zip file containig the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
@@ -306,7 +302,7 @@ msgstr ""
 "toepassing is voor jouw systeem, of Network Manager is te oud, dan zal er "
 "een wpa_supplicant bestand gemaakt worden."
 
-#: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:114
+#: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:115
 #, fuzzy, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
@@ -315,7 +311,7 @@ msgstr ""
 "Naast <strong>eduroam</strong> zal de installatie-software ook de volgende "
 "netwerken configureren:"
 
-#: devices/linux/Device_Linux.php:58 devices/ms/WindowsCommon.php:116
+#: devices/linux/Device_Linux.php:58 devices/ms/WindowsCommon.php:117
 #, fuzzy, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
@@ -350,7 +346,7 @@ msgstr ""
 "waarmee dit bestand is beveiligd."
 
 #. not EAP-TLS
-#: devices/linux/Device_Linux.php:76 devices/ms/WindowsCommon.php:127
+#: devices/linux/Device_Linux.php:76 devices/ms/WindowsCommon.php:128
 #, fuzzy, php-format
 msgid ""
 "In order to connect to the network you will need an account from your %s. "
@@ -481,22 +477,27 @@ msgid ""
 "'{}'. Please enter the username in the correct format."
 msgstr ""
 
-#: devices/linux/Device_Linux.php:224
+#: devices/linux/Device_Linux.php:111
+#, fuzzy
+msgid "personal certificate file not found"
+msgstr "bestand van persoonlijk certificaat (p12 of pfx)"
+
+#: devices/linux/Device_Linux.php:228
 #, fuzzy
 msgid "This installer has been prepared for {0}"
 msgstr "De installatie-software is voorbereid voor ${ORGANISATION}"
 
-#: devices/linux/Device_Linux.php:224 devices/ms/Files/common.inc:444
+#: devices/linux/Device_Linux.php:228 devices/ms/Files/common.inc:444
 #: devices/ms/Files/common.inc:451
 msgid "More information and comments:"
 msgstr ""
 
-#: devices/linux/Device_Linux.php:225 devices/ms/Files/common.inc:477
+#: devices/linux/Device_Linux.php:229 devices/ms/Files/common.inc:477
 #, fuzzy
 msgid "Installer created with software from the GEANT project."
 msgstr "Installatie-software gemaakt in het GN3 project."
 
-#: devices/linux/Device_Linux.php:241
+#: devices/linux/Device_Linux.php:245
 #, fuzzy
 msgid ""
 "This installer will only work properly if you are a member of {0} and the "
@@ -505,7 +506,7 @@ msgstr ""
 "Deze installatie-software werkt alleen goed als je hoort bij %s en zit in de "
 "groep %s."
 
-#: devices/linux/Device_Linux.php:243
+#: devices/linux/Device_Linux.php:247
 #, fuzzy
 msgid "This installer will only work properly if you are a member of {0}."
 msgstr "Deze installatie-software werkt alleen goed als je hoort bij %s"
@@ -519,7 +520,7 @@ msgstr ""
 "profiel - de realm wordt overgenomen uit de door de gebruiker opgegeven "
 "gebruikersnaam."
 
-#: devices/ms/WindowsCommon.php:110
+#: devices/ms/WindowsCommon.php:111
 #, fuzzy, php-format
 msgid ""
 "%s installer will be in the form of an EXE file. It will configure %s on "
@@ -533,7 +534,7 @@ msgstr ""
 "de browser. Kopieer het naar de machine waar je eduroam op wilt "
 "configureren, en voer de installatie daar uit."
 
-#: devices/ms/WindowsCommon.php:123
+#: devices/ms/WindowsCommon.php:124
 #, fuzzy, php-format
 msgid ""
 "In order to connect to the network you will need an a personal certificate "
@@ -548,7 +549,7 @@ msgstr ""
 "Tijdens de installatie heb je zowel het bestand als het wachtwoord nodig "
 "waarmee dit bestand is beveiligd."
 
-#: devices/ms/WindowsCommon.php:131
+#: devices/ms/WindowsCommon.php:132
 msgid ""
 "When you are connecting to the network for the first time, Windows will pop "
 "up a login box, where you should enter your user name and password. This "
@@ -560,7 +561,7 @@ msgstr ""
 "zal worden opgeslagen zodat je verbinding maakt met het netwerk zodra het "
 "beschikbaar is."
 
-#: devices/ms/WindowsCommon.php:134
+#: devices/ms/WindowsCommon.php:135
 msgid ""
 "You will be required to enter the same credentials for each of the "
 "configured notworks:"
@@ -568,7 +569,7 @@ msgstr ""
 "Je wordt gevraagd om dezelfde login-gegevens in te vullen voor elk van de "
 "geconfigureerde netwerken:"
 
-#: devices/ms/WindowsCommon.php:249 devices/ms/WindowsCommon.php:250
+#: devices/ms/WindowsCommon.php:250 devices/ms/WindowsCommon.php:251
 #, fuzzy, php-format
 msgid "%s installer for %s"
 msgstr "eduroam installatie-software voor"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-16 14:22+0100\n"
+"POT-Creation-Date: 2018-05-17 15:52+0200\n"
 "PO-Revision-Date: 2015-04-07 09:41+0000\n"
 "Last-Translator: Tomi Salmi <tomi.salmi@csc.fi>\n"
 "Language-Team: Finnish (Finland) (http://www.transifex.com/projects/p/cat/"
@@ -152,11 +152,13 @@ msgstr ""
 "kykene tarkistamaan varmennetta, koska ne eivät tue muita vaihtoehtoja."
 
 #: core/diag/AbstractTest.php:407
+#, fuzzy
 msgid ""
 "The extension 'CRL Distribution Point' in the server certificate points to a "
-"non-existing location. Some Operating Systems check certificate validity by "
-"consulting the CRL and will fail to validate the certificate. Checking "
-"server certificate validity against a CRL will not be possible."
+"location where no DER-encoded CRL can be found. Some Operating Systems check "
+"certificate validity by consulting the CRL and will fail to validate the "
+"certificate. Checking server certificate validity against a CRL will not be "
+"possible."
 msgstr ""
 "Palvelinvarmenteen 'CRL Distribution Point' osoittaa olemattomaan "
 "kohteeseen. Jotkut käyttöjärjestelmät tarkistavat sulkulistatiedoston "
@@ -321,7 +323,7 @@ msgid "Yours sincerely,"
 msgstr ""
 
 #: core/diag/Logopath.php:102
-msgid "The eduroam diagnostics algorithms"
+msgid "Ed U. Roam, the eduroam diagnostics algorithm"
 msgstr ""
 
 #: core/diag/Logopath.php:110
@@ -353,19 +355,19 @@ msgid ""
 "there are no contact points for that IdP in the database."
 msgstr ""
 
-#: core/diag/RADIUSTests.php:981
+#: core/diag/RADIUSTests.php:1008
 #, php-format
 msgid "Connected to %s."
 msgstr ""
 
-#: core/diag/RADIUSTests.php:986
+#: core/diag/RADIUSTests.php:1013
 msgid ""
 "<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
 "multiple round-trips was carried out, and ended in an Access-Reject as "
 "planned."
 msgstr ""
 
-#: core/diag/RADIUSTests.php:990
+#: core/diag/RADIUSTests.php:1017
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
@@ -548,7 +550,7 @@ msgid ""
 msgstr ""
 
 #: core/diag/Sociopath.php:71
-msgid "Do your other devices still work?"
+msgid "If you use more than one device: do your other devices still work?"
 msgstr ""
 
 #: core/diag/Sociopath.php:72
@@ -600,18 +602,23 @@ msgstr ""
 msgid "Diagnostics site"
 msgstr ""
 
+#: web/skins/modern/diag/diag.php:63 web/skins/modern/diag/diag.php:66
+msgid ""
+"The diagnostics system will do its best to identify and resolve your "
+"problems!"
+msgstr ""
+
 #: web/skins/modern/diag/diag.php:63
 msgid ""
-"We will do our best to resolve your problems!<br>Help us and answer "
-"precisely to our questions."
+"Please help the system by answering the questions as precisely as possible."
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:66
-msgid "Are you reporting the problem as"
+msgid "Are you a"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:67
-msgid "an end-user"
+msgid "end-user"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:67
@@ -619,7 +626,7 @@ msgid "or"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:68
-msgid "an eduroam administrator"
+msgid "eduroam administrator"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:71
@@ -634,11 +641,14 @@ msgstr ""
 
 #: web/skins/modern/diag/diag.php:78
 msgid ""
-"We need some information on your home institiution - issuer of your account"
+"The system needs some information on your home institution - issuer of your "
+"account"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:79
-msgid "State your realm:"
+msgid ""
+"What is the realm part of your user account (the part behind the @ of 'your."
+"username@<b>realm.tld</b>):"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:83
@@ -646,11 +656,11 @@ msgid "alternatively"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:84
-msgid "we can try to guess your realm"
+msgid "You can select your hoem institution from the following list"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:86
-msgid "click to select your country and organisation"
+msgid "Click to select your country and organisation"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:93
@@ -660,7 +670,7 @@ msgid ""
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:95
-msgid "click to select a location in which you have an eduroam problem"
+msgid "Click to select a location in which you have an eduroam problem"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:102
@@ -672,7 +682,7 @@ msgid "First stage completed."
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:108
-msgid "Now we have a few questions..."
+msgid "To narrow down the problem, please answer the following few questions."
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:113
@@ -687,7 +697,7 @@ msgstr ""
 msgid "Which problem are you reporting?"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:132 web/skins/modern/diag/diag.php:841
+#: web/skins/modern/diag/diag.php:132 web/skins/modern/diag/diag.php:840
 msgid "SP contacting IdP due to technical problems or abuse"
 msgstr ""
 
@@ -704,228 +714,226 @@ msgid "eduroam® admin access is needed"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:167
-msgid "Select institiution"
+msgid "Select institiution:"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:192
-msgid "Select country:"
+msgid "Select country or region:"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:200
-msgid "Fetching countries list"
+msgid "Fetching country/region list"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:233
 msgid "Testing realm"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:258
+#: web/skins/modern/diag/diag.php:260
 msgid "Yes"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:259
+#: web/skins/modern/diag/diag.php:261
 msgid "No"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:260
+#: web/skins/modern/diag/diag.php:262
 msgid "I don't know"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:289
+#: web/skins/modern/diag/diag.php:291
 msgid "Diagnistic tests results for selected realm"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:292
+#: web/skins/modern/diag/diag.php:294
 msgid "The result for tested realm:"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:294
-msgid "We located"
+#: web/skins/modern/diag/diag.php:296
+msgid "The system identified"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:296
+#: web/skins/modern/diag/diag.php:298
 msgid "suspected areas which potentially can cause a problem."
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:297
+#: web/skins/modern/diag/diag.php:299
 msgid ""
 "Next to the problem description we show a speculated probability of this "
 "event."
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:304
+#: web/skins/modern/diag/diag.php:306
 msgid "Your device configuration is broken"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:307
-msgid "WIFI network around you sucks"
+#: web/skins/modern/diag/diag.php:309
+msgid "The Wi-Fi network in your vicinity has quality issues"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:310
+#: web/skins/modern/diag/diag.php:312
 msgid "The network environment around you is broken"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:313
-msgid "RADIUS server of your service provider has a problem"
+#: web/skins/modern/diag/diag.php:315
+msgid "The RADIUS server of your service provider has a problem"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:316
+#: web/skins/modern/diag/diag.php:318
 msgid ""
-"RADIUS server in your home institution has a problem to authenticate users"
+"The RADIUS server in your home institution has a problem to authenticate "
+"users"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:319
+#: web/skins/modern/diag/diag.php:321
 msgid ""
-"The link between your current location and your federation server is broken"
+"The national server in the country you are visiting is not functioning "
+"correctly"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:322
+#: web/skins/modern/diag/diag.php:324
 msgid ""
-"The link between your current location, your federation server and top level "
+"The link between the national server of the country you are visiting and the "
+"top-level server is broken"
+msgstr ""
+
+#: web/skins/modern/diag/diag.php:327
+msgid ""
+"The link between the national server of your home country and the top-level "
 "server is broken"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:325
-msgid ""
-"The link between your home institution, your federation server and top level "
-"server is broken"
+#: web/skins/modern/diag/diag.php:330
+msgid "The communication to the top-level server is down"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:328
-msgid "The communication to top level server is down"
+#: web/skins/modern/diag/diag.php:333
+msgid "The national server in your home country is not functioning properly."
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:331
-msgid "The link between top level server and your federation server is broken"
+#: web/skins/modern/diag/diag.php:336
+msgid "The RADIUS server of your home institution has a problem"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:334
-msgid "The link between top level server and your service provider is broken"
-msgstr ""
+#: web/skins/modern/diag/diag.php:339
+#, fuzzy
+msgid "This realm does not exist"
+msgstr "Tällä realmilla ei ole NAPTR-tietueita."
 
-#: web/skins/modern/diag/diag.php:337
-msgid ""
-"The link between your federation server and your institution server is broken"
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:340
-msgid "RADIUS server of your home institution has a problem"
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:343
-msgid "Entered realm doesn't exist"
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:449
+#: web/skins/modern/diag/diag.php:445
 msgid "Fetching institutions list"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:467
+#: web/skins/modern/diag/diag.php:463
 msgid "Select institution:"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:506
+#: web/skins/modern/diag/diag.php:502
 msgid "Fetching realms list"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:518
+#: web/skins/modern/diag/diag.php:514
 msgid "Check realm(s):"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:530
+#: web/skins/modern/diag/diag.php:526
 msgid "Realm:"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:584 web/skins/modern/diag/diag.php:653
-#: web/skins/modern/diag/diag.php:766
+#: web/skins/modern/diag/diag.php:580 web/skins/modern/diag/diag.php:649
+#: web/skins/modern/diag/diag.php:765
 msgid "Running realm tests"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:628
+#: web/skins/modern/diag/diag.php:624
 msgid "Realm is not registered with the eduroam database:"
 msgstr ""
 
+#: web/skins/modern/diag/diag.php:697
+msgid "Diagnostics results for selected realms"
+msgstr ""
+
 #: web/skins/modern/diag/diag.php:698
-msgid "Diagnistic tests results for selected realms"
+msgid "An unknown problem occured"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:699
-msgid "An unknown problem appears"
+#: web/skins/modern/diag/diag.php:701
+msgid "This test includes checking of the following realm"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:702
-msgid "This test includes checking of following realm"
+#: web/skins/modern/diag/diag.php:703
+msgid "This test includes checking of the following realms"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:704
-msgid "This test includes checking of following realms"
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:714
+#: web/skins/modern/diag/diag.php:713
 msgid "You should report this to"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:838
+#: web/skins/modern/diag/diag.php:837
 msgid "eduroam admin report submission"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:843 web/skins/modern/diag/diag.php:853
+#: web/skins/modern/diag/diag.php:842 web/skins/modern/diag/diag.php:852
 msgid "Reason"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:844
+#: web/skins/modern/diag/diag.php:843
 msgid "SP email"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:845
+#: web/skins/modern/diag/diag.php:844
 msgid "IdP email(s)"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:846 web/skins/modern/diag/diag.php:857
+#: web/skins/modern/diag/diag.php:845 web/skins/modern/diag/diag.php:856
 msgid "Event's timestamp"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:847 web/skins/modern/diag/diag.php:858
-msgid "Suspected MAC address"
+#: web/skins/modern/diag/diag.php:846
+msgid "Calling-Station-Id"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:848 web/skins/modern/diag/diag.php:859
+#: web/skins/modern/diag/diag.php:847 web/skins/modern/diag/diag.php:858
 msgid "Additional description"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:851
+#: web/skins/modern/diag/diag.php:850
 msgid "IdP contacting SP due to technical problems or abuse"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:854
+#: web/skins/modern/diag/diag.php:853
 msgid "SP's Operator-Name"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:855
+#: web/skins/modern/diag/diag.php:854
 msgid "User's outer ID"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:856
+#: web/skins/modern/diag/diag.php:855
 msgid "IdP email"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:860
+#: web/skins/modern/diag/diag.php:857
+msgid "Suspected MAC address"
+msgstr ""
+
+#: web/skins/modern/diag/diag.php:859
 msgid "How to contact the user"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:877
+#: web/skins/modern/diag/diag.php:876
 msgid "MAC address is incomplete"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:886
+#: web/skins/modern/diag/diag.php:885
 msgid "Wrong format of email"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:895
+#: web/skins/modern/diag/diag.php:894
 msgid "Wrong format of outer ID"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:904
+#: web/skins/modern/diag/diag.php:903
 msgid "Wrong string given as OperatorName"
 msgstr ""
 

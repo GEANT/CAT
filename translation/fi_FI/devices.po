@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-16 14:22+0100\n"
+"POT-Creation-Date: 2018-05-17 15:52+0200\n"
 "PO-Revision-Date: 2015-04-09 07:12+0000\n"
 "Last-Translator: Tomi Salmi <tomi.salmi@csc.fi>\n"
 "Language-Team: Finnish (Finland) (http://www.transifex.com/projects/p/cat/"
@@ -158,10 +158,6 @@ msgid "Test"
 msgstr "Testi"
 
 #: devices/apple_mobileconfig/Device_mobileconfig_ios_56.php:38
-msgid "This device does not support forcing setting an HTTP proxy."
-msgstr ""
-
-#: devices/apple_mobileconfig/Device_mobileconfig_ios_56.php:39
 msgid "This device does not support forcing setting an HTTPS proxy."
 msgstr ""
 
@@ -295,7 +291,7 @@ msgstr "Sinun Identiteettitarjoajasi Varmentaja"
 msgid "Identity Provider's CA"
 msgstr "IdP:n CA"
 
-#: devices/chromebook/Device_chromebook.php:266
+#: devices/chromebook/Device_chromebook.php:288
 msgid ""
 "This installer is an example only. It produces a zip file containig the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
@@ -316,7 +312,7 @@ msgstr ""
 "Network Manageriin. Jos tämä ei onnistu tai laitteesi Network Manager on "
 "liian vanha, luodaan wpa_supplicant-konfiguraatiotiedosto."
 
-#: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:114
+#: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:115
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
@@ -325,7 +321,7 @@ msgstr ""
 "<strong>%s</strong>-verkon lisäksi asennusohjelma määrittää pääsyn myös "
 "seuraaviin verkkoihin:"
 
-#: devices/linux/Device_Linux.php:58 devices/ms/WindowsCommon.php:116
+#: devices/linux/Device_Linux.php:58 devices/ms/WindowsCommon.php:117
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
@@ -356,7 +352,7 @@ msgstr ""
 "salasanan. Asennus kopioi p12-tiedoston .cat_installer-hakemistoon."
 
 #. not EAP-TLS
-#: devices/linux/Device_Linux.php:76 devices/ms/WindowsCommon.php:127
+#: devices/linux/Device_Linux.php:76 devices/ms/WindowsCommon.php:128
 #, fuzzy, php-format
 msgid ""
 "In order to connect to the network you will need an account from your %s. "
@@ -485,21 +481,26 @@ msgid ""
 "'{}'. Please enter the username in the correct format."
 msgstr ""
 
-#: devices/linux/Device_Linux.php:224
+#: devices/linux/Device_Linux.php:111
+#, fuzzy
+msgid "personal certificate file not found"
+msgstr "henkilövarmennetiedosto (p12 tai pfx)"
+
+#: devices/linux/Device_Linux.php:228
 #, fuzzy
 msgid "This installer has been prepared for {0}"
 msgstr "Tämä asennuspaketti on luotu organisaatiolle ${ORGANISATION}"
 
-#: devices/linux/Device_Linux.php:224 devices/ms/Files/common.inc:444
+#: devices/linux/Device_Linux.php:228 devices/ms/Files/common.inc:444
 #: devices/ms/Files/common.inc:451
 msgid "More information and comments:"
 msgstr "Lisätietoa ja kommentit:"
 
-#: devices/linux/Device_Linux.php:225 devices/ms/Files/common.inc:477
+#: devices/linux/Device_Linux.php:229 devices/ms/Files/common.inc:477
 msgid "Installer created with software from the GEANT project."
 msgstr "Asennusohjelma on tehty GEANT-projektissa. "
 
-#: devices/linux/Device_Linux.php:241
+#: devices/linux/Device_Linux.php:245
 #, fuzzy
 msgid ""
 "This installer will only work properly if you are a member of {0} and the "
@@ -508,7 +509,7 @@ msgstr ""
 "Asennusohjelma toimii oikein, jos kotiorganisaatiosi on %s ja kuulut "
 "käyttäjäryhmään: %s."
 
-#: devices/linux/Device_Linux.php:243
+#: devices/linux/Device_Linux.php:247
 #, fuzzy
 msgid "This installer will only work properly if you are a member of {0}."
 msgstr "Asennusohjelma toimii oikein, jos kotiorganisaatiosi on %s."
@@ -521,7 +522,7 @@ msgstr ""
 "Anonyymit identiteetit eivät käytä profiiliin määriteltyä toimialuetta – se "
 "johdetaan käyttäjän käyttäjätunnuksen loppuosasta."
 
-#: devices/ms/WindowsCommon.php:110
+#: devices/ms/WindowsCommon.php:111
 #, php-format
 msgid ""
 "%s installer will be in the form of an EXE file. It will configure %s on "
@@ -534,7 +535,7 @@ msgstr ""
 "niin selaimesi tallentaa asennusohjelman. Kopioi tiedosto laitteelle, johon "
 "haluat asentaa eduroamin."
 
-#: devices/ms/WindowsCommon.php:123
+#: devices/ms/WindowsCommon.php:124
 #, fuzzy, php-format
 msgid ""
 "In order to connect to the network you will need an a personal certificate "
@@ -549,7 +550,7 @@ msgstr ""
 "Varmennetiedostot ovat suojattu salasanalla. Tarvitset asennuksen aikana "
 "sekä tiedoston että salasanan."
 
-#: devices/ms/WindowsCommon.php:131
+#: devices/ms/WindowsCommon.php:132
 msgid ""
 "When you are connecting to the network for the first time, Windows will pop "
 "up a login box, where you should enter your user name and password. This "
@@ -561,7 +562,7 @@ msgstr ""
 "tallennetaan, jotta pääset kirjautumaan verkkoon automaattisesti aina kun "
 "olet kuuluvuusalueella."
 
-#: devices/ms/WindowsCommon.php:134
+#: devices/ms/WindowsCommon.php:135
 msgid ""
 "You will be required to enter the same credentials for each of the "
 "configured notworks:"
@@ -569,7 +570,7 @@ msgstr ""
 "Sinua pyydetään antamaan samat käyttäjätiedot kaikille määritellyille "
 "verkoille:"
 
-#: devices/ms/WindowsCommon.php:249 devices/ms/WindowsCommon.php:250
+#: devices/ms/WindowsCommon.php:250 devices/ms/WindowsCommon.php:251
 #, php-format
 msgid "%s installer for %s"
 msgstr "%s asennusohjelma %s varten"

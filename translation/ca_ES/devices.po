@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-16 14:22+0100\n"
+"POT-Creation-Date: 2018-05-17 15:52+0200\n"
 "PO-Revision-Date: 2015-04-08 14:08+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/projects/p/cat/"
@@ -158,10 +158,6 @@ msgid "Test"
 msgstr "Prova"
 
 #: devices/apple_mobileconfig/Device_mobileconfig_ios_56.php:38
-msgid "This device does not support forcing setting an HTTP proxy."
-msgstr ""
-
-#: devices/apple_mobileconfig/Device_mobileconfig_ios_56.php:39
 msgid "This device does not support forcing setting an HTTPS proxy."
 msgstr ""
 
@@ -294,7 +290,7 @@ msgstr "Autoritat de certificació del vostre proveidor d'identitat"
 msgid "Identity Provider's CA"
 msgstr "CA del proveidor d'identitat"
 
-#: devices/chromebook/Device_chromebook.php:266
+#: devices/chromebook/Device_chromebook.php:288
 msgid ""
 "This installer is an example only. It produces a zip file containig the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
@@ -316,7 +312,7 @@ msgstr ""
 "vostra versió de Network Manager sigui massa vella, es crearà un fitxer de "
 "configuració per a wpa_supplicant."
 
-#: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:114
+#: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:115
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
@@ -325,7 +321,7 @@ msgstr ""
 "A més de <strong>%s</strong>, l'instal.lador configurarà l'accés a les "
 "següents xarxes:"
 
-#: devices/linux/Device_Linux.php:58 devices/ms/WindowsCommon.php:116
+#: devices/linux/Device_Linux.php:58 devices/ms/WindowsCommon.php:117
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
@@ -358,7 +354,7 @@ msgstr ""
 "el fitxer p12 al directori .cat_installer."
 
 #. not EAP-TLS
-#: devices/linux/Device_Linux.php:76 devices/ms/WindowsCommon.php:127
+#: devices/linux/Device_Linux.php:76 devices/ms/WindowsCommon.php:128
 #, fuzzy, php-format
 msgid ""
 "In order to connect to the network you will need an account from your %s. "
@@ -488,21 +484,26 @@ msgid ""
 "'{}'. Please enter the username in the correct format."
 msgstr ""
 
-#: devices/linux/Device_Linux.php:224
+#: devices/linux/Device_Linux.php:111
+#, fuzzy
+msgid "personal certificate file not found"
+msgstr "arxiu del certificat personal (p12 o pfx)"
+
+#: devices/linux/Device_Linux.php:228
 #, fuzzy
 msgid "This installer has been prepared for {0}"
 msgstr "Aquest instal.lador ha estat preparat per a ${ORGANISATION}"
 
-#: devices/linux/Device_Linux.php:224 devices/ms/Files/common.inc:444
+#: devices/linux/Device_Linux.php:228 devices/ms/Files/common.inc:444
 #: devices/ms/Files/common.inc:451
 msgid "More information and comments:"
 msgstr "Més informació i comentaris:"
 
-#: devices/linux/Device_Linux.php:225 devices/ms/Files/common.inc:477
+#: devices/linux/Device_Linux.php:229 devices/ms/Files/common.inc:477
 msgid "Installer created with software from the GEANT project."
 msgstr "Instal.lador creat amb programari del projecte GEANT"
 
-#: devices/linux/Device_Linux.php:241
+#: devices/linux/Device_Linux.php:245
 #, fuzzy
 msgid ""
 "This installer will only work properly if you are a member of {0} and the "
@@ -511,7 +512,7 @@ msgstr ""
 "L'instal.lador només funcionarà correcament si souo membre de %s i del grup: "
 "%s."
 
-#: devices/linux/Device_Linux.php:243
+#: devices/linux/Device_Linux.php:247
 #, fuzzy
 msgid "This installer will only work properly if you are a member of {0}."
 msgstr "Aquest instal.lador només funcionarà correctament si sou membre de %s."
@@ -524,7 +525,7 @@ msgstr ""
 "Les identitats anònimes no utilitzen el domini especificat en el perfil. En "
 "el seu lloc s'infereix del sufixe proporcionat pels usuaris."
 
-#: devices/ms/WindowsCommon.php:110
+#: devices/ms/WindowsCommon.php:111
 #, php-format
 msgid ""
 "%s installer will be in the form of an EXE file. It will configure %s on "
@@ -537,7 +538,7 @@ msgstr ""
 "botó de descàrrega, l'instal.lador es desarà en local. Copieu-lo a la "
 "màquina que vulgueu configurar i executeu-lo."
 
-#: devices/ms/WindowsCommon.php:123
+#: devices/ms/WindowsCommon.php:124
 #, fuzzy, php-format
 msgid ""
 "In order to connect to the network you will need an a personal certificate "
@@ -552,7 +553,7 @@ msgstr ""
 "certificats estan protegits amb contrasenya. Haureu de tenir disponible el "
 "fitxer de certificat i la contrasenya durant el procés d'instal.lació."
 
-#: devices/ms/WindowsCommon.php:131
+#: devices/ms/WindowsCommon.php:132
 msgid ""
 "When you are connecting to the network for the first time, Windows will pop "
 "up a login box, where you should enter your user name and password. This "
@@ -564,7 +565,7 @@ msgstr ""
 "informació es desarà de manera que us reconnecteu automàticament a la xarxa "
 "cada cop que us hi acosteu."
 
-#: devices/ms/WindowsCommon.php:134
+#: devices/ms/WindowsCommon.php:135
 msgid ""
 "You will be required to enter the same credentials for each of the "
 "configured notworks:"
@@ -572,7 +573,7 @@ msgstr ""
 "Haureu d'introduir les mateixes credencials per cada una de les següents "
 "xarxes configurades:"
 
-#: devices/ms/WindowsCommon.php:249 devices/ms/WindowsCommon.php:250
+#: devices/ms/WindowsCommon.php:250 devices/ms/WindowsCommon.php:251
 #, php-format
 msgid "%s installer for %s"
 msgstr "Instal.lador %s per a %s"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-16 14:22+0100\n"
+"POT-Creation-Date: 2018-05-17 15:52+0200\n"
 "PO-Revision-Date: 2013-02-06 13:02+0000\n"
 "Last-Translator: Stefan Winter <stefan.winter@restena.lu>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/projects/p/cat/"
@@ -144,10 +144,6 @@ msgid "Test"
 msgstr ""
 
 #: devices/apple_mobileconfig/Device_mobileconfig_ios_56.php:38
-msgid "This device does not support forcing setting an HTTP proxy."
-msgstr ""
-
-#: devices/apple_mobileconfig/Device_mobileconfig_ios_56.php:39
 msgid "This device does not support forcing setting an HTTPS proxy."
 msgstr ""
 
@@ -282,7 +278,7 @@ msgstr "Certifikačná autorita vášho poskytovateľa identity"
 msgid "Identity Provider's CA"
 msgstr "CA posktyvateľa identity"
 
-#: devices/chromebook/Device_chromebook.php:266
+#: devices/chromebook/Device_chromebook.php:288
 msgid ""
 "This installer is an example only. It produces a zip file containig the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
@@ -304,7 +300,7 @@ msgstr ""
 "vašom systéme príliš stará alebo vôbec nie je k dispozícii, bude vytvorený "
 "konfiguračný súbor pre nástroj wpa_supplicant. "
 
-#: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:114
+#: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:115
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
@@ -313,7 +309,7 @@ msgstr ""
 "Zároveň s nastavením <strong>%s</strong> bude nastavený aj prístup k "
 "nasledovným sieťam:"
 
-#: devices/linux/Device_Linux.php:58 devices/ms/WindowsCommon.php:116
+#: devices/linux/Device_Linux.php:58 devices/ms/WindowsCommon.php:117
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
@@ -347,7 +343,7 @@ msgstr ""
 "skopírovaný do adresára .eduroam."
 
 #. not EAP-TLS
-#: devices/linux/Device_Linux.php:76 devices/ms/WindowsCommon.php:127
+#: devices/linux/Device_Linux.php:76 devices/ms/WindowsCommon.php:128
 #, fuzzy, php-format
 msgid ""
 "In order to connect to the network you will need an account from your %s. "
@@ -476,22 +472,27 @@ msgid ""
 "'{}'. Please enter the username in the correct format."
 msgstr ""
 
-#: devices/linux/Device_Linux.php:224
+#: devices/linux/Device_Linux.php:111
+#, fuzzy
+msgid "personal certificate file not found"
+msgstr "osobný certifikát (p12 alebo pfx)"
+
+#: devices/linux/Device_Linux.php:228
 #, fuzzy
 msgid "This installer has been prepared for {0}"
 msgstr ""
 "Tento inštalačný program bol pripravený pre organizáciu ${ORGANISATION}"
 
-#: devices/linux/Device_Linux.php:224 devices/ms/Files/common.inc:444
+#: devices/linux/Device_Linux.php:228 devices/ms/Files/common.inc:444
 #: devices/ms/Files/common.inc:451
 msgid "More information and comments:"
 msgstr "Ďalšie informácie a komentáre:"
 
-#: devices/linux/Device_Linux.php:225 devices/ms/Files/common.inc:477
+#: devices/linux/Device_Linux.php:229 devices/ms/Files/common.inc:477
 msgid "Installer created with software from the GEANT project."
 msgstr "Inštalačný program bol vytvorený pomocou softvéru z projektu GEANT."
 
-#: devices/linux/Device_Linux.php:241
+#: devices/linux/Device_Linux.php:245
 #, fuzzy
 msgid ""
 "This installer will only work properly if you are a member of {0} and the "
@@ -500,7 +501,7 @@ msgstr ""
 "Inštalačný program bude fungovať správne len ak ste členom organizácie %s a "
 "používateľskej skupiny: %s."
 
-#: devices/linux/Device_Linux.php:243
+#: devices/linux/Device_Linux.php:247
 #, fuzzy
 msgid "This installer will only work properly if you are a member of {0}."
 msgstr ""
@@ -514,7 +515,7 @@ msgstr ""
 "Anonymná identita je odvodená z prípony mena používateľa ním zadaného. Pri "
 "jej tvorbe sa nepoužíva doména, ktorá je uvedená v profile."
 
-#: devices/ms/WindowsCommon.php:110
+#: devices/ms/WindowsCommon.php:111
 #, php-format
 msgid ""
 "%s installer will be in the form of an EXE file. It will configure %s on "
@@ -528,7 +529,7 @@ msgstr ""
 "tlačítko Stiahnuť. Preneste ho na zariadenie, kde chcete nakonfigurovať "
 "eduroam a spustite ho."
 
-#: devices/ms/WindowsCommon.php:123
+#: devices/ms/WindowsCommon.php:124
 #, fuzzy, php-format
 msgid ""
 "In order to connect to the network you will need an a personal certificate "
@@ -543,7 +544,7 @@ msgstr ""
 "Súbory s certifikátom sú chránené heslom. Počas inštalácie majte pripravený "
 "súbor s certifikátom spolu s príslušným heslom."
 
-#: devices/ms/WindowsCommon.php:131
+#: devices/ms/WindowsCommon.php:132
 msgid ""
 "When you are connecting to the network for the first time, Windows will pop "
 "up a login box, where you should enter your user name and password. This "
@@ -554,14 +555,14 @@ msgstr ""
 "používateľského mena a hesla. Tieto údaje budú uložené a budú použité pri "
 "opätovnom pripojení k sieti zakaždým, keď budete v jej dosahu."
 
-#: devices/ms/WindowsCommon.php:134
+#: devices/ms/WindowsCommon.php:135
 msgid ""
 "You will be required to enter the same credentials for each of the "
 "configured notworks:"
 msgstr ""
 "Pre každú z nasledujúcich sietí, musíte zadať rovnaké prihlasovacie údaje:"
 
-#: devices/ms/WindowsCommon.php:249 devices/ms/WindowsCommon.php:250
+#: devices/ms/WindowsCommon.php:250 devices/ms/WindowsCommon.php:251
 #, php-format
 msgid "%s installer for %s"
 msgstr "inštalačný program %s pre organizáciu %s"
