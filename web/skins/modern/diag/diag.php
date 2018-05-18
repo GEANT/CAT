@@ -81,9 +81,9 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 <input type='text' name='user_realm' id='user_realm' value=''>
                 <?php
                     echo '<div id="realm_by_select"><br/>' . _("alternatively") . '<br/>';
-                    echo _("You can select your hoem institution from the following list") . '<br/>';
+                    echo _("You can select your home institution from the following list") . '<br/>';
                     echo '<div id="select_idp_country"><a href="" id="idp_countries_list">';    
-                    echo '<span id="realmselect">' . _("Click to select your country and organisation") . '</a></span></div>';
+                    echo '<span id="realmselect">' . _("Click to select your country/region and organisation") . '</a></span></div>';
                 ?>
                 <div id="select_idp_area" style="display:none;">
                 </div>
@@ -312,28 +312,28 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 result = result + '<td>' + <?php echo '"' . _("The network environment around you is broken") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_SP_RADIUS') {
-                result = result + '<td>' + <?php echo '"' . _("The RADIUS server of your service provider has a problem") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The RADIUS server of your service provider is the source of the problem") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_IDP_AUTHBACKEND') {
-                result = result + '<td>' + <?php echo '"' . _("The RADIUS server in your home institution has a problem to authenticate users") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The RADIUS server in your home institution is currently unable to authenticate you") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_NRO_SP') {
-                result = result + '<td>' + <?php echo '"' . _("The national server in the country you are visiting is not functioning correctly") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The national server in the country/region you are visiting is not functioning correctly") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_LINK_ETLR_NRO_SP') {
-                result = result + '<td>' + <?php echo '"' . _("The link between the national server of the country you are visiting and the top-level server is broken") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The link between the national server of the country/region you are visiting and the top-level server is broken") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_LINK_ETLR_NRO_IdP') {
-                result = result + '<td>' + <?php echo '"' . _("The link between the national server of your home country and the top-level server is broken") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The link between the national server of your home country/region and the top-level server is broken") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_ETLR') {
                 result = result + '<td>' + <?php echo '"' . _("The communication to the top-level server is down") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_NRO_IdP') {
-                result = result + '<td>' + <?php echo '"' . _("The national server in your home country is not functioning properly.") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The national server in your home country/region is not functioning properly.") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_IdP_RADIUS') {
-                result = result + '<td>' + <?php echo '"' . _("The RADIUS server of your home institution has a problem") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The RADIUS server of your home institution is the source of the problem") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_NONEXISTENTREALM') {
                 result = result + '<td>' + <?php echo '"' . _("This realm does not exist") . '"'; ?> + '</td>';
@@ -854,7 +854,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                         result = result + '<tr><td>' + <?php echo '"' . _("User's outer ID") . '"'; ?> + '</td><td>' + data.outerid + '</td></tr>';
                         result = result + '<tr><td>' + <?php echo '"' . _("IdP email") . '"'; ?> + '</td><td>' + data.email + '</td></tr>';
                         result = result + '<tr><td>' + <?php echo '"' . _("Event's timestamp") . '"'; ?> + '</td><td>' + data.timestamp + '</td></tr>';
-                        result = result + '<tr><td>' + <?php echo '"' . _("Suspected MAC address") . '"'; ?> + '</td><td>' + data.mac + '</td></tr>';
+                        result = result + '<tr><td>' + <?php echo '"' . _("Calling-Station-I") . '"'; ?> + '</td><td>' + data.mac + '</td></tr>';
                         result = result + '<tr><td>' + <?php echo '"' . _("Additional description") . '"'; ?> +'</td><td>' + data.freetext + '</td></tr>';
                         result = result + '<tr><td>' + <?php echo '"' . _("How to contact the user") . '"'; ?> +'</td><td>' + data.cdetails + '</td></tr>';
                     }

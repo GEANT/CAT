@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-17 15:52+0200\n"
+"POT-Creation-Date: 2018-05-18 11:18+0200\n"
 "PO-Revision-Date: 2015-04-12 02:05+0000\n"
 "Last-Translator: rokpapez <rok.papez@arnes.si>\n"
 "Language-Team: Slovenian (Slovenia) (http://www.transifex.com/projects/p/cat/"
@@ -397,8 +397,8 @@ msgstr ""
 #: core/SilverbulletInvitation.php:260
 #, php-format
 msgid ""
-"Your %s access is ready! Click here to continue: %s (on Android, install the "
-"app 'eduroam CAT' before that!)"
+"Your %s access is ready! Click here: %s (on Android, first install the app "
+"'%s'!)"
 msgstr ""
 
 #: core/SilverbulletInvitation.php:267

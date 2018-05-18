@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-17 15:52+0200\n"
+"POT-Creation-Date: 2018-05-18 11:18+0200\n"
 "PO-Revision-Date: 2015-04-07 09:41+0000\n"
 "Last-Translator: Tomi Salmi <tomi.salmi@csc.fi>\n"
 "Language-Team: Finnish (Finland) (http://www.transifex.com/projects/p/cat/"
@@ -656,11 +656,11 @@ msgid "alternatively"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:84
-msgid "You can select your hoem institution from the following list"
+msgid "You can select your home institution from the following list"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:86
-msgid "Click to select your country and organisation"
+msgid "Click to select your country/region and organisation"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:93
@@ -776,31 +776,31 @@ msgid "The network environment around you is broken"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:315
-msgid "The RADIUS server of your service provider has a problem"
+msgid "The RADIUS server of your service provider is the source of the problem"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:318
 msgid ""
-"The RADIUS server in your home institution has a problem to authenticate "
-"users"
+"The RADIUS server in your home institution is currently unable to "
+"authenticate you"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:321
 msgid ""
-"The national server in the country you are visiting is not functioning "
-"correctly"
+"The national server in the country/region you are visiting is not "
+"functioning correctly"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:324
 msgid ""
-"The link between the national server of the country you are visiting and the "
-"top-level server is broken"
+"The link between the national server of the country/region you are visiting "
+"and the top-level server is broken"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:327
 msgid ""
-"The link between the national server of your home country and the top-level "
-"server is broken"
+"The link between the national server of your home country/region and the top-"
+"level server is broken"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:330
@@ -808,11 +808,12 @@ msgid "The communication to the top-level server is down"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:333
-msgid "The national server in your home country is not functioning properly."
+msgid ""
+"The national server in your home country/region is not functioning properly."
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:336
-msgid "The RADIUS server of your home institution has a problem"
+msgid "The RADIUS server of your home institution is the source of the problem"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:339
@@ -889,7 +890,7 @@ msgstr ""
 msgid "Event's timestamp"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:846
+#: web/skins/modern/diag/diag.php:846 web/skins/modern/diag/diag.php:857
 msgid "Calling-Station-Id"
 msgstr ""
 
@@ -911,10 +912,6 @@ msgstr ""
 
 #: web/skins/modern/diag/diag.php:855
 msgid "IdP email"
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:857
-msgid "Suspected MAC address"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:859
