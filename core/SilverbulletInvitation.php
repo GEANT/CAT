@@ -257,7 +257,7 @@ class SilverbulletInvitation extends common\Entity {
      * @return int an OutsideComm constant indicating how the sending went
      */
     public function sendBySms($number) {
-        return \core\common\OutsideComm::sendSMS($number, sprintf(_("Your %s access is ready! Click here to continue: %s (on Android, install the app 'eduroam CAT' before that!)"), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $this->link()));
+        return \core\common\OutsideComm::sendSMS($number, sprintf(_("Your %s access is ready! Click here: %s (on Android, first install the app '%s'!)"), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $this->link()), "eduroam CAT");
     }
 
     public function sendByMail($properEmail) {
