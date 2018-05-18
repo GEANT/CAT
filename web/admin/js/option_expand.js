@@ -1,6 +1,3 @@
-/** global: marks */
-/* global marks */
-/** global marks */
 /* 
  *******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
@@ -46,5 +43,5 @@ function deleteOption(identifier) {
 }
 
 function MapGoogleDeleteCoord(e) {
-    marks[e - 1].setOptions({visible: false});
+    /** global: marks */ marks[e - 1].setOptions({visible: false});
 }
