@@ -334,7 +334,19 @@ abstract class Device_XML extends \core\DeviceConfig {
 
     private function setClientSideCredentials($eapParams) {
         $clientsidecredential = new ClientSideCredential();
-        $this->setClientSideRealm($clientsidecredential);       
+        $attr = $this->attributes;
+        $realm = \core\common\Entity::getAttributeValue($attr, 'internal:realm', 0);
+        if ($realm !== NULL) {
+
+            $outerId = \core\common\Entity::getAttributeValue($attr, 'internal:anon_local_value', 0);
+            if ($outerId !== NULL) {
+                $clientsidecredential->setProperty('OuterIdentity', $outerId . '@' . $realm);
+            }
+            $suffix = $this->setInnerIdentitySuffix($realm);
+            if ($suffix !== NULL) {
+                $clientsidecredential->setProperty('InnerIdentitySuffix', $suffix);
+            }
+        }
         $clientsidecredential->setProperty('EAPType', $eapParams['inner_methodID'] ? $eapParams['inner_methodID'] : $eapParams['methodID']);
                 
         // Client Certificate
