@@ -56,6 +56,7 @@ abstract class Device_XML extends \core\DeviceConfig {
         $NAMESPACE = 'urn:RFC4282:realm';
 //EAPIdentityProvider  begin
         $eapIdp = new EAPIdentityProvider();
+        $eapIdp->setProperty('CredentialApplicability', $this->getCredentialApplicability());
 //    $eap_idp->setProperty('ValidUntil',$this->getValidUntil());
 // ProviderInfo->
         $eapIdp->setProperty('ProviderInfo', $this->getProviderInfo());
@@ -238,11 +239,9 @@ abstract class Device_XML extends \core\DeviceConfig {
         return $helpdesk;
     }
 
-/* This function is not currently used.
- * 
- *     private function getCompatibleUses() {
+   private function getCredentialApplicability() {
         $ssids = $this->attributes['internal:SSID'];
-        $compatibleuses = new CompatibleUses();
+        $credentialapplicability = new CredentialApplicability();
         $ieee80211s = [];
         foreach ($ssids as $ssid => $ciph) {
             $ieee80211 = new IEEE80211();
@@ -250,11 +249,10 @@ abstract class Device_XML extends \core\DeviceConfig {
             $ieee80211->setProperty('MinRSNProto', $ciph == 'AES' ? 'CCMP' : 'TKIP');
             $ieee80211s[] = $ieee80211;
         }
-        $compatibleuses->setProperty('IEEE80211', $ieee80211s);
-        return($compatibleuses);
+        $credentialapplicability->setProperty('IEEE80211', $ieee80211s);
+        return($credentialapplicability);
     }
 
-*/
     private function getAuthenticationMethodParams($eap) {
         $inner = \core\common\EAP::innerAuth($eap);
         $outerMethod = $eap["OUTER"];
@@ -298,15 +296,36 @@ abstract class Device_XML extends \core\DeviceConfig {
         return($serversidecredential);
     }
     
+    private function setInnerIdentitySuffix($attr, $realm) {
+        if (\core\common\Entity::getAttributeValue($attr, 'internal:verify_userinput_suffix', 0) !== 1) {
+            return(NULL);
+        }
+        $suffix = new InnerIdentitySuffix();
+        $suffix->setValue($realm);
+        if (\core\common\Entity::getAttributeValue($attr, 'internal:hint_userinput_suffix', 0) === 1) {
+            $suffix->setAttribute('hint', "true");
+        }
+        return($suffix);
+    }
+
     private function setClientSideCredentials($eapParams) {
         $attr = $this->attributes;
         $clientsidecredential = new ClientSideCredential();
 // OuterIdentity 
-        if ($attr['internal:use_anon_outer'] [0]) {
-            $clientsidecredential->setProperty('OuterIdentity', $attr['internal:anon_local_value'][0] . '@' . $attr['internal:realm'][0]);
+        $realm = \core\common\Entity::getAttributeValue($attr, 'internal:realm', 0);
+        if ($realm !== NULL) {
+            $outerId = \core\common\Entity::getAttributeValue($attr, 'internal:anon_local_value', 0);
+            if ($outerId !== NULL) { 
+                $clientsidecredential->setProperty('OuterIdentity', $outerId . '@' . $realm);
+            }
+            $suffix = $this->setInnerIdentitySuffix($attr, $realm);
+            if ($suffix !== NULL) {
+                $clientsidecredential->setProperty('InnerIdentitySuffix', $suffix);
+            }
         }
-        $clientsidecredential->setProperty('EAPType', $eapParams['inner_methodID'] ? $eapParams['inner_methodID'] : $eapParams['methodID']);
         
+        $clientsidecredential->setProperty('EAPType', $eapParams['inner_methodID'] ? $eapParams['inner_methodID'] : $eapParams['methodID']);
+                
         // Client Certificate
         if ($this->selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
             $clientCertificateObject = new ClientCertificate();

@@ -53,9 +53,9 @@ class XMLElement {
         ],
         'client' => [
             \core\common\EAP::TLS => ['UserName', 'Password', 'ClientCertificate'],
-            \core\common\EAP::MSCHAP2 => ['UserName', 'Password', 'OuterIdentity'],
+            \core\common\EAP::MSCHAP2 => ['UserName', 'Password', 'OuterIdentity', 'InnerIdentitySuffix'],
             \core\common\EAP::GTC => ['UserName', 'OneTimeToken'],
-            \core\common\EAP::NE_PAP => ['UserName', 'Password', 'OuterIdentity'],
+            \core\common\EAP::NE_PAP => ['UserName', 'Password', 'OuterIdentity', 'InnerIdentitySuffix'],
             \core\common\EAP::NE_SILVERBULLET => ['UserName', 'ClientCertificate'],
         ]
     ];
@@ -136,6 +136,7 @@ class EAPIdentityProvider extends XMLElement {
 
     protected $ValidUntil;
     protected $AuthenticationMethods;
+    protected $CredentialApplicability;
     protected $ProviderInfo;
     protected $VendorSpecific;
 
@@ -213,6 +214,10 @@ class ServerID extends XMLElement {
 class ClientSideCredential extends XMLElement {
 
     protected $OuterIdentity;
+    protected $InnerIdentityPrefix;
+    protected $InnerIdentitySuffix;
+    protected $InnerIdentityHint;
+    protected $InnerIdentityEnforce;
     protected $UserName;
     protected $Password;
     protected $ClientCertificate;
@@ -238,6 +243,11 @@ class ClientSideCredential extends XMLElement {
 
 }
 
+class InnerIdentitySuffix extends XMLElement {
+    
+}
+
+
 class ClientCertificate extends XMLElement {
     
 }
@@ -254,6 +264,38 @@ class InnerAuthenticationMethod extends XMLElement {
     protected $ClientSideCredential;
 
 }
+
+class CredentialApplicability extends XMLElement {
+    protected $IEEE80211;
+    protected $IEEE8023;
+}
+
+class IEEE80211 extends XMLElement {
+    protected $SSID;
+    protected $ConsortiumOID;
+    protected $MinRSNProto;
+}
+
+class SSID extends XMLElement {
+    
+}
+
+class ConsortiumOID extends XMLElement {
+    
+}
+
+class MinRSNProto extends XMLElement {
+    
+}
+
+class IEEE8023 extends XMLElement {
+    protected $NetworkID;
+}
+
+class NetworkID extends XMLElement {
+    
+}
+
 
 class ProviderInfo extends XMLElement {
 
@@ -309,26 +351,6 @@ class Phone extends XMLElement {
     
 }
 
-/*
-  class CompatibleUses  extends XMLElement {
-  protected $IEEE80211;
-  protected $IEEE8023;
-  protected $ABFAB;
-  }
-  class IEEE80211 extends XMLElement {
-  protected $SSID;
-  protected $ConsortiumOID;
-  protected $MinRSNProto;
-  }
-
-  class IEEE8023 extends XMLElement {
-  protected $NetworkID;
-  }
-  class ABFAB extends XMLElement {
-  protected $ServiceIdentifier;
-  }
-
- */
 
 /**
  * 
