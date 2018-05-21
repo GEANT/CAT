@@ -296,7 +296,8 @@ abstract class Device_XML extends \core\DeviceConfig {
         return($serversidecredential);
     }
     
-    private function setInnerIdentitySuffix($attr, $realm) {
+    private function setInnerIdentitySuffix($realm) {
+        $attr = $this->attributes;
         if (\core\common\Entity::getAttributeValue($attr, 'internal:verify_userinput_suffix', 0) !== 1) {
             return(NULL);
         }
@@ -307,31 +308,38 @@ abstract class Device_XML extends \core\DeviceConfig {
         }
         return($suffix);
     }
+    
+    private function setClientSideRealm ($clientsidecredential) {
+        $attr = $this->attributes;
+        $realm = \core\common\Entity::getAttributeValue($attr, 'internal:realm', 0);
+        if ($realm === NULL) {
+            return;
+        }
+        $outerId = \core\common\Entity::getAttributeValue($attr, 'internal:anon_local_value', 0);
+        if ($outerId !== NULL) { 
+            $clientsidecredential->setProperty('OuterIdentity', $outerId . '@' . $realm);
+        }
+        $suffix = $this->setInnerIdentitySuffix($realm);
+        if ($suffix !== NULL) {
+            $clientsidecredential->setProperty('InnerIdentitySuffix', $suffix);
+        }
+    }
+    
+    private function setClientCetificate() {
+        $clientCertificateObject = new ClientCertificate();
+        $clientCertificateObject->setValue(base64_encode($this->clientCert["certdata"]));
+        $clientCertificateObject->setAttributes(['format' => 'PKCS12', 'encoding' => 'base64']);
+        return($clientCertificateObject);
+    }
 
     private function setClientSideCredentials($eapParams) {
-        $attr = $this->attributes;
         $clientsidecredential = new ClientSideCredential();
-// OuterIdentity 
-        $realm = \core\common\Entity::getAttributeValue($attr, 'internal:realm', 0);
-        if ($realm !== NULL) {
-            $outerId = \core\common\Entity::getAttributeValue($attr, 'internal:anon_local_value', 0);
-            if ($outerId !== NULL) { 
-                $clientsidecredential->setProperty('OuterIdentity', $outerId . '@' . $realm);
-            }
-            $suffix = $this->setInnerIdentitySuffix($attr, $realm);
-            if ($suffix !== NULL) {
-                $clientsidecredential->setProperty('InnerIdentitySuffix', $suffix);
-            }
-        }
-        
+        $this->setClientSideRealm($clientsidecredential);       
         $clientsidecredential->setProperty('EAPType', $eapParams['inner_methodID'] ? $eapParams['inner_methodID'] : $eapParams['methodID']);
                 
         // Client Certificate
         if ($this->selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
-            $clientCertificateObject = new ClientCertificate();
-            $clientCertificateObject->setValue(base64_encode($this->clientCert["certdata"]));
-            $clientCertificateObject->setAttributes(['format' => 'PKCS12', 'encoding' => 'base64']);
-            $clientsidecredential->setProperty('ClientCertificate', $clientCertificateObject);
+            $clientsidecredential->setProperty('ClientCertificate', $this->setClientCetificate());
         }
         return($clientsidecredential);
     }
