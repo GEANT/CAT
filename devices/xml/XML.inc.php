@@ -53,9 +53,9 @@ class XMLElement {
         ],
         'client' => [
             \core\common\EAP::TLS => ['UserName', 'Password', 'ClientCertificate'],
-            \core\common\EAP::MSCHAP2 => ['UserName', 'Password', 'OuterIdentity', 'InnerIdentitySuffix'],
+            \core\common\EAP::MSCHAP2 => ['UserName', 'Password', 'OuterIdentity', 'InnerIdentitySuffix', 'InnerIdentityHint'],
             \core\common\EAP::GTC => ['UserName', 'OneTimeToken'],
-            \core\common\EAP::NE_PAP => ['UserName', 'Password', 'OuterIdentity', 'InnerIdentitySuffix'],
+            \core\common\EAP::NE_PAP => ['UserName', 'Password', 'OuterIdentity', 'InnerIdentitySuffix', 'InnerIdentityHint'],
             \core\common\EAP::NE_SILVERBULLET => ['UserName', 'ClientCertificate'],
         ]
     ];
@@ -217,7 +217,6 @@ class ClientSideCredential extends XMLElement {
     protected $InnerIdentityPrefix;
     protected $InnerIdentitySuffix;
     protected $InnerIdentityHint;
-    protected $InnerIdentityEnforce;
     protected $UserName;
     protected $Password;
     protected $ClientCertificate;
@@ -242,11 +241,6 @@ class ClientSideCredential extends XMLElement {
     }
 
 }
-
-class InnerIdentitySuffix extends XMLElement {
-    
-}
-
 
 class ClientCertificate extends XMLElement {
     

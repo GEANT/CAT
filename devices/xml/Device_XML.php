@@ -296,19 +296,6 @@ abstract class Device_XML extends \core\DeviceConfig {
         return($serversidecredential);
     }
     
-    private function setInnerIdentitySuffix($realm) {
-        $attr = $this->attributes;
-        if (\core\common\Entity::getAttributeValue($attr, 'internal:verify_userinput_suffix', 0) !== 1) {
-            return(NULL);
-        }
-        $suffix = new InnerIdentitySuffix();
-        $suffix->setValue($realm);
-        if (\core\common\Entity::getAttributeValue($attr, 'internal:hint_userinput_suffix', 0) === 1) {
-            $suffix->setAttribute('hint', "true");
-        }
-        return($suffix);
-    }
-    
     private function setClientSideRealm ($clientsidecredential) {
         $attr = $this->attributes;
         $realm = \core\common\Entity::getAttributeValue($attr, 'internal:realm', 0);
@@ -319,9 +306,12 @@ abstract class Device_XML extends \core\DeviceConfig {
         if ($outerId !== NULL) { 
             $clientsidecredential->setProperty('OuterIdentity', $outerId . '@' . $realm);
         }
-        $suffix = $this->setInnerIdentitySuffix($realm);
-        if ($suffix !== NULL) {
-            $clientsidecredential->setProperty('InnerIdentitySuffix', $suffix);
+        if (\core\common\Entity::getAttributeValue($attr, 'internal:verify_userinput_suffix', 0) !== 1) {
+            return;
+        }
+        $clientsidecredential->setProperty('InnerIdentitySuffix', $realm);
+        if (\core\common\Entity::getAttributeValue($attr, 'internal:hint_userinput_suffix', 0) === 1) {
+            $clientsidecredential->setProperty('InnerIdentityHint', 'true');
         }
     }
     
@@ -337,15 +327,11 @@ abstract class Device_XML extends \core\DeviceConfig {
         $attr = $this->attributes;
         $realm = \core\common\Entity::getAttributeValue($attr, 'internal:realm', 0);
         if ($realm !== NULL) {
-
             $outerId = \core\common\Entity::getAttributeValue($attr, 'internal:anon_local_value', 0);
             if ($outerId !== NULL) {
                 $clientsidecredential->setProperty('OuterIdentity', $outerId . '@' . $realm);
             }
-            $suffix = $this->setInnerIdentitySuffix($realm);
-            if ($suffix !== NULL) {
-                $clientsidecredential->setProperty('InnerIdentitySuffix', $suffix);
-            }
+            $this->setClientSideRealm($clientsidecredential);
         }
         $clientsidecredential->setProperty('EAPType', $eapParams['inner_methodID'] ? $eapParams['inner_methodID'] : $eapParams['methodID']);
                 

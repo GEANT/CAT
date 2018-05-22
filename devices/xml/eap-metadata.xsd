@@ -108,7 +108,8 @@
         <xs:sequence minOccurs="1" maxOccurs="1">
             <xs:element name="OuterIdentity" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="InnerIdentityPrefix" type="xs:string" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="InnerIdentitySuffix" type="InnerIdentity" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="InnerIdentitySuffix" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="InnerIdentityHint" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
             <xs:element name="UserName" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="Password" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="ClientCertificate" type="CertData" minOccurs="0" maxOccurs="1"/>
@@ -211,15 +212,7 @@
                 <xs:attribute name="lang" type="xs:string" use="optional"/>
             </xs:extension>
         </xs:simpleContent>
-    </xs:complexType>       
-    
-    <xs:complexType name="InnerIdentity">
-        <xs:simpleContent>
-            <xs:extension base="xs:string">
-                <xs:attribute name="hint" type="xs:boolean" use="optional"/>
-            </xs:extension>
-        </xs:simpleContent>
-    </xs:complexType>                                                                                      
+    </xs:complexType>                                                                                            
                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
     <xs:element name="EAPIdentityProviderList">
         <xs:complexType>
