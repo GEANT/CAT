@@ -241,12 +241,18 @@ abstract class Device_XML extends \core\DeviceConfig {
 
    private function getCredentialApplicability() {
         $ssids = $this->attributes['internal:SSID'];
+        $oids = $this->attributes['internal:consortia'];
         $credentialapplicability = new CredentialApplicability();
         $ieee80211s = [];
         foreach ($ssids as $ssid => $ciph) {
             $ieee80211 = new IEEE80211();
             $ieee80211->setProperty('SSID', $ssid);
             $ieee80211->setProperty('MinRSNProto', $ciph == 'AES' ? 'CCMP' : 'TKIP');
+            $ieee80211s[] = $ieee80211;
+        }
+        foreach ($oids as $oid) {
+            $ieee80211 = new IEEE80211();
+            $ieee80211->setProperty('ConsortiumOID', $oid);
             $ieee80211s[] = $ieee80211;
         }
         $credentialapplicability->setProperty('IEEE80211', $ieee80211s);

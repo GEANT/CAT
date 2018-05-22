@@ -686,7 +686,8 @@ abstract class DeviceConfig extends \core\common\Entity {
      * - <b>internal:logo_file</b>  -  array of pathnames of logo_files saved in the working directory
      * - <b>internal:CAs</b> - the value is an array produced by X509::processCertificate() with the following filds
      * - <b>internal:SSID</b> - an array indexed by SSID strings with values either TKIP or AES; if TKIP is set the both WPA/TKIP and WPA2/AES should be set if AES is set the this is a WPA2/AES only SSID; the consortium's defined SSIDs are always set as the first array elements.
-     * -<b>internal:profile_count</b> - the number of profiles for the associated IdP
+     * - <b>internal:consortia</b> an array of consortion IO as declared in the config-confassistant
+     * - <b>internal:profile_count</b> - the number of profiles for the associated IdP
      *
      *
      * these attributes are available and can be used, but the "internal" attributes are better suited for modules
