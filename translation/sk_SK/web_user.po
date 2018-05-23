@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-17 15:52+0200\n"
+"POT-Creation-Date: 2018-05-23 14:55+0200\n"
 "PO-Revision-Date: 2013-02-22 10:40+0000\n"
 "Last-Translator: martins <ms@uakom.sk>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/projects/p/cat/"
@@ -538,8 +538,8 @@ msgstr ""
 #: web/lib/user/TextTemplates.php:91
 #, php-format
 msgid ""
-"This site provides %s installers for a limited number of insititions, click "
-"here to see if your institution is on the list."
+"This site provides %s installers for many %s, click here to see if your %s "
+"is on the list."
 msgstr ""
 
 #: web/lib/user/TextTemplates.php:92
@@ -770,9 +770,9 @@ msgstr ""
 #, php-format
 msgid ""
 "You should use the exact link you got during sign-up to come here. "
-"Alternatively, if you have a valid eduroam login token already, you can "
-"visit this page and Accept the question about logging in with a client "
-"certificate (select a certificate with a name ending in '…%s')."
+"Alternatively, if you have a valid %s login token already, you can visit "
+"this page and Accept the question about logging in with a client certificate "
+"(select a certificate with a name ending in '…%s')."
 msgstr ""
 
 #: web/skins/modern/accountstatus/accountstatus.php:159
@@ -837,7 +837,7 @@ msgid "The details are displayed below."
 msgstr ""
 
 #: web/skins/modern/accountstatus/accountstatus.php:243
-msgid "Really revoke this certificate?"
+msgid "Really revoke this access credential?"
 msgstr ""
 
 #: web/skins/modern/user/cat_info.php:90
