@@ -49,7 +49,7 @@ class Device_Linux extends \core\DeviceConfig {
         $ssidCount = count($this->attributes['internal:SSID']);
         $out = '';
 
-        $out .= _("The installer is in the form of a bash script. It will try to configure eduroam under Network Manager and if this is either not appropriate for your system or your version of Network Manager is too old, a wpa_supplicant config file will be created instead.");
+        $out .= _("The installer is in the form of a Python script. It will try to configure eduroam under Network Manager and if this is either not appropriate for your system or your version of Network Manager is too old, a wpa_supplicant config file will be created instead.");
         $out .= "<p>";
         if ($ssidCount > 1) {
             if ($ssidCount > 2) {
