@@ -38,7 +38,7 @@ class Divs {
         $location = $this->Gui->skinObject->findResourceUrl("IMAGES", "consortium_logo.png");
         if ($location !== FALSE) {
             $retval .= "<div id='cat_logo'>
-            <img id='logo_img' src='$location' alt='Consortium Logo'/>
+            <a href='".CONFIG_CONFASSISTANT['CONSORTIUM']['homepage']."'><img id='logo_img' src='$location' alt='Consortium Logo'/></a>
             <span>Configuration Assistant Tool</span>
             </div>";
         }
