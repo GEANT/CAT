@@ -854,7 +854,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                         result = result + '<tr><td>' + <?php echo '"' . _("User's outer ID") . '"'; ?> + '</td><td>' + data.outerid + '</td></tr>';
                         result = result + '<tr><td>' + <?php echo '"' . _("IdP email") . '"'; ?> + '</td><td>' + data.email + '</td></tr>';
                         result = result + '<tr><td>' + <?php echo '"' . _("Event's timestamp") . '"'; ?> + '</td><td>' + data.timestamp + '</td></tr>';
-                        result = result + '<tr><td>' + <?php echo '"' . _("Calling-Station-I") . '"'; ?> + '</td><td>' + data.mac + '</td></tr>';
+                        result = result + '<tr><td>' + <?php echo '"' . _("Calling-Station-Id") . '"'; ?> + '</td><td>' + data.mac + '</td></tr>';
                         result = result + '<tr><td>' + <?php echo '"' . _("Additional description") . '"'; ?> +'</td><td>' + data.freetext + '</td></tr>';
                         result = result + '<tr><td>' + <?php echo '"' . _("How to contact the user") . '"'; ?> +'</td><td>' + data.cdetails + '</td></tr>';
                     }
