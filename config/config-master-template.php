@@ -152,20 +152,13 @@ const CONFIG = [
       'ca' => ['display' => 'Català',      'locale' => 'ca_ES.utf8',    'latin_based' => TRUE],
       'cs' => ['display' => 'Čeština',     'locale' => 'cs_CZ.utf8',    'latin_based' => TRUE],
       'de' => ['display' => 'Deutsch',     'locale' => 'de_DE.utf8',    'latin_based' => TRUE],
-      'el' => ['display' => 'Ελληνικά',    'locale' => 'el_GR.utf8',    'latin_based' => FALSE],
       'en' => ['display' => 'English(GB)', 'locale' => 'en_GB.utf8',    'latin_based' => TRUE],
-      'es' => ['display' => 'Español',     'locale' => 'es_ES.utf8',    'latin_based' => TRUE],
-      'fr' => ['display' => 'Français',    'locale' => 'fr_FR.utf8',    'latin_based' => TRUE],
-      'gl' => ['display' => 'Galego',      'locale' => 'gl_ES.utf8',    'latin_based' => TRUE],
+      'es' => ['display' => 'Español',     'locale' => 'es_ES.utf8',    'latin_based' => TRUE],     
       'hr' => ['display' => 'Hrvatski',    'locale' => 'hr_HR.utf8',    'latin_based' => TRUE],
       'it' => ['display' => 'Italiano',    'locale' => 'it_IT.utf8',    'latin_based' => TRUE],
-      'lt' => ['display' => 'lietuvių',    'locale' => 'lt_LT.utf8',    'latin_based' => TRUE],
-      'nb' => ['display' => 'Norsk',       'locale' => 'nb_NO.utf8',    'latin_based' => TRUE],
       'pl' => ['display' => 'Polski',      'locale' => 'pl_PL.utf8',    'latin_based' => TRUE],
-      'sl' => ['display' => 'Slovenščina', 'locale' => 'sl_SI.utf8',    'latin_based' => TRUE],
       'sr' => ['display' => 'Srpski',      'locale' => 'sr_RS@latin',   'latin_based' => TRUE],
       'fi' => ['display' => 'Suomi',       'locale' => 'fi_FI.utf8',    'latin_based' => TRUE],
-      'hu' => ['display' => 'Magyar',      'locale' => 'hu_HU.utf8',    'latin_based' => TRUE],
       'pt' => ['display' => 'Português',   'locale' => 'pt_PT.utf8',    'latin_based' => TRUE],
 
 // For the following languages, partial translations exist in Transifex, but
@@ -181,6 +174,14 @@ const CONFIG = [
 //      'nl' => ['display' => 'Nederlands', 'locale' => 'nl_NL.utf8',    'latin_based' => TRUE],
 //      'sv' => ['display' => 'Svenska', 'locale' => 'sv_SE.utf8',    'latin_based' => TRUE],
 //      'cy' => ['display' => 'Cymraeg', 'locale' => 'cy_GB.utf8',    'latin_based' => TRUE],
+//      'el' => ['display' => 'Ελληνικά',    'locale' => 'el_GR.utf8',    'latin_based' => FALSE],
+//      'fr' => ['display' => 'Français',    'locale' => 'fr_FR.utf8',    'latin_based' => TRUE],
+//      'gl' => ['display' => 'Galego',      'locale' => 'gl_ES.utf8',    'latin_based' => TRUE],
+//      'lt' => ['display' => 'lietuvių',    'locale' => 'lt_LT.utf8',    'latin_based' => TRUE],
+//      'nb' => ['display' => 'Norsk',       'locale' => 'nb_NO.utf8',    'latin_based' => TRUE],
+//      'sl' => ['display' => 'Slovenščina', 'locale' => 'sl_SI.utf8',    'latin_based' => TRUE],
+//      'hu' => ['display' => 'Magyar',      'locale' => 'hu_HU.utf8',    'latin_based' => TRUE],
+
     ],
 
 
