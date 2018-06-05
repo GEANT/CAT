@@ -1,25 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Jari Miettinen <Jari.Miettinen@csc.fi>, 2012
 # Jari Miettinen <Jari.Miettinen@csc.fi>, 2013
-# Tomi Salmi <tomi.salmi@csc.fi>, 2013,2015
+# Tomi Salmi <tomi.salmi@csc.fi>, 2013,2015-2018
 # tuukka, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-17 15:52+0200\n"
-"PO-Revision-Date: 2015-04-09 07:12+0000\n"
+"POT-Creation-Date: 2018-05-23 14:55+0200\n"
+"PO-Revision-Date: 2018-05-24 13:02+0000\n"
 "Last-Translator: Tomi Salmi <tomi.salmi@csc.fi>\n"
-"Language-Team: Finnish (Finland) (http://www.transifex.com/projects/p/cat/"
-"language/fi_FI/)\n"
-"Language: fi_FI\n"
+"Language-Team: Finnish (Finland) (http://www.transifex.com/eduroam_devel/cat/language/fi_FI/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fi_FI\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: devices/Devices-template.php:110
@@ -44,17 +43,15 @@ msgstr "Windows RT"
 
 #: devices/Devices-template.php:179
 msgid "Apple macOS High Sierra"
-msgstr ""
+msgstr "Apple macOS High Sierra"
 
 #: devices/Devices-template.php:194
-#, fuzzy
 msgid "Apple macOS Sierra"
-msgstr "Apple OS X Lion"
+msgstr "Apple macOS Sierra"
 
 #: devices/Devices-template.php:209
-#, fuzzy
 msgid "Apple OS X El Capitan"
-msgstr "Apple OS X Lion"
+msgstr "Apple OS X El Capitan"
 
 #: devices/Devices-template.php:223
 msgid "Apple OS X Yosemite"
@@ -77,9 +74,8 @@ msgid "Apple iOS mobile devices"
 msgstr "Apple IOS -mobiililaitteet"
 
 #: devices/Devices-template.php:293
-#, fuzzy
 msgid "Apple iOS mobile devices (iOS 5 and 6)"
-msgstr "Apple IOS -mobiililaitteet"
+msgstr "Apple iOS -mobiililaitteet (iOS 5 ja 6)"
 
 #: devices/Devices-template.php:308
 msgid "Linux"
@@ -87,39 +83,36 @@ msgstr "Linux"
 
 #: devices/Devices-template.php:319
 msgid "Chrome OS"
-msgstr ""
+msgstr "Chrome OS"
 
 #: devices/Devices-template.php:325
 #, php-format
 msgid ""
 "After downloading the file, open the Chrome browser and browse to this URL: "
-"<a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</"
-"a>. Then, use the 'Import ONC file' button. The import is silent; the new "
-"network definitions will be added to the preferred networks."
-msgstr ""
+"<a href='chrome://net-internals/#chromeos'>chrome://net-"
+"internals/#chromeos</a>. Then, use the 'Import ONC file' button. The import "
+"is silent; the new network definitions will be added to the preferred "
+"networks."
+msgstr "Tiedoston lataamisen jälkeen käynnistä Chrome-selain ja avaa URL <a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</a>. Tämän jälkeen klikkaa 'Import ONC file' -painiketta, joka tallentaa uudet verkkomääritykset."
 
 #: devices/Devices-template.php:331
-#, fuzzy
 msgid "Android 6.0 Marshmallow"
-msgstr "Android 5.0 Lollipop"
+msgstr "Android 6.0 Marshmallow"
 
 #: devices/Devices-template.php:337 devices/Devices-template.php:353
 #: devices/Devices-template.php:369 devices/Devices-template.php:386
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Before you proceed with installation on Android systems, please make sure "
 "that you have installed the %s application. This application is available "
 "from %s, %s and %s, and will use the configuration file downloaded from CAT "
 "to create all necessary settings."
-msgstr ""
-"Tarkista ennen Android-asennuksen aloittamista, että olet asentanut "
-"sovelluksen %s. Sovellus on saatavilla kohteesta %s ja se hyödyntää CAT:sta "
-"haettua asetustiedostoa luodakseen tarvittavat määritykset."
+msgstr "Ennen eduroam-asetusten luomista Android-laitteeseen tarvitset %s-sovelluksen. Voit noutaa sovelluksen seuraavista paikoista: %s, %s tai %s. Tämän jälkeen asetustiedoston ajaminen laitteessa asettaa tarpeelliset eduroam-verkkoasetukset."
 
 #: devices/Devices-template.php:341 devices/Devices-template.php:357
 #: devices/Devices-template.php:373 devices/Devices-template.php:390
 msgid "as local download"
-msgstr ""
+msgstr "paikallinen lataus"
 
 #: devices/Devices-template.php:347
 msgid "Android 5.0 Lollipop"
@@ -130,9 +123,8 @@ msgid "Android 4.4 KitKat"
 msgstr "Android 4.4 KitKat"
 
 #: devices/Devices-template.php:380
-#, fuzzy
 msgid "Android 4.3"
-msgstr "Android"
+msgstr "Android 4.3"
 
 #: devices/Devices-template.php:396
 msgid "Android"
@@ -145,13 +137,10 @@ msgstr "EAP-määritykset"
 #: devices/Devices-template.php:412
 #, php-format
 msgid ""
-"This option provides a generic EAP config XML file, which can be consumed by "
-"dedicated applications like eduroamCAT for Android and Linux platforms. This "
-"is still an experimental feature."
-msgstr ""
-"Tässä luodaan EAP-määritystiedosto, jota voidaan käyttää Android- ja Linux-"
-"käyttöjärjestelmissä eduroam CAT:n kaltaisille ohjelmistoille. Tämä on yhä "
-"kokeellinen ominaisuus."
+"This option provides a generic EAP config XML file, which can be consumed by"
+" dedicated applications like eduroamCAT for Android and Linux platforms. "
+"This is still an experimental feature."
+msgstr "Tässä luodaan EAP-määritystiedosto, jota voidaan käyttää Android- ja Linux-käyttöjärjestelmissä eduroam CAT:n kaltaisille ohjelmistoille. Tämä on yhä kokeellinen ominaisuus."
 
 #: devices/Devices-template.php:418
 msgid "Test"
@@ -159,14 +148,14 @@ msgstr "Testi"
 
 #: devices/apple_mobileconfig/Device_mobileconfig_ios_56.php:38
 msgid "This device does not support forcing setting an HTTPS proxy."
-msgstr ""
+msgstr "Tämä laite ei tue HTTPS proxyn asettamista."
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:49
 msgid ""
 "It is not possible to actively verify the user input for suffix match; but "
 "if there is no 'Terms of Use' configured, the installer will display a "
 "corresponding hint to the user instead."
-msgstr ""
+msgstr "Käyttäjän syötettä ei pystytä täydellisesti tarkistamaan, mutta mikäli käyttöehtoja ei ole määritelty, asennusohjelma näyttää käyttäjälle soveltuvan virheilmoituksen."
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:57
 #, php-format
@@ -174,44 +163,42 @@ msgid "Network configuration profile '%s' of '%s' - provided by %s"
 msgstr "Verkkokonfiguraatioprofiili %s, %s - %s:n toimittama"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:62
-#, fuzzy, php-format
+#, php-format
 msgid "%s configuration for IdP '%s' - provided by %s"
-msgstr "Verkkokonfiguraatioprofiili %s, %s - %s:n toimittama"
+msgstr "Palvelun %s konfiguuraatio IdP:lle %s - tarjoajana %s"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:103
 #, php-format
 msgid "Important Notice: your username must end with @%s!"
-msgstr ""
+msgstr "Tärkeä muistutus: käyttäjätunnuksen täytyy päättyä merkkijonoon @%s"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:105
 msgid ""
-"Important Notice: your username MUST be in the form of xxx@yyy where the yyy "
-"is a common suffix identifying your Identity Provider. Please find out what "
-"to use there and enter the username in the correct format."
-msgstr ""
+"Important Notice: your username MUST be in the form of xxx@yyy where the yyy"
+" is a common suffix identifying your Identity Provider. Please find out what"
+" to use there and enter the username in the correct format."
+msgstr "Tärkeä huomautus: käyttäjätunnuksen täytyy olla muodossa xxx@yyy, jossa yyy on oman organisaatiosi tunniste. Saat tämän sekä muutkin käyttöönotto-ohjeet tarvittaessa oman organisaatiosi IT-tuesta."
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:141
 #, php-format
 msgid "Unnamed %s"
-msgstr ""
+msgstr "Nimetön %s"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:142
 msgid "Unnamed Profile"
-msgstr ""
+msgstr "Nimetön profiili"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:200
 msgid ""
 "For best results, please use the built-in browser (Safari) to open the "
 "configuration file."
-msgstr ""
+msgstr "Parhaaseen lopputulokseen pääsemiseksi suosittelemme avaamaan konfiguraatiotiedoston Safari-selaimella."
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:202
 msgid ""
 "The profile will install itself after you click (or tap) the button. You "
 "will be asked for confirmation/input at several points:"
-msgstr ""
-"Profiilisi asentuu, kun napsautat nappia. Sinulta kysytään varmistus ja "
-"lisätietoja useassa vaiheessa:"
+msgstr "Profiilisi asentuu, kun napsautat nappia. Sinulta kysytään varmistus ja lisätietoja useassa vaiheessa:"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:204
 msgid "to install the profile"
@@ -229,9 +216,9 @@ msgid "(%d times)"
 msgstr "(%d kertaa)"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:210
-#, fuzzy, php-format
+#, php-format
 msgid "to enter the username and password of your %s"
-msgstr "antaaksesi kotiorganisaatiosi käyttäjätunnuksen ja salasanan"
+msgstr "anna käyttäjätunnus ja salasana palveluun %s"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:212
 #, php-format
@@ -275,13 +262,13 @@ msgstr "Tätä SSID:tä ei pitäisi käyttää %s-asennuksen jälkeen"
 msgid "Disabled WiFi network"
 msgstr "Käytöstä poistettu langaton verkko"
 
-#. we don't include the import password. It's displayed on screen, and should be input by the user.
+#. we don't include the import password. It's displayed on screen, and should
+#. be input by the user.
 #. <key>Password</key>
 #. <string>" . $this->clientCert['password'] . "</string>
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:503
-#, fuzzy
 msgid "eduroam user certificate"
-msgstr "Henkilövarmenne"
+msgstr "eduroam-henkilövarmenne"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:539
 msgid "Your Identity Providers Certification Authority"
@@ -296,30 +283,22 @@ msgid ""
 "This installer is an example only. It produces a zip file containig the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
 "administrator) and a dump of all available attributes."
-msgstr ""
-"Tämä asennusohjelma on esimerkki. Ohjelma tekee .zip-tiedoston, jossa on IdP-"
-"varmenteet, lisätiedot ja logo (jos IdP:n ylläpitäjä on määritellyt ne) sekä "
-"kopio olemassaolevista attribuuteista."
+msgstr "Tämä asennusohjelma on esimerkki. Ohjelma tekee .zip-tiedoston, jossa on IdP-varmenteet, lisätiedot ja logo (jos IdP:n ylläpitäjä on määritellyt ne) sekä kopio olemassaolevista attribuuteista."
 
 #: devices/linux/Device_Linux.php:52
 msgid ""
 "The installer is in the form of a bash script. It will try to configure "
-"eduroam under Network Manager and if this is either not appropriate for your "
-"system or your version of Network Manager is too old, a wpa_supplicant "
+"eduroam under Network Manager and if this is either not appropriate for your"
+" system or your version of Network Manager is too old, a wpa_supplicant "
 "config file will be created instead."
-msgstr ""
-"Asennusohjelma on bash-komentojonotiedosto. Se yrittää määritellä eduroamin "
-"Network Manageriin. Jos tämä ei onnistu tai laitteesi Network Manager on "
-"liian vanha, luodaan wpa_supplicant-konfiguraatiotiedosto."
+msgstr "Asennusohjelma on bash-komentojonotiedosto. Se yrittää määritellä eduroamin Network Manageriin. Jos tämä ei onnistu tai laitteesi Network Manager on liian vanha, luodaan wpa_supplicant-konfiguraatiotiedosto."
 
 #: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:115
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to the following networks:"
-msgstr ""
-"<strong>%s</strong>-verkon lisäksi asennusohjelma määrittää pääsyn myös "
-"seuraaviin verkkoihin:"
+msgstr "<strong>%s</strong>-verkon lisäksi asennusohjelma määrittää pääsyn myös seuraaviin verkkoihin:"
 
 #: devices/linux/Device_Linux.php:58 devices/ms/WindowsCommon.php:117
 #, php-format
@@ -332,46 +311,34 @@ msgstr "<strong>%s</strong> lisäksi asennusohjelma määrittää pääsyn myös
 msgid ""
 "The installer will create .cat_installer sub-directory in your home "
 "directory and will copy your server certificates there."
-msgstr ""
-"Asennusohjelma luo .cat_installer-nimisen alihakemiston kotihakemistoosi "
-"sekä kopioi palvelinvarmenteet sinne."
+msgstr "Asennusohjelma luo .cat_installer-nimisen alihakemiston kotihakemistoosi sekä kopioi palvelinvarmenteet sinne."
 
 #: devices/linux/Device_Linux.php:74
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "In order to connect to the network you will need a personal certificate in "
 "the form of a p12 file. You should obtain this certificate from your %s. "
 "Consult the support page to find out how this certificate can be obtained. "
-"Such certificate files are password protected. You should have both the file "
-"and the password available during the installation process. Your p12 file "
+"Such certificate files are password protected. You should have both the file"
+" and the password available during the installation process. Your p12 file "
 "will also be copied to the .cat_installer directory."
-msgstr ""
-"Yhdistääksesi verkkoon tarvitset p12-muotoisen henkilövarmennetiedoston. Ota "
-"yhteyttä omaan kotiorganisaatioosi. Tiedostot on salasanasuojattu, joten "
-"tarvitset asennusvaiheessa sekä kyseisen tiedoston että siihen liittyvän "
-"salasanan. Asennus kopioi p12-tiedoston .cat_installer-hakemistoon."
+msgstr "Yhdistääksesi verkkoon tarvitset henkilövarmenteen p12-muodossa. Mikäli tarvitset apua, ota yhteyttä omaan kotiorganisaatioosi %s. Varmennetiedostot ovat tavallisesti salasanasuojattuja, joten tarvitset asennusvaiheessa sekä varmenteen että salasanan. Asennuksen aikana p12-tiedosto kopioidaan .cat_installer-hakemistoon."
 
 #. not EAP-TLS
 #: devices/linux/Device_Linux.php:76 devices/ms/WindowsCommon.php:128
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "In order to connect to the network you will need an account from your %s. "
 "You should consult the support page to find out how this account can be "
 "obtained. It is very likely that your account is already activated."
-msgstr ""
-"Jotta voit liittyä verkkoon tarvitset kotiorganisaatiosi käyttäjätunnuksen. "
-"Tutki kotiorganisaatiosi tukisivua selvittääksesi, miten käyttäjätunnus "
-"hankitaan. Todennäköisesti käyttäjätunnuksesi on jo luotu."
+msgstr "Jotta voit liittyä verkkoon tarvitset kotiorganisaatiosi %skäyttäjätunnuksen. Tutki kotiorganisaatiosi tukisivua selvittääksesi, miten käyttäjätunnus hankitaan. Todennäköisesti käyttäjätunnuksesi on jo luotu."
 
 #: devices/linux/Device_Linux.php:78
 msgid ""
 "You will be requested to enter your account credentials during the "
 "installation. This information will be saved so that you will reconnect to "
 "the network automatically each time you are in the range."
-msgstr ""
-"Sinua pyydetään antamaan käyttäjätietosi asennuksen aikana. Tiedot "
-"tallennetaan, jotta pääset kirjautumaan verkkoon automaattisesti aina kun "
-"olet kuuluvuusalueella."
+msgstr "Sinua pyydetään antamaan käyttäjätietosi asennuksen aikana. Tiedot tallennetaan, jotta pääset kirjautumaan verkkoon automaattisesti aina kun olet kuuluvuusalueella."
 
 #: devices/linux/Device_Linux.php:87
 msgid "Really quit?"
@@ -382,19 +349,16 @@ msgid "enter your userid"
 msgstr "käyttäjätunnus"
 
 #: devices/linux/Device_Linux.php:89
-#, fuzzy
 msgid "enter password"
-msgstr "salasana"
+msgstr "syötä salasana"
 
 #: devices/linux/Device_Linux.php:90
-#, fuzzy
 msgid "enter your import password"
-msgstr "salasana"
+msgstr "syötä import-salasana"
 
 #: devices/linux/Device_Linux.php:91
-#, fuzzy
 msgid "incorrect password"
-msgstr "salasana"
+msgstr "väärä salasana"
 
 #: devices/linux/Device_Linux.php:92
 msgid "repeat your password"
@@ -409,30 +373,28 @@ msgid "Installation successful"
 msgstr "Asennus onnistui"
 
 #: devices/linux/Device_Linux.php:95
-#, fuzzy
 msgid "Directory {} exists; some of its files may be overwritten."
-msgstr "Hakemisto %s on olemassa; jotkut sen tiedostoista ylikirjoitetaan."
+msgstr "Hakemisto {} on jo olemassa; sen sisältö mahdollisesti ylikirjoitetaan."
 
 #: devices/linux/Device_Linux.php:96
-#, fuzzy
 msgid "Continue?"
-msgstr "Jatka"
+msgstr "Haluatko jatkaa?"
 
 #: devices/linux/Device_Linux.php:97
 msgid "This Network Manager version is not supported"
-msgstr ""
+msgstr "Käyttämäsi Network Managerin versio ei ole tuettu"
 
 #: devices/linux/Device_Linux.php:98
 msgid "Certificate file not found, looks like a CAT error"
-msgstr ""
+msgstr "Varmennetiedostoa ei löytynyt"
 
 #: devices/linux/Device_Linux.php:99
 msgid "Unknown version"
-msgstr ""
+msgstr "Tuntematon versio"
 
 #: devices/linux/Device_Linux.php:100
 msgid "DBus connection problem, a sudo might help"
-msgstr ""
+msgstr "DBus-yhteysongelma, sudo-komento saattaa auttaa"
 
 #: devices/linux/Device_Linux.php:101
 msgid "Y"
@@ -448,48 +410,45 @@ msgstr "henkilövarmennetiedosto (p12 tai pfx)"
 
 #: devices/linux/Device_Linux.php:104 devices/ms/Files/common.inc:1065
 msgid "All files"
-msgstr ""
+msgstr "Kaikki tiedostot"
 
 #: devices/linux/Device_Linux.php:106
 msgid ""
 "Network Manager configuration failed, but we may generate a wpa_supplicant "
-"configuration file if you wish. Be warned that your connection password will "
-"be saved in this file as clear text."
-msgstr ""
+"configuration file if you wish. Be warned that your connection password will"
+" be saved in this file as clear text."
+msgstr "Network Managerin määritysten teko ei onnistunut, mutta halutessasi voit luoda wpa_supplicant-asetustiedoston. Huomioi kuitenkin, että yhteyden salasana tallentuu asetustiedostoon selväkielisenä."
 
 #: devices/linux/Device_Linux.php:107
-#, fuzzy
 msgid "Write the file"
-msgstr "asentaaksesi profiilin"
+msgstr "Luo tiedosto"
 
 #: devices/linux/Device_Linux.php:108 devices/ms/Files/common.inc:1193
 #: devices/ms/Files/common.inc:1213 devices/ms/Files/common.inc:1264
 msgid ""
 "Error: Your username must be of the form 'xxx@institutionID' e.g. "
 "'john@example.net'!"
-msgstr ""
+msgstr "Virhe: Käyttäjätunnuksen muoto pitää olla 'xxx@institutionID', esimerkiksi 'tunnus@yliopisto.fi'!"
 
 #: devices/linux/Device_Linux.php:109
 msgid ""
 "Error: your username must be in the form of 'xxx@{}'. Please enter the "
 "username in the correct format."
-msgstr ""
+msgstr "Virhe: Käyttäjätunnuksen pitää olla muodossa 'xxx@{}'. Yritä uudelleen."
 
 #: devices/linux/Device_Linux.php:110
 msgid ""
-"Error: your username must be in the form of 'xxx@institutionID' and end with "
-"'{}'. Please enter the username in the correct format."
-msgstr ""
+"Error: your username must be in the form of 'xxx@institutionID' and end with"
+" '{}'. Please enter the username in the correct format."
+msgstr "Virhe: Käyttäjätunnuksen pitää olla muodossa 'xxx@institutionID', ja päättyä '{}'. Annathan tunnuksen oikeassa muodossa."
 
 #: devices/linux/Device_Linux.php:111
-#, fuzzy
 msgid "personal certificate file not found"
-msgstr "henkilövarmennetiedosto (p12 tai pfx)"
+msgstr "henkilövarmennetiedostoa ei löytynyt"
 
 #: devices/linux/Device_Linux.php:228
-#, fuzzy
 msgid "This installer has been prepared for {0}"
-msgstr "Tämä asennuspaketti on luotu organisaatiolle ${ORGANISATION}"
+msgstr "Tämä asennustiedosto on valmisteltu organisaatiolle {0}"
 
 #: devices/linux/Device_Linux.php:228 devices/ms/Files/common.inc:444
 #: devices/ms/Files/common.inc:451
@@ -501,54 +460,39 @@ msgid "Installer created with software from the GEANT project."
 msgstr "Asennusohjelma on tehty GEANT-projektissa. "
 
 #: devices/linux/Device_Linux.php:245
-#, fuzzy
 msgid ""
 "This installer will only work properly if you are a member of {0} and the "
 "user group: {1}."
-msgstr ""
-"Asennusohjelma toimii oikein, jos kotiorganisaatiosi on %s ja kuulut "
-"käyttäjäryhmään: %s."
+msgstr "Tämä asennustiedosto toimii ainoastaan organisaation {0} ryhmän {1} käyttäjillä."
 
 #: devices/linux/Device_Linux.php:247
-#, fuzzy
 msgid "This installer will only work properly if you are a member of {0}."
-msgstr "Asennusohjelma toimii oikein, jos kotiorganisaatiosi on %s."
+msgstr "Tämä asennustiedosto toimii ainoastaan organisaation {0} käyttäjillä."
 
 #: devices/ms/Device_Vista7.php:33 devices/ms/Device_W8_10.php:40
 msgid ""
 "Anonymous identities do not use the realm as specified in the profile - it "
 "is derived from the suffix of the user's username input instead."
-msgstr ""
-"Anonyymit identiteetit eivät käytä profiiliin määriteltyä toimialuetta – se "
-"johdetaan käyttäjän käyttäjätunnuksen loppuosasta."
+msgstr "Anonyymit identiteetit eivät käytä profiiliin määriteltyä toimialuetta – se johdetaan käyttäjän käyttäjätunnuksen loppuosasta."
 
 #: devices/ms/WindowsCommon.php:111
 #, php-format
 msgid ""
 "%s installer will be in the form of an EXE file. It will configure %s on "
 "your device, by creating wireless network profiles.<p>When you click the "
-"download button, the installer will be saved by your browser. Copy it to the "
-"machine you want to configure and execute."
-msgstr ""
-"Asennusohjelma %s on EXE-tiedosto. Se konfiguroi %s sinun tietokoneeseesi "
-"tekemällä langattoman verkon käyttöprofiilin.<p>Kun napsautat lataa-nappia, "
-"niin selaimesi tallentaa asennusohjelman. Kopioi tiedosto laitteelle, johon "
-"haluat asentaa eduroamin."
+"download button, the installer will be saved by your browser. Copy it to the"
+" machine you want to configure and execute."
+msgstr "Asennusohjelma %s on EXE-tiedosto. Se konfiguroi %s sinun tietokoneeseesi tekemällä langattoman verkon käyttöprofiilin.<p>Kun napsautat lataa-nappia, niin selaimesi tallentaa asennusohjelman. Kopioi tiedosto laitteelle, johon haluat asentaa eduroamin."
 
 #: devices/ms/WindowsCommon.php:124
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "In order to connect to the network you will need an a personal certificate "
 "in the form of a p12 file. You should obtain this certificate from your %s. "
 "Consult the support page to find out how this certificate can be obtained. "
-"Such certificate files are password protected. You should have both the file "
-"and the password available during the installation process."
-msgstr ""
-"Jotta voit liittyä verkkoon tarvitset henkilövarmenteen PKCS12-tiedostona (."
-"pfx). Sinun pitäisi saada tämä varmenne kotiorganisaatiostasi. Tutki "
-"kotiorganisaatiosi tukisivua selvittäksesi, miten varmenne hankitaan. "
-"Varmennetiedostot ovat suojattu salasanalla. Tarvitset asennuksen aikana "
-"sekä tiedoston että salasanan."
+"Such certificate files are password protected. You should have both the file"
+" and the password available during the installation process."
+msgstr "Yhdistääksesi verkkoon tarvitset henkilövarmenteen p12-muodossa. Mikäli tarvitset apua, ota yhteyttä omaan kotiorganisaatioosi %s. Varmennetiedostot ovat tavallisesti salasanasuojattuja, joten tarvitset asennusvaiheessa sekä varmenteen että salasanan. Asennuksen aikana p12-tiedosto kopioidaan .cat_installer-hakemistoon."
 
 #: devices/ms/WindowsCommon.php:132
 msgid ""
@@ -556,19 +500,13 @@ msgid ""
 "up a login box, where you should enter your user name and password. This "
 "information will be saved so that you will reconnect to the network "
 "automatically each time you are in the range."
-msgstr ""
-"Kun kirjaudut verkkoon ensimmäisen kerran, Windows avaa kirjautumisikkunan, "
-"johon sinun pitää kirjoittaa käyttäjätunnuksesi ja salasanasi. Tiedot "
-"tallennetaan, jotta pääset kirjautumaan verkkoon automaattisesti aina kun "
-"olet kuuluvuusalueella."
+msgstr "Kun kirjaudut verkkoon ensimmäisen kerran, Windows avaa kirjautumisikkunan, johon sinun pitää kirjoittaa käyttäjätunnuksesi ja salasanasi. Tiedot tallennetaan, jotta pääset kirjautumaan verkkoon automaattisesti aina kun olet kuuluvuusalueella."
 
 #: devices/ms/WindowsCommon.php:135
 msgid ""
 "You will be required to enter the same credentials for each of the "
 "configured notworks:"
-msgstr ""
-"Sinua pyydetään antamaan samat käyttäjätiedot kaikille määritellyille "
-"verkoille:"
+msgstr "Sinua pyydetään antamaan samat käyttäjätiedot kaikille määritellyille verkoille:"
 
 #: devices/ms/WindowsCommon.php:250 devices/ms/WindowsCommon.php:251
 #, php-format
@@ -579,18 +517,14 @@ msgstr "%s asennusohjelma %s varten"
 msgid ""
 "This device is not yet supported by CAT, but your local administrator "
 "created a redirect to local installation instructions."
-msgstr ""
-"CAT ei vielä tue tätä laitetta, mutta paikallinen ylläpitäjäsi on luonut "
-"ohjauksen paikallisiin asennusohjeisiin."
+msgstr "CAT ei vielä tue tätä laitetta, mutta paikallinen ylläpitäjäsi on luonut ohjauksen paikallisiin asennusohjeisiin."
 
 #: devices/xml/Device_XML.php:50
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
 "-00</a> XML format."
-msgstr ""
-"Tämä on geneerinen IETF <a href='%s'>EAP Metadata -00</a> XML -muotoinen "
-"asetustiedosto."
+msgstr "Tämä on geneerinen IETF <a href='%s'>EAP Metadata -00</a> XML -muotoinen asetustiedosto."
 
 #: devices/ms/Files/common.inc:124
 #, php-format
@@ -646,15 +580,11 @@ msgstr "varmennetta ei voitu asentaa"
 #: devices/ms/Files/common.inc:432
 msgid ""
 "The non TKIP profiles are preferred. Always use them if you have a choice."
-msgstr ""
-"Suositellaan käytettäväksi ei-TKIP-profiileja. Käytä niitä aina, jos "
-"mahdollista."
+msgstr "Suositellaan käytettäväksi ei-TKIP-profiileja. Käytä niitä aina, jos mahdollista."
 
 #: devices/ms/Files/common.inc:434
 msgid "The non TKIP profile is preferred. Always use it if you have a choice."
-msgstr ""
-"Suositellaan käytettäväksi ei-TKIP-profiilia. Käytä sitä aina, jos "
-"mahdollista."
+msgstr "Suositellaan käytettäväksi ei-TKIP-profiilia. Käytä sitä aina, jos mahdollista."
 
 #: devices/ms/Files/common.inc:440 devices/ms/Files/common.inc:448
 msgid "This installer has been prepared for ${ORGANISATION}"
@@ -669,54 +599,38 @@ msgid "The installer will create the wireless profile:"
 msgstr "Asennusohjelma luo langattoman verkon profiilin:"
 
 #: devices/ms/Files/common.inc:529
-#, fuzzy
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "10 and newer. Please download the correct installer and try again."
-msgstr ""
-"Käytössäsi on Windows $WindowsName, mutta tämä asennusohjelma on tehty "
-"versiolle Windows 8 ja uudemmille. Ole hyvä ja lataa oikea asennusohjelma."
+msgstr "Käytössäsi on Windows $WindowsName mutta tämä asennusohjelma edellyttää versiota Windows 10 tai uudempi. Lataathan omalle käyttöjärjestelmällesi tarkoitetun asennustiedoston."
 
 #: devices/ms/Files/common.inc:537 devices/ms/Files/common.inc:544
-#, fuzzy
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "8 and 8.1. Please download the correct installer and try again."
-msgstr ""
-"Käytössäsi on Windows $WindowsName, mutta tämä asennusohjelma on tehty "
-"versiolle Windows 8 ja uudemmille. Ole hyvä ja lataa oikea asennusohjelma."
+msgstr "Käytössäsi on Windows $WindowsName mutta tämä asennusohjelma on tehty Windowsin versioille 8 ja 8.1. Lataathan omalle käyttöjärjestelmällesi tarkoitetun asennustiedoston."
 
 #: devices/ms/Files/common.inc:553
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "Vista and Windows 7. Please download the correct installer and try again."
-msgstr ""
-"Käytössäsi on Windows $WindowsName, mutta tämä asennusohjelma on vain "
-"Windows Vistalle ja Windows 7:lle. Lataa oikea asennusohjelma "
-"käyttöjärjestelmällesi ja yritä uudestaan."
+msgstr "Käytössäsi on Windows $WindowsName, mutta tämä asennusohjelma on vain Windows Vistalle ja Windows 7:lle. Lataa oikea asennusohjelma käyttöjärjestelmällesi ja yritä uudestaan."
 
 #: devices/ms/Files/common.inc:589
 msgid ""
 "Windows wireless configuration service is not enabled. The installer cannot "
 "continue."
-msgstr ""
-"Langattoman verkon määrittelypalvelu ei ole käynnissä Windowsissa. "
-"Asennusohjelma ei voi jatkaa eteenpäin."
+msgstr "Langattoman verkon määrittelypalvelu ei ole käynnissä Windowsissa. Asennusohjelma ei voi jatkaa eteenpäin."
 
 #: devices/ms/Files/common.inc:594
 msgid "No wireless interfaces found. The installer cannot continue."
-msgstr ""
-"Langattomia verkkolaitteita ei löytynyt. Asennusohjelma ei voi jatkaa "
-"eteenpäin."
+msgstr "Langattomia verkkolaitteita ei löytynyt. Asennusohjelma ei voi jatkaa eteenpäin."
 
 #: devices/ms/Files/common.inc:600
 msgid ""
 "No wireless interfaces found. Wireless access will not be configured. Would "
 "you like to continue and configure access on the wired interface?"
-msgstr ""
-"Langattomia verkkosovittimia ei löytynyt, joten langattomia yhteyksiä ei "
-"asenneta. Haluatko jatkaa ja asentaa yhteyksiä langallisiin Ethernet-"
-"sovittimiin?"
+msgstr "Langattomia verkkosovittimia ei löytynyt, joten langattomia yhteyksiä ei asenneta. Haluatko jatkaa ja asentaa yhteyksiä langallisiin Ethernet-sovittimiin?"
 
 #: devices/ms/Files/common.inc:616
 msgid "Do you want to enable access on wired interfaces?"
@@ -738,9 +652,7 @@ msgstr "Profiili $R8 löytyi"
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION} and the user group: ${USER_GROUP}."
-msgstr ""
-"Asennusohjelma toimii oikein vain jos, olet organisaation ${ORGANISATION} "
-"käyttäjä ja kuulut käyttäjäryhmään ${USER_GROUP}."
+msgstr "Asennusohjelma toimii oikein vain jos, olet organisaation ${ORGANISATION} käyttäjä ja kuulut käyttäjäryhmään ${USER_GROUP}."
 
 #: devices/ms/Files/common.inc:707 devices/ms/Files/common.inc:710
 msgid "Click OK to continue with installation."
@@ -750,18 +662,13 @@ msgstr "Napsauta OK jatkaaksesi."
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION}."
-msgstr ""
-"Asennusohjelma toimii oikein vain, jos olet organisaation ${ORGANISATION} "
-"käyttäjä."
+msgstr "Asennusohjelma toimii oikein vain, jos olet organisaation ${ORGANISATION} käyttäjä."
 
 #: devices/ms/Files/common.inc:718
-#, fuzzy
 msgid ""
 "Please read the additional information from ${ORGANISATION} which will be "
 "displayed in a moment."
-msgstr ""
-"Ole hyvä ja lue oman kotiorganisaatiosi lisätiedot, jotka näkyvät hetken "
-"kuluttua."
+msgstr "Ole hyvä ja lue oman kotiorganisaatiosi lisätiedot, jotka näkyvät hetken kuluttua."
 
 #: devices/ms/Files/common.inc:773
 #, php-format
@@ -769,25 +676,17 @@ msgid ""
 "Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may "
 "be due to the fact that Symantec Endpoint Protection is installed on your "
 "machine.$\\r$\\nWhile this is a well-known bug of the Symantec product, "
-"about which the installer can not do anything, there is a workaround.$\\r$"
-"\\nWhen you close this window the installer will exit and an explorer window "
-"will be started (it could appear underneath already opened windows). In this "
-"window you should see a script named inst_cat. Start it by double-clicking, "
-"It will install the profiles. You will need to login to %s with your "
-"username and password."
-msgstr ""
-"LUE TÄMÄ TÄRKEÄ VIESTI. $\\r$\\nAsennusongelmat voivat johtua siitä, että "
-"koneellesi on asennettu Symantec Endpoint Protection. $\\r$\\nVaikka "
-"asennusohjelma ei voi tehdä mitään tälle tunnetulle Symantec-tuotteen "
-"bugille, ongelman voi kiertää. $\\r$\\nKun suljet tämän asennusohjelman, "
-"koneellesi aukeaa Explorer-ikkuna (se voi avautua muiden ikkunoiden alle). "
-"Tässä ikkunassa sinun pitäisi nähdä asennusskripti inst_cat. Tuplaklikkaa "
-"sitä asentaksesi profiilit. Sinun pitää kirjautua %siin "
-"käyttäjätunnuksellasi ja salasanallasi."
+"about which the installer can not do anything, there is a "
+"workaround.$\\r$\\nWhen you close this window the installer will exit and an"
+" explorer window will be started (it could appear underneath already opened "
+"windows). In this window you should see a script named inst_cat. Start it by"
+" double-clicking, It will install the profiles. You will need to login to %s"
+" with your username and password."
+msgstr "LUE TÄMÄ TÄRKEÄ VIESTI. $\\r$\\nAsennusongelmat voivat johtua siitä, että koneellesi on asennettu Symantec Endpoint Protection. $\\r$\\nVaikka asennusohjelma ei voi tehdä mitään tälle tunnetulle Symantec-tuotteen bugille, ongelman voi kiertää. $\\r$\\nKun suljet tämän asennusohjelman, koneellesi aukeaa Explorer-ikkuna (se voi avautua muiden ikkunoiden alle). Tässä ikkunassa sinun pitäisi nähdä asennusskripti inst_cat. Tuplaklikkaa sitä asentaksesi profiilit. Sinun pitää kirjautua %siin käyttäjätunnuksellasi ja salasanallasi."
 
 #: devices/ms/Files/common.inc:783
 msgid "Please restart your system after installation finishes."
-msgstr ""
+msgstr "Ole hyvä ja käynnistä laite uudelleen asennuksen valmistuttua."
 
 #: devices/ms/Files/common.inc:807
 msgid "installing wired profile"
@@ -810,117 +709,105 @@ msgid "installing credentials for wired"
 msgstr "asennetaan käyttäjätiedot langalliselle Ethernet-profiilille"
 
 #: devices/ms/Files/common.inc:913
-#, fuzzy
 msgid "installing credentials TLS"
-msgstr "asennetaan käyttäjätiedot langalliselle Ethernet-profiilille"
+msgstr "asennetaan TLS"
 
 #: devices/ms/Files/common.inc:1030
-#, fuzzy
 msgid "installing credentials for profile $R1"
-msgstr "asennetaan käyttäjätiedot langalliselle Ethernet-profiilille"
+msgstr "asennetaan käyttäjätiedot profiilille $R1"
 
 #: devices/ms/Files/common.inc:1047 devices/ms/Files/geant_link.inc:107
-#, fuzzy
 msgid "Credentials installation problem"
-msgstr "Komponenttien asennus"
+msgstr "Käyttäjätietojen asennusongelma"
 
 #: devices/ms/Files/common.inc:1056
-#, fuzzy, php-format
+#, php-format
 msgid "%s installer for"
-msgstr "%s asennusohjelma %s varten"
+msgstr "%s asennusohjelma"
 
 #: devices/ms/Files/common.inc:1056
-#, fuzzy
 msgid "Install personal certificate"
-msgstr "Henkilövarmenteen asennus"
+msgstr "asenna henkilövarmenne"
 
 #: devices/ms/Files/common.inc:1059
-#, fuzzy
 msgid "Preparing to install personal certificate."
-msgstr "Henkilövarmenteen asennus"
+msgstr "Valmistaudutaan asentamaan henkilövarmenne."
 
 #: devices/ms/Files/common.inc:1059
-#, fuzzy
 msgid "Click OK to continue"
-msgstr "Napsauta OK jatkaaksesi."
+msgstr "Napsauta OK jatkaaksesi"
 
 #: devices/ms/Files/common.inc:1065
-#, fuzzy
 msgid "Certificate files (*.p12)"
-msgstr "henkilövarmennetiedosto (p12 tai pfx)"
+msgstr "Varmennetiedostot (*.p12)"
 
 #: devices/ms/Files/common.inc:1065
-#, fuzzy
 msgid "Certificate files (*pfx)"
-msgstr "henkilövarmennetiedosto (p12 tai pfx)"
+msgstr "Varmennetiedostot (*.pfx)"
 
 #: devices/ms/Files/common.inc:1068
-#, fuzzy
 msgid "certificate password:"
-msgstr "salasana"
+msgstr "varmenteen salasana:"
 
 #: devices/ms/Files/common.inc:1070 devices/ms/Files/common.inc:1281
 msgid "Username:"
-msgstr ""
+msgstr "Käyttäjätunnus:"
 
 #: devices/ms/Files/common.inc:1074
 msgid "Selected file: $Cert_file"
-msgstr ""
+msgstr "Valittu tiedosto: $Cert_file"
 
 #: devices/ms/Files/common.inc:1076
-#, fuzzy
 msgid "import password:"
-msgstr "toista salasana"
+msgstr "tuo salasana:"
 
 #: devices/ms/Files/common.inc:1111
 msgid "No certificate file selected"
-msgstr ""
+msgstr "Varmennetiedostoa ei ole valittu"
 
 #: devices/ms/Files/common.inc:1115
 msgid "Incorrect import password$\\r$\\nenter again"
-msgstr ""
+msgstr "Väärä salasana$\\r$\\nyritä uudelleen"
 
 #: devices/ms/Files/common.inc:1117
 msgid "Incorrect certificate password$\\r$\\nenter again"
-msgstr ""
+msgstr "Väärä varmenteen salasana$\\r$\\nKoeta uudelleen"
 
 #: devices/ms/Files/common.inc:1208
 msgid ""
-"Error: your username must be in the form of 'xxx@${REALM}'. Please enter the "
-"username in the correct format."
-msgstr ""
+"Error: your username must be in the form of 'xxx@${REALM}'. Please enter the"
+" username in the correct format."
+msgstr "Virhe: käyttäjätunnuksen pitää olla muodossa 'xxx@${REALM}'. Yritä uudelleen."
 
 #: devices/ms/Files/common.inc:1210
 msgid ""
-"Error: your username must be in the form of 'xxx@institutionID' and end with "
-"'${REALM}'. Please enter the username in the correct format."
-msgstr ""
+"Error: your username must be in the form of 'xxx@institutionID' and end with"
+" '${REALM}'. Please enter the username in the correct format."
+msgstr "Virhe: käyttäjätunnuksen pitää olla muodossa 'xxx@institutionID' ja päättyä '${REALM}'. Yritä uudelleen."
 
 #: devices/ms/Files/common.inc:1277
 msgid "User credentials"
-msgstr ""
+msgstr "Käyttäjätiedot"
 
 #: devices/ms/Files/common.inc:1284
 msgid "Password:"
-msgstr ""
+msgstr "Salasana:"
 
 #: devices/ms/Files/common.inc:1287
-#, fuzzy
 msgid "Repeat password:"
-msgstr "toista salasana"
+msgstr "Toista salasana:"
 
 #: devices/ms/Files/common.inc:1299
 msgid "Missing username"
-msgstr ""
+msgstr "Käyttäjänimi puuttuu"
 
 #: devices/ms/Files/common.inc:1311
 msgid "Missing password"
-msgstr ""
+msgstr "Salasana puuttuu"
 
 #: devices/ms/Files/common.inc:1317
-#, fuzzy
 msgid "Password missmatch"
-msgstr "salasanat eroavat toisistaan"
+msgstr "Salasanat eivät täsmää"
 
 #: devices/ms/Files/common.inc:1407 devices/ms/Files/eap_w8.inc:18
 #: devices/ms/Files/geant_link.inc:20 devices/ms/Files/geant_link.inc:30
@@ -930,9 +817,8 @@ msgid "Installation"
 msgstr "Asennus"
 
 #: devices/ms/Files/common.inc:1407
-#, fuzzy
 msgid "Checking for existing wireless profiles"
-msgstr "Tarkistaetaan profiilia $R8"
+msgstr "Tarkistetaan olemassa olevia langattomia profiileja."
 
 #: devices/ms/Files/eap_w8.inc:11 devices/ms/Files/peap_tls.inc:11
 msgid "Installation of the personal certificate"
@@ -974,46 +860,18 @@ msgid ""
 "An additional piece of software 'GEANTlink' needs to be installed. This "
 "installation requires Administrator rights; you will be prompted to give "
 "permission for that action."
-msgstr ""
+msgstr "'GEANTlink'-sovelluksen asentamiseksi tarvitaan järjestelmäylläpitäjän oikeuksia; sinulta kysytään tunnusta ja salasanaa suorittaaksesi asennuksen loppuun."
 
 #: devices/ms/Files/geant_link.inc:89
 msgid ""
 "Error installing GEANTLink.$\\nEmbedded installer didn't complete "
 "succesfully."
-msgstr ""
+msgstr "Virhe asennettaessa GEANTLink-sovellusta.$\\nAsennusohjelmaa ei pystytty suorittamaan kokonaan."
 
 #: devices/ms/Files/geant_link.inc:99
-#, fuzzy
 msgid "installing credentials for ${PROVIDERID}"
-msgstr "asennetaan käyttäjätiedot langalliselle Ethernet-profiilille"
+msgstr "asennetaan käyttäjätunnus ja salasana kohteelle ${PROVIDERID}"
 
 #: devices/ms/Files/pwd.inc:35
-#, fuzzy
 msgid "EAP-pwd installation error. Please try again or contact Support."
-msgstr ""
-"EAP-pwd-asennusvirhe. Ole hyvä ja yritä uudelleen tai ota yhteyttä "
-"käyttötukeen: ${SUPPORT}."
-
-#~ msgid "Information about components"
-#~ msgstr "tietoa komponenteista"
-
-#, fuzzy
-#~ msgid "installing credentials for $GL_Profile_id"
-#~ msgstr "asennetaan käyttäjätiedot langalliselle Ethernet-profiilille"
-
-#~ msgid "Network Manager configuration failed, generating wpa_supplicant.conf"
-#~ msgstr ""
-#~ "Network Managerin määritys epäonnistui, luodaan wpa_supplicant.conf-"
-#~ "tiedosto"
-
-#~ msgid "File %s exists; it will be overwritten."
-#~ msgstr "Tiedosto %s on jo olemassa; se ylikirjoitetaan."
-
-#~ msgid "Output written to %s"
-#~ msgstr "Tulostus kirjoitettiin tiedostoon %s"
-
-#~ msgid "file not found"
-#~ msgstr "tiedostoa ei löytynyt"
-
-#~ msgid "enter the password for the certificate file"
-#~ msgstr "varmennetiedoston salasana"
+msgstr "EAP-pwd-asennusvirhe. Yritä uudelleen tai ota yhteyttä oman kotiorganisaatiosi IT-tukeen."

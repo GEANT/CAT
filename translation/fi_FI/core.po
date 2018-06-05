@@ -1,56 +1,55 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Jari Miettinen <Jari.Miettinen@csc.fi>, 2012
 # Jari Miettinen <Jari.Miettinen@csc.fi>, 2013
-# Tomi Salmi <tomi.salmi@csc.fi>, 2013,2015
+# Tomi Salmi <tomi.salmi@csc.fi>, 2013,2015-2016,2018
 # tuukka, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-18 11:18+0200\n"
-"PO-Revision-Date: 2015-04-07 09:41+0000\n"
+"POT-Creation-Date: 2018-05-23 14:55+0200\n"
+"PO-Revision-Date: 2018-05-24 10:46+0000\n"
 "Last-Translator: Tomi Salmi <tomi.salmi@csc.fi>\n"
-"Language-Team: Finnish (Finland) (http://www.transifex.com/projects/p/cat/"
-"language/fi_FI/)\n"
-"Language: fi_FI\n"
+"Language-Team: Finnish (Finland) (http://www.transifex.com/eduroam_devel/cat/language/fi_FI/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fi_FI\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: core/CAT.php:111
 msgid ""
-"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git "
-"Revision</a>"
-msgstr ""
+"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git"
+" Revision</a>"
+msgstr "Julkaisematon <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git Revision</a>"
 
 #: core/CAT.php:121
 #, php-format
 msgid "Release <a href='%s'>%s</a>"
-msgstr ""
+msgstr "Julkaisu <a href='%s'>%s</a>"
 
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
 #. different wording, no translation, sorry
 #: core/CAT.php:134 core/DeviceConfig.php:101
 msgid "National Roaming Operator"
-msgstr ""
+msgstr "Kansallinen operaattori"
 
 #: core/CAT.php:135 core/DeviceConfig.php:102
 msgid "identity provider"
-msgstr ""
+msgstr "IdP"
 
 #: core/CAT.php:136 core/DeviceConfig.php:103
 msgid "organisation"
-msgstr ""
+msgstr "organisaatio"
 
 #: core/CAT.php:137
 msgid "Identity Provider"
-msgstr ""
+msgstr "IdP"
 
 #: core/CAT.php:146
 msgid "Andorra"
@@ -310,7 +309,7 @@ msgstr "Etelä-Afrikka"
 
 #: core/CAT.php:484 core/IdPlist.php:99
 msgid "Unnamed Entity"
-msgstr ""
+msgstr "Nimetön"
 
 #: core/DeviceConfig.php:200
 #, php-format
@@ -338,9 +337,7 @@ msgid ""
 "Best regards,\n"
 "\n"
 "%s"
-msgstr ""
-"Hei,⏎ ⏎ Identity Provider %s %s federaatiostasi %s on poistettu ryhmästä %s."
-"⏎ ⏎ Arvelimme, että haluaisit tietää asiasta.⏎ ⏎ Parhain terveisin,⏎ ⏎ %s"
+msgstr "Hei,⏎ ⏎ Identity Provider %s %s federaatiostasi %s on poistettu ryhmästä %s.⏎ ⏎ Arvelimme, että haluaisit tietää asiasta.⏎ ⏎ Parhain terveisin,⏎ ⏎ %s"
 
 #: core/IdP.php:252
 msgid "IdP in your federation was deleted"
@@ -349,18 +346,18 @@ msgstr "Federaatiosi IdP poistettiin"
 #: core/SilverbulletInvitation.php:200
 #, php-format
 msgid "Your %s access is ready"
-msgstr ""
+msgstr "Pääsyoikeutesi palveluun %s ovat valmiina"
 
 #: core/SilverbulletInvitation.php:208
 msgid "Hello!"
-msgstr ""
+msgstr "Hei!"
 
 #: core/SilverbulletInvitation.php:210
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
 "administrator."
-msgstr ""
+msgstr "Verkkoylläpitäjäsi on luonut sinulle uudet käyttäjätunnukset palveluun %s."
 
 #: core/SilverbulletInvitation.php:212
 #, php-format
@@ -368,7 +365,7 @@ msgid ""
 "Please follow the following link with the device you want to enable for %s "
 "to get a custom %s installation program just for you. You can click on the "
 "link, copy and paste it into a browser or scan the attached QR code."
-msgstr ""
+msgstr "Valitse ohesta laitettasi vastaava linkki ottaaksesi käyttöön palvelun %s kohteessa %s. Voit klikata linkkiä, kopioida osoitteen selaimeen tai käyttää QR-koodia."
 
 #. gets replaced with the token value by getBody()
 #: core/SilverbulletInvitation.php:214
@@ -377,46 +374,43 @@ msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
 "up your %s installation program, you can use the same link to get status "
 "information about your %s account."
-msgstr ""
+msgstr "Suosittelemme säilyttämään tämän osoitteen myöhempää käyttöä varten. Voit käyttää samaa linkkiä asentaaksesi palvelun %s myöhemmin tai tarkistaaksesi palvelun %s tilan."
 
 #: core/SilverbulletInvitation.php:216
 msgid "Regards,"
-msgstr ""
+msgstr "Terveisin,"
 
 #: core/SilverbulletInvitation.php:260
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
 "'%s'!)"
-msgstr ""
+msgstr "%son nyt valmis käyttöön! Klikkaa tästä: %s (tai jos käytät Android-laitetta, asenna ensin sovellus '%s'!)"
 
 #: core/SilverbulletInvitation.php:267
 #, php-format
 msgid "%s Invitation System"
-msgstr ""
+msgstr "%sKutsut"
 
 #. / arguments are: 1. IdP name;
 #. /                2. consortium name (e.g. eduroam);
 #. /                3. federation shortname, e.g. "LU";
 #. /                4. product name (e.g. eduroam CAT);
-#. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
+#. /                5. product long name (e.g. eduroam Configuration Assistant
+#. Tool)
 #: core/UserManagement.php:179
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the invitation for the new Identity Provider %s in your %s federation %s has "
-"been used and the IdP was created in %s.\n"
+"the invitation for the new Identity Provider %s in your %s federation %s has been used and the IdP was created in %s.\n"
 "\n"
 "We thought you might want to know.\n"
 "\n"
 "Best regards,\n"
 "\n"
 "%s"
-msgstr ""
-"Hei,⏎ ⏎ uuden käyttäjäorganisaation kutsu organisaatiolle %s, Identity "
-"Provider %s federaatiossasi %s on käytetty ja IdP luotiin ryhmässä %s.⏎ ⏎ "
-"Arvelimme, että halusit tietää asiasta.⏎ ⏎ Parhain terveisin,⏎ ⏎ %s"
+msgstr "Hei,⏎ ⏎ uuden käyttäjäorganisaation kutsu organisaatiolle %s, Identity Provider %s federaatiossasi %s on käytetty ja IdP luotiin ryhmässä %s.⏎ ⏎ Arvelimme, että halusit tietää asiasta.⏎ ⏎ Parhain terveisin,⏎ ⏎ %s"
 
 #: core/UserManagement.php:188
 msgid "IdP in your federation was created"
@@ -428,108 +422,108 @@ msgstr "Palaute"
 
 #: core/common/EAP.php:369
 msgid "PEAP-MSCHAPv2"
-msgstr ""
+msgstr "PEAP-MSCHAPv2"
 
 #: core/common/EAP.php:370
 msgid "TLS"
-msgstr ""
+msgstr "TLS"
 
 #: core/common/EAP.php:371
 msgid "TTLS-PAP"
-msgstr ""
+msgstr "TTLS-PAP"
 
 #: core/common/EAP.php:372
 msgid "TTLS-MSCHAPv2"
-msgstr ""
+msgstr "TTLS-MSCHAPv2"
 
 #: core/common/EAP.php:373
 msgid "TTLS-GTC"
-msgstr ""
+msgstr "TTLS-GTC"
 
 #: core/common/EAP.php:374
 msgid "FAST-GTC"
-msgstr ""
+msgstr "FAST-GTC"
 
 #: core/common/EAP.php:375
 msgid "EAP-pwd"
-msgstr ""
+msgstr "EAP-pwd"
 
 #: core/common/OutsideComm.php:239
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
-msgstr ""
+msgstr "Ylläpitäjä %sorganisaatiosta %s%s%son kutsunut sinut kohteen %sylläpitäjäksi."
 
 #: core/common/OutsideComm.php:240
 #, php-format
 msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
-msgstr ""
+msgstr "Ylläpitäjä %s %s on kutsunut sinut ylläpitämään kohdetta %s%s(%s)."
 
 #: core/common/OutsideComm.php:241
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\"."
-msgstr ""
+msgstr "%s%son kutsunut sinut ylläpitämään kohdetta %s \"%s\"."
 
 #: core/common/OutsideComm.php:243
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
-msgstr ""
+msgstr "Tämä kutsu on voimassa 24h tästä eteenpäin, toisin sanoen %s saakka."
 
 #. then, send out the mail
 #: core/common/OutsideComm.php:251
 msgid "Hello,"
-msgstr ""
+msgstr "Terve,"
 
 #. default means we don't have a Reply-To.
 #: core/common/OutsideComm.php:253
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
-msgstr ""
+msgstr "manuaalisesti. Ethän vastaa tähän viestiin, viestejä ei lueta."
 
 #: core/common/OutsideComm.php:259
 #, php-format
 msgid "Additional message from your %s administrator:"
-msgstr ""
+msgstr "Palvelun %sylläpitäjä muistuttaa:"
 
 #: core/common/OutsideComm.php:267
 #, php-format
 msgid "%s administrator"
-msgstr ""
+msgstr "%sylläpitäjä"
 
 #: core/common/OutsideComm.php:270
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
-msgstr ""
+msgstr "manuaalisesti. Vastaamalla tähän viestiin tavoitat palvelun %sylläpitäjät."
 
 #: core/common/OutsideComm.php:275
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
 "link:"
-msgstr ""
+msgstr "Ilmoittautuaksesi kohteen %sylläpitäjäksi, klikkaa seuraavaa linkkiä:"
 
 #: core/common/OutsideComm.php:277
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
 "Interface at"
-msgstr ""
+msgstr "Jos napsauttaminen ei toimi, voit myös mennä %s hallintaliittymään:"
 
 #: core/common/OutsideComm.php:279
 msgid "and enter the invitation token"
-msgstr ""
+msgstr "ja syötä kutsupoletti"
 
 #: core/common/OutsideComm.php:281
 msgid ""
-"Do NOT forward the mail before the token has expired - or the recipients may "
-"be able to consume the token on your behalf!"
-msgstr ""
+"Do NOT forward the mail before the token has expired - or the recipients may"
+" be able to consume the token on your behalf!"
+msgstr "ÄLÄ välitä viestiä eteenpäin ennen kuin \"token\" on käytetty tai vanhentunut. Tokenin avulla kuka tahansa voi luoda tilin sille varatuin oikeuksin."
 
 #: core/common/OutsideComm.php:282
 #, php-format
 msgid "We wish you a lot of fun with the %s."
-msgstr ""
+msgstr "Pidä hauskaa %s:n kanssa."
 
 #: core/common/OutsideComm.php:283
 #, php-format
@@ -537,320 +531,42 @@ msgid ""
 "Sincerely,\n"
 "\n"
 "Your friendly folks from %s Operations"
-msgstr ""
+msgstr "Parhain terveisin,⏎ ⏎ Henkilöstö %s Ylläpidosta"
 
 #. what do we want to say?
 #: core/common/OutsideComm.php:318
 #, php-format
 msgid "%s: you have been invited to manage an %s"
-msgstr ""
+msgstr "%s: sinut on kutsuttu kohteen %s ylläpitäjäksi."
 
 #: web/lib/common/InputValidation.php:29
 msgid "Input validation error: "
-msgstr ""
+msgstr "syötettä ei pystytä varmentamaan"
 
 #: web/lib/common/InputValidation.php:202
 msgid "Realm is empty!"
-msgstr ""
+msgstr "Realm-osa on puutteellinen!"
 
 #: web/lib/common/InputValidation.php:210
 msgid "Realm contains an @ sign!"
-msgstr ""
+msgstr "Toimialue sisältää @-merkin!"
 
 #: web/lib/common/InputValidation.php:211
 msgid "Realm begins with a . (dot)!"
-msgstr ""
+msgstr "Toimialue alkaa merkillä . (piste)!"
 
 #: web/lib/common/InputValidation.php:212
 msgid "Realm ends with a . (dot)!"
-msgstr ""
+msgstr "Toimialue päättyy merkkiin . (piste)!"
 
 #: web/lib/common/InputValidation.php:213
 msgid "Realm contains spaces!"
-msgstr ""
+msgstr "Toimialue sisältää välilyöntejä!"
 
 #: web/lib/common/InputValidation.php:225
 msgid "Realm does not contain at least one . (dot)!"
-msgstr ""
+msgstr "Toimialue ei sisällä edes yhtä . (pistettä)!"
 
 #: web/lib/common/InputValidation.php:311
 msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
-msgstr ""
-
-#~ msgid "Could not create a new Institution!"
-#~ msgstr "Uutta organisaatiota ei voitu luoda!"
-
-#~ msgid "eduPKI"
-#~ msgstr "eduPKI"
-
-#~ msgid "Nicolaus Copernicus University"
-#~ msgstr "Nicolaus Copernicus Yliopisto"
-
-#~ msgid "accredited"
-#~ msgstr "hyväksytty"
-
-#~ msgid "non-accredited"
-#~ msgstr "ei hyväksytty"
-
-#~ msgid "correct certificate"
-#~ msgstr "oikea varmenne"
-
-#~ msgid "certificate with wrong policy OID"
-#~ msgstr "varmenne, jonka OID on väärä"
-
-#~ msgid "expired certificate"
-#~ msgstr "vanhentunut varmenne"
-
-#~ msgid "revoked certificate"
-#~ msgstr "peruutettu varmenne"
-
-#~ msgid "pass"
-#~ msgstr "onnistua"
-
-#~ msgid "fail"
-#~ msgstr "epäonnistua"
-
-#~ msgid "eduroam-accredited CA (now only for tests)"
-#~ msgstr "eduroamiin hyväksytty CA (testejä varten)"
-
-#~ msgid "Completed"
-#~ msgstr "Valmis"
-
-#~ msgid "This check was skipped."
-#~ msgstr "Ohitettu."
-
-#~ msgid "There were errors during the test."
-#~ msgstr "Testissä havaittiin virheitä."
-
-#~ msgid "This realm has no NAPTR records."
-#~ msgstr "Tällä realmilla ei ole NAPTR-tietueita."
-
-#~ msgid ""
-#~ "NAPTR records were found, but all of them refer to unrelated services."
-#~ msgstr ""
-#~ "NAPTR-tietueita löytyi, mutta niiden viittaukset eivät ole kunnossa."
-
-#~ msgid "There was no reply at all from the RADIUS server."
-#~ msgstr "RADIUS-palvelin ei vastannut."
-
-#~ msgid ""
-#~ "There was a bidirectional communication with the RADIUS server, but it "
-#~ "ended halfway through."
-#~ msgstr ""
-#~ "RADIUS-palvelimen kanssa oli kaksisuuntaista neuvottelua, mutta se "
-#~ "keskeytyi."
-
-#~ msgid ""
-#~ "The RADIUS server immediately rejected the authentication request in its "
-#~ "first reply."
-#~ msgstr "RADIUS-palvelin hylkäsi autentikointiyrityksen."
-
-#~ msgid ""
-#~ "The RADIUS server rejected the authentication request after an EAP "
-#~ "conversation."
-#~ msgstr "RADIUS-palvelin hylkäsi autentikointiyrityksen EAP-vaiheessa."
-
-#~ msgid "Connection refused"
-#~ msgstr "Yhteydenotto hylättiin"
-
-#~ msgid "Not enough data provided to perform an authentication"
-#~ msgstr "Ei riittävästi tietoa autentikoinnin suorittamiseksi."
-
-#~ msgid ""
-#~ "The certificate password you provided does not match the certificate file."
-#~ msgstr "Antamasi varmennesalasana ei täsmää varmennetiedoston kanssa."
-
-#~ msgid ""
-#~ "The certificate chain includes the root CA certificate. This does not "
-#~ "serve any useful purpose but inflates the packet exchange, possibly "
-#~ "leading to more round-trips and thus slower authentication."
-#~ msgstr ""
-#~ "Varmenneketju sisältää juurivarmenteen – siitä ei ole mitään varsinaista "
-#~ "hyötyä, mutta se voi hidastaa autentikointia lisääntyneen tiedonsiirron "
-#~ "johdosta."
-
-#~ msgid "There is more than one server certificate in the chain."
-#~ msgstr "Varmenneketjussa on useampia kuin yksi palvelinvarmenne."
-
-#~ msgid "There is no server certificate in the chain."
-#~ msgstr "Varmenneketjussa ei ole palvelinvarmennetta."
-
-#~ msgid ""
-#~ "At least one certificate in the chain is signed with the MD5 signature "
-#~ "algorithm. Many Operating Systems, including Apple iOS, will fail to "
-#~ "validate this certificate."
-#~ msgstr ""
-#~ "Vähintään yksi varmenneketjun varmenteista on allekirjoitettu MD5-"
-#~ "tiivistefunktiolla. Monet käyttöjärjestelmät, kuten Apple iOS, eivät "
-#~ "salli MD5:n käyttöä."
-
-#~ msgid ""
-#~ "At least one certificate in the chain had a public key of less than 1024 "
-#~ "bits. Many recent operating systems consider this unacceptable and will "
-#~ "fail to validate the server certificate."
-#~ msgstr ""
-#~ "Ainakin yksi varmenneketjun varmenteista on alle 1024-bittinen. Monet "
-#~ "käyttöjärjestelmät eivät enää kelpuuta heikkoja varmenteita "
-#~ "tietoturvasyistä."
-
-#~ msgid ""
-#~ "The server certificate does not have the extension 'extendedKeyUsage: TLS "
-#~ "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
-#~ "validate this certificate."
-#~ msgstr ""
-#~ "Palvelinvarmenne ei sisällä 'extendedKeyUsage: TLS Web Server "
-#~ "Authentication' -laajennusta. Useimmat Microsoftin käyttöjärjestelmät "
-#~ "eivät kelpuuta tätä varmennetta."
-
-#~ msgid ""
-#~ "The server certificate did not include a CRL Distribution Point, creating "
-#~ "compatibility problems with Windows Phone 8."
-#~ msgstr ""
-#~ "Palvelinvarmenne ei sisällä sulkulistan jakelupistettä 'CRL Distribution "
-#~ "Point', josta voi aiheutua yhteensopivuusongelmia Windows Phone 8:n "
-#~ "kanssa."
-
-#~ msgid ""
-#~ "The server certificate's 'CRL Distribution Point' extension does not "
-#~ "point to an HTTP/HTTPS URL. Some Operating Systems may fail to validate "
-#~ "this certificate. Checking server certificate validity against a CRL will "
-#~ "not be possible."
-#~ msgstr ""
-#~ "Palvelinvarmenteen sulkulistan jakelupistelaajennos 'CRL Distribution "
-#~ "Point' ei sisällä HTTP/HTTPS-osoitetta. Jotkin käyttöjärjestelmät eivät "
-#~ "välttämättä kykene tarkistamaan varmennetta, koska ne eivät tue muita "
-#~ "vaihtoehtoja."
-
-#~ msgid ""
-#~ "The extension 'CRL Distribution Point' in the server certificate points "
-#~ "to a non-existing location. Some Operating Systems check certificate "
-#~ "validity by consulting the CRL and will fail to validate the certificate. "
-#~ "Checking server certificate validity against a CRL will not be possible."
-#~ msgstr ""
-#~ "Palvelinvarmenteen 'CRL Distribution Point' osoittaa olemattomaan "
-#~ "kohteeseen. Jotkut käyttöjärjestelmät tarkistavat sulkulistatiedoston "
-#~ "olemassaolon ja autentikointi voi epäonnistua mikäli tiedostoa ei löydy."
-
-#~ msgid "The server certificate was revoked by the CA!"
-#~ msgstr "Palvelinvarmenne on sen myöntäneen tahon peruuttama!"
-
-#~ msgid ""
-#~ "The certificate contained a CN or subjectAltName:DNS which does not parse "
-#~ "as a hostname. This can be problematic on some supplicants. If the "
-#~ "certificate also contains names which are a proper hostname, and you only "
-#~ "use those for your supplicant configuration, then you can safely ignore "
-#~ "this notice."
-#~ msgstr ""
-#~ "Palvelinvarmenteen CN- tai subjectAltName:DNS-tietue ei jäsenny "
-#~ "palvelimen nimeksi. Siitä voi seurata ongelmia joissakin päätelaitteissa. "
-#~ "Voit jättää tämän varoituksen huomiotta mikäli varmenne sisältää myös "
-#~ "kelpoja nimiä ja käytät vain niitä päätelaitteiden asetuksissa."
-
-#~ msgid ""
-#~ "The certificate contained a CN or subjectAltName:DNS which contains a "
-#~ "wildcard ('*'). This can be problematic on some supplicants. If the "
-#~ "certificate also contains names which are wildcardless, and you only use "
-#~ "those for your supplicant configuration, then you can safely ignore this "
-#~ "notice."
-#~ msgstr ""
-#~ "Palvelinvarmenteen CN- tai subjectAltName:DNS-tietue sisältää "
-#~ "jokerimerkin ('*'). Siitä voi seurata ongelmia joidenkin päätelaitteiden "
-#~ "kanssa. Voit jättää tämän varoituksen huomiotta mikäli varmenne sisältää "
-#~ "myös jokerittomia nimiä ja käytät vain niitä päätelaitteiden asetuksissa."
-
-#~ msgid ""
-#~ "At least one certificate is outside its validity period (not yet valid, "
-#~ "or already expired)!"
-#~ msgstr ""
-#~ "Ainakaan yksi varmenteista ei ole voimassa (ei ole tullut vielä voimaan "
-#~ "tai on jo vanhentunut)!"
-
-#~ msgid ""
-#~ "At least one intermediate certificate in your CAT profile is outside its "
-#~ "validity period (not yet valid, or already expired), but this certificate "
-#~ "was not used for server validation. Consider removing it from your %s "
-#~ "configuration."
-#~ msgstr ""
-#~ "Vähintään yksi profiiliin määritellyn varmenneketjun varmenteista on "
-#~ "vanhentunut (tai ei ole vielä voimassa), mutta tätä varmennetta ei "
-#~ "käytetty palvelimen autentikoinnissa. Harkitse varmenteen poistamista "
-#~ "profiilista %s."
-
-#~ msgid ""
-#~ "The server certificate could not be verified to the root CA you "
-#~ "configured in your profile!"
-#~ msgstr ""
-#~ "Palvelinvarmenteen tarkistaminen profiiliin määriteltyä juurivarmennetta "
-#~ "vasten ei onnistunut!"
-
-#~ msgid ""
-#~ "The certificate chain as received in EAP was not sufficient to verify the "
-#~ "certificate to the root CA in your profile. It was verified using the "
-#~ "intermediate CAs in your profile though. You should consider sending the "
-#~ "required intermediate CAs inside the EAP conversation."
-#~ msgstr ""
-#~ "Palvelimen EAP-neuvottelussa lähettämä varmenneketju ei ollut riittävä "
-#~ "palvelinvarmenteen tarkistamiseksi profiiliin määriteltyä "
-#~ "juurivarmennetta vasten. Sen tarkistaminen onnistui kuitenkin profiiliin "
-#~ "määriteltyjä välivarmenteita vastaan. Harkitse tarvittavien "
-#~ "välivarmenteiden lisäämistä palvelimen lähettämään varmenneketjuun."
-
-#~ msgid ""
-#~ "The EAP server name does not match any of the configured names in your "
-#~ "profile!"
-#~ msgstr ""
-#~ "EAP-palvelimen nimi ei täsmää minkään profiilin määritellyn nimen kanssa!"
-
-#~ msgid ""
-#~ "The configured EAP server name matches either the CN or a subjectAltName:"
-#~ "DNS of the incoming certificate; best current practice is that the "
-#~ "certificate should contain the name in BOTH places."
-#~ msgstr ""
-#~ "Saadusta varmenteesta löytyy määritellyn EAP-palvelimen nimi joko CN- tai "
-#~ "subjectAltName:DNS-tietueesta – parhaan nykyisen käytännön mukaan nimen "
-#~ "pitäisi löytyä varmenteessa molemmista tietueista."
-
-#~ msgid ""
-#~ "At least one certificate did not contain any BasicConstraints extension; "
-#~ "which makes it unclear if it's a CA certificate or end-entity "
-#~ "certificate. At least Mac OS X 10.8 (Mountain Lion) will not validate "
-#~ "this certificate for EAP purposes!"
-#~ msgstr ""
-#~ "Ainakaan yksi varmenteista ei sisällä BasicConstraints-laajennosta, jonka "
-#~ "myötä on epäselvää onko varmenne juurivarmenne vai palvelin- tai "
-#~ "asiakasvarmenne. Ainakaan OS X 10.8 (Mountain Lion) ei kelpuuta "
-#~ "varmennetta EAP-käyttöön!"
-
-#~ msgid "The server presented a certificate from an unknown authority."
-#~ msgstr "Palvelin tarjosi tuntemattoman varmentajan myöntämän varmenteen."
-
-#~ msgid "The server accepted the INVALID client certificate."
-#~ msgstr "Palvelin kelpuutti EPÄKELVON asiakasvarmenteen."
-
-#~ msgid ""
-#~ "The server rejected the client certificate, even though it was valid."
-#~ msgstr "Palvelin hylkäsi asiakasvarmenteen kelvollisuudesta huolimatta."
-
-#~ msgid "The server rejected the client certificate as expected."
-#~ msgstr "Palvelin hylkäsi asiakasvarmenteen odotetusti."
-
-#~ msgid "The CRL of a certificate could not be found."
-#~ msgstr "Varmenteen sulkulistaa ei löytynyt."
-
-#~ msgid "EAP method negotiation failed!"
-#~ msgstr "Käytettävän EAP-mekanismin neuvottelu epäonnistui!"
-
-#~ msgid "certificate expired"
-#~ msgstr "varmenne vanhentunut"
-
-#~ msgid "certificate was revoked"
-#~ msgstr "varmenne peruutettiin"
-
-#~ msgid "bad policy"
-#~ msgstr "huono käytäntö"
-
-#~ msgid "unknown authority"
-#~ msgstr "tuntematon varmentaja"
-
-#~ msgid "unknown authority or no certificate policy or another problem"
-#~ msgstr "tuntematon varmentaja, ei varmennekäytäntöjä tai muu virhe"
+msgstr "Virheelliset koordinaatit (huom: 2.0 käyttää JSON:ia)!"

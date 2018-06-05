@@ -1,57 +1,56 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Dubravko Penezic <dpenezic@gmail.com>, 2012
+# dsafar <dsafar@srce.hr>, 2012-2013
 # dsafar <dsafar@srce.hr>, 2013
 # dsafar <dsafar@srce.hr>, 2012
-# Dubravko Penezic <dpenezic@gmail.com>, 2015
+# Dubravko Penezic <dpenezic@gmail.com>, 2012,2015
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-18 11:18+0200\n"
-"PO-Revision-Date: 2015-04-08 10:05+0000\n"
+"POT-Creation-Date: 2018-05-23 14:55+0200\n"
+"PO-Revision-Date: 2018-05-30 06:20+0000\n"
 "Last-Translator: Dubravko Penezic <dpenezic@gmail.com>\n"
-"Language-Team: Croatian (Croatia) (http://www.transifex.com/projects/p/cat/"
-"language/hr_HR/)\n"
-"Language: hr_HR\n"
+"Language-Team: Croatian (Croatia) (http://www.transifex.com/eduroam_devel/cat/language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Language: hr_HR\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #: core/CAT.php:111
 msgid ""
-"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git "
-"Revision</a>"
-msgstr ""
+"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git"
+" Revision</a>"
+msgstr "Revizija</a>"
 
 #: core/CAT.php:121
 #, php-format
 msgid "Release <a href='%s'>%s</a>"
-msgstr ""
+msgstr "Izdanje <a href='%s'>%s</a>"
 
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
 #. different wording, no translation, sorry
 #: core/CAT.php:134 core/DeviceConfig.php:101
 msgid "National Roaming Operator"
-msgstr ""
+msgstr "Nacionalni roaming operater"
 
 #: core/CAT.php:135 core/DeviceConfig.php:102
 msgid "identity provider"
-msgstr ""
+msgstr "davatelj identiteta"
 
 #: core/CAT.php:136 core/DeviceConfig.php:103
 msgid "organisation"
-msgstr ""
+msgstr "organizacija"
 
 #: core/CAT.php:137
 msgid "Identity Provider"
-msgstr ""
+msgstr "Davatelj identiteta"
 
 #: core/CAT.php:146
 msgid "Andorra"
@@ -311,7 +310,7 @@ msgstr "Južna Afrika"
 
 #: core/CAT.php:484 core/IdPlist.php:99
 msgid "Unnamed Entity"
-msgstr ""
+msgstr "Neimenovani entitet"
 
 #: core/DeviceConfig.php:200
 #, php-format
@@ -339,16 +338,7 @@ msgid ""
 "Best regards,\n"
 "\n"
 "%s"
-msgstr ""
-"Poštovani,\n"
-"\n"
-"IdP %s u vašoj %s federaciji %s je obrisan od %s. \n"
-"\n"
-"Mislimo da biste to trebali znati.\n"
-"\n"
-"S poštovanjem, \n"
-"\n"
-"%s"
+msgstr "Poštovani,\n\nIdP %s u vašoj %s federaciji %s je obrisan od %s. \n\nMislimo da biste to trebali znati.\n\nS poštovanjem, \n\n%s"
 
 #: core/IdP.php:252
 msgid "IdP in your federation was deleted"
@@ -357,18 +347,18 @@ msgstr "IdP u vašoj federaciji je obrisan"
 #: core/SilverbulletInvitation.php:200
 #, php-format
 msgid "Your %s access is ready"
-msgstr ""
+msgstr "Vaš %s pristup je spreman"
 
 #: core/SilverbulletInvitation.php:208
 msgid "Hello!"
-msgstr ""
+msgstr "Bok!"
 
 #: core/SilverbulletInvitation.php:210
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
 "administrator."
-msgstr ""
+msgstr "Novi %s pristupni podaci su kreirani za Vas od strane Vašeg mrežnog administratora."
 
 #: core/SilverbulletInvitation.php:212
 #, php-format
@@ -376,7 +366,7 @@ msgid ""
 "Please follow the following link with the device you want to enable for %s "
 "to get a custom %s installation program just for you. You can click on the "
 "link, copy and paste it into a browser or scan the attached QR code."
-msgstr ""
+msgstr "Molimo Vas slijedite sljedeći link sa uređajem za koji želite omogućiti %s da dobijete prilagođen %s instalacijski program baš za Vas. Možete kliknuti na link, kopirati ga i zalijepiti u preglednik ili skenirati priloženi QR kod."
 
 #. gets replaced with the token value by getBody()
 #: core/SilverbulletInvitation.php:214
@@ -385,53 +375,43 @@ msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
 "up your %s installation program, you can use the same link to get status "
 "information about your %s account."
-msgstr ""
+msgstr "Molimo Vas da zadržite ovaj email ili zabilježite stranicu za buduću upotrebu. Nakon odabira Vašeg %s instalacijskog programa, možete koristiti isti link za dobivanje informacija o Vašem % računu."
 
 #: core/SilverbulletInvitation.php:216
 msgid "Regards,"
-msgstr ""
+msgstr "Pozdrav,"
 
 #: core/SilverbulletInvitation.php:260
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
 "'%s'!)"
-msgstr ""
+msgstr "Vaš %s pristup je spreman! Kliknite ovdje: %s (na Androidu, prvo je potrebno instalirati aplikaciju '%s'!)"
 
 #: core/SilverbulletInvitation.php:267
 #, php-format
 msgid "%s Invitation System"
-msgstr ""
+msgstr "%s sustav pozivanja"
 
 #. / arguments are: 1. IdP name;
 #. /                2. consortium name (e.g. eduroam);
 #. /                3. federation shortname, e.g. "LU";
 #. /                4. product name (e.g. eduroam CAT);
-#. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
+#. /                5. product long name (e.g. eduroam Configuration Assistant
+#. Tool)
 #: core/UserManagement.php:179
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the invitation for the new Identity Provider %s in your %s federation %s has "
-"been used and the IdP was created in %s.\n"
+"the invitation for the new Identity Provider %s in your %s federation %s has been used and the IdP was created in %s.\n"
 "\n"
 "We thought you might want to know.\n"
 "\n"
 "Best regards,\n"
 "\n"
 "%s"
-msgstr ""
-"Poštovani,\n"
-"\n"
-"pozivnica za novog IdP-a %s u vašoj %s federaciji %s je iskorištena i profil "
-"je generirarn %s.\n"
-"\n"
-"Mislimo da biste to trebali znati.\n"
-"\n"
-"S poštovanjem, \n"
-"\n"
-"%s"
+msgstr "Poštovani,\n\npozivnica za novog IdP-a %s u vašoj %s federaciji %s je iskorištena i profil je generirarn %s.\n\nMislimo da biste to trebali znati.\n\nS poštovanjem, \n\n%s"
 
 #: core/UserManagement.php:188
 msgid "IdP in your federation was created"
@@ -443,108 +423,108 @@ msgstr "Povratna informacija"
 
 #: core/common/EAP.php:369
 msgid "PEAP-MSCHAPv2"
-msgstr ""
+msgstr "PEAP-MSCHAPv2"
 
 #: core/common/EAP.php:370
 msgid "TLS"
-msgstr ""
+msgstr "TLS"
 
 #: core/common/EAP.php:371
 msgid "TTLS-PAP"
-msgstr ""
+msgstr "TTLS-PAP"
 
 #: core/common/EAP.php:372
 msgid "TTLS-MSCHAPv2"
-msgstr ""
+msgstr "TTLS-MSCHAPv2"
 
 #: core/common/EAP.php:373
 msgid "TTLS-GTC"
-msgstr ""
+msgstr "TTLS-GTC"
 
 #: core/common/EAP.php:374
 msgid "FAST-GTC"
-msgstr ""
+msgstr "FAST-GTC"
 
 #: core/common/EAP.php:375
 msgid "EAP-pwd"
-msgstr ""
+msgstr "EAP-pwd"
 
 #: core/common/OutsideComm.php:239
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
-msgstr ""
+msgstr "a %s iz %s %s \"%s\" Vas je pozvao da uređujete %s zajedno s njim."
 
 #: core/common/OutsideComm.php:240
 #, php-format
 msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
-msgstr ""
+msgstr "%s %s Vas je pozvao da uređujete %s  \"%s\" (%s)."
 
 #: core/common/OutsideComm.php:241
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\"."
-msgstr ""
+msgstr "%s %s pozvao Vas je da uredite %s  \"%s\"."
 
 #: core/common/OutsideComm.php:243
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
-msgstr ""
+msgstr "Pozivnica je valjana 24 sata od ovog trenutka, i.e. do %s."
 
 #. then, send out the mail
 #: core/common/OutsideComm.php:251
 msgid "Hello,"
-msgstr ""
+msgstr "Poštovani,"
 
 #. default means we don't have a Reply-To.
 #: core/common/OutsideComm.php:253
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
-msgstr ""
+msgstr "Molimo Vas ne odgovarajte na ovaj email; ova adresa koristi se samo za slanje."
 
 #: core/common/OutsideComm.php:259
 #, php-format
 msgid "Additional message from your %s administrator:"
-msgstr ""
+msgstr "Dodatna poruka od %s administratora:"
 
 #: core/common/OutsideComm.php:267
 #, php-format
 msgid "%s administrator"
-msgstr ""
+msgstr "%s: administrator"
 
 #: core/common/OutsideComm.php:270
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
-msgstr ""
+msgstr "ručno. Ako odgovorite na ovaj email, kontaktirat ćete %s administratore"
 
 #: core/common/OutsideComm.php:275
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
 "link:"
-msgstr ""
+msgstr "Da biste se prijavili kao administrator za %s, molimo Vas kliknite na sljedeći link:"
 
 #: core/common/OutsideComm.php:277
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
 "Interface at"
-msgstr ""
+msgstr "Ukoliko se kod klika na poveznicu ništa ne događa, možete posjetiti %s sučelje za administratore na"
 
 #: core/common/OutsideComm.php:279
 msgid "and enter the invitation token"
-msgstr ""
+msgstr "i unijeti token iz pozivnice"
 
 #: core/common/OutsideComm.php:281
 msgid ""
-"Do NOT forward the mail before the token has expired - or the recipients may "
-"be able to consume the token on your behalf!"
-msgstr ""
+"Do NOT forward the mail before the token has expired - or the recipients may"
+" be able to consume the token on your behalf!"
+msgstr "Ne proslijeđuj email prije no sto token istekne, ili ce primatelj imati mogućnost uporabe tokena za sebe!"
 
 #: core/common/OutsideComm.php:282
 #, php-format
 msgid "We wish you a lot of fun with the %s."
-msgstr ""
+msgstr "Želimo Vam puno zabave sa %s."
 
 #: core/common/OutsideComm.php:283
 #, php-format
@@ -552,320 +532,42 @@ msgid ""
 "Sincerely,\n"
 "\n"
 "Your friendly folks from %s Operations"
-msgstr ""
+msgstr "S poštovanjem,\n\nTim %s operativaca"
 
 #. what do we want to say?
 #: core/common/OutsideComm.php:318
 #, php-format
 msgid "%s: you have been invited to manage an %s"
-msgstr ""
+msgstr "%s: pozvani ste da uredite %s:"
 
 #: web/lib/common/InputValidation.php:29
 msgid "Input validation error: "
-msgstr ""
+msgstr "Greška pri validaciji unosa:"
 
 #: web/lib/common/InputValidation.php:202
 msgid "Realm is empty!"
-msgstr ""
+msgstr "Realm je prazan!"
 
 #: web/lib/common/InputValidation.php:210
 msgid "Realm contains an @ sign!"
-msgstr ""
+msgstr "Realm sadrži @ znak!"
 
 #: web/lib/common/InputValidation.php:211
 msgid "Realm begins with a . (dot)!"
-msgstr ""
+msgstr "Realm počinje sa . (točkom)!"
 
 #: web/lib/common/InputValidation.php:212
 msgid "Realm ends with a . (dot)!"
-msgstr ""
+msgstr "Realm završava sa . (točkom)!"
 
 #: web/lib/common/InputValidation.php:213
 msgid "Realm contains spaces!"
-msgstr ""
+msgstr "Realm sadrži prazninu!"
 
 #: web/lib/common/InputValidation.php:225
 msgid "Realm does not contain at least one . (dot)!"
-msgstr ""
+msgstr "Realm ne sadrži barem jednu . (točku)!"
 
 #: web/lib/common/InputValidation.php:311
 msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
-msgstr ""
-
-#~ msgid "Could not create a new Institution!"
-#~ msgstr "Nemogućnost kreiranja nove institucije"
-
-#~ msgid "eduPKI"
-#~ msgstr "eduPKI"
-
-#~ msgid "Nicolaus Copernicus University"
-#~ msgstr "Nicolaus Copernicus University"
-
-#~ msgid "accredited"
-#~ msgstr "akreditiran"
-
-#~ msgid "non-accredited"
-#~ msgstr "neakreditiran"
-
-#~ msgid "correct certificate"
-#~ msgstr "ispravan certifikat"
-
-#~ msgid "certificate with wrong policy OID"
-#~ msgstr "certifikat sa krivim OID-om politike korištenja"
-
-#~ msgid "expired certificate"
-#~ msgstr "istekao certifikat"
-
-#~ msgid "revoked certificate"
-#~ msgstr "povučen certifikat"
-
-#~ msgid "pass"
-#~ msgstr "prošao"
-
-#~ msgid "fail"
-#~ msgstr "nije prošao"
-
-#~ msgid "eduroam-accredited CA (now only for tests)"
-#~ msgstr ""
-#~ "eduroam akreditirano certifikacijsko tijelo, CA (trenutno samo za test)"
-
-#~ msgid "Completed"
-#~ msgstr "Gotovo"
-
-#~ msgid "This check was skipped."
-#~ msgstr "Ova opcija je preskočena."
-
-#~ msgid "There were errors during the test."
-#~ msgstr "Došlo je do greške prilikom testa."
-
-#~ msgid "This realm has no NAPTR records."
-#~ msgstr "Realm nema NAPTR zapis."
-
-#~ msgid ""
-#~ "NAPTR records were found, but all of them refer to unrelated services."
-#~ msgstr ""
-#~ "NAPTR zapis je pronađen, ali sve reference pokazuju na nepostojeći servis."
-
-#~ msgid "There was no reply at all from the RADIUS server."
-#~ msgstr "Nema nikakvog odgovora od RADIUS poslužitelja."
-
-#~ msgid ""
-#~ "There was a bidirectional communication with the RADIUS server, but it "
-#~ "ended halfway through."
-#~ msgstr ""
-#~ "Postojala je obostrana komunikacija s RADIUS poslužiteljem, ali je "
-#~ "prekinuta na pola puta."
-
-#~ msgid ""
-#~ "The RADIUS server immediately rejected the authentication request in its "
-#~ "first reply."
-#~ msgstr "Radius poslužitelj je odmah odbio zahtjebv za autentikacijom"
-
-#~ msgid ""
-#~ "The RADIUS server rejected the authentication request after an EAP "
-#~ "conversation."
-#~ msgstr ""
-#~ "Radius poslužitelj je odbio zahtjev za autentikacijom nakon EAP "
-#~ "komunikacije."
-
-#~ msgid "Connection refused"
-#~ msgstr "Konekcija odbijena"
-
-#~ msgid "Not enough data provided to perform an authentication"
-#~ msgstr "Nedovoljno podataka da bi se obavila autentikacija"
-
-#~ msgid ""
-#~ "The certificate password you provided does not match the certificate file."
-#~ msgstr "Lozinka za certifikat ne odgovara onoj kojom je zaštićen certifikat"
-
-#~ msgid ""
-#~ "The certificate chain includes the root CA certificate. This does not "
-#~ "serve any useful purpose but inflates the packet exchange, possibly "
-#~ "leading to more round-trips and thus slower authentication."
-#~ msgstr ""
-#~ "Niz certifikata sadrži root CA certifikat. Ovo ne koristi  samoj svrsi "
-#~ "uporabe, te dodatno opterečuje komunikaciju."
-
-#~ msgid "There is more than one server certificate in the chain."
-#~ msgstr "Postoji više od jednog poslužiteljskog certifikata u nizu."
-
-#~ msgid "There is no server certificate in the chain."
-#~ msgstr "Ne postoji poslužiteljski certifikat u nizu."
-
-#~ msgid ""
-#~ "At least one certificate in the chain is signed with the MD5 signature "
-#~ "algorithm. Many Operating Systems, including Apple iOS, will fail to "
-#~ "validate this certificate."
-#~ msgstr ""
-#~ "At least one certificate in the chain is signed with the MD5 signature "
-#~ "algorithm. Many Operating Systems, including Apple iOS, will fail to "
-#~ "validate this certificate."
-
-#~ msgid ""
-#~ "At least one certificate in the chain had a public key of less than 1024 "
-#~ "bits. Many recent operating systems consider this unacceptable and will "
-#~ "fail to validate the server certificate."
-#~ msgstr ""
-#~ "At least one certificate in the chain had a public key of less than 1024 "
-#~ "bits. Many recent operating systems consider this unacceptable and will "
-#~ "fail to validate the server certificate."
-
-#~ msgid ""
-#~ "The server certificate does not have the extension 'extendedKeyUsage: TLS "
-#~ "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
-#~ "validate this certificate."
-#~ msgstr ""
-#~ "The server certificate does not have the extension 'extendedKeyUsage: TLS "
-#~ "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
-#~ "validate this certificate."
-
-#~ msgid ""
-#~ "The server certificate did not include a CRL Distribution Point, creating "
-#~ "compatibility problems with Windows Phone 8."
-#~ msgstr ""
-#~ "The server certificate did not include a CRL Distribution Point, creating "
-#~ "compatibility problems with Windows Phone 8."
-
-#~ msgid ""
-#~ "The server certificate's 'CRL Distribution Point' extension does not "
-#~ "point to an HTTP/HTTPS URL. Some Operating Systems may fail to validate "
-#~ "this certificate. Checking server certificate validity against a CRL will "
-#~ "not be possible."
-#~ msgstr ""
-#~ "The server certificate's 'CRL Distribution Point' extension does not "
-#~ "point to an HTTP/HTTPS URL. Some Operating Systems may fail to validate "
-#~ "this certificate. Checking server certificate validity against a CRL will "
-#~ "not be possible."
-
-#~ msgid ""
-#~ "The extension 'CRL Distribution Point' in the server certificate points "
-#~ "to a non-existing location. Some Operating Systems check certificate "
-#~ "validity by consulting the CRL and will fail to validate the certificate. "
-#~ "Checking server certificate validity against a CRL will not be possible."
-#~ msgstr ""
-#~ "The extension 'CRL Distribution Point' in the server certificate points "
-#~ "to a non-existing location. Some Operating Systems check certificate "
-#~ "validity by consulting the CRL and will fail to validate the certificate. "
-#~ "Checking server certificate validity against a CRL will not be possible."
-
-#~ msgid "The server certificate was revoked by the CA!"
-#~ msgstr "Poslužiteljki certifikat je povučen od izdavatelja (CA)!"
-
-#~ msgid ""
-#~ "The certificate contained a CN or subjectAltName:DNS which does not parse "
-#~ "as a hostname. This can be problematic on some supplicants. If the "
-#~ "certificate also contains names which are a proper hostname, and you only "
-#~ "use those for your supplicant configuration, then you can safely ignore "
-#~ "this notice."
-#~ msgstr ""
-#~ "The certificate contained a CN or subjectAltName:DNS which does not parse "
-#~ "as a hostname. This can be problematic on some supplicants. If the "
-#~ "certificate also contains names which are a proper hostname, and you only "
-#~ "use those for your supplicant configuration, then you can safely ignore "
-#~ "this notice."
-
-#~ msgid ""
-#~ "The certificate contained a CN or subjectAltName:DNS which contains a "
-#~ "wildcard ('*'). This can be problematic on some supplicants. If the "
-#~ "certificate also contains names which are wildcardless, and you only use "
-#~ "those for your supplicant configuration, then you can safely ignore this "
-#~ "notice."
-#~ msgstr ""
-#~ "The certificate contained a CN or subjectAltName:DNS which contains a "
-#~ "wildcard ('*'). This can be problematic on some supplicants. If the "
-#~ "certificate also contains names which are wildcardless, and you only use "
-#~ "those for your supplicant configuration, then you can safely ignore this "
-#~ "notice."
-
-#~ msgid ""
-#~ "At least one certificate is outside its validity period (not yet valid, "
-#~ "or already expired)!"
-#~ msgstr "Barem jednom certifikatu je istekao rok trajanja!"
-
-#~ msgid ""
-#~ "At least one intermediate certificate in your CAT profile is outside its "
-#~ "validity period (not yet valid, or already expired), but this certificate "
-#~ "was not used for server validation. Consider removing it from your %s "
-#~ "configuration."
-#~ msgstr ""
-#~ "At least one intermediate certificate in your CAT profile is outside its "
-#~ "validity period (not yet valid, or already expired), but this certificate "
-#~ "was not used for server validation. Consider removing it from your %s "
-#~ "configuration."
-
-#~ msgid ""
-#~ "The server certificate could not be verified to the root CA you "
-#~ "configured in your profile!"
-#~ msgstr ""
-#~ "Poslužiteljski certifikat je nemoguće provjeriti s root CA iz profila!"
-
-#~ msgid ""
-#~ "The certificate chain as received in EAP was not sufficient to verify the "
-#~ "certificate to the root CA in your profile. It was verified using the "
-#~ "intermediate CAs in your profile though. You should consider sending the "
-#~ "required intermediate CAs inside the EAP conversation."
-#~ msgstr ""
-#~ "The certificate chain as received in EAP was not sufficient to verify the "
-#~ "certificate to the root CA in your profile. It was verified using the "
-#~ "intermediate CAs in your profile though. You should consider sending the "
-#~ "required intermediate CAs inside the EAP conversation."
-
-#~ msgid ""
-#~ "The EAP server name does not match any of the configured names in your "
-#~ "profile!"
-#~ msgstr "EAP ime poslužitelja ne odgovara imenu iz konfiguracije!"
-
-#~ msgid ""
-#~ "The configured EAP server name matches either the CN or a subjectAltName:"
-#~ "DNS of the incoming certificate; best current practice is that the "
-#~ "certificate should contain the name in BOTH places."
-#~ msgstr ""
-#~ "The configured EAP server name matches either the CN or a subjectAltName:"
-#~ "DNS of the incoming certificate; best current practice is that the "
-#~ "certificate should contain the name in BOTH places."
-
-#~ msgid ""
-#~ "At least one certificate did not contain any BasicConstraints extension; "
-#~ "which makes it unclear if it's a CA certificate or end-entity "
-#~ "certificate. At least Mac OS X 10.8 (Mountain Lion) will not validate "
-#~ "this certificate for EAP purposes!"
-#~ msgstr ""
-#~ "At least one certificate did not contain any BasicConstraints extension; "
-#~ "which makes it unclear if it's a CA certificate or end-entity "
-#~ "certificate. At least Mac OS X 10.8 (Mountain Lion) will not validate "
-#~ "this certificate for EAP purposes!"
-
-#~ msgid "The server presented a certificate from an unknown authority."
-#~ msgstr "Poslužitelj se predstavlja certifikatom nepoznatog izdavatelja."
-
-#~ msgid "The server accepted the INVALID client certificate."
-#~ msgstr "Poslužitelj je prihvatio POGREŠAN klijenstki certifikat"
-
-#~ msgid ""
-#~ "The server rejected the client certificate, even though it was valid."
-#~ msgstr "Poslužitelj je odbio klijenstki certifikat, iako je on ispravan."
-
-#~ msgid "The server rejected the client certificate as expected."
-#~ msgstr "Poslužitelj je odbio klijentski certifikat, kako je i očekivano."
-
-#~ msgid "The CRL of a certificate could not be found."
-#~ msgstr "CRL od certifikata nije pronađen."
-
-#~ msgid "EAP method negotiation failed!"
-#~ msgstr "EAP komunikacija nije uspijela"
-
-#~ msgid "certificate expired"
-#~ msgstr "certifikat je istekao"
-
-#~ msgid "certificate was revoked"
-#~ msgstr "certifikat je povučen"
-
-#~ msgid "bad policy"
-#~ msgstr "loša pravila"
-
-#~ msgid "unknown authority"
-#~ msgstr "nepoznati autoritet"
-
-#~ msgid "unknown authority or no certificate policy or another problem"
-#~ msgstr ""
-#~ "nepoznat autoritet ili korištenje bez certifikata ili nepoznati problem"
+msgstr "Pogrešno šifriranje koordinata (2.0 uses JSON, not serialize)!"

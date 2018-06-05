@@ -1,56 +1,55 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # esmeralda <epires@fccn.pt>, 2015
 # esmeralda <epires@fccn.pt>, 2012
-# Pedro Simões <psimoes@fccn.pt>, 2013,2015
+# Pedro Simões <psimoes@fccn.pt>, 2013,2015-2016,2018
 # Pedro Simões <psimoes@fccn.pt>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-18 11:18+0200\n"
-"PO-Revision-Date: 2015-04-13 15:14+0000\n"
-"Last-Translator: esmeralda <epires@fccn.pt>\n"
-"Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/"
-"cat/language/pt_PT/)\n"
-"Language: pt_PT\n"
+"POT-Creation-Date: 2018-05-23 14:55+0200\n"
+"PO-Revision-Date: 2018-05-30 18:23+0000\n"
+"Last-Translator: Pedro Simões <psimoes@fccn.pt>\n"
+"Language-Team: Portuguese (Portugal) (http://www.transifex.com/eduroam_devel/cat/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: core/CAT.php:111
 msgid ""
-"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git "
-"Revision</a>"
-msgstr ""
+"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git"
+" Revision</a>"
+msgstr "<a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Revisão Git</a> não lançada"
 
 #: core/CAT.php:121
 #, php-format
 msgid "Release <a href='%s'>%s</a>"
-msgstr ""
+msgstr "Versão <a href='%s'>%s</a>"
 
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
 #. different wording, no translation, sorry
 #: core/CAT.php:134 core/DeviceConfig.php:101
 msgid "National Roaming Operator"
-msgstr ""
+msgstr "National Roaming Operator"
 
 #: core/CAT.php:135 core/DeviceConfig.php:102
 msgid "identity provider"
-msgstr ""
+msgstr "fornecedor de identidade"
 
 #: core/CAT.php:136 core/DeviceConfig.php:103
 msgid "organisation"
-msgstr ""
+msgstr "organização"
 
 #: core/CAT.php:137
 msgid "Identity Provider"
-msgstr ""
+msgstr "Fornecedor de Identidade"
 
 #: core/CAT.php:146
 msgid "Andorra"
@@ -310,7 +309,7 @@ msgstr "África do Sul"
 
 #: core/CAT.php:484 core/IdPlist.php:99
 msgid "Unnamed Entity"
-msgstr ""
+msgstr "Entidade sem nome"
 
 #: core/DeviceConfig.php:200
 #, php-format
@@ -324,8 +323,7 @@ msgstr "a página do seu suporte local %s"
 
 #: core/DeviceConfig.php:235
 msgid "Sorry, this should not happen - no additional information is available"
-msgstr ""
-"Lamentamos, não era suposto isto acontecer - não há informação adicional"
+msgstr "Lamentamos, não era suposto isto acontecer - não há informação adicional"
 
 #: core/IdP.php:243
 #, php-format
@@ -339,16 +337,7 @@ msgid ""
 "Best regards,\n"
 "\n"
 "%s"
-msgstr ""
-"Bom dia,\n"
-"\n"
-"o fornecedor de identidade %s na %s federação %s foi apagado da %s.\n"
-"\n"
-"Julgamos ser útil fazer-lhe chegar esta informação.\n"
-"\n"
-"Cumprimentos,\n"
-"\n"
-"%s"
+msgstr "Bom dia,\n\no fornecedor de identidade %s na %s federação %s foi apagado da %s.\n\nJulgamos ser útil fazer-lhe chegar esta informação.\n\nCumprimentos,\n\n%s"
 
 #: core/IdP.php:252
 msgid "IdP in your federation was deleted"
@@ -357,18 +346,18 @@ msgstr "IdP removido da federação"
 #: core/SilverbulletInvitation.php:200
 #, php-format
 msgid "Your %s access is ready"
-msgstr ""
+msgstr "O seu acesso %s está pronto"
 
 #: core/SilverbulletInvitation.php:208
 msgid "Hello!"
-msgstr ""
+msgstr "Olá!"
 
 #: core/SilverbulletInvitation.php:210
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
 "administrator."
-msgstr ""
+msgstr "Uma nova credencial de acesso %s foi criada para si pelo seu administrador de rede."
 
 #: core/SilverbulletInvitation.php:212
 #, php-format
@@ -389,42 +378,39 @@ msgstr ""
 
 #: core/SilverbulletInvitation.php:216
 msgid "Regards,"
-msgstr ""
+msgstr "Cumprimentos,"
 
 #: core/SilverbulletInvitation.php:260
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
 "'%s'!)"
-msgstr ""
+msgstr "O seu acesso %s está pronto! Carregue aqui: %s (no Android, instale primeiro a app '%s'!)"
 
 #: core/SilverbulletInvitation.php:267
 #, php-format
 msgid "%s Invitation System"
-msgstr ""
+msgstr "%s Sistema de Convites"
 
 #. / arguments are: 1. IdP name;
 #. /                2. consortium name (e.g. eduroam);
 #. /                3. federation shortname, e.g. "LU";
 #. /                4. product name (e.g. eduroam CAT);
-#. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
+#. /                5. product long name (e.g. eduroam Configuration Assistant
+#. Tool)
 #: core/UserManagement.php:179
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the invitation for the new Identity Provider %s in your %s federation %s has "
-"been used and the IdP was created in %s.\n"
+"the invitation for the new Identity Provider %s in your %s federation %s has been used and the IdP was created in %s.\n"
 "\n"
 "We thought you might want to know.\n"
 "\n"
 "Best regards,\n"
 "\n"
 "%s"
-msgstr ""
-"Viva,⏎⏎ o convite para o novo fornecedor de identidade %s na federação %s %s "
-"foi utilizado e o fornecedor de identidade foi criado em %s.⏎⏎Julgamos ser "
-"útil fazer-lhe chegar esta informação.⏎⏎Cumprimentos,⏎⏎%s"
+msgstr "Viva,⏎⏎ o convite para o novo fornecedor de identidade %s na federação %s %s foi utilizado e o fornecedor de identidade foi criado em %s.⏎⏎Julgamos ser útil fazer-lhe chegar esta informação.⏎⏎Cumprimentos,⏎⏎%s"
 
 #: core/UserManagement.php:188
 msgid "IdP in your federation was created"
@@ -436,79 +422,79 @@ msgstr "Comentários"
 
 #: core/common/EAP.php:369
 msgid "PEAP-MSCHAPv2"
-msgstr ""
+msgstr "PEAP-MSCHAPv2"
 
 #: core/common/EAP.php:370
 msgid "TLS"
-msgstr ""
+msgstr "TLS"
 
 #: core/common/EAP.php:371
 msgid "TTLS-PAP"
-msgstr ""
+msgstr "TTLS-PAP"
 
 #: core/common/EAP.php:372
 msgid "TTLS-MSCHAPv2"
-msgstr ""
+msgstr "TTLS-MSCHAPv2"
 
 #: core/common/EAP.php:373
 msgid "TTLS-GTC"
-msgstr ""
+msgstr "TTLS-GTC"
 
 #: core/common/EAP.php:374
 msgid "FAST-GTC"
-msgstr ""
+msgstr "FAST-GTC"
 
 #: core/common/EAP.php:375
 msgid "EAP-pwd"
-msgstr ""
+msgstr "EAP-pwd"
 
 #: core/common/OutsideComm.php:239
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
-msgstr ""
+msgstr "um %s da %s %s \"%s\" convidou-o para gerir o %s em conjunto com ele."
 
 #: core/common/OutsideComm.php:240
 #, php-format
 msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
-msgstr ""
+msgstr "um %s %s convidou-o para gerir o futuro %s \"%s\" (%s)"
 
 #: core/common/OutsideComm.php:241
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\"."
-msgstr ""
+msgstr "um %s%s convidou-o para gerir o %s \"%s\"."
 
 #: core/common/OutsideComm.php:243
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
-msgstr ""
+msgstr "Este convite é válido por 24 horas a partir de agora, isto é, até às %s"
 
 #. then, send out the mail
 #: core/common/OutsideComm.php:251
 msgid "Hello,"
-msgstr ""
+msgstr "Olá,"
 
 #. default means we don't have a Reply-To.
 #: core/common/OutsideComm.php:253
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
-msgstr ""
+msgstr "manualmente. Por favor não responda a esta mensagem; este é um endereço de email para envio."
 
 #: core/common/OutsideComm.php:259
 #, php-format
 msgid "Additional message from your %s administrator:"
-msgstr ""
+msgstr "Mensagem adicional para o seu administrador %s:"
 
 #: core/common/OutsideComm.php:267
 #, php-format
 msgid "%s administrator"
-msgstr ""
+msgstr " administrador %s"
 
 #: core/common/OutsideComm.php:270
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
-msgstr ""
+msgstr "manualmente. Se responder a esta mensagem, vai contactar os seus administradores %s."
 
 #: core/common/OutsideComm.php:275
 #, php-format
@@ -526,18 +512,18 @@ msgstr ""
 
 #: core/common/OutsideComm.php:279
 msgid "and enter the invitation token"
-msgstr ""
+msgstr "e coloque o token do convite"
 
 #: core/common/OutsideComm.php:281
 msgid ""
-"Do NOT forward the mail before the token has expired - or the recipients may "
-"be able to consume the token on your behalf!"
+"Do NOT forward the mail before the token has expired - or the recipients may"
+" be able to consume the token on your behalf!"
 msgstr ""
 
 #: core/common/OutsideComm.php:282
 #, php-format
 msgid "We wish you a lot of fun with the %s."
-msgstr ""
+msgstr "Desejamos-lhe muita diversão com o %s."
 
 #: core/common/OutsideComm.php:283
 #, php-format
@@ -545,336 +531,42 @@ msgid ""
 "Sincerely,\n"
 "\n"
 "Your friendly folks from %s Operations"
-msgstr ""
+msgstr "Sinceramente,\n\nOs seus amigos das Operações %s"
 
 #. what do we want to say?
 #: core/common/OutsideComm.php:318
 #, php-format
 msgid "%s: you have been invited to manage an %s"
-msgstr ""
+msgstr "%s: foi convidado para gerir um %s"
 
 #: web/lib/common/InputValidation.php:29
 msgid "Input validation error: "
-msgstr ""
+msgstr "Erro de validação de entrada:"
 
 #: web/lib/common/InputValidation.php:202
 msgid "Realm is empty!"
-msgstr ""
+msgstr "O realm está vazio!"
 
 #: web/lib/common/InputValidation.php:210
 msgid "Realm contains an @ sign!"
-msgstr ""
+msgstr "O realm contém um sinal @!"
 
 #: web/lib/common/InputValidation.php:211
 msgid "Realm begins with a . (dot)!"
-msgstr ""
+msgstr "O real começa por um . (ponto)!"
 
 #: web/lib/common/InputValidation.php:212
 msgid "Realm ends with a . (dot)!"
-msgstr ""
+msgstr "O real termina com um . (ponto)!"
 
 #: web/lib/common/InputValidation.php:213
 msgid "Realm contains spaces!"
-msgstr ""
+msgstr "O real contém espaços!"
 
 #: web/lib/common/InputValidation.php:225
 msgid "Realm does not contain at least one . (dot)!"
-msgstr ""
+msgstr "Reino não contém, pelo menos, um . (ponto)!"
 
 #: web/lib/common/InputValidation.php:311
 msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
-msgstr ""
-
-#~ msgid "Could not create a new Institution!"
-#~ msgstr "Não foi possível criar uma nova <strong>Instituição</strong>!"
-
-#~ msgid "eduPKI"
-#~ msgstr "eduPKI"
-
-#~ msgid "Nicolaus Copernicus University"
-#~ msgstr "Universidade Luís de Camões"
-
-#~ msgid "accredited"
-#~ msgstr "acreditado"
-
-#~ msgid "non-accredited"
-#~ msgstr "não acreditada"
-
-#~ msgid "correct certificate"
-#~ msgstr "certificado correto"
-
-#~ msgid "certificate with wrong policy OID"
-#~ msgstr "certificado com OID de Política errado"
-
-#~ msgid "expired certificate"
-#~ msgstr "certificado expirado"
-
-#~ msgid "revoked certificate"
-#~ msgstr "certificado revogado"
-
-#~ msgid "pass"
-#~ msgstr "passou"
-
-#~ msgid "fail"
-#~ msgstr "falhou"
-
-#~ msgid "eduroam-accredited CA (now only for tests)"
-#~ msgstr "CA com acreditação eduroam (agora apenas para testes)"
-
-#~ msgid "Completed"
-#~ msgstr "Concluído."
-
-#~ msgid "This check was skipped."
-#~ msgstr "Esta verificação foi ignorada."
-
-#~ msgid "There were errors during the test."
-#~ msgstr "Ocorreram erros durante o teste."
-
-#~ msgid "This realm has no NAPTR records."
-#~ msgstr "Este realm não tem registos NAPTR."
-
-#~ msgid ""
-#~ "NAPTR records were found, but all of them refer to unrelated services."
-#~ msgstr ""
-#~ "Foram encontrados registos NAPTR, mas são referentes a serviços não "
-#~ "relacionados."
-
-#~ msgid "There was no reply at all from the RADIUS server."
-#~ msgstr "Não houve qualquer resposta do servidor RADIUS."
-
-#~ msgid ""
-#~ "There was a bidirectional communication with the RADIUS server, but it "
-#~ "ended halfway through."
-#~ msgstr ""
-#~ "Houve uma comunicação bidirecional com o servidor RADIUS , mas terminou a "
-#~ "meio."
-
-#~ msgid ""
-#~ "The RADIUS server immediately rejected the authentication request in its "
-#~ "first reply."
-#~ msgstr ""
-#~ "O servidor RADIUS rejeitou imediatamente o pedido de autenticação na "
-#~ "primeira resposta."
-
-#~ msgid ""
-#~ "The RADIUS server rejected the authentication request after an EAP "
-#~ "conversation."
-#~ msgstr ""
-#~ "O servidor RADIUS rejeitou o pedido de autenticação depois de uma "
-#~ "comunicação EAP."
-
-#~ msgid "Connection refused"
-#~ msgstr "Ligação recusada"
-
-#~ msgid "Not enough data provided to perform an authentication"
-#~ msgstr ""
-#~ "Não foram fornecidos dados suficientes para realizar uma autenticação"
-
-#~ msgid ""
-#~ "The certificate password you provided does not match the certificate file."
-#~ msgstr ""
-#~ " A password do certificado fornecida não corresponde ao certificado."
-
-#~ msgid ""
-#~ "The certificate chain includes the root CA certificate. This does not "
-#~ "serve any useful purpose but inflates the packet exchange, possibly "
-#~ "leading to more round-trips and thus slower authentication."
-#~ msgstr ""
-#~ "A cadeia de certificação inclui o certificado de raiz da CA. Este não "
-#~ "serve nenhum propósito útil, mas aumenta a troca de pacotes, que pode "
-#~ "aumentar a latência e torna a autenticação mais lenta."
-
-#~ msgid "There is more than one server certificate in the chain."
-#~ msgstr "Existe mais do que um certificado na cadeia de certificação."
-
-#~ msgid "There is no server certificate in the chain."
-#~ msgstr ""
-#~ "Não existe nenhum certificado de servidor na cadeia de certificação."
-
-#~ msgid ""
-#~ "At least one certificate in the chain is signed with the MD5 signature "
-#~ "algorithm. Many Operating Systems, including Apple iOS, will fail to "
-#~ "validate this certificate."
-#~ msgstr ""
-#~ "Pelo menos um certificado na cadeia está assinado com o algoritmo MD5. "
-#~ "Muitos sistemas operativos, incluindo o iOS da Apple, falham na validação "
-#~ "deste certificado."
-
-#~ msgid ""
-#~ "At least one certificate in the chain had a public key of less than 1024 "
-#~ "bits. Many recent operating systems consider this unacceptable and will "
-#~ "fail to validate the server certificate."
-#~ msgstr ""
-#~ "Pelo menos um certificado da cadeia tem uma chave pública inferior a 1024 "
-#~ "bits. Muitos sistemas operativos recentes não aceitam esta chave e falham "
-#~ "na validação do certificado do servidor."
-
-#~ msgid ""
-#~ "The server certificate does not have the extension 'extendedKeyUsage: TLS "
-#~ "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
-#~ "validate this certificate."
-#~ msgstr ""
-#~ "O certificado do servidor não tem a extensão 'extendedKeyUsage: TLS Web "
-#~ "Server Authentication'. A maioria dos Sistemas Operativos da Microsoft "
-#~ "vão falhar na validação este certificado."
-
-#~ msgid ""
-#~ "The server certificate did not include a CRL Distribution Point, creating "
-#~ "compatibility problems with Windows Phone 8."
-#~ msgstr ""
-#~ "O certificado de servidor não inclui um CRL Distribution Point e cria "
-#~ "problemas de compatibilidade com o Windows Phone 8."
-
-#~ msgid ""
-#~ "The server certificate's 'CRL Distribution Point' extension does not "
-#~ "point to an HTTP/HTTPS URL. Some Operating Systems may fail to validate "
-#~ "this certificate. Checking server certificate validity against a CRL will "
-#~ "not be possible."
-#~ msgstr ""
-#~ "A extensão 'CRL Distribution Point' do certificado do servidor não aponta "
-#~ "para um URL HTTP/HTTPS. Alguns Sistemas Operativos podem falhar na "
-#~ "verificação deste certificado. Não será possível validar o certificado de "
-#~ "servidor utilizando a CRL (Lista de Revogação de Certificados)."
-
-#~ msgid ""
-#~ "The extension 'CRL Distribution Point' in the server certificate points "
-#~ "to a non-existing location. Some Operating Systems check certificate "
-#~ "validity by consulting the CRL and will fail to validate the certificate. "
-#~ "Checking server certificate validity against a CRL will not be possible."
-#~ msgstr ""
-#~ "A extensão 'CRL Distribution Point' no certificado do servidor aponta "
-#~ "para uma localização não existente. Alguns Sistemas Operativos validam a "
-#~ "validade do certificado consultando o CRL e vão falhar na validação do "
-#~ "certificado. Não será possível validar a validade do certificado "
-#~ "certificado de servidor utilizando a CRL (Lista de Revogação de "
-#~ "Certificados)."
-
-#~ msgid "The server certificate was revoked by the CA!"
-#~ msgstr "O certificado de servidor foi revogado pela CA!"
-
-#~ msgid ""
-#~ "The certificate contained a CN or subjectAltName:DNS which does not parse "
-#~ "as a hostname. This can be problematic on some supplicants. If the "
-#~ "certificate also contains names which are a proper hostname, and you only "
-#~ "use those for your supplicant configuration, then you can safely ignore "
-#~ "this notice."
-#~ msgstr ""
-#~ "O certificado continha um CN ou um subjectAltName:DNS que não pode ser "
-#~ "interpretado como um nome de servidor. Isto pode ser problemático para "
-#~ "alguns suplicantes. Se o certificado contêm também nomes que são nomes de "
-#~ "servidor correctos, e apenas usa estes para a configuração dos seus "
-#~ "clientes, então pode ignorar este alerta."
-
-#~ msgid ""
-#~ "The certificate contained a CN or subjectAltName:DNS which contains a "
-#~ "wildcard ('*'). This can be problematic on some supplicants. If the "
-#~ "certificate also contains names which are wildcardless, and you only use "
-#~ "those for your supplicant configuration, then you can safely ignore this "
-#~ "notice."
-#~ msgstr ""
-#~ "O certificado continha um CN ou um subjectAltName:DNS que contem um "
-#~ "wildcard ('*'). Isto pode ser problemático para alguns suplicantes. Se o "
-#~ "certificado contêm também nomes que não são wildcard, e apenas usa estes "
-#~ "para a configuração dos seus clientes, então pode ignorar este alerta."
-
-#~ msgid ""
-#~ "At least one certificate is outside its validity period (not yet valid, "
-#~ "or already expired)!"
-#~ msgstr ""
-#~ "Pelo menos um certificado está fora do seu período de validade (ainda não "
-#~ "é válido ou já expirou)"
-
-#~ msgid ""
-#~ "At least one intermediate certificate in your CAT profile is outside its "
-#~ "validity period (not yet valid, or already expired), but this certificate "
-#~ "was not used for server validation. Consider removing it from your %s "
-#~ "configuration."
-#~ msgstr ""
-#~ "Pelo menos um certificado intermédio do seu perfil CAT está fora do "
-#~ "período de validade (ainda não está válido ou já expirou), mas este "
-#~ "certificado não foi usado para validar o servidor. Considere removê-lo da "
-#~ "sua configuração %s."
-
-#~ msgid ""
-#~ "The server certificate could not be verified to the root CA you "
-#~ "configured in your profile!"
-#~ msgstr ""
-#~ "O seu certificado de servidor não pôde ser verificado para a root CA que "
-#~ "configurou no seu perfil!"
-
-#~ msgid ""
-#~ "The certificate chain as received in EAP was not sufficient to verify the "
-#~ "certificate to the root CA in your profile. It was verified using the "
-#~ "intermediate CAs in your profile though. You should consider sending the "
-#~ "required intermediate CAs inside the EAP conversation."
-#~ msgstr ""
-#~ "A cadeia do certificado, recebida no EAP, não foi suficiente para "
-#~ "verificar o certificado na root CA do seu perfil. Foi no entanto "
-#~ "verificado utilizando as CAs intermédias do seu perfil. Deve considerar o "
-#~ "envio das CAs intermédias requerias dentro da conversação EAP."
-
-#~ msgid ""
-#~ "The EAP server name does not match any of the configured names in your "
-#~ "profile!"
-#~ msgstr ""
-#~ "O nome do servidor EAP não corresponde a nenhum dos configurados no seu "
-#~ "perfil!"
-
-#~ msgid ""
-#~ "The configured EAP server name matches either the CN or a subjectAltName:"
-#~ "DNS of the incoming certificate; best current practice is that the "
-#~ "certificate should contain the name in BOTH places."
-#~ msgstr ""
-#~ "O nome do servidor EAP configurado é igual ao CN ou ao subjectAltName:DNS "
-#~ "do certificado recebido; nas boas práticas actuais o certificado deve "
-#~ "conter o nome em AMBOS os locais."
-
-#~ msgid ""
-#~ "At least one certificate did not contain any BasicConstraints extension; "
-#~ "which makes it unclear if it's a CA certificate or end-entity "
-#~ "certificate. At least Mac OS X 10.8 (Mountain Lion) will not validate "
-#~ "this certificate for EAP purposes!"
-#~ msgstr ""
-#~ "Pelo menos um certificado não continha qualquer extensão "
-#~ "BasicConstraints; o que não esclarece se é um certificado CA ou um "
-#~ "certificado final da entidade. Pelo menos o Mac OS X 10.8 (Mountain Lion) "
-#~ "não irá validar este certificado para efeitos EAP."
-
-#~ msgid "The server presented a certificate from an unknown authority."
-#~ msgstr ""
-#~ "O servidor apresentou um certificado de uma autoridade desconhecida."
-
-#~ msgid "The server accepted the INVALID client certificate."
-#~ msgstr "O servidor aceitou o certificado de cliente INVÁLIDO."
-
-#~ msgid ""
-#~ "The server rejected the client certificate, even though it was valid."
-#~ msgstr ""
-#~ "O servidor rejeitou o certificado de cliente, mesmo que este esteja "
-#~ "válido."
-
-#~ msgid "The server rejected the client certificate as expected."
-#~ msgstr "O servidor rejeitou o certificado de cliente conforme o esperado."
-
-#~ msgid "The CRL of a certificate could not be found."
-#~ msgstr "O CRL do certificado não foi encontrado."
-
-#~ msgid "EAP method negotiation failed!"
-#~ msgstr "Negociação do método EAP falhou!"
-
-#~ msgid "certificate expired"
-#~ msgstr "certificado expirado"
-
-#~ msgid "certificate was revoked"
-#~ msgstr "o certificado foi revogado"
-
-#~ msgid "bad policy"
-#~ msgstr "má politica"
-
-#~ msgid "unknown authority"
-#~ msgstr "entidade de certificação desconhecida"
-
-#~ msgid "unknown authority or no certificate policy or another problem"
-#~ msgstr ""
-#~ "autoridade desconhecida ou nenhuma política de certificado ou outro "
-#~ "problema"
+msgstr "Codificação de coordenadas errada (2.0 usa JSON, não serialize)!"

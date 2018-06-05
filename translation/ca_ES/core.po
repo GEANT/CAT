@@ -1,54 +1,53 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# eduki <ecercos@xtec.cat>, 2013,2015
+# eduki <ecercos@xtec.cat>, 2013,2015,2018
 # eduki <ecercos@xtec.cat>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-18 11:18+0200\n"
-"PO-Revision-Date: 2015-04-07 06:50+0000\n"
+"POT-Creation-Date: 2018-05-23 14:55+0200\n"
+"PO-Revision-Date: 2018-05-22 07:08+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>\n"
-"Language-Team: Catalan (Spain) (http://www.transifex.com/projects/p/cat/"
-"language/ca_ES/)\n"
-"Language: ca_ES\n"
+"Language-Team: Catalan (Spain) (http://www.transifex.com/eduroam_devel/cat/language/ca_ES/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ca_ES\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: core/CAT.php:111
 msgid ""
-"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git "
-"Revision</a>"
-msgstr ""
+"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git"
+" Revision</a>"
+msgstr "<a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Revisió del Git</a>no publicada"
 
 #: core/CAT.php:121
 #, php-format
 msgid "Release <a href='%s'>%s</a>"
-msgstr ""
+msgstr "Versió <a href='%s'>%s</a>"
 
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
 #. different wording, no translation, sorry
 #: core/CAT.php:134 core/DeviceConfig.php:101
 msgid "National Roaming Operator"
-msgstr ""
+msgstr "Operador de Roaming nacional"
 
 #: core/CAT.php:135 core/DeviceConfig.php:102
 msgid "identity provider"
-msgstr ""
+msgstr "proveïdor d'identitat"
 
 #: core/CAT.php:136 core/DeviceConfig.php:103
 msgid "organisation"
-msgstr ""
+msgstr "organització"
 
 #: core/CAT.php:137
 msgid "Identity Provider"
-msgstr ""
+msgstr "Proveïdor d'Identitat"
 
 #: core/CAT.php:146
 msgid "Andorra"
@@ -308,7 +307,7 @@ msgstr "Sudàfrica"
 
 #: core/CAT.php:484 core/IdPlist.php:99
 msgid "Unnamed Entity"
-msgstr ""
+msgstr "Entitat sense nom"
 
 #: core/DeviceConfig.php:200
 #, php-format
@@ -322,8 +321,7 @@ msgstr "la vostra pàgina de suport local %s"
 
 #: core/DeviceConfig.php:235
 msgid "Sorry, this should not happen - no additional information is available"
-msgstr ""
-"Disculpeu, això no hauria de passar - no hi ha més informació disponible"
+msgstr "Disculpeu, això no hauria de passar - no hi ha més informació disponible"
 
 #: core/IdP.php:243
 #, php-format
@@ -337,17 +335,7 @@ msgid ""
 "Best regards,\n"
 "\n"
 "%s"
-msgstr ""
-"Hola,\n"
-"\n"
-"el proveidor d'identitat (IdP) %s de la vostra federació d'%s %s ha estat "
-"esborrat de %s.\n"
-"\n"
-"Pensem que ho havíeu de saber.\n"
-"\n"
-"Salutacions,\n"
-"\n"
-"%s"
+msgstr "Hola,\n\nel proveidor d'identitat (IdP) %s de la vostra federació d'%s %s ha estat esborrat de %s.\n\nPensem que ho havíeu de saber.\n\nSalutacions,\n\n%s"
 
 #: core/IdP.php:252
 msgid "IdP in your federation was deleted"
@@ -356,18 +344,18 @@ msgstr "S'ha esborrat l'IdP a la vostra federació"
 #: core/SilverbulletInvitation.php:200
 #, php-format
 msgid "Your %s access is ready"
-msgstr ""
+msgstr "El vostre accés %s és a punt"
 
 #: core/SilverbulletInvitation.php:208
 msgid "Hello!"
-msgstr ""
+msgstr "Hola!"
 
 #: core/SilverbulletInvitation.php:210
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
 "administrator."
-msgstr ""
+msgstr "Una nova credencial d'accés %s l'ha estat creada pel vostre administrador de xarxa."
 
 #: core/SilverbulletInvitation.php:212
 #, php-format
@@ -375,7 +363,7 @@ msgid ""
 "Please follow the following link with the device you want to enable for %s "
 "to get a custom %s installation program just for you. You can click on the "
 "link, copy and paste it into a browser or scan the attached QR code."
-msgstr ""
+msgstr "Si us plau seguiu el següent enllaç amb el dispositiu que voleu habilitat per a %s per a obtenir una instal·lació de %s personalitzada. Podeu clicar en l'enllaç, copiar i enganxar en un navegador o escanejar el codi QR adjunt."
 
 #. gets replaced with the token value by getBody()
 #: core/SilverbulletInvitation.php:214
@@ -384,53 +372,43 @@ msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
 "up your %s installation program, you can use the same link to get status "
 "information about your %s account."
-msgstr ""
+msgstr "Si us plau conserveu aquest email o enllaç per un ús futur. Després d'aconseguir el vostre programa d'instal·lació d'%s, podeu fer servir el mateix enllaç per a obtenir informació de l'estat del vostre compte %s."
 
 #: core/SilverbulletInvitation.php:216
 msgid "Regards,"
-msgstr ""
+msgstr "Salutacions,"
 
 #: core/SilverbulletInvitation.php:260
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
 "'%s'!)"
-msgstr ""
+msgstr "El vostre accés %s està a punt! Cliqueu aquí: %s( a Android cal que abans instal·leu la app '%s'!)"
 
 #: core/SilverbulletInvitation.php:267
 #, php-format
 msgid "%s Invitation System"
-msgstr ""
+msgstr "Sistema d'invitacions %s"
 
 #. / arguments are: 1. IdP name;
 #. /                2. consortium name (e.g. eduroam);
 #. /                3. federation shortname, e.g. "LU";
 #. /                4. product name (e.g. eduroam CAT);
-#. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
+#. /                5. product long name (e.g. eduroam Configuration Assistant
+#. Tool)
 #: core/UserManagement.php:179
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the invitation for the new Identity Provider %s in your %s federation %s has "
-"been used and the IdP was created in %s.\n"
+"the invitation for the new Identity Provider %s in your %s federation %s has been used and the IdP was created in %s.\n"
 "\n"
 "We thought you might want to know.\n"
 "\n"
 "Best regards,\n"
 "\n"
 "%s"
-msgstr ""
-"Hola,\n"
-"\n"
-"la invitació per al nou proveidor d'identitat (IdP) %s a la vostra federació "
-"%s s'ha utilitzat %s i l'IdP s'ha creat a %s.\n"
-"\n"
-"Pensem que ho havíeu de saber.\n"
-"\n"
-"Salutacions,\n"
-"\n"
-"%s"
+msgstr "Hola,\n\nla invitació per al nou proveidor d'identitat (IdP) %s a la vostra federació %s s'ha utilitzat %s i l'IdP s'ha creat a %s.\n\nPensem que ho havíeu de saber.\n\nSalutacions,\n\n%s"
 
 #: core/UserManagement.php:188
 msgid "IdP in your federation was created"
@@ -442,108 +420,108 @@ msgstr "Suggeriments"
 
 #: core/common/EAP.php:369
 msgid "PEAP-MSCHAPv2"
-msgstr ""
+msgstr "PEAP-MSCHAPv2"
 
 #: core/common/EAP.php:370
 msgid "TLS"
-msgstr ""
+msgstr "TLS"
 
 #: core/common/EAP.php:371
 msgid "TTLS-PAP"
-msgstr ""
+msgstr "TTLS-PAP"
 
 #: core/common/EAP.php:372
 msgid "TTLS-MSCHAPv2"
-msgstr ""
+msgstr "TTLS-MSCHAPv2"
 
 #: core/common/EAP.php:373
 msgid "TTLS-GTC"
-msgstr ""
+msgstr "TTLS-GTC"
 
 #: core/common/EAP.php:374
 msgid "FAST-GTC"
-msgstr ""
+msgstr "FAST-GTC"
 
 #: core/common/EAP.php:375
 msgid "EAP-pwd"
-msgstr ""
+msgstr "Contrasenya EAP"
 
 #: core/common/OutsideComm.php:239
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
-msgstr ""
+msgstr "un %s de %sde %s \"%s\" us ha convidat a gestionar %sconjuntament amb ell."
 
 #: core/common/OutsideComm.php:240
 #, php-format
 msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
-msgstr ""
+msgstr "un %s de %s us ha invitat a gestionar %s  \"%s\" (%s)."
 
 #: core/common/OutsideComm.php:241
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\"."
-msgstr ""
+msgstr "un %s de %s us ha invitat a gestionar %s  \"%s\" ."
 
 #: core/common/OutsideComm.php:243
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
-msgstr ""
+msgstr "Aquesta invitació és vàlida per 24 hores a partir d'ara, per exemple fins les %s."
 
 #. then, send out the mail
 #: core/common/OutsideComm.php:251
 msgid "Hello,"
-msgstr ""
+msgstr "Hola,"
 
 #. default means we don't have a Reply-To.
 #: core/common/OutsideComm.php:253
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
-msgstr ""
+msgstr "manualment. Si us plau no respongueu a aquest correu; és una adreça només per a enviar."
 
 #: core/common/OutsideComm.php:259
 #, php-format
 msgid "Additional message from your %s administrator:"
-msgstr ""
+msgstr "Missatge addicional del vostre administrador %s:"
 
 #: core/common/OutsideComm.php:267
 #, php-format
 msgid "%s administrator"
-msgstr ""
+msgstr "Administrador de %s"
 
 #: core/common/OutsideComm.php:270
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
-msgstr ""
+msgstr "manualment. Si responeu a aquest correu, us comunicareu amb l'administrador de %s."
 
 #: core/common/OutsideComm.php:275
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
 "link:"
-msgstr ""
+msgstr "Per a participar-hi com a administrador de %s, si us plau cliqueu al següent enllaç:"
 
 #: core/common/OutsideComm.php:277
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
 "Interface at"
-msgstr ""
+msgstr "Si clicant a l'enllaç aquest no funciona, podeu també anar a l'entorn d'Administració de %s a "
 
 #: core/common/OutsideComm.php:279
 msgid "and enter the invitation token"
-msgstr ""
+msgstr "i entreu el codi d'invitació"
 
 #: core/common/OutsideComm.php:281
 msgid ""
-"Do NOT forward the mail before the token has expired - or the recipients may "
-"be able to consume the token on your behalf!"
-msgstr ""
+"Do NOT forward the mail before the token has expired - or the recipients may"
+" be able to consume the token on your behalf!"
+msgstr "NO reenvieu el correu abans que hagi expirat el token - o els destinataris podran fer-lo servir en lloc vostre!"
 
 #: core/common/OutsideComm.php:282
 #, php-format
 msgid "We wish you a lot of fun with the %s."
-msgstr ""
+msgstr "Us desitgem que disfruteu amb %s"
 
 #: core/common/OutsideComm.php:283
 #, php-format
@@ -551,328 +529,42 @@ msgid ""
 "Sincerely,\n"
 "\n"
 "Your friendly folks from %s Operations"
-msgstr ""
+msgstr "Atentament,\n\nEls companys d'Operacions d'%s"
 
 #. what do we want to say?
 #: core/common/OutsideComm.php:318
 #, php-format
 msgid "%s: you have been invited to manage an %s"
-msgstr ""
+msgstr "%s: heu estat invitat a gestionar %s"
 
 #: web/lib/common/InputValidation.php:29
 msgid "Input validation error: "
-msgstr ""
+msgstr "Error en la validació de l'entrada:"
 
 #: web/lib/common/InputValidation.php:202
 msgid "Realm is empty!"
-msgstr ""
+msgstr "Domini és buit!"
 
 #: web/lib/common/InputValidation.php:210
 msgid "Realm contains an @ sign!"
-msgstr ""
+msgstr "El domini conté un símbol @!"
 
 #: web/lib/common/InputValidation.php:211
 msgid "Realm begins with a . (dot)!"
-msgstr ""
+msgstr "El domini comença amb un . (punt)!"
 
 #: web/lib/common/InputValidation.php:212
 msgid "Realm ends with a . (dot)!"
-msgstr ""
+msgstr "El domini acaba amb un . (punt)!"
 
 #: web/lib/common/InputValidation.php:213
 msgid "Realm contains spaces!"
-msgstr ""
+msgstr "El domini conté espais!"
 
 #: web/lib/common/InputValidation.php:225
 msgid "Realm does not contain at least one . (dot)!"
-msgstr ""
+msgstr "El domini no conté almenys un . (punt)!"
 
 #: web/lib/common/InputValidation.php:311
 msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
-msgstr ""
-
-#~ msgid "Could not create a new Institution!"
-#~ msgstr "No es pot crear una nova Institució!"
-
-#~ msgid "eduPKI"
-#~ msgstr "eduPKI"
-
-#~ msgid "Nicolaus Copernicus University"
-#~ msgstr "Universitat Nicolau Copèrnic"
-
-#~ msgid "accredited"
-#~ msgstr "acreditat"
-
-#~ msgid "non-accredited"
-#~ msgstr "no acreditat"
-
-#~ msgid "correct certificate"
-#~ msgstr "certificat correcte"
-
-#~ msgid "certificate with wrong policy OID"
-#~ msgstr "certificat amb política OID errònia"
-
-#~ msgid "expired certificate"
-#~ msgstr "certificat expirat"
-
-#~ msgid "revoked certificate"
-#~ msgstr "certificat revocat"
-
-#~ msgid "pass"
-#~ msgstr "correcte"
-
-#~ msgid "fail"
-#~ msgstr "incorrecte"
-
-#~ msgid "eduroam-accredited CA (now only for tests)"
-#~ msgstr "CA acreditada eduroam (per ara només per a proves)"
-
-#~ msgid "Completed"
-#~ msgstr "Completat"
-
-#~ msgid "This check was skipped."
-#~ msgstr "Aquesta comprovació s'ha omès."
-
-#~ msgid "There were errors during the test."
-#~ msgstr "S'han produit errors durant la prova."
-
-#~ msgid "This realm has no NAPTR records."
-#~ msgstr "Aquest domini no té registres NAPTR."
-
-#~ msgid ""
-#~ "NAPTR records were found, but all of them refer to unrelated services."
-#~ msgstr ""
-#~ "S'ha trobat registres NAPTR, però fan referència a serveis no relacionats."
-
-#~ msgid "There was no reply at all from the RADIUS server."
-#~ msgstr "No s'ha rebut cap resposta del servidor RADIUS."
-
-#~ msgid ""
-#~ "There was a bidirectional communication with the RADIUS server, but it "
-#~ "ended halfway through."
-#~ msgstr ""
-#~ "Hi ha hagut comunicació bidireccional amb el servidor RADIUS, però s'ha "
-#~ "interromput a la meitat."
-
-#~ msgid ""
-#~ "The RADIUS server immediately rejected the authentication request in its "
-#~ "first reply."
-#~ msgstr ""
-#~ "El servidor RADIUS ha rebutjat immediatament la petició d'autenticació en "
-#~ "la primera resposta."
-
-#~ msgid ""
-#~ "The RADIUS server rejected the authentication request after an EAP "
-#~ "conversation."
-#~ msgstr ""
-#~ "El servidor RADIUS ha rebutjat la petició d'autenticació després d'una "
-#~ "conversa EAP."
-
-#~ msgid "Connection refused"
-#~ msgstr "S'ha negat la connexió"
-
-#~ msgid "Not enough data provided to perform an authentication"
-#~ msgstr "No s'ha subministrat prou dades per a realitzar una autenticació"
-
-#~ msgid ""
-#~ "The certificate password you provided does not match the certificate file."
-#~ msgstr "La contrasenya subministrada no correspon a l'arxiu del certificat."
-
-#~ msgid ""
-#~ "The certificate chain includes the root CA certificate. This does not "
-#~ "serve any useful purpose but inflates the packet exchange, possibly "
-#~ "leading to more round-trips and thus slower authentication."
-#~ msgstr ""
-#~ "La cadena del certificat inclou el certificat arrel de la CA. Això no "
-#~ "suposa cap benefici excepte augmentar l'intercanvi de paquets, produint "
-#~ "probablement un major retard en l'autenticació."
-
-#~ msgid "There is more than one server certificate in the chain."
-#~ msgstr "Hi ha més d'un certificat de servidor en la cadena."
-
-#~ msgid "There is no server certificate in the chain."
-#~ msgstr "No hi ha cap certificat de servidor en la cadena."
-
-#~ msgid ""
-#~ "At least one certificate in the chain is signed with the MD5 signature "
-#~ "algorithm. Many Operating Systems, including Apple iOS, will fail to "
-#~ "validate this certificate."
-#~ msgstr ""
-#~ "Al menys un certificat a la cadena està signat amb el algoritme MD5. "
-#~ "Diversos Sistemes Operatius, incloent l'Apple iOS, no podran validar "
-#~ "aquest certificat."
-
-#~ msgid ""
-#~ "At least one certificate in the chain had a public key of less than 1024 "
-#~ "bits. Many recent operating systems consider this unacceptable and will "
-#~ "fail to validate the server certificate."
-#~ msgstr ""
-#~ "Al menys un certificat de la cadena té una clau pública de menys de 1024 "
-#~ "bits. Alguns sistemes operatius moderns no ho accepten i no validaran el "
-#~ "certificat del servidor."
-
-#~ msgid ""
-#~ "The server certificate does not have the extension 'extendedKeyUsage: TLS "
-#~ "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
-#~ "validate this certificate."
-#~ msgstr ""
-#~ "El certificat del servidor no disposa de l'extensió 'extendedKeyUsage: "
-#~ "TLS Web Server Authentication'. La majoria del sistemes operatius "
-#~ "Microsoft no podran validar-lo."
-
-#~ msgid ""
-#~ "The server certificate did not include a CRL Distribution Point, creating "
-#~ "compatibility problems with Windows Phone 8."
-#~ msgstr ""
-#~ "El certificat del servidor no inclous un punt de distribució CRL (CRL "
-#~ "Distribution Point). Això crea problemes de compatibilitat amb "
-
-#~ msgid ""
-#~ "The server certificate's 'CRL Distribution Point' extension does not "
-#~ "point to an HTTP/HTTPS URL. Some Operating Systems may fail to validate "
-#~ "this certificate. Checking server certificate validity against a CRL will "
-#~ "not be possible."
-#~ msgstr ""
-#~ "L'extensió del certificat de servidor 'CRL Distribution Point' no "
-#~ "assenyala cap a una URL HTTP/HTTPS. Alguns sistemes operatius no podran "
-#~ "validar aquest certificat. La comprovació de la seva validesa no serà "
-#~ "possible."
-
-#~ msgid ""
-#~ "The extension 'CRL Distribution Point' in the server certificate points "
-#~ "to a non-existing location. Some Operating Systems check certificate "
-#~ "validity by consulting the CRL and will fail to validate the certificate. "
-#~ "Checking server certificate validity against a CRL will not be possible."
-#~ msgstr ""
-#~ "L'extensió 'CRL Distribution Point' al certificat del servidor indica una "
-#~ "localització inexistent. Alguns sistemes operatius consulten la seva "
-#~ "validesa accedint a la CRL i no podran validar el certificat. No serà "
-#~ "possible comprovar la validesa del certificat contra una CRL."
-
-#~ msgid "The server certificate was revoked by the CA!"
-#~ msgstr "Aquest certificat de servidor va ser revocat per la CA!"
-
-#~ msgid ""
-#~ "The certificate contained a CN or subjectAltName:DNS which does not parse "
-#~ "as a hostname. This can be problematic on some supplicants. If the "
-#~ "certificate also contains names which are a proper hostname, and you only "
-#~ "use those for your supplicant configuration, then you can safely ignore "
-#~ "this notice."
-#~ msgstr ""
-#~ "El certificat contenia un CN o un subjectAltName:DNS que no es correspon "
-#~ "a un nom de servidor. Això pot ser problemàtic per a determinats clients "
-#~ "wifi. Si el certificat conté també noms apropiats per a servidors, i "
-#~ "només feu servir aquests per a la vostra configuració de client, "
-#~ "aleshores podeu ignorar aquest avís."
-
-#~ msgid ""
-#~ "The certificate contained a CN or subjectAltName:DNS which contains a "
-#~ "wildcard ('*'). This can be problematic on some supplicants. If the "
-#~ "certificate also contains names which are wildcardless, and you only use "
-#~ "those for your supplicant configuration, then you can safely ignore this "
-#~ "notice."
-#~ msgstr ""
-#~ "El certificat contenia un CN o un subjectAltName:DNS amb comodins ('*'). "
-#~ "Això pot ser problemàtic per a alguns clients wifi. SI el certificat "
-#~ "també conté noms sense comodins, i només feu servir aquests en la vostra "
-#~ "configuració de client, aleshores podeu ignorar aquest avís."
-
-#~ msgid ""
-#~ "At least one certificate is outside its validity period (not yet valid, "
-#~ "or already expired)!"
-#~ msgstr ""
-#~ "Al menys un certificat és fora del seu període de validesa (encara no és "
-#~ "vàlid o ha expirat)!"
-
-#~ msgid ""
-#~ "At least one intermediate certificate in your CAT profile is outside its "
-#~ "validity period (not yet valid, or already expired), but this certificate "
-#~ "was not used for server validation. Consider removing it from your %s "
-#~ "configuration."
-#~ msgstr ""
-#~ "Al menys un certificat intermig en el vostre perfil CAT és fora del seu "
-#~ "període de validesa (encara no és vàlid o ha expirat), però aquest "
-#~ "certificat no es va fer servir per a la validació del servidor. "
-#~ "Considereu si cal esborrar-lo de la vostra configuració %s."
-
-#~ msgid ""
-#~ "The server certificate could not be verified to the root CA you "
-#~ "configured in your profile!"
-#~ msgstr ""
-#~ "El certificat de servidor no s'ha pogut verificar amb la CA arrel "
-#~ "configurada en el vostre pefil!"
-
-#~ msgid ""
-#~ "The certificate chain as received in EAP was not sufficient to verify the "
-#~ "certificate to the root CA in your profile. It was verified using the "
-#~ "intermediate CAs in your profile though. You should consider sending the "
-#~ "required intermediate CAs inside the EAP conversation."
-#~ msgstr ""
-#~ "La cadena de certificació rebuda en el EAP no ha estat suficient per a "
-#~ "verificar el certificat amb la CA arrel del vostre perfil. Ha pogut ser "
-#~ "verificat utilitzant les CA intermitges. Considereu enviar les CA "
-#~ "intermitges dins de la conversa EAP."
-
-#~ msgid ""
-#~ "The EAP server name does not match any of the configured names in your "
-#~ "profile!"
-#~ msgstr ""
-#~ "El nom del servidor EAP no es correspon amb cap dels noms configurats en "
-#~ "el vostre perfil!"
-
-#~ msgid ""
-#~ "The configured EAP server name matches either the CN or a subjectAltName:"
-#~ "DNS of the incoming certificate; best current practice is that the "
-#~ "certificate should contain the name in BOTH places."
-#~ msgstr ""
-#~ "El nom de servidor configurat a l'EAP coincideix amb el CN o amb el "
-#~ "subjectAltName:DNS del certificat rebut; la millor pràctica actual és que "
-#~ "el certificat contingui el nom a tots dos llocs."
-
-#~ msgid ""
-#~ "At least one certificate did not contain any BasicConstraints extension; "
-#~ "which makes it unclear if it's a CA certificate or end-entity "
-#~ "certificate. At least Mac OS X 10.8 (Mountain Lion) will not validate "
-#~ "this certificate for EAP purposes!"
-#~ msgstr ""
-#~ "Al menys un certificat no conté cap extensió BasicConstraints; això no "
-#~ "permet determinar si es tracta d'un certificat de CA o un certificat "
-#~ "d'entitat final. Al menys el Mac OS X 10.8 (Mountain Lion) no validarà "
-#~ "aquest certificat en el protocol EAP!"
-
-#~ msgid "The server presented a certificate from an unknown authority."
-#~ msgstr "El servidor utilitza un certificat d'una autoritat desconeguda."
-
-#~ msgid "The server accepted the INVALID client certificate."
-#~ msgstr "El servidor ha acceptat el certificat de client NO VALID."
-
-#~ msgid ""
-#~ "The server rejected the client certificate, even though it was valid."
-#~ msgstr ""
-#~ "El servidor ha rebutjat el certificat de client, encara que era vàlid."
-
-#~ msgid "The server rejected the client certificate as expected."
-#~ msgstr "El servidor ha rebutjat el certificat de client, com era d'esperar."
-
-#~ msgid "The CRL of a certificate could not be found."
-#~ msgstr "No s'ha pogut trobar la CRL d'un certificat."
-
-#~ msgid "EAP method negotiation failed!"
-#~ msgstr "Ha fallat el mètode de negociació EAP!"
-
-#~ msgid "certificate expired"
-#~ msgstr "certificat caducat"
-
-#~ msgid "certificate was revoked"
-#~ msgstr "certificat revocat"
-
-#~ msgid "bad policy"
-#~ msgstr "mala política"
-
-#~ msgid "unknown authority"
-#~ msgstr "autoritat desconeguda"
-
-#~ msgid "unknown authority or no certificate policy or another problem"
-#~ msgstr ""
-#~ "autoritat desconeguda o absència de política de certificat o un altre "
-#~ "problema"
+msgstr "Error en la codificació de les coordenades (2.0 utilitza JSON, no serialitzat)!"

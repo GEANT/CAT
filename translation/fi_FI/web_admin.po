@@ -1,26 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Jari Miettinen <Jari.Miettinen@csc.fi>, 2012
 # Jari Miettinen <Jari.Miettinen@csc.fi>, 2013
 # Juha Hopia <juha.hopia@csc.fi>, 2012
-# Tomi Salmi <tomi.salmi@csc.fi>, 2013,2015
+# Tomi Salmi <tomi.salmi@csc.fi>, 2013,2015-2017
 # tuukka, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-17 15:52+0200\n"
-"PO-Revision-Date: 2015-04-07 09:20+0000\n"
-"Last-Translator: Tomi Salmi <tomi.salmi@csc.fi>\n"
-"Language-Team: Finnish (Finland) (http://www.transifex.com/projects/p/cat/"
-"language/fi_FI/)\n"
-"Language: fi_FI\n"
+"POT-Creation-Date: 2018-05-23 14:55+0200\n"
+"PO-Revision-Date: 2018-05-17 23:56+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"Language-Team: Finnish (Finland) (http://www.transifex.com/eduroam_devel/cat/language/fi_FI/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fi_FI\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: web/admin/action_enrollment.php:41 web/admin/action_enrollment.php:67
@@ -39,48 +38,43 @@ msgid ""
 msgstr ""
 
 #: web/admin/action_enrollment.php:71
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Sorry... this token has already been used to create an %s. If you got it "
 "from a mailing list, probably someone else used it before you."
 msgstr ""
-"Tämä poletti on jo käytetty organisaation luomiseen. Jos sait sen "
-"postilistalta, niin todennäköisesti joku toinen ehti ennen sinua."
 
 #: web/admin/action_enrollment.php:74
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Sorry... this token has expired. Invitation tokens are valid for 24 hours. "
 "Please ask your %s administrator for a new one."
 msgstr ""
-"Tämä poletti on vanhentunut. Kutsut ovat voimassa 24 tuntia. Ole hyvä ja "
-"pyydä uutta polettia käyttöösi."
 
 #: web/admin/action_enrollment.php:77
 msgid ""
-"Sorry... you have come to the enrollment page without a valid token. Are you "
-"a nasty person? If not, you should go to <a href='overview_user.php'>your "
+"Sorry... you have come to the enrollment page without a valid token. Are you"
+" a nasty person? If not, you should go to <a href='overview_user.php'>your "
 "profile page</a> instead."
-msgstr ""
-"Olet käyttöönottosivulla ilman voimassaolevaa polettia. Siirry omalle <a "
-"href='overview_user.php'>profiilisivulle</a>."
+msgstr "Olet käyttöönottosivulla ilman voimassaolevaa polettia. Siirry omalle <a href='overview_user.php'>profiilisivulle</a>."
 
-#. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
+#. / product name (eduroam CAT), then term used for "federation", then actual
+#. name of federation.
 #: web/admin/edit_federation.php:34
-#, fuzzy, php-format
+#, php-format
 msgid "%s: Editing %s '%s'"
-msgstr "%s: Muokkaa IdP:tä '%s'"
+msgstr ""
 
 #. / nomenclature for federation, then actual federation name
 #: web/admin/edit_federation.php:49
-#, fuzzy, php-format
+#, php-format
 msgid "Editing %s information for '%s'"
-msgstr "Muokkaa IdP:n '%s' tietoja"
+msgstr ""
 
 #: web/admin/edit_federation.php:53 web/admin/edit_federation.php:68
-#, fuzzy, php-format
+#, php-format
 msgid "%s Properties"
-msgstr "Ominaisuudet"
+msgstr ""
 
 #: web/admin/edit_federation.php:56 web/admin/edit_idp.php:76
 #: web/lib/admin/UIElements.php:214
@@ -103,7 +97,7 @@ msgstr "Tallenna tiedot"
 #: web/admin/edit_federation.php:76 web/admin/edit_idp.php:195
 #: web/admin/edit_profile.php:469 web/admin/edit_user.php:54
 msgid "Discard changes"
-msgstr "Pyyhi tiedot"
+msgstr "Hylkää muutokset"
 
 #. / first productname (eduroam CAT), then nomenclature for 'federation'
 #: web/admin/edit_federation_result.php:31
@@ -112,9 +106,9 @@ msgid "%s: %s Customisation (submission completed)"
 msgstr ""
 
 #: web/admin/edit_federation_result.php:35
-#, fuzzy, php-format
+#, php-format
 msgid "Submitted attributes for %s '%s'"
-msgstr "Lähetty IdP:n '%s' tiedot"
+msgstr ""
 
 #: web/admin/edit_federation_result.php:47 web/admin/edit_idp_result.php:144
 #: web/admin/edit_profile_result.php:228
@@ -141,35 +135,29 @@ msgid "Editing IdP information for '%s'"
 msgstr "Muokkaa IdP:n '%s' tietoja"
 
 #: web/admin/edit_idp.php:73
-#, fuzzy, php-format
+#, php-format
 msgid "General %s properties"
-msgstr "Yleiset profiilimääritykset"
+msgstr ""
 
 #: web/admin/edit_idp.php:92
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hello, newcomer. Your %s is new to us. This wizard will ask you several "
 "questions about your %s, so that we can generate beautiful profiles for you "
-"in the end. All of the information below is optional, but it is important to "
-"fill out as many fields as possible for the benefit of your end users."
+"in the end. All of the information below is optional, but it is important to"
+" fill out as many fields as possible for the benefit of your end users."
 msgstr ""
-"Tervetuloa! Sinun kotiorganisaatiosi on uusi meille. Tämä velho kysyy IdP:"
-"stäsi monta kysymystä, jotta profiilien luonti onnistuisi. Kaiken alempana "
-"olevan tiedon täyttäminen on valinnaista, mutta loppukäyttäjien kannalta "
-"olisi tärkeää täyttää mahdollisimman monta kenttää."
 
 #: web/admin/edit_idp.php:97
 msgid "General Information"
 msgstr "Yleistä tietoa"
 
 #: web/admin/edit_idp.php:101
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This is the place where you can describe your %s in a fine-grained way. The "
 "solicited information is used as follows:"
 msgstr ""
-"Tähän tilaan voit kuvata kotiorganisaatiosi tarkemmin. Pyydetty tieto "
-"käytetään seuraavasti:"
 
 #: web/admin/edit_idp.php:103
 msgid ""
@@ -177,21 +165,14 @@ msgid ""
 "all installers where a custom logo is possible. We accept any image format, "
 "but for best results, we suggest SVG. If you don't upload a logo, we will "
 "use the generic logo instead (see top-right corner of this page)."
-msgstr ""
-"<strong>Logo</strong>: Kun asetat logon, se lisätään kaikkiin "
-"asennusohjelmiin, joihin se voidaan liittää. Mikä tahansa kuvaformaatti käy, "
-"mutta parhaan tulokseen saat SVG-formaatilla. Jos et aseta logoa, niin "
-"silloin käytetään yleislogoa (katso tämän sivun oikeaa yläkulmaa)"
+msgstr "<strong>Logo</strong>: Kun asetat logon, se lisätään kaikkiin asennusohjelmiin, joihin se voidaan liittää. Mikä tahansa kuvaformaatti käy, mutta parhaan tulokseen saat SVG-formaatilla. Jos et aseta logoa, niin silloin käytetään yleislogoa (katso tämän sivun oikeaa yläkulmaa)"
 
 #: web/admin/edit_idp.php:104
 msgid ""
 "<strong>Terms of Use</strong>: Some installers support displaying text to "
 "the user during installation time. If so, we will make that happen if you "
 "upload an RTF file or plain text file to display."
-msgstr ""
-"<strong>Käyttöehdot</strong>: Jotkin asennusohjelmat tukevat tekstin "
-"näyttämistä loppukäyttäjille asennuksen aikana. Jos haluat tekstiä tarjolle, "
-"niin lataa se RTF- tai tekstimuodossa."
+msgstr "<strong>Käyttöehdot</strong>: Jotkin asennusohjelmat tukevat tekstin näyttämistä loppukäyttäjille asennuksen aikana. Jos haluat tekstiä tarjolle, niin lataa se RTF- tai tekstimuodossa."
 
 #: web/admin/edit_idp.php:116 web/lib/admin/UIElements.php:228
 msgid "Media Properties"
@@ -223,18 +204,14 @@ msgstr[1] "WAP2/AES määritellään aina näille SSID:lle: %s."
 msgid ""
 "They will also be configured for WPA/TKIP if the device supports multiple "
 "encryption types."
-msgstr ""
-"Ne konfiguroidaan myös tukemaan WPA/TKIP:iä, jos laite tukee useita eri "
-"salaustyyppejä."
+msgstr "Ne konfiguroidaan myös tukemaan WPA/TKIP:iä, jos laite tukee useita eri salaustyyppejä."
 
 #: web/admin/edit_idp.php:134
 #, php-format
 msgid ""
 "It is also possible to define custom additional SSIDs with the options '%s' "
 "and '%s' below."
-msgstr ""
-"On mahdollista määritellä yksilöidyt lisä-SSID:t, joissa on optiot '%s\" ja "
-"'%s\" alapuolelta."
+msgstr "On mahdollista määritellä yksilöidyt lisä-SSID:t, joissa on optiot '%s\" ja '%s\" alapuolelta."
 
 #: web/admin/edit_idp.php:136
 msgid "Please configure which SSIDs should be configured in the installers."
@@ -245,10 +222,7 @@ msgid ""
 "By default, we will only configure the SSIDs with WPA2/AES encryption. By "
 "using the '(with WPA/TKIP)' option you can specify that we should include "
 "legacy support for WPA/TKIP where possible."
-msgstr ""
-"Oletusarvoisesti SSID:t konfiguroidaan tukemaan WPA2/AES-salausta. Jos "
-"käytät '(WPA/TKIP)'-optiota, voit määrittää, että myös tuki vanhalle WPA/"
-"TKIP:lle on mukana silloin kuin se on mahdollista."
+msgstr "Oletusarvoisesti SSID:t konfiguroidaan tukemaan WPA2/AES-salausta. Jos käytät '(WPA/TKIP)'-optiota, voit määrittää, että myös tuki vanhalle WPA/TKIP:lle on mukana silloin kuin se on mahdollista."
 
 #: web/admin/edit_idp.php:142
 msgid "Additional Hotspot 2.0 / Passpoint Consortia:"
@@ -274,7 +248,8 @@ msgstr "Alla on mahdollista määritellä omavalintaiset OI:t '%s'-optiolla."
 
 #: web/admin/edit_idp.php:153
 msgid ""
-"Please configure which Consortium OIs should be configured in the installers."
+"Please configure which Consortium OIs should be configured in the "
+"installers."
 msgstr "Määrittele mitkä Consortium OI:t asennusohjelman tulee asettaa."
 
 #: web/admin/edit_idp.php:156
@@ -284,16 +259,11 @@ msgstr "\"Wired IEEE 802.1X\" -tuki:"
 #: web/admin/edit_idp.php:157
 msgid ""
 "If you want to configure your users' devices with IEEE 802.1X support for "
-"wired ethernet, please check the corresponding box. Note that this makes the "
-"installation process a bit more difficult on some platforms (Windows: needs "
-"administrator privileges; Apple: attempting to install a profile with wired "
-"support on a device without an active wired ethernet card will fail)."
-msgstr ""
-"Jos tahdot määritellä käyttäjien laitteille \"IEEE 802.1X for wired ethernet"
-"\" -tuen, aseta rasti kyseiseen kohtaan. Huomaa, että asennusprosessista "
-"tulee tämän myötä hieman mutkikkaampi joillain käyttöjärjestelmillä (Windows "
-"vaatii ylläpitäjän oikeudet ja Applella asennus epäonnistuu mikäli "
-"langallista ethernet-liityntää ei ole asennushetkellä aktiivisena)."
+"wired ethernet, please check the corresponding box. Note that this makes the"
+" installation process a bit more difficult on some platforms (Windows: needs"
+" administrator privileges; Apple: attempting to install a profile with wired"
+" support on a device without an active wired ethernet card will fail)."
+msgstr "Jos tahdot määritellä käyttäjien laitteille \"IEEE 802.1X for wired ethernet\" -tuen, aseta rasti kyseiseen kohtaan. Huomaa, että asennusprosessista tulee tämän myötä hieman mutkikkaampi joillain käyttöjärjestelmillä (Windows vaatii ylläpitäjän oikeudet ja Applella asennus epäonnistuu mikäli langallista ethernet-liityntää ei ole asennushetkellä aktiivisena)."
 
 #: web/admin/edit_idp.php:159
 msgid "Removal of bootstrap/onboarding SSIDs:"
@@ -302,12 +272,9 @@ msgstr "SSID:n poisto:"
 #: web/admin/edit_idp.php:160
 msgid ""
 "If you use a captive portal to distribute configurations, you may want to "
-"unconfigure/disable that SSID after the bootstrap process. With this option, "
-"the SSID will either be removed, or be defined as 'Only connect manually'."
-msgstr ""
-"Jos käytät captive portalia asennuspakettien jakelussa, tahdot ehkä poistaa "
-"SSID:n käytöstä asennuksen jälkeen. Tällä valinnalla SSID joko poistetaan "
-"tai määritellään sallituksi verkoksi vain manuaalisesti valittuna."
+"unconfigure/disable that SSID after the bootstrap process. With this option,"
+" the SSID will either be removed, or be defined as 'Only connect manually'."
+msgstr "Jos käytät captive portalia asennuspakettien jakelussa, tahdot ehkä poistaa SSID:n käytöstä asennuksen jälkeen. Tällä valinnalla SSID joko poistetaan tai määritellään sallituksi verkoksi vain manuaalisesti valittuna."
 
 #: web/admin/edit_idp.php:169
 msgid "Helpdesk Details for all users"
@@ -320,17 +287,13 @@ msgid ""
 msgstr ""
 
 #: web/admin/edit_idp.php:176
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "If your %s does provide a helpdesk for its users, it would be nice if you "
 "would tell us the pointers to this helpdesk."
 msgstr ""
-"Jos IdP:lläsi on helpdesk loppukäyttäjille, olisi hyvä jos voisit kertoa "
-"yhteydenottotiedot. Jotkin asennusohjelmat osaavat kertoa nämä tiedot "
-"käyttäjille, jos asennus jää jumiin."
 
 #: web/admin/edit_idp.php:178
-#, fuzzy
 msgid ""
 "If you enter a value here, it will be added to the installers for all your "
 "users, and will be displayed on the download page. If you operate separate "
@@ -338,11 +301,6 @@ msgid ""
 "profile helpdesk information later in this wizard. If you operate no help "
 "desk at all, just these fields empty."
 msgstr ""
-"Jos asetat tähän arvon, niin se lisätään kaikkiin asennusohjelmiin ja se "
-"näytetään lataussivulla. Jos sinulla on eri helpdeskit eri käyttäjäryhmille "
-"('profiileille'), tai sinulla ei olle helpdeskiä lainkaan (hyi!), voit myös "
-"jättää nämä kentät tyhjiksi ja asettaa ne profiilikohtaisesti myöhemmin "
-"tässä velhossa."
 
 #: web/admin/edit_idp.php:180
 #, php-format
@@ -361,8 +319,8 @@ msgstr ""
 #: web/admin/edit_idp.php:193
 #, php-format
 msgid ""
-"When you are sure that everything is correct, please click on %sContinue ..."
-"%s"
+"When you are sure that everything is correct, please click on %sContinue "
+"...%s"
 msgstr "Kun olet varma, että kaikki on oikein, napsauta %sJatka...%s"
 
 #: web/admin/edit_idp_result.php:51
@@ -385,7 +343,8 @@ msgstr "(WPA2/AES)"
 
 #: web/admin/edit_idp_result.php:107
 #, php-format
-msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
+msgid ""
+"Your installers will configure the following SSIDs: <strong>%s</strong>"
 msgstr "Asennusohjelmasi konfiguroivat seuraavat SSID:t: <strong>%s</strong>"
 
 #: web/admin/edit_idp_result.php:107
@@ -405,14 +364,12 @@ msgstr "Langallinen määritelty"
 msgid ""
 "We cannot generate installers because neither wireless SSIDs nor wired "
 "interfaces have been selected as a target!"
-msgstr ""
-"Asennusohjelmia ei voitu luoda, koska yhtään SSID:tä tai langallista "
-"liityntää ei ole asetettu!"
+msgstr "Asennusohjelmia ei voitu luoda, koska yhtään SSID:tä tai langallista liityntää ei ole asetettu!"
 
 #: web/admin/edit_idp_result.php:133
-#, fuzzy, php-format
+#, php-format
 msgid "Continue to %s properties"
-msgstr "Jatka eteenpäin käyttäjän yhteenvetosivulle"
+msgstr ""
 
 #: web/admin/edit_idp_result.php:136
 #, php-format
@@ -423,14 +380,12 @@ msgid ""
 msgstr ""
 
 #: web/admin/edit_idp_result.php:136
-#, fuzzy
 msgid "No support e-mail!"
-msgstr "Tuki: Sähköposti"
+msgstr ""
 
 #: web/admin/edit_idp_result.php:141
-#, fuzzy
 msgid "Continue to RADIUS/EAP profile definition"
-msgstr "Jatka profiilin määrittämiseen"
+msgstr ""
 
 #: web/admin/edit_profile.php:25
 #, php-format
@@ -454,13 +409,9 @@ msgstr "Yleiset profiilimääritykset"
 msgid ""
 "We will now define a profile for your user group(s).  You can add as many "
 "profiles as you like by choosing the appropriate button on the end of the "
-"page. After we are done, the wizard is finished and you will be taken to the "
-"main IdP administration page."
-msgstr ""
-"Määrittele profiili käyttäjäryhmällesi (tai usealle ryhmälle). Voit lisätä "
-"niin monta profiilia kuin haluat valitsemalla vastaavan napin sivun "
-"alareunasta. Kun olet valmis, velho päättyy ja siirryt IdP:n "
-"päähallintasivulle."
+"page. After we are done, the wizard is finished and you will be taken to the"
+" main IdP administration page."
+msgstr "Määrittele profiili käyttäjäryhmällesi (tai usealle ryhmälle). Voit lisätä niin monta profiilia kuin haluat valitsemalla vastaavan napin sivun alareunasta. Kun olet valmis, velho päättyy ja siirryt IdP:n päähallintasivulle."
 
 #: web/admin/edit_profile.php:133
 msgid "Profile Name and RADIUS realm"
@@ -471,20 +422,14 @@ msgid ""
 "First of all we need a name for the profile. This will be displayed to end "
 "users, so you may want to choose a descriptive name like 'Professors', "
 "'Students of the Faculty of Bioscience', etc."
-msgstr ""
-"Ensiksi tarvitaan profiilin nimi. Tämä nimi näytetään loppukäyttäjille, "
-"joten voit haluta käyttää kuvaavaa nimeä kuten \"Opettajat\", \"Biotieteiden "
-"opiskelija\" jne."
+msgstr "Ensiksi tarvitaan profiilin nimi. Tämä nimi näytetään loppukäyttäjille, joten voit haluta käyttää kuvaavaa nimeä kuten \"Opettajat\", \"Biotieteiden opiskelija\" jne."
 
 #: web/admin/edit_profile.php:137
 msgid ""
-"Optionally, you can provide a longer descriptive text about who this profile "
-"is for. If you specify it, it will be displayed on the download page after "
+"Optionally, you can provide a longer descriptive text about who this profile"
+" is for. If you specify it, it will be displayed on the download page after "
 "the user has selected the profile name in the list."
-msgstr ""
-"Voit myös kirjoittaa pidemmän kuvailutekstin kenelle tämä profiili on "
-"tarkoitettu. Jos teet tämän määrityksen, niin se näytetään lataussivulla, "
-"kun käyttäjä on valinnut profiilin nimen listalta."
+msgstr "Voit myös kirjoittaa pidemmän kuvailutekstin kenelle tämä profiili on tarkoitettu. Jos teet tämän määrityksen, niin se näytetään lataussivulla, kun käyttäjä on valinnut profiilin nimen listalta."
 
 #: web/admin/edit_profile.php:138
 msgid "You can also tell us your RADIUS realm. "
@@ -493,45 +438,35 @@ msgstr "Voit kertoa meille myös RADIUS-toimialueesi."
 #: web/admin/edit_profile.php:140
 #, php-format
 msgid ""
-"This is useful if you want to use the sanity check module later, which tests "
-"reachability of your realm in the %s infrastructure. "
-msgstr ""
-"Tämä on hyödyllinen, mikäli haluat myöhemmin käyttää "
-"sisällöntarkastusmoduulia. Se voi tarkastaa toimialueesi saavutettavuuden %s-"
-"järjestelmässä."
+"This is useful if you want to use the sanity check module later, which tests"
+" reachability of your realm in the %s infrastructure. "
+msgstr "Tämä on hyödyllinen, mikäli haluat myöhemmin käyttää sisällöntarkastusmoduulia. Se voi tarkastaa toimialueesi saavutettavuuden %s-järjestelmässä."
 
 #: web/admin/edit_profile.php:142
 msgid ""
 "It is required to enter the realm name if you want to support anonymous "
 "outer identities (see below)."
-msgstr ""
-"Toimialueen nimi (realm) vaaditaan, jos haluat tukea anonyymia "
-"ulkoidentiteettiä (katso lisää alempana)."
+msgstr "Toimialueen nimi (realm) vaaditaan, jos haluat tukea anonyymia ulkoidentiteettiä (katso lisää alempana)."
 
 #: web/admin/edit_profile.php:155
 msgid "Realm:"
 msgstr "Toimialue:"
 
 #: web/admin/edit_profile.php:192
-#, fuzzy
 msgid "Realm Options"
-msgstr "Yleiset EAP-valinnat"
+msgstr ""
 
 #: web/admin/edit_profile.php:196
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Some installers support a feature called 'Anonymous outer identity'. If you "
 "don't know what this is, please read <a href='%s'>this article</a>."
 msgstr ""
-"Jotkut asennusohjelmat tukevat 'anonyymin ulkoidentiteetin' asettamista. Jos "
-"et tiedä, mistä on kyse, lue <a href='%s'>tämä artikkeli</a>. Haluatko tehdä "
-"asennusohjelmia, jotka käyttävät anonyymejä identiteettejä? Sinun pitää "
-"täyttää 'toimialue'-kenttä ylempänä, jotta tämä toimisi."
 
 #: web/admin/edit_profile.php:197
 msgid ""
-"On some platforms, the installers can suggest username endings and/or verify "
-"the user input to contain the realm suffix."
+"On some platforms, the installers can suggest username endings and/or verify"
+" the user input to contain the realm suffix."
 msgstr ""
 
 #: web/admin/edit_profile.php:198
@@ -568,16 +503,10 @@ msgid ""
 "learn about the support pointers you entered earlier. The CAT can also "
 "immediately offer the installers for the profile for download. If you don't "
 "want that, you can instead enter a web site location where you want your "
-"users to be redirected to. You, as the administrator, can still download the "
-"profiles to place them on that page (see the 'Compatibility Matrix' button "
+"users to be redirected to. You, as the administrator, can still download the"
+" profiles to place them on that page (see the 'Compatibility Matrix' button "
 "on the dashboard)."
-msgstr ""
-"CAT sisältää latauspaikan loppukäyttäjille. He voivat löytää sieltä mm. "
-"asennusohjeita, jos niin haluat. CAT voi myös tarjota suoraan "
-"asennusohjelmia ladattavaksi. Voit myös määritellä oman web-osoitteen, jonne "
-"käyttäjäsi uudelleenohjataan. Sinä voit kuitenkin itse ylläpitäjänä ladata "
-"profiilit tälle sivulle (katso: 'Yhteensopivuusmatriisi'-nappi "
-"dashboardissa)."
+msgstr "CAT sisältää latauspaikan loppukäyttäjille. He voivat löytää sieltä mm. asennusohjeita, jos niin haluat. CAT voi myös tarjota suoraan asennusohjelmia ladattavaksi. Voit myös määritellä oman web-osoitteen, jonne käyttäjäsi uudelleenohjataan. Sinä voit kuitenkin itse ylläpitäjänä ladata profiilit tälle sivulle (katso: 'Yhteensopivuusmatriisi'-nappi dashboardissa)."
 
 #: web/admin/edit_profile.php:280
 msgid "Redirect end users to own web page:"
@@ -592,14 +521,9 @@ msgid ""
 "Now, we need to know which EAP types your IdP supports. If you support "
 "multiple EAP types, you can assign every type a priority (1=highest). This "
 "tool will always generate an automatic installer for the EAP type with the "
-"highest priority; only if the user's device can't use that EAP type, we will "
-"use an EAP type further down in the list."
-msgstr ""
-"Määrittele, mitä EAP-tyyppejä IdP:si tukee. Jos tuet useita EAP-tyyppejä, "
-"voit asettaa kullekin tyypille prioriteetin (1=korkein). Tämä työkalu tekee "
-"aina automaattisen asennusohjelman, joka käyttää korkeinta EAP-tyyppiä. Jos "
-"loppukäyttäjän laite ei tue korkeinta tyyppiä, käytetään seuraavana listalla "
-"olevaa."
+"highest priority; only if the user's device can't use that EAP type, we will"
+" use an EAP type further down in the list."
+msgstr "Määrittele, mitä EAP-tyyppejä IdP:si tukee. Jos tuet useita EAP-tyyppejä, voit asettaa kullekin tyypille prioriteetin (1=korkein). Tämä työkalu tekee aina automaattisen asennusohjelman, joka käyttää korkeinta EAP-tyyppiä. Jos loppukäyttäjän laite ei tue korkeinta tyyppiä, käytetään seuraavana listalla olevaa."
 
 #: web/admin/edit_profile.php:339
 msgid "EAP options inherited from Global level:"
@@ -619,9 +543,7 @@ msgid ""
 "Use \"drag &amp; drop\" to mark an EAP method and move it to the supported "
 "(green) area. Prioritisation is done automatically, depending on where you "
 "\"drop\" the method."
-msgstr ""
-"Siirrä hiirellä verkkosi tukemat EAP-menetelmät vihreälle alueelle. Aseta "
-"menetelmät suositusjärjestykseen."
+msgstr "Siirrä hiirellä verkkosi tukemat EAP-menetelmät vihreälle alueelle. Aseta menetelmät suositusjärjestykseen."
 
 #: web/admin/edit_profile.php:394
 msgid "Unsupported EAP types"
@@ -636,9 +558,8 @@ msgid "EAP Details for this profile"
 msgstr "Profiilin EAP-tiedot"
 
 #: web/admin/edit_profile.php:449
-#, fuzzy
 msgid "Media Properties for this profile"
-msgstr "Profiilin Helpdesk-tiedot"
+msgstr "Media-asetukset tälle profiilille"
 
 #: web/admin/edit_profile.php:457
 #, php-format
@@ -646,22 +567,16 @@ msgid ""
 "The option %s is already defined IdP-wide. If you set it here on profile "
 "level, this setting will override the IdP-wide one."
 msgid_plural ""
-"The options %s are already defined IdP-wide. If you set them here on profile "
-"level, these settings will override the IdP-wide ones."
-msgstr[0] ""
-"Vaihtoehto %s on jo määritelty IdP:lle. Jos asetat sen tällä "
-"profiilitasolla, se kumoaa yleismäärittelyn."
-msgstr[1] ""
-"Vaihtoehdot %s ovat jo määritelty IdP:lle. Jos asetat ne tällä "
-"profiilitasolla, ne kumoavat yleismäärittelyn."
+"The options %s are already defined IdP-wide. If you set them here on profile"
+" level, these settings will override the IdP-wide ones."
+msgstr[0] "Vaihtoehto %s on jo määritelty IdP:lle. Jos asetat sen tällä profiilitasolla, se kumoaa yleismäärittelyn."
+msgstr[1] "Vaihtoehdot %s ovat jo määritelty IdP:lle. Jos asetat ne tällä profiilitasolla, ne kumoavat yleismäärittelyn."
 
 #: web/admin/edit_profile.php:467
 msgid ""
 "When you are sure that everything is correct, please click on 'Save data' "
 "and you will be taken to your IdP Dashboard page."
-msgstr ""
-"Kun olet varma, että kaikki on oikein, napsauta 'Tallenna' ja sen jälkeen "
-"siirryt IdP Dashboard -sivulle."
+msgstr "Kun olet varma, että kaikki on oikein, napsauta 'Tallenna' ja sen jälkeen siirryt IdP Dashboard -sivulle."
 
 #: web/admin/edit_profile_result.php:33
 #, php-format
@@ -690,9 +605,7 @@ msgstr "Anonyymiä ulkoidentiteettiä ei voi käyttää: verkkotunnus puuttuu."
 msgid ""
 "Anonymous Identity support is <strong>%s</strong>, the anonymous outer "
 "identity is <strong>%s</strong>"
-msgstr ""
-"Anonyymin identiteetin tuki on <strong>%s</strong>, ulompi anonyymi "
-"identiteetti on <strong>%s</strong>"
+msgstr "Anonyymin identiteetin tuki on <strong>%s</strong>, ulompi anonyymi identiteetti on <strong>%s</strong>"
 
 #: web/admin/edit_profile_result.php:134 web/admin/edit_profile_result.php:146
 msgid "ON"
@@ -708,18 +621,15 @@ msgid "OFF"
 msgstr "OFF"
 
 #: web/admin/edit_profile_result.php:143 web/admin/edit_profile_result.php:155
-#, fuzzy
 msgid "Realm check username cannot be configured: realm is missing!"
-msgstr "Anonyymiä ulkoidentiteettiä ei voi käyttää: verkkotunnus puuttuu."
+msgstr ""
 
 #: web/admin/edit_profile_result.php:146
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Special username for realm check is <strong>%s</strong>, the value is "
 "<strong>%s</strong>"
 msgstr ""
-"Anonyymin identiteetin tuki on <strong>%s</strong>, ulompi anonyymi "
-"identiteetti on <strong>%s</strong>"
 
 #: web/admin/edit_profile_result.php:150
 msgid "No special username for realm checks is configured."
@@ -733,12 +643,13 @@ msgstr ""
 #: web/admin/edit_profile_result.php:163
 #, php-format
 msgid ""
-"Where possible, username inputs will be <strong>verified to end with @%s</"
-"strong>%s"
+"Where possible, username inputs will be <strong>verified to end with "
+"@%s</strong>%s"
 msgstr ""
 
 #: web/admin/edit_profile_result.php:173
-msgid "Redirection can't be activated - you did not specify a target location!"
+msgid ""
+"Redirection can't be activated - you did not specify a target location!"
 msgstr "Uudelleenohjaus ei ole mahdollista - et ole määritellyt kohdetta!"
 
 #: web/admin/edit_profile_result.php:175
@@ -765,9 +676,7 @@ msgstr "Tuettu EAP-tyyppi: <strong>%s</strong>, vaadittu tieto %s puuttuu!"
 msgid ""
 "The EAP type was added to the profile, but you need to complete the missing "
 "information before we can produce installers for you."
-msgstr ""
-"EAP-tyyppi lisättiin profiiliin, mutta sinun pitää lisätä puuttuvat tiedot, "
-"jotta asennusohjelmia voidaan luoda."
+msgstr "EAP-tyyppi lisättiin profiiliin, mutta sinun pitää lisätä puuttuvat tiedot, jotta asennusohjelmia voidaan luoda."
 
 #: web/admin/edit_profile_result.php:233
 msgid "Continue to Installer Fine-Tuning and Download"
@@ -809,9 +718,9 @@ msgid "Managing %s users"
 msgstr ""
 
 #: web/admin/edit_silverbullet.php:303
-#, fuzzy, php-format
+#, php-format
 msgid "Current %s users"
-msgstr "Tämänhetkiset käyttäjätiedot"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:306
 msgid "Assigned Realm"
@@ -830,27 +739,24 @@ msgid "Number of inactive users"
 msgstr ""
 
 #: web/admin/edit_silverbullet.php:325
-#, fuzzy
 msgid "The e-mail was sent successfully."
-msgstr "Kutsukirje lähetettiin onnistuneesti."
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:325
 msgid "E-mail OK."
 msgstr ""
 
 #: web/admin/edit_silverbullet.php:328
-#, fuzzy
 msgid "The e-mail was NOT sent."
-msgstr "Sähköpostikutsu on lähetetty"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:328
 msgid "E-mail not OK."
 msgstr ""
 
 #: web/admin/edit_silverbullet.php:331
-#, fuzzy
 msgid "The SMS was sent successfully."
-msgstr "Kutsukirje lähetettiin onnistuneesti."
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:331
 msgid "SMS OK."
@@ -879,21 +785,19 @@ msgstr ""
 
 #: web/admin/edit_silverbullet.php:350 web/admin/overview_federation.php:116
 msgid "User"
-msgstr ""
+msgstr "Käyttäjä"
 
 #: web/admin/edit_silverbullet.php:351
-#, fuzzy
 msgid "Token/Certificate details"
-msgstr "Palvelinvarmenteen yksityiskohdat:"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:352
 msgid "User/Token Expiry"
 msgstr ""
 
 #: web/admin/edit_silverbullet.php:353
-#, fuzzy
 msgid "Actions"
-msgstr "Paikka"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:382
 msgid "REVOKED"
@@ -904,14 +808,12 @@ msgid "EXPIRED"
 msgstr ""
 
 #: web/admin/edit_silverbullet.php:398
-#, fuzzy
 msgid "Device:"
-msgstr "Laite"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:399
-#, fuzzy
 msgid "Serial Number:"
-msgstr "Sarjanumero:"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:400
 msgid "CN:"
@@ -922,9 +824,8 @@ msgid "Expiry:"
 msgstr ""
 
 #: web/admin/edit_silverbullet.php:402
-#, fuzzy
 msgid "Issued:"
-msgstr "Myöntäjä:"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:409
 msgid "Revoke"
@@ -964,21 +865,19 @@ msgid "Deactivate User"
 msgstr ""
 
 #: web/admin/edit_silverbullet.php:506
-#, fuzzy
 msgid "New Invitation"
-msgstr "Peruuta kutsu"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:509
-#, fuzzy
 msgid "Activations:"
-msgstr "Paikka"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:530
 #, php-format
 msgid ""
-"You need to acknowledge that the created accounts are still valid within the "
-"next %s days. If all accounts shown as active above are indeed still valid, "
-"please check the box below and push \"Save\". If any of the accounts are "
+"You need to acknowledge that the created accounts are still valid within the"
+" next %s days. If all accounts shown as active above are indeed still valid,"
+" please check the box below and push \"Save\". If any of the accounts are "
 "stale, please deactivate them by pushing the corresponding button before "
 "doing this."
 msgstr ""
@@ -989,9 +888,8 @@ msgid "I have verified that all configured users are still eligible for %s."
 msgstr ""
 
 #: web/admin/edit_silverbullet.php:550 web/admin/edit_silverbullet.php:568
-#, fuzzy
 msgid "Add new user"
-msgstr "Lisää uusi vaihtoehto"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:553
 msgid "Import users from CSV file"
@@ -1010,15 +908,14 @@ msgid ""
 msgstr ""
 
 #: web/admin/edit_silverbullet.php:581
-#, fuzzy
 msgid "Import users"
-msgstr "toinen käyttäjä"
+msgstr ""
 
 #. Appending terms of use popup
 #: web/admin/edit_silverbullet.php:598
-#, fuzzy, php-format
+#, php-format
 msgid "%s - Terms of Use"
-msgstr "Käyttöehdot"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:605
 msgid "I have read and agree to the terms."
@@ -1048,9 +945,7 @@ msgstr "Käyttäjän tiedot - Yhteenveto"
 #: web/admin/edit_user_result.php:22
 msgid ""
 "The page was called with insufficient data. Please report this as an error."
-msgstr ""
-"Tätä sivua kutsuttiin riittämättömillä tiedoilla. Ole hyvä ja raportoi tämä "
-"virhetoiminto."
+msgstr "Tätä sivua kutsuttiin riittämättömillä tiedoilla. Ole hyvä ja raportoi tämä virhetoiminto."
 
 #: web/admin/edit_user_result.php:28
 msgid "Submitted attributes"
@@ -1069,20 +964,17 @@ msgstr "Keskeneräinen uloskirjautuminen"
 msgid ""
 "We were unable to log you out of all your sessions. To be completely sure "
 "that you are logged out, you need to close your web browser."
-msgstr ""
-"Kaikkien sessioiden sulkeminen ei onnistunut. Ole hyvä ja käynnistä "
-"selaimesi uudelleen varmistaaksesi, että uloskirjautuminen on suoritettu "
-"kokonaisuudessaan."
+msgstr "Kaikkien sessioiden sulkeminen ei onnistunut. Ole hyvä ja käynnistä selaimesi uudelleen varmistaaksesi, että uloskirjautuminen on suoritettu kokonaisuudessaan."
 
 #: web/admin/overview_federation.php:17
-#, fuzzy, php-format
+#, php-format
 msgid "%s: %s Management"
-msgstr "%s: Käyttäjähallinto"
+msgstr ""
 
 #: web/admin/overview_federation.php:30
-#, fuzzy, php-format
+#, php-format
 msgid "%s Overview"
-msgstr "Käyttäjän perustiedot"
+msgstr ""
 
 #: web/admin/overview_federation.php:34 web/admin/overview_user.php:38
 msgid "Your Personal Information"
@@ -1097,14 +989,14 @@ msgid "click to display"
 msgstr "näytä"
 
 #: web/admin/overview_federation.php:54
-#, fuzzy, php-format
+#, php-format
 msgid "You are not a %s manager."
-msgstr "Et ole yhteisön ylläpitäjä."
+msgstr ""
 
 #: web/admin/overview_federation.php:65
-#, fuzzy, php-format
+#, php-format
 msgid "%s Properties: %s"
-msgstr "Organisaation yleistiedot"
+msgstr ""
 
 #: web/admin/overview_federation.php:71
 msgid "Country"
@@ -1117,21 +1009,19 @@ msgstr ""
 
 #: web/admin/overview_federation.php:100
 msgid "IdPs Total"
-msgstr ""
+msgstr "IdP:t yhteensä"
 
 #: web/admin/overview_federation.php:101
-#, fuzzy
 msgid "Public Download"
 msgstr "Lataa"
 
 #: web/admin/overview_federation.php:113
-#, fuzzy
 msgid "Downloads"
-msgstr "Lataa"
+msgstr "Lataukset"
 
 #: web/admin/overview_federation.php:114
 msgid "Admin"
-msgstr ""
+msgstr "Ylläpitäjä"
 
 #: web/admin/overview_federation.php:137 web/admin/inc/manageAdmins.inc.php:95
 msgid "and <b>encrypted</b> to the mail domain"
@@ -1143,9 +1033,9 @@ msgstr ""
 
 #: web/admin/overview_federation.php:145
 #: web/admin/inc/manageAdmins.inc.php:103
-#, fuzzy, php-format
+#, php-format
 msgid "The invitation email was sent successfully %s."
-msgstr "Kutsukirje lähetettiin onnistuneesti."
+msgstr ""
 
 #: web/admin/overview_federation.php:145
 #: web/admin/inc/manageAdmins.inc.php:103
@@ -1160,9 +1050,8 @@ msgstr "Sähköpostikutsua ei voitu lähettää"
 
 #: web/admin/overview_federation.php:151
 #: web/admin/inc/manageAdmins.inc.php:109
-#, fuzzy
 msgid "The invitation email address was malformed, no invitation was sent!"
-msgstr "Sähköpostikutsua ei voitu lähettää"
+msgstr ""
 
 #: web/admin/overview_federation.php:154
 msgid "Error: unknown result code of invitation!?!"
@@ -1197,9 +1086,9 @@ msgstr "Ylläpidon hallinta"
 
 #. / nomenclature for 'federation', federation name, nomenclature for 'inst'
 #: web/admin/overview_federation.php:189
-#, fuzzy, php-format
+#, php-format
 msgid "Your %s %s contains the following %s list:"
-msgstr "Ylläpidät seuraavaa organisaatiota:"
+msgstr ""
 
 #: web/admin/overview_federation.php:225
 msgid "Manage DB Link"
@@ -1218,18 +1107,18 @@ msgid "Add/Remove Administrators"
 msgstr "Lisää/poista ylläpitäjiä"
 
 #: web/admin/overview_federation.php:263
-#, fuzzy, php-format
+#, php-format
 msgid "Pending invitations in your %s:"
-msgstr "Yhteisön jonottavat kutsut:"
+msgstr ""
 
 #: web/admin/overview_federation.php:280
 msgid "Revoke Invitation"
 msgstr "Peruuta kutsu"
 
 #: web/admin/overview_federation.php:299 web/admin/overview_user.php:166
-#, fuzzy, php-format
+#, php-format
 msgid "Register new %s!"
-msgstr "Rekisteröi uusi organisaatio!"
+msgstr ""
 
 #: web/admin/overview_idp.php:28
 #, php-format
@@ -1237,14 +1126,14 @@ msgid "%s: IdP Dashboard"
 msgstr "%s: IdP Dashboard"
 
 #: web/admin/overview_idp.php:50
-#, fuzzy, php-format
+#, php-format
 msgid "Overview of %s"
-msgstr "Käyttäjän perustiedot"
+msgstr ""
 
 #: web/admin/overview_idp.php:52
-#, fuzzy, php-format
+#, php-format
 msgid "%s-wide settings"
-msgstr "IdP:n yleiset asetukset"
+msgstr ""
 
 #: web/admin/overview_idp.php:57
 #, php-format
@@ -1252,43 +1141,39 @@ msgid "QR Code for %s download area"
 msgstr ""
 
 #: web/admin/overview_idp.php:86
-#, fuzzy, php-format
+#, php-format
 msgid "Edit general %s details"
-msgstr "Muuta käyttäjän tietoja"
+msgstr ""
 
 #: web/admin/overview_idp.php:91
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "After deleting the %s, you can not recreate it yourself - you need a new "
 "invitation token from the %s administrator!"
 msgstr ""
-"Jos poistat IdP:n, et pysty luomaan sitä uudelleen itse - tarvitset kutsun "
-"yhteisön koordinaattorilta."
 
 #: web/admin/overview_idp.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Do you really want to delete your %s %s?"
-msgstr "Haluatko varmasti poistaa IdP:n %s?"
+msgstr ""
 
 #: web/admin/overview_idp.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Delete %s"
-msgstr "Poista"
+msgstr ""
 
 #: web/admin/overview_idp.php:97
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This action will delete all properties of your %s and start over the "
-"configuration from scratch. Do you really want to reset all settings of your "
-"%s %s?"
+"configuration from scratch. Do you really want to reset all settings of your"
+" %s %s?"
 msgstr ""
-"Tämä toiminto poistaa kaikki IdP-määritykset ja joudut aloittamaan tyhjästä. "
-"Tahdotko varmasti tyhjentää kaikki määritykset IdP:ltä %s?"
 
 #: web/admin/overview_idp.php:97
-#, fuzzy, php-format
+#, php-format
 msgid "Reset all %s settings"
-msgstr "Nollaa kaikki IdP-asetukset"
+msgstr ""
 
 #: web/admin/overview_idp.php:107
 msgid "Available Support actions"
@@ -1305,21 +1190,21 @@ msgstr "Mene!"
 
 #. SW: APPROVED
 #: web/admin/overview_idp.php:122
-#, fuzzy, php-format
+#, php-format
 msgid "Check server status of European %ss"
-msgstr "Tarkasta Euroopan luottamusverkostojen palvelintilanne"
+msgstr ""
 
 #. no profiles yet.
 #: web/admin/overview_idp.php:136
-#, fuzzy, php-format
+#, php-format
 msgid "There are not yet any profiles for your %s."
-msgstr "Kotiorganisaatiotasi varten ei ole vielä yhtään profiilia."
+msgstr ""
 
 #. no profiles yet.
 #: web/admin/overview_idp.php:139
-#, fuzzy, php-format
+#, php-format
 msgid "Profiles for this %s"
-msgstr "Organisaation profiilit"
+msgstr ""
 
 #: web/admin/overview_idp.php:162 web/admin/overview_idp.php:221
 msgid "Information needed!"
@@ -1328,8 +1213,8 @@ msgstr "Lisää tietoa tarvitaan!"
 #: web/admin/overview_idp.php:170
 #, php-format
 msgid ""
-"You can create up to %d users. Their credentials will carry the name <strong>"
-"%s</strong>."
+"You can create up to %d users. Their credentials will carry the name "
+"<strong>%s</strong>."
 msgstr ""
 
 #: web/admin/overview_idp.php:179
@@ -1349,9 +1234,8 @@ msgid "OK"
 msgstr "OK"
 
 #: web/admin/overview_idp.php:237
-#, fuzzy
 msgid "Options on EAP Method/Device level are in effect."
-msgstr "Valinta override EAP Method-tasolla on päällä"
+msgstr ""
 
 #: web/admin/overview_idp.php:247
 msgid "Option override on profile level is in effect."
@@ -1371,10 +1255,7 @@ msgid ""
 "This profile is NOT shown on the user download interface, even though we "
 "have enough information to show. To enable the profile, add the attribute "
 "\"%s\" and tick the corresponding box."
-msgstr ""
-"Tätä profiilia ei näytetä käyttäjien latausliittymässä vaikka kaikki tiedot "
-"ovat määritelty. Jos haluat näyttää profiilin, lisää attribuutti \"%s\" ja "
-"merkkaa vastaava valintalaatikko."
+msgstr "Tätä profiilia ei näytetä käyttäjien latausliittymässä vaikka kaikki tiedot ovat määritelty. Jos haluat näyttää profiilin, lisää attribuutti \"%s\" ja merkkaa vastaava valintalaatikko."
 
 #: web/admin/overview_idp.php:262
 #, php-format
@@ -1415,14 +1296,13 @@ msgid "User Download Link"
 msgstr "Loppukäyttäjän latauslinkki"
 
 #: web/admin/overview_idp.php:354
-#, fuzzy, php-format
+#, php-format
 msgid "Add %s profile ..."
-msgstr "Lisää uusi profiili ..."
+msgstr ""
 
 #: web/admin/overview_idp.php:367
-#, fuzzy
 msgid "Add new RADIUS/EAP profile ..."
-msgstr "Lisää uusi profiili ..."
+msgstr ""
 
 #: web/admin/overview_installers.php:17
 msgid "Device Compatibility matrix"
@@ -1495,9 +1375,9 @@ msgid "Edit User Details"
 msgstr "Muuta käyttäjän tietoja"
 
 #: web/admin/overview_user.php:60
-#, fuzzy, php-format
+#, php-format
 msgid "Click here to manage your %ss"
-msgstr "Napsauta ylläpitääksesi yhteisöjäsi"
+msgstr ""
 
 #: web/admin/overview_user.php:63
 msgid "Click here to access the superadmin page"
@@ -1506,25 +1386,28 @@ msgstr "Klikkaa tästä avataksesi superadmin-sivu"
 #: web/admin/overview_user.php:71
 #, php-format
 msgid "(Need help? Refer to the <a href='%s'>IdP administrator manual</a>)"
-msgstr ""
+msgstr "(Tarvitsetko apua? Vilkaise <a href='%s'>IdP-ylläpitäjän manuaalia</a>)"
 
-#. / first parameter: number of Identity Providers; second param is the literal configured term for 'Identity Provider' (you may or may not be able to add a plural suffix for your locale)
+#. / first parameter: number of Identity Providers; second param is the
+#. literal configured term for 'Identity Provider' (you may or may not be able
+#. to add a plural suffix for your locale)
 #: web/admin/overview_user.php:80
-#, fuzzy, php-format
-msgid "You are managing the following <span style='display:none'>%d </span>%s:"
+#, php-format
+msgid ""
+"You are managing the following <span style='display:none'>%d </span>%s:"
 msgid_plural "You are managing the following <strong>%d</strong> %s:"
-msgstr[0] "Ylläpidät seuraavaa organisaatiota:"
-msgstr[1] "Ylläpidät seuraavia <strong>%d</strong> organisaatioita:"
+msgstr[0] ""
+msgstr[1] ""
 
 #: web/admin/overview_user.php:103 web/lib/admin/UIElements.php:111
-#, fuzzy, php-format
+#, php-format
 msgid "%s Name"
-msgstr "Organisaation nimi"
+msgstr ""
 
 #: web/admin/overview_user.php:103
-#, fuzzy, php-format
+#, php-format
 msgid "Other admins of this %s"
-msgstr "Tämän organisaation muut ylläpitäjät"
+msgstr ""
 
 #. / nomenclature 'fed', fed name, nomenclature 'inst'
 #: web/admin/overview_user.php:106
@@ -1539,35 +1422,33 @@ msgstr[0] "toinen käyttäjä"
 msgstr[1] "toiset käyttäjät"
 
 #: web/admin/overview_user.php:146
-#, fuzzy, php-format
+#, php-format
 msgid "You are not managing any %s."
-msgstr "Et ylläpidä yhtään organisaatiota."
+msgstr ""
 
 #: web/admin/overview_user.php:150
-#, fuzzy, php-format
+#, php-format
 msgid ""
-"Please ask your %s administrator to invite you to become an %s administrator."
-msgstr "Pyydä yhteisön ylläpitäjältä kutsu ryhtyä organisaation ylläpitäjäksi."
+"Please ask your %s administrator to invite you to become an %s "
+"administrator."
+msgstr ""
 
 #: web/admin/overview_user.php:154
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Did you receive an invitation token to manage an %s? Please paste it here:"
-msgstr "Saitko kutsupoletin organisaation ylläpitoa varten? Kopioi se tähän:"
+msgstr ""
 
 #: web/admin/inc/displayQRcode.inc.php:31
-#, fuzzy
 msgid "Invitation Token QR Code"
-msgstr "Kutsu on lähetetty:"
+msgstr ""
 
 #: web/admin/inc/manageAdmins.inc.php:46
-#, fuzzy, php-format
+#, php-format
 msgid ""
-"You do not have the necessary privileges to alter administrators of this %s. "
-"In fact, you shouldn't have come this far!"
+"You do not have the necessary privileges to alter administrators of this %s."
+" In fact, you shouldn't have come this far!"
 msgstr ""
-"Sinulla ei ole riittäviä oikeuksia muuttaa tämän organisaation ylläpitäjiä. "
-"Itse asiassa, sinun ei olisi pitänyt päästä näin pitkälle!"
 
 #: web/admin/inc/manageAdmins.inc.php:84
 #, php-format
@@ -1575,29 +1456,24 @@ msgid "Administrators for IdP '%s'"
 msgstr "IdP '%s' ylläpitäjät"
 
 #: web/admin/inc/manageAdmins.inc.php:119
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You are the %s administrator of this %s. You can invite new administrators, "
 "who can in turn appoint further administrators on their own."
 msgstr ""
-"Olet tämän IdP:n ylläpitäjä. Voit kutsua palveluun uusia ylläpitäjiä, jotka "
-"voivat edelleen kutsua uusia ylläpitäjiä."
 
 #: web/admin/inc/manageAdmins.inc.php:119 web/lib/admin/UIElements.php:102
-#, fuzzy, php-format
+#, php-format
 msgid "%s Administrator"
-msgstr "Ylläpitäjät"
+msgstr ""
 
 #: web/admin/inc/manageAdmins.inc.php:125
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You are an administrator of this %s, and were directly appointed by the %s "
 "administrator. You can appoint further administrators, but these can't in "
 "turn appoint any more administrators."
 msgstr ""
-"Tämän federaation ylläpitäjä on kutsunut sinut tämän federaation "
-"ylläpitäjäksi. Voit nimittää uusia ylläpitäjiä, mutta nämä eivät voi "
-"puolestaan nimitää lisää ylläpitäjiä."
 
 #: web/admin/inc/manageAdmins.inc.php:125
 msgid "Directly Appointed IdP Administrator"
@@ -1618,25 +1494,24 @@ msgstr "(omatoimisesti nimitetty)"
 
 #: web/admin/inc/manageAdmins.inc.php:156
 msgid "Delete Administrator"
-msgstr "Poista Ylläpitäjä"
+msgstr "Poista ylläpitäjä"
 
 #: web/admin/inc/manageAdmins.inc.php:170
 msgid "Pending invitations for this IdP"
 msgstr "IdP:n jonottavat kutsut"
 
 #: web/admin/inc/manageAdmins.inc.php:181
-#, fuzzy
 msgid "New administrator's email address(es) (comma-separated):"
-msgstr "Uuden ylläpitäjän sähköpostiosoite:"
+msgstr "Ylläpitäjien uudet sähköpostiosoitteet (pilkulla erotettuina):"
 
 #: web/admin/inc/manageAdmins.inc.php:181
 msgid "Invite new administrator"
 msgstr "Kutsu uusi ylläpitäjä"
 
 #: web/admin/inc/manageAdmins.inc.php:195
-#, fuzzy, php-format
+#, php-format
 msgid "Take control of this %s"
-msgstr "Ottaa tämä käyttäjäorganisaatio hallintaan"
+msgstr ""
 
 #: web/admin/inc/manageAdmins.inc.php:202
 #: web/admin/inc/manageDBLink.inc.php:194
@@ -1645,13 +1520,11 @@ msgid "Close"
 msgstr "Sulje"
 
 #: web/admin/inc/manageDBLink.inc.php:43
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You do not have the necessary privileges to manage the %s DB link state of "
 "this %s."
 msgstr ""
-"Sinulla ei ole riittäviä käyttöoikeuksia ylläpitämään tietokannan %s tilaa "
-"tämän organisaation osalta."
 
 #: web/admin/inc/manageDBLink.inc.php:76
 #, php-format
@@ -1659,9 +1532,9 @@ msgid "%s Database Link Status for IdP '%s'"
 msgstr "Tietokannan %s linkkitila IdP:n '%s' osalta."
 
 #: web/admin/inc/manageDBLink.inc.php:85
-#, fuzzy, php-format
+#, php-format
 msgid "This %s is linked to the %s database."
-msgstr "Organisaatio on linkattu tietokantaan %s."
+msgstr ""
 
 #: web/admin/inc/manageDBLink.inc.php:86
 #, php-format
@@ -1701,17 +1574,15 @@ msgid "Unlink"
 msgstr ""
 
 #: web/admin/inc/manageDBLink.inc.php:139
-#, fuzzy, php-format
+#, php-format
 msgid "This %s is not yet linked to the %s database."
-msgstr "Tämä organisaatio ei ole vielä linkattu %s tietokantaan."
+msgstr ""
 
 #: web/admin/inc/manageDBLink.inc.php:140
 msgid ""
 "This means that its profiles are not made available on the user download "
 "page."
-msgstr ""
-"Tämä tarkoittaa, että sen profiilit eivät ole laitettu näkymään käyttäjien "
-"lataussivulla."
+msgstr "Tämä tarkoittaa, että sen profiilit eivät ole laitettu näkymään käyttäjien lataussivulla."
 
 #: web/admin/inc/manageDBLink.inc.php:141
 #, php-format
@@ -1719,28 +1590,26 @@ msgid "You can link it to the %s database below."
 msgstr "Voit linkata sen alapuoliseen %s tietokantaan."
 
 #: web/admin/inc/manageDBLink.inc.php:144
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Please select an entity from the %s DB which corresponds to this CAT %s."
-msgstr "Valitse organisaatio tietokannasta %s."
+msgstr ""
 
 #: web/admin/inc/manageDBLink.inc.php:146
 #, php-format
 msgid ""
 "Particularly promising entries (names in CAT and %s DB are a 100%% match) "
 "are on top of the list."
-msgstr ""
-"Erityisen lupaavat merkinnät (nimet CATissa ja tietokannassa %s vastaavat "
-"100%%) ovat listan alussa."
+msgstr "Erityisen lupaavat merkinnät (nimet CATissa ja tietokannassa %s vastaavat 100%%) ovat listan alussa."
 
 #: web/admin/inc/manageDBLink.inc.php:149
 msgid "Link to this entity?"
 msgstr "Luo linkki tähän?"
 
 #: web/admin/inc/manageDBLink.inc.php:149
-#, fuzzy, php-format
+#, php-format
 msgid "Name of the %s"
-msgstr "Organisaation nimi"
+msgstr ""
 
 #: web/admin/inc/manageDBLink.inc.php:149
 msgid "Administrators"
@@ -1756,53 +1625,43 @@ msgid "Create Link"
 msgstr "Luo linkki"
 
 #: web/admin/inc/manageNewInst.inc.php:37
-#, fuzzy, php-format
+#, php-format
 msgid "You do not have the necessary privileges to register new %ss."
-msgstr "Sinulla ei ole riittäviä oikeuksia lisätä uusia IdP:itä."
+msgstr ""
 
 #: web/admin/inc/manageNewInst.inc.php:44
-#, fuzzy, php-format
+#, php-format
 msgid "%s - Register new %s"
-msgstr "%s - Rekisteröi uusi organisaatio"
+msgstr ""
 
 #: web/admin/inc/manageNewInst.inc.php:47
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "On this page, you can add a new %s to your %s. Please fill out the form "
 "below to send out an email invitation to the new %s administrator."
 msgstr ""
-"Tällä sivulla voit lisätä uusia organisaatioita yhteisöösi. Täytä "
-"alapuolella oleva lomake lähettääksesi sähköpostikutsun uuden organisaation "
-"ylläpitäjälle."
 
 #: web/admin/inc/manageNewInst.inc.php:49
-#, fuzzy, php-format
+#, php-format
 msgid ""
-"You can either register a known %s (as defined in the %s database) or create "
-"a totally new %s."
+"You can either register a known %s (as defined in the %s database) or create"
+" a totally new %s."
 msgstr ""
-"Voit rekisteröidä joko tunnetun IdP:n (määritelty tietokannassa %s) tai "
-"luoda täysin uuden IdP:n."
 
 #: web/admin/inc/manageNewInst.inc.php:50
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "The latter one is typically for an %s which is yet in a testing phase and "
 "therefore doesn't appear in the %s database yet."
 msgstr ""
-"Jälkimmäinen on tyypillisesti sellaisia organisaatioita varten, jotka ovat "
-"vielä testivaiheessa ja eivät sen vuoksi näy vielä tietokannassa %s."
 
 #: web/admin/inc/manageNewInst.inc.php:51
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Please keep in mind that any profiles of such a new %s will only be made "
-"available on the user download page after you have linked it to an entity in "
-"the %s database (but they are otherwise fully functional)."
+"available on the user download page after you have linked it to an entity in"
+" the %s database (but they are otherwise fully functional)."
 msgstr ""
-"Muista, että uusien organisaatioiden profiilit tulevat näkyviin "
-"lataussivulla vasta kun olet liittänyt ne tietokantaan %s (mutta ne ovat "
-"kyllä muuten täysin toimivia)"
 
 #: web/admin/inc/manageNewInst.inc.php:61
 msgid "Existing IdP:"
@@ -1828,14 +1687,13 @@ msgstr "Ylläpitäjän sähköposti:"
 msgid "Send invitation"
 msgstr "Lähetä kutsu"
 
-#.
 #. *******************************************************************************
-#. * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1
+#. * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+,
+#. GN4-1
 #. * and GN4-2 consortia
 #. *
 #. * License: see the web/copyright.php file in the file structure
 #. *******************************************************************************
-#.
 #: web/admin/inc/overview_js.php:41 web/admin/inc/overview_js.php:98
 msgid "No email address provided"
 msgstr "Sähköpostiosoitetta ei ole annettu"
@@ -1849,13 +1707,11 @@ msgid "Mail address to invite:"
 msgstr "Kutsuttavan sähköpostiosoite:"
 
 #: web/admin/inc/sendinvite.inc.php:92
-#, fuzzy, php-format
+#, php-format
 msgid ""
-"Something's wrong... you are a %s admin, but not for the %s the requested %s "
-"belongs to!"
+"Something's wrong... you are a %s admin, but not for the %s the requested %s"
+" belongs to!"
 msgstr ""
-"Jokin meni pieleen... Olet yhteisön ylläpitäjä, mutta et sen yhteisön, johon "
-"pyydetty organisaatio kuuluu!"
 
 #: web/admin/inc/toggleRedirect.inc.php:90
 #, php-format
@@ -1872,40 +1728,33 @@ msgid "Fine-tuning options for "
 msgstr "Asetusten hienosäätö"
 
 #: web/lib/admin/AbstractMap.php:100 web/lib/admin/UIElements.php:84
-#, fuzzy
 msgid "Location"
-msgstr "paikantaa"
+msgstr "Paikka"
 
 #: web/lib/admin/AbstractMap.php:104
 msgid ""
 "The user download interface (see <a href='../'>here</a>), uses geolocation "
 "to suggest possibly matching IdPs to the user. The more precise you define "
 "the location here, the easier your users will find you."
-msgstr ""
-"Loppukäyttäjän latauskäyttöliittymä (katso <a href='../'>täältä</a>), "
-"käyttää maantieteellista paikannusta sopivien IdP:den ehdottamiseksi. Mitä "
-"tarkemmin määrittelet paikan, sitä helpommin käyttäjäsi löytävät sinut."
+msgstr "Loppukäyttäjän latauskäyttöliittymä (katso <a href='../'>täältä</a>), käyttää maantieteellista paikannusta sopivien IdP:den ehdottamiseksi. Mitä tarkemmin määrittelet paikan, sitä helpommin käyttäjäsi löytävät sinut."
 
 #: web/lib/admin/AbstractMap.php:107
 msgid ""
 "<li>Drag the marker in the map to your place, or</li>\n"
 "<li>enter your street address in the field below for lookup, or</li>\n"
 "<li>use the 'Locate Me!' button</li>"
-msgstr ""
-"<li>Vedä osoitin sijaintiisi, tai</li>⏎ <li>täytä katuosoitteesi alapuolelta "
-"löytyvään kenttään, tai</li>⏎ <li>käytä 'Paikanna Minut!' nappia</li>"
+msgstr "<li>Vedä osoitin sijaintiisi, tai</li>⏎ <li>täytä katuosoitteesi alapuolelta löytyvään kenttään, tai</li>⏎ <li>käytä 'Paikanna Minut!' nappia</li>"
 
 #: web/lib/admin/AbstractMap.php:112
-msgid "We will use the coordinates as indicated by the marker for geolocation."
+msgid ""
+"We will use the coordinates as indicated by the marker for geolocation."
 msgstr "Koordinaattejä käytetään sijainnin määrittelemistä varten"
 
 #: web/lib/admin/AbstractMap.php:116
 msgid ""
 "You can enter an <strong>additional</strong> location here. You can see the "
 "already defined locations in the 'General Information' field."
-msgstr ""
-"Voit kirjoittaa <strong>ylimääräisen</strong> sijainnin tähän. Voit "
-"tarkastaa jo määritellyt sijainnit 'Yleistiedoista'. "
+msgstr "Voit kirjoittaa <strong>ylimääräisen</strong> sijainnin tähän. Voit tarkastaa jo määritellyt sijainnit 'Yleistiedoista'. "
 
 #: web/lib/admin/AbstractMap.php:127
 msgid "Latitude:"
@@ -1965,18 +1814,7 @@ msgid ""
 "to another place which happens to have the same SSID name. They might then "
 "be misled to believe that they are connecting to an extra secure network "
 "while they are not."
-msgstr ""
-"Tämä attribuutti voidaan asettaa, jos haluat konfiguroida useamman SSID:n "
-"oletus-SSID:n lisäksi organisaatiolle %s. Suosittelemme käyttämään oletus-"
-"SSID:tä. Poikkeuksen muodostaa tilanne, jossa radiosignaalit menevät "
-"päällekäin toisen %s-hotspotin kanssa. Tyypillinen ajatusvirhe ylimääräisen "
-"SSID:n suhteen on, että haluaa paikallisen SSID:n omille käyttäjille. On "
-"suositeltavampaa käyttää oletus-SSID:tä, ja erottaa käyttäjäryhmät "
-"VLANeilla. Tästä on kaksi etua: 1) käyttäjillesi konfiguroituu %s oikein, "
-"koska se on heidän päivittäin käyttämänsä SSID; 2) jos käytät toista nimeä "
-"ja mainostat sitä erityisturvallisena, käyttäjäsi voivat joskus roamata "
-"toisaalla, jossa sattuu olemaan sama SSID käytössä. He voivat harhautua "
-"luulemaan turvalliseksi verkkoa, joka ei sitä olekaan. "
+msgstr "Tämä attribuutti voidaan asettaa, jos haluat konfiguroida useamman SSID:n oletus-SSID:n lisäksi organisaatiolle %s. Suosittelemme käyttämään oletus-SSID:tä. Poikkeuksen muodostaa tilanne, jossa radiosignaalit menevät päällekäin toisen %s-hotspotin kanssa. Tyypillinen ajatusvirhe ylimääräisen SSID:n suhteen on, että haluaa paikallisen SSID:n omille käyttäjille. On suositeltavampaa käyttää oletus-SSID:tä, ja erottaa käyttäjäryhmät VLANeilla. Tästä on kaksi etua: 1) käyttäjillesi konfiguroituu %s oikein, koska se on heidän päivittäin käyttämänsä SSID; 2) jos käytät toista nimeä ja mainostat sitä erityisturvallisena, käyttäjäsi voivat joskus roamata toisaalla, jossa sattuu olemaan sama SSID käytössä. He voivat harhautua luulemaan turvalliseksi verkkoa, joka ei sitä olekaan. "
 
 #: web/lib/admin/OptionDisplay.php:150
 #, php-format
@@ -2023,23 +1861,18 @@ msgstr "%dx %s"
 #, php-format
 msgid ""
 "You did not set a 'default language' value for %s. This means we can only "
-"display this string for installers which are <strong>exactly</strong> in the "
-"language you configured. For the sake of all other languages, you may want "
+"display this string for installers which are <strong>exactly</strong> in the"
+" language you configured. For the sake of all other languages, you may want "
 "to edit the profile again and populate the 'default/other' language field."
-msgstr ""
-"Et asentanut 'oletuskieli' arvoa %s. Tämä tarkoittaa sitä, että tämä "
-"merkkijono voidaan näyttää asennusohjelmissa, joissa on <strong>juuri</"
-"strong> sillä kielellä, jonka konfiguroit. Kaikkien muiden kielten tuen "
-"vuoksi, käy editoimassa profiilia ja täyty 'default/other' kielikenttä."
+msgstr "Et asentanut 'oletuskieli' arvoa %s. Tämä tarkoittaa sitä, että tämä merkkijono voidaan näyttää asennusohjelmissa, joissa on <strong>juuri</strong> sillä kielellä, jonka konfiguroit. Kaikkien muiden kielten tuen vuoksi, käy editoimassa profiilia ja täyty 'default/other' kielikenttä."
 
 #: web/lib/admin/PageDecoration.php:31
 msgid "You are:"
 msgstr ""
 
 #: web/lib/admin/PageDecoration.php:35
-#, fuzzy
 msgid "Go to your Profile page"
-msgstr "Jatka eteenpäin käyttäjän yhteenvetosivulle"
+msgstr ""
 
 #: web/lib/admin/PageDecoration.php:36
 msgid "Logout"
@@ -2054,34 +1887,32 @@ msgid "View this page in"
 msgstr ""
 
 #: web/lib/admin/PageDecoration.php:117
-#, fuzzy, php-format
+#, php-format
 msgid "Administrator Interface - %s"
-msgstr "Ylläpitäjän sähköpostiosoite"
+msgstr ""
 
 #: web/lib/admin/PageDecoration.php:120
-#, fuzzy, php-format
+#, php-format
 msgid "Administrator Interface - %s User Management"
-msgstr "Ylläpidon hallinta"
+msgstr ""
 
 #: web/lib/admin/PageDecoration.php:123
-#, fuzzy
 msgid "Administrator Interface"
-msgstr "Ylläpitäjän sähköpostiosoite"
+msgstr ""
 
 #: web/lib/admin/PageDecoration.php:126
-#, fuzzy
 msgid "Management of User Details"
-msgstr "Muuta käyttäjän tietoja"
+msgstr ""
 
 #: web/lib/admin/PageDecoration.php:129
-#, fuzzy, php-format
+#, php-format
 msgid "Administrator Interface - %s Management"
-msgstr "Ylläpidon hallinta"
+msgstr ""
 
 #: web/lib/admin/PageDecoration.php:132
-#, fuzzy, php-format
+#, php-format
 msgid "Welcome to %s"
-msgstr "Yhdistetty: %s."
+msgstr ""
 
 #: web/lib/admin/PageDecoration.php:137
 msgid "CIC"
@@ -2096,16 +1927,15 @@ msgstr ""
 #. different wording, no translation, sorry
 #: web/lib/admin/UIElements.php:46
 msgid "National Roaming Operator"
-msgstr ""
+msgstr "Kansallinen operaattori"
 
 #: web/lib/admin/UIElements.php:47
-#, fuzzy
 msgid "identity provider"
-msgstr "Identity Provider -yleisesittely"
+msgstr "IdP"
 
 #: web/lib/admin/UIElements.php:48
 msgid "organisation"
-msgstr ""
+msgstr "organisaatio"
 
 #: web/lib/admin/UIElements.php:67
 msgid "SSID"
@@ -2144,9 +1974,8 @@ msgid "Support: Phone"
 msgstr "Tuki: Puhelin"
 
 #: web/lib/admin/UIElements.php:82
-#, fuzzy
 msgid "Support: E-Mail"
-msgstr "Tuki: Web"
+msgstr "Tuki: Sähköposti"
 
 #: web/lib/admin/UIElements.php:85
 msgid "Logo URL"
@@ -2169,7 +1998,6 @@ msgid "Enable device assessment"
 msgstr "Mahdollista laitteen arviointi"
 
 #: web/lib/admin/UIElements.php:90
-#, fuzzy
 msgid "Terms of Use"
 msgstr "Käyttöehdot"
 
@@ -2190,9 +2018,8 @@ msgid "Production-Ready"
 msgstr "Tuotantovalmis"
 
 #: web/lib/admin/UIElements.php:95
-#, fuzzy
 msgid "Admin Accepted Terms of Use"
-msgstr "Käyttöehdot"
+msgstr ""
 
 #: web/lib/admin/UIElements.php:96
 msgid "Extra text on downloadpage for device"
@@ -2278,9 +2105,9 @@ msgid "Mint %s with CA on creation"
 msgstr ""
 
 #: web/lib/admin/UIElements.php:210
-#, fuzzy, php-format
+#, php-format
 msgid "General %s details"
-msgstr "Muuta käyttäjän tietoja"
+msgstr ""
 
 #: web/lib/admin/UIElements.php:228
 msgid "Global Helpdesk Details"
@@ -2288,9 +2115,8 @@ msgstr "Yleiset helpdesk-tiedot"
 
 #. we didn't actually get a CA!
 #: web/lib/admin/UIElements.php:323
-#, fuzzy
 msgid "There was an error while retrieving the certificate from the database!"
-msgstr "Varmenteen käsittelyssä tapahtui virhe!"
+msgstr ""
 
 #: web/lib/admin/UIElements.php:330
 msgid "There was an error processing the certificate!"
@@ -2306,9 +2132,8 @@ msgstr "Logon esikatselu"
 
 #. we didn't actually get a file!
 #: web/lib/admin/UIElements.php:363
-#, fuzzy
 msgid "There was an error while retrieving the file from the database!"
-msgstr "Varmenteen käsittelyssä tapahtui virhe!"
+msgstr ""
 
 #: web/lib/admin/UIElements.php:367
 msgid "File exists"
@@ -2329,794 +2154,3 @@ msgstr "Varoitus!"
 #: web/lib/admin/UIElements.php:385
 msgid "Error!"
 msgstr "Virhe!"
-
-#, fuzzy
-#~ msgid "%s Invitation System"
-#~ msgstr "Kutsu on lähetetty:"
-
-#, fuzzy
-#~ msgid "New Credential"
-#~ msgstr "Lähetä tunnukset"
-
-#, fuzzy
-#~ msgid ""
-#~ "a %s of the %s %s \"%s\" has invited you to manage the %s together with "
-#~ "him."
-#~ msgstr ""
-#~ "%s Tunnistajan ylläpitäjä \"%s\" on kutsunut sinut ylläpitämään IdP:tä "
-#~ "yhdessä hänen kanssaan"
-
-#~ msgid "This invitation is valid for 24 hours from now, i.e. until %s."
-#~ msgstr ""
-#~ "Tämä kutsu on voimassa 24h tästä eteenpäin, toisin sanoen %s saakka."
-
-#, fuzzy
-#~ msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
-#~ msgstr ""
-#~ "%s ylläpitäjä on kutsunut sinut ylläpitämään tulevaa IdP:tä \"%s\" (%s)."
-
-#, fuzzy
-#~ msgid "a %s %s has invited you to manage the %s  \"%s\"."
-#~ msgstr "%s ylläpitäjä on kutsunut sinut ylläpitämään IdP:tä \"%s\"."
-
-#~ msgid "Hello,"
-#~ msgstr "Terve,"
-
-#, fuzzy
-#~ msgid ""
-#~ "To enlist as an administrator for that %s, please click on the following "
-#~ "link:"
-#~ msgstr "Värväytyäksesi tuon IdP:n ylläpitäjäksi, napsauta tätä linkkiä:"
-
-#~ msgid ""
-#~ "If clicking the link doesn't work, you can also go to the %s "
-#~ "Administrator Interface at"
-#~ msgstr "Jos napsauttaminen ei toimi, voit myös mennä %s hallintaliittymään:"
-
-#~ msgid "and enter the invitation token"
-#~ msgstr "ja syötä kutsupoletti"
-
-#, fuzzy
-#~ msgid ""
-#~ "manually. Please do not reply to this mail; this is a send-only address."
-#~ msgstr "Älä vastaan tähän sähköpostiin. Osoite on vain lähettämistä varten."
-
-#~ msgid "We wish you a lot of fun with the %s."
-#~ msgstr "Pidä hauskaa %s:n kanssa."
-
-#~ msgid ""
-#~ "Sincerely,\n"
-#~ "\n"
-#~ "Your friendly folks from %s Operations"
-#~ msgstr "Parhain terveisin,⏎ ⏎ Henkilöstö %s Ylläpidosta"
-
-#, fuzzy
-#~ msgid "%s administrator"
-#~ msgstr "Ylläpitäjät"
-
-#, fuzzy
-#~ msgid "%s: you have been invited to manage an %s"
-#~ msgstr "%s: sinut on kutsuttu ylläpitämään IdP:tä"
-
-#, fuzzy
-#~ msgid "No NAPTR records"
-#~ msgstr "Tällä realmilla ei ole NAPTR-tietueita."
-
-#, fuzzy
-#~ msgid "No associated NAPTR records"
-#~ msgstr "Tällä realmilla ei ole NAPTR-tietueita."
-
-#, fuzzy
-#~ msgid "%d %s NAPTR records"
-#~ msgstr "Realmilla on %d %s NAPTR-tietuetta."
-
-#, fuzzy
-#~ msgid "Profile Name"
-#~ msgstr "Profiilin näyttönimi"
-
-#, fuzzy
-#~ msgid "DNS Checks"
-#~ msgstr "DNS-tarkistukset"
-
-#, fuzzy
-#~ msgid "Authentication Server Status for all known federation members"
-#~ msgstr "Tarkasta Euroopan luottamusverkostojen palvelintilanne"
-
-#, fuzzy
-#~ msgid "Return to federation overview"
-#~ msgstr "Perustietoa yhteisöstä"
-
-#~ msgid "Sanity check for dynamic discovery of realms"
-#~ msgstr "Automaattisesti löydettyjen realmien tarkastus"
-
-#~ msgid ""
-#~ "You asked for a realm check, but we don't know the realm for this profile!"
-#~ msgstr ""
-#~ "Pyysit realmin tarkastamista, mutta tämän profiilin realm ei ole tiedossa."
-
-#~ msgid "No valid realm name given, cannot execute any checks!"
-#~ msgstr "Voimassaolevaa realmia ei ole annettu. Tarkastuksia ei voi tehdä."
-
-#~ msgid "STATIC"
-#~ msgstr "STAATTINEN "
-
-#~ msgid "DYNAMIC"
-#~ msgstr "DYNAAMINEN"
-
-#~ msgid "PASS"
-#~ msgstr "LÄPÄISTY"
-
-#~ msgid "FAIL"
-#~ msgstr "EPÄONNISTUI"
-
-#~ msgid "Client certificate:"
-#~ msgstr "Asiakasvarmenne:"
-
-#~ msgid "expected result: "
-#~ msgstr "odotettu tulos:"
-
-#~ msgid "Server accepted this client certificate"
-#~ msgstr "Palvelin hyväksyi tämän asiakasvarmenteen"
-
-#~ msgid "Server accepted this client certificate, but should not have"
-#~ msgstr ""
-#~ "Palvelin hyväksyi tämän päätelaitevarmenteen, vaikka sen ei olisi pitänyt "
-#~ "tehdä niin"
-
-#~ msgid "Server did not accept this client certificate"
-#~ msgstr "Palvelin ei hyväksynyt tätä päätelaitevarmennetta"
-
-#~ msgid "Server did not accept this client certificate - reason"
-#~ msgstr "Palvelin ei hyväksynyt tätä päätelaitevarmennetta - syy"
-
-#~ msgid "Rest of tests for this CA skipped"
-#~ msgstr "Loput tämän CA:n testit ohitetaan"
-
-#~ msgid "You should update your list of accredited CAs"
-#~ msgstr "Sinun pitää päivittää hyväksyttyjen CA:iden lista"
-
-#~ msgid "Get it from here."
-#~ msgstr "Hae se täältä."
-
-#~ msgid "more"
-#~ msgstr "lisää"
-
-#~ msgid "Show detailed information for all tests"
-#~ msgstr "Näytä tarkat tiedot kaikista testeistä"
-
-#~ msgid "Connection refused"
-#~ msgstr "Yhteydenotto hylättiin"
-
-#~ msgid "Server certificate"
-#~ msgstr "Palvelinvarmenne"
-
-#~ msgid "Subject"
-#~ msgstr "Aihe"
-
-#~ msgid "Issuer"
-#~ msgstr "Asettaja"
-
-#~ msgid "SubjectAltName"
-#~ msgstr "SubjectAltName"
-
-#~ msgid "Certificate policies"
-#~ msgstr "Varmennepolitiikat"
-
-#~ msgid "crlDistributionPoint"
-#~ msgstr "crlDistributionPoint"
-
-#~ msgid "authorityInfoAccess"
-#~ msgstr "authorityInfoAccess"
-
-#~ msgid "Hide detailed information for all tests"
-#~ msgstr "Piilota tarkat tiedot kaikista testeistä"
-
-#~ msgid "Some required input is missing!"
-#~ msgstr "Osa vaadituista tiedoista puuttuu!"
-
-#~ msgid "elapsed time: %sms."
-#~ msgstr "kulunut aika: %sms."
-
-#~ msgid "Subject:"
-#~ msgstr "Otsikko:"
-
-#~ msgid "Valid from:"
-#~ msgstr "Voimassa alkaen:"
-
-#~ msgid "Valid to:"
-#~ msgstr "Voimassaolo päättyy:"
-
-#~ msgid "SHA1 fingerprint:"
-#~ msgstr "SHA1-sormenjälki:"
-
-#~ msgid "Extensions"
-#~ msgstr "Laajennukset"
-
-#~ msgid "show server certificate details"
-#~ msgstr "näytä palvelinvarmenteen yksityiskohdat"
-
-#~ msgid "Realm testing for: %s"
-#~ msgstr "Realmin testaus: %s"
-
-#~ msgid "Static connectivity tests"
-#~ msgstr "Staattiset yhteystarkastukset"
-
-#~ msgid "Dynamic connectivity tests"
-#~ msgstr "Dynaamiset yhteystarkastukset"
-
-#~ msgid "Live login tests"
-#~ msgstr "Live-kirjautumistestit"
-
-#, fuzzy
-#~ msgid "DNS chekcs"
-#~ msgstr "DNS-tarkistukset"
-
-#~ msgid "Checking NAPTR existence:"
-#~ msgstr "Tarkistetaan NAPTR-tietueen olemassaolo:"
-
-#~ msgid "This realm has no NAPTR records."
-#~ msgstr "Tällä realmilla ei ole NAPTR-tietueita."
-
-#~ msgid "This realm has NAPTR records, but none are associated with %s."
-#~ msgstr "Realmilla on NAPTR-tietueet, mutta liitos kohteeseen %s puuttuu."
-
-#~ msgid "This realm has %d %s NAPTR records."
-#~ msgstr "Realmilla on %d %s NAPTR-tietuetta."
-
-#~ msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
-#~ msgstr ""
-#~ "Tarkistetaan onko NAPTR:n formaatti yhteensopiva (lippu = S ja regex = "
-#~ "{tyhjä}):"
-
-#~ msgid "No issues found."
-#~ msgstr "Ongelmia ei löytynyt."
-
-#~ msgid "At least one NAPTR with invalid content found!"
-#~ msgstr "Vähintään yhden NAPTR-tietueen sisältö on virheellinen!"
-
-#~ msgid "Checking SRVs:"
-#~ msgstr "Tarkistetaan SRV:t:"
-
-#~ msgid "This check was skipped."
-#~ msgstr "Ohitettu."
-
-#~ msgid "%d host names discovered."
-#~ msgstr "%d laitenimeä löydetty."
-
-#~ msgid "Checking IP address resolution:"
-#~ msgstr "Tarkistetaan IP-osoitetta nimipalvelusta:"
-
-#~ msgid "At least one hostname could not be resolved!"
-#~ msgstr "Vähintään yhden laitenimen resolvointi epäonnistui!"
-
-#~ msgid "%d IP addresses resolved."
-#~ msgstr "%d IP-osoitetta tarkistettu."
-
-#~ msgid "Realm is <strong>%s</strong> "
-#~ msgstr "Realm on <strong>%s</strong>"
-
-#~ msgid "with no DNS errors encountered. Congratulations!"
-#~ msgstr "ilman DNS-virheitä. Onneksi olkoon!"
-
-#~ msgid "but there were DNS errors! Check them!"
-#~ msgstr "mutta DNS-virheitä löytyi. Tarkasta ne!"
-
-#~ msgid ""
-#~ "You should re-run the tests after fixing the errors; more errors might be "
-#~ "uncovered at that point. The exact error causes are listed below."
-#~ msgstr ""
-#~ "Uudelleenaja tarkistukset korjattuasi virheet; uusiakin virheitä saattaa "
-#~ "löytyä. Varsinaiset virhesyyt on listattu alla."
-
-#, fuzzy
-#~ msgid "Dynamic discovery test is not configured"
-#~ msgstr "Tätä valintaa ei ole konfiguroitu."
-
-#~ msgid "Repeat static connectivity tests"
-#~ msgstr "Toista staattiset yhteystarkastukset."
-
-#~ msgid "STATIC connectivity tests"
-#~ msgstr "STAATTISET yhteystarkastukset"
-
-#~ msgid ""
-#~ "This check sends a request for the realm through various entry points of "
-#~ "the %s infrastructure. The request will contain the 'Operator-Name' "
-#~ "attribute, and will be larger than 1500 Bytes to catch two common "
-#~ "configuration problems.<br/>Since we don't have actual credentials for "
-#~ "the realm, we can't authenticate successfully - so the expected outcome "
-#~ "is to get an Access-Reject after having gone through an EAP conversation."
-#~ msgstr ""
-#~ "Tämä tarkastus lähettää testipyynnön toimialueelle useasta %s-"
-#~ "infrastuktuurin pisteestä. Pyyntö sisältää 'Operator-Name'-attribuutin ja "
-#~ "se on suurempi kuin 1500 tavua, jotta tavallisimmat konfiguraatiovirheet "
-#~ "löytyisivät.<br />Koska käytössä ei ole oikeita käyttäjätunnuksia "
-#~ "toimialueelle, autentikointi ei onnistu. Niinpä odotettu lopputulema on "
-#~ "Access-Reject EAP-neuvottelun jälkeen. "
-
-#~ msgid "Testing from: %s"
-#~ msgstr "Testataan: %s"
-
-#~ msgid "testing..."
-#~ msgstr "testataan..."
-
-#~ msgid "Repeat dynamic connectivity tests"
-#~ msgstr "Toista dynaamiset yhteystarkastukset"
-
-#~ msgid "DYNAMIC connectivity tests"
-#~ msgstr "DYNAAMISET yhteydenottotestit"
-
-#~ msgid "Some errors were found during the tests, see below"
-#~ msgstr "Joitakin virheitä löydettiin testeissä, katso tarkemmin alempaa"
-
-#~ msgid "All tests passed, congratulations!"
-#~ msgstr "Kaikki testit onnistuivat, onneksi olkoon!"
-
-#~ msgid "Checking server handshake..."
-#~ msgstr "Tarkastan palvelinten kättelyn..."
-
-#~ msgid "Checking if certificates from  CAs are accepted..."
-#~ msgstr "Tarkastaa ovatko CA:n varmenteet hyväksyttyjä..."
-
-#~ msgid ""
-#~ "A few client certificates will be tested to check if servers are "
-#~ "resistant to some certificate problems."
-#~ msgstr ""
-#~ "Muutamia päätelaitevarmenteita testataan tunnettujen varmenneongelmien "
-#~ "varalta."
-
-#~ msgid "Live login test"
-#~ msgstr "Live-kirjautumistesti"
-
-#~ msgid ""
-#~ "If you enter an existing login credential here, you can test the actual "
-#~ "authentication from various checkpoints all over the world."
-#~ msgstr ""
-#~ "Jos syötät tähän olemassa olevat käyttäjätunnukset, voit testata oikeaa "
-#~ "autentikointia eri puolilla maailmaa sijaitsevilta tarkastuspisteiltä "
-#~ "käsin."
-
-#~ msgid ""
-#~ "The test will use all EAP types you have set in your profile information "
-#~ "to check whether the right CAs and server names are used, and of course "
-#~ "whether the login with these credentials and the given EAP type actually "
-#~ "worked. If you have set anonymous outer ID, the test will use that."
-#~ msgstr ""
-#~ "Testi käyttää kaikkia profiilitietoihin määriteltyjä EAP-tyyppejä "
-#~ "oikeiden varmennetahojen ja palvelinnimien tarkastamiseksi. Ja tietysti "
-#~ "toimiiko kirjautuminen annetuilla käyttäjätunnuksilla ja määritellyillä "
-#~ "EAP-tyypeillä. Mikäli anonyymi ulkoidentiteetti on valittu käyttöön, "
-#~ "testi käyttää sitä."
-
-#~ msgid ""
-#~ "Note: the tool purposefully does not offer you to save these credentials, "
-#~ "and they will never be saved in any way on the server side. Please use "
-#~ "only <strong>temporary test accounts</strong> here; permanently valid "
-#~ "test accounts in the wild are considered harmful!"
-#~ msgstr ""
-#~ "Huomaa: työkalu ei tarkoituksellisesti salli tai ehdota käyttäjätunnusten "
-#~ "tallentamista, ja niitä ei missään vaiheessa tallenneta palvelimelle. Ole "
-#~ "hyvä, ja käytä tästä huolimatta <strong>vain väliaikaisia testitunnuksia</"
-#~ "strong>; jatkuvasti samana pysyvien testitunnusten käyttö on haitallista."
-
-#~ msgid "Password-based EAP types"
-#~ msgstr "Salasanapohjaiset EAP-tyypit"
-
-#~ msgid "Real (inner) username:"
-#~ msgstr "Todellinen (sisempi kuori) käyttäjänimi:"
-
-#~ msgid "Anonymous outer ID (optional):"
-#~ msgstr "Anonyymi ulomman kuoren käyttäjänimi (ei pakollinen):"
-
-#~ msgid "Password:"
-#~ msgstr "Salasana:"
-
-#~ msgid "Certificate-based EAP types"
-#~ msgstr "Varmennepohjaiset EAP-tyypit"
-
-#~ msgid "Certificate file (.p12 or .pfx):"
-#~ msgstr "Varmennetiedosto (.p12 tai .pfx):"
-
-#~ msgid "Certificate password, if any:"
-#~ msgstr "Varmenteen mahdollinen salasana:"
-
-#~ msgid "Username, if different from certificate Subject:"
-#~ msgstr "Käyttäjänimi, mikäli eroaa varmenteen otsikosta:"
-
-#, fuzzy
-#~ msgid "%s: Editing Federation '%s'"
-#~ msgstr "%s: Muokkaa IdP:tä '%s'"
-
-#, fuzzy
-#~ msgid "Editing Federation information for '%s'"
-#~ msgstr "Muokkaa IdP:n '%s' tietoja"
-
-#, fuzzy
-#~ msgid "Federation Properties"
-#~ msgstr "Ominaisuudet"
-
-#, fuzzy
-#~ msgid "Submitted attributes for federation '%s'"
-#~ msgstr "Lähetty IdP:n '%s' tiedot"
-
-#~ msgid "General Institution Properties"
-#~ msgstr "Organisaation yleistiedot"
-
-#~ msgid "%s: Federation Management"
-#~ msgstr "%s: Yhteisön ylläpito"
-
-#~ msgid "Federation Overview"
-#~ msgstr "Perustietoa yhteisöstä"
-
-#~ msgid "Institution Name"
-#~ msgstr "Organisaation nimi"
-
-#, fuzzy
-#~ msgid ""
-#~ "Your federation %s contains the following institutions: (<a "
-#~ "href='%s'>Check their authentication server status</a>)"
-#~ msgstr "Sinun yhteisöösi %s kuuluu seuraavat organisaatiot:"
-
-#~ msgid "Institution Download Area QR Code"
-#~ msgstr "Organisaation latausalueen QR-koodi"
-
-#~ msgid "Edit IdP-wide settings"
-#~ msgstr "Muokkaa IdP:n yleisasetuksia"
-
-#~ msgid "Delete IdP"
-#~ msgstr "Poista IdP"
-
-#~ msgid "Read this <a href='%s'>tip</a>."
-#~ msgstr "Katso <a href='%s'>vinkki</a>."
-
-#, fuzzy
-#~ msgid "Add eduroam-as-a-service profile ..."
-#~ msgstr "Lisää uusi profiili ..."
-
-#~ msgid "Institutions in federation %s"
-#~ msgstr "Organisaatiot yhteisössä %s"
-
-#~ msgid ""
-#~ "Some properties of the connection attempt were sub-optimal; the list is "
-#~ "below."
-#~ msgstr ""
-#~ "Kaikki yhteysasetukset eivät olleet optimaalisia; katso alla oleva "
-#~ "listaus."
-
-#~ msgid "Some configuration errors were observed; the list is below."
-#~ msgstr "Löytyi joitain määritysvirheitä; lista alla."
-
-#~ msgid ""
-#~ "<strong>Test successful</strong>: a bidirectional RADIUS conversation "
-#~ "with multiple round-trips was carried out, and ended in an Access-Reject "
-#~ "as planned."
-#~ msgstr ""
-#~ "<strong>Testi onnistui</strong>: kaksisuuntainen RADIUS-neuvottelu "
-#~ "käytiin läpi ja se päättyi suunnitellusti Access-Reject-vastaukseen."
-
-#~ msgid ""
-#~ "<strong>Test partially successful</strong>: a bidirectional RADIUS "
-#~ "conversation with multiple round-trips was carried out, and ended in an "
-#~ "Access-Reject as planned. Some properties of the connection attempt were "
-#~ "sub-optimal; the list is below."
-#~ msgstr ""
-#~ "<strong>Testi onnistui osittain</strong>: kaksisuuntainen RADIUS-"
-#~ "viestinvaihto onnistui ja päättyi Access-Reject-viestiin kuten pitikin. "
-#~ "Kaikki yhteysasetukset eivät kuitenkaan olleet optimaalisia; katso alla "
-#~ "oleva listaus."
-
-#~ msgid "<strong>Test successful.</strong>"
-#~ msgstr "<strong>Testi onnistui.</strong>:"
-
-#~ msgid "<strong>Test partially successful</strong>: authentication succeded."
-#~ msgstr "<strong>Testi onnistui osittain</strong>: autentikointi onnistui."
-
-#~ msgid "<strong>Test FAILED</strong>: authentication succeded."
-#~ msgstr "<strong>Testi EPÄONNISTUI</strong>: autentikointi onnistui."
-
-#~ msgid ""
-#~ "<strong>Test FAILED</strong>: the request was rejected. The most likely "
-#~ "cause is that you have misspelt the Username and/or the Password."
-#~ msgstr ""
-#~ "<strong>Testi EPÄONNISTUI</strong>: pyyntö hylättiin. Todennäköisesti "
-#~ "käyttäjätunnus ja/tai salasana oli väärä."
-
-#~ msgid "This method cannot be tested"
-#~ msgstr "Metodia ei voitu testata"
-
-#~ msgid ""
-#~ "<strong>Test FAILED</strong>: the request was rejected immediately, "
-#~ "without EAP conversation. Either you have misspelt the Username or there "
-#~ "is something seriously wrong with your server."
-#~ msgstr ""
-#~ "<strong>Testi EPÄONNISTUI</strong>: pyyntö hylättiin ilman EAP-"
-#~ "viestinvaihtoa. Käyttäjätunnus oli väärä tai palvelimen asetuksissa on "
-#~ "ongelmia."
-
-#~ msgid ""
-#~ "<strong>Test FAILED</strong>: no reply from the RADIUS server after %d "
-#~ "seconds. Either the responsible server is down, or routing is broken!"
-#~ msgstr ""
-#~ "<strong>Testi epäonnistui</strong>: RADIUS-palvelin ei vastannut %d "
-#~ "sekunnissa. Joko palvelimessa on vikaa tai reititys ei toimi."
-
-#~ msgid ""
-#~ "<strong>Test FAILED</strong>: there was a bidirectional RADIUS "
-#~ "conversation, but it did not finish after %d seconds!"
-#~ msgstr ""
-#~ "<strong>Testi EPÄONNISTUI</strong>: kaksisuuntainen RADIUS-neuvottelu ei "
-#~ "onnistunut %d sekunnissa."
-
-#~ msgid "<strong>Test FAILED</strong>"
-#~ msgstr "<strong>Testi EPÄONNISTUI</strong>"
-
-#~ msgid ""
-#~ "<strong>Test partially successful</strong>: a bidirectional RADIUS "
-#~ "conversation with multiple round-trips was carried out, and ended in an "
-#~ "Access-Reject as planned."
-#~ msgstr ""
-#~ "<strong>Testi onnistui</strong>: kaksisuuntainen RADIUS-neuvottelu "
-#~ "suoritettiin ja se päättyi suunnitellusti Access-Reject-tilaan."
-
-#~ msgid ""
-#~ "<strong>Test FAILED</strong>: the request was rejected immediately, "
-#~ "without EAP conversation. This is not necessarily an error: if the RADIUS "
-#~ "server enforces that outer identities correspond to an existing username, "
-#~ "then this result is expected (Note: you could configure a valid outer "
-#~ "identity in your profile settings to get past this hurdle). In all other "
-#~ "cases, the server appears misconfigured or it is unreachable."
-#~ msgstr ""
-#~ "<strong>Testi EPÄONNISTUI</strong>: pyyntö hylättiin ilman EAP-"
-#~ "viestinvaihtoa. Tämä ei välttämättä ole ongelma, mikäli RADIUS on "
-#~ "määritelty hylkäämään pyynnöt, joissa ulkoinen identiteetti ei vastaa "
-#~ "todellista käyttäjänimeä. Jos näin ei ole tarkoitettu, palvelin vastasi "
-#~ "väärin."
-
-#~ msgid "unhandled error"
-#~ msgstr "odottamaton virhe"
-
-#~ msgid ""
-#~ "<strong>ERROR</strong>: the server presented a certificate which is from "
-#~ "an unknown authority!"
-#~ msgstr ""
-#~ "<strong>VIRHE</strong>: palvelin lähetti varmenteen, joka on peräisin "
-#~ "tuntemattomasta lähteestä!"
-
-#~ msgid "elapsed time: %d"
-#~ msgstr "kulunut aika: %d"
-
-#~ msgid "Completed."
-#~ msgstr "Valmis."
-
-#~ msgid "crlDistributionPoints"
-#~ msgstr "crlDistributionPoints"
-
-#~ msgid "Federation Administrator"
-#~ msgstr "Yhteisön ylläpitäjä"
-
-#~ msgid "PEAP-MSCHAPv2"
-#~ msgstr "PEAP-MSCHAPv2"
-
-#~ msgid "TLS"
-#~ msgstr "TLS"
-
-#~ msgid "TTLS-PAP"
-#~ msgstr "TTLS-PAP"
-
-#~ msgid "TTLS-MSCHAPv2"
-#~ msgstr "TTLS-MSCHAPv2"
-
-#~ msgid "TTLS-GTC"
-#~ msgstr "TTLS-GTC"
-
-#~ msgid "FAST-GTC"
-#~ msgstr "FAST-GTC"
-
-#~ msgid "EAP-pwd"
-#~ msgstr "EAP-pwd"
-
-#, fuzzy
-#~ msgid "Federation Logo"
-#~ msgstr "Federaatio"
-
-#, fuzzy
-#~ msgid "Federation Operator Name"
-#~ msgstr "Perustietoa yhteisöstä"
-
-#~ msgid "Error, ROWID expected."
-#~ msgstr "Virhe, odotin ROWID:tä."
-
-#~ msgid "General Institution Details"
-#~ msgstr "Kotiorganisaation perustiedot"
-
-#~ msgid "Input validation error: "
-#~ msgstr "syötettä ei pystytä varmentamaan"
-
-#~ msgid "Realm contains an @ sign!"
-#~ msgstr "Toimialue sisältää @-merkin!"
-
-#~ msgid "Realm begins with a . (dot)!"
-#~ msgstr "Toimialue alkaa merkillä . (piste)!"
-
-#~ msgid "Realm ends with a . (dot)!"
-#~ msgstr "Toimialue päättyy merkkiin . (piste)!"
-
-#~ msgid "Realm does not contain at least one . (dot)!"
-#~ msgstr "Toimialue ei sisällä edes yhtä . (pistettä)!"
-
-#~ msgid "Realm contains spaces!"
-#~ msgstr "Toimialue sisältää välilyöntejä!"
-
-#~ msgid "Wrong coordinate encoding!"
-#~ msgstr "Väärä koordinaattien enkoodaus!"
-
-#~ msgid "Institution Name (%s)"
-#~ msgstr "Organisaation nimi (%s)"
-
-#~ msgid "Federation"
-#~ msgstr "Federaatio"
-
-#~ msgid ""
-#~ "Something's wrong... you want to create a new institution, but are not a "
-#~ "federation admin for the federation it should be in!"
-#~ msgstr ""
-#~ "Jokin on pielessä... Jos haluat luoda uuden organisaation, mutta et ole "
-#~ "yhteisön ylläpitäjä yhteisölle, niin se on siinä."
-
-#~ msgid "EAP details for all users"
-#~ msgstr "Kaikkien käyttäjien EAP-tiedot"
-
-#~ msgid ""
-#~ "Most EAP methods need server-side authentication details, like the CA "
-#~ "certificate and/or server name(s) of your authentication servers. If all "
-#~ "the EAP methods you support work with the same CA and or Common Names of "
-#~ "servers, you can enter them here and they will be added as trust anchors "
-#~ "in all profiles. If the details differ per profile or per EAP-type, you "
-#~ "can also enter them in the individual profiles later."
-#~ msgstr ""
-#~ "Useimmat EAP-menetelmät tarvitsevat palvelimen tunnistetietoja, kuten CA-"
-#~ "varmenteen ja(/tai) autentikaatiopalvelimien nimet. Jos kaikki käyttämäsi "
-#~ "EAP-menetelmät toimivat samalla CA:lla ja CN:illä, voi asettaa ne tässä "
-#~ "ja ne asetetaan trust anchor:eiksi kaikissa profiileissa. Jos tiedot "
-#~ "poikkeavat profiilii- tai EAP-tyyppikohtaisesti, voit asettaa ne "
-#~ "yksittäisissä profiileissa profiilikohtaisesti myöhemmin."
-
-#~ msgid ""
-#~ "<strong>Note well: </strong>The server-side validation is a cornerstone "
-#~ "of %s; without it, users are subject to man-in-the-middle attacks! We "
-#~ "will not generate site installers without Trusted CA anchors and server "
-#~ "names."
-#~ msgstr ""
-#~ "<strong>Huomaa:</strong> Palvelimen tunnistus on %sin peruskivi; ilman "
-#~ "sitä käyttäjät ovat alttiita man-in-the-middle-hyökkäyksille! Emme tee "
-#~ "asennusohjelmia ilman luotettuja CA-ankkureita ja palvelinnimiä."
-
-#~ msgid "Global EAP Options"
-#~ msgstr "Yleiset EAP-valinnat"
-
-#, fuzzy
-#~ msgid "This Federation identifier is not accessible!"
-#~ msgstr "Tämän IdP:n tunniste ei ole saatavissa!"
-
-#~ msgid "Value for IdP is not an integer!"
-#~ msgstr "IdP:n arvo ei ole kokonaisluku!"
-
-#~ msgid "This IdP identifier is not accessible!"
-#~ msgstr "Tämän IdP:n tunniste ei ole saatavissa!"
-
-#~ msgid "Value for profile is not an integer!"
-#~ msgstr "Profiilin arvo ei ole kokonaisluku!"
-
-#~ msgid "This profile is not accessible!"
-#~ msgstr "Tämä profiili ei ole saavutettavissa!"
-
-#~ msgid "This device does not exist!"
-#~ msgstr "Tämä laite ei ole olemassa!"
-
-#~ msgid "The user identifier is not an ASCII string!"
-#~ msgstr "Käyttäjän tunniste ei ole ASCII-merkkijono!"
-
-#~ msgid "Token is not a hexadecimal string!"
-#~ msgstr "Poletti ei ole heksadesimaalinen merkkijono!"
-
-#~ msgid "Coordinate is not a numeric value!"
-#~ msgstr "Koordinaatti ei ole numeerinen!"
-
-#~ msgid "Coordinate is out of bounds. Which planet are you from?"
-#~ msgstr ""
-#~ "Koordinaatti ei ole oikeissa rajoissa. Miltä planeetalta olet kotoisin?"
-
-#~ msgid "Invalid structure in multi-language attribute!"
-#~ msgstr "Väärä rakenne monikielisessä attribuutissa."
-
-#~ msgid "Unknown state of boolean option!"
-#~ msgstr "Boolean-option tuntematon tila!"
-
-#~ msgid ""
-#~ "This page needs to be called either for EAP-Types OR for devices, not "
-#~ "both simultaneously!"
-#~ msgstr ""
-#~ "Tätä sivua kutsutaan vain EAP-tyyppien TAI laitteiden vuoksi, ei molempia "
-#~ "varten yhtä aikaa!"
-
-#~ msgid ""
-#~ "This page needs to be called either for EAP-Types OR for devices, but "
-#~ "none of the two were set!"
-#~ msgstr ""
-#~ "Tätä sivua varten tarvitaan joko EAP-tyypit tai laitteiden määritely, "
-#~ "mutta kumpaakaan ei oltu valittu!"
-
-#~ msgid ""
-#~ "Due to OpenSSL limitations, it is not possible to check IPv6 addresses at "
-#~ "this time."
-#~ msgstr ""
-#~ "OpenSSL-rajoitusten vuoksi IPv6-osoitteiden tarkastus ei ole tällä "
-#~ "hetkellä mahdollista."
-
-#~ msgid "Anonymity Support"
-#~ msgstr "Anonymiteetin tuki"
-
-#~ msgid ""
-#~ "If you enable this feature, we will by default use the anonymous id "
-#~ "'anonymous@realm' in the device configurations. You can optionally change "
-#~ "that by typing in the local anonymisation part in the text field."
-#~ msgstr ""
-#~ "Jos laitat tämän piirteen päälle, käytämme automaattisesti anonyymiä "
-#~ "ulkoidentiteettiä 'anonymous@toimialue' laitteiden konfigurointiin. Voit "
-#~ "vaihtoehtoisesti muuttaa tämän kirjoittamalla paikallisen anonymisoinnin "
-#~ "tekstikenttään."
-
-#~ msgid "<strong>%s</strong> from <strong>%s</strong>"
-#~ msgstr "<strong>%s</strong> -  <strong>%s</strong>"
-
-#~ msgid "Login with <strong>%s</strong> from <strong>%s</strong> failed!"
-#~ msgstr ""
-#~ "Kirjautuminen käyttäjällä <strong>%s</strong> organisaatiosta <strong>%s</"
-#~ "strong> epäonnistui!"
-
-#~ msgid ""
-#~ "Could not check <strong>%s</strong> from <strong>%s</strong> - no "
-#~ "username submitted!"
-#~ msgstr ""
-#~ "Ei pystytä tarkastamaan <strong>%s</strong> , <strong>%s</strong> - "
-#~ "käyttäjätunnusta ei ole annettu."
-
-#~ msgid "Username missing"
-#~ msgstr "Käyttäjänimi puuttuu"
-
-#~ msgid ""
-#~ "Could not check <strong>%s</strong> from <strong>%s</strong> - no "
-#~ "password submitted!"
-#~ msgstr ""
-#~ "Ei pystytä tarkastamaan <strong>%s</strong> , <strong>%s</strong> - "
-#~ "salasanaa ei ole annettu."
-
-#~ msgid "Password missing"
-#~ msgstr "Salasana puuttuu"
-
-#~ msgid ""
-#~ "Sorry, we don't know how to handle the inner EAP method in <strong>%s</"
-#~ "strong> from <strong>%s</strong>!"
-#~ msgstr ""
-#~ "Sisempää EAP-menetelmää ei osata käsitellä <strong>%s</strong>, <strong>"
-#~ "%s</strong>!"
-
-#~ msgid "Unknown inner method"
-#~ msgstr "Tuntematon sisäinen todennusmenetelmä"
-
-#~ msgid "Sorry... we don't know how to test the EAP type %s from %s."
-#~ msgstr "Olemme pahoillamme... Emme tiedä, miten testata EAP-tyyppiä %s %s."
-
-#~ msgid "Unknown outer method"
-#~ msgstr "Tuntematon ulkoinen todennusmenetelmä"
-
-#~ msgid ""
-#~ "Your profile does not contain a valid realm name. We can only check the "
-#~ "validity of a realm if you let us know the realm name. Please consider "
-#~ "going to your profile properties and enter the realm name."
-#~ msgstr ""
-#~ "Profiili ei sisällä voimassaolevaa toimialueen nimeä. Voimassaolo voidaan "
-#~ "tarkastaa vain jos toimialueen nimi kerrotaan. Tarkasta, onko toimialue "
-#~ "määritelty profiilisi ominaisuuksiin."
-
-#~ msgid "Feedback"
-#~ msgstr "Palaute"
