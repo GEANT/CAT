@@ -1,0 +1,2719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>CAT - The IEEE 802.1X Configuration Assistant Tool</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src').replace( /\\/g, '/');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">CAT - The IEEE 802.1X Configuration Assistant Tool</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/core.html">\core</a></li>
+                                                        <li><a href="../namespaces/devices.html">\devices</a></li>
+                                                        <li><a href="../namespaces/web.html">\web</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1877901572"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1877901572" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-54162480"></a>
+                                <a href="../namespaces/core.html" style="margin-left: 30px; padding-left: 0">core</a>
+            </div>
+            <div id="namespace-54162480" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-852514629"></a>
+                                <a href="../namespaces/core.autoloader.html" style="margin-left: 30px; padding-left: 0">autoloader</a>
+            </div>
+            <div id="namespace-852514629" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/core.autoloader.Psr4Autoloader.html">Psr4Autoloader</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-283138712"></a>
+                                <a href="../namespaces/core.common.html" style="margin-left: 30px; padding-left: 0">common</a>
+            </div>
+            <div id="namespace-283138712" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/core.common.EAP.html">EAP</a></li>
+                                                    <li class="class"><a href="../classes/core.common.Entity.html">Entity</a></li>
+                                                    <li class="class"><a href="../classes/core.common.Language.html">Language</a></li>
+                                                    <li class="class"><a href="../classes/core.common.Logging.html">Logging</a></li>
+                                                    <li class="class"><a href="../classes/core.common.OutsideComm.html">OutsideComm</a></li>
+                                                    <li class="class"><a href="../classes/core.common.X509.html">X509</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1036973388"></a>
+                                <a href="../namespaces/core.diag.html" style="margin-left: 30px; padding-left: 0">diag</a>
+            </div>
+            <div id="namespace-1036973388" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/core.diag.AbstractTest.html">AbstractTest</a></li>
+                                                    <li class="class"><a href="../classes/core.diag.Logopath.html">Logopath</a></li>
+                                                    <li class="class"><a href="../classes/core.diag.RADIUSTests.html">RADIUSTests</a></li>
+                                                    <li class="class"><a href="../classes/core.diag.RFC6614Tests.html">RFC6614Tests</a></li>
+                                                    <li class="class"><a href="../classes/core.diag.RFC7585Tests.html">RFC7585Tests</a></li>
+                                                    <li class="class"><a href="../classes/core.diag.Sociopath.html">Sociopath</a></li>
+                                                    <li class="class"><a href="../classes/core.diag.Telepath.html">Telepath</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/core.AbstractProfile.html">AbstractProfile</a></li>
+                                                    <li class="class"><a href="../classes/core.CAT.html">CAT</a></li>
+                                                    <li class="class"><a href="../classes/core.DBConnection.html">DBConnection</a></li>
+                                                    <li class="class"><a href="../classes/core.DeviceConfig.html">DeviceConfig</a></li>
+                                                    <li class="class"><a href="../classes/core.DeviceFactory.html">DeviceFactory</a></li>
+                                                    <li class="class"><a href="../classes/core.DeviceLocation.html">DeviceLocation</a></li>
+                                                    <li class="class"><a href="../classes/core.EntityWithDBProperties.html">EntityWithDBProperties</a></li>
+                                                    <li class="class"><a href="../classes/core.Federation.html">Federation</a></li>
+                                                    <li class="class"><a href="../classes/core.IdP.html">IdP</a></li>
+                                                    <li class="class"><a href="../classes/core.IdPlist.html">IdPlist</a></li>
+                                                    <li class="class"><a href="../classes/core.Options.html">Options</a></li>
+                                                    <li class="class"><a href="../classes/core.ProfileFactory.html">ProfileFactory</a></li>
+                                                    <li class="class"><a href="../classes/core.ProfileRADIUS.html">ProfileRADIUS</a></li>
+                                                    <li class="class"><a href="../classes/core.ProfileSilverbullet.html">ProfileSilverbullet</a></li>
+                                                    <li class="class"><a href="../classes/core.SanityTests.html">SanityTests</a></li>
+                                                    <li class="class"><a href="../classes/core.SilverbulletCertificate.html">SilverbulletCertificate</a></li>
+                                                    <li class="class"><a href="../classes/core.SilverbulletInvitation.html">SilverbulletInvitation</a></li>
+                                                    <li class="class"><a href="../classes/core.User.html">User</a></li>
+                                                    <li class="class"><a href="../classes/core.UserAPI.html">UserAPI</a></li>
+                                                    <li class="class"><a href="../classes/core.UserManagement.html">UserManagement</a></li>
+                                                    <li class="class"><a href="../classes/core.UserNetAPI.html">UserNetAPI</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1537387522"></a>
+                                <a href="../namespaces/devices.html" style="margin-left: 30px; padding-left: 0">devices</a>
+            </div>
+            <div id="namespace-1537387522" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1563253133"></a>
+                                <a href="../namespaces/devices.apple_mobileconfig.html" style="margin-left: 30px; padding-left: 0">apple_mobileconfig</a>
+            </div>
+            <div id="namespace-1563253133" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/devices.apple_mobileconfig.Device_mobileconfig_ios.html">Device_mobileconfig_ios</a></li>
+                                                    <li class="class"><a href="../classes/devices.apple_mobileconfig.Device_mobileconfig_ios_56.html">Device_mobileconfig_ios_56</a></li>
+                                                    <li class="class"><a href="../classes/devices.apple_mobileconfig.Device_mobileconfig_os_x.html">Device_mobileconfig_os_x</a></li>
+                                                    <li class="class"><a href="../classes/devices.apple_mobileconfig.mobileconfigSuperclass.html">mobileconfigSuperclass</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1057411751"></a>
+                                <a href="../namespaces/devices.chromebook.html" style="margin-left: 30px; padding-left: 0">chromebook</a>
+            </div>
+            <div id="namespace-1057411751" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/devices.chromebook.Device_Chromebook.html">Device_Chromebook</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2039834248"></a>
+                                <a href="../namespaces/devices.linux.html" style="margin-left: 30px; padding-left: 0">linux</a>
+            </div>
+            <div id="namespace-2039834248" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/devices.linux.Device_Linux.html">Device_Linux</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1759981319"></a>
+                                <a href="../namespaces/devices.ms.html" style="margin-left: 30px; padding-left: 0">ms</a>
+            </div>
+            <div id="namespace-1759981319" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/devices.ms.Device_Vista7.html">Device_Vista7</a></li>
+                                                    <li class="class"><a href="../classes/devices.ms.Device_W8_10.html">Device_W8_10</a></li>
+                                                    <li class="class"><a href="../classes/devices.ms.WindowsCommon.html">WindowsCommon</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1324617707"></a>
+                                <a href="../namespaces/devices.redirect_dev.html" style="margin-left: 30px; padding-left: 0">redirect_dev</a>
+            </div>
+            <div id="namespace-1324617707" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/devices.redirect_dev.Device_RedirectDev.html">Device_RedirectDev</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2048934681"></a>
+                                <a href="../namespaces/devices.test_module.html" style="margin-left: 30px; padding-left: 0">test_module</a>
+            </div>
+            <div id="namespace-2048934681" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/devices.test_module.Device_TestModule.html">Device_TestModule</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2097604622"></a>
+                                <a href="../namespaces/devices.xml.html" style="margin-left: 30px; padding-left: 0">xml</a>
+            </div>
+            <div id="namespace-2097604622" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                <a href="../namespaces/devices.xml.ma.html" style="margin-left: 30px; padding-left: 0">ma</a>
+            </div>
+            <div id="namespace-1110074857" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                <a href="../namespaces/devices.xml.Si.html" style="margin-left: 30px; padding-left: 0">Si</a>
+            </div>
+            <div id="namespace-1237074393" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/devices.xml.AuthenticationMethod.html">AuthenticationMethod</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.AuthenticationMethods.html">AuthenticationMethods</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.CA.html">CA</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.ClientCertificate.html">ClientCertificate</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.ClientSideCredential.html">ClientSideCredential</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.ConsortiumOID.html">ConsortiumOID</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.CredentialApplicability.html">CredentialApplicability</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.Description.html">Description</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.Device_KitKat.html">Device_KitKat</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.Device_Lollipop.html">Device_Lollipop</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.Device_XML.html">Device_XML</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.Device_XML_ALL.html">Device_XML_ALL</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.Device_XML_PEAP.html">Device_XML_PEAP</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.Device_XML_PWD.html">Device_XML_PWD</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.Device_XML_TLS.html">Device_XML_TLS</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.Device_XML_TTLS_MSCHAP2.html">Device_XML_TTLS_MSCHAP2</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.Device_XML_TTLS_PAP.html">Device_XML_TTLS_PAP</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.DisplayName.html">DisplayName</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.EAPIdentityProvider.html">EAPIdentityProvider</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.EAPMethod.html">EAPMethod</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.EmailAddress.html">EmailAddress</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.Helpdesk.html">Helpdesk</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.IEEE80211.html">IEEE80211</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.IEEE8023.html">IEEE8023</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.InnerAuthenticationMethod.html">InnerAuthenticationMethod</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.MinRSNProto.html">MinRSNProto</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.NetworkID.html">NetworkID</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.NonEAPAuthMethod.html">NonEAPAuthMethod</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.Phone.html">Phone</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.ProviderInfo.html">ProviderInfo</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.ProviderLocation.html">ProviderLocation</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.ProviderLogo.html">ProviderLogo</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.ServerID.html">ServerID</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.ServerSideCredential.html">ServerSideCredential</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.SSID.html">SSID</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.TermsOfUse.html">TermsOfUse</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.Type.html">Type</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.TypeSpecific.html">TypeSpecific</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.VendorSpecific.html">VendorSpecific</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.WebAddress.html">WebAddress</a></li>
+                                                    <li class="class"><a href="../classes/devices.xml.XMLElement.html">XMLElement</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/devices.Devices.html">Devices</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1357034875"></a>
+                                <a href="../namespaces/web.html" style="margin-left: 30px; padding-left: 0">web</a>
+            </div>
+            <div id="namespace-1357034875" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1899736379"></a>
+                                <a href="../namespaces/web.lib.html" style="margin-left: 30px; padding-left: 0">lib</a>
+            </div>
+            <div id="namespace-1899736379" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1627027243"></a>
+                                <a href="../namespaces/web.lib.admin.html" style="margin-left: 30px; padding-left: 0">admin</a>
+            </div>
+            <div id="namespace-1627027243" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/web.lib.admin.AbstractMap.html">AbstractMap</a></li>
+                                                    <li class="class"><a href="../classes/web.lib.admin.API.html">API</a></li>
+                                                    <li class="class"><a href="../classes/web.lib.admin.Authentication.html">Authentication</a></li>
+                                                    <li class="class"><a href="../classes/web.lib.admin.Maintenance.html">Maintenance</a></li>
+                                                    <li class="class"><a href="../classes/web.lib.admin.MapGoogle.html">MapGoogle</a></li>
+                                                    <li class="class"><a href="../classes/web.lib.admin.MapNone.html">MapNone</a></li>
+                                                    <li class="class"><a href="../classes/web.lib.admin.MapOpenLayers.html">MapOpenLayers</a></li>
+                                                    <li class="class"><a href="../classes/web.lib.admin.OptionDisplay.html">OptionDisplay</a></li>
+                                                    <li class="class"><a href="../classes/web.lib.admin.OptionParser.html">OptionParser</a></li>
+                                                    <li class="class"><a href="../classes/web.lib.admin.PageDecoration.html">PageDecoration</a></li>
+                                                    <li class="class"><a href="../classes/web.lib.admin.UIElements.html">UIElements</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1540009898"></a>
+                                <a href="../namespaces/web.lib.common.html" style="margin-left: 30px; padding-left: 0">common</a>
+            </div>
+            <div id="namespace-1540009898" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/web.lib.common.FormElements.html">FormElements</a></li>
+                                                    <li class="class"><a href="../classes/web.lib.common.InputValidation.html">InputValidation</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-399836078"></a>
+                                <a href="../namespaces/web.lib.user.html" style="margin-left: 30px; padding-left: 0">user</a>
+            </div>
+            <div id="namespace-399836078" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/web.lib.user.Gui.html">Gui</a></li>
+                                                    <li class="class"><a href="../classes/web.lib.user.Skinjob.html">Skinjob</a></li>
+                                                    <li class="class"><a href="../classes/web.lib.user.TextTemplates.html">TextTemplates</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Divs.html">Divs</a></li>
+                                                    <li class="class"><a href="../classes/Menu.html">Menu</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/core.html">\core</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\core</small>UserAPI</h1>
+                    <p><em>The basic methoods for the user GUI</em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/core.UserAPI.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/core.CAT.html#method_totalIdPs" class="">totalIdPs()</a><br />
+                                                                    <a href="../classes/core.UserAPI.html#method_listAllIdentityProviders" class="">listAllIdentityProviders()</a><br />
+                                                                    <a href="../classes/core.CAT.html#method_printCountryList" class="">printCountryList()</a><br />
+                                                                    <a href="../classes/core.CAT.html#method_getExternalDBEntityDetails" class="">getExternalDBEntityDetails()</a><br />
+                                                                    <a href="../classes/core.CAT.html#method_getExternalCountriesList" class="">getExternalCountriesList()</a><br />
+                                                                    <a href="../classes/core.CAT.html#method_getRootUrlPath" class="">getRootUrlPath()</a><br />
+                                                                    <a href="../classes/core.common.Entity.html#method___destruct" class="">__destruct()</a><br />
+                                                                    <a href="../classes/core.common.Entity.html#method_getAttributeValue" class="">getAttributeValue()</a><br />
+                                                                    <a href="../classes/core.common.Entity.html#method_createTemporaryDirectory" class="">createTemporaryDirectory()</a><br />
+                                                                    <a href="../classes/core.common.Entity.html#method_rrmdir" class="">rrmdir()</a><br />
+                                                                    <a href="../classes/core.common.Entity.html#method_uuid" class="">uuid()</a><br />
+                                                                    <a href="../classes/core.common.Entity.html#method_randomString" class="">randomString()</a><br />
+                                                                    <a href="../classes/core.UserAPI.html#method_generateInstaller" class="">generateInstaller()</a><br />
+                                                                    <a href="../classes/core.UserAPI.html#method_listDevices" class="">listDevices()</a><br />
+                                                                    <a href="../classes/core.UserAPI.html#method_deviceInfo" class="">deviceInfo()</a><br />
+                                                                    <a href="../classes/core.UserAPI.html#method_profileAttributes" class="">profileAttributes()</a><br />
+                                                                    <a href="../classes/core.UserAPI.html#method_downloadInstaller" class="">downloadInstaller()</a><br />
+                                                                    <a href="../classes/core.UserAPI.html#method_locateDevice" class="">locateDevice()</a><br />
+                                                                    <a href="../classes/core.UserAPI.html#method_orderIdentityProviders" class="">orderIdentityProviders()</a><br />
+                                                                    <a href="../classes/core.UserAPI.html#method_detectOS" class="">detectOS()</a><br />
+                                                                    <a href="../classes/core.UserAPI.html#method_getUserCerts" class="">getUserCerts()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/core.CAT.html#property_CAT_VERSION_STRING" class="">$CAT_VERSION_STRING</a><br />
+                                                                    <a href="../classes/core.CAT.html#property_CAT_COPYRIGHT" class="">$CAT_COPYRIGHT</a><br />
+                                                                    <a href="../classes/core.CAT.html#property_nomenclature_fed" class="">$nomenclature_fed</a><br />
+                                                                    <a href="../classes/core.CAT.html#property_nomenclature_inst" class="">$nomenclature_inst</a><br />
+                                                                    <a href="../classes/core.CAT.html#property_knownFederations" class="">$knownFederations</a><br />
+                                                                    <a href="../classes/core.UserAPI.html#property_device" class="">$device</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/core.CAT.html#constant_VERSION_MAJOR" class="">VERSION_MAJOR</a><br />
+                                                                    <a href="../classes/core.CAT.html#constant_VERSION_MINOR" class="">VERSION_MINOR</a><br />
+                                                                    <a href="../classes/core.CAT.html#constant_VERSION_PATCH" class="">VERSION_PATCH</a><br />
+                                                                    <a href="../classes/core.CAT.html#constant_VERSION_EXTRA" class="">VERSION_EXTRA</a><br />
+                                                                    <a href="../classes/core.CAT.html#constant_RELEASE_VERSION" class="">RELEASE_VERSION</a><br />
+                                                                    <a href="../classes/core.CAT.html#constant_USER_API_VERSION" class="">USER_API_VERSION</a><br />
+                                                                    <a href="../classes/core.CAT.html#constant_COPYRIGHT_HOLDER" class="">COPYRIGHT_HOLDER</a><br />
+                                                                    <a href="../classes/core.CAT.html#constant_COPYRIGHT_CONSORTIA" class="">COPYRIGHT_CONSORTIA</a><br />
+                                                                    <a href="../classes/core.CAT.html#constant_COPYRIGHT_MIN_YEAR" class="">COPYRIGHT_MIN_YEAR</a><br />
+                                                                    <a href="../classes/core.CAT.html#constant_COPYRIGHT_MAX_YEAR" class="">COPYRIGHT_MAX_YEAR</a><br />
+                                                                    <a href="../classes/core.CAT.html#constant_DB_TYPE" class="">DB_TYPE</a><br />
+                                                                    <a href="../classes/core.common.Entity.html#constant_L_OK" class="">L_OK</a><br />
+                                                                    <a href="../classes/core.common.Entity.html#constant_L_REMARK" class="">L_REMARK</a><br />
+                                                                    <a href="../classes/core.common.Entity.html#constant_L_WARN" class="">L_WARN</a><br />
+                                                                    <a href="../classes/core.common.Entity.html#constant_L_ERROR" class="">L_ERROR</a><br />
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <a href="../classes/core.UserAPI.html#method_getLogo" class="">getLogo()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/core.common.Entity.html#property_loggerInstance" class="">$loggerInstance</a><br />
+                                                                    <a href="../classes/core.common.Entity.html#property_languageInstance" class="">$languageInstance</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <a href="../classes/core.UserAPI.html#method_verifyDownloadAccess" class="">verifyDownloadAccess()</a><br />
+                                                                    <a href="../classes/core.UserAPI.html#method_getCache" class="">getCache()</a><br />
+                                                                    <a href="../classes/core.UserAPI.html#method_generateNewInstaller" class="">generateNewInstaller()</a><br />
+                                                                    <a href="../classes/core.UserAPI.html#method_processImage" class="">processImage()</a><br />
+                                                                    <a href="../classes/core.UserAPI.html#method_testForResize" class="">testForResize()</a><br />
+                                                                    <a href="../classes/core.UserAPI.html#method_returnDevice" class="">returnDevice()</a><br />
+                                                                    <a href="../classes/core.UserAPI.html#method_deviceFromRequest" class="">deviceFromRequest()</a><br />
+                                                                    <a href="../classes/core.UserAPI.html#method_profileSort" class="">profileSort()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/core.UserAPI.html#property_installerPath" class="">$installerPath</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/core.UserAPI.html"><div class="path-wrapper">core/UserAPI.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">UserAPI</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+                                        <div class="namespace-wrapper"><a href="../classes/core.common.Entity.html">\core\common\Entity</a></div>
+                                                                    
+                                        <div class="namespace-wrapper"><a href="../classes/core.CAT.html">\core\CAT</a></div>
+                                                                                                    <div class="namespace-wrapper">\core\UserAPI</div>
+                            </dd>
+
+                        
+                        
+                        
+                                                
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                                    <a id="constants" name="constants"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Constants</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_VERSION_MAJOR" name="constant_VERSION_MAJOR" class="anchor"></a>
+            <article id="constant_VERSION_MAJOR" class="constant">
+                <h3 class="">VERSION_MAJOR</h3>
+                <pre class="signature">VERSION_MAJOR = 2</pre>
+                <p><em>which version is this?
+even if we are unreleased, keep track of internal version-to-be
+developers need to set this in code. The user-displayed string
+is generated into $CAT_VERSION_STRING and $CAT_COPYRIGHT below</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.CAT.html"><div class="path-wrapper">\core\CAT</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_VERSION_MINOR" name="constant_VERSION_MINOR" class="anchor"></a>
+            <article id="constant_VERSION_MINOR" class="constant">
+                <h3 class="">VERSION_MINOR</h3>
+                <pre class="signature">VERSION_MINOR = 0</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.CAT.html"><div class="path-wrapper">\core\CAT</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_VERSION_PATCH" name="constant_VERSION_PATCH" class="anchor"></a>
+            <article id="constant_VERSION_PATCH" class="constant">
+                <h3 class="">VERSION_PATCH</h3>
+                <pre class="signature">VERSION_PATCH = 0</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.CAT.html"><div class="path-wrapper">\core\CAT</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_VERSION_EXTRA" name="constant_VERSION_EXTRA" class="anchor"></a>
+            <article id="constant_VERSION_EXTRA" class="constant">
+                <h3 class="">VERSION_EXTRA</h3>
+                <pre class="signature">VERSION_EXTRA = beta1</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.CAT.html"><div class="path-wrapper">\core\CAT</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_RELEASE_VERSION" name="constant_RELEASE_VERSION" class="anchor"></a>
+            <article id="constant_RELEASE_VERSION" class="constant">
+                <h3 class="">RELEASE_VERSION</h3>
+                <pre class="signature">RELEASE_VERSION = FALSE</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.CAT.html"><div class="path-wrapper">\core\CAT</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_USER_API_VERSION" name="constant_USER_API_VERSION" class="anchor"></a>
+            <article id="constant_USER_API_VERSION" class="constant">
+                <h3 class="">USER_API_VERSION</h3>
+                <pre class="signature">USER_API_VERSION = 2</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.CAT.html"><div class="path-wrapper">\core\CAT</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_COPYRIGHT_HOLDER" name="constant_COPYRIGHT_HOLDER" class="anchor"></a>
+            <article id="constant_COPYRIGHT_HOLDER" class="constant">
+                <h3 class="">COPYRIGHT_HOLDER</h3>
+                <pre class="signature">COPYRIGHT_HOLDER = DANTE Ltd. and G&amp;Eacute;ANT</pre>
+                <p><em>trying to keep up with the name changes of copyright holder and consortia
+updating those on *one* place should change display everywhere!</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.CAT.html"><div class="path-wrapper">\core\CAT</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_COPYRIGHT_CONSORTIA" name="constant_COPYRIGHT_CONSORTIA" class="anchor"></a>
+            <article id="constant_COPYRIGHT_CONSORTIA" class="constant">
+                <h3 class="">COPYRIGHT_CONSORTIA</h3>
+                <pre class="signature">COPYRIGHT_CONSORTIA = the GN3, GN3+, GN4-1 and GN4-2 consortia</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.CAT.html"><div class="path-wrapper">\core\CAT</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_COPYRIGHT_MIN_YEAR" name="constant_COPYRIGHT_MIN_YEAR" class="anchor"></a>
+            <article id="constant_COPYRIGHT_MIN_YEAR" class="constant">
+                <h3 class="">COPYRIGHT_MIN_YEAR</h3>
+                <pre class="signature">COPYRIGHT_MIN_YEAR = 2011</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.CAT.html"><div class="path-wrapper">\core\CAT</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_COPYRIGHT_MAX_YEAR" name="constant_COPYRIGHT_MAX_YEAR" class="anchor"></a>
+            <article id="constant_COPYRIGHT_MAX_YEAR" class="constant">
+                <h3 class="">COPYRIGHT_MAX_YEAR</h3>
+                <pre class="signature">COPYRIGHT_MAX_YEAR = 2018</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.CAT.html"><div class="path-wrapper">\core\CAT</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_DB_TYPE" name="constant_DB_TYPE" class="anchor"></a>
+            <article id="constant_DB_TYPE" class="constant">
+                <h3 class="">DB_TYPE</h3>
+                <pre class="signature">DB_TYPE = INST</pre>
+                <p><em>the default database to query in this class.</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.CAT.html"><div class="path-wrapper">\core\CAT</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_L_OK" name="constant_L_OK" class="anchor"></a>
+            <article id="constant_L_OK" class="constant">
+                <h3 class="">L_OK</h3>
+                <pre class="signature">L_OK = 0</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.common.Entity.html"><div class="path-wrapper">\core\common\Entity</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_L_REMARK" name="constant_L_REMARK" class="anchor"></a>
+            <article id="constant_L_REMARK" class="constant">
+                <h3 class="">L_REMARK</h3>
+                <pre class="signature">L_REMARK = 4</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.common.Entity.html"><div class="path-wrapper">\core\common\Entity</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_L_WARN" name="constant_L_WARN" class="anchor"></a>
+            <article id="constant_L_WARN" class="constant">
+                <h3 class="">L_WARN</h3>
+                <pre class="signature">L_WARN = 32</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.common.Entity.html"><div class="path-wrapper">\core\common\Entity</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_L_ERROR" name="constant_L_ERROR" class="anchor"></a>
+            <article id="constant_L_ERROR" class="constant">
+                <h3 class="">L_ERROR</h3>
+                <pre class="signature">L_ERROR = 256</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.common.Entity.html"><div class="path-wrapper">\core\common\Entity</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_CAT_VERSION_STRING" name="property_CAT_VERSION_STRING" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$CAT_VERSION_STRING</h3>
+                <pre class="signature">$CAT_VERSION_STRING : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.CAT.html"><div class="path-wrapper">\core\CAT</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_CAT_COPYRIGHT" name="property_CAT_COPYRIGHT" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$CAT_COPYRIGHT</h3>
+                <pre class="signature">$CAT_COPYRIGHT : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.CAT.html"><div class="path-wrapper">\core\CAT</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_nomenclature_fed" name="property_nomenclature_fed" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$nomenclature_fed</h3>
+                <pre class="signature">$nomenclature_fed : </pre>
+                <p><em>the custom displayable variant of the term &#039;federation&#039;</em></p>
+                
+
+                                <h4>Type</h4>
+                
+                &mdash;                             </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.CAT.html"><div class="path-wrapper">\core\CAT</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_nomenclature_inst" name="property_nomenclature_inst" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$nomenclature_inst</h3>
+                <pre class="signature">$nomenclature_inst : </pre>
+                <p><em>the custom displayable variant of the term &#039;institution&#039;</em></p>
+                
+
+                                <h4>Type</h4>
+                
+                &mdash;                             </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.CAT.html"><div class="path-wrapper">\core\CAT</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_knownFederations" name="property_knownFederations" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$knownFederations</h3>
+                <pre class="signature">$knownFederations : mixed|string|int</pre>
+                <p><em>all known federation, in an array with ISO short name as an index, and localised version of the pretty-print name as value.</em></p>
+                <p>The static value is only filled with meaningful content after the first object has been instantiated. That is because it is not
+possible to define static properties with function calls like _().</p>
+
+                                <h4>Type</h4>
+                mixed|string|int
+                &mdash; of all known federations                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.CAT.html"><div class="path-wrapper">\core\CAT</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_device" name="property_device" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$device</h3>
+                <pre class="signature">$device : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_loggerInstance" name="property_loggerInstance" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$loggerInstance</h3>
+                <pre class="signature">$loggerInstance : \core\common\Logging</pre>
+                <p><em>We occasionally log stuff (debug/audit). Have an initialised Logging
+instance nearby is sure helpful.</em></p>
+                
+
+                                <h4>Type</h4>
+                \core\common\Logging
+                &mdash;                             </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.common.Entity.html"><div class="path-wrapper">\core\common\Entity</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_languageInstance" name="property_languageInstance" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$languageInstance</h3>
+                <pre class="signature">$languageInstance : \core\common\Language</pre>
+                <p><em>access to language settings to be able to switch textDomain</em></p>
+                
+
+                                <h4>Type</h4>
+                \core\common\Language
+                &mdash;                             </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.common.Entity.html"><div class="path-wrapper">\core\common\Entity</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_installerPath" name="property_installerPath" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$installerPath</h3>
+                <pre class="signature">$installerPath : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct() </pre>
+                <p><em>nothing special to be done here.</em></p>
+                <p>Logs the start of lifetime of the entity to the debug log on levels 3 and higher.</p>
+
+                
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.UserAPI.html"><div class="path-wrapper">\core\UserAPI</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_totalIdPs" name="method_totalIdPs" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">totalIdPs()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">totalIdPs(  <span class="argument">level</span>) : </pre>
+                <p><em>Calculates the number of IdPs overall in the system</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>level </td>
+                                <td><p>completeness level of IdPs that are to be taken into consideration for counting</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    
+                                            &mdash; 
+                                    
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.CAT.html"><div class="path-wrapper">\core\CAT</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_listAllIdentityProviders" name="method_listAllIdentityProviders" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">listAllIdentityProviders()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">listAllIdentityProviders(  <span class="argument">activeOnly</span>,   <span class="argument">country</span>) : mixed|string|int</pre>
+                <p><em>Lists all identity providers in the database
+adding information required by DiscoJuice.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>activeOnly </td>
+                                <td><p>if set to non-zero will cause listing of only those institutions which have some valid profiles defined.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>country </td>
+                                <td><p>if set, only list IdPs in a specific country</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed|string|int
+                                            &mdash; <p>the list of identity providers</p>
+                                    
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.UserAPI.html"><div class="path-wrapper">\core\UserAPI</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_printCountryList" name="method_printCountryList" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">printCountryList()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">printCountryList(  <span class="argument">activeOnly</span>) : mixed|string|int</pre>
+                <p><em>Prepares a list of countries known to the CAT.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>activeOnly </td>
+                                <td><p>is set and nonzero will cause that only countries with some institutions underneath will be listed</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed|string|int
+                                            &mdash; <p>Array indexed by (uppercase) lang codes and sorted according to the current locale</p>
+                                    
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.CAT.html"><div class="path-wrapper">\core\CAT</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getExternalDBEntityDetails" name="method_getExternalDBEntityDetails" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getExternalDBEntityDetails()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getExternalDBEntityDetails(  <span class="argument">externalId</span>,   <span class="argument">realm = NULL</span>) : mixed|string|int</pre>
+                <p><em>get additional details about an institution from the EXTERNAL customer DB
+(if any; for eduroam, this would be the official eduroam database)</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>externalId </td>
+                                <td><p>the ID of the institution in the external DB</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>realm </td>
+                                <td><p>the function can also try to find an inst by its realm in the external DB</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed|string|int
+                                            &mdash; <p>a list of institutions, ideally with only one member</p>
+                                    
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.CAT.html"><div class="path-wrapper">\core\CAT</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getExternalCountriesList" name="method_getExternalCountriesList" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getExternalCountriesList()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getExternalCountriesList() : mixed|string|int</pre>
+                <p><em>the list of countries as per external DB</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    mixed|string|int
+                                            &mdash; <p>the list</p>
+                                    
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.CAT.html"><div class="path-wrapper">\core\CAT</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getRootUrlPath" name="method_getRootUrlPath" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getRootUrlPath()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getRootUrlPath() </pre>
+                <p><em></em></p>
+                
+
+                
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.CAT.html"><div class="path-wrapper">\core\CAT</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___destruct" name="method___destruct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__destruct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__destruct() </pre>
+                <p><em>destroys the entity.</em></p>
+                <p>Logs the end of lifetime of the entity to the debug log on level 5.</p>
+
+                
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.common.Entity.html"><div class="path-wrapper">\core\common\Entity</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getAttributeValue" name="method_getAttributeValue" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getAttributeValue()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getAttributeValue(mixed|string|int  <span class="argument">attributeArray</span>, string|int  <span class="argument">index1</span>, string|int  <span class="argument">index2</span>) : </pre>
+                <p><em>This is a helper fuction to retrieve a value from two-dimensional arrays
+The function tests if the value for the first indes is defined and then
+the same with the second and finally returns the value
+if something on the way is not defined, NULL is returned</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed|string|int</td>
+                                <td>attributeArray </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string|int</td>
+                                <td>index1 </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string|int</td>
+                                <td>index2 </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    
+                                            &mdash; 
+                                    
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.common.Entity.html"><div class="path-wrapper">\core\common\Entity</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_createTemporaryDirectory" name="method_createTemporaryDirectory" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">createTemporaryDirectory()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">createTemporaryDirectory(  <span class="argument">purpose = installer</span>,   <span class="argument">failIsFatal = 1</span>) : mixed|string|int</pre>
+                <p><em>create a temporary directory and return the location</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>purpose </td>
+                                <td><p>one of 'installer', 'logo', 'test' defined the purpose of the directory</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>failIsFatal </td>
+                                <td><p>decides if a creation failure should cause an error; defaults to true</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed|string|int
+                                            &mdash; <p>the tuple of: base path, absolute path for directory, directory name</p>
+                                    
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.common.Entity.html"><div class="path-wrapper">\core\common\Entity</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_rrmdir" name="method_rrmdir" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">rrmdir()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">rrmdir(  <span class="argument">dir</span>) </pre>
+                <p><em>this direcory delete function has been copied from PHP documentation</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>dir </td>
+                                <td><p>name of the directory to delete</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.common.Entity.html"><div class="path-wrapper">\core\common\Entity</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_uuid" name="method_uuid" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">uuid()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">uuid(  <span class="argument">prefix</span>,  <span class="argument">deterministicSource = NULL</span>) : </pre>
+                <p><em>generates a UUID, for the devices which identify file contents by UUID</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>prefix </td>
+                                <td><p>an extra prefix to set before the UUID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>deterministicSource </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    
+                                            &mdash; <p>UUID (possibly prefixed)</p>
+                                    
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.common.Entity.html"><div class="path-wrapper">\core\common\Entity</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_randomString" name="method_randomString" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">randomString()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">randomString(  <span class="argument">length</span>,   <span class="argument">keyspace = 23456789abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</span>) : </pre>
+                <p><em>produces a random string</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>length </td>
+                                <td><p>the length of the string to produce</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>keyspace </td>
+                                <td><p>the pool of characters to use for producing the string</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    
+                                            &mdash; 
+                                    
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.common.Entity.html"><div class="path-wrapper">\core\common\Entity</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_generateInstaller" name="method_generateInstaller" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">generateInstaller()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">generateInstaller(  <span class="argument">device</span>,   <span class="argument">profileId</span>,  <span class="argument">generatedFor = user</span>,  <span class="argument">token = NULL</span>,  <span class="argument">password = NULL</span>) : array|null</pre>
+                <p><em>Prepare the device module environment and send back the link
+This method creates a device module instance via the {@link DeviceFactory} call,
+then sets up the device module environment for the specific profile by calling
+{@link DeviceConfig::setup()} method and finally, called the devide writeInstaller meethod
+passing the returned path name.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>device </td>
+                                <td><p>identifier as in {@link devices.php}</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>profileId </td>
+                                <td><p>profile identifier</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>generatedFor </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>token </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>password </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array|null
+                                            &mdash; <p>array with the following fields:
+profile - the profile identifier;
+device - the device identifier;
+link - the path name of the resulting installer
+mime - the mimetype of the installer</p>
+                                    
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.UserAPI.html"><div class="path-wrapper">\core\UserAPI</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_listDevices" name="method_listDevices" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">listDevices()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">listDevices( <span class="argument">showHidden</span>) </pre>
+                <p><em>interface to Devices::listDevices()</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>showHidden </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.UserAPI.html"><div class="path-wrapper">\core\UserAPI</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_deviceInfo" name="method_deviceInfo" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">deviceInfo()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">deviceInfo(  <span class="argument">device</span>,   <span class="argument">profileId</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>device </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>profileId </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.UserAPI.html"><div class="path-wrapper">\core\UserAPI</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_profileAttributes" name="method_profileAttributes" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">profileAttributes()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">profileAttributes(  <span class="argument">profId</span>) : mixed|string|int</pre>
+                <p><em>Prepare the support data for a given profile</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>profId </td>
+                                <td><p>profile identifier</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed|string|int
+                                            &mdash; <p>array with the following fields:</p>
+<ul>
+<li>local_email</li>
+<li>local_phone</li>
+<li>local_url</li>
+<li>description</li>
+<li>devices - an array of device names and their statuses (for a given profile)</li>
+</ul>
+                                    
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.UserAPI.html"><div class="path-wrapper">\core\UserAPI</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_downloadInstaller" name="method_downloadInstaller" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">downloadInstaller()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">downloadInstaller(  <span class="argument">device</span>,   <span class="argument">prof_id</span>,  <span class="argument">generated_for = user</span>,  <span class="argument">token = NULL</span>,  <span class="argument">password = NULL</span>) : </pre>
+                <p><em>Generate and send the installer</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>device </td>
+                                <td><p>identifier as in {@link devices.php}</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>prof_id </td>
+                                <td><p>profile identifier</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>generated_for </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>token </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>password </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    
+                                            &mdash; <p>binary stream: installerFile</p>
+                                    
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.UserAPI.html"><div class="path-wrapper">\core\UserAPI</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_locateDevice" name="method_locateDevice" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">locateDevice()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">locateDevice() : mixed|string|int</pre>
+                <p><em>find out where the device is currently located</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    mixed|string|int
+                                            &mdash; 
+                                    
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.UserAPI.html"><div class="path-wrapper">\core\UserAPI</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_orderIdentityProviders" name="method_orderIdentityProviders" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">orderIdentityProviders()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">orderIdentityProviders( <span class="argument">country</span>, mixed|string|int  <span class="argument">currentLocation = NULL</span>) : mixed|string|int</pre>
+                <p><em>Order active identity providers according to their distance and name</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>country </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed|string|int</td>
+                                <td>currentLocation </td>
+                                <td><ul>
+<li>current location</li>
+</ul></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed|string|int
+                                            &mdash; <p>$IdPs -  list of arrays ('id', 'name');</p>
+                                    
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.UserAPI.html"><div class="path-wrapper">\core\UserAPI</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_detectOS" name="method_detectOS" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">detectOS()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">detectOS() : array|bool</pre>
+                <p><em>Detect the best device driver form the browser
+Detects the operating system and returns its id
+display name and group membership (as in devices.php)</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array|bool
+                                            &mdash; <p>OS information, indexed by 'id', 'display', 'group'</p>
+                                    
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.UserAPI.html"><div class="path-wrapper">\core\UserAPI</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getUserCerts" name="method_getUserCerts" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getUserCerts()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getUserCerts(  <span class="argument">token</span>) : array|bool</pre>
+                <p><em>finds all the user certificates that originated in a given token</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>token </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array|bool
+                                            &mdash; <p>returns FALSE if a token is invalid, otherwise array of certs</p>
+                                    
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.UserAPI.html"><div class="path-wrapper">\core\UserAPI</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getLogo" name="method_getLogo" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getLogo()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getLogo(int|string  <span class="argument">identifier</span>,   <span class="argument">type</span>,   <span class="argument">widthIn</span>,   <span class="argument">heightIn</span>) : array|null</pre>
+                <p><em>Get and prepare logo file</em></p>
+                <p>When called for DiscoJuice, first check if file cache exists
+If not then generate the file and save it in the cache</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>int|string</td>
+                                <td>identifier </td>
+                                <td><p>IdP of Federation identifier</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>type </td>
+                                <td><p>either 'idp' or 'federation' is allowed</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>widthIn </td>
+                                <td><p>maximum width of the generated image - if 0 then it is treated as no upper bound</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>heightIn </td>
+                                <td><p>maximum height of the generated image - if 0 then it is treated as no upper bound</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array|null
+                                            &mdash; <p>array with image information or NULL if there is no logo</p>
+                                    
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.UserAPI.html"><div class="path-wrapper">\core\UserAPI</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_verifyDownloadAccess" name="method_verifyDownloadAccess" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">verifyDownloadAccess()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">verifyDownloadAccess( <span class="argument">profile</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>profile </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.UserAPI.html"><div class="path-wrapper">\core\UserAPI</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getCache" name="method_getCache" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">getCache()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getCache(  <span class="argument">device</span>, \core\AbstractProfile  <span class="argument">profile</span>) : mixed|string|int</pre>
+                <p><em>This function tries to find a cached copy of an installer for a given
+combination of Profile and device</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>device </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>\core\AbstractProfile</td>
+                                <td>profile </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed|string|int
+                                            &mdash; <p>containing path to the installer and mime type of the file, the path is set to NULL if no cache can be returned</p>
+                                    
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.UserAPI.html"><div class="path-wrapper">\core\UserAPI</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_generateNewInstaller" name="method_generateNewInstaller" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">generateNewInstaller()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">generateNewInstaller(  <span class="argument">device</span>, \core\AbstractProfile  <span class="argument">profile</span>,  <span class="argument">generatedFor</span>,  <span class="argument">token</span>,  <span class="argument">password</span>) : mixed|string|int</pre>
+                <p><em>Generates a new installer for the given combination of device and Profile</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>device </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>\core\AbstractProfile</td>
+                                <td>profile </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>generatedFor </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>token </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>password </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed|string|int
+                                            &mdash; <p>info about the new installer (mime and link)</p>
+                                    
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.UserAPI.html"><div class="path-wrapper">\core\UserAPI</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_processImage" name="method_processImage" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">processImage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">processImage(  <span class="argument">inputImage</span>,   <span class="argument">destFile</span>,   <span class="argument">width</span>,   <span class="argument">height</span>,   <span class="argument">resize</span>) : mixed|string|int</pre>
+                <p><em>resizes image files</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>inputImage </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>destFile </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>width </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>height </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>resize </td>
+                                <td><p>shall we do resizing? width and height are ignored otherwise</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed|string|int
+                                            &mdash; 
+                                    
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.UserAPI.html"><div class="path-wrapper">\core\UserAPI</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_testForResize" name="method_testForResize" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">testForResize()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">testForResize( <span class="argument">width</span>,  <span class="argument">height</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>width </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>height </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.UserAPI.html"><div class="path-wrapper">\core\UserAPI</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_returnDevice" name="method_returnDevice" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">returnDevice()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">returnDevice( <span class="argument">devId</span>,  <span class="argument">device</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>devId </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>device </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.UserAPI.html"><div class="path-wrapper">\core\UserAPI</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_deviceFromRequest" name="method_deviceFromRequest" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">deviceFromRequest()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">deviceFromRequest() : \core\device</pre>
+                <p><em>This methods cheks if the devide has been specified as the HTTP parameters</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    \core\device
+                                            &mdash; <p>id|NULL if correcty specified or FALSE otherwise</p>
+                                    
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.UserAPI.html"><div class="path-wrapper">\core\UserAPI</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_profileSort" name="method_profileSort" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">profileSort()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">profileSort(\core\AbstractProfile  <span class="argument">profile1</span>, \core\AbstractProfile  <span class="argument">profile2</span>) : </pre>
+                <p><em>helper function to sort profiles by their name</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\core\AbstractProfile</td>
+                                <td>profile1 </td>
+                                <td><p>the first profile's information</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>\core\AbstractProfile</td>
+                                <td>profile2 </td>
+                                <td><p>the second profile's information</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    
+                                            &mdash; 
+                                    
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/core.UserAPI.html"><div class="path-wrapper">\core\UserAPI</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">UserAPI.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/core/UserAPI.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/core.html">\core</a></li>
+                                                                            <li><a href="../namespaces/devices.html">\devices</a></li>
+                                                                            <li><a href="../namespaces/web.html">\web</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on June 5th, 2018 at 13:23.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
