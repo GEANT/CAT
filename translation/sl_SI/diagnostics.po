@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-23 14:55+0200\n"
+"POT-Creation-Date: 2018-06-05 14:51+0200\n"
 "PO-Revision-Date: 2015-04-12 02:05+0000\n"
 "Last-Translator: rokpapez <rok.papez@arnes.si>\n"
 "Language-Team: Slovenian (Slovenia) (http://www.transifex.com/projects/p/cat/"
@@ -895,7 +895,7 @@ msgstr ""
 msgid "Event's timestamp"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:846
+#: web/skins/modern/diag/diag.php:846 web/skins/modern/diag/diag.php:857
 msgid "Calling-Station-Id"
 msgstr ""
 
@@ -917,10 +917,6 @@ msgstr ""
 
 #: web/skins/modern/diag/diag.php:855
 msgid "IdP email"
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:857
-msgid "Calling-Station-I"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:859

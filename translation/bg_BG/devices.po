@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # University of Ruse <support@uni-ruse.bg>, 2014-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-23 14:55+0200\n"
+"POT-Creation-Date: 2018-06-05 14:51+0200\n"
 "PO-Revision-Date: 2018-05-18 08:44+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>\n"
-"Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/eduroam_devel/cat/language/bg_BG/)\n"
+"Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/eduroam_devel/"
+"cat/language/bg_BG/)\n"
+"Language: bg_BG\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: bg_BG\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: devices/Devices-template.php:110
@@ -86,11 +87,14 @@ msgstr "Chrome OS"
 #, php-format
 msgid ""
 "After downloading the file, open the Chrome browser and browse to this URL: "
-"<a href='chrome://net-internals/#chromeos'>chrome://net-"
-"internals/#chromeos</a>. Then, use the 'Import ONC file' button. The import "
-"is silent; the new network definitions will be added to the preferred "
-"networks."
-msgstr "След изтеглянето на файла, отворете браузера Chrome и URL: <a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</a>. След това натиснете бутона 'Import ONC file'. Импортът е невидим; към предпочитаните мрежи ще бъдат добавени новите мрежови определения."
+"<a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</"
+"a>. Then, use the 'Import ONC file' button. The import is silent; the new "
+"network definitions will be added to the preferred networks."
+msgstr ""
+"След изтеглянето на файла, отворете браузера Chrome и URL: <a href='chrome://"
+"net-internals/#chromeos'>chrome://net-internals/#chromeos</a>. След това "
+"натиснете бутона 'Import ONC file'. Импортът е невидим; към предпочитаните "
+"мрежи ще бъдат добавени новите мрежови определения."
 
 #: devices/Devices-template.php:331
 msgid "Android 6.0 Marshmallow"
@@ -104,7 +108,11 @@ msgid ""
 "that you have installed the %s application. This application is available "
 "from %s, %s and %s, and will use the configuration file downloaded from CAT "
 "to create all necessary settings."
-msgstr "Преди да пристъпите към инсталация върху Android системи, моля убедете се, че %s приложението е инсталирано. Това приложение е налично от %s, %s и %s, и ще използва конфигурационния файл, изтеглен от CAT, за да направи всички необходими настройки."
+msgstr ""
+"Преди да пристъпите към инсталация върху Android системи, моля убедете се, "
+"че %s приложението е инсталирано. Това приложение е налично от %s, %s и %s, "
+"и ще използва конфигурационния файл, изтеглен от CAT, за да направи всички "
+"необходими настройки."
 
 #: devices/Devices-template.php:341 devices/Devices-template.php:357
 #: devices/Devices-template.php:373 devices/Devices-template.php:390
@@ -134,10 +142,13 @@ msgstr "EAP конфигурация"
 #: devices/Devices-template.php:412
 #, php-format
 msgid ""
-"This option provides a generic EAP config XML file, which can be consumed by"
-" dedicated applications like eduroamCAT for Android and Linux platforms. "
-"This is still an experimental feature."
-msgstr "Тази опция предлага стандартен EAP config XML файл, който може да се използва от специализирани приложения като eduroamCAT за Android и Linux платформите. Това все още е експериментална функционалност."
+"This option provides a generic EAP config XML file, which can be consumed by "
+"dedicated applications like eduroamCAT for Android and Linux platforms. This "
+"is still an experimental feature."
+msgstr ""
+"Тази опция предлага стандартен EAP config XML файл, който може да се "
+"използва от специализирани приложения като eduroamCAT за Android и Linux "
+"платформите. Това все още е експериментална функционалност."
 
 #: devices/Devices-template.php:418
 msgid "Test"
@@ -152,7 +163,10 @@ msgid ""
 "It is not possible to actively verify the user input for suffix match; but "
 "if there is no 'Terms of Use' configured, the installer will display a "
 "corresponding hint to the user instead."
-msgstr "Не е възможно активно да се проверява потребителския вход за съвпадение на суфикса; но ако няма конфигурирани \"Условия за ползване\", вместо това инсталаторът ще покаже на потребителя съответна подсказка. "
+msgstr ""
+"Не е възможно активно да се проверява потребителския вход за съвпадение на "
+"суфикса; но ако няма конфигурирани \"Условия за ползване\", вместо това "
+"инсталаторът ще покаже на потребителя съответна подсказка. "
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:57
 #, php-format
@@ -171,10 +185,14 @@ msgstr "Важно съобщение: Вашето потребителско �
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:105
 msgid ""
-"Important Notice: your username MUST be in the form of xxx@yyy where the yyy"
-" is a common suffix identifying your Identity Provider. Please find out what"
-" to use there and enter the username in the correct format."
-msgstr "Важно съобщение: потребителското Ви име ТРЯБВА да има вида xxx@yyy, където yyy е обичайния суфикс, идентифициращ Вашия Доставчик на Удостоверения. Моля разберете какво да използвате тук и въведете потребителското име в правилния формат."
+"Important Notice: your username MUST be in the form of xxx@yyy where the yyy "
+"is a common suffix identifying your Identity Provider. Please find out what "
+"to use there and enter the username in the correct format."
+msgstr ""
+"Важно съобщение: потребителското Ви име ТРЯБВА да има вида xxx@yyy, където "
+"yyy е обичайния суфикс, идентифициращ Вашия Доставчик на Удостоверения. Моля "
+"разберете какво да използвате тук и въведете потребителското име в правилния "
+"формат."
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:141
 #, php-format
@@ -189,13 +207,18 @@ msgstr "Анонимен профил"
 msgid ""
 "For best results, please use the built-in browser (Safari) to open the "
 "configuration file."
-msgstr "За най-добри резултати, моля използвайте вградения браузер (Safari), за да отворите конфигурационния файл."
+msgstr ""
+"За най-добри резултати, моля използвайте вградения браузер (Safari), за да "
+"отворите конфигурационния файл."
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:202
 msgid ""
 "The profile will install itself after you click (or tap) the button. You "
 "will be asked for confirmation/input at several points:"
-msgstr "Профилът ще се инсталира, след като кликнете (или почукнете) бутона. На няколко места ще бъдете попитан за потвърждение или въвеждане на допълнителни данни:"
+msgstr ""
+"Профилът ще се инсталира, след като кликнете (или почукнете) бутона. На "
+"няколко места ще бъдете попитан за потвърждение или въвеждане на "
+"допълнителни данни:"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:204
 msgid "to install the profile"
@@ -259,8 +282,7 @@ msgstr "Този SSID не трябва да се използва след за
 msgid "Disabled WiFi network"
 msgstr "Забранена безжична мрежа"
 
-#. we don't include the import password. It's displayed on screen, and should
-#. be input by the user.
+#. we don't include the import password. It's displayed on screen, and should be input by the user.
 #. <key>Password</key>
 #. <string>" . $this->clientCert['password'] . "</string>
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:503
@@ -280,35 +302,49 @@ msgid ""
 "This installer is an example only. It produces a zip file containig the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
 "administrator) and a dump of all available attributes."
-msgstr "Инсталаторът е само примерен. Той генерира zip файл, съдържащ сертификати на конкретния IdP, информация и лого файлове (ако такива са били дефинирани от администратора на Доставчика на Удостоверителни Услуги) и всички налични атрибути."
+msgstr ""
+"Инсталаторът е само примерен. Той генерира zip файл, съдържащ сертификати на "
+"конкретния IdP, информация и лого файлове (ако такива са били дефинирани от "
+"администратора на Доставчика на Удостоверителни Услуги) и всички налични "
+"атрибути."
 
 #: devices/linux/Device_Linux.php:52
+#, fuzzy
 msgid ""
-"The installer is in the form of a bash script. It will try to configure "
-"eduroam under Network Manager and if this is either not appropriate for your"
-" system or your version of Network Manager is too old, a wpa_supplicant "
+"The installer is in the form of a Python script. It will try to configure "
+"eduroam under Network Manager and if this is either not appropriate for your "
+"system or your version of Network Manager is too old, a wpa_supplicant "
 "config file will be created instead."
-msgstr "Инсталаторът е във вид на bash скрипт. Той ще се опита да конфигурира eduroam в Network Manager. Ако това не е подходящо за Вашата система или версията на Network Manager е твърде стара, вместо това ще бъде създаден конфигурационен файл за wpa_supplicant."
+msgstr ""
+"Инсталаторът е във вид на bash скрипт. Той ще се опита да конфигурира "
+"eduroam в Network Manager. Ако това не е подходящо за Вашата система или "
+"версията на Network Manager е твърде стара, вместо това ще бъде създаден "
+"конфигурационен файл за wpa_supplicant."
 
 #: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:115
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to the following networks:"
-msgstr "В допълнение към <strong>%s</strong> инсталаторът ще конфигурира и достъпа до следните мрежи:"
+msgstr ""
+"В допълнение към <strong>%s</strong> инсталаторът ще конфигурира и достъпа "
+"до следните мрежи:"
 
 #: devices/linux/Device_Linux.php:58 devices/ms/WindowsCommon.php:117
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to:"
-msgstr "В допълнение към <strong>%s</strong> инсталаторът ще конфигурира и достъп до:"
+msgstr ""
+"В допълнение към <strong>%s</strong> инсталаторът ще конфигурира и достъп до:"
 
 #: devices/linux/Device_Linux.php:72
 msgid ""
 "The installer will create .cat_installer sub-directory in your home "
 "directory and will copy your server certificates there."
-msgstr "Инсталаторът ще създаде поддиректория .cat_installer във Вашата лична директория и ще копира сертификатите на сървъра там."
+msgstr ""
+"Инсталаторът ще създаде поддиректория .cat_installer във Вашата лична "
+"директория и ще копира сертификатите на сървъра там."
 
 #: devices/linux/Device_Linux.php:74
 #, php-format
@@ -316,10 +352,17 @@ msgid ""
 "In order to connect to the network you will need a personal certificate in "
 "the form of a p12 file. You should obtain this certificate from your %s. "
 "Consult the support page to find out how this certificate can be obtained. "
-"Such certificate files are password protected. You should have both the file"
-" and the password available during the installation process. Your p12 file "
+"Such certificate files are password protected. You should have both the file "
+"and the password available during the installation process. Your p12 file "
 "will also be copied to the .cat_installer directory."
-msgstr "За да се свържете с мрежата, ще имате нужда от персонален сертификат във файлов формат p12. Трябва да получите този сертификат от Вашия %s. Консултирайте се на страницата за поддръжка, за да разберете как може да получите този сертификат. Такива файлови сертификати са защитени с парола. Вие трябва да имате едновременно и файла и паролата по време на инсталационния процес. Също така Вашия p12 файл ще бъде копиран в директория .cat_installer."
+msgstr ""
+"За да се свържете с мрежата, ще имате нужда от персонален сертификат във "
+"файлов формат p12. Трябва да получите този сертификат от Вашия %s. "
+"Консултирайте се на страницата за поддръжка, за да разберете как може да "
+"получите този сертификат. Такива файлови сертификати са защитени с парола. "
+"Вие трябва да имате едновременно и файла и паролата по време на "
+"инсталационния процес. Също така Вашия p12 файл ще бъде копиран в "
+"директория .cat_installer."
 
 #. not EAP-TLS
 #: devices/linux/Device_Linux.php:76 devices/ms/WindowsCommon.php:128
@@ -328,14 +371,20 @@ msgid ""
 "In order to connect to the network you will need an account from your %s. "
 "You should consult the support page to find out how this account can be "
 "obtained. It is very likely that your account is already activated."
-msgstr "За да се свържете с мрежата, ще имате нужда от акаунт от Вашия %s. Трябва да се консултирате на страницата за поддръжка, за да разберете как може да получите такъв акаунт. Много е вероятно Вашия акаунт вече да е активиран."
+msgstr ""
+"За да се свържете с мрежата, ще имате нужда от акаунт от Вашия %s. Трябва да "
+"се консултирате на страницата за поддръжка, за да разберете как може да "
+"получите такъв акаунт. Много е вероятно Вашия акаунт вече да е активиран."
 
 #: devices/linux/Device_Linux.php:78
 msgid ""
 "You will be requested to enter your account credentials during the "
 "installation. This information will be saved so that you will reconnect to "
 "the network automatically each time you are in the range."
-msgstr "По време на инсталацията ще Ви бъде поискано да въведете Вашите име и парола. Тази информация ще бъде запазена, така че ще се свързвате с мрежата отново автоматично всеки път, когато сте в обхват."
+msgstr ""
+"По време на инсталацията ще Ви бъде поискано да въведете Вашите име и "
+"парола. Тази информация ще бъде запазена, така че ще се свързвате с мрежата "
+"отново автоматично всеки път, когато сте в обхват."
 
 #: devices/linux/Device_Linux.php:87
 msgid "Really quit?"
@@ -371,7 +420,8 @@ msgstr "Инсталацията е успешна"
 
 #: devices/linux/Device_Linux.php:95
 msgid "Directory {} exists; some of its files may be overwritten."
-msgstr "Директория {} съществува; някои от нейните файлове може да бъдат презаписани."
+msgstr ""
+"Директория {} съществува; някои от нейните файлове може да бъдат презаписани."
 
 #: devices/linux/Device_Linux.php:96
 msgid "Continue?"
@@ -412,9 +462,12 @@ msgstr "Всички файлове"
 #: devices/linux/Device_Linux.php:106
 msgid ""
 "Network Manager configuration failed, but we may generate a wpa_supplicant "
-"configuration file if you wish. Be warned that your connection password will"
-" be saved in this file as clear text."
-msgstr "Конфигурацията на Network Manager е неуспешна, но ако желаете можем да генерираме wpa_supplicant конфигурационен файл. Предупреждаваме Ви, че паролата Ви за връзка ще бъде запазена в този файл като чист текст."
+"configuration file if you wish. Be warned that your connection password will "
+"be saved in this file as clear text."
+msgstr ""
+"Конфигурацията на Network Manager е неуспешна, но ако желаете можем да "
+"генерираме wpa_supplicant конфигурационен файл. Предупреждаваме Ви, че "
+"паролата Ви за връзка ще бъде запазена в този файл като чист текст."
 
 #: devices/linux/Device_Linux.php:107
 msgid "Write the file"
@@ -425,19 +478,25 @@ msgstr "Запишете файла"
 msgid ""
 "Error: Your username must be of the form 'xxx@institutionID' e.g. "
 "'john@example.net'!"
-msgstr "Грешка: Вашето потребителско име трябва да бъде във вида 'xxx@institutionID' например 'john@example.net'!"
+msgstr ""
+"Грешка: Вашето потребителско име трябва да бъде във вида 'xxx@institutionID' "
+"например 'john@example.net'!"
 
 #: devices/linux/Device_Linux.php:109
 msgid ""
 "Error: your username must be in the form of 'xxx@{}'. Please enter the "
 "username in the correct format."
-msgstr "Грешка: Вашето потребителско име трябва да бъде във вида 'xxx@{}'. Моля въведете потребителското име в коректния формат."
+msgstr ""
+"Грешка: Вашето потребителско име трябва да бъде във вида 'xxx@{}'. Моля "
+"въведете потребителското име в коректния формат."
 
 #: devices/linux/Device_Linux.php:110
 msgid ""
-"Error: your username must be in the form of 'xxx@institutionID' and end with"
-" '{}'. Please enter the username in the correct format."
-msgstr "Грешка: Вашето потребителско има трябва да бъде във вида 'xxx@institutionID' и да завършва с '{}'. Моля въведете потребителското име в коректния формат."
+"Error: your username must be in the form of 'xxx@institutionID' and end with "
+"'{}'. Please enter the username in the correct format."
+msgstr ""
+"Грешка: Вашето потребителско има трябва да бъде във вида 'xxx@institutionID' "
+"и да завършва с '{}'. Моля въведете потребителското име в коректния формат."
 
 #: devices/linux/Device_Linux.php:111
 msgid "personal certificate file not found"
@@ -460,7 +519,9 @@ msgstr "Инсталаторът е създаден със софтуер от 
 msgid ""
 "This installer will only work properly if you are a member of {0} and the "
 "user group: {1}."
-msgstr "Този инсталатор ще работи правилно само ако сте член на {0} и потребителска група: {1}."
+msgstr ""
+"Този инсталатор ще работи правилно само ако сте член на {0} и потребителска "
+"група: {1}."
 
 #: devices/linux/Device_Linux.php:247
 msgid "This installer will only work properly if you are a member of {0}."
@@ -470,16 +531,22 @@ msgstr "Този инсталатор ще работи правилно сам�
 msgid ""
 "Anonymous identities do not use the realm as specified in the profile - it "
 "is derived from the suffix of the user's username input instead."
-msgstr "Анонимната идентичност не използва домейна, указан в профила - вместо това, той се определя от суфикса на въведеното потребителско име."
+msgstr ""
+"Анонимната идентичност не използва домейна, указан в профила - вместо това, "
+"той се определя от суфикса на въведеното потребителско име."
 
 #: devices/ms/WindowsCommon.php:111
 #, php-format
 msgid ""
 "%s installer will be in the form of an EXE file. It will configure %s on "
 "your device, by creating wireless network profiles.<p>When you click the "
-"download button, the installer will be saved by your browser. Copy it to the"
-" machine you want to configure and execute."
-msgstr "%s инсталаторът ще бъде във вид на ЕХЕ файл. Той ще конфигурира %s на Вашето устройство чрез създаване на профил на безжична мрежова. <p>Когато кликнете бутона за изтегляне, инсталаторът ще бъде записан от Вашия браузер. Копирайте го на машината, която искате да конфигурирате, и го стартирайте."
+"download button, the installer will be saved by your browser. Copy it to the "
+"machine you want to configure and execute."
+msgstr ""
+"%s инсталаторът ще бъде във вид на ЕХЕ файл. Той ще конфигурира %s на Вашето "
+"устройство чрез създаване на профил на безжична мрежова. <p>Когато кликнете "
+"бутона за изтегляне, инсталаторът ще бъде записан от Вашия браузер. "
+"Копирайте го на машината, която искате да конфигурирате, и го стартирайте."
 
 #: devices/ms/WindowsCommon.php:124
 #, php-format
@@ -487,9 +554,15 @@ msgid ""
 "In order to connect to the network you will need an a personal certificate "
 "in the form of a p12 file. You should obtain this certificate from your %s. "
 "Consult the support page to find out how this certificate can be obtained. "
-"Such certificate files are password protected. You should have both the file"
-" and the password available during the installation process."
-msgstr "За да се свържете с мрежата, ще имате нужда от персонален сертификат във файлов формат p12. Трябва да получите този сертификат от Вашия %s. Консултирайте се на страницата за поддръжка, за да разберете как може да получите този сертификат. Такива файлови сертификати са защитени с парола. Вие трябва да имате едновременно и файла и паролата по време на инсталационния процес."
+"Such certificate files are password protected. You should have both the file "
+"and the password available during the installation process."
+msgstr ""
+"За да се свържете с мрежата, ще имате нужда от персонален сертификат във "
+"файлов формат p12. Трябва да получите този сертификат от Вашия %s. "
+"Консултирайте се на страницата за поддръжка, за да разберете как може да "
+"получите този сертификат. Такива файлови сертификати са защитени с парола. "
+"Вие трябва да имате едновременно и файла и паролата по време на "
+"инсталационния процес."
 
 #: devices/ms/WindowsCommon.php:132
 msgid ""
@@ -497,13 +570,19 @@ msgid ""
 "up a login box, where you should enter your user name and password. This "
 "information will be saved so that you will reconnect to the network "
 "automatically each time you are in the range."
-msgstr "Когато за пръв път се свържете с мрежата, Windows  ще Ви покаже диалогова кутия, в която трябва да въведете потребителското си име и паролата. Тази информация ще бъде запазена, така че ще се свързвате с мрежата отново автоматично всеки път, когато имате обхват."
+msgstr ""
+"Когато за пръв път се свържете с мрежата, Windows  ще Ви покаже диалогова "
+"кутия, в която трябва да въведете потребителското си име и паролата. Тази "
+"информация ще бъде запазена, така че ще се свързвате с мрежата отново "
+"автоматично всеки път, когато имате обхват."
 
 #: devices/ms/WindowsCommon.php:135
 msgid ""
 "You will be required to enter the same credentials for each of the "
 "configured notworks:"
-msgstr "За всяка от конфигурираните мрежи ще Ви бъде поискано да въведете същите потребителско име и парола:"
+msgstr ""
+"За всяка от конфигурираните мрежи ще Ви бъде поискано да въведете същите "
+"потребителско име и парола:"
 
 #: devices/ms/WindowsCommon.php:250 devices/ms/WindowsCommon.php:251
 #, php-format
@@ -514,14 +593,19 @@ msgstr "%s инсталатор за %s"
 msgid ""
 "This device is not yet supported by CAT, but your local administrator "
 "created a redirect to local installation instructions."
-msgstr "Това устройство все още не се поддържа от CAT, но Вашият локален администратор е направил пренасочване към локалните инструкции за инсталиране."
+msgstr ""
+"Това устройство все още не се поддържа от CAT, но Вашият локален "
+"администратор е направил пренасочване към локалните инструкции за "
+"инсталиране."
 
 #: devices/xml/Device_XML.php:50
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
 "-00</a> XML format."
-msgstr "Това е стандартен конфигурационен файл в IETF <a href='%s'>EAP Metadata -00</a> XML формат."
+msgstr ""
+"Това е стандартен конфигурационен файл в IETF <a href='%s'>EAP Metadata -00</"
+"a> XML формат."
 
 #: devices/ms/Files/common.inc:124
 #, php-format
@@ -556,7 +640,9 @@ msgstr "Приеми"
 msgid ""
 "If you accept the conditions then select Accept and then click Install to "
 "continue."
-msgstr "Ако приемете условията, изберете Приеми и кликнете Инсталиране, за да продължите."
+msgstr ""
+"Ако приемете условията, изберете Приеми и кликнете Инсталиране, за да "
+"продължите."
 
 #: devices/ms/Files/common.inc:142
 msgid "Finish"
@@ -577,11 +663,14 @@ msgstr "сертификатът не може да бъде инсталира�
 #: devices/ms/Files/common.inc:432
 msgid ""
 "The non TKIP profiles are preferred. Always use them if you have a choice."
-msgstr "Не-TKIP профилите са за предпочитане. Ако имате избор, винаги използвайте тях."
+msgstr ""
+"Не-TKIP профилите са за предпочитане. Ако имате избор, винаги използвайте "
+"тях."
 
 #: devices/ms/Files/common.inc:434
 msgid "The non TKIP profile is preferred. Always use it if you have a choice."
-msgstr "Не-TKIP профилът е за предпочитане. Ако имате избор, винаги използвайте тях."
+msgstr ""
+"Не-TKIP профилът е за предпочитане. Ако имате избор, винаги използвайте тях."
 
 #: devices/ms/Files/common.inc:440 devices/ms/Files/common.inc:448
 msgid "This installer has been prepared for ${ORGANISATION}"
@@ -599,25 +688,33 @@ msgstr "Инсталаторът ще създаде безжичен профи
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "10 and newer. Please download the correct installer and try again."
-msgstr "Вие сте стартирали Windows $WindowsName, но този инсталатор е само за Windows 10 и по-нов. Моля изтеглете коректния инсталатор и опитайте отново."
+msgstr ""
+"Вие сте стартирали Windows $WindowsName, но този инсталатор е само за "
+"Windows 10 и по-нов. Моля изтеглете коректния инсталатор и опитайте отново."
 
 #: devices/ms/Files/common.inc:537 devices/ms/Files/common.inc:544
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "8 and 8.1. Please download the correct installer and try again."
-msgstr "Вие сте стартирали Windows $WindowsName, но този инсталатор е само за Windows 8 и 8.1. Моля изтеглете коректния инсталатор и опитайте отново."
+msgstr ""
+"Вие сте стартирали Windows $WindowsName, но този инсталатор е само за "
+"Windows 8 и 8.1. Моля изтеглете коректния инсталатор и опитайте отново."
 
 #: devices/ms/Files/common.inc:553
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "Vista and Windows 7. Please download the correct installer and try again."
-msgstr "Вие използвате Windows $WindowsName, но този инсталатор е само за Windows Vista и Windows 7. Моля изтеглете правилния инсталатор и опитайте отново."
+msgstr ""
+"Вие използвате Windows $WindowsName, но този инсталатор е само за Windows "
+"Vista и Windows 7. Моля изтеглете правилния инсталатор и опитайте отново."
 
 #: devices/ms/Files/common.inc:589
 msgid ""
 "Windows wireless configuration service is not enabled. The installer cannot "
 "continue."
-msgstr "Услугата на Windows за конфигуриране на wireless не е разрешена. Инсталаторът не може да продължи."
+msgstr ""
+"Услугата на Windows за конфигуриране на wireless не е разрешена. "
+"Инсталаторът не може да продължи."
 
 #: devices/ms/Files/common.inc:594
 msgid "No wireless interfaces found. The installer cannot continue."
@@ -627,7 +724,10 @@ msgstr "Не са намерени безжични интерфейси. Инс
 msgid ""
 "No wireless interfaces found. Wireless access will not be configured. Would "
 "you like to continue and configure access on the wired interface?"
-msgstr "Не са намерени безжични интерфейси. Безжичният достъп няма да бъде конфигуриран. Искате ли да продължите и да конфигурирате достъпа до кабелен интерфейс?"
+msgstr ""
+"Не са намерени безжични интерфейси. Безжичният достъп няма да бъде "
+"конфигуриран. Искате ли да продължите и да конфигурирате достъпа до кабелен "
+"интерфейс?"
 
 #: devices/ms/Files/common.inc:616
 msgid "Do you want to enable access on wired interfaces?"
@@ -649,7 +749,9 @@ msgstr "намерен профил $R8"
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION} and the user group: ${USER_GROUP}."
-msgstr "Инсталаторът ще работи правилно единствено ако сте член на ${ORGANISATION} и потребителска група: ${USER_GROUP}."
+msgstr ""
+"Инсталаторът ще работи правилно единствено ако сте член на ${ORGANISATION} и "
+"потребителска група: ${USER_GROUP}."
 
 #: devices/ms/Files/common.inc:707 devices/ms/Files/common.inc:710
 msgid "Click OK to continue with installation."
@@ -659,13 +761,16 @@ msgstr "Натиснете ОК, за да продължите с инстал�
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION}."
-msgstr "Инсталаторът ще работи правилно единствено ако сте член на ${ORGANISATION}."
+msgstr ""
+"Инсталаторът ще работи правилно единствено ако сте член на ${ORGANISATION}."
 
 #: devices/ms/Files/common.inc:718
 msgid ""
 "Please read the additional information from ${ORGANISATION} which will be "
 "displayed in a moment."
-msgstr "Моля прочетете допълнителната информация от ${ORGANISATION}, която ще бъде показана след малко."
+msgstr ""
+"Моля прочетете допълнителната информация от ${ORGANISATION}, която ще бъде "
+"показана след малко."
 
 #: devices/ms/Files/common.inc:773
 #, php-format
@@ -673,13 +778,22 @@ msgid ""
 "Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may "
 "be due to the fact that Symantec Endpoint Protection is installed on your "
 "machine.$\\r$\\nWhile this is a well-known bug of the Symantec product, "
-"about which the installer can not do anything, there is a "
-"workaround.$\\r$\\nWhen you close this window the installer will exit and an"
-" explorer window will be started (it could appear underneath already opened "
-"windows). In this window you should see a script named inst_cat. Start it by"
-" double-clicking, It will install the profiles. You will need to login to %s"
-" with your username and password."
-msgstr "Моля ПРОЧЕТЕТЕ това съобщение - ВАЖНО Е.$\\r$\\nИнсталационните проблеми могат да са поради факта, че на Вашия компютър е инсталиран Symantec Endpoint Protection.$\\r$\\nДокато това е добре известен бъг на продукта на Symantec, относно който инсталаторът не може нищо да направи, има решение на проблема.$\\r$\\nКогато затворите този прозорец, инсталаторът ще излезе и прозорецът на експлорера ще бъде стартиран (той може да се появи под вече отворени прозорци). В този прозорец трябва да видите скрипт с име inst_cat. Стартирайте го с двойно кликване. Той ще инсталира профилите. Ще е необходимо да влезете в %s с вашето потребителско име и парола."
+"about which the installer can not do anything, there is a workaround.$\\r$"
+"\\nWhen you close this window the installer will exit and an explorer window "
+"will be started (it could appear underneath already opened windows). In this "
+"window you should see a script named inst_cat. Start it by double-clicking, "
+"It will install the profiles. You will need to login to %s with your "
+"username and password."
+msgstr ""
+"Моля ПРОЧЕТЕТЕ това съобщение - ВАЖНО Е.$\\r$\\nИнсталационните проблеми "
+"могат да са поради факта, че на Вашия компютър е инсталиран Symantec "
+"Endpoint Protection.$\\r$\\nДокато това е добре известен бъг на продукта на "
+"Symantec, относно който инсталаторът не може нищо да направи, има решение на "
+"проблема.$\\r$\\nКогато затворите този прозорец, инсталаторът ще излезе и "
+"прозорецът на експлорера ще бъде стартиран (той може да се появи под вече "
+"отворени прозорци). В този прозорец трябва да видите скрипт с име inst_cat. "
+"Стартирайте го с двойно кликване. Той ще инсталира профилите. Ще е "
+"необходимо да влезете в %s с вашето потребителско име и парола."
 
 #: devices/ms/Files/common.inc:783
 msgid "Please restart your system after installation finishes."
@@ -772,15 +886,20 @@ msgstr "Некоректа парола на серитфикат$\\r$\\nвъв�
 
 #: devices/ms/Files/common.inc:1208
 msgid ""
-"Error: your username must be in the form of 'xxx@${REALM}'. Please enter the"
-" username in the correct format."
-msgstr "Грешка: Вашето потребителско име трябва да бъде във вида 'xxx@${REALM}'. Моля въведете потребителското име в коректния формат."
+"Error: your username must be in the form of 'xxx@${REALM}'. Please enter the "
+"username in the correct format."
+msgstr ""
+"Грешка: Вашето потребителско име трябва да бъде във вида 'xxx@${REALM}'. "
+"Моля въведете потребителското име в коректния формат."
 
 #: devices/ms/Files/common.inc:1210
 msgid ""
-"Error: your username must be in the form of 'xxx@institutionID' and end with"
-" '${REALM}'. Please enter the username in the correct format."
-msgstr "Грешка: Вашето потребителско име трябва да бъде във вида 'xxx@institutionID' и да завършва с '${REALM}'. Моля въведете потребителското име в коректния формат."
+"Error: your username must be in the form of 'xxx@institutionID' and end with "
+"'${REALM}'. Please enter the username in the correct format."
+msgstr ""
+"Грешка: Вашето потребителско име трябва да бъде във вида 'xxx@institutionID' "
+"и да завършва с '${REALM}'. Моля въведете потребителското име в коректния "
+"формат."
 
 #: devices/ms/Files/common.inc:1277
 msgid "User credentials"
@@ -857,13 +976,18 @@ msgid ""
 "An additional piece of software 'GEANTlink' needs to be installed. This "
 "installation requires Administrator rights; you will be prompted to give "
 "permission for that action."
-msgstr "Необходимо е да се инсталира допълнителна част от софтуера 'GEANTlink'. Инсталацията изисква администраторски права; ще Ви бъде поискано позволение за това действие."
+msgstr ""
+"Необходимо е да се инсталира допълнителна част от софтуера 'GEANTlink'. "
+"Инсталацията изисква администраторски права; ще Ви бъде поискано позволение "
+"за това действие."
 
 #: devices/ms/Files/geant_link.inc:89
 msgid ""
 "Error installing GEANTLink.$\\nEmbedded installer didn't complete "
 "succesfully."
-msgstr "Грешка при инсталиране на GEANTLink.$\\nEmbedded  - инсталацията не завърши успешно."
+msgstr ""
+"Грешка при инсталиране на GEANTLink.$\\nEmbedded  - инсталацията не завърши "
+"успешно."
 
 #: devices/ms/Files/geant_link.inc:99
 msgid "installing credentials for ${PROVIDERID}"
@@ -871,4 +995,6 @@ msgstr "инсталиране на правомощия за ${PROVIDERID}"
 
 #: devices/ms/Files/pwd.inc:35
 msgid "EAP-pwd installation error. Please try again or contact Support."
-msgstr "EAP-pwd инсталационна грешка. Моля опитайте отново или се свържете с поддръжка."
+msgstr ""
+"EAP-pwd инсталационна грешка. Моля опитайте отново или се свържете с "
+"поддръжка."

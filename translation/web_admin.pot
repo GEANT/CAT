@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-23 14:55+0200\n"
+"POT-Creation-Date: 2018-06-05 14:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1023,25 +1023,21 @@ msgstr ""
 msgid "but <b>in clear text</b> to the mail domain"
 msgstr ""
 
-#: web/admin/overview_federation.php:145
-#: web/admin/inc/manageAdmins.inc.php:103
+#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:103
 #, php-format
 msgid "The invitation email was sent successfully %s."
 msgstr ""
 
-#: web/admin/overview_federation.php:145
-#: web/admin/inc/manageAdmins.inc.php:103
+#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:103
 msgid "The invitation email was sent."
 msgstr ""
 
-#: web/admin/overview_federation.php:148
-#: web/admin/inc/manageAdmins.inc.php:106 web/admin/inc/overview_js.php:56
-#: web/admin/inc/overview_js.php:111
+#: web/admin/overview_federation.php:148 web/admin/inc/manageAdmins.inc.php:106
+#: web/admin/inc/overview_js.php:56 web/admin/inc/overview_js.php:111
 msgid "The invitation email could not be sent!"
 msgstr ""
 
-#: web/admin/overview_federation.php:151
-#: web/admin/inc/manageAdmins.inc.php:109
+#: web/admin/overview_federation.php:151 web/admin/inc/manageAdmins.inc.php:109
 msgid "The invitation email address was malformed, no invitation was sent!"
 msgstr ""
 
@@ -1535,8 +1531,7 @@ msgstr ""
 msgid "Information in <strong>%s Database</strong>"
 msgstr ""
 
-#: web/admin/inc/manageDBLink.inc.php:99
-#: web/admin/inc/manageDBLink.inc.php:125
+#: web/admin/inc/manageDBLink.inc.php:99 web/admin/inc/manageDBLink.inc.php:125
 #, php-format
 msgid "Name of %s (%s)"
 msgstr ""

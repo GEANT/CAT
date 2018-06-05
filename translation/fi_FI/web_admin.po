@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Jari Miettinen <Jari.Miettinen@csc.fi>, 2012
 # Jari Miettinen <Jari.Miettinen@csc.fi>, 2013
@@ -12,14 +12,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-23 14:55+0200\n"
+"POT-Creation-Date: 2018-06-05 14:51+0200\n"
 "PO-Revision-Date: 2018-05-17 23:56+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
-"Language-Team: Finnish (Finland) (http://www.transifex.com/eduroam_devel/cat/language/fi_FI/)\n"
+"Language-Team: Finnish (Finland) (http://www.transifex.com/eduroam_devel/cat/"
+"language/fi_FI/)\n"
+"Language: fi_FI\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fi_FI\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: web/admin/action_enrollment.php:41 web/admin/action_enrollment.php:67
@@ -53,13 +54,14 @@ msgstr ""
 
 #: web/admin/action_enrollment.php:77
 msgid ""
-"Sorry... you have come to the enrollment page without a valid token. Are you"
-" a nasty person? If not, you should go to <a href='overview_user.php'>your "
+"Sorry... you have come to the enrollment page without a valid token. Are you "
+"a nasty person? If not, you should go to <a href='overview_user.php'>your "
 "profile page</a> instead."
-msgstr "Olet käyttöönottosivulla ilman voimassaolevaa polettia. Siirry omalle <a href='overview_user.php'>profiilisivulle</a>."
+msgstr ""
+"Olet käyttöönottosivulla ilman voimassaolevaa polettia. Siirry omalle <a "
+"href='overview_user.php'>profiilisivulle</a>."
 
-#. / product name (eduroam CAT), then term used for "federation", then actual
-#. name of federation.
+#. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
 #: web/admin/edit_federation.php:34
 #, php-format
 msgid "%s: Editing %s '%s'"
@@ -144,8 +146,8 @@ msgstr ""
 msgid ""
 "Hello, newcomer. Your %s is new to us. This wizard will ask you several "
 "questions about your %s, so that we can generate beautiful profiles for you "
-"in the end. All of the information below is optional, but it is important to"
-" fill out as many fields as possible for the benefit of your end users."
+"in the end. All of the information below is optional, but it is important to "
+"fill out as many fields as possible for the benefit of your end users."
 msgstr ""
 
 #: web/admin/edit_idp.php:97
@@ -165,14 +167,21 @@ msgid ""
 "all installers where a custom logo is possible. We accept any image format, "
 "but for best results, we suggest SVG. If you don't upload a logo, we will "
 "use the generic logo instead (see top-right corner of this page)."
-msgstr "<strong>Logo</strong>: Kun asetat logon, se lisätään kaikkiin asennusohjelmiin, joihin se voidaan liittää. Mikä tahansa kuvaformaatti käy, mutta parhaan tulokseen saat SVG-formaatilla. Jos et aseta logoa, niin silloin käytetään yleislogoa (katso tämän sivun oikeaa yläkulmaa)"
+msgstr ""
+"<strong>Logo</strong>: Kun asetat logon, se lisätään kaikkiin "
+"asennusohjelmiin, joihin se voidaan liittää. Mikä tahansa kuvaformaatti käy, "
+"mutta parhaan tulokseen saat SVG-formaatilla. Jos et aseta logoa, niin "
+"silloin käytetään yleislogoa (katso tämän sivun oikeaa yläkulmaa)"
 
 #: web/admin/edit_idp.php:104
 msgid ""
 "<strong>Terms of Use</strong>: Some installers support displaying text to "
 "the user during installation time. If so, we will make that happen if you "
 "upload an RTF file or plain text file to display."
-msgstr "<strong>Käyttöehdot</strong>: Jotkin asennusohjelmat tukevat tekstin näyttämistä loppukäyttäjille asennuksen aikana. Jos haluat tekstiä tarjolle, niin lataa se RTF- tai tekstimuodossa."
+msgstr ""
+"<strong>Käyttöehdot</strong>: Jotkin asennusohjelmat tukevat tekstin "
+"näyttämistä loppukäyttäjille asennuksen aikana. Jos haluat tekstiä tarjolle, "
+"niin lataa se RTF- tai tekstimuodossa."
 
 #: web/admin/edit_idp.php:116 web/lib/admin/UIElements.php:228
 msgid "Media Properties"
@@ -204,14 +213,18 @@ msgstr[1] "WAP2/AES määritellään aina näille SSID:lle: %s."
 msgid ""
 "They will also be configured for WPA/TKIP if the device supports multiple "
 "encryption types."
-msgstr "Ne konfiguroidaan myös tukemaan WPA/TKIP:iä, jos laite tukee useita eri salaustyyppejä."
+msgstr ""
+"Ne konfiguroidaan myös tukemaan WPA/TKIP:iä, jos laite tukee useita eri "
+"salaustyyppejä."
 
 #: web/admin/edit_idp.php:134
 #, php-format
 msgid ""
 "It is also possible to define custom additional SSIDs with the options '%s' "
 "and '%s' below."
-msgstr "On mahdollista määritellä yksilöidyt lisä-SSID:t, joissa on optiot '%s\" ja '%s\" alapuolelta."
+msgstr ""
+"On mahdollista määritellä yksilöidyt lisä-SSID:t, joissa on optiot '%s\" ja "
+"'%s\" alapuolelta."
 
 #: web/admin/edit_idp.php:136
 msgid "Please configure which SSIDs should be configured in the installers."
@@ -222,7 +235,10 @@ msgid ""
 "By default, we will only configure the SSIDs with WPA2/AES encryption. By "
 "using the '(with WPA/TKIP)' option you can specify that we should include "
 "legacy support for WPA/TKIP where possible."
-msgstr "Oletusarvoisesti SSID:t konfiguroidaan tukemaan WPA2/AES-salausta. Jos käytät '(WPA/TKIP)'-optiota, voit määrittää, että myös tuki vanhalle WPA/TKIP:lle on mukana silloin kuin se on mahdollista."
+msgstr ""
+"Oletusarvoisesti SSID:t konfiguroidaan tukemaan WPA2/AES-salausta. Jos "
+"käytät '(WPA/TKIP)'-optiota, voit määrittää, että myös tuki vanhalle WPA/"
+"TKIP:lle on mukana silloin kuin se on mahdollista."
 
 #: web/admin/edit_idp.php:142
 msgid "Additional Hotspot 2.0 / Passpoint Consortia:"
@@ -248,8 +264,7 @@ msgstr "Alla on mahdollista määritellä omavalintaiset OI:t '%s'-optiolla."
 
 #: web/admin/edit_idp.php:153
 msgid ""
-"Please configure which Consortium OIs should be configured in the "
-"installers."
+"Please configure which Consortium OIs should be configured in the installers."
 msgstr "Määrittele mitkä Consortium OI:t asennusohjelman tulee asettaa."
 
 #: web/admin/edit_idp.php:156
@@ -259,11 +274,16 @@ msgstr "\"Wired IEEE 802.1X\" -tuki:"
 #: web/admin/edit_idp.php:157
 msgid ""
 "If you want to configure your users' devices with IEEE 802.1X support for "
-"wired ethernet, please check the corresponding box. Note that this makes the"
-" installation process a bit more difficult on some platforms (Windows: needs"
-" administrator privileges; Apple: attempting to install a profile with wired"
-" support on a device without an active wired ethernet card will fail)."
-msgstr "Jos tahdot määritellä käyttäjien laitteille \"IEEE 802.1X for wired ethernet\" -tuen, aseta rasti kyseiseen kohtaan. Huomaa, että asennusprosessista tulee tämän myötä hieman mutkikkaampi joillain käyttöjärjestelmillä (Windows vaatii ylläpitäjän oikeudet ja Applella asennus epäonnistuu mikäli langallista ethernet-liityntää ei ole asennushetkellä aktiivisena)."
+"wired ethernet, please check the corresponding box. Note that this makes the "
+"installation process a bit more difficult on some platforms (Windows: needs "
+"administrator privileges; Apple: attempting to install a profile with wired "
+"support on a device without an active wired ethernet card will fail)."
+msgstr ""
+"Jos tahdot määritellä käyttäjien laitteille \"IEEE 802.1X for wired ethernet"
+"\" -tuen, aseta rasti kyseiseen kohtaan. Huomaa, että asennusprosessista "
+"tulee tämän myötä hieman mutkikkaampi joillain käyttöjärjestelmillä (Windows "
+"vaatii ylläpitäjän oikeudet ja Applella asennus epäonnistuu mikäli "
+"langallista ethernet-liityntää ei ole asennushetkellä aktiivisena)."
 
 #: web/admin/edit_idp.php:159
 msgid "Removal of bootstrap/onboarding SSIDs:"
@@ -272,9 +292,12 @@ msgstr "SSID:n poisto:"
 #: web/admin/edit_idp.php:160
 msgid ""
 "If you use a captive portal to distribute configurations, you may want to "
-"unconfigure/disable that SSID after the bootstrap process. With this option,"
-" the SSID will either be removed, or be defined as 'Only connect manually'."
-msgstr "Jos käytät captive portalia asennuspakettien jakelussa, tahdot ehkä poistaa SSID:n käytöstä asennuksen jälkeen. Tällä valinnalla SSID joko poistetaan tai määritellään sallituksi verkoksi vain manuaalisesti valittuna."
+"unconfigure/disable that SSID after the bootstrap process. With this option, "
+"the SSID will either be removed, or be defined as 'Only connect manually'."
+msgstr ""
+"Jos käytät captive portalia asennuspakettien jakelussa, tahdot ehkä poistaa "
+"SSID:n käytöstä asennuksen jälkeen. Tällä valinnalla SSID joko poistetaan "
+"tai määritellään sallituksi verkoksi vain manuaalisesti valittuna."
 
 #: web/admin/edit_idp.php:169
 msgid "Helpdesk Details for all users"
@@ -319,8 +342,8 @@ msgstr ""
 #: web/admin/edit_idp.php:193
 #, php-format
 msgid ""
-"When you are sure that everything is correct, please click on %sContinue "
-"...%s"
+"When you are sure that everything is correct, please click on %sContinue ..."
+"%s"
 msgstr "Kun olet varma, että kaikki on oikein, napsauta %sJatka...%s"
 
 #: web/admin/edit_idp_result.php:51
@@ -343,8 +366,7 @@ msgstr "(WPA2/AES)"
 
 #: web/admin/edit_idp_result.php:107
 #, php-format
-msgid ""
-"Your installers will configure the following SSIDs: <strong>%s</strong>"
+msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
 msgstr "Asennusohjelmasi konfiguroivat seuraavat SSID:t: <strong>%s</strong>"
 
 #: web/admin/edit_idp_result.php:107
@@ -364,7 +386,9 @@ msgstr "Langallinen määritelty"
 msgid ""
 "We cannot generate installers because neither wireless SSIDs nor wired "
 "interfaces have been selected as a target!"
-msgstr "Asennusohjelmia ei voitu luoda, koska yhtään SSID:tä tai langallista liityntää ei ole asetettu!"
+msgstr ""
+"Asennusohjelmia ei voitu luoda, koska yhtään SSID:tä tai langallista "
+"liityntää ei ole asetettu!"
 
 #: web/admin/edit_idp_result.php:133
 #, php-format
@@ -409,9 +433,13 @@ msgstr "Yleiset profiilimääritykset"
 msgid ""
 "We will now define a profile for your user group(s).  You can add as many "
 "profiles as you like by choosing the appropriate button on the end of the "
-"page. After we are done, the wizard is finished and you will be taken to the"
-" main IdP administration page."
-msgstr "Määrittele profiili käyttäjäryhmällesi (tai usealle ryhmälle). Voit lisätä niin monta profiilia kuin haluat valitsemalla vastaavan napin sivun alareunasta. Kun olet valmis, velho päättyy ja siirryt IdP:n päähallintasivulle."
+"page. After we are done, the wizard is finished and you will be taken to the "
+"main IdP administration page."
+msgstr ""
+"Määrittele profiili käyttäjäryhmällesi (tai usealle ryhmälle). Voit lisätä "
+"niin monta profiilia kuin haluat valitsemalla vastaavan napin sivun "
+"alareunasta. Kun olet valmis, velho päättyy ja siirryt IdP:n "
+"päähallintasivulle."
 
 #: web/admin/edit_profile.php:133
 msgid "Profile Name and RADIUS realm"
@@ -422,14 +450,20 @@ msgid ""
 "First of all we need a name for the profile. This will be displayed to end "
 "users, so you may want to choose a descriptive name like 'Professors', "
 "'Students of the Faculty of Bioscience', etc."
-msgstr "Ensiksi tarvitaan profiilin nimi. Tämä nimi näytetään loppukäyttäjille, joten voit haluta käyttää kuvaavaa nimeä kuten \"Opettajat\", \"Biotieteiden opiskelija\" jne."
+msgstr ""
+"Ensiksi tarvitaan profiilin nimi. Tämä nimi näytetään loppukäyttäjille, "
+"joten voit haluta käyttää kuvaavaa nimeä kuten \"Opettajat\", \"Biotieteiden "
+"opiskelija\" jne."
 
 #: web/admin/edit_profile.php:137
 msgid ""
-"Optionally, you can provide a longer descriptive text about who this profile"
-" is for. If you specify it, it will be displayed on the download page after "
+"Optionally, you can provide a longer descriptive text about who this profile "
+"is for. If you specify it, it will be displayed on the download page after "
 "the user has selected the profile name in the list."
-msgstr "Voit myös kirjoittaa pidemmän kuvailutekstin kenelle tämä profiili on tarkoitettu. Jos teet tämän määrityksen, niin se näytetään lataussivulla, kun käyttäjä on valinnut profiilin nimen listalta."
+msgstr ""
+"Voit myös kirjoittaa pidemmän kuvailutekstin kenelle tämä profiili on "
+"tarkoitettu. Jos teet tämän määrityksen, niin se näytetään lataussivulla, "
+"kun käyttäjä on valinnut profiilin nimen listalta."
 
 #: web/admin/edit_profile.php:138
 msgid "You can also tell us your RADIUS realm. "
@@ -438,15 +472,20 @@ msgstr "Voit kertoa meille myös RADIUS-toimialueesi."
 #: web/admin/edit_profile.php:140
 #, php-format
 msgid ""
-"This is useful if you want to use the sanity check module later, which tests"
-" reachability of your realm in the %s infrastructure. "
-msgstr "Tämä on hyödyllinen, mikäli haluat myöhemmin käyttää sisällöntarkastusmoduulia. Se voi tarkastaa toimialueesi saavutettavuuden %s-järjestelmässä."
+"This is useful if you want to use the sanity check module later, which tests "
+"reachability of your realm in the %s infrastructure. "
+msgstr ""
+"Tämä on hyödyllinen, mikäli haluat myöhemmin käyttää "
+"sisällöntarkastusmoduulia. Se voi tarkastaa toimialueesi saavutettavuuden %s-"
+"järjestelmässä."
 
 #: web/admin/edit_profile.php:142
 msgid ""
 "It is required to enter the realm name if you want to support anonymous "
 "outer identities (see below)."
-msgstr "Toimialueen nimi (realm) vaaditaan, jos haluat tukea anonyymia ulkoidentiteettiä (katso lisää alempana)."
+msgstr ""
+"Toimialueen nimi (realm) vaaditaan, jos haluat tukea anonyymia "
+"ulkoidentiteettiä (katso lisää alempana)."
 
 #: web/admin/edit_profile.php:155
 msgid "Realm:"
@@ -465,8 +504,8 @@ msgstr ""
 
 #: web/admin/edit_profile.php:197
 msgid ""
-"On some platforms, the installers can suggest username endings and/or verify"
-" the user input to contain the realm suffix."
+"On some platforms, the installers can suggest username endings and/or verify "
+"the user input to contain the realm suffix."
 msgstr ""
 
 #: web/admin/edit_profile.php:198
@@ -503,10 +542,16 @@ msgid ""
 "learn about the support pointers you entered earlier. The CAT can also "
 "immediately offer the installers for the profile for download. If you don't "
 "want that, you can instead enter a web site location where you want your "
-"users to be redirected to. You, as the administrator, can still download the"
-" profiles to place them on that page (see the 'Compatibility Matrix' button "
+"users to be redirected to. You, as the administrator, can still download the "
+"profiles to place them on that page (see the 'Compatibility Matrix' button "
 "on the dashboard)."
-msgstr "CAT sisältää latauspaikan loppukäyttäjille. He voivat löytää sieltä mm. asennusohjeita, jos niin haluat. CAT voi myös tarjota suoraan asennusohjelmia ladattavaksi. Voit myös määritellä oman web-osoitteen, jonne käyttäjäsi uudelleenohjataan. Sinä voit kuitenkin itse ylläpitäjänä ladata profiilit tälle sivulle (katso: 'Yhteensopivuusmatriisi'-nappi dashboardissa)."
+msgstr ""
+"CAT sisältää latauspaikan loppukäyttäjille. He voivat löytää sieltä mm. "
+"asennusohjeita, jos niin haluat. CAT voi myös tarjota suoraan "
+"asennusohjelmia ladattavaksi. Voit myös määritellä oman web-osoitteen, jonne "
+"käyttäjäsi uudelleenohjataan. Sinä voit kuitenkin itse ylläpitäjänä ladata "
+"profiilit tälle sivulle (katso: 'Yhteensopivuusmatriisi'-nappi "
+"dashboardissa)."
 
 #: web/admin/edit_profile.php:280
 msgid "Redirect end users to own web page:"
@@ -521,9 +566,14 @@ msgid ""
 "Now, we need to know which EAP types your IdP supports. If you support "
 "multiple EAP types, you can assign every type a priority (1=highest). This "
 "tool will always generate an automatic installer for the EAP type with the "
-"highest priority; only if the user's device can't use that EAP type, we will"
-" use an EAP type further down in the list."
-msgstr "Määrittele, mitä EAP-tyyppejä IdP:si tukee. Jos tuet useita EAP-tyyppejä, voit asettaa kullekin tyypille prioriteetin (1=korkein). Tämä työkalu tekee aina automaattisen asennusohjelman, joka käyttää korkeinta EAP-tyyppiä. Jos loppukäyttäjän laite ei tue korkeinta tyyppiä, käytetään seuraavana listalla olevaa."
+"highest priority; only if the user's device can't use that EAP type, we will "
+"use an EAP type further down in the list."
+msgstr ""
+"Määrittele, mitä EAP-tyyppejä IdP:si tukee. Jos tuet useita EAP-tyyppejä, "
+"voit asettaa kullekin tyypille prioriteetin (1=korkein). Tämä työkalu tekee "
+"aina automaattisen asennusohjelman, joka käyttää korkeinta EAP-tyyppiä. Jos "
+"loppukäyttäjän laite ei tue korkeinta tyyppiä, käytetään seuraavana listalla "
+"olevaa."
 
 #: web/admin/edit_profile.php:339
 msgid "EAP options inherited from Global level:"
@@ -543,7 +593,9 @@ msgid ""
 "Use \"drag &amp; drop\" to mark an EAP method and move it to the supported "
 "(green) area. Prioritisation is done automatically, depending on where you "
 "\"drop\" the method."
-msgstr "Siirrä hiirellä verkkosi tukemat EAP-menetelmät vihreälle alueelle. Aseta menetelmät suositusjärjestykseen."
+msgstr ""
+"Siirrä hiirellä verkkosi tukemat EAP-menetelmät vihreälle alueelle. Aseta "
+"menetelmät suositusjärjestykseen."
 
 #: web/admin/edit_profile.php:394
 msgid "Unsupported EAP types"
@@ -567,16 +619,22 @@ msgid ""
 "The option %s is already defined IdP-wide. If you set it here on profile "
 "level, this setting will override the IdP-wide one."
 msgid_plural ""
-"The options %s are already defined IdP-wide. If you set them here on profile"
-" level, these settings will override the IdP-wide ones."
-msgstr[0] "Vaihtoehto %s on jo määritelty IdP:lle. Jos asetat sen tällä profiilitasolla, se kumoaa yleismäärittelyn."
-msgstr[1] "Vaihtoehdot %s ovat jo määritelty IdP:lle. Jos asetat ne tällä profiilitasolla, ne kumoavat yleismäärittelyn."
+"The options %s are already defined IdP-wide. If you set them here on profile "
+"level, these settings will override the IdP-wide ones."
+msgstr[0] ""
+"Vaihtoehto %s on jo määritelty IdP:lle. Jos asetat sen tällä "
+"profiilitasolla, se kumoaa yleismäärittelyn."
+msgstr[1] ""
+"Vaihtoehdot %s ovat jo määritelty IdP:lle. Jos asetat ne tällä "
+"profiilitasolla, ne kumoavat yleismäärittelyn."
 
 #: web/admin/edit_profile.php:467
 msgid ""
 "When you are sure that everything is correct, please click on 'Save data' "
 "and you will be taken to your IdP Dashboard page."
-msgstr "Kun olet varma, että kaikki on oikein, napsauta 'Tallenna' ja sen jälkeen siirryt IdP Dashboard -sivulle."
+msgstr ""
+"Kun olet varma, että kaikki on oikein, napsauta 'Tallenna' ja sen jälkeen "
+"siirryt IdP Dashboard -sivulle."
 
 #: web/admin/edit_profile_result.php:33
 #, php-format
@@ -605,7 +663,9 @@ msgstr "Anonyymiä ulkoidentiteettiä ei voi käyttää: verkkotunnus puuttuu."
 msgid ""
 "Anonymous Identity support is <strong>%s</strong>, the anonymous outer "
 "identity is <strong>%s</strong>"
-msgstr "Anonyymin identiteetin tuki on <strong>%s</strong>, ulompi anonyymi identiteetti on <strong>%s</strong>"
+msgstr ""
+"Anonyymin identiteetin tuki on <strong>%s</strong>, ulompi anonyymi "
+"identiteetti on <strong>%s</strong>"
 
 #: web/admin/edit_profile_result.php:134 web/admin/edit_profile_result.php:146
 msgid "ON"
@@ -643,13 +703,12 @@ msgstr ""
 #: web/admin/edit_profile_result.php:163
 #, php-format
 msgid ""
-"Where possible, username inputs will be <strong>verified to end with "
-"@%s</strong>%s"
+"Where possible, username inputs will be <strong>verified to end with @%s</"
+"strong>%s"
 msgstr ""
 
 #: web/admin/edit_profile_result.php:173
-msgid ""
-"Redirection can't be activated - you did not specify a target location!"
+msgid "Redirection can't be activated - you did not specify a target location!"
 msgstr "Uudelleenohjaus ei ole mahdollista - et ole määritellyt kohdetta!"
 
 #: web/admin/edit_profile_result.php:175
@@ -676,7 +735,9 @@ msgstr "Tuettu EAP-tyyppi: <strong>%s</strong>, vaadittu tieto %s puuttuu!"
 msgid ""
 "The EAP type was added to the profile, but you need to complete the missing "
 "information before we can produce installers for you."
-msgstr "EAP-tyyppi lisättiin profiiliin, mutta sinun pitää lisätä puuttuvat tiedot, jotta asennusohjelmia voidaan luoda."
+msgstr ""
+"EAP-tyyppi lisättiin profiiliin, mutta sinun pitää lisätä puuttuvat tiedot, "
+"jotta asennusohjelmia voidaan luoda."
 
 #: web/admin/edit_profile_result.php:233
 msgid "Continue to Installer Fine-Tuning and Download"
@@ -875,9 +936,9 @@ msgstr ""
 #: web/admin/edit_silverbullet.php:530
 #, php-format
 msgid ""
-"You need to acknowledge that the created accounts are still valid within the"
-" next %s days. If all accounts shown as active above are indeed still valid,"
-" please check the box below and push \"Save\". If any of the accounts are "
+"You need to acknowledge that the created accounts are still valid within the "
+"next %s days. If all accounts shown as active above are indeed still valid, "
+"please check the box below and push \"Save\". If any of the accounts are "
 "stale, please deactivate them by pushing the corresponding button before "
 "doing this."
 msgstr ""
@@ -945,7 +1006,9 @@ msgstr "Käyttäjän tiedot - Yhteenveto"
 #: web/admin/edit_user_result.php:22
 msgid ""
 "The page was called with insufficient data. Please report this as an error."
-msgstr "Tätä sivua kutsuttiin riittämättömillä tiedoilla. Ole hyvä ja raportoi tämä virhetoiminto."
+msgstr ""
+"Tätä sivua kutsuttiin riittämättömillä tiedoilla. Ole hyvä ja raportoi tämä "
+"virhetoiminto."
 
 #: web/admin/edit_user_result.php:28
 msgid "Submitted attributes"
@@ -964,7 +1027,10 @@ msgstr "Keskeneräinen uloskirjautuminen"
 msgid ""
 "We were unable to log you out of all your sessions. To be completely sure "
 "that you are logged out, you need to close your web browser."
-msgstr "Kaikkien sessioiden sulkeminen ei onnistunut. Ole hyvä ja käynnistä selaimesi uudelleen varmistaaksesi, että uloskirjautuminen on suoritettu kokonaisuudessaan."
+msgstr ""
+"Kaikkien sessioiden sulkeminen ei onnistunut. Ole hyvä ja käynnistä "
+"selaimesi uudelleen varmistaaksesi, että uloskirjautuminen on suoritettu "
+"kokonaisuudessaan."
 
 #: web/admin/overview_federation.php:17
 #, php-format
@@ -1031,25 +1097,21 @@ msgstr ""
 msgid "but <b>in clear text</b> to the mail domain"
 msgstr ""
 
-#: web/admin/overview_federation.php:145
-#: web/admin/inc/manageAdmins.inc.php:103
+#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:103
 #, php-format
 msgid "The invitation email was sent successfully %s."
 msgstr ""
 
-#: web/admin/overview_federation.php:145
-#: web/admin/inc/manageAdmins.inc.php:103
+#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:103
 msgid "The invitation email was sent."
 msgstr "Sähköpostikutsu on lähetetty"
 
-#: web/admin/overview_federation.php:148
-#: web/admin/inc/manageAdmins.inc.php:106 web/admin/inc/overview_js.php:56
-#: web/admin/inc/overview_js.php:111
+#: web/admin/overview_federation.php:148 web/admin/inc/manageAdmins.inc.php:106
+#: web/admin/inc/overview_js.php:56 web/admin/inc/overview_js.php:111
 msgid "The invitation email could not be sent!"
 msgstr "Sähköpostikutsua ei voitu lähettää"
 
-#: web/admin/overview_federation.php:151
-#: web/admin/inc/manageAdmins.inc.php:109
+#: web/admin/overview_federation.php:151 web/admin/inc/manageAdmins.inc.php:109
 msgid "The invitation email address was malformed, no invitation was sent!"
 msgstr ""
 
@@ -1166,8 +1228,8 @@ msgstr ""
 #, php-format
 msgid ""
 "This action will delete all properties of your %s and start over the "
-"configuration from scratch. Do you really want to reset all settings of your"
-" %s %s?"
+"configuration from scratch. Do you really want to reset all settings of your "
+"%s %s?"
 msgstr ""
 
 #: web/admin/overview_idp.php:97
@@ -1213,8 +1275,8 @@ msgstr "Lisää tietoa tarvitaan!"
 #: web/admin/overview_idp.php:170
 #, php-format
 msgid ""
-"You can create up to %d users. Their credentials will carry the name "
-"<strong>%s</strong>."
+"You can create up to %d users. Their credentials will carry the name <strong>"
+"%s</strong>."
 msgstr ""
 
 #: web/admin/overview_idp.php:179
@@ -1255,7 +1317,10 @@ msgid ""
 "This profile is NOT shown on the user download interface, even though we "
 "have enough information to show. To enable the profile, add the attribute "
 "\"%s\" and tick the corresponding box."
-msgstr "Tätä profiilia ei näytetä käyttäjien latausliittymässä vaikka kaikki tiedot ovat määritelty. Jos haluat näyttää profiilin, lisää attribuutti \"%s\" ja merkkaa vastaava valintalaatikko."
+msgstr ""
+"Tätä profiilia ei näytetä käyttäjien latausliittymässä vaikka kaikki tiedot "
+"ovat määritelty. Jos haluat näyttää profiilin, lisää attribuutti \"%s\" ja "
+"merkkaa vastaava valintalaatikko."
 
 #: web/admin/overview_idp.php:262
 #, php-format
@@ -1386,15 +1451,13 @@ msgstr "Klikkaa tästä avataksesi superadmin-sivu"
 #: web/admin/overview_user.php:71
 #, php-format
 msgid "(Need help? Refer to the <a href='%s'>IdP administrator manual</a>)"
-msgstr "(Tarvitsetko apua? Vilkaise <a href='%s'>IdP-ylläpitäjän manuaalia</a>)"
+msgstr ""
+"(Tarvitsetko apua? Vilkaise <a href='%s'>IdP-ylläpitäjän manuaalia</a>)"
 
-#. / first parameter: number of Identity Providers; second param is the
-#. literal configured term for 'Identity Provider' (you may or may not be able
-#. to add a plural suffix for your locale)
+#. / first parameter: number of Identity Providers; second param is the literal configured term for 'Identity Provider' (you may or may not be able to add a plural suffix for your locale)
 #: web/admin/overview_user.php:80
 #, php-format
-msgid ""
-"You are managing the following <span style='display:none'>%d </span>%s:"
+msgid "You are managing the following <span style='display:none'>%d </span>%s:"
 msgid_plural "You are managing the following <strong>%d</strong> %s:"
 msgstr[0] ""
 msgstr[1] ""
@@ -1429,8 +1492,7 @@ msgstr ""
 #: web/admin/overview_user.php:150
 #, php-format
 msgid ""
-"Please ask your %s administrator to invite you to become an %s "
-"administrator."
+"Please ask your %s administrator to invite you to become an %s administrator."
 msgstr ""
 
 #: web/admin/overview_user.php:154
@@ -1446,8 +1508,8 @@ msgstr ""
 #: web/admin/inc/manageAdmins.inc.php:46
 #, php-format
 msgid ""
-"You do not have the necessary privileges to alter administrators of this %s."
-" In fact, you shouldn't have come this far!"
+"You do not have the necessary privileges to alter administrators of this %s. "
+"In fact, you shouldn't have come this far!"
 msgstr ""
 
 #: web/admin/inc/manageAdmins.inc.php:84
@@ -1547,8 +1609,7 @@ msgstr "Seuraava tieto IdP:stä on tallennettu tietokantoihin %s ja %s."
 msgid "Information in <strong>%s Database</strong>"
 msgstr "Tieto <strong>%s Tietokannassa</strong"
 
-#: web/admin/inc/manageDBLink.inc.php:99
-#: web/admin/inc/manageDBLink.inc.php:125
+#: web/admin/inc/manageDBLink.inc.php:99 web/admin/inc/manageDBLink.inc.php:125
 #, php-format
 msgid "Name of %s (%s)"
 msgstr ""
@@ -1582,7 +1643,9 @@ msgstr ""
 msgid ""
 "This means that its profiles are not made available on the user download "
 "page."
-msgstr "Tämä tarkoittaa, että sen profiilit eivät ole laitettu näkymään käyttäjien lataussivulla."
+msgstr ""
+"Tämä tarkoittaa, että sen profiilit eivät ole laitettu näkymään käyttäjien "
+"lataussivulla."
 
 #: web/admin/inc/manageDBLink.inc.php:141
 #, php-format
@@ -1600,7 +1663,9 @@ msgstr ""
 msgid ""
 "Particularly promising entries (names in CAT and %s DB are a 100%% match) "
 "are on top of the list."
-msgstr "Erityisen lupaavat merkinnät (nimet CATissa ja tietokannassa %s vastaavat 100%%) ovat listan alussa."
+msgstr ""
+"Erityisen lupaavat merkinnät (nimet CATissa ja tietokannassa %s vastaavat "
+"100%%) ovat listan alussa."
 
 #: web/admin/inc/manageDBLink.inc.php:149
 msgid "Link to this entity?"
@@ -1644,8 +1709,8 @@ msgstr ""
 #: web/admin/inc/manageNewInst.inc.php:49
 #, php-format
 msgid ""
-"You can either register a known %s (as defined in the %s database) or create"
-" a totally new %s."
+"You can either register a known %s (as defined in the %s database) or create "
+"a totally new %s."
 msgstr ""
 
 #: web/admin/inc/manageNewInst.inc.php:50
@@ -1659,8 +1724,8 @@ msgstr ""
 #, php-format
 msgid ""
 "Please keep in mind that any profiles of such a new %s will only be made "
-"available on the user download page after you have linked it to an entity in"
-" the %s database (but they are otherwise fully functional)."
+"available on the user download page after you have linked it to an entity in "
+"the %s database (but they are otherwise fully functional)."
 msgstr ""
 
 #: web/admin/inc/manageNewInst.inc.php:61
@@ -1687,13 +1752,14 @@ msgstr "Ylläpitäjän sähköposti:"
 msgid "Send invitation"
 msgstr "Lähetä kutsu"
 
+#.
 #. *******************************************************************************
-#. * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+,
-#. GN4-1
+#. * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1
 #. * and GN4-2 consortia
 #. *
 #. * License: see the web/copyright.php file in the file structure
 #. *******************************************************************************
+#.
 #: web/admin/inc/overview_js.php:41 web/admin/inc/overview_js.php:98
 msgid "No email address provided"
 msgstr "Sähköpostiosoitetta ei ole annettu"
@@ -1709,8 +1775,8 @@ msgstr "Kutsuttavan sähköpostiosoite:"
 #: web/admin/inc/sendinvite.inc.php:92
 #, php-format
 msgid ""
-"Something's wrong... you are a %s admin, but not for the %s the requested %s"
-" belongs to!"
+"Something's wrong... you are a %s admin, but not for the %s the requested %s "
+"belongs to!"
 msgstr ""
 
 #: web/admin/inc/toggleRedirect.inc.php:90
@@ -1736,25 +1802,31 @@ msgid ""
 "The user download interface (see <a href='../'>here</a>), uses geolocation "
 "to suggest possibly matching IdPs to the user. The more precise you define "
 "the location here, the easier your users will find you."
-msgstr "Loppukäyttäjän latauskäyttöliittymä (katso <a href='../'>täältä</a>), käyttää maantieteellista paikannusta sopivien IdP:den ehdottamiseksi. Mitä tarkemmin määrittelet paikan, sitä helpommin käyttäjäsi löytävät sinut."
+msgstr ""
+"Loppukäyttäjän latauskäyttöliittymä (katso <a href='../'>täältä</a>), "
+"käyttää maantieteellista paikannusta sopivien IdP:den ehdottamiseksi. Mitä "
+"tarkemmin määrittelet paikan, sitä helpommin käyttäjäsi löytävät sinut."
 
 #: web/lib/admin/AbstractMap.php:107
 msgid ""
 "<li>Drag the marker in the map to your place, or</li>\n"
 "<li>enter your street address in the field below for lookup, or</li>\n"
 "<li>use the 'Locate Me!' button</li>"
-msgstr "<li>Vedä osoitin sijaintiisi, tai</li>⏎ <li>täytä katuosoitteesi alapuolelta löytyvään kenttään, tai</li>⏎ <li>käytä 'Paikanna Minut!' nappia</li>"
+msgstr ""
+"<li>Vedä osoitin sijaintiisi, tai</li>⏎ <li>täytä katuosoitteesi alapuolelta "
+"löytyvään kenttään, tai</li>⏎ <li>käytä 'Paikanna Minut!' nappia</li>"
 
 #: web/lib/admin/AbstractMap.php:112
-msgid ""
-"We will use the coordinates as indicated by the marker for geolocation."
+msgid "We will use the coordinates as indicated by the marker for geolocation."
 msgstr "Koordinaattejä käytetään sijainnin määrittelemistä varten"
 
 #: web/lib/admin/AbstractMap.php:116
 msgid ""
 "You can enter an <strong>additional</strong> location here. You can see the "
 "already defined locations in the 'General Information' field."
-msgstr "Voit kirjoittaa <strong>ylimääräisen</strong> sijainnin tähän. Voit tarkastaa jo määritellyt sijainnit 'Yleistiedoista'. "
+msgstr ""
+"Voit kirjoittaa <strong>ylimääräisen</strong> sijainnin tähän. Voit "
+"tarkastaa jo määritellyt sijainnit 'Yleistiedoista'. "
 
 #: web/lib/admin/AbstractMap.php:127
 msgid "Latitude:"
@@ -1814,7 +1886,18 @@ msgid ""
 "to another place which happens to have the same SSID name. They might then "
 "be misled to believe that they are connecting to an extra secure network "
 "while they are not."
-msgstr "Tämä attribuutti voidaan asettaa, jos haluat konfiguroida useamman SSID:n oletus-SSID:n lisäksi organisaatiolle %s. Suosittelemme käyttämään oletus-SSID:tä. Poikkeuksen muodostaa tilanne, jossa radiosignaalit menevät päällekäin toisen %s-hotspotin kanssa. Tyypillinen ajatusvirhe ylimääräisen SSID:n suhteen on, että haluaa paikallisen SSID:n omille käyttäjille. On suositeltavampaa käyttää oletus-SSID:tä, ja erottaa käyttäjäryhmät VLANeilla. Tästä on kaksi etua: 1) käyttäjillesi konfiguroituu %s oikein, koska se on heidän päivittäin käyttämänsä SSID; 2) jos käytät toista nimeä ja mainostat sitä erityisturvallisena, käyttäjäsi voivat joskus roamata toisaalla, jossa sattuu olemaan sama SSID käytössä. He voivat harhautua luulemaan turvalliseksi verkkoa, joka ei sitä olekaan. "
+msgstr ""
+"Tämä attribuutti voidaan asettaa, jos haluat konfiguroida useamman SSID:n "
+"oletus-SSID:n lisäksi organisaatiolle %s. Suosittelemme käyttämään oletus-"
+"SSID:tä. Poikkeuksen muodostaa tilanne, jossa radiosignaalit menevät "
+"päällekäin toisen %s-hotspotin kanssa. Tyypillinen ajatusvirhe ylimääräisen "
+"SSID:n suhteen on, että haluaa paikallisen SSID:n omille käyttäjille. On "
+"suositeltavampaa käyttää oletus-SSID:tä, ja erottaa käyttäjäryhmät "
+"VLANeilla. Tästä on kaksi etua: 1) käyttäjillesi konfiguroituu %s oikein, "
+"koska se on heidän päivittäin käyttämänsä SSID; 2) jos käytät toista nimeä "
+"ja mainostat sitä erityisturvallisena, käyttäjäsi voivat joskus roamata "
+"toisaalla, jossa sattuu olemaan sama SSID käytössä. He voivat harhautua "
+"luulemaan turvalliseksi verkkoa, joka ei sitä olekaan. "
 
 #: web/lib/admin/OptionDisplay.php:150
 #, php-format
@@ -1861,10 +1944,14 @@ msgstr "%dx %s"
 #, php-format
 msgid ""
 "You did not set a 'default language' value for %s. This means we can only "
-"display this string for installers which are <strong>exactly</strong> in the"
-" language you configured. For the sake of all other languages, you may want "
+"display this string for installers which are <strong>exactly</strong> in the "
+"language you configured. For the sake of all other languages, you may want "
 "to edit the profile again and populate the 'default/other' language field."
-msgstr "Et asentanut 'oletuskieli' arvoa %s. Tämä tarkoittaa sitä, että tämä merkkijono voidaan näyttää asennusohjelmissa, joissa on <strong>juuri</strong> sillä kielellä, jonka konfiguroit. Kaikkien muiden kielten tuen vuoksi, käy editoimassa profiilia ja täyty 'default/other' kielikenttä."
+msgstr ""
+"Et asentanut 'oletuskieli' arvoa %s. Tämä tarkoittaa sitä, että tämä "
+"merkkijono voidaan näyttää asennusohjelmissa, joissa on <strong>juuri</"
+"strong> sillä kielellä, jonka konfiguroit. Kaikkien muiden kielten tuen "
+"vuoksi, käy editoimassa profiilia ja täyty 'default/other' kielikenttä."
 
 #: web/lib/admin/PageDecoration.php:31
 msgid "You are:"

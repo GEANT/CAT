@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-23 14:55+0200\n"
+"POT-Creation-Date: 2018-06-05 14:51+0200\n"
 "PO-Revision-Date: 2015-04-07 14:08+0000\n"
 "Last-Translator: Janos Mohacsi <mohacsi@niif.hu>\n"
 "Language-Team: Hungarian (http://www.transifex.com/projects/p/cat/language/"
@@ -119,7 +119,7 @@ msgstr ""
 #, php-format
 msgid ""
 "%s is an opensource project. If you are interested in the details of the "
-"implementation, please visit GitHub."
+"implementation, please visit <a href='%s'>GitHub</a>."
 msgstr ""
 
 #: web/user/devel.inc.php:14
@@ -801,8 +801,8 @@ msgstr ""
 #, php-format
 msgid ""
 "You should use the exact link you got during sign-up to come here. "
-"Alternatively, if you have a valid %s login token already, you can visit "
-"this page and Accept the question about logging in with a client certificate "
+"Alternatively, if you have a valid %s credential already, you can visit this "
+"page and Accept the question about logging in with a client certificate "
 "(select a certificate with a name ending in '…%s')."
 msgstr ""
 

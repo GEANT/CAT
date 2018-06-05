@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Jari Miettinen <Jari.Miettinen@csc.fi>, 2012
 # Jari Miettinen <Jari.Miettinen@csc.fi>, 2013
@@ -11,21 +11,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-23 14:55+0200\n"
+"POT-Creation-Date: 2018-06-05 14:51+0200\n"
 "PO-Revision-Date: 2018-05-24 10:46+0000\n"
 "Last-Translator: Tomi Salmi <tomi.salmi@csc.fi>\n"
-"Language-Team: Finnish (Finland) (http://www.transifex.com/eduroam_devel/cat/language/fi_FI/)\n"
+"Language-Team: Finnish (Finland) (http://www.transifex.com/eduroam_devel/cat/"
+"language/fi_FI/)\n"
+"Language: fi_FI\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fi_FI\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: core/CAT.php:111
 msgid ""
-"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git"
-" Revision</a>"
-msgstr "Julkaisematon <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git Revision</a>"
+"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git "
+"Revision</a>"
+msgstr ""
+"Julkaisematon <a href='https://github.com/GEANT/CAT/tree/master/Changes."
+"md'>Git Revision</a>"
 
 #: core/CAT.php:121
 #, php-format
@@ -337,7 +340,9 @@ msgid ""
 "Best regards,\n"
 "\n"
 "%s"
-msgstr "Hei,⏎ ⏎ Identity Provider %s %s federaatiostasi %s on poistettu ryhmästä %s.⏎ ⏎ Arvelimme, että haluaisit tietää asiasta.⏎ ⏎ Parhain terveisin,⏎ ⏎ %s"
+msgstr ""
+"Hei,⏎ ⏎ Identity Provider %s %s federaatiostasi %s on poistettu ryhmästä %s."
+"⏎ ⏎ Arvelimme, että haluaisit tietää asiasta.⏎ ⏎ Parhain terveisin,⏎ ⏎ %s"
 
 #: core/IdP.php:252
 msgid "IdP in your federation was deleted"
@@ -357,7 +362,8 @@ msgstr "Hei!"
 msgid ""
 "A new %s access credential has been created for you by your network "
 "administrator."
-msgstr "Verkkoylläpitäjäsi on luonut sinulle uudet käyttäjätunnukset palveluun %s."
+msgstr ""
+"Verkkoylläpitäjäsi on luonut sinulle uudet käyttäjätunnukset palveluun %s."
 
 #: core/SilverbulletInvitation.php:212
 #, php-format
@@ -365,7 +371,10 @@ msgid ""
 "Please follow the following link with the device you want to enable for %s "
 "to get a custom %s installation program just for you. You can click on the "
 "link, copy and paste it into a browser or scan the attached QR code."
-msgstr "Valitse ohesta laitettasi vastaava linkki ottaaksesi käyttöön palvelun %s kohteessa %s. Voit klikata linkkiä, kopioida osoitteen selaimeen tai käyttää QR-koodia."
+msgstr ""
+"Valitse ohesta laitettasi vastaava linkki ottaaksesi käyttöön palvelun %s "
+"kohteessa %s. Voit klikata linkkiä, kopioida osoitteen selaimeen tai käyttää "
+"QR-koodia."
 
 #. gets replaced with the token value by getBody()
 #: core/SilverbulletInvitation.php:214
@@ -374,7 +383,10 @@ msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
 "up your %s installation program, you can use the same link to get status "
 "information about your %s account."
-msgstr "Suosittelemme säilyttämään tämän osoitteen myöhempää käyttöä varten. Voit käyttää samaa linkkiä asentaaksesi palvelun %s myöhemmin tai tarkistaaksesi palvelun %s tilan."
+msgstr ""
+"Suosittelemme säilyttämään tämän osoitteen myöhempää käyttöä varten. Voit "
+"käyttää samaa linkkiä asentaaksesi palvelun %s myöhemmin tai tarkistaaksesi "
+"palvelun %s tilan."
 
 #: core/SilverbulletInvitation.php:216
 msgid "Regards,"
@@ -385,7 +397,9 @@ msgstr "Terveisin,"
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
 "'%s'!)"
-msgstr "%son nyt valmis käyttöön! Klikkaa tästä: %s (tai jos käytät Android-laitetta, asenna ensin sovellus '%s'!)"
+msgstr ""
+"%son nyt valmis käyttöön! Klikkaa tästä: %s (tai jos käytät Android-"
+"laitetta, asenna ensin sovellus '%s'!)"
 
 #: core/SilverbulletInvitation.php:267
 #, php-format
@@ -396,21 +410,24 @@ msgstr "%sKutsut"
 #. /                2. consortium name (e.g. eduroam);
 #. /                3. federation shortname, e.g. "LU";
 #. /                4. product name (e.g. eduroam CAT);
-#. /                5. product long name (e.g. eduroam Configuration Assistant
-#. Tool)
+#. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
 #: core/UserManagement.php:179
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the invitation for the new Identity Provider %s in your %s federation %s has been used and the IdP was created in %s.\n"
+"the invitation for the new Identity Provider %s in your %s federation %s has "
+"been used and the IdP was created in %s.\n"
 "\n"
 "We thought you might want to know.\n"
 "\n"
 "Best regards,\n"
 "\n"
 "%s"
-msgstr "Hei,⏎ ⏎ uuden käyttäjäorganisaation kutsu organisaatiolle %s, Identity Provider %s federaatiossasi %s on käytetty ja IdP luotiin ryhmässä %s.⏎ ⏎ Arvelimme, että halusit tietää asiasta.⏎ ⏎ Parhain terveisin,⏎ ⏎ %s"
+msgstr ""
+"Hei,⏎ ⏎ uuden käyttäjäorganisaation kutsu organisaatiolle %s, Identity "
+"Provider %s federaatiossasi %s on käytetty ja IdP luotiin ryhmässä %s.⏎ ⏎ "
+"Arvelimme, että halusit tietää asiasta.⏎ ⏎ Parhain terveisin,⏎ ⏎ %s"
 
 #: core/UserManagement.php:188
 msgid "IdP in your federation was created"
@@ -452,7 +469,8 @@ msgstr "EAP-pwd"
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
-msgstr "Ylläpitäjä %sorganisaatiosta %s%s%son kutsunut sinut kohteen %sylläpitäjäksi."
+msgstr ""
+"Ylläpitäjä %sorganisaatiosta %s%s%son kutsunut sinut kohteen %sylläpitäjäksi."
 
 #: core/common/OutsideComm.php:240
 #, php-format
@@ -494,7 +512,8 @@ msgstr "%sylläpitäjä"
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
-msgstr "manuaalisesti. Vastaamalla tähän viestiin tavoitat palvelun %sylläpitäjät."
+msgstr ""
+"manuaalisesti. Vastaamalla tähän viestiin tavoitat palvelun %sylläpitäjät."
 
 #: core/common/OutsideComm.php:275
 #, php-format
@@ -516,9 +535,12 @@ msgstr "ja syötä kutsupoletti"
 
 #: core/common/OutsideComm.php:281
 msgid ""
-"Do NOT forward the mail before the token has expired - or the recipients may"
-" be able to consume the token on your behalf!"
-msgstr "ÄLÄ välitä viestiä eteenpäin ennen kuin \"token\" on käytetty tai vanhentunut. Tokenin avulla kuka tahansa voi luoda tilin sille varatuin oikeuksin."
+"Do NOT forward the mail before the token has expired - or the recipients may "
+"be able to consume the token on your behalf!"
+msgstr ""
+"ÄLÄ välitä viestiä eteenpäin ennen kuin \"token\" on käytetty tai "
+"vanhentunut. Tokenin avulla kuka tahansa voi luoda tilin sille varatuin "
+"oikeuksin."
 
 #: core/common/OutsideComm.php:282
 #, php-format
