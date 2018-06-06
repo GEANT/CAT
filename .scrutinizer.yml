@@ -253,5 +253,12 @@ tools:
         enabled: true
 
 filter:
-    excluded_paths: [web/external/*, web/apidoc/*]
-    dependency_paths: [core/PHPMailer/, core/phpqrcode.php, core/GeoIP2/, core/PHPUnit/, core/simpleSAMLphp/]
+    excluded_paths:
+        - "web/external/*"
+        - "web/apidoc/*"
+    dependency_paths:
+        - "core/PHPMailer/"
+        - "core/phpqrcode.php"
+        - "core/GeoIP2/"
+        - "core/PHPUnit/"
+        - "core/simpleSAMLphp/"
