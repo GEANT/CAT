@@ -6,6 +6,7 @@
 # Alberto Martínez Setién, 2016-2017
 # Alberto Martínez Setién, 2013,2015
 # Alberto Martínez Setién, 2018
+# Alberto Martínez Setién, 2018
 # José Manuel Macías, 2013
 # José Manuel Macías, 2012
 # José Manuel Macías, 2013,2015
@@ -14,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-05 14:51+0200\n"
-"PO-Revision-Date: 2018-05-23 13:51+0000\n"
+"POT-Creation-Date: 2018-06-06 09:19+0200\n"
+"PO-Revision-Date: 2018-06-06 07:08+0000\n"
 "Last-Translator: Alberto Martínez Setién\n"
 "Language-Team: Spanish (http://www.transifex.com/eduroam_devel/cat/language/"
 "es/)\n"
@@ -315,17 +316,16 @@ msgstr ""
 "disponibles."
 
 #: devices/linux/Device_Linux.php:52
-#, fuzzy
 msgid ""
 "The installer is in the form of a Python script. It will try to configure "
 "eduroam under Network Manager and if this is either not appropriate for your "
 "system or your version of Network Manager is too old, a wpa_supplicant "
 "config file will be created instead."
 msgstr ""
-"Este instalador consiste en un script bash. Tratará de configurar eduroam en "
-"Network Manager, y si esto no es posible para tu sistema, o tu versión de "
-"Network Manager es muy antigua, se generará un fichero de configuración para "
-"wpa_supplicant."
+"Este instalador consiste en un script Python. Tratará de configurar eduroam "
+"a través de Network Manager, y si esto no es posible para tu sistema o tu "
+"versión de Network Manager es muy antigua, en vez de eso generará un fichero "
+"de configuración para wpa_supplicant."
 
 #: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:115
 #, php-format
