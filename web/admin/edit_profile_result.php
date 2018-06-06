@@ -216,10 +216,6 @@ if (!$profile instanceof \core\ProfileRADIUS) {
     }
     // re-instantiate $profile, we need to do completion checks and need fresh data for isEapTypeDefinitionComplete()
     $reloadedProfile = \core\ProfileFactory::instantiate($profile->identifier);
-    // this can't possibly be another type of Profile, but to make code analysers happy:
-    if (!$profile instanceof \core\ProfileRADIUS) {
-        throw new Exception("This page handles RADIUS Profiles only. For some reason, a different type of Profile was requested.");
-    }
     $reloadedProfile->prepShowtime();
     ?>
 </table>
