@@ -3,7 +3,9 @@ Changes in 2.0-beta1
 - [FEATURE #1]  admin API implemented
 - [FEATURE #2]  allow configuration of map provider (currently "Google" (Maps),
                 "OpenStreetMaps", and a text-only "None")
-
+- [FEATURE #3]  enhance Android config format to allow supplying alternative SSIDs
+                and the "prefill/validate realm suffix" config items
+                
 Changes in 2.0-alpha2
 =====================
 - [FEATURE #1]  add a button to UNlink an institution from the external DB
