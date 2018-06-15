@@ -842,7 +842,7 @@ msgid "I don't know"
 msgstr "No ho sabem"
 
 #: web/skins/modern/diag/diag.php:291
-msgid "Diagnistic tests results for selected realm"
+msgid "Diagnostic tests results for selected realm"
 msgstr "Resultats de les proves per al domini seleccionat"
 
 #: web/skins/modern/diag/diag.php:294

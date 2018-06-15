@@ -288,7 +288,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
        }); 
     }
     function finalVerdict(realm, verdict) {
-        var title = <?php echo '"' . _("Diagnistic tests results for selected realm") . '"'; ?>;
+        var title = <?php echo '"' . _("Diagnostic tests results for selected realm") . '"'; ?>;
         result = '<div class="padding">';
         result = result + '<div><h3>';
         result = result + <?php echo '"' . _("The result for tested realm:") . ' "'; ?> + realm;
