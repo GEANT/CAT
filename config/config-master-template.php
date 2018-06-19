@@ -79,6 +79,7 @@ const CONFIG = [
      * Various paths.
      * logdir: directory where all logs will be written to (debug and audit logs)
      * openssl: absolute path to the openssl executable. If you just fill in "openssl" the one from the system $PATH will be taken.
+     * cat_base_url: this the relative URL path of the CAT installation, i.e. the part after 'https://<server>'. E.g. if your DocumentRoot is already the web/ subdir, this is "/"
      * @var array
      */
     'PATHS' => [
