@@ -223,7 +223,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         }  
     }
     function isDomain(realm) {
-        var re = new RegExp(/^(([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]|[a-zA-Z0-9])\.)*[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}$/);
+        var re = new RegExp(/^((([0-9]{1,3}\.){3}[0-9]{1,3})|(([a-zA-Z0-9]+(([\-]?[a-zA-Z0-9]+)*\.)+)*[a-zA-Z]{2,}))$/);
         if (re.test(realm)) {
             return true;
         }
