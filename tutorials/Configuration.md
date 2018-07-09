@@ -98,6 +98,12 @@ After creating config.php as above, adapt it to your needs and the realities on 
 
 The device configuration file is in devices/devices.php. There is a template file devices-template.php - you can simply copy it to have a devices.php. Unless you want to disable specific device modules, or have custom ways to digitally sign installers, it is not necessary to change this file.
 
+Additional configuration for Managed IdP
+----------------------------------------
+* edit the shell script utils/ocsp_update-template.sh to make it point to the location of the OCSP responder.
+* make sure SSH access to the OCSP responder works without user interaction using the configured access details.
+* set up cron job to run the shell script utils/ocsp_update-template.sh regularly (e.g. once per hour)
+
 Customisation / Look and Feel
 -----------------------------
 CAT ships with a default look-and-feel for the eduroam consortium. You can adapt most of its appearance to your local needs by changing colours and images. The sources for the images are scattered around the source tree. Here is a list of LOGOs to edit:
