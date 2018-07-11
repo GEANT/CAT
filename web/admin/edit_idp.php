@@ -101,8 +101,7 @@ echo $mapCode->htmlHeadCode();
             sprintf(_("This is the place where you can describe your %s in a fine-grained way. The solicited information is used as follows:"), $uiElements->nomenclature_inst) . "</p>
                       <ul>
                          <li>" . _("<strong>Logo</strong>: When you submit a logo, we will embed this logo into all installers where a custom logo is possible. We accept any image format, but for best results, we suggest SVG. If you don't upload a logo, we will use the generic logo instead (see top-right corner of this page).") . "</li>
-                         <li>" . _("<strong>Terms of Use</strong>: Some installers support displaying text to the user during installation time. If so, we will make that happen if you upload an RTF file or plain text file to display.") . "</li>";
-
+                         <li>" . sprintf(_("<strong>Name</strong>: The %s can be given names in multiple languages. It is recommended to always populate at least the 'default/other' language, as it is used as a fallback if the system does not have a name in the exact language the user requests a download in."),$uiElements->nomenclature_inst) . "</li>";
             echo "</ul>";
         }
         echo $optionDisplay->prefilledOptionTable("general");
