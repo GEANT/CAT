@@ -41,9 +41,15 @@ cloud sp [
 eduroam Service Providers
 
 ]
+
+frame "External Resources" {
+node signer [ Code Signing Cluster
+]
+}
 web -- mysql
 web -> ca
 web -> ocspstore
+web -- signer
 ocspstore -> Webserver
 rootca ~~ ca
 RADIUS -> Webserver
