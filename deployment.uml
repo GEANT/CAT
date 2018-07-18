@@ -84,6 +84,6 @@ web -- sms : send end-user signup SMS
 web -- ol : draw location data
 ocspstore -> Webserver
 rootca ~~ ca : prime system with intermediate CA
-RADIUS -> Webserver : check revocation state
+authX -> Webserver : check revocation state
 sp -- authX : check user authorisation
 @enduml
