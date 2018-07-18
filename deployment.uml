@@ -1,0 +1,43 @@
+frame hosted.eduroam.org  {
+node web [ Web User Interface
+===
+PHP7
+OpenLayers
+GeoIP ]
+
+database mysql [ MySQL 
+]
+
+component ca [ Embedded Intermediate CA
+===
+PHP builtin functions
+OpenSSL command-line
+]
+
+}
+
+frame ocsp.hosted.eduroam.org {
+node Webserver
+
+component ocspstore [ OCSP statement storage
+]
+}
+
+frame Raspberry {
+component rootca [ Root CA
+]
+}
+
+frame RADIUS {
+node auth1 [ auth-1.hosted.eduroam.org
+]
+node auth2 [ auth-2.hosted.eduroam.org
+]
+
+}
+web -- mysql
+web -> ca
+web -> ocspstore
+ocspstore -> Webserver
+rootca ~~ ca
+RADIUS -> Webserver
