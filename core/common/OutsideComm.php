@@ -240,7 +240,7 @@ class OutsideComm {
             OutsideComm::INVITE_CONTEXTS[1] => sprintf(_("a %s %s has invited you to manage the future %s  \"%s\" (%s)."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $cat->nomenclature_fed, $cat->nomenclature_inst, $idpPrettyName, strtoupper($federation->tld)),
             OutsideComm::INVITE_CONTEXTS[2] => sprintf(_("a %s %s has invited you to manage the %s  \"%s\"."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $cat->nomenclature_fed, $cat->nomenclature_inst, $idpPrettyName),
         ];
-        $validity = sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400) . " UTC");
+        $validity = sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X %Z", time() + 86400));
         // need some nomenclature
         // are we on https?
         $proto = "http://";
