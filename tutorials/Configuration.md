@@ -25,6 +25,11 @@ Here are some extra configuration hints for these packages:
 	language display needs the corresponding locales to be installed (check config/config-template.php for the exact list of locales that CAT can support right now)
 	
 	for better entropy for cryptographic operations (important particularly for Managed IdP deployments), be sure to have "haveged" service installed and running
+	
+* MySQL / MariaDB
+
+	the timezone should be set to UTC in my.cnf
+	
 * Apache
 
 	the Directory for installer downloads (configurable, defaults to web/downloads/ ) needs to have "AllowOverrides FileInfo" set
