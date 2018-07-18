@@ -459,7 +459,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
                                 </table>
                                 </form>
                                 </td>";
-                                    $tokenHtmlBuffer .= "<td>" . _("Expiry Date:") . " " . $invitationObject->expiry . "<br>" . _("Activations remaining:") . " " . sprintf(_("%d of %d"), $invitationObject->activationsRemaining, $invitationObject->activationsTotal) . "</td>";
+                                    $tokenHtmlBuffer .= "<td>" . _("Expiry Date:") . " " . $invitationObject->expiry . " UTC<br>" . _("Activations remaining:") . " " . sprintf(_("%d of %d"), $invitationObject->activationsRemaining, $invitationObject->activationsTotal) . "</td>";
                                     $tokenHtmlBuffer .= "<td>"
                                             . $formtext
                                             . "<input type='hidden' name='invitationid' value='" . $invitationObject->identifier . "'/>"
