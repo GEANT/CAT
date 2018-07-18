@@ -44,7 +44,7 @@ use \Exception;
         textdomain("devices");
         // create certificate files and save their names in $caFiles arrary
         $caFiles = $this->saveCertificateFiles('der');
-        $this->caArray = $this->getAttibute('internal:CAs');
+        $this->caArray = $this->getAttibute('internal:CAs')[0];
         $this->useAnon = $this->attributes['internal:use_anon_outer'] [0] === NULL ? FALSE : TRUE;
         $this->servers = empty($this->attributes['eap:server_name']) ? '' :  implode(';', $this->attributes['eap:server_name']);
         $allSSID = $this->attributes['internal:SSID'];
@@ -429,7 +429,6 @@ use \Exception;
         $xmlFname = "w8/wlan_prof-$profileNumber.xml";
         file_put_contents($xmlFname, $profileFileCont . $eapConfig['win'] . $closing);
         $this->loggerInstance->debug(2, "Installer has been written into directory $this->FPATH\n");
-        $this->loggerInstance->debug(4, "WWWWLAN_Profile:$wlanProfileName:$encryption\n");
         return("\"$wlanProfileName\" \"$encryption\"");
     }
 
