@@ -1,12 +1,16 @@
 @startuml
-frame hosted.eduroam.org  {
+frame "Web Frontend"  {
 node web [ Web User Interface
+hosted.eduroam.org
 ===
+CentOS 7
+Apache 2
 PHP7
-OpenLayers
-GeoIP ]
+MariaDB
+GeoIP
+haveged ]
 
-database mysql [ MySQL 
+database mysql [ MariaDB
 ]
 
 component ca [ Embedded Intermediate CA
@@ -17,22 +21,35 @@ OpenSSL command-line
 
 }
 
-frame ocsp.hosted.eduroam.org {
-node Webserver
+frame "OCSP Responder" {
+node Webserver [ Webserver
+ocsp.hosted.eduroam.org
+===
+CentOS 7
+Apache 2
+PHP7
+]
 
 component ocspstore [ OCSP statement storage
+===
+directory on filesystem
 ]
 }
 
-frame Raspberry {
-component rootca [ Root CA
+frame "Client Root CA" {
+node rootca [ Raspberry Pi
+===
+Raspian Stretch
+RSA/4096
+ECDSA NIST P-521
 ]
 }
 
 frame RADIUS {
-node auth1 [ auth-1.hosted.eduroam.org
-]
-node auth2 [ auth-2.hosted.eduroam.org
+node authX [ auth-X.hosted.eduroam.org
+===
+CentOS 7
+FreeRADIUS 3.0.x
 ]
 
 }
@@ -44,8 +61,15 @@ eduroam Service Providers
 
 frame "External Resources" {
 node signer [ Code Signing Cluster
+===
+use instance of eduroam CAT 
+@SURFnet data centers
 ]
 node sms [ SMS Gateway
+===
+Nexmo - www.nexmo.com
+]
+node ol [ OpenLayers / OpenStreetMap
 ]
 }
 web -- mysql
@@ -53,6 +77,7 @@ web -> ca
 web -> ocspstore
 web -- signer
 web -- sms
+web -- ol
 ocspstore -> Webserver
 rootca ~~ ca
 RADIUS -> Webserver
