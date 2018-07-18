@@ -19,6 +19,8 @@ PHP builtin functions
 OpenSSL command-line
 ]
 
+storage cache [ Installer Cache
+]
 }
 
 frame "OCSP Responder" {
@@ -30,7 +32,7 @@ Apache 2
 PHP7
 ]
 
-component ocspstore [ OCSP statement storage
+storage ocspstore [ OCSP statement storage
 ===
 directory on filesystem
 ]
@@ -72,14 +74,16 @@ Nexmo - www.nexmo.com
 node ol [ OpenLayers / OpenStreetMap
 ]
 }
-web -- mysql
-web -> ca
-web -> ocspstore
-web -- signer
-web -- sms
-web -- ol
+web -- mysql : statistics
+web -- mysql : user and certificate data
+web -> ca : new/revoke cert
+web -- cache : store/retrieve
+web -> ocspstore : generate/push OCSP statements
+web -- signer : sign installers
+web -- sms : send end-user signup SMS
+web -- ol : draw location data
 ocspstore -> Webserver
-rootca ~~ ca
-RADIUS -> Webserver
-RADIUS -- sp
+rootca ~~ ca : prime system with intermediate CA
+RADIUS -> Webserver : check revocation state
+sp -- authX : check user authorisation
 @enduml
