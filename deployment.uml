@@ -45,11 +45,14 @@ eduroam Service Providers
 frame "External Resources" {
 node signer [ Code Signing Cluster
 ]
+node sms [ SMS Gateway
+]
 }
 web -- mysql
 web -> ca
 web -> ocspstore
 web -- signer
+web -- sms
 ocspstore -> Webserver
 rootca ~~ ca
 RADIUS -> Webserver
