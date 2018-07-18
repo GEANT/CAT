@@ -1,3 +1,4 @@
+@startuml
 frame hosted.eduroam.org  {
 node web [ Web User Interface
 ===
@@ -35,9 +36,16 @@ node auth2 [ auth-2.hosted.eduroam.org
 ]
 
 }
+cloud sp [ 
+
+eduroam Service Providers
+
+]
 web -- mysql
 web -> ca
 web -> ocspstore
 ocspstore -> Webserver
 rootca ~~ ca
 RADIUS -> Webserver
+RADIUS -- sp
+@enduml
