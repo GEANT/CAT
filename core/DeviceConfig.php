@@ -535,10 +535,15 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @return array
      */
     private function getConsortia() {
+        if(!isset(CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi'])) {
+            return ([]);
+        }
         $consortia = CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi'];
         if (isset($this->attributes['media:consortium_OI'])) {
             foreach ($this->attributes['media:consortium_OI'] as $new_oi) {
-                $consortia[] = $new_oi;
+                if(!in_array($new_oi, $consortia)) {
+                    $consortia[] = $new_oi;
+                }
             }
         }
         return $consortia;
