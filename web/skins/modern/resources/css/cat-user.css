@@ -2,6 +2,7 @@
 :root {
     --color1: #FFFFFF;
     --color2: #575757;
+    --color3: #1d4a74;
 }
 
 html {
@@ -85,6 +86,9 @@ a:active {
 
 #wrap {
     min-height: 100%;
+    max-width: 1200px;
+    background: white;
+    margin: auto;
   /*  height: 100%;
   padding-bottom: 80px;*/
 }
@@ -141,7 +145,7 @@ button.delete {
 #device_list button {
    min-height: 23px;
    color: white;
-    background: #1d4a74;
+    background:  var(--color3);
 }
 
 #device_list button.more_info_b {
@@ -203,6 +207,7 @@ td.vendor img {
 
 #roller {
     position: relative;
+    padding-top: 140px;
     height:272px;
 }
 
@@ -210,7 +215,7 @@ td.vendor img {
     position: absolute;
     left: 0px;
     height:272px;
-    background: #1d4a74;
+    background: var(--color3);
     background-image: url("../images//image_5a.jpg");
     background-size: 100%;
     background-repeat: no-repeat;
@@ -219,20 +224,20 @@ td.vendor img {
 
 #slides img {
     position: absolute;
-    top: 30px;
+    top: 100px;
     right: 60px;
 }
 
 #img_roll {
     position: absolute;
     right: 50px;
-    top: 20px;
+    top: 90px;
 }
 
 #img_roll  img {
     position: absolute;
     right: 0px;
-    top: 0px;
+    top: 70px;
 }
 
 .img.img_roll {
@@ -274,7 +279,8 @@ td.vendor img {
 
 #welcome_top1 {
     clear: both;
-    padding-top: 140px;
+//    padding-top: 140px;
+    padding-top: 30px;
     font-weight: bold;
     font-size: 20px;
     text-align: center;
@@ -291,7 +297,7 @@ td.vendor img {
    width: 180px;
    position:absolute;
    left:0px;
-   top:30px;
+   top:50px;
    text-align: center;
 }
 
@@ -315,7 +321,7 @@ td.vendor img {
     left: 20%;
     text-align: justify;
     top: 200px;
-    border-top: 4px solid #1d4a74;
+    border-top: 4px solid var(--color3);
     box-shadow: 0px 3px 2px 1px rgba(0,0,0,0.06)
 }
 
@@ -479,12 +485,15 @@ span.edu_cat {
 #motd {
    position: absolute;
    top: 0px;
-   color: maroon;
+   height:36px;
+   line-height:36px;
+//   color: maroon;
+   color: #ffff66;
    text-align: right;
-   padding:5px;
+   padding:0px;
    padding-right: 20px;
    width: 100%;
-   background: #e7e7e7;
+   background: var(--color3);
    box-sizing: border-box;
 }
 
@@ -517,7 +526,7 @@ div.footer table td {
     padding-bottom: 18px;
     padding-right: 100px;
     padding-left: 20px;
-    background: #1d4a74;
+    background: var(--color3);
     color: white;
     text-align: left;
 }
@@ -581,7 +590,7 @@ button.guess_os {
     width: auto;
     padding-left: 10px;
     padding-right: 0px;
-    background-color: #1d4a74;
+    background-color: var(--color3);
     color: white;
 }
 
@@ -681,6 +690,10 @@ td.vendor {
     max-width: 60vw;
 }
 
+#welcome_top1 {
+    padding-top: 140px;
+}
+
 #roller {
     display: none;
 }
@@ -694,7 +707,7 @@ td.vendor {
     padding-bottom: 18px;
     padding-right: 120px;
     padding-left: 20px;
-    background: #1d4a74;
+    background: var(--color3);
     color: white;
     text-align: left;
 }
@@ -794,7 +807,7 @@ button.guess_os {
     width: auto;
     padding-left: 10px;
     padding-right: 0px;
-    background-color: #1d4a74;
+    background-color: var(--color3);
     color: white;
 }
 
@@ -878,6 +891,9 @@ button.guess_os {
 }
 
 @media all and (min-width: 750px) {
+body {
+    background: rgb(188, 205, 216);
+}
 
 #institution_name {
     font-size: 32px;
@@ -885,7 +901,7 @@ button.guess_os {
     padding-bottom: 28px;
     padding-right: 120px;
     padding-left: 30px;
-    background: #1d4a74;
+    background: var(--color3);
     color: white;
     text-align: left;
 }
@@ -982,7 +998,7 @@ button.guess_os {
     width: 30em;
     padding-left: 10px;
     padding-right: 0px;
-    background-color: #1d4a74;
+    background-color: var(--color3);
     color: white;
 }
 
@@ -995,10 +1011,12 @@ button.guess_os {
 #hamburger {
    display: none;
 }
+
+
 #menu_top {
     position: absolute;
     right: 10px;
-    top: 20px;
+    top: 35px;
     z-index: 150;
 
 }
@@ -1010,10 +1028,19 @@ button.guess_os {
     display: inline;
 }
 
-#menu_top > ul li {
+#menu_top li {
    float: left;
    position: relative;
-/*   max-width: 15vw;*/
+}
+
+#menu_top > ul > li:hover {
+    background: var(--color3);
+    color: white;
+}
+
+#menu_top> ul > li > span:hover, #menu_top > ul > li > a:hover {
+    background: var(--color3);
+    color: white;
 }
 
 #menu_top > ul li a, #menu_top > ul li span {
@@ -1023,7 +1050,6 @@ button.guess_os {
     transition-timing-function: ease-in-out;
     position: relative;
     display: block;
-    color: black;
     font-size: 14px;
     text-align: center;
     padding: 35px 2vw 35px 2vw;
@@ -1031,12 +1057,12 @@ button.guess_os {
     height: 20px;
 }
 
-#menu_top > ul li a.selected-lang {
+#menu_top a.selected-lang {
    background: lightgreen;
 }
 
-#menu_top > ul li a:hover, #menu_top > ul li span:hover {
-    background: #1d4a74;
+#menu_top > ul > li > ul > li > a:hover {
+    background: #333;
     color: white;
 }
 
@@ -1056,36 +1082,28 @@ button.guess_os {
     overflow-x: hidden;
 }
 
-#menu_top > ul li ul li {
+#menu_top > ul > li > ul > li {
    clear: both;
 }
 
-#menu_top > ul li ul li:first-of-type a {
-   border-top: 2px solid #1d4a74;
+#menu_top > ul > li > ul > li:last-child a {
+	border-bottom: 3px solid #FFF;
 }
 
 
-#menu_top > ul li ul > li > a,#menu_top > ul li ul > li > span {
+#menu_top > ul > li > ul > li > a {
    position:relative;
-    background: #fff;
+   background: var(--color3);
+   color: white;
    display: block;
    width: 200px;
    min-height: 20px;
-   padding: 5px 15px 5px 15px;
+   padding: 15px 20px 15px 20px;
    text-align: left;
-    border: 1px solid  #e7e7e7;
+   border-top: 1px solid  rgba(255,255,255,0.3);
+   font-size: 14px;
    z-index: 150;
    box-shadow: 0px 3px 2px 1px rgba(0,0,0,0.06)
-}
-
-#menu_top > ul li ul select {
-   width: 100%;
-   position: relative;
-   left: -1vw;
-}
-
-#menu_top > ul li ul li span:hover {
-   background: #1d4a74;
 }
 
 }
@@ -1104,7 +1122,7 @@ button.guess_os {
     padding-bottom: 10px;
     vertical-align: top;
     box-shadow: 0px 3px 2px 1px rgba(0,0,0,0.06);
-/*    border-top: 4px solid #1d4a74;*/
+/*    border-top: 4px solid var(--color3);*/
     text-align: justify;
     font-size: 14px;
     z-index: 140;
@@ -1131,7 +1149,7 @@ img.close_button {
     font-size: 24px;
     font-weight: normal;
     color: white;
-    background: #1d4a74;
+    background: var(--color3);
 }
 
 #main_menu_content div > div {
@@ -1173,11 +1191,12 @@ img.close_button {
 }
 
 button.large_button {
-    background-color: #1d4a74;
+    background-color: var(--color3);
     border: 6px solid  #e7e7e7;
     border-radius: 12px;
     padding-left:20px;
     padding-right:20px;
+    height: auto;
     min-height: 100px;
     color: #ffffff;
     font-size: 20px;

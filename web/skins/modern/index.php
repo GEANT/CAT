@@ -78,8 +78,8 @@ include("user/js/cat_js.php");
          <?php if (empty($_REQUEST['idp'])) { ?>
               <div id="front_page">
                   <?php
-                        echo $divs->div_top_welcome();
                         echo $divs->div_roller();
+                        echo $divs->div_top_welcome();
                         echo $divs->div_main_button(); ?>
               </div> <!-- id="front_page" -->
          <?php } ?>
