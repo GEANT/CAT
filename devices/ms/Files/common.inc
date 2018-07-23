@@ -641,6 +641,12 @@ FunctionEnd
   Function CheckSymantec
     Push 88
     call CheckEAP
+    Pop $0
+    ${If} $0 == ""
+       Push 0
+    ${Else}
+       Push 1
+    ${EndIf}
     Pop $Symantec_installed
     !insertmacro debug_cat 3 "Symantec test returned: $Symantec_installed"
   FunctionEnd
@@ -879,9 +885,13 @@ Function InstallProfile
   !insertmacro debug_cat 4 "netsh returned $0"
   ${If} $0 <> 0
     !insertmacro debug_cat 1 'Profile installation error for "$R1"'
+    ${If} $R1 == "cat-passpoint-profile"
+        GoTo FailedProfile
+    ${EndIf}
     IfSilent +2
     MessageBox MB_OK "<?php WindowsCommon::echo_nsi(_("Profile installation error for \$R1."))?>$\r$\n<?php WindowsCommon::echo_nsi(_("Please contact \${SUPPORT}."))?>"
-    nsArray::Set Profile_states /key="$R0" ${PROFILE_STATE_FAIL}
+    FailedProfile:
+    nsArray::Set Profile_states /key=$R0 ${PROFILE_STATE_FAIL}
     Push 1
     Pop $profile_fail
   ${Else}
@@ -1026,7 +1036,6 @@ Function InstallWirelessCred
   Pop $R2
   ${If} $R2 <> ${PROFILE_STATE_FAIL}
     !insertmacro debug_cat 1 "installing credentials for profile $R1"
-
     DetailPrint "<?php WindowsCommon::echo_nsi(_("installing credentials for profile \$R1"))?>"
     !ifdef TLS
       Call writeTlsUserProfle

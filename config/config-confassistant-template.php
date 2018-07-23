@@ -32,6 +32,8 @@ const CONFIG_CONFASSISTANT = [
      * ssid: an array of default SSIDs for this consortium; they are automatically added to all installers.
      * interworking-consortium-oi: Organisation Identifier of the roaming consortium for Interworking/Hotspot 2.0; 
      *                             a profile with these OIs will be added to all installers
+     * interworking-domainname-fallback: This will be used in Windows installers for the DomainName setting if
+     *                             the IdP configuration does not suppy its own realm
      * tkipsupport: whether the default SSIDs should be configured for WPA/TKIP and WPA2/AES (TRUE) or only for WPA2/AES (FALSE)
      * homepage: URL of the consortium's general homepage.
      * signer_name: if installers are configured for digital signature, this parameter should contain the "O" name
@@ -66,6 +68,7 @@ const CONFIG_CONFASSISTANT = [
 #        'deployment-voodoo'         => "Operations Team",
         'ssid'                       => ['eduroam'],
         'interworking-consortium-oi' => ['001bc50460'],
+        'interworking-domainname-fallback' => 'eduroam.org',
         'registration_API_keys'      =>  [
             // 'secretvalue' => 'UK',
             // 'othervalue' => 'DE',

@@ -72,6 +72,11 @@ use \Exception;
             $windowsProfile[$iterator] = $this->writeWLANprofile($ssid, $ssid, 'WPA2', 'AES', $eapConfig, $iterator);
             $iterator++;
         }
+        if (($this->device_id !== 'w8') && (count($this->attributes['internal:consortia']) > 0 )) {
+            // this SSID name is later used in common.inc so if you decide to chage it here change it there as well
+                $ssid = 'cat-passpoint-profile';
+                $windowsProfile[$iterator] = $this->writeWLANprofile($ssid, $ssid, 'WPA2', 'AES', $eapConfig, $iterator, TRUE);
+        }
         if ($setWired) {
             $this->writeLANprofile($eapConfig);
         }
@@ -107,6 +112,25 @@ use \Exception;
         return($authorId);
     }
 
+    private function addConsortia() {
+        if ($this->device_id == 'w8') {
+            return('');
+        }
+        $retval = '<Hotspot2>';
+        $retval .= '<DomainName>';
+        if (empty($this->attributes['internal:realm'][0])) {
+            $retval .= CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-domainname-fallback'];
+        } else {
+            $retval .=  $this->attributes['internal:realm'][0];
+        }
+        $retval .= '</DomainName>';
+        $retval .= '<RoamingConsortium><OUI>' . 
+            implode('</OUI><OUI>', $this->attributes['internal:consortia']) .
+            '</OUI></RoamingConsortium>';
+        $retval .=  '</Hotspot2>';
+        return($retval);
+    }
+    
     private function eapConfigHeader() {
         $authorId = $this->setAuthorId();
         $profileFileCont = '<EAPConfig><EapHostConfig xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
@@ -383,7 +407,7 @@ use \Exception;
      * @param int $profileNumber counter, which profile number is this
      * @return string
      */
-    private function writeWLANprofile($wlanProfileName, $ssid, $auth, $encryption, $eapConfig, $profileNumber) {
+    private function writeWLANprofile($wlanProfileName, $ssid, $auth, $encryption, $eapConfig, $profileNumber, $hs20 = FALSE) {
         $profileFileCont = '<?xml version="1.0"?>
 <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
 <name>' . $wlanProfileName . '</name>
@@ -392,7 +416,11 @@ use \Exception;
 <name>' . $ssid . '</name>
 </SSID>
 <nonBroadcast>true</nonBroadcast>
-</SSIDConfig>
+</SSIDConfig>';
+        if ($hs20) {
+            $profileFileCont .= $this->addConsortia();
+        }
+        $profileFileCont .= '
 <connectionType>ESS</connectionType>
 <connectionMode>auto</connectionMode>
 <autoSwitch>false</autoSwitch>
