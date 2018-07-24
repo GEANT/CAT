@@ -5,6 +5,8 @@ Changes in 2.0-beta1
                 "OpenStreetMaps", and a text-only "None")
 - [FEATURE #3]  enhance Android config format to allow supplying alternative SSIDs
                 and the "prefill/validate realm suffix" config items
+- [FEATURE #4]  add Hotspot 2.0 support to Windows 10 installers
+- [BUGFIX #1 ]  Symantec protection warning message was unnecessarily popping up in some cases
                 
 Changes in 2.0-alpha2
 =====================
