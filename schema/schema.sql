@@ -185,6 +185,7 @@ INSERT INTO `profile_option_dict` VALUES
 ('user:fedadmin','contains federation names for which this user is an admin','string', NULL),
 ('user:realname','a friendly display name of the user','string', NULL),
 ('fed:realname','a friendly display name of the NRO/federation','string', 'ML'),
+('fed:url', 'URL to the homepage of a federation', 'string', 'ML'),
 ('fed:logo_file','logo of the NRO/federation','file', NULL),
 ('fed:css_file','custom CSS to be applied on any skin','file',NULL),
 ('fed:custominvite','custom text to send with new IdP invitations','text', NULL),

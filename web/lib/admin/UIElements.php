@@ -109,6 +109,7 @@ class UIElements {
             _("Preferred Skin for User Area") => "fed:desired_skin",
             sprintf(_("Include %s branding in installers"),$this->nomenclature_fed) => "fed:include_logo_installers",
             sprintf(_("%s Name"), $this->nomenclature_fed) => "fed:realname",
+            sprintf(_("%s Homepage"), $this->nomenclature_fed) => "fed:url",
             sprintf(_("Custom text in %s Invitations"),$this->nomenclature_inst) => "fed:custominvite",
             sprintf(_("Enable %s"), \core\ProfileSilverbullet::PRODUCTNAME) => "fed:silverbullet",
             sprintf(_("%s: Do not terminate EAP"), \core\ProfileSilverbullet::PRODUCTNAME) => "fed:silverbullet-noterm",

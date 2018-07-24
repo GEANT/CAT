@@ -23,7 +23,8 @@ INSERT INTO `profile_option_dict` VALUES
 ('fed:silverbullet-maxusers','maximum number of users per silverbullet profile','integer',NULL),
 ('fed:minted_ca_file','set of default CAs to add to new IdPs on signup','file',NULL),
 ('hiddenprofile:tou_accepted','were the terms of use accepted?','boolean',NULL),
-('profile:customsuffix','The filename suffix to use for the generated installers','string','ML');
+('profile:customsuffix','The filename suffix to use for the generated installers','string','ML'),
+('fed:url', 'URL to the homepage of a federation', 'string', 'ML');
 
 
 CREATE TABLE `federation` (
