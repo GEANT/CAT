@@ -7,7 +7,7 @@ all: translation
 documentation:
 	rm -Rf web/apidoc build
 #	mv core/phpqrcode.php core/phpqrcode.xyz
-	php /home/swinter/packages/linux/phpDocumentor-3.0.0-alpha2-gdff5545.phar run -d . -i core/phpqrcode.php -i core/PHPMailer/ -i tests/ -i core/simpleSAMLphp -i core/PHPUnit -i core/GeoIP2 -t web/apidoc/ --title "CAT - The IEEE 802.1X Configuration Assistant Tool" --template clean
+	php /home/swinter/packages/linux/phpDocumentor-3.0.0-alpha2.phar run -d . -i core/phpqrcode.php -i core/PHPMailer/ -i tests/ -i core/simpleSAMLphp -i core/PHPUnit -i core/GeoIP2 -t web/apidoc/ --title "CAT - The IEEE 802.1X Configuration Assistant Tool" --template clean
 #	mv core/phpqrcode.xyz core/phpqrcode.php
 
 translation:
