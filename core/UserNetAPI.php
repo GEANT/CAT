@@ -44,7 +44,7 @@ class UserNetAPI extends UserAPI {
      * @param int $status extra status information, defaults to 1
      * @return string JSON encoded data
      */
-    public function returnJSON($data, $status = 1) {
+    public function returnJSON($data, $status = 1, $otherData = []) {
         $validator = new \web\lib\common\InputValidation();
         $host = $validator->hostname($_SERVER['SERVER_NAME']);
         if ($host === FALSE) {
@@ -54,6 +54,9 @@ class UserNetAPI extends UserAPI {
         $returnArray['status'] = $status;
         $returnArray['data'] = $data;
         $returnArray['tou'] = "Please consult Terms of Use at: //" . $host . \core\CAT::getRootUrlPath() . "/tou.php";
+        if (!empty($otherData)) {
+            $returnArray['otherdata'] = $otherData;
+        }
         return(json_encode($returnArray));
     }
 
@@ -146,6 +149,16 @@ class UserNetAPI extends UserAPI {
         if (count($logo) > 0) {
             $hasLogo = 1;
         }
+        $fed = new Federation($idp->federation);
+        $fedUrl = $idp->languageInstance->getLocalisedValue($fed->getAttributes('fed:url'));
+        $fedName = $idp->languageInstance->getLocalisedValue($fed->getAttributes('fed:realname'));
+        $otherData = [];
+        if (!empty($fedUrl)) {
+            $otherData['fedurl'] = $fedUrl;
+        }
+        if (!empty($fedName)) {
+            $otherData['fedname'] = $fedName;
+        }
         $profiles = $idp->listProfiles(TRUE);
         if ($sort == 1) {
             usort($profiles, ["UserAPI", "profileSort"]);
@@ -153,7 +166,7 @@ class UserNetAPI extends UserAPI {
         foreach ($profiles as $profile) {
             $returnArray[] = ['profile' => $profile->identifier, 'display' => $profile->name, 'idp_name' => $profile->instName, 'logo' => $hasLogo];
         }
-        echo $this->returnJSON($returnArray);
+        echo $this->returnJSON($returnArray, 1, $otherData);
     }
 
     /**

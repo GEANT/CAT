@@ -17,7 +17,7 @@ $langObject = new \core\common\Language();
 $langObject->setTextDomain('web_user');
 $cat = new core\CAT();
 $idpId = filter_input(INPUT_GET, 'idp', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'idp', FILTER_VALIDATE_INT);
-$profileId = filter_input(INPUT_GET, 'profile', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'profile', FILTER_VALIDATE_INT);
+$profileId = filter_input(INPUT_GET, 'profile', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'profile', FILTER_VALIDATE_INT) ?? 0;
 $skinObject = $Gui->skinObject;
     ?>
 var n;
@@ -55,7 +55,8 @@ $.fn.redraw = function(){
    }
 
    function listProfiles(inst_id,selected_profile){
-    var j ;
+    var j;
+    var otherdata;
     $('#welcome').hide();
     $("#silverbullet").hide();
     $('#user_welcome').hide();
@@ -70,11 +71,10 @@ $.fn.redraw = function(){
     $("#user_info").hide();
     $("#devices").hide();
     $("#profile_redirect").hide();
-    i_s = selected_profile;
       $.post('<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>', {action: 'listProfiles', api_version: 2, lang: lang, idp: inst_id}, function(data) {
-//alert(data);
     j = $.parseJSON(data);
     result = j.status;
+    otherdata = j.otherdata;
     if(! result) {
       alert("<?php escaped_echo(_("no matching data found"))?>");
       document.location.href='<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/' ?>';
@@ -99,6 +99,16 @@ $.fn.redraw = function(){
         $("#idp_logo").show();
     }
     $("#fed_logo").attr("src","<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendFedLogo&api_version=2&idp="+inst_id);
+    if(otherdata['fedname']) {
+        $("#fed_logo").attr("title",otherdata['fedname']);
+        $("#fed_logo").attr("alt",otherdata['fedname']);
+    }
+    if(otherdata['fedurl']) {
+        $("#fed_logo").css('cursor','pointer');
+        $("#fed_logo").click(function(event) {
+            window.open(otherdata['fedurl'], '_blank');
+        });
+    }
     $("#fed_logo").show();
     if (n > 1) {
        if(n <= profile_list_size) {
@@ -489,9 +499,7 @@ $(document).ready(function(){
 
   resetDevices();
  <?php 
-if ($profileId) {
     print "listProfiles($idpId, $profileId);";
-}
     ?>
 
 $(".signin").click(function(event){
