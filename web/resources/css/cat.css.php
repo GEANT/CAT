@@ -323,7 +323,6 @@ fieldset.option_container {
     margin: 5px;
     padding: 5px;
     min-width: 500px;
-    max-width: 700px;
     min-height: 150px;
     vertical-align: top;
 }
