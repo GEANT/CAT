@@ -16,7 +16,7 @@ function escaped_echo($s) {
 $langObject = new \core\common\Language();
 $langObject->setTextDomain('web_user');
 $cat = new core\CAT();
-$idpId = filter_input(INPUT_GET, 'idp', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'idp', FILTER_VALIDATE_INT);
+$idpId = filter_input(INPUT_GET, 'idp', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'idp', FILTER_VALIDATE_INT)?? 0;
 $profileId = filter_input(INPUT_GET, 'profile', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'profile', FILTER_VALIDATE_INT) ?? 0;
 $skinObject = $Gui->skinObject;
     ?>
@@ -499,7 +499,9 @@ $(document).ready(function(){
 
   resetDevices();
  <?php 
+    if ($profileId) {
     print "listProfiles($idpId, $profileId);";
+    }
     ?>
 
 $(".signin").click(function(event){
