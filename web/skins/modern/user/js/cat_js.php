@@ -499,7 +499,7 @@ $(document).ready(function(){
 
   resetDevices();
  <?php 
-    if ($profileId) {
+    if ($idpId) {
     print "listProfiles($idpId, $profileId);";
     }
     ?>
