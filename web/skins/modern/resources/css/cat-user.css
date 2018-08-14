@@ -247,6 +247,7 @@ td.vendor img {
 #user_button {
     display: block;
     width: 50vw;
+    max-width: 600px;
 }
 
 #user_button_td {
