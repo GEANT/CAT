@@ -328,8 +328,8 @@ td.vendor img {
 
 #idp_logo {
    display:none;
-   position:absolute;
-   right:30px;
+   float:right;
+   padding-right: 30px;
    max-height:150px;
    padding-top:10px;
 }
