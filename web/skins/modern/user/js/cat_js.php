@@ -52,6 +52,8 @@ $.fn.redraw = function(){
      $("#guess_os").hide();
      $("#other_installers").show();
      $("#devices").redraw();
+     var y = reset_footer();
+     $("#footer").css('top',y);
    }
 
    function listProfiles(inst_id,selected_profile){
@@ -434,6 +436,11 @@ function back_to_downloads() {
     $("#user_welcome").hide();
 }
 
+function reset_footer() {
+   var y = parseInt($("#footer").css("height")) + 16;
+   $("#footer").css("margin-top", -y);
+   return y;
+}
 
 function processDownload(data) {
    generateTimer = $.now() - generateTimer;
@@ -609,15 +616,13 @@ if(front_page) {
        prepareAnimation();
  }
 
-var y = -parseInt($("#footer").css("height")) - 16;
-$("#footer").css("margin-top", y);
+reset_footer();
    
 $( window ).resize(function(event) {
    if ($( window ).width() > 750) {
       $("#menu_top > ul").show();
    }
-   var y = -parseInt($("#footer").css("height")) - 16;
-   $("#footer").css("margin-top", y);
+   reset_footer();
 });
 
  });

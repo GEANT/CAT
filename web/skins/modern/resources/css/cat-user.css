@@ -1187,7 +1187,7 @@ img.close_button {
    width: 100%;
    top: 130px;
    padding-bottom: 130px;
-    display: none;
+   display: none;
 }
 
 #guess_os  {
