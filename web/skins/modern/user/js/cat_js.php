@@ -141,6 +141,7 @@ function resetDevices() {
  if(recognisedOS !== '' ) {
     $("#guess_os").show();
     $("#other_installers").hide();
+    $("#footer").css('top',0);
     $("#download_button_header_"+recognisedOS).html(downloadMessage);
     $("#cross_icon_"+recognisedOS).hide();
  }
@@ -512,6 +513,7 @@ $(document).ready(function(){
     ?>
 
 $(".signin").click(function(event){
+    $("#footer").css('top',0);
      event.preventDefault();
 });
 
