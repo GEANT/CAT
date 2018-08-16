@@ -273,7 +273,7 @@ td.vendor img {
     padding-bottom: 25px;
     text-align: center;
     width: 100%;
-    height: 50px;
+    min-height: 50px;
     cursor: auto;
     text-decoration: none;
 }
@@ -501,7 +501,7 @@ span.edu_cat {
 #footer {
     position: relative;
     margin-top: -65px;
-    height: 49px;
+    min-height: 49px;
     width: 100%;
     padding-top:5px;
     padding-bottom:10px;
@@ -536,10 +536,15 @@ div.footer table td {
     cursor: pointer;
     text-decoration: underline;
     text-decoration: underline;
+    padding-bottom: 10px;
 }
 
 #top_invite:hover {
     text-decoration: underline;
+}
+
+#user_button_td {
+    padding-top: 10px;
 }
 
 
@@ -871,6 +876,13 @@ button.guess_os {
 #devices {
     padding-left: auto;
     padding-right: auto;
+}
+#top_invite {
+    padding-bottom: 10px;
+}
+
+#user_button_td {
+    padding-top: 10px;
 }
 
 }

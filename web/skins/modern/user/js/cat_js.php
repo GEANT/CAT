@@ -609,12 +609,15 @@ if(front_page) {
        prepareAnimation();
  }
 
-//alert($("#welcome_top1").css('display'));
-
+var y = -parseInt($("#footer").css("height")) - 16;
+$("#footer").css("margin-top", y);
+   
 $( window ).resize(function(event) {
    if ($( window ).width() > 750) {
       $("#menu_top > ul").show();
    }
+   var y = -parseInt($("#footer").css("height")) - 16;
+   $("#footer").css("margin-top", y);
 });
 
  });
