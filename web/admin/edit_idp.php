@@ -175,7 +175,7 @@ echo $mapCode->htmlHeadCode();
                         
                 sprintf(_("Does the %s provide helpdesk services for its users? If so, it would be nice if you would tell us the pointers to this helpdesk."),$uiElements->nomenclature_inst)  . "</p>" .
                 "<p>" .
-                _("If you enter a value here, it will be added to the installers for all your users, and will be displayed on the download page. If you operate separate helpdesks for different user groups (we call this 'profiles') specify per-profile helpdesk information later in this wizard. If you operate no help desk at all, just these fields empty.") . "</p>";
+                _("If you enter a value here, it will be added to the installers for all your users, and will be displayed on the download page. If you operate separate helpdesks for different user groups (we call this 'profiles') specify per-profile helpdesk information later in this wizard. If you operate no help desk at all, just leave these fields empty.") . "</p>";
                 if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
                 echo "<p>" . sprintf(_("For %s deployments, providing at least a local e-mail contact is required."), core\ProfileSilverbullet::PRODUCTNAME) ." " . _("This is the contact point for your end users' level 1 support.") . "</p>";
                 }
