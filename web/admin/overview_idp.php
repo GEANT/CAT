@@ -47,14 +47,14 @@ echo $mapCode->htmlHeadCode();
     // Sanity check complete. Show what we know about this IdP.
     $idpoptions = $my_inst->getAttributes();
     ?>
-    <h1><?php echo sprintf(_("Overview of %s"), $uiElements->nomenclature_inst); ?></h1>
+    <h1><?php echo sprintf(_("%s Overview"), $uiElements->nomenclature_inst); ?></h1>
     <div>
-        <h2><?php echo sprintf(_("%s-wide settings"), $uiElements->nomenclature_inst); ?></h2>
+        <h2><?php echo sprintf(_("%s general settings"), $uiElements->nomenclature_inst); ?></h2>
         <?php
         echo $uiElements->instLevelInfoBoxes($my_inst);
         ?>
         <div class='infobox' style='text-align:center;'>
-            <h2><?php echo sprintf(_("QR Code for %s download area"), $uiElements->nomenclature_inst); ?></h2>
+            <h2><?php echo sprintf(_("%s download area QR code"), $uiElements->nomenclature_inst); ?></h2>
             <?php
             $displayurl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier;
             $uri = "data:image/png;base64," . base64_encode($uiElements->pngInjectConsortiumLogo(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL), QRCODE_PIXELS_PER_SYMBOL));
@@ -94,7 +94,7 @@ echo $mapCode->htmlHeadCode();
                 </td>
                 <td>
                     <form action='edit_idp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                        <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_FLUSH_AND_RESTART; ?>' onclick="return confirm('<?php echo sprintf(_("This action will delete all properties of your %s and start over the configuration from scratch. Do you really want to reset all settings of your %s %s?"), $uiElements->nomenclature_inst, $uiElements->nomenclature_inst, $my_inst->name); ?>')"><?php echo sprintf(_("Reset all %s settings"), $uiElements->nomenclature_inst); ?></button>
+                        <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_FLUSH_AND_RESTART; ?>' onclick="return confirm('<?php echo sprintf(_("This action will delete all properties of the %s and start over the configuration from scratch. Do you really want to reset all settings of the %s %s?"), $uiElements->nomenclature_inst, $uiElements->nomenclature_inst, $my_inst->name); ?>')"><?php echo sprintf(_("Reset all %s settings"), $uiElements->nomenclature_inst); ?></button>
                     </form>
 
                 </td>
@@ -119,9 +119,9 @@ echo $mapCode->htmlHeadCode();
         }
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam") { // SW: APPROVED
             echo "<tr>
-                        <td>" . sprintf(_("Check server status of European %ss"), $uiElements->nomenclature_fed) . "</td>
+                        <td>" . sprintf(_("Check %s server status"), $uiElements->nomenclature_fed) . "</td>
                         <td>
-                           <form action='https://monitor.eduroam.org' accept-charset='UTF-8'>
+                           <form action='https://monitor.eduroam.org/mon_direct.php' accept-charset='UTF-8'>
                               <button type='submit'>" . _("Go!") . "</button>
                            </form>
                         </td>

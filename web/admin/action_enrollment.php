@@ -68,10 +68,10 @@ if ($checkval < 0) {
     echo "<h1>" . _("Error creating new IdP binding!") . "</h1>";
     switch ($checkval) {
         case \core\UserManagement::TOKENSTATUS_FAIL_ALREADYCONSUMED:
-            echo "<p>" . sprintf(_("Sorry... this token has already been used to create an %s. If you got it from a mailing list, probably someone else used it before you."), $elements->nomenclature_inst) . "</p>";
+            echo "<p>" . sprintf(_("Sorry... this token has already been used. The %s is already created. If you got the invitation from a mailing list, probably someone else used it before you."), $elements->nomenclature_inst) . "</p>";
             break;
         case \core\UserManagement::TOKENSTATUS_FAIL_EXPIRED:
-            echo "<p>" . sprintf(_("Sorry... this token has expired. Invitation tokens are valid for 24 hours. Please ask your %s administrator for a new one."), $elements->nomenclature_fed) . "</p>";
+            echo "<p>" . sprintf(_("Sorry... this token has expired. Invitation tokens are valid for 24 hours. The %s administrator can create a new one for you."), $elements->nomenclature_fed) . "</p>";
             break;
         default:
             echo "<p>" . _("Sorry... you have come to the enrollment page without a valid token. Are you a nasty person? If not, you should go to <a href='overview_user.php'>your profile page</a> instead.") . "</p>";

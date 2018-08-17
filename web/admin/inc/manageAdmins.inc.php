@@ -116,13 +116,13 @@ if (isset($_GET['invitation'])) {
 
 if ($isFedAdmin) {
     echo "<div class='ca-summary' style='position:relative;'><table>";
-    echo $uiElements->boxRemark(sprintf(_("You are the %s administrator of this %s. You can invite new administrators, who can in turn appoint further administrators on their own."), $uiElements->nomenclature_fed, $uiElements->nomenclature_inst), sprintf(_("%s Administrator"), $uiElements->nomenclature_fed));
+    echo $uiElements->boxRemark(sprintf(_("You are the %s administrator. You can invite new administrators, who can in turn appoint further administrators on their own."), $uiElements->nomenclature_fed), sprintf(_("%s Administrator"), $uiElements->nomenclature_fed));
     echo "</table></div>";
 }
 
 if (!$isFedAdmin && $is_admin_with_blessing) {
     echo "<div class='ca-summary' style='position:relative;'><table>";
-    echo $uiElements->boxRemark(sprintf(_("You are an administrator of this %s, and were directly appointed by the %s administrator. You can appoint further administrators, but these can't in turn appoint any more administrators."), $uiElements->nomenclature_inst, $uiElements->nomenclature_fed), _("Directly Appointed IdP Administrator"));
+    echo $uiElements->boxRemark(sprintf(_("You are an administrator who was directly appointed by the %s administrator. You can appoint further administrators, but these can't in turn appoint any more administrators."), $uiElements->nomenclature_fed), _("Directly Appointed Administrator"));
     echo "</table></div>";
 }
 ?>

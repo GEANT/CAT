@@ -165,7 +165,7 @@ require_once("inc/click_button_js.php");
     <table class='user_overview' style='border:0px;'>
         <tr>
             <th><?php echo _("Deployment Status"); ?></th>
-            <th><?php echo sprintf(_("Name of %s"), $uiElements->nomenclature_inst); ?></th>
+            <th><?php echo sprintf(_("%s Name"), $uiElements->nomenclature_inst); ?></th>
 
             <?php
             $pending_invites = $mgmt->listPendingInvitations();
@@ -186,7 +186,7 @@ require_once("inc/click_button_js.php");
         foreach ($feds as $onefed) {
             $thefed = new \core\Federation(strtoupper($onefed['value']));
             /// nomenclature for 'federation', federation name, nomenclature for 'inst'
-            echo "<tr><td colspan='8'><strong>" . sprintf(_("Your %s %s contains the following %s list:"), $uiElements->nomenclature_fed, '<span style="color:green">' . $thefed->name . '</span>', $uiElements->nomenclature_inst) . "</strong></td></tr>";
+            echo "<tr><td colspan='8'><strong>" . sprintf(_("The following %s are in your %s %s:"), $uiElements->nomenclature_inst, $uiElements->nomenclature_fed, '<span style="color:green">' . $thefed->name . '</span>') . "</strong></td></tr>";
 
             // extract only pending invitations for *this* fed
             $display_pendings = FALSE;
@@ -260,7 +260,7 @@ require_once("inc/click_button_js.php");
                 echo "<tr>
                             <td colspan='2'>
                                <strong>" .
-                sprintf(_("Pending invitations in your %s:"), $uiElements->nomenclature_fed) . "
+                sprintf(_("Pending invitations in the %s:"), $uiElements->nomenclature_fed) . "
                                </strong>
                             </td>
                          </tr>";
@@ -296,7 +296,7 @@ require_once("inc/click_button_js.php");
         <form method='post' action='inc/manageNewInst.inc.php' onsubmit='popupRedirectWindow(this);
                 return false;' accept-charset='UTF-8'>
             <button type='submit' class='download'>
-                <?php echo sprintf(_("Register new %s!"), $uiElements->nomenclature_inst); ?>
+                <?php echo sprintf(_("Register a new %s!"), $uiElements->nomenclature_inst); ?>
             </button>
         </form>
         <br/>

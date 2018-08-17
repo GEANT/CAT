@@ -80,7 +80,7 @@ class UIElements {
             _("Support: EAP Types") => "support:eap_types",
             _("Support: Phone") => "support:phone",
             _("Support: E-Mail") => "support:email",
-            sprintf(_("Name of %s"), $this->nomenclature_inst) => "general:instname",
+            sprintf(_("%s Name"), $this->nomenclature_inst) => "general:instname",
             _("Location") => "general:geo_coordinates",
             _("Logo URL") => "general:logo_url",
             _("Logo image") => "general:logo_file",

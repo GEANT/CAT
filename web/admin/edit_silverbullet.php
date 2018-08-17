@@ -264,7 +264,7 @@ if (isset($_POST['command'])) {
 $allUsers = $profile->listAllUsers();
 $activeUsers = $profile->listActiveUsers();
 
-echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->nomenclature_inst)));
+echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSilverbullet::PRODUCTNAME )));
 ?>
 <script src='js/option_expand.js' type='text/javascript'></script>
 <script src='../external/jquery/jquery.js' type='text/javascript'></script>
@@ -300,7 +300,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
     ?>
     <img src='../resources/images/icons/loading51.gif' id='spin' style='position:absolute;left: 50%; top: 50%; transform: translate(-100px, -50px); display:none; z-index: 100;'>
     <div class='infobox'>
-        <h2><?php echo sprintf(_('Current %s users'), $uiElements->nomenclature_inst); ?></h2>
+        <h2><?php echo sprintf(_('Current %s users'), \core\ProfileSilverbullet::PRODUCTNAME); ?></h2>
         <table>
             <tr>
                 <td><strong><?php echo _("Assigned Realm"); ?></strong></td><td><?php echo $profile->realm; ?></td>
@@ -342,7 +342,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
     <div class="sb-editable-block">
         <fieldset>
             <legend>
-                <strong><?php echo sprintf(_('Manage %s users'), $uiElements->nomenclature_inst); ?></strong>
+                <strong><?php echo sprintf(_('Manage %s users'), \core\ProfileSilverbullet::PRODUCTNAME); ?></strong>
             </legend>
             <!-- table with actual user details ... -->
             <table cellpadding="5" style="max-width:1920px;">

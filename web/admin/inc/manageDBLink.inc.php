@@ -96,7 +96,7 @@ if (isset($_POST['submitbutton'])) {
                 } else {
                     $language = CONFIG['LANGUAGES'][$name['lang']]['display'] ?? "(unsupported language)";
                 }
-                echo "<tr><td>" . sprintf(_("Name of %s (%s)"), $uiElements->nomenclature_inst, $language) . "</td><td>" . $name['value'] . "</td></tr>";
+                echo "<tr><td>" . sprintf(_("%s Name (%s)"), $uiElements->nomenclature_inst, $language) . "</td><td>" . $name['value'] . "</td></tr>";
             }
 
             $admins = $my_inst->listOwners();
@@ -122,7 +122,7 @@ if (isset($_POST['submitbutton'])) {
 
             echo "<table>";
             foreach ($extinfo['names'] as $lang => $name) {
-                echo "<tr><td>" . sprintf(_("Name of %s (%s)"), $uiElements->nomenclature_inst, $lang) . "</td><td>$name</td>";
+                echo "<tr><td>" . sprintf(_("%s Name (%s)"), $uiElements->nomenclature_inst, $lang) . "</td><td>$name</td>";
             }
             foreach ($extinfo['admins'] as $number => $admin_details) {
                 echo "<tr><td>" . _("Administrator email") . "</td><td>" . $admin_details['email'] . "</td></tr>";
@@ -146,7 +146,7 @@ if (isset($_POST['submitbutton'])) {
                 printf(_("Particularly promising entries (names in CAT and %s DB are a 100%% match) are on top of the list."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
             }
             echo "<table>";
-            echo "<tr><th>" . _("Link to this entity?") . "</th><th>" . sprintf(_("Name of the %s"), $uiElements->nomenclature_inst) . "</th><th>" . _("Administrators") . "</th></tr>";
+            echo "<tr><th>" . _("Link to this entity?") . "</th><th>" . sprintf(_("%s Name"), $uiElements->nomenclature_inst) . "</th><th>" . _("Administrators") . "</th></tr>";
             if ($candidates !== FALSE && count($candidates) > 0) {
                 foreach ($candidates as $candidate) {
                     $info = $cat->getExternalDBEntityDetails($candidate);

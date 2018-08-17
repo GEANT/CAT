@@ -57,7 +57,7 @@ require_once("inc/click_button_js.php");
         }
 
         if ($user->isFederationAdmin()) {
-            echo "<form action='overview_federation.php' method='GET' accept-charset='UTF-8'><button type='submit'>" . sprintf(_('Click here to manage your %ss'), $uiElements->nomenclature_fed) . "</button></form>";
+            echo "<form action='overview_federation.php' method='GET' accept-charset='UTF-8'><button type='submit'>" . sprintf(_('Click here for %s management tasks'), $uiElements->nomenclature_fed) . "</button></form>";
         }
         if ($user->isSuperadmin()) {
             echo "<form action='112365365321.php' method='GET' accept-charset='UTF-8'><button type='submit'>" . _('Click here to access the superadmin page') . "</button></form>";
@@ -163,7 +163,7 @@ require_once("inc/click_button_js.php");
             <div style='white-space: nowrap;'>
         <form action='action_enrollment.php' method='get'><button type='submit' accept-charset='UTF-8'>
                 <input type='hidden' id='token' name='token' value='SELF-REGISTER'/>" .
-            sprintf(_("Register new %s!"), $uiElements->nomenclature_inst) . "
+            sprintf(_("New %s Registration"), $uiElements->nomenclature_inst) . "
             </button>
         </form>
         </div>";

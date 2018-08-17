@@ -47,8 +47,7 @@ $feds = $user->getAttributes("user:fedadmin");
 echo sprintf(_("On this page, you can add a new %s to your %s. Please fill out the form below to send out an email invitation to the new %s administrator."), $uiElements->nomenclature_inst, $uiElements->nomenclature_fed, $uiElements->nomenclature_inst);
 if (CONFIG['DB']['enforce-external-sync']) {
     echo "<p>" . sprintf(_("You can either register a known %s (as defined in the %s database) or create a totally new %s."), $uiElements->nomenclature_inst, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $uiElements->nomenclature_inst) . "</p>";
-    echo "<p>" . sprintf(_("The latter one is typically for an %s which is yet in a testing phase and therefore doesn't appear in the %s database yet."), $uiElements->nomenclature_inst, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</p>";
-    echo "<p>" . sprintf(_("Please keep in mind that any profiles of such a new %s will only be made available on the user download page after you have linked it to an entity in the %s database (but they are otherwise fully functional)."), $uiElements->nomenclature_inst, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</p>";
+    echo "<p>" . sprintf(_("The latter one is typically for an %s which is yet in a testing phase and therefore doesn't appear in the %s database yet."), $uiElements->nomenclature_inst, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</p>";    
 }
 ?>
 <hr/>
