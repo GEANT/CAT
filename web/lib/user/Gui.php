@@ -30,7 +30,7 @@ class Gui extends \core\UserAPI {
         }
         $this->skinObject = new \web\lib\user\Skinjob($_REQUEST['skin'] ?? $_SESSION['skin'] ?? $fedskin[0] ?? CONFIG['APPEARANCE']['skins'][0]);
         $this->langObject = new \core\common\Language();
-        $this->textTemplates = new TextTemplates($this);
+        $this->textTemplates = new TextTemplates();
         $this->operatingSystem = $this->detectOS();
         $this->loggerInstance->debug(4, $this->operatingSystem);
     }

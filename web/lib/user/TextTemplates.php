@@ -65,7 +65,7 @@ class TextTemplates {
     /**
      * Initialises the texts.
      */
-    public function __construct(Gui $parent) {
+    public function __construct() {
         
         $this->templates[WELCOME_ABOARD_PAGEHEADING] = sprintf(_("Welcome aboard the %s user community!"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $this->templates[WELCOME_ABOARD_DOWNLOAD] = _("Your download will start shortly. In case of problems with the automatic download please use this direct <a href=''>link</a>.");
