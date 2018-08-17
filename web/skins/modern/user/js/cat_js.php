@@ -52,6 +52,8 @@ $.fn.redraw = function(){
      $("#guess_os").hide();
      $("#other_installers").show();
      $("#devices").redraw();
+     var y = reset_footer();
+     $("#footer").css('top',y);
    }
 
    function listProfiles(inst_id,selected_profile){
@@ -139,6 +141,7 @@ function resetDevices() {
  if(recognisedOS !== '' ) {
     $("#guess_os").show();
     $("#other_installers").hide();
+    $("#footer").css('top',0);
     $("#download_button_header_"+recognisedOS).html(downloadMessage);
     $("#cross_icon_"+recognisedOS).hide();
  }
@@ -434,6 +437,11 @@ function back_to_downloads() {
     $("#user_welcome").hide();
 }
 
+function reset_footer() {
+   var y = parseInt($("#footer").css("height")) + 16;
+   $("#footer").css("margin-top", -y);
+   return y;
+}
 
 function processDownload(data) {
    generateTimer = $.now() - generateTimer;
@@ -505,6 +513,7 @@ $(document).ready(function(){
     ?>
 
 $(".signin").click(function(event){
+    $("#footer").css('top',0);
      event.preventDefault();
 });
 
@@ -609,15 +618,13 @@ if(front_page) {
        prepareAnimation();
  }
 
-var y = -parseInt($("#footer").css("height")) - 16;
-$("#footer").css("margin-top", y);
+reset_footer();
    
 $( window ).resize(function(event) {
    if ($( window ).width() > 750) {
       $("#menu_top > ul").show();
    }
-   var y = -parseInt($("#footer").css("height")) - 16;
-   $("#footer").css("margin-top", y);
+   reset_footer();
 });
 
  });
