@@ -121,11 +121,11 @@ abstract class WindowsCommon extends \core\DeviceConfig {
         }
 // TODO - change this below
         if ($this->selectedEapObject->isClientCertRequired()) {
-            $out .= sprintf(_("In order to connect to the network you will need an a personal certificate in the form of a p12 file. You should obtain this certificate from your %s. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process."), $this->nomenclature_inst);
+            $out .= _("In order to connect to the network you will need an a personal certificate in the form of a p12 file. You should obtain this certificate from your organisation. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process.");
             return($out);
         }
         // not EAP-TLS
-        $out .= sprintf(_("In order to connect to the network you will need an account from your %s. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated."), $this->nomenclature_inst);
+        $out .= _("In order to connect to the network you will need an account from your organisation. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated.");
 
         if (!$this->useGeantLink && $this->selectedEap['OUTER'] == \core\common\EAP::TTLS) {
             $out .= "<p>";
