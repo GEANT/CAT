@@ -14,13 +14,13 @@
     $Faq = [
       [
         'id'=>'idp_not_listed',
-        'title'=>sprintf(_("My %s is not listed. Can't I just use any of the other ones?"),$Gui->nomenclature_inst),
-        'text'=>sprintf(_("No! The installers contain security settings which are specific to the %s. If you are not from that %s, your computer will detect that you are about to send your username and credential to an unauthorised server and will abort the login. Using a different %s installer is <i>guaranteed to not work</i>!"), $Gui->nomenclature_inst, $Gui->nomenclature_inst, $Gui->nomenclature_inst)
+        'title'=>_("My organisation is not listed. Can't I just use any of the other ones?"),
+        'text'=>_("No! The installers contain security settings which are specific to the organisation. If you are not from that organisation, your computer will detect that you are about to send your username and credential to an unauthorised server and will abort the login. Using an installer from a different organisation is <i>guaranteed to not work</i>!")
          ],
       [
         'id'=>'idp_not_listed',
-        'title'=>sprintf(_("What can I do to get my %s listed?"), $Gui->nomenclature_inst),
-        'text'=>sprintf(_("Contact %s administrators at your %s and complain. It will take at most one hour of their time to get things done."),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $Gui->nomenclature_inst)
+        'title'=>_("What can I do to get my organisation listed?"),
+        'text'=>sprintf(_("Contact %s administrators within your organisation and complain. It will take at most one hour of their time to get things done."),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'])
 ],
       [
         'id'=>'device_not_listed',
@@ -44,7 +44,7 @@
 ],
       [
         'title'=>sprintf(_("I can see %s network and my device is configured but it does not connect, what can be the cause?"),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']),
-      'text'=>sprintf(_("There can be a number of different reasons. The network you see may not be a genuine %s one and your device silently drops the connection attempt; there may be something wrong with the configuration of the network; your account may have expired; there may be a connection problem with your home authentication server; you may have broken the regulations of the network you are using and have been refused access as a consequence. You should contact your %s and report the problem, the administrators should be able to trace your connections."),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $Gui->nomenclature_inst)
+      'text'=>sprintf(_("There can be a number of different reasons. The network you see may not be a genuine %s one and your device silently drops the connection attempt; there may be something wrong with the configuration of the network; your account may have expired; there may be a connection problem with your home authentication server; you may have broken the regulations of the network you are using and have been refused access as a consequence. You should contact your organisation and report the problem, the administrators should be able to trace your connections."),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'])
 ],
       [
         'id'=>'contact',

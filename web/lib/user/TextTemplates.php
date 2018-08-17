@@ -77,7 +77,7 @@ class TextTemplates {
         $this->templates[HEADING_TOPLEVEL_GREET] = sprintf(_("Welcome to %s"), CONFIG['APPEARANCE']['productname']);
         $this->templates[HEADING_TOPLEVEL_PURPOSE] = sprintf(_("Connect your device to %s"),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $this->templates[FRONTPAGE_ROLLER_EASY] = sprintf(_("%s installation made easy:"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
-        $this->templates[FRONTPAGE_ROLLER_CUSTOMBUILT] = sprintf(_("Custom built for your %s"),$parent->nomenclature_inst);       
+        $this->templates[FRONTPAGE_ROLLER_CUSTOMBUILT] = _("Custom built for your organisation");
         $this->templates[FRONTPAGE_BIGDOWNLOADBUTTON] = sprintf(_("Click here to download your %s installer"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $this->templates[PROFILE_SELECTION] = _("Select the user group");
         $this->templates[INSTITUTION_SELECTION] = _("select another");
@@ -88,7 +88,7 @@ class TextTemplates {
         $this->templates[DOWNLOAD_REDIRECT_CONTINUE] = _("Continue");
         $this->templates[FRONTPAGE_ROLLER_SIGNEDBY] = sprintf(_("Digitally signed by the organisation that coordinates %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $this->templates[SB_GO_AWAY] = sprintf(_("You can download your %s installer via a personalised invitation link sent from your IT support. Please talk to the IT department to get this link."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
-        $this->templates[SB_FRONTPAGE_BIGDOWNLOADBUTTON] = sprintf(_("This site provides %s installers for many %s, click here to see if your %s is on the list."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $parent->nomenclature_inst, $parent->nomenclature_inst);
+        $this->templates[SB_FRONTPAGE_BIGDOWNLOADBUTTON] = sprintf(_("This site provides %s installers for many organisations, click here to see if yours is on the list."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $this->templates[SB_FRONTPAGE_ROLLER_CUSTOMBUILT] = _("Custom built for you");
         if (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['signer_name'])) {
             $this->templates[FRONTPAGE_ROLLER_SIGNEDBY] = sprintf(_("Digitally signed by the organisation that coordinates %s: %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['signer_name']);

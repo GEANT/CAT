@@ -156,9 +156,9 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         $supportInfo .= '<tr><td>' . ("tel:") . '</td><td><a href="' . $attributes['local_phone'] . '" target="_blank">' . $attributes['local_phone'] . '</a></td></tr>';
     }
     if ($supportInfo != '') {
-        $supportInfo = "<table><tr><th colspan='2'>" . sprintf(_("If you encounter problems, then you can obtain direct assistance from your %s at:"), $cat->nomenclature_inst) . "</th></tr>$supportInfo</table>";
+        $supportInfo = "<table><tr><th colspan='2'>" . _("If you encounter problems, then you can obtain direct assistance from your organisation at:") . "</th></tr>$supportInfo</table>";
     } else {
-        $supportInfo = "<table><tr><th colspan='2'>" . sprintf(_("If you encounter problems you should ask for help at your %s"), $cat->nomenclature_inst) . "</th></tr></table>";
+        $supportInfo = "<table><tr><th colspan='2'>" . _("If you encounter problems you should ask those who gave you your account for help.") . "</th></tr></table>";
     }
     ?>
     <script>

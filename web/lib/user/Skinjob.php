@@ -35,20 +35,6 @@ class Skinjob {
      * @var string
      */
     public $skin;
-
-    /**
-     * the custom displayable variant of the term 'federation'
-     * 
-     * @var string
-     */
-    public $nomenclature_fed;
-
-    /**
-     * the custom displayable variant of the term 'institution'
-     * 
-     * @var string
-     */
-    public $nomenclature_inst;
     
     /**
      * Initialise the skin.
@@ -66,10 +52,6 @@ class Skinjob {
         $this->skin = $actualSkin;
         $_SESSION['skin'] = $actualSkin;
 
-        $cat = new \core\CAT();
-        
-        $this->nomenclature_fed = $cat->nomenclature_fed;
-        $this->nomenclature_inst = $cat->nomenclature_inst;
     }
 
     /**
