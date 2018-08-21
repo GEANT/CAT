@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-05 14:51+0200\n"
+"POT-Creation-Date: 2018-08-21 15:38+0200\n"
 "PO-Revision-Date: 2015-04-07 14:08+0000\n"
 "Last-Translator: Janos Mohacsi <mohacsi@niif.hu>\n"
 "Language-Team: Hungarian (http://www.transifex.com/projects/p/cat/language/"
@@ -19,16 +19,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#. / eduroam CAT, twice the consortium name eduroam, twice eduroam CAT
 #: web/user/about_cat.inc.php:28
 #, fuzzy, php-format
 msgid ""
 "<span class='edu_cat'>%s</span> is built as a cooperation platform.<p>Local "
 "%s administrators enter their %s configuration details and based on them, "
 "<span class='edu_cat'>%s</span> builds customised installers for a number of "
-"popular platforms. An installer prepared for one %s will not work for users "
-"of another one, therefore if your %s is not on the list, you cannot use this "
-"system. Please contact your local administrators and try to influence them "
-"to add your %s configuration to <span class='edu_cat'>%s</span>."
+"popular platforms. An installer prepared for one organisation will not work "
+"for users of another one, therefore if your organisation is not on the list, "
+"you cannot use this system. Please contact your local administrators and try "
+"to influence them to add your %s configuration to <span class='edu_cat'>%s</"
+"span>."
 msgstr ""
 "<span class='edu_cat'>%s</span> egy együttműködési platfomnak készült."
 "<p>Helyi %s adminisztrátor tölti ki a saját %s konfigurációs adatokat és "
@@ -40,22 +42,22 @@ msgstr ""
 "anyaintézményi rendszergazdával és beszéld rá, hogy töltse fel szükséges "
 "konfigurációkat  <span class='edu_cat'>%s</span>."
 
-#: web/user/about_cat.inc.php:29
+#: web/user/about_cat.inc.php:37
 #, php-format
 msgid ""
 "<span class='edu_cat'>%s</span> currently supports the following devices and "
 "EAP type combinations:"
 msgstr ""
 
-#: web/user/about_cat.inc.php:30
+#: web/user/about_cat.inc.php:38
 msgid "Device Group"
 msgstr ""
 
-#: web/user/about_cat.inc.php:30
+#: web/user/about_cat.inc.php:38
 msgid "Device"
 msgstr ""
 
-#: web/user/about_cat.inc.php:72
+#: web/user/about_cat.inc.php:80
 #, php-format
 msgid ""
 "<p><span class='edu_cat'>%s</span> is publicly accessible. To enable its use "
@@ -65,7 +67,7 @@ msgid ""
 "(the service itself)</li>"
 msgstr ""
 
-#: web/user/about_cat.inc.php:77
+#: web/user/about_cat.inc.php:85
 #, php-format
 msgid ""
 "<li><b>%s</b> (the CRL Distribution Point for the site certificate), also "
@@ -76,7 +78,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: web/user/about_cat.inc.php:80
+#: web/user/about_cat.inc.php:88
 #, php-format
 msgid ""
 "<li><b>%s</b> (the OCSP Responder for the site certificate), also TCP/80</li>"
@@ -85,7 +87,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: web/user/about_cat.inc.php:82
+#: web/user/about_cat.inc.php:90
 #, php-format
 msgid ""
 "<li><b>android.l.google.com</b> (Google Play access for Android App)</"
@@ -141,18 +143,19 @@ msgid ""
 msgstr ""
 
 #: web/user/faq.inc.php:17 web/user/faq.php:14
-#, fuzzy, php-format
-msgid "My %s is not listed. Can't I just use any of the other ones?"
+#, fuzzy
+msgid "My organisation is not listed. Can't I just use any of the other ones?"
 msgstr ""
 "Az intézményem nincs felsorolva. Nem választhatnék egy másikat a listáról?"
 
 #: web/user/faq.inc.php:18 web/user/faq.php:15
-#, fuzzy, php-format
+#, fuzzy
 msgid ""
-"No! The installers contain security settings which are specific to the %s. "
-"If you are not from that %s, your computer will detect that you are about to "
-"send your username and credential to an unauthorised server and will abort "
-"the login. Using a different %s installer is <i>guaranteed to not work</i>!"
+"No! The installers contain security settings which are specific to the "
+"organisation. If you are not from that organisation, your computer will "
+"detect that you are about to send your username and credential to an "
+"unauthorised server and will abort the login. Using an installer from a "
+"different organisation is <i>guaranteed to not work</i>!"
 msgstr ""
 "Nem! Az installálóprogram az adott intézményhez köthető biztonsági "
 "beállításokat tartalmaz. Ha nem a sajátodat használod, a géped nem a "
@@ -161,15 +164,15 @@ msgstr ""
 "installálójának használata <i>garantáltan hibához vezet</i>!"
 
 #: web/user/faq.inc.php:22 web/user/faq.php:19
-#, fuzzy, php-format
-msgid "What can I do to get my %s listed?"
+#, fuzzy
+msgid "What can I do to get my organisation listed?"
 msgstr "Hogy vetethetem fel az intézményem a listára?"
 
 #: web/user/faq.inc.php:23 web/user/faq.php:20
 #, fuzzy, php-format
 msgid ""
-"Contact %s administrators at your %s and complain. It will take at most one "
-"hour of their time to get things done."
+"Contact %s administrators within your organisation and complain. It will "
+"take at most one hour of their time to get things done."
 msgstr ""
 "Lépj kapcsolatba az intézményed %s adminisztrátorával és nála reklamálj! "
 "Legfeljebb egy óra alatt orvosolható a probléma."
@@ -290,8 +293,8 @@ msgid ""
 "may have expired; there may be a connection problem with your home "
 "authentication server; you may have broken the regulations of the network "
 "you are using and have been refused access as a consequence. You should "
-"contact your %s and report the problem, the administrators should be able to "
-"trace your connections."
+"contact your organisation and report the problem, the administrators should "
+"be able to trace your connections."
 msgstr ""
 "Ennek számtalan oka lehet. Például a hálózat amit látsz, nem valódi %s és az "
 "eszközöd visszautasítja a csatlakozási kérelmed. Vagy esetleg valami félre "
@@ -340,8 +343,8 @@ msgid ""
 "you are using and have been refused access as a consequence; or maybe there "
 "is an actual technical problem. To exclude the latter, you should first "
 "visit the %s Diagnostics tool <a href=''>here</a>, which can find many "
-"reasons for failure. It also allows you to contact your %s and report the "
-"problem to them."
+"reasons for failure. It also allows you to contact your organisation and "
+"report the problem to them."
 msgstr ""
 "Ennek számtalan oka lehet. Például a hálózat amit látsz, nem valódi %s és az "
 "eszközöd visszautasítja a csatlakozási kérelmed. Vagy esetleg valami félre "
@@ -501,8 +504,8 @@ msgid "%s installation made easy:"
 msgstr "%s telepítés könnyű lett:"
 
 #: web/lib/user/TextTemplates.php:80
-#, fuzzy, php-format
-msgid "Custom built for your %s"
+#, fuzzy
+msgid "Custom built for your organisation"
 msgstr "Kifejezetten az anyaintézményed részére elkészítve"
 
 #: web/lib/user/TextTemplates.php:81
@@ -544,8 +547,8 @@ msgstr ""
 "Ha <b>Folytatás gombra</b> kattintasz ez a támogató oldal nyílik meg új "
 "ablakban/fülben."
 
-#: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:253
-#: web/skins/modern/user/js/cat_js.php:261
+#: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:266
+#: web/skins/modern/user/js/cat_js.php:274
 msgid "Continue"
 msgstr "Tovább"
 
@@ -564,8 +567,8 @@ msgstr ""
 #: web/lib/user/TextTemplates.php:91
 #, php-format
 msgid ""
-"This site provides %s installers for many %s, click here to see if your %s "
-"is on the list."
+"This site provides %s installers for many organisations, click here to see "
+"if yours is on the list."
 msgstr ""
 
 #: web/lib/user/TextTemplates.php:92
@@ -807,17 +810,18 @@ msgid ""
 msgstr ""
 
 #: web/skins/modern/accountstatus/accountstatus.php:159
-#: web/skins/modern/user/js/cat_js.php:220
-#, fuzzy, php-format
+#: web/skins/modern/user/js/cat_js.php:233
+#, fuzzy
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
-"%s at:"
+"organisation at:"
 msgstr "Ha problémád támadna, nyugodtan kérj segítséget az anyaintézményedtől:"
 
 #: web/skins/modern/accountstatus/accountstatus.php:161
-#: web/skins/modern/user/js/cat_js.php:222
-#, fuzzy, php-format
-msgid "If you encounter problems you should ask for help at your %s"
+#, fuzzy
+msgid ""
+"If you encounter problems you should ask those who gave you your account for "
+"help."
 msgstr "Ha elakadnál, legjobb ha segítséget kérsz az anyaintézményedtől"
 
 #: web/skins/modern/accountstatus/accountstatus.php:172
@@ -909,36 +913,44 @@ msgstr ""
 "rendszer adminisztrátorait értesítettük. A hibát a lehető leggyorsabban "
 "igyekszünk elhárítani. "
 
-#: web/skins/modern/user/js/cat_js.php:79
-#: web/skins/modern/user/js/cat_js.php:202
+#: web/skins/modern/user/js/cat_js.php:81
+#: web/skins/modern/user/js/cat_js.php:215
 msgid "no matching data found"
 msgstr "Nem találtam illeszkedő adatot"
 
-#: web/skins/modern/user/js/cat_js.php:93
+#: web/skins/modern/user/js/cat_js.php:95
 msgid "select"
 msgstr "válassz"
 
-#: web/skins/modern/user/js/cat_js.php:214
+#: web/skins/modern/user/js/cat_js.php:227
 msgid "WWW:"
 msgstr "Web:"
 
-#: web/skins/modern/user/js/cat_js.php:216
+#: web/skins/modern/user/js/cat_js.php:229
 msgid "email:"
 msgstr "E-mail:"
 
-#: web/skins/modern/user/js/cat_js.php:218
+#: web/skins/modern/user/js/cat_js.php:231
 msgid "tel:"
 msgstr "Tel:"
 
-#: web/skins/modern/user/js/cat_js.php:240
-#: web/skins/modern/user/js/cat_js.php:266
-#, fuzzy, php-format
-msgid "This device cannot be configured with settings provided by your %s"
+#: web/skins/modern/user/js/cat_js.php:235
+#, fuzzy
+msgid ""
+"If you encounter problems you should ask those who you gave you your account "
+"for help."
+msgstr "Ha elakadnál, legjobb ha segítséget kérsz az anyaintézményedtől"
+
+#: web/skins/modern/user/js/cat_js.php:253
+#: web/skins/modern/user/js/cat_js.php:279
+#, fuzzy
+msgid ""
+"This device cannot be configured with the settings used in your organisation."
 msgstr ""
 "Ez az eszköz nem konfigurálható azokkal a beállításokkal, amelyek jelenleg "
 "az intézménynél be vannak állítva."
 
-#: web/skins/modern/user/js/cat_js.php:253
+#: web/skins/modern/user/js/cat_js.php:266
 msgid ""
 "Your site administrator has specified that this device should be configured "
 "with resources located on a local page. When you click <b>Continue</b> this "
@@ -948,107 +960,111 @@ msgstr ""
 "konfigurációját a helyi oldal alapján kell megtenni. Ha  <b>Folytatás</b> "
 "gombra kattintasz, akkor az az oldal fog megnyilni egy új böngésző lapon."
 
-#: web/skins/modern/user/js/cat_js.php:267
+#: web/skins/modern/user/js/cat_js.php:280
 msgid "Close"
 msgstr "Bezárás"
 
-#: web/skins/modern/user/js/cat_js.php:363
+#: web/skins/modern/user/js/cat_js.php:376
 msgid "Missing email address"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:377
+#: web/skins/modern/user/js/cat_js.php:390
 msgid "No providers found for this email"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:382
+#: web/skins/modern/user/js/cat_js.php:395
 msgid "Your IdP is:"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:384
+#: web/skins/modern/user/js/cat_js.php:397
 msgid "Your IdP could be one of:"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:536
-#, fuzzy, php-format
-msgid "Select your <strong>%s<\\/strong>"
-msgstr "Válaszd ki az <strong>intézményed<\\/strong>!"
+#: web/skins/modern/user/js/cat_js.php:554
+msgid "Organisation"
+msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:537
-#, fuzzy, php-format
-msgid "Help, my %s is not on the list"
+#: web/skins/modern/user/js/cat_js.php:555
+#, fuzzy
+msgid "Select your organisation"
+msgstr "Válassz intézményt"
+
+#: web/skins/modern/user/js/cat_js.php:556
+#, fuzzy
+msgid "Help, my organisation is not on the list"
 msgstr "Segítséget kérek! Az intézményem nincs a felsorolásban."
 
-#: web/skins/modern/user/js/cat_js.php:538
+#: web/skins/modern/user/js/cat_js.php:557
 #, fuzzy, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
-"your %s is not on the list, then nag them to add information to the %s "
-"database."
+"your organisation is not on the list, then nag them to add information to "
+"the %s database."
 msgstr ""
 "Ez a rendszer azokon az adatokon alapul, melyet a helyi %s adminisztrátorok "
 "szolgáltatnak. Ha az intézményed nincs a listán, kérd meg őket, hogy "
 "táplálják be a szükséges információkat az %s adatbázisba!"
 
-#: web/skins/modern/user/js/cat_js.php:539
+#: web/skins/modern/user/js/cat_js.php:558
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr ""
 "Pontosabb helymeghatározást kérek a HTML5 Geo-Location szolgáltatása révén"
 
-#: web/skins/modern/user/js/cat_js.php:540
-#, fuzzy, php-format
-msgid "Show %ss in"
+#: web/skins/modern/user/js/cat_js.php:559
+#, fuzzy
+msgid "Show organisations in"
 msgstr "Mutasd az itteni intézményeket:"
 
-#: web/skins/modern/user/js/cat_js.php:541
+#: web/skins/modern/user/js/cat_js.php:560
 msgid "all countries"
 msgstr "minden ország"
 
-#: web/skins/modern/user/js/cat_js.php:542
-#, fuzzy, php-format
-msgid "or search for an %s, in example Univerity of Oslo"
+#: web/skins/modern/user/js/cat_js.php:561
+#, fuzzy
+msgid "or search for an organisation, for example Univerity of Oslo"
 msgstr "vagy keress az intézmények között, pl. Óbudai Egyetem"
 
-#: web/skins/modern/user/js/cat_js.php:543
+#: web/skins/modern/user/js/cat_js.php:562
 msgid "show all countries"
 msgstr "Mutass minden országot"
 
-#: web/skins/modern/user/js/cat_js.php:544
+#: web/skins/modern/user/js/cat_js.php:563
 msgid "Results limited to"
 msgstr "Az eredmények számának korlátja:"
 
-#: web/skins/modern/user/js/cat_js.php:545
+#: web/skins/modern/user/js/cat_js.php:564
 msgid "entries - show more"
 msgstr "bejegyzések - mutass még"
 
-#: web/skins/modern/user/js/cat_js.php:546
+#: web/skins/modern/user/js/cat_js.php:565
 msgid "Nearby"
 msgstr "közeli"
 
-#: web/skins/modern/user/js/cat_js.php:547
+#: web/skins/modern/user/js/cat_js.php:566
 msgid "Location timeout"
 msgstr "helymeghatározási időtúllépés"
 
-#: web/skins/modern/user/js/cat_js.php:548
+#: web/skins/modern/user/js/cat_js.php:567
 msgid "Could not get your position"
 msgstr "Nem tudom meghatározni a poziciód"
 
-#: web/skins/modern/user/js/cat_js.php:549
+#: web/skins/modern/user/js/cat_js.php:568
 msgid "Your browser has denied access to your location"
 msgstr "A böngésző visszautasította a helyinformációkhoz való hozzáférést."
 
-#: web/skins/modern/user/js/cat_js.php:550
+#: web/skins/modern/user/js/cat_js.php:569
 msgid "Unknown location error"
 msgstr "Ismeretlen helymeghatározási hiba"
 
-#: web/skins/modern/user/js/cat_js.php:551
+#: web/skins/modern/user/js/cat_js.php:570
 msgid "You are here:"
 msgstr "Itt vagy:"
 
-#: web/skins/modern/user/js/cat_js.php:552
+#: web/skins/modern/user/js/cat_js.php:571
 msgid "Getting your location..."
 msgstr "Helymeghatározás folyamatban..."
 
-#: web/skins/modern/user/js/cat_js.php:553
+#: web/skins/modern/user/js/cat_js.php:572
 msgid "Nearby providers shown on top."
 msgstr "Közelebbi szolgáltatók legfelül talalhatóak"
 
@@ -1099,6 +1115,10 @@ msgstr "Minden nagyobb kiadás"
 msgid "Chrome OS"
 msgstr ""
 
+#, fuzzy
+#~ msgid "Select your <strong>%s<\\/strong>"
+#~ msgstr "Válaszd ki az <strong>intézményed<\\/strong>!"
+
 #~ msgid ""
 #~ "The most important need is adding new installer modules, which will "
 #~ "configure particular devices.  CAT is making this easy for you. If you "
@@ -1126,9 +1146,6 @@ msgstr ""
 
 #~ msgid "Select your country"
 #~ msgstr "Válaszd ki az országod"
-
-#~ msgid "Select your institution"
-#~ msgstr "Válassz intézményt"
 
 #~ msgid ""
 #~ "Your operating system was not properly detected, is not supported yet or "

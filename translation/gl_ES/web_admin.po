@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-17 15:52+0200\n"
+"POT-Creation-Date: 2018-08-21 15:38+0200\n"
 "PO-Revision-Date: 2015-04-07 08:37+0000\n"
 "Last-Translator: Miguel Gonzalez Miron <miguel.gonzalez@udc.es>\n"
 "Language-Team: Galician (Spain) (http://www.transifex.com/projects/p/cat/"
@@ -39,8 +39,9 @@ msgstr ""
 #: web/admin/action_enrollment.php:71
 #, fuzzy, php-format
 msgid ""
-"Sorry... this token has already been used to create an %s. If you got it "
-"from a mailing list, probably someone else used it before you."
+"Sorry... this token has already been used. The %s is already created. If you "
+"got the invitation from a mailing list, probably someone else used it before "
+"you."
 msgstr ""
 "Mágoa... este token xa se usou para crear unha institución. De telo obtido a "
 "partir dunha lista de correo, probabelmente xa o usou alguén antes de "
@@ -50,7 +51,7 @@ msgstr ""
 #, fuzzy, php-format
 msgid ""
 "Sorry... this token has expired. Invitation tokens are valid for 24 hours. "
-"Please ask your %s administrator for a new one."
+"The %s administrator can create a new one for you."
 msgstr ""
 "Mágoa... o tempo deste token expirou. Os tokens de convite son válidos "
 "durante 24 horas. Pídalle á súa federacón un novo."
@@ -83,12 +84,12 @@ msgid "%s Properties"
 msgstr "Propiedades do medio"
 
 #: web/admin/edit_federation.php:56 web/admin/edit_idp.php:76
-#: web/lib/admin/UIElements.php:214
+#: web/lib/admin/UIElements.php:215
 msgid "Country:"
 msgstr "País:"
 
-#: web/admin/edit_federation.php:73 web/admin/edit_idp.php:110
-#: web/admin/edit_idp.php:166 web/admin/edit_idp.php:190
+#: web/admin/edit_federation.php:73 web/admin/edit_idp.php:109
+#: web/admin/edit_idp.php:165 web/admin/edit_idp.php:190
 #: web/admin/edit_profile.php:147 web/admin/edit_profile.php:462
 #: web/admin/edit_user.php:46 web/admin/inc/toggleRedirect.inc.php:124
 msgid "Add new option"
@@ -117,7 +118,7 @@ msgid "Submitted attributes for %s '%s'"
 msgstr "Atributos enviados para o IdP '%s'"
 
 #: web/admin/edit_federation_result.php:47 web/admin/edit_idp_result.php:144
-#: web/admin/edit_profile_result.php:228
+#: web/admin/edit_profile_result.php:224
 msgid "Continue to dashboard"
 msgstr "Ir ao taboleiro de control"
 
@@ -142,15 +143,15 @@ msgstr "Edición da información do IdP para '%s'"
 
 #: web/admin/edit_idp.php:73
 #, fuzzy, php-format
-msgid "General %s properties"
+msgid "%s general properties"
 msgstr "Propiedades xerais do perfil"
 
 #: web/admin/edit_idp.php:92
 #, fuzzy, php-format
 msgid ""
-"Hello, newcomer. Your %s is new to us. This wizard will ask you several "
-"questions about your %s, so that we can generate beautiful profiles for you "
-"in the end. All of the information below is optional, but it is important to "
+"Hello, newcomer. The %s is new to us. This wizard will ask you several "
+"questions about it, so that we can generate beautiful profiles for you in "
+"the end. All of the information below is optional, but it is important to "
 "fill out as many fields as possible for the benefit of your end users."
 msgstr ""
 "Ola por primeira vez. A súa institución é nova para nós. Este asistente "
@@ -166,8 +167,9 @@ msgstr "Información xeral"
 #: web/admin/edit_idp.php:101
 #, fuzzy, php-format
 msgid ""
-"This is the place where you can describe your %s in a fine-grained way. The "
-"solicited information is used as follows:"
+"The %s has properties which are valid across all deployment profiles. This "
+"is the place where you can describe those properties in a fine-grained way. "
+"The solicited information is used as follows:"
 msgstr ""
 "Este é o lugar onde pode describir a súa institución de modo detallado. A "
 "información solicitada úsase como segue:"
@@ -186,20 +188,19 @@ msgstr ""
 "superior dereito desta páxina)."
 
 #: web/admin/edit_idp.php:104
+#, php-format
 msgid ""
-"<strong>Terms of Use</strong>: Some installers support displaying text to "
-"the user during installation time. If so, we will make that happen if you "
-"upload an RTF file or plain text file to display."
+"<strong>Name</strong>: The %s may have names in multiple languages. It is "
+"recommended to always populate at least the 'default/other' language, as it "
+"is used as a fallback if the system does not have a name in the exact "
+"language the user requests a download in."
 msgstr ""
-"<strong>Condicións de uso</strong>: Algúns instaladores permiten amosar "
-"texto ao usuario no momento da instalación. Nese caso, verase que sucede se "
-"envias un ficheiro RTF ou de texto simple para presentar."
 
-#: web/admin/edit_idp.php:116 web/lib/admin/UIElements.php:228
+#: web/admin/edit_idp.php:115 web/lib/admin/UIElements.php:229
 msgid "Media Properties"
 msgstr "Propiedades do medio"
 
-#: web/admin/edit_idp.php:120
+#: web/admin/edit_idp.php:119
 #, php-format
 msgid ""
 "In this section, you define on which media %s should be configured on user "
@@ -208,22 +209,22 @@ msgstr ""
 "Define nesta sección en que medio debería ser configurado %s nos "
 "dispositivos de usuario."
 
-#: web/admin/edit_idp.php:123
+#: web/admin/edit_idp.php:122
 msgid "Additional SSIDs:"
 msgstr "SSID adicionais:"
 
-#: web/admin/edit_idp.php:123
+#: web/admin/edit_idp.php:122
 msgid "SSIDs:"
 msgstr "SSID:"
 
-#: web/admin/edit_idp.php:130
+#: web/admin/edit_idp.php:129
 #, php-format
 msgid "We will always configure this SSID for WPA2/AES: %s."
 msgid_plural "We will always configure these SSIDs for WPA2/AES: %s."
 msgstr[0] "Sempre vamos configurar este SSID para WPA2/AES: %s."
 msgstr[1] "Sempre vamos configurar estes SSID para WPA2/AES: %s."
 
-#: web/admin/edit_idp.php:132
+#: web/admin/edit_idp.php:131
 msgid ""
 "They will also be configured for WPA/TKIP if the device supports multiple "
 "encryption types."
@@ -231,7 +232,7 @@ msgstr ""
 "Tamén se configurarán para WPA/TKIP se o dispositivo permite múltiplos tipos "
 "de cifrado."
 
-#: web/admin/edit_idp.php:134
+#: web/admin/edit_idp.php:133
 #, php-format
 msgid ""
 "It is also possible to define custom additional SSIDs with the options '%s' "
@@ -239,11 +240,11 @@ msgid ""
 msgstr ""
 "Tamén é posíbel definir SSID adicionais coas opcións '%s' e '%s' seguintes."
 
-#: web/admin/edit_idp.php:136
+#: web/admin/edit_idp.php:135
 msgid "Please configure which SSIDs should be configured in the installers."
 msgstr "Escolla con que SSID debería configurarse nos instaladores."
 
-#: web/admin/edit_idp.php:138
+#: web/admin/edit_idp.php:137
 msgid ""
 "By default, we will only configure the SSIDs with WPA2/AES encryption. By "
 "using the '(with WPA/TKIP)' option you can specify that we should include "
@@ -253,22 +254,22 @@ msgstr ""
 "opción '(con WPA/TKIP)' pode especificar que deberiamos incluír a "
 "compatibilidade herdábel para WPA/TKIP cando sexa posíbel."
 
-#: web/admin/edit_idp.php:142
+#: web/admin/edit_idp.php:141
 msgid "Additional Hotspot 2.0 / Passpoint Consortia:"
 msgstr "Hotspot 2.0 / Passpoint Consortia adicionais:"
 
-#: web/admin/edit_idp.php:142
+#: web/admin/edit_idp.php:141
 msgid "Hotspot 2.0 / Passpoint Consortia:"
 msgstr "Hotspot 2.0 / Passpoint Consortia:"
 
-#: web/admin/edit_idp.php:149
+#: web/admin/edit_idp.php:148
 #, php-format
 msgid "We will always configure this Consortium OI: %s."
 msgid_plural "We will always configure these Consortium OIs: %s."
 msgstr[0] "Sempre configuraremos este Consortium OI: %s."
 msgstr[1] "Sempre configuraremos estos Consortium OIs: %s."
 
-#: web/admin/edit_idp.php:151
+#: web/admin/edit_idp.php:150
 #, php-format
 msgid ""
 "It is also possible to define custom additional OIs with the option '%s' "
@@ -277,18 +278,18 @@ msgstr ""
 "É posible tamén definir un OI propio adicional coa opción '%s' de máis "
 "abaixo."
 
-#: web/admin/edit_idp.php:153
+#: web/admin/edit_idp.php:152
 msgid ""
 "Please configure which Consortium OIs should be configured in the installers."
 msgstr ""
 "Por favor, especifica que Consortium OIs deberían ser configurados nos "
 "instaladores."
 
-#: web/admin/edit_idp.php:156
+#: web/admin/edit_idp.php:155
 msgid "Support for wired IEEE 802.1X:"
 msgstr "Soporte para IEEE 802.1X cableado:"
 
-#: web/admin/edit_idp.php:157
+#: web/admin/edit_idp.php:156
 msgid ""
 "If you want to configure your users' devices with IEEE 802.1X support for "
 "wired ethernet, please check the corresponding box. Note that this makes the "
@@ -303,11 +304,11 @@ msgstr ""
 "En Apple, ao tentar instalar un perfil con soporte de rede cableada nun "
 "dispositivo sen un dispositivo de rede cableada activa fallará)."
 
-#: web/admin/edit_idp.php:159
+#: web/admin/edit_idp.php:158
 msgid "Removal of bootstrap/onboarding SSIDs:"
 msgstr "Eliminación de SSIDs de arranque/incorporación:"
 
-#: web/admin/edit_idp.php:160
+#: web/admin/edit_idp.php:159
 msgid ""
 "If you use a captive portal to distribute configurations, you may want to "
 "unconfigure/disable that SSID after the bootstrap process. With this option, "
@@ -317,11 +318,11 @@ msgstr ""
 "queiras deshabilitar ese SSID despois do proceso de arranque. Con esta "
 "opción o SSID será eliminado ou definido como 'Conexión manual'."
 
-#: web/admin/edit_idp.php:169
+#: web/admin/edit_idp.php:168
 msgid "Helpdesk Details for all users"
 msgstr "Detalles da asistencia técnica para todos os usuarios"
 
-#: web/admin/edit_idp.php:172
+#: web/admin/edit_idp.php:171
 msgid ""
 "This section can be used to upload specific Terms of Use for your users and "
 "to display details of how your users can reach your local helpdesk."
@@ -330,8 +331,8 @@ msgstr ""
 #: web/admin/edit_idp.php:176
 #, fuzzy, php-format
 msgid ""
-"If your %s does provide a helpdesk for its users, it would be nice if you "
-"would tell us the pointers to this helpdesk."
+"Does the %s provide helpdesk services for its users? If so, it would be nice "
+"if you would tell us the pointers to this helpdesk."
 msgstr ""
 "Se o IdP fornece asistencia técnica para os seus usuarios, estaría ben se "
 "nos informase destas puntualizacións de asistencia. Algúns instaladores "
@@ -345,7 +346,7 @@ msgid ""
 "users, and will be displayed on the download page. If you operate separate "
 "helpdesks for different user groups (we call this 'profiles') specify per-"
 "profile helpdesk information later in this wizard. If you operate no help "
-"desk at all, just these fields empty."
+"desk at all, just leave these fields empty."
 msgstr ""
 "Ao introducir un valor aquí, engadirase aos instaladores do sitio para todos "
 "os seus usuarios e amosarase na páxina de descarga. Se manexa distintos "
@@ -428,8 +429,8 @@ msgstr "Continuar na páxina xeral do usuario"
 #, php-format
 msgid ""
 "You did not submit an e-mail address. This is required for %s. Please go to "
-"the %s dashboard and edit your %s settings to include a helpdesk e-mail "
-"address."
+"the %s dashboard and edit your helpdesk settings to include a helpdesk e-"
+"mail address."
 msgstr ""
 
 #: web/admin/edit_idp_result.php:136
@@ -784,7 +785,7 @@ msgstr ""
 "O tipo EAP engadiuse ao perfil pero cómpre que complete a información que "
 "falta antes de producirmos os instaladores adecuados para vostede."
 
-#: web/admin/edit_profile_result.php:233
+#: web/admin/edit_profile_result.php:229
 msgid "Continue to Installer Fine-Tuning and Download"
 msgstr "Continúe cos axustes finos do Instalador e Descarga"
 
@@ -1092,7 +1093,7 @@ msgstr ""
 msgid "%s: %s Management"
 msgstr "%s: Xestión de usuarios"
 
-#: web/admin/overview_federation.php:30
+#: web/admin/overview_federation.php:30 web/admin/overview_idp.php:50
 #, fuzzy, php-format
 msgid "%s Overview"
 msgstr "Vista xeral de usuario"
@@ -1154,25 +1155,21 @@ msgstr ""
 msgid "but <b>in clear text</b> to the mail domain"
 msgstr ""
 
-#: web/admin/overview_federation.php:145
-#: web/admin/inc/manageAdmins.inc.php:103
+#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:103
 #, fuzzy, php-format
 msgid "The invitation email was sent successfully %s."
 msgstr "O correo de convite enviouse correctamente."
 
-#: web/admin/overview_federation.php:145
-#: web/admin/inc/manageAdmins.inc.php:103
+#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:103
 msgid "The invitation email was sent."
 msgstr "Enviouse o convite."
 
-#: web/admin/overview_federation.php:148
-#: web/admin/inc/manageAdmins.inc.php:106 web/admin/inc/overview_js.php:56
-#: web/admin/inc/overview_js.php:111
+#: web/admin/overview_federation.php:148 web/admin/inc/manageAdmins.inc.php:106
+#: web/admin/inc/overview_js.php:56 web/admin/inc/overview_js.php:111
 msgid "The invitation email could not be sent!"
 msgstr "O correo de convite non se puido enviar!"
 
-#: web/admin/overview_federation.php:151
-#: web/admin/inc/manageAdmins.inc.php:109
+#: web/admin/overview_federation.php:151 web/admin/inc/manageAdmins.inc.php:109
 #, fuzzy
 msgid "The invitation email address was malformed, no invitation was sent!"
 msgstr "O correo de convite non se puido enviar!"
@@ -1194,10 +1191,12 @@ msgstr ""
 msgid "Deployment Status"
 msgstr "Estado do despregue"
 
-#: web/admin/overview_federation.php:168 web/lib/admin/UIElements.php:83
-#, php-format
-msgid "Name of %s"
-msgstr ""
+#: web/admin/overview_federation.php:168 web/admin/overview_user.php:103
+#: web/admin/inc/manageDBLink.inc.php:149 web/lib/admin/UIElements.php:83
+#: web/lib/admin/UIElements.php:111
+#, fuzzy, php-format
+msgid "%s Name"
+msgstr "Nome da institución"
 
 #: web/admin/overview_federation.php:174
 #, php-format
@@ -1210,9 +1209,9 @@ msgstr "Xestión de administradores"
 
 #. / nomenclature for 'federation', federation name, nomenclature for 'inst'
 #: web/admin/overview_federation.php:189
-#, fuzzy, php-format
-msgid "Your %s %s contains the following %s list:"
-msgstr "Vostede está a xestionar a seguinte institución:"
+#, php-format
+msgid "The following %s are in your %s %s:"
+msgstr ""
 
 #: web/admin/overview_federation.php:225
 msgid "Manage DB Link"
@@ -1232,16 +1231,16 @@ msgstr "Engadir/Retirar administradores"
 
 #: web/admin/overview_federation.php:263
 #, fuzzy, php-format
-msgid "Pending invitations in your %s:"
+msgid "Pending invitations in the %s:"
 msgstr "Convites pendentes na súa federación:"
 
 #: web/admin/overview_federation.php:280
 msgid "Revoke Invitation"
 msgstr "Revogar convite"
 
-#: web/admin/overview_federation.php:299 web/admin/overview_user.php:166
+#: web/admin/overview_federation.php:299
 #, fuzzy, php-format
-msgid "Register new %s!"
+msgid "Register a new %s!"
 msgstr "Rexistrar unha nova institución"
 
 #: web/admin/overview_idp.php:28
@@ -1249,20 +1248,15 @@ msgstr "Rexistrar unha nova institución"
 msgid "%s: IdP Dashboard"
 msgstr "%s: Taboleiro de control IdP"
 
-#: web/admin/overview_idp.php:50
-#, fuzzy, php-format
-msgid "Overview of %s"
-msgstr "Vista xeral de usuario"
-
 #: web/admin/overview_idp.php:52
 #, fuzzy, php-format
-msgid "%s-wide settings"
+msgid "%s general settings"
 msgstr "Configuración xeral de IdP"
 
 #: web/admin/overview_idp.php:57
-#, php-format
-msgid "QR Code for %s download area"
-msgstr ""
+#, fuzzy, php-format
+msgid "%s download area QR code"
+msgstr "Código QR para a área de descargas da institución"
 
 #: web/admin/overview_idp.php:86
 #, fuzzy, php-format
@@ -1291,8 +1285,8 @@ msgstr "Eliminar"
 #: web/admin/overview_idp.php:97
 #, fuzzy, php-format
 msgid ""
-"This action will delete all properties of your %s and start over the "
-"configuration from scratch. Do you really want to reset all settings of your "
+"This action will delete all properties of the %s and start over the "
+"configuration from scratch. Do you really want to reset all settings of the "
 "%s %s?"
 msgstr ""
 "Esta acción eliminará todas as propiedades do teu IdP e deixarao sen "
@@ -1320,7 +1314,7 @@ msgstr "Vamos!"
 #. SW: APPROVED
 #: web/admin/overview_idp.php:122
 #, fuzzy, php-format
-msgid "Check server status of European %ss"
+msgid "Check %s server status"
 msgstr "Comprobar o estado de servidor de federacións europeas"
 
 #. no profiles yet.
@@ -1358,7 +1352,7 @@ msgstr "Descargas do usuario"
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr "<strong>Tipos EAP</strong> (por orde de preferencia):"
 
-#: web/admin/overview_idp.php:218 web/lib/admin/UIElements.php:382
+#: web/admin/overview_idp.php:218 web/lib/admin/UIElements.php:383
 msgid "OK"
 msgstr "Aceptar"
 
@@ -1510,7 +1504,7 @@ msgstr "Editar detalles do usuario"
 
 #: web/admin/overview_user.php:60
 #, fuzzy, php-format
-msgid "Click here to manage your %ss"
+msgid "Click here for %s management tasks"
 msgstr "Prema aquí para xestionar as súas federacións"
 
 #: web/admin/overview_user.php:63
@@ -1530,11 +1524,6 @@ msgid_plural "You are managing the following <strong>%d</strong> %s:"
 msgstr[0] "Vostede está a xestionar a seguinte institución:"
 msgstr[1] ""
 "Vostede está a xestionar as seguintes <strong>%d</strong> institucións:"
-
-#: web/admin/overview_user.php:103 web/lib/admin/UIElements.php:111
-#, fuzzy, php-format
-msgid "%s Name"
-msgstr "Nome da institución"
 
 #: web/admin/overview_user.php:103
 #, fuzzy, php-format
@@ -1574,6 +1563,11 @@ msgstr ""
 "Recibiu un token de convitge para xestionar unha institución? Sírvase pegalo "
 "aquí: "
 
+#: web/admin/overview_user.php:166
+#, fuzzy, php-format
+msgid "New %s Registration"
+msgstr "Revogar convite"
+
 #: web/admin/inc/displayQRcode.inc.php:31
 #, fuzzy
 msgid "Invitation Token QR Code"
@@ -1596,8 +1590,8 @@ msgstr "Administradores do IdP '%s'"
 #: web/admin/inc/manageAdmins.inc.php:119
 #, fuzzy, php-format
 msgid ""
-"You are the %s administrator of this %s. You can invite new administrators, "
-"who can in turn appoint further administrators on their own."
+"You are the %s administrator. You can invite new administrators, who can in "
+"turn appoint further administrators on their own."
 msgstr ""
 "Vostede é o administrador da federación deste IdP. Pode convidar a novos "
 "administradores, que poden, pola súa parte, chamar a outros administradores "
@@ -1611,16 +1605,17 @@ msgstr "Administradores"
 #: web/admin/inc/manageAdmins.inc.php:125
 #, fuzzy, php-format
 msgid ""
-"You are an administrator of this %s, and were directly appointed by the %s "
-"administrator. You can appoint further administrators, but these can't in "
-"turn appoint any more administrators."
+"You are an administrator who was directly appointed by the %s administrator. "
+"You can appoint further administrators, but these can't in turn appoint any "
+"more administrators."
 msgstr ""
 "Vostede é un administrador deste IdP que foi chamado directamente polo "
 "administrador da federación. Pode chamar a outros administradores malia que "
 "estes xa non poderán chamar a ningún administrador a maiores."
 
 #: web/admin/inc/manageAdmins.inc.php:125
-msgid "Directly Appointed IdP Administrator"
+#, fuzzy
+msgid "Directly Appointed Administrator"
 msgstr "Administrador de IdP directamente chamado"
 
 #: web/admin/inc/manageAdmins.inc.php:138
@@ -1660,7 +1655,7 @@ msgstr "Tomar o control desta institución"
 
 #: web/admin/inc/manageAdmins.inc.php:202
 #: web/admin/inc/manageDBLink.inc.php:194
-#: web/admin/inc/manageNewInst.inc.php:117
+#: web/admin/inc/manageNewInst.inc.php:116
 msgid "Close"
 msgstr "Pechar"
 
@@ -1696,11 +1691,10 @@ msgstr ""
 msgid "Information in <strong>%s Database</strong>"
 msgstr "A información na <strong>Base de datos %s</strong>"
 
-#: web/admin/inc/manageDBLink.inc.php:99
-#: web/admin/inc/manageDBLink.inc.php:125
-#, php-format
-msgid "Name of %s (%s)"
-msgstr ""
+#: web/admin/inc/manageDBLink.inc.php:99 web/admin/inc/manageDBLink.inc.php:125
+#, fuzzy, php-format
+msgid "%s Name (%s)"
+msgstr "Nome da institución"
 
 #: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/PageDecoration.php:32
 msgid "Unnamed User"
@@ -1762,11 +1756,6 @@ msgid "Link to this entity?"
 msgstr "Ligar con esta entidade?"
 
 #: web/admin/inc/manageDBLink.inc.php:149
-#, fuzzy, php-format
-msgid "Name of the %s"
-msgstr "Nome da institución"
-
-#: web/admin/inc/manageDBLink.inc.php:149
 msgid "Administrators"
 msgstr "Administradores"
 
@@ -1817,38 +1806,27 @@ msgstr ""
 "O último adoita ser o de institucións que aínda están en fase de probas e "
 "daquela aínda non aparecen na base de datos %s."
 
-#: web/admin/inc/manageNewInst.inc.php:51
-#, fuzzy, php-format
-msgid ""
-"Please keep in mind that any profiles of such a new %s will only be made "
-"available on the user download page after you have linked it to an entity in "
-"the %s database (but they are otherwise fully functional)."
-msgstr ""
-"Lembre que os perfís das novas institucións soamente estarán dispoñíbeis na "
-"páxina de descarga do usuario despois de que as ligue a unha entidade na "
-"base de datos %s (malia que son totalmente funcionais)."
-
-#: web/admin/inc/manageNewInst.inc.php:61
+#: web/admin/inc/manageNewInst.inc.php:60
 msgid "Existing IdP:"
 msgstr "IdP existente:"
 
-#: web/admin/inc/manageNewInst.inc.php:66
+#: web/admin/inc/manageNewInst.inc.php:65
 msgid "--- select IdP here ---"
 msgstr "--- Seleccionar o IdP aquí ---"
 
-#: web/admin/inc/manageNewInst.inc.php:84
+#: web/admin/inc/manageNewInst.inc.php:83
 msgid "New IdP"
 msgstr "Novo IdP"
 
-#: web/admin/inc/manageNewInst.inc.php:87
+#: web/admin/inc/manageNewInst.inc.php:86
 msgid "Name"
 msgstr "Nome"
 
-#: web/admin/inc/manageNewInst.inc.php:108
+#: web/admin/inc/manageNewInst.inc.php:107
 msgid "Administrator's E-Mail:"
 msgstr "Correo do administrador:"
 
-#: web/admin/inc/manageNewInst.inc.php:113
+#: web/admin/inc/manageNewInst.inc.php:112
 msgid "Send invitation"
 msgstr "Enviar convite"
 
@@ -2018,7 +1996,7 @@ msgstr ""
 msgid "select language"
 msgstr "seleccionar idioma"
 
-#: web/lib/admin/OptionDisplay.php:224 web/lib/admin/UIElements.php:150
+#: web/lib/admin/OptionDisplay.php:224 web/lib/admin/UIElements.php:151
 msgid "default/other languages"
 msgstr "predeterminado/outros idiomas"
 
@@ -2031,11 +2009,11 @@ msgid "file content"
 msgstr "contido do ficheiro"
 
 #. only modify in this one case
-#: web/lib/admin/OptionDisplay.php:341 web/lib/admin/UIElements.php:180
+#: web/lib/admin/OptionDisplay.php:341 web/lib/admin/UIElements.php:181
 msgid "on"
 msgstr "ACTIVADO"
 
-#: web/lib/admin/OptionDisplay.php:341 web/lib/admin/UIElements.php:180
+#: web/lib/admin/OptionDisplay.php:341 web/lib/admin/UIElements.php:181
 msgid "off"
 msgstr "DESACTIVADO"
 
@@ -2282,81 +2260,117 @@ msgstr ""
 
 #: web/lib/admin/UIElements.php:112
 #, php-format
-msgid "Custom text in %s Invitations"
+msgid "%s Homepage"
 msgstr ""
 
 #: web/lib/admin/UIElements.php:113
 #, php-format
-msgid "Enable %s"
+msgid "Custom text in %s Invitations"
 msgstr ""
 
 #: web/lib/admin/UIElements.php:114
 #, php-format
-msgid "%s: Do not terminate EAP"
+msgid "Enable %s"
 msgstr ""
 
 #: web/lib/admin/UIElements.php:115
 #, php-format
-msgid "%s: max users per profile"
+msgid "%s: Do not terminate EAP"
 msgstr ""
 
 #: web/lib/admin/UIElements.php:116
 #, php-format
+msgid "%s: max users per profile"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:117
+#, php-format
 msgid "Mint %s with CA on creation"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:210
+#: web/lib/admin/UIElements.php:211
 #, fuzzy, php-format
 msgid "General %s details"
 msgstr "Editar detalles do usuario"
 
-#: web/lib/admin/UIElements.php:228
+#: web/lib/admin/UIElements.php:229
 msgid "Global Helpdesk Details"
 msgstr "Detalles de asistencia global"
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:323
+#: web/lib/admin/UIElements.php:324
 #, fuzzy
 msgid "There was an error while retrieving the certificate from the database!"
 msgstr "Produciuse un erro ao procesar o certificado!"
 
-#: web/lib/admin/UIElements.php:330
+#: web/lib/admin/UIElements.php:331
 msgid "There was an error processing the certificate!"
 msgstr "Produciuse un erro ao procesar o certificado!"
 
-#: web/lib/admin/UIElements.php:337
+#: web/lib/admin/UIElements.php:338
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr "Este é un certificado de <strong>SERVIDOR</strong>!"
 
-#: web/lib/admin/UIElements.php:350
+#: web/lib/admin/UIElements.php:351
 msgid "Preview of logo file"
 msgstr "Visualización do ficheiro de logo"
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:363
+#: web/lib/admin/UIElements.php:364
 #, fuzzy
 msgid "There was an error while retrieving the file from the database!"
 msgstr "Produciuse un erro ao procesar o certificado!"
 
-#: web/lib/admin/UIElements.php:367
+#: web/lib/admin/UIElements.php:368
 msgid "File exists"
 msgstr "O ficheiro existe"
 
-#: web/lib/admin/UIElements.php:367
+#: web/lib/admin/UIElements.php:368
 msgid "Preview"
 msgstr "Visualización"
 
-#: web/lib/admin/UIElements.php:383
+#: web/lib/admin/UIElements.php:384
 msgid "Remark"
 msgstr "Nota"
 
-#: web/lib/admin/UIElements.php:384
+#: web/lib/admin/UIElements.php:385
 msgid "Warning!"
 msgstr "Aviso!"
 
-#: web/lib/admin/UIElements.php:385
+#: web/lib/admin/UIElements.php:386
 msgid "Error!"
 msgstr "Erro!"
+
+#~ msgid ""
+#~ "<strong>Terms of Use</strong>: Some installers support displaying text to "
+#~ "the user during installation time. If so, we will make that happen if you "
+#~ "upload an RTF file or plain text file to display."
+#~ msgstr ""
+#~ "<strong>Condicións de uso</strong>: Algúns instaladores permiten amosar "
+#~ "texto ao usuario no momento da instalación. Nese caso, verase que sucede "
+#~ "se envias un ficheiro RTF ou de texto simple para presentar."
+
+#, fuzzy
+#~ msgid "Your %s %s contains the following %s list:"
+#~ msgstr "Vostede está a xestionar a seguinte institución:"
+
+#, fuzzy
+#~ msgid "Overview of %s"
+#~ msgstr "Vista xeral de usuario"
+
+#, fuzzy
+#~ msgid "Name of the %s"
+#~ msgstr "Nome da institución"
+
+#, fuzzy
+#~ msgid ""
+#~ "Please keep in mind that any profiles of such a new %s will only be made "
+#~ "available on the user download page after you have linked it to an entity "
+#~ "in the %s database (but they are otherwise fully functional)."
+#~ msgstr ""
+#~ "Lembre que os perfís das novas institucións soamente estarán dispoñíbeis "
+#~ "na páxina de descarga do usuario despois de que as ligue a unha entidade "
+#~ "na base de datos %s (malia que son totalmente funcionais)."
 
 #, fuzzy
 #~ msgid "%s Invitation System"
@@ -2792,9 +2806,6 @@ msgstr "Erro!"
 #~ "Your federation %s contains the following institutions: (<a "
 #~ "href='%s'>Check their authentication server status</a>)"
 #~ msgstr "A súa federación %s contén as seguintes institucións:"
-
-#~ msgid "Institution Download Area QR Code"
-#~ msgstr "Código QR para a área de descargas da institución"
 
 #~ msgid "Edit IdP-wide settings"
 #~ msgstr "Editar a configuración xeral IdP"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-05 14:51+0200\n"
+"POT-Creation-Date: 2018-08-21 15:38+0200\n"
 "PO-Revision-Date: 2018-05-30 18:13+0000\n"
 "Last-Translator: Pedro Simões <psimoes@fccn.pt>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/eduroam_devel/"
@@ -193,8 +193,8 @@ msgid ""
 msgstr ""
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:141
-#, php-format
-msgid "Unnamed %s"
+#, fuzzy
+msgid "Unnamed Organisation"
 msgstr "Sem nome %s"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:142
@@ -234,8 +234,9 @@ msgid "(%d times)"
 msgstr "(%d vezes)"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:210
-#, php-format
-msgid "to enter the username and password of your %s"
+#, fuzzy
+msgid ""
+"to enter the username and password you have been given by your organisation"
 msgstr "para escrever o nome de utilizador e palavra passe da sua %s"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:212
@@ -346,23 +347,22 @@ msgstr ""
 "utilizador e irá copiar os seus certificados de servidor para ai."
 
 #: devices/linux/Device_Linux.php:74
-#, php-format
 msgid ""
 "In order to connect to the network you will need a personal certificate in "
-"the form of a p12 file. You should obtain this certificate from your %s. "
-"Consult the support page to find out how this certificate can be obtained. "
-"Such certificate files are password protected. You should have both the file "
-"and the password available during the installation process. Your p12 file "
-"will also be copied to the .cat_installer directory."
+"the form of a p12 file. You should obtain this certificate from your "
+"organisation. Consult the support page to find out how this certificate can "
+"be obtained. Such certificate files are password protected. You should have "
+"both the file and the password available during the installation process. "
+"Your p12 file will also be copied to the .cat_installer directory."
 msgstr ""
 
 #. not EAP-TLS
 #: devices/linux/Device_Linux.php:76 devices/ms/WindowsCommon.php:128
-#, php-format
 msgid ""
-"In order to connect to the network you will need an account from your %s. "
-"You should consult the support page to find out how this account can be "
-"obtained. It is very likely that your account is already activated."
+"In order to connect to the network you will need an account from your "
+"organisation. You should consult the support page to find out how this "
+"account can be obtained. It is very likely that your account is already "
+"activated."
 msgstr ""
 
 #: devices/linux/Device_Linux.php:78
@@ -444,7 +444,7 @@ msgstr "N"
 msgid "personal certificate file (p12 or pfx)"
 msgstr "ficheiro do certificado pessoal (p12 ou pfx)"
 
-#: devices/linux/Device_Linux.php:104 devices/ms/Files/common.inc:1065
+#: devices/linux/Device_Linux.php:104 devices/ms/Files/common.inc:1074
 msgid "All files"
 msgstr "Todos os ficheiros"
 
@@ -459,8 +459,8 @@ msgstr ""
 msgid "Write the file"
 msgstr "Escreva o ficheiro"
 
-#: devices/linux/Device_Linux.php:108 devices/ms/Files/common.inc:1193
-#: devices/ms/Files/common.inc:1213 devices/ms/Files/common.inc:1264
+#: devices/linux/Device_Linux.php:108 devices/ms/Files/common.inc:1202
+#: devices/ms/Files/common.inc:1222 devices/ms/Files/common.inc:1273
 msgid ""
 "Error: Your username must be of the form 'xxx@institutionID' e.g. "
 "'john@example.net'!"
@@ -532,13 +532,12 @@ msgstr ""
 "do browser. Copie e execute o ficheiro na máquina que pretende configurar. "
 
 #: devices/ms/WindowsCommon.php:124
-#, php-format
 msgid ""
 "In order to connect to the network you will need an a personal certificate "
-"in the form of a p12 file. You should obtain this certificate from your %s. "
-"Consult the support page to find out how this certificate can be obtained. "
-"Such certificate files are password protected. You should have both the file "
-"and the password available during the installation process."
+"in the form of a p12 file. You should obtain this certificate from your "
+"organisation. Consult the support page to find out how this certificate can "
+"be obtained. Such certificate files are password protected. You should have "
+"both the file and the password available during the installation process."
 msgstr ""
 
 #: devices/ms/WindowsCommon.php:132
@@ -604,7 +603,7 @@ msgstr "O seu sistema está configurado e pronto a usar."
 msgid "Network installation had errors."
 msgstr "A configuração de rede tem erros."
 
-#: devices/ms/Files/common.inc:127 devices/ms/Files/common.inc:883
+#: devices/ms/Files/common.inc:127 devices/ms/Files/common.inc:892
 msgid "Please contact ${SUPPORT}."
 msgstr "Por favor contate ${SUPPORT}."
 
@@ -707,19 +706,19 @@ msgstr ""
 msgid "Do you want to enable access on wired interfaces?"
 msgstr "Pretende habilitar o acesso a interfaces cablados?"
 
-#: devices/ms/Files/common.inc:651
+#: devices/ms/Files/common.inc:657
 msgid "Profiles installation"
 msgstr "Instalação de perfís"
 
-#: devices/ms/Files/common.inc:670
+#: devices/ms/Files/common.inc:676
 msgid "Checking for profile $R8"
 msgstr "A verificar o perfill $R8"
 
-#: devices/ms/Files/common.inc:678
+#: devices/ms/Files/common.inc:684
 msgid "found profile $R8"
 msgstr "foi encontrado o perfil $R8"
 
-#: devices/ms/Files/common.inc:707
+#: devices/ms/Files/common.inc:713
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION} and the user group: ${USER_GROUP}."
@@ -727,11 +726,11 @@ msgstr ""
 "Este instalador só funcionará correctamente se for um utilizador da/do "
 "${ORGANISATION} e do grupo de utilizadores ${USER_GROUP}."
 
-#: devices/ms/Files/common.inc:707 devices/ms/Files/common.inc:710
+#: devices/ms/Files/common.inc:713 devices/ms/Files/common.inc:716
 msgid "Click OK to continue with installation."
 msgstr "Clique OK para continuar com a instalação."
 
-#: devices/ms/Files/common.inc:710
+#: devices/ms/Files/common.inc:716
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION}."
@@ -739,13 +738,13 @@ msgstr ""
 "Este instalador só funcionará correctamente se for um utilizador da/do "
 "${ORGANISATION}."
 
-#: devices/ms/Files/common.inc:718
+#: devices/ms/Files/common.inc:724
 msgid ""
 "Please read the additional information from ${ORGANISATION} which will be "
 "displayed in a moment."
 msgstr ""
 
-#: devices/ms/Files/common.inc:773
+#: devices/ms/Files/common.inc:779
 #, php-format
 msgid ""
 "Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may "
@@ -767,139 +766,139 @@ msgstr ""
 "script chamado inst_cat. Inicie-o com um duplo clique e ele irá instalar os "
 "perfis. Terá de fazer o login em %s com a sua conta institucional."
 
-#: devices/ms/Files/common.inc:783
+#: devices/ms/Files/common.inc:789
 msgid "Please restart your system after installation finishes."
 msgstr "Por favor reinicie o seu dispositivo depois da instalação terminar"
 
-#: devices/ms/Files/common.inc:807
+#: devices/ms/Files/common.inc:813
 msgid "installing wired profile"
 msgstr "a instalar perfil de rede cablada"
 
-#: devices/ms/Files/common.inc:845 devices/ms/Files/common.inc:864
+#: devices/ms/Files/common.inc:851 devices/ms/Files/common.inc:870
 msgid "deleting profile $R1"
 msgstr "a apagar o perfil $R1"
 
-#: devices/ms/Files/common.inc:873
+#: devices/ms/Files/common.inc:879
 msgid "installing profile $R1"
 msgstr "a instalar o perfil $R1"
 
-#: devices/ms/Files/common.inc:883
+#: devices/ms/Files/common.inc:892
 msgid "Profile installation error for $R1."
 msgstr "Erro a instalar o perfil $R1"
 
-#: devices/ms/Files/common.inc:907
+#: devices/ms/Files/common.inc:917
 msgid "installing credentials for wired"
 msgstr "a instalar credencias para rede cablada"
 
-#: devices/ms/Files/common.inc:913
+#: devices/ms/Files/common.inc:923
 msgid "installing credentials TLS"
 msgstr "a instalar credenciais TLS"
 
-#: devices/ms/Files/common.inc:1030
+#: devices/ms/Files/common.inc:1039
 msgid "installing credentials for profile $R1"
 msgstr "a instalar credenciais para o perfil $R1"
 
-#: devices/ms/Files/common.inc:1047 devices/ms/Files/geant_link.inc:107
+#: devices/ms/Files/common.inc:1056 devices/ms/Files/geant_link.inc:107
 msgid "Credentials installation problem"
 msgstr "Problema de instalação de credenciais"
 
-#: devices/ms/Files/common.inc:1056
+#: devices/ms/Files/common.inc:1065
 #, php-format
 msgid "%s installer for"
 msgstr "%s instalador para"
 
-#: devices/ms/Files/common.inc:1056
+#: devices/ms/Files/common.inc:1065
 msgid "Install personal certificate"
 msgstr "Instale o certificado pessoal"
 
-#: devices/ms/Files/common.inc:1059
+#: devices/ms/Files/common.inc:1068
 msgid "Preparing to install personal certificate."
 msgstr "A preparar para instalar o certificado pessoal"
 
-#: devices/ms/Files/common.inc:1059
+#: devices/ms/Files/common.inc:1068
 msgid "Click OK to continue"
 msgstr "Clique OK para avançar"
 
-#: devices/ms/Files/common.inc:1065
+#: devices/ms/Files/common.inc:1074
 msgid "Certificate files (*.p12)"
 msgstr "Ficheiros contendo certificados (*.p12)"
 
-#: devices/ms/Files/common.inc:1065
+#: devices/ms/Files/common.inc:1074
 msgid "Certificate files (*pfx)"
 msgstr "Ficheiros contendo certificados (*.pfx)"
 
-#: devices/ms/Files/common.inc:1068
+#: devices/ms/Files/common.inc:1077
 msgid "certificate password:"
 msgstr "password do certificado:"
 
-#: devices/ms/Files/common.inc:1070 devices/ms/Files/common.inc:1281
+#: devices/ms/Files/common.inc:1079 devices/ms/Files/common.inc:1290
 msgid "Username:"
 msgstr "Username:"
 
-#: devices/ms/Files/common.inc:1074
+#: devices/ms/Files/common.inc:1083
 msgid "Selected file: $Cert_file"
 msgstr "Selecione o ficheiro $Cert_file"
 
-#: devices/ms/Files/common.inc:1076
+#: devices/ms/Files/common.inc:1085
 msgid "import password:"
 msgstr "importar palavra passe:"
 
-#: devices/ms/Files/common.inc:1111
+#: devices/ms/Files/common.inc:1120
 msgid "No certificate file selected"
 msgstr "Não selecionou nunhum ficheiro contendo certificado"
 
-#: devices/ms/Files/common.inc:1115
+#: devices/ms/Files/common.inc:1124
 msgid "Incorrect import password$\\r$\\nenter again"
 msgstr "Password importada errada$\\r$\\ncoloque novamente"
 
-#: devices/ms/Files/common.inc:1117
+#: devices/ms/Files/common.inc:1126
 msgid "Incorrect certificate password$\\r$\\nenter again"
 msgstr "Password de certificado incorrecta$\\r$\\ntente novamente"
 
-#: devices/ms/Files/common.inc:1208
+#: devices/ms/Files/common.inc:1217
 msgid ""
 "Error: your username must be in the form of 'xxx@${REALM}'. Please enter the "
 "username in the correct format."
 msgstr ""
 
-#: devices/ms/Files/common.inc:1210
+#: devices/ms/Files/common.inc:1219
 msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'${REALM}'. Please enter the username in the correct format."
 msgstr ""
 
-#: devices/ms/Files/common.inc:1277
+#: devices/ms/Files/common.inc:1286
 msgid "User credentials"
 msgstr "Credenciais do utilizador"
 
-#: devices/ms/Files/common.inc:1284
+#: devices/ms/Files/common.inc:1293
 msgid "Password:"
 msgstr "Password:"
 
-#: devices/ms/Files/common.inc:1287
+#: devices/ms/Files/common.inc:1296
 msgid "Repeat password:"
 msgstr "Repita a password:"
 
-#: devices/ms/Files/common.inc:1299
+#: devices/ms/Files/common.inc:1308
 msgid "Missing username"
 msgstr "Username em falta"
 
-#: devices/ms/Files/common.inc:1311
+#: devices/ms/Files/common.inc:1320
 msgid "Missing password"
 msgstr "Password em falta"
 
-#: devices/ms/Files/common.inc:1317
+#: devices/ms/Files/common.inc:1326
 msgid "Password missmatch"
 msgstr "Password missmatch"
 
-#: devices/ms/Files/common.inc:1407 devices/ms/Files/eap_w8.inc:18
+#: devices/ms/Files/common.inc:1416 devices/ms/Files/eap_w8.inc:18
 #: devices/ms/Files/geant_link.inc:20 devices/ms/Files/geant_link.inc:30
 #: devices/ms/Files/peap_tls.inc:18 devices/ms/Files/pwd.inc:17
 #: devices/ms/Files/pwd.inc:47
 msgid "Installation"
 msgstr "Instalação"
 
-#: devices/ms/Files/common.inc:1407
+#: devices/ms/Files/common.inc:1416
 msgid "Checking for existing wireless profiles"
 msgstr "A verificar a existência de perfis wireless"
 
