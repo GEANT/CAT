@@ -15,7 +15,7 @@
       [
         'id'=>'idp_not_listed',
         'title'=>_("My organisation is not listed. Can't I just use any of the other ones?"),
-        'text'=>_("No! The installers contain security settings which are specific to the organisation. If you are not from that organisation, your computer will detect that you are about to send your username and credential to an unauthorised server and will abort the login. Using an installer from a different organisation is <i>guaranteed to not work</i>!")
+        'text'=>_("No! The installers contain security settings which are specific to the organisation. If you are not from that organisation, your device will detect that you are about to send your username and credential to an unauthorised server and will abort the login. Using an installer from a different organisation is <i>guaranteed to not work</i>!")
          ],
       [
         'id'=>'idp_not_listed',
