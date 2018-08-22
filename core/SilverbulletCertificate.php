@@ -278,6 +278,10 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                 unlink($tempdir . "/index.txt");
                 rmdir($tempdir);
                 break;
+            case "eduPKI":
+                // nothing to be done here - eduPKI have their own OCSP responder
+                // and the certs point to it. So we are not in the loop.
+                break;
             default:
                 /* HTTP POST the serial to the CA. The CA knows about the state of
                  * the certificate.
@@ -287,7 +291,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                  * The result of this if clause has to be a DER-encoded OCSP statement
                  * to be stored in the variable $ocsp
                  */
-                throw new Exception("External silverbullet CA is not implemented yet!");
+                throw new Exception("This type of silverbullet CA is not implemented yet!");
         }
         // write the new statement into DB
         $this->databaseHandle->exec("UPDATE silverbullet_certificate SET OCSP = ?, OCSP_timestamp = NOW() WHERE serial_number = ?", "si", $ocsp, $this->serial);
@@ -299,20 +303,61 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * @return array with revocation information
      */
     public function revokeCertificate() {
-
-
-// TODO for now, just mark as revoked in the certificates table (and use the stub OCSP updater)
         $nowSql = (new \DateTime())->format("Y-m-d H:i:s");
-        if (CONFIG_CONFASSISTANT['SILVERBULLET']['CA']['type'] != "embedded") {
-            // send revocation request to CA.
-            // $httpResponse = httpRequest("https://clientca.hosted.eduroam.org/revoke/", ["serial" => $serial ] );
-            throw new Exception("External silverbullet CA is not implemented yet!");
-        }
         // regardless if embedded or not, always keep local state in our own DB
         $this->databaseHandle->exec("UPDATE silverbullet_certificate SET revocation_status = 'REVOKED', revocation_time = ? WHERE serial_number = ?", "si", $nowSql, $this->serial);
         $this->loggerInstance->debug(2, "Certificate revocation status for $this->serial updated, about to call triggerNewOCSPStatement().\n");
         // newly instantiate us, DB content has changed...
         $certObject = new SilverbulletCertificate($this->serial);
+        // embedded CA does "nothing special" for revocation: the DB change was the entire thing to do
+        // but for external CAs, we need to notify explicitly that the cert is now revoked
+        switch (CONFIG_CONFASSISTANT['SILVERBULLET']['CA']['type']) {
+            case "embedded":
+                break;
+            case "eduPKI":
+                try {
+                    $soap = SilverbulletCertificate::initEduPKISoapSession();
+                    $soapRevocationSerial = $soap->newRevocationRequest($this->serial, "");
+                    if ($soapRevocationSerial == 0) {
+                        throw new Exception("Unable to create revocation request, serial number was zero.");
+                    }
+                    // retrieve the raw request to prepare for signature and approval
+                    $soapRawRevRequest = $soap->getRawRevocationRequest($soapRevocationSerial);
+                    if (strlen($soapRawRevRequest) < 10) { // very basic error handling
+                        throw new Exception("Suspiciously short data to sign!");
+                    }
+                    // for obnoxious reasons, we have to dump the request into a file and let pkcs7_sign read from the file
+                    // rather than just using the string. Grr.
+                    $tempdir = \core\common\Entity::createTemporaryDirectory("test");
+                    file_put_contents($tempdir['dir'] . "/content.txt", $soapRawRevRequest);
+                    // retrieve our RA cert from filesystem
+                    $raCertFile = file_get_contents(ROOT . "/config/SilverbulletClientCerts/eduPKI-RA.pem");
+                    $raCert = openssl_x509_read($raCertFile);
+                    $raKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/eduPKI-RA.key");
+                    // sign the data
+                    if (openssl_pkcs7_sign($tempdir['dir'] . "/content.txt", $tempdir['dir'] . "/signature.txt", $raCert, $raKey) === FALSE) {
+                        throw new Exception("Unable to sign the revocation approval data!");
+                    }
+                    // and get the signature blob back from the filesystem
+                    $detachedSig = file_get_contents($tempdir['dir'] . "/signature.txt");
+                    $soapIssueRev = $soap->approveRevocationRequest($soapRevocationSerial, $soapRawRevRequest, $detachedSig);
+                    if ($soapIssueRev === FALSE) {
+                        throw new Exception("The locally approved revocation request was NOT processed by the CA.");
+                    }
+                } catch (Exception $e) {
+                    $this->loggerInstance->debug(4, $soap->__getLastRequest());
+                    $this->loggerInstance->debug(4, $soap->__getLastResponse());
+                    // PHP 7.1 can do this much better
+                    if (is_soap_fault($e)) {
+                        throw new Exception("Error when sending SOAP request: " . "{$e->faultcode}: {$e->faultstring}\n");
+                    }
+                    throw new Exception("Something odd happened while doing the SOAP request:", $e->getMessage());
+                }
+                break;
+            default:
+                throw new Exception("Unknown type of CA requested!");
+        }
+        // what happens wrt OCSP etc. is really something for the following function to decide. We just call it.
         $certObject->triggerNewOCSPStatement();
     }
 
@@ -358,6 +403,34 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         ];
     }
 
+    private static function initEduPKISoapSession() {
+        // initialse connection to eduPKI CA / eduroam RA
+        $soap = new \SoapClient(
+                "https://ra.edupki.org/edupki-ca/cgi-bin/pub/soap?wsdl=1", [
+            'soap_version' => SOAP_1_1,
+            'trace' => TRUE,
+            'exceptions' => TRUE,
+            'connection_timeout' => 5, // if can't establish the connection within 5 sec, something's wrong
+            'cache_wsdl' => WSDL_CACHE_NONE,
+            'user_agent' => 'eduroam CAT to eduPKI SOAP Interface',
+            'features' => SOAP_SINGLE_ELEMENT_ARRAYS,
+            'stream_context' => stream_context_create(
+                    [
+                        'https' => [
+                            'timeout' => 60,
+                        ],
+                        'ssl' => [
+                            // 'verify_peer' => true,
+                            // 'cafile' => $root,
+                            'verify_depth' => 3,
+                        ],
+                    ]
+            ),
+                ]
+        );
+        return $soap;
+    }
+
     /**
      * take a CSR and sign it with our issuing CA's certificate
      * 
@@ -393,29 +466,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
             case "eduPKI":
                 // initialse connection to eduPKI CA / eduroam RA and send the request to them
                 try {
-                    $soap = new \SoapClient(
-                            "https://ra.edupki.org/edupki-ca/cgi-bin/pub/soap?wsdl=1", [
-                        'soap_version' => SOAP_1_1,
-                        'trace' => TRUE,
-                        'exceptions' => TRUE,
-                        'connection_timeout' => 5, // if can't establish the connection within 5 sec, something's wrong
-                        'cache_wsdl' => WSDL_CACHE_NONE,
-                        'user_agent' => 'eduroam CAT to eduPKI SOAP Interface',
-                        'features' => SOAP_SINGLE_ELEMENT_ARRAYS,
-                        'stream_context' => stream_context_create(
-                                [
-                                    'https' => [
-                                        'timeout' => 60,
-                                    ],
-                                    'ssl' => [
-                                        // 'verify_peer' => true,
-                                        // 'cafile' => $root,
-                                        'verify_depth' => 3,
-                                    ],
-                                ]
-                        ),
-                            ]
-                    );
+                    $soap = SilverbulletCertificate::initEduPKISoapSession();
                     $soapNewRequest = $soap->newRequest(
                             100, # RA-ID
                             $csr["CSR"], # Request im PEM-Format
@@ -451,7 +502,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     // for obnoxious reasons, we have to dump the request into a file and let pkcs7_sign read from the file
                     // rather than just using the string. Grr.
                     $tempdir = \core\common\Entity::createTemporaryDirectory("test");
-                    file_put_contents($tempdir['dir'] . "/content.txt");
+                    file_put_contents($tempdir['dir'] . "/content.txt", $soapRawRequest);
                     // retrieve our RA cert from filesystem
                     $raCertFile = file_get_contents(ROOT . "/config/SilverbulletClientCerts/eduPKI-RA.pem");
                     $raCert = openssl_x509_read($raCertFile);
@@ -462,9 +513,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     }
                     // and get the signature blob back from the filesystem
                     $detachedSig = file_get_contents($tempdir['dir'] . "/signature.txt");
-                    $soapIssueCert = $soap->approveRequest(
-                            $soapReqnum, $soapRawRequest, $detachedSig
-                    );
+                    $soapIssueCert = $soap->approveRequest($soapReqnum, $soapRawRequest, $detachedSig);
                     if ($soapIssueCert === FALSE) {
                         throw new Exception("The locally approved request was NOT processed by the CA.");
                     }
@@ -472,7 +521,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     $soapCert = $soap->getCertificateByRequestSerial($soapReqnum);
                     $x509 = new common\X509();
                     $parsedCert = $x509->processCertificate($soapCert);
-                    if ( !is_array($parsedCert)) {
+                    if (!is_array($parsedCert)) {
                         throw new Exception("We did not actually get a certificate.");
                     }
                 } catch (Exception $e) {
@@ -482,7 +531,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     if (is_soap_fault($e)) {
                         throw new Exception("Error when sending SOAP request: " . "{$e->faultcode}: {$e->faultstring}\n");
                     }
-                    throw new Exception("Something odd happened while doing the SOAP request:",$e->getMessage());
+                    throw new Exception("Something odd happened while doing the SOAP request:", $e->getMessage());
                 }
                 return [
                     "CERT" => openssl_x509_read($parsedCert['pem']),
