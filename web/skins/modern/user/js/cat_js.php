@@ -232,7 +232,7 @@ function resetDevices() {
        if(txt) 
          txt = "<table><tr><th colspan='2'><?php escaped_echo(_("If you encounter problems, then you can obtain direct assistance from your organisation at:")); ?></th></tr>"+txt+'</table>';
         else
-         txt = "<table><tr><th colspan='2'><?php escaped_echo(_("If you encounter problems you should ask those who you gave you your account for help.")); ?>.</th></tr></table>";
+         txt = "<table><tr><th colspan='2'><?php escaped_echo(_("If you encounter problems you should ask those who gave you your account for help.")); ?>.</th></tr></table>";
       $("#user_info").html(txt);
       $("#user_info").show();
       if(j.silverbullet) {
