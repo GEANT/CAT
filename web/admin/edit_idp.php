@@ -173,7 +173,7 @@ echo $mapCode->htmlHeadCode();
             if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL") {
                 echo "<p>" .
                         
-                sprintf(_("Does the %s provide helpdesk services for its users? If so, it would be nice if you would tell us the pointers to this helpdesk."),$uiElements->nomenclature_inst)  . "</p>" .
+                sprintf(_("Do you provide helpdesk services for your users? If so, it would be nice if you would tell us the pointers to this helpdesk."),$uiElements->nomenclature_inst)  . "</p>" .
                 "<p>" .
                 _("If you enter a value here, it will be added to the installers for all your users, and will be displayed on the download page. If you operate separate helpdesks for different user groups (we call this 'profiles') specify per-profile helpdesk information later in this wizard. If you operate no help desk at all, just leave these fields empty.") . "</p>";
                 if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
