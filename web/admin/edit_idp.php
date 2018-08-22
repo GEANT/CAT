@@ -98,7 +98,7 @@ echo $mapCode->htmlHeadCode();
         <?php
         if ($wizardStyle) {
             echo "<p>" .
-            sprintf(_("The %s has properties which are valid across all deployment profiles. This is the place where you can describe those properties in a fine-grained way. The solicited information is used as follows:"), $uiElements->nomenclature_inst) . "</p>
+            _("Some properties are valid across all deployment profiles. This is the place where you can describe those properties in a fine-grained way. The solicited information is used as follows:") . "</p>
                       <ul>
                          <li>" . _("<strong>Logo</strong>: When you submit a logo, we will embed this logo into all installers where a custom logo is possible. We accept any image format, but for best results, we suggest SVG. If you don't upload a logo, we will use the generic logo instead (see top-right corner of this page).") . "</li>
                          <li>" . sprintf(_("<strong>Name</strong>: The %s may have names in multiple languages. It is recommended to always populate at least the 'default/other' language, as it is used as a fallback if the system does not have a name in the exact language the user requests a download in."),$uiElements->nomenclature_inst) . "</li>";
