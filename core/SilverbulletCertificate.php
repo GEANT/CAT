@@ -391,9 +391,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     "ROOT" => $rootCaPem,
                 ];
             case "eduPKI":
-
                 // initialse connection to eduPKI CA / eduroam RA and send the request to them
-
                 try {
                     $soap = new \SoapClient(
                             "https://ra.edupki.org/edupki-ca/cgi-bin/pub/soap?wsdl=1", [
@@ -471,14 +469,27 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                         throw new Exception("The locally approved request was NOT processed by the CA.");
                     }
                     // now, get the actual cert from the CA
+                    $soapCert = $soap->getCertificateByRequestSerial($soapReqnum);
+                    $x509 = new common\X509();
+                    $parsedCert = $x509->processCertificate($soapCert);
+                    if ( !is_array($parsedCert)) {
+                        throw new Exception("We did not actually get a certificate.");
+                    }
                 } catch (Exception $e) {
                     $loggerInstance->debug(4, $soap->__getLastRequest());
                     $loggerInstance->debug(4, $soap->__getLastResponse());
+                    // PHP 7.1 can do this much better
                     if (is_soap_fault($e)) {
                         throw new Exception("Error when sending SOAP request: " . "{$e->faultcode}: {$e->faultstring}\n");
                     }
                     throw new Exception("Something odd happened while doing the SOAP request:",$e->getMessage());
                 }
+                return [
+                    "CERT" => openssl_x509_read($parsedCert['pem']),
+                    "SERIAL" => $parsedCert['serial'],
+                    "ISSUER" => $raCertFile, // change this to the actual eduPKI Issuer CA
+                    "ROOT" => $rootCaPem, // change this to the actual eduPKI Root CA
+                ];
             default:
                 /* HTTP POST the CSR to the CA with the $expiryDays as parameter
                  * on successful execution, gets back a PEM file which is the
