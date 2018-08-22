@@ -167,7 +167,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
 
         $loggerInstance->debug(5, "generateCertificate: proceeding to sign cert.\n");
 
-        $certMeta = SilverbulletCertificate::signCsr($csr["CSR"], $expiryDays);
+        $certMeta = SilverbulletCertificate::signCsr($csr, $expiryDays);
         $cert = $certMeta["CERT"];
         $issuingCaPem = $certMeta["ISSUER"];
         $rootCaPem = $certMeta["ROOT"];
@@ -242,8 +242,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                 $inst = new IdP($profile->institution);
                 $federation = strtoupper($inst->federation);
                 // generate stub index.txt file
-                $cat = new CAT();
-                $tempdirArray = $cat->createTemporaryDirectory("test");
+                $tempdirArray = \core\common\Entity::createTemporaryDirectory("test");
                 $tempdir = $tempdirArray['dir'];
                 $nowIndexTxt = (new \DateTime())->format("ymdHis") . "Z";
                 $expiryIndexTxt = $originalExpiry->format("ymdHis") . "Z";
@@ -372,9 +371,9 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         switch (CONFIG_CONFASSISTANT['SILVERBULLET']['CA']['type']) {
             case "embedded":
                 $rootCaPem = file_get_contents(ROOT . "/config/SilverbulletClientCerts/rootca.pem");
-                $issuingCaPem = file_get_contents(ROOT . "/config/SilverbulletClientCerts/real.pem");
-                $issuingCa = openssl_x509_read($issuingCaPem);
-                $issuingCaKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/real.key");
+                $raCertFile = file_get_contents(ROOT . "/config/SilverbulletClientCerts/real.pem");
+                $raCert = openssl_x509_read($raCertFile);
+                $raKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/real.key");
                 $nonDupSerialFound = FALSE;
                 do {
                     $serial = random_int(1000000000, PHP_INT_MAX);
@@ -386,11 +385,100 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                 } while (!$nonDupSerialFound);
                 $loggerInstance->debug(5, "generateCertificate: signing imminent with unique serial $serial.\n");
                 return [
-                    "CERT" => openssl_csr_sign($csr, $issuingCa, $issuingCaKey, $expiryDays, ['digest_alg' => 'sha256'], $serial),
+                    "CERT" => openssl_csr_sign($csr["CSR"], $raCert, $raKey, $expiryDays, ['digest_alg' => 'sha256'], $serial),
                     "SERIAL" => $serial,
-                    "ISSUER" => $issuingCaPem,
+                    "ISSUER" => $raCertFile,
                     "ROOT" => $rootCaPem,
                 ];
+            case "eduPKI":
+
+                // initialse connection to eduPKI CA / eduroam RA and send the request to them
+
+                try {
+                    $soap = new \SoapClient(
+                            "https://ra.edupki.org/edupki-ca/cgi-bin/pub/soap?wsdl=1", [
+                        'soap_version' => SOAP_1_1,
+                        'trace' => TRUE,
+                        'exceptions' => TRUE,
+                        'connection_timeout' => 5, // if can't establish the connection within 5 sec, something's wrong
+                        'cache_wsdl' => WSDL_CACHE_NONE,
+                        'user_agent' => 'eduroam CAT to eduPKI SOAP Interface',
+                        'features' => SOAP_SINGLE_ELEMENT_ARRAYS,
+                        'stream_context' => stream_context_create(
+                                [
+                                    'https' => [
+                                        'timeout' => 60,
+                                    ],
+                                    'ssl' => [
+                                        // 'verify_peer' => true,
+                                        // 'cafile' => $root,
+                                        'verify_depth' => 3,
+                                    ],
+                                ]
+                        ),
+                            ]
+                    );
+                    $soapNewRequest = $soap->newRequest(
+                            100, # RA-ID
+                            $csr["CSR"], # Request im PEM-Format
+                            [# Array mit den Subject Alternative Names
+                        "email:" . $csr["USERNAME"]
+                            ], "eduroam Managed IdP End User", # Zertifikatprofil
+                            sha1("notused"), # PIN
+                            $csr["USERNAME"], # Name des Antragstellers
+                            "eduroam Managed IdP", # Organisationseinheit des Antragstellers
+                            true                   # Veröffentlichen des Zertifikats?
+                    );
+                    if ($soapNewRequest == 0) {
+                        throw new Exception("Error when sending SOAP request (request serial number was zero). No further details available.");
+                    }
+                    $soapReqnum = intval($soapNewRequest);
+                    // tell the CA the desired expiry date of the new certificate
+                    $expiry = new \DateTime();
+                    $expiry->modify("+$expiryDays day");
+                    $expiry->setTimezone("UTC");
+                    $soapExpiryChange = $soap->setRequestParameters(
+                            $soapReqnum, [
+                        "NotAfter" => $expiry->format('c'),
+                            ]
+                    );
+                    if ($soapExpiryChange === FALSE) {
+                        throw new Exception("Error when sending SOAP request (unable to change expiry date).");
+                    }
+                    // retrieve the raw request to prepare for signature and approval
+                    $soapRawRequest = $soap->getRawRequest($soapReqnum);
+                    if (strlen($soapRawRequest) < 10) { // very basic error handling
+                        throw new Exception("Suspiciously short data to sign!");
+                    }
+                    // for obnoxious reasons, we have to dump the request into a file and let pkcs7_sign read from the file
+                    // rather than just using the string. Grr.
+                    $tempdir = \core\common\Entity::createTemporaryDirectory("test");
+                    file_put_contents($tempdir['dir'] . "/content.txt");
+                    // retrieve our RA cert from filesystem
+                    $raCertFile = file_get_contents(ROOT . "/config/SilverbulletClientCerts/eduPKI-RA.pem");
+                    $raCert = openssl_x509_read($raCertFile);
+                    $raKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/eduPKI-RA.key");
+                    // sign the data
+                    if (openssl_pkcs7_sign($tempdir['dir'] . "/content.txt", $tempdir['dir'] . "/signature.txt", $raCert, $raKey) === FALSE) {
+                        throw new Exception("Unable to sign the certificate approval data!");
+                    }
+                    // and get the signature blob back from the filesystem
+                    $detachedSig = file_get_contents($tempdir['dir'] . "/signature.txt");
+                    $soapIssueCert = $soap->approveRequest(
+                            $soapReqnum, $soapRawRequest, $detachedSig
+                    );
+                    if ($soapIssueCert === FALSE) {
+                        throw new Exception("The locally approved request was NOT processed by the CA.");
+                    }
+                    // now, get the actual cert from the CA
+                } catch (Exception $e) {
+                    $loggerInstance->debug(4, $soap->__getLastRequest());
+                    $loggerInstance->debug(4, $soap->__getLastResponse());
+                    if (is_soap_fault($e)) {
+                        throw new Exception("Error when sending SOAP request: " . "{$e->faultcode}: {$e->faultstring}\n");
+                    }
+                    throw new Exception("Something odd happened while doing the SOAP request:",$e->getMessage());
+                }
             default:
                 /* HTTP POST the CSR to the CA with the $expiryDays as parameter
                  * on successful execution, gets back a PEM file which is the
