@@ -345,8 +345,6 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                         throw new Exception("The locally approved revocation request was NOT processed by the CA.");
                     }
                 } catch (Exception $e) {
-                    $this->loggerInstance->debug(4, $soap->__getLastRequest());
-                    $this->loggerInstance->debug(4, $soap->__getLastResponse());
                     // PHP 7.1 can do this much better
                     if (is_soap_fault($e)) {
                         throw new Exception("Error when sending SOAP request: " . "{$e->faultcode}: {$e->faultstring}\n");
@@ -525,8 +523,6 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                         throw new Exception("We did not actually get a certificate.");
                     }
                 } catch (Exception $e) {
-                    $loggerInstance->debug(4, $soap->__getLastRequest());
-                    $loggerInstance->debug(4, $soap->__getLastResponse());
                     // PHP 7.1 can do this much better
                     if (is_soap_fault($e)) {
                         throw new Exception("Error when sending SOAP request: " . "{$e->faultcode}: {$e->faultstring}\n");
