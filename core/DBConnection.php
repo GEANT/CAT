@@ -81,7 +81,7 @@ class DBConnection {
     public function exec($querystring, $types = NULL, &...$arguments) {
         // log exact query to audit log, if it's not a SELECT
         $isMoreThanSelect = FALSE;
-        if (preg_match("/^SELECT/i", $querystring) == 0) {
+        if (preg_match("/^SELECT/i", $querystring) == 0 && preg_match("/^DESC/i", $querystring) == 0) {
             $isMoreThanSelect = TRUE;
             if ($this->readOnly) { // let's not do this.
                 throw new Exception("This is a read-only DB connection, but this is statement is not a SELECT!");
