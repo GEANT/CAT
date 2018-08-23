@@ -34,7 +34,6 @@ use \Exception;
                     \core\common\EAP::EAPTYPE_PEAP_MSCHAP2,
                     \core\common\EAP::EAPTYPE_TTLS_PAP,
                     \core\common\EAP::EAPTYPE_TTLS_MSCHAP2,
-                    \core\common\EAP::EAPTYPE_PWD,
                     \core\common\EAP::EAPTYPE_SILVERBULLET
                 ]);
         $this->specialities['internal:use_anon_outer'][serialize(\core\common\EAP::EAPTYPE_PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
