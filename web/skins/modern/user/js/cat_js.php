@@ -76,7 +76,8 @@ $.fn.redraw = function(){
       $.post('<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>', {action: 'listProfiles', api_version: 2, lang: lang, idp: inst_id}, function(data) {
     j = $.parseJSON(data);
     result = j.status;
-    otherdata = j.otherdata;
+    if (j.otherdata !== undefined)
+        otherdata = j.otherdata;
     if(! result) {
       alert("<?php escaped_echo(_("no matching data found"))?>");
       document.location.href='<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/' ?>';
@@ -101,11 +102,11 @@ $.fn.redraw = function(){
         $("#idp_logo").show();
     }
     $("#fed_logo").attr("src","<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendFedLogo&api_version=2&idp="+inst_id);
-    if(otherdata['fedname']) {
+    if(otherdata !== undefined && otherdata['fedname'] !== undefined) {
         $("#fed_logo").attr("title",otherdata['fedname']);
         $("#fed_logo").attr("alt",otherdata['fedname']);
     }
-    if(otherdata['fedurl']) {
+    if(otherdata !== undefined && otherdata['fedurl'] !== undefined) {
         $("#fed_logo").css('cursor','pointer');
         $("#fed_logo").click(function(event) {
             window.open(otherdata['fedurl'], '_blank');
