@@ -331,9 +331,9 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     $tempdir = \core\common\Entity::createTemporaryDirectory("test");
                     file_put_contents($tempdir['dir'] . "/content.txt", $soapRawRevRequest);
                     // retrieve our RA cert from filesystem
-                    $raCertFile = file_get_contents(ROOT . "/config/SilverbulletClientCerts/eduPKI-RA.pem");
+                    $raCertFile = file_get_contents(ROOT . "../edupki-test-ra.pem");
                     $raCert = openssl_x509_read($raCertFile);
-                    $raKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/eduPKI-RA.key");
+                    $raKey = openssl_pkey_get_private("file://" . ROOT . "../edupki-test-ra.clearkey");
                     // sign the data
                     if (openssl_pkcs7_sign($tempdir['dir'] . "/content.txt", $tempdir['dir'] . "/signature.txt", $raCert, $raKey) === FALSE) {
                         throw new Exception("Unable to sign the revocation approval data!");
@@ -404,7 +404,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
     private static function initEduPKISoapSession() {
         // initialse connection to eduPKI CA / eduroam RA
         $soap = new \SoapClient(
-                "https://ra.edupki.org/edupki-ca/cgi-bin/pub/soap?wsdl=1", [
+                "https://ra.edupki.org/edupki-test-ca/cgi-bin/ra/soap?wsdl=1", [
             'soap_version' => SOAP_1_1,
             'trace' => TRUE,
             'exceptions' => TRUE,
@@ -466,11 +466,11 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                 try {
                     $soap = SilverbulletCertificate::initEduPKISoapSession();
                     $soapNewRequest = $soap->newRequest(
-                            100, # RA-ID
+                            700, # RA-ID
                             $csr["CSR"], # Request im PEM-Format
                             [# Array mit den Subject Alternative Names
                         "email:" . $csr["USERNAME"]
-                            ], "eduroam Managed IdP End User", # Zertifikatprofil
+                            ], "eduroam IdP and SP", # Zertifikatprofil
                             sha1("notused"), # PIN
                             $csr["USERNAME"], # Name des Antragstellers
                             "eduroam Managed IdP", # Organisationseinheit des Antragstellers
@@ -502,9 +502,9 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     $tempdir = \core\common\Entity::createTemporaryDirectory("test");
                     file_put_contents($tempdir['dir'] . "/content.txt", $soapRawRequest);
                     // retrieve our RA cert from filesystem
-                    $raCertFile = file_get_contents(ROOT . "/config/SilverbulletClientCerts/eduPKI-RA.pem");
+                    $raCertFile = file_get_contents(ROOT . "../edupki-test-ra.pem");
                     $raCert = openssl_x509_read($raCertFile);
-                    $raKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/eduPKI-RA.key");
+                    $raKey = openssl_pkey_get_private("file://" . ROOT . "../edupki-test-ra.clearkey");
                     // sign the data
                     if (openssl_pkcs7_sign($tempdir['dir'] . "/content.txt", $tempdir['dir'] . "/signature.txt", $raCert, $raKey) === FALSE) {
                         throw new Exception("Unable to sign the certificate approval data!");
