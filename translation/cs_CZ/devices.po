@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Alice Vixie <alice.vixie@osu.cz>, 2015
 # Ludmila Kovářová <ludmila.kovarova@fsv.cvut.cz>, 2015
@@ -14,16 +14,14 @@ msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-08-21 15:38+0200\n"
-"PO-Revision-Date: 2018-05-23 14:47+0000\n"
+"PO-Revision-Date: 2018-08-22 08:47+0000\n"
 "Last-Translator: Petr Adamec <p.b.adamec@gmail.com>\n"
-"Language-Team: Czech (Czech Republic) (http://www.transifex.com/"
-"eduroam_devel/cat/language/cs_CZ/)\n"
-"Language: cs_CZ\n"
+"Language-Team: Czech (Czech Republic) (http://www.transifex.com/eduroam_devel/cat/language/cs_CZ/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
-"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+"Language: cs_CZ\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
 #: devices/Devices-template.php:110
 msgid "MS Windows 10"
@@ -93,14 +91,11 @@ msgstr "Chrome OS"
 #, php-format
 msgid ""
 "After downloading the file, open the Chrome browser and browse to this URL: "
-"<a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</"
-"a>. Then, use the 'Import ONC file' button. The import is silent; the new "
-"network definitions will be added to the preferred networks."
-msgstr ""
-"Po stažení souboru, otevřete prohlížeč Chrome a přejděte na adresu: <a "
-"href='chrome://net-internals/#chromeos'> chrome: // net-internals / # "
-"ChromeOS </a>. Potom použijte tlačítko \"Importovat soubor ONC '. Import je "
-"bez upozornění; nové definice sítě budou přidány do preferovaných sítí."
+"<a href='chrome://net-internals/#chromeos'>chrome://net-"
+"internals/#chromeos</a>. Then, use the 'Import ONC file' button. The import "
+"is silent; the new network definitions will be added to the preferred "
+"networks."
+msgstr "Po stažení souboru, otevřete prohlížeč Chrome a přejděte na adresu: <a href='chrome://net-internals/#chromeos'> chrome: // net-internals / # ChromeOS </a>. Potom použijte tlačítko \"Importovat soubor ONC '. Import je bez upozornění; nové definice sítě budou přidány do preferovaných sítí."
 
 #: devices/Devices-template.php:331
 msgid "Android 6.0 Marshmallow"
@@ -114,11 +109,7 @@ msgid ""
 "that you have installed the %s application. This application is available "
 "from %s, %s and %s, and will use the configuration file downloaded from CAT "
 "to create all necessary settings."
-msgstr ""
-"Než budete pokračovat v instalaci na Android, ujistěte se, že jste "
-"nainstalovali aplikaci %s. Tato aplikace je k dispozici od %s, %s a %s, a "
-"bude používat konfigurační soubor stažený z CAT k vytvoření všech potřebných "
-"nastavení."
+msgstr "Než budete pokračovat v instalaci na Android, ujistěte se, že jste nainstalovali aplikaci %s. Tato aplikace je k dispozici od %s, %s a %s, a bude používat konfigurační soubor stažený z CAT k vytvoření všech potřebných nastavení."
 
 #: devices/Devices-template.php:341 devices/Devices-template.php:357
 #: devices/Devices-template.php:373 devices/Devices-template.php:390
@@ -148,13 +139,10 @@ msgstr "Nastavení EAP"
 #: devices/Devices-template.php:412
 #, php-format
 msgid ""
-"This option provides a generic EAP config XML file, which can be consumed by "
-"dedicated applications like eduroamCAT for Android and Linux platforms. This "
-"is still an experimental feature."
-msgstr ""
-"Tato volba nabízí všeobecný XML soubor pro konfiguraci EAP, který umí "
-"zpracovat aplikace k tomu určené jako eduroamCAT pro Android a pro Linux. To "
-"je však stále nehotová funkce."
+"This option provides a generic EAP config XML file, which can be consumed by"
+" dedicated applications like eduroamCAT for Android and Linux platforms. "
+"This is still an experimental feature."
+msgstr "Tato volba nabízí všeobecný XML soubor pro konfiguraci EAP, který umí zpracovat aplikace k tomu určené jako eduroamCAT pro Android a pro Linux. To je však stále nehotová funkce."
 
 #: devices/Devices-template.php:418
 msgid "Test"
@@ -169,9 +157,7 @@ msgid ""
 "It is not possible to actively verify the user input for suffix match; but "
 "if there is no 'Terms of Use' configured, the installer will display a "
 "corresponding hint to the user instead."
-msgstr ""
-"Nelze ověřit příponu zadanou uživatelem; pokud nejsou nastaveny \"Podmínky "
-"použití\", zobrazí instalátor uživateli namísto toho odpovídající nápovědu."
+msgstr "Nelze ověřit příponu zadanou uživatelem; pokud nejsou nastaveny \"Podmínky použití\", zobrazí instalátor uživateli namísto toho odpovídající nápovědu."
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:57
 #, php-format
@@ -190,18 +176,14 @@ msgstr "Důležité upozornění: vaše uživatelské jméno musí končit se @%
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:105
 msgid ""
-"Important Notice: your username MUST be in the form of xxx@yyy where the yyy "
-"is a common suffix identifying your Identity Provider. Please find out what "
-"to use there and enter the username in the correct format."
-msgstr ""
-"Důležité upozornění: Vaše uživatelské jméno MUSÍ být ve formátu xxx@yyy, kde "
-"yyy je přípona identifikující vašeho poskytovatele identit. Zadejte prosím "
-"uživatelské jméno ve správném formátu."
+"Important Notice: your username MUST be in the form of xxx@yyy where the yyy"
+" is a common suffix identifying your Identity Provider. Please find out what"
+" to use there and enter the username in the correct format."
+msgstr "Důležité upozornění: Vaše uživatelské jméno MUSÍ být ve formátu xxx@yyy, kde yyy je přípona identifikující vašeho poskytovatele identit. Zadejte prosím uživatelské jméno ve správném formátu."
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:141
-#, fuzzy
 msgid "Unnamed Organisation"
-msgstr "Nepojmenovaný %s"
+msgstr "Nepojmenovaná organizace"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:142
 msgid "Unnamed Profile"
@@ -211,17 +193,13 @@ msgstr "Nepojmenovaný profil"
 msgid ""
 "For best results, please use the built-in browser (Safari) to open the "
 "configuration file."
-msgstr ""
-"Pro dosažení nejlepších výsledků, použijte k otevření konfiguračního souboru "
-"vestavěný prohlížeč (Safari)."
+msgstr "Pro dosažení nejlepších výsledků, použijte k otevření konfiguračního souboru vestavěný prohlížeč (Safari)."
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:202
 msgid ""
 "The profile will install itself after you click (or tap) the button. You "
 "will be asked for confirmation/input at several points:"
-msgstr ""
-"Instalaci profilu spustíte kliknutím na tlačítko. V průběhu instalace budete "
-"vícekrát požádáni o potvrzení případně o vstupní údaje:"
+msgstr "Instalaci profilu spustíte kliknutím na tlačítko. V průběhu instalace budete vícekrát požádáni o potvrzení případně o vstupní údaje:"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:204
 msgid "to install the profile"
@@ -241,10 +219,9 @@ msgid "(%d times)"
 msgstr "(%d krát)"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:210
-#, fuzzy
 msgid ""
 "to enter the username and password you have been given by your organisation"
-msgstr "zadejte svoje uživatelské jméno a heslo pro %s"
+msgstr "zadejte svoje uživatelské jméno a heslo poskytnuté vaší organizací"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:212
 #, php-format
@@ -288,7 +265,8 @@ msgstr "Toto SSID by nemělo být po instalaci %s již používáno."
 msgid "Disabled WiFi network"
 msgstr "WiFi síť je zakázána."
 
-#. we don't include the import password. It's displayed on screen, and should be input by the user.
+#. we don't include the import password. It's displayed on screen, and should
+#. be input by the user.
 #. <key>Password</key>
 #. <string>" . $this->clientCert['password'] . "</string>
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:503
@@ -308,32 +286,22 @@ msgid ""
 "This installer is an example only. It produces a zip file containig the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
 "administrator) and a dump of all available attributes."
-msgstr ""
-"Tento instalační program slouží pouze jako příklad. Vytvoří archiv "
-"obsahující certifikáty, souboru s informacemi a logem (pokud bylo správcem "
-"organizace vloženo) a výpisem všech dostupných atributů."
+msgstr "Tento instalační program slouží pouze jako příklad. Vytvoří archiv obsahující certifikáty, souboru s informacemi a logem (pokud bylo správcem organizace vloženo) a výpisem všech dostupných atributů."
 
 #: devices/linux/Device_Linux.php:52
-#, fuzzy
 msgid ""
 "The installer is in the form of a Python script. It will try to configure "
-"eduroam under Network Manager and if this is either not appropriate for your "
-"system or your version of Network Manager is too old, a wpa_supplicant "
+"eduroam under Network Manager and if this is either not appropriate for your"
+" system or your version of Network Manager is too old, a wpa_supplicant "
 "config file will be created instead."
-msgstr ""
-"Instalační program je ve formě bash skriptu. Pokusí se nakonfigurovat "
-"eduroam pomocí aplikace Network Manager. Pokud je verze aplikace Network "
-"Manager ve vašem systému příliš stará nebo není k dispozici, bude vytvořen "
-"konfigurační soubor pro nástroj wpa_supplicant."
+msgstr "Instalační program je ve formě skriptu v Pythonu. Pokusí se nakonfigurovat eduroam pomocí aplikace Network Manager. Pokud je verze aplikace Network Manager ve vašem systému příliš stará nebo není k dispozici, bude vytvořen konfigurační soubor pro nástroj wpa_supplicant."
 
 #: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:115
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to the following networks:"
-msgstr ""
-"Zároveň s nastavením <strong>%s</strong> bude nastavený i přístup k "
-"následujícím sítím:"
+msgstr "Zároveň s nastavením <strong>%s</strong> bude nastavený i přístup k následujícím sítím:"
 
 #: devices/linux/Device_Linux.php:58 devices/ms/WindowsCommon.php:117
 #, php-format
@@ -346,12 +314,9 @@ msgstr "Zároveň s nastavením <strong>%s</strong> bude nastavený i přístup 
 msgid ""
 "The installer will create .cat_installer sub-directory in your home "
 "directory and will copy your server certificates there."
-msgstr ""
-"Instalátor vytvoří ve vašem domácím adresáři novou složku .cat_installer "
-"nahraje do ní vaše serverové certifikáty."
+msgstr "Instalátor vytvoří ve vašem domácím adresáři novou složku .cat_installer nahraje do ní vaše serverové certifikáty."
 
 #: devices/linux/Device_Linux.php:74
-#, fuzzy
 msgid ""
 "In order to connect to the network you will need a personal certificate in "
 "the form of a p12 file. You should obtain this certificate from your "
@@ -359,35 +324,23 @@ msgid ""
 "be obtained. Such certificate files are password protected. You should have "
 "both the file and the password available during the installation process. "
 "Your p12 file will also be copied to the .cat_installer directory."
-msgstr ""
-"Pro připojení k vaší síti potřebujete svůj osobní certifikát uložený v "
-"souboru s příponou .p12 . Takový certifikát byste si měli zajistit u %s. "
-"Zjistěte si na tamních stránkách podpory, jak na to. A dále: soubory p12 "
-"jsou chráněné heslem, takže během instalace budete potřebovat soubor i "
-"heslo. Váš soubor .p12 bude také nakopírován do složky .cat_installer ."
+msgstr "Pro připojení k vaší síti potřebujete svůj osobní certifikát uložený v souboru s příponou .p12 . Takový certifikát byste si měli zajistit u  vaší organizace. Zjistěte si na tamních stránkách podpory, jak na to. A dále: soubory p12 jsou chráněné heslem, takže během instalace budete potřebovat soubor i heslo. Váš soubor .p12 bude také nakopírován do složky .cat_installer ."
 
 #. not EAP-TLS
 #: devices/linux/Device_Linux.php:76 devices/ms/WindowsCommon.php:128
-#, fuzzy
 msgid ""
 "In order to connect to the network you will need an account from your "
 "organisation. You should consult the support page to find out how this "
 "account can be obtained. It is very likely that your account is already "
 "activated."
-msgstr ""
-"Pro připopjení k síti budete potřebovat účet z %s. Více o získání účtu se "
-"dozvíte na stránkách uživatelské podpory. S největší pravděpodobností je váš "
-"účet již k dispozici."
+msgstr "Pro připojení k síti budete potřebovat účet vaší organizace. Více o získání účtu se dozvíte na stránkách uživatelské podpory. S největší pravděpodobností je váš účet již k dispozici."
 
 #: devices/linux/Device_Linux.php:78
 msgid ""
 "You will be requested to enter your account credentials during the "
 "installation. This information will be saved so that you will reconnect to "
 "the network automatically each time you are in the range."
-msgstr ""
-"V průběhu instalace budete požádáni o zadání vašeho uživatelského jména a "
-"hesla. Tyto údaje budou uloženy a použity při dalším přihlášení k síti "
-"budete-li v jejím dosahu."
+msgstr "V průběhu instalace budete požádáni o zadání vašeho uživatelského jména a hesla. Tyto údaje budou uloženy a použity při dalším přihlášení k síti budete-li v jejím dosahu."
 
 #: devices/linux/Device_Linux.php:87
 msgid "Really quit?"
@@ -464,12 +417,9 @@ msgstr "Všechny soubory"
 #: devices/linux/Device_Linux.php:106
 msgid ""
 "Network Manager configuration failed, but we may generate a wpa_supplicant "
-"configuration file if you wish. Be warned that your connection password will "
-"be saved in this file as clear text."
-msgstr ""
-"Konfigurace Network Manageru se nezdařila. Pokud si přejete, můžeme "
-"vygenerovat konfigurační soubor pro wpa-supplicant. Vaše heslo pro připojení "
-"bude v tomto souboru uloženo v textové podobě!"
+"configuration file if you wish. Be warned that your connection password will"
+" be saved in this file as clear text."
+msgstr "Konfigurace Network Manageru se nezdařila. Pokud si přejete, můžeme vygenerovat konfigurační soubor pro wpa-supplicant. Vaše heslo pro připojení bude v tomto souboru uloženo v textové podobě!"
 
 #: devices/linux/Device_Linux.php:107
 msgid "Write the file"
@@ -480,25 +430,19 @@ msgstr "Zapsat soubor"
 msgid ""
 "Error: Your username must be of the form 'xxx@institutionID' e.g. "
 "'john@example.net'!"
-msgstr ""
-"Chyba: Vaše uživatelské jméno musí být ve formátu 'jméno@institutionID\", "
-"např. 'john@example.net'!"
+msgstr "Chyba: Vaše uživatelské jméno musí být ve formátu 'jméno@institutionID\", např. 'john@example.net'!"
 
 #: devices/linux/Device_Linux.php:109
 msgid ""
 "Error: your username must be in the form of 'xxx@{}'. Please enter the "
 "username in the correct format."
-msgstr ""
-"Chyba: Vaše uživatelské jméno musí být ve formátu 'jméno@{}'. Zadejte prosím "
-"uživatelské jméno ve správném formátu."
+msgstr "Chyba: Vaše uživatelské jméno musí být ve formátu 'jméno@{}'. Zadejte prosím uživatelské jméno ve správném formátu."
 
 #: devices/linux/Device_Linux.php:110
 msgid ""
-"Error: your username must be in the form of 'xxx@institutionID' and end with "
-"'{}'. Please enter the username in the correct format."
-msgstr ""
-"Chyba: Vaše uživatelské jméno musí být ve formátu 'jméno@institutionID' a "
-"končit s '{}'. Zadejte prosím uživatelské jméno ve správném formátu."
+"Error: your username must be in the form of 'xxx@institutionID' and end with"
+" '{}'. Please enter the username in the correct format."
+msgstr "Chyba: Vaše uživatelské jméno musí být ve formátu 'jméno@institutionID' a končit s '{}'. Zadejte prosím uživatelské jméno ve správném formátu."
 
 #: devices/linux/Device_Linux.php:111
 msgid "personal certificate file not found"
@@ -521,51 +465,35 @@ msgstr "Instalační program byl vytvořený pomocí programu z projektu GEANT."
 msgid ""
 "This installer will only work properly if you are a member of {0} and the "
 "user group: {1}."
-msgstr ""
-"Tento instalační program bude fungovat pouze pokud jste členem {0} a "
-"uživatelské skupiny: {1}."
+msgstr "Tento instalační program bude fungovat pouze pokud jste členem {0} a uživatelské skupiny: {1}."
 
 #: devices/linux/Device_Linux.php:247
 msgid "This installer will only work properly if you are a member of {0}."
-msgstr ""
-"Tento instalační program bude fungovat pouze pokud jste členem organizace "
-"{0}."
+msgstr "Tento instalační program bude fungovat pouze pokud jste členem organizace {0}."
 
 #: devices/ms/Device_Vista7.php:33 devices/ms/Device_W8_10.php:40
 msgid ""
 "Anonymous identities do not use the realm as specified in the profile - it "
 "is derived from the suffix of the user's username input instead."
-msgstr ""
-"Anonymní identita je odvozená z domény zadané ve jméně uživatele. Není "
-"použita doména uvedená v profilu."
+msgstr "Anonymní identita je odvozená z domény zadané ve jméně uživatele. Není použita doména uvedená v profilu."
 
 #: devices/ms/WindowsCommon.php:111
 #, php-format
 msgid ""
 "%s installer will be in the form of an EXE file. It will configure %s on "
 "your device, by creating wireless network profiles.<p>When you click the "
-"download button, the installer will be saved by your browser. Copy it to the "
-"machine you want to configure and execute."
-msgstr ""
-"Instalační program %s bude připraven ve formě spustitelného souboru s "
-"příponou .exe. Po spuštění nakonfiguruje %s na vašem zařízení a vytvoří "
-"jeden nebo více síťových profilů.<p>Kliknutím na tlačítku Stáhnout bude "
-"instalační program uložen. Zkopírujte jej na zařízení kde chcete "
-"nakonfigurovat eduroam a spusťte jej."
+"download button, the installer will be saved by your browser. Copy it to the"
+" machine you want to configure and execute."
+msgstr "Instalační program %s bude připraven ve formě spustitelného souboru s příponou .exe. Po spuštění nakonfiguruje %s na vašem zařízení a vytvoří jeden nebo více síťových profilů.<p>Kliknutím na tlačítku Stáhnout bude instalační program uložen. Zkopírujte jej na zařízení kde chcete nakonfigurovat eduroam a spusťte jej."
 
 #: devices/ms/WindowsCommon.php:124
-#, fuzzy
 msgid ""
 "In order to connect to the network you will need an a personal certificate "
 "in the form of a p12 file. You should obtain this certificate from your "
 "organisation. Consult the support page to find out how this certificate can "
 "be obtained. Such certificate files are password protected. You should have "
 "both the file and the password available during the installation process."
-msgstr ""
-"Pro připopjení k síti budete potřebovat osobní certifikát ve formátu souboru "
-"p12. Certifikát získáte od %s. Více o získání certifikátu se dozvíte na "
-"stránkách uživatelské podpory. Soubory s certifikátem jsou chráněné heslem, "
-"mějte jej prosím při instalaci k dispozici."
+msgstr "Pro připojení k síti budete potřebovat osobní certifikát ve formátu souboru p12. Certifikát získáte od vaší organizace. Více o získání certifikátu se dozvíte na stránkách uživatelské podpory. Soubory s certifikátem jsou chráněné heslem, mějte jej prosím při instalaci k dispozici."
 
 #: devices/ms/WindowsCommon.php:132
 msgid ""
@@ -573,17 +501,13 @@ msgid ""
 "up a login box, where you should enter your user name and password. This "
 "information will be saved so that you will reconnect to the network "
 "automatically each time you are in the range."
-msgstr ""
-"Při prvním přihlášení k síti vás systém Windows vyzve k zadání vašeho "
-"uživatelského jména a hesla. Tyto údaje budou uloženy a použity při dalším "
-"přihlášení k síti budete-li v jejím dosahu."
+msgstr "Při prvním přihlášení k síti vás systém Windows vyzve k zadání vašeho uživatelského jména a hesla. Tyto údaje budou uloženy a použity při dalším přihlášení k síti budete-li v jejím dosahu."
 
 #: devices/ms/WindowsCommon.php:135
 msgid ""
 "You will be required to enter the same credentials for each of the "
 "configured notworks:"
-msgstr ""
-"Pro každou z následujících sítí mustíte zadat stejné přihlašovací údaje:"
+msgstr "Pro každou z následujících sítí mustíte zadat stejné přihlašovací údaje:"
 
 #: devices/ms/WindowsCommon.php:250 devices/ms/WindowsCommon.php:251
 #, php-format
@@ -594,18 +518,14 @@ msgstr "Instalační program %s pre organizaci %s"
 msgid ""
 "This device is not yet supported by CAT, but your local administrator "
 "created a redirect to local installation instructions."
-msgstr ""
-"CAT toto zařízení prozatím nepodporuje, ale váš správce už vytvořil návod k "
-"instalaci, na který teď budete přesměrováni."
+msgstr "CAT toto zařízení prozatím nepodporuje, ale váš správce už vytvořil návod k instalaci, na který teď budete přesměrováni."
 
 #: devices/xml/Device_XML.php:50
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
 "-00</a> XML format."
-msgstr ""
-"Tohle je všeobecná konfigurace ve formátu XML  IETF <a href='%s'>EAP "
-"Metadata -00</a>."
+msgstr "Tohle je všeobecná konfigurace ve formátu XML  IETF <a href='%s'>EAP Metadata -00</a>."
 
 #: devices/ms/Files/common.inc:124
 #, php-format
@@ -640,9 +560,7 @@ msgstr "Souhlasím"
 msgid ""
 "If you accept the conditions then select Accept and then click Install to "
 "continue."
-msgstr ""
-"Souhlas s podmínkami potvrďte volbou Souhlasím a pokračujte kliknutím na "
-"tlačítko Instalovat."
+msgstr "Souhlas s podmínkami potvrďte volbou Souhlasím a pokračujte kliknutím na tlačítko Instalovat."
 
 #: devices/ms/Files/common.inc:142
 msgid "Finish"
@@ -663,15 +581,11 @@ msgstr "nebylo možné nainstalovat certifikát"
 #: devices/ms/Files/common.inc:432
 msgid ""
 "The non TKIP profiles are preferred. Always use them if you have a choice."
-msgstr ""
-"Profily s pokročilým šifrováním bez TKIP jsou bezpečnější. Použijte je proto "
-"vždy, pokud je to možné."
+msgstr "Profily s pokročilým šifrováním bez TKIP jsou bezpečnější. Použijte je proto vždy, pokud je to možné."
 
 #: devices/ms/Files/common.inc:434
 msgid "The non TKIP profile is preferred. Always use it if you have a choice."
-msgstr ""
-"Profily s pokročilým šifrováním bez TKIP je bezpečnější. Použijte je proto "
-"vždy, pokud je to možné."
+msgstr "Profily s pokročilým šifrováním bez TKIP je bezpečnější. Použijte je proto vždy, pokud je to možné."
 
 #: devices/ms/Files/common.inc:440 devices/ms/Files/common.inc:448
 msgid "This installer has been prepared for ${ORGANISATION}"
@@ -689,48 +603,35 @@ msgstr "Instalační program vytvoří profil bezdrátové sítě:"
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "10 and newer. Please download the correct installer and try again."
-msgstr ""
-"Provozujete Windows $WindowsName, ale tento instalátor je jenom pro Windows "
-"10 a novější. Stáhněte si instalátor pro správnou verzi a zkuste to znovu."
+msgstr "Provozujete Windows $WindowsName, ale tento instalátor je jenom pro Windows 10 a novější. Stáhněte si instalátor pro správnou verzi a zkuste to znovu."
 
 #: devices/ms/Files/common.inc:537 devices/ms/Files/common.inc:544
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "8 and 8.1. Please download the correct installer and try again."
-msgstr ""
-"Provozujete Windows $WindowsName, ale tento instalátor je jenom pro Windows "
-"8 a 8.1. Stáhněte si instalátor pro správnou verzi a zkuste to znovu."
+msgstr "Provozujete Windows $WindowsName, ale tento instalátor je jenom pro Windows 8 a 8.1. Stáhněte si instalátor pro správnou verzi a zkuste to znovu."
 
 #: devices/ms/Files/common.inc:553
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "Vista and Windows 7. Please download the correct installer and try again."
-msgstr ""
-"Provozujete Windows $WindowsName, ale tento instalátor je jenom pro Windows "
-"Vista a Windows 7. Stáhněte si instalátor pro správnou verzi a zkuste to "
-"znovu."
+msgstr "Provozujete Windows $WindowsName, ale tento instalátor je jenom pro Windows Vista a Windows 7. Stáhněte si instalátor pro správnou verzi a zkuste to znovu."
 
 #: devices/ms/Files/common.inc:589
 msgid ""
 "Windows wireless configuration service is not enabled. The installer cannot "
 "continue."
-msgstr ""
-"Služba systému Windows pro nastavení bezdrátové sítě není povolená. "
-"Instalační program nemůže pokračovat."
+msgstr "Služba systému Windows pro nastavení bezdrátové sítě není povolená. Instalační program nemůže pokračovat."
 
 #: devices/ms/Files/common.inc:594
 msgid "No wireless interfaces found. The installer cannot continue."
-msgstr ""
-"Nebylo nalezeno žádné rozhraní bezdrátové sítě. Instalační program nemůže "
-"pokračovat."
+msgstr "Nebylo nalezeno žádné rozhraní bezdrátové sítě. Instalační program nemůže pokračovat."
 
 #: devices/ms/Files/common.inc:600
 msgid ""
 "No wireless interfaces found. Wireless access will not be configured. Would "
 "you like to continue and configure access on the wired interface?"
-msgstr ""
-"Bezdrátová zařízení nebyla nalezena, takže bezdrátový přístup nebude "
-"nastaven. Chcete pokračovat a nastavit přístup pro kabelovou síť?"
+msgstr "Bezdrátová zařízení nebyla nalezena, takže bezdrátový přístup nebude nastaven. Chcete pokračovat a nastavit přístup pro kabelovou síť?"
 
 #: devices/ms/Files/common.inc:616
 msgid "Do you want to enable access on wired interfaces?"
@@ -752,9 +653,7 @@ msgstr "nalezen profil $R8"
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION} and the user group: ${USER_GROUP}."
-msgstr ""
-"Tento instalační program bude fungovat pouze pokud jste členem uživatelské "
-"skupiny: ${USER_GROUP} v organizaci ${ORGANISATION}."
+msgstr "Tento instalační program bude fungovat pouze pokud jste členem uživatelské skupiny: ${USER_GROUP} v organizaci ${ORGANISATION}."
 
 #: devices/ms/Files/common.inc:713 devices/ms/Files/common.inc:716
 msgid "Click OK to continue with installation."
@@ -764,17 +663,13 @@ msgstr "Pro pokračování instalace stiskněte tlačítko OK."
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION}."
-msgstr ""
-"Tento instalační program bude fungovat pouze pokud jste členem organizace "
-"${ORGANISATION}."
+msgstr "Tento instalační program bude fungovat pouze pokud jste členem organizace ${ORGANISATION}."
 
 #: devices/ms/Files/common.inc:724
 msgid ""
 "Please read the additional information from ${ORGANISATION} which will be "
 "displayed in a moment."
-msgstr ""
-"Přečtěte si, prosím, další informace z ${ORGANISATION}, které budou "
-"zobrazeny vzápětí."
+msgstr "Přečtěte si, prosím, další informace z ${ORGANISATION}, které budou zobrazeny vzápětí."
 
 #: devices/ms/Files/common.inc:779
 #, php-format
@@ -782,20 +677,13 @@ msgid ""
 "Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may "
 "be due to the fact that Symantec Endpoint Protection is installed on your "
 "machine.$\\r$\\nWhile this is a well-known bug of the Symantec product, "
-"about which the installer can not do anything, there is a workaround.$\\r$"
-"\\nWhen you close this window the installer will exit and an explorer window "
-"will be started (it could appear underneath already opened windows). In this "
-"window you should see a script named inst_cat. Start it by double-clicking, "
-"It will install the profiles. You will need to login to %s with your "
-"username and password."
-msgstr ""
-"Tohle si OPRAVDU přečtěte!$\\r$\\nProblém s instalací asi způsobil Symantec "
-"Endpoint Protection, který máte nainstalovaný.$\\r$\\nJe to známý problém a "
-"nic s ním neuděláme, ale zkusme to jinak:$\\r$\\nAž zavřete tohle okno, "
-"instalátor se ukončí a otevře se okno se soubory na disku (možná se vám "
-"schová pod jinými okny). V něm byste měli najít soubor nazvaný inst_cat. "
-"Spusťte ho poklikáním a nainstalují se vám profily. Budete se muset "
-"přihlásit k %s svým jménem a heslem."
+"about which the installer can not do anything, there is a "
+"workaround.$\\r$\\nWhen you close this window the installer will exit and an"
+" explorer window will be started (it could appear underneath already opened "
+"windows). In this window you should see a script named inst_cat. Start it by"
+" double-clicking, It will install the profiles. You will need to login to %s"
+" with your username and password."
+msgstr "Tohle si OPRAVDU přečtěte!$\\r$\\nProblém s instalací asi způsobil Symantec Endpoint Protection, který máte nainstalovaný.$\\r$\\nJe to známý problém a nic s ním neuděláme, ale zkusme to jinak:$\\r$\\nAž zavřete tohle okno, instalátor se ukončí a otevře se okno se soubory na disku (možná se vám schová pod jinými okny). V něm byste měli najít soubor nazvaný inst_cat. Spusťte ho poklikáním a nainstalují se vám profily. Budete se muset přihlásit k %s svým jménem a heslem."
 
 #: devices/ms/Files/common.inc:789
 msgid "Please restart your system after installation finishes."
@@ -888,19 +776,15 @@ msgstr "Nesprávné heslo k certifikátu$\\r$\\nzadejte znovu heslo"
 
 #: devices/ms/Files/common.inc:1217
 msgid ""
-"Error: your username must be in the form of 'xxx@${REALM}'. Please enter the "
-"username in the correct format."
-msgstr ""
-"Chyba: Vaše uživatelské jméno musí být ve formátu 'jméno@${REALM}'. Zadejte "
-"prosím uživatelské jméno ve správném formátu."
+"Error: your username must be in the form of 'xxx@${REALM}'. Please enter the"
+" username in the correct format."
+msgstr "Chyba: Vaše uživatelské jméno musí být ve formátu 'jméno@${REALM}'. Zadejte prosím uživatelské jméno ve správném formátu."
 
 #: devices/ms/Files/common.inc:1219
 msgid ""
-"Error: your username must be in the form of 'xxx@institutionID' and end with "
-"'${REALM}'. Please enter the username in the correct format."
-msgstr ""
-"Chyba: Vaše uživatelské jméno musí být ve formátu 'jméno@institutionID' a "
-"končit s '${REALM}'. Zadejte prosím uživatelské jméno ve správném formátu."
+"Error: your username must be in the form of 'xxx@institutionID' and end with"
+" '${REALM}'. Please enter the username in the correct format."
+msgstr "Chyba: Vaše uživatelské jméno musí být ve formátu 'jméno@institutionID' a končit s '${REALM}'. Zadejte prosím uživatelské jméno ve správném formátu."
 
 #: devices/ms/Files/common.inc:1286
 msgid "User credentials"
@@ -977,16 +861,13 @@ msgid ""
 "An additional piece of software 'GEANTlink' needs to be installed. This "
 "installation requires Administrator rights; you will be prompted to give "
 "permission for that action."
-msgstr ""
-"Dodatečný program 'GÉANTlink' musí být nainstalován. Tato instalace vyžaduje "
-"administrátorská práva; budete požádáni k povolení této akce."
+msgstr "Dodatečný program 'GÉANTlink' musí být nainstalován. Tato instalace vyžaduje administrátorská práva; budete požádáni k povolení této akce."
 
 #: devices/ms/Files/geant_link.inc:89
 msgid ""
 "Error installing GEANTLink.$\\nEmbedded installer didn't complete "
 "succesfully."
-msgstr ""
-"Chyba při instalaci GEANTLink.$\\nInstalační program neskončil úspěšně."
+msgstr "Chyba při instalaci GEANTLink.$\\nInstalační program neskončil úspěšně."
 
 #: devices/ms/Files/geant_link.inc:99
 msgid "installing credentials for ${PROVIDERID}"
@@ -994,6 +875,4 @@ msgstr "Instaluji přihlašovací údaje pro ${PROVIDERID}"
 
 #: devices/ms/Files/pwd.inc:35
 msgid "EAP-pwd installation error. Please try again or contact Support."
-msgstr ""
-"Chyba při instalaci EAP-pwd. Zkuste to, prosím, znova, nebo kontaktujte "
-"podporu."
+msgstr "Chyba při instalaci EAP-pwd. Zkuste to, prosím, znova, nebo kontaktujte podporu."
