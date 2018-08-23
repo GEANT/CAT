@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-21 15:38+0200\n"
+"POT-Creation-Date: 2018-08-23 14:14+0200\n"
 "PO-Revision-Date: 2018-05-18 00:19+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Serbian (http://www.transifex.com/eduroam_devel/cat/language/"
@@ -501,7 +501,7 @@ msgstr ""
 msgid "This installer will only work properly if you are a member of {0}."
 msgstr ""
 
-#: devices/ms/Device_Vista7.php:33 devices/ms/Device_W8_10.php:40
+#: devices/ms/Device_Vista7.php:33 devices/ms/Device_W8_10.php:39
 msgid ""
 "Anonymous identities do not use the realm as specified in the profile - it "
 "is derived from the suffix of the user's username input instead."

@@ -44,5 +44,5 @@ translation:
 distribution: all
 	find . -name \*.po~ -exec rm {} \;
 	find . -name svn-commit.tmp -exec rm {} \;
-	rm -R -f NewFolder nbproject config/config.php devices/devices.php generic-data*
+	rm -R -f NewFolder nbproject config/config-master.php config/config-confassistant.php config/config-diagnostics.php devices/Devices.php .codeclimate.yml .git .github .scrutinizer.yml .gitignore -gitmodules
 	tar -cvjf ../$(VERSION).tar.bz2 --show-transformed-names --exclude-vcs --xform 's/^\.\(\/\)/$(VERSION)\1/' .
