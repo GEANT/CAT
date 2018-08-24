@@ -54,7 +54,7 @@ abstract class Entity {
      * 
      * @var Language
      */
-    protected $languageInstance;
+    public $languageInstance;
 
     /**
      * initialise the entity.

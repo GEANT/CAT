@@ -43,7 +43,10 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
 </head>
 <body>
 <div id='wrap'>
-<?php echo $divs->div_heading(); ?>
+
+<?php
+$Gui->languageInstance->setTextDomain("diagnostics");
+echo $divs->div_heading(); ?>
 <div id="main_page">
     <div id="loading_ico">
           <span id='load_comment'></span><br><img src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES", "icons/loading51.gif"); ?>" alt="Loading stuff ..."/>
