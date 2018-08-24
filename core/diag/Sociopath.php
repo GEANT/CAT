@@ -30,6 +30,7 @@ class Sociopath extends AbstractTest {
      */
     public function __construct() {
         parent::__construct();
+        $this->languageInstance->setTextDomain("diagnostics");
         $this->previousQuestions = $_SESSION['EVIDENCE']['QUESTIONSASKED'] ?? [];
         $noCanDo = _("There is nothing you can do to solve this problem yourself.");
         $noChange = _("Please be patient and try again at a later time. Do NOT change your device configuration.");
