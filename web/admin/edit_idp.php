@@ -98,7 +98,7 @@ echo $mapCode->htmlHeadCode();
         <?php
         if ($wizardStyle) {
             echo "<p>" .
-            sprintf(_("The %s has properties which are valid across all deployment profiles. This is the place where you can describe those properties in a fine-grained way. The solicited information is used as follows:"), $uiElements->nomenclature_inst) . "</p>
+            _("Some properties are valid across all deployment profiles. This is the place where you can describe those properties in a fine-grained way. The solicited information is used as follows:") . "</p>
                       <ul>
                          <li>" . _("<strong>Logo</strong>: When you submit a logo, we will embed this logo into all installers where a custom logo is possible. We accept any image format, but for best results, we suggest SVG. If you don't upload a logo, we will use the generic logo instead (see top-right corner of this page).") . "</li>
                          <li>" . sprintf(_("<strong>Name</strong>: The %s may have names in multiple languages. It is recommended to always populate at least the 'default/other' language, as it is used as a fallback if the system does not have a name in the exact language the user requests a download in."),$uiElements->nomenclature_inst) . "</li>";
@@ -173,7 +173,7 @@ echo $mapCode->htmlHeadCode();
             if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL") {
                 echo "<p>" .
                         
-                sprintf(_("Does the %s provide helpdesk services for its users? If so, it would be nice if you would tell us the pointers to this helpdesk."),$uiElements->nomenclature_inst)  . "</p>" .
+                sprintf(_("Do you provide helpdesk services for your users? If so, it would be nice if you would tell us the pointers to this helpdesk."),$uiElements->nomenclature_inst)  . "</p>" .
                 "<p>" .
                 _("If you enter a value here, it will be added to the installers for all your users, and will be displayed on the download page. If you operate separate helpdesks for different user groups (we call this 'profiles') specify per-profile helpdesk information later in this wizard. If you operate no help desk at all, just leave these fields empty.") . "</p>";
                 if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {

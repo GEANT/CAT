@@ -1,0 +1,8 @@
+When upgrading from the newest CAT 1.1 database structure:
+
+- run 1_1-2_0.sql to convert the schema
+- run 1_1-2_0-script.php for the data conversion
+
+When deploying CAT 2.0 from scratch:
+
+- use schema.sql to create a new schema
