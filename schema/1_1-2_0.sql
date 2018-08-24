@@ -10,6 +10,10 @@
  * Author:  swinter
  * Created: 17.12.2015
  */
+
+DELETE FROM `profile_option` WHERE option_name = 'profile:QR-user';
+DELETE FROM `profile_option_dict` WHERE name = 'profile:QR-user';
+
 INSERT INTO `profile_option_dict` VALUES 
 ('media:force_proxy','URL of a mandatory content filter proxy','string',NULL),
 ('fed:realname','a friendly display name of the NRO/federation','string', 'ML'),
