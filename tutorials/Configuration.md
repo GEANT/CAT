@@ -56,6 +56,9 @@ Here are some extra configuration hints for these packages:
 	for general server hardening, the following option should be set in php.ini: "expose_php 0"
 
 	for cookie security, the following options should be set in php.ini: "session.cookie_httponly 1" and "session.cookie_secure 1"
+
+	To send mails, PHPMailer v6 needs to be on your system. If your package manager does not provide it, you can download the tarball from GitHub and place it in the directory core/PHPMailer
+
 * simpleSAMLphp
 
 	configure it as a service provider, authenticating towards an IdP of your choice. Attribute mapping is defined in config.php

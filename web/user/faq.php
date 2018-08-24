@@ -12,7 +12,7 @@ $FAQ = [];
 
 array_push($FAQ, [
     'title' => _("My organisation is not listed. Can't I just use any of the other ones?"),
-    'text' => _("No! The installers contain security settings which are specific to the organisation. If you are not from that organisation, your computer will detect that you are about to send your username and credential to an unauthorised server and will abort the login. Using an installer from a different organisation is <i>guaranteed to not work</i>!")
+    'text' => _("No! The installers contain security settings which are specific to the organisation. If you are not from that organisation, your device will detect that you are about to send your username and credential to an unauthorised server and will abort the login. Using an installer from a different organisation is <i>guaranteed to not work</i>!")
 ]);
 
 array_push($FAQ, [
@@ -22,7 +22,7 @@ array_push($FAQ, [
 
 array_push($FAQ, [
     'title' => sprintf(_("My device is not listed! Does that mean I can't do %s?"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']),
-    'text' => sprintf(_("No. The CAT tool can only support Operating Systems which can be automatically configured in some way. Many other devices can still be used with %s, but must be configured manually. Please contact your %s Identity Provider to get help in setting up such a device."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'])
+    'text' => sprintf(_("No. The CAT tool can only support Operating Systems which can be automatically configured in some way. Many other devices can still be used with %s, but must be configured manually. Please contact your organisation to get help in setting up such a device."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'])
 ]);
 
 array_push($FAQ, [

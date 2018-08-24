@@ -73,6 +73,14 @@ const CONFIG_CONFASSISTANT = [
             // 'secretvalue' => 'UK',
             // 'othervalue' => 'DE',
         ],
+        /*  Please note that many languages that CAT is translated to distinguish
+            grammatical gender and if you change this phrase it might get a wrong
+            article in some translated strings or look odd. This only affects the
+            administrative interface and not end users.
+            Since this product has a flagship use for the eduroam consortium 
+            (which uses the term "Identity Provider"), at least the German 
+            translation is geared towards *male* declination to match that term.
+         */
         'nomenclature_federation' => 'National Roaming Operator',
         'nomenclature_institution' => 'Identity Provider',
     ],

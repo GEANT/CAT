@@ -49,7 +49,7 @@ class Device_Linux extends \core\DeviceConfig {
         $ssidCount = count($this->attributes['internal:SSID']);
         $out = '';
 
-        $out .= _("The installer is in the form of a Python script. It will try to configure eduroam under Network Manager and if this is either not appropriate for your system or your version of Network Manager is too old, a wpa_supplicant config file will be created instead.");
+        $out .= sprint(_("The installer is in the form of a Python script. It will try to configure %s under NetworkManager and if this is either not appropriate for your system or your version of NetworkManager is too old, a wpa_supplicant config file will be created instead."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $out .= "<p>";
         if ($ssidCount > 1) {
             if ($ssidCount > 2) {
@@ -94,7 +94,7 @@ class Device_Linux extends \core\DeviceConfig {
         $out .= 'Messages.installation_finished = "' . _("Installation successful") . "\"\n";
         $out .= 'Messages.cat_dir_exisits = "' . _("Directory {} exists; some of its files may be overwritten.") . "\"\n";
         $out .= 'Messages.cont = "' . _("Continue?") . "\"\n";
-        $out .= 'Messages.nm_not_supported = "' . _("This Network Manager version is not supported") . "\"\n";
+        $out .= 'Messages.nm_not_supported = "' . _("This NetworkManager version is not supported") . "\"\n";
         $out .= 'Messages.cert_error = "' . _("Certificate file not found, looks like a CAT error") . "\"\n";
         $out .= 'Messages.unknown_version = "' . _("Unknown version") . "\"\n";
         $out .= 'Messages.dbus_error = "' . _("DBus connection problem, a sudo might help") . "\"\n";
@@ -103,7 +103,7 @@ class Device_Linux extends \core\DeviceConfig {
         $out .= 'Messages.p12_filter = "' . _("personal certificate file (p12 or pfx)") . "\"\n";
         $out .= 'Messages.all_filter = "' . _("All files") . "\"\n";
         $out .= 'Messages.p12_title = "' . _("personal certificate file (p12 or pfx)") . "\"\n";
-        $out .= 'Messages.save_wpa_conf = "' . _("Network Manager configuration failed, but we may generate a wpa_supplicant configuration file if you wish. Be warned that your connection password will be saved in this file as clear text.") . "\"\n";
+        $out .= 'Messages.save_wpa_conf = "' . _("NetworkManager configuration failed, but we may generate a wpa_supplicant configuration file if you wish. Be warned that your connection password will be saved in this file as clear text.") . "\"\n";
         $out .= 'Messages.save_wpa_confirm = "' . _("Write the file") . "\"\n";
         $out .= 'Messages.wrongUsernameFormat = "' ._("Error: Your username must be of the form 'xxx@institutionID' e.g. 'john@example.net'!") . "\"\n";
         $out .= 'Messages.wrong_realm = "' . _("Error: your username must be in the form of 'xxx@{}'. Please enter the username in the correct format.") . "\"\n";

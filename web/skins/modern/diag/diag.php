@@ -104,7 +104,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                 </div>
                 </div>
                 <div id="after_stage_1" style="display:none;">
-                    <h3><?php echo _("Testing realm "); ?><span id="realm_name"></span></h3>
+                    <h3><?php echo _("Testing realm")." "; ?><span id="realm_name"></span></h3>
                     <?php echo _("First stage completed."); ?>
                     <br>
                 </div>
