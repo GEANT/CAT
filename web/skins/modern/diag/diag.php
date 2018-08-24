@@ -27,6 +27,7 @@ $admin = filter_input(INPUT_GET, 'admin', FILTER_VALIDATE_INT);
 $profile_list_size = 1;
 include_once(dirname(__DIR__) . '/Divs.php');
 $divs = new Divs($Gui);
+$visibility = 'index';
 $operatingSystem = $Gui->detectOS();
 $Gui->loggerInstance->debug(4, $operatingSystem);
 $uiElements = new web\lib\admin\UIElements();
@@ -45,7 +46,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
 <div id='wrap'>
 
 <?php
-echo $divs->div_heading();
+echo $divs->div_heading($visibility);
 $Gui->languageInstance->setTextDomain("diagnostics");
 ?>
 <div id="main_page">
