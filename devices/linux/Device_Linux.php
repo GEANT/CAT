@@ -49,7 +49,7 @@ class Device_Linux extends \core\DeviceConfig {
         $ssidCount = count($this->attributes['internal:SSID']);
         $out = '';
 
-        $out .= sprint(_("The installer is in the form of a Python script. It will try to configure %s under NetworkManager and if this is either not appropriate for your system or your version of NetworkManager is too old, a wpa_supplicant config file will be created instead."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        $out .= sprintf(_("The installer is in the form of a Python script. It will try to configure %s under NetworkManager and if this is either not appropriate for your system or your version of NetworkManager is too old, a wpa_supplicant config file will be created instead."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $out .= "<p>";
         if ($ssidCount > 1) {
             if ($ssidCount > 2) {
