@@ -55,7 +55,7 @@ if (CONFIG['DB']['USER']['readonly'] === FALSE) { // we are actually writing use
 $i = 0;
 foreach ($salvageFedPrivs as $oneFed) {
     $_POST['option']["S123456789".$i] = "user:fedadmin#string##";
-    $_POST['value']["S123456789".$i."-0"] = $oneFed;
+    $_POST['value']["S123456789".$i."-string"] = $oneFed;
     $i++;
 }
 ?>
