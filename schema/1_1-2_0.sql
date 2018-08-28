@@ -57,6 +57,7 @@ ALTER TABLE `federation_option` ADD COLUMN `option_lang` varchar(8) DEFAULT NULL
 ALTER TABLE `institution_option` ADD COLUMN `option_lang` varchar(8) DEFAULT NULL;
 ALTER TABLE `profile_option` ADD COLUMN `option_lang` varchar(8) DEFAULT NULL;
 
+UPDATE downloads SET installer_time = "2000-01-01 00:00:00" WHERE installer_time < "2000-01-01 00:00:00";
 ALTER TABLE `downloads` CHANGE COLUMN `installer_time` `installer_time` timestamp NOT NULL DEFAULT '2000-01-01 00:00:00';
 ALTER TABLE `downloads` ADD COLUMN `downloads_silverbullet` int(11) NOT NULL DEFAULT '0';
 
