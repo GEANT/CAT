@@ -1,3 +1,11 @@
+Changes in 2.0-beta2
+====================
+- [FEATURE #1]  warn and reject support URLs if they are not properly prefixed
+                with the protocol (http:// and https:// are the only allowed
+                protocols
+- [BUGFIX  #1]  when using built-in user management, the fedadmin privilege got
+                lost when changing other user attributes
+
 Changes in 2.0-beta1
 ====================
 - [FEATURE #1]  admin API implemented
