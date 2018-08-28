@@ -78,6 +78,10 @@ require_once(__DIR__ . "/../packageRoot.php");
  */
 // this is the actual config
 
+if (!file_exists(ROOT . "/config/config-master.php")) {
+    echo "Master configuration file not found. You need to configure the product! At least config-master.php is required!";
+    throw new Exception("Master config file not found!");
+}
 
 include(ROOT . "/config/config-master.php");
 
