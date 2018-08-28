@@ -380,6 +380,13 @@ class OptionParser {
                                         continue 3;
                                     }
                                     break;
+                                case "support:url":
+                                    $content = $this->validator->string($listOfEntries["$objId-" . \core\Options::TYPECODE_STRING]);
+                                    if (preg_match("/^http/",$content) != 1) {
+                                        $bad[] = $objValue;
+                                        continue 3;
+                                    }
+                                    break;
                                 default:
                                     $content = $this->validator->string($listOfEntries["$objId-" . \core\Options::TYPECODE_STRING]);
                                     break;
