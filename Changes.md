@@ -5,6 +5,8 @@ Changes in 2.0-beta2
                 protocols
 - [BUGFIX  #1]  when using built-in user management, the fedadmin privilege got
                 lost when changing other user attributes
+- [BUGFIX  #2]  add a shebang to the Linux installer so that it gets executed
+                with the system's Python interpreter
 
 Changes in 2.0-beta1
 ====================
