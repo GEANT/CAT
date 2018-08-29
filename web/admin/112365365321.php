@@ -1,11 +1,11 @@
 <?php
-/* 
- *******************************************************************************
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -13,18 +13,16 @@ require_once(dirname(dirname(__DIR__)) . '/config/_config.php');
 
 $uiElements = new web\lib\admin\UIElements();
 
+$security = 0;
 if (!in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
     $auth = new \web\lib\admin\Authentication();
     $auth->authenticate();
-    $no_security = 0;
-} else {
-    $no_security = 1;
-}
-$user = new \core\User((!in_array("I do not care about security!", CONFIG['SUPERADMINS']) ? $_SESSION['user'] : "UNIDENTIFIED"));
-
-if (!in_array($user->userName, CONFIG['SUPERADMINS']) && !in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
-    header("Location: overview_user.php");
-    exit;
+    $security = 1;
+    $user = new \core\User($_SESSION['user']);
+    if (!in_array($user->userName, CONFIG['SUPERADMINS'])) {
+        header("Location: overview_user.php");
+        exit;
+    }
 }
 
 $deco = new \web\lib\admin\PageDecoration();
@@ -47,7 +45,7 @@ $dbHandle = \core\DBConnection::handle("FRONTEND");
         <button type="submit" name="admin_action" value="<?php echo web\lib\common\FormElements::BUTTON_SANITY_TESTS; ?>">Run configuration check</button>
     </fieldset>
     <?php
-    if ($no_security) {
+    if ($security == 0) {
         print "<h2 style='color: red'>In order to do more you need to configure the SUPERADMIN section  in config/config-master.php and login as one.</h2>";
     } else {
         ?>
@@ -118,7 +116,7 @@ $dbHandle = \core\DBConnection::handle("FRONTEND");
                     <th>Device</th>
                     <th>Admin Downloads</th>
                     <th>User Downloads (classic)</th>
-                    <th>User Downloads (<?php echo \core\ProfileSilverbullet::PRODUCTNAME;?>)</th>
+                    <th>User Downloads (<?php echo \core\ProfileSilverbullet::PRODUCTNAME; ?>)</th>
                     <th>User Downloads (total)</th>
                 </tr>
                 <?php
@@ -130,7 +128,7 @@ $dbHandle = \core\DBConnection::handle("FRONTEND");
                     $admin_query = $dbHandle->exec("SELECT SUM(downloads_admin) AS admin, SUM(downloads_user) AS user, SUM(downloads_silverbullet) as silverbullet FROM downloads WHERE device_id = '$index'");
                     // SELECT -> mysqli_result, not boolean
                     while ($a = mysqli_fetch_object(/** @scrutinizer ignore-type */ $admin_query)) {
-                        echo "<td>" . $device_array['display'] . "</td><td>" . $a->admin . "</td><td>" . $a->user . "</td><td>" . $a->silverbullet . "</td><td>" . sprintf("%s",$a->user + $a->silverbullet) . "</td>";
+                        echo "<td>" . $device_array['display'] . "</td><td>" . $a->admin . "</td><td>" . $a->user . "</td><td>" . $a->silverbullet . "</td><td>" . sprintf("%s", $a->user + $a->silverbullet) . "</td>";
                         $gross_admin = $gross_admin + $a->admin;
                         $gross_user = $gross_user + $a->user;
                         $gross_silverbullet = $gross_silverbullet + $a->silverbullet;
