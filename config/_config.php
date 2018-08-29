@@ -100,10 +100,15 @@ include(ROOT . "/config/config-master.php");
 
 if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == 'LOCAL' || CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == 'LOCAL') {
     include(ROOT . "/config/config-confassistant.php");
+} else { // we want to define the constant itself anyway, to avoid some ugly warnings on the console
+    // this is done with an inline include
+    include("data://text/plain;base64,".base64_encode("<?php const CONFIG_CONFASSISTANT = []; ?>"));
 }
 
 if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == 'LOCAL') {
     include(ROOT . "/config/config-diagnostics.php");
+} else { // same here
+    include("data://text/plain;base64,".base64_encode("<?php const CONFIG_DIAGNOSTICS = []; ?>"));
 }
 
 function CAT_session_start() {
