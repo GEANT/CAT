@@ -16,6 +16,8 @@ Changes in 2.0-beta1
 - [FEATURE #3]  enhance Android config format to allow supplying alternative SSIDs
                 and the "prefill/validate realm suffix" config items
 - [FEATURE #4]  add Hotspot 2.0 support to Windows 10 installers
+- [FEATURE #5]  set reply-to for admin invitations to the mail address of the
+                federation administrators, not the mailing list
 - [BUGFIX #1 ]  Symantec protection warning message was unnecessarily popping up in some cases
 - [BUGFIX #2 ]  remove Windows EAP-pwd installers due to non-technical bug
                 
