@@ -1,7 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import subprocess 
+
+import getpass
+import os
+import platform
+import re
+import subprocess
 import sys
+import uuid
+from shutil import copyfile
+
 
 def missing_dbus():
     print("Cannot import the dbus module")
@@ -17,12 +25,6 @@ except:
     except:
         missing_dbus()
     sys.exit(0)
-import re
-import os
-import uuid
-import getpass
-import platform
-from shutil import copyfile
 
 debug_on = False
 
@@ -678,6 +680,4 @@ class CatNMConfigTool:
             self.delete_existing_connections(ssid)
         debug("NM returning success")
         return(True)
-
-
 
