@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import base64
 import getpass
 import os
 import platform
@@ -417,7 +418,6 @@ class InstallerData:
 
 
     def __save_sb_pfx(self):
-        import base64
         certfile = os.environ.get('HOME') + '/.cat_installer/user.p12'
         with open(certfile, 'wb') as f:
             f.write(base64.b64decode(Config.sb_user_file))
