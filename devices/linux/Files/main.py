@@ -18,7 +18,7 @@ def missing_dbus():
 
 try:
     import dbus
-except:
+except ImportError:
     if sys.version_info.major == 3:
         missing_dbus()
     try:
@@ -160,6 +160,9 @@ class InstallerData:
     graphics = ''
 
     def __init__(self):
+        self.password = ''
+        self.username = ''
+
         self.__get_graphics_support()
         self.show_info(Config.init_info.format(Config.instname,
                                                Config.email, Config.url))
@@ -307,25 +310,25 @@ class InstallerData:
 
     def __get_username_password(self):
         """ get username and password """
-        PASSWORD = "a"
-        PASSWORD1 = "b"
+        password = "a"
+        password1 = "b"
         if Config.hint_user_input:
             user_prompt = '@' + Config.user_realm
         else:
             user_prompt = ''
         while True:
-            self.USERNAME = self.prompt_nonempty_string(
+            self.username = self.prompt_nonempty_string(
                 1, Messages.username_prompt, user_prompt)
             if self.__validate_user_name():
                 break
-        while PASSWORD != PASSWORD1:
-            PASSWORD = self.prompt_nonempty_string(
+        while password != password1:
+            password = self.prompt_nonempty_string(
                 0, Messages.enter_password)
-            PASSWORD1 = self.prompt_nonempty_string(
+            password1 = self.prompt_nonempty_string(
                 0, Messages.repeat_password)
-            if PASSWORD != PASSWORD1:
+            if password != password1:
                 self.alert(Messages.passwords_differ)
-        self.PASSWORD = PASSWORD
+        self.password = password
 
     def __get_graphics_support(self):
         """ get graphic environment """
@@ -355,7 +358,7 @@ class InstallerData:
         except:
             debug("using openssl")
             command = ['openssl', 'pkcs12', '-in', pfx_file, '-passin',
-                       'pass:' + self.PASSWORD, '-nokeys', '-clcerts']
+                       'pass:' + self.password, '-nokeys', '-clcerts']
             q = subprocess.Popen(command, stdout=subprocess.PIPE,
                                  stderr=subprocess.PIPE)
             out, _ = q.communicate()
@@ -374,12 +377,12 @@ class InstallerData:
                         S[vp[0].lower()] = vp[1]
                 if S['cn'] and re.search(r'@', S['cn']):
                     debug('Using cn: ' + S['cn'])
-                    self.USERNAME = S['cn']
+                    self.username = S['cn']
                 elif S['emailaddress'] and re.search(r'@', S['emailaddress']):
                     debug('Using email: ' + S['emailaddress'])
-                    self.USERNAME = S['emailaddress']
+                    self.username = S['emailaddress']
                 else:
-                    self.USERNAME = ''
+                    self.username = ''
                     self.alert("Unable to extract username form the "
                                "certificate")
                 return True
@@ -387,7 +390,7 @@ class InstallerData:
             debug("using crypto")
             try:
                 p12 = crypto.load_pkcs12(open(pfx_file, 'rb').read(),
-                                         self.PASSWORD)
+                                         self.password)
             except:
                 debug("incorrect password")
                 return False
@@ -395,10 +398,10 @@ class InstallerData:
                 if Config.use_other_tls_id is True:
                     return True
                 try:
-                    self.USERNAME = p12.get_certificate(). \
+                    self.username = p12.get_certificate(). \
                         get_subject().commonName
                 except:
-                    self.USERNAME = p12.get_certificate(). \
+                    self.username = p12.get_certificate(). \
                         get_subject().emailAddress
                 return True
 
@@ -466,24 +469,22 @@ class InstallerData:
             except (OSError, RuntimeError):
                 print(Messages.user_cert_missing)
                 sys.exit()
-        self.PASSWORD = ''
-        self.USERNAME = ''
-        while not self.PASSWORD:
-            self.PASSWORD = self.prompt_nonempty_string(
+        while not self.password:
+            self.password = self.prompt_nonempty_string(
                 0, Messages.enter_import_password)
             if not self.__process_p12():
                 self.alert(Messages.incorrect_password)
-                self.PASSWORD = ''
-        if not self.USERNAME:
-            self.USERNAME = self.prompt_nonempty_string(
+                self.password = ''
+        if not self.username:
+            self.username = self.prompt_nonempty_string(
                 1, Messages.username_prompt)
 
     def __validate_user_name(self):
         """  locate the @ character in username """
-        pos = self.USERNAME.find('@')
+        pos = self.username.find('@')
         debug("@ position: " + str(pos))
         # trailing @
-        if pos == len(self.USERNAME) - 1:
+        if pos == len(self.username) - 1:
             debug("username ending with @")
             self.alert(Messages.wrongUsernameFormat)
             return False
@@ -504,14 +505,14 @@ class InstallerData:
         pos += 1
         if Config.verify_user_realm_input:
             if Config.hint_user_input:
-                if self.USERNAME.endswith('@' + Config.user_realm, pos - 1):
+                if self.username.endswith('@' + Config.user_realm, pos - 1):
                     debug("realm equal to the expected value")
                     return True
                 else:
                     debug("incorrect realm; expected:" + Config.user_realm)
                     self.alert(Messages.wrong_realm.format(Config.user_realm))
                     return False
-            if self.USERNAME.endswith(Config.user_realm, pos):
+            if self.username.endswith(Config.user_realm, pos):
                 debug("real ends with expected suffix")
                 return True
             else:
@@ -519,12 +520,12 @@ class InstallerData:
                 self.alert(Messages.wrong_realm_suffix.format(
                     Config.user_realm))
                 return False
-        pos1 = self.USERNAME.find('@', pos)
+        pos1 = self.username.find('@', pos)
         if pos1 > -1:
             debug("second @ character found")
             self.alert(Messages.wrongUsernameFormat)
             return False
-        pos1 = self.USERNAME.find('.', pos)
+        pos1 = self.username.find('.', pos)
         if pos1 == -1:
             debug("no dot in the realm")
             self.alert(Messages.wrongUsernameFormat)
