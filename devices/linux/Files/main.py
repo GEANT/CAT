@@ -408,10 +408,10 @@ class InstallerData:
     def __select_p12_file(self):
         """ select p12 file """
         if self.graphics == 'tty':
-            dir = os.listdir(".")
+            directory = os.listdir(".")
             p_count = 0
             pfx_file = ''
-            for file in dir:
+            for file in directory:
                 if file.endswith('.p12') or file.endswith('*.pfx') or \
                         file.endswith('.P12') or file.endswith('*.PFX'):
                     p_count += 1
@@ -574,7 +574,14 @@ class WpaConf:
 class CatNMConfigTool:
     """ CAT NetworkManager Config class """
 
-    def connect_to_NM(self):
+    def __init__(self):
+        self.nm_version = ''
+        self.settings_service_name = ''
+        self.cacert_file = ''
+        self.pfx_file = ''
+        self.connection_interface_name = ''
+
+    def connect_to_network_manager(self):
         """ connect to DBus """
         try:
             self.bus = dbus.SystemBus()
@@ -649,7 +656,7 @@ class CatNMConfigTool:
             return
 
     def byte_to_string(self, barray):
-        """ #TODO Method could be a function """
+        """ TODO Method could be a function """
         return "".join([chr(x) for x in barray])
 
     def delete_existing_connections(self, ssid):
@@ -739,7 +746,7 @@ class CatNMConfigTool:
     def main(self, user_data):
         """ main function """
         self.check_opts()
-        if self.connect_to_NM() is None:
+        if self.connect_to_network_manager() is None:
             return None
         for ssid in Config.ssids:
             self.delete_existing_connections(ssid)
