@@ -15,6 +15,8 @@ from shutil import copyfile
 def missing_dbus():
     print("Cannot import the dbus module")
     sys.exit(1)
+
+
 try:
     import dbus
 except:
@@ -42,7 +44,7 @@ def detect_desktop_environment():
             q = subprocess.Popen(['xprop', '-root', '_DT_SAVE_MODE'],
                                  stdout=subprocess.PIPE,
                                  stderr=subprocess.PIPE)
-            out, err = q.communicate()
+            out, _ = q.communicate()
             info = out.strip().decode('utf-8')
         except (OSError, RuntimeError):
             pass
@@ -60,7 +62,7 @@ def get_system():
     """
     system = platform.linux_distribution()  # depricated with 3.6
     desktop = detect_desktop_environment()
-    return([system[0], system[1], desktop])
+    return [system[0], system[1], desktop]
 
 
 def debug(msg):
@@ -198,11 +200,11 @@ class InstallerData:
                 if i == no:
                     return 1
         if self.graphics == "zenity":
-            command = ['zenity', '--title='+Config.title, '--width=500',
-                       '--question',  '--text='+question+"\n\n"+prompt]
+            command = ['zenity', '--title=' + Config.title, '--width=500',
+                       '--question', '--text=' + question + "\n\n" + prompt]
         elif self.graphics == 'kdialog':
             command = ['kdialog', '--yesno', question + "\n\n" + prompt,
-                       '--title=',  Config.title]
+                       '--title=', Config.title]
         returncode = subprocess.call(command)
         # out, err = q.communicate()
         return returncode
@@ -274,7 +276,7 @@ class InstallerData:
         while not output:
             q = subprocess.Popen(command, stdout=subprocess.PIPE,
                                  stderr=subprocess.PIPE)
-            out, err = q.communicate()
+            out, _ = q.communicate()
             output = out.strip().decode('utf-8')
             if q.returncode == 1:
                 self.confirm_exit()
@@ -324,7 +326,6 @@ class InstallerData:
                 q = subprocess.Popen(['which', 'kdialog'],
                                      stdout=subprocess.PIPE,
                                      stderr=subprocess.PIPE)
-                out, err = q.communicate()
                 if q.returncode == 0:
                     self.graphics = 'kdialog'
                 else:
@@ -343,7 +344,7 @@ class InstallerData:
                        'pass:' + self.PASSWORD, '-nokeys', '-clcerts']
             q = subprocess.Popen(command, stdout=subprocess.PIPE,
                                  stderr=subprocess.PIPE)
-            out, err = q.communicate()
+            out, _ = q.communicate()
             if q.returncode != 0:
                 return False
             else:
@@ -380,10 +381,10 @@ class InstallerData:
                 if Config.use_other_tls_id is True:
                     return True
                 try:
-                    self.USERNAME = p12.get_certificate().\
+                    self.USERNAME = p12.get_certificate(). \
                         get_subject().commonName
                 except:
-                    self.USERNAME = p12.get_certificate().\
+                    self.USERNAME = p12.get_certificate(). \
                         get_subject().emailAddress
                 return True
 
@@ -407,7 +408,7 @@ class InstallerData:
                 output = inp.strip()
 
                 if default != '' and output == '':
-                    return(pfx_file)
+                    return pfx_file
                 default = ''
                 if os.path.isfile(output):
                     return output
@@ -422,15 +423,15 @@ class InstallerData:
                        '--title=' + Messages.p12_title]
             q = subprocess.Popen(command, stdout=subprocess.PIPE,
                                  stderr=subprocess.PIPE)
-            cert, err = q.communicate()
+            cert, _ = q.communicate()
         if self.graphics == 'kdialog':
             command = ['kdialog', '--getopenfilename', '.',
                        '*.p12 *.P12 *.pfx *.PFX | ' + Messages.p12_filter,
                        '--title', Messages.p12_title]
             q = subprocess.Popen(command, stdout=subprocess.PIPE,
                                  stderr=subprocess.PIPE)
-            cert, err = q.communicate()
-        return(cert.strip().decode('utf-8'))
+            cert, _ = q.communicate()
+        return (cert.strip().decode('utf-8'))
 
     def __save_sb_pfx(self):
         certfile = os.environ.get('HOME') + '/.cat_installer/user.p12'
@@ -554,7 +555,7 @@ class CatNMConfigTool:
             self.bus = dbus.SystemBus()
         except dbus.exceptions.DBusException:
             print("Can't connect to DBus")
-            return(None)
+            return None
         # main service name
         self.system_service_name = "org.freedesktop.NetworkManager"
         # check NM version
