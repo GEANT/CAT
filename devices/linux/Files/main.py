@@ -93,7 +93,7 @@ class Messages:
     enter_import_password = "enter your import password"
     incorrect_password = "incorrect password"
     repeat_password = "repeat your password"
-    passwords_difffer = "passwords do not match"
+    passwords_differ = "passwords do not match"
     installation_finished = "Installation successful"
     cat_dir_exists = "Directory {} exists; some of its files may be " \
                      "overwritten."
@@ -121,8 +121,8 @@ class Messages:
                          "enter the username in the correct format."
     user_cert_missing = "personal certificate file not found"
 
-#    "File %s exists; it will be overwritten."
-#    "Output written to %s"
+    # "File %s exists; it will be overwritten."
+    # "Output written to %s"
 
 
 class Config:
@@ -186,10 +186,7 @@ class InstallerData:
                     p += "[" + yes + "]"
                 elif default == 0:
                     p += "[" + no + "]"
-                try:
-                    inp = raw_input(p)
-                except:
-                    inp = input(p)
+                inp = input(p)
                 if inp == '':
                     if default == 1:
                         return 0
@@ -250,10 +247,7 @@ class InstallerData:
                     if output != '':
                         return output
             while True:
-                try:
-                    inp = str(raw_input(prompt + ": "))
-                except:
-                    inp = str(input(prompt + ": "))
+                inp = str(input(prompt + ": "))
                 output = inp.strip().decode('utf-8')
                 if output != '':
                     return output
@@ -316,7 +310,7 @@ class InstallerData:
             PASSWORD1 = self.prompt_nonempty_string(
                 0, Messages.repeat_password)
             if PASSWORD != PASSWORD1:
-                self.alert(Messages.passwords_difffer)
+                self.alert(Messages.passwords_differ)
         self.PASSWORD = PASSWORD
 
     def __get_graphics_support(self):
@@ -351,10 +345,10 @@ class InstallerData:
                                  stderr=subprocess.PIPE)
             out, err = q.communicate()
             if q.returncode != 0:
-                return(False)
+                return False
             else:
                 if Config.use_other_tls_id is True:
-                    return(True)
+                    return True
                 out_str = out.decode('utf-8')
                 subject = re.findall(r'subject=/?(.*)$', out_str,
                                      re.MULTILINE)[0].split('/')
@@ -373,7 +367,7 @@ class InstallerData:
                     self.USERNAME = ''
                     self.alert("Unable to extract username form the "
                                "certificate")
-                return(True)
+                return True
         else:
             debug("using crypto")
             try:
@@ -381,17 +375,17 @@ class InstallerData:
                                          self.PASSWORD)
             except:
                 debug("incorrect password")
-                return(False)
+                return False
             else:
                 if Config.use_other_tls_id is True:
-                    return(True)
+                    return True
                 try:
                     self.USERNAME = p12.get_certificate().\
                         get_subject().commonName
                 except:
                     self.USERNAME = p12.get_certificate().\
                         get_subject().emailAddress
-                return(True)
+                return True
 
     def __select_p12_file(self):
         if self.graphics == 'tty':
@@ -409,10 +403,7 @@ class InstallerData:
                 default = '[' + pfx_file + ']'
 
             while True:
-                try:
-                    inp = raw_input(prompt + default + ": ")  # undefined
-                except:
-                    inp = input(prompt + default + ": ")
+                inp = input(prompt + default + ": ")
                 output = inp.strip()
 
                 if default != '' and output == '':
@@ -505,7 +496,7 @@ class InstallerData:
                     return False
             if self.USERNAME.endswith(Config.user_realm, pos):
                 debug("real ends with expected suffix")
-                return(True)
+                return True
             else:
                 debug("realm suffix error; expected: " + Config.user_realm)
                 self.alert(Messages.wrong_realm_suffix.format(
@@ -716,11 +707,11 @@ class CatNMConfigTool:
     def main(self, user_data):
         self.check_opts()
         if self.connect_to_NM() is None:
-            return(None)
+            return None
         for ssid in Config.ssids:
             self.delete_existing_connections(ssid)
             self.add_connection(ssid, user_data)
         for ssid in Config.del_ssids:
             self.delete_existing_connections(ssid)
         debug("NM returning success")
-        return(True)
+        return True
