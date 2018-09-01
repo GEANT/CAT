@@ -165,15 +165,15 @@ class InstallerData:
         if Config.tou is not None:
             if self.ask(Config.tou, Messages.cont, 1):
                 sys.exit(1)
-        if os.path.exists(os.environ.get('HOME') + '/.cat_installer'):
+        if os.path.exists('{}/.cat_installer'.format(os.environ.get('HOME'))):
             if self.ask(Messages.cat_dir_exists.format(
                             os.environ.get('HOME') + '/.cat_installer'),
                         Messages.cont, 1):
                 sys.exit(1)
         else:
-            os.mkdir(os.environ.get('HOME') + '/.cat_installer', 0o700)
-        certfile = os.environ.get('HOME') + '/.cat_installer/ca.pem'
-        with open(certfile, 'w') as f:
+            os.mkdir('{}/.cat_installer'.format(os.environ.get('HOME')), 0o700)
+        cert_file = '{}/.cat_installer/ca.pem'.format(os.environ.get('HOME'))
+        with open(cert_file, 'w') as f:
             f.write(Config.CA + "\n")
         f.closed
 
@@ -181,9 +181,9 @@ class InstallerData:
         if self.graphics == 'tty':
             yes = Messages.yes[:1].upper()
             no = Messages.no[:1].upper()
-            print("\n-------\n" + question + "\n")
+            print('\n-------\n{}\n'.format(question))
             while True:
-                p = prompt + " (" + Messages.yes + "/" + Messages.no + ") "
+                p = '{0} ({1}/{2}) '.format(prompt, Messages.yes, Messages.no)
                 if default == 1:
                     p += "[" + yes + "]"
                 elif default == 0:
@@ -335,7 +335,7 @@ class InstallerData:
 
     def __process_p12(self):
         debug('process_p12')
-        pfx_file = os.environ['HOME'] + '/.cat_installer/user.p12'
+        pfx_file = '{}/.cat_installer/user.p12'.format(os.environ['HOME'])
         try:
             from OpenSSL import crypto
         except:
@@ -434,8 +434,8 @@ class InstallerData:
         return (cert.strip().decode('utf-8'))
 
     def __save_sb_pfx(self):
-        certfile = os.environ.get('HOME') + '/.cat_installer/user.p12'
-        with open(certfile, 'wb') as f:
+        cert_file = '{}/.cat_installer/user.p12'.format(os.environ.get('HOME'))
+        with open(cert_file, 'wb') as f:
             f.write(base64.b64decode(Config.sb_user_file))
         f.closed
 
@@ -445,8 +445,8 @@ class InstallerData:
         else:
             pfx_file = self.__select_p12_file()
             try:
-                copyfile(pfx_file, os.environ['HOME'] +
-                         '/.cat_installer/user.p12')
+                copyfile(pfx_file, '{}/.cat_installer/user.p12'
+                                   ''.format(os.environ['HOME']))
             except (OSError, RuntimeError):
                 print(Messages.user_cert_missing)
                 sys.exit()
@@ -524,23 +524,26 @@ class InstallerData:
 class WpaConf:
     def prepare_network_block(self, ssid, user_data):
         out = """network={
-        ssid=""" + ssid + """
-        key_mgmt=WPA-EAP
-        pairwise=CCMP
-        group=CCMP TKIP
-        eap=""" + Config.eap_outer + """
-        ca_cert=\"""" + os.environ.get('HOME') + """/.cat_installer/ca.pem\"
-        identity=\"""" + user_data.USERNAME + """\"
-        domain_suffix_match=\"""" + Config.server_match + """\"
-        phase2=\"auth=""" + Config.eap_inner + """\"
-        password=\"""" + user_data.PASSWORD + """\"
-        anonymous_identity=\"""" + Config.anonymous_identity + """\"}
-        """
+                 ssid={0}
+                 key_mgmt=WPA-EAP
+                 pairwise=CCMP
+                 group=CCMP TKIP
+                 eap={1}
+                 ca_cert=\"{3}/.cat_installer/ca.pem\"
+                 identity=\"{4}\"
+                 domain_suffix_match=\"{5}\"
+                 phase2=\"auth={6}\"
+                 password=\"{7}\"
+                 anonymous_identity=\"{8}\"}
+                 """.format(ssid, Config.eap_outer, os.environ.get('HOME'),
+                            user_data.USERNAME, Config.server_match,
+                            Config.eap_inner, user_data.PASSWORD,
+                            Config.anonymous_identity)
         return out
 
     def create_wpa_conf(self, ssids, user_data):
-        wpa_conf = os.environ.get('HOME') + '/.cat_installer/' \
-                                            'cat_installer.conf'
+        wpa_conf = '{}/.cat_installer/cat_installer.conf' \
+                   ''.format(os.environ.get('HOME'))
         with open(wpa_conf, 'w') as f:
             for ssid in ssids:
                 net = self.prepare_network_block(ssid, user_data)
@@ -592,8 +595,10 @@ class CatNMConfigTool:
         return True
 
     def check_opts(self):
-        self.cacert_file = os.environ['HOME'] + '/.cat_installer/ca.pem'
-        self.pfx_file = os.environ['HOME'] + '/.cat_installer/user.p12'
+        self.cacert_file = '{}/.cat_installer/ca.pem' \
+                           ''.format(os.environ['HOME'])
+        self.pfx_file = '{}/.cat_installer/user.p12' \
+                        ''.format(os.environ['HOME'])
         if not os.path.isfile(self.cacert_file):
             print(Messages.cert_error)
             sys.exit(2)
