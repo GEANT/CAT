@@ -16,7 +16,6 @@ def missing_dbus():
     print("Cannot import the dbus module")
     sys.exit(1)
 
-
 try:
     import dbus
 except:
@@ -34,6 +33,7 @@ debug_on = False
 # the function below was partially copied from
 # https://ubuntuforums.org/showthread.php?t=1139057
 def detect_desktop_environment():
+    """ detect desktop environment """
     desktop_environment = 'generic'
     if os.environ.get('KDE_FULL_SESSION') == 'true':
         desktop_environment = 'kde'
@@ -66,12 +66,14 @@ def get_system():
 
 
 def debug(msg):
+    """ print debug messages if debug_on = True """
     if debug_on is False:
         return
     print(msg)
 
 
 def run_installer():
+    """ the main function """
     global debug_on
     try:
         if sys.argv[1] == '-d':
@@ -89,6 +91,7 @@ def run_installer():
 
 
 class Messages:
+    """ messages for the gui """
     quit = "Really quit?"
     username_prompt = "enter your userid"
     enter_password = "enter password"
@@ -128,6 +131,7 @@ class Messages:
 
 
 class Config:
+    """ config data for wpa config file """
     instname = ""
     profilename = ""
     url = ""
@@ -152,6 +156,7 @@ class Config:
 
 
 class InstallerData:
+    """ installer data """
     graphics = ''
 
     def __init__(self):
@@ -178,6 +183,7 @@ class InstallerData:
         f.closed
 
     def ask(self, question, prompt='', default=None):
+        """  """
         if self.graphics == 'tty':
             yes = Messages.yes[:1].upper()
             no = Messages.no[:1].upper()
@@ -210,6 +216,7 @@ class InstallerData:
         return returncode
 
     def show_info(self, data):
+        """ show information """
         if self.graphics == 'tty':
             print(data)
             return
@@ -223,11 +230,13 @@ class InstallerData:
         # out, err = q.communicate()
 
     def confirm_exit(self):
+        """ confirm exit """
         ret = self.ask(Messages.quit)
         if ret == 0:
             sys.exit(1)
 
     def alert(self, text):
+        """ show alert message """
         if self.graphics == 'tty':
             print(text)
             return
@@ -241,6 +250,7 @@ class InstallerData:
         # out, err = q.communicate()
 
     def prompt_nonempty_string(self, show, prompt, val=''):
+        """ echo string """
         if self.graphics == 'tty':
             if show == 0:
                 while True:
@@ -283,18 +293,21 @@ class InstallerData:
         return output
 
     def get_user_cred(self):
+        """ get user cred """
         if Config.eap_outer == 'PEAP' or Config.eap_outer == 'TTLS':
             self.__get_username_password()
         if Config.eap_outer == 'TLS':
             self.__get_p12_cred()
 
     def save_wpa_conf(self):
+        """ save wpa config file """
         if self.ask(Messages.save_wpa_conf, Messages.cont, 1):
             sys.exit(1)
         wpa = WpaConf()
         wpa.create_wpa_conf(Config.ssids, self)
 
     def __get_username_password(self):
+        """ get username and password """
         PASSWORD = "a"
         PASSWORD1 = "b"
         if Config.hint_user_input:
@@ -316,6 +329,7 @@ class InstallerData:
         self.PASSWORD = PASSWORD
 
     def __get_graphics_support(self):
+        """ get graphic environment """
         if os.environ.get('DISPLAY') is not None:
             q = subprocess.Popen(['which', 'zenity'], stdout=subprocess.PIPE,
                                  stderr=subprocess.PIPE)
@@ -334,6 +348,7 @@ class InstallerData:
             self.graphics = 'tty'
 
     def __process_p12(self):
+        """ process p12 file """
         debug('process_p12')
         pfx_file = '{}/.cat_installer/user.p12'.format(os.environ['HOME'])
         try:
@@ -389,6 +404,7 @@ class InstallerData:
                 return True
 
     def __select_p12_file(self):
+        """ select p12 file """
         if self.graphics == 'tty':
             dir = os.listdir(".")
             p_count = 0
@@ -434,12 +450,14 @@ class InstallerData:
         return (cert.strip().decode('utf-8'))
 
     def __save_sb_pfx(self):
+        """ save sb pfx """
         cert_file = '{}/.cat_installer/user.p12'.format(os.environ.get('HOME'))
         with open(cert_file, 'wb') as f:
             f.write(base64.b64decode(Config.sb_user_file))
         f.closed
 
     def __get_p12_cred(self):
+        """ get p12 file cred """
         if Config.eap_inner == 'SILVERBULLET':
             self.__save_sb_pfx()
         else:
@@ -463,7 +481,7 @@ class InstallerData:
                 1, Messages.username_prompt)
 
     def __validate_user_name(self):
-        # locate the @ character in username
+        """  locate the @ character in username """
         pos = self.USERNAME.find('@')
         debug("@ position: " + str(pos))
         # trailing @
@@ -522,7 +540,10 @@ class InstallerData:
 
 
 class WpaConf:
+    """ wpa config class """
+
     def prepare_network_block(self, ssid, user_data):
+        """ create network config """
         out = """network={
                  ssid={0}
                  key_mgmt=WPA-EAP
@@ -542,6 +563,7 @@ class WpaConf:
         return out
 
     def create_wpa_conf(self, ssids, user_data):
+        """ create wpa config file """
         wpa_conf = '{}/.cat_installer/cat_installer.conf' \
                    ''.format(os.environ.get('HOME'))
         with open(wpa_conf, 'w') as f:
@@ -552,8 +574,10 @@ class WpaConf:
 
 
 class CatNMConfigTool:
+    """ CAT NetworkManager Config class """
+
     def connect_to_NM(self):
-        # connect to DBus
+        """ connect to DBus """
         try:
             self.bus = dbus.SystemBus()
         except dbus.exceptions.DBusException:
@@ -595,6 +619,7 @@ class CatNMConfigTool:
         return True
 
     def check_opts(self):
+        """ check opts """
         self.cacert_file = '{}/.cat_installer/ca.pem' \
                            ''.format(os.environ['HOME'])
         self.pfx_file = '{}/.cat_installer/user.p12' \
@@ -604,6 +629,7 @@ class CatNMConfigTool:
             sys.exit(2)
 
     def check_nm_version(self):
+        """ check NetworkManager version """
         try:
             proxy = self.bus.get_object(self.system_service_name,
                                         "/org/freedesktop/NetworkManager")
@@ -625,10 +651,11 @@ class CatNMConfigTool:
             return
 
     def byte_to_string(self, barray):
+        """ #TODO Method could be a function """
         return "".join([chr(x) for x in barray])
 
     def delete_existing_connections(self, ssid):
-        # checks and deletes earlier connections
+        """ checks and deletes earlier connections """
         try:
             conns = self.settings.ListConnections()
         except dbus.exceptions.DBusException:
@@ -652,6 +679,7 @@ class CatNMConfigTool:
                 pass
 
     def add_connection(self, ssid, user_data):
+        """ add connection """
         debug("Adding connection: " + ssid)
         server_alt_subject_name_list = dbus.Array(Config.servers)
         server_name = Config.server_match
@@ -711,6 +739,7 @@ class CatNMConfigTool:
         self.settings.AddConnection(con)
 
     def main(self, user_data):
+        """ main function """
         self.check_opts()
         if self.connect_to_NM() is None:
             return None
