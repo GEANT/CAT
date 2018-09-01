@@ -180,7 +180,6 @@ class InstallerData:
         cert_file = '{}/.cat_installer/ca.pem'.format(os.environ.get('HOME'))
         with open(cert_file, 'w') as f:
             f.write(Config.CA + "\n")
-        f.closed
 
     def ask(self, question, prompt='', default=None):
         """  """
@@ -454,7 +453,6 @@ class InstallerData:
         cert_file = '{}/.cat_installer/user.p12'.format(os.environ.get('HOME'))
         with open(cert_file, 'wb') as f:
             f.write(base64.b64decode(Config.sb_user_file))
-        f.closed
 
     def __get_p12_cred(self):
         """ get p12 file cred """
@@ -570,7 +568,6 @@ class WpaConf:
             for ssid in ssids:
                 net = self.prepare_network_block(ssid, user_data)
                 f.write(net)
-            f.closed
 
 
 class CatNMConfigTool:
