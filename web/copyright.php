@@ -208,6 +208,12 @@ Andreas
                         echo $cat->CAT_COPYRIGHT;
                         ?>
                     </td>
+                    <?php
+                        if (!empty(CONFIG['APPEARANCE']['privacy_notice_url'])) {
+                            $retval .= "<td><a href='".CONFIG['APPEARANCE']['privacy_notice_url']."'>" . sprintf(_("%s Privacy Notice"),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</a></td>";
+                        }
+                        ?>
+                    
                     <td style="padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;">
                         <?php
                         $deco = new \web\lib\admin\PageDecoration();

@@ -56,6 +56,11 @@ $loggerInstance->debug(4, "\n----------------------------------TOU.PHP----------
                     <td style='padding-left:20px; padding-right:20px; text-align:left; vertical-align:top;'>
                         <?php echo $cat->CAT_COPYRIGHT; ?>
                     </td>
+                    <?php
+                    if (!empty(CONFIG['APPEARANCE']['privacy_notice_url'])) {
+                        $retval .= "<td><a href='".CONFIG['APPEARANCE']['privacy_notice_url']."'>" . sprintf(_("%s Privacy Notice"),CONFIG_CONFASSISTANT['CONSORTIUM']['name']) . "</a></td>";
+                    }
+                    ?>
                     <td style='padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;'>
                         <?php
                         $deco = new \web\lib\admin\PageDecoration();

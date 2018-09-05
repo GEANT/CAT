@@ -3,10 +3,17 @@ Changes in 2.0-beta2
 - [FEATURE #1]  warn and reject support URLs if they are not properly prefixed
                 with the protocol (http:// and https:// are the only allowed
                 protocols
+- [FEATURE #2]  allow inclusion of a privacy notice URL. If set, is displayed
+                on the front page footer and immediately adjacent to the end
+                user download buttons
 - [BUGFIX  #1]  when using built-in user management, the fedadmin privilege got
                 lost when changing other user attributes
 - [BUGFIX  #2]  add a shebang to the Linux installer so that it gets executed
                 with the system's Python interpreter
+
+Configuration parameter changes
+-------------------------------
+- CONFIG['APPEARANCE']['privacy_notice_url'] link to the privacy notice
 
 Changes in 2.0-beta1
 ====================

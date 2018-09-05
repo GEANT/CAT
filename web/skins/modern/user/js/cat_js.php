@@ -234,6 +234,10 @@ function resetDevices() {
          txt = "<table><tr><th colspan='2'><?php escaped_echo(_("If you encounter problems, then you can obtain direct assistance from your organisation at:")); ?></th></tr>"+txt+'</table>';
         else
          txt = "<table><tr><th colspan='2'><?php escaped_echo(_("If you encounter problems you should ask those who gave you your account for help.")); ?>.</th></tr></table>";
+      txt = txt+"<?php 
+      if (!empty(CONFIG['APPEARANCE']['privacy_notice_url'])) {
+      escaped_echo("<p>".sprintf(_("When you make use of the international %s infrastructure, e.g. when roaming with your device, your data is treated according to the <a href='%s'>%s Privacy Statement</a>."),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'],CONFIG['APPEARANCE']['privacy_notice_url'],CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'])."</p>");
+      }?>";
       $("#user_info").html(txt);
       $("#user_info").show();
       if(j.silverbullet) {

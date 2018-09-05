@@ -15,11 +15,12 @@ class PageDecoration {
 
     private $validator;
     private $ui;
-    
+
     public function __construct() {
         $this->validator = new \web\lib\common\InputValidation();
         $this->ui = new UIElements();
     }
+
     /**
      * Our (very modest and light) sidebar. authenticated admins get more options, like logout
      * @param boolean $advancedControls
@@ -114,7 +115,7 @@ class PageDecoration {
         $advancedControls = TRUE;
         switch ($area) {
             case "ADMIN-IDP":
-                $cap2 = sprintf(_("Administrator Interface - %s"),$this->ui->nomenclature_inst);
+                $cap2 = sprintf(_("Administrator Interface - %s"), $this->ui->nomenclature_inst);
                 break;
             case "ADMIN-IDP-USERS":
                 $cap2 = sprintf(_("Administrator Interface - %s User Management"), \core\ProfileSilverbullet::PRODUCTNAME);
@@ -126,7 +127,7 @@ class PageDecoration {
                 $cap2 = _("Management of User Details");
                 break;
             case "FEDERATION":
-                $cap2 = sprintf(_("Administrator Interface - %s Management"),$this->ui->nomenclature_fed);
+                $cap2 = sprintf(_("Administrator Interface - %s Management"), $this->ui->nomenclature_fed);
                 break;
             case "USER":
                 $cap1 = sprintf(_("Welcome to %s"), CONFIG['APPEARANCE']['productname']);
@@ -194,11 +195,11 @@ class PageDecoration {
      */
     public function attributionEurope() {
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {// SW: APPROVED
-        // we may need to jump up one dir if we are either in admin/ or accountstatus/
-        // (accountstatus courtesy of my good mood. It's userspace not admin space so
-        // it shouldn't be using this function any more.)
-        $logoBase = \core\CAT::getRootUrlPath() . "/resources/images";
-        return "<span id='logos' style='position:fixed; left:50%;'><img src='$logoBase/dante.png' alt='DANTE' style='height:23px;width:47px'/>
+            // we may need to jump up one dir if we are either in admin/ or accountstatus/
+            // (accountstatus courtesy of my good mood. It's userspace not admin space so
+            // it shouldn't be using this function any more.)
+            $logoBase = \core\CAT::getRootUrlPath() . "/resources/images";
+            return "<span id='logos' style='position:fixed; left:50%;'><img src='$logoBase/dante.png' alt='DANTE' style='height:23px;width:47px'/>
               <img src='$logoBase/eu.png' alt='EU' style='height:23px;width:27px;border-width:0px;'/></span>
               <span id='eu_text' style='text-align:right;'><a href='http://ec.europa.eu/dgs/connect/index_en.htm' style='text-decoration:none; vertical-align:top;'>European Commission Communications Networks, Content and Technology</a></span>";
         }
@@ -217,8 +218,11 @@ class PageDecoration {
             <table style='width:100%'>
                 <tr>
                     <td style='padding-left:20px; padding-right:20px; text-align:left; vertical-align:top;'>
-                        " . $cat->CAT_COPYRIGHT . "</td>
-                    <td style='padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;'>";
+                        " . $cat->CAT_COPYRIGHT . "</td>";
+        if (!empty(CONFIG['APPEARANCE']['privacy_notice_url'])) {
+            $retval .= "<td><a href='".CONFIG['APPEARANCE']['privacy_notice_url']."'>" . sprintf(_("%s Privacy Notice"),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</a></td>";
+        }
+        $retval .= "            <td style='padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;'>";
 
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $retval .= $this->attributionEurope();

@@ -62,6 +62,7 @@ const CONFIG = [
         'skins' => ["modern", "example"],
         // get your key here: https://developers.google.com/maps/documentation/javascript/get-api-key?refresh=1
         'google_maps_api_key' => '',
+        'privacy_notice_url' => 'https://www.eduroam.org/privacy/',
     ],
     
     'FUNCTIONALITY_LOCATIONS' => [

@@ -275,8 +275,11 @@ class Divs {
             <td>" .
                 $this->Gui->CAT_COPYRIGHT
                 . "
-            </td>
-            <td>";
+            </td>";
+        if (!empty(CONFIG['APPEARANCE']['privacy_notice_url'])) {
+            $retval .= "<td><a href='".CONFIG['APPEARANCE']['privacy_notice_url']."'>".sprintf(_("%s Privacy Notice"),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'])."</a></td>";
+        }
+        $retval .= "<td>";
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {
             $geant = $this->Gui->skinObject->findResourceUrl("IMAGES", "dante.png");
             $eu = $this->Gui->skinObject->findResourceUrl("IMAGES", "eu.png");
