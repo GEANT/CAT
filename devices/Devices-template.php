@@ -322,7 +322,7 @@ public static function listDevices() {
      'directory'=>'PP_OSU_XML',
      'module' => 'PP_OSU_XML',
      'options'=>[
-       'mime'=>'application/base64',
+       'mime'=>'application/x-wifi-config',
       ],
    ],
 
