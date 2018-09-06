@@ -314,6 +314,18 @@ public static function listDevices() {
       ],
    ],
 
+'passpoint'=>[
+     'group' => "passpoint",
+     'display'=>_("Passpoint"),
+     // for testing purposes, matching this on Linux
+     'match'=>'Linux(?!.*Android)',
+     'directory'=>'PP_OSU_XML',
+     'module' => 'PP_OSU_XML',
+     'options'=>[
+       'mime'=>'application/base64',
+      ],
+   ],
+
  'chromeos'=>[
     'group' => "chrome",
     'display'=>_("Chrome OS"),

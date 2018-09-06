@@ -175,8 +175,6 @@ class SilverbulletCertificate extends EntityWithDBProperties {
 
         $loggerInstance->debug(5, "generateCertificate: post-processing certificate.\n");
 
-        // get the SHA1 fingerprint, this will be handy for Windows installers
-        $sha1 = openssl_x509_fingerprint($cert, "sha1");
         // with the cert, our private key and import password, make a PKCS#12 container out of it
         $exportedCertProt = "";
         openssl_pkcs12_export($cert, $exportedCertProt, $privateKey, $importPassword, ['extracerts' => [$issuingCaPem /* , $rootCaPem */]]);
@@ -201,7 +199,8 @@ class SilverbulletCertificate extends EntityWithDBProperties {
             "certObject" => $certObject,
             "certdata" => $exportedCertProt,
             "certdataclear" => $exportedCertClear,
-            "sha1" => $sha1,
+            "sha1" => openssl_x509_fingerprint($cert, "sha1"),
+            "sha256" => openssl_x509_fingerprint($cert, "sha256"),
             'importPassword' => $importPassword,
             'GUID' => common\Entity::uuid("", $exportedCertProt),
         ];

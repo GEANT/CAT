@@ -133,6 +133,7 @@ class X509 {
      * der	certificate in DER format
      * md5	MD5 fingerprint
      * sha1	SHA1 fingerprint
+     * sha256   SHA256 fingerprint
      * name	certificate subject
      * root value 1 if root certificate 0 otherwise
      * ca   value 1 if CA certificate 0 otherwise
@@ -176,6 +177,7 @@ class X509 {
         $out["der"] = $authorityDer;
         $out["md5"] = openssl_digest($authorityDer, 'MD5');
         $out["sha1"] = openssl_digest($authorityDer, 'SHA1');
+        $out["sha256"] = openssl_digest($authorityDer, 'SHA256');
         $out["name"] = $mydetails['name'];
         $mydetails['sha1'] = $out['sha1'];
         $out['full_details'] = $mydetails;
