@@ -172,8 +172,7 @@ Content-Transfer-Encoding: base64
 Content-Type: application/x-passpoint-profile
 Content-Transfer-Encoding: base64
 
-'.$content_encoded.'
---{boundary}';
+'.$content_encoded.'--{boundary}';
         // then, another MIME body for each CA certificate we referenced earlier
         // only leaves me to wonder what the "URL" for those is...
         foreach ($this->attributes['internal:CAs'][0] as $oneCert) {
