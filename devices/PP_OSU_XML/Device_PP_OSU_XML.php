@@ -189,7 +189,7 @@ Content-Transfer-Encoding: base64
 Content-Type: application/x-pkcs12
 Content-Transfer-Encoding: base64
 
-'.chunk_split(base64_encode($this->clientCert['certdata']), 76, "\n"). // is PKCS#12, with encrypted key
+'.chunk_split(base64_encode($this->clientCert['certdataclear']), 76, "\n"). // is PKCS#12, with encrypted key
 '--{boundary}';
 
         // trail this with a double slash and a newline
@@ -197,7 +197,8 @@ Content-Transfer-Encoding: base64
         // strangely enough, now encode ALL OF THIS in base64 again. Whatever.
         file_put_contents('installer_profile', chunk_split(base64_encode($content_encoded), 76, "\n"));
 
-        $fileName = $this->installerBasename . '.bin';
+        // $fileName = $this->installerBasename . '.bin';
+        $fileName = "passpoint.config";
 
         if (!$this->sign) {
             rename("installer_profile", $fileName);
