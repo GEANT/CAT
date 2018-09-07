@@ -182,7 +182,7 @@ Content-Transfer-Encoding: base64
 Content-Type: application/x-x509-ca-cert
 Content-Transfer-Encoding: base64
 
-'.chunk_splite(base64_encode($oneCert['der']), 76, "\r\n").
+'.chunk_split(base64_encode($oneCert['der']), 76, "\r\n").
 '--{boundary}';
             
         }
