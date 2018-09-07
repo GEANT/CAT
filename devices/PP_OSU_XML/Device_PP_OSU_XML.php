@@ -164,7 +164,7 @@ class Device_PP_OSU_XML extends \core\DeviceConfig {
   </Node>
 </MgmtTree>
 ';
-        $content_encoded = base64_encode($content);
+        $content_encoded = chunk_split(base64_encode($content), 76, "\r\n");
         // sigh... we need to construct a MIME envelope for the payload and the cert data
         $content_encoded = 'Content-Type: multipart/mixed; boundary={boundary}
 Content-Transfer-Encoding: base64
@@ -182,7 +182,7 @@ Content-Transfer-Encoding: base64
 Content-Type: application/x-x509-ca-cert
 Content-Transfer-Encoding: base64
 
-'.base64_encode($oneCert['der']).
+'.chunk_splite(base64_encode($oneCert['der']), 76, "\r\n").
 '--{boundary}';
             
         }
@@ -191,13 +191,13 @@ Content-Transfer-Encoding: base64
 Content-Type: application/x-pkcs12
 Content-Transfer-Encoding: base64
 
-'.base64_encode($this->clientCert['certdata']). // is PKCS#12, with encrypted key
+'.chunk_split(base64_encode($this->clientCert['certdata']), 76, "\r\n"). // is PKCS#12, with encrypted key
 '--{boundary}';
 
-        // trail this with a double slash
-        $content_encoded .= "--";
+        // trail this with a double slash and a newline
+        $content_encoded .= "--\n";
         // strangely enough, now encode ALL OF THIS in base64 again. Whatever.
-        file_put_contents('installer_profile', base64_encode($content_encoded));
+        file_put_contents('installer_profile', chunk_split(base64_encode($content_encoded), 76, "\r\n"));
 
         $fileName = $this->installerBasename . '.bin';
 
