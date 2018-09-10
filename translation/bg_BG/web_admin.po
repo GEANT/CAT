@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-23 14:04+0200\n"
+"POT-Creation-Date: 2018-09-10 08:40+0200\n"
 "PO-Revision-Date: 2018-08-22 08:49+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/eduroam_devel/"
@@ -164,11 +164,11 @@ msgid "General Information"
 msgstr "Основна информация"
 
 #: web/admin/edit_idp.php:101
-#, php-format
+#, fuzzy
 msgid ""
-"The %s has properties which are valid across all deployment profiles. This "
-"is the place where you can describe those properties in a fine-grained way. "
-"The solicited information is used as follows:"
+"Some properties are valid across all deployment profiles. This is the place "
+"where you can describe those properties in a fine-grained way. The solicited "
+"information is used as follows:"
 msgstr ""
 "%s има свойства, които са  валидни за всички разработени профили. Това е "
 "мястото, където може да опишете тези свойства по най-добрия начин. "
@@ -338,10 +338,10 @@ msgstr ""
 "потребители могат да се свържат с местното бюро за помощ."
 
 #: web/admin/edit_idp.php:176
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"Does the %s provide helpdesk services for its users? If so, it would be nice "
-"if you would tell us the pointers to this helpdesk."
+"Do you provide helpdesk services for your users? If so, it would be nice if "
+"you would tell us the pointers to this helpdesk."
 msgstr ""
 "%s предоставя ли помощ на своите потребители? Ако е така, би било добре да "
 "ни кажете координатите на този отдел. "
@@ -1717,7 +1717,7 @@ msgstr "Информация в <strong>%s базата данни</strong>"
 msgid "%s Name (%s)"
 msgstr "%s Име (%s)"
 
-#: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/PageDecoration.php:32
+#: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/PageDecoration.php:33
 msgid "Unnamed User"
 msgstr "Анонимен потребител"
 
@@ -2063,61 +2063,66 @@ msgstr ""
 "можем единствено да визуализираме тези стрингове на инсталацията, които "
 "са<strong>точно определени</strong> в конфигурирания език."
 
-#: web/lib/admin/PageDecoration.php:31
+#: web/lib/admin/PageDecoration.php:32
 msgid "You are:"
 msgstr "Вие сте:"
 
-#: web/lib/admin/PageDecoration.php:35
+#: web/lib/admin/PageDecoration.php:36
 msgid "Go to your Profile page"
 msgstr "Вървете на страницата с Вашия профил"
 
-#: web/lib/admin/PageDecoration.php:36
+#: web/lib/admin/PageDecoration.php:37
 msgid "Logout"
 msgstr "Излизане"
 
-#: web/lib/admin/PageDecoration.php:38
+#: web/lib/admin/PageDecoration.php:39
 msgid "Start page"
 msgstr "Начална страница"
 
-#: web/lib/admin/PageDecoration.php:59
+#: web/lib/admin/PageDecoration.php:60
 msgid "View this page in"
 msgstr "Вижте тази страница на"
 
-#: web/lib/admin/PageDecoration.php:117
+#: web/lib/admin/PageDecoration.php:118
 #, php-format
 msgid "Administrator Interface - %s"
 msgstr "Администраторски интерфейс - %s"
 
-#: web/lib/admin/PageDecoration.php:120
+#: web/lib/admin/PageDecoration.php:121
 #, php-format
 msgid "Administrator Interface - %s User Management"
 msgstr "Администраторски интерфейс - %s Управление на потребители"
 
-#: web/lib/admin/PageDecoration.php:123
+#: web/lib/admin/PageDecoration.php:124
 msgid "Administrator Interface"
 msgstr "Администраторски интерфейс "
 
-#: web/lib/admin/PageDecoration.php:126
+#: web/lib/admin/PageDecoration.php:127
 msgid "Management of User Details"
 msgstr "Управление на потребителските детайли"
 
-#: web/lib/admin/PageDecoration.php:129
+#: web/lib/admin/PageDecoration.php:130
 #, php-format
 msgid "Administrator Interface - %s Management"
 msgstr "Администраторски интерфейс - %s Управление"
 
-#: web/lib/admin/PageDecoration.php:132
+#: web/lib/admin/PageDecoration.php:133
 #, php-format
 msgid "Welcome to %s"
 msgstr "Добре дошли в %s"
 
-#: web/lib/admin/PageDecoration.php:137
+#: web/lib/admin/PageDecoration.php:138
 msgid "CIC"
 msgstr "CIC"
 
-#: web/lib/admin/PageDecoration.php:140
+#: web/lib/admin/PageDecoration.php:141
 msgid "Diagnostics"
 msgstr "Диагностика"
+
+#: web/lib/admin/PageDecoration.php:223
+#, fuzzy, php-format
+msgid "%s Privacy Notice"
+msgstr "%s Свойства"
 
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a

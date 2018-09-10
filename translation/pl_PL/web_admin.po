@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-23 14:04+0200\n"
+"POT-Creation-Date: 2018-09-10 08:40+0200\n"
 "PO-Revision-Date: 2018-08-22 06:31+0000\n"
 "Last-Translator: Maja Wolniewicz <maja.wolniewicz@gmail.com>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/eduroam_devel/cat/"
@@ -170,11 +170,11 @@ msgid "General Information"
 msgstr "Informacje ogólne"
 
 #: web/admin/edit_idp.php:101
-#, php-format
+#, fuzzy
 msgid ""
-"The %s has properties which are valid across all deployment profiles. This "
-"is the place where you can describe those properties in a fine-grained way. "
-"The solicited information is used as follows:"
+"Some properties are valid across all deployment profiles. This is the place "
+"where you can describe those properties in a fine-grained way. The solicited "
+"information is used as follows:"
 msgstr ""
 "Instytucja %s ma szereg własności o charakterze ogólnym, odnoszącym się do "
 "wszystkich tworzonych profili.\n"
@@ -346,10 +346,10 @@ msgstr ""
 "kontaktu z lokalnym helpdeskiem."
 
 #: web/admin/edit_idp.php:176
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"Does the %s provide helpdesk services for its users? If so, it would be nice "
-"if you would tell us the pointers to this helpdesk."
+"Do you provide helpdesk services for your users? If so, it would be nice if "
+"you would tell us the pointers to this helpdesk."
 msgstr ""
 "Czy instytucja %s oferuje dział pomocy dla użytkowników? Jeśli tak, prosimy "
 "o wskazanie odsyłacza do działu pomocy."
@@ -1727,7 +1727,7 @@ msgstr "Informacja w <strong>Bazie %s</strong> "
 msgid "%s Name (%s)"
 msgstr "%sNazwa (%s)"
 
-#: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/PageDecoration.php:32
+#: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/PageDecoration.php:33
 msgid "Unnamed User"
 msgstr "Użytkownik bez nazwy"
 
@@ -2075,61 +2075,66 @@ msgstr ""
 "języku jaki został skonfigurowany. Aby były dostępne inne języki, potrzebna "
 "jest edycja profilu i dodanie pola języka 'domyślny/inny'."
 
-#: web/lib/admin/PageDecoration.php:31
+#: web/lib/admin/PageDecoration.php:32
 msgid "You are:"
 msgstr "Jesteś:"
 
-#: web/lib/admin/PageDecoration.php:35
+#: web/lib/admin/PageDecoration.php:36
 msgid "Go to your Profile page"
 msgstr "Przejdź do strony z profilami:"
 
-#: web/lib/admin/PageDecoration.php:36
+#: web/lib/admin/PageDecoration.php:37
 msgid "Logout"
 msgstr "Wyloguj"
 
-#: web/lib/admin/PageDecoration.php:38
+#: web/lib/admin/PageDecoration.php:39
 msgid "Start page"
 msgstr "Strona startowa"
 
-#: web/lib/admin/PageDecoration.php:59
+#: web/lib/admin/PageDecoration.php:60
 msgid "View this page in"
 msgstr "Obejrzyj tę stronę w"
 
-#: web/lib/admin/PageDecoration.php:117
+#: web/lib/admin/PageDecoration.php:118
 #, php-format
 msgid "Administrator Interface - %s"
 msgstr "Interfejs administratora - %s"
 
-#: web/lib/admin/PageDecoration.php:120
+#: web/lib/admin/PageDecoration.php:121
 #, php-format
 msgid "Administrator Interface - %s User Management"
 msgstr "Interfejs administratora - %s Zarządzanie użytkownikami"
 
-#: web/lib/admin/PageDecoration.php:123
+#: web/lib/admin/PageDecoration.php:124
 msgid "Administrator Interface"
 msgstr "Interfejs administratora"
 
-#: web/lib/admin/PageDecoration.php:126
+#: web/lib/admin/PageDecoration.php:127
 msgid "Management of User Details"
 msgstr "Zarządzanie danymi użytkownika"
 
-#: web/lib/admin/PageDecoration.php:129
+#: web/lib/admin/PageDecoration.php:130
 #, php-format
 msgid "Administrator Interface - %s Management"
 msgstr "Interfejs administratora - Zarządzanie %s"
 
-#: web/lib/admin/PageDecoration.php:132
+#: web/lib/admin/PageDecoration.php:133
 #, php-format
 msgid "Welcome to %s"
 msgstr "Witaj w %s"
 
-#: web/lib/admin/PageDecoration.php:137
+#: web/lib/admin/PageDecoration.php:138
 msgid "CIC"
 msgstr "CIC"
 
-#: web/lib/admin/PageDecoration.php:140
+#: web/lib/admin/PageDecoration.php:141
 msgid "Diagnostics"
 msgstr "Diagnostyka"
+
+#: web/lib/admin/PageDecoration.php:223
+#, fuzzy, php-format
+msgid "%s Privacy Notice"
+msgstr "Własności %s"
 
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a

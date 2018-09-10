@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-21 15:38+0200\n"
+"POT-Creation-Date: 2018-09-10 08:40+0200\n"
 "PO-Revision-Date: 2018-05-17 23:56+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Finnish (Finland) (http://www.transifex.com/eduroam_devel/cat/"
@@ -156,11 +156,10 @@ msgid "General Information"
 msgstr "Yleistä tietoa"
 
 #: web/admin/edit_idp.php:101
-#, php-format
 msgid ""
-"The %s has properties which are valid across all deployment profiles. This "
-"is the place where you can describe those properties in a fine-grained way. "
-"The solicited information is used as follows:"
+"Some properties are valid across all deployment profiles. This is the place "
+"where you can describe those properties in a fine-grained way. The solicited "
+"information is used as follows:"
 msgstr ""
 
 #: web/admin/edit_idp.php:103
@@ -313,8 +312,8 @@ msgstr ""
 #: web/admin/edit_idp.php:176
 #, php-format
 msgid ""
-"Does the %s provide helpdesk services for its users? If so, it would be nice "
-"if you would tell us the pointers to this helpdesk."
+"Do you provide helpdesk services for your users? If so, it would be nice if "
+"you would tell us the pointers to this helpdesk."
 msgstr ""
 
 #: web/admin/edit_idp.php:178
@@ -1613,7 +1612,7 @@ msgstr "Tieto <strong>%s Tietokannassa</strong"
 msgid "%s Name (%s)"
 msgstr ""
 
-#: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/PageDecoration.php:32
+#: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/PageDecoration.php:33
 msgid "Unnamed User"
 msgstr "Nimetön käyttäjä"
 
@@ -1939,60 +1938,65 @@ msgstr ""
 "strong> sillä kielellä, jonka konfiguroit. Kaikkien muiden kielten tuen "
 "vuoksi, käy editoimassa profiilia ja täyty 'default/other' kielikenttä."
 
-#: web/lib/admin/PageDecoration.php:31
+#: web/lib/admin/PageDecoration.php:32
 msgid "You are:"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:35
+#: web/lib/admin/PageDecoration.php:36
 msgid "Go to your Profile page"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:36
+#: web/lib/admin/PageDecoration.php:37
 msgid "Logout"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:38
+#: web/lib/admin/PageDecoration.php:39
 msgid "Start page"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:59
+#: web/lib/admin/PageDecoration.php:60
 msgid "View this page in"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:117
+#: web/lib/admin/PageDecoration.php:118
 #, php-format
 msgid "Administrator Interface - %s"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:120
+#: web/lib/admin/PageDecoration.php:121
 #, php-format
 msgid "Administrator Interface - %s User Management"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:123
+#: web/lib/admin/PageDecoration.php:124
 msgid "Administrator Interface"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:126
+#: web/lib/admin/PageDecoration.php:127
 msgid "Management of User Details"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:129
+#: web/lib/admin/PageDecoration.php:130
 #, php-format
 msgid "Administrator Interface - %s Management"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:132
+#: web/lib/admin/PageDecoration.php:133
 #, php-format
 msgid "Welcome to %s"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:137
+#: web/lib/admin/PageDecoration.php:138
 msgid "CIC"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:140
+#: web/lib/admin/PageDecoration.php:141
 msgid "Diagnostics"
+msgstr ""
+
+#: web/lib/admin/PageDecoration.php:223
+#, php-format
+msgid "%s Privacy Notice"
 msgstr ""
 
 #. some config elements are displayable. We need some dummies to

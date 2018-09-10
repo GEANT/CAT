@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-23 14:14+0200\n"
+"POT-Creation-Date: 2018-09-10 08:40+0200\n"
 "PO-Revision-Date: 2018-05-18 00:19+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Serbian (http://www.transifex.com/eduroam_devel/cat/language/"
@@ -303,12 +303,12 @@ msgstr ""
 "atribute."
 
 #: devices/linux/Device_Linux.php:52
-#, fuzzy
+#, fuzzy, php-format
 msgid ""
-"The installer is in the form of a Python script. It will try to configure "
-"eduroam under Network Manager and if this is either not appropriate for your "
-"system or your version of Network Manager is too old, a wpa_supplicant "
-"config file will be created instead."
+"The installer is in the form of a Python script. It will try to configure %s "
+"under NetworkManager and if this is either not appropriate for your system "
+"or your version of NetworkManager is too old, a wpa_supplicant config file "
+"will be created instead."
 msgstr ""
 "Program za instaliranje je u formi bash skripte. Pokušaće da konfiguriše "
 "eduroam pod Netwok Manager, a ako to nije podržano od strane vašeg sistema "
@@ -411,7 +411,7 @@ msgid "Continue?"
 msgstr ""
 
 #: devices/linux/Device_Linux.php:97
-msgid "This Network Manager version is not supported"
+msgid "This NetworkManager version is not supported"
 msgstr ""
 
 #: devices/linux/Device_Linux.php:98
@@ -444,7 +444,7 @@ msgstr "Svi fajlovi"
 
 #: devices/linux/Device_Linux.php:106
 msgid ""
-"Network Manager configuration failed, but we may generate a wpa_supplicant "
+"NetworkManager configuration failed, but we may generate a wpa_supplicant "
 "configuration file if you wish. Be warned that your connection password will "
 "be saved in this file as clear text."
 msgstr ""

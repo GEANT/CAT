@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-23 14:04+0200\n"
+"POT-Creation-Date: 2018-09-10 08:40+0200\n"
 "PO-Revision-Date: 2018-08-22 07:00+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: German (http://www.transifex.com/eduroam_devel/cat/language/"
@@ -172,11 +172,11 @@ msgid "General Information"
 msgstr "Allgemeine Informationen"
 
 #: web/admin/edit_idp.php:101
-#, php-format
+#, fuzzy
 msgid ""
-"The %s has properties which are valid across all deployment profiles. This "
-"is the place where you can describe those properties in a fine-grained way. "
-"The solicited information is used as follows:"
+"Some properties are valid across all deployment profiles. This is the place "
+"where you can describe those properties in a fine-grained way. The solicited "
+"information is used as follows:"
 msgstr ""
 "Der %s hat einige Eigenschaften die profilübergreifend gelten. Hier können "
 "Sie diese detailliert beschreiben. Die abgefragten Informationen werden wie "
@@ -351,10 +351,10 @@ msgstr ""
 "Sie erreichen können."
 
 #: web/admin/edit_idp.php:176
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"Does the %s provide helpdesk services for its users? If so, it would be nice "
-"if you would tell us the pointers to this helpdesk."
+"Do you provide helpdesk services for your users? If so, it would be nice if "
+"you would tell us the pointers to this helpdesk."
 msgstr ""
 "Wenn Ihr %s einen Anlaufpunkt für Nutzerfragen hat, wäre es schön wenn Sie "
 "die entsprechenden Kontaktmöglichkeiten hier eintragen. "
@@ -1739,7 +1739,7 @@ msgstr "Informationen in der <strong>%s Datenbank</strong>"
 msgid "%s Name (%s)"
 msgstr "%s Name (%s)"
 
-#: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/PageDecoration.php:32
+#: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/PageDecoration.php:33
 msgid "Unnamed User"
 msgstr "Nutzer ohne Namen"
 
@@ -2094,61 +2094,66 @@ msgstr ""
 "möchten Sie vielleicht später noch einen Wert für 'Standard/andere Sprachen' "
 "angeben."
 
-#: web/lib/admin/PageDecoration.php:31
+#: web/lib/admin/PageDecoration.php:32
 msgid "You are:"
 msgstr "Sie sind:"
 
-#: web/lib/admin/PageDecoration.php:35
+#: web/lib/admin/PageDecoration.php:36
 msgid "Go to your Profile page"
 msgstr "Zur persönlichen Seite"
 
-#: web/lib/admin/PageDecoration.php:36
+#: web/lib/admin/PageDecoration.php:37
 msgid "Logout"
 msgstr "Ausloggen"
 
-#: web/lib/admin/PageDecoration.php:38
+#: web/lib/admin/PageDecoration.php:39
 msgid "Start page"
 msgstr "Startseite"
 
-#: web/lib/admin/PageDecoration.php:59
+#: web/lib/admin/PageDecoration.php:60
 msgid "View this page in"
 msgstr "Diese Seite anzeigen in"
 
-#: web/lib/admin/PageDecoration.php:117
+#: web/lib/admin/PageDecoration.php:118
 #, php-format
 msgid "Administrator Interface - %s"
 msgstr "Administratorbereich - %s"
 
-#: web/lib/admin/PageDecoration.php:120
+#: web/lib/admin/PageDecoration.php:121
 #, php-format
 msgid "Administrator Interface - %s User Management"
 msgstr "Administrator Interface - %s Benutzerverwaltung"
 
-#: web/lib/admin/PageDecoration.php:123
+#: web/lib/admin/PageDecoration.php:124
 msgid "Administrator Interface"
 msgstr "Administratorbereich"
 
-#: web/lib/admin/PageDecoration.php:126
+#: web/lib/admin/PageDecoration.php:127
 msgid "Management of User Details"
 msgstr "Benutzerdetails bearbeiten"
 
-#: web/lib/admin/PageDecoration.php:129
+#: web/lib/admin/PageDecoration.php:130
 #, php-format
 msgid "Administrator Interface - %s Management"
 msgstr "Administrator Interface - %s Verwaltung"
 
-#: web/lib/admin/PageDecoration.php:132
+#: web/lib/admin/PageDecoration.php:133
 #, php-format
 msgid "Welcome to %s"
 msgstr "Willkommen bei %s"
 
-#: web/lib/admin/PageDecoration.php:137
+#: web/lib/admin/PageDecoration.php:138
 msgid "CIC"
 msgstr "CIC"
 
-#: web/lib/admin/PageDecoration.php:140
+#: web/lib/admin/PageDecoration.php:141
 msgid "Diagnostics"
 msgstr "Diagnose"
+
+#: web/lib/admin/PageDecoration.php:223
+#, fuzzy, php-format
+msgid "%s Privacy Notice"
+msgstr "%s Eigenschaften"
 
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a

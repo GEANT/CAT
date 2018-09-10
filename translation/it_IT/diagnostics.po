@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-05 14:51+0200\n"
+"POT-Creation-Date: 2018-09-10 08:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Daniele Albrizio <dalbrizio@gmail.com>, 2018\n"
 "Language-Team: Italian (Italy) (https://www.transifex.com/eduroam_devel/"
@@ -493,12 +493,12 @@ msgstr ""
 "Sono stati trovati dei record NAPTR ma fanno tutti riferimento a servizi non "
 "correlati."
 
-#: core/diag/Sociopath.php:34
+#: core/diag/Sociopath.php:35
 msgid "There is nothing you can do to solve this problem yourself."
 msgstr ""
 "Non c'è niente che tu possa fare per risolvere questo problema da solo."
 
-#: core/diag/Sociopath.php:35
+#: core/diag/Sociopath.php:36
 msgid ""
 "Please be patient and try again at a later time. Do NOT change your device "
 "configuration."
@@ -506,7 +506,7 @@ msgstr ""
 "Per favore sii paziente e riprova in un secondo momento. NON modificare la "
 "configurazione del tuo dispositivo."
 
-#: core/diag/Sociopath.php:36
+#: core/diag/Sociopath.php:37
 msgid ""
 "The infrastructure operators have automatically been informed and will "
 "investigate the issue as soon as possible."
@@ -514,7 +514,7 @@ msgstr ""
 "Gli operatori dell'infrastruttura sono stati automaticamente informati e "
 "indagheranno sul problema il prima possibile."
 
-#: core/diag/Sociopath.php:38
+#: core/diag/Sociopath.php:39
 msgid ""
 "The system has identified possible issues regarding your local device "
 "configuration."
@@ -522,7 +522,7 @@ msgstr ""
 "Il sistema ha identificato possibili problemi relativi alla configurazione "
 "locale  del tuo dispositivo."
 
-#: core/diag/Sociopath.php:46
+#: core/diag/Sociopath.php:47
 msgid ""
 "The system can not find any information at all about the Identity Provider "
 "you described. Probably, this is not a participating institution and the "
@@ -532,7 +532,7 @@ msgstr ""
 "Provider che hai descritto. Probabilmente, questa non è un'istituzione "
 "partecipante e l'account che hai provato ad utilizzare non esiste."
 
-#: core/diag/Sociopath.php:47
+#: core/diag/Sociopath.php:48
 msgid ""
 "There are likely some issues around the wireless part of the network you are "
 "trying to connect to. Wireless networks do not always behave "
@@ -552,7 +552,7 @@ msgstr ""
 #. the order in this array is important: lower numbered questions will be asked first. So make sure you have high-quality questions in the beginning.
 #. to be clear: "Yes" answers are elsewhere in the class the TRUE case; No's are FALSE, a possible "Don't know or N/A" is NULL
 #. VERDICTLECTURE is text which is displayed to the end user if his answer led to a HIGHER score in the process. We are storing the answers to determine this.
-#: core/diag/Sociopath.php:55
+#: core/diag/Sociopath.php:56
 msgid ""
 "You should use appropriate configuration assistants [MGW: see if the realm "
 "exists in CAT, then display link to config] or contact your Identity "
@@ -563,7 +563,7 @@ msgstr ""
 "configurazione] o contattare il proprio Identity Provider [MGW: mostra le "
 "informazioni di contatto]."
 
-#: core/diag/Sociopath.php:59
+#: core/diag/Sociopath.php:60
 msgid ""
 "Have you ever used the network succesfully, e.g. at your home institution "
 "without roaming?"
@@ -571,7 +571,7 @@ msgstr ""
 "Hai mai usato la rete con successo, ad es. nella tua organizzazione di "
 "appartenenza senza il roaming?"
 
-#: core/diag/Sociopath.php:61
+#: core/diag/Sociopath.php:62
 #, php-format
 msgid ""
 "If your device has never worked before with this setup, then very likely "
@@ -580,7 +580,7 @@ msgstr ""
 "Se il tuo dispositivo non ha mai funzionato prima con questa installazione, "
 "molto probabilmente la configurazione del tuo dispositivo è errata. %s"
 
-#: core/diag/Sociopath.php:63
+#: core/diag/Sociopath.php:64
 msgid ""
 "Did the device previously work when roaming, i.e. at other hotspots away "
 "from your home institution?"
@@ -588,7 +588,7 @@ msgstr ""
 "Il dispositivo in precedenza funzionava durante il roaming, ad es. in altri "
 "hotspot lontani dall'organizzazione di appartenenza?"
 
-#: core/diag/Sociopath.php:65
+#: core/diag/Sociopath.php:66
 #, php-format
 msgid ""
 "If roaming consistently does not work, then very likely your device "
@@ -602,11 +602,11 @@ msgstr ""
 "(\"esterno\") senza il suffisso @realm.tld: questo potenzialmente funziona a "
 "casa, ma non può essere usato durante il roaming. %s"
 
-#: core/diag/Sociopath.php:67
+#: core/diag/Sociopath.php:68
 msgid "Did you recently change the configuration on your device?"
 msgstr "Hai cambiato di recente la configurazione del tuo dispositivo?"
 
-#: core/diag/Sociopath.php:69
+#: core/diag/Sociopath.php:70
 msgid ""
 "Accounts only need to be configured once, and can then be used anywhere on "
 "the planet without any changes. If you recently changed the configuration, "
@@ -621,11 +621,11 @@ msgstr ""
 "di rete se non esplicitamente istruito dal proprio Identity Provider; anche "
 "nel caso di problemi di accesso temporanei."
 
-#: core/diag/Sociopath.php:71
+#: core/diag/Sociopath.php:72
 msgid "If you use more than one device: do your other devices still work?"
 msgstr ""
 
-#: core/diag/Sociopath.php:72
+#: core/diag/Sociopath.php:73
 msgid ""
 "If all devices stopped working simultaneously, there may be a problem with "
 "your account as such. Maybe your account expired, or you were forced to "
@@ -638,7 +638,7 @@ msgstr ""
 "domande viene data una risposta migliore dal tuo Identity Provider [MGW: "
 "visualizza informazioni di contatto]"
 
-#: core/diag/Sociopath.php:75
+#: core/diag/Sociopath.php:76
 msgid ""
 "Is the place you are currently at heavily crowded, or is a network-intensive "
 "workload going on?"
@@ -646,7 +646,7 @@ msgstr ""
 "Il luogo in cui ti trovi attualmente è molto affollato o si sta verificando "
 "un carico di lavoro intensivo sulla rete?"
 
-#: core/diag/Sociopath.php:77
+#: core/diag/Sociopath.php:78
 msgid ""
 "The network is likely overloaded at this location and point in time. You may "
 "have to wait until later before you get a better connectivity. If you think "
@@ -659,11 +659,11 @@ msgstr ""
 "maggiore capacità in questo luogo, è necessario informare il fornitore di "
 "hotspot. [MGW: aggiungi informazioni di contatto]"
 
-#: core/diag/Sociopath.php:79
+#: core/diag/Sociopath.php:80
 msgid "Does the connection get better when you move around?"
 msgstr "La connessione migliora quando ti muovi?"
 
-#: core/diag/Sociopath.php:81
+#: core/diag/Sociopath.php:82
 msgid ""
 "You should move to a different location to achieve better network coverage "
 "and service. If you think the exact spot you are at deserves better "
@@ -674,14 +674,14 @@ msgstr ""
 "meriti una copertura migliore, devi informare il fornitore di hotspot. [MGW: "
 "aggiungi informazioni di contatto]"
 
-#: core/diag/Sociopath.php:84
+#: core/diag/Sociopath.php:85
 msgid ""
 "Do you see errors stating something similar to 'Unable to get IP address'?"
 msgstr ""
 "Vedi errori che indichino qualcosa di simile a \"Impossibile ottenere "
 "l'indirizzo IP\"?"
 
-#: core/diag/Sociopath.php:86
+#: core/diag/Sociopath.php:87
 msgid ""
 "The evidence at hand suggests that there may be an infrastructure problem at "
 "this particular hotspot provider. There is nothing you can do to solve this "
@@ -692,42 +692,42 @@ msgstr ""
 "che tu possa fare per risolvere questo problema localmente. Per favore sii "
 "paziente e riprova in un secondo momento."
 
-#: web/skins/modern/diag/diag.php:63
+#: web/skins/modern/diag/diag.php:68
 msgid "Diagnostics site"
 msgstr "Sito di diagnostica"
 
-#: web/skins/modern/diag/diag.php:63 web/skins/modern/diag/diag.php:66
+#: web/skins/modern/diag/diag.php:68 web/skins/modern/diag/diag.php:71
 msgid ""
 "The diagnostics system will do its best to identify and resolve your "
 "problems!"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:63
+#: web/skins/modern/diag/diag.php:68
 msgid ""
 "Please help the system by answering the questions as precisely as possible."
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:66
+#: web/skins/modern/diag/diag.php:71
 msgid "Are you a"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:67
+#: web/skins/modern/diag/diag.php:72
 msgid "end-user"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:67
+#: web/skins/modern/diag/diag.php:72
 msgid "or"
 msgstr "o"
 
-#: web/skins/modern/diag/diag.php:68
+#: web/skins/modern/diag/diag.php:73
 msgid "eduroam administrator"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:71
+#: web/skins/modern/diag/diag.php:76
 msgid "Tools for End Users"
 msgstr "Strumenti per utenti finali"
 
-#: web/skins/modern/diag/diag.php:74
+#: web/skins/modern/diag/diag.php:79
 msgid ""
 "To resolve your problem a real-time diagnostics for your realm must be "
 "performed."
@@ -735,31 +735,31 @@ msgstr ""
 "Per risolvere il tuo problema, devi eseguire una diagnostica in tempo reale "
 "per il tuo realm."
 
-#: web/skins/modern/diag/diag.php:78
+#: web/skins/modern/diag/diag.php:83
 msgid ""
 "The system needs some information on your home institution - issuer of your "
 "account"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:79
+#: web/skins/modern/diag/diag.php:84
 msgid ""
 "What is the realm part of your user account (the part behind the @ of 'your."
 "username@<b>realm.tld</b>):"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:83
+#: web/skins/modern/diag/diag.php:88
 msgid "alternatively"
 msgstr "alternativamente"
 
-#: web/skins/modern/diag/diag.php:84
+#: web/skins/modern/diag/diag.php:89
 msgid "You can select your home institution from the following list"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:86
+#: web/skins/modern/diag/diag.php:91
 msgid "Click to select your country/region and organisation"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:93
+#: web/skins/modern/diag/diag.php:98
 msgid ""
 "Optionally, to improve tests, you can provide information on your current "
 "location"
@@ -767,95 +767,91 @@ msgstr ""
 "Facoltativamente, per migliorare i test, puoi fornire informazioni sulla tua "
 "posizione attuale"
 
-#: web/skins/modern/diag/diag.php:95
+#: web/skins/modern/diag/diag.php:100
 msgid "Click to select a location in which you have an eduroam problem"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:102
-msgid "Testing realm "
-msgstr "Sto testando il realm"
-
-#: web/skins/modern/diag/diag.php:103
-msgid "First stage completed."
-msgstr "Primo stadio completato."
-
-#: web/skins/modern/diag/diag.php:108
-msgid "To narrow down the problem, please answer the following few questions."
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:113
-msgid "Run tests"
-msgstr "Esegui i test"
-
-#: web/skins/modern/diag/diag.php:118
-msgid "Tools for eduroam admins"
-msgstr "Strumenti per amministratori eduroam"
-
-#: web/skins/modern/diag/diag.php:130
-msgid "Which problem are you reporting?"
-msgstr "Quale problema stai segnalando?"
-
-#: web/skins/modern/diag/diag.php:132 web/skins/modern/diag/diag.php:840
-msgid "SP contacting IdP due to technical problems or abuse"
-msgstr "SP che contatta l'IdP a causa di problemi tecnici o abuso"
-
-#: web/skins/modern/diag/diag.php:134
-msgid "IdP contacting SP due to technical problems"
-msgstr "IdP che contatta l'SP a causa di problemi tecnici"
-
-#: web/skins/modern/diag/diag.php:141
-msgid "This service is for authenticated admins only."
-msgstr "Questo servizio è solamente per gli amministratori autorizzati."
-
-#: web/skins/modern/diag/diag.php:143
-msgid "eduroam® admin access is needed"
-msgstr "è necessario un accesso amministrativo eduroam®"
-
-#: web/skins/modern/diag/diag.php:167
-msgid "Select institiution:"
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:192
-msgid "Select country or region:"
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:200
-msgid "Fetching country/region list"
-msgstr ""
-
-#: web/skins/modern/diag/diag.php:233
+#: web/skins/modern/diag/diag.php:107 web/skins/modern/diag/diag.php:238
 msgid "Testing realm"
 msgstr "Sto testando il realm"
 
-#: web/skins/modern/diag/diag.php:260
+#: web/skins/modern/diag/diag.php:108
+msgid "First stage completed."
+msgstr "Primo stadio completato."
+
+#: web/skins/modern/diag/diag.php:113
+msgid "To narrow down the problem, please answer the following few questions."
+msgstr ""
+
+#: web/skins/modern/diag/diag.php:118
+msgid "Run tests"
+msgstr "Esegui i test"
+
+#: web/skins/modern/diag/diag.php:123
+msgid "Tools for eduroam admins"
+msgstr "Strumenti per amministratori eduroam"
+
+#: web/skins/modern/diag/diag.php:135
+msgid "Which problem are you reporting?"
+msgstr "Quale problema stai segnalando?"
+
+#: web/skins/modern/diag/diag.php:137 web/skins/modern/diag/diag.php:845
+msgid "SP contacting IdP due to technical problems or abuse"
+msgstr "SP che contatta l'IdP a causa di problemi tecnici o abuso"
+
+#: web/skins/modern/diag/diag.php:139
+msgid "IdP contacting SP due to technical problems"
+msgstr "IdP che contatta l'SP a causa di problemi tecnici"
+
+#: web/skins/modern/diag/diag.php:146
+msgid "This service is for authenticated admins only."
+msgstr "Questo servizio è solamente per gli amministratori autorizzati."
+
+#: web/skins/modern/diag/diag.php:148
+msgid "eduroam® admin access is needed"
+msgstr "è necessario un accesso amministrativo eduroam®"
+
+#: web/skins/modern/diag/diag.php:172
+msgid "Select institiution:"
+msgstr ""
+
+#: web/skins/modern/diag/diag.php:197
+msgid "Select country or region:"
+msgstr ""
+
+#: web/skins/modern/diag/diag.php:205
+msgid "Fetching country/region list"
+msgstr ""
+
+#: web/skins/modern/diag/diag.php:265
 msgid "Yes"
 msgstr "Si"
 
-#: web/skins/modern/diag/diag.php:261
+#: web/skins/modern/diag/diag.php:266
 msgid "No"
 msgstr "No"
 
-#: web/skins/modern/diag/diag.php:262
+#: web/skins/modern/diag/diag.php:267
 msgid "I don't know"
 msgstr "Non lo so"
 
-#: web/skins/modern/diag/diag.php:291
+#: web/skins/modern/diag/diag.php:296
 msgid "Diagnostic tests results for selected realm"
 msgstr "Risultati dei test diagnostici per il realm selezionato"
 
-#: web/skins/modern/diag/diag.php:294
+#: web/skins/modern/diag/diag.php:299
 msgid "The result for tested realm:"
 msgstr "Il risultato per il realm testato:"
 
-#: web/skins/modern/diag/diag.php:296
+#: web/skins/modern/diag/diag.php:301
 msgid "The system identified"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:298
+#: web/skins/modern/diag/diag.php:303
 msgid "suspected areas which potentially can cause a problem."
 msgstr "aree sospette che potenzialmente possono causare un problema."
 
-#: web/skins/modern/diag/diag.php:299
+#: web/skins/modern/diag/diag.php:304
 msgid ""
 "Next to the problem description we show a speculated probability of this "
 "event."
@@ -863,172 +859,175 @@ msgstr ""
 "Accanto alla descrizione del problema mostriamo una probabilità ipotizzata "
 "di questo evento."
 
-#: web/skins/modern/diag/diag.php:306
+#: web/skins/modern/diag/diag.php:311
 msgid "Your device configuration is broken"
 msgstr "La configurazione del tuo dispositivo è errata"
 
-#: web/skins/modern/diag/diag.php:309
+#: web/skins/modern/diag/diag.php:314
 msgid "The Wi-Fi network in your vicinity has quality issues"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:312
+#: web/skins/modern/diag/diag.php:317
 msgid "The network environment around you is broken"
 msgstr "L'ambiente di rete intorno a te è guasto"
 
-#: web/skins/modern/diag/diag.php:315
+#: web/skins/modern/diag/diag.php:320
 msgid "The RADIUS server of your service provider is the source of the problem"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:318
+#: web/skins/modern/diag/diag.php:323
 msgid ""
 "The RADIUS server in your home institution is currently unable to "
 "authenticate you"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:321
+#: web/skins/modern/diag/diag.php:326
 msgid ""
 "The national server in the country/region you are visiting is not "
 "functioning correctly"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:324
+#: web/skins/modern/diag/diag.php:329
 msgid ""
 "The link between the national server of the country/region you are visiting "
 "and the top-level server is broken"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:327
+#: web/skins/modern/diag/diag.php:332
 msgid ""
 "The link between the national server of your home country/region and the top-"
 "level server is broken"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:330
+#: web/skins/modern/diag/diag.php:335
 msgid "The communication to the top-level server is down"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:333
+#: web/skins/modern/diag/diag.php:338
 msgid ""
 "The national server in your home country/region is not functioning properly."
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:336
+#: web/skins/modern/diag/diag.php:341
 msgid "The RADIUS server of your home institution is the source of the problem"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:339
+#: web/skins/modern/diag/diag.php:344
 msgid "This realm does not exist"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:445
+#: web/skins/modern/diag/diag.php:450
 msgid "Fetching institutions list"
 msgstr "Sto recuperando la lista delle organizzazioni"
 
-#: web/skins/modern/diag/diag.php:463
+#: web/skins/modern/diag/diag.php:468
 msgid "Select institution:"
 msgstr "Seleziona l'organizzazione:"
 
-#: web/skins/modern/diag/diag.php:502
+#: web/skins/modern/diag/diag.php:507
 msgid "Fetching realms list"
 msgstr "Sto recuperando la lista dei realm"
 
-#: web/skins/modern/diag/diag.php:514
+#: web/skins/modern/diag/diag.php:519
 msgid "Check realm(s):"
 msgstr "Verifica il/i realm:"
 
-#: web/skins/modern/diag/diag.php:526
+#: web/skins/modern/diag/diag.php:531
 msgid "Realm:"
 msgstr "Realm:"
 
-#: web/skins/modern/diag/diag.php:580 web/skins/modern/diag/diag.php:649
-#: web/skins/modern/diag/diag.php:765
+#: web/skins/modern/diag/diag.php:585 web/skins/modern/diag/diag.php:654
+#: web/skins/modern/diag/diag.php:770
 msgid "Running realm tests"
 msgstr "Esecuzione dei test sul realm"
 
-#: web/skins/modern/diag/diag.php:624
+#: web/skins/modern/diag/diag.php:629
 msgid "Realm is not registered with the eduroam database:"
 msgstr "Il realm non è registrato nel database eduroam:"
 
-#: web/skins/modern/diag/diag.php:697
+#: web/skins/modern/diag/diag.php:702
 msgid "Diagnostics results for selected realms"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:698
+#: web/skins/modern/diag/diag.php:703
 msgid "An unknown problem occured"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:701
+#: web/skins/modern/diag/diag.php:706
 msgid "This test includes checking of the following realm"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:703
+#: web/skins/modern/diag/diag.php:708
 msgid "This test includes checking of the following realms"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:713
+#: web/skins/modern/diag/diag.php:718
 msgid "You should report this to"
 msgstr "Dovresti segnalarlo a"
 
-#: web/skins/modern/diag/diag.php:837
+#: web/skins/modern/diag/diag.php:842
 msgid "eduroam admin report submission"
 msgstr "Richiesta segnalazione di admin eduroam"
 
-#: web/skins/modern/diag/diag.php:842 web/skins/modern/diag/diag.php:852
+#: web/skins/modern/diag/diag.php:847 web/skins/modern/diag/diag.php:857
 msgid "Reason"
 msgstr "Motivo"
 
-#: web/skins/modern/diag/diag.php:843
+#: web/skins/modern/diag/diag.php:848
 msgid "SP email"
 msgstr "email dell'SP"
 
-#: web/skins/modern/diag/diag.php:844
+#: web/skins/modern/diag/diag.php:849
 msgid "IdP email(s)"
 msgstr "email dell'IdP"
 
-#: web/skins/modern/diag/diag.php:845 web/skins/modern/diag/diag.php:856
+#: web/skins/modern/diag/diag.php:850 web/skins/modern/diag/diag.php:861
 msgid "Event's timestamp"
 msgstr "Timestamp dell'evento"
 
-#: web/skins/modern/diag/diag.php:846 web/skins/modern/diag/diag.php:857
+#: web/skins/modern/diag/diag.php:851 web/skins/modern/diag/diag.php:862
 msgid "Calling-Station-Id"
 msgstr ""
 
-#: web/skins/modern/diag/diag.php:847 web/skins/modern/diag/diag.php:858
+#: web/skins/modern/diag/diag.php:852 web/skins/modern/diag/diag.php:863
 msgid "Additional description"
 msgstr "Ulteriore descrizione"
 
-#: web/skins/modern/diag/diag.php:850
+#: web/skins/modern/diag/diag.php:855
 msgid "IdP contacting SP due to technical problems or abuse"
 msgstr "IdP che contatta l'SP a causa di problemi tecnici o di abuso"
 
-#: web/skins/modern/diag/diag.php:853
+#: web/skins/modern/diag/diag.php:858
 msgid "SP's Operator-Name"
 msgstr "Operator-Name dell'SP"
 
-#: web/skins/modern/diag/diag.php:854
+#: web/skins/modern/diag/diag.php:859
 msgid "User's outer ID"
 msgstr "ID esterna dell'utente"
 
-#: web/skins/modern/diag/diag.php:855
+#: web/skins/modern/diag/diag.php:860
 msgid "IdP email"
 msgstr "email dell'IdP"
 
-#: web/skins/modern/diag/diag.php:859
+#: web/skins/modern/diag/diag.php:864
 msgid "How to contact the user"
 msgstr "Come contattare l'utente"
 
-#: web/skins/modern/diag/diag.php:876
+#: web/skins/modern/diag/diag.php:881
 msgid "MAC address is incomplete"
 msgstr "L'indirizzo MAC è incompleto"
 
-#: web/skins/modern/diag/diag.php:885
+#: web/skins/modern/diag/diag.php:890
 msgid "Wrong format of email"
 msgstr "Formato email errato"
 
-#: web/skins/modern/diag/diag.php:894
+#: web/skins/modern/diag/diag.php:899
 msgid "Wrong format of outer ID"
 msgstr "Formato errato dell'ID esterno"
 
-#: web/skins/modern/diag/diag.php:903
+#: web/skins/modern/diag/diag.php:908
 msgid "Wrong string given as OperatorName"
 msgstr "Stringa errata fornita come OperatorName"
+
+#~ msgid "Testing realm "
+#~ msgstr "Sto testando il realm"

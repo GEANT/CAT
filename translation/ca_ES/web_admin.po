@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-21 15:38+0200\n"
+"POT-Creation-Date: 2018-09-10 08:40+0200\n"
 "PO-Revision-Date: 2018-05-18 07:45+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/eduroam_devel/cat/"
@@ -164,11 +164,11 @@ msgid "General Information"
 msgstr "Informació General"
 
 #: web/admin/edit_idp.php:101
-#, fuzzy, php-format
+#, fuzzy
 msgid ""
-"The %s has properties which are valid across all deployment profiles. This "
-"is the place where you can describe those properties in a fine-grained way. "
-"The solicited information is used as follows:"
+"Some properties are valid across all deployment profiles. This is the place "
+"where you can describe those properties in a fine-grained way. The solicited "
+"information is used as follows:"
 msgstr ""
 "Aquí podeu descriure %s detalladament. La informació sol·icitada s'utilitza "
 "de la forma següent:"
@@ -334,8 +334,8 @@ msgstr ""
 #: web/admin/edit_idp.php:176
 #, fuzzy, php-format
 msgid ""
-"Does the %s provide helpdesk services for its users? If so, it would be nice "
-"if you would tell us the pointers to this helpdesk."
+"Do you provide helpdesk services for your users? If so, it would be nice if "
+"you would tell us the pointers to this helpdesk."
 msgstr ""
 "Si el vostre %s facilita un centre d'ajuda per als seus usuaris, podeu "
 "informar-ho aquí."
@@ -1702,7 +1702,7 @@ msgstr "Informació a <strong>%s Database</strong>"
 msgid "%s Name (%s)"
 msgstr "Nom %s"
 
-#: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/PageDecoration.php:32
+#: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/PageDecoration.php:33
 msgid "Unnamed User"
 msgstr "Usuari sense nom"
 
@@ -2048,61 +2048,66 @@ msgstr ""
 "altres llenguatges, podeu editar el perfil de nou i omplir-hi el camp 'per "
 "defecte/altres'."
 
-#: web/lib/admin/PageDecoration.php:31
+#: web/lib/admin/PageDecoration.php:32
 msgid "You are:"
 msgstr "Sou:"
 
-#: web/lib/admin/PageDecoration.php:35
+#: web/lib/admin/PageDecoration.php:36
 msgid "Go to your Profile page"
 msgstr "Aneu a la pàgina del vostre perfil"
 
-#: web/lib/admin/PageDecoration.php:36
+#: web/lib/admin/PageDecoration.php:37
 msgid "Logout"
 msgstr "Sortir"
 
-#: web/lib/admin/PageDecoration.php:38
+#: web/lib/admin/PageDecoration.php:39
 msgid "Start page"
 msgstr "Pàgina d'inici"
 
-#: web/lib/admin/PageDecoration.php:59
+#: web/lib/admin/PageDecoration.php:60
 msgid "View this page in"
 msgstr "Veure aquesta pàgina a"
 
-#: web/lib/admin/PageDecoration.php:117
+#: web/lib/admin/PageDecoration.php:118
 #, php-format
 msgid "Administrator Interface - %s"
 msgstr "Interfície d'administrador - %s"
 
-#: web/lib/admin/PageDecoration.php:120
+#: web/lib/admin/PageDecoration.php:121
 #, php-format
 msgid "Administrator Interface - %s User Management"
 msgstr "Interfície d'administrador - Gestió d'usuaris de %s"
 
-#: web/lib/admin/PageDecoration.php:123
+#: web/lib/admin/PageDecoration.php:124
 msgid "Administrator Interface"
 msgstr "Interfície d'administrador"
 
-#: web/lib/admin/PageDecoration.php:126
+#: web/lib/admin/PageDecoration.php:127
 msgid "Management of User Details"
 msgstr "Gestió dels detalls d'usuari"
 
-#: web/lib/admin/PageDecoration.php:129
+#: web/lib/admin/PageDecoration.php:130
 #, php-format
 msgid "Administrator Interface - %s Management"
 msgstr "Interfície d'administrador - Gestió de %s"
 
-#: web/lib/admin/PageDecoration.php:132
+#: web/lib/admin/PageDecoration.php:133
 #, php-format
 msgid "Welcome to %s"
 msgstr "Us donem la benvinguda a %s"
 
-#: web/lib/admin/PageDecoration.php:137
+#: web/lib/admin/PageDecoration.php:138
 msgid "CIC"
 msgstr "CIC"
 
-#: web/lib/admin/PageDecoration.php:140
+#: web/lib/admin/PageDecoration.php:141
 msgid "Diagnostics"
 msgstr "Anàlisi"
+
+#: web/lib/admin/PageDecoration.php:223
+#, fuzzy, php-format
+msgid "%s Privacy Notice"
+msgstr "Propietats de %s"
 
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a

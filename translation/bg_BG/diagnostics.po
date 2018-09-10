@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-23 14:04+0200\n"
+"POT-Creation-Date: 2018-09-10 08:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>, 2018\n"
 "Language-Team: Bulgarian (Bulgaria) (https://www.transifex.com/eduroam_devel/"
@@ -486,11 +486,11 @@ msgstr "Тази област няма NAPTR записи."
 msgid "NAPTR records were found, but all of them refer to unrelated services."
 msgstr "Бяха намерени NAPTR записи, но не се отнасят към правилните услуги."
 
-#: core/diag/Sociopath.php:34
+#: core/diag/Sociopath.php:35
 msgid "There is nothing you can do to solve this problem yourself."
 msgstr "Нищо не може да направите, за да разрешите проблема сами."
 
-#: core/diag/Sociopath.php:35
+#: core/diag/Sociopath.php:36
 msgid ""
 "Please be patient and try again at a later time. Do NOT change your device "
 "configuration."
@@ -498,7 +498,7 @@ msgstr ""
 "Моля бъдете търпеливи и опитайте отново по-късно. НЕ променяйте "
 "конфигурацията на устройството си."
 
-#: core/diag/Sociopath.php:36
+#: core/diag/Sociopath.php:37
 msgid ""
 "The infrastructure operators have automatically been informed and will "
 "investigate the issue as soon as possible."
@@ -506,7 +506,7 @@ msgstr ""
 "Операторите на инфраструктурата са информирани автоматично и ще разследват "
 "резултата възможно най-скоро."
 
-#: core/diag/Sociopath.php:38
+#: core/diag/Sociopath.php:39
 msgid ""
 "The system has identified possible issues regarding your local device "
 "configuration."
@@ -514,7 +514,7 @@ msgstr ""
 "Системата е идентифицирала възможните резултати относно Вашата локална "
 "конфигурация на устройството."
 
-#: core/diag/Sociopath.php:46
+#: core/diag/Sociopath.php:47
 msgid ""
 "The system can not find any information at all about the Identity Provider "
 "you described. Probably, this is not a participating institution and the "
@@ -524,7 +524,7 @@ msgstr ""
 "удостоверения, който описвате. Вероятно това не е институция, която участва "
 "и акаунта, който се опитвате да използвате, не съществува."
 
-#: core/diag/Sociopath.php:47
+#: core/diag/Sociopath.php:48
 msgid ""
 "There are likely some issues around the wireless part of the network you are "
 "trying to connect to. Wireless networks do not always behave "
@@ -544,7 +544,7 @@ msgstr ""
 #. the order in this array is important: lower numbered questions will be asked first. So make sure you have high-quality questions in the beginning.
 #. to be clear: "Yes" answers are elsewhere in the class the TRUE case; No's are FALSE, a possible "Don't know or N/A" is NULL
 #. VERDICTLECTURE is text which is displayed to the end user if his answer led to a HIGHER score in the process. We are storing the answers to determine this.
-#: core/diag/Sociopath.php:55
+#: core/diag/Sociopath.php:56
 msgid ""
 "You should use appropriate configuration assistants [MGW: see if the realm "
 "exists in CAT, then display link to config] or contact your Identity "
@@ -555,7 +555,7 @@ msgstr ""
 "конфигуриране] или се свържете с Вашия Доставчик на Удостоверение [MGW: "
 "показване на информация за контакти]."
 
-#: core/diag/Sociopath.php:59
+#: core/diag/Sociopath.php:60
 msgid ""
 "Have you ever used the network succesfully, e.g. at your home institution "
 "without roaming?"
@@ -563,7 +563,7 @@ msgstr ""
 "Използвали ли сте някога мрежата успешно, например във Вашата институция без "
 "роуминг?"
 
-#: core/diag/Sociopath.php:61
+#: core/diag/Sociopath.php:62
 #, php-format
 msgid ""
 "If your device has never worked before with this setup, then very likely "
@@ -572,7 +572,7 @@ msgstr ""
 "Ако Вашето устройство никога преди не е работило с тази настройка, тогава "
 "много вероятно е конфигурацията на устройството Ви да е грешна. %s"
 
-#: core/diag/Sociopath.php:63
+#: core/diag/Sociopath.php:64
 msgid ""
 "Did the device previously work when roaming, i.e. at other hotspots away "
 "from your home institution?"
@@ -580,7 +580,7 @@ msgstr ""
 "Устройството Ви работеше ли в роуминг, т.е. с други безжични точки за достъп "
 "до Интернет извън Вашата институция?"
 
-#: core/diag/Sociopath.php:65
+#: core/diag/Sociopath.php:66
 #, php-format
 msgid ""
 "If roaming consistently does not work, then very likely your device "
@@ -594,11 +594,11 @@ msgstr ""
 "това потенциално работи във Вашата институция, но не може да бъде използвано "
 "в роуминг. %s"
 
-#: core/diag/Sociopath.php:67
+#: core/diag/Sociopath.php:68
 msgid "Did you recently change the configuration on your device?"
 msgstr "Променяли ли сте конфигурацията на устройството си скоро?"
 
-#: core/diag/Sociopath.php:69
+#: core/diag/Sociopath.php:70
 msgid ""
 "Accounts only need to be configured once, and can then be used anywhere on "
 "the planet without any changes. If you recently changed the configuration, "
@@ -613,13 +613,13 @@ msgstr ""
 "сте изрично инструктиран от Вашия Доставчик на Удостоверение; дори в случай "
 "на временни проблеми с влизането."
 
-#: core/diag/Sociopath.php:71
+#: core/diag/Sociopath.php:72
 msgid "If you use more than one device: do your other devices still work?"
 msgstr ""
 "Ако използвате повече от едно устройство: другите Ви устройства все още ли "
 "работят?"
 
-#: core/diag/Sociopath.php:72
+#: core/diag/Sociopath.php:73
 msgid ""
 "If all devices stopped working simultaneously, there may be a problem with "
 "your account as such. Maybe your account expired, or you were forced to "
@@ -631,7 +631,7 @@ msgstr ""
 "смените паролата? На тези въпроси най-добре може да отговори Вашият "
 "Доставчик на Удостоверение [MGW: покажете информацията за контакти]"
 
-#: core/diag/Sociopath.php:75
+#: core/diag/Sociopath.php:76
 msgid ""
 "Is the place you are currently at heavily crowded, or is a network-intensive "
 "workload going on?"
@@ -639,7 +639,7 @@ msgstr ""
 "Мястото, на което сте в момента, силно задръстено ли е или мрежата "
 "продължава да бъде интензивно натоварена?"
 
-#: core/diag/Sociopath.php:77
+#: core/diag/Sociopath.php:78
 msgid ""
 "The network is likely overloaded at this location and point in time. You may "
 "have to wait until later before you get a better connectivity. If you think "
@@ -652,11 +652,11 @@ msgstr ""
 "информирате доставчика на безжични точки за достъп до Интернет. [MGW: "
 "добавете информация за контакти]"
 
-#: core/diag/Sociopath.php:79
+#: core/diag/Sociopath.php:80
 msgid "Does the connection get better when you move around?"
 msgstr "Връзката става ли по-добра, когато се движите наоколо?"
 
-#: core/diag/Sociopath.php:81
+#: core/diag/Sociopath.php:82
 msgid ""
 "You should move to a different location to achieve better network coverage "
 "and service. If you think the exact spot you are at deserves better "
@@ -667,12 +667,12 @@ msgstr ""
 "добро покритие, трябва да информирате доставчика на безжични точки за достъп "
 "до Интернет. [MGW: добавете информация за контакти]"
 
-#: core/diag/Sociopath.php:84
+#: core/diag/Sociopath.php:85
 msgid ""
 "Do you see errors stating something similar to 'Unable to get IP address'?"
 msgstr "Виждате ли грешки, подобни на \"Невъзможност да получите IP адрес\"?"
 
-#: core/diag/Sociopath.php:86
+#: core/diag/Sociopath.php:87
 msgid ""
 "The evidence at hand suggests that there may be an infrastructure problem at "
 "this particular hotspot provider. There is nothing you can do to solve this "
@@ -683,11 +683,11 @@ msgstr ""
 "Интернет. Нищо не можете да направите, за да разрешите този проблем локално. "
 "Моля бъдете търпеливи и опитайте отново по-късно."
 
-#: web/skins/modern/diag/diag.php:63
+#: web/skins/modern/diag/diag.php:68
 msgid "Diagnostics site"
 msgstr "Сайт за диагностика"
 
-#: web/skins/modern/diag/diag.php:63 web/skins/modern/diag/diag.php:66
+#: web/skins/modern/diag/diag.php:68 web/skins/modern/diag/diag.php:71
 msgid ""
 "The diagnostics system will do its best to identify and resolve your "
 "problems!"
@@ -695,33 +695,33 @@ msgstr ""
 "Системата за диагностика ще направи най-доброто, за да идентифицира и "
 "разреши Вашите проблеми!"
 
-#: web/skins/modern/diag/diag.php:63
+#: web/skins/modern/diag/diag.php:68
 msgid ""
 "Please help the system by answering the questions as precisely as possible."
 msgstr ""
 "Моля помогнете на системата като отговорите на въпросите възможно най-точно."
 
-#: web/skins/modern/diag/diag.php:66
+#: web/skins/modern/diag/diag.php:71
 msgid "Are you a"
 msgstr "Вие ли сте"
 
-#: web/skins/modern/diag/diag.php:67
+#: web/skins/modern/diag/diag.php:72
 msgid "end-user"
 msgstr "краен потребител"
 
-#: web/skins/modern/diag/diag.php:67
+#: web/skins/modern/diag/diag.php:72
 msgid "or"
 msgstr "или"
 
-#: web/skins/modern/diag/diag.php:68
+#: web/skins/modern/diag/diag.php:73
 msgid "eduroam administrator"
 msgstr "администратор на eduroam"
 
-#: web/skins/modern/diag/diag.php:71
+#: web/skins/modern/diag/diag.php:76
 msgid "Tools for End Users"
 msgstr "Средства за крайни потребители"
 
-#: web/skins/modern/diag/diag.php:74
+#: web/skins/modern/diag/diag.php:79
 msgid ""
 "To resolve your problem a real-time diagnostics for your realm must be "
 "performed."
@@ -729,14 +729,14 @@ msgstr ""
 "За да разрешим проблема Ви, трябва да направим диагностика в реално време на "
 "Вашата област."
 
-#: web/skins/modern/diag/diag.php:78
+#: web/skins/modern/diag/diag.php:83
 msgid ""
 "The system needs some information on your home institution - issuer of your "
 "account"
 msgstr ""
 "Системата има нужда от информация за Вашата институция - издала акаунта Ви "
 
-#: web/skins/modern/diag/diag.php:79
+#: web/skins/modern/diag/diag.php:84
 msgid ""
 "What is the realm part of your user account (the part behind the @ of 'your."
 "username@<b>realm.tld</b>):"
@@ -744,19 +744,19 @@ msgstr ""
 "Каква е областта, част от Вашия потребителски акаунт (частта зад @ в 'Вашето."
 "потребителскоиме@<b>област.tld</b>):"
 
-#: web/skins/modern/diag/diag.php:83
+#: web/skins/modern/diag/diag.php:88
 msgid "alternatively"
 msgstr "алтернативно"
 
-#: web/skins/modern/diag/diag.php:84
+#: web/skins/modern/diag/diag.php:89
 msgid "You can select your home institution from the following list"
 msgstr "Може да изберете Вашата институция от следния списък"
 
-#: web/skins/modern/diag/diag.php:86
+#: web/skins/modern/diag/diag.php:91
 msgid "Click to select your country/region and organisation"
 msgstr "Кликнете, за да изберете Вашата страна/регион и организация"
 
-#: web/skins/modern/diag/diag.php:93
+#: web/skins/modern/diag/diag.php:98
 msgid ""
 "Optionally, to improve tests, you can provide information on your current "
 "location"
@@ -764,119 +764,115 @@ msgstr ""
 "По желание, за да подобрите тестовете, може да предоставите информация за "
 "Вашето текущо местоположение"
 
-#: web/skins/modern/diag/diag.php:95
+#: web/skins/modern/diag/diag.php:100
 msgid "Click to select a location in which you have an eduroam problem"
 msgstr ""
 "Кликнете, за да изберете местоположението, в което имате проблем с eduroam "
 
-#: web/skins/modern/diag/diag.php:102
-msgid "Testing realm "
-msgstr "Тестване на областта"
-
-#: web/skins/modern/diag/diag.php:103
-msgid "First stage completed."
-msgstr "Първият етап завърши."
-
-#: web/skins/modern/diag/diag.php:108
-msgid "To narrow down the problem, please answer the following few questions."
-msgstr "За да стесните проблема, моля отговорете на следните няколко въпроса."
-
-#: web/skins/modern/diag/diag.php:113
-msgid "Run tests"
-msgstr "Стартирайте тестовете"
-
-#: web/skins/modern/diag/diag.php:118
-msgid "Tools for eduroam admins"
-msgstr "Средства за администратори на eduroam"
-
-#: web/skins/modern/diag/diag.php:130
-msgid "Which problem are you reporting?"
-msgstr "Кой проблем докладвате?"
-
-#: web/skins/modern/diag/diag.php:132 web/skins/modern/diag/diag.php:840
-msgid "SP contacting IdP due to technical problems or abuse"
-msgstr "SP контактува с IdP поради технически проблеми или злоупотреба"
-
-#: web/skins/modern/diag/diag.php:134
-msgid "IdP contacting SP due to technical problems"
-msgstr "IdP контактува със SP поради технически проблеми"
-
-#: web/skins/modern/diag/diag.php:141
-msgid "This service is for authenticated admins only."
-msgstr "Тази услуга е само за оторизирани администратори."
-
-#: web/skins/modern/diag/diag.php:143
-msgid "eduroam® admin access is needed"
-msgstr "необходим е достъп на администратор на eduroam®"
-
-#: web/skins/modern/diag/diag.php:167
-msgid "Select institiution:"
-msgstr "Изберете институция:"
-
-#: web/skins/modern/diag/diag.php:192
-msgid "Select country or region:"
-msgstr "Изберете държава или регион: "
-
-#: web/skins/modern/diag/diag.php:200
-msgid "Fetching country/region list"
-msgstr "Изведете списъка с държави/региони"
-
-#: web/skins/modern/diag/diag.php:233
+#: web/skins/modern/diag/diag.php:107 web/skins/modern/diag/diag.php:238
 msgid "Testing realm"
 msgstr "Тествайте областта"
 
-#: web/skins/modern/diag/diag.php:260
+#: web/skins/modern/diag/diag.php:108
+msgid "First stage completed."
+msgstr "Първият етап завърши."
+
+#: web/skins/modern/diag/diag.php:113
+msgid "To narrow down the problem, please answer the following few questions."
+msgstr "За да стесните проблема, моля отговорете на следните няколко въпроса."
+
+#: web/skins/modern/diag/diag.php:118
+msgid "Run tests"
+msgstr "Стартирайте тестовете"
+
+#: web/skins/modern/diag/diag.php:123
+msgid "Tools for eduroam admins"
+msgstr "Средства за администратори на eduroam"
+
+#: web/skins/modern/diag/diag.php:135
+msgid "Which problem are you reporting?"
+msgstr "Кой проблем докладвате?"
+
+#: web/skins/modern/diag/diag.php:137 web/skins/modern/diag/diag.php:845
+msgid "SP contacting IdP due to technical problems or abuse"
+msgstr "SP контактува с IdP поради технически проблеми или злоупотреба"
+
+#: web/skins/modern/diag/diag.php:139
+msgid "IdP contacting SP due to technical problems"
+msgstr "IdP контактува със SP поради технически проблеми"
+
+#: web/skins/modern/diag/diag.php:146
+msgid "This service is for authenticated admins only."
+msgstr "Тази услуга е само за оторизирани администратори."
+
+#: web/skins/modern/diag/diag.php:148
+msgid "eduroam® admin access is needed"
+msgstr "необходим е достъп на администратор на eduroam®"
+
+#: web/skins/modern/diag/diag.php:172
+msgid "Select institiution:"
+msgstr "Изберете институция:"
+
+#: web/skins/modern/diag/diag.php:197
+msgid "Select country or region:"
+msgstr "Изберете държава или регион: "
+
+#: web/skins/modern/diag/diag.php:205
+msgid "Fetching country/region list"
+msgstr "Изведете списъка с държави/региони"
+
+#: web/skins/modern/diag/diag.php:265
 msgid "Yes"
 msgstr "Да"
 
-#: web/skins/modern/diag/diag.php:261
+#: web/skins/modern/diag/diag.php:266
 msgid "No"
 msgstr "Не"
 
-#: web/skins/modern/diag/diag.php:262
+#: web/skins/modern/diag/diag.php:267
 msgid "I don't know"
 msgstr "Не знам"
 
-#: web/skins/modern/diag/diag.php:291
+#: web/skins/modern/diag/diag.php:296
 msgid "Diagnostic tests results for selected realm"
 msgstr "Резултатите от диагностичните тестове за избраната област"
 
-#: web/skins/modern/diag/diag.php:294
+#: web/skins/modern/diag/diag.php:299
 msgid "The result for tested realm:"
 msgstr "Резултатът за тестваната област:"
 
-#: web/skins/modern/diag/diag.php:296
+#: web/skins/modern/diag/diag.php:301
 msgid "The system identified"
 msgstr "Системата е идентифицирана"
 
-#: web/skins/modern/diag/diag.php:298
+#: web/skins/modern/diag/diag.php:303
 msgid "suspected areas which potentially can cause a problem."
 msgstr "предполагаеми области, които потенциално могат да причинят проблем."
 
-#: web/skins/modern/diag/diag.php:299
+#: web/skins/modern/diag/diag.php:304
 msgid ""
 "Next to the problem description we show a speculated probability of this "
 "event."
 msgstr ""
 "До описанието на проблема показваме спекулативна вероятност за това събитие."
 
-#: web/skins/modern/diag/diag.php:306
+#: web/skins/modern/diag/diag.php:311
 msgid "Your device configuration is broken"
 msgstr "Конфигурацията на устройството Ви е повредена"
 
-#: web/skins/modern/diag/diag.php:309
+#: web/skins/modern/diag/diag.php:314
 msgid "The Wi-Fi network in your vicinity has quality issues"
 msgstr "Wi-Fi мрежата във вашия район има проблеми с качеството"
 
-#: web/skins/modern/diag/diag.php:312
+#: web/skins/modern/diag/diag.php:317
 msgid "The network environment around you is broken"
 msgstr "Мрежовата среда около Вас е повредена"
 
-#: web/skins/modern/diag/diag.php:315
+#: web/skins/modern/diag/diag.php:320
 msgid "The RADIUS server of your service provider is the source of the problem"
 msgstr "Проблемът е в RADIUS сървъра на Вашия доставчик на услуги"
 
-#: web/skins/modern/diag/diag.php:318
+#: web/skins/modern/diag/diag.php:323
 msgid ""
 "The RADIUS server in your home institution is currently unable to "
 "authenticate you"
@@ -884,7 +880,7 @@ msgstr ""
 "RADIUS сървърът във Вашата институция в момента не може да удостовери "
 "самоличността Ви"
 
-#: web/skins/modern/diag/diag.php:321
+#: web/skins/modern/diag/diag.php:326
 msgid ""
 "The national server in the country/region you are visiting is not "
 "functioning correctly"
@@ -892,7 +888,7 @@ msgstr ""
 "Сървърът в държавата/региона, към който сте в момента, не функционира "
 "правилно"
 
-#: web/skins/modern/diag/diag.php:324
+#: web/skins/modern/diag/diag.php:329
 msgid ""
 "The link between the national server of the country/region you are visiting "
 "and the top-level server is broken"
@@ -900,7 +896,7 @@ msgstr ""
 "Връзката между сървъра на държавата/региона, към който сте в момента, и "
 "сървъра от най-високо ниво е прекъсната"
 
-#: web/skins/modern/diag/diag.php:327
+#: web/skins/modern/diag/diag.php:332
 msgid ""
 "The link between the national server of your home country/region and the top-"
 "level server is broken"
@@ -908,132 +904,135 @@ msgstr ""
 "Връзката между сървъра на Вашата държава/регион и сървъра от най-високо ниво "
 "е прекъсната"
 
-#: web/skins/modern/diag/diag.php:330
+#: web/skins/modern/diag/diag.php:335
 msgid "The communication to the top-level server is down"
 msgstr "Няма комуникация със сървъра от най-високо ниво"
 
-#: web/skins/modern/diag/diag.php:333
+#: web/skins/modern/diag/diag.php:338
 msgid ""
 "The national server in your home country/region is not functioning properly."
 msgstr "Сървърът във Вашата държава/регион не функционира правилно."
 
-#: web/skins/modern/diag/diag.php:336
+#: web/skins/modern/diag/diag.php:341
 msgid "The RADIUS server of your home institution is the source of the problem"
 msgstr "Проблемът е в RADIUS сървъра на Вашата институция"
 
-#: web/skins/modern/diag/diag.php:339
+#: web/skins/modern/diag/diag.php:344
 msgid "This realm does not exist"
 msgstr "Областта не съществува"
 
-#: web/skins/modern/diag/diag.php:445
+#: web/skins/modern/diag/diag.php:450
 msgid "Fetching institutions list"
 msgstr "Изведете списъка с институциите"
 
-#: web/skins/modern/diag/diag.php:463
+#: web/skins/modern/diag/diag.php:468
 msgid "Select institution:"
 msgstr "Изберете институция:"
 
-#: web/skins/modern/diag/diag.php:502
+#: web/skins/modern/diag/diag.php:507
 msgid "Fetching realms list"
 msgstr "Изведете списъка с областите"
 
-#: web/skins/modern/diag/diag.php:514
+#: web/skins/modern/diag/diag.php:519
 msgid "Check realm(s):"
 msgstr "Проверете областта(ите):"
 
-#: web/skins/modern/diag/diag.php:526
+#: web/skins/modern/diag/diag.php:531
 msgid "Realm:"
 msgstr "Област:"
 
-#: web/skins/modern/diag/diag.php:580 web/skins/modern/diag/diag.php:649
-#: web/skins/modern/diag/diag.php:765
+#: web/skins/modern/diag/diag.php:585 web/skins/modern/diag/diag.php:654
+#: web/skins/modern/diag/diag.php:770
 msgid "Running realm tests"
 msgstr "Областта се тества"
 
-#: web/skins/modern/diag/diag.php:624
+#: web/skins/modern/diag/diag.php:629
 msgid "Realm is not registered with the eduroam database:"
 msgstr "Областта не е регистрирана в базата данни на eduroam:"
 
-#: web/skins/modern/diag/diag.php:697
+#: web/skins/modern/diag/diag.php:702
 msgid "Diagnostics results for selected realms"
 msgstr "Резултатите от диагностичните тестове за избраните области"
 
-#: web/skins/modern/diag/diag.php:698
+#: web/skins/modern/diag/diag.php:703
 msgid "An unknown problem occured"
 msgstr "Възникна неизвестен проблем "
 
-#: web/skins/modern/diag/diag.php:701
+#: web/skins/modern/diag/diag.php:706
 msgid "This test includes checking of the following realm"
 msgstr "Този тест включва проверка на следната област "
 
-#: web/skins/modern/diag/diag.php:703
+#: web/skins/modern/diag/diag.php:708
 msgid "This test includes checking of the following realms"
 msgstr "Този тест включва проверка на следните области"
 
-#: web/skins/modern/diag/diag.php:713
+#: web/skins/modern/diag/diag.php:718
 msgid "You should report this to"
 msgstr "Вие трябва да докладвате това на"
 
-#: web/skins/modern/diag/diag.php:837
+#: web/skins/modern/diag/diag.php:842
 msgid "eduroam admin report submission"
 msgstr "eduroam администратора подава отчета си"
 
-#: web/skins/modern/diag/diag.php:842 web/skins/modern/diag/diag.php:852
+#: web/skins/modern/diag/diag.php:847 web/skins/modern/diag/diag.php:857
 msgid "Reason"
 msgstr "Причина"
 
-#: web/skins/modern/diag/diag.php:843
+#: web/skins/modern/diag/diag.php:848
 msgid "SP email"
 msgstr "SP е-мейл"
 
-#: web/skins/modern/diag/diag.php:844
+#: web/skins/modern/diag/diag.php:849
 msgid "IdP email(s)"
 msgstr "IdP е-мейл(и)"
 
-#: web/skins/modern/diag/diag.php:845 web/skins/modern/diag/diag.php:856
+#: web/skins/modern/diag/diag.php:850 web/skins/modern/diag/diag.php:861
 msgid "Event's timestamp"
 msgstr "Време на събитието"
 
-#: web/skins/modern/diag/diag.php:846 web/skins/modern/diag/diag.php:857
+#: web/skins/modern/diag/diag.php:851 web/skins/modern/diag/diag.php:862
 msgid "Calling-Station-Id"
 msgstr "Идентификатор на повикващата станция"
 
-#: web/skins/modern/diag/diag.php:847 web/skins/modern/diag/diag.php:858
+#: web/skins/modern/diag/diag.php:852 web/skins/modern/diag/diag.php:863
 msgid "Additional description"
 msgstr "Допълнително описание"
 
-#: web/skins/modern/diag/diag.php:850
+#: web/skins/modern/diag/diag.php:855
 msgid "IdP contacting SP due to technical problems or abuse"
 msgstr "IdP се свързва със SP, поради технически проблеми или злоупотреба"
 
-#: web/skins/modern/diag/diag.php:853
+#: web/skins/modern/diag/diag.php:858
 msgid "SP's Operator-Name"
 msgstr "Operator-Name на SP"
 
-#: web/skins/modern/diag/diag.php:854
+#: web/skins/modern/diag/diag.php:859
 msgid "User's outer ID"
 msgstr "Външен ID на потребителя"
 
-#: web/skins/modern/diag/diag.php:855
+#: web/skins/modern/diag/diag.php:860
 msgid "IdP email"
 msgstr "IdP е-мейл"
 
-#: web/skins/modern/diag/diag.php:859
+#: web/skins/modern/diag/diag.php:864
 msgid "How to contact the user"
 msgstr "Как да се свържете с потребителя"
 
-#: web/skins/modern/diag/diag.php:876
+#: web/skins/modern/diag/diag.php:881
 msgid "MAC address is incomplete"
 msgstr "MAC адресът е непълен"
 
-#: web/skins/modern/diag/diag.php:885
+#: web/skins/modern/diag/diag.php:890
 msgid "Wrong format of email"
 msgstr "Грешен формат на е-мейл"
 
-#: web/skins/modern/diag/diag.php:894
+#: web/skins/modern/diag/diag.php:899
 msgid "Wrong format of outer ID"
 msgstr "Грешен формат на външен ID"
 
-#: web/skins/modern/diag/diag.php:903
+#: web/skins/modern/diag/diag.php:908
 msgid "Wrong string given as OperatorName"
 msgstr "Грешен символен низ е даден като OperatorName"
+
+#~ msgid "Testing realm "
+#~ msgstr "Тестване на областта"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-21 15:38+0200\n"
+"POT-Creation-Date: 2018-09-10 08:40+0200\n"
 "PO-Revision-Date: 2015-04-07 16:28+0000\n"
 "Last-Translator: Zenon Mousmoulas <zenon@mousmoulas.gr>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/cat/language/el/)\n"
@@ -165,11 +165,11 @@ msgid "General Information"
 msgstr "Γενικές πληροφορίες"
 
 #: web/admin/edit_idp.php:101
-#, fuzzy, php-format
+#, fuzzy
 msgid ""
-"The %s has properties which are valid across all deployment profiles. This "
-"is the place where you can describe those properties in a fine-grained way. "
-"The solicited information is used as follows:"
+"Some properties are valid across all deployment profiles. This is the place "
+"where you can describe those properties in a fine-grained way. The solicited "
+"information is used as follows:"
 msgstr ""
 "Αυτό είναι το μέρος όπου μπορείτε να περιγράψετε το ίδρυμά σας με έναν "
 "όμορφα διατυπωμένο τρόπο. Οι ζητούμενες πληροφορίες είναι οι εξής:"
@@ -337,8 +337,8 @@ msgstr ""
 #: web/admin/edit_idp.php:176
 #, fuzzy, php-format
 msgid ""
-"Does the %s provide helpdesk services for its users? If so, it would be nice "
-"if you would tell us the pointers to this helpdesk."
+"Do you provide helpdesk services for your users? If so, it would be nice if "
+"you would tell us the pointers to this helpdesk."
 msgstr ""
 "Αν ο IdP σας παρέχει κάποιο helpdesk για τους χρήστες του, θα ήταν ωραία αν "
 "μας λέγατε ποιο είναι αυτό. Μερικά δικτυακά πακέτα εγκατάστασης ίσως να "
@@ -1718,7 +1718,7 @@ msgstr "Πληροφορίες στη <strong>Βάση Δεδομένων %s</st
 msgid "%s Name (%s)"
 msgstr "Όνομα Ιδρύματος"
 
-#: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/PageDecoration.php:32
+#: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/PageDecoration.php:33
 msgid "Unnamed User"
 msgstr "Ανώνυμος Χρήστης"
 
@@ -2065,64 +2065,69 @@ msgstr ""
 "γλωσσών ίσως να θέλετε να επεξεργαστείτε το προφίλ σας ξανά και να "
 "συμπληρώσετε το πεδίο γλώσσας 'προκαθορισμένη/άλλη'."
 
-#: web/lib/admin/PageDecoration.php:31
+#: web/lib/admin/PageDecoration.php:32
 msgid "You are:"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:35
+#: web/lib/admin/PageDecoration.php:36
 #, fuzzy
 msgid "Go to your Profile page"
 msgstr "Συνέχεια στη σελίδα επισκόπησης χρηστών"
 
-#: web/lib/admin/PageDecoration.php:36
+#: web/lib/admin/PageDecoration.php:37
 msgid "Logout"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:38
+#: web/lib/admin/PageDecoration.php:39
 msgid "Start page"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:59
+#: web/lib/admin/PageDecoration.php:60
 msgid "View this page in"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:117
+#: web/lib/admin/PageDecoration.php:118
 #, fuzzy, php-format
 msgid "Administrator Interface - %s"
 msgstr "Email διαχειριστή"
 
-#: web/lib/admin/PageDecoration.php:120
+#: web/lib/admin/PageDecoration.php:121
 #, fuzzy, php-format
 msgid "Administrator Interface - %s User Management"
 msgstr "Έλεγχος Διαχειριστών"
 
-#: web/lib/admin/PageDecoration.php:123
+#: web/lib/admin/PageDecoration.php:124
 #, fuzzy
 msgid "Administrator Interface"
 msgstr "Email διαχειριστή"
 
-#: web/lib/admin/PageDecoration.php:126
+#: web/lib/admin/PageDecoration.php:127
 #, fuzzy
 msgid "Management of User Details"
 msgstr "Επεξεργασία Λεπτομερειών Χρήστη"
 
-#: web/lib/admin/PageDecoration.php:129
+#: web/lib/admin/PageDecoration.php:130
 #, fuzzy, php-format
 msgid "Administrator Interface - %s Management"
 msgstr "Έλεγχος Διαχειριστών"
 
-#: web/lib/admin/PageDecoration.php:132
+#: web/lib/admin/PageDecoration.php:133
 #, fuzzy, php-format
 msgid "Welcome to %s"
 msgstr "Συνδεδεμένος σε %s."
 
-#: web/lib/admin/PageDecoration.php:137
+#: web/lib/admin/PageDecoration.php:138
 msgid "CIC"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:140
+#: web/lib/admin/PageDecoration.php:141
 msgid "Diagnostics"
 msgstr ""
+
+#: web/lib/admin/PageDecoration.php:223
+#, fuzzy, php-format
+msgid "%s Privacy Notice"
+msgstr "Ιδιότητες Media"
 
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
