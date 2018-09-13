@@ -101,7 +101,7 @@ abstract class Entity {
      * @param bool $failIsFatal decides if a creation failure should cause an error; defaults to true
      * @return array the tuple of: base path, absolute path for directory, directory name
      */
-    public function createTemporaryDirectory($purpose = 'installer', $failIsFatal = 1) {
+    public static function createTemporaryDirectory($purpose = 'installer', $failIsFatal = 1) {
         $loggerInstance = new Logging();
         $name = md5(time() . rand());
         $path = ROOT;

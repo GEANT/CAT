@@ -17,13 +17,13 @@ const QRCODE_PIXELS_PER_SYMBOL = 12;
 
 $auth = new \web\lib\admin\Authentication();
 $auth->authenticate();
-
 $uiElements = new \web\lib\admin\UIElements();
 $validator = new web\lib\common\InputValidation();
 $deco = new \web\lib\admin\PageDecoration();
 $loggerInstance = new core\common\Logging();
 
 $inst = $validator->IdP(filter_input(INPUT_GET, 'inst_id'));
+
 // this page may have been called for the first time, when the profile does not
 // actually exist in the DB yet. If so, we will need to create it first.
 if (!isset($_REQUEST['profile_id'])) {
@@ -264,7 +264,8 @@ if (isset($_POST['command'])) {
 $allUsers = $profile->listAllUsers();
 $activeUsers = $profile->listActiveUsers();
 
-echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSilverbullet::PRODUCTNAME )));
+echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilverbullet::PRODUCTNAME ));
+
 ?>
 <script src='js/option_expand.js' type='text/javascript'></script>
 <script src='../external/jquery/jquery.js' type='text/javascript'></script>
@@ -272,6 +273,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
 <script src='../external/jquery/jquery-migrate.js' type='text/javascript'></script>
 <script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/popup_redirect.js" type="text/javascript"></script>
+
 <?php // https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript ?>
 <script type='text/javascript'>
     function clipboardCopy(user) {
@@ -294,6 +296,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
 <link rel='stylesheet' type='text/css' href='../external/jquery/jquery-ui.css' />
 <link rel='stylesheet' type='text/css' href='css/silverbullet.css' />
 </head>
+
 <body>
     <?php
     echo $deco->productHeader("ADMIN-IDP-USERS");

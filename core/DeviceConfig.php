@@ -162,7 +162,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         }
         $this->loggerInstance->debug(5, "DeviceConfig->setup() - silverbullet checks done.\n");
         // create temporary directory, its full path will be saved in $this->FPATH;
-        $tempDir = $this->createTemporaryDirectory($purpose);
+        $tempDir = \core\common\Entity::createTemporaryDirectory($purpose);
         $this->FPATH = $tempDir['dir'];
         mkdir($tempDir['dir'] . '/tmp');
         chdir($tempDir['dir'] . '/tmp');

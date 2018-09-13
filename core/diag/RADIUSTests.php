@@ -907,7 +907,7 @@ network={
             return RADIUSTests::RETVAL_NOTCONFIGURED;
         }
         // we will need a config blob for wpa_supplicant, in a temporary directory
-        $temporary = $this->createTemporaryDirectory('test');
+        $temporary = \core\common\Entity::createTemporaryDirectory('test');
         $tmpDir = $temporary['dir'];
         chdir($tmpDir);
         $this->loggerInstance->debug(4, "temp dir: $tmpDir\n");

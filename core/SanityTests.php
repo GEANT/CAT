@@ -455,7 +455,7 @@ class SanityTests extends CAT {
      * test if all required NSIS modules are available
      */
     private function NSISmodules_test() {
-        $tmp_dir = $this->createTemporaryDirectory('installer', 0)['dir'];
+        $tmp_dir = \core\common\Entity::createTemporaryDirectory('installer', 0)['dir'];
         if (!chdir($tmp_dir)) {
             $this->loggerInstance->debug(2, "Cannot chdir to $tmp_dir\n");
             $this->test_return(\core\common\Entity::L_ERROR, "NSIS modules test - problem with temporary directory permissions, cannot continue");
@@ -488,7 +488,7 @@ class SanityTests extends CAT {
      * test access to dowloads directories
      */
     private function directories_test() {
-        $Dir1 = $this->createTemporaryDirectory('installer', 0);
+        $Dir1 = \core\common\Entity::createTemporaryDirectory('installer', 0);
         $dir1 = $Dir1['dir'];
         $base1 = $Dir1['base'];
         if ($dir1) {
@@ -497,7 +497,7 @@ class SanityTests extends CAT {
         } else {
             $this->test_return(\core\common\Entity::L_ERROR, "Installer cache directory $base1 does not exist or is not writable!");
         }
-        $Dir2 = $this->createTemporaryDirectory('test', 0);
+        $Dir2 = \core\common\Entity::createTemporaryDirectory('test', 0);
         $dir2 = $Dir2['dir'];
         $base2 = $Dir2['base'];
         if ($dir2) {
@@ -506,7 +506,7 @@ class SanityTests extends CAT {
         } else {
             $this->test_return(\core\common\Entity::L_ERROR, "Test directory $base2 does not exist or is not writable!");
         }
-        $Dir3 = $this->createTemporaryDirectory('logo', 0);
+        $Dir3 = \core\common\Entity::createTemporaryDirectory('logo', 0);
         $dir3 = $Dir3['dir'];
         $base3 = $Dir3['base'];
         if ($dir3) {
