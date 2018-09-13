@@ -334,7 +334,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     $raCert = openssl_x509_read($raCertFile);
                     $raKey = openssl_pkey_get_private("file://" . ROOT . "../edupki-test-ra.clearkey");
                     // sign the data
-                    if (openssl_pkcs7_sign($tempdir['dir'] . "/content.txt", $tempdir['dir'] . "/signature.txt", $raCert, $raKey) === FALSE) {
+                    if (openssl_pkcs7_sign($tempdir['dir'] . "/content.txt", $tempdir['dir'] . "/signature.txt", $raCert, $raKey, []) === FALSE) {
                         throw new Exception("Unable to sign the revocation approval data!");
                     }
                     // and get the signature blob back from the filesystem
@@ -348,7 +348,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     if (is_soap_fault($e)) {
                         throw new Exception("Error when sending SOAP request: " . "{$e->faultcode}: {$e->faultstring}\n");
                     }
-                    throw new Exception("Something odd happened while doing the SOAP request:", $e->getMessage());
+                    throw new Exception("Something odd happened while doing the SOAP request:" . $e->getMessage());
                 }
                 break;
             default:
@@ -482,7 +482,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     // tell the CA the desired expiry date of the new certificate
                     $expiry = new \DateTime();
                     $expiry->modify("+$expiryDays day");
-                    $expiry->setTimezone("UTC");
+                    $expiry->setTimezone(new \DateTimeZone("UTC"));
                     $soapExpiryChange = $soap->setRequestParameters(
                             $soapReqnum, [
                         "NotAfter" => $expiry->format('c'),
@@ -505,7 +505,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     $raCert = openssl_x509_read($raCertFile);
                     $raKey = openssl_pkey_get_private("file://" . ROOT . "../edupki-test-ra.clearkey");
                     // sign the data
-                    if (openssl_pkcs7_sign($tempdir['dir'] . "/content.txt", $tempdir['dir'] . "/signature.txt", $raCert, $raKey) === FALSE) {
+                    if (openssl_pkcs7_sign($tempdir['dir'] . "/content.txt", $tempdir['dir'] . "/signature.txt", $raCert, $raKey, []) === FALSE) {
                         throw new Exception("Unable to sign the certificate approval data!");
                     }
                     // and get the signature blob back from the filesystem
@@ -521,18 +521,32 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     if (!is_array($parsedCert)) {
                         throw new Exception("We did not actually get a certificate.");
                     }
+                    // let's get the CA certificate chain
+                    $caInfo = $soap->getCAInfo();
+                    $certList = $x509->splitCertificate($caInfo['CAChain']);
+                    // find the root
+                    $theRoot = "";
+                    foreach ($certList as $oneCert) {
+                        $content = $x509->processCertificate($oneCert);
+                        if ($content['root'] == 1) {
+                            $theRoot = $content;
+                        }
+                    }
+                    if ($theRoot == "") {
+                        throw new Exception("CAInfo has no root certificate for us!");
+                    }
                 } catch (Exception $e) {
                     // PHP 7.1 can do this much better
                     if (is_soap_fault($e)) {
                         throw new Exception("Error when sending SOAP request: " . "{$e->faultcode}: {$e->faultstring}\n");
                     }
-                    throw new Exception("Something odd happened while doing the SOAP request:", $e->getMessage());
+                    throw new Exception("Something odd happened while doing the SOAP request:" . $e->getMessage());
                 }
                 return [
                     "CERT" => openssl_x509_read($parsedCert['pem']),
                     "SERIAL" => $parsedCert['serial'],
                     "ISSUER" => $raCertFile, // change this to the actual eduPKI Issuer CA
-                    "ROOT" => $rootCaPem, // change this to the actual eduPKI Root CA
+                    "ROOT" => $theRoot, // change this to the actual eduPKI Root CA
                 ];
             default:
                 /* HTTP POST the CSR to the CA with the $expiryDays as parameter
