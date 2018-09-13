@@ -309,7 +309,6 @@ class API {
         $coercedInline = [];
         $coercedFile = [];
         $optionObject = \core\Options::instance();
-        $cat = new \core\CAT();
         $dir = \core\common\Entity::createTemporaryDirectory('test');
         foreach ($parameters as $number => $oneAttrib) {
             if (preg_match("/^ATTRIB-/", $oneAttrib['NAME'])) {
