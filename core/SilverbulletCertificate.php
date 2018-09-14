@@ -400,10 +400,43 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         ];
     }
 
-    private static function initEduPKISoapSession() {
+    private static function initEduPKISoapSession($type) {
+        // set context parameters common to both endpoints
+        $context_params = [
+            'http' => [
+                'timeout' => 60,
+                'user_agent' => 'Stefan',
+                'protocol_version' => 1.1
+            ],
+            'ssl' => [
+                'verify_peer' => true,
+                'verify_peer_name' => true,
+                // below is the CA "/C=DE/O=Deutsche Telekom AG/OU=T-TeleSec Trust Center/CN=Deutsche Telekom Root CA 2"
+                'cafile' => ROOT . "/config/SilverbulletClientCerts/eduPKI-webserver-root.pem",
+                'verify_depth' => 5,
+                'capture_peer_cert' => true,
+            ],
+        ];
+        $url = "";
+        switch ($type) {
+            case "PUBLIC":
+                $url = "https://pki.edupki.org/edupki-test-ca/cgi-bin/pub/soap?wsdl=1";
+                $context_params['ssl']['peer_name'] = 'pki.edupki.org';
+                break;
+            case "RA":
+                $url = "https://ra.edupki.org/edupki-test-ca/cgi-bin/ra/soap?wsdl=1";
+                $context_params['ssl']['peer_name'] = 'ra.edupki.org';
+                break;
+            default:
+                throw new Exception("Unknown type of eduPKI interface requested.");
+        }
+        if ($type == "RA") { // add client auth parameters to the context
+            $context_params['ssl']['local_cert'] = ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem";
+            $context_params['ssl']['local_pk'] = ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.key";
+            $context_params['ssl']['passphrase'] = '...';
+        }
         // initialse connection to eduPKI CA / eduroam RA
-        $soap = new \SoapClient(
-                "https://ra.edupki.org/edupki-test-ca/cgi-bin/ra/soap?wsdl=1", [
+        $soap = new \SoapClient($url, [
             'soap_version' => SOAP_1_1,
             'trace' => TRUE,
             'exceptions' => TRUE,
@@ -411,22 +444,14 @@ class SilverbulletCertificate extends EntityWithDBProperties {
             'cache_wsdl' => WSDL_CACHE_NONE,
             'user_agent' => 'eduroam CAT to eduPKI SOAP Interface',
             'features' => SOAP_SINGLE_ELEMENT_ARRAYS,
-            'stream_context' => stream_context_create(
-                    [
-                        'https' => [
-                            'timeout' => 60,
-                        ],
-                        'ssl' => [
-                            // 'verify_peer' => true,
-                            // 'cafile' => $root,
-                            'verify_depth' => 3,
-                        ],
-                    ]
-            ),
+            'stream_context' => stream_context_create($context_params),
                 ]
         );
         return $soap;
     }
+
+    const EDUPKI_RA_ID = 700;
+    const EDUPKI_CERT_PROFILE = "eduroam IdP and SP";
 
     /**
      * take a CSR and sign it with our issuing CA's certificate
@@ -463,22 +488,44 @@ class SilverbulletCertificate extends EntityWithDBProperties {
             case "eduPKI":
                 // initialse connection to eduPKI CA / eduroam RA and send the request to them
                 try {
-                    $soap = SilverbulletCertificate::initEduPKISoapSession();
-                    $soapNewRequest = $soap->newRequest(
-                            700, # RA-ID
-                            $csr["CSR"], # Request im PEM-Format
+                    $csrText = "";
+                    openssl_csr_export($csr["CSR"], $csrText);
+                    $soapPub = SilverbulletCertificate::initEduPKISoapSession("PUBLIC");
+                    $loggerInstance->debug(5, "FIRST ACTUAL SOAP REQUEST (Public, newRequest)!\n");
+                    $loggerInstance->debug(5, "PARAM_1: ".SilverbulletCertificate::EDUPKI_RA_ID."\n");
+                    $loggerInstance->debug(5, "PARAM_2: $csrText\n");
+                    $loggerInstance->debug(5, "PARAM_3: ".["email:" . $csr["USERNAME"]]);
+                    $loggerInstance->debug(5, "PARAM_4: ".SilverbulletCertificate::EDUPKI_CERT_PROFILE."\n");
+                    $loggerInstance->debug(5, "PARAM_5: ".sha1("notused")."\n");
+                    $loggerInstance->debug(5, "PARAM_6: ".$csr["USERNAME"]."\n");
+                    $loggerInstance->debug(5, "PARAM_7: ".ProfileSilverbullet::PRODUCTNAME."\n");
+                    $loggerInstance->debug(5, "PARAM_8: true\n");
+                    $soapNewRequest = $soapPub->newRequest(
+                            SilverbulletCertificate::EDUPKI_RA_ID, # RA-ID
+                            $csrText, # Request im PEM-Format
                             [# Array mit den Subject Alternative Names
                         "email:" . $csr["USERNAME"]
-                            ], "eduroam IdP and SP", # Zertifikatprofil
+                            ], SilverbulletCertificate::EDUPKI_CERT_PROFILE, # Zertifikatprofil
                             sha1("notused"), # PIN
                             $csr["USERNAME"], # Name des Antragstellers
-                            "eduroam Managed IdP", # Organisationseinheit des Antragstellers
+                            ProfileSilverbullet::PRODUCTNAME, # Organisationseinheit des Antragstellers
                             true                   # Veröffentlichen des Zertifikats?
                     );
+                    $loggerInstance->debug(5, $soapPub->__getLastRequest());
+                    $loggerInstance->debug(5, $soapPub->__getLastResponse());
                     if ($soapNewRequest == 0) {
                         throw new Exception("Error when sending SOAP request (request serial number was zero). No further details available.");
                     }
                     $soapReqnum = intval($soapNewRequest);
+                } catch (Exception $e) {
+                    // PHP 7.1 can do this much better
+                    if (is_soap_fault($e)) {
+                        throw new Exception("Error when sending SOAP request: " . "{$e->faultcode}: {$e->faultstring}\n");
+                    }
+                    throw new Exception("Something odd happened while doing the SOAP request:" . $e->getMessage());
+                }
+                try {
+                    $soap = SilverbulletCertificate::initEduPKISoapSession("PUBLIC");
                     // tell the CA the desired expiry date of the new certificate
                     $expiry = new \DateTime();
                     $expiry->modify("+$expiryDays day");
