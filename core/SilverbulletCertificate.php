@@ -315,7 +315,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                 break;
             case "eduPKI":
                 try {
-                    $soap = SilverbulletCertificate::initEduPKISoapSession();
+                    $soap = SilverbulletCertificate::initEduPKISoapSession("RA");
                     $soapRevocationSerial = $soap->newRevocationRequest($this->serial, "");
                     if ($soapRevocationSerial == 0) {
                         throw new Exception("Unable to create revocation request, serial number was zero.");
@@ -451,7 +451,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
     }
 
     const EDUPKI_RA_ID = 700;
-    const EDUPKI_CERT_PROFILE = "eduroam IdP and SP";
+    const EDUPKI_CERT_PROFILE = "Radius Server SOAP";
 
     /**
      * take a CSR and sign it with our issuing CA's certificate
@@ -488,28 +488,33 @@ class SilverbulletCertificate extends EntityWithDBProperties {
             case "eduPKI":
                 // initialse connection to eduPKI CA / eduroam RA and send the request to them
                 try {
+                    $altArray = [# Array mit den Subject Alternative Names
+                        "email:" . $csr["USERNAME"]
+                            ];
                     $csrText = "";
                     openssl_csr_export($csr["CSR"], $csrText);
                     $soapPub = SilverbulletCertificate::initEduPKISoapSession("PUBLIC");
                     $loggerInstance->debug(5, "FIRST ACTUAL SOAP REQUEST (Public, newRequest)!\n");
                     $loggerInstance->debug(5, "PARAM_1: ".SilverbulletCertificate::EDUPKI_RA_ID."\n");
                     $loggerInstance->debug(5, "PARAM_2: $csrText\n");
-                    $loggerInstance->debug(5, "PARAM_3: ".["email:" . $csr["USERNAME"]]);
+                    $loggerInstance->debug(5, "PARAM_3: ");
+                    $loggerInstance->debug(5, $altArray);
                     $loggerInstance->debug(5, "PARAM_4: ".SilverbulletCertificate::EDUPKI_CERT_PROFILE."\n");
                     $loggerInstance->debug(5, "PARAM_5: ".sha1("notused")."\n");
                     $loggerInstance->debug(5, "PARAM_6: ".$csr["USERNAME"]."\n");
-                    $loggerInstance->debug(5, "PARAM_7: ".ProfileSilverbullet::PRODUCTNAME."\n");
-                    $loggerInstance->debug(5, "PARAM_8: true\n");
+                    $loggerInstance->debug(5, "PARAM_7: ".$csr["USERNAME"]."\n");
+                    $loggerInstance->debug(5, "PARAM_8: ".ProfileSilverbullet::PRODUCTNAME."\n");
+                    $loggerInstance->debug(5, "PARAM_9: false\n");
                     $soapNewRequest = $soapPub->newRequest(
                             SilverbulletCertificate::EDUPKI_RA_ID, # RA-ID
                             $csrText, # Request im PEM-Format
-                            [# Array mit den Subject Alternative Names
-                        "email:" . $csr["USERNAME"]
-                            ], SilverbulletCertificate::EDUPKI_CERT_PROFILE, # Zertifikatprofil
+                            $altArray, # altNames
+                            SilverbulletCertificate::EDUPKI_CERT_PROFILE, # Zertifikatprofil
                             sha1("notused"), # PIN
                             $csr["USERNAME"], # Name des Antragstellers
+                            $csr["USERNAME"], # Kontakt-E-Mail
                             ProfileSilverbullet::PRODUCTNAME, # Organisationseinheit des Antragstellers
-                            true                   # Veröffentlichen des Zertifikats?
+                            false                   # Veröffentlichen des Zertifikats?
                     );
                     $loggerInstance->debug(5, $soapPub->__getLastRequest());
                     $loggerInstance->debug(5, $soapPub->__getLastResponse());
@@ -525,7 +530,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     throw new Exception("Something odd happened while doing the SOAP request:" . $e->getMessage());
                 }
                 try {
-                    $soap = SilverbulletCertificate::initEduPKISoapSession("PUBLIC");
+                    $soap = SilverbulletCertificate::initEduPKISoapSession("RA");
                     // tell the CA the desired expiry date of the new certificate
                     $expiry = new \DateTime();
                     $expiry->modify("+$expiryDays day");
