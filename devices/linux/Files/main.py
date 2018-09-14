@@ -549,12 +549,12 @@ class WpaConf:
                  pairwise=CCMP
                  group=CCMP TKIP
                  eap={1}
-                 ca_cert=\"{3}/.cat_installer/ca.pem\"
-                 identity=\"{4}\"
-                 domain_suffix_match=\"{5}\"
-                 phase2=\"auth={6}\"
-                 password=\"{7}\"
-                 anonymous_identity=\"{8}\"}
+                 ca_cert=\"{2}/.cat_installer/ca.pem\"
+                 identity=\"{3}\"
+                 domain_suffix_match=\"{4}\"
+                 phase2=\"auth={5}\"
+                 password=\"{6}\"
+                 anonymous_identity=\"{7}\"}
                  """.format(ssid, Config.eap_outer, os.environ.get('HOME'),
                             user_data.USERNAME, Config.server_match,
                             Config.eap_inner, user_data.PASSWORD,
