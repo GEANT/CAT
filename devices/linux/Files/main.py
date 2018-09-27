@@ -52,7 +52,7 @@ def get_system():
     """
     system = platform.linux_distribution()
     desktop = detect_desktop_environment()
-    return([system[0], system[1], desktop])
+    return [system[0], system[1], desktop]
 
 def debug(msg):
     if debug_on == False:
@@ -335,10 +335,10 @@ class InstallerData:
             q = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             out, err = q.communicate()
             if q.returncode != 0:
-                return(False)
+                return False
             else:
                 if Config.use_other_tls_id == True:
-                    return(True)
+                    return True
                 out_str = out.decode('utf-8')
                 subject = re.findall(r'subject=/?(.*)$', out_str, re.MULTILINE)[0].split('/')
                 S = {}
@@ -355,22 +355,22 @@ class InstallerData:
                 else:
                     self.USERNAME = ''
                     self.alert("Unable to extract username form the certificate")
-                return(True)
+                return True
         else:
             debug("using crypto")
             try:
                 p12 = crypto.load_pkcs12(open(pfx_file, 'rb').read(), self.PASSWORD)
             except:
                 debug("incorrect password")
-                return(False)
+                return False
             else:
                 if Config.use_other_tls_id == True:
-                    return(True)
+                    return True
                 try:
                     self.USERNAME = p12.get_certificate().get_subject().commonName
                 except:
                     self.USERNAME = p12.get_certificate().get_subject().emailAddress
-                return(True)
+                return True
             
             
     def __select_p12_file(self):
@@ -395,10 +395,10 @@ class InstallerData:
                 output = inp.strip()
                 
                 if default != '' and output =='':
-                    return(pfx_file)
+                    return pfx_file
                 default = ''
                 if os.path.isfile(output):
-                    return(output)
+                    return output
                 else:
                     print("file not found")
 
@@ -410,7 +410,7 @@ class InstallerData:
             command = ['kdialog', '--getopenfilename', '.', '*.p12 *.P12 *.pfx *.PFX | ' + Messages.p12_filter, '--title', Messages.p12_title]
             q = subprocess.Popen(command,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             cert, err = q.communicate()
-        return(cert.strip().decode('utf-8'))
+        return cert.strip().decode('utf-8')
     
 
 
@@ -449,54 +449,54 @@ class InstallerData:
         if pos == len(self.USERNAME) - 1:
             debug("username ending with @")
             self.alert(Messages.wrongUsernameFormat)
-            return(False)
+            return False
         # no @ at all
         if pos == -1:
             if Config.verify_user_realm_input:
                 debug("missing realm")
                 self.alert(Messages.wrongUsernameFormat)
-                return(False)
+                return False
             else:
                 debug("No realm, but possibly correct")
-                return(True)
+                return True
         # @ at the beginning
         if pos == 0:
             debug("missing user part")
             self.alert(Messages.wrongUsernameFormat)
-            return(False)
+            return False
         pos += 1
         if Config.verify_user_realm_input:
             if Config.hint_user_input:
                 if self.USERNAME.endswith('@' + Config.user_realm,pos -1):
                     debug("realm equal to the expected value")
-                    return(True)
+                    return True
                 else:
                     debug("incorrect realm; expected:" + Config.user_realm)
                     self.alert(Messages.wrong_realm.format(Config.user_realm))
-                    return(False)
+                    return False
             if self.USERNAME.endswith(Config.user_realm,pos):
                 debug("real ends with expected suffix")
-                return(True)
+                return True
             else:
                 debug("realm suffix error; expected: " + Config.user_realm)
                 self.alert(Messages.wrong_realm_suffix.format(Config.user_realm))
-                return(False)
+                return False
         pos1 = self.USERNAME.find('@',pos)
         if pos1 > -1:
             debug("second @ character found")
             self.alert(Messages.wrongUsernameFormat)
-            return(False)
+            return False
         pos1 = self.USERNAME.find('.',pos)
         if pos1 == -1:
             debug("no dot in the realm")
             self.alert(Messages.wrongUsernameFormat)
-            return(False)
+            return False
         if pos1 == pos:
             debug("a dot immediately after the @ character")
             self.alert(Messages.wrongUsernameFormat)
-            return(False)
+            return False
         debug("all passed")
-        return(True)
+        return True
 
             
 
@@ -535,7 +535,7 @@ class CatNMConfigTool:
             self.bus = dbus.SystemBus()
         except dbus.exceptions.DBusException:
             print("Can't connect to DBus")
-            return(None)
+            return None
         #main service name
         self.system_service_name = "org.freedesktop.NetworkManager"
         #check NM version
@@ -557,9 +557,9 @@ class CatNMConfigTool:
             self.settings = dbus.Interface(sysproxy, "org.freedesktop.NetworkManagerSettings")
         else:
             print(Messages.nm_not_supported)
-            return(None)
+            return None
         debug("NM connection worked")
-        return(True)
+        return True
             
 
     def check_opts(self):
@@ -670,14 +670,14 @@ class CatNMConfigTool:
     def main(self,user_data):
         self.check_opts()
         if self.connect_to_NM() == None:
-            return(None)
+            return None
         for ssid in Config.ssids:
             self.delete_existing_connections(ssid)
             self.add_connection(ssid,user_data)
         for ssid in Config.del_ssids:
             self.delete_existing_connections(ssid)
         debug("NM returning success")
-        return(True)
+        return True
 
 
 
