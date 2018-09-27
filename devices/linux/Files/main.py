@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import subprocess 
+import subprocess
 import sys
 
 def missing_dbus():
     print("Cannot import the dbus module")
     sys.exit(1)
-    
+
+
 try:
     import dbus
 except:
@@ -26,6 +27,7 @@ from shutil import copyfile
 
 debug_on = False
 
+
 # the function below was partially copied from https://ubuntuforums.org/showthread.php?t=1139057
 def detect_desktop_environment():
     desktop_environment = 'generic'
@@ -35,7 +37,7 @@ def detect_desktop_environment():
         desktop_environment = 'gnome'
     else:
         try:
-            q = subprocess.Popen(['xprop', '-root', '_DT_SAVE_MODE'],stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            q = subprocess.Popen(['xprop', '-root', '_DT_SAVE_MODE'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             out, err = q.communicate()
             info = out.strip().decode('utf-8')
         except (OSError, RuntimeError):
@@ -44,6 +46,7 @@ def detect_desktop_environment():
             if ' = "xfce4"' in info:
                 desktop_environment = 'xfce'
     return desktop_environment
+
 
 def get_system():
     """
@@ -54,11 +57,13 @@ def get_system():
     desktop = detect_desktop_environment()
     return([system[0], system[1], desktop])
 
+
 def debug(msg):
     if debug_on == False:
         return
     print(msg)
-    
+
+
 def run_installer():
     global debug_on
     try:
@@ -68,12 +73,13 @@ def run_installer():
     except:
         pass
     debug(get_system())
-    inst = InstallerData();
+    inst = InstallerData()
     inst.get_user_cred()
     ENMCT = CatNMConfigTool()
     if ENMCT.main(inst) == None:
-        inst.save_wpa_conf()  
+        inst.save_wpa_conf()
     inst.show_info(Messages.installation_finished)
+
 
 class Messages:
     quit = "Really quit?"
@@ -86,7 +92,7 @@ class Messages:
     installation_finished = "Installation successful"
     cat_dir_exists = "Directory {} exists; some of its files may be overwritten."
     cont = "Continue?"
-    nm_not_supported ="This NetworkManager version is not supported"
+    nm_not_supported = "This NetworkManager version is not supported"
     cert_error = "Certificate file not found, looks like a CAT error"
     unknown_version = "Unknown version"
     dbus_error = "DBus connection problem, a sudo might help"
@@ -101,10 +107,8 @@ class Messages:
     wrong_realm = "Error: your username must be in the form of 'xxx@{}'. Please enter the username in the correct format."
     wrong_realm_suffix = "Error: your username must be in the form of 'xxx@institutionID' and end with '{}'. Please enter the username in the correct format."
     user_cert_missing = "personal certificate file not found"
-    
-#    "File %s exists; it will be overwritten."
-#    "Output written to %s"
-    
+    # "File %s exists; it will be overwritten."
+    # "Output written to %s"
 
 
 class Config:
@@ -125,15 +129,15 @@ class Config:
     init_info = ""
     init_confirmation = ""
     tou = ""
-    sb_user_file =  ""
+    sb_user_file = ""
     verify_user_realm_input = False
-    user_realm =  ""
+    user_realm = ""
     hint_user_input = False
-
 
 
 class InstallerData:
     graphics = ''
+
     def __init__(self):
         self.__get_graphics_support()
         self.show_info(Config.init_info.format(Config.instname, Config.email, Config.url))
@@ -152,7 +156,7 @@ class InstallerData:
             f.write(Config.CA + "\n")
         f.closed
 
-    def ask(self, question, prompt = '', default = None):
+    def ask(self, question, prompt='', default=None):
         if self.graphics == 'tty':
             yes = Messages.yes[:1].upper()
             no = Messages.no[:1].upper()
@@ -162,7 +166,7 @@ class InstallerData:
                 if default == 1:
                     p += "[" + yes + "]"
                 elif default == 0:
-                    p += "[" + no + "]"  
+                    p += "[" + no + "]"
                 try:
                     inp = raw_input(p)
                 except:
@@ -190,7 +194,7 @@ class InstallerData:
             '--title=',
             Config.title]
         returncode = subprocess.call(command)
- #       out, err = q.communicate()
+        # out, err = q.communicate()
         return returncode
 
     def show_info(self, data):
@@ -210,22 +214,21 @@ class InstallerData:
         ret = self.ask(Messages.quit)
         if ret == 0:
             sys.exit(1)
-            
 
-    def alert(self,text):
+    def alert(self, text):
         if self.graphics == 'tty':
             print(text)
             return
         if self.graphics == 'zenity':
-            command = ['zenity','--warning', '--text=' + text]
+            command = ['zenity', '--warning', '--text=' + text]
         elif self.graphics == "kdialog":
-            command = ['kdialog','--sorry', text]
+            command = ['kdialog', '--sorry', text]
         else:
             sys.exit(1)
         subprocess.call(command)
-#        out, err = q.communicate()
+        # out, err = q.communicate()
 
-    def prompt_nonempty_string(self, show, prompt, val = ''):
+    def prompt_nonempty_string(self, show, prompt, val=''):
         if self.graphics == 'tty':
             if show == 0:
                 while True:
@@ -241,7 +244,7 @@ class InstallerData:
                 output = inp.strip().decode('utf-8')
                 if output != '':
                     return output
-                
+
         if self.graphics == 'zenity':
             if val == '':
                 default_val = ''
@@ -251,43 +254,38 @@ class InstallerData:
                 hide_text = '--hide-text'
             else:
                 hide_text = ''
-            command = ['zenity', 
-            '--entry', hide_text,
-            default_val,
-            '--width=500',
-            '--text=' + prompt]
+            command = ['zenity', '--entry', hide_text, default_val, '--width=500', '--text=' + prompt]
         elif self.graphics == 'kdialog':
             if show == 0:
                 hide_text = '--password'
             else:
                 hide_text = '--inputbox'
             command = ['kdialog', hide_text, prompt]
-            
+
         output = ''
         while not output:
-            q = subprocess.Popen(command,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            q = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             out, err = q.communicate()
             output = out.strip().decode('utf-8')
             if q.returncode == 1:
                 self.confirm_exit()
-        return output 
-    
-            
+        return output
+
     def get_user_cred(self):
         if Config.eap_outer == 'PEAP' or Config.eap_outer == 'TTLS':
             self.__get_username_password()
         if Config.eap_outer == 'TLS':
             self.__get_p12_cred()
-            
+
     def save_wpa_conf(self):
         if self.ask(Messages.save_wpa_conf, Messages.cont, 1):
             sys.exit(1)
         wpa = WpaConf()
-        wpa.create_wpa_conf(Config.ssids,self)     
-        
+        wpa.create_wpa_conf(Config.ssids, self)
+
     def __get_username_password(self):
-        PASSWORD="a"
-        PASSWORD1="b"
+        PASSWORD = "a"
+        PASSWORD1 = "b"
         if Config.hint_user_input:
             user_prompt = '@' + Config.user_realm
         else:
@@ -302,7 +300,7 @@ class InstallerData:
             if PASSWORD != PASSWORD1:
                 self.alert(Messages.passwords_difffer)
         self.PASSWORD = PASSWORD
-    
+
     def __get_graphics_support(self):
         if os.environ.get('DISPLAY') != None:
             q = subprocess.Popen(['which', 'zenity'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -318,6 +316,7 @@ class InstallerData:
                     self.graphics = 'tty'
         else:
             self.graphics = 'tty'
+
     def __process_p12(self):
         debug('process_p12')
         pfx_file = os.environ['HOME'] + '/.cat_installer/user.p12'
@@ -371,8 +370,7 @@ class InstallerData:
                 except:
                     self.USERNAME = p12.get_certificate().get_subject().emailAddress
                 return(True)
-            
-            
+
     def __select_p12_file(self):
         if self.graphics == 'tty':
             dir = os.listdir(".")
@@ -382,7 +380,7 @@ class InstallerData:
                 if file.endswith('.p12') or file.endswith('*.pfx') or file.endswith('.P12') or file.endswith('*.PFX'):
                     p_count += 1
                     pfx_file = file
-            prompt="personal certificate file (p12 or pfx)"
+            prompt = "personal certificate file (p12 or pfx)"
             default = ''
             if p_count == 1:
                 default = '[' + pfx_file + ']'
@@ -393,8 +391,8 @@ class InstallerData:
                 except:
                     inp = input(prompt + default + ": ")
                 output = inp.strip()
-                
-                if default != '' and output =='':
+
+                if default != '' and output == '':
                     return(pfx_file)
                 default = ''
                 if os.path.isfile(output):
@@ -404,15 +402,13 @@ class InstallerData:
 
         if self.graphics == 'zenity':
             command = ['zenity', '--file-selection',  '--file-filter=' + Messages.p12_filter + ' | *.p12 *.P12 *.pfx *.PFX', '--file-filter=' + Messages.all_filter + ' | *', '--title=' + Messages.p12_title]
-            q = subprocess.Popen(command,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            q = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             cert, err = q.communicate()
         if self.graphics == 'kdialog':
             command = ['kdialog', '--getopenfilename', '.', '*.p12 *.P12 *.pfx *.PFX | ' + Messages.p12_filter, '--title', Messages.p12_title]
-            q = subprocess.Popen(command,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            q = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             cert, err = q.communicate()
         return(cert.strip().decode('utf-8'))
-    
-
 
     def __save_sb_pfx(self):
         import base64
@@ -440,7 +436,7 @@ class InstallerData:
                 self.PASSWORD = ''
         if not self.USERNAME:
             self.USERNAME = self.prompt_nonempty_string(1, Messages.username_prompt)
-            
+
     def __validate_user_name(self):
         # locate the @ character in username
         pos = self.USERNAME.find('@')
@@ -467,26 +463,26 @@ class InstallerData:
         pos += 1
         if Config.verify_user_realm_input:
             if Config.hint_user_input:
-                if self.USERNAME.endswith('@' + Config.user_realm,pos -1):
+                if self.USERNAME.endswith('@' + Config.user_realm, pos-1):
                     debug("realm equal to the expected value")
                     return(True)
                 else:
                     debug("incorrect realm; expected:" + Config.user_realm)
                     self.alert(Messages.wrong_realm.format(Config.user_realm))
                     return(False)
-            if self.USERNAME.endswith(Config.user_realm,pos):
+            if self.USERNAME.endswith(Config.user_realm, pos):
                 debug("real ends with expected suffix")
                 return(True)
             else:
                 debug("realm suffix error; expected: " + Config.user_realm)
                 self.alert(Messages.wrong_realm_suffix.format(Config.user_realm))
                 return(False)
-        pos1 = self.USERNAME.find('@',pos)
+        pos1 = self.USERNAME.find('@', pos)
         if pos1 > -1:
             debug("second @ character found")
             self.alert(Messages.wrongUsernameFormat)
             return(False)
-        pos1 = self.USERNAME.find('.',pos)
+        pos1 = self.USERNAME.find('.', pos)
         if pos1 == -1:
             debug("no dot in the realm")
             self.alert(Messages.wrongUsernameFormat)
@@ -498,16 +494,15 @@ class InstallerData:
         debug("all passed")
         return(True)
 
-            
-
 
 class WpaConf:
-    def prepare_network_block(self,ssid,user_data):
+
+    def prepare_network_block(self, ssid, user_data):
         out = """network={
         ssid=""" + ssid + """
-        key_mgmt=WPA-EAP 
-        pairwise=CCMP  
-        group=CCMP TKIP 
+        key_mgmt=WPA-EAP
+        pairwise=CCMP
+        group=CCMP TKIP
         eap=""" + Config.eap_outer + """
         ca_cert=\"""" + os.environ.get('HOME') + """/.cat_installer/ca.pem\"
         identity=\"""" + user_data.USERNAME + """\"
@@ -515,18 +510,18 @@ class WpaConf:
         phase2=\"auth=""" + Config.eap_inner + """\"
         password=\"""" + user_data.PASSWORD + """\"
         anonymous_identity=\"""" + Config.anonymous_identity + """\"
-} 
+}
     """
         return out
-        
-    def create_wpa_conf(self,ssids, user_data):
+
+    def create_wpa_conf(self, ssids, user_data):
         wpa_conf = os.environ.get('HOME') + '/.cat_installer/cat_installer.conf'
         with open(wpa_conf, 'w') as f:
             for ssid in ssids:
-                net = self.prepare_network_block(ssid,user_data)
+                net = self.prepare_network_block(ssid, user_data)
                 f.write(net)
             f.closed
-            
+
 
 class CatNMConfigTool:
     def connect_to_NM(self):
@@ -560,7 +555,6 @@ class CatNMConfigTool:
             return(None)
         debug("NM connection worked")
         return(True)
-            
 
     def check_opts(self):
         self.cacert_file = os.environ['HOME'] + '/.cat_installer/ca.pem'
@@ -592,7 +586,6 @@ class CatNMConfigTool:
     def byte_to_string(self, barray):
         return "".join([chr(x) for x in barray])
 
-
     def delete_existing_connections(self, ssid):
         #"checks and deletes earlier connections"
         try:
@@ -604,30 +597,29 @@ class CatNMConfigTool:
             con_proxy = self.bus.get_object(self.system_service_name, each)
             connection = dbus.Interface(con_proxy, "org.freedesktop.NetworkManager.Settings.Connection")
             try:
-               connection_settings = connection.GetSettings()
-               if connection_settings['connection']['type'] == '802-11-wireless':
-                   conn_ssid = self.byte_to_string(connection_settings['802-11-wireless']['ssid'])
-                   if conn_ssid == ssid:
-                       debug("deleting connection: " + conn_ssid)
-                       connection.Delete()
+                connection_settings = connection.GetSettings()
+                if connection_settings['connection']['type'] == '802-11-wireless':
+                    conn_ssid = self.byte_to_string(connection_settings['802-11-wireless']['ssid'])
+                    if conn_ssid == ssid:
+                        debug("deleting connection: " + conn_ssid)
+                        connection.Delete()
             except dbus.exceptions.DBusException:
-               pass
+                pass
 
-    def add_connection(self,ssid,user_data):
+    def add_connection(self, ssid, user_data):
         debug("Adding connection: " + ssid)
         server_alt_subject_name_list = dbus.Array(Config.servers)
         server_name = Config.server_match
         if self.nm_version == "0.9" or self.nm_version == "1.0":
-             match_key = 'altsubject-matches'
-             match_value = server_alt_subject_name_list
+            match_key = 'altsubject-matches'
+            match_value = server_alt_subject_name_list
         else:
-             match_key = 'subject-match'
-             match_value = server_name
+            match_key = 'subject-match'
+            match_value = server_name
         s_8021x_data = {
             'eap': [Config.eap_outer.lower()],
             'identity': user_data.USERNAME,
-            'ca-cert': dbus.ByteArray("file://{0}\0".format(self.cacert_file).encode('utf8')),
-             match_key: match_value}
+            'ca-cert': dbus.ByteArray("file://{0}\0".format(self.cacert_file).encode('utf8')), match_key: match_value}
         if Config.eap_outer == 'PEAP' or Config.eap_outer == 'TTLS':
             s_8021x_data['password'] = user_data.PASSWORD
             s_8021x_data['phase2-auth'] = Config.eap_inner.lower()
@@ -642,7 +634,7 @@ class CatNMConfigTool:
             'type': '802-11-wireless',
             'uuid': str(uuid.uuid4()),
             'permissions': ['user:' + os.environ.get('USER')],
-            'id': ssid 
+            'id': ssid
         })
         s_wifi = dbus.Dictionary({
             'ssid': dbus.ByteArray(ssid.encode('utf8')),
@@ -650,8 +642,8 @@ class CatNMConfigTool:
         })
         s_wsec = dbus.Dictionary({
             'key-mgmt': 'wpa-eap',
-            'proto': ['rsn',],
-            'pairwise': ['ccmp',],
+            'proto': ['rsn'],
+            'pairwise': ['ccmp'],
             'group': ['ccmp', 'tkip']
         })
         s_8021x = dbus.Dictionary(s_8021x_data)
@@ -667,17 +659,14 @@ class CatNMConfigTool:
         })
         self.settings.AddConnection(con)
 
-    def main(self,user_data):
+    def main(self, user_data):
         self.check_opts()
         if self.connect_to_NM() == None:
             return(None)
         for ssid in Config.ssids:
             self.delete_existing_connections(ssid)
-            self.add_connection(ssid,user_data)
+            self.add_connection(ssid, user_data)
         for ssid in Config.del_ssids:
             self.delete_existing_connections(ssid)
         debug("NM returning success")
         return(True)
-
-
-
