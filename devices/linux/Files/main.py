@@ -55,7 +55,7 @@ def get_system():
     return([system[0], system[1], desktop])
 
 def debug(msg):
-    if debug_on == False:
+    if not debug_on:
         return
     print(msg)
     
@@ -337,7 +337,7 @@ class InstallerData:
             if q.returncode != 0:
                 return(False)
             else:
-                if Config.use_other_tls_id == True:
+                if Config.use_other_tls_id:
                     return(True)
                 out_str = out.decode('utf-8')
                 subject = re.findall(r'subject=/?(.*)$', out_str, re.MULTILINE)[0].split('/')
@@ -364,7 +364,7 @@ class InstallerData:
                 debug("incorrect password")
                 return(False)
             else:
-                if Config.use_other_tls_id == True:
+                if Config.use_other_tls_id:
                     return(True)
                 try:
                     self.USERNAME = p12.get_certificate().get_subject().commonName
