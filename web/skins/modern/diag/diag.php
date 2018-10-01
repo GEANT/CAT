@@ -44,7 +44,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
 </head>
 <body>
 <div id='wrap'>
-
+<form id="cat_form" name="cat_form" method="POST"  accept-charset="UTF-8" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>/">
 <?php
 echo $divs->div_heading($visibility);
 $Gui->languageInstance->setTextDomain("diagnostics");
@@ -53,7 +53,6 @@ $Gui->languageInstance->setTextDomain("diagnostics");
     <div id="loading_ico">
           <span id='load_comment'></span><br><img src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES", "icons/loading51.gif"); ?>" alt="Loading stuff ..."/>
     </div>
-    <form id="cat_form" name="cat_form" method="POST"  accept-charset="UTF-8" action="">
     <input name="myNonce" id="myNonce" type="hidden" value="<?php echo my_nonce($_SERVER['SCRIPT_NAME']); ?>">
     <div id="info_overlay"> <!-- device info -->
         <div id="info_window"></div>
@@ -65,15 +64,15 @@ $Gui->languageInstance->setTextDomain("diagnostics");
     </div>
     <div id="main_body">
         <div id="user_page">
-            <?php echo $divs->div_pagetitle(_("Diagnostics site"), _("The diagnostics system will do its best to identify and resolve your problems!"). "<br>"._("Please help the system by answering the questions as precisely as possible.")); ?>
+            <?php echo $divs->div_pagetitle(_("Diagnostics site"), ""); ?>
             <div id="user_info" style='padding-top: 10px;'>
             <div id='diagnostic_choice'>
-                <?php echo _("The diagnostics system will do its best to identify and resolve your problems!") . '<br>' . _("Are you a") . ' '; ?>
+                <?php echo _("The diagnostics system will do its best to identify and resolve your problems!") . ' ' . _("Please help the system by answering the questions as precisely as possible.") . "<br/>" . _("Are you a") . ' '; ?>
                 <input type='radio' name='diagnostic_usertype' value='0'><?php echo _("end-user") . ' ' . _("or"); ?>   
                 <input type='radio' name='diagnostic_usertype' value='1' <?php if ($admin == 1) { echo " checked"; } ?> > <?php echo _("eduroam administrator") .'?'; ?>
             </div>
             <div id='diagnostic_enduser' style='display: none;'>
-                <h2><?php echo '<h2>' . _("Tools for End Users"); ?></h2>
+                <h2><?php echo _("Tools for End Users"); ?></h2>
                 <p>
                 <?php 
                     echo _("To resolve your problem a real-time diagnostics for your realm must be performed.");
@@ -88,7 +87,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                     echo '<div id="realm_by_select"><br/>' . _("alternatively") . '<br/>';
                     echo _("You can select your home institution from the following list") . '<br/>';
                     echo '<div id="select_idp_country"><a href="" id="idp_countries_list">';    
-                    echo '<span id="realmselect">' . _("Click to select your country/region and organisation") . '</a></span></div>';
+                    echo '<span id="realmselect">' . _("Click to select your country/region and organisation") . '</span></a></div>';
                 ?>
                 <div id="select_idp_area" style="display:none;">
                 </div>
@@ -97,7 +96,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                     <?php
                         echo '<h3>' . _("Optionally, to improve tests, you can provide information on your current location") . '</h3>';
                         echo '<div id="select_sp_country"><a href="" id="sp_countries_list">';    
-                        echo '<span id="spselect">' . _("Click to select a location in which you have an eduroam problem") . '</a></span></div>';
+                        echo '<span id="spselect">' . _("Click to select a location in which you have an eduroam problem") . '</span></a></div>';
                     ?>
                     <div id="select_sp_area" style="display:none;">
                     </div>
@@ -153,12 +152,12 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                 <input type="hidden" name="lang" id="lang"/>
         </div>
     </div>
+    </div>
    </form>
+    <div id="vertical_fill">&nbsp;</div>
+    <?php echo $divs->div_footer(); ?>
 </div>
-</div>
-<?php echo $divs->div_footer(); 
-    
-?>
+
 <script>
     function countryAddSelect(selecthead, select, type) {
         if (selecthead !== '') {
