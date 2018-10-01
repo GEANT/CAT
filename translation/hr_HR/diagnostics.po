@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>, 2018\n"
 "Language-Team: Croatian (Croatia) (https://www.transifex.com/eduroam_devel/"
@@ -817,7 +817,7 @@ msgstr "Ne znam"
 
 #: web/skins/modern/diag/diag.php:296
 msgid "Diagnostic tests results for selected realm"
-msgstr "Rezultat testiranja za izabrani realm"
+msgstr "Rezultati testiranja za izabranu domenu"
 
 #: web/skins/modern/diag/diag.php:299
 msgid "The result for tested realm:"
@@ -1014,9 +1014,3 @@ msgstr "Pogrešan format vanjskog ID-a"
 #: web/skins/modern/diag/diag.php:908
 msgid "Wrong string given as OperatorName"
 msgstr "Pogrešan unos polja OperatorName"
-
-#~ msgid "Testing realm "
-#~ msgstr "Testiranje realm-a"
-
-#~ msgid "Calling-Station-I"
-#~ msgstr "Calling-Station-I"

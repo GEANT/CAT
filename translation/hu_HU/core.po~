@@ -1,0 +1,571 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Janos Mohacsi <mohacsi@niif.hu>, 2012,2014-2015,2018
+# Janos Mohacsi <mohacsi@niif.hu>, 2012
+# Pozsonyi Dóra <pozsonyi@niif.hu>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: eduroam CAT\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-10 16:03+0200\n"
+"PO-Revision-Date: 2018-06-12 08:27+0000\n"
+"Last-Translator: Janos Mohacsi <mohacsi@niif.hu>\n"
+"Language-Team: Hungarian (http://www.transifex.com/eduroam_devel/cat/language/hu/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: core/CAT.php:111
+msgid ""
+"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git"
+" Revision</a>"
+msgstr "Kiadatlan 1  Git Revízió 1"
+
+#: core/CAT.php:121
+#, php-format
+msgid "Release <a href='%s'>%s</a>"
+msgstr "Release <a href='%s'>%s</a>"
+
+#. some config elements are displayable. We need some dummies to
+#. translate the common values for them. If a deployment chooses a
+#. different wording, no translation, sorry
+#: core/CAT.php:134 core/DeviceConfig.php:101
+msgid "National Roaming Operator"
+msgstr "Nemzeti Roaming Szolgáltató"
+
+#: core/CAT.php:135 core/DeviceConfig.php:102
+msgid "identity provider"
+msgstr "Azonosító Szolgáltató"
+
+#: core/CAT.php:136 core/DeviceConfig.php:103
+msgid "organisation"
+msgstr "Szervezet"
+
+#: core/CAT.php:137
+msgid "Identity Provider"
+msgstr "Azonosító Szolgáltató"
+
+#: core/CAT.php:146
+msgid "Andorra"
+msgstr "Andorra"
+
+#: core/CAT.php:147
+msgid "Austria"
+msgstr "Ausztria"
+
+#: core/CAT.php:148
+msgid "Belgium"
+msgstr "Belgium"
+
+#: core/CAT.php:149
+msgid "Bulgaria"
+msgstr "Bulgária"
+
+#: core/CAT.php:150
+msgid "Cyprus"
+msgstr "Ciprus"
+
+#: core/CAT.php:151
+msgid "Czech Republic"
+msgstr "Cseh Köztársaság"
+
+#: core/CAT.php:152
+msgid "Denmark"
+msgstr "Dánia"
+
+#: core/CAT.php:153
+msgid "Estonia"
+msgstr "Észtország"
+
+#: core/CAT.php:154
+msgid "Finland"
+msgstr "Finnország"
+
+#: core/CAT.php:155
+msgid "France"
+msgstr "Franciaország"
+
+#: core/CAT.php:156
+msgid "Germany"
+msgstr "Németország"
+
+#: core/CAT.php:157
+msgid "Greece"
+msgstr "Görögország"
+
+#: core/CAT.php:158
+msgid "Croatia"
+msgstr "Horváthország"
+
+#: core/CAT.php:159
+msgid "Ireland"
+msgstr "Írország"
+
+#: core/CAT.php:160
+msgid "Iceland"
+msgstr "Izland"
+
+#: core/CAT.php:161
+msgid "Italy"
+msgstr "Olaszország"
+
+#: core/CAT.php:162
+msgid "Hungary"
+msgstr "Magyarország"
+
+#: core/CAT.php:163
+msgid "Luxembourg"
+msgstr "Luxemburg"
+
+#: core/CAT.php:164
+msgid "Latvia"
+msgstr "Lettország"
+
+#: core/CAT.php:165
+msgid "Lithuania"
+msgstr "Litvánia"
+
+#: core/CAT.php:166
+msgid "Macedonia"
+msgstr "Macedónia"
+
+#: core/CAT.php:167
+msgid "Serbia"
+msgstr "Szerbia"
+
+#: core/CAT.php:168
+msgid "Netherlands"
+msgstr "Hollandia"
+
+#: core/CAT.php:169
+msgid "Norway"
+msgstr "Norvégia"
+
+#: core/CAT.php:170
+msgid "Poland"
+msgstr "Lengyelország"
+
+#: core/CAT.php:171
+msgid "Portugal"
+msgstr "Portugália"
+
+#: core/CAT.php:172
+msgid "Romania"
+msgstr "Románia"
+
+#: core/CAT.php:173
+msgid "Slovenia"
+msgstr "Szlovénia"
+
+#: core/CAT.php:174
+msgid "Spain"
+msgstr "Spanyolország"
+
+#: core/CAT.php:175
+msgid "Sweden"
+msgstr "Svédország"
+
+#: core/CAT.php:176
+msgid "Slovakia"
+msgstr "Szlovákia"
+
+#: core/CAT.php:177
+msgid "Switzerland"
+msgstr "Svájc"
+
+#: core/CAT.php:178
+msgid "Turkey"
+msgstr "Törökország"
+
+#: core/CAT.php:179
+msgid "United Kingdom"
+msgstr "Egyesült Királyság"
+
+#: core/CAT.php:181
+msgid "Australia"
+msgstr "Ausztrália"
+
+#: core/CAT.php:182
+msgid "Canada"
+msgstr "Kanada"
+
+#: core/CAT.php:183
+msgid "Israel"
+msgstr "Izrael"
+
+#: core/CAT.php:184
+msgid "Japan"
+msgstr "Japán"
+
+#: core/CAT.php:185
+msgid "New Zealand"
+msgstr "Új Zéland"
+
+#: core/CAT.php:186
+msgid "U.S.A."
+msgstr "USA"
+
+#: core/CAT.php:187
+msgid "Brazil"
+msgstr "Brazilia"
+
+#: core/CAT.php:188
+msgid "Chile"
+msgstr "Chile"
+
+#: core/CAT.php:189
+msgid "Peru"
+msgstr "Peru"
+
+#: core/CAT.php:190
+msgid "Venezuela"
+msgstr "Venezuela"
+
+#: core/CAT.php:191
+msgid "Default"
+msgstr "Alapértelmezett"
+
+#: core/CAT.php:192
+msgid "Armenia"
+msgstr "Örményország"
+
+#: core/CAT.php:193
+msgid "Azerbaijan"
+msgstr "Azerbajdzsán"
+
+#: core/CAT.php:194
+msgid "Belarus"
+msgstr "Fehéroroszország"
+
+#: core/CAT.php:195
+msgid "Ecuador"
+msgstr "Ekvádor"
+
+#: core/CAT.php:196
+msgid "Hong Kong"
+msgstr "Hong Kong"
+
+#: core/CAT.php:197
+msgid "Kenya"
+msgstr "Kenya"
+
+#: core/CAT.php:198
+msgid "Kyrgyzstan"
+msgstr "Kirgizisztán"
+
+#: core/CAT.php:199
+msgid "Korea"
+msgstr "Korea"
+
+#: core/CAT.php:200
+msgid "Kazakhstan"
+msgstr "Kazahsztán"
+
+#: core/CAT.php:201
+msgid "Morocco"
+msgstr "Marokko"
+
+#: core/CAT.php:202
+msgid "Moldova"
+msgstr "Moldova"
+
+#: core/CAT.php:203
+msgid "Montenegro"
+msgstr "Montenegro"
+
+#: core/CAT.php:204
+msgid "Macau"
+msgstr "Makaó"
+
+#: core/CAT.php:205
+msgid "Malta"
+msgstr "Málta"
+
+#: core/CAT.php:206
+msgid "Russia"
+msgstr "Oroszország"
+
+#: core/CAT.php:207
+msgid "Singapore"
+msgstr "Szingapúr"
+
+#: core/CAT.php:208
+msgid "Thailand"
+msgstr "Tájföld"
+
+#: core/CAT.php:209
+msgid "Taiwan"
+msgstr "Tajvan"
+
+#: core/CAT.php:210
+msgid "South Africa"
+msgstr "Dél Afrika"
+
+#: core/CAT.php:484 core/IdPlist.php:99
+msgid "Unnamed Entity"
+msgstr "Azonosítatlan entitás"
+
+#: core/DeviceConfig.php:200
+#, php-format
+msgid "your local %s support"
+msgstr "helyi támogató: %s"
+
+#: core/DeviceConfig.php:201
+#, php-format
+msgid "your local %s support page"
+msgstr "helyi támogató honlap: %s"
+
+#: core/DeviceConfig.php:235
+msgid "Sorry, this should not happen - no additional information is available"
+msgstr "Ennek nem lett volna szabad bekövetkeznie - nincsen további információ "
+
+#: core/IdP.php:243
+#, php-format
+msgid ""
+"Hi,\n"
+"\n"
+"the Identity Provider %s in your %s federation %s has been deleted from %s.\n"
+"\n"
+"We thought you might want to know.\n"
+"\n"
+"Best regards,\n"
+"\n"
+"%s"
+msgstr "Üdvözlet!\n\nA %s Identity Provider a %s %s föderációból %s törlésre került.\n\nÚgy gondoltuk, hogy erről fontos, hogy értesítsünk.\n\nÜdvözlettel,\n\n%s"
+
+#: core/IdP.php:252
+msgid "IdP in your federation was deleted"
+msgstr "IdP-t a szövetségből töröltük"
+
+#: core/SilverbulletInvitation.php:200
+#, php-format
+msgid "Your %s access is ready"
+msgstr "Hozzáférése %s készen áll"
+
+#: core/SilverbulletInvitation.php:208
+msgid "Hello!"
+msgstr "Szia!"
+
+#: core/SilverbulletInvitation.php:210
+#, php-format
+msgid ""
+"A new %s access credential has been created for you by your network "
+"administrator."
+msgstr "A hálózati rendszergazda új hozzáférési jogosultságot %shozott létre az Ön számára."
+
+#: core/SilverbulletInvitation.php:212
+#, php-format
+msgid ""
+"Please follow the following link with the device you want to enable for %s "
+"to get a custom %s installation program just for you. You can click on the "
+"link, copy and paste it into a browser or scan the attached QR code."
+msgstr "Kérjük, kövesse az alábbi linket az eszközzel, amelyet engedélyezni szeretne %s , hogy egyéni %s telepítőprogramot kapjon. A linkre kattintva másolhatja és beillesztheti egy böngészőbe, vagy beolvashatja a mellékelt QR-kódot."
+
+#. gets replaced with the token value by getBody()
+#: core/SilverbulletInvitation.php:214
+#, php-format
+msgid ""
+"Please keep this email or bookmark this link for future use. After picking "
+"up your %s installation program, you can use the same link to get status "
+"information about your %s account."
+msgstr "Kérjük, ezt az e-mailt tartsa meg későbbi felhasználásra. Miután felvette a telepítőprogramot %s , ugyanazt a linket használhatja a fiókhoz %s tartozó információkhoz."
+
+#: core/SilverbulletInvitation.php:216
+msgid "Regards,"
+msgstr "Üdvözlettel,"
+
+#: core/SilverbulletInvitation.php:260
+#, php-format
+msgid ""
+"Your %s access is ready! Click here: %s (on Android, first install the app "
+"'%s'!)"
+msgstr "Hozzáférésed készen áll %s ! Kattintson ide:  %s (Android-on, először telepítse az %salkalmazást!)"
+
+#: core/SilverbulletInvitation.php:267
+#, php-format
+msgid "%s Invitation System"
+msgstr "Meghívó rendszer%s"
+
+#. / arguments are: 1. IdP name;
+#. /                2. consortium name (e.g. eduroam);
+#. /                3. federation shortname, e.g. "LU";
+#. /                4. product name (e.g. eduroam CAT);
+#. /                5. product long name (e.g. eduroam Configuration Assistant
+#. Tool)
+#: core/UserManagement.php:179
+#, php-format
+msgid ""
+"Hi,\n"
+"\n"
+"the invitation for the new Identity Provider %s in your %s federation %s has been used and the IdP was created in %s.\n"
+"\n"
+"We thought you might want to know.\n"
+"\n"
+"Best regards,\n"
+"\n"
+"%s"
+msgstr "Szép napot!\n\nAz %s Identity Providernek szóló meghívó a %s  %s föderációban felhasználásra került. Az  IdP létrejött az  %s rendszerben.\n\nÚgy gondoltuk, hogy erről fontos, hogy értesítsünk.\n\nÜdvözlettel,\n\n%s"
+
+#: core/UserManagement.php:188
+msgid "IdP in your federation was created"
+msgstr "IdP jött létre a föderációban"
+
+#: core/User.php:145
+msgid "Feedback"
+msgstr "Visszajelzés"
+
+#: core/common/EAP.php:369
+msgid "PEAP-MSCHAPv2"
+msgstr "PEAP-MSCHAPv2"
+
+#: core/common/EAP.php:370
+msgid "TLS"
+msgstr "TLS"
+
+#: core/common/EAP.php:371
+msgid "TTLS-PAP"
+msgstr "TTLS-PAP"
+
+#: core/common/EAP.php:372
+msgid "TTLS-MSCHAPv2"
+msgstr "TTLS-MSCHAPv2"
+
+#: core/common/EAP.php:373
+msgid "TTLS-GTC"
+msgstr "TTLS-GTC"
+
+#: core/common/EAP.php:374
+msgid "FAST-GTC"
+msgstr "FAST-GTC"
+
+#: core/common/EAP.php:375
+msgid "EAP-pwd"
+msgstr "EAP-pwd"
+
+#: core/common/OutsideComm.php:239
+#, php-format
+msgid ""
+"a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
+msgstr " %s %s   %s %s meghívott hogy kezelje a  %svele együtt."
+
+#: core/common/OutsideComm.php:240
+#, php-format
+msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
+msgstr "  %s   %s meghívott , hogy jövőben irányítsd  %s \"  %s \" (  %s)"
+
+#: core/common/OutsideComm.php:241
+#, php-format
+msgid "a %s %s has invited you to manage the %s  \"%s\"."
+msgstr "a %s %s meghívott, hogy menedzseld %s  \"%s\"."
+
+#: core/common/OutsideComm.php:243
+#, php-format
+msgid "This invitation is valid for 24 hours from now, i.e. until %s."
+msgstr "Ez a meghívás 24 óráig érvényes, azaz egészen 1 %s"
+
+#. then, send out the mail
+#: core/common/OutsideComm.php:251
+msgid "Hello,"
+msgstr "Üdvözlünk!"
+
+#. default means we don't have a Reply-To.
+#: core/common/OutsideComm.php:253
+msgid ""
+"manually. Please do not reply to this mail; this is a send-only address."
+msgstr "manuálisan. Kérjük, ne válaszoljon erre a levélre; ez csak egy küldési cím."
+
+#: core/common/OutsideComm.php:259
+#, php-format
+msgid "Additional message from your %s administrator:"
+msgstr "További üzenet  %s rendszergazdától:"
+
+#: core/common/OutsideComm.php:267
+#, php-format
+msgid "%s administrator"
+msgstr " %s rendszergazda"
+
+#: core/common/OutsideComm.php:270
+#, php-format
+msgid ""
+"manually. If you reply to this mail, you will reach your %s administrators."
+msgstr "manuálisan. Ha erre a levélre válaszolsz, akkor eléred a %s rendszergazdáit."
+
+#: core/common/OutsideComm.php:275
+#, php-format
+msgid ""
+"To enlist as an administrator for that %s, please click on the following "
+"link:"
+msgstr "A %s rendszergazda felvételéhez kérjük, kattintson az alábbi linkre:"
+
+#: core/common/OutsideComm.php:277
+#, php-format
+msgid ""
+"If clicking the link doesn't work, you can also go to the %s Administrator "
+"Interface at"
+msgstr "Ha a linkre kattintás nem működik, akkor is megkeresheted a%s adminisztrátori felületet "
+
+#: core/common/OutsideComm.php:279
+msgid "and enter the invitation token"
+msgstr "és írd be a meghívó tokent"
+
+#: core/common/OutsideComm.php:281
+msgid ""
+"Do NOT forward the mail before the token has expired - or the recipients may"
+" be able to consume the token on your behalf!"
+msgstr "NE továbbítsa az e-mailt, amíg a token le nem járt - vagy a címzettek fel tudják használni a tokent az Ön nevében!"
+
+#: core/common/OutsideComm.php:282
+#, php-format
+msgid "We wish you a lot of fun with the %s."
+msgstr "Sok sikert kívánunk neked a  %s-hoz."
+
+#: core/common/OutsideComm.php:283
+#, php-format
+msgid ""
+"Sincerely,\n"
+"\n"
+"Your friendly folks from %s Operations"
+msgstr "Üdvözlettel,    %s üzemeltetés"
+
+#. what do we want to say?
+#: core/common/OutsideComm.php:318
+#, php-format
+msgid "%s: you have been invited to manage an %s"
+msgstr "%s Meghívást kaptál arra, hogy kezelhesd%s"
+
+#: web/lib/common/InputValidation.php:29
+msgid "Input validation error: "
+msgstr "Hiba az input adatokban:"
+
+#: web/lib/common/InputValidation.php:202
+msgid "Realm is empty!"
+msgstr "Üres Realm!"
+
+#: web/lib/common/InputValidation.php:210
+msgid "Realm contains an @ sign!"
+msgstr "A Realm nevében @ karakter van!"
+
+#: web/lib/common/InputValidation.php:211
+msgid "Realm begins with a . (dot)!"
+msgstr "A Realm neve ponttal kezdődik!"
+
+#: web/lib/common/InputValidation.php:212
+msgid "Realm ends with a . (dot)!"
+msgstr "A Realm neve pontra végződik!"
+
+#: web/lib/common/InputValidation.php:213
+msgid "Realm contains spaces!"
+msgstr "A Realm nevében szóköz van!"
+
+#: web/lib/common/InputValidation.php:225
+msgid "Realm does not contain at least one . (dot)!"
+msgstr "A Realm nevében nincs legalább 1 pont!"
+
+#: web/lib/common/InputValidation.php:311
+msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
+msgstr "Rossz koordináta-kódolás (a 2.0 JSON-t használ, nem rendez sorba)!"

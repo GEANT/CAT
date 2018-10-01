@@ -6,15 +6,16 @@
 # Jari Miettinen <Jari.Miettinen@csc.fi>, 2012
 # Jari Miettinen <Jari.Miettinen@csc.fi>, 2013
 # Juha Hopia <juha.hopia@csc.fi>, 2012
-# Tomi Salmi <tomi.salmi@csc.fi>, 2013-2017
+# Tomi Salmi, 2013-2018
 # tuukka, 2014
+# Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
-"PO-Revision-Date: 2018-05-23 23:59+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"PO-Revision-Date: 2018-09-27 11:49+0000\n"
+"Last-Translator: Tomi Salmi\n"
 "Language-Team: Finnish (Finland) (http://www.transifex.com/eduroam_devel/cat/"
 "language/fi_FI/)\n"
 "Language: fi_FI\n"
@@ -27,7 +28,7 @@ msgstr ""
 #: web/user/about_cat.inc.php:28
 #, php-format
 msgid "<span class='edu_cat'>%s</span> is built as a cooperation platform."
-msgstr ""
+msgstr "<span class='edu_cat'>%s</span> on rakennettu yhteistyöalustaksi. "
 
 #: web/user/about_cat.inc.php:29
 #, php-format
@@ -40,6 +41,13 @@ msgid ""
 "administrators and try to influence them to add your %s configuration to "
 "<span class='edu_cat'>%s</span>."
 msgstr ""
+"Paikalliset %sylläpitäjät syöttävät %s konfigurointitiedot ja niiden "
+"perusteella <span class='edu_cat'>%s</span> luo sopivia asennusohjelmia "
+"useille suosituille alustoille. Yhdelle organisaatiolle luotu asennusohjelma "
+"ei toimi toisen organisaation käyttäjille, eli jos organisaatiosi ei ole "
+"luettelossa, et voi käyttää tätä järjestelmää. Ota yhteyttä paikallisiin "
+"ylläpitäjiin ja yritä vaikuttaa heihin nii että saat %skonfiguraatiosi <span "
+"class='edu_cat'>%s</span>:hen. "
 
 #: web/user/about_cat.inc.php:37
 #, php-format
@@ -111,6 +119,19 @@ msgid ""
 "google.com</b></li><li><b>checkout.google.com</b></li><li><b>*.gvt1.com</"
 "li></ul>"
 msgstr ""
+"<li><b>android.l.google.com</b> (Google Play access for Android App)</"
+"li><li><b>android.clients.google.com</b> (Google Play access for Android "
+"App)</li><li><b>play.google.com</b> (Google Play access for Android App)</"
+"li><li><b>ggpht.com</b> (Google Play access for Android App)</li></"
+"ul><b><u>RECOMMENDED</u></b> for full Google Play functionality (otherwise, "
+"Play Store will look broken to users and/or some non-vital functionality "
+"will not be available)<ul><li><b>photos-ugc.l.google.com</b></"
+"li><li><b>googleusercontent.com</b></li><li><b>ajax.googleapis.com</b></"
+"li><li><b>play.google-apis.com</b></li><li><b>googleapis.l.google.com</b></"
+"li><li><b>apis.google.com</b></li><li><b>gstatic.com</b></li><li><b>www."
+"google-analytics.com</b></li><li><b>wallet.google.com</b></li><li><b>plus."
+"google.com</b></li><li><b>checkout.google.com</b></li><li><b>*.gvt1.com</"
+"li></ul>"
 
 #.
 #. * ******************************************************************************
@@ -122,7 +143,7 @@ msgstr ""
 #.
 #: web/user/devel.inc.php:12
 msgid "Access the sources"
-msgstr ""
+msgstr "Access the sources"
 
 #: web/user/devel.inc.php:13
 #, php-format
@@ -130,28 +151,31 @@ msgid ""
 "%s is an opensource project. If you are interested in the details of the "
 "implementation, please visit <a href='%s'>GitHub</a>."
 msgstr ""
+"1%s on avoimen lähdekoodin projekti. Jos olet kiinnostunut osallistumisesta, "
+"lisätietoja löydät <a href='%s'>GitHubista</a>."
 
 #: web/user/devel.inc.php:14
 msgid "Join the developers mailing list."
-msgstr ""
+msgstr "Liity kehittäjien postilistalle."
 
 #: web/user/devel.inc.php:15
 #, php-format
 msgid "The list is availabe at: %s"
-msgstr ""
+msgstr "Lista: %s"
 
 #: web/user/devel.inc.php:16
 msgid "Add a translation"
-msgstr ""
+msgstr "Lisää käännös"
 
 #: web/user/devel.inc.php:17
 msgid ""
 "If you would like to add a new language to CAT then please contact us ..."
-msgstr ""
+msgstr "Mikäli tahdot lisätä uuden kielikäännöksen CATiin, otathan yhteyttä..."
 
 #: web/user/faq.inc.php:17 web/user/faq.php:14
 msgid "My organisation is not listed. Can't I just use any of the other ones?"
 msgstr ""
+"Kotiorganisaatiotani ei ole listattu. Voinko valita listalta jonkin muun?"
 
 #: web/user/faq.inc.php:18 web/user/faq.php:15
 msgid ""
@@ -161,10 +185,15 @@ msgid ""
 "server and will abort the login. Using an installer from a different "
 "organisation is <i>guaranteed to not work</i>!"
 msgstr ""
+"Et voi. Asennusohjelmat sisältävät organisaatiokohtaisia turva-asetuksia. "
+"Jos et kuulu listattuun organisaatioon, päätelaitteesi lopettaa "
+"kirjautumisen, koska olisit lähettämässä käyttäjätunnustasi ja salasanaasi "
+"väärälle palvelimelle. Toisten organisaatioiden asennusohjelmat <i>eivät "
+"varmasti toimi</i>! "
 
 #: web/user/faq.inc.php:22 web/user/faq.php:19
 msgid "What can I do to get my organisation listed?"
-msgstr ""
+msgstr "Mitä voin tehdä saadakseni kotiorganisaationi mukaan listalle?"
 
 #: web/user/faq.inc.php:23 web/user/faq.php:20
 #, php-format
@@ -172,6 +201,7 @@ msgid ""
 "Contact %s administrators within your organisation and complain. It will "
 "take at most one hour of their time to get things done."
 msgstr ""
+"Ota yhteyttä %s ylläpitäjiin kotiorganisaatiossasi ja kerro ongelmastasi."
 
 #: web/user/faq.inc.php:27 web/user/faq.php:24
 #, php-format
@@ -179,7 +209,7 @@ msgid "My device is not listed! Does that mean I can't do %s?"
 msgstr "Laitteeni ei ole listalla. Tarkoittaako se, etten pääse %siin?"
 
 #: web/user/faq.inc.php:28 web/user/faq.php:25
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "No. The CAT tool can only support Operating Systems which can be "
 "automatically configured in some way. Many other devices can still be used "
@@ -187,9 +217,9 @@ msgid ""
 "to get help in setting up such a device."
 msgstr ""
 "Ei. CAT tukee vain niitä käyttöjärjestelmiä, joita voi konfiguroida "
-"automaattisesti. Monia muita laitteita voi silti käyttää %s kanssa, mutta ne "
-"täytyy konfiguroida käsin. Ole hyvä ja ota yhteyttä kotiorganisaatioosi %s, "
-"jotta saisit laitekohtaiset asennusohjeet."
+"automaattisesti. Monia muita laitteita voi silti käyttää %s:n kanssa, mutta "
+"ne täytyy konfiguroida käsin. Ole hyvä ja ota yhteyttä kotiorganisaatioosi, "
+"jotta saisit laitekohtaiset asennusohjeet. "
 
 #: web/user/faq.inc.php:32 web/user/faq.php:29
 #, php-format
@@ -292,6 +322,13 @@ msgid ""
 "contact your organisation and report the problem, the administrators should "
 "be able to trace your connections."
 msgstr ""
+"Tähän voi olla useita erilaisia syitä. Käyttämäsi verkko ei välttämättä ole "
+"aito %s ja siksi päätelaitteesi katkaisee yhteydenottoyritykset; verkossa "
+"voi olla jotain vikaa; käyttäjätunnuksesi tai salasanasi on voinut "
+"vanhentua; kotiorganisaatiosi autentikointipalvelimessa voi olla vikaa; olet "
+"voinut rikkoa verkon käyttösääntöjä ja käyttösi on sen vuoksi estetty. Ota "
+"yhteyttä kotiorganisaatioosi ja kerro ongelmastasi, verkon ylläpito pystyy "
+"selvittämään yhteysongelmasi syyn."
 
 #: web/user/faq.inc.php:51 web/user/faq.php:66
 #, php-format
@@ -307,7 +344,7 @@ msgstr "Lähetä sähköpostia osoitteeseen %s."
 #: web/user/faq.inc.php:60 web/user/faq.php:35
 #, php-format
 msgid "What is this %s thing anyway?"
-msgstr ""
+msgstr "Mikä tämä %s sitten oikein on?"
 
 #: web/user/faq.inc.php:61 web/user/faq.php:36
 #, php-format
@@ -318,6 +355,11 @@ msgid ""
 "access on more than 6.000 hotspots! Visit <a href='http://www.eduroam."
 "org'>the %s homepage</a> for more details."
 msgstr ""
+"%s on maailmanlaajuinen WiFi-verkkovierailuyhteenliittymä, jonka kautta "
+"opiskelijat ja tutkijat saavat <i> ilmaisen </i> Internet-yhteyden kaikissa "
+"%s hotspoteissa. %s-käyttäjiä on miljoonia ja eduroam-käyttöpaikkoja useita "
+"tuhansia. Löydät lisätietoja <a href='http://www.eduroam.org'> %skotisivulta "
+"</a>. "
 
 #: web/user/faq.php:58
 #, php-format
@@ -331,6 +373,14 @@ msgid ""
 "reasons for failure. It also allows you to contact your organisation and "
 "report the problem to them."
 msgstr ""
+"Tähän voi olla useita erilaisia syitä. Käyttämäsi verkko ei välttämättä ole "
+"aito %s verkko ja siksi päätelaitteesi katkaisee yhteydenottoyritykset; "
+"käyttäjätunnuksesi tai salasanasi on voinut vanhentua; olet voinut rikkoa "
+"verkon käyttösääntöjä ja käyttösi on sen vuoksi estetty;  tai verkossa on "
+"tekninen vika. Jotta jälkimmäinen voitaisiin poissulkea, käytä "
+"%svianselvitystyökalu <a href=''>tästä</a>, jotta vika voitaisiin paikantaa. "
+"Sen avulla voit myös olla yhteydessä kotiorganisaatioosi ja kertoa "
+"ongelmastasi. "
 
 #. *
 #. * This is a template for further FAQ entries. Simply copy&paste and add more
@@ -415,12 +465,12 @@ msgstr "%s Tekijänoikeudet ja lisensointi"
 #: web/copyright.php:213 web/tou.php:61 web/skins/modern/Divs.php:280
 #, php-format
 msgid "%s Privacy Notice"
-msgstr ""
+msgstr "%s tietosuojaseloste"
 
 #: web/lib/user/TextTemplates.php:70
 #, php-format
 msgid "Welcome aboard the %s user community!"
-msgstr ""
+msgstr "Tervetuloa mukaan %s - yhteisöön!"
 
 #: web/lib/user/TextTemplates.php:71
 msgid ""
@@ -443,6 +493,10 @@ msgid ""
 "credentials (this is our fancy name for 'username and password' or 'personal "
 "certificate') - and be online!"
 msgstr ""
+"Nyt kun olet ladannut ja asentanut asennusohjelman, sinun tarvitsee enää "
+"etsiä lähin %s hotspot ja kirjautua verkkoon antamalla käyttäjätunnuksesi ja "
+"salasanasi (tai henkilövarmenne, mikäli kotiorganisaatiosi käyttää niitä) – "
+"näin olet verkossa! "
 
 #: web/lib/user/TextTemplates.php:74 web/skins/modern/div_user_welcome.php:17
 #, php-format
@@ -466,11 +520,14 @@ msgid ""
 "of universities, research centres and other places all over the globe. All "
 "of this completely free of charge!"
 msgstr ""
+"toivotamme sinut tervetulleeksi miljoonien %s-käyttäjien joukkoon! Tästä "
+"lähtien pääset verkkoon mm. tuhansissa yliopistoissa ympäri maailman. Kaikki "
+"tämä ilmaiseksi oman kotiorganisaatiosi käyttäjätunnuksilla! "
 
 #: web/lib/user/TextTemplates.php:78
 #, php-format
 msgid "Connect your device to %s"
-msgstr ""
+msgstr "Yhdistä laitteesi %s-verkkoon."
 
 #: web/lib/user/TextTemplates.php:79
 #, php-format
@@ -479,12 +536,12 @@ msgstr "%s-asennus helposti:"
 
 #: web/lib/user/TextTemplates.php:80
 msgid "Custom built for your organisation"
-msgstr ""
+msgstr "Tehty sinun kotiorganisaatiollesi"
 
 #: web/lib/user/TextTemplates.php:81
 #, php-format
 msgid "Click here to download your %s installer"
-msgstr ""
+msgstr "Napsauta tästä ladataksesi %s-asennusohjelma"
 
 #: web/lib/user/TextTemplates.php:82
 msgid "Select the user group"
@@ -496,7 +553,7 @@ msgstr "valitse toinen"
 
 #: web/lib/user/TextTemplates.php:84
 msgid "Choose another installer to download"
-msgstr ""
+msgstr "Valitse toinen ladattava asennusohjelma"
 
 #: web/lib/user/TextTemplates.php:85
 msgid "All platforms"
@@ -513,6 +570,9 @@ msgid ""
 "<br>When you click <b>Continue</b> this support page will be opened in a new "
 "window/tab."
 msgstr ""
+"Organisaatiosi ylläpito on määritellyt uudelleenohjauksen paikalliselle "
+"tukisivulle. <br>Kun klikkaat <b>Jatka</b>, tukisivu aukeaa uuteen ikkunaan "
+"tai välilehteen. "
 
 #: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:271
 #: web/skins/modern/user/js/cat_js.php:279
@@ -522,7 +582,7 @@ msgstr "Jatka"
 #: web/lib/user/TextTemplates.php:89
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s"
-msgstr ""
+msgstr "Allekirjoittajana %sia koordinoiva organisaatio "
 
 #: web/lib/user/TextTemplates.php:90
 #, php-format
@@ -530,6 +590,8 @@ msgid ""
 "You can download your %s installer via a personalised invitation link sent "
 "from your IT support. Please talk to the IT department to get this link."
 msgstr ""
+"Voit ladata %s asennusohjelman henkilökohtaisen kutsulinkin kautta, joka on "
+"lähetetty IT-tuesta. Ota yhteyttä IT-osastoon saadaksesi tämän linkin."
 
 #: web/lib/user/TextTemplates.php:91
 #, php-format
@@ -537,10 +599,12 @@ msgid ""
 "This site provides %s installers for many organisations, click here to see "
 "if yours is on the list."
 msgstr ""
+"Tämä sivusto tarjoaa %sasennusohjelmia monille organisaatioille, klikkaa "
+"tästä nähdäksesi, onko sinun kotiorganisaatiosi listalla."
 
 #: web/lib/user/TextTemplates.php:92
 msgid "Custom built for you"
-msgstr ""
+msgstr "Tehty sinulle"
 
 #: web/lib/user/TextTemplates.php:94
 #, php-format
@@ -554,6 +618,9 @@ msgid ""
 "thousands of universities, research centres and other places all over the "
 "globe. All of this completely free of charge!"
 msgstr ""
+"lämpimästi tervetuloa miljoonien eduroam®-käyttäjien joukkoon! Tästä "
+"eteenpäin voit käyttää tuhansien yliopistojen, tutkimuskeskusten ja muiden "
+"organisaatioiden Internet-yhteyspalveluja ilmaiseksi kaikkialla maailmassa. "
 
 #: web/skins/modern/div_user_welcome.php:15
 msgid ""
@@ -562,6 +629,10 @@ msgid ""
 "credentials (this is our fancy name for 'username and password' or 'personal "
 "certificate') - and be online!"
 msgstr ""
+"Nyt kun olet ladannut ja asentanut asennusohjelman sinun tarvitsee enää "
+"etsiä lähin eduroam®-hotspot ja kirjautua verkkoon antamalla "
+"käyttäjätunnuksesi ja salasanasi tai käyttämällä henkilövarmennetta – näin "
+"olet verkossa! "
 
 #: web/skins/modern/index.php:67 web/skins/modern/test.php:70
 msgid "Authenticating"
@@ -569,7 +640,7 @@ msgstr "Kirjaudutaan"
 
 #: web/skins/modern/Menu.php:32
 msgid "About"
-msgstr ""
+msgstr "Tietoja"
 
 #: web/skins/modern/Menu.php:33 web/skins/modern/Menu.php:34
 #: web/skins/modern/Menu.php:35
@@ -579,16 +650,16 @@ msgstr "%s - lisätietoja"
 
 #: web/skins/modern/Menu.php:39
 msgid "Language"
-msgstr ""
+msgstr "Kieli"
 
 #: web/skins/modern/Menu.php:41 web/skins/modern/Menu.php:44
 #: web/skins/modern/user/cat_info.php:60
 msgid "Help"
-msgstr ""
+msgstr "Apua"
 
 #: web/skins/modern/Menu.php:42
 msgid "My institution is not listed"
-msgstr ""
+msgstr "Kotiorganisaationi ei löydy listalta"
 
 #: web/skins/modern/Menu.php:42 web/skins/modern/Menu.php:43
 #: web/skins/modern/Menu.php:45 web/skins/modern/Menu.php:46
@@ -598,32 +669,32 @@ msgstr "UKK"
 
 #: web/skins/modern/Menu.php:43
 msgid "My device is not listed"
-msgstr ""
+msgstr "Laitteeni ei löydy listalta"
 
 #: web/skins/modern/Menu.php:45
 msgid "What is eduroam"
-msgstr ""
+msgstr "Mikä on eduroam"
 
 #: web/skins/modern/Menu.php:47
 msgid "Contact"
-msgstr ""
+msgstr "Yhteystiedot"
 
 #: web/skins/modern/Menu.php:48
 msgid "Diagnostics"
-msgstr ""
+msgstr "Vianselvitys"
 
 #: web/skins/modern/Menu.php:49
 msgid "Documentation"
-msgstr ""
+msgstr "Dokumentit"
 
 #: web/skins/modern/Menu.php:52
 msgid "Manage"
-msgstr ""
+msgstr "Käsittele"
 
 #: web/skins/modern/Menu.php:53
 #, php-format
 msgid "%s admin access"
-msgstr ""
+msgstr "%sylläpito"
 
 #: web/skins/modern/Menu.php:54
 #, php-format
@@ -643,33 +714,36 @@ msgid ""
 "You attempted to download an installer that was already downloaded before. "
 "Please request a new token from your administrator instead."
 msgstr ""
+"Yritit ladata asennusohjelman, joka on jo ladattu aiemmin. Pyydä "
+"ylläpitäjältä uusi koodi."
 
 #: web/skins/modern/accountstatus/accountstatus.php:57
 msgid "Attempt to re-use download link"
-msgstr ""
+msgstr "Yritetty käyttää latauslinkkiä uudelleen"
 
 #: web/skins/modern/accountstatus/accountstatus.php:68
 #, php-format
 msgid "You are a new user without a history of %s credentials."
 msgstr ""
+"Olet uusi käyttäjä, jolla ei ole aikaisemmin ollut %s-käyttäjätunnusta."
 
 #: web/skins/modern/accountstatus/accountstatus.php:74
 #, php-format
 msgid "You have <strong>%d</strong> currently valid %s credential."
 msgid_plural "You have <strong>%d</strong> currently valid %s credentials."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Sinulla on <strong>%d</strong>voimassaolevaa %skäyttäjätunnusta."
+msgstr[1] "Sinulla on<strong>%d</strong> voimassaolevaa %s käyttäjätunnusta."
 
 #: web/skins/modern/accountstatus/accountstatus.php:78
 #, php-format
 msgid "<strong>%d</strong> of your credentials is not valid any more."
 msgid_plural "<strong>%d</strong> of your credentials are not valid any more."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<strong>%d</strong>käyttäjätunnuksistasi eivät ole enää voimassa."
+msgstr[1] "<strong>%d</strong>käyttäjätunnuksistasi eivät ole enää voimassa."
 
 #: web/skins/modern/accountstatus/accountstatus.php:80
 msgid "I want to see the details."
-msgstr ""
+msgstr "Haluan nähdä yksityiskohdat."
 
 #. only show this extra info in the non-trivial case.
 #: web/skins/modern/accountstatus/accountstatus.php:89
@@ -678,6 +752,7 @@ msgid ""
 "Your invitation token is valid for %d more device activations (%d have "
 "already been used)."
 msgstr ""
+"Kutsukoodisi voidaan käyttää vielä %d:lle laitteelle  (%don jo käytetty)."
 
 #: web/skins/modern/accountstatus/accountstatus.php:92
 msgid ""
@@ -687,6 +762,10 @@ msgid ""
 "modifications. You can come back to this page again; the invitation link has "
 "not been used up yet."
 msgstr ""
+"Valitettavasti ei voida määrittää laitteesi käyttöjärjestelmää. Jos olet "
+"tehnyt laitteeseesi muutoksia, jotka estävät sen tunnistamista (esimerkiksi "
+"muokannut 'User Agent' käyttäjäasetuksia), kumoa muutokset. Voit palata "
+"tälle sivulle uudelleen; kutsulinkkiä ei ole vielä käytetty."
 
 #: web/skins/modern/accountstatus/accountstatus.php:99
 #, php-format
@@ -696,11 +775,14 @@ msgid ""
 "supported operating system later; the invitation link has not been used up "
 "yet."
 msgstr ""
+"Valitettavasti käyttämäsi käyttöjärjestelmä (%s) ei ole toistaiseksi tuettu "
+"tässä käytössä. Voit kokeilla palvelua toisella laitteella. Kutsulinkkisi on "
+"yhä voimassa."
 
 #: web/skins/modern/accountstatus/accountstatus.php:103
 #, php-format
 msgid "You can now download a personalised  %s installation program."
-msgstr ""
+msgstr "Voit nyt ladata organisaatiolle %s tehdyn asennuspaketin."
 
 #. echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
 #: web/skins/modern/accountstatus/accountstatus.php:105
@@ -710,6 +792,9 @@ msgid ""
 "be used <span class='emph'>only on this device (%s)</span>, and it is <span "
 "class='emph'>not permitted to share</span> this information with anyone."
 msgstr ""
+"Asennusohjelma on <span class='emph'>henkilökohtainen</span>, ja "
+"käytettäväksi vain <span class='emph'>tässä kyseisessä laitteessa (%s)</"
+"span>. <span class='emph'>Älä jaa</span> tietoja muille."
 
 #: web/skins/modern/accountstatus/accountstatus.php:106
 #, php-format
@@ -718,6 +803,9 @@ msgid ""
 "access rights for you will be revoked and you may be sanctioned by your "
 "local %s administrator."
 msgstr ""
+"Jos järjestelmä havaitsee väärinkäyttöä, kuten luvatonta käyttäjätunnusten "
+"jakoa, kaikki käyttöoikeutesi voidaan poistaa ja kotiorganisaatiosi %s "
+"saattaa asettaa rajoituksia tai sanktioita."
 
 #: web/skins/modern/accountstatus/accountstatus.php:107
 msgid ""
@@ -725,16 +813,18 @@ msgid ""
 "PIN. This only happens once during the installation. You do not have to "
 "write down this PIN."
 msgstr ""
+"Asennuksen aikana sinulta kysytään oheista PIN-koodia. Koodia kysytään vain "
+"kerran, eikä sinun tarvitse ottaa sitä talteen."
 
 #: web/skins/modern/accountstatus/accountstatus.php:112
 #, php-format
 msgid "Import PIN: %s"
-msgstr ""
+msgstr "PIN-koodi: %s"
 
 #: web/skins/modern/accountstatus/accountstatus.php:117
 #, php-format
 msgid "Click here to download your %s installer!"
-msgstr ""
+msgstr "Klikkaa tästä ladataksesi %s-asennusohjelma."
 
 #: web/skins/modern/accountstatus/accountstatus.php:121
 #, php-format
@@ -743,10 +833,13 @@ msgid ""
 "invitation was valid until %s. You cannot use this link any more. Please ask "
 "your administrator to issue you a new invitation link."
 msgstr ""
+"Valitettavasti käyttämäsi kutsulinkki on vanhentunut eikä sitä voi enää "
+"käyttää. %s kutsu oli voimassa %s saakka. Pyydäthän ylläpidoltasi uuden "
+"kutsulinkin."
 
 #: web/skins/modern/accountstatus/accountstatus.php:128
 msgid "Account information not found"
-msgstr ""
+msgstr "Käyttäjätunnustietoa ei löytynyt"
 
 #: web/skins/modern/accountstatus/accountstatus.php:129
 #, php-format
@@ -754,6 +847,8 @@ msgid ""
 "The invitation link you followed does not map to any invititation we have on "
 "file."
 msgstr ""
+"Käyttämälläsi kutsulinkillä ei löytynyt liitosta mihinkään eduroam-"
+"organisaatioon."
 
 #: web/skins/modern/accountstatus/accountstatus.php:129
 #, php-format
@@ -763,69 +858,73 @@ msgid ""
 "page and Accept the question about logging in with a client certificate "
 "(select a certificate with a name ending in '…%s')."
 msgstr ""
+"Sinun tulee käyttää samaa linkkiä kuin jonka sait liittyessäsi palveluun. "
+"Vaihtoehtoisesti, jos sinulla on jo toimivat %s-tunnukset, voit käydä "
+"hyväksymässä kirjautumisen client-/henkilövarmenteella (valitse '...%s'-"
+"päätteinen varmenne)."
 
 #: web/skins/modern/accountstatus/accountstatus.php:159
 #: web/skins/modern/user/js/cat_js.php:234
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
 "organisation at:"
-msgstr ""
+msgstr "Jos havaitset ongelmia, pyydä apua kotiorganisaatiostasi:"
 
 #: web/skins/modern/accountstatus/accountstatus.php:161
 #: web/skins/modern/user/js/cat_js.php:236
 msgid ""
 "If you encounter problems you should ask those who gave you your account for "
 "help."
-msgstr ""
+msgstr "Jos havaitset ongelmia, kysy apua kotiorganisaatiostasi."
 
 #: web/skins/modern/accountstatus/accountstatus.php:172
 #, php-format
 msgid "Your personal %s account status page"
-msgstr ""
+msgstr "Henkilökohtainen %s-sivusi"
 
 #: web/skins/modern/accountstatus/accountstatus.php:200
 msgid "Current login tokens"
-msgstr ""
+msgstr "Voimassaolevat poletit"
 
 #: web/skins/modern/accountstatus/accountstatus.php:201
 msgid "Previous login tokens"
-msgstr ""
+msgstr "Käytetyt poletit"
 
 #: web/skins/modern/accountstatus/accountstatus.php:202
 msgid "Revoked login tokens"
-msgstr ""
+msgstr "Peruutetut poletit"
 
 #: web/skins/modern/accountstatus/accountstatus.php:203
 msgid "Serial Number"
-msgstr ""
+msgstr "Sarjanumero"
 
 #: web/skins/modern/accountstatus/accountstatus.php:203
 msgid "Pseudonym"
-msgstr ""
+msgstr "Pseudonyymi"
 
 #: web/skins/modern/accountstatus/accountstatus.php:203
 msgid "Device Type"
-msgstr ""
+msgstr "Laitetyyppi"
 
 #: web/skins/modern/accountstatus/accountstatus.php:203
 msgid "Issue Date"
-msgstr ""
+msgstr "Luontipäivä"
 
 #: web/skins/modern/accountstatus/accountstatus.php:203
 msgid "Expiry Date"
-msgstr ""
+msgstr "Päättymispäivä"
 
 #: web/skins/modern/accountstatus/accountstatus.php:213
 msgid "invalid token"
-msgstr ""
+msgstr "epäkelpo poletti"
 
 #: web/skins/modern/accountstatus/accountstatus.php:237
 msgid "The details are displayed below."
-msgstr ""
+msgstr "Yksityiskohdat alempana."
 
 #: web/skins/modern/accountstatus/accountstatus.php:243
 msgid "Really revoke this access credential?"
-msgstr ""
+msgstr "Tahdotko varmasti peruuttaa oikeudet tältä tunnukselta?"
 
 #: web/skins/modern/user/cat_info.php:90
 #, php-format
@@ -833,6 +932,8 @@ msgid ""
 "You must have received an invitation from your %s %s before being able to "
 "manage your %s. If that is the case, please continue and log in."
 msgstr ""
+"Tarvitset kutsun taholta %s%s ennen kuin voit hallinnoida organisaatiota %s. "
+"Jos sinulla on jo kutsu, voit edetä ja kirjautua palveluun."
 
 #: web/skins/modern/user/cat_info.php:92
 msgid "Please authenticate yourself and login"
@@ -849,10 +950,14 @@ msgid ""
 "invited to the system in the box below. This may not work if you were "
 "invited from a third-party website via the AdminAPI."
 msgstr ""
+"Oletko unohtanut minkä palveluntarjoajan kautta aiemmin kirjauduit "
+"palveluun? Voimme ehkä auttaa, mikäli annat alle sähköpostiosoitteesi. Tämä "
+"ei välttämättä toimi, mikäli käytit kolmannen osapuolen verkkosivustoa "
+"kirjautumisen yhteydessä."
 
 #: web/skins/modern/user/cat_info.php:99
 msgid "Get IdP Reminder"
-msgstr ""
+msgstr "IdP Reminder"
 
 #: web/skins/modern/user/js/cat_js.php:34
 msgid ""
@@ -892,12 +997,17 @@ msgid ""
 "with your device, your data is treated according to the <a href='%s'>%s "
 "Privacy Statement</a>."
 msgstr ""
+"Kun käytät kansainvälistä %s-infrastruktuuria, esimerkiksi verkkovierailua "
+"ulkomailla, kirjautumiseen tarvittavia tietoja käsitellään <a href='%s'>%s "
+"tietosuojaselosteen</a> (Privacy Statement) mukaisesti."
 
 #: web/skins/modern/user/js/cat_js.php:258
 #: web/skins/modern/user/js/cat_js.php:284
 msgid ""
 "This device cannot be configured with the settings used in your organisation."
 msgstr ""
+"Tähän päätelaitteeseen ei voida syöttää kotiorganisaatiosi määrittämiä "
+"asetuksia."
 
 #: web/skins/modern/user/js/cat_js.php:271
 msgid ""
@@ -914,31 +1024,31 @@ msgstr "Sulje"
 
 #: web/skins/modern/user/js/cat_js.php:381
 msgid "Missing email address"
-msgstr ""
+msgstr "Sähköpostiosoite puuttuu"
 
 #: web/skins/modern/user/js/cat_js.php:395
 msgid "No providers found for this email"
-msgstr ""
+msgstr "Palveluntarjoajia ei löytynyt"
 
 #: web/skins/modern/user/js/cat_js.php:400
 msgid "Your IdP is:"
-msgstr ""
+msgstr "Käyttämäsi IdP:"
 
 #: web/skins/modern/user/js/cat_js.php:402
 msgid "Your IdP could be one of:"
-msgstr ""
+msgstr "Käyttämäsi IdP on ehkä jokin seuraavista:"
 
 #: web/skins/modern/user/js/cat_js.php:559
 msgid "Organisation"
-msgstr ""
+msgstr "Organisaatio"
 
 #: web/skins/modern/user/js/cat_js.php:560
 msgid "Select your organisation"
-msgstr ""
+msgstr "Valitse organisaatiosi"
 
 #: web/skins/modern/user/js/cat_js.php:561
 msgid "Help, my organisation is not on the list"
-msgstr ""
+msgstr "Apua, organisaationi ei ole listalla"
 
 #: web/skins/modern/user/js/cat_js.php:562
 #, php-format
@@ -947,6 +1057,9 @@ msgid ""
 "your organisation is not on the list, then nag them to add information to "
 "the %s database."
 msgstr ""
+"Järjestelmä perustuu paikallisten %s-ylläpitäjien ylläpitämään tieton. Jos "
+"organisaatiosi puuttuu listalta, olethan yhteydessä oman kotiorganisaatiosi "
+"tukeen ja ilmoita puutteesta %s-tietokannassa."
 
 #: web/skins/modern/user/js/cat_js.php:563
 msgid "Locate me more accurately using HTML5 Geo-Location"
@@ -954,7 +1067,7 @@ msgstr "Paikanna minut tarkemmin HTML5:n paikantamistoiminnon avulla."
 
 #: web/skins/modern/user/js/cat_js.php:564
 msgid "Show organisations in"
-msgstr ""
+msgstr "Näytä organisaatiot kohteessa"
 
 #: web/skins/modern/user/js/cat_js.php:565
 msgid "all countries"
@@ -962,7 +1075,7 @@ msgstr "kaikki maat"
 
 #: web/skins/modern/user/js/cat_js.php:566
 msgid "or search for an organisation, for example Univerity of Oslo"
-msgstr ""
+msgstr "tai etsi organisaatioita, esimerkiksi Helsingin yliopisto"
 
 #: web/skins/modern/user/js/cat_js.php:567
 msgid "show all countries"

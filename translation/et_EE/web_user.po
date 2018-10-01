@@ -1,0 +1,1169 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# anne a <anne@eenet.ee>, 2018
+# Indrek Rokk <indrek.rokk@eenet.ee>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: eduroam CAT\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"PO-Revision-Date: 2018-09-28 11:03+0000\n"
+"Last-Translator: Indrek Rokk <indrek.rokk@eenet.ee>\n"
+"Language-Team: Estonian (Estonia) (http://www.transifex.com/eduroam_devel/"
+"cat/language/et_EE/)\n"
+"Language: et_EE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. / eduroam CAT, twice the consortium name eduroam, twice eduroam CAT
+#: web/user/about_cat.inc.php:28
+#, php-format
+msgid "<span class='edu_cat'>%s</span> is built as a cooperation platform."
+msgstr "<span class='edu_cat'>%s</span> on tehtud koostööplatvormina."
+
+#: web/user/about_cat.inc.php:29
+#, php-format
+msgid ""
+"Local %s administrators enter their %s configuration details and based on "
+"them, <span class='edu_cat'>%s</span> builds customised installers for a "
+"number of popular platforms. An installer prepared for one organisation will "
+"not work for users of another one, therefore if your organisation is not on "
+"the list, you cannot use this system. Please contact your local "
+"administrators and try to influence them to add your %s configuration to "
+"<span class='edu_cat'>%s</span>."
+msgstr ""
+"Asutuse %s administraatorid sisestavad %s seadistusandmed, mille põhjal "
+"<span class='edu_cat'>%s</span> loob mitmele populaarsele platvormile "
+"kohandatud paigaldusprogrammi. Ühele asutusele kohandatud programm ei tööta "
+"teise asutuse kasutajate jaoks ja seega ei saa süsteemi kasutada, kui Su "
+"asutust nimekirjas ei ole. Palun kontakteeru oma asutuse administraatoritega "
+"ning palu neil lisada oma asutuse %s seadistus <span class='edu_cat'>%s</"
+"span>."
+
+#: web/user/about_cat.inc.php:37
+#, php-format
+msgid ""
+"<span class='edu_cat'>%s</span> currently supports the following devices and "
+"EAP type combinations:"
+msgstr ""
+"<span class='edu_cat'>%s</span> toetab praegu järgmisi seadmete ja EAP "
+"variantide kombinatsioone:"
+
+#: web/user/about_cat.inc.php:38
+msgid "Device Group"
+msgstr "Seadmete grupp"
+
+#: web/user/about_cat.inc.php:38
+msgid "Device"
+msgstr "Seade"
+
+#: web/user/about_cat.inc.php:80
+#, php-format
+msgid ""
+"<p><span class='edu_cat'>%s</span> is publicly accessible. To enable its use "
+"behind captive portals (e.g. on a 'setup' SSID which only allows access to "
+"CAT for device configuration), the following hostnames need to be allowed "
+"for port TCP/443 in the portal:</p><b><u>REQUIRED</u></b><ul><li><b>%s</b> "
+"(the service itself)</li>"
+msgstr ""
+"<p><span class='edu_cat'>%s</span> on avalikult kättesaadav. "
+"Läbipääsulehtede (näiteks \"seadistamise\" SSID, mis seadmete seadistamiseks "
+"lubab ligipääsu ainult CAT lehele) kasutamise korral on vaja lubada lehelt "
+"ligipääs TCP/443 porti:</p><b><u>VAJALIK</u></b><ul><li><b>%s</b>(teenuse "
+"leht ise)</li>"
+
+#: web/user/about_cat.inc.php:85
+#, php-format
+msgid ""
+"<li><b>%s</b> (the CRL Distribution Point for the site certificate), also "
+"TCP/80</li>"
+msgid_plural ""
+"<li><b>%s</b> (the CRL Distribution Points for the site certificate), also "
+"TCP/80</li>"
+msgstr[0] ""
+"<li><b>%s</b>(CRL jagamise aadressid asutuse sertifikaatile), lisaks TCP/80 "
+msgstr[1] ""
+"<li><b>%s</b> (CRL jagamise aadressid asutuse sertifikaatidele), lisaks "
+"TCP/80 </li>"
+
+#: web/user/about_cat.inc.php:88
+#, php-format
+msgid ""
+"<li><b>%s</b> (the OCSP Responder for the site certificate), also TCP/80</li>"
+msgid_plural ""
+"<li><b>%s</b> (the OCSP Responder for the site certificate), also TCP/80</li>"
+msgstr[0] ""
+"<li><b>%s</b>(OSCP vastaja asutuse sertifikaatidele), lisaks TCP/80</li> "
+msgstr[1] ""
+"<li><b>%s</b>(OSCP vastaja asutuse sertifikaatidele), lisaks TCP/80</li>"
+
+#: web/user/about_cat.inc.php:90
+#, php-format
+msgid ""
+"<li><b>android.l.google.com</b> (Google Play access for Android App)</"
+"li><li><b>android.clients.google.com</b> (Google Play access for Android "
+"App)</li><li><b>play.google.com</b> (Google Play access for Android App)</"
+"li><li><b>ggpht.com</b> (Google Play access for Android App)</li></"
+"ul><b><u>RECOMMENDED</u></b> for full Google Play functionality (otherwise, "
+"Play Store will look broken to users and/or some non-vital functionality "
+"will not be available)<ul><li><b>photos-ugc.l.google.com</b></"
+"li><li><b>googleusercontent.com</b></li><li><b>ajax.googleapis.com</b></"
+"li><li><b>play.google-apis.com</b></li><li><b>googleapis.l.google.com</b></"
+"li><li><b>apis.google.com</b></li><li><b>gstatic.com</b></li><li><b>www."
+"google-analytics.com</b></li><li><b>wallet.google.com</b></li><li><b>plus."
+"google.com</b></li><li><b>checkout.google.com</b></li><li><b>*.gvt1.com</"
+"li></ul>"
+msgstr ""
+"<li><b>android.l.google.com</b> (Androidi rakenduse ligipääs Google "
+"Play'le)</li><li><b>android.clients.google.com</b> (Androidi rakenduse "
+"ligipääs Google Play'le)</li><li><b>play.google.com</b> (Androidi rakenduse "
+"ligipääs Google Play'le)</li><li><b>ggpht.com</b> (Androidi rakenduse "
+"ligipääs Google Play'le)</li></ul><b><u>SOOVITATAVAD</u></b>tagamaks Google "
+"Play täisfunktsionaalsust (vastasel juhul näib Google Play kasutajale "
+"katkisena ja/või mõni mitteoluline funktsioon ei ole "
+"saadaval)<ul><li><b>photos-ugc.l.google.com</b></li><li><b>googleusercontent."
+"com</b></li><li><b>ajax.googleapis.com</b></li><li><b>play.google-apis.com</"
+"b></li><li><b>googleapis.l.google.com</b></li><li><b>apis.google.com</b></"
+"li><li><b>gstatic.com</b></li><li><b>www.google-analytics.com</b></"
+"li><li><b>wallet.google.com</b></li><li><b>plus.google.com</b></"
+"li><li><b>checkout.google.com</b></li><li><b>*.gvt1.com</li></ul>"
+
+#.
+#. * ******************************************************************************
+#. * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1
+#. * and GN4-2 consortia
+#. *
+#. * License: see the web/copyright.php file in the file structure
+#. * ******************************************************************************
+#.
+#: web/user/devel.inc.php:12
+msgid "Access the sources"
+msgstr "Vaata lähtekoodi"
+
+#: web/user/devel.inc.php:13
+#, php-format
+msgid ""
+"%s is an opensource project. If you are interested in the details of the "
+"implementation, please visit <a href='%s'>GitHub</a>."
+msgstr ""
+"%s on avatud lähtekoodiga projekt. Kui oled huvitatud rakenduse detailidest, "
+"palun külasta <a href='%s'>GitHub'i</a>."
+
+#: web/user/devel.inc.php:14
+msgid "Join the developers mailing list."
+msgstr "Liitu arendajate postiloendiga."
+
+#: web/user/devel.inc.php:15
+#, php-format
+msgid "The list is availabe at: %s"
+msgstr "Postiloend on aadressil: %s"
+
+#: web/user/devel.inc.php:16
+msgid "Add a translation"
+msgstr "Lisa tõlge"
+
+#: web/user/devel.inc.php:17
+msgid ""
+"If you would like to add a new language to CAT then please contact us ..."
+msgstr "Kui soovite lisada CAT'i keelt, palun võtke meiega ühendust ..."
+
+#: web/user/faq.inc.php:17 web/user/faq.php:14
+msgid "My organisation is not listed. Can't I just use any of the other ones?"
+msgstr "Minu asutust nimekirjas ei ole. Kas tohin kasutada mõnda teist?"
+
+#: web/user/faq.inc.php:18 web/user/faq.php:15
+msgid ""
+"No! The installers contain security settings which are specific to the "
+"organisation. If you are not from that organisation, your device will detect "
+"that you are about to send your username and credential to an unauthorised "
+"server and will abort the login. Using an installer from a different "
+"organisation is <i>guaranteed to not work</i>!"
+msgstr ""
+"Ei tohi. Paigaldusprogrammid sisaldavad asutusespetsiifilisi turvaseadeid. "
+"<i>Teise asutuse paigaldusprogramm ei toimi!</i> Kui Sa ei ole asutusega "
+"seotud, tuvastab Su seade kasutajakonto juurdepääsuandmete saatmiskatse "
+"autoriseerimata serverile ja katkestab sisselogimise."
+
+#: web/user/faq.inc.php:22 web/user/faq.php:19
+msgid "What can I do to get my organisation listed?"
+msgstr "Mida pean tegema, et saada oma asutus nimekirja?"
+
+#: web/user/faq.inc.php:23 web/user/faq.php:20
+#, php-format
+msgid ""
+"Contact %s administrators within your organisation and complain. It will "
+"take at most one hour of their time to get things done."
+msgstr ""
+"Palun pöördu oma %s identiteedipakkuja eduroami haldajate poole.\n"
+"Neil kulub kõige enam üks tund nimekirja saamise korraldamiseks."
+
+#: web/user/faq.inc.php:27 web/user/faq.php:24
+#, php-format
+msgid "My device is not listed! Does that mean I can't do %s?"
+msgstr ""
+"Minu seade ei ole nimekirjas! Kas see tähendab, et ma ei saa kasutada %s?"
+
+#: web/user/faq.inc.php:28 web/user/faq.php:25
+#, php-format
+msgid ""
+"No. The CAT tool can only support Operating Systems which can be "
+"automatically configured in some way. Many other devices can still be used "
+"with %s, but must be configured manually. Please contact your organisation "
+"to get help in setting up such a device."
+msgstr ""
+"Ei tähenda. CAT paigaldusprogramm on abiks nende operatsioonisüsteemide "
+"puhul, mida saab mingil moel automaatselt seadistada. Paljusid teisi "
+"seadmeid saab ikkagi %s jaoks kasutada, aga need tuleb käsitsi seadistada. "
+"Palun võta ühendust oma asutusega, kui vajad abi sellise seadme "
+"seadistamisel."
+
+#: web/user/faq.inc.php:32 web/user/faq.php:29
+#, php-format
+msgid ""
+"I can connect to %s simply by providing username and password, what is the "
+"point of using an installer?"
+msgstr ""
+"Ma saan kasutajanime ja parooliga juba niigi %siga ühenduda. Mis mõte on "
+"paigaldusprogrammi kasutamisel? "
+
+#: web/user/faq.inc.php:33 web/user/faq.php:30
+#, php-format
+msgid ""
+"When you are connecting from an unconfigured device your security is at "
+"risk. The very point of preconfiguration is to set up security, when this is "
+"done, your device will first confirm that it talks to the correct "
+"authentication server and will never send your password to an untrusted one."
+msgstr ""
+"Kui ühendud seadistamata seadmelt, on Su turvalisus ohustatud. "
+"Eelseadistamise eesmärk on turvalisuse tagamine: Su seade teeb esmalt "
+"kindlaks, et ta suhtleb usaldusväärse autentimisserveriga, ega saada kunagi "
+"Su parooli mitteusaldatavale serverile. "
+
+#: web/user/faq.inc.php:36 web/user/faq.php:41
+#, php-format
+msgid "Is it safe to use %s installers?"
+msgstr "Kas on ohutu kasutada %s paigaldusprogrammi?"
+
+#: web/user/faq.inc.php:37 web/user/faq.php:42
+#, php-format
+msgid ""
+"%s installers configure security settings on your device, therefore you "
+"should be sure that you are using genuine ones."
+msgstr ""
+"%s paigaldusprogrammid muudavad Su seadmel turvasätteid, seetõttu tuleb Sul "
+"olla kindel, et kasutad autentseid programme."
+
+#: web/user/faq.inc.php:37 web/user/faq.php:42
+#, php-format
+msgid ""
+"This is why %s installers are digitally signed by %s. Watch out for a system "
+"message confirming this."
+msgstr ""
+"Seetõttu on %s paigaldusprogrammid %s poolt digitaalselt allkirjastatud. "
+"Pööra tähelepanu seda kinnitavale süsteemiteatele. "
+
+#: web/user/faq.inc.php:41 web/user/faq.php:46
+msgid ""
+"Windows 'SmartScreen' or 'Internet Explorer' tell me that the file is not "
+"commonly downloaded and possibly harmful. Should I be concerned?"
+msgstr ""
+"Windowsi 'SmartScreen' või 'Internet Explorer' vastavad, et faili üldiselt "
+"ei laeta alla ja see võib olla ohtlik. Kas peaksin muret tundma?"
+
+#: web/user/faq.inc.php:42 web/user/faq.php:47
+msgid ""
+"Contrary to what the name suggests, 'SmartScreen' isn't actually very smart. "
+"The warning merely means that the file has not yet been downloaded by enough "
+"users to make Microsoft consider it popular (which would strangely enough "
+"make it be considered 'safe'). This message alone is not a security problem."
+msgstr ""
+"Vastupidiselt nime loodud ootustele ei ole 'SmartScreen' kuigi \"nutikas\". "
+"Hoiatus tähendab vaid seda, et seda faili ei ole nii paljud kasutajad alla "
+"laadinud, et lugeda fail Microsofti jaoks populaarseks (mida veidral moel "
+"peetakse \"turvaliseks\"). Teade üksi turvaprobleemi ei tähenda."
+
+#: web/user/faq.inc.php:42 web/user/faq.php:47
+#, php-format
+msgid ""
+"So long as the file is carrying a valid signature from %s, the download is "
+"safe."
+msgstr "Kui failil on kehtiv %s'i allkiri, on selle allalaadimine turvaline. "
+
+#: web/user/faq.inc.php:42 web/user/faq.php:47
+#, php-format
+msgid "Please see also Microsoft's FAQ regarding SmartScreen at %s."
+msgstr "Palun vaadake ka Microsofti korduvaid küsimusi Smartscreeni kohta %s."
+
+#: web/user/faq.inc.php:46 web/user/faq.php:61
+#, php-format
+msgid ""
+"I can see %s network and my device is configured but it does not connect, "
+"what can be the cause?"
+msgstr ""
+"Ma näen %s võrku ja mu seade on seadistatud, aga see ei ühendu. Mis võib "
+"olla selle põhjus?"
+
+#: web/user/faq.inc.php:47 web/user/faq.php:51
+#, php-format
+msgid ""
+"There can be a number of different reasons. The network you see may not be a "
+"genuine %s one and your device silently drops the connection attempt; there "
+"may be something wrong with the configuration of the network; your account "
+"may have expired; there may be a connection problem with your home "
+"authentication server; you may have broken the regulations of the network "
+"you are using and have been refused access as a consequence. You should "
+"contact your organisation and report the problem, the administrators should "
+"be able to trace your connections."
+msgstr ""
+"Sellel võib olla palju erinevaid põhjusi. Võrk, mida näed, ei pruugi olla "
+"autentne %s võrk ja su seade katkestab ühendumiskatse; midagi võib võrgu "
+"seadistustes valesti olla; Su konto võib olla aegunud; probleem võib olla Su "
+"koduasutuse autentimisserveriga ühenduse saamisel; Sa võid olla rikkunud "
+"selle võrgu eeskirju, mida kasutad, ja seetõttu juurdepääsust ilma jäetud. "
+"Peaksid võtma ühendust oma asutusega ja probleemist teada andma; "
+"administraatorid peaksid saama Su ühendusi kontrollida. "
+
+#: web/user/faq.inc.php:51 web/user/faq.php:66
+#, php-format
+msgid "I have a question about this web site. Whom should I contact?"
+msgstr "Mul on küsimus selle veebi kohta. Kellega peaksin ühendust võtma?"
+
+#: web/user/faq.inc.php:52 web/user/faq.php:67
+#, php-format
+msgid "You should send a mail to %s."
+msgstr "Palun saada e-kiri aadressile %s."
+
+#: web/user/faq.inc.php:60 web/user/faq.php:35
+#, php-format
+msgid "What is this %s thing anyway?"
+msgstr "Mis see %s üldse on? "
+
+#: web/user/faq.inc.php:61 web/user/faq.php:36
+#, php-format
+msgid ""
+"%s is a global WiFi roaming consortium which gives members of education and "
+"research access to the internet <i>for free</i> on all %s hotspots on the "
+"planet. There are several million %s users already, enjoying free internet "
+"access on more than 6.000 hotspots! Visit <a href='http://www.eduroam."
+"org'>the %s homepage</a> for more details."
+msgstr ""
+"%s on ülemaailmne WiFi rändluskonsortsium, mis annab selle liikmeteks "
+"olevate haridus- ja teadusasutuste kasutajatele <i>tasuta</"
+"i>internetiühenduse kõigis %si juurdepääsupunktides meie planeedil. %sil on "
+"miljoneid kasutajaid, kes pääsevad vabalt internetti rohkem kui 6000 "
+"juurdepääsupunkti kaudu. Rohkem teavet leiad <a href='http://www.eduroam."
+"org'>%si</a> kodulehelt."
+
+#: web/user/faq.php:58
+#, php-format
+msgid ""
+"There can be a number of different reasons. The network you see may not be a "
+"genuine %s one and your device silently drops the connection attempt; your "
+"account may have expired; you may have broken the regulations of the network "
+"you are using and have been refused access as a consequence; or maybe there "
+"is an actual technical problem. To exclude the latter, you should first "
+"visit the %s Diagnostics tool <a href=''>here</a>, which can find many "
+"reasons for failure. It also allows you to contact your organisation and "
+"report the problem to them."
+msgstr ""
+"Sellel võib olla palju erinevaid põhjusi. Võrk, mida näed, ei pruugi olla "
+"autentne %s võrk ja su seade katkestab ühendumiskatse; Su konto võib-olla "
+"aegunud; Sa võid olla rikkunud selle võrgu eeskirju, mida kasutad, ja "
+"seetõttu juurdepääsust ilma jäetud; võib-olla on päriselt tegemist tehnilise "
+"probleemiga. Viimase võimaluse välistamiseks peaksid esmalt kasutama <a "
+"href=''>siinset %s diagnostikatööriista</a> - see aitab leida mitmeid "
+"veapõhjusi. Samuti võimaldab see Sul ühendust võtta oma asutusega ja neile "
+"probleemist teada anda."
+
+#. *
+#. * This is a template for further FAQ entries. Simply copy&paste and add more
+#. * FAQ text in 'title' and 'text' respectively.
+#. *
+#. array_push($FAQ,
+#. array(
+#. 'title'=>sprintf(_("")),
+#. 'text'=>sprintf(_(""))
+#. ));
+#.
+#: web/user/faq.php:84 web/skins/modern/user/cat_info.php:70
+msgid "Frequently Asked Questions"
+msgstr "Korduma Kippuvad Küsimused"
+
+#: web/user/tou.inc.php:15 web/user/tou.php:13
+msgid "Terms of Use"
+msgstr "Kasutustingimused"
+
+#: web/4013.php:34 web/404.php:33 web/lib/user/TextTemplates.php:77
+#, php-format
+msgid "Welcome to %s"
+msgstr "Tere tulemast %s"
+
+#: web/4013.php:37 web/404.php:36
+msgid "View this page in"
+msgstr "Vaata seda lehte"
+
+#: web/4013.php:43 web/404.php:42 web/copyright.php:33
+#: web/skins/modern/Menu.php:29
+msgid "Start page"
+msgstr "Esileht"
+
+#: web/4013.php:47
+msgid "Maybe this is the CAT you are looking for..."
+msgstr "Võib-olla on see CAT seesama, mida Sa otsid..."
+
+#: web/4013.php:48
+msgid ""
+"but we don't want to show it to you. You need to be authenticated and "
+"authorised to see this content. Since you are not, you got this error page "
+"usually known as"
+msgstr ""
+"aga selle nägemiseks on vaja end autentida ja autoriseerida. Kuna Sa ei ole "
+"seda teinud, said veateate, mida tavaliselt tuntakse kui"
+
+#: web/4013.php:50
+#, php-format
+msgid ""
+"Your mistake? Our error? Who knows! Maybe you should go back to the <a "
+"href='%s'>Start Page</a>."
+msgstr ""
+"Sinu aps? Meie viga? Kes teab. Vahest peaksid minema tagasi <a "
+"href='%s'>avalehele</a>."
+
+#: web/404.php:46
+msgid "This is not the CAT you are looking for."
+msgstr "See pole CAT, mida otsid."
+
+#: web/404.php:47
+msgid ""
+"Whatever you expected to see at this URL - it's not here. The only thing "
+"here is the number"
+msgstr "Sel URLil ei ole seda, mida otsid. Siin on ainult arv"
+
+#: web/404.php:49
+#, php-format
+msgid ""
+"staring at you. Your mistake? Our error? Who knows! Maybe you should go back "
+"to the <a href='%s'>Start Page</a>."
+msgstr ""
+"paistmas. Sinu aps? Meie viga? Kes teab. Vahest peaksid minema tagasi <a "
+"href='%s'>avalehele</a>."
+
+#: web/copyright.php:30
+#, php-format
+msgid "%s Copyright and Licensing"
+msgstr "%s Autoriõigused ja litsentsid"
+
+#: web/copyright.php:213 web/tou.php:61 web/skins/modern/Divs.php:280
+#, php-format
+msgid "%s Privacy Notice"
+msgstr "%s privaatsuspoliitika"
+
+#: web/lib/user/TextTemplates.php:70
+#, php-format
+msgid "Welcome aboard the %s user community!"
+msgstr "Tere tulemast %s kasutajate kogukonda!"
+
+#: web/lib/user/TextTemplates.php:71
+msgid ""
+"Your download will start shortly. In case of problems with the automatic "
+"download please use this direct <a href=''>link</a>."
+msgstr ""
+"Allalaadimine algab peatselt. Kui automaatse allalaadimisega tekib probleem, "
+"palun kasuta <a href=''>seda otselinki.</a>"
+
+#: web/lib/user/TextTemplates.php:72 web/skins/modern/div_user_welcome.php:9
+#, php-format
+msgid "Dear user from %s,"
+msgstr "Hea %s kasutaja"
+
+#: web/lib/user/TextTemplates.php:73
+#, php-format
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an %s hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Nüüd on Sul alla laetud ja paigaldatud kliendiseadistusprogramm. Edasi on "
+"vaja leida üles lähim %s juurdepääsupunkt ja sisestada oma kasutajakonto "
+"andmed (kasutajanimi ja parool või isikusertifikaat) ning saadagi "
+"võrguühendus."
+
+#: web/lib/user/TextTemplates.php:74 web/skins/modern/div_user_welcome.php:17
+#, php-format
+msgid ""
+"Should you have any problems using this service, please always contact the "
+"helpdesk of %s. They will diagnose the problem and help you out. You can "
+"reach them via the means shown above."
+msgstr ""
+"Kui Sul tekib teenuse kasutamisel probleeme, palun võta ühendust %s "
+"kasutajatoega. Seal uuritakse probleemi ja aidatakse Sind. Ühendust saad "
+"eespool näidatud kanalite kaudu."
+
+#: web/lib/user/TextTemplates.php:75 web/skins/modern/div_user_welcome.php:20
+msgid "Back to downloads"
+msgstr "Tagasi allalaadimisse"
+
+#: web/lib/user/TextTemplates.php:76
+#, php-format
+msgid ""
+"we would like to warmly welcome you among the several million users of %s! "
+"From now on, you will be able to use internet access resources on thousands "
+"of universities, research centres and other places all over the globe. All "
+"of this completely free of charge!"
+msgstr ""
+"Tervitame Sind %s miljonite kasutajatega liitumise puhul! Nüüd saad kasutada "
+"internetiühendust tuhandetes ülikoolides, teadusasutustes ja muudes maailma "
+"kohtades. Kõik see on täiesti tasuta!"
+
+#: web/lib/user/TextTemplates.php:78
+#, php-format
+msgid "Connect your device to %s"
+msgstr "Ühenda oma seade %si"
+
+#: web/lib/user/TextTemplates.php:79
+#, php-format
+msgid "%s installation made easy:"
+msgstr "%s paigaldamine on tehtud lihtsaks:"
+
+#: web/lib/user/TextTemplates.php:80
+msgid "Custom built for your organisation"
+msgstr "Sinu asutuse jaoks kohandatud"
+
+#: web/lib/user/TextTemplates.php:81
+#, php-format
+msgid "Click here to download your %s installer"
+msgstr "Klõpsa siin %si paigaldusprogrammi allalaadimiseks."
+
+#: web/lib/user/TextTemplates.php:82
+msgid "Select the user group"
+msgstr "Vali kasutajagrupp"
+
+#: web/lib/user/TextTemplates.php:83
+msgid "select another"
+msgstr "vali mõni muu"
+
+#: web/lib/user/TextTemplates.php:84
+msgid "Choose another installer to download"
+msgstr "Vali allalaadimiseks teine paigaldusprogramm"
+
+#: web/lib/user/TextTemplates.php:85
+msgid "All platforms"
+msgstr "Kõik platvormid"
+
+#: web/lib/user/TextTemplates.php:86
+#, php-format
+msgid "Download your %s installer"
+msgstr "Lae alla oma %si paigaldusprogramm"
+
+#: web/lib/user/TextTemplates.php:87
+msgid ""
+"Your local administrator has specified a redirect to a local support page."
+"<br>When you click <b>Continue</b> this support page will be opened in a new "
+"window/tab."
+msgstr ""
+"Su asutuse administraator on teinud suunamise kohalikule kasutajatoe lehele. "
+"<br>Kui klõpsad <b>Jätka</b>, avatakse see kasutajatoe leht uues aknas/"
+"vahekaardil."
+
+#: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:271
+#: web/skins/modern/user/js/cat_js.php:279
+msgid "Continue"
+msgstr "Jätka"
+
+#: web/lib/user/TextTemplates.php:89
+#, php-format
+msgid "Digitally signed by the organisation that coordinates %s"
+msgstr ""
+"Digitaalselt allkirjastatud organisatsiooni poolt, mis koordineerib %s "
+
+#: web/lib/user/TextTemplates.php:90
+#, php-format
+msgid ""
+"You can download your %s installer via a personalised invitation link sent "
+"from your IT support. Please talk to the IT department to get this link."
+msgstr ""
+"Saad oma %s paigaldusprogrammi laadida isiklikus kutses sisalduva lingi "
+"kaudu, mille saadab Su IT-tugi. Palun pöördu lingi saamiseks oma IT-osakonna "
+"poole. "
+
+#: web/lib/user/TextTemplates.php:91
+#, php-format
+msgid ""
+"This site provides %s installers for many organisations, click here to see "
+"if yours is on the list."
+msgstr ""
+"See leht pakub paljudele asutustele %si paigaldusprogrammi. Kõpsa siia, et "
+"näha, kas Sinu asutus on nimekirjas."
+
+#: web/lib/user/TextTemplates.php:92
+msgid "Custom built for you"
+msgstr "Sinu jaoks kohandatud"
+
+#: web/lib/user/TextTemplates.php:94
+#, php-format
+msgid "Digitally signed by the organisation that coordinates %s: %s"
+msgstr ""
+"Digitaalselt allkirjastatud organisatsiooni poolt, mis koordineerib %s: %s"
+
+#: web/skins/modern/div_user_welcome.php:12
+msgid ""
+"we would like to warmly welcome you among the several million users of "
+"eduroam®! From now on, you will be able to use internet access resources on "
+"thousands of universities, research centres and other places all over the "
+"globe. All of this completely free of charge!"
+msgstr ""
+"Tervitame Sind eduroami miljonite kasutajatega liitumise puhul! Nüüd saad "
+"kasutada internetiühendust tuhandetes ülikoolides, teadusasutustes ja muudes "
+"maailma kohtades. Kõik see on täiesti tasuta!"
+
+#: web/skins/modern/div_user_welcome.php:15
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an eduroam® hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Nüüd on Sul alla laetud ja paigaldatud kliendiseadistusprogramm. Edasi on "
+"vaja leida üles lähim  eduroami juurdepääsupunkt ja sisestada oma "
+"kasutajakonto andmed (kasutajanimi ja parool või isikusertifikaat) ning "
+"saadagi võrguühendus."
+
+#: web/skins/modern/index.php:67 web/skins/modern/test.php:70
+msgid "Authenticating"
+msgstr "Autendime"
+
+#: web/skins/modern/Menu.php:32
+msgid "About"
+msgstr "Teave"
+
+#: web/skins/modern/Menu.php:33 web/skins/modern/Menu.php:34
+#: web/skins/modern/Menu.php:35
+#, php-format
+msgid "About %s"
+msgstr "%s teave"
+
+#: web/skins/modern/Menu.php:39
+msgid "Language"
+msgstr "Keel"
+
+#: web/skins/modern/Menu.php:41 web/skins/modern/Menu.php:44
+#: web/skins/modern/user/cat_info.php:60
+msgid "Help"
+msgstr "Abi"
+
+#: web/skins/modern/Menu.php:42
+msgid "My institution is not listed"
+msgstr "Minu asutust ei ole nimekirjas"
+
+#: web/skins/modern/Menu.php:42 web/skins/modern/Menu.php:43
+#: web/skins/modern/Menu.php:45 web/skins/modern/Menu.php:46
+#: web/skins/modern/Menu.php:47
+msgid "FAQ"
+msgstr "KKK"
+
+#: web/skins/modern/Menu.php:43
+msgid "My device is not listed"
+msgstr "Minu seade ei ole nimekirjas"
+
+#: web/skins/modern/Menu.php:45
+msgid "What is eduroam"
+msgstr "Mis on eduroam"
+
+#: web/skins/modern/Menu.php:47
+msgid "Contact"
+msgstr "Kontakt"
+
+#: web/skins/modern/Menu.php:48
+msgid "Diagnostics"
+msgstr "Diagnostika"
+
+#: web/skins/modern/Menu.php:49
+msgid "Documentation"
+msgstr "Dokumentatsioon"
+
+#: web/skins/modern/Menu.php:52
+msgid "Manage"
+msgstr "Halda"
+
+#: web/skins/modern/Menu.php:53
+#, php-format
+msgid "%s admin access"
+msgstr "%s administreerimisjuurdepääs"
+
+#: web/skins/modern/Menu.php:54
+#, php-format
+msgid "%s admin:<br>manage your IdP"
+msgstr "%s administraator:<br> halda oma IdPd"
+
+#: web/skins/modern/Menu.php:55 web/skins/modern/Menu.php:56
+msgid "Become a CAT developer"
+msgstr "Hakka CAT arendajaks"
+
+#: web/skins/modern/Menu.php:60
+msgid "Terms of use"
+msgstr "Kasutustingimused"
+
+#: web/skins/modern/accountstatus/accountstatus.php:57
+msgid ""
+"You attempted to download an installer that was already downloaded before. "
+"Please request a new token from your administrator instead."
+msgstr ""
+"Proovisid laadida alla paigaldusprogrammi, mis on juba alla laetud. Palun "
+"küsi oma administraatorilt uus kood."
+
+#: web/skins/modern/accountstatus/accountstatus.php:57
+msgid "Attempt to re-use download link"
+msgstr "Katse allalaadimislinki korduvalt kasutada"
+
+#: web/skins/modern/accountstatus/accountstatus.php:68
+#, php-format
+msgid "You are a new user without a history of %s credentials."
+msgstr "Oled uus kasutaja ilma %s kasutajakonto ajaloota."
+
+#: web/skins/modern/accountstatus/accountstatus.php:74
+#, php-format
+msgid "You have <strong>%d</strong> currently valid %s credential."
+msgid_plural "You have <strong>%d</strong> currently valid %s credentials."
+msgstr[0] "Sul on <strong>%d</strong> hetkel kehtiv %s kasutajakonto."
+msgstr[1] "Sul on <strong>%d</strong> hetkel kehtivat %s kasutajakontot."
+
+#: web/skins/modern/accountstatus/accountstatus.php:78
+#, php-format
+msgid "<strong>%d</strong> of your credentials is not valid any more."
+msgid_plural "<strong>%d</strong> of your credentials are not valid any more."
+msgstr[0] "<strong>%d</strong> Su kasutajakontodest ei ole enam kehtiv."
+msgstr[1] "<strong>%d</strong> Su kasutajakontodest ei ole enam kehtiv."
+
+#: web/skins/modern/accountstatus/accountstatus.php:80
+msgid "I want to see the details."
+msgstr "Soovin detailsemat teavet."
+
+#. only show this extra info in the non-trivial case.
+#: web/skins/modern/accountstatus/accountstatus.php:89
+#, php-format
+msgid ""
+"Your invitation token is valid for %d more device activations (%d have "
+"already been used)."
+msgstr ""
+"Su kutse kood kehtib veel %d seadme aktiveerimiseks (%d on juba kasutatud)."
+
+#: web/skins/modern/accountstatus/accountstatus.php:92
+msgid ""
+"Unfortunately, we are unable to determine your device's operating system. If "
+"you have made modifications on your device which prevent it from being "
+"recognised (e.g. custom 'User Agent' settings), please undo such "
+"modifications. You can come back to this page again; the invitation link has "
+"not been used up yet."
+msgstr ""
+"Kahjuks ei ole Su seadme operatsioonisüsteem tuvastatav. Kui oled oma "
+"seadmel teinud muudatusi, mis takistavad selle äratundmist (näiteks muutnud "
+"'User Agent' seadeid), palun tühista need muudatused. Seejärel võid "
+"käesolevale lehele tagasi tulla; kutses olev link ei saanud veel kasutatud. "
+
+#: web/skins/modern/accountstatus/accountstatus.php:99
+#, php-format
+msgid ""
+"Unfortunately, the operating system your device uses (%s) is currently not "
+"supported for hosted end-user accounts. You can visit this page with a "
+"supported operating system later; the invitation link has not been used up "
+"yet."
+msgstr ""
+"Kahjuks ei ole Su seadme kasutatav operatsioonisüsteem (%s) praegu "
+"majutatavate lõppkasutajakontode poolt toetatud. Saad külastada seda lehte "
+"mõne toetatud operatsioonisüsteemiga seadmega hiljem, kutse link ei ole veel "
+"ära kasutatud."
+
+#: web/skins/modern/accountstatus/accountstatus.php:103
+#, php-format
+msgid "You can now download a personalised  %s installation program."
+msgstr "Nüüd saad laadida alla isikliku %s paigaldusprogrammi."
+
+#. echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
+#: web/skins/modern/accountstatus/accountstatus.php:105
+#, php-format
+msgid ""
+"The installation program is <span class='emph'>strictly personal</span>, to "
+"be used <span class='emph'>only on this device (%s)</span>, and it is <span "
+"class='emph'>not permitted to share</span> this information with anyone."
+msgstr ""
+"Paigaldusprogramm on <span class='emph'>rangelt isiklik</span>, kasutamiseks "
+"<span class='emph'>ainult sellel seadmel (%s)</span>, ja seda teavet <span "
+"class='emph'>ei ole lubatud kellelegi jagada</span>."
+
+#: web/skins/modern/accountstatus/accountstatus.php:106
+#, php-format
+msgid ""
+"When the system detects abuse such as sharing login data with others, all "
+"access rights for you will be revoked and you may be sanctioned by your "
+"local %s administrator."
+msgstr ""
+"Kui süsteem tuvastab väärkasutuse nagu näiteks sisselogimisandmete jagamise "
+"teistega, tühistatakse kõik Su juurdepääsuõigused ja Su kohalik %s "
+"administraator võib rakendada sanktsioone."
+
+#: web/skins/modern/accountstatus/accountstatus.php:107
+msgid ""
+"During the installation process, you will be asked for the following import "
+"PIN. This only happens once during the installation. You do not have to "
+"write down this PIN."
+msgstr ""
+"Paigaldamise ajal küsitakse Sinult järgmist importimise PIN-koodi. See "
+"toimub ainult üks kord paigaldamise jooksul. Sa ei pea seda PIN-koodi üles "
+"kirjutama."
+
+#: web/skins/modern/accountstatus/accountstatus.php:112
+#, php-format
+msgid "Import PIN: %s"
+msgstr "Impordi PIN: %s"
+
+#: web/skins/modern/accountstatus/accountstatus.php:117
+#, php-format
+msgid "Click here to download your %s installer!"
+msgstr "Klõpsa siin %si paigaldusprogrammi allalaadimiseks."
+
+#: web/skins/modern/accountstatus/accountstatus.php:121
+#, php-format
+msgid ""
+"Unfortunately, the invitation link you just used is too old. The %s sign-up "
+"invitation was valid until %s. You cannot use this link any more. Please ask "
+"your administrator to issue you a new invitation link."
+msgstr ""
+"Kahjuks on kutse link, mida äsja kasutasid, aegunud. %s registreerumiskutse "
+"kehtis kuni %s. Seda linki ei saa enam kasutada. Palun küsi oma "
+"administraatorilt uus kutse link."
+
+#: web/skins/modern/accountstatus/accountstatus.php:128
+msgid "Account information not found"
+msgstr "Konto infot ei leitud"
+
+#: web/skins/modern/accountstatus/accountstatus.php:129
+#, php-format
+msgid ""
+"The invitation link you followed does not map to any invititation we have on "
+"file."
+msgstr ""
+"Kutse link, mida kasutasid, ei klapi ühegi kutsega, mis meil olemas on,"
+
+#: web/skins/modern/accountstatus/accountstatus.php:129
+#, php-format
+msgid ""
+"You should use the exact link you got during sign-up to come here. "
+"Alternatively, if you have a valid %s credential already, you can visit this "
+"page and Accept the question about logging in with a client certificate "
+"(select a certificate with a name ending in '…%s')."
+msgstr ""
+"Palun kasuta täpselt seda linki, mille registreerimiseks said.\n"
+"Teine võimalus juhuks, kui Sul on kehtiv %s kasutajakonto juba olemas, on "
+"külastada seda lehte ja vastata jaatavalt kliendisertifikaadiga "
+"sisselogimiseks (vali sertifikaat, mille nimi lõpeb nii: '…%s')."
+
+#: web/skins/modern/accountstatus/accountstatus.php:159
+#: web/skins/modern/user/js/cat_js.php:234
+msgid ""
+"If you encounter problems, then you can obtain direct assistance from your "
+"organisation at:"
+msgstr "Kui tekib probleeme, saad abi oma asutuselt: "
+
+#: web/skins/modern/accountstatus/accountstatus.php:161
+#: web/skins/modern/user/js/cat_js.php:236
+msgid ""
+"If you encounter problems you should ask those who gave you your account for "
+"help."
+msgstr ""
+"Kui tekib probleeme, palun küsi abi neilt, kes Sulle kasutajakonto andsid."
+
+#: web/skins/modern/accountstatus/accountstatus.php:172
+#, php-format
+msgid "Your personal %s account status page"
+msgstr "Sinu isikliku %s konto ülevaateleht"
+
+#: web/skins/modern/accountstatus/accountstatus.php:200
+msgid "Current login tokens"
+msgstr "Kehtivad logimiskoodid"
+
+#: web/skins/modern/accountstatus/accountstatus.php:201
+msgid "Previous login tokens"
+msgstr "Aegunud logimiskoodid"
+
+#: web/skins/modern/accountstatus/accountstatus.php:202
+msgid "Revoked login tokens"
+msgstr "Tühistatud logimiskoodid"
+
+#: web/skins/modern/accountstatus/accountstatus.php:203
+msgid "Serial Number"
+msgstr "Seerianumber"
+
+#: web/skins/modern/accountstatus/accountstatus.php:203
+msgid "Pseudonym"
+msgstr "Pseudonüüm"
+
+#: web/skins/modern/accountstatus/accountstatus.php:203
+msgid "Device Type"
+msgstr "Seadme tüüp"
+
+#: web/skins/modern/accountstatus/accountstatus.php:203
+msgid "Issue Date"
+msgstr "Väljastamise kuupäev"
+
+#: web/skins/modern/accountstatus/accountstatus.php:203
+msgid "Expiry Date"
+msgstr "Aegumise kuupäev"
+
+#: web/skins/modern/accountstatus/accountstatus.php:213
+msgid "invalid token"
+msgstr "Kehtetu kood"
+
+#: web/skins/modern/accountstatus/accountstatus.php:237
+msgid "The details are displayed below."
+msgstr "Detailsem info on allpool"
+
+#: web/skins/modern/accountstatus/accountstatus.php:243
+msgid "Really revoke this access credential?"
+msgstr "Kas tühistame pääsumandaadi?"
+
+#: web/skins/modern/user/cat_info.php:90
+#, php-format
+msgid ""
+"You must have received an invitation from your %s %s before being able to "
+"manage your %s. If that is the case, please continue and log in."
+msgstr ""
+"Enne kui saad hallata oma %s, pead olema saanud %s %s kutse. Kui kutse on "
+"olemas, palun jätka ja logi sisse."
+
+#: web/skins/modern/user/cat_info.php:92
+msgid "Please authenticate yourself and login"
+msgstr "Palun autendi ja logi sisse"
+
+#: web/skins/modern/user/cat_info.php:97
+msgid "Login"
+msgstr "Logi sisse"
+
+#: web/skins/modern/user/cat_info.php:98
+msgid ""
+"Did you forget with which Identity Provider you logged in to the system? We "
+"can try to find out if you specify the email address with which you were "
+"invited to the system in the box below. This may not work if you were "
+"invited from a third-party website via the AdminAPI."
+msgstr ""
+"Kas oled unustanud, millise identiteedipakkuja alt süsteemi logisid?\n"
+"Saame proovida seda tuvastada, kui kirjutad kutses toodud e-posti aadressi "
+"allolevasse kasti. See ei pruugi aga aidata, kui Sind kutsuti kolmanda "
+"osapoole veebilehelt AdminAPI kaudu."
+
+#: web/skins/modern/user/cat_info.php:99
+msgid "Get IdP Reminder"
+msgstr "Hangi IdP (identiteedipakkuja) meeldetuletus"
+
+#: web/skins/modern/user/js/cat_js.php:34
+msgid ""
+"This is embarrassing. Generation of your installer failed. System admins "
+"have been notified. We will try to take care of the problem as soon as "
+"possible."
+msgstr ""
+"Piinlik lugu. Paigaldusprogrammi genereerimine ebaõnnestus. "
+"Süsteemiadministraatoritele saadeti teade. Püüame probleemi lahendada "
+"võimalikult kiiresti."
+
+#: web/skins/modern/user/js/cat_js.php:82
+#: web/skins/modern/user/js/cat_js.php:216
+msgid "no matching data found"
+msgstr "andmevastet ei leitud"
+
+#: web/skins/modern/user/js/cat_js.php:96
+msgid "select"
+msgstr "vali"
+
+#: web/skins/modern/user/js/cat_js.php:228
+msgid "WWW:"
+msgstr "WWW:"
+
+#: web/skins/modern/user/js/cat_js.php:230
+msgid "email:"
+msgstr "e-post:"
+
+#: web/skins/modern/user/js/cat_js.php:232
+msgid "tel:"
+msgstr "tel:"
+
+#: web/skins/modern/user/js/cat_js.php:239
+#, php-format
+msgid ""
+"When you make use of the international %s infrastructure, e.g. when roaming "
+"with your device, your data is treated according to the <a href='%s'>%s "
+"Privacy Statement</a>."
+msgstr ""
+"Kui kasutad rahvusvahelist %s taristut, näiteks rändled oma seadmega, "
+"käsitletakse Su andmeid vastavalt <a href='%s'>%s privaatsuspoliitikale</a>."
+
+#: web/skins/modern/user/js/cat_js.php:258
+#: web/skins/modern/user/js/cat_js.php:284
+msgid ""
+"This device cannot be configured with the settings used in your organisation."
+msgstr ""
+"Seda seadet ei ole võimalik seadistada Sinu asutuses kasutatavate "
+"seadistustega."
+
+#: web/skins/modern/user/js/cat_js.php:271
+msgid ""
+"Your site administrator has specified that this device should be configured "
+"with resources located on a local page. When you click <b>Continue</b> this "
+"page will be opened in a new window/tab."
+msgstr ""
+"Su asutuse administraator on määranud, et see seade tuleb seadistada "
+"kohalikul lehel asuvate seadistustega. Kui klõpsad <b>Jätka</b>, avatakse "
+"see leht uues aknas/vahekaardil"
+
+#: web/skins/modern/user/js/cat_js.php:285
+msgid "Close"
+msgstr "Sulge"
+
+#: web/skins/modern/user/js/cat_js.php:381
+msgid "Missing email address"
+msgstr "Puudub e-posti aadress"
+
+#: web/skins/modern/user/js/cat_js.php:395
+msgid "No providers found for this email"
+msgstr "Sellele e-postile vastavaid teenuspakkujaid ei leitud"
+
+#: web/skins/modern/user/js/cat_js.php:400
+msgid "Your IdP is:"
+msgstr "Sinu idP on:"
+
+#: web/skins/modern/user/js/cat_js.php:402
+msgid "Your IdP could be one of:"
+msgstr "Sinu IdP võib-olla üks neist:"
+
+#: web/skins/modern/user/js/cat_js.php:559
+msgid "Organisation"
+msgstr "Asutus"
+
+#: web/skins/modern/user/js/cat_js.php:560
+msgid "Select your organisation"
+msgstr "Vali oma asutus"
+
+#: web/skins/modern/user/js/cat_js.php:561
+msgid "Help, my organisation is not on the list"
+msgstr "Appi, minu asutust ei ole nimekirjas"
+
+#: web/skins/modern/user/js/cat_js.php:562
+#, php-format
+msgid ""
+"This system relies on information supplied by local %s administrators. If "
+"your organisation is not on the list, then nag them to add information to "
+"the %s database."
+msgstr ""
+"Süsteem tugineb kohalike %s administraatorite antud teabele. Kui Su asutus "
+"ei ole nimekirjas, palun pöördu administraatorite poole, et nad lisaksid "
+"teabe %s andmebaasi."
+
+#: web/skins/modern/user/js/cat_js.php:563
+msgid "Locate me more accurately using HTML5 Geo-Location"
+msgstr "Leia mu asukoht täpsemalt, kasutades HTML5 Geo-Location võimalusi"
+
+#: web/skins/modern/user/js/cat_js.php:564
+msgid "Show organisations in"
+msgstr "Näita asutusi"
+
+#: web/skins/modern/user/js/cat_js.php:565
+msgid "all countries"
+msgstr "kõik riigid"
+
+#: web/skins/modern/user/js/cat_js.php:566
+msgid "or search for an organisation, for example Univerity of Oslo"
+msgstr "või otsi organisatsiooni, näiteks Oslo Ülikool"
+
+#: web/skins/modern/user/js/cat_js.php:567
+msgid "show all countries"
+msgstr "näita kõiki riike"
+
+#: web/skins/modern/user/js/cat_js.php:568
+msgid "Results limited to"
+msgstr "Tulemused on piiratud"
+
+#: web/skins/modern/user/js/cat_js.php:569
+msgid "entries - show more"
+msgstr "kanded - näita rohkem"
+
+#: web/skins/modern/user/js/cat_js.php:570
+msgid "Nearby"
+msgstr "Lähedal"
+
+#: web/skins/modern/user/js/cat_js.php:571
+msgid "Location timeout"
+msgstr "Asukohamääramise protsess aegus"
+
+#: web/skins/modern/user/js/cat_js.php:572
+msgid "Could not get your position"
+msgstr "Ei suutnud tuvastada asukohta"
+
+#: web/skins/modern/user/js/cat_js.php:573
+msgid "Your browser has denied access to your location"
+msgstr "Sinu veebilehitseja ei väljasta asukoha infot"
+
+#: web/skins/modern/user/js/cat_js.php:574
+msgid "Unknown location error"
+msgstr "Viga! Tundmatu asukoht"
+
+#: web/skins/modern/user/js/cat_js.php:575
+msgid "You are here:"
+msgstr "Oled siin:"
+
+#: web/skins/modern/user/js/cat_js.php:576
+msgid "Getting your location..."
+msgstr "Tuvastame asukohta ..."
+
+#: web/skins/modern/user/js/cat_js.php:577
+msgid "Nearby providers shown on top."
+msgstr "Lähimad teenusepakkujad on toodud ülevalpool."
+
+#. *
+#. The OS objects define individual frames
+#. the last argument of the OS call specifies whether the module is
+#. signed.  Make sure that this is in sync with your settings
+#. in devices/devices.php
+#.
+#: web/skins/modern/user/js/roll.php:134
+msgid "MS Windows"
+msgstr "MS Windows"
+
+#: web/skins/modern/user/js/roll.php:134
+msgid "10, 8, 7, Vista"
+msgstr "10, 8, 7, Vista"
+
+#: web/skins/modern/user/js/roll.php:135
+msgid "Apple OS X"
+msgstr "Apple OS X"
+
+#: web/skins/modern/user/js/roll.php:136
+msgid "Android"
+msgstr "Android"
+
+#: web/skins/modern/user/js/roll.php:136
+msgid "4.3+"
+msgstr "4.3+"
+
+#: web/skins/modern/user/js/roll.php:137
+msgid "Apple iOS devices"
+msgstr "Apple iOS seadmed"
+
+#: web/skins/modern/user/js/roll.php:137
+msgid "iPhone, iPad, iPod touch"
+msgstr "iPhone, iPad, iPod touch"
+
+#: web/skins/modern/user/js/roll.php:138
+msgid "Linux"
+msgstr "Linux"
+
+#: web/skins/modern/user/js/roll.php:138
+msgid "all major distributions"
+msgstr "kõik suuremad distributsioonid"
+
+#: web/skins/modern/user/js/roll.php:139
+msgid "Chrome OS"
+msgstr "Chrome OS"

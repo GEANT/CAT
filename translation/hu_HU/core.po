@@ -3,17 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Janos Mohacsi <mohacsi@niif.hu>, 2012,2014-2015
+# Janos Mohacsi <mohacsi@niif.hu>, 2012,2014-2015,2018
 # Janos Mohacsi <mohacsi@niif.hu>, 2012
+# Pozsonyi Dóra <pozsonyi@niif.hu>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-18 11:18+0200\n"
-"PO-Revision-Date: 2015-04-07 14:08+0000\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"PO-Revision-Date: 2018-06-12 08:27+0000\n"
 "Last-Translator: Janos Mohacsi <mohacsi@niif.hu>\n"
-"Language-Team: Hungarian (http://www.transifex.com/projects/p/cat/language/"
-"hu/)\n"
+"Language-Team: Hungarian (http://www.transifex.com/eduroam_devel/cat/"
+"language/hu/)\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,31 +25,31 @@ msgstr ""
 msgid ""
 "Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git "
 "Revision</a>"
-msgstr ""
+msgstr "Kiadatlan 1  Git Revízió 1"
 
 #: core/CAT.php:121
 #, php-format
 msgid "Release <a href='%s'>%s</a>"
-msgstr ""
+msgstr "Release <a href='%s'>%s</a>"
 
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
 #. different wording, no translation, sorry
 #: core/CAT.php:134 core/DeviceConfig.php:101
 msgid "National Roaming Operator"
-msgstr ""
+msgstr "Nemzeti Roaming Szolgáltató"
 
 #: core/CAT.php:135 core/DeviceConfig.php:102
 msgid "identity provider"
-msgstr ""
+msgstr "Azonosító Szolgáltató"
 
 #: core/CAT.php:136 core/DeviceConfig.php:103
 msgid "organisation"
-msgstr ""
+msgstr "Szervezet"
 
 #: core/CAT.php:137
 msgid "Identity Provider"
-msgstr ""
+msgstr "Azonosító Szolgáltató"
 
 #: core/CAT.php:146
 msgid "Andorra"
@@ -308,7 +309,7 @@ msgstr "Dél Afrika"
 
 #: core/CAT.php:484 core/IdPlist.php:99
 msgid "Unnamed Entity"
-msgstr ""
+msgstr "Azonosítatlan entitás"
 
 #: core/DeviceConfig.php:200
 #, php-format
@@ -355,11 +356,11 @@ msgstr "IdP-t a szövetségből töröltük"
 #: core/SilverbulletInvitation.php:200
 #, php-format
 msgid "Your %s access is ready"
-msgstr ""
+msgstr "Hozzáférése %s készen áll"
 
 #: core/SilverbulletInvitation.php:208
 msgid "Hello!"
-msgstr ""
+msgstr "Szia!"
 
 #: core/SilverbulletInvitation.php:210
 #, php-format
@@ -367,6 +368,8 @@ msgid ""
 "A new %s access credential has been created for you by your network "
 "administrator."
 msgstr ""
+"A hálózati rendszergazda új hozzáférési jogosultságot %shozott létre az Ön "
+"számára."
 
 #: core/SilverbulletInvitation.php:212
 #, php-format
@@ -375,6 +378,9 @@ msgid ""
 "to get a custom %s installation program just for you. You can click on the "
 "link, copy and paste it into a browser or scan the attached QR code."
 msgstr ""
+"Kérjük, kövesse az alábbi linket az eszközzel, amelyet engedélyezni szeretne "
+"%s , hogy egyéni %s telepítőprogramot kapjon. A linkre kattintva másolhatja "
+"és beillesztheti egy böngészőbe, vagy beolvashatja a mellékelt QR-kódot."
 
 #. gets replaced with the token value by getBody()
 #: core/SilverbulletInvitation.php:214
@@ -384,10 +390,13 @@ msgid ""
 "up your %s installation program, you can use the same link to get status "
 "information about your %s account."
 msgstr ""
+"Kérjük, ezt az e-mailt tartsa meg későbbi felhasználásra. Miután felvette a "
+"telepítőprogramot %s , ugyanazt a linket használhatja a fiókhoz %s tartozó "
+"információkhoz."
 
 #: core/SilverbulletInvitation.php:216
 msgid "Regards,"
-msgstr ""
+msgstr "Üdvözlettel,"
 
 #: core/SilverbulletInvitation.php:260
 #, php-format
@@ -395,11 +404,13 @@ msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
 "'%s'!)"
 msgstr ""
+"Hozzáférésed készen áll %s ! Kattintson ide:  %s (Android-on, először "
+"telepítse az %salkalmazást!)"
 
 #: core/SilverbulletInvitation.php:267
 #, php-format
 msgid "%s Invitation System"
-msgstr ""
+msgstr "Meghívó rendszer%s"
 
 #. / arguments are: 1. IdP name;
 #. /                2. consortium name (e.g. eduroam);
@@ -441,86 +452,88 @@ msgstr "Visszajelzés"
 
 #: core/common/EAP.php:369
 msgid "PEAP-MSCHAPv2"
-msgstr ""
+msgstr "PEAP-MSCHAPv2"
 
 #: core/common/EAP.php:370
 msgid "TLS"
-msgstr ""
+msgstr "TLS"
 
 #: core/common/EAP.php:371
 msgid "TTLS-PAP"
-msgstr ""
+msgstr "TTLS-PAP"
 
 #: core/common/EAP.php:372
 msgid "TTLS-MSCHAPv2"
-msgstr ""
+msgstr "TTLS-MSCHAPv2"
 
 #: core/common/EAP.php:373
 msgid "TTLS-GTC"
-msgstr ""
+msgstr "TTLS-GTC"
 
 #: core/common/EAP.php:374
 msgid "FAST-GTC"
-msgstr ""
+msgstr "FAST-GTC"
 
 #: core/common/EAP.php:375
 msgid "EAP-pwd"
-msgstr ""
+msgstr "EAP-pwd"
 
 #: core/common/OutsideComm.php:239
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
-msgstr ""
+msgstr " %s %s   %s %s meghívott hogy kezelje a  %svele együtt."
 
 #: core/common/OutsideComm.php:240
 #, php-format
 msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
-msgstr ""
+msgstr "  %s   %s meghívott , hogy jövőben irányítsd  %s \"  %s \" (  %s)"
 
 #: core/common/OutsideComm.php:241
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\"."
-msgstr ""
+msgstr "a %s %s meghívott, hogy menedzseld %s  \"%s\"."
 
 #: core/common/OutsideComm.php:243
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
-msgstr ""
+msgstr "Ez a meghívás 24 óráig érvényes, azaz egészen 1 %s"
 
 #. then, send out the mail
 #: core/common/OutsideComm.php:251
 msgid "Hello,"
-msgstr ""
+msgstr "Üdvözlünk!"
 
 #. default means we don't have a Reply-To.
 #: core/common/OutsideComm.php:253
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
+"manuálisan. Kérjük, ne válaszoljon erre a levélre; ez csak egy küldési cím."
 
 #: core/common/OutsideComm.php:259
 #, php-format
 msgid "Additional message from your %s administrator:"
-msgstr ""
+msgstr "További üzenet  %s rendszergazdától:"
 
 #: core/common/OutsideComm.php:267
 #, php-format
 msgid "%s administrator"
-msgstr ""
+msgstr " %s rendszergazda"
 
 #: core/common/OutsideComm.php:270
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
 msgstr ""
+"manuálisan. Ha erre a levélre válaszolsz, akkor eléred a %s rendszergazdáit."
 
 #: core/common/OutsideComm.php:275
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
 "link:"
-msgstr ""
+msgstr "A %s rendszergazda felvételéhez kérjük, kattintson az alábbi linkre:"
 
 #: core/common/OutsideComm.php:277
 #, php-format
@@ -528,21 +541,25 @@ msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
 "Interface at"
 msgstr ""
+"Ha a linkre kattintás nem működik, akkor is megkeresheted a%s "
+"adminisztrátori felületet "
 
 #: core/common/OutsideComm.php:279
 msgid "and enter the invitation token"
-msgstr ""
+msgstr "és írd be a meghívó tokent"
 
 #: core/common/OutsideComm.php:281
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
 msgstr ""
+"NE továbbítsa az e-mailt, amíg a token le nem járt - vagy a címzettek fel "
+"tudják használni a tokent az Ön nevében!"
 
 #: core/common/OutsideComm.php:282
 #, php-format
 msgid "We wish you a lot of fun with the %s."
-msgstr ""
+msgstr "Sok sikert kívánunk neked a  %s-hoz."
 
 #: core/common/OutsideComm.php:283
 #, php-format
@@ -550,329 +567,42 @@ msgid ""
 "Sincerely,\n"
 "\n"
 "Your friendly folks from %s Operations"
-msgstr ""
+msgstr "Üdvözlettel,    %s üzemeltetés"
 
 #. what do we want to say?
 #: core/common/OutsideComm.php:318
 #, php-format
 msgid "%s: you have been invited to manage an %s"
-msgstr ""
+msgstr "%s Meghívást kaptál arra, hogy kezelhesd%s"
 
 #: web/lib/common/InputValidation.php:29
 msgid "Input validation error: "
-msgstr ""
+msgstr "Hiba az input adatokban:"
 
 #: web/lib/common/InputValidation.php:202
 msgid "Realm is empty!"
-msgstr ""
+msgstr "Üres Realm!"
 
 #: web/lib/common/InputValidation.php:210
 msgid "Realm contains an @ sign!"
-msgstr ""
+msgstr "A Realm nevében @ karakter van!"
 
 #: web/lib/common/InputValidation.php:211
 msgid "Realm begins with a . (dot)!"
-msgstr ""
+msgstr "A Realm neve ponttal kezdődik!"
 
 #: web/lib/common/InputValidation.php:212
 msgid "Realm ends with a . (dot)!"
-msgstr ""
+msgstr "A Realm neve pontra végződik!"
 
 #: web/lib/common/InputValidation.php:213
 msgid "Realm contains spaces!"
-msgstr ""
+msgstr "A Realm nevében szóköz van!"
 
 #: web/lib/common/InputValidation.php:225
 msgid "Realm does not contain at least one . (dot)!"
-msgstr ""
+msgstr "A Realm nevében nincs legalább 1 pont!"
 
 #: web/lib/common/InputValidation.php:311
 msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
-msgstr ""
-
-#~ msgid "Could not create a new Institution!"
-#~ msgstr "Nem tudok új Intézményt létrehozni!"
-
-#~ msgid "eduPKI"
-#~ msgstr "eduPKI"
-
-#~ msgid "Nicolaus Copernicus University"
-#~ msgstr "Kopernikusz Egyetem"
-
-#~ msgid "accredited"
-#~ msgstr "minősített"
-
-#~ msgid "non-accredited"
-#~ msgstr "nem minősített"
-
-#~ msgid "correct certificate"
-#~ msgstr "korrekt tanúsítvány"
-
-#~ msgid "certificate with wrong policy OID"
-#~ msgstr "rossz policy OID-ű tanusítvány"
-
-#~ msgid "expired certificate"
-#~ msgstr "lejárt tanúsítvány"
-
-#~ msgid "revoked certificate"
-#~ msgstr "visszavont tanúsítvány"
-
-#~ msgid "pass"
-#~ msgstr "sikerült"
-
-#~ msgid "fail"
-#~ msgstr "nem sikerült"
-
-#~ msgid "eduroam-accredited CA (now only for tests)"
-#~ msgstr "eduroam-minősített CA (most csak teszt célű)"
-
-#~ msgid "Completed"
-#~ msgstr "Befejezett"
-
-#~ msgid "This check was skipped."
-#~ msgstr "Ezt az ellenőrzést kihagytuk"
-
-#~ msgid "There were errors during the test."
-#~ msgstr "Hiba történt az ellenőrzés során"
-
-#~ msgid "This realm has no NAPTR records."
-#~ msgstr "Ennel a realm-nek nincsen NAPTR rekordja"
-
-#~ msgid ""
-#~ "NAPTR records were found, but all of them refer to unrelated services."
-#~ msgstr ""
-#~ "NAPTR rekord létezik, de mindegyike nem releváns szolgáltatásra mutat."
-
-#~ msgid "There was no reply at all from the RADIUS server."
-#~ msgstr "Nem érkezett válasz a RADIUS szervertől."
-
-#~ msgid ""
-#~ "There was a bidirectional communication with the RADIUS server, but it "
-#~ "ended halfway through."
-#~ msgstr ""
-#~ "Két irányú kommunikáció elindult a RADIUS szerverrel, de nem fejeződött "
-#~ "be."
-
-#~ msgid ""
-#~ "The RADIUS server immediately rejected the authentication request in its "
-#~ "first reply."
-#~ msgstr ""
-#~ "A RADIUS szerver rögtön visszautasította az azonosítási kérést az első "
-#~ "válaszban."
-
-#~ msgid ""
-#~ "The RADIUS server rejected the authentication request after an EAP "
-#~ "conversation."
-#~ msgstr ""
-#~ "RADIUS visszautasította az azonosítási kérést az EAP csomagváltás után."
-
-#~ msgid "Connection refused"
-#~ msgstr "Kapcsolódás elutasítva"
-
-#~ msgid "Not enough data provided to perform an authentication"
-#~ msgstr "Nem adtál meg elég adatot az azonosítás elvégzéséhez."
-
-#~ msgid ""
-#~ "The certificate password you provided does not match the certificate file."
-#~ msgstr ""
-#~ "A megadott tanusítvány jelszó nem tanusítvány fájlban lévőhöz tartozik. "
-
-#~ msgid ""
-#~ "The certificate chain includes the root CA certificate. This does not "
-#~ "serve any useful purpose but inflates the packet exchange, possibly "
-#~ "leading to more round-trips and thus slower authentication."
-#~ msgstr ""
-#~ "A tanusítvány lány tartalmazza a gyökér CA tanusítványt. Ez szükségtelen, "
-#~ "növelheti a csomagváltások számát ezáltal lassítva az azonosítást."
-
-#~ msgid "There is more than one server certificate in the chain."
-#~ msgstr "Több mint 1 szervertanusítvány található a tanusítvány láncban."
-
-#~ msgid "There is no server certificate in the chain."
-#~ msgstr "Nincsen szerver tanusítvány a tanusítvány láncban."
-
-#~ msgid ""
-#~ "At least one certificate in the chain is signed with the MD5 signature "
-#~ "algorithm. Many Operating Systems, including Apple iOS, will fail to "
-#~ "validate this certificate."
-#~ msgstr ""
-#~ "Legalább 1 szerver tanusítvány a tanusítványláncban MD5-el van aláírva. "
-#~ "Sok operációs rendszer, sok operációs rendszer (pl. Apple iOS, Windows 8."
-#~ "x) nem fogja elfogadni a tanusítványláncot. "
-
-#~ msgid ""
-#~ "At least one certificate in the chain had a public key of less than 1024 "
-#~ "bits. Many recent operating systems consider this unacceptable and will "
-#~ "fail to validate the server certificate."
-#~ msgstr ""
-#~ "A tanusítványlánc legalább 1 tanusítványának publikus kulcsa kisebb mint "
-#~ "1024 bit. Sok újabb operációs rendszer ezt nem tartja elfogadhatónak és a "
-#~ "szerver tanusítványt nem fogadja el. "
-
-#~ msgid ""
-#~ "The server certificate does not have the extension 'extendedKeyUsage: TLS "
-#~ "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
-#~ "validate this certificate."
-#~ msgstr ""
-#~ "A szerver tanusítvány nem tartmazza 'extendedKeyUsage: TLS Web Server "
-#~ "Authentication' kiegészítést. A legtőbb Microsoft operációs rendszer nem "
-#~ "fogadja el ezt a tanusítványt."
-
-#~ msgid ""
-#~ "The server certificate did not include a CRL Distribution Point, creating "
-#~ "compatibility problems with Windows Phone 8."
-#~ msgstr ""
-#~ "A szerver tanusítvány nem tartalmaz CRL Distribution Point attributumot. "
-#~ "Ez kompatbilitási problémát jelent a Windows Phone 8 esetén."
-
-#~ msgid ""
-#~ "The server certificate's 'CRL Distribution Point' extension does not "
-#~ "point to an HTTP/HTTPS URL. Some Operating Systems may fail to validate "
-#~ "this certificate. Checking server certificate validity against a CRL will "
-#~ "not be possible."
-#~ msgstr ""
-#~ "A szerver tanusítvány 'CRL Distribution Point' kiegészítése nem egy HTTP/"
-#~ "HTTPS URL. Néhány operációs rendszer lehetséges, hogy nem fogja tudni "
-#~ "ellenőrizni a tanusítványt. A szerver tanusítvány ellenőrzése a CRL "
-#~ "alapján nem lesz lehetséges. "
-
-#~ msgid ""
-#~ "The extension 'CRL Distribution Point' in the server certificate points "
-#~ "to a non-existing location. Some Operating Systems check certificate "
-#~ "validity by consulting the CRL and will fail to validate the certificate. "
-#~ "Checking server certificate validity against a CRL will not be possible."
-#~ msgstr ""
-#~ "A szerver tanusítvány 'CRL Distribution Point' kiegészítése egy nem "
-#~ "helyre mutat. Néhány operációs rendszer lehetséges, hogy nem fogja tudni "
-#~ "ellenőrizni a tanusítványt. A szerver tanusítvány ellenőrzése a CRL "
-#~ "alapján nem lesz lehetséges. "
-
-#~ msgid "The server certificate was revoked by the CA!"
-#~ msgstr "A szerver tanusítványt visszavonta a tanusítványhatóság!"
-
-#~ msgid ""
-#~ "The certificate contained a CN or subjectAltName:DNS which does not parse "
-#~ "as a hostname. This can be problematic on some supplicants. If the "
-#~ "certificate also contains names which are a proper hostname, and you only "
-#~ "use those for your supplicant configuration, then you can safely ignore "
-#~ "this notice."
-#~ msgstr ""
-#~ "A tanusítvány CN vagy subjectAltName:DNS nem tartalmaz szervernevet. Ez "
-#~ "néhány supplicant számára problémát jelent. Ha tanusítvány tartalmazza a "
-#~ "nevet, amely egy megfelelő szervernév és ez a tanusítvány csak a "
-#~ "supplicant konfigurációhoz van használva, akkor ezt a megjegyzést "
-#~ "figyelmen kívül hagyhatod."
-
-#~ msgid ""
-#~ "The certificate contained a CN or subjectAltName:DNS which contains a "
-#~ "wildcard ('*'). This can be problematic on some supplicants. If the "
-#~ "certificate also contains names which are wildcardless, and you only use "
-#~ "those for your supplicant configuration, then you can safely ignore this "
-#~ "notice."
-#~ msgstr ""
-#~ "A tanusítvány CN vagy subjectAltName:DNS mezeje wildcard (\"*\")-or "
-#~ "tartalmaz . Ez néhány supplicant számára problémát jelent. Ha tanusítvány "
-#~ "tartalmazza olyan nevet, amely nem tartalmaz wildcard-ot és ez a "
-#~ "tanusítvány csak a supplicant konfigurációhoz van használva, akkor ezt a "
-#~ "megjegyzést figyelmen kívül hagyhatod."
-
-#~ msgid ""
-#~ "At least one certificate is outside its validity period (not yet valid, "
-#~ "or already expired)!"
-#~ msgstr ""
-#~ "Legalább 1 tanusítvány az érvényességi idején kivüli (még nem érvenyes, "
-#~ "vagy már nem érvényes)."
-
-#~ msgid ""
-#~ "At least one intermediate certificate in your CAT profile is outside its "
-#~ "validity period (not yet valid, or already expired), but this certificate "
-#~ "was not used for server validation. Consider removing it from your %s "
-#~ "configuration."
-#~ msgstr ""
-#~ "Legalább 1 köztes tanusítvány az érvényességi idején kivüli (még nem "
-#~ "érvenyes, vagy már nem érvényes), de ez a tanusítvány nem használt a "
-#~ "szerver azonosításához. Érdemes volna kivenni a %s konfigurációból."
-
-#~ msgid ""
-#~ "The server certificate could not be verified to the root CA you "
-#~ "configured in your profile!"
-#~ msgstr ""
-#~ "A szerver tanusítvány nem ellenőrizhető azzal a root CA-val, amely a "
-#~ "profile-hoz konfigurálva lett."
-
-#~ msgid ""
-#~ "The certificate chain as received in EAP was not sufficient to verify the "
-#~ "certificate to the root CA in your profile. It was verified using the "
-#~ "intermediate CAs in your profile though. You should consider sending the "
-#~ "required intermediate CAs inside the EAP conversation."
-#~ msgstr ""
-#~ "Az EAP során érkezett  tanusítvány lánc nem ellenőrizhető azzal a root CA-"
-#~ "val, amely a profile-hoz konfigurálva lett. A profile köztes CA-jával "
-#~ "azonban ellenőrizheő volt. Javasolt a szükséges köztes CA-k küldése az "
-#~ "EAP üzenetváltásban.   "
-
-#~ msgid ""
-#~ "The EAP server name does not match any of the configured names in your "
-#~ "profile!"
-#~ msgstr ""
-#~ "Az EAP szerver neve nem illeszkedik a profile-ban semmilyen konfigurált "
-#~ "névvel. "
-
-#~ msgid ""
-#~ "The configured EAP server name matches either the CN or a subjectAltName:"
-#~ "DNS of the incoming certificate; best current practice is that the "
-#~ "certificate should contain the name in BOTH places."
-#~ msgstr ""
-#~ "A konfigurált EAP szerver neve nem illeszkedik a beérkező tanusítvány CN "
-#~ "vagy subjectAltName:DNS mezejével . A legjobb megoldás az, ha tanusítvány "
-#~ "MINDKÉT helyen tartalmazza ezt a nevet."
-
-#~ msgid ""
-#~ "At least one certificate did not contain any BasicConstraints extension; "
-#~ "which makes it unclear if it's a CA certificate or end-entity "
-#~ "certificate. At least Mac OS X 10.8 (Mountain Lion) will not validate "
-#~ "this certificate for EAP purposes!"
-#~ msgstr ""
-#~ "Legalább 1 tanusítvány nem tartalmaz semmilyen BasicConstraints "
-#~ "kiegeszítést. Ez alapján nem világos, hogy a tanusítvány CA tanusítvány, "
-#~ "vagy végponti tanusítvány. Legalább a Mac OS X 10.8 (Mountain Lion) nem "
-#~ "fogadja el ezt a tanusítványt EAP célokra. "
-
-#~ msgid "The server presented a certificate from an unknown authority."
-#~ msgstr ""
-#~ "A szerver egy ismeretlen tanusítvány hatóság által aláírt tanusítványt "
-#~ "mutatott be. "
-
-#~ msgid "The server accepted the INVALID client certificate."
-#~ msgstr "A szerver egy érvénytelen kliens tanusítványt fogadott el."
-
-#~ msgid ""
-#~ "The server rejected the client certificate, even though it was valid."
-#~ msgstr ""
-#~ "A szerver visszautasított egy kliens tanusítványt, habár az érvényes volt."
-
-#~ msgid "The server rejected the client certificate as expected."
-#~ msgstr ""
-#~ "A szerver visszautasította kliens tanusítványt, ahogy az várható volt."
-
-#~ msgid "The CRL of a certificate could not be found."
-#~ msgstr "A tanusítvány CRL-je nem található."
-
-#~ msgid "EAP method negotiation failed!"
-#~ msgstr "EAP metódus megbeszélése meghiúsult."
-
-#~ msgid "certificate expired"
-#~ msgstr "a tanúsítvány lejárt"
-
-#~ msgid "certificate was revoked"
-#~ msgstr "a tanúsítványt visszavonták"
-
-#~ msgid "bad policy"
-#~ msgstr "rossz policy"
-
-#~ msgid "unknown authority"
-#~ msgstr "ismeretlen hatóság"
-
-#~ msgid "unknown authority or no certificate policy or another problem"
-#~ msgstr ""
-#~ "ismeretlen hatóság vagy nincsen tanusítvány policy vagy egyéb probléma"
+msgstr "Rossz koordináta-kódolás (a 2.0 JSON-t használ, nem rendez sorba)!"

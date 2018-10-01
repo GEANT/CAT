@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Alberto Martínez Setién, 2016\n"
 "Language-Team: Spanish (https://www.transifex.com/eduroam_devel/teams/11799/"
@@ -717,7 +717,7 @@ msgstr ""
 
 #: web/skins/modern/diag/diag.php:71
 msgid "Are you a"
-msgstr "¿Eres un...?"
+msgstr "¿Eres un"
 
 #: web/skins/modern/diag/diag.php:72
 msgid "end-user"
@@ -761,7 +761,7 @@ msgstr ""
 
 #: web/skins/modern/diag/diag.php:88
 msgid "alternatively"
-msgstr "de modo alternativo"
+msgstr "De modo alternativo:"
 
 #: web/skins/modern/diag/diag.php:89
 msgid "You can select your home institution from the following list"
@@ -1060,6 +1060,3 @@ msgstr "Formato de identidad externa inválido"
 #: web/skins/modern/diag/diag.php:908
 msgid "Wrong string given as OperatorName"
 msgstr "El nombre de operador es incorrecto"
-
-#~ msgid "Testing realm "
-#~ msgstr "Probando el dominio"

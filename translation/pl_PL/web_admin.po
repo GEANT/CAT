@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
-"PO-Revision-Date: 2018-08-22 06:31+0000\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"PO-Revision-Date: 2018-09-17 14:13+0000\n"
 "Last-Translator: Maja Wolniewicz <maja.wolniewicz@gmail.com>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/eduroam_devel/cat/"
 "language/pl_PL/)\n"
@@ -170,16 +170,14 @@ msgid "General Information"
 msgstr "Informacje ogólne"
 
 #: web/admin/edit_idp.php:101
-#, fuzzy
 msgid ""
 "Some properties are valid across all deployment profiles. This is the place "
 "where you can describe those properties in a fine-grained way. The solicited "
 "information is used as follows:"
 msgstr ""
-"Instytucja %s ma szereg własności o charakterze ogólnym, odnoszącym się do "
-"wszystkich tworzonych profili.\n"
-"W tym miejscu możesz opisać szczegółowo swoją instytucję. Informacja ta jest "
-"wykorzystywana następująco:"
+"Szereg własności odnosi się do wszystkich tworzonych profili. W tym miejscu "
+"możesz opisać szczegółowo te własności. Informacja ta jest wykorzystywana "
+"następująco:"
 
 #: web/admin/edit_idp.php:103
 msgid ""
@@ -346,13 +344,13 @@ msgstr ""
 "kontaktu z lokalnym helpdeskiem."
 
 #: web/admin/edit_idp.php:176
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Do you provide helpdesk services for your users? If so, it would be nice if "
 "you would tell us the pointers to this helpdesk."
 msgstr ""
-"Czy instytucja %s oferuje dział pomocy dla użytkowników? Jeśli tak, prosimy "
-"o wskazanie odsyłacza do działu pomocy."
+"Czy jest oferowany dział pomocy dla użytkowników? Jeśli tak, prosimy o "
+"wskazanie odsyłacza do działu pomocy."
 
 #: web/admin/edit_idp.php:178
 msgid ""
@@ -2132,9 +2130,9 @@ msgid "Diagnostics"
 msgstr "Diagnostyka"
 
 #: web/lib/admin/PageDecoration.php:223
-#, fuzzy, php-format
+#, php-format
 msgid "%s Privacy Notice"
-msgstr "Własności %s"
+msgstr "Polityka prywatności %s"
 
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a

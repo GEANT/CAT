@@ -3,17 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Halil Adem <hadem@noc.grnet.gr>, 2018
 # HELPDESK <npapalouka@admin.grnet.gr>, 2015
 # Panos Bouklis <panos@echidna-band.com>, 2012
-# Zenon Mousmoulas <zenon@mousmoulas.gr>, 2015
+# Vicky Kons <vickyk@admin.grnet.gr>, 2016
+# Zenon Mousmoulas <zenon@mousmoulas.gr>, 2015-2016,2018
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
-"PO-Revision-Date: 2015-04-07 16:28+0000\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"PO-Revision-Date: 2018-10-01 09:29+0000\n"
 "Last-Translator: Zenon Mousmoulas <zenon@mousmoulas.gr>\n"
-"Language-Team: Greek (http://www.transifex.com/projects/p/cat/language/el/)\n"
+"Language-Team: Greek (http://www.transifex.com/eduroam_devel/cat/language/"
+"el/)\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,33 +30,36 @@ msgstr "Σφάλμα κατά τη δημιουργία συσχέτισης μ�
 
 #: web/admin/action_enrollment.php:48
 msgid "This page needs to be called with a valid invitation token!"
-msgstr ""
+msgstr "Αυτή η σελίδα χρειάζεται να κληθεί με ένα έγκυρο κουπόνι πρόσκλησης!"
 
 #: web/admin/action_enrollment.php:52
 msgid ""
 "You tried to register in self-service, but this deployment does not allow "
 "self-service!"
 msgstr ""
+"Προσπαθήσατε να εγγραφείτε σε υπηρεσία αυτοεξυπηρέτησης, αλλά αυτή η "
+"εγκατάσταση δεν επιτρέπει υπηρεσία αυτοεξυπηρέτησης!"
 
 #: web/admin/action_enrollment.php:71
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Sorry... this token has already been used. The %s is already created. If you "
 "got the invitation from a mailing list, probably someone else used it before "
 "you."
 msgstr ""
-"Λυπούμαστε, αυτό το token χρησιμοποιήθηκε ήδη για τη δημιουργία ενός "
-"ιδρύματος. Αν το λάβατε από λίστα ταχυδρομείου, πιθανώς να το χρησιμοποίησε "
-"κάποιος άλλος πριν από εσάς."
+"Λυπούμαστε... αυτό το κουπόνι έχει ήδη χρησιμοποιηθεί. Το %s ήδη "
+"δημιουργήθηκε. Αν λάβατε την πρόσκληση από μια λίστα αλληλογραφίας, ίσως "
+"κάποιος άλλος το χρησιμοποίησε πριν από εσάς."
 
 #: web/admin/action_enrollment.php:74
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Sorry... this token has expired. Invitation tokens are valid for 24 hours. "
 "The %s administrator can create a new one for you."
 msgstr ""
-"Λυπούμαστε, αυτό το token έχει λήξει. Τα token πρόσκλησης είναι έγκυρα για "
-"24 ώρες. Παρακαλούμε ζητήστε ένα νέο από τον διαχειριστή της ομοσπονδίας σας."
+"Λυπούμαστε... αυτό το κουπόνι έχει λήξει. Τα κουπόνια πρόσκλησης είναι "
+"έγκυρα για 24 ώρες. Ο διαχειριστής %s μπορεί να δημιουργήσει ένα νέο για "
+"εσάς."
 
 #: web/admin/action_enrollment.php:77
 msgid ""
@@ -67,20 +73,20 @@ msgstr ""
 
 #. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
 #: web/admin/edit_federation.php:34
-#, fuzzy, php-format
+#, php-format
 msgid "%s: Editing %s '%s'"
-msgstr "%s: Γίνεται επεξεργασία του IdP '%s'"
+msgstr "%s: Επεξεργασία του %s '%s'"
 
 #. / nomenclature for federation, then actual federation name
 #: web/admin/edit_federation.php:49
-#, fuzzy, php-format
+#, php-format
 msgid "Editing %s information for '%s'"
-msgstr "Επεξεργασία πληροφοριών IdP για '%s'"
+msgstr "Επεξεργασία πληροφοριών για %s '%s'"
 
 #: web/admin/edit_federation.php:53 web/admin/edit_federation.php:68
-#, fuzzy, php-format
+#, php-format
 msgid "%s Properties"
-msgstr "Ιδιότητες Media"
+msgstr "Ιδιότητες %s"
 
 #: web/admin/edit_federation.php:56 web/admin/edit_idp.php:76
 #: web/lib/admin/UIElements.php:215
@@ -109,12 +115,12 @@ msgstr "Απόρριψη αλλαγών"
 #: web/admin/edit_federation_result.php:31
 #, php-format
 msgid "%s: %s Customisation (submission completed)"
-msgstr ""
+msgstr "%s: Προσαρμογή %s (υποβολή ολοκληρώθηκε)"
 
 #: web/admin/edit_federation_result.php:35
-#, fuzzy, php-format
+#, php-format
 msgid "Submitted attributes for %s '%s'"
-msgstr "Attributes του IdP '%s' που έχουν υποβληθεί"
+msgstr "Attributes που υποβλήθηκαν για %s '%s'"
 
 #: web/admin/edit_federation_result.php:47 web/admin/edit_idp_result.php:144
 #: web/admin/edit_profile_result.php:224
@@ -141,38 +147,37 @@ msgid "Editing IdP information for '%s'"
 msgstr "Επεξεργασία πληροφοριών IdP για '%s'"
 
 #: web/admin/edit_idp.php:73
-#, fuzzy, php-format
+#, php-format
 msgid "%s general properties"
-msgstr "Γενικές ιδιότητες Προφίλ"
+msgstr "γενικές ιδιότητες %s"
 
 #: web/admin/edit_idp.php:92
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hello, newcomer. The %s is new to us. This wizard will ask you several "
 "questions about it, so that we can generate beautiful profiles for you in "
 "the end. All of the information below is optional, but it is important to "
 "fill out as many fields as possible for the benefit of your end users."
 msgstr ""
-"Γεια σου, αρχάριε. Το ίδρυμά σου είναι νέο για εμάς. Αυτός ο\n"
-"οδηγός θα σου κάνει μερικές ερωτήσεις σχετικά με τον IdP σου, έτσι ώστε στο "
-"τέλος να μπορέσουμε να δημιουργήσουμε  όμορφα προφίλ για σένα. Όλες οι "
-"παρακάτω πληροφορίες είναι προαιρετικές, αλλά είναι σημαντικό να "
-"συμπληρώσετε όσο το δυνατόν περισσότερα πεδία\n"
-"προς όφελος των τελικών χρηστών σας."
+"Γεια σας, νεοφερμένε. Το %s είναι νέο για εμάς. Αυτός ο οδηγός θα σας κάνει "
+"μερικές ερωτήσεις σχετικά με αυτό, έτσι ώστε στο τέλος να μπορέσουμε να "
+"δημιουργήσουμε όμορφα προφίλ για σας. Όλες οι παρακάτω πληροφορίες είναι "
+"προαιρετικές, αλλά είναι σημαντικό να συμπληρώσετε όσο το δυνατόν "
+"περισσότερα πεδία προς όφελος των τελικών χρηστών σας."
 
 #: web/admin/edit_idp.php:97
 msgid "General Information"
 msgstr "Γενικές πληροφορίες"
 
 #: web/admin/edit_idp.php:101
-#, fuzzy
 msgid ""
 "Some properties are valid across all deployment profiles. This is the place "
 "where you can describe those properties in a fine-grained way. The solicited "
 "information is used as follows:"
 msgstr ""
-"Αυτό είναι το μέρος όπου μπορείτε να περιγράψετε το ίδρυμά σας με έναν "
-"όμορφα διατυπωμένο τρόπο. Οι ζητούμενες πληροφορίες είναι οι εξής:"
+"Μερικές ιδιότητες βρίσκουν εφαρμογή σε όλα τα προφίλ. Σε αυτή την ενότητα "
+"μπορείτε να περιγράψετε αυτές τις ιδιότητες με λεπτομέρεια. Οι ζητούμενες "
+"πληροφορίες χρησιμοποιούνται ως εξής:"
 
 #: web/admin/edit_idp.php:103
 msgid ""
@@ -195,6 +200,10 @@ msgid ""
 "is used as a fallback if the system does not have a name in the exact "
 "language the user requests a download in."
 msgstr ""
+"<strong>Όνομα</strong>: Το %s μπορεί να ονοματίζεται σε περισσότερες "
+"γλώσσες. Προτείνεται να συμπληρώνεται πάντα τουλάχιστον η γλώσσα 'προεπιλογή/"
+"άλλο', καθώς χρησιμοποιείται ως εφεδρεία εφόσον το σύστημα δε διαθέτει ένα "
+"όνομα στη γλώσσα στην οποία ο χρήστης ζητά μεταφόρτωση."
 
 #: web/admin/edit_idp.php:115 web/lib/admin/UIElements.php:229
 msgid "Media Properties"
@@ -333,19 +342,20 @@ msgid ""
 "This section can be used to upload specific Terms of Use for your users and "
 "to display details of how your users can reach your local helpdesk."
 msgstr ""
+"Αυτή η ενότητα μπορεί να χρησιμοποιηθεί για να φορτώσετε συγκεκριμένους "
+"Κανόνες Χρήσης για τους χρήστες σας και για να εμφανίσετε λεπτομέρειες πώς "
+"οι χρήστες μπορούν να έρθουν σε επαφή με το τοπικό γραφείο αρωγής."
 
 #: web/admin/edit_idp.php:176
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Do you provide helpdesk services for your users? If so, it would be nice if "
 "you would tell us the pointers to this helpdesk."
 msgstr ""
-"Αν ο IdP σας παρέχει κάποιο helpdesk για τους χρήστες του, θα ήταν ωραία αν "
-"μας λέγατε ποιο είναι αυτό. Μερικά δικτυακά πακέτα εγκατάστασης ίσως να "
-"μπορούν να δώσουν αυτή την πληροφορία στο χρήστη αν κολλήσει κάπου."
+"Παρέχετε υπηρεσίες γραφείου αρωγής για τους χρήστες σας; Εάν ναι, θα ήταν "
+"καλό να μας δώσετε δείκτες προς αυτό."
 
 #: web/admin/edit_idp.php:178
-#, fuzzy
 msgid ""
 "If you enter a value here, it will be added to the installers for all your "
 "users, and will be displayed on the download page. If you operate separate "
@@ -353,27 +363,30 @@ msgid ""
 "profile helpdesk information later in this wizard. If you operate no help "
 "desk at all, just leave these fields empty."
 msgstr ""
-"Αν εισάγετε μία τιμή εδώ, αυτή θα προστεθεί στα δικτυακά πακέτα \n"
-"εγκατάστασης για όλους τους χρήστες σας, και θα εμφανίζεται στη \n"
-"σελίδα λήψης. Αν διατηρείτε ξεχωριστά helpdesk για διαφορετικές ομάδες "
-"χρηστών (αυτά τα αποκαλούμε 'προφίλ'), ή δεν διατηρείτε κανένα helpdesk "
-"(ντροπή σας!), μπορείτε να αφήσετε κενό οποιοδήποτε πεδίο από αυτά και να "
-"ορίσετε προαιρετικά πληροφορίες για helpdesk ανά προφίλ αργότερα μέσω αυτού "
-"του οδηγού."
+"Αν εισάγετε μία τιμή εδώ, αυτή θα προστεθεί στα πακέτα εγκατάστασης για "
+"όλους τους χρήστες σας, και θα εμφανίζεται στη σελίδα λήψης. Αν διατηρείτε "
+"ξεχωριστά γραφεία αρωγής για διαφορετικές ομάδες χρηστών (αυτό το αποκαλούμε "
+"'προφίλ'), ορίστε πληροφορίες για το γραφείο αρωγής σε κάθε προφίλ αργότερα "
+"σε αυτό τον οδηγό. Αν δε διατηρείτε κανένα γραφείο αρωγής, απλά αφήστε κενά "
+"αυτά τα πεδία."
 
 #: web/admin/edit_idp.php:180
 #, php-format
 msgid ""
 "For %s deployments, providing at least a local e-mail contact is required."
 msgstr ""
+"Για εγκαταστάσεις %s, απαιτείται η παροχή τουλάχιστον μίας τοπικής επαφής e-"
+"mail."
 
 #: web/admin/edit_idp.php:180 web/admin/edit_idp.php:183
 msgid "This is the contact point for your end users' level 1 support."
 msgstr ""
+"Αυτό είναι το σημείο επαφής για την υποστήριξη επιπέδου 1 των τελικών "
+"χρηστών σας."
 
 #: web/admin/edit_idp.php:183
 msgid "Providing at least a local support e-mail contact is required."
-msgstr ""
+msgstr "Απαιτείται η παροχή τουλάχιστον μίας τοπικής επαφής e-mail."
 
 #: web/admin/edit_idp.php:193
 #, php-format
@@ -431,9 +444,9 @@ msgstr ""
 "ούτε οι ενσύρματες διεπαφές έχουν επιλεγεί ως στόχος!"
 
 #: web/admin/edit_idp_result.php:133
-#, fuzzy, php-format
+#, php-format
 msgid "Continue to %s properties"
-msgstr "Συνέχεια στη σελίδα επισκόπησης χρηστών"
+msgstr "Συνεχίστε στις ιδιότητες %s"
 
 #: web/admin/edit_idp_result.php:136
 #, php-format
@@ -442,16 +455,17 @@ msgid ""
 "the %s dashboard and edit your helpdesk settings to include a helpdesk e-"
 "mail address."
 msgstr ""
+"Δεν υποβάλατε μια διεύθυνση e-mail. Αυτό απαιτείται για %s. Παρακαλούμε "
+"πηγαίνετε στο πίνακα ελέγχου %s και επεξεργαστείτε τα στοιχεία γραφείου "
+"αρωγής ώστε να περιλαμβάνουν μια διεύθυνση e-mail."
 
 #: web/admin/edit_idp_result.php:136
-#, fuzzy
 msgid "No support e-mail!"
-msgstr "Υποστήριξη: E-Mail"
+msgstr "Δεν υπάρχει διεύθυνση e-mail για υποστήριξη!"
 
 #: web/admin/edit_idp_result.php:141
-#, fuzzy
 msgid "Continue to RADIUS/EAP profile definition"
-msgstr "Συνέχεια στον ορισμό προφίλ"
+msgstr "Προχωρήστε σε ορισμό προφίλ RADIUS/EAP"
 
 #: web/admin/edit_profile.php:25
 #, php-format
@@ -534,27 +548,27 @@ msgid "Realm:"
 msgstr "Τομέας:"
 
 #: web/admin/edit_profile.php:192
-#, fuzzy
 msgid "Realm Options"
-msgstr "Καθολικές Επιλογές EAP"
+msgstr "Επιλογές Τομέα"
 
 #: web/admin/edit_profile.php:196
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Some installers support a feature called 'Anonymous outer identity'. If you "
 "don't know what this is, please read <a href='%s'>this article</a>."
 msgstr ""
 "Κάποια πακέτα εγκατάστασης υποστηρίζουν μία λειτουργία με την ονομασία "
-"'Ανώνυμες εξωτερικές ταυτότητες'. Αν δεν γνωρίζετε τι είναι, παρακαλούμε "
-"διαβάστε <a href='%s'>αυτό το άρθρο</a>. Θέλετε να δημιουργήσουμε πακέτα "
-"εγκατάστασης με διαθέσιμες τις ανώνυμες εξωτερικές ταυτότητες; Πρέπει να "
-"συμπληρώσετε το πεδίο 'Τομέας' για να δουλέψει αυτή η λειτουργία."
+"'Ανώνυμες εξωτερικές ταυτότητες'. Αν δεν γνωρίζετε τι είναι αυτό, "
+"παρακαλούμε διαβάστε <a href='%s'>αυτό το άρθρο</a>."
 
 #: web/admin/edit_profile.php:197
 msgid ""
 "On some platforms, the installers can suggest username endings and/or verify "
 "the user input to contain the realm suffix."
 msgstr ""
+"Σε κάποιες πλατφόρμες, τα πακέτα εγκατάστασης μπορούν να προτείνουν "
+"καταλήξεις για το όνομα χρήστη ή/και να επαληθεύουν ότι τα δεδομένα εισόδου "
+"χρήστη περιέχουν τον τομέα ως επίθεμα."
 
 #: web/admin/edit_profile.php:198
 msgid ""
@@ -563,14 +577,19 @@ msgid ""
 "pass, it is useful to supply the inforamtion which of those (outer ID) "
 "username we can use for testing."
 msgstr ""
+"Η λειτουργία ελέγχου τομέα χρειάζεται να ξέρει μια εξωτερική ταυτότητα η "
+"οποία πραγματιστικά μπορεί να χρησιμοποιηθεί για ταυτοποίηση. Αν ο "
+"εξυπηρετητής RADIUS επιτρέπει την πρόσβαση μόνο με επιλεγμένα ονόματα "
+"χρήστη, είναι χρήσιμο να παρέχετε την πληροφορία ποια από αυτά τα ονόματα "
+"χρήστη μπορούμε να χρησιμοποιήσουμε (ως εξωτερική ταυτότητα) για δοκιμή."
 
 #: web/admin/edit_profile.php:210
 msgid "Verify user input to contain realm suffix:"
-msgstr ""
+msgstr "Επαλήθευση ότι τα δεδομένα εισόδου χρήστη περιέχουν επίθεμα τομέα:"
 
 #: web/admin/edit_profile.php:224
 msgid "Prefill user input with realm suffix:"
-msgstr ""
+msgstr "Προσυμπλήρωση δεδομένων εισόδου χρήστη με επίθεμα τομέα:"
 
 #: web/admin/edit_profile.php:234
 msgid "Enable Anonymous Outer Identity:"
@@ -578,7 +597,7 @@ msgstr "Ενεργοποίηση Ανώνυμης Εξωτερικής Ταυτ�
 
 #: web/admin/edit_profile.php:253
 msgid "Use special Outer Identity for realm checks:"
-msgstr ""
+msgstr "Χρήση ειδικής Εξωτερικής Ταυτότητας για ελέγχους τομέα:"
 
 #: web/admin/edit_profile.php:270
 msgid "Installer Download Location"
@@ -662,9 +681,8 @@ msgid "EAP Details for this profile"
 msgstr "Λεπτομέρειες EAP για αυτό το προφίλ"
 
 #: web/admin/edit_profile.php:449
-#, fuzzy
 msgid "Media Properties for this profile"
-msgstr "Λεπτομέρειες Helpdesk για αυτό το προφίλ"
+msgstr "Ιδιότητες Media για αυτό το προφίλ"
 
 #: web/admin/edit_profile.php:457
 #, php-format
@@ -738,29 +756,27 @@ msgid "OFF"
 msgstr "OFF"
 
 #: web/admin/edit_profile_result.php:143 web/admin/edit_profile_result.php:155
-#, fuzzy
 msgid "Realm check username cannot be configured: realm is missing!"
 msgstr ""
-"Οι Ανώνυμες Εξωτερικές Ταυτότητες δεν μπορούν να ενεργοποιηθούν: λείπει ο "
-"τομέας!"
+"Όνομα χρήστη για έλεγχο τομέα δεν μπορεί να ρυθμιστεί: ο τομέας λείπει!"
 
 #: web/admin/edit_profile_result.php:146
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Special username for realm check is <strong>%s</strong>, the value is "
 "<strong>%s</strong>"
 msgstr ""
-"Η υποστήριξη Ανώνυμης Ταυτότητας είναι <strong>%s</strong>, η ανώνυμη "
-"εξωτερική ταυτότητα είναι <strong>%s</strong>"
+"Ειδικό όνομα χρήστη για έλεγχο τομέα είναι <strong>%s</strong>, η τιμή είναι "
+"<strong>%s</strong>"
 
 #: web/admin/edit_profile_result.php:150
 msgid "No special username for realm checks is configured."
-msgstr ""
+msgstr "Δεν έχει οριστεί ειδικό όνομα χρήστη για ελέγχους τομέα."
 
 #: web/admin/edit_profile_result.php:159
 #, php-format
 msgid "and the input field will be prefilled with '<strong>@%s</strong>'."
-msgstr ""
+msgstr "και το πεδίο εισόδου θα προσυμπληρωθεί με '<strong>@%s</strong>'."
 
 #: web/admin/edit_profile_result.php:163
 #, php-format
@@ -768,6 +784,8 @@ msgid ""
 "Where possible, username inputs will be <strong>verified to end with @%s</"
 "strong>%s"
 msgstr ""
+"Όπου είναι δυνατό, τα δεδομένα εισόδου χρήστη για όνομα χρήστη θα  "
+"<strong>επαληθεύεται ότι λήγουν σε @%s</strong>%s"
 
 #: web/admin/edit_profile_result.php:173
 msgid "Redirection can't be activated - you did not specify a target location!"
@@ -780,6 +798,8 @@ msgid ""
 "Redirection can't be activated - the target needs to be a complete URL "
 "staring with http:// or https:// !"
 msgstr ""
+"Η ανακατεύθυνση δεν μπορεί να ενεργοποιηθεί - ο προορισμός πρέπει να είναι "
+"ένα πλήρες URL που ξεκινά με http:// ή https:// !"
 
 #: web/admin/edit_profile_result.php:181
 msgid "Redirection is <strong>OFF</strong>"
@@ -812,7 +832,7 @@ msgstr "Συνέχεια με την Τελειοποίηση του Πακέτ�
 
 #: web/admin/edit_silverbullet.php:205
 msgid "Insecure mail domain!"
-msgstr ""
+msgstr "Μη ασφαλής τομέας mail!"
 
 #: web/admin/edit_silverbullet.php:206
 #, php-format
@@ -821,194 +841,190 @@ msgid ""
 "or all of the mail servers are not accepting encrypted connections (no "
 "consistent support for STARTTLS)."
 msgstr ""
+"Ο τομέας mail για τη διεύθυνση mail <strong>%s</strong> δεν είναι ασφαλής: "
+"κάποιοι ή όλοι οι εξυπηρετητές mail δε δέχονται κρυπτογραφημένες συνδέσεις "
+"(όχι σταθερή υποστήριξη για STARTTLS)."
 
 #: web/admin/edit_silverbullet.php:207
 msgid ""
 "The invitation would need to be sent in cleartext across the internet, and "
 "can possibly be read and abused by anyone in transit."
 msgstr ""
+"Η πρόσκληση θα χρειαζόταν να σταλεί σε καθαρό κείμενο μέσω του διαδικτύου, "
+"οπότε πιθανώς θα μπορούσε να υπάρξει κατάχρηση από οποιονδήποτε μπορούσε να "
+"τη διαβάσει στην πορεία."
 
 #: web/admin/edit_silverbullet.php:208
 msgid "Do you want the system to send this mail anyway?"
-msgstr ""
+msgstr "Θέλετε το σύστημα να στείλει αυτό το mail ούτως ή άλλως;"
 
 #: web/admin/edit_silverbullet.php:210
 msgid "DO NOT SEND"
-msgstr ""
+msgstr "ΝΑ ΜΗ ΣΤΑΛΕΙ"
 
 #: web/admin/edit_silverbullet.php:217
 msgid "Send anyway."
-msgstr ""
+msgstr "Να σταλεί όπως και να έχει."
 
 #: web/admin/edit_silverbullet.php:267
 #, php-format
 msgid "Managing %s users"
-msgstr ""
+msgstr "Διαχείριση χρηστών %s"
 
 #: web/admin/edit_silverbullet.php:303
-#, fuzzy, php-format
+#, php-format
 msgid "Current %s users"
-msgstr "Τρέχοντα Attributes Χρήστη"
+msgstr "Τρέχοντες χρήστες %s"
 
 #: web/admin/edit_silverbullet.php:306
 msgid "Assigned Realm"
-msgstr ""
+msgstr "Καθορισμένος Τομέας"
 
 #: web/admin/edit_silverbullet.php:309
 msgid "Total number of active users allowed"
-msgstr ""
+msgstr "Συνολικός αριθμός ενεργών χρηστών που επιτρέπεται"
 
 #: web/admin/edit_silverbullet.php:312
 msgid "Number of active users"
-msgstr ""
+msgstr "Αριθμός ενεργών χρηστών"
 
 #: web/admin/edit_silverbullet.php:315
 msgid "Number of inactive users"
-msgstr ""
+msgstr "Αριθμός ανενεργών χρηστών"
 
 #: web/admin/edit_silverbullet.php:325
-#, fuzzy
 msgid "The e-mail was sent successfully."
-msgstr "Το email πρόσκλησης στάλθηκε με επιτυχία."
+msgstr "Το e-mail στάλθηκε με επιτυχία."
 
 #: web/admin/edit_silverbullet.php:325
 msgid "E-mail OK."
-msgstr ""
+msgstr "E-mail ΟΚ."
 
 #: web/admin/edit_silverbullet.php:328
-#, fuzzy
 msgid "The e-mail was NOT sent."
-msgstr "Το email πρόσκλησης στάλθηκε."
+msgstr "To e-mail ΔΕ στάλθηκε."
 
 #: web/admin/edit_silverbullet.php:328
 msgid "E-mail not OK."
-msgstr ""
+msgstr "E-mail όχι ΟΚ."
 
 #: web/admin/edit_silverbullet.php:331
-#, fuzzy
 msgid "The SMS was sent successfully."
-msgstr "Το email πρόσκλησης στάλθηκε με επιτυχία."
+msgstr "Το SMS στάλθηκε με επιτυχία."
 
 #: web/admin/edit_silverbullet.php:331
 msgid "SMS OK."
-msgstr ""
+msgstr "SMS ΟΚ."
 
 #: web/admin/edit_silverbullet.php:334
 msgid "The SMS was NOT sent."
-msgstr ""
+msgstr "Το SMS ΔΕ στάλθηκε."
 
 #: web/admin/edit_silverbullet.php:334
 msgid "SMS not OK."
-msgstr ""
+msgstr "SMS όχι ΟΚ."
 
 #: web/admin/edit_silverbullet.php:337
 msgid "Only a fragment of the SMS was sent. You should re-send it."
-msgstr ""
+msgstr "Μόνο ένα τμήμα του SMS στάλθηκε. Θα πρέπει να το ξαναστείλετε."
 
 #: web/admin/edit_silverbullet.php:337
 msgid "SMS Fragment."
-msgstr ""
+msgstr "Τμήμα SMS."
 
 #: web/admin/edit_silverbullet.php:345
 #, php-format
 msgid "Manage %s users"
-msgstr ""
+msgstr "Διαχειριστείτε χρήστες %s"
 
 #: web/admin/edit_silverbullet.php:350 web/admin/overview_federation.php:116
 msgid "User"
-msgstr ""
+msgstr "Χρήστης"
 
 #: web/admin/edit_silverbullet.php:351
-#, fuzzy
 msgid "Token/Certificate details"
-msgstr "Λεπτομέρειες πιστοποιητικού εξυπηρετητή"
+msgstr "Λεπτομέρειες κουπονιού/πιστοποιητικού"
 
 #: web/admin/edit_silverbullet.php:352
 msgid "User/Token Expiry"
-msgstr ""
+msgstr "Λήξη χρήστη/κουπονιού"
 
 #: web/admin/edit_silverbullet.php:353
-#, fuzzy
 msgid "Actions"
-msgstr "Τοποθεσία"
+msgstr "Ενέργειες"
 
 #: web/admin/edit_silverbullet.php:382
 msgid "REVOKED"
-msgstr ""
+msgstr "ΑΝΑΚΛΗΘΗΚΕ"
 
 #: web/admin/edit_silverbullet.php:387
 msgid "EXPIRED"
-msgstr ""
+msgstr "ΕΛΗΞΕ"
 
 #: web/admin/edit_silverbullet.php:398
-#, fuzzy
 msgid "Device:"
-msgstr "Συσκευή"
+msgstr "Συσκευή:"
 
 #: web/admin/edit_silverbullet.php:399
-#, fuzzy
 msgid "Serial Number:"
-msgstr "Σειριακός αριθμός:"
+msgstr "Σειριακός Αριθμός:"
 
 #: web/admin/edit_silverbullet.php:400
 msgid "CN:"
-msgstr ""
+msgstr "CN:"
 
 #: web/admin/edit_silverbullet.php:401
 msgid "Expiry:"
-msgstr ""
+msgstr "Λήξη:"
 
 #: web/admin/edit_silverbullet.php:402
-#, fuzzy
 msgid "Issued:"
-msgstr "Εκδότης:"
+msgstr "Εκδόθηκε:"
 
 #: web/admin/edit_silverbullet.php:409
 msgid "Revoke"
-msgstr ""
+msgstr "Ανάκληση"
 
 #: web/admin/edit_silverbullet.php:440
 msgid "Local mail client"
-msgstr ""
+msgstr "Τοπικό πρόγραμμα mail"
 
 #: web/admin/edit_silverbullet.php:448
 msgid "Send in SMS..."
-msgstr ""
+msgstr "Αποστολή με SMS..."
 
 #: web/admin/edit_silverbullet.php:452
 msgid "Copy to Clipboard"
-msgstr ""
+msgstr "Αντιγραφή στο Πρόχειρο"
 
 #: web/admin/edit_silverbullet.php:455
 msgid "Display QR code"
-msgstr ""
+msgstr "Εμφάνιση QR code"
 
 #: web/admin/edit_silverbullet.php:462
 msgid "Expiry Date:"
-msgstr ""
+msgstr "Ημερομηνία Λήξης:"
 
 #: web/admin/edit_silverbullet.php:462
 msgid "Activations remaining:"
-msgstr ""
+msgstr "Ενεργοποιήσεις που απομένουν:"
 
 #: web/admin/edit_silverbullet.php:462
 #, php-format
 msgid "%d of %d"
-msgstr ""
+msgstr "%d από %d"
 
 #: web/admin/edit_silverbullet.php:498
 msgid "Deactivate User"
-msgstr ""
+msgstr "Αεπενεργοποίηση Χρήστη"
 
 #: web/admin/edit_silverbullet.php:506
-#, fuzzy
 msgid "New Invitation"
-msgstr "Ανάκληση Πρόσκλησης"
+msgstr "Νέα Πρόσκληση"
 
 #: web/admin/edit_silverbullet.php:509
-#, fuzzy
 msgid "Activations:"
-msgstr "Τοποθεσία"
+msgstr "Ενεργοποιήσεις:"
 
 #: web/admin/edit_silverbullet.php:530
 #, php-format
@@ -1019,51 +1035,61 @@ msgid ""
 "stale, please deactivate them by pushing the corresponding button before "
 "doing this."
 msgstr ""
+"Πρέπει να επιβεβαιώσετε ότι οι λογαριασμοί που δημιουργήθηκαν παραμένουν σε "
+"ισχύ μέσα στις επόμενες %s ημέρες. Αν όλοι οι λογαριασμοί που εμφανίζονται "
+"παρακάτω ως ενεργοί είναι όντως ακόμα σε ισχύ, παρακαλώ επιλέξτε το πλαίσιο "
+"ελέγχου και πατήστε \"Αποθήκευση\". Αν οποιοιδήποτε από τους λογαριασμούς "
+"δεν ισχύουν πια, παρακαλώ απενεργοποιήστε τους πατώντας το αντίστοιχο κουμπί "
+"πριν κάνετε την επιβεβαίωση."
 
 #: web/admin/edit_silverbullet.php:538
 #, php-format
 msgid "I have verified that all configured users are still eligible for %s."
 msgstr ""
+"Έχω επαληθεύσει ότι όλοι οι ρυθμισμένοι χρήστες είναι ακόμα επιλέξιμοι για "
+"%s."
 
 #: web/admin/edit_silverbullet.php:550 web/admin/edit_silverbullet.php:568
-#, fuzzy
 msgid "Add new user"
-msgstr "Προσθήκη νέας επιλογής"
+msgstr "Προσθήκη νέου χρήστη"
 
 #: web/admin/edit_silverbullet.php:553
 msgid "Import users from CSV file"
-msgstr ""
+msgstr "Εισαγωγή χρηστών από αρχείο CSV"
 
 #: web/admin/edit_silverbullet.php:560
 msgid ""
 "Please enter a username of your choice and user expiry date to create a new "
 "user:"
 msgstr ""
+"Παρακαλώ εισάγετε ένα όνομα χρήστη της επιλογής σας και ημερομηνία λήξης για "
+"να δημιουργήσετε ένα νέο χρήστη:"
 
 #: web/admin/edit_silverbullet.php:577
 msgid ""
 "Comma separated values should be provided in CSV file: username, expiration "
 "date 'yyyy-mm-dd', number of tokens (optional):"
 msgstr ""
+"Τιμές διαχωρισμένες με κόμμα θα πρέπει να παρέχονται στο αρχείο CSV: όνομα "
+"χρήστη, ημερομηνία λήξης 'yyyy-mm-dd', αριθμός κουπονιών (προαιρετικό):"
 
 #: web/admin/edit_silverbullet.php:581
-#, fuzzy
 msgid "Import users"
-msgstr "άλλος χρήστης"
+msgstr "Εισαγωγή χρηστών"
 
 #. Appending terms of use popup
 #: web/admin/edit_silverbullet.php:598
-#, fuzzy, php-format
+#, php-format
 msgid "%s - Terms of Use"
-msgstr "Όροι χρήσης"
+msgstr "%s - Όροι Χρήσης"
 
 #: web/admin/edit_silverbullet.php:605
 msgid "I have read and agree to the terms."
-msgstr ""
+msgstr "Έχω διαβάσει και συμφωνώ με τους όρους."
 
 #: web/admin/edit_silverbullet.php:607
 msgid "Continue"
-msgstr ""
+msgstr "Συνέχεια"
 
 #: web/admin/edit_user.php:17 web/admin/edit_user.php:26
 msgid "Editing User Attributes"
@@ -1112,14 +1138,14 @@ msgstr ""
 "φυλλομετρητή σας."
 
 #: web/admin/overview_federation.php:17
-#, fuzzy, php-format
+#, php-format
 msgid "%s: %s Management"
-msgstr "%s: Διαχείριση Χρηστών"
+msgstr "%s: Διαχείριση %s"
 
 #: web/admin/overview_federation.php:30 web/admin/overview_idp.php:50
-#, fuzzy, php-format
+#, php-format
 msgid "%s Overview"
-msgstr "Επισκόπηση Χρηστών"
+msgstr "Επισκόπηση %s"
 
 #: web/admin/overview_federation.php:34 web/admin/overview_user.php:38
 msgid "Your Personal Information"
@@ -1134,14 +1160,14 @@ msgid "click to display"
 msgstr "κλικ για εμφάνιση"
 
 #: web/admin/overview_federation.php:54
-#, fuzzy, php-format
+#, php-format
 msgid "You are not a %s manager."
-msgstr "Δεν είστε ο διαχειριστής κάποιας ομοσπονδίας."
+msgstr "Δεν είστε διαχειριστής %s."
 
 #: web/admin/overview_federation.php:65
-#, fuzzy, php-format
+#, php-format
 msgid "%s Properties: %s"
-msgstr "Γενικές Ιδιότητες Ιδρύματος"
+msgstr "Ιδιότητες %s: %s"
 
 #: web/admin/overview_federation.php:71
 msgid "Country"
@@ -1150,38 +1176,36 @@ msgstr "Χώρα"
 #: web/admin/overview_federation.php:95
 #, php-format
 msgid "%s Statistics: %s"
-msgstr ""
+msgstr "Στατιστικά %s: %s"
 
 #: web/admin/overview_federation.php:100
 msgid "IdPs Total"
-msgstr ""
+msgstr "Σύνολο IdPs"
 
 #: web/admin/overview_federation.php:101
-#, fuzzy
 msgid "Public Download"
-msgstr "Λήψη"
+msgstr "Δημόσια Λήψη"
 
 #: web/admin/overview_federation.php:113
-#, fuzzy
 msgid "Downloads"
-msgstr "Λήψη"
+msgstr "Λήψεις"
 
 #: web/admin/overview_federation.php:114
 msgid "Admin"
-msgstr ""
+msgstr "Διαχειριστής"
 
 #: web/admin/overview_federation.php:137 web/admin/inc/manageAdmins.inc.php:95
 msgid "and <b>encrypted</b> to the mail domain"
-msgstr ""
+msgstr "και <b>κρυπτογραφημένο</b> στον τομέα mail"
 
 #: web/admin/overview_federation.php:140 web/admin/inc/manageAdmins.inc.php:98
 msgid "but <b>in clear text</b> to the mail domain"
-msgstr ""
+msgstr "αλλά <b>σε καθαρό κείμενο</b> στον τομέα mail"
 
 #: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:103
-#, fuzzy, php-format
+#, php-format
 msgid "The invitation email was sent successfully %s."
-msgstr "Το email πρόσκλησης στάλθηκε με επιτυχία."
+msgstr "Το email πρόσκλησης στάλθηκε με επιτυχία %s."
 
 #: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:103
 msgid "The invitation email was sent."
@@ -1193,9 +1217,10 @@ msgid "The invitation email could not be sent!"
 msgstr "Δεν ήταν δυνατή η αποστολή του email πρόσκλησης!"
 
 #: web/admin/overview_federation.php:151 web/admin/inc/manageAdmins.inc.php:109
-#, fuzzy
 msgid "The invitation email address was malformed, no invitation was sent!"
-msgstr "Δεν ήταν δυνατή η αποστολή του email πρόσκλησης!"
+msgstr ""
+"Η διεύθυνση email για την πρόσκληση ήταν εσφαλμένη, καμία πρόσκληση δε "
+"στάλθηκε!"
 
 #: web/admin/overview_federation.php:154
 msgid "Error: unknown result code of invitation!?!"
@@ -1208,7 +1233,7 @@ msgstr "Άγνωστο αποτέλεσμα!"
 #: web/admin/overview_federation.php:159
 #, php-format
 msgid "Need help? Refer to the <a href='%s'>%s manual</a>"
-msgstr ""
+msgstr "Χρειάζεστε βοήθεια; Ανατρέξτε στο <a href='%s'>εγχειρίδιο %s</a>"
 
 #: web/admin/overview_federation.php:167
 msgid "Deployment Status"
@@ -1217,9 +1242,9 @@ msgstr "Κατάσταση Ανάπτυξης"
 #: web/admin/overview_federation.php:168 web/admin/overview_user.php:103
 #: web/admin/inc/manageDBLink.inc.php:149 web/lib/admin/UIElements.php:83
 #: web/lib/admin/UIElements.php:111
-#, fuzzy, php-format
+#, php-format
 msgid "%s Name"
-msgstr "Όνομα Ιδρύματος"
+msgstr "Όνομα %s"
 
 #: web/admin/overview_federation.php:174
 #, php-format
@@ -1234,7 +1259,7 @@ msgstr "Έλεγχος Διαχειριστών"
 #: web/admin/overview_federation.php:189
 #, php-format
 msgid "The following %s are in your %s %s:"
-msgstr ""
+msgstr "Οι ακόλουθοι %s είναι στην %s %s σας:"
 
 #: web/admin/overview_federation.php:225
 msgid "Manage DB Link"
@@ -1253,18 +1278,18 @@ msgid "Add/Remove Administrators"
 msgstr "Προσθήκη/Αφαίρεση Διαχειριστών"
 
 #: web/admin/overview_federation.php:263
-#, fuzzy, php-format
+#, php-format
 msgid "Pending invitations in the %s:"
-msgstr "Προσκλήσεις σε αναμονή για την ομοσπονδία σας:"
+msgstr "Προσκλήσεις σε εκκρεμότητα στο %s:"
 
 #: web/admin/overview_federation.php:280
 msgid "Revoke Invitation"
 msgstr "Ανάκληση Πρόσκλησης"
 
 #: web/admin/overview_federation.php:299
-#, fuzzy, php-format
+#, php-format
 msgid "Register a new %s!"
-msgstr "Καταχώρηση Νέου Ιδρύματος!"
+msgstr "Καταχωρίστε ένα νέο %s!"
 
 #: web/admin/overview_idp.php:28
 #, php-format
@@ -1272,54 +1297,54 @@ msgid "%s: IdP Dashboard"
 msgstr "%s: Πίνακας Ελέγχου IdP"
 
 #: web/admin/overview_idp.php:52
-#, fuzzy, php-format
+#, php-format
 msgid "%s general settings"
-msgstr "Ρυθμίσεις ολόκληρου IdP"
+msgstr "γενικές ρυθμίσεις %s"
 
 #: web/admin/overview_idp.php:57
-#, fuzzy, php-format
+#, php-format
 msgid "%s download area QR code"
-msgstr "Περιοχή Λήψης QR Code Ιδρύματος"
+msgstr "QR code για περιοχή μεταφόρτωσης %s"
 
 #: web/admin/overview_idp.php:86
-#, fuzzy, php-format
+#, php-format
 msgid "Edit general %s details"
-msgstr "Επεξεργασία Λεπτομερειών Χρήστη"
+msgstr "Επεξεργαστείτε τις γενικές λεπτομέρειες %s"
 
 #: web/admin/overview_idp.php:91
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "After deleting the %s, you can not recreate it yourself - you need a new "
 "invitation token from the %s administrator!"
 msgstr ""
-"Αφού διαγράψετε τον IdP, δεν μπορείτε να τον δημιουργήσετε εκ νέου μόνοι σας "
-"- χρειάζεστε ένα νέο κουπόνι πρόσκλησης από τον διαχειριστή της ομοσπονδίας!"
+"Αφού διαγράψετε το %s, δεν μπορείτε να το ξαναδημιουργήσετε μόνοι σας - "
+"χρειάζεται νέο κουπόνι πρόσκλησης από το διαχειριστή %s!"
 
 #: web/admin/overview_idp.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Do you really want to delete your %s %s?"
-msgstr "Θέλετε πραγματικά να διαγράψετε τον IdP %s?"
+msgstr "Θέλετε όντως να διαγράψετε το %s %s σας;"
 
 #: web/admin/overview_idp.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Delete %s"
-msgstr "Διαγραφή"
+msgstr "Διαγραφή %s"
 
 #: web/admin/overview_idp.php:97
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This action will delete all properties of the %s and start over the "
 "configuration from scratch. Do you really want to reset all settings of the "
 "%s %s?"
 msgstr ""
-"Αυτή η ενέργεια θα διαγράψει όλες τις ιδιότητες του IdP σας και θα ξεκινήσει "
-"την ρύθμιση από την αρχή. Θέλετε πραγματικά να επαναφέρετε όλες τις "
-"ρυθμίσεις του %s IdP σας;"
+"Αυτή η ενέργεια θα διαγράψετε όλες τις παραμέτρους του %s και θα επαναλάβει "
+"τη διαδικασία ρύθμισης από την αρχή. Θέλετε όντως να επαναφέρετε όλες τις "
+"ρυθμίσεις του %s %s;"
 
 #: web/admin/overview_idp.php:97
-#, fuzzy, php-format
+#, php-format
 msgid "Reset all %s settings"
-msgstr "Επαναφορά όλων των ρυθμίσεων του IdP"
+msgstr "Επαναφορά όλων των ρυθμίσεων %s"
 
 #: web/admin/overview_idp.php:107
 msgid "Available Support actions"
@@ -1336,21 +1361,21 @@ msgstr "Πάμε!"
 
 #. SW: APPROVED
 #: web/admin/overview_idp.php:122
-#, fuzzy, php-format
+#, php-format
 msgid "Check %s server status"
-msgstr "Έλεγχος κατάστασης εξυπηρετητή στις Ευρωπαϊκές ομοσπονδίες"
+msgstr "Έλεγχος κατάστασης εξυπηρετητή %s"
 
 #. no profiles yet.
 #: web/admin/overview_idp.php:136
-#, fuzzy, php-format
+#, php-format
 msgid "There are not yet any profiles for your %s."
-msgstr "Δεν υπάρχουν ακόμη προφίλ για το ίδρυμά σας."
+msgstr "Δεν υπάρχει κανένα προφίλ για το %s σας."
 
 #. no profiles yet.
 #: web/admin/overview_idp.php:139
-#, fuzzy, php-format
+#, php-format
 msgid "Profiles for this %s"
-msgstr "Προφίλ για αυτό το ίδρυμα"
+msgstr "Προφίλ γι αυτό το %s"
 
 #: web/admin/overview_idp.php:162 web/admin/overview_idp.php:221
 msgid "Information needed!"
@@ -1362,10 +1387,12 @@ msgid ""
 "You can create up to %d users. Their credentials will carry the name <strong>"
 "%s</strong>."
 msgstr ""
+"Μπορείτε να δημιουργήσετε μέχρι %d χρήστες. Τα διαπιστευτήριά τους θα φέρουν "
+"το όνομα <strong>%s</strong>."
 
 #: web/admin/overview_idp.php:179
 msgid "Manage User Base"
-msgstr ""
+msgstr "Διαχείριση Βάσης Χρηστών"
 
 #: web/admin/overview_idp.php:187 web/admin/overview_idp.php:325
 msgid "User Downloads"
@@ -1380,9 +1407,8 @@ msgid "OK"
 msgstr "OK"
 
 #: web/admin/overview_idp.php:237
-#, fuzzy
 msgid "Options on EAP Method/Device level are in effect."
-msgstr "Η αντικατάσταση επιλογής στο επίπεδο μεθόδου EAP είναι ενεργή"
+msgstr "Είναι ενεργές επιλογές σε επίπεδο Μεθόδου EAP/Συσκευής."
 
 #: web/admin/overview_idp.php:247
 msgid "Option override on profile level is in effect."
@@ -1446,14 +1472,13 @@ msgid "User Download Link"
 msgstr "Σύνδεσμος Λήψης Χρηστών"
 
 #: web/admin/overview_idp.php:354
-#, fuzzy, php-format
+#, php-format
 msgid "Add %s profile ..."
-msgstr "Προσθήκη νέου προφίλ ..."
+msgstr "Προσθήκη προφίλ %s..."
 
 #: web/admin/overview_idp.php:367
-#, fuzzy
 msgid "Add new RADIUS/EAP profile ..."
-msgstr "Προσθήκη νέου προφίλ ..."
+msgstr "Προσθήκη νέου προφίλ RADIUS/EAP ..."
 
 #: web/admin/overview_installers.php:17
 msgid "Device Compatibility matrix"
@@ -1526,9 +1551,9 @@ msgid "Edit User Details"
 msgstr "Επεξεργασία Λεπτομερειών Χρήστη"
 
 #: web/admin/overview_user.php:60
-#, fuzzy, php-format
+#, php-format
 msgid "Click here for %s management tasks"
-msgstr "Κάντε κλικ εδώ για να διαχειριστείτε τις ομοσπονδίες σας"
+msgstr "Πατήστε εδώ για εργασίες διαχείρισης %s"
 
 #: web/admin/overview_user.php:63
 msgid "Click here to access the superadmin page"
@@ -1538,25 +1563,26 @@ msgstr "Κάντε κλικ εδώ για την πρόσβασή σας στη 
 #, php-format
 msgid "(Need help? Refer to the <a href='%s'>IdP administrator manual</a>)"
 msgstr ""
+"(Χρειάζεστε βοήθεια; Ανατρέξτε στο <a href='%s'> εγχειρίδιο διαχειριστή IdP)"
 
 #. / first parameter: number of Identity Providers; second param is the literal configured term for 'Identity Provider' (you may or may not be able to add a plural suffix for your locale)
 #: web/admin/overview_user.php:80
-#, fuzzy, php-format
+#, php-format
 msgid "You are managing the following <span style='display:none'>%d </span>%s:"
 msgid_plural "You are managing the following <strong>%d</strong> %s:"
-msgstr[0] "Διαχειρίζεστε το ακόλουθο ίδρυμα:"
-msgstr[1] "Διαχειρίζεστε τα ακόλουθα <strong>%d</strong> ιδρύματα:"
+msgstr[0] "Διαχειρίζεστε το ακόλουθο <span style='display:none'>%d </span>%s:"
+msgstr[1] "Διαχειρίζεστε τα ακόλουθα <strong>%d</strong> %s:"
 
 #: web/admin/overview_user.php:103
-#, fuzzy, php-format
+#, php-format
 msgid "Other admins of this %s"
-msgstr "Άλλοι διαχειριστές αυτού του ιδρύματος"
+msgstr "Άλλοι διαχειριστές αυτού του %s"
 
 #. / nomenclature 'fed', fed name, nomenclature 'inst'
 #: web/admin/overview_user.php:106
 #, php-format
 msgid "%s %s: %s list"
-msgstr ""
+msgstr "%s %s: λίστα %s"
 
 #: web/admin/overview_user.php:135
 msgid "other user"
@@ -1565,44 +1591,43 @@ msgstr[0] "άλλος χρήστης"
 msgstr[1] "άλλοι χρήστες"
 
 #: web/admin/overview_user.php:146
-#, fuzzy, php-format
+#, php-format
 msgid "You are not managing any %s."
-msgstr "Δε διαχειρίζεστε κανένα ίδρυμα."
+msgstr "Δε διαχειρίζεστε κανένα %s."
 
 #: web/admin/overview_user.php:150
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Please ask your %s administrator to invite you to become an %s administrator."
 msgstr ""
-"Παρακαλούμε ζητήστε από το διαχειριστή της ομοσπονδίας σας να σας "
-"προσκαλέσει να γίνεται διαχειριστής ιδρύματος."
+"Παρακαλώ ζητήστε από το διαχειριστή %s σας να σας προσκαλέσει ώστε να γίνετε "
+"ένας διαχειριστής %s."
 
 #: web/admin/overview_user.php:154
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Did you receive an invitation token to manage an %s? Please paste it here:"
 msgstr ""
-"Λάβατε ένα κουπόνι πρόσκλησης για να διαχειριστείτε ένα ίδρυμα; Παρακαλούμε "
-"κάντε το επικόλληση εδώ:"
+"Λάβατε ένα κουπόνι πρόσκλησης για να διαχειριστείτε ένα %s; Παρακαλώ "
+"επικολλήστε το εδώ:"
 
 #: web/admin/overview_user.php:166
-#, fuzzy, php-format
+#, php-format
 msgid "New %s Registration"
-msgstr "Ανάκληση Πρόσκλησης"
+msgstr "Νέα Εγγραφή %s"
 
 #: web/admin/inc/displayQRcode.inc.php:31
-#, fuzzy
 msgid "Invitation Token QR Code"
-msgstr "Στάλθηκε πρόσκληση σε:"
+msgstr "QR Code για Κουπόνι Πρόσκλησης"
 
 #: web/admin/inc/manageAdmins.inc.php:46
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You do not have the necessary privileges to alter administrators of this %s. "
 "In fact, you shouldn't have come this far!"
 msgstr ""
 "Δεν έχετε τα απαραίτητα δικαιώματα για να αλλάξετε τους διαχειριστές αυτού "
-"του ιδρύματος. Για την ακρίβεια, δεν θα έπρεπε να έχετε φτάσει μέχρι εδώ!"
+"του %s. Στην πραγματικότητα δε θα έπρεπε να έχετε φτάσει ως εδώ!"
 
 #: web/admin/inc/manageAdmins.inc.php:84
 #, php-format
@@ -1610,35 +1635,33 @@ msgid "Administrators for IdP '%s'"
 msgstr "Διαχειριστές του IdP '%s'"
 
 #: web/admin/inc/manageAdmins.inc.php:119
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You are the %s administrator. You can invite new administrators, who can in "
 "turn appoint further administrators on their own."
 msgstr ""
-"Είστε ο διαχειριστής ομοσπονδίας γι' αυτό τον IdP. Μπορείτε να προσκαλέσετε "
-"νέους διαχειριστές οι οποίοι με τη σειρά τους μπορούν να διορίσουν δικούς "
-"τους περαιτέρω διαχειριστές ."
+"Είστε ο διαχειριστής %s. Μπορείτε να προσκαλέσετε νέους διαχειριστές, που "
+"μπορούν με τη σειρά τους να διορίσουν και άλλους διαχειριστές μόνοι τους."
 
 #: web/admin/inc/manageAdmins.inc.php:119 web/lib/admin/UIElements.php:102
-#, fuzzy, php-format
+#, php-format
 msgid "%s Administrator"
-msgstr "Διαχειριστές"
+msgstr "Διαχειριστής %s"
 
 #: web/admin/inc/manageAdmins.inc.php:125
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You are an administrator who was directly appointed by the %s administrator. "
 "You can appoint further administrators, but these can't in turn appoint any "
 "more administrators."
 msgstr ""
-"Είστε διαχειριστής αυτού του IdP που διορίστηκε απευθείας από τον "
-"διαχειριστή ομοσπονδίας. Μπορείτε να διορίσετε περαιτέρω διαχειριστές αλλά "
-"αυτοί δεν θα μπορούν με τη σειρά τους να διορίσουν άλλους διαχειριστές."
+"Είστε ένας διαχειριστής που διορίστηκε απευθείας από το διαχειριστή %s. "
+"Μπορείτε να διορίσετε και άλλους διαχειριστές, αλλά αυτοί δεν μπορούν με τη "
+"σειρά τους να διορίσουν κανένα άλλο διαχειριστή."
 
 #: web/admin/inc/manageAdmins.inc.php:125
-#, fuzzy
 msgid "Directly Appointed Administrator"
-msgstr "Άμεσα Διορισμένος Διαχειριστής IdP"
+msgstr "Απευθείας Διορισμένος Διαχειριστής"
 
 #: web/admin/inc/manageAdmins.inc.php:138
 msgid "User without name"
@@ -1662,18 +1685,18 @@ msgid "Pending invitations for this IdP"
 msgstr "Προσκλήσεις σε αναμονή για αυτόν τον IdP"
 
 #: web/admin/inc/manageAdmins.inc.php:181
-#, fuzzy
 msgid "New administrator's email address(es) (comma-separated):"
-msgstr "Διεύθυνση email νέου διαχειριστή:"
+msgstr ""
+"Διεύθυνση email νέου διαχειριστή (μία ή περισσότερες, χωρισμένες με κόμμα):"
 
 #: web/admin/inc/manageAdmins.inc.php:181
 msgid "Invite new administrator"
 msgstr "Πρόσκληση νέου διαχειριστή"
 
 #: web/admin/inc/manageAdmins.inc.php:195
-#, fuzzy, php-format
+#, php-format
 msgid "Take control of this %s"
-msgstr "Πάρτε τον έλεγχο αυτού του ιδρύματος"
+msgstr "Πάρτε τον έλεγχο αυτού του %s"
 
 #: web/admin/inc/manageAdmins.inc.php:202
 #: web/admin/inc/manageDBLink.inc.php:194
@@ -1682,13 +1705,13 @@ msgid "Close"
 msgstr "Κλείσιμο"
 
 #: web/admin/inc/manageDBLink.inc.php:43
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You do not have the necessary privileges to manage the %s DB link state of "
 "this %s."
 msgstr ""
-"Δεν έχετε τα απαραίτητα δικαιώματα για τη διαχείριση της κατάστασης της "
-"σύνδεσης της ΒΔ %s για αυτό το ίδρυμα."
+"Δεν έχετε τα απαραίτητα δικαιώματα για να διαχειριστείτε τη κατάσταση "
+"σύνδεσης της ΒΔ %s γι αυτό το %s."
 
 #: web/admin/inc/manageDBLink.inc.php:76
 #, php-format
@@ -1696,9 +1719,9 @@ msgid "%s Database Link Status for IdP '%s'"
 msgstr "Κατάσταση σύνδεσης με τη βάση δεδομένων %s για τον IdP '%s'"
 
 #: web/admin/inc/manageDBLink.inc.php:85
-#, fuzzy, php-format
+#, php-format
 msgid "This %s is linked to the %s database."
-msgstr "Αυτό το ίδρυμα είναι συνδεδεμένο με τη βάση δεδομένων %s."
+msgstr "Αυτό το %s είναι συνδεδεμένο με τη βάση δεδομένων %s."
 
 #: web/admin/inc/manageDBLink.inc.php:86
 #, php-format
@@ -1714,9 +1737,9 @@ msgid "Information in <strong>%s Database</strong>"
 msgstr "Πληροφορίες στη <strong>Βάση Δεδομένων %s</strong>"
 
 #: web/admin/inc/manageDBLink.inc.php:99 web/admin/inc/manageDBLink.inc.php:125
-#, fuzzy, php-format
+#, php-format
 msgid "%s Name (%s)"
-msgstr "Όνομα Ιδρύματος"
+msgstr "Όνομα %s (%s)"
 
 #: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/PageDecoration.php:33
 msgid "Unnamed User"
@@ -1733,15 +1756,17 @@ msgstr "Email διαχειριστή"
 #: web/admin/inc/manageDBLink.inc.php:133
 msgid "If this mapping is not correct any more, you can remove the link:"
 msgstr ""
+"Αν αυτή η αντιστοίχιση δεν είναι πια σωστή, μπορείτε να αφαιρέσετε τη "
+"σύνδεση:"
 
 #: web/admin/inc/manageDBLink.inc.php:135
 msgid "Unlink"
-msgstr ""
+msgstr "Αποσύνδεση"
 
 #: web/admin/inc/manageDBLink.inc.php:139
-#, fuzzy, php-format
+#, php-format
 msgid "This %s is not yet linked to the %s database."
-msgstr "Αυτό το ίδρυμα δεν έχει ακόμη συνδεθεί με τη βάση δεδομένων %s."
+msgstr "Αυτό το %s δεν είναι ακόμα συνδεδεμένο με τη βάση δεδομένων %s."
 
 #: web/admin/inc/manageDBLink.inc.php:140
 msgid ""
@@ -1757,12 +1782,12 @@ msgid "You can link it to the %s database below."
 msgstr "Μπορείτε να το συνδέσετε στη βάση δεδομένων %s παρακάτω."
 
 #: web/admin/inc/manageDBLink.inc.php:144
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Please select an entity from the %s DB which corresponds to this CAT %s."
 msgstr ""
-"Παρακαλούμε επιλέξτε μία οντότητα από τη ΒΔ %s η οποία αντιστοιχεί σε αυτό "
-"το ίδρυμα CAT."
+"Παρακαλώ επιλέξτε μια οντότητα από τη ΒΔ %s η οποία αντιστοιχεί σε αυτό το "
+"%s CAT."
 
 #: web/admin/inc/manageDBLink.inc.php:146
 #, php-format
@@ -1785,48 +1810,50 @@ msgstr "Διαχειριστές"
 #, php-format
 msgid "There is no single unmapped %s in the external database for this %s!"
 msgstr ""
+"Δεν υπάρχει μοναδικό μη αντιστοιχισμένο %s στην εξωτερική βάση δεδομένων γι "
+"αυτό το %s!"
 
 #: web/admin/inc/manageDBLink.inc.php:185
 msgid "Create Link"
 msgstr "Δημιουργία σύνδεσης"
 
 #: web/admin/inc/manageNewInst.inc.php:37
-#, fuzzy, php-format
+#, php-format
 msgid "You do not have the necessary privileges to register new %ss."
-msgstr "Δεν έχετε τα απαραίτητα δικαιώματα για να καταχωρείτε νέους IdP."
+msgstr "Δεν έχετε τα απαραίτητα δικαιώματα για να καταχωρείτε νέα %s."
 
 #: web/admin/inc/manageNewInst.inc.php:44
-#, fuzzy, php-format
+#, php-format
 msgid "%s - Register new %s"
-msgstr "%s - Καταχώρηση Νέου Ιδρύματος"
+msgstr "%s - Καταχωρίστε νέο %s"
 
 #: web/admin/inc/manageNewInst.inc.php:47
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "On this page, you can add a new %s to your %s. Please fill out the form "
 "below to send out an email invitation to the new %s administrator."
 msgstr ""
-"Σε αυτή τη σελίδα μπορείτε να προσθέσετε νέα ιδρύματα στην ομοσπονδία σας. "
-"Παρακαλούμε συμπληρώστε την παρακάτω φόρμα για να στείλετε μία πρόσκληση με "
-"email στο διαχειριστή του νέου ιδρύματος."
+"Σε αυτή τη σελίδα μπορείτε να προσθέσετε ένα νέο %s στο %sσας. Παρακαλούμε "
+"συμπληρώστε την παρακάτω φόρμα για να στείλετε μια πρόσκληση με email στο "
+"νέο διαχειριστή %s."
 
 #: web/admin/inc/manageNewInst.inc.php:49
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You can either register a known %s (as defined in the %s database) or create "
 "a totally new %s."
 msgstr ""
-"Μπορείτε είτε να καταχωρήσετε έναν IdP που ήδη υπάρχει (όπως καθορίζεται στη "
-"βάση δεδομένων %s) ή να δημιουργήσετε έναν τελείως καινούριο IdP."
+"Μπορείτε είτε να καταχωρίσετε ένα %s που ήδη υπάρχει (όπως καθορίζεται στη "
+"βάση δεδομένων %s) ή να δημιουργήσετε ένα τελείως καινούριο %s."
 
 #: web/admin/inc/manageNewInst.inc.php:50
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "The latter one is typically for an %s which is yet in a testing phase and "
 "therefore doesn't appear in the %s database yet."
 msgstr ""
-"Το τελευταίο είναι συνήθως για ιδρύματα που είναι ακόμα στη δοκιμαστική φάση "
-"και έτσι δεν εμφανίζονται ακόμη στη βάση δεδομένων %s."
+"Το τελευταίο είναι συνήθως για ένα %s που είναι ακόμα σε δοκιμαστική φάση "
+"και συνεπώς δεν εμφανίζεται ακόμα στη βάση δεδομένων %s."
 
 #: web/admin/inc/manageNewInst.inc.php:60
 msgid "Existing IdP:"
@@ -1873,13 +1900,13 @@ msgid "Mail address to invite:"
 msgstr "Διεύθυνση mail για πρόσκληση:"
 
 #: web/admin/inc/sendinvite.inc.php:92
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Something's wrong... you are a %s admin, but not for the %s the requested %s "
 "belongs to!"
 msgstr ""
-"Κάτι πάει στραβά... είστε διαχειριστής ομοσπονδίας, αλλά όχι της ομοσπονδίας "
-"στην οποία ανήκει το ίδρυμα που ζητήθηκε!"
+"Κάτι πάει στραβά... είστε διαχειριστής %s, αλλά όχι για το %s στο οποίο "
+"ανήκει το %s που ζητήθηκε!"
 
 #: web/admin/inc/toggleRedirect.inc.php:90
 #, php-format
@@ -1896,9 +1923,8 @@ msgid "Fine-tuning options for "
 msgstr "Επιλογές τελειοποίησης για"
 
 #: web/lib/admin/AbstractMap.php:100 web/lib/admin/UIElements.php:84
-#, fuzzy
 msgid "Location"
-msgstr "γίνεται εντοπισμός"
+msgstr "Τοποθεσία"
 
 #: web/lib/admin/AbstractMap.php:104
 msgid ""
@@ -1978,6 +2004,8 @@ msgid ""
 "Address not found, perhaps try another form, like putting the street number "
 "to the front."
 msgstr ""
+"Η διεύθυνση δε βρέθηκε, ίσως δοκιμάστε μια άλλη μορφή, όπως το να "
+"τοποθετήσετε τον αριθμό του δρόμου μπροστά."
 
 #: web/lib/admin/OptionDisplay.php:148
 #, php-format
@@ -2018,6 +2046,10 @@ msgid ""
 "determination. It also has technical issues. Please throughly read the "
 "discussion at %s before specifying a proxy with this option."
 msgstr ""
+"Η μορφή αυτής της παραμέτρου είναι: IPv4|IPv6|hostname:port . Η επιβολή "
+"στους χρήστες σας ενός δικού σας φίλτρου περιεχομένου είναι μια σημαντική "
+"παραβίαση της αυτοδιάθεσης των χρηστών. Παρακαλώ διαβάστε προσεκτικά τη "
+"συζήτηση στο %sπριν ορίσετε έναν διακομιστή μεσολάβησης με αυτήν την επιλογή."
 
 #: web/lib/admin/OptionDisplay.php:223
 msgid "select language"
@@ -2067,83 +2099,79 @@ msgstr ""
 
 #: web/lib/admin/PageDecoration.php:32
 msgid "You are:"
-msgstr ""
+msgstr "Είστε:"
 
 #: web/lib/admin/PageDecoration.php:36
-#, fuzzy
 msgid "Go to your Profile page"
-msgstr "Συνέχεια στη σελίδα επισκόπησης χρηστών"
+msgstr "Μετάβαση στη σελίδα του Προφίλ σας"
 
 #: web/lib/admin/PageDecoration.php:37
 msgid "Logout"
-msgstr ""
+msgstr "Αποσύνδεση"
 
 #: web/lib/admin/PageDecoration.php:39
 msgid "Start page"
-msgstr ""
+msgstr "Αρχική σελίδα"
 
 #: web/lib/admin/PageDecoration.php:60
 msgid "View this page in"
-msgstr ""
+msgstr "Προβολή αυτής της σελίδας σε"
 
 #: web/lib/admin/PageDecoration.php:118
-#, fuzzy, php-format
+#, php-format
 msgid "Administrator Interface - %s"
-msgstr "Email διαχειριστή"
+msgstr "Διεπαφή Διαχειριστή - %s"
 
 #: web/lib/admin/PageDecoration.php:121
-#, fuzzy, php-format
+#, php-format
 msgid "Administrator Interface - %s User Management"
-msgstr "Έλεγχος Διαχειριστών"
+msgstr "Διεπαφή Διαχειριστή - Διαχείριση Χρηστών %s"
 
 #: web/lib/admin/PageDecoration.php:124
-#, fuzzy
 msgid "Administrator Interface"
-msgstr "Email διαχειριστή"
+msgstr "Διεπαφή Διαχειριστή"
 
 #: web/lib/admin/PageDecoration.php:127
-#, fuzzy
 msgid "Management of User Details"
-msgstr "Επεξεργασία Λεπτομερειών Χρήστη"
+msgstr "Διαχείριση Λεπτομερειών Χρήστη"
 
 #: web/lib/admin/PageDecoration.php:130
-#, fuzzy, php-format
+#, php-format
 msgid "Administrator Interface - %s Management"
-msgstr "Έλεγχος Διαχειριστών"
+msgstr "Διεπαφή Διαχειριστή - Διαχείριση %s"
 
 #: web/lib/admin/PageDecoration.php:133
-#, fuzzy, php-format
+#, php-format
 msgid "Welcome to %s"
-msgstr "Συνδεδεμένος σε %s."
+msgstr "Καλως Ήρθατε στο %s"
 
 #: web/lib/admin/PageDecoration.php:138
 msgid "CIC"
-msgstr ""
+msgstr "CIC"
 
 #: web/lib/admin/PageDecoration.php:141
 msgid "Diagnostics"
-msgstr ""
+msgstr "Διαγνωστικά"
 
 #: web/lib/admin/PageDecoration.php:223
-#, fuzzy, php-format
+#, php-format
 msgid "%s Privacy Notice"
-msgstr "Ιδιότητες Media"
+msgstr "Δήλωση περί Απορρήτου %s"
 
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
 #. different wording, no translation, sorry
 #: web/lib/admin/UIElements.php:46
 msgid "National Roaming Operator"
-msgstr ""
+msgstr "Εθνικός Φορέας Περιαγωγής"
 
 #: web/lib/admin/UIElements.php:47
-#, fuzzy
 msgid "identity provider"
-msgstr "Επισκόπηση Παρόχου Ταυτότητας"
+msgstr "πάροχος ταυτότητας "
 
 #: web/lib/admin/UIElements.php:48
 msgid "organisation"
-msgstr ""
+msgstr "οργανισμός"
 
 #: web/lib/admin/UIElements.php:67
 msgid "SSID"
@@ -2182,9 +2210,8 @@ msgid "Support: Phone"
 msgstr "Υποστήριξη: Τηλέφωνο"
 
 #: web/lib/admin/UIElements.php:82
-#, fuzzy
 msgid "Support: E-Mail"
-msgstr "Υποστήριξη: Διαδίκτυο"
+msgstr "Υποστήριξη: E-Mail"
 
 #: web/lib/admin/UIElements.php:85
 msgid "Logo URL"
@@ -2207,7 +2234,6 @@ msgid "Enable device assessment"
 msgstr "Ενεργοποίηση εντοπισμού συσκευών"
 
 #: web/lib/admin/UIElements.php:90
-#, fuzzy
 msgid "Terms of Use"
 msgstr "Όροι χρήσης"
 
@@ -2228,9 +2254,8 @@ msgid "Production-Ready"
 msgstr "Έτοιμο για παραγωγή"
 
 #: web/lib/admin/UIElements.php:95
-#, fuzzy
 msgid "Admin Accepted Terms of Use"
-msgstr "Όροι χρήσης"
+msgstr "Όροι Χρήσης Αποδοχής Διαχειριστή"
 
 #: web/lib/admin/UIElements.php:96
 msgid "Extra text on downloadpage for device"
@@ -2254,7 +2279,7 @@ msgstr "Περιγραφή Προφίλ"
 
 #: web/lib/admin/UIElements.php:101
 msgid "Custom Installer Name Suffix"
-msgstr ""
+msgstr "Επίθεμα Ονόματος Προσαρμοσμένου Πακέτου Εγκατάστασης"
 
 #: web/lib/admin/UIElements.php:103
 msgid "Real Name"
@@ -2270,60 +2295,60 @@ msgstr "Αφαίρεση/Απενεργοποίηση SSID"
 
 #: web/lib/admin/UIElements.php:106
 msgid "Mandatory Content Filtering Proxy"
-msgstr ""
+msgstr "Υποχρεωτικός Διακομιστής Μεσολάβησης με Φίλτρο Περιεχομένου"
 
 #: web/lib/admin/UIElements.php:107
 msgid "Custom CSS file for User Area"
-msgstr ""
+msgstr "Προσαρμοσμένο αρχείο CSS για Περιοχή Χρηστών"
 
 #: web/lib/admin/UIElements.php:108
 #, php-format
 msgid "%s Logo"
-msgstr ""
+msgstr "Λογότυπο %s"
 
 #: web/lib/admin/UIElements.php:109
 msgid "Preferred Skin for User Area"
-msgstr ""
+msgstr "Προτιμώμενο Θέμα για Περιοχή Χρηστών"
 
 #: web/lib/admin/UIElements.php:110
 #, php-format
 msgid "Include %s branding in installers"
-msgstr ""
+msgstr "Προσθήκη σήμανσης %s στα πακέτα εγκατάστασης"
 
 #: web/lib/admin/UIElements.php:112
 #, php-format
 msgid "%s Homepage"
-msgstr ""
+msgstr "Αρχική Σελίδα %s"
 
 #: web/lib/admin/UIElements.php:113
 #, php-format
 msgid "Custom text in %s Invitations"
-msgstr ""
+msgstr "Προσαρμοσμένο κείμενο στις Προσκλήσεις %s"
 
 #: web/lib/admin/UIElements.php:114
 #, php-format
 msgid "Enable %s"
-msgstr ""
+msgstr "Ενεργοποίηση %s"
 
 #: web/lib/admin/UIElements.php:115
 #, php-format
 msgid "%s: Do not terminate EAP"
-msgstr ""
+msgstr "%s: Μην τερματίζετε EAP"
 
 #: web/lib/admin/UIElements.php:116
 #, php-format
 msgid "%s: max users per profile"
-msgstr ""
+msgstr "%s: μέγιστος αριθμός χρηστών ανά προφίλ"
 
 #: web/lib/admin/UIElements.php:117
 #, php-format
 msgid "Mint %s with CA on creation"
-msgstr ""
+msgstr "Εντύπωση %s με CA κατά τη δημιουργία"
 
 #: web/lib/admin/UIElements.php:211
-#, fuzzy, php-format
+#, php-format
 msgid "General %s details"
-msgstr "Επεξεργασία Λεπτομερειών Χρήστη"
+msgstr "Γενικές λεπτομέρειες %s"
 
 #: web/lib/admin/UIElements.php:229
 msgid "Global Helpdesk Details"
@@ -2331,9 +2356,9 @@ msgstr "Λεπτομέρειες Καθολικού Helpdesk"
 
 #. we didn't actually get a CA!
 #: web/lib/admin/UIElements.php:324
-#, fuzzy
 msgid "There was an error while retrieving the certificate from the database!"
-msgstr "Παρουσιάστηκε ένα σφάλμα κατά την επεξεργασία του πιστοποιητικού!"
+msgstr ""
+"Υπήρξε σφάλμα κατά την ανάκτηση του πιστοποιητικού από τη βάση δεδομένων!"
 
 #: web/lib/admin/UIElements.php:331
 msgid "There was an error processing the certificate!"
@@ -2349,9 +2374,8 @@ msgstr "Προεπισκόπηση αρχείου λογότυπου"
 
 #. we didn't actually get a file!
 #: web/lib/admin/UIElements.php:364
-#, fuzzy
 msgid "There was an error while retrieving the file from the database!"
-msgstr "Παρουσιάστηκε ένα σφάλμα κατά την επεξεργασία του πιστοποιητικού!"
+msgstr "Υπήρξε ένα σφάλμα κατά την ανάκτηση του αρχείου από τη βάση δεδομένων!"
 
 #: web/lib/admin/UIElements.php:368
 msgid "File exists"
@@ -2372,847 +2396,3 @@ msgstr "Προειδοποίηση!"
 #: web/lib/admin/UIElements.php:386
 msgid "Error!"
 msgstr "Σφάλμα!"
-
-#~ msgid ""
-#~ "<strong>Terms of Use</strong>: Some installers support displaying text to "
-#~ "the user during installation time. If so, we will make that happen if you "
-#~ "upload an RTF file or plain text file to display."
-#~ msgstr ""
-#~ "<strong>Όροι χρήσης</strong>: Κάποια πακέτα εγκατάστασης υποστηρίζουν την "
-#~ "εμφάνιση κειμένου στο χρήστη κατά τη διάρκεια της εγκατάστασης. Όταν "
-#~ "υπάρχει αυτή η δυνατότητα, θα το πραγματοποιήσουμε αν ανεβάσετε ένα "
-#~ "αρχείο RTF ή απλού κειμένου το οποίο πρέπει να εμφανίζεται."
-
-#, fuzzy
-#~ msgid "Your %s %s contains the following %s list:"
-#~ msgstr "Διαχειρίζεστε το ακόλουθο ίδρυμα:"
-
-#, fuzzy
-#~ msgid "Overview of %s"
-#~ msgstr "Επισκόπηση Χρηστών"
-
-#, fuzzy
-#~ msgid "Name of the %s"
-#~ msgstr "Όνομα του ιδρύματος"
-
-#, fuzzy
-#~ msgid ""
-#~ "Please keep in mind that any profiles of such a new %s will only be made "
-#~ "available on the user download page after you have linked it to an entity "
-#~ "in the %s database (but they are otherwise fully functional)."
-#~ msgstr ""
-#~ "Παρακαλούμε μην ξεχνάτε ότι τα προφίλ τέτοιων ιδρυμάτων θα είναι "
-#~ "διαθέσιμα στη σελίδα λήψεων των χρηστών μόνο αφού τα συνδέσετε με μία "
-#~ "οντότητα στη βάση δεδομένων %s (αλλά κατά τα άλλα θα είναι πλήρως "
-#~ "λειτουργικά)."
-
-#, fuzzy
-#~ msgid "%s Invitation System"
-#~ msgstr "Στάλθηκε πρόσκληση σε:"
-
-#, fuzzy
-#~ msgid "New Credential"
-#~ msgstr "Υποβολή διαπιστευτηρίων"
-
-#, fuzzy
-#~ msgid ""
-#~ "a %s of the %s %s \"%s\" has invited you to manage the %s together with "
-#~ "him."
-#~ msgstr ""
-#~ "ένας διαχειριστής από τον %s IdP \"%s\" σας προσκάλεσε να διαχειριστείτε "
-#~ "τον IdP μαζί του."
-
-#~ msgid "This invitation is valid for 24 hours from now, i.e. until %s."
-#~ msgstr ""
-#~ "Αυτή η πρόσκληση είναι έγκυρη για 24 ώρες από τώρα, δηλαδή μέχρι %s."
-
-#, fuzzy
-#~ msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
-#~ msgstr ""
-#~ "ένας χειριστής %s σας προσκάλεσε να διαχειριστείτε τον μελλοντικό IdP  "
-#~ "\"%s\" (%s)."
-
-#, fuzzy
-#~ msgid "a %s %s has invited you to manage the %s  \"%s\"."
-#~ msgstr "ένας χειριστής %s σας προσκάλεσε να διαχειριστείτε τον IdP  \"%s\"."
-
-#~ msgid "Hello,"
-#~ msgstr "Χαίρετε,"
-
-#, fuzzy
-#~ msgid ""
-#~ "To enlist as an administrator for that %s, please click on the following "
-#~ "link:"
-#~ msgstr ""
-#~ "Για να εγγραφείτε ως διαχειριστής για αυτόν τον IdP, παρακαλούμε κάντε "
-#~ "κλικ στον ακόλουθο σύνδεσμο:"
-
-#~ msgid ""
-#~ "If clicking the link doesn't work, you can also go to the %s "
-#~ "Administrator Interface at"
-#~ msgstr ""
-#~ "Αν το κλικ στον σύνδεσμο δε λειτουργεί, μπορείτε επίσης να πάτε στη "
-#~ "Διεπαφή Διαχείρισης  %s στο"
-
-#~ msgid "and enter the invitation token"
-#~ msgstr "και εισάγετε το κουπόνι πρόσκλησης"
-
-#, fuzzy
-#~ msgid ""
-#~ "manually. Please do not reply to this mail; this is a send-only address."
-#~ msgstr ""
-#~ "χεροκίνητα. Παρακαλούμε μην απαντάτε σε αυτό το email, είναι διεύθυνση "
-#~ "αποστολής-μόνο."
-
-#~ msgid "We wish you a lot of fun with the %s."
-#~ msgstr "Σας ευχόμαστε να περάσετε καλά με το %s."
-
-#~ msgid ""
-#~ "Sincerely,\n"
-#~ "\n"
-#~ "Your friendly folks from %s Operations"
-#~ msgstr ""
-#~ "Με εκτίμηση,\n"
-#~ "\n"
-#~ "Οι φίλοι σας από την Ομάδα Λειτουργίας %s"
-
-#, fuzzy
-#~ msgid "%s administrator"
-#~ msgstr "Διαχειριστές"
-
-#, fuzzy
-#~ msgid "%s: you have been invited to manage an %s"
-#~ msgstr "%s: λάβατε πρόσκληση για τη διαχείριση του IdP"
-
-#, fuzzy
-#~ msgid "No NAPTR records"
-#~ msgstr "Αυτός ο τομέας δεν έχει εγγραφές NAPTR."
-
-#, fuzzy
-#~ msgid "No associated NAPTR records"
-#~ msgstr "Αυτός ο τομέας δεν έχει εγγραφές NAPTR."
-
-#, fuzzy
-#~ msgid "%d %s NAPTR records"
-#~ msgstr "Αυτός ο τομέας έχει %d %s εγγραφές NAPTR."
-
-#, fuzzy
-#~ msgid "Profile Name"
-#~ msgstr "Εμφανιζόμενο Όνομα Προφίλ"
-
-#, fuzzy
-#~ msgid "DNS Checks"
-#~ msgstr "Έλεγχοι DNS"
-
-#, fuzzy
-#~ msgid "Authentication Server Status for all known federation members"
-#~ msgstr "Έλεγχος κατάστασης εξυπηρετητή στις Ευρωπαϊκές ομοσπονδίες"
-
-#, fuzzy
-#~ msgid "Return to federation overview"
-#~ msgstr "Επισκόπηση Ομοσπονδίας"
-
-#~ msgid "Sanity check for dynamic discovery of realms"
-#~ msgstr "Έλεγχος ακεραιότητας για το δυναμικό εντοπισμό τομέων"
-
-#~ msgid ""
-#~ "You asked for a realm check, but we don't know the realm for this profile!"
-#~ msgstr ""
-#~ "Ζητήσατε να γίνει έλεγχος τομέα, αλλά δε γνωρίζουμε τον τομέα για αυτό το "
-#~ "προφίλ!"
-
-#~ msgid "No valid realm name given, cannot execute any checks!"
-#~ msgstr "Δε δόθηκε έγκυρο όνομα τομέα, δεν είναι δυνατή η εκτέλεση ελέγχων!"
-
-#~ msgid "STATIC"
-#~ msgstr "ΣΤΑΤΙΚΟΙ"
-
-#~ msgid "DYNAMIC"
-#~ msgstr "ΔΥΝΑΜΙΚΟΙ"
-
-#~ msgid "PASS"
-#~ msgstr "ΕΠΙΤΥΧΙΑ"
-
-#~ msgid "FAIL"
-#~ msgstr "ΑΠΟΤΥΧΙΑ"
-
-#~ msgid "Client certificate:"
-#~ msgstr "Πιστοποιητικό πελάτη:"
-
-#~ msgid "expected result: "
-#~ msgstr "αναμενόμενο αποτέλεσμα:"
-
-#~ msgid "Server accepted this client certificate"
-#~ msgstr "Ο εξυπηρετητής αποδέχτηκε αυτό το πιστοποιητικό πελάτη"
-
-#~ msgid "Server accepted this client certificate, but should not have"
-#~ msgstr ""
-#~ "Ο εξυπηρετητής αποδέχτηκε αυτό το πιστοποιητικό πελάτη, αλλά δεν έπρεπε"
-
-#~ msgid "Server did not accept this client certificate"
-#~ msgstr "Ο εξυπηρετητής δεν αποδέχτηκε αυτό το πιστοποιητικό πελάτη"
-
-#~ msgid "Server did not accept this client certificate - reason"
-#~ msgstr "Ο εξυπηρετητής δεν αποδέχτηκε αυτό το πιστοποιητικό πελάτη - αιτία"
-
-#~ msgid "Rest of tests for this CA skipped"
-#~ msgstr "Οι υπόλοιπες δοκιμές για αυτό το CA θα παραβλεφθούν"
-
-#~ msgid "You should update your list of accredited CAs"
-#~ msgstr "Πρέπει να ενημερώσετε τη λίστα των διαπιστευμένων CA"
-
-#~ msgid "Get it from here."
-#~ msgstr "Λήψη από εδώ"
-
-#~ msgid "more"
-#~ msgstr "περισσότερα"
-
-#~ msgid "Show detailed information for all tests"
-#~ msgstr "Εμφάνιση λεπτομερών πληροφοριών για όλους τους ελέγχους"
-
-#~ msgid "Connection refused"
-#~ msgstr "Άρνηση σύνδεσης"
-
-#~ msgid "Server certificate"
-#~ msgstr "Πιστοποιητικό εξυπηρετητή"
-
-#~ msgid "Subject"
-#~ msgstr "Θέμα"
-
-#~ msgid "Issuer"
-#~ msgstr "Εκδότης"
-
-#~ msgid "SubjectAltName"
-#~ msgstr "SubjectAltName"
-
-#~ msgid "Certificate policies"
-#~ msgstr "Πολιτικές πιστοποιητικών"
-
-#~ msgid "crlDistributionPoint"
-#~ msgstr "crlDistributionPoint"
-
-#~ msgid "authorityInfoAccess"
-#~ msgstr "authorityInfoAccess"
-
-#~ msgid "Hide detailed information for all tests"
-#~ msgstr "Απόκρυψη λεπτομερών πληροφοριών για όλους τους ελέγχους"
-
-#~ msgid "Some required input is missing!"
-#~ msgstr "Δεν έχουν συμπληρωθεί όλα τα απαιτούμενα πεδία!"
-
-#~ msgid "elapsed time: %sms."
-#~ msgstr "υπολειπόμενος χρόνος: %sms."
-
-#~ msgid "Subject:"
-#~ msgstr "Θέμα:"
-
-#~ msgid "Valid from:"
-#~ msgstr "Εγκρίθηκε από:"
-
-#~ msgid "Valid to:"
-#~ msgstr "Έγκυρο σε:"
-
-#~ msgid "SHA1 fingerprint:"
-#~ msgstr "SHA1 αποτύπωμα:"
-
-#~ msgid "Extensions"
-#~ msgstr "Επεκτάσεις"
-
-#~ msgid "show server certificate details"
-#~ msgstr "προβολή λεπτομερειών πιστοποιητικού εξυπηρετητή"
-
-#~ msgid "Realm testing for: %s"
-#~ msgstr "Δοκιμές τομέα για: %s"
-
-#~ msgid "Static connectivity tests"
-#~ msgstr "Δοκιμές στατικής συνδεσιμότητας"
-
-#~ msgid "Dynamic connectivity tests"
-#~ msgstr "Δοκιμές δυναμικής συνδεσιμότητας"
-
-#~ msgid "Live login tests"
-#~ msgstr "Ζωντανές δοκιμές σύνδεσης"
-
-#, fuzzy
-#~ msgid "DNS chekcs"
-#~ msgstr "Έλεγχοι DNS"
-
-#~ msgid "Checking NAPTR existence:"
-#~ msgstr "Έλεγχος ύπαρξης NAPTR:"
-
-#~ msgid "This realm has no NAPTR records."
-#~ msgstr "Αυτός ο τομέας δεν έχει εγγραφές NAPTR."
-
-#~ msgid "This realm has NAPTR records, but none are associated with %s."
-#~ msgstr ""
-#~ "Αυτός ο τομέας έχει εγγραφές NAPTR, αλλά καμία δεν είναι συσχετισμένη με "
-#~ "%s."
-
-#~ msgid "This realm has %d %s NAPTR records."
-#~ msgstr "Αυτός ο τομέας έχει %d %s εγγραφές NAPTR."
-
-#~ msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
-#~ msgstr "Έλεγχος συμβατότητας NAPTR (flag = S και regex = {empty}):"
-
-#~ msgid "No issues found."
-#~ msgstr "Δεν βρέθηκαν θέματα."
-
-#~ msgid "At least one NAPTR with invalid content found!"
-#~ msgstr "Βρέθηκε τουλάχιστον ένα NAPTR με άκυρο περιεχόμενο!"
-
-#~ msgid "Checking SRVs:"
-#~ msgstr "Έλεγχος SRVs:"
-
-#~ msgid "This check was skipped."
-#~ msgstr "Αυτός ο έλεγχος παραλείφθηκε."
-
-#~ msgid "%d host names discovered."
-#~ msgstr "Εντοπίστηκαν %d hostnames."
-
-#~ msgid "Checking IP address resolution:"
-#~ msgstr "Έλεγχος ανάλυσης της IP διεύθυνσης:"
-
-#~ msgid "At least one hostname could not be resolved!"
-#~ msgstr "Τουλάχιστον ένα hostname δεν μπόρεσε να εντοπιστεί!"
-
-#~ msgid "%d IP addresses resolved."
-#~ msgstr "Εντοπίστηκαν %d διευθύνσεις IP."
-
-#~ msgid "Realm is <strong>%s</strong> "
-#~ msgstr "Ο τομέας είναι <strong>%s</strong> "
-
-#~ msgid "with no DNS errors encountered. Congratulations!"
-#~ msgstr "χωρίς να αντιμετωπιστούν σφάλματα DNS. Συγχαρητήρια!"
-
-#~ msgid "but there were DNS errors! Check them!"
-#~ msgstr "αλλά υπήρχαν σφάλματα DNS! Ελέγξτε τα!"
-
-#~ msgid ""
-#~ "You should re-run the tests after fixing the errors; more errors might be "
-#~ "uncovered at that point. The exact error causes are listed below."
-#~ msgstr ""
-#~ "Θα πρέπει να κάνετε ξανά τις δοκιμές μόλις διορθώσετε τα σφάλματα· "
-#~ "περισσότερα σφάλματα μπορεί να προκύψουν σε αυτό το σημείο. Οι ακριβείς "
-#~ "αιτίες των σφαλμάτων παραθέτονται παρακάτω."
-
-#, fuzzy
-#~ msgid "Dynamic discovery test is not configured"
-#~ msgstr "Αυτός ο έλεγχος δεν έχει ρυθμιστεί."
-
-#~ msgid "Repeat static connectivity tests"
-#~ msgstr "Επαναλάβετε τις δοκιμές στατικής συνδεσιμότητας"
-
-#~ msgid "STATIC connectivity tests"
-#~ msgstr "Δοκιμές ΣΤΑΤΙΚΗΣ συνδεσιμότητας"
-
-#~ msgid ""
-#~ "This check sends a request for the realm through various entry points of "
-#~ "the %s infrastructure. The request will contain the 'Operator-Name' "
-#~ "attribute, and will be larger than 1500 Bytes to catch two common "
-#~ "configuration problems.<br/>Since we don't have actual credentials for "
-#~ "the realm, we can't authenticate successfully - so the expected outcome "
-#~ "is to get an Access-Reject after having gone through an EAP conversation."
-#~ msgstr ""
-#~ "Αυτός ο έλεγχος στέλνει αίτημα για τον τομέα από διάφορα σημεία εισόδου "
-#~ "στην υποδομή %s. Το αίτημα θα περιλαμβάνει το attribute 'Operator-Name' "
-#~ "και θα έχει μέγεθος μεγαλύτερο από 1500 Bytes προκειμένου να ανιχνεύσει "
-#~ "δύο συνηθισμένα προβλήματα ρυθμίσεων.<br/>Καθώς δεν έχουμε πραγματικά "
-#~ "διαπιστευτήρια για τον τομέα, δεν μπορούμε να ταυτοποιηθούμε επιτυχώς - "
-#~ "συνεπώς το αναμενόμενο αποτέλεσμα είναι να λάβουμε απάντηση Access-Reject "
-#~ "έχοντας ολοκληρώσει μια συζήτηση EAP."
-
-#~ msgid "Testing from: %s"
-#~ msgstr "Δοκιμάζεται από: %s"
-
-#~ msgid "testing..."
-#~ msgstr "δοκιμάζοντας..."
-
-#~ msgid "Repeat dynamic connectivity tests"
-#~ msgstr "Επαναλάβετε τις δοκιμές δυναμικής συνδεσιμότητας"
-
-#~ msgid "DYNAMIC connectivity tests"
-#~ msgstr "Δοκιμές ΔΥΝΑΜΙΚΗΣ συνδεσιμότητας"
-
-#~ msgid "Some errors were found during the tests, see below"
-#~ msgstr ""
-#~ "Παρουσιάστηκαν κάποια σφάλματα κατά τη διάρκεια των δοκιμών, δείτε "
-#~ "παρακάτω"
-
-#~ msgid "All tests passed, congratulations!"
-#~ msgstr "Επιτυχία σε όλες τις δοκιμές, συγχαρητήρια!"
-
-#~ msgid "Checking server handshake..."
-#~ msgstr "Έλεγχος χειραψίας εξυπηρετητή..."
-
-#~ msgid "Checking if certificates from  CAs are accepted..."
-#~ msgstr "Έλεγχος αν είναι αποδεκτά τα πιστοποιητικά από CA..."
-
-#~ msgid ""
-#~ "A few client certificates will be tested to check if servers are "
-#~ "resistant to some certificate problems."
-#~ msgstr ""
-#~ "Θα δοκιμαστούν μερικά πιστοποιητικά πελάτη για να ελεγχθεί αν οι "
-#~ "εξυπηρετητές έχουν ανοχές σε προβλήματα πιστοποιητικών."
-
-#~ msgid "Live login test"
-#~ msgstr "Live δοκιμή εισόδου"
-
-#~ msgid ""
-#~ "If you enter an existing login credential here, you can test the actual "
-#~ "authentication from various checkpoints all over the world."
-#~ msgstr ""
-#~ "Αν εισάγετε ενεργά διαπιστευτήρια εισόδου εδώ, μπορείτε να ελέγξετε την "
-#~ "πιστοποίηση από διάφορα σημεία ελέγχου σε όλο τον κόσμο."
-
-#~ msgid ""
-#~ "The test will use all EAP types you have set in your profile information "
-#~ "to check whether the right CAs and server names are used, and of course "
-#~ "whether the login with these credentials and the given EAP type actually "
-#~ "worked. If you have set anonymous outer ID, the test will use that."
-#~ msgstr ""
-#~ "Αυτός ο έλεγχος θα χρησιμοποιήσει όλους τους τύπους EAP που έχετε "
-#~ "ρυθμίσει στις πληροφορίες προφίλ σας, για να ελέγξει αν χρησιμοποιούνται "
-#~ "τα σωστά CA και ονόματα εξυπηρετητών, και φυσικά αν η είσοδος με αυτά τα "
-#~ "διαπιστευτήρια και τον τύπο EAP που δόθηκε δούλεψε πραγματικά. Αν έχετε "
-#~ "ορίσει ανώνυμο εξωτερικό ID, ο έλεγχος θα χρησιμοποιήσει αυτό."
-
-#~ msgid ""
-#~ "Note: the tool purposefully does not offer you to save these credentials, "
-#~ "and they will never be saved in any way on the server side. Please use "
-#~ "only <strong>temporary test accounts</strong> here; permanently valid "
-#~ "test accounts in the wild are considered harmful!"
-#~ msgstr ""
-#~ "Σημείωση: το εργαλείο επίτηδες δε σας προσφέρει τη δυνατότητα αποθήκευσης "
-#~ "αυτών των διαπιστευτηρίων, και δε θα αποθηκευτούν με οποιοδήποτε τρόπο "
-#~ "στην πλευρά του εξυπηρετητή. Παρακαλούμε χρησιμοποιήστε μόνο "
-#~ "<strong>προσωρινούς δοκιμαστικούς λογαριασμούς</strong> εδώ· οι μόνιμοι "
-#~ "έγκυροι δοκιμαστικοί λογαριασμοί που κυκλοφορούν ελεύθεροι θεωρούνται "
-#~ "επικίνδυνοι!"
-
-#~ msgid "Password-based EAP types"
-#~ msgstr "Τύποι EAP με κωδικό"
-
-#~ msgid "Real (inner) username:"
-#~ msgstr "Πραγματικό (εσωτερικό) όνομα χρήστη:"
-
-#~ msgid "Anonymous outer ID (optional):"
-#~ msgstr "Ανώνυμο εξωτερικό ID (προαιρετικό):"
-
-#~ msgid "Password:"
-#~ msgstr "Κωδικός:"
-
-#~ msgid "Certificate-based EAP types"
-#~ msgstr "Τύποι EAP με πιστοποιητικό"
-
-#~ msgid "Certificate file (.p12 or .pfx):"
-#~ msgstr "Αρχείο πιστοποίησης (.p12 or .pfx):"
-
-#~ msgid "Certificate password, if any:"
-#~ msgstr "Κωδικός πιστοποιητικού, εάν υπάρχει:"
-
-#~ msgid "Username, if different from certificate Subject:"
-#~ msgstr "Όνομα χρήστη, εάν διαφέρει από το Θέμα του πιστοποιητικού:"
-
-#, fuzzy
-#~ msgid "%s: Editing Federation '%s'"
-#~ msgstr "%s: Γίνεται επεξεργασία του IdP '%s'"
-
-#, fuzzy
-#~ msgid "Editing Federation information for '%s'"
-#~ msgstr "Επεξεργασία πληροφοριών IdP για '%s'"
-
-#, fuzzy
-#~ msgid "Federation Properties"
-#~ msgstr "Ιδιότητες Media"
-
-#, fuzzy
-#~ msgid "Submitted attributes for federation '%s'"
-#~ msgstr "Attributes του IdP '%s' που έχουν υποβληθεί"
-
-#~ msgid "General Institution Properties"
-#~ msgstr "Γενικές Ιδιότητες Ιδρύματος"
-
-#~ msgid "%s: Federation Management"
-#~ msgstr "%s: Διαχείριση Ομοσπονδίας"
-
-#~ msgid "Federation Overview"
-#~ msgstr "Επισκόπηση Ομοσπονδίας"
-
-#~ msgid "Institution Name"
-#~ msgstr "Όνομα Ιδρύματος"
-
-#, fuzzy
-#~ msgid ""
-#~ "Your federation %s contains the following institutions: (<a "
-#~ "href='%s'>Check their authentication server status</a>)"
-#~ msgstr "Η ομοσπονδία σας %s περιέχει τα ακόλουθα ιδρύματα:"
-
-#~ msgid "Edit IdP-wide settings"
-#~ msgstr "Επεξεργασία ολόκληρου IdP"
-
-#~ msgid "Delete IdP"
-#~ msgstr "Διαγραφή IdP"
-
-#~ msgid "Read this <a href='%s'>tip</a>."
-#~ msgstr "Διαβάστε αυτή τη <a href='%s'>συμβουλή</a>."
-
-#, fuzzy
-#~ msgid "Add eduroam-as-a-service profile ..."
-#~ msgstr "Προσθήκη νέου προφίλ ..."
-
-#~ msgid "Institutions in federation %s"
-#~ msgstr "Ιδρύματα στην ομοσπονδία %s"
-
-#~ msgid ""
-#~ "Some properties of the connection attempt were sub-optimal; the list is "
-#~ "below."
-#~ msgstr ""
-#~ "Κάποιες ιδιότητες της προσπάθειας σύνδεσης ήταν ανεπαρκείς· η λίστα "
-#~ "βρίσκεται παρακάτω."
-
-#~ msgid "Some configuration errors were observed; the list is below."
-#~ msgstr ""
-#~ "Παρατηρήθηκαν μερικά σφάλματα διαμόρφωσης· η λίστα βρίσκεται παρακάτω."
-
-#~ msgid ""
-#~ "<strong>Test successful</strong>: a bidirectional RADIUS conversation "
-#~ "with multiple round-trips was carried out, and ended in an Access-Reject "
-#~ "as planned."
-#~ msgstr ""
-#~ "<strong>Eπιτυχημένη δοκιμή</strong>: μια αμφίδρομη επικοινωνία RADIUS με "
-#~ "πολλές κυκλικές διαδρομές πραγματοποιήθηκε και ολοκληρώθηκε με Access-"
-#~ "Reject όπως ήταν αναμενόμενο."
-
-#~ msgid ""
-#~ "<strong>Test partially successful</strong>: a bidirectional RADIUS "
-#~ "conversation with multiple round-trips was carried out, and ended in an "
-#~ "Access-Reject as planned. Some properties of the connection attempt were "
-#~ "sub-optimal; the list is below."
-#~ msgstr ""
-#~ "<strong>Δοκιμή εν μέρει επιτυχημένη</strong>: μια αμφίδρομη επικοινωνία "
-#~ "RADIUS με πολλές κυκλικές διαδρομές πραγματοποιήθηκε και ολοκληρώθηκε με "
-#~ "Access-Reject όπως ήταν αναμενόμενο. Κάποιες παράμετροι της απόπειρας "
-#~ "σύνδεσης δεν ήταν βέλτιστες· δείτε τη λίστα παρακάτω."
-
-#~ msgid "<strong>Test successful.</strong>"
-#~ msgstr "<strong>Δοκιμή επιτυχής.</strong>"
-
-#~ msgid "<strong>Test partially successful</strong>: authentication succeded."
-#~ msgstr "<strong>Δοκιμή εν μέρει επιτυχής</strong>: επιτυχής ταυτοποίηση."
-
-#~ msgid "<strong>Test FAILED</strong>: authentication succeded."
-#~ msgstr "<strong>Η δοκιμή ΑΠΕΤΥΧΕ</strong>: επιτυχής ταυτοποίηση."
-
-#~ msgid ""
-#~ "<strong>Test FAILED</strong>: the request was rejected. The most likely "
-#~ "cause is that you have misspelt the Username and/or the Password."
-#~ msgstr ""
-#~ "<strong>Η δοκιμή ΑΠΕΤΥΧΕ</strong>: το αίτημα απορρίφθηκε. Η πιο πιθανή "
-#~ "αιτία είναι να έχετε γράψει εσφαλμένα το Όνομα χρήστη ή/και τον Κωδικό "
-#~ "πρόσβασης."
-
-#~ msgid "This method cannot be tested"
-#~ msgstr "Αυτή η μέθοδος δεν μπορεί να δοκιμασθεί"
-
-#~ msgid ""
-#~ "<strong>Test FAILED</strong>: the request was rejected immediately, "
-#~ "without EAP conversation. Either you have misspelt the Username or there "
-#~ "is something seriously wrong with your server."
-#~ msgstr ""
-#~ "<strong>Η δοκιμή ΑΠΕΤΥΧΕ</strong>: το αίτημα απορρίφθηκε αμέσως, χωρίς "
-#~ "συνομιλία EAP. Είτε έχετε γράψει εσφαλμένα το Όνομα χρήστη ή υπάρχει "
-#~ "κάποιο σοβαρό λάθος στον εξυπηρετητή σας."
-
-#~ msgid ""
-#~ "<strong>Test FAILED</strong>: no reply from the RADIUS server after %d "
-#~ "seconds. Either the responsible server is down, or routing is broken!"
-#~ msgstr ""
-#~ "<strong>Η δοκιμή ΑΠΕΤΥΧΕ</strong>: καμία απάντηση από τον εξυπηρετητή "
-#~ "RADIUS μετά από %d δευτερόλεπτα. Είτε ο server δεν λειτουργεί είτε η "
-#~ "δρομολόγηση έχει αποτύχει!"
-
-#~ msgid ""
-#~ "<strong>Test FAILED</strong>: there was a bidirectional RADIUS "
-#~ "conversation, but it did not finish after %d seconds!"
-#~ msgstr ""
-#~ "<strong>Η δοκιμή ΑΠΕΤΥΧΕ</strong>: υπήρξε μια αμφίδρομη επικοινωνία "
-#~ "RADIUS αλλά δεν ολοκληρώθηκε μετά από %d δευτερόλεπτα!"
-
-#~ msgid "<strong>Test FAILED</strong>"
-#~ msgstr "<strong>Η δοκιμή ΑΠΕΤΥΧΕ</strong>"
-
-#~ msgid ""
-#~ "<strong>Test partially successful</strong>: a bidirectional RADIUS "
-#~ "conversation with multiple round-trips was carried out, and ended in an "
-#~ "Access-Reject as planned."
-#~ msgstr ""
-#~ "<strong>Δοκιμή εν μέρει ΕΠΙΤΥΧΗΜΕΝΗ</strong>: μια αμφίδρομη επικοινωνία "
-#~ "RADIUS με πολλές κυκλικές διαδρομές πραγματοποιήθηκε και ολοκληρώθηκε με "
-#~ "Access-Reject όπως ήταν αναμενόμενο."
-
-#~ msgid ""
-#~ "<strong>Test FAILED</strong>: the request was rejected immediately, "
-#~ "without EAP conversation. This is not necessarily an error: if the RADIUS "
-#~ "server enforces that outer identities correspond to an existing username, "
-#~ "then this result is expected (Note: you could configure a valid outer "
-#~ "identity in your profile settings to get past this hurdle). In all other "
-#~ "cases, the server appears misconfigured or it is unreachable."
-#~ msgstr ""
-#~ "<strong>Αποτυχημένη δοκιμή</strong>: το αίτημα απορρίφθηκε αμέσως, χωρίς "
-#~ "να υπάρξει συνομιλία EAP. Αυτό δεν είναι κατ' ανάγκη σφάλμα: αν ο "
-#~ "εξυπηρετητής RADIUS επιβάλλει την αντιστοίχιση της εξωτερικής ταυτότητας "
-#~ "με υπαρκτό όνομα χρήστη, αυτό το αποτέλεσμα είναι αναμενόμενο (Σημείωση: "
-#~ "θα μπορούσατε να διαμορφώσετε μια έγκυρη εξωτερική ταυτότητα στις "
-#~ "ρυθμίσεις προφίλ σας για να ξεπεράσετε αυτό το εμπόδιο). Σε κάθε άλλη "
-#~ "περίπτωση ο εξυπηρετητής δεν έχει ρυθμιστεί σωστά ή δεν είναι προσβάσιμος."
-
-#~ msgid "unhandled error"
-#~ msgstr "απρόσμενο σφάλμα"
-
-#~ msgid ""
-#~ "<strong>ERROR</strong>: the server presented a certificate which is from "
-#~ "an unknown authority!"
-#~ msgstr ""
-#~ "<strong>ΣΦΑΛΜΑ</strong>: ο εξυπηρετητής παρουσίασε ένα πιστοποιητικό από "
-#~ "μία άγνωστη αρχή!"
-
-#~ msgid "elapsed time: %d"
-#~ msgstr "χρόνος που έχει παρέλθει: %d"
-
-#~ msgid "Completed."
-#~ msgstr "Ολοκληρώθηκε."
-
-#~ msgid "crlDistributionPoints"
-#~ msgstr "crlDistributionPoints"
-
-#~ msgid "Federation Administrator"
-#~ msgstr "Διαχειριστής Ομοσπονδίας"
-
-#~ msgid "PEAP-MSCHAPv2"
-#~ msgstr "PEAP-MSCHAPv2"
-
-#~ msgid "TLS"
-#~ msgstr "TLS"
-
-#~ msgid "TTLS-PAP"
-#~ msgstr "TTLS-PAP"
-
-#~ msgid "TTLS-MSCHAPv2"
-#~ msgstr "TTLS-MSCHAPv2"
-
-#~ msgid "TTLS-GTC"
-#~ msgstr "TTLS-GTC"
-
-#~ msgid "FAST-GTC"
-#~ msgstr "FAST-GTC"
-
-#~ msgid "EAP-pwd"
-#~ msgstr "EAP-pwd"
-
-#, fuzzy
-#~ msgid "Federation Logo"
-#~ msgstr "Ομοσπονδία"
-
-#, fuzzy
-#~ msgid "Federation Operator Name"
-#~ msgstr "Επισκόπηση Ομοσπονδίας"
-
-#~ msgid "Error, ROWID expected."
-#~ msgstr "Σφάλμα, αναμενόταν ROWID."
-
-#~ msgid "General Institution Details"
-#~ msgstr "Γενικές Πληροφορίες Ιδρύματος"
-
-#~ msgid "Input validation error: "
-#~ msgstr "Σφάλμα επικύρωσης εισόδου:"
-
-#~ msgid "Realm contains an @ sign!"
-#~ msgstr "Ο τομέας περιέχει ένα σύμβολο @!"
-
-#~ msgid "Realm begins with a . (dot)!"
-#~ msgstr "Ο τομέας ξεκινάει με . (τελεία)!"
-
-#~ msgid "Realm ends with a . (dot)!"
-#~ msgstr "Ο τομέας τελειώνει με . (τελεία)!"
-
-#~ msgid "Realm does not contain at least one . (dot)!"
-#~ msgstr "Ο τομέας δεν περιέχει τουλάχιστον μία . (τελεία)!"
-
-#~ msgid "Realm contains spaces!"
-#~ msgstr "Ο τομέας περιέχει κενά!"
-
-#~ msgid "Wrong coordinate encoding!"
-#~ msgstr "Λανθασμένη κωδικοποίηση συντεταγμένης!"
-
-#~ msgid "Institution Name (%s)"
-#~ msgstr "Όνομα Ιδρύματος (%s)"
-
-#~ msgid "Federation"
-#~ msgstr "Ομοσπονδία"
-
-#~ msgid ""
-#~ "Something's wrong... you want to create a new institution, but are not a "
-#~ "federation admin for the federation it should be in!"
-#~ msgstr ""
-#~ "Κάτι πάει στραβά... θέλετε να δημιουργήσετε ένα νέο ίδρυμα, αλλά δεν "
-#~ "είστε ο διαχειριστής της ομοσπονδίας για την ομοσπονδία στην οποία πρέπει "
-#~ "να είναι το ίδρυμα!"
-
-#~ msgid "EAP details for all users"
-#~ msgstr "Λεπτομέρειες EAP για όλους τους χρήστες"
-
-#~ msgid ""
-#~ "Most EAP methods need server-side authentication details, like the CA "
-#~ "certificate and/or server name(s) of your authentication servers. If all "
-#~ "the EAP methods you support work with the same CA and or Common Names of "
-#~ "servers, you can enter them here and they will be added as trust anchors "
-#~ "in all profiles. If the details differ per profile or per EAP-type, you "
-#~ "can also enter them in the individual profiles later."
-#~ msgstr ""
-#~ "Οι περισσότερες μέθοδοι EAP χρειάζονται λεπτομέρειες πιστοποίησης από τη "
-#~ "μεριά του εξυπηρετητή, όπως πιστοποιητικό CA ή/και όνομα(-τα) των "
-#~ "εξυπηρετητών πιστοποίησης. Αν όλες οι μέθοδοι EAP που υποστηρίζετε "
-#~ "δουλεύουν με το ίδιο CA ή/και με κοινά ονόματα εξυπηρετητών, μπορείτε να "
-#~ "τα εισάγετε εδώ και θα προστεθούν ως ενσωματώσεις εμπιστευτικότητας σε "
-#~ "όλα τα προφίλ. Αν οι λεπτομέρειες διαφέρουν ανά προφίλ ή ανά τύπο EAP, "
-#~ "μπορείτε να τα εισάγετε και ξεχωριστά στα προφίλ αργότερα."
-
-#~ msgid ""
-#~ "<strong>Note well: </strong>The server-side validation is a cornerstone "
-#~ "of %s; without it, users are subject to man-in-the-middle attacks! We "
-#~ "will not generate site installers without Trusted CA anchors and server "
-#~ "names."
-#~ msgstr ""
-#~ "<strong>Προσέξτε ιδιαίτερα: </strong>Η επαλήθευση της ταυτότητας "
-#~ "εξυπηρετητή είναι ο ακρογωνιαίος λίθος του %s· χωρίς αυτή, οι χρήστες "
-#~ "υπόκειται σε επιθέσεις man-in-the-middle! Δε θα παράγουμε πακέτα "
-#~ "εγκατάστασης χωρίς αγκυρώσεις σε Έμπιστες Αρχές Πιστοποίησης και ονόματα "
-#~ "εξυπηρετητών."
-
-#~ msgid "Global EAP Options"
-#~ msgstr "Καθολικές Επιλογές EAP"
-
-#, fuzzy
-#~ msgid "This Federation identifier is not accessible!"
-#~ msgstr "Το αναγνωριστικό αυτού του IdP δεν είναι προσπελάσιμο!"
-
-#~ msgid "Value for IdP is not an integer!"
-#~ msgstr "Η τιμή για τον IdP δεν είναι ακέραιος!"
-
-#~ msgid "This IdP identifier is not accessible!"
-#~ msgstr "Το αναγνωριστικό αυτού του IdP δεν είναι προσπελάσιμο!"
-
-#~ msgid "Value for profile is not an integer!"
-#~ msgstr "Η τιμή για το προφίλ δεν είναι ακέραιος!"
-
-#~ msgid "This profile is not accessible!"
-#~ msgstr "Αυτό το προφίλ δεν είναι προσπελάσιμο!"
-
-#~ msgid "This device does not exist!"
-#~ msgstr "Αυτή η συσκευή δεν υπάρχει!"
-
-#~ msgid "The user identifier is not an ASCII string!"
-#~ msgstr "Το αναγνωριστικό χρήστη δεν είναι συμβολοσειρά ASCII!"
-
-#~ msgid "Token is not a hexadecimal string!"
-#~ msgstr "Το κουπόνι δεν είναι δεκαεξαδική συμβολοσειρά!"
-
-#~ msgid "Coordinate is not a numeric value!"
-#~ msgstr "Η συντεταγμένη δεν είναι αριθμητική τιμή!"
-
-#~ msgid "Coordinate is out of bounds. Which planet are you from?"
-#~ msgstr "Η συντεταγμένη είναι εκτός ορίων. Από ποιον πλανήτη είστε;"
-
-#~ msgid "Invalid structure in multi-language attribute!"
-#~ msgstr "Μη έγκυρη δομή σε πολυγλωσσικό attribute!"
-
-#~ msgid "Unknown state of boolean option!"
-#~ msgstr "Άγνωστη κατάσταση για δυαδική επιλογή!"
-
-#~ msgid ""
-#~ "This page needs to be called either for EAP-Types OR for devices, not "
-#~ "both simultaneously!"
-#~ msgstr ""
-#~ "Η κλήση αυτής της σελίδας πρέπει να γίνεται για τύπους EAP Ή για "
-#~ "συσκευές, όχι και τα δύο ταυτόχρονα!"
-
-#~ msgid ""
-#~ "This page needs to be called either for EAP-Types OR for devices, but "
-#~ "none of the two were set!"
-#~ msgstr ""
-#~ "Η κλήση αυτής της σελίδας πρέπει να γίνεται για τύπους EAP Ή για "
-#~ "συσκευές, αλλά δεν ορίστηκε κανένα από τα δύο!"
-
-#~ msgid ""
-#~ "Due to OpenSSL limitations, it is not possible to check IPv6 addresses at "
-#~ "this time."
-#~ msgstr ""
-#~ "Λόγω τω περιορισμών του OpenSSL, δεν είναι δυνατός ο έλεγχος διευθύνσεων "
-#~ "IPv6 αυτή τη στιγμή."
-
-#~ msgid "Anonymity Support"
-#~ msgstr "Υποστήριξη ανωνυμίας"
-
-#~ msgid ""
-#~ "If you enable this feature, we will by default use the anonymous id "
-#~ "'anonymous@realm' in the device configurations. You can optionally change "
-#~ "that by typing in the local anonymisation part in the text field."
-#~ msgstr ""
-#~ "Αν ενεργοποιήστε αυτή τη λειτουργία, θα προεπιλέξουμε το ανώνυμο id "
-#~ "'anonymous@realm' στις ρυθμίσες συσκευών. Προαιρετικά μπορείτε να το "
-#~ "αλλάξετε πληκτρολογώντας το local part στο πεδίο κειμένου."
-
-#~ msgid "<strong>%s</strong> from <strong>%s</strong>"
-#~ msgstr "<strong>%s</strong> από <strong>%s</strong>"
-
-#~ msgid "Login with <strong>%s</strong> from <strong>%s</strong> failed!"
-#~ msgstr "Η είσοδος με <strong>%s</strong> από <strong>%s</strong> απέτυχε!"
-
-#~ msgid ""
-#~ "Could not check <strong>%s</strong> from <strong>%s</strong> - no "
-#~ "username submitted!"
-#~ msgstr ""
-#~ "Αδυναμία ελέγχου <strong>%s</strong> από <strong>%s</strong> - δεν "
-#~ "υποβλήθηκε όνομα χρήστη!"
-
-#~ msgid "Username missing"
-#~ msgstr "Λείπει το όνομα χρήστη"
-
-#~ msgid ""
-#~ "Could not check <strong>%s</strong> from <strong>%s</strong> - no "
-#~ "password submitted!"
-#~ msgstr ""
-#~ "Αδυναμία ελέγχου <strong>%s</strong> από <strong>%s</strong> - δεν "
-#~ "υποβλήθηκε κωδικός πρόσβασης!"
-
-#~ msgid "Password missing"
-#~ msgstr "Λείπει ο κωδικός πρόσβασης"
-
-#~ msgid ""
-#~ "Sorry, we don't know how to handle the inner EAP method in <strong>%s</"
-#~ "strong> from <strong>%s</strong>!"
-#~ msgstr ""
-#~ "Λυπούμαστε, δεν ξέρουμε πως να διαχειριστούμε την εσωτερική μέθοδο EAP "
-#~ "στο <strong>%s</strong> από <strong>%s</strong>!"
-
-#~ msgid "Unknown inner method"
-#~ msgstr "Άγνωστη εσωτερική μέθοδος"
-
-#~ msgid "Sorry... we don't know how to test the EAP type %s from %s."
-#~ msgstr "Λυπούμαστε... δεν ξέρουμε πως να δοκιμάσουμε τον τύπο EAP %s από %s"
-
-#~ msgid "Unknown outer method"
-#~ msgstr "Άγνωστη εξωτερική μέθοδος"
-
-#~ msgid ""
-#~ "Your profile does not contain a valid realm name. We can only check the "
-#~ "validity of a realm if you let us know the realm name. Please consider "
-#~ "going to your profile properties and enter the realm name."
-#~ msgstr ""
-#~ "Το προφίλ σας δεν περιέχει κάποιο έγκυρο όνομα τομέα. Μπορούμε να "
-#~ "δοκιμάσουμε την εγκυρότητα ενός τομέα μόνο αν μας δώσετε το όνομα του "
-#~ "τομέα. Παρακαλούμε λάβετε υπόψιν σας να πάτε στις ιδιότητες προφίλ και να "
-#~ "εισάγετε το όνομα του τομέα."
-
-#~ msgid "Feedback"
-#~ msgstr "Ανατροφοδότηση"

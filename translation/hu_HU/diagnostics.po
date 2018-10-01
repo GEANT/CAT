@@ -1,19 +1,18 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-# Translators:
-# Janos Mohacsi <mohacsi@niif.hu>, 2012,2014-2015
-# Janos Mohacsi <mohacsi@niif.hu>, 2012
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: eduroam CAT\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
-"PO-Revision-Date: 2015-04-07 14:08+0000\n"
-"Last-Translator: Janos Mohacsi <mohacsi@niif.hu>\n"
-"Language-Team: Hungarian (http://www.transifex.com/projects/p/cat/language/"
-"hu/)\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Pozsonyi Dóra <pozsonyi@niif.hu>, 2018\n"
+"Language-Team: Hungarian (https://www.transifex.com/eduroam_devel/"
+"teams/11799/hu/)\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,7 +25,7 @@ msgstr "Befejezett"
 
 #: core/diag/AbstractTest.php:273
 msgid "Product is not configured to run this check."
-msgstr ""
+msgstr "A termék nincs konfigurálva ennek az ellenőrzésnek a futtatásához."
 
 #: core/diag/AbstractTest.php:279
 msgid "This check was skipped."
@@ -104,15 +103,14 @@ msgstr ""
 "fogja elfogadni a tanusítványláncot. "
 
 #: core/diag/AbstractTest.php:372
-#, fuzzy
 msgid ""
 "At least one certificate in the chain is signed with the SHA-1 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
 "validate this certificate."
 msgstr ""
-"Legalább 1 szerver tanusítvány a tanusítványláncban MD5-el van aláírva. Sok "
-"operációs rendszer, sok operációs rendszer (pl. Apple iOS, Windows 8.x) nem "
-"fogja elfogadni a tanusítványláncot. "
+"Legalább egy a tanúsítvány láncban található tanúsítványt  a SHA-1 "
+"aláírással írtak alá. Számos operációs rendszer, beleértve az Apple iOS-t "
+"is, nem tudja hitelesíteni ezt a tanúsítványt."
 
 #: core/diag/AbstractTest.php:379
 msgid ""
@@ -155,7 +153,6 @@ msgstr ""
 "nem lesz lehetséges. "
 
 #: core/diag/AbstractTest.php:407
-#, fuzzy
 msgid ""
 "The extension 'CRL Distribution Point' in the server certificate points to a "
 "location where no DER-encoded CRL can be found. Some Operating Systems check "
@@ -163,10 +160,11 @@ msgid ""
 "certificate. Checking server certificate validity against a CRL will not be "
 "possible."
 msgstr ""
-"A szerver tanusítvány 'CRL Distribution Point' kiegészítése egy nem helyre "
-"mutat. Néhány operációs rendszer lehetséges, hogy nem fogja tudni "
-"ellenőrizni a tanusítványt. A szerver tanusítvány ellenőrzése a CRL alapján "
-"nem lesz lehetséges. "
+"A kiszolgálói tanúsítvány \"CRL Distribution Point\" kiterjesztése olyan "
+"helyre mutat, ahol nincs DER kódolt CRL. Néhány operációs rendszer ellenőrzi "
+"a tanúsítvány érvényességét a CRL segítségével, és így nem tudja "
+"hitelesíteni a tanúsítványt. A szerver tanúsítvány érvényességének "
+"ellenőrzése a CRL-el nem lehetséges."
 
 #: core/diag/AbstractTest.php:414
 msgid "The server certificate was revoked by the CA!"
@@ -302,22 +300,29 @@ msgid ""
 "1024 bit. Mac OS X 10.11 'El Capitan' is known to refuse TLS connections "
 "under these circumstances!"
 msgstr ""
+"A szerver 1024 bitnél rövidebb  Diffie-Hellman (DH) titkosítást támogat "
+"csak. Mac OS X 10.11 'El Capitan' ismeretes, hogy megtagadja a TLS kapcsolat "
+"kiépítését, ha ez fenn áll!"
 
 #: core/diag/AbstractTest.php:529
 msgid ""
 "The certificate contains more than one CommonName (CN) field. This is "
 "reportedly problematic on many supplicants."
 msgstr ""
+"A tanúsítvány több CommonName (CN) mezőt tartalmaz. Ez problémás, sok "
+"supplicant esetében."
 
 #: core/diag/AbstractTest.php:536
 msgid ""
 "The certificate public key algorithm is unknown to the system. Please submit "
 "the certificate as a sample to the developers."
 msgstr ""
+"A tanúsítvány nyilvános kulcs algoritmusa ismeretlen a rendszer számára. "
+"Kérjük, küldje el a tanúsítvány mintát a fejlesztőknek."
 
 #: core/diag/Logopath.php:96
 msgid "[eduroam Diagnostics]"
-msgstr ""
+msgstr "[eduroam Diagnosztika]"
 
 #: core/diag/Logopath.php:98
 msgid ""
@@ -326,22 +331,27 @@ msgid ""
 "org, forwarding the entire message (including the 'SUSPECTS' and 'EVIDENCE' "
 "data at the end), and explain why this is a false positive.)"
 msgstr ""
+"(Ez a szolgáltatás fejlesztési státuszban van.) Elnézést kérünk ha ez egy "
+"hamis figyelmeztetés. Ha ez a helyzet, küldj egy e-mailes jelentést a cat-"
+"devel@lists.geant.org címre, amely továbbítja az egész üzenetet (beleértve a "
+"\"SUSPECTS\" és az \"EVIDENCE\" adatokat is), és elmagyarázza, hogy ez miért "
+"hamis.)"
 
 #: core/diag/Logopath.php:100
 msgid "Yours sincerely,"
-msgstr ""
+msgstr "Üdvözlettel,"
 
 #: core/diag/Logopath.php:102
 msgid "Ed U. Roam, the eduroam diagnostics algorithm"
-msgstr ""
+msgstr "Ed U. Roam, az eduroam-diagnosztikai algoritmus"
 
 #: core/diag/Logopath.php:110
 msgid "[POLICYVIOLATION NATIONAL] IdP with no entry in eduroam database"
-msgstr ""
+msgstr "[POLICYVIOLATION NATIONAL] IdP nincs bejegyzés a eduroam adatbázisban"
 
 #: core/diag/Logopath.php:111
 msgid "Dear NRO administrator,"
-msgstr ""
+msgstr "Kedves NRO rendszergazda,"
 
 #: core/diag/Logopath.php:113
 #, php-format
@@ -350,12 +360,17 @@ msgid ""
 "checks determined that the realm exists, but we were unable to find an IdP "
 "with that realm in the eduroam database."
 msgstr ""
+"egy végfelhasználó kért diagnózist a  %s tartomány számára. A valós idejű "
+"kapcsolódási ellenőrzés megállapította, hogy létezik a tartomány, de nem "
+"találtunk IdP-t ezzel a tartománnyal az eduroam adatbázisban."
 
 #: core/diag/Logopath.php:115
 msgid ""
 "By not listing IdPs in the eduroam database, you are violating the eduroam "
 "policy."
 msgstr ""
+"Az IdP-k felsorolása az eduroam adatbázisban, Ön megsérti az eduroam "
+"szabályait."
 
 #: core/diag/Logopath.php:117
 msgid ""
@@ -363,11 +378,15 @@ msgid ""
 "to direct end users to their IdP for further diagnosis/instructions because "
 "there are no contact points for that IdP in the database."
 msgstr ""
+"Ezen túlmenően működési problémákat is okoz. Nem tudjuk továbbítani a "
+"végfelhasználói problémákat  az IdP üzemeltetőinek a további diagnózisokért "
+"és utasításokért, mivel nincs kapcsolati információnk az adatbázisban az IdP-"
+"vel."
 
 #: core/diag/RADIUSTests.php:1008
 #, php-format
 msgid "Connected to %s."
-msgstr ""
+msgstr "Csatlakoztatva %s"
 
 #: core/diag/RADIUSTests.php:1013
 msgid ""
@@ -375,6 +394,8 @@ msgid ""
 "multiple round-trips was carried out, and ended in an Access-Reject as "
 "planned."
 msgstr ""
+"<strong>Sikeres teszt</strong>: kétirányú RADIUS-párbeszédet hajtottunk "
+"végre több körben és a tervek szerint befejeződött egy Access-Reject-el."
 
 #: core/diag/RADIUSTests.php:1017
 msgid ""
@@ -383,6 +404,10 @@ msgid ""
 "Access-Reject as planned. Some properties of the connection attempt were sub-"
 "optimal; the list is below."
 msgstr ""
+"<strong>Teszt részben sikeres volt</strong>: kétirányú RADIUS-beszélgetést "
+"hajtottunk végre, és a tervek szerint Access-Reject-el  ért véget. A "
+"kapcsolódási kísérlet néhány tulajdonsága nem optimális; a lista alább "
+"található."
 
 #: core/diag/RFC6614Tests.php:68
 msgid "eduPKI"
@@ -430,7 +455,7 @@ msgstr "eduroam-minősített CA (most csak teszt célű)"
 
 #: core/diag/RFC6614Tests.php:253
 msgid "No TLS connection established: Connection refused"
-msgstr ""
+msgstr "Nem lehetséges TLS kapcsolatot létrehozni: A kapcsolat visszautasítva"
 
 #: core/diag/RFC6614Tests.php:255
 msgid "certificate expired"
@@ -470,24 +495,31 @@ msgstr "NAPTR rekord létezik, de mindegyike nem releváns szolgáltatásra muta
 #: core/diag/Sociopath.php:35
 msgid "There is nothing you can do to solve this problem yourself."
 msgstr ""
+"Semmi olyat nem tud tenni, amivel saját maga el tudná hárítani a problémát."
 
 #: core/diag/Sociopath.php:36
 msgid ""
 "Please be patient and try again at a later time. Do NOT change your device "
 "configuration."
 msgstr ""
+"Kérjük, legyen türelemmel, és próbálkozzon újra később. NE változtassa meg "
+"az eszköz konfigurációját."
 
 #: core/diag/Sociopath.php:37
 msgid ""
 "The infrastructure operators have automatically been informed and will "
 "investigate the issue as soon as possible."
 msgstr ""
+"Az infrastruktúra-üzemeltetőket automatikusan tájékoztatták és a lehető "
+"leghamarabb kivizsgálják a kérdést."
 
 #: core/diag/Sociopath.php:39
 msgid ""
 "The system has identified possible issues regarding your local device "
 "configuration."
 msgstr ""
+"A rendszer azonosította a helyi eszközkonfigurációval kapcsolatos lehetséges "
+"problémákat."
 
 #: core/diag/Sociopath.php:47
 msgid ""
@@ -495,6 +527,9 @@ msgid ""
 "you described. Probably, this is not a participating institution and the "
 "account you tried to use does not exist."
 msgstr ""
+"A rendszer nem talál semmilyen információt egyáltalán az Ön által megadott "
+"azonosítóról. Valószínűleg ez nem egy résztvevő intézmény, vagy a fiók, "
+"amelyet megpróbált használni nem létezik."
 
 #: core/diag/Sociopath.php:48
 msgid ""
@@ -505,6 +540,12 @@ msgid ""
 "objects in the way, elevation differences) can have a significant impact on "
 "your connectivity experience."
 msgstr ""
+"Valószínűleg problémák vannak a vezeték nélküli hálózatnál, amelyhez "
+"csatlakozni próbál. A vezeték nélküli hálózatok nem mindig "
+"determinisztikusan és következetesen viselkednek. Egy adott helyen minden "
+"felhasználónak meg kell osztania a rendelkezésre álló sávszélességet, és a "
+"fizikai környezet (konkrét falak, objektumok útja, magasságkülönbségek) "
+"jelentős hatással lehetnek a kapcsolódási minőségre."
 
 #. here is an array with yes/no answers per failure category, and the factors by which a Yes modifies the score; No's modify it by 1/factor;
 #. the order in this array is important: lower numbered questions will be asked first. So make sure you have high-quality questions in the beginning.
@@ -516,12 +557,18 @@ msgid ""
 "exists in CAT, then display link to config] or contact your Identity "
 "Provider [MGW: show contact info]."
 msgstr ""
+"Használj megfelelő konfigurációs asszisztenseket [MGW: nézd meg, hogy "
+"létezik-e a tartomány a CAT-ban, majd mutass linket a konfigurációhoz], vagy "
+"lépj kapcsolatba az azonosító szolgáltatójával [MGW: Névjegyek "
+"megjelenítése]."
 
 #: core/diag/Sociopath.php:60
 msgid ""
 "Have you ever used the network succesfully, e.g. at your home institution "
 "without roaming?"
 msgstr ""
+"Használtad már sikeresen a hálózatot, pl.  otthoni anyaintézményednél "
+"roaming nélkül?"
 
 #: core/diag/Sociopath.php:62
 #, php-format
@@ -529,12 +576,16 @@ msgid ""
 "If your device has never worked before with this setup, then very likely "
 "your device configuation is wrong. %s"
 msgstr ""
+"Ha a készülék még soha nem dolgozott ezzel a beállítással, akkor nagyon "
+"valószínű, hogy a készülék konfigurációja hibás.  %s"
 
 #: core/diag/Sociopath.php:64
 msgid ""
 "Did the device previously work when roaming, i.e. at other hotspots away "
 "from your home institution?"
 msgstr ""
+"Előfordult, hogy a készülék korábban működött a roamingolás során, vagyis "
+"más hotspotoknál az otthoni intézménytől távol?"
 
 #: core/diag/Sociopath.php:66
 #, php-format
@@ -544,10 +595,15 @@ msgid ""
 "routing ('outer') username without the @realm.tld suffix - those potentially "
 "work at home, but can not be used when roaming. %s"
 msgstr ""
+"Ha a roaming következetesen nem működik, akkor nagyon valószínű, hogy az "
+"eszköz konfigurációja rossz. A tüneteket okozó jellegzetes hibák közé "
+"tartozik: az realm nélküli ('külső') felhasználónév használata a @ realm.hu "
+"utótag nélkül - azoknak működhet akik, akik otthon dolgoznak, de nem működik "
+"barangoláskor.  %s"
 
 #: core/diag/Sociopath.php:68
 msgid "Did you recently change the configuration on your device?"
-msgstr ""
+msgstr "Nemrég módosította a készülék konfigurációját?"
 
 #: core/diag/Sociopath.php:70
 msgid ""
@@ -557,10 +613,15 @@ msgid ""
 "configuration unless explicitly instructed so by your Identity Provider; "
 "even in the case of temporary login issues."
 msgstr ""
+"A fiókokat csak egyszer kell konfigurálni, és változások nélkül bárhol "
+"használhatók. Ha nemrég megváltoztatta a konfigurációt, akkor ez a "
+"változtatás hiba lehet. Soha ne változtassa meg a hálózati konfigurációt, "
+"hacsak ezt az ön intézményi szolgáltatója ezt kifejezetten nem utasította; "
+"még ideiglenes bejelentkezési kérdések esetén se."
 
 #: core/diag/Sociopath.php:72
 msgid "If you use more than one device: do your other devices still work?"
-msgstr ""
+msgstr "Ha több eszközt is használ: a többi eszköz továbbra is működik?"
 
 #: core/diag/Sociopath.php:73
 msgid ""
@@ -569,12 +630,18 @@ msgid ""
 "change the password? These questions are best answered by your Identity "
 "Provider [MGW: display contact info]"
 msgstr ""
+"Ha az összes eszköze nem működik egyidejűleg, akkor a fiókban lehet a "
+"probléma. Talán a fiók lejárt, vagy kénytelen volt megváltoztatni a "
+"jelszavát? Ezeket a kérdésekre a választ a leginkább az Ön Intézményi "
+"Azonosítási Szolgáltatója [MGW: Display Contact Information] adja meg."
 
 #: core/diag/Sociopath.php:76
 msgid ""
 "Is the place you are currently at heavily crowded, or is a network-intensive "
 "workload going on?"
 msgstr ""
+"A hely, ahol jelenleg erősen zsúfolt vagy hálózat-intenzív munkaterhelés "
+"zajlik?"
 
 #: core/diag/Sociopath.php:78
 msgid ""
@@ -583,10 +650,15 @@ msgid ""
 "the network should be reinforced for more capacity at this place, you should "
 "inform the hotspot provider. [MGW: add contact info]"
 msgstr ""
+"A hálózat valószínűleg túlterhelt ezen a helyen és ebben az időben. "
+"Előfordulhat, hogy várnia kell, mielőtt jobb kapcsolatot kapna. Ha úgy "
+"gondolja, hogy a hálózatot nagyobb kapacitással kell megerősíteni ezen a "
+"helyen, tájékoztatnia kell a hotspot szolgáltatót. [MGW: kapcsolatfelvételi "
+"adatok felvétele]"
 
 #: core/diag/Sociopath.php:80
 msgid "Does the connection get better when you move around?"
-msgstr ""
+msgstr "A kapcsolat jobbá válik, ha járkálsz?"
 
 #: core/diag/Sociopath.php:82
 msgid ""
@@ -594,11 +666,17 @@ msgid ""
 "and service. If you think the exact spot you are at deserves better "
 "coverage, you should inform the hotspot provider. [MGW: add contact info]"
 msgstr ""
+"Más helyre kell mozognia, hogy jobb hálózati lefedettséget és szolgáltatást "
+"érjen el. Ha úgy gondolja, hogy a pontos hely, jobb minőségű lefedettséget "
+"érdemel, tájékoztatnia kell a hotspot szolgáltatóját. [MGW: kapcsolati "
+"információk hozzáadása]"
 
 #: core/diag/Sociopath.php:85
 msgid ""
 "Do you see errors stating something similar to 'Unable to get IP address'?"
 msgstr ""
+"Látsz olyan hibákat, amelyek ahhoz hasonlóakat mondanak  ' ' Nem lehetséges "
+"IP-címet lekérni ' ?"
 
 #: core/diag/Sociopath.php:87
 msgid ""
@@ -606,595 +684,361 @@ msgid ""
 "this particular hotspot provider. There is nothing you can do to solve this "
 "problem locally. Please be patient and try again at a later time."
 msgstr ""
+"A rendelkezésre álló bizonyítékok azt sugallják, hogy ez az adott hotspot "
+"szolgáltatónak infrastrukturális problémája van. Jelenleg semmit nem tud "
+"tenni a hiba elhárításáért. Kérjük, legyen türelemmel, és próbálkozzon újra "
+"később."
 
 #: web/skins/modern/diag/diag.php:68
 msgid "Diagnostics site"
-msgstr ""
+msgstr "Diagnosztikai oldal"
 
 #: web/skins/modern/diag/diag.php:68 web/skins/modern/diag/diag.php:71
 msgid ""
 "The diagnostics system will do its best to identify and resolve your "
 "problems!"
 msgstr ""
+"A diagnosztikai rendszer mindent megtesz annak érdekében, hogy azonosítsa és "
+"megoldja problémáit!"
 
 #: web/skins/modern/diag/diag.php:68
 msgid ""
 "Please help the system by answering the questions as precisely as possible."
-msgstr ""
+msgstr "Kérjük, segítse a rendszert a kérdések pontos megválaszolásában."
 
 #: web/skins/modern/diag/diag.php:71
 msgid "Are you a"
-msgstr ""
+msgstr "Te egy"
 
 #: web/skins/modern/diag/diag.php:72
 msgid "end-user"
-msgstr ""
+msgstr "végfelhasználó"
 
 #: web/skins/modern/diag/diag.php:72
 msgid "or"
-msgstr ""
+msgstr "vagy"
 
 #: web/skins/modern/diag/diag.php:73
 msgid "eduroam administrator"
-msgstr ""
+msgstr "eduroam adminisztrátor"
 
 #: web/skins/modern/diag/diag.php:76
 msgid "Tools for End Users"
-msgstr ""
+msgstr "Eszközök a végfelhasználók számára"
 
 #: web/skins/modern/diag/diag.php:79
 msgid ""
 "To resolve your problem a real-time diagnostics for your realm must be "
 "performed."
 msgstr ""
+"A probléma megoldásához valós idejű diagnosztikát kell végezned a realm-eden."
 
 #: web/skins/modern/diag/diag.php:83
 msgid ""
 "The system needs some information on your home institution - issuer of your "
 "account"
 msgstr ""
+"A rendszernek szüksége van néhány információra az otthoni intézményedről - a "
+"fiókod kibocsátója"
 
 #: web/skins/modern/diag/diag.php:84
 msgid ""
 "What is the realm part of your user account (the part behind the @ of 'your."
 "username@<b>realm.tld</b>):"
 msgstr ""
+"Mi a felhasználói fiókod realm része (a \"felhasználóneved @\" mögötti rész? "
+"<b>realm.tld</b>):"
 
 #: web/skins/modern/diag/diag.php:88
 msgid "alternatively"
-msgstr ""
+msgstr "másként"
 
 #: web/skins/modern/diag/diag.php:89
 msgid "You can select your home institution from the following list"
-msgstr ""
+msgstr "Az otthoni intézményt az alábbi listából választhatod ki"
 
 #: web/skins/modern/diag/diag.php:91
 msgid "Click to select your country/region and organisation"
-msgstr ""
+msgstr "Kattintson az ország / régió és szervezet kiválasztásához"
 
 #: web/skins/modern/diag/diag.php:98
 msgid ""
 "Optionally, to improve tests, you can provide information on your current "
 "location"
 msgstr ""
+"Opcionálisan a tesztek javítása érdekében megadhatsz információkat az "
+"aktuális helyzetedről."
 
 #: web/skins/modern/diag/diag.php:100
 msgid "Click to select a location in which you have an eduroam problem"
-msgstr ""
+msgstr "Kattintással válassza ki azt a helyet, ahol eduroam probléma felmerült"
 
 #: web/skins/modern/diag/diag.php:107 web/skins/modern/diag/diag.php:238
 msgid "Testing realm"
-msgstr ""
+msgstr "A tartomány tesztelése"
 
 #: web/skins/modern/diag/diag.php:108
 msgid "First stage completed."
-msgstr ""
+msgstr "Az első szakasz befejeződött."
 
 #: web/skins/modern/diag/diag.php:113
 msgid "To narrow down the problem, please answer the following few questions."
-msgstr ""
+msgstr "A probléma szűkítéséhez kérjük, válaszoljon az alábbi néhány kérdésre."
 
 #: web/skins/modern/diag/diag.php:118
 msgid "Run tests"
-msgstr ""
+msgstr "tesztek futnak"
 
 #: web/skins/modern/diag/diag.php:123
 msgid "Tools for eduroam admins"
-msgstr ""
+msgstr "Eszközök eduroam adminisztrátoroknak"
 
 #: web/skins/modern/diag/diag.php:135
 msgid "Which problem are you reporting?"
-msgstr ""
+msgstr "Melyik problémát jelented?"
 
 #: web/skins/modern/diag/diag.php:137 web/skins/modern/diag/diag.php:845
 msgid "SP contacting IdP due to technical problems or abuse"
 msgstr ""
+"SP kapcsolatba lép az IdP-vel technikai problémák vagy visszaélések miatt"
 
 #: web/skins/modern/diag/diag.php:139
 msgid "IdP contacting SP due to technical problems"
-msgstr ""
+msgstr "Az IdP technikai problémák miatt lépett kapcsolatba SP-vel"
 
 #: web/skins/modern/diag/diag.php:146
 msgid "This service is for authenticated admins only."
-msgstr ""
+msgstr "Ez a szolgáltatás kizárólag a azonosított adminisztrátoroknak számára."
 
 #: web/skins/modern/diag/diag.php:148
 msgid "eduroam® admin access is needed"
-msgstr ""
+msgstr "eduroam® admin hozzáférésre van szükség"
 
 #: web/skins/modern/diag/diag.php:172
 msgid "Select institiution:"
-msgstr ""
+msgstr "Válasszon intézményt:"
 
 #: web/skins/modern/diag/diag.php:197
 msgid "Select country or region:"
-msgstr ""
+msgstr "Válasszon országot vagy régiót:"
 
 #: web/skins/modern/diag/diag.php:205
 msgid "Fetching country/region list"
-msgstr ""
+msgstr "Ország / régió listájának lekérése"
 
 #: web/skins/modern/diag/diag.php:265
 msgid "Yes"
-msgstr ""
+msgstr "Igen"
 
 #: web/skins/modern/diag/diag.php:266
 msgid "No"
-msgstr ""
+msgstr "Nem"
 
 #: web/skins/modern/diag/diag.php:267
 msgid "I don't know"
-msgstr ""
+msgstr "Nem tudom"
 
 #: web/skins/modern/diag/diag.php:296
 msgid "Diagnostic tests results for selected realm"
-msgstr ""
+msgstr "A kiválasztott területre vonatkozó diagnosztikai tesztek eredményei"
 
 #: web/skins/modern/diag/diag.php:299
 msgid "The result for tested realm:"
-msgstr ""
+msgstr "A tartomány tesztelés eredménye:"
 
 #: web/skins/modern/diag/diag.php:301
 msgid "The system identified"
-msgstr ""
+msgstr "A rendszer azonosított"
 
 #: web/skins/modern/diag/diag.php:303
 msgid "suspected areas which potentially can cause a problem."
-msgstr ""
+msgstr "A gyanús területek, amelyek potenciálisan problémát okozhatnak."
 
 #: web/skins/modern/diag/diag.php:304
 msgid ""
 "Next to the problem description we show a speculated probability of this "
 "event."
 msgstr ""
+"A probléma leírása mellett a rendezvény feltételezett valószínűségét "
+"mutatjuk be."
 
 #: web/skins/modern/diag/diag.php:311
 msgid "Your device configuration is broken"
-msgstr ""
+msgstr "A készülék konfigurációja hibás"
 
 #: web/skins/modern/diag/diag.php:314
 msgid "The Wi-Fi network in your vicinity has quality issues"
-msgstr ""
+msgstr "A környéken található Wi-Fi-hálózat minőségi problémákat okoz"
 
 #: web/skins/modern/diag/diag.php:317
 msgid "The network environment around you is broken"
-msgstr ""
+msgstr "A körülötted lévő hálózati környezet hibás"
 
 #: web/skins/modern/diag/diag.php:320
 msgid "The RADIUS server of your service provider is the source of the problem"
-msgstr ""
+msgstr "A probléma forrása a szolgáltató RADIUS-kiszolgálója"
 
 #: web/skins/modern/diag/diag.php:323
 msgid ""
 "The RADIUS server in your home institution is currently unable to "
 "authenticate you"
 msgstr ""
+"Az otthoni tartomány RADIUS-kiszolgálója jelenleg nem tudja hitelesíteni Önt"
 
 #: web/skins/modern/diag/diag.php:326
 msgid ""
 "The national server in the country/region you are visiting is not "
 "functioning correctly"
 msgstr ""
+"A nemzeti szerver abban az ország/régióban, amit meglátogatsz, nem működik "
+"megfelelően"
 
 #: web/skins/modern/diag/diag.php:329
 msgid ""
 "The link between the national server of the country/region you are visiting "
 "and the top-level server is broken"
 msgstr ""
+"A meglátogatott ország / régió nemzeti szervere és a legfelső szintű szerver "
+"közötti kapcsolat hibás"
 
 #: web/skins/modern/diag/diag.php:332
 msgid ""
 "The link between the national server of your home country/region and the top-"
 "level server is broken"
 msgstr ""
+"A hazai ország / régió nemzeti szervere és a legfelső szintű szerver közötti "
+"kapcsolat  hibás"
 
 #: web/skins/modern/diag/diag.php:335
 msgid "The communication to the top-level server is down"
 msgstr ""
+"A legfelsőbb szintű kiszolgáló szerver felé irányuló kommunikáció le van "
+"állítva"
 
 #: web/skins/modern/diag/diag.php:338
 msgid ""
 "The national server in your home country/region is not functioning properly."
-msgstr ""
+msgstr "A hazai ország / régió nemzeti szervere nem működik megfelelően."
 
 #: web/skins/modern/diag/diag.php:341
 msgid "The RADIUS server of your home institution is the source of the problem"
-msgstr ""
+msgstr "Az otthoni intézmény RADIUS-kiszolgálója a probléma forrása"
 
 #: web/skins/modern/diag/diag.php:344
-#, fuzzy
 msgid "This realm does not exist"
-msgstr "Ennel a realm-nek nincsen NAPTR rekordja"
+msgstr "Ez a realm nem létezik"
 
 #: web/skins/modern/diag/diag.php:450
 msgid "Fetching institutions list"
-msgstr ""
+msgstr "Az intézmények listájának lekérése"
 
 #: web/skins/modern/diag/diag.php:468
 msgid "Select institution:"
-msgstr ""
+msgstr "Válasszon intézményt:"
 
 #: web/skins/modern/diag/diag.php:507
 msgid "Fetching realms list"
-msgstr ""
+msgstr "A realmek listájának lekérése"
 
 #: web/skins/modern/diag/diag.php:519
 msgid "Check realm(s):"
-msgstr ""
+msgstr "A realm(ek) ellenőrzése:"
 
 #: web/skins/modern/diag/diag.php:531
 msgid "Realm:"
-msgstr ""
+msgstr "Realm:"
 
 #: web/skins/modern/diag/diag.php:585 web/skins/modern/diag/diag.php:654
 #: web/skins/modern/diag/diag.php:770
 msgid "Running realm tests"
-msgstr ""
+msgstr "Realm tesztek futása"
 
 #: web/skins/modern/diag/diag.php:629
 msgid "Realm is not registered with the eduroam database:"
-msgstr ""
+msgstr "A realm nincs regisztrálva az eduroam adatbázisban:"
 
 #: web/skins/modern/diag/diag.php:702
 msgid "Diagnostics results for selected realms"
-msgstr ""
+msgstr "Diagnosztikai eredmények a kiválasztott realm-ekben"
 
 #: web/skins/modern/diag/diag.php:703
 msgid "An unknown problem occured"
-msgstr ""
+msgstr "Ismeretlen probléma merült fel"
 
 #: web/skins/modern/diag/diag.php:706
 msgid "This test includes checking of the following realm"
-msgstr ""
+msgstr "Ez a teszt magába foglalja az alábbi realm ellenőrzését"
 
 #: web/skins/modern/diag/diag.php:708
 msgid "This test includes checking of the following realms"
-msgstr ""
+msgstr "Ez a teszt magába foglalja az alábbi realm-ek ellenőrzését"
 
 #: web/skins/modern/diag/diag.php:718
 msgid "You should report this to"
-msgstr ""
+msgstr "Ezt jelentened kell"
 
 #: web/skins/modern/diag/diag.php:842
 msgid "eduroam admin report submission"
-msgstr ""
+msgstr "eduroam admin jelentés benyújtása"
 
 #: web/skins/modern/diag/diag.php:847 web/skins/modern/diag/diag.php:857
 msgid "Reason"
-msgstr ""
+msgstr "Ok"
 
 #: web/skins/modern/diag/diag.php:848
 msgid "SP email"
-msgstr ""
+msgstr "SP email"
 
 #: web/skins/modern/diag/diag.php:849
 msgid "IdP email(s)"
-msgstr ""
+msgstr "IdP email(ek)"
 
 #: web/skins/modern/diag/diag.php:850 web/skins/modern/diag/diag.php:861
 msgid "Event's timestamp"
-msgstr ""
+msgstr "Esemény időbélyegzője"
 
 #: web/skins/modern/diag/diag.php:851 web/skins/modern/diag/diag.php:862
 msgid "Calling-Station-Id"
-msgstr ""
+msgstr "Calling-Station-Id"
 
 #: web/skins/modern/diag/diag.php:852 web/skins/modern/diag/diag.php:863
 msgid "Additional description"
-msgstr ""
+msgstr "További leírás"
 
 #: web/skins/modern/diag/diag.php:855
 msgid "IdP contacting SP due to technical problems or abuse"
 msgstr ""
+"Az IdP technikai problémák vagy visszaélések miatt kapcsolatba lépett a SP-"
+"vel"
 
 #: web/skins/modern/diag/diag.php:858
 msgid "SP's Operator-Name"
-msgstr ""
+msgstr "SP operátor-neve"
 
 #: web/skins/modern/diag/diag.php:859
 msgid "User's outer ID"
-msgstr ""
+msgstr "Felhasználó külső azonosítója"
 
 #: web/skins/modern/diag/diag.php:860
 msgid "IdP email"
-msgstr ""
+msgstr "IdP email"
 
 #: web/skins/modern/diag/diag.php:864
 msgid "How to contact the user"
-msgstr ""
+msgstr "Hogyan lépjünk kapcsolatba a felhasználóval"
 
 #: web/skins/modern/diag/diag.php:881
 msgid "MAC address is incomplete"
-msgstr ""
+msgstr "A MAC-cím hiányos"
 
 #: web/skins/modern/diag/diag.php:890
 msgid "Wrong format of email"
-msgstr ""
+msgstr "Rossz e-mail formátum"
 
 #: web/skins/modern/diag/diag.php:899
 msgid "Wrong format of outer ID"
-msgstr ""
+msgstr "A külső ID hibás formátumú"
 
 #: web/skins/modern/diag/diag.php:908
 msgid "Wrong string given as OperatorName"
-msgstr ""
-
-#~ msgid "your local %s support"
-#~ msgstr "helyi támogató: %s"
-
-#~ msgid "your local %s support page"
-#~ msgstr "helyi támogató honlap: %s"
-
-#~ msgid ""
-#~ "Sorry, this should not happen - no additional information is available"
-#~ msgstr ""
-#~ "Ennek nem lett volna szabad bekövetkeznie - nincsen további információ "
-
-#~ msgid "Andorra"
-#~ msgstr "Andorra"
-
-#~ msgid "Austria"
-#~ msgstr "Ausztria"
-
-#~ msgid "Belgium"
-#~ msgstr "Belgium"
-
-#~ msgid "Bulgaria"
-#~ msgstr "Bulgária"
-
-#~ msgid "Cyprus"
-#~ msgstr "Ciprus"
-
-#~ msgid "Czech Republic"
-#~ msgstr "Cseh Köztársaság"
-
-#~ msgid "Denmark"
-#~ msgstr "Dánia"
-
-#~ msgid "Estonia"
-#~ msgstr "Észtország"
-
-#~ msgid "Finland"
-#~ msgstr "Finnország"
-
-#~ msgid "France"
-#~ msgstr "Franciaország"
-
-#~ msgid "Germany"
-#~ msgstr "Németország"
-
-#~ msgid "Greece"
-#~ msgstr "Görögország"
-
-#~ msgid "Croatia"
-#~ msgstr "Horváthország"
-
-#~ msgid "Ireland"
-#~ msgstr "Írország"
-
-#~ msgid "Iceland"
-#~ msgstr "Izland"
-
-#~ msgid "Italy"
-#~ msgstr "Olaszország"
-
-#~ msgid "Hungary"
-#~ msgstr "Magyarország"
-
-#~ msgid "Luxembourg"
-#~ msgstr "Luxemburg"
-
-#~ msgid "Latvia"
-#~ msgstr "Lettország"
-
-#~ msgid "Lithuania"
-#~ msgstr "Litvánia"
-
-#~ msgid "Macedonia"
-#~ msgstr "Macedónia"
-
-#~ msgid "Serbia"
-#~ msgstr "Szerbia"
-
-#~ msgid "Netherlands"
-#~ msgstr "Hollandia"
-
-#~ msgid "Norway"
-#~ msgstr "Norvégia"
-
-#~ msgid "Poland"
-#~ msgstr "Lengyelország"
-
-#~ msgid "Portugal"
-#~ msgstr "Portugália"
-
-#~ msgid "Romania"
-#~ msgstr "Románia"
-
-#~ msgid "Slovenia"
-#~ msgstr "Szlovénia"
-
-#~ msgid "Spain"
-#~ msgstr "Spanyolország"
-
-#~ msgid "Sweden"
-#~ msgstr "Svédország"
-
-#~ msgid "Slovakia"
-#~ msgstr "Szlovákia"
-
-#~ msgid "Switzerland"
-#~ msgstr "Svájc"
-
-#~ msgid "Turkey"
-#~ msgstr "Törökország"
-
-#~ msgid "United Kingdom"
-#~ msgstr "Egyesült Királyság"
-
-#~ msgid "Australia"
-#~ msgstr "Ausztrália"
-
-#~ msgid "Canada"
-#~ msgstr "Kanada"
-
-#~ msgid "Israel"
-#~ msgstr "Izrael"
-
-#~ msgid "Japan"
-#~ msgstr "Japán"
-
-#~ msgid "New Zealand"
-#~ msgstr "Új Zéland"
-
-#~ msgid "U.S.A."
-#~ msgstr "USA"
-
-#~ msgid "Brazil"
-#~ msgstr "Brazilia"
-
-#~ msgid "Chile"
-#~ msgstr "Chile"
-
-#~ msgid "Peru"
-#~ msgstr "Peru"
-
-#~ msgid "Venezuela"
-#~ msgstr "Venezuela"
-
-#~ msgid "Default"
-#~ msgstr "Alapértelmezett"
-
-#~ msgid "Armenia"
-#~ msgstr "Örményország"
-
-#~ msgid "Azerbaijan"
-#~ msgstr "Azerbajdzsán"
-
-#~ msgid "Belarus"
-#~ msgstr "Fehéroroszország"
-
-#~ msgid "Ecuador"
-#~ msgstr "Ekvádor"
-
-#~ msgid "Hong Kong"
-#~ msgstr "Hong Kong"
-
-#~ msgid "Kenya"
-#~ msgstr "Kenya"
-
-#~ msgid "Kyrgyzstan"
-#~ msgstr "Kirgizisztán"
-
-#~ msgid "Korea"
-#~ msgstr "Korea"
-
-#~ msgid "Kazakhstan"
-#~ msgstr "Kazahsztán"
-
-#~ msgid "Morocco"
-#~ msgstr "Marokko"
-
-#~ msgid "Moldova"
-#~ msgstr "Moldova"
-
-#~ msgid "Montenegro"
-#~ msgstr "Montenegro"
-
-#~ msgid "Macau"
-#~ msgstr "Makaó"
-
-#~ msgid "Malta"
-#~ msgstr "Málta"
-
-#~ msgid "Russia"
-#~ msgstr "Oroszország"
-
-#~ msgid "Singapore"
-#~ msgstr "Szingapúr"
-
-#~ msgid "Thailand"
-#~ msgstr "Tájföld"
-
-#~ msgid "Taiwan"
-#~ msgstr "Tajvan"
-
-#~ msgid "South Africa"
-#~ msgstr "Dél Afrika"
-
-#~ msgid "Could not create a new Institution!"
-#~ msgstr "Nem tudok új Intézményt létrehozni!"
-
-#~ msgid ""
-#~ "Hi,\n"
-#~ "\n"
-#~ "the Identity Provider %s in your %s federation %s has been deleted from "
-#~ "%s.\n"
-#~ "\n"
-#~ "We thought you might want to know.\n"
-#~ "\n"
-#~ "Best regards,\n"
-#~ "\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Üdvözlet!\n"
-#~ "\n"
-#~ "A %s Identity Provider a %s %s föderációból %s törlésre került.\n"
-#~ "\n"
-#~ "Úgy gondoltuk, hogy erről fontos, hogy értesítsünk.\n"
-#~ "\n"
-#~ "Üdvözlettel,\n"
-#~ "\n"
-#~ "%s"
-
-#~ msgid "IdP in your federation was deleted"
-#~ msgstr "IdP-t a szövetségből töröltük"
-
-#~ msgid ""
-#~ "Hi,\n"
-#~ "\n"
-#~ "the invitation for the new Identity Provider %s in your %s federation %s "
-#~ "has been used and the IdP was created in %s.\n"
-#~ "\n"
-#~ "We thought you might want to know.\n"
-#~ "\n"
-#~ "Best regards,\n"
-#~ "\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Szép napot!\n"
-#~ "\n"
-#~ "Az %s Identity Providernek szóló meghívó a %s  %s föderációban "
-#~ "felhasználásra került. Az  IdP létrejött az  %s rendszerben.\n"
-#~ "\n"
-#~ "Úgy gondoltuk, hogy erről fontos, hogy értesítsünk.\n"
-#~ "\n"
-#~ "Üdvözlettel,\n"
-#~ "\n"
-#~ "%s"
-
-#~ msgid "IdP in your federation was created"
-#~ msgstr "IdP jött létre a föderációban"
-
-#~ msgid "Feedback"
-#~ msgstr "Visszajelzés"
+msgstr "Hibás karaktert adott operátornévnek"

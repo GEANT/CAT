@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
-"PO-Revision-Date: 2018-08-22 10:32+0000\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"PO-Revision-Date: 2018-09-12 13:06+0000\n"
 "Last-Translator: Petr Adamec <p.b.adamec@gmail.com>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/"
 "eduroam_devel/cat/language/cs_CZ/)\n"
@@ -171,13 +171,12 @@ msgid "General Information"
 msgstr "Všeobecné informace"
 
 #: web/admin/edit_idp.php:101
-#, fuzzy
 msgid ""
 "Some properties are valid across all deployment profiles. This is the place "
 "where you can describe those properties in a fine-grained way. The solicited "
 "information is used as follows:"
 msgstr ""
-"%s má vlastnosti, které jsou platné pro všechny profily. Zde můžete detailně "
+"Některé vlastnosti jsou platné pro všechny profily. Zde můžete detailně "
 "popsat svou organizaci. Požadovaná informace je použita následovně:"
 
 #: web/admin/edit_idp.php:103
@@ -343,12 +342,12 @@ msgstr ""
 "lokální podporu."
 
 #: web/admin/edit_idp.php:176
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Do you provide helpdesk services for your users? If so, it would be nice if "
 "you would tell us the pointers to this helpdesk."
 msgstr ""
-"Poskytuje %s podporu svým uživatelům? Pokud ano bylo by vhodné sdělit nám "
+"Poskytujete podporu svým uživatelům? Pokud ano bylo by vhodné sdělit nám "
 "odkazy na tuto podporu."
 
 #: web/admin/edit_idp.php:178
@@ -2105,9 +2104,9 @@ msgid "Diagnostics"
 msgstr "Diagnostika"
 
 #: web/lib/admin/PageDecoration.php:223
-#, fuzzy, php-format
+#, php-format
 msgid "%s Privacy Notice"
-msgstr "%s vlastnosti"
+msgstr "%s Ochrana osobních údajů"
 
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a

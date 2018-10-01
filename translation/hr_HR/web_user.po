@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
-"PO-Revision-Date: 2018-05-30 06:21+0000\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"PO-Revision-Date: 2018-09-12 12:48+0000\n"
 "Last-Translator: Dubravko Penezic <dpenezic@gmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/hr_HR/)\n"
@@ -30,9 +30,10 @@ msgstr ""
 #, php-format
 msgid "<span class='edu_cat'>%s</span> is built as a cooperation platform."
 msgstr ""
+"<span class='edu_cat'>%s</span> je napravljen kao platforma za suradnju."
 
 #: web/user/about_cat.inc.php:29
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Local %s administrators enter their %s configuration details and based on "
 "them, <span class='edu_cat'>%s</span> builds customised installers for a "
@@ -42,14 +43,13 @@ msgid ""
 "administrators and try to influence them to add your %s configuration to "
 "<span class='edu_cat'>%s</span>."
 msgstr ""
-"<span class='edu_cat'>%s</span> je izgrađen kao platforma za suradnju."
-"<p>Lokalni %s administratori pohranjuju %s configuracijske detalje te na "
-"temelju njih, <span class='edu_cat'>%s</span> generira prilagođene "
-"installere za brojne popularne platforme. Installer generiran za jedan %s "
-"neće raditi za korisnike s druge, , što znači da ako Vaš %s nije na listi, "
-"ne možete korisiti ovaj sustav.  Molimo Vas da kontaktirate administratore "
-"Vaše matične ustanove i pokušajte utjecati na njh  da dodaju Vaš %s "
-"konfiguraciju na <span class='edu_cat'>%s</span>."
+"Lokalni %s administratori unose svoje %s konfiguracijske detalje i na "
+"temelju njih , <span class='edu_cat'>%s</span> razvija specifične instalere "
+"za razne popularne paltforme.  Installer razvijen za jednu ustanovu neće "
+"raditi za korisnike s druge ustanove, stoga ako Vaša ustanova nije uključena "
+"na listi, ne možete korisitit sustav. Molimo kontaktirajte Vašeg lokalnog "
+"administratora i pokušajte utjecati na njega da  doda Vaš %s konfiguraciju "
+"na <span class='edu_cat'>%s</span>."
 
 #: web/user/about_cat.inc.php:37
 #, php-format
@@ -158,13 +158,13 @@ msgid "Access the sources"
 msgstr "Pristupite izvorima"
 
 #: web/user/devel.inc.php:13
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s is an opensource project. If you are interested in the details of the "
 "implementation, please visit <a href='%s'>GitHub</a>."
 msgstr ""
-"%s je opensource projekt. Aste zainteresirani za detalje implementacije, "
-"molimo Vas da posjetite GitHub."
+"%s je projekt otvorenog koda. Ako Vas zanimaju detalji implementacije, "
+"molimo posjetite <a href='%s'>GitHub</a>."
 
 #: web/user/devel.inc.php:14
 msgid "Join the developers mailing list."
@@ -185,12 +185,10 @@ msgid ""
 msgstr "Ako ćelite CAT-u dodati novi jezik molimo Vas da nas kontaktirate..."
 
 #: web/user/faq.inc.php:17 web/user/faq.php:14
-#, fuzzy
 msgid "My organisation is not listed. Can't I just use any of the other ones?"
-msgstr "Moj %s nije na popisu. Mogu li koristiti neki drugi?"
+msgstr "Moja ustanova nije na popisu. Mogu li koristiti neki drugi s popisa?"
 
 #: web/user/faq.inc.php:18 web/user/faq.php:15
-#, fuzzy
 msgid ""
 "No! The installers contain security settings which are specific to the "
 "organisation. If you are not from that organisation, your device will detect "
@@ -198,24 +196,23 @@ msgid ""
 "server and will abort the login. Using an installer from a different "
 "organisation is <i>guaranteed to not work</i>!"
 msgstr ""
-"Ne! Installer sadrži sigurnosne postavke koje su specifične za %s. Ako niste "
-"iz određene %s, Vaš uređaj će utvrditi da šaljete Vaše korisničke podatke  "
-"neautoriziranom poslužitelju i prekinut će operaciju prijave. Koristeči "
-"neodgovarajući %s installer <i>jamstvo je da neće raditi.</i>!"
+"Ne! Installeri sadrže sigurnosne postavke koje su specifične za svaku od "
+"ustanova. Ako niste s te ustanove, Vaš uređaj će shvatiti da namjeravate "
+"poslati korisničko ime i lozinku neovlaštenom poslužitelju i prekinut će "
+"spajanje. Korištenje installera druge ustanove garancija je da neće raditi."
 
 #: web/user/faq.inc.php:22 web/user/faq.php:19
-#, fuzzy
 msgid "What can I do to get my organisation listed?"
-msgstr "Što mogu učiniti da mi %s bude na popisu?"
+msgstr "Što mogu napraviti da moja ustanova bude na popisu?"
 
 #: web/user/faq.inc.php:23 web/user/faq.php:20
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Contact %s administrators within your organisation and complain. It will "
 "take at most one hour of their time to get things done."
 msgstr ""
-"Kontaktirajte %s administratora i prijavite.Trebat će najviše sat vremena za "
-"osposobiti stvari."
+"Kontaktirajte %s administratora iz Vaše organizacije i požalite se. Potrebno "
+"je najviše sat vreman da zatraženo proradi."
 
 #: web/user/faq.inc.php:27 web/user/faq.php:24
 #, php-format
@@ -223,17 +220,17 @@ msgid "My device is not listed! Does that mean I can't do %s?"
 msgstr "Moja vrsta uređaja nije navedena! Da li to znači da ne mogu %s?"
 
 #: web/user/faq.inc.php:28 web/user/faq.php:25
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "No. The CAT tool can only support Operating Systems which can be "
 "automatically configured in some way. Many other devices can still be used "
 "with %s, but must be configured manually. Please contact your organisation "
 "to get help in setting up such a device."
 msgstr ""
-"Ne. CAT podržava samo operacijske sustav koji se na neki način mogu "
-"automatski konfigurirati. Većina ostalih uređaja može se koristiti za %s, "
-"ali uz ručnu konfiguraciju. Kontaktirajte %s davatelja identiteta za pomoć "
-"pri konfiguriranju takvih uređaja."
+"Ne. CAT alat podržava samo operativne sustave koji se mogu automatski "
+"konfigurirati na neki način. Mnogi drugi uređaji mogu se koristiti sa %s, "
+"ali trebaju se ručno podesiti. Molimo kontaktirajte Vašu ustanovu za pomoč "
+"kod konfiguriranja takovih uređaja."
 
 #: web/user/faq.inc.php:32 web/user/faq.php:29
 #, php-format
@@ -324,7 +321,7 @@ msgstr ""
 "Koji bi mogao biti uzrok?"
 
 #: web/user/faq.inc.php:47 web/user/faq.php:51
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "There can be a number of different reasons. The network you see may not be a "
 "genuine %s one and your device silently drops the connection attempt; there "
@@ -335,13 +332,13 @@ msgid ""
 "contact your organisation and report the problem, the administrators should "
 "be able to trace your connections."
 msgstr ""
-"Mogu biti brojni razlozi. Mreža koju vidite možda nije izvorna i odbacuje "
-"pokušaje prijave; možda nešto nije u redu sa konfiguracijom mreže; možda je "
-"istekao Vaš korisnički račun; možda postoje problemi sa povezivanjem sa "
-"autentikacijskim poslužiteljem Vaše matične ustanove; možda ste prekršili "
-"propise mreže koju koristite i zabranjen Vam je pristup kao posljedica. "
-"Potrebno je kontaktirati Vašeg %s i prijaviti problem, i tada bi "
-"administrator trebao moći vidjeti u ćemu je problem. "
+"Mogući su mnogi različiti razlozi. Mreža koju vidite možda nije autentična "
+"%s i Vaš uređaj automatski odbacuje pokušaj spajanja; možda je mreža "
+"neispravno podešena; možda Vam je istekao račun; možda je problem u "
+"povezivanju s Vašim matičnim autentikacijskim poslužiteljem; možda ste "
+"prekršili pravila mreže koju koristite pa je to odbijanje poljedica. "
+"Potrebno je kontaktirati matičnu ustanovu te prijavite problem, "
+"administrator bi trebao moći vidjeti u ćemu je greška."
 
 #: web/user/faq.inc.php:51 web/user/faq.php:66
 #, php-format
@@ -375,7 +372,7 @@ msgstr ""
 "informacija."
 
 #: web/user/faq.php:58
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "There can be a number of different reasons. The network you see may not be a "
 "genuine %s one and your device silently drops the connection attempt; your "
@@ -386,13 +383,15 @@ msgid ""
 "reasons for failure. It also allows you to contact your organisation and "
 "report the problem to them."
 msgstr ""
-"Postoje brojni razlozi. Mreža koju vidite možda nije izvorna %s i Vaš uređaj "
-"odbacuje pokušaje konekcije; možda Vam je istekao račun; možda ste prekršili "
-"pravila mreže koju koristite te sad imate zabranjen pristup; ili možda "
-"postoji aktualni tehnički problem. Da biste utvrdili razlog, posjetite %s "
-"dijagnostičku stranicu <a href=''>here</a>, gdje možete utvrditi razloge "
-"neispravnosti. Također Am dopušta i kontaktiranje Vašeg %s te prijavu "
-"problema njima. "
+"Mogući su mnogi različiti razlozi. Mreža koju vidite možda nije autentična "
+"%s i Vaš uređaj automatski odbacuje pokušaj spajanja; možda je mreža "
+"neispravno podešena; možda Vam je istekao račun; možda je problem u "
+"povezivanju s Vašim matičnim autentikacijskim poslužiteljem; možda ste "
+"prekršili pravila mreže koju koristite pa je to odbijanje poljedica; možda "
+"postoje neki tehnički problemi; Da bi isključili navedeno potrebno je prvo "
+"posjetiti %s dijagnostički alat <a href=''>here</a>, koji može otkriti neke "
+"od grešaka. Također Vam omogučava kontaktiranje Vaše ustanove i prijavu "
+"probelma kod njih."
 
 #. *
 #. * This is a template for further FAQ entries. Simply copy&paste and add more
@@ -474,7 +473,7 @@ msgstr "%s Copyright and Licensing"
 #: web/copyright.php:213 web/tou.php:61 web/skins/modern/Divs.php:280
 #, php-format
 msgid "%s Privacy Notice"
-msgstr ""
+msgstr "%s obavijesti privatnosti"
 
 #: web/lib/user/TextTemplates.php:70
 #, php-format
@@ -544,9 +543,8 @@ msgid "%s installation made easy:"
 msgstr "%s jednostavna instalacija:"
 
 #: web/lib/user/TextTemplates.php:80
-#, fuzzy
 msgid "Custom built for your organisation"
-msgstr "Prilagođeno za Vašu %s"
+msgstr "Razvijen za Vašu ustanovu."
 
 #: web/lib/user/TextTemplates.php:81
 #, php-format
@@ -605,13 +603,13 @@ msgstr ""
 "link. "
 
 #: web/lib/user/TextTemplates.php:91
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This site provides %s installers for many organisations, click here to see "
 "if yours is on the list."
 msgstr ""
-"Ova stranica pruža %s installere za mnoge %s, kliknite ovdje da provjerite "
-"nalazi li se Vaš %s na popisu"
+"Ova stranica sadrži %s installere za mnoge ustanove, kliknite ovdje za "
+"provjeru dali je Vaša ustanova na listi."
 
 #: web/lib/user/TextTemplates.php:92
 msgid "Custom built for you"
@@ -863,33 +861,33 @@ msgstr ""
 "pozivnicom."
 
 #: web/skins/modern/accountstatus/accountstatus.php:129
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You should use the exact link you got during sign-up to come here. "
 "Alternatively, if you have a valid %s credential already, you can visit this "
 "page and Accept the question about logging in with a client certificate "
 "(select a certificate with a name ending in '…%s')."
 msgstr ""
-"Potrebno je koristiit isključivo link koji ste dobili kod prijave. "
-"Drugačije, ako imate važeći %s token za prijavu, možete posjetiti ovu "
-"stranicu i prihvatiti pitanja u vezi logiranja sa klijentskim certifikatom. "
-"odaberite certifikat kojem naziv završava sa '…%s'"
+"Potrebno je koristiti link koji ste dobili prilikom prijave da dođete ovdje. "
+"Drugačije, ako imate važeće %s pristupne podatke, možete posjetiti ovu "
+"stranicu te prihvatiti pitanje o logiranju s klijentskim certifikatom "
+"(izaberite certifikat kojem naziv završava sa '...%s')"
 
 #: web/skins/modern/accountstatus/accountstatus.php:159
 #: web/skins/modern/user/js/cat_js.php:234
-#, fuzzy
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
 "organisation at:"
-msgstr "Ako ste naišli na problem, izravnu pomoć možete dobiti od svog %s na:"
+msgstr ""
+"Ako je došlo do problema, možete direktno zatražiti pomoć Vaše matične "
+"ustanove na:"
 
 #: web/skins/modern/accountstatus/accountstatus.php:161
 #: web/skins/modern/user/js/cat_js.php:236
-#, fuzzy
 msgid ""
 "If you encounter problems you should ask those who gave you your account for "
 "help."
-msgstr "Ukoliko ste se susreli s problemom potražite pomoć kod Vaše $s"
+msgstr "Ako je došlo do problema kontaktirajte izdavatelja korisničkog računa"
 
 #: web/skins/modern/accountstatus/accountstatus.php:172
 #, php-format
@@ -1011,13 +1009,17 @@ msgid ""
 "with your device, your data is treated according to the <a href='%s'>%s "
 "Privacy Statement</a>."
 msgstr ""
+"Kada koristite internacionalnu %s infrastrukturu, npr. kod roaminga s Vašim "
+"uređajem, Vaši posaci se koriste u skladu sa <a href='%s'>%s izjavi o "
+"privatnosti"
 
 #: web/skins/modern/user/js/cat_js.php:258
 #: web/skins/modern/user/js/cat_js.php:284
-#, fuzzy
 msgid ""
 "This device cannot be configured with the settings used in your organisation."
-msgstr "Ovaj uređaj ne može biti konfiguriran sa postavkama danim od %s"
+msgstr ""
+"Ovaj uređaj ne može biti konfiguriran sa postavkama korištenim u Vašoj "
+"ustanovi."
 
 #: web/skins/modern/user/js/cat_js.php:271
 msgid ""
@@ -1050,47 +1052,42 @@ msgid "Your IdP could be one of:"
 msgstr "Vaš IdP mogao bi biti jedan od:"
 
 #: web/skins/modern/user/js/cat_js.php:559
-#, fuzzy
 msgid "Organisation"
-msgstr "Dodaj prijevod"
+msgstr "Ustanova"
 
 #: web/skins/modern/user/js/cat_js.php:560
-#, fuzzy
 msgid "Select your organisation"
-msgstr "Izaberite svoj <strong>%s<\\/strong>"
+msgstr "Izaberite svoju ustanovu"
 
 #: web/skins/modern/user/js/cat_js.php:561
-#, fuzzy
 msgid "Help, my organisation is not on the list"
-msgstr "Molim pomoč, moj %s nije na popisu"
+msgstr "Molim pomoć, moja ustanova nije na popisu"
 
 #: web/skins/modern/user/js/cat_js.php:562
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
 "your organisation is not on the list, then nag them to add information to "
 "the %s database."
 msgstr ""
-"Ovaj sustav zasniva se na informacijama pruženim od %s administratora.Ako "
-"Vaš %s nije na listi zamolite ih da dodaju informacije %s bazi."
+"Ovaj sustav zasniva se na podacima danim od lokalnih %s administratora. Ako "
+"Vaša ustanova nije na popisu, zamolite ih da dodaju informacije u %s bazu."
 
 #: web/skins/modern/user/js/cat_js.php:563
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "Pronađi moju lokaciju preciznije koristeći HTML5 Geo-Location"
 
 #: web/skins/modern/user/js/cat_js.php:564
-#, fuzzy
 msgid "Show organisations in"
-msgstr "Prikaži %ss u"
+msgstr "Prikaži ustanovu u"
 
 #: web/skins/modern/user/js/cat_js.php:565
 msgid "all countries"
 msgstr "sve zemlje"
 
 #: web/skins/modern/user/js/cat_js.php:566
-#, fuzzy
 msgid "or search for an organisation, for example Univerity of Oslo"
-msgstr "ili traži %s, na primjer Sveučilište u Oslu"
+msgstr "ili traži ustanovu, na primjer Sveučilište u Zagrebu"
 
 #: web/skins/modern/user/js/cat_js.php:567
 msgid "show all countries"
@@ -1181,9 +1178,3 @@ msgstr "sve važnije distribucije"
 #: web/skins/modern/user/js/roll.php:139
 msgid "Chrome OS"
 msgstr "Chrome OS"
-
-#, fuzzy
-#~ msgid ""
-#~ "If you encounter problems you should ask those who you gave you your "
-#~ "account for help."
-#~ msgstr "Ukoliko ste se susreli s problemom potražite pomoć kod Vaše $s"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
-"PO-Revision-Date: 2018-08-22 12:12+0000\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"PO-Revision-Date: 2018-09-12 12:10+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/eduroam_devel/"
 "cat/language/bg_BG/)\n"
@@ -24,9 +24,11 @@ msgstr ""
 #, php-format
 msgid "<span class='edu_cat'>%s</span> is built as a cooperation platform."
 msgstr ""
+"<span class='edu_cat'> %s </span> е създадена като платформа за "
+"сътрудничество."
 
 #: web/user/about_cat.inc.php:29
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Local %s administrators enter their %s configuration details and based on "
 "them, <span class='edu_cat'>%s</span> builds customised installers for a "
@@ -36,15 +38,13 @@ msgid ""
 "administrators and try to influence them to add your %s configuration to "
 "<span class='edu_cat'>%s</span>."
 msgstr ""
-"<span class='edu_cat'>%s</span> е създадена като платформа за "
-"сътрудничество. <p>Местните%s администратори въвеждат техните %s "
-"конфигурационни детайли и са базирани на тях, <span class='edu_cat'>%s</"
-"span> създават персонализирани инсталатори за някои от популярните "
-"платформи. Инсталатор, подготвен за една организация, няма да работи за "
-"потребителите на друга, следователно ако Вашата организация не е в списъка, "
-"Вие няма да може да използвате системата. Моля свържете се с Вашите местни "
-"администратори и се опитайте да ги убедите да включат Вашата %s конфигурация "
-"към <span class='edu_cat'>%s</span>."
+"Местните %s администратори въвеждат подробности за тяхната %s конфигурация и "
+"на базата на тях, <span class='edu_cat'>%s</span> създават персонализирани "
+"инсталатори за някои от популярните платформи. Инсталатор, подготвен за една "
+"организация, няма да работи за потребителите на друга, следователно ако "
+"Вашата организация не е в списъка, Вие няма да може да използвате системата. "
+"Моля свържете се с Вашите местни администратори и се опитайте да ги убедите "
+"да включат Вашата %s конфигурация към <span class='edu_cat'>%s</span>. "
 
 #: web/user/about_cat.inc.php:37
 #, php-format
@@ -182,7 +182,6 @@ msgstr ""
 "Моята организация не е в списъка. Мога ли да използвам някоя от другите?"
 
 #: web/user/faq.inc.php:18 web/user/faq.php:15
-#, fuzzy
 msgid ""
 "No! The installers contain security settings which are specific to the "
 "organisation. If you are not from that organisation, your device will detect "
@@ -194,7 +193,7 @@ msgstr ""
 "организацията. Ако не сте от тази организация, Вашият компютър ще установи, "
 "че изпращате потребителското си име и удостоверения за самоличност на "
 "неоторизиран сървър и ще преустанови свързването. Използването на инсталатор "
-"от друга организация <i>гарантирано няма да работи</i>!"
+"от друга организация <i>гарантирано няма да работи</i>! "
 
 #: web/user/faq.inc.php:22 web/user/faq.php:19
 msgid "What can I do to get my organisation listed?"
@@ -216,7 +215,7 @@ msgstr ""
 "Устройството ми не е в списъка! Това означава ли, че не мога да използвам %s?"
 
 #: web/user/faq.inc.php:28 web/user/faq.php:25
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "No. The CAT tool can only support Operating Systems which can be "
 "automatically configured in some way. Many other devices can still be used "
@@ -226,8 +225,8 @@ msgstr ""
 "Не. CAT може да поддържа само операционни системи, които могат да бъдат "
 "автоматично конфигурирани по някакъв начин. Много други устройства могат все "
 "още да бъдат използвани с %s, но трябва да бъдат конфигурирани ръчно. Моля "
-"свържете се с Вашия %s доставчик на удостоверителни услуги за да получите "
-"помощ при настройването на такова устройство."
+"свържете се с Вашата организация, за да получите помощ при настройването на "
+"такова устройство. "
 
 #: web/user/faq.inc.php:32 web/user/faq.php:29
 #, php-format
@@ -475,7 +474,7 @@ msgstr "%s Copyright и лицензиране"
 #: web/copyright.php:213 web/tou.php:61 web/skins/modern/Divs.php:280
 #, php-format
 msgid "%s Privacy Notice"
-msgstr ""
+msgstr "%s Поверително"
 
 #: web/lib/user/TextTemplates.php:70
 #, php-format
@@ -1029,6 +1028,9 @@ msgid ""
 "with your device, your data is treated according to the <a href='%s'>%s "
 "Privacy Statement</a>."
 msgstr ""
+"Когато се възползвате от международната %s инфраструктура, например роуминг "
+"с вашето устройство, Вашите данни се обработват съгласно <a href='%s'>%s "
+"Декларация за поверителност</a>."
 
 #: web/skins/modern/user/js/cat_js.php:258
 #: web/skins/modern/user/js/cat_js.php:284
@@ -1196,10 +1198,3 @@ msgstr "всички основни дистрибуции"
 #: web/skins/modern/user/js/roll.php:139
 msgid "Chrome OS"
 msgstr "Chrome OS"
-
-#~ msgid ""
-#~ "If you encounter problems you should ask those who you gave you your "
-#~ "account for help."
-#~ msgstr ""
-#~ "Ако срещнете проблеми, трябва да потърсите помощ от този, който Ви е "
-#~ "създал акаунта."

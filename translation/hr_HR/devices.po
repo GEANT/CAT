@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
-"PO-Revision-Date: 2018-05-30 06:20+0000\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"PO-Revision-Date: 2018-09-12 12:47+0000\n"
 "Last-Translator: Dubravko Penezic <dpenezic@gmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/hr_HR/)\n"
@@ -198,9 +198,8 @@ msgstr ""
 "saznajte koji sufiks koristiti te unesite korisničko ime u ispravnom formatu."
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:141
-#, fuzzy
 msgid "Unnamed Organisation"
-msgstr "Neimenovani %s"
+msgstr "Neimenovana organizacija"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:142
 msgid "Unnamed Profile"
@@ -239,10 +238,9 @@ msgid "(%d times)"
 msgstr "(%d puta)"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:210
-#, fuzzy
 msgid ""
 "to enter the username and password you have been given by your organisation"
-msgstr "unijeti korisničko ime i lozinku Vaše %s"
+msgstr "unijeti korisničko ime i lozinku koju ste dobili od matične ustanove"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:212
 #, php-format
@@ -312,17 +310,17 @@ msgstr ""
 "unio) te popis svih dostupnih atributa."
 
 #: devices/linux/Device_Linux.php:52
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "The installer is in the form of a Python script. It will try to configure %s "
 "under NetworkManager and if this is either not appropriate for your system "
 "or your version of NetworkManager is too old, a wpa_supplicant config file "
 "will be created instead."
 msgstr ""
-"Installer je u obliku bash skripte. On će pokušati konfigurirati eduroam u "
-"Network Manager-u. Ukoliko to nije moguće za Vaš sustav ili je verzija "
-"Network Manager-a prestara, wpa_supplicant konfiguracijska datoteka bit će "
-"kreirana."
+"Installer je u formi Python skripti. Pokušat će konfigurirati %s u "
+"NetworkManageru i ukoliko nije prikladan za Vaš sustav ili je Vaša verzija "
+"NetworkManagera previše stara, generirat će se wpa_supplicant "
+"konfiguracijska datoteka."
 
 #: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:115
 #, php-format
@@ -348,7 +346,6 @@ msgstr ""
 "direktoriju, te iskorpiarti certifikate u njega."
 
 #: devices/linux/Device_Linux.php:74
-#, fuzzy
 msgid ""
 "In order to connect to the network you will need a personal certificate in "
 "the form of a p12 file. You should obtain this certificate from your "
@@ -357,24 +354,25 @@ msgid ""
 "both the file and the password available during the installation process. "
 "Your p12 file will also be copied to the .cat_installer directory."
 msgstr ""
-"Da biste se povezali s mrežom, trebat će Vam osobni certifikat u p12 "
-"formatu. Ovaj certifikat možete dobiti kod svog %s. Provjerite korisničke "
-"upute da vidite kako dobiti certifikat. Ovakvi certifikati zaštičeni su "
-"lozinkom. U procesu instalacije poterbno je da imate i certifikat i lozinku. "
-"Vaša p12 datoteka bit će kopirana u .cat_installer direktorij."
+"Za povezivanje na mrežu bit će Vam potreban osobni certifikat u formi pl2 "
+"datoteke. Certifikat bi trbali dobiti od Vaše matične ustanove. Provjerite "
+"stranice korisničke podrške gdje možete saznati kako dobiti certifikat. "
+"Certifikati su zaštičeni lozinkom. Stoga je potrebno da imate i certifikat i "
+"lozinku kod instalacije.  Vaša p12 datoteka bit će kopirana u .cat_installer "
+"direktorij."
 
 #. not EAP-TLS
 #: devices/linux/Device_Linux.php:76 devices/ms/WindowsCommon.php:128
-#, fuzzy
 msgid ""
 "In order to connect to the network you will need an account from your "
 "organisation. You should consult the support page to find out how this "
 "account can be obtained. It is very likely that your account is already "
 "activated."
 msgstr ""
-"Da biste se povezali s mrežom trebat ćete račun od Vaše %s. Provjerite "
-"korisničke upute da vidite kako možete napraviti korisnički račun. Vrlo je "
-"vjerojatno da je Vaš korisnički račun već aktivan. "
+"Za spajanje na mrežu bit će Vam potreban korisnički račun iz Vaše matične "
+"ustanove. Provjerite na korisničkim stranicama kako se može doći do "
+"korisničkog računa. Postoji mogućnost da je Vaš korisnički račun već "
+"aktiviran."
 
 #: devices/linux/Device_Linux.php:78
 msgid ""
@@ -429,9 +427,8 @@ msgid "Continue?"
 msgstr "Nastavak?"
 
 #: devices/linux/Device_Linux.php:97
-#, fuzzy
 msgid "This NetworkManager version is not supported"
-msgstr "Ova verzija upravljanja mrežom nije podržana"
+msgstr "Ova verzija NetworkManagera nije podržana"
 
 #: devices/linux/Device_Linux.php:98
 msgid "Certificate file not found, looks like a CAT error"
@@ -462,15 +459,14 @@ msgid "All files"
 msgstr "Sve datoteke"
 
 #: devices/linux/Device_Linux.php:106
-#, fuzzy
 msgid ""
 "NetworkManager configuration failed, but we may generate a wpa_supplicant "
 "configuration file if you wish. Be warned that your connection password will "
 "be saved in this file as clear text."
 msgstr ""
-"Nije uspjela konfiguracija upravitelja mreže, ali možemo generirati "
-"wpa_supplicant konfiguracijski file ako želite. Budite svijesni da će se "
-"Vaša lozinka za spajanje spremiti u ovaj file kao običan tekst."
+"Konfiguriranje NetworkManagera nije uspjelo, ali možemo generirati "
+"wpa_supplicant konfiguracijsku datoteku ako želite. Budite svijesni da će se "
+"lozinka za spajanje u ovom fileu spremiti kao tekst."
 
 #: devices/linux/Device_Linux.php:107
 msgid "Write the file"
@@ -551,7 +547,6 @@ msgstr ""
 "na uređaj koji želite konfigurirati i pokrenite ga."
 
 #: devices/ms/WindowsCommon.php:124
-#, fuzzy
 msgid ""
 "In order to connect to the network you will need an a personal certificate "
 "in the form of a p12 file. You should obtain this certificate from your "
@@ -559,11 +554,11 @@ msgid ""
 "be obtained. Such certificate files are password protected. You should have "
 "both the file and the password available during the installation process."
 msgstr ""
-"Da biste se povezali s mrežom trebat ćete osobni certifikat u formi p12 "
-"datoteke. Certifikat možete dobiti kod Vašeg %s. Provjerite korisničke "
-"stranice da vidite kako možete dobiti certifikat. Ovakvi certifikati "
-"zaštićeni su lozinkom. Poterbno je imati certifikat i lozinku kod "
-"instalacije."
+"Za povezivanje na mrežu bit će Vam potreban osobni certifikat u formi p12 "
+"datoteke. Certifikat bi trbali dobiti od Vaše matične ustanove. Provjerite "
+"stranice korisničke podrške gdje možete saznati kako dobiti certifikat. "
+"Certifikati su zaštičeni lozinkom. Stoga je potrebno da imate i certifikat i "
+"lozinku kod instalacije. "
 
 #: devices/ms/WindowsCommon.php:132
 msgid ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: eduki <ecercos@xtec.cat>, 2016\n"
 "Language-Team: Catalan (Spain) (https://www.transifex.com/eduroam_devel/"
@@ -1039,9 +1039,3 @@ msgstr "Format erroni de la ID externa"
 #: web/skins/modern/diag/diag.php:908
 msgid "Wrong string given as OperatorName"
 msgstr "Cadena errònia de l'OperatorName"
-
-#~ msgid "Testing realm "
-#~ msgstr "Provant domini"
-
-#~ msgid "Calling-Station-I"
-#~ msgstr "Id de l'estació origen (Calling-Station-Id)"

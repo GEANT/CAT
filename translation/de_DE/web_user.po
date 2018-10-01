@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
-"PO-Revision-Date: 2018-08-22 06:35+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"PO-Revision-Date: 2018-09-12 07:45+0000\n"
+"Last-Translator: Steffen Klemer <klemer@dfn.de>\n"
 "Language-Team: German (http://www.transifex.com/eduroam_devel/cat/language/"
 "de/)\n"
 "Language: de\n"
@@ -28,10 +28,10 @@ msgstr ""
 #: web/user/about_cat.inc.php:28
 #, php-format
 msgid "<span class='edu_cat'>%s</span> is built as a cooperation platform."
-msgstr ""
+msgstr "<span class='edu_cat'>%s</span> ist eine Kooperationsplattform."
 
 #: web/user/about_cat.inc.php:29
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Local %s administrators enter their %s configuration details and based on "
 "them, <span class='edu_cat'>%s</span> builds customised installers for a "
@@ -41,15 +41,14 @@ msgid ""
 "administrators and try to influence them to add your %s configuration to "
 "<span class='edu_cat'>%s</span>."
 msgstr ""
-"<span class='edu_cat'>%s</span> ist eine Kooperationsplattform. <p>Lokale %s "
-"Administratoren geben hier ihre %s Konfigurationsdetails ein, und daraufhin "
-"erzeugt <span class='edu_cat'>%s</span> maßgeschneiderte "
+"Lokale %s Administratoren geben hier ihre %s Konfigurationsdetails ein, und "
+"daraufhin erzeugt <span class='edu_cat'>%s</span> maßgeschneiderte "
 "Installationsprogramme für eine Vielzahl von Plattformen. Ein "
 "Installationsprogramm für eine Organisation funktioniert nicht für Nutzer "
 "einer anderen Organisation. Daher gilt: wenn Ihre Organisation nicht "
 "gelistet ist, können Sie das System nicht nutzen. Bitte kontaktieren Sie "
 "dann Ihre lokalen Administratoren und versuchen Sie davon sie zu überzeugen, "
-"ihre %s zu <span class='edu_cat'>%s</span> hinzuzufügen."
+"ihre %s Konfiguration zu <span class='edu_cat'>%s</span> hinzuzufügen."
 
 #: web/user/about_cat.inc.php:37
 #, php-format
@@ -194,7 +193,6 @@ msgstr ""
 "nutzen?"
 
 #: web/user/faq.inc.php:18 web/user/faq.php:15
-#, fuzzy
 msgid ""
 "No! The installers contain security settings which are specific to the "
 "organisation. If you are not from that organisation, your device will detect "
@@ -202,13 +200,13 @@ msgid ""
 "server and will abort the login. Using an installer from a different "
 "organisation is <i>guaranteed to not work</i>!"
 msgstr ""
-"Nein! Die Installationsprogramme enthalten Sicherheitseinstellungen die "
+"Nein! Die Installationsprogramme enthalten Sicherheitseinstellungen, die "
 "ausschließlich für die zugehörige Organisation gelten. Wenn Sie dieser "
-"Organisation nicht angehören, wird Ihr Computer bemerken dass Sie gerade "
-"dabei sind Ihren Benutzernamen und Zugangscode an einen nicht autorisierten "
+"Organisation nicht angehören, wird Ihr Computer bemerken, dass Sie gerade "
+"dabei sind, Ihren Benutzernamen und Zugangscode an einen nicht autorisierten "
 "Server zu senden und die Anmeldung abbrechen. Der Versuch ein "
-"Installationsprogramm einer anderen Organisation zu verwenden wird "
-"<i>garantiert nicht funktionieren</i>!"
+"Installationsprogramm einer anderen Organisation zu verwenden, <i>wird "
+"garantiert nicht funktionieren</i>! "
 
 #: web/user/faq.inc.php:22 web/user/faq.php:19
 msgid "What can I do to get my organisation listed?"
@@ -231,7 +229,7 @@ msgstr ""
 "Mein Gerät ist nicht aufgeführt! Heißt das, %s funktioniert bei mir nicht?"
 
 #: web/user/faq.inc.php:28 web/user/faq.php:25
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "No. The CAT tool can only support Operating Systems which can be "
 "automatically configured in some way. Many other devices can still be used "
@@ -240,8 +238,8 @@ msgid ""
 msgstr ""
 "Nein. CAT unterstützt nur Betriebssysteme, die vollautomatisch konfiguriert "
 "werden können. Viele weitere Geräte können mit %s benutzt werden, müssen "
-"aber manuell konfiguriert werden. Bitte kontaktieren Sie Ihren %s "
-"Identitätsprovider um Anweisungen und Hilfe für diese Geräte zu erhalten."
+"aber von Hand eingerichtet werden. Bitte kontaktieren Sie Ihre Organisation, "
+"um Anweisungen und Hilfe für diese Geräte zu erhalten. "
 
 #: web/user/faq.inc.php:32 web/user/faq.php:29
 #, php-format
@@ -264,8 +262,8 @@ msgstr ""
 "Sicherheit Ihrer Anmeldedaten gefährdet. Der Hauptzweck der Vorkonfiguration "
 "ist es, die Sicherheitsparameter korrekt einzustellen. Dadurch kann Ihr "
 "Gerät bei jedem Anmeldevorgang zuerst sicherstellen, dass Sie mit dem "
-"echten, für Sie passenden, Anmeldeserver verbunden sind, und ihr Passwort "
-"nur an genau diesen Server senden."
+"echten, für Sie passenden, Anmeldeserver verbunden sind und ihr Passwort nur "
+"an genau diesen Server senden."
 
 #: web/user/faq.inc.php:36 web/user/faq.php:41
 #, php-format
@@ -492,7 +490,7 @@ msgstr "%s Copyright und Lizenzierung"
 #: web/copyright.php:213 web/tou.php:61 web/skins/modern/Divs.php:280
 #, php-format
 msgid "%s Privacy Notice"
-msgstr ""
+msgstr "%s Datenschutzerklärung"
 
 #: web/lib/user/TextTemplates.php:70
 #, php-format
@@ -552,8 +550,8 @@ msgid ""
 msgstr ""
 "wir möchten Sie von Herzen Willkommen heißen in der mehrere Millionen Nutzer "
 "umfassenden Welt von %s! Von nun an können Sie den Internetzugang an "
-"tausenden Universitäten, Forschungszentren, und anderen Orten überall auf "
-"der Welt nutzen. Und das völlig kostenfrei!"
+"tausenden Universitäten, Forschungszentren und anderen Orten überall auf der "
+"Welt nutzen. Und das völlig kostenfrei!"
 
 #: web/lib/user/TextTemplates.php:78
 #, php-format
@@ -593,7 +591,7 @@ msgstr "Alle Plattformen"
 #: web/lib/user/TextTemplates.php:86
 #, php-format
 msgid "Download your %s installer"
-msgstr "Laden Sie Ihr %s Installationsprogramm herunter"
+msgstr "%s Installationsprogramm herunterladen"
 
 #: web/lib/user/TextTemplates.php:87
 msgid ""
@@ -906,9 +904,7 @@ msgstr ""
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
 "organisation at:"
-msgstr ""
-"Wenn Sie auf Probleme stoßen können Sie Hilfe von Ihrer Organisation "
-"bekommen bei:"
+msgstr "Bei Problemen wenden Sie sich bitte an Ihre Organisation:"
 
 #: web/skins/modern/accountstatus/accountstatus.php:161
 #: web/skins/modern/user/js/cat_js.php:236
@@ -1040,6 +1036,9 @@ msgid ""
 "with your device, your data is treated according to the <a href='%s'>%s "
 "Privacy Statement</a>."
 msgstr ""
+"Wenn Sie die internationale %s Infrastruktur nutzen, zum Beispiel wenn Sie "
+"mit Ihrem Gerät im Roaming unterwegs sind, werden Ihre Daten gemäß der <a "
+"href='%s'>%s Datenschutzerklärung</a> verwendet."
 
 #: web/skins/modern/user/js/cat_js.php:258
 #: web/skins/modern/user/js/cat_js.php:284
@@ -1099,8 +1098,8 @@ msgid ""
 "the %s database."
 msgstr ""
 "Dieses System benötigt Informationen von Ihren lokalen %s Administratoren. "
-"Wenn Ihre Organisation nicht auf der Liste ist, fragen Sie dort nach damit "
-"diese Informationen in die %s Datenbank eingepflegt werden."
+"Wenn Ihre Organisation nicht auf der Liste ist, fragen Sie bitte dort nach, "
+"damit diese Informationen in die %s Datenbank eingepflegt werden."
 
 #: web/skins/modern/user/js/cat_js.php:563
 msgid "Locate me more accurately using HTML5 Geo-Location"
@@ -1209,10 +1208,3 @@ msgstr "alle größeren Distributionen"
 #: web/skins/modern/user/js/roll.php:139
 msgid "Chrome OS"
 msgstr "Chrome OS"
-
-#~ msgid ""
-#~ "If you encounter problems you should ask those who you gave you your "
-#~ "account for help."
-#~ msgstr ""
-#~ "Wenn Sie auf Probleme stoßen sollten Sie diejenigen fragen, die Ihnen "
-#~ "Ihren Zugang freigeschaltet haben."
