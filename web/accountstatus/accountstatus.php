@@ -110,6 +110,7 @@ switch ($errorcode) {
     default:
         $statusInfo['errorcode'] = NULL;
 }
-$skinObject = new \web\lib\user\Skinjob($_REQUEST['skin'] ?? $fedskin[0] ?? CONFIG['APPEARANCE']['skins'][0]);
+$skinObject = new \web\lib\user\Skinjob($_REQUEST['skin'] ?? $_SESSION['skin'] ?? $fedskin[0] ?? CONFIG['APPEARANCE']['skins'][0]);
+
 // and now, serve actual data
 include("../skins/" . $skinObject->skin . "/accountstatus/accountstatus.php");
