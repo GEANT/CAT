@@ -10,6 +10,8 @@ Changes in 2.0-beta2
                 lost when changing other user attributes
 - [BUGFIX  #2]  add a shebang to the Linux installer so that it gets executed
                 with the system's Python interpreter
+- [BUGFIX  #3]  improve whitespace in Linux installer so that its syntax is more
+                correct
 
 Configuration parameter changes
 -------------------------------
