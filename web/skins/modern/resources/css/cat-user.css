@@ -95,7 +95,6 @@ a:active {
 
 #cat_form {
     height: 100%;
-    padding-bottom: 80px; 
 }
 
 #heading {
@@ -417,7 +416,7 @@ span.redirect_link a:active {
 }
 
 #profile_desc {
-   display:none;
+    display:none;
     background: #f0f0f0;
     position: relative;
     border: 1px solid #dddddd;
@@ -468,10 +467,24 @@ span.edu_cat {
 }
 
 #user_info {
+    max-width: 100%;
     padding-left: 30px; 
     font-size: 14px;  
     line-height: 150%;
     font-weight: normal; 
+}
+
+span.user_info {
+    overflow: hidden;
+    padding-right:10px;
+    display: inline-block;
+    max-width:100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+span.user_info_header {
+    font-weight: bold;
 }
 
 #loading_ico {
@@ -500,12 +513,12 @@ span.edu_cat {
 
 #footer {
     position: relative;
-    margin-top: -65px;
     min-height: 49px;
     width: 100%;
+    background: white;
+    margin: auto;
     padding-top:5px;
     padding-bottom:10px;
-    background: white;
     border-top: 1px solid #000;
 }
 
@@ -594,6 +607,7 @@ button.guess_os {
 
 #profile_list {
     width: auto;
+    max-width: 90%;
     padding-left: 10px;
     padding-right: 0px;
     background-color: var(--color3);

@@ -52,8 +52,7 @@ $.fn.redraw = function(){
      $("#guess_os").hide();
      $("#other_installers").show();
      $("#devices").redraw();
-     var y = reset_footer();
-     $("#footer").css('top',y);
+     reset_footer();
    }
 
    function listProfiles(inst_id,selected_profile){
@@ -126,6 +125,7 @@ $.fn.redraw = function(){
        showProfile(selected_profile);
        $("#devices").show();
      }
+      reset_footer();
       });
    }
 function printP(i,v) {
@@ -142,7 +142,6 @@ function resetDevices() {
  if(recognisedOS !== '' ) {
     $("#guess_os").show();
     $("#other_installers").hide();
-    $("#footer").css('top',0);
     $("#download_button_header_"+recognisedOS).html(downloadMessage);
     $("#cross_icon_"+recognisedOS).hide();
  }
@@ -219,25 +218,22 @@ function resetDevices() {
        j = j1.data;
        if(j.description !== undefined && j.description) {
          $("#profile_desc").text(j.description);
-         $("#profile_desc").show();
+         $("#profile_desc").css("display","inline-block");
+       //  $("#profile_desc").show();
        } else {
          $("#profile_desc").hide();
          $("#profile_desc").text('');
        }
        if(j.local_url !== undefined && j.local_url) 
-         txt = txt+'<tr><td><?php escaped_echo(_("WWW:")); ?></td><td><a href="'+j.local_url+'" target="_blank">'+j.local_url+'</a></td></tr>';
+       txt = txt+'<span class="user_info"><?php escaped_echo(_("WWW:")); ?> <a href="'+j.local_url+'" target="_blank">'+j.local_url+'</a></span><br/>';
        if(j.local_email !== undefined && j.local_email) 
-         txt = txt+'<tr><td><?php escaped_echo(_("email:")); ?></td><td><a href=mailto:"'+j.local_email+'">'+j.local_email+'</a></td></tr>';
+       txt = txt+'<span class="user_info"><?php escaped_echo(_("email:")); ?> <a href=mailto:"'+j.local_email+'">'+j.local_email+'</a></span><br/>';
        if(j.local_phone !== undefined && j.local_phone) 
-         txt = txt+'<tr><td><?php escaped_echo(_("tel:")); ?></td><td>'+j.local_phone+'</td></tr>';
+       txt = txt+'<span class="user_info"><?php escaped_echo(_("tel:")); ?> '+j.local_phone+'</span><br/>';
        if(txt) 
-         txt = "<table><tr><th colspan='2'><?php escaped_echo(_("If you encounter problems, then you can obtain direct assistance from your organisation at:")); ?></th></tr>"+txt+'</table>';
+       txt = "<span class='user_info_header'><?php escaped_echo(_("If you encounter problems, then you can obtain direct assistance from your organisation at:")); ?></span><br/>"+txt;
         else
-         txt = "<table><tr><th colspan='2'><?php escaped_echo(_("If you encounter problems you should ask those who gave you your account for help.")); ?>.</th></tr></table>";
-      txt = txt+"<?php 
-      if (!empty(CONFIG['APPEARANCE']['privacy_notice_url'])) {
-      escaped_echo("<p>".sprintf(_("When you make use of the international %s infrastructure, e.g. when roaming with your device, your data is treated according to the <a href='%s'>%s Privacy Statement</a>."),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'],CONFIG['APPEARANCE']['privacy_notice_url'],CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'])."</p>");
-      }?>";
+        txt = "<span class='user_info_header'><?php escaped_echo(_("If you encounter problems you should ask those who gave you your account for help.")); ?>" + '</span><br/>';
       $("#user_info").html(txt);
       $("#user_info").show();
       if(j.silverbullet) {
@@ -329,6 +325,7 @@ function resetDevices() {
       $("#profile_redirect_bt").attr('href',redirect_profile);
       $("#profile_redirect").show();
    }
+   reset_footer();
    })
   }
 
@@ -443,9 +440,16 @@ function back_to_downloads() {
 }
 
 function reset_footer() {
-   var y = parseInt($("#footer").css("height")) + 16;
-   $("#footer").css("margin-top", -y);
-   return y;
+   var wh = parseInt($(window ).height());
+   var mph = parseInt($("#main_page").height()) + parseInt($("#footer").css("height"));
+   if (wh > mph) {
+      $("#wrap").css("min-height","100%");
+      $("#vertical_fill").css("height",wh - mph - 16);
+      $("#vertical_fill").show();    
+   } else {
+      $("#wrap").css("min-height","auto");
+      $("#vertical_fill").hide();
+   }
 }
 
 function processDownload(data) {
@@ -518,7 +522,6 @@ $(document).ready(function(){
     ?>
 
 $(".signin").click(function(event){
-    $("#footer").css('top',0);
      event.preventDefault();
 });
 
@@ -595,7 +598,7 @@ $(".signin").DiscoJuice({
      $("#profiles").hide();
      $("#institutions").hide();
      listProfiles(e.idp,0);
-            }
+     }
         });
 DiscoJuice.Constants.Countries = {
 <?php 

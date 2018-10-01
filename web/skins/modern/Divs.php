@@ -161,14 +161,9 @@ class Divs {
         return "
 <div id='profiles'> <!-- this is the profile selection filled during run time -->
     <div id='profiles_h' class='sub_h'>" . $this->Gui->textTemplates->templates[user\PROFILE_SELECTION] . "
-    </div>
-    <table>
-        <tr>
-            <td><select id='profile_list'></select></td>
-            <td><div id='profile_desc' class='profile_desc'></div></td>
-        </tr>
-    </table>
-</div>";
+    </div>" .
+"<select id='profile_list'></select><div id='profile_desc' class='profile_desc'></div>" .
+                "</div>";
     }
 
     public function div_pagetitle($mainText, $extraText = '') {
@@ -275,11 +270,8 @@ class Divs {
             <td>" .
                 $this->Gui->CAT_COPYRIGHT
                 . "
-            </td>";
-        if (!empty(CONFIG['APPEARANCE']['privacy_notice_url'])) {
-            $retval .= "<td><a href='".CONFIG['APPEARANCE']['privacy_notice_url']."'>".sprintf(_("%s Privacy Notice"),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'])."</a></td>";
-        }
-        $retval .= "<td>";
+            </td>
+            <td>";
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {
             $geant = $this->Gui->skinObject->findResourceUrl("IMAGES", "dante.png");
             $eu = $this->Gui->skinObject->findResourceUrl("IMAGES", "eu.png");

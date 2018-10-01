@@ -118,7 +118,9 @@ include("user/js/cat_js.php");
       </div>
     </div>
    </form>
+    <div id="vertical_fill">&nbsp;</div>
+    <?php echo $divs->div_footer(); ?>
 </div>
-<?php echo $divs->div_footer(); ?>
+
 </body>
 </html>
