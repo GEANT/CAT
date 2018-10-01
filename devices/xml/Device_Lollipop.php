@@ -19,6 +19,7 @@ class Device_Lollipop extends Device_XML {
             \core\common\EAP::EAPTYPE_TTLS_PAP,
             \core\common\EAP::EAPTYPE_TTLS_MSCHAP2,
             \core\common\EAP::EAPTYPE_TLS,
+            \core\common\EAP::EAPTYPE_SILVERBULLET,
         ]);
         $this->langScope = 'single';
         $this->allEaps = TRUE;
