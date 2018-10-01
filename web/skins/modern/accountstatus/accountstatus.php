@@ -36,7 +36,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
 <body>
     <div id="wrap">
         <form id="cat_form" name="cat_form" method="POST"  accept-charset="UTF-8" action="">
-
+            <div id="main_page">
             <?php echo $divs->div_heading($visibility); ?>
             <div id="info_overlay"> <!-- device info -->
                 <div id="info_window"></div>
@@ -139,10 +139,12 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                     <input type="hidden" name="lang" id="lang"/>
                 </div>
             </div>
+            </div>
         </form>
+        <div id="vertical_fill">&nbsp;</div>
+        <?php echo $divs->div_footer(); ?>
     </div>
     <?php
-    echo $divs->div_footer();
     if (isset($statusInfo['profile_id']) && isset($statusInfo['idp_id'])) {
     $attributes = $statusInfo['attributes'];
     $supportInfo = '';
