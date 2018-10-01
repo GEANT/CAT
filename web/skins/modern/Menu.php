@@ -46,7 +46,7 @@ class Menu {
                     ['text' => _("FAQ"), 'catInfo' => ['faq', _("FAQ")]],
                     ['text' => _("Contact"), 'catInfo' => ['contact', _("FAQ")]],
                     ['text' => _("Diagnostics"), 'link' => '/diag/diag.php'], 
-                    ['text' => _("Documentation"), 'link' => '/apidoc' ],
+//                    ['text' => _("Documentation"), 'link' => '/apidoc' ],
                 ]],
             ['id' => 'manage',
                 'text' => _("Manage"), 'submenu' => [
