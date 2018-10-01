@@ -44,7 +44,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
 </head>
 <body>
 <div id='wrap'>
-<form id="cat_form" name="cat_form" method="POST"  accept-charset="UTF-8" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>/">
+<form id="cat_form" name="cat_form" method="POST"  accept-charset="UTF-8" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 <?php
 echo $divs->div_heading($visibility);
 $Gui->languageInstance->setTextDomain("diagnostics");
