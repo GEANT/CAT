@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
-"PO-Revision-Date: 2018-05-30 06:21+0000\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"PO-Revision-Date: 2018-09-12 12:48+0000\n"
 "Last-Translator: Dubravko Penezic <dpenezic@gmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/hr_HR/)\n"
@@ -43,23 +43,24 @@ msgstr ""
 "dopušta!"
 
 #: web/admin/action_enrollment.php:71
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Sorry... this token has already been used. The %s is already created. If you "
 "got the invitation from a mailing list, probably someone else used it before "
 "you."
 msgstr ""
-"Oprostite... ovaj token je već iskorišten za izradu %s. Ako ste ga primili "
-"preko mail lista, vjerojatno ga je već netko drugi iskoristio prije Vas. "
+"Ispričavamo se.. ovaj token je već iskorišten. %s je već kreiran. Ako ste "
+"pozivnicu primili na mail listu, možda ju je netko drugi iskoristio prije "
+"Vas."
 
 #: web/admin/action_enrollment.php:74
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Sorry... this token has expired. Invitation tokens are valid for 24 hours. "
 "The %s administrator can create a new one for you."
 msgstr ""
-"Oprostite... Ovaj token je istekao. Tokeni su aktivni 24 sata.  Molimo Vas "
-"zamolite %s administratora da Vam izda novi link/pozivnicu."
+"Ispričavamo se.. ovaj token je istekao. Tokeni s pozivnice aktivni su 24 "
+"sata. Administrator %s može Vam napraviti novu pozivnicu."
 
 #: web/admin/action_enrollment.php:77
 msgid ""
@@ -147,36 +148,34 @@ msgid "Editing IdP information for '%s'"
 msgstr "Uređivanje IdP informacija za %s"
 
 #: web/admin/edit_idp.php:73
-#, fuzzy, php-format
+#, php-format
 msgid "%s general properties"
-msgstr "Opčenita %s svojstva"
+msgstr "%s generalne postavke"
 
 #: web/admin/edit_idp.php:92
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hello, newcomer. The %s is new to us. This wizard will ask you several "
 "questions about it, so that we can generate beautiful profiles for you in "
 "the end. All of the information below is optional, but it is important to "
 "fill out as many fields as possible for the benefit of your end users."
 msgstr ""
-"Dobrodošli. Vaš %s je nov za nas. Ovaj čarobnjak pitat će Vas nekoliko "
-"pitanja o Vašem %s, da možemo izgenerirati  profile za Vas. Sve informacije "
-"ispod su opcionalne, ali je bitno ispuniti što više polja zbog koristi za "
-"krajnje korisnike. "
+"Dobrodošli. %s je nov za korištenje. Ovaj čarobnjak pitat će Vas nekoliko "
+"pitanja o tome, da Vam može generirati profil. Sve informacije ispod su "
+"opcionalne, ali je važno ispuniti što više polja u korist Vaših korisnika."
 
 #: web/admin/edit_idp.php:97
 msgid "General Information"
 msgstr "Osnovne informacije"
 
 #: web/admin/edit_idp.php:101
-#, fuzzy
 msgid ""
 "Some properties are valid across all deployment profiles. This is the place "
 "where you can describe those properties in a fine-grained way. The solicited "
 "information is used as follows:"
 msgstr ""
-"Ovo je mjesto gdje možete detaljno opisati Vaš %s Prikupljene informacije "
-"koriste se kako slijedi: "
+"Neke postavke vrijede za sve vrste profila. Ovo je mjesto na kojem možete "
+"detaljno opisati te postavke. Traženi podaci se koriste na sljedeći način:"
 
 #: web/admin/edit_idp.php:103
 msgid ""
@@ -198,6 +197,9 @@ msgid ""
 "is used as a fallback if the system does not have a name in the exact "
 "language the user requests a download in."
 msgstr ""
+"<strong>Naziv</strong>: %s može imati naziv na više jezika. preporučeno je "
+"uvijek ispuniti barem 'zadani/drugi' jezik, koji će biti korišten kao "
+"rezervni ako sustav nema naziv u jeziku koji koristi korisnik."
 
 #: web/admin/edit_idp.php:115 web/lib/admin/UIElements.php:229
 msgid "Media Properties"
@@ -333,16 +335,15 @@ msgstr ""
 "helpdeska. "
 
 #: web/admin/edit_idp.php:176
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Do you provide helpdesk services for your users? If so, it would be nice if "
 "you would tell us the pointers to this helpdesk."
 msgstr ""
-"Ako Vaš %s ima helpdesk za svoje korisnike, bilo bi lijepo navesti poveznice "
-"na taj helpdesk."
+"Pružate li korisničku podršku svojim korisnicima? Ako da, bilo bi lijepo "
+"usmjeriti ih na na istu."
 
 #: web/admin/edit_idp.php:178
-#, fuzzy
 msgid ""
 "If you enter a value here, it will be added to the installers for all your "
 "users, and will be displayed on the download page. If you operate separate "
@@ -350,11 +351,12 @@ msgid ""
 "profile helpdesk information later in this wizard. If you operate no help "
 "desk at all, just leave these fields empty."
 msgstr ""
-"Ako ovdje dodate vrijednost, bit će dodana installerima za sve Vaše "
-"korisnike, i bit će prikazana na stranici za preuzimanje. Ako koristite "
-"različite helpdeskove za različite korisničke skupine (možemo ih zvati "
-"'profilima'), navedite informacije o helpdesku za svaki prfil kasnije u "
-"čarobnjaku. Ako nemate helpdesk, ostavite polja prazna. "
+"Ako ovdje unesete vrijednost, bit će dodana instalerima za sve Vaše "
+"korisnike, i bit će prikazana na stranici za preuzimanje. Ako imate "
+"različite korisničke podrške za za različite vrste korisnika (mi ih zovemo "
+"'profilima') navedite korisničke podrške prema svakom profilu zasebno "
+"kasnije u ovom čarobnjaku. Ako uopće nemate korisničku podršku, ova polja ne "
+"ispunjavajte."
 
 #: web/admin/edit_idp.php:180
 #, php-format
@@ -430,14 +432,15 @@ msgid "Continue to %s properties"
 msgstr "Nastavi do %s svojstva"
 
 #: web/admin/edit_idp_result.php:136
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You did not submit an e-mail address. This is required for %s. Please go to "
 "the %s dashboard and edit your helpdesk settings to include a helpdesk e-"
 "mail address."
 msgstr ""
-"Niste poslali e-mail adresu. Ona je potrebna za %s. Molimo idete do "
-"upravljačkog sučelja te dodajte e-mail adresu helpdesk-a."
+"Niste poslali email adresu.  Neophodna je za %s. Molimo Vas idite na sučelje "
+"za upravljanje i uredite postavke korisničke podrške tako da uključite email "
+"adresu korisničke podrške."
 
 #: web/admin/edit_idp_result.php:136
 msgid "No support e-mail!"
@@ -1220,7 +1223,7 @@ msgstr "Upravljanje administratorima"
 #: web/admin/overview_federation.php:189
 #, php-format
 msgid "The following %s are in your %s %s:"
-msgstr ""
+msgstr "Sljedeće %s su u Vašem %s %s:"
 
 #: web/admin/overview_federation.php:225
 msgid "Manage DB Link"
@@ -1239,18 +1242,18 @@ msgid "Add/Remove Administrators"
 msgstr "Dodaj/obriši administratora"
 
 #: web/admin/overview_federation.php:263
-#, fuzzy, php-format
+#, php-format
 msgid "Pending invitations in the %s:"
-msgstr "Pozivnice čekaju u Vašem %s:"
+msgstr "Pozivnice čekaju u %s:"
 
 #: web/admin/overview_federation.php:280
 msgid "Revoke Invitation"
 msgstr "Povlačenje pozivnice"
 
 #: web/admin/overview_federation.php:299
-#, fuzzy, php-format
+#, php-format
 msgid "Register a new %s!"
-msgstr "Registriraj novi %s!"
+msgstr "Registrirajte novi %s!"
 
 #: web/admin/overview_idp.php:28
 #, php-format
@@ -1258,14 +1261,14 @@ msgid "%s: IdP Dashboard"
 msgstr "%s: IdP oglasna ploča"
 
 #: web/admin/overview_idp.php:52
-#, fuzzy, php-format
+#, php-format
 msgid "%s general settings"
-msgstr "%s-šire postavke"
+msgstr "%s generalne postavke"
 
 #: web/admin/overview_idp.php:57
-#, fuzzy, php-format
+#, php-format
 msgid "%s download area QR code"
-msgstr "QR kod za %s preuzimanje"
+msgstr "%s preuzmite QR kod"
 
 #: web/admin/overview_idp.php:86
 #, php-format
@@ -1292,14 +1295,14 @@ msgid "Delete %s"
 msgstr "Izbriši %s"
 
 #: web/admin/overview_idp.php:97
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This action will delete all properties of the %s and start over the "
 "configuration from scratch. Do you really want to reset all settings of the "
 "%s %s?"
 msgstr ""
-"Ova akcija će izbrisati sva svojstva Vaše %s i započeti konfiguraciju iz "
-"početka. Zaista želite resetirati sve postavke Vaše %s %s?"
+"Ova akcija izbrisat će sve postavke %s i započeti s konfiguracijom "
+"ispočetka. Želite li zaista resetirati sve postavke %s %s?"
 
 #: web/admin/overview_idp.php:97
 #, php-format
@@ -1321,9 +1324,9 @@ msgstr "Idi!"
 
 #. SW: APPROVED
 #: web/admin/overview_idp.php:122
-#, fuzzy, php-format
+#, php-format
 msgid "Check %s server status"
-msgstr "Provjeri status poslužitelja Europskog %ss"
+msgstr "Provjerite %s status poslužitelja"
 
 #. no profiles yet.
 #: web/admin/overview_idp.php:136
@@ -1512,9 +1515,9 @@ msgid "Edit User Details"
 msgstr "Modificiranje korisničkih podataka"
 
 #: web/admin/overview_user.php:60
-#, fuzzy, php-format
+#, php-format
 msgid "Click here for %s management tasks"
-msgstr "Kliknite za uređivanje Vašeg %ss"
+msgstr "Kliknite ovdje za %s upravljanje"
 
 #: web/admin/overview_user.php:63
 msgid "Click here to access the superadmin page"
@@ -1576,9 +1579,9 @@ msgstr ""
 "ovdje:"
 
 #: web/admin/overview_user.php:166
-#, fuzzy, php-format
+#, php-format
 msgid "New %s Registration"
-msgstr "Nova pozivnica"
+msgstr "Registracija novog %s"
 
 #: web/admin/inc/displayQRcode.inc.php:31
 msgid "Invitation Token QR Code"
@@ -1599,13 +1602,13 @@ msgid "Administrators for IdP '%s'"
 msgstr "Administratori za davatelja identiteta '%s'"
 
 #: web/admin/inc/manageAdmins.inc.php:119
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You are the %s administrator. You can invite new administrators, who can in "
 "turn appoint further administrators on their own."
 msgstr ""
-"Vi ste administrator ovog %s. Možete pozvati nove administratore, koji "
-"zauzvrat mogu imenovati nove administratore."
+"Vi ste administrator %s. Možete pozvati nove administratore koji mogu dalje "
+"sami postavljati administratore."
 
 #: web/admin/inc/manageAdmins.inc.php:119 web/lib/admin/UIElements.php:102
 #, php-format
@@ -1613,19 +1616,19 @@ msgid "%s Administrator"
 msgstr "%s administrator"
 
 #: web/admin/inc/manageAdmins.inc.php:125
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You are an administrator who was directly appointed by the %s administrator. "
 "You can appoint further administrators, but these can't in turn appoint any "
 "more administrators."
 msgstr ""
-"Vi ste administrator ovog %s i izravno ste imenovani od %s. Možete imenovati "
-"nove administratore, koji ne mogu imenovati nove administratore."
+"Vi ste administrator postavljen direktno od administratora %s. Možete "
+"imenovati dodatne administratore, ali oni ne mogu dalje imenovati "
+"administratore."
 
 #: web/admin/inc/manageAdmins.inc.php:125
-#, fuzzy
 msgid "Directly Appointed Administrator"
-msgstr "Direktno određen administrator davatelja identiteta"
+msgstr "Direktno imenovani administrator"
 
 #: web/admin/inc/manageAdmins.inc.php:138
 msgid "User without name"
@@ -1698,9 +1701,9 @@ msgid "Information in <strong>%s Database</strong>"
 msgstr "Informacije u <strong>%s bazi podataka</strong>"
 
 #: web/admin/inc/manageDBLink.inc.php:99 web/admin/inc/manageDBLink.inc.php:125
-#, fuzzy, php-format
+#, php-format
 msgid "%s Name (%s)"
-msgstr "%s Naziv"
+msgstr "%s Naziv (%s)"
 
 #: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/PageDecoration.php:33
 msgid "Unnamed User"
@@ -2094,9 +2097,9 @@ msgid "Diagnostics"
 msgstr "Dijagnosticiranje"
 
 #: web/lib/admin/PageDecoration.php:223
-#, fuzzy, php-format
+#, php-format
 msgid "%s Privacy Notice"
-msgstr "%s Svojstva"
+msgstr "%s obavijest o privatnosti"
 
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
@@ -2258,7 +2261,7 @@ msgstr "Uključi %s branding u installere"
 #: web/lib/admin/UIElements.php:112
 #, php-format
 msgid "%s Homepage"
-msgstr ""
+msgstr "%s Početna stranica"
 
 #: web/lib/admin/UIElements.php:113
 #, php-format
@@ -2335,36 +2338,3 @@ msgstr "Upozorenje!"
 #: web/lib/admin/UIElements.php:386
 msgid "Error!"
 msgstr "Pogreška!"
-
-#~ msgid ""
-#~ "<strong>Terms of Use</strong>: Some installers support displaying text to "
-#~ "the user during installation time. If so, we will make that happen if you "
-#~ "upload an RTF file or plain text file to display."
-#~ msgstr ""
-#~ "<strong>Pravila korištenja</strong>: Neki instaleri pokazuju poruke "
-#~ "prilikom instalacije. Ako prenesete tektove u RTF ili tekstualnom "
-#~ "formatu, isti će se prikazati prilikom korištenja installera."
-
-#~ msgid "Name of %s"
-#~ msgstr "Naziv %s"
-
-#~ msgid "Your %s %s contains the following %s list:"
-#~ msgstr "Vaš %s %s sadrži sljedeći %s popis:"
-
-#~ msgid "Overview of %s"
-#~ msgstr "Pregled %s"
-
-#~ msgid "Name of %s (%s)"
-#~ msgstr "Naziv %s (%s)"
-
-#~ msgid "Name of the %s"
-#~ msgstr "Naziv %s"
-
-#~ msgid ""
-#~ "Please keep in mind that any profiles of such a new %s will only be made "
-#~ "available on the user download page after you have linked it to an entity "
-#~ "in the %s database (but they are otherwise fully functional)."
-#~ msgstr ""
-#~ "Molimo imajte na umu da će novi profili biti dostupni na korisničkim "
-#~ "stranicama za download, nakon što ste ih povezali sa entitetima %s baze "
-#~ "podataka. (ali inače su sasvim operabilni)"

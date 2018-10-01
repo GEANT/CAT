@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Marina Vermezovic <marina.vermezovic@rcub.bg.ac.rs>, 2016\n"
 "Language-Team: Serbian (https://www.transifex.com/eduroam_devel/teams/11799/"
@@ -26,7 +26,7 @@ msgstr "Završeno"
 
 #: core/diag/AbstractTest.php:273
 msgid "Product is not configured to run this check."
-msgstr ""
+msgstr "Proizvod nije konfigurisan da radi ovu proveru."
 
 #: core/diag/AbstractTest.php:279
 msgid "This check was skipped."
@@ -111,6 +111,9 @@ msgid ""
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
 "validate this certificate."
 msgstr ""
+"Najmanje jedan sertifikat iz lanca je potpisan SHA-1 algoritmom. Mnogi "
+"operativni sistemi, uključujući i Apple iOS, neće moći da izvrše proveru "
+"ovog sertifikata."
 
 #: core/diag/AbstractTest.php:379
 msgid ""
@@ -160,6 +163,12 @@ msgid ""
 "certificate. Checking server certificate validity against a CRL will not be "
 "possible."
 msgstr ""
+"CRL Distribution Point' ekstenzija serverskog sertifikata pokazuje na "
+"lokaciju gde se ne može naći DER-enkodovana lista povučenih sertifikata. "
+"Neki operativni sistemi mogu imati problem da izvrše validaciju ovog "
+"sertifikata proverom liste povučenih sertifikata i neće moći da provere "
+"validnost sertifikata. Provera da li se sertifikat servera nalazi na listi "
+"povučenih sertifikata neće biti moguća."
 
 #: core/diag/AbstractTest.php:414
 msgid "The server certificate was revoked by the CA!"
@@ -302,16 +311,20 @@ msgid ""
 "The certificate contains more than one CommonName (CN) field. This is "
 "reportedly problematic on many supplicants."
 msgstr ""
+"Ovaj sertifikat sadrži više od jednog CommonName (CN) polja. Ovo može "
+"predstavljati problem za mnoge instalere."
 
 #: core/diag/AbstractTest.php:536
 msgid ""
 "The certificate public key algorithm is unknown to the system. Please submit "
 "the certificate as a sample to the developers."
 msgstr ""
+"Sistem ne može da prepozna algoritam korišćen za javni ključ sertifikata. "
+"Pošaljite inženjerima zaduženim za razvoj softvera sertifikat kao primer."
 
 #: core/diag/Logopath.php:96
 msgid "[eduroam Diagnostics]"
-msgstr ""
+msgstr "[eduroam Dijagnostika]"
 
 #: core/diag/Logopath.php:98
 msgid ""
@@ -320,22 +333,27 @@ msgid ""
 "org, forwarding the entire message (including the 'SUSPECTS' and 'EVIDENCE' "
 "data at the end), and explain why this is a false positive.)"
 msgstr ""
+"(Ova usluga je u ranoj fazi razvoja. Izvinjavamo se ako je ovo lažan alarm. "
+"Ako je to slučaj, pošaljite mejl na cat-devel@lists.geant.org, tako što ćete "
+"proslediti celu poruku (uključujući podatke 'SUSPECTS' and 'EVIDENCE' sa "
+"kraja), i objasnite zašto je ovo lažan alarm.) "
 
 #: core/diag/Logopath.php:100
 msgid "Yours sincerely,"
-msgstr ""
+msgstr "Srdačan pozdrav,"
 
 #: core/diag/Logopath.php:102
 msgid "Ed U. Roam, the eduroam diagnostics algorithm"
-msgstr ""
+msgstr "Ed U. Roam, eduroam algoritam za dijagnostiku"
 
 #: core/diag/Logopath.php:110
 msgid "[POLICYVIOLATION NATIONAL] IdP with no entry in eduroam database"
 msgstr ""
+"[NACIONALNO NARUŠAVANJE PRAVILNIKA] IdP ne postoji u eduroam bazi podataka"
 
 #: core/diag/Logopath.php:111
 msgid "Dear NRO administrator,"
-msgstr ""
+msgstr "Dragi administratoru NRO,"
 
 #: core/diag/Logopath.php:113
 #, php-format
@@ -344,12 +362,17 @@ msgid ""
 "checks determined that the realm exists, but we were unable to find an IdP "
 "with that realm in the eduroam database."
 msgstr ""
+"krajnji korisnik je zahtevao dijagnostiku za domen %s. Testovi konektivnosti "
+"u realnom vremenu su pokazali da domen postoji, ali nije bilo moguće naći "
+"IdP sa tim domenom u eduroam bazi podataka."
 
 #: core/diag/Logopath.php:115
 msgid ""
 "By not listing IdPs in the eduroam database, you are violating the eduroam "
 "policy."
 msgstr ""
+"Ukoliko ne navedete sve IdP u eduroam bazi podataka, kršite pravila eduroam "
+"servisa."
 
 #: core/diag/Logopath.php:117
 msgid ""
@@ -357,6 +380,9 @@ msgid ""
 "to direct end users to their IdP for further diagnosis/instructions because "
 "there are no contact points for that IdP in the database."
 msgstr ""
+"Dodatno, ovo stvara operativne probleme. Naročito, nije bilo moguće uputiti "
+"krajnje korisnike na njihovog IdP-a za dodatnu dijagnostiku/uputstva jer ne "
+"postoje lica zadužena za taj IdP u bazi podataka."
 
 #: core/diag/RADIUSTests.php:1008
 #, php-format
@@ -431,7 +457,7 @@ msgstr "eduroam-akreditovan CA (sada samo za testove)"
 
 #: core/diag/RFC6614Tests.php:253
 msgid "No TLS connection established: Connection refused"
-msgstr ""
+msgstr "Nije uspostavljena TLS veza: Uspostava veze je odbijena"
 
 #: core/diag/RFC6614Tests.php:255
 msgid "certificate expired"
@@ -471,25 +497,30 @@ msgstr "NAPTR zapisi su pronađeni, ali se svi odnose na druge servise."
 
 #: core/diag/Sociopath.php:35
 msgid "There is nothing you can do to solve this problem yourself."
-msgstr ""
+msgstr "Ne možete uraditi ništa da biste sami rešili ovaj problem."
 
 #: core/diag/Sociopath.php:36
 msgid ""
 "Please be patient and try again at a later time. Do NOT change your device "
 "configuration."
 msgstr ""
+"Molimo vas da budete strpljivi i da pokušate ponovo kasnije. NEMOJTE menjati "
+"konfiguraciju vašeg uređaja."
 
 #: core/diag/Sociopath.php:37
 msgid ""
 "The infrastructure operators have automatically been informed and will "
 "investigate the issue as soon as possible."
 msgstr ""
+"Odgovorni za eduroam opremu su automatski obavešteni i istražiće prijavljeni "
+"problem u najkraćem mogućem roku."
 
 #: core/diag/Sociopath.php:39
 msgid ""
 "The system has identified possible issues regarding your local device "
 "configuration."
 msgstr ""
+"Sistem je detektovao potencijalne probleme sa konfiguracijom vašeg uređaja."
 
 #: core/diag/Sociopath.php:47
 msgid ""
@@ -497,6 +528,9 @@ msgid ""
 "you described. Probably, this is not a participating institution and the "
 "account you tried to use does not exist."
 msgstr ""
+"Sistem nije mogao da nađe nikakve podatke o IdP-u koji ste opisali. "
+"Verovatno ova institucija ne učestvuje u eduroam servisu i nalog sa kojim "
+"ste pokušali da se ulogujete ne postoji."
 
 #: core/diag/Sociopath.php:48
 msgid ""
@@ -507,6 +541,11 @@ msgid ""
 "objects in the way, elevation differences) can have a significant impact on "
 "your connectivity experience."
 msgstr ""
+"Najverovatnije postoje neki problemi sa bežičnim delom mreže na koju "
+"pokušavate da se povežete. Bežične mreže se ne ponašaju uvek deterministički "
+"i konzistentno. Svi korisnici na određenoj lokaciji moraju da dele "
+"raspoloživi protok i fizičko okruženje (betonski zidovi, predmeti, razlike u "
+"elevaciji) koji mogu imati značajan uticaj na kvalitet vaše veze."
 
 #. here is an array with yes/no answers per failure category, and the factors by which a Yes modifies the score; No's modify it by 1/factor;
 #. the order in this array is important: lower numbered questions will be asked first. So make sure you have high-quality questions in the beginning.
@@ -518,12 +557,17 @@ msgid ""
 "exists in CAT, then display link to config] or contact your Identity "
 "Provider [MGW: show contact info]."
 msgstr ""
+"Trebalo bi da koristite odgovarajuće instalere [MGW: see if the realm exists "
+"in CAT, then display link to config] ili da kontaktirate vašeg IdP-a [MGW: "
+"show contact info]."
 
 #: core/diag/Sociopath.php:60
 msgid ""
 "Have you ever used the network succesfully, e.g. at your home institution "
 "without roaming?"
 msgstr ""
+"Da li ste nekada uspeli da koristite mrežu, npr. na vašoj matičnoj "
+"instituciji bez rominga?"
 
 #: core/diag/Sociopath.php:62
 #, php-format
@@ -531,12 +575,16 @@ msgid ""
 "If your device has never worked before with this setup, then very likely "
 "your device configuation is wrong. %s"
 msgstr ""
+"Ako vaš uređaj nije funkcionisao pre ovih podešavanja, onda je verovatno "
+"konfiguracija uređaja pogrešna. %s"
 
 #: core/diag/Sociopath.php:64
 msgid ""
 "Did the device previously work when roaming, i.e. at other hotspots away "
 "from your home institution?"
 msgstr ""
+"Da li ste mogli da koristite eduroam prethodni put kada ste bili u romingu, "
+"npr. na drugim mestima pristupa koji nisu bili na vašoj matičnoj instituciji?"
 
 #: core/diag/Sociopath.php:66
 #, php-format
@@ -546,10 +594,14 @@ msgid ""
 "routing ('outer') username without the @realm.tld suffix - those potentially "
 "work at home, but can not be used when roaming. %s"
 msgstr ""
+"Ako roming ne radi konzistentno, onda je najverovatnije konfiguracija vašeg "
+"uređaja pogrešna. Najčešće greške koje izazivaju ovakvo ponašanje su: "
+"(spoljno) korisničko ime bez @realm.tld sufiksa - ovakva konfiguracija "
+"uređaja radi lokalno, ali se ne može koristiti kod rominga. %s"
 
 #: core/diag/Sociopath.php:68
 msgid "Did you recently change the configuration on your device?"
-msgstr ""
+msgstr "Da li ste u skorije vreme menjali konfiguraciju vašeg uređaja?"
 
 #: core/diag/Sociopath.php:70
 msgid ""
@@ -559,10 +611,16 @@ msgid ""
 "configuration unless explicitly instructed so by your Identity Provider; "
 "even in the case of temporary login issues."
 msgstr ""
+"Nalog je potrebno konfigurisati samo jednom i nakon toga se može korisititi "
+"bilo gde na planeti bez izmena. Ako ste skoro promenili konfiguraciju, ta "
+"promena može biti uzrok greške. Ne bi trebalo da menjate konfiguraciju osim "
+"ukoliko nije eksplicitno naglašeno od strane vaše matične institucije; čak i "
+"u slučaju da imate privremeno problem sa povezivanjem."
 
 #: core/diag/Sociopath.php:72
 msgid "If you use more than one device: do your other devices still work?"
 msgstr ""
+"Ako koristite više od jednog uređaja: da li svi ostali uređaji i dalje rade?"
 
 #: core/diag/Sociopath.php:73
 msgid ""
@@ -571,12 +629,18 @@ msgid ""
 "change the password? These questions are best answered by your Identity "
 "Provider [MGW: display contact info]"
 msgstr ""
+"Ako su svi uređaji prestali da rade u isto vreme, možda postoji problem sa "
+"vašim nalogom. Možda je vaš nalog istekao ili ste bili prinuđeni da "
+"promenite lozinku? Na ova pitanja najbolje možete dobiti odgovor od vašeg "
+"IdP-a [MGW: display contact info]"
 
 #: core/diag/Sociopath.php:76
 msgid ""
 "Is the place you are currently at heavily crowded, or is a network-intensive "
 "workload going on?"
 msgstr ""
+"Da li se na mestu na kom se nalazite trenutno nalazi veliki broj ljudi ili "
+"je u pitanju velika količina saobraćaja koju mreža mora da obradi? "
 
 #: core/diag/Sociopath.php:78
 msgid ""
@@ -585,10 +649,14 @@ msgid ""
 "the network should be reinforced for more capacity at this place, you should "
 "inform the hotspot provider. [MGW: add contact info]"
 msgstr ""
+"Mreža je najverovatnije preopterećena u ovom trenutku na toj lokaciji. Možda "
+"ćete morati da sačekate neko vreme kako biste imali vezu. Ako mislite da bi "
+"mrežu na ovoj lokaciji trebalo proširiti, obavestite o tome SP-a. [MGW: add "
+"contact info]"
 
 #: core/diag/Sociopath.php:80
 msgid "Does the connection get better when you move around?"
-msgstr ""
+msgstr "Da li je veza bolja kada se krećete?"
 
 #: core/diag/Sociopath.php:82
 msgid ""
@@ -596,11 +664,17 @@ msgid ""
 "and service. If you think the exact spot you are at deserves better "
 "coverage, you should inform the hotspot provider. [MGW: add contact info]"
 msgstr ""
+"Trebalo bi da promenite lokaciju kako biste ostvarili bolje mrežno "
+"pokrivanje i bolji kvalitet usluge. Ako mislite da posmatrana tačka pristupa "
+"zahteva bolje pokrivanje, trebalo bi da obavestite SP-a. [MGW: add contact "
+"info]"
 
 #: core/diag/Sociopath.php:85
 msgid ""
 "Do you see errors stating something similar to 'Unable to get IP address'?"
 msgstr ""
+"Da li vidite greške u kojima piše nešto slično grešci 'Unable to get IP "
+"address'?"
 
 #: core/diag/Sociopath.php:87
 msgid ""
@@ -608,133 +682,150 @@ msgid ""
 "this particular hotspot provider. There is nothing you can do to solve this "
 "problem locally. Please be patient and try again at a later time."
 msgstr ""
+"Na osnovu dobijenih podataka pretpostavka je da postoji infrastrukturni "
+"problem na ovoj lokaciji. Ne možete uraditi ništa da rešite ovaj problem "
+"lokalno. Molimo vas da budete strpljivi i da pokušate ponovo kasnije."
 
 #: web/skins/modern/diag/diag.php:68
 msgid "Diagnostics site"
-msgstr ""
+msgstr "Veb stranica za dijagnostiku"
 
 #: web/skins/modern/diag/diag.php:68 web/skins/modern/diag/diag.php:71
 msgid ""
 "The diagnostics system will do its best to identify and resolve your "
 "problems!"
 msgstr ""
+"Sistem za dijagnostiku će dati sve od sebe da identifikuje i reši vaše "
+"probleme!"
 
 #: web/skins/modern/diag/diag.php:68
 msgid ""
 "Please help the system by answering the questions as precisely as possible."
 msgstr ""
+"Molimo vas da pomognete sistemu tako što ćete na pitanja odgovarati što je "
+"preciznije moguće."
 
 #: web/skins/modern/diag/diag.php:71
 msgid "Are you a"
-msgstr ""
+msgstr "Da li ste"
 
 #: web/skins/modern/diag/diag.php:72
 msgid "end-user"
-msgstr ""
+msgstr "krajnji korisnik"
 
 #: web/skins/modern/diag/diag.php:72
 msgid "or"
-msgstr ""
+msgstr "ili"
 
 #: web/skins/modern/diag/diag.php:73
 msgid "eduroam administrator"
-msgstr ""
+msgstr "eduroam administrator"
 
 #: web/skins/modern/diag/diag.php:76
 msgid "Tools for End Users"
-msgstr ""
+msgstr "Alati za krajnje korisnike"
 
 #: web/skins/modern/diag/diag.php:79
 msgid ""
 "To resolve your problem a real-time diagnostics for your realm must be "
 "performed."
 msgstr ""
+"Potrebno je izvršiti dijagnostiku vašeg domena kako bi se ovaj problem rešio."
 
 #: web/skins/modern/diag/diag.php:83
 msgid ""
 "The system needs some information on your home institution - issuer of your "
 "account"
 msgstr ""
+"Sistemu su neophodni podaci o vašoj matičnoj instituciji - o onoj ustanovi "
+"od koje ste dobili nalog"
 
 #: web/skins/modern/diag/diag.php:84
 msgid ""
 "What is the realm part of your user account (the part behind the @ of 'your."
 "username@<b>realm.tld</b>):"
 msgstr ""
+"Koji je domen u vašem nalogu (deo iza znaka @ 'korisničko.ime@<b>domen.rs</"
+"b>):"
 
 #: web/skins/modern/diag/diag.php:88
 msgid "alternatively"
-msgstr ""
+msgstr "alternativno"
 
 #: web/skins/modern/diag/diag.php:89
 msgid "You can select your home institution from the following list"
-msgstr ""
+msgstr "Možete odabrati vašu matičnu instituciju sa sledeće liste"
 
 #: web/skins/modern/diag/diag.php:91
 msgid "Click to select your country/region and organisation"
-msgstr ""
+msgstr "Kliknite da biste odabrali vašu zemlju/region i organizaciju"
 
 #: web/skins/modern/diag/diag.php:98
 msgid ""
 "Optionally, to improve tests, you can provide information on your current "
 "location"
 msgstr ""
+"Dodatno, da bi testovi dali bolje rezultate, možete dati i informaciju o "
+"vašoj trenutnoj lokaciji"
 
 #: web/skins/modern/diag/diag.php:100
 msgid "Click to select a location in which you have an eduroam problem"
 msgstr ""
+"Kliknite kako biste odabrali lokaciju na kojoj imate problem sa eduroam "
+"servisom"
 
 #: web/skins/modern/diag/diag.php:107 web/skins/modern/diag/diag.php:238
 msgid "Testing realm"
-msgstr ""
+msgstr "Domen za testiranje"
 
 #: web/skins/modern/diag/diag.php:108
 msgid "First stage completed."
-msgstr ""
+msgstr "Prva faza je završena."
 
 #: web/skins/modern/diag/diag.php:113
 msgid "To narrow down the problem, please answer the following few questions."
 msgstr ""
+"Da bi se lakše došlo do uzroka problema, odgovorite na sledeća pitanja."
 
 #: web/skins/modern/diag/diag.php:118
 msgid "Run tests"
-msgstr ""
+msgstr "Pokreni testove"
 
 #: web/skins/modern/diag/diag.php:123
 msgid "Tools for eduroam admins"
-msgstr ""
+msgstr "Alati za eduroam administratore"
 
 #: web/skins/modern/diag/diag.php:135
 msgid "Which problem are you reporting?"
-msgstr ""
+msgstr "Koji problem prijavljujete?"
 
 #: web/skins/modern/diag/diag.php:137 web/skins/modern/diag/diag.php:845
 msgid "SP contacting IdP due to technical problems or abuse"
-msgstr ""
+msgstr "SP kontaktira IdP usled tehničkih problema ili zloupotrebe"
 
 #: web/skins/modern/diag/diag.php:139
 msgid "IdP contacting SP due to technical problems"
-msgstr ""
+msgstr "IdP kontaktira SP usled tehničkih problema"
 
 #: web/skins/modern/diag/diag.php:146
 msgid "This service is for authenticated admins only."
-msgstr ""
+msgstr "Ovaj servis je namenjen samo autentifikovanim administratorima."
 
 #: web/skins/modern/diag/diag.php:148
 msgid "eduroam® admin access is needed"
-msgstr ""
+msgstr "eduroam® administratorski pristup je potreban"
 
 #: web/skins/modern/diag/diag.php:172
 msgid "Select institiution:"
-msgstr ""
+msgstr "Odaberite instituciju:"
 
 #: web/skins/modern/diag/diag.php:197
 msgid "Select country or region:"
-msgstr ""
+msgstr "Odaberite zemlju ili region:"
 
 #: web/skins/modern/diag/diag.php:205
 msgid "Fetching country/region list"
-msgstr ""
+msgstr "Dohvatanje liste zemalja/regiona u toku"
 
 #: web/skins/modern/diag/diag.php:265
 msgid "Yes"
@@ -746,102 +837,112 @@ msgstr "Ne"
 
 #: web/skins/modern/diag/diag.php:267
 msgid "I don't know"
-msgstr ""
+msgstr "Ne znam"
 
 #: web/skins/modern/diag/diag.php:296
 msgid "Diagnostic tests results for selected realm"
-msgstr ""
+msgstr "Rezultati dijagnostičkih testova za odabrani domen"
 
 #: web/skins/modern/diag/diag.php:299
 msgid "The result for tested realm:"
-msgstr ""
+msgstr "Rezultat za testirani domen:"
 
 #: web/skins/modern/diag/diag.php:301
 msgid "The system identified"
-msgstr ""
+msgstr "Identifikovan sistem"
 
 #: web/skins/modern/diag/diag.php:303
 msgid "suspected areas which potentially can cause a problem."
-msgstr ""
+msgstr "oblasti na koje se sumnja da bi mogle da budu uzrok problema."
 
 #: web/skins/modern/diag/diag.php:304
 msgid ""
 "Next to the problem description we show a speculated probability of this "
 "event."
 msgstr ""
+"Pored objašnjenja problema, prikazuje se pretpostavka šta je dovelo do ovog "
+"događaja."
 
 #: web/skins/modern/diag/diag.php:311
 msgid "Your device configuration is broken"
-msgstr ""
+msgstr "Konfiguracija vašeg uređaja je pogrešna"
 
 #: web/skins/modern/diag/diag.php:314
 msgid "The Wi-Fi network in your vicinity has quality issues"
-msgstr ""
+msgstr "Wi-Fi mreža u vašem okruženju ima problema sa kvalitetom"
 
 #: web/skins/modern/diag/diag.php:317
 msgid "The network environment around you is broken"
-msgstr ""
+msgstr "Mrežno okruženje u vašoj okolini je loše"
 
 #: web/skins/modern/diag/diag.php:320
 msgid "The RADIUS server of your service provider is the source of the problem"
-msgstr ""
+msgstr "RADIUS server vašeg SP-a je izvor problema"
 
 #: web/skins/modern/diag/diag.php:323
 msgid ""
 "The RADIUS server in your home institution is currently unable to "
 "authenticate you"
 msgstr ""
+"RADIUS server vaše matične institucije trenutno ne može da vas autentifikuje"
 
 #: web/skins/modern/diag/diag.php:326
 msgid ""
 "The national server in the country/region you are visiting is not "
 "functioning correctly"
 msgstr ""
+"Nacionalni RADIUS server ne funkcioniše ispravno u zemlji/regionu gde se "
+"nalazite u poseti"
 
 #: web/skins/modern/diag/diag.php:329
 msgid ""
 "The link between the national server of the country/region you are visiting "
 "and the top-level server is broken"
 msgstr ""
+"Veza između nacinalnog RADIUS servera zemlje/regiona koji posećujete i "
+"evropskog top-level RADIUS servera ne funkcioniše"
 
 #: web/skins/modern/diag/diag.php:332
 msgid ""
 "The link between the national server of your home country/region and the top-"
 "level server is broken"
 msgstr ""
+"Veza između nacinalnog RADIUS servera vaše zemlje/regiona i evropskog top-"
+"level RADIUS servera ne funkcioniše"
 
 #: web/skins/modern/diag/diag.php:335
 msgid "The communication to the top-level server is down"
-msgstr ""
+msgstr "Komunikacija sa evropskim top-level RADIUS serverom ne radi"
 
 #: web/skins/modern/diag/diag.php:338
 msgid ""
 "The national server in your home country/region is not functioning properly."
 msgstr ""
+"Nacionalni RADIUS server ne funkcioniše ispravno u vašoj zemlji/regionu."
 
 #: web/skins/modern/diag/diag.php:341
 msgid "The RADIUS server of your home institution is the source of the problem"
-msgstr ""
+msgstr "RADIUS server vaše matične institucije je izvor problema"
 
 #: web/skins/modern/diag/diag.php:344
 msgid "This realm does not exist"
-msgstr ""
+msgstr "Domen ne postoji"
 
 #: web/skins/modern/diag/diag.php:450
 msgid "Fetching institutions list"
-msgstr ""
+msgstr "Dohvatanje liste institucija u toku"
 
 #: web/skins/modern/diag/diag.php:468
 msgid "Select institution:"
-msgstr ""
+msgstr "Odaberite instituciju:"
 
 #: web/skins/modern/diag/diag.php:507
 msgid "Fetching realms list"
-msgstr ""
+msgstr "Dohvatanje liste domena u toku"
 
 #: web/skins/modern/diag/diag.php:519
 msgid "Check realm(s):"
-msgstr ""
+msgstr "Proveri domen(e):"
 
 #: web/skins/modern/diag/diag.php:531
 msgid "Realm:"
@@ -850,92 +951,92 @@ msgstr "Domen:"
 #: web/skins/modern/diag/diag.php:585 web/skins/modern/diag/diag.php:654
 #: web/skins/modern/diag/diag.php:770
 msgid "Running realm tests"
-msgstr ""
+msgstr "Testovi za domene su u toku"
 
 #: web/skins/modern/diag/diag.php:629
 msgid "Realm is not registered with the eduroam database:"
-msgstr ""
+msgstr "Domen nije registrovan u eduroam bazi podataka:"
 
 #: web/skins/modern/diag/diag.php:702
 msgid "Diagnostics results for selected realms"
-msgstr ""
+msgstr "Rezultati dijagnostičkih testova za odabrane domene"
 
 #: web/skins/modern/diag/diag.php:703
 msgid "An unknown problem occured"
-msgstr ""
+msgstr "Došlo je do nepoznatog problema"
 
 #: web/skins/modern/diag/diag.php:706
 msgid "This test includes checking of the following realm"
-msgstr ""
+msgstr "Ovaj test uključuje proveru sledećeg domena"
 
 #: web/skins/modern/diag/diag.php:708
 msgid "This test includes checking of the following realms"
-msgstr ""
+msgstr "Ovaj test uključuje proveru sledećih domena"
 
 #: web/skins/modern/diag/diag.php:718
 msgid "You should report this to"
-msgstr ""
+msgstr "Ovaj problem bi trebalo da prijavite"
 
 #: web/skins/modern/diag/diag.php:842
 msgid "eduroam admin report submission"
-msgstr ""
+msgstr "Predavanje eduroam administratorskog izveštaja"
 
 #: web/skins/modern/diag/diag.php:847 web/skins/modern/diag/diag.php:857
 msgid "Reason"
-msgstr ""
+msgstr "Razlog"
 
 #: web/skins/modern/diag/diag.php:848
 msgid "SP email"
-msgstr ""
+msgstr "SP email"
 
 #: web/skins/modern/diag/diag.php:849
 msgid "IdP email(s)"
-msgstr ""
+msgstr "IdP email(-ovi)"
 
 #: web/skins/modern/diag/diag.php:850 web/skins/modern/diag/diag.php:861
 msgid "Event's timestamp"
-msgstr ""
+msgstr "Trenutak događaja"
 
 #: web/skins/modern/diag/diag.php:851 web/skins/modern/diag/diag.php:862
 msgid "Calling-Station-Id"
-msgstr ""
+msgstr "Calling-Station-Id"
 
 #: web/skins/modern/diag/diag.php:852 web/skins/modern/diag/diag.php:863
 msgid "Additional description"
-msgstr ""
+msgstr "Dodatno obrazloženje"
 
 #: web/skins/modern/diag/diag.php:855
 msgid "IdP contacting SP due to technical problems or abuse"
-msgstr ""
+msgstr "IdP kontaktira SP usled tehničkih problema ili zloupotrebe"
 
 #: web/skins/modern/diag/diag.php:858
 msgid "SP's Operator-Name"
-msgstr ""
+msgstr "SP Operator-Name"
 
 #: web/skins/modern/diag/diag.php:859
 msgid "User's outer ID"
-msgstr ""
+msgstr "Spoljašnji identitet korisnika"
 
 #: web/skins/modern/diag/diag.php:860
 msgid "IdP email"
-msgstr ""
+msgstr "IdP email"
 
 #: web/skins/modern/diag/diag.php:864
 msgid "How to contact the user"
-msgstr ""
+msgstr "Kako da kontaktirate korisnika"
 
 #: web/skins/modern/diag/diag.php:881
 msgid "MAC address is incomplete"
-msgstr ""
+msgstr "MAC adresa je nekompletna"
 
 #: web/skins/modern/diag/diag.php:890
 msgid "Wrong format of email"
-msgstr ""
+msgstr "Pogrešan format email adrese"
 
 #: web/skins/modern/diag/diag.php:899
 msgid "Wrong format of outer ID"
-msgstr ""
+msgstr "Pogrešan format spoljašnjeg identiteta"
 
 #: web/skins/modern/diag/diag.php:908
 msgid "Wrong string given as OperatorName"
-msgstr ""
+msgstr "Pogrešan string dat kao OperatorName"

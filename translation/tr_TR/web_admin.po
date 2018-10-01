@@ -1,0 +1,2356 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Can Ugur Ayfer <cayfer@bilkent.edu.tr>, 2017
+# catborise <muhammetalisag@gmail.com>, 2015
+# Gokhan Eryol <gokhaneryol@gmail.com>, 2017-2018
+# catborise <muhammetalisag@gmail.com>, 2013
+# catborise <muhammetalisag@gmail.com>, 2013-2014
+# M. Uğur YILMAZ <muy1970@gmail.com>, 2018
+# Nese Kaptan Koc <nese.kaptankoc@tubitak.gov.tr>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: eduroam CAT\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"PO-Revision-Date: 2018-09-26 06:25+0000\n"
+"Last-Translator: Gokhan Eryol <gokhaneryol@gmail.com>\n"
+"Language-Team: Turkish (http://www.transifex.com/eduroam_devel/cat/language/"
+"tr/)\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: web/admin/action_enrollment.php:41 web/admin/action_enrollment.php:67
+#: web/admin/action_enrollment.php:68
+msgid "Error creating new IdP binding!"
+msgstr "Yeni IdP bağlama işlemi sırasında hata oluştu!"
+
+#: web/admin/action_enrollment.php:48
+msgid "This page needs to be called with a valid invitation token!"
+msgstr "Bu sayfa geçerli bir davet belirteci ile çağrılmalıdır!"
+
+#: web/admin/action_enrollment.php:52
+msgid ""
+"You tried to register in self-service, but this deployment does not allow "
+"self-service!"
+msgstr ""
+"Kendi kendinize hizmete kaydolmayı denediniz, ancak bu dağıtım kendi kendine "
+"kayda izin vermiyor!"
+
+#: web/admin/action_enrollment.php:71
+#, php-format
+msgid ""
+"Sorry... this token has already been used. The %s is already created. If you "
+"got the invitation from a mailing list, probably someone else used it before "
+"you."
+msgstr ""
+"Maalesef bu belirteç daha önce kullanılmış. %s zaten oluşturulmuş. Eğer "
+"davetiyeyi bir posta listesinden aldıysanız, muhtemelen, başka biri bunu "
+"sizden önce kullanmıştır."
+
+#: web/admin/action_enrollment.php:74
+#, php-format
+msgid ""
+"Sorry... this token has expired. Invitation tokens are valid for 24 hours. "
+"The %s administrator can create a new one for you."
+msgstr ""
+"Maalesef bu belirtecin süresi dolmuş. Davet belirteçleri 24 saat geçerlidir. "
+"%s yöneticisi sizin için yeni bir tane oluşturabilir."
+
+#: web/admin/action_enrollment.php:77
+msgid ""
+"Sorry... you have come to the enrollment page without a valid token. Are you "
+"a nasty person? If not, you should go to <a href='overview_user.php'>your "
+"profile page</a> instead."
+msgstr ""
+"Üzgünüz... Geçerli bir davet koduna sahip olmadığınız halde kayıt sayfasına "
+"gelmişsiniz. Pis birisiniz galiba? Eğer değilseniz, buraya gelmek yerine "
+"profil sayfanıza  <a href='overview_user.php'> gitmelisiniz "
+
+#. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
+#: web/admin/edit_federation.php:34
+#, php-format
+msgid "%s: Editing %s '%s'"
+msgstr "%s: %s '%s' düzenleniyor"
+
+#. / nomenclature for federation, then actual federation name
+#: web/admin/edit_federation.php:49
+#, php-format
+msgid "Editing %s information for '%s'"
+msgstr " %s bilgileri düzenleniyor; '%s' için"
+
+#: web/admin/edit_federation.php:53 web/admin/edit_federation.php:68
+#, php-format
+msgid "%s Properties"
+msgstr "%s Özellikleri"
+
+#: web/admin/edit_federation.php:56 web/admin/edit_idp.php:76
+#: web/lib/admin/UIElements.php:215
+msgid "Country:"
+msgstr "Ülke:"
+
+#: web/admin/edit_federation.php:73 web/admin/edit_idp.php:109
+#: web/admin/edit_idp.php:165 web/admin/edit_idp.php:190
+#: web/admin/edit_profile.php:147 web/admin/edit_profile.php:462
+#: web/admin/edit_user.php:46 web/admin/inc/toggleRedirect.inc.php:124
+msgid "Add new option"
+msgstr "Yeni bir opsiyon ekle"
+
+#: web/admin/edit_federation.php:76 web/admin/edit_idp.php:195
+#: web/admin/edit_profile.php:469 web/admin/edit_user.php:51
+#: web/admin/inc/toggleRedirect.inc.php:127
+msgid "Save data"
+msgstr "Veriyi kaydet"
+
+#: web/admin/edit_federation.php:76 web/admin/edit_idp.php:195
+#: web/admin/edit_profile.php:469 web/admin/edit_user.php:54
+msgid "Discard changes"
+msgstr "Değişiklikleri yoksay"
+
+#. / first productname (eduroam CAT), then nomenclature for 'federation'
+#: web/admin/edit_federation_result.php:31
+#, php-format
+msgid "%s: %s Customisation (submission completed)"
+msgstr "%s: %s Özelleştirmesi (gönderim tamamlandı)"
+
+#: web/admin/edit_federation_result.php:35
+#, php-format
+msgid "Submitted attributes for %s '%s'"
+msgstr "%s için kayıtlı özellikler '%s'"
+
+#: web/admin/edit_federation_result.php:47 web/admin/edit_idp_result.php:144
+#: web/admin/edit_profile_result.php:224
+msgid "Continue to dashboard"
+msgstr "Kontrol paneline devam et"
+
+#: web/admin/edit_idp.php:32
+#, php-format
+msgid "%s: IdP enrollment wizard (step 2)"
+msgstr "%s: IdP kayıt sihirbazı (adım 2)"
+
+#: web/admin/edit_idp.php:34
+#, php-format
+msgid "%s: Editing IdP '%s'"
+msgstr "%s: Düzenlenen IdP '%s'"
+
+#: web/admin/edit_idp.php:66
+msgid "Step 2: General Information about your IdP"
+msgstr "Adım 2: IdP niz Hakkında Genel Bilgi"
+
+#: web/admin/edit_idp.php:68
+#, php-format
+msgid "Editing IdP information for '%s'"
+msgstr "'%s' in IdP bilgisi düzenleme"
+
+#: web/admin/edit_idp.php:73
+#, php-format
+msgid "%s general properties"
+msgstr "%s genel özellikleri"
+
+#: web/admin/edit_idp.php:92
+#, php-format
+msgid ""
+"Hello, newcomer. The %s is new to us. This wizard will ask you several "
+"questions about it, so that we can generate beautiful profiles for you in "
+"the end. All of the information below is optional, but it is important to "
+"fill out as many fields as possible for the benefit of your end users."
+msgstr ""
+"Merhaba. %s, bizim için yeni. Bu sihirbaz, size düzgün profiller "
+"olüşturabilmek için birkaç soru soracaktır. Aşağıdaki tüm bilgiler isteğe "
+"bağlıdır, ancak son kullanıcılarınızın yararına, olabildiğince çok alan "
+"doldurmanız önemlidir."
+
+#: web/admin/edit_idp.php:97
+msgid "General Information"
+msgstr "Genel Bilgi"
+
+#: web/admin/edit_idp.php:101
+msgid ""
+"Some properties are valid across all deployment profiles. This is the place "
+"where you can describe those properties in a fine-grained way. The solicited "
+"information is used as follows:"
+msgstr ""
+"Bazı özellikler tüm dağıtım profillerinde geçerlidir. Bu özellikleri detaylı "
+"bir şekilde burada tanımlayabilirsiniz. İstenen bilgiler aşağıdaki gibi "
+"kullanılır:"
+
+#: web/admin/edit_idp.php:103
+msgid ""
+"<strong>Logo</strong>: When you submit a logo, we will embed this logo into "
+"all installers where a custom logo is possible. We accept any image format, "
+"but for best results, we suggest SVG. If you don't upload a logo, we will "
+"use the generic logo instead (see top-right corner of this page)."
+msgstr ""
+"<strong>Logo</strong>: Bir logo gönderdiğinizde, biz bu logoyu bütün "
+"yükleyicilere mümkün olduğu takdirde gömeceğiz. Bütün resim biçemlerini "
+"kabul ediyoruz, fakt en iyi sonuçlar için, SVG biçemini öneriyoruz. Eğer bir "
+"logo yüklemezseniz, jenerik bir logo kullanacağız (bu sayfanın sağ üst "
+"köşesinde görebilirsiniz)"
+
+#: web/admin/edit_idp.php:104
+#, php-format
+msgid ""
+"<strong>Name</strong>: The %s may have names in multiple languages. It is "
+"recommended to always populate at least the 'default/other' language, as it "
+"is used as a fallback if the system does not have a name in the exact "
+"language the user requests a download in."
+msgstr ""
+"<strong>Ad</strong>: %s'in birden çok dilde adı olabilir. Kullanıcının "
+"indirmek istediği dil seçeneği sistemde tanımlı olmadığı zamanlarda, bir "
+"geri dönüş çözümü olarak kullanıldığı için, en azından 'varsayılan/diğer' "
+"dilinin her zaman doldurulaması önerilir. "
+
+#: web/admin/edit_idp.php:115 web/lib/admin/UIElements.php:229
+msgid "Media Properties"
+msgstr "Ortam Özellikleri"
+
+#: web/admin/edit_idp.php:119
+#, php-format
+msgid ""
+"In this section, you define on which media %s should be configured on user "
+"devices."
+msgstr ""
+"Bu bölümde, hangi ortamda %s in kullanıcı cihazlarında ayarlanacağını "
+"tanımlayabilirsiniz."
+
+#: web/admin/edit_idp.php:122
+msgid "Additional SSIDs:"
+msgstr "Ek SSID ler:"
+
+#: web/admin/edit_idp.php:122
+msgid "SSIDs:"
+msgstr "SSID ler:"
+
+#: web/admin/edit_idp.php:129
+#, php-format
+msgid "We will always configure this SSID for WPA2/AES: %s."
+msgid_plural "We will always configure these SSIDs for WPA2/AES: %s."
+msgstr[0] "Biz SSID için herzaman WPA2/AES şifrelemesini yapılandırırız: %s"
+msgstr[1] ""
+"Biz SSID ler için herzaman WPA2/AES şifrelemesini yapılandırırız: %s"
+
+#: web/admin/edit_idp.php:131
+msgid ""
+"They will also be configured for WPA/TKIP if the device supports multiple "
+"encryption types."
+msgstr ""
+"Eğer cihaz çoklu kriptolama tiplerini destekliyorsa, WPA/TKIP içinde "
+"yapılandırılabilirler."
+
+#: web/admin/edit_idp.php:133
+#, php-format
+msgid ""
+"It is also possible to define custom additional SSIDs with the options '%s' "
+"and '%s' below."
+msgstr ""
+"Alttaki '%s' ve '%s' ayarlarıyla özel ek SSIDler tanımlayabilmek mümkündür."
+
+#: web/admin/edit_idp.php:135
+msgid "Please configure which SSIDs should be configured in the installers."
+msgstr "Lütfen yükleyicilerde yapılandırılacak SSID leri yapılandırın."
+
+#: web/admin/edit_idp.php:137
+msgid ""
+"By default, we will only configure the SSIDs with WPA2/AES encryption. By "
+"using the '(with WPA/TKIP)' option you can specify that we should include "
+"legacy support for WPA/TKIP where possible."
+msgstr ""
+"Varsayılan olarak, biz SSID leri sadece WPA2/AES şifrelemesiyle "
+"yapılandıracağız. '(WPA/TKIP ile)' seçeneğini kullanarak bize bu durumu "
+"belirttiğiniz takdirde, mümkün olduğu yerde eskimiş olan WPA/TKIP desteğini "
+"dahil edebiliriz."
+
+#: web/admin/edit_idp.php:141
+msgid "Additional Hotspot 2.0 / Passpoint Consortia:"
+msgstr "İlave Kablosuz Ağ Erişim Noktası  2.0 / Passpoint Consortia:"
+
+#: web/admin/edit_idp.php:141
+msgid "Hotspot 2.0 / Passpoint Consortia:"
+msgstr "Kablosuz Ağ Erişim Noktası  2.0 / Passpoint Consortia:"
+
+#: web/admin/edit_idp.php:148
+#, php-format
+msgid "We will always configure this Consortium OI: %s."
+msgid_plural "We will always configure these Consortium OIs: %s."
+msgstr[0] "%s Konsorsiyum OI sini her zaman yapılandırırız."
+msgstr[1] "%s Konsorsiyum OI lerini her zaman yapılandırırız."
+
+#: web/admin/edit_idp.php:150
+#, php-format
+msgid ""
+"It is also possible to define custom additional OIs with the option '%s' "
+"below."
+msgstr "Aşağıdaki '%s' seçeneği ile özel ilave OI leri tanımlamak mümkündür."
+
+#: web/admin/edit_idp.php:152
+msgid ""
+"Please configure which Consortium OIs should be configured in the installers."
+msgstr ""
+"Lütfen yükleyicilerde yapılandırılacak Konsorsiyum OI lerini yapılandırın."
+
+#: web/admin/edit_idp.php:155
+msgid "Support for wired IEEE 802.1X:"
+msgstr "Kablolu ağlarda IEEE 802.1x desteği:"
+
+#: web/admin/edit_idp.php:156
+msgid ""
+"If you want to configure your users' devices with IEEE 802.1X support for "
+"wired ethernet, please check the corresponding box. Note that this makes the "
+"installation process a bit more difficult on some platforms (Windows: needs "
+"administrator privileges; Apple: attempting to install a profile with wired "
+"support on a device without an active wired ethernet card will fail)."
+msgstr ""
+"Kullanıcıların cihazlarında kablolu ağlar için IEEE 802.1x desteği "
+"yapılandırmak istiyorsanız, takip eden kutuyu işaretleyin. Bu durumun bazı "
+"işletim sistemleri için kurulum işlemini bir parça zorlaştıracağını "
+"unutmayın (Windows: yönetici yetkileri istemektedir; Apple: aktif kablolu "
+"ethernet kartı olmadan kurulum yapılamamaktadır)."
+
+#: web/admin/edit_idp.php:158
+msgid "Removal of bootstrap/onboarding SSIDs:"
+msgstr "Önyükleyici SSID lerin kaldırılması:"
+
+#: web/admin/edit_idp.php:159
+msgid ""
+"If you use a captive portal to distribute configurations, you may want to "
+"unconfigure/disable that SSID after the bootstrap process. With this option, "
+"the SSID will either be removed, or be defined as 'Only connect manually'."
+msgstr ""
+"Ayarları dağıtabilmek için captive portal kullanıyor iseniz, önyükleyici "
+"işleminden sonra o SSID yi yapılandırmadan çıkarmak veya etkin dışı yapmak "
+"isteyebilirsiniz. Bu seçenek ile SSID ya kaldırılacaktır ya da 'sadece "
+"manuel bağlan' olarak tanımlanacaktır."
+
+#: web/admin/edit_idp.php:168
+msgid "Helpdesk Details for all users"
+msgstr "Bütün kullanıcılar için Yardım Masası ayrıntıları"
+
+#: web/admin/edit_idp.php:171
+msgid ""
+"This section can be used to upload specific Terms of Use for your users and "
+"to display details of how your users can reach your local helpdesk."
+msgstr ""
+"Bu bölüm, kullanıcılarınız için belirli Kullanım Şartlarını yüklemek için ve "
+"kullanıcılarınızın yerel yardım masanıza nasıl ulaşabileceğinin ayrıntısını "
+"vermek için kullanılabilir."
+
+#: web/admin/edit_idp.php:176
+#, php-format
+msgid ""
+"Do you provide helpdesk services for your users? If so, it would be nice if "
+"you would tell us the pointers to this helpdesk."
+msgstr ""
+"Kullanıcılarınız için yardım masası hizmeti sağlıyor musunuz? Eğer öyleyse, "
+"lütfen bize yardım masasına erişim bilgilerini verin."
+
+#: web/admin/edit_idp.php:178
+msgid ""
+"If you enter a value here, it will be added to the installers for all your "
+"users, and will be displayed on the download page. If you operate separate "
+"helpdesks for different user groups (we call this 'profiles') specify per-"
+"profile helpdesk information later in this wizard. If you operate no help "
+"desk at all, just leave these fields empty."
+msgstr ""
+"Eğer buraya bir değer girerseniz, bu değer, kullanıcılarınız için "
+"yükleyicilere eklenecek ve indirme sayfasında görüntülenecektir. Farklı "
+"kullanıcı grupları (biz buna 'profil' diyoruz) için farklı yardım masası "
+"işletiyorsanız, sihirbazda daha sonra, her profil için yardım masası "
+"bilgilerini girin. Eğer hiç yardım masası işletmiyorsanız, bu alanı boş "
+"bırakın."
+
+#: web/admin/edit_idp.php:180
+#, php-format
+msgid ""
+"For %s deployments, providing at least a local e-mail contact is required."
+msgstr ""
+"%s dağıtımları için, en az bir yerel e-posta iletişim noktası verilmesi "
+"gerekir."
+
+#: web/admin/edit_idp.php:180 web/admin/edit_idp.php:183
+msgid "This is the contact point for your end users' level 1 support."
+msgstr "Bu, son kullanıcılarınızın 1. seviye destek iletişim noktasıdır."
+
+#: web/admin/edit_idp.php:183
+msgid "Providing at least a local support e-mail contact is required."
+msgstr "En az bir yerel destek e-posta iletişim noktası verilmesi gerekir."
+
+#: web/admin/edit_idp.php:193
+#, php-format
+msgid ""
+"When you are sure that everything is correct, please click on %sContinue ..."
+"%s"
+msgstr ""
+"Her şeyin doğru olduğundan eminseniz, lütfen %s yi tıklayın. %s ye devam et."
+
+#: web/admin/edit_idp_result.php:51
+#, php-format
+msgid "%s: IdP enrollment wizard (step 2 completed)"
+msgstr "%s: KiS kayıt sihirbazı (adım 2 tamamlandı)"
+
+#: web/admin/edit_idp_result.php:67
+#, php-format
+msgid "Submitted attributes for IdP '%s'"
+msgstr "'%s' IdP si için kabul edilen nitelikler"
+
+#: web/admin/edit_idp_result.php:89 web/admin/edit_idp_result.php:94
+msgid "(WPA2/AES and WPA/TKIP)"
+msgstr "(WPA2/AES ve WPA/TKIP) "
+
+#: web/admin/edit_idp_result.php:89 web/admin/edit_idp_result.php:97
+msgid "(WPA2/AES)"
+msgstr "(WPA2/AES)"
+
+#: web/admin/edit_idp_result.php:107
+#, php-format
+msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
+msgstr ""
+"Yükleyicileriniz belirtilen SSID leri yapılandıracaktır: <strong>%s</strong>"
+
+#: web/admin/edit_idp_result.php:107
+msgid "SSIDs configured"
+msgstr "SSID ler yapılandırıldı"
+
+#: web/admin/edit_idp_result.php:111
+#, php-format
+msgid "Your installers will configure wired interfaces."
+msgstr "Kurulum programlarınız kablolu arabirimlerin ayarlarını yapacaktır."
+
+#: web/admin/edit_idp_result.php:111
+msgid "Wired configured"
+msgstr "Kablolu ayarları yapıldı"
+
+#: web/admin/edit_idp_result.php:114
+msgid ""
+"We cannot generate installers because neither wireless SSIDs nor wired "
+"interfaces have been selected as a target!"
+msgstr ""
+"Kurulum programlarınızı hazırlayamıyoruz çünkü ne kablosuz SSIDler ne de "
+"kablolu arabirimler hedef aygıt olarak şeçilmemiş!"
+
+#: web/admin/edit_idp_result.php:133
+#, php-format
+msgid "Continue to %s properties"
+msgstr "%s özelliklerine devam edin"
+
+#: web/admin/edit_idp_result.php:136
+#, php-format
+msgid ""
+"You did not submit an e-mail address. This is required for %s. Please go to "
+"the %s dashboard and edit your helpdesk settings to include a helpdesk e-"
+"mail address."
+msgstr ""
+"Bir e-posta adresi girmediniz. Bu %s için gerekli. Lütfen %s kontrol "
+"paneline gidin ve yardım masası ayarlarınızı, bir yardım masası e-posta "
+"adresi eklemek için düzenleyin."
+
+#: web/admin/edit_idp_result.php:136
+msgid "No support e-mail!"
+msgstr "Destek e-posta adresi yok!"
+
+#: web/admin/edit_idp_result.php:141
+msgid "Continue to RADIUS/EAP profile definition"
+msgstr "RADIUS/EAP profil tanımına devam edin"
+
+#: web/admin/edit_profile.php:25
+#, php-format
+msgid "%s: IdP Enrollment Wizard (Step 3)"
+msgstr "%s: IdP Katılım Sihirbazı (Adım 3)"
+
+#: web/admin/edit_profile.php:111
+msgid "Step 3: Defining a user group profile"
+msgstr "Adım 3: Kullanıcı grup profili tanımlama"
+
+#: web/admin/edit_profile.php:113
+#, php-format
+msgid "Edit profile '%s' ..."
+msgstr "'%s' profilini düzenle..."
+
+#: web/admin/edit_profile.php:126
+msgid "General Profile properties"
+msgstr "Profil Genel özellikleri"
+
+#: web/admin/edit_profile.php:130
+msgid ""
+"We will now define a profile for your user group(s).  You can add as many "
+"profiles as you like by choosing the appropriate button on the end of the "
+"page. After we are done, the wizard is finished and you will be taken to the "
+"main IdP administration page."
+msgstr ""
+"Şimdi kullanıcı grup(ları)unuz için bir profil tanımlayacağız. Sayfanın "
+"altında yer alan uygun butonu seçerek istediğiniz kadar profil "
+"ekleyebilirsiniz. Biz işlemi bitirdikten sonra, sihirbaz sona erecek ve ana "
+"IdP yönetim sayfasına yönlendirileceksiniz."
+
+#: web/admin/edit_profile.php:133
+msgid "Profile Name and RADIUS realm"
+msgstr "Profil Adı ve RADIUS yetki alanı"
+
+#: web/admin/edit_profile.php:136
+msgid ""
+"First of all we need a name for the profile. This will be displayed to end "
+"users, so you may want to choose a descriptive name like 'Professors', "
+"'Students of the Faculty of Bioscience', etc."
+msgstr ""
+"İlk olarak profil için bir isme ihtiyacımız var. Bu isim son kullanıcılara "
+"gösterilecektir. Bu yüzden 'Profesör', 'Biyoloji Fakültesi Öğrencileri' gibi "
+"daha betimleyici bir isim kullanmak isteyebilirsiniz"
+
+#: web/admin/edit_profile.php:137
+msgid ""
+"Optionally, you can provide a longer descriptive text about who this profile "
+"is for. If you specify it, it will be displayed on the download page after "
+"the user has selected the profile name in the list."
+msgstr ""
+"Opsiyonel olarak, bu profil için daha geniş tanımlayıcı bilgiler "
+"sağlayabilirsiniz, bu sağladığınız bilgiler, kullanıcı profil adını listeden "
+"seçtiğinde indirme sayfasında görüntülenecektir."
+
+#: web/admin/edit_profile.php:138
+msgid "You can also tell us your RADIUS realm. "
+msgstr "RADIUS yetki alanınızı bize bildirebilirsiniz."
+
+#: web/admin/edit_profile.php:140
+#, php-format
+msgid ""
+"This is useful if you want to use the sanity check module later, which tests "
+"reachability of your realm in the %s infrastructure. "
+msgstr ""
+"Bu, ileride, %saltyapısı içindeki yetki alanlarınızın ulaşılabilirliğini "
+"test eden, aklıselimlik kontrol modülünü kullanmayı düşünürseniz, kullanışlı "
+"olacaktır."
+
+#: web/admin/edit_profile.php:142
+msgid ""
+"It is required to enter the realm name if you want to support anonymous "
+"outer identities (see below)."
+msgstr ""
+"Eğer anonim dışsal kimlikleri desteklemek istiyorsanız, yetki alanı adını "
+"girmeniz zorunludur(aşağıdan görülebilir)."
+
+#: web/admin/edit_profile.php:155
+msgid "Realm:"
+msgstr "Yetki alanı:"
+
+#: web/admin/edit_profile.php:192
+msgid "Realm Options"
+msgstr "Yetki Alanı Seçenekleri"
+
+#: web/admin/edit_profile.php:196
+#, php-format
+msgid ""
+"Some installers support a feature called 'Anonymous outer identity'. If you "
+"don't know what this is, please read <a href='%s'>this article</a>."
+msgstr ""
+"Bazı yükleyiciler 'Anonim dış kimlik'  isimli bir özelliği desteklemektedir. "
+"Bunun ne olduğunu bilmiyorsanız, lütfen <a href='%s'>bu makaleyi</a> okuyun."
+
+#: web/admin/edit_profile.php:197
+msgid ""
+"On some platforms, the installers can suggest username endings and/or verify "
+"the user input to contain the realm suffix."
+msgstr ""
+"Bazı platformlarda, yükleyiciler kullanıcı adı soneki önerebilir ve/veya "
+"kullanıcının girdiği kullanıcı adının,  yetki alanı sonekini içerdiğini "
+"doğrulayabilir."
+
+#: web/admin/edit_profile.php:198
+msgid ""
+"The realm check feature needs to know an outer ID which actually gets a "
+"chance to authenticate. If your RADIUS server lets only select usernames "
+"pass, it is useful to supply the inforamtion which of those (outer ID) "
+"username we can use for testing."
+msgstr ""
+"Yetki alanı kontrol özelliği, kimlik doğrulama yapabileceği bir dış kimliğe "
+"ihtiyaç duyar. Eğer RADIUS sunucunuz sadece kullanıcı isminin geçmesine izin "
+"veriyorsa, test için, bu (dış kimlik) kullanıcı adlarını sağlamanız yararlı "
+"olacaktır."
+
+#: web/admin/edit_profile.php:210
+msgid "Verify user input to contain realm suffix:"
+msgstr "Kullanıcı girişinde, yetki alanı soneki olduğu doğrulansın:"
+
+#: web/admin/edit_profile.php:224
+msgid "Prefill user input with realm suffix:"
+msgstr "Kullanıcı girişini, önceden, yetki alanı soneki ile doldur:"
+
+#: web/admin/edit_profile.php:234
+msgid "Enable Anonymous Outer Identity:"
+msgstr "Dışsal Anonim Kimlik Etkinleştir:"
+
+#: web/admin/edit_profile.php:253
+msgid "Use special Outer Identity for realm checks:"
+msgstr "Yetki alanı kontrolleri için özel Dış Kimlik kullan:"
+
+#: web/admin/edit_profile.php:270
+msgid "Installer Download Location"
+msgstr "Yükleyici İndirme Konumu"
+
+#: web/admin/edit_profile.php:274
+msgid ""
+"The CAT has a download area for end users. There, they will, for example, "
+"learn about the support pointers you entered earlier. The CAT can also "
+"immediately offer the installers for the profile for download. If you don't "
+"want that, you can instead enter a web site location where you want your "
+"users to be redirected to. You, as the administrator, can still download the "
+"profiles to place them on that page (see the 'Compatibility Matrix' button "
+"on the dashboard)."
+msgstr ""
+"CAT son kullanıcılar için bir indirme alanına sahip. Orada, "
+"yapılabilecekler, örneğin, daha önce girdiğiniz destek işaretleyiciler "
+"hakkında bilgi edinmek. Bunun yanısıra, CAT indirme için profile özgü "
+"yükleyiciler sunmaktadır. Eğer bunu istemiyorsanız, bunun yerine "
+"kullanıcılarınızı yönlendireceğiniz bir web sitesi konumu ekleyebilirsiniz.  "
+"Siz, yönetici olarak, istediğiniz web sayfasına yüklemek için hala "
+"profilleri indirebilir durumda olursunuz(kontrol panelinden 'Uyumluluk "
+"Matrisi' düğmesine bakınız)"
+
+#: web/admin/edit_profile.php:280
+msgid "Redirect end users to own web page:"
+msgstr "Son kullanıcıları kendi web sayfalarına yönlendir:"
+
+#: web/admin/edit_profile.php:293
+msgid "Supported EAP types"
+msgstr "Desteklenen EAP tipleri"
+
+#: web/admin/edit_profile.php:296
+msgid ""
+"Now, we need to know which EAP types your IdP supports. If you support "
+"multiple EAP types, you can assign every type a priority (1=highest). This "
+"tool will always generate an automatic installer for the EAP type with the "
+"highest priority; only if the user's device can't use that EAP type, we will "
+"use an EAP type further down in the list."
+msgstr ""
+"Şimdi Kimlik Sağlayıcınızın hangi EAP tiplerini desteklediğini bilmemiz "
+"gerekiyor. Eğer birden fazla EAP tipi destekliyor iseniz, her tip için "
+"öncelik tanımlayabilirsiniz (1= en yüksek). Bu araç her zaman en yüksek "
+"öncelikli EAP tipi için otomatik yükleyici oluşturacaktır; eğer kullanıcının "
+"cihazı bu EAP tipini kullanamaz ise listede sıradaki EAP tipi "
+"kullanılacaktır."
+
+#: web/admin/edit_profile.php:339
+msgid "EAP options inherited from Global level:"
+msgstr "Global düzeyden intikal eden EAP ayarları"
+
+#: web/admin/edit_profile.php:344
+#, php-format
+msgid "(%dx) %s"
+msgstr "(%dx) %s"
+
+#: web/admin/edit_profile.php:372
+msgid "Supported EAP types for this profile"
+msgstr "Bu profil için desteklenen EAP tipleri"
+
+#: web/admin/edit_profile.php:386
+msgid ""
+"Use \"drag &amp; drop\" to mark an EAP method and move it to the supported "
+"(green) area. Prioritisation is done automatically, depending on where you "
+"\"drop\" the method."
+msgstr ""
+"Bir EAP metodunu işaretleyip desteklenen (yeşil) alana taşımak için "
+"\"sürükle &amp; bırak\" kullanılır. Önceliklendirme otomatik olarak nereye "
+"\"bıraktığınıza\" bağlı olarak yapılır."
+
+#: web/admin/edit_profile.php:394
+msgid "Unsupported EAP types"
+msgstr "Desteklenmeyen EAP tipleri"
+
+#: web/admin/edit_profile.php:447
+msgid "Helpdesk Details for this profile"
+msgstr "Bu profil için Yardım Masası Ayarları"
+
+#: web/admin/edit_profile.php:448
+msgid "EAP Details for this profile"
+msgstr "Bu profil için EAP detayları"
+
+#: web/admin/edit_profile.php:449
+msgid "Media Properties for this profile"
+msgstr "Bu profil için ortam özellikleri"
+
+#: web/admin/edit_profile.php:457
+#, php-format
+msgid ""
+"The option %s is already defined IdP-wide. If you set it here on profile "
+"level, this setting will override the IdP-wide one."
+msgid_plural ""
+"The options %s are already defined IdP-wide. If you set them here on profile "
+"level, these settings will override the IdP-wide ones."
+msgstr[0] ""
+"%s seçeneği halihazırda KiS genelinde tanımlanmıştır. Burada profil "
+"seviyesinde tanımlarsanız, bu tanımlar sistem genelinde olanların üzerine "
+"yazılacaktır."
+msgstr[1] ""
+"%s seçenekleri halihazırda KiS genelinde tanımlanmıştır. Burada profil "
+"seviyesinde tanımlarsanız, bu tanımlar sistem genelinde olanların üzerine "
+"yazılacaktır."
+
+#: web/admin/edit_profile.php:467
+msgid ""
+"When you are sure that everything is correct, please click on 'Save data' "
+"and you will be taken to your IdP Dashboard page."
+msgstr ""
+"Herşeyin doğru olduğuna emin olduğunuzda, lütfen 'Veri Kaydet' i tıklayın. "
+"IdP Kontrol paneli sayfasına gönderileceksiniz."
+
+#: web/admin/edit_profile_result.php:33
+#, php-format
+msgid "%s: Profile wizard (step 3 completed)"
+msgstr "%s: Profil sihirbazı(adım 3 tamamlandı)"
+
+#: web/admin/edit_profile_result.php:113
+msgid "Darn! Could not get a proper profile handle!"
+msgstr "Kahretsin! Üstesinden gelinecek düzgün bir profil alınamadı."
+
+#: web/admin/edit_profile_result.php:117
+msgid "Submitted attributes for this profile"
+msgstr "Bu profil için kabul edilen nitelikler"
+
+#: web/admin/edit_profile_result.php:124
+#, php-format
+msgid "Realm: <strong>%s</strong>"
+msgstr "Yetki alanı: <strong>%s</strong>"
+
+#: web/admin/edit_profile_result.php:131
+msgid "Anonymous Outer Identities cannot be turned on: realm is missing!"
+msgstr "Dışsal Anonim Kimlikler aktifleştirilemez: yetki alanı bulunamıyor!"
+
+#: web/admin/edit_profile_result.php:134
+#, php-format
+msgid ""
+"Anonymous Identity support is <strong>%s</strong>, the anonymous outer "
+"identity is <strong>%s</strong>"
+msgstr ""
+"Anonim kimlik desteği <strong>%s</strong>, anonim dışsal kimlik ise <strong>"
+"%s</strong>"
+
+#: web/admin/edit_profile_result.php:134 web/admin/edit_profile_result.php:146
+msgid "ON"
+msgstr "AÇIK"
+
+#: web/admin/edit_profile_result.php:138
+#, php-format
+msgid "Anonymous Identity support is <strong>%s</strong>"
+msgstr "Anonim Kimlik desteği <strong>%s</strong>"
+
+#: web/admin/edit_profile_result.php:138
+msgid "OFF"
+msgstr "KAPALI"
+
+#: web/admin/edit_profile_result.php:143 web/admin/edit_profile_result.php:155
+msgid "Realm check username cannot be configured: realm is missing!"
+msgstr ""
+"Yetki alanı kontrol kullanıcı adı yapılandırılamıyor: yetki alanı eksik!"
+
+#: web/admin/edit_profile_result.php:146
+#, php-format
+msgid ""
+"Special username for realm check is <strong>%s</strong>, the value is "
+"<strong>%s</strong>"
+msgstr ""
+"Yetki alanı kontrolü için özel kullanıcı adı <strong>%s</strong>, değeri "
+"<strong>%s</strong>'dir."
+
+#: web/admin/edit_profile_result.php:150
+msgid "No special username for realm checks is configured."
+msgstr ""
+"Yetki alanı kontrolleri için özel bir kullanıcı adı yapılandırılmamıştır."
+
+#: web/admin/edit_profile_result.php:159
+#, php-format
+msgid "and the input field will be prefilled with '<strong>@%s</strong>'."
+msgstr "ve giriş alanı önceden '<strong>@%s</strong>' ile  doldurulacak."
+
+#: web/admin/edit_profile_result.php:163
+#, php-format
+msgid ""
+"Where possible, username inputs will be <strong>verified to end with @%s</"
+"strong>%s"
+msgstr ""
+"Mümkün olduğunda, kullanıcı adının <strong>@%s ile bitmesi doğrulanacak</"
+"strong>%s"
+
+#: web/admin/edit_profile_result.php:173
+msgid "Redirection can't be activated - you did not specify a target location!"
+msgstr "Yönlendirme aktifleştirilemiyor - hedef konum belirtmediniz!"
+
+#: web/admin/edit_profile_result.php:175
+msgid ""
+"Redirection can't be activated - the target needs to be a complete URL "
+"staring with http:// or https:// !"
+msgstr ""
+"Yönlendirme etkinleştirilemiyor - hedefin http:// veya https:// ile başlayan "
+"tam bir URL olması gerekiyor!"
+
+#: web/admin/edit_profile_result.php:181
+msgid "Redirection is <strong>OFF</strong>"
+msgstr "Yönlendirme <strong>KAPALI</strong>"
+
+#: web/admin/edit_profile_result.php:205
+msgid "Supported EAP Type: "
+msgstr "Desteklenen EAP Tipi:"
+
+#: web/admin/edit_profile_result.php:213
+#, php-format
+msgid ""
+"Supported EAP Type: <strong>%s</strong> is missing required information %s !"
+msgstr "Desteklenen EAP Tipi:  %s gerekli bilgisi eksik <strong>%s</strong> !"
+
+#: web/admin/edit_profile_result.php:213
+msgid ""
+"The EAP type was added to the profile, but you need to complete the missing "
+"information before we can produce installers for you."
+msgstr ""
+"Profile EAP tipi eklenmişti, fakat sizin özgü yükleyici oluşturabilmemiz "
+"için eksik bilgileri tamamlamanız gereklidir."
+
+#: web/admin/edit_profile_result.php:229
+msgid "Continue to Installer Fine-Tuning and Download"
+msgstr "Yükleyici İnce Ayarları ve İndirmeye Devam"
+
+#: web/admin/edit_silverbullet.php:205
+msgid "Insecure mail domain!"
+msgstr "Güvenli olmayan posta alan adı!"
+
+#: web/admin/edit_silverbullet.php:206
+#, php-format
+msgid ""
+"The mail domain of the mail address <strong>%s</strong> is not secure: some "
+"or all of the mail servers are not accepting encrypted connections (no "
+"consistent support for STARTTLS)."
+msgstr ""
+"<strong>%s</strong>  posta adresinin, posta alan adı güvenli değil: posta "
+"sunucularının bir kısmı veya tamamı şifrelenmiş bağlantıları kabul etmiyor "
+"(STARTTLS için tutarlı destek yok)."
+
+#: web/admin/edit_silverbullet.php:207
+msgid ""
+"The invitation would need to be sent in cleartext across the internet, and "
+"can possibly be read and abused by anyone in transit."
+msgstr ""
+"Davetin internet üzerinden açık metin olarak gönderilmesi gerekecek ve  "
+"iletim yolunda bulunan herkes tarafından muhtemel okunabilir ve kötüye "
+"kullanılabilir."
+
+#: web/admin/edit_silverbullet.php:208
+msgid "Do you want the system to send this mail anyway?"
+msgstr "Yine de, sistemin bu postayı göndermesini istiyor musunuz?"
+
+#: web/admin/edit_silverbullet.php:210
+msgid "DO NOT SEND"
+msgstr "GÖNDERME"
+
+#: web/admin/edit_silverbullet.php:217
+msgid "Send anyway."
+msgstr "Yine de gönder."
+
+#: web/admin/edit_silverbullet.php:267
+#, php-format
+msgid "Managing %s users"
+msgstr "%s kullanıcılarının yönetimi"
+
+#: web/admin/edit_silverbullet.php:303
+#, php-format
+msgid "Current %s users"
+msgstr "Geçerli %s kullanıcıları"
+
+#: web/admin/edit_silverbullet.php:306
+msgid "Assigned Realm"
+msgstr "Atanan Yetki Alanı"
+
+#: web/admin/edit_silverbullet.php:309
+msgid "Total number of active users allowed"
+msgstr "İzin verilen toplam aktif kullanıcı sayısı"
+
+#: web/admin/edit_silverbullet.php:312
+msgid "Number of active users"
+msgstr "Aktif kullanıcı sayısı"
+
+#: web/admin/edit_silverbullet.php:315
+msgid "Number of inactive users"
+msgstr "Etkin olmayan kullanıcı sayısı"
+
+#: web/admin/edit_silverbullet.php:325
+msgid "The e-mail was sent successfully."
+msgstr "E-posta başarıyla gönderildi."
+
+#: web/admin/edit_silverbullet.php:325
+msgid "E-mail OK."
+msgstr "E-posta tamam."
+
+#: web/admin/edit_silverbullet.php:328
+msgid "The e-mail was NOT sent."
+msgstr "E-posta gönderileMEdi."
+
+#: web/admin/edit_silverbullet.php:328
+msgid "E-mail not OK."
+msgstr "E-posta tamam değil."
+
+#: web/admin/edit_silverbullet.php:331
+msgid "The SMS was sent successfully."
+msgstr "SMS başarıyla gönderildi."
+
+#: web/admin/edit_silverbullet.php:331
+msgid "SMS OK."
+msgstr "SMS tamam."
+
+#: web/admin/edit_silverbullet.php:334
+msgid "The SMS was NOT sent."
+msgstr "SMS gönderileMEdi."
+
+#: web/admin/edit_silverbullet.php:334
+msgid "SMS not OK."
+msgstr "SMS tamam değil"
+
+#: web/admin/edit_silverbullet.php:337
+msgid "Only a fragment of the SMS was sent. You should re-send it."
+msgstr "SMS'in sadece bir parçası gönderildi. Tekrar göndermelisiniz."
+
+#: web/admin/edit_silverbullet.php:337
+msgid "SMS Fragment."
+msgstr "SMS Parçası"
+
+#: web/admin/edit_silverbullet.php:345
+#, php-format
+msgid "Manage %s users"
+msgstr "%s kullanıcılarını yönet"
+
+#: web/admin/edit_silverbullet.php:350 web/admin/overview_federation.php:116
+msgid "User"
+msgstr "Kullanıcı"
+
+#: web/admin/edit_silverbullet.php:351
+msgid "Token/Certificate details"
+msgstr "Belirteç/Sertifika detayları"
+
+#: web/admin/edit_silverbullet.php:352
+msgid "User/Token Expiry"
+msgstr "Kullanıcı/Belirteç Vadesi"
+
+#: web/admin/edit_silverbullet.php:353
+msgid "Actions"
+msgstr "Eylemler"
+
+#: web/admin/edit_silverbullet.php:382
+msgid "REVOKED"
+msgstr "İPTAL EDİLDİ"
+
+#: web/admin/edit_silverbullet.php:387
+msgid "EXPIRED"
+msgstr "SÜRESİ DOLDU"
+
+#: web/admin/edit_silverbullet.php:398
+msgid "Device:"
+msgstr "Cihaz:"
+
+#: web/admin/edit_silverbullet.php:399
+msgid "Serial Number:"
+msgstr "Seri Numarası:"
+
+#: web/admin/edit_silverbullet.php:400
+msgid "CN:"
+msgstr "CN:"
+
+#: web/admin/edit_silverbullet.php:401
+msgid "Expiry:"
+msgstr "Vade:"
+
+#: web/admin/edit_silverbullet.php:402
+msgid "Issued:"
+msgstr "Veriliş:"
+
+#: web/admin/edit_silverbullet.php:409
+msgid "Revoke"
+msgstr "İptal et"
+
+#: web/admin/edit_silverbullet.php:440
+msgid "Local mail client"
+msgstr "Yerel posta istemcisi"
+
+#: web/admin/edit_silverbullet.php:448
+msgid "Send in SMS..."
+msgstr "SMS ile gönder ..."
+
+#: web/admin/edit_silverbullet.php:452
+msgid "Copy to Clipboard"
+msgstr "Panoya kopyala"
+
+#: web/admin/edit_silverbullet.php:455
+msgid "Display QR code"
+msgstr "QR kodunu göster"
+
+#: web/admin/edit_silverbullet.php:462
+msgid "Expiry Date:"
+msgstr "Son Kullanma Tarihi:"
+
+#: web/admin/edit_silverbullet.php:462
+msgid "Activations remaining:"
+msgstr "Kalan etkinleştirmeler:"
+
+#: web/admin/edit_silverbullet.php:462
+#, php-format
+msgid "%d of %d"
+msgstr "%d/%d"
+
+#: web/admin/edit_silverbullet.php:498
+msgid "Deactivate User"
+msgstr "Kullanıcıyı Devre Dışı Bırak"
+
+#: web/admin/edit_silverbullet.php:506
+msgid "New Invitation"
+msgstr "Yeni davetiye"
+
+#: web/admin/edit_silverbullet.php:509
+msgid "Activations:"
+msgstr "Etkinleştirmeler:"
+
+#: web/admin/edit_silverbullet.php:530
+#, php-format
+msgid ""
+"You need to acknowledge that the created accounts are still valid within the "
+"next %s days. If all accounts shown as active above are indeed still valid, "
+"please check the box below and push \"Save\". If any of the accounts are "
+"stale, please deactivate them by pushing the corresponding button before "
+"doing this."
+msgstr ""
+"Oluşturulan hesapların önümüzdeki %s gün geçerli olduğunu bilmelisiniz. "
+"Yukarıda aktif olarak gösterilen tüm hesaplar hala geçerli ise, lütfen "
+"aşağıdaki kutuyu işaretleyin ve \"Kaydet\" i tıklayın. Hesaplardan herhangi "
+"biri eskimişse, lütfen bunu yapmadan önce ilgili düğmeye basarak bunları "
+"devre dışı bırakın."
+
+#: web/admin/edit_silverbullet.php:538
+#, php-format
+msgid "I have verified that all configured users are still eligible for %s."
+msgstr ""
+"Yapılandırılmış tüm kullanıcıların %s için hala uygun olduğunu doğruladım."
+
+#: web/admin/edit_silverbullet.php:550 web/admin/edit_silverbullet.php:568
+msgid "Add new user"
+msgstr "Yeni kullanıcı ekle"
+
+#: web/admin/edit_silverbullet.php:553
+msgid "Import users from CSV file"
+msgstr "Kullanıcıları CSV dosyasından içe aktar"
+
+#: web/admin/edit_silverbullet.php:560
+msgid ""
+"Please enter a username of your choice and user expiry date to create a new "
+"user:"
+msgstr ""
+"Yeni bir kullanıcı oluşturmak için lütfen tercih ettiğiniz kullanıcı adı ve "
+"kullanıcı son kullanım tarihini girin:"
+
+#: web/admin/edit_silverbullet.php:577
+msgid ""
+"Comma separated values should be provided in CSV file: username, expiration "
+"date 'yyyy-mm-dd', number of tokens (optional):"
+msgstr ""
+"Virgülle ayrılmış değerler bir CSV dosyasında sağlanmalıdır: kullanıcı adı, "
+"son kullanım tarihi 'yyyy-aa-gg', belirteç sayısı (isteğe bağlı):"
+
+#: web/admin/edit_silverbullet.php:581
+msgid "Import users"
+msgstr "Kullanıcıları içe aktar"
+
+#. Appending terms of use popup
+#: web/admin/edit_silverbullet.php:598
+#, php-format
+msgid "%s - Terms of Use"
+msgstr "%s - Kullanım Şartları"
+
+#: web/admin/edit_silverbullet.php:605
+msgid "I have read and agree to the terms."
+msgstr "Şartları okudum ve kabul ediyorum."
+
+#: web/admin/edit_silverbullet.php:607
+msgid "Continue"
+msgstr "Devam Et"
+
+#: web/admin/edit_user.php:17 web/admin/edit_user.php:26
+msgid "Editing User Attributes"
+msgstr "Kullanıcı Niteliklerini Düzenle"
+
+#: web/admin/edit_user.php:30
+msgid "Current User Attributes"
+msgstr "Geçerli Kullanıcı Nitelikleri"
+
+#: web/admin/edit_user.php:39
+msgid "Your attributes"
+msgstr "Niteliklerin"
+
+#: web/admin/edit_user_result.php:18
+msgid "User Attributes - Summary of submitted data"
+msgstr "Kullanıcı Nitelikleri - Gönderilen verilerin Özeti"
+
+#. what are we supposed to do?
+#: web/admin/edit_user_result.php:22
+msgid ""
+"The page was called with insufficient data. Please report this as an error."
+msgstr ""
+"Bu sayfa yetersiz veri ile çağrıldı. Lütfen bunu bir hata olarak raporlayın."
+
+#: web/admin/edit_user_result.php:28
+msgid "Submitted attributes"
+msgstr "Kabul edilen nitelikler"
+
+#: web/admin/edit_user_result.php:71
+msgid "Continue to user overview page"
+msgstr "Kullanıcı özet bilgileri sayfasına devam et"
+
+#. Logout failed. Tell the user to close the browser.
+#: web/admin/logout_check.php:39
+msgid "Incomplete Logout"
+msgstr "Çıkış tamamlanamadı"
+
+#: web/admin/logout_check.php:40
+msgid ""
+"We were unable to log you out of all your sessions. To be completely sure "
+"that you are logged out, you need to close your web browser."
+msgstr ""
+"Tüm oturumlardan çıkışınızı yapamadık. Çıkış yaptığınızdan emin olmak için "
+"tarayıcıyı kapatmanız gerekir."
+
+#: web/admin/overview_federation.php:17
+#, php-format
+msgid "%s: %s Management"
+msgstr "%s:%s Yönetimi"
+
+#: web/admin/overview_federation.php:30 web/admin/overview_idp.php:50
+#, php-format
+msgid "%s Overview"
+msgstr "%s Genel Bakışı"
+
+#: web/admin/overview_federation.php:34 web/admin/overview_user.php:38
+msgid "Your Personal Information"
+msgstr "Kişisel Bilgileriniz"
+
+#: web/admin/overview_federation.php:39 web/admin/overview_user.php:43
+msgid "Unique Identifier"
+msgstr "Biricik Tanımlayıcı"
+
+#: web/admin/overview_federation.php:44 web/admin/overview_user.php:48
+msgid "click to display"
+msgstr "görüntülemek için tıkla"
+
+#: web/admin/overview_federation.php:54
+#, php-format
+msgid "You are not a %s manager."
+msgstr "%s yöneticisi değilsiniz."
+
+#: web/admin/overview_federation.php:65
+#, php-format
+msgid "%s Properties: %s"
+msgstr "%s Özellikleri: %s"
+
+#: web/admin/overview_federation.php:71
+msgid "Country"
+msgstr "Ülke"
+
+#: web/admin/overview_federation.php:95
+#, php-format
+msgid "%s Statistics: %s"
+msgstr "%s İstatistikleri: %s"
+
+#: web/admin/overview_federation.php:100
+msgid "IdPs Total"
+msgstr "Toplam IdP"
+
+#: web/admin/overview_federation.php:101
+msgid "Public Download"
+msgstr "Herkese açık dosya indirme"
+
+#: web/admin/overview_federation.php:113
+msgid "Downloads"
+msgstr "İndirilenler"
+
+#: web/admin/overview_federation.php:114
+msgid "Admin"
+msgstr "Yönetici"
+
+#: web/admin/overview_federation.php:137 web/admin/inc/manageAdmins.inc.php:95
+msgid "and <b>encrypted</b> to the mail domain"
+msgstr "(<b>şifreli</b>)."
+
+#: web/admin/overview_federation.php:140 web/admin/inc/manageAdmins.inc.php:98
+msgid "but <b>in clear text</b> to the mail domain"
+msgstr "(<b>açık metin</b>)."
+
+#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:103
+#, php-format
+msgid "The invitation email was sent successfully %s."
+msgstr "Davet e-postası başarıyla gönderildi%s"
+
+#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:103
+msgid "The invitation email was sent."
+msgstr "Davet e-postası gönderildi."
+
+#: web/admin/overview_federation.php:148 web/admin/inc/manageAdmins.inc.php:106
+#: web/admin/inc/overview_js.php:56 web/admin/inc/overview_js.php:111
+msgid "The invitation email could not be sent!"
+msgstr "Davet e-postası gönderilemedi!"
+
+#: web/admin/overview_federation.php:151 web/admin/inc/manageAdmins.inc.php:109
+msgid "The invitation email address was malformed, no invitation was sent!"
+msgstr "Davet e-posta adresi hatalıydı, davetiye gönderilmedi!"
+
+#: web/admin/overview_federation.php:154
+msgid "Error: unknown result code of invitation!?!"
+msgstr "Hata: Davetin sonuç kodu bilinmiyor!?!"
+
+#: web/admin/overview_federation.php:154
+msgid "Unknown result!"
+msgstr "Bilinmeyen sonuç!"
+
+#: web/admin/overview_federation.php:159
+#, php-format
+msgid "Need help? Refer to the <a href='%s'>%s manual</a>"
+msgstr "Yardıma mı ihtiyacınız var? <a href='%s'>%s el kitabına</a> bakın"
+
+#: web/admin/overview_federation.php:167
+msgid "Deployment Status"
+msgstr "Hizmete alınma durumu"
+
+#: web/admin/overview_federation.php:168 web/admin/overview_user.php:103
+#: web/admin/inc/manageDBLink.inc.php:149 web/lib/admin/UIElements.php:83
+#: web/lib/admin/UIElements.php:111
+#, php-format
+msgid "%s Name"
+msgstr "%s Adı"
+
+#: web/admin/overview_federation.php:174
+#, php-format
+msgid "%s Database Sync Status"
+msgstr "%s Veritabanı Sekronizasyon Durumu"
+
+#: web/admin/overview_federation.php:180 web/admin/overview_user.php:103
+msgid "Administrator Management"
+msgstr "Yönetici Yönetimi"
+
+#. / nomenclature for 'federation', federation name, nomenclature for 'inst'
+#: web/admin/overview_federation.php:189
+#, php-format
+msgid "The following %s are in your %s %s:"
+msgstr "Aşağıdaki %s  sizin %s %s'nizdedir:"
+
+#: web/admin/overview_federation.php:225
+msgid "Manage DB Link"
+msgstr "DB Bağlantısını Yönet"
+
+#: web/admin/overview_federation.php:231
+msgid "Linked"
+msgstr "Bağlantılı"
+
+#: web/admin/overview_federation.php:235
+msgid "NOT linked"
+msgstr "Bağlantısız"
+
+#: web/admin/overview_federation.php:250 web/admin/overview_user.php:139
+msgid "Add/Remove Administrators"
+msgstr "Yöneticileri Ekle/Sil"
+
+#: web/admin/overview_federation.php:263
+#, php-format
+msgid "Pending invitations in the %s:"
+msgstr "%s'de bekleyen davetler:"
+
+#: web/admin/overview_federation.php:280
+msgid "Revoke Invitation"
+msgstr "Daveti Geri Çek"
+
+#: web/admin/overview_federation.php:299
+#, php-format
+msgid "Register a new %s!"
+msgstr "Yeni bir %s kaydet!"
+
+#: web/admin/overview_idp.php:28
+#, php-format
+msgid "%s: IdP Dashboard"
+msgstr "%s: IdP Kontrol Paneli"
+
+#: web/admin/overview_idp.php:52
+#, php-format
+msgid "%s general settings"
+msgstr "%s genel ayarları"
+
+#: web/admin/overview_idp.php:57
+#, php-format
+msgid "%s download area QR code"
+msgstr "%s indirme alanı QR kodu"
+
+#: web/admin/overview_idp.php:86
+#, php-format
+msgid "Edit general %s details"
+msgstr "Genel %s ayrıntılarını düzenle"
+
+#: web/admin/overview_idp.php:91
+#, php-format
+msgid ""
+"After deleting the %s, you can not recreate it yourself - you need a new "
+"invitation token from the %s administrator!"
+msgstr ""
+"%s'i sildikten sonra, kendiniz yeniden oluşturamazsınız - %s yöneticisinden "
+"yeni bir davet belirteci almanız gerekiyor!"
+
+#: web/admin/overview_idp.php:91
+#, php-format
+msgid "Do you really want to delete your %s %s?"
+msgstr "%s %s'i gerçekten silmek istiyor musunuz?"
+
+#: web/admin/overview_idp.php:91
+#, php-format
+msgid "Delete %s"
+msgstr "%s'i sil"
+
+#: web/admin/overview_idp.php:97
+#, php-format
+msgid ""
+"This action will delete all properties of the %s and start over the "
+"configuration from scratch. Do you really want to reset all settings of the "
+"%s %s?"
+msgstr ""
+"Bu işlem %s'in tüm özelliklerini silecek ve yapılandırmayı sıfırdan "
+"başlatacaktır. %s %s'nin tüm ayarlarını gerçekten sıfırlamak istiyor musunuz?"
+
+#: web/admin/overview_idp.php:97
+#, php-format
+msgid "Reset all %s settings"
+msgstr "Tüm %s ayarlarını sıfırla"
+
+#: web/admin/overview_idp.php:107
+msgid "Available Support actions"
+msgstr "Mevcut Destek eylemleri"
+
+#: web/admin/overview_idp.php:112
+msgid "Check another realm's reachability"
+msgstr "Diğer yetki alanlarının erişilebilirliğini kontrol et"
+
+#: web/admin/overview_idp.php:115 web/admin/overview_idp.php:125
+#: web/admin/overview_user.php:157
+msgid "Go!"
+msgstr "Başla!"
+
+#. SW: APPROVED
+#: web/admin/overview_idp.php:122
+#, php-format
+msgid "Check %s server status"
+msgstr "%s sunucusu durumunu kontrol et"
+
+#. no profiles yet.
+#: web/admin/overview_idp.php:136
+#, php-format
+msgid "There are not yet any profiles for your %s."
+msgstr "%s için henüz bir profil yok."
+
+#. no profiles yet.
+#: web/admin/overview_idp.php:139
+#, php-format
+msgid "Profiles for this %s"
+msgstr "%s için profiller"
+
+#: web/admin/overview_idp.php:162 web/admin/overview_idp.php:221
+msgid "Information needed!"
+msgstr "Bilgiye ihtiyaç var!"
+
+#: web/admin/overview_idp.php:170
+#, php-format
+msgid ""
+"You can create up to %d users. Their credentials will carry the name <strong>"
+"%s</strong>."
+msgstr ""
+"En çok %d kullanıcı yaratabilirsiniz. Kimlik bilgileri <strong>%s</strong> "
+"adını taşıyacak."
+
+#: web/admin/overview_idp.php:179
+msgid "Manage User Base"
+msgstr "Kullanıcı Tabanını Yönet"
+
+#: web/admin/overview_idp.php:187 web/admin/overview_idp.php:325
+msgid "User Downloads"
+msgstr "Kullanıcı İndirmeleri"
+
+#: web/admin/overview_idp.php:211
+msgid "<strong>EAP Types</strong> (in order of preference):"
+msgstr "<strong>EAP Tipleri</strong>(tercih sırasına göre)"
+
+#: web/admin/overview_idp.php:218 web/lib/admin/UIElements.php:383
+msgid "OK"
+msgstr "Tamam"
+
+#: web/admin/overview_idp.php:237
+msgid "Options on EAP Method/Device level are in effect."
+msgstr "EAP Yöntemi/Cihaz seviyesi seçenekleri geçerli."
+
+#: web/admin/overview_idp.php:247
+msgid "Option override on profile level is in effect."
+msgstr "Profil düzeyinin değerini değiştirebilme seçeneği etkin."
+
+#: web/admin/overview_idp.php:250
+msgid "The information in this profile is incomplete."
+msgstr "Bu profil hakkındaki bilgiler eksik."
+
+#: web/admin/overview_idp.php:254
+msgid "This profile is shown on the user download interface."
+msgstr "Bu profil kullanıcı indirme arayüzünden gösterilmektedir."
+
+#: web/admin/overview_idp.php:257
+#, php-format
+msgid ""
+"This profile is NOT shown on the user download interface, even though we "
+"have enough information to show. To enable the profile, add the attribute "
+"\"%s\" and tick the corresponding box."
+msgstr ""
+"Bu profil, görüntülenmek için yeterli bilgiye sahip olunduğu halde, "
+"kullanıcı indirme arayüzünde GÖRÜNTÜLENMEYECEK. Profili aktifleştirmek için, "
+"\"%s\" özniteliğini ekleyin ve ilgili kutucuğu işaretleyin."
+
+#: web/admin/overview_idp.php:262
+#, php-format
+msgid "Profile: %s"
+msgstr "Profil: %s"
+
+#: web/admin/overview_idp.php:279
+msgid "The realm can only be checked if you configure the realm!"
+msgstr ""
+"Eğer bir yetki alanı yapılandırmışsanız, sadece o zaman kontrol "
+"gerçekleşebilir!"
+
+#: web/admin/overview_idp.php:280
+msgid "Check realm reachability"
+msgstr "Yetki alanı erişilebilirliği kontrol ediliyor"
+
+#: web/admin/overview_idp.php:285
+msgid "You have not fully configured any supported EAP types!"
+msgstr "Desteklenen hiçbir EAP tipini tamamiyle yapılandırmamışsınız!"
+
+#: web/admin/overview_idp.php:286
+msgid "Installer Fine-Tuning and Download"
+msgstr "Yükleyici İnce Ayar ve İndirme"
+
+#: web/admin/overview_idp.php:295
+msgid "Edit"
+msgstr "Düzenle"
+
+#: web/admin/overview_idp.php:298
+#, php-format
+msgid "Do you really want to delete the profile %s?"
+msgstr "%s profilini silmek istediğinizden emin misiniz?"
+
+#: web/admin/overview_idp.php:299
+msgid "Delete"
+msgstr "Sil"
+
+#: web/admin/overview_idp.php:308
+msgid "User Download Link"
+msgstr "Kullanıcı İndirmeleri Linki"
+
+#: web/admin/overview_idp.php:354
+#, php-format
+msgid "Add %s profile ..."
+msgstr "%s profili ekle ..."
+
+#: web/admin/overview_idp.php:367
+msgid "Add new RADIUS/EAP profile ..."
+msgstr "Yeni RADIUS/EAP profili ekle ..."
+
+#: web/admin/overview_installers.php:17
+msgid "Device Compatibility matrix"
+msgstr "Cihaz Uyumluluk Matrisi"
+
+#: web/admin/overview_installers.php:37
+#, php-format
+msgid "Device compatiblity matrix for %s of %s "
+msgstr "%s nin %s için aygıt uyumluluk matrisi"
+
+#: web/admin/overview_installers.php:41
+msgid "Device"
+msgstr "Cihaz"
+
+#: web/admin/overview_installers.php:49
+msgid "EAP-Type-specific options..."
+msgstr "EAP-Tipine-özgü ayarlar.."
+
+#: web/admin/overview_installers.php:68
+msgid "Device-specific options..."
+msgstr "Cihaza özgü ayarlar..."
+
+#: web/admin/overview_installers.php:80
+msgid "Download"
+msgstr "İndir"
+
+#: web/admin/overview_installers.php:141
+msgid "Legend:"
+msgstr "Lejant:"
+
+#: web/admin/overview_installers.php:143
+msgid "redirection is set"
+msgstr "yönlendirme ayarlandı"
+
+#: web/admin/overview_installers.php:144
+msgid "will be offered on download site"
+msgstr "indirme sitesinden sunulacak"
+
+#: web/admin/overview_installers.php:145
+msgid "configured, but not preferred EAP type"
+msgstr "yapılandırılmış, fakat tercih edilen EAP tipinde değil"
+
+#: web/admin/overview_installers.php:146
+msgid "incomplete configuration"
+msgstr "eksik yapılandırma"
+
+#: web/admin/overview_installers.php:147
+msgid "not supported by CAT"
+msgstr "CAT tarafından desteklenmiyor"
+
+#: web/admin/overview_installers.php:151
+msgid "Footnotes:"
+msgstr "Dip notlar:"
+
+#: web/admin/overview_installers.php:160
+msgid "Return to dashboard"
+msgstr "Kontrol paneline geri dön"
+
+#: web/admin/overview_user.php:19
+#, php-format
+msgid "%s: User Management"
+msgstr "%s: Kullanıcı Yönetimi"
+
+#: web/admin/overview_user.php:35
+msgid "User Overview"
+msgstr "Kullanıcı Özet Bilgileri"
+
+#: web/admin/overview_user.php:56
+msgid "Edit User Details"
+msgstr "Kullanıcı Detaylarını Düzenle"
+
+#: web/admin/overview_user.php:60
+#, php-format
+msgid "Click here for %s management tasks"
+msgstr "%s yönetim görevleri için buraya tıklayın"
+
+#: web/admin/overview_user.php:63
+msgid "Click here to access the superadmin page"
+msgstr "Süper yöneticisi sayfası için burayı tıklayın"
+
+#: web/admin/overview_user.php:71
+#, php-format
+msgid "(Need help? Refer to the <a href='%s'>IdP administrator manual</a>)"
+msgstr "(Yardım için <a href='%s'>IdP yönetici kılavuzu</a>na başvurunuz)"
+
+#. / first parameter: number of Identity Providers; second param is the literal configured term for 'Identity Provider' (you may or may not be able to add a plural suffix for your locale)
+#: web/admin/overview_user.php:80
+#, php-format
+msgid "You are managing the following <span style='display:none'>%d </span>%s:"
+msgid_plural "You are managing the following <strong>%d</strong> %s:"
+msgstr[0] "Tarafınızdan Yönetilen <span style='display:none'>%d </span>%s:"
+msgstr[1] "Tarafınızdan Yönetilenler <strong>%d</strong> %s:"
+
+#: web/admin/overview_user.php:103
+#, php-format
+msgid "Other admins of this %s"
+msgstr "Bu %s'un diğer yöneticileri"
+
+#. / nomenclature 'fed', fed name, nomenclature 'inst'
+#: web/admin/overview_user.php:106
+#, php-format
+msgid "%s %s: %s list"
+msgstr "%s %s: %s listesi"
+
+#: web/admin/overview_user.php:135
+msgid "other user"
+msgid_plural "other users"
+msgstr[0] "diğer kullanıcı"
+msgstr[1] "diğer kullanıcılar"
+
+#: web/admin/overview_user.php:146
+#, php-format
+msgid "You are not managing any %s."
+msgstr "Hiçbir %s'i yönetmiyorsunuz."
+
+#: web/admin/overview_user.php:150
+#, php-format
+msgid ""
+"Please ask your %s administrator to invite you to become an %s administrator."
+msgstr ""
+"Lütfen %s yöneticinizden sizi %s yöneticisi olmaya davet etmesini isteyin."
+
+#: web/admin/overview_user.php:154
+#, php-format
+msgid ""
+"Did you receive an invitation token to manage an %s? Please paste it here:"
+msgstr ""
+"%s'i yönetmek için davet belirteciniz var mı? Lütfen buraya yapıştırın:"
+
+#: web/admin/overview_user.php:166
+#, php-format
+msgid "New %s Registration"
+msgstr "Yeni %s Kayıt"
+
+#: web/admin/inc/displayQRcode.inc.php:31
+msgid "Invitation Token QR Code"
+msgstr "Davet Belirteci QR Kodu"
+
+#: web/admin/inc/manageAdmins.inc.php:46
+#, php-format
+msgid ""
+"You do not have the necessary privileges to alter administrators of this %s. "
+"In fact, you shouldn't have come this far!"
+msgstr ""
+"Bu %s'in yöneticilerini değiştirmek için gerekli yetkiye sahip değilsiniz. "
+"Aslında, bu kadar ilerleyememiş olmalıydınız!"
+
+#: web/admin/inc/manageAdmins.inc.php:84
+#, php-format
+msgid "Administrators for IdP '%s'"
+msgstr "'%s' IdP için Yöneticiler"
+
+#: web/admin/inc/manageAdmins.inc.php:119
+#, php-format
+msgid ""
+"You are the %s administrator. You can invite new administrators, who can in "
+"turn appoint further administrators on their own."
+msgstr ""
+"Siz %s yöneticisisiniz. Kendi başına başka yöneticiler atayabilen, yeni "
+"yöneticileri davet edebilirsiniz."
+
+#: web/admin/inc/manageAdmins.inc.php:119 web/lib/admin/UIElements.php:102
+#, php-format
+msgid "%s Administrator"
+msgstr "%s Yönetici"
+
+#: web/admin/inc/manageAdmins.inc.php:125
+#, php-format
+msgid ""
+"You are an administrator who was directly appointed by the %s administrator. "
+"You can appoint further administrators, but these can't in turn appoint any "
+"more administrators."
+msgstr ""
+"%s yöneticisi tarafından doğrudan atanan bir yöneticisiniz. Daha fazla "
+"yönetici atayabilirsiniz, ancak bunlar daha fazla yönetici atayamaz."
+
+#: web/admin/inc/manageAdmins.inc.php:125
+msgid "Directly Appointed Administrator"
+msgstr "Doğrudan Atanan Yönetici"
+
+#: web/admin/inc/manageAdmins.inc.php:138
+msgid "User without name"
+msgstr "İsimsiz kullanıcı"
+
+#: web/admin/inc/manageAdmins.inc.php:147
+#, php-format
+msgid "(originally invited as %s)"
+msgstr "(ilk olarak %s olarak davet edilmiş)"
+
+#: web/admin/inc/manageAdmins.inc.php:149
+msgid "(self-appointed)"
+msgstr "(kendini görevlendirmiş)"
+
+#: web/admin/inc/manageAdmins.inc.php:156
+msgid "Delete Administrator"
+msgstr "Yönetici Sil"
+
+#: web/admin/inc/manageAdmins.inc.php:170
+msgid "Pending invitations for this IdP"
+msgstr "Bu IdP için bekleyen davetler"
+
+#: web/admin/inc/manageAdmins.inc.php:181
+msgid "New administrator's email address(es) (comma-separated):"
+msgstr "Yeni yöneticinin e-posta adres(ler)i (virgül ile ayrılmış olarak):"
+
+#: web/admin/inc/manageAdmins.inc.php:181
+msgid "Invite new administrator"
+msgstr "Yeni yönetici davet et"
+
+#: web/admin/inc/manageAdmins.inc.php:195
+#, php-format
+msgid "Take control of this %s"
+msgstr "Bu %s'in kontrolünü elinize alın"
+
+#: web/admin/inc/manageAdmins.inc.php:202
+#: web/admin/inc/manageDBLink.inc.php:194
+#: web/admin/inc/manageNewInst.inc.php:116
+msgid "Close"
+msgstr "Kapat"
+
+#: web/admin/inc/manageDBLink.inc.php:43
+#, php-format
+msgid ""
+"You do not have the necessary privileges to manage the %s DB link state of "
+"this %s."
+msgstr ""
+"%s veritabanında %s bağlantısını yönetmek için gerekli haklara sahip "
+"değilsiniz."
+
+#: web/admin/inc/manageDBLink.inc.php:76
+#, php-format
+msgid "%s Database Link Status for IdP '%s'"
+msgstr "'%s' IdP si için %s Veritabanı Bağlantı Durumu"
+
+#: web/admin/inc/manageDBLink.inc.php:85
+#, php-format
+msgid "This %s is linked to the %s database."
+msgstr "Bu %s,  %s veritabanına bağlıdır."
+
+#: web/admin/inc/manageDBLink.inc.php:86
+#, php-format
+msgid ""
+"The following information about the IdP is stored in the %s DB and %s DB:"
+msgstr "IdP hakkında %s ve %s veritabanlarında kayıtlı bilgiler:"
+
+#: web/admin/inc/manageDBLink.inc.php:87
+#, php-format
+msgid "Information in <strong>%s Database</strong>"
+msgstr "<strong>%s Veritabanındaki</strong> Bilgi"
+
+#: web/admin/inc/manageDBLink.inc.php:99 web/admin/inc/manageDBLink.inc.php:125
+#, php-format
+msgid "%s Name (%s)"
+msgstr "%s Ad (%s)"
+
+#: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/PageDecoration.php:33
+msgid "Unnamed User"
+msgstr "İsimsiz Kullanıcı"
+
+#: web/admin/inc/manageDBLink.inc.php:110
+msgid "Administrator [invited as]"
+msgstr "Yönetici[olarak davet edilen]"
+
+#: web/admin/inc/manageDBLink.inc.php:128
+msgid "Administrator email"
+msgstr "Yönetici e-posta"
+
+#: web/admin/inc/manageDBLink.inc.php:133
+msgid "If this mapping is not correct any more, you can remove the link:"
+msgstr "Bu eşleme artık doğru değilse, bağlantıyı kaldırabilirsiniz:"
+
+#: web/admin/inc/manageDBLink.inc.php:135
+msgid "Unlink"
+msgstr "Bağlantıyı kaldır"
+
+#: web/admin/inc/manageDBLink.inc.php:139
+#, php-format
+msgid "This %s is not yet linked to the %s database."
+msgstr "Bu %s henüz %s veritabanına bağlı değil."
+
+#: web/admin/inc/manageDBLink.inc.php:140
+msgid ""
+"This means that its profiles are not made available on the user download "
+"page."
+msgstr ""
+"Bunun anlamı: bunun profilleri kullanıcılar için hazırlanan dosya indirme "
+"sayfasında açıklanmamış."
+
+#: web/admin/inc/manageDBLink.inc.php:141
+#, php-format
+msgid "You can link it to the %s database below."
+msgstr "Aşağıdaki %s veritabanına bağlantılandırabilirsiniz."
+
+#: web/admin/inc/manageDBLink.inc.php:144
+#, php-format
+msgid ""
+"Please select an entity from the %s DB which corresponds to this CAT %s."
+msgstr "%s veritabanından %sCAT kurumuna karşılık gelen varlığı seçin."
+
+#: web/admin/inc/manageDBLink.inc.php:146
+#, php-format
+msgid ""
+"Particularly promising entries (names in CAT and %s DB are a 100%% match) "
+"are on top of the list."
+msgstr ""
+"Bilhassa öne çıkan girdiler(CAT de ve %s veritabanında yer alan isimlerden "
+"%%100 uyanlar) listenin başlarında yer almaktadır."
+
+#: web/admin/inc/manageDBLink.inc.php:149
+msgid "Link to this entity?"
+msgstr "Bu unsura bağlantı verilsin mi?"
+
+#: web/admin/inc/manageDBLink.inc.php:149
+msgid "Administrators"
+msgstr "Yöneticiler"
+
+#: web/admin/inc/manageDBLink.inc.php:183
+#, php-format
+msgid "There is no single unmapped %s in the external database for this %s!"
+msgstr "Harici veritabanında tek bir eşlenmemiş %s bu %s için yer almıyor!"
+
+#: web/admin/inc/manageDBLink.inc.php:185
+msgid "Create Link"
+msgstr "Bağlantı Oluştur"
+
+#: web/admin/inc/manageNewInst.inc.php:37
+#, php-format
+msgid "You do not have the necessary privileges to register new %ss."
+msgstr "Yeni %s'ları kaydetmek için gerekli yetkilere sahip değilsiniz."
+
+#: web/admin/inc/manageNewInst.inc.php:44
+#, php-format
+msgid "%s - Register new %s"
+msgstr "%s - Yeni kayıt et %s"
+
+#: web/admin/inc/manageNewInst.inc.php:47
+#, php-format
+msgid ""
+"On this page, you can add a new %s to your %s. Please fill out the form "
+"below to send out an email invitation to the new %s administrator."
+msgstr ""
+"Bu sayfada, yeni bir %s'i kendi %s'nize ekleyebilirsiniz. Yeni %s yöneticiye "
+"davetiye epostası göndermek için, lütfen aşağıdaki formu doldurun."
+
+#: web/admin/inc/manageNewInst.inc.php:49
+#, php-format
+msgid ""
+"You can either register a known %s (as defined in the %s database) or create "
+"a totally new %s."
+msgstr ""
+"Bilinen bir %s'i (%s veritabanında tanımlandığı gibi) kaydedebilir veya "
+"tamamen yeni bir %soluşturabilirsiniz."
+
+#: web/admin/inc/manageNewInst.inc.php:50
+#, php-format
+msgid ""
+"The latter one is typically for an %s which is yet in a testing phase and "
+"therefore doesn't appear in the %s database yet."
+msgstr ""
+"Sonuncusu tipik olarak henüz bir test aşamasında olan %s içindir ve henüz %s "
+"veritabanında yer almamaktadır."
+
+#: web/admin/inc/manageNewInst.inc.php:60
+msgid "Existing IdP:"
+msgstr "Varolan IdP:"
+
+#: web/admin/inc/manageNewInst.inc.php:65
+msgid "--- select IdP here ---"
+msgstr "--- Buradan IdP seçin ---"
+
+#: web/admin/inc/manageNewInst.inc.php:83
+msgid "New IdP"
+msgstr "Yeni IdP"
+
+#: web/admin/inc/manageNewInst.inc.php:86
+msgid "Name"
+msgstr "Ad"
+
+#: web/admin/inc/manageNewInst.inc.php:107
+msgid "Administrator's E-Mail:"
+msgstr "Yöneticinin E-Posta Adresi:"
+
+#: web/admin/inc/manageNewInst.inc.php:112
+msgid "Send invitation"
+msgstr "Davet gönder"
+
+#.
+#. *******************************************************************************
+#. * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1
+#. * and GN4-2 consortia
+#. *
+#. * License: see the web/copyright.php file in the file structure
+#. *******************************************************************************
+#.
+#: web/admin/inc/overview_js.php:41 web/admin/inc/overview_js.php:98
+msgid "No email address provided"
+msgstr "E-mail adresi bildirilmedi"
+
+#: web/admin/inc/overview_js.php:54 web/admin/inc/overview_js.php:109
+msgid "Invitation sent to:"
+msgstr "Davet gönderildi:"
+
+#: web/admin/inc/overview_js.php:83
+msgid "Mail address to invite:"
+msgstr "Davet için mail adresi:"
+
+#: web/admin/inc/sendinvite.inc.php:92
+#, php-format
+msgid ""
+"Something's wrong... you are a %s admin, but not for the %s the requested %s "
+"belongs to!"
+msgstr ""
+"Bir hata var..  %s 'nin yöneticisisiniz, ama %s için talep edilen %s in "
+"değil!"
+
+#: web/admin/inc/toggleRedirect.inc.php:90
+#, php-format
+msgid "device <strong>%s</strong>"
+msgstr "<strong>%s</strong> cihazı"
+
+#: web/admin/inc/toggleRedirect.inc.php:100
+#, php-format
+msgid "EAP-Type <strong>%s</strong>"
+msgstr "<strong>%s</strong> EAP-Tipi"
+
+#: web/admin/inc/toggleRedirect.inc.php:107
+msgid "Fine-tuning options for "
+msgstr "için ince ayar seçenekleri"
+
+#: web/lib/admin/AbstractMap.php:100 web/lib/admin/UIElements.php:84
+msgid "Location"
+msgstr "Konum"
+
+#: web/lib/admin/AbstractMap.php:104
+msgid ""
+"The user download interface (see <a href='../'>here</a>), uses geolocation "
+"to suggest possibly matching IdPs to the user. The more precise you define "
+"the location here, the easier your users will find you."
+msgstr ""
+"Kullanıcıların indirme arayüzü (<a href='../'>buradan bakınız</a>), coğrafik "
+"lokasyonu kullanarak, olası eşleşen KiSleri kullanıcıya önerir. Burada "
+"konumu ne kadar hassas tanımlarsanız, kullanıcılarınızın sizi bulması o "
+"kadar kolay olur."
+
+#: web/lib/admin/AbstractMap.php:107
+msgid ""
+"<li>Drag the marker in the map to your place, or</li>\n"
+"<li>enter your street address in the field below for lookup, or</li>\n"
+"<li>use the 'Locate Me!' button</li>"
+msgstr ""
+"<li>Haritadaki işaretciyi yerinizin üzerine sürükleyin, yada</li>⏎\n"
+"<li>göz atmak için altta yer alan alana sokak adresinizi girin, yada</li>⏎\n"
+"<li>'Yerimi Sapta!' butonunu kullanın</li>"
+
+#: web/lib/admin/AbstractMap.php:112
+msgid "We will use the coordinates as indicated by the marker for geolocation."
+msgstr ""
+"İşaretleyici ile belirlenen koordinatlar coğrafik lokasyon için "
+"kullanılacaktır."
+
+#: web/lib/admin/AbstractMap.php:116
+msgid ""
+"You can enter an <strong>additional</strong> location here. You can see the "
+"already defined locations in the 'General Information' field."
+msgstr ""
+"Buraya <strong>ilave</strong> konum bilgisi konum bilgisi girebilirsiniz. "
+"\"Genel Bilgi\" alanından daha önce tanımladığınız konumları görebilirsiniz. "
+
+#: web/lib/admin/AbstractMap.php:127
+msgid "Latitude:"
+msgstr "Enlem:"
+
+#: web/lib/admin/AbstractMap.php:127
+msgid "Longitude:"
+msgstr "Boylam:"
+
+#: web/lib/admin/MapGoogle.php:111
+msgid "This is location "
+msgstr "Konum bu"
+
+#: web/lib/admin/MapGoogle.php:190 web/lib/admin/MapOpenLayers.php:210
+msgid "nothing entered in the address field"
+msgstr "adres alanına hiçbir şey girilmedi"
+
+#: web/lib/admin/MapGoogle.php:210 web/lib/admin/MapOpenLayers.php:66
+msgid "locating"
+msgstr "konumlanıyor"
+
+#: web/lib/admin/MapGoogle.php:320 web/lib/admin/MapOpenLayers.php:264
+msgid "Click to see location"
+msgstr "Konumu görmek için tıklayın"
+
+#: web/lib/admin/MapGoogle.php:328 web/lib/admin/MapOpenLayers.php:268
+msgid "Address:"
+msgstr "Adres:"
+
+#: web/lib/admin/MapGoogle.php:328 web/lib/admin/MapOpenLayers.php:268
+msgid "Find address"
+msgstr "Adres Ara"
+
+#: web/lib/admin/MapGoogle.php:328 web/lib/admin/MapNone.php:67
+#: web/lib/admin/MapOpenLayers.php:268
+msgid "Locate Me!"
+msgstr "Yerimi Sapta!"
+
+#: web/lib/admin/MapOpenLayers.php:217
+msgid ""
+"Address not found, perhaps try another form, like putting the street number "
+"to the front."
+msgstr ""
+"Adres bulunamadı, belki cadde numarasını öne koymak gibi birşey "
+"deneyebilirsiniz."
+
+#: web/lib/admin/OptionDisplay.php:148
+#, php-format
+msgid ""
+"This attribute can be set if you want to configure an additional SSID "
+"besides the default SSIDs for %s. It is almost always a bad idea not to use "
+"the default SSIDs. The only exception is if you have premises with an "
+"overlap of the radio signal with another %s hotspot. Typical misconceptions "
+"about additional SSIDs include: I want to have a local SSID for my own "
+"users. It is much better to use the default SSID and separate user groups "
+"with VLANs. That approach has two advantages: 1) your users will configure "
+"%s properly because it is their everyday SSID; 2) if you use a custom name "
+"and advertise this one as extra secure, your users might at some point roam "
+"to another place which happens to have the same SSID name. They might then "
+"be misled to believe that they are connecting to an extra secure network "
+"while they are not."
+msgstr ""
+"Bu nitelik, %s için varsayılan SSID yanına ilave bir SSID yapılandırmak "
+"istiyor iseniz, tanımlanabilir. Varsayılan SSID yi kullanmamak neredeyse her "
+"zaman kötü fikirdir. Bu durumun tek istisnası, bölgenizde radyo sinyalleri "
+"%s erişim noktası ile çakışan başka bir erişim noktası olmasıdır. İlave SSID "
+"için yapılan tipik hata: Kendi kullanıcılarım için yerel SSID kurmak "
+"istiyorum. Sadece varsayılan SSIDyi kullanmak ve kullanıcı gruplarını "
+"VLANlar ile ayırmak çok daha iyidir. Bu yaklaşımın iki avantajı vardır: 1) "
+"Kullanıcılarınız, günlük SSIDleri olduğu için %s i yapılandırmış "
+"olacaklardır; 2) özel bir SSID kullanarak bunu çok güvenli bir şekilde "
+"yayınlamanız halinde, kullanıcılarınız bir şekilde başka bir yerde aynı SSID "
+"ile karşılaşabilirler ve bu durum kullanıcılarınızın öyle olmamasına rağmen, "
+"çok güvenli bir ağa bağlanıyor olduklarını zannetmelerine yol açabilir."
+
+#: web/lib/admin/OptionDisplay.php:150
+#, php-format
+msgid ""
+"The format of this option is: IPv4|IPv6|hostname:port . Forcing your users "
+"through a content filter of your own is a significant invasion of user self-"
+"determination. It also has technical issues. Please throughly read the "
+"discussion at %s before specifying a proxy with this option."
+msgstr ""
+"Bu seçeneğin formatı: IPv4 | IPv6 | hostname: port şeklindedir. "
+"Kullanıcılarınızı size ait bir  içerik filtresine zorlamak, kullanıcının "
+"özgür iradesine yapılmış ciddi bir saldırı olacaktır. Aynı zamanda bu "
+"durumun teknik sorunları vardır. Bu seçenekle bir vekil belirtmeden önce "
+"lütfen %s'teki tartışmaları okuyun."
+
+#: web/lib/admin/OptionDisplay.php:223
+msgid "select language"
+msgstr "dil seçin"
+
+#: web/lib/admin/OptionDisplay.php:224 web/lib/admin/UIElements.php:151
+msgid "default/other languages"
+msgstr "varsayılan/diğer diller"
+
+#: web/lib/admin/OptionDisplay.php:295
+msgid "(default/other languages)"
+msgstr "(varsayılan/diğer diller)"
+
+#: web/lib/admin/OptionDisplay.php:330
+msgid "file content"
+msgstr "dosya içeriği"
+
+#. only modify in this one case
+#: web/lib/admin/OptionDisplay.php:341 web/lib/admin/UIElements.php:181
+msgid "on"
+msgstr "açık"
+
+#: web/lib/admin/OptionDisplay.php:341 web/lib/admin/UIElements.php:181
+msgid "off"
+msgstr "kapalı"
+
+#. / number of times attribute is present, and its name
+#. / Example: "5x Support E-Mail"
+#: web/lib/admin/OptionParser.php:203 web/lib/admin/OptionParser.php:208
+#, php-format
+msgid "%dx %s"
+msgstr "%dx %s"
+
+#: web/lib/admin/OptionParser.php:213
+#, php-format
+msgid ""
+"You did not set a 'default language' value for %s. This means we can only "
+"display this string for installers which are <strong>exactly</strong> in the "
+"language you configured. For the sake of all other languages, you may want "
+"to edit the profile again and populate the 'default/other' language field."
+msgstr ""
+"%s için 'varsayılan dil' tanımlamadınız. Bu durumda bu metni <strong>sadece</"
+"strong> yapılandırdığınız dilin yükleyicileri için gösterebiliriz. Diğer tüm "
+"dillerin adına, profili yeniden düzenleyerek 'varsayılan/diğer' dil alanını "
+"oluşturunuz."
+
+#: web/lib/admin/PageDecoration.php:32
+msgid "You are:"
+msgstr "Siz:"
+
+#: web/lib/admin/PageDecoration.php:36
+msgid "Go to your Profile page"
+msgstr "Profil sayfanıza gidin"
+
+#: web/lib/admin/PageDecoration.php:37
+msgid "Logout"
+msgstr "Çıkış yap"
+
+#: web/lib/admin/PageDecoration.php:39
+msgid "Start page"
+msgstr "Başlangıç Sayfası"
+
+#: web/lib/admin/PageDecoration.php:60
+msgid "View this page in"
+msgstr "Bu sayfayı şunun içinde görüntüle:"
+
+#: web/lib/admin/PageDecoration.php:118
+#, php-format
+msgid "Administrator Interface - %s"
+msgstr "Yönetici Arayüzü - %s"
+
+#: web/lib/admin/PageDecoration.php:121
+#, php-format
+msgid "Administrator Interface - %s User Management"
+msgstr "Yönetici Arayüzü- %s Kullanıcı Yönetimi"
+
+#: web/lib/admin/PageDecoration.php:124
+msgid "Administrator Interface"
+msgstr "Yönetici Arayüzü"
+
+#: web/lib/admin/PageDecoration.php:127
+msgid "Management of User Details"
+msgstr "Kullanıcı Detayları Yönetimi"
+
+#: web/lib/admin/PageDecoration.php:130
+#, php-format
+msgid "Administrator Interface - %s Management"
+msgstr "Yönetici Arayüzü - %s Yönetim"
+
+#: web/lib/admin/PageDecoration.php:133
+#, php-format
+msgid "Welcome to %s"
+msgstr "%s na Hoşgeldiniz"
+
+#: web/lib/admin/PageDecoration.php:138
+msgid "CIC"
+msgstr "CIC"
+
+#: web/lib/admin/PageDecoration.php:141
+msgid "Diagnostics"
+msgstr "Teşhisler"
+
+#: web/lib/admin/PageDecoration.php:223
+#, php-format
+msgid "%s Privacy Notice"
+msgstr "%s Gizlilik Bildirimi"
+
+#. some config elements are displayable. We need some dummies to
+#. translate the common values for them. If a deployment chooses a
+#. different wording, no translation, sorry
+#: web/lib/admin/UIElements.php:46
+msgid "National Roaming Operator"
+msgstr "Ulusal Dolaşım Operatörü"
+
+#: web/lib/admin/UIElements.php:47
+msgid "identity provider"
+msgstr "kimlik sağlayıcı"
+
+#: web/lib/admin/UIElements.php:48
+msgid "organisation"
+msgstr "kurum"
+
+#: web/lib/admin/UIElements.php:67
+msgid "SSID"
+msgstr "SSID"
+
+#: web/lib/admin/UIElements.php:68
+msgid "SSID (with WPA/TKIP)"
+msgstr "SSID (WPA/TKIP ile birlikte)"
+
+#: web/lib/admin/UIElements.php:69
+msgid "HS20 Consortium OI"
+msgstr "HS20 Konsorsiyum OI'si"
+
+#: web/lib/admin/UIElements.php:72
+msgid "Additional SSID"
+msgstr "Ek SSID"
+
+#: web/lib/admin/UIElements.php:73
+msgid "Additional SSID (with WPA/TKIP)"
+msgstr "Ek SSID (WPA/TKIP ile birlikte)"
+
+#: web/lib/admin/UIElements.php:76
+msgid "Additional HS20 Consortium OI"
+msgstr "Ek HS20 Konsorsiyum OI'si"
+
+#: web/lib/admin/UIElements.php:79
+msgid "Support: Web"
+msgstr "Destek: Web"
+
+#: web/lib/admin/UIElements.php:80
+msgid "Support: EAP Types"
+msgstr "Destek: EAP Tipleri"
+
+#: web/lib/admin/UIElements.php:81
+msgid "Support: Phone"
+msgstr "Destek: Telefon"
+
+#: web/lib/admin/UIElements.php:82
+msgid "Support: E-Mail"
+msgstr "Destek: E-Posta"
+
+#: web/lib/admin/UIElements.php:85
+msgid "Logo URL"
+msgstr "Logo URL"
+
+#: web/lib/admin/UIElements.php:86
+msgid "Logo image"
+msgstr "Logo resmi"
+
+#: web/lib/admin/UIElements.php:87
+msgid "Configure Wired Ethernet"
+msgstr "Kablolu Ethernet'i Ayarla"
+
+#: web/lib/admin/UIElements.php:88
+msgid "Name (CN) of Authentication Server"
+msgstr "Doğrulama Sunucusu Adı(CN)"
+
+#: web/lib/admin/UIElements.php:89
+msgid "Enable device assessment"
+msgstr "Cihaz değerlendirmeyi aktifleştir"
+
+#: web/lib/admin/UIElements.php:90
+msgid "Terms of Use"
+msgstr "Kullanım Kuralları"
+
+#: web/lib/admin/UIElements.php:91
+msgid "CA Certificate URL"
+msgstr "CA Sertikika URL"
+
+#: web/lib/admin/UIElements.php:92
+msgid "CA Certificate File"
+msgstr "CA Sertifika Dosyası"
+
+#: web/lib/admin/UIElements.php:93
+msgid "Profile Display Name"
+msgstr "Profil Ekran Adı"
+
+#: web/lib/admin/UIElements.php:94
+msgid "Production-Ready"
+msgstr "Kullanıma-Hazır"
+
+#: web/lib/admin/UIElements.php:95
+msgid "Admin Accepted Terms of Use"
+msgstr "Yönetici Tarafından Kabul Edilen Kullanım Şartları"
+
+#: web/lib/admin/UIElements.php:96
+msgid "Extra text on downloadpage for device"
+msgstr "Cihaz için indirme sayfasındaki ekstra metin "
+
+#: web/lib/admin/UIElements.php:97
+msgid "Redirection Target"
+msgstr "Yönlendirme Hedefi"
+
+#: web/lib/admin/UIElements.php:98
+msgid "Extra text on downloadpage for EAP method"
+msgstr "EAP yöntemi için indirme sayfasında ekstra metin "
+
+#: web/lib/admin/UIElements.php:99
+msgid "Turn on selection of EAP-TLS User-Name"
+msgstr "EAP-TLS User-Name seçimini aç"
+
+#: web/lib/admin/UIElements.php:100
+msgid "Profile Description"
+msgstr "Profil Tanımı"
+
+#: web/lib/admin/UIElements.php:101
+msgid "Custom Installer Name Suffix"
+msgstr "Özel Yükleyici İsim Soneki"
+
+#: web/lib/admin/UIElements.php:103
+msgid "Real Name"
+msgstr "Gerçek Ad"
+
+#: web/lib/admin/UIElements.php:104
+msgid "E-Mail Address"
+msgstr "E-Posta Adresi"
+
+#: web/lib/admin/UIElements.php:105
+msgid "Remove/Disable SSID"
+msgstr "SSID'yi kaldır/etkinsizleştir"
+
+#: web/lib/admin/UIElements.php:106
+msgid "Mandatory Content Filtering Proxy"
+msgstr "Zorunlu İçerik Filtreleme Vekili"
+
+#: web/lib/admin/UIElements.php:107
+msgid "Custom CSS file for User Area"
+msgstr "Kullanıcı Alanı için Özel CSS dosyası"
+
+#: web/lib/admin/UIElements.php:108
+#, php-format
+msgid "%s Logo"
+msgstr "%s Logosu"
+
+#: web/lib/admin/UIElements.php:109
+msgid "Preferred Skin for User Area"
+msgstr "Kullanıcı Alanı için Tercih Edilen Cilt"
+
+#: web/lib/admin/UIElements.php:110
+#, php-format
+msgid "Include %s branding in installers"
+msgstr "Yükleyicilere %s markasını dahil et"
+
+#: web/lib/admin/UIElements.php:112
+#, php-format
+msgid "%s Homepage"
+msgstr "%s Anasayfası"
+
+#: web/lib/admin/UIElements.php:113
+#, php-format
+msgid "Custom text in %s Invitations"
+msgstr "%s Daveiyeleri için özel metin"
+
+#: web/lib/admin/UIElements.php:114
+#, php-format
+msgid "Enable %s"
+msgstr "%s'i etkinleştir"
+
+#: web/lib/admin/UIElements.php:115
+#, php-format
+msgid "%s: Do not terminate EAP"
+msgstr "%s: EAP oturumunu durdurma"
+
+#: web/lib/admin/UIElements.php:116
+#, php-format
+msgid "%s: max users per profile"
+msgstr "%s: profil başına azami kullanıcı"
+
+#: web/lib/admin/UIElements.php:117
+#, php-format
+msgid "Mint %s with CA on creation"
+msgstr "Oluştururken CA ile birlikte %s damgalayın"
+
+#: web/lib/admin/UIElements.php:211
+#, php-format
+msgid "General %s details"
+msgstr "Genel %s detayları"
+
+#: web/lib/admin/UIElements.php:229
+msgid "Global Helpdesk Details"
+msgstr "Global Yardım Masası Detayları"
+
+#. we didn't actually get a CA!
+#: web/lib/admin/UIElements.php:324
+msgid "There was an error while retrieving the certificate from the database!"
+msgstr "Sertifika veritabanından alınırken bir hata oluştu!"
+
+#: web/lib/admin/UIElements.php:331
+msgid "There was an error processing the certificate!"
+msgstr "Sertifika işlenirken bir hata oluştu!"
+
+#: web/lib/admin/UIElements.php:338
+msgid "This is a <strong>SERVER</strong> certificate!"
+msgstr "Bu bir <strong>SUNUCU</strong> sertifikası!"
+
+#: web/lib/admin/UIElements.php:351
+msgid "Preview of logo file"
+msgstr "Logo dosyasını önizle"
+
+#. we didn't actually get a file!
+#: web/lib/admin/UIElements.php:364
+msgid "There was an error while retrieving the file from the database!"
+msgstr "Dosyayı veritabanından alırken bir hata oluştu!"
+
+#: web/lib/admin/UIElements.php:368
+msgid "File exists"
+msgstr "Dosya mevcut"
+
+#: web/lib/admin/UIElements.php:368
+msgid "Preview"
+msgstr "Ön İzleme"
+
+#: web/lib/admin/UIElements.php:384
+msgid "Remark"
+msgstr "Görüşler"
+
+#: web/lib/admin/UIElements.php:385
+msgid "Warning!"
+msgstr "Uyarı!"
+
+#: web/lib/admin/UIElements.php:386
+msgid "Error!"
+msgstr "Hata!"

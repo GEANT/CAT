@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
-"PO-Revision-Date: 2018-08-22 10:24+0000\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"PO-Revision-Date: 2018-09-12 13:16+0000\n"
 "Last-Translator: Petr Adamec <p.b.adamec@gmail.com>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/"
 "eduroam_devel/cat/language/cs_CZ/)\n"
@@ -29,9 +29,10 @@ msgstr ""
 #, php-format
 msgid "<span class='edu_cat'>%s</span> is built as a cooperation platform."
 msgstr ""
+"<span class='edu_cat'>%s</span>  je koncipován jako platforma pro spolupráci."
 
 #: web/user/about_cat.inc.php:29
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Local %s administrators enter their %s configuration details and based on "
 "them, <span class='edu_cat'>%s</span> builds customised installers for a "
@@ -41,8 +42,7 @@ msgid ""
 "administrators and try to influence them to add your %s configuration to "
 "<span class='edu_cat'>%s</span>."
 msgstr ""
-"<span class='edu_cat'>%s</span> je koncipován jako platforma pro spolupráci."
-"<p>Lokální správci %s sem mohou vložit %s nastavení relevantní pro jejich "
+"Lokální správci %s sem mohou vložit %s nastavení relevantní pro jejich "
 "organizaci a na jejím základě vytvoří <span class='edu_cat'>%s</span> na "
 "míru přizpůsobené instalační programy pro řadu operačních systémů a "
 "zařízení. Instalační program, vyhotovený pro jednu organizaci, bude fungovat "
@@ -193,7 +193,6 @@ msgid "My organisation is not listed. Can't I just use any of the other ones?"
 msgstr "Moje organizace není uvedená v seznamu. Mohu zvolit jinou?"
 
 #: web/user/faq.inc.php:18 web/user/faq.php:15
-#, fuzzy
 msgid ""
 "No! The installers contain security settings which are specific to the "
 "organisation. If you are not from that organisation, your device will detect "
@@ -202,14 +201,14 @@ msgid ""
 "organisation is <i>guaranteed to not work</i>!"
 msgstr ""
 "Ne! Instalační programy obsahují bezpečnostní nastavení, které jsou šité na "
-"míru konkrétní organizaci. Pokud nejste členem dané organizace, váš počítač "
-"rozpozná, že se chystáte odeslat svoje přihlašovací údaje neoprávněnému "
-"serveru a zruší proces přihlašování. Instalační program určený pro jinou "
-"organizaci <i>zaručeně nebude fungovat</i>!"
+"míru konkrétní organizaci. Pokud nejste členem dané organizace, vaše "
+"zařízení rozpozná, že se chystáte odeslat svoje přihlašovací údaje "
+"neoprávněnému serveru a zruší proces přihlašování. Instalační program určený "
+"pro jinou organizaci <i>zaručeně nebude fungovat</i>!"
 
 #: web/user/faq.inc.php:22 web/user/faq.php:19
 msgid "What can I do to get my organisation listed?"
-msgstr "Co mohu učinit pro to, aby se moje organizace byla na seznamu?"
+msgstr "Co mohu učinit pro to, aby moje organizace byla na seznamu?"
 
 #: web/user/faq.inc.php:23 web/user/faq.php:20
 #, php-format
@@ -227,7 +226,7 @@ msgstr ""
 "Moje zařízení není uvedeno v seznamu! Znamená to, že nelze používat %s?"
 
 #: web/user/faq.inc.php:28 web/user/faq.php:25
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "No. The CAT tool can only support Operating Systems which can be "
 "automatically configured in some way. Many other devices can still be used "
@@ -237,7 +236,7 @@ msgstr ""
 "Ne. CAT však podporuje pouze operační systémy, které je možné nastavit "
 "automaticky. Mnoho dalších zařízení je možné použít pro připojení k %s, ale "
 "musí být nastaveny ručně. Pro pomoc s nastavením takových zařízení se prosím "
-"obraťte na uživatelskou podporu %s ve vaší organizaci."
+"obraťte na uživatelskou podporu ve vaší organizaci."
 
 #: web/user/faq.inc.php:32 web/user/faq.php:29
 #, php-format
@@ -344,7 +343,7 @@ msgid ""
 msgstr ""
 "Může být vícero různých příčin. Síť, kterou vidíte na vašem zařízení, nemusí "
 "být pravá %s síť a zařízení v takovém případě zruší pokus o připojení; nebo "
-"je síť pravá ale může byť nesprávně nakonfigurovaná; vašemu uživatelskému "
+"je síť pravá ale může být nesprávně nakonfigurovaná; vašemu uživatelskému "
 "účtu mohla vypršet platnost; mohl se vyskytnout problém při spojení s vaším "
 "domovským ověřovacím serverem; váš přístup mohl být zablokovaný z důvodu "
 "porušení pravidel. Obraťte se, prosím, na vaší organizaci a nahlaste "
@@ -482,7 +481,7 @@ msgstr "%s Autorská práva a licence"
 #: web/copyright.php:213 web/tou.php:61 web/skins/modern/Divs.php:280
 #, php-format
 msgid "%s Privacy Notice"
-msgstr ""
+msgstr "%s Ochrana osobních údajů"
 
 #: web/lib/user/TextTemplates.php:70
 #, php-format
@@ -1025,6 +1024,9 @@ msgid ""
 "with your device, your data is treated according to the <a href='%s'>%s "
 "Privacy Statement</a>."
 msgstr ""
+"Pokud použijete mezinárodní infrastrukturu %s např. při roamingu, bude s "
+"vašimi údaji zacházeno podle <a href='%s'>%s Prohlášení o ochraně soukromí</"
+"a>."
 
 #: web/skins/modern/user/js/cat_js.php:258
 #: web/skins/modern/user/js/cat_js.php:284
@@ -1191,9 +1193,3 @@ msgstr "všechny hlavní distribuce"
 #: web/skins/modern/user/js/roll.php:139
 msgid "Chrome OS"
 msgstr "Chrome OS"
-
-#~ msgid ""
-#~ "If you encounter problems you should ask those who you gave you your "
-#~ "account for help."
-#~ msgstr ""
-#~ "V případě problému se pro pomoc obraťte na ty kteří vám poskytli váš účet."

@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
-"PO-Revision-Date: 2018-06-06 07:08+0000\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"PO-Revision-Date: 2018-09-11 13:37+0000\n"
 "Last-Translator: Alberto Martínez Setién\n"
 "Language-Team: Spanish (http://www.transifex.com/eduroam_devel/cat/language/"
 "es/)\n"
@@ -203,9 +203,8 @@ msgstr ""
 "nombre de usuario con el formato correcto."
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:141
-#, fuzzy
 msgid "Unnamed Organisation"
-msgstr "%s sin nombre"
+msgstr "Organización sin nombre"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:142
 msgid "Unnamed Profile"
@@ -243,10 +242,10 @@ msgid "(%d times)"
 msgstr "(%d veces)"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:210
-#, fuzzy
 msgid ""
 "to enter the username and password you have been given by your organisation"
-msgstr "para introducir el nombre de usuario y contraseña de tu %s"
+msgstr ""
+"para introducir el nombre de usuario y contraseña dados por tu organización"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:212
 #, php-format
@@ -317,16 +316,16 @@ msgstr ""
 "disponibles."
 
 #: devices/linux/Device_Linux.php:52
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "The installer is in the form of a Python script. It will try to configure %s "
 "under NetworkManager and if this is either not appropriate for your system "
 "or your version of NetworkManager is too old, a wpa_supplicant config file "
 "will be created instead."
 msgstr ""
-"Este instalador consiste en un script Python. Tratará de configurar eduroam "
-"a través de Network Manager, y si esto no es posible para tu sistema o tu "
-"versión de Network Manager es muy antigua, en vez de eso generará un fichero "
+"Este instalador consiste en un script Python. Tratará de configurar %s a "
+"través de NetworkManager, y si esto no es posible para tu sistema o tu "
+"versión de NetworkManager es muy antigua, en vez de eso generará un fichero "
 "de configuración para wpa_supplicant."
 
 #: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:115
@@ -354,7 +353,6 @@ msgstr ""
 "y copiará tus certificados de servidor allí."
 
 #: devices/linux/Device_Linux.php:74
-#, fuzzy
 msgid ""
 "In order to connect to the network you will need a personal certificate in "
 "the form of a p12 file. You should obtain this certificate from your "
@@ -364,24 +362,24 @@ msgid ""
 "Your p12 file will also be copied to the .cat_installer directory."
 msgstr ""
 "Para conectarte a la red necesitarás un certificado personal en un fichero "
-"con extensión .p12. Deberías obtener este certificado de tu %s. Consulta la "
-"página de soporte para saber cómo puedes obtener dicho certificado. Estos "
-"ficheros de certificado están protegidos con contraseña. Deberías tener "
-"tanto el fichero como la contraseña disponibles durante el proceso de "
-"instalación. Tu fichero .p12 se copiará también al directorio .cat_installer."
+"con extensión .p12. Deberías obtener este certificado de tu organización. "
+"Consulta la página de soporte para saber cómo puedes obtener dicho "
+"certificado. Estos ficheros de certificado están protegidos con una "
+"contraseña. Deberías tener tanto el fichero como la contraseña disponibles "
+"durante el proceso de instalación. Tu fichero .p12 se copiará también al "
+"directorio .cat_installer."
 
 #. not EAP-TLS
 #: devices/linux/Device_Linux.php:76 devices/ms/WindowsCommon.php:128
-#, fuzzy
 msgid ""
 "In order to connect to the network you will need an account from your "
 "organisation. You should consult the support page to find out how this "
 "account can be obtained. It is very likely that your account is already "
 "activated."
 msgstr ""
-"Para conectarte a la red necesitarás una cuenta de tu %s. Deberías consultar "
-"la página de soporte para saber cómo puedes obtener esta cuenta. Es bastante "
-"probable que esta cuenta ya esté activada."
+"Para conectarte a la red necesitarás una cuenta de tu organización. Deberías "
+"consultar la página de soporte para saber cómo puedes obtener esta cuenta. "
+"Es bastante probable que esta cuenta ya esté activada."
 
 #: devices/linux/Device_Linux.php:78
 msgid ""
@@ -435,9 +433,8 @@ msgid "Continue?"
 msgstr "¿Continuar?"
 
 #: devices/linux/Device_Linux.php:97
-#, fuzzy
 msgid "This NetworkManager version is not supported"
-msgstr "Esta versión de Network Manager no está soportada"
+msgstr "Esta versión de NetworkManager no está soportada"
 
 #: devices/linux/Device_Linux.php:98
 msgid "Certificate file not found, looks like a CAT error"
@@ -468,14 +465,13 @@ msgid "All files"
 msgstr "Todos los ficheros"
 
 #: devices/linux/Device_Linux.php:106
-#, fuzzy
 msgid ""
 "NetworkManager configuration failed, but we may generate a wpa_supplicant "
 "configuration file if you wish. Be warned that your connection password will "
 "be saved in this file as clear text."
 msgstr ""
-"La configuración de Network Manager falló, pero podemos generar un archivo "
-"de configuración para wpa_supplicant si lo deseas. Aviso: tu contraseña se "
+"La configuración de NetworkManager falló, pero podemos generar un archivo de "
+"configuración para wpa_supplicant si lo deseas. Aviso: tu contraseña se "
 "almacenará sin cifrar en este archivo."
 
 #: devices/linux/Device_Linux.php:107
@@ -560,7 +556,6 @@ msgstr ""
 "ejecútalo."
 
 #: devices/ms/WindowsCommon.php:124
-#, fuzzy
 msgid ""
 "In order to connect to the network you will need an a personal certificate "
 "in the form of a p12 file. You should obtain this certificate from your "
@@ -569,10 +564,10 @@ msgid ""
 "both the file and the password available during the installation process."
 msgstr ""
 "Para conectarte a la red necesitarás un certificado personal contenido en un "
-"fichero con extensión .p12. Deberías obtener este certificado de tu %s. "
-"Consulta la página de soporte para saber cómo puedes obtener este "
-"certificado. Estos certificados están protegidos por contraseña. Deberías "
-"por tanto tener ambos durante el proceso de instalación."
+"fichero con extensión .p12. Deberías obtener este certificado de tu "
+"organización. Consulta la página de soporte para saber cómo puedes obtener "
+"este certificado. Estos certificados están protegidos por contraseña. "
+"Deberías por tanto tener ambos durante el proceso de instalación."
 
 #: devices/ms/WindowsCommon.php:132
 msgid ""

@@ -5,15 +5,15 @@
 # Translators:
 # Jari Miettinen <Jari.Miettinen@csc.fi>, 2012
 # Jari Miettinen <Jari.Miettinen@csc.fi>, 2013
-# Tomi Salmi <tomi.salmi@csc.fi>, 2013,2015-2016,2018
+# Tomi Salmi, 2013,2015-2016,2018
 # tuukka, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-05 14:51+0200\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
 "PO-Revision-Date: 2018-05-24 10:46+0000\n"
-"Last-Translator: Tomi Salmi <tomi.salmi@csc.fi>\n"
+"Last-Translator: Tomi Salmi\n"
 "Language-Team: Finnish (Finland) (http://www.transifex.com/eduroam_devel/cat/"
 "language/fi_FI/)\n"
 "Language: fi_FI\n"

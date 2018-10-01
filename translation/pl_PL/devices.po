@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
-"PO-Revision-Date: 2018-08-22 06:08+0000\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"PO-Revision-Date: 2018-09-17 14:10+0000\n"
 "Last-Translator: Maja Wolniewicz <maja.wolniewicz@gmail.com>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/eduroam_devel/cat/"
 "language/pl_PL/)\n"
@@ -316,7 +316,7 @@ msgstr ""
 "atrybutów."
 
 #: devices/linux/Device_Linux.php:52
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "The installer is in the form of a Python script. It will try to configure %s "
 "under NetworkManager and if this is either not appropriate for your system "
@@ -324,10 +324,9 @@ msgid ""
 "will be created instead."
 msgstr ""
 "Instalator jest skryptem napisanym w języku Python. Będzie się starał "
-"skonfigurować dostęp do eduroam przy pomocy Network Managera, a jeżeli nie "
-"da się tego zrobić  w Twoim systemie, albo jeśli Twoja wersja Network "
-"Managera jest zbyt stara, to zostanie przygotowany plik konfiguracyjny dla "
-"wpa_supplicanta."
+"skonfigurować %s przy pomocy Network Managera, a jeżeli nie da się tego "
+"zrobić w Twoim systemie, albo jeśli Twoja wersja Network Managera jest zbyt "
+"stara, to zostanie przygotowany plik konfiguracyjny dla wpa_supplicanta."
 
 #: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:115
 #, php-format
@@ -434,7 +433,6 @@ msgid "Continue?"
 msgstr "Czy kontynuować?"
 
 #: devices/linux/Device_Linux.php:97
-#, fuzzy
 msgid "This NetworkManager version is not supported"
 msgstr "Ta wersja Network Managera nie jest wspierana"
 
@@ -467,7 +465,6 @@ msgid "All files"
 msgstr "Wszystkie pliki"
 
 #: devices/linux/Device_Linux.php:106
-#, fuzzy
 msgid ""
 "NetworkManager configuration failed, but we may generate a wpa_supplicant "
 "configuration file if you wish. Be warned that your connection password will "

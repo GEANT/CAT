@@ -1,20 +1,18 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-# Translators:
-# HELPDESK <npapalouka@admin.grnet.gr>, 2015
-# Panos Bouklis <panos@echidna-band.com>, 2012
-# Wasilis <m.wasilis@yahoo.de>, 2013
-# Zenon Mousmoulas <zenon@mousmoulas.gr>, 2015
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: eduroam CAT\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
-"PO-Revision-Date: 2015-04-07 16:41+0000\n"
-"Last-Translator: Zenon Mousmoulas <zenon@mousmoulas.gr>\n"
-"Language-Team: Greek (http://www.transifex.com/projects/p/cat/language/el/)\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: HELPDESK <npapalouka@admin.grnet.gr>, 2016\n"
+"Language-Team: Greek (https://www.transifex.com/eduroam_devel/teams/11799/"
+"el/)\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,11 +21,12 @@ msgstr ""
 
 #: core/diag/AbstractTest.php:266
 msgid "Completed"
-msgstr "Ολοκληρωμένο"
+msgstr "Ολοκληρώθηκε"
 
 #: core/diag/AbstractTest.php:273
 msgid "Product is not configured to run this check."
 msgstr ""
+"Το προϊόν δεν έχει παραμετροποιηθεί για να εκτελέσει αυτόν τον έλεγχο.  "
 
 #: core/diag/AbstractTest.php:279
 msgid "This check was skipped."
@@ -39,15 +38,15 @@ msgstr "Υπήρξαν σφάλματα κατά τις δοκιμές."
 
 #: core/diag/AbstractTest.php:294
 msgid "There was no reply at all from the RADIUS server."
-msgstr "Δεν υπήρξε καμία απόκριση από τον εξυπηρετητή RADIUS."
+msgstr "Δεν υπήρξε καμία απάντηση από τον εξυπηρετητή RADIUS."
 
 #: core/diag/AbstractTest.php:301
 msgid ""
 "There was a bidirectional communication with the RADIUS server, but it ended "
 "halfway through."
 msgstr ""
-"Υπήρξε μια αμφίδρομη επικοινωνία με τον εξυπηρετητή RADIUS, αλλά έληξε στο "
-"ενδιάμεσο της διαδρομής. "
+"Υπήρξε αμφίδρομη επικοινωνία με τον εξυπηρετητή RADIUS, αλλά έληξε στη μέση "
+"της διαδρομής. "
 
 #: core/diag/AbstractTest.php:308
 msgid ""
@@ -55,7 +54,7 @@ msgid ""
 "first reply."
 msgstr ""
 "Ο εξυπηρετητής RADIUS άμεσα απέρριψε το αίτημα πιστοποίησης στην πρώτη "
-"απάντηση του."
+"απάντησή του."
 
 #: core/diag/AbstractTest.php:315
 msgid ""
@@ -71,14 +70,12 @@ msgstr "Άρνηση σύνδεσης"
 
 #: core/diag/AbstractTest.php:329
 msgid "Not enough data provided to perform an authentication"
-msgstr "Δεν υπάρχουν αρκετά δεδομένα για να πραγματοποιηθεί μια ταυτοποίηση."
+msgstr "Δεν υπάρχουν αρκετά δεδομένα για να επιχειρηθεί ταυτοποίηση."
 
 #: core/diag/AbstractTest.php:336
 msgid ""
 "The certificate password you provided does not match the certificate file."
-msgstr ""
-"Ο κωδικός του πιστοποιητικού που υποβάλλατε δεν αντιστοιχεί στο αρχείο "
-"πιστοποίησης."
+msgstr "Ο κωδικός που δώσατε δεν ταιριάζει στο αρχείο πιστοποιητικού."
 
 #: core/diag/AbstractTest.php:344
 msgid ""
@@ -86,8 +83,8 @@ msgid ""
 "any useful purpose but inflates the packet exchange, possibly leading to "
 "more round-trips and thus slower authentication."
 msgstr ""
-"Η αλυσίδα πιστοποιήσης περιλαμβάνει το βασικό CA πιστοποιητικό. Αυτό δεν "
-"εξυπηρετεί κανένα σκοπό αλλά μεγαλώνει τον όγκο των πακέτων που "
+"Η αλυσίδα πιστοποίησης περιλαμβάνει το πιστοποιητικό του βασικού CA. Αυτό "
+"δεν εξυπηρετεί κανένα σκοπό αλλά μεγαλώνει τον όγκο των πακέτων που "
 "ανταλλάσσονται, πιθανώς προκαλώντας περισσότερες κυκλικές διαδρομές και "
 "συνεπώς πιο αργή ταυτοποίηση."
 
@@ -110,14 +107,13 @@ msgstr ""
 "του Apple iOS, θα αποτύχει να επαληθεύσει αυτό το πιστοποιητικό."
 
 #: core/diag/AbstractTest.php:372
-#, fuzzy
 msgid ""
 "At least one certificate in the chain is signed with the SHA-1 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
 "validate this certificate."
 msgstr ""
 "Τουλάχιστον ένα πιστοποιητικό στην αλυσίδα είναι υπογεγραμμένο με τον "
-"αλγόριθμο υπογραφής MD5. Πολλά Λειτουργικά Συστήματα, συμπεριλαμβανομένου "
+"αλγόριθμο υπογραφής SHA-1. Πολλά Λειτουργικά Συστήματα, συμπεριλαμβανομένου "
 "του Apple iOS, θα αποτύχει να επαληθεύσει αυτό το πιστοποιητικό."
 
 #: core/diag/AbstractTest.php:379
@@ -136,8 +132,8 @@ msgid ""
 "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
 "validate this certificate."
 msgstr ""
-"Το πιστοποιητικό εξυπηρετητή δεν έχει την προσθήκη 'extendedKeyUsage: TLS "
-"Web Server Authentication'. Τα περισσότερα Λειτουργικά Συστήματα της "
+"Το πιστοποιητικό εξυπηρετητή δεν έχει το πρόσθετο πεδίο 'extendedKeyUsage: "
+"TLS Web Server Authentication'. Τα περισσότερα Λειτουργικά Συστήματα της "
 "Microsoft θα αποτύχουν να επαληθεύσουν αυτό το πιστοποιητικό."
 
 #: core/diag/AbstractTest.php:393
@@ -155,13 +151,13 @@ msgid ""
 "certificate. Checking server certificate validity against a CRL will not be "
 "possible."
 msgstr ""
-"Η προσθήκη 'CRL Distribution Point' του πιστοποιητικού του εξυπηρετητή δεν "
-"δείχνει σε κάποιο HTTP/HTTPS URL. Μερικά Λειτουργικά Συστήματα ίσως "
-"αποτύχουν να επαληθεύσουν αυτό το πιστοποιητικό. Ο έλεγχος της εγκυρότητας "
-"του πιστοποιητικού εξυπηρετητή ενάντια σε ένα CRL δεν θα είναι εφικτός."
+"Το πρόσθετο πεδίο 'CRL Distribution Point' του πιστοποιητικού του "
+"εξυπηρετητή δεν δείχνει σε κάποιο HTTP/HTTPS URL. Μερικά Λειτουργικά "
+"Συστήματα ίσως αποτύχουν να επαληθεύσουν αυτό το πιστοποιητικό. Ο έλεγχος "
+"της εγκυρότητας του πιστοποιητικού εξυπηρετητή ενάντια σε ένα CRL δεν θα "
+"είναι εφικτός."
 
 #: core/diag/AbstractTest.php:407
-#, fuzzy
 msgid ""
 "The extension 'CRL Distribution Point' in the server certificate points to a "
 "location where no DER-encoded CRL can be found. Some Operating Systems check "
@@ -169,11 +165,11 @@ msgid ""
 "certificate. Checking server certificate validity against a CRL will not be "
 "possible."
 msgstr ""
-"Το πεδίο 'CRL Distribution Point' στο πιστοποιητικό εξυπηρετητή δείχνει σε "
-"μια μη υπάρχουσα τοποθεσία δικτύου. Μερικά Λειτουργικά Συστήματα ελέγχουν "
-"την εγκυρότητα του πιστοποιητικού ανατρέχοντας στο CRL και θα αποτύχουν να "
-"επαληθεύσουν το πιστοποιητικό. Ο έλεγχος της εγκυρότητας του πιστοποιητικού "
-"εξυπηρετητή με βάση ένα CRL δε θα είναι εφικτός."
+"Το πρόσθετο πεδίο 'CRL Distribution Point' του πιστοποιητικού του "
+"εξυπηρετητή δεν δείχνει σε κάποιο DER-encoded CRL. Μερικά Λειτουργικά "
+"Συστήματα ελέγχουν την εγκυρότητα του πιστοποιητικού ανατρέχοντας στο CRL "
+"και θα αποτύχουν να επαληθεύσουν το πιστοποιητικό. Ο έλεγχος της εγκυρότητας "
+"του πιστοποιητικού εξυπηρετητή  δε θα είναι εφικτός με βάση ένα CRL."
 
 #: core/diag/AbstractTest.php:414
 msgid "The server certificate was revoked by the CA!"
@@ -232,8 +228,8 @@ msgid ""
 "The server certificate could not be verified to the root CA you configured "
 "in your profile!"
 msgstr ""
-"Το πιστοποιητικό εξυπηρετητή δεν ήταν δυνατό να επαληθευτεί στο βασικό CA "
-"που διαμορφώσατε στο προφίλ σας!"
+"Το πιστοποιητικό εξυπηρετητή δεν ήταν δυνατό να επαληθευτεί μέχρι το βασικό "
+"CA που διαμορφώσατε στο προφίλ σας!"
 
 #: core/diag/AbstractTest.php:453
 msgid ""
@@ -264,7 +260,7 @@ msgid ""
 msgstr ""
 "Το διαμορφωμένο όνομα του εξυπηρετητή EAP ταιριάζει είτε με το CN ή με ένα "
 "subjectAltName:DNS του εισερχόμενου πιστοποιητικού; η καλύτερη τρέχουσα "
-"πρακτική θα ήταν αυτό το πιστοποιητικό να περιλαμβάνει το όνομα και στα ΔΥΟ "
+"πρακτική είναι αυτό το πιστοποιητικό να περιλαμβάνει το όνομα και στα ΔΥΟ "
 "σημεία."
 
 #: core/diag/AbstractTest.php:473
@@ -274,7 +270,7 @@ msgid ""
 "At least Mac OS X 10.8 (Mountain Lion) will not validate this certificate "
 "for EAP purposes!"
 msgstr ""
-"Τουλάχιστον ένα πιστοποιητικό δεν περιλαμβάνει καμία προσθήκη "
+"Τουλάχιστον ένα πιστοποιητικό δεν περιλαμβάνει κανένα πρόσθετο πεδίο "
 "BasicConstraints; κάτι το οποίο κάνει ασαφές εάν είναι ένα πιστοποιητικό CA "
 "ή ένα πιστοποιητικό end-entity. Τουλάχιστον το Mac OS X 10.8 (Mountain Lion) "
 "δεν θα επαληθεύσει αυτό το πιστοποιητικό για τους σκοπούς του EAP!"
@@ -309,22 +305,30 @@ msgid ""
 "1024 bit. Mac OS X 10.11 'El Capitan' is known to refuse TLS connections "
 "under these circumstances!"
 msgstr ""
+"Ο εξυπηρετητής προσφέρει κρυπταλγόριθμους Diffie-Hellman (DH) με ομάδα DH "
+"μικρότερη από 1024 bit. Είναι γνωστό ότι το Mac OS X 10.11 'El Capitan' "
+"απορρίπτει συνδέσεις TLS υπό τέτοιες συνθήκες!"
 
 #: core/diag/AbstractTest.php:529
 msgid ""
 "The certificate contains more than one CommonName (CN) field. This is "
 "reportedly problematic on many supplicants."
 msgstr ""
+"Το πιστοποιητικό περιέχει περισσότερα του ενός πεδία CommonName (CN). Αυτό "
+"έχει αναφερθεί ως προβληματικό σε πολλά supplicants."
 
 #: core/diag/AbstractTest.php:536
 msgid ""
 "The certificate public key algorithm is unknown to the system. Please submit "
 "the certificate as a sample to the developers."
 msgstr ""
+"Ο αλγόριθμος δημόσιου κλειδιού του πιστοποιητικού είναι άγνωστος στο "
+"σύστημα. Παρακαλώ υποβάλλετε το πιστοποιητικό ως δείγμα στους "
+"προγραμματιστές."
 
 #: core/diag/Logopath.php:96
 msgid "[eduroam Diagnostics]"
-msgstr ""
+msgstr "[Διαγνωστικά eduroam]"
 
 #: core/diag/Logopath.php:98
 msgid ""
@@ -333,22 +337,28 @@ msgid ""
 "org, forwarding the entire message (including the 'SUSPECTS' and 'EVIDENCE' "
 "data at the end), and explain why this is a false positive.)"
 msgstr ""
+"(Αυτή η υπηρεσία βρίσκεται σε ένα πρώιμο στάδιο. Ζητάμε συγνώμη αν πρόκειται "
+"για λάθος ειδοποίηση. Σε αυτή την περίπτωση, παρακαλώ στείλτε μια αναφορά με "
+"email στο cat-devel@lists.geant.org, προωθώντας το πλήρες μήνυμα "
+"(συμπεριλαμβανομένων των δεδομένων 'ΥΠΟΠΤΑ' και 'ΑΠΟΔΕΙΞΕΙΣ' στο τέλος), και "
+"εξηγήστε γιατί είναι ένας λανθασμένος συναγερμός.)"
 
 #: core/diag/Logopath.php:100
 msgid "Yours sincerely,"
-msgstr ""
+msgstr "Μετά τιμής,"
 
 #: core/diag/Logopath.php:102
 msgid "Ed U. Roam, the eduroam diagnostics algorithm"
-msgstr ""
+msgstr "Ed U. Roam, ο αλγόριθμος διάγνωσης eduroam"
 
 #: core/diag/Logopath.php:110
 msgid "[POLICYVIOLATION NATIONAL] IdP with no entry in eduroam database"
 msgstr ""
+"[POLICYVIOLATION NATIONAL] IdP χωρίς εγγραφή στη βάση δεδομένων eduroam"
 
 #: core/diag/Logopath.php:111
 msgid "Dear NRO administrator,"
-msgstr ""
+msgstr "Αγαπητέ διαχειριστή NRO,"
 
 #: core/diag/Logopath.php:113
 #, php-format
@@ -357,12 +367,17 @@ msgid ""
 "checks determined that the realm exists, but we were unable to find an IdP "
 "with that realm in the eduroam database."
 msgstr ""
+"ένας τελικός χρήστης ζήτησε διαγνωστικά για τον τομέα %s. Έλεγχοι "
+"συνδεσιμότητας σε πραγματικό χρόνο έδειξαν ότι ο τομέας υπάρχει, αλλά δεν "
+"μπορέσαμε να βρούμε ένα IdP γι αυτό τον τομέα στη βάση δεδομένων eduroam."
 
 #: core/diag/Logopath.php:115
 msgid ""
 "By not listing IdPs in the eduroam database, you are violating the eduroam "
 "policy."
 msgstr ""
+"Με το να μην καταχωρίζετε IdPs στη βάση δεδομένων eduroam παραβιάζετε την "
+"πολιτική eduroam."
 
 #: core/diag/Logopath.php:117
 msgid ""
@@ -370,11 +385,15 @@ msgid ""
 "to direct end users to their IdP for further diagnosis/instructions because "
 "there are no contact points for that IdP in the database."
 msgstr ""
+"Επιπρόσθετα, αυτό δημιουργεί προβλήματα λειτουργίας. Συγκεκριμένα δεν "
+"είμαστε σε θέση να κατευθύνουμε τους τελικούς χρήστες στο IdP τους για "
+"περαιτέρω διάγνωση/οδηγίες επειδή δεν υπάρχουν στοιχεία επικοινωνίας για "
+"εκείνο το IdP στη βάση δεδομένων."
 
 #: core/diag/RADIUSTests.php:1008
 #, php-format
 msgid "Connected to %s."
-msgstr ""
+msgstr "Συνδεδεμένος σε %s."
 
 #: core/diag/RADIUSTests.php:1013
 msgid ""
@@ -382,6 +401,9 @@ msgid ""
 "multiple round-trips was carried out, and ended in an Access-Reject as "
 "planned."
 msgstr ""
+"<strong>Eπιτυχημένη δοκιμή</strong>: μια αμφίδρομη επικοινωνία RADIUS με "
+"πολλές κυκλικές διαδρομές πραγματοποιήθηκε και ολοκληρώθηκε με Access-Reject "
+"όπως ήταν αναμενόμενο."
 
 #: core/diag/RADIUSTests.php:1017
 msgid ""
@@ -390,6 +412,10 @@ msgid ""
 "Access-Reject as planned. Some properties of the connection attempt were sub-"
 "optimal; the list is below."
 msgstr ""
+"<strong>Δοκιμή εν μέρει επιτυχημένη</strong>: μια αμφίδρομη επικοινωνία "
+"RADIUS με πολλές κυκλικές διαδρομές πραγματοποιήθηκε και ολοκληρώθηκε με "
+"Access-Reject όπως ήταν αναμενόμενο. Κάποιες παράμετροι της απόπειρας "
+"σύνδεσης δεν ήταν βέλτιστες· δείτε τη λίστα παρακάτω."
 
 #: core/diag/RFC6614Tests.php:68
 msgid "eduPKI"
@@ -413,7 +439,7 @@ msgstr "σωστό πιστοποιητικό"
 
 #: core/diag/RFC6614Tests.php:73
 msgid "certificate with wrong policy OID"
-msgstr "πιστοποιητικό με λάθος πολιτική OID"
+msgstr "πιστοποιητικό με λάθος policy OID"
 
 #: core/diag/RFC6614Tests.php:74
 msgid "expired certificate"
@@ -433,11 +459,11 @@ msgstr "αποτυχία"
 
 #: core/diag/RFC6614Tests.php:78
 msgid "eduroam-accredited CA (now only for tests)"
-msgstr "διαπιστευμένα από το eduroam CA (προς το παρόν μόνο για δοκιμές)"
+msgstr "CA διαπιστευμένα από το eduroam (προς το παρόν μόνο για δοκιμές)"
 
 #: core/diag/RFC6614Tests.php:253
 msgid "No TLS connection established: Connection refused"
-msgstr ""
+msgstr "Δεν ιδρύθηκε σύνδεση TLS: Απόρριψη σύνδεσης"
 
 #: core/diag/RFC6614Tests.php:255
 msgid "certificate expired"
@@ -473,30 +499,37 @@ msgstr "Αυτός ο τομέας δεν έχει εγγραφές NAPTR."
 #: core/diag/RFC7585Tests.php:130
 msgid "NAPTR records were found, but all of them refer to unrelated services."
 msgstr ""
-"Βρέθηκαν εγγραφές NAPTR, αλλά όλες τους αναφέρονται σε μη συσχετισμένες "
-"συσκευές."
+"Βρέθηκαν εγγραφές NAPTR, αλλά όλες τους αναφέρονται σε άσχετες υπηρεσίες."
 
 #: core/diag/Sociopath.php:35
 msgid "There is nothing you can do to solve this problem yourself."
 msgstr ""
+"Δεν υπάρχει τίποτε που μπορείτε να κάνετε για να λύσετε αυτό το πρόβλημα "
+"μόνοι σας."
 
 #: core/diag/Sociopath.php:36
 msgid ""
 "Please be patient and try again at a later time. Do NOT change your device "
 "configuration."
 msgstr ""
+"Παρακαλούμε να κάνετε υπομονή και να προσπαθήσετε ξανά αργότερα. ΜΗΝ "
+"αλλάξετε τις ρυθμίσεις της συσκευής σας."
 
 #: core/diag/Sociopath.php:37
 msgid ""
 "The infrastructure operators have automatically been informed and will "
 "investigate the issue as soon as possible."
 msgstr ""
+"Οι υπεύθυνοι λειτουργίας της υποδομής έχουν ενημερωθεί αυτόματα και θα "
+"διερευνήσουν το ζήτημα το συντομότερο δυνατό."
 
 #: core/diag/Sociopath.php:39
 msgid ""
 "The system has identified possible issues regarding your local device "
 "configuration."
 msgstr ""
+"Το σύστημα έχει αναγνωρίσει πιθανά ζητήματα με την τοπική διαμόρφωση της "
+"συσκευής σας."
 
 #: core/diag/Sociopath.php:47
 msgid ""
@@ -504,6 +537,9 @@ msgid ""
 "you described. Probably, this is not a participating institution and the "
 "account you tried to use does not exist."
 msgstr ""
+"Το σύστημα δεν μπορεί να βρει απολύτως καμία πληροφορία για τον Πάροχο "
+"Ταυτότητας που περιγράψατε. Πιθανώς αυτό δεν είναι ένα συμμετέχον ίδρυμα και "
+"ο λογαριασμός που προσπαθήσατε να χρησιμοποιήσετε δεν υπάρχει. "
 
 #: core/diag/Sociopath.php:48
 msgid ""
@@ -514,6 +550,13 @@ msgid ""
 "objects in the way, elevation differences) can have a significant impact on "
 "your connectivity experience."
 msgstr ""
+"Πιθανότατα υπάρχουν ορισμένα ζητήματα αναφορικά με το ασύρματο κομμάτι του "
+"δικτύου στο οποίο προσπαθείτε να συνδεθείτε. Τα ασύρματα δίκτυα δεν έχουν "
+"πάντα ντετερμινιστική και συνεπή συμπεριφορά. Όλοι οι χρήστες σε μία "
+"δεδομένη τοποθεσία αναγκαστικά μοιράζονται το διαθέσιμο εύρος ζώνης, και "
+"παράμετροι του φυσικού περιβάλλοντος (συμπαγείς τοίχοι, αντικείμενα που "
+"εμποδίζουν, υψομετρικές διαφορές) μπορούν να έχουν σημαντικό αντίκτυπο στην "
+"εμπειρία σύνδεσής σας."
 
 #. here is an array with yes/no answers per failure category, and the factors by which a Yes modifies the score; No's modify it by 1/factor;
 #. the order in this array is important: lower numbered questions will be asked first. So make sure you have high-quality questions in the beginning.
@@ -525,12 +568,18 @@ msgid ""
 "exists in CAT, then display link to config] or contact your Identity "
 "Provider [MGW: show contact info]."
 msgstr ""
+"Θα πρέπει να χρησιμοποιήσετε κατάλληλα βοηθήματα παραμετροποίησης [MGW: "
+"δείτε αν ο τομέας υπάρχει στο CAT, και μετά δείξτε σύνδεσμο προς την "
+"παραμετροποίηση] ή να επικοινωνήσετε με τον Πάροχο Ταυτότητας σας [MGW: "
+"δείξτε στοιχεία επικοινωνίας]."
 
 #: core/diag/Sociopath.php:60
 msgid ""
 "Have you ever used the network succesfully, e.g. at your home institution "
 "without roaming?"
 msgstr ""
+"Έχετε χρησιμοποιήσει επιτυχώς το δίκτυο στο παρελθόν, π.χ. στο οικείο σας "
+"ίδρυμα χωρίς την χρήση περιαγωγής;"
 
 #: core/diag/Sociopath.php:62
 #, php-format
@@ -538,12 +587,16 @@ msgid ""
 "If your device has never worked before with this setup, then very likely "
 "your device configuation is wrong. %s"
 msgstr ""
+"Εάν η συσκευή σας δεν λειτούργησε ποτέ με αυτές τις ρυθμίσεις, είναι πολύ "
+"πιθανό η συσκευή σας να έχει εσφαλμένη παραμετροποίηση. %s"
 
 #: core/diag/Sociopath.php:64
 msgid ""
 "Did the device previously work when roaming, i.e. at other hotspots away "
 "from your home institution?"
 msgstr ""
+"Η συσκευή λειτουργούσε προηγουμένως κατά την περιήγηση, δηλαδή σε hotspots "
+"μακριά από το οικείο ίδρυμα;"
 
 #: core/diag/Sociopath.php:66
 #, php-format
@@ -553,10 +606,15 @@ msgid ""
 "routing ('outer') username without the @realm.tld suffix - those potentially "
 "work at home, but can not be used when roaming. %s"
 msgstr ""
+"Αν η περιήγηση σταθερά δε λειτουργεί, τότε πολύ πιθανά η παραμετροποίηση της "
+"συσκευής σας είναι λανθασμένη. Τυπικά σφάλματα στα οποία οφείλεται αυτό το "
+"σύμπτωμα περιλαμβάνουν: χρήση ('εξωτερικού') ονόματος χρήστη για δρομολόγηση "
+"χωρίς το επίθεμα @realm.tld - αυτό ενδεχομένως δουλεύει στο οικείο "
+"περιβάλλον, αλλά δεν μπορεί να χρησιμοποιηθεί κατά την περιήγηση. %s"
 
 #: core/diag/Sociopath.php:68
 msgid "Did you recently change the configuration on your device?"
-msgstr ""
+msgstr "Έχετε τροποποιήσει πρόσφατα την παραμετροποίηση της συσκευής σας;"
 
 #: core/diag/Sociopath.php:70
 msgid ""
@@ -566,10 +624,18 @@ msgid ""
 "configuration unless explicitly instructed so by your Identity Provider; "
 "even in the case of temporary login issues."
 msgstr ""
+"Οι λογαριασμοί χρειάζεται να παραμετροποιηθούν μόνο μία φορά, και μετά "
+"μπορούν να χρησιμοποιηθούν οπουδήποτε στον πλανήτη χωρίς αλλαγές. Αν "
+"πρόσφατα αλλάξατε τις ρυθμίσεις, αυτή η αλλαγή μπορεί πολύ πιθανά να είναι "
+"εσφαλμένη. Δεν θα πρέπει ποτέ να αλλάξετε τις ρυθμίσεις σας εκτός αν λάβετε "
+"σαφείς οδηγίες από τον Πάροχο Ταυτότητας σας· αυτό ακόμα και σε περίπτωση "
+"προσωρινού προβλήματος σύνδεσης."
 
 #: core/diag/Sociopath.php:72
 msgid "If you use more than one device: do your other devices still work?"
 msgstr ""
+"Εάν χρησιμοποιείτε περισσότερες από μία συσκευές: οι άλλες σας συσκευές "
+"συνεχίζουν να λειτουργούν;"
 
 #: core/diag/Sociopath.php:73
 msgid ""
@@ -578,12 +644,18 @@ msgid ""
 "change the password? These questions are best answered by your Identity "
 "Provider [MGW: display contact info]"
 msgstr ""
+"Αν όλες οι συσκευές έπαψαν να δουλεύουν ταυτόχρονα, ίσως υπάρχει ένα "
+"πρόβλημα με το λογαριασμό σας ως τέτοιο. Ίσως ο λογαριασμός σας έληξε, ή "
+"υποχρεωθήκατε σε αλλαγή συνθηματικού; Αυτές οι ερωτήσεις μπορούν καλύτερα να "
+"απαντηθούν από τον Πάροχο Ταυτότητας σας [MGW: δείξτε στοιχεία επικοινωνίας]"
 
 #: core/diag/Sociopath.php:76
 msgid ""
 "Is the place you are currently at heavily crowded, or is a network-intensive "
 "workload going on?"
 msgstr ""
+"Είναι το μέρος που βρίσκεστε τώρα γεμάτο πολύ κόσμο, ή μήπως είναι σε "
+"εξέλιξη εργασίες που προκαλούν μεγάλο φόρτο στο δίκτυο;"
 
 #: core/diag/Sociopath.php:78
 msgid ""
@@ -592,10 +664,15 @@ msgid ""
 "the network should be reinforced for more capacity at this place, you should "
 "inform the hotspot provider. [MGW: add contact info]"
 msgstr ""
+"Είναι πιθανό το δίκτυο στην τοποθεσία σας να είναι υπερφορτωμένο αυτή τη "
+"χρονική στιγμή. Ίσως χρειαστεί να περιμένετε να δοκιμάσετε αργότερα για να "
+"πετύχετε καλύτερη συνδεσιμότητα. Αν πιστεύετε ότι πρέπει να ενισχυθεί η "
+"χωρητικότητα του δικτύου σε αυτήν την τοποθεσία, θα πρέπει να ενημερώσετε "
+"τον πάροχο του hotspot. [MGW: προσθήκη επαφών επικοινωνίας]"
 
 #: core/diag/Sociopath.php:80
 msgid "Does the connection get better when you move around?"
-msgstr ""
+msgstr "Η ποιότητα της σύνδεσής σας βελτιώνεται όταν μετακινήστε;"
 
 #: core/diag/Sociopath.php:82
 msgid ""
@@ -603,11 +680,15 @@ msgid ""
 "and service. If you think the exact spot you are at deserves better "
 "coverage, you should inform the hotspot provider. [MGW: add contact info]"
 msgstr ""
+"Θα πρέπει να μετακινηθείτε σε διαφορετική τοποθεσία για να έχετε καλύτερη "
+"κάλυψη δικτύου και υπηρεσίες. Εάν πιστεύετε ότι στην ακριβή τοποθεσία που "
+"βρίσκεστε χρειάζεται καλύτερη κάλυψη, θα πρέπει να ενημερώσετε τον πάροχο "
+"του hotspot. [MGW: προσθήκη επαφών επικοινωνίας]"
 
 #: core/diag/Sociopath.php:85
 msgid ""
 "Do you see errors stating something similar to 'Unable to get IP address'?"
-msgstr ""
+msgstr "Βλέπετε σφάλματα που δηλώνουν κάτι σαν 'Αδυναμία λήψης διεύθυνσης IP';"
 
 #: core/diag/Sociopath.php:87
 msgid ""
@@ -615,596 +696,367 @@ msgid ""
 "this particular hotspot provider. There is nothing you can do to solve this "
 "problem locally. Please be patient and try again at a later time."
 msgstr ""
+"Τα διαθέσιμα στοιχεία υποδεικνύουν ότι μπορεί να υπάρχει ένα πρόβλημα "
+"υποδομής στο συγκεκριμένο πάροχο hotspot. Δεν υπάρχει τίποτε που μπορείτε να "
+"κάνετε για να λύσετε αυτό το πρόβλημα τοπικά. Παρακαλούμε να κάνετε υπομονή "
+"και να δοκιμάσετε ξανά αργότερα."
 
 #: web/skins/modern/diag/diag.php:68
 msgid "Diagnostics site"
-msgstr ""
+msgstr "Σελίδα διαγνωστικών"
 
 #: web/skins/modern/diag/diag.php:68 web/skins/modern/diag/diag.php:71
 msgid ""
 "The diagnostics system will do its best to identify and resolve your "
 "problems!"
 msgstr ""
+"Το σύστημα διαγνωστικών θα κάνει το καλύτερο δυνατό για να αναγνωρίσει και "
+"να επιλύσει τα προβλήματά σας!"
 
 #: web/skins/modern/diag/diag.php:68
 msgid ""
 "Please help the system by answering the questions as precisely as possible."
 msgstr ""
+"Παρακαλώ βοηθήστε το σύστημα απαντώντας στις ερωτήσεις όσο γίνεται με "
+"ακρίβεια."
 
 #: web/skins/modern/diag/diag.php:71
 msgid "Are you a"
-msgstr ""
+msgstr "Είστε"
 
 #: web/skins/modern/diag/diag.php:72
 msgid "end-user"
-msgstr ""
+msgstr "τελικός χρήστης"
 
 #: web/skins/modern/diag/diag.php:72
 msgid "or"
-msgstr ""
+msgstr "ή"
 
 #: web/skins/modern/diag/diag.php:73
 msgid "eduroam administrator"
-msgstr ""
+msgstr "διαχειριστής eduroam"
 
 #: web/skins/modern/diag/diag.php:76
 msgid "Tools for End Users"
-msgstr ""
+msgstr "Εργαλεία για Τελικούς Χρήστες"
 
 #: web/skins/modern/diag/diag.php:79
 msgid ""
 "To resolve your problem a real-time diagnostics for your realm must be "
 "performed."
 msgstr ""
+"Για να επιλυθεί το πρόβλημά σας πρέπει να εκτελεστεί μια διάγνωση σε "
+"πραγματικό χρόνο για τον τομέα σας."
 
 #: web/skins/modern/diag/diag.php:83
 msgid ""
 "The system needs some information on your home institution - issuer of your "
 "account"
 msgstr ""
+"Το σύστημα χρειάζεται κάποιες πληροφορίες για το οικείο ίδρυμα σας - αρχή "
+"έκδοσης του λογαριασμού σας"
 
 #: web/skins/modern/diag/diag.php:84
 msgid ""
 "What is the realm part of your user account (the part behind the @ of 'your."
 "username@<b>realm.tld</b>):"
 msgstr ""
+"Ποιος είναι ο τομέας στο λογαριασμό χρήστη σας (το τμήμα που ακολουθεί το @ "
+"στο 'your.username@<b>realm.tld</b>):"
 
 #: web/skins/modern/diag/diag.php:88
 msgid "alternatively"
-msgstr ""
+msgstr "εναλλακτικά"
 
 #: web/skins/modern/diag/diag.php:89
 msgid "You can select your home institution from the following list"
-msgstr ""
+msgstr "Μπορείτε να επιλέξετε το οικείο σας ίδρυμα από την ακόλουθη λίστα"
 
 #: web/skins/modern/diag/diag.php:91
 msgid "Click to select your country/region and organisation"
-msgstr ""
+msgstr "Πατήστε για να επιλέξετε χώρα/περιφέρεια και οργανισμό"
 
 #: web/skins/modern/diag/diag.php:98
 msgid ""
 "Optionally, to improve tests, you can provide information on your current "
 "location"
 msgstr ""
+"Προαιρετικά, για την βελτίωση των δοκιμών, μπορείτε να παρέχετε πληροφορίες "
+"σχετικά με την τωρινή σας τοποθεσία"
 
 #: web/skins/modern/diag/diag.php:100
 msgid "Click to select a location in which you have an eduroam problem"
 msgstr ""
+"Πατήστε για να επιλέξετε μια τοποθεσία στην οποία έχετε πρόβλημα με το "
+"eduroam"
 
 #: web/skins/modern/diag/diag.php:107 web/skins/modern/diag/diag.php:238
 msgid "Testing realm"
-msgstr ""
+msgstr "Δοκιμαστικός τομέας"
 
 #: web/skins/modern/diag/diag.php:108
 msgid "First stage completed."
-msgstr ""
+msgstr "Το πρώτο στάδιο ολοκληρώθηκε."
 
 #: web/skins/modern/diag/diag.php:113
 msgid "To narrow down the problem, please answer the following few questions."
 msgstr ""
+"Για να εντοπίσουμε το πρόβλημα, παρακαλούμε απαντήστε στις ακόλουθες "
+"ερωτήσεις."
 
 #: web/skins/modern/diag/diag.php:118
 msgid "Run tests"
-msgstr ""
+msgstr "Εκτέλεση δοκιμών"
 
 #: web/skins/modern/diag/diag.php:123
 msgid "Tools for eduroam admins"
-msgstr ""
+msgstr "Εργαλεία για διαχειριστές eduroam"
 
 #: web/skins/modern/diag/diag.php:135
 msgid "Which problem are you reporting?"
-msgstr ""
+msgstr "Ποιο πρόβλημα αναφέρετε;"
 
 #: web/skins/modern/diag/diag.php:137 web/skins/modern/diag/diag.php:845
 msgid "SP contacting IdP due to technical problems or abuse"
-msgstr ""
+msgstr "Επικοινωνία SP με IdP λόγω τεχνικών προβλημάτων ή κατάχρησης"
 
 #: web/skins/modern/diag/diag.php:139
 msgid "IdP contacting SP due to technical problems"
-msgstr ""
+msgstr "Επικοινωνία IdP με SP λόγω τεχνικών προβλημάτων"
 
 #: web/skins/modern/diag/diag.php:146
 msgid "This service is for authenticated admins only."
-msgstr ""
+msgstr "Η υπηρεσία αυτή είναι μόνο για ταυτοποιημένους διαχειριστές."
 
 #: web/skins/modern/diag/diag.php:148
 msgid "eduroam® admin access is needed"
-msgstr ""
+msgstr "χρειάζεται διαχειριστική πρόσβαση eduroam®"
 
 #: web/skins/modern/diag/diag.php:172
 msgid "Select institiution:"
-msgstr ""
+msgstr "Επιλέξτε ίδρυμα:"
 
 #: web/skins/modern/diag/diag.php:197
 msgid "Select country or region:"
-msgstr ""
+msgstr "Επιλέξτε χώρα ή περιφέρεια:"
 
 #: web/skins/modern/diag/diag.php:205
 msgid "Fetching country/region list"
-msgstr ""
+msgstr "Ανάκτηση λίστας χωρών/περιφερειών"
 
 #: web/skins/modern/diag/diag.php:265
 msgid "Yes"
-msgstr ""
+msgstr "Ναι"
 
 #: web/skins/modern/diag/diag.php:266
 msgid "No"
-msgstr ""
+msgstr "Όχι"
 
 #: web/skins/modern/diag/diag.php:267
 msgid "I don't know"
-msgstr ""
+msgstr "Δε γνωρίζω"
 
 #: web/skins/modern/diag/diag.php:296
 msgid "Diagnostic tests results for selected realm"
-msgstr ""
+msgstr "Αποτελέσματα διαγνωστικών για τον επιλεγμένο τομέα"
 
 #: web/skins/modern/diag/diag.php:299
 msgid "The result for tested realm:"
-msgstr ""
+msgstr "Το αποτέλεσμα των δοκιμών για τον τομέα:"
 
 #: web/skins/modern/diag/diag.php:301
 msgid "The system identified"
-msgstr ""
+msgstr "Το σύστημα ταυτοποίησε "
 
 #: web/skins/modern/diag/diag.php:303
 msgid "suspected areas which potentially can cause a problem."
-msgstr ""
+msgstr "ύποπτες περιοχές οι οποίες ενδέχεται να προκαλέσουν πρόβλημα."
 
 #: web/skins/modern/diag/diag.php:304
 msgid ""
 "Next to the problem description we show a speculated probability of this "
 "event."
 msgstr ""
+"Δίπλα από την περιγραφή του προβλήματος σας παρουσιάζουμε και την εικαζόμενη "
+"πιθανότητα αυτού του συμβάντος."
 
 #: web/skins/modern/diag/diag.php:311
 msgid "Your device configuration is broken"
-msgstr ""
+msgstr "Η διαμόρφωση της συσκευής σας είναι χαλασμένη"
 
 #: web/skins/modern/diag/diag.php:314
 msgid "The Wi-Fi network in your vicinity has quality issues"
-msgstr ""
+msgstr "Το δίκτυο Wi-Fi στη γειτονιά σας έχει ζητήματα ποιότητας"
 
 #: web/skins/modern/diag/diag.php:317
 msgid "The network environment around you is broken"
-msgstr ""
+msgstr "Το περιβάλλον δικτύου γύρω σας είναι χαλασμένο"
 
 #: web/skins/modern/diag/diag.php:320
 msgid "The RADIUS server of your service provider is the source of the problem"
 msgstr ""
+"Ο εξυπηρετητής RADIUS του παρόχου υπηρεσίας σας είναι η πηγή του προβλήματος"
 
 #: web/skins/modern/diag/diag.php:323
 msgid ""
 "The RADIUS server in your home institution is currently unable to "
 "authenticate you"
 msgstr ""
+"Ο εξυπηρετητής RADIUS του οικείου ιδρύματος σας δεν μπορεί να επαληθεύσει "
+"την ταυτότητά σας αυτή τη στιγμή"
 
 #: web/skins/modern/diag/diag.php:326
 msgid ""
 "The national server in the country/region you are visiting is not "
 "functioning correctly"
 msgstr ""
+"Ο εθνικός εξυπηρετητής στη χώρα/περιφέρεια που επισκέφθεστε δε λειτουργεί "
+"σωστά"
 
 #: web/skins/modern/diag/diag.php:329
 msgid ""
 "The link between the national server of the country/region you are visiting "
 "and the top-level server is broken"
 msgstr ""
+"Ο σύνδεσμος μεταξύ του εθνικού εξυπηρετητή στη χώρα/περιφέρεια που "
+"επισκέφθεστε και του εξυπηρετητή ανώτερου επιπέδου είναι χαλασμένος"
 
 #: web/skins/modern/diag/diag.php:332
 msgid ""
 "The link between the national server of your home country/region and the top-"
 "level server is broken"
 msgstr ""
+"Ο σύνδεσμος μεταξύ του εθνικού εξυπηρετητή της πατρίδας/περιφέρειάς σας και "
+"του εξυπηρετητή ανωτέρου επιπέδου είναι χαλασμένος"
 
 #: web/skins/modern/diag/diag.php:335
 msgid "The communication to the top-level server is down"
-msgstr ""
+msgstr "Η επικοινωνία με τον εξυπηρετητή ανώτερου επιπέδου έχει διακοπεί"
 
 #: web/skins/modern/diag/diag.php:338
 msgid ""
 "The national server in your home country/region is not functioning properly."
 msgstr ""
+"Ο εθνικός εξυπηρετητής της πατρίδας/περιφέρειάς σας δε λειτουργεί σωστά."
 
 #: web/skins/modern/diag/diag.php:341
 msgid "The RADIUS server of your home institution is the source of the problem"
 msgstr ""
+"Ο εξυπηρετητής RADIUS του οικείου ιδρύματος είναι η πηγή του προβλήματος"
 
 #: web/skins/modern/diag/diag.php:344
-#, fuzzy
 msgid "This realm does not exist"
-msgstr "Αυτός ο τομέας δεν έχει εγγραφές NAPTR."
+msgstr "Αυτός ο τομέας δεν υπάρχει"
 
 #: web/skins/modern/diag/diag.php:450
 msgid "Fetching institutions list"
-msgstr ""
+msgstr "Ανάκτηση λίστας ιδρυμάτων"
 
 #: web/skins/modern/diag/diag.php:468
 msgid "Select institution:"
-msgstr ""
+msgstr "Επιλέξτε ίδρυμα:"
 
 #: web/skins/modern/diag/diag.php:507
 msgid "Fetching realms list"
-msgstr ""
+msgstr "Λήψη λίστας τομέων"
 
 #: web/skins/modern/diag/diag.php:519
 msgid "Check realm(s):"
-msgstr ""
+msgstr "Ελέγξετε τομέα(εις):"
 
 #: web/skins/modern/diag/diag.php:531
 msgid "Realm:"
-msgstr ""
+msgstr "Τομέας:"
 
 #: web/skins/modern/diag/diag.php:585 web/skins/modern/diag/diag.php:654
 #: web/skins/modern/diag/diag.php:770
 msgid "Running realm tests"
-msgstr ""
+msgstr "Εκτέλεση δοκιμών τομέα"
 
 #: web/skins/modern/diag/diag.php:629
 msgid "Realm is not registered with the eduroam database:"
-msgstr ""
+msgstr "Ο τομέας δεν είναι καταχωρημένος στην βάση eduroam:"
 
 #: web/skins/modern/diag/diag.php:702
 msgid "Diagnostics results for selected realms"
-msgstr ""
+msgstr "Αποτελέσματα διαγνωστικών για τους επιλεγμένους τομείς"
 
 #: web/skins/modern/diag/diag.php:703
 msgid "An unknown problem occured"
-msgstr ""
+msgstr "Προέκυψε άγνωστο πρόβλημα"
 
 #: web/skins/modern/diag/diag.php:706
 msgid "This test includes checking of the following realm"
-msgstr ""
+msgstr "Αυτή η δοκιμή περιλαμβάνει τον έλεγχο του ακόλουθου τομέα"
 
 #: web/skins/modern/diag/diag.php:708
 msgid "This test includes checking of the following realms"
-msgstr ""
+msgstr "Αυτή η δοκιμή περιλαμβάνει τον έλεγχο των ακόλουθων τομέων"
 
 #: web/skins/modern/diag/diag.php:718
 msgid "You should report this to"
-msgstr ""
+msgstr "Θα πρέπει να το αναφέρετε  στο"
 
 #: web/skins/modern/diag/diag.php:842
 msgid "eduroam admin report submission"
-msgstr ""
+msgstr "υποβολή αναφοράς διαχειριστή eduroam"
 
 #: web/skins/modern/diag/diag.php:847 web/skins/modern/diag/diag.php:857
 msgid "Reason"
-msgstr ""
+msgstr "Αιτία"
 
 #: web/skins/modern/diag/diag.php:848
 msgid "SP email"
-msgstr ""
+msgstr "SP email"
 
 #: web/skins/modern/diag/diag.php:849
 msgid "IdP email(s)"
-msgstr ""
+msgstr "IdP email(s)"
 
 #: web/skins/modern/diag/diag.php:850 web/skins/modern/diag/diag.php:861
 msgid "Event's timestamp"
-msgstr ""
+msgstr "Χρονοσήμανση συμβάντος"
 
 #: web/skins/modern/diag/diag.php:851 web/skins/modern/diag/diag.php:862
 msgid "Calling-Station-Id"
-msgstr ""
+msgstr "Calling-Station-Id"
 
 #: web/skins/modern/diag/diag.php:852 web/skins/modern/diag/diag.php:863
 msgid "Additional description"
-msgstr ""
+msgstr "Επιπρόσθετη περιγραφή"
 
 #: web/skins/modern/diag/diag.php:855
 msgid "IdP contacting SP due to technical problems or abuse"
-msgstr ""
+msgstr "Επικοινωνία IdP με SP λόγω τεχνικών προβλημάτων ή κατάχρησης"
 
 #: web/skins/modern/diag/diag.php:858
 msgid "SP's Operator-Name"
-msgstr ""
+msgstr "Operator-Name του SP"
 
 #: web/skins/modern/diag/diag.php:859
 msgid "User's outer ID"
-msgstr ""
+msgstr "εξωτερικό ID Χρήστη"
 
 #: web/skins/modern/diag/diag.php:860
 msgid "IdP email"
-msgstr ""
+msgstr "IdP email"
 
 #: web/skins/modern/diag/diag.php:864
 msgid "How to contact the user"
-msgstr ""
+msgstr "Πώς να επικοινωνήσετε με το χρήστη"
 
 #: web/skins/modern/diag/diag.php:881
 msgid "MAC address is incomplete"
-msgstr ""
+msgstr "Η MAC address είναι ελλιπής"
 
 #: web/skins/modern/diag/diag.php:890
 msgid "Wrong format of email"
-msgstr ""
+msgstr "Λάθος μορφή email"
 
 #: web/skins/modern/diag/diag.php:899
 msgid "Wrong format of outer ID"
-msgstr ""
+msgstr "Λάθος μορφή του εξωτερικού ID"
 
 #: web/skins/modern/diag/diag.php:908
 msgid "Wrong string given as OperatorName"
-msgstr ""
-
-#~ msgid "your local %s support"
-#~ msgstr "η τοπική σας υποστήριξη για %s"
-
-#~ msgid "your local %s support page"
-#~ msgstr "η τοπική σας σελίδα υποστήριξης για %s"
-
-#~ msgid ""
-#~ "Sorry, this should not happen - no additional information is available"
-#~ msgstr ""
-#~ "Λυπούμαστε, αυτό δεν έπρεπε να συμβεί - δεν είναι διαθέσιμες επιπρόσθετες "
-#~ "πληροφορίες"
-
-#~ msgid "Andorra"
-#~ msgstr "Ανδόρα"
-
-#~ msgid "Austria"
-#~ msgstr "Αυστρία"
-
-#~ msgid "Belgium"
-#~ msgstr "Βέλγιο"
-
-#~ msgid "Bulgaria"
-#~ msgstr "Βουλγαρία"
-
-#~ msgid "Cyprus"
-#~ msgstr "Κύπρος"
-
-#~ msgid "Czech Republic"
-#~ msgstr "Τσεχία"
-
-#~ msgid "Denmark"
-#~ msgstr "Δανία"
-
-#~ msgid "Estonia"
-#~ msgstr "Εσθονία"
-
-#~ msgid "Finland"
-#~ msgstr "Φινλανδία"
-
-#~ msgid "France"
-#~ msgstr "Γαλλία"
-
-#~ msgid "Germany"
-#~ msgstr "Γερμανία"
-
-#~ msgid "Greece"
-#~ msgstr "Ελλάδα"
-
-#~ msgid "Croatia"
-#~ msgstr "Κροατία"
-
-#~ msgid "Ireland"
-#~ msgstr "Ιρλανδία"
-
-#~ msgid "Iceland"
-#~ msgstr "Ισλανδία"
-
-#~ msgid "Italy"
-#~ msgstr "Ιταλία"
-
-#~ msgid "Hungary"
-#~ msgstr "Ουγγαρία"
-
-#~ msgid "Luxembourg"
-#~ msgstr "Λουξεμβούργο"
-
-#~ msgid "Latvia"
-#~ msgstr "Λετονία"
-
-#~ msgid "Lithuania"
-#~ msgstr "Λιθουανία"
-
-#~ msgid "Macedonia"
-#~ msgstr "Πρώην Γιουγκοσλαβική Δημοκρατία της Μακεδονίας"
-
-#~ msgid "Serbia"
-#~ msgstr "Σερβία"
-
-#~ msgid "Netherlands"
-#~ msgstr "Ολλανδία"
-
-#~ msgid "Norway"
-#~ msgstr "Νορβηγία"
-
-#~ msgid "Poland"
-#~ msgstr "Πολωνία"
-
-#~ msgid "Portugal"
-#~ msgstr "Πορτογαλία"
-
-#~ msgid "Romania"
-#~ msgstr "Ρουμανία"
-
-#~ msgid "Slovenia"
-#~ msgstr "Σλοβενία"
-
-#~ msgid "Spain"
-#~ msgstr "Ισπανία"
-
-#~ msgid "Sweden"
-#~ msgstr "Σουηδία"
-
-#~ msgid "Slovakia"
-#~ msgstr "Σλοβακία"
-
-#~ msgid "Switzerland"
-#~ msgstr "Ελβετία"
-
-#~ msgid "Turkey"
-#~ msgstr "Τουρκία"
-
-#~ msgid "United Kingdom"
-#~ msgstr "Ηνωμένο Βασίλειο"
-
-#~ msgid "Australia"
-#~ msgstr "Αυστραλία"
-
-#~ msgid "Canada"
-#~ msgstr "Καναδάς"
-
-#~ msgid "Israel"
-#~ msgstr "Ισραήλ"
-
-#~ msgid "Japan"
-#~ msgstr "Ιαπωνία"
-
-#~ msgid "New Zealand"
-#~ msgstr "Νέα Ζηλανδία"
-
-#~ msgid "U.S.A."
-#~ msgstr "Η.Π.Α."
-
-#~ msgid "Brazil"
-#~ msgstr "Βραζιλία"
-
-#~ msgid "Chile"
-#~ msgstr "Χιλή"
-
-#~ msgid "Peru"
-#~ msgstr "Περού"
-
-#~ msgid "Venezuela"
-#~ msgstr "Βενεζουέλα"
-
-#~ msgid "Default"
-#~ msgstr "Προεπιλογή"
-
-#~ msgid "Armenia"
-#~ msgstr "Αρμενία"
-
-#~ msgid "Azerbaijan"
-#~ msgstr "Αζερμπαϊτζάν"
-
-#~ msgid "Belarus"
-#~ msgstr "Λευκορωσία"
-
-#~ msgid "Ecuador"
-#~ msgstr "Ισημερινός"
-
-#~ msgid "Hong Kong"
-#~ msgstr "Χονγκ Κονγκ"
-
-#~ msgid "Kenya"
-#~ msgstr "Κένυα"
-
-#~ msgid "Kyrgyzstan"
-#~ msgstr "Κιργιζία"
-
-#~ msgid "Korea"
-#~ msgstr "Κορέα"
-
-#~ msgid "Kazakhstan"
-#~ msgstr "Καζακστάν"
-
-#~ msgid "Morocco"
-#~ msgstr "Μαρόκο"
-
-#~ msgid "Moldova"
-#~ msgstr "Μολδαβία"
-
-#~ msgid "Montenegro"
-#~ msgstr "Μαυροβούνιο"
-
-#~ msgid "Macau"
-#~ msgstr "Μακάου"
-
-#~ msgid "Malta"
-#~ msgstr "Μάλτα"
-
-#~ msgid "Russia"
-#~ msgstr "Ρωσία"
-
-#~ msgid "Singapore"
-#~ msgstr "Σιγκαπούρη"
-
-#~ msgid "Thailand"
-#~ msgstr "Ταϊλάνδη"
-
-#~ msgid "Taiwan"
-#~ msgstr "Ταϊβάν"
-
-#~ msgid "South Africa"
-#~ msgstr "Νότια Αφρική"
-
-#~ msgid "Could not create a new Institution!"
-#~ msgstr "Αδυναμία δημιουργίας νέου ιδρύματος!"
-
-#~ msgid ""
-#~ "Hi,\n"
-#~ "\n"
-#~ "the Identity Provider %s in your %s federation %s has been deleted from "
-#~ "%s.\n"
-#~ "\n"
-#~ "We thought you might want to know.\n"
-#~ "\n"
-#~ "Best regards,\n"
-#~ "\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Χαίρετε,\n"
-#~ "\n"
-#~ "ο Πάροχος Ταυτότητας %s στην %s ομοσπονδία σας %s διαγράφηκε από %s.\n"
-#~ "\n"
-#~ "Πιστεύουμε ότι έπρεπε να το γνωρίζετε.\n"
-#~ "\n"
-#~ "Χαιρετισμούς,\n"
-#~ "\n"
-#~ "%s"
-
-#~ msgid "IdP in your federation was deleted"
-#~ msgstr "Διαγράφηκε ένας IdP στην ομοσπονδία σας"
-
-#~ msgid ""
-#~ "Hi,\n"
-#~ "\n"
-#~ "the invitation for the new Identity Provider %s in your %s federation %s "
-#~ "has been used and the IdP was created in %s.\n"
-#~ "\n"
-#~ "We thought you might want to know.\n"
-#~ "\n"
-#~ "Best regards,\n"
-#~ "\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Χαίρετε,\n"
-#~ "\n"
-#~ "η πρόσκληση για το νέο Πάροχο Ταυτότητας %s στην %s ομοσπονδία σας %s "
-#~ "χρησιμοποιήθηκε και δημιουργήθηκε ο IdP στο %s.\n"
-#~ "\n"
-#~ "Πιστεύουμε ότι έπρεπε να το γνωρίζετε.\n"
-#~ "\n"
-#~ "Χαιρετισμούς,\n"
-#~ "\n"
-#~ "%s"
-
-#~ msgid "IdP in your federation was created"
-#~ msgstr "Δημιουργήθηκε ένας IdP στην ομοσπονδία σας"
-
-#~ msgid "Feedback"
-#~ msgstr "Ανατροφοδότηση"
+msgstr "Εσφαλμένη συμβολοσειρά δόθηκε ως OperatorName"

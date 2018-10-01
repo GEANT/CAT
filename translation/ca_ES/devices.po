@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
-"PO-Revision-Date: 2018-05-18 06:37+0000\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"PO-Revision-Date: 2018-09-12 06:41+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/ca_ES/)\n"
@@ -196,9 +196,8 @@ msgstr ""
 "esbrineu el que heu de fer servir i introduïu-lo en el format correcte."
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:141
-#, fuzzy
 msgid "Unnamed Organisation"
-msgstr "%s sense nom"
+msgstr "Organització sense nom"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:142
 msgid "Unnamed Profile"
@@ -234,10 +233,11 @@ msgid "(%d times)"
 msgstr "(%d vegades)"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:210
-#, fuzzy
 msgid ""
 "to enter the username and password you have been given by your organisation"
-msgstr "per a introduir l'identificador i la contrasenya del vostre %s"
+msgstr ""
+"per a entrar l'identificador i contrasenya facilitats per la vostra "
+"institució"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:212
 #, php-format
@@ -308,16 +308,16 @@ msgstr ""
 "ha definit) i un bolcat dels atributs disponibles."
 
 #: devices/linux/Device_Linux.php:52
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "The installer is in the form of a Python script. It will try to configure %s "
 "under NetworkManager and if this is either not appropriate for your system "
 "or your version of NetworkManager is too old, a wpa_supplicant config file "
 "will be created instead."
 msgstr ""
-"L'instal.lador és un fitxer de comandes. Mirarà de configurar eduroam per al "
-"Network Manaegr i, cas que no sigui apropiat per al vostre sistema o la "
-"vostra versió de Network Manager sigui massa vella, es crearà un fitxer de "
+"L'instal.lador és un fitxer Python. Mirarà de configurar %s per al "
+"NetworkManager i, cas que no sigui apropiat per al vostre sistema o la "
+"vostra versió de NetworkManager sigui massa vella, es crearà un fitxer de "
 "configuració per a wpa_supplicant."
 
 #: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:115
@@ -345,7 +345,6 @@ msgstr ""
 "arrel i hi copiarà els certificats de servidor."
 
 #: devices/linux/Device_Linux.php:74
-#, fuzzy
 msgid ""
 "In order to connect to the network you will need a personal certificate in "
 "the form of a p12 file. You should obtain this certificate from your "
@@ -355,24 +354,23 @@ msgid ""
 "Your p12 file will also be copied to the .cat_installer directory."
 msgstr ""
 "Per tal de connectar a la xarxa necessiteu un certificat personal en el "
-"format p12. Podeu obtenir aquest certificat del vostre %s. Consulteu la "
-"pàgina d'ajuda per a esbrinar com podeu obtenir-lo. Aquests fitxers de "
-"certificat estan protegits amb contrasenya. Cal que disposeu d'ambdós "
-"(fitxer i contrasenya) durant el procés d'instal·lació. El vostre fitxer p12 "
-"també es copiarà a la carpeta .cat_installer."
+"format p12. Podeu obtenir aquest certificat de la vostra organització. "
+"Consulteu la pàgina d'ajuda per a esbrinar com podeu obtenir-lo. Aquests "
+"fitxers de certificat estan protegits amb contrasenya. Cal que disposeu "
+"d'ambdós (fitxer i contrasenya) durant el procés d'instal·lació. El vostre "
+"fitxer p12 també es copiarà a la carpeta .cat_installer."
 
 #. not EAP-TLS
 #: devices/linux/Device_Linux.php:76 devices/ms/WindowsCommon.php:128
-#, fuzzy
 msgid ""
 "In order to connect to the network you will need an account from your "
 "organisation. You should consult the support page to find out how this "
 "account can be obtained. It is very likely that your account is already "
 "activated."
 msgstr ""
-"Per a connectar a la xarxa cal un compte del vostre %s. Consulteu la pàgina "
-"d'ajuda per saber com heu d'obtenir el compte. És molt possible que el "
-"vostre compte ja estigui activat."
+"Per a connectar a la xarxa cal un compte de la vostra organització. "
+"Consulteu la pàgina d'ajuda per saber com heu d'obtenir el compte. És molt "
+"possible que el vostre compte ja estigui activat."
 
 #: devices/linux/Device_Linux.php:78
 msgid ""
@@ -425,9 +423,8 @@ msgid "Continue?"
 msgstr "Continuar?"
 
 #: devices/linux/Device_Linux.php:97
-#, fuzzy
 msgid "This NetworkManager version is not supported"
-msgstr "Aquesta versió del Network Manager no està suportada"
+msgstr "Aquesta versió del NetworkManager no està suportada"
 
 #: devices/linux/Device_Linux.php:98
 msgid "Certificate file not found, looks like a CAT error"
@@ -458,14 +455,13 @@ msgid "All files"
 msgstr "Tots els fitxers"
 
 #: devices/linux/Device_Linux.php:106
-#, fuzzy
 msgid ""
 "NetworkManager configuration failed, but we may generate a wpa_supplicant "
 "configuration file if you wish. Be warned that your connection password will "
 "be saved in this file as clear text."
 msgstr ""
-"La configuració del Network Manager ha fallat, però podem generar un arxiu "
-"de configuració de wpa_supplicant. Tingueu present que la contrasenya de "
+"La configuració del NetworkManager ha fallat, però podem generar un arxiu de "
+"configuració de wpa_supplicant. Tingueu present que la contrasenya de "
 "connexió es desa en text clar en aquest arxiu."
 
 #: devices/linux/Device_Linux.php:107
@@ -549,7 +545,6 @@ msgstr ""
 "màquina que vulgueu configurar i executeu-lo."
 
 #: devices/ms/WindowsCommon.php:124
-#, fuzzy
 msgid ""
 "In order to connect to the network you will need an a personal certificate "
 "in the form of a p12 file. You should obtain this certificate from your "
@@ -558,9 +553,10 @@ msgid ""
 "both the file and the password available during the installation process."
 msgstr ""
 "Per tal de connectar a la xarxa necessiteu un certificat personal en el "
-"format p12. Cal que l'obtingueu del vostre %s. Consulteu la pàgina d'ajuda "
-"per esbrinar com el podeu obtenir. Aquests certificats estan protegits per "
-"contrasenya. Necessitareu l'arxiu i la contrasenya durant la instal·lació."
+"format p12. Cal que l'obtingueu de la vostra organització. Consulteu la "
+"pàgina d'ajuda per esbrinar com el podeu obtenir. Aquests certificats estan "
+"protegits per contrasenya. Necessitareu l'arxiu i la contrasenya durant la "
+"instal·lació."
 
 #: devices/ms/WindowsCommon.php:132
 msgid ""

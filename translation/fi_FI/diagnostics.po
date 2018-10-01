@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: tuukka, 2016\n"
+"Last-Translator: Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, 2018\n"
 "Language-Team: Finnish (Finland) (https://www.transifex.com/eduroam_devel/"
 "teams/11799/fi_FI/)\n"
 "Language: fi_FI\n"
@@ -305,6 +305,8 @@ msgid ""
 "The certificate public key algorithm is unknown to the system. Please submit "
 "the certificate as a sample to the developers."
 msgstr ""
+"Varmenteen julkisen avaimen algoritmi on tuntematon. Ole hyvä ja lähetä "
+"varmenne kehittäjille."
 
 #: core/diag/Logopath.php:96
 msgid "[eduroam Diagnostics]"
@@ -317,6 +319,10 @@ msgid ""
 "org, forwarding the entire message (including the 'SUSPECTS' and 'EVIDENCE' "
 "data at the end), and explain why this is a false positive.)"
 msgstr ""
+"(Palvelu on alkuvaiheessa. Pahoittelemme, jos tämä on väärä hälytys. Jos "
+"näin on, lähetä sähköpostikertomus osoitteeseen cat-devel@lists.geant.org, "
+"joka sisältää koko viestin (mukaan lukien lopun 'SUSPECTS'- ja 'EVIDENCE' -"
+"tiedot) ja kerro, miksi tämä on väärä positiivinen hälytys.)"
 
 #: core/diag/Logopath.php:100
 msgid "Yours sincerely,"
@@ -329,6 +335,7 @@ msgstr "Ed U. Roam, eduroamin vianmääritysalgoritmi"
 #: core/diag/Logopath.php:110
 msgid "[POLICYVIOLATION NATIONAL] IdP with no entry in eduroam database"
 msgstr ""
+"[POLICYVIOLATION NATIONAL]  IdP, jolta puuttuu tietoja eduroam-tietokannasta"
 
 #: core/diag/Logopath.php:111
 msgid "Dear NRO administrator,"
@@ -341,6 +348,9 @@ msgid ""
 "checks determined that the realm exists, but we were unable to find an IdP "
 "with that realm in the eduroam database."
 msgstr ""
+"Loppukäyttäjä pyysi vianselvitys %s:lle.  Reaaliaikaisten yhteyden "
+"tarkistusten perusteella  toimialue on olemassa, mutta IdP: tä vastaavaa "
+"tietoa eduroam-tietokannasta ei löytynyt."
 
 #: core/diag/Logopath.php:115
 msgid ""
@@ -356,6 +366,9 @@ msgid ""
 "to direct end users to their IdP for further diagnosis/instructions because "
 "there are no contact points for that IdP in the database."
 msgstr ""
+"Lisäksi aiheutuu käyttöongelmia. Etenkin emme voi ohjata loppukäyttäjiä "
+"heidän omalle IdP:lle lisädiagnostiikkaa/ohjeita varten, koska tietokantaan "
+"ei ole määritelty yhteystietoja kyseiselle IdP: lle."
 
 #: core/diag/RADIUSTests.php:1008
 #, php-format
@@ -498,6 +511,9 @@ msgid ""
 "you described. Probably, this is not a participating institution and the "
 "account you tried to use does not exist."
 msgstr ""
+"Järjestelmä ei löydä tietoa kuvaamastasi käyttäjäorganisaatiosta. "
+"Todennäköisesti tämä ei ole osallistuva organisaatio, ja tili jota yritit "
+"käyttää ei ole."
 
 #: core/diag/Sociopath.php:48
 msgid ""
@@ -508,6 +524,11 @@ msgid ""
 "objects in the way, elevation differences) can have a significant impact on "
 "your connectivity experience."
 msgstr ""
+"On todennäköisesti ongelmia verkon langattomassa verkossa, johon yrität "
+"muodostaa yhteyden. Langattomat verkot eivät aina toimi deterministisesti ja "
+"johdonmukaisesti. Tietyssä paikassa olevien käyttäjien on jaettava "
+"käytettävissä oleva kaistanleveys, ja fyysinen ympäristö (betoniseinät, "
+"esineet, korkeuserot) voi vaikuttaa merkittävästi liittymiskokemukseen."
 
 #. here is an array with yes/no answers per failure category, and the factors by which a Yes modifies the score; No's modify it by 1/factor;
 #. the order in this array is important: lower numbered questions will be asked first. So make sure you have high-quality questions in the beginning.
@@ -519,12 +540,17 @@ msgid ""
 "exists in CAT, then display link to config] or contact your Identity "
 "Provider [MGW: show contact info]."
 msgstr ""
+"Käytä sopivia konfiguraatioavustajia [MGW: katso, onko kyseinen toimialue "
+"CAT: ssa, näytä sitten linkki konfigurointiin] tai ole yhteydessä "
+"kotiorganisaatioosi [MGW: näytä yhteystiedot]."
 
 #: core/diag/Sociopath.php:60
 msgid ""
 "Have you ever used the network succesfully, e.g. at your home institution "
 "without roaming?"
 msgstr ""
+"Oletko koskaan käyttänyt verkkoa onnistuneesti, esim. kotiorganisaatiosi "
+"kampuksella, ilman verkkovierailua?"
 
 #: core/diag/Sociopath.php:62
 #, php-format
@@ -532,12 +558,16 @@ msgid ""
 "If your device has never worked before with this setup, then very likely "
 "your device configuation is wrong. %s"
 msgstr ""
+"Jos laiteesi ei ole koskaan toiminut aiemmin näillä asetuksilla, on hyvin "
+"todennäköistä että laitteesi on konfiguroitu väärin.%s"
 
 #: core/diag/Sociopath.php:64
 msgid ""
 "Did the device previously work when roaming, i.e. at other hotspots away "
 "from your home institution?"
 msgstr ""
+"Onko laite aiemmin toiminut verkkovierailun yhteydessä, toisin sanoen muissa "
+"paikoissa kuin kotiorganisaatiosi kampuksilla?"
 
 #: core/diag/Sociopath.php:66
 #, php-format
@@ -547,6 +577,11 @@ msgid ""
 "routing ('outer') username without the @realm.tld suffix - those potentially "
 "work at home, but can not be used when roaming. %s"
 msgstr ""
+"Jos verkkovierailu jatkuvasti ei toimi, on laitteen konfigurointi "
+"todennäköisesti väärä. Tyypillinen virhe on että reititykseen käytettävässä "
+"('ulkoisessa') käyttäjätunnuksessa ei ole @realm.tld-päätettä. Tässä "
+"tapauksessa kotiorganisaation kampuksella ei välttämättä ole ongelmia, mutta "
+"verkkovierailu ei onnistu.%s"
 
 #: core/diag/Sociopath.php:68
 msgid "Did you recently change the configuration on your device?"
@@ -560,6 +595,11 @@ msgid ""
 "configuration unless explicitly instructed so by your Identity Provider; "
 "even in the case of temporary login issues."
 msgstr ""
+"Asetukset määritellään vain kerran, ja sen jälkeen käyttäjätunnus voidaan "
+"käyttää missä päin maalmaa tahansa ilman muutoksia. Jos olet äskettäin "
+"muuttanut konfigurointia, tämä muutos saattaa hyvin olla vian syy. Älä "
+"koskaan muuta verkkoasetuksia, ellei kotiorganisaatiosi pyytää sinua "
+"tekemään sitä, vaikka sinulla olisikin tilapäisiä kirjautumisongelmia."
 
 #: core/diag/Sociopath.php:72
 msgid "If you use more than one device: do your other devices still work?"
@@ -573,6 +613,10 @@ msgid ""
 "change the password? These questions are best answered by your Identity "
 "Provider [MGW: display contact info]"
 msgstr ""
+"Jos kaikki laitteet lakkasivat toimimasta samanaikaisesti, käyttäjätililläsi "
+"saattaa olla ongelmia. Ehkä tilisi on vanhentunut tai sinua pakotettiin "
+"vaihtamaan salasanasi? Näihin kysymyksiin kotiorganisaatiosi osaa parhaiten "
+"vastata [MGW: näytä yhteystiedot]"
 
 #: core/diag/Sociopath.php:76
 msgid ""
@@ -589,6 +633,10 @@ msgid ""
 "the network should be reinforced for more capacity at this place, you should "
 "inform the hotspot provider. [MGW: add contact info]"
 msgstr ""
+"Verkko on todennäköisesti ylikuormitettu tässä paikassa ja ajankohtana. "
+"Saatat joutua odottamaan, ennen kuin saat paremman yhteyden. Jos mielestäsi "
+"verkon kapasiteettia pitäisi parantaa, ilmoita tästä hotspot-"
+"palveluntarjoajalle. [MGW: lisää yhteystiedot]"
 
 #: core/diag/Sociopath.php:80
 msgid "Does the connection get better when you move around?"
@@ -600,11 +648,15 @@ msgid ""
 "and service. If you think the exact spot you are at deserves better "
 "coverage, you should inform the hotspot provider. [MGW: add contact info]"
 msgstr ""
+"Sinun tulisi siirtyä toiseen paikkaan saadaksesi parempaa kuuluvutta ja "
+"palvelua. Jos mielestäsi verkon kuuluvuutta paikassa, missä olet, pitäisi "
+"parantaa, ilmoita tästä hotspot-palveluntarjoajalle. [MGW: lisää "
+"yhteystiedot]"
 
 #: core/diag/Sociopath.php:85
 msgid ""
 "Do you see errors stating something similar to 'Unable to get IP address'?"
-msgstr ""
+msgstr "Näetkö virheitä, joiden mukaan IP-osoitetta ei saada?"
 
 #: core/diag/Sociopath.php:87
 msgid ""
@@ -612,6 +664,9 @@ msgid ""
 "this particular hotspot provider. There is nothing you can do to solve this "
 "problem locally. Please be patient and try again at a later time."
 msgstr ""
+"Todisteet viittaavat siihen, että kyseisellä hotspot-palveluntarjoajalla "
+"saattaa olla infrastruktuuriongelmia. Et voi ratkaista tätä ongelmaa "
+"paikallisesti. Ole kärsivällinen ja yritä myöhemmin uudelleen."
 
 #: web/skins/modern/diag/diag.php:68
 msgid "Diagnostics site"
@@ -656,7 +711,7 @@ msgid ""
 "performed."
 msgstr ""
 "Ongelman selvittämiseksi ajetaan muutamia reaaliaikaisia tarkistuksia "
-"realmillesi."
+"toimialueellesi."
 
 #: web/skins/modern/diag/diag.php:83
 msgid ""
@@ -669,6 +724,8 @@ msgid ""
 "What is the realm part of your user account (the part behind the @ of 'your."
 "username@<b>realm.tld</b>):"
 msgstr ""
+"Mikä on käyttäjätunnuksesi toimialueosa (osa  @ -merkin jälkeen "
+"'käyttäjätunnus@<b>organisaatio.fi </b>):"
 
 #: web/skins/modern/diag/diag.php:88
 msgid "alternatively"
@@ -687,14 +744,16 @@ msgid ""
 "Optionally, to improve tests, you can provide information on your current "
 "location"
 msgstr ""
+"Voit tarvittaessa parantaa testit tarjoamalla tietoja nykyisestä "
+"sijainnistasi"
 
 #: web/skins/modern/diag/diag.php:100
 msgid "Click to select a location in which you have an eduroam problem"
-msgstr ""
+msgstr "Valitse klikkaamalla sijainti, jossa sinulla on eduroam-ongelma"
 
 #: web/skins/modern/diag/diag.php:107 web/skins/modern/diag/diag.php:238
 msgid "Testing realm"
-msgstr ""
+msgstr "Testataan toimialue"
 
 #: web/skins/modern/diag/diag.php:108
 msgid "First stage completed."
@@ -706,7 +765,7 @@ msgstr "Ongelman selvittämiseksi vastaathan muutamaan kysymykseen."
 
 #: web/skins/modern/diag/diag.php:118
 msgid "Run tests"
-msgstr ""
+msgstr "Aja testit"
 
 #: web/skins/modern/diag/diag.php:123
 msgid "Tools for eduroam admins"
@@ -718,31 +777,31 @@ msgstr "Millaisesta ongelmasta tahdot raportoida?"
 
 #: web/skins/modern/diag/diag.php:137 web/skins/modern/diag/diag.php:845
 msgid "SP contacting IdP due to technical problems or abuse"
-msgstr ""
+msgstr "SP on yhteydessä IdP:hen teknisten ongelmien tai väärinkäytön takia."
 
 #: web/skins/modern/diag/diag.php:139
 msgid "IdP contacting SP due to technical problems"
-msgstr ""
+msgstr "IdP on yhteydessä SP:hen teknisten ongelmien takia."
 
 #: web/skins/modern/diag/diag.php:146
 msgid "This service is for authenticated admins only."
-msgstr ""
+msgstr "Tämä palvelu on vain sisäänkirjautuneille ylläpitäjille."
 
 #: web/skins/modern/diag/diag.php:148
 msgid "eduroam® admin access is needed"
-msgstr ""
+msgstr "eduroam® ylläpito-oikeudet tarvitaan."
 
 #: web/skins/modern/diag/diag.php:172
 msgid "Select institiution:"
-msgstr ""
+msgstr "Valitse organisaatio:"
 
 #: web/skins/modern/diag/diag.php:197
 msgid "Select country or region:"
-msgstr ""
+msgstr "Valitse maa tai alue:"
 
 #: web/skins/modern/diag/diag.php:205
 msgid "Fetching country/region list"
-msgstr ""
+msgstr "Haetaan maa/alue luettelo"
 
 #: web/skins/modern/diag/diag.php:265
 msgid "Yes"
@@ -754,102 +813,110 @@ msgstr "Ei"
 
 #: web/skins/modern/diag/diag.php:267
 msgid "I don't know"
-msgstr ""
+msgstr "En tiedä."
 
 #: web/skins/modern/diag/diag.php:296
 msgid "Diagnostic tests results for selected realm"
-msgstr ""
+msgstr "Diagnostiikan tulokset valitulle toimialueelle"
 
 #: web/skins/modern/diag/diag.php:299
 msgid "The result for tested realm:"
-msgstr ""
+msgstr "Tulos testatulle toimialueelle:"
 
 #: web/skins/modern/diag/diag.php:301
 msgid "The system identified"
-msgstr ""
+msgstr "Tunnistettu järjestelmä"
 
 #: web/skins/modern/diag/diag.php:303
 msgid "suspected areas which potentially can cause a problem."
-msgstr ""
+msgstr "epäillyt alueet, jotka voivat aiheuttaa ongelmia."
 
 #: web/skins/modern/diag/diag.php:304
 msgid ""
 "Next to the problem description we show a speculated probability of this "
 "event."
 msgstr ""
+"Ongelman kuvauksen vieressä näytämme tämän tapauksen pohdiskeltu "
+"todennäköisyys."
 
 #: web/skins/modern/diag/diag.php:311
 msgid "Your device configuration is broken"
-msgstr ""
+msgstr "Laitteesi konfigurointi on virheellinen"
 
 #: web/skins/modern/diag/diag.php:314
 msgid "The Wi-Fi network in your vicinity has quality issues"
-msgstr ""
+msgstr "Lähistöllä olevalla Wi-Fi-verkolla on laatuongelmia"
 
 #: web/skins/modern/diag/diag.php:317
 msgid "The network environment around you is broken"
-msgstr ""
+msgstr "Lähistöllä oleva verkkoympäristö on rikki"
 
 #: web/skins/modern/diag/diag.php:320
 msgid "The RADIUS server of your service provider is the source of the problem"
-msgstr ""
+msgstr "Palveluntarjoajan RADIUS-palvelin on ongelman lähde"
 
 #: web/skins/modern/diag/diag.php:323
 msgid ""
 "The RADIUS server in your home institution is currently unable to "
 "authenticate you"
 msgstr ""
+"Kotiorganisaatiosi RADIUS-palvelin ei tällä hetkellä pysty autentikoimaan "
+"sinua"
 
 #: web/skins/modern/diag/diag.php:326
 msgid ""
 "The national server in the country/region you are visiting is not "
 "functioning correctly"
-msgstr ""
+msgstr "Kansallinen palvelin maassa/alueella, jota vierailet, ei toimi oikein"
 
 #: web/skins/modern/diag/diag.php:329
 msgid ""
 "The link between the national server of the country/region you are visiting "
 "and the top-level server is broken"
 msgstr ""
+"Vieraillun maan / alueen kansallisen palvelimen ja ylätason palvelimen "
+"välinen yhteys on rikki"
 
 #: web/skins/modern/diag/diag.php:332
 msgid ""
 "The link between the national server of your home country/region and the top-"
 "level server is broken"
 msgstr ""
+"Kotimaasi / alueesi kansallisen palvelimen ja ylätason palvelimen välinen "
+"yhteys on rikki"
 
 #: web/skins/modern/diag/diag.php:335
 msgid "The communication to the top-level server is down"
-msgstr ""
+msgstr "Viestintä ylätason palvelimelle on alhaalla"
 
 #: web/skins/modern/diag/diag.php:338
 msgid ""
 "The national server in your home country/region is not functioning properly."
-msgstr ""
+msgstr "Kansallinen palvelin kotimaassasi / alueellasi ei toimi oikein."
 
 #: web/skins/modern/diag/diag.php:341
 msgid "The RADIUS server of your home institution is the source of the problem"
-msgstr ""
+msgstr "Kotiorganisaatiosi RADIUS-palvelin on ongelman lähde"
 
 #: web/skins/modern/diag/diag.php:344
 msgid "This realm does not exist"
-msgstr ""
+msgstr "Toimialue ei ole olemassa"
 
 #: web/skins/modern/diag/diag.php:450
 msgid "Fetching institutions list"
-msgstr ""
+msgstr "Haetaan organisaatioluettelo"
 
 #: web/skins/modern/diag/diag.php:468
 msgid "Select institution:"
-msgstr ""
+msgstr "Valitse organisaatio:"
 
 #: web/skins/modern/diag/diag.php:507
 msgid "Fetching realms list"
-msgstr ""
+msgstr "Haetaan toimialueluettelo "
 
 #: web/skins/modern/diag/diag.php:519
 msgid "Check realm(s):"
-msgstr ""
+msgstr "Tarkista toimialue(t):"
 
 #: web/skins/modern/diag/diag.php:531
 msgid "Realm:"
@@ -858,95 +925,92 @@ msgstr "Toimialue:"
 #: web/skins/modern/diag/diag.php:585 web/skins/modern/diag/diag.php:654
 #: web/skins/modern/diag/diag.php:770
 msgid "Running realm tests"
-msgstr ""
+msgstr "Ajetaan toimialueen testit"
 
 #: web/skins/modern/diag/diag.php:629
 msgid "Realm is not registered with the eduroam database:"
-msgstr ""
+msgstr "Toimialuetta ei ole määritelty eduroam tietokantaan:"
 
 #: web/skins/modern/diag/diag.php:702
 msgid "Diagnostics results for selected realms"
-msgstr ""
+msgstr "Diagnostiikan tulokset valituille toimialueille"
 
 #: web/skins/modern/diag/diag.php:703
 msgid "An unknown problem occured"
-msgstr ""
+msgstr "Tuntematon ongelma ilmeni"
 
 #: web/skins/modern/diag/diag.php:706
 msgid "This test includes checking of the following realm"
-msgstr ""
+msgstr "Testi sisältää seuraavan toimialueen testaamisen"
 
 #: web/skins/modern/diag/diag.php:708
 msgid "This test includes checking of the following realms"
-msgstr ""
+msgstr "Testi sisältää seuraavan toimialueen testaamisen"
 
 #: web/skins/modern/diag/diag.php:718
 msgid "You should report this to"
-msgstr ""
+msgstr "Sinun pitäisi ilmoittaa asiasta"
 
 #: web/skins/modern/diag/diag.php:842
 msgid "eduroam admin report submission"
-msgstr ""
+msgstr "raportin lähettäminen eduroam ylläpitäjälle"
 
 #: web/skins/modern/diag/diag.php:847 web/skins/modern/diag/diag.php:857
 msgid "Reason"
-msgstr ""
+msgstr "Syy"
 
 #: web/skins/modern/diag/diag.php:848
 msgid "SP email"
-msgstr ""
+msgstr "SP sähköposti"
 
 #: web/skins/modern/diag/diag.php:849
 msgid "IdP email(s)"
-msgstr ""
+msgstr "IdP:n sähköpostiosoite(et)"
 
 #: web/skins/modern/diag/diag.php:850 web/skins/modern/diag/diag.php:861
 msgid "Event's timestamp"
-msgstr ""
+msgstr "Tapahtuman aikaleima"
 
 #: web/skins/modern/diag/diag.php:851 web/skins/modern/diag/diag.php:862
 msgid "Calling-Station-Id"
-msgstr ""
+msgstr "Laitteen tunniste"
 
 #: web/skins/modern/diag/diag.php:852 web/skins/modern/diag/diag.php:863
 msgid "Additional description"
-msgstr ""
+msgstr "Lisäkuvaus"
 
 #: web/skins/modern/diag/diag.php:855
 msgid "IdP contacting SP due to technical problems or abuse"
-msgstr ""
+msgstr "IdP on yhteydessä SP:hen teknisten ongelmien tai väärinkäytön takia."
 
 #: web/skins/modern/diag/diag.php:858
 msgid "SP's Operator-Name"
-msgstr ""
+msgstr "SP:n tunniste"
 
 #: web/skins/modern/diag/diag.php:859
 msgid "User's outer ID"
-msgstr ""
+msgstr "Käyttäjän ulkoinen identiteetti"
 
 #: web/skins/modern/diag/diag.php:860
 msgid "IdP email"
-msgstr ""
+msgstr "IdP:n sähköpostiosoite"
 
 #: web/skins/modern/diag/diag.php:864
 msgid "How to contact the user"
-msgstr ""
+msgstr "Yhteydenotto käyttäjään"
 
 #: web/skins/modern/diag/diag.php:881
 msgid "MAC address is incomplete"
-msgstr ""
+msgstr "MAC-osoite on epätäydellinen"
 
 #: web/skins/modern/diag/diag.php:890
 msgid "Wrong format of email"
-msgstr ""
+msgstr "Sähköpostiosoite on väärässä muodossa"
 
 #: web/skins/modern/diag/diag.php:899
 msgid "Wrong format of outer ID"
-msgstr ""
+msgstr "Ulkoinen identiteetti on väärässä muodossa"
 
 #: web/skins/modern/diag/diag.php:908
 msgid "Wrong string given as OperatorName"
-msgstr ""
-
-#~ msgid "Testing realm "
-#~ msgstr "Testataan realmia"
+msgstr "Tunniste (Operator-Name) on väärin"

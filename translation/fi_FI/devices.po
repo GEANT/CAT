@@ -5,15 +5,16 @@
 # Translators:
 # Jari Miettinen <Jari.Miettinen@csc.fi>, 2012
 # Jari Miettinen <Jari.Miettinen@csc.fi>, 2013
-# Tomi Salmi <tomi.salmi@csc.fi>, 2013,2015-2018
+# Tomi Salmi, 2013,2015-2018
 # tuukka, 2014-2015
+# Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
-"PO-Revision-Date: 2018-05-24 13:02+0000\n"
-"Last-Translator: Tomi Salmi <tomi.salmi@csc.fi>\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"PO-Revision-Date: 2018-09-25 11:07+0000\n"
+"Last-Translator: Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>\n"
 "Language-Team: Finnish (Finland) (http://www.transifex.com/eduroam_devel/cat/"
 "language/fi_FI/)\n"
 "Language: fi_FI\n"
@@ -197,9 +198,8 @@ msgstr ""
 "tarvittaessa oman organisaatiosi IT-tuesta."
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:141
-#, fuzzy
 msgid "Unnamed Organisation"
-msgstr "Nimetön %s"
+msgstr "Nimetön organisaatio"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:142
 msgid "Unnamed Profile"
@@ -237,10 +237,9 @@ msgid "(%d times)"
 msgstr "(%d kertaa)"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:210
-#, fuzzy
 msgid ""
 "to enter the username and password you have been given by your organisation"
-msgstr "anna käyttäjätunnus ja salasana palveluun %s"
+msgstr "antaaksesi kotiorganisaatiosi käyttäjätunnuksen ja salasanan"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:212
 #, php-format
@@ -310,16 +309,17 @@ msgstr ""
 "kopio olemassaolevista attribuuteista."
 
 #: devices/linux/Device_Linux.php:52
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "The installer is in the form of a Python script. It will try to configure %s "
 "under NetworkManager and if this is either not appropriate for your system "
 "or your version of NetworkManager is too old, a wpa_supplicant config file "
 "will be created instead."
 msgstr ""
-"Asennusohjelma on bash-komentojonotiedosto. Se yrittää määritellä eduroamin "
-"Network Manageriin. Jos tämä ei onnistu tai laitteesi Network Manager on "
-"liian vanha, luodaan wpa_supplicant-konfiguraatiotiedosto."
+"Asennusohjelma on Python-skriptin muodossa. Se yrittää konfiguroida %s "
+"NetworkManagerissa mutta jos tämä ei ole sopiva järjestelmäsi kannalta tai "
+"NetworkManager-versio on liian vanha, luodaan sen sijaan wpa_supplicant-"
+"määritystiedosto."
 
 #: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:115
 #, php-format
@@ -346,7 +346,6 @@ msgstr ""
 "sekä kopioi palvelinvarmenteet sinne."
 
 #: devices/linux/Device_Linux.php:74
-#, fuzzy
 msgid ""
 "In order to connect to the network you will need a personal certificate in "
 "the form of a p12 file. You should obtain this certificate from your "
@@ -356,24 +355,23 @@ msgid ""
 "Your p12 file will also be copied to the .cat_installer directory."
 msgstr ""
 "Yhdistääksesi verkkoon tarvitset henkilövarmenteen p12-muodossa. Mikäli "
-"tarvitset apua, ota yhteyttä omaan kotiorganisaatioosi %s. Varmennetiedostot "
+"tarvitset apua, ota yhteyttä omaan kotiorganisaatioosi. Varmennetiedostot "
 "ovat tavallisesti salasanasuojattuja, joten tarvitset asennusvaiheessa sekä "
 "varmenteen että salasanan. Asennuksen aikana p12-tiedosto kopioidaan ."
 "cat_installer-hakemistoon."
 
 #. not EAP-TLS
 #: devices/linux/Device_Linux.php:76 devices/ms/WindowsCommon.php:128
-#, fuzzy
 msgid ""
 "In order to connect to the network you will need an account from your "
 "organisation. You should consult the support page to find out how this "
 "account can be obtained. It is very likely that your account is already "
 "activated."
 msgstr ""
-"Jotta voit liittyä verkkoon tarvitset kotiorganisaatiosi "
-"%skäyttäjätunnuksen. Tutki kotiorganisaatiosi tukisivua selvittääksesi, "
-"miten käyttäjätunnus hankitaan. Todennäköisesti käyttäjätunnuksesi on jo "
-"luotu."
+"Jotta voit liittyä verkkoon tarvitset kotiorganisaatiosi käyttäjätunnuksen. "
+"Tutki kotiorganisaatiosi tukisivua selvittääksesi, miten käyttäjätunnus "
+"hankitaan. Todennäköisesti käyttäjätunnuksesi on jo luotu ja valmiina "
+"käyttöönotettavaksi."
 
 #: devices/linux/Device_Linux.php:78
 msgid ""
@@ -427,9 +425,8 @@ msgid "Continue?"
 msgstr "Haluatko jatkaa?"
 
 #: devices/linux/Device_Linux.php:97
-#, fuzzy
 msgid "This NetworkManager version is not supported"
-msgstr "Käyttämäsi Network Managerin versio ei ole tuettu"
+msgstr "Tämä NetworkManagerin versio ei ole tuettu."
 
 #: devices/linux/Device_Linux.php:98
 msgid "Certificate file not found, looks like a CAT error"
@@ -460,15 +457,14 @@ msgid "All files"
 msgstr "Kaikki tiedostot"
 
 #: devices/linux/Device_Linux.php:106
-#, fuzzy
 msgid ""
 "NetworkManager configuration failed, but we may generate a wpa_supplicant "
 "configuration file if you wish. Be warned that your connection password will "
 "be saved in this file as clear text."
 msgstr ""
-"Network Managerin määritysten teko ei onnistunut, mutta halutessasi voit "
-"luoda wpa_supplicant-asetustiedoston. Huomioi kuitenkin, että yhteyden "
-"salasana tallentuu asetustiedostoon selväkielisenä."
+"NetworkManagerin asetuksia ei voitu määritellä, mutta voimme luoda "
+"wpa_supplicant-määritystiedoston, jos haluat. Muista, että salasanasi "
+"tallennetaan tähän tiedostoon selkokielisessä muodossa."
 
 #: devices/linux/Device_Linux.php:107
 msgid "Write the file"
@@ -549,7 +545,6 @@ msgstr ""
 "haluat asentaa eduroamin."
 
 #: devices/ms/WindowsCommon.php:124
-#, fuzzy
 msgid ""
 "In order to connect to the network you will need an a personal certificate "
 "in the form of a p12 file. You should obtain this certificate from your "
@@ -558,10 +553,9 @@ msgid ""
 "both the file and the password available during the installation process."
 msgstr ""
 "Yhdistääksesi verkkoon tarvitset henkilövarmenteen p12-muodossa. Mikäli "
-"tarvitset apua, ota yhteyttä omaan kotiorganisaatioosi %s. Varmennetiedostot "
+"tarvitset apua, ota yhteyttä omaan kotiorganisaatioosi. Varmennetiedostot "
 "ovat tavallisesti salasanasuojattuja, joten tarvitset asennusvaiheessa sekä "
-"varmenteen että salasanan. Asennuksen aikana p12-tiedosto kopioidaan ."
-"cat_installer-hakemistoon."
+"varmenteen että salasanan."
 
 #: devices/ms/WindowsCommon.php:132
 msgid ""

@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
-"PO-Revision-Date: 2018-08-22 06:48+0000\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"PO-Revision-Date: 2018-09-17 14:22+0000\n"
 "Last-Translator: Maja Wolniewicz <maja.wolniewicz@gmail.com>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/eduroam_devel/cat/"
 "language/pl_PL/)\n"
@@ -30,9 +30,10 @@ msgstr ""
 #, php-format
 msgid "<span class='edu_cat'>%s</span> is built as a cooperation platform."
 msgstr ""
+"<span class='edu_cat'>%s</span> jest stworzony w ramach platformy współpracy."
 
 #: web/user/about_cat.inc.php:29
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Local %s administrators enter their %s configuration details and based on "
 "them, <span class='edu_cat'>%s</span> builds customised installers for a "
@@ -42,9 +43,8 @@ msgid ""
 "administrators and try to influence them to add your %s configuration to "
 "<span class='edu_cat'>%s</span>."
 msgstr ""
-"<span class='edu_cat'>%s</span>jest tworzony w wyniku współpracy. <p>Lokalni "
-"administratorzy %s wprowadzają dane konfiguracyjne dotyczące %s i  w oparciu "
-"o nie <span class='edu_cat'>%s</span>tworzy zindywidualizowane instalatory "
+"Lokalni administratorzy %s wprowadzają dane konfiguracyjne %s i w oparciu o "
+"nie <span class='edu_cat'>%s</span> tworzy zindywidualizowane instalatory "
 "dla popularnych platform sprzętowych. Instalator przygotowany dla jednej "
 "instytucji nie będzie poprawnie konfigurował sieci dla użytkowników z innej, "
 "a zatem jeżeli Twoja instytucja nie jest wymieniona na liście, to ten system "
@@ -198,7 +198,6 @@ msgid "My organisation is not listed. Can't I just use any of the other ones?"
 msgstr "Mojej instytucji nie ma na liście. Czy mogę wybrać jakąś inną?"
 
 #: web/user/faq.inc.php:18 web/user/faq.php:15
-#, fuzzy
 msgid ""
 "No! The installers contain security settings which are specific to the "
 "organisation. If you are not from that organisation, your device will detect "
@@ -233,7 +232,7 @@ msgstr ""
 "%s?"
 
 #: web/user/faq.inc.php:28 web/user/faq.php:25
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "No. The CAT tool can only support Operating Systems which can be "
 "automatically configured in some way. Many other devices can still be used "
@@ -243,7 +242,7 @@ msgstr ""
 "Nie. CAT wspiera tylko te systemy operacyjne, które dają się w jakiś sposób "
 "automatycznie skonfigurować. Z %s można też korzystać na wielu innych "
 "urządzeniach, ale trzeba je skonfigurować ręcznie. Skontaktuj się ze swoją "
-"instytucją macierzystą dla %s, aby uzyskać pomoc w sprawie konfiguracji."
+"instytucją macierzystą, aby uzyskać pomoc w sprawie konfiguracji."
 
 #: web/user/faq.inc.php:32 web/user/faq.php:29
 #, php-format
@@ -489,7 +488,7 @@ msgstr "Prawa autorskie i licencje %s  "
 #: web/copyright.php:213 web/tou.php:61 web/skins/modern/Divs.php:280
 #, php-format
 msgid "%s Privacy Notice"
-msgstr ""
+msgstr "Polityka prywatności %s"
 
 #: web/lib/user/TextTemplates.php:70
 #, php-format
@@ -554,7 +553,7 @@ msgstr ""
 #: web/lib/user/TextTemplates.php:78
 #, php-format
 msgid "Connect your device to %s"
-msgstr "Podłącza urządzenie do %s"
+msgstr "Podłącz urządzenie do %s"
 
 #: web/lib/user/TextTemplates.php:79
 #, php-format
@@ -1034,6 +1033,9 @@ msgid ""
 "with your device, your data is treated according to the <a href='%s'>%s "
 "Privacy Statement</a>."
 msgstr ""
+"Gdy korzystasz z infrastruktury międzynarodowej %s, m.in. gdy używasz "
+"swojego urządzenia w trybie roamingu, Twoje dane podlegają <a "
+"href='%s'>Polityce prywatności %s</a>."
 
 #: web/skins/modern/user/js/cat_js.php:258
 #: web/skins/modern/user/js/cat_js.php:284
@@ -1201,10 +1203,3 @@ msgstr "wszystkie ważniejsze dystrybucje"
 #: web/skins/modern/user/js/roll.php:139
 msgid "Chrome OS"
 msgstr "Chrome OS"
-
-#~ msgid ""
-#~ "If you encounter problems you should ask those who you gave you your "
-#~ "account for help."
-#~ msgstr ""
-#~ "Jeśli napotkasz jakiś problem, prosimy o kontakt z Twoją instytucją "
-#~ "macierzystą, od której otrzymałeś konto."

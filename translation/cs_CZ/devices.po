@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
-"PO-Revision-Date: 2018-08-22 08:47+0000\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"PO-Revision-Date: 2018-09-12 13:03+0000\n"
 "Last-Translator: Petr Adamec <p.b.adamec@gmail.com>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/"
 "eduroam_devel/cat/language/cs_CZ/)\n"
@@ -312,7 +312,7 @@ msgstr ""
 "organizace vloženo) a výpisem všech dostupných atributů."
 
 #: devices/linux/Device_Linux.php:52
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "The installer is in the form of a Python script. It will try to configure %s "
 "under NetworkManager and if this is either not appropriate for your system "
@@ -320,9 +320,9 @@ msgid ""
 "will be created instead."
 msgstr ""
 "Instalační program je ve formě skriptu v Pythonu. Pokusí se nakonfigurovat "
-"eduroam pomocí aplikace Network Manager. Pokud je verze aplikace Network "
-"Manager ve vašem systému příliš stará nebo není k dispozici, bude vytvořen "
-"konfigurační soubor pro nástroj wpa_supplicant."
+"%s pomocí aplikace NetworkManager. Pokud je verze aplikace NetworkManager ve "
+"vašem systému příliš stará nebo není k dispozici, bude vytvořen konfigurační "
+"soubor pro nástroj wpa_supplicant."
 
 #: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:115
 #, php-format
@@ -427,9 +427,8 @@ msgid "Continue?"
 msgstr "Pokračovat?"
 
 #: devices/linux/Device_Linux.php:97
-#, fuzzy
 msgid "This NetworkManager version is not supported"
-msgstr "Tato verze Network Manageru není podporována"
+msgstr "Tato verze NetworkManageru není podporována"
 
 #: devices/linux/Device_Linux.php:98
 msgid "Certificate file not found, looks like a CAT error"
@@ -460,13 +459,12 @@ msgid "All files"
 msgstr "Všechny soubory"
 
 #: devices/linux/Device_Linux.php:106
-#, fuzzy
 msgid ""
 "NetworkManager configuration failed, but we may generate a wpa_supplicant "
 "configuration file if you wish. Be warned that your connection password will "
 "be saved in this file as clear text."
 msgstr ""
-"Konfigurace Network Manageru se nezdařila. Pokud si přejete, můžeme "
+"Konfigurace NetworkManageru se nezdařila. Pokud si přejete, můžeme "
 "vygenerovat konfigurační soubor pro wpa-supplicant. Vaše heslo pro připojení "
 "bude v tomto souboru uloženo v textové podobě!"
 

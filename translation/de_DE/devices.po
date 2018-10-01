@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
-"PO-Revision-Date: 2018-08-22 06:08+0000\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"PO-Revision-Date: 2018-09-12 06:27+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: German (http://www.transifex.com/eduroam_devel/cat/language/"
 "de/)\n"
@@ -317,17 +317,17 @@ msgstr ""
 "enthält."
 
 #: devices/linux/Device_Linux.php:52
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "The installer is in the form of a Python script. It will try to configure %s "
 "under NetworkManager and if this is either not appropriate for your system "
 "or your version of NetworkManager is too old, a wpa_supplicant config file "
 "will be created instead."
 msgstr ""
-"Das Installationsprogramm ist ein Python Skript. Es wird versuchen, eduroam "
-"im NetworkManager zu installieren. Falls das System nicht durch "
-"NetworkManager verwaltet wird oder die Version zu alt ist, wird statt dessen "
-"eine wpa_supplicant Konfigurationsdatei angelegt."
+"Das Installationsprogramm ist ein Python Skript. Es wird versuchen, %s im "
+"NetworkManager zu installieren. Falls das System nicht durch NetworkManager "
+"verwaltet wird oder die Version zu alt ist, wird statt dessen eine "
+"wpa_supplicant Konfigurationsdatei angelegt. "
 
 #: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:115
 #, php-format
@@ -437,9 +437,8 @@ msgid "Continue?"
 msgstr "Weiter?"
 
 #: devices/linux/Device_Linux.php:97
-#, fuzzy
 msgid "This NetworkManager version is not supported"
-msgstr "Diese Network-Manager Version wird nicht unterstützt."
+msgstr "Diese NetworkManager Version wird nicht unterstützt."
 
 #: devices/linux/Device_Linux.php:98
 msgid "Certificate file not found, looks like a CAT error"
@@ -474,16 +473,15 @@ msgid "All files"
 msgstr "Alle Dateien"
 
 #: devices/linux/Device_Linux.php:106
-#, fuzzy
 msgid ""
 "NetworkManager configuration failed, but we may generate a wpa_supplicant "
 "configuration file if you wish. Be warned that your connection password will "
 "be saved in this file as clear text."
 msgstr ""
-"Die Konfiguration des Network-Manager ist fehlgeschlagen, aber es könnte "
+"Die Konfiguration von NetworkManager ist fehlgeschlagen, aber es könnte "
 "stattdessen eine Konfigurationsdatei für das Programm wpa_supplicant "
-"erstellt werden. Beachten Sie bitte, dass Ihr Passwort im Klartext in dieser "
-"Datei steht."
+"erstellt werden wenn Sie das wünschen. Beachten Sie bitte, dass Ihr Passwort "
+"im Klartext in dieser Datei steht."
 
 #: devices/linux/Device_Linux.php:107
 msgid "Write the file"

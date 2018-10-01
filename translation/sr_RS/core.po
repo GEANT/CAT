@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-05 14:51+0200\n"
-"PO-Revision-Date: 2018-05-18 12:20+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"PO-Revision-Date: 2018-09-24 08:46+0000\n"
+"Last-Translator: Marko Eremija <marko.eremija@amres.ac.rs>\n"
 "Language-Team: Serbian (http://www.transifex.com/eduroam_devel/cat/language/"
 "sr/)\n"
 "Language: sr\n"
@@ -406,11 +406,13 @@ msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
 "'%s'!)"
 msgstr ""
+"Vaš %s pristup je spreman! Kliknite ovde: %s (na Androidu, prvo instalirajte "
+"aplikaciju '%s'!)"
 
 #: core/SilverbulletInvitation.php:267
 #, php-format
 msgid "%s Invitation System"
-msgstr ""
+msgstr "%s sistem pozivanja"
 
 #. / arguments are: 1. IdP name;
 #. /                2. consortium name (e.g. eduroam);
@@ -482,17 +484,17 @@ msgstr "EAP-pwd"
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
-msgstr ""
+msgstr "%s %s %s \"%s\" vas je pozvao da upravljate %s zajedno sa njim."
 
 #: core/common/OutsideComm.php:240
 #, php-format
 msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
-msgstr ""
+msgstr "%s %s vas je pozvao da upravljate budućim  %s  \"%s\" (%s)."
 
 #: core/common/OutsideComm.php:241
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\"."
-msgstr ""
+msgstr "%s %s vas je pozvao da upravljate %s  \"%s\"."
 
 #: core/common/OutsideComm.php:243
 #, php-format
@@ -509,22 +511,24 @@ msgstr "Zdravo, "
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
+"ručno. Nemojte odgovarati na ovaj mejl; ovo je adresa koja se koristi samo "
+"za slanje."
 
 #: core/common/OutsideComm.php:259
 #, php-format
 msgid "Additional message from your %s administrator:"
-msgstr ""
+msgstr "Dodatna poruka od administratora %s:"
 
 #: core/common/OutsideComm.php:267
 #, php-format
 msgid "%s administrator"
-msgstr ""
+msgstr "%s administrator"
 
 #: core/common/OutsideComm.php:270
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
-msgstr ""
+msgstr "ručno. Ako odgovorite na ovaj mejl, doći ćete do administratora %s."
 
 #: core/common/OutsideComm.php:275
 #, php-format
@@ -532,6 +536,7 @@ msgid ""
 "To enlist as an administrator for that %s, please click on the following "
 "link:"
 msgstr ""
+"Da biste se prijavili kao administrator za %s, kliknite ne sledeći link:"
 
 #: core/common/OutsideComm.php:277
 #, php-format
@@ -574,7 +579,7 @@ msgstr ""
 #: core/common/OutsideComm.php:318
 #, php-format
 msgid "%s: you have been invited to manage an %s"
-msgstr ""
+msgstr "%s: pozvani ste da upravljate %s"
 
 #: web/lib/common/InputValidation.php:29
 msgid "Input validation error: "
@@ -606,4 +611,4 @@ msgstr "Domen ne sadrži barem jednu .(tačku)!"
 
 #: web/lib/common/InputValidation.php:311
 msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
-msgstr ""
+msgstr "Pogrešno kodiranje koordinata (2.0 koristi JSON, ne serijske podatke)!"
