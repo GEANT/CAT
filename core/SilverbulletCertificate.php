@@ -451,7 +451,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
     }
 
     const EDUPKI_RA_ID = 700;
-    const EDUPKI_CERT_PROFILE = "Radius Server SOAP";
+    const EDUPKI_CERT_PROFILE = "User SOAP";
 
     /**
      * take a CSR and sign it with our issuing CA's certificate
