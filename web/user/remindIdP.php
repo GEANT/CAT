@@ -17,12 +17,15 @@ CAT_session_start();
 $safeText = ["options"=>["regexp"=>"/^[\w\d-]+$/"]];
 $key1 = filter_input(INPUT_GET, 'key', FILTER_VALIDATE_REGEXP, $safeText);
 $key2 = $_SESSION['remindIdP'];
+
 if (!$key1 || $key1 != $key2) {
     print("wrong usage");
     exit;
 }
-
-$providers = \core\User::findLoginIdPByEmail(filter_input(INPUT_GET, 'mail', FILTER_SANITIZE_EMAIL));
+$langObject = new \core\common\Language();
+$langObject->setTextDomain("web_user");
+$lang = $langObject->getLang();
+$providers = \core\User::findLoginIdPByEmail(filter_input(INPUT_GET, 'mail', FILTER_SANITIZE_EMAIL), $lang);
 if (!$providers) {
     echo(json_encode(['status' => 0]));
     exit;

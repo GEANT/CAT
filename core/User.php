@@ -180,7 +180,7 @@ class User extends EntityWithDBProperties {
      * @param string $mail
      * @return boolean|array the list of auth source IdPs we found for the mail, or FALSE if none found or invalid input
      */
-    public static function findLoginIdPByEmail($mail) {
+    public static function findLoginIdPByEmail($mail, $lang) {
         $listOfProviders = [];
         $matchedProviders = [];
         $skipCurl = 0;
@@ -219,7 +219,7 @@ class User extends EntityWithDBProperties {
                         $matchedProviders[] = $idp;
                         $name = $idp;
                         if ($skipCurl == 0) {
-                            $url = CONFIG_DIAGNOSTICS['eduGainResolver']['url'] . "?action=get_entity_name&type=idp&e_id=$idp&lang=pl";
+                            $url = CONFIG_DIAGNOSTICS['eduGainResolver']['url'] . "?action=get_entity_name&type=idp&e_id=$idp&lang=$lang";
                             $ch = curl_init($url);
                             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                             curl_setopt($ch, CURLOPT_TIMEOUT, CONFIG_DIAGNOSTICS['eduGainResolver']['timeout']);
