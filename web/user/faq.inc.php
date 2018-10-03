@@ -20,7 +20,7 @@
       [
         'id'=>'idp_not_listed',
         'title'=>_("What can I do to get my organisation listed?"),
-        'text'=>sprintf(_("Contact %s administrators within your organisation and complain. It will take at most one hour of their time to get things done."),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'])
+        'text'=>sprintf(_("Contact %s administrators within your organisation and request that they add their organisation to the system. It will take at most one hour of their time to get things done."),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'])
 ],
       [
         'id'=>'device_not_listed',
