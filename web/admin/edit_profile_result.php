@@ -172,7 +172,7 @@ if (!$profile instanceof \core\ProfileRADIUS) {
         if (!isset($_POST['redirect_target']) || $_POST['redirect_target'] == "") {
             echo $uiElements->boxError(_("Redirection can't be activated - you did not specify a target location!"));
         } elseif (!preg_match("/^(http|https):\/\//", $_POST['redirect_target'])) {
-            echo $uiElements->boxError(_("Redirection can't be activated - the target needs to be a complete URL staring with http:// or https:// !"));
+            echo $uiElements->boxError(_("Redirection can't be activated - the target needs to be a complete URL starting with http:// or https:// !"));
         } else {
             $profile->addAttribute("device-specific:redirect", 'C', $_POST['redirect_target']);
             echo $uiElements->boxOkay(sprintf("Redirection set to <strong>%s</strong>", htmlspecialchars($_POST['redirect_target'])));

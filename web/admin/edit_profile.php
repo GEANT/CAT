@@ -195,7 +195,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         if ($wizardStyle) {
             echo "<p>" . sprintf(_("Some installers support a feature called 'Anonymous outer identity'. If you don't know what this is, please read <a href='%s'>this article</a>."), "https://confluence.terena.org/display/H2eduroam/eap-types") . "</p>";
             echo "<p>" . _("On some platforms, the installers can suggest username endings and/or verify the user input to contain the realm suffix.") . "</p>";
-            echo "<p>" . _("The realm check feature needs to know an outer ID which actually gets a chance to authenticate. If your RADIUS server lets only select usernames pass, it is useful to supply the inforamtion which of those (outer ID) username we can use for testing.") . "</p>";
+            echo "<p>" . _("The realm check feature needs to know an outer ID which actually gets a chance to authenticate. If your RADIUS server lets only select usernames pass, it is useful to supply the information which of those (outer ID) username we can use for testing.") . "</p>";
         }
         ?>
         <p>

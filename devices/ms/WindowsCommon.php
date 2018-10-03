@@ -132,7 +132,7 @@ abstract class WindowsCommon extends \core\DeviceConfig {
             $out .= _("When you are connecting to the network for the first time, Windows will pop up a login box, where you should enter your user name and password. This information will be saved so that you will reconnect to the network automatically each time you are in the range.");
             if ($ssidCount > 1) {
                 $out .= "<p>";
-                $out .= _("You will be required to enter the same credentials for each of the configured notworks:") . " ";
+                $out .= _("You will be required to enter the same credentials for each of the configured networks:") . " ";
                 $out .= '<strong>' . join('</strong>, <strong>', array_keys($ssids)) . '</strong>';
             }
         }
