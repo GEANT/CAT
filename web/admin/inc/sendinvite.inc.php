@@ -158,7 +158,9 @@ switch ($operationMode) {
 }
 
 // send, and invalidate the token immediately if the mail could not be sent!
+$languageInstance->setTextDomain("core");
 $sent = \core\common\OutsideComm::adminInvitationMail($mailaddress, $introtext, $newtoken, $prettyprintname, $federation);
+$languageInstance->setTextDomain("web_admin");
 if ($sent["SENT"] === FALSE ) {
     $mgmt->invalidateToken($newtoken);
     header("Location: $redirect_destination" . "invitation=FAILURE");
