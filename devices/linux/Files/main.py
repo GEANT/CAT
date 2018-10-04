@@ -24,6 +24,13 @@ import getpass
 import platform
 from shutil import copyfile
 
+# https://bugs.python.org/issue1322
+if sys.version_info.minor == 3 and sys.version_info.major >= 8:
+    import distro
+else:
+    import platform
+
+
 debug_on = False
 
 # the function below was partially copied from https://ubuntuforums.org/showthread.php?t=1139057
@@ -50,7 +57,11 @@ def get_system():
     Detect Linux platform. Not used at this stage.
     It is meant to enable password encryption in distos that can handle this well.
     """
-    system = platform.linux_distribution()
+
+    if sys.version_info.major == 3 and sys.version_info.minor >= 8:
+        system = distro.linux_distribution()
+    else:
+        system = platform.linux_distribution()
     desktop = detect_desktop_environment()
     return([system[0], system[1], desktop])
 
