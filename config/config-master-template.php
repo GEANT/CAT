@@ -127,6 +127,15 @@ const CONFIG = [
      * host: Submission host
      * user: username for the login to the host
      * pass: password for the username
+     * options: these may be some additional options, for instance setting that to:
+     *     [
+              'ssl' => [
+              'verify_peer' => false,
+          'verify_peer_name' => false,
+          'allow_self_signed' => true
+              ]
+           ]
+     *    will fix a certificate verification problem with sending mail to localhost
      * certfilename, keyfilename, keypass: if you want to send S/MIME signed 
      *    mails, just configure the signing cert with these parameters. All must
      *    be non-NULL for signing to happen. If you don't need a keypass, make 
@@ -138,6 +147,7 @@ const CONFIG = [
         'host' => 'submission.capable.mta',
         'user'=> 'mailuser',
         'pass' => 'mailpass',
+        'options' => [],
         // in case the mails should be signed with S/MIME
         'certfilename' => NULL,
         'keyfilename' => NULL,
