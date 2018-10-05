@@ -2,20 +2,21 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 16:03+0200\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>, 2018\n"
-"Language-Team: Bulgarian (Bulgaria) (https://www.transifex.com/eduroam_devel/teams/11799/bg_BG/)\n"
+"Language-Team: Bulgarian (Bulgaria) (https://www.transifex.com/eduroam_devel/"
+"teams/11799/bg_BG/)\n"
+"Language: bg_BG\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: bg_BG\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: core/diag/AbstractTest.php:266
@@ -40,8 +41,8 @@ msgstr "Изобщо нямаше отговор от RADIUS сървъра."
 
 #: core/diag/AbstractTest.php:301
 msgid ""
-"There was a bidirectional communication with the RADIUS server, but it ended"
-" halfway through."
+"There was a bidirectional communication with the RADIUS server, but it ended "
+"halfway through."
 msgstr ""
 "Имаше двупосочна комуникация с RADIUS сървъра, но тя приключи наполовина."
 
@@ -50,8 +51,7 @@ msgid ""
 "The RADIUS server immediately rejected the authentication request in its "
 "first reply."
 msgstr ""
-"С първия отговор RADIUS сървърът отхвърли незабавно заявката за "
-"аутентикация."
+"С първия отговор RADIUS сървърът отхвърли незабавно заявката за аутентикация."
 
 #: core/diag/AbstractTest.php:315
 msgid ""
@@ -71,8 +71,7 @@ msgstr "Не са предоставени достатъчно данни, за
 msgid ""
 "The certificate password you provided does not match the certificate file."
 msgstr ""
-"Паролата на сертификата, която сте подали, не съвпада с файла на "
-"сертификата."
+"Паролата на сертификата, която сте подали, не съвпада с файла на сертификата."
 
 #: core/diag/AbstractTest.php:344
 msgid ""
@@ -115,11 +114,11 @@ msgstr ""
 #: core/diag/AbstractTest.php:379
 msgid ""
 "At least one certificate in the chain had a public key of less than 1024 "
-"bits. Many recent operating systems consider this unacceptable and will fail"
-" to validate the server certificate."
+"bits. Many recent operating systems consider this unacceptable and will fail "
+"to validate the server certificate."
 msgstr ""
-"Поне един сертификат във веригата има публичен ключ с по-малко от 1024 бита."
-" Много съвременни операционни системи считат това за неприемливо и ще се "
+"Поне един сертификат във веригата има публичен ключ с по-малко от 1024 бита. "
+"Много съвременни операционни системи считат това за неприемливо и ще се "
 "провалят при валидиране сертификата на сървъра."
 
 #: core/diag/AbstractTest.php:386
@@ -154,11 +153,11 @@ msgstr ""
 
 #: core/diag/AbstractTest.php:407
 msgid ""
-"The extension 'CRL Distribution Point' in the server certificate points to a"
-" location where no DER-encoded CRL can be found. Some Operating Systems "
-"check certificate validity by consulting the CRL and will fail to validate "
-"the certificate. Checking server certificate validity against a CRL will not"
-" be possible."
+"The extension 'CRL Distribution Point' in the server certificate points to a "
+"location where no DER-encoded CRL can be found. Some Operating Systems check "
+"certificate validity by consulting the CRL and will fail to validate the "
+"certificate. Checking server certificate validity against a CRL will not be "
+"possible."
 msgstr ""
 "Полето 'CRL Distribution Point' в сертификата на сървъра сочи към място, "
 "където не може да бъде намерен DER-кодиран CRL. Някои операционни системи "
@@ -172,13 +171,13 @@ msgstr "Сертификатът на сървъра беше анулиран �
 
 #: core/diag/AbstractTest.php:421
 msgid ""
-"The certificate contained a CN or subjectAltName:DNS which does not parse as"
-" a hostname. This can be problematic on some supplicants. If the certificate"
-" also contains names which are a proper hostname, and you only use those for"
-" your supplicant configuration, then you can safely ignore this notice."
+"The certificate contained a CN or subjectAltName:DNS which does not parse as "
+"a hostname. This can be problematic on some supplicants. If the certificate "
+"also contains names which are a proper hostname, and you only use those for "
+"your supplicant configuration, then you can safely ignore this notice."
 msgstr ""
-"Сертификат, съдържащ CN или subjectAltName:DNS, който не се разчита като име"
-" на хост. Това може да бъде проблем за някои клиенти. Ако сертификатът "
+"Сертификат, съдържащ CN или subjectAltName:DNS, който не се разчита като име "
+"на хост. Това може да бъде проблем за някои клиенти. Ако сертификатът "
 "съдържа и имена, които са истински имена на хостове, и Вие ги използвате "
 "само за конфигурация на вашите клиенти, тогава със сигурност може да "
 "игнорирате  това съобщение."
@@ -222,8 +221,8 @@ msgid ""
 "The server certificate could not be verified to the root CA you configured "
 "in your profile!"
 msgstr ""
-"Сертификатът на сървъра не може да бъде проверен до главния CA, конфигуриран"
-" във Вашия профил."
+"Сертификатът на сървъра не може да бъде проверен до главния CA, конфигуриран "
+"във Вашия профил."
 
 #: core/diag/AbstractTest.php:453
 msgid ""
@@ -247,13 +246,13 @@ msgstr ""
 
 #: core/diag/AbstractTest.php:466
 msgid ""
-"The configured EAP server name matches either the CN or a subjectAltName:DNS"
-" of the incoming certificate; best current practice is that the certificate "
+"The configured EAP server name matches either the CN or a subjectAltName:DNS "
+"of the incoming certificate; best current practice is that the certificate "
 "should contain the name in BOTH places."
 msgstr ""
-"Конфигурираното име на EAP сървър съвпада или с CN, или с subjectAltName:DNS"
-" на входящия сертификат; най-добрата практика в момента е, че сертификатът е"
-" добре да съдържа името на ДВЕТЕ места."
+"Конфигурираното име на EAP сървър съвпада или с CN, или с subjectAltName:DNS "
+"на входящия сертификат; най-добрата практика в момента е, че сертификатът е "
+"добре да съдържа името на ДВЕТЕ места."
 
 #: core/diag/AbstractTest.php:473
 msgid ""
@@ -310,11 +309,11 @@ msgstr ""
 
 #: core/diag/AbstractTest.php:536
 msgid ""
-"The certificate public key algorithm is unknown to the system. Please submit"
-" the certificate as a sample to the developers."
+"The certificate public key algorithm is unknown to the system. Please submit "
+"the certificate as a sample to the developers."
 msgstr ""
-"Алгоритъмът за публичния ключ на сертификата е неизвестен на системата. Моля"
-" представете примерен сертификат на разработчиците."
+"Алгоритъмът за публичния ключ на сертификата е неизвестен на системата. Моля "
+"представете примерен сертификат на разработчиците."
 
 #: core/diag/Logopath.php:96
 msgid "[eduroam Diagnostics]"
@@ -323,14 +322,13 @@ msgstr "[eduroam диагностика]"
 #: core/diag/Logopath.php:98
 msgid ""
 "(This service is in an early stage. We apologise if this is a false alert. "
-"If this is the case, please send an email report to cat-"
-"devel@lists.geant.org, forwarding the entire message (including the "
-"'SUSPECTS' and 'EVIDENCE' data at the end), and explain why this is a false "
-"positive.)"
+"If this is the case, please send an email report to cat-devel@lists.geant."
+"org, forwarding the entire message (including the 'SUSPECTS' and 'EVIDENCE' "
+"data at the end), and explain why this is a false positive.)"
 msgstr ""
 "(Тази услуга е в ранен етап. Извиняваме се, ако това е фалшив сигнал. Ако "
-"това е така, моля пишете на cat-devel@lists.geant.org като препратите цялото"
-" съобщение (включвайки данни за 'ПОДОЗРЕНИЯТА' и 'ФАКТИТЕ' в края), и "
+"това е така, моля пишете на cat-devel@lists.geant.org като препратите цялото "
+"съобщение (включвайки данни за 'ПОДОЗРЕНИЯТА' и 'ФАКТИТЕ' в края), и "
 "обяснете защо това е фалшив сигнал.)"
 
 #: core/diag/Logopath.php:100
@@ -391,20 +389,19 @@ msgid ""
 "planned."
 msgstr ""
 "<strong>Тестът е успешен</strong>: двупосочната RADIUS комуникация с "
-"множество round-trips се проведе и завърши с Access-Reject както е "
-"планирано."
+"множество round-trips се проведе и завърши с Access-Reject както е планирано."
 
 #: core/diag/RADIUSTests.php:1017
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
-"Access-Reject as planned. Some properties of the connection attempt were "
-"sub-optimal; the list is below."
+"Access-Reject as planned. Some properties of the connection attempt were sub-"
+"optimal; the list is below."
 msgstr ""
 "<strong>Тестът частично е успешен</strong>: двупосочната RADIUS комуникация "
 "с множество round-trips се проведе и завърши с Access-Reject както е "
-"планирано. Някои свойства на опита за връзка бяха неоптимални; списъкът е "
-"по-долу."
+"планирано. Някои свойства на опита за връзка бяха неоптимални; списъкът е по-"
+"долу."
 
 #: core/diag/RFC6614Tests.php:68
 msgid "eduPKI"
@@ -476,15 +473,15 @@ msgstr "неизвестно ауторити или няма политика �
 
 #. return codes specific to NAPTR existence checks
 #. *
-#. * no NAPTRs for domain; this is not an error, simply means that realm is
-#. not doing dynamic discovery for any service
+#. * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
+#.
 #: core/diag/RFC7585Tests.php:124
 msgid "This realm has no NAPTR records."
 msgstr "Тази област няма NAPTR записи."
 
 #. *
-#. * no eduroam NAPTR for domain; this is not an error, simply means that
-#. realm is not doing dynamic discovery for eduroam
+#. * no eduroam NAPTR for domain; this is not an error, simply means that realm is not doing dynamic discovery for eduroam
+#.
 #: core/diag/RFC7585Tests.php:130
 msgid "NAPTR records were found, but all of them refer to unrelated services."
 msgstr "Бяха намерени NAPTR записи, но не се отнасят към правилните услуги."
@@ -529,12 +526,12 @@ msgstr ""
 
 #: core/diag/Sociopath.php:48
 msgid ""
-"There are likely some issues around the wireless part of the network you are"
-" trying to connect to. Wireless networks do not always behave "
+"There are likely some issues around the wireless part of the network you are "
+"trying to connect to. Wireless networks do not always behave "
 "deterministically and consistently. All users at a given location have to "
-"share the available bandwidth, and the physical environment (concrete walls,"
-" objects in the way, elevation differences) can have a significant impact on"
-" your connectivity experience."
+"share the available bandwidth, and the physical environment (concrete walls, "
+"objects in the way, elevation differences) can have a significant impact on "
+"your connectivity experience."
 msgstr ""
 "Вероятно има някакви проблеми около безжичната част на мрежата, с която се "
 "опитвате да се свържете. Безжичните мрежи невинаги се държат еднакво и "
@@ -543,15 +540,10 @@ msgstr ""
 "височинни разлики) може да има значително въздействие върху Вашия опит за "
 "свързване."
 
-#. here is an array with yes/no answers per failure category, and the factors
-#. by which a Yes modifies the score; No's modify it by 1/factor;
-#. the order in this array is important: lower numbered questions will be
-#. asked first. So make sure you have high-quality questions in the beginning.
-#. to be clear: "Yes" answers are elsewhere in the class the TRUE case; No's
-#. are FALSE, a possible "Don't know or N/A" is NULL
-#. VERDICTLECTURE is text which is displayed to the end user if his answer led
-#. to a HIGHER score in the process. We are storing the answers to determine
-#. this.
+#. here is an array with yes/no answers per failure category, and the factors by which a Yes modifies the score; No's modify it by 1/factor;
+#. the order in this array is important: lower numbered questions will be asked first. So make sure you have high-quality questions in the beginning.
+#. to be clear: "Yes" answers are elsewhere in the class the TRUE case; No's are FALSE, a possible "Don't know or N/A" is NULL
+#. VERDICTLECTURE is text which is displayed to the end user if his answer led to a HIGHER score in the process. We are storing the answers to determine this.
 #: core/diag/Sociopath.php:56
 msgid ""
 "You should use appropriate configuration assistants [MGW: see if the realm "
@@ -568,8 +560,8 @@ msgid ""
 "Have you ever used the network succesfully, e.g. at your home institution "
 "without roaming?"
 msgstr ""
-"Използвали ли сте някога мрежата успешно, например във Вашата институция без"
-" роуминг?"
+"Използвали ли сте някога мрежата успешно, например във Вашата институция без "
+"роуминг?"
 
 #: core/diag/Sociopath.php:62
 #, php-format
@@ -585,22 +577,22 @@ msgid ""
 "Did the device previously work when roaming, i.e. at other hotspots away "
 "from your home institution?"
 msgstr ""
-"Устройството Ви работеше ли в роуминг, т.е. с други безжични точки за достъп"
-" до Интернет извън Вашата институция?"
+"Устройството Ви работеше ли в роуминг, т.е. с други безжични точки за достъп "
+"до Интернет извън Вашата институция?"
 
 #: core/diag/Sociopath.php:66
 #, php-format
 msgid ""
 "If roaming consistently does not work, then very likely your device "
-"configuration is wrong. Typical errors causing this symptom include: using a"
-" routing ('outer') username without the @realm.tld suffix - those "
-"potentially work at home, but can not be used when roaming. %s"
+"configuration is wrong. Typical errors causing this symptom include: using a "
+"routing ('outer') username without the @realm.tld suffix - those potentially "
+"work at home, but can not be used when roaming. %s"
 msgstr ""
-"Ако постоянно роумингът не работи, тогава много вероятно е конфигурацията на"
-" устройството Ви да е грешна. Типичните грешки, причиняващи този симптом, "
-"са: използвайки маршрутно (\"външно\") потребителско име без суфикс "
-"@realm.tld - това потенциално работи във Вашата институция, но не може да "
-"бъде използвано в роуминг. %s"
+"Ако постоянно роумингът не работи, тогава много вероятно е конфигурацията на "
+"устройството Ви да е грешна. Типичните грешки, причиняващи този симптом, са: "
+"използвайки маршрутно (\"външно\") потребителско име без суфикс @realm.tld - "
+"това потенциално работи във Вашата институция, но не може да бъде използвано "
+"в роуминг. %s"
 
 #: core/diag/Sociopath.php:68
 msgid "Did you recently change the configuration on your device?"
@@ -634,28 +626,28 @@ msgid ""
 "change the password? These questions are best answered by your Identity "
 "Provider [MGW: display contact info]"
 msgstr ""
-"Ако всички устройства са спрели да работят едновременно, може би има проблем"
-" с акаунта Ви. Може би акаунтът Ви е изтекъл или сте били принудени да "
+"Ако всички устройства са спрели да работят едновременно, може би има проблем "
+"с акаунта Ви. Може би акаунтът Ви е изтекъл или сте били принудени да "
 "смените паролата? На тези въпроси най-добре може да отговори Вашият "
 "Доставчик на Удостоверение [MGW: покажете информацията за контакти]"
 
 #: core/diag/Sociopath.php:76
 msgid ""
-"Is the place you are currently at heavily crowded, or is a network-intensive"
-" workload going on?"
+"Is the place you are currently at heavily crowded, or is a network-intensive "
+"workload going on?"
 msgstr ""
 "Мястото, на което сте в момента, силно задръстено ли е или мрежата "
 "продължава да бъде интензивно натоварена?"
 
 #: core/diag/Sociopath.php:78
 msgid ""
-"The network is likely overloaded at this location and point in time. You may"
-" have to wait until later before you get a better connectivity. If you think"
-" the network should be reinforced for more capacity at this place, you "
-"should inform the hotspot provider. [MGW: add contact info]"
+"The network is likely overloaded at this location and point in time. You may "
+"have to wait until later before you get a better connectivity. If you think "
+"the network should be reinforced for more capacity at this place, you should "
+"inform the hotspot provider. [MGW: add contact info]"
 msgstr ""
-"Мрежата в този момент и на това място вероятно е претоварена. Може би трябва"
-" да изчакате, докато не получите по-добра свързаност. Ако смятате, че "
+"Мрежата в този момент и на това място вероятно е претоварена. Може би трябва "
+"да изчакате, докато не получите по-добра свързаност. Ако смятате, че "
 "капацитетът на мрежата на това място трябва да бъде подсилен, трябва да "
 "информирате доставчика на безжични точки за достъп до Интернет. [MGW: "
 "добавете информация за контакти]"
@@ -670,10 +662,10 @@ msgid ""
 "and service. If you think the exact spot you are at deserves better "
 "coverage, you should inform the hotspot provider. [MGW: add contact info]"
 msgstr ""
-"Трябва да се преместите на друго място, за да имате по-добър мрежов обхват и"
-" услуга. Ако смятате, че точно мястото, на което се намирате, заслужава по-"
-"добро покритие, трябва да информирате доставчика на безжични точки за достъп"
-" до Интернет. [MGW: добавете информация за контакти]"
+"Трябва да се преместите на друго място, за да имате по-добър мрежов обхват и "
+"услуга. Ако смятате, че точно мястото, на което се намирате, заслужава по-"
+"добро покритие, трябва да информирате доставчика на безжични точки за достъп "
+"до Интернет. [MGW: добавете информация за контакти]"
 
 #: core/diag/Sociopath.php:85
 msgid ""
@@ -682,14 +674,14 @@ msgstr "Виждате ли грешки, подобни на \"Невъзмож
 
 #: core/diag/Sociopath.php:87
 msgid ""
-"The evidence at hand suggests that there may be an infrastructure problem at"
-" this particular hotspot provider. There is nothing you can do to solve this"
-" problem locally. Please be patient and try again at a later time."
+"The evidence at hand suggests that there may be an infrastructure problem at "
+"this particular hotspot provider. There is nothing you can do to solve this "
+"problem locally. Please be patient and try again at a later time."
 msgstr ""
 "Представените доказателства предполагат, че може би има проблем с "
 "инфраструктурата на този конкретен доставчик на безжични точки за достъп до "
-"Интернет. Нищо не можете да направите, за да разрешите този проблем локално."
-" Моля бъдете търпеливи и опитайте отново по-късно."
+"Интернет. Нищо не можете да направите, за да разрешите този проблем локално. "
+"Моля бъдете търпеливи и опитайте отново по-късно."
 
 #: web/skins/modern/diag/diag.php:68
 msgid "Diagnostics site"
@@ -734,8 +726,8 @@ msgid ""
 "To resolve your problem a real-time diagnostics for your realm must be "
 "performed."
 msgstr ""
-"За да разрешим проблема Ви, трябва да направим диагностика в реално време на"
-" Вашата област."
+"За да разрешим проблема Ви, трябва да направим диагностика в реално време на "
+"Вашата област."
 
 #: web/skins/modern/diag/diag.php:83
 msgid ""
@@ -746,11 +738,11 @@ msgstr ""
 
 #: web/skins/modern/diag/diag.php:84
 msgid ""
-"What is the realm part of your user account (the part behind the @ of "
-"'your.username@<b>realm.tld</b>):"
+"What is the realm part of your user account (the part behind the @ of 'your."
+"username@<b>realm.tld</b>):"
 msgstr ""
-"Каква е областта, част от Вашия потребителски акаунт (частта зад @ в "
-"'Вашето.потребителскоиме@<b>област.tld</b>):"
+"Каква е областта, част от Вашия потребителски акаунт (частта зад @ в 'Вашето."
+"потребителскоиме@<b>област.tld</b>):"
 
 #: web/skins/modern/diag/diag.php:88
 msgid "alternatively"
@@ -877,8 +869,7 @@ msgid "The network environment around you is broken"
 msgstr "Мрежовата среда около Вас е повредена"
 
 #: web/skins/modern/diag/diag.php:320
-msgid ""
-"The RADIUS server of your service provider is the source of the problem"
+msgid "The RADIUS server of your service provider is the source of the problem"
 msgstr "Проблемът е в RADIUS сървъра на Вашия доставчик на услуги"
 
 #: web/skins/modern/diag/diag.php:323
@@ -907,11 +898,11 @@ msgstr ""
 
 #: web/skins/modern/diag/diag.php:332
 msgid ""
-"The link between the national server of your home country/region and the "
-"top-level server is broken"
+"The link between the national server of your home country/region and the top-"
+"level server is broken"
 msgstr ""
-"Връзката между сървъра на Вашата държава/регион и сървъра от най-високо ниво"
-" е прекъсната"
+"Връзката между сървъра на Вашата държава/регион и сървъра от най-високо ниво "
+"е прекъсната"
 
 #: web/skins/modern/diag/diag.php:335
 msgid "The communication to the top-level server is down"
@@ -923,8 +914,7 @@ msgid ""
 msgstr "Сървърът във Вашата държава/регион не функционира правилно."
 
 #: web/skins/modern/diag/diag.php:341
-msgid ""
-"The RADIUS server of your home institution is the source of the problem"
+msgid "The RADIUS server of your home institution is the source of the problem"
 msgstr "Проблемът е в RADIUS сървъра на Вашата институция"
 
 #: web/skins/modern/diag/diag.php:344

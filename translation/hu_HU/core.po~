@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Janos Mohacsi <mohacsi@niif.hu>, 2012,2014-2015,2018
 # Janos Mohacsi <mohacsi@niif.hu>, 2012
@@ -10,20 +10,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 16:03+0200\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
 "PO-Revision-Date: 2018-06-12 08:27+0000\n"
 "Last-Translator: Janos Mohacsi <mohacsi@niif.hu>\n"
-"Language-Team: Hungarian (http://www.transifex.com/eduroam_devel/cat/language/hu/)\n"
+"Language-Team: Hungarian (http://www.transifex.com/eduroam_devel/cat/"
+"language/hu/)\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: core/CAT.php:111
 msgid ""
-"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git"
-" Revision</a>"
+"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git "
+"Revision</a>"
 msgstr "Kiadatlan 1  Git Revízió 1"
 
 #: core/CAT.php:121
@@ -322,7 +323,8 @@ msgstr "helyi támogató honlap: %s"
 
 #: core/DeviceConfig.php:235
 msgid "Sorry, this should not happen - no additional information is available"
-msgstr "Ennek nem lett volna szabad bekövetkeznie - nincsen további információ "
+msgstr ""
+"Ennek nem lett volna szabad bekövetkeznie - nincsen további információ "
 
 #: core/IdP.php:243
 #, php-format
@@ -336,7 +338,16 @@ msgid ""
 "Best regards,\n"
 "\n"
 "%s"
-msgstr "Üdvözlet!\n\nA %s Identity Provider a %s %s föderációból %s törlésre került.\n\nÚgy gondoltuk, hogy erről fontos, hogy értesítsünk.\n\nÜdvözlettel,\n\n%s"
+msgstr ""
+"Üdvözlet!\n"
+"\n"
+"A %s Identity Provider a %s %s föderációból %s törlésre került.\n"
+"\n"
+"Úgy gondoltuk, hogy erről fontos, hogy értesítsünk.\n"
+"\n"
+"Üdvözlettel,\n"
+"\n"
+"%s"
 
 #: core/IdP.php:252
 msgid "IdP in your federation was deleted"
@@ -356,7 +367,9 @@ msgstr "Szia!"
 msgid ""
 "A new %s access credential has been created for you by your network "
 "administrator."
-msgstr "A hálózati rendszergazda új hozzáférési jogosultságot %shozott létre az Ön számára."
+msgstr ""
+"A hálózati rendszergazda új hozzáférési jogosultságot %shozott létre az Ön "
+"számára."
 
 #: core/SilverbulletInvitation.php:212
 #, php-format
@@ -364,7 +377,10 @@ msgid ""
 "Please follow the following link with the device you want to enable for %s "
 "to get a custom %s installation program just for you. You can click on the "
 "link, copy and paste it into a browser or scan the attached QR code."
-msgstr "Kérjük, kövesse az alábbi linket az eszközzel, amelyet engedélyezni szeretne %s , hogy egyéni %s telepítőprogramot kapjon. A linkre kattintva másolhatja és beillesztheti egy böngészőbe, vagy beolvashatja a mellékelt QR-kódot."
+msgstr ""
+"Kérjük, kövesse az alábbi linket az eszközzel, amelyet engedélyezni szeretne "
+"%s , hogy egyéni %s telepítőprogramot kapjon. A linkre kattintva másolhatja "
+"és beillesztheti egy böngészőbe, vagy beolvashatja a mellékelt QR-kódot."
 
 #. gets replaced with the token value by getBody()
 #: core/SilverbulletInvitation.php:214
@@ -373,7 +389,10 @@ msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
 "up your %s installation program, you can use the same link to get status "
 "information about your %s account."
-msgstr "Kérjük, ezt az e-mailt tartsa meg későbbi felhasználásra. Miután felvette a telepítőprogramot %s , ugyanazt a linket használhatja a fiókhoz %s tartozó információkhoz."
+msgstr ""
+"Kérjük, ezt az e-mailt tartsa meg későbbi felhasználásra. Miután felvette a "
+"telepítőprogramot %s , ugyanazt a linket használhatja a fiókhoz %s tartozó "
+"információkhoz."
 
 #: core/SilverbulletInvitation.php:216
 msgid "Regards,"
@@ -384,7 +403,9 @@ msgstr "Üdvözlettel,"
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
 "'%s'!)"
-msgstr "Hozzáférésed készen áll %s ! Kattintson ide:  %s (Android-on, először telepítse az %salkalmazást!)"
+msgstr ""
+"Hozzáférésed készen áll %s ! Kattintson ide:  %s (Android-on, először "
+"telepítse az %salkalmazást!)"
 
 #: core/SilverbulletInvitation.php:267
 #, php-format
@@ -395,21 +416,31 @@ msgstr "Meghívó rendszer%s"
 #. /                2. consortium name (e.g. eduroam);
 #. /                3. federation shortname, e.g. "LU";
 #. /                4. product name (e.g. eduroam CAT);
-#. /                5. product long name (e.g. eduroam Configuration Assistant
-#. Tool)
+#. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
 #: core/UserManagement.php:179
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the invitation for the new Identity Provider %s in your %s federation %s has been used and the IdP was created in %s.\n"
+"the invitation for the new Identity Provider %s in your %s federation %s has "
+"been used and the IdP was created in %s.\n"
 "\n"
 "We thought you might want to know.\n"
 "\n"
 "Best regards,\n"
 "\n"
 "%s"
-msgstr "Szép napot!\n\nAz %s Identity Providernek szóló meghívó a %s  %s föderációban felhasználásra került. Az  IdP létrejött az  %s rendszerben.\n\nÚgy gondoltuk, hogy erről fontos, hogy értesítsünk.\n\nÜdvözlettel,\n\n%s"
+msgstr ""
+"Szép napot!\n"
+"\n"
+"Az %s Identity Providernek szóló meghívó a %s  %s föderációban "
+"felhasználásra került. Az  IdP létrejött az  %s rendszerben.\n"
+"\n"
+"Úgy gondoltuk, hogy erről fontos, hogy értesítsünk.\n"
+"\n"
+"Üdvözlettel,\n"
+"\n"
+"%s"
 
 #: core/UserManagement.php:188
 msgid "IdP in your federation was created"
@@ -477,7 +508,8 @@ msgstr "Üdvözlünk!"
 #: core/common/OutsideComm.php:253
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
-msgstr "manuálisan. Kérjük, ne válaszoljon erre a levélre; ez csak egy küldési cím."
+msgstr ""
+"manuálisan. Kérjük, ne válaszoljon erre a levélre; ez csak egy küldési cím."
 
 #: core/common/OutsideComm.php:259
 #, php-format
@@ -493,7 +525,8 @@ msgstr " %s rendszergazda"
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
-msgstr "manuálisan. Ha erre a levélre válaszolsz, akkor eléred a %s rendszergazdáit."
+msgstr ""
+"manuálisan. Ha erre a levélre válaszolsz, akkor eléred a %s rendszergazdáit."
 
 #: core/common/OutsideComm.php:275
 #, php-format
@@ -507,7 +540,9 @@ msgstr "A %s rendszergazda felvételéhez kérjük, kattintson az alábbi linkre
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
 "Interface at"
-msgstr "Ha a linkre kattintás nem működik, akkor is megkeresheted a%s adminisztrátori felületet "
+msgstr ""
+"Ha a linkre kattintás nem működik, akkor is megkeresheted a%s "
+"adminisztrátori felületet "
 
 #: core/common/OutsideComm.php:279
 msgid "and enter the invitation token"
@@ -515,9 +550,11 @@ msgstr "és írd be a meghívó tokent"
 
 #: core/common/OutsideComm.php:281
 msgid ""
-"Do NOT forward the mail before the token has expired - or the recipients may"
-" be able to consume the token on your behalf!"
-msgstr "NE továbbítsa az e-mailt, amíg a token le nem járt - vagy a címzettek fel tudják használni a tokent az Ön nevében!"
+"Do NOT forward the mail before the token has expired - or the recipients may "
+"be able to consume the token on your behalf!"
+msgstr ""
+"NE továbbítsa az e-mailt, amíg a token le nem járt - vagy a címzettek fel "
+"tudják használni a tokent az Ön nevében!"
 
 #: core/common/OutsideComm.php:282
 #, php-format

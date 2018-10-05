@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Engur Pisirici <engur@bilkent.edu.tr>, 2017
 # Gokhan Eryol <gokhaneryol@gmail.com>, 2013,2017-2018
@@ -11,21 +11,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 16:03+0200\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
 "PO-Revision-Date: 2018-09-13 11:30+0000\n"
 "Last-Translator: Gokhan Eryol <gokhaneryol@gmail.com>\n"
-"Language-Team: Turkish (http://www.transifex.com/eduroam_devel/cat/language/tr/)\n"
+"Language-Team: Turkish (http://www.transifex.com/eduroam_devel/cat/language/"
+"tr/)\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: core/CAT.php:111
 msgid ""
-"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git"
-" Revision</a>"
-msgstr "Yayınlanmamış <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git Sürümü</a>"
+"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git "
+"Revision</a>"
+msgstr ""
+"Yayınlanmamış <a href='https://github.com/GEANT/CAT/tree/master/Changes."
+"md'>Git Sürümü</a>"
 
 #: core/CAT.php:121
 #, php-format
@@ -337,7 +340,17 @@ msgid ""
 "Best regards,\n"
 "\n"
 "%s"
-msgstr "Merhaba\n\n%s federasyonunuzda %s  yer alan %s Kimlik Sağlayıcı, %s tarafından silindi.\n\nBilmek isteyeceğinizi düşündük.\n\nSaygılarımızla,\n\n%s"
+msgstr ""
+"Merhaba\n"
+"\n"
+"%s federasyonunuzda %s  yer alan %s Kimlik Sağlayıcı, %s tarafından "
+"silindi.\n"
+"\n"
+"Bilmek isteyeceğinizi düşündük.\n"
+"\n"
+"Saygılarımızla,\n"
+"\n"
+"%s"
 
 #: core/IdP.php:252
 msgid "IdP in your federation was deleted"
@@ -357,7 +370,9 @@ msgstr "Selam!"
 msgid ""
 "A new %s access credential has been created for you by your network "
 "administrator."
-msgstr "Yeni bir erişim kimlik bilgisi  %s sizin için ağ yöneticiniz tarafından oluşturulmuştur."
+msgstr ""
+"Yeni bir erişim kimlik bilgisi  %s sizin için ağ yöneticiniz tarafından "
+"oluşturulmuştur."
 
 #: core/SilverbulletInvitation.php:212
 #, php-format
@@ -365,7 +380,10 @@ msgid ""
 "Please follow the following link with the device you want to enable for %s "
 "to get a custom %s installation program just for you. You can click on the "
 "link, copy and paste it into a browser or scan the attached QR code."
-msgstr "Lütfen size özel %s kurulum programını %s etkinleştirmek için takip eden linki açın. Linki tıklayabilir, kopyalayıp tarayıcınıza yapıştırabilir veya ekli QR kodunu tarayabilirsiniz."
+msgstr ""
+"Lütfen size özel %s kurulum programını %s etkinleştirmek için takip eden "
+"linki açın. Linki tıklayabilir, kopyalayıp tarayıcınıza yapıştırabilir veya "
+"ekli QR kodunu tarayabilirsiniz."
 
 #. gets replaced with the token value by getBody()
 #: core/SilverbulletInvitation.php:214
@@ -374,7 +392,10 @@ msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
 "up your %s installation program, you can use the same link to get status "
 "information about your %s account."
-msgstr "Lütfen bu epostayı veya linkini ileride kullanabilmeniz için kaydedin. Kurulum programınızı %s seçtikten sonra, aynı linki kullanarak  %s hesabınız hakkında durum bilgisini temin edebilirsiniz."
+msgstr ""
+"Lütfen bu epostayı veya linkini ileride kullanabilmeniz için kaydedin. "
+"Kurulum programınızı %s seçtikten sonra, aynı linki kullanarak  %s hesabınız "
+"hakkında durum bilgisini temin edebilirsiniz."
 
 #: core/SilverbulletInvitation.php:216
 msgid "Regards,"
@@ -385,7 +406,9 @@ msgstr "Saygılarımızla,"
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
 "'%s'!)"
-msgstr "Erişiminiz %s hazır! Buraya tıklayın: %s (Android için önce uygulamayı kurun: '%s'!)"
+msgstr ""
+"Erişiminiz %s hazır! Buraya tıklayın: %s (Android için önce uygulamayı "
+"kurun: '%s'!)"
 
 #: core/SilverbulletInvitation.php:267
 #, php-format
@@ -396,21 +419,31 @@ msgstr "%s Davet Sistemi"
 #. /                2. consortium name (e.g. eduroam);
 #. /                3. federation shortname, e.g. "LU";
 #. /                4. product name (e.g. eduroam CAT);
-#. /                5. product long name (e.g. eduroam Configuration Assistant
-#. Tool)
+#. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
 #: core/UserManagement.php:179
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the invitation for the new Identity Provider %s in your %s federation %s has been used and the IdP was created in %s.\n"
+"the invitation for the new Identity Provider %s in your %s federation %s has "
+"been used and the IdP was created in %s.\n"
 "\n"
 "We thought you might want to know.\n"
 "\n"
 "Best regards,\n"
 "\n"
 "%s"
-msgstr "Merhaba,\n\n%s, %s %s federasyonuna yeni Kimlik Sağlayıcı davetiyesini kullandı ve %s üzerinde KiS oluşturuldu.\n\nBilgilerinize,\n\nSaygılarımızla,\n\n%s"
+msgstr ""
+"Merhaba,\n"
+"\n"
+"%s, %s %s federasyonuna yeni Kimlik Sağlayıcı davetiyesini kullandı ve %s "
+"üzerinde KiS oluşturuldu.\n"
+"\n"
+"Bilgilerinize,\n"
+"\n"
+"Saygılarımızla,\n"
+"\n"
+"%s"
 
 #: core/UserManagement.php:188
 msgid "IdP in your federation was created"
@@ -478,7 +511,9 @@ msgstr "Selam,"
 #: core/common/OutsideComm.php:253
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
-msgstr "kendiniz. Lütfen bu epostaya yanıt dönmeyin; bu adres sadece gönderim içindir."
+msgstr ""
+"kendiniz. Lütfen bu epostaya yanıt dönmeyin; bu adres sadece gönderim "
+"içindir."
 
 #: core/common/OutsideComm.php:259
 #, php-format
@@ -508,7 +543,9 @@ msgstr "%s için yöneticileri listeemek için takip eden inki tıklayın:"
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
 "Interface at"
-msgstr "Bağlantıyı tıkladığınızda çalışmadı ise, %s Yönetici Arayüzüne de gidebilirsiniz"
+msgstr ""
+"Bağlantıyı tıkladığınızda çalışmadı ise, %s Yönetici Arayüzüne de "
+"gidebilirsiniz"
 
 #: core/common/OutsideComm.php:279
 msgid "and enter the invitation token"
@@ -516,9 +553,11 @@ msgstr "ve davet kodunu gir"
 
 #: core/common/OutsideComm.php:281
 msgid ""
-"Do NOT forward the mail before the token has expired - or the recipients may"
-" be able to consume the token on your behalf!"
-msgstr "Jeton süresi bitmeden epostayı yönlendirMEYİN - aksi takdirde alıcılar size ait jetonu tüketebilirler."
+"Do NOT forward the mail before the token has expired - or the recipients may "
+"be able to consume the token on your behalf!"
+msgstr ""
+"Jeton süresi bitmeden epostayı yönlendirMEYİN - aksi takdirde alıcılar size "
+"ait jetonu tüketebilirler."
 
 #: core/common/OutsideComm.php:282
 #, php-format
@@ -531,7 +570,10 @@ msgid ""
 "Sincerely,\n"
 "\n"
 "Your friendly folks from %s Operations"
-msgstr "En içten dileklerimle,\n\n%s Operasyonundan arkadaş canlısı dostların"
+msgstr ""
+"En içten dileklerimle,\n"
+"\n"
+"%s Operasyonundan arkadaş canlısı dostların"
 
 #. what do we want to say?
 #: core/common/OutsideComm.php:318

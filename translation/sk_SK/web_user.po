@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
+"POT-Creation-Date: 2018-10-05 09:32+0200\n"
 "PO-Revision-Date: 2013-02-22 10:40+0000\n"
 "Last-Translator: martins <ms@uakom.sk>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/projects/p/cat/"
@@ -149,6 +149,11 @@ msgid ""
 "If you would like to add a new language to CAT then please contact us ..."
 msgstr ""
 
+#: web/user/devel.inc.php:18
+#, fuzzy
+msgid "Documentation"
+msgstr "Domovská organizácia"
+
 #: web/user/faq.inc.php:17 web/user/faq.php:14
 #, fuzzy
 msgid "My organisation is not listed. Can't I just use any of the other ones?"
@@ -177,8 +182,9 @@ msgstr "Čo môžem urobiť pre to, aby sa moja organizácia dostala na zoznam?"
 #: web/user/faq.inc.php:23 web/user/faq.php:20
 #, fuzzy, php-format
 msgid ""
-"Contact %s administrators within your organisation and complain. It will "
-"take at most one hour of their time to get things done."
+"Contact %s administrators within your organisation and request that they add "
+"their organisation to the system. It will take at most one hour of their "
+"time to get things done."
 msgstr ""
 "Obráťte sa na spávcov %s vo vašej domovskej organizácii a posťažujte sa. "
 "Vyplnenie požadovaných informácií ich nebude stáť viac ako jednu hodinu času."
@@ -425,7 +431,7 @@ msgstr ""
 msgid "%s Copyright and Licensing"
 msgstr ""
 
-#: web/copyright.php:213 web/tou.php:61 web/skins/modern/Divs.php:280
+#: web/copyright.php:213 web/tou.php:61
 #, php-format
 msgid "%s Privacy Notice"
 msgstr ""
@@ -530,8 +536,8 @@ msgstr ""
 "kliknutí na tlačítko <b>Pokračovať</b> presmerovaný na stránky vašej "
 "lokálnej používateľskej podpory."
 
-#: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:271
-#: web/skins/modern/user/js/cat_js.php:279
+#: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:267
+#: web/skins/modern/user/js/cat_js.php:275
 msgid "Continue"
 msgstr "Pokračovať"
 
@@ -631,11 +637,6 @@ msgstr ""
 #: web/skins/modern/Menu.php:48
 msgid "Diagnostics"
 msgstr ""
-
-#: web/skins/modern/Menu.php:49
-#, fuzzy
-msgid "Documentation"
-msgstr "Domovská organizácia"
 
 #: web/skins/modern/Menu.php:52
 msgid "Manage"
@@ -787,7 +788,7 @@ msgid ""
 "(select a certificate with a name ending in '…%s')."
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:159
+#: web/skins/modern/accountstatus/accountstatus.php:161
 #: web/skins/modern/user/js/cat_js.php:234
 #, fuzzy
 msgid ""
@@ -797,7 +798,7 @@ msgstr ""
 "V prípade problémov vám priamu pomoc môže poskytnúť vaša domovská "
 "organizácia:"
 
-#: web/skins/modern/accountstatus/accountstatus.php:161
+#: web/skins/modern/accountstatus/accountstatus.php:163
 #: web/skins/modern/user/js/cat_js.php:236
 #, fuzzy
 msgid ""
@@ -805,52 +806,52 @@ msgid ""
 "help."
 msgstr "V prípade problémov požiadajte o pomoc vo svojej domovskej organizácii"
 
-#: web/skins/modern/accountstatus/accountstatus.php:172
+#: web/skins/modern/accountstatus/accountstatus.php:174
 #, php-format
 msgid "Your personal %s account status page"
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:200
+#: web/skins/modern/accountstatus/accountstatus.php:202
 msgid "Current login tokens"
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:201
+#: web/skins/modern/accountstatus/accountstatus.php:203
 msgid "Previous login tokens"
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:202
+#: web/skins/modern/accountstatus/accountstatus.php:204
 msgid "Revoked login tokens"
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Serial Number"
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Pseudonym"
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Device Type"
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Issue Date"
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Expiry Date"
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:213
+#: web/skins/modern/accountstatus/accountstatus.php:215
 msgid "invalid token"
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:237
+#: web/skins/modern/accountstatus/accountstatus.php:239
 msgid "The details are displayed below."
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:243
+#: web/skins/modern/accountstatus/accountstatus.php:245
 msgid "Really revoke this access credential?"
 msgstr ""
 
@@ -894,12 +895,12 @@ msgstr ""
 "Systémoví správcovia boli upovedomení. Budeme sa snažiť vyriešiť problém čo "
 "najskôr."
 
-#: web/skins/modern/user/js/cat_js.php:82
-#: web/skins/modern/user/js/cat_js.php:216
+#: web/skins/modern/user/js/cat_js.php:81
+#: web/skins/modern/user/js/cat_js.php:215
 msgid "no matching data found"
 msgstr "zodpovedajúce dáta neboli nájdené"
 
-#: web/skins/modern/user/js/cat_js.php:96
+#: web/skins/modern/user/js/cat_js.php:95
 msgid "select"
 msgstr "označiť"
 
@@ -915,16 +916,8 @@ msgstr "e-mail:"
 msgid "tel:"
 msgstr "tel.:"
 
-#: web/skins/modern/user/js/cat_js.php:239
-#, php-format
-msgid ""
-"When you make use of the international %s infrastructure, e.g. when roaming "
-"with your device, your data is treated according to the <a href='%s'>%s "
-"Privacy Statement</a>."
-msgstr ""
-
-#: web/skins/modern/user/js/cat_js.php:258
-#: web/skins/modern/user/js/cat_js.php:284
+#: web/skins/modern/user/js/cat_js.php:254
+#: web/skins/modern/user/js/cat_js.php:280
 #, fuzzy
 msgid ""
 "This device cannot be configured with the settings used in your organisation."
@@ -932,7 +925,7 @@ msgstr ""
 "Nastavenia, ktoré poskytla vaša organizácia, neumožnujú nakonfigurovať toto "
 "zariadenie"
 
-#: web/skins/modern/user/js/cat_js.php:271
+#: web/skins/modern/user/js/cat_js.php:267
 msgid ""
 "Your site administrator has specified that this device should be configured "
 "with resources located on a local page. When you click <b>Continue</b> this "
@@ -943,41 +936,41 @@ msgstr ""
 "<b>Pokračovať</b> presmerovaný na stránky vašej lokálnej používateľskej "
 "podpory."
 
-#: web/skins/modern/user/js/cat_js.php:285
+#: web/skins/modern/user/js/cat_js.php:281
 msgid "Close"
 msgstr "Zavrieť"
 
-#: web/skins/modern/user/js/cat_js.php:381
+#: web/skins/modern/user/js/cat_js.php:378
 msgid "Missing email address"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:395
+#: web/skins/modern/user/js/cat_js.php:392
 msgid "No providers found for this email"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:400
+#: web/skins/modern/user/js/cat_js.php:397
 msgid "Your IdP is:"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:402
+#: web/skins/modern/user/js/cat_js.php:399
 msgid "Your IdP could be one of:"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:559
+#: web/skins/modern/user/js/cat_js.php:562
 msgid "Organisation"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:560
+#: web/skins/modern/user/js/cat_js.php:563
 #, fuzzy
 msgid "Select your organisation"
 msgstr "Označte, prosím, vašu domovskú organizáciu."
 
-#: web/skins/modern/user/js/cat_js.php:561
+#: web/skins/modern/user/js/cat_js.php:564
 #, fuzzy
 msgid "Help, my organisation is not on the list"
 msgstr "Pomoc, moja organizácia nie je uvedená v zozname"
 
-#: web/skins/modern/user/js/cat_js.php:562
+#: web/skins/modern/user/js/cat_js.php:565
 #, fuzzy, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -988,65 +981,65 @@ msgstr ""
 "vaša organizácia nie je uvedená v zozname, presvedčte vašich správcov, nech "
 "doplnia informácie do %s databázy."
 
-#: web/skins/modern/user/js/cat_js.php:563
+#: web/skins/modern/user/js/cat_js.php:566
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "Určiť moju polohu presnejšie pomocou HTML5 geo-lokácie"
 
-#: web/skins/modern/user/js/cat_js.php:564
+#: web/skins/modern/user/js/cat_js.php:567
 #, fuzzy
 msgid "Show organisations in"
 msgstr "Zobraziť nasledovné domovské organizácie:"
 
-#: web/skins/modern/user/js/cat_js.php:565
+#: web/skins/modern/user/js/cat_js.php:568
 msgid "all countries"
 msgstr "všetky krajiny"
 
-#: web/skins/modern/user/js/cat_js.php:566
+#: web/skins/modern/user/js/cat_js.php:569
 #, fuzzy
 msgid "or search for an organisation, for example Univerity of Oslo"
 msgstr "alebo organizáciu vyhľadajte, napr. Univerzita Komenského v Bratislave"
 
-#: web/skins/modern/user/js/cat_js.php:567
+#: web/skins/modern/user/js/cat_js.php:570
 msgid "show all countries"
 msgstr "zobraziť všetky krajiny"
 
-#: web/skins/modern/user/js/cat_js.php:568
+#: web/skins/modern/user/js/cat_js.php:571
 msgid "Results limited to"
 msgstr "Výsledky obmedzené na"
 
-#: web/skins/modern/user/js/cat_js.php:569
+#: web/skins/modern/user/js/cat_js.php:572
 msgid "entries - show more"
 msgstr "položky - zobraziť ďalšie"
 
-#: web/skins/modern/user/js/cat_js.php:570
+#: web/skins/modern/user/js/cat_js.php:573
 msgid "Nearby"
 msgstr "Nablízku"
 
-#: web/skins/modern/user/js/cat_js.php:571
+#: web/skins/modern/user/js/cat_js.php:574
 msgid "Location timeout"
 msgstr "Časový limit pre určenie polohy vypršal"
 
-#: web/skins/modern/user/js/cat_js.php:572
+#: web/skins/modern/user/js/cat_js.php:575
 msgid "Could not get your position"
 msgstr "Nebolo možné určiť vašu polohu"
 
-#: web/skins/modern/user/js/cat_js.php:573
+#: web/skins/modern/user/js/cat_js.php:576
 msgid "Your browser has denied access to your location"
 msgstr "Váš prehliadač odmietol sprístupniť vašu polohu"
 
-#: web/skins/modern/user/js/cat_js.php:574
+#: web/skins/modern/user/js/cat_js.php:577
 msgid "Unknown location error"
 msgstr "Nešpecifikovaná chyba pri určovaní polohy"
 
-#: web/skins/modern/user/js/cat_js.php:575
+#: web/skins/modern/user/js/cat_js.php:578
 msgid "You are here:"
 msgstr "Nachádzate sa tu:"
 
-#: web/skins/modern/user/js/cat_js.php:576
+#: web/skins/modern/user/js/cat_js.php:579
 msgid "Getting your location..."
 msgstr "Prebieha zisťovanie vašej polohy..."
 
-#: web/skins/modern/user/js/cat_js.php:577
+#: web/skins/modern/user/js/cat_js.php:580
 msgid "Nearby providers shown on top."
 msgstr "Organizácie vo vašej blízkosti sú zobrazené na vrchu zoznamu."
 

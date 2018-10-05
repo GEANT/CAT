@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Halil Adem <hadem@noc.grnet.gr>, 2018
 # HELPDESK <npapalouka@admin.grnet.gr>, 2015
@@ -12,14 +12,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 16:03+0200\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
 "PO-Revision-Date: 2018-09-20 15:29+0000\n"
 "Last-Translator: Zenon Mousmoulas <zenon@mousmoulas.gr>\n"
-"Language-Team: Greek (http://www.transifex.com/eduroam_devel/cat/language/el/)\n"
+"Language-Team: Greek (http://www.transifex.com/eduroam_devel/cat/language/"
+"el/)\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: devices/Devices-template.php:110
@@ -90,11 +91,15 @@ msgstr "Chrome OS"
 #, php-format
 msgid ""
 "After downloading the file, open the Chrome browser and browse to this URL: "
-"<a href='chrome://net-internals/#chromeos'>chrome://net-"
-"internals/#chromeos</a>. Then, use the 'Import ONC file' button. The import "
-"is silent; the new network definitions will be added to the preferred "
-"networks."
-msgstr "Μετά τη λήψη του αρχείου, ανοίξτε τον φυλλομετρητή Chrome και πλοηγηθείτε σε αυτό το URL : <a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</a>.  Έπειτα, χρησιμοποιήστε το κουμπί  'Εισαγωγή αρχείου ONC'. Η εισαγωγή γίνεται σιωπηρά· οι νέοι ορισμοί του δικτύου θα προστεθούν στα προτιμώμενα δίκτυα."
+"<a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</"
+"a>. Then, use the 'Import ONC file' button. The import is silent; the new "
+"network definitions will be added to the preferred networks."
+msgstr ""
+"Μετά τη λήψη του αρχείου, ανοίξτε τον φυλλομετρητή Chrome και πλοηγηθείτε σε "
+"αυτό το URL : <a href='chrome://net-internals/#chromeos'>chrome://net-"
+"internals/#chromeos</a>.  Έπειτα, χρησιμοποιήστε το κουμπί  'Εισαγωγή "
+"αρχείου ONC'. Η εισαγωγή γίνεται σιωπηρά· οι νέοι ορισμοί του δικτύου θα "
+"προστεθούν στα προτιμώμενα δίκτυα."
 
 #: devices/Devices-template.php:331
 msgid "Android 6.0 Marshmallow"
@@ -108,7 +113,11 @@ msgid ""
 "that you have installed the %s application. This application is available "
 "from %s, %s and %s, and will use the configuration file downloaded from CAT "
 "to create all necessary settings."
-msgstr "Προτού προχωρήσετε με την εγκατάσταση σε συστήματα Android, παρακαλώ επιβεβαιώστε ότι έχετε εγκαταστήσει την εφαρμογή %s. Αυτή η εφαρμογή είναι διαθέσιμη από %s, %s και %s, και θα χρησιμοποιήσει το αρχείο διαμόρφωσης που λήφθηκε από το CAT για να δημιουργήσει όλες τις απαραίτητες ρυθμίσεις."
+msgstr ""
+"Προτού προχωρήσετε με την εγκατάσταση σε συστήματα Android, παρακαλώ "
+"επιβεβαιώστε ότι έχετε εγκαταστήσει την εφαρμογή %s. Αυτή η εφαρμογή είναι "
+"διαθέσιμη από %s, %s και %s, και θα χρησιμοποιήσει το αρχείο διαμόρφωσης που "
+"λήφθηκε από το CAT για να δημιουργήσει όλες τις απαραίτητες ρυθμίσεις."
 
 #: devices/Devices-template.php:341 devices/Devices-template.php:357
 #: devices/Devices-template.php:373 devices/Devices-template.php:390
@@ -138,10 +147,14 @@ msgstr "ρυθμίσεις EAP"
 #: devices/Devices-template.php:412
 #, php-format
 msgid ""
-"This option provides a generic EAP config XML file, which can be consumed by"
-" dedicated applications like eduroamCAT for Android and Linux platforms. "
-"This is still an experimental feature."
-msgstr "Αυτή η επιλογή παρέχει ένα γενικής χρήσης αρχείο XML για ρυθμίσεις EAP, το οποίο μπορεί να χρησιμοποιηθεί από ειδικές εφαρμογές, όπως το eduroamCAT για πλατφόρμες Android και Linux. Αυτή η δυνατότητα βρίσκεται ακόμα σε πειραματικό στάδιο."
+"This option provides a generic EAP config XML file, which can be consumed by "
+"dedicated applications like eduroamCAT for Android and Linux platforms. This "
+"is still an experimental feature."
+msgstr ""
+"Αυτή η επιλογή παρέχει ένα γενικής χρήσης αρχείο XML για ρυθμίσεις EAP, το "
+"οποίο μπορεί να χρησιμοποιηθεί από ειδικές εφαρμογές, όπως το eduroamCAT για "
+"πλατφόρμες Android και Linux. Αυτή η δυνατότητα βρίσκεται ακόμα σε "
+"πειραματικό στάδιο."
 
 #: devices/Devices-template.php:418
 msgid "Test"
@@ -149,14 +162,19 @@ msgstr "Δοκιμή"
 
 #: devices/apple_mobileconfig/Device_mobileconfig_ios_56.php:38
 msgid "This device does not support forcing setting an HTTPS proxy."
-msgstr "Αυτή η συσκευή δεν υποστηρίζει την αναγκαστική ρύθμιση ενός διαμεσολαβητή HTTPS."
+msgstr ""
+"Αυτή η συσκευή δεν υποστηρίζει την αναγκαστική ρύθμιση ενός διαμεσολαβητή "
+"HTTPS."
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:49
 msgid ""
 "It is not possible to actively verify the user input for suffix match; but "
 "if there is no 'Terms of Use' configured, the installer will display a "
 "corresponding hint to the user instead."
-msgstr "Δεν είναι δυνατό να επαληθευτούν ενεργά τα δεδομένα εισόδου χρήστη για την αντιστοίχιση κατάληξης· ωστόσο αν δεν υπάρχουν διαμορφωμένοι 'Όροι Χρήσης', το πρόγραμμα εγκατάστασης θα εμφανίσει μια αντίστοιχη υπόδειξη στο χρήστη."
+msgstr ""
+"Δεν είναι δυνατό να επαληθευτούν ενεργά τα δεδομένα εισόδου χρήστη για την "
+"αντιστοίχιση κατάληξης· ωστόσο αν δεν υπάρχουν διαμορφωμένοι 'Όροι Χρήσης', "
+"το πρόγραμμα εγκατάστασης θα εμφανίσει μια αντίστοιχη υπόδειξη στο χρήστη."
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:57
 #, php-format
@@ -175,10 +193,14 @@ msgstr "Σημαντική Ειδοποίηση: το όνομα χρήστη σ
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:105
 msgid ""
-"Important Notice: your username MUST be in the form of xxx@yyy where the yyy"
-" is a common suffix identifying your Identity Provider. Please find out what"
-" to use there and enter the username in the correct format."
-msgstr "Σημαντική Ειδοποίηση: το όνομα χρήστη σας ΠΡΕΠΕΙ να είναι στη μορφή xxx@yyy όπου το yyy είναι ένα κοινό επίθεμα με το οποίο αναγνωρίζεται ο Πάροχος Ταυτότητας σας. Παρακαλώ βρείτε τι να χρησιμοποιήσετε εκεί και πληκτρολογήστε το όνομα χρήστη στη σωστή μορφή."
+"Important Notice: your username MUST be in the form of xxx@yyy where the yyy "
+"is a common suffix identifying your Identity Provider. Please find out what "
+"to use there and enter the username in the correct format."
+msgstr ""
+"Σημαντική Ειδοποίηση: το όνομα χρήστη σας ΠΡΕΠΕΙ να είναι στη μορφή xxx@yyy "
+"όπου το yyy είναι ένα κοινό επίθεμα με το οποίο αναγνωρίζεται ο Πάροχος "
+"Ταυτότητας σας. Παρακαλώ βρείτε τι να χρησιμοποιήσετε εκεί και "
+"πληκτρολογήστε το όνομα χρήστη στη σωστή μορφή."
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:141
 msgid "Unnamed Organisation"
@@ -192,13 +214,17 @@ msgstr "Ανώνυμο Προφίλ"
 msgid ""
 "For best results, please use the built-in browser (Safari) to open the "
 "configuration file."
-msgstr "Για καλύτερα αποτελέσματα, χρησιμοποιήστε τον προεγκαταστημένο φυλλομετρητή (Safari) για να ανοίξετε το αρχείο ρυθμίσεων."
+msgstr ""
+"Για καλύτερα αποτελέσματα, χρησιμοποιήστε τον προεγκαταστημένο φυλλομετρητή "
+"(Safari) για να ανοίξετε το αρχείο ρυθμίσεων."
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:202
 msgid ""
 "The profile will install itself after you click (or tap) the button. You "
 "will be asked for confirmation/input at several points:"
-msgstr "Το προφίλ θα εγκατασταθεί μόνο του αφού κάνετε κλικ (ή ταπ) στο κουμπί. Θα ερωτηθείτε για επιβεβαίωση/εισαγωγή σε διάφορα σημεία:"
+msgstr ""
+"Το προφίλ θα εγκατασταθεί μόνο του αφού κάνετε κλικ (ή ταπ) στο κουμπί. Θα "
+"ερωτηθείτε για επιβεβαίωση/εισαγωγή σε διάφορα σημεία:"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:204
 msgid "to install the profile"
@@ -218,7 +244,9 @@ msgstr "(%d φορές)"
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:210
 msgid ""
 "to enter the username and password you have been given by your organisation"
-msgstr "για να εισάγετε το όνομα χρήστη και τον κωδικό που σας έχει δοθεί από τον οργανισμό σας"
+msgstr ""
+"για να εισάγετε το όνομα χρήστη και τον κωδικό που σας έχει δοθεί από τον "
+"οργανισμό σας"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:212
 #, php-format
@@ -256,14 +284,14 @@ msgstr "%s Hotspot 2.0 διαμόρφωση"
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:426
 #, php-format
 msgid "This SSID should not be used after bootstrapping %s"
-msgstr "Αυτό το SSID δεν πρέπει να χρησιμοποιηθεί μετά από το bootstrapping του %s"
+msgstr ""
+"Αυτό το SSID δεν πρέπει να χρησιμοποιηθεί μετά από το bootstrapping του %s"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:428
 msgid "Disabled WiFi network"
 msgstr "Απενεργοποιημένο δίκτυο WiFi"
 
-#. we don't include the import password. It's displayed on screen, and should
-#. be input by the user.
+#. we don't include the import password. It's displayed on screen, and should be input by the user.
 #. <key>Password</key>
 #. <string>" . $this->clientCert['password'] . "</string>
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:503
@@ -283,36 +311,50 @@ msgid ""
 "This installer is an example only. It produces a zip file containig the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
 "administrator) and a dump of all available attributes."
-msgstr "Αυτό το πακέτο εγκατάστασης είναι μόνο ένα παράδειγμα. Παράγει ένα αρχείο zip το οποίο περιέχει τα πιστοποιητικά του IdP, αρχεία πληροφοριών και λογοτύπων (αν έχουν οριστεί από τον διαχειριστή του IdP) και μία αποτύπωση όλων των διαθεσίμων ορισμάτων."
+msgstr ""
+"Αυτό το πακέτο εγκατάστασης είναι μόνο ένα παράδειγμα. Παράγει ένα αρχείο "
+"zip το οποίο περιέχει τα πιστοποιητικά του IdP, αρχεία πληροφοριών και "
+"λογοτύπων (αν έχουν οριστεί από τον διαχειριστή του IdP) και μία αποτύπωση "
+"όλων των διαθεσίμων ορισμάτων."
 
 #: devices/linux/Device_Linux.php:52
 #, php-format
 msgid ""
-"The installer is in the form of a Python script. It will try to configure %s"
-" under NetworkManager and if this is either not appropriate for your system "
+"The installer is in the form of a Python script. It will try to configure %s "
+"under NetworkManager and if this is either not appropriate for your system "
 "or your version of NetworkManager is too old, a wpa_supplicant config file "
 "will be created instead."
-msgstr "Το πρόγραμμα εγκατάστασης είναι στη μορφή ενός Python script. Θα προσπαθήσει να ρυθμίσει το %s στο Network Manager και, αν δεν είναι κατάλληλο για το σύστημά σας ή αν έκδοση του Network Manager είναι πολύ παλιά, θα δημιουργηθεί αντ' αυτού ένα αρχείο ρυθμίσεων για το wpa_supplicant."
+msgstr ""
+"Το πρόγραμμα εγκατάστασης είναι στη μορφή ενός Python script. Θα προσπαθήσει "
+"να ρυθμίσει το %s στο Network Manager και, αν δεν είναι κατάλληλο για το "
+"σύστημά σας ή αν έκδοση του Network Manager είναι πολύ παλιά, θα "
+"δημιουργηθεί αντ' αυτού ένα αρχείο ρυθμίσεων για το wpa_supplicant."
 
 #: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:115
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to the following networks:"
-msgstr "Εκτός από το <strong>%s</strong>, το πακέτο εγκατάστασης θα ρυθμίσει επίσης την πρόσβαση στα ακόλουθα δίκτυα:"
+msgstr ""
+"Εκτός από το <strong>%s</strong>, το πακέτο εγκατάστασης θα ρυθμίσει επίσης "
+"την πρόσβαση στα ακόλουθα δίκτυα:"
 
 #: devices/linux/Device_Linux.php:58 devices/ms/WindowsCommon.php:117
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to:"
-msgstr "Εκτός από το <strong>%s</strong>, το πακέτο εγκατάστασης θα ρυθμίσει επίσης την πρόσβαση σε:"
+msgstr ""
+"Εκτός από το <strong>%s</strong>, το πακέτο εγκατάστασης θα ρυθμίσει επίσης "
+"την πρόσβαση σε:"
 
 #: devices/linux/Device_Linux.php:72
 msgid ""
 "The installer will create .cat_installer sub-directory in your home "
 "directory and will copy your server certificates there."
-msgstr "Το πακέτο εγκατάστασης θα δημιουργήσει έναν υποφάκελο .cat_installer στο home directory και θα αντιγράψει εκεί τα πιστοποιητικά εξυπηρετητή."
+msgstr ""
+"Το πακέτο εγκατάστασης θα δημιουργήσει έναν υποφάκελο .cat_installer στο "
+"home directory και θα αντιγράψει εκεί τα πιστοποιητικά εξυπηρετητή."
 
 #: devices/linux/Device_Linux.php:74
 msgid ""
@@ -322,7 +364,14 @@ msgid ""
 "be obtained. Such certificate files are password protected. You should have "
 "both the file and the password available during the installation process. "
 "Your p12 file will also be copied to the .cat_installer directory."
-msgstr "Για να συνδεθείτε στο δίκτυο θα χρειαστείτε ένα προσωπικό πιστοποιητικό σε μορφή αρχείου p12. Θα πρέπει να προμηθευτείτε αυτό το πιστοποιητικό από τον οργανισμό σας. Συμβουλευτείτε τη σελίδα υποστήριξης για να μάθετε πώς μπορείτε να προμηθευτείτε αυτό το πιστοποιητικό. Τέτοια αρχεία πιστοποιητικών προστατεύονται με κωδικό. Θα πρέπει να έχετε διαθέσιμο αμφότερα το αρχείο και τον κωδικό κατά την εγκατάσταση. Το αρχείο p12 θα αντιγραφεί επίσης στο φάκελο .cat_installer."
+msgstr ""
+"Για να συνδεθείτε στο δίκτυο θα χρειαστείτε ένα προσωπικό πιστοποιητικό σε "
+"μορφή αρχείου p12. Θα πρέπει να προμηθευτείτε αυτό το πιστοποιητικό από τον "
+"οργανισμό σας. Συμβουλευτείτε τη σελίδα υποστήριξης για να μάθετε πώς "
+"μπορείτε να προμηθευτείτε αυτό το πιστοποιητικό. Τέτοια αρχεία "
+"πιστοποιητικών προστατεύονται με κωδικό. Θα πρέπει να έχετε διαθέσιμο "
+"αμφότερα το αρχείο και τον κωδικό κατά την εγκατάσταση. Το αρχείο p12 θα "
+"αντιγραφεί επίσης στο φάκελο .cat_installer."
 
 #. not EAP-TLS
 #: devices/linux/Device_Linux.php:76 devices/ms/WindowsCommon.php:128
@@ -331,14 +380,21 @@ msgid ""
 "organisation. You should consult the support page to find out how this "
 "account can be obtained. It is very likely that your account is already "
 "activated."
-msgstr "Προκειμένου να συνδεθείτε στο δίκτυο θα χρειαστείτε ένα λογαριασμό από τον οργανισμό σας. Πρέπει να συμβουλευτείτε τη σελίδα υποστήριξης για να μάθετε πώς θα αποκτήσετε αυτό το λογαριασμό. Είναι πολύ πιθανό ο λογαριασμός σας να είναι ήδη ενεργοποιημένος."
+msgstr ""
+"Προκειμένου να συνδεθείτε στο δίκτυο θα χρειαστείτε ένα λογαριασμό από τον "
+"οργανισμό σας. Πρέπει να συμβουλευτείτε τη σελίδα υποστήριξης για να μάθετε "
+"πώς θα αποκτήσετε αυτό το λογαριασμό. Είναι πολύ πιθανό ο λογαριασμός σας να "
+"είναι ήδη ενεργοποιημένος."
 
 #: devices/linux/Device_Linux.php:78
 msgid ""
 "You will be requested to enter your account credentials during the "
 "installation. This information will be saved so that you will reconnect to "
 "the network automatically each time you are in the range."
-msgstr "Θα σας ζητηθεί να εισάγετε τα διαπιστευτήρια του λογαριασμού σας κατά την εγκατάσταση. Αυτές οι πληροφορίες θα αποθηκευτούν έτσι ώστε να συνδέεστε αυτόματα στο δίκτυο κάθε φορά που βρίσκεστε εντός εμβέλειας."
+msgstr ""
+"Θα σας ζητηθεί να εισάγετε τα διαπιστευτήρια του λογαριασμού σας κατά την "
+"εγκατάσταση. Αυτές οι πληροφορίες θα αποθηκευτούν έτσι ώστε να συνδέεστε "
+"αυτόματα στο δίκτυο κάθε φορά που βρίσκεστε εντός εμβέλειας."
 
 #: devices/linux/Device_Linux.php:87
 msgid "Really quit?"
@@ -415,9 +471,12 @@ msgstr "Όλα τα αρχεία"
 #: devices/linux/Device_Linux.php:106
 msgid ""
 "NetworkManager configuration failed, but we may generate a wpa_supplicant "
-"configuration file if you wish. Be warned that your connection password will"
-" be saved in this file as clear text."
-msgstr "Η παραμετροποίηση του Network Manager απέτυχε, αλλά μπορούμε να παράξουμε ένα αρχείο ρύθμισης wpa_supplicant αν το επιθυμείτε. Να γνωρίζετε ότι ο κωδικός σύνδεσής σας θα αποθηκευτεί σε αυτό το αρχείο χωρίς κρυπτογράφηση."
+"configuration file if you wish. Be warned that your connection password will "
+"be saved in this file as clear text."
+msgstr ""
+"Η παραμετροποίηση του Network Manager απέτυχε, αλλά μπορούμε να παράξουμε "
+"ένα αρχείο ρύθμισης wpa_supplicant αν το επιθυμείτε. Να γνωρίζετε ότι ο "
+"κωδικός σύνδεσής σας θα αποθηκευτεί σε αυτό το αρχείο χωρίς κρυπτογράφηση."
 
 #: devices/linux/Device_Linux.php:107
 msgid "Write the file"
@@ -428,19 +487,25 @@ msgstr "Γράψτε το αρχείο"
 msgid ""
 "Error: Your username must be of the form 'xxx@institutionID' e.g. "
 "'john@example.net'!"
-msgstr "Σφάλμα: Το όνομα χρήστη σας πρέπει να είναι στη μορφή 'xxx@institutionID' π.χ. 'john@example.net'!"
+msgstr ""
+"Σφάλμα: Το όνομα χρήστη σας πρέπει να είναι στη μορφή 'xxx@institutionID' π."
+"χ. 'john@example.net'!"
 
 #: devices/linux/Device_Linux.php:109
 msgid ""
 "Error: your username must be in the form of 'xxx@{}'. Please enter the "
 "username in the correct format."
-msgstr "Σφάλμα: το όνομα χρήστη σας πρέπει να είναι στη μορφή 'xxx@{}'. Παρακαλώ εισάγετε το όνομα χρήστη στη σωστή μορφή."
+msgstr ""
+"Σφάλμα: το όνομα χρήστη σας πρέπει να είναι στη μορφή 'xxx@{}'. Παρακαλώ "
+"εισάγετε το όνομα χρήστη στη σωστή μορφή."
 
 #: devices/linux/Device_Linux.php:110
 msgid ""
-"Error: your username must be in the form of 'xxx@institutionID' and end with"
-" '{}'. Please enter the username in the correct format."
-msgstr "Σφάλμα: Το όνομα χρήστη σας πρέπει να είναι στη μορφή 'xxx@institutionID' και να λήγει σε '{}'. Παρακαλώ εισάγετε το όνομα χρήστη στη σωστή μορφή."
+"Error: your username must be in the form of 'xxx@institutionID' and end with "
+"'{}'. Please enter the username in the correct format."
+msgstr ""
+"Σφάλμα: Το όνομα χρήστη σας πρέπει να είναι στη μορφή 'xxx@institutionID' "
+"και να λήγει σε '{}'. Παρακαλώ εισάγετε το όνομα χρήστη στη σωστή μορφή."
 
 #: devices/linux/Device_Linux.php:111
 msgid "personal certificate file not found"
@@ -457,32 +522,44 @@ msgstr "Περισσότερες πληροφορίες και σχόλια:"
 
 #: devices/linux/Device_Linux.php:229 devices/ms/Files/common.inc:477
 msgid "Installer created with software from the GEANT project."
-msgstr "Το πακέτο εγκατάστασης δημιουργήθηκε με λογισμικό από το GEANT project."
+msgstr ""
+"Το πακέτο εγκατάστασης δημιουργήθηκε με λογισμικό από το GEANT project."
 
 #: devices/linux/Device_Linux.php:245
 msgid ""
 "This installer will only work properly if you are a member of {0} and the "
 "user group: {1}."
-msgstr "Αυτό το πρόγραμμα εγκατάστασης θα λειτουργήσει σωστά μόνο αν είστε μέλος του {0} και της ομάδας χρηστών {1}."
+msgstr ""
+"Αυτό το πρόγραμμα εγκατάστασης θα λειτουργήσει σωστά μόνο αν είστε μέλος του "
+"{0} και της ομάδας χρηστών {1}."
 
 #: devices/linux/Device_Linux.php:247
 msgid "This installer will only work properly if you are a member of {0}."
-msgstr "Αυτό το πρόγραμμα εγκατάστασης θα λειτουργήσει σωστά μόνο αν είστε μέλος του {0}."
+msgstr ""
+"Αυτό το πρόγραμμα εγκατάστασης θα λειτουργήσει σωστά μόνο αν είστε μέλος του "
+"{0}."
 
 #: devices/ms/Device_Vista7.php:33 devices/ms/Device_W8_10.php:39
 msgid ""
 "Anonymous identities do not use the realm as specified in the profile - it "
 "is derived from the suffix of the user's username input instead."
-msgstr "Οι ανώνυμες ταυτότητες δε χρησιμοποιούν τον τομέα όπως καθορίζεται στο προφίλ - αντ' αυτού, αυτός αντλείται από την κατάληξη του ονόματος χρήστη."
+msgstr ""
+"Οι ανώνυμες ταυτότητες δε χρησιμοποιούν τον τομέα όπως καθορίζεται στο "
+"προφίλ - αντ' αυτού, αυτός αντλείται από την κατάληξη του ονόματος χρήστη."
 
 #: devices/ms/WindowsCommon.php:111
 #, php-format
 msgid ""
 "%s installer will be in the form of an EXE file. It will configure %s on "
 "your device, by creating wireless network profiles.<p>When you click the "
-"download button, the installer will be saved by your browser. Copy it to the"
-" machine you want to configure and execute."
-msgstr "το πακέτο εγκατάστασης %s θα έχει τη μορφή ενός αρχείου EXE. Θα ρυθμίσει το %s στη συσκευή σας, με τη δημιουργία ασύρματων προφίλ.<p>Μόλις κάνετε κλίκ στο κουμπί λήψης, το πακέτο εγκατάστασης θα αποθηκευτεί από τον περιηγητή σας. Αντιγράψτε το στον υπολογιστή τον οποίο θέλετε να ρυθμίσετε και εκτελέστε το."
+"download button, the installer will be saved by your browser. Copy it to the "
+"machine you want to configure and execute."
+msgstr ""
+"το πακέτο εγκατάστασης %s θα έχει τη μορφή ενός αρχείου EXE. Θα ρυθμίσει το "
+"%s στη συσκευή σας, με τη δημιουργία ασύρματων προφίλ.<p>Μόλις κάνετε κλίκ "
+"στο κουμπί λήψης, το πακέτο εγκατάστασης θα αποθηκευτεί από τον περιηγητή "
+"σας. Αντιγράψτε το στον υπολογιστή τον οποίο θέλετε να ρυθμίσετε και "
+"εκτελέστε το."
 
 #: devices/ms/WindowsCommon.php:124
 msgid ""
@@ -491,7 +568,13 @@ msgid ""
 "organisation. Consult the support page to find out how this certificate can "
 "be obtained. Such certificate files are password protected. You should have "
 "both the file and the password available during the installation process."
-msgstr "Για να συνδεθείτε στο δίκτυο θα χρειαστείτε ένα προσωπικό πιστοποιητικό στη μορφή ενός αρχείου p12. Αυτό το πιστοποιητικό θα πρέπει να το αποκτήσετε από τον οργανισμό σας. Συμβουλευτείτε τη σελίδα υποστήριξης για να μάθετε πως μπορεί να αποκτηθεί αυτό το πιστοποιητικό. Αυτού του είδους τα αρχεία πιστοποιητικών είναι προστατευμένα με κωδικό. Πρέπει να έχετε διαθέσιμο και το αρχείο και τον κωδικό κατά τη διαδικασία εγκατάστασης."
+msgstr ""
+"Για να συνδεθείτε στο δίκτυο θα χρειαστείτε ένα προσωπικό πιστοποιητικό στη "
+"μορφή ενός αρχείου p12. Αυτό το πιστοποιητικό θα πρέπει να το αποκτήσετε από "
+"τον οργανισμό σας. Συμβουλευτείτε τη σελίδα υποστήριξης για να μάθετε πως "
+"μπορεί να αποκτηθεί αυτό το πιστοποιητικό. Αυτού του είδους τα αρχεία "
+"πιστοποιητικών είναι προστατευμένα με κωδικό. Πρέπει να έχετε διαθέσιμο και "
+"το αρχείο και τον κωδικό κατά τη διαδικασία εγκατάστασης."
 
 #: devices/ms/WindowsCommon.php:132
 msgid ""
@@ -499,13 +582,19 @@ msgid ""
 "up a login box, where you should enter your user name and password. This "
 "information will be saved so that you will reconnect to the network "
 "automatically each time you are in the range."
-msgstr "Όταν συνδέεστε στο δίκτυο για πρώτη φορά, τα Windows θα εμφανίσουν ένα πλαίσιο σύνδεσης, όπου πρέπει να συμπληρώσετε το όνομα χρήστη και τον κωδικό σας. Αυτές οι πληροφορίες θα αποθηκευτούν έτσι ώστε να συνδέεστε αυτόματα στο δίκτυο κάθε φορά που βρίσκεται εντός εμβέλειας."
+msgstr ""
+"Όταν συνδέεστε στο δίκτυο για πρώτη φορά, τα Windows θα εμφανίσουν ένα "
+"πλαίσιο σύνδεσης, όπου πρέπει να συμπληρώσετε το όνομα χρήστη και τον κωδικό "
+"σας. Αυτές οι πληροφορίες θα αποθηκευτούν έτσι ώστε να συνδέεστε αυτόματα "
+"στο δίκτυο κάθε φορά που βρίσκεται εντός εμβέλειας."
 
 #: devices/ms/WindowsCommon.php:135
 msgid ""
 "You will be required to enter the same credentials for each of the "
 "configured notworks:"
-msgstr "Θα σας ζητηθεί να εισάγετε τα ίδια διαπιστευτήρια για κάθε ένα από τα ρυθμισμένα δίκτυα."
+msgstr ""
+"Θα σας ζητηθεί να εισάγετε τα ίδια διαπιστευτήρια για κάθε ένα από τα "
+"ρυθμισμένα δίκτυα."
 
 #: devices/ms/WindowsCommon.php:250 devices/ms/WindowsCommon.php:251
 #, php-format
@@ -516,14 +605,19 @@ msgstr "%s πακέτο εγκατάστασης για %s"
 msgid ""
 "This device is not yet supported by CAT, but your local administrator "
 "created a redirect to local installation instructions."
-msgstr "Αυτή η συσκευή δεν υποστηρίζεται ακόμη από το CAT αλλά ο τοπικός σας διαχειριστής έχει δημιουργήσει μια ανακατεύθυνση στις τοπικές οδηγίες εγκατάστασης."
+msgstr ""
+"Αυτή η συσκευή δεν υποστηρίζεται ακόμη από το CAT αλλά ο τοπικός σας "
+"διαχειριστής έχει δημιουργήσει μια ανακατεύθυνση στις τοπικές οδηγίες "
+"εγκατάστασης."
 
 #: devices/xml/Device_XML.php:50
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
 "-00</a> XML format."
-msgstr "Αυτό είναι ένα αρχείο ρυθμίσεων γενικής χρήσης που ακολουθεί το πρότυπο IETF <a href='%s'>EAP Metadata -00</a> XML."
+msgstr ""
+"Αυτό είναι ένα αρχείο ρυθμίσεων γενικής χρήσης που ακολουθεί το πρότυπο IETF "
+"<a href='%s'>EAP Metadata -00</a> XML."
 
 #: devices/ms/Files/common.inc:124
 #, php-format
@@ -558,7 +652,9 @@ msgstr "Αποδοχή"
 msgid ""
 "If you accept the conditions then select Accept and then click Install to "
 "continue."
-msgstr "Αν αποδέχεστε τους όρους επιλέξτε Αποδοχή και κάντε κλικ στο Εγκατάσταση για να συνεχίσετε."
+msgstr ""
+"Αν αποδέχεστε τους όρους επιλέξτε Αποδοχή και κάντε κλικ στο Εγκατάσταση για "
+"να συνεχίσετε."
 
 #: devices/ms/Files/common.inc:142
 msgid "Finish"
@@ -579,11 +675,15 @@ msgstr "αδυναμία εγκατάστασης πιστοποιητικού"
 #: devices/ms/Files/common.inc:432
 msgid ""
 "The non TKIP profiles are preferred. Always use them if you have a choice."
-msgstr "Προτιμώνται τα προφίλ μη TKIP. Να τα χρησιμοποιείτε πάντα όταν έχετε την επιλογή."
+msgstr ""
+"Προτιμώνται τα προφίλ μη TKIP. Να τα χρησιμοποιείτε πάντα όταν έχετε την "
+"επιλογή."
 
 #: devices/ms/Files/common.inc:434
 msgid "The non TKIP profile is preferred. Always use it if you have a choice."
-msgstr "Προτιμάται το προφίλ μη TKIP. Να το χρησιμοποιείτε πάντα όταν έχετε την επιλογή."
+msgstr ""
+"Προτιμάται το προφίλ μη TKIP. Να το χρησιμοποιείτε πάντα όταν έχετε την "
+"επιλογή."
 
 #: devices/ms/Files/common.inc:440 devices/ms/Files/common.inc:448
 msgid "This installer has been prepared for ${ORGANISATION}"
@@ -601,25 +701,36 @@ msgstr "Το πακέτο εγκατάστασης θα δημιουργήσει
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "10 and newer. Please download the correct installer and try again."
-msgstr "Εκτελείτε Windows $WindowsName αλλά αυτό το πακέτο εγκατάστασης προορίζεται μόνο για Windows 10 ή νεώτερη έκδοση. Κατεβάστε το σωστό πακέτο εγκατάστασης και προσπαθήστε ξανά."
+msgstr ""
+"Εκτελείτε Windows $WindowsName αλλά αυτό το πακέτο εγκατάστασης προορίζεται "
+"μόνο για Windows 10 ή νεώτερη έκδοση. Κατεβάστε το σωστό πακέτο εγκατάστασης "
+"και προσπαθήστε ξανά."
 
 #: devices/ms/Files/common.inc:537 devices/ms/Files/common.inc:544
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "8 and 8.1. Please download the correct installer and try again."
-msgstr "Εκτελείτε Windows $WindowsName αλλά αυτό το πακέτο εγκατάστασης προορίζεται μόνο για Windows 8 και 8.1. Κατεβάστε το σωστό πακέτο εγκατάστασης και προσπαθήστε ξανά. "
+msgstr ""
+"Εκτελείτε Windows $WindowsName αλλά αυτό το πακέτο εγκατάστασης προορίζεται "
+"μόνο για Windows 8 και 8.1. Κατεβάστε το σωστό πακέτο εγκατάστασης και "
+"προσπαθήστε ξανά. "
 
 #: devices/ms/Files/common.inc:553
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "Vista and Windows 7. Please download the correct installer and try again."
-msgstr "Εκτελείτε Windows $WindowsName αλλά αυτό το πακέτο εγκατάστασης είναι μόνο για Windows Vista και Windows 7. Παρακαλώ κατεβάστε το σωστό πακέτο εγκατάστασης και δοκιμάστε ξανά."
+msgstr ""
+"Εκτελείτε Windows $WindowsName αλλά αυτό το πακέτο εγκατάστασης είναι μόνο "
+"για Windows Vista και Windows 7. Παρακαλώ κατεβάστε το σωστό πακέτο "
+"εγκατάστασης και δοκιμάστε ξανά."
 
 #: devices/ms/Files/common.inc:589
 msgid ""
 "Windows wireless configuration service is not enabled. The installer cannot "
 "continue."
-msgstr "Η υπηρεσία ασύρματης ρύθμισης των Windows δεν είναι ενεργοποιημένη. Η εγκατάσταση δεν μπορεί να συνεχιστεί."
+msgstr ""
+"Η υπηρεσία ασύρματης ρύθμισης των Windows δεν είναι ενεργοποιημένη. Η "
+"εγκατάσταση δεν μπορεί να συνεχιστεί."
 
 #: devices/ms/Files/common.inc:594
 msgid "No wireless interfaces found. The installer cannot continue."
@@ -629,7 +740,10 @@ msgstr "Δεν βρέθηκαν ασύρματες διεπαφές. Η εγκα
 msgid ""
 "No wireless interfaces found. Wireless access will not be configured. Would "
 "you like to continue and configure access on the wired interface?"
-msgstr "Δεν βρέθηκαν ασύρματες διεπαφές. Η ασύρματη πρόσβαση δεν θα ρυθμιστεί. Επιθυμείτε να συνεχίσετε και να ρυθμίσετε την πρόσβαση στην ενσύρματη διεπαφή;"
+msgstr ""
+"Δεν βρέθηκαν ασύρματες διεπαφές. Η ασύρματη πρόσβαση δεν θα ρυθμιστεί. "
+"Επιθυμείτε να συνεχίσετε και να ρυθμίσετε την πρόσβαση στην ενσύρματη "
+"διεπαφή;"
 
 #: devices/ms/Files/common.inc:616
 msgid "Do you want to enable access on wired interfaces?"
@@ -651,7 +765,9 @@ msgstr "βρέθηκε προφίλ $R8"
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION} and the user group: ${USER_GROUP}."
-msgstr "Το πακέτο εγκατάστασης θα λειτουργήσει μόνο αν είστε μέλος του ${ORGANISATION} και της ομάδας χρηστών: ${USER_GROUP}."
+msgstr ""
+"Το πακέτο εγκατάστασης θα λειτουργήσει μόνο αν είστε μέλος του "
+"${ORGANISATION} και της ομάδας χρηστών: ${USER_GROUP}."
 
 #: devices/ms/Files/common.inc:713 devices/ms/Files/common.inc:716
 msgid "Click OK to continue with installation."
@@ -661,13 +777,17 @@ msgstr "Πατήστε ΟΚ για να συνεχίσετε την εγκατά
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION}."
-msgstr "Αυτό το πακέτο εγκατάστασης θα λειτουργήσει μόνο αν είστε μέλος του ${ORGANISATION}."
+msgstr ""
+"Αυτό το πακέτο εγκατάστασης θα λειτουργήσει μόνο αν είστε μέλος του "
+"${ORGANISATION}."
 
 #: devices/ms/Files/common.inc:724
 msgid ""
 "Please read the additional information from ${ORGANISATION} which will be "
 "displayed in a moment."
-msgstr "Παρακαλούμε διαβάστε τις επιπρόσθετες πληροφορίες από το ${ORGANISATION}, οι οποίες θα εμφανιστούν άμεσα."
+msgstr ""
+"Παρακαλούμε διαβάστε τις επιπρόσθετες πληροφορίες από το ${ORGANISATION}, οι "
+"οποίες θα εμφανιστούν άμεσα."
 
 #: devices/ms/Files/common.inc:779
 #, php-format
@@ -675,17 +795,30 @@ msgid ""
 "Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may "
 "be due to the fact that Symantec Endpoint Protection is installed on your "
 "machine.$\\r$\\nWhile this is a well-known bug of the Symantec product, "
-"about which the installer can not do anything, there is a "
-"workaround.$\\r$\\nWhen you close this window the installer will exit and an"
-" explorer window will be started (it could appear underneath already opened "
-"windows). In this window you should see a script named inst_cat. Start it by"
-" double-clicking, It will install the profiles. You will need to login to %s"
-" with your username and password."
-msgstr "Παρακαλούμε ΔΙΑΒΑΣΤΕ αυτό το μήνυμα, είναι ΣΗΜΑΝΤΙΚΟ.$\\r$\\nΠροβλήματα στην εγκατάσταση μπορεί να οφείλονται στο γεγονός ότι το Symantec Endpoint Protection είναι εγκατεστημένο στο μηχάνημά σας.$\\r$\\nΑν και αυτό είναι ένα αρκετά γνωστό πρόβλημα του προϊόντος της Symantec, στο οποίο το πακέτο εγκατάστασης δεν μπορεί να κάνει απολύτως τίποτα, υπάρχει προσωρινή λύση.$\\r$\\nΌταν κλείσετε αυτό το παράθυρο, το πακέτο εγκατάστασης θα κλείσει και ένα παράθυρο εξερεύνησης θα ανοίξει (μπορεί να εμφανιστεί κάτω απ'το ήδη ανοιχτό παράθυρο). Σε αυτό το παράθυρο θα μπορείτε να δείτε ένα script με το όνομα inst_cat. Εκτελέστε το κάνοντας διπλό κλικ σε αυτό. Θα εγκαταστήσει τα προφίλ. Θα χρειαστεί να συνδεθείτε στο %s με το όνομα χρήστη και τον κωδικό πρόσβασής σας."
+"about which the installer can not do anything, there is a workaround.$\\r$"
+"\\nWhen you close this window the installer will exit and an explorer window "
+"will be started (it could appear underneath already opened windows). In this "
+"window you should see a script named inst_cat. Start it by double-clicking, "
+"It will install the profiles. You will need to login to %s with your "
+"username and password."
+msgstr ""
+"Παρακαλούμε ΔΙΑΒΑΣΤΕ αυτό το μήνυμα, είναι ΣΗΜΑΝΤΙΚΟ.$\\r$\\nΠροβλήματα στην "
+"εγκατάσταση μπορεί να οφείλονται στο γεγονός ότι το Symantec Endpoint "
+"Protection είναι εγκατεστημένο στο μηχάνημά σας.$\\r$\\nΑν και αυτό είναι "
+"ένα αρκετά γνωστό πρόβλημα του προϊόντος της Symantec, στο οποίο το πακέτο "
+"εγκατάστασης δεν μπορεί να κάνει απολύτως τίποτα, υπάρχει προσωρινή λύση.$\\r"
+"$\\nΌταν κλείσετε αυτό το παράθυρο, το πακέτο εγκατάστασης θα κλείσει και "
+"ένα παράθυρο εξερεύνησης θα ανοίξει (μπορεί να εμφανιστεί κάτω απ'το ήδη "
+"ανοιχτό παράθυρο). Σε αυτό το παράθυρο θα μπορείτε να δείτε ένα script με το "
+"όνομα inst_cat. Εκτελέστε το κάνοντας διπλό κλικ σε αυτό. Θα εγκαταστήσει τα "
+"προφίλ. Θα χρειαστεί να συνδεθείτε στο %s με το όνομα χρήστη και τον κωδικό "
+"πρόσβασής σας."
 
 #: devices/ms/Files/common.inc:789
 msgid "Please restart your system after installation finishes."
-msgstr "Παρακαλείστε να επανεκκινήσετε το σύστημά σας μετά την ολοκλήρωση της εγκατάστασης."
+msgstr ""
+"Παρακαλείστε να επανεκκινήσετε το σύστημά σας μετά την ολοκλήρωση της "
+"εγκατάστασης."
 
 #: devices/ms/Files/common.inc:813
 msgid "installing wired profile"
@@ -774,15 +907,20 @@ msgstr "Λανθασμένος κωδικός πιστοποιητικού$\\r$\
 
 #: devices/ms/Files/common.inc:1217
 msgid ""
-"Error: your username must be in the form of 'xxx@${REALM}'. Please enter the"
-" username in the correct format."
-msgstr "Σφάλμα: το όνομα χρήστη σας πρέπει να είναι στην μορφή 'xxx@${REALM}'. Παρακαλώ εισάγετε το όνομα χρήστη σας στην ορθή μορφή."
+"Error: your username must be in the form of 'xxx@${REALM}'. Please enter the "
+"username in the correct format."
+msgstr ""
+"Σφάλμα: το όνομα χρήστη σας πρέπει να είναι στην μορφή 'xxx@${REALM}'. "
+"Παρακαλώ εισάγετε το όνομα χρήστη σας στην ορθή μορφή."
 
 #: devices/ms/Files/common.inc:1219
 msgid ""
-"Error: your username must be in the form of 'xxx@institutionID' and end with"
-" '${REALM}'. Please enter the username in the correct format."
-msgstr "Σφάλμα: το όνομα χρήστη σας πρέπει να είναι στην μορφή 'xxx@institutionID' και να λήγει με '${REALM}'. Παρακαλώ πολύ εισάγετε το όνομα χρήστη σας στην ορθή μορφή."
+"Error: your username must be in the form of 'xxx@institutionID' and end with "
+"'${REALM}'. Please enter the username in the correct format."
+msgstr ""
+"Σφάλμα: το όνομα χρήστη σας πρέπει να είναι στην μορφή 'xxx@institutionID' "
+"και να λήγει με '${REALM}'. Παρακαλώ πολύ εισάγετε το όνομα χρήστη σας στην "
+"ορθή μορφή."
 
 #: devices/ms/Files/common.inc:1286
 msgid "User credentials"
@@ -859,13 +997,18 @@ msgid ""
 "An additional piece of software 'GEANTlink' needs to be installed. This "
 "installation requires Administrator rights; you will be prompted to give "
 "permission for that action."
-msgstr "Ένα επιπλέον κομμάτι του λογισμικού \"GEANTlink\" πρέπει να εγκατασταθεί. Αυτή η εγκατάσταση απαιτεί δικαιώματα διαχειριστή? θα σας ζητηθεί να δώσετε άδεια για την εν λόγω δράση."
+msgstr ""
+"Ένα επιπλέον κομμάτι του λογισμικού \"GEANTlink\" πρέπει να εγκατασταθεί. "
+"Αυτή η εγκατάσταση απαιτεί δικαιώματα διαχειριστή? θα σας ζητηθεί να δώσετε "
+"άδεια για την εν λόγω δράση."
 
 #: devices/ms/Files/geant_link.inc:89
 msgid ""
 "Error installing GEANTLink.$\\nEmbedded installer didn't complete "
 "succesfully."
-msgstr "Σφάλμα κατά την εγκατάσταση GEANTLink.$\\nΤο ενσωματωμένο πρόγραμμα εγκατάστασης δεν ολοκληρώθηκε με επιτυχία."
+msgstr ""
+"Σφάλμα κατά την εγκατάσταση GEANTLink.$\\nΤο ενσωματωμένο πρόγραμμα "
+"εγκατάστασης δεν ολοκληρώθηκε με επιτυχία."
 
 #: devices/ms/Files/geant_link.inc:99
 msgid "installing credentials for ${PROVIDERID}"
@@ -873,4 +1016,6 @@ msgstr "εγκατάσταση διαπιστευτηρἰων για ${PROVIDER
 
 #: devices/ms/Files/pwd.inc:35
 msgid "EAP-pwd installation error. Please try again or contact Support."
-msgstr "σφάλμα εγκατάστασης EAP-pwd. Παρακαλώ προσπαθήστε ξανά ή επικοινωνήστε με την Υποστήριξη."
+msgstr ""
+"σφάλμα εγκατάστασης EAP-pwd. Παρακαλώ προσπαθήστε ξανά ή επικοινωνήστε με "
+"την Υποστήριξη."

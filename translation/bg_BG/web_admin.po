@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"POT-Creation-Date: 2018-10-05 09:32+0200\n"
 "PO-Revision-Date: 2018-09-12 11:44+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/eduroam_devel/"
@@ -555,10 +555,11 @@ msgstr ""
 "суфикса на областта."
 
 #: web/admin/edit_profile.php:198
+#, fuzzy
 msgid ""
 "The realm check feature needs to know an outer ID which actually gets a "
 "chance to authenticate. If your RADIUS server lets only select usernames "
-"pass, it is useful to supply the inforamtion which of those (outer ID) "
+"pass, it is useful to supply the information which of those (outer ID) "
 "username we can use for testing."
 msgstr ""
 "Характеристиката за проверка на областта трябва да знае някакво външно ID, "
@@ -779,9 +780,10 @@ msgstr ""
 "местоположение!"
 
 #: web/admin/edit_profile_result.php:175
+#, fuzzy
 msgid ""
 "Redirection can't be activated - the target needs to be a complete URL "
-"staring with http:// or https:// !"
+"starting with http:// or https:// !"
 msgstr ""
 "Пренасочването не може да бъде активирано - обектът трябва да бъде пълен "
 "URL, започващ с http:// или https:// !"

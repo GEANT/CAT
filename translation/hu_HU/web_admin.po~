@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # András Jákó <jako.andras@eik.bme.hu>, 2017
 # Janos Mohacsi <mohacsi@niif.hu>, 2018
@@ -9,14 +9,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 16:03+0200\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
 "PO-Revision-Date: 2018-09-19 08:58+0000\n"
 "Last-Translator: Janos Mohacsi <mohacsi@niif.hu>\n"
-"Language-Team: Hungarian (http://www.transifex.com/eduroam_devel/cat/language/hu/)\n"
+"Language-Team: Hungarian (http://www.transifex.com/eduroam_devel/cat/"
+"language/hu/)\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: web/admin/action_enrollment.php:41 web/admin/action_enrollment.php:67
@@ -37,9 +38,9 @@ msgstr ""
 #: web/admin/action_enrollment.php:71
 #, php-format
 msgid ""
-"Sorry... this token has already been used. The %s is already created. If you"
-" got the invitation from a mailing list, probably someone else used it "
-"before you."
+"Sorry... this token has already been used. The %s is already created. If you "
+"got the invitation from a mailing list, probably someone else used it before "
+"you."
 msgstr ""
 
 #: web/admin/action_enrollment.php:74
@@ -51,13 +52,14 @@ msgstr ""
 
 #: web/admin/action_enrollment.php:77
 msgid ""
-"Sorry... you have come to the enrollment page without a valid token. Are you"
-" a nasty person? If not, you should go to <a href='overview_user.php'>your "
+"Sorry... you have come to the enrollment page without a valid token. Are you "
+"a nasty person? If not, you should go to <a href='overview_user.php'>your "
 "profile page</a> instead."
-msgstr "Elnézést, de érvényes token nélkül próbáltál feliratkozni. Ha nem valami imposztor vagy, folytasd a <a href='overview_user.php'>profilodnál</a>!"
+msgstr ""
+"Elnézést, de érvényes token nélkül próbáltál feliratkozni. Ha nem valami "
+"imposztor vagy, folytasd a <a href='overview_user.php'>profilodnál</a>!"
 
-#. / product name (eduroam CAT), then term used for "federation", then actual
-#. name of federation.
+#. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
 #: web/admin/edit_federation.php:34
 #, php-format
 msgid "%s: Editing %s '%s'"
@@ -153,8 +155,8 @@ msgstr "Általános tájékoztatás"
 #: web/admin/edit_idp.php:101
 msgid ""
 "Some properties are valid across all deployment profiles. This is the place "
-"where you can describe those properties in a fine-grained way. The solicited"
-" information is used as follows:"
+"where you can describe those properties in a fine-grained way. The solicited "
+"information is used as follows:"
 msgstr ""
 
 #: web/admin/edit_idp.php:103
@@ -248,8 +250,7 @@ msgstr ""
 
 #: web/admin/edit_idp.php:152
 msgid ""
-"Please configure which Consortium OIs should be configured in the "
-"installers."
+"Please configure which Consortium OIs should be configured in the installers."
 msgstr ""
 
 #: web/admin/edit_idp.php:155
@@ -259,10 +260,10 @@ msgstr ""
 #: web/admin/edit_idp.php:156
 msgid ""
 "If you want to configure your users' devices with IEEE 802.1X support for "
-"wired ethernet, please check the corresponding box. Note that this makes the"
-" installation process a bit more difficult on some platforms (Windows: needs"
-" administrator privileges; Apple: attempting to install a profile with wired"
-" support on a device without an active wired ethernet card will fail)."
+"wired ethernet, please check the corresponding box. Note that this makes the "
+"installation process a bit more difficult on some platforms (Windows: needs "
+"administrator privileges; Apple: attempting to install a profile with wired "
+"support on a device without an active wired ethernet card will fail)."
 msgstr ""
 
 #: web/admin/edit_idp.php:158
@@ -272,8 +273,8 @@ msgstr ""
 #: web/admin/edit_idp.php:159
 msgid ""
 "If you use a captive portal to distribute configurations, you may want to "
-"unconfigure/disable that SSID after the bootstrap process. With this option,"
-" the SSID will either be removed, or be defined as 'Only connect manually'."
+"unconfigure/disable that SSID after the bootstrap process. With this option, "
+"the SSID will either be removed, or be defined as 'Only connect manually'."
 msgstr ""
 
 #: web/admin/edit_idp.php:168
@@ -319,8 +320,8 @@ msgstr ""
 #: web/admin/edit_idp.php:193
 #, php-format
 msgid ""
-"When you are sure that everything is correct, please click on %sContinue "
-"...%s"
+"When you are sure that everything is correct, please click on %sContinue ..."
+"%s"
 msgstr ""
 
 #: web/admin/edit_idp_result.php:51
@@ -343,8 +344,7 @@ msgstr ""
 
 #: web/admin/edit_idp_result.php:107
 #, php-format
-msgid ""
-"Your installers will configure the following SSIDs: <strong>%s</strong>"
+msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
 msgstr ""
 
 #: web/admin/edit_idp_result.php:107
@@ -375,8 +375,8 @@ msgstr ""
 #, php-format
 msgid ""
 "You did not submit an e-mail address. This is required for %s. Please go to "
-"the %s dashboard and edit your helpdesk settings to include a helpdesk "
-"e-mail address."
+"the %s dashboard and edit your helpdesk settings to include a helpdesk e-"
+"mail address."
 msgstr ""
 
 #: web/admin/edit_idp_result.php:136
@@ -409,8 +409,8 @@ msgstr ""
 msgid ""
 "We will now define a profile for your user group(s).  You can add as many "
 "profiles as you like by choosing the appropriate button on the end of the "
-"page. After we are done, the wizard is finished and you will be taken to the"
-" main IdP administration page."
+"page. After we are done, the wizard is finished and you will be taken to the "
+"main IdP administration page."
 msgstr ""
 
 #: web/admin/edit_profile.php:133
@@ -426,8 +426,8 @@ msgstr ""
 
 #: web/admin/edit_profile.php:137
 msgid ""
-"Optionally, you can provide a longer descriptive text about who this profile"
-" is for. If you specify it, it will be displayed on the download page after "
+"Optionally, you can provide a longer descriptive text about who this profile "
+"is for. If you specify it, it will be displayed on the download page after "
 "the user has selected the profile name in the list."
 msgstr ""
 
@@ -438,8 +438,8 @@ msgstr "Megadhatod a RADIUS tartományodat is."
 #: web/admin/edit_profile.php:140
 #, php-format
 msgid ""
-"This is useful if you want to use the sanity check module later, which tests"
-" reachability of your realm in the %s infrastructure. "
+"This is useful if you want to use the sanity check module later, which tests "
+"reachability of your realm in the %s infrastructure. "
 msgstr ""
 
 #: web/admin/edit_profile.php:142
@@ -465,8 +465,8 @@ msgstr ""
 
 #: web/admin/edit_profile.php:197
 msgid ""
-"On some platforms, the installers can suggest username endings and/or verify"
-" the user input to contain the realm suffix."
+"On some platforms, the installers can suggest username endings and/or verify "
+"the user input to contain the realm suffix."
 msgstr ""
 
 #: web/admin/edit_profile.php:198
@@ -503,8 +503,8 @@ msgid ""
 "learn about the support pointers you entered earlier. The CAT can also "
 "immediately offer the installers for the profile for download. If you don't "
 "want that, you can instead enter a web site location where you want your "
-"users to be redirected to. You, as the administrator, can still download the"
-" profiles to place them on that page (see the 'Compatibility Matrix' button "
+"users to be redirected to. You, as the administrator, can still download the "
+"profiles to place them on that page (see the 'Compatibility Matrix' button "
 "on the dashboard)."
 msgstr ""
 
@@ -521,8 +521,8 @@ msgid ""
 "Now, we need to know which EAP types your IdP supports. If you support "
 "multiple EAP types, you can assign every type a priority (1=highest). This "
 "tool will always generate an automatic installer for the EAP type with the "
-"highest priority; only if the user's device can't use that EAP type, we will"
-" use an EAP type further down in the list."
+"highest priority; only if the user's device can't use that EAP type, we will "
+"use an EAP type further down in the list."
 msgstr ""
 
 #: web/admin/edit_profile.php:339
@@ -567,8 +567,8 @@ msgid ""
 "The option %s is already defined IdP-wide. If you set it here on profile "
 "level, this setting will override the IdP-wide one."
 msgid_plural ""
-"The options %s are already defined IdP-wide. If you set them here on profile"
-" level, these settings will override the IdP-wide ones."
+"The options %s are already defined IdP-wide. If you set them here on profile "
+"level, these settings will override the IdP-wide ones."
 msgstr[0] ""
 msgstr[1] ""
 
@@ -643,13 +643,12 @@ msgstr ""
 #: web/admin/edit_profile_result.php:163
 #, php-format
 msgid ""
-"Where possible, username inputs will be <strong>verified to end with "
-"@%s</strong>%s"
+"Where possible, username inputs will be <strong>verified to end with @%s</"
+"strong>%s"
 msgstr ""
 
 #: web/admin/edit_profile_result.php:173
-msgid ""
-"Redirection can't be activated - you did not specify a target location!"
+msgid "Redirection can't be activated - you did not specify a target location!"
 msgstr ""
 
 #: web/admin/edit_profile_result.php:175
@@ -875,9 +874,9 @@ msgstr ""
 #: web/admin/edit_silverbullet.php:530
 #, php-format
 msgid ""
-"You need to acknowledge that the created accounts are still valid within the"
-" next %s days. If all accounts shown as active above are indeed still valid,"
-" please check the box below and push \"Save\". If any of the accounts are "
+"You need to acknowledge that the created accounts are still valid within the "
+"next %s days. If all accounts shown as active above are indeed still valid, "
+"please check the box below and push \"Save\". If any of the accounts are "
 "stale, please deactivate them by pushing the corresponding button before "
 "doing this."
 msgstr ""
@@ -1031,25 +1030,21 @@ msgstr ""
 msgid "but <b>in clear text</b> to the mail domain"
 msgstr ""
 
-#: web/admin/overview_federation.php:145
-#: web/admin/inc/manageAdmins.inc.php:103
+#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:103
 #, php-format
 msgid "The invitation email was sent successfully %s."
 msgstr ""
 
-#: web/admin/overview_federation.php:145
-#: web/admin/inc/manageAdmins.inc.php:103
+#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:103
 msgid "The invitation email was sent."
 msgstr ""
 
-#: web/admin/overview_federation.php:148
-#: web/admin/inc/manageAdmins.inc.php:106 web/admin/inc/overview_js.php:56
-#: web/admin/inc/overview_js.php:111
+#: web/admin/overview_federation.php:148 web/admin/inc/manageAdmins.inc.php:106
+#: web/admin/inc/overview_js.php:56 web/admin/inc/overview_js.php:111
 msgid "The invitation email could not be sent!"
 msgstr ""
 
-#: web/admin/overview_federation.php:151
-#: web/admin/inc/manageAdmins.inc.php:109
+#: web/admin/overview_federation.php:151 web/admin/inc/manageAdmins.inc.php:109
 msgid "The invitation email address was malformed, no invitation was sent!"
 msgstr ""
 
@@ -1210,8 +1205,8 @@ msgstr ""
 #: web/admin/overview_idp.php:170
 #, php-format
 msgid ""
-"You can create up to %d users. Their credentials will carry the name "
-"<strong>%s</strong>."
+"You can create up to %d users. Their credentials will carry the name <strong>"
+"%s</strong>."
 msgstr ""
 
 #: web/admin/overview_idp.php:179
@@ -1385,13 +1380,10 @@ msgstr ""
 msgid "(Need help? Refer to the <a href='%s'>IdP administrator manual</a>)"
 msgstr "(Útmutatást a <a href='%s'>IdP administrator manual</a>ban találsz.)"
 
-#. / first parameter: number of Identity Providers; second param is the
-#. literal configured term for 'Identity Provider' (you may or may not be able
-#. to add a plural suffix for your locale)
+#. / first parameter: number of Identity Providers; second param is the literal configured term for 'Identity Provider' (you may or may not be able to add a plural suffix for your locale)
 #: web/admin/overview_user.php:80
 #, php-format
-msgid ""
-"You are managing the following <span style='display:none'>%d </span>%s:"
+msgid "You are managing the following <span style='display:none'>%d </span>%s:"
 msgid_plural "You are managing the following <strong>%d</strong> %s:"
 msgstr[0] ""
 msgstr[1] ""
@@ -1421,8 +1413,7 @@ msgstr ""
 #: web/admin/overview_user.php:150
 #, php-format
 msgid ""
-"Please ask your %s administrator to invite you to become an %s "
-"administrator."
+"Please ask your %s administrator to invite you to become an %s administrator."
 msgstr ""
 
 #: web/admin/overview_user.php:154
@@ -1443,8 +1434,8 @@ msgstr ""
 #: web/admin/inc/manageAdmins.inc.php:46
 #, php-format
 msgid ""
-"You do not have the necessary privileges to alter administrators of this %s."
-" In fact, you shouldn't have come this far!"
+"You do not have the necessary privileges to alter administrators of this %s. "
+"In fact, you shouldn't have come this far!"
 msgstr ""
 
 #: web/admin/inc/manageAdmins.inc.php:84
@@ -1467,9 +1458,9 @@ msgstr ""
 #: web/admin/inc/manageAdmins.inc.php:125
 #, php-format
 msgid ""
-"You are an administrator who was directly appointed by the %s administrator."
-" You can appoint further administrators, but these can't in turn appoint any"
-" more administrators."
+"You are an administrator who was directly appointed by the %s administrator. "
+"You can appoint further administrators, but these can't in turn appoint any "
+"more administrators."
 msgstr ""
 
 #: web/admin/inc/manageAdmins.inc.php:125
@@ -1544,8 +1535,7 @@ msgstr ""
 msgid "Information in <strong>%s Database</strong>"
 msgstr ""
 
-#: web/admin/inc/manageDBLink.inc.php:99
-#: web/admin/inc/manageDBLink.inc.php:125
+#: web/admin/inc/manageDBLink.inc.php:99 web/admin/inc/manageDBLink.inc.php:125
 #, php-format
 msgid "%s Name (%s)"
 msgstr ""
@@ -1636,8 +1626,8 @@ msgstr ""
 #: web/admin/inc/manageNewInst.inc.php:49
 #, php-format
 msgid ""
-"You can either register a known %s (as defined in the %s database) or create"
-" a totally new %s."
+"You can either register a known %s (as defined in the %s database) or create "
+"a totally new %s."
 msgstr ""
 
 #: web/admin/inc/manageNewInst.inc.php:50
@@ -1671,13 +1661,14 @@ msgstr "Az adminisztrátor e-mail címe:"
 msgid "Send invitation"
 msgstr "Meghívó küldése"
 
+#.
 #. *******************************************************************************
-#. * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+,
-#. GN4-1
+#. * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1
 #. * and GN4-2 consortia
 #. *
 #. * License: see the web/copyright.php file in the file structure
 #. *******************************************************************************
+#.
 #: web/admin/inc/overview_js.php:41 web/admin/inc/overview_js.php:98
 msgid "No email address provided"
 msgstr "Nincs megadva e-mail cím"
@@ -1693,8 +1684,8 @@ msgstr "A meghívandó személy címe:"
 #: web/admin/inc/sendinvite.inc.php:92
 #, php-format
 msgid ""
-"Something's wrong... you are a %s admin, but not for the %s the requested %s"
-" belongs to!"
+"Something's wrong... you are a %s admin, but not for the %s the requested %s "
+"belongs to!"
 msgstr ""
 
 #: web/admin/inc/toggleRedirect.inc.php:90
@@ -1730,8 +1721,7 @@ msgid ""
 msgstr ""
 
 #: web/lib/admin/AbstractMap.php:112
-msgid ""
-"We will use the coordinates as indicated by the marker for geolocation."
+msgid "We will use the coordinates as indicated by the marker for geolocation."
 msgstr ""
 
 #: web/lib/admin/AbstractMap.php:116
@@ -1845,8 +1835,8 @@ msgstr "%dx %s"
 #, php-format
 msgid ""
 "You did not set a 'default language' value for %s. This means we can only "
-"display this string for installers which are <strong>exactly</strong> in the"
-" language you configured. For the sake of all other languages, you may want "
+"display this string for installers which are <strong>exactly</strong> in the "
+"language you configured. For the sake of all other languages, you may want "
 "to edit the profile again and populate the 'default/other' language field."
 msgstr ""
 

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"POT-Creation-Date: 2018-10-05 09:32+0200\n"
 "PO-Revision-Date: 2018-09-11 13:35+0000\n"
 "Last-Translator: Alberto Martínez Setién\n"
 "Language-Team: Spanish (http://www.transifex.com/eduroam_devel/cat/language/"
@@ -572,10 +572,11 @@ msgstr ""
 "el sufijo del dominio"
 
 #: web/admin/edit_profile.php:198
+#, fuzzy
 msgid ""
 "The realm check feature needs to know an outer ID which actually gets a "
 "chance to authenticate. If your RADIUS server lets only select usernames "
-"pass, it is useful to supply the inforamtion which of those (outer ID) "
+"pass, it is useful to supply the information which of those (outer ID) "
 "username we can use for testing."
 msgstr ""
 "La característica de comprobación del dominio necesita saber una identidad "
@@ -792,9 +793,10 @@ msgstr ""
 "No se puede activar la redirección: ¡no especificaste una dirección destino!"
 
 #: web/admin/edit_profile_result.php:175
+#, fuzzy
 msgid ""
 "Redirection can't be activated - the target needs to be a complete URL "
-"staring with http:// or https:// !"
+"starting with http:// or https:// !"
 msgstr ""
 "La redirección no puede ser activada. El destino debe ser una URL completa "
 "que comience con http:// o https://"

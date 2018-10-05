@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"POT-Creation-Date: 2018-10-05 09:32+0200\n"
 "PO-Revision-Date: 2018-09-12 12:48+0000\n"
 "Last-Translator: Dubravko Penezic <dpenezic@gmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/eduroam_devel/"
@@ -184,6 +184,10 @@ msgid ""
 "If you would like to add a new language to CAT then please contact us ..."
 msgstr "Ako ćelite CAT-u dodati novi jezik molimo Vas da nas kontaktirate..."
 
+#: web/user/devel.inc.php:18
+msgid "Documentation"
+msgstr "Dokumentacija"
+
 #: web/user/faq.inc.php:17 web/user/faq.php:14
 msgid "My organisation is not listed. Can't I just use any of the other ones?"
 msgstr "Moja ustanova nije na popisu. Mogu li koristiti neki drugi s popisa?"
@@ -206,10 +210,11 @@ msgid "What can I do to get my organisation listed?"
 msgstr "Što mogu napraviti da moja ustanova bude na popisu?"
 
 #: web/user/faq.inc.php:23 web/user/faq.php:20
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"Contact %s administrators within your organisation and complain. It will "
-"take at most one hour of their time to get things done."
+"Contact %s administrators within your organisation and request that they add "
+"their organisation to the system. It will take at most one hour of their "
+"time to get things done."
 msgstr ""
 "Kontaktirajte %s administratora iz Vaše organizacije i požalite se. Potrebno "
 "je najviše sat vreman da zatraženo proradi."
@@ -470,7 +475,7 @@ msgstr "Najbolje bi bilo da se vratite na <a href='%s'>početnu stranicu</a>."
 msgid "%s Copyright and Licensing"
 msgstr "%s Copyright and Licensing"
 
-#: web/copyright.php:213 web/tou.php:61 web/skins/modern/Divs.php:280
+#: web/copyright.php:213 web/tou.php:61
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "%s obavijesti privatnosti"
@@ -582,8 +587,8 @@ msgstr ""
 "pomoći.<br>Kada kliknete na <b>Nastavi</b> stranica s podrškom bit će "
 "otvorena u novom prozoru."
 
-#: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:271
-#: web/skins/modern/user/js/cat_js.php:279
+#: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:267
+#: web/skins/modern/user/js/cat_js.php:275
 msgid "Continue"
 msgstr "Nastavi"
 
@@ -690,10 +695,6 @@ msgstr "Kontakt"
 #: web/skins/modern/Menu.php:48
 msgid "Diagnostics"
 msgstr "Dijagnosticiranje"
-
-#: web/skins/modern/Menu.php:49
-msgid "Documentation"
-msgstr "Dokumentacija"
 
 #: web/skins/modern/Menu.php:52
 msgid "Manage"
@@ -873,7 +874,7 @@ msgstr ""
 "stranicu te prihvatiti pitanje o logiranju s klijentskim certifikatom "
 "(izaberite certifikat kojem naziv završava sa '...%s')"
 
-#: web/skins/modern/accountstatus/accountstatus.php:159
+#: web/skins/modern/accountstatus/accountstatus.php:161
 #: web/skins/modern/user/js/cat_js.php:234
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
@@ -882,59 +883,59 @@ msgstr ""
 "Ako je došlo do problema, možete direktno zatražiti pomoć Vaše matične "
 "ustanove na:"
 
-#: web/skins/modern/accountstatus/accountstatus.php:161
+#: web/skins/modern/accountstatus/accountstatus.php:163
 #: web/skins/modern/user/js/cat_js.php:236
 msgid ""
 "If you encounter problems you should ask those who gave you your account for "
 "help."
 msgstr "Ako je došlo do problema kontaktirajte izdavatelja korisničkog računa"
 
-#: web/skins/modern/accountstatus/accountstatus.php:172
+#: web/skins/modern/accountstatus/accountstatus.php:174
 #, php-format
 msgid "Your personal %s account status page"
 msgstr "Vaša osobna %s korisnička stranica"
 
-#: web/skins/modern/accountstatus/accountstatus.php:200
+#: web/skins/modern/accountstatus/accountstatus.php:202
 msgid "Current login tokens"
 msgstr "Trenutni tokeni prijave"
 
-#: web/skins/modern/accountstatus/accountstatus.php:201
+#: web/skins/modern/accountstatus/accountstatus.php:203
 msgid "Previous login tokens"
 msgstr "Prošli tokeni prijave"
 
-#: web/skins/modern/accountstatus/accountstatus.php:202
+#: web/skins/modern/accountstatus/accountstatus.php:204
 msgid "Revoked login tokens"
 msgstr "Opozvani tokeni prijave"
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Serial Number"
 msgstr "Serijski broj"
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Pseudonym"
 msgstr "Pseudonim"
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Device Type"
 msgstr "Vrsta uređaja"
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Issue Date"
 msgstr "Datum izdavanja"
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Expiry Date"
 msgstr "Datum isteka"
 
-#: web/skins/modern/accountstatus/accountstatus.php:213
+#: web/skins/modern/accountstatus/accountstatus.php:215
 msgid "invalid token"
 msgstr "neispravan token"
 
-#: web/skins/modern/accountstatus/accountstatus.php:237
+#: web/skins/modern/accountstatus/accountstatus.php:239
 msgid "The details are displayed below."
 msgstr "Detalji prikazani ispod."
 
-#: web/skins/modern/accountstatus/accountstatus.php:243
+#: web/skins/modern/accountstatus/accountstatus.php:245
 msgid "Really revoke this access credential?"
 msgstr "Zaista opozvati ove pristupne vjerodajnice?"
 
@@ -981,12 +982,12 @@ msgstr ""
 "sustava je obaviješten. Pokušat ćemo otkloniti pogrešku u najkraćem mogućem "
 "roku."
 
-#: web/skins/modern/user/js/cat_js.php:82
-#: web/skins/modern/user/js/cat_js.php:216
+#: web/skins/modern/user/js/cat_js.php:81
+#: web/skins/modern/user/js/cat_js.php:215
 msgid "no matching data found"
 msgstr "nije pronađen niti jedan podatak"
 
-#: web/skins/modern/user/js/cat_js.php:96
+#: web/skins/modern/user/js/cat_js.php:95
 msgid "select"
 msgstr "odaberi"
 
@@ -1002,26 +1003,15 @@ msgstr "email:"
 msgid "tel:"
 msgstr "tel:"
 
-#: web/skins/modern/user/js/cat_js.php:239
-#, php-format
-msgid ""
-"When you make use of the international %s infrastructure, e.g. when roaming "
-"with your device, your data is treated according to the <a href='%s'>%s "
-"Privacy Statement</a>."
-msgstr ""
-"Kada koristite internacionalnu %s infrastrukturu, npr. kod roaminga s Vašim "
-"uređajem, Vaši posaci se koriste u skladu sa <a href='%s'>%s izjavi o "
-"privatnosti"
-
-#: web/skins/modern/user/js/cat_js.php:258
-#: web/skins/modern/user/js/cat_js.php:284
+#: web/skins/modern/user/js/cat_js.php:254
+#: web/skins/modern/user/js/cat_js.php:280
 msgid ""
 "This device cannot be configured with the settings used in your organisation."
 msgstr ""
 "Ovaj uređaj ne može biti konfiguriran sa postavkama korištenim u Vašoj "
 "ustanovi."
 
-#: web/skins/modern/user/js/cat_js.php:271
+#: web/skins/modern/user/js/cat_js.php:267
 msgid ""
 "Your site administrator has specified that this device should be configured "
 "with resources located on a local page. When you click <b>Continue</b> this "
@@ -1031,39 +1021,39 @@ msgstr ""
 "resursa definiranih na vanjskoj stranici. Toj stranici možete pristupiti "
 "klikom na <b>Nastavi</b>."
 
-#: web/skins/modern/user/js/cat_js.php:285
+#: web/skins/modern/user/js/cat_js.php:281
 msgid "Close"
 msgstr "Zatvori"
 
-#: web/skins/modern/user/js/cat_js.php:381
+#: web/skins/modern/user/js/cat_js.php:378
 msgid "Missing email address"
 msgstr "Nedostaje email adresa"
 
-#: web/skins/modern/user/js/cat_js.php:395
+#: web/skins/modern/user/js/cat_js.php:392
 msgid "No providers found for this email"
 msgstr "Nije pronađen davatelj za e-mail adresu"
 
-#: web/skins/modern/user/js/cat_js.php:400
+#: web/skins/modern/user/js/cat_js.php:397
 msgid "Your IdP is:"
 msgstr "Vaš IdP je:"
 
-#: web/skins/modern/user/js/cat_js.php:402
+#: web/skins/modern/user/js/cat_js.php:399
 msgid "Your IdP could be one of:"
 msgstr "Vaš IdP mogao bi biti jedan od:"
 
-#: web/skins/modern/user/js/cat_js.php:559
+#: web/skins/modern/user/js/cat_js.php:562
 msgid "Organisation"
 msgstr "Ustanova"
 
-#: web/skins/modern/user/js/cat_js.php:560
+#: web/skins/modern/user/js/cat_js.php:563
 msgid "Select your organisation"
 msgstr "Izaberite svoju ustanovu"
 
-#: web/skins/modern/user/js/cat_js.php:561
+#: web/skins/modern/user/js/cat_js.php:564
 msgid "Help, my organisation is not on the list"
 msgstr "Molim pomoć, moja ustanova nije na popisu"
 
-#: web/skins/modern/user/js/cat_js.php:562
+#: web/skins/modern/user/js/cat_js.php:565
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -1073,63 +1063,63 @@ msgstr ""
 "Ovaj sustav zasniva se na podacima danim od lokalnih %s administratora. Ako "
 "Vaša ustanova nije na popisu, zamolite ih da dodaju informacije u %s bazu."
 
-#: web/skins/modern/user/js/cat_js.php:563
+#: web/skins/modern/user/js/cat_js.php:566
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "Pronađi moju lokaciju preciznije koristeći HTML5 Geo-Location"
 
-#: web/skins/modern/user/js/cat_js.php:564
+#: web/skins/modern/user/js/cat_js.php:567
 msgid "Show organisations in"
 msgstr "Prikaži ustanovu u"
 
-#: web/skins/modern/user/js/cat_js.php:565
+#: web/skins/modern/user/js/cat_js.php:568
 msgid "all countries"
 msgstr "sve zemlje"
 
-#: web/skins/modern/user/js/cat_js.php:566
+#: web/skins/modern/user/js/cat_js.php:569
 msgid "or search for an organisation, for example Univerity of Oslo"
 msgstr "ili traži ustanovu, na primjer Sveučilište u Zagrebu"
 
-#: web/skins/modern/user/js/cat_js.php:567
+#: web/skins/modern/user/js/cat_js.php:570
 msgid "show all countries"
 msgstr "prikaži sve zemlje"
 
-#: web/skins/modern/user/js/cat_js.php:568
+#: web/skins/modern/user/js/cat_js.php:571
 msgid "Results limited to"
 msgstr "Rezultati ograničeni na "
 
-#: web/skins/modern/user/js/cat_js.php:569
+#: web/skins/modern/user/js/cat_js.php:572
 msgid "entries - show more"
 msgstr "podaci - pokaži više"
 
-#: web/skins/modern/user/js/cat_js.php:570
+#: web/skins/modern/user/js/cat_js.php:573
 msgid "Nearby"
 msgstr "U blizini"
 
-#: web/skins/modern/user/js/cat_js.php:571
+#: web/skins/modern/user/js/cat_js.php:574
 msgid "Location timeout"
 msgstr "Istek vremena za lociranje"
 
-#: web/skins/modern/user/js/cat_js.php:572
+#: web/skins/modern/user/js/cat_js.php:575
 msgid "Could not get your position"
 msgstr "Nije moguće odrediti Vašu poziciju"
 
-#: web/skins/modern/user/js/cat_js.php:573
+#: web/skins/modern/user/js/cat_js.php:576
 msgid "Your browser has denied access to your location"
 msgstr "Vaš preglednik zabranio je otkrivanje Vaše lokacije"
 
-#: web/skins/modern/user/js/cat_js.php:574
+#: web/skins/modern/user/js/cat_js.php:577
 msgid "Unknown location error"
 msgstr "Greška: Nepoznata lokacija"
 
-#: web/skins/modern/user/js/cat_js.php:575
+#: web/skins/modern/user/js/cat_js.php:578
 msgid "You are here:"
 msgstr "Vi ste ovdje:"
 
-#: web/skins/modern/user/js/cat_js.php:576
+#: web/skins/modern/user/js/cat_js.php:579
 msgid "Getting your location..."
 msgstr "Dohvaćanje Vaše lokacije..."
 
-#: web/skins/modern/user/js/cat_js.php:577
+#: web/skins/modern/user/js/cat_js.php:580
 msgid "Nearby providers shown on top."
 msgstr "Najbliži davatelji nalaze se na vrhu popisa"
 
@@ -1178,3 +1168,12 @@ msgstr "sve važnije distribucije"
 #: web/skins/modern/user/js/roll.php:139
 msgid "Chrome OS"
 msgstr "Chrome OS"
+
+#~ msgid ""
+#~ "When you make use of the international %s infrastructure, e.g. when "
+#~ "roaming with your device, your data is treated according to the <a "
+#~ "href='%s'>%s Privacy Statement</a>."
+#~ msgstr ""
+#~ "Kada koristite internacionalnu %s infrastrukturu, npr. kod roaminga s "
+#~ "Vašim uređajem, Vaši posaci se koriste u skladu sa <a href='%s'>%s izjavi "
+#~ "o privatnosti"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"POT-Creation-Date: 2018-10-05 09:32+0200\n"
 "PO-Revision-Date: 2018-09-19 08:57+0000\n"
 "Last-Translator: Janos Mohacsi <mohacsi@niif.hu>\n"
 "Language-Team: Hungarian (http://www.transifex.com/eduroam_devel/cat/"
@@ -178,6 +178,10 @@ msgstr ""
 "Ha új nyelvet szeretne hozzáadni a CAT-hoz, kérjük, lépjen velünk "
 "kapcsolatba ..."
 
+#: web/user/devel.inc.php:18
+msgid "Documentation"
+msgstr "Dokumentáció"
+
 #: web/user/faq.inc.php:17 web/user/faq.php:14
 msgid "My organisation is not listed. Can't I just use any of the other ones?"
 msgstr "A szervezetem nincs felsorolva. Nem használhatom a többieket?"
@@ -201,10 +205,11 @@ msgid "What can I do to get my organisation listed?"
 msgstr "Mit tudok tenni, hogy a szervezetemet felsorolják?"
 
 #: web/user/faq.inc.php:23 web/user/faq.php:20
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"Contact %s administrators within your organisation and complain. It will "
-"take at most one hour of their time to get things done."
+"Contact %s administrators within your organisation and request that they add "
+"their organisation to the system. It will take at most one hour of their "
+"time to get things done."
 msgstr ""
 "Vedd fel a kapcsolatot a %s rendszergazdával a szervezeten belül Legfeljebb "
 "egy óra kell ahhoz, hogy az ügyet feldolgozzák."
@@ -467,7 +472,7 @@ msgstr ""
 msgid "%s Copyright and Licensing"
 msgstr "%s Szerzői jog és licenc"
 
-#: web/copyright.php:213 web/tou.php:61 web/skins/modern/Divs.php:280
+#: web/copyright.php:213 web/tou.php:61
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "%s  Adatvédelmi nyilatkozat"
@@ -580,8 +585,8 @@ msgstr ""
 "A helyi rendszergazda átirányítást adott a helyi támogatási oldalra.<br> A "
 "<b>Tovább </b>gombra kattintva a támogatási oldal új ablakban nyílik meg."
 
-#: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:271
-#: web/skins/modern/user/js/cat_js.php:279
+#: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:267
+#: web/skins/modern/user/js/cat_js.php:275
 msgid "Continue"
 msgstr "Tovább"
 
@@ -689,10 +694,6 @@ msgstr "Kapcsolat"
 #: web/skins/modern/Menu.php:48
 msgid "Diagnostics"
 msgstr "Diagnosztika"
-
-#: web/skins/modern/Menu.php:49
-msgid "Documentation"
-msgstr "Dokumentáció"
 
 #: web/skins/modern/Menu.php:52
 msgid "Manage"
@@ -872,7 +873,7 @@ msgstr ""
 "bejelentkezéshez szükséges kérdést (jelölje ki a tanúsítványt egy olyan "
 "névvel, amelynek neve \"... %s\")."
 
-#: web/skins/modern/accountstatus/accountstatus.php:159
+#: web/skins/modern/accountstatus/accountstatus.php:161
 #: web/skins/modern/user/js/cat_js.php:234
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
@@ -881,7 +882,7 @@ msgstr ""
 "Ha problémákat tapasztalsz, akkor közvetlen segítséget kaphatsz "
 "szervezetedtől a következő címen:"
 
-#: web/skins/modern/accountstatus/accountstatus.php:161
+#: web/skins/modern/accountstatus/accountstatus.php:163
 #: web/skins/modern/user/js/cat_js.php:236
 msgid ""
 "If you encounter problems you should ask those who gave you your account for "
@@ -890,52 +891,52 @@ msgstr ""
 "Ha problémákat tapasztalsz, kérdezd meg azokat, akiktől segítséget kaptál az "
 "azonosítód kapcsán."
 
-#: web/skins/modern/accountstatus/accountstatus.php:172
+#: web/skins/modern/accountstatus/accountstatus.php:174
 #, php-format
 msgid "Your personal %s account status page"
 msgstr "A személyi  %s fiók státusz oldala"
 
-#: web/skins/modern/accountstatus/accountstatus.php:200
+#: web/skins/modern/accountstatus/accountstatus.php:202
 msgid "Current login tokens"
 msgstr "Aktuális bejelentkezési token"
 
-#: web/skins/modern/accountstatus/accountstatus.php:201
+#: web/skins/modern/accountstatus/accountstatus.php:203
 msgid "Previous login tokens"
 msgstr "Korábbi bejelentkezési token"
 
-#: web/skins/modern/accountstatus/accountstatus.php:202
+#: web/skins/modern/accountstatus/accountstatus.php:204
 msgid "Revoked login tokens"
 msgstr "Visszavont bejelentkezési token"
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Serial Number"
 msgstr "Sorozatszám"
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Pseudonym"
 msgstr "Álnév"
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Device Type"
 msgstr "Eszköztípus"
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Issue Date"
 msgstr "Kiadás dátuma"
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Expiry Date"
 msgstr "Lejárati dátum"
 
-#: web/skins/modern/accountstatus/accountstatus.php:213
+#: web/skins/modern/accountstatus/accountstatus.php:215
 msgid "invalid token"
 msgstr "Érvénytelen token"
 
-#: web/skins/modern/accountstatus/accountstatus.php:237
+#: web/skins/modern/accountstatus/accountstatus.php:239
 msgid "The details are displayed below."
 msgstr "A részletek az alábbiakban láthatók."
 
-#: web/skins/modern/accountstatus/accountstatus.php:243
+#: web/skins/modern/accountstatus/accountstatus.php:245
 msgid "Really revoke this access credential?"
 msgstr "Valóban visszavonja ezt a hozzáférést?"
 
@@ -982,12 +983,12 @@ msgstr ""
 "rendszer adminisztrátorait értesítettük. A hibát a lehető leggyorsabban "
 "igyekszünk elhárítani. "
 
-#: web/skins/modern/user/js/cat_js.php:82
-#: web/skins/modern/user/js/cat_js.php:216
+#: web/skins/modern/user/js/cat_js.php:81
+#: web/skins/modern/user/js/cat_js.php:215
 msgid "no matching data found"
 msgstr "Nem találtam illeszkedő adatot"
 
-#: web/skins/modern/user/js/cat_js.php:96
+#: web/skins/modern/user/js/cat_js.php:95
 msgid "select"
 msgstr "válassz"
 
@@ -1003,25 +1004,14 @@ msgstr "E-mail:"
 msgid "tel:"
 msgstr "Tel:"
 
-#: web/skins/modern/user/js/cat_js.php:239
-#, php-format
-msgid ""
-"When you make use of the international %s infrastructure, e.g. when roaming "
-"with your device, your data is treated according to the <a href='%s'>%s "
-"Privacy Statement</a>."
-msgstr ""
-"Amikor a nemzetközi  %s infrastrktúrát használod, például, mikor romaing-"
-"olsz az eszközöddel az adatait az <a href='%s'>%s adatvádelmi nyilatkozat</"
-"a> szerint kerülnek kezelésre."
-
-#: web/skins/modern/user/js/cat_js.php:258
-#: web/skins/modern/user/js/cat_js.php:284
+#: web/skins/modern/user/js/cat_js.php:254
+#: web/skins/modern/user/js/cat_js.php:280
 msgid ""
 "This device cannot be configured with the settings used in your organisation."
 msgstr ""
 "Ez az eszköz nem konfigurálható a szervezetben használt beállításokkal."
 
-#: web/skins/modern/user/js/cat_js.php:271
+#: web/skins/modern/user/js/cat_js.php:267
 msgid ""
 "Your site administrator has specified that this device should be configured "
 "with resources located on a local page. When you click <b>Continue</b> this "
@@ -1031,39 +1021,39 @@ msgstr ""
 "konfigurációját a helyi oldal alapján kell megtenni. Ha  <b>Folytatás</b> "
 "gombra kattintasz, akkor az az oldal fog megnyilni egy új böngésző lapon."
 
-#: web/skins/modern/user/js/cat_js.php:285
+#: web/skins/modern/user/js/cat_js.php:281
 msgid "Close"
 msgstr "Bezárás"
 
-#: web/skins/modern/user/js/cat_js.php:381
+#: web/skins/modern/user/js/cat_js.php:378
 msgid "Missing email address"
 msgstr "Hiányzó e-mail cím"
 
-#: web/skins/modern/user/js/cat_js.php:395
+#: web/skins/modern/user/js/cat_js.php:392
 msgid "No providers found for this email"
 msgstr "Nem található szolgáltató ehhez az e-mailhez"
 
-#: web/skins/modern/user/js/cat_js.php:400
+#: web/skins/modern/user/js/cat_js.php:397
 msgid "Your IdP is:"
 msgstr "Az IdP -d a következő:"
 
-#: web/skins/modern/user/js/cat_js.php:402
+#: web/skins/modern/user/js/cat_js.php:399
 msgid "Your IdP could be one of:"
 msgstr "Az IdP-d  az egyik alábbiak közül:"
 
-#: web/skins/modern/user/js/cat_js.php:559
+#: web/skins/modern/user/js/cat_js.php:562
 msgid "Organisation"
 msgstr "Szervezet"
 
-#: web/skins/modern/user/js/cat_js.php:560
+#: web/skins/modern/user/js/cat_js.php:563
 msgid "Select your organisation"
 msgstr "Válaszd ki a szervezetedet"
 
-#: web/skins/modern/user/js/cat_js.php:561
+#: web/skins/modern/user/js/cat_js.php:564
 msgid "Help, my organisation is not on the list"
 msgstr "Segítség, a szervezetem nincs a listán"
 
-#: web/skins/modern/user/js/cat_js.php:562
+#: web/skins/modern/user/js/cat_js.php:565
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -1074,66 +1064,66 @@ msgstr ""
 "támaszkodik. Ha a szervezeted nem szerepel a listán, akkor kérd meg őket, "
 "hogy adjanak hozzá információkat az %s adatbázishoz."
 
-#: web/skins/modern/user/js/cat_js.php:563
+#: web/skins/modern/user/js/cat_js.php:566
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr ""
 "Pontosabb helymeghatározást kérek a HTML5 Geo-Location szolgáltatása révén"
 
-#: web/skins/modern/user/js/cat_js.php:564
+#: web/skins/modern/user/js/cat_js.php:567
 msgid "Show organisations in"
 msgstr "Szervezetek listája:"
 
-#: web/skins/modern/user/js/cat_js.php:565
+#: web/skins/modern/user/js/cat_js.php:568
 msgid "all countries"
 msgstr "minden ország"
 
-#: web/skins/modern/user/js/cat_js.php:566
+#: web/skins/modern/user/js/cat_js.php:569
 msgid "or search for an organisation, for example Univerity of Oslo"
 msgstr ""
 "vagy keress egy szervezetet, például az Budapest Műszaki és "
 "Gazdaságtudományi Egyetemet"
 
-#: web/skins/modern/user/js/cat_js.php:567
+#: web/skins/modern/user/js/cat_js.php:570
 msgid "show all countries"
 msgstr "Mutass minden országot"
 
-#: web/skins/modern/user/js/cat_js.php:568
+#: web/skins/modern/user/js/cat_js.php:571
 msgid "Results limited to"
 msgstr "Az eredmények számának korlátja:"
 
-#: web/skins/modern/user/js/cat_js.php:569
+#: web/skins/modern/user/js/cat_js.php:572
 msgid "entries - show more"
 msgstr "bejegyzések - mutass még"
 
-#: web/skins/modern/user/js/cat_js.php:570
+#: web/skins/modern/user/js/cat_js.php:573
 msgid "Nearby"
 msgstr "közeli"
 
-#: web/skins/modern/user/js/cat_js.php:571
+#: web/skins/modern/user/js/cat_js.php:574
 msgid "Location timeout"
 msgstr "helymeghatározási időtúllépés"
 
-#: web/skins/modern/user/js/cat_js.php:572
+#: web/skins/modern/user/js/cat_js.php:575
 msgid "Could not get your position"
 msgstr "Nem tudom meghatározni a poziciód"
 
-#: web/skins/modern/user/js/cat_js.php:573
+#: web/skins/modern/user/js/cat_js.php:576
 msgid "Your browser has denied access to your location"
 msgstr "A böngésző visszautasította a helyinformációkhoz való hozzáférést."
 
-#: web/skins/modern/user/js/cat_js.php:574
+#: web/skins/modern/user/js/cat_js.php:577
 msgid "Unknown location error"
 msgstr "Ismeretlen helymeghatározási hiba"
 
-#: web/skins/modern/user/js/cat_js.php:575
+#: web/skins/modern/user/js/cat_js.php:578
 msgid "You are here:"
 msgstr "Itt vagy:"
 
-#: web/skins/modern/user/js/cat_js.php:576
+#: web/skins/modern/user/js/cat_js.php:579
 msgid "Getting your location..."
 msgstr "Helymeghatározás folyamatban..."
 
-#: web/skins/modern/user/js/cat_js.php:577
+#: web/skins/modern/user/js/cat_js.php:580
 msgid "Nearby providers shown on top."
 msgstr "Közelebbi szolgáltatók legfelül talalhatóak"
 
@@ -1182,3 +1172,12 @@ msgstr "Minden nagyobb kiadás"
 #: web/skins/modern/user/js/roll.php:139
 msgid "Chrome OS"
 msgstr "Chrome OS"
+
+#~ msgid ""
+#~ "When you make use of the international %s infrastructure, e.g. when "
+#~ "roaming with your device, your data is treated according to the <a "
+#~ "href='%s'>%s Privacy Statement</a>."
+#~ msgstr ""
+#~ "Amikor a nemzetközi  %s infrastrktúrát használod, például, mikor romaing-"
+#~ "olsz az eszközöddel az adatait az <a href='%s'>%s adatvádelmi "
+#~ "nyilatkozat</a> szerint kerülnek kezelésre."

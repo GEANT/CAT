@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"POT-Creation-Date: 2018-10-05 09:32+0200\n"
 "PO-Revision-Date: 2018-09-17 14:13+0000\n"
 "Last-Translator: Maja Wolniewicz <maja.wolniewicz@gmail.com>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/eduroam_devel/cat/"
@@ -564,10 +564,11 @@ msgstr ""
 "zawierają przyrostek z konkretnym realmem."
 
 #: web/admin/edit_profile.php:198
+#, fuzzy
 msgid ""
 "The realm check feature needs to know an outer ID which actually gets a "
 "chance to authenticate. If your RADIUS server lets only select usernames "
-"pass, it is useful to supply the inforamtion which of those (outer ID) "
+"pass, it is useful to supply the information which of those (outer ID) "
 "username we can use for testing."
 msgstr ""
 "Procedura sprawdzania realmu musi dysponować zewnętrznym identyfikatorem "
@@ -785,9 +786,10 @@ msgid "Redirection can't be activated - you did not specify a target location!"
 msgstr "Nie można włączyć przekierowania - nie podałeś adresu przekierowania!"
 
 #: web/admin/edit_profile_result.php:175
+#, fuzzy
 msgid ""
 "Redirection can't be activated - the target needs to be a complete URL "
-"staring with http:// or https:// !"
+"starting with http:// or https:// !"
 msgstr ""
 "Nie można aktywować  przekierowania - docelowy adres musi być komletnym "
 "adresem URL, zaczynającym się od http:// lub https://!"

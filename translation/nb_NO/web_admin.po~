@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-21 15:38+0200\n"
+"POT-Creation-Date: 2018-09-10 08:40+0200\n"
 "PO-Revision-Date: 2015-04-08 06:48+0000\n"
 "Last-Translator: Tom Ivar Myren <tom.myren@uninett.no>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/cat/"
@@ -163,11 +163,11 @@ msgid "General Information"
 msgstr "Generell informasjon"
 
 #: web/admin/edit_idp.php:101
-#, fuzzy, php-format
+#, fuzzy
 msgid ""
-"The %s has properties which are valid across all deployment profiles. This "
-"is the place where you can describe those properties in a fine-grained way. "
-"The solicited information is used as follows:"
+"Some properties are valid across all deployment profiles. This is the place "
+"where you can describe those properties in a fine-grained way. The solicited "
+"information is used as follows:"
 msgstr ""
 "Her kan du beskrive din institusjon på en detaljert måte. Informasjonen "
 "brukes som følger:"
@@ -329,8 +329,8 @@ msgstr ""
 #: web/admin/edit_idp.php:176
 #, fuzzy, php-format
 msgid ""
-"Does the %s provide helpdesk services for its users? If so, it would be nice "
-"if you would tell us the pointers to this helpdesk."
+"Do you provide helpdesk services for your users? If so, it would be nice if "
+"you would tell us the pointers to this helpdesk."
 msgstr ""
 "Om din IdP har en helpdesk for sine brukere, er det fint om du gir oss "
 "pekere til denne helpdesken. Noen installasjonsprogram kan angi denne "
@@ -1683,7 +1683,7 @@ msgstr "Informasjon i <strong>%s Database</strong>"
 msgid "%s Name (%s)"
 msgstr "Institusjonsnavn"
 
-#: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/PageDecoration.php:32
+#: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/PageDecoration.php:33
 msgid "Unnamed User"
 msgstr "Bruker uten navn"
 
@@ -2021,64 +2021,69 @@ msgstr ""
 "språket du konfigurerte. Av hensyn til alle andre språk, vil du kanskje "
 "redigere profilen og fylle i 'standard/andre' språk feltet. "
 
-#: web/lib/admin/PageDecoration.php:31
+#: web/lib/admin/PageDecoration.php:32
 msgid "You are:"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:35
+#: web/lib/admin/PageDecoration.php:36
 #, fuzzy
 msgid "Go to your Profile page"
 msgstr "Fortsett til brukeroversikt"
 
-#: web/lib/admin/PageDecoration.php:36
+#: web/lib/admin/PageDecoration.php:37
 msgid "Logout"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:38
+#: web/lib/admin/PageDecoration.php:39
 msgid "Start page"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:59
+#: web/lib/admin/PageDecoration.php:60
 msgid "View this page in"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:117
+#: web/lib/admin/PageDecoration.php:118
 #, fuzzy, php-format
 msgid "Administrator Interface - %s"
 msgstr "Administrator epost"
 
-#: web/lib/admin/PageDecoration.php:120
+#: web/lib/admin/PageDecoration.php:121
 #, fuzzy, php-format
 msgid "Administrator Interface - %s User Management"
 msgstr "Administrator oppsett"
 
-#: web/lib/admin/PageDecoration.php:123
+#: web/lib/admin/PageDecoration.php:124
 #, fuzzy
 msgid "Administrator Interface"
 msgstr "Administrator epost"
 
-#: web/lib/admin/PageDecoration.php:126
+#: web/lib/admin/PageDecoration.php:127
 #, fuzzy
 msgid "Management of User Details"
 msgstr "Endre bruker detaljer"
 
-#: web/lib/admin/PageDecoration.php:129
+#: web/lib/admin/PageDecoration.php:130
 #, fuzzy, php-format
 msgid "Administrator Interface - %s Management"
 msgstr "Administrator oppsett"
 
-#: web/lib/admin/PageDecoration.php:132
+#: web/lib/admin/PageDecoration.php:133
 #, fuzzy, php-format
 msgid "Welcome to %s"
 msgstr "Koblet til %s."
 
-#: web/lib/admin/PageDecoration.php:137
+#: web/lib/admin/PageDecoration.php:138
 msgid "CIC"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:140
+#: web/lib/admin/PageDecoration.php:141
 msgid "Diagnostics"
 msgstr ""
+
+#: web/lib/admin/PageDecoration.php:223
+#, fuzzy, php-format
+msgid "%s Privacy Notice"
+msgstr "Medie egenskaper"
 
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a

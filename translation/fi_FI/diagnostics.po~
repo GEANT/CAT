@@ -2,20 +2,21 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 16:03+0200\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, 2018\n"
-"Language-Team: Finnish (Finland) (https://www.transifex.com/eduroam_devel/teams/11799/fi_FI/)\n"
+"Language-Team: Finnish (Finland) (https://www.transifex.com/eduroam_devel/"
+"teams/11799/fi_FI/)\n"
+"Language: fi_FI\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fi_FI\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: core/diag/AbstractTest.php:266
@@ -40,11 +41,10 @@ msgstr "RADIUS-palvelin ei vastannut."
 
 #: core/diag/AbstractTest.php:301
 msgid ""
-"There was a bidirectional communication with the RADIUS server, but it ended"
-" halfway through."
+"There was a bidirectional communication with the RADIUS server, but it ended "
+"halfway through."
 msgstr ""
-"RADIUS-palvelimen kanssa oli kaksisuuntaista neuvottelua, mutta se "
-"keskeytyi."
+"RADIUS-palvelimen kanssa oli kaksisuuntaista neuvottelua, mutta se keskeytyi."
 
 #: core/diag/AbstractTest.php:308
 msgid ""
@@ -95,9 +95,9 @@ msgid ""
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
 "validate this certificate."
 msgstr ""
-"Vähintään yksi varmenneketjun varmenteista on allekirjoitettu "
-"MD5-tiivistefunktiolla. Monet käyttöjärjestelmät, kuten Apple iOS, eivät "
-"salli MD5:n käyttöä."
+"Vähintään yksi varmenneketjun varmenteista on allekirjoitettu MD5-"
+"tiivistefunktiolla. Monet käyttöjärjestelmät, kuten Apple iOS, eivät salli "
+"MD5:n käyttöä."
 
 #: core/diag/AbstractTest.php:372
 msgid ""
@@ -105,19 +105,18 @@ msgid ""
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
 "validate this certificate."
 msgstr ""
-"Varmenneketjun varmenteista vähintään yksi on allekirjoitettu "
-"SHA-1-algoritmilla. Jotkut käyttöjärjestelmät, kuten Apple iOS, eivät salli "
+"Varmenneketjun varmenteista vähintään yksi on allekirjoitettu SHA-1-"
+"algoritmilla. Jotkut käyttöjärjestelmät, kuten Apple iOS, eivät salli "
 "tällaista varmennetta."
 
 #: core/diag/AbstractTest.php:379
 msgid ""
 "At least one certificate in the chain had a public key of less than 1024 "
-"bits. Many recent operating systems consider this unacceptable and will fail"
-" to validate the server certificate."
+"bits. Many recent operating systems consider this unacceptable and will fail "
+"to validate the server certificate."
 msgstr ""
 "Ainakin yksi varmenneketjun varmenteista on alle 1024-bittinen. Monet "
-"käyttöjärjestelmät eivät enää kelpuuta heikkoja varmenteita "
-"tietoturvasyistä."
+"käyttöjärjestelmät eivät enää kelpuuta heikkoja varmenteita tietoturvasyistä."
 
 #: core/diag/AbstractTest.php:386
 msgid ""
@@ -144,21 +143,20 @@ msgid ""
 "certificate. Checking server certificate validity against a CRL will not be "
 "possible."
 msgstr ""
-"Palvelinvarmenteen sulkulistan jakelupistelaajennos 'CRL Distribution Point'"
-" ei sisällä HTTP/HTTPS-osoitetta. Jotkin käyttöjärjestelmät eivät "
-"välttämättä kykene tarkistamaan varmennetta, koska ne eivät tue muita "
-"vaihtoehtoja."
+"Palvelinvarmenteen sulkulistan jakelupistelaajennos 'CRL Distribution Point' "
+"ei sisällä HTTP/HTTPS-osoitetta. Jotkin käyttöjärjestelmät eivät välttämättä "
+"kykene tarkistamaan varmennetta, koska ne eivät tue muita vaihtoehtoja."
 
 #: core/diag/AbstractTest.php:407
 msgid ""
-"The extension 'CRL Distribution Point' in the server certificate points to a"
-" location where no DER-encoded CRL can be found. Some Operating Systems "
-"check certificate validity by consulting the CRL and will fail to validate "
-"the certificate. Checking server certificate validity against a CRL will not"
-" be possible."
+"The extension 'CRL Distribution Point' in the server certificate points to a "
+"location where no DER-encoded CRL can be found. Some Operating Systems check "
+"certificate validity by consulting the CRL and will fail to validate the "
+"certificate. Checking server certificate validity against a CRL will not be "
+"possible."
 msgstr ""
-"Palvelinvarmenteen sulkulistan jakelupiste 'CRL Distribution Point' osoittaa"
-" olemattomaan osoitteeseen. Jotkin käyttöjärjestelmät eivät välttämättä "
+"Palvelinvarmenteen sulkulistan jakelupiste 'CRL Distribution Point' osoittaa "
+"olemattomaan osoitteeseen. Jotkin käyttöjärjestelmät eivät välttämättä "
 "kelpuuta varmennetta, koska sulkulistan tarkistaminen ei onnistu."
 
 #: core/diag/AbstractTest.php:414
@@ -167,10 +165,10 @@ msgstr "Palvelinvarmenne on sen myöntäneen tahon peruuttama!"
 
 #: core/diag/AbstractTest.php:421
 msgid ""
-"The certificate contained a CN or subjectAltName:DNS which does not parse as"
-" a hostname. This can be problematic on some supplicants. If the certificate"
-" also contains names which are a proper hostname, and you only use those for"
-" your supplicant configuration, then you can safely ignore this notice."
+"The certificate contained a CN or subjectAltName:DNS which does not parse as "
+"a hostname. This can be problematic on some supplicants. If the certificate "
+"also contains names which are a proper hostname, and you only use those for "
+"your supplicant configuration, then you can safely ignore this notice."
 msgstr ""
 "Palvelinvarmenteen CN- tai subjectAltName:DNS-tietue ei jäsenny palvelimen "
 "nimeksi. Siitä voi seurata ongelmia joissakin päätelaitteissa. Voit jättää "
@@ -241,8 +239,8 @@ msgstr ""
 
 #: core/diag/AbstractTest.php:466
 msgid ""
-"The configured EAP server name matches either the CN or a subjectAltName:DNS"
-" of the incoming certificate; best current practice is that the certificate "
+"The configured EAP server name matches either the CN or a subjectAltName:DNS "
+"of the incoming certificate; best current practice is that the certificate "
 "should contain the name in BOTH places."
 msgstr ""
 "Saadusta varmenteesta löytyy määritellyn EAP-palvelimen nimi joko CN- tai "
@@ -291,8 +289,8 @@ msgid ""
 "1024 bit. Mac OS X 10.11 'El Capitan' is known to refuse TLS connections "
 "under these circumstances!"
 msgstr ""
-"Palvelimen Diffie-Hellman-ryhmän (DH) koko on alle 1024 bittiä. Huomaa, että"
-" Mac OS X 10.11 'El Capitan' ei tue alle 1024-bittisiä TLS-yhteyksiä!"
+"Palvelimen Diffie-Hellman-ryhmän (DH) koko on alle 1024 bittiä. Huomaa, että "
+"Mac OS X 10.11 'El Capitan' ei tue alle 1024-bittisiä TLS-yhteyksiä!"
 
 #: core/diag/AbstractTest.php:529
 msgid ""
@@ -304,8 +302,8 @@ msgstr ""
 
 #: core/diag/AbstractTest.php:536
 msgid ""
-"The certificate public key algorithm is unknown to the system. Please submit"
-" the certificate as a sample to the developers."
+"The certificate public key algorithm is unknown to the system. Please submit "
+"the certificate as a sample to the developers."
 msgstr ""
 "Varmenteen julkisen avaimen algoritmi on tuntematon. Ole hyvä ja lähetä "
 "varmenne kehittäjille."
@@ -317,15 +315,14 @@ msgstr "[vianmääritys]"
 #: core/diag/Logopath.php:98
 msgid ""
 "(This service is in an early stage. We apologise if this is a false alert. "
-"If this is the case, please send an email report to cat-"
-"devel@lists.geant.org, forwarding the entire message (including the "
-"'SUSPECTS' and 'EVIDENCE' data at the end), and explain why this is a false "
-"positive.)"
+"If this is the case, please send an email report to cat-devel@lists.geant."
+"org, forwarding the entire message (including the 'SUSPECTS' and 'EVIDENCE' "
+"data at the end), and explain why this is a false positive.)"
 msgstr ""
 "(Palvelu on alkuvaiheessa. Pahoittelemme, jos tämä on väärä hälytys. Jos "
 "näin on, lähetä sähköpostikertomus osoitteeseen cat-devel@lists.geant.org, "
-"joka sisältää koko viestin (mukaan lukien lopun 'SUSPECTS'- ja 'EVIDENCE' "
-"-tiedot) ja kerro, miksi tämä on väärä positiivinen hälytys.)"
+"joka sisältää koko viestin (mukaan lukien lopun 'SUSPECTS'- ja 'EVIDENCE' -"
+"tiedot) ja kerro, miksi tämä on väärä positiivinen hälytys.)"
 
 #: core/diag/Logopath.php:100
 msgid "Yours sincerely,"
@@ -391,8 +388,8 @@ msgstr ""
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
-"Access-Reject as planned. Some properties of the connection attempt were "
-"sub-optimal; the list is below."
+"Access-Reject as planned. Some properties of the connection attempt were sub-"
+"optimal; the list is below."
 msgstr ""
 "<strong>Testi onnistui osittain</strong>: kaksisuuntainen RADIUS-"
 "viestinvaihto onnistui ja päättyi Access-Reject-viestiin kuten pitikin. "
@@ -469,15 +466,15 @@ msgstr "tuntematon varmentaja, ei varmennekäytäntöjä tai muu virhe"
 
 #. return codes specific to NAPTR existence checks
 #. *
-#. * no NAPTRs for domain; this is not an error, simply means that realm is
-#. not doing dynamic discovery for any service
+#. * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
+#.
 #: core/diag/RFC7585Tests.php:124
 msgid "This realm has no NAPTR records."
 msgstr "Tällä realmilla ei ole NAPTR-tietueita."
 
 #. *
-#. * no eduroam NAPTR for domain; this is not an error, simply means that
-#. realm is not doing dynamic discovery for eduroam
+#. * no eduroam NAPTR for domain; this is not an error, simply means that realm is not doing dynamic discovery for eduroam
+#.
 #: core/diag/RFC7585Tests.php:130
 msgid "NAPTR records were found, but all of them refer to unrelated services."
 msgstr "NAPTR-tietueita löytyi, mutta niiden viittaukset eivät ole kunnossa."
@@ -520,28 +517,23 @@ msgstr ""
 
 #: core/diag/Sociopath.php:48
 msgid ""
-"There are likely some issues around the wireless part of the network you are"
-" trying to connect to. Wireless networks do not always behave "
+"There are likely some issues around the wireless part of the network you are "
+"trying to connect to. Wireless networks do not always behave "
 "deterministically and consistently. All users at a given location have to "
-"share the available bandwidth, and the physical environment (concrete walls,"
-" objects in the way, elevation differences) can have a significant impact on"
-" your connectivity experience."
+"share the available bandwidth, and the physical environment (concrete walls, "
+"objects in the way, elevation differences) can have a significant impact on "
+"your connectivity experience."
 msgstr ""
 "On todennäköisesti ongelmia verkon langattomassa verkossa, johon yrität "
-"muodostaa yhteyden. Langattomat verkot eivät aina toimi deterministisesti ja"
-" johdonmukaisesti. Tietyssä paikassa olevien käyttäjien on jaettava "
+"muodostaa yhteyden. Langattomat verkot eivät aina toimi deterministisesti ja "
+"johdonmukaisesti. Tietyssä paikassa olevien käyttäjien on jaettava "
 "käytettävissä oleva kaistanleveys, ja fyysinen ympäristö (betoniseinät, "
 "esineet, korkeuserot) voi vaikuttaa merkittävästi liittymiskokemukseen."
 
-#. here is an array with yes/no answers per failure category, and the factors
-#. by which a Yes modifies the score; No's modify it by 1/factor;
-#. the order in this array is important: lower numbered questions will be
-#. asked first. So make sure you have high-quality questions in the beginning.
-#. to be clear: "Yes" answers are elsewhere in the class the TRUE case; No's
-#. are FALSE, a possible "Don't know or N/A" is NULL
-#. VERDICTLECTURE is text which is displayed to the end user if his answer led
-#. to a HIGHER score in the process. We are storing the answers to determine
-#. this.
+#. here is an array with yes/no answers per failure category, and the factors by which a Yes modifies the score; No's modify it by 1/factor;
+#. the order in this array is important: lower numbered questions will be asked first. So make sure you have high-quality questions in the beginning.
+#. to be clear: "Yes" answers are elsewhere in the class the TRUE case; No's are FALSE, a possible "Don't know or N/A" is NULL
+#. VERDICTLECTURE is text which is displayed to the end user if his answer led to a HIGHER score in the process. We are storing the answers to determine this.
 #: core/diag/Sociopath.php:56
 msgid ""
 "You should use appropriate configuration assistants [MGW: see if the realm "
@@ -574,22 +566,22 @@ msgid ""
 "Did the device previously work when roaming, i.e. at other hotspots away "
 "from your home institution?"
 msgstr ""
-"Onko laite aiemmin toiminut verkkovierailun yhteydessä, toisin sanoen muissa"
-" paikoissa kuin kotiorganisaatiosi kampuksilla?"
+"Onko laite aiemmin toiminut verkkovierailun yhteydessä, toisin sanoen muissa "
+"paikoissa kuin kotiorganisaatiosi kampuksilla?"
 
 #: core/diag/Sociopath.php:66
 #, php-format
 msgid ""
 "If roaming consistently does not work, then very likely your device "
-"configuration is wrong. Typical errors causing this symptom include: using a"
-" routing ('outer') username without the @realm.tld suffix - those "
-"potentially work at home, but can not be used when roaming. %s"
+"configuration is wrong. Typical errors causing this symptom include: using a "
+"routing ('outer') username without the @realm.tld suffix - those potentially "
+"work at home, but can not be used when roaming. %s"
 msgstr ""
 "Jos verkkovierailu jatkuvasti ei toimi, on laitteen konfigurointi "
 "todennäköisesti väärä. Tyypillinen virhe on että reititykseen käytettävässä "
 "('ulkoisessa') käyttäjätunnuksessa ei ole @realm.tld-päätettä. Tässä "
-"tapauksessa kotiorganisaation kampuksella ei välttämättä ole ongelmia, mutta"
-" verkkovierailu ei onnistu.%s"
+"tapauksessa kotiorganisaation kampuksella ei välttämättä ole ongelmia, mutta "
+"verkkovierailu ei onnistu.%s"
 
 #: core/diag/Sociopath.php:68
 msgid "Did you recently change the configuration on your device?"
@@ -621,25 +613,25 @@ msgid ""
 "change the password? These questions are best answered by your Identity "
 "Provider [MGW: display contact info]"
 msgstr ""
-"Jos kaikki laitteet lakkasivat toimimasta samanaikaisesti, käyttäjätililläsi"
-" saattaa olla ongelmia. Ehkä tilisi on vanhentunut tai sinua pakotettiin "
+"Jos kaikki laitteet lakkasivat toimimasta samanaikaisesti, käyttäjätililläsi "
+"saattaa olla ongelmia. Ehkä tilisi on vanhentunut tai sinua pakotettiin "
 "vaihtamaan salasanasi? Näihin kysymyksiin kotiorganisaatiosi osaa parhaiten "
 "vastata [MGW: näytä yhteystiedot]"
 
 #: core/diag/Sociopath.php:76
 msgid ""
-"Is the place you are currently at heavily crowded, or is a network-intensive"
-" workload going on?"
+"Is the place you are currently at heavily crowded, or is a network-intensive "
+"workload going on?"
 msgstr ""
 "Onko vierailemassasi paikassa runsaasti muita verkon käyttäjiä, eli voisiko "
 "kyseessä olla ylikuormitustilanne?"
 
 #: core/diag/Sociopath.php:78
 msgid ""
-"The network is likely overloaded at this location and point in time. You may"
-" have to wait until later before you get a better connectivity. If you think"
-" the network should be reinforced for more capacity at this place, you "
-"should inform the hotspot provider. [MGW: add contact info]"
+"The network is likely overloaded at this location and point in time. You may "
+"have to wait until later before you get a better connectivity. If you think "
+"the network should be reinforced for more capacity at this place, you should "
+"inform the hotspot provider. [MGW: add contact info]"
 msgstr ""
 "Verkko on todennäköisesti ylikuormitettu tässä paikassa ja ajankohtana. "
 "Saatat joutua odottamaan, ennen kuin saat paremman yhteyden. Jos mielestäsi "
@@ -668,9 +660,9 @@ msgstr "Näetkö virheitä, joiden mukaan IP-osoitetta ei saada?"
 
 #: core/diag/Sociopath.php:87
 msgid ""
-"The evidence at hand suggests that there may be an infrastructure problem at"
-" this particular hotspot provider. There is nothing you can do to solve this"
-" problem locally. Please be patient and try again at a later time."
+"The evidence at hand suggests that there may be an infrastructure problem at "
+"this particular hotspot provider. There is nothing you can do to solve this "
+"problem locally. Please be patient and try again at a later time."
 msgstr ""
 "Todisteet viittaavat siihen, että kyseisellä hotspot-palveluntarjoajalla "
 "saattaa olla infrastruktuuriongelmia. Et voi ratkaista tätä ongelmaa "
@@ -729,8 +721,8 @@ msgstr "Järjestelmä kysyy muutamia kotiorganisaatioosi liittyviä kysymyksiä"
 
 #: web/skins/modern/diag/diag.php:84
 msgid ""
-"What is the realm part of your user account (the part behind the @ of "
-"'your.username@<b>realm.tld</b>):"
+"What is the realm part of your user account (the part behind the @ of 'your."
+"username@<b>realm.tld</b>):"
 msgstr ""
 "Mikä on käyttäjätunnuksesi toimialueosa (osa  @ -merkin jälkeen "
 "'käyttäjätunnus@<b>organisaatio.fi </b>):"
@@ -860,8 +852,7 @@ msgid "The network environment around you is broken"
 msgstr "Lähistöllä oleva verkkoympäristö on rikki"
 
 #: web/skins/modern/diag/diag.php:320
-msgid ""
-"The RADIUS server of your service provider is the source of the problem"
+msgid "The RADIUS server of your service provider is the source of the problem"
 msgstr "Palveluntarjoajan RADIUS-palvelin on ongelman lähde"
 
 #: web/skins/modern/diag/diag.php:323
@@ -888,8 +879,8 @@ msgstr ""
 
 #: web/skins/modern/diag/diag.php:332
 msgid ""
-"The link between the national server of your home country/region and the "
-"top-level server is broken"
+"The link between the national server of your home country/region and the top-"
+"level server is broken"
 msgstr ""
 "Kotimaasi / alueesi kansallisen palvelimen ja ylätason palvelimen välinen "
 "yhteys on rikki"
@@ -904,8 +895,7 @@ msgid ""
 msgstr "Kansallinen palvelin kotimaassasi / alueellasi ei toimi oikein."
 
 #: web/skins/modern/diag/diag.php:341
-msgid ""
-"The RADIUS server of your home institution is the source of the problem"
+msgid "The RADIUS server of your home institution is the source of the problem"
 msgstr "Kotiorganisaatiosi RADIUS-palvelin on ongelman lähde"
 
 #: web/skins/modern/diag/diag.php:344

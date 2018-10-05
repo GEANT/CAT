@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"POT-Creation-Date: 2018-10-05 09:32+0200\n"
 "PO-Revision-Date: 2018-09-24 08:46+0000\n"
 "Last-Translator: Marko Eremija <marko.eremija@amres.ac.rs>\n"
 "Language-Team: Serbian (http://www.transifex.com/eduroam_devel/cat/language/"
@@ -480,57 +480,57 @@ msgstr "FAST-GTC"
 msgid "EAP-pwd"
 msgstr "EAP-pwd"
 
-#: core/common/OutsideComm.php:239
+#: core/common/OutsideComm.php:240
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
 msgstr "%s %s %s \"%s\" vas je pozvao da upravljate %s zajedno sa njim."
 
-#: core/common/OutsideComm.php:240
+#: core/common/OutsideComm.php:241
 #, php-format
 msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
 msgstr "%s %s vas je pozvao da upravljate budućim  %s  \"%s\" (%s)."
 
-#: core/common/OutsideComm.php:241
+#: core/common/OutsideComm.php:242
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\"."
 msgstr "%s %s vas je pozvao da upravljate %s  \"%s\"."
 
-#: core/common/OutsideComm.php:243
+#: core/common/OutsideComm.php:244
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr "Ova pozivnica je validna 24 časa od ovog trenutnka, tj. do %s."
 
 #. then, send out the mail
-#: core/common/OutsideComm.php:251
+#: core/common/OutsideComm.php:252
 msgid "Hello,"
 msgstr "Zdravo, "
 
 #. default means we don't have a Reply-To.
-#: core/common/OutsideComm.php:253
+#: core/common/OutsideComm.php:254
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
 "ručno. Nemojte odgovarati na ovaj mejl; ovo je adresa koja se koristi samo "
 "za slanje."
 
-#: core/common/OutsideComm.php:259
+#: core/common/OutsideComm.php:260
 #, php-format
 msgid "Additional message from your %s administrator:"
 msgstr "Dodatna poruka od administratora %s:"
 
-#: core/common/OutsideComm.php:267
+#: core/common/OutsideComm.php:268
 #, php-format
 msgid "%s administrator"
 msgstr "%s administrator"
 
-#: core/common/OutsideComm.php:270
+#: core/common/OutsideComm.php:271
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
 msgstr "ručno. Ako odgovorite na ovaj mejl, doći ćete do administratora %s."
 
-#: core/common/OutsideComm.php:275
+#: core/common/OutsideComm.php:276
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
@@ -538,7 +538,7 @@ msgid ""
 msgstr ""
 "Da biste se prijavili kao administrator za %s, kliknite ne sledeći link:"
 
-#: core/common/OutsideComm.php:277
+#: core/common/OutsideComm.php:278
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
@@ -547,11 +547,11 @@ msgstr ""
 "Ukoliko ne možete da kliknete na link, onda pokušajte da odete na %s "
 "interfejs za administraciju na"
 
-#: core/common/OutsideComm.php:279
+#: core/common/OutsideComm.php:280
 msgid "and enter the invitation token"
 msgstr "i ručno unesite token iz pozivnice"
 
-#: core/common/OutsideComm.php:281
+#: core/common/OutsideComm.php:282
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
@@ -559,12 +559,12 @@ msgstr ""
 "NEMOJTE prosleđivati ovaj mejl pre nego što token istekne - u suprotnom, oni "
 "koji dobiju mejl će moći da iskoriste token u vaše ime!"
 
-#: core/common/OutsideComm.php:282
+#: core/common/OutsideComm.php:283
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr "Želimo vam ugodno korišćenje %s."
 
-#: core/common/OutsideComm.php:283
+#: core/common/OutsideComm.php:284
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -576,7 +576,7 @@ msgstr ""
 "Vaši prijatelji iz %s Operacija"
 
 #. what do we want to say?
-#: core/common/OutsideComm.php:318
+#: core/common/OutsideComm.php:319
 #, php-format
 msgid "%s: you have been invited to manage an %s"
 msgstr "%s: pozvani ste da upravljate %s"

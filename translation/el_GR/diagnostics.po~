@@ -2,20 +2,21 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 16:03+0200\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: HELPDESK <npapalouka@admin.grnet.gr>, 2016\n"
-"Language-Team: Greek (https://www.transifex.com/eduroam_devel/teams/11799/el/)\n"
+"Language-Team: Greek (https://www.transifex.com/eduroam_devel/teams/11799/"
+"el/)\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: core/diag/AbstractTest.php:266
@@ -41,8 +42,8 @@ msgstr "Δεν υπήρξε καμία απάντηση από τον εξυπη
 
 #: core/diag/AbstractTest.php:301
 msgid ""
-"There was a bidirectional communication with the RADIUS server, but it ended"
-" halfway through."
+"There was a bidirectional communication with the RADIUS server, but it ended "
+"halfway through."
 msgstr ""
 "Υπήρξε αμφίδρομη επικοινωνία με τον εξυπηρετητή RADIUS, αλλά έληξε στη μέση "
 "της διαδρομής. "
@@ -118,8 +119,8 @@ msgstr ""
 #: core/diag/AbstractTest.php:379
 msgid ""
 "At least one certificate in the chain had a public key of less than 1024 "
-"bits. Many recent operating systems consider this unacceptable and will fail"
-" to validate the server certificate."
+"bits. Many recent operating systems consider this unacceptable and will fail "
+"to validate the server certificate."
 msgstr ""
 "Τουλάχιστον ένα πιστοποιητικό στην αλυσίδα περιέχει δημόσιο κλειδί με "
 "λιγότερα από 1024 bits. Πολλά πρόσφατα λειτουργικά συστήματα το θεωρούν ως "
@@ -158,17 +159,17 @@ msgstr ""
 
 #: core/diag/AbstractTest.php:407
 msgid ""
-"The extension 'CRL Distribution Point' in the server certificate points to a"
-" location where no DER-encoded CRL can be found. Some Operating Systems "
-"check certificate validity by consulting the CRL and will fail to validate "
-"the certificate. Checking server certificate validity against a CRL will not"
-" be possible."
+"The extension 'CRL Distribution Point' in the server certificate points to a "
+"location where no DER-encoded CRL can be found. Some Operating Systems check "
+"certificate validity by consulting the CRL and will fail to validate the "
+"certificate. Checking server certificate validity against a CRL will not be "
+"possible."
 msgstr ""
 "Το πρόσθετο πεδίο 'CRL Distribution Point' του πιστοποιητικού του "
 "εξυπηρετητή δεν δείχνει σε κάποιο DER-encoded CRL. Μερικά Λειτουργικά "
 "Συστήματα ελέγχουν την εγκυρότητα του πιστοποιητικού ανατρέχοντας στο CRL "
-"και θα αποτύχουν να επαληθεύσουν το πιστοποιητικό. Ο έλεγχος της εγκυρότητας"
-" του πιστοποιητικού εξυπηρετητή  δε θα είναι εφικτός με βάση ένα CRL."
+"και θα αποτύχουν να επαληθεύσουν το πιστοποιητικό. Ο έλεγχος της εγκυρότητας "
+"του πιστοποιητικού εξυπηρετητή  δε θα είναι εφικτός με βάση ένα CRL."
 
 #: core/diag/AbstractTest.php:414
 msgid "The server certificate was revoked by the CA!"
@@ -176,10 +177,10 @@ msgstr "Το πιστοποιητικό του εξυπηρετητή ανακλ
 
 #: core/diag/AbstractTest.php:421
 msgid ""
-"The certificate contained a CN or subjectAltName:DNS which does not parse as"
-" a hostname. This can be problematic on some supplicants. If the certificate"
-" also contains names which are a proper hostname, and you only use those for"
-" your supplicant configuration, then you can safely ignore this notice."
+"The certificate contained a CN or subjectAltName:DNS which does not parse as "
+"a hostname. This can be problematic on some supplicants. If the certificate "
+"also contains names which are a proper hostname, and you only use those for "
+"your supplicant configuration, then you can safely ignore this notice."
 msgstr ""
 "Το πιστοποιητικό περιελάμβανε CN ή subjectAltName:DNS το οποίο δεν είναι "
 "έγκυρο hostname. Αυτό μπορεί να είναι προβληματικό σε κάποια supplicants. "
@@ -206,8 +207,8 @@ msgid ""
 "At least one certificate is outside its validity period (not yet valid, or "
 "already expired)!"
 msgstr ""
-"Τουλάχιστον ένα πιστοποιητικό βρίσκεται εκτός της περιόδου ισχύος (δεν είναι"
-" ακόμη έγκυρο, ή έχει ήδη λήξει)!"
+"Τουλάχιστον ένα πιστοποιητικό βρίσκεται εκτός της περιόδου ισχύος (δεν είναι "
+"ακόμη έγκυρο, ή έχει ήδη λήξει)!"
 
 #: core/diag/AbstractTest.php:442
 #, php-format
@@ -218,8 +219,8 @@ msgid ""
 "configuration."
 msgstr ""
 "Τουλάχιστον ένα ενδιάμεσο πιστοποιητικό στο προφίλ CAT βρίσκεται εκτός της "
-"περιόδου ισχύος του (δεν είναι ακόμη έγκυρο, ή έχει ήδη λήξει), αλλά αυτό το"
-" πιστοποιητικό δεν χρησιμοποιήθηκε για επαλήθευση της ταυτότητας του "
+"περιόδου ισχύος του (δεν είναι ακόμη έγκυρο, ή έχει ήδη λήξει), αλλά αυτό το "
+"πιστοποιητικό δεν χρησιμοποιήθηκε για επαλήθευση της ταυτότητας του "
 "εξυπηρετητή. Εξετάστε την αφαίρεσή του από την %s παραμετροποίηση."
 
 #: core/diag/AbstractTest.php:449
@@ -253,8 +254,8 @@ msgstr ""
 
 #: core/diag/AbstractTest.php:466
 msgid ""
-"The configured EAP server name matches either the CN or a subjectAltName:DNS"
-" of the incoming certificate; best current practice is that the certificate "
+"The configured EAP server name matches either the CN or a subjectAltName:DNS "
+"of the incoming certificate; best current practice is that the certificate "
 "should contain the name in BOTH places."
 msgstr ""
 "Το διαμορφωμένο όνομα του εξυπηρετητή EAP ταιριάζει είτε με το CN ή με ένα "
@@ -271,8 +272,8 @@ msgid ""
 msgstr ""
 "Τουλάχιστον ένα πιστοποιητικό δεν περιλαμβάνει κανένα πρόσθετο πεδίο "
 "BasicConstraints; κάτι το οποίο κάνει ασαφές εάν είναι ένα πιστοποιητικό CA "
-"ή ένα πιστοποιητικό end-entity. Τουλάχιστον το Mac OS X 10.8 (Mountain Lion)"
-" δεν θα επαληθεύσει αυτό το πιστοποιητικό για τους σκοπούς του EAP!"
+"ή ένα πιστοποιητικό end-entity. Τουλάχιστον το Mac OS X 10.8 (Mountain Lion) "
+"δεν θα επαληθεύσει αυτό το πιστοποιητικό για τους σκοπούς του EAP!"
 
 #: core/diag/AbstractTest.php:480
 msgid "The server presented a certificate from an unknown authority."
@@ -318,8 +319,8 @@ msgstr ""
 
 #: core/diag/AbstractTest.php:536
 msgid ""
-"The certificate public key algorithm is unknown to the system. Please submit"
-" the certificate as a sample to the developers."
+"The certificate public key algorithm is unknown to the system. Please submit "
+"the certificate as a sample to the developers."
 msgstr ""
 "Ο αλγόριθμος δημόσιου κλειδιού του πιστοποιητικού είναι άγνωστος στο "
 "σύστημα. Παρακαλώ υποβάλλετε το πιστοποιητικό ως δείγμα στους "
@@ -332,16 +333,15 @@ msgstr "[Διαγνωστικά eduroam]"
 #: core/diag/Logopath.php:98
 msgid ""
 "(This service is in an early stage. We apologise if this is a false alert. "
-"If this is the case, please send an email report to cat-"
-"devel@lists.geant.org, forwarding the entire message (including the "
-"'SUSPECTS' and 'EVIDENCE' data at the end), and explain why this is a false "
-"positive.)"
+"If this is the case, please send an email report to cat-devel@lists.geant."
+"org, forwarding the entire message (including the 'SUSPECTS' and 'EVIDENCE' "
+"data at the end), and explain why this is a false positive.)"
 msgstr ""
-"(Αυτή η υπηρεσία βρίσκεται σε ένα πρώιμο στάδιο. Ζητάμε συγνώμη αν πρόκειται"
-" για λάθος ειδοποίηση. Σε αυτή την περίπτωση, παρακαλώ στείλτε μια αναφορά "
-"με email στο cat-devel@lists.geant.org, προωθώντας το πλήρες μήνυμα "
-"(συμπεριλαμβανομένων των δεδομένων 'ΥΠΟΠΤΑ' και 'ΑΠΟΔΕΙΞΕΙΣ' στο τέλος), και"
-" εξηγήστε γιατί είναι ένας λανθασμένος συναγερμός.)"
+"(Αυτή η υπηρεσία βρίσκεται σε ένα πρώιμο στάδιο. Ζητάμε συγνώμη αν πρόκειται "
+"για λάθος ειδοποίηση. Σε αυτή την περίπτωση, παρακαλώ στείλτε μια αναφορά με "
+"email στο cat-devel@lists.geant.org, προωθώντας το πλήρες μήνυμα "
+"(συμπεριλαμβανομένων των δεδομένων 'ΥΠΟΠΤΑ' και 'ΑΠΟΔΕΙΞΕΙΣ' στο τέλος), και "
+"εξηγήστε γιατί είναι ένας λανθασμένος συναγερμός.)"
 
 #: core/diag/Logopath.php:100
 msgid "Yours sincerely,"
@@ -402,15 +402,15 @@ msgid ""
 "planned."
 msgstr ""
 "<strong>Eπιτυχημένη δοκιμή</strong>: μια αμφίδρομη επικοινωνία RADIUS με "
-"πολλές κυκλικές διαδρομές πραγματοποιήθηκε και ολοκληρώθηκε με Access-Reject"
-" όπως ήταν αναμενόμενο."
+"πολλές κυκλικές διαδρομές πραγματοποιήθηκε και ολοκληρώθηκε με Access-Reject "
+"όπως ήταν αναμενόμενο."
 
 #: core/diag/RADIUSTests.php:1017
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
-"Access-Reject as planned. Some properties of the connection attempt were "
-"sub-optimal; the list is below."
+"Access-Reject as planned. Some properties of the connection attempt were sub-"
+"optimal; the list is below."
 msgstr ""
 "<strong>Δοκιμή εν μέρει επιτυχημένη</strong>: μια αμφίδρομη επικοινωνία "
 "RADIUS με πολλές κυκλικές διαδρομές πραγματοποιήθηκε και ολοκληρώθηκε με "
@@ -487,15 +487,15 @@ msgstr "άγνωστη αρχή ή χωρίς πολιτική πιστοποι�
 
 #. return codes specific to NAPTR existence checks
 #. *
-#. * no NAPTRs for domain; this is not an error, simply means that realm is
-#. not doing dynamic discovery for any service
+#. * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
+#.
 #: core/diag/RFC7585Tests.php:124
 msgid "This realm has no NAPTR records."
 msgstr "Αυτός ο τομέας δεν έχει εγγραφές NAPTR."
 
 #. *
-#. * no eduroam NAPTR for domain; this is not an error, simply means that
-#. realm is not doing dynamic discovery for eduroam
+#. * no eduroam NAPTR for domain; this is not an error, simply means that realm is not doing dynamic discovery for eduroam
+#.
 #: core/diag/RFC7585Tests.php:130
 msgid "NAPTR records were found, but all of them refer to unrelated services."
 msgstr ""
@@ -538,17 +538,17 @@ msgid ""
 "account you tried to use does not exist."
 msgstr ""
 "Το σύστημα δεν μπορεί να βρει απολύτως καμία πληροφορία για τον Πάροχο "
-"Ταυτότητας που περιγράψατε. Πιθανώς αυτό δεν είναι ένα συμμετέχον ίδρυμα και"
-" ο λογαριασμός που προσπαθήσατε να χρησιμοποιήσετε δεν υπάρχει. "
+"Ταυτότητας που περιγράψατε. Πιθανώς αυτό δεν είναι ένα συμμετέχον ίδρυμα και "
+"ο λογαριασμός που προσπαθήσατε να χρησιμοποιήσετε δεν υπάρχει. "
 
 #: core/diag/Sociopath.php:48
 msgid ""
-"There are likely some issues around the wireless part of the network you are"
-" trying to connect to. Wireless networks do not always behave "
+"There are likely some issues around the wireless part of the network you are "
+"trying to connect to. Wireless networks do not always behave "
 "deterministically and consistently. All users at a given location have to "
-"share the available bandwidth, and the physical environment (concrete walls,"
-" objects in the way, elevation differences) can have a significant impact on"
-" your connectivity experience."
+"share the available bandwidth, and the physical environment (concrete walls, "
+"objects in the way, elevation differences) can have a significant impact on "
+"your connectivity experience."
 msgstr ""
 "Πιθανότατα υπάρχουν ορισμένα ζητήματα αναφορικά με το ασύρματο κομμάτι του "
 "δικτύου στο οποίο προσπαθείτε να συνδεθείτε. Τα ασύρματα δίκτυα δεν έχουν "
@@ -558,15 +558,10 @@ msgstr ""
 "εμποδίζουν, υψομετρικές διαφορές) μπορούν να έχουν σημαντικό αντίκτυπο στην "
 "εμπειρία σύνδεσής σας."
 
-#. here is an array with yes/no answers per failure category, and the factors
-#. by which a Yes modifies the score; No's modify it by 1/factor;
-#. the order in this array is important: lower numbered questions will be
-#. asked first. So make sure you have high-quality questions in the beginning.
-#. to be clear: "Yes" answers are elsewhere in the class the TRUE case; No's
-#. are FALSE, a possible "Don't know or N/A" is NULL
-#. VERDICTLECTURE is text which is displayed to the end user if his answer led
-#. to a HIGHER score in the process. We are storing the answers to determine
-#. this.
+#. here is an array with yes/no answers per failure category, and the factors by which a Yes modifies the score; No's modify it by 1/factor;
+#. the order in this array is important: lower numbered questions will be asked first. So make sure you have high-quality questions in the beginning.
+#. to be clear: "Yes" answers are elsewhere in the class the TRUE case; No's are FALSE, a possible "Don't know or N/A" is NULL
+#. VERDICTLECTURE is text which is displayed to the end user if his answer led to a HIGHER score in the process. We are storing the answers to determine this.
 #: core/diag/Sociopath.php:56
 msgid ""
 "You should use appropriate configuration assistants [MGW: see if the realm "
@@ -607,14 +602,14 @@ msgstr ""
 #, php-format
 msgid ""
 "If roaming consistently does not work, then very likely your device "
-"configuration is wrong. Typical errors causing this symptom include: using a"
-" routing ('outer') username without the @realm.tld suffix - those "
-"potentially work at home, but can not be used when roaming. %s"
+"configuration is wrong. Typical errors causing this symptom include: using a "
+"routing ('outer') username without the @realm.tld suffix - those potentially "
+"work at home, but can not be used when roaming. %s"
 msgstr ""
-"Αν η περιήγηση σταθερά δε λειτουργεί, τότε πολύ πιθανά η παραμετροποίηση της"
-" συσκευής σας είναι λανθασμένη. Τυπικά σφάλματα στα οποία οφείλεται αυτό το "
-"σύμπτωμα περιλαμβάνουν: χρήση ('εξωτερικού') ονόματος χρήστη για δρομολόγηση"
-" χωρίς το επίθεμα @realm.tld - αυτό ενδεχομένως δουλεύει στο οικείο "
+"Αν η περιήγηση σταθερά δε λειτουργεί, τότε πολύ πιθανά η παραμετροποίηση της "
+"συσκευής σας είναι λανθασμένη. Τυπικά σφάλματα στα οποία οφείλεται αυτό το "
+"σύμπτωμα περιλαμβάνουν: χρήση ('εξωτερικού') ονόματος χρήστη για δρομολόγηση "
+"χωρίς το επίθεμα @realm.tld - αυτό ενδεχομένως δουλεύει στο οικείο "
 "περιβάλλον, αλλά δεν μπορεί να χρησιμοποιηθεί κατά την περιήγηση. %s"
 
 #: core/diag/Sociopath.php:68
@@ -651,24 +646,23 @@ msgid ""
 msgstr ""
 "Αν όλες οι συσκευές έπαψαν να δουλεύουν ταυτόχρονα, ίσως υπάρχει ένα "
 "πρόβλημα με το λογαριασμό σας ως τέτοιο. Ίσως ο λογαριασμός σας έληξε, ή "
-"υποχρεωθήκατε σε αλλαγή συνθηματικού; Αυτές οι ερωτήσεις μπορούν καλύτερα να"
-" απαντηθούν από τον Πάροχο Ταυτότητας σας [MGW: δείξτε στοιχεία "
-"επικοινωνίας]"
+"υποχρεωθήκατε σε αλλαγή συνθηματικού; Αυτές οι ερωτήσεις μπορούν καλύτερα να "
+"απαντηθούν από τον Πάροχο Ταυτότητας σας [MGW: δείξτε στοιχεία επικοινωνίας]"
 
 #: core/diag/Sociopath.php:76
 msgid ""
-"Is the place you are currently at heavily crowded, or is a network-intensive"
-" workload going on?"
+"Is the place you are currently at heavily crowded, or is a network-intensive "
+"workload going on?"
 msgstr ""
 "Είναι το μέρος που βρίσκεστε τώρα γεμάτο πολύ κόσμο, ή μήπως είναι σε "
 "εξέλιξη εργασίες που προκαλούν μεγάλο φόρτο στο δίκτυο;"
 
 #: core/diag/Sociopath.php:78
 msgid ""
-"The network is likely overloaded at this location and point in time. You may"
-" have to wait until later before you get a better connectivity. If you think"
-" the network should be reinforced for more capacity at this place, you "
-"should inform the hotspot provider. [MGW: add contact info]"
+"The network is likely overloaded at this location and point in time. You may "
+"have to wait until later before you get a better connectivity. If you think "
+"the network should be reinforced for more capacity at this place, you should "
+"inform the hotspot provider. [MGW: add contact info]"
 msgstr ""
 "Είναι πιθανό το δίκτυο στην τοποθεσία σας να είναι υπερφορτωμένο αυτή τη "
 "χρονική στιγμή. Ίσως χρειαστεί να περιμένετε να δοκιμάσετε αργότερα για να "
@@ -694,19 +688,18 @@ msgstr ""
 #: core/diag/Sociopath.php:85
 msgid ""
 "Do you see errors stating something similar to 'Unable to get IP address'?"
-msgstr ""
-"Βλέπετε σφάλματα που δηλώνουν κάτι σαν 'Αδυναμία λήψης διεύθυνσης IP';"
+msgstr "Βλέπετε σφάλματα που δηλώνουν κάτι σαν 'Αδυναμία λήψης διεύθυνσης IP';"
 
 #: core/diag/Sociopath.php:87
 msgid ""
-"The evidence at hand suggests that there may be an infrastructure problem at"
-" this particular hotspot provider. There is nothing you can do to solve this"
-" problem locally. Please be patient and try again at a later time."
+"The evidence at hand suggests that there may be an infrastructure problem at "
+"this particular hotspot provider. There is nothing you can do to solve this "
+"problem locally. Please be patient and try again at a later time."
 msgstr ""
 "Τα διαθέσιμα στοιχεία υποδεικνύουν ότι μπορεί να υπάρχει ένα πρόβλημα "
-"υποδομής στο συγκεκριμένο πάροχο hotspot. Δεν υπάρχει τίποτε που μπορείτε να"
-" κάνετε για να λύσετε αυτό το πρόβλημα τοπικά. Παρακαλούμε να κάνετε υπομονή"
-" και να δοκιμάσετε ξανά αργότερα."
+"υποδομής στο συγκεκριμένο πάροχο hotspot. Δεν υπάρχει τίποτε που μπορείτε να "
+"κάνετε για να λύσετε αυτό το πρόβλημα τοπικά. Παρακαλούμε να κάνετε υπομονή "
+"και να δοκιμάσετε ξανά αργότερα."
 
 #: web/skins/modern/diag/diag.php:68
 msgid "Diagnostics site"
@@ -765,8 +758,8 @@ msgstr ""
 
 #: web/skins/modern/diag/diag.php:84
 msgid ""
-"What is the realm part of your user account (the part behind the @ of "
-"'your.username@<b>realm.tld</b>):"
+"What is the realm part of your user account (the part behind the @ of 'your."
+"username@<b>realm.tld</b>):"
 msgstr ""
 "Ποιος είναι ο τομέας στο λογαριασμό χρήστη σας (το τμήμα που ακολουθεί το @ "
 "στο 'your.username@<b>realm.tld</b>):"
@@ -884,8 +877,8 @@ msgid ""
 "Next to the problem description we show a speculated probability of this "
 "event."
 msgstr ""
-"Δίπλα από την περιγραφή του προβλήματος σας παρουσιάζουμε και την εικαζόμενη"
-" πιθανότητα αυτού του συμβάντος."
+"Δίπλα από την περιγραφή του προβλήματος σας παρουσιάζουμε και την εικαζόμενη "
+"πιθανότητα αυτού του συμβάντος."
 
 #: web/skins/modern/diag/diag.php:311
 msgid "Your device configuration is broken"
@@ -900,8 +893,7 @@ msgid "The network environment around you is broken"
 msgstr "Το περιβάλλον δικτύου γύρω σας είναι χαλασμένο"
 
 #: web/skins/modern/diag/diag.php:320
-msgid ""
-"The RADIUS server of your service provider is the source of the problem"
+msgid "The RADIUS server of your service provider is the source of the problem"
 msgstr ""
 "Ο εξυπηρετητής RADIUS του παρόχου υπηρεσίας σας είναι η πηγή του προβλήματος"
 
@@ -931,8 +923,8 @@ msgstr ""
 
 #: web/skins/modern/diag/diag.php:332
 msgid ""
-"The link between the national server of your home country/region and the "
-"top-level server is broken"
+"The link between the national server of your home country/region and the top-"
+"level server is broken"
 msgstr ""
 "Ο σύνδεσμος μεταξύ του εθνικού εξυπηρετητή της πατρίδας/περιφέρειάς σας και "
 "του εξυπηρετητή ανωτέρου επιπέδου είναι χαλασμένος"
@@ -948,8 +940,7 @@ msgstr ""
 "Ο εθνικός εξυπηρετητής της πατρίδας/περιφέρειάς σας δε λειτουργεί σωστά."
 
 #: web/skins/modern/diag/diag.php:341
-msgid ""
-"The RADIUS server of your home institution is the source of the problem"
+msgid "The RADIUS server of your home institution is the source of the problem"
 msgstr ""
 "Ο εξυπηρετητής RADIUS του οικείου ιδρύματος είναι η πηγή του προβλήματος"
 

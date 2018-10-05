@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-21 15:38+0200\n"
+"POT-Creation-Date: 2018-09-10 08:40+0200\n"
 "PO-Revision-Date: 2015-04-07 08:42+0000\n"
 "Last-Translator: Miguel Gonzalez Miron <miguel.gonzalez@udc.es>\n"
 "Language-Team: Galician (Spain) (http://www.transifex.com/projects/p/cat/"
@@ -23,16 +23,20 @@ msgstr ""
 
 #. / eduroam CAT, twice the consortium name eduroam, twice eduroam CAT
 #: web/user/about_cat.inc.php:28
+#, php-format
+msgid "<span class='edu_cat'>%s</span> is built as a cooperation platform."
+msgstr ""
+
+#: web/user/about_cat.inc.php:29
 #, fuzzy, php-format
 msgid ""
-"<span class='edu_cat'>%s</span> is built as a cooperation platform.<p>Local "
-"%s administrators enter their %s configuration details and based on them, "
-"<span class='edu_cat'>%s</span> builds customised installers for a number of "
-"popular platforms. An installer prepared for one organisation will not work "
-"for users of another one, therefore if your organisation is not on the list, "
-"you cannot use this system. Please contact your local administrators and try "
-"to influence them to add your %s configuration to <span class='edu_cat'>%s</"
-"span>."
+"Local %s administrators enter their %s configuration details and based on "
+"them, <span class='edu_cat'>%s</span> builds customised installers for a "
+"number of popular platforms. An installer prepared for one organisation will "
+"not work for users of another one, therefore if your organisation is not on "
+"the list, you cannot use this system. Please contact your local "
+"administrators and try to influence them to add your %s configuration to "
+"<span class='edu_cat'>%s</span>."
 msgstr ""
 "<span class='edu_cat'>%s</span> constrúese como plataforma colaborativa."
 "<p>Os %s administradores locais introducen os %s detalles de configuración, "
@@ -154,10 +158,10 @@ msgstr ""
 #, fuzzy
 msgid ""
 "No! The installers contain security settings which are specific to the "
-"organisation. If you are not from that organisation, your computer will "
-"detect that you are about to send your username and credential to an "
-"unauthorised server and will abort the login. Using an installer from a "
-"different organisation is <i>guaranteed to not work</i>!"
+"organisation. If you are not from that organisation, your device will detect "
+"that you are about to send your username and credential to an unauthorised "
+"server and will abort the login. Using an installer from a different "
+"organisation is <i>guaranteed to not work</i>!"
 msgstr ""
 "Non! Os instaladores conteñen opcións de seguranza que son específicos da "
 "institución. Se vostede non é desa institución, o seu computador detectará "
@@ -185,12 +189,12 @@ msgid "My device is not listed! Does that mean I can't do %s?"
 msgstr "O meu dispositivo non está listado! Significa que non podo facer %s?"
 
 #: web/user/faq.inc.php:28 web/user/faq.php:25
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "No. The CAT tool can only support Operating Systems which can be "
 "automatically configured in some way. Many other devices can still be used "
-"with %s, but must be configured manually. Please contact your %s Identity "
-"Provider to get help in setting up such a device."
+"with %s, but must be configured manually. Please contact your organisation "
+"to get help in setting up such a device."
 msgstr ""
 "Non. A ferramenta CAT soamente é compatíbel con sistemas operativos qeu "
 "poidan ser configurados automaticamente dalgunha maneira. Aínda se poderían "
@@ -442,6 +446,11 @@ msgstr ""
 msgid "%s Copyright and Licensing"
 msgstr ""
 
+#: web/copyright.php:213 web/tou.php:61 web/skins/modern/Divs.php:280
+#, php-format
+msgid "%s Privacy Notice"
+msgstr ""
+
 #: web/lib/user/TextTemplates.php:70
 #, fuzzy, php-format
 msgid "Welcome aboard the %s user community!"
@@ -556,8 +565,8 @@ msgstr ""
 " Cando prema en <b>Continuar</b> esa páxina de soporte abrirase nunha nova "
 "xanela/lapela."
 
-#: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:266
-#: web/skins/modern/user/js/cat_js.php:274
+#: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:271
+#: web/skins/modern/user/js/cat_js.php:279
 msgid "Continue"
 msgstr "Continuar"
 
@@ -820,7 +829,7 @@ msgid ""
 msgstr ""
 
 #: web/skins/modern/accountstatus/accountstatus.php:159
-#: web/skins/modern/user/js/cat_js.php:233
+#: web/skins/modern/user/js/cat_js.php:234
 #, fuzzy
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
@@ -830,6 +839,7 @@ msgstr ""
 "institución en:"
 
 #: web/skins/modern/accountstatus/accountstatus.php:161
+#: web/skins/modern/user/js/cat_js.php:236
 #, fuzzy
 msgid ""
 "If you encounter problems you should ask those who gave you your account for "
@@ -925,36 +935,37 @@ msgstr ""
 "sistema recibiron unha notificación. Tentaremos ocuparnos do problema tan "
 "pronto como sexa posible."
 
-#: web/skins/modern/user/js/cat_js.php:81
-#: web/skins/modern/user/js/cat_js.php:215
+#: web/skins/modern/user/js/cat_js.php:82
+#: web/skins/modern/user/js/cat_js.php:216
 msgid "no matching data found"
 msgstr "non se atopan datos coincidentes"
 
-#: web/skins/modern/user/js/cat_js.php:95
+#: web/skins/modern/user/js/cat_js.php:96
 msgid "select"
 msgstr "seleccionar"
 
-#: web/skins/modern/user/js/cat_js.php:227
+#: web/skins/modern/user/js/cat_js.php:228
 msgid "WWW:"
 msgstr "WWW:"
 
-#: web/skins/modern/user/js/cat_js.php:229
+#: web/skins/modern/user/js/cat_js.php:230
 msgid "email:"
 msgstr "correo:"
 
-#: web/skins/modern/user/js/cat_js.php:231
+#: web/skins/modern/user/js/cat_js.php:232
 msgid "tel:"
 msgstr "télf.:"
 
-#: web/skins/modern/user/js/cat_js.php:235
-#, fuzzy
+#: web/skins/modern/user/js/cat_js.php:239
+#, php-format
 msgid ""
-"If you encounter problems you should ask those who you gave you your account "
-"for help."
-msgstr "Se atopa problemas debería pedir axuda na súa institución"
+"When you make use of the international %s infrastructure, e.g. when roaming "
+"with your device, your data is treated according to the <a href='%s'>%s "
+"Privacy Statement</a>."
+msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:253
-#: web/skins/modern/user/js/cat_js.php:279
+#: web/skins/modern/user/js/cat_js.php:258
+#: web/skins/modern/user/js/cat_js.php:284
 #, fuzzy
 msgid ""
 "This device cannot be configured with the settings used in your organisation."
@@ -962,7 +973,7 @@ msgstr ""
 "Este dispositivo non pode ser configurado cos axustes fornecidos pola súa "
 "institución"
 
-#: web/skins/modern/user/js/cat_js.php:266
+#: web/skins/modern/user/js/cat_js.php:271
 msgid ""
 "Your site administrator has specified that this device should be configured "
 "with resources located on a local page. When you click <b>Continue</b> this "
@@ -972,41 +983,41 @@ msgstr ""
 "cos recursos localizados nunha páxina local. Ao premer <b>Continuar</b> esa "
 "páxina abrirase nunha nova xanela/lapela."
 
-#: web/skins/modern/user/js/cat_js.php:280
+#: web/skins/modern/user/js/cat_js.php:285
 msgid "Close"
 msgstr "Pechar"
 
-#: web/skins/modern/user/js/cat_js.php:376
+#: web/skins/modern/user/js/cat_js.php:381
 msgid "Missing email address"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:390
+#: web/skins/modern/user/js/cat_js.php:395
 msgid "No providers found for this email"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:395
+#: web/skins/modern/user/js/cat_js.php:400
 msgid "Your IdP is:"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:397
+#: web/skins/modern/user/js/cat_js.php:402
 msgid "Your IdP could be one of:"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:554
+#: web/skins/modern/user/js/cat_js.php:559
 msgid "Organisation"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:555
+#: web/skins/modern/user/js/cat_js.php:560
 #, fuzzy
 msgid "Select your organisation"
 msgstr "Seleccione a súa institución"
 
-#: web/skins/modern/user/js/cat_js.php:556
+#: web/skins/modern/user/js/cat_js.php:561
 #, fuzzy
 msgid "Help, my organisation is not on the list"
 msgstr "Axuda, a miña institución non está na lista"
 
-#: web/skins/modern/user/js/cat_js.php:557
+#: web/skins/modern/user/js/cat_js.php:562
 #, fuzzy, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -1017,65 +1028,65 @@ msgstr ""
 "Se a súa institución non está na lista, pídalles que engadan información á "
 "base de datos de %s."
 
-#: web/skins/modern/user/js/cat_js.php:558
+#: web/skins/modern/user/js/cat_js.php:563
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "Localíceme máis precisamente usando Xeolocalización HTML5 "
 
-#: web/skins/modern/user/js/cat_js.php:559
+#: web/skins/modern/user/js/cat_js.php:564
 #, fuzzy
 msgid "Show organisations in"
 msgstr "Amosar as institucións en"
 
-#: web/skins/modern/user/js/cat_js.php:560
+#: web/skins/modern/user/js/cat_js.php:565
 msgid "all countries"
 msgstr "todos os países"
 
-#: web/skins/modern/user/js/cat_js.php:561
+#: web/skins/modern/user/js/cat_js.php:566
 #, fuzzy
 msgid "or search for an organisation, for example Univerity of Oslo"
 msgstr "ou buscar unha institución, por exemplo, a Universidade de Oslo"
 
-#: web/skins/modern/user/js/cat_js.php:562
+#: web/skins/modern/user/js/cat_js.php:567
 msgid "show all countries"
 msgstr "amosar todos os países"
 
-#: web/skins/modern/user/js/cat_js.php:563
+#: web/skins/modern/user/js/cat_js.php:568
 msgid "Results limited to"
 msgstr "Resultados limitados a"
 
-#: web/skins/modern/user/js/cat_js.php:564
+#: web/skins/modern/user/js/cat_js.php:569
 msgid "entries - show more"
 msgstr "entradas - amosar máis"
 
-#: web/skins/modern/user/js/cat_js.php:565
+#: web/skins/modern/user/js/cat_js.php:570
 msgid "Nearby"
 msgstr "Nos arredores"
 
-#: web/skins/modern/user/js/cat_js.php:566
+#: web/skins/modern/user/js/cat_js.php:571
 msgid "Location timeout"
 msgstr "Esgotouse o tempo de localización"
 
-#: web/skins/modern/user/js/cat_js.php:567
+#: web/skins/modern/user/js/cat_js.php:572
 msgid "Could not get your position"
 msgstr "Non se puido obter a súa posición"
 
-#: web/skins/modern/user/js/cat_js.php:568
+#: web/skins/modern/user/js/cat_js.php:573
 msgid "Your browser has denied access to your location"
 msgstr "O seu navegador denegoulle o acceso á súa localización"
 
-#: web/skins/modern/user/js/cat_js.php:569
+#: web/skins/modern/user/js/cat_js.php:574
 msgid "Unknown location error"
 msgstr "Produciuse un erro de localización descoñecido"
 
-#: web/skins/modern/user/js/cat_js.php:570
+#: web/skins/modern/user/js/cat_js.php:575
 msgid "You are here:"
 msgstr "Vostede está aquí:"
 
-#: web/skins/modern/user/js/cat_js.php:571
+#: web/skins/modern/user/js/cat_js.php:576
 msgid "Getting your location..."
 msgstr "Obtendo a súa localización..."
 
-#: web/skins/modern/user/js/cat_js.php:572
+#: web/skins/modern/user/js/cat_js.php:577
 msgid "Nearby providers shown on top."
 msgstr "Os fornecedores próximos móstranse arriba."
 
@@ -1125,6 +1136,12 @@ msgstr "todas as distribucións maiores"
 #: web/skins/modern/user/js/roll.php:139
 msgid "Chrome OS"
 msgstr ""
+
+#, fuzzy
+#~ msgid ""
+#~ "If you encounter problems you should ask those who you gave you your "
+#~ "account for help."
+#~ msgstr "Se atopa problemas debería pedir axuda na súa institución"
 
 #, fuzzy
 #~ msgid "Select your <strong>%s<\\/strong>"

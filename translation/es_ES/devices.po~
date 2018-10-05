@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Alberto Martínez Setién, 2016-2017
 # Alberto Martínez Setién, 2013,2015
@@ -15,14 +15,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 16:03+0200\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
 "PO-Revision-Date: 2018-09-11 13:37+0000\n"
 "Last-Translator: Alberto Martínez Setién\n"
-"Language-Team: Spanish (http://www.transifex.com/eduroam_devel/cat/language/es/)\n"
+"Language-Team: Spanish (http://www.transifex.com/eduroam_devel/cat/language/"
+"es/)\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: devices/Devices-template.php:110
@@ -93,11 +94,15 @@ msgstr "Chrome OS"
 #, php-format
 msgid ""
 "After downloading the file, open the Chrome browser and browse to this URL: "
-"<a href='chrome://net-internals/#chromeos'>chrome://net-"
-"internals/#chromeos</a>. Then, use the 'Import ONC file' button. The import "
-"is silent; the new network definitions will be added to the preferred "
-"networks."
-msgstr "Después de descargar el archivo abra el navegador Chrome y acceda a esta URL: <a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</a>. Una vez cargada la página use el botón \"Importar archivo ONC\". La importación es silenciosa, y las nuevas definiciones de red se añadirán a las redes preferidas."
+"<a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</"
+"a>. Then, use the 'Import ONC file' button. The import is silent; the new "
+"network definitions will be added to the preferred networks."
+msgstr ""
+"Después de descargar el archivo abra el navegador Chrome y acceda a esta "
+"URL: <a href='chrome://net-internals/#chromeos'>chrome://net-internals/"
+"#chromeos</a>. Una vez cargada la página use el botón \"Importar archivo ONC"
+"\". La importación es silenciosa, y las nuevas definiciones de red se "
+"añadirán a las redes preferidas."
 
 #: devices/Devices-template.php:331
 msgid "Android 6.0 Marshmallow"
@@ -111,7 +116,11 @@ msgid ""
 "that you have installed the %s application. This application is available "
 "from %s, %s and %s, and will use the configuration file downloaded from CAT "
 "to create all necessary settings."
-msgstr "Antes de proceder a la instalación en sistemas Android, por favor asegúrese de que ha instalado la aplicación %s. Esta aplicación está disponible en %s, %s y %s, y utilizará el archivo de configuración descargado desde CAT para establecer la configuración necesaria en el sistema."
+msgstr ""
+"Antes de proceder a la instalación en sistemas Android, por favor asegúrese "
+"de que ha instalado la aplicación %s. Esta aplicación está disponible en %s, "
+"%s y %s, y utilizará el archivo de configuración descargado desde CAT para "
+"establecer la configuración necesaria en el sistema."
 
 #: devices/Devices-template.php:341 devices/Devices-template.php:357
 #: devices/Devices-template.php:373 devices/Devices-template.php:390
@@ -141,10 +150,13 @@ msgstr "Configuración EAP"
 #: devices/Devices-template.php:412
 #, php-format
 msgid ""
-"This option provides a generic EAP config XML file, which can be consumed by"
-" dedicated applications like eduroamCAT for Android and Linux platforms. "
-"This is still an experimental feature."
-msgstr "Esta opción proporciona una configuración EAP genérica XML, que puede ser consumida por aplicaciones dedicadas, como eduroamCAT para las plataformas Android y Linux. Esta es aún una característica experimental."
+"This option provides a generic EAP config XML file, which can be consumed by "
+"dedicated applications like eduroamCAT for Android and Linux platforms. This "
+"is still an experimental feature."
+msgstr ""
+"Esta opción proporciona una configuración EAP genérica XML, que puede ser "
+"consumida por aplicaciones dedicadas, como eduroamCAT para las plataformas "
+"Android y Linux. Esta es aún una característica experimental."
 
 #: devices/Devices-template.php:418
 msgid "Test"
@@ -159,7 +171,10 @@ msgid ""
 "It is not possible to actively verify the user input for suffix match; but "
 "if there is no 'Terms of Use' configured, the installer will display a "
 "corresponding hint to the user instead."
-msgstr "No es posible verificar que la entrada de usuario coincida con el sufijo pero, si no hay unas \"Condiciones de Uso\" configuradas, el instalador mostrará una sugerencia al usuario."
+msgstr ""
+"No es posible verificar que la entrada de usuario coincida con el sufijo "
+"pero, si no hay unas \"Condiciones de Uso\" configuradas, el instalador "
+"mostrará una sugerencia al usuario."
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:57
 #, php-format
@@ -178,10 +193,14 @@ msgstr "Aviso importante: tu nombre de usuario debe terminar con @%s"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:105
 msgid ""
-"Important Notice: your username MUST be in the form of xxx@yyy where the yyy"
-" is a common suffix identifying your Identity Provider. Please find out what"
-" to use there and enter the username in the correct format."
-msgstr "Aviso importante: tu nombre de usuario DEBE tener la forma \"usuario@dominio\", donde el dominio es un sufijo común que identifica a tu proveedor de identidad. Por favor, averigua qué es lo que debes usar aquí e introduce tu nombre de usuario con el formato correcto."
+"Important Notice: your username MUST be in the form of xxx@yyy where the yyy "
+"is a common suffix identifying your Identity Provider. Please find out what "
+"to use there and enter the username in the correct format."
+msgstr ""
+"Aviso importante: tu nombre de usuario DEBE tener la forma \"usuario@dominio"
+"\", donde el dominio es un sufijo común que identifica a tu proveedor de "
+"identidad. Por favor, averigua qué es lo que debes usar aquí e introduce tu "
+"nombre de usuario con el formato correcto."
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:141
 msgid "Unnamed Organisation"
@@ -195,13 +214,17 @@ msgstr "Perfil sin nombre"
 msgid ""
 "For best results, please use the built-in browser (Safari) to open the "
 "configuration file."
-msgstr "Para obtener el mejor resultado, por favor utilice el navegador nativo (Safari) para abrir el archivo de configuración."
+msgstr ""
+"Para obtener el mejor resultado, por favor utilice el navegador nativo "
+"(Safari) para abrir el archivo de configuración."
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:202
 msgid ""
 "The profile will install itself after you click (or tap) the button. You "
 "will be asked for confirmation/input at several points:"
-msgstr "El perfil se instalará después de pulsar el botón. Se pedirá confirmación/información en varios puntos:"
+msgstr ""
+"El perfil se instalará después de pulsar el botón. Se pedirá confirmación/"
+"información en varios puntos:"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:204
 msgid "to install the profile"
@@ -221,7 +244,8 @@ msgstr "(%d veces)"
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:210
 msgid ""
 "to enter the username and password you have been given by your organisation"
-msgstr "para introducir el nombre de usuario y contraseña dados por tu organización"
+msgstr ""
+"para introducir el nombre de usuario y contraseña dados por tu organización"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:212
 #, php-format
@@ -265,8 +289,7 @@ msgstr "Este SSID no debería ser usado después del arranque de %s"
 msgid "Disabled WiFi network"
 msgstr "Red WiFi deshabilitada"
 
-#. we don't include the import password. It's displayed on screen, and should
-#. be input by the user.
+#. we don't include the import password. It's displayed on screen, and should be input by the user.
 #. <key>Password</key>
 #. <string>" . $this->clientCert['password'] . "</string>
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:503
@@ -286,23 +309,33 @@ msgid ""
 "This installer is an example only. It produces a zip file containig the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
 "administrator) and a dump of all available attributes."
-msgstr "Este instalador es sólo un ejemplo. Produce un fichero .zip que contiene los certificados del IdP y ficheros de  información y logotipo (si estos han sido definidos por el administrador del IdP), y vuelca todos los atributos disponibles."
+msgstr ""
+"Este instalador es sólo un ejemplo. Produce un fichero .zip que contiene los "
+"certificados del IdP y ficheros de  información y logotipo (si estos han "
+"sido definidos por el administrador del IdP), y vuelca todos los atributos "
+"disponibles."
 
 #: devices/linux/Device_Linux.php:52
 #, php-format
 msgid ""
-"The installer is in the form of a Python script. It will try to configure %s"
-" under NetworkManager and if this is either not appropriate for your system "
+"The installer is in the form of a Python script. It will try to configure %s "
+"under NetworkManager and if this is either not appropriate for your system "
 "or your version of NetworkManager is too old, a wpa_supplicant config file "
 "will be created instead."
-msgstr "Este instalador consiste en un script Python. Tratará de configurar %s a través de NetworkManager, y si esto no es posible para tu sistema o tu versión de NetworkManager es muy antigua, en vez de eso generará un fichero de configuración para wpa_supplicant."
+msgstr ""
+"Este instalador consiste en un script Python. Tratará de configurar %s a "
+"través de NetworkManager, y si esto no es posible para tu sistema o tu "
+"versión de NetworkManager es muy antigua, en vez de eso generará un fichero "
+"de configuración para wpa_supplicant."
 
 #: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:115
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to the following networks:"
-msgstr "Además de a <strong>%s</strong> el instalador configurará el acceso a las siguientes redes:"
+msgstr ""
+"Además de a <strong>%s</strong> el instalador configurará el acceso a las "
+"siguientes redes:"
 
 #: devices/linux/Device_Linux.php:58 devices/ms/WindowsCommon.php:117
 #, php-format
@@ -315,7 +348,9 @@ msgstr "Además de a <strong>%s</strong> el instalador configurará el acceso a:
 msgid ""
 "The installer will create .cat_installer sub-directory in your home "
 "directory and will copy your server certificates there."
-msgstr "El instalador creará un sub-directorio .cat_installer en tu directorio home y copiará tus certificados de servidor allí."
+msgstr ""
+"El instalador creará un sub-directorio .cat_installer en tu directorio home "
+"y copiará tus certificados de servidor allí."
 
 #: devices/linux/Device_Linux.php:74
 msgid ""
@@ -325,7 +360,14 @@ msgid ""
 "be obtained. Such certificate files are password protected. You should have "
 "both the file and the password available during the installation process. "
 "Your p12 file will also be copied to the .cat_installer directory."
-msgstr "Para conectarte a la red necesitarás un certificado personal en un fichero con extensión .p12. Deberías obtener este certificado de tu organización. Consulta la página de soporte para saber cómo puedes obtener dicho certificado. Estos ficheros de certificado están protegidos con una contraseña. Deberías tener tanto el fichero como la contraseña disponibles durante el proceso de instalación. Tu fichero .p12 se copiará también al directorio .cat_installer."
+msgstr ""
+"Para conectarte a la red necesitarás un certificado personal en un fichero "
+"con extensión .p12. Deberías obtener este certificado de tu organización. "
+"Consulta la página de soporte para saber cómo puedes obtener dicho "
+"certificado. Estos ficheros de certificado están protegidos con una "
+"contraseña. Deberías tener tanto el fichero como la contraseña disponibles "
+"durante el proceso de instalación. Tu fichero .p12 se copiará también al "
+"directorio .cat_installer."
 
 #. not EAP-TLS
 #: devices/linux/Device_Linux.php:76 devices/ms/WindowsCommon.php:128
@@ -334,14 +376,20 @@ msgid ""
 "organisation. You should consult the support page to find out how this "
 "account can be obtained. It is very likely that your account is already "
 "activated."
-msgstr "Para conectarte a la red necesitarás una cuenta de tu organización. Deberías consultar la página de soporte para saber cómo puedes obtener esta cuenta. Es bastante probable que esta cuenta ya esté activada."
+msgstr ""
+"Para conectarte a la red necesitarás una cuenta de tu organización. Deberías "
+"consultar la página de soporte para saber cómo puedes obtener esta cuenta. "
+"Es bastante probable que esta cuenta ya esté activada."
 
 #: devices/linux/Device_Linux.php:78
 msgid ""
 "You will be requested to enter your account credentials during the "
 "installation. This information will be saved so that you will reconnect to "
 "the network automatically each time you are in the range."
-msgstr "Se te pedirá que introduzcas las credenciales de tu cuenta durante la instalación. Esta información se almacenará para que puedas conectarte automáticamente a la red cada vez que estés en su alcance."
+msgstr ""
+"Se te pedirá que introduzcas las credenciales de tu cuenta durante la "
+"instalación. Esta información se almacenará para que puedas conectarte "
+"automáticamente a la red cada vez que estés en su alcance."
 
 #: devices/linux/Device_Linux.php:87
 msgid "Really quit?"
@@ -377,7 +425,8 @@ msgstr "Instalación correcta"
 
 #: devices/linux/Device_Linux.php:95
 msgid "Directory {} exists; some of its files may be overwritten."
-msgstr "La carpeta {} ya existe. Algunos de sus archivos pueden ser sobrescritos."
+msgstr ""
+"La carpeta {} ya existe. Algunos de sus archivos pueden ser sobrescritos."
 
 #: devices/linux/Device_Linux.php:96
 msgid "Continue?"
@@ -418,9 +467,12 @@ msgstr "Todos los ficheros"
 #: devices/linux/Device_Linux.php:106
 msgid ""
 "NetworkManager configuration failed, but we may generate a wpa_supplicant "
-"configuration file if you wish. Be warned that your connection password will"
-" be saved in this file as clear text."
-msgstr "La configuración de NetworkManager falló, pero podemos generar un archivo de configuración para wpa_supplicant si lo deseas. Aviso: tu contraseña se almacenará sin cifrar en este archivo."
+"configuration file if you wish. Be warned that your connection password will "
+"be saved in this file as clear text."
+msgstr ""
+"La configuración de NetworkManager falló, pero podemos generar un archivo de "
+"configuración para wpa_supplicant si lo deseas. Aviso: tu contraseña se "
+"almacenará sin cifrar en este archivo."
 
 #: devices/linux/Device_Linux.php:107
 msgid "Write the file"
@@ -431,19 +483,26 @@ msgstr "Escribir el archivo"
 msgid ""
 "Error: Your username must be of the form 'xxx@institutionID' e.g. "
 "'john@example.net'!"
-msgstr "Error: tu nombre de usuario debe tener la forma \"usuario@dominio\". Por ejemplo: \"juan@example.net\""
+msgstr ""
+"Error: tu nombre de usuario debe tener la forma \"usuario@dominio\". Por "
+"ejemplo: \"juan@example.net\""
 
 #: devices/linux/Device_Linux.php:109
 msgid ""
 "Error: your username must be in the form of 'xxx@{}'. Please enter the "
 "username in the correct format."
-msgstr "Error: tu nombre de usuario debe tener la forma \"usuario@{}\". Por favor, introduce el nombre de usuario de forma correcta."
+msgstr ""
+"Error: tu nombre de usuario debe tener la forma \"usuario@{}\". Por favor, "
+"introduce el nombre de usuario de forma correcta."
 
 #: devices/linux/Device_Linux.php:110
 msgid ""
-"Error: your username must be in the form of 'xxx@institutionID' and end with"
-" '{}'. Please enter the username in the correct format."
-msgstr "Error: tu nombre de usuario debe tener la forma \"usuario@dominio\" y terminar con \"{}\". Por favor, introduce el nombre de usuario de forma correcta."
+"Error: your username must be in the form of 'xxx@institutionID' and end with "
+"'{}'. Please enter the username in the correct format."
+msgstr ""
+"Error: tu nombre de usuario debe tener la forma \"usuario@dominio\" y "
+"terminar con \"{}\". Por favor, introduce el nombre de usuario de forma "
+"correcta."
 
 #: devices/linux/Device_Linux.php:111
 msgid "personal certificate file not found"
@@ -466,7 +525,9 @@ msgstr "Instalador creado con software del proyecto GEANT."
 msgid ""
 "This installer will only work properly if you are a member of {0} and the "
 "user group: {1}."
-msgstr "Este instalador sólo funcionará correctamente si eres miembro de {0} y del grupo de usuarios {1}."
+msgstr ""
+"Este instalador sólo funcionará correctamente si eres miembro de {0} y del "
+"grupo de usuarios {1}."
 
 #: devices/linux/Device_Linux.php:247
 msgid "This installer will only work properly if you are a member of {0}."
@@ -476,16 +537,23 @@ msgstr "Este instalador sólo funcionará correctamente si eres miembro de {0}."
 msgid ""
 "Anonymous identities do not use the realm as specified in the profile - it "
 "is derived from the suffix of the user's username input instead."
-msgstr "Las identidades anónimas no usan el dominio como se especifica en el perfil - se deduce del sufijo de la dirección que introduce el usuario."
+msgstr ""
+"Las identidades anónimas no usan el dominio como se especifica en el perfil "
+"- se deduce del sufijo de la dirección que introduce el usuario."
 
 #: devices/ms/WindowsCommon.php:111
 #, php-format
 msgid ""
 "%s installer will be in the form of an EXE file. It will configure %s on "
 "your device, by creating wireless network profiles.<p>When you click the "
-"download button, the installer will be saved by your browser. Copy it to the"
-" machine you want to configure and execute."
-msgstr "El instalador %s se proporcionará en la forma de un fichero ejecutable EXE. Configurará %s en tu dispositivo, creando perfiles de red inalámbrica. <p>Cuando hagas click en el botón de descarga, el instalador será guardado por tu navegador. Cópialo al dispositivo en el que será instalado y ejecútalo."
+"download button, the installer will be saved by your browser. Copy it to the "
+"machine you want to configure and execute."
+msgstr ""
+"El instalador %s se proporcionará en la forma de un fichero ejecutable EXE. "
+"Configurará %s en tu dispositivo, creando perfiles de red inalámbrica. "
+"<p>Cuando hagas click en el botón de descarga, el instalador será guardado "
+"por tu navegador. Cópialo al dispositivo en el que será instalado y "
+"ejecútalo."
 
 #: devices/ms/WindowsCommon.php:124
 msgid ""
@@ -494,7 +562,12 @@ msgid ""
 "organisation. Consult the support page to find out how this certificate can "
 "be obtained. Such certificate files are password protected. You should have "
 "both the file and the password available during the installation process."
-msgstr "Para conectarte a la red necesitarás un certificado personal contenido en un fichero con extensión .p12. Deberías obtener este certificado de tu organización. Consulta la página de soporte para saber cómo puedes obtener este certificado. Estos certificados están protegidos por contraseña. Deberías por tanto tener ambos durante el proceso de instalación."
+msgstr ""
+"Para conectarte a la red necesitarás un certificado personal contenido en un "
+"fichero con extensión .p12. Deberías obtener este certificado de tu "
+"organización. Consulta la página de soporte para saber cómo puedes obtener "
+"este certificado. Estos certificados están protegidos por contraseña. "
+"Deberías por tanto tener ambos durante el proceso de instalación."
 
 #: devices/ms/WindowsCommon.php:132
 msgid ""
@@ -502,13 +575,19 @@ msgid ""
 "up a login box, where you should enter your user name and password. This "
 "information will be saved so that you will reconnect to the network "
 "automatically each time you are in the range."
-msgstr "Cuando te conectes a la red por primera vez, Windows mostrará una ventana de login donde deberás introducir tu nombre de usuario y contraseña. Esta información se guardará de modo que te puedas conectar a la red automáticamente cada vez que estés en su alcance."
+msgstr ""
+"Cuando te conectes a la red por primera vez, Windows mostrará una ventana de "
+"login donde deberás introducir tu nombre de usuario y contraseña. Esta "
+"información se guardará de modo que te puedas conectar a la red "
+"automáticamente cada vez que estés en su alcance."
 
 #: devices/ms/WindowsCommon.php:135
 msgid ""
 "You will be required to enter the same credentials for each of the "
 "configured notworks:"
-msgstr "Se pedirá que introduzcas las mismas credenciales para cada una de las redes configuradas:"
+msgstr ""
+"Se pedirá que introduzcas las mismas credenciales para cada una de las redes "
+"configuradas:"
 
 #: devices/ms/WindowsCommon.php:250 devices/ms/WindowsCommon.php:251
 #, php-format
@@ -519,14 +598,18 @@ msgstr "Instalador %s para %s"
 msgid ""
 "This device is not yet supported by CAT, but your local administrator "
 "created a redirect to local installation instructions."
-msgstr "Este dispositivo no está soportado todavía por CAT pero tu administrador local creó una redirección hacia las instrucciones de instalación locales."
+msgstr ""
+"Este dispositivo no está soportado todavía por CAT pero tu administrador "
+"local creó una redirección hacia las instrucciones de instalación locales."
 
 #: devices/xml/Device_XML.php:50
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
 "-00</a> XML format."
-msgstr "Este es un fichero de configuración genérico en el formato XML <a href='%s'>EAP Metadata -00</a> de IETF."
+msgstr ""
+"Este es un fichero de configuración genérico en el formato XML <a "
+"href='%s'>EAP Metadata -00</a> de IETF."
 
 #: devices/ms/Files/common.inc:124
 #, php-format
@@ -561,7 +644,9 @@ msgstr "Aceptar"
 msgid ""
 "If you accept the conditions then select Accept and then click Install to "
 "continue."
-msgstr "Si acepta las condiciones, seleccione Aceptar y posteriormente Instalar para continuar."
+msgstr ""
+"Si acepta las condiciones, seleccione Aceptar y posteriormente Instalar para "
+"continuar."
 
 #: devices/ms/Files/common.inc:142
 msgid "Finish"
@@ -582,11 +667,14 @@ msgstr "no se pudo instalar el certificado"
 #: devices/ms/Files/common.inc:432
 msgid ""
 "The non TKIP profiles are preferred. Always use them if you have a choice."
-msgstr "Los perfiles no-TKIP tendrán preferencia. Úselos siempre que tenga oportunidad."
+msgstr ""
+"Los perfiles no-TKIP tendrán preferencia. Úselos siempre que tenga "
+"oportunidad."
 
 #: devices/ms/Files/common.inc:434
 msgid "The non TKIP profile is preferred. Always use it if you have a choice."
-msgstr "El perfil no-TKIP tendrá preferencia. Úselo siempre que tenga oportunidad."
+msgstr ""
+"El perfil no-TKIP tendrá preferencia. Úselo siempre que tenga oportunidad."
 
 #: devices/ms/Files/common.inc:440 devices/ms/Files/common.inc:448
 msgid "This installer has been prepared for ${ORGANISATION}"
@@ -604,35 +692,48 @@ msgstr "El instalador creará el perfil de red inalámbrica:"
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "10 and newer. Please download the correct installer and try again."
-msgstr "Estás usando Windows $WindowsName pero este instalador es sólo para Windows 10 y versiones posteriores. Por favor, descarga el instalador correcto y prueba de nuevo."
+msgstr ""
+"Estás usando Windows $WindowsName pero este instalador es sólo para Windows "
+"10 y versiones posteriores. Por favor, descarga el instalador correcto y "
+"prueba de nuevo."
 
 #: devices/ms/Files/common.inc:537 devices/ms/Files/common.inc:544
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "8 and 8.1. Please download the correct installer and try again."
-msgstr "Estás usando Windows $WindowsName pero este instalador es sólo para Windows 8 y 8.1. Por favor, descarga el instalador correcto y prueba de nuevo."
+msgstr ""
+"Estás usando Windows $WindowsName pero este instalador es sólo para Windows "
+"8 y 8.1. Por favor, descarga el instalador correcto y prueba de nuevo."
 
 #: devices/ms/Files/common.inc:553
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "Vista and Windows 7. Please download the correct installer and try again."
-msgstr "Estás ejecutando Windows $WindowsName pero este instalador es sólo para Windows Vista y Windows 7. Por favor descarga el instalador correcto e inténtalo de nuevo."
+msgstr ""
+"Estás ejecutando Windows $WindowsName pero este instalador es sólo para "
+"Windows Vista y Windows 7. Por favor descarga el instalador correcto e "
+"inténtalo de nuevo."
 
 #: devices/ms/Files/common.inc:589
 msgid ""
 "Windows wireless configuration service is not enabled. The installer cannot "
 "continue."
-msgstr "El servicio de configuración inalámbrica de Windows no está habilitado. El instalador no puede continuar."
+msgstr ""
+"El servicio de configuración inalámbrica de Windows no está habilitado. El "
+"instalador no puede continuar."
 
 #: devices/ms/Files/common.inc:594
 msgid "No wireless interfaces found. The installer cannot continue."
-msgstr "No se encontraron interfaces inalámbricas. El instalador no puede continuar."
+msgstr ""
+"No se encontraron interfaces inalámbricas. El instalador no puede continuar."
 
 #: devices/ms/Files/common.inc:600
 msgid ""
 "No wireless interfaces found. Wireless access will not be configured. Would "
 "you like to continue and configure access on the wired interface?"
-msgstr "No se han encontrado interfaces de red inalámbrica. ¿Quieres continuar y configurar el acceso a la red cableada?"
+msgstr ""
+"No se han encontrado interfaces de red inalámbrica. ¿Quieres continuar y "
+"configurar el acceso a la red cableada?"
 
 #: devices/ms/Files/common.inc:616
 msgid "Do you want to enable access on wired interfaces?"
@@ -654,7 +755,9 @@ msgstr "perfil $R8 encontrado"
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION} and the user group: ${USER_GROUP}."
-msgstr "El instalador funcionará adecuadamente sólo si eres un miembro de ${ORGANISATION} y perteneces al grupo de usuarios: ${USER_GROUP}."
+msgstr ""
+"El instalador funcionará adecuadamente sólo si eres un miembro de "
+"${ORGANISATION} y perteneces al grupo de usuarios: ${USER_GROUP}."
 
 #: devices/ms/Files/common.inc:713 devices/ms/Files/common.inc:716
 msgid "Click OK to continue with installation."
@@ -664,13 +767,17 @@ msgstr "Haz click en OK para continuar con la instalación."
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION}."
-msgstr "El instalador funcionará adecuadamente sólo si eres un miembro de ${ORGANISATION}."
+msgstr ""
+"El instalador funcionará adecuadamente sólo si eres un miembro de "
+"${ORGANISATION}."
 
 #: devices/ms/Files/common.inc:724
 msgid ""
 "Please read the additional information from ${ORGANISATION} which will be "
 "displayed in a moment."
-msgstr "Por favor lee la información adicional de ${ORGANISATION}, la cual se mostrará a continuación."
+msgstr ""
+"Por favor lee la información adicional de ${ORGANISATION}, la cual se "
+"mostrará a continuación."
 
 #: devices/ms/Files/common.inc:779
 #, php-format
@@ -678,13 +785,23 @@ msgid ""
 "Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may "
 "be due to the fact that Symantec Endpoint Protection is installed on your "
 "machine.$\\r$\\nWhile this is a well-known bug of the Symantec product, "
-"about which the installer can not do anything, there is a "
-"workaround.$\\r$\\nWhen you close this window the installer will exit and an"
-" explorer window will be started (it could appear underneath already opened "
-"windows). In this window you should see a script named inst_cat. Start it by"
-" double-clicking, It will install the profiles. You will need to login to %s"
-" with your username and password."
-msgstr "Por favor LEE este mensaje pues es IMPORTANTE.$\\r$\\nLos problemas de instalación pueden ser debidos al hecho de que se encuentre instalado Symantec Endpoint Protection en tu máquina. $\\r$\\nAunque este es un fallo conocido de este producto de Symantec, para el que el instalador no puede hacer nada, hay una solución.$\\r$\\nCuando cierres esta ventana el instalador finalizará y se abrirá una ventana del explorador (podría aparecer debajo de ventanas ya abiertas). En dicha ventana deberías ver un fichero con nombre inst_cat. Ejecútalo haciendo doble click e instalará los perfiles. Necesitarás conectarte a %s usando tu nombre de usuario y contraseña."
+"about which the installer can not do anything, there is a workaround.$\\r$"
+"\\nWhen you close this window the installer will exit and an explorer window "
+"will be started (it could appear underneath already opened windows). In this "
+"window you should see a script named inst_cat. Start it by double-clicking, "
+"It will install the profiles. You will need to login to %s with your "
+"username and password."
+msgstr ""
+"Por favor LEE este mensaje pues es IMPORTANTE.$\\r$\\nLos problemas de "
+"instalación pueden ser debidos al hecho de que se encuentre instalado "
+"Symantec Endpoint Protection en tu máquina. $\\r$\\nAunque este es un fallo "
+"conocido de este producto de Symantec, para el que el instalador no puede "
+"hacer nada, hay una solución.$\\r$\\nCuando cierres esta ventana el "
+"instalador finalizará y se abrirá una ventana del explorador (podría "
+"aparecer debajo de ventanas ya abiertas). En dicha ventana deberías ver un "
+"fichero con nombre inst_cat. Ejecútalo haciendo doble click e instalará los "
+"perfiles. Necesitarás conectarte a %s usando tu nombre de usuario y "
+"contraseña."
 
 #: devices/ms/Files/common.inc:789
 msgid "Please restart your system after installation finishes."
@@ -777,15 +894,20 @@ msgstr "Contraseña incorrecta del certificado$\\r$\\nintroducir de nuevo"
 
 #: devices/ms/Files/common.inc:1217
 msgid ""
-"Error: your username must be in the form of 'xxx@${REALM}'. Please enter the"
-" username in the correct format."
-msgstr "Error: tu nombre de usuario debe tener la forma \"usuario@${REALM}\". Por favor, introduce el nombre de usuario de forma correcta."
+"Error: your username must be in the form of 'xxx@${REALM}'. Please enter the "
+"username in the correct format."
+msgstr ""
+"Error: tu nombre de usuario debe tener la forma \"usuario@${REALM}\". Por "
+"favor, introduce el nombre de usuario de forma correcta."
 
 #: devices/ms/Files/common.inc:1219
 msgid ""
-"Error: your username must be in the form of 'xxx@institutionID' and end with"
-" '${REALM}'. Please enter the username in the correct format."
-msgstr "Error: tu nombre de usuario debe tener la forma \"usuario@dominio\" y terminar con \"${REALM}\". Por favor, introduce el nombre de usuario de forma correcta."
+"Error: your username must be in the form of 'xxx@institutionID' and end with "
+"'${REALM}'. Please enter the username in the correct format."
+msgstr ""
+"Error: tu nombre de usuario debe tener la forma \"usuario@dominio\" y "
+"terminar con \"${REALM}\". Por favor, introduce el nombre de usuario de "
+"forma correcta."
 
 #: devices/ms/Files/common.inc:1286
 msgid "User credentials"
@@ -862,13 +984,18 @@ msgid ""
 "An additional piece of software 'GEANTlink' needs to be installed. This "
 "installation requires Administrator rights; you will be prompted to give "
 "permission for that action."
-msgstr "Se necesita instalar un software adicional, \"GEANTLink\". Esta instalación necesita permisos de Administrador y se te pedirán dichos permisos para esta acción."
+msgstr ""
+"Se necesita instalar un software adicional, \"GEANTLink\". Esta instalación "
+"necesita permisos de Administrador y se te pedirán dichos permisos para esta "
+"acción."
 
 #: devices/ms/Files/geant_link.inc:89
 msgid ""
 "Error installing GEANTLink.$\\nEmbedded installer didn't complete "
 "succesfully."
-msgstr "Error al instalar GEANTLink.$\\nEl instalador incluido no terminó de forma satisfactoria."
+msgstr ""
+"Error al instalar GEANTLink.$\\nEl instalador incluido no terminó de forma "
+"satisfactoria."
 
 #: devices/ms/Files/geant_link.inc:99
 msgid "installing credentials for ${PROVIDERID}"
@@ -876,4 +1003,6 @@ msgstr "instalando credenciales para ${PROVIDERID}"
 
 #: devices/ms/Files/pwd.inc:35
 msgid "EAP-pwd installation error. Please try again or contact Support."
-msgstr "Error en la instalación de EAP-pwd. Por favor inténtalo de nuevo o contacta con el servicio de soporte."
+msgstr ""
+"Error en la instalación de EAP-pwd. Por favor inténtalo de nuevo o contacta "
+"con el servicio de soporte."

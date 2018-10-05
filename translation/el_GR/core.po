@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"POT-Creation-Date: 2018-10-05 09:32+0200\n"
 "PO-Revision-Date: 2018-08-30 12:05+0000\n"
 "Last-Translator: Zenon Mousmoulas <zenon@mousmoulas.gr>\n"
 "Language-Team: Greek (http://www.transifex.com/eduroam_devel/cat/language/"
@@ -486,54 +486,54 @@ msgstr "FAST-GTC"
 msgid "EAP-pwd"
 msgstr "EAP-pwd"
 
-#: core/common/OutsideComm.php:239
+#: core/common/OutsideComm.php:240
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
 msgstr ""
 "ένας %s από το %s %s \"%s\" σας προσκάλεσε να διαχειριστείτε το %s μαζί του."
 
-#: core/common/OutsideComm.php:240
+#: core/common/OutsideComm.php:241
 #, php-format
 msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
 msgstr ""
 "ένας %s %s σας έχει προσκαλέσει για να διαχειριστείτε το μελλοντικό %s  \"%s"
 "\" (%s)."
 
-#: core/common/OutsideComm.php:241
+#: core/common/OutsideComm.php:242
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\"."
 msgstr "ένας %s %s σας έχει προσκαλέσει να διαχειριστείτε το %s  \"%s\"."
 
-#: core/common/OutsideComm.php:243
+#: core/common/OutsideComm.php:244
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr "Αυτή η πρόσκληση είναι έγκυρη για 24 ώρες από τώρα, δηλαδή μέχρι %s."
 
 #. then, send out the mail
-#: core/common/OutsideComm.php:251
+#: core/common/OutsideComm.php:252
 msgid "Hello,"
 msgstr "Χαίρετε,"
 
 #. default means we don't have a Reply-To.
-#: core/common/OutsideComm.php:253
+#: core/common/OutsideComm.php:254
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
 "χειροκίνητα. Παρακαλούμε μην απαντάτε σε αυτό το email, είναι αποκλειστικά "
 "διεύθυνση αποστολής."
 
-#: core/common/OutsideComm.php:259
+#: core/common/OutsideComm.php:260
 #, php-format
 msgid "Additional message from your %s administrator:"
 msgstr "Επιπρόσθετο μήνυμα από τον  διαχειριστή του %s σας:"
 
-#: core/common/OutsideComm.php:267
+#: core/common/OutsideComm.php:268
 #, php-format
 msgid "%s administrator"
 msgstr "%s διαχειριστής"
 
-#: core/common/OutsideComm.php:270
+#: core/common/OutsideComm.php:271
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
@@ -541,7 +541,7 @@ msgstr ""
 "χειροκίνητα. Αν απαντήσετε σε αυτό το email, θα έρθετε σε επαφή με τους "
 "διαχειριστές του %s σας."
 
-#: core/common/OutsideComm.php:275
+#: core/common/OutsideComm.php:276
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
@@ -550,7 +550,7 @@ msgstr ""
 "Για να εγγραφείτε ως διαχειριστής για το %s, παρακαλούμε όπως κάνετε κλικ "
 "στον ακόλουθο σύνδεσμο:"
 
-#: core/common/OutsideComm.php:277
+#: core/common/OutsideComm.php:278
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
@@ -559,11 +559,11 @@ msgstr ""
 "Αν το κλικ στον σύνδεσμο δε λειτουργεί, μπορείτε επίσης να πάτε στη Διεπαφή "
 "Διαχείρισης %s στο"
 
-#: core/common/OutsideComm.php:279
+#: core/common/OutsideComm.php:280
 msgid "and enter the invitation token"
 msgstr "και εισάγετε το κουπόνι πρόσκλησης"
 
-#: core/common/OutsideComm.php:281
+#: core/common/OutsideComm.php:282
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
@@ -571,12 +571,12 @@ msgstr ""
 "Μην προωθείτε το μήνυμα πριν λήξει το κουπόνι - οι παραλήπτες ίσως είναι σε "
 "θέση να το χρησιμοποιήσουν για λογαριασμό σας!"
 
-#: core/common/OutsideComm.php:282
+#: core/common/OutsideComm.php:283
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr "Σας ευχόμαστε να περάσετε καλά με το %s."
 
-#: core/common/OutsideComm.php:283
+#: core/common/OutsideComm.php:284
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -588,7 +588,7 @@ msgstr ""
 "Οι φίλοι σας από την Ομάδα Λειτουργίας %s"
 
 #. what do we want to say?
-#: core/common/OutsideComm.php:318
+#: core/common/OutsideComm.php:319
 #, php-format
 msgid "%s: you have been invited to manage an %s"
 msgstr "%s: έχετε λάβει πρόσκληση για την διαχείριση του %s"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
+"POT-Creation-Date: 2018-10-05 09:32+0200\n"
 "PO-Revision-Date: 2015-04-08 16:14+0000\n"
 "Last-Translator: Tom Ivar Myren <tom.myren@uninett.no>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/cat/"
@@ -97,11 +97,13 @@ msgstr ""
 
 #: devices/Devices-template.php:331
 #, fuzzy
-msgid "Android 6.0 Marshmallow"
-msgstr "Android 5.0 Lollipop"
+msgid "Android 9.0 Pie"
+msgstr "Android"
 
 #: devices/Devices-template.php:337 devices/Devices-template.php:353
-#: devices/Devices-template.php:369 devices/Devices-template.php:386
+#: devices/Devices-template.php:369 devices/Devices-template.php:385
+#: devices/Devices-template.php:401 devices/Devices-template.php:417
+#: devices/Devices-template.php:434
 #, fuzzy, php-format
 msgid ""
 "Before you proceed with installation on Android systems, please make sure "
@@ -115,32 +117,49 @@ msgstr ""
 "innstillinger. "
 
 #: devices/Devices-template.php:341 devices/Devices-template.php:357
-#: devices/Devices-template.php:373 devices/Devices-template.php:390
+#: devices/Devices-template.php:373 devices/Devices-template.php:389
+#: devices/Devices-template.php:405 devices/Devices-template.php:421
+#: devices/Devices-template.php:438
 msgid "as local download"
 msgstr ""
 
 #: devices/Devices-template.php:347
-msgid "Android 5.0 Lollipop"
+#, fuzzy
+msgid "Android 8.0 Oreo"
 msgstr "Android 5.0 Lollipop"
 
 #: devices/Devices-template.php:363
+#, fuzzy
+msgid "Android 6.0 Nougat"
+msgstr "Android 4.4 KitKat"
+
+#: devices/Devices-template.php:379
+#, fuzzy
+msgid "Android 6.0 Marshmallow"
+msgstr "Android 5.0 Lollipop"
+
+#: devices/Devices-template.php:395
+msgid "Android 5.0 Lollipop"
+msgstr "Android 5.0 Lollipop"
+
+#: devices/Devices-template.php:411
 msgid "Android 4.4 KitKat"
 msgstr "Android 4.4 KitKat"
 
-#: devices/Devices-template.php:380
+#: devices/Devices-template.php:428
 #, fuzzy
 msgid "Android 4.3"
 msgstr "Android"
 
-#: devices/Devices-template.php:396
+#: devices/Devices-template.php:444
 msgid "Android"
 msgstr "Android"
 
-#: devices/Devices-template.php:407
+#: devices/Devices-template.php:455
 msgid "EAP config"
 msgstr "EAP konfigurasjon"
 
-#: devices/Devices-template.php:412
+#: devices/Devices-template.php:460
 #, php-format
 msgid ""
 "This option provides a generic EAP config XML file, which can be consumed by "
@@ -151,7 +170,7 @@ msgstr ""
 "av dedikerte applikasjoner som eduroamCAT for Android og Linux plattformer. "
 "Dette er fremdeles en eksperimentell funksjon."
 
-#: devices/Devices-template.php:418
+#: devices/Devices-template.php:466
 msgid "Test"
 msgstr "Test"
 
@@ -568,9 +587,10 @@ msgstr ""
 "slik at du automatisk blir pålogget igjen hver gang du er innenfor dekning."
 
 #: devices/ms/WindowsCommon.php:135
+#, fuzzy
 msgid ""
 "You will be required to enter the same credentials for each of the "
-"configured notworks:"
+"configured networks:"
 msgstr ""
 "Du må oppgi de samme brukeropplysninger for hvert av de konfigurerte "
 "nettverkene:"
@@ -820,7 +840,7 @@ msgstr "installerer brukerdetaljer for kablet tilknytning"
 msgid "installing credentials for profile $R1"
 msgstr "installerer brukerdetaljer for kablet tilknytning"
 
-#: devices/ms/Files/common.inc:1056 devices/ms/Files/geant_link.inc:107
+#: devices/ms/Files/common.inc:1056 devices/ms/Files/geant_link.inc:109
 #, fuzzy
 msgid "Credentials installation problem"
 msgstr "Komponent installasjon"
@@ -970,20 +990,20 @@ msgstr "bruker profil"
 msgid "install program"
 msgstr "installer program"
 
-#: devices/ms/Files/geant_link.inc:78
+#: devices/ms/Files/geant_link.inc:79
 msgid ""
 "An additional piece of software 'GEANTlink' needs to be installed. This "
 "installation requires Administrator rights; you will be prompted to give "
 "permission for that action."
 msgstr ""
 
-#: devices/ms/Files/geant_link.inc:89
+#: devices/ms/Files/geant_link.inc:91
 msgid ""
 "Error installing GEANTLink.$\\nEmbedded installer didn't complete "
 "succesfully."
 msgstr ""
 
-#: devices/ms/Files/geant_link.inc:99
+#: devices/ms/Files/geant_link.inc:101
 #, fuzzy
 msgid "installing credentials for ${PROVIDERID}"
 msgstr "installerer brukerdetaljer for kablet tilknytning"

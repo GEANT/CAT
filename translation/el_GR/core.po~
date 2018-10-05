@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Halil Adem <hadem@noc.grnet.gr>, 2018
 # HELPDESK <npapalouka@admin.grnet.gr>, 2015
@@ -12,21 +12,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 16:03+0200\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
 "PO-Revision-Date: 2018-08-30 12:05+0000\n"
 "Last-Translator: Zenon Mousmoulas <zenon@mousmoulas.gr>\n"
-"Language-Team: Greek (http://www.transifex.com/eduroam_devel/cat/language/el/)\n"
+"Language-Team: Greek (http://www.transifex.com/eduroam_devel/cat/language/"
+"el/)\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: core/CAT.php:111
 msgid ""
-"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git"
-" Revision</a>"
-msgstr "Ακυκλοφόρητη <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>αναθεώρηση Git</a>"
+"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git "
+"Revision</a>"
+msgstr ""
+"Ακυκλοφόρητη <a href='https://github.com/GEANT/CAT/tree/master/Changes."
+"md'>αναθεώρηση Git</a>"
 
 #: core/CAT.php:121
 #, php-format
@@ -324,7 +327,9 @@ msgstr "η τοπική σας σελίδα υποστήριξης για %s"
 
 #: core/DeviceConfig.php:235
 msgid "Sorry, this should not happen - no additional information is available"
-msgstr "Λυπούμαστε, αυτό δεν έπρεπε να συμβεί - δεν είναι διαθέσιμες επιπρόσθετες πληροφορίες"
+msgstr ""
+"Λυπούμαστε, αυτό δεν έπρεπε να συμβεί - δεν είναι διαθέσιμες επιπρόσθετες "
+"πληροφορίες"
 
 #: core/IdP.php:243
 #, php-format
@@ -338,7 +343,16 @@ msgid ""
 "Best regards,\n"
 "\n"
 "%s"
-msgstr "Χαίρετε,\n\nο Πάροχος Ταυτότητας %s στην %s ομοσπονδία σας %s διαγράφηκε από %s.\n\nΠιστεύουμε ότι έπρεπε να το γνωρίζετε.\n\nΧαιρετισμούς,\n\n%s"
+msgstr ""
+"Χαίρετε,\n"
+"\n"
+"ο Πάροχος Ταυτότητας %s στην %s ομοσπονδία σας %s διαγράφηκε από %s.\n"
+"\n"
+"Πιστεύουμε ότι έπρεπε να το γνωρίζετε.\n"
+"\n"
+"Χαιρετισμούς,\n"
+"\n"
+"%s"
 
 #: core/IdP.php:252
 msgid "IdP in your federation was deleted"
@@ -358,7 +372,9 @@ msgstr "Χαίρετε!"
 msgid ""
 "A new %s access credential has been created for you by your network "
 "administrator."
-msgstr "Ένα νέο %s διαπιστευτήριο πρόσβασης έχει δημιουργηθεί για λογαριασμό σας από τον διαχειριστή του δικτύου σας."
+msgstr ""
+"Ένα νέο %s διαπιστευτήριο πρόσβασης έχει δημιουργηθεί για λογαριασμό σας από "
+"τον διαχειριστή του δικτύου σας."
 
 #: core/SilverbulletInvitation.php:212
 #, php-format
@@ -366,7 +382,12 @@ msgid ""
 "Please follow the following link with the device you want to enable for %s "
 "to get a custom %s installation program just for you. You can click on the "
 "link, copy and paste it into a browser or scan the attached QR code."
-msgstr "Παρακαλώ ακολουθήστε τον παρακάτω σύνδεσμο από την συσκευή που θέλετε να παραμετροποιήσετε για το %s ώστε να λάβετε ένα πρόγραμμα εγκατάστασης %s  προσαρμοσμένο ειδικά για σας. Μπορείτε να κάνετε κλικ στο σύνδεσμο, να τον αντιγράψετε και να τον επικολλήσετε σε ένα φυλλομετρητή ή να σαρώσετε το συνημμένο QR code."
+msgstr ""
+"Παρακαλώ ακολουθήστε τον παρακάτω σύνδεσμο από την συσκευή που θέλετε να "
+"παραμετροποιήσετε για το %s ώστε να λάβετε ένα πρόγραμμα εγκατάστασης %s  "
+"προσαρμοσμένο ειδικά για σας. Μπορείτε να κάνετε κλικ στο σύνδεσμο, να τον "
+"αντιγράψετε και να τον επικολλήσετε σε ένα φυλλομετρητή ή να σαρώσετε το "
+"συνημμένο QR code."
 
 #. gets replaced with the token value by getBody()
 #: core/SilverbulletInvitation.php:214
@@ -375,7 +396,11 @@ msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
 "up your %s installation program, you can use the same link to get status "
 "information about your %s account."
-msgstr "Παρακαλούμε κρατήστε αυτό το email ή αποθηκεύσετε ως σελιδοδείκτη αυτό τον σύνδεσμο για μελλοντική χρήση. Αφού επιλέξετε το πρόγραμμα εγκατάστασης %s σας, μπορείτε να χρησιμοποιήσετε τον ίδιο σύνδεσμο για να δείτε πληροφορίες σχετικά με την κατάσταση του λογαριασμού %s σας."
+msgstr ""
+"Παρακαλούμε κρατήστε αυτό το email ή αποθηκεύσετε ως σελιδοδείκτη αυτό τον "
+"σύνδεσμο για μελλοντική χρήση. Αφού επιλέξετε το πρόγραμμα εγκατάστασης %s "
+"σας, μπορείτε να χρησιμοποιήσετε τον ίδιο σύνδεσμο για να δείτε πληροφορίες "
+"σχετικά με την κατάσταση του λογαριασμού %s σας."
 
 #: core/SilverbulletInvitation.php:216
 msgid "Regards,"
@@ -386,7 +411,9 @@ msgstr "Χαιρετισμοί, "
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
 "'%s'!)"
-msgstr "Η πρόσβαση %s σας είναι έτοιμη! Κάντε κλικ εδώ: %s (για Android, εγκαταστήστε πρώτα την εφαρμογή '%s'!)"
+msgstr ""
+"Η πρόσβαση %s σας είναι έτοιμη! Κάντε κλικ εδώ: %s (για Android, "
+"εγκαταστήστε πρώτα την εφαρμογή '%s'!)"
 
 #: core/SilverbulletInvitation.php:267
 #, php-format
@@ -397,21 +424,31 @@ msgstr "Σύστημα Προσκλήσεων %s"
 #. /                2. consortium name (e.g. eduroam);
 #. /                3. federation shortname, e.g. "LU";
 #. /                4. product name (e.g. eduroam CAT);
-#. /                5. product long name (e.g. eduroam Configuration Assistant
-#. Tool)
+#. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
 #: core/UserManagement.php:179
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the invitation for the new Identity Provider %s in your %s federation %s has been used and the IdP was created in %s.\n"
+"the invitation for the new Identity Provider %s in your %s federation %s has "
+"been used and the IdP was created in %s.\n"
 "\n"
 "We thought you might want to know.\n"
 "\n"
 "Best regards,\n"
 "\n"
 "%s"
-msgstr "Χαίρετε,\n\nη πρόσκληση για το νέο Πάροχο Ταυτότητας %s στην %s ομοσπονδία σας %s χρησιμοποιήθηκε και δημιουργήθηκε ο IdP στο %s.\n\nΠιστεύουμε ότι έπρεπε να το γνωρίζετε.\n\nΧαιρετισμούς,\n\n%s"
+msgstr ""
+"Χαίρετε,\n"
+"\n"
+"η πρόσκληση για το νέο Πάροχο Ταυτότητας %s στην %s ομοσπονδία σας %s "
+"χρησιμοποιήθηκε και δημιουργήθηκε ο IdP στο %s.\n"
+"\n"
+"Πιστεύουμε ότι έπρεπε να το γνωρίζετε.\n"
+"\n"
+"Χαιρετισμούς,\n"
+"\n"
+"%s"
 
 #: core/UserManagement.php:188
 msgid "IdP in your federation was created"
@@ -453,12 +490,15 @@ msgstr "EAP-pwd"
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
-msgstr "ένας %s από το %s %s \"%s\" σας προσκάλεσε να διαχειριστείτε το %s μαζί του."
+msgstr ""
+"ένας %s από το %s %s \"%s\" σας προσκάλεσε να διαχειριστείτε το %s μαζί του."
 
 #: core/common/OutsideComm.php:240
 #, php-format
 msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
-msgstr "ένας %s %s σας έχει προσκαλέσει για να διαχειριστείτε το μελλοντικό %s  \"%s\" (%s)."
+msgstr ""
+"ένας %s %s σας έχει προσκαλέσει για να διαχειριστείτε το μελλοντικό %s  \"%s"
+"\" (%s)."
 
 #: core/common/OutsideComm.php:241
 #, php-format
@@ -479,7 +519,9 @@ msgstr "Χαίρετε,"
 #: core/common/OutsideComm.php:253
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
-msgstr "χειροκίνητα. Παρακαλούμε μην απαντάτε σε αυτό το email, είναι αποκλειστικά διεύθυνση αποστολής."
+msgstr ""
+"χειροκίνητα. Παρακαλούμε μην απαντάτε σε αυτό το email, είναι αποκλειστικά "
+"διεύθυνση αποστολής."
 
 #: core/common/OutsideComm.php:259
 #, php-format
@@ -495,21 +537,27 @@ msgstr "%s διαχειριστής"
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
-msgstr "χειροκίνητα. Αν απαντήσετε σε αυτό το email, θα έρθετε σε επαφή με τους διαχειριστές του %s σας."
+msgstr ""
+"χειροκίνητα. Αν απαντήσετε σε αυτό το email, θα έρθετε σε επαφή με τους "
+"διαχειριστές του %s σας."
 
 #: core/common/OutsideComm.php:275
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
 "link:"
-msgstr "Για να εγγραφείτε ως διαχειριστής για το %s, παρακαλούμε όπως κάνετε κλικ στον ακόλουθο σύνδεσμο:"
+msgstr ""
+"Για να εγγραφείτε ως διαχειριστής για το %s, παρακαλούμε όπως κάνετε κλικ "
+"στον ακόλουθο σύνδεσμο:"
 
 #: core/common/OutsideComm.php:277
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
 "Interface at"
-msgstr "Αν το κλικ στον σύνδεσμο δε λειτουργεί, μπορείτε επίσης να πάτε στη Διεπαφή Διαχείρισης %s στο"
+msgstr ""
+"Αν το κλικ στον σύνδεσμο δε λειτουργεί, μπορείτε επίσης να πάτε στη Διεπαφή "
+"Διαχείρισης %s στο"
 
 #: core/common/OutsideComm.php:279
 msgid "and enter the invitation token"
@@ -517,9 +565,11 @@ msgstr "και εισάγετε το κουπόνι πρόσκλησης"
 
 #: core/common/OutsideComm.php:281
 msgid ""
-"Do NOT forward the mail before the token has expired - or the recipients may"
-" be able to consume the token on your behalf!"
-msgstr "Μην προωθείτε το μήνυμα πριν λήξει το κουπόνι - οι παραλήπτες ίσως είναι σε θέση να το χρησιμοποιήσουν για λογαριασμό σας!"
+"Do NOT forward the mail before the token has expired - or the recipients may "
+"be able to consume the token on your behalf!"
+msgstr ""
+"Μην προωθείτε το μήνυμα πριν λήξει το κουπόνι - οι παραλήπτες ίσως είναι σε "
+"θέση να το χρησιμοποιήσουν για λογαριασμό σας!"
 
 #: core/common/OutsideComm.php:282
 #, php-format
@@ -532,7 +582,10 @@ msgid ""
 "Sincerely,\n"
 "\n"
 "Your friendly folks from %s Operations"
-msgstr "Με εκτίμηση,\n\nΟι φίλοι σας από την Ομάδα Λειτουργίας %s"
+msgstr ""
+"Με εκτίμηση,\n"
+"\n"
+"Οι φίλοι σας από την Ομάδα Λειτουργίας %s"
 
 #. what do we want to say?
 #: core/common/OutsideComm.php:318
@@ -570,4 +623,6 @@ msgstr "Ο τομέας δεν περιέχει τουλάχιστον μία . 
 
 #: web/lib/common/InputValidation.php:311
 msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
-msgstr "Μη έγκυρη κωδικοποίηση συντεταγμένης (το 2.0 χρησιμοποιεί JSON, όχι serialize)!"
+msgstr ""
+"Μη έγκυρη κωδικοποίηση συντεταγμένης (το 2.0 χρησιμοποιεί JSON, όχι "
+"serialize)!"

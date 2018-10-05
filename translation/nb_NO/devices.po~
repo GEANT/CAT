@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-23 14:14+0200\n"
+"POT-Creation-Date: 2018-09-10 08:40+0200\n"
 "PO-Revision-Date: 2015-04-08 16:14+0000\n"
 "Last-Translator: Tom Ivar Myren <tom.myren@uninett.no>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/cat/"
@@ -300,12 +300,12 @@ msgstr ""
 "admin) og en dump av alle tilgjengelige attributter."
 
 #: devices/linux/Device_Linux.php:52
-#, fuzzy
+#, fuzzy, php-format
 msgid ""
-"The installer is in the form of a Python script. It will try to configure "
-"eduroam under Network Manager and if this is either not appropriate for your "
-"system or your version of Network Manager is too old, a wpa_supplicant "
-"config file will be created instead."
+"The installer is in the form of a Python script. It will try to configure %s "
+"under NetworkManager and if this is either not appropriate for your system "
+"or your version of NetworkManager is too old, a wpa_supplicant config file "
+"will be created instead."
 msgstr ""
 "Installasjonsprogrammet er et bash script. Det vil forsøke å konfigurere "
 "eduroam under Network Manager, om dette ikke passer for din maskin eller din "
@@ -424,7 +424,7 @@ msgid "Continue?"
 msgstr "Fortsett"
 
 #: devices/linux/Device_Linux.php:97
-msgid "This Network Manager version is not supported"
+msgid "This NetworkManager version is not supported"
 msgstr ""
 
 #: devices/linux/Device_Linux.php:98
@@ -457,7 +457,7 @@ msgstr ""
 
 #: devices/linux/Device_Linux.php:106
 msgid ""
-"Network Manager configuration failed, but we may generate a wpa_supplicant "
+"NetworkManager configuration failed, but we may generate a wpa_supplicant "
 "configuration file if you wish. Be warned that your connection password will "
 "be saved in this file as clear text."
 msgstr ""

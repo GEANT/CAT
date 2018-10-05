@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Can Ugur Ayfer <cayfer@bilkent.edu.tr>, 2017
 # Engur Pisirici <engur@bilkent.edu.tr>, 2017
@@ -13,14 +13,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 16:03+0200\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
 "PO-Revision-Date: 2018-09-18 07:48+0000\n"
 "Last-Translator: M. Uğur YILMAZ <muy1970@gmail.com>\n"
-"Language-Team: Turkish (http://www.transifex.com/eduroam_devel/cat/language/tr/)\n"
+"Language-Team: Turkish (http://www.transifex.com/eduroam_devel/cat/language/"
+"tr/)\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: devices/Devices-template.php:110
@@ -91,11 +92,15 @@ msgstr "Chrome OS"
 #, php-format
 msgid ""
 "After downloading the file, open the Chrome browser and browse to this URL: "
-"<a href='chrome://net-internals/#chromeos'>chrome://net-"
-"internals/#chromeos</a>. Then, use the 'Import ONC file' button. The import "
-"is silent; the new network definitions will be added to the preferred "
-"networks."
-msgstr "Dosyayı indirdikten sonra, Chrome web tarayıcısını açın, ve bu URL:<a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</a> yi görüntüleyin. Sonra, 'Import ONC file' düğmesini tıklayın. Bu işlem sessizce gerçekleşecektir. Yeni ağ tanımlamalarınız 'tercih edilen ağlar' kısmına eklenecektir."
+"<a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</"
+"a>. Then, use the 'Import ONC file' button. The import is silent; the new "
+"network definitions will be added to the preferred networks."
+msgstr ""
+"Dosyayı indirdikten sonra, Chrome web tarayıcısını açın, ve bu URL:<a "
+"href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</a> "
+"yi görüntüleyin. Sonra, 'Import ONC file' düğmesini tıklayın. Bu işlem "
+"sessizce gerçekleşecektir. Yeni ağ tanımlamalarınız 'tercih edilen ağlar' "
+"kısmına eklenecektir."
 
 #: devices/Devices-template.php:331
 msgid "Android 6.0 Marshmallow"
@@ -109,7 +114,11 @@ msgid ""
 "that you have installed the %s application. This application is available "
 "from %s, %s and %s, and will use the configuration file downloaded from CAT "
 "to create all necessary settings."
-msgstr "Android işletim sistemine kuruluma devam etmeden önce, %s uygulamasını kurduğunuzdan emin olun. Bu uygulama %s, %s ve %s üzerinden temin edilebilir, ve gerekli ayarları yapmak için CAT üzerinden indirdiğiniz yapılandırmayı kullanacaktır."
+msgstr ""
+"Android işletim sistemine kuruluma devam etmeden önce, %s uygulamasını "
+"kurduğunuzdan emin olun. Bu uygulama %s, %s ve %s üzerinden temin "
+"edilebilir, ve gerekli ayarları yapmak için CAT üzerinden indirdiğiniz "
+"yapılandırmayı kullanacaktır."
 
 #: devices/Devices-template.php:341 devices/Devices-template.php:357
 #: devices/Devices-template.php:373 devices/Devices-template.php:390
@@ -139,10 +148,13 @@ msgstr "EAP ayarları"
 #: devices/Devices-template.php:412
 #, php-format
 msgid ""
-"This option provides a generic EAP config XML file, which can be consumed by"
-" dedicated applications like eduroamCAT for Android and Linux platforms. "
-"This is still an experimental feature."
-msgstr "Bu seçenek, Android ve Linux için eduroamCAT uygulaması tarafından kullanılabilecek, jenerik bir EAP XML konfigürasyon dosyası oluşturur. Bu halen deneysel durumda bir özelliktir."
+"This option provides a generic EAP config XML file, which can be consumed by "
+"dedicated applications like eduroamCAT for Android and Linux platforms. This "
+"is still an experimental feature."
+msgstr ""
+"Bu seçenek, Android ve Linux için eduroamCAT uygulaması tarafından "
+"kullanılabilecek, jenerik bir EAP XML konfigürasyon dosyası oluşturur. Bu "
+"halen deneysel durumda bir özelliktir."
 
 #: devices/Devices-template.php:418
 msgid "Test"
@@ -157,17 +169,22 @@ msgid ""
 "It is not possible to actively verify the user input for suffix match; but "
 "if there is no 'Terms of Use' configured, the installer will display a "
 "corresponding hint to the user instead."
-msgstr "Kullanıcının girdiği soneki aktif olarak doğrulamak mümkün değildir, ama eğer 'Kullanım Kuralları' ayarlanmadı ise, yükleyici ilgili ipucunu kullanıcıya gösterecektir."
+msgstr ""
+"Kullanıcının girdiği soneki aktif olarak doğrulamak mümkün değildir, ama "
+"eğer 'Kullanım Kuralları' ayarlanmadı ise, yükleyici ilgili ipucunu "
+"kullanıcıya gösterecektir."
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:57
 #, php-format
 msgid "Network configuration profile '%s' of '%s' - provided by %s"
-msgstr " '%s' den '%s' nin ağ yapılandırma profili - %s tarafından sağlanmıştır"
+msgstr ""
+" '%s' den '%s' nin ağ yapılandırma profili - %s tarafından sağlanmıştır"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:62
 #, php-format
 msgid "%s configuration for IdP '%s' - provided by %s"
-msgstr "'%s' Kimlik Sağlayıcısı için %s yapılandırması  - %s tarafından sağlanmıştır."
+msgstr ""
+"'%s' Kimlik Sağlayıcısı için %s yapılandırması  - %s tarafından sağlanmıştır."
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:103
 #, php-format
@@ -176,10 +193,13 @@ msgstr "Önemli Uyarı: kullanıcı adınız @%s! ile bitmelidir"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:105
 msgid ""
-"Important Notice: your username MUST be in the form of xxx@yyy where the yyy"
-" is a common suffix identifying your Identity Provider. Please find out what"
-" to use there and enter the username in the correct format."
-msgstr "Önemli Uyarı: Kullanıcı adınız xxx@yyy biçiminde olMALIDIR. Burada yyy, Kimlik Sağlayıcınızı tanımlayan bir sonektir. Lütfen burada ne kullanacağınızı öğrenin ve kullanıcı adını doğru biçimde girin."
+"Important Notice: your username MUST be in the form of xxx@yyy where the yyy "
+"is a common suffix identifying your Identity Provider. Please find out what "
+"to use there and enter the username in the correct format."
+msgstr ""
+"Önemli Uyarı: Kullanıcı adınız xxx@yyy biçiminde olMALIDIR. Burada yyy, "
+"Kimlik Sağlayıcınızı tanımlayan bir sonektir. Lütfen burada ne "
+"kullanacağınızı öğrenin ve kullanıcı adını doğru biçimde girin."
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:141
 msgid "Unnamed Organisation"
@@ -193,13 +213,17 @@ msgstr "İsimsiz Profil"
 msgid ""
 "For best results, please use the built-in browser (Safari) to open the "
 "configuration file."
-msgstr "En iyi şekilde sonuçlandırmak için konfigürasyon dosyasını işletim sisteminizin kendi web tarayıcısını (Safari'yi) kullanınız."
+msgstr ""
+"En iyi şekilde sonuçlandırmak için konfigürasyon dosyasını işletim "
+"sisteminizin kendi web tarayıcısını (Safari'yi) kullanınız."
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:202
 msgid ""
 "The profile will install itself after you click (or tap) the button. You "
 "will be asked for confirmation/input at several points:"
-msgstr "Profil düğmeyi tıkladıktan (veya dokunduktan) sonra kendiliğinden yüklenecektir. Bazı noktalarda onaylama/girdi için sorular sorulacaktır:"
+msgstr ""
+"Profil düğmeyi tıkladıktan (veya dokunduktan) sonra kendiliğinden "
+"yüklenecektir. Bazı noktalarda onaylama/girdi için sorular sorulacaktır:"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:204
 msgid "to install the profile"
@@ -263,8 +287,7 @@ msgstr "%s nin yeniden açılmasından sonra bu SSID kullanılmamalıdır."
 msgid "Disabled WiFi network"
 msgstr "Kablosuz Ağ (WiFi) devre dışı"
 
-#. we don't include the import password. It's displayed on screen, and should
-#. be input by the user.
+#. we don't include the import password. It's displayed on screen, and should be input by the user.
 #. <key>Password</key>
 #. <string>" . $this->clientCert['password'] . "</string>
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:503
@@ -284,36 +307,49 @@ msgid ""
 "This installer is an example only. It produces a zip file containig the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
 "administrator) and a dump of all available attributes."
-msgstr "Bu yükleyici sadece bir örnek. Yükleyici IdP sertifikalarını, bilgi ve logo dosyalarını(eğer IdP yöneticisi tarafından tanımlanmışsa) ve bütün mevcut özniteliklerin bir dökümünü içeren bir zip dosyası oluşturmaktadır."
+msgstr ""
+"Bu yükleyici sadece bir örnek. Yükleyici IdP sertifikalarını, bilgi ve logo "
+"dosyalarını(eğer IdP yöneticisi tarafından tanımlanmışsa) ve bütün mevcut "
+"özniteliklerin bir dökümünü içeren bir zip dosyası oluşturmaktadır."
 
 #: devices/linux/Device_Linux.php:52
 #, php-format
 msgid ""
-"The installer is in the form of a Python script. It will try to configure %s"
-" under NetworkManager and if this is either not appropriate for your system "
+"The installer is in the form of a Python script. It will try to configure %s "
+"under NetworkManager and if this is either not appropriate for your system "
 "or your version of NetworkManager is too old, a wpa_supplicant config file "
 "will be created instead."
-msgstr "Yükleyici bir Python betiği biçimindedir. Betik %s'i NetworkManager altında yapılandırmaya çalışacak ve eğer bu sisteminiz için uygun değilse veya NetworkManager sürümünüz çok eski ise,  o zaman wpa_supplicant yapılandırma dosyası oluşturulacaktır."
+msgstr ""
+"Yükleyici bir Python betiği biçimindedir. Betik %s'i NetworkManager altında "
+"yapılandırmaya çalışacak ve eğer bu sisteminiz için uygun değilse veya "
+"NetworkManager sürümünüz çok eski ise,  o zaman wpa_supplicant yapılandırma "
+"dosyası oluşturulacaktır."
 
 #: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:115
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to the following networks:"
-msgstr "<strong>%s</strong> nin yanısıra, yükleyici aşağıda belirtilen ağlar için erişim yapılandırmasını gerçekleştirecektir:"
+msgstr ""
+"<strong>%s</strong> nin yanısıra, yükleyici aşağıda belirtilen ağlar için "
+"erişim yapılandırmasını gerçekleştirecektir:"
 
 #: devices/linux/Device_Linux.php:58 devices/ms/WindowsCommon.php:117
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to:"
-msgstr "<strong>%s</strong> nin yanısıra, yükleyici belirtilenler için erişim yapılandırmasını gerçekleştirecektir:"
+msgstr ""
+"<strong>%s</strong> nin yanısıra, yükleyici belirtilenler için erişim "
+"yapılandırmasını gerçekleştirecektir:"
 
 #: devices/linux/Device_Linux.php:72
 msgid ""
 "The installer will create .cat_installer sub-directory in your home "
 "directory and will copy your server certificates there."
-msgstr "Kurulum programı kişisel dizininiz altında .cat_installer isimli bir alt dizin yaratıp sunucunuzun sertifikalarını oraya kopyalacak."
+msgstr ""
+"Kurulum programı kişisel dizininiz altında .cat_installer isimli bir alt "
+"dizin yaratıp sunucunuzun sertifikalarını oraya kopyalacak."
 
 #: devices/linux/Device_Linux.php:74
 msgid ""
@@ -323,7 +359,13 @@ msgid ""
 "be obtained. Such certificate files are password protected. You should have "
 "both the file and the password available during the installation process. "
 "Your p12 file will also be copied to the .cat_installer directory."
-msgstr "Ağa bağlanmak için p12 dosyası biçiminde kişisel bir sertifikaya ihtiyacınız olacaktır. Bu sertifikayı kurumunuzdan almalısınız. Bu sertifikanın nasıl elde edilebileceğini öğrenmek için destek sayfasına bakınız. Bu sertifika dosyaları parola korumalıdır. Yükleme işlemi sırasında hem dosya hem de parolanın bulunması gerekir. p12 dosyanız ayrıca .cat_installer dizinine kopyalanacaktır."
+msgstr ""
+"Ağa bağlanmak için p12 dosyası biçiminde kişisel bir sertifikaya ihtiyacınız "
+"olacaktır. Bu sertifikayı kurumunuzdan almalısınız. Bu sertifikanın nasıl "
+"elde edilebileceğini öğrenmek için destek sayfasına bakınız. Bu sertifika "
+"dosyaları parola korumalıdır. Yükleme işlemi sırasında hem dosya hem de "
+"parolanın bulunması gerekir. p12 dosyanız ayrıca .cat_installer dizinine "
+"kopyalanacaktır."
 
 #. not EAP-TLS
 #: devices/linux/Device_Linux.php:76 devices/ms/WindowsCommon.php:128
@@ -332,14 +374,20 @@ msgid ""
 "organisation. You should consult the support page to find out how this "
 "account can be obtained. It is very likely that your account is already "
 "activated."
-msgstr "Ağa bağlanmak için kurumunuzdan bir hesaba ihtiyacınız olacak. Bu hesabın nasıl elde edilebileceğini öğrenmek için destek sayfasına başvurmalısınız. Hesabınızın önceden etkinleştirilmiş olması çok muhtemel."
+msgstr ""
+"Ağa bağlanmak için kurumunuzdan bir hesaba ihtiyacınız olacak. Bu hesabın "
+"nasıl elde edilebileceğini öğrenmek için destek sayfasına başvurmalısınız. "
+"Hesabınızın önceden etkinleştirilmiş olması çok muhtemel."
 
 #: devices/linux/Device_Linux.php:78
 msgid ""
 "You will be requested to enter your account credentials during the "
 "installation. This information will be saved so that you will reconnect to "
 "the network automatically each time you are in the range."
-msgstr "Kurulum sırasında hesap kimlik bilgilerinizi girmeniz talep edilecektir. Bu bilgi saklanacak, böylece  kapsama alanına girdiniz her sefer yeniden ağa bağlanmanız otomatik olarak gerçekleşecektir."
+msgstr ""
+"Kurulum sırasında hesap kimlik bilgilerinizi girmeniz talep edilecektir. Bu "
+"bilgi saklanacak, böylece  kapsama alanına girdiniz her sefer yeniden ağa "
+"bağlanmanız otomatik olarak gerçekleşecektir."
 
 #: devices/linux/Device_Linux.php:87
 msgid "Really quit?"
@@ -416,9 +464,12 @@ msgstr "Bütün dosyalar"
 #: devices/linux/Device_Linux.php:106
 msgid ""
 "NetworkManager configuration failed, but we may generate a wpa_supplicant "
-"configuration file if you wish. Be warned that your connection password will"
-" be saved in this file as clear text."
-msgstr "NetworkManager yapılandırması başarısız oldu, ancak isterseniz bir wpa_supplicant yapılandırma dosyası oluşturabiliriz. Bağlantı parolanızın bu dosyada açık metin olarak kaydedileceği konusunda sizi uyarmalıyız."
+"configuration file if you wish. Be warned that your connection password will "
+"be saved in this file as clear text."
+msgstr ""
+"NetworkManager yapılandırması başarısız oldu, ancak isterseniz bir "
+"wpa_supplicant yapılandırma dosyası oluşturabiliriz. Bağlantı parolanızın bu "
+"dosyada açık metin olarak kaydedileceği konusunda sizi uyarmalıyız."
 
 #: devices/linux/Device_Linux.php:107
 msgid "Write the file"
@@ -429,19 +480,25 @@ msgstr "Dosyaya yaz"
 msgid ""
 "Error: Your username must be of the form 'xxx@institutionID' e.g. "
 "'john@example.net'!"
-msgstr "Hata: kullanıcı adınız 'xxx@kurumKimliği' şeklinde olmalıdır ör. 'ali@ornek.net'"
+msgstr ""
+"Hata: kullanıcı adınız 'xxx@kurumKimliği' şeklinde olmalıdır ör. 'ali@ornek."
+"net'"
 
 #: devices/linux/Device_Linux.php:109
 msgid ""
 "Error: your username must be in the form of 'xxx@{}'. Please enter the "
 "username in the correct format."
-msgstr "Hata: kullanıcı adınız 'xxx@{}' biçiminde olmalıdır. Lütfen kullanıcı adını doğru biçimde girin."
+msgstr ""
+"Hata: kullanıcı adınız 'xxx@{}' biçiminde olmalıdır. Lütfen kullanıcı adını "
+"doğru biçimde girin."
 
 #: devices/linux/Device_Linux.php:110
 msgid ""
-"Error: your username must be in the form of 'xxx@institutionID' and end with"
-" '{}'. Please enter the username in the correct format."
-msgstr "Hata: kullanıcı adınız 'xxx@kurumKimliği' biçiminde olmalı ve '{}' ile bitmelidir. Lütfen kullanıcı adını doğru biçimde girin."
+"Error: your username must be in the form of 'xxx@institutionID' and end with "
+"'{}'. Please enter the username in the correct format."
+msgstr ""
+"Hata: kullanıcı adınız 'xxx@kurumKimliği' biçiminde olmalı ve '{}' ile "
+"bitmelidir. Lütfen kullanıcı adını doğru biçimde girin."
 
 #: devices/linux/Device_Linux.php:111
 msgid "personal certificate file not found"
@@ -464,7 +521,9 @@ msgstr "GEANT projesindem bir yazılımlala oluşturulan yükleyici"
 msgid ""
 "This installer will only work properly if you are a member of {0} and the "
 "user group: {1}."
-msgstr "Bu yükleyici, yalnızca {0} üyesi ve {1} kullanıcı grubu üyesiyseniz düzgün çalışır."
+msgstr ""
+"Bu yükleyici, yalnızca {0} üyesi ve {1} kullanıcı grubu üyesiyseniz düzgün "
+"çalışır."
 
 #: devices/linux/Device_Linux.php:247
 msgid "This installer will only work properly if you are a member of {0}."
@@ -474,16 +533,24 @@ msgstr "Bu yükleyici, yalnızca {0} üyesiyseniz düzgün çalışır."
 msgid ""
 "Anonymous identities do not use the realm as specified in the profile - it "
 "is derived from the suffix of the user's username input instead."
-msgstr "Anonim kimlikler profilde belirtildiği şekilde yetki alanı kullanmazlar - bunun yerine kullanıcıya ait kullanıcı adı girdisinin son ekinden elde edilen kimliği kullanırlar."
+msgstr ""
+"Anonim kimlikler profilde belirtildiği şekilde yetki alanı kullanmazlar - "
+"bunun yerine kullanıcıya ait kullanıcı adı girdisinin son ekinden elde "
+"edilen kimliği kullanırlar."
 
 #: devices/ms/WindowsCommon.php:111
 #, php-format
 msgid ""
 "%s installer will be in the form of an EXE file. It will configure %s on "
 "your device, by creating wireless network profiles.<p>When you click the "
-"download button, the installer will be saved by your browser. Copy it to the"
-" machine you want to configure and execute."
-msgstr "%s yükleyici bir EXE dosyası şeklinde yapılandırılmış olacaktır. Kablosuz ağ profileri oluşturarak, cihazınızda %s yapılandırması gerçekleştirilecektir.<p> İndir tuşunu tıkladığınızda, yükleyici tarayıcınız tarafından kaydedilecektir. Yükleyiciyi yapılandıracağınız makineye kopyalayarak çalıştırınız."
+"download button, the installer will be saved by your browser. Copy it to the "
+"machine you want to configure and execute."
+msgstr ""
+"%s yükleyici bir EXE dosyası şeklinde yapılandırılmış olacaktır. Kablosuz ağ "
+"profileri oluşturarak, cihazınızda %s yapılandırması gerçekleştirilecektir."
+"<p> İndir tuşunu tıkladığınızda, yükleyici tarayıcınız tarafından "
+"kaydedilecektir. Yükleyiciyi yapılandıracağınız makineye kopyalayarak "
+"çalıştırınız."
 
 #: devices/ms/WindowsCommon.php:124
 msgid ""
@@ -492,7 +559,12 @@ msgid ""
 "organisation. Consult the support page to find out how this certificate can "
 "be obtained. Such certificate files are password protected. You should have "
 "both the file and the password available during the installation process."
-msgstr "Ağa bağlanmak için p12 dosyası biçiminde kişisel bir sertifikaya ihtiyacınız olacaktır. Bu sertifikayı kurumunuzdan almalısınız. Bu sertifikanın nasıl elde edilebileceğini öğrenmek için destek sayfasına bakınız. Bu sertifika dosyaları parola korumalıdır. Yükleme işlemi sırasında hem dosya hem de parolanın bulunması gerekir."
+msgstr ""
+"Ağa bağlanmak için p12 dosyası biçiminde kişisel bir sertifikaya ihtiyacınız "
+"olacaktır. Bu sertifikayı kurumunuzdan almalısınız. Bu sertifikanın nasıl "
+"elde edilebileceğini öğrenmek için destek sayfasına bakınız. Bu sertifika "
+"dosyaları parola korumalıdır. Yükleme işlemi sırasında hem dosya hem de "
+"parolanın bulunması gerekir."
 
 #: devices/ms/WindowsCommon.php:132
 msgid ""
@@ -500,13 +572,19 @@ msgid ""
 "up a login box, where you should enter your user name and password. This "
 "information will be saved so that you will reconnect to the network "
 "automatically each time you are in the range."
-msgstr "Ağa ilk kez bağlandığınızda, Windows kullanıcı ve parolanızı girerek oturum açabileceğiniz bir giriş kutusu gösterecektir. Bu bilgi saklanacak ve yeniden bağlandığınızda bu bilgiler kullanılarak ağa bağlantı gerçekleştirilecektir."
+msgstr ""
+"Ağa ilk kez bağlandığınızda, Windows kullanıcı ve parolanızı girerek oturum "
+"açabileceğiniz bir giriş kutusu gösterecektir. Bu bilgi saklanacak ve "
+"yeniden bağlandığınızda bu bilgiler kullanılarak ağa bağlantı "
+"gerçekleştirilecektir."
 
 #: devices/ms/WindowsCommon.php:135
 msgid ""
 "You will be required to enter the same credentials for each of the "
 "configured notworks:"
-msgstr "Aynı kimlik bilgilerini yapılandırılmış ağların her biri için girmeniz gereklidir."
+msgstr ""
+"Aynı kimlik bilgilerini yapılandırılmış ağların her biri için girmeniz "
+"gereklidir."
 
 #: devices/ms/WindowsCommon.php:250 devices/ms/WindowsCommon.php:251
 #, php-format
@@ -517,14 +595,18 @@ msgstr "%s için %s yükleyici"
 msgid ""
 "This device is not yet supported by CAT, but your local administrator "
 "created a redirect to local installation instructions."
-msgstr "Bu cihaz henüz CAT tarafından desteklenmemektedir. Ancak kurumunuzun yöneticisi yerel kurulum yöntemi için bir yönlendirme yapmış durumda"
+msgstr ""
+"Bu cihaz henüz CAT tarafından desteklenmemektedir. Ancak kurumunuzun "
+"yöneticisi yerel kurulum yöntemi için bir yönlendirme yapmış durumda"
 
 #: devices/xml/Device_XML.php:50
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
 "-00</a> XML format."
-msgstr "Bu dosya IETF <a href='%s'>EAP Metadata -00 </a> XML formatında jenerik  bir dosyadır."
+msgstr ""
+"Bu dosya IETF <a href='%s'>EAP Metadata -00 </a> XML formatında jenerik  bir "
+"dosyadır."
 
 #: devices/ms/Files/common.inc:124
 #, php-format
@@ -559,7 +641,9 @@ msgstr "Kabul Et"
 msgid ""
 "If you accept the conditions then select Accept and then click Install to "
 "continue."
-msgstr "Eğer şartları kabul ediyorsanız Kabul ü seçin ve devam etmek için Yükle yi tıklayın."
+msgstr ""
+"Eğer şartları kabul ediyorsanız Kabul ü seçin ve devam etmek için Yükle yi "
+"tıklayın."
 
 #: devices/ms/Files/common.inc:142
 msgid "Finish"
@@ -580,11 +664,15 @@ msgstr "sertifika yüklenemiyor"
 #: devices/ms/Files/common.inc:432
 msgid ""
 "The non TKIP profiles are preferred. Always use them if you have a choice."
-msgstr "TKIP olmayan profiller tercih edildi. Eğer seçeneğiniz varsa her zaman bunları kullanın."
+msgstr ""
+"TKIP olmayan profiller tercih edildi. Eğer seçeneğiniz varsa her zaman "
+"bunları kullanın."
 
 #: devices/ms/Files/common.inc:434
 msgid "The non TKIP profile is preferred. Always use it if you have a choice."
-msgstr "TKIP olmayan profil tercih edildi. Eğer seçeneğiniz varsa her zaman bunu tercih edin."
+msgstr ""
+"TKIP olmayan profil tercih edildi. Eğer seçeneğiniz varsa her zaman bunu "
+"tercih edin."
 
 #: devices/ms/Files/common.inc:440 devices/ms/Files/common.inc:448
 msgid "This installer has been prepared for ${ORGANISATION}"
@@ -602,25 +690,33 @@ msgstr "Yükleyici kablosuz ağ profili oluşturacak:"
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "10 and newer. Please download the correct installer and try again."
-msgstr "Windows $WindowsName kullanıyorsunuz, fakat bu yükleyici sadece Windows 10 ve daha yenileri içindir. Lütfen doğru yükleyiciyi indirin ve tekrar deneyin."
+msgstr ""
+"Windows $WindowsName kullanıyorsunuz, fakat bu yükleyici sadece Windows 10 "
+"ve daha yenileri içindir. Lütfen doğru yükleyiciyi indirin ve tekrar deneyin."
 
 #: devices/ms/Files/common.inc:537 devices/ms/Files/common.inc:544
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "8 and 8.1. Please download the correct installer and try again."
-msgstr "Windows $WindowsName kullanıyorsunuz, fakat bu yükleyici sadece Windows 8 ve 8.1 içindir. Lütfen doğru yükleyiciyi indirin ve tekrar deneyin."
+msgstr ""
+"Windows $WindowsName kullanıyorsunuz, fakat bu yükleyici sadece Windows 8 ve "
+"8.1 içindir. Lütfen doğru yükleyiciyi indirin ve tekrar deneyin."
 
 #: devices/ms/Files/common.inc:553
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "Vista and Windows 7. Please download the correct installer and try again."
-msgstr "Windows $WindowsName kullanıyorsunuz. Bu kurulum programı sadece Windows Vista ve Windows 7 sürümlerinde çalışır. Doğru kurulum programını indirip tekrar deneyiniz."
+msgstr ""
+"Windows $WindowsName kullanıyorsunuz. Bu kurulum programı sadece Windows "
+"Vista ve Windows 7 sürümlerinde çalışır. Doğru kurulum programını indirip "
+"tekrar deneyiniz."
 
 #: devices/ms/Files/common.inc:589
 msgid ""
 "Windows wireless configuration service is not enabled. The installer cannot "
 "continue."
-msgstr "Window kablosuz ağ yapılandırma servisi etkin değil. Yükeyici devam edemiyor."
+msgstr ""
+"Window kablosuz ağ yapılandırma servisi etkin değil. Yükeyici devam edemiyor."
 
 #: devices/ms/Files/common.inc:594
 msgid "No wireless interfaces found. The installer cannot continue."
@@ -630,7 +726,9 @@ msgstr "Kablosuz arayüzleri bulunamadı. Yükleyici devam edemiyor."
 msgid ""
 "No wireless interfaces found. Wireless access will not be configured. Would "
 "you like to continue and configure access on the wired interface?"
-msgstr "Kablosuz arabirim bulunamadı. Kablosuz erişim ayarları yapılmayacaktır. Kablolu arabirim  ayarlarınızın yapılması için devam etmek ister misiniz?"
+msgstr ""
+"Kablosuz arabirim bulunamadı. Kablosuz erişim ayarları yapılmayacaktır. "
+"Kablolu arabirim  ayarlarınızın yapılması için devam etmek ister misiniz?"
 
 #: devices/ms/Files/common.inc:616
 msgid "Do you want to enable access on wired interfaces?"
@@ -652,7 +750,9 @@ msgstr "Profil  $R8 bulundu"
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION} and the user group: ${USER_GROUP}."
-msgstr "Ancak ${ORGANISATION} ve ${USER_GROUP} kullanıcı grubu üyesiyseniz bu yükleyici düzgün çalışır."
+msgstr ""
+"Ancak ${ORGANISATION} ve ${USER_GROUP} kullanıcı grubu üyesiyseniz bu "
+"yükleyici düzgün çalışır."
 
 #: devices/ms/Files/common.inc:713 devices/ms/Files/common.inc:716
 msgid "Click OK to continue with installation."
@@ -676,13 +776,23 @@ msgid ""
 "Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may "
 "be due to the fact that Symantec Endpoint Protection is installed on your "
 "machine.$\\r$\\nWhile this is a well-known bug of the Symantec product, "
-"about which the installer can not do anything, there is a "
-"workaround.$\\r$\\nWhen you close this window the installer will exit and an"
-" explorer window will be started (it could appear underneath already opened "
-"windows). In this window you should see a script named inst_cat. Start it by"
-" double-clicking, It will install the profiles. You will need to login to %s"
-" with your username and password."
-msgstr "Lütfen bu mesajı OKUYUN. Önemlidir.$\\r$\\nKurulum problemlerinin bir nedeni bilgisayarınızda Symantec Endpoint Protection yazılımının kurulu olması olabilir.$\\r$\\nBu, söz konusu Symantec yazılımının bilinen bir sorunudur. Kurulum programının bu konuda yapabileceği bir şey olmamakla birlikte bu sorunu aşmanın bir yolu vardır.$\\r$\\nBu pencereyi kapattığınızda kurulum programı da sonlanacak ve bir Explorer penceresi açılacaktır (halen açık pencerelerden birinin altında kalabilir). Bu pencerede inst_cat isimli bir betik dosyası göreceksiniz. Çift tıklayarak betiği çalıştırınız. Bu betik profillern kurulumunu yapacaktır. Daha sonra %s 'ye bağlanmak için kendi kullanıcı kodunuzu ve şifrenizi kullanmak durumundasınız."
+"about which the installer can not do anything, there is a workaround.$\\r$"
+"\\nWhen you close this window the installer will exit and an explorer window "
+"will be started (it could appear underneath already opened windows). In this "
+"window you should see a script named inst_cat. Start it by double-clicking, "
+"It will install the profiles. You will need to login to %s with your "
+"username and password."
+msgstr ""
+"Lütfen bu mesajı OKUYUN. Önemlidir.$\\r$\\nKurulum problemlerinin bir nedeni "
+"bilgisayarınızda Symantec Endpoint Protection yazılımının kurulu olması "
+"olabilir.$\\r$\\nBu, söz konusu Symantec yazılımının bilinen bir sorunudur. "
+"Kurulum programının bu konuda yapabileceği bir şey olmamakla birlikte bu "
+"sorunu aşmanın bir yolu vardır.$\\r$\\nBu pencereyi kapattığınızda kurulum "
+"programı da sonlanacak ve bir Explorer penceresi açılacaktır (halen açık "
+"pencerelerden birinin altında kalabilir). Bu pencerede inst_cat isimli bir "
+"betik dosyası göreceksiniz. Çift tıklayarak betiği çalıştırınız. Bu betik "
+"profillern kurulumunu yapacaktır. Daha sonra %s 'ye bağlanmak için kendi "
+"kullanıcı kodunuzu ve şifrenizi kullanmak durumundasınız."
 
 #: devices/ms/Files/common.inc:789
 msgid "Please restart your system after installation finishes."
@@ -775,15 +885,19 @@ msgstr "Yanlış sertifika parolası\\$r$\\n yeniden girin"
 
 #: devices/ms/Files/common.inc:1217
 msgid ""
-"Error: your username must be in the form of 'xxx@${REALM}'. Please enter the"
-" username in the correct format."
-msgstr "Hata: kullanıcı adınız 'xxx@${REALM}' biçiminde olmalı. Lütfen kullanıcı adını doğru biçimde girin."
+"Error: your username must be in the form of 'xxx@${REALM}'. Please enter the "
+"username in the correct format."
+msgstr ""
+"Hata: kullanıcı adınız 'xxx@${REALM}' biçiminde olmalı. Lütfen kullanıcı "
+"adını doğru biçimde girin."
 
 #: devices/ms/Files/common.inc:1219
 msgid ""
-"Error: your username must be in the form of 'xxx@institutionID' and end with"
-" '${REALM}'. Please enter the username in the correct format."
-msgstr "Hata: kullanıcı adınız 'xxx@kurumKimliği' biçiminde olmalı ve '${REALM}' ile bitmelidir. Lütfen kullanıcı adını doğru biçimde girin."
+"Error: your username must be in the form of 'xxx@institutionID' and end with "
+"'${REALM}'. Please enter the username in the correct format."
+msgstr ""
+"Hata: kullanıcı adınız 'xxx@kurumKimliği' biçiminde olmalı ve '${REALM}' ile "
+"bitmelidir. Lütfen kullanıcı adını doğru biçimde girin."
 
 #: devices/ms/Files/common.inc:1286
 msgid "User credentials"
@@ -860,13 +974,18 @@ msgid ""
 "An additional piece of software 'GEANTlink' needs to be installed. This "
 "installation requires Administrator rights; you will be prompted to give "
 "permission for that action."
-msgstr "Ek olarak 'GEANTlink' yazılımının yüklenmesi gerekiyor. Kurulum sırasında yönetici yetkilerine gereksinim duyulacağından, sorulduğunda bu yetkiyi veriniz."
+msgstr ""
+"Ek olarak 'GEANTlink' yazılımının yüklenmesi gerekiyor. Kurulum sırasında "
+"yönetici yetkilerine gereksinim duyulacağından, sorulduğunda bu yetkiyi "
+"veriniz."
 
 #: devices/ms/Files/geant_link.inc:89
 msgid ""
 "Error installing GEANTLink.$\\nEmbedded installer didn't complete "
 "succesfully."
-msgstr "GEANTlink'i kurarken bir hata oluştu.$\\r\\nGömülü kurulum programı başarıyla sonlanmadı."
+msgstr ""
+"GEANTlink'i kurarken bir hata oluştu.$\\r\\nGömülü kurulum programı "
+"başarıyla sonlanmadı."
 
 #: devices/ms/Files/geant_link.inc:99
 msgid "installing credentials for ${PROVIDERID}"
@@ -874,4 +993,5 @@ msgstr "${PROVIDERID} için kimlik bilgileri kuruluyor"
 
 #: devices/ms/Files/pwd.inc:35
 msgid "EAP-pwd installation error. Please try again or contact Support."
-msgstr "EAP-pwd yükleme hatası. Lütfen tekrar deneyin veya Destekle iletişime geçin."
+msgstr ""
+"EAP-pwd yükleme hatası. Lütfen tekrar deneyin veya Destekle iletişime geçin."

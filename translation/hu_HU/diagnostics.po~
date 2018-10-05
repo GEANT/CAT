@@ -2,20 +2,21 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 16:03+0200\n"
+"POT-Creation-Date: 2018-10-01 13:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Pozsonyi Dóra <pozsonyi@niif.hu>, 2018\n"
-"Language-Team: Hungarian (https://www.transifex.com/eduroam_devel/teams/11799/hu/)\n"
+"Language-Team: Hungarian (https://www.transifex.com/eduroam_devel/"
+"teams/11799/hu/)\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: core/diag/AbstractTest.php:266
@@ -40,8 +41,8 @@ msgstr "Nem érkezett válasz a RADIUS szervertől."
 
 #: core/diag/AbstractTest.php:301
 msgid ""
-"There was a bidirectional communication with the RADIUS server, but it ended"
-" halfway through."
+"There was a bidirectional communication with the RADIUS server, but it ended "
+"halfway through."
 msgstr ""
 "Két irányú kommunikáció elindult a RADIUS szerverrel, de nem fejeződött be."
 
@@ -114,8 +115,8 @@ msgstr ""
 #: core/diag/AbstractTest.php:379
 msgid ""
 "At least one certificate in the chain had a public key of less than 1024 "
-"bits. Many recent operating systems consider this unacceptable and will fail"
-" to validate the server certificate."
+"bits. Many recent operating systems consider this unacceptable and will fail "
+"to validate the server certificate."
 msgstr ""
 "A tanusítványlánc legalább 1 tanusítványának publikus kulcsa kisebb mint "
 "1024 bit. Sok újabb operációs rendszer ezt nem tartja elfogadhatónak és a "
@@ -146,22 +147,22 @@ msgid ""
 "certificate. Checking server certificate validity against a CRL will not be "
 "possible."
 msgstr ""
-"A szerver tanusítvány 'CRL Distribution Point' kiegészítése nem egy "
-"HTTP/HTTPS URL. Néhány operációs rendszer lehetséges, hogy nem fogja tudni "
+"A szerver tanusítvány 'CRL Distribution Point' kiegészítése nem egy HTTP/"
+"HTTPS URL. Néhány operációs rendszer lehetséges, hogy nem fogja tudni "
 "ellenőrizni a tanusítványt. A szerver tanusítvány ellenőrzése a CRL alapján "
 "nem lesz lehetséges. "
 
 #: core/diag/AbstractTest.php:407
 msgid ""
-"The extension 'CRL Distribution Point' in the server certificate points to a"
-" location where no DER-encoded CRL can be found. Some Operating Systems "
-"check certificate validity by consulting the CRL and will fail to validate "
-"the certificate. Checking server certificate validity against a CRL will not"
-" be possible."
+"The extension 'CRL Distribution Point' in the server certificate points to a "
+"location where no DER-encoded CRL can be found. Some Operating Systems check "
+"certificate validity by consulting the CRL and will fail to validate the "
+"certificate. Checking server certificate validity against a CRL will not be "
+"possible."
 msgstr ""
 "A kiszolgálói tanúsítvány \"CRL Distribution Point\" kiterjesztése olyan "
-"helyre mutat, ahol nincs DER kódolt CRL. Néhány operációs rendszer ellenőrzi"
-" a tanúsítvány érvényességét a CRL segítségével, és így nem tudja "
+"helyre mutat, ahol nincs DER kódolt CRL. Néhány operációs rendszer ellenőrzi "
+"a tanúsítvány érvényességét a CRL segítségével, és így nem tudja "
 "hitelesíteni a tanúsítványt. A szerver tanúsítvány érvényességének "
 "ellenőrzése a CRL-el nem lehetséges."
 
@@ -171,10 +172,10 @@ msgstr "A szerver tanusítványt visszavonta a tanusítványhatóság!"
 
 #: core/diag/AbstractTest.php:421
 msgid ""
-"The certificate contained a CN or subjectAltName:DNS which does not parse as"
-" a hostname. This can be problematic on some supplicants. If the certificate"
-" also contains names which are a proper hostname, and you only use those for"
-" your supplicant configuration, then you can safely ignore this notice."
+"The certificate contained a CN or subjectAltName:DNS which does not parse as "
+"a hostname. This can be problematic on some supplicants. If the certificate "
+"also contains names which are a proper hostname, and you only use those for "
+"your supplicant configuration, then you can safely ignore this notice."
 msgstr ""
 "A tanusítvány CN vagy subjectAltName:DNS nem tartalmaz szervernevet. Ez "
 "néhány supplicant számára problémát jelent. Ha tanusítvány tartalmazza a "
@@ -192,8 +193,8 @@ msgid ""
 msgstr ""
 "A tanusítvány CN vagy subjectAltName:DNS mezeje wildcard (\"*\")-or "
 "tartalmaz . Ez néhány supplicant számára problémát jelent. Ha tanusítvány "
-"tartalmazza olyan nevet, amely nem tartalmaz wildcard-ot és ez a tanusítvány"
-" csak a supplicant konfigurációhoz van használva, akkor ezt a megjegyzést "
+"tartalmazza olyan nevet, amely nem tartalmaz wildcard-ot és ez a tanusítvány "
+"csak a supplicant konfigurációhoz van használva, akkor ezt a megjegyzést "
 "figyelmen kívül hagyhatod."
 
 #: core/diag/AbstractTest.php:435
@@ -201,8 +202,8 @@ msgid ""
 "At least one certificate is outside its validity period (not yet valid, or "
 "already expired)!"
 msgstr ""
-"Legalább 1 tanusítvány az érvényességi idején kivüli (még nem érvenyes, vagy"
-" már nem érvényes)."
+"Legalább 1 tanusítvány az érvényességi idején kivüli (még nem érvenyes, vagy "
+"már nem érvényes)."
 
 #: core/diag/AbstractTest.php:442
 #, php-format
@@ -213,16 +214,16 @@ msgid ""
 "configuration."
 msgstr ""
 "Legalább 1 köztes tanusítvány az érvényességi idején kivüli (még nem "
-"érvenyes, vagy már nem érvényes), de ez a tanusítvány nem használt a szerver"
-" azonosításához. Érdemes volna kivenni a %s konfigurációból."
+"érvenyes, vagy már nem érvényes), de ez a tanusítvány nem használt a szerver "
+"azonosításához. Érdemes volna kivenni a %s konfigurációból."
 
 #: core/diag/AbstractTest.php:449
 msgid ""
 "The server certificate could not be verified to the root CA you configured "
 "in your profile!"
 msgstr ""
-"A szerver tanusítvány nem ellenőrizhető azzal a root CA-val, amely a "
-"profile-hoz konfigurálva lett."
+"A szerver tanusítvány nem ellenőrizhető azzal a root CA-val, amely a profile-"
+"hoz konfigurálva lett."
 
 #: core/diag/AbstractTest.php:453
 msgid ""
@@ -246,8 +247,8 @@ msgstr ""
 
 #: core/diag/AbstractTest.php:466
 msgid ""
-"The configured EAP server name matches either the CN or a subjectAltName:DNS"
-" of the incoming certificate; best current practice is that the certificate "
+"The configured EAP server name matches either the CN or a subjectAltName:DNS "
+"of the incoming certificate; best current practice is that the certificate "
 "should contain the name in BOTH places."
 msgstr ""
 "A konfigurált EAP szerver neve nem illeszkedik a beérkező tanusítvány CN "
@@ -283,8 +284,7 @@ msgstr ""
 
 #: core/diag/AbstractTest.php:501
 msgid "The server rejected the client certificate as expected."
-msgstr ""
-"A szerver visszautasította kliens tanusítványt, ahogy az várható volt."
+msgstr "A szerver visszautasította kliens tanusítványt, ahogy az várható volt."
 
 #: core/diag/AbstractTest.php:508
 msgid "The CRL of a certificate could not be found."
@@ -301,8 +301,8 @@ msgid ""
 "under these circumstances!"
 msgstr ""
 "A szerver 1024 bitnél rövidebb  Diffie-Hellman (DH) titkosítást támogat "
-"csak. Mac OS X 10.11 'El Capitan' ismeretes, hogy megtagadja a TLS kapcsolat"
-" kiépítését, ha ez fenn áll!"
+"csak. Mac OS X 10.11 'El Capitan' ismeretes, hogy megtagadja a TLS kapcsolat "
+"kiépítését, ha ez fenn áll!"
 
 #: core/diag/AbstractTest.php:529
 msgid ""
@@ -314,8 +314,8 @@ msgstr ""
 
 #: core/diag/AbstractTest.php:536
 msgid ""
-"The certificate public key algorithm is unknown to the system. Please submit"
-" the certificate as a sample to the developers."
+"The certificate public key algorithm is unknown to the system. Please submit "
+"the certificate as a sample to the developers."
 msgstr ""
 "A tanúsítvány nyilvános kulcs algoritmusa ismeretlen a rendszer számára. "
 "Kérjük, küldje el a tanúsítvány mintát a fejlesztőknek."
@@ -327,16 +327,15 @@ msgstr "[eduroam Diagnosztika]"
 #: core/diag/Logopath.php:98
 msgid ""
 "(This service is in an early stage. We apologise if this is a false alert. "
-"If this is the case, please send an email report to cat-"
-"devel@lists.geant.org, forwarding the entire message (including the "
-"'SUSPECTS' and 'EVIDENCE' data at the end), and explain why this is a false "
-"positive.)"
+"If this is the case, please send an email report to cat-devel@lists.geant."
+"org, forwarding the entire message (including the 'SUSPECTS' and 'EVIDENCE' "
+"data at the end), and explain why this is a false positive.)"
 msgstr ""
 "(Ez a szolgáltatás fejlesztési státuszban van.) Elnézést kérünk ha ez egy "
 "hamis figyelmeztetés. Ha ez a helyzet, küldj egy e-mailes jelentést a cat-"
-"devel@lists.geant.org címre, amely továbbítja az egész üzenetet (beleértve a"
-" \"SUSPECTS\" és az \"EVIDENCE\" adatokat is), és elmagyarázza, hogy ez "
-"miért hamis.)"
+"devel@lists.geant.org címre, amely továbbítja az egész üzenetet (beleértve a "
+"\"SUSPECTS\" és az \"EVIDENCE\" adatokat is), és elmagyarázza, hogy ez miért "
+"hamis.)"
 
 #: core/diag/Logopath.php:100
 msgid "Yours sincerely,"
@@ -381,8 +380,8 @@ msgid ""
 msgstr ""
 "Ezen túlmenően működési problémákat is okoz. Nem tudjuk továbbítani a "
 "végfelhasználói problémákat  az IdP üzemeltetőinek a további diagnózisokért "
-"és utasításokért, mivel nincs kapcsolati információnk az adatbázisban az "
-"IdP-vel."
+"és utasításokért, mivel nincs kapcsolati információnk az adatbázisban az IdP-"
+"vel."
 
 #: core/diag/RADIUSTests.php:1008
 #, php-format
@@ -402,8 +401,8 @@ msgstr ""
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
-"Access-Reject as planned. Some properties of the connection attempt were "
-"sub-optimal; the list is below."
+"Access-Reject as planned. Some properties of the connection attempt were sub-"
+"optimal; the list is below."
 msgstr ""
 "<strong>Teszt részben sikeres volt</strong>: kétirányú RADIUS-beszélgetést "
 "hajtottunk végre, és a tervek szerint Access-Reject-el  ért véget. A "
@@ -476,24 +475,22 @@ msgstr "ismeretlen hatóság"
 
 #: core/diag/RFC6614Tests.php:264
 msgid "unknown authority or no certificate policy or another problem"
-msgstr ""
-"ismeretlen hatóság vagy nincsen tanusítvány policy vagy egyéb probléma"
+msgstr "ismeretlen hatóság vagy nincsen tanusítvány policy vagy egyéb probléma"
 
 #. return codes specific to NAPTR existence checks
 #. *
-#. * no NAPTRs for domain; this is not an error, simply means that realm is
-#. not doing dynamic discovery for any service
+#. * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
+#.
 #: core/diag/RFC7585Tests.php:124
 msgid "This realm has no NAPTR records."
 msgstr "Ennel a realm-nek nincsen NAPTR rekordja"
 
 #. *
-#. * no eduroam NAPTR for domain; this is not an error, simply means that
-#. realm is not doing dynamic discovery for eduroam
+#. * no eduroam NAPTR for domain; this is not an error, simply means that realm is not doing dynamic discovery for eduroam
+#.
 #: core/diag/RFC7585Tests.php:130
 msgid "NAPTR records were found, but all of them refer to unrelated services."
-msgstr ""
-"NAPTR rekord létezik, de mindegyike nem releváns szolgáltatásra mutat."
+msgstr "NAPTR rekord létezik, de mindegyike nem releváns szolgáltatásra mutat."
 
 #: core/diag/Sociopath.php:35
 msgid "There is nothing you can do to solve this problem yourself."
@@ -521,8 +518,8 @@ msgid ""
 "The system has identified possible issues regarding your local device "
 "configuration."
 msgstr ""
-"A rendszer azonosította a helyi eszközkonfigurációval kapcsolatos lehetséges"
-" problémákat."
+"A rendszer azonosította a helyi eszközkonfigurációval kapcsolatos lehetséges "
+"problémákat."
 
 #: core/diag/Sociopath.php:47
 msgid ""
@@ -536,12 +533,12 @@ msgstr ""
 
 #: core/diag/Sociopath.php:48
 msgid ""
-"There are likely some issues around the wireless part of the network you are"
-" trying to connect to. Wireless networks do not always behave "
+"There are likely some issues around the wireless part of the network you are "
+"trying to connect to. Wireless networks do not always behave "
 "deterministically and consistently. All users at a given location have to "
-"share the available bandwidth, and the physical environment (concrete walls,"
-" objects in the way, elevation differences) can have a significant impact on"
-" your connectivity experience."
+"share the available bandwidth, and the physical environment (concrete walls, "
+"objects in the way, elevation differences) can have a significant impact on "
+"your connectivity experience."
 msgstr ""
 "Valószínűleg problémák vannak a vezeték nélküli hálózatnál, amelyhez "
 "csatlakozni próbál. A vezeték nélküli hálózatok nem mindig "
@@ -550,15 +547,10 @@ msgstr ""
 "fizikai környezet (konkrét falak, objektumok útja, magasságkülönbségek) "
 "jelentős hatással lehetnek a kapcsolódási minőségre."
 
-#. here is an array with yes/no answers per failure category, and the factors
-#. by which a Yes modifies the score; No's modify it by 1/factor;
-#. the order in this array is important: lower numbered questions will be
-#. asked first. So make sure you have high-quality questions in the beginning.
-#. to be clear: "Yes" answers are elsewhere in the class the TRUE case; No's
-#. are FALSE, a possible "Don't know or N/A" is NULL
-#. VERDICTLECTURE is text which is displayed to the end user if his answer led
-#. to a HIGHER score in the process. We are storing the answers to determine
-#. this.
+#. here is an array with yes/no answers per failure category, and the factors by which a Yes modifies the score; No's modify it by 1/factor;
+#. the order in this array is important: lower numbered questions will be asked first. So make sure you have high-quality questions in the beginning.
+#. to be clear: "Yes" answers are elsewhere in the class the TRUE case; No's are FALSE, a possible "Don't know or N/A" is NULL
+#. VERDICTLECTURE is text which is displayed to the end user if his answer led to a HIGHER score in the process. We are storing the answers to determine this.
 #: core/diag/Sociopath.php:56
 msgid ""
 "You should use appropriate configuration assistants [MGW: see if the realm "
@@ -566,8 +558,8 @@ msgid ""
 "Provider [MGW: show contact info]."
 msgstr ""
 "Használj megfelelő konfigurációs asszisztenseket [MGW: nézd meg, hogy "
-"létezik-e a tartomány a CAT-ban, majd mutass linket a konfigurációhoz], vagy"
-" lépj kapcsolatba az azonosító szolgáltatójával [MGW: Névjegyek "
+"létezik-e a tartomány a CAT-ban, majd mutass linket a konfigurációhoz], vagy "
+"lépj kapcsolatba az azonosító szolgáltatójával [MGW: Névjegyek "
 "megjelenítése]."
 
 #: core/diag/Sociopath.php:60
@@ -599,15 +591,15 @@ msgstr ""
 #, php-format
 msgid ""
 "If roaming consistently does not work, then very likely your device "
-"configuration is wrong. Typical errors causing this symptom include: using a"
-" routing ('outer') username without the @realm.tld suffix - those "
-"potentially work at home, but can not be used when roaming. %s"
+"configuration is wrong. Typical errors causing this symptom include: using a "
+"routing ('outer') username without the @realm.tld suffix - those potentially "
+"work at home, but can not be used when roaming. %s"
 msgstr ""
 "Ha a roaming következetesen nem működik, akkor nagyon valószínű, hogy az "
 "eszköz konfigurációja rossz. A tüneteket okozó jellegzetes hibák közé "
 "tartozik: az realm nélküli ('külső') felhasználónév használata a @ realm.hu "
-"utótag nélkül - azoknak működhet akik, akik otthon dolgoznak, de nem működik"
-" barangoláskor.  %s"
+"utótag nélkül - azoknak működhet akik, akik otthon dolgoznak, de nem működik "
+"barangoláskor.  %s"
 
 #: core/diag/Sociopath.php:68
 msgid "Did you recently change the configuration on your device?"
@@ -645,18 +637,18 @@ msgstr ""
 
 #: core/diag/Sociopath.php:76
 msgid ""
-"Is the place you are currently at heavily crowded, or is a network-intensive"
-" workload going on?"
+"Is the place you are currently at heavily crowded, or is a network-intensive "
+"workload going on?"
 msgstr ""
 "A hely, ahol jelenleg erősen zsúfolt vagy hálózat-intenzív munkaterhelés "
 "zajlik?"
 
 #: core/diag/Sociopath.php:78
 msgid ""
-"The network is likely overloaded at this location and point in time. You may"
-" have to wait until later before you get a better connectivity. If you think"
-" the network should be reinforced for more capacity at this place, you "
-"should inform the hotspot provider. [MGW: add contact info]"
+"The network is likely overloaded at this location and point in time. You may "
+"have to wait until later before you get a better connectivity. If you think "
+"the network should be reinforced for more capacity at this place, you should "
+"inform the hotspot provider. [MGW: add contact info]"
 msgstr ""
 "A hálózat valószínűleg túlterhelt ezen a helyen és ebben az időben. "
 "Előfordulhat, hogy várnia kell, mielőtt jobb kapcsolatot kapna. Ha úgy "
@@ -688,9 +680,9 @@ msgstr ""
 
 #: core/diag/Sociopath.php:87
 msgid ""
-"The evidence at hand suggests that there may be an infrastructure problem at"
-" this particular hotspot provider. There is nothing you can do to solve this"
-" problem locally. Please be patient and try again at a later time."
+"The evidence at hand suggests that there may be an infrastructure problem at "
+"this particular hotspot provider. There is nothing you can do to solve this "
+"problem locally. Please be patient and try again at a later time."
 msgstr ""
 "A rendelkezésre álló bizonyítékok azt sugallják, hogy ez az adott hotspot "
 "szolgáltatónak infrastrukturális problémája van. Jelenleg semmit nem tud "
@@ -706,8 +698,8 @@ msgid ""
 "The diagnostics system will do its best to identify and resolve your "
 "problems!"
 msgstr ""
-"A diagnosztikai rendszer mindent megtesz annak érdekében, hogy azonosítsa és"
-" megoldja problémáit!"
+"A diagnosztikai rendszer mindent megtesz annak érdekében, hogy azonosítsa és "
+"megoldja problémáit!"
 
 #: web/skins/modern/diag/diag.php:68
 msgid ""
@@ -739,24 +731,23 @@ msgid ""
 "To resolve your problem a real-time diagnostics for your realm must be "
 "performed."
 msgstr ""
-"A probléma megoldásához valós idejű diagnosztikát kell végezned a realm-"
-"eden."
+"A probléma megoldásához valós idejű diagnosztikát kell végezned a realm-eden."
 
 #: web/skins/modern/diag/diag.php:83
 msgid ""
 "The system needs some information on your home institution - issuer of your "
 "account"
 msgstr ""
-"A rendszernek szüksége van néhány információra az otthoni intézményedről - a"
-" fiókod kibocsátója"
+"A rendszernek szüksége van néhány információra az otthoni intézményedről - a "
+"fiókod kibocsátója"
 
 #: web/skins/modern/diag/diag.php:84
 msgid ""
-"What is the realm part of your user account (the part behind the @ of "
-"'your.username@<b>realm.tld</b>):"
+"What is the realm part of your user account (the part behind the @ of 'your."
+"username@<b>realm.tld</b>):"
 msgstr ""
-"Mi a felhasználói fiókod realm része (a \"felhasználóneved @\" mögötti rész?"
-" <b>realm.tld</b>):"
+"Mi a felhasználói fiókod realm része (a \"felhasználóneved @\" mögötti rész? "
+"<b>realm.tld</b>):"
 
 #: web/skins/modern/diag/diag.php:88
 msgid "alternatively"
@@ -780,8 +771,7 @@ msgstr ""
 
 #: web/skins/modern/diag/diag.php:100
 msgid "Click to select a location in which you have an eduroam problem"
-msgstr ""
-"Kattintással válassza ki azt a helyet, ahol eduroam probléma felmerült"
+msgstr "Kattintással válassza ki azt a helyet, ahol eduroam probléma felmerült"
 
 #: web/skins/modern/diag/diag.php:107 web/skins/modern/diag/diag.php:238
 msgid "Testing realm"
@@ -793,8 +783,7 @@ msgstr "Az első szakasz befejeződött."
 
 #: web/skins/modern/diag/diag.php:113
 msgid "To narrow down the problem, please answer the following few questions."
-msgstr ""
-"A probléma szűkítéséhez kérjük, válaszoljon az alábbi néhány kérdésre."
+msgstr "A probléma szűkítéséhez kérjük, válaszoljon az alábbi néhány kérdésre."
 
 #: web/skins/modern/diag/diag.php:118
 msgid "Run tests"
@@ -819,8 +808,7 @@ msgstr "Az IdP technikai problémák miatt lépett kapcsolatba SP-vel"
 
 #: web/skins/modern/diag/diag.php:146
 msgid "This service is for authenticated admins only."
-msgstr ""
-"Ez a szolgáltatás kizárólag a azonosított adminisztrátoroknak számára."
+msgstr "Ez a szolgáltatás kizárólag a azonosított adminisztrátoroknak számára."
 
 #: web/skins/modern/diag/diag.php:148
 msgid "eduroam® admin access is needed"
@@ -887,8 +875,7 @@ msgid "The network environment around you is broken"
 msgstr "A körülötted lévő hálózati környezet hibás"
 
 #: web/skins/modern/diag/diag.php:320
-msgid ""
-"The RADIUS server of your service provider is the source of the problem"
+msgid "The RADIUS server of your service provider is the source of the problem"
 msgstr "A probléma forrása a szolgáltató RADIUS-kiszolgálója"
 
 #: web/skins/modern/diag/diag.php:323
@@ -911,16 +898,16 @@ msgid ""
 "The link between the national server of the country/region you are visiting "
 "and the top-level server is broken"
 msgstr ""
-"A meglátogatott ország / régió nemzeti szervere és a legfelső szintű szerver"
-" közötti kapcsolat hibás"
+"A meglátogatott ország / régió nemzeti szervere és a legfelső szintű szerver "
+"közötti kapcsolat hibás"
 
 #: web/skins/modern/diag/diag.php:332
 msgid ""
-"The link between the national server of your home country/region and the "
-"top-level server is broken"
+"The link between the national server of your home country/region and the top-"
+"level server is broken"
 msgstr ""
-"A hazai ország / régió nemzeti szervere és a legfelső szintű szerver közötti"
-" kapcsolat  hibás"
+"A hazai ország / régió nemzeti szervere és a legfelső szintű szerver közötti "
+"kapcsolat  hibás"
 
 #: web/skins/modern/diag/diag.php:335
 msgid "The communication to the top-level server is down"
@@ -934,8 +921,7 @@ msgid ""
 msgstr "A hazai ország / régió nemzeti szervere nem működik megfelelően."
 
 #: web/skins/modern/diag/diag.php:341
-msgid ""
-"The RADIUS server of your home institution is the source of the problem"
+msgid "The RADIUS server of your home institution is the source of the problem"
 msgstr "Az otthoni intézmény RADIUS-kiszolgálója a probléma forrása"
 
 #: web/skins/modern/diag/diag.php:344

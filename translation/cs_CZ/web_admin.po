@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"POT-Creation-Date: 2018-10-05 09:32+0200\n"
 "PO-Revision-Date: 2018-09-12 13:06+0000\n"
 "Last-Translator: Petr Adamec <p.b.adamec@gmail.com>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/"
@@ -556,10 +556,11 @@ msgstr ""
 "doménu nebo kontrolovat zda zadané jméno doménu obsahuje."
 
 #: web/admin/edit_profile.php:198
+#, fuzzy
 msgid ""
 "The realm check feature needs to know an outer ID which actually gets a "
 "chance to authenticate. If your RADIUS server lets only select usernames "
-"pass, it is useful to supply the inforamtion which of those (outer ID) "
+"pass, it is useful to supply the information which of those (outer ID) "
 "username we can use for testing."
 msgstr ""
 "Pro kontrolu domény potřebujeme znát vnější ID kterým se můžeme ověřit. "
@@ -774,9 +775,10 @@ msgid "Redirection can't be activated - you did not specify a target location!"
 msgstr "Přesměrování nelze vytvořit - nezadali jste cílovou adresu!"
 
 #: web/admin/edit_profile_result.php:175
+#, fuzzy
 msgid ""
 "Redirection can't be activated - the target needs to be a complete URL "
-"staring with http:// or https:// !"
+"starting with http:// or https:// !"
 msgstr ""
 "Přesměrování nelze vytvořit - cílovou adresou musí být úplné URL (s http: // "
 "nebo https: // na začátku)!"

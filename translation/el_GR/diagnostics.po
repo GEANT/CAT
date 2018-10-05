@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"POT-Creation-Date: 2018-10-05 09:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: HELPDESK <npapalouka@admin.grnet.gr>, 2016\n"
 "Language-Team: Greek (https://www.transifex.com/eduroam_devel/teams/11799/"
@@ -701,11 +701,11 @@ msgstr ""
 "κάνετε για να λύσετε αυτό το πρόβλημα τοπικά. Παρακαλούμε να κάνετε υπομονή "
 "και να δοκιμάσετε ξανά αργότερα."
 
-#: web/skins/modern/diag/diag.php:68
+#: web/skins/modern/diag/diag.php:67
 msgid "Diagnostics site"
 msgstr "Σελίδα διαγνωστικών"
 
-#: web/skins/modern/diag/diag.php:68 web/skins/modern/diag/diag.php:71
+#: web/skins/modern/diag/diag.php:70
 msgid ""
 "The diagnostics system will do its best to identify and resolve your "
 "problems!"
@@ -713,34 +713,34 @@ msgstr ""
 "Το σύστημα διαγνωστικών θα κάνει το καλύτερο δυνατό για να αναγνωρίσει και "
 "να επιλύσει τα προβλήματά σας!"
 
-#: web/skins/modern/diag/diag.php:68
+#: web/skins/modern/diag/diag.php:70
 msgid ""
 "Please help the system by answering the questions as precisely as possible."
 msgstr ""
 "Παρακαλώ βοηθήστε το σύστημα απαντώντας στις ερωτήσεις όσο γίνεται με "
 "ακρίβεια."
 
-#: web/skins/modern/diag/diag.php:71
+#: web/skins/modern/diag/diag.php:70
 msgid "Are you a"
 msgstr "Είστε"
 
-#: web/skins/modern/diag/diag.php:72
+#: web/skins/modern/diag/diag.php:71
 msgid "end-user"
 msgstr "τελικός χρήστης"
 
-#: web/skins/modern/diag/diag.php:72
+#: web/skins/modern/diag/diag.php:71
 msgid "or"
 msgstr "ή"
 
-#: web/skins/modern/diag/diag.php:73
+#: web/skins/modern/diag/diag.php:72
 msgid "eduroam administrator"
 msgstr "διαχειριστής eduroam"
 
-#: web/skins/modern/diag/diag.php:76
+#: web/skins/modern/diag/diag.php:75
 msgid "Tools for End Users"
 msgstr "Εργαλεία για Τελικούς Χρήστες"
 
-#: web/skins/modern/diag/diag.php:79
+#: web/skins/modern/diag/diag.php:78
 msgid ""
 "To resolve your problem a real-time diagnostics for your realm must be "
 "performed."
@@ -748,7 +748,7 @@ msgstr ""
 "Για να επιλυθεί το πρόβλημά σας πρέπει να εκτελεστεί μια διάγνωση σε "
 "πραγματικό χρόνο για τον τομέα σας."
 
-#: web/skins/modern/diag/diag.php:83
+#: web/skins/modern/diag/diag.php:82
 msgid ""
 "The system needs some information on your home institution - issuer of your "
 "account"
@@ -756,7 +756,7 @@ msgstr ""
 "Το σύστημα χρειάζεται κάποιες πληροφορίες για το οικείο ίδρυμα σας - αρχή "
 "έκδοσης του λογαριασμού σας"
 
-#: web/skins/modern/diag/diag.php:84
+#: web/skins/modern/diag/diag.php:83
 msgid ""
 "What is the realm part of your user account (the part behind the @ of 'your."
 "username@<b>realm.tld</b>):"
@@ -764,19 +764,19 @@ msgstr ""
 "Ποιος είναι ο τομέας στο λογαριασμό χρήστη σας (το τμήμα που ακολουθεί το @ "
 "στο 'your.username@<b>realm.tld</b>):"
 
-#: web/skins/modern/diag/diag.php:88
+#: web/skins/modern/diag/diag.php:87
 msgid "alternatively"
 msgstr "εναλλακτικά"
 
-#: web/skins/modern/diag/diag.php:89
+#: web/skins/modern/diag/diag.php:88
 msgid "You can select your home institution from the following list"
 msgstr "Μπορείτε να επιλέξετε το οικείο σας ίδρυμα από την ακόλουθη λίστα"
 
-#: web/skins/modern/diag/diag.php:91
+#: web/skins/modern/diag/diag.php:90
 msgid "Click to select your country/region and organisation"
 msgstr "Πατήστε για να επιλέξετε χώρα/περιφέρεια και οργανισμό"
 
-#: web/skins/modern/diag/diag.php:98
+#: web/skins/modern/diag/diag.php:97
 msgid ""
 "Optionally, to improve tests, you can provide information on your current "
 "location"
@@ -784,95 +784,95 @@ msgstr ""
 "Προαιρετικά, για την βελτίωση των δοκιμών, μπορείτε να παρέχετε πληροφορίες "
 "σχετικά με την τωρινή σας τοποθεσία"
 
-#: web/skins/modern/diag/diag.php:100
+#: web/skins/modern/diag/diag.php:99
 msgid "Click to select a location in which you have an eduroam problem"
 msgstr ""
 "Πατήστε για να επιλέξετε μια τοποθεσία στην οποία έχετε πρόβλημα με το "
 "eduroam"
 
-#: web/skins/modern/diag/diag.php:107 web/skins/modern/diag/diag.php:238
+#: web/skins/modern/diag/diag.php:106 web/skins/modern/diag/diag.php:237
 msgid "Testing realm"
 msgstr "Δοκιμαστικός τομέας"
 
-#: web/skins/modern/diag/diag.php:108
+#: web/skins/modern/diag/diag.php:107
 msgid "First stage completed."
 msgstr "Το πρώτο στάδιο ολοκληρώθηκε."
 
-#: web/skins/modern/diag/diag.php:113
+#: web/skins/modern/diag/diag.php:112
 msgid "To narrow down the problem, please answer the following few questions."
 msgstr ""
 "Για να εντοπίσουμε το πρόβλημα, παρακαλούμε απαντήστε στις ακόλουθες "
 "ερωτήσεις."
 
-#: web/skins/modern/diag/diag.php:118
+#: web/skins/modern/diag/diag.php:117
 msgid "Run tests"
 msgstr "Εκτέλεση δοκιμών"
 
-#: web/skins/modern/diag/diag.php:123
+#: web/skins/modern/diag/diag.php:122
 msgid "Tools for eduroam admins"
 msgstr "Εργαλεία για διαχειριστές eduroam"
 
-#: web/skins/modern/diag/diag.php:135
+#: web/skins/modern/diag/diag.php:134
 msgid "Which problem are you reporting?"
 msgstr "Ποιο πρόβλημα αναφέρετε;"
 
-#: web/skins/modern/diag/diag.php:137 web/skins/modern/diag/diag.php:845
+#: web/skins/modern/diag/diag.php:136 web/skins/modern/diag/diag.php:844
 msgid "SP contacting IdP due to technical problems or abuse"
 msgstr "Επικοινωνία SP με IdP λόγω τεχνικών προβλημάτων ή κατάχρησης"
 
-#: web/skins/modern/diag/diag.php:139
+#: web/skins/modern/diag/diag.php:138
 msgid "IdP contacting SP due to technical problems"
 msgstr "Επικοινωνία IdP με SP λόγω τεχνικών προβλημάτων"
 
-#: web/skins/modern/diag/diag.php:146
+#: web/skins/modern/diag/diag.php:145
 msgid "This service is for authenticated admins only."
 msgstr "Η υπηρεσία αυτή είναι μόνο για ταυτοποιημένους διαχειριστές."
 
-#: web/skins/modern/diag/diag.php:148
+#: web/skins/modern/diag/diag.php:147
 msgid "eduroam® admin access is needed"
 msgstr "χρειάζεται διαχειριστική πρόσβαση eduroam®"
 
-#: web/skins/modern/diag/diag.php:172
+#: web/skins/modern/diag/diag.php:171
 msgid "Select institiution:"
 msgstr "Επιλέξτε ίδρυμα:"
 
-#: web/skins/modern/diag/diag.php:197
+#: web/skins/modern/diag/diag.php:196
 msgid "Select country or region:"
 msgstr "Επιλέξτε χώρα ή περιφέρεια:"
 
-#: web/skins/modern/diag/diag.php:205
+#: web/skins/modern/diag/diag.php:204
 msgid "Fetching country/region list"
 msgstr "Ανάκτηση λίστας χωρών/περιφερειών"
 
-#: web/skins/modern/diag/diag.php:265
+#: web/skins/modern/diag/diag.php:264
 msgid "Yes"
 msgstr "Ναι"
 
-#: web/skins/modern/diag/diag.php:266
+#: web/skins/modern/diag/diag.php:265
 msgid "No"
 msgstr "Όχι"
 
-#: web/skins/modern/diag/diag.php:267
+#: web/skins/modern/diag/diag.php:266
 msgid "I don't know"
 msgstr "Δε γνωρίζω"
 
-#: web/skins/modern/diag/diag.php:296
+#: web/skins/modern/diag/diag.php:295
 msgid "Diagnostic tests results for selected realm"
 msgstr "Αποτελέσματα διαγνωστικών για τον επιλεγμένο τομέα"
 
-#: web/skins/modern/diag/diag.php:299
+#: web/skins/modern/diag/diag.php:298
 msgid "The result for tested realm:"
 msgstr "Το αποτέλεσμα των δοκιμών για τον τομέα:"
 
-#: web/skins/modern/diag/diag.php:301
+#: web/skins/modern/diag/diag.php:300
 msgid "The system identified"
 msgstr "Το σύστημα ταυτοποίησε "
 
-#: web/skins/modern/diag/diag.php:303
+#: web/skins/modern/diag/diag.php:302
 msgid "suspected areas which potentially can cause a problem."
 msgstr "ύποπτες περιοχές οι οποίες ενδέχεται να προκαλέσουν πρόβλημα."
 
-#: web/skins/modern/diag/diag.php:304
+#: web/skins/modern/diag/diag.php:303
 msgid ""
 "Next to the problem description we show a speculated probability of this "
 "event."
@@ -880,24 +880,24 @@ msgstr ""
 "Δίπλα από την περιγραφή του προβλήματος σας παρουσιάζουμε και την εικαζόμενη "
 "πιθανότητα αυτού του συμβάντος."
 
-#: web/skins/modern/diag/diag.php:311
+#: web/skins/modern/diag/diag.php:310
 msgid "Your device configuration is broken"
 msgstr "Η διαμόρφωση της συσκευής σας είναι χαλασμένη"
 
-#: web/skins/modern/diag/diag.php:314
+#: web/skins/modern/diag/diag.php:313
 msgid "The Wi-Fi network in your vicinity has quality issues"
 msgstr "Το δίκτυο Wi-Fi στη γειτονιά σας έχει ζητήματα ποιότητας"
 
-#: web/skins/modern/diag/diag.php:317
+#: web/skins/modern/diag/diag.php:316
 msgid "The network environment around you is broken"
 msgstr "Το περιβάλλον δικτύου γύρω σας είναι χαλασμένο"
 
-#: web/skins/modern/diag/diag.php:320
+#: web/skins/modern/diag/diag.php:319
 msgid "The RADIUS server of your service provider is the source of the problem"
 msgstr ""
 "Ο εξυπηρετητής RADIUS του παρόχου υπηρεσίας σας είναι η πηγή του προβλήματος"
 
-#: web/skins/modern/diag/diag.php:323
+#: web/skins/modern/diag/diag.php:322
 msgid ""
 "The RADIUS server in your home institution is currently unable to "
 "authenticate you"
@@ -905,7 +905,7 @@ msgstr ""
 "Ο εξυπηρετητής RADIUS του οικείου ιδρύματος σας δεν μπορεί να επαληθεύσει "
 "την ταυτότητά σας αυτή τη στιγμή"
 
-#: web/skins/modern/diag/diag.php:326
+#: web/skins/modern/diag/diag.php:325
 msgid ""
 "The national server in the country/region you are visiting is not "
 "functioning correctly"
@@ -913,7 +913,7 @@ msgstr ""
 "Ο εθνικός εξυπηρετητής στη χώρα/περιφέρεια που επισκέφθεστε δε λειτουργεί "
 "σωστά"
 
-#: web/skins/modern/diag/diag.php:329
+#: web/skins/modern/diag/diag.php:328
 msgid ""
 "The link between the national server of the country/region you are visiting "
 "and the top-level server is broken"
@@ -921,7 +921,7 @@ msgstr ""
 "Ο σύνδεσμος μεταξύ του εθνικού εξυπηρετητή στη χώρα/περιφέρεια που "
 "επισκέφθεστε και του εξυπηρετητή ανώτερου επιπέδου είναι χαλασμένος"
 
-#: web/skins/modern/diag/diag.php:332
+#: web/skins/modern/diag/diag.php:331
 msgid ""
 "The link between the national server of your home country/region and the top-"
 "level server is broken"
@@ -929,134 +929,134 @@ msgstr ""
 "Ο σύνδεσμος μεταξύ του εθνικού εξυπηρετητή της πατρίδας/περιφέρειάς σας και "
 "του εξυπηρετητή ανωτέρου επιπέδου είναι χαλασμένος"
 
-#: web/skins/modern/diag/diag.php:335
+#: web/skins/modern/diag/diag.php:334
 msgid "The communication to the top-level server is down"
 msgstr "Η επικοινωνία με τον εξυπηρετητή ανώτερου επιπέδου έχει διακοπεί"
 
-#: web/skins/modern/diag/diag.php:338
+#: web/skins/modern/diag/diag.php:337
 msgid ""
 "The national server in your home country/region is not functioning properly."
 msgstr ""
 "Ο εθνικός εξυπηρετητής της πατρίδας/περιφέρειάς σας δε λειτουργεί σωστά."
 
-#: web/skins/modern/diag/diag.php:341
+#: web/skins/modern/diag/diag.php:340
 msgid "The RADIUS server of your home institution is the source of the problem"
 msgstr ""
 "Ο εξυπηρετητής RADIUS του οικείου ιδρύματος είναι η πηγή του προβλήματος"
 
-#: web/skins/modern/diag/diag.php:344
+#: web/skins/modern/diag/diag.php:343
 msgid "This realm does not exist"
 msgstr "Αυτός ο τομέας δεν υπάρχει"
 
-#: web/skins/modern/diag/diag.php:450
+#: web/skins/modern/diag/diag.php:449
 msgid "Fetching institutions list"
 msgstr "Ανάκτηση λίστας ιδρυμάτων"
 
-#: web/skins/modern/diag/diag.php:468
+#: web/skins/modern/diag/diag.php:467
 msgid "Select institution:"
 msgstr "Επιλέξτε ίδρυμα:"
 
-#: web/skins/modern/diag/diag.php:507
+#: web/skins/modern/diag/diag.php:506
 msgid "Fetching realms list"
 msgstr "Λήψη λίστας τομέων"
 
-#: web/skins/modern/diag/diag.php:519
+#: web/skins/modern/diag/diag.php:518
 msgid "Check realm(s):"
 msgstr "Ελέγξετε τομέα(εις):"
 
-#: web/skins/modern/diag/diag.php:531
+#: web/skins/modern/diag/diag.php:530
 msgid "Realm:"
 msgstr "Τομέας:"
 
-#: web/skins/modern/diag/diag.php:585 web/skins/modern/diag/diag.php:654
-#: web/skins/modern/diag/diag.php:770
+#: web/skins/modern/diag/diag.php:584 web/skins/modern/diag/diag.php:653
+#: web/skins/modern/diag/diag.php:769
 msgid "Running realm tests"
 msgstr "Εκτέλεση δοκιμών τομέα"
 
-#: web/skins/modern/diag/diag.php:629
+#: web/skins/modern/diag/diag.php:628
 msgid "Realm is not registered with the eduroam database:"
 msgstr "Ο τομέας δεν είναι καταχωρημένος στην βάση eduroam:"
 
-#: web/skins/modern/diag/diag.php:702
+#: web/skins/modern/diag/diag.php:701
 msgid "Diagnostics results for selected realms"
 msgstr "Αποτελέσματα διαγνωστικών για τους επιλεγμένους τομείς"
 
-#: web/skins/modern/diag/diag.php:703
+#: web/skins/modern/diag/diag.php:702
 msgid "An unknown problem occured"
 msgstr "Προέκυψε άγνωστο πρόβλημα"
 
-#: web/skins/modern/diag/diag.php:706
+#: web/skins/modern/diag/diag.php:705
 msgid "This test includes checking of the following realm"
 msgstr "Αυτή η δοκιμή περιλαμβάνει τον έλεγχο του ακόλουθου τομέα"
 
-#: web/skins/modern/diag/diag.php:708
+#: web/skins/modern/diag/diag.php:707
 msgid "This test includes checking of the following realms"
 msgstr "Αυτή η δοκιμή περιλαμβάνει τον έλεγχο των ακόλουθων τομέων"
 
-#: web/skins/modern/diag/diag.php:718
+#: web/skins/modern/diag/diag.php:717
 msgid "You should report this to"
 msgstr "Θα πρέπει να το αναφέρετε  στο"
 
-#: web/skins/modern/diag/diag.php:842
+#: web/skins/modern/diag/diag.php:841
 msgid "eduroam admin report submission"
 msgstr "υποβολή αναφοράς διαχειριστή eduroam"
 
-#: web/skins/modern/diag/diag.php:847 web/skins/modern/diag/diag.php:857
+#: web/skins/modern/diag/diag.php:846 web/skins/modern/diag/diag.php:856
 msgid "Reason"
 msgstr "Αιτία"
 
-#: web/skins/modern/diag/diag.php:848
+#: web/skins/modern/diag/diag.php:847
 msgid "SP email"
 msgstr "SP email"
 
-#: web/skins/modern/diag/diag.php:849
+#: web/skins/modern/diag/diag.php:848
 msgid "IdP email(s)"
 msgstr "IdP email(s)"
 
-#: web/skins/modern/diag/diag.php:850 web/skins/modern/diag/diag.php:861
+#: web/skins/modern/diag/diag.php:849 web/skins/modern/diag/diag.php:860
 msgid "Event's timestamp"
 msgstr "Χρονοσήμανση συμβάντος"
 
-#: web/skins/modern/diag/diag.php:851 web/skins/modern/diag/diag.php:862
+#: web/skins/modern/diag/diag.php:850 web/skins/modern/diag/diag.php:861
 msgid "Calling-Station-Id"
 msgstr "Calling-Station-Id"
 
-#: web/skins/modern/diag/diag.php:852 web/skins/modern/diag/diag.php:863
+#: web/skins/modern/diag/diag.php:851 web/skins/modern/diag/diag.php:862
 msgid "Additional description"
 msgstr "Επιπρόσθετη περιγραφή"
 
-#: web/skins/modern/diag/diag.php:855
+#: web/skins/modern/diag/diag.php:854
 msgid "IdP contacting SP due to technical problems or abuse"
 msgstr "Επικοινωνία IdP με SP λόγω τεχνικών προβλημάτων ή κατάχρησης"
 
-#: web/skins/modern/diag/diag.php:858
+#: web/skins/modern/diag/diag.php:857
 msgid "SP's Operator-Name"
 msgstr "Operator-Name του SP"
 
-#: web/skins/modern/diag/diag.php:859
+#: web/skins/modern/diag/diag.php:858
 msgid "User's outer ID"
 msgstr "εξωτερικό ID Χρήστη"
 
-#: web/skins/modern/diag/diag.php:860
+#: web/skins/modern/diag/diag.php:859
 msgid "IdP email"
 msgstr "IdP email"
 
-#: web/skins/modern/diag/diag.php:864
+#: web/skins/modern/diag/diag.php:863
 msgid "How to contact the user"
 msgstr "Πώς να επικοινωνήσετε με το χρήστη"
 
-#: web/skins/modern/diag/diag.php:881
+#: web/skins/modern/diag/diag.php:880
 msgid "MAC address is incomplete"
 msgstr "Η MAC address είναι ελλιπής"
 
-#: web/skins/modern/diag/diag.php:890
+#: web/skins/modern/diag/diag.php:889
 msgid "Wrong format of email"
 msgstr "Λάθος μορφή email"
 
-#: web/skins/modern/diag/diag.php:899
+#: web/skins/modern/diag/diag.php:898
 msgid "Wrong format of outer ID"
 msgstr "Λάθος μορφή του εξωτερικού ID"
 
-#: web/skins/modern/diag/diag.php:908
+#: web/skins/modern/diag/diag.php:907
 msgid "Wrong string given as OperatorName"
 msgstr "Εσφαλμένη συμβολοσειρά δόθηκε ως OperatorName"
