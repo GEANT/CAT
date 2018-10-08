@@ -1,3 +1,12 @@
+Changes in 2.0-beta3
+====================
+- [BUGFIX  #1]  restore ability for admins to download non-published installers
+                from their fine-tuning page
+- [BUGFIX  #2]  for Apple installers, check is a CA was duplicate and if so do
+                not include CA twice in installer
+- [BUGFIX  #3]  fix various translation errors (wrong quotation marks) which led
+                to incorrect installers in those languages
+
 Changes in 2.0-beta2
 ====================
 - [FEATURE #1]  warn and reject support URLs if they are not properly prefixed
