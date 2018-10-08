@@ -308,11 +308,6 @@ abstract class Device_XML extends \core\DeviceConfig {
         if ($realm === NULL) {
             return;
         }
-
-//        $outerId = \core\common\Entity::getAttributeValue($attr, 'internal:anon_local_value', 0);
-//        if ($outerId !== NULL) { 
-//            $clientsidecredential->setProperty('OuterIdentity', $outerId . '@' . $realm);
-//        }
         if (\core\common\Entity::getAttributeValue($attr, 'internal:verify_userinput_suffix', 0) !== 1) {
             return;
         }
