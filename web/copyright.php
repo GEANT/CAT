@@ -198,7 +198,7 @@ Andreas
                 </li>
             </ul>
         </div>
-        <div class='footer'>
+        <div class='footer' style='display:block'>
             <hr />
             <table style='width:100%'>
                 <tr>
@@ -210,7 +210,7 @@ Andreas
                     </td>
                     <?php
                         if (!empty(CONFIG['APPEARANCE']['privacy_notice_url'])) {
-                            $retval .= "<td><a href='".CONFIG['APPEARANCE']['privacy_notice_url']."'>" . sprintf(_("%s Privacy Notice"),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</a></td>";
+                            echo "<td><a href='".CONFIG['APPEARANCE']['privacy_notice_url']."'>" . sprintf(_("%s Privacy Notice"),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</a></td>";
                         }
                         ?>
                     
