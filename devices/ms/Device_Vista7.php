@@ -97,6 +97,7 @@ class Device_Vista7 extends WindowsCommon {
         $outerUser = '';
         $vistaExt = '';
         $w7Ext = '';
+        $useAnon = isset($attr['internal:use_anon_outer']) && $attr['internal:use_anon_outer'][0] == "1" && isset($attr['internal:realm']) ? TRUE : FALSE;
         $useAnon = $attr['internal:use_anon_outer'] [0];
         $realm = $attr['internal:realm'] [0];
         if ($useAnon) {
@@ -140,7 +141,7 @@ class Device_Vista7 extends WindowsCommon {
 <ClientSideCredential>
 <allow-save>true</allow-save>
 ';
-            if ($useAnon == 1) {
+            if ($useAnon) {
                 if ($outerUser == '') {
                     $profileFileCont .= '<AnonymousIdentity>@</AnonymousIdentity>';
                 } else {
@@ -272,7 +273,7 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
 <EnableQuarantineChecks>' . $nea . '</EnableQuarantineChecks>
 <RequireCryptoBinding>false</RequireCryptoBinding>
 ';
-            if ($useAnon == 1) {
+            if ($useAnon) {
                 $w7Ext .= '<PeapExtensions>
 <IdentityPrivacy xmlns="http://www.microsoft.com/provisioning/MsPeapConnectionPropertiesV2">
 <EnableIdentityPrivacy>true</EnableIdentityPrivacy>
