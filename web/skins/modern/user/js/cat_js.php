@@ -566,7 +566,7 @@ $(".signin").DiscoJuice({
    "textLocateMe": "<?php escaped_echo(_("Locate me more accurately using HTML5 Geo-Location")) ?>",
    "textShowProviders": "<?php escaped_echo(_("Show organisations in")) ?>",
    "textAllCountries": "<?php escaped_echo(_("all countries")) ?>",
-   "textSearch" : "<?php escaped_echo(_("or search for an organisation, for example Univerity of Oslo")) ?>",
+   "textSearch" : "<?php escaped_echo(_("or search for an organisation, for example University of Oslo")) ?>",
    "textShowAllCountries": "<?php escaped_echo(_("show all countries")) ?>",
    "textLimited1" : "<?php escaped_echo(_("Results limited to"))?>",
    "textLimited2" : "<?php escaped_echo(_("entries - show more"))?>",

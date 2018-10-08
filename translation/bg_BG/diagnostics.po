@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-05 09:32+0200\n"
+"POT-Creation-Date: 2018-10-08 14:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>, 2018\n"
 "Language-Team: Bulgarian (Bulgaria) (https://www.transifex.com/eduroam_devel/"
@@ -581,12 +581,12 @@ msgstr ""
 "до Интернет извън Вашата институция?"
 
 #: core/diag/Sociopath.php:66
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "If roaming consistently does not work, then very likely your device "
 "configuration is wrong. Typical errors causing this symptom include: using a "
 "routing ('outer') username without the @realm.tld suffix - those potentially "
-"work at home, but can not be used when roaming. %s"
+"work at your home organisation, but can not be used when roaming. %s"
 msgstr ""
 "Ако постоянно роумингът не работи, тогава много вероятно е конфигурацията на "
 "устройството Ви да е грешна. Типичните грешки, причиняващи този симптом, са: "

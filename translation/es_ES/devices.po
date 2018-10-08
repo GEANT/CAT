@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-05 09:32+0200\n"
+"POT-Creation-Date: 2018-10-08 14:35+0200\n"
 "PO-Revision-Date: 2018-09-11 13:37+0000\n"
 "Last-Translator: Alberto Martínez Setién\n"
 "Language-Team: Spanish (http://www.transifex.com/eduroam_devel/cat/language/"
@@ -271,55 +271,55 @@ msgstr ""
 msgid "(%d times each, because %s is installed for %d SSIDs)"
 msgstr "(%d veces cada vez, pues %s se instala para %d SSIDs)"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:349
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:351
 #, php-format
 msgid "SSID %s"
 msgstr "SSID %s"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:350
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:352
 #, php-format
 msgid "%s configuration for network name %s"
 msgstr "Configuración %s para el nombre de red %s"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:358
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:360
 msgid "Wired Network"
 msgstr "Red cableada"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:359
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:361
 #, php-format
 msgid "%s configuration for wired network"
 msgstr "Configuración de %s para la red cableada"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:370
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:372
 msgid "Hotspot 2.0 Settings"
 msgstr "Configuración de Hotspot 2.0"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:371
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:373
 #, php-format
 msgid "%s Hotspot 2.0 configuration"
 msgstr "Configuración de %s de tipo Hotspot 2.0"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:426
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:428
 #, php-format
 msgid "This SSID should not be used after bootstrapping %s"
 msgstr "Este SSID no debería ser usado después del arranque de %s"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:428
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:430
 msgid "Disabled WiFi network"
 msgstr "Red WiFi deshabilitada"
 
 #. we don't include the import password. It's displayed on screen, and should be input by the user.
 #. <key>Password</key>
 #. <string>" . $this->clientCert['password'] . "</string>
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:503
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:505
 msgid "eduroam user certificate"
 msgstr "certificado de usuario de eduroam"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:539
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:545
 msgid "Your Identity Providers Certification Authority"
 msgstr "La autoridad de certificación de su proveedor de identidad"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:541
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:547
 msgid "Identity Provider's CA"
 msgstr "CA del proveedor de identidad"
 
@@ -465,7 +465,8 @@ msgstr "Versión desconocida"
 
 #: devices/linux/Device_Linux.php:100
 msgid "DBus connection problem, a sudo might help"
-msgstr "Problema con la conexión con DBus. Un \"sudo\" podría ayudar."
+msgstr ""
+"Problema con la conexión con DBus. Una ejecución de sudo podría ayudar."
 
 #: devices/linux/Device_Linux.php:101
 msgid "Y"
@@ -503,15 +504,15 @@ msgid ""
 "Error: Your username must be of the form 'xxx@institutionID' e.g. "
 "'john@example.net'!"
 msgstr ""
-"Error: tu nombre de usuario debe tener la forma \"usuario@dominio\". Por "
-"ejemplo: \"juan@example.net\""
+"Error: tu nombre de usuario debe tener la forma 'usuario@dominio'. Por "
+"ejemplo: 'juan@example.net'"
 
 #: devices/linux/Device_Linux.php:109
 msgid ""
 "Error: your username must be in the form of 'xxx@{}'. Please enter the "
 "username in the correct format."
 msgstr ""
-"Error: tu nombre de usuario debe tener la forma \"usuario@{}\". Por favor, "
+"Error: tu nombre de usuario debe tener la forma 'usuario@{}'. Por favor, "
 "introduce el nombre de usuario de forma correcta."
 
 #: devices/linux/Device_Linux.php:110
@@ -519,9 +520,8 @@ msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'{}'. Please enter the username in the correct format."
 msgstr ""
-"Error: tu nombre de usuario debe tener la forma \"usuario@dominio\" y "
-"terminar con \"{}\". Por favor, introduce el nombre de usuario de forma "
-"correcta."
+"Error: tu nombre de usuario debe tener la forma 'usuario@dominio' y terminar "
+"con '{}'. Por favor, introduce el nombre de usuario de forma correcta."
 
 #: devices/linux/Device_Linux.php:111
 msgid "personal certificate file not found"

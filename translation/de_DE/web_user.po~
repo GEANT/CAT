@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"POT-Creation-Date: 2018-10-05 09:32+0200\n"
 "PO-Revision-Date: 2018-09-12 07:45+0000\n"
 "Last-Translator: Steffen Klemer <klemer@dfn.de>\n"
 "Language-Team: German (http://www.transifex.com/eduroam_devel/cat/language/"
@@ -186,6 +186,10 @@ msgstr ""
 "Wenn Sie eine neue Übersetzung zu CAT hinzufügen möchten, dann kontaktieren "
 "Sie uns bitte ..."
 
+#: web/user/devel.inc.php:18
+msgid "Documentation"
+msgstr "Anleitung"
+
 #: web/user/faq.inc.php:17 web/user/faq.php:14
 msgid "My organisation is not listed. Can't I just use any of the other ones?"
 msgstr ""
@@ -213,10 +217,11 @@ msgid "What can I do to get my organisation listed?"
 msgstr "Was kann ich tun, damit meine Organisation gelistet wird?"
 
 #: web/user/faq.inc.php:23 web/user/faq.php:20
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"Contact %s administrators within your organisation and complain. It will "
-"take at most one hour of their time to get things done."
+"Contact %s administrators within your organisation and request that they add "
+"their organisation to the system. It will take at most one hour of their "
+"time to get things done."
 msgstr ""
 "Kontaktieren Sie ihre lokalen %s Administratoren und beschweren Sie sich. Es "
 "dauert für die Administratoren höchstens eine Stunde, um das System zu "
@@ -487,7 +492,7 @@ msgstr ""
 msgid "%s Copyright and Licensing"
 msgstr "%s Copyright und Lizenzierung"
 
-#: web/copyright.php:213 web/tou.php:61 web/skins/modern/Divs.php:280
+#: web/copyright.php:213 web/tou.php:61
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "%s Datenschutzerklärung"
@@ -603,8 +608,8 @@ msgstr ""
 "Seite weitergeleitet werden sollen.<br>Wenn Sie auf <b>Weiter</b> klicken, "
 "wird diese Seite in einem neuen Fenster oder Tab geöffnet."
 
-#: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:271
-#: web/skins/modern/user/js/cat_js.php:279
+#: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:267
+#: web/skins/modern/user/js/cat_js.php:275
 msgid "Continue"
 msgstr "Weiter"
 
@@ -712,10 +717,6 @@ msgstr "Kontakt"
 #: web/skins/modern/Menu.php:48
 msgid "Diagnostics"
 msgstr "Diagnose"
-
-#: web/skins/modern/Menu.php:49
-msgid "Documentation"
-msgstr "Anleitung"
 
 #: web/skins/modern/Menu.php:52
 msgid "Manage"
@@ -899,14 +900,14 @@ msgstr ""
 "Anmelden verwenden möchten mit Ja antworten (wählen ein Zertifikat mit der "
 "Endung '... %s' aus)."
 
-#: web/skins/modern/accountstatus/accountstatus.php:159
+#: web/skins/modern/accountstatus/accountstatus.php:161
 #: web/skins/modern/user/js/cat_js.php:234
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
 "organisation at:"
 msgstr "Bei Problemen wenden Sie sich bitte an Ihre Organisation:"
 
-#: web/skins/modern/accountstatus/accountstatus.php:161
+#: web/skins/modern/accountstatus/accountstatus.php:163
 #: web/skins/modern/user/js/cat_js.php:236
 msgid ""
 "If you encounter problems you should ask those who gave you your account for "
@@ -915,52 +916,52 @@ msgstr ""
 "Wenn Sie auf Probleme stoßen sollten Sie diejenigen fragen, die Ihnen Ihren "
 "Zugang freigeschaltet haben."
 
-#: web/skins/modern/accountstatus/accountstatus.php:172
+#: web/skins/modern/accountstatus/accountstatus.php:174
 #, php-format
 msgid "Your personal %s account status page"
 msgstr "Ihre persönliche %s Status-Seite"
 
-#: web/skins/modern/accountstatus/accountstatus.php:200
+#: web/skins/modern/accountstatus/accountstatus.php:202
 msgid "Current login tokens"
 msgstr "Momentan gültige Token"
 
-#: web/skins/modern/accountstatus/accountstatus.php:201
+#: web/skins/modern/accountstatus/accountstatus.php:203
 msgid "Previous login tokens"
 msgstr "Abgelaufene Token"
 
-#: web/skins/modern/accountstatus/accountstatus.php:202
+#: web/skins/modern/accountstatus/accountstatus.php:204
 msgid "Revoked login tokens"
 msgstr "Zurückgezogene Token"
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Serial Number"
 msgstr "Seriennummer"
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Pseudonym"
 msgstr "Pseudonym"
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Device Type"
 msgstr "Gerätetyp"
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Issue Date"
 msgstr "Ausgestellt"
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Expiry Date"
 msgstr "Ablaufdatum"
 
-#: web/skins/modern/accountstatus/accountstatus.php:213
+#: web/skins/modern/accountstatus/accountstatus.php:215
 msgid "invalid token"
 msgstr "Ungültiger Token"
 
-#: web/skins/modern/accountstatus/accountstatus.php:237
+#: web/skins/modern/accountstatus/accountstatus.php:239
 msgid "The details are displayed below."
 msgstr "Die Details sind wie folgt."
 
-#: web/skins/modern/accountstatus/accountstatus.php:243
+#: web/skins/modern/accountstatus/accountstatus.php:245
 msgid "Really revoke this access credential?"
 msgstr "Wollen Sie diese Zugangsdaten wirklich zurückziehen?"
 
@@ -1008,12 +1009,12 @@ msgstr ""
 "nicht erzeugt werden. Die Systemadministratoren wurden benachrichtigt. Wir "
 "werden uns des Problems baldmöglichst annehmen."
 
-#: web/skins/modern/user/js/cat_js.php:82
-#: web/skins/modern/user/js/cat_js.php:216
+#: web/skins/modern/user/js/cat_js.php:81
+#: web/skins/modern/user/js/cat_js.php:215
 msgid "no matching data found"
 msgstr "Keine passenden Daten gefunden"
 
-#: web/skins/modern/user/js/cat_js.php:96
+#: web/skins/modern/user/js/cat_js.php:95
 msgid "select"
 msgstr "auswählen"
 
@@ -1029,26 +1030,15 @@ msgstr "E-Mail:"
 msgid "tel:"
 msgstr "Tel:"
 
-#: web/skins/modern/user/js/cat_js.php:239
-#, php-format
-msgid ""
-"When you make use of the international %s infrastructure, e.g. when roaming "
-"with your device, your data is treated according to the <a href='%s'>%s "
-"Privacy Statement</a>."
-msgstr ""
-"Wenn Sie die internationale %s Infrastruktur nutzen, zum Beispiel wenn Sie "
-"mit Ihrem Gerät im Roaming unterwegs sind, werden Ihre Daten gemäß der <a "
-"href='%s'>%s Datenschutzerklärung</a> verwendet."
-
-#: web/skins/modern/user/js/cat_js.php:258
-#: web/skins/modern/user/js/cat_js.php:284
+#: web/skins/modern/user/js/cat_js.php:254
+#: web/skins/modern/user/js/cat_js.php:280
 msgid ""
 "This device cannot be configured with the settings used in your organisation."
 msgstr ""
 "Dieses Gerät kann mit den von Ihrer Organisation festgelegten Einstellungen "
 "nicht konfiguriert werden."
 
-#: web/skins/modern/user/js/cat_js.php:271
+#: web/skins/modern/user/js/cat_js.php:267
 msgid ""
 "Your site administrator has specified that this device should be configured "
 "with resources located on a local page. When you click <b>Continue</b> this "
@@ -1058,39 +1048,39 @@ msgstr ""
 "bedient werden soll. Statt dessen werden Sie nach einem Klick auf <b>Weiter</"
 "b> auf eine lokale Service-Seite weitergeleitet."
 
-#: web/skins/modern/user/js/cat_js.php:285
+#: web/skins/modern/user/js/cat_js.php:281
 msgid "Close"
 msgstr "Schließen"
 
-#: web/skins/modern/user/js/cat_js.php:381
+#: web/skins/modern/user/js/cat_js.php:378
 msgid "Missing email address"
 msgstr "Fehlende E-Mail-Adresse"
 
-#: web/skins/modern/user/js/cat_js.php:395
+#: web/skins/modern/user/js/cat_js.php:392
 msgid "No providers found for this email"
 msgstr "Zu dieser E-Mail-Adresse konnte kein IdP gefunden werden."
 
-#: web/skins/modern/user/js/cat_js.php:400
+#: web/skins/modern/user/js/cat_js.php:397
 msgid "Your IdP is:"
 msgstr "Ihr IdP ist:"
 
-#: web/skins/modern/user/js/cat_js.php:402
+#: web/skins/modern/user/js/cat_js.php:399
 msgid "Your IdP could be one of:"
 msgstr "Ihr IdP könnte sein:"
 
-#: web/skins/modern/user/js/cat_js.php:559
+#: web/skins/modern/user/js/cat_js.php:562
 msgid "Organisation"
 msgstr "Organisation"
 
-#: web/skins/modern/user/js/cat_js.php:560
+#: web/skins/modern/user/js/cat_js.php:563
 msgid "Select your organisation"
 msgstr "Wählen Sie Ihre Organisation"
 
-#: web/skins/modern/user/js/cat_js.php:561
+#: web/skins/modern/user/js/cat_js.php:564
 msgid "Help, my organisation is not on the list"
 msgstr "Hilfe! Meine Organisation ist nicht auf der Liste!"
 
-#: web/skins/modern/user/js/cat_js.php:562
+#: web/skins/modern/user/js/cat_js.php:565
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -1101,65 +1091,65 @@ msgstr ""
 "Wenn Ihre Organisation nicht auf der Liste ist, fragen Sie bitte dort nach, "
 "damit diese Informationen in die %s Datenbank eingepflegt werden."
 
-#: web/skins/modern/user/js/cat_js.php:563
+#: web/skins/modern/user/js/cat_js.php:566
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "Meinen Standort genauer bestimmen (HTML5 Geo-Location)"
 
-#: web/skins/modern/user/js/cat_js.php:564
+#: web/skins/modern/user/js/cat_js.php:567
 msgid "Show organisations in"
 msgstr "Organisationen anzeigen in"
 
-#: web/skins/modern/user/js/cat_js.php:565
+#: web/skins/modern/user/js/cat_js.php:568
 msgid "all countries"
 msgstr "Alle Länder"
 
-#: web/skins/modern/user/js/cat_js.php:566
+#: web/skins/modern/user/js/cat_js.php:569
 msgid "or search for an organisation, for example Univerity of Oslo"
 msgstr ""
 "oder suchen Sie nach einer bestimmten Organisation, zum Beispiel Universität "
 "Luxemburg"
 
-#: web/skins/modern/user/js/cat_js.php:567
+#: web/skins/modern/user/js/cat_js.php:570
 msgid "show all countries"
 msgstr "Alle Länder anzeigen"
 
-#: web/skins/modern/user/js/cat_js.php:568
+#: web/skins/modern/user/js/cat_js.php:571
 msgid "Results limited to"
 msgstr "Ergebnisse beschränkt auf"
 
-#: web/skins/modern/user/js/cat_js.php:569
+#: web/skins/modern/user/js/cat_js.php:572
 msgid "entries - show more"
 msgstr "Einträge - mehr anzeigen"
 
-#: web/skins/modern/user/js/cat_js.php:570
+#: web/skins/modern/user/js/cat_js.php:573
 msgid "Nearby"
 msgstr "In der Nähe"
 
-#: web/skins/modern/user/js/cat_js.php:571
+#: web/skins/modern/user/js/cat_js.php:574
 msgid "Location timeout"
 msgstr "Zeitüberschreitung bei der Lokalisierung"
 
-#: web/skins/modern/user/js/cat_js.php:572
+#: web/skins/modern/user/js/cat_js.php:575
 msgid "Could not get your position"
 msgstr "Ihre Position konnte nicht ermittelt werden"
 
-#: web/skins/modern/user/js/cat_js.php:573
+#: web/skins/modern/user/js/cat_js.php:576
 msgid "Your browser has denied access to your location"
 msgstr "Ihr Browser hat Ablehnung der Lokalisierung signalisiert"
 
-#: web/skins/modern/user/js/cat_js.php:574
+#: web/skins/modern/user/js/cat_js.php:577
 msgid "Unknown location error"
 msgstr "Unbekannter Fehler beim Bestimmen der Position"
 
-#: web/skins/modern/user/js/cat_js.php:575
+#: web/skins/modern/user/js/cat_js.php:578
 msgid "You are here:"
 msgstr "Sie sind hier:"
 
-#: web/skins/modern/user/js/cat_js.php:576
+#: web/skins/modern/user/js/cat_js.php:579
 msgid "Getting your location..."
 msgstr "Position wird ermittelt..."
 
-#: web/skins/modern/user/js/cat_js.php:577
+#: web/skins/modern/user/js/cat_js.php:580
 msgid "Nearby providers shown on top."
 msgstr "Institutionen in der Nähe stehen oben in der Liste."
 
@@ -1208,3 +1198,12 @@ msgstr "alle größeren Distributionen"
 #: web/skins/modern/user/js/roll.php:139
 msgid "Chrome OS"
 msgstr "Chrome OS"
+
+#~ msgid ""
+#~ "When you make use of the international %s infrastructure, e.g. when "
+#~ "roaming with your device, your data is treated according to the <a "
+#~ "href='%s'>%s Privacy Statement</a>."
+#~ msgstr ""
+#~ "Wenn Sie die internationale %s Infrastruktur nutzen, zum Beispiel wenn "
+#~ "Sie mit Ihrem Gerät im Roaming unterwegs sind, werden Ihre Daten gemäß "
+#~ "der <a href='%s'>%s Datenschutzerklärung</a> verwendet."

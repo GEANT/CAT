@@ -268,7 +268,7 @@ class SanityTests extends CAT {
     }
 
     /**
-     * test if eapol_test is availabe and reacent enough
+     * test if eapol_test is available and recent enough
      */
     private function eapol_test_test() {
         exec(CONFIG_DIAGNOSTICS['PATHS']['eapol_test'], $out, $retval);

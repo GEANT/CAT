@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-05 09:32+0200\n"
+"POT-Creation-Date: 2018-10-08 14:35+0200\n"
 "PO-Revision-Date: 2018-09-19 08:57+0000\n"
 "Last-Translator: Janos Mohacsi <mohacsi@niif.hu>\n"
 "Language-Team: Hungarian (http://www.transifex.com/eduroam_devel/cat/"
@@ -163,8 +163,8 @@ msgid "Join the developers mailing list."
 msgstr "Csatlakozz a fejlesztők levelezési listájához."
 
 #: web/user/devel.inc.php:15
-#, php-format
-msgid "The list is availabe at: %s"
+#, fuzzy, php-format
+msgid "The list is available at: %s"
 msgstr "A lista elérhető:  %s"
 
 #: web/user/devel.inc.php:16
@@ -1078,7 +1078,8 @@ msgid "all countries"
 msgstr "minden ország"
 
 #: web/skins/modern/user/js/cat_js.php:569
-msgid "or search for an organisation, for example Univerity of Oslo"
+#, fuzzy
+msgid "or search for an organisation, for example University of Oslo"
 msgstr ""
 "vagy keress egy szervezetet, például az Budapest Műszaki és "
 "Gazdaságtudományi Egyetemet"

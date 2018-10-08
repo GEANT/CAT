@@ -6,6 +6,8 @@ Changes in 2.0-beta3
                 not include CA twice in installer
 - [BUGFIX  #3]  fix various translation errors (wrong quotation marks) which led
                 to incorrect installers in those languages
+- [BUGFIX  #4]  make the "test" device work again
+- [BUGFIX  #5]  various typos
 
 Changes in 2.0-beta2
 ====================

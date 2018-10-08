@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-05 09:32+0200\n"
+"POT-Creation-Date: 2018-10-08 14:35+0200\n"
 "PO-Revision-Date: 2018-09-12 07:45+0000\n"
 "Last-Translator: Steffen Klemer <klemer@dfn.de>\n"
 "Language-Team: German (http://www.transifex.com/eduroam_devel/cat/language/"
@@ -169,8 +169,8 @@ msgid "Join the developers mailing list."
 msgstr "Melden Sie sich bei der Entwickler Mailingliste an."
 
 #: web/user/devel.inc.php:15
-#, php-format
-msgid "The list is availabe at: %s"
+#, fuzzy, php-format
+msgid "The list is available at: %s"
 msgstr ""
 "Die Diskussions Mailing-Liste der Entwickler erreichen Sie auf %s. Bitte "
 "beachten Sie, dass die bevorzugte Sprache dort Englisch ist."
@@ -1104,7 +1104,8 @@ msgid "all countries"
 msgstr "Alle Länder"
 
 #: web/skins/modern/user/js/cat_js.php:569
-msgid "or search for an organisation, for example Univerity of Oslo"
+#, fuzzy
+msgid "or search for an organisation, for example University of Oslo"
 msgstr ""
 "oder suchen Sie nach einer bestimmten Organisation, zum Beispiel Universität "
 "Luxemburg"

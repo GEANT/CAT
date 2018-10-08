@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"POT-Creation-Date: 2018-10-05 09:32+0200\n"
 "PO-Revision-Date: 2018-09-24 13:27+0000\n"
 "Last-Translator: M. Uğur YILMAZ <muy1970@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/eduroam_devel/cat/language/"
@@ -183,6 +183,10 @@ msgid ""
 msgstr ""
 "Eğer CAT'a yeni bir dil eklemek isterseniz lütfen bizimle iletişime geçin ..."
 
+#: web/user/devel.inc.php:18
+msgid "Documentation"
+msgstr "Belgeleme"
+
 #: web/user/faq.inc.php:17 web/user/faq.php:14
 msgid "My organisation is not listed. Can't I just use any of the other ones?"
 msgstr "Kurumum listelenmiyor. Diğerlerini kullanamaz mıyım?"
@@ -205,10 +209,11 @@ msgid "What can I do to get my organisation listed?"
 msgstr "Kuruluşumun listelenmesi için ne yapabilirim?"
 
 #: web/user/faq.inc.php:23 web/user/faq.php:20
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"Contact %s administrators within your organisation and complain. It will "
-"take at most one hour of their time to get things done."
+"Contact %s administrators within your organisation and request that they add "
+"their organisation to the system. It will take at most one hour of their "
+"time to get things done."
 msgstr ""
 "Kurumunuzdaki %s yöneticilerine başvurun ve şikayette bulunun. İşlerin "
 "yapılması en fazla bir saatlerini alacaktır."
@@ -477,7 +482,7 @@ msgstr ""
 msgid "%s Copyright and Licensing"
 msgstr "%s Lisanslama ve Telif"
 
-#: web/copyright.php:213 web/tou.php:61 web/skins/modern/Divs.php:280
+#: web/copyright.php:213 web/tou.php:61
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "%s Gizlilik Bildirimi"
@@ -591,8 +596,8 @@ msgstr ""
 "<br><b>Devam</b>'ı tıklattığınızda bu destek sayfası yeni bir pencerede/"
 "sekmede açılır."
 
-#: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:271
-#: web/skins/modern/user/js/cat_js.php:279
+#: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:267
+#: web/skins/modern/user/js/cat_js.php:275
 msgid "Continue"
 msgstr "Devam Et"
 
@@ -701,10 +706,6 @@ msgstr "İletişim"
 #: web/skins/modern/Menu.php:48
 msgid "Diagnostics"
 msgstr "Teşhis"
-
-#: web/skins/modern/Menu.php:49
-msgid "Documentation"
-msgstr "Belgeleme"
 
 #: web/skins/modern/Menu.php:52
 msgid "Manage"
@@ -880,7 +881,7 @@ msgstr ""
 "edebilir ve bir istemci sertifikası ile giriş yapma hakkındaki soruyu kabul "
 "edebilirsiniz ('… %s' ile biten bir sertifika seçin)."
 
-#: web/skins/modern/accountstatus/accountstatus.php:159
+#: web/skins/modern/accountstatus/accountstatus.php:161
 #: web/skins/modern/user/js/cat_js.php:234
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
@@ -888,7 +889,7 @@ msgid ""
 msgstr ""
 "Eğer problem yaşıyorsanız, kurumunuzdan doğrudan yardım alabilirsiniz: "
 
-#: web/skins/modern/accountstatus/accountstatus.php:161
+#: web/skins/modern/accountstatus/accountstatus.php:163
 #: web/skins/modern/user/js/cat_js.php:236
 msgid ""
 "If you encounter problems you should ask those who gave you your account for "
@@ -897,52 +898,52 @@ msgstr ""
 "Eğer problem yaşıyorsanız,  yardım için, hesabınızı verenlere,  "
 "danışmalısınız."
 
-#: web/skins/modern/accountstatus/accountstatus.php:172
+#: web/skins/modern/accountstatus/accountstatus.php:174
 #, php-format
 msgid "Your personal %s account status page"
 msgstr "Kişisel %s hesabı durum sayfanız"
 
-#: web/skins/modern/accountstatus/accountstatus.php:200
+#: web/skins/modern/accountstatus/accountstatus.php:202
 msgid "Current login tokens"
 msgstr "Geçerli giriş belirteçleri"
 
-#: web/skins/modern/accountstatus/accountstatus.php:201
+#: web/skins/modern/accountstatus/accountstatus.php:203
 msgid "Previous login tokens"
 msgstr "Önceki giriş belirteçleri"
 
-#: web/skins/modern/accountstatus/accountstatus.php:202
+#: web/skins/modern/accountstatus/accountstatus.php:204
 msgid "Revoked login tokens"
 msgstr "İptal edilen giriş belirteçleri"
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Serial Number"
 msgstr "Seri Numarası"
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Pseudonym"
 msgstr "Takma Ad"
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Device Type"
 msgstr "Cihaz Tipi"
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Issue Date"
 msgstr "Veriliş Tarihi"
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Expiry Date"
 msgstr "Son Kullanma Tarihi"
 
-#: web/skins/modern/accountstatus/accountstatus.php:213
+#: web/skins/modern/accountstatus/accountstatus.php:215
 msgid "invalid token"
 msgstr "geçersiz belirteç"
 
-#: web/skins/modern/accountstatus/accountstatus.php:237
+#: web/skins/modern/accountstatus/accountstatus.php:239
 msgid "The details are displayed below."
 msgstr "Detaylar aşağıda verilmiştir."
 
-#: web/skins/modern/accountstatus/accountstatus.php:243
+#: web/skins/modern/accountstatus/accountstatus.php:245
 msgid "Really revoke this access credential?"
 msgstr "Bu erişim bilgisi gerçekten iptal edilsin mi?"
 
@@ -988,12 +989,12 @@ msgstr ""
 "Bu utanç verici. Yükleyiciniz oluşturulurken başarısız olundu. Sistem "
 "yöneticileri bilgilendirildi. Problemi en kısa süre ele alacağız."
 
-#: web/skins/modern/user/js/cat_js.php:82
-#: web/skins/modern/user/js/cat_js.php:216
+#: web/skins/modern/user/js/cat_js.php:81
+#: web/skins/modern/user/js/cat_js.php:215
 msgid "no matching data found"
 msgstr "eşleşen bir veri bulunamadı"
 
-#: web/skins/modern/user/js/cat_js.php:96
+#: web/skins/modern/user/js/cat_js.php:95
 msgid "select"
 msgstr "seç"
 
@@ -1009,23 +1010,13 @@ msgstr "e-posta:"
 msgid "tel:"
 msgstr "tlf:"
 
-#: web/skins/modern/user/js/cat_js.php:239
-#, php-format
-msgid ""
-"When you make use of the international %s infrastructure, e.g. when roaming "
-"with your device, your data is treated according to the <a href='%s'>%s "
-"Privacy Statement</a>."
-msgstr ""
-"Uluslararası %s altyapısını kullandığınızda, ör. cihazınızla dolaşımdayken, "
-"verileriniz <a href='%s'>%s Gizlilik Bildirimine</a> göre değerlendirilir."
-
-#: web/skins/modern/user/js/cat_js.php:258
-#: web/skins/modern/user/js/cat_js.php:284
+#: web/skins/modern/user/js/cat_js.php:254
+#: web/skins/modern/user/js/cat_js.php:280
 msgid ""
 "This device cannot be configured with the settings used in your organisation."
 msgstr "Bu cihaz, kurumunuzda kullanılan ayarlarla yapılandırılamıyor."
 
-#: web/skins/modern/user/js/cat_js.php:271
+#: web/skins/modern/user/js/cat_js.php:267
 msgid ""
 "Your site administrator has specified that this device should be configured "
 "with resources located on a local page. When you click <b>Continue</b> this "
@@ -1035,39 +1026,39 @@ msgstr ""
 "kullanılarak yapılandırılması gerektiğini belirtmektedir. <b>Devam et</b> "
 "seçeneğini tıkladığınızda bu sayfa yeni bir pencere/sekme de açılacaktır."
 
-#: web/skins/modern/user/js/cat_js.php:285
+#: web/skins/modern/user/js/cat_js.php:281
 msgid "Close"
 msgstr "Kapat"
 
-#: web/skins/modern/user/js/cat_js.php:381
+#: web/skins/modern/user/js/cat_js.php:378
 msgid "Missing email address"
 msgstr "Eksik e-posta adresi"
 
-#: web/skins/modern/user/js/cat_js.php:395
+#: web/skins/modern/user/js/cat_js.php:392
 msgid "No providers found for this email"
 msgstr "Bu e-posta için sağlayıcı bulunamadı"
 
-#: web/skins/modern/user/js/cat_js.php:400
+#: web/skins/modern/user/js/cat_js.php:397
 msgid "Your IdP is:"
 msgstr "Kimlik sağlayıcınız:"
 
-#: web/skins/modern/user/js/cat_js.php:402
+#: web/skins/modern/user/js/cat_js.php:399
 msgid "Your IdP could be one of:"
 msgstr "Kimlik sağlayıcınız şunlardan biri olabilir:"
 
-#: web/skins/modern/user/js/cat_js.php:559
+#: web/skins/modern/user/js/cat_js.php:562
 msgid "Organisation"
 msgstr "Kurum"
 
-#: web/skins/modern/user/js/cat_js.php:560
+#: web/skins/modern/user/js/cat_js.php:563
 msgid "Select your organisation"
 msgstr "Kurumunuzu seçin"
 
-#: web/skins/modern/user/js/cat_js.php:561
+#: web/skins/modern/user/js/cat_js.php:564
 msgid "Help, my organisation is not on the list"
 msgstr "Yardım, kurumum listede yok"
 
-#: web/skins/modern/user/js/cat_js.php:562
+#: web/skins/modern/user/js/cat_js.php:565
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -1078,63 +1069,63 @@ msgstr ""
 "Kurumunuz listede değilse, kurumunuzu %s veritabanına bilgilerini eklemek "
 "için, zorlayın."
 
-#: web/skins/modern/user/js/cat_js.php:563
+#: web/skins/modern/user/js/cat_js.php:566
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "HTML5 Geo-Location ile konum bilgimi daha doğru bir şekilde tespit et"
 
-#: web/skins/modern/user/js/cat_js.php:564
+#: web/skins/modern/user/js/cat_js.php:567
 msgid "Show organisations in"
 msgstr "Şunun içindeki kurumları göster:"
 
-#: web/skins/modern/user/js/cat_js.php:565
+#: web/skins/modern/user/js/cat_js.php:568
 msgid "all countries"
 msgstr "bütün ülkeler"
 
-#: web/skins/modern/user/js/cat_js.php:566
+#: web/skins/modern/user/js/cat_js.php:569
 msgid "or search for an organisation, for example Univerity of Oslo"
 msgstr "yada bir kurum arayın, örneğin Oslo Üniversitesi"
 
-#: web/skins/modern/user/js/cat_js.php:567
+#: web/skins/modern/user/js/cat_js.php:570
 msgid "show all countries"
 msgstr "bütün ülkeleri göster"
 
-#: web/skins/modern/user/js/cat_js.php:568
+#: web/skins/modern/user/js/cat_js.php:571
 msgid "Results limited to"
 msgstr "Sonuçlar limitle"
 
-#: web/skins/modern/user/js/cat_js.php:569
+#: web/skins/modern/user/js/cat_js.php:572
 msgid "entries - show more"
 msgstr "girdiler - daha fazlasını göster"
 
-#: web/skins/modern/user/js/cat_js.php:570
+#: web/skins/modern/user/js/cat_js.php:573
 msgid "Nearby"
 msgstr "Civarında"
 
-#: web/skins/modern/user/js/cat_js.php:571
+#: web/skins/modern/user/js/cat_js.php:574
 msgid "Location timeout"
 msgstr "Konum zaman aşımı"
 
-#: web/skins/modern/user/js/cat_js.php:572
+#: web/skins/modern/user/js/cat_js.php:575
 msgid "Could not get your position"
 msgstr "Pozisyon bilginiz elde edilemedi"
 
-#: web/skins/modern/user/js/cat_js.php:573
+#: web/skins/modern/user/js/cat_js.php:576
 msgid "Your browser has denied access to your location"
 msgstr "Konum bilginize erişim tarayıcınız tarafından engellenmektedir"
 
-#: web/skins/modern/user/js/cat_js.php:574
+#: web/skins/modern/user/js/cat_js.php:577
 msgid "Unknown location error"
 msgstr "Bilinmeyen konum hatası"
 
-#: web/skins/modern/user/js/cat_js.php:575
+#: web/skins/modern/user/js/cat_js.php:578
 msgid "You are here:"
 msgstr "Buradasınız:"
 
-#: web/skins/modern/user/js/cat_js.php:576
+#: web/skins/modern/user/js/cat_js.php:579
 msgid "Getting your location..."
 msgstr "Konum bilginiz alınıyor..."
 
-#: web/skins/modern/user/js/cat_js.php:577
+#: web/skins/modern/user/js/cat_js.php:580
 msgid "Nearby providers shown on top."
 msgstr "Yakınlardaki sağlayıcılar en üstte gösteriliyor"
 
@@ -1183,3 +1174,12 @@ msgstr "bütün ana dağıtımlar"
 #: web/skins/modern/user/js/roll.php:139
 msgid "Chrome OS"
 msgstr "Chrome OS"
+
+#~ msgid ""
+#~ "When you make use of the international %s infrastructure, e.g. when "
+#~ "roaming with your device, your data is treated according to the <a "
+#~ "href='%s'>%s Privacy Statement</a>."
+#~ msgstr ""
+#~ "Uluslararası %s altyapısını kullandığınızda, ör. cihazınızla "
+#~ "dolaşımdayken, verileriniz <a href='%s'>%s Gizlilik Bildirimine</a> göre "
+#~ "değerlendirilir."

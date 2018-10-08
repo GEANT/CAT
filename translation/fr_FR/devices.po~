@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
+"POT-Creation-Date: 2018-10-05 09:32+0200\n"
 "PO-Revision-Date: 2013-02-11 10:10+0000\n"
 "Last-Translator: Nicolas.Garnier <nicolas.garnier@renater.fr>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/cat/"
@@ -95,11 +95,13 @@ msgid ""
 msgstr ""
 
 #: devices/Devices-template.php:331
-msgid "Android 6.0 Marshmallow"
+msgid "Android 9.0 Pie"
 msgstr ""
 
 #: devices/Devices-template.php:337 devices/Devices-template.php:353
-#: devices/Devices-template.php:369 devices/Devices-template.php:386
+#: devices/Devices-template.php:369 devices/Devices-template.php:385
+#: devices/Devices-template.php:401 devices/Devices-template.php:417
+#: devices/Devices-template.php:434
 #, php-format
 msgid ""
 "Before you proceed with installation on Android systems, please make sure "
@@ -109,31 +111,45 @@ msgid ""
 msgstr ""
 
 #: devices/Devices-template.php:341 devices/Devices-template.php:357
-#: devices/Devices-template.php:373 devices/Devices-template.php:390
+#: devices/Devices-template.php:373 devices/Devices-template.php:389
+#: devices/Devices-template.php:405 devices/Devices-template.php:421
+#: devices/Devices-template.php:438
 msgid "as local download"
 msgstr ""
 
 #: devices/Devices-template.php:347
-msgid "Android 5.0 Lollipop"
+msgid "Android 8.0 Oreo"
 msgstr ""
 
 #: devices/Devices-template.php:363
+msgid "Android 6.0 Nougat"
+msgstr ""
+
+#: devices/Devices-template.php:379
+msgid "Android 6.0 Marshmallow"
+msgstr ""
+
+#: devices/Devices-template.php:395
+msgid "Android 5.0 Lollipop"
+msgstr ""
+
+#: devices/Devices-template.php:411
 msgid "Android 4.4 KitKat"
 msgstr ""
 
-#: devices/Devices-template.php:380
+#: devices/Devices-template.php:428
 msgid "Android 4.3"
 msgstr ""
 
-#: devices/Devices-template.php:396
+#: devices/Devices-template.php:444
 msgid "Android"
 msgstr ""
 
-#: devices/Devices-template.php:407
+#: devices/Devices-template.php:455
 msgid "EAP config"
 msgstr ""
 
-#: devices/Devices-template.php:412
+#: devices/Devices-template.php:460
 #, php-format
 msgid ""
 "This option provides a generic EAP config XML file, which can be consumed by "
@@ -141,7 +157,7 @@ msgid ""
 "is still an experimental feature."
 msgstr ""
 
-#: devices/Devices-template.php:418
+#: devices/Devices-template.php:466
 msgid "Test"
 msgstr ""
 
@@ -567,9 +583,10 @@ msgstr ""
 "votre portée."
 
 #: devices/ms/WindowsCommon.php:135
+#, fuzzy
 msgid ""
 "You will be required to enter the same credentials for each of the "
-"configured notworks:"
+"configured networks:"
 msgstr ""
 "Les même informations vous seront demandées pour chaque réseau configuré :"
 
@@ -807,7 +824,7 @@ msgstr "installation des identifiants pour le profil $R1"
 msgid "installing credentials for profile $R1"
 msgstr "installation des identifiants pour le profil $R1"
 
-#: devices/ms/Files/common.inc:1056 devices/ms/Files/geant_link.inc:107
+#: devices/ms/Files/common.inc:1056 devices/ms/Files/geant_link.inc:109
 msgid "Credentials installation problem"
 msgstr "Problème à l'installation des identifiants"
 
@@ -949,20 +966,20 @@ msgstr "profil utilisateur"
 msgid "install program"
 msgstr "installer le programme"
 
-#: devices/ms/Files/geant_link.inc:78
+#: devices/ms/Files/geant_link.inc:79
 msgid ""
 "An additional piece of software 'GEANTlink' needs to be installed. This "
 "installation requires Administrator rights; you will be prompted to give "
 "permission for that action."
 msgstr ""
 
-#: devices/ms/Files/geant_link.inc:89
+#: devices/ms/Files/geant_link.inc:91
 msgid ""
 "Error installing GEANTLink.$\\nEmbedded installer didn't complete "
 "succesfully."
 msgstr ""
 
-#: devices/ms/Files/geant_link.inc:99
+#: devices/ms/Files/geant_link.inc:101
 #, fuzzy
 msgid "installing credentials for ${PROVIDERID}"
 msgstr "installation des identifiants pour le profil $R1"
