@@ -293,8 +293,10 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         $retval .= "<key>PayloadCertificateAnchorUUID</key>
                          <array>";
         foreach ($this->listCAUuids() as $uuid) {
-            $retval .= "
+            if (in_array($uuid, $this->CAsAccountedFor)) {
+                $retval .= "
 <string>$uuid</string>";
+            }
         }
         $retval .= "
                          </array>
@@ -522,13 +524,17 @@ $mimeFormatted
         <date>" . $expiryTime->format("Y-m-d") . "T" . $expiryTime->format("H:i:s") . "Z</date>";
     }
 
-    private function caBlob($ca) {
-        // cut lines with CERTIFICATE
-        $stage1 = preg_replace('/-----BEGIN CERTIFICATE-----/', '', $ca['pem']);
-        $stage2 = preg_replace('/-----END CERTIFICATE-----/', '', $stage1);
-        $trimmedPem = trim($stage2);
+    private $CAsAccountedFor = [];
 
-        $stream = "
+    private function caBlob($ca) {
+        $stream = "";
+        if (!in_array($ca['uuid'], $this->CAsAccountedFor)) { // skip if this is a duplicate
+            // cut lines with CERTIFICATE
+            $stage1 = preg_replace('/-----BEGIN CERTIFICATE-----/', '', $ca['pem']);
+            $stage2 = preg_replace('/-----END CERTIFICATE-----/', '', $stage1);
+            $trimmedPem = trim($stage2);
+
+            $stream = "
             <dict>
                <key>PayloadCertificateFileName</key>
                <string>" . $ca['uuid'] . ".der</string>
@@ -549,7 +555,7 @@ $mimeFormatted
                <key>PayloadVersion</key>
                <integer>1</integer>
             </dict>";
-
+        }
         return $stream;
     }
 
