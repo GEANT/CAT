@@ -15,8 +15,11 @@ class PageDecoration {
 
     private $validator;
     private $ui;
-
+    private $langObject;
+    
     public function __construct() {
+        $this->langObject = new \core\common\Language();
+        $this->langObject->setTextDomain("web_admin");
         $this->validator = new \web\lib\common\InputValidation();
         $this->ui = new UIElements();
     }
@@ -174,9 +177,7 @@ class PageDecoration {
             $auth = new \web\lib\admin\Authentication();
             $auth->authenticate();
         }
-        $langObject = new \core\common\Language();
-        $langObject->setTextDomain("web_admin");
-        $ourlocale = $langObject->getLang();
+        $ourlocale = $this->langObject->getLang();
         header("Content-Type:text/html;charset=utf-8");
         $retval = "<!DOCTYPE html>
           <html xmlns='http://www.w3.org/1999/xhtml' lang='$ourlocale'>
