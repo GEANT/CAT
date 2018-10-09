@@ -223,8 +223,11 @@ abstract class WindowsCommon extends \core\DeviceConfig {
         } else {
             $makensis = CONFIG_CONFASSISTANT['PATHS']['makensis'];
         }
+        $lcAll = getenv("LC_ALL");
+        putenv("LC_ALL=en_US.UTF-8");
         $command = $makensis . ' -V4 cat.NSI > nsis.log 2>&1';
         system($command);
+        putenv("LC_ALL=" . $lcAll);
         $this->loggerInstance->debug(4, "compileNSIS:$command\n");
     }
 
