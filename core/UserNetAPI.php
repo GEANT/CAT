@@ -93,7 +93,7 @@ class UserNetAPI extends UserAPI {
         $idps = $this->listAllIdentityProviders(1, $country);
         $returnArray = [];
         foreach ($idps as $idp) {
-            $returnArray[] = ['idp' => $idp['entityID'], 'display' => $idp['title']];
+            $returnArray[] = ['idp' => $idp['entityID'], 'id' => $idp['entityID'], 'display' => $idp['title']];
         }
         echo $this->returnJSON($returnArray);
     }
@@ -108,6 +108,7 @@ class UserNetAPI extends UserAPI {
         $returnArray = [];
         foreach ($idps as $idp) {
             $idp['idp'] = $idp['entityID'];
+            $idp['id'] = $idp['entityID'];
             $returnArray[] = $idp;
         }
         echo json_encode($returnArray);
@@ -164,7 +165,7 @@ class UserNetAPI extends UserAPI {
             usort($profiles, ["UserAPI", "profileSort"]);
         }
         foreach ($profiles as $profile) {
-            $returnArray[] = ['profile' => $profile->identifier, 'display' => $profile->name, 'idp_name' => $profile->instName, 'logo' => $hasLogo];
+            $returnArray[] = ['profile' => $profile->identifier, 'id'=>$profile->identifier, 'display' => $profile->name, 'idp_name' => $profile->instName, 'logo' => $hasLogo];
         }
         echo $this->returnJSON($returnArray, 1, $otherData);
     }
