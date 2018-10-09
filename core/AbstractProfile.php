@@ -517,7 +517,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                             // fetch customtexts from method-level attributes
                             $eapCustomtext = 0;
                             $customTextAttributes = [];
-                            $attributeList = $this->getAttributes("eap-specific:redirect"); // eap-specific attributes always have the array index 'eapmethod' set
+                            $attributeList = $this->getAttributes("eap-specific:customtext"); // eap-specific attributes always have the array index 'eapmethod' set
                             foreach ($attributeList as $oneAttribute) {
                                 if ($oneAttribute["eapmethod"] == $eap) {
                                     $customTextAttributes[] = $oneAttribute;
@@ -530,7 +530,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                         }
                         // fetch customtexts for device
                         $customTextAttributes = [];
-                        $attributeList = $this->getAttributes("device-specific:redirect");
+                        $attributeList = $this->getAttributes("device-specific:customtext");
                         foreach ($attributeList as $oneAttribute) {
                             if ($oneAttribute["device"] == $deviceIndex) { // device-specific attributes always have the array index "device" set
                                 $customTextAttributes[] = $oneAttribute;
