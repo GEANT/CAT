@@ -32,8 +32,7 @@ class PageDecoration {
         $retval = "<div class='sidebar'><p>";
 
         if ($advancedControls) {
-            $retval .= "<strong>" . _("You are:") . "</strong> "
-                    . (isset($_SESSION['name']) ? $_SESSION['name'] : _("Unnamed User")) . "
+            $retval .= "<strong>" . _("You are:") . "</strong> ".$_SESSION['name']." </strong>
               <br/>
               <br/>
               <a href='" . \core\CAT::getRootUrlPath() . "/admin/overview_user.php'>" . _("Go to your Profile page") . "</a> 
