@@ -88,15 +88,13 @@ class UserAPI extends CAT {
         $attribs = $profile->getCollapsedAttributes();
         if (\core\common\Entity::getAttributeValue($attribs, 'profile:production', 0) !== 'on') {
             $this->loggerInstance->debug(4, "Attempt to download a non-production ready installer for profile: $profile->identifier\n");
-            // initialise PHP session, otherwise the user ID won't end up in $_SESSION
-            CAT_session_start();
             $auth = new \web\lib\admin\Authentication();
-            $auth->authenticate();
             if (!$auth->isAuthenticated()) {
                 $this->loggerInstance->debug(2, "User NOT authenticated, rejecting request for a non-production installer\n");
                 header("HTTP/1.0 403 Not Authorized");
                 return FALSE;
             }
+            $auth->authenticate();
             $userObject = new User($_SESSION['user']);
             if (!$userObject->isIdPOwner($profile->institution)) {
                 $this->loggerInstance->debug(2, "User not an owner of a non-production profile - access forbidden\n");
