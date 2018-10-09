@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+import argparse
 import subprocess 
 import sys
 
@@ -61,12 +63,16 @@ def debug(msg):
     
 def run_installer():
     global debug_on
-    try:
-        if sys.argv[1] == '-d':
-            debug_on = True
-            print("Runnng debug mode")
-    except:
-        pass
+
+    parser = argparse.ArgumentParser(description='eduroam linux installer')
+    parser.add_argument('--debug', '-d', action='store_true', dest='debug',
+                        default=False, help='set debug flag')
+    args = parser.parse_args()
+
+    if args.debug:
+        debug_on = True
+        print("Runnng debug mode")
+
     debug(get_system())
     inst = InstallerData();
     inst.get_user_cred()
