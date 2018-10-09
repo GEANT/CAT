@@ -8,6 +8,9 @@ Changes in 2.0-beta3
                 to incorrect installers in those languages
 - [BUGFIX  #4]  make the "test" device work again
 - [BUGFIX  #5]  various typos
+- [BUGFIX  #6]  display admin user's real name as we get it from SAML. Not
+                stored persistently anywhere yet.
+                
 
 Changes in 2.0-beta2
 ====================
