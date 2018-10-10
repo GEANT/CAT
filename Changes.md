@@ -12,6 +12,9 @@ Changes in 2.0-beta3
                 stored persistently anywhere yet.
 - [BUGFIX  #7]  invalidate all cached installers federation-wide if a federation
                 has changed one of its properties
+- [BUGFIX  #8]  for Apple installers, the flag "verify user input has suffix" is
+                now honoured (the warning was erroneously always displayed 
+                before)
                 
 
 Changes in 2.0-beta2
