@@ -38,7 +38,8 @@ if ($operatingSystem) {
 
 print 'downloadMessage = "' . $Gui->textTemplates->templates[\web\lib\user\DOWNLOAD_MESSAGE] . '";';
 //TODO modify this based on OS detection
-if (preg_match('/Android/', $_SERVER['HTTP_USER_AGENT'])) {
+$userAgent = $_SERVER['HTTP_USER_AGENT'] ?? "";
+if (preg_match('/Android/', $userAgent)) {
     $profile_list_size = 1;
 } else {
     $profile_list_size = 4;
