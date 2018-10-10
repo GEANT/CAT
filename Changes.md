@@ -10,6 +10,8 @@ Changes in 2.0-beta3
 - [BUGFIX  #5]  various typos
 - [BUGFIX  #6]  display admin user's real name as we get it from SAML. Not
                 stored persistently anywhere yet.
+- [BUGFIX  #7]  invalidate all cached installers federation-wide if a federation
+                has changed one of its properties
                 
 
 Changes in 2.0-beta2
