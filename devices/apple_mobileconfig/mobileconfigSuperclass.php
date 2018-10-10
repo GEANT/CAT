@@ -98,8 +98,8 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         if (isset($this->attributes['support:info_file'])) {
             return mobileconfigSuperclass::BUFFER_CONSENT_PRE . htmlspecialchars(iconv("UTF-8", "UTF-8//TRANSLIT", $this->attributes['support:info_file'][0]), ENT_XML1, 'UTF-8') . mobileconfigSuperclass::BUFFER_CONSENT_POST;
         }
-        if ($this->attributes['internal:verify_userinput_suffix'] == true) {
-            if (strlen($this->attributes['internal:realm']) > 0) {
+        if ($this->attributes['internal:verify_userinput_suffix'][0] != 0) {
+            if (strlen($this->attributes['internal:realm'][0]) > 0) {
                 return mobileconfigSuperclass::BUFFER_CONSENT_PRE . sprintf(_("Important Notice: your username must end with @%s!"), $this->attributes['internal:realm'][0]) . mobileconfigSuperclass::BUFFER_CONSENT_POST;
             }
             return mobileconfigSuperclass::BUFFER_CONSENT_PRE . _("Important Notice: your username MUST be in the form of xxx@yyy where the yyy is a common suffix identifying your Identity Provider. Please find out what to use there and enter the username in the correct format.") . mobileconfigSuperclass::BUFFER_CONSENT_POST;
