@@ -121,9 +121,12 @@ $.fn.redraw = function(){
       $("#profiles").show();
      }
      if(n > 1 && selected_profile) {
-       $('#profile_list option[value='+selected_profile+']').attr("selected",true);
-       showProfile(selected_profile);
-       $("#devices").show();
+       var theProfile = $('#profile_list option[value='+selected_profile+']');
+       if ( theProfile.length == 1) { 
+           theProfile.attr("selected",true);
+           showProfile(selected_profile);
+           $("#devices").show();
+       } 
      }
       reset_footer();
       });
