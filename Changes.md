@@ -15,6 +15,10 @@ Changes in 2.0-beta3
 - [BUGFIX  #8]  for Apple installers, the flag "verify user input has suffix" is
                 now honoured (the warning was erroneously always displayed 
                 before)
+- [BUGFIX  #9]  various bugs in the handling of device-specific and eap-specific
+                attributes in the "fine-tuning" pages (e.g. deletion of 
+                attribute not possible; editing general profile properties
+                erroneously also deletes fine-tuning attributes
                 
 
 Changes in 2.0-beta2
