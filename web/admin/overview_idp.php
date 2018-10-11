@@ -306,12 +306,8 @@ echo $mapCode->htmlHeadCode();
                 echo "<div style='width:20px;'></div>";
                 if ($readiness == core\AbstractProfile::READINESS_LEVEL_SHOWTIME) {
                     echo "<div style='display: table-cell; text-align:center;'><p><strong>" . _("User Download Link") . "</strong></p>";
-                    $URL = $profile_list->getCollapsedAttributes();
-                    if (isset($URL['device-specific:redirect'])) {
-                        $displayurl = $URL['device-specific:redirect'][0];
-                    } else {
-                        $displayurl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier . "&amp;profile=" . $profile_list->identifier;
-                    }
+                    $URL = $profile_list->getCollapsedAttributes();                    
+                    $displayurl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier . "&amp;profile=" . $profile_list->identifier;
                     echo "<a href='$displayurl' style='white-space: nowrap; text-align: center;'>";
                     $uri = "data:image/png;base64," . base64_encode($uiElements->pngInjectConsortiumLogo(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL), QRCODE_PIXELS_PER_SYMBOL));
                     $size = getimagesize($uri);
