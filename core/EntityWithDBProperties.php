@@ -146,13 +146,14 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
     /**
      * deletes all attributes in this profile except the _file ones, these are reported as array
      *
+     * @param string $extracondition a condition to append to the deletion query. RADIUS Profiles have eap-level or device-level options which shouldn't be purged; this can be steered in the overriding function.
      * @return array list of row id's of file-based attributes which weren't deleted
      */
-    public function beginFlushAttributes() {
+    public function beginFlushAttributes($extracondition = "") {
         $quotedIdentifier = (!is_int($this->getRelevantIdentifier()) ? "\"" : "") . $this->getRelevantIdentifier() . (!is_int($this->getRelevantIdentifier()) ? "\"" : "");
-        $this->databaseHandle->exec("DELETE FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier AND option_name NOT LIKE '%_file'");
+        $this->databaseHandle->exec("DELETE FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier AND option_name NOT LIKE '%_file' $extracondition");
         $this->updateFreshness();
-        $execFlush = $this->databaseHandle->exec("SELECT row FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier");
+        $execFlush = $this->databaseHandle->exec("SELECT row FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier $extracondition");
         $returnArray = [];
         // SELECT always returns a resourse, never a boolean
         while ($queryResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $execFlush)) {
