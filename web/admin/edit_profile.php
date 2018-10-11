@@ -75,12 +75,11 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     $prefill_methods = $my_profile->getEapMethodsinOrderOfPreference();
     $profile_options = $my_profile->getAttributes();
     // is there a general redirect? it is one which have device = 0
-    $blacklistedDevices = $my_profile->getAttributes("device-specific:redirect");
+    $blacklistEntries = $my_profile->getAttributes("device-specific:redirect");
     $blacklisted = FALSE;
-    foreach ($blacklistedDevices as $oneDevice) {
-        if ($oneDevice['device'] == NULL) {
-            $blacklistedArray = $oneDevice['value'];
-            $blacklisted = $blacklistedArray['content'];
+    foreach ($blacklistEntries as $oneEntry) {
+        if (!isset($oneEntry['device'])) { // don't act on device-level redirects
+            $blacklisted = $oneEntry['value'];
         }
     }
 } else {
