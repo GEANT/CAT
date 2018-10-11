@@ -300,7 +300,7 @@ class ProfileRADIUS extends AbstractProfile {
      * @return array list of row id's of file-based attributes which weren't deleted
      */
     public function beginFlushMethodLevelAttributes($eapId, $deviceId) {
-        if ($eapId == 0 && $deviceId = "") {
+        if ($eapId == 0 && $deviceId == "") {
             throw new Exception("MethodLevel attributes pertain either to an EAP method or a device - none was specified in the parameters.");
         }
         if ($eapId != 0 && $deviceId != "") {
