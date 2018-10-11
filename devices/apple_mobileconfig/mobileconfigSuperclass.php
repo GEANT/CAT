@@ -555,6 +555,7 @@ $mimeFormatted
                <key>PayloadVersion</key>
                <integer>1</integer>
             </dict>";
+            $this->CAsAccountedFor[] = $ca['uuid'];
         }
         return $stream;
     }
