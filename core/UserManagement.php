@@ -171,10 +171,10 @@ class UserManagement extends \core\common\Entity {
             // newly created actual IdP rather than the placeholder entry in the
             // invitations table
             // which other pending invites do we have?
-
+            
             $otherPending = $this->databaseHandle->exec("SELECT id
                              FROM invitations 
-                             WHERE invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0 AND cat_institution_id = ? AND name = ? AND country = ? AND external_db_uniquehandle = ? ", "isss", $invitationDetails->cat_institution_id, $invitationDetails->name, $invitationDetails->country, $invitationDetails->external_db_uniquehandle);
+                             WHERE invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0 AND name = ? AND country = ? AND ( cat_institution_id IS NULL OR external_db_uniquehandle IS NULL ) ", "ss", $invitationDetails->name, $invitationDetails->country);
             // SELECT -> resource, no boolean
             while ($pendingDetail = mysqli_fetch_object(/** @scrutinizer ignore-type */ $otherPending)) {
                 $this->databaseHandle->exec("UPDATE invitations SET cat_institution_id = " . $idp->identifier . " WHERE id = " . $pendingDetail->id);
