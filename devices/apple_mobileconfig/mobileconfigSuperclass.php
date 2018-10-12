@@ -455,7 +455,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         foreach (array_keys($this->attributes['internal:SSID']) as $ssid) {
             $retval .= $this->networkBlock(mobileconfigSuperclass::NETWORK_BLOCK_TYPE_SSID, $ssid);
         }
-        if (isset($this->attributes['media:wired']) && get_class($this) == "Device_mobileconfig_os_x") {
+        if (isset($this->attributes['media:wired']) && get_class($this) == "devices\apple_mobileconfig\Device_mobileconfig_os_x") {
             $retval .= $this->networkBlock(mobileconfigSuperclass::NETWORK_BLOCK_TYPE_WIRED, TRUE);
         }
         if (count($this->attributes['internal:consortia']) > 0) {
