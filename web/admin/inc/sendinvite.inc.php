@@ -29,16 +29,29 @@ $new_idp_authorized_fedadmin = FALSE;
 /**
  * aborts code execution if a required mail address is invalid
  * 
- * @param mixed $newmailaddress input string, possibly a mail address
+ * @param mixed $newmailaddress input string, possibly one or more mail addresses
  * @param string $redirect_destination destination to send user to if validation failed
  * @return string mail address if validation passed
  */
 function abortOnBogusMail($newmailaddress, $redirect_destination) {
-    if ($newmailaddress === FALSE) {
+    $validator = new \web\lib\common\InputValidation();
+    $addressSegments = explode(",", $newmailaddress);
+    $confirmedMails = [];
+    if ($addressSegments === FALSE) {
+        header("Location: $redirect_destination" . "invitation=INVALIDSYNTAX");
+        exit;
+    }
+    foreach ($addressSegments as $oneAddressCandidate) {
+        $candidate = trim($oneAddressCandidate);
+        if ($validator->email($candidate) !== FALSE) {
+            $confirmedMails[] = $candidate;
+        }
+    }
+    if (count($confirmedMails) == 0) {
         header("Location: $redirect_destination" . "invitation=INVALIDSYNTAX");
         exit;
     } else {
-        return $newmailaddress;
+        return $confirmedMails;
     }
 }
 
@@ -47,7 +60,8 @@ if (!isset($_SESSION['user']) || !isset($_POST['mailaddr'])) {
     throw new Exception("sendinvite: called either without authentication or without target mail address!");
 }
 
-$newmailaddress = $validator->email(filter_input(INPUT_POST, 'mailaddr', FILTER_SANITIZE_STRING));
+$newmailaddress = filter_input(INPUT_POST, 'mailaddr', FILTER_SANITIZE_STRING);
+$totalSegments = explode(",", $newmailaddress);
 $newcountry = "";
 
 // fed admin stuff
@@ -94,8 +108,8 @@ switch ($operationMode) {
         }
 
         $prettyprintname = $idp->name;
-        $newtoken = $mgmt->createToken($fedadmin, $mailaddress, $idp);
-        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $idp->identifier . " - Token created for " . $mailaddress);
+        $newtokens = $mgmt->createTokens($fedadmin, $mailaddress, $idp);
+        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $idp->identifier . " - Token created for " . implode(",", $mailaddress));
         $introtext = "CO-ADMIN";
         break;
     case OPERATION_MODE_NEWUNLINKED:
@@ -113,8 +127,8 @@ switch ($operationMode) {
         $introtext = "NEW-FED";
         // send the user back to his federation overview page, append the result of the operation later
         // do the token creation magic
-        $newtoken = $mgmt->createToken(TRUE, $mailaddress, $newinstname, 0, $newcountry);
-        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . $mailaddress);
+        $newtokens = $mgmt->createTokens(TRUE, $mailaddress, $newinstname, 0, $newcountry);
+        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . implode(",", $mailaddress));
         break;
     case OPERATION_MODE_NEWFROMDB:
         $redirect_destination = "../overview_federation.php?";
@@ -146,8 +160,8 @@ switch ($operationMode) {
         // fill the rest of the text
         $introtext = "EXISTING-FED";
         // do the token creation magic
-        $newtoken = $mgmt->createToken(TRUE, $mailaddress, $prettyprintname, $newexternalid);
-        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . $mailaddress);
+        $newtokens = $mgmt->createTokens(TRUE, $mailaddress, $prettyprintname, $newexternalid);
+        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . implode(",", $mailaddress));
         break;
     default: // includes OPERATION_MODE_INVALID
         $wrongcontent = print_r($_POST, TRUE);
@@ -159,12 +173,39 @@ switch ($operationMode) {
 
 // send, and invalidate the token immediately if the mail could not be sent!
 $languageInstance->setTextDomain("core");
-$sent = \core\common\OutsideComm::adminInvitationMail($mailaddress, $introtext, $newtoken, $prettyprintname, $federation);
+$status = [];
+$allEncrypted = TRUE;
+$allClear = TRUE;
+foreach ($newtokens as $onetoken => $oneDest) {
+    $sent = \core\common\OutsideComm::adminInvitationMail($oneDest, $introtext, $onetoken, $prettyprintname, $federation);
+    if ($sent["SENT"] === FALSE) {
+        $mgmt->invalidateToken($onetoken);
+    } else {
+        $status[$onetoken] = $sent["TRANSPORT"];
+        if (! $sent["TRANSPORT"]) {
+            $allEncrypted = FALSE;
+        } else {
+            $allClear = FALSE;
+        }
+    }
+}
 $languageInstance->setTextDomain("web_admin");
-if ($sent["SENT"] === FALSE ) {
-    $mgmt->invalidateToken($newtoken);
+
+if (count($status) == 0) {
     header("Location: $redirect_destination" . "invitation=FAILURE");
     exit;
 }
+$finalDestParams = "invitation=SUCCESS";
+if (count($status) < count($totalSegments)) { // only a subset of mails was sent, update status
+    $finalDestParams = "invitation=PARTIAL";
+}
+$finalDestParams .= "&successcount=".count($status);
+if ($allEncrypted === TRUE) {
+    $finalDestParams .= "&transportsecurity=ENCRYPTED";
+} elseif ($allClear === TRUE) {
+    $finalDestParams .= "&transportsecurity=CLEAR";
+} else {
+    $finalDestParams .= "&transportsecurity=PARTIAL";
+}
 
-header("Location: $redirect_destination" . "invitation=SUCCESS&transportsecurity=" . ($sent["TRANSPORT"] ? "ENCRYPTED" : "CLEAR"));
+header("Location: $redirect_destination" . $finalDestParams);

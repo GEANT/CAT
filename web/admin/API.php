@@ -142,13 +142,13 @@ switch ($inputDecoded['ACTION']) {
         if ($admin === FALSE) {
             throw new Exception("A required parameter is missing, and this wasn't caught earlier?!");
         }
-        $newtoken = $mgmt->createToken(true, $admin, $idp);
-        $URL = "https://" . $_SERVER['SERVER_NAME'] . dirname($_SERVER['SCRIPT_NAME']) . "/action_enrollment.php?token=$newtoken";
-        $success = ["TOKEN URL" => $URL, "TOKEN" => $newtoken];
+        $newtokens = $mgmt->createTokens(true, [ $admin ], $idp);
+        $URL = "https://" . $_SERVER['SERVER_NAME'] . dirname($_SERVER['SCRIPT_NAME']) . "/action_enrollment.php?token=".array_keys($newtokens)[0];
+        $success = ["TOKEN URL" => $URL, "TOKEN" => array_keys($newtokens)[0]];
         // done with the essentials - display in response. But if we also have an email address, send it there
         $email = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_TARGETMAIL);
         if ($email !== FALSE) {
-            $sent = \core\common\OutsideComm::adminInvitationMail($email, "EXISTING-FED", $newtoken, $idp->name, $fed);
+            $sent = \core\common\OutsideComm::adminInvitationMail($email, "EXISTING-FED", array_keys($newtokens)[0], $idp->name, $fed);
             $success["EMAIL SENT"] = $sent["SENT"];
             if ($sent["SENT"] === TRUE) {
                 $success["EMAIL TRANSPORT SECURE"] = $sent["TRANSPORT"];

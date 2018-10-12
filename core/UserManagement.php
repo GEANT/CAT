@@ -240,31 +240,36 @@ Best regards,
      * created in the DB if the token is actually consumed via createIdPFromToken().
      * 
      * @param boolean $isByFedadmin is the invitation token created for a federation admin (TRUE) or from an existing inst admin (FALSE)
-     * @param string $for identifier (typically email address) for which the invitation is created
+     * @param array $for identifiers (typically email addresses) for which the invitation is created
      * @param mixed $instIdentifier either an instance of the IdP class (for existing institutions to invite new admins) or a string (new institution - this is the inst name then)
      * @param string $externalId if the IdP to be created is related to an external DB entity, this parameter contains that ID
      * @param string $country if the institution is new (i.e. $inst is a string) this parameter needs to specify the federation of the new inst
      * @return mixed The function returns either the token (as string) or FALSE if something went wrong
      */
-    public function createToken($isByFedadmin, $for, $instIdentifier, $externalId = 0, $country = 0) {
-        $token =  bin2hex(random_bytes(40));
+    public function createTokens($isByFedadmin, $for, $instIdentifier, $externalId = 0, $country = 0) {
         $level = ($isByFedadmin ? "FED" : "INST");
-
-        if ($instIdentifier instanceof IdP) {
-            $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,cat_institution_id) VALUES(?, ?, ?, ?)", "sssi", $level, $for, $token, $instIdentifier->identifier);
-            return $token;
-        } else if (func_num_args() == 4) { // string name, but no country - new IdP with link to external DB
-            // what country are we talking about?
-            $cat = new CAT();
-            $extinfo = $cat->getExternalDBEntityDetails($externalId);
-            $extCountry = $extinfo['country'];
-            $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country, external_db_uniquehandle) VALUES(?, ?, ?, ?, ?, ?)", "ssssss", $level, $for, $token, $instIdentifier, $extCountry, $externalId);
-            return $token;
-        } else if (func_num_args() == 5) { // string name, and country set - whole new IdP
-            $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country) VALUES(?, ?, ?, ?, ?)", "sssss", $level, $for, $token, $instIdentifier, $country);
-            return $token;
+        $tokenList = [];
+        foreach ($for as $oneDest) {
+            $token = bin2hex(random_bytes(40));
+            if ($instIdentifier instanceof IdP) {
+                $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,cat_institution_id) VALUES(?, ?, ?, ?)", "sssi", $level, $oneDest, $token, $instIdentifier->identifier);
+                $tokenList[$token] = $oneDest;
+            } else if (func_num_args() == 4) { // string name, but no country - new IdP with link to external DB
+                // what country are we talking about?
+                $cat = new CAT();
+                $extinfo = $cat->getExternalDBEntityDetails($externalId);
+                $extCountry = $extinfo['country'];
+                $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country, external_db_uniquehandle) VALUES(?, ?, ?, ?, ?, ?)", "ssssss", $level, $oneDest, $token, $instIdentifier, $extCountry, $externalId);
+                $tokenList[$token] = $oneDest;
+            } else if (func_num_args() == 5) { // string name, and country set - whole new IdP
+                $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country) VALUES(?, ?, ?, ?, ?)", "sssss", $level, $oneDest, $token, $instIdentifier, $country);
+                $tokenList[$token] = $oneDest;
+            }
         }
-        throw new Exception("Creation of a new token failed!");
+        if (count($for) != count($tokenList)) {
+            throw new Exception("Creation of a new token failed!");
+        }
+        return $tokenList;
     }
 
     /**
