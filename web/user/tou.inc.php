@@ -13,6 +13,7 @@
 
         $Tou =  [
     'title' => _("Terms of Use"),
+    'subtitle' => _("(for legal reasons, the Terms of Use are in English only)"),
     'short' => "<p>The purpose of this service is to make eduroam configuration easier for end users and eduroam
 Identity Providers by making available customised and securely configured eduroam installers.</p>
 <p>On a high level and in reader-friendly words, the Terms of Use are as follows; the corresponding

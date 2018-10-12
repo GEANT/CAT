@@ -40,7 +40,7 @@ switch ($page) {
            <h1>
          " . $Tou['title'] . "
     </h1>
-<div id='tou_1'> " .
+<div id='tou_1'>" . $Tou['subtitle'] . 
 $Tou['short'] . "
 </div>
 <div id='all_tou_link'><a href='javascript:showTOU()'>Click here to see the full terms</a></div>
