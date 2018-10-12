@@ -98,6 +98,12 @@ class Menu {
         return "<li><a href='" . $itemLink . "'" . $itemClass . '>' . $itemText . "</a>";
     }
     
+    public function printMinimalMenu() {
+        $out = "\n<ul>\n";
+        $out .= $this->printMenuItem(_("Start page"), \core\CAT::getRootUrlPath());
+        $out .= '</ul>';
+        return($out);
+    }
 
     private $menu;
     private $visibility;

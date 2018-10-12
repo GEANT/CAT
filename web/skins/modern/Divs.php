@@ -48,8 +48,11 @@ class Divs {
             $retval .= "<img id='hamburger' src='$loc2' alt='Menu'/>";
         }
         $retval .= "<div id='menu_top'>";
-        $retval .= $menu->printMenu();
-
+        if ($visibility === 'start') {
+            $retval .= $menu->printMinimalMenu();
+        } else {
+            $retval .= $menu->printMenu();
+        }
         $retval .= "</div></div>\n";
         return $retval;
     }

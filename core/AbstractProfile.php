@@ -492,10 +492,14 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             $dev = $factory->device;
             // find the attribute pertaining to the specific device
             $redirectUrl = 0;
+            $redirects = [];
             foreach ($redirect as $index => $oneRedirect) {
                 if ($oneRedirect["device"] == $deviceIndex) {
-                    $redirectUrl = $this->languageInstance->getLocalisedValue($oneRedirect);
+                    $redirects[] = $oneRedirect;
                 }
+            }
+            if (count($redirects) > 0) {
+                $redirectUrl = $this->languageInstance->getLocalisedValue($redirects);
             }
             $devStatus = self::AVAILABLE;
             $message = 0;
