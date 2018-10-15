@@ -145,7 +145,7 @@ class UserNetAPI extends UserAPI {
             echo $this->returnJSON($returnArray, 0);
             return;
         }
-        $hasLogo = FALSE;
+        $hasLogo = 0;
         $logo = $idp->getAttributes('general:logo_file');
         if (count($logo) > 0) {
             $hasLogo = 1;

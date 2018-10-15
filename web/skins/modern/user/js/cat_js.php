@@ -96,7 +96,7 @@ $.fn.redraw = function(){
     $.each(j,printP);
     if(n <= profile_list_size)
     $("#profile_list").append('<option value="0" selected style="display:none"> </option>');
-    if(logo) {
+    if(logo == 1) {
         $("#idp_logo").attr("src","<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendLogo&api_version=2&idp="+inst_id);
         $("#idp_logo").show();
     }
