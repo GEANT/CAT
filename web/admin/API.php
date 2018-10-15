@@ -253,6 +253,7 @@ switch ($inputDecoded['ACTION']) {
                 $iterator = $iterator + 1;
             }
         }
+        $profile->prepShowtime();
         $adminApi->returnSuccess([\web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID => $profile->identifier]);
         break;
     case web\lib\admin\API::ACTION_ENDUSER_NEW:
