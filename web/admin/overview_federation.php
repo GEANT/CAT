@@ -130,13 +130,16 @@ require_once("inc/click_button_js.php");
 
     if (isset($_GET['invitation'])) {
         echo "<div class='ca-summary' style='position:relative;'><table>";
+        $counter = $validator->integer($_GET['successcount']);
+        if ($counter === FALSE) {
+            $counter = 1;
+        }
         switch ($_GET['invitation']) {
             case "SUCCESS":
-                $counter = $validator->integer($_GET['successcount']);
                 $cryptText = "";
                 switch ($_GET['transportsecurity']) {
                     case "ENCRYPTED":
-                        $cryptText = ngettext("It was sent with transport security (encryption).","They were sent with transport security (encryption).",$counter);
+                        $cryptText = ngettext("It was sent with transport security (encryption).", "They were sent with transport security (encryption).", $counter);
                         break;
                     case "CLEAR":
                         $cryptText = ngettext("It was sent in clear text (no encryption).", "They were sent in clear text (no encryption).", $counter);
@@ -153,11 +156,10 @@ require_once("inc/click_button_js.php");
                 echo $uiElements->boxError(_("No invitation email could be sent!"), _("Sending failure!"));
                 break;
             case "PARTIAL":
-                $counter = $validator->integer($_GET['successcount']);
                 $cryptText = "";
                 switch ($_GET['transportsecurity']) {
                     case "ENCRYPTED":
-                        $cryptText = ngettext("The successful one was sent with transport security (encryption).","The successful ones were sent with transport security (encryption).",$counter);
+                        $cryptText = ngettext("The successful one was sent with transport security (encryption).", "The successful ones were sent with transport security (encryption).", $counter);
                         break;
                     case "CLEAR":
                         $cryptText = ngettext("The successful one was sent in clear text (no encryption).", "The successful ones were sent in clear text (no encryption).", $counter);
@@ -168,7 +170,7 @@ require_once("inc/click_button_js.php");
                     default:
                         throw new Exception("Error: unknown encryption status of invitation!?!");
                 }
-                echo $uiElements->boxWarning(sprintf(_("Some invitation emails were sent successfully (%s in total), the others failed."),$counter) . " " . $cryptText, _("Partial success."));
+                echo $uiElements->boxWarning(sprintf(_("Some invitation emails were sent successfully (%s in total), the others failed."), $counter) . " " . $cryptText, _("Partial success."));
                 break;
             case "INVALIDSYNTAX":
                 echo $uiElements->boxError(_("The invitation email address was malformed, no invitation was sent!"), _("The invitation email address was malformed, no invitation was sent!"));
