@@ -96,7 +96,7 @@ build:
                     - js-scrutinizer-run
     environment:
         php:
-            version: 7.0.20
+            version: 7.2.0
         postgresql: false
         redis: false
         mysql: 5.7
