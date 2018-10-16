@@ -31,7 +31,7 @@ $new_idp_authorized_fedadmin = FALSE;
  * 
  * @param mixed $newmailaddress input string, possibly one or more mail addresses
  * @param string $redirect_destination destination to send user to if validation failed
- * @return string mail address if validation passed
+ * @return array mail address if validation passed
  */
 function abortOnBogusMail($newmailaddress, $redirect_destination) {
     $validator = new \web\lib\common\InputValidation();
