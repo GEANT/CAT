@@ -88,7 +88,7 @@ echo $mapCode->htmlHeadCode();
                 </td>
                 <td>
                     <form action='edit_idp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                        <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'] === NULL ? sprintf(_("After deleting the %s, you can not recreate it yourself - you need a new invitation token from the %s administrator!"), $uiElements->nomenclature_fed) . " " : "" ) . sprintf(_("Do you really want to delete your %s %s?"), $uiElements->nomenclature_inst, $my_inst->name); ?>')"><?php echo sprintf(_("Delete %s"), $uiElements->nomenclature_inst); ?></button>
+                        <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'] === NULL ? sprintf(_("After deleting the %s, you can not recreate it yourself - you need a new invitation token from the %s administrator!"), $uiElements->nomenclature_inst, $uiElements->nomenclature_fed) . " " : "" ) . sprintf(_("Do you really want to delete your %s %s?"), $uiElements->nomenclature_inst, $my_inst->name); ?>')"><?php echo sprintf(_("Delete %s"), $uiElements->nomenclature_inst); ?></button>
                     </form>
 
                 </td>
