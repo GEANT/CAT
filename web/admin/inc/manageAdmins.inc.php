@@ -87,9 +87,12 @@ if (isset($_POST['submitbutton'])) {
 <?php
 if (isset($_GET['invitation'])) {
     echo "<div class='ca-summary' style='position:relative;'><table>";
+    $counter = $validator->integer($_GET['successcount']);
+    if ($counter === FALSE) {
+        $counter = 1;
+    }
     switch ($_GET['invitation']) {
         case "SUCCESS":
-            $counter = $validator->integer($_GET['successcount']);
             $cryptText = "";
             switch ($_GET['transportsecurity']) {
                 case "ENCRYPTED":
@@ -110,7 +113,6 @@ if (isset($_GET['invitation'])) {
             echo $uiElements->boxError(_("No invitation email could be sent!"), _("Sending failure!"));
             break;
         case "PARTIAL":
-            $counter = $validator->integer($_GET['successcount']);
             $cryptText = "";
             switch ($_GET['transportsecurity']) {
                 case "ENCRYPTED":
@@ -125,7 +127,7 @@ if (isset($_GET['invitation'])) {
                 default:
                     throw new Exception("Error: unknown encryption status of invitation!?!");
             }
-            echo $uiElements->boxWarning(sprintf(_("Some invitation emails were sent successfully (%s in total), the others failed."),$counter) . " " . $cryptText, _("Partial success."));
+            echo $uiElements->boxWarning(sprintf(_("Some invitation emails were sent successfully (%s in total), the others failed."), $counter) . " " . $cryptText, _("Partial success."));
             break;
         case "INVALIDSYNTAX":
             echo $uiElements->boxError(_("The invitation email address was malformed, no invitation was sent!"), _("The invitation email address was malformed, no invitation was sent!"));
