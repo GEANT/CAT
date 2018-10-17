@@ -89,6 +89,8 @@ build:
                 override: true
             tests:
                 override:
+                    - wget http://localhost/admin/API.php --method=POST --body-file=tests/inst.json
+                    - wget http://localhost/admin/API.php --method=POST --body-file=tests/profile1.json
                     -
                         command: phpcs-run
                         use_website_config: true
@@ -256,9 +258,6 @@ build:
               1VBq/qKGOAu5jhFD85c459fasxhqNhxLlnAUJFNOA2skqNzhqg9lIbRo+Hg=
               -----END RSA PRIVATE KEY-----" >/home/scrutinizer/build/config/SilverbulletClientCerts/real.key
             - cp /home/scrutinizer/build/devices/Devices-template.php /home/scrutinizer/build/devices/Devices.php
-    commands:
-            - wget http://localhost/admin/API.php --method=POST --body-file=tests/inst.json
-            - wget http://localhost/admin/API.php --method=POST --body-file=tests/profile1.json
 
 tools:
     php_code_coverage:
