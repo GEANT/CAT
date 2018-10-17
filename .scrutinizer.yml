@@ -89,8 +89,8 @@ build:
                 override: true
             tests:
                 override:
-                    - wget http://ci.test/admin/API.php -O - --method=POST --body-file=tests/inst.json 
-                    - wget http://ci.test/admin/API.php -O - --method=POST --body-file=tests/profile1.json 
+                    - wget http://ci.test/admin/API.php -O - --method=POST --no-verbose --body-file=tests/inst.json 
+                    - wget http://ci.test/admin/API.php -O - --method=POST --no-verbose --body-file=tests/profile1.json 
                     -
                         command: phpcs-run
                         use_website_config: true
