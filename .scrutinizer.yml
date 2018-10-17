@@ -100,11 +100,13 @@ build:
         postgresql: false
         redis: false
         mysql: 5.7
+        hosts:
+            ci.test: 127.0.0.1
         apache2:
             sites:
                 domain:
                     web_root: web/
-                    host: localhost
+                    host: ci.test
     dependencies:
         before:
             - composer require --dev phpunit/phpunit 
