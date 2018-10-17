@@ -103,6 +103,7 @@ build:
         hosts:
             ci.test: 127.0.0.1
         apache2:
+            modules: [ ssl ]
             sites:
                 domain:
                     web_root: web/
