@@ -100,7 +100,7 @@ build:
         postgresql: false
         redis: false
         mysql: 5.7
-	apache2:
+        apache2:
             sites:
                 domain:
                     web_root: web/
