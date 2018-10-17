@@ -146,6 +146,7 @@ build:
               'display_name' => 'eduroam®',
               'nomenclature_federation' => 'National Roaming Operator',
               'nomenclature_institution' => 'Identity Provider',
+              'registration_API_keys' => [ 'iabcd' => 'LU' ],
               ],
               'NSIS_VERSION' => 3,
               ];" >/home/scrutinizer/build/config/config-confassistant.php
@@ -247,6 +248,8 @@ build:
               1VBq/qKGOAu5jhFD85c459fasxhqNhxLlnAUJFNOA2skqNzhqg9lIbRo+Hg=
               -----END RSA PRIVATE KEY-----" >/home/scrutinizer/build/config/SilverbulletClientCerts/real.key
             - cp /home/scrutinizer/build/devices/Devices-template.php /home/scrutinizer/build/devices/Devices.php
+            - wget --no-check-certificate https://localhost/admin/API.php --method=POST --body-file=tests/inst.json
+            - wget --no-check-certificate https://localhost/admin/API.php --method=POST --body-file=tests/profile1.json
 
 tools:
     php_code_coverage:
