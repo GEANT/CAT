@@ -89,8 +89,8 @@ build:
                 override: true
             tests:
                 override:
-                    - wget http://localhost/admin/API.php --method=POST --body-file=tests/inst.json
-                    - wget http://localhost/admin/API.php --method=POST --body-file=tests/profile1.json
+                    - wget http://ci.test/admin/API.php --method=POST --body-file=tests/inst.json
+                    - wget http://ci.test/admin/API.php --method=POST --body-file=tests/profile1.json
                     -
                         command: phpcs-run
                         use_website_config: true
@@ -138,11 +138,10 @@ build:
               ], 
               'RADIUSTESTS' => [], 
               'DB' => [
-              'INST' =>     ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => NULL],
-              'FRONTEND' => ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => NULL],
-              'USER' =>     ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => NULL],
-              'EXTERNAL' => ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => NULL],
-              'userdb-readonly' => FALSE,
+              'INST' =>     ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => NULL, 'readonly' => FALSE],
+              'FRONTEND' => ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => NULL, 'readonly' => FALSE],
+              'USER' =>     ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => NULL, 'readonly' => FALSE],
+              'EXTERNAL' => ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => NULL, 'readonly' => FALSE],
               ], 
               'MAX_UPLOAD_SIZE' => [], 
               'DEBUG_LEVEL' => 5, 
@@ -156,6 +155,7 @@ build:
               'display_name' => 'eduroam®',
               'nomenclature_federation' => 'National Roaming Operator',
               'nomenclature_institution' => 'Identity Provider',
+              'ssid' => [ 'eduroam' ],
               'registration_API_keys' => [ 'iabcd' => 'LU' ],
               ],
               'NSIS_VERSION' => 3,
