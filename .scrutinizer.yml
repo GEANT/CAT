@@ -400,6 +400,7 @@ build:
             - cp /home/scrutinizer/build/devices/Devices-template.php /home/scrutinizer/build/devices/Devices.php
             - cp /home/scrutinizer/build/signer/mobileconfig_sign-template /home/scrutinizer/build/signer/mobileconfig_sign
             - sudo chown scrutinizer:scrutinizer /home/scrutinizer/.rnd
+            - sudo apt -y install pylint
 
 tools:
     php_code_coverage:
