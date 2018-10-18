@@ -91,11 +91,11 @@ build:
                 override:
                     - wget http://ci.test/admin/API.php -O - --method=POST --no-verbose --body-file=tests/inst.json 
                     - wget http://ci.test/admin/API.php -O - --method=POST --no-verbose --body-file=tests/profile1.json 
-                    - wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=chromeos\&profile=3 -O - --no-verbose
-                    - wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=w10\&profile=3 -O /home/scrutinizer/WinInstaller.exe --no-verbose
-                    - file /home/scrutinizer/WinInstaller.exe
-                    - wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=apple_hi_sierra\&profile=3 -O /home/scrutinizer/AppleInstaller.mobileconfig --no-verbose
-                    - file /home/scrutinizer/AppleInstaller.mobileconfig
+                    - wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=chromeos\&profile=3 -O /home/scrutinizer/artifacts/ChromeInstaller --no-verbose
+                    - wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=w10\&profile=3 -O /home/scrutinizer/artifacts/WinInstaller.exe --no-verbose
+                    - file /home/scrutinizer/artifacts/WinInstaller.exe
+                    - wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=apple_hi_sierra\&profile=3 -O /home/scrutinizer/artifacts/AppleInstaller.mobileconfig --no-verbose
+                    - file /home/scrutinizer/artifacts/AppleInstaller.mobileconfig
                     -
                         command: phpcs-run
                         use_website_config: true
