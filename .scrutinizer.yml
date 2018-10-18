@@ -91,7 +91,7 @@ build:
                 override:
                     - 
                         command: phpcs-run
-                        use_website_config: false
+                        use_website_config: true
                     - php-scrutinizer-run --enable-security-analysis
                     - js-scrutinizer-run
         tests:
