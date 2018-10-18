@@ -1,7 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import base64
+import getpass
+import os
+import re
 import subprocess
 import sys
+import uuid
+from shutil import copyfile
 
 
 def missing_dbus():
@@ -17,11 +23,7 @@ except:
     except:
         missing_dbus()
     sys.exit(0)
-import re
-import os
-import uuid
-import getpass
-from shutil import copyfile
+
 if sys.version_info.major == 3 and sys.version_info.minor >= 8:
     import distro
 else:
@@ -444,7 +446,6 @@ class InstallerData:
         return cert.strip().decode('utf-8')
 
     def __save_sb_pfx(self):
-        import base64
         certfile = os.environ.get('HOME') + '/.cat_installer/user.p12'
         with open(certfile, 'wb') as f:
             f.write(base64.b64decode(Config.sb_user_file))
