@@ -685,33 +685,32 @@ class CatNMConfigTool:
             s_8021x_data['private-key-password'] = user_data.PASSWORD
             s_8021x_data['private-key-password-flags'] = 0
         s_con = dbus.Dictionary({
-                                'type': '802-11-wireless',
-                                'uuid': str(uuid.uuid4()),
-                                'permissions': ['user:' +
-                                                os.environ.get('USER')],
-                                'id': ssid
-                                })
+            'type': '802-11-wireless',
+            'uuid': str(uuid.uuid4()),
+            'permissions': ['user:' + os.environ.get('USER')],
+            'id': ssid
+        })
         s_wifi = dbus.Dictionary({
-                                 'ssid': dbus.ByteArray(ssid.encode('utf8')),
-                                 'security': '802-11-wireless-security'
-                                 })
+            'ssid': dbus.ByteArray(ssid.encode('utf8')),
+            'security': '802-11-wireless-security'
+        })
         s_wsec = dbus.Dictionary({
-                                 'key-mgmt': 'wpa-eap',
-                                 'proto': ['rsn'],
-                                 'pairwise': ['ccmp'],
-                                 'group': ['ccmp', 'tkip']
-                                 })
+            'key-mgmt': 'wpa-eap',
+            'proto': ['rsn'],
+            'pairwise': ['ccmp'],
+            'group': ['ccmp', 'tkip']
+        })
         s_8021x = dbus.Dictionary(s_8021x_data)
         s_ip4 = dbus.Dictionary({'method': 'auto'})
         s_ip6 = dbus.Dictionary({'method': 'auto'})
         con = dbus.Dictionary({
-                              'connection': s_con,
-                              '802-11-wireless': s_wifi,
-                              '802-11-wireless-security': s_wsec,
-                              '802-1x': s_8021x,
-                              'ipv4': s_ip4,
-                              'ipv6': s_ip6
-                              })
+            'connection': s_con,
+            '802-11-wireless': s_wifi,
+            '802-11-wireless-security': s_wsec,
+            '802-1x': s_8021x,
+            'ipv4': s_ip4,
+            'ipv6': s_ip6
+        })
         self.settings.AddConnection(con)
 
     def main(self, user_data):
