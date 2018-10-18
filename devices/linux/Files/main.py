@@ -22,7 +22,7 @@ import os
 import uuid
 import getpass
 from shutil import copyfile
-if sys.version_info.minor == 3 and sys.version_info.major >= 8:
+if sys.version_info.major == 3 and sys.version_info.minor >= 8:
     import distro
 else:
     import platform
