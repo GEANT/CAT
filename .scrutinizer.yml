@@ -95,7 +95,8 @@ build:
                     - php-scrutinizer-run --enable-security-analysis
                     - js-scrutinizer-run
         tests:
-            override:
+            tests:
+                override:
                     - wget http://ci.test/admin/API.php -O - --method=POST --no-verbose --body-file=tests/inst.json
                     - wget http://ci.test/admin/API.php -O - --method=POST --no-verbose --body-file=tests/profile1.json
                     - wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=chromeos\&profile=3 -O /home/scrutinizer/artifacts/ChromeInstaller.onc --no-verbose
