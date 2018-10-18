@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns='http://www.w3.org/1999/xhtml'>
+
+<head>
+<title>Building NSIS</title>
+<meta name="generator" content="Halibut v1.0 (NSIS Custom Build, SVN:r6192) xhtml-backend" />
+<link rel="stylesheet" href="style.css" type='text/css' />
+</head>
+
+<body>
+<p><a href='AppendixF.html'>Previous</a> | <a href='Contents.html'>Contents</a> | <a href='AppendixH.html'>Next</a></p>
+<ul>
+<li><a class="btitle" href="AppendixG.html#build"><b>Appendix G: </b>Building NSIS</a></li>
+<ul>
+<li><a href="AppendixG.html#build_general">Building in General</a></li>
+<li><a href="AppendixG.html#build_windows">Building on Windows</a></li>
+<li><a href="AppendixG.html#build_posix">Building on POSIX</a></li>
+<li><a href="AppendixG.html#build_nightly">Nightly Builds</a></li>
+</ul>
+</ul>
+<a name="build"></a><h1>Appendix G: Building NSIS</h1>
+
+<p>NSIS version 2.07 introduced a new build system, based on <a href="http://www.scons.org/">SCons</a>. The build system can build the entire NSIS package so you no longer need to build it project by project. It allows building using several simultaneous jobs, installation without an installer on both Windows and POSIX and easy compilation with debugging symbols.</p>
+
+<p>The official release is built with MSVC6 <a href="http://web.archive.org/web/20060509123628/http://msdn2.microsoft.com/en-us/vstudio/aa718363.aspx">Service Pack 5</a> <a href="http://dl.dropbox.com/u/20029891/vs6sp5.exe">(Mirror)</a> with the <a href="http://wayback.archive.org/web/20100923113933/http://msdn.microsoft.com/en-us/vstudio/aa718349.aspx">Processor Pack</a> and the February 2003 Platform SDK (5.2.3790.0).</p>
+<a name="build_general"></a><h2>G.1 Building in General</h2>
+
+<p>Source code is available in <a href="http://nsis.svn.sourceforge.net/viewvc/nsis/">SVN</a> and as a separate package with every <a href="http://sourceforge.net/project/showfiles.php?group_id=22049">NSIS distribution</a>.</p>
+
+<p>To build NSIS, <a href="http://www.python.org/">Python</a> and <a href="http://www.scons.org/">SCons</a> must be installed. Currently, the supported version of SCons is version 1.2.0 and above. Any version of Python 2.7 and above is supported.</p>
+
+<p>NSIS uses the <a href="http://zlib.net">zlib</a> compression library. As a consequence the header and library files of zlib must be installed.</p>
+
+<p>In case these zlib development files aren't present then they could be installed via a package manager (apt-get, aptitude, rpm, yum) on POSIX platforms. Another option is to build zlib from scratch and install it.</p>
+
+<p>For Windows it is recommended to download <a href="http://zlib.net">zlib</a> from <a href="http://nsis.sf.net/Zlib">http://nsis.sf.net/Zlib</a>. Extract the contents of this zip archive to a folder of your choice, e.g. <code>C:\dev\zlib-1.2.7</code> and set an environment variable named <code>ZLIB_W32</code> containing this path.</p>
+<pre>C:\&gt;set ZLIB_W32=C:\dev\zlib-1.2.7
+</pre>
+
+<p>Alternatively the command line option ZLIB_W32 specifying the path can be passed to scons instead of the environment variable.</p>
+<pre>C:\dev\nsis&gt;scons ZLIB_W32=C:\dev\zlib-1.2.7
+</pre>
+
+<p>The header and library files are assumed to be in %ZLIB_W32%. In addition scons checks for zlib header files in %ZLIB_W32%\include, the import library zdll.lib in %ZLIB_W32%\lib and the dynamic link library zlib1.dll in %ZLIB_W32% respectively %ZLIB_W32%\lib.</p>
+
+<p>To build, open a console, change the working directory to the root directory of NSIS and type <code>scons</code>. That's it. For example:</p>
+<pre>C:\&gt;cd dev\nsis
+C:\dev\nsis&gt;scons
+scons: Reading SConscript files ...
+Using Microsoft tools configuration
+Checking for main() in C library gdi32... (cached) yes
+Checking for main() in C library user32... (cached) yes
+Checking for main() in C library version... (cached) yes
+Checking for main() in C library pthread... (cached) no
+Checking for main() in C library stdc++... (cached) no
+Checking for main() in C library iconv... (cached) no
+Checking for main() in C library libiconv... (cached) no
+scons: done reading SConscript files.
+scons: Building targets ...
+...
+</pre>
+
+<p>To install the built files, type:</p>
+<pre>scons PREFIX=&quot;C:\Program Files\NSIS&quot; install
+</pre>
+
+<p>To create an installer (only on Windows), type:</p>
+<pre>scons dist-installer
+</pre>
+
+<p>To create a distribution zip file, type:</p>
+<pre>scons dist-zip
+</pre>
+
+<p>To create both, type:</p>
+<pre>scons dist
+</pre>
+
+<p>To get a complete list of options that the build system has to offer, type:</p>
+<pre>scons -h
+</pre>
+
+<p>To get a complete list of options SCons has to offer, type:</p>
+<pre>scons -H
+</pre>
+<a name="build_windows"></a><h2>G.2 Building on Windows</h2>
+
+<p>SCons will automatically detect Microsoft Visual C++. If you are looking for a free compiler to compile NSIS, we recommend <a href="http://wayback.archive.org/web/20080409141506/http://www.microsoft.com/express/2005/download/offline.aspx">Microsoft Visual C++ 2005 Express Edition</a>.</p>
+
+<p>When using the Microsoft Visual C++ Toolkit 2003, add MSTOOLKIT=yes to the build command line:</p>
+<pre>scons MSTOOLKIT=yes
+</pre>
+
+<p>In case of errors about the compiler or the Platform SDK not being found, use:</p>
+<pre>set MSSDK=C:\Path\To\Platform SDK
+set VCToolkitInstallDir=C:\Path\To\VCToolkit
+scons MSTOOLKIT=yes
+</pre>
+
+<p>The open-source <a href="http://www.mingw.org/">MinGW</a> can also be used to for building but this results in noticeably larger installers. Borland C++ or Open Watcom C/C++ might also work, but haven't been tested.</p>
+
+<p>To compile the documentation as a CHM file, hhc.exe must be in the PATH. It is available as part of <a href="http://wayback.archive.org/web/20121021033631/http://msdn.microsoft.com/en-us/library/ms669985">HTML Help Workshop</a>.</p>
+
+<p>To build NSIS Menu, install <a href="http://www.wxwidgets.org/">wxWidgets 2.8</a>, create an environment variable named <code>WXWIN</code> containing the path to the installation directory of wxWidgets, run <code>Contrib\NSIS Menu\wx\wxbuild.bat</code> and build NSIS as usual.</p>
+
+<p><b>Important notes for Microsoft Visual C++ 6.0 users:</b> The 2003 Platform SDK must be installed before building, you can download it <a href="http://groups.google.com/group/microsoft.public.platformsdk.sdk_install/msg/087b0178f5d8159e">here</a> or <a href="http://go.microsoft.com/fwlink/?LinkId=48615">order it on CD</a>. Because of flaws in the libraries distributed with Microsoft Visual C++ 6.0, not installing the Platform SDK will result in crashes when using the <a href="Chapter4.html#copyfiles">CopyFiles</a> command. See <a href="http://forums.winamp.com/showthread.php?s=&threadid=131964">this forum topic</a> for more information. Installing the <a href="http://wayback.archive.org/web/20100923113933/http://msdn.microsoft.com/en-us/vstudio/aa718349.aspx">Processor Pack</a> is highly recommended to decrease the size of the installer overhead.</p>
+
+<p><b>Important note for Microsoft Visual C++ 2012 users:</b> Installers generated using this release and beyond will not be able to run on Windows 9x or Windows 2000. The minimum requirement for 2012 is Windows XP.</p>
+<a name="build_posix"></a><h2>G.3 Building on POSIX</h2>
+
+<p>As of NSIS 2.01, the compiler, makensis, also compiles on POSIX platforms. POSIX platforms include Linux, *BSD, Mac OS X and others. Since the generated installer will eventually run on Windows, a <a href="http://www.libsdl.org/extras/win32/cross/README.txt">cross-compiler</a> is needed in order to compile them.</p>
+
+<p>The command line option XGCC_W32_PREFIX could be used to explicitly select a specific win32 targeted cross compiler. The value of XGCC_W32_PREFIX has to be the prefix of the toolchain. For example XGCC_W32_PREFIX=i686-w64-mingw32- would deploy the win32 targeted MinGW-w64 cross compiler if it is available on the build system.</p>
+
+<p>If no cross-compiler is available, use the following:</p>
+<pre>scons SKIPSTUBS=all SKIPPLUGINS=all SKIPUTILS=all SKIPMISC=all
+      NSIS_CONFIG_CONST_DATA_PATH=no PREFIX=/path/to/extracted/zip
+      install-compiler
+
+scons NSIS_CONFIG_CONST_DATA_PATH=no PREFIX=/path/to/extracted/zip
+      /path/to/extracted/zip/LibraryLocal
+</pre>
+
+<p>This should only build makensis and install it to the directory where a precompiled package, such as the <a href="AppendixG.html#build_nightly">nightly build</a> or a <a href="http://sourceforge.net/project/showfiles.php?group_id=22049">zipped release version</a> (nsis-x.xx.zip), is extracted. Note that the in order for this to work, the precompiled package must be compiled using the exact same sources as makensis. In particular, <code>Source\exehead\config.h</code>, the options passed to scons and <code>Source\exehead\fileform.h</code> must be identical. Nightly builds and zipped release versions are built with the default options.</p>
+
+<p>To build a native version of NSIS Menu, install <a href="http://www.wxwidgets.org/">wxWidgets 2.8</a> and build as usual. <code>wx-config</code> must be in the path.</p>
+<a name="build_nightly"></a><h2>G.4 Nightly Builds</h2>
+
+<p>There is no need to manually build the latest SVN version for Windows. A <a href="http://nsis.sourceforge.net/nightly/nsis.zip">nightly build</a> is available. The nightly build is automatically generated every night, using the latest version of the source code from SVN. There is no official nightly build for other platforms.</p>
+<p><a href='AppendixF.html'>Previous</a> | <a href='Contents.html'>Contents</a> | <a href='AppendixH.html'>Next</a></p>
+
+<hr />
+
+<address>
+</address>
+</body>
+
+</html>
