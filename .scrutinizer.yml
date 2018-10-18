@@ -397,7 +397,7 @@ build:
             - cp /home/scrutinizer/codesigningcert.pem /home/scrutinizer/vault/xxx_cert.pem
             - cp /home/scrutinizer/codesigningcert-key.pem /home/scrutinizer/vault/xxx_key.pem
             - cp /home/scrutinizer/build/devices/Devices-template.php /home/scrutinizer/build/devices/Devices.php
-            - echo "$Devices['apple_hi_sierra']['signer'] = 'mobileconfig_sign-template';" >> /home/scrutinizer/build/devices/Devices.php
+            - cp /home/scrutinizer/build/signer/mobileconfig_sign-template /home/scrutinizer/build/signer/mobileconfig_sign
 
 tools:
     php_code_coverage:
