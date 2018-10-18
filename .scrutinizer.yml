@@ -389,7 +389,7 @@ build:
               gLG11dNTwqPbufspr1mWWVSZa75Wxmpez+qgwwpq8sIIHxxb7ziUQuEHrQIq4NVz
               r+eu1yoDxAbOEIL6cWpbKVuTvYkDVr08UtcHZmU6Q+ANp67LWX++EARwiD/ELOOs
               1ABmhecQqwzGn5/IIqXOb3eH0TL0ZEvcyegw4y76fkfA/kLfa/R6+6NLzEzxnA==
-              -----END RSA PRIVATE KEY-----" >home/scrutinzer/codesigningcert-key.pem
+              -----END RSA PRIVATE KEY-----" >/home/scrutinzer/codesigningcert-key.pem
             - mkdir /home/scrutinizer/vault
             - openssl rsa -in /home/scrutinizer/codesigningcert-key.pem -out /home/scrutinizer/vault/xxx_key.der -outform der
             - openssl crl2pkcs7 -nocrl -certfile /home/scrutinizer/codesigningcert.pem -certfile /home/scrutinizer/codesigningca.pem -outform DER -out /home/scrutinizer/vault/xxx_cert.spc
