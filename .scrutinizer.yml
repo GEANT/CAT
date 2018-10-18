@@ -94,12 +94,16 @@ build:
                     - wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=chromeos\&profile=3 -O - --no-verbose
                     - wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=w10\&profile=3 -O /home/scrutinizer/WinInstaller.exe --no-verbose
                     - file /home/scrutinizer/WinInstaller.exe
+                    - wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=apple_hi_sierra\&profile=3 -O /home/scrutinizer/AppleInstaller.mobileconfig --no-verbose
+                    - file /home/scrutinizer/AppleInstaller.mobileconfig
                     -
                         command: phpcs-run
                         use_website_config: true
                     - php-scrutinizer-run --enable-security-analysis
                     - js-scrutinizer-run
     environment:
+        variables:
+            MY_PATH: '/home/scrutinizer/vault/'
         php:
             version: 7.2.0
         postgresql: false
@@ -261,7 +265,139 @@ build:
               p4LPj3Y+A6YFB0ylMOKxM/aKn2A5jO9xlAQLlu9eMpx9ovWsAGMfQep3erhlyED7
               1VBq/qKGOAu5jhFD85c459fasxhqNhxLlnAUJFNOA2skqNzhqg9lIbRo+Hg=
               -----END RSA PRIVATE KEY-----" >/home/scrutinizer/build/config/SilverbulletClientCerts/real.key
+            - |
+              echo "
+              -----BEGIN CERTIFICATE-----
+              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
+              -----END CERTIFICATE-----" >/home/scrutinizer/codesigningca.pem
+            - |
+              echo "
+              -----BEGIN CERTIFICATE-----
+              MIIFlDCCA3ygAwIBAgICAQAwDQYJKoZIhvcNAQENBQAwbjELMAkGA1UEBhMCWFgx
+              FDASBgNVBAcTC0NvZGluZyBUb3duMQ0wCwYDVQQKEwROb25lMTowOAYDVQQDEzFT
+              Y3J1dGluaXplciBDSSBOb3QgUmVhbGx5IFRydXN0ZWQgQ29kZSBTaWduaW5nIENB
+              MB4XDTE4MTAxODA3NTYyOVoXDTI4MTAxNTA3NTYyOVowazELMAkGA1UEBhMCWFgx
+              FDASBgNVBAcTC0NvZGluZyBUb3duMQ0wCwYDVQQKEwROb25lMTcwNQYDVQQDEy5V
+              bnRydXN0ZWQgYW5kIFVzZWxlc3MgQ29kZSBTaWduaW5nIENlcnRpZmljYXRlMIIC
+              IjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2zV0C02oZW0qwOIt40XFW+Ua
+              EWqbNBRgeJj4obpiuQnnsOISHVgPLbvXjHyDkVrUhdpujf5UoIQXN6nytP4MvdAS
+              PP+CO99i1Y8oMA+JEv28LG1kQiW5978SidVkaRZ+g9j0Py3PUI9pK9bQC+gHQb5m
+              aanqwD9dsnz45Ck4K32M9IFwmzCMwnZLKgMSGOJa8nOuFMO2DRQYkuKjkQzHgaxP
+              CvzjaFNfs7Ul4EbtMa4tPCks2vKyfNn1500q539VwtgcQFy0M2CPhNanw85wMQSC
+              ifXEaqaqQQoIaOip31058eCrLkn5RXTmyqx8MaIOQzZVSQN3GesoLC5K8YUJek99
+              dp3Yl5o7zGWnzYYzEiBUpd8mxC6LLXZ5t0WyJfpHgfgysErN9/b4cMfcr0Ea7KRz
+              kPh9JjvqkMwc3QXSGe/SDpAcuBEKi4oo5BrcFqpHUttKVu9C1BeZHHZ9zSGaCeN6
+              2dPdR0jXe5dYT1hWn9kxoZp9u0v9xU67llSv3u+KFZyvOBDQGBFr4q0yN+vIUECc
+              lOOoi7Xcw+pkRZhCx0BstUaV/tffnP9KwIPsOw8dPyZSV+zkklSdI2m5T/qQFPOb
+              dxY9e1tyewwitVi7P1jJJy4lTNnU5DilI4P24vlpVovMnqlkZYvrkCotcTROtwx5
+              IAaRk1wxOQSxw0eeUUcCAwEAAaM/MD0wDAYDVR0TAQH/BAIwADAOBgNVHQ8BAf8E
+              BAMCBaAwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFCAICMA0GCSqGSIb3DQEB
+              DQUAA4ICAQC3OfsseaMAvMhbxAVnrZk6Lgq8Nh4D6PnUucGqNvXV+HO/JcoH25mH
+              6xtWUb4Nz/OGxOFDRcPmBpCoFXMPxxTovqhkpAAay6VACnbnW61oO0+ikyCk+ZYY
+              +OWgRMZ1xFtEfwvzbM8ILkFoeJXZHy0ozVxNxGLKG/t0uM6ltrpMnDTtOu1fB3sr
+              4ggJPtIT4pTYj9TURdBw/Od5lbIKv/BObZu8+SbRD1sHd7hRPfdst2mr/0G1kMOV
+              w64j1XdEi7Qx8N+LUgKYMFBJX2wTNE/l8+WdTNLbT1D/k/zPn6ld5y7pRDd453Io
+              asiP+smdnErwIR4+7Ptlh7DHLU1nMAv/VsWyO2OuuleJEZNQWep/N/gEs/KHrtVF
+              hy9kR9eyTJyHugiCvGyxM9wpfsj6UTUP4LBU3QucfJOsYiEaDqkwXbtwYDBDzlAL
+              4XDYseqwHy685yQkF/derhyAJLknHYLav16qtB/BR2FcriH0kJvPAh11DZbkEYeL
+              HZzQ+c2wzakT15RxL1fQmo4xZv2LecdQggs8LiupN8MdvtIR/GmTsDX4XJXJ178N
+              M97pbR2HB2aHCeyAnt+IJ9dOBU6k4bxkYy8l0vKcY0V3ed6YA26WMVWms6tVNR+7
+              8bN+CUnDB21DHc4DtoiorHXtON8Z7nD87ACQZEJ/SfqMkN7+RumNBA==
+              -----END CERTIFICATE-----" >/home/scrutinizer/codesigningcert.pem
+            - |
+              echo "
+              -----BEGIN RSA PRIVATE KEY-----
+              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
+              -----END RSA PRIVATE KEY-----" >home/scrutinzer/codesigningcert-key.pem
+            - mkdir /home/scrutinizer/vault
+            - openssl rsa -in /home/scrutinizer/codesigningcert-key.pem -out /home/scrutinizer/vault/xxx_key.der -outform der
+            - openssl crl2pkcs7 -nocrl -certfile /home/scrutinizer/codesigningcert.pem -certfile /home/scrutinizer/codesigningca.pem -outform DER -out /home/scrutinizer/vault/xxx_cert.spc
+            - cp /home/scrutinizer/codesigningca.pem /home/scrutinizer/vault/CAs.pem
+            - cp /home/scrutinizer/codesigningcert.pem /home/scrutinizer/vault/xxx_cert.pem
+            - cp /home/scrutinizer/codesigningcert-key.pem /home/scrutinizer/vault/xxx_key.pem
             - cp /home/scrutinizer/build/devices/Devices-template.php /home/scrutinizer/build/devices/Devices.php
+            - echo "$Devices['apple_hi_sierra']['signer'] = 'mobileconfig_sign-template';" >> /home/scrutinizer/build/devices/Devices.php
 
 tools:
     php_code_coverage:
