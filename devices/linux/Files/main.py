@@ -534,6 +534,7 @@ class InstallerData:
 class WpaConf:
 
     def prepare_network_block(self, ssid, user_data):
+        altsubj_match = "altsubject_match=\"%s\"" % ";".join(Config.servers)
         out = """network={
         ssid=""" + ssid + """
         key_mgmt=WPA-EAP
@@ -542,7 +543,7 @@ class WpaConf:
         eap=""" + Config.eap_outer + """
         ca_cert=\"""" + os.environ.get('HOME') + """/.cat_installer/ca.pem\"
         identity=\"""" + user_data.USERNAME + """\"
-        domain_suffix_match=\"""" + Config.server_match + """\"
+        altsubject_match=\"""" + altsubj_match + """\"
         phase2=\"auth=""" + Config.eap_inner + """\"
         password=\"""" + user_data.PASSWORD + """\"
         anonymous_identity=\"""" + Config.anonymous_identity + """\"
