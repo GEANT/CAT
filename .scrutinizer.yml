@@ -280,8 +280,8 @@ build:
                       elkBdSUqRUEYbQ3gUptK2xYY6/MzFv8pz7jp/KIvkD5FT6SoQpbj4e3dhGEq+ATk
                       Ron+KB3xGMbq6qEaagN8QSOH/2BLjySzfPp5d0y3LU0Otx54gBfW
                       -----END CERTIFICATE-----" >/home/scrutinizer/codesigningca.pem
-                      - |
-                        echo "
+                    - |
+                      echo "
                       -----BEGIN CERTIFICATE-----
                       MIIFlDCCA3ygAwIBAgICAQAwDQYJKoZIhvcNAQENBQAwbjELMAkGA1UEBhMCWFgx
                       FDASBgNVBAcTC0NvZGluZyBUb3duMQ0wCwYDVQQKEwROb25lMTowOAYDVQQDEzFT
@@ -314,8 +314,8 @@ build:
                       M97pbR2HB2aHCeyAnt+IJ9dOBU6k4bxkYy8l0vKcY0V3ed6YA26WMVWms6tVNR+7
                       8bN+CUnDB21DHc4DtoiorHXtON8Z7nD87ACQZEJ/SfqMkN7+RumNBA==
                       -----END CERTIFICATE-----" >/home/scrutinizer/codesigningcert.pem
-                      - |
-                        echo "
+                    - |
+                      echo "
                       -----BEGIN RSA PRIVATE KEY-----
                       MIIJKgIBAAKCAgEA2zV0C02oZW0qwOIt40XFW+UaEWqbNBRgeJj4obpiuQnnsOIS
                       HVgPLbvXjHyDkVrUhdpujf5UoIQXN6nytP4MvdASPP+CO99i1Y8oMA+JEv28LG1k
@@ -367,16 +367,16 @@ build:
                       r+eu1yoDxAbOEIL6cWpbKVuTvYkDVr08UtcHZmU6Q+ANp67LWX++EARwiD/ELOOs
                       1ABmhecQqwzGn5/IIqXOb3eH0TL0ZEvcyegw4y76fkfA/kLfa/R6+6NLzEzxnA==
                       -----END RSA PRIVATE KEY-----" >/home/scrutinizer/codesigningcert-key.pem
-                      - mkdir /home/scrutinizer/vault
-                      - openssl rsa -in /home/scrutinizer/codesigningcert-key.pem -out /home/scrutinizer/vault/xxx_key.der -outform der
-                      - openssl crl2pkcs7 -nocrl -certfile /home/scrutinizer/codesigningcert.pem -certfile /home/scrutinizer/codesigningca.pem -outform DER -out /home/scrutinizer/vault/xxx_cert.spc
-                      - cp /home/scrutinizer/codesigningca.pem /home/scrutinizer/vault/CAs.pem
-                      - cp /home/scrutinizer/codesigningcert.pem /home/scrutinizer/vault/xxx_cert.pem
-                      - cp /home/scrutinizer/codesigningcert-key.pem /home/scrutinizer/vault/xxx_key.pem
-                      - cp /home/scrutinizer/build/devices/Devices-template.php /home/scrutinizer/build/devices/Devices.php
-                      - cp /home/scrutinizer/build/signer/mobileconfig_sign-template /home/scrutinizer/build/signer/mobileconfig_sign
-                      - sudo chown scrutinizer:scrutinizer /home/scrutinizer/.rnd
-                      - sudo apt -y install pylint
+                    - mkdir /home/scrutinizer/vault
+                    - openssl rsa -in /home/scrutinizer/codesigningcert-key.pem -out /home/scrutinizer/vault/xxx_key.der -outform der
+                    - openssl crl2pkcs7 -nocrl -certfile /home/scrutinizer/codesigningcert.pem -certfile /home/scrutinizer/codesigningca.pem -outform DER -out /home/scrutinizer/vault/xxx_cert.spc
+                    - cp /home/scrutinizer/codesigningca.pem /home/scrutinizer/vault/CAs.pem
+                    - cp /home/scrutinizer/codesigningcert.pem /home/scrutinizer/vault/xxx_cert.pem
+                    - cp /home/scrutinizer/codesigningcert-key.pem /home/scrutinizer/vault/xxx_key.pem
+                    - cp /home/scrutinizer/build/devices/Devices-template.php /home/scrutinizer/build/devices/Devices.php
+                    - cp /home/scrutinizer/build/signer/mobileconfig_sign-template /home/scrutinizer/build/signer/mobileconfig_sign
+                    - sudo chown scrutinizer:scrutinizer /home/scrutinizer/.rnd
+                    - sudo apt -y install pylint
 
             tests:
                 override:
