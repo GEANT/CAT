@@ -92,6 +92,8 @@ build:
                     - wget http://ci.test/admin/API.php -O - --method=POST --no-verbose --body-file=tests/inst.json 
                     - wget http://ci.test/admin/API.php -O - --method=POST --no-verbose --body-file=tests/profile1.json 
                     - wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=chromeos\&profile=3 -O - --no-verbose
+                    - wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=chromeos\&profile=3 -O /home/scrutinizer/WinInstaller.exe - --no-verbose
+                    - file /home/scrutinizer/WinInstaller.exe
                     -
                         command: phpcs-run
                         use_website_config: true
@@ -159,6 +161,7 @@ build:
               'ssid' => [ 'eduroam' ],
               'registration_API_keys' => [ 'iabcd' => 'LU' ],
               ],
+              'PATHS' => [ 'makensis' => '/home/scrutinizer/build/tests/nsis3/bin/makensis' ],
               'NSIS_VERSION' => 3,
               ];" >/home/scrutinizer/build/config/config-confassistant.php
             - |
