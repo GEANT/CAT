@@ -77,16 +77,22 @@ abstract class AbstractProfile extends EntityWithDBProperties {
 
     /**
      * number of profiles of the IdP this profile is attached to
+     * 
+     * @var int
      */
     protected $idpNumberOfProfiles;
 
     /**
      * IdP-wide attributes of the IdP this profile is attached to
+     * 
+     * @var array
      */
     protected $idpAttributes;
 
     /**
      * Federation level attributes that this profile is attached to via its IdP
+     * 
+     * @var array
      */
     protected $fedAttributes;
 
