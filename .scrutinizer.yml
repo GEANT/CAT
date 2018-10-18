@@ -95,6 +95,289 @@ build:
                     - php-scrutinizer-run --enable-security-analysis
                     - js-scrutinizer-run
         tests:
+            dependencies:
+                before:
+                    - mysql -h 127.0.0.1 -u root -e 'create database cat'
+                    - mysql -h 127.0.0.1 -u root cat < schema/schema.sql
+                    - mysql -h 127.0.0.1 -u root cat < schema/cat_integration_scrutinizer.sql
+                    - | 
+                      echo "<?php const CONFIG = 
+                      [
+                      'APPEARANCE' => [ 
+                      'productname' => 'CAT', 
+                      'productname_long' => 'Configuration Assistant Tool',
+                      'defaultlocale' => 'en',
+                      ],
+                      'FUNCTIONALITY_LOCATIONS' =>
+                      ['CONFASSISTANT_SILVERBULLET' => 'LOCAL',
+                       'CONFASSISTANT_RADIUS' => 'LOCAL',   
+                       'DIAGNOSTICS' => 'LOCAL',
+                      ], 
+                      'PATHS' => ['logdir' => '/home/scrutinizer/', 'openssl' => '/usr/bin/openssl' ], 
+                      'AUTHENTICATION' => [], 
+                      'GEOIP' => [], 
+                      'MAILSETTINGS' => [], 
+                      'LANGUAGES' => [
+                      'en' => ['display' => 'English(GB)', 'locale' => 'en_GB.utf8',    'latin_based' => TRUE],
+                      ], 
+                      'RADIUSTESTS' => [], 
+                      'DB' => [
+                      'INST' =>     ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => NULL, 'readonly' => FALSE],
+                      'FRONTEND' => ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => NULL, 'readonly' => FALSE],
+                      'USER' =>     ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => NULL, 'readonly' => FALSE],
+                      'EXTERNAL' => ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => NULL, 'readonly' => FALSE],
+                      ], 
+                      'MAX_UPLOAD_SIZE' => [], 
+                      'DEBUG_LEVEL' => 5, 
+                      'NSIS_VERSION' => 2, 
+                      'SUPERADMINS' => [], ];" >/home/scrutinizer/build/config/config-master.php
+                    - |
+                      echo "<?php const CONFIG_CONFASSISTANT = 
+                      [
+                      'CONSORTIUM' => [
+                      'name' => 'eduroam',
+                      'display_name' => 'eduroam®',
+                      'nomenclature_federation' => 'National Roaming Operator',
+                      'nomenclature_institution' => 'Identity Provider',
+                      'ssid' => [ 'eduroam' ],
+                      'registration_API_keys' => [ 'iabcd' => 'LU' ],
+                      ],
+                      'PATHS' => [ 'makensis' => '/home/scrutinizer/build/tests/nsis3/bin/makensis' ],
+                      'NSIS_VERSION' => 3,
+                      ];" >/home/scrutinizer/build/config/config-confassistant.php
+                    - |
+                      echo "<?php const CONFIG_DIAGNOSTICS = 
+                      [
+                      'RADIUSTESTS' => [],
+                      ];" >/home/scrutinizer/build/config/config-diagnostics.php
+                    - |
+                      echo "
+                      -----BEGIN CERTIFICATE-----
+                      MIIGXjCCBEagAwIBAgIJAO9pbGGmiAY9MA0GCSqGSIb3DQEBDQUAMIG6MRMwEQYK
+                      CZImiZPyLGQBGRYDb3JnMRkwFwYKCZImiZPyLGQBGRYJMXgtY29uZmlnMTgwNgYD
+                      VQQKEy9FbnRlcnByaXNlIE5ldHdvcmsgQ29uZmlndXJhdGlvbiBBc3Npc3RhbnQg
+                      VG9vbDEmMCQGA1UECxMdU2NydXRpbml6ZXIgSW50ZWdyYXRpb24gVGVzdHMxJjAk
+                      BgNVBAMTHUNsaWVudCBDZXJ0aWZpY2F0ZSBJc3N1aW5nIENBMCAXDTE3MDMzMDEx
+                      MDExMloYDzIwNzIwMTAxMTEwMTEyWjCBujETMBEGCgmSJomT8ixkARkWA29yZzEZ
+                      MBcGCgmSJomT8ixkARkWCTF4LWNvbmZpZzE4MDYGA1UEChMvRW50ZXJwcmlzZSBO
+                      ZXR3b3JrIENvbmZpZ3VyYXRpb24gQXNzaXN0YW50IFRvb2wxJjAkBgNVBAsTHVNj
+                      cnV0aW5pemVyIEludGVncmF0aW9uIFRlc3RzMSYwJAYDVQQDEx1DbGllbnQgQ2Vy
+                      dGlmaWNhdGUgSXNzdWluZyBDQTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoC
+                      ggIBAM/hHQ9Yq+HDRovc/joBpl86D1RoVgNCb9tJ1OEFv0lbqQc9jdKVOfJxjPSl
+                      UyZqFp3mp8j9eUN8Xcxw7AJtSoUVurHa/coTVUMssvQfkDQz9zTaWjyslQREpIe9
+                      ufbY1baULt43hfYGB82f7yvNOAjSmzLuKDd9jMDbQqlo1W92GiyA/hiVxya/hni+
+                      55zVmNrm/9du0zG9esJLv66r/N0AQUdVDdZE2k3ZhXwqobg6ym+kyQIxJSpBsgn2
+                      Wyp5hJnJI3C9XhTlpN6nUE2CSkQhBbgdHQsERdzgWBrmDZunyS3kfQfI/eQXzeew
+                      Nz6BlXeUjnCUNIso6S9YbNswz+WNHGjWJ7HdG2pwH9R4W2KUp8xCnhXpmJKgsnSK
+                      HF1I4NQuuIcHW4Shtie6vPAVLBO3OkmpbEYHu1Q8Cv62pdpiyZLMNISUXv4ceDu2
+                      iPrpqX7gU/MIdPxCdtZD1SJQeEAFd2ETyV2stXpzmh/9VvNTnvno05iNFw1XzjPc
+                      5HEcGaChF45X7sEt+gVVPhLTk7qxO5v0z4BfXX0jASexg/NHBJHir2K6B8oU5+re
+                      6jOrWW+QlA3Vx+yV1HO7WCpWHLqTfEh6xx635Q4sGl/a28Svra2Nr7xiwY+9tjUN
+                      tLSkQfgXpCtFR+/pn1CezFiKCOE2d6o7lFc1z05Oa30w96qBAgMBAAGjYzBhMB0G
+                      A1UdDgQWBBRoxvvluZf6wA/ewBxSEYLPdzMTPjAfBgNVHSMEGDAWgBRoxvvluZf6
+                      wA/ewBxSEYLPdzMTPjAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIBhjAN
+                      BgkqhkiG9w0BAQ0FAAOCAgEAtzvQrN1/SKqw4VHRn2pHSOFOQiw06isPw4mqK2zZ
+                      w/8olsB8sp0lLak7GE6GykDFTimTMz/WxoKxZld/IR2H69wDeDRjXz8HqWt9gkjw
+                      E9QZ16AvZKBNVLQfS4UEpj99S9Sk91WIulCFivKfNE5V/9UJmADD9j+hWkKM1AWj
+                      wbF96orjFVvjapGV1QN8ZYgZxeZXLiJ90DeQI7VDwdvCfh84PIK4cZW+9eVk4gBi
+                      SVWxxLT9vf/+M1XIiumF/oM3+8vnghDpYOGjyz6mMfPm+t0xoRLOeoPg2F58dNLw
+                      z1kbwDww2uMW5QikJuRCw6Gdh7GIxwBYtB9rANw/FnvpIQyZZHluVRKDr2FvO5+a
+                      jPN4PDY3qr5Ou5gO51aRG7kQ5AVXAXlrlGhoiO8KmE3nV8yTMr30uNucu04RbehM
+                      ZqdZdD/Fr2WqUX8fDA6DpGFuQh8AullVKEi4FuKXOtWItULj8E9S5vfedIdFoGLw
+                      VhrI1wUlDuaB0n9luIZJyhWAJ+CACPLyUCUccwJijV1kSkoQfd4BN+EVik1OEVoA
+                      hJq0/cRNFwGunljrIwYwkbB4NIrl60GWi4l8Y9K3GKUkT6Zvc8IyBS6YR91BVFxh
+                      HPDMtGU/bPQ12hAigmtchTB6VHVQpSNExpFkoBkwjUrWuqUK44rCTixrZIR8qeeo
+                      le8=
+                      -----END CERTIFICATE-----" >/home/scrutinizer/build/config/SilverbulletClientCerts/real.pem
+                    - |
+                      echo "
+                      -----BEGIN RSA PRIVATE KEY-----
+                      MIIJKAIBAAKCAgEAz+EdD1ir4cNGi9z+OgGmXzoPVGhWA0Jv20nU4QW/SVupBz2N
+                      0pU58nGM9KVTJmoWneanyP15Q3xdzHDsAm1KhRW6sdr9yhNVQyyy9B+QNDP3NNpa
+                      PKyVBESkh7259tjVtpQu3jeF9gYHzZ/vK804CNKbMu4oN32MwNtCqWjVb3YaLID+
+                      GJXHJr+GeL7nnNWY2ub/127TMb16wku/rqv83QBBR1UN1kTaTdmFfCqhuDrKb6TJ
+                      AjElKkGyCfZbKnmEmckjcL1eFOWk3qdQTYJKRCEFuB0dCwRF3OBYGuYNm6fJLeR9
+                      B8j95BfN57A3PoGVd5SOcJQ0iyjpL1hs2zDP5Y0caNYnsd0banAf1HhbYpSnzEKe
+                      FemYkqCydIocXUjg1C64hwdbhKG2J7q88BUsE7c6SalsRge7VDwK/ral2mLJksw0
+                      hJRe/hx4O7aI+umpfuBT8wh0/EJ21kPVIlB4QAV3YRPJXay1enOaH/1W81Oe+ejT
+                      mI0XDVfOM9zkcRwZoKEXjlfuwS36BVU+EtOTurE7m/TPgF9dfSMBJ7GD80cEkeKv
+                      YroHyhTn6t7qM6tZb5CUDdXH7JXUc7tYKlYcupN8SHrHHrflDiwaX9rbxK+trY2v
+                      vGLBj722NQ20tKRB+BekK0VH7+mfUJ7MWIoI4TZ3qjuUVzXPTk5rfTD3qoECAwEA
+                      AQKCAgEAn+aN/t77H6agnjb4StA4FGnJnui+uLUi62/oUsqj8B6UbyBW9hOZRjc3
+                      8Hs28YaLLRxeFYl7/IAuenKl59v/hU1IlURZEVY7sHcyk/uvZahPUBVhcehim6zd
+                      ThiPciQqh82GG6Jj5fGPkQij5XJu1sKBZPSydLSbT0GZDky4WItk6LS0P17+mHyc
+                      SEa4S/g1IrSrOSBjTZBtXAT+RbK/x5NJoz/2a8n8jgNy3SbBzL9UNfpwL8JzzwRH
+                      mcgpKgvdBpokK7VOKA7Y+feDGovM6ojoKE4kp/O6dYMP4mjxMLkoU6e80P825Hu3
+                      A6+VXvw4Z4oa4tftbtmiPKvs19G9J3Zsj7y71oOPjbXy5AGZJgm+KzsNcflKYhJE
+                      0yXFQZe7Teh1gqHqRvAoIJ/ZlJ6abwBD8Z2Kaze1dtV9T5CvANvaiV0i2i6F3ug8
+                      nr2AIuYLhpdSCLH7ZQ/8uEznBJzswiFeoVTAZsAqw7UCW8n1araQi6+RJyy2RqPn
+                      alpYjLHCm/sKeNE+EWNr6qaq1nK8JfqCccv4L1iMVq529V0Fc+NI53P7ttK8vE+B
+                      k2uYrPaQIbjc+ZxkyswjKX+fnZhnjiSk2on2OnSYK0xFLBss9x08T9zFTtwBjFsU
+                      GirlUNAq4EgUYXZcmiY2BBXt8I27n58DiUKtTjl7gp3WNBw0BxECggEBAPsroWh1
+                      KSqb9UPgYaKOAREscXUCRN/yuJJ9PrfC1V8jyd+/lwjtP7dz37U2JWaNtSjPvgLE
+                      7VBDNtX5K5ynkJfBbQyAnRzPzi8Gl3cRrJEo96qjTgz47AZYYyWNXDLQTBRl0cz3
+                      p07A377srBLqx1d0jp3eYhloHnvNMqJDkk45Ir0hSZE6AyRqDN96aV+q2LyOB2CR
+                      z9x7V+QVlRlYjUZYNGadBW4b7szZX0ERYJAsqf0D+S3K1xXbuvVooS5Nzp/ggc7O
+                      F4tWwcSxF74mvmqG3posDa9KAwtfXKXi4YuFelwS8/rNEFnXhHsmrBx0MPVmTgF8
+                      4E80r7bqD7pAZ80CggEBANPgYrW+qifm2YGpO+Vm4hsTsT/LfwUljtVCxF7SifHE
+                      hwbO6hiJ3DBmQwuF3Xc0VRELYnlZs4Pn/G+cZlnHRdKXYjehODrO0Mp47IawcIGX
+                      2XAJOCZw7oDMY3/eG6Tl9+G6eBZecD+moibSObjsecOBmz8HpJwwt10AY5dKtmE0
+                      rOLtxgEJFC1l6XyBeKm9w73sERiHl3320q86SVc1mzBEjTxvbKqJW8PlUL0INP5Q
+                      josankKF4twgfIK210tmqYwbyvvw9i2SyxLhm+wC6IKxXPGmWTZKfQbrnJLTLpWE
+                      BhLuIpp6OH42xBcqKGE6xrJjaIPlazJNRFl0jKWxsYUCggEADxK+PAOT9d+oJ2um
+                      0FePTtWI9YmuUnZBh2EGy4ZgwbXnHotj6AA866iDi191fSMR9SIKeCYTS9bMyqiK
+                      antP3RuZjL+HLjx2VjIiEt43qfp4aoAkZfjmSTcytAU4vD/t4Od/YLqYCszeYJnZ
+                      dcUrM19mU6kN4BJ0id91o3FErXcWU51UyedeWugWX6779ebN3Pr1DGGTxNqOGr0E
+                      1qGO0OLoOiRAOCxq91YwNjpxvhVAGlQLtyjOIZyvKp0d1yaKOOQDRkLt/Mm3FTO/
+                      hgTTNpdjcoMkSxm49wzBBZ+JA5N+FVp509pMmeeqJq3adFawvXlnQwWYfIhf5y1C
+                      xl2pHQKCAQAuZVFYOQMrr6prcTKTfl7+zOYgcSBEcUAAxRkZJoNcdMuYmxC6BN45
+                      nvsJd+vSIZyLGfIbXqAnv1IQ4q+q8y7/+XRheCVHA2jHHYm1yMcqKaVMmkg4arxf
+                      aeJT6sAk8NLCFEIdq9pqpcOWOqy3KNlVDXmAaN0L8sMEU4R7abncOVuuaaDVMza+
+                      5jUltXhFuy801I+9zltHExh5lIrg1PVBsZE37bJe+aslj36JllV8Zwl/vnlvWcAe
+                      seJyATXN5hI0gxWE6/QMcLuVS+AH428kx0/x/ppEgDU2obtsj2ABD6MA3DKpnx/l
+                      y3pPFEU5XVSLVadaUo+RuUfBSvtNgUa9AoIBAEFWNVeSG8ZP+gpxbkykCTwxFN3L
+                      tf0qPsTD7TReswSHLRVp3/t+IEUrBxqTmViPF+6ob1b4q9EbI5HOfxDdn5jVinQO
+                      6T6OtIeAWY+u8IEYuwtEKoKWf+00GsURxnctLD22TVJBQ2+ROXPnXNUnGc4QXIYr
+                      SX+G3JlzB1nPWRNQhbbTOFnrLy93HVO2fkZMm6u/Eq8/XaPCetHbt++/WrEWa5NU
+                      p4LPj3Y+A6YFB0ylMOKxM/aKn2A5jO9xlAQLlu9eMpx9ovWsAGMfQep3erhlyED7
+                      1VBq/qKGOAu5jhFD85c459fasxhqNhxLlnAUJFNOA2skqNzhqg9lIbRo+Hg=
+                      -----END RSA PRIVATE KEY-----" >/home/scrutinizer/build/config/SilverbulletClientCerts/real.key
+                    - |
+                      echo "
+                      -----BEGIN CERTIFICATE-----
+                      MIIGUzCCBDugAwIBAgIJAIlzsCEbhx0jMA0GCSqGSIb3DQEBDQUAMG4xCzAJBgNV
+                      BAYTAlhYMRQwEgYDVQQHEwtDb2RpbmcgVG93bjENMAsGA1UEChMETm9uZTE6MDgG
+                      A1UEAxMxU2NydXRpbml6ZXIgQ0kgTm90IFJlYWxseSBUcnVzdGVkIENvZGUgU2ln
+                      bmluZyBDQTAgFw0xODEwMTgwNzUzNDJaGA8yMDczMDcyMTA3NTM0MlowbjELMAkG
+                      A1UEBhMCWFgxFDASBgNVBAcTC0NvZGluZyBUb3duMQ0wCwYDVQQKEwROb25lMTow
+                      OAYDVQQDEzFTY3J1dGluaXplciBDSSBOb3QgUmVhbGx5IFRydXN0ZWQgQ29kZSBT
+                      aWduaW5nIENBMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAyY4HbDtM
+                      jcnPFvrRwPeCR9bjVEp314m2eh4VNRPwSrQFsYB7Y4TBhWrvUo4RZAAXMXwGRD8/
+                      At8QYyf8qS8tjL5h7cpNrP0gllzKRjD/wriodcle92qYycibfCzt54xu70O4vLJV
+                      dHDrhgXv9hxZve7jH1/E7Q5OKLvzfJN0SZGnLr2xxWKcGzZsWPza3oTqlNH7RgcT
+                      mK5x/5BzD9HKc+6QT0UCIJJPuXaMCVmq0BxGIJntAPy9s64uZmbSaXkUS++z+sdX
+                      jDq2ymQ6fhuEm8XWT+IJj/s+EiQptju3bEjBQwHimMR4iBrdVCFtmBITxy9sVMt1
+                      viIxhA4sAAiWj5TTcJNTyv45/ddqqbd0ejy+g93ZKs+jiqT11VNjbwzFDq4mwax3
+                      XifDWc3nPa6TKyg2XQPvw1d0pf5sIj9/ASXDd4zRiYI+M73jm+0cSemAo9KUTliQ
+                      Z9DAJZwQQiKVn/eZWXQ9qNTGgspwiwaMWEqO0EzHU34+WnNv+nxb4mAWXWQG2+mo
+                      WL0u8+AIfP0F8pmgbqHJCON85eSCJO32neTEDeld8+vbZLRQpSkpiy4ZNOv9HaeV
+                      t15n7ZpfcOUBhot5Xn7YJsHjj/2k++iiVK1n+4zzh8xwVIQXv2nti6HlvmcJSB3K
+                      xL08oSD/d7/uyj206VMEHP3w9V8OXiBJWc0CAwEAAaOB8TCB7jAdBgNVHQ4EFgQU
+                      xhgJP4ZiayMxXtVW196lm4coHLQwgaAGA1UdIwSBmDCBlYAUxhgJP4ZiayMxXtVW
+                      196lm4coHLShcqRwMG4xCzAJBgNVBAYTAlhYMRQwEgYDVQQHEwtDb2RpbmcgVG93
+                      bjENMAsGA1UEChMETm9uZTE6MDgGA1UEAxMxU2NydXRpbml6ZXIgQ0kgTm90IFJl
+                      YWxseSBUcnVzdGVkIENvZGUgU2lnbmluZyBDQYIJAIlzsCEbhx0jMA8GA1UdEwEB
+                      /wQFMAMBAf8wDgYDVR0PAQH/BAQDAgEGMAkGA1UdEQQCMAAwDQYJKoZIhvcNAQEN
+                      BQADggIBAAgJrs8wp8iP9KPtPok+mj9BpKUoZ8BX43wp9vM5SIwvXqRmwosXHw9z
+                      J9Cdobwk3ATN/NA8Dc65/Mh9cLojya5uwhrp97CvDl2wUd1M49VGc+/nZFzgwbXL
+                      B7w80tCM3+Nm9pd/gu0vEdsZjRX1QHI40mdBT7l1biZapXIPcNzygERbWuJP8p+d
+                      EOgOLN8Tx18ycA3owsajLr+y8lqqFGEOfj4NWNLGvQebjNgBOjYHLIayaC5WNHvC
+                      9HbA6v2fKdoV/reO1LuRcKEg3Yg/IWd5bNiYY+ObNCCkBWIKDnkE1H6Ht4l5m6+u
+                      gzz0Yj++JZbY3b2w4xYujyfSxpKwBU5TN+FmhN8VHmNSqNfrBRqqp4IwBzl2zYeg
+                      Slo895bfTZZrmxHkbMJhN2BelllXVwQ6WUQ6Vf8vaYzplGbrYIn2VXBOA/rOPE00
+                      LMj/VYZ2/17WxiWAwqsxF37BNo8eM7oHX26JDt+y3293usKo74Ekd0ewhwIR2J2N
+                      WRvkIpaX7nQWZVfVd9wICqaIXkYnjviv8y2Z7jCFo4I69esb/KR/e9zmJRgZmBB/
+                      elkBdSUqRUEYbQ3gUptK2xYY6/MzFv8pz7jp/KIvkD5FT6SoQpbj4e3dhGEq+ATk
+                      Ron+KB3xGMbq6qEaagN8QSOH/2BLjySzfPp5d0y3LU0Otx54gBfW
+                      -----END CERTIFICATE-----" >/home/scrutinizer/codesigningca.pem
+                      - |
+                        echo "
+                      -----BEGIN CERTIFICATE-----
+                      MIIFlDCCA3ygAwIBAgICAQAwDQYJKoZIhvcNAQENBQAwbjELMAkGA1UEBhMCWFgx
+                      FDASBgNVBAcTC0NvZGluZyBUb3duMQ0wCwYDVQQKEwROb25lMTowOAYDVQQDEzFT
+                      Y3J1dGluaXplciBDSSBOb3QgUmVhbGx5IFRydXN0ZWQgQ29kZSBTaWduaW5nIENB
+                      MB4XDTE4MTAxODA3NTYyOVoXDTI4MTAxNTA3NTYyOVowazELMAkGA1UEBhMCWFgx
+                      FDASBgNVBAcTC0NvZGluZyBUb3duMQ0wCwYDVQQKEwROb25lMTcwNQYDVQQDEy5V
+                      bnRydXN0ZWQgYW5kIFVzZWxlc3MgQ29kZSBTaWduaW5nIENlcnRpZmljYXRlMIIC
+                      IjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2zV0C02oZW0qwOIt40XFW+Ua
+                      EWqbNBRgeJj4obpiuQnnsOISHVgPLbvXjHyDkVrUhdpujf5UoIQXN6nytP4MvdAS
+                      PP+CO99i1Y8oMA+JEv28LG1kQiW5978SidVkaRZ+g9j0Py3PUI9pK9bQC+gHQb5m
+                      aanqwD9dsnz45Ck4K32M9IFwmzCMwnZLKgMSGOJa8nOuFMO2DRQYkuKjkQzHgaxP
+                      CvzjaFNfs7Ul4EbtMa4tPCks2vKyfNn1500q539VwtgcQFy0M2CPhNanw85wMQSC
+                      ifXEaqaqQQoIaOip31058eCrLkn5RXTmyqx8MaIOQzZVSQN3GesoLC5K8YUJek99
+                      dp3Yl5o7zGWnzYYzEiBUpd8mxC6LLXZ5t0WyJfpHgfgysErN9/b4cMfcr0Ea7KRz
+                      kPh9JjvqkMwc3QXSGe/SDpAcuBEKi4oo5BrcFqpHUttKVu9C1BeZHHZ9zSGaCeN6
+                      2dPdR0jXe5dYT1hWn9kxoZp9u0v9xU67llSv3u+KFZyvOBDQGBFr4q0yN+vIUECc
+                      lOOoi7Xcw+pkRZhCx0BstUaV/tffnP9KwIPsOw8dPyZSV+zkklSdI2m5T/qQFPOb
+                      dxY9e1tyewwitVi7P1jJJy4lTNnU5DilI4P24vlpVovMnqlkZYvrkCotcTROtwx5
+                      IAaRk1wxOQSxw0eeUUcCAwEAAaM/MD0wDAYDVR0TAQH/BAIwADAOBgNVHQ8BAf8E
+                      BAMCBaAwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFCAICMA0GCSqGSIb3DQEB
+                      DQUAA4ICAQC3OfsseaMAvMhbxAVnrZk6Lgq8Nh4D6PnUucGqNvXV+HO/JcoH25mH
+                      6xtWUb4Nz/OGxOFDRcPmBpCoFXMPxxTovqhkpAAay6VACnbnW61oO0+ikyCk+ZYY
+                      +OWgRMZ1xFtEfwvzbM8ILkFoeJXZHy0ozVxNxGLKG/t0uM6ltrpMnDTtOu1fB3sr
+                      4ggJPtIT4pTYj9TURdBw/Od5lbIKv/BObZu8+SbRD1sHd7hRPfdst2mr/0G1kMOV
+                      w64j1XdEi7Qx8N+LUgKYMFBJX2wTNE/l8+WdTNLbT1D/k/zPn6ld5y7pRDd453Io
+                      asiP+smdnErwIR4+7Ptlh7DHLU1nMAv/VsWyO2OuuleJEZNQWep/N/gEs/KHrtVF
+                      hy9kR9eyTJyHugiCvGyxM9wpfsj6UTUP4LBU3QucfJOsYiEaDqkwXbtwYDBDzlAL
+                      4XDYseqwHy685yQkF/derhyAJLknHYLav16qtB/BR2FcriH0kJvPAh11DZbkEYeL
+                      HZzQ+c2wzakT15RxL1fQmo4xZv2LecdQggs8LiupN8MdvtIR/GmTsDX4XJXJ178N
+                      M97pbR2HB2aHCeyAnt+IJ9dOBU6k4bxkYy8l0vKcY0V3ed6YA26WMVWms6tVNR+7
+                      8bN+CUnDB21DHc4DtoiorHXtON8Z7nD87ACQZEJ/SfqMkN7+RumNBA==
+                      -----END CERTIFICATE-----" >/home/scrutinizer/codesigningcert.pem
+                      - |
+                        echo "
+                      -----BEGIN RSA PRIVATE KEY-----
+                      MIIJKgIBAAKCAgEA2zV0C02oZW0qwOIt40XFW+UaEWqbNBRgeJj4obpiuQnnsOIS
+                      HVgPLbvXjHyDkVrUhdpujf5UoIQXN6nytP4MvdASPP+CO99i1Y8oMA+JEv28LG1k
+                      QiW5978SidVkaRZ+g9j0Py3PUI9pK9bQC+gHQb5maanqwD9dsnz45Ck4K32M9IFw
+                      mzCMwnZLKgMSGOJa8nOuFMO2DRQYkuKjkQzHgaxPCvzjaFNfs7Ul4EbtMa4tPCks
+                      2vKyfNn1500q539VwtgcQFy0M2CPhNanw85wMQSCifXEaqaqQQoIaOip31058eCr
+                      Lkn5RXTmyqx8MaIOQzZVSQN3GesoLC5K8YUJek99dp3Yl5o7zGWnzYYzEiBUpd8m
+                      xC6LLXZ5t0WyJfpHgfgysErN9/b4cMfcr0Ea7KRzkPh9JjvqkMwc3QXSGe/SDpAc
+                      uBEKi4oo5BrcFqpHUttKVu9C1BeZHHZ9zSGaCeN62dPdR0jXe5dYT1hWn9kxoZp9
+                      u0v9xU67llSv3u+KFZyvOBDQGBFr4q0yN+vIUECclOOoi7Xcw+pkRZhCx0BstUaV
+                      /tffnP9KwIPsOw8dPyZSV+zkklSdI2m5T/qQFPObdxY9e1tyewwitVi7P1jJJy4l
+                      TNnU5DilI4P24vlpVovMnqlkZYvrkCotcTROtwx5IAaRk1wxOQSxw0eeUUcCAwEA
+                      AQKCAgEAu9MPPWgq880YJvEl1GjB9D1Xmri3h2Y2St73msuzL01XYm4yi0Yaq1sa
+                      E9vUd8VV9+Lze2MCbA8CPcW2mnJbxH/2QKHFmzuK2eWxz4xgLQ+QHpkUoMDmmWr0
+                      nXlkcc6+VIaesUu1KRfYS6Hh3XHQVfqokbzv0g35YKhIMmdHI6yODCqkq7Rrx2vI
+                      d5Tt+rhoqPmJnW0cHhSsAZ+D+xLyFx/nEkkhKRDXHYoHjCX5sunFBJlbP7dYTDYN
+                      x0SNkJHAkBTQEC3ekW8ZSf8K/HF0G+v7Ve5pf+CSXOwVzJ4ef67HqYKR6jWkCmli
+                      HyKvv29VvS1e4hLACEs/vqtjt5IATWCVzx+M66Jao8UwhE+GKB30kBoENbDosSJS
+                      q7vkPEwnjNRj0rW9XDQro6ikoxdDOTP8AnWYVCtj/p3NkwKpgr7Y36N5rt3Qpk8/
+                      MP0mLc8PgDnP9wuhelaphv8hSQvvWzef/HYJoqDYgRhxqAY20bzuRK+jVieRmEtH
+                      kGDwCy44nfGseyLexmvik0metnYkyK2fNe7PoS33stAGwXN76/0rQcFrGhP8IMm+
+                      xyUH04weBCQLtVWWCSkKr3AAbpDj32sH9MwDcAH2impyaIk1KT9WvWjdjyWbDXKT
+                      fR4005wy1Dwoj6khpeaC1NOZU49Cqie7iLvwAezgULtQUNE7GhECggEBAPOR25Bq
+                      9I0iDAbjJYUcsILri2FNjIlAWH4Wtn+DrOdJxbGDWxmP92Jz+gEI8sIP7A29Wd2V
+                      AO1D1nKJXoGykNOyH0aeef0bciUlsnIK5IXrLKCCq/k6Lruk2KhgEcNJGfJWNaJR
+                      gZgckgy4u3vagS+xWvBUag6lPBv8QHeuZFuQVO6V9V1Xvt7ZX9LVTwopIpIw6SEI
+                      3/teY3wuYoBXK4NFhWDX7RbzyFMOZ6J2xQoLQmEQHj0QJ6+7i1gm/0AKUWsd3sC+
+                      QF2GvkFKVF8HVkH3wH+vOT7jg9RYV1nwOu1YdqI3nw/Uw1yK6GxfkeqbFXIBPx0g
+                      TIe5VWk5lEv6zHsCggEBAOZlVFQnm2CXRCskWYSnqBXxzl+qzyaZVfkgTAxJzqSO
+                      qHtPTJ1QoVHW/WPs1rqET/HD+yhQw6XfChFOx2S6cLfZXrbDhJHaT2GmeWMylBth
+                      0JI397dmvdlTBLdZBifx6mTVTExJuqWClTdGNkk6kn7dxYMAGxzCkTfH9AlMTH7c
+                      F305tQEpw/a6Tg9kVx7cOjUSkJt9/7bXsODCWVKYnJBJs+t7lbOCDUR33TCRxOOO
+                      JvVPYpepUDvrArBZZklAEz7uYgBRTddQS7feC6vR7uwXk8ej4Anzc1lvuqjPHJqs
+                      12tVZMNXhvC+gfI9Z5+Za5jRwnFSSTSmlUKHozfxsqUCggEBAMEIUI1U5nlPiV6P
+                      +HVVNmKbkDvOPNmtoDRVhc7rKUWoBsBXTQSmPzXMmk7lq5a3DaoZ7bWZWEGxqKvf
+                      SIHbZcIQgY7zG9THQqBEDvcowNGNfzG6PdboEI9v5rESaiFttt2DC0CX/e/yfKEO
+                      aq+OjSGiGmMrU15F/6xiLylqkWirq1Pmjq2qU7/DYJjzqo9v6FEZ6DjhErnhpVCO
+                      Zkw2SWrg1wLYPbMaAyIn4WQ1YpVCNRo9rulP+1Pfe2Cij1pOkxYkdxwj61jz56ZQ
+                      5Srm4qqnUe0fjmvT3e+VD61coSbnHCYVlL70LNwTzn3NBBR9UfKnIEDSDzTlYdZh
+                      5rCMlC8CggEAZCZX6dztpacbcsVyRD+8yQ07cEqHkXfF720ioZTTxqRciH2ICDos
+                      Za7WpsEk9h7dwXI3kubIpSm27p8X/aktpj1O9pM25U/IgeIjkgNCbkSurWC2xXpb
+                      vERiIHEKRALcqMgvSloiUB/bTROwNVTIqW0tlixNnMrW5TB93CzWc66oZz7Wd5L4
+                      JCAIHpi3ZirFApz3TyAOMCTCNnFE8qp0JCRlmU83W7iEm+aet6Ylt+Tq+mdvrA1l
+                      WyZlHNM/q0e3Ffv5jbnJ5HZ684oJ+L5g5S+6hWWu1aSF17LBqO+et326hmWwT1mU
+                      xsGJKwuWJ8JBC0TjCO+D8ucWqrzbLk5aIQKCAQEA24sQyGQwfOBAeU+Ov1vlewz4
+                      VnNQotadNYANBDSBDRtBxifBv/4ZqTSpTMpcrp887tji4dwKmKd3dgpR32t4xBwR
+                      2bfJy6NrFPDVhLCviNPPosP5MWp0hnySAxRZCS7C9eW+RsTneejIPC48NdY/jGcB
+                      gLG11dNTwqPbufspr1mWWVSZa75Wxmpez+qgwwpq8sIIHxxb7ziUQuEHrQIq4NVz
+                      r+eu1yoDxAbOEIL6cWpbKVuTvYkDVr08UtcHZmU6Q+ANp67LWX++EARwiD/ELOOs
+                      1ABmhecQqwzGn5/IIqXOb3eH0TL0ZEvcyegw4y76fkfA/kLfa/R6+6NLzEzxnA==
+                      -----END RSA PRIVATE KEY-----" >/home/scrutinizer/codesigningcert-key.pem
+                      - mkdir /home/scrutinizer/vault
+                      - openssl rsa -in /home/scrutinizer/codesigningcert-key.pem -out /home/scrutinizer/vault/xxx_key.der -outform der
+                      - openssl crl2pkcs7 -nocrl -certfile /home/scrutinizer/codesigningcert.pem -certfile /home/scrutinizer/codesigningca.pem -outform DER -out /home/scrutinizer/vault/xxx_cert.spc
+                      - cp /home/scrutinizer/codesigningca.pem /home/scrutinizer/vault/CAs.pem
+                      - cp /home/scrutinizer/codesigningcert.pem /home/scrutinizer/vault/xxx_cert.pem
+                      - cp /home/scrutinizer/codesigningcert-key.pem /home/scrutinizer/vault/xxx_key.pem
+                      - cp /home/scrutinizer/build/devices/Devices-template.php /home/scrutinizer/build/devices/Devices.php
+                      - cp /home/scrutinizer/build/signer/mobileconfig_sign-template /home/scrutinizer/build/signer/mobileconfig_sign
+                      - sudo chown scrutinizer:scrutinizer /home/scrutinizer/.rnd
+                      - sudo apt -y install pylint
+
             tests:
                 override:
                     - wget http://ci.test/admin/API.php -O - --method=POST --no-verbose --body-file=tests/inst.json
@@ -122,288 +405,6 @@ build:
                 domain:
                     web_root: web/
                     host: ci.test
-    dependencies:
-        before:
-            - mysql -h 127.0.0.1 -u root -e 'create database cat'
-            - mysql -h 127.0.0.1 -u root cat < schema/schema.sql
-            - mysql -h 127.0.0.1 -u root cat < schema/cat_integration_scrutinizer.sql
-            - | 
-              echo "<?php const CONFIG = 
-              [
-              'APPEARANCE' => [ 
-              'productname' => 'CAT', 
-              'productname_long' => 'Configuration Assistant Tool',
-              'defaultlocale' => 'en',
-              ],
-              'FUNCTIONALITY_LOCATIONS' =>
-              ['CONFASSISTANT_SILVERBULLET' => 'LOCAL',
-               'CONFASSISTANT_RADIUS' => 'LOCAL',   
-               'DIAGNOSTICS' => 'LOCAL',
-              ], 
-              'PATHS' => ['logdir' => '/home/scrutinizer/', 'openssl' => '/usr/bin/openssl' ], 
-              'AUTHENTICATION' => [], 
-              'GEOIP' => [], 
-              'MAILSETTINGS' => [], 
-              'LANGUAGES' => [
-              'en' => ['display' => 'English(GB)', 'locale' => 'en_GB.utf8',    'latin_based' => TRUE],
-              ], 
-              'RADIUSTESTS' => [], 
-              'DB' => [
-              'INST' =>     ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => NULL, 'readonly' => FALSE],
-              'FRONTEND' => ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => NULL, 'readonly' => FALSE],
-              'USER' =>     ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => NULL, 'readonly' => FALSE],
-              'EXTERNAL' => ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => NULL, 'readonly' => FALSE],
-              ], 
-              'MAX_UPLOAD_SIZE' => [], 
-              'DEBUG_LEVEL' => 5, 
-              'NSIS_VERSION' => 2, 
-              'SUPERADMINS' => [], ];" >/home/scrutinizer/build/config/config-master.php
-            - |
-              echo "<?php const CONFIG_CONFASSISTANT = 
-              [
-              'CONSORTIUM' => [
-              'name' => 'eduroam',
-              'display_name' => 'eduroam®',
-              'nomenclature_federation' => 'National Roaming Operator',
-              'nomenclature_institution' => 'Identity Provider',
-              'ssid' => [ 'eduroam' ],
-              'registration_API_keys' => [ 'iabcd' => 'LU' ],
-              ],
-              'PATHS' => [ 'makensis' => '/home/scrutinizer/build/tests/nsis3/bin/makensis' ],
-              'NSIS_VERSION' => 3,
-              ];" >/home/scrutinizer/build/config/config-confassistant.php
-            - |
-              echo "<?php const CONFIG_DIAGNOSTICS = 
-              [
-              'RADIUSTESTS' => [],
-              ];" >/home/scrutinizer/build/config/config-diagnostics.php
-            - |
-              echo "
-              -----BEGIN CERTIFICATE-----
-              MIIGXjCCBEagAwIBAgIJAO9pbGGmiAY9MA0GCSqGSIb3DQEBDQUAMIG6MRMwEQYK
-              CZImiZPyLGQBGRYDb3JnMRkwFwYKCZImiZPyLGQBGRYJMXgtY29uZmlnMTgwNgYD
-              VQQKEy9FbnRlcnByaXNlIE5ldHdvcmsgQ29uZmlndXJhdGlvbiBBc3Npc3RhbnQg
-              VG9vbDEmMCQGA1UECxMdU2NydXRpbml6ZXIgSW50ZWdyYXRpb24gVGVzdHMxJjAk
-              BgNVBAMTHUNsaWVudCBDZXJ0aWZpY2F0ZSBJc3N1aW5nIENBMCAXDTE3MDMzMDEx
-              MDExMloYDzIwNzIwMTAxMTEwMTEyWjCBujETMBEGCgmSJomT8ixkARkWA29yZzEZ
-              MBcGCgmSJomT8ixkARkWCTF4LWNvbmZpZzE4MDYGA1UEChMvRW50ZXJwcmlzZSBO
-              ZXR3b3JrIENvbmZpZ3VyYXRpb24gQXNzaXN0YW50IFRvb2wxJjAkBgNVBAsTHVNj
-              cnV0aW5pemVyIEludGVncmF0aW9uIFRlc3RzMSYwJAYDVQQDEx1DbGllbnQgQ2Vy
-              dGlmaWNhdGUgSXNzdWluZyBDQTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoC
-              ggIBAM/hHQ9Yq+HDRovc/joBpl86D1RoVgNCb9tJ1OEFv0lbqQc9jdKVOfJxjPSl
-              UyZqFp3mp8j9eUN8Xcxw7AJtSoUVurHa/coTVUMssvQfkDQz9zTaWjyslQREpIe9
-              ufbY1baULt43hfYGB82f7yvNOAjSmzLuKDd9jMDbQqlo1W92GiyA/hiVxya/hni+
-              55zVmNrm/9du0zG9esJLv66r/N0AQUdVDdZE2k3ZhXwqobg6ym+kyQIxJSpBsgn2
-              Wyp5hJnJI3C9XhTlpN6nUE2CSkQhBbgdHQsERdzgWBrmDZunyS3kfQfI/eQXzeew
-              Nz6BlXeUjnCUNIso6S9YbNswz+WNHGjWJ7HdG2pwH9R4W2KUp8xCnhXpmJKgsnSK
-              HF1I4NQuuIcHW4Shtie6vPAVLBO3OkmpbEYHu1Q8Cv62pdpiyZLMNISUXv4ceDu2
-              iPrpqX7gU/MIdPxCdtZD1SJQeEAFd2ETyV2stXpzmh/9VvNTnvno05iNFw1XzjPc
-              5HEcGaChF45X7sEt+gVVPhLTk7qxO5v0z4BfXX0jASexg/NHBJHir2K6B8oU5+re
-              6jOrWW+QlA3Vx+yV1HO7WCpWHLqTfEh6xx635Q4sGl/a28Svra2Nr7xiwY+9tjUN
-              tLSkQfgXpCtFR+/pn1CezFiKCOE2d6o7lFc1z05Oa30w96qBAgMBAAGjYzBhMB0G
-              A1UdDgQWBBRoxvvluZf6wA/ewBxSEYLPdzMTPjAfBgNVHSMEGDAWgBRoxvvluZf6
-              wA/ewBxSEYLPdzMTPjAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIBhjAN
-              BgkqhkiG9w0BAQ0FAAOCAgEAtzvQrN1/SKqw4VHRn2pHSOFOQiw06isPw4mqK2zZ
-              w/8olsB8sp0lLak7GE6GykDFTimTMz/WxoKxZld/IR2H69wDeDRjXz8HqWt9gkjw
-              E9QZ16AvZKBNVLQfS4UEpj99S9Sk91WIulCFivKfNE5V/9UJmADD9j+hWkKM1AWj
-              wbF96orjFVvjapGV1QN8ZYgZxeZXLiJ90DeQI7VDwdvCfh84PIK4cZW+9eVk4gBi
-              SVWxxLT9vf/+M1XIiumF/oM3+8vnghDpYOGjyz6mMfPm+t0xoRLOeoPg2F58dNLw
-              z1kbwDww2uMW5QikJuRCw6Gdh7GIxwBYtB9rANw/FnvpIQyZZHluVRKDr2FvO5+a
-              jPN4PDY3qr5Ou5gO51aRG7kQ5AVXAXlrlGhoiO8KmE3nV8yTMr30uNucu04RbehM
-              ZqdZdD/Fr2WqUX8fDA6DpGFuQh8AullVKEi4FuKXOtWItULj8E9S5vfedIdFoGLw
-              VhrI1wUlDuaB0n9luIZJyhWAJ+CACPLyUCUccwJijV1kSkoQfd4BN+EVik1OEVoA
-              hJq0/cRNFwGunljrIwYwkbB4NIrl60GWi4l8Y9K3GKUkT6Zvc8IyBS6YR91BVFxh
-              HPDMtGU/bPQ12hAigmtchTB6VHVQpSNExpFkoBkwjUrWuqUK44rCTixrZIR8qeeo
-              le8=
-              -----END CERTIFICATE-----" >/home/scrutinizer/build/config/SilverbulletClientCerts/real.pem
-            - |
-              echo "
-              -----BEGIN RSA PRIVATE KEY-----
-              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
-              -----END RSA PRIVATE KEY-----" >/home/scrutinizer/build/config/SilverbulletClientCerts/real.key
-            - |
-              echo "
-              -----BEGIN CERTIFICATE-----
-              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
-              -----END CERTIFICATE-----" >/home/scrutinizer/codesigningca.pem
-            - |
-              echo "
-              -----BEGIN CERTIFICATE-----
-              MIIFlDCCA3ygAwIBAgICAQAwDQYJKoZIhvcNAQENBQAwbjELMAkGA1UEBhMCWFgx
-              FDASBgNVBAcTC0NvZGluZyBUb3duMQ0wCwYDVQQKEwROb25lMTowOAYDVQQDEzFT
-              Y3J1dGluaXplciBDSSBOb3QgUmVhbGx5IFRydXN0ZWQgQ29kZSBTaWduaW5nIENB
-              MB4XDTE4MTAxODA3NTYyOVoXDTI4MTAxNTA3NTYyOVowazELMAkGA1UEBhMCWFgx
-              FDASBgNVBAcTC0NvZGluZyBUb3duMQ0wCwYDVQQKEwROb25lMTcwNQYDVQQDEy5V
-              bnRydXN0ZWQgYW5kIFVzZWxlc3MgQ29kZSBTaWduaW5nIENlcnRpZmljYXRlMIIC
-              IjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2zV0C02oZW0qwOIt40XFW+Ua
-              EWqbNBRgeJj4obpiuQnnsOISHVgPLbvXjHyDkVrUhdpujf5UoIQXN6nytP4MvdAS
-              PP+CO99i1Y8oMA+JEv28LG1kQiW5978SidVkaRZ+g9j0Py3PUI9pK9bQC+gHQb5m
-              aanqwD9dsnz45Ck4K32M9IFwmzCMwnZLKgMSGOJa8nOuFMO2DRQYkuKjkQzHgaxP
-              CvzjaFNfs7Ul4EbtMa4tPCks2vKyfNn1500q539VwtgcQFy0M2CPhNanw85wMQSC
-              ifXEaqaqQQoIaOip31058eCrLkn5RXTmyqx8MaIOQzZVSQN3GesoLC5K8YUJek99
-              dp3Yl5o7zGWnzYYzEiBUpd8mxC6LLXZ5t0WyJfpHgfgysErN9/b4cMfcr0Ea7KRz
-              kPh9JjvqkMwc3QXSGe/SDpAcuBEKi4oo5BrcFqpHUttKVu9C1BeZHHZ9zSGaCeN6
-              2dPdR0jXe5dYT1hWn9kxoZp9u0v9xU67llSv3u+KFZyvOBDQGBFr4q0yN+vIUECc
-              lOOoi7Xcw+pkRZhCx0BstUaV/tffnP9KwIPsOw8dPyZSV+zkklSdI2m5T/qQFPOb
-              dxY9e1tyewwitVi7P1jJJy4lTNnU5DilI4P24vlpVovMnqlkZYvrkCotcTROtwx5
-              IAaRk1wxOQSxw0eeUUcCAwEAAaM/MD0wDAYDVR0TAQH/BAIwADAOBgNVHQ8BAf8E
-              BAMCBaAwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFCAICMA0GCSqGSIb3DQEB
-              DQUAA4ICAQC3OfsseaMAvMhbxAVnrZk6Lgq8Nh4D6PnUucGqNvXV+HO/JcoH25mH
-              6xtWUb4Nz/OGxOFDRcPmBpCoFXMPxxTovqhkpAAay6VACnbnW61oO0+ikyCk+ZYY
-              +OWgRMZ1xFtEfwvzbM8ILkFoeJXZHy0ozVxNxGLKG/t0uM6ltrpMnDTtOu1fB3sr
-              4ggJPtIT4pTYj9TURdBw/Od5lbIKv/BObZu8+SbRD1sHd7hRPfdst2mr/0G1kMOV
-              w64j1XdEi7Qx8N+LUgKYMFBJX2wTNE/l8+WdTNLbT1D/k/zPn6ld5y7pRDd453Io
-              asiP+smdnErwIR4+7Ptlh7DHLU1nMAv/VsWyO2OuuleJEZNQWep/N/gEs/KHrtVF
-              hy9kR9eyTJyHugiCvGyxM9wpfsj6UTUP4LBU3QucfJOsYiEaDqkwXbtwYDBDzlAL
-              4XDYseqwHy685yQkF/derhyAJLknHYLav16qtB/BR2FcriH0kJvPAh11DZbkEYeL
-              HZzQ+c2wzakT15RxL1fQmo4xZv2LecdQggs8LiupN8MdvtIR/GmTsDX4XJXJ178N
-              M97pbR2HB2aHCeyAnt+IJ9dOBU6k4bxkYy8l0vKcY0V3ed6YA26WMVWms6tVNR+7
-              8bN+CUnDB21DHc4DtoiorHXtON8Z7nD87ACQZEJ/SfqMkN7+RumNBA==
-              -----END CERTIFICATE-----" >/home/scrutinizer/codesigningcert.pem
-            - |
-              echo "
-              -----BEGIN RSA PRIVATE KEY-----
-              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
-              -----END RSA PRIVATE KEY-----" >/home/scrutinizer/codesigningcert-key.pem
-            - mkdir /home/scrutinizer/vault
-            - openssl rsa -in /home/scrutinizer/codesigningcert-key.pem -out /home/scrutinizer/vault/xxx_key.der -outform der
-            - openssl crl2pkcs7 -nocrl -certfile /home/scrutinizer/codesigningcert.pem -certfile /home/scrutinizer/codesigningca.pem -outform DER -out /home/scrutinizer/vault/xxx_cert.spc
-            - cp /home/scrutinizer/codesigningca.pem /home/scrutinizer/vault/CAs.pem
-            - cp /home/scrutinizer/codesigningcert.pem /home/scrutinizer/vault/xxx_cert.pem
-            - cp /home/scrutinizer/codesigningcert-key.pem /home/scrutinizer/vault/xxx_key.pem
-            - cp /home/scrutinizer/build/devices/Devices-template.php /home/scrutinizer/build/devices/Devices.php
-            - cp /home/scrutinizer/build/signer/mobileconfig_sign-template /home/scrutinizer/build/signer/mobileconfig_sign
-            - sudo chown scrutinizer:scrutinizer /home/scrutinizer/.rnd
-            - sudo apt -y install pylint
 
 tools:
     php_code_coverage:
