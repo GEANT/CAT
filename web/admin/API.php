@@ -54,7 +54,7 @@ if (!isset(CONFIG_CONFASSISTANT['CONSORTIUM']['registration_API_keys']) || count
 $inputRaw = file_get_contents('php://input');
 $inputDecoded = json_decode($inputRaw, TRUE);
 if (!is_array($inputDecoded)) {
-    $adminApi->returnError(web\lib\admin\API::ERROR_MALFORMED_REQUEST, "Unable to decode JSON POST data.");
+    $adminApi->returnError(web\lib\admin\API::ERROR_MALFORMED_REQUEST, "Unable to decode JSON POST data.".json_last_error_msg().$inputRaw);
     exit(1);
 }
 
@@ -253,8 +253,10 @@ switch ($inputDecoded['ACTION']) {
                 $iterator = $iterator + 1;
             }
         }
-        $profile->prepShowtime();
-        $adminApi->returnSuccess([\web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID => $profile->identifier]);
+        // reinstantiate $profile freshly from DB - it was updated in the process
+        $profileFresh = new core\ProfileRADIUS($profile->identifier);
+        $profileFresh->prepShowtime();
+        $adminApi->returnSuccess([\web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID => $profileFresh->identifier]);
         break;
     case web\lib\admin\API::ACTION_ENDUSER_NEW:
         $evaluation = commonSbProfileChecks($fed, $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID));
