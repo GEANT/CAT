@@ -6,7 +6,7 @@
 # Beware that this directory must be protected against the WEB download, othewise you keys mey be compromised. 
 # The directory must be accessible by the Apache proceess
 
-if [ "$MY_PATH" == "" ]; then MY_PATH=""; fi
+if [ "$MY_PATH" == "" ]; then MY_PATH="/home/scrutinizer/vault"; fi
 
 # Public key in PEM format 
 if [ "$PUBKEY" == "" ]; then PUBKEY="xxx_cert.pem"; fi
@@ -22,8 +22,4 @@ if [ "$CA_CHAIN" == "" ]; then CA_CHAIN="CAs.pem"; fi
 if [ -n "$PASS" ] ; then
   passin="-passin pass:$PASS"
 fi
-echo "MY_PATH = $MY_PATH" >~/signlog
-echo "PUBKEY = $PUBKEY" >>~/signlog
-echo "PRIVKEY = $PRIVKEY" >>~/signlog
-echo "CAT_CHAIN = $CA_CHAIN" >>~/signlog
 openssl smime -sign -signer "$MY_PATH/$PUBKEY" -inkey "$MY_PATH/$PRIVKEY"  $passin -certfile "$MY_PATH/$CA_CHAIN" -nodetach -outform der -in $1 -out $2
