@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-05 09:32+0200\n"
+"POT-Creation-Date: 2018-10-08 14:35+0200\n"
 "PO-Revision-Date: 2013-02-22 10:40+0000\n"
 "Last-Translator: martins <ms@uakom.sk>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/projects/p/cat/"
@@ -137,7 +137,7 @@ msgstr ""
 
 #: web/user/devel.inc.php:15
 #, php-format
-msgid "The list is availabe at: %s"
+msgid "The list is available at: %s"
 msgstr ""
 
 #: web/user/devel.inc.php:16
@@ -996,7 +996,7 @@ msgstr "všetky krajiny"
 
 #: web/skins/modern/user/js/cat_js.php:569
 #, fuzzy
-msgid "or search for an organisation, for example Univerity of Oslo"
+msgid "or search for an organisation, for example University of Oslo"
 msgstr "alebo organizáciu vyhľadajte, napr. Univerzita Komenského v Bratislave"
 
 #: web/skins/modern/user/js/cat_js.php:570

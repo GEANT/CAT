@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-05 09:32+0200\n"
+"POT-Creation-Date: 2018-10-18 14:16+0200\n"
 "PO-Revision-Date: 2015-04-12 02:05+0000\n"
 "Last-Translator: rokpapez <rok.papez@arnes.si>\n"
 "Language-Team: Slovenian (Slovenia) (http://www.transifex.com/projects/p/cat/"
@@ -411,7 +411,7 @@ msgstr ""
 #. /                3. federation shortname, e.g. "LU";
 #. /                4. product name (e.g. eduroam CAT);
 #. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/UserManagement.php:179
+#: core/UserManagement.php:194
 #, php-format
 msgid ""
 "Hi,\n"
@@ -434,7 +434,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/UserManagement.php:188
+#: core/UserManagement.php:203
 msgid "IdP in your federation was created"
 msgstr "IdP v vaši federaciji je bil ustvarjen"
 

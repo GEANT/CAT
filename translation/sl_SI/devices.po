@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-08 14:35+0200\n"
+"POT-Creation-Date: 2018-10-18 14:16+0200\n"
 "PO-Revision-Date: 2015-04-11 01:15+0000\n"
 "Last-Translator: rokpapez <rok.papez@arnes.si>\n"
 "Language-Team: Slovenian (Slovenia) (http://www.transifex.com/projects/p/cat/"
@@ -600,7 +600,7 @@ msgstr ""
 "Za vsako izmed spodaj naštetih omrežij boste morali vnesti enake prijavne "
 "podatke:"
 
-#: devices/ms/WindowsCommon.php:250 devices/ms/WindowsCommon.php:251
+#: devices/ms/WindowsCommon.php:253 devices/ms/WindowsCommon.php:254
 #, php-format
 msgid "%s installer for %s"
 msgstr "%s nameščevalnik za %s"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-05 09:32+0200\n"
+"POT-Creation-Date: 2018-10-18 14:16+0200\n"
 "PO-Revision-Date: 2018-10-01 09:29+0000\n"
 "Last-Translator: Zenon Mousmoulas <zenon@mousmoulas.gr>\n"
 "Language-Team: Greek (http://www.transifex.com/eduroam_devel/cat/language/"
@@ -95,19 +95,19 @@ msgstr "Χώρα:"
 
 #: web/admin/edit_federation.php:73 web/admin/edit_idp.php:109
 #: web/admin/edit_idp.php:165 web/admin/edit_idp.php:190
-#: web/admin/edit_profile.php:147 web/admin/edit_profile.php:462
+#: web/admin/edit_profile.php:146 web/admin/edit_profile.php:461
 #: web/admin/edit_user.php:46 web/admin/inc/toggleRedirect.inc.php:124
 msgid "Add new option"
 msgstr "Προσθήκη νέας επιλογής"
 
 #: web/admin/edit_federation.php:76 web/admin/edit_idp.php:195
-#: web/admin/edit_profile.php:469 web/admin/edit_user.php:51
+#: web/admin/edit_profile.php:468 web/admin/edit_user.php:51
 #: web/admin/inc/toggleRedirect.inc.php:127
 msgid "Save data"
 msgstr "Αποθήκευση δεδομένων"
 
 #: web/admin/edit_federation.php:76 web/admin/edit_idp.php:195
-#: web/admin/edit_profile.php:469 web/admin/edit_user.php:54
+#: web/admin/edit_profile.php:468 web/admin/edit_user.php:54
 msgid "Discard changes"
 msgstr "Απόρριψη αλλαγών"
 
@@ -472,20 +472,20 @@ msgstr "Προχωρήστε σε ορισμό προφίλ RADIUS/EAP"
 msgid "%s: IdP Enrollment Wizard (Step 3)"
 msgstr "%s: Οδηγός εγγραφής IdP (Βήμα 3)"
 
-#: web/admin/edit_profile.php:111
+#: web/admin/edit_profile.php:110
 msgid "Step 3: Defining a user group profile"
 msgstr "Βήμα 3: Ορισμός προφίλ ομάδας χρηστών"
 
-#: web/admin/edit_profile.php:113
+#: web/admin/edit_profile.php:112
 #, php-format
 msgid "Edit profile '%s' ..."
 msgstr "Επεξεργασία προφίλ '%s' ..."
 
-#: web/admin/edit_profile.php:126
+#: web/admin/edit_profile.php:125
 msgid "General Profile properties"
 msgstr "Γενικές ιδιότητες Προφίλ"
 
-#: web/admin/edit_profile.php:130
+#: web/admin/edit_profile.php:129
 msgid ""
 "We will now define a profile for your user group(s).  You can add as many "
 "profiles as you like by choosing the appropriate button on the end of the "
@@ -497,11 +497,11 @@ msgstr ""
 "σελίδας. Μόλις τελειώσουμε, ο οδηγός τερματίζει και θα μεταφερθείτε στη "
 "βασική σελίδα διαχείρισης IdP."
 
-#: web/admin/edit_profile.php:133
+#: web/admin/edit_profile.php:132
 msgid "Profile Name and RADIUS realm"
 msgstr "Όνομα προφίλ και τομέας RADIUS"
 
-#: web/admin/edit_profile.php:136
+#: web/admin/edit_profile.php:135
 msgid ""
 "First of all we need a name for the profile. This will be displayed to end "
 "users, so you may want to choose a descriptive name like 'Professors', "
@@ -511,7 +511,7 @@ msgstr ""
 "στους τελικούς χρήστες, οπότε καλό είναι να διαλέξετε ένα περιγραφικό όνομα "
 "όπως 'Μέλη ΔΕΠ', 'Φοιτητές Πολυτεχνικής', κτλ"
 
-#: web/admin/edit_profile.php:137
+#: web/admin/edit_profile.php:136
 msgid ""
 "Optionally, you can provide a longer descriptive text about who this profile "
 "is for. If you specify it, it will be displayed on the download page after "
@@ -521,11 +521,11 @@ msgstr ""
 "με το ποιανού είναι αυτό το προφίλ. Αν το καθορίσετε, θα εμφανίζεται στη "
 "σελίδα λήψεων μετά την επιλογή του μέσω της λίστας από το χρήστη."
 
-#: web/admin/edit_profile.php:138
+#: web/admin/edit_profile.php:137
 msgid "You can also tell us your RADIUS realm. "
 msgstr "Μπορείτε επίσης να μας αναφέρετε το δικό σας τομέα RADIUS."
 
-#: web/admin/edit_profile.php:140
+#: web/admin/edit_profile.php:139
 #, php-format
 msgid ""
 "This is useful if you want to use the sanity check module later, which tests "
@@ -535,7 +535,7 @@ msgstr ""
 "ακεραιότητας αργότερα, το οποίο ελέγχει την προσβασιμότητα του τομέα σας "
 "στην υποδομή %s. "
 
-#: web/admin/edit_profile.php:142
+#: web/admin/edit_profile.php:141
 msgid ""
 "It is required to enter the realm name if you want to support anonymous "
 "outer identities (see below)."
@@ -543,15 +543,15 @@ msgstr ""
 "Πρέπει να εισάγετε το όνομα τομέα αν θέλετε να υποστηρίζονται οι ανώνυμες "
 "εξωτερικές ταυτότητες (δείτε παρακάτω)"
 
-#: web/admin/edit_profile.php:155
+#: web/admin/edit_profile.php:154
 msgid "Realm:"
 msgstr "Τομέας:"
 
-#: web/admin/edit_profile.php:192
+#: web/admin/edit_profile.php:191
 msgid "Realm Options"
 msgstr "Επιλογές Τομέα"
 
-#: web/admin/edit_profile.php:196
+#: web/admin/edit_profile.php:195
 #, php-format
 msgid ""
 "Some installers support a feature called 'Anonymous outer identity'. If you "
@@ -561,7 +561,7 @@ msgstr ""
 "'Ανώνυμες εξωτερικές ταυτότητες'. Αν δεν γνωρίζετε τι είναι αυτό, "
 "παρακαλούμε διαβάστε <a href='%s'>αυτό το άρθρο</a>."
 
-#: web/admin/edit_profile.php:197
+#: web/admin/edit_profile.php:196
 msgid ""
 "On some platforms, the installers can suggest username endings and/or verify "
 "the user input to contain the realm suffix."
@@ -570,7 +570,7 @@ msgstr ""
 "καταλήξεις για το όνομα χρήστη ή/και να επαληθεύουν ότι τα δεδομένα εισόδου "
 "χρήστη περιέχουν τον τομέα ως επίθεμα."
 
-#: web/admin/edit_profile.php:198
+#: web/admin/edit_profile.php:197
 #, fuzzy
 msgid ""
 "The realm check feature needs to know an outer ID which actually gets a "
@@ -584,27 +584,27 @@ msgstr ""
 "χρήστη, είναι χρήσιμο να παρέχετε την πληροφορία ποια από αυτά τα ονόματα "
 "χρήστη μπορούμε να χρησιμοποιήσουμε (ως εξωτερική ταυτότητα) για δοκιμή."
 
-#: web/admin/edit_profile.php:210
+#: web/admin/edit_profile.php:209
 msgid "Verify user input to contain realm suffix:"
 msgstr "Επαλήθευση ότι τα δεδομένα εισόδου χρήστη περιέχουν επίθεμα τομέα:"
 
-#: web/admin/edit_profile.php:224
+#: web/admin/edit_profile.php:223
 msgid "Prefill user input with realm suffix:"
 msgstr "Προσυμπλήρωση δεδομένων εισόδου χρήστη με επίθεμα τομέα:"
 
-#: web/admin/edit_profile.php:234
+#: web/admin/edit_profile.php:233
 msgid "Enable Anonymous Outer Identity:"
 msgstr "Ενεργοποίηση Ανώνυμης Εξωτερικής Ταυτότητας:"
 
-#: web/admin/edit_profile.php:253
+#: web/admin/edit_profile.php:252
 msgid "Use special Outer Identity for realm checks:"
 msgstr "Χρήση ειδικής Εξωτερικής Ταυτότητας για ελέγχους τομέα:"
 
-#: web/admin/edit_profile.php:270
+#: web/admin/edit_profile.php:269
 msgid "Installer Download Location"
 msgstr "Τοποθεσία Λήψης Πακέτου Εγκατάστασης"
 
-#: web/admin/edit_profile.php:274
+#: web/admin/edit_profile.php:273
 msgid ""
 "The CAT has a download area for end users. There, they will, for example, "
 "learn about the support pointers you entered earlier. The CAT can also "
@@ -623,15 +623,15 @@ msgstr ""
 "κάνετε λήψη των προφίλ για να τα τοποθετήσετε σε εκείνη τη σελίδα (δείτε το "
 "κουμπί 'Πίνακας συμβατότητας' στον πίνακα ελέγχου)."
 
-#: web/admin/edit_profile.php:280
+#: web/admin/edit_profile.php:279
 msgid "Redirect end users to own web page:"
 msgstr "Ανακατεύθυνση τελικών χρηστών σε δική μου ιστοσελίδα:"
 
-#: web/admin/edit_profile.php:293
+#: web/admin/edit_profile.php:292
 msgid "Supported EAP types"
 msgstr "Υποστηριζόμενοι τύποι EAP"
 
-#: web/admin/edit_profile.php:296
+#: web/admin/edit_profile.php:295
 msgid ""
 "Now, we need to know which EAP types your IdP supports. If you support "
 "multiple EAP types, you can assign every type a priority (1=highest). This "
@@ -646,20 +646,20 @@ msgstr ""
 "συσκευή του χρήστη δεν μπορεί να χρησιμοποιήσει τον τύπο EAP, θα "
 "χρησιμοποιήσουμε έναν τύπο EAP που βρίσκεται χαμηλότερα στη λίστα."
 
-#: web/admin/edit_profile.php:339
+#: web/admin/edit_profile.php:338
 msgid "EAP options inherited from Global level:"
 msgstr "Οι επιλογές EAP προέρχονται από το Καθολικό Επίπεδο:"
 
-#: web/admin/edit_profile.php:344
+#: web/admin/edit_profile.php:343
 #, php-format
 msgid "(%dx) %s"
 msgstr "(%dx) %s"
 
-#: web/admin/edit_profile.php:372
+#: web/admin/edit_profile.php:371
 msgid "Supported EAP types for this profile"
 msgstr "Υποστηριζόμενοι τύποι EAP για αυτό το προφίλ"
 
-#: web/admin/edit_profile.php:386
+#: web/admin/edit_profile.php:385
 msgid ""
 "Use \"drag &amp; drop\" to mark an EAP method and move it to the supported "
 "(green) area. Prioritisation is done automatically, depending on where you "
@@ -669,23 +669,23 @@ msgstr ""
 "μετακινήσετε στην περιοχή υποστήριξης (πράσινο χρώμα). Οι προτεραιότητες "
 "ρυθμίζονται αυτόματα, ανάλογα με του που κάνατε \"drop\" τη μέθοδο."
 
-#: web/admin/edit_profile.php:394
+#: web/admin/edit_profile.php:393
 msgid "Unsupported EAP types"
 msgstr "Μη υποστηριζόμενοι τύποι EAP"
 
-#: web/admin/edit_profile.php:447
+#: web/admin/edit_profile.php:446
 msgid "Helpdesk Details for this profile"
 msgstr "Λεπτομέρειες Helpdesk για αυτό το προφίλ"
 
-#: web/admin/edit_profile.php:448
+#: web/admin/edit_profile.php:447
 msgid "EAP Details for this profile"
 msgstr "Λεπτομέρειες EAP για αυτό το προφίλ"
 
-#: web/admin/edit_profile.php:449
+#: web/admin/edit_profile.php:448
 msgid "Media Properties for this profile"
 msgstr "Ιδιότητες Media για αυτό το προφίλ"
 
-#: web/admin/edit_profile.php:457
+#: web/admin/edit_profile.php:456
 #, php-format
 msgid ""
 "The option %s is already defined IdP-wide. If you set it here on profile "
@@ -702,7 +702,7 @@ msgstr[1] ""
 "εδώ σε επίπεδο προφίλ, αυτές οι ρυθμίσεις θα αντικαταστήσουν τις ρυθμίσεις "
 "ολόκληρου του IdP."
 
-#: web/admin/edit_profile.php:467
+#: web/admin/edit_profile.php:466
 msgid ""
 "When you are sure that everything is correct, please click on 'Save data' "
 "and you will be taken to your IdP Dashboard page."
@@ -939,7 +939,7 @@ msgstr "Τμήμα SMS."
 msgid "Manage %s users"
 msgstr "Διαχειριστείτε χρήστες %s"
 
-#: web/admin/edit_silverbullet.php:350 web/admin/overview_federation.php:116
+#: web/admin/edit_silverbullet.php:350 web/admin/overview_federation.php:117
 msgid "User"
 msgstr "Χρήστης"
 
@@ -1139,156 +1139,203 @@ msgstr ""
 "απόλυτα σίγουρος ότι έχετε αποσυνδεθεί, θα πρέπει να κλείσετε τον "
 "φυλλομετρητή σας."
 
-#: web/admin/overview_federation.php:17
+#: web/admin/overview_federation.php:18
 #, php-format
 msgid "%s: %s Management"
 msgstr "%s: Διαχείριση %s"
 
-#: web/admin/overview_federation.php:30 web/admin/overview_idp.php:50
+#: web/admin/overview_federation.php:31 web/admin/overview_idp.php:50
 #, php-format
 msgid "%s Overview"
 msgstr "Επισκόπηση %s"
 
-#: web/admin/overview_federation.php:34 web/admin/overview_user.php:38
+#: web/admin/overview_federation.php:35 web/admin/overview_user.php:38
 msgid "Your Personal Information"
 msgstr "Οι Προσωπικές σας Πληροφορίες"
 
-#: web/admin/overview_federation.php:39 web/admin/overview_user.php:43
+#: web/admin/overview_federation.php:40 web/admin/overview_user.php:43
 msgid "Unique Identifier"
 msgstr "Μοναδικό Αναγνωριστικό"
 
-#: web/admin/overview_federation.php:44 web/admin/overview_user.php:48
+#: web/admin/overview_federation.php:45 web/admin/overview_user.php:48
 msgid "click to display"
 msgstr "κλικ για εμφάνιση"
 
-#: web/admin/overview_federation.php:54
+#: web/admin/overview_federation.php:55
 #, php-format
 msgid "You are not a %s manager."
 msgstr "Δεν είστε διαχειριστής %s."
 
-#: web/admin/overview_federation.php:65
+#: web/admin/overview_federation.php:66
 #, php-format
 msgid "%s Properties: %s"
 msgstr "Ιδιότητες %s: %s"
 
-#: web/admin/overview_federation.php:71
+#: web/admin/overview_federation.php:72
 msgid "Country"
 msgstr "Χώρα"
 
-#: web/admin/overview_federation.php:95
+#: web/admin/overview_federation.php:96
 #, php-format
 msgid "%s Statistics: %s"
 msgstr "Στατιστικά %s: %s"
 
-#: web/admin/overview_federation.php:100
+#: web/admin/overview_federation.php:101
 msgid "IdPs Total"
 msgstr "Σύνολο IdPs"
 
-#: web/admin/overview_federation.php:101
+#: web/admin/overview_federation.php:102
 msgid "Public Download"
 msgstr "Δημόσια Λήψη"
 
-#: web/admin/overview_federation.php:113
+#: web/admin/overview_federation.php:114
 msgid "Downloads"
 msgstr "Λήψεις"
 
-#: web/admin/overview_federation.php:114
+#: web/admin/overview_federation.php:115
 msgid "Admin"
 msgstr "Διαχειριστής"
 
-#: web/admin/overview_federation.php:137 web/admin/inc/manageAdmins.inc.php:95
-msgid "and <b>encrypted</b> to the mail domain"
-msgstr "και <b>κρυπτογραφημένο</b> στον τομέα mail"
+#: web/admin/overview_federation.php:142 web/admin/inc/manageAdmins.inc.php:99
+msgid "It was sent with transport security (encryption)."
+msgid_plural "They were sent with transport security (encryption)."
+msgstr[0] ""
+msgstr[1] ""
 
-#: web/admin/overview_federation.php:140 web/admin/inc/manageAdmins.inc.php:98
-msgid "but <b>in clear text</b> to the mail domain"
-msgstr "αλλά <b>σε καθαρό κείμενο</b> στον τομέα mail"
+#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:102
+msgid "It was sent in clear text (no encryption)."
+msgid_plural "They were sent in clear text (no encryption)."
+msgstr[0] ""
+msgstr[1] ""
 
-#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:103
-#, php-format
-msgid "The invitation email was sent successfully %s."
-msgstr "Το email πρόσκλησης στάλθηκε με επιτυχία %s."
+#: web/admin/overview_federation.php:148 web/admin/inc/manageAdmins.inc.php:105
+msgid ""
+"A subset of the mails were sent with transport encryption, the rest in clear "
+"text."
+msgstr ""
 
-#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:103
-msgid "The invitation email was sent."
-msgstr "Το email πρόσκλησης στάλθηκε."
+#: web/admin/overview_federation.php:153 web/admin/inc/manageAdmins.inc.php:110
+#, fuzzy
+msgid "The invitation email was sent successfully."
+msgid_plural "All invitation emails were sent successfully."
+msgstr[0] "Το email πρόσκλησης στάλθηκε με επιτυχία %s."
+msgstr[1] "Το email πρόσκλησης στάλθηκε με επιτυχία %s."
 
-#: web/admin/overview_federation.php:148 web/admin/inc/manageAdmins.inc.php:106
-#: web/admin/inc/overview_js.php:56 web/admin/inc/overview_js.php:111
-msgid "The invitation email could not be sent!"
+#: web/admin/overview_federation.php:153 web/admin/inc/manageAdmins.inc.php:110
+#, fuzzy
+msgid "Sent successfully."
+msgstr "Το SMS στάλθηκε με επιτυχία."
+
+#: web/admin/overview_federation.php:156 web/admin/inc/manageAdmins.inc.php:113
+#, fuzzy
+msgid "No invitation email could be sent!"
 msgstr "Δεν ήταν δυνατή η αποστολή του email πρόσκλησης!"
 
-#: web/admin/overview_federation.php:151 web/admin/inc/manageAdmins.inc.php:109
+#: web/admin/overview_federation.php:156 web/admin/inc/manageAdmins.inc.php:113
+msgid "Sending failure!"
+msgstr ""
+
+#: web/admin/overview_federation.php:162 web/admin/inc/manageAdmins.inc.php:119
+msgid "The successful one was sent with transport security (encryption)."
+msgid_plural ""
+"The successful ones were sent with transport security (encryption)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: web/admin/overview_federation.php:165 web/admin/inc/manageAdmins.inc.php:122
+msgid "The successful one was sent in clear text (no encryption)."
+msgid_plural "The successful ones were sent in clear text (no encryption)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: web/admin/overview_federation.php:168 web/admin/inc/manageAdmins.inc.php:125
+msgid ""
+"A subset of the successfully sent mails were sent with transport encryption, "
+"the rest in clear text."
+msgstr ""
+
+#: web/admin/overview_federation.php:173 web/admin/inc/manageAdmins.inc.php:130
+#, fuzzy, php-format
+msgid ""
+"Some invitation emails were sent successfully (%s in total), the others "
+"failed."
+msgstr "Το email πρόσκλησης στάλθηκε με επιτυχία %s."
+
+#: web/admin/overview_federation.php:173 web/admin/inc/manageAdmins.inc.php:130
+msgid "Partial success."
+msgstr ""
+
+#: web/admin/overview_federation.php:176 web/admin/inc/manageAdmins.inc.php:133
 msgid "The invitation email address was malformed, no invitation was sent!"
 msgstr ""
 "Η διεύθυνση email για την πρόσκληση ήταν εσφαλμένη, καμία πρόσκληση δε "
 "στάλθηκε!"
 
-#: web/admin/overview_federation.php:154
+#: web/admin/overview_federation.php:179 web/admin/inc/manageAdmins.inc.php:136
 msgid "Error: unknown result code of invitation!?!"
 msgstr "Σφάλμα: άγνωστος κωδικός αποτελέσματος στην πρόσκληση!;!"
 
-#: web/admin/overview_federation.php:154
+#: web/admin/overview_federation.php:179 web/admin/inc/manageAdmins.inc.php:136
 msgid "Unknown result!"
 msgstr "Άγνωστο αποτέλεσμα!"
 
-#: web/admin/overview_federation.php:159
+#: web/admin/overview_federation.php:184
 #, php-format
 msgid "Need help? Refer to the <a href='%s'>%s manual</a>"
 msgstr "Χρειάζεστε βοήθεια; Ανατρέξτε στο <a href='%s'>εγχειρίδιο %s</a>"
 
-#: web/admin/overview_federation.php:167
+#: web/admin/overview_federation.php:192
 msgid "Deployment Status"
 msgstr "Κατάσταση Ανάπτυξης"
 
-#: web/admin/overview_federation.php:168 web/admin/overview_user.php:103
+#: web/admin/overview_federation.php:193 web/admin/overview_user.php:103
 #: web/admin/inc/manageDBLink.inc.php:149 web/lib/admin/UIElements.php:83
 #: web/lib/admin/UIElements.php:111
 #, php-format
 msgid "%s Name"
 msgstr "Όνομα %s"
 
-#: web/admin/overview_federation.php:174
+#: web/admin/overview_federation.php:199
 #, php-format
 msgid "%s Database Sync Status"
 msgstr "Κατάσταση Συγχρονισμού Βάσης Δεδομένων %s"
 
-#: web/admin/overview_federation.php:180 web/admin/overview_user.php:103
+#: web/admin/overview_federation.php:205 web/admin/overview_user.php:103
 msgid "Administrator Management"
 msgstr "Έλεγχος Διαχειριστών"
 
 #. / nomenclature for 'federation', federation name, nomenclature for 'inst'
-#: web/admin/overview_federation.php:189
+#: web/admin/overview_federation.php:214
 #, php-format
 msgid "The following %s are in your %s %s:"
 msgstr "Οι ακόλουθοι %s είναι στην %s %s σας:"
 
-#: web/admin/overview_federation.php:225
+#: web/admin/overview_federation.php:250
 msgid "Manage DB Link"
 msgstr "Διαχείριση Σύνδεσης με Βάση Δεδομένων"
 
-#: web/admin/overview_federation.php:231
+#: web/admin/overview_federation.php:256
 msgid "Linked"
 msgstr "Συνδέθηκε"
 
-#: web/admin/overview_federation.php:235
+#: web/admin/overview_federation.php:260
 msgid "NOT linked"
 msgstr "ΧΩΡΙΣ σύνδεση"
 
-#: web/admin/overview_federation.php:250 web/admin/overview_user.php:139
+#: web/admin/overview_federation.php:275 web/admin/overview_user.php:139
 msgid "Add/Remove Administrators"
 msgstr "Προσθήκη/Αφαίρεση Διαχειριστών"
 
-#: web/admin/overview_federation.php:263
+#: web/admin/overview_federation.php:288
 #, php-format
 msgid "Pending invitations in the %s:"
 msgstr "Προσκλήσεις σε εκκρεμότητα στο %s:"
 
-#: web/admin/overview_federation.php:280
+#: web/admin/overview_federation.php:305
 msgid "Revoke Invitation"
 msgstr "Ανάκληση Πρόσκλησης"
 
-#: web/admin/overview_federation.php:299
+#: web/admin/overview_federation.php:324
 #, php-format
 msgid "Register a new %s!"
 msgstr "Καταχωρίστε ένα νέο %s!"
@@ -1396,7 +1443,7 @@ msgstr ""
 msgid "Manage User Base"
 msgstr "Διαχείριση Βάσης Χρηστών"
 
-#: web/admin/overview_idp.php:187 web/admin/overview_idp.php:325
+#: web/admin/overview_idp.php:187 web/admin/overview_idp.php:321
 msgid "User Downloads"
 msgstr "Λήψεις Χρηστών"
 
@@ -1473,12 +1520,12 @@ msgstr "Διαγραφή"
 msgid "User Download Link"
 msgstr "Σύνδεσμος Λήψης Χρηστών"
 
-#: web/admin/overview_idp.php:354
+#: web/admin/overview_idp.php:350
 #, php-format
 msgid "Add %s profile ..."
 msgstr "Προσθήκη προφίλ %s..."
 
-#: web/admin/overview_idp.php:367
+#: web/admin/overview_idp.php:363
 msgid "Add new RADIUS/EAP profile ..."
 msgstr "Προσθήκη νέου προφίλ RADIUS/EAP ..."
 
@@ -1636,7 +1683,7 @@ msgstr ""
 msgid "Administrators for IdP '%s'"
 msgstr "Διαχειριστές του IdP '%s'"
 
-#: web/admin/inc/manageAdmins.inc.php:119
+#: web/admin/inc/manageAdmins.inc.php:143
 #, php-format
 msgid ""
 "You are the %s administrator. You can invite new administrators, who can in "
@@ -1645,12 +1692,12 @@ msgstr ""
 "Είστε ο διαχειριστής %s. Μπορείτε να προσκαλέσετε νέους διαχειριστές, που "
 "μπορούν με τη σειρά τους να διορίσουν και άλλους διαχειριστές μόνοι τους."
 
-#: web/admin/inc/manageAdmins.inc.php:119 web/lib/admin/UIElements.php:102
+#: web/admin/inc/manageAdmins.inc.php:143 web/lib/admin/UIElements.php:102
 #, php-format
 msgid "%s Administrator"
 msgstr "Διαχειριστής %s"
 
-#: web/admin/inc/manageAdmins.inc.php:125
+#: web/admin/inc/manageAdmins.inc.php:149
 #, php-format
 msgid ""
 "You are an administrator who was directly appointed by the %s administrator. "
@@ -1661,46 +1708,46 @@ msgstr ""
 "Μπορείτε να διορίσετε και άλλους διαχειριστές, αλλά αυτοί δεν μπορούν με τη "
 "σειρά τους να διορίσουν κανένα άλλο διαχειριστή."
 
-#: web/admin/inc/manageAdmins.inc.php:125
+#: web/admin/inc/manageAdmins.inc.php:149
 msgid "Directly Appointed Administrator"
 msgstr "Απευθείας Διορισμένος Διαχειριστής"
 
-#: web/admin/inc/manageAdmins.inc.php:138
+#: web/admin/inc/manageAdmins.inc.php:162
 msgid "User without name"
 msgstr "Χρήστης χωρίς όνομα"
 
-#: web/admin/inc/manageAdmins.inc.php:147
+#: web/admin/inc/manageAdmins.inc.php:171
 #, php-format
 msgid "(originally invited as %s)"
 msgstr "(αρχική πρόσκληση ως %s)"
 
-#: web/admin/inc/manageAdmins.inc.php:149
+#: web/admin/inc/manageAdmins.inc.php:173
 msgid "(self-appointed)"
 msgstr "(αυτοδιορισμένος) "
 
-#: web/admin/inc/manageAdmins.inc.php:156
+#: web/admin/inc/manageAdmins.inc.php:180
 msgid "Delete Administrator"
 msgstr "Διαγραφή Διαχειριστή"
 
-#: web/admin/inc/manageAdmins.inc.php:170
+#: web/admin/inc/manageAdmins.inc.php:194
 msgid "Pending invitations for this IdP"
 msgstr "Προσκλήσεις σε αναμονή για αυτόν τον IdP"
 
-#: web/admin/inc/manageAdmins.inc.php:181
+#: web/admin/inc/manageAdmins.inc.php:205
 msgid "New administrator's email address(es) (comma-separated):"
 msgstr ""
 "Διεύθυνση email νέου διαχειριστή (μία ή περισσότερες, χωρισμένες με κόμμα):"
 
-#: web/admin/inc/manageAdmins.inc.php:181
+#: web/admin/inc/manageAdmins.inc.php:205
 msgid "Invite new administrator"
 msgstr "Πρόσκληση νέου διαχειριστή"
 
-#: web/admin/inc/manageAdmins.inc.php:195
+#: web/admin/inc/manageAdmins.inc.php:219
 #, php-format
 msgid "Take control of this %s"
 msgstr "Πάρτε τον έλεγχο αυτού του %s"
 
-#: web/admin/inc/manageAdmins.inc.php:202
+#: web/admin/inc/manageAdmins.inc.php:226
 #: web/admin/inc/manageDBLink.inc.php:194
 #: web/admin/inc/manageNewInst.inc.php:116
 msgid "Close"
@@ -1743,7 +1790,7 @@ msgstr "Πληροφορίες στη <strong>Βάση Δεδομένων %s</st
 msgid "%s Name (%s)"
 msgstr "Όνομα %s (%s)"
 
-#: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/PageDecoration.php:33
+#: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/Authentication.php:61
 msgid "Unnamed User"
 msgstr "Ανώνυμος Χρήστης"
 
@@ -1897,11 +1944,15 @@ msgstr "Δεν δόθηκε διεύθυνση email"
 msgid "Invitation sent to:"
 msgstr "Στάλθηκε πρόσκληση σε:"
 
+#: web/admin/inc/overview_js.php:56 web/admin/inc/overview_js.php:111
+msgid "The invitation email could not be sent!"
+msgstr "Δεν ήταν δυνατή η αποστολή του email πρόσκλησης!"
+
 #: web/admin/inc/overview_js.php:83
 msgid "Mail address to invite:"
 msgstr "Διεύθυνση mail για πρόσκληση:"
 
-#: web/admin/inc/sendinvite.inc.php:92
+#: web/admin/inc/sendinvite.inc.php:106
 #, php-format
 msgid ""
 "Something's wrong... you are a %s admin, but not for the %s the requested %s "
@@ -2099,59 +2150,59 @@ msgstr ""
 "γλωσσών ίσως να θέλετε να επεξεργαστείτε το προφίλ σας ξανά και να "
 "συμπληρώσετε το πεδίο γλώσσας 'προκαθορισμένη/άλλη'."
 
-#: web/lib/admin/PageDecoration.php:32
+#: web/lib/admin/PageDecoration.php:35
 msgid "You are:"
 msgstr "Είστε:"
 
-#: web/lib/admin/PageDecoration.php:36
+#: web/lib/admin/PageDecoration.php:38
 msgid "Go to your Profile page"
 msgstr "Μετάβαση στη σελίδα του Προφίλ σας"
 
-#: web/lib/admin/PageDecoration.php:37
+#: web/lib/admin/PageDecoration.php:39
 msgid "Logout"
 msgstr "Αποσύνδεση"
 
-#: web/lib/admin/PageDecoration.php:39
+#: web/lib/admin/PageDecoration.php:41
 msgid "Start page"
 msgstr "Αρχική σελίδα"
 
-#: web/lib/admin/PageDecoration.php:60
+#: web/lib/admin/PageDecoration.php:62
 msgid "View this page in"
 msgstr "Προβολή αυτής της σελίδας σε"
 
-#: web/lib/admin/PageDecoration.php:118
+#: web/lib/admin/PageDecoration.php:120
 #, php-format
 msgid "Administrator Interface - %s"
 msgstr "Διεπαφή Διαχειριστή - %s"
 
-#: web/lib/admin/PageDecoration.php:121
+#: web/lib/admin/PageDecoration.php:123
 #, php-format
 msgid "Administrator Interface - %s User Management"
 msgstr "Διεπαφή Διαχειριστή - Διαχείριση Χρηστών %s"
 
-#: web/lib/admin/PageDecoration.php:124
+#: web/lib/admin/PageDecoration.php:126
 msgid "Administrator Interface"
 msgstr "Διεπαφή Διαχειριστή"
 
-#: web/lib/admin/PageDecoration.php:127
+#: web/lib/admin/PageDecoration.php:129
 msgid "Management of User Details"
 msgstr "Διαχείριση Λεπτομερειών Χρήστη"
 
-#: web/lib/admin/PageDecoration.php:130
+#: web/lib/admin/PageDecoration.php:132
 #, php-format
 msgid "Administrator Interface - %s Management"
 msgstr "Διεπαφή Διαχειριστή - Διαχείριση %s"
 
-#: web/lib/admin/PageDecoration.php:133
+#: web/lib/admin/PageDecoration.php:135
 #, php-format
 msgid "Welcome to %s"
 msgstr "Καλως Ήρθατε στο %s"
 
-#: web/lib/admin/PageDecoration.php:138
+#: web/lib/admin/PageDecoration.php:140
 msgid "CIC"
 msgstr "CIC"
 
-#: web/lib/admin/PageDecoration.php:141
+#: web/lib/admin/PageDecoration.php:143
 msgid "Diagnostics"
 msgstr "Διαγνωστικά"
 
@@ -2398,3 +2449,12 @@ msgstr "Προειδοποίηση!"
 #: web/lib/admin/UIElements.php:386
 msgid "Error!"
 msgstr "Σφάλμα!"
+
+#~ msgid "and <b>encrypted</b> to the mail domain"
+#~ msgstr "και <b>κρυπτογραφημένο</b> στον τομέα mail"
+
+#~ msgid "but <b>in clear text</b> to the mail domain"
+#~ msgstr "αλλά <b>σε καθαρό κείμενο</b> στον τομέα mail"
+
+#~ msgid "The invitation email was sent."
+#~ msgstr "Το email πρόσκλησης στάλθηκε."

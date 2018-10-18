@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"POT-Creation-Date: 2018-10-05 09:32+0200\n"
 "PO-Revision-Date: 2018-09-28 11:03+0000\n"
 "Last-Translator: Indrek Rokk <indrek.rokk@eenet.ee>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/eduroam_devel/"
@@ -480,66 +480,66 @@ msgstr "FAST-GTC"
 msgid "EAP-pwd"
 msgstr "EAP-pwd"
 
-#: core/common/OutsideComm.php:239
+#: core/common/OutsideComm.php:240
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
 msgstr "%s%s%s\"%s\" saatis Sulle kutse, et koos hallata %s."
 
-#: core/common/OutsideComm.php:240
+#: core/common/OutsideComm.php:241
 #, php-format
 msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
 msgstr ""
 "%s %s saatis Sulle kutse haldamaks tulevast identiteedipakkujat (%s) \"%s"
 "\" (%s)"
 
-#: core/common/OutsideComm.php:241
+#: core/common/OutsideComm.php:242
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\"."
 msgstr "%s saatis Sulle kutse haldamaks identiteedipakkujat (%s) \"%s\" (%s)"
 
-#: core/common/OutsideComm.php:243
+#: core/common/OutsideComm.php:244
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr "Kutse kehtib saatmise hetkest alates 24 tundi ehk siis kuni %s."
 
 #. then, send out the mail
-#: core/common/OutsideComm.php:251
+#: core/common/OutsideComm.php:252
 msgid "Hello,"
 msgstr "Tere"
 
 #. default means we don't have a Reply-To.
-#: core/common/OutsideComm.php:253
+#: core/common/OutsideComm.php:254
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
 "käsitsi. Palun ärge vastake sellele kirjale; seda aadressi kasutatakse "
 "ainult saatmiseks."
 
-#: core/common/OutsideComm.php:259
+#: core/common/OutsideComm.php:260
 #, php-format
 msgid "Additional message from your %s administrator:"
 msgstr "Lisateade %s administraatorilt:"
 
-#: core/common/OutsideComm.php:267
+#: core/common/OutsideComm.php:268
 #, php-format
 msgid "%s administrator"
 msgstr "%sadministraator"
 
-#: core/common/OutsideComm.php:270
+#: core/common/OutsideComm.php:271
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
 msgstr "käsitsi. Kui sellele kirjale vastate, läheb see %s administraatorile."
 
-#: core/common/OutsideComm.php:275
+#: core/common/OutsideComm.php:276
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
 "link:"
 msgstr "Selle %s administraatoriks saamiseks palun klõpsa järgmisele lingile: "
 
-#: core/common/OutsideComm.php:277
+#: core/common/OutsideComm.php:278
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
@@ -548,11 +548,11 @@ msgstr ""
 "Kui lingile klõpsamine ei õnnestu, saad liikuda %s "
 "administraatoriliidesesse, mis asub"
 
-#: core/common/OutsideComm.php:279
+#: core/common/OutsideComm.php:280
 msgid "and enter the invitation token"
 msgstr "ja sisesta kutse kood"
 
-#: core/common/OutsideComm.php:281
+#: core/common/OutsideComm.php:282
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
@@ -560,12 +560,12 @@ msgstr ""
 "NB! Palun ära saada kirja edasi enne, kui kood on aegunud. Muidu võivad "
 "kirja saajad seda koodi Su õigustes ise kasutada."
 
-#: core/common/OutsideComm.php:282
+#: core/common/OutsideComm.php:283
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr "Soovime edu %s kasutamisel. "
 
-#: core/common/OutsideComm.php:283
+#: core/common/OutsideComm.php:284
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -577,7 +577,7 @@ msgstr ""
 "%s Operations meeskond"
 
 #. what do we want to say?
-#: core/common/OutsideComm.php:318
+#: core/common/OutsideComm.php:319
 #, php-format
 msgid "%s: you have been invited to manage an %s"
 msgstr "%s: sind on kutsutud haldama %s"

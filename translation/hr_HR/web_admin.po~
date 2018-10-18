@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-01 13:49+0200\n"
+"POT-Creation-Date: 2018-10-05 09:32+0200\n"
 "PO-Revision-Date: 2018-09-12 12:48+0000\n"
 "Last-Translator: Dubravko Penezic <dpenezic@gmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/eduroam_devel/"
@@ -550,10 +550,11 @@ msgstr ""
 "provjeriti korisnički unos dali sadrži odgovarajući realm sufiks. "
 
 #: web/admin/edit_profile.php:198
+#, fuzzy
 msgid ""
 "The realm check feature needs to know an outer ID which actually gets a "
 "chance to authenticate. If your RADIUS server lets only select usernames "
-"pass, it is useful to supply the inforamtion which of those (outer ID) "
+"pass, it is useful to supply the information which of those (outer ID) "
 "username we can use for testing."
 msgstr ""
 "Značajka provjeravanja realm-a treba znati vanjski ID koji se zapravo "
@@ -767,9 +768,10 @@ msgstr ""
 "Nije moguće aktivirati preusmjeravanje - niste odredili odredišnu lokaciju!"
 
 #: web/admin/edit_profile_result.php:175
+#, fuzzy
 msgid ""
 "Redirection can't be activated - the target needs to be a complete URL "
-"staring with http:// or https:// !"
+"starting with http:// or https:// !"
 msgstr ""
 "Preusmjeravanje se ne može aktivirati - ciljani link treba biti kompletan "
 "URL staring with http:// or https:// !"

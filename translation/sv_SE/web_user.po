@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-08 14:35+0200\n"
+"POT-Creation-Date: 2018-10-18 14:16+0200\n"
 "PO-Revision-Date: 2012-08-07 13:24+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/cat/language/"
@@ -325,6 +325,10 @@ msgstr ""
 msgid "Terms of Use"
 msgstr ""
 
+#: web/user/tou.inc.php:16
+msgid "(for legal reasons, the Terms of Use are in English only)"
+msgstr ""
+
 #: web/4013.php:34 web/404.php:33 web/lib/user/TextTemplates.php:77
 #, php-format
 msgid "Welcome to %s"
@@ -334,8 +338,8 @@ msgstr "Välkommen till %s"
 msgid "View this page in"
 msgstr "Titta på sidan i"
 
-#: web/4013.php:43 web/404.php:42 web/copyright.php:33
-#: web/skins/modern/Menu.php:29
+#: web/4013.php:43 web/404.php:42 web/skins/modern/Menu.php:29
+#: web/skins/modern/Menu.php:103
 msgid "Start page"
 msgstr "Startsida"
 
@@ -374,12 +378,7 @@ msgid ""
 "to the <a href='%s'>Start Page</a>."
 msgstr ""
 
-#: web/copyright.php:30
-#, php-format
-msgid "%s Copyright and Licensing"
-msgstr ""
-
-#: web/copyright.php:213 web/tou.php:61
+#: web/tou.php:61 web/skins/modern/Divs.php:279
 #, php-format
 msgid "%s Privacy Notice"
 msgstr ""
@@ -484,8 +483,8 @@ msgstr ""
 "När du klickar <b>Fortsätt</b> kommer denna supportsida att öppnas i ett "
 "nytt fönster/tab."
 
-#: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:267
-#: web/skins/modern/user/js/cat_js.php:275
+#: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:270
+#: web/skins/modern/user/js/cat_js.php:278
 msgid "Continue"
 msgstr "Fortsätt"
 
@@ -534,7 +533,7 @@ msgid ""
 "certificate') - and be online!"
 msgstr ""
 
-#: web/skins/modern/index.php:67 web/skins/modern/test.php:70
+#: web/skins/modern/index.php:68 web/skins/modern/test.php:70
 msgid "Authenticating"
 msgstr "Autentisierar"
 
@@ -733,7 +732,7 @@ msgid ""
 msgstr ""
 
 #: web/skins/modern/accountstatus/accountstatus.php:161
-#: web/skins/modern/user/js/cat_js.php:234
+#: web/skins/modern/user/js/cat_js.php:237
 #, fuzzy
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
@@ -741,7 +740,7 @@ msgid ""
 msgstr "Om du får problem bör du sök direkthjälp via din egen institution på:"
 
 #: web/skins/modern/accountstatus/accountstatus.php:163
-#: web/skins/modern/user/js/cat_js.php:236
+#: web/skins/modern/user/js/cat_js.php:239
 #, fuzzy
 msgid ""
 "If you encounter problems you should ask those who gave you your account for "
@@ -832,7 +831,7 @@ msgid ""
 msgstr ""
 
 #: web/skins/modern/user/js/cat_js.php:81
-#: web/skins/modern/user/js/cat_js.php:215
+#: web/skins/modern/user/js/cat_js.php:218
 msgid "no matching data found"
 msgstr ""
 
@@ -840,26 +839,26 @@ msgstr ""
 msgid "select"
 msgstr "välj"
 
-#: web/skins/modern/user/js/cat_js.php:228
+#: web/skins/modern/user/js/cat_js.php:231
 msgid "WWW:"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:230
+#: web/skins/modern/user/js/cat_js.php:233
 msgid "email:"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:232
+#: web/skins/modern/user/js/cat_js.php:235
 msgid "tel:"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:254
-#: web/skins/modern/user/js/cat_js.php:280
+#: web/skins/modern/user/js/cat_js.php:257
+#: web/skins/modern/user/js/cat_js.php:283
 #, fuzzy
 msgid ""
 "This device cannot be configured with the settings used in your organisation."
 msgstr "Denna enhet kan inte konfigureras med din institutions"
 
-#: web/skins/modern/user/js/cat_js.php:267
+#: web/skins/modern/user/js/cat_js.php:270
 msgid ""
 "Your site administrator has specified that this device should be configured "
 "with resources located on a local page. When you click <b>Continue</b> this "
@@ -869,41 +868,41 @@ msgstr ""
 "resurser på lokala websidor. När du klickar <b>Fortsätt</b> kommer denna "
 "sida kommer att öppnas i ett nytt fönster/tab."
 
-#: web/skins/modern/user/js/cat_js.php:281
+#: web/skins/modern/user/js/cat_js.php:284
 msgid "Close"
 msgstr "Stäng"
 
-#: web/skins/modern/user/js/cat_js.php:378
+#: web/skins/modern/user/js/cat_js.php:381
 msgid "Missing email address"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:392
+#: web/skins/modern/user/js/cat_js.php:395
 msgid "No providers found for this email"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:397
+#: web/skins/modern/user/js/cat_js.php:400
 msgid "Your IdP is:"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:399
+#: web/skins/modern/user/js/cat_js.php:402
 msgid "Your IdP could be one of:"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:562
+#: web/skins/modern/user/js/cat_js.php:565
 msgid "Organisation"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:563
+#: web/skins/modern/user/js/cat_js.php:566
 #, fuzzy
 msgid "Select your organisation"
 msgstr "Välj din institution"
 
-#: web/skins/modern/user/js/cat_js.php:564
+#: web/skins/modern/user/js/cat_js.php:567
 #, fuzzy
 msgid "Help, my organisation is not on the list"
 msgstr "Attans också min institution finns inte listad"
 
-#: web/skins/modern/user/js/cat_js.php:565
+#: web/skins/modern/user/js/cat_js.php:568
 #, fuzzy, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -914,66 +913,66 @@ msgstr ""
 "institution ej finns på listan kan du påtala för dem att är dags att addera "
 "info till %s databasen."
 
-#: web/skins/modern/user/js/cat_js.php:566
+#: web/skins/modern/user/js/cat_js.php:569
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "Lokalisera mig mer noggrant med hjälp av HTML5 Geo-location"
 
-#: web/skins/modern/user/js/cat_js.php:567
+#: web/skins/modern/user/js/cat_js.php:570
 #, fuzzy
 msgid "Show organisations in"
 msgstr "Visa institutioner i"
 
-#: web/skins/modern/user/js/cat_js.php:568
+#: web/skins/modern/user/js/cat_js.php:571
 msgid "all countries"
 msgstr "alla länder"
 
-#: web/skins/modern/user/js/cat_js.php:569
+#: web/skins/modern/user/js/cat_js.php:572
 #, fuzzy
 msgid "or search for an organisation, for example University of Oslo"
 msgstr "eller leta efter en institution, t.ex. Umeå universitet"
 
-#: web/skins/modern/user/js/cat_js.php:570
+#: web/skins/modern/user/js/cat_js.php:573
 msgid "show all countries"
 msgstr "visa all länder"
 
-#: web/skins/modern/user/js/cat_js.php:571
+#: web/skins/modern/user/js/cat_js.php:574
 msgid "Results limited to"
 msgstr "Resultat begränsade till"
 
-#: web/skins/modern/user/js/cat_js.php:572
+#: web/skins/modern/user/js/cat_js.php:575
 msgid "entries - show more"
 msgstr "entries - visa flera"
 
-#: web/skins/modern/user/js/cat_js.php:573
+#: web/skins/modern/user/js/cat_js.php:576
 msgid "Nearby"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:574
+#: web/skins/modern/user/js/cat_js.php:577
 msgid "Location timeout"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:575
+#: web/skins/modern/user/js/cat_js.php:578
 #, fuzzy
 msgid "Could not get your position"
 msgstr "Välj din institution"
 
-#: web/skins/modern/user/js/cat_js.php:576
+#: web/skins/modern/user/js/cat_js.php:579
 msgid "Your browser has denied access to your location"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:577
+#: web/skins/modern/user/js/cat_js.php:580
 msgid "Unknown location error"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:578
+#: web/skins/modern/user/js/cat_js.php:581
 msgid "You are here:"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:579
+#: web/skins/modern/user/js/cat_js.php:582
 msgid "Getting your location..."
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:580
+#: web/skins/modern/user/js/cat_js.php:583
 msgid "Nearby providers shown on top."
 msgstr ""
 

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-05 09:32+0200\n"
+"POT-Creation-Date: 2018-10-08 14:35+0200\n"
 "PO-Revision-Date: 2018-09-25 10:13+0000\n"
 "Last-Translator: Marko Eremija <marko.eremija@amres.ac.rs>\n"
 "Language-Team: Serbian (http://www.transifex.com/eduroam_devel/cat/language/"
@@ -166,8 +166,8 @@ msgid "Join the developers mailing list."
 msgstr "Pridružite se mejling listi za razvoj."
 
 #: web/user/devel.inc.php:15
-#, php-format
-msgid "The list is availabe at: %s"
+#, fuzzy, php-format
+msgid "The list is available at: %s"
 msgstr "Spisak se može naći na: %s"
 
 #: web/user/devel.inc.php:16
@@ -1088,7 +1088,8 @@ msgid "all countries"
 msgstr "sve zemlje"
 
 #: web/skins/modern/user/js/cat_js.php:569
-msgid "or search for an organisation, for example Univerity of Oslo"
+#, fuzzy
+msgid "or search for an organisation, for example University of Oslo"
 msgstr "ili traži organizaciju, npr. Rudarsko-geološki fakultet"
 
 #: web/skins/modern/user/js/cat_js.php:570

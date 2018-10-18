@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-08 14:35+0200\n"
+"POT-Creation-Date: 2018-10-18 14:16+0200\n"
 "PO-Revision-Date: 2018-09-20 15:25+0000\n"
 "Last-Translator: Zenon Mousmoulas <zenon@mousmoulas.gr>\n"
 "Language-Team: Greek (http://www.transifex.com/eduroam_devel/cat/language/"
@@ -431,6 +431,10 @@ msgstr "Συχνές Ερωτήσεις"
 msgid "Terms of Use"
 msgstr "Όροι χρήσης"
 
+#: web/user/tou.inc.php:16
+msgid "(for legal reasons, the Terms of Use are in English only)"
+msgstr ""
+
 #: web/4013.php:34 web/404.php:33 web/lib/user/TextTemplates.php:77
 #, php-format
 msgid "Welcome to %s"
@@ -440,8 +444,8 @@ msgstr "Καλως Ήρθατε στο %s"
 msgid "View this page in"
 msgstr "Προβολή αυτής της σελίδας σε"
 
-#: web/4013.php:43 web/404.php:42 web/copyright.php:33
-#: web/skins/modern/Menu.php:29
+#: web/4013.php:43 web/404.php:42 web/skins/modern/Menu.php:29
+#: web/skins/modern/Menu.php:103
 msgid "Start page"
 msgstr "Αρχική σελίδα"
 
@@ -489,12 +493,7 @@ msgstr ""
 " να σας κοιτάζει. Δικό σας λάθος; Δικό μας σφάλμα; Ποιος ξέρει! Ίσως να "
 "πρέπει να επιστρέψετε στην <a href='%s'>Αρχική Σελίδα</a>."
 
-#: web/copyright.php:30
-#, php-format
-msgid "%s Copyright and Licensing"
-msgstr "%s Πνευματική Ιδιοκτησία και Αδειοδότηση"
-
-#: web/copyright.php:213 web/tou.php:61
+#: web/tou.php:61 web/skins/modern/Divs.php:279
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "Δήλωση περί Απορρήτου %s"
@@ -610,8 +609,8 @@ msgstr ""
 "σελίδα υποστήριξης.<br>Όταν επιλέξετε <b>Συνέχεια</b> η σελίδα υποστήριξης "
 "θα ανοίξει σε νέο παράθυρο/καρτέλα."
 
-#: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:267
-#: web/skins/modern/user/js/cat_js.php:275
+#: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:270
+#: web/skins/modern/user/js/cat_js.php:278
 msgid "Continue"
 msgstr "Συνέχεια"
 
@@ -674,7 +673,7 @@ msgstr ""
 "χρήστη' και τον 'κωδικό πρόσβασης' ή το 'προσωπικό πιστοποιητικό') - και θα "
 "είστε συνδεδεμένος!"
 
-#: web/skins/modern/index.php:67 web/skins/modern/test.php:70
+#: web/skins/modern/index.php:68 web/skins/modern/test.php:70
 msgid "Authenticating"
 msgstr "Αυθεντικοποίηση"
 
@@ -912,7 +911,7 @@ msgstr ""
 "ένα πιστοποιητικό που το όνομα του λήγει σε '...%s')."
 
 #: web/skins/modern/accountstatus/accountstatus.php:161
-#: web/skins/modern/user/js/cat_js.php:234
+#: web/skins/modern/user/js/cat_js.php:237
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
 "organisation at:"
@@ -921,7 +920,7 @@ msgstr ""
 "οργανισμό σας στο:"
 
 #: web/skins/modern/accountstatus/accountstatus.php:163
-#: web/skins/modern/user/js/cat_js.php:236
+#: web/skins/modern/user/js/cat_js.php:239
 msgid ""
 "If you encounter problems you should ask those who gave you your account for "
 "help."
@@ -1023,7 +1022,7 @@ msgstr ""
 "αντιμετωπίσουμε το πρόβλημα το συντομότερο δυνατό."
 
 #: web/skins/modern/user/js/cat_js.php:81
-#: web/skins/modern/user/js/cat_js.php:215
+#: web/skins/modern/user/js/cat_js.php:218
 msgid "no matching data found"
 msgstr "δεν βρέθηκαν δεδομένα που να ταιριάζουν"
 
@@ -1031,27 +1030,27 @@ msgstr "δεν βρέθηκαν δεδομένα που να ταιριάζου�
 msgid "select"
 msgstr "επιλογή"
 
-#: web/skins/modern/user/js/cat_js.php:228
+#: web/skins/modern/user/js/cat_js.php:231
 msgid "WWW:"
 msgstr "WWW:"
 
-#: web/skins/modern/user/js/cat_js.php:230
+#: web/skins/modern/user/js/cat_js.php:233
 msgid "email:"
 msgstr "email:"
 
-#: web/skins/modern/user/js/cat_js.php:232
+#: web/skins/modern/user/js/cat_js.php:235
 msgid "tel:"
 msgstr "τηλ:"
 
-#: web/skins/modern/user/js/cat_js.php:254
-#: web/skins/modern/user/js/cat_js.php:280
+#: web/skins/modern/user/js/cat_js.php:257
+#: web/skins/modern/user/js/cat_js.php:283
 msgid ""
 "This device cannot be configured with the settings used in your organisation."
 msgstr ""
 "Αυτή η συσκευή δεν μπορεί να παραμετροποιηθεί με τις παρεχόμενες ρυθμίσεις "
 "από τον οργανισμό σας."
 
-#: web/skins/modern/user/js/cat_js.php:267
+#: web/skins/modern/user/js/cat_js.php:270
 msgid ""
 "Your site administrator has specified that this device should be configured "
 "with resources located on a local page. When you click <b>Continue</b> this "
@@ -1061,39 +1060,39 @@ msgstr ""
 "ρυθμιστεί με πόρους που βρίσκονται σε μια τοπική σελίδα. Μόλις κάνετε κλικ "
 "στο <b>Συνέχεια</b> αυτή η σελίδα θα ανοίξει σε ένα νέο παράθυρο/καρτέλα."
 
-#: web/skins/modern/user/js/cat_js.php:281
+#: web/skins/modern/user/js/cat_js.php:284
 msgid "Close"
 msgstr "Κλείσιμο"
 
-#: web/skins/modern/user/js/cat_js.php:378
+#: web/skins/modern/user/js/cat_js.php:381
 msgid "Missing email address"
 msgstr "Λείπει η διεύθυνση email"
 
-#: web/skins/modern/user/js/cat_js.php:392
+#: web/skins/modern/user/js/cat_js.php:395
 msgid "No providers found for this email"
 msgstr "Δεν βρέθηκαν πάροχοι για αυτήν την διεύθυνση email"
 
-#: web/skins/modern/user/js/cat_js.php:397
+#: web/skins/modern/user/js/cat_js.php:400
 msgid "Your IdP is:"
 msgstr "Ο IdP σας είναι:"
 
-#: web/skins/modern/user/js/cat_js.php:399
+#: web/skins/modern/user/js/cat_js.php:402
 msgid "Your IdP could be one of:"
 msgstr "Ο IdP σας μπορεί να είναι ένας από τους:"
 
-#: web/skins/modern/user/js/cat_js.php:562
+#: web/skins/modern/user/js/cat_js.php:565
 msgid "Organisation"
 msgstr "Οργανισμός"
 
-#: web/skins/modern/user/js/cat_js.php:563
+#: web/skins/modern/user/js/cat_js.php:566
 msgid "Select your organisation"
 msgstr "Επιλέξτε τον οργανισμό σας"
 
-#: web/skins/modern/user/js/cat_js.php:564
+#: web/skins/modern/user/js/cat_js.php:567
 msgid "Help, my organisation is not on the list"
 msgstr "Βοήθεια, ο οργανισμός μου δεν είναι στη λίστα"
 
-#: web/skins/modern/user/js/cat_js.php:565
+#: web/skins/modern/user/js/cat_js.php:568
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -1104,64 +1103,64 @@ msgstr ""
 "διαχειριστές του %s. Αν ο οργανισμός σας δεν είναι στη λίστα, ενοχλήστε τους "
 "για να προσθέσουν πληροφορίες στη βάση δεδομένων για το %s."
 
-#: web/skins/modern/user/js/cat_js.php:566
+#: web/skins/modern/user/js/cat_js.php:569
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "Πιο ακριβής εντοπισμός μου με χρήση του HTML5 Geo-Location"
 
-#: web/skins/modern/user/js/cat_js.php:567
+#: web/skins/modern/user/js/cat_js.php:570
 msgid "Show organisations in"
 msgstr "Εμφάνιση οργανισμών σε"
 
-#: web/skins/modern/user/js/cat_js.php:568
+#: web/skins/modern/user/js/cat_js.php:571
 msgid "all countries"
 msgstr "όλες οι χώρες"
 
-#: web/skins/modern/user/js/cat_js.php:569
+#: web/skins/modern/user/js/cat_js.php:572
 #, fuzzy
 msgid "or search for an organisation, for example University of Oslo"
 msgstr "ή αναζητήστε έναν οργανισμό, για παράδειγμα Univerity of Oslo"
 
-#: web/skins/modern/user/js/cat_js.php:570
+#: web/skins/modern/user/js/cat_js.php:573
 msgid "show all countries"
 msgstr "εμφάνιση όλων των χωρών"
 
-#: web/skins/modern/user/js/cat_js.php:571
+#: web/skins/modern/user/js/cat_js.php:574
 msgid "Results limited to"
 msgstr "Περιορισμός αποτελεσμάτων σε"
 
-#: web/skins/modern/user/js/cat_js.php:572
+#: web/skins/modern/user/js/cat_js.php:575
 msgid "entries - show more"
 msgstr "καταχωρήσεις - εμφάνιση περισσοτέρων"
 
-#: web/skins/modern/user/js/cat_js.php:573
+#: web/skins/modern/user/js/cat_js.php:576
 msgid "Nearby"
 msgstr "Κοντά"
 
-#: web/skins/modern/user/js/cat_js.php:574
+#: web/skins/modern/user/js/cat_js.php:577
 msgid "Location timeout"
 msgstr "Λήξη χρονικού ορίου τοποθεσίας"
 
-#: web/skins/modern/user/js/cat_js.php:575
+#: web/skins/modern/user/js/cat_js.php:578
 msgid "Could not get your position"
 msgstr "Αδυναμία λήψης της τοποθεσίας σας"
 
-#: web/skins/modern/user/js/cat_js.php:576
+#: web/skins/modern/user/js/cat_js.php:579
 msgid "Your browser has denied access to your location"
 msgstr "Ο φυλλομετρητής σας αρνήθηκε την πρόσβαση στην τοποθεσία σας."
 
-#: web/skins/modern/user/js/cat_js.php:577
+#: web/skins/modern/user/js/cat_js.php:580
 msgid "Unknown location error"
 msgstr "Άγνωστο σφάλμα τοποθεσίας"
 
-#: web/skins/modern/user/js/cat_js.php:578
+#: web/skins/modern/user/js/cat_js.php:581
 msgid "You are here:"
 msgstr "Βρίσκεστε εδώ:"
 
-#: web/skins/modern/user/js/cat_js.php:579
+#: web/skins/modern/user/js/cat_js.php:582
 msgid "Getting your location..."
 msgstr "Ανάκτηση της τοποθεσίας σας..."
 
-#: web/skins/modern/user/js/cat_js.php:580
+#: web/skins/modern/user/js/cat_js.php:583
 msgid "Nearby providers shown on top."
 msgstr "Οι κοντινοί πάροχοι εμφανίζονται στην κορυφή."
 
@@ -1210,6 +1209,9 @@ msgstr "όλες οι σημαντικές διανομές"
 #: web/skins/modern/user/js/roll.php:139
 msgid "Chrome OS"
 msgstr "Chrome OS"
+
+#~ msgid "%s Copyright and Licensing"
+#~ msgstr "%s Πνευματική Ιδιοκτησία και Αδειοδότηση"
 
 #~ msgid ""
 #~ "When you make use of the international %s infrastructure, e.g. when "

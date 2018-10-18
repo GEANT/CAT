@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-05 09:32+0200\n"
+"POT-Creation-Date: 2018-10-18 14:16+0200\n"
 "PO-Revision-Date: 2018-09-13 10:46+0000\n"
 "Last-Translator: Pedro Simões <psimoes@fccn.pt>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/eduroam_devel/"
@@ -421,7 +421,7 @@ msgstr "%s Sistema de Convites"
 #. /                3. federation shortname, e.g. "LU";
 #. /                4. product name (e.g. eduroam CAT);
 #. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/UserManagement.php:179
+#: core/UserManagement.php:194
 #, php-format
 msgid ""
 "Hi,\n"
@@ -439,7 +439,7 @@ msgstr ""
 "foi utilizado e o fornecedor de identidade foi criado em %s.⏎⏎Julgamos ser "
 "útil fazer-lhe chegar esta informação.⏎⏎Cumprimentos,⏎⏎%s"
 
-#: core/UserManagement.php:188
+#: core/UserManagement.php:203
 msgid "IdP in your federation was created"
 msgstr "IdP criado na federação."
 
