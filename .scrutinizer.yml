@@ -91,12 +91,13 @@ build:
                 override:
                     - wget http://ci.test/admin/API.php -O - --method=POST --no-verbose --body-file=tests/inst.json 
                     - wget http://ci.test/admin/API.php -O - --method=POST --no-verbose --body-file=tests/profile1.json 
-                    - wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=chromeos\&profile=3 -O /home/scrutinizer/artifacts/ChromeInstaller --no-verbose
+                    - wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=chromeos\&profile=3 -O /home/scrutinizer/artifacts/ChromeInstaller.onc --no-verbose
                     - wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=w10\&profile=3 -O /home/scrutinizer/artifacts/WinInstaller.exe --no-verbose
                     - file /home/scrutinizer/artifacts/WinInstaller.exe
                     - wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=apple_hi_sierra\&profile=3 -O /home/scrutinizer/artifacts/AppleInstaller.mobileconfig --no-verbose
                     - file /home/scrutinizer/artifacts/AppleInstaller.mobileconfig
-                    -
+                    - wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=linux\&profile=3 -O /home/scrutinizer/artifacts/LinuxInstaller.py --no-verbose
+                    - pylint /home/scrutinizer/artifacts/LinuxInstaller.py
                         command: phpcs-run
                         use_website_config: true
                     - php-scrutinizer-run --enable-security-analysis
