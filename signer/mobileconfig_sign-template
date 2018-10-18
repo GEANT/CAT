@@ -6,18 +6,18 @@
 # Beware that this directory must be protected against the WEB download, othewise you keys mey be compromised. 
 # The directory must be accessible by the Apache proceess
 
-MY_PATH=""
+if [ "$MY_PATH" == "" ]; then MY_PATH=""; fi
 
 # Public key in PEM format 
-PUBKEY="xxx_cert.pem"
+if [ "$PUBKEY" == "" ]; then PUBKEY="xxx_cert.pem"
 # Matching private key in PEM format
-PRIVKEY="xxx_key.pem"
+if [ "$PRIVKEY" == "" ]; then PRIVKEY="xxx_key.pem"
 # private key password
 # PASS will not escape strange characters correctly so please use "safe" ones
 # PASS can be empty or not set at all if the private key is not protected
-PASS=""
+if [ "$PASS" == "" ]; then PASS=""
 # full CA chain to be included in the signature
-CA_CHAIN="CAs.pem"
+if [ "$CA_CHAIN" == "" ]; then CA_CHAIN="CAs.pem"
 
 if [ -n "$PASS" ] ; then
   passin="-passin pass:$PASS"
