@@ -9,15 +9,15 @@
 if [ "$MY_PATH" == "" ]; then MY_PATH=""; fi
 
 # Public key in PEM format 
-if [ "$PUBKEY" == "" ]; then PUBKEY="xxx_cert.pem"
+if [ "$PUBKEY" == "" ]; then PUBKEY="xxx_cert.pem"; fi
 # Matching private key in PEM format
-if [ "$PRIVKEY" == "" ]; then PRIVKEY="xxx_key.pem"
+if [ "$PRIVKEY" == "" ]; then PRIVKEY="xxx_key.pem"; fi
 # private key password
 # PASS will not escape strange characters correctly so please use "safe" ones
 # PASS can be empty or not set at all if the private key is not protected
-if [ "$PASS" == "" ]; then PASS=""
+if [ "$PASS" == "" ]; then PASS=""; fi
 # full CA chain to be included in the signature
-if [ "$CA_CHAIN" == "" ]; then CA_CHAIN="CAs.pem"
+if [ "$CA_CHAIN" == "" ]; then CA_CHAIN="CAs.pem"; fi
 
 if [ -n "$PASS" ] ; then
   passin="-passin pass:$PASS"
