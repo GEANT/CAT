@@ -98,6 +98,7 @@ build:
                     - file /home/scrutinizer/artifacts/AppleInstaller.mobileconfig
                     - wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=linux\&profile=3 -O /home/scrutinizer/artifacts/LinuxInstaller.py --no-verbose
                     - pylint /home/scrutinizer/artifacts/LinuxInstaller.py
+                    - 
                         command: phpcs-run
                         use_website_config: true
                     - php-scrutinizer-run --enable-security-analysis
