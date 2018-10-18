@@ -136,7 +136,7 @@ build:
                'CONFASSISTANT_RADIUS' => 'LOCAL',   
                'DIAGNOSTICS' => 'LOCAL',
               ], 
-              'PATHS' => ['logdir' => '/home/scrutinizer/' ], 
+              'PATHS' => ['logdir' => '/home/scrutinizer/', 'openssl' => '/usr/bin/openssl' ], 
               'AUTHENTICATION' => [], 
               'GEOIP' => [], 
               'MAILSETTINGS' => [], 
