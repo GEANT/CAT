@@ -58,6 +58,7 @@ class Authentication {
         $user = $admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-identifier']][0];
 
         $_SESSION['user'] = $user;
+        $_SESSION['name'] = $admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-name']][0] ?? _("Unnamed User");
         /*
          * This is a nice pathological test case for a user ID.
          *
@@ -84,7 +85,7 @@ class Authentication {
             }
         }
 
-        if (count($userObject->getAttributes('user:realname')) > 0 || $newNameReceived) { // we have a real name ... set it
+        if (count($userObject->getAttributes('user:realname')) > 0 || $newNameReceived) { // we have a real name in the DB. We trust this more than a session one, so set it
             $nameArray = $userObject->getAttributes("user:realname");
             if (!empty($nameArray[0])) {
                 $_SESSION['name'] = $nameArray[0]['value'];

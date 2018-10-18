@@ -1,0 +1,1026 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Marina Vermezovic <marina.vermezovic@rcub.bg.ac.rs>, 2012-2013
+# Marko Eremija <marko.eremija@amres.ac.rs>, 2013,2015-2018
+# marko <marko.stojakovic@rcub.bg.ac.rs>, 2012
+# nlemajic <natasa.lemajic@rcub.bg.ac.rs>, 2012
+msgid ""
+msgstr ""
+"Project-Id-Version: eduroam CAT\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-10-08 14:35+0200\n"
+"PO-Revision-Date: 2018-09-24 10:44+0000\n"
+"Last-Translator: Marko Eremija <marko.eremija@amres.ac.rs>\n"
+"Language-Team: Serbian (http://www.transifex.com/eduroam_devel/cat/language/"
+"sr/)\n"
+"Language: sr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: devices/Devices-template.php:110
+msgid "MS Windows 10"
+msgstr "MS Windows 10"
+
+#: devices/Devices-template.php:125
+msgid "MS Windows 8, 8.1"
+msgstr "MS Windows 8, 8.1"
+
+#: devices/Devices-template.php:139
+msgid "MS Windows 7"
+msgstr "MS Windows 7"
+
+#: devices/Devices-template.php:153
+msgid "MS Windows Vista"
+msgstr "MS Windows Vista"
+
+#: devices/Devices-template.php:167
+msgid "Windows RT"
+msgstr "Windows RT"
+
+#: devices/Devices-template.php:179
+msgid "Apple macOS High Sierra"
+msgstr "Apple macOS High Sierra"
+
+#: devices/Devices-template.php:194
+msgid "Apple macOS Sierra"
+msgstr "Apple macOS Sierra"
+
+#: devices/Devices-template.php:209
+msgid "Apple OS X El Capitan"
+msgstr "Apple OS X El Capitan"
+
+#: devices/Devices-template.php:223
+msgid "Apple OS X Yosemite"
+msgstr "Apple OS X Yosemite"
+
+#: devices/Devices-template.php:237
+msgid "Apple OS X Mavericks"
+msgstr "Apple OS X Mavericks"
+
+#: devices/Devices-template.php:251
+msgid "Apple OS X Mountain Lion"
+msgstr "Apple OS X Mountain Lion"
+
+#: devices/Devices-template.php:265
+msgid "Apple OS X Lion"
+msgstr "Apple OS X Lion"
+
+#: devices/Devices-template.php:279
+msgid "Apple iOS mobile devices"
+msgstr "Apple iOS mobilni uređaji"
+
+#: devices/Devices-template.php:293
+msgid "Apple iOS mobile devices (iOS 5 and 6)"
+msgstr "Apple iOS mobilni uređaji (iOS 5 i 6)"
+
+#: devices/Devices-template.php:308
+msgid "Linux"
+msgstr "Linux"
+
+#: devices/Devices-template.php:319
+msgid "Chrome OS"
+msgstr "Chrome OS"
+
+#: devices/Devices-template.php:325
+#, php-format
+msgid ""
+"After downloading the file, open the Chrome browser and browse to this URL: "
+"<a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</"
+"a>. Then, use the 'Import ONC file' button. The import is silent; the new "
+"network definitions will be added to the preferred networks."
+msgstr ""
+"Nakon preuzimanja fajla, otvorite Chrome pretraživač i idite na URL: <a "
+"href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</"
+"a>. Zatim pritisnite 'Import ONC file' dugme. Importovanje ne daje nikakav "
+"ispis; nova mreža će biti dodata u spisak odabranih mreža."
+
+#: devices/Devices-template.php:331
+#, fuzzy
+msgid "Android 9.0 Pie"
+msgstr "Android 4.3"
+
+#: devices/Devices-template.php:337 devices/Devices-template.php:353
+#: devices/Devices-template.php:369 devices/Devices-template.php:385
+#: devices/Devices-template.php:401 devices/Devices-template.php:417
+#: devices/Devices-template.php:434
+#, php-format
+msgid ""
+"Before you proceed with installation on Android systems, please make sure "
+"that you have installed the %s application. This application is available "
+"from %s, %s and %s, and will use the configuration file downloaded from CAT "
+"to create all necessary settings."
+msgstr ""
+"Pre nego što nastavite sa instalacijom na Android operativnom sistemu, "
+"proverite da li ste instalirali %s aplikaciju. Aplikacija je dostupna na %s, "
+"%s i %s, i koristiće konfiguracioni fajl preuzet sa eduroam CAT portala kako "
+"bi se izvršila sva neophodna podešavanja."
+
+#: devices/Devices-template.php:341 devices/Devices-template.php:357
+#: devices/Devices-template.php:373 devices/Devices-template.php:389
+#: devices/Devices-template.php:405 devices/Devices-template.php:421
+#: devices/Devices-template.php:438
+msgid "as local download"
+msgstr "kao lokalno preuzimanje"
+
+#: devices/Devices-template.php:347
+#, fuzzy
+msgid "Android 8.0 Oreo"
+msgstr "Android 6.0 Marshmallow"
+
+#: devices/Devices-template.php:363
+#, fuzzy
+msgid "Android 6.0 Nougat"
+msgstr "Android 4.4 KitKat"
+
+#: devices/Devices-template.php:379
+msgid "Android 6.0 Marshmallow"
+msgstr "Android 6.0 Marshmallow"
+
+#: devices/Devices-template.php:395
+msgid "Android 5.0 Lollipop"
+msgstr "Android 5.0 Lollipop"
+
+#: devices/Devices-template.php:411
+msgid "Android 4.4 KitKat"
+msgstr "Android 4.4 KitKat"
+
+#: devices/Devices-template.php:428
+msgid "Android 4.3"
+msgstr "Android 4.3"
+
+#: devices/Devices-template.php:444
+msgid "Android"
+msgstr "Android"
+
+#: devices/Devices-template.php:455
+msgid "EAP config"
+msgstr "EAP konfiguracija"
+
+#: devices/Devices-template.php:460
+#, php-format
+msgid ""
+"This option provides a generic EAP config XML file, which can be consumed by "
+"dedicated applications like eduroamCAT for Android and Linux platforms. This "
+"is still an experimental feature."
+msgstr ""
+"Ova opcija obezbeđuje generički EAP konfiguracioni fajl u XML formatu, koji "
+"se može koristiti za odgovarajuće aplikacije kao što je eduroam CAT za "
+"Android i Linux platforme. Ovo je i dalje eksperimentalna karakteristika."
+
+#: devices/Devices-template.php:466
+msgid "Test"
+msgstr "Test"
+
+#: devices/apple_mobileconfig/Device_mobileconfig_ios_56.php:38
+msgid "This device does not support forcing setting an HTTPS proxy."
+msgstr "Ovaj uređaj ne podržava podešavanje HTTPS proksija."
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:49
+msgid ""
+"It is not possible to actively verify the user input for suffix match; but "
+"if there is no 'Terms of Use' configured, the installer will display a "
+"corresponding hint to the user instead."
+msgstr ""
+"Nije moguće aktivno proveriti unos korisnika za poklapanje sa domenom; ako "
+"nije podešen parametar 'Pravila korišćenja', instaler će ponuditi korisniku "
+"naznaku šta može da koristi."
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:57
+#, php-format
+msgid "Network configuration profile '%s' of '%s' - provided by %s"
+msgstr "Profil za konfigurisanje mreže '%s' od '%s' - obezbeđen od %s"
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:62
+#, php-format
+msgid "%s configuration for IdP '%s' - provided by %s"
+msgstr "%s konfiguracija za IdP '%s' - omogućena od %s"
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:103
+#, php-format
+msgid "Important Notice: your username must end with @%s!"
+msgstr "Važna napomena: vaše korisničko ime se mora završavati sa @%s!"
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:105
+msgid ""
+"Important Notice: your username MUST be in the form of xxx@yyy where the yyy "
+"is a common suffix identifying your Identity Provider. Please find out what "
+"to use there and enter the username in the correct format."
+msgstr ""
+"Važna napomena: vaše korisničko ime MORA biti u formi xxx@yyy, gde yyy "
+"predstavlja domen koji identifikuje vašeg IdP-a. Potrebno je da znate tačno "
+"koja vrednost se koristi i da unesete korisničko ime u ispravnom formatu."
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:141
+msgid "Unnamed Organisation"
+msgstr "Neimenovana organizacija"
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:142
+msgid "Unnamed Profile"
+msgstr "Neimenovan profil"
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:200
+msgid ""
+"For best results, please use the built-in browser (Safari) to open the "
+"configuration file."
+msgstr ""
+"Da biste mogli da otvorite konfiguracioni fajl, koristite standardni "
+"pretraživač (Safari)."
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:202
+msgid ""
+"The profile will install itself after you click (or tap) the button. You "
+"will be asked for confirmation/input at several points:"
+msgstr "Profil će se sam instalirati nakon što pritisnete dugme. "
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:204
+msgid "to install the profile"
+msgstr "instalirati profil"
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:205
+msgid "to accept the server certificate authority"
+msgid_plural "to accept the server certificate authorities"
+msgstr[0] "prihvatiti sertifikaciono telo servera"
+msgstr[1] "prihvatiti sertifikaciona tela servera"
+msgstr[2] "prihvatiti sertifikaciona tela servera"
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:207
+#, php-format
+msgid "(%d times)"
+msgstr "(%d puta)"
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:210
+msgid ""
+"to enter the username and password you have been given by your organisation"
+msgstr ""
+"kako biste uneli korisničko ime i lozinku koje ste dobili od svoje matične "
+"ustanove"
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:212
+#, php-format
+msgid "(%d times each, because %s is installed for %d SSIDs)"
+msgstr "(%d puta svaki, jer je %s instaliran za %d SSID-eva)"
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:351
+#, php-format
+msgid "SSID %s"
+msgstr "SSID %s"
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:352
+#, php-format
+msgid "%s configuration for network name %s"
+msgstr "%s konfiguracija za mrežno ime %s"
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:360
+msgid "Wired Network"
+msgstr "Žična mreža"
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:361
+#, php-format
+msgid "%s configuration for wired network"
+msgstr "%s konfiguracija za žičanu mrežu"
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:372
+msgid "Hotspot 2.0 Settings"
+msgstr "Hotspot 2.0 podešavanja"
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:373
+#, php-format
+msgid "%s Hotspot 2.0 configuration"
+msgstr "%s Hotspot 2.0 konfiguracija"
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:428
+#, php-format
+msgid "This SSID should not be used after bootstrapping %s"
+msgstr "Ovaj SSID ne bi trebalo koristiti nakon incijalizacije %s"
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:430
+msgid "Disabled WiFi network"
+msgstr "Bežična mreža nije u funkciji"
+
+#. we don't include the import password. It's displayed on screen, and should be input by the user.
+#. <key>Password</key>
+#. <string>" . $this->clientCert['password'] . "</string>
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:505
+msgid "eduroam user certificate"
+msgstr "eduroam sertifikat korisnika"
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:545
+msgid "Your Identity Providers Certification Authority"
+msgstr "Sertifikaciono telo vašeg Davaoca Identiteta"
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:547
+msgid "Identity Provider's CA"
+msgstr "CA Davaoca Identiteta"
+
+#: devices/chromebook/Device_chromebook.php:288
+msgid ""
+"This installer is an example only. It produces a zip file containig the IdP "
+"certificates, info and logo files (if such have been defined by the IdP "
+"administrator) and a dump of all available attributes."
+msgstr ""
+"Ovaj program za instaliranje je samo primer. Generisaće zip fajl koji će "
+"sadržati sertifikate Davaoca Identiteta, informacije i logo fajlove (ako su "
+"definisani od strane administratora Davaoca Identiteta) i sve dostupne "
+"atribute."
+
+#: devices/linux/Device_Linux.php:52
+#, php-format
+msgid ""
+"The installer is in the form of a Python script. It will try to configure %s "
+"under NetworkManager and if this is either not appropriate for your system "
+"or your version of NetworkManager is too old, a wpa_supplicant config file "
+"will be created instead."
+msgstr ""
+"Instaler je u formi Python skripte. Pokušaće da konfiguriše %s u okviru "
+"NetworkManager-a i ukoliko ovo nije moguće za vaš sistem ili za verziju "
+"NetworkManager-a, biće kreiran wpa_supplicant konfiguracioni fajl."
+
+#: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:115
+#, php-format
+msgid ""
+"In addition to <strong>%s</strong> the installer will also configure access "
+"to the following networks:"
+msgstr ""
+"Kao dodatak <strong>%s</strong> program za instaliranje će takođe "
+"konfigurisati pristup sledećim mrežama:"
+
+#: devices/linux/Device_Linux.php:58 devices/ms/WindowsCommon.php:117
+#, php-format
+msgid ""
+"In addition to <strong>%s</strong> the installer will also configure access "
+"to:"
+msgstr ""
+"Kao dodatak <strong>%s</strong> program za instaliranje će takođe "
+"konfigurisati pristup:"
+
+#: devices/linux/Device_Linux.php:72
+msgid ""
+"The installer will create .cat_installer sub-directory in your home "
+"directory and will copy your server certificates there."
+msgstr ""
+"Instaler će kreirati .cat-installer poddirektorijum u vašem home "
+"direktorijumu i kopiraće vaše serverske sertifikate ovde."
+
+#: devices/linux/Device_Linux.php:74
+msgid ""
+"In order to connect to the network you will need a personal certificate in "
+"the form of a p12 file. You should obtain this certificate from your "
+"organisation. Consult the support page to find out how this certificate can "
+"be obtained. Such certificate files are password protected. You should have "
+"both the file and the password available during the installation process. "
+"Your p12 file will also be copied to the .cat_installer directory."
+msgstr ""
+"Da biste se konektovali na mrežu biće vam potreban personalni sertifikat u "
+"formi p12 fajla. Sertifikat bi trebalo da dobijete od svoje matične "
+"institucije. Pogledajte stranicu za podršku da biste saznali kako možete "
+"dobiti ovaj sertifikat. Fajlovi koji sadrže personalni sertifikat su "
+"zaštićeni lozinkom. Tokom procesa instalacije morate imati i taj fajl i "
+"odgovarajuću lozinku. Vaš p12 fajl će, takođe, biti kopiran u .cat_installer "
+"direktorijum."
+
+#. not EAP-TLS
+#: devices/linux/Device_Linux.php:76 devices/ms/WindowsCommon.php:128
+msgid ""
+"In order to connect to the network you will need an account from your "
+"organisation. You should consult the support page to find out how this "
+"account can be obtained. It is very likely that your account is already "
+"activated."
+msgstr ""
+"Da biste se konektovali na mrežu biće vam potreban nalog dobijen od vaše "
+"matične institucije. Pogledajte stranicu za podršku da biste saznali kako "
+"možete dobiti ovaj nalog. Verovatno je vaš nalog već aktiviran."
+
+#: devices/linux/Device_Linux.php:78
+msgid ""
+"You will be requested to enter your account credentials during the "
+"installation. This information will be saved so that you will reconnect to "
+"the network automatically each time you are in the range."
+msgstr ""
+"Tražiće vam se da unesete svoje korisničke kredencijale tokom instalacije. "
+"Ovi podaci biće sačuvani da biste ste se automatski konektovali na mrežu "
+"svaki put kada se nađete u njenom dometu."
+
+#: devices/linux/Device_Linux.php:87
+msgid "Really quit?"
+msgstr "Da li zaista želite da odustanete?"
+
+#: devices/linux/Device_Linux.php:88
+msgid "enter your userid"
+msgstr "unesite vaše korisničko ime"
+
+#: devices/linux/Device_Linux.php:89
+msgid "enter password"
+msgstr "unesite lozinku"
+
+#: devices/linux/Device_Linux.php:90
+msgid "enter your import password"
+msgstr "unesite lozinku za uvoz"
+
+#: devices/linux/Device_Linux.php:91
+msgid "incorrect password"
+msgstr "neispravna lozinka"
+
+#: devices/linux/Device_Linux.php:92
+msgid "repeat your password"
+msgstr "ponovo unesite svoju lozinku"
+
+#: devices/linux/Device_Linux.php:93
+msgid "passwords do not match"
+msgstr "lozinke se razlikuju"
+
+#: devices/linux/Device_Linux.php:94
+msgid "Installation successful"
+msgstr "Instalacija je uspešno obavljena"
+
+#: devices/linux/Device_Linux.php:95
+msgid "Directory {} exists; some of its files may be overwritten."
+msgstr "Direktorijum {} postoji; neki fajlovi unutar njega mogu biti obrisani."
+
+#: devices/linux/Device_Linux.php:96
+msgid "Continue?"
+msgstr "Nastavi?"
+
+#: devices/linux/Device_Linux.php:97
+msgid "This NetworkManager version is not supported"
+msgstr "Ova verzija NetworkManager-a nije podržana"
+
+#: devices/linux/Device_Linux.php:98
+msgid "Certificate file not found, looks like a CAT error"
+msgstr ""
+"Fajl sa sertifikatom nije pronađen, izgleda da je u pitanju eduroam CAT "
+"greška"
+
+#: devices/linux/Device_Linux.php:99
+msgid "Unknown version"
+msgstr "Nepoznata verzija"
+
+#: devices/linux/Device_Linux.php:100
+msgid "DBus connection problem, a sudo might help"
+msgstr "Problem sa DBus konekcijom, korišćenje komande sudo može pomoći"
+
+#: devices/linux/Device_Linux.php:101
+msgid "Y"
+msgstr "DA"
+
+#: devices/linux/Device_Linux.php:102
+msgid "N"
+msgstr "NE"
+
+#: devices/linux/Device_Linux.php:103 devices/linux/Device_Linux.php:105
+msgid "personal certificate file (p12 or pfx)"
+msgstr "personalni sertifikat (p12 ili pfx)"
+
+#: devices/linux/Device_Linux.php:104 devices/ms/Files/common.inc:1074
+msgid "All files"
+msgstr "Svi fajlovi"
+
+#: devices/linux/Device_Linux.php:106
+msgid ""
+"NetworkManager configuration failed, but we may generate a wpa_supplicant "
+"configuration file if you wish. Be warned that your connection password will "
+"be saved in this file as clear text."
+msgstr ""
+"Nespešno konfigurisanje NetworkManager-a, ali možemo generisati "
+"wpa_supplicant konfiguracioni fajl ako želite. Ukoliko želite, vaša lozinka "
+"će u ovom fajlu biti čitljiva."
+
+#: devices/linux/Device_Linux.php:107
+msgid "Write the file"
+msgstr "Napravi datoteku"
+
+#: devices/linux/Device_Linux.php:108 devices/ms/Files/common.inc:1202
+#: devices/ms/Files/common.inc:1222 devices/ms/Files/common.inc:1273
+msgid ""
+"Error: Your username must be of the form 'xxx@institutionID' e.g. "
+"'john@example.net'!"
+msgstr ""
+"Greška: vaše korisničko ime mora biti u formi 'xxx@domen.institucije' npr. "
+"'john@example.net'!"
+
+#: devices/linux/Device_Linux.php:109
+msgid ""
+"Error: your username must be in the form of 'xxx@{}'. Please enter the "
+"username in the correct format."
+msgstr ""
+"Greška: vaše korisničko ime mora biti u formi 'xxx@{}'. Unesite korisničko "
+"ime u ispravnoj formi."
+
+#: devices/linux/Device_Linux.php:110
+msgid ""
+"Error: your username must be in the form of 'xxx@institutionID' and end with "
+"'{}'. Please enter the username in the correct format."
+msgstr ""
+"Greška: vaše korisničko ime mora biti u formi 'xxx@domen.institucije' i da "
+"se završava sa '{}'. Unesite korisničko ime u ispravnoj formi."
+
+#: devices/linux/Device_Linux.php:111
+msgid "personal certificate file not found"
+msgstr "personalni sertifikat nije pronađen"
+
+#: devices/linux/Device_Linux.php:228
+msgid "This installer has been prepared for {0}"
+msgstr "Ovaj instaler je namenjen za ${0}"
+
+#: devices/linux/Device_Linux.php:228 devices/ms/Files/common.inc:444
+#: devices/ms/Files/common.inc:451
+msgid "More information and comments:"
+msgstr "Više informacija i komentara:"
+
+#: devices/linux/Device_Linux.php:229 devices/ms/Files/common.inc:477
+msgid "Installer created with software from the GEANT project."
+msgstr ""
+"Ovaj instaler kreiran uz korišćenje softvera razvijenim u okviru GEANT "
+"projekta."
+
+#: devices/linux/Device_Linux.php:245
+msgid ""
+"This installer will only work properly if you are a member of {0} and the "
+"user group: {1}."
+msgstr ""
+"Ovaj program za instaliranje će ispravno funkcionisati samo ako ste član {0} "
+"i korisničke grupe: {1}."
+
+#: devices/linux/Device_Linux.php:247
+msgid "This installer will only work properly if you are a member of {0}."
+msgstr ""
+"Ovaj program za instaliranje će ispravno funkcionisati samo ako ste član {0}."
+
+#: devices/ms/Device_Vista7.php:33 devices/ms/Device_W8_10.php:39
+msgid ""
+"Anonymous identities do not use the realm as specified in the profile - it "
+"is derived from the suffix of the user's username input instead."
+msgstr ""
+"Anonimni identiteti ne koriste domen koji je specificiran u profilu - umesto "
+"toga, domen se izvodi iz sufiksa koji se nalazi u korisničkom imenu."
+
+#: devices/ms/WindowsCommon.php:111
+#, php-format
+msgid ""
+"%s installer will be in the form of an EXE file. It will configure %s on "
+"your device, by creating wireless network profiles.<p>When you click the "
+"download button, the installer will be saved by your browser. Copy it to the "
+"machine you want to configure and execute."
+msgstr ""
+"%s program za instaliranje će biti u formi EXE fajla. Konfigurisaće %s na "
+"vašem uređaju, tako što će napraviti profile za bežične mreže. <p> Kada "
+"kliknete na dugme za preuzimanje, vaš Internet pretraživač će sačuvati "
+"program za instaliranje. Kopirajte ga na uređaj koji želite da konfigurišete "
+"i pokrenite ga."
+
+#: devices/ms/WindowsCommon.php:124
+msgid ""
+"In order to connect to the network you will need an a personal certificate "
+"in the form of a p12 file. You should obtain this certificate from your "
+"organisation. Consult the support page to find out how this certificate can "
+"be obtained. Such certificate files are password protected. You should have "
+"both the file and the password available during the installation process."
+msgstr ""
+"Da biste se konektovali na mrežu biće vam potreban personalni sertifikat u "
+"formi p12 fajla. Sertifikat bi trebalo da dobijete od svoje matične "
+"institucije. Pogledajte stranicu za podršku da biste saznali kako možete "
+"dobiti ovaj sertifikat. Fajlovi koji sadrže personalni sertifikat su "
+"zaštićeni lozinkom. Tokom procesa instalacije morate imati i taj fajl i "
+"odgovarajuću lozinku."
+
+#: devices/ms/WindowsCommon.php:132
+msgid ""
+"When you are connecting to the network for the first time, Windows will pop "
+"up a login box, where you should enter your user name and password. This "
+"information will be saved so that you will reconnect to the network "
+"automatically each time you are in the range."
+msgstr ""
+"Kada se prvi put konektujete na mrežu, pojaviće se login prozor u kom treba "
+"da unesete svoje korisničko ime i lozinku. Ovi podaci biće sačuvani da biste "
+"ste se automatski konektovali na mrežu svaki put kada se nađete u njenom "
+"dometu."
+
+#: devices/ms/WindowsCommon.php:135
+#, fuzzy
+msgid ""
+"You will be required to enter the same credentials for each of the "
+"configured networks:"
+msgstr ""
+"Tražiće vam se da unesete iste kredencijale za svaku konfigurisanu mrežu:"
+
+#: devices/ms/WindowsCommon.php:250 devices/ms/WindowsCommon.php:251
+#, php-format
+msgid "%s installer for %s"
+msgstr "%s program za instalaciju za %s"
+
+#: devices/redirect_dev/Device_RedirectDev.php:26
+msgid ""
+"This device is not yet supported by CAT, but your local administrator "
+"created a redirect to local installation instructions."
+msgstr ""
+"Na ovom uređaju još nije moguće koristiti CAT instalere, ali administrator "
+"vaše institucije je postavio preusmeravanje na lokalna uputstva za "
+"instalaciju."
+
+#: devices/xml/Device_XML.php:50
+#, php-format
+msgid ""
+"This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
+"-00</a> XML format."
+msgstr ""
+"Ovo je generički konfiguracioni fajl u IETF <a href='%s'>EAP Metadata -00</"
+"a> XML formatu."
+
+#: devices/ms/Files/common.inc:124
+#, php-format
+msgid "Welcome to the %s installer"
+msgstr "Dobrodošli u %s program za instaliranje"
+
+#: devices/ms/Files/common.inc:125
+msgid "Installation complete"
+msgstr "Instaliranje završeno"
+
+#: devices/ms/Files/common.inc:126
+msgid "Network profiles have been installed."
+msgstr "Mrežni profili su instalirani."
+
+#: devices/ms/Files/common.inc:126
+msgid "Your system is ready."
+msgstr "Vaš sistem je spreman."
+
+#: devices/ms/Files/common.inc:127
+msgid "Network installation had errors."
+msgstr "Desile su se greške pri instaliranju mreže."
+
+#: devices/ms/Files/common.inc:127 devices/ms/Files/common.inc:892
+msgid "Please contact ${SUPPORT}."
+msgstr "Molimo vas kontaktirajte ${SUPPORT}."
+
+#: devices/ms/Files/common.inc:135
+msgid "Accept"
+msgstr "Prihvatam"
+
+#: devices/ms/Files/common.inc:136
+msgid ""
+"If you accept the conditions then select Accept and then click Install to "
+"continue."
+msgstr ""
+"Ako prihvatate uslove korišćenja, odabarite Prihvatam i kliknite na "
+"Instaliraj da bi nastavili."
+
+#: devices/ms/Files/common.inc:142
+msgid "Finish"
+msgstr "Završi"
+
+#: devices/ms/Files/common.inc:175
+msgid "searching for certificate"
+msgstr "traženje sertifikata"
+
+#: devices/ms/Files/common.inc:237
+msgid "installing certificate"
+msgstr "instaliranje sertifikata"
+
+#: devices/ms/Files/common.inc:243
+msgid "could not install certificate"
+msgstr "neuspela instalacija sertifikata"
+
+#: devices/ms/Files/common.inc:432
+msgid ""
+"The non TKIP profiles are preferred. Always use them if you have a choice."
+msgstr ""
+"Profili koji ne sadrže TKIP se preferiraju. Ukoliko imate izbora, uvek "
+"koristite njih."
+
+#: devices/ms/Files/common.inc:434
+msgid "The non TKIP profile is preferred. Always use it if you have a choice."
+msgstr ""
+"Profil koji ne sadrži TKIP se preferira. Ukoliko imate izbora, uvek ga "
+"koristite."
+
+#: devices/ms/Files/common.inc:440 devices/ms/Files/common.inc:448
+msgid "This installer has been prepared for ${ORGANISATION}"
+msgstr "Program za instaliranje je spreman za ${ORGANISATION}"
+
+#: devices/ms/Files/common.inc:441
+msgid "The installer will create the following wireless profiles:"
+msgstr "Ovaj program za instaliranje će kreirati sledeće bežične profile:"
+
+#: devices/ms/Files/common.inc:449
+msgid "The installer will create the wireless profile:"
+msgstr "Instaler će napraviti bežični profil:"
+
+#: devices/ms/Files/common.inc:529
+msgid ""
+"You are running Windows $WindowsName but this installer is only for Windows "
+"10 and newer. Please download the correct installer and try again."
+msgstr ""
+"Vaš operativni sistem je Windows $WindowsName ali ovaj instaler je namenjen "
+"samo za Windows 10 i novije verzije. Preuzmite odgovarajući instaler i "
+"pokušajte ponovo."
+
+#: devices/ms/Files/common.inc:537 devices/ms/Files/common.inc:544
+msgid ""
+"You are running Windows $WindowsName but this installer is only for Windows "
+"8 and 8.1. Please download the correct installer and try again."
+msgstr ""
+"Vaš operativni sistem je Windows $WindowsName ali ovaj instaler je namenjen "
+"samo za Windows 8 i 8.1. Preuzmite odgovarajući instaler i pokušajte ponovo."
+
+#: devices/ms/Files/common.inc:553
+msgid ""
+"You are running Windows $WindowsName but this installer is only for Windows "
+"Vista and Windows 7. Please download the correct installer and try again."
+msgstr ""
+"Koristite Windows $WindowsName, ali ovaj instaler je namenjen samo za "
+"Windows Vista and Windows 7. Molimo vas da preuzmete odgovarajući instaler i "
+"da pokušate ponovo."
+
+#: devices/ms/Files/common.inc:589
+msgid ""
+"Windows wireless configuration service is not enabled. The installer cannot "
+"continue."
+msgstr ""
+"Windows wireless konfiguracioni servis nije uključen. Instalacija se ne može "
+"nastaviti."
+
+#: devices/ms/Files/common.inc:594
+msgid "No wireless interfaces found. The installer cannot continue."
+msgstr "Wireless interfejs nije pronađen. Instalacija se ne može nastaviti."
+
+#: devices/ms/Files/common.inc:600
+msgid ""
+"No wireless interfaces found. Wireless access will not be configured. Would "
+"you like to continue and configure access on the wired interface?"
+msgstr ""
+"Nije pronađen nijedan bežični interfejs. Bežični pristup neće biti "
+"konfigurisan. Da li želtie da nastavite i konfigurišete pristup preko žičnog "
+"interfejsa?"
+
+#: devices/ms/Files/common.inc:616
+msgid "Do you want to enable access on wired interfaces?"
+msgstr "Da li želite da omogućite pristup preko žičnog interfejsa?"
+
+#: devices/ms/Files/common.inc:657
+msgid "Profiles installation"
+msgstr "Instaliranje profila"
+
+#: devices/ms/Files/common.inc:676
+msgid "Checking for profile $R8"
+msgstr "Provera za profil $R8"
+
+#: devices/ms/Files/common.inc:684
+msgid "found profile $R8"
+msgstr "pronađen profil $R8"
+
+#: devices/ms/Files/common.inc:713
+msgid ""
+"This installer will only work properly if you are a member of "
+"${ORGANISATION} and the user group: ${USER_GROUP}."
+msgstr ""
+"Program za instaliranje će raditi ispravno samo ako ste korisnik "
+"${ORGANISATION} i ako ste u korisničkoj grupi: ${USER_GROUP}."
+
+#: devices/ms/Files/common.inc:713 devices/ms/Files/common.inc:716
+msgid "Click OK to continue with installation."
+msgstr "Kliknite OK da biste nastavili sa instaliranjem."
+
+#: devices/ms/Files/common.inc:716
+msgid ""
+"This installer will only work properly if you are a member of "
+"${ORGANISATION}."
+msgstr ""
+"Program za instaliranje radi ispravno samo ako ste korisnik ${ORGANISATION}."
+
+#: devices/ms/Files/common.inc:724
+msgid ""
+"Please read the additional information from ${ORGANISATION} which will be "
+"displayed in a moment."
+msgstr ""
+"Molimo vas da pročitate dodatne informacije koje je pružila institucija "
+"${ORGANISATION}, a koje će biti uskoro prikazane."
+
+#: devices/ms/Files/common.inc:779
+#, php-format
+msgid ""
+"Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may "
+"be due to the fact that Symantec Endpoint Protection is installed on your "
+"machine.$\\r$\\nWhile this is a well-known bug of the Symantec product, "
+"about which the installer can not do anything, there is a workaround.$\\r$"
+"\\nWhen you close this window the installer will exit and an explorer window "
+"will be started (it could appear underneath already opened windows). In this "
+"window you should see a script named inst_cat. Start it by double-clicking, "
+"It will install the profiles. You will need to login to %s with your "
+"username and password."
+msgstr ""
+"Molimo vas PROČITAJTE ovu VAŽNU poruku.$\\r$\\nProblemi pri instalaciji se "
+"mogu javiti zbog toga sto je na vašem uređaju instalirana Symantec krajnja "
+"zaštita (Symantec Endpoint Protection). $\\r$\\nIako je ovo poznata greška u "
+"Symantec proizvodima, postoji način da se prevaziđe. $\\r$\\n Kada zatvorite "
+"ovaj prozor, instalacija će se završiti i otvoriće se explorer prozor (može "
+"se desiti da se pojavi ispod prozora koji su već otvoreni na vašem uređaju). "
+"U ovom prozoru ćete videti program koji se zove inst_cat. Potrebno je da ga "
+"pokrenete duplim klikom, čime će se instalirati profili. Biće potrebno da se "
+"prijavite na %s sa svojim korisničkim imenom i lozinkom. "
+
+#: devices/ms/Files/common.inc:789
+msgid "Please restart your system after installation finishes."
+msgstr "Nakon što se instalacija završi, restartujte vaš uređaj."
+
+#: devices/ms/Files/common.inc:813
+msgid "installing wired profile"
+msgstr "instalacija žičnog profila"
+
+#: devices/ms/Files/common.inc:851 devices/ms/Files/common.inc:870
+msgid "deleting profile $R1"
+msgstr "brisanje profila $R1"
+
+#: devices/ms/Files/common.inc:879
+msgid "installing profile $R1"
+msgstr "instaliranje profila $R1"
+
+#: devices/ms/Files/common.inc:892
+msgid "Profile installation error for $R1."
+msgstr "Greška pri instaliranju profila $R1."
+
+#: devices/ms/Files/common.inc:917
+msgid "installing credentials for wired"
+msgstr "instalacija kredencijala za žični"
+
+#: devices/ms/Files/common.inc:923
+msgid "installing credentials TLS"
+msgstr "instaliranje kredencijala za TLS"
+
+#: devices/ms/Files/common.inc:1039
+msgid "installing credentials for profile $R1"
+msgstr "instalacija kredencijala za profil $R1"
+
+#: devices/ms/Files/common.inc:1056 devices/ms/Files/geant_link.inc:109
+msgid "Credentials installation problem"
+msgstr "Problem sa instalacijom kredencijala"
+
+#: devices/ms/Files/common.inc:1065
+#, php-format
+msgid "%s installer for"
+msgstr "%s program za instalaciju za"
+
+#: devices/ms/Files/common.inc:1065
+msgid "Install personal certificate"
+msgstr "Instaliraj personalni sertifikat "
+
+#: devices/ms/Files/common.inc:1068
+msgid "Preparing to install personal certificate."
+msgstr "Instaliranje personalnog sertifikata se priprema."
+
+#: devices/ms/Files/common.inc:1068
+msgid "Click OK to continue"
+msgstr "Klikni OK da bi nastavili"
+
+#: devices/ms/Files/common.inc:1074
+msgid "Certificate files (*.p12)"
+msgstr "Sertifikati (*.p12)"
+
+#: devices/ms/Files/common.inc:1074
+msgid "Certificate files (*pfx)"
+msgstr "Sertifikati (*pfx)"
+
+#: devices/ms/Files/common.inc:1077
+msgid "certificate password:"
+msgstr "lozinka za sertifikat:"
+
+#: devices/ms/Files/common.inc:1079 devices/ms/Files/common.inc:1290
+msgid "Username:"
+msgstr "Korisničko ime:"
+
+#: devices/ms/Files/common.inc:1083
+msgid "Selected file: $Cert_file"
+msgstr "Odabrani fajl: $Cert_file"
+
+#: devices/ms/Files/common.inc:1085
+msgid "import password:"
+msgstr "uvezi lozinku:"
+
+#: devices/ms/Files/common.inc:1120
+msgid "No certificate file selected"
+msgstr "Nije odabran nijedan sertifikat"
+
+#: devices/ms/Files/common.inc:1124
+msgid "Incorrect import password$\\r$\\nenter again"
+msgstr "Neispravna lozinka za uvoz$\\r$\\nunesite lozinku ponovo"
+
+#: devices/ms/Files/common.inc:1126
+msgid "Incorrect certificate password$\\r$\\nenter again"
+msgstr "Netačna lozinka za sertifikat $\\r$\\nunesite ponovo"
+
+#: devices/ms/Files/common.inc:1217
+msgid ""
+"Error: your username must be in the form of 'xxx@${REALM}'. Please enter the "
+"username in the correct format."
+msgstr ""
+"Greška: vaše korisničko ime mora biti u formi 'xxx@${REALM}'. Unesite "
+"korisničko ime u ispravnoj formi."
+
+#: devices/ms/Files/common.inc:1219
+msgid ""
+"Error: your username must be in the form of 'xxx@institutionID' and end with "
+"'${REALM}'. Please enter the username in the correct format."
+msgstr ""
+"Greška: vaše korisničko ime mora biti u formi 'xxx@domen.institucije' i da "
+"se završava sa '${REALM}'. Unesite korisničko ime u ispravnoj formi."
+
+#: devices/ms/Files/common.inc:1286
+msgid "User credentials"
+msgstr "Korisnički kredencijali:"
+
+#: devices/ms/Files/common.inc:1293
+msgid "Password:"
+msgstr "Lozinka:"
+
+#: devices/ms/Files/common.inc:1296
+msgid "Repeat password:"
+msgstr "Ponovo unesite lozinku."
+
+#: devices/ms/Files/common.inc:1308
+msgid "Missing username"
+msgstr "Nedostaje korisničko ime"
+
+#: devices/ms/Files/common.inc:1320
+msgid "Missing password"
+msgstr "Nedostaje lozinka"
+
+#: devices/ms/Files/common.inc:1326
+msgid "Password missmatch"
+msgstr "Lozinke nisu iste"
+
+#: devices/ms/Files/common.inc:1416 devices/ms/Files/eap_w8.inc:18
+#: devices/ms/Files/geant_link.inc:20 devices/ms/Files/geant_link.inc:30
+#: devices/ms/Files/peap_tls.inc:18 devices/ms/Files/pwd.inc:17
+#: devices/ms/Files/pwd.inc:47
+msgid "Installation"
+msgstr "Instaliranje"
+
+#: devices/ms/Files/common.inc:1416
+msgid "Checking for existing wireless profiles"
+msgstr "Provera postojećih profila za bežične mreže."
+
+#: devices/ms/Files/eap_w8.inc:11 devices/ms/Files/peap_tls.inc:11
+msgid "Installation of the personal certificate"
+msgstr "Instaliranje personalnog sertifikata"
+
+#: devices/ms/Files/eap_w8.inc:12 devices/ms/Files/peap_tls.inc:12
+msgid "Components installation"
+msgstr "Instaliranje komponenti"
+
+#: devices/ms/Files/eap_w8.inc:12 devices/ms/Files/peap_tls.inc:12
+msgid "Personal certificate"
+msgstr "Personalni sertifikat"
+
+#: devices/ms/Files/eap_w8.inc:16 devices/ms/Files/geant_link.inc:28
+#: devices/ms/Files/peap_tls.inc:16 devices/ms/Files/pwd.inc:45
+msgid "Installation of network profiles"
+msgstr "Instaliranje mrežnih profila"
+
+#: devices/ms/Files/eap_w8.inc:16 devices/ms/Files/geant_link.inc:28
+#: devices/ms/Files/peap_tls.inc:16 devices/ms/Files/pwd.inc:45
+msgid "profiles"
+msgstr "profili"
+
+#: devices/ms/Files/eap_w8.inc:18 devices/ms/Files/geant_link.inc:30
+#: devices/ms/Files/peap_tls.inc:18 devices/ms/Files/pwd.inc:47
+msgid "Network profiles update"
+msgstr "Ažuriranje mrežnih profila"
+
+#: devices/ms/Files/geant_link.inc:14 devices/ms/Files/pwd.inc:11
+msgid "user profile"
+msgstr "korisnički profil"
+
+#: devices/ms/Files/geant_link.inc:18 devices/ms/Files/pwd.inc:15
+msgid "install program"
+msgstr "instaliraj program"
+
+#: devices/ms/Files/geant_link.inc:79
+msgid ""
+"An additional piece of software 'GEANTlink' needs to be installed. This "
+"installation requires Administrator rights; you will be prompted to give "
+"permission for that action."
+msgstr ""
+"Dodatni softver, \"GEANTlink\", se mora instalirati. Ovo zahteva "
+"administratorske privilegije; potrebno je da dozvolite ovu akciju ako želite "
+"da nastavite sa instalacijom."
+
+#: devices/ms/Files/geant_link.inc:91
+msgid ""
+"Error installing GEANTLink.$\\nEmbedded installer didn't complete "
+"succesfully."
+msgstr ""
+"Greška prilikom instalacije GEANTLink-a. $\\nUgrađeni instaler se nije "
+"instalirao ispravno."
+
+#: devices/ms/Files/geant_link.inc:101
+msgid "installing credentials for ${PROVIDERID}"
+msgstr "Instalacija kredencijala za ${PROVIDERID}"
+
+#: devices/ms/Files/pwd.inc:35
+msgid "EAP-pwd installation error. Please try again or contact Support."
+msgstr ""
+"EAP-pwd greška prilikom instalacije. Pokušajte ponovo ili kontaktirajte "
+"podršku."

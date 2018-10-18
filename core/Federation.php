@@ -83,10 +83,15 @@ class Federation extends EntityWithDBProperties {
     }
 
     /**
-     * NOOP on Federations, but have to override the abstract parent method
+     * when a Federation attribute changes, invalidate caches of all IdPs 
+     * in that federation (e.g. change of fed logo changes the actual 
+     * installers)
      */
     public function updateFreshness() {
-        // Federation is always fresh
+        $idplist = $this->listIdentityProviders();
+        foreach ($idplist as $idpDetail) {
+            $idpDetail['instance']->updateFreshness();
+        }
     }
 
     /**

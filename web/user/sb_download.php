@@ -24,9 +24,7 @@ $API = new \core\UserAPI();
 $loggerInstance = new \core\common\Logging();
 $validator = new \web\lib\common\InputValidation();
 
-$profileId = filter_input(INPUT_GET, 'profile', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'profile', FILTER_VALIDATE_INT) ?? -1;
-$instId = filter_input(INPUT_GET, 'idp', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'idp', FILTER_VALIDATE_INT) ?? -1;
-$device =  filter_input(INPUT_GET, 'device', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'device', FILTER_SANITIZE_STRING) ?? "INVALID";
+$device = filter_input(INPUT_GET, 'device', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'device', FILTER_SANITIZE_STRING) ?? "INVALID";
 $generatedFor = $_REQUEST['generatedfor'] ?? 'user';
 
 const VALID_GENERATOR_TARGETS = ['admin', 'user', 'silverbullet'];
@@ -38,30 +36,31 @@ if (!in_array($generatedFor, VALID_GENERATOR_TARGETS)) {
     throw new Exception($errorText);
 }
 
-$loggerInstance->debug(4, "download: profile:$profileId; inst:$instId; device:$device\n");
+$rawToken = $_POST['individualtoken'] ?? $_SESSION['individualtoken'] ?? NULL;
+$password = $_POST['importpassword'] ?? $_SESSION['importpassword'] ?? NULL;
 
-$cleanToken = NULL;
-$password = NULL;
-
-if (isset($_SESSION['individualtoken']) && isset($_SESSION['importpassword'])) {
-    $cleanToken = $validator->token($_SESSION['individualtoken']);
-    // TODO validate that token actually exists and is unused
-    $password = $validator->string($_SESSION['importpassword']);
+if ($rawToken === NULL || $password === NULL) {
+    throw new Exception("We cannot continue without import password and token value.");
 }
+// also, syntax checks on token and password
+$cleanToken = $validator->token($rawToken);
+$cleanPassword = $validator->string($password);
 
-// first block will test if the user input was valid.
-
-$profile = $validator->Profile($profileId);
-
-if (!$profile->institution || $profile->institution !== $instId) {
+// check actual token validity and associated profile / IdP
+$inviteObject = new core\SilverbulletInvitation($cleanToken);
+$profileId = $inviteObject->profile;
+if ($profileId == 0) { // invalid invitation
     header("HTTP/1.0 404 Not Found");
     return;
 }
+$profile = $validator->Profile($profileId);
+
+$loggerInstance->debug(4, "download: profile:$profile->identifier; inst:$profile->institution; device:$device\n");
 
 // now we generate the installer
 try {
     $cleanDevice = $validator->Device($device); // throws an Exception if unknown
-    $API->downloadInstaller($cleanDevice, $profile->identifier, $generatedFor, $cleanToken, $password);
+    $API->downloadInstaller($cleanDevice, $profile->identifier, $generatedFor, $cleanToken, $cleanPassword);
 } catch (\Exception $e) {
     $skinObject = new \web\lib\user\Skinjob();
     // find our account status page, and bail out if this doesn't work

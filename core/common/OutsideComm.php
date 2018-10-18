@@ -59,6 +59,7 @@ class OutsideComm {
         $mail->Host = CONFIG['MAILSETTINGS']['host'];
         $mail->Username = CONFIG['MAILSETTINGS']['user'];
         $mail->Password = CONFIG['MAILSETTINGS']['pass'];
+        $mail->SMTPOptions = CONFIG['MAILSETTINGS']['options'];
 // formatting nitty-gritty
         $mail->WordWrap = 72;
         $mail->isHTML(FALSE);

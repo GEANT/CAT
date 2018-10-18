@@ -88,7 +88,7 @@ echo $mapCode->htmlHeadCode();
                 </td>
                 <td>
                     <form action='edit_idp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                        <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'] === NULL ? sprintf(_("After deleting the %s, you can not recreate it yourself - you need a new invitation token from the %s administrator!"), $uiElements->nomenclature_fed) . " " : "" ) . sprintf(_("Do you really want to delete your %s %s?"), $uiElements->nomenclature_inst, $uiElements->nomenclature_inst, $my_inst->name); ?>')"><?php echo sprintf(_("Delete %s"), $uiElements->nomenclature_inst); ?></button>
+                        <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'] === NULL ? sprintf(_("After deleting the %s, you can not recreate it yourself - you need a new invitation token from the %s administrator!"), $uiElements->nomenclature_inst, $uiElements->nomenclature_fed) . " " : "" ) . sprintf(_("Do you really want to delete your %s %s?"), $uiElements->nomenclature_inst, $my_inst->name); ?>')"><?php echo sprintf(_("Delete %s"), $uiElements->nomenclature_inst); ?></button>
                     </form>
 
                 </td>
@@ -306,12 +306,8 @@ echo $mapCode->htmlHeadCode();
                 echo "<div style='width:20px;'></div>";
                 if ($readiness == core\AbstractProfile::READINESS_LEVEL_SHOWTIME) {
                     echo "<div style='display: table-cell; text-align:center;'><p><strong>" . _("User Download Link") . "</strong></p>";
-                    $URL = $profile_list->getCollapsedAttributes();
-                    if (isset($URL['device-specific:redirect'])) {
-                        $displayurl = $URL['device-specific:redirect'][0];
-                    } else {
-                        $displayurl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier . "&amp;profile=" . $profile_list->identifier;
-                    }
+                    $URL = $profile_list->getCollapsedAttributes();                    
+                    $displayurl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier . "&amp;profile=" . $profile_list->identifier;
                     echo "<a href='$displayurl' style='white-space: nowrap; text-align: center;'>";
                     $uri = "data:image/png;base64," . base64_encode($uiElements->pngInjectConsortiumLogo(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL), QRCODE_PIXELS_PER_SYMBOL));
                     $size = getimagesize($uri);

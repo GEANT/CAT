@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
+"POT-Creation-Date: 2018-10-18 14:16+0200\n"
 "PO-Revision-Date: 2015-04-07 08:37+0000\n"
 "Last-Translator: Miguel Gonzalez Miron <miguel.gonzalez@udc.es>\n"
 "Language-Team: Galician (Spain) (http://www.transifex.com/projects/p/cat/"
@@ -90,19 +90,19 @@ msgstr "País:"
 
 #: web/admin/edit_federation.php:73 web/admin/edit_idp.php:109
 #: web/admin/edit_idp.php:165 web/admin/edit_idp.php:190
-#: web/admin/edit_profile.php:147 web/admin/edit_profile.php:462
+#: web/admin/edit_profile.php:146 web/admin/edit_profile.php:461
 #: web/admin/edit_user.php:46 web/admin/inc/toggleRedirect.inc.php:124
 msgid "Add new option"
 msgstr "Engadir unha nova opción"
 
 #: web/admin/edit_federation.php:76 web/admin/edit_idp.php:195
-#: web/admin/edit_profile.php:469 web/admin/edit_user.php:51
+#: web/admin/edit_profile.php:468 web/admin/edit_user.php:51
 #: web/admin/inc/toggleRedirect.inc.php:127
 msgid "Save data"
 msgstr "Gardar datos"
 
 #: web/admin/edit_federation.php:76 web/admin/edit_idp.php:195
-#: web/admin/edit_profile.php:469 web/admin/edit_user.php:54
+#: web/admin/edit_profile.php:468 web/admin/edit_user.php:54
 msgid "Discard changes"
 msgstr "Descartar cambios"
 
@@ -448,20 +448,20 @@ msgstr "Ir á definición de perfil"
 msgid "%s: IdP Enrollment Wizard (Step 3)"
 msgstr "%s: Asistente de inscrición no IdP (paso 3)"
 
-#: web/admin/edit_profile.php:111
+#: web/admin/edit_profile.php:110
 msgid "Step 3: Defining a user group profile"
 msgstr "Paso 3: Definición dun perfil de grupo de usuarios"
 
-#: web/admin/edit_profile.php:113
+#: web/admin/edit_profile.php:112
 #, php-format
 msgid "Edit profile '%s' ..."
 msgstr "Editar o perfil '%s' ..."
 
-#: web/admin/edit_profile.php:126
+#: web/admin/edit_profile.php:125
 msgid "General Profile properties"
 msgstr "Propiedades xerais do perfil"
 
-#: web/admin/edit_profile.php:130
+#: web/admin/edit_profile.php:129
 msgid ""
 "We will now define a profile for your user group(s).  You can add as many "
 "profiles as you like by choosing the appropriate button on the end of the "
@@ -473,11 +473,11 @@ msgstr ""
 "Despois de o facer, o asistente rematará e levaralle á páxina principal de "
 "administración do IdP."
 
-#: web/admin/edit_profile.php:133
+#: web/admin/edit_profile.php:132
 msgid "Profile Name and RADIUS realm"
 msgstr "Nome de perfil e zona RADIUS"
 
-#: web/admin/edit_profile.php:136
+#: web/admin/edit_profile.php:135
 msgid ""
 "First of all we need a name for the profile. This will be displayed to end "
 "users, so you may want to choose a descriptive name like 'Professors', "
@@ -487,7 +487,7 @@ msgstr ""
 "finais, así que pode querer escoller un nome descritivo como 'Profesores', "
 "'Estudantes da Facultade de Bioloxía', etc."
 
-#: web/admin/edit_profile.php:137
+#: web/admin/edit_profile.php:136
 msgid ""
 "Optionally, you can provide a longer descriptive text about who this profile "
 "is for. If you specify it, it will be displayed on the download page after "
@@ -497,11 +497,11 @@ msgstr ""
 "é este perfil. Se o especifica, presentaraase na páxina de descarga cando o "
 "usuario seleccione un nome de perfil na lista."
 
-#: web/admin/edit_profile.php:138
+#: web/admin/edit_profile.php:137
 msgid "You can also tell us your RADIUS realm. "
 msgstr "Tamén pode indicarnos a súa zona RADIUS."
 
-#: web/admin/edit_profile.php:140
+#: web/admin/edit_profile.php:139
 #, php-format
 msgid ""
 "This is useful if you want to use the sanity check module later, which tests "
@@ -510,7 +510,7 @@ msgstr ""
 "Isto é práctico se quere usar o módulo de comprobación de integridade máis "
 "tarde, que probará a accesibilidade da súa zona na infraestrutura %s."
 
-#: web/admin/edit_profile.php:142
+#: web/admin/edit_profile.php:141
 msgid ""
 "It is required to enter the realm name if you want to support anonymous "
 "outer identities (see below)."
@@ -518,16 +518,16 @@ msgstr ""
 "Cómpre introducir o nome da zona se quere permitir identidades externas "
 "anónimas (vexa despois)."
 
-#: web/admin/edit_profile.php:155
+#: web/admin/edit_profile.php:154
 msgid "Realm:"
 msgstr "Zona:"
 
-#: web/admin/edit_profile.php:192
+#: web/admin/edit_profile.php:191
 #, fuzzy
 msgid "Realm Options"
 msgstr "Opcións EAP globais"
 
-#: web/admin/edit_profile.php:196
+#: web/admin/edit_profile.php:195
 #, fuzzy, php-format
 msgid ""
 "Some installers support a feature called 'Anonymous outer identity'. If you "
@@ -538,41 +538,41 @@ msgstr ""
 "Quere xerar instaladores con identidades externas anónimas sendo posíbel? "
 "Terá que cubrir o campo anterior 'Zona' para que isto funcione."
 
-#: web/admin/edit_profile.php:197
+#: web/admin/edit_profile.php:196
 msgid ""
 "On some platforms, the installers can suggest username endings and/or verify "
 "the user input to contain the realm suffix."
 msgstr ""
 
-#: web/admin/edit_profile.php:198
+#: web/admin/edit_profile.php:197
 msgid ""
 "The realm check feature needs to know an outer ID which actually gets a "
 "chance to authenticate. If your RADIUS server lets only select usernames "
-"pass, it is useful to supply the inforamtion which of those (outer ID) "
+"pass, it is useful to supply the information which of those (outer ID) "
 "username we can use for testing."
 msgstr ""
 
-#: web/admin/edit_profile.php:210
+#: web/admin/edit_profile.php:209
 msgid "Verify user input to contain realm suffix:"
 msgstr ""
 
-#: web/admin/edit_profile.php:224
+#: web/admin/edit_profile.php:223
 msgid "Prefill user input with realm suffix:"
 msgstr ""
 
-#: web/admin/edit_profile.php:234
+#: web/admin/edit_profile.php:233
 msgid "Enable Anonymous Outer Identity:"
 msgstr "Activar a identidade externa anónima:"
 
-#: web/admin/edit_profile.php:253
+#: web/admin/edit_profile.php:252
 msgid "Use special Outer Identity for realm checks:"
 msgstr ""
 
-#: web/admin/edit_profile.php:270
+#: web/admin/edit_profile.php:269
 msgid "Installer Download Location"
 msgstr "Localización de descarga"
 
-#: web/admin/edit_profile.php:274
+#: web/admin/edit_profile.php:273
 msgid ""
 "The CAT has a download area for end users. There, they will, for example, "
 "learn about the support pointers you entered earlier. The CAT can also "
@@ -591,15 +591,15 @@ msgstr ""
 "nesa páxina (vexa o botón 'Matriz de compatibilidade' no taboleiro de "
 "control)."
 
-#: web/admin/edit_profile.php:280
+#: web/admin/edit_profile.php:279
 msgid "Redirect end users to own web page:"
 msgstr "Redirixir usuarios finais á súa propia páxina web:"
 
-#: web/admin/edit_profile.php:293
+#: web/admin/edit_profile.php:292
 msgid "Supported EAP types"
 msgstr "Tipos de EAP compatíbeis"
 
-#: web/admin/edit_profile.php:296
+#: web/admin/edit_profile.php:295
 msgid ""
 "Now, we need to know which EAP types your IdP supports. If you support "
 "multiple EAP types, you can assign every type a priority (1=highest). This "
@@ -613,20 +613,20 @@ msgstr ""
 "maior prioridade; soamente no caso de que o dispositivo do usuario non poida "
 "usar o tipo EAP, usaremos un tipo EAP que estea menos priorizado na lista."
 
-#: web/admin/edit_profile.php:339
+#: web/admin/edit_profile.php:338
 msgid "EAP options inherited from Global level:"
 msgstr "Opcións de EAP herdadas do nivel global:"
 
-#: web/admin/edit_profile.php:344
+#: web/admin/edit_profile.php:343
 #, php-format
 msgid "(%dx) %s"
 msgstr "(%dx) %s"
 
-#: web/admin/edit_profile.php:372
+#: web/admin/edit_profile.php:371
 msgid "Supported EAP types for this profile"
 msgstr "Tipos de EAP compatíbeis con este perfil"
 
-#: web/admin/edit_profile.php:386
+#: web/admin/edit_profile.php:385
 msgid ""
 "Use \"drag &amp; drop\" to mark an EAP method and move it to the supported "
 "(green) area. Prioritisation is done automatically, depending on where you "
@@ -636,24 +636,24 @@ msgstr ""
 "compatíbeis (verde). A priorización faise automaticamente, conforme soltase "
 "o método."
 
-#: web/admin/edit_profile.php:394
+#: web/admin/edit_profile.php:393
 msgid "Unsupported EAP types"
 msgstr "Tipos de EAP non compatíbeis"
 
-#: web/admin/edit_profile.php:447
+#: web/admin/edit_profile.php:446
 msgid "Helpdesk Details for this profile"
 msgstr "Detalles de asistencia técnica deste perfil"
 
-#: web/admin/edit_profile.php:448
+#: web/admin/edit_profile.php:447
 msgid "EAP Details for this profile"
 msgstr "Detalles EAP deste perfil"
 
-#: web/admin/edit_profile.php:449
+#: web/admin/edit_profile.php:448
 #, fuzzy
 msgid "Media Properties for this profile"
 msgstr "Detalles de asistencia técnica deste perfil"
 
-#: web/admin/edit_profile.php:457
+#: web/admin/edit_profile.php:456
 #, php-format
 msgid ""
 "The option %s is already defined IdP-wide. If you set it here on profile "
@@ -668,7 +668,7 @@ msgstr[1] ""
 "As opcións %s xa están definida para todo o IdP. Se as configura aquí no "
 "nivel de perfil, estas opcións sobrescribirán as comúns para todo o IdP."
 
-#: web/admin/edit_profile.php:467
+#: web/admin/edit_profile.php:466
 msgid ""
 "When you are sure that everything is correct, please click on 'Save data' "
 "and you will be taken to your IdP Dashboard page."
@@ -759,7 +759,7 @@ msgstr ""
 #: web/admin/edit_profile_result.php:175
 msgid ""
 "Redirection can't be activated - the target needs to be a complete URL "
-"staring with http:// or https:// !"
+"starting with http:// or https:// !"
 msgstr ""
 
 #: web/admin/edit_profile_result.php:181
@@ -893,7 +893,7 @@ msgstr ""
 msgid "Manage %s users"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:350 web/admin/overview_federation.php:116
+#: web/admin/edit_silverbullet.php:350 web/admin/overview_federation.php:117
 msgid "User"
 msgstr ""
 
@@ -1088,157 +1088,204 @@ msgstr ""
 "Non puidemos pechar todas as túas sesións. Para estar completamente seguro "
 "de que pechaches a túa sesión necesitas saír do navegador web."
 
-#: web/admin/overview_federation.php:17
+#: web/admin/overview_federation.php:18
 #, fuzzy, php-format
 msgid "%s: %s Management"
 msgstr "%s: Xestión de usuarios"
 
-#: web/admin/overview_federation.php:30 web/admin/overview_idp.php:50
+#: web/admin/overview_federation.php:31 web/admin/overview_idp.php:50
 #, fuzzy, php-format
 msgid "%s Overview"
 msgstr "Vista xeral de usuario"
 
-#: web/admin/overview_federation.php:34 web/admin/overview_user.php:38
+#: web/admin/overview_federation.php:35 web/admin/overview_user.php:38
 msgid "Your Personal Information"
 msgstr "Información persoal"
 
-#: web/admin/overview_federation.php:39 web/admin/overview_user.php:43
+#: web/admin/overview_federation.php:40 web/admin/overview_user.php:43
 msgid "Unique Identifier"
 msgstr "Identificador único"
 
-#: web/admin/overview_federation.php:44 web/admin/overview_user.php:48
+#: web/admin/overview_federation.php:45 web/admin/overview_user.php:48
 msgid "click to display"
 msgstr "prema para presentar"
 
-#: web/admin/overview_federation.php:54
+#: web/admin/overview_federation.php:55
 #, fuzzy, php-format
 msgid "You are not a %s manager."
 msgstr "Vostede non é n xestor de federación."
 
-#: web/admin/overview_federation.php:65
+#: web/admin/overview_federation.php:66
 #, fuzzy, php-format
 msgid "%s Properties: %s"
 msgstr "Propiedades xerais da institución"
 
-#: web/admin/overview_federation.php:71
+#: web/admin/overview_federation.php:72
 msgid "Country"
 msgstr "País"
 
-#: web/admin/overview_federation.php:95
+#: web/admin/overview_federation.php:96
 #, php-format
 msgid "%s Statistics: %s"
 msgstr ""
 
-#: web/admin/overview_federation.php:100
+#: web/admin/overview_federation.php:101
 msgid "IdPs Total"
 msgstr ""
 
-#: web/admin/overview_federation.php:101
+#: web/admin/overview_federation.php:102
 #, fuzzy
 msgid "Public Download"
 msgstr "Descargar"
 
-#: web/admin/overview_federation.php:113
+#: web/admin/overview_federation.php:114
 #, fuzzy
 msgid "Downloads"
 msgstr "Descargar"
 
-#: web/admin/overview_federation.php:114
+#: web/admin/overview_federation.php:115
 msgid "Admin"
 msgstr ""
 
-#: web/admin/overview_federation.php:137 web/admin/inc/manageAdmins.inc.php:95
-msgid "and <b>encrypted</b> to the mail domain"
+#: web/admin/overview_federation.php:142 web/admin/inc/manageAdmins.inc.php:99
+msgid "It was sent with transport security (encryption)."
+msgid_plural "They were sent with transport security (encryption)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:102
+msgid "It was sent in clear text (no encryption)."
+msgid_plural "They were sent in clear text (no encryption)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: web/admin/overview_federation.php:148 web/admin/inc/manageAdmins.inc.php:105
+msgid ""
+"A subset of the mails were sent with transport encryption, the rest in clear "
+"text."
 msgstr ""
 
-#: web/admin/overview_federation.php:140 web/admin/inc/manageAdmins.inc.php:98
-msgid "but <b>in clear text</b> to the mail domain"
-msgstr ""
+#: web/admin/overview_federation.php:153 web/admin/inc/manageAdmins.inc.php:110
+#, fuzzy
+msgid "The invitation email was sent successfully."
+msgid_plural "All invitation emails were sent successfully."
+msgstr[0] "O correo de convite enviouse correctamente."
+msgstr[1] "O correo de convite enviouse correctamente."
 
-#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:103
-#, fuzzy, php-format
-msgid "The invitation email was sent successfully %s."
+#: web/admin/overview_federation.php:153 web/admin/inc/manageAdmins.inc.php:110
+#, fuzzy
+msgid "Sent successfully."
 msgstr "O correo de convite enviouse correctamente."
 
-#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:103
-msgid "The invitation email was sent."
-msgstr "Enviouse o convite."
-
-#: web/admin/overview_federation.php:148 web/admin/inc/manageAdmins.inc.php:106
-#: web/admin/inc/overview_js.php:56 web/admin/inc/overview_js.php:111
-msgid "The invitation email could not be sent!"
+#: web/admin/overview_federation.php:156 web/admin/inc/manageAdmins.inc.php:113
+#, fuzzy
+msgid "No invitation email could be sent!"
 msgstr "O correo de convite non se puido enviar!"
 
-#: web/admin/overview_federation.php:151 web/admin/inc/manageAdmins.inc.php:109
+#: web/admin/overview_federation.php:156 web/admin/inc/manageAdmins.inc.php:113
+msgid "Sending failure!"
+msgstr ""
+
+#: web/admin/overview_federation.php:162 web/admin/inc/manageAdmins.inc.php:119
+msgid "The successful one was sent with transport security (encryption)."
+msgid_plural ""
+"The successful ones were sent with transport security (encryption)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: web/admin/overview_federation.php:165 web/admin/inc/manageAdmins.inc.php:122
+msgid "The successful one was sent in clear text (no encryption)."
+msgid_plural "The successful ones were sent in clear text (no encryption)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: web/admin/overview_federation.php:168 web/admin/inc/manageAdmins.inc.php:125
+msgid ""
+"A subset of the successfully sent mails were sent with transport encryption, "
+"the rest in clear text."
+msgstr ""
+
+#: web/admin/overview_federation.php:173 web/admin/inc/manageAdmins.inc.php:130
+#, fuzzy, php-format
+msgid ""
+"Some invitation emails were sent successfully (%s in total), the others "
+"failed."
+msgstr "O correo de convite enviouse correctamente."
+
+#: web/admin/overview_federation.php:173 web/admin/inc/manageAdmins.inc.php:130
+msgid "Partial success."
+msgstr ""
+
+#: web/admin/overview_federation.php:176 web/admin/inc/manageAdmins.inc.php:133
 #, fuzzy
 msgid "The invitation email address was malformed, no invitation was sent!"
 msgstr "O correo de convite non se puido enviar!"
 
-#: web/admin/overview_federation.php:154
+#: web/admin/overview_federation.php:179 web/admin/inc/manageAdmins.inc.php:136
 msgid "Error: unknown result code of invitation!?!"
 msgstr "Erro: Resultado do código de convite descoñecido!?!"
 
-#: web/admin/overview_federation.php:154
+#: web/admin/overview_federation.php:179 web/admin/inc/manageAdmins.inc.php:136
 msgid "Unknown result!"
 msgstr "Resultado descoñecido!"
 
-#: web/admin/overview_federation.php:159
+#: web/admin/overview_federation.php:184
 #, php-format
 msgid "Need help? Refer to the <a href='%s'>%s manual</a>"
 msgstr ""
 
-#: web/admin/overview_federation.php:167
+#: web/admin/overview_federation.php:192
 msgid "Deployment Status"
 msgstr "Estado do despregue"
 
-#: web/admin/overview_federation.php:168 web/admin/overview_user.php:103
+#: web/admin/overview_federation.php:193 web/admin/overview_user.php:103
 #: web/admin/inc/manageDBLink.inc.php:149 web/lib/admin/UIElements.php:83
 #: web/lib/admin/UIElements.php:111
 #, fuzzy, php-format
 msgid "%s Name"
 msgstr "Nome da institución"
 
-#: web/admin/overview_federation.php:174
+#: web/admin/overview_federation.php:199
 #, php-format
 msgid "%s Database Sync Status"
 msgstr "%s Estado de sincronización da base de datos"
 
-#: web/admin/overview_federation.php:180 web/admin/overview_user.php:103
+#: web/admin/overview_federation.php:205 web/admin/overview_user.php:103
 msgid "Administrator Management"
 msgstr "Xestión de administradores"
 
 #. / nomenclature for 'federation', federation name, nomenclature for 'inst'
-#: web/admin/overview_federation.php:189
+#: web/admin/overview_federation.php:214
 #, php-format
 msgid "The following %s are in your %s %s:"
 msgstr ""
 
-#: web/admin/overview_federation.php:225
+#: web/admin/overview_federation.php:250
 msgid "Manage DB Link"
 msgstr "Xestionar a ligazón coa base de datos"
 
-#: web/admin/overview_federation.php:231
+#: web/admin/overview_federation.php:256
 msgid "Linked"
 msgstr "Ligada"
 
-#: web/admin/overview_federation.php:235
+#: web/admin/overview_federation.php:260
 msgid "NOT linked"
 msgstr "Non ligada"
 
-#: web/admin/overview_federation.php:250 web/admin/overview_user.php:139
+#: web/admin/overview_federation.php:275 web/admin/overview_user.php:139
 msgid "Add/Remove Administrators"
 msgstr "Engadir/Retirar administradores"
 
-#: web/admin/overview_federation.php:263
+#: web/admin/overview_federation.php:288
 #, fuzzy, php-format
 msgid "Pending invitations in the %s:"
 msgstr "Convites pendentes na súa federación:"
 
-#: web/admin/overview_federation.php:280
+#: web/admin/overview_federation.php:305
 msgid "Revoke Invitation"
 msgstr "Revogar convite"
 
-#: web/admin/overview_federation.php:299
+#: web/admin/overview_federation.php:324
 #, fuzzy, php-format
 msgid "Register a new %s!"
 msgstr "Rexistrar unha nova institución"
@@ -1344,7 +1391,7 @@ msgstr ""
 msgid "Manage User Base"
 msgstr ""
 
-#: web/admin/overview_idp.php:187 web/admin/overview_idp.php:325
+#: web/admin/overview_idp.php:187 web/admin/overview_idp.php:321
 msgid "User Downloads"
 msgstr "Descargas do usuario"
 
@@ -1422,12 +1469,12 @@ msgstr "Eliminar"
 msgid "User Download Link"
 msgstr "Ligazón de descarga para usuario"
 
-#: web/admin/overview_idp.php:354
+#: web/admin/overview_idp.php:350
 #, fuzzy, php-format
 msgid "Add %s profile ..."
 msgstr "Engadir un novo perfil ..."
 
-#: web/admin/overview_idp.php:367
+#: web/admin/overview_idp.php:363
 #, fuzzy
 msgid "Add new RADIUS/EAP profile ..."
 msgstr "Engadir un novo perfil ..."
@@ -1587,7 +1634,7 @@ msgstr ""
 msgid "Administrators for IdP '%s'"
 msgstr "Administradores do IdP '%s'"
 
-#: web/admin/inc/manageAdmins.inc.php:119
+#: web/admin/inc/manageAdmins.inc.php:143
 #, fuzzy, php-format
 msgid ""
 "You are the %s administrator. You can invite new administrators, who can in "
@@ -1597,12 +1644,12 @@ msgstr ""
 "administradores, que poden, pola súa parte, chamar a outros administradores "
 "por si mesmos."
 
-#: web/admin/inc/manageAdmins.inc.php:119 web/lib/admin/UIElements.php:102
+#: web/admin/inc/manageAdmins.inc.php:143 web/lib/admin/UIElements.php:102
 #, fuzzy, php-format
 msgid "%s Administrator"
 msgstr "Administradores"
 
-#: web/admin/inc/manageAdmins.inc.php:125
+#: web/admin/inc/manageAdmins.inc.php:149
 #, fuzzy, php-format
 msgid ""
 "You are an administrator who was directly appointed by the %s administrator. "
@@ -1613,47 +1660,47 @@ msgstr ""
 "administrador da federación. Pode chamar a outros administradores malia que "
 "estes xa non poderán chamar a ningún administrador a maiores."
 
-#: web/admin/inc/manageAdmins.inc.php:125
+#: web/admin/inc/manageAdmins.inc.php:149
 #, fuzzy
 msgid "Directly Appointed Administrator"
 msgstr "Administrador de IdP directamente chamado"
 
-#: web/admin/inc/manageAdmins.inc.php:138
+#: web/admin/inc/manageAdmins.inc.php:162
 msgid "User without name"
 msgstr "Usuario sen nome"
 
-#: web/admin/inc/manageAdmins.inc.php:147
+#: web/admin/inc/manageAdmins.inc.php:171
 #, php-format
 msgid "(originally invited as %s)"
 msgstr "(orixinalmente convidado como %s)"
 
-#: web/admin/inc/manageAdmins.inc.php:149
+#: web/admin/inc/manageAdmins.inc.php:173
 msgid "(self-appointed)"
 msgstr "(autochamado)"
 
-#: web/admin/inc/manageAdmins.inc.php:156
+#: web/admin/inc/manageAdmins.inc.php:180
 msgid "Delete Administrator"
 msgstr "Eliminar administrador"
 
-#: web/admin/inc/manageAdmins.inc.php:170
+#: web/admin/inc/manageAdmins.inc.php:194
 msgid "Pending invitations for this IdP"
 msgstr "Convites pendentes deste IdP"
 
-#: web/admin/inc/manageAdmins.inc.php:181
+#: web/admin/inc/manageAdmins.inc.php:205
 #, fuzzy
 msgid "New administrator's email address(es) (comma-separated):"
 msgstr "Novo enderezo de correo do administrador:"
 
-#: web/admin/inc/manageAdmins.inc.php:181
+#: web/admin/inc/manageAdmins.inc.php:205
 msgid "Invite new administrator"
 msgstr "Convidar un novo administrador"
 
-#: web/admin/inc/manageAdmins.inc.php:195
+#: web/admin/inc/manageAdmins.inc.php:219
 #, fuzzy, php-format
 msgid "Take control of this %s"
 msgstr "Tomar o control desta institución"
 
-#: web/admin/inc/manageAdmins.inc.php:202
+#: web/admin/inc/manageAdmins.inc.php:226
 #: web/admin/inc/manageDBLink.inc.php:194
 #: web/admin/inc/manageNewInst.inc.php:116
 msgid "Close"
@@ -1696,7 +1743,7 @@ msgstr "A información na <strong>Base de datos %s</strong>"
 msgid "%s Name (%s)"
 msgstr "Nome da institución"
 
-#: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/PageDecoration.php:33
+#: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/Authentication.php:61
 msgid "Unnamed User"
 msgstr "Usuario sen nome"
 
@@ -1846,11 +1893,15 @@ msgstr "Non se forneceu ningún enderezo de correo"
 msgid "Invitation sent to:"
 msgstr "Convite enviado a:"
 
+#: web/admin/inc/overview_js.php:56 web/admin/inc/overview_js.php:111
+msgid "The invitation email could not be sent!"
+msgstr "O correo de convite non se puido enviar!"
+
 #: web/admin/inc/overview_js.php:83
 msgid "Mail address to invite:"
 msgstr "Enderezo de correo para invitar:"
 
-#: web/admin/inc/sendinvite.inc.php:92
+#: web/admin/inc/sendinvite.inc.php:106
 #, fuzzy, php-format
 msgid ""
 "Something's wrong... you are a %s admin, but not for the %s the requested %s "
@@ -2038,62 +2089,62 @@ msgstr ""
 "En beneficio de todos os outros idiomas, quizais queira editar o perfil "
 "outra vez e concretar o campo 'predeterminado/outro'."
 
-#: web/lib/admin/PageDecoration.php:32
+#: web/lib/admin/PageDecoration.php:35
 msgid "You are:"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:36
+#: web/lib/admin/PageDecoration.php:38
 #, fuzzy
 msgid "Go to your Profile page"
 msgstr "Continuar na páxina xeral do usuario"
 
-#: web/lib/admin/PageDecoration.php:37
+#: web/lib/admin/PageDecoration.php:39
 msgid "Logout"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:39
+#: web/lib/admin/PageDecoration.php:41
 msgid "Start page"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:60
+#: web/lib/admin/PageDecoration.php:62
 msgid "View this page in"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:118
+#: web/lib/admin/PageDecoration.php:120
 #, fuzzy, php-format
 msgid "Administrator Interface - %s"
 msgstr "Correo do administrador"
 
-#: web/lib/admin/PageDecoration.php:121
+#: web/lib/admin/PageDecoration.php:123
 #, fuzzy, php-format
 msgid "Administrator Interface - %s User Management"
 msgstr "Xestión de administradores"
 
-#: web/lib/admin/PageDecoration.php:124
+#: web/lib/admin/PageDecoration.php:126
 #, fuzzy
 msgid "Administrator Interface"
 msgstr "Correo do administrador"
 
-#: web/lib/admin/PageDecoration.php:127
+#: web/lib/admin/PageDecoration.php:129
 #, fuzzy
 msgid "Management of User Details"
 msgstr "Editar detalles do usuario"
 
-#: web/lib/admin/PageDecoration.php:130
+#: web/lib/admin/PageDecoration.php:132
 #, fuzzy, php-format
 msgid "Administrator Interface - %s Management"
 msgstr "Xestión de administradores"
 
-#: web/lib/admin/PageDecoration.php:133
+#: web/lib/admin/PageDecoration.php:135
 #, fuzzy, php-format
 msgid "Welcome to %s"
 msgstr "Conectado a %s."
 
-#: web/lib/admin/PageDecoration.php:138
+#: web/lib/admin/PageDecoration.php:140
 msgid "CIC"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:141
+#: web/lib/admin/PageDecoration.php:143
 msgid "Diagnostics"
 msgstr ""
 
@@ -2345,6 +2396,9 @@ msgstr "Aviso!"
 #: web/lib/admin/UIElements.php:386
 msgid "Error!"
 msgstr "Erro!"
+
+#~ msgid "The invitation email was sent."
+#~ msgstr "Enviouse o convite."
 
 #~ msgid ""
 #~ "<strong>Terms of Use</strong>: Some installers support displaying text to "

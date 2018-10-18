@@ -18,6 +18,7 @@ class Device_KitKat extends Device_XML {
             \core\common\EAP::EAPTYPE_PEAP_MSCHAP2,
             \core\common\EAP::EAPTYPE_TTLS_PAP,
             \core\common\EAP::EAPTYPE_TTLS_MSCHAP2,
+            \core\common\EAP::EAPTYPE_SILVERBULLET,
         ]);
         $this->langScope = 'single';
         $this->allEaps = TRUE;

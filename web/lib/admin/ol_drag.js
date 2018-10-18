@@ -80,10 +80,10 @@ function handleUpEvent(evt) {
 }
 
 function layerFilter(layer) {
-    if (layer === tmpLayer)
+    if (layer === tmpLayer) {
         return(true);
-    else
-        return(false);
+    }
+    return(false);
 }
 
 function basicFeatureHandler(feature, layer) {

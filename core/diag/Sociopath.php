@@ -63,7 +63,7 @@ class Sociopath extends AbstractTest {
             2 => ["AREA" => AbstractTest::INFRA_DEVICE, 
                   "TXT" => _("Did the device previously work when roaming, i.e. at other hotspots away from your home institution?"), 
                   "FACTOR" => 0.33,
-                  "VERDICTLECTURE" => sprintf(_("If roaming consistently does not work, then very likely your device configuration is wrong. Typical errors causing this symptom include: using a routing ('outer') username without the @realm.tld suffix - those potentially work at home, but can not be used when roaming. %s"),$confAssistantText)],
+                  "VERDICTLECTURE" => sprintf(_("If roaming consistently does not work, then very likely your device configuration is wrong. Typical errors causing this symptom include: using a routing ('outer') username without the @realm.tld suffix - those potentially work at your home organisation, but can not be used when roaming. %s"),$confAssistantText)],
             3 => ["AREA" => AbstractTest::INFRA_DEVICE, 
                   "TXT" => _("Did you recently change the configuration on your device?"), 
                   "FACTOR" => 3,

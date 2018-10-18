@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
-"PO-Revision-Date: 2018-05-18 07:45+0000\n"
+"POT-Creation-Date: 2018-10-18 14:16+0200\n"
+"PO-Revision-Date: 2018-09-12 06:44+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/ca_ES/)\n"
@@ -38,23 +38,23 @@ msgstr ""
 "permet l'autoservei!"
 
 #: web/admin/action_enrollment.php:71
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Sorry... this token has already been used. The %s is already created. If you "
 "got the invitation from a mailing list, probably someone else used it before "
 "you."
 msgstr ""
-"Dispenseu... aquest codi ja s'ha fet servir per crear un %s. Si l'heu "
+"Dispenseu... aquest codi ja s'ha fet servir. Ja s'ha creat  %s. Si l'heu "
 "obtingut en una llista de correu, probablement ja l'ha fet servir un altre."
 
 #: web/admin/action_enrollment.php:74
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Sorry... this token has expired. Invitation tokens are valid for 24 hours. "
 "The %s administrator can create a new one for you."
 msgstr ""
 "Disculpeu... aquest codi ha caducat. Els codis d'invitació són vàlids durant "
-"24 hores. Si us plau demaneu al vostre administrador %s per a un  de nou."
+"24 hores. El vostre administrador %s us en pot crear un de nou."
 
 #: web/admin/action_enrollment.php:77
 msgid ""
@@ -90,19 +90,19 @@ msgstr "País:"
 
 #: web/admin/edit_federation.php:73 web/admin/edit_idp.php:109
 #: web/admin/edit_idp.php:165 web/admin/edit_idp.php:190
-#: web/admin/edit_profile.php:147 web/admin/edit_profile.php:462
+#: web/admin/edit_profile.php:146 web/admin/edit_profile.php:461
 #: web/admin/edit_user.php:46 web/admin/inc/toggleRedirect.inc.php:124
 msgid "Add new option"
 msgstr "Afegir nova opció"
 
 #: web/admin/edit_federation.php:76 web/admin/edit_idp.php:195
-#: web/admin/edit_profile.php:469 web/admin/edit_user.php:51
+#: web/admin/edit_profile.php:468 web/admin/edit_user.php:51
 #: web/admin/inc/toggleRedirect.inc.php:127
 msgid "Save data"
 msgstr "Desar dades"
 
 #: web/admin/edit_federation.php:76 web/admin/edit_idp.php:195
-#: web/admin/edit_profile.php:469 web/admin/edit_user.php:54
+#: web/admin/edit_profile.php:468 web/admin/edit_user.php:54
 msgid "Discard changes"
 msgstr "Descartar canvis"
 
@@ -142,20 +142,20 @@ msgid "Editing IdP information for '%s'"
 msgstr "Editant informació de l'IdP de '%s'"
 
 #: web/admin/edit_idp.php:73
-#, fuzzy, php-format
+#, php-format
 msgid "%s general properties"
 msgstr "Propietats generals de %s"
 
 #: web/admin/edit_idp.php:92
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hello, newcomer. The %s is new to us. This wizard will ask you several "
 "questions about it, so that we can generate beautiful profiles for you in "
 "the end. All of the information below is optional, but it is important to "
 "fill out as many fields as possible for the benefit of your end users."
 msgstr ""
-"Hola, nouvingut. %s és nou per a nosaltres. Aquest assistent us realitzarà "
-"diverses preguntes sobre el vostre %s, de manera que puguem generar-te "
+"Hola, nouvingut. El %s és nou per a nosaltres. Aquest assistent us "
+"realitzarà diverses preguntes sobre aquest, de manera que puguem generar-te "
 "perfils adequats. Tota la informació inferior és opcional, però és important "
 "d'omplir el màxim de camps en benefici dels vostres usuaris finals."
 
@@ -164,14 +164,14 @@ msgid "General Information"
 msgstr "Informació General"
 
 #: web/admin/edit_idp.php:101
-#, fuzzy
 msgid ""
 "Some properties are valid across all deployment profiles. This is the place "
 "where you can describe those properties in a fine-grained way. The solicited "
 "information is used as follows:"
 msgstr ""
-"Aquí podeu descriure %s detalladament. La informació sol·icitada s'utilitza "
-"de la forma següent:"
+"Algunes propietats són vàlides en tots els perfils de desplegament. Aquí les "
+"podeu descriure  detalladament. La informació sol·licitada s'utilitza de la "
+"forma següent:"
 
 #: web/admin/edit_idp.php:103
 msgid ""
@@ -193,6 +193,9 @@ msgid ""
 "is used as a fallback if the system does not have a name in the exact "
 "language the user requests a download in."
 msgstr ""
+"<strong>Nom</strong>: El %s pot tenir noms en diversos idiomes. Es recomana "
+"omplir almenys l'idioma per defecte, ja que s'utilitza com a recurs si el "
+"sistema no disposa del mateix idioma que l'usuari vol descarregar."
 
 #: web/admin/edit_idp.php:115 web/lib/admin/UIElements.php:229
 msgid "Media Properties"
@@ -332,16 +335,15 @@ msgstr ""
 "d'ajuda local."
 
 #: web/admin/edit_idp.php:176
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Do you provide helpdesk services for your users? If so, it would be nice if "
 "you would tell us the pointers to this helpdesk."
 msgstr ""
-"Si el vostre %s facilita un centre d'ajuda per als seus usuaris, podeu "
-"informar-ho aquí."
+"Si faciliteu un centre d'ajuda per als vostres usuaris, podeu informar-ho "
+"aquí."
 
 #: web/admin/edit_idp.php:178
-#, fuzzy
 msgid ""
 "If you enter a value here, it will be added to the installers for all your "
 "users, and will be displayed on the download page. If you operate separate "
@@ -429,14 +431,14 @@ msgid "Continue to %s properties"
 msgstr "Continueu a les propietats de %s"
 
 #: web/admin/edit_idp_result.php:136
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You did not submit an e-mail address. This is required for %s. Please go to "
 "the %s dashboard and edit your helpdesk settings to include a helpdesk e-"
 "mail address."
 msgstr ""
 "No heu facilitat una adreça de mail. Això és necessari per a %s. Si us plau "
-"aneu al panell de control de %s i editeu-ne els ajustos de %s per a incloure "
+"aneu al panell de control de %s i editeu-ne els ajustos de per a incloure "
 "l'adreça electrònica del centre de suport."
 
 #: web/admin/edit_idp_result.php:136
@@ -452,20 +454,20 @@ msgstr "Seguiu a la definició del perfil RADIUS/EAP"
 msgid "%s: IdP Enrollment Wizard (Step 3)"
 msgstr "%s: Assistent per a l'inscripció a l'IdP (Pas 3)"
 
-#: web/admin/edit_profile.php:111
+#: web/admin/edit_profile.php:110
 msgid "Step 3: Defining a user group profile"
 msgstr "Pas 3: Definint un perfil de grup d'usuaris"
 
-#: web/admin/edit_profile.php:113
+#: web/admin/edit_profile.php:112
 #, php-format
 msgid "Edit profile '%s' ..."
 msgstr "Editar el perfil '%s' ..."
 
-#: web/admin/edit_profile.php:126
+#: web/admin/edit_profile.php:125
 msgid "General Profile properties"
 msgstr "Propietats generals del perfil"
 
-#: web/admin/edit_profile.php:130
+#: web/admin/edit_profile.php:129
 msgid ""
 "We will now define a profile for your user group(s).  You can add as many "
 "profiles as you like by choosing the appropriate button on the end of the "
@@ -477,11 +479,11 @@ msgstr ""
 "fet, l'assistent finalitzarà i sereu dirigits a la pàgina principal "
 "d'administració de l'IdP"
 
-#: web/admin/edit_profile.php:133
+#: web/admin/edit_profile.php:132
 msgid "Profile Name and RADIUS realm"
 msgstr "Nom de perfil i domini RADIUS"
 
-#: web/admin/edit_profile.php:136
+#: web/admin/edit_profile.php:135
 msgid ""
 "First of all we need a name for the profile. This will be displayed to end "
 "users, so you may want to choose a descriptive name like 'Professors', "
@@ -491,7 +493,7 @@ msgstr ""
 "finals, per tant val la pena triar noms descriptius com ara 'Professors', "
 "'Estudiants de la facultat de Bioquímica', etc."
 
-#: web/admin/edit_profile.php:137
+#: web/admin/edit_profile.php:136
 msgid ""
 "Optionally, you can provide a longer descriptive text about who this profile "
 "is for. If you specify it, it will be displayed on the download page after "
@@ -501,11 +503,11 @@ msgstr ""
 "ho especifiqueu, es mostrarà a la pàgina de descàrrega després que l'usuari "
 "seleccioni el perfil de la llista."
 
-#: web/admin/edit_profile.php:138
+#: web/admin/edit_profile.php:137
 msgid "You can also tell us your RADIUS realm. "
 msgstr "Podeu donar-nos el vostre domini RADIUS."
 
-#: web/admin/edit_profile.php:140
+#: web/admin/edit_profile.php:139
 #, php-format
 msgid ""
 "This is useful if you want to use the sanity check module later, which tests "
@@ -515,7 +517,7 @@ msgstr ""
 "d'estat, que comprova si el vostre domini és accessible des de la "
 "infraestructura %s."
 
-#: web/admin/edit_profile.php:142
+#: web/admin/edit_profile.php:141
 msgid ""
 "It is required to enter the realm name if you want to support anonymous "
 "outer identities (see below)."
@@ -523,15 +525,15 @@ msgstr ""
 "Cal que introduïu el nom del domini si voleu donar suport a les identitats "
 "anònimes externes (mireu a sota)."
 
-#: web/admin/edit_profile.php:155
+#: web/admin/edit_profile.php:154
 msgid "Realm:"
 msgstr "Domini:"
 
-#: web/admin/edit_profile.php:192
+#: web/admin/edit_profile.php:191
 msgid "Realm Options"
 msgstr "Opcions de domini"
 
-#: web/admin/edit_profile.php:196
+#: web/admin/edit_profile.php:195
 #, php-format
 msgid ""
 "Some installers support a feature called 'Anonymous outer identity'. If you "
@@ -540,7 +542,7 @@ msgstr ""
 "Alguns instal·ladors donen suport a una característica anomenada 'Identitat "
 "anònima externa'. Si no sabeu que és, llegiu <a href='%s'>aquest article</a>."
 
-#: web/admin/edit_profile.php:197
+#: web/admin/edit_profile.php:196
 msgid ""
 "On some platforms, the installers can suggest username endings and/or verify "
 "the user input to contain the realm suffix."
@@ -548,11 +550,12 @@ msgstr ""
 "En algunes plataformes, els instal·ladors poden proposar identificadors i/o "
 "verificar que l'usuari ha afegit el sufix de domini en entrar les dades."
 
-#: web/admin/edit_profile.php:198
+#: web/admin/edit_profile.php:197
+#, fuzzy
 msgid ""
 "The realm check feature needs to know an outer ID which actually gets a "
 "chance to authenticate. If your RADIUS server lets only select usernames "
-"pass, it is useful to supply the inforamtion which of those (outer ID) "
+"pass, it is useful to supply the information which of those (outer ID) "
 "username we can use for testing."
 msgstr ""
 "El domini comprova característiques necessàries per a conèixer la ID externa "
@@ -560,27 +563,27 @@ msgstr ""
 "només deixa seleccionar identificador, serà d'ajuda informar de quins "
 "identificadors podem utilitzar per fer proves."
 
-#: web/admin/edit_profile.php:210
+#: web/admin/edit_profile.php:209
 msgid "Verify user input to contain realm suffix:"
 msgstr "Comproveu que l'entrada de l'usuari conté el sufix de domini:"
 
-#: web/admin/edit_profile.php:224
+#: web/admin/edit_profile.php:223
 msgid "Prefill user input with realm suffix:"
 msgstr "Ompliu l'entrada de l'usuari amb el sufix de domini:"
 
-#: web/admin/edit_profile.php:234
+#: web/admin/edit_profile.php:233
 msgid "Enable Anonymous Outer Identity:"
 msgstr "Habilitar Identitat Anònima Externa:"
 
-#: web/admin/edit_profile.php:253
+#: web/admin/edit_profile.php:252
 msgid "Use special Outer Identity for realm checks:"
 msgstr "Identitat externa especial per a les comprovacions de domini:"
 
-#: web/admin/edit_profile.php:270
+#: web/admin/edit_profile.php:269
 msgid "Installer Download Location"
 msgstr "Localització de la descàrrega de l'instal·lador"
 
-#: web/admin/edit_profile.php:274
+#: web/admin/edit_profile.php:273
 msgid ""
 "The CAT has a download area for end users. There, they will, for example, "
 "learn about the support pointers you entered earlier. The CAT can also "
@@ -599,15 +602,15 @@ msgstr ""
 "la vostra pàgina (mireu el botó 'Matriu de compatibilitat' al tauler de "
 "control)"
 
-#: web/admin/edit_profile.php:280
+#: web/admin/edit_profile.php:279
 msgid "Redirect end users to own web page:"
 msgstr "Redirecció dels usuaris finals a pàgina web pròpia:"
 
-#: web/admin/edit_profile.php:293
+#: web/admin/edit_profile.php:292
 msgid "Supported EAP types"
 msgstr "Tipus EAP suportats"
 
-#: web/admin/edit_profile.php:296
+#: web/admin/edit_profile.php:295
 msgid ""
 "Now, we need to know which EAP types your IdP supports. If you support "
 "multiple EAP types, you can assign every type a priority (1=highest). This "
@@ -622,20 +625,20 @@ msgstr ""
 "utilitzar es farà servir el tipus EAP compatible de la llista de major "
 "prioritat."
 
-#: web/admin/edit_profile.php:339
+#: web/admin/edit_profile.php:338
 msgid "EAP options inherited from Global level:"
 msgstr "Opcions EAP heretades del nivell Global:"
 
-#: web/admin/edit_profile.php:344
+#: web/admin/edit_profile.php:343
 #, php-format
 msgid "(%dx) %s"
 msgstr "(%dx) %s"
 
-#: web/admin/edit_profile.php:372
+#: web/admin/edit_profile.php:371
 msgid "Supported EAP types for this profile"
 msgstr "Tipus EAP suportats per a aquest perfil"
 
-#: web/admin/edit_profile.php:386
+#: web/admin/edit_profile.php:385
 msgid ""
 "Use \"drag &amp; drop\" to mark an EAP method and move it to the supported "
 "(green) area. Prioritisation is done automatically, depending on where you "
@@ -644,23 +647,23 @@ msgstr ""
 "Arrossegueu a l'àrea verda els mètodes EAP suportats. La priorització es fa "
 "automàticament, depenent d'on col·loqueu el mètode."
 
-#: web/admin/edit_profile.php:394
+#: web/admin/edit_profile.php:393
 msgid "Unsupported EAP types"
 msgstr "Tipus de EAP no suportats"
 
-#: web/admin/edit_profile.php:447
+#: web/admin/edit_profile.php:446
 msgid "Helpdesk Details for this profile"
 msgstr "Detalls del centre de suport per a aquest perfil"
 
-#: web/admin/edit_profile.php:448
+#: web/admin/edit_profile.php:447
 msgid "EAP Details for this profile"
 msgstr "Detall EAP per a aquest perfil"
 
-#: web/admin/edit_profile.php:449
+#: web/admin/edit_profile.php:448
 msgid "Media Properties for this profile"
 msgstr "Propietats del mitjà per a aquest perfil"
 
-#: web/admin/edit_profile.php:457
+#: web/admin/edit_profile.php:456
 #, php-format
 msgid ""
 "The option %s is already defined IdP-wide. If you set it here on profile "
@@ -675,7 +678,7 @@ msgstr[1] ""
 "Les opcions %s ja estan definides a tot l'IdP. Els valors que poseu aquí "
 "tindran preferència sobre els valors generals."
 
-#: web/admin/edit_profile.php:467
+#: web/admin/edit_profile.php:466
 msgid ""
 "When you are sure that everything is correct, please click on 'Save data' "
 "and you will be taken to your IdP Dashboard page."
@@ -769,9 +772,10 @@ msgstr ""
 "No es pot activar la redirecció - no heu especificat un objectiu destí!"
 
 #: web/admin/edit_profile_result.php:175
+#, fuzzy
 msgid ""
 "Redirection can't be activated - the target needs to be a complete URL "
-"staring with http:// or https:// !"
+"starting with http:// or https:// !"
 msgstr ""
 "No es pot activar la redirecció - cal que l'objectiu sigui una URL completa "
 "amb http:// o https:// al principi!"
@@ -909,7 +913,7 @@ msgstr "Fragment SMS."
 msgid "Manage %s users"
 msgstr "Gestiona %s usuaris"
 
-#: web/admin/edit_silverbullet.php:350 web/admin/overview_federation.php:116
+#: web/admin/edit_silverbullet.php:350 web/admin/overview_federation.php:117
 msgid "User"
 msgstr "Usuari/a"
 
@@ -1104,155 +1108,202 @@ msgstr ""
 "No podem desconnectar-vos de totes les vostres sessions. Per assegurar-vos, "
 "heu de tancara el vostre navegador."
 
-#: web/admin/overview_federation.php:17
+#: web/admin/overview_federation.php:18
 #, php-format
 msgid "%s: %s Management"
 msgstr "%s: Gestió de %s"
 
-#: web/admin/overview_federation.php:30 web/admin/overview_idp.php:50
+#: web/admin/overview_federation.php:31 web/admin/overview_idp.php:50
 #, php-format
 msgid "%s Overview"
 msgstr "Resum de %s"
 
-#: web/admin/overview_federation.php:34 web/admin/overview_user.php:38
+#: web/admin/overview_federation.php:35 web/admin/overview_user.php:38
 msgid "Your Personal Information"
 msgstr "Informació Personal"
 
-#: web/admin/overview_federation.php:39 web/admin/overview_user.php:43
+#: web/admin/overview_federation.php:40 web/admin/overview_user.php:43
 msgid "Unique Identifier"
 msgstr "Identificador Únic"
 
-#: web/admin/overview_federation.php:44 web/admin/overview_user.php:48
+#: web/admin/overview_federation.php:45 web/admin/overview_user.php:48
 msgid "click to display"
 msgstr "cliqueu per mostrar"
 
-#: web/admin/overview_federation.php:54
+#: web/admin/overview_federation.php:55
 #, php-format
 msgid "You are not a %s manager."
 msgstr "No sou gestor de %s"
 
-#: web/admin/overview_federation.php:65
+#: web/admin/overview_federation.php:66
 #, php-format
 msgid "%s Properties: %s"
 msgstr "Propietats de %s: %s"
 
-#: web/admin/overview_federation.php:71
+#: web/admin/overview_federation.php:72
 msgid "Country"
 msgstr "País"
 
-#: web/admin/overview_federation.php:95
+#: web/admin/overview_federation.php:96
 #, php-format
 msgid "%s Statistics: %s"
 msgstr "Estadístiques de %s: %s"
 
-#: web/admin/overview_federation.php:100
+#: web/admin/overview_federation.php:101
 msgid "IdPs Total"
 msgstr "Total d'IdPs"
 
-#: web/admin/overview_federation.php:101
+#: web/admin/overview_federation.php:102
 msgid "Public Download"
 msgstr "Descàrrega pública"
 
-#: web/admin/overview_federation.php:113
+#: web/admin/overview_federation.php:114
 msgid "Downloads"
 msgstr "Descàrregues"
 
-#: web/admin/overview_federation.php:114
+#: web/admin/overview_federation.php:115
 msgid "Admin"
 msgstr "Administrador"
 
-#: web/admin/overview_federation.php:137 web/admin/inc/manageAdmins.inc.php:95
-msgid "and <b>encrypted</b> to the mail domain"
-msgstr "i <b> encriptat </b> al domini de correu"
+#: web/admin/overview_federation.php:142 web/admin/inc/manageAdmins.inc.php:99
+msgid "It was sent with transport security (encryption)."
+msgid_plural "They were sent with transport security (encryption)."
+msgstr[0] ""
+msgstr[1] ""
 
-#: web/admin/overview_federation.php:140 web/admin/inc/manageAdmins.inc.php:98
-msgid "but <b>in clear text</b> to the mail domain"
-msgstr "però <b>en text clar</b> al domini de correu"
+#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:102
+msgid "It was sent in clear text (no encryption)."
+msgid_plural "They were sent in clear text (no encryption)."
+msgstr[0] ""
+msgstr[1] ""
 
-#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:103
-#, php-format
-msgid "The invitation email was sent successfully %s."
-msgstr "El correu d'invitació s'ha enviat amb èxit %s."
+#: web/admin/overview_federation.php:148 web/admin/inc/manageAdmins.inc.php:105
+msgid ""
+"A subset of the mails were sent with transport encryption, the rest in clear "
+"text."
+msgstr ""
 
-#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:103
-msgid "The invitation email was sent."
-msgstr "S'ha enviat el correu d'invitació."
+#: web/admin/overview_federation.php:153 web/admin/inc/manageAdmins.inc.php:110
+#, fuzzy
+msgid "The invitation email was sent successfully."
+msgid_plural "All invitation emails were sent successfully."
+msgstr[0] "El correu d'invitació s'ha enviat amb èxit %s."
+msgstr[1] "El correu d'invitació s'ha enviat amb èxit %s."
 
-#: web/admin/overview_federation.php:148 web/admin/inc/manageAdmins.inc.php:106
-#: web/admin/inc/overview_js.php:56 web/admin/inc/overview_js.php:111
-msgid "The invitation email could not be sent!"
+#: web/admin/overview_federation.php:153 web/admin/inc/manageAdmins.inc.php:110
+#, fuzzy
+msgid "Sent successfully."
+msgstr "L'SMS s'ha enviat correctament."
+
+#: web/admin/overview_federation.php:156 web/admin/inc/manageAdmins.inc.php:113
+#, fuzzy
+msgid "No invitation email could be sent!"
 msgstr "No s'ha pogut enviar el correu d'invitació!"
 
-#: web/admin/overview_federation.php:151 web/admin/inc/manageAdmins.inc.php:109
+#: web/admin/overview_federation.php:156 web/admin/inc/manageAdmins.inc.php:113
+msgid "Sending failure!"
+msgstr ""
+
+#: web/admin/overview_federation.php:162 web/admin/inc/manageAdmins.inc.php:119
+msgid "The successful one was sent with transport security (encryption)."
+msgid_plural ""
+"The successful ones were sent with transport security (encryption)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: web/admin/overview_federation.php:165 web/admin/inc/manageAdmins.inc.php:122
+msgid "The successful one was sent in clear text (no encryption)."
+msgid_plural "The successful ones were sent in clear text (no encryption)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: web/admin/overview_federation.php:168 web/admin/inc/manageAdmins.inc.php:125
+msgid ""
+"A subset of the successfully sent mails were sent with transport encryption, "
+"the rest in clear text."
+msgstr ""
+
+#: web/admin/overview_federation.php:173 web/admin/inc/manageAdmins.inc.php:130
+#, fuzzy, php-format
+msgid ""
+"Some invitation emails were sent successfully (%s in total), the others "
+"failed."
+msgstr "El correu d'invitació s'ha enviat amb èxit %s."
+
+#: web/admin/overview_federation.php:173 web/admin/inc/manageAdmins.inc.php:130
+msgid "Partial success."
+msgstr ""
+
+#: web/admin/overview_federation.php:176 web/admin/inc/manageAdmins.inc.php:133
 msgid "The invitation email address was malformed, no invitation was sent!"
 msgstr "L'adreça de la invitació estava mal formatada, no s'ha enviat res!"
 
-#: web/admin/overview_federation.php:154
+#: web/admin/overview_federation.php:179 web/admin/inc/manageAdmins.inc.php:136
 msgid "Error: unknown result code of invitation!?!"
 msgstr "Error: resultat del codi d'invitació desconegut!?!"
 
-#: web/admin/overview_federation.php:154
+#: web/admin/overview_federation.php:179 web/admin/inc/manageAdmins.inc.php:136
 msgid "Unknown result!"
 msgstr "Resultat desconegut!"
 
-#: web/admin/overview_federation.php:159
+#: web/admin/overview_federation.php:184
 #, php-format
 msgid "Need help? Refer to the <a href='%s'>%s manual</a>"
 msgstr "Necessiteu ajuda? Consulteu el <a href='%s'>manual de %s</a>"
 
-#: web/admin/overview_federation.php:167
+#: web/admin/overview_federation.php:192
 msgid "Deployment Status"
 msgstr "Estat de desplegament"
 
-#: web/admin/overview_federation.php:168 web/admin/overview_user.php:103
+#: web/admin/overview_federation.php:193 web/admin/overview_user.php:103
 #: web/admin/inc/manageDBLink.inc.php:149 web/lib/admin/UIElements.php:83
 #: web/lib/admin/UIElements.php:111
 #, php-format
 msgid "%s Name"
 msgstr "Nom %s"
 
-#: web/admin/overview_federation.php:174
+#: web/admin/overview_federation.php:199
 #, php-format
 msgid "%s Database Sync Status"
 msgstr "%s Estat de Syncronització de la Base de Dades"
 
-#: web/admin/overview_federation.php:180 web/admin/overview_user.php:103
+#: web/admin/overview_federation.php:205 web/admin/overview_user.php:103
 msgid "Administrator Management"
 msgstr "Gestió d'administrador"
 
 #. / nomenclature for 'federation', federation name, nomenclature for 'inst'
-#: web/admin/overview_federation.php:189
+#: web/admin/overview_federation.php:214
 #, php-format
 msgid "The following %s are in your %s %s:"
-msgstr ""
+msgstr "Els següents %s es troben al vostre %s %s:"
 
-#: web/admin/overview_federation.php:225
+#: web/admin/overview_federation.php:250
 msgid "Manage DB Link"
 msgstr "Gestió de l'enllaç a DB"
 
-#: web/admin/overview_federation.php:231
+#: web/admin/overview_federation.php:256
 msgid "Linked"
 msgstr "Enllaçat"
 
-#: web/admin/overview_federation.php:235
+#: web/admin/overview_federation.php:260
 msgid "NOT linked"
 msgstr "NO enllaçat"
 
-#: web/admin/overview_federation.php:250 web/admin/overview_user.php:139
+#: web/admin/overview_federation.php:275 web/admin/overview_user.php:139
 msgid "Add/Remove Administrators"
 msgstr "Afegir/esborrar administradors"
 
-#: web/admin/overview_federation.php:263
-#, fuzzy, php-format
+#: web/admin/overview_federation.php:288
+#, php-format
 msgid "Pending invitations in the %s:"
-msgstr "Invitacions pendents al vostre %s:"
+msgstr "Invitacions pendents a %s:"
 
-#: web/admin/overview_federation.php:280
+#: web/admin/overview_federation.php:305
 msgid "Revoke Invitation"
 msgstr "Revocar invitació"
 
-#: web/admin/overview_federation.php:299
-#, fuzzy, php-format
+#: web/admin/overview_federation.php:324
+#, php-format
 msgid "Register a new %s!"
 msgstr "Registreu un nou %s!"
 
@@ -1262,12 +1313,12 @@ msgid "%s: IdP Dashboard"
 msgstr "%s: Tauler de control IdP"
 
 #: web/admin/overview_idp.php:52
-#, fuzzy, php-format
+#, php-format
 msgid "%s general settings"
-msgstr "Paràmetres globals de %s"
+msgstr "Ajustos generals de %s"
 
 #: web/admin/overview_idp.php:57
-#, fuzzy, php-format
+#, php-format
 msgid "%s download area QR code"
 msgstr "Codi QR de l'àrea de descàrrega de %s"
 
@@ -1296,7 +1347,7 @@ msgid "Delete %s"
 msgstr "Esborrar %s"
 
 #: web/admin/overview_idp.php:97
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This action will delete all properties of the %s and start over the "
 "configuration from scratch. Do you really want to reset all settings of the "
@@ -1325,9 +1376,9 @@ msgstr "Vés-hi!"
 
 #. SW: APPROVED
 #: web/admin/overview_idp.php:122
-#, fuzzy, php-format
+#, php-format
 msgid "Check %s server status"
-msgstr "Comprovar l'estat dels servidors de %ss europees"
+msgstr "Comprovar l'estat dels servidors de %s"
 
 #. no profiles yet.
 #: web/admin/overview_idp.php:136
@@ -1358,7 +1409,7 @@ msgstr ""
 msgid "Manage User Base"
 msgstr "Gestiona la base d'usuaris"
 
-#: web/admin/overview_idp.php:187 web/admin/overview_idp.php:325
+#: web/admin/overview_idp.php:187 web/admin/overview_idp.php:321
 msgid "User Downloads"
 msgstr "Descàrregues d'usuari"
 
@@ -1435,12 +1486,12 @@ msgstr "Esborrar"
 msgid "User Download Link"
 msgstr "Enllaç de Descàrrega d'Usuari"
 
-#: web/admin/overview_idp.php:354
+#: web/admin/overview_idp.php:350
 #, php-format
 msgid "Add %s profile ..."
 msgstr "Afegir perfil %s ..."
 
-#: web/admin/overview_idp.php:367
+#: web/admin/overview_idp.php:363
 msgid "Add new RADIUS/EAP profile ..."
 msgstr "Afegir nou perfil RADIUS/EAP ..."
 
@@ -1515,9 +1566,9 @@ msgid "Edit User Details"
 msgstr "Editeu els detalls d'usuari"
 
 #: web/admin/overview_user.php:60
-#, fuzzy, php-format
+#, php-format
 msgid "Click here for %s management tasks"
-msgstr "Cliqueu aquí per gestionar %ss"
+msgstr "Cliqueu aquí per tasques d'administració de %s"
 
 #: web/admin/overview_user.php:63
 msgid "Click here to access the superadmin page"
@@ -1576,9 +1627,9 @@ msgstr ""
 "Vau rebre una invitació per a gestionar %s? Si us plau copieu el codi aquí:"
 
 #: web/admin/overview_user.php:166
-#, fuzzy, php-format
+#, php-format
 msgid "New %s Registration"
-msgstr "Nova invitació"
+msgstr "Registre Nou %s"
 
 #: web/admin/inc/displayQRcode.inc.php:31
 msgid "Invitation Token QR Code"
@@ -1598,70 +1649,69 @@ msgstr ""
 msgid "Administrators for IdP '%s'"
 msgstr "Administradors per a l'IdP '%s'"
 
-#: web/admin/inc/manageAdmins.inc.php:119
-#, fuzzy, php-format
+#: web/admin/inc/manageAdmins.inc.php:143
+#, php-format
 msgid ""
 "You are the %s administrator. You can invite new administrators, who can in "
 "turn appoint further administrators on their own."
 msgstr ""
-"Sou l'administrador %s de %s. Podeu invitar-hi nous administradors, que "
-"podran també nomenar d'altres administradors."
+"Sou l'administrador de %s. Podeu invitar-hi nous administradors, que podran "
+"també nomenar d'altres administradors."
 
-#: web/admin/inc/manageAdmins.inc.php:119 web/lib/admin/UIElements.php:102
+#: web/admin/inc/manageAdmins.inc.php:143 web/lib/admin/UIElements.php:102
 #, php-format
 msgid "%s Administrator"
 msgstr "Administrador de %s"
 
-#: web/admin/inc/manageAdmins.inc.php:125
-#, fuzzy, php-format
+#: web/admin/inc/manageAdmins.inc.php:149
+#, php-format
 msgid ""
 "You are an administrator who was directly appointed by the %s administrator. "
 "You can appoint further administrators, but these can't in turn appoint any "
 "more administrators."
 msgstr ""
-"Sou un administrador de %s, nomenat directament per un administrador de %s. "
-"Podeu nomenar més administradors, però aquests no podran nomenar-ne de nous."
+"Sou un administrador nomenat directament per l'administrador de %s. Podeu "
+"nomenar més administradors, però aquests no podran nomenar-ne de nous."
 
-#: web/admin/inc/manageAdmins.inc.php:125
-#, fuzzy
+#: web/admin/inc/manageAdmins.inc.php:149
 msgid "Directly Appointed Administrator"
-msgstr "Administrador IdP nomenat directament "
+msgstr "Administrador nomenat directament "
 
-#: web/admin/inc/manageAdmins.inc.php:138
+#: web/admin/inc/manageAdmins.inc.php:162
 msgid "User without name"
 msgstr "Usuari sense nom"
 
-#: web/admin/inc/manageAdmins.inc.php:147
+#: web/admin/inc/manageAdmins.inc.php:171
 #, php-format
 msgid "(originally invited as %s)"
 msgstr "(invitat originalment com %s)"
 
-#: web/admin/inc/manageAdmins.inc.php:149
+#: web/admin/inc/manageAdmins.inc.php:173
 msgid "(self-appointed)"
 msgstr "(auto-nomenat)"
 
-#: web/admin/inc/manageAdmins.inc.php:156
+#: web/admin/inc/manageAdmins.inc.php:180
 msgid "Delete Administrator"
 msgstr "Esborra Administrador"
 
-#: web/admin/inc/manageAdmins.inc.php:170
+#: web/admin/inc/manageAdmins.inc.php:194
 msgid "Pending invitations for this IdP"
 msgstr "Invitacions pendents per a aquest IdP"
 
-#: web/admin/inc/manageAdmins.inc.php:181
+#: web/admin/inc/manageAdmins.inc.php:205
 msgid "New administrator's email address(es) (comma-separated):"
 msgstr "Adreça(ces) email dels nous administradors (separades per comes):"
 
-#: web/admin/inc/manageAdmins.inc.php:181
+#: web/admin/inc/manageAdmins.inc.php:205
 msgid "Invite new administrator"
 msgstr "Inviteu un nou administrador"
 
-#: web/admin/inc/manageAdmins.inc.php:195
+#: web/admin/inc/manageAdmins.inc.php:219
 #, php-format
 msgid "Take control of this %s"
 msgstr "Prendre el control de %s"
 
-#: web/admin/inc/manageAdmins.inc.php:202
+#: web/admin/inc/manageAdmins.inc.php:226
 #: web/admin/inc/manageDBLink.inc.php:194
 #: web/admin/inc/manageNewInst.inc.php:116
 msgid "Close"
@@ -1698,11 +1748,11 @@ msgid "Information in <strong>%s Database</strong>"
 msgstr "Informació a <strong>%s Database</strong>"
 
 #: web/admin/inc/manageDBLink.inc.php:99 web/admin/inc/manageDBLink.inc.php:125
-#, fuzzy, php-format
+#, php-format
 msgid "%s Name (%s)"
-msgstr "Nom %s"
+msgstr "Nom de %s (%s)"
 
-#: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/PageDecoration.php:33
+#: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/Authentication.php:61
 msgid "Unnamed User"
 msgstr "Usuari sense nom"
 
@@ -1850,11 +1900,15 @@ msgstr "No heu facilitat cap adreça electrònica "
 msgid "Invitation sent to:"
 msgstr "Invitació enviada a:"
 
+#: web/admin/inc/overview_js.php:56 web/admin/inc/overview_js.php:111
+msgid "The invitation email could not be sent!"
+msgstr "No s'ha pogut enviar el correu d'invitació!"
+
 #: web/admin/inc/overview_js.php:83
 msgid "Mail address to invite:"
 msgstr "Email per a convidar:"
 
-#: web/admin/inc/sendinvite.inc.php:92
+#: web/admin/inc/sendinvite.inc.php:106
 #, php-format
 msgid ""
 "Something's wrong... you are a %s admin, but not for the %s the requested %s "
@@ -2048,66 +2102,66 @@ msgstr ""
 "altres llenguatges, podeu editar el perfil de nou i omplir-hi el camp 'per "
 "defecte/altres'."
 
-#: web/lib/admin/PageDecoration.php:32
+#: web/lib/admin/PageDecoration.php:35
 msgid "You are:"
 msgstr "Sou:"
 
-#: web/lib/admin/PageDecoration.php:36
+#: web/lib/admin/PageDecoration.php:38
 msgid "Go to your Profile page"
 msgstr "Aneu a la pàgina del vostre perfil"
 
-#: web/lib/admin/PageDecoration.php:37
+#: web/lib/admin/PageDecoration.php:39
 msgid "Logout"
 msgstr "Sortir"
 
-#: web/lib/admin/PageDecoration.php:39
+#: web/lib/admin/PageDecoration.php:41
 msgid "Start page"
 msgstr "Pàgina d'inici"
 
-#: web/lib/admin/PageDecoration.php:60
+#: web/lib/admin/PageDecoration.php:62
 msgid "View this page in"
 msgstr "Veure aquesta pàgina a"
 
-#: web/lib/admin/PageDecoration.php:118
+#: web/lib/admin/PageDecoration.php:120
 #, php-format
 msgid "Administrator Interface - %s"
 msgstr "Interfície d'administrador - %s"
 
-#: web/lib/admin/PageDecoration.php:121
+#: web/lib/admin/PageDecoration.php:123
 #, php-format
 msgid "Administrator Interface - %s User Management"
 msgstr "Interfície d'administrador - Gestió d'usuaris de %s"
 
-#: web/lib/admin/PageDecoration.php:124
+#: web/lib/admin/PageDecoration.php:126
 msgid "Administrator Interface"
 msgstr "Interfície d'administrador"
 
-#: web/lib/admin/PageDecoration.php:127
+#: web/lib/admin/PageDecoration.php:129
 msgid "Management of User Details"
 msgstr "Gestió dels detalls d'usuari"
 
-#: web/lib/admin/PageDecoration.php:130
+#: web/lib/admin/PageDecoration.php:132
 #, php-format
 msgid "Administrator Interface - %s Management"
 msgstr "Interfície d'administrador - Gestió de %s"
 
-#: web/lib/admin/PageDecoration.php:133
+#: web/lib/admin/PageDecoration.php:135
 #, php-format
 msgid "Welcome to %s"
 msgstr "Us donem la benvinguda a %s"
 
-#: web/lib/admin/PageDecoration.php:138
+#: web/lib/admin/PageDecoration.php:140
 msgid "CIC"
 msgstr "CIC"
 
-#: web/lib/admin/PageDecoration.php:141
+#: web/lib/admin/PageDecoration.php:143
 msgid "Diagnostics"
 msgstr "Anàlisi"
 
 #: web/lib/admin/PageDecoration.php:223
-#, fuzzy, php-format
+#, php-format
 msgid "%s Privacy Notice"
-msgstr "Propietats de %s"
+msgstr "%s avís de privacitat"
 
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
@@ -2269,7 +2323,7 @@ msgstr "Incloure la marca de %s als instal·ladors"
 #: web/lib/admin/UIElements.php:112
 #, php-format
 msgid "%s Homepage"
-msgstr ""
+msgstr "Pàgina d'Inici de %s"
 
 #: web/lib/admin/UIElements.php:113
 #, php-format
@@ -2347,35 +2401,11 @@ msgstr "Alerta!"
 msgid "Error!"
 msgstr "Error!"
 
-#~ msgid ""
-#~ "<strong>Terms of Use</strong>: Some installers support displaying text to "
-#~ "the user during installation time. If so, we will make that happen if you "
-#~ "upload an RTF file or plain text file to display."
-#~ msgstr ""
-#~ "<strong>Condicions d'us</strong>: Alguns instal·ladors accepten mostrar "
-#~ "text a l'usuari durant la instal·lació. Si és el cas, apareixerà el text "
-#~ "que pugeu en un fitxer RTF o de TEXT."
+#~ msgid "and <b>encrypted</b> to the mail domain"
+#~ msgstr "i <b> encriptat </b> al domini de correu"
 
-#~ msgid "Name of %s"
-#~ msgstr "Nom de %s"
+#~ msgid "but <b>in clear text</b> to the mail domain"
+#~ msgstr "però <b>en text clar</b> al domini de correu"
 
-#~ msgid "Your %s %s contains the following %s list:"
-#~ msgstr "El vostre %s %s conté la següent llista de %s:"
-
-#~ msgid "Overview of %s"
-#~ msgstr "Sumari de %s"
-
-#~ msgid "Name of %s (%s)"
-#~ msgstr "Nom de %s (%s)"
-
-#~ msgid "Name of the %s"
-#~ msgstr "Nom de %s"
-
-#~ msgid ""
-#~ "Please keep in mind that any profiles of such a new %s will only be made "
-#~ "available on the user download page after you have linked it to an entity "
-#~ "in the %s database (but they are otherwise fully functional)."
-#~ msgstr ""
-#~ "Tingueu present que qualsevol perfil nou de %s només estarà disponible a "
-#~ "la pàgina de descàrregues un cop l'enllaceu a una entitat de la base de "
-#~ "dades %s (tot i així són totalment funcionals)."
+#~ msgid "The invitation email was sent."
+#~ msgstr "S'ha enviat el correu d'invitació."

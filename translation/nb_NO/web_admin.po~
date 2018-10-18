@@ -1,0 +1,3144 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Tom Ivar Myren <tom.myren@uninett.no>, 2013,2015
+# Tom Ivar Myren <tom.myren@uninett.no>, 2012-2013
+msgid ""
+msgstr ""
+"Project-Id-Version: eduroam CAT\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-10-05 09:32+0200\n"
+"PO-Revision-Date: 2015-04-08 06:48+0000\n"
+"Last-Translator: Tom Ivar Myren <tom.myren@uninett.no>\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/cat/"
+"language/nb/)\n"
+"Language: nb\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: web/admin/action_enrollment.php:41 web/admin/action_enrollment.php:67
+#: web/admin/action_enrollment.php:68
+msgid "Error creating new IdP binding!"
+msgstr "Feil ved opprettelse av ny IdP tilknytning!"
+
+#: web/admin/action_enrollment.php:48
+msgid "This page needs to be called with a valid invitation token!"
+msgstr ""
+
+#: web/admin/action_enrollment.php:52
+msgid ""
+"You tried to register in self-service, but this deployment does not allow "
+"self-service!"
+msgstr ""
+
+#: web/admin/action_enrollment.php:71
+#, fuzzy, php-format
+msgid ""
+"Sorry... this token has already been used. The %s is already created. If you "
+"got the invitation from a mailing list, probably someone else used it before "
+"you."
+msgstr ""
+"Beklager... dette token har allerde blitt brukt til å opprette en "
+"institusjon. Hvis du fikk det fra en epostliste har antagelig noen brukt det "
+"før deg."
+
+#: web/admin/action_enrollment.php:74
+#, fuzzy, php-format
+msgid ""
+"Sorry... this token has expired. Invitation tokens are valid for 24 hours. "
+"The %s administrator can create a new one for you."
+msgstr ""
+"Beklager... dette token har utgått. Invitasjons token er gyldig i 24 timer. "
+"Spør din føderasjonsadministrator om ett nytt."
+
+#: web/admin/action_enrollment.php:77
+msgid ""
+"Sorry... you have come to the enrollment page without a valid token. Are you "
+"a nasty person? If not, you should go to <a href='overview_user.php'>your "
+"profile page</a> instead."
+msgstr ""
+"Beklager... du har kommet til innmeldingssiden uten et gyldig token. Prøver "
+"du å gjøre noe du ikke burde? Hvis ikke, kan du gå til <a "
+"href='overview_user.php'> din profil side</a>."
+
+#. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
+#: web/admin/edit_federation.php:34
+#, fuzzy, php-format
+msgid "%s: Editing %s '%s'"
+msgstr "%s: Redigerer IdP '%s'"
+
+#. / nomenclature for federation, then actual federation name
+#: web/admin/edit_federation.php:49
+#, fuzzy, php-format
+msgid "Editing %s information for '%s'"
+msgstr "Redigerer IdP informasjon for '%s'"
+
+#: web/admin/edit_federation.php:53 web/admin/edit_federation.php:68
+#, fuzzy, php-format
+msgid "%s Properties"
+msgstr "Medie egenskaper"
+
+#: web/admin/edit_federation.php:56 web/admin/edit_idp.php:76
+#: web/lib/admin/UIElements.php:215
+msgid "Country:"
+msgstr "Land:"
+
+#: web/admin/edit_federation.php:73 web/admin/edit_idp.php:109
+#: web/admin/edit_idp.php:165 web/admin/edit_idp.php:190
+#: web/admin/edit_profile.php:147 web/admin/edit_profile.php:462
+#: web/admin/edit_user.php:46 web/admin/inc/toggleRedirect.inc.php:124
+msgid "Add new option"
+msgstr "Legg til ny opsjon"
+
+#: web/admin/edit_federation.php:76 web/admin/edit_idp.php:195
+#: web/admin/edit_profile.php:469 web/admin/edit_user.php:51
+#: web/admin/inc/toggleRedirect.inc.php:127
+msgid "Save data"
+msgstr "Lagre data"
+
+#: web/admin/edit_federation.php:76 web/admin/edit_idp.php:195
+#: web/admin/edit_profile.php:469 web/admin/edit_user.php:54
+msgid "Discard changes"
+msgstr "Forkast endringer"
+
+#. / first productname (eduroam CAT), then nomenclature for 'federation'
+#: web/admin/edit_federation_result.php:31
+#, php-format
+msgid "%s: %s Customisation (submission completed)"
+msgstr ""
+
+#: web/admin/edit_federation_result.php:35
+#, fuzzy, php-format
+msgid "Submitted attributes for %s '%s'"
+msgstr "Innsendte attributter for IdP '%s'"
+
+#: web/admin/edit_federation_result.php:47 web/admin/edit_idp_result.php:144
+#: web/admin/edit_profile_result.php:224
+msgid "Continue to dashboard"
+msgstr "Fortsett til dashbord"
+
+#: web/admin/edit_idp.php:32
+#, php-format
+msgid "%s: IdP enrollment wizard (step 2)"
+msgstr "%s: Veiviser for IdP innmelding (trinn 2)"
+
+#: web/admin/edit_idp.php:34
+#, php-format
+msgid "%s: Editing IdP '%s'"
+msgstr "%s: Redigerer IdP '%s'"
+
+#: web/admin/edit_idp.php:66
+msgid "Step 2: General Information about your IdP"
+msgstr "Trinn 2: Generell informasjon om din IdP"
+
+#: web/admin/edit_idp.php:68
+#, php-format
+msgid "Editing IdP information for '%s'"
+msgstr "Redigerer IdP informasjon for '%s'"
+
+#: web/admin/edit_idp.php:73
+#, fuzzy, php-format
+msgid "%s general properties"
+msgstr "Generelle profil egenskaper"
+
+#: web/admin/edit_idp.php:92
+#, fuzzy, php-format
+msgid ""
+"Hello, newcomer. The %s is new to us. This wizard will ask you several "
+"questions about it, so that we can generate beautiful profiles for you in "
+"the end. All of the information below is optional, but it is important to "
+"fill out as many fields as possible for the benefit of your end users."
+msgstr ""
+"Hei nykommer. Din institusjon er ny for oss. Denne veiviseren spør flere "
+"spørsmål om din IdP slik at vi kan lage flotte profiler for deg til slutt. "
+"All informasjonen under er valgfri, men det er viktig å fylle inn mest mulig "
+"til fordel for dine brukere."
+
+#: web/admin/edit_idp.php:97
+msgid "General Information"
+msgstr "Generell informasjon"
+
+#: web/admin/edit_idp.php:101
+#, fuzzy
+msgid ""
+"Some properties are valid across all deployment profiles. This is the place "
+"where you can describe those properties in a fine-grained way. The solicited "
+"information is used as follows:"
+msgstr ""
+"Her kan du beskrive din institusjon på en detaljert måte. Informasjonen "
+"brukes som følger:"
+
+#: web/admin/edit_idp.php:103
+msgid ""
+"<strong>Logo</strong>: When you submit a logo, we will embed this logo into "
+"all installers where a custom logo is possible. We accept any image format, "
+"but for best results, we suggest SVG. If you don't upload a logo, we will "
+"use the generic logo instead (see top-right corner of this page)."
+msgstr ""
+"<strong>Logo</strong>: Når du legger inn et logo, blir det innebygget i alle "
+"installasjonsprogram der  det er mulig. Vi akseptere alle bilde format, men "
+"anbefaler SVG for best mulig resultat. Om du ikke laster opp et logo bruker "
+"vi generisk logo istedet (se øvre høyre hjørne på denne siden)."
+
+#: web/admin/edit_idp.php:104
+#, php-format
+msgid ""
+"<strong>Name</strong>: The %s may have names in multiple languages. It is "
+"recommended to always populate at least the 'default/other' language, as it "
+"is used as a fallback if the system does not have a name in the exact "
+"language the user requests a download in."
+msgstr ""
+
+#: web/admin/edit_idp.php:115 web/lib/admin/UIElements.php:229
+msgid "Media Properties"
+msgstr "Medie egenskaper"
+
+#: web/admin/edit_idp.php:119
+#, php-format
+msgid ""
+"In this section, you define on which media %s should be configured on user "
+"devices."
+msgstr ""
+"In denne seksjonen definerer du på hvilke medie %s blir konfigurert på "
+"bruker enheter."
+
+#: web/admin/edit_idp.php:122
+msgid "Additional SSIDs:"
+msgstr "Tilleggs SSID'er:"
+
+#: web/admin/edit_idp.php:122
+msgid "SSIDs:"
+msgstr "SSID'er:"
+
+#: web/admin/edit_idp.php:129
+#, php-format
+msgid "We will always configure this SSID for WPA2/AES: %s."
+msgid_plural "We will always configure these SSIDs for WPA2/AES: %s."
+msgstr[0] "Vi konfigurerer alltid denne SSID'en for WPA2/AES: %s."
+msgstr[1] "Vi konfigurerer alltid disse SSID'ene for WPA2/AES: %s."
+
+#: web/admin/edit_idp.php:131
+msgid ""
+"They will also be configured for WPA/TKIP if the device supports multiple "
+"encryption types."
+msgstr ""
+"De vil også bli konfigurert for WPA/TKIP hvis enheten støtter flere typer "
+"kryptering."
+
+#: web/admin/edit_idp.php:133
+#, php-format
+msgid ""
+"It is also possible to define custom additional SSIDs with the options '%s' "
+"and '%s' below."
+msgstr ""
+"Det er også mulig å definere spesielle tilleggs SSID'er med opsjonene  '%s' "
+"og '%s' nedenfor."
+
+#: web/admin/edit_idp.php:135
+msgid "Please configure which SSIDs should be configured in the installers."
+msgstr ""
+"Vennligst konfigurer hvilke SSID'er som skal være med i "
+"installasjonsprogrammet."
+
+#: web/admin/edit_idp.php:137
+msgid ""
+"By default, we will only configure the SSIDs with WPA2/AES encryption. By "
+"using the '(with WPA/TKIP)' option you can specify that we should include "
+"legacy support for WPA/TKIP where possible."
+msgstr ""
+"Som standard vil SSID'ene kun konfigureres med WPA2/AES kryptering. Ved å "
+"bruke '(med WPA/TKIP)' opsjonen spesifiserer du at støtte for slik "
+"kryptering blir inkludert når det er mulig."
+
+#: web/admin/edit_idp.php:141
+msgid "Additional Hotspot 2.0 / Passpoint Consortia:"
+msgstr "Hotspot 2.0 / Passpoint tilleggs Consortia:"
+
+#: web/admin/edit_idp.php:141
+msgid "Hotspot 2.0 / Passpoint Consortia:"
+msgstr "Hotspot 2.0 / Passpoint Consortia:"
+
+#: web/admin/edit_idp.php:148
+#, php-format
+msgid "We will always configure this Consortium OI: %s."
+msgid_plural "We will always configure these Consortium OIs: %s."
+msgstr[0] "Følgende Consortium OIs vil alltid bli konfigurert: %s."
+msgstr[1] "Følgende Consortium OIs vil alltid bli konfigurert: %s."
+
+#: web/admin/edit_idp.php:150
+#, php-format
+msgid ""
+"It is also possible to define custom additional OIs with the option '%s' "
+"below."
+msgstr "Det er også mulig å definere ekstra OIs med valget '%s' under."
+
+#: web/admin/edit_idp.php:152
+msgid ""
+"Please configure which Consortium OIs should be configured in the installers."
+msgstr ""
+"Vennligst angi hvilke Consortium OIs som skal legges til i "
+"installasjonsprogrammene."
+
+#: web/admin/edit_idp.php:155
+msgid "Support for wired IEEE 802.1X:"
+msgstr "Støtte for kablet IEEE 802.1X:"
+
+#: web/admin/edit_idp.php:156
+msgid ""
+"If you want to configure your users' devices with IEEE 802.1X support for "
+"wired ethernet, please check the corresponding box. Note that this makes the "
+"installation process a bit more difficult on some platforms (Windows: needs "
+"administrator privileges; Apple: attempting to install a profile with wired "
+"support on a device without an active wired ethernet card will fail)."
+msgstr ""
+"Om du ønsker å konfigurere dine brukeres enheter med støtte for IEEE 802.1X "
+"på kablet ethernet, merk av i boks som angir dette. Merk at dette gjør "
+"installasjon litt vanskeligere på noen plattformer. (Windows: bruker må ha "
+"admin rettigheter; Apple: forsøk på å installere en profil med støtte for "
+"kablet nett uten et aktivt kablet ethernet kort vil ikke fungere.)"
+
+#: web/admin/edit_idp.php:158
+msgid "Removal of bootstrap/onboarding SSIDs:"
+msgstr "Fjerne bootstrap/onboarding SSIDs:"
+
+#: web/admin/edit_idp.php:159
+msgid ""
+"If you use a captive portal to distribute configurations, you may want to "
+"unconfigure/disable that SSID after the bootstrap process. With this option, "
+"the SSID will either be removed, or be defined as 'Only connect manually'."
+msgstr ""
+"Hvis du bruker en captiv portal for å distribuere konfigurasjoner vil du "
+"antagelig fjerne en slik SSID etter at profil / konfigurasjon er hentet. Med "
+"denne opsjonen vil en slik SSID enten bli fjernet eller definert som 'Kun "
+"manuell tilkobling'."
+
+#: web/admin/edit_idp.php:168
+msgid "Helpdesk Details for all users"
+msgstr "Brukerstøtte detaljer for alle brukere"
+
+#: web/admin/edit_idp.php:171
+msgid ""
+"This section can be used to upload specific Terms of Use for your users and "
+"to display details of how your users can reach your local helpdesk."
+msgstr ""
+
+#: web/admin/edit_idp.php:176
+#, fuzzy, php-format
+msgid ""
+"Do you provide helpdesk services for your users? If so, it would be nice if "
+"you would tell us the pointers to this helpdesk."
+msgstr ""
+"Om din IdP har en helpdesk for sine brukere, er det fint om du gir oss "
+"pekere til denne helpdesken. Noen installasjonsprogram kan angi denne "
+"informasjonen til brukere, om de står fast."
+
+#: web/admin/edit_idp.php:178
+#, fuzzy
+msgid ""
+"If you enter a value here, it will be added to the installers for all your "
+"users, and will be displayed on the download page. If you operate separate "
+"helpdesks for different user groups (we call this 'profiles') specify per-"
+"profile helpdesk information later in this wizard. If you operate no help "
+"desk at all, just leave these fields empty."
+msgstr ""
+"Om du oppgir er verdi her, blir den lagt til i alle installasjonsprogram for "
+"dine brukere, og den vil vises på nedlastningssiden. Om dere opererer med "
+"flere helpdesker for forskjellige brukergrupper (vi kaller det profiler) "
+"eller ikke har noen helpdesk (virkelig!), kan du la felter være blanke og "
+"valgfritt spesifisere per-profil helpdesk informasjon senere i denne "
+"veiviseren."
+
+#: web/admin/edit_idp.php:180
+#, php-format
+msgid ""
+"For %s deployments, providing at least a local e-mail contact is required."
+msgstr ""
+
+#: web/admin/edit_idp.php:180 web/admin/edit_idp.php:183
+msgid "This is the contact point for your end users' level 1 support."
+msgstr ""
+
+#: web/admin/edit_idp.php:183
+msgid "Providing at least a local support e-mail contact is required."
+msgstr ""
+
+#: web/admin/edit_idp.php:193
+#, php-format
+msgid ""
+"When you are sure that everything is correct, please click on %sContinue ..."
+"%s"
+msgstr "Når du er sikker på at alt er korrekt, klikk på %s Fortsett ...%s"
+
+#: web/admin/edit_idp_result.php:51
+#, php-format
+msgid "%s: IdP enrollment wizard (step 2 completed)"
+msgstr "%s: IdP innmelding's hjelper (trinn 2 ferdig)"
+
+#: web/admin/edit_idp_result.php:67
+#, php-format
+msgid "Submitted attributes for IdP '%s'"
+msgstr "Innsendte attributter for IdP '%s'"
+
+#: web/admin/edit_idp_result.php:89 web/admin/edit_idp_result.php:94
+msgid "(WPA2/AES and WPA/TKIP)"
+msgstr "(WPA2/AES og WPA/TKIP)"
+
+#: web/admin/edit_idp_result.php:89 web/admin/edit_idp_result.php:97
+msgid "(WPA2/AES)"
+msgstr "(WPA2/AES)"
+
+#: web/admin/edit_idp_result.php:107
+#, php-format
+msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
+msgstr ""
+"Installasjonsprofilene vil konfigurere følgende SSID'er: <strong>%s</strong>"
+
+#: web/admin/edit_idp_result.php:107
+msgid "SSIDs configured"
+msgstr "Konfigurerte SSID'er"
+
+#: web/admin/edit_idp_result.php:111
+#, php-format
+msgid "Your installers will configure wired interfaces."
+msgstr "Dine installasjonsprogram vil konfigurere kablede grensesnitt."
+
+#: web/admin/edit_idp_result.php:111
+msgid "Wired configured"
+msgstr "Kablet er konfigurert"
+
+#: web/admin/edit_idp_result.php:114
+msgid ""
+"We cannot generate installers because neither wireless SSIDs nor wired "
+"interfaces have been selected as a target!"
+msgstr ""
+"Vi kan ikke opprette installasjonsprogram da hverken trådløs SSID eller "
+"kablet grensesnitt er valgt for oppsett!"
+
+#: web/admin/edit_idp_result.php:133
+#, fuzzy, php-format
+msgid "Continue to %s properties"
+msgstr "Fortsett til brukeroversikt"
+
+#: web/admin/edit_idp_result.php:136
+#, php-format
+msgid ""
+"You did not submit an e-mail address. This is required for %s. Please go to "
+"the %s dashboard and edit your helpdesk settings to include a helpdesk e-"
+"mail address."
+msgstr ""
+
+#: web/admin/edit_idp_result.php:136
+#, fuzzy
+msgid "No support e-mail!"
+msgstr "Brukerstøtte: E-post"
+
+#: web/admin/edit_idp_result.php:141
+#, fuzzy
+msgid "Continue to RADIUS/EAP profile definition"
+msgstr "Fortsett til profil definisjon"
+
+#: web/admin/edit_profile.php:25
+#, php-format
+msgid "%s: IdP Enrollment Wizard (Step 3)"
+msgstr "%s: IdP påmedingsveiviser (Trinn 3)"
+
+#: web/admin/edit_profile.php:111
+msgid "Step 3: Defining a user group profile"
+msgstr "Trinn 3: Definere en brukergruppe profil"
+
+#: web/admin/edit_profile.php:113
+#, php-format
+msgid "Edit profile '%s' ..."
+msgstr "Rediger profil '%s' ..."
+
+#: web/admin/edit_profile.php:126
+msgid "General Profile properties"
+msgstr "Generelle profil egenskaper"
+
+#: web/admin/edit_profile.php:130
+msgid ""
+"We will now define a profile for your user group(s).  You can add as many "
+"profiles as you like by choosing the appropriate button on the end of the "
+"page. After we are done, the wizard is finished and you will be taken to the "
+"main IdP administration page."
+msgstr ""
+"Definer en profil for din(e) brukergruppe(r). Du kan legge til så mange "
+"profiler du vil ved å velge hensiktsmessig knapp nederst på siden. Når "
+"veiviseren er ferdig vil du ende opp på IdP administrators hovedside."
+
+#: web/admin/edit_profile.php:133
+msgid "Profile Name and RADIUS realm"
+msgstr "Profilnavn og RADIUS realm"
+
+#: web/admin/edit_profile.php:136
+msgid ""
+"First of all we need a name for the profile. This will be displayed to end "
+"users, so you may want to choose a descriptive name like 'Professors', "
+"'Students of the Faculty of Bioscience', etc."
+msgstr ""
+"Først trengs et profilnavn. Dette vil være synlig for sluttbrukere, så et "
+"beskrivende navn som 'Ansatte', 'Studenter' etc anbefales."
+
+#: web/admin/edit_profile.php:137
+msgid ""
+"Optionally, you can provide a longer descriptive text about who this profile "
+"is for. If you specify it, it will be displayed on the download page after "
+"the user has selected the profile name in the list."
+msgstr ""
+"Som en opsjon kan du legge til en lengre beskrivende tekst om hvem denne "
+"profilen er ment for. Om du oppgir en slik tekst, vil den vises på "
+"nedlastningssiden etter at brukeren har valgt profilnavnet i listen."
+
+#: web/admin/edit_profile.php:138
+msgid "You can also tell us your RADIUS realm. "
+msgstr "Kan du oppgi ditt RADIUS realm."
+
+#: web/admin/edit_profile.php:140
+#, php-format
+msgid ""
+"This is useful if you want to use the sanity check module later, which tests "
+"reachability of your realm in the %s infrastructure. "
+msgstr ""
+"Dette er til nytte om du senere vil bruke sanitetssjekk modulen, den tester "
+"nåbarhet for ditt realm i %s infrastrukturen."
+
+#: web/admin/edit_profile.php:142
+msgid ""
+"It is required to enter the realm name if you want to support anonymous "
+"outer identities (see below)."
+msgstr ""
+"Det er et krav at realm navn oppgis hvis du vil støtte anonyme ytre "
+"identiteter (se under)."
+
+#: web/admin/edit_profile.php:155
+msgid "Realm:"
+msgstr "Realm:"
+
+#: web/admin/edit_profile.php:192
+#, fuzzy
+msgid "Realm Options"
+msgstr "Globale EAP opsjoner"
+
+#: web/admin/edit_profile.php:196
+#, fuzzy, php-format
+msgid ""
+"Some installers support a feature called 'Anonymous outer identity'. If you "
+"don't know what this is, please read <a href='%s'>this article</a>."
+msgstr ""
+"Noen installasjonsprogram støtter 'Anonym ytre identitet'. Hvis du ikke "
+"kjenner til dette, vennligst les <a href='%s'>denne artikkelen</a>. Vil du "
+"at vi skal lage installasjonsprogram med anonyme ytre identiteter når dette "
+"er mulig? Du må fylle ut 'Realm' feltet over for at dette skal fungere."
+
+#: web/admin/edit_profile.php:197
+msgid ""
+"On some platforms, the installers can suggest username endings and/or verify "
+"the user input to contain the realm suffix."
+msgstr ""
+
+#: web/admin/edit_profile.php:198
+msgid ""
+"The realm check feature needs to know an outer ID which actually gets a "
+"chance to authenticate. If your RADIUS server lets only select usernames "
+"pass, it is useful to supply the information which of those (outer ID) "
+"username we can use for testing."
+msgstr ""
+
+#: web/admin/edit_profile.php:210
+msgid "Verify user input to contain realm suffix:"
+msgstr ""
+
+#: web/admin/edit_profile.php:224
+msgid "Prefill user input with realm suffix:"
+msgstr ""
+
+#: web/admin/edit_profile.php:234
+msgid "Enable Anonymous Outer Identity:"
+msgstr "Aktiver anonym ytre identitet:"
+
+#: web/admin/edit_profile.php:253
+msgid "Use special Outer Identity for realm checks:"
+msgstr ""
+
+#: web/admin/edit_profile.php:270
+msgid "Installer Download Location"
+msgstr "Installasjonsproram nedlastnings lokasjon"
+
+#: web/admin/edit_profile.php:274
+msgid ""
+"The CAT has a download area for end users. There, they will, for example, "
+"learn about the support pointers you entered earlier. The CAT can also "
+"immediately offer the installers for the profile for download. If you don't "
+"want that, you can instead enter a web site location where you want your "
+"users to be redirected to. You, as the administrator, can still download the "
+"profiles to place them on that page (see the 'Compatibility Matrix' button "
+"on the dashboard)."
+msgstr ""
+"CAT har et nedlastningsområde for sluttbrukere. Der kan de for eksempel lese "
+"støtte tekstene du oppgav tidligere. CAT kan tilby direkte nedlasting av "
+"installasjonsprogram i form av profiler. Om du ikke ønsker dette kan du "
+"oppgi en webside som du ønsker at brukere skal bli redirigert til. Du som "
+"administrator kan fremdeles laste ned profilene for å legge dem på ønsket "
+"webside (se 'Kompatibilitets matrise' knappen på dashbordet)."
+
+#: web/admin/edit_profile.php:280
+msgid "Redirect end users to own web page:"
+msgstr "Rediriger sluttbrukere til egen webside:"
+
+#: web/admin/edit_profile.php:293
+msgid "Supported EAP types"
+msgstr "Støttede EAP typer"
+
+#: web/admin/edit_profile.php:296
+msgid ""
+"Now, we need to know which EAP types your IdP supports. If you support "
+"multiple EAP types, you can assign every type a priority (1=highest). This "
+"tool will always generate an automatic installer for the EAP type with the "
+"highest priority; only if the user's device can't use that EAP type, we will "
+"use an EAP type further down in the list."
+msgstr ""
+"Vi måte vite hvilke EAP typer din IdP støtter. Om du støtter multiple EAP "
+"typer, kan du tildele hver type en prioritet (1=høyest). Dette verktøyet vil "
+"alltid lage et automatisk installasjonsprogram for EAP typen med høyeste "
+"prioritet; kun når brukerens enhet ikke kan benytte denne EAP typen vil det "
+"bli brukt en EAP type lengre ned på listen."
+
+#: web/admin/edit_profile.php:339
+msgid "EAP options inherited from Global level:"
+msgstr "EAP opsjoner som er kopiert fra globalt nivå:"
+
+#: web/admin/edit_profile.php:344
+#, php-format
+msgid "(%dx) %s"
+msgstr "(%dx) %s"
+
+#: web/admin/edit_profile.php:372
+msgid "Supported EAP types for this profile"
+msgstr "Støttede EAP typer i denne profilen"
+
+#: web/admin/edit_profile.php:386
+msgid ""
+"Use \"drag &amp; drop\" to mark an EAP method and move it to the supported "
+"(green) area. Prioritisation is done automatically, depending on where you "
+"\"drop\" the method."
+msgstr ""
+"Bruk \"dra &amp; slipp\" for å markere en EAP metode og flytte den til "
+"støttet (grønt) område. Prioritering gjøres automagisk, avhengig av hvor du "
+"\"slipper\" metoden. "
+
+#: web/admin/edit_profile.php:394
+msgid "Unsupported EAP types"
+msgstr "Ikke støttede EAP typer"
+
+#: web/admin/edit_profile.php:447
+msgid "Helpdesk Details for this profile"
+msgstr "Kundestøtte detaljer for denne profilen"
+
+#: web/admin/edit_profile.php:448
+msgid "EAP Details for this profile"
+msgstr "EAP detaljer for denne profilen"
+
+#: web/admin/edit_profile.php:449
+#, fuzzy
+msgid "Media Properties for this profile"
+msgstr "Kundestøtte detaljer for denne profilen"
+
+#: web/admin/edit_profile.php:457
+#, php-format
+msgid ""
+"The option %s is already defined IdP-wide. If you set it here on profile "
+"level, this setting will override the IdP-wide one."
+msgid_plural ""
+"The options %s are already defined IdP-wide. If you set them here on profile "
+"level, these settings will override the IdP-wide ones."
+msgstr[0] ""
+"Denne opsjonen %s er allerede definert globalt for IdP'en. Om du setter den "
+"her i profilen, vil dette overstyre den globale settingen."
+msgstr[1] ""
+"Disse opsjonene %s er allerede definert globalt for IdP'en. Om du setter dem "
+"her i profilen, vil dette overstyre de globale settingene."
+
+#: web/admin/edit_profile.php:467
+msgid ""
+"When you are sure that everything is correct, please click on 'Save data' "
+"and you will be taken to your IdP Dashboard page."
+msgstr ""
+"Når du er sikker på at alt er korrekt, klikk 'Lagre data' og du ender opp i "
+"din IdP Dashbord side,"
+
+#: web/admin/edit_profile_result.php:33
+#, php-format
+msgid "%s: Profile wizard (step 3 completed)"
+msgstr "%s: Profil veiviser (trinn 3 fullført)"
+
+#: web/admin/edit_profile_result.php:113
+msgid "Darn! Could not get a proper profile handle!"
+msgstr "Pokker! Kunne ikke håndtere profilen korrekt!"
+
+#: web/admin/edit_profile_result.php:117
+msgid "Submitted attributes for this profile"
+msgstr "Oppgitte attributter for denne profilen"
+
+#: web/admin/edit_profile_result.php:124
+#, php-format
+msgid "Realm: <strong>%s</strong>"
+msgstr "Realm: <strong>%s</strong>"
+
+#: web/admin/edit_profile_result.php:131
+msgid "Anonymous Outer Identities cannot be turned on: realm is missing!"
+msgstr "Anonym ytre identitet kan ikke slås på: realm mangler!"
+
+#: web/admin/edit_profile_result.php:134
+#, php-format
+msgid ""
+"Anonymous Identity support is <strong>%s</strong>, the anonymous outer "
+"identity is <strong>%s</strong>"
+msgstr ""
+"Anonym identitet støtte er <strong>%s</strong>, den anonyme ytre identitet "
+"er <strong>%s</strong>"
+
+#: web/admin/edit_profile_result.php:134 web/admin/edit_profile_result.php:146
+msgid "ON"
+msgstr "På"
+
+#: web/admin/edit_profile_result.php:138
+#, php-format
+msgid "Anonymous Identity support is <strong>%s</strong>"
+msgstr "Anonym identitets støtte er <strong>%s</strong>"
+
+#: web/admin/edit_profile_result.php:138
+msgid "OFF"
+msgstr "Av"
+
+#: web/admin/edit_profile_result.php:143 web/admin/edit_profile_result.php:155
+#, fuzzy
+msgid "Realm check username cannot be configured: realm is missing!"
+msgstr "Anonym ytre identitet kan ikke slås på: realm mangler!"
+
+#: web/admin/edit_profile_result.php:146
+#, fuzzy, php-format
+msgid ""
+"Special username for realm check is <strong>%s</strong>, the value is "
+"<strong>%s</strong>"
+msgstr ""
+"Anonym identitet støtte er <strong>%s</strong>, den anonyme ytre identitet "
+"er <strong>%s</strong>"
+
+#: web/admin/edit_profile_result.php:150
+msgid "No special username for realm checks is configured."
+msgstr ""
+
+#: web/admin/edit_profile_result.php:159
+#, php-format
+msgid "and the input field will be prefilled with '<strong>@%s</strong>'."
+msgstr ""
+
+#: web/admin/edit_profile_result.php:163
+#, php-format
+msgid ""
+"Where possible, username inputs will be <strong>verified to end with @%s</"
+"strong>%s"
+msgstr ""
+
+#: web/admin/edit_profile_result.php:173
+msgid "Redirection can't be activated - you did not specify a target location!"
+msgstr "Redirigering kan ikke aktiveres - du oppgav ikke mål lokasjon! "
+
+#: web/admin/edit_profile_result.php:175
+msgid ""
+"Redirection can't be activated - the target needs to be a complete URL "
+"starting with http:// or https:// !"
+msgstr ""
+
+#: web/admin/edit_profile_result.php:181
+msgid "Redirection is <strong>OFF</strong>"
+msgstr "Redirigering er <strong>AV</strong>"
+
+#: web/admin/edit_profile_result.php:205
+msgid "Supported EAP Type: "
+msgstr "Støtte EAP type:"
+
+#: web/admin/edit_profile_result.php:213
+#, php-format
+msgid ""
+"Supported EAP Type: <strong>%s</strong> is missing required information %s !"
+msgstr ""
+"Støttet EAP type: <strong>%s</strong> mangler nødvendig informasjon %s !"
+
+#: web/admin/edit_profile_result.php:213
+msgid ""
+"The EAP type was added to the profile, but you need to complete the missing "
+"information before we can produce installers for you."
+msgstr ""
+"EAP typen ble lagt til i profilen, men du må oppgi manglende informasjon før "
+"vi kan lage installasjonsprogram."
+
+#: web/admin/edit_profile_result.php:229
+msgid "Continue to Installer Fine-Tuning and Download"
+msgstr "Fortsett til Installasjonsprogram finjustering og nedlasting "
+
+#: web/admin/edit_silverbullet.php:205
+msgid "Insecure mail domain!"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:206
+#, php-format
+msgid ""
+"The mail domain of the mail address <strong>%s</strong> is not secure: some "
+"or all of the mail servers are not accepting encrypted connections (no "
+"consistent support for STARTTLS)."
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:207
+msgid ""
+"The invitation would need to be sent in cleartext across the internet, and "
+"can possibly be read and abused by anyone in transit."
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:208
+msgid "Do you want the system to send this mail anyway?"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:210
+msgid "DO NOT SEND"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:217
+msgid "Send anyway."
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:267
+#, php-format
+msgid "Managing %s users"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:303
+#, fuzzy, php-format
+msgid "Current %s users"
+msgstr "Gjeldende bruker attributter"
+
+#: web/admin/edit_silverbullet.php:306
+msgid "Assigned Realm"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:309
+msgid "Total number of active users allowed"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:312
+msgid "Number of active users"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:315
+msgid "Number of inactive users"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:325
+#, fuzzy
+msgid "The e-mail was sent successfully."
+msgstr "Epost invitasjon ble sendt"
+
+#: web/admin/edit_silverbullet.php:325
+msgid "E-mail OK."
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:328
+#, fuzzy
+msgid "The e-mail was NOT sent."
+msgstr "Epost invitasjon sent "
+
+#: web/admin/edit_silverbullet.php:328
+msgid "E-mail not OK."
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:331
+#, fuzzy
+msgid "The SMS was sent successfully."
+msgstr "Epost invitasjon ble sendt"
+
+#: web/admin/edit_silverbullet.php:331
+msgid "SMS OK."
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:334
+msgid "The SMS was NOT sent."
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:334
+msgid "SMS not OK."
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:337
+msgid "Only a fragment of the SMS was sent. You should re-send it."
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:337
+msgid "SMS Fragment."
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:345
+#, php-format
+msgid "Manage %s users"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:350 web/admin/overview_federation.php:116
+msgid "User"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:351
+#, fuzzy
+msgid "Token/Certificate details"
+msgstr "Tjenersertifikat detaljer:"
+
+#: web/admin/edit_silverbullet.php:352
+msgid "User/Token Expiry"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:353
+#, fuzzy
+msgid "Actions"
+msgstr "Lokasjon"
+
+#: web/admin/edit_silverbullet.php:382
+msgid "REVOKED"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:387
+msgid "EXPIRED"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:398
+#, fuzzy
+msgid "Device:"
+msgstr "Enhet"
+
+#: web/admin/edit_silverbullet.php:399
+#, fuzzy
+msgid "Serial Number:"
+msgstr "Serienummer:"
+
+#: web/admin/edit_silverbullet.php:400
+msgid "CN:"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:401
+msgid "Expiry:"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:402
+#, fuzzy
+msgid "Issued:"
+msgstr "Utgiver:"
+
+#: web/admin/edit_silverbullet.php:409
+msgid "Revoke"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:440
+msgid "Local mail client"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:448
+msgid "Send in SMS..."
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:452
+msgid "Copy to Clipboard"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:455
+msgid "Display QR code"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:462
+msgid "Expiry Date:"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:462
+msgid "Activations remaining:"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:462
+#, php-format
+msgid "%d of %d"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:498
+msgid "Deactivate User"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:506
+#, fuzzy
+msgid "New Invitation"
+msgstr "Trekk tilbake invitasjonen"
+
+#: web/admin/edit_silverbullet.php:509
+#, fuzzy
+msgid "Activations:"
+msgstr "Lokasjon"
+
+#: web/admin/edit_silverbullet.php:530
+#, php-format
+msgid ""
+"You need to acknowledge that the created accounts are still valid within the "
+"next %s days. If all accounts shown as active above are indeed still valid, "
+"please check the box below and push \"Save\". If any of the accounts are "
+"stale, please deactivate them by pushing the corresponding button before "
+"doing this."
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:538
+#, php-format
+msgid "I have verified that all configured users are still eligible for %s."
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:550 web/admin/edit_silverbullet.php:568
+#, fuzzy
+msgid "Add new user"
+msgstr "Legg til ny opsjon"
+
+#: web/admin/edit_silverbullet.php:553
+msgid "Import users from CSV file"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:560
+msgid ""
+"Please enter a username of your choice and user expiry date to create a new "
+"user:"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:577
+msgid ""
+"Comma separated values should be provided in CSV file: username, expiration "
+"date 'yyyy-mm-dd', number of tokens (optional):"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:581
+#, fuzzy
+msgid "Import users"
+msgstr "annen bruker"
+
+#. Appending terms of use popup
+#: web/admin/edit_silverbullet.php:598
+#, fuzzy, php-format
+msgid "%s - Terms of Use"
+msgstr "Bruksvilkår"
+
+#: web/admin/edit_silverbullet.php:605
+msgid "I have read and agree to the terms."
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:607
+msgid "Continue"
+msgstr ""
+
+#: web/admin/edit_user.php:17 web/admin/edit_user.php:26
+msgid "Editing User Attributes"
+msgstr "Redigerer bruker attributter"
+
+#: web/admin/edit_user.php:30
+msgid "Current User Attributes"
+msgstr "Gjeldende bruker attributter"
+
+#: web/admin/edit_user.php:39
+msgid "Your attributes"
+msgstr "Dine attributter"
+
+#: web/admin/edit_user_result.php:18
+msgid "User Attributes - Summary of submitted data"
+msgstr "Bruker attributter - oppsummering av angitte data"
+
+#. what are we supposed to do?
+#: web/admin/edit_user_result.php:22
+msgid ""
+"The page was called with insufficient data. Please report this as an error."
+msgstr "Siden ble kalt med utilstrekkelig data. Vennligst rapporter feilen."
+
+#: web/admin/edit_user_result.php:28
+msgid "Submitted attributes"
+msgstr "Angitte attributter"
+
+#: web/admin/edit_user_result.php:71
+msgid "Continue to user overview page"
+msgstr "Fortsett til brukeroversikt"
+
+#. Logout failed. Tell the user to close the browser.
+#: web/admin/logout_check.php:39
+msgid "Incomplete Logout"
+msgstr "Utlogging ikke komplett"
+
+#: web/admin/logout_check.php:40
+msgid ""
+"We were unable to log you out of all your sessions. To be completely sure "
+"that you are logged out, you need to close your web browser."
+msgstr ""
+"Du ble ikke logget av alle dine sesjoner. For å sikre at du er logget av må "
+"du stenge din web leser."
+
+#: web/admin/overview_federation.php:17
+#, fuzzy, php-format
+msgid "%s: %s Management"
+msgstr "%s: Brukeradministrasjon"
+
+#: web/admin/overview_federation.php:30 web/admin/overview_idp.php:50
+#, fuzzy, php-format
+msgid "%s Overview"
+msgstr "Brukeroversikt"
+
+#: web/admin/overview_federation.php:34 web/admin/overview_user.php:38
+msgid "Your Personal Information"
+msgstr "Din personlige informasjon"
+
+#: web/admin/overview_federation.php:39 web/admin/overview_user.php:43
+msgid "Unique Identifier"
+msgstr "Unik indentifikator"
+
+#: web/admin/overview_federation.php:44 web/admin/overview_user.php:48
+msgid "click to display"
+msgstr "klikk for å vise"
+
+#: web/admin/overview_federation.php:54
+#, fuzzy, php-format
+msgid "You are not a %s manager."
+msgstr "Du er ikke føderasjons administrator"
+
+#: web/admin/overview_federation.php:65
+#, fuzzy, php-format
+msgid "%s Properties: %s"
+msgstr "Generelle institusjonsegenskaper"
+
+#: web/admin/overview_federation.php:71
+msgid "Country"
+msgstr "Land"
+
+#: web/admin/overview_federation.php:95
+#, php-format
+msgid "%s Statistics: %s"
+msgstr ""
+
+#: web/admin/overview_federation.php:100
+msgid "IdPs Total"
+msgstr ""
+
+#: web/admin/overview_federation.php:101
+#, fuzzy
+msgid "Public Download"
+msgstr "Last ned"
+
+#: web/admin/overview_federation.php:113
+#, fuzzy
+msgid "Downloads"
+msgstr "Last ned"
+
+#: web/admin/overview_federation.php:114
+msgid "Admin"
+msgstr ""
+
+#: web/admin/overview_federation.php:137 web/admin/inc/manageAdmins.inc.php:95
+msgid "and <b>encrypted</b> to the mail domain"
+msgstr ""
+
+#: web/admin/overview_federation.php:140 web/admin/inc/manageAdmins.inc.php:98
+msgid "but <b>in clear text</b> to the mail domain"
+msgstr ""
+
+#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:103
+#, fuzzy, php-format
+msgid "The invitation email was sent successfully %s."
+msgstr "Epost invitasjon ble sendt"
+
+#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:103
+msgid "The invitation email was sent."
+msgstr "Epost invitasjon sent "
+
+#: web/admin/overview_federation.php:148 web/admin/inc/manageAdmins.inc.php:106
+#: web/admin/inc/overview_js.php:56 web/admin/inc/overview_js.php:111
+msgid "The invitation email could not be sent!"
+msgstr "Epost invitasjonen kunne ikke sendes!"
+
+#: web/admin/overview_federation.php:151 web/admin/inc/manageAdmins.inc.php:109
+#, fuzzy
+msgid "The invitation email address was malformed, no invitation was sent!"
+msgstr "Epost invitasjonen kunne ikke sendes!"
+
+#: web/admin/overview_federation.php:154
+msgid "Error: unknown result code of invitation!?!"
+msgstr "Feil: ukjent resultat kode for invitasjon!?!"
+
+#: web/admin/overview_federation.php:154
+msgid "Unknown result!"
+msgstr "Ukjent resultat!"
+
+#: web/admin/overview_federation.php:159
+#, php-format
+msgid "Need help? Refer to the <a href='%s'>%s manual</a>"
+msgstr ""
+
+#: web/admin/overview_federation.php:167
+msgid "Deployment Status"
+msgstr "Utrullingsstatus"
+
+#: web/admin/overview_federation.php:168 web/admin/overview_user.php:103
+#: web/admin/inc/manageDBLink.inc.php:149 web/lib/admin/UIElements.php:83
+#: web/lib/admin/UIElements.php:111
+#, fuzzy, php-format
+msgid "%s Name"
+msgstr "Institusjonsnavn"
+
+#: web/admin/overview_federation.php:174
+#, php-format
+msgid "%s Database Sync Status"
+msgstr "%s Database synk status"
+
+#: web/admin/overview_federation.php:180 web/admin/overview_user.php:103
+msgid "Administrator Management"
+msgstr "Administrator oppsett"
+
+#. / nomenclature for 'federation', federation name, nomenclature for 'inst'
+#: web/admin/overview_federation.php:189
+#, php-format
+msgid "The following %s are in your %s %s:"
+msgstr ""
+
+#: web/admin/overview_federation.php:225
+msgid "Manage DB Link"
+msgstr "Administrer DB link"
+
+#: web/admin/overview_federation.php:231
+msgid "Linked"
+msgstr "Linket"
+
+#: web/admin/overview_federation.php:235
+msgid "NOT linked"
+msgstr "IKKE tilknyttet"
+
+#: web/admin/overview_federation.php:250 web/admin/overview_user.php:139
+msgid "Add/Remove Administrators"
+msgstr "Legge til / fjerne administratorer"
+
+#: web/admin/overview_federation.php:263
+#, fuzzy, php-format
+msgid "Pending invitations in the %s:"
+msgstr "Ventende invitasjoner i din føderasjon:"
+
+#: web/admin/overview_federation.php:280
+msgid "Revoke Invitation"
+msgstr "Trekk tilbake invitasjonen"
+
+#: web/admin/overview_federation.php:299
+#, fuzzy, php-format
+msgid "Register a new %s!"
+msgstr "Registrer ny institusjon!"
+
+#: web/admin/overview_idp.php:28
+#, php-format
+msgid "%s: IdP Dashboard"
+msgstr "%s: IdP Dashbord"
+
+#: web/admin/overview_idp.php:52
+#, fuzzy, php-format
+msgid "%s general settings"
+msgstr "Felles IdP innstillinger"
+
+#: web/admin/overview_idp.php:57
+#, fuzzy, php-format
+msgid "%s download area QR code"
+msgstr "Institusjon nedlastningsområde QR kode"
+
+#: web/admin/overview_idp.php:86
+#, fuzzy, php-format
+msgid "Edit general %s details"
+msgstr "Endre bruker detaljer"
+
+#: web/admin/overview_idp.php:91
+#, fuzzy, php-format
+msgid ""
+"After deleting the %s, you can not recreate it yourself - you need a new "
+"invitation token from the %s administrator!"
+msgstr ""
+"Etter å ha slettet en IdP kan du ikke gjenopprette den selv - du trenger en "
+"ny invitasjon / token fra din føderasjonsadministrator!"
+
+#: web/admin/overview_idp.php:91
+#, fuzzy, php-format
+msgid "Do you really want to delete your %s %s?"
+msgstr "Sikker på at du vil slette din IdP %s?"
+
+#: web/admin/overview_idp.php:91
+#, fuzzy, php-format
+msgid "Delete %s"
+msgstr "Slett"
+
+#: web/admin/overview_idp.php:97
+#, fuzzy, php-format
+msgid ""
+"This action will delete all properties of the %s and start over the "
+"configuration from scratch. Do you really want to reset all settings of the "
+"%s %s?"
+msgstr ""
+"Dette vil slette alle egenskaper for din IdP og all konfigurasjon må legges "
+"inn på nytt. Sikker på at du vil nullstille alt for IdP %s?"
+
+#: web/admin/overview_idp.php:97
+#, fuzzy, php-format
+msgid "Reset all %s settings"
+msgstr "Nullstill alle IdP instillinger"
+
+#: web/admin/overview_idp.php:107
+msgid "Available Support actions"
+msgstr "Tilgjengelige brukerstøtte aksjoner"
+
+#: web/admin/overview_idp.php:112
+msgid "Check another realm's reachability"
+msgstr "Sjekk et annet realm's tilgjengelighet"
+
+#: web/admin/overview_idp.php:115 web/admin/overview_idp.php:125
+#: web/admin/overview_user.php:157
+msgid "Go!"
+msgstr "Gå!"
+
+#. SW: APPROVED
+#: web/admin/overview_idp.php:122
+#, fuzzy, php-format
+msgid "Check %s server status"
+msgstr "Sjekk status for tjener for Europeiske føderasjoner"
+
+#. no profiles yet.
+#: web/admin/overview_idp.php:136
+#, fuzzy, php-format
+msgid "There are not yet any profiles for your %s."
+msgstr "Din institusjon har ingen profiler ennå "
+
+#. no profiles yet.
+#: web/admin/overview_idp.php:139
+#, fuzzy, php-format
+msgid "Profiles for this %s"
+msgstr "Profiler for denne institusjonen"
+
+#: web/admin/overview_idp.php:162 web/admin/overview_idp.php:221
+msgid "Information needed!"
+msgstr "Informasjon trengs!"
+
+#: web/admin/overview_idp.php:170
+#, php-format
+msgid ""
+"You can create up to %d users. Their credentials will carry the name <strong>"
+"%s</strong>."
+msgstr ""
+
+#: web/admin/overview_idp.php:179
+msgid "Manage User Base"
+msgstr ""
+
+#: web/admin/overview_idp.php:187 web/admin/overview_idp.php:325
+msgid "User Downloads"
+msgstr "Bruker nedlastninger"
+
+#: web/admin/overview_idp.php:211
+msgid "<strong>EAP Types</strong> (in order of preference):"
+msgstr "<strong>EAP Typer</strong> (i foretrukket rekkefølge):"
+
+#: web/admin/overview_idp.php:218 web/lib/admin/UIElements.php:383
+msgid "OK"
+msgstr "OK"
+
+#: web/admin/overview_idp.php:237
+#, fuzzy
+msgid "Options on EAP Method/Device level are in effect."
+msgstr "Overstyringsopsjon på EAP metode nivå er aktivert. "
+
+#: web/admin/overview_idp.php:247
+msgid "Option override on profile level is in effect."
+msgstr "Overstyringsopsjon på profil nivå er aktivert. "
+
+#: web/admin/overview_idp.php:250
+msgid "The information in this profile is incomplete."
+msgstr "Informasjonen i profilen er ufullstendig"
+
+#: web/admin/overview_idp.php:254
+msgid "This profile is shown on the user download interface."
+msgstr "Profilen vises i bruker nedlastningssiden."
+
+#: web/admin/overview_idp.php:257
+#, php-format
+msgid ""
+"This profile is NOT shown on the user download interface, even though we "
+"have enough information to show. To enable the profile, add the attribute "
+"\"%s\" and tick the corresponding box."
+msgstr ""
+"Denne profilen vises IKKE i bruker nedlastnings grensesnittet, selv om det "
+"er nok informasjon til å vise den. For å aktivere profilen, legg til "
+"attributt \"%s\" og huk av korresponderende boks."
+
+#: web/admin/overview_idp.php:262
+#, php-format
+msgid "Profile: %s"
+msgstr "Profil: %s"
+
+#: web/admin/overview_idp.php:279
+msgid "The realm can only be checked if you configure the realm!"
+msgstr "Dette realm kan bare sjekkes om du konfigurerer det først!"
+
+#: web/admin/overview_idp.php:280
+msgid "Check realm reachability"
+msgstr "Sjekk realm tilgjengelighet"
+
+#: web/admin/overview_idp.php:285
+msgid "You have not fully configured any supported EAP types!"
+msgstr "Du har ikke konfigurert ferdig minst 1 støtte EAP type!"
+
+#: web/admin/overview_idp.php:286
+msgid "Installer Fine-Tuning and Download"
+msgstr "Installasjonsprogram finjustering og nedlasting "
+
+#: web/admin/overview_idp.php:295
+msgid "Edit"
+msgstr "Endre"
+
+#: web/admin/overview_idp.php:298
+#, php-format
+msgid "Do you really want to delete the profile %s?"
+msgstr "Sikker på at du vil slette profilen %s?"
+
+#: web/admin/overview_idp.php:299
+msgid "Delete"
+msgstr "Slett"
+
+#: web/admin/overview_idp.php:308
+msgid "User Download Link"
+msgstr "Bruker nedlastningslink"
+
+#: web/admin/overview_idp.php:354
+#, fuzzy, php-format
+msgid "Add %s profile ..."
+msgstr "Legg til ny profil ..."
+
+#: web/admin/overview_idp.php:367
+#, fuzzy
+msgid "Add new RADIUS/EAP profile ..."
+msgstr "Legg til ny profil ..."
+
+#: web/admin/overview_installers.php:17
+msgid "Device Compatibility matrix"
+msgstr "Kompatibilitetsmatrise"
+
+#: web/admin/overview_installers.php:37
+#, php-format
+msgid "Device compatiblity matrix for %s of %s "
+msgstr "Enhet kompatibilitetsmatrise for %s av %s"
+
+#: web/admin/overview_installers.php:41
+msgid "Device"
+msgstr "Enhet"
+
+#: web/admin/overview_installers.php:49
+msgid "EAP-Type-specific options..."
+msgstr "EAP-type-spesifikke opsjoner ..."
+
+#: web/admin/overview_installers.php:68
+msgid "Device-specific options..."
+msgstr "Enhets-spesifikke opsjoner ..."
+
+#: web/admin/overview_installers.php:80
+msgid "Download"
+msgstr "Last ned"
+
+#: web/admin/overview_installers.php:141
+msgid "Legend:"
+msgstr "Legend:"
+
+#: web/admin/overview_installers.php:143
+msgid "redirection is set"
+msgstr "redirigering er på"
+
+#: web/admin/overview_installers.php:144
+msgid "will be offered on download site"
+msgstr "vil bli tilgjengelig på nedlastningsside"
+
+#: web/admin/overview_installers.php:145
+msgid "configured, but not preferred EAP type"
+msgstr "konfigurert, men ingen foretrukket EAP type"
+
+#: web/admin/overview_installers.php:146
+msgid "incomplete configuration"
+msgstr "ufullstendig konfigurasjon"
+
+#: web/admin/overview_installers.php:147
+msgid "not supported by CAT"
+msgstr "ikke støttet av CAT"
+
+#: web/admin/overview_installers.php:151
+msgid "Footnotes:"
+msgstr "Fotnoter:"
+
+#: web/admin/overview_installers.php:160
+msgid "Return to dashboard"
+msgstr "Tilbake til dashbord"
+
+#: web/admin/overview_user.php:19
+#, php-format
+msgid "%s: User Management"
+msgstr "%s: Brukeradministrasjon"
+
+#: web/admin/overview_user.php:35
+msgid "User Overview"
+msgstr "Brukeroversikt"
+
+#: web/admin/overview_user.php:56
+msgid "Edit User Details"
+msgstr "Endre bruker detaljer"
+
+#: web/admin/overview_user.php:60
+#, fuzzy, php-format
+msgid "Click here for %s management tasks"
+msgstr "Klikk her for å administrere dine føderasjoner"
+
+#: web/admin/overview_user.php:63
+msgid "Click here to access the superadmin page"
+msgstr "Klikk her for aksess til superadmin siden"
+
+#: web/admin/overview_user.php:71
+#, php-format
+msgid "(Need help? Refer to the <a href='%s'>IdP administrator manual</a>)"
+msgstr ""
+
+#. / first parameter: number of Identity Providers; second param is the literal configured term for 'Identity Provider' (you may or may not be able to add a plural suffix for your locale)
+#: web/admin/overview_user.php:80
+#, fuzzy, php-format
+msgid "You are managing the following <span style='display:none'>%d </span>%s:"
+msgid_plural "You are managing the following <strong>%d</strong> %s:"
+msgstr[0] "Du er administrator for følgende institusjon:"
+msgstr[1] ""
+"Du er administrator for de følgende <strong>%d</strong> institusjoner:"
+
+#: web/admin/overview_user.php:103
+#, fuzzy, php-format
+msgid "Other admins of this %s"
+msgstr "Andre administratorer for denne institusjonen"
+
+#. / nomenclature 'fed', fed name, nomenclature 'inst'
+#: web/admin/overview_user.php:106
+#, php-format
+msgid "%s %s: %s list"
+msgstr ""
+
+#: web/admin/overview_user.php:135
+msgid "other user"
+msgid_plural "other users"
+msgstr[0] "annen bruker"
+msgstr[1] "andre brukere"
+
+#: web/admin/overview_user.php:146
+#, fuzzy, php-format
+msgid "You are not managing any %s."
+msgstr "Du administrerer ingen institusjoner."
+
+#: web/admin/overview_user.php:150
+#, fuzzy, php-format
+msgid ""
+"Please ask your %s administrator to invite you to become an %s administrator."
+msgstr ""
+"Spør din føderasjons administrator om å invitere deg til å bli institusjons "
+"administrator."
+
+#: web/admin/overview_user.php:154
+#, fuzzy, php-format
+msgid ""
+"Did you receive an invitation token to manage an %s? Please paste it here:"
+msgstr ""
+"Har du mottatt et invitasjonstoken for å administrere en institusjon? Lim "
+"den in her:"
+
+#: web/admin/overview_user.php:166
+#, fuzzy, php-format
+msgid "New %s Registration"
+msgstr "Trekk tilbake invitasjonen"
+
+#: web/admin/inc/displayQRcode.inc.php:31
+#, fuzzy
+msgid "Invitation Token QR Code"
+msgstr "Invitasjon sendt til:"
+
+#: web/admin/inc/manageAdmins.inc.php:46
+#, fuzzy, php-format
+msgid ""
+"You do not have the necessary privileges to alter administrators of this %s. "
+"In fact, you shouldn't have come this far!"
+msgstr ""
+"Du har ikke rettigheter til å endre administratorer for denne institusjonen. "
+"Faktisk burde du ikke ha kommet så langt!"
+
+#: web/admin/inc/manageAdmins.inc.php:84
+#, php-format
+msgid "Administrators for IdP '%s'"
+msgstr "Administratorer for IdP '%s'"
+
+#: web/admin/inc/manageAdmins.inc.php:119
+#, fuzzy, php-format
+msgid ""
+"You are the %s administrator. You can invite new administrators, who can in "
+"turn appoint further administrators on their own."
+msgstr ""
+"Du er føderasjonsadmin for denne IdP'en. Du kan invitere nye "
+"administratorer, som igjen kan oppnevne andre administratorer."
+
+#: web/admin/inc/manageAdmins.inc.php:119 web/lib/admin/UIElements.php:102
+#, fuzzy, php-format
+msgid "%s Administrator"
+msgstr "Administratorer"
+
+#: web/admin/inc/manageAdmins.inc.php:125
+#, fuzzy, php-format
+msgid ""
+"You are an administrator who was directly appointed by the %s administrator. "
+"You can appoint further administrators, but these can't in turn appoint any "
+"more administrators."
+msgstr ""
+"Du er en administrator for denne IdP'en og ble direkte oppnevnt av "
+"føderasjonsadmin. Du kan oppnevne flere administratorer, men disse kan ikke "
+"i sin tur oppnevne flere administratorer. "
+
+#: web/admin/inc/manageAdmins.inc.php:125
+#, fuzzy
+msgid "Directly Appointed Administrator"
+msgstr "Direkte oppnevnt IdP Administrator"
+
+#: web/admin/inc/manageAdmins.inc.php:138
+msgid "User without name"
+msgstr "Bruker uten navn"
+
+#: web/admin/inc/manageAdmins.inc.php:147
+#, php-format
+msgid "(originally invited as %s)"
+msgstr "(opprinnelig invitert som %s)"
+
+#: web/admin/inc/manageAdmins.inc.php:149
+msgid "(self-appointed)"
+msgstr "(selv-oppnevnt)"
+
+#: web/admin/inc/manageAdmins.inc.php:156
+msgid "Delete Administrator"
+msgstr "Slett administrator"
+
+#: web/admin/inc/manageAdmins.inc.php:170
+msgid "Pending invitations for this IdP"
+msgstr "Ventende invitasjoner for denne IdP"
+
+#: web/admin/inc/manageAdmins.inc.php:181
+#, fuzzy
+msgid "New administrator's email address(es) (comma-separated):"
+msgstr "Ny administrators epost adresse:"
+
+#: web/admin/inc/manageAdmins.inc.php:181
+msgid "Invite new administrator"
+msgstr "Inviter ny administrator"
+
+#: web/admin/inc/manageAdmins.inc.php:195
+#, fuzzy, php-format
+msgid "Take control of this %s"
+msgstr "Ta kontroll over denne institusjonen"
+
+#: web/admin/inc/manageAdmins.inc.php:202
+#: web/admin/inc/manageDBLink.inc.php:194
+#: web/admin/inc/manageNewInst.inc.php:116
+msgid "Close"
+msgstr "Lukk"
+
+#: web/admin/inc/manageDBLink.inc.php:43
+#, fuzzy, php-format
+msgid ""
+"You do not have the necessary privileges to manage the %s DB link state of "
+"this %s."
+msgstr ""
+"Du har ikke de nødvendige rettigheter til å administrere %s DB link status "
+"for denne institusjonen."
+
+#: web/admin/inc/manageDBLink.inc.php:76
+#, php-format
+msgid "%s Database Link Status for IdP '%s'"
+msgstr "%s database link status for IdP '%s' "
+
+#: web/admin/inc/manageDBLink.inc.php:85
+#, fuzzy, php-format
+msgid "This %s is linked to the %s database."
+msgstr "Denne institusjonen er lenket til %s database."
+
+#: web/admin/inc/manageDBLink.inc.php:86
+#, php-format
+msgid ""
+"The following information about the IdP is stored in the %s DB and %s DB:"
+msgstr "Følgende informasjon om IdP'en er lagret i %s DB og %s DB:"
+
+#: web/admin/inc/manageDBLink.inc.php:87
+#, php-format
+msgid "Information in <strong>%s Database</strong>"
+msgstr "Informasjon i <strong>%s Database</strong>"
+
+#: web/admin/inc/manageDBLink.inc.php:99 web/admin/inc/manageDBLink.inc.php:125
+#, fuzzy, php-format
+msgid "%s Name (%s)"
+msgstr "Institusjonsnavn"
+
+#: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/PageDecoration.php:33
+msgid "Unnamed User"
+msgstr "Bruker uten navn"
+
+#: web/admin/inc/manageDBLink.inc.php:110
+msgid "Administrator [invited as]"
+msgstr "Administrator [invitert som]"
+
+#: web/admin/inc/manageDBLink.inc.php:128
+msgid "Administrator email"
+msgstr "Administrator epost"
+
+#: web/admin/inc/manageDBLink.inc.php:133
+msgid "If this mapping is not correct any more, you can remove the link:"
+msgstr ""
+
+#: web/admin/inc/manageDBLink.inc.php:135
+msgid "Unlink"
+msgstr ""
+
+#: web/admin/inc/manageDBLink.inc.php:139
+#, fuzzy, php-format
+msgid "This %s is not yet linked to the %s database."
+msgstr "Denne institusjonen er ennå ikke lenket til %s databasen."
+
+#: web/admin/inc/manageDBLink.inc.php:140
+msgid ""
+"This means that its profiles are not made available on the user download "
+"page."
+msgstr ""
+"Det betyr at dens profiler ikke er gjort tilgjengelig på nedlastningssiden "
+"for brukere."
+
+#: web/admin/inc/manageDBLink.inc.php:141
+#, php-format
+msgid "You can link it to the %s database below."
+msgstr "Du kan linke den til %s databasen under."
+
+#: web/admin/inc/manageDBLink.inc.php:144
+#, fuzzy, php-format
+msgid ""
+"Please select an entity from the %s DB which corresponds to this CAT %s."
+msgstr ""
+"Velg en entitet fra %s databasen som korresponderer til denne CAT "
+"institusjonen."
+
+#: web/admin/inc/manageDBLink.inc.php:146
+#, php-format
+msgid ""
+"Particularly promising entries (names in CAT and %s DB are a 100%% match) "
+"are on top of the list."
+msgstr ""
+"Mest sannsynlige oppføringer (navn i CAT og %s DB er 100%% like) er øverst i "
+"listen."
+
+#: web/admin/inc/manageDBLink.inc.php:149
+msgid "Link to this entity?"
+msgstr "Lenke til denne entiteten?"
+
+#: web/admin/inc/manageDBLink.inc.php:149
+msgid "Administrators"
+msgstr "Administratorer"
+
+#: web/admin/inc/manageDBLink.inc.php:183
+#, php-format
+msgid "There is no single unmapped %s in the external database for this %s!"
+msgstr ""
+
+#: web/admin/inc/manageDBLink.inc.php:185
+msgid "Create Link"
+msgstr "Lag link"
+
+#: web/admin/inc/manageNewInst.inc.php:37
+#, fuzzy, php-format
+msgid "You do not have the necessary privileges to register new %ss."
+msgstr "Du har ikke de nødvendige rettigheter til å registrere nye IdP'er."
+
+#: web/admin/inc/manageNewInst.inc.php:44
+#, fuzzy, php-format
+msgid "%s - Register new %s"
+msgstr "%s - Registrer ny institusjon"
+
+#: web/admin/inc/manageNewInst.inc.php:47
+#, fuzzy, php-format
+msgid ""
+"On this page, you can add a new %s to your %s. Please fill out the form "
+"below to send out an email invitation to the new %s administrator."
+msgstr ""
+"På denne siden kan du legge til nye institusjoner i din føderasjon. Fyll inn "
+"skjemaet under for å sende ut epost invitasjon til den nye institusjonen's "
+"administrator"
+
+#: web/admin/inc/manageNewInst.inc.php:49
+#, fuzzy, php-format
+msgid ""
+"You can either register a known %s (as defined in the %s database) or create "
+"a totally new %s."
+msgstr ""
+"Du kan enten registrere en kjent IdP (som definert i %s database) eller "
+"opprette en helt ny IdP"
+
+#: web/admin/inc/manageNewInst.inc.php:50
+#, fuzzy, php-format
+msgid ""
+"The latter one is typically for an %s which is yet in a testing phase and "
+"therefore doesn't appear in the %s database yet."
+msgstr ""
+"Den siste typen er typisk for institusjoner som fremdeles er i en testfase "
+"og derfor ikke finnes i %s database ennå."
+
+#: web/admin/inc/manageNewInst.inc.php:60
+msgid "Existing IdP:"
+msgstr "Eksisterende IdP"
+
+#: web/admin/inc/manageNewInst.inc.php:65
+msgid "--- select IdP here ---"
+msgstr "-- velg IdP her --"
+
+#: web/admin/inc/manageNewInst.inc.php:83
+msgid "New IdP"
+msgstr "Ny IdP"
+
+#: web/admin/inc/manageNewInst.inc.php:86
+msgid "Name"
+msgstr "Navn"
+
+#: web/admin/inc/manageNewInst.inc.php:107
+msgid "Administrator's E-Mail:"
+msgstr "Administrator's epost adresse:"
+
+#: web/admin/inc/manageNewInst.inc.php:112
+msgid "Send invitation"
+msgstr "Send invitasjon"
+
+#.
+#. *******************************************************************************
+#. * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1
+#. * and GN4-2 consortia
+#. *
+#. * License: see the web/copyright.php file in the file structure
+#. *******************************************************************************
+#.
+#: web/admin/inc/overview_js.php:41 web/admin/inc/overview_js.php:98
+msgid "No email address provided"
+msgstr "Ingen epost adresse er oppgitt"
+
+#: web/admin/inc/overview_js.php:54 web/admin/inc/overview_js.php:109
+msgid "Invitation sent to:"
+msgstr "Invitasjon sendt til:"
+
+#: web/admin/inc/overview_js.php:83
+msgid "Mail address to invite:"
+msgstr "Invitere epostadresse:"
+
+#: web/admin/inc/sendinvite.inc.php:92
+#, fuzzy, php-format
+msgid ""
+"Something's wrong... you are a %s admin, but not for the %s the requested %s "
+"belongs to!"
+msgstr ""
+"Noe er feil ... du er føderasjonsadmin, men ikke for den føderasjonen den "
+"etterspurte institusjonen tilhører!"
+
+#: web/admin/inc/toggleRedirect.inc.php:90
+#, php-format
+msgid "device <strong>%s</strong>"
+msgstr "enhet <strong>%s</strong>"
+
+#: web/admin/inc/toggleRedirect.inc.php:100
+#, php-format
+msgid "EAP-Type <strong>%s</strong>"
+msgstr "EAP-Type <strong>%s</strong>"
+
+#: web/admin/inc/toggleRedirect.inc.php:107
+msgid "Fine-tuning options for "
+msgstr "Finjusteringsvalg for"
+
+#: web/lib/admin/AbstractMap.php:100 web/lib/admin/UIElements.php:84
+#, fuzzy
+msgid "Location"
+msgstr "lokaliserer"
+
+#: web/lib/admin/AbstractMap.php:104
+msgid ""
+"The user download interface (see <a href='../'>here</a>), uses geolocation "
+"to suggest possibly matching IdPs to the user. The more precise you define "
+"the location here, the easier your users will find you."
+msgstr ""
+"Nedlastningssiden for brukere (se <a href='../'>her</a>), bruker geolokasjon "
+"for å foreslå mulige IdP'er for brukere. Jo mer presist du definerer "
+"lokasjonen her, jo lettere vil brukerene finne dekning."
+
+#: web/lib/admin/AbstractMap.php:107
+msgid ""
+"<li>Drag the marker in the map to your place, or</li>\n"
+"<li>enter your street address in the field below for lookup, or</li>\n"
+"<li>use the 'Locate Me!' button</li>"
+msgstr ""
+"<li>Dra markøren på kartet til rett sted, eller </li>⏎ <li>oppgi gateadresse "
+"i feltet under, eller </li>⏎ <li>eller bruk 'Finn meg!' knappen</li>"
+
+#: web/lib/admin/AbstractMap.php:112
+msgid "We will use the coordinates as indicated by the marker for geolocation."
+msgstr "Vi bruker koordinatene som er indikert av markør for geolokasjon."
+
+#: web/lib/admin/AbstractMap.php:116
+msgid ""
+"You can enter an <strong>additional</strong> location here. You can see the "
+"already defined locations in the 'General Information' field."
+msgstr ""
+"Du kan oppgi <strong>ytterligere</strong> en lokasjon her. Du kan se "
+"allerede definerte lokasjoner i 'Generell informasjon' feltet."
+
+#: web/lib/admin/AbstractMap.php:127
+msgid "Latitude:"
+msgstr "Breddegrad:"
+
+#: web/lib/admin/AbstractMap.php:127
+msgid "Longitude:"
+msgstr "Lengdegrad:"
+
+#: web/lib/admin/MapGoogle.php:111
+msgid "This is location "
+msgstr "Dette er lokasjonen"
+
+#: web/lib/admin/MapGoogle.php:190 web/lib/admin/MapOpenLayers.php:210
+msgid "nothing entered in the address field"
+msgstr "uten innhold i adresse feltet"
+
+#: web/lib/admin/MapGoogle.php:210 web/lib/admin/MapOpenLayers.php:66
+msgid "locating"
+msgstr "lokaliserer"
+
+#: web/lib/admin/MapGoogle.php:320 web/lib/admin/MapOpenLayers.php:264
+msgid "Click to see location"
+msgstr "Klikk for å se lokasjon"
+
+#: web/lib/admin/MapGoogle.php:328 web/lib/admin/MapOpenLayers.php:268
+msgid "Address:"
+msgstr "Adresse:"
+
+#: web/lib/admin/MapGoogle.php:328 web/lib/admin/MapOpenLayers.php:268
+msgid "Find address"
+msgstr "Finn adresse"
+
+#: web/lib/admin/MapGoogle.php:328 web/lib/admin/MapNone.php:67
+#: web/lib/admin/MapOpenLayers.php:268
+msgid "Locate Me!"
+msgstr "Lokaliser meg!"
+
+#: web/lib/admin/MapOpenLayers.php:217
+msgid ""
+"Address not found, perhaps try another form, like putting the street number "
+"to the front."
+msgstr ""
+
+#: web/lib/admin/OptionDisplay.php:148
+#, php-format
+msgid ""
+"This attribute can be set if you want to configure an additional SSID "
+"besides the default SSIDs for %s. It is almost always a bad idea not to use "
+"the default SSIDs. The only exception is if you have premises with an "
+"overlap of the radio signal with another %s hotspot. Typical misconceptions "
+"about additional SSIDs include: I want to have a local SSID for my own "
+"users. It is much better to use the default SSID and separate user groups "
+"with VLANs. That approach has two advantages: 1) your users will configure "
+"%s properly because it is their everyday SSID; 2) if you use a custom name "
+"and advertise this one as extra secure, your users might at some point roam "
+"to another place which happens to have the same SSID name. They might then "
+"be misled to believe that they are connecting to an extra secure network "
+"while they are not."
+msgstr ""
+"Denne attributten benyttes om du vil konfigurere en SSID i tillegg til "
+"standard SSID'er for %s. Det er nesten alltid dårlig praksis å ikke bruke "
+"standard SSID'er. Eneste unntak er om du har overlappende radio dekning med "
+"en annen %s hotspot. Typiske misforståelser mht tilleggs SSID'er er: Jeg vil "
+"ha en lokal SSID for egne brukere. Det er mye bedre å bruke standard SSID og "
+"separere brukergrupper vha VLAN. Den metoden har 2 fordeler: 1) Dine brukere "
+"vil konfigurere %s korrekt når det er deres daglige SSID; 2) Om du bruker et "
+"tilpasset navn og annonserer den som spesielt sikker, kan brukerene dine på "
+"et senere tidspunkt komme til et sted som tilfeldigvis har samme SSID navn. "
+"De kan dermed komme til å tro at de kobler til et spesielt sikkert nettverk "
+"noe de faktisk ikke gjør."
+
+#: web/lib/admin/OptionDisplay.php:150
+#, php-format
+msgid ""
+"The format of this option is: IPv4|IPv6|hostname:port . Forcing your users "
+"through a content filter of your own is a significant invasion of user self-"
+"determination. It also has technical issues. Please throughly read the "
+"discussion at %s before specifying a proxy with this option."
+msgstr ""
+
+#: web/lib/admin/OptionDisplay.php:223
+msgid "select language"
+msgstr "velg språk"
+
+#: web/lib/admin/OptionDisplay.php:224 web/lib/admin/UIElements.php:151
+msgid "default/other languages"
+msgstr "standard/andre språk"
+
+#: web/lib/admin/OptionDisplay.php:295
+msgid "(default/other languages)"
+msgstr "(standard/andre språk)"
+
+#: web/lib/admin/OptionDisplay.php:330
+msgid "file content"
+msgstr "filinnhold"
+
+#. only modify in this one case
+#: web/lib/admin/OptionDisplay.php:341 web/lib/admin/UIElements.php:181
+msgid "on"
+msgstr "på"
+
+#: web/lib/admin/OptionDisplay.php:341 web/lib/admin/UIElements.php:181
+msgid "off"
+msgstr "av"
+
+#. / number of times attribute is present, and its name
+#. / Example: "5x Support E-Mail"
+#: web/lib/admin/OptionParser.php:203 web/lib/admin/OptionParser.php:208
+#, php-format
+msgid "%dx %s"
+msgstr "%dx %s"
+
+#: web/lib/admin/OptionParser.php:213
+#, php-format
+msgid ""
+"You did not set a 'default language' value for %s. This means we can only "
+"display this string for installers which are <strong>exactly</strong> in the "
+"language you configured. For the sake of all other languages, you may want "
+"to edit the profile again and populate the 'default/other' language field."
+msgstr ""
+"Du satt ikke et 'standard språk' for %s. Det betyr at vi kun kan vise denne "
+"strengen i installasjonsprogram som er  <strong>akkurat</strong> på det "
+"språket du konfigurerte. Av hensyn til alle andre språk, vil du kanskje "
+"redigere profilen og fylle i 'standard/andre' språk feltet. "
+
+#: web/lib/admin/PageDecoration.php:32
+msgid "You are:"
+msgstr ""
+
+#: web/lib/admin/PageDecoration.php:36
+#, fuzzy
+msgid "Go to your Profile page"
+msgstr "Fortsett til brukeroversikt"
+
+#: web/lib/admin/PageDecoration.php:37
+msgid "Logout"
+msgstr ""
+
+#: web/lib/admin/PageDecoration.php:39
+msgid "Start page"
+msgstr ""
+
+#: web/lib/admin/PageDecoration.php:60
+msgid "View this page in"
+msgstr ""
+
+#: web/lib/admin/PageDecoration.php:118
+#, fuzzy, php-format
+msgid "Administrator Interface - %s"
+msgstr "Administrator epost"
+
+#: web/lib/admin/PageDecoration.php:121
+#, fuzzy, php-format
+msgid "Administrator Interface - %s User Management"
+msgstr "Administrator oppsett"
+
+#: web/lib/admin/PageDecoration.php:124
+#, fuzzy
+msgid "Administrator Interface"
+msgstr "Administrator epost"
+
+#: web/lib/admin/PageDecoration.php:127
+#, fuzzy
+msgid "Management of User Details"
+msgstr "Endre bruker detaljer"
+
+#: web/lib/admin/PageDecoration.php:130
+#, fuzzy, php-format
+msgid "Administrator Interface - %s Management"
+msgstr "Administrator oppsett"
+
+#: web/lib/admin/PageDecoration.php:133
+#, fuzzy, php-format
+msgid "Welcome to %s"
+msgstr "Koblet til %s."
+
+#: web/lib/admin/PageDecoration.php:138
+msgid "CIC"
+msgstr ""
+
+#: web/lib/admin/PageDecoration.php:141
+msgid "Diagnostics"
+msgstr ""
+
+#: web/lib/admin/PageDecoration.php:223
+#, fuzzy, php-format
+msgid "%s Privacy Notice"
+msgstr "Medie egenskaper"
+
+#. some config elements are displayable. We need some dummies to
+#. translate the common values for them. If a deployment chooses a
+#. different wording, no translation, sorry
+#: web/lib/admin/UIElements.php:46
+msgid "National Roaming Operator"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:47
+#, fuzzy
+msgid "identity provider"
+msgstr "Oversikt over Identitetstilbydere"
+
+#: web/lib/admin/UIElements.php:48
+msgid "organisation"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:67
+msgid "SSID"
+msgstr "SSID"
+
+#: web/lib/admin/UIElements.php:68
+msgid "SSID (with WPA/TKIP)"
+msgstr "SSID (med WPA/TKIP)"
+
+#: web/lib/admin/UIElements.php:69
+msgid "HS20 Consortium OI"
+msgstr "HS20 Consortium OI"
+
+#: web/lib/admin/UIElements.php:72
+msgid "Additional SSID"
+msgstr "Tilleggs SSID"
+
+#: web/lib/admin/UIElements.php:73
+msgid "Additional SSID (with WPA/TKIP)"
+msgstr "Tilleggs SSID (med WPA/TKIP)"
+
+#: web/lib/admin/UIElements.php:76
+msgid "Additional HS20 Consortium OI"
+msgstr "HS20 tilleggs Consortium OI"
+
+#: web/lib/admin/UIElements.php:79
+msgid "Support: Web"
+msgstr "Brukerstøtte: Web"
+
+#: web/lib/admin/UIElements.php:80
+msgid "Support: EAP Types"
+msgstr "Brukerstøtte: EAP typer"
+
+#: web/lib/admin/UIElements.php:81
+msgid "Support: Phone"
+msgstr "Brukerstøtte: Telefon"
+
+#: web/lib/admin/UIElements.php:82
+#, fuzzy
+msgid "Support: E-Mail"
+msgstr "Brukerstøtte: Web"
+
+#: web/lib/admin/UIElements.php:85
+msgid "Logo URL"
+msgstr "Logo URL"
+
+#: web/lib/admin/UIElements.php:86
+msgid "Logo image"
+msgstr "Logo bilde"
+
+#: web/lib/admin/UIElements.php:87
+msgid "Configure Wired Ethernet"
+msgstr "Konfigurer kablet ethernet"
+
+#: web/lib/admin/UIElements.php:88
+msgid "Name (CN) of Authentication Server"
+msgstr "Navn (CN) på autentiseringstjener"
+
+#: web/lib/admin/UIElements.php:89
+msgid "Enable device assessment"
+msgstr "Aktiver vurdering av enhet"
+
+#: web/lib/admin/UIElements.php:90
+#, fuzzy
+msgid "Terms of Use"
+msgstr "Bruksvilkår"
+
+#: web/lib/admin/UIElements.php:91
+msgid "CA Certificate URL"
+msgstr "CA sertifikat URL"
+
+#: web/lib/admin/UIElements.php:92
+msgid "CA Certificate File"
+msgstr "CA sertifikat fil"
+
+#: web/lib/admin/UIElements.php:93
+msgid "Profile Display Name"
+msgstr "Profil Visningsnavn"
+
+#: web/lib/admin/UIElements.php:94
+msgid "Production-Ready"
+msgstr "Produksjons-klar"
+
+#: web/lib/admin/UIElements.php:95
+#, fuzzy
+msgid "Admin Accepted Terms of Use"
+msgstr "Bruksvilkår"
+
+#: web/lib/admin/UIElements.php:96
+msgid "Extra text on downloadpage for device"
+msgstr "Ekstra tekst på nedlastningsside for enhet"
+
+#: web/lib/admin/UIElements.php:97
+msgid "Redirection Target"
+msgstr "Redirigeringsmål"
+
+#: web/lib/admin/UIElements.php:98
+msgid "Extra text on downloadpage for EAP method"
+msgstr "Ekstra tekst på nedlastningsside for EAP metode"
+
+#: web/lib/admin/UIElements.php:99
+msgid "Turn on selection of EAP-TLS User-Name"
+msgstr "Slå på valg av EAP-TLS brukernavn"
+
+#: web/lib/admin/UIElements.php:100
+msgid "Profile Description"
+msgstr "Profil beskrivelse"
+
+#: web/lib/admin/UIElements.php:101
+msgid "Custom Installer Name Suffix"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:103
+msgid "Real Name"
+msgstr "Navn"
+
+#: web/lib/admin/UIElements.php:104
+msgid "E-Mail Address"
+msgstr "Epost adresse"
+
+#: web/lib/admin/UIElements.php:105
+msgid "Remove/Disable SSID"
+msgstr "Fjern/deaktiver SSID"
+
+#: web/lib/admin/UIElements.php:106
+msgid "Mandatory Content Filtering Proxy"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:107
+msgid "Custom CSS file for User Area"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:108
+#, php-format
+msgid "%s Logo"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:109
+msgid "Preferred Skin for User Area"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:110
+#, php-format
+msgid "Include %s branding in installers"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:112
+#, php-format
+msgid "%s Homepage"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:113
+#, php-format
+msgid "Custom text in %s Invitations"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:114
+#, php-format
+msgid "Enable %s"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:115
+#, php-format
+msgid "%s: Do not terminate EAP"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:116
+#, php-format
+msgid "%s: max users per profile"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:117
+#, php-format
+msgid "Mint %s with CA on creation"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:211
+#, fuzzy, php-format
+msgid "General %s details"
+msgstr "Endre bruker detaljer"
+
+#: web/lib/admin/UIElements.php:229
+msgid "Global Helpdesk Details"
+msgstr "Globale brukerstøtte detaljer"
+
+#. we didn't actually get a CA!
+#: web/lib/admin/UIElements.php:324
+#, fuzzy
+msgid "There was an error while retrieving the certificate from the database!"
+msgstr "Feil under prossessering av sertifikat!"
+
+#: web/lib/admin/UIElements.php:331
+msgid "There was an error processing the certificate!"
+msgstr "Feil under prossessering av sertifikat!"
+
+#: web/lib/admin/UIElements.php:338
+msgid "This is a <strong>SERVER</strong> certificate!"
+msgstr "Dette er et <strong>TJENER</strong> sertifikat!"
+
+#: web/lib/admin/UIElements.php:351
+msgid "Preview of logo file"
+msgstr "Forhåndsvisning av logo fil"
+
+#. we didn't actually get a file!
+#: web/lib/admin/UIElements.php:364
+#, fuzzy
+msgid "There was an error while retrieving the file from the database!"
+msgstr "Feil under prossessering av sertifikat!"
+
+#: web/lib/admin/UIElements.php:368
+msgid "File exists"
+msgstr "Filen finnes"
+
+#: web/lib/admin/UIElements.php:368
+msgid "Preview"
+msgstr "Forhåndsvisning"
+
+#: web/lib/admin/UIElements.php:384
+msgid "Remark"
+msgstr "Merk"
+
+#: web/lib/admin/UIElements.php:385
+msgid "Warning!"
+msgstr "Advarsel!"
+
+#: web/lib/admin/UIElements.php:386
+msgid "Error!"
+msgstr "Feil!"
+
+#~ msgid ""
+#~ "<strong>Terms of Use</strong>: Some installers support displaying text to "
+#~ "the user during installation time. If so, we will make that happen if you "
+#~ "upload an RTF file or plain text file to display."
+#~ msgstr ""
+#~ "<strong>Bruksvilkår</strong>: Noen installasjonsprogram har støtte for å "
+#~ "vise brukeren tekst under installasjonen. I så fall vil det skje om du "
+#~ "laster opp en RTF eller ren tekst fil for slik visning."
+
+#, fuzzy
+#~ msgid "Your %s %s contains the following %s list:"
+#~ msgstr "Du er administrator for følgende institusjon:"
+
+#, fuzzy
+#~ msgid "Overview of %s"
+#~ msgstr "Brukeroversikt"
+
+#, fuzzy
+#~ msgid "Name of the %s"
+#~ msgstr "Institusjonsnavn"
+
+#, fuzzy
+#~ msgid ""
+#~ "Please keep in mind that any profiles of such a new %s will only be made "
+#~ "available on the user download page after you have linked it to an entity "
+#~ "in the %s database (but they are otherwise fully functional)."
+#~ msgstr ""
+#~ "Vennligst merk at profiler for slike nye institusjoner kun vil være "
+#~ "tilgjengelig på bruker nedlastingssiden etter at du har knyttet dem til "
+#~ "en entitet i %s databasen (de er ellers fullt funksjonelle)."
+
+#, fuzzy
+#~ msgid "%s Invitation System"
+#~ msgstr "Invitasjon sendt til:"
+
+#, fuzzy
+#~ msgid "New Credential"
+#~ msgstr "Oppgi brukeropplysninger"
+
+#, fuzzy
+#~ msgid ""
+#~ "a %s of the %s %s \"%s\" has invited you to manage the %s together with "
+#~ "him."
+#~ msgstr ""
+#~ "en administrator for %s Identitets leverandør \"%s\" har invitert deg til "
+#~ "å administrere IdP'en sammen med ham. "
+
+#~ msgid "This invitation is valid for 24 hours from now, i.e. until %s."
+#~ msgstr "Denne invitasjonen er gyldig i 24 timer fra nå, altså fram til %s."
+
+#, fuzzy
+#~ msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
+#~ msgstr ""
+#~ "En %s operatør har invitert deg til å administrere den framtidige IdP \"%s"
+#~ "\" (%s). "
+
+#, fuzzy
+#~ msgid "a %s %s has invited you to manage the %s  \"%s\"."
+#~ msgstr "En %s operatør har invitert deg til å administrere IdP  \"%s\"."
+
+#~ msgid "Hello,"
+#~ msgstr "Hallo,"
+
+#, fuzzy
+#~ msgid ""
+#~ "To enlist as an administrator for that %s, please click on the following "
+#~ "link:"
+#~ msgstr "For å bli administrator for den IdP'en, klikk på følgende link: "
+
+#~ msgid ""
+#~ "If clicking the link doesn't work, you can also go to the %s "
+#~ "Administrator Interface at"
+#~ msgstr ""
+#~ "Hvis klikking på linken ikke fungerer, kan du gå til %s Administrator "
+#~ "grensesnitt på"
+
+#~ msgid "and enter the invitation token"
+#~ msgstr "og oppgi invitasjons token"
+
+#, fuzzy
+#~ msgid ""
+#~ "manually. Please do not reply to this mail; this is a send-only address."
+#~ msgstr ""
+#~ "manuelt. Vennligst ikke svar på denne eposten, adressen kan ikke motta "
+#~ "meldinger."
+
+#~ msgid "We wish you a lot of fun with the %s."
+#~ msgstr "Ha det moro med %s."
+
+#~ msgid ""
+#~ "Sincerely,\n"
+#~ "\n"
+#~ "Your friendly folks from %s Operations"
+#~ msgstr "Vennlig hilsen,⏎ ⏎ Oss på %s drift"
+
+#, fuzzy
+#~ msgid "%s administrator"
+#~ msgstr "Administratorer"
+
+#, fuzzy
+#~ msgid "%s: you have been invited to manage an %s"
+#~ msgstr "%s: du er invitert til å administrere en IdP"
+
+#, fuzzy
+#~ msgid "No NAPTR records"
+#~ msgstr "Dette realm har ingen NAPTR records."
+
+#, fuzzy
+#~ msgid "No associated NAPTR records"
+#~ msgstr "Dette realm har ingen NAPTR records."
+
+#, fuzzy
+#~ msgid "%d %s NAPTR records"
+#~ msgstr "Dette realms har %d %s NAPTR records."
+
+#, fuzzy
+#~ msgid "Profile Name"
+#~ msgstr "Profil Visningsnavn"
+
+#, fuzzy
+#~ msgid "DNS Checks"
+#~ msgstr "DNS sjekk"
+
+#, fuzzy
+#~ msgid "Authentication Server Status for all known federation members"
+#~ msgstr "Sjekk status for tjener for Europeiske føderasjoner"
+
+#, fuzzy
+#~ msgid "Return to federation overview"
+#~ msgstr "Oversikt over føderasjoner"
+
+#~ msgid "Sanity check for dynamic discovery of realms"
+#~ msgstr "Sjekk om dynamisk realm oppdagelse fungerer"
+
+#~ msgid ""
+#~ "You asked for a realm check, but we don't know the realm for this profile!"
+#~ msgstr "Du ba om en realm sjekk, men kjenner ikke realm for denne profilen!"
+
+#~ msgid "No valid realm name given, cannot execute any checks!"
+#~ msgstr "Oppgitt realm er ugyldig, kan ikke kjøre sjekker!"
+
+#~ msgid "STATIC"
+#~ msgstr "STATISK"
+
+#~ msgid "DYNAMIC"
+#~ msgstr "DYNAMISK"
+
+#~ msgid "PASS"
+#~ msgstr "OK"
+
+#~ msgid "FAIL"
+#~ msgstr "FEIL"
+
+#~ msgid "Client certificate:"
+#~ msgstr "Klient sertifikat:"
+
+#~ msgid "expected result: "
+#~ msgstr "Forventet resultat"
+
+#~ msgid "Server accepted this client certificate"
+#~ msgstr "Tjeneren aksepterte dette klient sertifikatet"
+
+#~ msgid "Server accepted this client certificate, but should not have"
+#~ msgstr ""
+#~ "Tjenren aksepterte dette klient sertifikatet, men burde ikke ha gjort det"
+
+#~ msgid "Server did not accept this client certificate"
+#~ msgstr "Tjeneren aksepterte ikke dette klient sertifikatet"
+
+#~ msgid "Server did not accept this client certificate - reason"
+#~ msgstr "Tjeneren aksepterte ikke dette klient sertifikatet - årsak"
+
+#~ msgid "Rest of tests for this CA skipped"
+#~ msgstr "Hoppet over resten av testene for denne CA"
+
+#~ msgid "You should update your list of accredited CAs"
+#~ msgstr "Du bør oppdatere listen over akkrediterte Ca'er"
+
+#~ msgid "Get it from here."
+#~ msgstr "Hent det her."
+
+#~ msgid "more"
+#~ msgstr "mer"
+
+#~ msgid "Show detailed information for all tests"
+#~ msgstr "Vis detaljert informasjon for alle tester"
+
+#~ msgid "Connection refused"
+#~ msgstr "Forbindelsen ble avvist"
+
+#~ msgid "Server certificate"
+#~ msgstr "Tjener sertifikat"
+
+#~ msgid "Subject"
+#~ msgstr "Subjekt"
+
+#~ msgid "Issuer"
+#~ msgstr "Utgiver"
+
+#~ msgid "SubjectAltName"
+#~ msgstr "SubjektAltNavn"
+
+#~ msgid "Certificate policies"
+#~ msgstr "Sertifikat policies"
+
+#~ msgid "crlDistributionPoint"
+#~ msgstr "crlDistributionPoint"
+
+#~ msgid "authorityInfoAccess"
+#~ msgstr "autoritetInfoAdgang"
+
+#~ msgid "Hide detailed information for all tests"
+#~ msgstr "Gjem detaljert informasjon for alle tester"
+
+#~ msgid "Some required input is missing!"
+#~ msgstr "Nødvendig input mangler!"
+
+#~ msgid "elapsed time: %sms."
+#~ msgstr "brukt tid: %sms."
+
+#~ msgid "Subject:"
+#~ msgstr "Emne:"
+
+#~ msgid "Valid from:"
+#~ msgstr "Gyldig fra:"
+
+#~ msgid "Valid to:"
+#~ msgstr "Gyldig til:"
+
+#~ msgid "SHA1 fingerprint:"
+#~ msgstr "SHA1 fingerprint:"
+
+#~ msgid "Extensions"
+#~ msgstr "Tillegg"
+
+#~ msgid "show server certificate details"
+#~ msgstr "vis tjenersertifikat detaljer "
+
+#~ msgid "Realm testing for: %s"
+#~ msgstr "Tester realm: %s"
+
+#~ msgid "Static connectivity tests"
+#~ msgstr "Statiske konnektivitestester"
+
+#~ msgid "Dynamic connectivity tests"
+#~ msgstr "Dynamiske konnektivitetstester"
+
+#~ msgid "Live login tests"
+#~ msgstr "Live login tester"
+
+#, fuzzy
+#~ msgid "DNS chekcs"
+#~ msgstr "DNS sjekk"
+
+#~ msgid "Checking NAPTR existence:"
+#~ msgstr "Sjekker om NAPTR finnes:"
+
+#~ msgid "This realm has no NAPTR records."
+#~ msgstr "Dette realm har ingen NAPTR records."
+
+#~ msgid "This realm has NAPTR records, but none are associated with %s."
+#~ msgstr "Dette realm har NAPTR records, men ingen er assosiert med %s."
+
+#~ msgid "This realm has %d %s NAPTR records."
+#~ msgstr "Dette realms har %d %s NAPTR records."
+
+#~ msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
+#~ msgstr "Sjekker NAPTR korrekthet (flag = S and regex = {empty}):"
+
+#~ msgid "No issues found."
+#~ msgstr "Ingen problemer funnet."
+
+#~ msgid "At least one NAPTR with invalid content found!"
+#~ msgstr "Minst en NAPTR med ugyldig innhold ble funnet!"
+
+#~ msgid "Checking SRVs:"
+#~ msgstr "Sjekker SRV records:"
+
+#~ msgid "This check was skipped."
+#~ msgstr "Denne testen ble ikke utført."
+
+#~ msgid "%d host names discovered."
+#~ msgstr "%d hostnavn ble funnet."
+
+#~ msgid "Checking IP address resolution:"
+#~ msgstr "Sjekker IP adresse oppslag:"
+
+#~ msgid "At least one hostname could not be resolved!"
+#~ msgstr "Minst ett navn kunne ikke slås opp i DNS!"
+
+#~ msgid "%d IP addresses resolved."
+#~ msgstr "%d IP adresser ble funnet i DNS."
+
+#~ msgid "Realm is <strong>%s</strong> "
+#~ msgstr "Realm er  <strong>%s</strong>"
+
+#~ msgid "with no DNS errors encountered. Congratulations!"
+#~ msgstr "uten DNS feil. Gratulerer!"
+
+#~ msgid "but there were DNS errors! Check them!"
+#~ msgstr "men det er DNS feil! Sjekk dem!"
+
+#~ msgid ""
+#~ "You should re-run the tests after fixing the errors; more errors might be "
+#~ "uncovered at that point. The exact error causes are listed below."
+#~ msgstr ""
+#~ "Du bør kjøre tester på nytt etter at feil er rettet; flere feil kan dukke "
+#~ "opp etter endringene. Årsaker til feil er listet under. "
+
+#, fuzzy
+#~ msgid "Dynamic discovery test is not configured"
+#~ msgstr "Denne testen er ikke konfigurert."
+
+#~ msgid "Repeat static connectivity tests"
+#~ msgstr "Gjenta statiske konnetivitetstester"
+
+#~ msgid "STATIC connectivity tests"
+#~ msgstr "STATISKE konnektivitets tester"
+
+#~ msgid ""
+#~ "This check sends a request for the realm through various entry points of "
+#~ "the %s infrastructure. The request will contain the 'Operator-Name' "
+#~ "attribute, and will be larger than 1500 Bytes to catch two common "
+#~ "configuration problems.<br/>Since we don't have actual credentials for "
+#~ "the realm, we can't authenticate successfully - so the expected outcome "
+#~ "is to get an Access-Reject after having gone through an EAP conversation."
+#~ msgstr ""
+#~ "Denne testen sender en forespørsel til realm'et fra forskjellige steder i "
+#~ "%s infrastrukturen. Forespørselen vil inneholde 'Operator-Name' "
+#~ "attributten og vil være over 1500 bytes for å fange opp 2 vanlige "
+#~ "konfigurasjons problemer. <br/>Da vi ikke har en bruker i realm'et kan vi "
+#~ "ikke gjøre en vellykket autentisering - forventet utfall er derfor en "
+#~ "'Access-Reject' etter å ha gjennomført EAP forhandlinger.  "
+
+#~ msgid "Testing from: %s"
+#~ msgstr "Tester fra: %s"
+
+#~ msgid "testing..."
+#~ msgstr "tester..."
+
+#~ msgid "Repeat dynamic connectivity tests"
+#~ msgstr "Gjenta dynamiske konnektivitetstester"
+
+#~ msgid "DYNAMIC connectivity tests"
+#~ msgstr "DYNAMISKE konnektivitetstester"
+
+#~ msgid "Some errors were found during the tests, see below"
+#~ msgstr "Noen feil ble funnet under testing, se under"
+
+#~ msgid "All tests passed, congratulations!"
+#~ msgstr "Alle tester gikk bra, gratulerer!"
+
+#~ msgid "Checking server handshake..."
+#~ msgstr "Sjekker tjener ..."
+
+#~ msgid "Checking if certificates from  CAs are accepted..."
+#~ msgstr "Sjekker om sertikikater fra CA'er er akseptert..."
+
+#~ msgid ""
+#~ "A few client certificates will be tested to check if servers are "
+#~ "resistant to some certificate problems."
+#~ msgstr ""
+#~ "Noen klient sertifikat vil bli testet for å sjekke om tjenere er "
+#~ "motstandsdyktige for enkelte sertifikat problemer."
+
+#~ msgid "Live login test"
+#~ msgstr "Login test"
+
+#~ msgid ""
+#~ "If you enter an existing login credential here, you can test the actual "
+#~ "authentication from various checkpoints all over the world."
+#~ msgstr ""
+#~ "Om du angir ekte login informasjon her kan du teste faktisk autentisering "
+#~ "fra forskjellige punkter i hele verden."
+
+#~ msgid ""
+#~ "The test will use all EAP types you have set in your profile information "
+#~ "to check whether the right CAs and server names are used, and of course "
+#~ "whether the login with these credentials and the given EAP type actually "
+#~ "worked. If you have set anonymous outer ID, the test will use that."
+#~ msgstr ""
+#~ "Testen bruker alle EAP typer du har definert i profilen for å sjekke om "
+#~ "de rette CA'er og tjenernavn er brukt, og selvfølgelig om "
+#~ "brukerinformasjon og gitt EAP type faktisk fungerer. Om du har satt "
+#~ "anonym ytre identitet vil testen bruke den."
+
+#~ msgid ""
+#~ "Note: the tool purposefully does not offer you to save these credentials, "
+#~ "and they will never be saved in any way on the server side. Please use "
+#~ "only <strong>temporary test accounts</strong> here; permanently valid "
+#~ "test accounts in the wild are considered harmful!"
+#~ msgstr ""
+#~ "Merk: verktøyet tilbyr med hensikt ikke lagring av bruker opplysninger, "
+#~ "de blir aldri lagret på noen måte på tjenersiden. Bruk kun "
+#~ "<strong>midlertidig test konti</strong>; permanent gyldige test konti "
+#~ "ansees som skadelig."
+
+#~ msgid "Password-based EAP types"
+#~ msgstr "Passord-baserte EAP typer"
+
+#~ msgid "Real (inner) username:"
+#~ msgstr "Faktisk (indre) brukernavn:"
+
+#~ msgid "Anonymous outer ID (optional):"
+#~ msgstr "Anonym ytre ID (opsjon):"
+
+#~ msgid "Password:"
+#~ msgstr "Passord:"
+
+#~ msgid "Certificate-based EAP types"
+#~ msgstr "Sertifikat-baserte EAP typer"
+
+#~ msgid "Certificate file (.p12 or .pfx):"
+#~ msgstr "Sertifikat fil (.p12 eller .pfx):"
+
+#~ msgid "Certificate password, if any:"
+#~ msgstr "Sertifikat passord, hvis satt:"
+
+#~ msgid "Username, if different from certificate Subject:"
+#~ msgstr "Brukernavn, hvis forskjellig fra sertifikat Subject:"
+
+#, fuzzy
+#~ msgid "%s: Editing Federation '%s'"
+#~ msgstr "%s: Redigerer IdP '%s'"
+
+#, fuzzy
+#~ msgid "Editing Federation information for '%s'"
+#~ msgstr "Redigerer IdP informasjon for '%s'"
+
+#, fuzzy
+#~ msgid "Federation Properties"
+#~ msgstr "Medie egenskaper"
+
+#, fuzzy
+#~ msgid "Submitted attributes for federation '%s'"
+#~ msgstr "Innsendte attributter for IdP '%s'"
+
+#~ msgid "General Institution Properties"
+#~ msgstr "Generelle institusjonsegenskaper"
+
+#~ msgid "%s: Federation Management"
+#~ msgstr "%s: Føderasjons administrasjon"
+
+#~ msgid "Federation Overview"
+#~ msgstr "Oversikt over føderasjoner"
+
+#~ msgid "Institution Name"
+#~ msgstr "Institusjonsnavn"
+
+#, fuzzy
+#~ msgid ""
+#~ "Your federation %s contains the following institutions: (<a "
+#~ "href='%s'>Check their authentication server status</a>)"
+#~ msgstr "Din føderasjon %s inneholder følgende institusjoner:"
+
+#~ msgid "Edit IdP-wide settings"
+#~ msgstr "Editer felles IdP innstillinger"
+
+#~ msgid "Delete IdP"
+#~ msgstr "Slette IdP"
+
+#~ msgid "Read this <a href='%s'>tip</a>."
+#~ msgstr "Les dette tipset <a href='%s'></a>."
+
+#, fuzzy
+#~ msgid "Add eduroam-as-a-service profile ..."
+#~ msgstr "Legg til ny profil ..."
+
+#~ msgid "Institutions in federation %s"
+#~ msgstr "Institusjoner i føderasjon %s"
+
+#~ msgid ""
+#~ "Some properties of the connection attempt were sub-optimal; the list is "
+#~ "below."
+#~ msgstr ""
+#~ "Noen egenskaper i tilkoblingsforsøket var ikke optimale; se listen under."
+
+#~ msgid "Some configuration errors were observed; the list is below."
+#~ msgstr "Noen konfigurasjonsfeil ble funnet; se listen under."
+
+#~ msgid ""
+#~ "<strong>Test successful</strong>: a bidirectional RADIUS conversation "
+#~ "with multiple round-trips was carried out, and ended in an Access-Reject "
+#~ "as planned."
+#~ msgstr ""
+#~ "<strong>Vellykket test</strong>: toveis RADIUS dialog fungerte og endet "
+#~ "som forventet med reject. "
+
+#~ msgid ""
+#~ "<strong>Test partially successful</strong>: a bidirectional RADIUS "
+#~ "conversation with multiple round-trips was carried out, and ended in an "
+#~ "Access-Reject as planned. Some properties of the connection attempt were "
+#~ "sub-optimal; the list is below."
+#~ msgstr ""
+#~ "<strong>Testen delvis suksessfull</strong>: en to-veis RADIUS dialog ble "
+#~ "gjennomført og endte i en Access-Reject som forventet. Men "
+#~ "oppkoblingsegenskaper var ikke optimale; se listen under.  "
+
+#~ msgid "<strong>Test successful.</strong>"
+#~ msgstr "<strong>Vellykket test</strong>"
+
+#~ msgid "<strong>Test partially successful</strong>: authentication succeded."
+#~ msgstr "<strong>Delvis vellykket test</strong>: autentisering fungerte."
+
+#~ msgid "<strong>Test FAILED</strong>: authentication succeded."
+#~ msgstr "<strong>Test FEIL</strong>: autentisering fungerte."
+
+#~ msgid ""
+#~ "<strong>Test FAILED</strong>: the request was rejected. The most likely "
+#~ "cause is that you have misspelt the Username and/or the Password."
+#~ msgstr ""
+#~ "<strong>Test FEIL</strong>: forespørsel ble avvist. Mest sannsynlig årsak "
+#~ "er feilstavet brukernavn og/eller passord."
+
+#~ msgid "This method cannot be tested"
+#~ msgstr "Denne metoden kan ikke testes"
+
+#~ msgid ""
+#~ "<strong>Test FAILED</strong>: the request was rejected immediately, "
+#~ "without EAP conversation. Either you have misspelt the Username or there "
+#~ "is something seriously wrong with your server."
+#~ msgstr ""
+#~ "<strong>Test FEIL</strong>: forespørselen ble avvist umiddelbart, uten en "
+#~ "EAP dialog. Enten var brukernavn stavet feil ellers er noe alvorlig feil "
+#~ "med din RADIUS tjener."
+
+#~ msgid ""
+#~ "<strong>Test FAILED</strong>: no reply from the RADIUS server after %d "
+#~ "seconds. Either the responsible server is down, or routing is broken!"
+#~ msgstr ""
+#~ "<strong>Test FEIL</strong>: ikke svar fra RADIUS tjener etter %d "
+#~ "sekunder. Enten er tjeneren nede, ruting er feil eller det er manglende "
+#~ "åpninger i FW."
+
+#~ msgid ""
+#~ "<strong>Test FAILED</strong>: there was a bidirectional RADIUS "
+#~ "conversation, but it did not finish after %d seconds!"
+#~ msgstr ""
+#~ "<strong>Test FEIL</strong>: det var toveis RADIUS trafikk, men den ble "
+#~ "ikke ferdig i løpet av %d sekunder."
+
+#~ msgid "<strong>Test FAILED</strong>"
+#~ msgstr "<strong>Test FEIL</strong>: "
+
+#~ msgid ""
+#~ "<strong>Test partially successful</strong>: a bidirectional RADIUS "
+#~ "conversation with multiple round-trips was carried out, and ended in an "
+#~ "Access-Reject as planned."
+#~ msgstr ""
+#~ "<strong>Delvis vellykket test</strong>: en to-veis RADIUS dialog ble "
+#~ "gjennomført og endte med en Access-Reject som forventet."
+
+#~ msgid ""
+#~ "<strong>Test FAILED</strong>: the request was rejected immediately, "
+#~ "without EAP conversation. This is not necessarily an error: if the RADIUS "
+#~ "server enforces that outer identities correspond to an existing username, "
+#~ "then this result is expected (Note: you could configure a valid outer "
+#~ "identity in your profile settings to get past this hurdle). In all other "
+#~ "cases, the server appears misconfigured or it is unreachable."
+#~ msgstr ""
+#~ "<strong>Test MISLYKKET</strong>: Forespørsel ble avvist umiddelbart, uten "
+#~ "EAP dialog. Dette er ikke nødvendigvis en feil; hvis RADIUS tjeneren "
+#~ "krever at ytre identitet inneholder et eksisterende brukernavn, da er "
+#~ "dette resultatet som forventet. (Merk: Du kan konfigurere et gyldig "
+#~ "brukernavn i ytre identitet i din profil for å komme forbi dette "
+#~ "hinderet). I alle andre tilfelle synes tjeneren å være feil-konfigurert "
+#~ "eller den kan ikke nås."
+
+#~ msgid "unhandled error"
+#~ msgstr "ukjent feil"
+
+#~ msgid ""
+#~ "<strong>ERROR</strong>: the server presented a certificate which is from "
+#~ "an unknown authority!"
+#~ msgstr ""
+#~ "<strong>FEIL</strong>: tjeneren presenterte et sertifikat fra en ukjent "
+#~ "autoritet."
+
+#~ msgid "elapsed time: %d"
+#~ msgstr "Forløpt tid: %d"
+
+#~ msgid "Completed."
+#~ msgstr "Fullført."
+
+#~ msgid "crlDistributionPoints"
+#~ msgstr "crldistribusjonsPunkter"
+
+#~ msgid "Federation Administrator"
+#~ msgstr "Føderasjon administrator"
+
+#~ msgid "PEAP-MSCHAPv2"
+#~ msgstr "PEAP-MSCHAPv2"
+
+#~ msgid "TLS"
+#~ msgstr "TLS"
+
+#~ msgid "TTLS-PAP"
+#~ msgstr "TTLS-PAP"
+
+#~ msgid "TTLS-MSCHAPv2"
+#~ msgstr "TTLS-MSCHAPv2"
+
+#~ msgid "TTLS-GTC"
+#~ msgstr "TTLS-GTC"
+
+#~ msgid "FAST-GTC"
+#~ msgstr "FAST-GTC"
+
+#~ msgid "EAP-pwd"
+#~ msgstr "EAP-pwd"
+
+#, fuzzy
+#~ msgid "Federation Logo"
+#~ msgstr "Føderasjon"
+
+#, fuzzy
+#~ msgid "Federation Operator Name"
+#~ msgstr "Oversikt over føderasjoner"
+
+#~ msgid "Error, ROWID expected."
+#~ msgstr "Feil, forventet RadID"
+
+#~ msgid "General Institution Details"
+#~ msgstr "Institusjonsdetaljer"
+
+#~ msgid "Input validation error: "
+#~ msgstr "Input valideringsfeil"
+
+#~ msgid "Realm contains an @ sign!"
+#~ msgstr "Realm innholder et @ tegn!"
+
+#~ msgid "Realm begins with a . (dot)!"
+#~ msgstr "Realm starter med . (punktum)!"
+
+#~ msgid "Realm ends with a . (dot)!"
+#~ msgstr "Realm slutter med . (punktim)!"
+
+#~ msgid "Realm does not contain at least one . (dot)!"
+#~ msgstr "Realm inneholder ikke minst et . (punktum)!"
+
+#~ msgid "Realm contains spaces!"
+#~ msgstr "Realm inneholder blankt tegn!"
+
+#~ msgid "Wrong coordinate encoding!"
+#~ msgstr "Feil koordinat koding!"
+
+#~ msgid "Institution Name (%s)"
+#~ msgstr "Institusjons navn (%s)"
+
+#~ msgid "Federation"
+#~ msgstr "Føderasjon"
+
+#~ msgid ""
+#~ "Something's wrong... you want to create a new institution, but are not a "
+#~ "federation admin for the federation it should be in!"
+#~ msgstr ""
+#~ "Noe er feil ... du vil opprette en ny institusjon, men er ikke "
+#~ "føderasjons administrator for føderasjonen den tilhører!"
+
+#~ msgid "EAP details for all users"
+#~ msgstr "EAP detaljer for alle brukere"
+
+#~ msgid ""
+#~ "Most EAP methods need server-side authentication details, like the CA "
+#~ "certificate and/or server name(s) of your authentication servers. If all "
+#~ "the EAP methods you support work with the same CA and or Common Names of "
+#~ "servers, you can enter them here and they will be added as trust anchors "
+#~ "in all profiles. If the details differ per profile or per EAP-type, you "
+#~ "can also enter them in the individual profiles later."
+#~ msgstr ""
+#~ "De fleste EAP metoder trenger tjener-side autentiseringsdetaljer, som CA "
+#~ "sertifikat og/eller tjenernavn for deres autentiserings tjenere. Hvis "
+#~ "alle EAP metoder dere støtter fungerer ned den samme CA og/eller Common "
+#~ "Names på tjenere, kan du oppgi dem her og de vil bli lagt til som \"trust "
+#~ "anchors\" i alle profiler. Hvis detaljene er forskjellig pr profil eller "
+#~ "pr EAP type, kan du legge de til i forskjellige profiler senere."
+
+#~ msgid ""
+#~ "<strong>Note well: </strong>The server-side validation is a cornerstone "
+#~ "of %s; without it, users are subject to man-in-the-middle attacks! We "
+#~ "will not generate site installers without Trusted CA anchors and server "
+#~ "names."
+#~ msgstr ""
+#~ "<strong>Husk: </strong> Tjener-side validering er en grunnsten for %s; "
+#~ "uten den er brukere utsatt for \"man-in-the-middle\" angrep! Vi vil ikke "
+#~ "lage installasjonsprogram uten Trusted CA anchors og tjener navn."
+
+#~ msgid "Global EAP Options"
+#~ msgstr "Globale EAP opsjoner"
+
+#, fuzzy
+#~ msgid "This Federation identifier is not accessible!"
+#~ msgstr "Denne IdP identifikator er ikke tilgjengelig"
+
+#~ msgid "Value for IdP is not an integer!"
+#~ msgstr "Verdi for IdP er ikke et heltall!"
+
+#~ msgid "This IdP identifier is not accessible!"
+#~ msgstr "Denne IdP identifikator er ikke tilgjengelig"
+
+#~ msgid "Value for profile is not an integer!"
+#~ msgstr "Verdi for profil er ikke et heltall!"
+
+#~ msgid "This profile is not accessible!"
+#~ msgstr "Denne profilen er ikke tilgjengelig"
+
+#~ msgid "This device does not exist!"
+#~ msgstr "Denne enheten finnes ikke!"
+
+#~ msgid "The user identifier is not an ASCII string!"
+#~ msgstr "Bruker identifikator er ikke en ASCII streng!"
+
+#~ msgid "Token is not a hexadecimal string!"
+#~ msgstr "Token er ikke en hexadesimal streng!"
+
+#~ msgid "Coordinate is not a numeric value!"
+#~ msgstr "Koordinat er ikke en numerisk verdi!"
+
+#~ msgid "Coordinate is out of bounds. Which planet are you from?"
+#~ msgstr "Koordinat er utenfor grenseverdier. Hvilken planet er du fra?"
+
+#~ msgid "Invalid structure in multi-language attribute!"
+#~ msgstr "Ugyldig struktur i fler-språklig attributt!"
+
+#~ msgid "Unknown state of boolean option!"
+#~ msgstr "Ukjent status for boolean opsjon!"
+
+#~ msgid ""
+#~ "This page needs to be called either for EAP-Types OR for devices, not "
+#~ "both simultaneously!"
+#~ msgstr ""
+#~ "Denne siden må kalles enten for EAP-Typer ELLER for enheter, ikke begge "
+#~ "dele samtidig!"
+
+#~ msgid ""
+#~ "This page needs to be called either for EAP-Types OR for devices, but "
+#~ "none of the two were set!"
+#~ msgstr ""
+#~ "Denne siden må hentes enten for EAP-typer ELLER for enheter, men ingen av "
+#~ "de to var satt."
+
+#~ msgid ""
+#~ "Due to OpenSSL limitations, it is not possible to check IPv6 addresses at "
+#~ "this time."
+#~ msgstr ""
+#~ "Pga OpenSSL begrensninger er det ikke mulig å sjekke IPv6 adresser pt."
+
+#~ msgid "Anonymity Support"
+#~ msgstr "Anonymitets støtte"
+
+#~ msgid ""
+#~ "If you enable this feature, we will by default use the anonymous id "
+#~ "'anonymous@realm' in the device configurations. You can optionally change "
+#~ "that by typing in the local anonymisation part in the text field."
+#~ msgstr ""
+#~ "Hvis du aktiverer denne funksjonen, vil den anonyme id'en "
+#~ "'anonymous@realm' bli brukt til konfigurasjon av enheter. Du kan velge å "
+#~ "endre dette ved å skrive en annen anonymisering del i tekst feltet."
+
+#~ msgid "<strong>%s</strong> from <strong>%s</strong>"
+#~ msgstr "<strong>%s</strong> fra <strong>%s</strong>"
+
+#~ msgid "Login with <strong>%s</strong> from <strong>%s</strong> failed!"
+#~ msgstr ""
+#~ "Innlogging med <strong>%s</strong> fra <strong>%s</strong> mislyktes!"
+
+#~ msgid ""
+#~ "Could not check <strong>%s</strong> from <strong>%s</strong> - no "
+#~ "username submitted!"
+#~ msgstr ""
+#~ "Kunne ikke sjekke <strong>%s</strong> fra <strong>%s</strong> - "
+#~ "brukernavn manglet!"
+
+#~ msgid "Username missing"
+#~ msgstr "Brukernavn mangler"
+
+#~ msgid ""
+#~ "Could not check <strong>%s</strong> from <strong>%s</strong> - no "
+#~ "password submitted!"
+#~ msgstr ""
+#~ "Kunne ikke sjekke <strong>%s</strong> fra <strong>%s</strong> - passord "
+#~ "manglet!"
+
+#~ msgid "Password missing"
+#~ msgstr "Passord mangler"
+
+#~ msgid ""
+#~ "Sorry, we don't know how to handle the inner EAP method in <strong>%s</"
+#~ "strong> from <strong>%s</strong>!"
+#~ msgstr ""
+#~ "Beklager, vi kan ikke håndtere den indre EAP metoden i <strong>%s</"
+#~ "strong> fra <strong>%s</strong>!"
+
+#~ msgid "Unknown inner method"
+#~ msgstr "Ukjent indre metode"
+
+#~ msgid "Sorry... we don't know how to test the EAP type %s from %s."
+#~ msgstr "Beklager... vi kan ikke teste EAP typen %s fra %s."
+
+#~ msgid "Unknown outer method"
+#~ msgstr "Ukjent ytre metode"
+
+#~ msgid ""
+#~ "Your profile does not contain a valid realm name. We can only check the "
+#~ "validity of a realm if you let us know the realm name. Please consider "
+#~ "going to your profile properties and enter the realm name."
+#~ msgstr ""
+#~ "Profilen inneholder ikke et gyldig realm navn. Vi kan kun sjekke "
+#~ "gyldighet for et realm om du oppgir realmnavnet. Sjekk profil egenskapene "
+#~ "og oppgi et realmnavn."
+
+#~ msgid "Feedback"
+#~ msgstr "Tilbakemeldinger"

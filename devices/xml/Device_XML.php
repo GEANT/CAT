@@ -308,10 +308,6 @@ abstract class Device_XML extends \core\DeviceConfig {
         if ($realm === NULL) {
             return;
         }
-        $outerId = \core\common\Entity::getAttributeValue($attr, 'internal:anon_local_value', 0);
-        if ($outerId !== NULL) { 
-            $clientsidecredential->setProperty('OuterIdentity', $outerId . '@' . $realm);
-        }
         if (\core\common\Entity::getAttributeValue($attr, 'internal:verify_userinput_suffix', 0) !== 1) {
             return;
         }
@@ -330,15 +326,11 @@ abstract class Device_XML extends \core\DeviceConfig {
 
     private function setClientSideCredentials($eapParams) {
         $clientsidecredential = new ClientSideCredential();
-        $attr = $this->attributes;
-        $realm = \core\common\Entity::getAttributeValue($attr, 'internal:realm', 0);
-        if ($realm !== NULL) {
-            $outerId = \core\common\Entity::getAttributeValue($attr, 'internal:anon_local_value', 0);
-            if ($outerId !== NULL) {
-                $clientsidecredential->setProperty('OuterIdentity', $outerId . '@' . $realm);
-            }
-            $this->setClientSideRealm($clientsidecredential);
+        $outerId = $this->determineOuterIdString();
+        if ($outerId !== NULL) {
+            $clientsidecredential->setProperty('OuterIdentity', $outerId);
         }
+        $this->setClientSideRealm($clientsidecredential);
         $clientsidecredential->setProperty('EAPType', $eapParams['inner_methodID'] ? $eapParams['inner_methodID'] : $eapParams['methodID']);
                 
         // Client Certificate

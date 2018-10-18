@@ -75,6 +75,7 @@ Function InstallGEANTLink
   File "GEANTLink64.msi"
   nsArray::Set Delete_files "GEANTLink64.msi"
   DetailPrint "Install GEANTLink installer"
+  IfSilent +2
   MessageBox MB_OK  "<?php WindowsCommon::echo_nsi( _("An additional piece of software 'GEANTlink' needs to be installed. This installation requires Administrator rights; you will be prompted to give permission for that action."))?>"
   !insertmacro debug_cat 1 "Run GEANTLink installer"
   !insertmacro debug_cat 3 'Execute: msiexec.exe /i "$OUTDIR\GEANTLink$Platform.msi" REBOOT=Supress'
@@ -86,6 +87,7 @@ Function InstallGEANTLink
   Push 1
   Pop $rebootRequired
   ${Else}
+  IfSilent +2
   MessageBox MB_OK "<?php WindowsCommon::echo_nsi( _("Error installing GEANTLink.\$\\nEmbedded installer didn't complete succesfully."))?>"
   Quit
   ${EndIf}

@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
-"PO-Revision-Date: 2018-08-22 06:08+0000\n"
+"POT-Creation-Date: 2018-10-18 14:16+0200\n"
+"PO-Revision-Date: 2018-09-12 06:27+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: German (http://www.transifex.com/eduroam_devel/cat/language/"
 "de/)\n"
@@ -103,11 +103,14 @@ msgstr ""
 "Gerätekonfiguration auf."
 
 #: devices/Devices-template.php:331
-msgid "Android 6.0 Marshmallow"
-msgstr "Android 6.0 Marshmallow"
+#, fuzzy
+msgid "Android 9.0 Pie"
+msgstr "Android 4.3"
 
 #: devices/Devices-template.php:337 devices/Devices-template.php:353
-#: devices/Devices-template.php:369 devices/Devices-template.php:386
+#: devices/Devices-template.php:369 devices/Devices-template.php:385
+#: devices/Devices-template.php:401 devices/Devices-template.php:417
+#: devices/Devices-template.php:434
 #, php-format
 msgid ""
 "Before you proceed with installation on Android systems, please make sure "
@@ -121,31 +124,47 @@ msgstr ""
 "macht dann alle nötigen Einstellungen."
 
 #: devices/Devices-template.php:341 devices/Devices-template.php:357
-#: devices/Devices-template.php:373 devices/Devices-template.php:390
+#: devices/Devices-template.php:373 devices/Devices-template.php:389
+#: devices/Devices-template.php:405 devices/Devices-template.php:421
+#: devices/Devices-template.php:438
 msgid "as local download"
 msgstr "direkt hier zum Herunterladen"
 
 #: devices/Devices-template.php:347
+#, fuzzy
+msgid "Android 8.0 Oreo"
+msgstr "Android 6.0 Marshmallow"
+
+#: devices/Devices-template.php:363
+#, fuzzy
+msgid "Android 6.0 Nougat"
+msgstr "Android 4.4 KitKat"
+
+#: devices/Devices-template.php:379
+msgid "Android 6.0 Marshmallow"
+msgstr "Android 6.0 Marshmallow"
+
+#: devices/Devices-template.php:395
 msgid "Android 5.0 Lollipop"
 msgstr "Android 5.0 Lollipop"
 
-#: devices/Devices-template.php:363
+#: devices/Devices-template.php:411
 msgid "Android 4.4 KitKat"
 msgstr "Android 4.4 KitKat"
 
-#: devices/Devices-template.php:380
+#: devices/Devices-template.php:428
 msgid "Android 4.3"
 msgstr "Android 4.3"
 
-#: devices/Devices-template.php:396
+#: devices/Devices-template.php:444
 msgid "Android"
 msgstr "Android"
 
-#: devices/Devices-template.php:407
+#: devices/Devices-template.php:455
 msgid "EAP config"
 msgstr "EAP Konfiguration"
 
-#: devices/Devices-template.php:412
+#: devices/Devices-template.php:460
 #, php-format
 msgid ""
 "This option provides a generic EAP config XML file, which can be consumed by "
@@ -156,7 +175,7 @@ msgstr ""
 "Dateien werden von spezialisierten Anwendungen wie eduroamCAT für Android "
 "oder Linux benutzt. Dies ist eine experimentelle Option."
 
-#: devices/Devices-template.php:418
+#: devices/Devices-template.php:466
 msgid "Test"
 msgstr "Test"
 
@@ -251,57 +270,57 @@ msgstr ""
 msgid "(%d times each, because %s is installed for %d SSIDs)"
 msgstr " (%d mal, da %s für %d SSIDs installiert wird)"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:349
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:351
 #, php-format
 msgid "SSID %s"
 msgstr "SSID %s"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:350
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:352
 #, php-format
 msgid "%s configuration for network name %s"
 msgstr "%s Konfiguration für das Netzwerk %s"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:358
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:360
 msgid "Wired Network"
 msgstr "Kabelnetzwerk"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:359
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:361
 #, php-format
 msgid "%s configuration for wired network"
 msgstr "%s Konfiguration für Kabelnetzwerke"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:370
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:372
 msgid "Hotspot 2.0 Settings"
 msgstr "Hotspot 2.0 Konfiguration"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:371
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:373
 #, php-format
 msgid "%s Hotspot 2.0 configuration"
 msgstr "%s Hotspot 2.0 Konfiguration"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:426
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:428
 #, php-format
 msgid "This SSID should not be used after bootstrapping %s"
 msgstr ""
 "Dieses Netzwerk sollte nicht weiter genutzt werden, nachdem die Einrichtung "
 "von %s abgeschlossen ist"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:428
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:430
 msgid "Disabled WiFi network"
 msgstr "Deaktiviertes WLAN Netzwerk"
 
 #. we don't include the import password. It's displayed on screen, and should be input by the user.
 #. <key>Password</key>
 #. <string>" . $this->clientCert['password'] . "</string>
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:503
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:505
 msgid "eduroam user certificate"
 msgstr "eduroam Benutzer-Zertifikat"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:539
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:545
 msgid "Your Identity Providers Certification Authority"
 msgstr "CA Zertifikat Ihres Identitätsproviders"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:541
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:547
 msgid "Identity Provider's CA"
 msgstr "CA des IdP"
 
@@ -317,17 +336,17 @@ msgstr ""
 "enthält."
 
 #: devices/linux/Device_Linux.php:52
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "The installer is in the form of a Python script. It will try to configure %s "
 "under NetworkManager and if this is either not appropriate for your system "
 "or your version of NetworkManager is too old, a wpa_supplicant config file "
 "will be created instead."
 msgstr ""
-"Das Installationsprogramm ist ein Python Skript. Es wird versuchen, eduroam "
-"im NetworkManager zu installieren. Falls das System nicht durch "
-"NetworkManager verwaltet wird oder die Version zu alt ist, wird statt dessen "
-"eine wpa_supplicant Konfigurationsdatei angelegt."
+"Das Installationsprogramm ist ein Python Skript. Es wird versuchen, %s im "
+"NetworkManager zu installieren. Falls das System nicht durch NetworkManager "
+"verwaltet wird oder die Version zu alt ist, wird statt dessen eine "
+"wpa_supplicant Konfigurationsdatei angelegt. "
 
 #: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:115
 #, php-format
@@ -437,9 +456,8 @@ msgid "Continue?"
 msgstr "Weiter?"
 
 #: devices/linux/Device_Linux.php:97
-#, fuzzy
 msgid "This NetworkManager version is not supported"
-msgstr "Diese Network-Manager Version wird nicht unterstützt."
+msgstr "Diese NetworkManager Version wird nicht unterstützt."
 
 #: devices/linux/Device_Linux.php:98
 msgid "Certificate file not found, looks like a CAT error"
@@ -474,16 +492,15 @@ msgid "All files"
 msgstr "Alle Dateien"
 
 #: devices/linux/Device_Linux.php:106
-#, fuzzy
 msgid ""
 "NetworkManager configuration failed, but we may generate a wpa_supplicant "
 "configuration file if you wish. Be warned that your connection password will "
 "be saved in this file as clear text."
 msgstr ""
-"Die Konfiguration des Network-Manager ist fehlgeschlagen, aber es könnte "
+"Die Konfiguration von NetworkManager ist fehlgeschlagen, aber es könnte "
 "stattdessen eine Konfigurationsdatei für das Programm wpa_supplicant "
-"erstellt werden. Beachten Sie bitte, dass Ihr Passwort im Klartext in dieser "
-"Datei steht."
+"erstellt werden wenn Sie das wünschen. Beachten Sie bitte, dass Ihr Passwort "
+"im Klartext in dieser Datei steht."
 
 #: devices/linux/Device_Linux.php:107
 msgid "Write the file"
@@ -594,14 +611,15 @@ msgstr ""
 "in Zukunft sofort und vollautomatisch mit dem eduroam Netz verbunden werden."
 
 #: devices/ms/WindowsCommon.php:135
+#, fuzzy
 msgid ""
 "You will be required to enter the same credentials for each of the "
-"configured notworks:"
+"configured networks:"
 msgstr ""
 "Sie müssen für alle nachfolgend angegebenen Netzwerknamen die gleichen "
 "Zugangsdaten eingeben:"
 
-#: devices/ms/WindowsCommon.php:250 devices/ms/WindowsCommon.php:251
+#: devices/ms/WindowsCommon.php:253 devices/ms/WindowsCommon.php:254
 #, php-format
 msgid "%s installer for %s"
 msgstr "%s Installationsprogramm für %s"
@@ -855,7 +873,7 @@ msgstr "Installieren der TLS Anmeldedaten"
 msgid "installing credentials for profile $R1"
 msgstr "Installieren der Benutzerdaten für Profil $R1"
 
-#: devices/ms/Files/common.inc:1056 devices/ms/Files/geant_link.inc:107
+#: devices/ms/Files/common.inc:1056 devices/ms/Files/geant_link.inc:109
 msgid "Credentials installation problem"
 msgstr "Problem beim Installieren der Benutzerdaten"
 
@@ -998,7 +1016,7 @@ msgstr "Benutzerprofil"
 msgid "install program"
 msgstr "Programm installieren"
 
-#: devices/ms/Files/geant_link.inc:78
+#: devices/ms/Files/geant_link.inc:79
 msgid ""
 "An additional piece of software 'GEANTlink' needs to be installed. This "
 "installation requires Administrator rights; you will be prompted to give "
@@ -1008,7 +1026,7 @@ msgstr ""
 "werden Administratorrechte benötigt; Sie werden von Windows zur Erteilung "
 "dieser Rechte aufgefordert."
 
-#: devices/ms/Files/geant_link.inc:89
+#: devices/ms/Files/geant_link.inc:91
 msgid ""
 "Error installing GEANTLink.$\\nEmbedded installer didn't complete "
 "succesfully."
@@ -1016,7 +1034,7 @@ msgstr ""
 "Fehler bei der Installation von GEANTLink.$\\nDie Installation wurde nicht "
 "erfolgreich abgeschlossen."
 
-#: devices/ms/Files/geant_link.inc:99
+#: devices/ms/Files/geant_link.inc:101
 msgid "installing credentials for ${PROVIDERID}"
 msgstr "Installieren der Benutzerdaten für ${PROVIDERID}"
 

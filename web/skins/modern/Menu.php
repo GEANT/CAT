@@ -46,7 +46,7 @@ class Menu {
                     ['text' => _("FAQ"), 'catInfo' => ['faq', _("FAQ")]],
                     ['text' => _("Contact"), 'catInfo' => ['contact', _("FAQ")]],
                     ['text' => _("Diagnostics"), 'link' => '/diag/diag.php'], 
-                    ['text' => _("Documentation"), 'link' => '/apidoc' ],
+//                    ['text' => _("Documentation"), 'link' => '/apidoc' ],
                 ]],
             ['id' => 'manage',
                 'text' => _("Manage"), 'submenu' => [
@@ -98,6 +98,12 @@ class Menu {
         return "<li><a href='" . $itemLink . "'" . $itemClass . '>' . $itemText . "</a>";
     }
     
+    public function printMinimalMenu() {
+        $out = "\n<ul>\n";
+        $out .= $this->printMenuItem(_("Start page"), \core\CAT::getRootUrlPath());
+        $out .= '</ul>';
+        return($out);
+    }
 
     private $menu;
     private $visibility;

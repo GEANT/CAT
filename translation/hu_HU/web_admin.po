@@ -3,15 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# András Jákó <jako.andras@eik.bme.hu>, 2017
+# Janos Mohacsi <mohacsi@niif.hu>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
-"PO-Revision-Date: 2015-04-08 16:11+0000\n"
+"POT-Creation-Date: 2018-10-18 14:16+0200\n"
+"PO-Revision-Date: 2018-09-19 08:58+0000\n"
 "Last-Translator: Janos Mohacsi <mohacsi@niif.hu>\n"
-"Language-Team: Hungarian (http://www.transifex.com/projects/p/cat/language/"
-"hu/)\n"
+"Language-Team: Hungarian (http://www.transifex.com/eduroam_devel/cat/"
+"language/hu/)\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,21 +36,19 @@ msgid ""
 msgstr ""
 
 #: web/admin/action_enrollment.php:71
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Sorry... this token has already been used. The %s is already created. If you "
 "got the invitation from a mailing list, probably someone else used it before "
 "you."
-msgstr "Ezt a tokent sajnos már felhasználta valaki előtted."
+msgstr ""
 
 #: web/admin/action_enrollment.php:74
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Sorry... this token has expired. Invitation tokens are valid for 24 hours. "
 "The %s administrator can create a new one for you."
 msgstr ""
-"A meghívó tokenek csak 24 óráig érvényesek, és ez sajnos már lejárt. Kérj "
-"másikat a föderáció adminisztrátorától!"
 
 #: web/admin/action_enrollment.php:77
 msgid ""
@@ -61,20 +61,20 @@ msgstr ""
 
 #. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
 #: web/admin/edit_federation.php:34
-#, fuzzy, php-format
+#, php-format
 msgid "%s: Editing %s '%s'"
-msgstr "A '%s' föderáció intézményei"
+msgstr ""
 
 #. / nomenclature for federation, then actual federation name
 #: web/admin/edit_federation.php:49
-#, fuzzy, php-format
+#, php-format
 msgid "Editing %s information for '%s'"
-msgstr "Rejtsd el a tesztek részleteit"
+msgstr ""
 
 #: web/admin/edit_federation.php:53 web/admin/edit_federation.php:68
-#, fuzzy, php-format
+#, php-format
 msgid "%s Properties"
-msgstr "Föderáció"
+msgstr ""
 
 #: web/admin/edit_federation.php:56 web/admin/edit_idp.php:76
 #: web/lib/admin/UIElements.php:215
@@ -83,19 +83,19 @@ msgstr "Ország:"
 
 #: web/admin/edit_federation.php:73 web/admin/edit_idp.php:109
 #: web/admin/edit_idp.php:165 web/admin/edit_idp.php:190
-#: web/admin/edit_profile.php:147 web/admin/edit_profile.php:462
+#: web/admin/edit_profile.php:146 web/admin/edit_profile.php:461
 #: web/admin/edit_user.php:46 web/admin/inc/toggleRedirect.inc.php:124
 msgid "Add new option"
 msgstr ""
 
 #: web/admin/edit_federation.php:76 web/admin/edit_idp.php:195
-#: web/admin/edit_profile.php:469 web/admin/edit_user.php:51
+#: web/admin/edit_profile.php:468 web/admin/edit_user.php:51
 #: web/admin/inc/toggleRedirect.inc.php:127
 msgid "Save data"
 msgstr "Mentés"
 
 #: web/admin/edit_federation.php:76 web/admin/edit_idp.php:195
-#: web/admin/edit_profile.php:469 web/admin/edit_user.php:54
+#: web/admin/edit_profile.php:468 web/admin/edit_user.php:54
 msgid "Discard changes"
 msgstr "A változások elvetése"
 
@@ -135,9 +135,9 @@ msgid "Editing IdP information for '%s'"
 msgstr ""
 
 #: web/admin/edit_idp.php:73
-#, fuzzy, php-format
+#, php-format
 msgid "%s general properties"
-msgstr "Föderáció"
+msgstr ""
 
 #: web/admin/edit_idp.php:92
 #, php-format
@@ -392,20 +392,20 @@ msgstr ""
 msgid "%s: IdP Enrollment Wizard (Step 3)"
 msgstr ""
 
-#: web/admin/edit_profile.php:111
+#: web/admin/edit_profile.php:110
 msgid "Step 3: Defining a user group profile"
 msgstr ""
 
-#: web/admin/edit_profile.php:113
+#: web/admin/edit_profile.php:112
 #, php-format
 msgid "Edit profile '%s' ..."
 msgstr ""
 
-#: web/admin/edit_profile.php:126
+#: web/admin/edit_profile.php:125
 msgid "General Profile properties"
 msgstr ""
 
-#: web/admin/edit_profile.php:130
+#: web/admin/edit_profile.php:129
 msgid ""
 "We will now define a profile for your user group(s).  You can add as many "
 "profiles as you like by choosing the appropriate button on the end of the "
@@ -413,91 +413,91 @@ msgid ""
 "main IdP administration page."
 msgstr ""
 
-#: web/admin/edit_profile.php:133
+#: web/admin/edit_profile.php:132
 msgid "Profile Name and RADIUS realm"
 msgstr "Profil neve és a RADIUS tartomány"
 
-#: web/admin/edit_profile.php:136
+#: web/admin/edit_profile.php:135
 msgid ""
 "First of all we need a name for the profile. This will be displayed to end "
 "users, so you may want to choose a descriptive name like 'Professors', "
 "'Students of the Faculty of Bioscience', etc."
 msgstr ""
 
-#: web/admin/edit_profile.php:137
+#: web/admin/edit_profile.php:136
 msgid ""
 "Optionally, you can provide a longer descriptive text about who this profile "
 "is for. If you specify it, it will be displayed on the download page after "
 "the user has selected the profile name in the list."
 msgstr ""
 
-#: web/admin/edit_profile.php:138
+#: web/admin/edit_profile.php:137
 msgid "You can also tell us your RADIUS realm. "
 msgstr "Megadhatod a RADIUS tartományodat is."
 
-#: web/admin/edit_profile.php:140
+#: web/admin/edit_profile.php:139
 #, php-format
 msgid ""
 "This is useful if you want to use the sanity check module later, which tests "
 "reachability of your realm in the %s infrastructure. "
 msgstr ""
 
-#: web/admin/edit_profile.php:142
+#: web/admin/edit_profile.php:141
 msgid ""
 "It is required to enter the realm name if you want to support anonymous "
 "outer identities (see below)."
 msgstr ""
 
-#: web/admin/edit_profile.php:155
+#: web/admin/edit_profile.php:154
 msgid "Realm:"
 msgstr "Tartomány:"
 
-#: web/admin/edit_profile.php:192
+#: web/admin/edit_profile.php:191
 msgid "Realm Options"
 msgstr ""
 
-#: web/admin/edit_profile.php:196
+#: web/admin/edit_profile.php:195
 #, php-format
 msgid ""
 "Some installers support a feature called 'Anonymous outer identity'. If you "
 "don't know what this is, please read <a href='%s'>this article</a>."
 msgstr ""
 
-#: web/admin/edit_profile.php:197
+#: web/admin/edit_profile.php:196
 msgid ""
 "On some platforms, the installers can suggest username endings and/or verify "
 "the user input to contain the realm suffix."
 msgstr ""
 
-#: web/admin/edit_profile.php:198
+#: web/admin/edit_profile.php:197
 msgid ""
 "The realm check feature needs to know an outer ID which actually gets a "
 "chance to authenticate. If your RADIUS server lets only select usernames "
-"pass, it is useful to supply the inforamtion which of those (outer ID) "
+"pass, it is useful to supply the information which of those (outer ID) "
 "username we can use for testing."
 msgstr ""
 
-#: web/admin/edit_profile.php:210
+#: web/admin/edit_profile.php:209
 msgid "Verify user input to contain realm suffix:"
 msgstr ""
 
-#: web/admin/edit_profile.php:224
+#: web/admin/edit_profile.php:223
 msgid "Prefill user input with realm suffix:"
 msgstr ""
 
-#: web/admin/edit_profile.php:234
+#: web/admin/edit_profile.php:233
 msgid "Enable Anonymous Outer Identity:"
 msgstr ""
 
-#: web/admin/edit_profile.php:253
+#: web/admin/edit_profile.php:252
 msgid "Use special Outer Identity for realm checks:"
 msgstr ""
 
-#: web/admin/edit_profile.php:270
+#: web/admin/edit_profile.php:269
 msgid "Installer Download Location"
 msgstr ""
 
-#: web/admin/edit_profile.php:274
+#: web/admin/edit_profile.php:273
 msgid ""
 "The CAT has a download area for end users. There, they will, for example, "
 "learn about the support pointers you entered earlier. The CAT can also "
@@ -508,15 +508,15 @@ msgid ""
 "on the dashboard)."
 msgstr ""
 
-#: web/admin/edit_profile.php:280
+#: web/admin/edit_profile.php:279
 msgid "Redirect end users to own web page:"
 msgstr ""
 
-#: web/admin/edit_profile.php:293
+#: web/admin/edit_profile.php:292
 msgid "Supported EAP types"
 msgstr "Támogatott EAP típusok"
 
-#: web/admin/edit_profile.php:296
+#: web/admin/edit_profile.php:295
 msgid ""
 "Now, we need to know which EAP types your IdP supports. If you support "
 "multiple EAP types, you can assign every type a priority (1=highest). This "
@@ -525,44 +525,43 @@ msgid ""
 "use an EAP type further down in the list."
 msgstr ""
 
-#: web/admin/edit_profile.php:339
+#: web/admin/edit_profile.php:338
 msgid "EAP options inherited from Global level:"
 msgstr ""
 
-#: web/admin/edit_profile.php:344
+#: web/admin/edit_profile.php:343
 #, php-format
 msgid "(%dx) %s"
 msgstr "(%dx) %s"
 
-#: web/admin/edit_profile.php:372
+#: web/admin/edit_profile.php:371
 msgid "Supported EAP types for this profile"
 msgstr "Támogatott EAP típusok ehhez a profilhoz"
 
-#: web/admin/edit_profile.php:386
+#: web/admin/edit_profile.php:385
 msgid ""
 "Use \"drag &amp; drop\" to mark an EAP method and move it to the supported "
 "(green) area. Prioritisation is done automatically, depending on where you "
 "\"drop\" the method."
 msgstr ""
 
-#: web/admin/edit_profile.php:394
+#: web/admin/edit_profile.php:393
 msgid "Unsupported EAP types"
 msgstr "Nem támogatott EAP típusok"
 
-#: web/admin/edit_profile.php:447
+#: web/admin/edit_profile.php:446
 msgid "Helpdesk Details for this profile"
 msgstr ""
 
-#: web/admin/edit_profile.php:448
+#: web/admin/edit_profile.php:447
 msgid "EAP Details for this profile"
 msgstr ""
 
-#: web/admin/edit_profile.php:449
-#, fuzzy
+#: web/admin/edit_profile.php:448
 msgid "Media Properties for this profile"
-msgstr "Támogatott EAP típusok ehhez a profilhoz"
+msgstr ""
 
-#: web/admin/edit_profile.php:457
+#: web/admin/edit_profile.php:456
 #, php-format
 msgid ""
 "The option %s is already defined IdP-wide. If you set it here on profile "
@@ -573,7 +572,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: web/admin/edit_profile.php:467
+#: web/admin/edit_profile.php:466
 msgid ""
 "When you are sure that everything is correct, please click on 'Save data' "
 "and you will be taken to your IdP Dashboard page."
@@ -655,7 +654,7 @@ msgstr ""
 #: web/admin/edit_profile_result.php:175
 msgid ""
 "Redirection can't be activated - the target needs to be a complete URL "
-"staring with http:// or https:// !"
+"starting with http:// or https:// !"
 msgstr ""
 
 #: web/admin/edit_profile_result.php:181
@@ -783,14 +782,13 @@ msgstr ""
 msgid "Manage %s users"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:350 web/admin/overview_federation.php:116
+#: web/admin/edit_silverbullet.php:350 web/admin/overview_federation.php:117
 msgid "User"
 msgstr ""
 
 #: web/admin/edit_silverbullet.php:351
-#, fuzzy
 msgid "Token/Certificate details"
-msgstr "CA tanúsítvány fájl"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:352
 msgid "User/Token Expiry"
@@ -813,9 +811,8 @@ msgid "Device:"
 msgstr ""
 
 #: web/admin/edit_silverbullet.php:399
-#, fuzzy
 msgid "Serial Number:"
-msgstr "Polgári név"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:400
 msgid "CN:"
@@ -826,9 +823,8 @@ msgid "Expiry:"
 msgstr ""
 
 #: web/admin/edit_silverbullet.php:402
-#, fuzzy
 msgid "Issued:"
-msgstr "Kibocsátó"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:409
 msgid "Revoke"
@@ -868,9 +864,8 @@ msgid "Deactivate User"
 msgstr ""
 
 #: web/admin/edit_silverbullet.php:506
-#, fuzzy
 msgid "New Invitation"
-msgstr "Meghívó küldése"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:509
 msgid "Activations:"
@@ -917,9 +912,9 @@ msgstr ""
 
 #. Appending terms of use popup
 #: web/admin/edit_silverbullet.php:598
-#, fuzzy, php-format
+#, php-format
 msgid "%s - Terms of Use"
-msgstr "A felhasználás feltételei"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:605
 msgid "I have read and agree to the terms."
@@ -970,157 +965,201 @@ msgid ""
 "that you are logged out, you need to close your web browser."
 msgstr ""
 
-#: web/admin/overview_federation.php:17
+#: web/admin/overview_federation.php:18
 #, php-format
 msgid "%s: %s Management"
 msgstr ""
 
-#: web/admin/overview_federation.php:30 web/admin/overview_idp.php:50
-#, fuzzy, php-format
+#: web/admin/overview_federation.php:31 web/admin/overview_idp.php:50
+#, php-format
 msgid "%s Overview"
-msgstr "Áttekintés"
+msgstr ""
 
-#: web/admin/overview_federation.php:34 web/admin/overview_user.php:38
+#: web/admin/overview_federation.php:35 web/admin/overview_user.php:38
 msgid "Your Personal Information"
 msgstr "Személyes adataid"
 
-#: web/admin/overview_federation.php:39 web/admin/overview_user.php:43
+#: web/admin/overview_federation.php:40 web/admin/overview_user.php:43
 msgid "Unique Identifier"
 msgstr "Egyedi azonosító"
 
-#: web/admin/overview_federation.php:44 web/admin/overview_user.php:48
+#: web/admin/overview_federation.php:45 web/admin/overview_user.php:48
 msgid "click to display"
 msgstr "kattints a megjelenítéshez"
 
-#: web/admin/overview_federation.php:54
-#, fuzzy, php-format
+#: web/admin/overview_federation.php:55
+#, php-format
 msgid "You are not a %s manager."
-msgstr "Nem vagy föderációs adminisztrátor"
+msgstr ""
 
-#: web/admin/overview_federation.php:65
+#: web/admin/overview_federation.php:66
 #, php-format
 msgid "%s Properties: %s"
 msgstr ""
 
-#: web/admin/overview_federation.php:71
+#: web/admin/overview_federation.php:72
 msgid "Country"
 msgstr "Ország"
 
-#: web/admin/overview_federation.php:95
+#: web/admin/overview_federation.php:96
 #, php-format
 msgid "%s Statistics: %s"
 msgstr ""
 
-#: web/admin/overview_federation.php:100
+#: web/admin/overview_federation.php:101
 msgid "IdPs Total"
 msgstr ""
 
-#: web/admin/overview_federation.php:101
+#: web/admin/overview_federation.php:102
 msgid "Public Download"
 msgstr ""
 
-#: web/admin/overview_federation.php:113
+#: web/admin/overview_federation.php:114
 msgid "Downloads"
 msgstr ""
 
-#: web/admin/overview_federation.php:114
+#: web/admin/overview_federation.php:115
 msgid "Admin"
 msgstr ""
 
-#: web/admin/overview_federation.php:137 web/admin/inc/manageAdmins.inc.php:95
-msgid "and <b>encrypted</b> to the mail domain"
+#: web/admin/overview_federation.php:142 web/admin/inc/manageAdmins.inc.php:99
+msgid "It was sent with transport security (encryption)."
+msgid_plural "They were sent with transport security (encryption)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:102
+msgid "It was sent in clear text (no encryption)."
+msgid_plural "They were sent in clear text (no encryption)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: web/admin/overview_federation.php:148 web/admin/inc/manageAdmins.inc.php:105
+msgid ""
+"A subset of the mails were sent with transport encryption, the rest in clear "
+"text."
 msgstr ""
 
-#: web/admin/overview_federation.php:140 web/admin/inc/manageAdmins.inc.php:98
-msgid "but <b>in clear text</b> to the mail domain"
+#: web/admin/overview_federation.php:153 web/admin/inc/manageAdmins.inc.php:110
+msgid "The invitation email was sent successfully."
+msgid_plural "All invitation emails were sent successfully."
+msgstr[0] ""
+msgstr[1] ""
+
+#: web/admin/overview_federation.php:153 web/admin/inc/manageAdmins.inc.php:110
+msgid "Sent successfully."
 msgstr ""
 
-#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:103
+#: web/admin/overview_federation.php:156 web/admin/inc/manageAdmins.inc.php:113
+msgid "No invitation email could be sent!"
+msgstr ""
+
+#: web/admin/overview_federation.php:156 web/admin/inc/manageAdmins.inc.php:113
+msgid "Sending failure!"
+msgstr ""
+
+#: web/admin/overview_federation.php:162 web/admin/inc/manageAdmins.inc.php:119
+msgid "The successful one was sent with transport security (encryption)."
+msgid_plural ""
+"The successful ones were sent with transport security (encryption)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: web/admin/overview_federation.php:165 web/admin/inc/manageAdmins.inc.php:122
+msgid "The successful one was sent in clear text (no encryption)."
+msgid_plural "The successful ones were sent in clear text (no encryption)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: web/admin/overview_federation.php:168 web/admin/inc/manageAdmins.inc.php:125
+msgid ""
+"A subset of the successfully sent mails were sent with transport encryption, "
+"the rest in clear text."
+msgstr ""
+
+#: web/admin/overview_federation.php:173 web/admin/inc/manageAdmins.inc.php:130
 #, php-format
-msgid "The invitation email was sent successfully %s."
+msgid ""
+"Some invitation emails were sent successfully (%s in total), the others "
+"failed."
 msgstr ""
 
-#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:103
-msgid "The invitation email was sent."
+#: web/admin/overview_federation.php:173 web/admin/inc/manageAdmins.inc.php:130
+msgid "Partial success."
 msgstr ""
 
-#: web/admin/overview_federation.php:148 web/admin/inc/manageAdmins.inc.php:106
-#: web/admin/inc/overview_js.php:56 web/admin/inc/overview_js.php:111
-msgid "The invitation email could not be sent!"
-msgstr ""
-
-#: web/admin/overview_federation.php:151 web/admin/inc/manageAdmins.inc.php:109
+#: web/admin/overview_federation.php:176 web/admin/inc/manageAdmins.inc.php:133
 msgid "The invitation email address was malformed, no invitation was sent!"
 msgstr ""
 
-#: web/admin/overview_federation.php:154
+#: web/admin/overview_federation.php:179 web/admin/inc/manageAdmins.inc.php:136
 msgid "Error: unknown result code of invitation!?!"
 msgstr ""
 
-#: web/admin/overview_federation.php:154
+#: web/admin/overview_federation.php:179 web/admin/inc/manageAdmins.inc.php:136
 msgid "Unknown result!"
 msgstr ""
 
-#: web/admin/overview_federation.php:159
+#: web/admin/overview_federation.php:184
 #, php-format
 msgid "Need help? Refer to the <a href='%s'>%s manual</a>"
 msgstr ""
 
-#: web/admin/overview_federation.php:167
+#: web/admin/overview_federation.php:192
 msgid "Deployment Status"
 msgstr ""
 
-#: web/admin/overview_federation.php:168 web/admin/overview_user.php:103
+#: web/admin/overview_federation.php:193 web/admin/overview_user.php:103
 #: web/admin/inc/manageDBLink.inc.php:149 web/lib/admin/UIElements.php:83
 #: web/lib/admin/UIElements.php:111
-#, fuzzy, php-format
+#, php-format
 msgid "%s Name"
-msgstr "Intézmény neve"
+msgstr ""
 
-#: web/admin/overview_federation.php:174
+#: web/admin/overview_federation.php:199
 #, php-format
 msgid "%s Database Sync Status"
 msgstr ""
 
-#: web/admin/overview_federation.php:180 web/admin/overview_user.php:103
+#: web/admin/overview_federation.php:205 web/admin/overview_user.php:103
 msgid "Administrator Management"
 msgstr "Adminisztrátorok menedzselése"
 
 #. / nomenclature for 'federation', federation name, nomenclature for 'inst'
-#: web/admin/overview_federation.php:189
+#: web/admin/overview_federation.php:214
 #, php-format
 msgid "The following %s are in your %s %s:"
 msgstr ""
 
-#: web/admin/overview_federation.php:225
+#: web/admin/overview_federation.php:250
 msgid "Manage DB Link"
 msgstr ""
 
-#: web/admin/overview_federation.php:231
+#: web/admin/overview_federation.php:256
 msgid "Linked"
 msgstr ""
 
-#: web/admin/overview_federation.php:235
+#: web/admin/overview_federation.php:260
 msgid "NOT linked"
 msgstr ""
 
-#: web/admin/overview_federation.php:250 web/admin/overview_user.php:139
+#: web/admin/overview_federation.php:275 web/admin/overview_user.php:139
 msgid "Add/Remove Administrators"
 msgstr ""
 
-#: web/admin/overview_federation.php:263
-#, fuzzy, php-format
+#: web/admin/overview_federation.php:288
+#, php-format
 msgid "Pending invitations in the %s:"
-msgstr "Meghívó küldése"
+msgstr ""
 
-#: web/admin/overview_federation.php:280
+#: web/admin/overview_federation.php:305
 msgid "Revoke Invitation"
 msgstr ""
 
-#: web/admin/overview_federation.php:299
-#, fuzzy, php-format
+#: web/admin/overview_federation.php:324
+#, php-format
 msgid "Register a new %s!"
-msgstr "%s - Új intézmény regisztrálása"
+msgstr ""
 
 #: web/admin/overview_idp.php:28
 #, php-format
@@ -1128,14 +1167,14 @@ msgid "%s: IdP Dashboard"
 msgstr ""
 
 #: web/admin/overview_idp.php:52
-#, fuzzy, php-format
+#, php-format
 msgid "%s general settings"
-msgstr "Az IdP adatainak beállítása"
+msgstr ""
 
 #: web/admin/overview_idp.php:57
-#, fuzzy, php-format
+#, php-format
 msgid "%s download area QR code"
-msgstr "QR kód az intézmény letöltési oldalához"
+msgstr ""
 
 #: web/admin/overview_idp.php:86
 #, php-format
@@ -1155,9 +1194,9 @@ msgid "Do you really want to delete your %s %s?"
 msgstr ""
 
 #: web/admin/overview_idp.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Delete %s"
-msgstr "Az IdP törlése"
+msgstr ""
 
 #: web/admin/overview_idp.php:97
 #, php-format
@@ -1187,9 +1226,9 @@ msgstr "Tovább!"
 
 #. SW: APPROVED
 #: web/admin/overview_idp.php:122
-#, fuzzy, php-format
+#, php-format
 msgid "Check %s server status"
-msgstr "Az európai föderációs szerverek státusza"
+msgstr ""
 
 #. no profiles yet.
 #: web/admin/overview_idp.php:136
@@ -1199,9 +1238,9 @@ msgstr ""
 
 #. no profiles yet.
 #: web/admin/overview_idp.php:139
-#, fuzzy, php-format
+#, php-format
 msgid "Profiles for this %s"
-msgstr "Támogatott EAP típusok ehhez a profilhoz"
+msgstr ""
 
 #: web/admin/overview_idp.php:162 web/admin/overview_idp.php:221
 msgid "Information needed!"
@@ -1218,7 +1257,7 @@ msgstr ""
 msgid "Manage User Base"
 msgstr ""
 
-#: web/admin/overview_idp.php:187 web/admin/overview_idp.php:325
+#: web/admin/overview_idp.php:187 web/admin/overview_idp.php:321
 msgid "User Downloads"
 msgstr ""
 
@@ -1292,12 +1331,12 @@ msgstr ""
 msgid "User Download Link"
 msgstr ""
 
-#: web/admin/overview_idp.php:354
+#: web/admin/overview_idp.php:350
 #, php-format
 msgid "Add %s profile ..."
 msgstr ""
 
-#: web/admin/overview_idp.php:367
+#: web/admin/overview_idp.php:363
 msgid "Add new RADIUS/EAP profile ..."
 msgstr ""
 
@@ -1312,7 +1351,7 @@ msgstr ""
 
 #: web/admin/overview_installers.php:41
 msgid "Device"
-msgstr ""
+msgstr "Eszköz"
 
 #: web/admin/overview_installers.php:49
 msgid "EAP-Type-specific options..."
@@ -1383,20 +1422,20 @@ msgstr ""
 #: web/admin/overview_user.php:71
 #, php-format
 msgid "(Need help? Refer to the <a href='%s'>IdP administrator manual</a>)"
-msgstr ""
+msgstr "(Útmutatást a <a href='%s'>IdP administrator manual</a>ban találsz.)"
 
 #. / first parameter: number of Identity Providers; second param is the literal configured term for 'Identity Provider' (you may or may not be able to add a plural suffix for your locale)
 #: web/admin/overview_user.php:80
-#, fuzzy, php-format
+#, php-format
 msgid "You are managing the following <span style='display:none'>%d </span>%s:"
 msgid_plural "You are managing the following <strong>%d</strong> %s:"
-msgstr[0] "Az alábbi intézmény adminisztrátora vagy:"
-msgstr[1] "Az alábbi  <strong>%d</strong> intézmény adminisztrátora vagy:"
+msgstr[0] ""
+msgstr[1] ""
 
 #: web/admin/overview_user.php:103
-#, fuzzy, php-format
+#, php-format
 msgid "Other admins of this %s"
-msgstr "Az intézmény további  adminisztrátorai"
+msgstr ""
 
 #. / nomenclature 'fed', fed name, nomenclature 'inst'
 #: web/admin/overview_user.php:106
@@ -1411,35 +1450,30 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: web/admin/overview_user.php:146
-#, fuzzy, php-format
+#, php-format
 msgid "You are not managing any %s."
-msgstr "Nem vagy adminisztrátor egyetlen intézményben sem."
+msgstr ""
 
 #: web/admin/overview_user.php:150
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Please ask your %s administrator to invite you to become an %s administrator."
 msgstr ""
-"Kérd meg a szövetséged adminisztrátorát, hogy nevezzen ki intézményi "
-"adminisztrátornak!"
 
 #: web/admin/overview_user.php:154
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Did you receive an invitation token to manage an %s? Please paste it here:"
 msgstr ""
-"Kaptál felkérést az intézmény adminisztrálására? Másold ide a tokent a "
-"meghívólevélből:"
 
 #: web/admin/overview_user.php:166
-#, fuzzy, php-format
+#, php-format
 msgid "New %s Registration"
-msgstr "Meghívó küldése"
+msgstr ""
 
 #: web/admin/inc/displayQRcode.inc.php:31
-#, fuzzy
 msgid "Invitation Token QR Code"
-msgstr "A meghívó elküldve ide:"
+msgstr ""
 
 #: web/admin/inc/manageAdmins.inc.php:46
 #, php-format
@@ -1453,19 +1487,19 @@ msgstr ""
 msgid "Administrators for IdP '%s'"
 msgstr "A(z) %s IdP dminisztrátora"
 
-#: web/admin/inc/manageAdmins.inc.php:119
+#: web/admin/inc/manageAdmins.inc.php:143
 #, php-format
 msgid ""
 "You are the %s administrator. You can invite new administrators, who can in "
 "turn appoint further administrators on their own."
 msgstr ""
 
-#: web/admin/inc/manageAdmins.inc.php:119 web/lib/admin/UIElements.php:102
-#, fuzzy, php-format
+#: web/admin/inc/manageAdmins.inc.php:143 web/lib/admin/UIElements.php:102
+#, php-format
 msgid "%s Administrator"
-msgstr "Adminisztrátorok"
+msgstr ""
 
-#: web/admin/inc/manageAdmins.inc.php:125
+#: web/admin/inc/manageAdmins.inc.php:149
 #, php-format
 msgid ""
 "You are an administrator who was directly appointed by the %s administrator. "
@@ -1473,57 +1507,56 @@ msgid ""
 "more administrators."
 msgstr ""
 
-#: web/admin/inc/manageAdmins.inc.php:125
-#, fuzzy
+#: web/admin/inc/manageAdmins.inc.php:149
 msgid "Directly Appointed Administrator"
-msgstr "Adminisztrátor törlése"
+msgstr ""
 
-#: web/admin/inc/manageAdmins.inc.php:138
+#: web/admin/inc/manageAdmins.inc.php:162
 msgid "User without name"
 msgstr "név nélküli felhasználó"
 
-#: web/admin/inc/manageAdmins.inc.php:147
+#: web/admin/inc/manageAdmins.inc.php:171
 #, php-format
 msgid "(originally invited as %s)"
 msgstr ""
 
-#: web/admin/inc/manageAdmins.inc.php:149
+#: web/admin/inc/manageAdmins.inc.php:173
 msgid "(self-appointed)"
 msgstr ""
 
-#: web/admin/inc/manageAdmins.inc.php:156
+#: web/admin/inc/manageAdmins.inc.php:180
 msgid "Delete Administrator"
 msgstr "Adminisztrátor törlése"
 
-#: web/admin/inc/manageAdmins.inc.php:170
+#: web/admin/inc/manageAdmins.inc.php:194
 msgid "Pending invitations for this IdP"
 msgstr ""
 
-#: web/admin/inc/manageAdmins.inc.php:181
+#: web/admin/inc/manageAdmins.inc.php:205
 msgid "New administrator's email address(es) (comma-separated):"
 msgstr ""
 
-#: web/admin/inc/manageAdmins.inc.php:181
+#: web/admin/inc/manageAdmins.inc.php:205
 msgid "Invite new administrator"
 msgstr ""
 
-#: web/admin/inc/manageAdmins.inc.php:195
+#: web/admin/inc/manageAdmins.inc.php:219
 #, php-format
 msgid "Take control of this %s"
 msgstr ""
 
-#: web/admin/inc/manageAdmins.inc.php:202
+#: web/admin/inc/manageAdmins.inc.php:226
 #: web/admin/inc/manageDBLink.inc.php:194
 #: web/admin/inc/manageNewInst.inc.php:116
 msgid "Close"
 msgstr "Bezárás"
 
 #: web/admin/inc/manageDBLink.inc.php:43
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You do not have the necessary privileges to manage the %s DB link state of "
 "this %s."
-msgstr "Nincs megfelelő jogosultságod új IdP regisztrálásához."
+msgstr ""
 
 #: web/admin/inc/manageDBLink.inc.php:76
 #, php-format
@@ -1547,11 +1580,11 @@ msgid "Information in <strong>%s Database</strong>"
 msgstr ""
 
 #: web/admin/inc/manageDBLink.inc.php:99 web/admin/inc/manageDBLink.inc.php:125
-#, fuzzy, php-format
+#, php-format
 msgid "%s Name (%s)"
-msgstr "Intézmény neve"
+msgstr ""
 
-#: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/PageDecoration.php:33
+#: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/Authentication.php:61
 msgid "Unnamed User"
 msgstr "névtelen felhasználó"
 
@@ -1618,32 +1651,28 @@ msgid "Create Link"
 msgstr "Link létrehozása"
 
 #: web/admin/inc/manageNewInst.inc.php:37
-#, fuzzy, php-format
+#, php-format
 msgid "You do not have the necessary privileges to register new %ss."
-msgstr "Nincs megfelelő jogosultságod új IdP regisztrálásához."
+msgstr ""
 
 #: web/admin/inc/manageNewInst.inc.php:44
-#, fuzzy, php-format
+#, php-format
 msgid "%s - Register new %s"
-msgstr "%s - Új intézmény regisztrálása"
+msgstr ""
 
 #: web/admin/inc/manageNewInst.inc.php:47
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "On this page, you can add a new %s to your %s. Please fill out the form "
 "below to send out an email invitation to the new %s administrator."
 msgstr ""
-"Ezen az oldalon új intézményt adhatsz a föderációhoz. Töltsd ki az űrlapot "
-"és küldj egy meghívólevelet az intézmény adminisztrátorának!"
 
 #: web/admin/inc/manageNewInst.inc.php:49
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You can either register a known %s (as defined in the %s database) or create "
 "a totally new %s."
 msgstr ""
-"Vagy regisztrálsz egy már létező IdP-t (a %s adatbázisból) vagy "
-"létrehozhatsz egy újat."
 
 #: web/admin/inc/manageNewInst.inc.php:50
 #, php-format
@@ -1692,11 +1721,15 @@ msgstr "Nincs megadva e-mail cím"
 msgid "Invitation sent to:"
 msgstr "A meghívó elküldve ide:"
 
+#: web/admin/inc/overview_js.php:56 web/admin/inc/overview_js.php:111
+msgid "The invitation email could not be sent!"
+msgstr ""
+
 #: web/admin/inc/overview_js.php:83
 msgid "Mail address to invite:"
 msgstr "A meghívandó személy címe:"
 
-#: web/admin/inc/sendinvite.inc.php:92
+#: web/admin/inc/sendinvite.inc.php:106
 #, php-format
 msgid ""
 "Something's wrong... you are a %s admin, but not for the %s the requested %s "
@@ -1855,87 +1888,85 @@ msgid ""
 "to edit the profile again and populate the 'default/other' language field."
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:32
+#: web/lib/admin/PageDecoration.php:35
 msgid "You are:"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:36
+#: web/lib/admin/PageDecoration.php:38
 msgid "Go to your Profile page"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:37
+#: web/lib/admin/PageDecoration.php:39
 msgid "Logout"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:39
+#: web/lib/admin/PageDecoration.php:41
 msgid "Start page"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:60
+#: web/lib/admin/PageDecoration.php:62
 msgid "View this page in"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:118
-#, fuzzy, php-format
+#: web/lib/admin/PageDecoration.php:120
+#, php-format
 msgid "Administrator Interface - %s"
-msgstr "Adminisztrátorok menedzselése"
+msgstr ""
 
-#: web/lib/admin/PageDecoration.php:121
-#, fuzzy, php-format
+#: web/lib/admin/PageDecoration.php:123
+#, php-format
 msgid "Administrator Interface - %s User Management"
-msgstr "Adminisztrátorok menedzselése"
+msgstr ""
 
-#: web/lib/admin/PageDecoration.php:124
-#, fuzzy
+#: web/lib/admin/PageDecoration.php:126
 msgid "Administrator Interface"
-msgstr "Adminisztrátorok menedzselése"
+msgstr ""
 
-#: web/lib/admin/PageDecoration.php:127
+#: web/lib/admin/PageDecoration.php:129
 msgid "Management of User Details"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:130
-#, fuzzy, php-format
+#: web/lib/admin/PageDecoration.php:132
+#, php-format
 msgid "Administrator Interface - %s Management"
-msgstr "Adminisztrátorok menedzselése"
+msgstr ""
 
-#: web/lib/admin/PageDecoration.php:133
+#: web/lib/admin/PageDecoration.php:135
 #, php-format
 msgid "Welcome to %s"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:138
+#: web/lib/admin/PageDecoration.php:140
 msgid "CIC"
 msgstr ""
 
-#: web/lib/admin/PageDecoration.php:141
+#: web/lib/admin/PageDecoration.php:143
 msgid "Diagnostics"
-msgstr ""
+msgstr "Diagnosztika"
 
 #: web/lib/admin/PageDecoration.php:223
-#, fuzzy, php-format
+#, php-format
 msgid "%s Privacy Notice"
-msgstr "Föderáció"
+msgstr "%s  Adatvédelmi nyilatkozat"
 
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
 #. different wording, no translation, sorry
 #: web/lib/admin/UIElements.php:46
 msgid "National Roaming Operator"
-msgstr ""
+msgstr "Nemzeti Roaming Szolgáltató"
 
 #: web/lib/admin/UIElements.php:47
 msgid "identity provider"
-msgstr ""
+msgstr "Azonosító Szolgáltató"
 
 #: web/lib/admin/UIElements.php:48
 msgid "organisation"
-msgstr ""
+msgstr "Szervezet"
 
 #: web/lib/admin/UIElements.php:67
-#, fuzzy
 msgid "SSID"
-msgstr "SSID-k:"
+msgstr ""
 
 #: web/lib/admin/UIElements.php:68
 msgid "SSID (with WPA/TKIP)"
@@ -1946,14 +1977,12 @@ msgid "HS20 Consortium OI"
 msgstr ""
 
 #: web/lib/admin/UIElements.php:72
-#, fuzzy
 msgid "Additional SSID"
-msgstr "További SSID-k:"
+msgstr ""
 
 #: web/lib/admin/UIElements.php:73
-#, fuzzy
 msgid "Additional SSID (with WPA/TKIP)"
-msgstr "További SSID-k:"
+msgstr ""
 
 #: web/lib/admin/UIElements.php:76
 msgid "Additional HS20 Consortium OI"
@@ -1964,14 +1993,12 @@ msgid "Support: Web"
 msgstr ""
 
 #: web/lib/admin/UIElements.php:80
-#, fuzzy
 msgid "Support: EAP Types"
-msgstr "Támogatott EAP típusok"
+msgstr ""
 
 #: web/lib/admin/UIElements.php:81
-#, fuzzy
 msgid "Support: Phone"
-msgstr "Támogatott EAP típusok"
+msgstr ""
 
 #: web/lib/admin/UIElements.php:82
 msgid "Support: E-Mail"
@@ -1998,17 +2025,14 @@ msgid "Enable device assessment"
 msgstr ""
 
 #: web/lib/admin/UIElements.php:90
-#, fuzzy
 msgid "Terms of Use"
 msgstr "A felhasználás feltételei"
 
 #: web/lib/admin/UIElements.php:91
-#, fuzzy
 msgid "CA Certificate URL"
-msgstr "Szervertanúsítvány"
+msgstr ""
 
 #: web/lib/admin/UIElements.php:92
-#, fuzzy
 msgid "CA Certificate File"
 msgstr "CA tanúsítvány fájl"
 
@@ -2021,9 +2045,8 @@ msgid "Production-Ready"
 msgstr ""
 
 #: web/lib/admin/UIElements.php:95
-#, fuzzy
 msgid "Admin Accepted Terms of Use"
-msgstr "A felhasználás feltételei"
+msgstr ""
 
 #: web/lib/admin/UIElements.php:96
 msgid "Extra text on downloadpage for device"
@@ -2050,14 +2073,12 @@ msgid "Custom Installer Name Suffix"
 msgstr ""
 
 #: web/lib/admin/UIElements.php:103
-#, fuzzy
 msgid "Real Name"
-msgstr "Tartomány:"
+msgstr "Polgári név"
 
 #: web/lib/admin/UIElements.php:104
-#, fuzzy
 msgid "E-Mail Address"
-msgstr "Cím:"
+msgstr ""
 
 #: web/lib/admin/UIElements.php:105
 msgid "Remove/Disable SSID"
@@ -2116,9 +2137,9 @@ msgid "Mint %s with CA on creation"
 msgstr ""
 
 #: web/lib/admin/UIElements.php:211
-#, fuzzy, php-format
+#, php-format
 msgid "General %s details"
-msgstr "Föderáció"
+msgstr ""
 
 #: web/lib/admin/UIElements.php:229
 msgid "Global Helpdesk Details"
@@ -2126,9 +2147,8 @@ msgstr ""
 
 #. we didn't actually get a CA!
 #: web/lib/admin/UIElements.php:324
-#, fuzzy
 msgid "There was an error while retrieving the certificate from the database!"
-msgstr "Hiba a tanúsítvány feldolgozása során!"
+msgstr ""
 
 #: web/lib/admin/UIElements.php:331
 msgid "There was an error processing the certificate!"
@@ -2144,9 +2164,8 @@ msgstr "A logó előnézete"
 
 #. we didn't actually get a file!
 #: web/lib/admin/UIElements.php:364
-#, fuzzy
 msgid "There was an error while retrieving the file from the database!"
-msgstr "Hiba a tanúsítvány feldolgozása során!"
+msgstr ""
 
 #: web/lib/admin/UIElements.php:368
 msgid "File exists"
@@ -2167,226 +2186,3 @@ msgstr "Figyelmeztetés!"
 #: web/lib/admin/UIElements.php:386
 msgid "Error!"
 msgstr "Hiba!"
-
-#, fuzzy
-#~ msgid "Your %s %s contains the following %s list:"
-#~ msgstr "Az alábbi intézmény adminisztrátora vagy:"
-
-#, fuzzy
-#~ msgid "Overview of %s"
-#~ msgstr "Áttekintés"
-
-#, fuzzy
-#~ msgid "Name of the %s"
-#~ msgstr "Az intézmény neve"
-
-#, fuzzy
-#~ msgid "%s Invitation System"
-#~ msgstr "A meghívó elküldve ide:"
-
-#~ msgid "Hello,"
-#~ msgstr "Üdvözlünk!"
-
-#, fuzzy
-#~ msgid "%s administrator"
-#~ msgstr "Adminisztrátorok"
-
-#, fuzzy
-#~ msgid "No NAPTR records"
-#~ msgstr "Ennel a realm-nek nincsen NAPTR rekordja"
-
-#, fuzzy
-#~ msgid "No associated NAPTR records"
-#~ msgstr "Ennel a realm-nek nincsen NAPTR rekordja"
-
-#, fuzzy
-#~ msgid "%d %s NAPTR records"
-#~ msgstr "Ennel a realm-nek nincsen NAPTR rekordja"
-
-#, fuzzy
-#~ msgid "DNS Checks"
-#~ msgstr "DNS ellenőrzés"
-
-#, fuzzy
-#~ msgid "Authentication Server Status for all known federation members"
-#~ msgstr "Az európai föderációs szerverek státusza"
-
-#~ msgid "No valid realm name given, cannot execute any checks!"
-#~ msgstr ""
-#~ "Nincs megadva a tartomány neve. Az ellenőrzést nem lehet végrehajtani."
-
-#~ msgid "STATIC"
-#~ msgstr "STATIKUS"
-
-#~ msgid "DYNAMIC"
-#~ msgstr "DINAMIKUS"
-
-#~ msgid "expected result: "
-#~ msgstr "a remélt eredmény:"
-
-#~ msgid "Server accepted this client certificate"
-#~ msgstr "A szerver elfogadta a klienstanúsítványt"
-
-#~ msgid "Server accepted this client certificate, but should not have"
-#~ msgstr ""
-#~ "A szerver elfogadta a klienstanúsítványt, noha nem lett volna szabad"
-
-#~ msgid "Server did not accept this client certificate"
-#~ msgstr "A szerver nem fogadta el ezt a klienstanúsítványt "
-
-#~ msgid "Server did not accept this client certificate - reason"
-#~ msgstr "A szerver nem fogadta el ezt a klienstanúsítványt - az oka"
-
-#~ msgid "more"
-#~ msgstr "tovább"
-
-#~ msgid "Show detailed information for all tests"
-#~ msgstr "Mutasd a tesztek részleteit"
-
-#~ msgid "Connection refused"
-#~ msgstr "Kapcsolódás elutasítva"
-
-#~ msgid "Subject"
-#~ msgstr "Tárgy"
-
-#~ msgid "SubjectAltName"
-#~ msgstr "SubjectAltName"
-
-#~ msgid "Hide detailed information for all tests"
-#~ msgstr "Rejtsd el a tesztek részleteit"
-
-#, fuzzy
-#~ msgid "DNS chekcs"
-#~ msgstr "DNS ellenőrzés"
-
-#~ msgid "This realm has no NAPTR records."
-#~ msgstr "Ennel a realm-nek nincsen NAPTR rekordja"
-
-#~ msgid "This check was skipped."
-#~ msgstr "Ezt az ellenőrzést kihagytuk"
-
-#~ msgid "Realm is <strong>%s</strong> "
-#~ msgstr "Tartomány: <strong>%s</strong> "
-
-#~ msgid "with no DNS errors encountered. Congratulations!"
-#~ msgstr "DNS hiba nélkül. Gratulálunk!"
-
-#~ msgid "but there were DNS errors! Check them!"
-#~ msgstr "de DNS hibákkal. Ellenőrizd őket!"
-
-#, fuzzy
-#~ msgid "Dynamic discovery test is not configured"
-#~ msgstr "Ez az ellenőrzés nincs bekonfigurálva"
-
-#~ msgid "Some errors were found during the tests, see below"
-#~ msgstr "A tesztek során egy vagy több hiba lépett fel. Ld. alább"
-
-#~ msgid "All tests passed, congratulations!"
-#~ msgstr "Minden teszt sikerült, gratulálunk!"
-
-#~ msgid "Password:"
-#~ msgstr "Jelszó:"
-
-#~ msgid "Institution Name"
-#~ msgstr "Intézmény neve"
-
-#~ msgid "Institutions in federation %s"
-#~ msgstr "A '%s' föderáció intézményei"
-
-#~ msgid ""
-#~ "<strong>Test FAILED</strong>: there was a bidirectional RADIUS "
-#~ "conversation, but it did not finish after %d seconds!"
-#~ msgstr ""
-#~ "<strong>Sikertelen teszt</strong>: a  RADIUS kommunikáció oda-vissza "
-#~ "zajlott, de nem fejeződött be %d másodpercen belül!"
-
-#~ msgid "elapsed time: %d"
-#~ msgstr "az eltelt idő: %d"
-
-#~ msgid "Completed."
-#~ msgstr "Kész."
-
-#~ msgid "PEAP-MSCHAPv2"
-#~ msgstr "PEAP-MSCHAPv2"
-
-#~ msgid "TLS"
-#~ msgstr "TLS"
-
-#~ msgid "TTLS-PAP"
-#~ msgstr "TTLS-PAP"
-
-#~ msgid "TTLS-MSCHAPv2"
-#~ msgstr "TTLS-MSCHAPv2"
-
-#~ msgid "TTLS-GTC"
-#~ msgstr "TTLS-GTC"
-
-#~ msgid "FAST-GTC"
-#~ msgstr "FAST-GTC"
-
-#~ msgid "EAP-pwd"
-#~ msgstr "EAP-pwd"
-
-#, fuzzy
-#~ msgid "Federation Logo"
-#~ msgstr "Föderáció"
-
-#~ msgid "Input validation error: "
-#~ msgstr "Hiba az input adatokban:"
-
-#~ msgid "Realm contains an @ sign!"
-#~ msgstr "A tartomány nevében @ karakter van!"
-
-#~ msgid "Realm begins with a . (dot)!"
-#~ msgstr "A tartomány neve ponttal kezdődik!"
-
-#~ msgid "Realm ends with a . (dot)!"
-#~ msgstr "A tartomány neve pontra végződik!"
-
-#~ msgid "Realm does not contain at least one . (dot)!"
-#~ msgstr "A tartomány nevében nincs pont!"
-
-#~ msgid "Realm contains spaces!"
-#~ msgstr "A tartomány nevében szóköz van!"
-
-#~ msgid "Institution Name (%s)"
-#~ msgstr "Az intézmény neve (%s)"
-
-#~ msgid "Federation"
-#~ msgstr "Föderáció"
-
-#, fuzzy
-#~ msgid "This Federation identifier is not accessible!"
-#~ msgstr "Elérhetetlen profil!"
-
-#~ msgid "This profile is not accessible!"
-#~ msgstr "Elérhetetlen profil!"
-
-#~ msgid "This device does not exist!"
-#~ msgstr "Nem létező eszköz!"
-
-#~ msgid "The user identifier is not an ASCII string!"
-#~ msgstr "A felhasználó azonosítója nem csak ASCII karaktereket tartalmaz!"
-
-#~ msgid "Token is not a hexadecimal string!"
-#~ msgstr "A token nem csak hexadecimális karaktereket tartalmaz!"
-
-#~ msgid "Coordinate is not a numeric value!"
-#~ msgstr "A koordináta nem szám!"
-
-#~ msgid "Coordinate is out of bounds. Which planet are you from?"
-#~ msgstr "A koordináta értéke nem megfelelő!"
-
-#~ msgid ""
-#~ "Due to OpenSSL limitations, it is not possible to check IPv6 addresses at "
-#~ "this time."
-#~ msgstr "Az OpenSSL korlátai miatt IPv6 címeket még nem lehet ellenőrizni."
-
-#~ msgid "Username missing"
-#~ msgstr "Hiányzó felhasználónév"
-
-#~ msgid "Password missing"
-#~ msgstr "Hiányzó jelszó"
-
-#~ msgid "Feedback"
-#~ msgstr "Visszajelzés"

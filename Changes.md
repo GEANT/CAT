@@ -1,3 +1,26 @@
+Changes in 2.0-beta3
+====================
+- [BUGFIX  #1]  restore ability for admins to download non-published installers
+                from their fine-tuning page
+- [BUGFIX  #2]  for Apple installers, check is a CA was duplicate and if so do
+                not include CA twice in installer
+- [BUGFIX  #3]  fix various translation errors (wrong quotation marks) which led
+                to incorrect installers in those languages
+- [BUGFIX  #4]  make the "test" device work again
+- [BUGFIX  #5]  various typos
+- [BUGFIX  #6]  display admin user's real name as we get it from SAML. Not
+                stored persistently anywhere yet.
+- [BUGFIX  #7]  invalidate all cached installers federation-wide if a federation
+                has changed one of its properties
+- [BUGFIX  #8]  for Apple installers, the flag "verify user input has suffix" is
+                now honoured (the warning was erroneously always displayed 
+                before)
+- [BUGFIX  #9]  various bugs in the handling of device-specific and eap-specific
+                attributes in the "fine-tuning" pages (e.g. deletion of 
+                attribute not possible; editing general profile properties
+                erroneously also deletes fine-tuning attributes
+                
+
 Changes in 2.0-beta2
 ====================
 - [FEATURE #1]  warn and reject support URLs if they are not properly prefixed
@@ -10,6 +33,8 @@ Changes in 2.0-beta2
                 lost when changing other user attributes
 - [BUGFIX  #2]  add a shebang to the Linux installer so that it gets executed
                 with the system's Python interpreter
+- [BUGFIX  #3]  improve whitespace in Linux installer so that its syntax is more
+                correct
 
 Configuration parameter changes
 -------------------------------

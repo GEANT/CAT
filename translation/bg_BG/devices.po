@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
-"PO-Revision-Date: 2018-08-22 07:55+0000\n"
+"POT-Creation-Date: 2018-10-18 14:16+0200\n"
+"PO-Revision-Date: 2018-09-12 11:30+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/eduroam_devel/"
 "cat/language/bg_BG/)\n"
@@ -97,11 +97,14 @@ msgstr ""
 "мрежи ще бъдат добавени новите мрежови определения."
 
 #: devices/Devices-template.php:331
-msgid "Android 6.0 Marshmallow"
-msgstr "Android 6.0 Marshmallow"
+#, fuzzy
+msgid "Android 9.0 Pie"
+msgstr "Android 4.3"
 
 #: devices/Devices-template.php:337 devices/Devices-template.php:353
-#: devices/Devices-template.php:369 devices/Devices-template.php:386
+#: devices/Devices-template.php:369 devices/Devices-template.php:385
+#: devices/Devices-template.php:401 devices/Devices-template.php:417
+#: devices/Devices-template.php:434
 #, php-format
 msgid ""
 "Before you proceed with installation on Android systems, please make sure "
@@ -115,31 +118,47 @@ msgstr ""
 "необходими настройки."
 
 #: devices/Devices-template.php:341 devices/Devices-template.php:357
-#: devices/Devices-template.php:373 devices/Devices-template.php:390
+#: devices/Devices-template.php:373 devices/Devices-template.php:389
+#: devices/Devices-template.php:405 devices/Devices-template.php:421
+#: devices/Devices-template.php:438
 msgid "as local download"
 msgstr "като локално изтегляне"
 
 #: devices/Devices-template.php:347
+#, fuzzy
+msgid "Android 8.0 Oreo"
+msgstr "Android 6.0 Marshmallow"
+
+#: devices/Devices-template.php:363
+#, fuzzy
+msgid "Android 6.0 Nougat"
+msgstr "Android 4.4 KitKat"
+
+#: devices/Devices-template.php:379
+msgid "Android 6.0 Marshmallow"
+msgstr "Android 6.0 Marshmallow"
+
+#: devices/Devices-template.php:395
 msgid "Android 5.0 Lollipop"
 msgstr "Android 5.0 Lollipop"
 
-#: devices/Devices-template.php:363
+#: devices/Devices-template.php:411
 msgid "Android 4.4 KitKat"
 msgstr "Android 4.4 KitKat"
 
-#: devices/Devices-template.php:380
+#: devices/Devices-template.php:428
 msgid "Android 4.3"
 msgstr "Android 4.3"
 
-#: devices/Devices-template.php:396
+#: devices/Devices-template.php:444
 msgid "Android"
 msgstr "Android"
 
-#: devices/Devices-template.php:407
+#: devices/Devices-template.php:455
 msgid "EAP config"
 msgstr "EAP конфигурация"
 
-#: devices/Devices-template.php:412
+#: devices/Devices-template.php:460
 #, php-format
 msgid ""
 "This option provides a generic EAP config XML file, which can be consumed by "
@@ -150,7 +169,7 @@ msgstr ""
 "използва от специализирани приложения като eduroamCAT за Android и Linux "
 "платформите. Това все още е експериментална функционалност."
 
-#: devices/Devices-template.php:418
+#: devices/Devices-template.php:466
 msgid "Test"
 msgstr "Тест"
 
@@ -245,55 +264,55 @@ msgstr ""
 msgid "(%d times each, because %s is installed for %d SSIDs)"
 msgstr "(%d пъти всеки, защото%s е инсталиран за %d SSIDs)"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:349
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:351
 #, php-format
 msgid "SSID %s"
 msgstr "SSID %s"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:350
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:352
 #, php-format
 msgid "%s configuration for network name %s"
 msgstr "%s конфигурация за мрежа на име %s"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:358
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:360
 msgid "Wired Network"
 msgstr "Кабелна мрежа"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:359
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:361
 #, php-format
 msgid "%s configuration for wired network"
 msgstr "%s конфигурация за кабелна мрежа"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:370
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:372
 msgid "Hotspot 2.0 Settings"
 msgstr "Hotspot 2.0 настройки"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:371
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:373
 #, php-format
 msgid "%s Hotspot 2.0 configuration"
 msgstr "%s Hotspot 2.0 конфигурация"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:426
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:428
 #, php-format
 msgid "This SSID should not be used after bootstrapping %s"
 msgstr "Този SSID не трябва да се използва след зареждане %s"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:428
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:430
 msgid "Disabled WiFi network"
 msgstr "Забранена безжична мрежа"
 
 #. we don't include the import password. It's displayed on screen, and should be input by the user.
 #. <key>Password</key>
 #. <string>" . $this->clientCert['password'] . "</string>
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:503
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:505
 msgid "eduroam user certificate"
 msgstr "eduroam потребителски сертификат"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:539
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:545
 msgid "Your Identity Providers Certification Authority"
 msgstr "Вашият Доставчик на Удостоверителни Услуги"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:541
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:547
 msgid "Identity Provider's CA"
 msgstr "Доставчик на Удостоверителни Улуги"
 
@@ -309,17 +328,17 @@ msgstr ""
 "атрибути."
 
 #: devices/linux/Device_Linux.php:52
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "The installer is in the form of a Python script. It will try to configure %s "
 "under NetworkManager and if this is either not appropriate for your system "
 "or your version of NetworkManager is too old, a wpa_supplicant config file "
 "will be created instead."
 msgstr ""
-"Инсталаторът е във вид на Python скрипт. Той ще се опита да конфигурира "
-"eduroam в Network Manager и ако това е или неподходящо за Вашата система или "
-"версията на Вашия Network Manager е твърде стара, вместо това ще бъде "
-"създаден конфигурационен файл за wpa_supplicant."
+"Инсталаторът е във вид на Python скрипт. Той ще се опита да конфигурира %s в "
+"Network Manager и ако това е или неподходящо за Вашата система или версията "
+"на Вашия Network Manager е твърде стара, вместо това ще бъде създаден "
+"конфигурационен файл wpa_supplicant. "
 
 #: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:115
 #, php-format
@@ -427,7 +446,6 @@ msgid "Continue?"
 msgstr "Да продължи ли?"
 
 #: devices/linux/Device_Linux.php:97
-#, fuzzy
 msgid "This NetworkManager version is not supported"
 msgstr "Тази версия на Network Manager не се поддържа"
 
@@ -460,7 +478,6 @@ msgid "All files"
 msgstr "Всички файлове"
 
 #: devices/linux/Device_Linux.php:106
-#, fuzzy
 msgid ""
 "NetworkManager configuration failed, but we may generate a wpa_supplicant "
 "configuration file if you wish. Be warned that your connection password will "
@@ -576,14 +593,15 @@ msgstr ""
 "автоматично всеки път, когато имате обхват."
 
 #: devices/ms/WindowsCommon.php:135
+#, fuzzy
 msgid ""
 "You will be required to enter the same credentials for each of the "
-"configured notworks:"
+"configured networks:"
 msgstr ""
 "За всяка от конфигурираните мрежи ще Ви бъде поискано да въведете същите "
 "потребителско име и парола:"
 
-#: devices/ms/WindowsCommon.php:250 devices/ms/WindowsCommon.php:251
+#: devices/ms/WindowsCommon.php:253 devices/ms/WindowsCommon.php:254
 #, php-format
 msgid "%s installer for %s"
 msgstr "%s инсталатор за %s"
@@ -826,7 +844,7 @@ msgstr "инсталиране на TLS удостоверения"
 msgid "installing credentials for profile $R1"
 msgstr "инсталиране на удостоверенията за самоличност за профил $R1"
 
-#: devices/ms/Files/common.inc:1056 devices/ms/Files/geant_link.inc:107
+#: devices/ms/Files/common.inc:1056 devices/ms/Files/geant_link.inc:109
 msgid "Credentials installation problem"
 msgstr "Проблем с инсталирането на удостоверенията за самоличност"
 
@@ -970,7 +988,7 @@ msgstr "потребителски профил"
 msgid "install program"
 msgstr "инсталирай програма"
 
-#: devices/ms/Files/geant_link.inc:78
+#: devices/ms/Files/geant_link.inc:79
 msgid ""
 "An additional piece of software 'GEANTlink' needs to be installed. This "
 "installation requires Administrator rights; you will be prompted to give "
@@ -980,7 +998,7 @@ msgstr ""
 "Инсталацията изисква администраторски права; ще Ви бъде поискано позволение "
 "за това действие."
 
-#: devices/ms/Files/geant_link.inc:89
+#: devices/ms/Files/geant_link.inc:91
 msgid ""
 "Error installing GEANTLink.$\\nEmbedded installer didn't complete "
 "succesfully."
@@ -988,7 +1006,7 @@ msgstr ""
 "Грешка при инсталиране на GEANTLink.$\\nEmbedded  - инсталацията не завърши "
 "успешно."
 
-#: devices/ms/Files/geant_link.inc:99
+#: devices/ms/Files/geant_link.inc:101
 msgid "installing credentials for ${PROVIDERID}"
 msgstr "инсталиране на правомощия за ${PROVIDERID}"
 

@@ -1,0 +1,1029 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-10-08 14:35+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: M. Uğur YILMAZ <muy1970@gmail.com>, 2018\n"
+"Language-Team: Turkish (https://www.transifex.com/eduroam_devel/teams/11799/"
+"tr/)\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: core/diag/AbstractTest.php:266
+msgid "Completed"
+msgstr "Tamamlandı."
+
+#: core/diag/AbstractTest.php:273
+msgid "Product is not configured to run this check."
+msgstr "Ürün bu kontrolü çalıştırmak için yapılandırılmamış."
+
+#: core/diag/AbstractTest.php:279
+msgid "This check was skipped."
+msgstr "Bu kontrol atlanıldı"
+
+#: core/diag/AbstractTest.php:286
+msgid "There were errors during the test."
+msgstr "Test sırasında hata(lar) oluştu."
+
+#: core/diag/AbstractTest.php:294
+msgid "There was no reply at all from the RADIUS server."
+msgstr "RADIUS sunucusundan dönen bir cevap yok."
+
+#: core/diag/AbstractTest.php:301
+msgid ""
+"There was a bidirectional communication with the RADIUS server, but it ended "
+"halfway through."
+msgstr "RADIUS sunucusu ile ikiyönlü iletişim vardı, ancak yarıda kesildi."
+
+#: core/diag/AbstractTest.php:308
+msgid ""
+"The RADIUS server immediately rejected the authentication request in its "
+"first reply."
+msgstr "RADIUS sunucusu kimlik doğrulama isteğini ilk cevabında redetti."
+
+#: core/diag/AbstractTest.php:315
+msgid ""
+"The RADIUS server rejected the authentication request after an EAP "
+"conversation."
+msgstr ""
+"RADIUS sunucusu EAP oturumu sonrasında kimlik doğrulama isteğini redetti."
+
+#: core/diag/AbstractTest.php:322
+msgid "Connection refused"
+msgstr "Bağlantı reddedildi"
+
+#: core/diag/AbstractTest.php:329
+msgid "Not enough data provided to perform an authentication"
+msgstr "Kimlik doğrulama için yeterli veri sağlanmadı."
+
+#: core/diag/AbstractTest.php:336
+msgid ""
+"The certificate password you provided does not match the certificate file."
+msgstr ""
+"Verdiğiniz sertifika parolası, sertifika dosyasındaki parola ile uyuşmuyor."
+
+#: core/diag/AbstractTest.php:344
+msgid ""
+"The certificate chain includes the root CA certificate. This does not serve "
+"any useful purpose but inflates the packet exchange, possibly leading to "
+"more round-trips and thus slower authentication."
+msgstr ""
+"Sertifika zincirinde kök CA sertifikası da yer almakta. Bunun br faydası "
+"omadığı gibi paket alış-verişini arttırarak kimlik doğrulama süresini "
+"uzatacaktır."
+
+#: core/diag/AbstractTest.php:351
+msgid "There is more than one server certificate in the chain."
+msgstr "Sertifika zincirinde birden fazla sunucu sertifikası bulunmakta."
+
+#: core/diag/AbstractTest.php:358
+msgid "There is no server certificate in the chain."
+msgstr "Sertifika zincirinde sunucu sertifikası bulunmuyor."
+
+#: core/diag/AbstractTest.php:365
+msgid ""
+"At least one certificate in the chain is signed with the MD5 signature "
+"algorithm. Many Operating Systems, including Apple iOS, will fail to "
+"validate this certificate."
+msgstr ""
+"Sertifika zincirinde en azından bir adet imza için MD5 kullanan sertifika "
+"bulunuyor. Çoğu İşletim Sistemi (Apple iOS dahil) bu sertifikayı "
+"onaylamayacaklardır."
+
+#: core/diag/AbstractTest.php:372
+msgid ""
+"At least one certificate in the chain is signed with the SHA-1 signature "
+"algorithm. Many Operating Systems, including Apple iOS, will fail to "
+"validate this certificate."
+msgstr ""
+"Zincirdeki en az bir sertifika SHA-1 imza algoritması ile imzalanmış. Apple "
+"iOS dahil, birçok İşletim Sistemi bu sertifikayı doğrulamayacaktır."
+
+#: core/diag/AbstractTest.php:379
+msgid ""
+"At least one certificate in the chain had a public key of less than 1024 "
+"bits. Many recent operating systems consider this unacceptable and will fail "
+"to validate the server certificate."
+msgstr ""
+"Sertifika zincirinde en azından bir adet 1024 bitden küçük açık anahtar "
+"barındıran sertifika bulunuyor. Çoğu işletim sistemi bunu kabul edilemez "
+"bulup, sunucu sertifikasını onaylamayacaklardır."
+
+#: core/diag/AbstractTest.php:386
+msgid ""
+"The server certificate does not have the extension 'extendedKeyUsage: TLS "
+"Web Server Authentication'. Most Microsoft Operating Systems will fail to "
+"validate this certificate."
+msgstr ""
+"Sunucu sertifikasında 'extendedKeyUsage: TLS Web Server Authentication' "
+"parametresi yer almıyor. Microsoft işletim sistemlerinin çoğu bu sertifikayı "
+"doğrulayamacaktır."
+
+#: core/diag/AbstractTest.php:393
+msgid ""
+"The server certificate did not include a CRL Distribution Point, creating "
+"compatibility problems with Windows Phone 8."
+msgstr ""
+"Sunucu sertifikasında bir CRL Distribution Point yer almıyor. Bu durum "
+"Windows Phone 8 ile uyum sorunu yaratacaktır."
+
+#: core/diag/AbstractTest.php:400
+msgid ""
+"The server certificate's 'CRL Distribution Point' extension does not point "
+"to an HTTP/HTTPS URL. Some Operating Systems may fail to validate this "
+"certificate. Checking server certificate validity against a CRL will not be "
+"possible."
+msgstr ""
+"Sunucu sertifikasının 'CRL Distribution Point' parametresi HTTP/HTTPS URL'yi "
+"göstermiyor. Bazı işletim sistemleri bu sertifikayı doğrulayamayacaktır. "
+"Sunucu sertifikasının bir CRL ile validasyonu mümkün olmayacaktır."
+
+#: core/diag/AbstractTest.php:407
+msgid ""
+"The extension 'CRL Distribution Point' in the server certificate points to a "
+"location where no DER-encoded CRL can be found. Some Operating Systems check "
+"certificate validity by consulting the CRL and will fail to validate the "
+"certificate. Checking server certificate validity against a CRL will not be "
+"possible."
+msgstr ""
+"Sunucu sertifikasındaki 'CRL Dağıtım Noktası' uzantısı, DER kodlu CRL "
+"bulunmayan bir konuma işaret ediyor. Bazı İşletim Sistemleri, CRL'ye bakarak "
+"sertifika geçerliliğini kontrol eder ve sertifikayı doğrulayamaz. Sunucu "
+"sertifikası geçerliliğinin CRL'ye bakarak kontrol edilmesi mümkün olmayacak."
+
+#: core/diag/AbstractTest.php:414
+msgid "The server certificate was revoked by the CA!"
+msgstr "Sunucu sertifikası Sertifika Otoritesi tarafından fesh edilmiştir!"
+
+#: core/diag/AbstractTest.php:421
+msgid ""
+"The certificate contained a CN or subjectAltName:DNS which does not parse as "
+"a hostname. This can be problematic on some supplicants. If the certificate "
+"also contains names which are a proper hostname, and you only use those for "
+"your supplicant configuration, then you can safely ignore this notice."
+msgstr ""
+"Sertifikada, geçerli formatta bir host adresi içermeyen CN veya "
+"subjectAltName:DNS parametresi var. Bazı istemcilerde bu sorun yaratabilir.  "
+"Sertifikada geçerli olan host adresleri varsa ve istemci konfigürasyonunuzda "
+"bunları kullanıyorsanız bu mesajı gözardı edebilirsiniz. "
+
+#: core/diag/AbstractTest.php:428
+msgid ""
+"The certificate contained a CN or subjectAltName:DNS which contains a "
+"wildcard ('*'). This can be problematic on some supplicants. If the "
+"certificate also contains names which are wildcardless, and you only use "
+"those for your supplicant configuration, then you can safely ignore this "
+"notice."
+msgstr ""
+"Sertifikada joker ('*') içeren bir CN veya subjectAltName:DNS yer almakta. "
+"Bu bazı istemciler için sorun oluşturabilir. Eğer sertifika jokersiz "
+"isimleri de içeriyor ise ve istemci ayarlarınızda sadece bu isimleri "
+"kullanacak iseniz, bu bildiriyi görmezden gelebilirsiniz."
+
+#: core/diag/AbstractTest.php:435
+msgid ""
+"At least one certificate is outside its validity period (not yet valid, or "
+"already expired)!"
+msgstr ""
+"En az bir sertifika geçerlilik tarih aralığının dışında. (Ya süresi dolmuş "
+"ya da başlangıç zamanı henüz gelmemiş.)"
+
+#: core/diag/AbstractTest.php:442
+#, php-format
+msgid ""
+"At least one intermediate certificate in your CAT profile is outside its "
+"validity period (not yet valid, or already expired), but this certificate "
+"was not used for server validation. Consider removing it from your %s "
+"configuration."
+msgstr ""
+"CAT profilinizdeki ara sertifikalardan en az bir tanesi geçerlilik tarih "
+"aralığı dışında. (Ya başlangıç zamanı henüz gelmemiş ya da süresi dolmuş.) "
+"Ancak bu sertifika, sunucu validasyonu için kullanılmamış. Bu sertifikayı %s "
+"konfigürasyonunuzdan çıkarmayı düşünebilirsiniz. "
+
+#: core/diag/AbstractTest.php:449
+msgid ""
+"The server certificate could not be verified to the root CA you configured "
+"in your profile!"
+msgstr ""
+"Sunucu sertifikası, profilinizde yer alan kök CA tarafından doğrulanamadı."
+
+#: core/diag/AbstractTest.php:453
+msgid ""
+"The certificate chain as received in EAP was not sufficient to verify the "
+"certificate to the root CA in your profile. It was verified using the "
+"intermediate CAs in your profile though. You should consider sending the "
+"required intermediate CAs inside the EAP conversation."
+msgstr ""
+"EAP içerisinden alınan sertifika zinciri, profilinizdeki kök CA yı "
+"doğrulamak için yeterli gelmedi. Ancak, profilinizde yer alan orta seviye CA "
+"lar kullanılarak doğrulanmıştır. Gerekli orta seviye CA ları EAP "
+"iletişiminin içine göndermeyi değerlendirebilirsiniz. "
+
+#: core/diag/AbstractTest.php:459
+msgid ""
+"The EAP server name does not match any of the configured names in your "
+"profile!"
+msgstr "EAP sunucu ismi profilinizdeki konfigüre edilmiş isimlerle uyuşmuyor!"
+
+#: core/diag/AbstractTest.php:466
+msgid ""
+"The configured EAP server name matches either the CN or a subjectAltName:DNS "
+"of the incoming certificate; best current practice is that the certificate "
+"should contain the name in BOTH places."
+msgstr ""
+"Yapılandırılmış EAP sunucu adı, gelen sertifikanın CN veya subjectAltName:"
+"DNS alanlarından biri ile eşleşti, en iyi uygulama sertifikanın HER İKİ alan "
+"içerisinde de yer almasıdır."
+
+#: core/diag/AbstractTest.php:473
+msgid ""
+"At least one certificate did not contain any BasicConstraints extension; "
+"which makes it unclear if it's a CA certificate or end-entity certificate. "
+"At least Mac OS X 10.8 (Mountain Lion) will not validate this certificate "
+"for EAP purposes!"
+msgstr ""
+"Hiçbir sertifika BasicConstraints uzantısı içermemektedir, bu durum "
+"sertifikanın CA sertifikası mı end-entity  sertifikası mı olduğunu "
+"anlaşılmaz yapmaktadır. En azından Mac OS X 10.8 (Mountain Lion) bu "
+"sertifikayı EAP için doğrulamayacaktır!"
+
+#: core/diag/AbstractTest.php:480
+msgid "The server presented a certificate from an unknown authority."
+msgstr ""
+"Sunucu bilinmeyen bir Sertifika Otoritesinden temin edilmiş bir sertifika "
+"sunmuştur."
+
+#: core/diag/AbstractTest.php:487
+msgid "The server accepted the INVALID client certificate."
+msgstr "Sunucu GEÇERSİZ istemci sertifikasını kabul etmiştir."
+
+#: core/diag/AbstractTest.php:494
+msgid "The server rejected the client certificate, even though it was valid."
+msgstr "Sunucu istemci sertifikasını geçerli olmasına rağmen reddetmiştir."
+
+#: core/diag/AbstractTest.php:501
+msgid "The server rejected the client certificate as expected."
+msgstr "Sunucu beklendiği gibi istemci sertifikasını reddetmiştir."
+
+#: core/diag/AbstractTest.php:508
+msgid "The CRL of a certificate could not be found."
+msgstr "Sertifikanın CRL listesi bulunamamıştır."
+
+#: core/diag/AbstractTest.php:515
+msgid "EAP method negotiation failed!"
+msgstr "EAP metodlu müzakere başarısız olmuştur!"
+
+#: core/diag/AbstractTest.php:522
+msgid ""
+"The server offers Diffie-Hellman (DH) ciphers with a DH group smaller than "
+"1024 bit. Mac OS X 10.11 'El Capitan' is known to refuse TLS connections "
+"under these circumstances!"
+msgstr ""
+"Sunucu 1024 bitden küçük DH grubu olan Diffie-Hellman (DH) şifresi "
+"önermektedir. Mac OS X 10.11 'El Capitan' bu şartlarla TLS bağlantılarını "
+"reddetmektedir."
+
+#: core/diag/AbstractTest.php:529
+msgid ""
+"The certificate contains more than one CommonName (CN) field. This is "
+"reportedly problematic on many supplicants."
+msgstr ""
+"Sertikada birden çok CommonName (CN) alanı var. Bu birçok istemci için sorun "
+"oluşturmaktadır."
+
+#: core/diag/AbstractTest.php:536
+msgid ""
+"The certificate public key algorithm is unknown to the system. Please submit "
+"the certificate as a sample to the developers."
+msgstr ""
+"Sertifika ortak anahtar algoritması  bilinmiyor. Lütfen sertifikayı "
+"geliştiricilere örnek olarak gönderin."
+
+#: core/diag/Logopath.php:96
+msgid "[eduroam Diagnostics]"
+msgstr "[eduroam Teşhis]"
+
+#: core/diag/Logopath.php:98
+msgid ""
+"(This service is in an early stage. We apologise if this is a false alert. "
+"If this is the case, please send an email report to cat-devel@lists.geant."
+"org, forwarding the entire message (including the 'SUSPECTS' and 'EVIDENCE' "
+"data at the end), and explain why this is a false positive.)"
+msgstr ""
+"(Bu servis erken bir evrededir. Eğer bu yanlış bir uyarı ise özür dileriz. "
+"Eğer durum buysa, lütfen cat-devel@lists.geant.org adresine, mesajın "
+"tamamını da ('SUSPECTS' ve 'EVIDENCE' verisini de sona ekleyerek) ileterek, "
+"bir e-posta raporu gönderin,  ve uyarının neden yanlış bir pozitif olduğunu "
+"açıklayın."
+
+#: core/diag/Logopath.php:100
+msgid "Yours sincerely,"
+msgstr "Saygılarımızla,"
+
+#: core/diag/Logopath.php:102
+msgid "Ed U. Roam, the eduroam diagnostics algorithm"
+msgstr "Ed U. Roam, eduroam teşhis algoritması"
+
+#: core/diag/Logopath.php:110
+msgid "[POLICYVIOLATION NATIONAL] IdP with no entry in eduroam database"
+msgstr ""
+"[POLİTİKA İHLALİ ULUSAL] eduroam veritabanında bulunmayan kimlik sağlayıcı"
+
+#: core/diag/Logopath.php:111
+msgid "Dear NRO administrator,"
+msgstr "Sayın Ulusal Dolaşım Operatörü yöneticisi,"
+
+#: core/diag/Logopath.php:113
+#, php-format
+msgid ""
+"an end-user requested diagnostics for realm %s. Real-time connectivity "
+"checks determined that the realm exists, but we were unable to find an IdP "
+"with that realm in the eduroam database."
+msgstr ""
+"bir son kullanıcı %s yetki alanı için teşhis isteğinde bulundu. Gerçek "
+"zamanlı bağlantı denetimleri, yetki alanının bulunduğunu belirledi, ancak "
+"eduroam veritabanında bu yetki alanıyla ilgili bir kimlik sağlayıcı "
+"bulamadık."
+
+#: core/diag/Logopath.php:115
+msgid ""
+"By not listing IdPs in the eduroam database, you are violating the eduroam "
+"policy."
+msgstr ""
+"eduroam veritabanında kimlik sağlayıcıları listelememekle, eduroam "
+"politikasını ihlal ediyorsunuz."
+
+#: core/diag/Logopath.php:117
+msgid ""
+"Additionally, this creates operational issues. In particular, we are unable "
+"to direct end users to their IdP for further diagnosis/instructions because "
+"there are no contact points for that IdP in the database."
+msgstr ""
+"Ayrıca, bu işletimsel sorunlar oluşturur. Özellikle, veritabanında kimlik "
+"sağlayıcı için hiçbir iletişim noktası olmadığından, son kullanıcıları daha "
+"fazla tanı/talimat için kendi kimlik sunucusuna yönlendiremeyiz."
+
+#: core/diag/RADIUSTests.php:1008
+#, php-format
+msgid "Connected to %s."
+msgstr "%s'ye bağlanıldı."
+
+#: core/diag/RADIUSTests.php:1013
+msgid ""
+"<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
+"multiple round-trips was carried out, and ended in an Access-Reject as "
+"planned."
+msgstr ""
+"<strong>Test başarılı</strong>: Çoklu gidiş-dönüş ile birlikte iki yönlü "
+"RADIUS iletişimi gerçekleştirildi ve planlandığı gibi bir Erişim-Red ile "
+"sonlandı."
+
+#: core/diag/RADIUSTests.php:1017
+msgid ""
+"<strong>Test partially successful</strong>: a bidirectional RADIUS "
+"conversation with multiple round-trips was carried out, and ended in an "
+"Access-Reject as planned. Some properties of the connection attempt were sub-"
+"optimal; the list is below."
+msgstr ""
+"<strong>Test kısmen başarılı</strong>: Çoklu gidiş-dönüş işlemleriyle "
+"birlikte iki yönlü RADIUS iletişimi gerçekleştirildi ve planlandığı üzere "
+"Erişim-Reddi ile sonlandı. Bağlantı denemesinin bazı özellikleri idealin "
+"altında; liste aşağıda."
+
+#: core/diag/RFC6614Tests.php:68
+msgid "eduPKI"
+msgstr "eduPKI"
+
+#: core/diag/RFC6614Tests.php:69
+msgid "Nicolaus Copernicus University"
+msgstr "Mikołaj Kopernik Üniversitesi"
+
+#: core/diag/RFC6614Tests.php:70
+msgid "accredited"
+msgstr "akredite"
+
+#: core/diag/RFC6614Tests.php:71
+msgid "non-accredited"
+msgstr "akredite değil"
+
+#: core/diag/RFC6614Tests.php:72
+msgid "correct certificate"
+msgstr "doğru sertifika"
+
+#: core/diag/RFC6614Tests.php:73
+msgid "certificate with wrong policy OID"
+msgstr "Hatalı politika ODI ine sahip sertifika"
+
+#: core/diag/RFC6614Tests.php:74
+msgid "expired certificate"
+msgstr "geçerliliği kalkmış sertifika"
+
+#: core/diag/RFC6614Tests.php:75
+msgid "revoked certificate"
+msgstr "iptal edilen sertifika"
+
+#: core/diag/RFC6614Tests.php:76
+msgid "pass"
+msgstr "başarılı"
+
+#: core/diag/RFC6614Tests.php:77
+msgid "fail"
+msgstr "başarısız"
+
+#: core/diag/RFC6614Tests.php:78
+msgid "eduroam-accredited CA (now only for tests)"
+msgstr "akredite-eduroam CA(şimdilik sadece testler için)"
+
+#: core/diag/RFC6614Tests.php:253
+msgid "No TLS connection established: Connection refused"
+msgstr "TLS bağlantısı kurulamadı: Bağlantı reddedildi"
+
+#: core/diag/RFC6614Tests.php:255
+msgid "certificate expired"
+msgstr "sertifika süresi dolmuş"
+
+#: core/diag/RFC6614Tests.php:257
+msgid "certificate was revoked"
+msgstr "sertifika iptal edildi"
+
+#: core/diag/RFC6614Tests.php:259
+msgid "bad policy"
+msgstr "kötü politika"
+
+#: core/diag/RFC6614Tests.php:261
+msgid "unknown authority"
+msgstr "bilinmeyen otorite"
+
+#: core/diag/RFC6614Tests.php:264
+msgid "unknown authority or no certificate policy or another problem"
+msgstr ""
+"bilinmeyen otorite yada sertifika politikası yok yada diğer bir problem"
+
+#. return codes specific to NAPTR existence checks
+#. *
+#. * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
+#.
+#: core/diag/RFC7585Tests.php:124
+msgid "This realm has no NAPTR records."
+msgstr "Bu yetki alanı için NAPTR kaydı bulunmuyor."
+
+#. *
+#. * no eduroam NAPTR for domain; this is not an error, simply means that realm is not doing dynamic discovery for eduroam
+#.
+#: core/diag/RFC7585Tests.php:130
+msgid "NAPTR records were found, but all of them refer to unrelated services."
+msgstr ""
+"NAPTR kayıtları bulundu ancak bütün kayıtlar alakasız servislere refere "
+"etmekte."
+
+#: core/diag/Sociopath.php:35
+msgid "There is nothing you can do to solve this problem yourself."
+msgstr "Bu sorunu kendi başınıza çözmek için yapabileceğiniz birşey yok."
+
+#: core/diag/Sociopath.php:36
+msgid ""
+"Please be patient and try again at a later time. Do NOT change your device "
+"configuration."
+msgstr ""
+"Lütfen sabırlı olun ve daha sonra tekrar deneyin. Cihazınızın "
+"yapılandırmasını DEĞİŞTİRMEYİN."
+
+#: core/diag/Sociopath.php:37
+msgid ""
+"The infrastructure operators have automatically been informed and will "
+"investigate the issue as soon as possible."
+msgstr ""
+"Altyapı operatörleri otomatik olarak bilgilendirildi ve konuyu en kısa "
+"sürede araştıracaklar."
+
+#: core/diag/Sociopath.php:39
+msgid ""
+"The system has identified possible issues regarding your local device "
+"configuration."
+msgstr ""
+"Sistem, yerel cihaz yapılandırmanızla ilgili olası sorunları tespit etti."
+
+#: core/diag/Sociopath.php:47
+msgid ""
+"The system can not find any information at all about the Identity Provider "
+"you described. Probably, this is not a participating institution and the "
+"account you tried to use does not exist."
+msgstr ""
+"Sistem, tanımladığınız Kimlik Sağlayıcısı hakkında hiçbir bilgi bulamadı. "
+"Muhtemelen, bu katılımcı bir kurum değil ve kullanmaya çalıştığınız hesap "
+"mevcut değil."
+
+#: core/diag/Sociopath.php:48
+msgid ""
+"There are likely some issues around the wireless part of the network you are "
+"trying to connect to. Wireless networks do not always behave "
+"deterministically and consistently. All users at a given location have to "
+"share the available bandwidth, and the physical environment (concrete walls, "
+"objects in the way, elevation differences) can have a significant impact on "
+"your connectivity experience."
+msgstr ""
+"Bağlanmaya çalıştığınız ağın kablosuz kısmında bazı sorunlar olabilir. "
+"Kablosuz ağlar her zaman deterministik ve tutarlı bir şekilde davranmaz. "
+"Belirli bir yerde tüm kullanıcılar mevcut bant genişliğini paylaşırı ve "
+"fiziksel ortam (beton duvarlar, yoldaki nesneler, yükseklik farkları) "
+"bağlantı kaliteniz üzerinde önemli bir etkiye sahip olabilir."
+
+#. here is an array with yes/no answers per failure category, and the factors by which a Yes modifies the score; No's modify it by 1/factor;
+#. the order in this array is important: lower numbered questions will be asked first. So make sure you have high-quality questions in the beginning.
+#. to be clear: "Yes" answers are elsewhere in the class the TRUE case; No's are FALSE, a possible "Don't know or N/A" is NULL
+#. VERDICTLECTURE is text which is displayed to the end user if his answer led to a HIGHER score in the process. We are storing the answers to determine this.
+#: core/diag/Sociopath.php:56
+msgid ""
+"You should use appropriate configuration assistants [MGW: see if the realm "
+"exists in CAT, then display link to config] or contact your Identity "
+"Provider [MGW: show contact info]."
+msgstr ""
+"Uygun yapılandırma yardımcılarını kullanın veya Kimlik Sağlayıcınıza "
+"başvurun."
+
+#: core/diag/Sociopath.php:60
+msgid ""
+"Have you ever used the network succesfully, e.g. at your home institution "
+"without roaming?"
+msgstr "Ağı hiç kullanabildiniz mi, ör. dolaşım olmadan ev kurumunuzda?"
+
+#: core/diag/Sociopath.php:62
+#, php-format
+msgid ""
+"If your device has never worked before with this setup, then very likely "
+"your device configuation is wrong. %s"
+msgstr ""
+"Cihazınız bu kurulumla daha önce hiç çalışmadıysa, muhtemelen cihaz "
+"yapılandırmanızın yanlıştır. %s"
+
+#: core/diag/Sociopath.php:64
+msgid ""
+"Did the device previously work when roaming, i.e. at other hotspots away "
+"from your home institution?"
+msgstr ""
+"Cihaz daha önce dolaşımdayken, yani ev kurumunuz dışında, çalışmış mıydı?"
+
+#: core/diag/Sociopath.php:66
+#, fuzzy, php-format
+msgid ""
+"If roaming consistently does not work, then very likely your device "
+"configuration is wrong. Typical errors causing this symptom include: using a "
+"routing ('outer') username without the @realm.tld suffix - those potentially "
+"work at your home organisation, but can not be used when roaming. %s"
+msgstr ""
+"Dolaşım sürekli olarak çalışmıyorsa, muhtemelen cihaz yapılandırmanız "
+"yanlıştır. Bu belirtiye neden olan tipik hatalar şunlardır: @yetkialanı.tld "
+"son eki olmayan bir yönlendirme ('dış') kullanıcı adı kullanma - potansiyel "
+"olarak evde çalışanlar, ancak dolaşım sırasında kullanılamaz. %s"
+
+#: core/diag/Sociopath.php:68
+msgid "Did you recently change the configuration on your device?"
+msgstr "Bu aralar cihazınızdaki yapılandırmayı değiştirdiniz mi?"
+
+#: core/diag/Sociopath.php:70
+msgid ""
+"Accounts only need to be configured once, and can then be used anywhere on "
+"the planet without any changes. If you recently changed the configuration, "
+"that change may very well be at fault. You should never change your network "
+"configuration unless explicitly instructed so by your Identity Provider; "
+"even in the case of temporary login issues."
+msgstr ""
+"Hesapların yalnızca bir kez yapılandırılması gerekir ve daha sonra herhangi "
+"bir değişiklik olmadan heryerde kullanılabilir. Son zamanlarda "
+"yapılandırmayı değiştirdiyseniz, bu değişiklik hatayla olmuştur. Kimlik "
+"sağlayıcınız tarafından açık bir şekilde belirtilmedikçe ağ yapılandırmanızı "
+"asla değiştirmemelisiniz; geçici giriş sorunlarında bile."
+
+#: core/diag/Sociopath.php:72
+msgid "If you use more than one device: do your other devices still work?"
+msgstr ""
+"Birden fazla cihaz kullanıyorsanız: diğer cihazlarınız hala çalışıyor mu?"
+
+#: core/diag/Sociopath.php:73
+msgid ""
+"If all devices stopped working simultaneously, there may be a problem with "
+"your account as such. Maybe your account expired, or you were forced to "
+"change the password? These questions are best answered by your Identity "
+"Provider [MGW: display contact info]"
+msgstr ""
+"Tüm cihazlar aynı anda çalışmayı durdurduysa, hesabınızda bir sorun "
+"olabilir. Belki hesabınızın süresi dolmuştur veya şifrenizi değiştirmek "
+"zorundasınızdır? Bu sorulara en iyi Kimlik Sağlayıcınız  cevap verebilir."
+
+#: core/diag/Sociopath.php:76
+msgid ""
+"Is the place you are currently at heavily crowded, or is a network-intensive "
+"workload going on?"
+msgstr ""
+"Şu anda bulunduğunuz yer çok mu kalabalık, veya ağ-yoğun bir iş mi devam "
+"ediyor?"
+
+#: core/diag/Sociopath.php:78
+msgid ""
+"The network is likely overloaded at this location and point in time. You may "
+"have to wait until later before you get a better connectivity. If you think "
+"the network should be reinforced for more capacity at this place, you should "
+"inform the hotspot provider. [MGW: add contact info]"
+msgstr ""
+"Ağ muhtemelen şu anda ve bu konumda aşırı yüklü. Daha iyi bir bağlantıya "
+"geçmeden önce beklemek zorunda kalabilirsiniz. Ağın bu alanda daha fazla "
+"kapasite için güçlendirilmesi gerektiğini düşünüyorsanız, kablosuz ağ erişim "
+"noktası sağlayıcısını bilgilendirmelisiniz."
+
+#: core/diag/Sociopath.php:80
+msgid "Does the connection get better when you move around?"
+msgstr "Hareket ettiğinizde bağlantı daha iyi oluyor mu?"
+
+#: core/diag/Sociopath.php:82
+msgid ""
+"You should move to a different location to achieve better network coverage "
+"and service. If you think the exact spot you are at deserves better "
+"coverage, you should inform the hotspot provider. [MGW: add contact info]"
+msgstr ""
+"Daha iyi ağ kapsama alanı ve hizmeti için farklı bir konuma gitmelisiniz. "
+"Bulunduğunuz noktanın daha iyi bir kapsama alanı hakkettiğini inanıyorsanız, "
+"kablosuz ağ erişim noktası sağlayıcısını bilgilendirmelisiniz."
+
+#: core/diag/Sociopath.php:85
+msgid ""
+"Do you see errors stating something similar to 'Unable to get IP address'?"
+msgstr "'IP adresi alınamadı' gibi  hatalar görüyor musunuz?"
+
+#: core/diag/Sociopath.php:87
+msgid ""
+"The evidence at hand suggests that there may be an infrastructure problem at "
+"this particular hotspot provider. There is nothing you can do to solve this "
+"problem locally. Please be patient and try again at a later time."
+msgstr ""
+"Eldeki kanıtlar, bu özel kablosuz ağ erişim noktası sağlayıcısında bir "
+"altyapı sorunu olabileceğini göstermekte. Bu sorunu yerel olarak çözmek için "
+"yapabileceğiniz hiçbir şey yok. Lütfen sabırlı olun ve daha sonra tekrar "
+"deneyin."
+
+#: web/skins/modern/diag/diag.php:67
+msgid "Diagnostics site"
+msgstr "Teşhis sitesi"
+
+#: web/skins/modern/diag/diag.php:70
+msgid ""
+"The diagnostics system will do its best to identify and resolve your "
+"problems!"
+msgstr ""
+"Teşhis sistemi problemlerinizi tanımlamak ve çözmek için elinden gelenin en "
+"iyisini yapar!"
+
+#: web/skins/modern/diag/diag.php:70
+msgid ""
+"Please help the system by answering the questions as precisely as possible."
+msgstr ""
+"Lütfen soruları mümkün olduğunca doğru bir şekilde cevaplayarak sisteme "
+"yardımcı olun."
+
+#: web/skins/modern/diag/diag.php:70
+msgid "Are you a"
+msgstr "Siz kimsiniz"
+
+#: web/skins/modern/diag/diag.php:71
+msgid "end-user"
+msgstr "son kullanıcı"
+
+#: web/skins/modern/diag/diag.php:71
+msgid "or"
+msgstr "veya"
+
+#: web/skins/modern/diag/diag.php:72
+msgid "eduroam administrator"
+msgstr "eduroam yöneticisi"
+
+#: web/skins/modern/diag/diag.php:75
+msgid "Tools for End Users"
+msgstr "Son Kullanıcılar İçin Araçlar"
+
+#: web/skins/modern/diag/diag.php:78
+msgid ""
+"To resolve your problem a real-time diagnostics for your realm must be "
+"performed."
+msgstr ""
+"Sorununuzu çözmek için yetki alanınız için gerçek zamanlı bir teşhis "
+"yapılmalıdır."
+
+#: web/skins/modern/diag/diag.php:82
+msgid ""
+"The system needs some information on your home institution - issuer of your "
+"account"
+msgstr ""
+"Sistemin, ev kurumunuz - hesabınızı veren kurum - hakkında bazı bilgilere "
+"ihtiyacı var."
+
+#: web/skins/modern/diag/diag.php:83
+msgid ""
+"What is the realm part of your user account (the part behind the @ of 'your."
+"username@<b>realm.tld</b>):"
+msgstr ""
+"Kullanıcı hesabınızın yetki alanı kısmı nedir ('kullanıcı.adı@<b>yetkialanı."
+"tld</b>' inin @'den sonraki bölümü):"
+
+#: web/skins/modern/diag/diag.php:87
+msgid "alternatively"
+msgstr "alternatif olarak"
+
+#: web/skins/modern/diag/diag.php:88
+msgid "You can select your home institution from the following list"
+msgstr "Ev kurumunuzu aşağıdaki listeden seçebilirsiniz."
+
+#: web/skins/modern/diag/diag.php:90
+msgid "Click to select your country/region and organisation"
+msgstr "Ülkenizi/bölgenizi ve kurumunuzu seçmek için tıklayın"
+
+#: web/skins/modern/diag/diag.php:97
+msgid ""
+"Optionally, to improve tests, you can provide information on your current "
+"location"
+msgstr ""
+"İsterseniz, testleri iyileştirmek için, mevcut konumunuzu paylaşabilirsiniz."
+
+#: web/skins/modern/diag/diag.php:99
+msgid "Click to select a location in which you have an eduroam problem"
+msgstr "eduroam sorunu yaşadığınız konumu seçmek için tıklayın"
+
+#: web/skins/modern/diag/diag.php:106 web/skins/modern/diag/diag.php:237
+msgid "Testing realm"
+msgstr "Yetki alanı test ediliyor"
+
+#: web/skins/modern/diag/diag.php:107
+msgid "First stage completed."
+msgstr "İlk aşama tamamlandı."
+
+#: web/skins/modern/diag/diag.php:112
+msgid "To narrow down the problem, please answer the following few questions."
+msgstr "Sorunu daraltmak için lütfen aşağıdaki birkaç soruyu cevaplayın."
+
+#: web/skins/modern/diag/diag.php:117
+msgid "Run tests"
+msgstr "Testleri çalıştır"
+
+#: web/skins/modern/diag/diag.php:122
+msgid "Tools for eduroam admins"
+msgstr "eduroam yöneticileri için araçlar"
+
+#: web/skins/modern/diag/diag.php:134
+msgid "Which problem are you reporting?"
+msgstr "Hangi problemi rapor ediyorsunuz?"
+
+#: web/skins/modern/diag/diag.php:136 web/skins/modern/diag/diag.php:844
+msgid "SP contacting IdP due to technical problems or abuse"
+msgstr ""
+"Teknik sorunlar veya kötüye kullanım nedeniyle servis sağlayıcı, kimlik "
+"sağlayıcıyla irtibata geçecek"
+
+#: web/skins/modern/diag/diag.php:138
+msgid "IdP contacting SP due to technical problems"
+msgstr ""
+"Teknik sorunlar nedeniyle kimlik sağlayıcı, servis sağlayıcıyla irtibata "
+"geçecek"
+
+#: web/skins/modern/diag/diag.php:145
+msgid "This service is for authenticated admins only."
+msgstr "Bu hizmet sadece kimliği doğrulanmış yöneticiler içindir."
+
+#: web/skins/modern/diag/diag.php:147
+msgid "eduroam® admin access is needed"
+msgstr "eduroam® yönetici erişimi gerekli"
+
+#: web/skins/modern/diag/diag.php:171
+msgid "Select institiution:"
+msgstr "Kurum seçin:"
+
+#: web/skins/modern/diag/diag.php:196
+msgid "Select country or region:"
+msgstr "Ülke veya bölge şeçin:"
+
+#: web/skins/modern/diag/diag.php:204
+msgid "Fetching country/region list"
+msgstr "Ülke/bölge listesi alınıyor"
+
+#: web/skins/modern/diag/diag.php:264
+msgid "Yes"
+msgstr "Evet"
+
+#: web/skins/modern/diag/diag.php:265
+msgid "No"
+msgstr "Hayır"
+
+#: web/skins/modern/diag/diag.php:266
+msgid "I don't know"
+msgstr "Bilmiyorum"
+
+#: web/skins/modern/diag/diag.php:295
+msgid "Diagnostic tests results for selected realm"
+msgstr "Seçilen yetki alanı için teşhis testleri sonuçları"
+
+#: web/skins/modern/diag/diag.php:298
+msgid "The result for tested realm:"
+msgstr "Test edilen yetki alanı için sonuç:"
+
+#: web/skins/modern/diag/diag.php:300
+msgid "The system identified"
+msgstr "Sistem"
+
+#: web/skins/modern/diag/diag.php:302
+msgid "suspected areas which potentially can cause a problem."
+msgstr ""
+"tane, potansiyel olarak bir soruna neden olabilecek, şüpheli alanı tespit "
+"etti."
+
+#: web/skins/modern/diag/diag.php:303
+msgid ""
+"Next to the problem description we show a speculated probability of this "
+"event."
+msgstr ""
+"Problem açıklamasının yanında, bu olayın olmasının tahmini olasılığı "
+"gösterilir."
+
+#: web/skins/modern/diag/diag.php:310
+msgid "Your device configuration is broken"
+msgstr "Cihaz yapılandırmanız bozuk"
+
+#: web/skins/modern/diag/diag.php:313
+msgid "The Wi-Fi network in your vicinity has quality issues"
+msgstr "Çevrenizdeki Wi-Fi ağının kalite sorunu var"
+
+#: web/skins/modern/diag/diag.php:316
+msgid "The network environment around you is broken"
+msgstr "Çevrenizdeki ağ ortamı bozuk"
+
+#: web/skins/modern/diag/diag.php:319
+msgid "The RADIUS server of your service provider is the source of the problem"
+msgstr " Sorunun kaynağı servis sağlayıcınızın RADIUS sunucusudur. "
+
+#: web/skins/modern/diag/diag.php:322
+msgid ""
+"The RADIUS server in your home institution is currently unable to "
+"authenticate you"
+msgstr "Ev kurumunuzun RADIUS sunucusu şu anda sizi doğrulayamıyor"
+
+#: web/skins/modern/diag/diag.php:325
+msgid ""
+"The national server in the country/region you are visiting is not "
+"functioning correctly"
+msgstr ""
+"Ziyaret ettiğiniz ülkede/bölgede bulunan ulusal sunucu doğru çalışmıyor"
+
+#: web/skins/modern/diag/diag.php:328
+msgid ""
+"The link between the national server of the country/region you are visiting "
+"and the top-level server is broken"
+msgstr ""
+"Ziyaret ettiğiniz ülkenin/bölgenin ulusal sunucusu ile üst düzey sunucu "
+"arasındaki bağlantı bozuk"
+
+#: web/skins/modern/diag/diag.php:331
+msgid ""
+"The link between the national server of your home country/region and the top-"
+"level server is broken"
+msgstr ""
+"Ülkenizin/bölgenizin ulusal sunucusu ve üst düzey sunucu arasındaki bağlantı "
+"bozuk"
+
+#: web/skins/modern/diag/diag.php:334
+msgid "The communication to the top-level server is down"
+msgstr "Üst düzey sunucuyla iletişim kesik"
+
+#: web/skins/modern/diag/diag.php:337
+msgid ""
+"The national server in your home country/region is not functioning properly."
+msgstr "Ülkenizdeki/bölgenizdeki ulusal sunucu düzgün çalışmıyor."
+
+#: web/skins/modern/diag/diag.php:340
+msgid "The RADIUS server of your home institution is the source of the problem"
+msgstr "Sorunun kaynağı ev kurumunuzun RADIUS sunucusudur."
+
+#: web/skins/modern/diag/diag.php:343
+msgid "This realm does not exist"
+msgstr "Yetki alanı mevcut değil"
+
+#: web/skins/modern/diag/diag.php:449
+msgid "Fetching institutions list"
+msgstr "Kurum listesi alınıyor"
+
+#: web/skins/modern/diag/diag.php:467
+msgid "Select institution:"
+msgstr "Kurum seçin:"
+
+#: web/skins/modern/diag/diag.php:506
+msgid "Fetching realms list"
+msgstr "Yetki alanları listesi alınıyor"
+
+#: web/skins/modern/diag/diag.php:518
+msgid "Check realm(s):"
+msgstr "Kontrol edilecek yetki alan(lar)ı:"
+
+#: web/skins/modern/diag/diag.php:530
+msgid "Realm:"
+msgstr "Yetki Alanı:"
+
+#: web/skins/modern/diag/diag.php:584 web/skins/modern/diag/diag.php:653
+#: web/skins/modern/diag/diag.php:769
+msgid "Running realm tests"
+msgstr "Yetki alanı testleri çalıştırılıyor"
+
+#: web/skins/modern/diag/diag.php:628
+msgid "Realm is not registered with the eduroam database:"
+msgstr "Yetki alanı, eduroam veritabanına kayıtlı değil:"
+
+#: web/skins/modern/diag/diag.php:701
+msgid "Diagnostics results for selected realms"
+msgstr "Seçilen yetki alanları için teşhis sonuçları"
+
+#: web/skins/modern/diag/diag.php:702
+msgid "An unknown problem occured"
+msgstr "Bilinmeyen bir sorun oluştu"
+
+#: web/skins/modern/diag/diag.php:705
+msgid "This test includes checking of the following realm"
+msgstr "Bu test, aşağıdaki yetki alanının kontrolünü içerir"
+
+#: web/skins/modern/diag/diag.php:707
+msgid "This test includes checking of the following realms"
+msgstr "Bu test, aşağıdaki yetki alanlarının kontrolünü içerir"
+
+#: web/skins/modern/diag/diag.php:717
+msgid "You should report this to"
+msgstr "Bunu şuraya bildirmelisiniz: "
+
+#: web/skins/modern/diag/diag.php:841
+msgid "eduroam admin report submission"
+msgstr "eduroam yönetici raporu gönderimi"
+
+#: web/skins/modern/diag/diag.php:846 web/skins/modern/diag/diag.php:856
+msgid "Reason"
+msgstr "Sebep"
+
+#: web/skins/modern/diag/diag.php:847
+msgid "SP email"
+msgstr "Servis Sağlayıcı e-postası"
+
+#: web/skins/modern/diag/diag.php:848
+msgid "IdP email(s)"
+msgstr "kimlik sağlayıcı e-postası/e-postaları"
+
+#: web/skins/modern/diag/diag.php:849 web/skins/modern/diag/diag.php:860
+msgid "Event's timestamp"
+msgstr "Olayın zaman damgası"
+
+#: web/skins/modern/diag/diag.php:850 web/skins/modern/diag/diag.php:861
+msgid "Calling-Station-Id"
+msgstr "Arayan-İstasyon-Kimliği"
+
+#: web/skins/modern/diag/diag.php:851 web/skins/modern/diag/diag.php:862
+msgid "Additional description"
+msgstr "Ek açıklama"
+
+#: web/skins/modern/diag/diag.php:854
+msgid "IdP contacting SP due to technical problems or abuse"
+msgstr ""
+"Teknik sorunlar veya kötüye kullanım nedeniyle kimlik sağlayıcı, servis "
+"sağlayıcıyla irtibata geçecek"
+
+#: web/skins/modern/diag/diag.php:857
+msgid "SP's Operator-Name"
+msgstr "Servis Sağlayıcının Operatör-İsmi"
+
+#: web/skins/modern/diag/diag.php:858
+msgid "User's outer ID"
+msgstr "Kullanıcının dış kimliği"
+
+#: web/skins/modern/diag/diag.php:859
+msgid "IdP email"
+msgstr "kimlik sağlayıcı e-postası"
+
+#: web/skins/modern/diag/diag.php:863
+msgid "How to contact the user"
+msgstr "Kullanıcıyla nasıl iletişim kurulacak"
+
+#: web/skins/modern/diag/diag.php:880
+msgid "MAC address is incomplete"
+msgstr "MAC adresi eksik"
+
+#: web/skins/modern/diag/diag.php:889
+msgid "Wrong format of email"
+msgstr "Yanlış e-posta biçimi"
+
+#: web/skins/modern/diag/diag.php:898
+msgid "Wrong format of outer ID"
+msgstr "Yanlış dış kimlik biçimi "
+
+#: web/skins/modern/diag/diag.php:907
+msgid "Wrong string given as OperatorName"
+msgstr "OperatorName yanlış verilmiş."

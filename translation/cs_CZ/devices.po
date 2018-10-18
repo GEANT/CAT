@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
-"PO-Revision-Date: 2018-08-22 08:47+0000\n"
+"POT-Creation-Date: 2018-10-18 14:16+0200\n"
+"PO-Revision-Date: 2018-09-12 13:03+0000\n"
 "Last-Translator: Petr Adamec <p.b.adamec@gmail.com>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/"
 "eduroam_devel/cat/language/cs_CZ/)\n"
@@ -103,11 +103,14 @@ msgstr ""
 "bez upozornění; nové definice sítě budou přidány do preferovaných sítí."
 
 #: devices/Devices-template.php:331
-msgid "Android 6.0 Marshmallow"
-msgstr "Android 6.0 Marshmallow"
+#, fuzzy
+msgid "Android 9.0 Pie"
+msgstr "Android 4.3"
 
 #: devices/Devices-template.php:337 devices/Devices-template.php:353
-#: devices/Devices-template.php:369 devices/Devices-template.php:386
+#: devices/Devices-template.php:369 devices/Devices-template.php:385
+#: devices/Devices-template.php:401 devices/Devices-template.php:417
+#: devices/Devices-template.php:434
 #, php-format
 msgid ""
 "Before you proceed with installation on Android systems, please make sure "
@@ -121,31 +124,47 @@ msgstr ""
 "nastavení."
 
 #: devices/Devices-template.php:341 devices/Devices-template.php:357
-#: devices/Devices-template.php:373 devices/Devices-template.php:390
+#: devices/Devices-template.php:373 devices/Devices-template.php:389
+#: devices/Devices-template.php:405 devices/Devices-template.php:421
+#: devices/Devices-template.php:438
 msgid "as local download"
 msgstr "jako místní stažení"
 
 #: devices/Devices-template.php:347
+#, fuzzy
+msgid "Android 8.0 Oreo"
+msgstr "Android 6.0 Marshmallow"
+
+#: devices/Devices-template.php:363
+#, fuzzy
+msgid "Android 6.0 Nougat"
+msgstr "Android 4.4 KitKat"
+
+#: devices/Devices-template.php:379
+msgid "Android 6.0 Marshmallow"
+msgstr "Android 6.0 Marshmallow"
+
+#: devices/Devices-template.php:395
 msgid "Android 5.0 Lollipop"
 msgstr "Android 5.0 Lollipop"
 
-#: devices/Devices-template.php:363
+#: devices/Devices-template.php:411
 msgid "Android 4.4 KitKat"
 msgstr "Android 4.4 KitKat"
 
-#: devices/Devices-template.php:380
+#: devices/Devices-template.php:428
 msgid "Android 4.3"
 msgstr "Android 4.3"
 
-#: devices/Devices-template.php:396
+#: devices/Devices-template.php:444
 msgid "Android"
 msgstr "Android"
 
-#: devices/Devices-template.php:407
+#: devices/Devices-template.php:455
 msgid "EAP config"
 msgstr "Nastavení EAP"
 
-#: devices/Devices-template.php:412
+#: devices/Devices-template.php:460
 #, php-format
 msgid ""
 "This option provides a generic EAP config XML file, which can be consumed by "
@@ -156,7 +175,7 @@ msgstr ""
 "zpracovat aplikace k tomu určené jako eduroamCAT pro Android a pro Linux. To "
 "je však stále nehotová funkce."
 
-#: devices/Devices-template.php:418
+#: devices/Devices-template.php:466
 msgid "Test"
 msgstr "Test"
 
@@ -249,55 +268,55 @@ msgstr "zadejte svoje uživatelské jméno a heslo poskytnuté vaší organizac�
 msgid "(%d times each, because %s is installed for %d SSIDs)"
 msgstr "(%d krát, protože %s je nainstalovaný pro %d SSID)"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:349
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:351
 #, php-format
 msgid "SSID %s"
 msgstr "SSID %s"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:350
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:352
 #, php-format
 msgid "%s configuration for network name %s"
 msgstr "Nastavení %s pro síť s názvem %s"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:358
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:360
 msgid "Wired Network"
 msgstr "Kabelová síť"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:359
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:361
 #, php-format
 msgid "%s configuration for wired network"
 msgstr "Konfigurace %s pro kabelovou síť."
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:370
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:372
 msgid "Hotspot 2.0 Settings"
 msgstr "Nastavení Hotspot 2.0"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:371
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:373
 #, php-format
 msgid "%s Hotspot 2.0 configuration"
-msgstr "Konfigurace Hostspot 2.0 %s"
+msgstr "Konfigurace Hotspot 2.0 %s"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:426
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:428
 #, php-format
 msgid "This SSID should not be used after bootstrapping %s"
 msgstr "Toto SSID by nemělo být po instalaci %s již používáno."
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:428
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:430
 msgid "Disabled WiFi network"
 msgstr "WiFi síť je zakázána."
 
 #. we don't include the import password. It's displayed on screen, and should be input by the user.
 #. <key>Password</key>
 #. <string>" . $this->clientCert['password'] . "</string>
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:503
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:505
 msgid "eduroam user certificate"
 msgstr "uživatelský certifikát pro eduroam"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:539
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:545
 msgid "Your Identity Providers Certification Authority"
 msgstr "Certifikační autorita vašeho poskytovatele identity"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:541
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:547
 msgid "Identity Provider's CA"
 msgstr "CA poskytovatele identity"
 
@@ -312,7 +331,7 @@ msgstr ""
 "organizace vloženo) a výpisem všech dostupných atributů."
 
 #: devices/linux/Device_Linux.php:52
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "The installer is in the form of a Python script. It will try to configure %s "
 "under NetworkManager and if this is either not appropriate for your system "
@@ -320,9 +339,9 @@ msgid ""
 "will be created instead."
 msgstr ""
 "Instalační program je ve formě skriptu v Pythonu. Pokusí se nakonfigurovat "
-"eduroam pomocí aplikace Network Manager. Pokud je verze aplikace Network "
-"Manager ve vašem systému příliš stará nebo není k dispozici, bude vytvořen "
-"konfigurační soubor pro nástroj wpa_supplicant."
+"%s pomocí aplikace NetworkManager. Pokud je verze aplikace NetworkManager ve "
+"vašem systému příliš stará nebo není k dispozici, bude vytvořen konfigurační "
+"soubor pro nástroj wpa_supplicant."
 
 #: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:115
 #, php-format
@@ -427,9 +446,8 @@ msgid "Continue?"
 msgstr "Pokračovat?"
 
 #: devices/linux/Device_Linux.php:97
-#, fuzzy
 msgid "This NetworkManager version is not supported"
-msgstr "Tato verze Network Manageru není podporována"
+msgstr "Tato verze NetworkManageru není podporována"
 
 #: devices/linux/Device_Linux.php:98
 msgid "Certificate file not found, looks like a CAT error"
@@ -460,13 +478,12 @@ msgid "All files"
 msgstr "Všechny soubory"
 
 #: devices/linux/Device_Linux.php:106
-#, fuzzy
 msgid ""
 "NetworkManager configuration failed, but we may generate a wpa_supplicant "
 "configuration file if you wish. Be warned that your connection password will "
 "be saved in this file as clear text."
 msgstr ""
-"Konfigurace Network Manageru se nezdařila. Pokud si přejete, můžeme "
+"Konfigurace NetworkManageru se nezdařila. Pokud si přejete, můžeme "
 "vygenerovat konfigurační soubor pro wpa-supplicant. Vaše heslo pro připojení "
 "bude v tomto souboru uloženo v textové podobě!"
 
@@ -480,7 +497,7 @@ msgid ""
 "Error: Your username must be of the form 'xxx@institutionID' e.g. "
 "'john@example.net'!"
 msgstr ""
-"Chyba: Vaše uživatelské jméno musí být ve formátu 'jméno@institutionID\", "
+"Chyba: Vaše uživatelské jméno musí být ve formátu 'jméno@institutionID', "
 "např. 'john@example.net'!"
 
 #: devices/linux/Device_Linux.php:109
@@ -577,13 +594,14 @@ msgstr ""
 "přihlášení k síti budete-li v jejím dosahu."
 
 #: devices/ms/WindowsCommon.php:135
+#, fuzzy
 msgid ""
 "You will be required to enter the same credentials for each of the "
-"configured notworks:"
+"configured networks:"
 msgstr ""
 "Pro každou z následujících sítí mustíte zadat stejné přihlašovací údaje:"
 
-#: devices/ms/WindowsCommon.php:250 devices/ms/WindowsCommon.php:251
+#: devices/ms/WindowsCommon.php:253 devices/ms/WindowsCommon.php:254
 #, php-format
 msgid "%s installer for %s"
 msgstr "Instalační program %s pre organizaci %s"
@@ -827,7 +845,7 @@ msgstr "Instaluji přihlašovací údaje pro TLS"
 msgid "installing credentials for profile $R1"
 msgstr "nastavení přihlašovacích údajů pro profil $R1"
 
-#: devices/ms/Files/common.inc:1056 devices/ms/Files/geant_link.inc:107
+#: devices/ms/Files/common.inc:1056 devices/ms/Files/geant_link.inc:109
 msgid "Credentials installation problem"
 msgstr "Problém s nastavením přihlašovacích údajů"
 
@@ -970,7 +988,7 @@ msgstr "uživatelský profil"
 msgid "install program"
 msgstr "instalovat program"
 
-#: devices/ms/Files/geant_link.inc:78
+#: devices/ms/Files/geant_link.inc:79
 msgid ""
 "An additional piece of software 'GEANTlink' needs to be installed. This "
 "installation requires Administrator rights; you will be prompted to give "
@@ -979,14 +997,14 @@ msgstr ""
 "Dodatečný program 'GÉANTlink' musí být nainstalován. Tato instalace vyžaduje "
 "administrátorská práva; budete požádáni k povolení této akce."
 
-#: devices/ms/Files/geant_link.inc:89
+#: devices/ms/Files/geant_link.inc:91
 msgid ""
 "Error installing GEANTLink.$\\nEmbedded installer didn't complete "
 "succesfully."
 msgstr ""
 "Chyba při instalaci GEANTLink.$\\nInstalační program neskončil úspěšně."
 
-#: devices/ms/Files/geant_link.inc:99
+#: devices/ms/Files/geant_link.inc:101
 msgid "installing credentials for ${PROVIDERID}"
 msgstr "Instaluji přihlašovací údaje pro ${PROVIDERID}"
 

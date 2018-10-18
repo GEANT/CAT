@@ -77,6 +77,8 @@ $height = getRequest('height', 'int') ?? 0;
 $sort = getRequest('sort', 'int') ?? 0;
 $generatedfor = getRequest('generatedfor', 'safe_text') ?? 'user';
 $token = getRequest('token', 'safe_text');
+$idR = getRequest('id', 'safe_text');
+$id = $idR ? $idR : FALSE;
 
 switch ($action) {
     case 'listLanguages':
@@ -86,6 +88,9 @@ switch ($action) {
         $API->JSON_listCountries();
         break;
     case 'listIdentityProviders':
+        if ($federation === FALSE) {
+           $federation = $id ? $validator->Federation($id)->tld : FALSE;
+        }
         if ($federation === FALSE) { // federation is a mandatory parameter!
             exit;
         }
@@ -96,23 +101,35 @@ switch ($action) {
         break;
     case 'listProfiles': // needs $idp set - abort if not
         if ($idp === FALSE) {
+           $idp = $id ? $validator->IdP($id)->identifier : FALSE;
+        }
+        if ($idp === FALSE) {
             exit;
         }
         $API->JSON_listProfiles($idp, $sort);
         break;
     case 'listDevices':
         if ($profile === FALSE) {
+           $profile = $id ? $validator->Profile($id)->identifier : FALSE;
+        }
+        if ($profile === FALSE) {
             exit;
         }
         $API->JSON_listDevices($profile);
         break;
     case 'generateInstaller': // needs $device and $profile set
+        if ($device === FALSE) {
+            $device = $id;
+        }
         if ($device === FALSE || $profile === FALSE) {
             exit;
         }
         $API->JSON_generateInstaller($device, $profile);
         break;
     case 'downloadInstaller': // needs $device and $profile set optional $generatedfor
+        if ($device === FALSE) {
+            $device = $id;
+        }
         if ($device === FALSE || $profile === FALSE) {
             exit;
         }
@@ -120,11 +137,17 @@ switch ($action) {
         break;
     case 'profileAttributes': // needs $profile set
         if ($profile === FALSE) {
+           $profile = $id ? $validator->Profile($id)->identifier : FALSE;
+        }
+        if ($profile === FALSE) {
             exit;
         }
         $API->JSON_profileAttributes($profile);
         break;
     case 'sendLogo': // needs $idp and $disco set
+        if ($idp === FALSE) {
+           $idp = $id ? $validator->IdP($id)->identifier : FALSE;
+        }
         if ($idp === FALSE) {
             exit;
         }
@@ -145,6 +168,9 @@ switch ($action) {
         }
         break;        
     case 'deviceInfo': // needsdevice and profile set
+        if ($device === FALSE) {
+            $device = $id;
+        }
         if ($device === FALSE || $profile === FALSE) {
             exit;
         }

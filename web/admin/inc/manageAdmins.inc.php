@@ -87,29 +87,53 @@ if (isset($_POST['submitbutton'])) {
 <?php
 if (isset($_GET['invitation'])) {
     echo "<div class='ca-summary' style='position:relative;'><table>";
+    $counter = $validator->integer($_GET['successcount']);
+    if ($counter === FALSE) {
+        $counter = 1;
+    }
     switch ($_GET['invitation']) {
         case "SUCCESS":
             $cryptText = "";
             switch ($_GET['transportsecurity']) {
                 case "ENCRYPTED":
-                    $cryptText = _("and <b>encrypted</b> to the mail domain");
+                    $cryptText = ngettext("It was sent with transport security (encryption).", "They were sent with transport security (encryption).", $counter);
                     break;
                 case "CLEAR":
-                    $cryptText = _("but <b>in clear text</b> to the mail domain");
+                    $cryptText = ngettext("It was sent in clear text (no encryption).", "They were sent in clear text (no encryption).", $counter);
+                    break;
+                case "PARTIAL":
+                    $cryptText = _("A subset of the mails were sent with transport encryption, the rest in clear text.");
                     break;
                 default:
                     throw new Exception("Error: unknown encryption status of invitation!?!");
             }
-            echo $uiElements->boxRemark(sprintf(_("The invitation email was sent successfully %s."), $cryptText), _("The invitation email was sent."));
+            echo $uiElements->boxRemark(ngettext("The invitation email was sent successfully.", "All invitation emails were sent successfully.", $counter) . " " . $cryptText, _("Sent successfully."));
             break;
         case "FAILURE":
-            echo $uiElements->boxError(_("The invitation email could not be sent!"), _("The invitation email could not be sent!"));
+            echo $uiElements->boxError(_("No invitation email could be sent!"), _("Sending failure!"));
+            break;
+        case "PARTIAL":
+            $cryptText = "";
+            switch ($_GET['transportsecurity']) {
+                case "ENCRYPTED":
+                    $cryptText = ngettext("The successful one was sent with transport security (encryption).", "The successful ones were sent with transport security (encryption).", $counter);
+                    break;
+                case "CLEAR":
+                    $cryptText = ngettext("The successful one was sent in clear text (no encryption).", "The successful ones were sent in clear text (no encryption).", $counter);
+                    break;
+                case "PARTIAL":
+                    $cryptText = _("A subset of the successfully sent mails were sent with transport encryption, the rest in clear text.");
+                    break;
+                default:
+                    throw new Exception("Error: unknown encryption status of invitation!?!");
+            }
+            echo $uiElements->boxWarning(sprintf(_("Some invitation emails were sent successfully (%s in total), the others failed."), $counter) . " " . $cryptText, _("Partial success."));
             break;
         case "INVALIDSYNTAX":
             echo $uiElements->boxError(_("The invitation email address was malformed, no invitation was sent!"), _("The invitation email address was malformed, no invitation was sent!"));
             break;
         default:
-            throw new Exception("Error: unknown result code of invitation!?!");
+            echo $uiElements->boxError(_("Error: unknown result code of invitation!?!"), _("Unknown result!"));
     }
     echo "</table></div>";
 }
@@ -178,7 +202,7 @@ if (count($pending_invites) > 0) {
 <br/>
 <img src='../resources/images/icons/loading51.gif' id='spin' style='position:absolute;left: 50%; top: 50%; transform: translate(-100px, -50px); display:none;'>
 <form action='inc/sendinvite.inc.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
-    <?php echo _("New administrator's email address(es) (comma-separated):"); ?><input type="text" name="mailaddr"/><button type='submit' name='submitbutton' onclick='document.getElementById("spin").style.display ="block"' value='<?php echo web\lib\common\FormElements::BUTTON_SAVE; ?>'><?php echo _("Invite new administrator"); ?></button>
+    <?php echo _("New administrator's email address(es) (comma-separated):"); ?><input type="text" name="mailaddr"/><button type='submit' name='submitbutton' onclick='document.getElementById("spin").style.display = "block"' value='<?php echo web\lib\common\FormElements::BUTTON_SAVE; ?>'><?php echo _("Invite new administrator"); ?></button>
 </form>
 <br/>
 <?php

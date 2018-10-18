@@ -1,0 +1,581 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns='http://www.w3.org/1999/xhtml'>
+
+<head>
+<title>Compile Time Commands</title>
+<meta name="generator" content="Halibut v1.0 (NSIS Custom Build, SVN:r6192) xhtml-backend" />
+<link rel="stylesheet" href="style.css" type='text/css' />
+</head>
+
+<body>
+<p><a href='Chapter4.html'>Previous</a> | <a href='Contents.html'>Contents</a> | <a href='AppendixA.html'>Next</a></p>
+<ul>
+<li><a class="btitle" href="Chapter5.html#"><b>Chapter 5: </b>Compile Time Commands</a></li>
+<ul>
+<li><a href="Chapter5.html#compcommands">Compiler Utility Commands</a></li>
+<ul>
+<li><a href="Chapter5.html#include">!include</a></li>
+<li><a href="Chapter5.html#addincludedir">!addincludedir</a></li>
+<li><a href="Chapter5.html#addplugindir">!addplugindir</a></li>
+<li><a href="Chapter5.html#appendfile">!appendfile</a></li>
+<li><a href="Chapter5.html#cd">!cd</a></li>
+<li><a href="Chapter5.html#delfile">!delfile</a></li>
+<li><a href="Chapter5.html#echo">!echo</a></li>
+<li><a href="Chapter5.html#error">!error</a></li>
+<li><a href="Chapter5.html#execute">!execute</a></li>
+<li><a href="Chapter5.html#makensis">!makensis</a></li>
+<li><a href="Chapter5.html#packhdr">!packhdr</a></li>
+<li><a href="Chapter5.html#finalize">!finalize</a></li>
+<li><a href="Chapter5.html#system">!system</a></li>
+<li><a href="Chapter5.html#tempfile">!tempfile</a></li>
+<li><a href="Chapter5.html#ppgetdllversion">!getdllversion</a></li>
+<li><a href="Chapter5.html#ppgettlbversion">!gettlbversion</a></li>
+<li><a href="Chapter5.html#warning">!warning</a></li>
+<li><a href="Chapter5.html#pragma">!pragma</a></li>
+<li><a href="Chapter5.html#verbose">!verbose</a></li>
+</ul>
+<li><a href="Chapter5.html#comppredefines">Predefines</a></li>
+<ul>
+<li><a href="Chapter5.html#precounter">${__COUNTER__}</a></li>
+<li><a href="Chapter5.html#prefile">${__FILE__}</a></li>
+<li><a href="Chapter5.html#prefiledir">${__FILEDIR__}</a></li>
+<li><a href="Chapter5.html#preline">${__LINE__}</a></li>
+<li><a href="Chapter5.html#predate">${__DATE__}</a></li>
+<li><a href="Chapter5.html#pretime">${__TIME__}</a></li>
+<li><a href="Chapter5.html#pretimestamp">${__TIMESTAMP__}</a></li>
+<li><a href="Chapter5.html#prensisversion">${NSIS_VERSION}</a></li>
+<li><a href="Chapter5.html#prensispackedversion">${NSIS_PACKEDVERSION}</a></li>
+<li><a href="Chapter5.html#prensischarsize">${NSIS_CHAR_SIZE}</a></li>
+<li><a href="Chapter5.html#prensisptrsize">${NSIS_PTR_SIZE}</a></li>
+<li><a href="Chapter5.html#preunicodecodepoint">${U+1}...${U+10FFFF}</a></li>
+<li><a href="Chapter5.html#scopepredefines">Scope Predefines</a></li>
+</ul>
+<li><a href="Chapter5.html#compenvvarread">Read environment variables</a></li>
+<ul>
+<li><a href="Chapter5.html#compenvvar">$%envVarName%</a></li>
+</ul>
+<li><a href="Chapter5.html#compdefines">Conditional Compilation</a></li>
+<ul>
+<li><a href="Chapter5.html#define">!define</a></li>
+<li><a href="Chapter5.html#undef">!undef</a></li>
+<li><a href="Chapter5.html#ifdef">!ifdef</a></li>
+<li><a href="Chapter5.html#ifndef">!ifndef</a></li>
+<li><a href="Chapter5.html#if">!if</a></li>
+<li><a href="Chapter5.html#ifmacrodef">!ifmacrodef</a></li>
+<li><a href="Chapter5.html#ifmacrondef">!ifmacrondef</a></li>
+<li><a href="Chapter5.html#else">!else</a></li>
+<li><a href="Chapter5.html#endif">!endif</a></li>
+<li><a href="Chapter5.html#insertmacro">!insertmacro</a></li>
+<li><a href="Chapter5.html#macro">!macro</a></li>
+<li><a href="Chapter5.html#macroend">!macroend</a></li>
+<li><a href="Chapter5.html#macroundef">!macroundef</a></li>
+<li><a href="Chapter5.html#searchparse">!searchparse</a></li>
+<li><a href="Chapter5.html#searchreplace">!searchreplace</a></li>
+</ul>
+</ul>
+</ul>
+<a name="comptime"></a><h1>Chapter 5: Compile Time Commands</h1>
+<a name="compcommands"></a><h2>5.1 Compiler Utility Commands</h2>
+
+<p>These commands are similar to the C preprocessor in terms of purpose and functionality. They allow file inclusion, conditional compilation, executable header packing and process execution during the build process. Note: None of these commands allow the use of variables.</p>
+
+<p>Number literals support the <code>0b</code>, <code>0o</code>, <code>0n</code> and <code>0x</code> radix prefixes (base 2, 8, 10 and 16 respectively). Note: The deprecated plain <code>0</code> octal prefix is also supported in some places but its usage is discouraged.</p>
+<a name="include"></a><h3>5.1.1 !include</h3>
+<pre>[/NONFATAL] [/CHARSET=ACP|OEM|CP#|UTF8|UTF16LE|UTF16BE] file
+</pre>
+
+<p>This command will include 'file' as if it was part of the original script. Note that if a file is included in another directory, the current directory is still where the script was compiled from (not where the included file resides). If the compiler can't find the file it will look for it in every include directory. See <a href="Chapter5.html#addincludedir">!addincludedir</a> for more information. If the /nonfatal switch is used and no files are found, a warning will be issued instead of an error. /charset can be used to specify a codepage for plain text files without a BOM.</p>
+<pre>!include WinMessages.nsh
+!include Library.nsh
+!include /CHARSET=CP1252 C:\MyConfig.nsi
+!include ..\MyConfig.nsh
+!include /NONFATAL file_that_may_exist_or_not.nsh
+</pre>
+<a name="addincludedir"></a><h3>5.1.2 !addincludedir</h3>
+<pre>directory
+</pre>
+
+<p>Adds another include directory to the include directories list. This list is searched when <a href="Chapter5.html#include">!include</a> is used. This list's initial value is ${NSISDIR}\Include.</p>
+<pre>!addincludedir ..\include
+!include something.nsh
+</pre>
+<a name="addplugindir"></a><h3>5.1.3 !addplugindir</h3>
+<pre>[/x86-ansi | /x86-unicode] directory
+</pre>
+
+<p>Causes the NSIS compiler to scan the given directory for plug-in DLLs. If you don't specify the plug-in architecture it is assumed to match the current target architecture. If the architecture does not match the installer will probably crash!</p>
+<pre>!addplugindir ..\myplugin
+MyPlugin::SomeFunction
+</pre>
+<a name="appendfile"></a><h3>5.1.4 !appendfile</h3>
+<pre>[/CHARSET=ACP|OEM|CP#|UTF8[SIG]|UTF16&lt;LE|BE&gt;[BOM]] [/RawNL] file text
+</pre>
+
+<p>Appends <em>text</em> to <em>file</em>. The text is written as ANSI (ACP) unless the file already has a BOM. Using /CHARSET will force a specific character encoding. <code>$\n</code> will be translated to <code>$\r$\n</code> on Windows unless you specify /RawNL.</p>
+<pre>!tempfile FILE
+!appendfile &quot;${FILE}&quot; &quot;XPStyle on$\n&quot;
+!appendfile &quot;${FILE}&quot; &quot;Name 'test'$\n&quot;
+!include &quot;${FILE}&quot;
+!delfile &quot;${FILE}&quot;
+!undef FILE
+</pre>
+<a name="cd"></a><h3>5.1.5 !cd</h3>
+<pre>new_path
+</pre>
+
+<p>This command will change the compiler to the new directory, new_path. new_path can be relative or absolute.</p>
+<pre>!cd ..\more-scripts\new
+</pre>
+<a name="delfile"></a><h3>5.1.6 !delfile</h3>
+<pre>[/nonfatal] file
+</pre>
+
+<p>This command deletes a file.</p>
+<pre>!tempfile FILE
+!delfile &quot;${FILE}&quot;
+!undef FILE
+</pre>
+<a name="echo"></a><h3>5.1.7 !echo</h3>
+<pre>message
+</pre>
+
+<p>This command will echo a message to the user compiling the script.</p>
+<pre>!echo &quot;hello world&quot;
+</pre>
+<a name="error"></a><h3>5.1.8 !error</h3>
+<pre>[message]
+</pre>
+
+<p>This command will issue an error to the script compiler and will stop execution of the script. You can also add a message to this error.</p>
+<pre>!ifdef VERSION &amp; NOVERSION
+  !error &quot;both VERSION and NOVERSION are defined&quot;
+!endif
+</pre>
+<a name="execute"></a><h3>5.1.9 !execute</h3>
+<pre>command [compare comparevalue | symbol]
+</pre>
+
+<p>This command will execute 'command' using a call to CreateProcess(). Unlike <a href="Chapter5.html#system">!system</a>, it does not use the command line processor, so input/output redirection and commands like 'cd', 'dir' and 'type' can not be used. Currently, the only known advantage of <a href="Chapter5.html#execute">!execute</a> over <a href="Chapter5.html#system">!system</a> is that it does not give trouble when the current working directory is specified using UNC.</p>
+
+<p>On POSIX platforms, <a href="Chapter5.html#execute">!execute</a> will use system() just like <a href="Chapter5.html#system">!system</a>.</p>
+<pre>!execute '&quot;$%WINDIR%\notepad.exe&quot; /P &quot;${NSISDIR}\COPYING&quot;'
+</pre>
+<a name="makensis"></a><h3>5.1.10 !makensis</h3>
+<pre>parameters [compare comparevalue | symbol]
+</pre>
+
+<p>This command will <a href="Chapter5.html#execute">!execute</a> a new instance of MakeNSIS with the parameters you specify.</p>
+<pre>!makensis '-DGENERATEUNINST &quot;${__FILE__}&quot;' = 0
+!system '&quot;signtool&quot; sign ...' = 0
+</pre>
+<a name="packhdr"></a><h3>5.1.11 !packhdr</h3>
+<pre>tempfile command
+</pre>
+
+<p>This option makes the compiler use an external EXE packer (such as <a href="http://www.un4seen.com/petite/">Petite</a> or <a href="http://upx.sourceforge.net/">UPX</a>) to compress the executable header. Specify a temporary file name (such as &quot;temp.dat&quot;) and a command line (such as &quot;C:\program files\upx\upx -9 temp.dat&quot;) to compress the header.</p>
+<pre>!packhdr &quot;$%TEMP%\exehead.tmp&quot; '&quot;C:\Program Files\UPX\upx.exe&quot; &quot;$%TEMP%\exehead.tmp&quot;'
+</pre>
+<a name="finalize"></a><h3>5.1.12 !finalize</h3>
+<pre>command [compare comparevalue]
+</pre>
+
+<p>This option will execute 'command' using a call to system() after the output EXE has been generated. You can typically use it to sign (Authenticode) your installer. If 'command' contains a '%1' it will be replaced by the executables filename.</p>
+<pre>!finalize 'sign.bat &quot;%1&quot; &quot;Product Installer&quot; http://example.com'
+</pre>
+<a name="system"></a><h3>5.1.13 !system</h3>
+<pre>command [compare comparevalue | symbol]
+</pre>
+
+<p>This command will execute 'command' using a call to system(). You can store the return value in a define ('symbol') or halt execution if the return value compared (using 'compare') to 'comparevalue' is false. 'compare' can be '&lt;' or '&gt;' or '&lt;&gt;' or '='.</p>
+<pre>!system '&quot;%WINDIR%\notepad.exe&quot; &quot;${NSISDIR}\COPYING&quot;'
+!system 'echo !define something &gt; newinclude.nsh'
+!include newinclude.nsh
+!ifdef something
+  !echo &quot;something is defined&quot;
+!endif
+</pre>
+<a name="tempfile"></a><h3>5.1.14 !tempfile</h3>
+<pre>symbol
+</pre>
+
+<p>This command creates a temporary file. It puts its path into a define, named <em>symbol</em>.</p>
+<pre>!tempfile PACKHDRTEMP
+!packhdr &quot;${PACKHDRTEMP}&quot; '&quot;C:\Program Files\UPX\upx.exe&quot; &quot;${PACKHDRTEMP}&quot;'
+</pre>
+<pre>!tempfile FILE
+!define /date DATE &quot;%H:%M:%S %d %b, %Y&quot;
+!system 'echo built on ${DATE} &gt; &quot;${FILE}&quot;'
+!undef DATE
+File /oname=build.txt &quot;${FILE}&quot;
+!delfile &quot;${FILE}&quot;
+!undef FILE
+</pre>
+<a name="ppgetdllversion"></a><h3>5.1.15 !getdllversion</h3>
+<pre>[/noerrors] [/packed] localfilename define_basename
+</pre>
+
+<p>This is similar to <a href="Chapter4.html#getdllversionlocal">GetDLLVersionLocal</a>, only it stores the version number in defines and can therefore be used anywhere, not just inside functions and sections. /packed returns the information in two DWORDs.</p>
+<pre>!getdllversion &quot;$%WINDIR%\Explorer.exe&quot; Expv_
+!echo &quot;Explorer.exe version is ${Expv_1}.${Expv_2}.${Expv_3}.${Expv_4}&quot;
+</pre>
+<a name="ppgettlbversion"></a><h3>5.1.16 !gettlbversion</h3>
+<pre>[/noerrors] [/packed] localfilename define_basename
+</pre>
+
+<p>Get the version information from a .TLB file.</p>
+<pre>!gettlbversion /packed &quot;$%WINDIR%\System32\stdole32.tlb&quot; TLBVER_
+!echo &quot;${TLBVER_HIGH}.${TLBVER_LOW}&quot;
+</pre>
+<a name="warning"></a><h3>5.1.17 !warning</h3>
+<pre>[message]
+</pre>
+
+<p>This command will issue a warning to the script compiler. You can also add a message to this warning.</p>
+<pre>!ifdef USE_DANGEROUS_STUFF
+  !warning &quot;using dangerous stuff&quot;
+!endif
+</pre>
+<a name="pragma"></a><h3>5.1.18 !pragma</h3>
+<pre>warning &lt;enable|disable|default&gt; code
+warning &lt;push|pop&gt;
+</pre>
+
+<p>The pragma commands allows you to change compiler features and behavior.</p>
+<pre>!pragma warning disable 9000 ; Disable warning about using &quot;Setup.exe&quot; as the name
+OutFile &quot;Setup.exe&quot;
+</pre>
+<a name="verbose"></a><h3>5.1.19 !verbose</h3>
+<pre>level | push | pop
+</pre>
+
+<p>This command will set the level of verbosity: 4=all, 3=no script, 2=no info, 1=no warnings, 0=none.</p>
+
+<p>Passing push will cause !verbose to push the current verbosity level on a special stack. Passing pop will cause !verbose to pop the current verbosity level from the same stack and use it.</p>
+<pre>!verbose push
+!verbose 1
+!include WinMessages.nsh
+!verbose pop
+</pre>
+<a name="comppredefines"></a><h2>5.2 Predefines</h2>
+
+<p>You can use these standard predefines to automatically add the build time to the title of development versions, add the date to the version number, etc.</p>
+<a name="precounter"></a><h3>5.2.1 ${__COUNTER__}</h3>
+
+<p>Expands to a number (Starting at 0 and incrementing by 1 every time it is used)</p>
+<a name="prefile"></a><h3>5.2.2 ${__FILE__}</h3>
+
+<p>Current script name.</p>
+<a name="prefiledir"></a><h3>5.2.3 ${__FILEDIR__}</h3>
+
+<p>Current script directory.</p>
+<a name="preline"></a><h3>5.2.4 ${__LINE__}</h3>
+
+<p>Current line number.</p>
+<a name="predate"></a><h3>5.2.5 ${__DATE__}</h3>
+
+<p>Date when the script started compiling according to the current locale.</p>
+<a name="pretime"></a><h3>5.2.6 ${__TIME__}</h3>
+
+<p>Time when the script started compiling according to the current locale.</p>
+<a name="pretimestamp"></a><h3>5.2.7 ${__TIMESTAMP__}</h3>
+
+<p>Date &amp; time of the last modification to the script file according to the current locale.</p>
+<a name="prensisversion"></a><h3>5.2.8 ${NSIS_VERSION}</h3>
+
+<p>NSIS version used to build the script.</p>
+<a name="prensispackedversion"></a><h3>5.2.9 ${NSIS_PACKEDVERSION}</h3>
+
+<p>NSIS version as a 32-bit number.</p>
+<pre>!if 0x3014000 &gt;= &quot;${NSIS_PACKEDVERSION}&quot;
+  !error &quot;NSIS 3.15 or higher is required to build this installer!&quot;
+!endif
+</pre>
+<a name="prensischarsize"></a><h3>5.2.10 ${NSIS_CHAR_SIZE}</h3>
+
+<p>The size of a character code unit (in bytes). 1 in ANSI installers and 2 in Unicode installers.</p>
+
+<p>A <a href="http://unicode.org/glossary/#grapheme">grapheme</a> cluster consists of a base character plus optional combining characters and diacritics and is defined as one or more code points. One or more code units is required to encode a single code point.</p>
+<a name="prensisptrsize"></a><h3>5.2.11 ${NSIS_PTR_SIZE}</h3>
+
+<p>The size of a pointer (in bytes) in the generated installer.</p>
+<a name="preunicodecodepoint"></a><h3>5.2.12 ${U+1}...${U+10FFFF}</h3>
+
+<p>A Unicode (UCS-4) character.</p>
+<pre>DetailPrint &quot;${U+2115}SIS&quot; # DOUBLE-STRUCK CAPITAL N + &quot;SIS&quot;
+</pre>
+<a name="scopepredefines"></a><h3>5.2.13 Scope Predefines</h3>
+
+<p>Standard predefines that contain information about the current code scope.</p>
+<a name="prescopeglobal"></a><h4>5.2.13.1 ${__GLOBAL__}</h4>
+
+<p>Defined in the global scope.</p>
+<pre>Section test
+  !ifdef ${__GLOBAL__}
+    !error &quot;this shouldn't be here!&quot;
+  !endif
+SectionEnd
+
+PageEx instfiles
+  !ifdef ${__GLOBAL__}
+    !error &quot;this shouldn't be here!&quot;
+  !endif
+PageExEnd
+</pre>
+<a name="prescopesection"></a><h4>5.2.13.2 ${__SECTION__}</h4>
+
+<p>Defined as the section name, without any prefixes, in <a href="Chapter4.html#ssection">section</a> scope.</p>
+<pre>!ifdef __SECTION__
+  !error &quot;this shouldn't be here!&quot;
+!endif
+
+Section test
+  !ifndef __SECTION__
+    !error &quot;missing predefine!&quot;
+  !endif
+
+  !if ${__SECTION__} != test
+    !error &quot;wrong predefine value!&quot;
+  !endif
+SectionEnd
+
+Section !test
+  !if ${__SECTION__} != test
+    !error &quot;wrong predefine value!&quot;
+  !endif
+SectionEnd
+
+Section un.test
+  !if ${__SECTION__} != test
+    !error &quot;wrong predefine value!&quot;
+  !endif
+SectionEnd
+</pre>
+<a name="prescopefunction"></a><h4>5.2.13.3 ${__FUNCTION__}</h4>
+
+<p>Defined as the function name, without any prefixes, in <a href="Chapter4.html#ffunction">function</a> scope.</p>
+<pre>!ifdef __FUNCTION__
+  !error &quot;this shouldn't be here!&quot;
+!endif
+
+Function test
+  !ifndef __FUNCTION__
+    !error &quot;missing predefine!&quot;
+  !endif
+
+  !if ${__FUNCTION__} != test
+    !error &quot;wrong predefine value!&quot;
+  !endif
+FunctionEnd
+
+Function un.test
+  !if ${__FUNCTION__} != test
+    !error &quot;wrong predefine value!&quot;
+  !endif
+FunctionEnd
+</pre>
+<a name="prescopepageex"></a><h4>5.2.13.4 ${__PAGEEX__}</h4>
+
+<p>Defined as the page type in <a href="Chapter4.html#pageex">PageEx</a> scope.</p>
+<pre>!ifdef __PAGEEX__
+  !error &quot;this shouldn't be here!&quot;
+!endif
+
+PageEx instfiles
+  !ifndef __PAGEEX__
+    !error &quot;missing predefine!&quot;
+  !endif
+
+  !if ${__PAGEEX__} != instfiles
+    !error &quot;wrong page type&quot;
+  !endif
+PageExEnd
+</pre>
+<a name="prescopeuninstall"></a><h4>5.2.13.5 ${__UNINSTALL__}</h4>
+
+<p>Defined in <a href="Chapter4.html#ssection">section</a>, <a href="Chapter4.html#ffunction">function</a> or <a href="Chapter4.html#pageex">PageEx</a> scopes of the uninstaller.</p>
+<pre>!ifdef __UNINSTALL__
+  !error &quot;this shouldn't be here!&quot;
+!endif
+
+Function test
+  !ifdef __UNINSTALL__
+    !error &quot;this shouldn't be here!&quot;
+  !endif
+FunctionEnd
+
+Function un.test
+  !ifndef __UNINSTALL__
+    !error &quot;missing predefine!&quot;
+  !endif
+FunctionEnd
+</pre>
+<a name="prescopemacro"></a><h4>5.2.13.6 ${__MACRO__}</h4>
+
+<p>Defined as the name of the current macro.</p>
+<a name="compenvvarread"></a><h2>5.3 Read environment variables</h2>
+<a name="compenvvar"></a><h3>5.3.1 $%envVarName%</h3>
+
+<p>$%envVarName% will be replaced at compile time by the environment variable envVarName.</p>
+<a name="compdefines"></a><h2>5.4 Conditional Compilation</h2>
+
+<p>The compiler maintains a list of defined symbols, which can be defined using !define or the /D command line switch. These defined symbols can be used for conditional compilation (using !ifdef) or for symbol replacement (a simple form of macros). To replace a symbol with its value, use ${SYMBOL} (if SYMBOL is not defined, no translation will occur). The translation is first-come-first-served, meaning if you do:</p>
+<pre>!define symbol_one ${symbol_two}
+</pre>
+
+<p>If symbol_two is defined when that line occurs, it will be replaced. Otherwise, any replacing will occur when ${symbol_one} is referenced.</p>
+
+<p>Define/conditional compilation related commands:</p>
+<a name="define"></a><h3>5.4.1 !define</h3>
+<pre>[/ifndef | /redef] ([/date|/utcdate] gflag [value]) | (/math gflag val1 OP val2) | (/file gflag filename.txt)
+</pre>
+
+<p>This command will add <em>gflag</em> to the global define list. This will have a similar effect as using the /D switch on the command line (the define only becomes effective after the !define command).</p>
+
+<p>If <em>/date</em> or <em>/utcdate</em> are used, <em>value</em> will be passed to strftime() and the result will be used as the value of <em>gflag</em>. strftime converts special symbols into certain parts of the current time or date. For example, %H will be converted into the current hour in 24-hour format. For a complete list of available symbols, search for strftime on <a href="http://msdn.microsoft.com/">MSDN</a>. On POSIX, you can get the list by using <code>man strftime</code>.</p>
+
+<p>If <em>/math</em> is used, the result of 'val1 OP val2', where OP may be +,-,*,/,%,&lt;&lt;,&gt;&gt;,&gt;&gt;&gt;,&amp;,|,^,~,!,&amp;&amp; or ||, will be used as the value of <em>gflag</em>. Note that val1 AND val2 MUST be integer values!</p>
+
+<p>If <em>/file</em> is used, the entire text file specified (including whitespace and newlines) will be read and stuffed into <em>gflag</em>.</p>
+<pre>!define USE_SOMETHING
+!define VERSION 1.2
+!define /date NOW &quot;%H:%M:%S %d %b, %Y&quot;
+!define /math RESULT 3 + 10
+!define /math REST 15 % ${RESULT}
+!define /file BunchaStuff somesourcefile.cpp
+!define /redef USE_SOMETHING ${RESULT} ;redefine USE_SOMETHING
+</pre>
+<a name="undef"></a><h3>5.4.2 !undef</h3>
+<pre>gflag
+</pre>
+
+<p>Removes an item from the global define list. Note that ${SYMBOL} where SYMBOL is undefined will be translated to &quot;${SYMBOL}&quot;.</p>
+<pre>!define SOMETHING
+!undef SOMETHING
+</pre>
+<a name="ifdef"></a><h3>5.4.3 !ifdef</h3>
+<pre>gflag [bcheck gflag [...]]
+</pre>
+
+<p>This command, when paired with an !endif command, will tell the compiler whether or not to compile the lines in between the two lines. If gflag is globally defined (using !define or the /D switch), then the contained lines will be compiled. Otherwise, they will be skipped. 'bcheck' can be specified as &amp; (boolean and) or | (boolean or) along with more gflags -- precedence is simple, left to right.</p>
+<pre>!define SOMETHING
+!ifdef SOMETHING
+  !echo &quot;SOMETHING is defined&quot;
+!endif
+!undef SOMETHING
+!ifdef SOMETHING
+  !echo &quot;SOMETHING is defined&quot; # will never be printed
+!endif
+</pre>
+<a name="ifndef"></a><h3>5.4.4 !ifndef</h3>
+<pre>gflag [bcheck gflag [...]]]
+</pre>
+
+<p>The opposite of !ifdef. The lines will be compiled when the gflag has not been defined.</p>
+<a name="if"></a><h3>5.4.5 !if</h3>
+<pre>[!] value [op value2]
+[!] /FileExists &quot;c:\path\file.exe&quot;
+</pre>
+
+<p>This command, when paired with an !endif command, will tell the compiler whether or not to compile the lines in between the two lines. If value is non-zero, or the comparison of value and value2 depending on the operator results in true, the contained lines will be compiled. Otherwise, they will be skipped. op can be either == or != (case-insensitive string comparison), S== or S!= (case-sensitive string comparison), =, &lt;&gt;, &lt;=, &lt;, &gt; or &gt;= (int/hex/float comparison), &amp; (bitwise AND comparison), &amp;&amp; or || (boolean comparison). If [!] is set, the result will be flipped from true to false and vice versa.</p>
+<pre>!if 1 &lt; 0x2
+  !echo &quot;1 is smaller than 2!!&quot;
+!else if ! 3.1 &gt; 1.99
+  !error &quot;this line should never appear&quot;
+!else
+  !error &quot;neither should this&quot;
+!endif
+</pre>
+<pre>!if /FileExists &quot;.\cert.pfx&quot;
+  !finalize '&quot;.\sign.bat&quot; &quot;%1&quot;'
+!endif
+</pre>
+<a name="ifmacrodef"></a><h3>5.4.6 !ifmacrodef</h3>
+<pre>gflag [bcheck gflag [...]]]
+</pre>
+
+<p>This command, when paired with an !endif command, will tell the compiler whether or not to compile the lines in between the two lines. If the macro gflag exists, then the contained lines will be compiled. Otherwise, they will be skipped. 'bcheck' can be specified as &amp; (boolean and) or | (boolean or) along with more gflags -- precedence is simple, left to right.</p>
+<pre>!macro SomeMacro
+!macroend
+!ifmacrodef SomeMacro
+  !echo &quot;SomeMacro is defined&quot;
+!endif
+</pre>
+<a name="ifmacrondef"></a><h3>5.4.7 !ifmacrondef</h3>
+<pre>gflag [bcheck gflag [...]]]
+</pre>
+
+<p>The opposite of !ifmacrodef. The lines will be compiled when the macro gflag does not exist.</p>
+<a name="else"></a><h3>5.4.8 !else</h3>
+<pre>[if|ifdef|ifndef|ifmacrodef|ifmacrondef [...]]
+</pre>
+
+<p>This command allows to easily insert different code when different defines or macros are set. You can create blocks like !ifdef/!else/!endif, !ifdef/!else ifdef/!else/!endif etc.</p>
+<pre>!ifdef VERSION
+OutFile installer-${VERSION}.exe
+!else
+OutFile installer.exe
+!endif
+</pre>
+<a name="endif"></a><h3>5.4.9 !endif</h3>
+
+<p>This command closes a block started with !if, !ifdef, !ifndef, !ifmacrodef or !ifmacrondef.</p>
+<a name="insertmacro"></a><h3>5.4.10 !insertmacro</h3>
+<pre>macro_name [parameter] [...]
+</pre>
+
+<p>Inserts the contents of a macro that was created with !macro. If the macro was created with parameters, then you must pass as many parameters to the macro as it requires.</p>
+<pre>!macro Print text
+  DetailPrint &quot;${text}&quot;
+!macroend
+!insertmacro Print &quot;some text&quot;
+!insertmacro Print &quot;some more text&quot;
+</pre>
+<a name="macro"></a><h3>5.4.11 !macro</h3>
+<pre>macro_name [parameter][...]
+</pre>
+
+<p>Creates a macro named 'macro_name'. All lines between the !macro and the !macroend will be saved. To insert the macro later on, use !insertmacro. !macro definitions can have one or more parameters defined. The parameters may be accessed the same way a !define would (e.g. ${PARMNAME}) from inside the macro.</p>
+<pre>!macro SomeMacro parm1 parm2 parm3
+  DetailPrint &quot;${parm1}&quot;
+  MessageBox MB_OK &quot;${parm2}&quot;
+  File &quot;${parm3}&quot;
+!macroend
+</pre>
+<a name="macroend"></a><h3>5.4.12 !macroend</h3>
+
+<p>Ends a macro that was started with !macro.</p>
+<a name="macroundef"></a><h3>5.4.13 !macroundef</h3>
+<pre>macro_name
+</pre>
+
+<p>Deletes a macro.</p>
+<a name="searchparse"></a><h3>5.4.14 !searchparse</h3>
+<pre>[/ignorecase] [/noerrors] [/file] source_string_or_file substring_start OUTPUTSYMBOL1 [substring [OUTPUTSYMBOL2 [substring ...]]]
+</pre>
+
+<p>Parses <em>source_string_or_file</em> (which is treated as a string, or as a filename if <em>/file</em> is set), looking for <em>substring_start</em>. If <em>substring_start</em> is found, then <em>OUTPUTSYMBOL1</em> is defined to the rest of the string (minus any other <em>substring</em> that may be found). Any number of <em>OUTPUTSYMBOLx</em> may be specified, and the final <em>substring</em> is optional.</p>
+
+<p>If <em>/noerrors</em> is specified, matching less than the full number of strings is allowed (all <em>OUTPUTSYMBOLx</em> after the not-found substring will be ignored).</p>
+
+<p>If <em>/file</em> is specified, the file is treated as a series of lines. The file is searched until all substrings are matched. If <em>/noerrors</em> is specified and not all strings are matched, the first line with the most symbols matched is used.</p>
+<pre># search filename.cpp for a line '#define APP_VERSION &quot;2.5&quot;' and set ${VER_MAJOR} to 2, ${VER_MINOR} to 5.
+!searchparse /file filename.cpp `#define APP_VERSION &quot;` VER_MAJOR `.` VER_MINOR `&quot;`
+</pre>
+<a name="searchreplace"></a><h3>5.4.15 !searchreplace</h3>
+<pre>[/ignorecase] symbol_out source_string searchfor replacewith
+</pre>
+
+<p>Searches <em>source_string</em>, looking for <em>searchfor</em> and replacing all instances of it with <em>replacewith</em>. Unlike !define, !searchreplace allows you to redefine <em>symbol_out</em> without warning or error.</p>
+<pre># defines ${blah} to &quot;i like ponies&quot;
+!searchreplace blah &quot;i love ponies&quot; &quot;love&quot; &quot;like&quot;
+</pre>
+<p><a href='Chapter4.html'>Previous</a> | <a href='Contents.html'>Contents</a> | <a href='AppendixA.html'>Next</a></p>
+
+<hr />
+
+<address>
+</address>
+</body>
+
+</html>

@@ -255,9 +255,10 @@ class ProfileRADIUS extends AbstractProfile {
      * to delete the supported EAP types list in addition to just flushing the
      * normal DB-based attributes
      */
-    public function beginFlushAttributes() {
+    public function beginFlushAttributes($extracondition = "") {
         $this->databaseHandle->exec("DELETE FROM supported_eap WHERE profile_id = $this->identifier");
-        return parent::beginFlushAttributes();
+        // parent operates on profile_options and we need the following to exclude eap-specific and device-specific
+        return parent::beginFlushAttributes("AND eap_method_id = 0 AND device_id IS NULL");
     }
 
     /** Toggle anonymous outer ID support.
@@ -300,7 +301,7 @@ class ProfileRADIUS extends AbstractProfile {
      * @return array list of row id's of file-based attributes which weren't deleted
      */
     public function beginFlushMethodLevelAttributes($eapId, $deviceId) {
-        if ($eapId == 0 && $deviceId = "") {
+        if ($eapId == 0 && $deviceId == "") {
             throw new Exception("MethodLevel attributes pertain either to an EAP method or a device - none was specified in the parameters.");
         }
         if ($eapId != 0 && $deviceId != "") {

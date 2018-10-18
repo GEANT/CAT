@@ -5,15 +5,16 @@
 # Translators:
 # Daniele Albrizio <dalbrizio@gmail.com>, 2018
 # Daniele Albrizio <daniele@albrizio.it>, 2012-2013,2015,2018
+# Giuseppe De Marco <giuseppe.demarco@unical.it>, 2018
 # Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2015
 # Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-05 14:51+0200\n"
-"PO-Revision-Date: 2018-05-18 12:20+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2018-10-18 14:16+0200\n"
+"PO-Revision-Date: 2018-10-05 07:07+0000\n"
+"Last-Translator: Pasquale Mandato <pasquale.mandato@garr.it>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/eduroam_devel/cat/"
 "language/it_IT/)\n"
 "Language: it_IT\n"
@@ -27,8 +28,8 @@ msgid ""
 "Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git "
 "Revision</a>"
 msgstr ""
-"Non rilasciato <a href='https://github.com/GEANT/CAT/tree/master/Changes."
-"md'> Revisione Git </a>"
+"<a href='https://github.com/GEANT/CAT/tree/master/Changes.md'> Revisione Git "
+"</a> non rilasciata"
 
 #: core/CAT.php:121
 #, php-format
@@ -411,6 +412,8 @@ msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
 "'%s'!)"
 msgstr ""
+"Il tuo accesso %s è pronto! Clicca qui: %s (su Android, prima installa l'app "
+"'%s'!)"
 
 #: core/SilverbulletInvitation.php:267
 #, php-format
@@ -422,7 +425,7 @@ msgstr "%s Sistema Inviti"
 #. /                3. federation shortname, e.g. "LU";
 #. /                4. product name (e.g. eduroam CAT);
 #. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/UserManagement.php:179
+#: core/UserManagement.php:194
 #, php-format
 msgid ""
 "Hi,\n"
@@ -447,7 +450,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/UserManagement.php:188
+#: core/UserManagement.php:203
 msgid "IdP in your federation was created"
 msgstr "E' stato creato un IdP nella tua federazione"
 
@@ -483,50 +486,50 @@ msgstr "FAST-GTC"
 msgid "EAP-pwd"
 msgstr "EAP-pwd"
 
-#: core/common/OutsideComm.php:239
+#: core/common/OutsideComm.php:240
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
 msgstr "un %s del %s %s \"%s\" ti ha invitato a gestire l'%s insieme a lui"
 
-#: core/common/OutsideComm.php:240
+#: core/common/OutsideComm.php:241
 #, php-format
 msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
 msgstr "un operatore %s %s ti ha invitato a gestire il futuro %s  \"%s\" (%s)."
 
-#: core/common/OutsideComm.php:241
+#: core/common/OutsideComm.php:242
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\"."
 msgstr "un %s %s ti ha invitato a gestire il %s  \"%s\"."
 
-#: core/common/OutsideComm.php:243
+#: core/common/OutsideComm.php:244
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr "Questo invito  è valido 24 ore da ora, es. fino a %s"
 
 #. then, send out the mail
-#: core/common/OutsideComm.php:251
+#: core/common/OutsideComm.php:252
 msgid "Hello,"
 msgstr "Salve,"
 
 #. default means we don't have a Reply-To.
-#: core/common/OutsideComm.php:253
+#: core/common/OutsideComm.php:254
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
 "manualmente. Non rispondere a questa mail, è un indirizzo di sola spedizione."
 
-#: core/common/OutsideComm.php:259
+#: core/common/OutsideComm.php:260
 #, php-format
 msgid "Additional message from your %s administrator:"
 msgstr "Messaggio aggiuntivo dal tuo amministratore di %s:"
 
-#: core/common/OutsideComm.php:267
+#: core/common/OutsideComm.php:268
 #, php-format
 msgid "%s administrator"
 msgstr "amministratore di %s"
 
-#: core/common/OutsideComm.php:270
+#: core/common/OutsideComm.php:271
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
@@ -534,14 +537,14 @@ msgstr ""
 "manualmente. Se rispondi a questa mail, raggiungerai gli amministratori del "
 "tuo %s"
 
-#: core/common/OutsideComm.php:275
+#: core/common/OutsideComm.php:276
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
 "link:"
 msgstr "Per diventare amministratore di questo %s, clicca sul seguente link:"
 
-#: core/common/OutsideComm.php:277
+#: core/common/OutsideComm.php:278
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
@@ -550,11 +553,11 @@ msgstr ""
 "Se il link non funziona, raggiungere la interfaccia di amministrazione di %s "
 "al seguente indirizzo "
 
-#: core/common/OutsideComm.php:279
+#: core/common/OutsideComm.php:280
 msgid "and enter the invitation token"
 msgstr "e inserire il seguente codice"
 
-#: core/common/OutsideComm.php:281
+#: core/common/OutsideComm.php:282
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
@@ -562,12 +565,12 @@ msgstr ""
 "Non inoltrare la mail prima che il token sia scaduto - o i destinatari "
 "potrebbero essere in grado di usare il token rilasciato a vostro nome."
 
-#: core/common/OutsideComm.php:282
+#: core/common/OutsideComm.php:283
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr "Vi auguriamo buon divertimento con %s"
 
-#: core/common/OutsideComm.php:283
+#: core/common/OutsideComm.php:284
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -579,7 +582,7 @@ msgstr ""
 "I tuoi amici da %s Operations"
 
 #. what do we want to say?
-#: core/common/OutsideComm.php:318
+#: core/common/OutsideComm.php:319
 #, php-format
 msgid "%s: you have been invited to manage an %s"
 msgstr "%s: sei stato invitato a gestire un %s"
@@ -614,4 +617,4 @@ msgstr "Il Realm non contiene almeno un . (punto)!"
 
 #: web/lib/common/InputValidation.php:311
 msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
-msgstr ""
+msgstr "Codifica delle coordinate errata (2.0 usa JSON, non serialize)!"

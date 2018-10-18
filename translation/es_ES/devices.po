@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
-"PO-Revision-Date: 2018-06-06 07:08+0000\n"
+"POT-Creation-Date: 2018-10-18 14:16+0200\n"
+"PO-Revision-Date: 2018-09-11 13:37+0000\n"
 "Last-Translator: Alberto Martínez Setién\n"
 "Language-Team: Spanish (http://www.transifex.com/eduroam_devel/cat/language/"
 "es/)\n"
@@ -105,11 +105,14 @@ msgstr ""
 "añadirán a las redes preferidas."
 
 #: devices/Devices-template.php:331
-msgid "Android 6.0 Marshmallow"
-msgstr "Android 6.0 Marshmallow"
+#, fuzzy
+msgid "Android 9.0 Pie"
+msgstr "Android 4.3"
 
 #: devices/Devices-template.php:337 devices/Devices-template.php:353
-#: devices/Devices-template.php:369 devices/Devices-template.php:386
+#: devices/Devices-template.php:369 devices/Devices-template.php:385
+#: devices/Devices-template.php:401 devices/Devices-template.php:417
+#: devices/Devices-template.php:434
 #, php-format
 msgid ""
 "Before you proceed with installation on Android systems, please make sure "
@@ -123,31 +126,47 @@ msgstr ""
 "establecer la configuración necesaria en el sistema."
 
 #: devices/Devices-template.php:341 devices/Devices-template.php:357
-#: devices/Devices-template.php:373 devices/Devices-template.php:390
+#: devices/Devices-template.php:373 devices/Devices-template.php:389
+#: devices/Devices-template.php:405 devices/Devices-template.php:421
+#: devices/Devices-template.php:438
 msgid "as local download"
 msgstr "como una descarga local"
 
 #: devices/Devices-template.php:347
+#, fuzzy
+msgid "Android 8.0 Oreo"
+msgstr "Android 6.0 Marshmallow"
+
+#: devices/Devices-template.php:363
+#, fuzzy
+msgid "Android 6.0 Nougat"
+msgstr "Android 4.4 KitKat"
+
+#: devices/Devices-template.php:379
+msgid "Android 6.0 Marshmallow"
+msgstr "Android 6.0 Marshmallow"
+
+#: devices/Devices-template.php:395
 msgid "Android 5.0 Lollipop"
 msgstr "Android 5.0 Lollipop"
 
-#: devices/Devices-template.php:363
+#: devices/Devices-template.php:411
 msgid "Android 4.4 KitKat"
 msgstr "Android 4.4 KitKat"
 
-#: devices/Devices-template.php:380
+#: devices/Devices-template.php:428
 msgid "Android 4.3"
 msgstr "Android 4.3"
 
-#: devices/Devices-template.php:396
+#: devices/Devices-template.php:444
 msgid "Android"
 msgstr "Android"
 
-#: devices/Devices-template.php:407
+#: devices/Devices-template.php:455
 msgid "EAP config"
 msgstr "Configuración EAP"
 
-#: devices/Devices-template.php:412
+#: devices/Devices-template.php:460
 #, php-format
 msgid ""
 "This option provides a generic EAP config XML file, which can be consumed by "
@@ -158,7 +177,7 @@ msgstr ""
 "consumida por aplicaciones dedicadas, como eduroamCAT para las plataformas "
 "Android y Linux. Esta es aún una característica experimental."
 
-#: devices/Devices-template.php:418
+#: devices/Devices-template.php:466
 msgid "Test"
 msgstr "Prueba"
 
@@ -203,9 +222,8 @@ msgstr ""
 "nombre de usuario con el formato correcto."
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:141
-#, fuzzy
 msgid "Unnamed Organisation"
-msgstr "%s sin nombre"
+msgstr "Organización sin nombre"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:142
 msgid "Unnamed Profile"
@@ -243,65 +261,65 @@ msgid "(%d times)"
 msgstr "(%d veces)"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:210
-#, fuzzy
 msgid ""
 "to enter the username and password you have been given by your organisation"
-msgstr "para introducir el nombre de usuario y contraseña de tu %s"
+msgstr ""
+"para introducir el nombre de usuario y contraseña dados por tu organización"
 
 #: devices/apple_mobileconfig/mobileconfigSuperclass.php:212
 #, php-format
 msgid "(%d times each, because %s is installed for %d SSIDs)"
 msgstr "(%d veces cada vez, pues %s se instala para %d SSIDs)"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:349
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:351
 #, php-format
 msgid "SSID %s"
 msgstr "SSID %s"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:350
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:352
 #, php-format
 msgid "%s configuration for network name %s"
 msgstr "Configuración %s para el nombre de red %s"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:358
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:360
 msgid "Wired Network"
 msgstr "Red cableada"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:359
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:361
 #, php-format
 msgid "%s configuration for wired network"
 msgstr "Configuración de %s para la red cableada"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:370
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:372
 msgid "Hotspot 2.0 Settings"
 msgstr "Configuración de Hotspot 2.0"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:371
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:373
 #, php-format
 msgid "%s Hotspot 2.0 configuration"
 msgstr "Configuración de %s de tipo Hotspot 2.0"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:426
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:428
 #, php-format
 msgid "This SSID should not be used after bootstrapping %s"
 msgstr "Este SSID no debería ser usado después del arranque de %s"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:428
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:430
 msgid "Disabled WiFi network"
 msgstr "Red WiFi deshabilitada"
 
 #. we don't include the import password. It's displayed on screen, and should be input by the user.
 #. <key>Password</key>
 #. <string>" . $this->clientCert['password'] . "</string>
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:503
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:505
 msgid "eduroam user certificate"
 msgstr "certificado de usuario de eduroam"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:539
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:545
 msgid "Your Identity Providers Certification Authority"
 msgstr "La autoridad de certificación de su proveedor de identidad"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:541
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:547
 msgid "Identity Provider's CA"
 msgstr "CA del proveedor de identidad"
 
@@ -317,16 +335,16 @@ msgstr ""
 "disponibles."
 
 #: devices/linux/Device_Linux.php:52
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "The installer is in the form of a Python script. It will try to configure %s "
 "under NetworkManager and if this is either not appropriate for your system "
 "or your version of NetworkManager is too old, a wpa_supplicant config file "
 "will be created instead."
 msgstr ""
-"Este instalador consiste en un script Python. Tratará de configurar eduroam "
-"a través de Network Manager, y si esto no es posible para tu sistema o tu "
-"versión de Network Manager es muy antigua, en vez de eso generará un fichero "
+"Este instalador consiste en un script Python. Tratará de configurar %s a "
+"través de NetworkManager, y si esto no es posible para tu sistema o tu "
+"versión de NetworkManager es muy antigua, en vez de eso generará un fichero "
 "de configuración para wpa_supplicant."
 
 #: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:115
@@ -354,7 +372,6 @@ msgstr ""
 "y copiará tus certificados de servidor allí."
 
 #: devices/linux/Device_Linux.php:74
-#, fuzzy
 msgid ""
 "In order to connect to the network you will need a personal certificate in "
 "the form of a p12 file. You should obtain this certificate from your "
@@ -364,24 +381,24 @@ msgid ""
 "Your p12 file will also be copied to the .cat_installer directory."
 msgstr ""
 "Para conectarte a la red necesitarás un certificado personal en un fichero "
-"con extensión .p12. Deberías obtener este certificado de tu %s. Consulta la "
-"página de soporte para saber cómo puedes obtener dicho certificado. Estos "
-"ficheros de certificado están protegidos con contraseña. Deberías tener "
-"tanto el fichero como la contraseña disponibles durante el proceso de "
-"instalación. Tu fichero .p12 se copiará también al directorio .cat_installer."
+"con extensión .p12. Deberías obtener este certificado de tu organización. "
+"Consulta la página de soporte para saber cómo puedes obtener dicho "
+"certificado. Estos ficheros de certificado están protegidos con una "
+"contraseña. Deberías tener tanto el fichero como la contraseña disponibles "
+"durante el proceso de instalación. Tu fichero .p12 se copiará también al "
+"directorio .cat_installer."
 
 #. not EAP-TLS
 #: devices/linux/Device_Linux.php:76 devices/ms/WindowsCommon.php:128
-#, fuzzy
 msgid ""
 "In order to connect to the network you will need an account from your "
 "organisation. You should consult the support page to find out how this "
 "account can be obtained. It is very likely that your account is already "
 "activated."
 msgstr ""
-"Para conectarte a la red necesitarás una cuenta de tu %s. Deberías consultar "
-"la página de soporte para saber cómo puedes obtener esta cuenta. Es bastante "
-"probable que esta cuenta ya esté activada."
+"Para conectarte a la red necesitarás una cuenta de tu organización. Deberías "
+"consultar la página de soporte para saber cómo puedes obtener esta cuenta. "
+"Es bastante probable que esta cuenta ya esté activada."
 
 #: devices/linux/Device_Linux.php:78
 msgid ""
@@ -435,9 +452,8 @@ msgid "Continue?"
 msgstr "¿Continuar?"
 
 #: devices/linux/Device_Linux.php:97
-#, fuzzy
 msgid "This NetworkManager version is not supported"
-msgstr "Esta versión de Network Manager no está soportada"
+msgstr "Esta versión de NetworkManager no está soportada"
 
 #: devices/linux/Device_Linux.php:98
 msgid "Certificate file not found, looks like a CAT error"
@@ -449,7 +465,8 @@ msgstr "Versión desconocida"
 
 #: devices/linux/Device_Linux.php:100
 msgid "DBus connection problem, a sudo might help"
-msgstr "Problema con la conexión con DBus. Un \"sudo\" podría ayudar."
+msgstr ""
+"Problema con la conexión con DBus. Una ejecución de sudo podría ayudar."
 
 #: devices/linux/Device_Linux.php:101
 msgid "Y"
@@ -468,14 +485,13 @@ msgid "All files"
 msgstr "Todos los ficheros"
 
 #: devices/linux/Device_Linux.php:106
-#, fuzzy
 msgid ""
 "NetworkManager configuration failed, but we may generate a wpa_supplicant "
 "configuration file if you wish. Be warned that your connection password will "
 "be saved in this file as clear text."
 msgstr ""
-"La configuración de Network Manager falló, pero podemos generar un archivo "
-"de configuración para wpa_supplicant si lo deseas. Aviso: tu contraseña se "
+"La configuración de NetworkManager falló, pero podemos generar un archivo de "
+"configuración para wpa_supplicant si lo deseas. Aviso: tu contraseña se "
 "almacenará sin cifrar en este archivo."
 
 #: devices/linux/Device_Linux.php:107
@@ -488,15 +504,15 @@ msgid ""
 "Error: Your username must be of the form 'xxx@institutionID' e.g. "
 "'john@example.net'!"
 msgstr ""
-"Error: tu nombre de usuario debe tener la forma \"usuario@dominio\". Por "
-"ejemplo: \"juan@example.net\""
+"Error: tu nombre de usuario debe tener la forma 'usuario@dominio'. Por "
+"ejemplo: 'juan@example.net'"
 
 #: devices/linux/Device_Linux.php:109
 msgid ""
 "Error: your username must be in the form of 'xxx@{}'. Please enter the "
 "username in the correct format."
 msgstr ""
-"Error: tu nombre de usuario debe tener la forma \"usuario@{}\". Por favor, "
+"Error: tu nombre de usuario debe tener la forma 'usuario@{}'. Por favor, "
 "introduce el nombre de usuario de forma correcta."
 
 #: devices/linux/Device_Linux.php:110
@@ -504,9 +520,8 @@ msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'{}'. Please enter the username in the correct format."
 msgstr ""
-"Error: tu nombre de usuario debe tener la forma \"usuario@dominio\" y "
-"terminar con \"{}\". Por favor, introduce el nombre de usuario de forma "
-"correcta."
+"Error: tu nombre de usuario debe tener la forma 'usuario@dominio' y terminar "
+"con '{}'. Por favor, introduce el nombre de usuario de forma correcta."
 
 #: devices/linux/Device_Linux.php:111
 msgid "personal certificate file not found"
@@ -560,7 +575,6 @@ msgstr ""
 "ejecútalo."
 
 #: devices/ms/WindowsCommon.php:124
-#, fuzzy
 msgid ""
 "In order to connect to the network you will need an a personal certificate "
 "in the form of a p12 file. You should obtain this certificate from your "
@@ -569,10 +583,10 @@ msgid ""
 "both the file and the password available during the installation process."
 msgstr ""
 "Para conectarte a la red necesitarás un certificado personal contenido en un "
-"fichero con extensión .p12. Deberías obtener este certificado de tu %s. "
-"Consulta la página de soporte para saber cómo puedes obtener este "
-"certificado. Estos certificados están protegidos por contraseña. Deberías "
-"por tanto tener ambos durante el proceso de instalación."
+"fichero con extensión .p12. Deberías obtener este certificado de tu "
+"organización. Consulta la página de soporte para saber cómo puedes obtener "
+"este certificado. Estos certificados están protegidos por contraseña. "
+"Deberías por tanto tener ambos durante el proceso de instalación."
 
 #: devices/ms/WindowsCommon.php:132
 msgid ""
@@ -587,14 +601,15 @@ msgstr ""
 "automáticamente cada vez que estés en su alcance."
 
 #: devices/ms/WindowsCommon.php:135
+#, fuzzy
 msgid ""
 "You will be required to enter the same credentials for each of the "
-"configured notworks:"
+"configured networks:"
 msgstr ""
 "Se pedirá que introduzcas las mismas credenciales para cada una de las redes "
 "configuradas:"
 
-#: devices/ms/WindowsCommon.php:250 devices/ms/WindowsCommon.php:251
+#: devices/ms/WindowsCommon.php:253 devices/ms/WindowsCommon.php:254
 #, php-format
 msgid "%s installer for %s"
 msgstr "Instalador %s para %s"
@@ -840,7 +855,7 @@ msgstr "instalando credenciales TLS"
 msgid "installing credentials for profile $R1"
 msgstr "instalando credenciales para el perfil $R1"
 
-#: devices/ms/Files/common.inc:1056 devices/ms/Files/geant_link.inc:107
+#: devices/ms/Files/common.inc:1056 devices/ms/Files/geant_link.inc:109
 msgid "Credentials installation problem"
 msgstr "Problema instalando credenciales"
 
@@ -984,7 +999,7 @@ msgstr "perfil de usuario"
 msgid "install program"
 msgstr "instalar programa"
 
-#: devices/ms/Files/geant_link.inc:78
+#: devices/ms/Files/geant_link.inc:79
 msgid ""
 "An additional piece of software 'GEANTlink' needs to be installed. This "
 "installation requires Administrator rights; you will be prompted to give "
@@ -994,7 +1009,7 @@ msgstr ""
 "necesita permisos de Administrador y se te pedirán dichos permisos para esta "
 "acción."
 
-#: devices/ms/Files/geant_link.inc:89
+#: devices/ms/Files/geant_link.inc:91
 msgid ""
 "Error installing GEANTLink.$\\nEmbedded installer didn't complete "
 "succesfully."
@@ -1002,7 +1017,7 @@ msgstr ""
 "Error al instalar GEANTLink.$\\nEl instalador incluido no terminó de forma "
 "satisfactoria."
 
-#: devices/ms/Files/geant_link.inc:99
+#: devices/ms/Files/geant_link.inc:101
 msgid "installing credentials for ${PROVIDERID}"
 msgstr "instalando credenciales para ${PROVIDERID}"
 

@@ -337,6 +337,54 @@ public static function listDevices() {
        'message'=>sprintf(_("After downloading the file, open the Chrome browser and browse to this URL: <a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</a>. Then, use the 'Import ONC file' button. The import is silent; the new network definitions will be added to the preferred networks.")),
       ],
    ],
+      
+ 'android_pie'=>[
+    'group' => "android",
+    'display'=>_("Android 9.0 Pie"),
+     'match'=>'Android 9\.[0-9]',
+    'directory'=>'xml',
+    'module'=>'Lollipop',
+    'options'=>[
+       'mime'=>'application/eap-config',
+       'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                            "eduroamCAT",
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
+                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
+                            "<a target='_blank' href='eduroamCAT-stable.apk'>"._("as local download")."</a>"),
+      ],
+   ],
+        
+ 'android_oreo'=>[
+    'group' => "android",
+    'display'=>_("Android 8.0 Oreo"),
+     'match'=>'Android 8\.[0-9]',
+    'directory'=>'xml',
+    'module'=>'Lollipop',
+    'options'=>[
+       'mime'=>'application/eap-config',
+       'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                            "eduroamCAT",
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
+                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
+                            "<a target='_blank' href='eduroamCAT-stable.apk'>"._("as local download")."</a>"),
+      ],
+   ],
+        
+ 'android_nougat'=>[
+    'group' => "android",
+    'display'=>_("Android 6.0 Nougat"),
+     'match'=>'Android 7\.[0-9]',
+    'directory'=>'xml',
+    'module'=>'Lollipop',
+    'options'=>[
+       'mime'=>'application/eap-config',
+       'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                            "eduroamCAT",
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
+                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
+                            "<a target='_blank' href='eduroamCAT-stable.apk'>"._("as local download")."</a>"),
+      ],
+   ],
         
  'android_marshmallow'=>[
     'group' => "android",

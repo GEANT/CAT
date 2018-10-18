@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-18 11:18+0200\n"
+"POT-Creation-Date: 2018-10-18 14:16+0200\n"
 "PO-Revision-Date: 2012-08-07 13:23+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/cat/language/nl/)\n"
@@ -396,7 +396,7 @@ msgstr ""
 #. /                3. federation shortname, e.g. "LU";
 #. /                4. product name (e.g. eduroam CAT);
 #. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/UserManagement.php:179
+#: core/UserManagement.php:194
 #, php-format
 msgid ""
 "Hi,\n"
@@ -411,7 +411,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: core/UserManagement.php:188
+#: core/UserManagement.php:203
 msgid "IdP in your federation was created"
 msgstr ""
 
@@ -447,84 +447,84 @@ msgstr ""
 msgid "EAP-pwd"
 msgstr ""
 
-#: core/common/OutsideComm.php:239
+#: core/common/OutsideComm.php:240
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
 msgstr ""
 
-#: core/common/OutsideComm.php:240
+#: core/common/OutsideComm.php:241
 #, php-format
 msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
 msgstr ""
 
-#: core/common/OutsideComm.php:241
+#: core/common/OutsideComm.php:242
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\"."
 msgstr ""
 
-#: core/common/OutsideComm.php:243
+#: core/common/OutsideComm.php:244
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr ""
 
 #. then, send out the mail
-#: core/common/OutsideComm.php:251
+#: core/common/OutsideComm.php:252
 msgid "Hello,"
 msgstr ""
 
 #. default means we don't have a Reply-To.
-#: core/common/OutsideComm.php:253
+#: core/common/OutsideComm.php:254
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
 
-#: core/common/OutsideComm.php:259
+#: core/common/OutsideComm.php:260
 #, php-format
 msgid "Additional message from your %s administrator:"
 msgstr ""
 
-#: core/common/OutsideComm.php:267
+#: core/common/OutsideComm.php:268
 #, php-format
 msgid "%s administrator"
 msgstr ""
 
-#: core/common/OutsideComm.php:270
+#: core/common/OutsideComm.php:271
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
 msgstr ""
 
-#: core/common/OutsideComm.php:275
+#: core/common/OutsideComm.php:276
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
 "link:"
 msgstr ""
 
-#: core/common/OutsideComm.php:277
+#: core/common/OutsideComm.php:278
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
 "Interface at"
 msgstr ""
 
-#: core/common/OutsideComm.php:279
+#: core/common/OutsideComm.php:280
 msgid "and enter the invitation token"
 msgstr ""
 
-#: core/common/OutsideComm.php:281
+#: core/common/OutsideComm.php:282
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
 msgstr ""
 
-#: core/common/OutsideComm.php:282
+#: core/common/OutsideComm.php:283
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr ""
 
-#: core/common/OutsideComm.php:283
+#: core/common/OutsideComm.php:284
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -533,7 +533,7 @@ msgid ""
 msgstr ""
 
 #. what do we want to say?
-#: core/common/OutsideComm.php:318
+#: core/common/OutsideComm.php:319
 #, php-format
 msgid "%s: you have been invited to manage an %s"
 msgstr ""

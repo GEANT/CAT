@@ -1,0 +1,1016 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-10-05 09:32+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, 2018\n"
+"Language-Team: Finnish (Finland) (https://www.transifex.com/eduroam_devel/"
+"teams/11799/fi_FI/)\n"
+"Language: fi_FI\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: core/diag/AbstractTest.php:266
+msgid "Completed"
+msgstr "Valmis"
+
+#: core/diag/AbstractTest.php:273
+msgid "Product is not configured to run this check."
+msgstr "Tämän tarkistuksen ajamista ei ole valmisteltu."
+
+#: core/diag/AbstractTest.php:279
+msgid "This check was skipped."
+msgstr "Ohitettu."
+
+#: core/diag/AbstractTest.php:286
+msgid "There were errors during the test."
+msgstr "Testissä havaittiin virheitä."
+
+#: core/diag/AbstractTest.php:294
+msgid "There was no reply at all from the RADIUS server."
+msgstr "RADIUS-palvelin ei vastannut."
+
+#: core/diag/AbstractTest.php:301
+msgid ""
+"There was a bidirectional communication with the RADIUS server, but it ended "
+"halfway through."
+msgstr ""
+"RADIUS-palvelimen kanssa oli kaksisuuntaista neuvottelua, mutta se keskeytyi."
+
+#: core/diag/AbstractTest.php:308
+msgid ""
+"The RADIUS server immediately rejected the authentication request in its "
+"first reply."
+msgstr "RADIUS-palvelin hylkäsi autentikointiyrityksen."
+
+#: core/diag/AbstractTest.php:315
+msgid ""
+"The RADIUS server rejected the authentication request after an EAP "
+"conversation."
+msgstr "RADIUS-palvelin hylkäsi autentikointiyrityksen EAP-vaiheessa."
+
+#: core/diag/AbstractTest.php:322
+msgid "Connection refused"
+msgstr "Yhteydenotto hylättiin"
+
+#: core/diag/AbstractTest.php:329
+msgid "Not enough data provided to perform an authentication"
+msgstr "Ei riittävästi tietoa autentikoinnin suorittamiseksi."
+
+#: core/diag/AbstractTest.php:336
+msgid ""
+"The certificate password you provided does not match the certificate file."
+msgstr "Antamasi varmennesalasana ei täsmää varmennetiedoston kanssa."
+
+#: core/diag/AbstractTest.php:344
+msgid ""
+"The certificate chain includes the root CA certificate. This does not serve "
+"any useful purpose but inflates the packet exchange, possibly leading to "
+"more round-trips and thus slower authentication."
+msgstr ""
+"Varmenneketju sisältää juurivarmenteen – siitä ei ole mitään varsinaista "
+"hyötyä, mutta se voi hidastaa autentikointia lisääntyneen tiedonsiirron "
+"johdosta."
+
+#: core/diag/AbstractTest.php:351
+msgid "There is more than one server certificate in the chain."
+msgstr "Varmenneketjussa on useampia kuin yksi palvelinvarmenne."
+
+#: core/diag/AbstractTest.php:358
+msgid "There is no server certificate in the chain."
+msgstr "Varmenneketjussa ei ole palvelinvarmennetta."
+
+#: core/diag/AbstractTest.php:365
+msgid ""
+"At least one certificate in the chain is signed with the MD5 signature "
+"algorithm. Many Operating Systems, including Apple iOS, will fail to "
+"validate this certificate."
+msgstr ""
+"Vähintään yksi varmenneketjun varmenteista on allekirjoitettu MD5-"
+"tiivistefunktiolla. Monet käyttöjärjestelmät, kuten Apple iOS, eivät salli "
+"MD5:n käyttöä."
+
+#: core/diag/AbstractTest.php:372
+msgid ""
+"At least one certificate in the chain is signed with the SHA-1 signature "
+"algorithm. Many Operating Systems, including Apple iOS, will fail to "
+"validate this certificate."
+msgstr ""
+"Varmenneketjun varmenteista vähintään yksi on allekirjoitettu SHA-1-"
+"algoritmilla. Jotkut käyttöjärjestelmät, kuten Apple iOS, eivät salli "
+"tällaista varmennetta."
+
+#: core/diag/AbstractTest.php:379
+msgid ""
+"At least one certificate in the chain had a public key of less than 1024 "
+"bits. Many recent operating systems consider this unacceptable and will fail "
+"to validate the server certificate."
+msgstr ""
+"Ainakin yksi varmenneketjun varmenteista on alle 1024-bittinen. Monet "
+"käyttöjärjestelmät eivät enää kelpuuta heikkoja varmenteita tietoturvasyistä."
+
+#: core/diag/AbstractTest.php:386
+msgid ""
+"The server certificate does not have the extension 'extendedKeyUsage: TLS "
+"Web Server Authentication'. Most Microsoft Operating Systems will fail to "
+"validate this certificate."
+msgstr ""
+"Palvelinvarmenne ei sisällä 'extendedKeyUsage: TLS Web Server "
+"Authentication' -laajennusta. Useimmat Microsoftin käyttöjärjestelmät eivät "
+"kelpuuta tätä varmennetta."
+
+#: core/diag/AbstractTest.php:393
+msgid ""
+"The server certificate did not include a CRL Distribution Point, creating "
+"compatibility problems with Windows Phone 8."
+msgstr ""
+"Palvelinvarmenne ei sisällä sulkulistan jakelupistettä 'CRL Distribution "
+"Point', josta voi aiheutua yhteensopivuusongelmia Windows Phone 8:n kanssa."
+
+#: core/diag/AbstractTest.php:400
+msgid ""
+"The server certificate's 'CRL Distribution Point' extension does not point "
+"to an HTTP/HTTPS URL. Some Operating Systems may fail to validate this "
+"certificate. Checking server certificate validity against a CRL will not be "
+"possible."
+msgstr ""
+"Palvelinvarmenteen sulkulistan jakelupistelaajennos 'CRL Distribution Point' "
+"ei sisällä HTTP/HTTPS-osoitetta. Jotkin käyttöjärjestelmät eivät välttämättä "
+"kykene tarkistamaan varmennetta, koska ne eivät tue muita vaihtoehtoja."
+
+#: core/diag/AbstractTest.php:407
+msgid ""
+"The extension 'CRL Distribution Point' in the server certificate points to a "
+"location where no DER-encoded CRL can be found. Some Operating Systems check "
+"certificate validity by consulting the CRL and will fail to validate the "
+"certificate. Checking server certificate validity against a CRL will not be "
+"possible."
+msgstr ""
+"Palvelinvarmenteen sulkulistan jakelupiste 'CRL Distribution Point' osoittaa "
+"olemattomaan osoitteeseen. Jotkin käyttöjärjestelmät eivät välttämättä "
+"kelpuuta varmennetta, koska sulkulistan tarkistaminen ei onnistu."
+
+#: core/diag/AbstractTest.php:414
+msgid "The server certificate was revoked by the CA!"
+msgstr "Palvelinvarmenne on sen myöntäneen tahon peruuttama!"
+
+#: core/diag/AbstractTest.php:421
+msgid ""
+"The certificate contained a CN or subjectAltName:DNS which does not parse as "
+"a hostname. This can be problematic on some supplicants. If the certificate "
+"also contains names which are a proper hostname, and you only use those for "
+"your supplicant configuration, then you can safely ignore this notice."
+msgstr ""
+"Palvelinvarmenteen CN- tai subjectAltName:DNS-tietue ei jäsenny palvelimen "
+"nimeksi. Siitä voi seurata ongelmia joissakin päätelaitteissa. Voit jättää "
+"tämän varoituksen huomiotta mikäli varmenne sisältää myös kelpoja nimiä ja "
+"käytät vain niitä päätelaitteiden asetuksissa."
+
+#: core/diag/AbstractTest.php:428
+msgid ""
+"The certificate contained a CN or subjectAltName:DNS which contains a "
+"wildcard ('*'). This can be problematic on some supplicants. If the "
+"certificate also contains names which are wildcardless, and you only use "
+"those for your supplicant configuration, then you can safely ignore this "
+"notice."
+msgstr ""
+"Palvelinvarmenteen CN- tai subjectAltName:DNS-tietue sisältää jokerimerkin "
+"('*'). Siitä voi seurata ongelmia joidenkin päätelaitteiden kanssa. Voit "
+"jättää tämän varoituksen huomiotta mikäli varmenne sisältää myös "
+"jokerittomia nimiä ja käytät vain niitä päätelaitteiden asetuksissa."
+
+#: core/diag/AbstractTest.php:435
+msgid ""
+"At least one certificate is outside its validity period (not yet valid, or "
+"already expired)!"
+msgstr ""
+"Ainakaan yksi varmenteista ei ole voimassa (ei ole tullut vielä voimaan tai "
+"on jo vanhentunut)!"
+
+#: core/diag/AbstractTest.php:442
+#, php-format
+msgid ""
+"At least one intermediate certificate in your CAT profile is outside its "
+"validity period (not yet valid, or already expired), but this certificate "
+"was not used for server validation. Consider removing it from your %s "
+"configuration."
+msgstr ""
+"Vähintään yksi profiiliin määritellyn varmenneketjun varmenteista ei ole "
+"voimassa (vanhentunut tai ei vielä voimassa), mutta tätä varmennetta ei "
+"käytetty palvelimen autentikoinnissa. Harkitse varmenteen poistamista "
+"profiilista %s."
+
+#: core/diag/AbstractTest.php:449
+msgid ""
+"The server certificate could not be verified to the root CA you configured "
+"in your profile!"
+msgstr ""
+"Palvelinvarmenteen tarkistaminen profiiliin määriteltyä juurivarmennetta "
+"vasten ei onnistunut!"
+
+#: core/diag/AbstractTest.php:453
+msgid ""
+"The certificate chain as received in EAP was not sufficient to verify the "
+"certificate to the root CA in your profile. It was verified using the "
+"intermediate CAs in your profile though. You should consider sending the "
+"required intermediate CAs inside the EAP conversation."
+msgstr ""
+"Palvelimen EAP-neuvottelussa lähettämä varmenneketju ei ollut riittävä "
+"palvelinvarmenteen tarkistamiseksi profiiliin määriteltyä juurivarmennetta "
+"vasten. Sen tarkistaminen onnistui kuitenkin profiiliin määriteltyjä "
+"välivarmenteita vastaan. Harkitse tarvittavien välivarmenteiden lisäämistä "
+"palvelimen lähettämään varmenneketjuun."
+
+#: core/diag/AbstractTest.php:459
+msgid ""
+"The EAP server name does not match any of the configured names in your "
+"profile!"
+msgstr ""
+"EAP-palvelimen nimi ei täsmää minkään profiilin määritellyn nimen kanssa!"
+
+#: core/diag/AbstractTest.php:466
+msgid ""
+"The configured EAP server name matches either the CN or a subjectAltName:DNS "
+"of the incoming certificate; best current practice is that the certificate "
+"should contain the name in BOTH places."
+msgstr ""
+"Saadusta varmenteesta löytyy määritellyn EAP-palvelimen nimi joko CN- tai "
+"subjectAltName:DNS-tietueesta – parhaan nykyisen käytännön mukaan nimen "
+"pitäisi löytyä varmenteessa molemmista tietueista."
+
+#: core/diag/AbstractTest.php:473
+msgid ""
+"At least one certificate did not contain any BasicConstraints extension; "
+"which makes it unclear if it's a CA certificate or end-entity certificate. "
+"At least Mac OS X 10.8 (Mountain Lion) will not validate this certificate "
+"for EAP purposes!"
+msgstr ""
+"Ainakaan yksi varmenteista ei sisällä BasicConstraints-laajennosta, jonka "
+"myötä on epäselvää onko varmenne juurivarmenne vai palvelin- tai "
+"asiakasvarmenne. Ainakaan OS X 10.8 (Mountain Lion) ei kelpuuta varmennetta "
+"EAP-käyttöön!"
+
+#: core/diag/AbstractTest.php:480
+msgid "The server presented a certificate from an unknown authority."
+msgstr "Palvelin tarjosi tuntemattoman varmentajan myöntämän varmenteen."
+
+#: core/diag/AbstractTest.php:487
+msgid "The server accepted the INVALID client certificate."
+msgstr "Palvelin kelpuutti EPÄKELVON asiakasvarmenteen."
+
+#: core/diag/AbstractTest.php:494
+msgid "The server rejected the client certificate, even though it was valid."
+msgstr "Palvelin hylkäsi asiakasvarmenteen kelvollisuudesta huolimatta."
+
+#: core/diag/AbstractTest.php:501
+msgid "The server rejected the client certificate as expected."
+msgstr "Palvelin hylkäsi asiakasvarmenteen odotetusti."
+
+#: core/diag/AbstractTest.php:508
+msgid "The CRL of a certificate could not be found."
+msgstr "Varmenteen sulkulistaa ei löytynyt."
+
+#: core/diag/AbstractTest.php:515
+msgid "EAP method negotiation failed!"
+msgstr "Käytettävän EAP-mekanismin neuvottelu epäonnistui!"
+
+#: core/diag/AbstractTest.php:522
+msgid ""
+"The server offers Diffie-Hellman (DH) ciphers with a DH group smaller than "
+"1024 bit. Mac OS X 10.11 'El Capitan' is known to refuse TLS connections "
+"under these circumstances!"
+msgstr ""
+"Palvelimen Diffie-Hellman-ryhmän (DH) koko on alle 1024 bittiä. Huomaa, että "
+"Mac OS X 10.11 'El Capitan' ei tue alle 1024-bittisiä TLS-yhteyksiä!"
+
+#: core/diag/AbstractTest.php:529
+msgid ""
+"The certificate contains more than one CommonName (CN) field. This is "
+"reportedly problematic on many supplicants."
+msgstr ""
+"Varmenne sisältää enemmän kuin yhden CommonName-kentän (CN). Tämä saattaa "
+"aiheuttaa ongelmia joissain päätelaitteissa."
+
+#: core/diag/AbstractTest.php:536
+msgid ""
+"The certificate public key algorithm is unknown to the system. Please submit "
+"the certificate as a sample to the developers."
+msgstr ""
+"Varmenteen julkisen avaimen algoritmi on tuntematon. Ole hyvä ja lähetä "
+"varmenne kehittäjille."
+
+#: core/diag/Logopath.php:96
+msgid "[eduroam Diagnostics]"
+msgstr "[vianmääritys]"
+
+#: core/diag/Logopath.php:98
+msgid ""
+"(This service is in an early stage. We apologise if this is a false alert. "
+"If this is the case, please send an email report to cat-devel@lists.geant."
+"org, forwarding the entire message (including the 'SUSPECTS' and 'EVIDENCE' "
+"data at the end), and explain why this is a false positive.)"
+msgstr ""
+"(Palvelu on alkuvaiheessa. Pahoittelemme, jos tämä on väärä hälytys. Jos "
+"näin on, lähetä sähköpostikertomus osoitteeseen cat-devel@lists.geant.org, "
+"joka sisältää koko viestin (mukaan lukien lopun 'SUSPECTS'- ja 'EVIDENCE' -"
+"tiedot) ja kerro, miksi tämä on väärä positiivinen hälytys.)"
+
+#: core/diag/Logopath.php:100
+msgid "Yours sincerely,"
+msgstr "Terveisin,"
+
+#: core/diag/Logopath.php:102
+msgid "Ed U. Roam, the eduroam diagnostics algorithm"
+msgstr "Ed U. Roam, eduroamin vianmääritysalgoritmi"
+
+#: core/diag/Logopath.php:110
+msgid "[POLICYVIOLATION NATIONAL] IdP with no entry in eduroam database"
+msgstr ""
+"[POLICYVIOLATION NATIONAL]  IdP, jolta puuttuu tietoja eduroam-tietokannasta"
+
+#: core/diag/Logopath.php:111
+msgid "Dear NRO administrator,"
+msgstr "Hyvä NRO-admin,"
+
+#: core/diag/Logopath.php:113
+#, php-format
+msgid ""
+"an end-user requested diagnostics for realm %s. Real-time connectivity "
+"checks determined that the realm exists, but we were unable to find an IdP "
+"with that realm in the eduroam database."
+msgstr ""
+"Loppukäyttäjä pyysi vianselvitys %s:lle.  Reaaliaikaisten yhteyden "
+"tarkistusten perusteella  toimialue on olemassa, mutta IdP: tä vastaavaa "
+"tietoa eduroam-tietokannasta ei löytynyt."
+
+#: core/diag/Logopath.php:115
+msgid ""
+"By not listing IdPs in the eduroam database, you are violating the eduroam "
+"policy."
+msgstr ""
+"Kansainvälisen eduroam-politiikan mukaan IdP-organisaatiot on listattava "
+"kansainvälisessä eduroam-tietokannassa."
+
+#: core/diag/Logopath.php:117
+msgid ""
+"Additionally, this creates operational issues. In particular, we are unable "
+"to direct end users to their IdP for further diagnosis/instructions because "
+"there are no contact points for that IdP in the database."
+msgstr ""
+"Lisäksi aiheutuu käyttöongelmia. Etenkin emme voi ohjata loppukäyttäjiä "
+"heidän omalle IdP:lle lisädiagnostiikkaa/ohjeita varten, koska tietokantaan "
+"ei ole määritelty yhteystietoja kyseiselle IdP: lle."
+
+#: core/diag/RADIUSTests.php:1008
+#, php-format
+msgid "Connected to %s."
+msgstr "Yhdistetty: %s."
+
+#: core/diag/RADIUSTests.php:1013
+msgid ""
+"<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
+"multiple round-trips was carried out, and ended in an Access-Reject as "
+"planned."
+msgstr ""
+"<strong>Testi onnistui</strong>: kaksisuuntainen RADIUS-neuvottelu käytiin "
+"läpi ja se päättyi suunnitellusti Access-Reject-vastaukseen."
+
+#: core/diag/RADIUSTests.php:1017
+msgid ""
+"<strong>Test partially successful</strong>: a bidirectional RADIUS "
+"conversation with multiple round-trips was carried out, and ended in an "
+"Access-Reject as planned. Some properties of the connection attempt were sub-"
+"optimal; the list is below."
+msgstr ""
+"<strong>Testi onnistui osittain</strong>: kaksisuuntainen RADIUS-"
+"viestinvaihto onnistui ja päättyi Access-Reject-viestiin kuten pitikin. "
+"Kaikki yhteysasetukset eivät kuitenkaan olleet optimaalisia; katso alla "
+"oleva listaus."
+
+#: core/diag/RFC6614Tests.php:68
+msgid "eduPKI"
+msgstr "eduPKI"
+
+#: core/diag/RFC6614Tests.php:69
+msgid "Nicolaus Copernicus University"
+msgstr "Nicolaus Copernicus Yliopisto"
+
+#: core/diag/RFC6614Tests.php:70
+msgid "accredited"
+msgstr "hyväksytty"
+
+#: core/diag/RFC6614Tests.php:71
+msgid "non-accredited"
+msgstr "ei hyväksytty"
+
+#: core/diag/RFC6614Tests.php:72
+msgid "correct certificate"
+msgstr "oikea varmenne"
+
+#: core/diag/RFC6614Tests.php:73
+msgid "certificate with wrong policy OID"
+msgstr "varmenne, jonka OID on väärä"
+
+#: core/diag/RFC6614Tests.php:74
+msgid "expired certificate"
+msgstr "vanhentunut varmenne"
+
+#: core/diag/RFC6614Tests.php:75
+msgid "revoked certificate"
+msgstr "peruutettu varmenne"
+
+#: core/diag/RFC6614Tests.php:76
+msgid "pass"
+msgstr "onnistua"
+
+#: core/diag/RFC6614Tests.php:77
+msgid "fail"
+msgstr "epäonnistua"
+
+#: core/diag/RFC6614Tests.php:78
+msgid "eduroam-accredited CA (now only for tests)"
+msgstr "eduroamiin hyväksytty CA (testejä varten)"
+
+#: core/diag/RFC6614Tests.php:253
+msgid "No TLS connection established: Connection refused"
+msgstr "TLS-yhteyttä ei ole: Connection refused"
+
+#: core/diag/RFC6614Tests.php:255
+msgid "certificate expired"
+msgstr "varmenne vanhentunut"
+
+#: core/diag/RFC6614Tests.php:257
+msgid "certificate was revoked"
+msgstr "varmenne peruutettiin"
+
+#: core/diag/RFC6614Tests.php:259
+msgid "bad policy"
+msgstr "huono käytäntö"
+
+#: core/diag/RFC6614Tests.php:261
+msgid "unknown authority"
+msgstr "tuntematon varmentaja"
+
+#: core/diag/RFC6614Tests.php:264
+msgid "unknown authority or no certificate policy or another problem"
+msgstr "tuntematon varmentaja, ei varmennekäytäntöjä tai muu virhe"
+
+#. return codes specific to NAPTR existence checks
+#. *
+#. * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
+#.
+#: core/diag/RFC7585Tests.php:124
+msgid "This realm has no NAPTR records."
+msgstr "Tällä realmilla ei ole NAPTR-tietueita."
+
+#. *
+#. * no eduroam NAPTR for domain; this is not an error, simply means that realm is not doing dynamic discovery for eduroam
+#.
+#: core/diag/RFC7585Tests.php:130
+msgid "NAPTR records were found, but all of them refer to unrelated services."
+msgstr "NAPTR-tietueita löytyi, mutta niiden viittaukset eivät ole kunnossa."
+
+#: core/diag/Sociopath.php:35
+msgid "There is nothing you can do to solve this problem yourself."
+msgstr "Valitettavasti et pysty selvittämään tätä ongelmaa itsenäisesti."
+
+#: core/diag/Sociopath.php:36
+msgid ""
+"Please be patient and try again at a later time. Do NOT change your device "
+"configuration."
+msgstr ""
+"Pyydämme kärsivällisesti odottamaan ja kokeilemaan myöhemmin uudestaan. ÄLÄ "
+"muuta laitteesi asetuksia."
+
+#: core/diag/Sociopath.php:37
+msgid ""
+"The infrastructure operators have automatically been informed and will "
+"investigate the issue as soon as possible."
+msgstr "Ylläpitäjiä on informoitu, ongelmaa selvitetään mahdollisimman pian."
+
+#: core/diag/Sociopath.php:39
+msgid ""
+"The system has identified possible issues regarding your local device "
+"configuration."
+msgstr ""
+"Järjestelmä on havainnut mahdollisia ongelmia laitteesi paikallisissa "
+"asetuksissa."
+
+#: core/diag/Sociopath.php:47
+msgid ""
+"The system can not find any information at all about the Identity Provider "
+"you described. Probably, this is not a participating institution and the "
+"account you tried to use does not exist."
+msgstr ""
+"Järjestelmä ei löydä tietoa kuvaamastasi käyttäjäorganisaatiosta. "
+"Todennäköisesti tämä ei ole osallistuva organisaatio, ja tili jota yritit "
+"käyttää ei ole."
+
+#: core/diag/Sociopath.php:48
+msgid ""
+"There are likely some issues around the wireless part of the network you are "
+"trying to connect to. Wireless networks do not always behave "
+"deterministically and consistently. All users at a given location have to "
+"share the available bandwidth, and the physical environment (concrete walls, "
+"objects in the way, elevation differences) can have a significant impact on "
+"your connectivity experience."
+msgstr ""
+"On todennäköisesti ongelmia verkon langattomassa verkossa, johon yrität "
+"muodostaa yhteyden. Langattomat verkot eivät aina toimi deterministisesti ja "
+"johdonmukaisesti. Tietyssä paikassa olevien käyttäjien on jaettava "
+"käytettävissä oleva kaistanleveys, ja fyysinen ympäristö (betoniseinät, "
+"esineet, korkeuserot) voi vaikuttaa merkittävästi liittymiskokemukseen."
+
+#. here is an array with yes/no answers per failure category, and the factors by which a Yes modifies the score; No's modify it by 1/factor;
+#. the order in this array is important: lower numbered questions will be asked first. So make sure you have high-quality questions in the beginning.
+#. to be clear: "Yes" answers are elsewhere in the class the TRUE case; No's are FALSE, a possible "Don't know or N/A" is NULL
+#. VERDICTLECTURE is text which is displayed to the end user if his answer led to a HIGHER score in the process. We are storing the answers to determine this.
+#: core/diag/Sociopath.php:56
+msgid ""
+"You should use appropriate configuration assistants [MGW: see if the realm "
+"exists in CAT, then display link to config] or contact your Identity "
+"Provider [MGW: show contact info]."
+msgstr ""
+"Käytä sopivia konfiguraatioavustajia [MGW: katso, onko kyseinen toimialue "
+"CAT: ssa, näytä sitten linkki konfigurointiin] tai ole yhteydessä "
+"kotiorganisaatioosi [MGW: näytä yhteystiedot]."
+
+#: core/diag/Sociopath.php:60
+msgid ""
+"Have you ever used the network succesfully, e.g. at your home institution "
+"without roaming?"
+msgstr ""
+"Oletko koskaan käyttänyt verkkoa onnistuneesti, esim. kotiorganisaatiosi "
+"kampuksella, ilman verkkovierailua?"
+
+#: core/diag/Sociopath.php:62
+#, php-format
+msgid ""
+"If your device has never worked before with this setup, then very likely "
+"your device configuation is wrong. %s"
+msgstr ""
+"Jos laiteesi ei ole koskaan toiminut aiemmin näillä asetuksilla, on hyvin "
+"todennäköistä että laitteesi on konfiguroitu väärin.%s"
+
+#: core/diag/Sociopath.php:64
+msgid ""
+"Did the device previously work when roaming, i.e. at other hotspots away "
+"from your home institution?"
+msgstr ""
+"Onko laite aiemmin toiminut verkkovierailun yhteydessä, toisin sanoen muissa "
+"paikoissa kuin kotiorganisaatiosi kampuksilla?"
+
+#: core/diag/Sociopath.php:66
+#, php-format
+msgid ""
+"If roaming consistently does not work, then very likely your device "
+"configuration is wrong. Typical errors causing this symptom include: using a "
+"routing ('outer') username without the @realm.tld suffix - those potentially "
+"work at home, but can not be used when roaming. %s"
+msgstr ""
+"Jos verkkovierailu jatkuvasti ei toimi, on laitteen konfigurointi "
+"todennäköisesti väärä. Tyypillinen virhe on että reititykseen käytettävässä "
+"('ulkoisessa') käyttäjätunnuksessa ei ole @realm.tld-päätettä. Tässä "
+"tapauksessa kotiorganisaation kampuksella ei välttämättä ole ongelmia, mutta "
+"verkkovierailu ei onnistu.%s"
+
+#: core/diag/Sociopath.php:68
+msgid "Did you recently change the configuration on your device?"
+msgstr "Oletko hiljattain muuttanut laitteesi verkkoasetuksia?"
+
+#: core/diag/Sociopath.php:70
+msgid ""
+"Accounts only need to be configured once, and can then be used anywhere on "
+"the planet without any changes. If you recently changed the configuration, "
+"that change may very well be at fault. You should never change your network "
+"configuration unless explicitly instructed so by your Identity Provider; "
+"even in the case of temporary login issues."
+msgstr ""
+"Asetukset määritellään vain kerran, ja sen jälkeen käyttäjätunnus voidaan "
+"käyttää missä päin maalmaa tahansa ilman muutoksia. Jos olet äskettäin "
+"muuttanut konfigurointia, tämä muutos saattaa hyvin olla vian syy. Älä "
+"koskaan muuta verkkoasetuksia, ellei kotiorganisaatiosi pyytää sinua "
+"tekemään sitä, vaikka sinulla olisikin tilapäisiä kirjautumisongelmia."
+
+#: core/diag/Sociopath.php:72
+msgid "If you use more than one device: do your other devices still work?"
+msgstr ""
+"Jos käytössäsi on useampia verkkolaitteita, pääsetkö niillä samaan verkkoon?"
+
+#: core/diag/Sociopath.php:73
+msgid ""
+"If all devices stopped working simultaneously, there may be a problem with "
+"your account as such. Maybe your account expired, or you were forced to "
+"change the password? These questions are best answered by your Identity "
+"Provider [MGW: display contact info]"
+msgstr ""
+"Jos kaikki laitteet lakkasivat toimimasta samanaikaisesti, käyttäjätililläsi "
+"saattaa olla ongelmia. Ehkä tilisi on vanhentunut tai sinua pakotettiin "
+"vaihtamaan salasanasi? Näihin kysymyksiin kotiorganisaatiosi osaa parhaiten "
+"vastata [MGW: näytä yhteystiedot]"
+
+#: core/diag/Sociopath.php:76
+msgid ""
+"Is the place you are currently at heavily crowded, or is a network-intensive "
+"workload going on?"
+msgstr ""
+"Onko vierailemassasi paikassa runsaasti muita verkon käyttäjiä, eli voisiko "
+"kyseessä olla ylikuormitustilanne?"
+
+#: core/diag/Sociopath.php:78
+msgid ""
+"The network is likely overloaded at this location and point in time. You may "
+"have to wait until later before you get a better connectivity. If you think "
+"the network should be reinforced for more capacity at this place, you should "
+"inform the hotspot provider. [MGW: add contact info]"
+msgstr ""
+"Verkko on todennäköisesti ylikuormitettu tässä paikassa ja ajankohtana. "
+"Saatat joutua odottamaan, ennen kuin saat paremman yhteyden. Jos mielestäsi "
+"verkon kapasiteettia pitäisi parantaa, ilmoita tästä hotspot-"
+"palveluntarjoajalle. [MGW: lisää yhteystiedot]"
+
+#: core/diag/Sociopath.php:80
+msgid "Does the connection get better when you move around?"
+msgstr "Paraneeko yhteys jos siirryt hieman eri paikkaan?"
+
+#: core/diag/Sociopath.php:82
+msgid ""
+"You should move to a different location to achieve better network coverage "
+"and service. If you think the exact spot you are at deserves better "
+"coverage, you should inform the hotspot provider. [MGW: add contact info]"
+msgstr ""
+"Sinun tulisi siirtyä toiseen paikkaan saadaksesi parempaa kuuluvutta ja "
+"palvelua. Jos mielestäsi verkon kuuluvuutta paikassa, missä olet, pitäisi "
+"parantaa, ilmoita tästä hotspot-palveluntarjoajalle. [MGW: lisää "
+"yhteystiedot]"
+
+#: core/diag/Sociopath.php:85
+msgid ""
+"Do you see errors stating something similar to 'Unable to get IP address'?"
+msgstr "Näetkö virheitä, joiden mukaan IP-osoitetta ei saada?"
+
+#: core/diag/Sociopath.php:87
+msgid ""
+"The evidence at hand suggests that there may be an infrastructure problem at "
+"this particular hotspot provider. There is nothing you can do to solve this "
+"problem locally. Please be patient and try again at a later time."
+msgstr ""
+"Todisteet viittaavat siihen, että kyseisellä hotspot-palveluntarjoajalla "
+"saattaa olla infrastruktuuriongelmia. Et voi ratkaista tätä ongelmaa "
+"paikallisesti. Ole kärsivällinen ja yritä myöhemmin uudelleen."
+
+#: web/skins/modern/diag/diag.php:67
+msgid "Diagnostics site"
+msgstr "Vianselvitys"
+
+#: web/skins/modern/diag/diag.php:70
+msgid ""
+"The diagnostics system will do its best to identify and resolve your "
+"problems!"
+msgstr "Vianselvitys pyrkii löytämään ja ratkaisemaan yhteysongelmasi!"
+
+#: web/skins/modern/diag/diag.php:70
+msgid ""
+"Please help the system by answering the questions as precisely as possible."
+msgstr ""
+"Auta selvitystä vastaamalla muutamaan kysymykseen niin täsmällisesti kuin "
+"mahdollista."
+
+#: web/skins/modern/diag/diag.php:70
+msgid "Are you a"
+msgstr "Oletko"
+
+#: web/skins/modern/diag/diag.php:71
+msgid "end-user"
+msgstr "loppukäyttäjä"
+
+#: web/skins/modern/diag/diag.php:71
+msgid "or"
+msgstr "vai"
+
+#: web/skins/modern/diag/diag.php:72
+msgid "eduroam administrator"
+msgstr "eduroam-ylläpitäjä"
+
+#: web/skins/modern/diag/diag.php:75
+msgid "Tools for End Users"
+msgstr "Loppukäyttäjän työkalut"
+
+#: web/skins/modern/diag/diag.php:78
+msgid ""
+"To resolve your problem a real-time diagnostics for your realm must be "
+"performed."
+msgstr ""
+"Ongelman selvittämiseksi ajetaan muutamia reaaliaikaisia tarkistuksia "
+"toimialueellesi."
+
+#: web/skins/modern/diag/diag.php:82
+msgid ""
+"The system needs some information on your home institution - issuer of your "
+"account"
+msgstr "Järjestelmä kysyy muutamia kotiorganisaatioosi liittyviä kysymyksiä"
+
+#: web/skins/modern/diag/diag.php:83
+msgid ""
+"What is the realm part of your user account (the part behind the @ of 'your."
+"username@<b>realm.tld</b>):"
+msgstr ""
+"Mikä on käyttäjätunnuksesi toimialueosa (osa  @ -merkin jälkeen "
+"'käyttäjätunnus@<b>organisaatio.fi </b>):"
+
+#: web/skins/modern/diag/diag.php:87
+msgid "alternatively"
+msgstr "vaihtoehtoisesti"
+
+#: web/skins/modern/diag/diag.php:88
+msgid "You can select your home institution from the following list"
+msgstr "Valitse kotiorganisaatiosi oheisesta listasta"
+
+#: web/skins/modern/diag/diag.php:90
+msgid "Click to select your country/region and organisation"
+msgstr "Valitse maa ja organisaatio"
+
+#: web/skins/modern/diag/diag.php:97
+msgid ""
+"Optionally, to improve tests, you can provide information on your current "
+"location"
+msgstr ""
+"Voit tarvittaessa parantaa testit tarjoamalla tietoja nykyisestä "
+"sijainnistasi"
+
+#: web/skins/modern/diag/diag.php:99
+msgid "Click to select a location in which you have an eduroam problem"
+msgstr "Valitse klikkaamalla sijainti, jossa sinulla on eduroam-ongelma"
+
+#: web/skins/modern/diag/diag.php:106 web/skins/modern/diag/diag.php:237
+msgid "Testing realm"
+msgstr "Testataan toimialue"
+
+#: web/skins/modern/diag/diag.php:107
+msgid "First stage completed."
+msgstr "Ensimmäinen vaihe suoritettu."
+
+#: web/skins/modern/diag/diag.php:112
+msgid "To narrow down the problem, please answer the following few questions."
+msgstr "Ongelman selvittämiseksi vastaathan muutamaan kysymykseen."
+
+#: web/skins/modern/diag/diag.php:117
+msgid "Run tests"
+msgstr "Aja testit"
+
+#: web/skins/modern/diag/diag.php:122
+msgid "Tools for eduroam admins"
+msgstr "eduroam-ylläpitäjien työkalut"
+
+#: web/skins/modern/diag/diag.php:134
+msgid "Which problem are you reporting?"
+msgstr "Millaisesta ongelmasta tahdot raportoida?"
+
+#: web/skins/modern/diag/diag.php:136 web/skins/modern/diag/diag.php:844
+msgid "SP contacting IdP due to technical problems or abuse"
+msgstr "SP on yhteydessä IdP:hen teknisten ongelmien tai väärinkäytön takia."
+
+#: web/skins/modern/diag/diag.php:138
+msgid "IdP contacting SP due to technical problems"
+msgstr "IdP on yhteydessä SP:hen teknisten ongelmien takia."
+
+#: web/skins/modern/diag/diag.php:145
+msgid "This service is for authenticated admins only."
+msgstr "Tämä palvelu on vain sisäänkirjautuneille ylläpitäjille."
+
+#: web/skins/modern/diag/diag.php:147
+msgid "eduroam® admin access is needed"
+msgstr "eduroam® ylläpito-oikeudet tarvitaan."
+
+#: web/skins/modern/diag/diag.php:171
+msgid "Select institiution:"
+msgstr "Valitse organisaatio:"
+
+#: web/skins/modern/diag/diag.php:196
+msgid "Select country or region:"
+msgstr "Valitse maa tai alue:"
+
+#: web/skins/modern/diag/diag.php:204
+msgid "Fetching country/region list"
+msgstr "Haetaan maa/alue luettelo"
+
+#: web/skins/modern/diag/diag.php:264
+msgid "Yes"
+msgstr "Kyllä"
+
+#: web/skins/modern/diag/diag.php:265
+msgid "No"
+msgstr "Ei"
+
+#: web/skins/modern/diag/diag.php:266
+msgid "I don't know"
+msgstr "En tiedä."
+
+#: web/skins/modern/diag/diag.php:295
+msgid "Diagnostic tests results for selected realm"
+msgstr "Diagnostiikan tulokset valitulle toimialueelle"
+
+#: web/skins/modern/diag/diag.php:298
+msgid "The result for tested realm:"
+msgstr "Tulos testatulle toimialueelle:"
+
+#: web/skins/modern/diag/diag.php:300
+msgid "The system identified"
+msgstr "Tunnistettu järjestelmä"
+
+#: web/skins/modern/diag/diag.php:302
+msgid "suspected areas which potentially can cause a problem."
+msgstr "epäillyt alueet, jotka voivat aiheuttaa ongelmia."
+
+#: web/skins/modern/diag/diag.php:303
+msgid ""
+"Next to the problem description we show a speculated probability of this "
+"event."
+msgstr ""
+"Ongelman kuvauksen vieressä näytämme tämän tapauksen pohdiskeltu "
+"todennäköisyys."
+
+#: web/skins/modern/diag/diag.php:310
+msgid "Your device configuration is broken"
+msgstr "Laitteesi konfigurointi on virheellinen"
+
+#: web/skins/modern/diag/diag.php:313
+msgid "The Wi-Fi network in your vicinity has quality issues"
+msgstr "Lähistöllä olevalla Wi-Fi-verkolla on laatuongelmia"
+
+#: web/skins/modern/diag/diag.php:316
+msgid "The network environment around you is broken"
+msgstr "Lähistöllä oleva verkkoympäristö on rikki"
+
+#: web/skins/modern/diag/diag.php:319
+msgid "The RADIUS server of your service provider is the source of the problem"
+msgstr "Palveluntarjoajan RADIUS-palvelin on ongelman lähde"
+
+#: web/skins/modern/diag/diag.php:322
+msgid ""
+"The RADIUS server in your home institution is currently unable to "
+"authenticate you"
+msgstr ""
+"Kotiorganisaatiosi RADIUS-palvelin ei tällä hetkellä pysty autentikoimaan "
+"sinua"
+
+#: web/skins/modern/diag/diag.php:325
+msgid ""
+"The national server in the country/region you are visiting is not "
+"functioning correctly"
+msgstr "Kansallinen palvelin maassa/alueella, jota vierailet, ei toimi oikein"
+
+#: web/skins/modern/diag/diag.php:328
+msgid ""
+"The link between the national server of the country/region you are visiting "
+"and the top-level server is broken"
+msgstr ""
+"Vieraillun maan / alueen kansallisen palvelimen ja ylätason palvelimen "
+"välinen yhteys on rikki"
+
+#: web/skins/modern/diag/diag.php:331
+msgid ""
+"The link between the national server of your home country/region and the top-"
+"level server is broken"
+msgstr ""
+"Kotimaasi / alueesi kansallisen palvelimen ja ylätason palvelimen välinen "
+"yhteys on rikki"
+
+#: web/skins/modern/diag/diag.php:334
+msgid "The communication to the top-level server is down"
+msgstr "Viestintä ylätason palvelimelle on alhaalla"
+
+#: web/skins/modern/diag/diag.php:337
+msgid ""
+"The national server in your home country/region is not functioning properly."
+msgstr "Kansallinen palvelin kotimaassasi / alueellasi ei toimi oikein."
+
+#: web/skins/modern/diag/diag.php:340
+msgid "The RADIUS server of your home institution is the source of the problem"
+msgstr "Kotiorganisaatiosi RADIUS-palvelin on ongelman lähde"
+
+#: web/skins/modern/diag/diag.php:343
+msgid "This realm does not exist"
+msgstr "Toimialue ei ole olemassa"
+
+#: web/skins/modern/diag/diag.php:449
+msgid "Fetching institutions list"
+msgstr "Haetaan organisaatioluettelo"
+
+#: web/skins/modern/diag/diag.php:467
+msgid "Select institution:"
+msgstr "Valitse organisaatio:"
+
+#: web/skins/modern/diag/diag.php:506
+msgid "Fetching realms list"
+msgstr "Haetaan toimialueluettelo "
+
+#: web/skins/modern/diag/diag.php:518
+msgid "Check realm(s):"
+msgstr "Tarkista toimialue(t):"
+
+#: web/skins/modern/diag/diag.php:530
+msgid "Realm:"
+msgstr "Toimialue:"
+
+#: web/skins/modern/diag/diag.php:584 web/skins/modern/diag/diag.php:653
+#: web/skins/modern/diag/diag.php:769
+msgid "Running realm tests"
+msgstr "Ajetaan toimialueen testit"
+
+#: web/skins/modern/diag/diag.php:628
+msgid "Realm is not registered with the eduroam database:"
+msgstr "Toimialuetta ei ole määritelty eduroam tietokantaan:"
+
+#: web/skins/modern/diag/diag.php:701
+msgid "Diagnostics results for selected realms"
+msgstr "Diagnostiikan tulokset valituille toimialueille"
+
+#: web/skins/modern/diag/diag.php:702
+msgid "An unknown problem occured"
+msgstr "Tuntematon ongelma ilmeni"
+
+#: web/skins/modern/diag/diag.php:705
+msgid "This test includes checking of the following realm"
+msgstr "Testi sisältää seuraavan toimialueen testaamisen"
+
+#: web/skins/modern/diag/diag.php:707
+msgid "This test includes checking of the following realms"
+msgstr "Testi sisältää seuraavan toimialueen testaamisen"
+
+#: web/skins/modern/diag/diag.php:717
+msgid "You should report this to"
+msgstr "Sinun pitäisi ilmoittaa asiasta"
+
+#: web/skins/modern/diag/diag.php:841
+msgid "eduroam admin report submission"
+msgstr "raportin lähettäminen eduroam ylläpitäjälle"
+
+#: web/skins/modern/diag/diag.php:846 web/skins/modern/diag/diag.php:856
+msgid "Reason"
+msgstr "Syy"
+
+#: web/skins/modern/diag/diag.php:847
+msgid "SP email"
+msgstr "SP sähköposti"
+
+#: web/skins/modern/diag/diag.php:848
+msgid "IdP email(s)"
+msgstr "IdP:n sähköpostiosoite(et)"
+
+#: web/skins/modern/diag/diag.php:849 web/skins/modern/diag/diag.php:860
+msgid "Event's timestamp"
+msgstr "Tapahtuman aikaleima"
+
+#: web/skins/modern/diag/diag.php:850 web/skins/modern/diag/diag.php:861
+msgid "Calling-Station-Id"
+msgstr "Laitteen tunniste"
+
+#: web/skins/modern/diag/diag.php:851 web/skins/modern/diag/diag.php:862
+msgid "Additional description"
+msgstr "Lisäkuvaus"
+
+#: web/skins/modern/diag/diag.php:854
+msgid "IdP contacting SP due to technical problems or abuse"
+msgstr "IdP on yhteydessä SP:hen teknisten ongelmien tai väärinkäytön takia."
+
+#: web/skins/modern/diag/diag.php:857
+msgid "SP's Operator-Name"
+msgstr "SP:n tunniste"
+
+#: web/skins/modern/diag/diag.php:858
+msgid "User's outer ID"
+msgstr "Käyttäjän ulkoinen identiteetti"
+
+#: web/skins/modern/diag/diag.php:859
+msgid "IdP email"
+msgstr "IdP:n sähköpostiosoite"
+
+#: web/skins/modern/diag/diag.php:863
+msgid "How to contact the user"
+msgstr "Yhteydenotto käyttäjään"
+
+#: web/skins/modern/diag/diag.php:880
+msgid "MAC address is incomplete"
+msgstr "MAC-osoite on epätäydellinen"
+
+#: web/skins/modern/diag/diag.php:889
+msgid "Wrong format of email"
+msgstr "Sähköpostiosoite on väärässä muodossa"
+
+#: web/skins/modern/diag/diag.php:898
+msgid "Wrong format of outer ID"
+msgstr "Ulkoinen identiteetti on väärässä muodossa"
+
+#: web/skins/modern/diag/diag.php:907
+msgid "Wrong string given as OperatorName"
+msgstr "Tunniste (Operator-Name) on väärin"

@@ -4,16 +4,16 @@
 #
 # Translators:
 # Marina Vermezovic <marina.vermezovic@rcub.bg.ac.rs>, 2012
-# Marko Eremija <marko.eremija@amres.ac.rs>, 2013,2015-2017
+# Marko Eremija <marko.eremija@amres.ac.rs>, 2013,2015-2018
 # marko <marko.stojakovic@rcub.bg.ac.rs>, 2012
 # nlemajic <natasa.lemajic@rcub.bg.ac.rs>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-10 08:40+0200\n"
-"PO-Revision-Date: 2018-05-23 23:59+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2018-10-18 14:16+0200\n"
+"PO-Revision-Date: 2018-09-25 10:13+0000\n"
+"Last-Translator: Marko Eremija <marko.eremija@amres.ac.rs>\n"
 "Language-Team: Serbian (http://www.transifex.com/eduroam_devel/cat/language/"
 "sr/)\n"
 "Language: sr\n"
@@ -28,6 +28,7 @@ msgstr ""
 #, php-format
 msgid "<span class='edu_cat'>%s</span> is built as a cooperation platform."
 msgstr ""
+"<span class='edu_cat'>%s</span> je napravljen kao platforma za saradnju."
 
 #: web/user/about_cat.inc.php:29
 #, php-format
@@ -40,6 +41,13 @@ msgid ""
 "administrators and try to influence them to add your %s configuration to "
 "<span class='edu_cat'>%s</span>."
 msgstr ""
+"Lokalni %s administratori unose konfiguracione detalje %s i na osnovu njih, "
+"<span class='edu_cat'>%s</span> pravi prilagođene instalere za veliki broj "
+"popularnih platformi. Program za instaliranje namenjen jednoj organizaciji "
+"neće raditi za korisnike druge organizacije, stoga ako vaša organizacija "
+"nije na listi, ne možete koristiti ovaj sistem. Molimo vas kontaktirajte "
+"vaše lokalne administratore i zamolite ih da dodaju konfiguraciju vaše %s na "
+"<span class='edu_cat'>%s</span>. "
 
 #: web/user/about_cat.inc.php:37
 #, php-format
@@ -118,6 +126,19 @@ msgid ""
 "google.com</b></li><li><b>checkout.google.com</b></li><li><b>*.gvt1.com</"
 "li></ul>"
 msgstr ""
+"<li><b>android.l.google.com</b> (Google Play pristup za Android aplikaciju)</"
+"li><li><b>android.clients.google.com</b> (Google Play pristup za Android "
+"aplikaciju)</li><li><b>play.google.com</b> (Google Play pristup za Android "
+"aplikaciju)<li><b>ggpht.com</b> (Google Play pristup za Android aplikaciju)</"
+"li></ul><b><u>PREPORUČENO</u></b>  za potpunu Google Play funkcionalnost (u "
+"suprotnom, Play Store neće moći u punoj meri da se koristi i/ili neće moći "
+"da se koristi neka funkcionalnost koja nije presudna)<ul><li><b>photos-ugc.l."
+"google.com</b></li><li><b>googleusercontent.com</b></li><li><b>ajax."
+"googleapis.com</b></li><li><b>play.google-apis.com</b></li><li><b>googleapis."
+"l.google.com</b></li><li><b>apis.google.com</b></li><li><b>gstatic.com</b></"
+"li><li><b>www.google-analytics.com</b></li><li><b>wallet.google.com</b></"
+"li><li><b>plus.google.com</b></li><li><b>checkout.google.com</b></"
+"li><li><b>*.gvt1.com</li></ul>"
 
 #.
 #. * ******************************************************************************
@@ -129,7 +150,7 @@ msgstr ""
 #.
 #: web/user/devel.inc.php:12
 msgid "Access the sources"
-msgstr ""
+msgstr "Pristupi izvoru"
 
 #: web/user/devel.inc.php:13
 #, php-format
@@ -137,28 +158,36 @@ msgid ""
 "%s is an opensource project. If you are interested in the details of the "
 "implementation, please visit <a href='%s'>GitHub</a>."
 msgstr ""
+"%s je opensource projekat. Ako ste zainteresovani za detalje implementacije, "
+"posetite <a href='%s'>GitHub</a>."
 
 #: web/user/devel.inc.php:14
 msgid "Join the developers mailing list."
-msgstr ""
+msgstr "Pridružite se mejling listi za razvoj."
 
 #: web/user/devel.inc.php:15
-#, php-format
-msgid "The list is availabe at: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "The list is available at: %s"
+msgstr "Spisak se može naći na: %s"
 
 #: web/user/devel.inc.php:16
 msgid "Add a translation"
-msgstr ""
+msgstr "Dodaj prevod"
 
 #: web/user/devel.inc.php:17
 msgid ""
 "If you would like to add a new language to CAT then please contact us ..."
 msgstr ""
+"Ako želite da dodate novi jezik na CAT portal onda nas možete "
+"kontaktirati ..."
+
+#: web/user/devel.inc.php:18
+msgid "Documentation"
+msgstr "Dokumentacija"
 
 #: web/user/faq.inc.php:17 web/user/faq.php:14
 msgid "My organisation is not listed. Can't I just use any of the other ones?"
-msgstr ""
+msgstr "Moja organizacija nije na listi. Da li mogu da koristim neku drugu?"
 
 #: web/user/faq.inc.php:18 web/user/faq.php:15
 msgid ""
@@ -168,17 +197,25 @@ msgid ""
 "server and will abort the login. Using an installer from a different "
 "organisation is <i>guaranteed to not work</i>!"
 msgstr ""
+"Ne! Programi za instaliranje imaju sigurnosna podešavanja koja su "
+"karakteristična za tu organizaciju. Ako niste iz te organizacije, vaš uređaj "
+"će otkriti da ćete poslati vaše korisničko ime i lozinku neautorizovanom "
+"serveru i prekinuće pokušaj povezivanja. Korišćenje programa za instaliranje "
+"druge institucije <i>sigurno neće raditi</i>!"
 
 #: web/user/faq.inc.php:22 web/user/faq.php:19
 msgid "What can I do to get my organisation listed?"
-msgstr ""
+msgstr "Šta mogu da uradim da bi se moja organizacija pojavila na listi?"
 
 #: web/user/faq.inc.php:23 web/user/faq.php:20
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"Contact %s administrators within your organisation and complain. It will "
-"take at most one hour of their time to get things done."
+"Contact %s administrators within your organisation and request that they add "
+"their organisation to the system. It will take at most one hour of their "
+"time to get things done."
 msgstr ""
+"Kontaktirajte %s adminstratore svoje organizacije i podnesite zahtev. "
+"Potrebno je najviše sat njihovog vremena kako bi oni ovo promenili."
 
 #: web/user/faq.inc.php:27 web/user/faq.php:24
 #, php-format
@@ -186,17 +223,17 @@ msgid "My device is not listed! Does that mean I can't do %s?"
 msgstr "Moj uređaj nije na listi! Da li to znači da ne mogu da koristim %s?"
 
 #: web/user/faq.inc.php:28 web/user/faq.php:25
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "No. The CAT tool can only support Operating Systems which can be "
 "automatically configured in some way. Many other devices can still be used "
 "with %s, but must be configured manually. Please contact your organisation "
 "to get help in setting up such a device."
 msgstr ""
-"Ne! CAT alatka može da podržava samo one operativne sisteme koji se mogu "
+"Ne. CAT alat može da podržava samo one operativne sisteme koji se mogu "
 "automatski konfigurisati na neki način. Mnogi drugi uređaji ipak mogu da "
 "koriste %s, ali moraju se konfigurisati ručno. Molimo vas da kontaktirate "
-"vašeg %s Davaoca Identiteta za pomoć prilikom konfiguracije takvog uređaja."
+"vašu organizaciju za pomoć prilikom konfiguracije takvog uređaja."
 
 #: web/user/faq.inc.php:32 web/user/faq.php:29
 #, php-format
@@ -299,6 +336,13 @@ msgid ""
 "contact your organisation and report the problem, the administrators should "
 "be able to trace your connections."
 msgstr ""
+"Mogući su različiti razlozi. Mreža koju vidite možda nije prava %s pa vaš "
+"uređaj odbija povezivanje; moguće su greške u konfiguraciji mreže; vaš "
+"korisnički nalog je možda istekao; moguć je prekid u vezi sa serverom vaše "
+"institucije koji proverava vaš identitet; možda ste prekrišili uslove "
+"korišćenja mreže pa vam je zabranjen pristup. Kontaktirajte vašu "
+"organizaciju i prijavite problem, administratori bi trebalo da znaju kako da "
+"dođu do vas preko informacija o vašoj konekciji."
 
 #: web/user/faq.inc.php:51 web/user/faq.php:66
 #, php-format
@@ -313,7 +357,7 @@ msgstr "Trebalo bi da pošaljete mejl %s."
 #: web/user/faq.inc.php:60 web/user/faq.php:35
 #, php-format
 msgid "What is this %s thing anyway?"
-msgstr ""
+msgstr "Šta je uopšte %s?"
 
 #: web/user/faq.inc.php:61 web/user/faq.php:36
 #, php-format
@@ -324,6 +368,12 @@ msgid ""
 "access on more than 6.000 hotspots! Visit <a href='http://www.eduroam."
 "org'>the %s homepage</a> for more details."
 msgstr ""
+"%s eduroam je globalni WiFi roming konzorcijum koji omogućava članovima "
+"obrazovnih i istraživačkih ustanova <i>besplatan</i> pristup internetu u "
+"svim %s pristupnim tačkama na planeti. Postoji nekoliko miliona %s "
+"korisnika, koji uživaju u besplatnom pristupu internetu na više od 6,000 "
+"lokacija! Posetitie <a href='http://www.eduroam.org'> glavnu %s stranicu</a> "
+"za više detalja."
 
 #: web/user/faq.php:58
 #, php-format
@@ -337,6 +387,13 @@ msgid ""
 "reasons for failure. It also allows you to contact your organisation and "
 "report the problem to them."
 msgstr ""
+"Mogući su različiti razlozi. Mreža koju vidite možda nije prava %s pa vaš "
+"uređaj odbija povezivanje; vaš korisnički nalog je možda istekao; možda ste "
+"prekrišili uslove korišćenja mreže pa vam je zabranjen pristup; možda "
+"postoji problem tehničke prirode. Kako biste isključili poslednju mogućnost, "
+"posetitie %s Alat za dijagnostikovanje <a href=''>ovde</a>, gde možete "
+"saznati koji sve razlozi za neuspešno povezivanje mogu biti. Takođe imate "
+"mogućnost da kontaktirate vašu organizaciju i da prijavite problem njima."
 
 #. *
 #. * This is a template for further FAQ entries. Simply copy&paste and add more
@@ -356,6 +413,10 @@ msgstr "Često postavljena pitanja"
 msgid "Terms of Use"
 msgstr "Pravila korišćenja"
 
+#: web/user/tou.inc.php:16
+msgid "(for legal reasons, the Terms of Use are in English only)"
+msgstr ""
+
 #: web/4013.php:34 web/404.php:33 web/lib/user/TextTemplates.php:77
 #, php-format
 msgid "Welcome to %s"
@@ -365,8 +426,8 @@ msgstr "Dobrodošli na %s"
 msgid "View this page in"
 msgstr "Pogledajte ovu stranicu na nekom od sledećih jezika"
 
-#: web/4013.php:43 web/404.php:42 web/copyright.php:33
-#: web/skins/modern/Menu.php:29
+#: web/4013.php:43 web/404.php:42 web/skins/modern/Menu.php:29
+#: web/skins/modern/Menu.php:103
 msgid "Start page"
 msgstr "Početna stranica"
 
@@ -414,20 +475,15 @@ msgstr ""
 "počevši od vas. Vaša greška? Naša greška? Ko zna! Možda bi trebalo da se "
 "vratite na <a href='%s'>Početnu stranu</a>."
 
-#: web/copyright.php:30
-#, php-format
-msgid "%s Copyright and Licensing"
-msgstr "%s autorska prava i licenciranje"
-
-#: web/copyright.php:213 web/tou.php:61 web/skins/modern/Divs.php:280
+#: web/tou.php:61 web/skins/modern/Divs.php:279
 #, php-format
 msgid "%s Privacy Notice"
-msgstr ""
+msgstr "%s obaveštenje o privatnosti"
 
 #: web/lib/user/TextTemplates.php:70
 #, php-format
 msgid "Welcome aboard the %s user community!"
-msgstr ""
+msgstr "Dobrodošli u zajednicu %s korisnika!"
 
 #: web/lib/user/TextTemplates.php:71
 msgid ""
@@ -450,6 +506,10 @@ msgid ""
 "credentials (this is our fancy name for 'username and password' or 'personal "
 "certificate') - and be online!"
 msgstr ""
+"Sada kada ste preuzeli i instalirali konfigurator vašeg uređaja, sve što je "
+"potrebno da uradite jeste da pronađete najbližu %s pristupnu tačku i unesete "
+"vaše  kredencijale (to je naš formalni naziv za korisničko ime i lozinku ili "
+"'lični sertifikat') - da biste bili online!"
 
 #: web/lib/user/TextTemplates.php:74 web/skins/modern/div_user_welcome.php:17
 #, php-format
@@ -474,11 +534,15 @@ msgid ""
 "of universities, research centres and other places all over the globe. All "
 "of this completely free of charge!"
 msgstr ""
+"Želeli bismo da Vam poželimo toplu dobrodošlicu u zajednicu od više miliona "
+"korisnika %s servisa! Od sada pa nadalje, bićete u mogućnosti da koristite "
+"internet pristup na više hiljada univerziteta, u istraživačkim centrima i "
+"drugim lokacijama na svim kontinentima. Sve potpuno besplatno!"
 
 #: web/lib/user/TextTemplates.php:78
 #, php-format
 msgid "Connect your device to %s"
-msgstr ""
+msgstr "Povežite vaš uređaj na %s"
 
 #: web/lib/user/TextTemplates.php:79
 #, php-format
@@ -487,12 +551,12 @@ msgstr "%s olakšana instalacija:"
 
 #: web/lib/user/TextTemplates.php:80
 msgid "Custom built for your organisation"
-msgstr ""
+msgstr "Prilagođeno vašoj matičnoj organizaciji"
 
 #: web/lib/user/TextTemplates.php:81
 #, php-format
 msgid "Click here to download your %s installer"
-msgstr ""
+msgstr "Kliknite ovde za preuzimanje %s instalera"
 
 #: web/lib/user/TextTemplates.php:82
 msgid "Select the user group"
@@ -504,7 +568,7 @@ msgstr "odaberite drugi"
 
 #: web/lib/user/TextTemplates.php:84
 msgid "Choose another installer to download"
-msgstr ""
+msgstr "Odaberite dodatni instaler za preuzimanje"
 
 #: web/lib/user/TextTemplates.php:85
 msgid "All platforms"
@@ -521,16 +585,19 @@ msgid ""
 "<br>When you click <b>Continue</b> this support page will be opened in a new "
 "window/tab."
 msgstr ""
+"Vaš administrator je definisao preusmeravanje na lokalnu stranicu za "
+"podršku. <br> Kada kliknete na <b>Nastavi</b> otvoriće se stranica za "
+"podršku u novom prozoru/kartici."
 
-#: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:271
-#: web/skins/modern/user/js/cat_js.php:279
+#: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:270
+#: web/skins/modern/user/js/cat_js.php:278
 msgid "Continue"
 msgstr "Nastavi"
 
 #: web/lib/user/TextTemplates.php:89
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s"
-msgstr ""
+msgstr "Digitalno potpisani od organizacije koja kooridinira %s"
 
 #: web/lib/user/TextTemplates.php:90
 #, php-format
@@ -538,6 +605,9 @@ msgid ""
 "You can download your %s installer via a personalised invitation link sent "
 "from your IT support. Please talk to the IT department to get this link."
 msgstr ""
+"Možete preuzeti vaš %s instaler preko personalizovanog pozivnog linka koji "
+"vam je poslala IT podrška. Molimo vas da kontaktirate IT podršku vaše "
+"institucije kako biste dobili ovaj link."
 
 #: web/lib/user/TextTemplates.php:91
 #, php-format
@@ -545,10 +615,12 @@ msgid ""
 "This site provides %s installers for many organisations, click here to see "
 "if yours is on the list."
 msgstr ""
+"Ovaj veb sajt omogućava %s instalere za mnogo organizacija, kliknite ovde da "
+"biste videli da li je i vaša organizacija na listi."
 
 #: web/lib/user/TextTemplates.php:92
 msgid "Custom built for you"
-msgstr ""
+msgstr "Prilagođeno vama"
 
 #: web/lib/user/TextTemplates.php:94
 #, php-format
@@ -562,6 +634,10 @@ msgid ""
 "thousands of universities, research centres and other places all over the "
 "globe. All of this completely free of charge!"
 msgstr ""
+"Želeli bismo da vam poželimo toplu dobrodošlicu u zajednicu od više miliona "
+"korisnika eduroam® servisa! Od sada pa nadalje, bićete u mogućnosti da "
+"koristite internet resurse na više hiljada univerziteta, u istraživačkim "
+"centrima i drugim lokacijama u svetu. Sve potpuno besplatno!"
 
 #: web/skins/modern/div_user_welcome.php:15
 msgid ""
@@ -570,14 +646,18 @@ msgid ""
 "credentials (this is our fancy name for 'username and password' or 'personal "
 "certificate') - and be online!"
 msgstr ""
+"Sada kada ste preuzeli i instalirali konfigurator vašeg uređaja, sve što je "
+"potrebno da uradite jeste da pronađete najbližu eduroam® pristupnu tačku i "
+"unesete vaše korisničke kredencijale (to je naš formalni naziv za korisničko "
+"ime i lozinku) - da biste bili online!"
 
-#: web/skins/modern/index.php:67 web/skins/modern/test.php:70
+#: web/skins/modern/index.php:68 web/skins/modern/test.php:70
 msgid "Authenticating"
 msgstr "Autentifikovanje"
 
 #: web/skins/modern/Menu.php:32
 msgid "About"
-msgstr ""
+msgstr "Informacije"
 
 #: web/skins/modern/Menu.php:33 web/skins/modern/Menu.php:34
 #: web/skins/modern/Menu.php:35
@@ -587,16 +667,16 @@ msgstr "O %s"
 
 #: web/skins/modern/Menu.php:39
 msgid "Language"
-msgstr ""
+msgstr "Jezik"
 
 #: web/skins/modern/Menu.php:41 web/skins/modern/Menu.php:44
 #: web/skins/modern/user/cat_info.php:60
 msgid "Help"
-msgstr ""
+msgstr "Pomoć"
 
 #: web/skins/modern/Menu.php:42
 msgid "My institution is not listed"
-msgstr ""
+msgstr "Moja institucija nije na listi"
 
 #: web/skins/modern/Menu.php:42 web/skins/modern/Menu.php:43
 #: web/skins/modern/Menu.php:45 web/skins/modern/Menu.php:46
@@ -606,32 +686,28 @@ msgstr "Često postavljena pitanja"
 
 #: web/skins/modern/Menu.php:43
 msgid "My device is not listed"
-msgstr ""
+msgstr "Moj uređaj nije na listi"
 
 #: web/skins/modern/Menu.php:45
 msgid "What is eduroam"
-msgstr ""
+msgstr "Šta je eduroam"
 
 #: web/skins/modern/Menu.php:47
 msgid "Contact"
-msgstr ""
+msgstr "Kontakt"
 
 #: web/skins/modern/Menu.php:48
 msgid "Diagnostics"
-msgstr ""
-
-#: web/skins/modern/Menu.php:49
-msgid "Documentation"
-msgstr ""
+msgstr "Dijagnostika"
 
 #: web/skins/modern/Menu.php:52
 msgid "Manage"
-msgstr ""
+msgstr "Upravljaj"
 
 #: web/skins/modern/Menu.php:53
 #, php-format
 msgid "%s admin access"
-msgstr ""
+msgstr "Administatorski pristup za %s"
 
 #: web/skins/modern/Menu.php:54
 #, php-format
@@ -651,35 +727,38 @@ msgid ""
 "You attempted to download an installer that was already downloaded before. "
 "Please request a new token from your administrator instead."
 msgstr ""
+"Pokušali ste da preuzmete instaler koji ste već preuzeli ranije. Umesto "
+"toga, molimo vas da zahtevate novi token od vašeg administratora."
 
 #: web/skins/modern/accountstatus/accountstatus.php:57
 msgid "Attempt to re-use download link"
-msgstr ""
+msgstr "Pokušajte sa istim linkom za preuzimanje"
 
 #: web/skins/modern/accountstatus/accountstatus.php:68
 #, php-format
 msgid "You are a new user without a history of %s credentials."
-msgstr ""
+msgstr "Vi ste novi korisnik bez prethodnih kredencijala za %s."
 
 #: web/skins/modern/accountstatus/accountstatus.php:74
 #, php-format
 msgid "You have <strong>%d</strong> currently valid %s credential."
 msgid_plural "You have <strong>%d</strong> currently valid %s credentials."
-msgstr[0] ""
+msgstr[0] "Trenutno imate jedne <strong>%d</strong> validne %s kredencijale."
 msgstr[1] ""
-msgstr[2] ""
+"Trenutno imate nekoliko <strong>%d</strong> validnih %s kredencijala."
+msgstr[2] "Trenutno imate više <strong>%d</strong> validnih %s kredencijala."
 
 #: web/skins/modern/accountstatus/accountstatus.php:78
 #, php-format
 msgid "<strong>%d</strong> of your credentials is not valid any more."
 msgid_plural "<strong>%d</strong> of your credentials are not valid any more."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "<strong>%d</strong> više nije validan."
+msgstr[1] "<strong>%d</strong> više nisu validni."
+msgstr[2] "<strong>%d</strong> više nisu validni."
 
 #: web/skins/modern/accountstatus/accountstatus.php:80
 msgid "I want to see the details."
-msgstr ""
+msgstr "Želim da vidim detalje."
 
 #. only show this extra info in the non-trivial case.
 #: web/skins/modern/accountstatus/accountstatus.php:89
@@ -688,6 +767,7 @@ msgid ""
 "Your invitation token is valid for %d more device activations (%d have "
 "already been used)."
 msgstr ""
+"Vaš pozivni token je važeći za još %d uređaja (trenutno je iskorišćeno %d)."
 
 #: web/skins/modern/accountstatus/accountstatus.php:92
 msgid ""
@@ -697,6 +777,11 @@ msgid ""
 "modifications. You can come back to this page again; the invitation link has "
 "not been used up yet."
 msgstr ""
+"Nažalost, nije moguće utvrditi operativni sistem vašeg uređaja. Ako ste "
+"napravili izmene na vašem uređaju koje sprečavaju da operativni sistem bude "
+"detektovan (npr. prilagođena 'User Agent' podešavanja), molimo vas da ih "
+"poništite. Možete se vratiti na ovu stranicu ponovo; pozivni link još uvek "
+"nije iskorišćen. "
 
 #: web/skins/modern/accountstatus/accountstatus.php:99
 #, php-format
@@ -706,11 +791,15 @@ msgid ""
 "supported operating system later; the invitation link has not been used up "
 "yet."
 msgstr ""
+"Nažalost, operativni sistem koji vaš uređaj koristi (%s) nije trenutno "
+"podržan u okviru usluge hostovanja naloga krajnjih korisnika. Možete "
+"posetiti ovu stranicu kada budete imali uređaj sa nekim od podržanih "
+"operativnih sistema; pozivni link još uvek nije iskorišćen."
 
 #: web/skins/modern/accountstatus/accountstatus.php:103
 #, php-format
 msgid "You can now download a personalised  %s installation program."
-msgstr ""
+msgstr "Sada možete preuzeti personalizovan %s instaler."
 
 #. echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
 #: web/skins/modern/accountstatus/accountstatus.php:105
@@ -720,6 +809,9 @@ msgid ""
 "be used <span class='emph'>only on this device (%s)</span>, and it is <span "
 "class='emph'>not permitted to share</span> this information with anyone."
 msgstr ""
+"Ovaj instalacioni program je <span class='emph'>isključivo ličan</span>, "
+"može se koristiti <span class='emph'>samo na ovom uređaju (%s)</span>, i "
+"<span class='emph'>nije dozvoljeno deliti </span> ovu informaciju ni sa kim."
 
 #: web/skins/modern/accountstatus/accountstatus.php:106
 #, php-format
@@ -728,6 +820,9 @@ msgid ""
 "access rights for you will be revoked and you may be sanctioned by your "
 "local %s administrator."
 msgstr ""
+"Kada sistem detektuje zloupotrebu kao što je npr. deljenje podataka za "
+"povezivanje sa drugima, sva prava pristupa će biti povučena i možete biti "
+"sankcionisani od strane vašeg lokalnog %s administratora."
 
 #: web/skins/modern/accountstatus/accountstatus.php:107
 msgid ""
@@ -735,16 +830,19 @@ msgid ""
 "PIN. This only happens once during the installation. You do not have to "
 "write down this PIN."
 msgstr ""
+"U toku procesa instalacije, od vas će se zahtevati da unesete PIN za uvoz "
+"podataka. Ovo se dešava samo jednom u toku instalacije. Ne morate da "
+"zapisujete ovaj PIN."
 
 #: web/skins/modern/accountstatus/accountstatus.php:112
 #, php-format
 msgid "Import PIN: %s"
-msgstr ""
+msgstr "Uvezi PIN: %s"
 
 #: web/skins/modern/accountstatus/accountstatus.php:117
 #, php-format
 msgid "Click here to download your %s installer!"
-msgstr ""
+msgstr "Kliknite ovde za preuzimanje %s instalera!"
 
 #: web/skins/modern/accountstatus/accountstatus.php:121
 #, php-format
@@ -753,10 +851,14 @@ msgid ""
 "invitation was valid until %s. You cannot use this link any more. Please ask "
 "your administrator to issue you a new invitation link."
 msgstr ""
+"Nažalost, pozivni link koji ste pokušali da iskoristite je suviše star. "
+"Pozivni link za %s je bio validan do %s. Ne možete više koristiti ovaj link. "
+"Molimo vas da se obratite administratoru vaše institucije kako bi vam se "
+"izdao novi pozivni link."
 
 #: web/skins/modern/accountstatus/accountstatus.php:128
 msgid "Account information not found"
-msgstr ""
+msgstr "Informacije o nalogu nisu pronađene"
 
 #: web/skins/modern/accountstatus/accountstatus.php:129
 #, php-format
@@ -764,6 +866,8 @@ msgid ""
 "The invitation link you followed does not map to any invititation we have on "
 "file."
 msgstr ""
+"Pozivni link koji ste pratili ne može se upariti ni sa jednom pozivnicom "
+"koja trenutno postoji."
 
 #: web/skins/modern/accountstatus/accountstatus.php:129
 #, php-format
@@ -773,69 +877,78 @@ msgid ""
 "page and Accept the question about logging in with a client certificate "
 "(select a certificate with a name ending in '…%s')."
 msgstr ""
+"Trebalo bi da koristite link koji ste dobili prilikom prijave da biste došli "
+"ovde. Alternativno, ako već imate važeće %s kredencijale, možete posetiti "
+"ovu stranicu i odabrati opciju Prihvati na pitanje koje se odnosi na "
+"logovanje sa klijentskim sertifikatom (odaberite sertifikat čije ime se "
+"završava sa '...%s')."
 
-#: web/skins/modern/accountstatus/accountstatus.php:159
-#: web/skins/modern/user/js/cat_js.php:234
+#: web/skins/modern/accountstatus/accountstatus.php:161
+#: web/skins/modern/user/js/cat_js.php:237
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
 "organisation at:"
 msgstr ""
+"Ukoliko naiđete na probleme, za pomoć se možete obratiti vašoj matičnoj "
+"organizaciji na:"
 
-#: web/skins/modern/accountstatus/accountstatus.php:161
-#: web/skins/modern/user/js/cat_js.php:236
+#: web/skins/modern/accountstatus/accountstatus.php:163
+#: web/skins/modern/user/js/cat_js.php:239
 msgid ""
 "If you encounter problems you should ask those who gave you your account for "
 "help."
 msgstr ""
+"Ukoliko naiđete na probleme za pomoć se obratite onome od koga ste dobili "
+"informacije o vašem nalogu."
 
-#: web/skins/modern/accountstatus/accountstatus.php:172
+#: web/skins/modern/accountstatus/accountstatus.php:174
 #, php-format
 msgid "Your personal %s account status page"
-msgstr ""
-
-#: web/skins/modern/accountstatus/accountstatus.php:200
-msgid "Current login tokens"
-msgstr ""
-
-#: web/skins/modern/accountstatus/accountstatus.php:201
-msgid "Previous login tokens"
-msgstr ""
+msgstr "Vaša lična statusna stranica za %s nalog"
 
 #: web/skins/modern/accountstatus/accountstatus.php:202
+msgid "Current login tokens"
+msgstr "Trenutni tokeni za povezivanje"
+
+#: web/skins/modern/accountstatus/accountstatus.php:203
+msgid "Previous login tokens"
+msgstr "Prethodni tokeni za povezivanje"
+
+#: web/skins/modern/accountstatus/accountstatus.php:204
 msgid "Revoked login tokens"
-msgstr ""
+msgstr "Povučeni tokeni za povezivanje"
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Serial Number"
-msgstr ""
+msgstr "Serijski broj:"
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Pseudonym"
-msgstr ""
+msgstr "Pseudonim"
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Device Type"
-msgstr ""
+msgstr "Tip uređaja"
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Issue Date"
-msgstr ""
+msgstr "Datum izdavanja"
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:205
 msgid "Expiry Date"
-msgstr ""
+msgstr "Datum isteka"
 
-#: web/skins/modern/accountstatus/accountstatus.php:213
+#: web/skins/modern/accountstatus/accountstatus.php:215
 msgid "invalid token"
-msgstr ""
+msgstr "pogrešan token"
 
-#: web/skins/modern/accountstatus/accountstatus.php:237
+#: web/skins/modern/accountstatus/accountstatus.php:239
 msgid "The details are displayed below."
-msgstr ""
+msgstr "Detalji su prikazani ispod."
 
-#: web/skins/modern/accountstatus/accountstatus.php:243
+#: web/skins/modern/accountstatus/accountstatus.php:245
 msgid "Really revoke this access credential?"
-msgstr ""
+msgstr "Da li zaista želite da povučete ove kredencijale za pristup?"
 
 #: web/skins/modern/user/cat_info.php:90
 #, php-format
@@ -843,6 +956,8 @@ msgid ""
 "You must have received an invitation from your %s %s before being able to "
 "manage your %s. If that is the case, please continue and log in."
 msgstr ""
+"Morali ste dobiti pozivnicu od vašeg %s %s pre nego što možete upravljati "
+"vašom %s. Ukoliko ste dobili pozivnicu, nastavite sa prijavom."
 
 #: web/skins/modern/user/cat_info.php:92
 msgid "Please authenticate yourself and login"
@@ -859,10 +974,14 @@ msgid ""
 "invited to the system in the box below. This may not work if you were "
 "invited from a third-party website via the AdminAPI."
 msgstr ""
+"Da li ste zaboravili sa kredencijalima kog IdP-a ste se povezali? Možemo da "
+"pokušamo da nađemo o kom IdP-u se radi ako unesete email adresu sa kojom ste "
+"pozvani u polje ispod. Ovo možda neće raditi ukoliko ste pozvani preko web "
+"sajta treće strane korišćenjem AdminAPI-ja."
 
 #: web/skins/modern/user/cat_info.php:99
 msgid "Get IdP Reminder"
-msgstr ""
+msgstr "Zahtevaj IdP podsetnik"
 
 #: web/skins/modern/user/js/cat_js.php:34
 msgid ""
@@ -873,42 +992,36 @@ msgstr ""
 "Ovo je neprijatno. Generisanje vašeg programa za instalaciju nije uspelo. "
 "Administratori sistema su obavešteni. Pokušaćemo da rešimo problem što pre."
 
-#: web/skins/modern/user/js/cat_js.php:82
-#: web/skins/modern/user/js/cat_js.php:216
+#: web/skins/modern/user/js/cat_js.php:81
+#: web/skins/modern/user/js/cat_js.php:218
 msgid "no matching data found"
 msgstr "nema podataka koji se poklapaju"
 
-#: web/skins/modern/user/js/cat_js.php:96
+#: web/skins/modern/user/js/cat_js.php:95
 msgid "select"
 msgstr "odaberite"
 
-#: web/skins/modern/user/js/cat_js.php:228
+#: web/skins/modern/user/js/cat_js.php:231
 msgid "WWW:"
 msgstr "WWW:"
 
-#: web/skins/modern/user/js/cat_js.php:230
+#: web/skins/modern/user/js/cat_js.php:233
 msgid "email:"
 msgstr "email:"
 
-#: web/skins/modern/user/js/cat_js.php:232
+#: web/skins/modern/user/js/cat_js.php:235
 msgid "tel:"
 msgstr "tel:"
 
-#: web/skins/modern/user/js/cat_js.php:239
-#, php-format
-msgid ""
-"When you make use of the international %s infrastructure, e.g. when roaming "
-"with your device, your data is treated according to the <a href='%s'>%s "
-"Privacy Statement</a>."
-msgstr ""
-
-#: web/skins/modern/user/js/cat_js.php:258
-#: web/skins/modern/user/js/cat_js.php:284
+#: web/skins/modern/user/js/cat_js.php:257
+#: web/skins/modern/user/js/cat_js.php:283
 msgid ""
 "This device cannot be configured with the settings used in your organisation."
 msgstr ""
+"Ovaj uređaj se ne može konfigurisati prema podešavanjima koja je unela vaša "
+"organizacija."
 
-#: web/skins/modern/user/js/cat_js.php:271
+#: web/skins/modern/user/js/cat_js.php:270
 msgid ""
 "Your site administrator has specified that this device should be configured "
 "with resources located on a local page. When you click <b>Continue</b> this "
@@ -918,103 +1031,107 @@ msgstr ""
 "koji se nalaze na lokalnoj stranici. Kada kliknete na <b>Nastavi</b> ova "
 "stranica će se otvoriti u novom prizoru/jezičku."
 
-#: web/skins/modern/user/js/cat_js.php:285
+#: web/skins/modern/user/js/cat_js.php:284
 msgid "Close"
 msgstr "Zatvori"
 
 #: web/skins/modern/user/js/cat_js.php:381
 msgid "Missing email address"
-msgstr ""
+msgstr "Nedostaje email adresa"
 
 #: web/skins/modern/user/js/cat_js.php:395
 msgid "No providers found for this email"
-msgstr ""
+msgstr "Nije nađen nijedan provajder za ovaj email"
 
 #: web/skins/modern/user/js/cat_js.php:400
 msgid "Your IdP is:"
-msgstr ""
+msgstr "Vaš IdP je:"
 
 #: web/skins/modern/user/js/cat_js.php:402
 msgid "Your IdP could be one of:"
-msgstr ""
+msgstr "Vaš IdP može biti jedan od:"
 
-#: web/skins/modern/user/js/cat_js.php:559
+#: web/skins/modern/user/js/cat_js.php:565
 msgid "Organisation"
-msgstr ""
+msgstr "Organizacija"
 
-#: web/skins/modern/user/js/cat_js.php:560
+#: web/skins/modern/user/js/cat_js.php:566
 msgid "Select your organisation"
-msgstr ""
+msgstr "Odaberite vašu organizaciju"
 
-#: web/skins/modern/user/js/cat_js.php:561
+#: web/skins/modern/user/js/cat_js.php:567
 msgid "Help, my organisation is not on the list"
-msgstr ""
+msgstr "Upomoć, moja institucija nije na listi"
 
-#: web/skins/modern/user/js/cat_js.php:562
+#: web/skins/modern/user/js/cat_js.php:568
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
 "your organisation is not on the list, then nag them to add information to "
 "the %s database."
 msgstr ""
+"Ovaj sistem se oslanja na informacije koje su uneli lokalni %s "
+"administratori. Ukoliko vaša institucija nije na listi, onda ih zamolite da "
+"unesu informacije u %s bazu."
 
-#: web/skins/modern/user/js/cat_js.php:563
+#: web/skins/modern/user/js/cat_js.php:569
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "Lociraj me preciznije koristeći HTML5 geolokaciju"
 
-#: web/skins/modern/user/js/cat_js.php:564
+#: web/skins/modern/user/js/cat_js.php:570
 msgid "Show organisations in"
-msgstr ""
+msgstr "Prikaži organizacije u"
 
-#: web/skins/modern/user/js/cat_js.php:565
+#: web/skins/modern/user/js/cat_js.php:571
 msgid "all countries"
 msgstr "sve zemlje"
 
-#: web/skins/modern/user/js/cat_js.php:566
-msgid "or search for an organisation, for example Univerity of Oslo"
-msgstr ""
+#: web/skins/modern/user/js/cat_js.php:572
+#, fuzzy
+msgid "or search for an organisation, for example University of Oslo"
+msgstr "ili traži organizaciju, npr. Rudarsko-geološki fakultet"
 
-#: web/skins/modern/user/js/cat_js.php:567
+#: web/skins/modern/user/js/cat_js.php:573
 msgid "show all countries"
 msgstr "prikaži sve zemlje"
 
-#: web/skins/modern/user/js/cat_js.php:568
+#: web/skins/modern/user/js/cat_js.php:574
 msgid "Results limited to"
 msgstr "Rezultati ograničeni na"
 
-#: web/skins/modern/user/js/cat_js.php:569
+#: web/skins/modern/user/js/cat_js.php:575
 msgid "entries - show more"
 msgstr "ulazi - prikazi više"
 
-#: web/skins/modern/user/js/cat_js.php:570
+#: web/skins/modern/user/js/cat_js.php:576
 msgid "Nearby"
 msgstr "U blizini"
 
-#: web/skins/modern/user/js/cat_js.php:571
+#: web/skins/modern/user/js/cat_js.php:577
 msgid "Location timeout"
 msgstr "Vremensko ograničenje za određivanje lokacije je isteklo"
 
-#: web/skins/modern/user/js/cat_js.php:572
+#: web/skins/modern/user/js/cat_js.php:578
 msgid "Could not get your position"
 msgstr "Nije moguće odrediti vašu lokaciju"
 
-#: web/skins/modern/user/js/cat_js.php:573
+#: web/skins/modern/user/js/cat_js.php:579
 msgid "Your browser has denied access to your location"
 msgstr "Vaš internet pretraživač je blokirao pristup vašoj lokaciji"
 
-#: web/skins/modern/user/js/cat_js.php:574
+#: web/skins/modern/user/js/cat_js.php:580
 msgid "Unknown location error"
 msgstr "Nepoznata greška o lokaciji"
 
-#: web/skins/modern/user/js/cat_js.php:575
+#: web/skins/modern/user/js/cat_js.php:581
 msgid "You are here:"
 msgstr "Vi ste ovde:"
 
-#: web/skins/modern/user/js/cat_js.php:576
+#: web/skins/modern/user/js/cat_js.php:582
 msgid "Getting your location..."
 msgstr "Određivanje vaše lokacije:"
 
-#: web/skins/modern/user/js/cat_js.php:577
+#: web/skins/modern/user/js/cat_js.php:583
 msgid "Nearby providers shown on top."
 msgstr "Obližnji provajderi su prikazani na vrhu."
 
@@ -1063,3 +1180,15 @@ msgstr "sve važnije verzije"
 #: web/skins/modern/user/js/roll.php:139
 msgid "Chrome OS"
 msgstr "Chrome OS"
+
+#~ msgid "%s Copyright and Licensing"
+#~ msgstr "%s autorska prava i licenciranje"
+
+#~ msgid ""
+#~ "When you make use of the international %s infrastructure, e.g. when "
+#~ "roaming with your device, your data is treated according to the <a "
+#~ "href='%s'>%s Privacy Statement</a>."
+#~ msgstr ""
+#~ "Kada koristite internacionalnu %s infrastrukturu, npr. prilikom rominga "
+#~ "sa vašim uređajem, vaši podaci se prenose u skladu sa <a href='%s'>%s "
+#~ "Privacy Statement</a>."

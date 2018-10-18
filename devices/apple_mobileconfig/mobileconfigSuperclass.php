@@ -98,8 +98,8 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         if (isset($this->attributes['support:info_file'])) {
             return mobileconfigSuperclass::BUFFER_CONSENT_PRE . htmlspecialchars(iconv("UTF-8", "UTF-8//TRANSLIT", $this->attributes['support:info_file'][0]), ENT_XML1, 'UTF-8') . mobileconfigSuperclass::BUFFER_CONSENT_POST;
         }
-        if (isset($this->attributes['internal:verify_userinput_suffix'])) {
-            if (isset($this->attributes['internal:realm'])) {
+        if ($this->attributes['internal:verify_userinput_suffix'][0] != 0) {
+            if (strlen($this->attributes['internal:realm'][0]) > 0) {
                 return mobileconfigSuperclass::BUFFER_CONSENT_PRE . sprintf(_("Important Notice: your username must end with @%s!"), $this->attributes['internal:realm'][0]) . mobileconfigSuperclass::BUFFER_CONSENT_POST;
             }
             return mobileconfigSuperclass::BUFFER_CONSENT_PRE . _("Important Notice: your username MUST be in the form of xxx@yyy where the yyy is a common suffix identifying your Identity Provider. Please find out what to use there and enter the username in the correct format.") . mobileconfigSuperclass::BUFFER_CONSENT_POST;
@@ -293,8 +293,10 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         $retval .= "<key>PayloadCertificateAnchorUUID</key>
                          <array>";
         foreach ($this->listCAUuids() as $uuid) {
-            $retval .= "
+            if (in_array($uuid, $this->CAsAccountedFor)) {
+                $retval .= "
 <string>$uuid</string>";
+            }
         }
         $retval .= "
                          </array>
@@ -453,7 +455,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         foreach (array_keys($this->attributes['internal:SSID']) as $ssid) {
             $retval .= $this->networkBlock(mobileconfigSuperclass::NETWORK_BLOCK_TYPE_SSID, $ssid);
         }
-        if (isset($this->attributes['media:wired']) && get_class($this) == "Device_mobileconfig_os_x") {
+        if (isset($this->attributes['media:wired']) && get_class($this) == "devices\apple_mobileconfig\Device_mobileconfig_os_x") {
             $retval .= $this->networkBlock(mobileconfigSuperclass::NETWORK_BLOCK_TYPE_WIRED, TRUE);
         }
         if (count($this->attributes['internal:consortia']) > 0) {
@@ -522,13 +524,17 @@ $mimeFormatted
         <date>" . $expiryTime->format("Y-m-d") . "T" . $expiryTime->format("H:i:s") . "Z</date>";
     }
 
-    private function caBlob($ca) {
-        // cut lines with CERTIFICATE
-        $stage1 = preg_replace('/-----BEGIN CERTIFICATE-----/', '', $ca['pem']);
-        $stage2 = preg_replace('/-----END CERTIFICATE-----/', '', $stage1);
-        $trimmedPem = trim($stage2);
+    private $CAsAccountedFor = [];
 
-        $stream = "
+    private function caBlob($ca) {
+        $stream = "";
+        if (!in_array($ca['uuid'], $this->CAsAccountedFor)) { // skip if this is a duplicate
+            // cut lines with CERTIFICATE
+            $stage1 = preg_replace('/-----BEGIN CERTIFICATE-----/', '', $ca['pem']);
+            $stage2 = preg_replace('/-----END CERTIFICATE-----/', '', $stage1);
+            $trimmedPem = trim($stage2);
+
+            $stream = "
             <dict>
                <key>PayloadCertificateFileName</key>
                <string>" . $ca['uuid'] . ".der</string>
@@ -549,7 +555,8 @@ $mimeFormatted
                <key>PayloadVersion</key>
                <integer>1</integer>
             </dict>";
-
+            $this->CAsAccountedFor[] = $ca['uuid'];
+        }
         return $stream;
     }
 

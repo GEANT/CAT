@@ -1,0 +1,1138 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+#   <paul.dekkers@surfnet.nl>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: eduroam CAT\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-10-08 14:35+0200\n"
+"PO-Revision-Date: 2012-08-07 13:23+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/cat/language/nl/)\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: devices/Devices-template.php:110
+msgid "MS Windows 10"
+msgstr ""
+
+#: devices/Devices-template.php:125
+msgid "MS Windows 8, 8.1"
+msgstr ""
+
+#: devices/Devices-template.php:139
+msgid "MS Windows 7"
+msgstr ""
+
+#: devices/Devices-template.php:153
+msgid "MS Windows Vista"
+msgstr ""
+
+#: devices/Devices-template.php:167
+msgid "Windows RT"
+msgstr ""
+
+#: devices/Devices-template.php:179
+msgid "Apple macOS High Sierra"
+msgstr ""
+
+#: devices/Devices-template.php:194
+msgid "Apple macOS Sierra"
+msgstr ""
+
+#: devices/Devices-template.php:209
+msgid "Apple OS X El Capitan"
+msgstr ""
+
+#: devices/Devices-template.php:223
+msgid "Apple OS X Yosemite"
+msgstr ""
+
+#: devices/Devices-template.php:237
+msgid "Apple OS X Mavericks"
+msgstr ""
+
+#: devices/Devices-template.php:251
+msgid "Apple OS X Mountain Lion"
+msgstr ""
+
+#: devices/Devices-template.php:265
+msgid "Apple OS X Lion"
+msgstr ""
+
+#: devices/Devices-template.php:279
+msgid "Apple iOS mobile devices"
+msgstr ""
+
+#: devices/Devices-template.php:293
+msgid "Apple iOS mobile devices (iOS 5 and 6)"
+msgstr ""
+
+#: devices/Devices-template.php:308
+msgid "Linux"
+msgstr ""
+
+#: devices/Devices-template.php:319
+msgid "Chrome OS"
+msgstr ""
+
+#: devices/Devices-template.php:325
+#, php-format
+msgid ""
+"After downloading the file, open the Chrome browser and browse to this URL: "
+"<a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</"
+"a>. Then, use the 'Import ONC file' button. The import is silent; the new "
+"network definitions will be added to the preferred networks."
+msgstr ""
+
+#: devices/Devices-template.php:331
+msgid "Android 9.0 Pie"
+msgstr ""
+
+#: devices/Devices-template.php:337 devices/Devices-template.php:353
+#: devices/Devices-template.php:369 devices/Devices-template.php:385
+#: devices/Devices-template.php:401 devices/Devices-template.php:417
+#: devices/Devices-template.php:434
+#, php-format
+msgid ""
+"Before you proceed with installation on Android systems, please make sure "
+"that you have installed the %s application. This application is available "
+"from %s, %s and %s, and will use the configuration file downloaded from CAT "
+"to create all necessary settings."
+msgstr ""
+
+#: devices/Devices-template.php:341 devices/Devices-template.php:357
+#: devices/Devices-template.php:373 devices/Devices-template.php:389
+#: devices/Devices-template.php:405 devices/Devices-template.php:421
+#: devices/Devices-template.php:438
+msgid "as local download"
+msgstr ""
+
+#: devices/Devices-template.php:347
+msgid "Android 8.0 Oreo"
+msgstr ""
+
+#: devices/Devices-template.php:363
+msgid "Android 6.0 Nougat"
+msgstr ""
+
+#: devices/Devices-template.php:379
+msgid "Android 6.0 Marshmallow"
+msgstr ""
+
+#: devices/Devices-template.php:395
+msgid "Android 5.0 Lollipop"
+msgstr ""
+
+#: devices/Devices-template.php:411
+msgid "Android 4.4 KitKat"
+msgstr ""
+
+#: devices/Devices-template.php:428
+msgid "Android 4.3"
+msgstr ""
+
+#: devices/Devices-template.php:444
+msgid "Android"
+msgstr ""
+
+#: devices/Devices-template.php:455
+msgid "EAP config"
+msgstr ""
+
+#: devices/Devices-template.php:460
+#, php-format
+msgid ""
+"This option provides a generic EAP config XML file, which can be consumed by "
+"dedicated applications like eduroamCAT for Android and Linux platforms. This "
+"is still an experimental feature."
+msgstr ""
+
+#: devices/Devices-template.php:466
+msgid "Test"
+msgstr ""
+
+#: devices/apple_mobileconfig/Device_mobileconfig_ios_56.php:38
+msgid "This device does not support forcing setting an HTTPS proxy."
+msgstr ""
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:49
+msgid ""
+"It is not possible to actively verify the user input for suffix match; but "
+"if there is no 'Terms of Use' configured, the installer will display a "
+"corresponding hint to the user instead."
+msgstr ""
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:57
+#, php-format
+msgid "Network configuration profile '%s' of '%s' - provided by %s"
+msgstr ""
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:62
+#, php-format
+msgid "%s configuration for IdP '%s' - provided by %s"
+msgstr ""
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:103
+#, php-format
+msgid "Important Notice: your username must end with @%s!"
+msgstr ""
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:105
+msgid ""
+"Important Notice: your username MUST be in the form of xxx@yyy where the yyy "
+"is a common suffix identifying your Identity Provider. Please find out what "
+"to use there and enter the username in the correct format."
+msgstr ""
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:141
+msgid "Unnamed Organisation"
+msgstr ""
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:142
+msgid "Unnamed Profile"
+msgstr ""
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:200
+msgid ""
+"For best results, please use the built-in browser (Safari) to open the "
+"configuration file."
+msgstr ""
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:202
+msgid ""
+"The profile will install itself after you click (or tap) the button. You "
+"will be asked for confirmation/input at several points:"
+msgstr ""
+"Het profiel zal zichzelf installeren na het klikken (of tappen) van de knop. "
+"Er zal bevestiging worden gevraagd op verschillende momenten:"
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:204
+msgid "to install the profile"
+msgstr "om het profiel te installeren"
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:205
+#, fuzzy
+msgid "to accept the server certificate authority"
+msgid_plural "to accept the server certificate authorities"
+msgstr[0] "De certificaat autoriteit van jouw identiteit-aanbieder"
+msgstr[1] "De certificaat autoriteit van jouw identiteit-aanbieder"
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:207
+#, php-format
+msgid "(%d times)"
+msgstr ""
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:210
+#, fuzzy
+msgid ""
+"to enter the username and password you have been given by your organisation"
+msgstr ""
+"om de gebruikersnaam en wachtwoord van jouw instelling in te voeren "
+"(meerdere keren als eduroam wordt geconfigureerd voor verschillende SSIDs)"
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:212
+#, php-format
+msgid "(%d times each, because %s is installed for %d SSIDs)"
+msgstr ""
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:351
+#, php-format
+msgid "SSID %s"
+msgstr "SSID %s"
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:352
+#, php-format
+msgid "%s configuration for network name %s"
+msgstr ""
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:360
+msgid "Wired Network"
+msgstr ""
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:361
+#, php-format
+msgid "%s configuration for wired network"
+msgstr ""
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:372
+msgid "Hotspot 2.0 Settings"
+msgstr ""
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:373
+#, php-format
+msgid "%s Hotspot 2.0 configuration"
+msgstr ""
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:428
+#, php-format
+msgid "This SSID should not be used after bootstrapping %s"
+msgstr ""
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:430
+msgid "Disabled WiFi network"
+msgstr ""
+
+#. we don't include the import password. It's displayed on screen, and should be input by the user.
+#. <key>Password</key>
+#. <string>" . $this->clientCert['password'] . "</string>
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:505
+#, fuzzy
+msgid "eduroam user certificate"
+msgstr "Persoonlijk certificaat"
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:545
+msgid "Your Identity Providers Certification Authority"
+msgstr "De certificaat autoriteit van jouw identiteit-aanbieder"
+
+#: devices/apple_mobileconfig/mobileconfigSuperclass.php:547
+msgid "Identity Provider's CA"
+msgstr "CA van identiteit aanbieder"
+
+#: devices/chromebook/Device_chromebook.php:288
+msgid ""
+"This installer is an example only. It produces a zip file containig the IdP "
+"certificates, info and logo files (if such have been defined by the IdP "
+"administrator) and a dump of all available attributes."
+msgstr ""
+"Deze installatie-software is alleen een voorbeeld. Het installeert een zip-"
+"bestand met daarin de certificaten van de IdP, extra informatie en logo-"
+"bestanden (als die beschikbaar zijn) en een overzicht van alle beschikbare "
+"attributen."
+
+#: devices/linux/Device_Linux.php:52
+#, fuzzy, php-format
+msgid ""
+"The installer is in the form of a Python script. It will try to configure %s "
+"under NetworkManager and if this is either not appropriate for your system "
+"or your version of NetworkManager is too old, a wpa_supplicant config file "
+"will be created instead."
+msgstr ""
+"De installatie-software is in de vorm van een bash-script. Het zal proberen "
+"eduroam te configureren via de Network Manager en als dat niet van "
+"toepassing is voor jouw systeem, of Network Manager is te oud, dan zal er "
+"een wpa_supplicant bestand gemaakt worden."
+
+#: devices/linux/Device_Linux.php:56 devices/ms/WindowsCommon.php:115
+#, fuzzy, php-format
+msgid ""
+"In addition to <strong>%s</strong> the installer will also configure access "
+"to the following networks:"
+msgstr ""
+"Naast <strong>eduroam</strong> zal de installatie-software ook de volgende "
+"netwerken configureren:"
+
+#: devices/linux/Device_Linux.php:58 devices/ms/WindowsCommon.php:117
+#, fuzzy, php-format
+msgid ""
+"In addition to <strong>%s</strong> the installer will also configure access "
+"to:"
+msgstr ""
+"Naast <strong>eduroam</strong> zal de installatie-software ook toegang tot "
+"het volgende configureren:"
+
+#: devices/linux/Device_Linux.php:72
+#, fuzzy
+msgid ""
+"The installer will create .cat_installer sub-directory in your home "
+"directory and will copy your server certificates there."
+msgstr ""
+"Deze installer zal een .eduroam sub-directory maken in jouw home-directory "
+"en zet daar de server-certificaten neer."
+
+#: devices/linux/Device_Linux.php:74
+#, fuzzy
+msgid ""
+"In order to connect to the network you will need a personal certificate in "
+"the form of a p12 file. You should obtain this certificate from your "
+"organisation. Consult the support page to find out how this certificate can "
+"be obtained. Such certificate files are password protected. You should have "
+"both the file and the password available during the installation process. "
+"Your p12 file will also be copied to the .cat_installer directory."
+msgstr ""
+"Om toegang te krijgen tot het netwerk heb je een certificaat nodig in de "
+"vorm van een p12 bestand. Je kunt dit bestand krijgen bij jouw instelling: "
+"raadpleeg de pagina's van de ondersteuning hoe je hier aan moet komen. "
+"Tijdens de installatie heb je zowel het bestand als het wachtwoord nodig "
+"waarmee dit bestand is beveiligd."
+
+#. not EAP-TLS
+#: devices/linux/Device_Linux.php:76 devices/ms/WindowsCommon.php:128
+#, fuzzy
+msgid ""
+"In order to connect to the network you will need an account from your "
+"organisation. You should consult the support page to find out how this "
+"account can be obtained. It is very likely that your account is already "
+"activated."
+msgstr ""
+"Om verbinding te maken met het netwerk heb je een account nodig van jouw "
+"instelling. Raadpleeg de website van de ondersteuning op jouw instelling hoe "
+"je hier aan komt. Waarschijnlijk heb je dit account al, en is het al actief."
+
+#: devices/linux/Device_Linux.php:78
+msgid ""
+"You will be requested to enter your account credentials during the "
+"installation. This information will be saved so that you will reconnect to "
+"the network automatically each time you are in the range."
+msgstr ""
+"Je zult gevraagd worden om de login-gegevens tijdens de installatie. Deze "
+"informatie zal worden opgeslagen zodat je vanzelf verbinding maakt met het "
+"netwerk als dat beschikbaar is."
+
+#: devices/linux/Device_Linux.php:87
+msgid "Really quit?"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:88
+msgid "enter your userid"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:89
+#, fuzzy
+msgid "enter password"
+msgstr "voer je wachtwoord in"
+
+#: devices/linux/Device_Linux.php:90
+#, fuzzy
+msgid "enter your import password"
+msgstr "voer je wachtwoord in"
+
+#: devices/linux/Device_Linux.php:91
+#, fuzzy
+msgid "incorrect password"
+msgstr "certificaat wachtwoord:"
+
+#: devices/linux/Device_Linux.php:92
+msgid "repeat your password"
+msgstr "herhaal je wachtwoord"
+
+#: devices/linux/Device_Linux.php:93
+msgid "passwords do not match"
+msgstr "wachtwoorden komen niet overeen"
+
+#: devices/linux/Device_Linux.php:94
+msgid "Installation successful"
+msgstr "Installatie succesvol"
+
+#: devices/linux/Device_Linux.php:95
+#, fuzzy
+msgid "Directory {} exists; some of its files may be overwritten."
+msgstr ""
+"Directory %s bestaat al; sommige van de bestanden hierin zullen worden "
+"overschreven."
+
+#: devices/linux/Device_Linux.php:96
+#, fuzzy
+msgid "Continue?"
+msgstr "Doorgaan"
+
+#: devices/linux/Device_Linux.php:97
+msgid "This NetworkManager version is not supported"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:98
+msgid "Certificate file not found, looks like a CAT error"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:99
+msgid "Unknown version"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:100
+msgid "DBus connection problem, a sudo might help"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:101
+msgid "Y"
+msgstr "J"
+
+#: devices/linux/Device_Linux.php:102
+msgid "N"
+msgstr "N"
+
+#: devices/linux/Device_Linux.php:103 devices/linux/Device_Linux.php:105
+msgid "personal certificate file (p12 or pfx)"
+msgstr "bestand van persoonlijk certificaat (p12 of pfx)"
+
+#: devices/linux/Device_Linux.php:104 devices/ms/Files/common.inc:1074
+msgid "All files"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:106
+msgid ""
+"NetworkManager configuration failed, but we may generate a wpa_supplicant "
+"configuration file if you wish. Be warned that your connection password will "
+"be saved in this file as clear text."
+msgstr ""
+
+#: devices/linux/Device_Linux.php:107
+#, fuzzy
+msgid "Write the file"
+msgstr "om het profiel te installeren"
+
+#: devices/linux/Device_Linux.php:108 devices/ms/Files/common.inc:1202
+#: devices/ms/Files/common.inc:1222 devices/ms/Files/common.inc:1273
+msgid ""
+"Error: Your username must be of the form 'xxx@institutionID' e.g. "
+"'john@example.net'!"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:109
+msgid ""
+"Error: your username must be in the form of 'xxx@{}'. Please enter the "
+"username in the correct format."
+msgstr ""
+
+#: devices/linux/Device_Linux.php:110
+msgid ""
+"Error: your username must be in the form of 'xxx@institutionID' and end with "
+"'{}'. Please enter the username in the correct format."
+msgstr ""
+
+#: devices/linux/Device_Linux.php:111
+#, fuzzy
+msgid "personal certificate file not found"
+msgstr "bestand van persoonlijk certificaat (p12 of pfx)"
+
+#: devices/linux/Device_Linux.php:228
+#, fuzzy
+msgid "This installer has been prepared for {0}"
+msgstr "De installatie-software is voorbereid voor ${ORGANISATION}"
+
+#: devices/linux/Device_Linux.php:228 devices/ms/Files/common.inc:444
+#: devices/ms/Files/common.inc:451
+msgid "More information and comments:"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:229 devices/ms/Files/common.inc:477
+#, fuzzy
+msgid "Installer created with software from the GEANT project."
+msgstr "Installatie-software gemaakt in het GN3 project."
+
+#: devices/linux/Device_Linux.php:245
+#, fuzzy
+msgid ""
+"This installer will only work properly if you are a member of {0} and the "
+"user group: {1}."
+msgstr ""
+"Deze installatie-software werkt alleen goed als je hoort bij %s en zit in de "
+"groep %s."
+
+#: devices/linux/Device_Linux.php:247
+#, fuzzy
+msgid "This installer will only work properly if you are a member of {0}."
+msgstr "Deze installatie-software werkt alleen goed als je hoort bij %s"
+
+#: devices/ms/Device_Vista7.php:33 devices/ms/Device_W8_10.php:39
+msgid ""
+"Anonymous identities do not use the realm as specified in the profile - it "
+"is derived from the suffix of the user's username input instead."
+msgstr ""
+"Anonieme identiteiten gebruiken niet het realm zoals geconfigureerd in het "
+"profiel - de realm wordt overgenomen uit de door de gebruiker opgegeven "
+"gebruikersnaam."
+
+#: devices/ms/WindowsCommon.php:111
+#, fuzzy, php-format
+msgid ""
+"%s installer will be in the form of an EXE file. It will configure %s on "
+"your device, by creating wireless network profiles.<p>When you click the "
+"download button, the installer will be saved by your browser. Copy it to the "
+"machine you want to configure and execute."
+msgstr ""
+"de eduroam installatie-software is beschikbaar als EXE bestand. Het zal "
+"eduroam configureren op jouw apparaat door draadloze profielen te maken."
+"<p>Als je op de download-knop klikt, zal de software worden opgeslagen door "
+"de browser. Kopieer het naar de machine waar je eduroam op wilt "
+"configureren, en voer de installatie daar uit."
+
+#: devices/ms/WindowsCommon.php:124
+#, fuzzy
+msgid ""
+"In order to connect to the network you will need an a personal certificate "
+"in the form of a p12 file. You should obtain this certificate from your "
+"organisation. Consult the support page to find out how this certificate can "
+"be obtained. Such certificate files are password protected. You should have "
+"both the file and the password available during the installation process."
+msgstr ""
+"Om toegang te krijgen tot het netwerk heb je een certificaat nodig in de "
+"vorm van een p12 bestand. Je kunt dit bestand krijgen bij jouw instelling: "
+"raadpleeg de pagina's van de ondersteuning hoe je hier aan moet komen. "
+"Tijdens de installatie heb je zowel het bestand als het wachtwoord nodig "
+"waarmee dit bestand is beveiligd."
+
+#: devices/ms/WindowsCommon.php:132
+msgid ""
+"When you are connecting to the network for the first time, Windows will pop "
+"up a login box, where you should enter your user name and password. This "
+"information will be saved so that you will reconnect to the network "
+"automatically each time you are in the range."
+msgstr ""
+"Als je voor het eerst verbinding maakt het netwerk, zal Windows vragen om de "
+"inlog-gegevens: vul daar je gebruikersnaam en wachtwoord in. Deze informatie "
+"zal worden opgeslagen zodat je verbinding maakt met het netwerk zodra het "
+"beschikbaar is."
+
+#: devices/ms/WindowsCommon.php:135
+#, fuzzy
+msgid ""
+"You will be required to enter the same credentials for each of the "
+"configured networks:"
+msgstr ""
+"Je wordt gevraagd om dezelfde login-gegevens in te vullen voor elk van de "
+"geconfigureerde netwerken:"
+
+#: devices/ms/WindowsCommon.php:250 devices/ms/WindowsCommon.php:251
+#, fuzzy, php-format
+msgid "%s installer for %s"
+msgstr "eduroam installatie-software voor"
+
+#: devices/redirect_dev/Device_RedirectDev.php:26
+msgid ""
+"This device is not yet supported by CAT, but your local administrator "
+"created a redirect to local installation instructions."
+msgstr ""
+
+#: devices/xml/Device_XML.php:50
+#, php-format
+msgid ""
+"This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
+"-00</a> XML format."
+msgstr ""
+
+#: devices/ms/Files/common.inc:124
+#, fuzzy, php-format
+msgid "Welcome to the %s installer"
+msgstr "Welkom bij de eduroam installatie-software"
+
+#: devices/ms/Files/common.inc:125
+msgid "Installation complete"
+msgstr "Installatie afgerond"
+
+#: devices/ms/Files/common.inc:126
+msgid "Network profiles have been installed."
+msgstr "Profielen voor het netwerk zijn geïnstalleerd."
+
+#: devices/ms/Files/common.inc:126
+msgid "Your system is ready."
+msgstr "Het systeem is klaar voor gebruik."
+
+#: devices/ms/Files/common.inc:127
+msgid "Network installation had errors."
+msgstr "Er is iets fout gegaan bij het configureren van het netwerk."
+
+#: devices/ms/Files/common.inc:127 devices/ms/Files/common.inc:892
+msgid "Please contact ${SUPPORT}."
+msgstr "Neem alsjeblieft contact op met ${SUPPORT}."
+
+#: devices/ms/Files/common.inc:135
+msgid "Accept"
+msgstr "Accepteren"
+
+#: devices/ms/Files/common.inc:136
+msgid ""
+"If you accept the conditions then select Accept and then click Install to "
+"continue."
+msgstr ""
+"Als je de voorwaarden accepteerd, klik Accepteren en daarna Installeren om "
+"door te gaan."
+
+#: devices/ms/Files/common.inc:142
+msgid "Finish"
+msgstr "Afronden"
+
+#: devices/ms/Files/common.inc:175
+msgid "searching for certificate"
+msgstr ""
+
+#: devices/ms/Files/common.inc:237
+msgid "installing certificate"
+msgstr "certificaat installeren"
+
+#: devices/ms/Files/common.inc:243
+#, fuzzy
+msgid "could not install certificate"
+msgstr "certificaat installeren"
+
+#: devices/ms/Files/common.inc:432
+msgid ""
+"The non TKIP profiles are preferred. Always use them if you have a choice."
+msgstr ""
+"De niet-TKIP profielen hebben de voorkeur. Gebruik deze als je kunt kiezen."
+
+#: devices/ms/Files/common.inc:434
+msgid "The non TKIP profile is preferred. Always use it if you have a choice."
+msgstr ""
+"Het niet-TKIP profiel heeft de voorkeur. Gebruik deze als je kunt kiezen."
+
+#: devices/ms/Files/common.inc:440 devices/ms/Files/common.inc:448
+msgid "This installer has been prepared for ${ORGANISATION}"
+msgstr "De installatie-software is voorbereid voor ${ORGANISATION}"
+
+#: devices/ms/Files/common.inc:441
+msgid "The installer will create the following wireless profiles:"
+msgstr "Deze installatie-software maakt de volgende draadloze profielen aan:"
+
+#: devices/ms/Files/common.inc:449
+#, fuzzy
+msgid "The installer will create the wireless profile:"
+msgstr "Deze installatie-software maakt de volgende draadloze profielen aan:"
+
+#: devices/ms/Files/common.inc:529
+msgid ""
+"You are running Windows $WindowsName but this installer is only for Windows "
+"10 and newer. Please download the correct installer and try again."
+msgstr ""
+
+#: devices/ms/Files/common.inc:537 devices/ms/Files/common.inc:544
+msgid ""
+"You are running Windows $WindowsName but this installer is only for Windows "
+"8 and 8.1. Please download the correct installer and try again."
+msgstr ""
+
+#: devices/ms/Files/common.inc:553
+msgid ""
+"You are running Windows $WindowsName but this installer is only for Windows "
+"Vista and Windows 7. Please download the correct installer and try again."
+msgstr ""
+
+#: devices/ms/Files/common.inc:589
+msgid ""
+"Windows wireless configuration service is not enabled. The installer cannot "
+"continue."
+msgstr ""
+
+#: devices/ms/Files/common.inc:594
+msgid "No wireless interfaces found. The installer cannot continue."
+msgstr ""
+
+#: devices/ms/Files/common.inc:600
+msgid ""
+"No wireless interfaces found. Wireless access will not be configured. Would "
+"you like to continue and configure access on the wired interface?"
+msgstr ""
+
+#: devices/ms/Files/common.inc:616
+msgid "Do you want to enable access on wired interfaces?"
+msgstr ""
+
+#: devices/ms/Files/common.inc:657
+msgid "Profiles installation"
+msgstr "Installatie van profielen"
+
+#: devices/ms/Files/common.inc:676
+#, fuzzy
+msgid "Checking for profile $R8"
+msgstr "Verifiëren van profiel $R1"
+
+#: devices/ms/Files/common.inc:684
+#, fuzzy
+msgid "found profile $R8"
+msgstr "verwijderen profiel $R1"
+
+#: devices/ms/Files/common.inc:713
+msgid ""
+"This installer will only work properly if you are a member of "
+"${ORGANISATION} and the user group: ${USER_GROUP}."
+msgstr ""
+"Deze installatie-software werkt alleen goed als je gebruiker bent van "
+"${ORGANISATION} en in de group ${USER_GROUP} zit."
+
+#: devices/ms/Files/common.inc:713 devices/ms/Files/common.inc:716
+msgid "Click OK to continue with installation."
+msgstr "Klik op OK om door te gaan met de installatie."
+
+#: devices/ms/Files/common.inc:716
+msgid ""
+"This installer will only work properly if you are a member of "
+"${ORGANISATION}."
+msgstr ""
+"Deze installatie-software werkt alleen goed als je gebruiker bent van "
+"${ORGANISATION}."
+
+#: devices/ms/Files/common.inc:724
+#, fuzzy
+msgid ""
+"Please read the additional information from ${ORGANISATION} which will be "
+"displayed in a moment."
+msgstr ""
+"Lees alsjeblieft de extra informatie van jouw thuisinstelling die dadelijk "
+"in beeld komt goed door."
+
+#: devices/ms/Files/common.inc:779
+#, php-format
+msgid ""
+"Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may "
+"be due to the fact that Symantec Endpoint Protection is installed on your "
+"machine.$\\r$\\nWhile this is a well-known bug of the Symantec product, "
+"about which the installer can not do anything, there is a workaround.$\\r$"
+"\\nWhen you close this window the installer will exit and an explorer window "
+"will be started (it could appear underneath already opened windows). In this "
+"window you should see a script named inst_cat. Start it by double-clicking, "
+"It will install the profiles. You will need to login to %s with your "
+"username and password."
+msgstr ""
+
+#: devices/ms/Files/common.inc:789
+msgid "Please restart your system after installation finishes."
+msgstr ""
+
+#: devices/ms/Files/common.inc:813
+#, fuzzy
+msgid "installing wired profile"
+msgstr "installeren van profiel $R1"
+
+#: devices/ms/Files/common.inc:851 devices/ms/Files/common.inc:870
+msgid "deleting profile $R1"
+msgstr "verwijderen profiel $R1"
+
+#: devices/ms/Files/common.inc:879
+msgid "installing profile $R1"
+msgstr "installeren van profiel $R1"
+
+#: devices/ms/Files/common.inc:892
+msgid "Profile installation error for $R1."
+msgstr "Fout bij het installeren van profiel $R1."
+
+#: devices/ms/Files/common.inc:917
+#, fuzzy
+msgid "installing credentials for wired"
+msgstr "installeren van profiel $R1"
+
+#: devices/ms/Files/common.inc:923
+#, fuzzy
+msgid "installing credentials TLS"
+msgstr "installeren van profiel $R1"
+
+#: devices/ms/Files/common.inc:1039
+#, fuzzy
+msgid "installing credentials for profile $R1"
+msgstr "installeren van profiel $R1"
+
+#: devices/ms/Files/common.inc:1056 devices/ms/Files/geant_link.inc:109
+#, fuzzy
+msgid "Credentials installation problem"
+msgstr "Overige onderdelen worden geïnstalleerd"
+
+#: devices/ms/Files/common.inc:1065
+#, fuzzy, php-format
+msgid "%s installer for"
+msgstr "eduroam installatie-software voor"
+
+#: devices/ms/Files/common.inc:1065
+msgid "Install personal certificate"
+msgstr "Installeer persoonlijk certificaat"
+
+#: devices/ms/Files/common.inc:1068
+msgid "Preparing to install personal certificate."
+msgstr "Bezig met installeren van persoonlijk certificaat."
+
+#: devices/ms/Files/common.inc:1068
+msgid "Click OK to continue"
+msgstr "Klik op OK om door te gaan"
+
+#: devices/ms/Files/common.inc:1074
+msgid "Certificate files (*.p12)"
+msgstr "Certificaat bestanden (*.p12)"
+
+#: devices/ms/Files/common.inc:1074
+msgid "Certificate files (*pfx)"
+msgstr "Certificaat bestanden (*.pfx)"
+
+#: devices/ms/Files/common.inc:1077
+msgid "certificate password:"
+msgstr "certificaat wachtwoord:"
+
+#: devices/ms/Files/common.inc:1079 devices/ms/Files/common.inc:1290
+msgid "Username:"
+msgstr ""
+
+#: devices/ms/Files/common.inc:1083
+msgid "Selected file: $Cert_file"
+msgstr "Kies bestand: $Cert_file"
+
+#: devices/ms/Files/common.inc:1085
+#, fuzzy
+msgid "import password:"
+msgstr "herhaal je wachtwoord"
+
+#: devices/ms/Files/common.inc:1120
+msgid "No certificate file selected"
+msgstr "Geen certificaat geselecteerd"
+
+#: devices/ms/Files/common.inc:1124
+#, fuzzy
+msgid "Incorrect import password$\\r$\\nenter again"
+msgstr "Onjuist certificaat-wachtwoord$\\r$\\nVoer nogmaals in"
+
+#: devices/ms/Files/common.inc:1126
+msgid "Incorrect certificate password$\\r$\\nenter again"
+msgstr "Onjuist certificaat-wachtwoord$\\r$\\nVoer nogmaals in"
+
+#: devices/ms/Files/common.inc:1217
+msgid ""
+"Error: your username must be in the form of 'xxx@${REALM}'. Please enter the "
+"username in the correct format."
+msgstr ""
+
+#: devices/ms/Files/common.inc:1219
+msgid ""
+"Error: your username must be in the form of 'xxx@institutionID' and end with "
+"'${REALM}'. Please enter the username in the correct format."
+msgstr ""
+
+#: devices/ms/Files/common.inc:1286
+#, fuzzy
+msgid "User credentials"
+msgstr "Inlog gegevens"
+
+#: devices/ms/Files/common.inc:1293
+#, fuzzy
+msgid "Password:"
+msgstr "herhaal je wachtwoord"
+
+#: devices/ms/Files/common.inc:1296
+#, fuzzy
+msgid "Repeat password:"
+msgstr "herhaal je wachtwoord"
+
+#: devices/ms/Files/common.inc:1308
+msgid "Missing username"
+msgstr ""
+
+#: devices/ms/Files/common.inc:1320
+msgid "Missing password"
+msgstr ""
+
+#: devices/ms/Files/common.inc:1326
+#, fuzzy
+msgid "Password missmatch"
+msgstr "wachtwoorden komen niet overeen"
+
+#: devices/ms/Files/common.inc:1416 devices/ms/Files/eap_w8.inc:18
+#: devices/ms/Files/geant_link.inc:20 devices/ms/Files/geant_link.inc:30
+#: devices/ms/Files/peap_tls.inc:18 devices/ms/Files/pwd.inc:17
+#: devices/ms/Files/pwd.inc:47
+msgid "Installation"
+msgstr "Installatie"
+
+#: devices/ms/Files/common.inc:1416
+#, fuzzy
+msgid "Checking for existing wireless profiles"
+msgstr "Verifiëren van profiel $R1"
+
+#: devices/ms/Files/eap_w8.inc:11 devices/ms/Files/peap_tls.inc:11
+msgid "Installation of the personal certificate"
+msgstr "Het persoonlijke certificaat wordt geïnstalleerd"
+
+#: devices/ms/Files/eap_w8.inc:12 devices/ms/Files/peap_tls.inc:12
+msgid "Components installation"
+msgstr "Overige onderdelen worden geïnstalleerd"
+
+#: devices/ms/Files/eap_w8.inc:12 devices/ms/Files/peap_tls.inc:12
+msgid "Personal certificate"
+msgstr "Persoonlijk certificaat"
+
+#: devices/ms/Files/eap_w8.inc:16 devices/ms/Files/geant_link.inc:28
+#: devices/ms/Files/peap_tls.inc:16 devices/ms/Files/pwd.inc:45
+msgid "Installation of network profiles"
+msgstr "Installatie van netwerk-profielen"
+
+#: devices/ms/Files/eap_w8.inc:16 devices/ms/Files/geant_link.inc:28
+#: devices/ms/Files/peap_tls.inc:16 devices/ms/Files/pwd.inc:45
+msgid "profiles"
+msgstr "profielen"
+
+#: devices/ms/Files/eap_w8.inc:18 devices/ms/Files/geant_link.inc:30
+#: devices/ms/Files/peap_tls.inc:18 devices/ms/Files/pwd.inc:47
+msgid "Network profiles update"
+msgstr "Update voor netwerk-profielen"
+
+#: devices/ms/Files/geant_link.inc:14 devices/ms/Files/pwd.inc:11
+msgid "user profile"
+msgstr "Gebruikersprofiel"
+
+#: devices/ms/Files/geant_link.inc:18 devices/ms/Files/pwd.inc:15
+msgid "install program"
+msgstr "installeer programma"
+
+#: devices/ms/Files/geant_link.inc:79
+msgid ""
+"An additional piece of software 'GEANTlink' needs to be installed. This "
+"installation requires Administrator rights; you will be prompted to give "
+"permission for that action."
+msgstr ""
+
+#: devices/ms/Files/geant_link.inc:91
+msgid ""
+"Error installing GEANTLink.$\\nEmbedded installer didn't complete "
+"succesfully."
+msgstr ""
+
+#: devices/ms/Files/geant_link.inc:101
+#, fuzzy
+msgid "installing credentials for ${PROVIDERID}"
+msgstr "installeren van profiel $R1"
+
+#: devices/ms/Files/pwd.inc:35
+#, fuzzy
+msgid "EAP-pwd installation error. Please try again or contact Support."
+msgstr ""
+"Fout bij installatie van SecureW2. Probeer opnieuw of neem contact op met "
+"${SUPPORT}"
+
+#, fuzzy
+#~ msgid ""
+#~ "In order to install/update %s access all selected steps need to be "
+#~ "performed. Click Continue to proceed"
+#~ msgstr ""
+#~ "Om eduroam te installeren/bijwerken moeten alle stappen doorlopen worden. "
+#~ "Klik Doorgaan om door te gaan."
+
+#~ msgid ""
+#~ "If an option is not selected by default, then it is either not available "
+#~ "or optional."
+#~ msgstr ""
+#~ "Als deze optie niet standaard aan staat, is hij niet beschikbaar of "
+#~ "optioneel."
+
+#~ msgid "Information about components"
+#~ msgstr "Informatie over onderdelen"
+
+#, fuzzy
+#~ msgid "installing credentials for $GL_Profile_id"
+#~ msgstr "installeren van profiel $R1"
+
+#~ msgid "Network Manager configuration failed, generating wpa_supplicant.conf"
+#~ msgstr ""
+#~ "Configuratie van Network Manager niet gelukt, wpa_supplicant.conf "
+#~ "aangemaakt"
+
+#~ msgid "File %s exists; it will be overwritten."
+#~ msgstr "Bestand %s bestaat al; het zal overschreven worden."
+
+#~ msgid "Output written to %s"
+#~ msgstr "Weggeschreven naar %s"
+
+#~ msgid "file not found"
+#~ msgstr "bestand niet gevonden"
+
+#~ msgid "enter the password for the certificate file"
+#~ msgstr "voer het wachtwoord in van het certificaat"
+
+#~ msgid ""
+#~ "The installer will also install additional software - SecureW2 EAP Suite "
+#~ "(GNU General Public License).<p>You will be requested to enter your "
+#~ "account credentials into a pop box during the installation. This "
+#~ "information will be saved so that you will reconnect to the network "
+#~ "automatically each time you are in the range."
+#~ msgstr ""
+#~ "De installatie-software installeert ook extra software - SecureW2 EAP "
+#~ "Suite (GNU General Public License).<p>Je zult tijdens de installatie "
+#~ "gevraagd worden om login-gegevens. Deze informatie zal worden opgeslagen "
+#~ "zodat je vanzelf verbinding maakt met eduroam zodra het netwerk "
+#~ "beschikbaar is."
+
+#~ msgid "Login credentials"
+#~ msgstr "Inlog gegevens"
+
+#~ msgid "Restart system now"
+#~ msgstr "Start het systeem nu opnieuw op"
+
+#~ msgid "I will restart later"
+#~ msgstr "Ik herstart het systeem later"
+
+#, fuzzy
+#~ msgid "Please contact \\${SUPPORT}."
+#~ msgstr "Neem alsjeblieft contact op met ${SUPPORT}."
+
+#~ msgid "The installer will create network profile:"
+#~ msgstr "Deze installatie-software maakt het volgende netwerk-profiel aan:"
+
+#, fuzzy
+#~ msgid ""
+#~ "You will be able to use %s in most institutions however due to Windows XP "
+#~ "limitations and differences in network settings at different "
+#~ "institutions, you may be sometimes required to repeat the connection for "
+#~ "the system to reconfigure."
+#~ msgstr ""
+#~ "Op de meeste instellingen zul je eduroam kunnen gebruiken, maar door "
+#~ "beperkingen in Windows XP en verschillen in netwerk-instellingen kan het "
+#~ "zijn dat je de instellingen opnieuw moet herhalen."
+
+#, fuzzy
+#~ msgid "Checking for profile $R1"
+#~ msgstr "Verifiëren van profiel $R1"
+
+#, fuzzy
+#~ msgid "found profile $R1"
+#~ msgstr "verwijderen profiel $R1"
+
+#, fuzzy
+#~ msgid "Generic profile PEAP"
+#~ msgstr "Gebruikersprofiel"
+
+#, fuzzy
+#~ msgid "Generic profile TLS"
+#~ msgstr "Gebruikersprofiel"
+
+#, fuzzy
+#~ msgid "Generic profile PWD"
+#~ msgstr "Gebruikersprofiel"
+
+#, fuzzy
+#~ msgid "This installer has been prepared for \\${ORGANISATION}"
+#~ msgstr "De installatie-software is voorbereid voor ${ORGANISATION}"
+
+#, fuzzy
+#~ msgid "Welcome aboard the eduroam® user community!"
+#~ msgstr "Welkom bij de eduroam installatie-software"
+
+#~ msgid "This installer works with Windows 8 only"
+#~ msgstr "Deze installatie-software werkt alleen met Windows 8"
+
+#~ msgid "This installer works with Windows Vista and Windows 7 only"
+#~ msgstr "Deze installer werkt alleen met Windows Vista en Windows 7."
+
+#~ msgid "Welcome to the eduroam installer"
+#~ msgstr "Welkom bij de eduroam installatie-software"
+
+#~ msgid "This installer works with Windows XP SP3 only"
+#~ msgstr "Deze installatie-software werkt alleen met Windows XP SP3"
+
+#~ msgid "eduroam installer for"
+#~ msgstr "eduroam installatie-software voor"
+
+#~ msgid ""
+#~ "In order to install/update eduroam access all selected steps need to be "
+#~ "performed. Click Continue to proceed"
+#~ msgstr ""
+#~ "Om eduroam te installeren/bijwerken moeten alle stappen doorlopen worden. "
+#~ "Klik Doorgaan om door te gaan."
+
+#~ msgid ""
+#~ "In addition to <strong>eduroam</strong> the installer will also configure "
+#~ "access to the following networks:"
+#~ msgstr ""
+#~ "Naast <strong>eduroam</strong> zal de installatie-software ook de "
+#~ "volgende netwerken configureren:"
+
+#~ msgid ""
+#~ "In addition to <strong>eduroam</strong> the installer will also configure "
+#~ "access to:"
+#~ msgstr ""
+#~ "Naast <strong>eduroam</strong> zal de installatie-software ook toegang "
+#~ "tot het volgende configureren:"
+
+#~ msgid ""
+#~ "to accept the server certificate authorities (multiple times if the "
+#~ "profile contains more than one certificate)"
+#~ msgstr ""
+#~ "om het certificaat van de juiste authoriteit te accepteren (meerdere "
+#~ "keren als het profiel meerdere certificaat-authoriteiten bevat)"

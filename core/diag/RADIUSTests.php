@@ -40,10 +40,17 @@ require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
 class RADIUSTests extends AbstractTest {
 
     /**
-     * The variables below maintain state of the result of previous checks.
+     * Was the reachability check executed already?
      * 
+     * @var boolean
      */
     private $UDP_reachability_executed;
+    
+    /**
+     * the issues we found
+     * 
+     * @var array 
+     */
     private $errorlist;
 
     /**
@@ -53,8 +60,26 @@ class RADIUSTests extends AbstractTest {
      * @var string
      */
     private $realm;
+    
+    /**
+     * which username to use as outer identity
+     * 
+     * @var string
+     */
     private $outerUsernameForChecks;
+    
+    /**
+     * list of CAs we expect incoming server certs to be from
+     * 
+     * @var array
+     */
     private $expectedCABundle;
+    
+    /**
+     * list of expected server names
+     * 
+     * @var array
+     */
     private $expectedServerNames;
 
     /**
@@ -63,7 +88,19 @@ class RADIUSTests extends AbstractTest {
      * @var array
      */
     private $supportedEapTypes;
+    
+    /**
+     * Do we run throrough or shallow checks?
+     * 
+     * @var int
+     */
     private $opMode;
+    
+    /**
+     * result of the reachability tests
+     * 
+     * @var array
+     */
     public $UDP_reachability_result;
 
     const RADIUS_TEST_OPERATION_MODE_SHALLOW = 1;
