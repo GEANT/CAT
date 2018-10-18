@@ -398,7 +398,7 @@ build:
             - cp /home/scrutinizer/codesigningcert-key.pem /home/scrutinizer/vault/xxx_key.pem
             - cp /home/scrutinizer/build/devices/Devices-template.php /home/scrutinizer/build/devices/Devices.php
             - cp /home/scrutinizer/build/signer/mobileconfig_sign-template /home/scrutinizer/build/signer/mobileconfig_sign
-            - chown scrutinizer:scrutinizer /home/scrutinizer/.rnd
+            - sudo chown scrutinizer:scrutinizer /home/scrutinizer/.rnd
 
 tools:
     php_code_coverage:
