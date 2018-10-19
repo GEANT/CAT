@@ -44,7 +44,7 @@ class Logging {
      * @param mixed $stuff the stuff to be logged (via print_r)
      * @return void
      */
-    public function debug($level, $stuff) {
+    public function debug($level, $stuff, $prefix = '', $suffix = '') {
         if (CONFIG['DEBUG_LEVEL'] < $level) {
             return;
         }
@@ -63,6 +63,7 @@ class Logging {
         } else {
             $output .= var_export($stuff, TRUE);
         }
+        $output = $prefix . $output . $suffix;
         $this->writeToFile("debug.log", $output);
 
         return;
