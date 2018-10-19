@@ -127,7 +127,9 @@ abstract class DeviceConfig extends \core\common\Entity {
      * - process CA certificates and store them as 'internal:CAs' attribute
      * - process and save optional info files and store references to them in
      *   'internal:info_file' attribute
-     * @param AbstractProfile $profile the profile object which will be passed by the caller
+     * @param AbstractProfile $profile        the profile object which will be passed by the caller
+     * @param string          $token          the invitation token for silverbullet requests
+     * @param string          $importPassword the PIN for the installer for silverbullet requests
      * @final not to be redefined
      */
     final public function setup(AbstractProfile $profile, $token = NULL, $importPassword = NULL) {
@@ -235,7 +237,13 @@ abstract class DeviceConfig extends \core\common\Entity {
         return _("Sorry, this should not happen - no additional information is available");
     }
     
-    public function getAttibute($attrName) {
+    /**
+     * function to return exactly one attribute type
+     * 
+     * @param string $attrName the attribute to retrieve
+     * @return array|NULL the attributes
+     */
+    public function getAttribute($attrName) {
         return empty($this->attributes[$attrName]) ? NULL : $this->attributes[$attrName];
     }
 
@@ -243,7 +251,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * some modules have a complex directory structure. This helper finds resources
      * in that structure. Mostly used in the Windows modules.
      * 
-     * @param string $file the filename to search for (without path)
+     * @param  string $file the filename to search for (without path)
      * @return string|boolean the filename as found, with path, or FALSE if it does not exist
      */
     private function findSourceFile($file) {
@@ -308,7 +316,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      *
      * @param string $source_name The source file name
      * @param string $output_name The destination file name
-     * @param int $encoding Set Windows charset if non-zero
+     * @param int    $encoding    Set Windows charset if non-zero
      *
      * @final not to be redefined
      */
@@ -358,7 +366,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * This is required by the Windows installer and is expected to go away in the future.
      *
      * @param string $source_string The source string
-     * @param int $encoding Set Windows charset if non-zero
+     * @param int    $encoding      Set Windows charset if non-zero
      *
      * @final not to be redefined
      */
@@ -387,12 +395,15 @@ abstract class DeviceConfig extends \core\common\Entity {
      * Save certificate files in either DER or PEM format
      *
      * Certificate files will be saved in the module working directory.
-     * @param string $format  only "der" and "pem" are currently allowed
-     * @return array an array of arrays or empty array on error
+     * 
      * saved certificate file names are avalable under the 'file' index
      * additional array entries are indexed as 'sha1', 'md5', and 'root'.
      * sha1 and md5 are correcponding certificate hashes
      * root is set to 1 for the CA roor certicicate and 0 otherwise
+     * 
+     * @param string $format only "der" and "pem" are currently allowed
+     * @return array an array of arrays or empty array on error
+     
      */
     final protected function saveCertificateFiles($format) {
         switch ($format) {
@@ -562,8 +573,8 @@ abstract class DeviceConfig extends \core\common\Entity {
     /**
      * saves a number of logos to a cache directory on disk.
      * 
-     * @param array $logos list of logos (binary strings each)
-     * @param string $type a qualifier what type of logo this is
+     * @param array  $logos list of logos (binary strings each)
+     * @param string $type  a qualifier what type of logo this is
      * @return array list of filenames and the mime types
      * @throws Exception
      */

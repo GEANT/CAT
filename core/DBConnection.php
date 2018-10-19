@@ -38,6 +38,8 @@ class DBConnection {
 
     /**
      * This is the actual constructor for the singleton. It creates a database connection if it is not up yet, and returns a handle to the database connection on every call.
+     * 
+     * @param string $database the database type to open
      * @return DBConnection the (only) instance of this class
      */
     public static function handle($database) {
@@ -76,6 +78,8 @@ class DBConnection {
     /**
      * executes a query and triggers logging to the SQL audit log if it's not a SELECT
      * @param string $querystring the query to be executed
+     * @param string $types       for prepared statements, the type list of parameters
+     * @param list   $arguments   for prepared statements, the parameters
      * @return mixed the query result as mysqli_result object; or TRUE on non-return-value statements
      */
     public function exec($querystring, $types = NULL, &...$arguments) {
@@ -216,6 +220,8 @@ class DBConnection {
 
     /**
      * Class constructor. Cannot be called directly; use handle()
+     * 
+     * @param string $database the database to open
      */
     private function __construct($database) {
         $this->loggerInstance = new \core\common\Logging();
