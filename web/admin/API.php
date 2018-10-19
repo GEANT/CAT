@@ -313,7 +313,7 @@ switch ($inputDecoded['ACTION']) {
                 $emailRaw = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_TARGETMAIL);
                 if ($emailRaw) { // an email parameter was specified
                     $email = $validator->email($emailRaw);
-                    if ($email) { // it's a valid address
+                    if (is_string($email)) { // it's a valid address
                         $retval = $invitation->sendByMail($email);
                         $additionalInfo["EMAIL SENT"] = $retval["SENT"];
                         if ($retval["SENT"]) {
