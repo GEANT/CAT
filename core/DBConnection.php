@@ -77,10 +77,11 @@ class DBConnection {
 
     /**
      * executes a query and triggers logging to the SQL audit log if it's not a SELECT
-     * @param string $querystring the query to be executed
-     * @param string $types       for prepared statements, the type list of parameters
-     * @param list   $arguments   for prepared statements, the parameters
+     * @param string $querystring   the query to be executed
+     * @param string $types         for prepared statements, the type list of parameters
+     * @param mixed   ...$arguments for prepared statements, the parameters
      * @return mixed the query result as mysqli_result object; or TRUE on non-return-value statements
+     * @throws Exception
      */
     public function exec($querystring, $types = NULL, &...$arguments) {
         // log exact query to audit log, if it's not a SELECT
