@@ -105,6 +105,17 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      */
     protected $frontendHandle;
 
+    /**
+     *  generates a detailed log of which installer was downloaded
+     * 
+     * @param int $idpIdentifier the IdP identifier
+     * @param int $profileId the Profile identifier
+     * @param string $deviceId the Device identifier
+     * @param string $area the download area (user, silverbullet, admin)
+     * @param string $lang the language of the installer
+     * @param int $eapType the EAP type of the installer
+     * @throws Exception
+     */
     protected function saveDownloadDetails($idpIdentifier, $profileId, $deviceId, $area, $lang, $eapType) {
         if (CONFIG['PATHS']['logdir']) {
             $file = fopen(CONFIG['PATHS']['logdir'] . "/download_details.log", "a");
@@ -119,6 +130,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     /**
      * each profile has supported EAP methods, so get this from DB, Silver Bullet has one
      * static EAP method.
+     * 
+     * @return array list of supported EAP methods
      */
     protected function fetchEAPMethods() {
         $eapMethod = $this->databaseHandle->exec("SELECT eap_method_id 
@@ -176,6 +189,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     /**
      * join new attributes to existing ones, but only if not already defined on
      * a different level in the existing set
+     * 
      * @param array $existing the already existing attributes
      * @param array $new the new set of attributes
      * @param string $newlevel the level of the new attributes
@@ -198,6 +212,9 @@ abstract class AbstractProfile extends EntityWithDBProperties {
 
     /**
      * find a profile, given its realm
+     * 
+     * @param string $realm the realm for which we are trying to find a profile
+     * @return int|false the profile identifier, if any
      */
     public static function profileFromRealm($realm) {
         // static, need to create our own handle
@@ -215,7 +232,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * can only do something useful if the realm is known to the system.
      * 
      * @return string the outer ID to use for realm check operations
-     * @thorws Exception
+     * @throws Exception
      */
     public function getRealmCheckOuterUsername() {
         $realm = $this->getAttributes("internal:realm")[0]['value'] ?? FALSE;
@@ -246,6 +263,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
 
     /**
      * gets the last-modified timestamp (useful for caching "dirty" check)
+     * 
+     * @return string the date in string form, as returned by SQL
      */
     public function getFreshness() {
         $execLastChange = $this->databaseHandle->exec("SELECT last_change FROM profile WHERE profile_id = $this->identifier");
@@ -341,6 +360,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
 
     /**
      * Retrieve current download stats from database, either for one specific device or for all devices
+     * 
      * @param string $device the device id string
      * @return mixed user downloads of this profile; if device is given, returns the counter as int, otherwise an array with devicename => counter
      */
@@ -605,7 +625,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * it? Silverbullet will always return TRUE; RADIUS profiles need to do some
      * heavy lifting here.
      * 
-     * * @return int one of the constants above which tell if enough info is set to enable installers
+     * @return int one of the constants above which tell if enough info is set to enable installers
      */
     public function readinessLevel() {
         $result = $this->databaseHandle->exec("SELECT sufficient_config, showtime FROM profile WHERE profile_id = ?", "i", $this->identifier);

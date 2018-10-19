@@ -51,7 +51,7 @@ class EAP {
     const NE_MSCHAP2 = 3;
     const NE_SILVERBULLET = 999;
     const INTEGER_TTLS_PAP = 1;
-    const INTEGER_PEAP_MSCHAPv2 = 2;
+    const INTEGER_PEAP_MSCHAP2 = 2;
     const INTEGER_TLS = 3;
     const INTEGER_FAST_GTC = 4;
     const INTEGER_TTLS_GTC = 5;
@@ -117,7 +117,7 @@ class EAP {
      */
     const EAPTYPES_CONVERSION = [
         EAP::INTEGER_FAST_GTC => EAP::EAPTYPE_FAST_GTC,
-        EAP::INTEGER_PEAP_MSCHAPv2 => EAP::EAPTYPE_PEAP_MSCHAP2,
+        EAP::INTEGER_PEAP_MSCHAP2 => EAP::EAPTYPE_PEAP_MSCHAP2,
         EAP::INTEGER_EAP_PWD => EAP::EAPTYPE_PWD,
         EAP::INTEGER_TLS => EAP::EAPTYPE_TLS,
         EAP::INTEGER_TTLS_GTC => EAP::EAPTYPE_TTLS_GTC,
@@ -172,7 +172,7 @@ class EAP {
         switch ($this->intRep) {
             case EAP::INTEGER_EAP_PWD:
             case EAP::INTEGER_FAST_GTC:
-            case EAP::INTEGER_PEAP_MSCHAPv2:
+            case EAP::INTEGER_PEAP_MSCHAP2:
             case EAP::INTEGER_TTLS_GTC:
             case EAP::INTEGER_TTLS_MSCHAP2:
             case EAP::INTEGER_TTLS_PAP:
@@ -203,7 +203,7 @@ class EAP {
         switch ($this->intRep) {
             case EAP::INTEGER_EAP_PWD:
             case EAP::INTEGER_FAST_GTC:
-            case EAP::INTEGER_PEAP_MSCHAPv2:
+            case EAP::INTEGER_PEAP_MSCHAP2:
             case EAP::INTEGER_TTLS_GTC:
             case EAP::INTEGER_TTLS_MSCHAP2:
             case EAP::INTEGER_TTLS_PAP:
@@ -228,7 +228,7 @@ class EAP {
             case EAP::INTEGER_SILVERBULLET:
                 return FALSE;
             case EAP::INTEGER_FAST_GTC:
-            case EAP::INTEGER_PEAP_MSCHAPv2:
+            case EAP::INTEGER_PEAP_MSCHAP2:
             case EAP::INTEGER_TTLS_GTC:
             case EAP::INTEGER_TTLS_MSCHAP2:
             case EAP::INTEGER_TTLS_PAP:
@@ -248,7 +248,7 @@ class EAP {
             case EAP::INTEGER_EAP_PWD:
                 return FALSE;
             case EAP::INTEGER_FAST_GTC:
-            case EAP::INTEGER_PEAP_MSCHAPv2:
+            case EAP::INTEGER_PEAP_MSCHAP2:
             case EAP::INTEGER_TTLS_GTC:
             case EAP::INTEGER_TTLS_MSCHAP2:
             case EAP::INTEGER_TTLS_PAP:
@@ -269,7 +269,7 @@ class EAP {
     public function needsServerName() {
         switch ($this->intRep) {
             case EAP::INTEGER_FAST_GTC:
-            case EAP::INTEGER_PEAP_MSCHAPv2:
+            case EAP::INTEGER_PEAP_MSCHAP2:
             case EAP::INTEGER_TTLS_GTC:
             case EAP::INTEGER_TTLS_MSCHAP2:
             case EAP::INTEGER_TTLS_PAP:
@@ -304,7 +304,7 @@ class EAP {
     /**
      * This function takes the EAP method in array representation (OUTER/INNER) and returns it in a custom format for the
      * Linux installers (not numbers, but strings as values).
-     * @param array EAP method in array representation (OUTER/INNER)
+     * @param array $eap EAP method in array representation (OUTER/INNER)
      * @return array EAP method in array representation (OUTER as string/INNER as string)
      */
     public static function eapDisplayName($eap) {
@@ -324,7 +324,7 @@ class EAP {
 
     /**
      * determines the inner authentication. Is it EAP, and which mechanism is used to convey actual auth data
-     * @param array $eap
+     * @param array $eap the EAP type for which we want to get the inner auth
      * @return array
      */
     public static function innerAuth($eap) {

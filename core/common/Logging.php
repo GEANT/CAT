@@ -28,6 +28,7 @@ class Logging {
     }
 
     /**
+     * writes a message to file
      * 
      * @param string $filename the name of the log file, relative (path to logdir gets prepended)
      * @param string $message what to write into the file
@@ -37,7 +38,6 @@ class Logging {
     }
 
     /**
-     *
      * write debug messages to the log, if the debug level is high enough
      *
      * @param int $level the debug level of the message that is to be logged

@@ -22,7 +22,7 @@ class OutsideComm {
 
     /**
      * downloads a file from the internet
-     * @param string $url
+     * @param string $url the URL to download
      * @return string|boolean the data we got back, or FALSE on failure
      */
     public static function downloadFile($url) {
@@ -81,7 +81,8 @@ class OutsideComm {
 
     /**
      * verifies whether a mail address is in an existing and STARTTLS enabled mail domain
-     * @param string $address
+     * 
+     * @param string $address the mail address to check
      * @return int status of the mail domain
      */
     public static function mailAddressValidSecure($address) {
@@ -223,6 +224,7 @@ class OutsideComm {
      * @param string $targets one or more mail addresses, comma-separated
      * @param string $introtext introductory sentence (varies by situation)
      * @param string $newtoken the token to send
+     * @param string $idpPrettyName the name of the IdP, in best-match language
      * @param \core\Federation $federation if not NULL, indicates that invitation comes from authorised fed admin of that federation
      * @return array
      */
@@ -321,6 +323,14 @@ class OutsideComm {
         return ["SENT" => $mail->send(), "TRANSPORT" => $secStatus];
     }
 
+    /**
+     * sends a POST with some JSON inside
+     * 
+     * @param string $url the URL to POST to
+     * @param array $dataArray the data to be sent in PHP array representation
+     * @return array the JSON response, decoded into PHP associative array
+     * @throws \Exception
+     */
     public static function postJson($url, $dataArray) {
         $ch = \curl_init($url);
         \curl_setopt_array($ch, array(
