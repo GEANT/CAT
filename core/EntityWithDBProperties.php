@@ -185,9 +185,9 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
     /**
      * Adds an attribute for the entity instance into the database. Multiple instances of the same attribute are supported.
      *
-     * @param string $attrName Name of the attribute. This must be a well-known value from the profile_option_dict table in the DB.
-     * @param string $attrLang language of the attribute. Can be NULL.
-     * @param mixed $attrValue Value of the attribute. Can be anything; will be stored in the DB as-is.
+     * @param string $attrName  Name of the attribute. This must be a well-known value from the profile_option_dict table in the DB.
+     * @param string $attrLang  language of the attribute. Can be NULL.
+     * @param mixed  $attrValue Value of the attribute. Can be anything; will be stored in the DB as-is.
      */
     public function addAttribute($attrName, $attrLang, $attrValue) {
         $relevantId = $this->getRelevantIdentifier();
@@ -231,7 +231,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * Retrieves data from the underlying tables, for situations where instantiating the IdP or Profile object is inappropriate
      * 
      * @param string $table institution_option or profile_option
-     * @param string $row rowindex
+     * @param string $row   rowindex
      * @return string|boolean the data, or FALSE if something went wrong
      */
     public static function fetchRawDataByIndex($table, $row) {
@@ -260,7 +260,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * yes who the authorised admins to view it are (return array of user IDs)
      * 
      * @param string $table which database table is this about
-     * @param int $row row index of the table
+     * @param int    $row   row index of the table
      * @return mixed FALSE if the data is public, an array of owners of the data if it is NOT public
      */
     public static function isDataRestricted($table, $row) {
