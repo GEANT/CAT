@@ -162,7 +162,7 @@ class OutsideComm {
     /**
      * Send SMS invitations to end users
      * 
-     * @param string $number the number to send to: with country prefix, but without the + sign ("352123456" for a Luxembourg example)
+     * @param string $number  the number to send to: with country prefix, but without the + sign ("352123456" for a Luxembourg example)
      * @param string $content the text to send
      * @return integer status of the sending process
      * @throws Exception
@@ -221,11 +221,11 @@ class OutsideComm {
 
     /**
      * 
-     * @param string $targets one or more mail addresses, comma-separated
-     * @param string $introtext introductory sentence (varies by situation)
-     * @param string $newtoken the token to send
-     * @param string $idpPrettyName the name of the IdP, in best-match language
-     * @param \core\Federation $federation if not NULL, indicates that invitation comes from authorised fed admin of that federation
+     * @param string           $targets       one or more mail addresses, comma-separated
+     * @param string           $introtext     introductory sentence (varies by situation)
+     * @param string           $newtoken      the token to send
+     * @param string           $idpPrettyName the name of the IdP, in best-match language
+     * @param \core\Federation $federation    if not NULL, indicates that invitation comes from authorised fed admin of that federation
      * @return array
      */
     public static function adminInvitationMail($targets, $introtext, $newtoken, $idpPrettyName, $federation) {
@@ -326,8 +326,8 @@ class OutsideComm {
     /**
      * sends a POST with some JSON inside
      * 
-     * @param string $url the URL to POST to
-     * @param array $dataArray the data to be sent in PHP array representation
+     * @param string $url       the URL to POST to
+     * @param array  $dataArray the data to be sent in PHP array representation
      * @return array the JSON response, decoded into PHP associative array
      * @throws \Exception
      */

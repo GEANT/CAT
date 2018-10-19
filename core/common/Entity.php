@@ -82,7 +82,7 @@ abstract class Entity {
      * the same with the second and finally returns the value
      * if something on the way is not defined, NULL is returned
      * 
-     * @param array $attributeArray 
+     * @param array      $attributeArray 
      * @param string|int $index1 
      * @param string|int $index2
      * @return mixed
@@ -97,8 +97,8 @@ abstract class Entity {
 
     /**
      * create a temporary directory and return the location
-     * @param string $purpose one of 'installer', 'logo', 'test' defined the purpose of the directory
-     * @param bool $failIsFatal decides if a creation failure should cause an error; defaults to true
+     * @param string  $purpose     one of 'installer', 'logo', 'test' defined the purpose of the directory
+     * @param boolean $failIsFatal decides if a creation failure should cause an error; defaults to true
      * @return array the tuple of: base path, absolute path for directory, directory name
      */
     public function createTemporaryDirectory($purpose = 'installer', $failIsFatal = 1) {
@@ -153,7 +153,8 @@ abstract class Entity {
     /**
      * generates a UUID, for the devices which identify file contents by UUID
      *
-     * @param string $prefix an extra prefix to set before the UUID
+     * @param string $prefix              an extra prefix to set before the UUID
+     * @param mixed  $deterministicSource don't generate a random UUID, base it deterministically on the provided input
      * @return string UUID (possibly prefixed)
      */
     public static function uuid($prefix = '', $deterministicSource = NULL) {
@@ -174,7 +175,7 @@ abstract class Entity {
     
         /**
      * produces a random string
-     * @param int $length the length of the string to produce
+     * @param int    $length   the length of the string to produce
      * @param string $keyspace the pool of characters to use for producing the string
      * @return string
      * @throws Exception

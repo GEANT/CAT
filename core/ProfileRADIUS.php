@@ -186,10 +186,10 @@ class ProfileRADIUS extends AbstractProfile {
     /**
      * Updates database with new installler location
      * 
-     * @param string $device the device identifier string
-     * @param string $path the path where the new installer can be found
-     * @param string $mime the MIME type of the new installer
-     * @param int $integerEapType the numeric representation of the EAP type for which this installer was generated
+     * @param string $device         the device identifier string
+     * @param string $path           the path where the new installer can be found
+     * @param string $mime           the MIME type of the new installer
+     * @param int    $integerEapType the numeric representation of the EAP type for which this installer was generated
      */
     public function updateCache($device, $path, $mime, $integerEapType) {
         $lang = $this->languageInstance->getLang();
@@ -202,11 +202,11 @@ class ProfileRADIUS extends AbstractProfile {
      * adds an attribute to this profile; not the usual function from EntityWithDBProperties
      * because this class also has per-EAP-type and per-device sub-settings
      *
-     * @param string $attrName name of the attribute to set
-     * @param string $attrLang language of the attribute to set (if multilang, can be NULL)
+     * @param string $attrName  name of the attribute to set
+     * @param string $attrLang  language of the attribute to set (if multilang, can be NULL)
      * @param string $attrValue value of the attribute to set
-     * @param int $eapType identifier of the EAP type in the database. 0 if the attribute is valid for all EAP types.
-     * @param string $device identifier of the device in the databse. Omit the argument if attribute is valid for all devices.
+     * @param int    $eapType   identifier of the EAP type in the database. 0 if the attribute is valid for all EAP types.
+     * @param string $device    identifier of the device in the databse. Omit the argument if attribute is valid for all devices.
      */
     private function addAttributeAllLevels($attrName, $attrLang, $attrValue, $eapType, $device) {
         $prepQuery = "INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_lang, option_value, eap_method_id, device_id) 
@@ -218,10 +218,10 @@ class ProfileRADIUS extends AbstractProfile {
     /**
      * this is the variant which sets attributes for specific EAP types
      * 
-     * @param string $attrName name of the attribute to set
-     * @param string $attrLang language of the attribute to set (if multilang, can be NULL)
+     * @param string $attrName  name of the attribute to set
+     * @param string $attrLang  language of the attribute to set (if multilang, can be NULL)
      * @param string $attrValue value of the attribute to set
-     * @param int $eapType identifier of the EAP type in the database. 0 if the attribute is valid for all EAP types.
+     * @param int    $eapType   identifier of the EAP type in the database. 0 if the attribute is valid for all EAP types.
      */
     public function addAttributeEAPSpecific($attrName, $attrLang, $attrValue, $eapType) {
         $this->addAttributeAllLevels($attrName, $attrLang, $attrValue, $eapType, NULL);
@@ -230,10 +230,10 @@ class ProfileRADIUS extends AbstractProfile {
     /**
      * this is the variant which sets attributes for specific devices
      * 
-     * @param string $attrName name of the attribute to set
-     * @param string $attrLang language of the attribute to set (if multilang, can be NULL)
+     * @param string $attrName  name of the attribute to set
+     * @param string $attrLang  language of the attribute to set (if multilang, can be NULL)
      * @param string $attrValue value of the attribute to set
-     * @param string $device identifier of the device in the databse. Omit the argument if attribute is valid for all devices.
+     * @param string $device    identifier of the device in the databse. Omit the argument if attribute is valid for all devices.
      */
     public function addAttributeDeviceSpecific($attrName, $attrLang, $attrValue, $device) {
         $this->addAttributeAllLevels($attrName, $attrLang, $attrValue, 0, $device);
@@ -242,8 +242,8 @@ class ProfileRADIUS extends AbstractProfile {
     /**
      * this is the variant which sets attributes which are valid profile-wide
      * 
-     * @param string $attrName name of the attribute to set
-     * @param string $attrLang language of the attribute to set (if multilang, can be NULL)
+     * @param string $attrName  name of the attribute to set
+     * @param string $attrLang  language of the attribute to set (if multilang, can be NULL)
      * @param string $attrValue value of the attribute to set
      */
     public function addAttribute($attrName, $attrLang, $attrValue) {
@@ -254,6 +254,8 @@ class ProfileRADIUS extends AbstractProfile {
      * overrides the parent class definition: in Profile, we additionally need 
      * to delete the supported EAP types list in addition to just flushing the
      * normal DB-based attributes
+     * 
+     * @param string $extracondition if a subclass needs to restrict the flushing, it can do so by providing a query suffix
      */
     public function beginFlushAttributes($extracondition = "") {
         $this->databaseHandle->exec("DELETE FROM supported_eap WHERE profile_id = $this->identifier");
@@ -272,8 +274,8 @@ class ProfileRADIUS extends AbstractProfile {
 
     /** Toggle special username for realm checks
      *
-     * @param boolean $shallwe TRUE to enable outer identities (needs valid $realm), FALSE to disable
-     * @param string $localpart the username
+     * @param boolean $shallwe   TRUE to enable outer identities (needs valid $realm), FALSE to disable
+     * @param string  $localpart the username
      *
      */
     public function setRealmCheckUser($shallwe, $localpart = NULL) {
@@ -285,7 +287,7 @@ class ProfileRADIUS extends AbstractProfile {
     /** should username be verified or even prefilled?
      * 
      * @param bool $verify should the user input be verified by the installer?
-     * @param bool $hint should the user be shown username formatting hints?
+     * @param bool $hint   should the user be shown username formatting hints?
      */
     public function setInputVerificationPreference($verify, $hint) {
         $this->databaseHandle->exec("UPDATE profile SET verify_userinput_suffix = " . ($verify === true ? "1" : "0") .
@@ -296,7 +298,7 @@ class ProfileRADIUS extends AbstractProfile {
     /**
      * deletes all attributes in this profile on the method level
      *
-     * @param int $eapId the numeric identifier of the EAP method
+     * @param int    $eapId    the numeric identifier of the EAP method
      * @param string $deviceId the name of the device
      * @return array list of row id's of file-based attributes which weren't deleted
      */

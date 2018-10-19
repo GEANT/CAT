@@ -108,12 +108,12 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     /**
      *  generates a detailed log of which installer was downloaded
      * 
-     * @param int $idpIdentifier the IdP identifier
-     * @param int $profileId the Profile identifier
-     * @param string $deviceId the Device identifier
-     * @param string $area the download area (user, silverbullet, admin)
-     * @param string $lang the language of the installer
-     * @param int $eapType the EAP type of the installer
+     * @param int    $idpIdentifier the IdP identifier
+     * @param int    $profileId     the Profile identifier
+     * @param string $deviceId      the Device identifier
+     * @param string $area          the download area (user, silverbullet, admin)
+     * @param string $lang          the language of the installer
+     * @param int    $eapType       the EAP type of the installer
      * @throws Exception
      */
     protected function saveDownloadDetails($idpIdentifier, $profileId, $deviceId, $area, $lang, $eapType) {
@@ -155,7 +155,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * sub-classes need to set the property $realm, $name themselves!
      * 
      * @param int $profileIdRaw identifier of the profile in the DB
-     * @param IdP $idpObject optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
+     * @param IdP $idpObject    optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
      */
     public function __construct($profileIdRaw, $idpObject = NULL) {
         $this->databaseType = "INST";
@@ -190,8 +190,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * join new attributes to existing ones, but only if not already defined on
      * a different level in the existing set
      * 
-     * @param array $existing the already existing attributes
-     * @param array $new the new set of attributes
+     * @param array  $existing the already existing attributes
+     * @param array  $new      the new set of attributes
      * @param string $newlevel the level of the new attributes
      * @return array the new set of attributes
      */
@@ -316,10 +316,10 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * Updates database with new installer location. Actually does stuff when
      * caching is possible; is a noop if not
      * 
-     * @param string $device the device identifier string
-     * @param string $path the path where the new installer can be found
-     * @param string $mime the mime type of the new installer
-     * @param int $integerEapType the inter-representation of the EAP type that is configured in this installer
+     * @param string $device         the device identifier string
+     * @param string $path           the path where the new installer can be found
+     * @param string $mime           the mime type of the new installer
+     * @param int    $integerEapType the inter-representation of the EAP type that is configured in this installer
      */
     abstract public function updateCache($device, $path, $mime, $integerEapType);
 
@@ -334,7 +334,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * Log a new download for our stats
      * 
      * @param string $device the device id string
-     * @param string $area either admin or user
+     * @param string $area   either admin or user
      * @return boolean TRUE if incrementing worked, FALSE if not
      */
     public function incrementDownloadStats($device, $area) {
@@ -422,8 +422,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     /**
      * register new supported EAP method for this profile
      *
-     * @param \core\common\EAP $type The EAP Type, as defined in class EAP
-     * @param int $preference preference of this EAP Type. If a preference value is re-used, the order of EAP types of the same preference level is undefined.
+     * @param \core\common\EAP $type       The EAP Type, as defined in class EAP
+     * @param int              $preference preference of this EAP Type. If a preference value is re-used, the order of EAP types of the same preference level is undefined.
      *
      */
     public function addSupportedEapMethod(\core\common\EAP $type, $preference) {

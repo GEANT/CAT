@@ -31,7 +31,7 @@ class Logging {
      * writes a message to file
      * 
      * @param string $filename the name of the log file, relative (path to logdir gets prepended)
-     * @param string $message what to write into the file
+     * @param string $message  what to write into the file
      */
     private function writeToFile($filename, $message) {
         file_put_contents(CONFIG['PATHS']['logdir'] . "/$filename", sprintf("%-015s", microtime(TRUE)) . $message, FILE_APPEND);
@@ -40,7 +40,7 @@ class Logging {
     /**
      * write debug messages to the log, if the debug level is high enough
      *
-     * @param int $level the debug level of the message that is to be logged
+     * @param int   $level the debug level of the message that is to be logged
      * @param mixed $stuff the stuff to be logged (via print_r)
      * @return void
      */
@@ -73,9 +73,9 @@ class Logging {
      * in the database, but provide a logical "who did what" overview. The exact modification SQL statements are logged
      * automatically with writeSQLAudit() instead. The log file path is configurable in _config.php.
      * 
-     * @param string $user persistent identifier of the user who triggered the action
+     * @param string $user     persistent identifier of the user who triggered the action
      * @param string $category type of modification, from the fixed vocabulary: "NEW", "OWN", "MOD", "DEL"
-     * @param string $message message to log into the audit log
+     * @param string $message  message to log into the audit log
      * @return boolean TRUE if successful. Will terminate script execution on failure. 
      */
     public function writeAudit($user, $category, $message) {

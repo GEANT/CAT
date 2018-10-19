@@ -154,10 +154,10 @@ class ProfileSilverbullet extends AbstractProfile {
      * Updates database with new installer location; NOOP because we do not
      * cache anything in Silverbullet
      * 
-     * @param string $device the device identifier string
-     * @param string $path the path where the new installer can be found
-     * @param string $mime the mime type of the new installer
-     * @param int $integerEapType the inter-representation of the EAP type that is configured in this installer
+     * @param string $device         the device identifier string
+     * @param string $path           the path where the new installer can be found
+     * @param string $mime           the mime type of the new installer
+     * @param int    $integerEapType the inter-representation of the EAP type that is configured in this installer
      */
     public function updateCache($device, $path, $mime, $integerEapType) {
         // caching is not supported in SB (private key in installers)
@@ -171,8 +171,8 @@ class ProfileSilverbullet extends AbstractProfile {
     /**
      * register new supported EAP method for this profile
      *
-     * @param \core\common\EAP $type The EAP Type, as defined in class EAP
-     * @param int $preference preference of this EAP Type. If a preference value is re-used, the order of EAP types of the same preference level is undefined.
+     * @param \core\common\EAP $type       The EAP Type, as defined in class EAP
+     * @param int              $preference preference of this EAP Type. If a preference value is re-used, the order of EAP types of the same preference level is undefined.
      *
      */
     public function addSupportedEapMethod(\core\common\EAP $type, $preference) {
@@ -226,8 +226,8 @@ class ProfileSilverbullet extends AbstractProfile {
     
     /**
      * sets the expiry date of a user to a new date of choice
-     * @param int $userId
-     * @param \DateTime $date
+     * @param int       $userId the username
+     * @param \DateTime $date the expiry date
      */
     public function setUserExpiryDate($userId, $date) {
         $query = "UPDATE silverbullet_user SET expiry = ? WHERE profile_id = ? AND id = ?";
@@ -273,8 +273,8 @@ class ProfileSilverbullet extends AbstractProfile {
     /**
      * adds a new user to the profile
      * 
-     * @param string $username
-     * @param \DateTime $expiry
+     * @param string    $username the username
+     * @param \DateTime $expiry   the expiry date
      * @return int row ID of the new user in the database
      */
     public function addUser($username, \DateTime $expiry) {
@@ -286,7 +286,7 @@ class ProfileSilverbullet extends AbstractProfile {
 
     /**
      * revoke all active certificates and pending invitations of a user
-     * @param int $userId
+     * @param int $userId the username
      * @return boolean was the user found and deactivated?
      */
     public function deactivateUser($userId) {
