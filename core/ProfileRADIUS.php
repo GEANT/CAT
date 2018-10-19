@@ -255,7 +255,8 @@ class ProfileRADIUS extends AbstractProfile {
      * to delete the supported EAP types list in addition to just flushing the
      * normal DB-based attributes
      * 
-     * @param string $extracondition if a subclass needs to restrict the flushing, it can do so by providing a query suffix
+     * @param string $extracondition we need to provide an extra filter text to prevent deletion of EAP/device-specific attributes
+     * @return array list of row id's of file-based attributes which weren't deleted
      */
     public function beginFlushAttributes($extracondition = "") {
         $this->databaseHandle->exec("DELETE FROM supported_eap WHERE profile_id = $this->identifier");

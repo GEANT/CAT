@@ -231,9 +231,10 @@ class SilverbulletInvitation extends common\Entity {
 
     /**
      * creates a new invitation in the database
-     * @param int $profileId
-     * @param int $userId
-     * @param int $activationCount
+     * @param int $profileId       the profile identifier
+     * @param int $userId          the user identifier
+     * @param int $activationCount number of activations for this invitation
+     * @return SilverbulletInvitation the generated invitation
      */
     public static function createInvitation($profileId, $userId, $activationCount) {
         $handle = DBConnection::handle("INST");
@@ -244,7 +245,7 @@ class SilverbulletInvitation extends common\Entity {
     }
 
     /**
-     * revokes an invitation
+     * revokes the invitation
      */
     public function revokeInvitation() {
         $query = "UPDATE silverbullet_invitation SET expiry = NOW() WHERE id = ? AND profile_id = ?";
@@ -252,6 +253,7 @@ class SilverbulletInvitation extends common\Entity {
     }
 
     /**
+     * sends out the invitation by SMS
      * 
      * @param string $number the number to send to
      * @return int an OutsideComm constant indicating how the sending went
@@ -260,6 +262,12 @@ class SilverbulletInvitation extends common\Entity {
         return \core\common\OutsideComm::sendSMS($number, sprintf(_("Your %s access is ready! Click here: %s (on Android, first install the app '%s'!)"), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $this->link(), "eduroam CAT"));
     }
 
+    /**
+     * sends out the invitation by email
+     * 
+     * @param string $properEmail the email address
+     * @return array status of the sending
+     */
     public function sendByMail($properEmail) {
         $mail = \core\common\OutsideComm::mailHandle();
         $uiElements = new \web\lib\admin\UIElements();

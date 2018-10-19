@@ -124,8 +124,8 @@ class SilverbulletCertificate extends EntityWithDBProperties {
     /**
      * issue a certificate based on a token
      *
-     * @param string $token
-     * @param string $importPassword
+     * @param string $token          the token string
+     * @param string $importPassword the PIN
      * @return array
      */
     public static function issueCertificate($token, $importPassword) {
@@ -321,6 +321,8 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * create a CSR
      * 
      * @param resource $privateKey the private key to create the CSR with
+     * @param string   $fed        the federation to which the certificate belongs
+     * @param string   $realm      the realm for the future username
      * @return array with the CSR and some meta info
      */
     private static function generateCsr($privateKey, $fed, $realm) {
@@ -362,8 +364,8 @@ class SilverbulletCertificate extends EntityWithDBProperties {
     /**
      * take a CSR and sign it with our issuing CA's certificate
      * 
-     * @param mixed $csr the CSR
-     * @param int $expiryDays the number of days until the cert is going to expire
+     * @param mixed $csr        the CSR
+     * @param int   $expiryDays the number of days until the cert is going to expire
      * @return array the cert and some meta info
      */
     private static function signCsr($csr, $expiryDays) {

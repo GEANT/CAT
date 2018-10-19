@@ -195,8 +195,8 @@ class Federation extends EntityWithDBProperties {
      * Creates a new IdP inside the federation.
      * 
      * @param string $ownerId Persistent identifier of the user for whom this IdP is created (first administrator)
-     * @param string $level Privilege level of the first administrator (was he blessed by a federation admin or a peer?)
-     * @param string $mail e-mail address with which the user was invited to administer (useful for later user identification if the user chooses a "funny" real name)
+     * @param string $level   Privilege level of the first administrator (was he blessed by a federation admin or a peer?)
+     * @param string $mail    e-mail address with which the user was invited to administer (useful for later user identification if the user chooses a "funny" real name)
      * @return int identifier of the new IdP
      */
     public function newIdP($ownerId, $level, $mail = NULL) {
@@ -271,7 +271,7 @@ class Federation extends EntityWithDBProperties {
     /**
      * returns an array with information about the authorised administrators of the federation
      * 
-     * @return array
+     * @return array list of the admins of this federation
      */
     public function listFederationAdmins() {
         $returnarray = [];
@@ -374,8 +374,8 @@ class Federation extends EntityWithDBProperties {
      * for a MySQL list of institutions, find an institution or find out that
      * there is no single best match
      * 
-     * @param \mysqli_result $dbResult
-     * @param string $country used to return the country of the inst, if can be found out
+     * @param \mysqli_result $dbResult the query object to work with
+     * @param string         $country  used to return the country of the inst, if can be found out
      * @return int the identifier of the inst, or one of the special return values if unsuccessful
      */
     private static function findCandidates(\mysqli_result $dbResult, &$country) {
