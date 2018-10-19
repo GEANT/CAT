@@ -94,14 +94,14 @@ class DBConnection {
         }
         // log exact query to debug log, if log level is at 5
         $this->loggerInstance->debug(5, "DB ATTEMPT: " . $querystring . "\n");
-        if ($types != NULL) {
+        if ($types !== NULL) {
             $this->loggerInstance->debug(5, "Argument type sequence: $types, parameters are: " . print_r($arguments, true));
         }
 
         if ($this->connection->connect_error) {
             throw new Exception("ERROR: Cannot send query to $this->databaseInstance database (no connection, error number" . $this->connection->connect_error . ")!");
         }
-        if ($types == NULL) {
+        if ($types === NULL) {
             $result = $this->connection->query($querystring);
             if ($result === FALSE) {
                 throw new Exception("DB: Unable to execute simple statement! Error was --> " . $this->connection->error . " <--");
@@ -151,7 +151,7 @@ class DBConnection {
 
         if ($isMoreThanSelect) {
             $this->loggerInstance->writeSQLAudit("[DB: " . strtoupper($this->databaseInstance) . "] " . $querystring);
-            if ($types != NULL) {
+            if ($types !== NULL) {
                 $this->loggerInstance->writeSQLAudit("Argument type sequence: $types, parameters are: " . print_r($arguments, true));
             }
         }

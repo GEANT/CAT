@@ -43,7 +43,7 @@ use \Exception;
         textdomain("devices");
         // create certificate files and save their names in $caFiles arrary
         $caFiles = $this->saveCertificateFiles('der');
-        $this->caArray = $this->getAttibute('internal:CAs')[0];
+        $this->caArray = $this->getAttribute('internal:CAs')[0];
         $outerId = $this->determineOuterIdString();
         $this->useAnon = $outerId === NULL ? FALSE : TRUE;
         $this->servers = empty($this->attributes['eap:server_name']) ? '' :  implode(';', $this->attributes['eap:server_name']);

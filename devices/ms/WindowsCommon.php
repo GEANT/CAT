@@ -105,7 +105,7 @@ abstract class WindowsCommon extends \core\DeviceConfig {
     }
 
     public function writeDeviceInfo() {
-        $ssids = $this->getAttibute('internal:SSID');
+        $ssids = $this->getAttribute('internal:SSID');
         $ssidCount = count($ssids);
         $out = "<p>";
         $out .= sprintf(_("%s installer will be in the form of an EXE file. It will configure %s on your device, by creating wireless network profiles.<p>When you click the download button, the installer will be saved by your browser. Copy it to the machine you want to configure and execute."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
@@ -177,7 +177,7 @@ abstract class WindowsCommon extends \core\DeviceConfig {
         $this->background = [];
         $this->background['freeHeight'] = $bgImageSize['height'] - $freeTop - $freeBottom;
 
-        if ($this->getAttibute('fed:include_logo_installers') === NULL) {
+        if ($this->getAttribute('fed:include_logo_installers') === NULL) {
             $fedLogo = NULL;
         }
         if ($fedLogo != NULL) {
