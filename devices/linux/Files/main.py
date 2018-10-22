@@ -62,14 +62,36 @@ def debug(msg):
     
 def run_installer():
     global debug_on
-    try:
-        if sys.argv[1] == '-d':
-            debug_on = True
-            print("Runnng debug mode")
-    except:
-        pass
+
+    username = ''
+    password = ''
+
+    parser = argparse.ArgumentParser(description='eduroam linux installer.')
+    parser.add_argument('--debug', '-d', action='store_true', dest='debug',
+                        default=False, help='set debug flag')
+    parser.add_argument('--yes', '-y', action='store_true', dest='yes',
+                        default=False, help='set yes flag')
+    parser.add_argument('--username', '-u', action='store', dest='username',
+                        help='set username')
+    parser.add_argument('--password', '-p', action='store', dest='password',
+                        help='set text_mode flag')
+    args = parser.parse_args()
+
+    if args.debug:
+        debug_on = True
+        print("Runnng debug mode")
+
+    if args.yes:
+        yes = args.yes
+
+    if args.username:
+        username = args.username
+
+    if args.password:
+        password = args.password
+
     debug(get_system())
-    inst = InstallerData();
+    inst = InstallerData(username=username, password=password, yes=yes);
     inst.get_user_cred()
     ENMCT = CatNMConfigTool()
     if ENMCT.main(inst) == None:
@@ -135,7 +157,12 @@ class Config:
 
 class InstallerData:
     graphics = ''
-    def __init__(self):
+    def __init__(self, username='', password='', yes=False):
+
+        self.username = username
+        self.password = password
+        self.yes = yes
+
         self.__get_graphics_support()
         self.show_info(Config.init_info.format(Config.instname, Config.email, Config.url))
         if self.ask(Config.init_confirmation.format(Config.instname, Config.profilename), Messages.cont, 1):
@@ -159,6 +186,8 @@ class InstallerData:
             no = Messages.no[:1].upper()
             print("\n-------\n" + question + "\n")
             while True:
+                if self.yes:
+                    return 0
                 p = prompt + " (" + Messages.yes + "/" + Messages.no + ") "
                 if default == 1:
                     p += "[" + yes + "]"
@@ -229,11 +258,17 @@ class InstallerData:
     def prompt_nonempty_string(self, show, prompt, val = ''):
         if self.graphics == 'tty':
             if show == 0:
+                if self.password:
+                    return self.password
+
                 while True:
                     inp = str(getpass.getpass(prompt + ": "))
                     output = inp.strip()
                     if output != '':
                         return output
+            else:
+                if self.username:
+                    return self.username
             while True:
                 try:
                     inp = str(raw_input(prompt + ": "))
