@@ -61,6 +61,7 @@ Var VistaNoSP
 Var W7
 Var WindowsVer
 Var WindowsName
+Var WindowsBuild
 Var Symantec_installed
 Var wireless_result
 Var wired
@@ -511,6 +512,7 @@ Function wVersionCheck
   ${EndIf}
   Pop $WindowsName
   Pop $WindowsVer
+  ${WinVerGetBuild} $WindowsBuild
   !insertmacro debug_cat 3 "Detected $WindowsName:$WindowsVer"
   ${If} ${IsWinVista}
      ${If} ${AtLeastServicePack} 1
@@ -1268,8 +1270,8 @@ Function validateUsername
    Push $R7
    Call IndexOf
    Pop $R6
-   ${If} $R6 <= 0
-   ; Either no dot or one immediately after @
+   ${If} $R6 = 0
+   ; there is a dot immediately after @
       Push "<?php WindowsCommon::echo_nsi(_("Error: Your username must be of the form 'xxx@institutionID' e.g. 'john@example.net'!"))?>"
       Push 3
       Return
