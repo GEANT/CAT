@@ -110,7 +110,7 @@ class IdP extends EntityWithDBProperties {
             $returnarray[] = $oneProfile;
         }
 
-        $this->loggerInstance->debug(2, "listProfiles: " . print_r($returnarray, true));
+        $this->loggerInstance->debug(4, "listProfiles: " . print_r($returnarray, true));
         return $returnarray;
     }
 
