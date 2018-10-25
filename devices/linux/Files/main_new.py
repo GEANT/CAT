@@ -136,12 +136,12 @@ def run_installer():
         # no dbus so ask if the user will want wpa_supplicant config
 
         dbus_package = {
-            'ubuntu': 'python3-dbus',
-            'debian': 'python3-dbus',
-            'fedora': 'python3-dbus',
-            'opensuse': 'python3-dbus-python',
-            'arch': 'python-dbus',
-            'centos': 'dbus-python'
+            'Ubuntu': 'python3-dbus',
+            'Debian': 'python3-dbus',
+            'Fedora': 'python3-dbus',
+            'openSuse': 'python3-dbus-python',
+            'Arch': 'python-dbus',
+            'CentOS': 'dbus-python'
             # I could extend this
         }
         package = dbus_package.get(get_system()[0], '')
