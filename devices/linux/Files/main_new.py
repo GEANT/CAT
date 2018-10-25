@@ -134,6 +134,22 @@ def run_installer():
             NM_AVAILABLE = False
     if not NM_AVAILABLE:
         # no dbus so ask if the user will want wpa_supplicant config
+
+        dbus_package = {
+            'ubuntu': 'python3-dbus',
+            'debian': 'python3-dbus',
+            'fedora': 'python3-dbus',
+            'opensuse': 'python3-dbus-python',
+            'arch': 'python-dbus',
+            'centos': 'dbus-python'
+            # I could extend this
+        }
+        package = dbus_package.get(get_system()[0], '')
+
+        if package:
+            if installer_data.ask(Messages.dbus_missing, Messages.cont, 1):
+                installer_data.show_info(Messages.install_package.format(package))
+                sys.exit(1)
         if installer_data.ask(Messages.save_wpa_conf, Messages.cont, 1):
             sys.exit(1)
     installer_data.get_user_cred()
@@ -166,6 +182,7 @@ class Messages(object):
     cert_error = "Certificate file not found, looks like a CAT error"
     unknown_version = "Unknown version"
     dbus_error = "DBus connection problem, a sudo might help"
+    dbus_missing = "Do you want to install the dbus package to fix the error?"
     yes = "Y"
     nay = "N"
     p12_filter = "personal certificate file (p12 or pfx)"
@@ -186,7 +203,8 @@ class Messages(object):
     user_cert_missing = "personal certificate file not found"
     # "File %s exists; it will be overwritten."
     # "Output written to %s"
-
+    install_package = 'Please install the package {}. Then start the eduroam ' \
+                      'linux installer again'
 
 class Config(object):
     """
