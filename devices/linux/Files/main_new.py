@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import argparse
 import base64
 import getpass
 import os
@@ -98,15 +99,34 @@ def run_installer():
     """
     global DEBUG_ON
     global NM_AVAILABLE
-    try:
-        if sys.argv[1] == '-d':
-            DEBUG_ON = True
-            print("Runnng debug in mode.")
-    except:
-        pass
+    username = ''
+    password = ''
+    silent = False
+    parser = argparse.ArgumentParser(description='eduroam linux installer.')
+    parser.add_argument('--debug', '-d', action='store_true', dest='debug',
+                        default=False, help='set debug flag')
+    parser.add_argument('--username', '-u', action='store', dest='username',
+                        help='set username')
+    parser.add_argument('--password', '-p', action='store', dest='password',
+                        help='set text_mode flag')
+    parser.add_argument('--silent', '-s', action='store_true', dest='silent',
+                        help='set silent flag')
+    args = parser.parse_args()
+    if args.debug:
+        DEBUG_ON = True
+        print("Runnng debug mode")
+
+    if args.username:
+        username = args.username
+    if args.password:
+        password = args.password
+    if args.silent:
+        silent = args.silent
     debug(get_system())
     debug("Calling InstallerData")
-    installer_data = InstallerData()
+    installer_data = InstallerData(silent=silent, username=username,
+                                   password=password)
+
     # test dbus connection
     if NM_AVAILABLE:
         config_tool = CatNMConfigTool()
@@ -201,12 +221,16 @@ class InstallerData(object):
     standard command-line interface
     """
 
-    def __init__(self):
+    def __init__(self, silent=False, username='', password=''):
         self.graphics = ''
-        self.username = ''
-        self.password = ''
+        self.username = username
+        self.password = password
+        self.silent = silent
         debug("starting constructor")
-        self.__get_graphics_support()
+        if silent:
+            self.graphics = 'tty'
+        else:
+            self.__get_graphics_support()
         self.show_info(Config.init_info.format(Config.instname,
                        Config.email, Config.url))
         if self.ask(Config.init_confirmation.format(Config.instname,
@@ -238,6 +262,8 @@ class InstallerData(object):
         """
         Propmpt user for a Y/N reply, possibly supplying a default answer
         """
+        if self.silent:
+            return 0
         if self.graphics == 'tty':
             yes = Messages.yes[:1].upper()
             nay = Messages.nay[:1].upper()
@@ -275,6 +301,8 @@ class InstallerData(object):
         """
         Show a piece of information
         """
+        if self.silent:
+            return
         if self.graphics == 'tty':
             print(data)
             return
@@ -298,6 +326,8 @@ class InstallerData(object):
         """
         Generate alert message
         """
+        if self.silent:
+            return
         if self.graphics == 'tty':
             print(text)
             return
@@ -370,10 +400,15 @@ class InstallerData(object):
     def __get_username_password(self):
         """
         read user password and set the password property
+        do nothing if silent mode is set
         """
         password = "a"
         password1 = "b"
-        if Config.hint_user_input:
+        if self.silent:
+            return
+        if self.username:
+            user_prompt = self.username
+        elif Config.hint_user_input:
             user_prompt = '@' + Config.user_realm
         else:
             user_prompt = ''
