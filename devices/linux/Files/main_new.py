@@ -102,6 +102,7 @@ def run_installer():
     username = ''
     password = ''
     silent = False
+    pfx_file = ''
     parser = argparse.ArgumentParser(description='eduroam linux installer.')
     parser.add_argument('--debug', '-d', action='store_true', dest='debug',
                         default=False, help='set debug flag')
@@ -111,6 +112,8 @@ def run_installer():
                         help='set text_mode flag')
     parser.add_argument('--silent', '-s', action='store_true', dest='silent',
                         help='set silent flag')
+    parser.add_argument('--pfxfile', action='store', dest='pfx_file',
+                        help='set path to user certificate file')
     args = parser.parse_args()
     if args.debug:
         DEBUG_ON = True
@@ -122,10 +125,12 @@ def run_installer():
         password = args.password
     if args.silent:
         silent = args.silent
+    if args.pfx_file:
+        pfx_file = args.pfx_file
     debug(get_system())
     debug("Calling InstallerData")
     installer_data = InstallerData(silent=silent, username=username,
-                                   password=password)
+                                   password=password, pfx_file=pfx_file)
 
     # test dbus connection
     if NM_AVAILABLE:
@@ -221,11 +226,12 @@ class InstallerData(object):
     standard command-line interface
     """
 
-    def __init__(self, silent=False, username='', password=''):
+    def __init__(self, silent=False, username='', password='', pfx_file=''):
         self.graphics = ''
         self.username = username
         self.password = password
         self.silent = silent
+        self.pfx_file = pfx_file
         debug("starting constructor")
         if silent:
             self.graphics = 'tty'
@@ -506,6 +512,8 @@ class InstallerData(object):
     def __select_p12_file(self):
         """
         prompt user for the PFX file selection
+        this method is not being called in the silent mode
+        therefore there is no code for this case
         """
         if self.graphics == 'tty':
             my_dir = os.listdir(".")
@@ -569,24 +577,32 @@ class InstallerData(object):
         if Config.eap_inner == 'SILVERBULLET':
             self.__save_sb_pfx()
         else:
-            pfx_file = self.__select_p12_file()
-            try:
-                copyfile(pfx_file, os.environ['HOME'] +
-                         '/.cat_installer/user.p12')
-            except (OSError, RuntimeError):
-                print(Messages.user_cert_missing)
-                sys.exit()
-        self.password = ''
-        self.username = ''
-        while not self.password:
-            self.password = self.prompt_nonempty_string(
-                0, Messages.enter_import_password)
+            if self.silent:
+                pfx_file = self.pfx_file
+            else:
+                pfx_file = self.__select_p12_file()
+                try:
+                    copyfile(pfx_file, os.environ['HOME'] +
+                             '/.cat_installer/user.p12')
+                except (OSError, RuntimeError):
+                    print(Messages.user_cert_missing)
+                    sys.exit(1)
+        if self.silent:
+            username = self.username
             if not self.__process_p12():
-                self.alert(Messages.incorrect_password)
-                self.password = ''
-        if not self.username:
-            self.username = self.prompt_nonempty_string(
-                1, Messages.username_prompt)
+                sys.exit(1)
+            if username:
+                self.username = username
+        else:
+            while not self.password:
+                self.password = self.prompt_nonempty_string(
+                    0, Messages.enter_import_password)
+                if not self.__process_p12():
+                    self.alert(Messages.incorrect_password)
+                    self.password = ''
+            if not self.username:
+                self.username = self.prompt_nonempty_string(
+                    1, Messages.username_prompt)
 
     def __validate_user_name(self):
         # locate the @ character in username
