@@ -125,7 +125,8 @@ const CONFIG = [
      * Configures the host to use to send emails to the outside world. We assume
      * the host is able to listen on the new Submission port (TCP/587). 
      * host: Submission host
-     * user: username for the login to the host
+     * user: username for the login to the host. If NULL (and pass is also NULL)
+     *       then no SMTP authentication will be triggered.
      * pass: password for the username
      * options: these may be some additional options, for instance setting that to:
      *     [

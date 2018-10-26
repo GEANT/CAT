@@ -53,12 +53,16 @@ class OutsideComm {
 // use PHPMailer to send the mail
         $mail = new \PHPMailer\PHPMailer\PHPMailer();
         $mail->isSMTP();
-        $mail->SMTPAuth = true;
         $mail->Port = 587;
         $mail->SMTPSecure = 'tls';
         $mail->Host = CONFIG['MAILSETTINGS']['host'];
-        $mail->Username = CONFIG['MAILSETTINGS']['user'];
-        $mail->Password = CONFIG['MAILSETTINGS']['pass'];
+        if (CONFIG['MAILSETTINGS']['user'] === NULL && CONFIG['MAILSETTINGS']['pass'] === NULL) {
+            $mail->SMTPAuth = false;
+        } else {
+            $mail->SMTPAuth = true;
+            $mail->Username = CONFIG['MAILSETTINGS']['user'];
+            $mail->Password = CONFIG['MAILSETTINGS']['pass'];
+        }
         $mail->SMTPOptions = CONFIG['MAILSETTINGS']['options'];
 // formatting nitty-gritty
         $mail->WordWrap = 72;
@@ -346,21 +350,20 @@ class OutsideComm {
         return json_decode($response, TRUE);
     }
 
-        /**
+    /**
      * performs an HTTP request. Currently unused, will be for external CA API calls.
      * 
      * @param string $url the URL to send the request to
      * @param array $postValues POST values to send
      * @return string the returned HTTP content
-     
-    public static function PostHttp($url, $postValues) {
-        $options = [
-            'http' => ['header' => 'Content-type: application/x-www-form-urlencoded\r\n', "method" => 'POST', 'content' => http_build_query($postValues)]
-        ];
-        $context = stream_context_create($options);
-        return file_get_contents($url, false, $context);
-    }
-         * 
-         */
 
+      public static function PostHttp($url, $postValues) {
+      $options = [
+      'http' => ['header' => 'Content-type: application/x-www-form-urlencoded\r\n', "method" => 'POST', 'content' => http_build_query($postValues)]
+      ];
+      $context = stream_context_create($options);
+      return file_get_contents($url, false, $context);
+      }
+     * 
+     */
 }
