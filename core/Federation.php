@@ -181,7 +181,7 @@ class Federation extends EntityWithDBProperties {
             // to the list of fed attributes
             $this->attributes[] = array("name" => "fed:silverbullet",
             "lang" => NULL,
-            "value" => TRUE,
+            "value" => "on",
             "level" => "FED",
             "row" => 0,
             "flag" => NULL);
