@@ -224,7 +224,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                         $.each(value.rows, function (i, line) {
                             if (i > 1) {
                                 if (index === <?php echo \core\SilverbulletCertificate::CERTSTATUS_VALID; ?>)
-                                    line = line + '<td class="revoke"><a href="" TITLE="revoke certificate">revoke</a></td></tr>';
+                                    line = line + '<td class="revoke"><a href="" TITLE="revoke certificate"><?php echo _("revoke") ?></a></td></tr>';
                                 else
                                     line = line + '</tr>';
                             }
@@ -243,9 +243,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             event.preventDefault();
             serial = $(this).parent().siblings().first().html();    
             if (confirm("<?php escaped_echo(_("Really revoke this access credential?")); ?>" + serial)) {
-                alert("deleting - not yet implemented");
                 link = "accountstatus.php?serial=" + serial + "&action=2" + "&token=" + "<?php echo $statusInfo['token']; ?>";
-                alert(link);
                 document.location = link;
             }
         })
