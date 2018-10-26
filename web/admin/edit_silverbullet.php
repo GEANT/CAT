@@ -463,7 +463,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                                     $tokenHtmlBuffer .= "<td>"
                                             . $formtext
                                             . "<input type='hidden' name='invitationid' value='" . $invitationObject->identifier . "'/>"
-                                            . "<button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_REVOKEINVITATION . "' class='delete'>Revoke</button></form>"
+                                            . "<button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_REVOKEINVITATION . "' class='delete'>"._("Revoke"). "</button></form>"
                                             . "</td></tr>";
                                     break;
                                 case core\SilverbulletInvitation::SB_TOKENSTATUS_EXPIRED:
