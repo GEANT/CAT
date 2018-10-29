@@ -113,20 +113,25 @@ CAT is distributed under the terms of the G&Eacute;ANT Standard Open Source Soft
 The software contains components from the following third parties:
 <ul>
     <li>
-        <b>setEAPCred.exe</b> - &copy; Gareth Ayres<br/>
-        Kindly donated by Gareth Ayres. Used and distributed under the license from https://github.com/GarethAyres/SU1X/tree/master/eduroamCAT
+        <b>WLANSetEAPUserData</b> - &copy; Simon Rozman<br/>
+        (included in distribution under devices/ms/Files/WLANSetEAPUserData )<br/>
+        License: GNU GPL version 3
     </li>
     <li>
         <b>base64.nsh</b> - &copy; 1999-2015 Contributors<br/>
-        base64.nsh include file has been created from http://nsis.sourceforge.net/Base64 and http://nsis.sourceforge.net/CharToASCII under the license: http://nsis.sourceforge.net/License
+        (included in distribution under devices/ms/Files/base64.nsh )<br/>
+        base64.nsh include file has been created from http://nsis.sourceforge.net/Base64 and http://nsis.sourceforge.net/CharToASCII
+        License: zlib/libpng License (see http://nsis.sourceforge.net/License )
     </li>
     <li>
-        <b>jQuery</b> - &copy; jQuery Foundation</br>
-        The jQuery UI library is currently available for use in all personal or commercial projects under both MIT and GPL licenses.
+        <b>jQuery</b> and <b>jQuery UI</b> - &copy; jQuery Foundation</br>
+        (included in distribution under web/external/jquery )
+        License: MIT (see https://github.com/jquery/jquery/blob/master/LICENSE.txt and https://github.com/jquery/jquery-ui/blob/master/LICENSE.txt)
     </li>
     <li>
         <b>DiscoJuice</b> - &copy; UNINETT<br/>
-        Verbatim licensing email:<pre>
+        (included in source distribution under web/external/discojuice/ )<br/>
+        License: Verbatim licensing email:<pre>
 > Hi Andreas,
 >
 > as you may know, Tomasz is using a slightly tweaked version of
@@ -151,11 +156,13 @@ Andreas
     </li>
     <li>
         <b>GeoLite and GeoLite2</b> - &copy; MaxMind, Inc.<br/>
+        (API reference code included in distribution) <br/>
         This deployment of the CAT product may include GeoLite and/or GeoLite2 data created by MaxMind, available from <a href="http://www.maxmind.com">http://www.maxmind.com</a>
     </li>
     <li>
         <b>OpenLayers</b> - &copy; 2005-present OpenLayers Contributors. All rights reserved.<br/>
-        Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+        (included in source distribution under web/external/OpenLayers )<br/>
+        License: Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
         Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
         Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
         THIS SOFTWARE IS PROVIDED BY OPENLAYERS CONTRIBUTORS ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
