@@ -471,12 +471,12 @@ class InstallerData(object):
                 if Config.use_other_tls_id:
                     return True
                 out_str = out.decode('utf-8')
-                subject = re.findall(r'subject=/?(.*)$',
-                                     out_str, re.MULTILINE)[0].split('/')
+                subject = re.split('\s*[/,]\s*', re.findall(r'subject=/?(.*)$',
+                                     out_str, re.MULTILINE)[0])
                 cert_prop = {}
                 for field in subject:
                     if field:
-                        vp = field.split('=')
+                        vp = re.split('\s*=\s*', field)
                         cert_prop[vp[0].lower()] = vp[1]
                 if cert_prop['cn'] and re.search(r'@', cert_prop['cn']):
                     debug('Using cn: ' + cert_prop['cn'])
