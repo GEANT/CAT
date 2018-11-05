@@ -40,8 +40,8 @@ const OUR_KEY_HASH = "BC8DDD42F7B3B458E8ECEE403D21D404CEB9F2D0";
  * The following constant tells us the number of slashes before the base64 of
  * the actual request starts
  * 
- * [http://hostname]/whatever/index.php -> two slashes
- * [http://hostname]/something/else/entirely/ocsp -> four slashes
+ * [http://hostname]/whatever/index.php/OCSP_REQ_DATA -> three slashes
+ * [http://hostname]/something/else/entirely/ocsp/REQ_DATA -> five slashes
  */
 const SLASHES_IN_URL_INCL_LEADING = 2;
 
