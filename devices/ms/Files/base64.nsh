@@ -2,7 +2,12 @@
 ; http://nsis.sourceforge.net/Base64 and
 ; http://nsis.sourceforge.net/CharToASCII
 ; under the http://nsis.sourceforge.net/License
-
+;
+; The authors of CAT did not write the original software.
+;
+; merging the two files above created an altered source; this is not the 
+; original software
+;
 !define CharToASCII "!insertmacro CharToASCII" 
  
 !macro CharToASCII AsciiCode Character
