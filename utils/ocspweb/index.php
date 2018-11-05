@@ -19,8 +19,6 @@
  * and POST are to be supported), decode them, verify that they are pertinent to
  * the CA (compare issuer hash), extract the serial number, and return the OCSP
  * statement for that serial number by fetching it from statements/
- * this script works only if it is exactly one subdir down from hostname base
- * i.e. http://hostname/whatever/index.php
  */
 /**
  * The following constants define for which issuer and key hash we respond. You
@@ -35,6 +33,18 @@ error_reporting(E_ALL);
 const OUR_NAME_HASH = "DCEB2C72264239201A4A5DF547C78268A1CB33A2";
 const OUR_KEY_HASH = "BC8DDD42F7B3B458E8ECEE403D21D404CEB9F2D0";
 
+/**
+ * We also need to do some string magic for GET requests and need to know how
+ * far down in the URL the OCSP statement starts.
+ * 
+ * The following constant tells us the number of slashes before the base64 of
+ * the actual request starts
+ * 
+ * [http://hostname]/whatever/index.php -> two slashes
+ * [http://hostname]/something/else/entirely/ocsp -> four slashes
+ */
+const SLASHES_IN_URL_INCL_LEADING = 2;
+
 function instantDeath($message) {
     error_log($message);
     throw new Exception($message);
@@ -46,7 +56,17 @@ switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
         // the GET URL *is* the request.
         // don't just cut off at last slash; base64 data may have embedded slashes
-        $rawStream = substr(filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_STRING), strpos($_SERVER['PHP_SELF'], '/', 1) + 1);
+        
+        // so remove the leading slash first:
+        $rawStream = filter_input(INPUT_SERVER,$_SERVER['PHP_SELF'],FILTER_SANITIZE_STRING);
+        // and now find and cut at every slash until SLASHES_IN_URL is reached
+        for ($iterator = 0; $iterator < SLASHES_IN_URL_INCL_LEADING; $iterator++) {
+            $nextSlash = strpos($rawStream, '/');
+            if ($nextSlash === FALSE) {
+                instantDeath("We were supposed to find and strip a slash in the base URL, but it doesn't exist!");
+            }
+            $rawStream = substr($rawStream, $nextSlash + 1);
+        }
         $ocspRequestDer = base64_decode(urldecode($rawStream), TRUE);
         if ($ocspRequestDer === FALSE) {
             instantDeath("The input data was not cleanly base64-encoded data!");
