@@ -121,7 +121,7 @@ if (strlen($serialHex) == 0 || strlen($keyHash) == 0 || strlen($serialHex) == 0)
  * get the canned response for the requested serial from filesystem and send it
  * back (if we have it).
  */
-if ($nameHash != OUR_NAME_HASH || $keyHash != OUR_KEY_HASH) {
+if (strcasecmp($nameHash, OUR_NAME_HASH) != 0 || strcasecmp($keyHash, OUR_KEY_HASH) != 0) {
     instantDeath("The request is about a different Issuer name / public key. Expected vs. actual name hash: " . OUR_NAME_HASH . " / $nameHash, " . OUR_KEY_HASH . " / $keyHash");
 }
 error_log("base64-encoded request: " . base64_encode($ocspRequestDer));
