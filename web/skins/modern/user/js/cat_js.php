@@ -13,8 +13,6 @@ function escaped_echo($s) {
     echo preg_replace('/"/', '&quot;', $s);
 }
 
-$langObject = new \core\common\Language();
-$langObject->setTextDomain('web_user');
 $cat = new core\CAT();
 $idpId = filter_input(INPUT_GET, 'idp', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'idp', FILTER_VALIDATE_INT)?? 0;
 $profileId = filter_input(INPUT_GET, 'profile', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'profile', FILTER_VALIDATE_INT) ?? 0;
@@ -559,7 +557,7 @@ catWelcome = $("#main_menu_content").html();
 if (noDisco === 0) {
 $(".signin").DiscoJuice({
    "discoPath":"external/discojuice/",
-   "iconPath":"<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendLogo&api_version=2&disco=1&lang=en&idp=",
+   "iconPath":"<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendLogo&api_version=2&disco=1&lang=" + lang + "&idp=",
    "overlay":true,"cookie":true,"type":false,
    "country":true,"location":true,
    "title":"<?php escaped_echo(_("Organisation")) ?>",
