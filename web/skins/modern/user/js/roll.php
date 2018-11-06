@@ -21,11 +21,6 @@
  * This file should be loaded AFTER cat_js.php
 */
 ?>
-<?php 
-
-$langObject = new \core\common\Language();
-$langObject->setTextDomain('web_user'); ?>
-
 
 var img_vis = 0;
 var roller = 1;
