@@ -24,6 +24,9 @@ namespace devices;
  * @package ModuleWriting
  */
 class Devices{
+    
+    const SUPPORT_RSA = 'RSA';
+    const SUPPORT_ECDSA = 'ECDSA';
 
 /**
  * This array lists available configuration options for local device management.
@@ -68,6 +71,7 @@ public static $Options=[
   'no_cache'=>0,
   'hidden'=>0,
   'redirect'=>0,
+  'clientcert'=> Devices::SUPPORT_RSA,
 ];
 
 /**
@@ -185,6 +189,7 @@ public static function listDevices() {
        'sign'=>1,
        'device_id'=>'OS_X',
        'mime'=>'application/x-apple-aspen-config',
+       'clientcert'=> Devices::SUPPORT_ECDSA,
       ),
     ),
 	

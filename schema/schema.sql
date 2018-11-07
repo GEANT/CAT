@@ -235,6 +235,7 @@ CREATE TABLE `silverbullet_certificate` (
   `profile_id` INT(11) NOT NULL COMMENT '',
   `silverbullet_user_id` INT(11) NOT NULL COMMENT '',
   `silverbullet_invitation_id` INT(11) NOT NULL COMMENT '', /* new field */
+  `ca_type` enum('RSA','ECDSA') NOT NULL DEFAULT 'RSA',
   `serial_number` BLOB NULL COMMENT '',
   `cn` VARCHAR(128) NULL COMMENT '',
   `issued` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '', /* new field */

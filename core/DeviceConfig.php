@@ -152,7 +152,7 @@ abstract class DeviceConfig extends \core\common\Entity {
 
         $this->loggerInstance->debug(5, "DeviceConfig->setup() - preliminaries done.\n");
         if ($profile instanceof ProfileSilverbullet && $token !== NULL && $importPassword !== NULL) {
-            $this->clientCert = SilverbulletCertificate::issueCertificate($token, $importPassword);
+            $this->clientCert = SilverbulletCertificate::issueCertificate($token, $importPassword, $this->options['clientcert']);
             // we need to drag this along; ChromeOS needs it outside the P12 container to encrypt the entire *config* with it.
             // Because encrypted private keys are not supported as per spec!
             $purpose = 'silverbullet';
