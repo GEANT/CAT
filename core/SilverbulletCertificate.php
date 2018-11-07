@@ -209,7 +209,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         $realExpiryDate = date_create_from_format("U", $parsedCert['full_details']['validTo_time_t'])->format("Y-m-d H:i:s");
 
         // store new cert info in DB
-        $databaseHandle->exec("INSERT INTO `silverbullet_certificate` (`profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`, `ca_type`) VALUES (?, ?, ?, ?, ?, ?, ?)", "iiisss", $invitationObject->profile, $invitationObject->userId, $invitationObject->identifier, $serial, $csr["USERNAME"], $realExpiryDate, $certtype);
+        $databaseHandle->exec("INSERT INTO `silverbullet_certificate` (`profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`, `ca_type`) VALUES (?, ?, ?, ?, ?, ?, ?)", "iiissss", $invitationObject->profile, $invitationObject->userId, $invitationObject->identifier, $serial, $csr["USERNAME"], $realExpiryDate, $certtype);
         // newborn cert immediately gets its "valid" OCSP response
         $certObject = new SilverbulletCertificate($serial, $certtype);
         $certObject->triggerNewOCSPStatement();
