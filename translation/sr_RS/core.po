@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-18 14:16+0200\n"
+"POT-Creation-Date: 2018-11-07 14:23+0100\n"
 "PO-Revision-Date: 2018-09-24 08:46+0000\n"
 "Last-Translator: Marko Eremija <marko.eremija@amres.ac.rs>\n"
 "Language-Team: Serbian (http://www.transifex.com/eduroam_devel/cat/language/"
@@ -314,17 +314,17 @@ msgstr "Južna Afrika"
 msgid "Unnamed Entity"
 msgstr "Neimenovan entitet"
 
-#: core/DeviceConfig.php:200
+#: core/DeviceConfig.php:202
 #, php-format
 msgid "your local %s support"
 msgstr "vaša lokalna %s podrška"
 
-#: core/DeviceConfig.php:201
+#: core/DeviceConfig.php:203
 #, php-format
 msgid "your local %s support page"
 msgstr "vaša lokalna %s stranica za podršku"
 
-#: core/DeviceConfig.php:235
+#: core/DeviceConfig.php:237
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 "Izvinite, ovo ne bi trebalo da se desi - dodatne informacije nisu dostupne"
@@ -356,16 +356,16 @@ msgstr ""
 msgid "IdP in your federation was deleted"
 msgstr "Davalac identiteta u vašoj federaciji je obrisan"
 
-#: core/SilverbulletInvitation.php:200
+#: core/SilverbulletInvitation.php:208
 #, php-format
 msgid "Your %s access is ready"
 msgstr "Vaš %s pristup je spreman"
 
-#: core/SilverbulletInvitation.php:208
+#: core/SilverbulletInvitation.php:216
 msgid "Hello!"
 msgstr "Zdravo!"
 
-#: core/SilverbulletInvitation.php:210
+#: core/SilverbulletInvitation.php:218
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
@@ -373,7 +373,7 @@ msgid ""
 msgstr ""
 "Vaš mrežni administrator je kreirao nove %s pristupne kredencijale za vas."
 
-#: core/SilverbulletInvitation.php:212
+#: core/SilverbulletInvitation.php:220
 #, php-format
 msgid ""
 "Please follow the following link with the device you want to enable for %s "
@@ -385,7 +385,7 @@ msgstr ""
 "i uneti u brauzer ili skenirati QR kod. "
 
 #. gets replaced with the token value by getBody()
-#: core/SilverbulletInvitation.php:214
+#: core/SilverbulletInvitation.php:222
 #, php-format
 msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
@@ -396,11 +396,11 @@ msgstr ""
 "Nakon što preuzmete %s instalacioni program, možete koristiti isti link da "
 "dobijete informacije o vašem %s nalogu."
 
-#: core/SilverbulletInvitation.php:216
+#: core/SilverbulletInvitation.php:224
 msgid "Regards,"
 msgstr "Pozdrav,"
 
-#: core/SilverbulletInvitation.php:260
+#: core/SilverbulletInvitation.php:270
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
@@ -409,7 +409,7 @@ msgstr ""
 "Vaš %s pristup je spreman! Kliknite ovde: %s (na Androidu, prvo instalirajte "
 "aplikaciju '%s'!)"
 
-#: core/SilverbulletInvitation.php:267
+#: core/SilverbulletInvitation.php:283
 #, php-format
 msgid "%s Invitation System"
 msgstr "%s sistem pozivanja"
@@ -480,57 +480,57 @@ msgstr "FAST-GTC"
 msgid "EAP-pwd"
 msgstr "EAP-pwd"
 
-#: core/common/OutsideComm.php:240
+#: core/common/OutsideComm.php:246
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
 msgstr "%s %s %s \"%s\" vas je pozvao da upravljate %s zajedno sa njim."
 
-#: core/common/OutsideComm.php:241
+#: core/common/OutsideComm.php:247
 #, php-format
 msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
 msgstr "%s %s vas je pozvao da upravljate budućim  %s  \"%s\" (%s)."
 
-#: core/common/OutsideComm.php:242
+#: core/common/OutsideComm.php:248
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\"."
 msgstr "%s %s vas je pozvao da upravljate %s  \"%s\"."
 
-#: core/common/OutsideComm.php:244
+#: core/common/OutsideComm.php:250
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr "Ova pozivnica je validna 24 časa od ovog trenutnka, tj. do %s."
 
 #. then, send out the mail
-#: core/common/OutsideComm.php:252
+#: core/common/OutsideComm.php:258
 msgid "Hello,"
 msgstr "Zdravo, "
 
 #. default means we don't have a Reply-To.
-#: core/common/OutsideComm.php:254
+#: core/common/OutsideComm.php:260
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
 "ručno. Nemojte odgovarati na ovaj mejl; ovo je adresa koja se koristi samo "
 "za slanje."
 
-#: core/common/OutsideComm.php:260
+#: core/common/OutsideComm.php:266
 #, php-format
 msgid "Additional message from your %s administrator:"
 msgstr "Dodatna poruka od administratora %s:"
 
-#: core/common/OutsideComm.php:268
+#: core/common/OutsideComm.php:274
 #, php-format
 msgid "%s administrator"
 msgstr "%s administrator"
 
-#: core/common/OutsideComm.php:271
+#: core/common/OutsideComm.php:277
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
 msgstr "ručno. Ako odgovorite na ovaj mejl, doći ćete do administratora %s."
 
-#: core/common/OutsideComm.php:276
+#: core/common/OutsideComm.php:282
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
@@ -538,7 +538,7 @@ msgid ""
 msgstr ""
 "Da biste se prijavili kao administrator za %s, kliknite ne sledeći link:"
 
-#: core/common/OutsideComm.php:278
+#: core/common/OutsideComm.php:284
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
@@ -547,11 +547,11 @@ msgstr ""
 "Ukoliko ne možete da kliknete na link, onda pokušajte da odete na %s "
 "interfejs za administraciju na"
 
-#: core/common/OutsideComm.php:280
+#: core/common/OutsideComm.php:286
 msgid "and enter the invitation token"
 msgstr "i ručno unesite token iz pozivnice"
 
-#: core/common/OutsideComm.php:282
+#: core/common/OutsideComm.php:288
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
@@ -559,12 +559,12 @@ msgstr ""
 "NEMOJTE prosleđivati ovaj mejl pre nego što token istekne - u suprotnom, oni "
 "koji dobiju mejl će moći da iskoriste token u vaše ime!"
 
-#: core/common/OutsideComm.php:283
+#: core/common/OutsideComm.php:289
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr "Želimo vam ugodno korišćenje %s."
 
-#: core/common/OutsideComm.php:284
+#: core/common/OutsideComm.php:290
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -576,7 +576,7 @@ msgstr ""
 "Vaši prijatelji iz %s Operacija"
 
 #. what do we want to say?
-#: core/common/OutsideComm.php:319
+#: core/common/OutsideComm.php:325
 #, php-format
 msgid "%s: you have been invited to manage an %s"
 msgstr "%s: pozvani ste da upravljate %s"

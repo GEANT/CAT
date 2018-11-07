@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-18 14:16+0200\n"
+"POT-Creation-Date: 2018-11-07 14:23+0100\n"
 "PO-Revision-Date: 2018-09-12 06:44+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/eduroam_devel/cat/"
@@ -807,11 +807,11 @@ msgstr ""
 msgid "Continue to Installer Fine-Tuning and Download"
 msgstr "Seguiu a Ajustos de l'Instal.lador i Descàrrega"
 
-#: web/admin/edit_silverbullet.php:205
+#: web/admin/edit_silverbullet.php:214
 msgid "Insecure mail domain!"
 msgstr "Domini de correu no segur!"
 
-#: web/admin/edit_silverbullet.php:206
+#: web/admin/edit_silverbullet.php:215
 #, php-format
 msgid ""
 "The mail domain of the mail address <strong>%s</strong> is not secure: some "
@@ -822,7 +822,7 @@ msgstr ""
 "tots els servidors de correu no accepten connexions encriptades (suport no "
 "consistent per a STARTTLS)."
 
-#: web/admin/edit_silverbullet.php:207
+#: web/admin/edit_silverbullet.php:216
 msgid ""
 "The invitation would need to be sent in cleartext across the internet, and "
 "can possibly be read and abused by anyone in transit."
@@ -830,179 +830,179 @@ msgstr ""
 "La invitació s'ha d'enviar en text clar per internet, i podria ser llegida i "
 "aprofitada per qualsevol mentre hi circula."
 
-#: web/admin/edit_silverbullet.php:208
+#: web/admin/edit_silverbullet.php:217
 msgid "Do you want the system to send this mail anyway?"
 msgstr "Voleu de totes maneres que el sistema envii aquest correu?"
 
-#: web/admin/edit_silverbullet.php:210
+#: web/admin/edit_silverbullet.php:219
 msgid "DO NOT SEND"
 msgstr "NO ENVIIS"
 
-#: web/admin/edit_silverbullet.php:217
+#: web/admin/edit_silverbullet.php:226
 msgid "Send anyway."
 msgstr "Envia-ho igualment."
 
-#: web/admin/edit_silverbullet.php:267
+#: web/admin/edit_silverbullet.php:276
 #, php-format
 msgid "Managing %s users"
 msgstr "Gestionant %s usuaris"
 
-#: web/admin/edit_silverbullet.php:303
+#: web/admin/edit_silverbullet.php:312
 #, php-format
 msgid "Current %s users"
 msgstr "Actualment hi ha %s usuaris"
 
-#: web/admin/edit_silverbullet.php:306
+#: web/admin/edit_silverbullet.php:315
 msgid "Assigned Realm"
 msgstr "Domini assignat"
 
-#: web/admin/edit_silverbullet.php:309
+#: web/admin/edit_silverbullet.php:318
 msgid "Total number of active users allowed"
 msgstr "Nombre total d'usuaris actius permesos"
 
-#: web/admin/edit_silverbullet.php:312
+#: web/admin/edit_silverbullet.php:321
 msgid "Number of active users"
 msgstr "Nombre d'usuaris actius"
 
-#: web/admin/edit_silverbullet.php:315
+#: web/admin/edit_silverbullet.php:324
 msgid "Number of inactive users"
 msgstr "Nombre d'usuaris inactius"
 
-#: web/admin/edit_silverbullet.php:325
+#: web/admin/edit_silverbullet.php:334
 msgid "The e-mail was sent successfully."
 msgstr "El correu s'ha enviat amb èxit."
 
-#: web/admin/edit_silverbullet.php:325
+#: web/admin/edit_silverbullet.php:334
 msgid "E-mail OK."
 msgstr "Correu OK."
 
-#: web/admin/edit_silverbullet.php:328
+#: web/admin/edit_silverbullet.php:337
 msgid "The e-mail was NOT sent."
 msgstr "NO s'ha enviat el correu."
 
-#: web/admin/edit_silverbullet.php:328
+#: web/admin/edit_silverbullet.php:337
 msgid "E-mail not OK."
 msgstr "Correu NO OK."
 
-#: web/admin/edit_silverbullet.php:331
+#: web/admin/edit_silverbullet.php:340
 msgid "The SMS was sent successfully."
 msgstr "L'SMS s'ha enviat correctament."
 
-#: web/admin/edit_silverbullet.php:331
+#: web/admin/edit_silverbullet.php:340
 msgid "SMS OK."
 msgstr "SMS OK."
 
-#: web/admin/edit_silverbullet.php:334
+#: web/admin/edit_silverbullet.php:343
 msgid "The SMS was NOT sent."
 msgstr "L'SMS NO s'ha enviat."
 
-#: web/admin/edit_silverbullet.php:334
+#: web/admin/edit_silverbullet.php:343
 msgid "SMS not OK."
 msgstr "SMS NO OK."
 
-#: web/admin/edit_silverbullet.php:337
+#: web/admin/edit_silverbullet.php:346
 msgid "Only a fragment of the SMS was sent. You should re-send it."
 msgstr "Només s'ha enviat una part de l'SMS. Cal que el reenvieu."
 
-#: web/admin/edit_silverbullet.php:337
+#: web/admin/edit_silverbullet.php:346
 msgid "SMS Fragment."
 msgstr "Fragment SMS."
 
-#: web/admin/edit_silverbullet.php:345
+#: web/admin/edit_silverbullet.php:354
 #, php-format
 msgid "Manage %s users"
 msgstr "Gestiona %s usuaris"
 
-#: web/admin/edit_silverbullet.php:350 web/admin/overview_federation.php:117
+#: web/admin/edit_silverbullet.php:359 web/admin/overview_federation.php:117
 msgid "User"
 msgstr "Usuari/a"
 
-#: web/admin/edit_silverbullet.php:351
+#: web/admin/edit_silverbullet.php:360
 msgid "Token/Certificate details"
 msgstr "Detalls del codi/certificat"
 
-#: web/admin/edit_silverbullet.php:352
+#: web/admin/edit_silverbullet.php:361
 msgid "User/Token Expiry"
 msgstr "Usuari/codi expirat"
 
-#: web/admin/edit_silverbullet.php:353
+#: web/admin/edit_silverbullet.php:362
 msgid "Actions"
 msgstr "Accions"
 
-#: web/admin/edit_silverbullet.php:382
+#: web/admin/edit_silverbullet.php:391
 msgid "REVOKED"
 msgstr "REVOCAT"
 
-#: web/admin/edit_silverbullet.php:387
+#: web/admin/edit_silverbullet.php:396
 msgid "EXPIRED"
 msgstr "EXPIRAT"
 
-#: web/admin/edit_silverbullet.php:398
+#: web/admin/edit_silverbullet.php:407
 msgid "Device:"
 msgstr "Dispositiu:"
 
-#: web/admin/edit_silverbullet.php:399
+#: web/admin/edit_silverbullet.php:408
 msgid "Serial Number:"
 msgstr "Número de sèrie:"
 
-#: web/admin/edit_silverbullet.php:400
+#: web/admin/edit_silverbullet.php:409
 msgid "CN:"
 msgstr "CN:"
 
-#: web/admin/edit_silverbullet.php:401
+#: web/admin/edit_silverbullet.php:410
 msgid "Expiry:"
 msgstr "Expira:"
 
-#: web/admin/edit_silverbullet.php:402
+#: web/admin/edit_silverbullet.php:411
 msgid "Issued:"
 msgstr "Emès:"
 
-#: web/admin/edit_silverbullet.php:409
+#: web/admin/edit_silverbullet.php:418 web/admin/edit_silverbullet.php:475
 msgid "Revoke"
 msgstr "Revoca"
 
-#: web/admin/edit_silverbullet.php:440
+#: web/admin/edit_silverbullet.php:449
 msgid "Local mail client"
 msgstr "Client de correu local"
 
-#: web/admin/edit_silverbullet.php:448
+#: web/admin/edit_silverbullet.php:457
 msgid "Send in SMS..."
 msgstr "Envia per SMS..."
 
-#: web/admin/edit_silverbullet.php:452
+#: web/admin/edit_silverbullet.php:461
 msgid "Copy to Clipboard"
 msgstr "Copia al portaretalls"
 
-#: web/admin/edit_silverbullet.php:455
+#: web/admin/edit_silverbullet.php:464
 msgid "Display QR code"
 msgstr "Mostra el codi QR"
 
-#: web/admin/edit_silverbullet.php:462
+#: web/admin/edit_silverbullet.php:471
 msgid "Expiry Date:"
 msgstr "Data d'expiració:"
 
-#: web/admin/edit_silverbullet.php:462
+#: web/admin/edit_silverbullet.php:471
 msgid "Activations remaining:"
 msgstr "Activacions pendents:"
 
-#: web/admin/edit_silverbullet.php:462
+#: web/admin/edit_silverbullet.php:471
 #, php-format
 msgid "%d of %d"
 msgstr "%d de %d"
 
-#: web/admin/edit_silverbullet.php:498
+#: web/admin/edit_silverbullet.php:507
 msgid "Deactivate User"
 msgstr "Desactiva l'usuari"
 
-#: web/admin/edit_silverbullet.php:506
+#: web/admin/edit_silverbullet.php:515
 msgid "New Invitation"
 msgstr "Nova invitació"
 
-#: web/admin/edit_silverbullet.php:509
+#: web/admin/edit_silverbullet.php:518
 msgid "Activations:"
 msgstr "Activacions:"
 
-#: web/admin/edit_silverbullet.php:530
+#: web/admin/edit_silverbullet.php:539
 #, php-format
 msgid ""
 "You need to acknowledge that the created accounts are still valid within the "
@@ -1016,20 +1016,20 @@ msgstr ""
 "plau la caixa de sota i premeu \"Desa\". Si cap d'aquests està caducat o "
 "desactualitzat, desactiveu-lo primer prement el botó corresponent."
 
-#: web/admin/edit_silverbullet.php:538
+#: web/admin/edit_silverbullet.php:547
 #, php-format
 msgid "I have verified that all configured users are still eligible for %s."
 msgstr "He comprovat que tots els usuaris configurats encara són aptes per %s."
 
-#: web/admin/edit_silverbullet.php:550 web/admin/edit_silverbullet.php:568
+#: web/admin/edit_silverbullet.php:559 web/admin/edit_silverbullet.php:577
 msgid "Add new user"
 msgstr "Afegir nou usuari"
 
-#: web/admin/edit_silverbullet.php:553
+#: web/admin/edit_silverbullet.php:562
 msgid "Import users from CSV file"
 msgstr "Importar usuaris des d'un arxiu  CSV"
 
-#: web/admin/edit_silverbullet.php:560
+#: web/admin/edit_silverbullet.php:569
 msgid ""
 "Please enter a username of your choice and user expiry date to create a new "
 "user:"
@@ -1037,7 +1037,7 @@ msgstr ""
 "Entreu si us plau un identificador de la vostra elecció i una data de "
 "caducitat per a crear un nou usuari:"
 
-#: web/admin/edit_silverbullet.php:577
+#: web/admin/edit_silverbullet.php:586
 msgid ""
 "Comma separated values should be provided in CSV file: username, expiration "
 "date 'yyyy-mm-dd', number of tokens (optional):"
@@ -1045,21 +1045,21 @@ msgstr ""
 "Els valors següents han d'estar en el fitxer CSV, separats per comes: "
 "identificador, data de caducitat 'yyyy-mm-dd', nombre de codis (opcional)."
 
-#: web/admin/edit_silverbullet.php:581
+#: web/admin/edit_silverbullet.php:590
 msgid "Import users"
 msgstr "Importar usuaris"
 
 #. Appending terms of use popup
-#: web/admin/edit_silverbullet.php:598
+#: web/admin/edit_silverbullet.php:607
 #, php-format
 msgid "%s - Terms of Use"
 msgstr "%s - Condicions d'ús"
 
-#: web/admin/edit_silverbullet.php:605
+#: web/admin/edit_silverbullet.php:614
 msgid "I have read and agree to the terms."
 msgstr "He llegit i accepto les condicions."
 
-#: web/admin/edit_silverbullet.php:607
+#: web/admin/edit_silverbullet.php:616
 msgid "Continue"
 msgstr "Continuar"
 

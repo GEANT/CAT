@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-18 14:16+0200\n"
+"POT-Creation-Date: 2018-11-07 14:23+0100\n"
 "PO-Revision-Date: 2018-06-12 08:27+0000\n"
 "Last-Translator: Janos Mohacsi <mohacsi@niif.hu>\n"
 "Language-Team: Hungarian (http://www.transifex.com/eduroam_devel/cat/"
@@ -311,17 +311,17 @@ msgstr "Dél Afrika"
 msgid "Unnamed Entity"
 msgstr "Azonosítatlan entitás"
 
-#: core/DeviceConfig.php:200
+#: core/DeviceConfig.php:202
 #, php-format
 msgid "your local %s support"
 msgstr "helyi támogató: %s"
 
-#: core/DeviceConfig.php:201
+#: core/DeviceConfig.php:203
 #, php-format
 msgid "your local %s support page"
 msgstr "helyi támogató honlap: %s"
 
-#: core/DeviceConfig.php:235
+#: core/DeviceConfig.php:237
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 "Ennek nem lett volna szabad bekövetkeznie - nincsen további információ "
@@ -353,16 +353,16 @@ msgstr ""
 msgid "IdP in your federation was deleted"
 msgstr "IdP-t a szövetségből töröltük"
 
-#: core/SilverbulletInvitation.php:200
+#: core/SilverbulletInvitation.php:208
 #, php-format
 msgid "Your %s access is ready"
 msgstr "Hozzáférése %s készen áll"
 
-#: core/SilverbulletInvitation.php:208
+#: core/SilverbulletInvitation.php:216
 msgid "Hello!"
 msgstr "Szia!"
 
-#: core/SilverbulletInvitation.php:210
+#: core/SilverbulletInvitation.php:218
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
@@ -371,7 +371,7 @@ msgstr ""
 "A hálózati rendszergazda új hozzáférési jogosultságot %shozott létre az Ön "
 "számára."
 
-#: core/SilverbulletInvitation.php:212
+#: core/SilverbulletInvitation.php:220
 #, php-format
 msgid ""
 "Please follow the following link with the device you want to enable for %s "
@@ -383,7 +383,7 @@ msgstr ""
 "és beillesztheti egy böngészőbe, vagy beolvashatja a mellékelt QR-kódot."
 
 #. gets replaced with the token value by getBody()
-#: core/SilverbulletInvitation.php:214
+#: core/SilverbulletInvitation.php:222
 #, php-format
 msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
@@ -394,11 +394,11 @@ msgstr ""
 "telepítőprogramot %s , ugyanazt a linket használhatja a fiókhoz %s tartozó "
 "információkhoz."
 
-#: core/SilverbulletInvitation.php:216
+#: core/SilverbulletInvitation.php:224
 msgid "Regards,"
 msgstr "Üdvözlettel,"
 
-#: core/SilverbulletInvitation.php:260
+#: core/SilverbulletInvitation.php:270
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
@@ -407,7 +407,7 @@ msgstr ""
 "Hozzáférésed készen áll %s ! Kattintson ide:  %s (Android-on, először "
 "telepítse az %salkalmazást!)"
 
-#: core/SilverbulletInvitation.php:267
+#: core/SilverbulletInvitation.php:283
 #, php-format
 msgid "%s Invitation System"
 msgstr "Meghívó rendszer%s"
@@ -478,64 +478,64 @@ msgstr "FAST-GTC"
 msgid "EAP-pwd"
 msgstr "EAP-pwd"
 
-#: core/common/OutsideComm.php:240
+#: core/common/OutsideComm.php:246
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
 msgstr " %s %s   %s %s meghívott hogy kezelje a  %svele együtt."
 
-#: core/common/OutsideComm.php:241
+#: core/common/OutsideComm.php:247
 #, php-format
 msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
 msgstr "  %s   %s meghívott , hogy jövőben irányítsd  %s \"  %s \" (  %s)"
 
-#: core/common/OutsideComm.php:242
+#: core/common/OutsideComm.php:248
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\"."
 msgstr "a %s %s meghívott, hogy menedzseld %s  \"%s\"."
 
-#: core/common/OutsideComm.php:244
+#: core/common/OutsideComm.php:250
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr "Ez a meghívás 24 óráig érvényes, azaz egészen 1 %s"
 
 #. then, send out the mail
-#: core/common/OutsideComm.php:252
+#: core/common/OutsideComm.php:258
 msgid "Hello,"
 msgstr "Üdvözlünk!"
 
 #. default means we don't have a Reply-To.
-#: core/common/OutsideComm.php:254
+#: core/common/OutsideComm.php:260
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
 "manuálisan. Kérjük, ne válaszoljon erre a levélre; ez csak egy küldési cím."
 
-#: core/common/OutsideComm.php:260
+#: core/common/OutsideComm.php:266
 #, php-format
 msgid "Additional message from your %s administrator:"
 msgstr "További üzenet  %s rendszergazdától:"
 
-#: core/common/OutsideComm.php:268
+#: core/common/OutsideComm.php:274
 #, php-format
 msgid "%s administrator"
 msgstr " %s rendszergazda"
 
-#: core/common/OutsideComm.php:271
+#: core/common/OutsideComm.php:277
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
 msgstr ""
 "manuálisan. Ha erre a levélre válaszolsz, akkor eléred a %s rendszergazdáit."
 
-#: core/common/OutsideComm.php:276
+#: core/common/OutsideComm.php:282
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
 "link:"
 msgstr "A %s rendszergazda felvételéhez kérjük, kattintson az alábbi linkre:"
 
-#: core/common/OutsideComm.php:278
+#: core/common/OutsideComm.php:284
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
@@ -544,11 +544,11 @@ msgstr ""
 "Ha a linkre kattintás nem működik, akkor is megkeresheted a%s "
 "adminisztrátori felületet "
 
-#: core/common/OutsideComm.php:280
+#: core/common/OutsideComm.php:286
 msgid "and enter the invitation token"
 msgstr "és írd be a meghívó tokent"
 
-#: core/common/OutsideComm.php:282
+#: core/common/OutsideComm.php:288
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
@@ -556,12 +556,12 @@ msgstr ""
 "NE továbbítsa az e-mailt, amíg a token le nem járt - vagy a címzettek fel "
 "tudják használni a tokent az Ön nevében!"
 
-#: core/common/OutsideComm.php:283
+#: core/common/OutsideComm.php:289
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr "Sok sikert kívánunk neked a  %s-hoz."
 
-#: core/common/OutsideComm.php:284
+#: core/common/OutsideComm.php:290
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -570,7 +570,7 @@ msgid ""
 msgstr "Üdvözlettel,    %s üzemeltetés"
 
 #. what do we want to say?
-#: core/common/OutsideComm.php:319
+#: core/common/OutsideComm.php:325
 #, php-format
 msgid "%s: you have been invited to manage an %s"
 msgstr "%s Meghívást kaptál arra, hogy kezelhesd%s"

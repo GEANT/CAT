@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-18 14:16+0200\n"
+"POT-Creation-Date: 2018-11-07 14:23+0100\n"
 "PO-Revision-Date: 2012-08-07 13:24+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/cat/language/"
@@ -483,8 +483,8 @@ msgstr ""
 "När du klickar <b>Fortsätt</b> kommer denna supportsida att öppnas i ett "
 "nytt fönster/tab."
 
-#: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:270
-#: web/skins/modern/user/js/cat_js.php:278
+#: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:268
+#: web/skins/modern/user/js/cat_js.php:276
 msgid "Continue"
 msgstr "Fortsätt"
 
@@ -605,48 +605,48 @@ msgstr ""
 msgid "Terms of use"
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:57
+#: web/skins/modern/accountstatus/accountstatus.php:74
 msgid ""
 "You attempted to download an installer that was already downloaded before. "
 "Please request a new token from your administrator instead."
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:57
+#: web/skins/modern/accountstatus/accountstatus.php:74
 msgid "Attempt to re-use download link"
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:68
+#: web/skins/modern/accountstatus/accountstatus.php:85
 #, php-format
 msgid "You are a new user without a history of %s credentials."
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:74
+#: web/skins/modern/accountstatus/accountstatus.php:91
 #, php-format
 msgid "You have <strong>%d</strong> currently valid %s credential."
 msgid_plural "You have <strong>%d</strong> currently valid %s credentials."
 msgstr[0] ""
 msgstr[1] ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:78
+#: web/skins/modern/accountstatus/accountstatus.php:95
 #, php-format
 msgid "<strong>%d</strong> of your credentials is not valid any more."
 msgid_plural "<strong>%d</strong> of your credentials are not valid any more."
 msgstr[0] ""
 msgstr[1] ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:80
+#: web/skins/modern/accountstatus/accountstatus.php:97
 msgid "I want to see the details."
 msgstr ""
 
 #. only show this extra info in the non-trivial case.
-#: web/skins/modern/accountstatus/accountstatus.php:89
+#: web/skins/modern/accountstatus/accountstatus.php:106
 #, php-format
 msgid ""
 "Your invitation token is valid for %d more device activations (%d have "
 "already been used)."
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:92
+#: web/skins/modern/accountstatus/accountstatus.php:109
 msgid ""
 "Unfortunately, we are unable to determine your device's operating system. If "
 "you have made modifications on your device which prevent it from being "
@@ -655,7 +655,7 @@ msgid ""
 "not been used up yet."
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:99
+#: web/skins/modern/accountstatus/accountstatus.php:116
 #, php-format
 msgid ""
 "Unfortunately, the operating system your device uses (%s) is currently not "
@@ -664,13 +664,13 @@ msgid ""
 "yet."
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:103
+#: web/skins/modern/accountstatus/accountstatus.php:120
 #, php-format
 msgid "You can now download a personalised  %s installation program."
 msgstr ""
 
 #. echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
-#: web/skins/modern/accountstatus/accountstatus.php:105
+#: web/skins/modern/accountstatus/accountstatus.php:122
 #, php-format
 msgid ""
 "The installation program is <span class='emph'>strictly personal</span>, to "
@@ -678,7 +678,7 @@ msgid ""
 "class='emph'>not permitted to share</span> this information with anyone."
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:106
+#: web/skins/modern/accountstatus/accountstatus.php:123
 #, php-format
 msgid ""
 "When the system detects abuse such as sharing login data with others, all "
@@ -686,24 +686,24 @@ msgid ""
 "local %s administrator."
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:107
+#: web/skins/modern/accountstatus/accountstatus.php:124
 msgid ""
 "During the installation process, you will be asked for the following import "
 "PIN. This only happens once during the installation. You do not have to "
 "write down this PIN."
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:112
+#: web/skins/modern/accountstatus/accountstatus.php:129
 #, php-format
 msgid "Import PIN: %s"
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:117
+#: web/skins/modern/accountstatus/accountstatus.php:134
 #, fuzzy, php-format
 msgid "Click here to download your %s installer!"
 msgstr "Ladda ned installerare för"
 
-#: web/skins/modern/accountstatus/accountstatus.php:121
+#: web/skins/modern/accountstatus/accountstatus.php:138
 #, php-format
 msgid ""
 "Unfortunately, the invitation link you just used is too old. The %s sign-up "
@@ -711,18 +711,18 @@ msgid ""
 "your administrator to issue you a new invitation link."
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:128
+#: web/skins/modern/accountstatus/accountstatus.php:145
 msgid "Account information not found"
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:129
+#: web/skins/modern/accountstatus/accountstatus.php:146
 #, php-format
 msgid ""
 "The invitation link you followed does not map to any invititation we have on "
 "file."
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:129
+#: web/skins/modern/accountstatus/accountstatus.php:146
 #, php-format
 msgid ""
 "You should use the exact link you got during sign-up to come here. "
@@ -731,68 +731,72 @@ msgid ""
 "(select a certificate with a name ending in '…%s')."
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:161
-#: web/skins/modern/user/js/cat_js.php:237
+#: web/skins/modern/accountstatus/accountstatus.php:178
+#: web/skins/modern/user/js/cat_js.php:235
 #, fuzzy
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
 "organisation at:"
 msgstr "Om du får problem bör du sök direkthjälp via din egen institution på:"
 
-#: web/skins/modern/accountstatus/accountstatus.php:163
-#: web/skins/modern/user/js/cat_js.php:239
+#: web/skins/modern/accountstatus/accountstatus.php:180
+#: web/skins/modern/user/js/cat_js.php:237
 #, fuzzy
 msgid ""
 "If you encounter problems you should ask those who gave you your account for "
 "help."
 msgstr "Om du får problem bör du kontakta supporten på din hemmainstitution"
 
-#: web/skins/modern/accountstatus/accountstatus.php:174
+#: web/skins/modern/accountstatus/accountstatus.php:191
 #, php-format
 msgid "Your personal %s account status page"
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:202
+#: web/skins/modern/accountstatus/accountstatus.php:219
 msgid "Current login tokens"
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:203
+#: web/skins/modern/accountstatus/accountstatus.php:220
 msgid "Previous login tokens"
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:204
+#: web/skins/modern/accountstatus/accountstatus.php:221
 msgid "Revoked login tokens"
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:205
+#: web/skins/modern/accountstatus/accountstatus.php:222
 msgid "Serial Number"
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:205
+#: web/skins/modern/accountstatus/accountstatus.php:222
 msgid "Pseudonym"
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:205
+#: web/skins/modern/accountstatus/accountstatus.php:222
 msgid "Device Type"
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:205
+#: web/skins/modern/accountstatus/accountstatus.php:222
 msgid "Issue Date"
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:205
+#: web/skins/modern/accountstatus/accountstatus.php:222
 msgid "Expiry Date"
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:215
+#: web/skins/modern/accountstatus/accountstatus.php:232
 msgid "invalid token"
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:239
+#: web/skins/modern/accountstatus/accountstatus.php:244
+msgid "revoke"
+msgstr ""
+
+#: web/skins/modern/accountstatus/accountstatus.php:256
 msgid "The details are displayed below."
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:245
+#: web/skins/modern/accountstatus/accountstatus.php:262
 msgid "Really revoke this access credential?"
 msgstr ""
 
@@ -823,42 +827,42 @@ msgstr ""
 msgid "Get IdP Reminder"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:34
+#: web/skins/modern/user/js/cat_js.php:32
 msgid ""
 "This is embarrassing. Generation of your installer failed. System admins "
 "have been notified. We will try to take care of the problem as soon as "
 "possible."
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:81
-#: web/skins/modern/user/js/cat_js.php:218
+#: web/skins/modern/user/js/cat_js.php:79
+#: web/skins/modern/user/js/cat_js.php:216
 msgid "no matching data found"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:95
+#: web/skins/modern/user/js/cat_js.php:93
 msgid "select"
 msgstr "välj"
 
-#: web/skins/modern/user/js/cat_js.php:231
+#: web/skins/modern/user/js/cat_js.php:229
 msgid "WWW:"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:233
+#: web/skins/modern/user/js/cat_js.php:231
 msgid "email:"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:235
+#: web/skins/modern/user/js/cat_js.php:233
 msgid "tel:"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:257
-#: web/skins/modern/user/js/cat_js.php:283
+#: web/skins/modern/user/js/cat_js.php:255
+#: web/skins/modern/user/js/cat_js.php:281
 #, fuzzy
 msgid ""
 "This device cannot be configured with the settings used in your organisation."
 msgstr "Denna enhet kan inte konfigureras med din institutions"
 
-#: web/skins/modern/user/js/cat_js.php:270
+#: web/skins/modern/user/js/cat_js.php:268
 msgid ""
 "Your site administrator has specified that this device should be configured "
 "with resources located on a local page. When you click <b>Continue</b> this "
@@ -868,41 +872,41 @@ msgstr ""
 "resurser på lokala websidor. När du klickar <b>Fortsätt</b> kommer denna "
 "sida kommer att öppnas i ett nytt fönster/tab."
 
-#: web/skins/modern/user/js/cat_js.php:284
+#: web/skins/modern/user/js/cat_js.php:282
 msgid "Close"
 msgstr "Stäng"
 
-#: web/skins/modern/user/js/cat_js.php:381
+#: web/skins/modern/user/js/cat_js.php:379
 msgid "Missing email address"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:395
+#: web/skins/modern/user/js/cat_js.php:393
 msgid "No providers found for this email"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:400
+#: web/skins/modern/user/js/cat_js.php:398
 msgid "Your IdP is:"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:402
+#: web/skins/modern/user/js/cat_js.php:400
 msgid "Your IdP could be one of:"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:565
+#: web/skins/modern/user/js/cat_js.php:563
 msgid "Organisation"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:566
+#: web/skins/modern/user/js/cat_js.php:564
 #, fuzzy
 msgid "Select your organisation"
 msgstr "Välj din institution"
 
-#: web/skins/modern/user/js/cat_js.php:567
+#: web/skins/modern/user/js/cat_js.php:565
 #, fuzzy
 msgid "Help, my organisation is not on the list"
 msgstr "Attans också min institution finns inte listad"
 
-#: web/skins/modern/user/js/cat_js.php:568
+#: web/skins/modern/user/js/cat_js.php:566
 #, fuzzy, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -913,66 +917,66 @@ msgstr ""
 "institution ej finns på listan kan du påtala för dem att är dags att addera "
 "info till %s databasen."
 
-#: web/skins/modern/user/js/cat_js.php:569
+#: web/skins/modern/user/js/cat_js.php:567
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "Lokalisera mig mer noggrant med hjälp av HTML5 Geo-location"
 
-#: web/skins/modern/user/js/cat_js.php:570
+#: web/skins/modern/user/js/cat_js.php:568
 #, fuzzy
 msgid "Show organisations in"
 msgstr "Visa institutioner i"
 
-#: web/skins/modern/user/js/cat_js.php:571
+#: web/skins/modern/user/js/cat_js.php:569
 msgid "all countries"
 msgstr "alla länder"
 
-#: web/skins/modern/user/js/cat_js.php:572
+#: web/skins/modern/user/js/cat_js.php:570
 #, fuzzy
 msgid "or search for an organisation, for example University of Oslo"
 msgstr "eller leta efter en institution, t.ex. Umeå universitet"
 
-#: web/skins/modern/user/js/cat_js.php:573
+#: web/skins/modern/user/js/cat_js.php:571
 msgid "show all countries"
 msgstr "visa all länder"
 
-#: web/skins/modern/user/js/cat_js.php:574
+#: web/skins/modern/user/js/cat_js.php:572
 msgid "Results limited to"
 msgstr "Resultat begränsade till"
 
-#: web/skins/modern/user/js/cat_js.php:575
+#: web/skins/modern/user/js/cat_js.php:573
 msgid "entries - show more"
 msgstr "entries - visa flera"
 
-#: web/skins/modern/user/js/cat_js.php:576
+#: web/skins/modern/user/js/cat_js.php:574
 msgid "Nearby"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:577
+#: web/skins/modern/user/js/cat_js.php:575
 msgid "Location timeout"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:578
+#: web/skins/modern/user/js/cat_js.php:576
 #, fuzzy
 msgid "Could not get your position"
 msgstr "Välj din institution"
 
-#: web/skins/modern/user/js/cat_js.php:579
+#: web/skins/modern/user/js/cat_js.php:577
 msgid "Your browser has denied access to your location"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:580
+#: web/skins/modern/user/js/cat_js.php:578
 msgid "Unknown location error"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:581
+#: web/skins/modern/user/js/cat_js.php:579
 msgid "You are here:"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:582
+#: web/skins/modern/user/js/cat_js.php:580
 msgid "Getting your location..."
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:583
+#: web/skins/modern/user/js/cat_js.php:581
 msgid "Nearby providers shown on top."
 msgstr ""
 
@@ -982,44 +986,44 @@ msgstr ""
 #. signed.  Make sure that this is in sync with your settings
 #. in devices/devices.php
 #.
-#: web/skins/modern/user/js/roll.php:134
+#: web/skins/modern/user/js/roll.php:129
 msgid "MS Windows"
 msgstr ""
 
-#: web/skins/modern/user/js/roll.php:134
+#: web/skins/modern/user/js/roll.php:129
 msgid "10, 8, 7, Vista"
 msgstr ""
 
-#: web/skins/modern/user/js/roll.php:135
+#: web/skins/modern/user/js/roll.php:130
 msgid "Apple OS X"
 msgstr ""
 
-#: web/skins/modern/user/js/roll.php:136
+#: web/skins/modern/user/js/roll.php:131
 msgid "Android"
 msgstr ""
 
-#: web/skins/modern/user/js/roll.php:136
+#: web/skins/modern/user/js/roll.php:131
 msgid "4.3+"
 msgstr ""
 
-#: web/skins/modern/user/js/roll.php:137
+#: web/skins/modern/user/js/roll.php:132
 msgid "Apple iOS devices"
 msgstr ""
 
-#: web/skins/modern/user/js/roll.php:137
+#: web/skins/modern/user/js/roll.php:132
 msgid "iPhone, iPad, iPod touch"
 msgstr ""
 
-#: web/skins/modern/user/js/roll.php:138
+#: web/skins/modern/user/js/roll.php:133
 msgid "Linux"
 msgstr ""
 
-#: web/skins/modern/user/js/roll.php:138
+#: web/skins/modern/user/js/roll.php:133
 #, fuzzy
 msgid "all major distributions"
 msgstr "Välj din institution"
 
-#: web/skins/modern/user/js/roll.php:139
+#: web/skins/modern/user/js/roll.php:134
 msgid "Chrome OS"
 msgstr ""
 

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-18 14:16+0200\n"
+"POT-Creation-Date: 2018-11-07 14:23+0100\n"
 "PO-Revision-Date: 2018-06-14 09:23+0000\n"
 "Last-Translator: José Manuel Macías\n"
 "Language-Team: Spanish (http://www.transifex.com/eduroam_devel/cat/language/"
@@ -315,17 +315,17 @@ msgstr "Sudáfrica"
 msgid "Unnamed Entity"
 msgstr "Entidad sin nombre"
 
-#: core/DeviceConfig.php:200
+#: core/DeviceConfig.php:202
 #, php-format
 msgid "your local %s support"
 msgstr "tu soporte local %s"
 
-#: core/DeviceConfig.php:201
+#: core/DeviceConfig.php:203
 #, php-format
 msgid "your local %s support page"
 msgstr "la página de soporte local de %s"
 
-#: core/DeviceConfig.php:235
+#: core/DeviceConfig.php:237
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 "Lo siento, ésto no debería ocurrir. No hay información adicional disponible"
@@ -351,16 +351,16 @@ msgstr ""
 msgid "IdP in your federation was deleted"
 msgstr "El IdP de tu federación fue eliminado"
 
-#: core/SilverbulletInvitation.php:200
+#: core/SilverbulletInvitation.php:208
 #, php-format
 msgid "Your %s access is ready"
 msgstr "Tu acceso a %s está listo"
 
-#: core/SilverbulletInvitation.php:208
+#: core/SilverbulletInvitation.php:216
 msgid "Hello!"
 msgstr "¡Hola!"
 
-#: core/SilverbulletInvitation.php:210
+#: core/SilverbulletInvitation.php:218
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
@@ -369,7 +369,7 @@ msgstr ""
 "Tu administrador de red ha creado una nueva credencial de acceso a %s para "
 "tí. "
 
-#: core/SilverbulletInvitation.php:212
+#: core/SilverbulletInvitation.php:220
 #, php-format
 msgid ""
 "Please follow the following link with the device you want to enable for %s "
@@ -382,7 +382,7 @@ msgstr ""
 "un navegador o escanear el código QR adjunto."
 
 #. gets replaced with the token value by getBody()
-#: core/SilverbulletInvitation.php:214
+#: core/SilverbulletInvitation.php:222
 #, php-format
 msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
@@ -393,11 +393,11 @@ msgstr ""
 "el futuro. Después de descargar tu programa de instalación de %s puedes usar "
 "el mismo enlace para obtener información del estado de tu cuenta de %s."
 
-#: core/SilverbulletInvitation.php:216
+#: core/SilverbulletInvitation.php:224
 msgid "Regards,"
 msgstr "Saludos,"
 
-#: core/SilverbulletInvitation.php:260
+#: core/SilverbulletInvitation.php:270
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
@@ -406,7 +406,7 @@ msgstr ""
 "Tu acceso a %s está preparado. Haz clic aquí: %s (en Android instala la "
 "aplicación \"%s\" antes de esto)"
 
-#: core/SilverbulletInvitation.php:267
+#: core/SilverbulletInvitation.php:283
 #, php-format
 msgid "%s Invitation System"
 msgstr "Sistema de invitación de %s"
@@ -470,24 +470,24 @@ msgstr "FAST-GTC"
 msgid "EAP-pwd"
 msgstr "EAP-pwd"
 
-#: core/common/OutsideComm.php:240
+#: core/common/OutsideComm.php:246
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
 msgstr ""
 "un %s del %s de %s \"%s\" te ha invitado a administrar el %s junto a él."
 
-#: core/common/OutsideComm.php:241
+#: core/common/OutsideComm.php:247
 #, php-format
 msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
 msgstr "un %s de %s te ha invitado a administrar el futuro %s \"%s\" (%s)."
 
-#: core/common/OutsideComm.php:242
+#: core/common/OutsideComm.php:248
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\"."
 msgstr "un %s de %s te ha invitado a administrar el %s \"%s\"."
 
-#: core/common/OutsideComm.php:244
+#: core/common/OutsideComm.php:250
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr ""
@@ -495,29 +495,29 @@ msgstr ""
 "hasta %s."
 
 #. then, send out the mail
-#: core/common/OutsideComm.php:252
+#: core/common/OutsideComm.php:258
 msgid "Hello,"
 msgstr "Hola,"
 
 #. default means we don't have a Reply-To.
-#: core/common/OutsideComm.php:254
+#: core/common/OutsideComm.php:260
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
 "de forma manual. Por favor, no respondas a este mensaje. La dirección "
 "remitente no existe."
 
-#: core/common/OutsideComm.php:260
+#: core/common/OutsideComm.php:266
 #, php-format
 msgid "Additional message from your %s administrator:"
 msgstr "Mensaje adicional del administrador de tu %s:"
 
-#: core/common/OutsideComm.php:268
+#: core/common/OutsideComm.php:274
 #, php-format
 msgid "%s administrator"
 msgstr "Administrador de %s"
 
-#: core/common/OutsideComm.php:271
+#: core/common/OutsideComm.php:277
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
@@ -525,7 +525,7 @@ msgstr ""
 "de forma manual. Si respondes a este correo electrónico, el mensaje llegará "
 "a los administradores de tu %s."
 
-#: core/common/OutsideComm.php:276
+#: core/common/OutsideComm.php:282
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
@@ -534,7 +534,7 @@ msgstr ""
 "Para inscribirte como administrador para este %s sigue por favor el "
 "siguiente enlace:"
 
-#: core/common/OutsideComm.php:278
+#: core/common/OutsideComm.php:284
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
@@ -543,11 +543,11 @@ msgstr ""
 "Si no puede seguir el enlace o no le funciona, puede ir también a la "
 "interfaz de administrador de %s en"
 
-#: core/common/OutsideComm.php:280
+#: core/common/OutsideComm.php:286
 msgid "and enter the invitation token"
 msgstr "e introduce el token de invitación"
 
-#: core/common/OutsideComm.php:282
+#: core/common/OutsideComm.php:288
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
@@ -555,12 +555,12 @@ msgstr ""
 "¡NO REENVÍE EL CORREO antes de que el token haya expirado, o los "
 "destinatarios podrán utilizar el token en tu nombre!"
 
-#: core/common/OutsideComm.php:283
+#: core/common/OutsideComm.php:289
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr "Te deseamos un montón de diversión usando %s."
 
-#: core/common/OutsideComm.php:284
+#: core/common/OutsideComm.php:290
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -569,7 +569,7 @@ msgid ""
 msgstr "Saludos,⏎ ⏎ tus amigos del equipo de operaciones de %s"
 
 #. what do we want to say?
-#: core/common/OutsideComm.php:319
+#: core/common/OutsideComm.php:325
 #, php-format
 msgid "%s: you have been invited to manage an %s"
 msgstr "%s: te han invitado a administrar un %s"

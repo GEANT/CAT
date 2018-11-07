@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-18 14:16+0200\n"
+"POT-Creation-Date: 2018-11-07 14:23+0100\n"
 "PO-Revision-Date: 2015-04-07 08:37+0000\n"
 "Last-Translator: Miguel Gonzalez Miron <miguel.gonzalez@udc.es>\n"
 "Language-Team: Galician (Spain) (http://www.transifex.com/projects/p/cat/"
@@ -789,11 +789,11 @@ msgstr ""
 msgid "Continue to Installer Fine-Tuning and Download"
 msgstr "Continúe cos axustes finos do Instalador e Descarga"
 
-#: web/admin/edit_silverbullet.php:205
+#: web/admin/edit_silverbullet.php:214
 msgid "Insecure mail domain!"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:206
+#: web/admin/edit_silverbullet.php:215
 #, php-format
 msgid ""
 "The mail domain of the mail address <strong>%s</strong> is not secure: some "
@@ -801,195 +801,195 @@ msgid ""
 "consistent support for STARTTLS)."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:207
+#: web/admin/edit_silverbullet.php:216
 msgid ""
 "The invitation would need to be sent in cleartext across the internet, and "
 "can possibly be read and abused by anyone in transit."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:208
+#: web/admin/edit_silverbullet.php:217
 msgid "Do you want the system to send this mail anyway?"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:210
+#: web/admin/edit_silverbullet.php:219
 msgid "DO NOT SEND"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:217
+#: web/admin/edit_silverbullet.php:226
 msgid "Send anyway."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:267
+#: web/admin/edit_silverbullet.php:276
 #, php-format
 msgid "Managing %s users"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:303
+#: web/admin/edit_silverbullet.php:312
 #, fuzzy, php-format
 msgid "Current %s users"
 msgstr "Atributos de usuario actual"
 
-#: web/admin/edit_silverbullet.php:306
+#: web/admin/edit_silverbullet.php:315
 msgid "Assigned Realm"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:309
+#: web/admin/edit_silverbullet.php:318
 msgid "Total number of active users allowed"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:312
+#: web/admin/edit_silverbullet.php:321
 msgid "Number of active users"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:315
+#: web/admin/edit_silverbullet.php:324
 msgid "Number of inactive users"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:325
+#: web/admin/edit_silverbullet.php:334
 #, fuzzy
 msgid "The e-mail was sent successfully."
 msgstr "O correo de convite enviouse correctamente."
 
-#: web/admin/edit_silverbullet.php:325
+#: web/admin/edit_silverbullet.php:334
 msgid "E-mail OK."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:328
+#: web/admin/edit_silverbullet.php:337
 #, fuzzy
 msgid "The e-mail was NOT sent."
 msgstr "Enviouse o convite."
 
-#: web/admin/edit_silverbullet.php:328
+#: web/admin/edit_silverbullet.php:337
 msgid "E-mail not OK."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:331
+#: web/admin/edit_silverbullet.php:340
 #, fuzzy
 msgid "The SMS was sent successfully."
 msgstr "O correo de convite enviouse correctamente."
 
-#: web/admin/edit_silverbullet.php:331
+#: web/admin/edit_silverbullet.php:340
 msgid "SMS OK."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:334
+#: web/admin/edit_silverbullet.php:343
 msgid "The SMS was NOT sent."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:334
+#: web/admin/edit_silverbullet.php:343
 msgid "SMS not OK."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:337
+#: web/admin/edit_silverbullet.php:346
 msgid "Only a fragment of the SMS was sent. You should re-send it."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:337
+#: web/admin/edit_silverbullet.php:346
 msgid "SMS Fragment."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:345
+#: web/admin/edit_silverbullet.php:354
 #, php-format
 msgid "Manage %s users"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:350 web/admin/overview_federation.php:117
+#: web/admin/edit_silverbullet.php:359 web/admin/overview_federation.php:117
 msgid "User"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:351
+#: web/admin/edit_silverbullet.php:360
 #, fuzzy
 msgid "Token/Certificate details"
 msgstr "Detalles do certificado de servidor:"
 
-#: web/admin/edit_silverbullet.php:352
+#: web/admin/edit_silverbullet.php:361
 msgid "User/Token Expiry"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:353
+#: web/admin/edit_silverbullet.php:362
 #, fuzzy
 msgid "Actions"
 msgstr "Localización"
 
-#: web/admin/edit_silverbullet.php:382
+#: web/admin/edit_silverbullet.php:391
 msgid "REVOKED"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:387
+#: web/admin/edit_silverbullet.php:396
 msgid "EXPIRED"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:398
+#: web/admin/edit_silverbullet.php:407
 #, fuzzy
 msgid "Device:"
 msgstr "Dispositivo"
 
-#: web/admin/edit_silverbullet.php:399
+#: web/admin/edit_silverbullet.php:408
 #, fuzzy
 msgid "Serial Number:"
 msgstr "Número de serie:"
 
-#: web/admin/edit_silverbullet.php:400
+#: web/admin/edit_silverbullet.php:409
 msgid "CN:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:401
+#: web/admin/edit_silverbullet.php:410
 msgid "Expiry:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:402
+#: web/admin/edit_silverbullet.php:411
 #, fuzzy
 msgid "Issued:"
 msgstr "Emisor:"
 
-#: web/admin/edit_silverbullet.php:409
+#: web/admin/edit_silverbullet.php:418 web/admin/edit_silverbullet.php:475
 msgid "Revoke"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:440
+#: web/admin/edit_silverbullet.php:449
 msgid "Local mail client"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:448
+#: web/admin/edit_silverbullet.php:457
 msgid "Send in SMS..."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:452
+#: web/admin/edit_silverbullet.php:461
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:455
+#: web/admin/edit_silverbullet.php:464
 msgid "Display QR code"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:462
+#: web/admin/edit_silverbullet.php:471
 msgid "Expiry Date:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:462
+#: web/admin/edit_silverbullet.php:471
 msgid "Activations remaining:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:462
+#: web/admin/edit_silverbullet.php:471
 #, php-format
 msgid "%d of %d"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:498
+#: web/admin/edit_silverbullet.php:507
 msgid "Deactivate User"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:506
+#: web/admin/edit_silverbullet.php:515
 #, fuzzy
 msgid "New Invitation"
 msgstr "Revogar convite"
 
-#: web/admin/edit_silverbullet.php:509
+#: web/admin/edit_silverbullet.php:518
 #, fuzzy
 msgid "Activations:"
 msgstr "Localización"
 
-#: web/admin/edit_silverbullet.php:530
+#: web/admin/edit_silverbullet.php:539
 #, php-format
 msgid ""
 "You need to acknowledge that the created accounts are still valid within the "
@@ -999,48 +999,48 @@ msgid ""
 "doing this."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:538
+#: web/admin/edit_silverbullet.php:547
 #, php-format
 msgid "I have verified that all configured users are still eligible for %s."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:550 web/admin/edit_silverbullet.php:568
+#: web/admin/edit_silverbullet.php:559 web/admin/edit_silverbullet.php:577
 #, fuzzy
 msgid "Add new user"
 msgstr "Engadir unha nova opción"
 
-#: web/admin/edit_silverbullet.php:553
+#: web/admin/edit_silverbullet.php:562
 msgid "Import users from CSV file"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:560
+#: web/admin/edit_silverbullet.php:569
 msgid ""
 "Please enter a username of your choice and user expiry date to create a new "
 "user:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:577
+#: web/admin/edit_silverbullet.php:586
 msgid ""
 "Comma separated values should be provided in CSV file: username, expiration "
 "date 'yyyy-mm-dd', number of tokens (optional):"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:581
+#: web/admin/edit_silverbullet.php:590
 #, fuzzy
 msgid "Import users"
 msgstr "outro usuario"
 
 #. Appending terms of use popup
-#: web/admin/edit_silverbullet.php:598
+#: web/admin/edit_silverbullet.php:607
 #, fuzzy, php-format
 msgid "%s - Terms of Use"
 msgstr "Condicións de uso"
 
-#: web/admin/edit_silverbullet.php:605
+#: web/admin/edit_silverbullet.php:614
 msgid "I have read and agree to the terms."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:607
+#: web/admin/edit_silverbullet.php:616
 msgid "Continue"
 msgstr ""
 

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-08 14:35+0200\n"
+"POT-Creation-Date: 2018-10-18 14:16+0200\n"
 "PO-Revision-Date: 2015-04-07 08:42+0000\n"
 "Last-Translator: Miguel Gonzalez Miron <miguel.gonzalez@udc.es>\n"
 "Language-Team: Galician (Spain) (http://www.transifex.com/projects/p/cat/"
@@ -388,6 +388,10 @@ msgstr "Preguntas máis frecuentes"
 msgid "Terms of Use"
 msgstr "Condicións de uso"
 
+#: web/user/tou.inc.php:16
+msgid "(for legal reasons, the Terms of Use are in English only)"
+msgstr ""
+
 #: web/4013.php:34 web/404.php:33 web/lib/user/TextTemplates.php:77
 #, php-format
 msgid "Welcome to %s"
@@ -397,8 +401,8 @@ msgstr "Benvido/a a %s"
 msgid "View this page in"
 msgstr "Ver esta páxina en"
 
-#: web/4013.php:43 web/404.php:42 web/copyright.php:33
-#: web/skins/modern/Menu.php:29
+#: web/4013.php:43 web/404.php:42 web/skins/modern/Menu.php:29
+#: web/skins/modern/Menu.php:103
 msgid "Start page"
 msgstr "Páxina de inicio"
 
@@ -447,12 +451,7 @@ msgstr ""
 "diante túa. o teu erro? o noso? Quen sabe! Quizá deberías regresar á <a "
 "href='%s'>Páxina de Inicio</a>."
 
-#: web/copyright.php:30
-#, php-format
-msgid "%s Copyright and Licensing"
-msgstr ""
-
-#: web/copyright.php:213 web/tou.php:61
+#: web/tou.php:61 web/skins/modern/Divs.php:279
 #, php-format
 msgid "%s Privacy Notice"
 msgstr ""
@@ -571,8 +570,8 @@ msgstr ""
 " Cando prema en <b>Continuar</b> esa páxina de soporte abrirase nunha nova "
 "xanela/lapela."
 
-#: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:267
-#: web/skins/modern/user/js/cat_js.php:275
+#: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:270
+#: web/skins/modern/user/js/cat_js.php:278
 msgid "Continue"
 msgstr "Continuar"
 
@@ -629,7 +628,7 @@ msgstr ""
 "súas credenciais de usuario (así lles chamamos ao seus 'nome de usuario e "
 "contrasinal' ou 'certificado persoal') - e conectarse!"
 
-#: web/skins/modern/index.php:67 web/skins/modern/test.php:70
+#: web/skins/modern/index.php:68 web/skins/modern/test.php:70
 msgid "Authenticating"
 msgstr "Autenticando"
 
@@ -830,7 +829,7 @@ msgid ""
 msgstr ""
 
 #: web/skins/modern/accountstatus/accountstatus.php:161
-#: web/skins/modern/user/js/cat_js.php:234
+#: web/skins/modern/user/js/cat_js.php:237
 #, fuzzy
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
@@ -840,7 +839,7 @@ msgstr ""
 "institución en:"
 
 #: web/skins/modern/accountstatus/accountstatus.php:163
-#: web/skins/modern/user/js/cat_js.php:236
+#: web/skins/modern/user/js/cat_js.php:239
 #, fuzzy
 msgid ""
 "If you encounter problems you should ask those who gave you your account for "
@@ -937,7 +936,7 @@ msgstr ""
 "pronto como sexa posible."
 
 #: web/skins/modern/user/js/cat_js.php:81
-#: web/skins/modern/user/js/cat_js.php:215
+#: web/skins/modern/user/js/cat_js.php:218
 msgid "no matching data found"
 msgstr "non se atopan datos coincidentes"
 
@@ -945,20 +944,20 @@ msgstr "non se atopan datos coincidentes"
 msgid "select"
 msgstr "seleccionar"
 
-#: web/skins/modern/user/js/cat_js.php:228
+#: web/skins/modern/user/js/cat_js.php:231
 msgid "WWW:"
 msgstr "WWW:"
 
-#: web/skins/modern/user/js/cat_js.php:230
+#: web/skins/modern/user/js/cat_js.php:233
 msgid "email:"
 msgstr "correo:"
 
-#: web/skins/modern/user/js/cat_js.php:232
+#: web/skins/modern/user/js/cat_js.php:235
 msgid "tel:"
 msgstr "télf.:"
 
-#: web/skins/modern/user/js/cat_js.php:254
-#: web/skins/modern/user/js/cat_js.php:280
+#: web/skins/modern/user/js/cat_js.php:257
+#: web/skins/modern/user/js/cat_js.php:283
 #, fuzzy
 msgid ""
 "This device cannot be configured with the settings used in your organisation."
@@ -966,7 +965,7 @@ msgstr ""
 "Este dispositivo non pode ser configurado cos axustes fornecidos pola súa "
 "institución"
 
-#: web/skins/modern/user/js/cat_js.php:267
+#: web/skins/modern/user/js/cat_js.php:270
 msgid ""
 "Your site administrator has specified that this device should be configured "
 "with resources located on a local page. When you click <b>Continue</b> this "
@@ -976,41 +975,41 @@ msgstr ""
 "cos recursos localizados nunha páxina local. Ao premer <b>Continuar</b> esa "
 "páxina abrirase nunha nova xanela/lapela."
 
-#: web/skins/modern/user/js/cat_js.php:281
+#: web/skins/modern/user/js/cat_js.php:284
 msgid "Close"
 msgstr "Pechar"
 
-#: web/skins/modern/user/js/cat_js.php:378
+#: web/skins/modern/user/js/cat_js.php:381
 msgid "Missing email address"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:392
+#: web/skins/modern/user/js/cat_js.php:395
 msgid "No providers found for this email"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:397
+#: web/skins/modern/user/js/cat_js.php:400
 msgid "Your IdP is:"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:399
+#: web/skins/modern/user/js/cat_js.php:402
 msgid "Your IdP could be one of:"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:562
+#: web/skins/modern/user/js/cat_js.php:565
 msgid "Organisation"
 msgstr ""
 
-#: web/skins/modern/user/js/cat_js.php:563
+#: web/skins/modern/user/js/cat_js.php:566
 #, fuzzy
 msgid "Select your organisation"
 msgstr "Seleccione a súa institución"
 
-#: web/skins/modern/user/js/cat_js.php:564
+#: web/skins/modern/user/js/cat_js.php:567
 #, fuzzy
 msgid "Help, my organisation is not on the list"
 msgstr "Axuda, a miña institución non está na lista"
 
-#: web/skins/modern/user/js/cat_js.php:565
+#: web/skins/modern/user/js/cat_js.php:568
 #, fuzzy, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -1021,65 +1020,65 @@ msgstr ""
 "Se a súa institución non está na lista, pídalles que engadan información á "
 "base de datos de %s."
 
-#: web/skins/modern/user/js/cat_js.php:566
+#: web/skins/modern/user/js/cat_js.php:569
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "Localíceme máis precisamente usando Xeolocalización HTML5 "
 
-#: web/skins/modern/user/js/cat_js.php:567
+#: web/skins/modern/user/js/cat_js.php:570
 #, fuzzy
 msgid "Show organisations in"
 msgstr "Amosar as institucións en"
 
-#: web/skins/modern/user/js/cat_js.php:568
+#: web/skins/modern/user/js/cat_js.php:571
 msgid "all countries"
 msgstr "todos os países"
 
-#: web/skins/modern/user/js/cat_js.php:569
+#: web/skins/modern/user/js/cat_js.php:572
 #, fuzzy
 msgid "or search for an organisation, for example University of Oslo"
 msgstr "ou buscar unha institución, por exemplo, a Universidade de Oslo"
 
-#: web/skins/modern/user/js/cat_js.php:570
+#: web/skins/modern/user/js/cat_js.php:573
 msgid "show all countries"
 msgstr "amosar todos os países"
 
-#: web/skins/modern/user/js/cat_js.php:571
+#: web/skins/modern/user/js/cat_js.php:574
 msgid "Results limited to"
 msgstr "Resultados limitados a"
 
-#: web/skins/modern/user/js/cat_js.php:572
+#: web/skins/modern/user/js/cat_js.php:575
 msgid "entries - show more"
 msgstr "entradas - amosar máis"
 
-#: web/skins/modern/user/js/cat_js.php:573
+#: web/skins/modern/user/js/cat_js.php:576
 msgid "Nearby"
 msgstr "Nos arredores"
 
-#: web/skins/modern/user/js/cat_js.php:574
+#: web/skins/modern/user/js/cat_js.php:577
 msgid "Location timeout"
 msgstr "Esgotouse o tempo de localización"
 
-#: web/skins/modern/user/js/cat_js.php:575
+#: web/skins/modern/user/js/cat_js.php:578
 msgid "Could not get your position"
 msgstr "Non se puido obter a súa posición"
 
-#: web/skins/modern/user/js/cat_js.php:576
+#: web/skins/modern/user/js/cat_js.php:579
 msgid "Your browser has denied access to your location"
 msgstr "O seu navegador denegoulle o acceso á súa localización"
 
-#: web/skins/modern/user/js/cat_js.php:577
+#: web/skins/modern/user/js/cat_js.php:580
 msgid "Unknown location error"
 msgstr "Produciuse un erro de localización descoñecido"
 
-#: web/skins/modern/user/js/cat_js.php:578
+#: web/skins/modern/user/js/cat_js.php:581
 msgid "You are here:"
 msgstr "Vostede está aquí:"
 
-#: web/skins/modern/user/js/cat_js.php:579
+#: web/skins/modern/user/js/cat_js.php:582
 msgid "Getting your location..."
 msgstr "Obtendo a súa localización..."
 
-#: web/skins/modern/user/js/cat_js.php:580
+#: web/skins/modern/user/js/cat_js.php:583
 msgid "Nearby providers shown on top."
 msgstr "Os fornecedores próximos móstranse arriba."
 

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-18 14:16+0200\n"
+"POT-Creation-Date: 2018-11-07 14:23+0100\n"
 "PO-Revision-Date: 2018-10-01 09:29+0000\n"
 "Last-Translator: Zenon Mousmoulas <zenon@mousmoulas.gr>\n"
 "Language-Team: Greek (http://www.transifex.com/eduroam_devel/cat/language/"
@@ -832,11 +832,11 @@ msgstr ""
 msgid "Continue to Installer Fine-Tuning and Download"
 msgstr "Συνέχεια με την Τελειοποίηση του Πακέτου Εγκατάστασης και Λήψη"
 
-#: web/admin/edit_silverbullet.php:205
+#: web/admin/edit_silverbullet.php:214
 msgid "Insecure mail domain!"
 msgstr "Μη ασφαλής τομέας mail!"
 
-#: web/admin/edit_silverbullet.php:206
+#: web/admin/edit_silverbullet.php:215
 #, php-format
 msgid ""
 "The mail domain of the mail address <strong>%s</strong> is not secure: some "
@@ -847,7 +847,7 @@ msgstr ""
 "κάποιοι ή όλοι οι εξυπηρετητές mail δε δέχονται κρυπτογραφημένες συνδέσεις "
 "(όχι σταθερή υποστήριξη για STARTTLS)."
 
-#: web/admin/edit_silverbullet.php:207
+#: web/admin/edit_silverbullet.php:216
 msgid ""
 "The invitation would need to be sent in cleartext across the internet, and "
 "can possibly be read and abused by anyone in transit."
@@ -856,179 +856,179 @@ msgstr ""
 "οπότε πιθανώς θα μπορούσε να υπάρξει κατάχρηση από οποιονδήποτε μπορούσε να "
 "τη διαβάσει στην πορεία."
 
-#: web/admin/edit_silverbullet.php:208
+#: web/admin/edit_silverbullet.php:217
 msgid "Do you want the system to send this mail anyway?"
 msgstr "Θέλετε το σύστημα να στείλει αυτό το mail ούτως ή άλλως;"
 
-#: web/admin/edit_silverbullet.php:210
+#: web/admin/edit_silverbullet.php:219
 msgid "DO NOT SEND"
 msgstr "ΝΑ ΜΗ ΣΤΑΛΕΙ"
 
-#: web/admin/edit_silverbullet.php:217
+#: web/admin/edit_silverbullet.php:226
 msgid "Send anyway."
 msgstr "Να σταλεί όπως και να έχει."
 
-#: web/admin/edit_silverbullet.php:267
+#: web/admin/edit_silverbullet.php:276
 #, php-format
 msgid "Managing %s users"
 msgstr "Διαχείριση χρηστών %s"
 
-#: web/admin/edit_silverbullet.php:303
+#: web/admin/edit_silverbullet.php:312
 #, php-format
 msgid "Current %s users"
 msgstr "Τρέχοντες χρήστες %s"
 
-#: web/admin/edit_silverbullet.php:306
+#: web/admin/edit_silverbullet.php:315
 msgid "Assigned Realm"
 msgstr "Καθορισμένος Τομέας"
 
-#: web/admin/edit_silverbullet.php:309
+#: web/admin/edit_silverbullet.php:318
 msgid "Total number of active users allowed"
 msgstr "Συνολικός αριθμός ενεργών χρηστών που επιτρέπεται"
 
-#: web/admin/edit_silverbullet.php:312
+#: web/admin/edit_silverbullet.php:321
 msgid "Number of active users"
 msgstr "Αριθμός ενεργών χρηστών"
 
-#: web/admin/edit_silverbullet.php:315
+#: web/admin/edit_silverbullet.php:324
 msgid "Number of inactive users"
 msgstr "Αριθμός ανενεργών χρηστών"
 
-#: web/admin/edit_silverbullet.php:325
+#: web/admin/edit_silverbullet.php:334
 msgid "The e-mail was sent successfully."
 msgstr "Το e-mail στάλθηκε με επιτυχία."
 
-#: web/admin/edit_silverbullet.php:325
+#: web/admin/edit_silverbullet.php:334
 msgid "E-mail OK."
 msgstr "E-mail ΟΚ."
 
-#: web/admin/edit_silverbullet.php:328
+#: web/admin/edit_silverbullet.php:337
 msgid "The e-mail was NOT sent."
 msgstr "To e-mail ΔΕ στάλθηκε."
 
-#: web/admin/edit_silverbullet.php:328
+#: web/admin/edit_silverbullet.php:337
 msgid "E-mail not OK."
 msgstr "E-mail όχι ΟΚ."
 
-#: web/admin/edit_silverbullet.php:331
+#: web/admin/edit_silverbullet.php:340
 msgid "The SMS was sent successfully."
 msgstr "Το SMS στάλθηκε με επιτυχία."
 
-#: web/admin/edit_silverbullet.php:331
+#: web/admin/edit_silverbullet.php:340
 msgid "SMS OK."
 msgstr "SMS ΟΚ."
 
-#: web/admin/edit_silverbullet.php:334
+#: web/admin/edit_silverbullet.php:343
 msgid "The SMS was NOT sent."
 msgstr "Το SMS ΔΕ στάλθηκε."
 
-#: web/admin/edit_silverbullet.php:334
+#: web/admin/edit_silverbullet.php:343
 msgid "SMS not OK."
 msgstr "SMS όχι ΟΚ."
 
-#: web/admin/edit_silverbullet.php:337
+#: web/admin/edit_silverbullet.php:346
 msgid "Only a fragment of the SMS was sent. You should re-send it."
 msgstr "Μόνο ένα τμήμα του SMS στάλθηκε. Θα πρέπει να το ξαναστείλετε."
 
-#: web/admin/edit_silverbullet.php:337
+#: web/admin/edit_silverbullet.php:346
 msgid "SMS Fragment."
 msgstr "Τμήμα SMS."
 
-#: web/admin/edit_silverbullet.php:345
+#: web/admin/edit_silverbullet.php:354
 #, php-format
 msgid "Manage %s users"
 msgstr "Διαχειριστείτε χρήστες %s"
 
-#: web/admin/edit_silverbullet.php:350 web/admin/overview_federation.php:117
+#: web/admin/edit_silverbullet.php:359 web/admin/overview_federation.php:117
 msgid "User"
 msgstr "Χρήστης"
 
-#: web/admin/edit_silverbullet.php:351
+#: web/admin/edit_silverbullet.php:360
 msgid "Token/Certificate details"
 msgstr "Λεπτομέρειες κουπονιού/πιστοποιητικού"
 
-#: web/admin/edit_silverbullet.php:352
+#: web/admin/edit_silverbullet.php:361
 msgid "User/Token Expiry"
 msgstr "Λήξη χρήστη/κουπονιού"
 
-#: web/admin/edit_silverbullet.php:353
+#: web/admin/edit_silverbullet.php:362
 msgid "Actions"
 msgstr "Ενέργειες"
 
-#: web/admin/edit_silverbullet.php:382
+#: web/admin/edit_silverbullet.php:391
 msgid "REVOKED"
 msgstr "ΑΝΑΚΛΗΘΗΚΕ"
 
-#: web/admin/edit_silverbullet.php:387
+#: web/admin/edit_silverbullet.php:396
 msgid "EXPIRED"
 msgstr "ΕΛΗΞΕ"
 
-#: web/admin/edit_silverbullet.php:398
+#: web/admin/edit_silverbullet.php:407
 msgid "Device:"
 msgstr "Συσκευή:"
 
-#: web/admin/edit_silverbullet.php:399
+#: web/admin/edit_silverbullet.php:408
 msgid "Serial Number:"
 msgstr "Σειριακός Αριθμός:"
 
-#: web/admin/edit_silverbullet.php:400
+#: web/admin/edit_silverbullet.php:409
 msgid "CN:"
 msgstr "CN:"
 
-#: web/admin/edit_silverbullet.php:401
+#: web/admin/edit_silverbullet.php:410
 msgid "Expiry:"
 msgstr "Λήξη:"
 
-#: web/admin/edit_silverbullet.php:402
+#: web/admin/edit_silverbullet.php:411
 msgid "Issued:"
 msgstr "Εκδόθηκε:"
 
-#: web/admin/edit_silverbullet.php:409
+#: web/admin/edit_silverbullet.php:418 web/admin/edit_silverbullet.php:475
 msgid "Revoke"
 msgstr "Ανάκληση"
 
-#: web/admin/edit_silverbullet.php:440
+#: web/admin/edit_silverbullet.php:449
 msgid "Local mail client"
 msgstr "Τοπικό πρόγραμμα mail"
 
-#: web/admin/edit_silverbullet.php:448
+#: web/admin/edit_silverbullet.php:457
 msgid "Send in SMS..."
 msgstr "Αποστολή με SMS..."
 
-#: web/admin/edit_silverbullet.php:452
+#: web/admin/edit_silverbullet.php:461
 msgid "Copy to Clipboard"
 msgstr "Αντιγραφή στο Πρόχειρο"
 
-#: web/admin/edit_silverbullet.php:455
+#: web/admin/edit_silverbullet.php:464
 msgid "Display QR code"
 msgstr "Εμφάνιση QR code"
 
-#: web/admin/edit_silverbullet.php:462
+#: web/admin/edit_silverbullet.php:471
 msgid "Expiry Date:"
 msgstr "Ημερομηνία Λήξης:"
 
-#: web/admin/edit_silverbullet.php:462
+#: web/admin/edit_silverbullet.php:471
 msgid "Activations remaining:"
 msgstr "Ενεργοποιήσεις που απομένουν:"
 
-#: web/admin/edit_silverbullet.php:462
+#: web/admin/edit_silverbullet.php:471
 #, php-format
 msgid "%d of %d"
 msgstr "%d από %d"
 
-#: web/admin/edit_silverbullet.php:498
+#: web/admin/edit_silverbullet.php:507
 msgid "Deactivate User"
 msgstr "Αεπενεργοποίηση Χρήστη"
 
-#: web/admin/edit_silverbullet.php:506
+#: web/admin/edit_silverbullet.php:515
 msgid "New Invitation"
 msgstr "Νέα Πρόσκληση"
 
-#: web/admin/edit_silverbullet.php:509
+#: web/admin/edit_silverbullet.php:518
 msgid "Activations:"
 msgstr "Ενεργοποιήσεις:"
 
-#: web/admin/edit_silverbullet.php:530
+#: web/admin/edit_silverbullet.php:539
 #, php-format
 msgid ""
 "You need to acknowledge that the created accounts are still valid within the "
@@ -1044,22 +1044,22 @@ msgstr ""
 "δεν ισχύουν πια, παρακαλώ απενεργοποιήστε τους πατώντας το αντίστοιχο κουμπί "
 "πριν κάνετε την επιβεβαίωση."
 
-#: web/admin/edit_silverbullet.php:538
+#: web/admin/edit_silverbullet.php:547
 #, php-format
 msgid "I have verified that all configured users are still eligible for %s."
 msgstr ""
 "Έχω επαληθεύσει ότι όλοι οι ρυθμισμένοι χρήστες είναι ακόμα επιλέξιμοι για "
 "%s."
 
-#: web/admin/edit_silverbullet.php:550 web/admin/edit_silverbullet.php:568
+#: web/admin/edit_silverbullet.php:559 web/admin/edit_silverbullet.php:577
 msgid "Add new user"
 msgstr "Προσθήκη νέου χρήστη"
 
-#: web/admin/edit_silverbullet.php:553
+#: web/admin/edit_silverbullet.php:562
 msgid "Import users from CSV file"
 msgstr "Εισαγωγή χρηστών από αρχείο CSV"
 
-#: web/admin/edit_silverbullet.php:560
+#: web/admin/edit_silverbullet.php:569
 msgid ""
 "Please enter a username of your choice and user expiry date to create a new "
 "user:"
@@ -1067,7 +1067,7 @@ msgstr ""
 "Παρακαλώ εισάγετε ένα όνομα χρήστη της επιλογής σας και ημερομηνία λήξης για "
 "να δημιουργήσετε ένα νέο χρήστη:"
 
-#: web/admin/edit_silverbullet.php:577
+#: web/admin/edit_silverbullet.php:586
 msgid ""
 "Comma separated values should be provided in CSV file: username, expiration "
 "date 'yyyy-mm-dd', number of tokens (optional):"
@@ -1075,21 +1075,21 @@ msgstr ""
 "Τιμές διαχωρισμένες με κόμμα θα πρέπει να παρέχονται στο αρχείο CSV: όνομα "
 "χρήστη, ημερομηνία λήξης 'yyyy-mm-dd', αριθμός κουπονιών (προαιρετικό):"
 
-#: web/admin/edit_silverbullet.php:581
+#: web/admin/edit_silverbullet.php:590
 msgid "Import users"
 msgstr "Εισαγωγή χρηστών"
 
 #. Appending terms of use popup
-#: web/admin/edit_silverbullet.php:598
+#: web/admin/edit_silverbullet.php:607
 #, php-format
 msgid "%s - Terms of Use"
 msgstr "%s - Όροι Χρήσης"
 
-#: web/admin/edit_silverbullet.php:605
+#: web/admin/edit_silverbullet.php:614
 msgid "I have read and agree to the terms."
 msgstr "Έχω διαβάσει και συμφωνώ με τους όρους."
 
-#: web/admin/edit_silverbullet.php:607
+#: web/admin/edit_silverbullet.php:616
 msgid "Continue"
 msgstr "Συνέχεια"
 

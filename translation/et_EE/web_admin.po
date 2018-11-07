@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-18 14:16+0200\n"
+"POT-Creation-Date: 2018-11-07 14:23+0100\n"
 "PO-Revision-Date: 2018-09-28 11:03+0000\n"
 "Last-Translator: Indrek Rokk <indrek.rokk@eenet.ee>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/eduroam_devel/"
@@ -790,11 +790,11 @@ msgstr ""
 msgid "Continue to Installer Fine-Tuning and Download"
 msgstr "Jätka paigaldusprogrammi peenhäälestuse ja allalaadimisega"
 
-#: web/admin/edit_silverbullet.php:205
+#: web/admin/edit_silverbullet.php:214
 msgid "Insecure mail domain!"
 msgstr "Ebaturvaline e-posti domeen!"
 
-#: web/admin/edit_silverbullet.php:206
+#: web/admin/edit_silverbullet.php:215
 #, php-format
 msgid ""
 "The mail domain of the mail address <strong>%s</strong> is not secure: some "
@@ -805,7 +805,7 @@ msgstr ""
 "kõik postiserverid ei aktsepteeri krüpteeritud ühendust (puudub terviklik "
 "toetus STARTTLS-le)."
 
-#: web/admin/edit_silverbullet.php:207
+#: web/admin/edit_silverbullet.php:216
 msgid ""
 "The invitation would need to be sent in cleartext across the internet, and "
 "can possibly be read and abused by anyone in transit."
@@ -813,179 +813,179 @@ msgstr ""
 "Kutse tuleb saata üle Interneti avatekstina ja seda on võimalik teelolemise "
 "ajal igaühel lugeda ja väärkasutada."
 
-#: web/admin/edit_silverbullet.php:208
+#: web/admin/edit_silverbullet.php:217
 msgid "Do you want the system to send this mail anyway?"
 msgstr "Kas soovid, et süsteem saadaks selle e-kirja ikkagi ära?"
 
-#: web/admin/edit_silverbullet.php:210
+#: web/admin/edit_silverbullet.php:219
 msgid "DO NOT SEND"
 msgstr "ÄRA SAADA"
 
-#: web/admin/edit_silverbullet.php:217
+#: web/admin/edit_silverbullet.php:226
 msgid "Send anyway."
 msgstr "Saada ikkagi."
 
-#: web/admin/edit_silverbullet.php:267
+#: web/admin/edit_silverbullet.php:276
 #, php-format
 msgid "Managing %s users"
 msgstr "Haldad %s kasutajaid"
 
-#: web/admin/edit_silverbullet.php:303
+#: web/admin/edit_silverbullet.php:312
 #, php-format
 msgid "Current %s users"
 msgstr "Praegusi %s kasutajaid"
 
-#: web/admin/edit_silverbullet.php:306
+#: web/admin/edit_silverbullet.php:315
 msgid "Assigned Realm"
 msgstr "Määratud domeen"
 
-#: web/admin/edit_silverbullet.php:309
+#: web/admin/edit_silverbullet.php:318
 msgid "Total number of active users allowed"
 msgstr "Maksimaalne lubatud aktiivsete kasutajate arv"
 
-#: web/admin/edit_silverbullet.php:312
+#: web/admin/edit_silverbullet.php:321
 msgid "Number of active users"
 msgstr "Aktiivsete kasutajate arv"
 
-#: web/admin/edit_silverbullet.php:315
+#: web/admin/edit_silverbullet.php:324
 msgid "Number of inactive users"
 msgstr "Mitteaktiivsete kasutajate arv"
 
-#: web/admin/edit_silverbullet.php:325
+#: web/admin/edit_silverbullet.php:334
 msgid "The e-mail was sent successfully."
 msgstr "E-kirja saatmine oli edukas."
 
-#: web/admin/edit_silverbullet.php:325
+#: web/admin/edit_silverbullet.php:334
 msgid "E-mail OK."
 msgstr "E-kirja saatmisega on hästi."
 
-#: web/admin/edit_silverbullet.php:328
+#: web/admin/edit_silverbullet.php:337
 msgid "The e-mail was NOT sent."
 msgstr "E-kirja ei saadetud"
 
-#: web/admin/edit_silverbullet.php:328
+#: web/admin/edit_silverbullet.php:337
 msgid "E-mail not OK."
 msgstr "E-kirja saatmisega ei ole hästi."
 
-#: web/admin/edit_silverbullet.php:331
+#: web/admin/edit_silverbullet.php:340
 msgid "The SMS was sent successfully."
 msgstr "SMSi saatmine oli edukas."
 
-#: web/admin/edit_silverbullet.php:331
+#: web/admin/edit_silverbullet.php:340
 msgid "SMS OK."
 msgstr "SMS OK."
 
-#: web/admin/edit_silverbullet.php:334
+#: web/admin/edit_silverbullet.php:343
 msgid "The SMS was NOT sent."
 msgstr "SMSi ei saadetud."
 
-#: web/admin/edit_silverbullet.php:334
+#: web/admin/edit_silverbullet.php:343
 msgid "SMS not OK."
 msgstr "SMSiga ei ole hästi."
 
-#: web/admin/edit_silverbullet.php:337
+#: web/admin/edit_silverbullet.php:346
 msgid "Only a fragment of the SMS was sent. You should re-send it."
 msgstr "Ainult SMSi fragment saadeti. Sa peaksid SMSi uuesti saatma."
 
-#: web/admin/edit_silverbullet.php:337
+#: web/admin/edit_silverbullet.php:346
 msgid "SMS Fragment."
 msgstr "SMS fragment."
 
-#: web/admin/edit_silverbullet.php:345
+#: web/admin/edit_silverbullet.php:354
 #, php-format
 msgid "Manage %s users"
 msgstr "Halda %s kasutajaid"
 
-#: web/admin/edit_silverbullet.php:350 web/admin/overview_federation.php:117
+#: web/admin/edit_silverbullet.php:359 web/admin/overview_federation.php:117
 msgid "User"
 msgstr "Kasutaja"
 
-#: web/admin/edit_silverbullet.php:351
+#: web/admin/edit_silverbullet.php:360
 msgid "Token/Certificate details"
 msgstr "Koodi/Sertifikaadi üksikasjad"
 
-#: web/admin/edit_silverbullet.php:352
+#: web/admin/edit_silverbullet.php:361
 msgid "User/Token Expiry"
 msgstr "Kasutaja/Koodi aegumine"
 
-#: web/admin/edit_silverbullet.php:353
+#: web/admin/edit_silverbullet.php:362
 msgid "Actions"
 msgstr "Tegevused"
 
-#: web/admin/edit_silverbullet.php:382
+#: web/admin/edit_silverbullet.php:391
 msgid "REVOKED"
 msgstr "TÜHISTATUD"
 
-#: web/admin/edit_silverbullet.php:387
+#: web/admin/edit_silverbullet.php:396
 msgid "EXPIRED"
 msgstr "AEGUNUD"
 
-#: web/admin/edit_silverbullet.php:398
+#: web/admin/edit_silverbullet.php:407
 msgid "Device:"
 msgstr "Seade:"
 
-#: web/admin/edit_silverbullet.php:399
+#: web/admin/edit_silverbullet.php:408
 msgid "Serial Number:"
 msgstr "Seerianumber"
 
-#: web/admin/edit_silverbullet.php:400
+#: web/admin/edit_silverbullet.php:409
 msgid "CN:"
 msgstr "CN:"
 
-#: web/admin/edit_silverbullet.php:401
+#: web/admin/edit_silverbullet.php:410
 msgid "Expiry:"
 msgstr "Aegub:"
 
-#: web/admin/edit_silverbullet.php:402
+#: web/admin/edit_silverbullet.php:411
 msgid "Issued:"
 msgstr "Väljastatud:"
 
-#: web/admin/edit_silverbullet.php:409
+#: web/admin/edit_silverbullet.php:418 web/admin/edit_silverbullet.php:475
 msgid "Revoke"
 msgstr "Tühista"
 
-#: web/admin/edit_silverbullet.php:440
+#: web/admin/edit_silverbullet.php:449
 msgid "Local mail client"
 msgstr "Kohalik e-posti klient"
 
-#: web/admin/edit_silverbullet.php:448
+#: web/admin/edit_silverbullet.php:457
 msgid "Send in SMS..."
 msgstr "Saada SMSiga..."
 
-#: web/admin/edit_silverbullet.php:452
+#: web/admin/edit_silverbullet.php:461
 msgid "Copy to Clipboard"
 msgstr "Kopeeri lõikepuhvrisse"
 
-#: web/admin/edit_silverbullet.php:455
+#: web/admin/edit_silverbullet.php:464
 msgid "Display QR code"
 msgstr "Näita QR-koodi"
 
-#: web/admin/edit_silverbullet.php:462
+#: web/admin/edit_silverbullet.php:471
 msgid "Expiry Date:"
 msgstr "Aegumise kuupäev:"
 
-#: web/admin/edit_silverbullet.php:462
+#: web/admin/edit_silverbullet.php:471
 msgid "Activations remaining:"
 msgstr "Aktiveerimisi jäänud:"
 
-#: web/admin/edit_silverbullet.php:462
+#: web/admin/edit_silverbullet.php:471
 #, php-format
 msgid "%d of %d"
 msgstr "%d/%d"
 
-#: web/admin/edit_silverbullet.php:498
+#: web/admin/edit_silverbullet.php:507
 msgid "Deactivate User"
 msgstr "Deaktiveeri kasutaja"
 
-#: web/admin/edit_silverbullet.php:506
+#: web/admin/edit_silverbullet.php:515
 msgid "New Invitation"
 msgstr "Uus kutse"
 
-#: web/admin/edit_silverbullet.php:509
+#: web/admin/edit_silverbullet.php:518
 msgid "Activations:"
 msgstr "Aktiveerimisi:"
 
-#: web/admin/edit_silverbullet.php:530
+#: web/admin/edit_silverbullet.php:539
 #, php-format
 msgid ""
 "You need to acknowledge that the created accounts are still valid within the "
@@ -999,20 +999,20 @@ msgstr ""
 "vajuta \"Salvesta\". Aegunud kontod palun deaktiveeri vastava nupu abil enne "
 "salvestamisnupu vajutamist. "
 
-#: web/admin/edit_silverbullet.php:538
+#: web/admin/edit_silverbullet.php:547
 #, php-format
 msgid "I have verified that all configured users are still eligible for %s."
 msgstr "Kinnitan, et kõik seadistatud kasutajad on õigustatud %s'i kasutama."
 
-#: web/admin/edit_silverbullet.php:550 web/admin/edit_silverbullet.php:568
+#: web/admin/edit_silverbullet.php:559 web/admin/edit_silverbullet.php:577
 msgid "Add new user"
 msgstr "Lisa uus kasutaja"
 
-#: web/admin/edit_silverbullet.php:553
+#: web/admin/edit_silverbullet.php:562
 msgid "Import users from CSV file"
 msgstr "Impordi kasutajad CSV failist"
 
-#: web/admin/edit_silverbullet.php:560
+#: web/admin/edit_silverbullet.php:569
 msgid ""
 "Please enter a username of your choice and user expiry date to create a new "
 "user:"
@@ -1020,7 +1020,7 @@ msgstr ""
 "Uue kasutaja lisamiseks palun sisesta soovitud kasutajanimi ja aegumise "
 "kuupäev:"
 
-#: web/admin/edit_silverbullet.php:577
+#: web/admin/edit_silverbullet.php:586
 msgid ""
 "Comma separated values should be provided in CSV file: username, expiration "
 "date 'yyyy-mm-dd', number of tokens (optional):"
@@ -1029,21 +1029,21 @@ msgstr ""
 "kasutajanimi, aegumiskuupäev formaadis AAAA-KK-PP (aasta, kuu, päev), "
 "võtmete arv (ei ole kohustuslik)."
 
-#: web/admin/edit_silverbullet.php:581
+#: web/admin/edit_silverbullet.php:590
 msgid "Import users"
 msgstr "Impordi kasutajad"
 
 #. Appending terms of use popup
-#: web/admin/edit_silverbullet.php:598
+#: web/admin/edit_silverbullet.php:607
 #, php-format
 msgid "%s - Terms of Use"
 msgstr "%s - Kasutustingimused"
 
-#: web/admin/edit_silverbullet.php:605
+#: web/admin/edit_silverbullet.php:614
 msgid "I have read and agree to the terms."
 msgstr "Kinnitan, et olen tutvunud kasutustingimustega ja kohustun neid täitma"
 
-#: web/admin/edit_silverbullet.php:607
+#: web/admin/edit_silverbullet.php:616
 msgid "Continue"
 msgstr "Jätka"
 

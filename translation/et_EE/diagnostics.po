@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-08 14:35+0200\n"
+"POT-Creation-Date: 2018-11-07 14:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: anne a <anne@eenet.ee>, 2018\n"
 "Language-Team: Estonian (Estonia) (https://www.transifex.com/eduroam_devel/"
@@ -27,7 +27,8 @@ msgstr "Lõpetatud"
 msgid "Product is not configured to run this check."
 msgstr "Toode ei ole seadistatud selle kontrolli käivitamiseks."
 
-#: core/diag/AbstractTest.php:279
+#: core/diag/AbstractTest.php:279 web/diag/action_realmcheck.php:527
+#: web/diag/action_realmcheck.php:543
 msgid "This check was skipped."
 msgstr "See kontroll jäeti vahele."
 
@@ -59,7 +60,7 @@ msgid ""
 "conversation."
 msgstr "RADIUSe server lükkas autentimistaotluse pärast EAP-suhtlust tagasi."
 
-#: core/diag/AbstractTest.php:322
+#: core/diag/AbstractTest.php:322 web/diag/action_realmcheck.php:105
 msgid "Connection refused"
 msgstr "Ühendusest keeldumine."
 
@@ -370,12 +371,12 @@ msgstr ""
 "edasi nende IdP juurde täpsema diagnoosi/juhiste saamiseks, kuna selle IdP "
 "kohta ei ole andmebaasis kontaktandmeid."
 
-#: core/diag/RADIUSTests.php:1008
+#: core/diag/RADIUSTests.php:1045
 #, php-format
 msgid "Connected to %s."
 msgstr "Ühendatud %s-ga."
 
-#: core/diag/RADIUSTests.php:1013
+#: core/diag/RADIUSTests.php:1050 web/diag/radius_tests.php:201
 msgid ""
 "<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
 "multiple round-trips was carried out, and ended in an Access-Reject as "
@@ -385,7 +386,7 @@ msgstr ""
 "mitmete pendeldamistega (round-trips), lõpetati juurdepääsu "
 "tagasilükkamisega (Access-Reject) nagu kavandatud."
 
-#: core/diag/RADIUSTests.php:1017
+#: core/diag/RADIUSTests.php:1054
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
@@ -469,7 +470,7 @@ msgstr "tundmatu väljastaja või puudub sertifikaadipoliitika või muu probleem
 #. *
 #. * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
 #.
-#: core/diag/RFC7585Tests.php:124
+#: core/diag/RFC7585Tests.php:124 web/diag/action_realmcheck.php:495
 msgid "This realm has no NAPTR records."
 msgstr "Domeenil puuduvad NAPTR kirjed."
 
@@ -691,7 +692,7 @@ msgstr "Oled Sa"
 msgid "end-user"
 msgstr "lõpp-kasutaja"
 
-#: web/skins/modern/diag/diag.php:71
+#: web/skins/modern/diag/diag.php:71 web/diag/adminQuery.php:119
 msgid "or"
 msgstr "või"
 
@@ -1009,3 +1010,595 @@ msgstr "Välise ID vale formaat"
 #: web/skins/modern/diag/diag.php:907
 msgid "Wrong string given as OperatorName"
 msgstr "Vale string OperatorName jaoks"
+
+#: web/diag/action_realmcheck.php:18
+#, php-format
+msgid "Sanity check for dynamic discovery of realms"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:46
+msgid ""
+"You asked for a realm check, but we don't know the realm for this profile!"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:55
+msgid "No valid realm name given, cannot execute any checks!"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:59
+msgid "STATIC"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:60
+msgid "DYNAMIC"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:88
+msgid "PASS"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:89
+msgid "FAIL"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:90
+#, fuzzy
+msgid "Client certificate:"
+msgstr "õige sertifikaat"
+
+#: web/diag/action_realmcheck.php:91
+msgid "expected result: "
+msgstr ""
+
+#: web/diag/action_realmcheck.php:92
+#, fuzzy
+msgid "Server accepted this client certificate"
+msgstr "Server aktsepteeris MITTEKEHTIVA kliendisertifikaadi."
+
+#: web/diag/action_realmcheck.php:93
+#, fuzzy
+msgid "Server accepted this client certificate, but should not have"
+msgstr "Server lükkas kliendisertifikaadi tagasi, kuigi see oli kehtiv."
+
+#: web/diag/action_realmcheck.php:94
+#, fuzzy
+msgid "Server did not accept this client certificate"
+msgstr "Server aktsepteeris MITTEKEHTIVA kliendisertifikaadi."
+
+#: web/diag/action_realmcheck.php:95
+#, fuzzy
+msgid "Server did not accept this client certificate - reason"
+msgstr "Server aktsepteeris MITTEKEHTIVA kliendisertifikaadi."
+
+#: web/diag/action_realmcheck.php:96
+msgid "Rest of tests for this CA skipped"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:97
+msgid "You should update your list of accredited CAs"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:98
+msgid "Get it from here."
+msgstr ""
+
+#: web/diag/action_realmcheck.php:100
+msgid "more"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:102 web/diag/action_realmcheck.php:644
+msgid "Show detailed information for all tests"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:117
+#, fuzzy
+msgid "Server certificate"
+msgstr "aegunud sertifikaat"
+
+#: web/diag/action_realmcheck.php:118
+msgid "Subject"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:119
+msgid "Issuer"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:120
+msgid "SubjectAltName"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:121
+#, fuzzy
+msgid "Certificate policies"
+msgstr "sertifikaat aegus"
+
+#: web/diag/action_realmcheck.php:122
+msgid "crlDistributionPoint"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:123
+msgid "authorityInfoAccess"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:124
+msgid "Hide detailed information for all tests"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:128
+msgid "Subject:"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:129
+msgid "Issuer:"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:130
+msgid "Valid from:"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:131
+msgid "Valid to:"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:132
+msgid "Serial number:"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:133
+msgid "SHA1 fingerprint:"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:185
+msgid "Some required input is missing!"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:236 web/diag/action_realmcheck.php:317
+#: web/diag/action_realmcheck.php:340 web/diag/action_realmcheck.php:393
+#, php-format
+msgid "elapsed time: %sms."
+msgstr ""
+
+#: web/diag/action_realmcheck.php:330 web/diag/action_realmcheck.php:383
+msgid "Extensions"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:331
+#, fuzzy
+msgid "show server certificate details"
+msgstr "Ahelast puudub serverisertifikaat."
+
+#: web/diag/action_realmcheck.php:351 web/diag/action_realmcheck.php:356
+msgid "See the appropriate tab for details."
+msgstr ""
+
+#: web/diag/action_realmcheck.php:370
+#, fuzzy
+msgid "Server certificate details:"
+msgstr "aegunud sertifikaat"
+
+#: web/diag/action_realmcheck.php:470
+#, php-format
+msgid "Realm testing for: %s"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:475 web/diag/action_realmcheck.php:483
+msgid "Overview"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:476 web/diag/action_realmcheck.php:590
+msgid "Static connectivity tests"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:477 web/diag/action_realmcheck.php:595
+msgid "Dynamic connectivity tests"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:478
+msgid "Live login tests"
+msgstr ""
+
+#. NAPTR existence check
+#: web/diag/action_realmcheck.php:487
+msgid "DNS chekcs"
+msgstr ""
+
+#. output in friendly words
+#: web/diag/action_realmcheck.php:492
+msgid "Checking NAPTR existence:"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:498
+msgid ""
+"This realm has NAPTR records, but none are related to this roaming "
+"consortium."
+msgstr ""
+
+#. if none of the possible negative retvals, then we have matching NAPTRs
+#: web/diag/action_realmcheck.php:501
+#, fuzzy, php-format
+msgid "This realm has %d NAPTR records relating to this roaming consortium."
+msgstr "Domeenil puuduvad NAPTR kirjed."
+
+#: web/diag/action_realmcheck.php:507
+msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:511
+msgid "No issues found."
+msgstr ""
+
+#: web/diag/action_realmcheck.php:514 web/diag/action_realmcheck.php:530
+#, php-format
+msgid "At least one NAPTR with invalid content found!"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:524
+msgid "Checking SRVs:"
+msgstr ""
+
+#. print number of successfully retrieved SRV targets
+#: web/diag/action_realmcheck.php:533
+#, php-format
+msgid "%d host names discovered."
+msgstr ""
+
+#: web/diag/action_realmcheck.php:540
+msgid "Checking IP address resolution:"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:546
+#, php-format
+msgid "At least one hostname could not be resolved!"
+msgstr ""
+
+#. print number of successfully retrieved SRV targets
+#: web/diag/action_realmcheck.php:549
+#, php-format
+msgid "%d IP addresses resolved."
+msgstr ""
+
+#: web/diag/action_realmcheck.php:556 web/diag/action_realmcheck.php:558
+#, php-format
+msgid "Realm is <strong>%s</strong> "
+msgstr ""
+
+#: web/diag/action_realmcheck.php:556
+msgid "with no DNS errors encountered. Congratulations!"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:558
+#, fuzzy
+msgid "but there were DNS errors! Check them!"
+msgstr "Vead testi kestel."
+
+#: web/diag/action_realmcheck.php:558
+msgid ""
+"You should re-run the tests after fixing the errors; more errors might be "
+"uncovered at that point. The exact error causes are listed below."
+msgstr ""
+
+#: web/diag/action_realmcheck.php:588
+msgid "Dynamic discovery test is not configured"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:606
+msgid "Repeat static connectivity tests"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:609
+msgid "STATIC connectivity tests"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:611
+msgid ""
+"This check sends a request for the realm through various entry points of the "
+"roaming consortium infrastructure. The request will contain the 'Operator-"
+"Name' attribute, and will be larger than 1500 Bytes to catch two common "
+"configuration problems.<br/>Since we don't have actual credentials for the "
+"realm, we can't authenticate successfully - so the expected outcome is to "
+"get an Access-Reject after having gone through an EAP conversation."
+msgstr ""
+
+#: web/diag/action_realmcheck.php:615 web/diag/action_realmcheck.php:727
+#, fuzzy, php-format
+msgid "Testing from: %s"
+msgstr "Testin domeeni"
+
+#: web/diag/action_realmcheck.php:620 web/diag/action_realmcheck.php:653
+#: web/diag/action_realmcheck.php:666
+msgid "testing..."
+msgstr ""
+
+#: web/diag/action_realmcheck.php:635
+msgid "Repeat dynamic connectivity tests"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:639
+msgid "DYNAMIC connectivity tests"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:643
+msgid "Some errors were found during the tests, see below"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:643
+msgid "All tests passed, congratulations!"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:644
+msgid "Checking server handshake..."
+msgstr ""
+
+#: web/diag/action_realmcheck.php:674
+msgid "Checking if certificates from  CAs are accepted..."
+msgstr ""
+
+#: web/diag/action_realmcheck.php:674
+msgid ""
+"A few client certificates will be tested to check if servers are resistant "
+"to some certificate problems."
+msgstr ""
+
+#: web/diag/action_realmcheck.php:688
+msgid "Live login test"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:701
+msgid ""
+"If you enter an existing login credential here, you can test the actual "
+"authentication from various checkpoints all over the world."
+msgstr ""
+
+#: web/diag/action_realmcheck.php:702
+msgid ""
+"The test will use all EAP types you have set in your profile information to "
+"check whether the right CAs and server names are used, and of course whether "
+"the login with these credentials and the given EAP type actually worked. If "
+"you have set anonymous outer ID, the test will use that."
+msgstr ""
+
+#: web/diag/action_realmcheck.php:703
+msgid ""
+"Note: the tool purposefully does not offer you to save these credentials, "
+"and they will never be saved in any way on the server side. Please use only "
+"<strong>temporary test accounts</strong> here; permanently valid test "
+"accounts in the wild are considered harmful!"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:711
+msgid "Password-based EAP types"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:712
+msgid "Real (inner) username:"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:713
+msgid "Anonymous outer ID (optional):"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:714
+msgid "Password:"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:718
+msgid "Certificate-based EAP types"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:719
+msgid "Certificate file (.p12 or .pfx):"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:720
+msgid "Certificate password, if any:"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:721
+msgid "Username, if different from certificate Subject:"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:723
+msgid "Submit credentials"
+msgstr ""
+
+#: web/diag/action_realmcheck.php:749
+#, fuzzy, php-format
+msgid "Return to %s administrator area"
+msgstr "eduroami administraator"
+
+#: web/diag/adminQuery.php:17
+msgid "I suspect a Technical Problem with the IdP"
+msgstr ""
+
+#: web/diag/adminQuery.php:18
+msgid "A user from this IdP has allegedly infringed copyrights"
+msgstr ""
+
+#: web/diag/adminQuery.php:19
+msgid ""
+"A user from this IdP has conducted malicious network operations (spam, "
+"DDoS, ...)"
+msgstr ""
+
+#: web/diag/adminQuery.php:22
+msgid ""
+"User claims connectivity problems but has been authenticated successfully"
+msgstr ""
+
+#: web/diag/adminQuery.php:23
+msgid "User claims that mandatory open port is not open"
+msgstr ""
+
+#: web/diag/adminQuery.php:51 web/diag/adminQuery.php:98
+msgid "Select your problem"
+msgstr ""
+
+#: web/diag/adminQuery.php:55
+msgid "What is the realm of the IdP in question?"
+msgstr ""
+
+#: web/diag/adminQuery.php:59
+msgid "Check if this value is registered"
+msgstr ""
+
+#: web/diag/adminQuery.php:64 web/diag/adminQuery.php:127
+msgid "What is the authentication timestamp of the user session in question?"
+msgstr ""
+
+#: web/diag/adminQuery.php:70 web/diag/adminQuery.php:134
+msgid "What is the MAC address of the user session in question?"
+msgstr ""
+
+#: web/diag/adminQuery.php:74
+#, fuzzy
+msgid "Additional comments"
+msgstr "Lisakirjeldus"
+
+#: web/diag/adminQuery.php:78
+msgid "Please specify an email address on which the IdP can contact you"
+msgstr ""
+
+#: web/diag/adminQuery.php:82 web/diag/adminQuery.php:150
+msgid "Now you can send your query"
+msgstr ""
+
+#: web/diag/adminQuery.php:83 web/diag/adminQuery.php:151
+msgid "Send"
+msgstr ""
+
+#: web/diag/adminQuery.php:102
+msgid "Identify the SP by one of following means"
+msgstr ""
+
+#: web/diag/adminQuery.php:106
+#, fuzzy
+msgid "SP Operator-Name attribute"
+msgstr "SP Operator-Name"
+
+#: web/diag/adminQuery.php:110
+msgid "Select the SP manually:"
+msgstr ""
+
+#: web/diag/adminQuery.php:113
+#, fuzzy
+msgid "click to select country and organisation"
+msgstr "Vali klõpsates oma riik/piirkond ja asutus"
+
+#: web/diag/adminQuery.php:119
+msgid "at least describe the SP location"
+msgstr ""
+
+#: web/diag/adminQuery.php:123
+msgid "What is the outer ID of the user session in question?"
+msgstr ""
+
+#: web/diag/adminQuery.php:138
+msgid "Additional comments about the problem"
+msgstr ""
+
+#: web/diag/adminQuery.php:142
+msgid ""
+"Do you have any contact details by which the user wishes to be contacted by "
+"the SP?"
+msgstr ""
+
+#: web/diag/adminQuery.php:146
+msgid "Please specify an email address on which the SP can contact you"
+msgstr ""
+
+#: web/diag/radius_tests.php:23 web/diag/radius_tests.php:24
+msgid ""
+"Some properties of the connection attempt were sub-optimal; the list is "
+"below."
+msgstr ""
+
+#: web/diag/radius_tests.php:25
+msgid "Some configuration errors were observed; the list is below."
+msgstr ""
+
+#: web/diag/radius_tests.php:141
+msgid "<strong>Test successful.</strong>"
+msgstr ""
+
+#: web/diag/radius_tests.php:145
+msgid "<strong>Test partially successful</strong>: authentication succeded."
+msgstr ""
+
+#: web/diag/radius_tests.php:148
+msgid "<strong>Test FAILED</strong>: authentication succeded."
+msgstr ""
+
+#: web/diag/radius_tests.php:153
+msgid ""
+"<strong>Test FAILED</strong>: the request was rejected. The most likely "
+"cause is that you have misspelt the Username and/or the Password."
+msgstr ""
+
+#: web/diag/radius_tests.php:158
+msgid "This method cannot be tested"
+msgstr ""
+
+#: web/diag/radius_tests.php:162
+msgid ""
+"<strong>Test FAILED</strong>: the request was rejected immediately, without "
+"EAP conversation. Either you have misspelt the Username or there is "
+"something seriously wrong with your server."
+msgstr ""
+
+#: web/diag/radius_tests.php:168 web/diag/radius_tests.php:210
+#, php-format
+msgid ""
+"<strong>Test FAILED</strong>: no reply from the RADIUS server after %d "
+"seconds. Either the responsible server is down, or routing is broken!"
+msgstr ""
+
+#: web/diag/radius_tests.php:173 web/diag/radius_tests.php:214
+#, fuzzy, php-format
+msgid ""
+"<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation, "
+"but it did not finish after %d seconds!"
+msgstr ""
+"<strong>Edukas test</strong>: viidi läbi kahesuunaline RADIUSe suhtlus "
+"mitmete pendeldamistega (round-trips), lõpetati juurdepääsu "
+"tagasilükkamisega (Access-Reject) nagu kavandatud."
+
+#: web/diag/radius_tests.php:178
+msgid "<strong>Test FAILED</strong>"
+msgstr ""
+
+#: web/diag/radius_tests.php:199
+#, fuzzy
+msgid ""
+"<strong>Test partially successful</strong>: a bidirectional RADIUS "
+"conversation with multiple round-trips was carried out, and ended in an "
+"Access-Reject as planned."
+msgstr ""
+"<strong>Edukas test</strong>: viidi läbi kahesuunaline RADIUSe suhtlus "
+"mitmete pendeldamistega (round-trips), lõpetati juurdepääsu "
+"tagasilükkamisega (Access-Reject) nagu kavandatud."
+
+#: web/diag/radius_tests.php:205
+msgid ""
+"<strong>Test FAILED</strong>: the request was rejected immediately, without "
+"EAP conversation. This is not necessarily an error: if the RADIUS server "
+"enforces that outer identities correspond to an existing username, then this "
+"result is expected (Note: you could configure a valid outer identity in your "
+"profile settings to get past this hurdle). In all other cases, the server "
+"appears misconfigured or it is unreachable."
+msgstr ""
+
+#: web/diag/radius_tests.php:218
+msgid "unhandled error"
+msgstr ""
+
+#: web/diag/radius_tests.php:236
+#, fuzzy
+msgid ""
+"<strong>ERROR</strong>: the server presented a certificate which is from an "
+"unknown authority!"
+msgstr "Serverisertifikaat pärineb tundmatult väljastajalt."
+
+#: web/diag/radius_tests.php:236 web/diag/radius_tests.php:242
+#, php-format
+msgid "elapsed time: %d"
+msgstr ""
