@@ -13,6 +13,9 @@
 /**
  * This script will first trigger an update of all issued certificates which
  * have not expired yet and whose stored OCSP statement is older than a week.
+ * 
+ * It works on two CAs, the RSA and ECDSA variant. There is a separate temp
+ * subdir for both ( temp_ocsp_RSA and temp_ocsp_ECDSA ).
  */
 require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
 if (file_exists("./semaphore")) {
@@ -37,7 +40,7 @@ while ($serialRow = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allSeri
 $tempdir = __DIR__."/temp_ocsp";
 mkdir($tempdir);
 
-$allStatements = $dbLink->exec("SELECT serial_number,OCSP FROM silverbullet_certificate WHERE serial_number IS NOT NULL AND expiry > NOW() AND OCSP_timestamp > DATE_SUB(NOW(), INTERVAL 8 DAY)");
+$allStatements = $dbLink->exec("SELECT serial_number,OCSP,ca_type FROM silverbullet_certificate WHERE serial_number IS NOT NULL AND expiry > NOW() AND OCSP_timestamp > DATE_SUB(NOW(), INTERVAL 8 DAY)");
 // SELECT -> mysqli_result, not boolean
 while ($statementRow = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allStatements)) {
 #    echo "Writing OCSP statement for serial number $statementRow->serial_number\n";
@@ -45,6 +48,6 @@ while ($statementRow = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allS
     if (strlen($filename) % 2 == 1) {
         $filename = "0" . $filename;
     }
-    file_put_contents($tempdir."/$filename", $statementRow->OCSP);
+    file_put_contents($tempdir."_".$statementRow->ca_type."/".$filename, $statementRow->OCSP);
 }
 unlink("./semaphore");
