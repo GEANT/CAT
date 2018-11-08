@@ -23,11 +23,11 @@ if (file_exists("./semaphore")) {
 }
 file_put_contents("./semaphore", "BUSY");
 $dbLink = \core\DBConnection::handle("INST");
-$allSerials = $dbLink->exec("SELECT serial_number FROM silverbullet_certificate WHERE serial_number IS NOT NULL AND expiry > NOW() AND OCSP_timestamp < DATE_SUB(NOW(), INTERVAL 1 WEEK)");
+$allSerials = $dbLink->exec("SELECT serial_number, ca_type FROM silverbullet_certificate WHERE serial_number IS NOT NULL AND expiry > NOW() AND OCSP_timestamp < DATE_SUB(NOW(), INTERVAL 1 WEEK)");
 // SELECT query -> always returns a mysql_result, not boolean
 while ($serialRow = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allSerials)) {
 #    echo "Updating OCSP statement for serial number $serialRow->serial_number\n";
-    $certObject = new \core\SilverbulletCertificate($serialRow->serial_number);
+    $certObject = new \core\SilverbulletCertificate($serialRow->serial_number, $serialRow->ca_type);
     $certObject->triggerNewOCSPStatement();
 }
 
@@ -37,8 +37,9 @@ while ($serialRow = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allSeri
   * destination.
   */
 
-$tempdir = __DIR__."/temp_ocsp";
-mkdir($tempdir);
+$tempdirBase = __DIR__."/temp_ocsp";
+mkdir($tempdirBase."_RSA");
+mkdir($tempdirBase."_ECDSA");
 
 $allStatements = $dbLink->exec("SELECT serial_number,OCSP,ca_type FROM silverbullet_certificate WHERE serial_number IS NOT NULL AND expiry > NOW() AND OCSP_timestamp > DATE_SUB(NOW(), INTERVAL 8 DAY)");
 // SELECT -> mysqli_result, not boolean
@@ -48,6 +49,6 @@ while ($statementRow = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allS
     if (strlen($filename) % 2 == 1) {
         $filename = "0" . $filename;
     }
-    file_put_contents($tempdir."_".$statementRow->ca_type."/".$filename, $statementRow->OCSP);
+    file_put_contents($tempdirBase."_".$statementRow->ca_type."/".$filename, $statementRow->OCSP);
 }
 unlink("./semaphore");
