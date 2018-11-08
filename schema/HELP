@@ -13,4 +13,5 @@ When upgrading from CAT 2.0 beta2 to beta3:
   alter table silverbullet_certificate add column `ca_type` ENUM('RSA','ECDSA') NOT NULL DEFAULT 'RSA';
 - rename the existing RSA keys from rootca.pem, real.pem, real.key to rootca-RSA.pem. real-RSA.pem, real-RSA.key
 - add the ECDSA variants as rootca-ECDSA.pem, real-ECDSA.pem, real-ECDSA.key
-- for each device which should get ECDSA certificates, set $Options['clientcert'] to Devices::SUPPORT_ECDSA
+- there are two new class constants in Devices-template.php. Remember to carry the two LOC over to Devices.php
+- for each device which should get ECDSA certificates, set $Options['clientcert'] to Devices::SUPPORT_ECDSA and make SUPPORT_RSA the default in the global $Options

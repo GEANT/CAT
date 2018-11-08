@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Contributions to this work were made on behalf of the GÉANT project, a 
  * project that has received funding from the European Union’s Horizon 2020 
@@ -170,17 +171,18 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         if ($validity->invert == 1) { // negative! That should not be possible
             throw new Exception("Attempt to generate a certificate for a user which is already expired!");
         }
-        switch($certtype) {
+        switch ($certtype) {
             case \devices\Devices::SUPPORT_RSA:
-        $privateKey = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
+                $privateKey = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
                 break;
             case \devices\Devices::SUPPORT_ECDSA:
-                $privateKey = openssl_pkey_new(['curve_name' => 'secp521r1', 'private_key_type' => OPENSSL_KEYTYPE_ECDSA, 'encrypt_key' => FALSE]);
+                $privateKey = openssl_pkey_new(['curve_name' => 'secp521r1', 'private_key_type' => OPENSSL_KEYTYPE_EC, 'encrypt_key' => FALSE]);
+                break;
             default:
                 throw new Exception("Unknown certificate type!");
         }
 
-        $csr = SilverbulletCertificate::generateCsr($privateKey, strtoupper($inst->federation), $profile->getAttributes("internal:realm")[0]['value'],$certtype);
+        $csr = SilverbulletCertificate::generateCsr($privateKey, strtoupper($inst->federation), $profile->getAttributes("internal:realm")[0]['value'], $certtype);
 
         $loggerInstance->debug(5, "generateCertificate: proceeding to sign cert.\n");
 
@@ -190,6 +192,9 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         $rootCaPem = $certMeta["ROOT"];
         $serial = $certMeta["SERIAL"];
 
+        if ($cert === FALSE) {
+            throw new Exception("The CA did not generate a certificate.");
+        }
         $loggerInstance->debug(5, "generateCertificate: post-processing certificate.\n");
 
         // get the SHA1 fingerprint, this will be handy for Windows installers
@@ -281,7 +286,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                 // choice of signature algorithm for the response explicit
                 // but it's only available from openssl-1.1.0 (which we do not
                 // want to require just for that one thing).
-                $execCmd = CONFIG['PATHS']['openssl'] . " ocsp -issuer " . ROOT . "/config/SilverbulletClientCerts/real.pem -sha1 -ndays 10 -no_nonce -serial 0x$serialHex -CA " . ROOT . "/config/SilverbulletClientCerts/real.pem -rsigner " . ROOT . "/config/SilverbulletClientCerts/real.pem -rkey " . ROOT . "/config/SilverbulletClientCerts/real.key -index $tempdir/index.txt -no_cert_verify -respout $tempdir/$serialHex.response.der";
+                $execCmd = CONFIG['PATHS']['openssl'] . " ocsp -issuer " . ROOT . "/config/SilverbulletClientCerts/real-".$this->ca_type.".pem -sha1 -ndays 10 -no_nonce -serial 0x$serialHex -CA " . ROOT . "/config/SilverbulletClientCerts/real-".$this->ca_type.".pem -rsigner " . ROOT . "/config/SilverbulletClientCerts/real-".$this->ca_type.".pem -rkey " . ROOT . "/config/SilverbulletClientCerts/real-".$this->ca_type.".key -index $tempdir/index.txt -no_cert_verify -respout $tempdir/$serialHex.response.der";
                 $logHandle->debug(2, "Calling openssl ocsp with following cmdline: $execCmd\n");
                 $output = [];
                 $return = 999;
@@ -415,9 +420,19 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                         $nonDupSerialFound = TRUE;
                     }
                 } while (!$nonDupSerialFound);
-                $loggerInstance->debug(5, "generateCertificate: signing imminent with unique serial $serial.\n");
+                $loggerInstance->debug(5, "generateCertificate: signing imminent with unique serial $serial, cert type $certtype.\n");
+                switch ($certtype) {
+                    case \devices\Devices::SUPPORT_RSA:
+                        $alg = "sha256";
+                        break;
+                    case \devices\Devices::SUPPORT_ECDSA:
+                        $alg = "ecdsa-with-SHA512";
+                        break;
+                    default:
+                        throw new Exception("Unknown cert type!");
+                }
                 return [
-                    "CERT" => openssl_csr_sign($csr, $issuingCa, $issuingCaKey, $expiryDays, ['digest_alg' => 'ecdsa-with-SHA512', 'config' => dirname(__DIR__)."/config/SilverbulletClientCerts/openssl-$certtype.cnf"], $serial),
+                    "CERT" => openssl_csr_sign($csr, $issuingCa, $issuingCaKey, $expiryDays, ['digest_alg' => $alg, 'config' => dirname(__DIR__) . "/config/SilverbulletClientCerts/openssl-$certtype.cnf"], $serial),
                     "SERIAL" => $serial,
                     "ISSUER" => $issuingCaPem,
                     "ROOT" => $rootCaPem,

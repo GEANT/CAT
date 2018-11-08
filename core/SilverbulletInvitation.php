@@ -141,12 +141,12 @@ class SilverbulletInvitation extends common\Entity {
         $this->userId = $invitationRow->silverbullet_user_id;
         $this->expiry = $invitationRow->expiry;
         $this->activationsTotal = $invitationRow->quantity;
-        $certificatesResult = $this->databaseHandle->exec("SELECT `serial_number` FROM `silverbullet_certificate` WHERE `silverbullet_invitation_id` = ? ORDER BY `revocation_status`, `expiry` DESC", "i", $this->identifier);
+        $certificatesResult = $this->databaseHandle->exec("SELECT `serial_number`, `ca_type` FROM `silverbullet_certificate` WHERE `silverbullet_invitation_id` = ? ORDER BY `revocation_status`, `expiry` DESC", "i", $this->identifier);
         $certificatesNumber = ($certificatesResult ? $certificatesResult->num_rows : 0);
         $this->loggerInstance->debug(5, "At token validation level, " . $certificatesNumber . " certificates exist.\n");
         // SELECT -> resource, no boolean
         while ($runner = mysqli_fetch_object(/** @scrutinizer ignore-type */ $certificatesResult)) {
-            $this->associatedCertificates[] = new \core\SilverbulletCertificate($runner->serial_number);
+            $this->associatedCertificates[] = new \core\SilverbulletCertificate($runner->serial_number, $runner->ca_type);
         }
         $this->activationsRemaining = (int) $this->activationsTotal - (int) $certificatesNumber;
         switch ($certificatesNumber) {
