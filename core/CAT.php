@@ -65,7 +65,7 @@ class CAT extends \core\common\Entity {
      * updating those on *one* place should change display everywhere!
      */
     const COPYRIGHT_HOLDER = "G&Eacute;ANT Association";
-    const COPYRIGHT_CONSORTIA = "the GÉANT Projects funded by EU";
+    const COPYRIGHT_CONSORTIA = "the G&Eacute;ANT Projects funded by EU";
     const COPYRIGHT_MIN_YEAR = 2011;
     const COPYRIGHT_MAX_YEAR = 2018;
 
