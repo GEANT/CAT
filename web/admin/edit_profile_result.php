@@ -178,8 +178,6 @@ if (!$profile instanceof \core\ProfileRADIUS) {
 
     echo $optionParser->processSubmittedFields($profile, $_POST, $_FILES);
 
-    //print_r($profile->getAttributes());
-    //exit(1);
     if ($redirect !== FALSE) {
         if (!isset($_POST['redirect_target']) || $_POST['redirect_target'] == "") {
             echo $uiElements->boxError(_("Redirection can't be activated - you did not specify a target location!"));
