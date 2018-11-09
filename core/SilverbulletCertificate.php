@@ -122,7 +122,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      */
     public function getBasicInfo() {
         $returnArray = []; // unnecessary because the iterator below is never empty, but Scrutinizer gets excited nontheless
-        foreach (['status', 'serial', 'username', 'device', 'issued', 'expiry'] as $key) {
+        foreach (['status', 'serial', 'username', 'device', 'issued', 'expiry', 'ca_type'] as $key) {
             $returnArray[$key] = $this->$key;
         }
         return($returnArray);

@@ -234,7 +234,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 j = j.data;
                 $.each(j, function (index, value) {
                     statusCount[value.status]++;
-                    allArray[value.status].rows.push('<tr style="color:' + allArray[value.status].color + ';"><td>' + value.serial + '</td><td>' + value.username + '</td><td>' + value.device + '</td><td>' + value.issued + '</td><td>' + value.expiry + '</td>');
+                    allArray[value.status].rows.push('<tr style="color:' + allArray[value.status].color + ';"><td>' + value.ca_type + ':' + value.serial + '</td><td>' + value.username + '</td><td>' + value.device + '</td><td>' + value.issued + '</td><td>' + value.expiry + '</td>');
                 });
                 $.each(allArray, function (index, value) {
                     if (value !== undefined && value.rows.length > 2) {
