@@ -21,7 +21,7 @@
 
 namespace core\diag;
 
-require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
+require_once dirname(dirname(__DIR__)) . "/config/_config.php";
 
 /**
  * Test suite to verify that a given NAI realm has NAPTR records according to

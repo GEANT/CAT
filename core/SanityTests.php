@@ -48,9 +48,9 @@ namespace core;
 use GeoIp2\Database\Reader;
 use \Exception;
 
-require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
-require_once(dirname(dirname(__FILE__)) . "/core/PHPMailer/src/PHPMailer.php");
-require_once(dirname(dirname(__FILE__)) . "/core/PHPMailer/src/SMTP.php");
+require_once dirname(dirname(__FILE__)) . "/config/_config.php";
+require_once dirname(dirname(__FILE__)) . "/core/PHPMailer/src/PHPMailer.php";
+require_once dirname(dirname(__FILE__)) . "/core/PHPMailer/src/SMTP.php";
 
 class SanityTests extends CAT {
     /* in this section set current CAT requirements */
@@ -246,7 +246,7 @@ class SanityTests extends CAT {
         if (!is_file(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader'])) {
             $this->test_return(\core\common\Entity::L_ERROR, "<strong>simpleSAMLphp</strong> not found!");
         } else {
-            require_once(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader']);
+            require_once CONFIG['AUTHENTICATION']['ssp-path-to-autoloader'];
             $SSPconfig = \SimpleSAML_Configuration::getInstance();
             $sspVersion = explode('.', $SSPconfig->getVersion());
             if ((int) $sspVersion[0] >= $this->ssp_needversion['major'] && (int) $sspVersion[1] >= $this->ssp_needversion['minor']) {

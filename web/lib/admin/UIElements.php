@@ -140,9 +140,9 @@ class UIElements {
 
     /**
      * creates an HTML information block with a list of options from a given category and level
-     * @param array $optionlist list of options
-     * @param string $class option class of interest
-     * @param string $level option level of interest
+     * @param array  $optionlist list of options
+     * @param string $class      option class of interest
+     * @param string $level      option level of interest
      * @return string HTML code
      */
     public function infoblock(array $optionlist, string $class, string $level) {
@@ -265,7 +265,7 @@ class UIElements {
 
     /**
      * 
-     * @param string $ref the database reference string
+     * @param string  $ref         the database reference string
      * @param boolean $checkpublic should we check if the requested piece of data is public?
      * @return string|boolean the requested data, or FALSE if something went wrong
      */
@@ -417,9 +417,9 @@ class UIElements {
     /**
      * creates HTML code to display an "all is okay" message
      * 
-     * @param string $text the text to display
-     * @param string $caption the caption to display
-     * @param bool $omittabletags the output usually has tr/td table tags, this option suppresses them
+     * @param string $text          the text to display
+     * @param string $caption       the caption to display
+     * @param bool   $omittabletags the output usually has tr/td table tags, this option suppresses them
      * @return string HTML: the box
      */
     public function boxOkay(string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
@@ -429,9 +429,9 @@ class UIElements {
     /**
      * creates HTML code to display a "smartass comment" message
      * 
-     * @param string $text the text to display
-     * @param string $caption the caption to display
-     * @param bool $omittabletags the output usually has tr/td table tags, this option suppresses them
+     * @param string $text          the text to display
+     * @param string $caption       the caption to display
+     * @param bool   $omittabletags the output usually has tr/td table tags, this option suppresses them
      * @return string HTML: the box
      */
     public function boxRemark(string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
@@ -441,9 +441,9 @@ class UIElements {
     /**
      * creates HTML code to display a "something's a bit wrong" message
      * 
-     * @param string $text the text to display
-     * @param string $caption the caption to display
-     * @param bool $omittabletags the output usually has tr/td table tags, this option suppresses them
+     * @param string $text          the text to display
+     * @param string $caption       the caption to display
+     * @param bool   $omittabletags the output usually has tr/td table tags, this option suppresses them
      * @return string HTML: the box
      */
     public function boxWarning(string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
@@ -453,9 +453,9 @@ class UIElements {
     /**
      * creates HTML code to display a "Whoa! Danger, Will Robinson!" message
      * 
-     * @param string $text the text to display
-     * @param string $caption the caption to display
-     * @param bool $omittabletags the output usually has tr/td table tags, this option suppresses them
+     * @param string $text          the text to display
+     * @param string $caption       the caption to display
+     * @param bool   $omittabletags the output usually has tr/td table tags, this option suppresses them
      * @return string HTML: the box
      */
     public function boxError(string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
@@ -469,8 +469,8 @@ class UIElements {
      * the QR code so that the logo does not prevent parsing of the QR code.
      * 
      * @param string $inputpngstring the PNG to edit
-     * @param int $symbolsize size in pixels of one QR "pixel"
-     * @param int $marginsymbols size in pixels of border around the actual QR
+     * @param int    $symbolsize     size in pixels of one QR "pixel"
+     * @param int    $marginsymbols  size in pixels of border around the actual QR
      * @return string the image with logo centered in the middle
      */
     public function pngInjectConsortiumLogo(string $inputpngstring, int $symbolsize, int $marginsymbols = 4) {

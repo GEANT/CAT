@@ -19,7 +19,7 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
+require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
 
 CAT_session_start();
 

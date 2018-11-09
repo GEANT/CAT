@@ -90,6 +90,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * sets the supported EAP methods for a device
      * 
      * @param array $eapArray the list of EAP methods the device supports
+     * @return void
      */
     protected function setSupportedEapMethods($eapArray) {
         $this->supportedEapMethods = $eapArray;
@@ -140,6 +141,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @param AbstractProfile $profile        the profile object which will be passed by the caller
      * @param string          $token          the invitation token for silverbullet requests
      * @param string          $importPassword the PIN for the installer for silverbullet requests
+     * @return void
      * @final not to be redefined
      */
     final public function setup(AbstractProfile $profile, $token = NULL, $importPassword = NULL) {
@@ -223,6 +225,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * Selects the preferred eap method based on profile EAP configuration and device EAP capabilities
      *
      * @param array $eapArrayofObjects an array of eap methods supported by a given device
+     * @return void
      */
     public function calculatePreferredEapType($eapArrayofObjects) {
         $this->selectedEap = [];
@@ -327,7 +330,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @param string $source_name The source file name
      * @param string $output_name The destination file name
      * @param int    $encoding    Set Windows charset if non-zero
-     *
+     * @return boolean
      * @final not to be redefined
      */
     final protected function translateFile($source_name, $output_name = NULL, $encoding = 0) {
@@ -344,7 +347,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         $source = $this->findSourceFile($source_name);
         
         if ($source !== FALSE) { // if there is no file found, don't attempt to include an uninitialised variable
-            include($source);
+            include $source;
         }
         $output = ob_get_clean();
         if ($encoding) {
@@ -377,13 +380,13 @@ abstract class DeviceConfig extends \core\common\Entity {
      *
      * @param string $source_string The source string
      * @param int    $encoding      Set Windows charset if non-zero
-     *
+     * @return string
      * @final not to be redefined
      */
     final protected function translateString($source_string, $encoding = 0) {
         $this->loggerInstance->debug(5, "translateString input: \"$source_string\"\n");
         if (empty($source_string)) {
-            return($source_string);
+            return $source_string;
         }
         if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
             $encoding = 0;
@@ -457,6 +460,8 @@ abstract class DeviceConfig extends \core\common\Entity {
      * Normally the device identifier follows the Consortium name.
      * The sting taken for the device identifier equals (by default) to the index in the listDevices array,
      * but can be overriden with the 'device_id' device option.
+     * 
+     * @return string
      */
     private function getInstallerBasename() {
         $replace_pattern = '/[ ()\/\'"]+/';
@@ -640,7 +645,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * returns the attributes of the profile for which to generate an installer
      * 
      * In condensed notion, and most specific level only (i.e. ignores overriden attributes from a higher level)
-     * @param \core\AbstractProfile $profile
+     * @param \core\AbstractProfile $profile the Profile in question
      * @return array
      */
     private function getProfileAttributes(AbstractProfile $profile) {
@@ -661,6 +666,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * dumpAttibutes method is supplied for debuging purposes, it simply dumps the attribute array
      * to a file with name passed in the attribute.
      * @param string $file the output file name
+     * @return void
      */
     protected function dumpAttibutes($file) {
         ob_start();

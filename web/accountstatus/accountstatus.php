@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Contributions to this work were made on behalf of the GÉANT project, a 
  * project that has received funding from the European Union’s Horizon 2020 
@@ -25,7 +26,7 @@
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @package Core
  */
-require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
+require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 
 $cleanToken = FALSE;
 $invitationObject = new core\SilverbulletInvitation("INVALID");
@@ -44,11 +45,17 @@ if (isset($_REQUEST['token'])) {
         // it can be VALID (exists and not redeemed, EXPIRED, REDEEMED or INVALID (non existent)
         $invitationObject = new core\SilverbulletInvitation($cleanToken);
     }
-} elseif (isset($_SERVER['SSL_CLIENT_SAN_Email']) || isset($_SERVER['SSL_CLIENT_SAN_Email_0']) ) {
+} elseif (isset($_SERVER['SSL_CLIENT_SAN_Email']) || isset($_SERVER['SSL_CLIENT_SAN_Email_0'])) {
     // maybe the user authenticated with his client cert? Then pick any of his
     // tokens to go on
     $certname = $_SERVER['SSL_CLIENT_SAN_Email'] ?? $_SERVER['SSL_CLIENT_SAN_Email_0'];
-    $certObject = new \core\SilverbulletCertificate($certname);
+    if (preg_match("R$", $_SERVER['SSL_CLIENT_I_DN'])) {
+        $certObject = new \core\SilverbulletCertificate($certname, devices\Devices::SUPPORT_RSA);
+    } else if (preg_match("E$", $_SERVER['SSL_CLIENT_I_DN'])) {
+        $certObject = new \core\SilverbulletCertificate($certname, devices\Devices::SUPPORT_ECDSA);
+    } else {
+        throw new Exception("We got an accepted certificate authentication, but can't find the certificate in the database!");
+    }
     $profile = new \core\ProfileSilverbullet($certObject->profileId);
     $allTokens = $profile->userStatus($certObject->userId);
     $invitationObject = $allTokens[0];
@@ -59,7 +66,7 @@ if ($invitationObject->invitationTokenStatus != \core\SilverbulletInvitation::SB
     $profile = new \core\ProfileSilverbullet($invitationObject->profile, NULL);
     $idp = new \core\IdP($profile->institution);
     $fed = $validator->Federation(strtoupper($idp->federation));
-    $fedskin = $fed->getAttributes("fed:desired_skin"); 
+    $fedskin = $fed->getAttributes("fed:desired_skin");
 }
 // ... unless overwritten by direct GET/POST parameter in the request
 // ... with last resort being the default skin (first one in the configured skin list is the default)
@@ -89,15 +96,15 @@ if ($action !== NULL && $action !== FALSE && $action === \web\lib\common\FormEle
         foreach ($allcerts as $onecert) {
             if ($onecert->serial == $serial && $onecert->revocationStatus == 'NOT_REVOKED') {
                 print "//REVOKING\n";
-                $certObject = new \core\SilverbulletCertificate($serial);
+                $certObject = new \core\SilverbulletCertificate($serial, $onecert->ca_type);
                 $certObject->revokeCertificate();
                 header("Location: accountstatus.php?token=" . $statusInfo['token']);
                 exit;
             }
         }
     }
-                    header("Location: accountstatus.php?token=" . $statusInfo['token']);
-exit;
+    header("Location: accountstatus.php?token=" . $statusInfo['token']);
+    exit;
 }
 
 if ($idp !== NULL) {

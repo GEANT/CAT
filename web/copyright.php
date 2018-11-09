@@ -25,7 +25,7 @@
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @package Core
  */
-require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
+require_once dirname(dirname(__FILE__)) . "/config/_config.php";
 
 $Gui = new \web\lib\user\Gui();
 // ... unless overwritten by direct GET/POST parameter in the request or a SESSION setting

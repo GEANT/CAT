@@ -37,7 +37,7 @@ function check_my_nonce($nonce, $optSalt='') {
         return false;
     }
 }
-require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
+require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 
 // we are referring to $_SESSION later in the file
 CAT_session_start();

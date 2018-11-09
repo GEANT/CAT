@@ -63,7 +63,7 @@ class Language {
     /**
      * Sets the gettext domain
      *
-     * @param string $domain
+     * @param string $domain the text domain
      * @return string previous seting so that you can restore it later
      */
     public function setTextDomain($domain) {
@@ -84,6 +84,7 @@ class Language {
      * Only one of the supported langiages can be set
      * if a match is not found, the default langiage is used
      * @param int $hardSetLang - this is currently not used but will allow to force lang setting if this was ever required
+     * @return array the language that was set
      */
     private function setLang($hardSetLang = 0) {
         // $langConverted will contain candidates for the language setting in the order
@@ -145,6 +146,8 @@ class Language {
 
     /**
      * gets the language setting in CAT
+     * 
+     * @return string
      */
     public function getLang() {
         return $this->LANG;

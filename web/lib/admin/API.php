@@ -23,7 +23,7 @@ namespace web\lib\admin;
 
 use Exception;
 
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
+require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
 
 class API {
 
@@ -229,7 +229,7 @@ class API {
      * Only leave attributes in the request which are related to the ACTION.
      * Also sanitise by enforcing LANG attribute in multi-lang attributes.
      * 
-     * @param array $inputJson the incoming JSON request
+     * @param array            $inputJson the incoming JSON request
      * @param \core\Federation $fedObject the federation the user is acting within
      * @return array the scrubbed attributes
      */
@@ -295,7 +295,7 @@ class API {
     /**
      * extracts the first occurence of a given parameter name from the set of inputs
      * 
-     * @param array $inputs incoming set of arrays
+     * @param array  $inputs   incoming set of arrays
      * @param string $expected attribute that is to be extracted
      * @return mixed the value, or FALSE if none was found
      */
@@ -364,10 +364,23 @@ class API {
         return ["POST" => $coercedInline, "FILES" => $coercedFile];
     }
 
+    /**
+     * Returns a JSON construct detailing the error that happened
+     * 
+     * @param int    $code        error code to return
+     * @param string $description textual description to return
+     * @return string
+     */
     public function returnError($code, $description) {
         echo json_encode(["result" => "ERROR", "details" => ["errorcode" => $code, "description" => $description]], JSON_PRETTY_PRINT);
     }
 
+    /**
+     * Returns a JSON construct with details of the successful API call
+     * 
+     * @param array $details details to return with the SUCCESS
+     * @return string
+     */
     public function returnSuccess($details) {
         echo json_encode(["result" => "SUCCESS", "details" => $details], JSON_PRETTY_PRINT);
     }

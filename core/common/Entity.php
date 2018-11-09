@@ -92,9 +92,9 @@ abstract class Entity {
      * the same with the second and finally returns the value
      * if something on the way is not defined, NULL is returned
      * 
-     * @param array      $attributeArray 
-     * @param string|int $index1 
-     * @param string|int $index2
+     * @param array      $attributeArray the array to search in
+     * @param string|int $index1 first-level index to check
+     * @param string|int $index2 second-level index to check
      * @return mixed
      */
     public static function getAttributeValue($attributeArray, $index1, $index2) {
@@ -148,6 +148,7 @@ abstract class Entity {
      * this direcory delete function has been copied from PHP documentation
      * 
      * @param string $dir name of the directory to delete
+     * @return void
      */
     public static function rrmdir($dir) {
         foreach (glob($dir . '/*') as $file) {

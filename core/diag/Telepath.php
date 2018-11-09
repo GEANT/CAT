@@ -23,7 +23,7 @@ namespace core\diag;
 
 use \Exception;
 
-require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
+require_once dirname(dirname(__DIR__)) . "/config/_config.php";
 
 /**
  * The overall coordination class that runs all kinds of tests to find out where
@@ -48,8 +48,8 @@ class Telepath extends AbstractTest {
 
     /**
      * prime the Telepath with info it needs to know to successfully meditate over the problem
-     * @param string $realm the realm of the user
-     * @param string|null $visitedFlr which NRO is the user visiting
+     * @param string      $realm          the realm of the user
+     * @param string|null $visitedFlr     which NRO is the user visiting
      * @param string|null $visitedHotspot external DB ID of the hotspot he visited
      */
     public function __construct(string $realm, $visitedFlr = NULL, $visitedHotspot = NULL) {

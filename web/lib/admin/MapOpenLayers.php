@@ -21,7 +21,7 @@
 
 namespace web\lib\admin;
 
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
+require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
 
 /**
  * This class provides map display functionality
@@ -30,11 +30,22 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
  */
 class MapOpenLayers extends AbstractMap {
 
+    /**
+     * 
+     * @param \core\IdP $inst   the IdP for which the map is displayed
+     * @param boolean $readonly do we want a read-only map or editable?
+     * @return $this
+     */
     public function __construct($inst, $readonly) {
         parent::__construct($inst, $readonly);
         return $this;
     }
     
+    /**
+     * Code to insert into the <head></head> of a page
+     * 
+     * @return string
+     */
     public function htmlHeadCode() {
         $cat = new \core\CAT();
         return "
@@ -252,11 +263,23 @@ class MapOpenLayers extends AbstractMap {
         ";
     }
 
+    /**
+     * Code to insert into the <body></body> of a page
+     * 
+     * @return string
+     */
     public function htmlBodyCode() {
 
         return "";
     }
-
+    
+    /**
+     * Code which actually shows the map
+     * 
+     * @param boolean $wizard     are we in wizard mode?
+     * @param boolean $additional is this an additional location or a first?
+     * @return string
+     */
     public function htmlShowtime($wizard = FALSE, $additional = FALSE) {
         if ($this->readOnly) {
             return "<div id='map' class='locationmap'></div><script>generateMap('map')</script>";
@@ -269,7 +292,14 @@ class MapOpenLayers extends AbstractMap {
         // your magic here
         return "";
     }
-
+    
+    /**
+     * This function produces the code for the "Click to see" text
+     * 
+     * @param string $coords not needed in this subclass
+     * @param int    $number which location is it
+     * @return string
+     */
     public static function optionListDisplayCode($coords, $number) {
         return "<button id='location_b_" . $number . "' class='location_button'>" . _("Click to see location") . " $number</button>";
     }

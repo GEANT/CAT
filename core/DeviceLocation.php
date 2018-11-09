@@ -33,8 +33,9 @@ class DeviceLocation {
     /**
      * find out where the user is currently located
      * set $location with the discovered value
+     * 
+     * @return array
      */
-    
     public static function locateDevice() {
         $geoipVersion = CONFIG['GEOIP']['version'] ?? 0;
         switch ($geoipVersion) {
@@ -49,6 +50,11 @@ class DeviceLocation {
         }
     }
     
+    /**
+     * locate end-user with GeoIP version 1
+     * 
+     * @return array
+     */
     private static function locateDevice1() {
         if (CONFIG['GEOIP']['version'] != 1) {
             return ['status' => 'error', 'error' => 'Function for GEOIPv1 called, but config says this is not the version to use!'];
@@ -72,13 +78,14 @@ class DeviceLocation {
     
     /**
      * find out where the user is currently located, using GeoIP2
+     * 
      * @return array
      */
     private static function locateDevice2() {
         if (CONFIG['GEOIP']['version'] != 2) {
             return ['status' => 'error', 'error' => 'Function for GEOIPv2 called, but config says this is not the version to use!'];
         }
-        require_once CONFIG['GEOIP']['geoip2-path-to-autoloader'];
+        include_once CONFIG['GEOIP']['geoip2-path-to-autoloader'];
         $reader = new Reader(CONFIG['GEOIP']['geoip2-path-to-db']);
         $host = filter_input(INPUT_SERVER, 'REMOTE_ADDR', FILTER_VALIDATE_IP);
         try {

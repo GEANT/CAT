@@ -21,7 +21,7 @@
 
 // please run this as a cron job every hour
 
-require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
+require_once dirname(dirname(__FILE__)) . "/config/_config.php";
 
 // iterate through all federations and see if there are recently expired 
 // invitations for any of them

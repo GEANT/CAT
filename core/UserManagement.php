@@ -222,7 +222,7 @@ Best regards,
 
     /**
      * Adds a new administrator to an existing IdP
-     * @param IdP $idp institution to which the admin is to be added.
+     * @param IdP    $idp  institution to which the admin is to be added.
      * @param string $user persistent user ID that is to be added as an admin.
      * @return boolean This function always returns TRUE.
      */
@@ -237,7 +237,7 @@ Best regards,
 
     /**
      * Deletes an administrator from the IdP. If the IdP and user combination doesn't match, nothing happens.
-     * @param IdP $idp institution from which the admin is to be deleted.
+     * @param IdP    $idp  institution from which the admin is to be deleted.
      * @param string $user persistent user ID that is to be deleted as an admin.
      * @return boolean This function always returns TRUE.
      */
@@ -264,11 +264,11 @@ Best regards,
      * administrator of an existing institution, or for a new institution. In the latter case, the institution only actually gets 
      * created in the DB if the token is actually consumed via createIdPFromToken().
      * 
-     * @param boolean $isByFedadmin is the invitation token created for a federation admin (TRUE) or from an existing inst admin (FALSE)
-     * @param array $for identifiers (typically email addresses) for which the invitation is created
-     * @param mixed $instIdentifier either an instance of the IdP class (for existing institutions to invite new admins) or a string (new institution - this is the inst name then)
-     * @param string $externalId if the IdP to be created is related to an external DB entity, this parameter contains that ID
-     * @param string $country if the institution is new (i.e. $inst is a string) this parameter needs to specify the federation of the new inst
+     * @param boolean $isByFedadmin   is the invitation token created for a federation admin (TRUE) or from an existing inst admin (FALSE)
+     * @param array   $for            identifiers (typically email addresses) for which the invitation is created
+     * @param mixed   $instIdentifier either an instance of the IdP class (for existing institutions to invite new admins) or a string (new institution - this is the inst name then)
+     * @param string  $externalId     if the IdP to be created is related to an external DB entity, this parameter contains that ID
+     * @param string  $country        if the institution is new (i.e. $inst is a string) this parameter needs to specify the federation of the new inst
      * @return mixed The function returns either the token (as string) or FALSE if something went wrong
      */
     public function createTokens($isByFedadmin, $for, $instIdentifier, $externalId = 0, $country = 0) {

@@ -27,7 +27,7 @@
 
 // treating serialize()
 
-require_once("../config/_config.php");
+require_once "../config/_config.php";
 
 CONST TREATMENT_TABLES = ['federation_option', 'institution_option', 'profile_option', 'user_options'];
 

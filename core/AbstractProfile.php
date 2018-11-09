@@ -124,6 +124,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @param string $area          the download area (user, silverbullet, admin)
      * @param string $lang          the language of the installer
      * @param int    $eapType       the EAP type of the installer
+     * @return void
      * @throws Exception
      */
     protected function saveDownloadDetails($idpIdentifier, $profileId, $deviceId, $area, $lang, $eapType) {
@@ -266,6 +267,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
 
     /**
      * update the last_changed timestamp for this profile
+     * 
+     * @return void
      */
     public function updateFreshness() {
         $this->databaseHandle->exec("UPDATE profile SET last_change = CURRENT_TIMESTAMP WHERE profile_id = $this->identifier");
@@ -330,13 +333,14 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @param string $path           the path where the new installer can be found
      * @param string $mime           the mime type of the new installer
      * @param int    $integerEapType the inter-representation of the EAP type that is configured in this installer
+     * @return void
      */
     abstract public function updateCache($device, $path, $mime, $integerEapType);
 
     /** Toggle anonymous outer ID support.
      *
      * @param boolean $shallwe TRUE to enable outer identities (needs valid $realm), FALSE to disable
-     *
+     * @return void
      */
     abstract public function setAnonymousIDSupport($shallwe) ;
     
@@ -406,7 +410,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * Deletes the profile from database and uninstantiates itself.
      * Works fine also for Silver Bullet; the first query will simply do nothing
      * because there are no stored options
-     *
+     * 
+     * @return void
      */
     public function destroy() {
         $this->databaseHandle->exec("DELETE FROM profile_option WHERE profile_id = $this->identifier");
@@ -423,6 +428,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * runtime.
      * 
      * @param string $realm the realm (potentially with the local@ part that should be used for anonymous identities)
+     * @return void
      */
     public function setRealm(string $realm) {
         $this->databaseHandle->exec("UPDATE profile SET realm = ? WHERE profile_id = ?", "si", $realm, $this->identifier);
@@ -434,7 +440,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      *
      * @param \core\common\EAP $type       The EAP Type, as defined in class EAP
      * @param int              $preference preference of this EAP Type. If a preference value is re-used, the order of EAP types of the same preference level is undefined.
-     *
+     * @return void
      */
     public function addSupportedEapMethod(\core\common\EAP $type, $preference) {
         $eapInt = $type->getIntegerRep();
@@ -685,6 +691,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
 
     /**
      * set the showtime property if prepShowTime says that there is enough info *and* the admin flagged the profile for showing
+     * 
+     * @return void
      */
     public function prepShowtime() {
         $properConfig = $this->readyForShowtime();

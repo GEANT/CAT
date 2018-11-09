@@ -26,7 +26,7 @@ use Exception;
 ?>
 <?php
 
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
+require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
 
 /**
  * This class parses HTML field input from POST and FILES and extracts valid and authorized options to be set.
@@ -68,7 +68,7 @@ class OptionParser {
     /**
      * Verifies whether an incoming upload was actually valid data
      * 
-     * @param string $optiontype for which option was the data uploaded
+     * @param string $optiontype     for which option was the data uploaded
      * @param string $incomingBinary the uploaded data
      * @return boolean whether the data was valid
      */
@@ -113,8 +113,8 @@ class OptionParser {
      * - CA file: mangle the content so that *only* the valid content remains (raw input may contain line breaks or spaces which are valid, but some supplicants choke upon)
      * 
      * @param array $options the list of options we got
-     * @param array $good by-reference: the future list of actually imported options
-     * @param array $bad by-reference: the future list of submitted but rejected options
+     * @param array $good    by-reference: the future list of actually imported options
+     * @param array $bad     by-reference: the future list of submitted but rejected options
      * @return array the options, post-processed
      */
     private function postProcessValidAttributes(array $options, array &$good, array &$bad) {
@@ -179,8 +179,8 @@ class OptionParser {
      * extracts a coordinate pair from _POST (if any) and returns it in our 
      * standard attribute notation
      * 
-     * @param array $postArray
-     * @param array $good
+     * @param array $postArray data as sent by POST
+     * @param array $good      options which have been successfully parsed
      * @return array
      */
     private function postProcessCoordinates(array $postArray, array &$good) {
@@ -196,8 +196,8 @@ class OptionParser {
 
     /**
      * creates HTML code for a user-readable summary of the imports
-     * @param array $good list of actually imported options
-     * @param array $bad list of submitted but rejected options
+     * @param array $good           list of actually imported options
+     * @param array $bad            list of submitted but rejected options
      * @param array $mlAttribsWithC list of language-variant options
      * @return string HTML code
      */
@@ -230,7 +230,7 @@ class OptionParser {
      * Incoming data is in $_POST and possibly in $_FILES. Collate values into 
      * one array according to our name and numbering scheme.
      * 
-     * @param array $postArray _POST
+     * @param array $postArray  _POST
      * @param array $filesArray _FILES
      * @return array
      */
@@ -249,11 +249,11 @@ class OptionParser {
      * The very end of the processing: clean input data gets sent to the database
      * for storage
      * 
-     * @param mixed $object for which object are the options
-     * @param array $options the options to store
-     * @param array $pendingattributes list of attributes which are already stored but may need to be deleted
-     * @param string $device when the $object is Profile, this indicates device-specific attributes
-     * @param int $eaptype when the $object is Profile, this indicates eap-specific attributes
+     * @param mixed  $object            for which object are the options
+     * @param array  $options           the options to store
+     * @param array  $pendingattributes list of attributes which are already stored but may need to be deleted
+     * @param string $device            when the $object is Profile, this indicates device-specific attributes
+     * @param int    $eaptype           when the $object is Profile, this indicates eap-specific attributes
      * @return array list of attributes which were previously stored but are to be deleted now
      * @throws Exception
      */
@@ -294,9 +294,9 @@ class OptionParser {
     /**
      * filters the input to find syntactically correctly submitted attributes
      * 
-     * @param array $listOfEntries list of POST and FILES entries
+     * @param array $listOfEntries       list of POST and FILES entries
      * @param array $multilangAttrsWithC by-reference: future list of language-variant options and their "default lang" state
-     * @param array $bad by-reference: future list of submitted but rejected options
+     * @param array $bad                 by-reference: future list of submitted but rejected options
      * @return array sanitised list of options
      * @throws Exception
      */
@@ -433,11 +433,11 @@ class OptionParser {
     /**
      * The main function: takes all HTML field inputs, makes sense of them and stores valid data in the database
      * 
-     * @param mixed $object The object for which attributes were submitted
-     * @param array $postArray incoming attribute names and values as submitted with $_POST
-     * @param array $filesArray incoming attribute names and values as submitted with $_FILES
-     * @param int $eaptype for eap-specific attributes (only used where $object is a ProfileRADIUS instance)
-     * @param string $device for device-specific attributes (only used where $object is a ProfileRADIUS instance)
+     * @param mixed  $object     The object for which attributes were submitted
+     * @param array  $postArray  incoming attribute names and values as submitted with $_POST
+     * @param array  $filesArray incoming attribute names and values as submitted with $_FILES
+     * @param int    $eaptype    for eap-specific attributes (only used where $object is a ProfileRADIUS instance)
+     * @param string $device     for device-specific attributes (only used where $object is a ProfileRADIUS instance)
      * @return string text to be displayed in UI with the summary of attributes added
      * @throws Exception
      */

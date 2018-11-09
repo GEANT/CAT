@@ -55,11 +55,13 @@ class UserAPI extends CAT {
      * {@link DeviceConfig::setup()} method and finally, called the devide writeInstaller meethod
      * passing the returned path name.
      * 
-     * @param string $device identifier as in {@link devices.php}
-     * @param int $profileId profile identifier
+     * @param string $device       identifier as in {@link devices.php}
+     * @param int    $profileId    profile identifier
+     * @param string $generatedFor which download area does this pertain to
+     * @param string $token        for silverbullet: invitation token to consume
+     * @param string $password     for silverbull: import PIN for the future certificate
      *
-     * @return array|NULL
-     *  array with the following fields: 
+     * @return array|NULL array with the following fields: 
      *  profile - the profile identifier; 
      *  device - the device identifier; 
      *  link - the path name of the resulting installer
@@ -79,7 +81,7 @@ class UserAPI extends CAT {
         $installerProperties['device'] = $device;
         $cache = $this->getCache($device, $profile);
         $this->installerPath = $cache['path'];
-        if ($this->installerPath !== NULL && $token == NULL && $password == NULL) {
+        if ($this->installerPath !== NULL && $token === NULL && $password === NULL) {
             $this->loggerInstance->debug(4, "Using cached installer for: $device\n");
             $installerProperties['link'] = "API.php?action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=$profileId&device=$device&generatedfor=$generatedFor";
             $installerProperties['mime'] = $cache['mime'];
@@ -211,8 +213,8 @@ class UserAPI extends CAT {
 
     /**
      * 
-     * @param string $device
-     * @param int $profileId
+     * @param string $device    identifier of the device
+     * @param int    $profileId identifier of the profile
      */
     public function deviceInfo($device, $profileId) {
         $this->languageInstance->setTextDomain("devices");
@@ -268,8 +270,11 @@ class UserAPI extends CAT {
     /**
      * Generate and send the installer
      *
-     * @param string $device identifier as in {@link devices.php}
-     * @param int $prof_id profile identifier
+     * @param string $device        identifier as in {@link devices.php}
+     * @param int    $prof_id       profile identifier
+     * @param string $generated_for which download area does this pertain to
+     * @param string $token         for silverbullet: invitation token to consume
+     * @param string $password      for silverbull: import PIN for the future certificate
      * @return string binary stream: installerFile
      */
     public function downloadInstaller($device, $prof_id, $generated_for = 'user', $token = NULL, $password = NULL) {
@@ -412,8 +417,8 @@ class UserAPI extends CAT {
      * Lists all identity providers in the database
      * adding information required by DiscoJuice.
      * 
-     * @param int $activeOnly if set to non-zero will cause listing of only those institutions which have some valid profiles defined.
-     * @param string $country if set, only list IdPs in a specific country
+     * @param int    $activeOnly if set to non-zero will cause listing of only those institutions which have some valid profiles defined.
+     * @param string $country    if set, only list IdPs in a specific country
      * @return array the list of identity providers
      *
      */
@@ -423,7 +428,9 @@ class UserAPI extends CAT {
     
     /**
      * Order active identity providers according to their distance and name
-     * @param array $currentLocation - current location
+     * @param string $country         NRO to work with
+     * @param array  $currentLocation current location
+     *
      * @return array $IdPs -  list of arrays ('id', 'name');
      */
     public function orderIdentityProviders($country, $currentLocation = NULL) {

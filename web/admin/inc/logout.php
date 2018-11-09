@@ -20,7 +20,7 @@
  */
 ?>
 <?php
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
+require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
 
 $auth = new \web\lib\admin\Authentication();
 

@@ -28,7 +28,7 @@
  * It works on two CAs, the RSA and ECDSA variant. There is a separate temp
  * subdir for both ( temp_ocsp_RSA and temp_ocsp_ECDSA ).
  */
-require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
+require_once dirname(dirname(__FILE__)) . "/config/_config.php";
 if (file_exists("./semaphore")) {
     exit(1); // another instance is still busy doing stuff. Don't interfere.
 }

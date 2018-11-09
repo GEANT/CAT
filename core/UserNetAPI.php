@@ -144,7 +144,7 @@ class UserNetAPI extends UserAPI {
      * outputs a list of profiles available for a given IdP
      *
      * @param int $idpIdentifier the IdP identifier
-     * @param int $sort should the result set be sorted? 0 = no, 1 = yes
+     * @param int $sort          should the result set be sorted? 0 = no, 1 = yes
      */
     public function JSON_listProfiles($idpIdentifier, $sort = 0) {
         $this->languageInstance->setTextDomain("web_user");
@@ -207,8 +207,8 @@ class UserNetAPI extends UserAPI {
     /**
      * outputs the link to the installers (additionally, actually generates it or takes it from cache)
      *
-     * @param string $device identifier as in {@link devices.php}
-     * @param int $prof_id profile identifier
+     * @param string $device  identifier as in {@link devices.php}
+     * @param int    $prof_id profile identifier
      */
     public function JSON_generateInstaller($device, $prof_id) {
         $this->loggerInstance->debug(4, "JSON::generateInstaller arguments: $device,$prof_id\n");

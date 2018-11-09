@@ -24,6 +24,6 @@
 /**
  * This script deletes obsolete directories from installer cache and siverbullet directory
  */
-require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
+require_once dirname(dirname(__FILE__)) . "/config/_config.php";
 
 web\lib\admin\Maintenance::deleteObsoleteTempDirs();

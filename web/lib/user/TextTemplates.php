@@ -21,7 +21,7 @@
 
 namespace web\lib\user;
 
-require_once(ROOT."/config/_config.php");
+require_once ROOT."/config/_config.php";
 /**
  * these constants live in the global space just to ease their use - with class
  * prefix, the names simply get too long for comfort
