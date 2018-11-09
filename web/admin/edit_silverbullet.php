@@ -160,12 +160,16 @@ if (isset($_POST['command'])) {
             }
             break;
         case \web\lib\common\FormElements::BUTTON_REVOKECREDENTIAL:
-            if (isset($_POST['certSerial'])) {
+            if (isset($_POST['certSerial']) && isset($_POST['certAlgo'])) {
                 $certSerial = $validator->integer(filter_input(INPUT_POST, 'certSerial', FILTER_SANITIZE_STRING));
                 if ($certSerial === FALSE) {
                     continue;
                 }
-                $certObject = new \core\SilverbulletCertificate($certSerial);
+                $certAlgo = $validator->string($_POST['certAlgo']);
+                if ($certAlgo != devices\Devices::SUPPORT_RSA && $certAlgo != devices\Devices::SUPPORT_ECDSA) {
+                    continue;
+                }
+                $certObject = new \core\SilverbulletCertificate($certSerial, $certAlgo);
                 $certObject->revokeCertificate();
                 sleep(1); // make sure the expiry timestamps of invitations and certs are at least one second in the past
             }
@@ -415,6 +419,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                                         if ($buttonText == "") {
                                             echo "$formtext"
                                             . "<input type='hidden' name='certSerial' value='" . $oneCert->serial . "'/>"
+                                            . "<input type='hidden' name='certAlgo' value='" . $oneCert->ca_type . "'/>"
                                             . "<button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_REVOKECREDENTIAL . "' class='delete'>" . _("Revoke") . "</button>"
                                             . "</form>";
                                         } else {

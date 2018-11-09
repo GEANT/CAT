@@ -49,10 +49,10 @@ if (isset($_REQUEST['token'])) {
     // maybe the user authenticated with his client cert? Then pick any of his
     // tokens to go on
     $certname = $_SERVER['SSL_CLIENT_SAN_Email'] ?? $_SERVER['SSL_CLIENT_SAN_Email_0'];
-    if (preg_match("RSA", $_SERVER['SSL_CLIENT_I_DN'])) {
-        $certObject = new \core\SilverbulletCertificate($certname, "RSA");
-    } else if (preg_match("ECDSA", $_SERVER['SSL_CLIENT_I_DN'])) {
-        $certObject = new \core\SilverbulletCertificate($certname, "ECDSA");
+    if (preg_match(devices\Devices::SUPPORT_RSA, $_SERVER['SSL_CLIENT_I_DN'])) {
+        $certObject = new \core\SilverbulletCertificate($certname, devices\Devices::SUPPORT_RSA);
+    } else if (preg_match(devices\Devices::SUPPORT_ECDSA, $_SERVER['SSL_CLIENT_I_DN'])) {
+        $certObject = new \core\SilverbulletCertificate($certname, devices\Devices::SUPPORT_ECDSA);
     } else {
         throw new Exception("We got an accepted certificate authentication, but can't find the certificate in the database!");
     }
