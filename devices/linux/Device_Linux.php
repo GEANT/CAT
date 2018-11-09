@@ -51,12 +51,9 @@ class Device_Linux extends \core\DeviceConfig {
         if ($installer === FALSE) {
             throw new Exception("Unable to open installer file for writing!");
         }
+        fwrite($installer, "\n\n");
         $this->writeMessages($installer);
         $this->writeConfigVars($installer);
-
- //               fwrite($installer,$this->writeMessages());
-
- //       fwrite($installer,$this->writeConfigVars());
         fwrite($installer, "run_installer()\n");
         fclose($installer);
         return($installerPath);
