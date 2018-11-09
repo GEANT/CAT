@@ -37,8 +37,8 @@ abstract class AbstractMap {
     /**
      * loads the map, taking identifiers from the IdP in question
      * 
-     * @param \core\IdP $inst the IdP for which the map is displayed
-     * @param boolean $readonly whether the HTML code should yield an editable field
+     * @param \core\IdP $inst     the IdP for which the map is displayed
+     * @param boolean   $readonly whether the HTML code should yield an editable field
      */
     protected function __construct($inst, $readonly) {
         $this->instName = $inst->name;
@@ -87,6 +87,9 @@ abstract class AbstractMap {
      * function should fill these parameters. The parameters themselves are
      * generated if making use of the htmlPostEdit() function, or can of course
      * be written by this htmlShowtime function itself.
+     * 
+     * @param boolean $wizard     are we in wizard mode?
+     * @param boolean $additional is this an additional location or a first?
      */
     abstract public function htmlShowtime($wizard, $additional);
 
@@ -94,7 +97,8 @@ abstract class AbstractMap {
      * How are coordinates displayed in the enumeration of inst options?
      * This function provides the HTML for that.
      * 
-     * The parameter is the JSON representation of a coordinate pair.
+     * @param string $coords JSON encoded array of a coordinate pair
+     * @param int    $number the number of the location
      */
     abstract public static function optionListDisplayCode($coords, $number);
     

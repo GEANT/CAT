@@ -70,8 +70,8 @@ class OptionDisplay {
 
     /**
      * Which attributes are we talking about?
-     * @param array $options the options of interest
-     * @param string $level the level on which these options were defined by the user
+     * @param array  $options the options of interest
+     * @param string $level   the level on which these options were defined by the user
      */
     public function __construct(array $options, string $level) {
         $this->listOfOptions = $options;
@@ -102,8 +102,8 @@ class OptionDisplay {
     /**
      * Displays options for a given option class.
      * 
-     * @param string $class the class of options that is to be displayed
-     * @param array $prepopulate should an empty set of fillable options be displayed, or do we have existing data to prefill with
+     * @param string $class       the class of options that is to be displayed
+     * @param array  $prepopulate should an empty set of fillable options be displayed, or do we have existing data to prefill with
      */
     private function addOption(string $class, array $prepopulate = []) { // no GET class ? we've been called directly:
         // this can mean either a new object (list all options with empty values)
@@ -364,9 +364,9 @@ FOO;
      * Displays a container for options. Either with prefilled data or empty; if
      * empty then has HTML <input> tags with clever javaScript to allow selection
      * of different option names and types
-     * @param array $list options which should be displayed; can be only exactly one if existing option, or multiple if new option type
+     * @param array  $list         options which should be displayed; can be only exactly one if existing option, or multiple if new option type
      * @param string $prefillValue for an existing option, it's value to be displayed
-     * @param string $prefillLang for an existing option, the language of the value to be displayed
+     * @param string $prefillLang  for an existing option, the language of the value to be displayed
      * @return string HTML code <tr>
      */
     public function optiontext(array $list, string $prefillValue = NULL, string $prefillLang = NULL) {

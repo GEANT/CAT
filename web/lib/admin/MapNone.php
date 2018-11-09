@@ -30,11 +30,22 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
  */
 class MapNone extends AbstractMap {
 
+    /**
+     * 
+     * @param int     $inst     - the institution for which we are building locations
+     * @param boolean $readonly - do we want a read-only map or editable?
+     * @return $this
+     */
     public function __construct($inst, $readonly) {
         parent::__construct($inst, $readonly);
         return $this;
     }
 
+    /**
+     * Code to insert into the <head></head> of a page
+     * 
+     * @return string
+     */
     public function htmlHeadCode() {
         // no magic required if you want to nothing at all.
         return "<script>
@@ -53,11 +64,23 @@ class MapNone extends AbstractMap {
         ";
     }
 
+    /**
+     * Code to insert into the <body></body> of a page
+     * 
+     * @return string
+     */
     public function htmlBodyCode() {
         // no magic required if you want to nothing at all.
         return "";
     }
 
+    /**
+     * Code which actually shows the map
+     * 
+     * @param boolean $wizard     are we in wizard mode?
+     * @param boolean $additional is this an additional location or a first?
+     * @return string
+     */
     public function htmlShowtime($wizard = FALSE, $additional = FALSE) {
         if (!$this->readOnly) {
  //           return $this->htmlPreEdit($wizard, $additional) . $this->htmlPostEdit(TRUE);
@@ -65,10 +88,22 @@ class MapNone extends AbstractMap {
         }
     }
 
+    /**
+     * Code to insert into the <body> tag of the page
+     * 
+     * @return string
+     */
     public function bodyTagCode() {
         return "";
     }
 
+    /**
+     * This function produces the code for the "Click to see" text
+     * 
+     * @param string $coords not needed in this subclass
+     * @param int $number which location is it
+     * @return string
+     */
     public static function optionListDisplayCode($coords, $number) {
         $pair = json_decode($coords, true);
         return "<table><tr><td>Latitude</td><td><strong>" . $pair['lat'] . "</strong></td></tr><tr><td>Longitude</td><td><strong>" . $pair['lon'] . "</strong></td></tr></table>";

@@ -30,6 +30,12 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
  */
 class MapGoogle extends AbstractMap {
 
+    /**
+     * 
+     * @param int     $inst     - the institution for which we are building locations
+     * @param boolean $readonly - do we want a read-only map or editable?
+     * @return $this
+     */
     public function __construct($inst, $readonly) {
         parent::__construct($inst, $readonly);
         return $this;
@@ -317,7 +323,13 @@ class MapGoogle extends AbstractMap {
     public function htmlBodyCode() {
         
     }
-
+    /**
+     * Code which actually shows the map
+     * 
+     * @param boolean $wizard     are we in wizard mode?
+     * @param boolean $additional is this an additional location or a first?
+     * @return string
+     */
     public function htmlShowtime($wizard = FALSE, $additional = FALSE) {
         if ($this->readOnly) {
             return "<div id='map' class='googlemap'></div>";
@@ -326,10 +338,22 @@ class MapGoogle extends AbstractMap {
         }
     }
 
+    /**
+     * This function produces the code for the "Click to see" text
+     * 
+     * @param string $coords not needed in this subclass
+     * @param int $number which location is it
+     * @return string
+     */
     public static function optionListDisplayCode($coords, $number) {
         return "<button id='location_b_" . $number . "' class='location_button'>" . _("Click to see location") . " $number</button>";
     }
 
+    /**
+     * Code to insert into the <body> tag
+     * 
+     * @return string
+     */
     public function bodyTagCode() {
         return "onload='load(" . ($this->readOnly ? "0" : "1") . ")'";
     }

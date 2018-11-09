@@ -42,7 +42,7 @@ class InputValidation {
     /**
      * Is this a known Federation? Optionally, also check if the authenticated
      * user is a federation admin of that federation
-     * @param mixed $input the ISO code of the federation
+     * @param mixed       $input the ISO code of the federation
      * @param string|NULL $owner the authenticated username, optional
      * @return \core\Federation
      * @throws Exception
@@ -74,7 +74,7 @@ class InputValidation {
     /**
      * Is this a known IdP? Optionally, also check if the authenticated
      * user is an admin of that IdP
-     * @param mixed $input the numeric ID of the IdP in the system
+     * @param mixed  $input the numeric ID of the IdP in the system
      * @param string $owner the authenticated username, optional
      * @return \core\IdP
      * @throws Exception
@@ -103,7 +103,7 @@ class InputValidation {
      * IdP identifier and then checks if the Profile belongs to the refernced 
      * IdP
      * 
-     * @param mixed $input the numeric ID of the Profile in the system
+     * @param mixed    $input         the numeric ID of the Profile in the system
      * @param int|NULL $idpIdentifier the numeric ID of the IdP in the system, optional
      * @return \core\AbstractProfile
      * @throws Exception
@@ -140,7 +140,7 @@ class InputValidation {
     /**
      * Checks if the input was a valid string.
      * 
-     * @param mixed $input a string to be made SQL-safe
+     * @param mixed   $input           a string to be made SQL-safe
      * @param boolean $allowWhitespace whether some whitespace (e.g. newlines should be preserved (true) or redacted (false)
      * @return string the massaged string
      */

@@ -56,7 +56,7 @@ class PageDecoration {
 
     /**
      * constructs a <div> called 'header' for use on the top of the page
-     * @param string $cap1 caption to display in this div
+     * @param string $cap1     caption to display in this div
      * @param string $language current language (this one gets pre-set in the lang selector drop-down
      */
     private function headerDiv($cap1, $language) {
@@ -100,7 +100,7 @@ class PageDecoration {
      * and then call productheader.
      * 
      * @param string $pagetitle Title of the page to display
-     * @param string $area the area in which this page is (displays some matching <h1>s)
+     * @param string $area      the area in which this page is (displays some matching <h1>s)
      * @param boolean $authRequired
      */
     public function pageheader($pagetitle, $area, $authRequired = TRUE) {
