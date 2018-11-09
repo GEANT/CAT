@@ -64,8 +64,8 @@ class CAT extends \core\common\Entity {
      * trying to keep up with the name changes of copyright holder and consortia
      * updating those on *one* place should change display everywhere!
      */
-    const COPYRIGHT_HOLDER = "DANTE Ltd. and G&Eacute;ANT";
-    const COPYRIGHT_CONSORTIA = "the GN3, GN3+, GN4-1 and GN4-2 consortia";
+    const COPYRIGHT_HOLDER = "G&Eacute;ANT Association";
+    const COPYRIGHT_CONSORTIA = "the GÉANT Projects funded by EU";
     const COPYRIGHT_MIN_YEAR = 2011;
     const COPYRIGHT_MAX_YEAR = 2018;
 
