@@ -101,8 +101,8 @@ class Sociopath extends AbstractTest {
     /**
      * re-evaluates the occurence factor of the SUSPECTS, taking the answer to the given question into account
      * 
-     * @param int $questionNumber
-     * @param bool|NULL $answer TRUE if the answer was "Yes", FALSE if "No", NULL is "Dont know / N/A"
+     * @param int       $questionNumber number of the question that was answered
+     * @param bool|NULL $answer         TRUE if the answer was "Yes", FALSE if "No", NULL is "Dont know / N/A"
      */
     public function revaluate($questionNumber, $answer) {
         if ($questionNumber == "") {

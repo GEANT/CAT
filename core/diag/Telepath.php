@@ -48,8 +48,8 @@ class Telepath extends AbstractTest {
 
     /**
      * prime the Telepath with info it needs to know to successfully meditate over the problem
-     * @param string $realm the realm of the user
-     * @param string|null $visitedFlr which NRO is the user visiting
+     * @param string      $realm          the realm of the user
+     * @param string|null $visitedFlr     which NRO is the user visiting
      * @param string|null $visitedHotspot external DB ID of the hotspot he visited
      */
     public function __construct(string $realm, $visitedFlr = NULL, $visitedHotspot = NULL) {

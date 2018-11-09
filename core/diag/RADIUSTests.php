@@ -120,11 +120,11 @@ class RADIUSTests extends AbstractTest {
      * Constructor for the EAPTests class. The single mandatory parameter is the
      * realm for which the tests are to be carried out.
      * 
-     * @param string $realm
-     * @param string $outerUsernameForChecks
-     * @param array $supportedEapTypes (array of integer representations of EAP types)
-     * @param array $expectedServerNames (array of strings)
-     * @param array $expectedCABundle (array of PEM blocks)
+     * @param string $realm                  the realm to check
+     * @param string $outerUsernameForChecks outer username to use
+     * @param array  $supportedEapTypes      array of integer representations of EAP types
+     * @param array  $expectedServerNames    array of strings
+     * @param array  $expectedCABundle       array of PEM blocks
      */
     public function __construct($realm, $outerUsernameForChecks, $supportedEapTypes = [], $expectedServerNames = [], $expectedCABundle = []) {
         parent::__construct();
@@ -304,9 +304,9 @@ class RADIUSTests extends AbstractTest {
      * The function fills array RADIUSTests::UDP_reachability_result[$probeindex] with all check detail
      * in case more than the return code is needed/wanted by the caller
      * 
-     * @param int $probeindex refers to the specific UDP-host in the config that should be checked
+     * @param int     $probeindex  refers to the specific UDP-host in the config that should be checked
      * @param boolean $opnameCheck should we check choking on Operator-Name?
-     * @param boolean $frag should we cause UDP fragmentation? (Warning: makes use of Operator-Name!)
+     * @param boolean $frag        should we cause UDP fragmentation? (Warning: makes use of Operator-Name!)
      * @return int returncode
      */
     public function udpReachability($probeindex, $opnameCheck = TRUE, $frag = TRUE) {
@@ -925,13 +925,13 @@ network={
     /**
      * The big Guy. This performs an actual login with EAP and records how far 
      * it got and what oddities were observed along the way
-     * @param int $probeindex the probe we are connecting to (as set in product config)
-     * @param array $eaptype EAP type to use for connection
-     * @param string $innerUser inner username to try
-     * @param string $password password to try
-     * @param boolean $opnameCheck whether or not we check with Operator-Name set
-     * @param boolean $frag whether or not we check with an oversized packet forcing fragmentation
-     * @param string $clientcertdata client certificate credential to try
+     * @param int     $probeindex     the probe we are connecting to (as set in product config)
+     * @param array   $eaptype        EAP type to use for connection
+     * @param string  $innerUser      inner username to try
+     * @param string  $password       password to try
+     * @param boolean $opnameCheck    whether or not we check with Operator-Name set
+     * @param boolean $frag           whether or not we check with an oversized packet forcing fragmentation
+     * @param string  $clientcertdata client certificate credential to try
      * @return int overall return code of the login test
      * @throws Exception
      */
