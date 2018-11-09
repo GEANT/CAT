@@ -23,7 +23,7 @@ namespace web\lib\admin;
 
 use Exception;
 
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
+require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
 
 class API {
 
@@ -369,6 +369,7 @@ class API {
      * 
      * @param int    $code        error code to return
      * @param string $description textual description to return
+     * @return string
      */
     public function returnError($code, $description) {
         echo json_encode(["result" => "ERROR", "details" => ["errorcode" => $code, "description" => $description]], JSON_PRETTY_PRINT);
@@ -378,6 +379,7 @@ class API {
      * Returns a JSON construct with details of the successful API call
      * 
      * @param array $details details to return with the SUCCESS
+     * @return string
      */
     public function returnSuccess($details) {
         echo json_encode(["result" => "SUCCESS", "details" => $details], JSON_PRETTY_PRINT);

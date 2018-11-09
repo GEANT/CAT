@@ -21,7 +21,7 @@
 
 namespace web\lib\admin;
 
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
+require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
 
 /**
  * This class provides map display functionality
@@ -41,6 +41,11 @@ class MapGoogle extends AbstractMap {
         return $this;
     }
 
+    /**
+     * Code to insert into the <head></head> of a page
+     * 
+     * @return string
+     */
     public function htmlHeadCode() {
         $cat = new \core\CAT();
         return "<script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?key=" . CONFIG['APPEARANCE']['google_maps_api_key'] . "'></script>
@@ -320,6 +325,11 @@ class MapGoogle extends AbstractMap {
                 "</script>";
     }
 
+    /**
+     * Code to insert into the <body></body> of a page
+     * 
+     * @return string
+     */
     public function htmlBodyCode() {
         
     }
@@ -342,7 +352,7 @@ class MapGoogle extends AbstractMap {
      * This function produces the code for the "Click to see" text
      * 
      * @param string $coords not needed in this subclass
-     * @param int $number which location is it
+     * @param int    $number which location is it
      * @return string
      */
     public static function optionListDisplayCode($coords, $number) {

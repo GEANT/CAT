@@ -19,7 +19,7 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
-require_once (__DIR__ . "/../core/Psr4Autoloader.php");
+require_once __DIR__ . "/../core/Psr4Autoloader.php";
 use core\autoloader\Psr4Autoloader;
 
 // instantiate the loader

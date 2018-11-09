@@ -23,7 +23,7 @@ namespace web\lib\admin;
 
 use Exception;
 
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
+require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
 
 /**
  * We need to display previously set options in various forms. This class covers

@@ -99,9 +99,10 @@ class PageDecoration {
      * (e.g. onload) then you should call defaultPagePrelude, close head, open body,
      * and then call productheader.
      * 
-     * @param string $pagetitle Title of the page to display
-     * @param string $area      the area in which this page is (displays some matching <h1>s)
-     * @param boolean $authRequired
+     * @param string  $pagetitle    Title of the page to display
+     * @param string  $area         the area in which this page is (displays some matching <h1>s)
+     * @param boolean $authRequired is authentication required on this page?
+     * @return string
      */
     public function pageheader($pagetitle, $area, $authRequired = TRUE) {
         $retval = "";

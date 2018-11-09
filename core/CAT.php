@@ -32,7 +32,7 @@
 
 namespace core;
 
-require_once(dirname(__DIR__) . "/config/_config.php");
+require_once dirname(__DIR__) . "/config/_config.php";
 
 CAT_session_start();
 

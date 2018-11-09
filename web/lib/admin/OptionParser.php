@@ -26,7 +26,7 @@ use Exception;
 ?>
 <?php
 
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
+require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
 
 /**
  * This class parses HTML field input from POST and FILES and extracts valid and authorized options to be set.

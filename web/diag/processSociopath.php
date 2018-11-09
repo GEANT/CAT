@@ -19,7 +19,7 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
-require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
+require_once dirname(dirname(__DIR__)) . "/config/_config.php";
 CAT_session_start();
 $loggerInstance = new \core\common\Logging();
 $loggerInstance->debug(4, "Sociopath test\n");

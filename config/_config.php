@@ -19,8 +19,8 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
-require_once ("autoloader.php");
-require_once(__DIR__ . "/../packageRoot.php");
+require_once "autoloader.php";
+require_once __DIR__ . "/../packageRoot.php";
 
 /* This code block compares the template config against the actual one to find
  * out which of the values are MISSING, which are still at DEFAULT and which
@@ -93,7 +93,7 @@ if (!file_exists(ROOT . "/config/config-master.php")) {
     throw new Exception("Master config file not found!");
 }
 
-include(ROOT . "/config/config-master.php");
+require ROOT . "/config/config-master.php";
 
 /* as a test for the config comparison, run this, display in browser and exit 
 
@@ -109,16 +109,16 @@ include(ROOT . "/config/config-master.php");
 /* load sub-configs if we are dealing with those in this installation */
 
 if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == 'LOCAL' || CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == 'LOCAL') {
-    include(ROOT . "/config/config-confassistant.php");
+    include ROOT . "/config/config-confassistant.php";
 } else { // we want to define the constant itself anyway, to avoid some ugly warnings on the console
     // this is done with an inline include
-    include("data://text/plain;base64,".base64_encode("<?php const CONFIG_CONFASSISTANT = []; ?>"));
+    include "data://text/plain;base64,".base64_encode("<?php const CONFIG_CONFASSISTANT = []; ?>");
 }
 
 if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == 'LOCAL') {
-    include(ROOT . "/config/config-diagnostics.php");
+    include ROOT . "/config/config-diagnostics.php";
 } else { // same here
-    include("data://text/plain;base64,".base64_encode("<?php const CONFIG_DIAGNOSTICS = []; ?>"));
+    include "data://text/plain;base64,".base64_encode("<?php const CONFIG_DIAGNOSTICS = []; ?>");
 }
 
 function CAT_session_start() {

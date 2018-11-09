@@ -20,8 +20,8 @@
  */
 ?>
 <?php
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/core/phpqrcode.php");
+require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
+require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/core/phpqrcode.php";
 
 $auth = new \web\lib\admin\Authentication();
 $languageInstance = new \core\common\Language();

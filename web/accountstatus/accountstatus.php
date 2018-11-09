@@ -26,7 +26,7 @@
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @package Core
  */
-require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
+require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 
 $cleanToken = FALSE;
 $invitationObject = new core\SilverbulletInvitation("INVALID");

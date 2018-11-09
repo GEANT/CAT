@@ -21,7 +21,7 @@
 ?>
 <?php
 
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
+require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
 
 /**
  * retrieves a binary object from the database and pushes it out to the browser

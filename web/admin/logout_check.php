@@ -19,8 +19,8 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
-require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-require_once(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader']);
+require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
+require_once CONFIG['AUTHENTICATION']['ssp-path-to-autoloader'];
 
 $deco = new \web\lib\admin\PageDecoration();
 

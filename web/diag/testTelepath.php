@@ -19,7 +19,7 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
-require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
+require_once dirname(dirname(__DIR__)) . "/config/_config.php";
 
 $therealm = filter_input(INPUT_GET, 'realm', FILTER_SANITIZE_STRING);
 $thevisited = filter_input(INPUT_GET, 'visited', FILTER_SANITIZE_STRING);

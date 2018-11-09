@@ -21,7 +21,7 @@
 
 namespace core;
 
-require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
+require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 
 $instMgmt = new \core\UserManagement();
 $deco = new \web\lib\admin\PageDecoration();
@@ -29,10 +29,10 @@ $uiElements = new \web\lib\admin\UIElements();
 
 echo $deco->defaultPagePrelude(sprintf(_("%s: User Management"), CONFIG['APPEARANCE']['productname']));
 $user = new \core\User($_SESSION['user']);
-require_once("inc/click_button_js.php");
+require_once "inc/click_button_js.php";
 ?>
 
-<script type="text/javascript"><?php require_once("inc/overview_js.php") ?> </script>
+<script type="text/javascript"><?php require_once "inc/overview_js.php" ?> </script>
 
 
 <script src="js/XHR.js" type="text/javascript"></script>

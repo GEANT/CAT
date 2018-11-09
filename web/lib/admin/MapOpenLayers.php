@@ -21,7 +21,7 @@
 
 namespace web\lib\admin;
 
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
+require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
 
 /**
  * This class provides map display functionality
@@ -297,7 +297,7 @@ class MapOpenLayers extends AbstractMap {
      * This function produces the code for the "Click to see" text
      * 
      * @param string $coords not needed in this subclass
-     * @param int $number which location is it
+     * @param int    $number which location is it
      * @return string
      */
     public static function optionListDisplayCode($coords, $number) {

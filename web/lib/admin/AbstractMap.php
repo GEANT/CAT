@@ -21,7 +21,7 @@
 
 namespace web\lib\admin;
 
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
+require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
 
 /**
  * This class provides map display functionality
@@ -90,6 +90,7 @@ abstract class AbstractMap {
      * 
      * @param boolean $wizard     are we in wizard mode?
      * @param boolean $additional is this an additional location or a first?
+     * @return string
      */
     abstract public function htmlShowtime($wizard, $additional);
 
@@ -99,6 +100,7 @@ abstract class AbstractMap {
      * 
      * @param string $coords JSON encoded array of a coordinate pair
      * @param int    $number the number of the location
+     * @return string
      */
     abstract public static function optionListDisplayCode($coords, $number);
     

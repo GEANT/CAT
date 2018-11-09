@@ -19,7 +19,7 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
-require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
+require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 
 $auth = new \web\lib\admin\Authentication();
 $deco = new \web\lib\admin\PageDecoration();
@@ -43,7 +43,7 @@ if ($wizardStyle) {
 } else {
     echo $deco->defaultPagePrelude(sprintf(_("%s: Editing IdP '%s'"), CONFIG['APPEARANCE']['productname'], $inst_name));
 }
-require_once("inc/click_button_js.php");
+require_once "inc/click_button_js.php";
 // let's check if the inst handle actually exists in the DB and user is authorised
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>

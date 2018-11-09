@@ -30,7 +30,7 @@
  * the receiving end to strip this marker and not add the title by itself.
  *
  */
-require_once(dirname(dirname(dirname((dirname(dirname(__FILE__)))))) . "/config/_config.php");
+require_once dirname(dirname(dirname((dirname(dirname(__FILE__)))))) . "/config/_config.php";
 
 $Gui = new \web\lib\user\Gui();
 
@@ -40,11 +40,11 @@ $page = $_REQUEST['page'];
 $subpage = $_REQUEST['subpage'];
 switch ($page) {
     case 'about' :
-        require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/user/about_cat.inc.php");
+        require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/user/about_cat.inc.php";
         $out = "<div class='padding'>$out</div>";
         break;
     case 'tou':
-        require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/user/tou.inc.php");
+        require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/user/tou.inc.php";
         $out = "no_title<div>
            <h1>
          " . $Tou['title'] . "
@@ -60,7 +60,7 @@ $Tou['full'] . "
 ";
         break;
     case 'help':
-        require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/user/faq.inc.php");
+        require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/user/faq.inc.php";
         switch ($subpage) {
             case 'contact' :
             case 'idp_not_listed' :
@@ -111,7 +111,7 @@ $Tou['full'] . "
                     }
                 break;
             case 'develop' :
-                        require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/user/devel.inc.php");
+                        require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/user/devel.inc.php";
                         $out = "<div class='padding'>$out</div>";
                 break;
         }

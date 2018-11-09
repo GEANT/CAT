@@ -34,7 +34,7 @@ namespace core\diag;
 
 use \Exception;
 
-require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
+require_once dirname(dirname(__DIR__)) . "/config/_config.php";
 
 /**
  * Test suite to verify that an EAP setup is actually working as advertised in

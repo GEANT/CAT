@@ -141,7 +141,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
             <div id='diagnostic_admin' style='display: <?php if (!$admin) { echo 'none'; } ?> ;'>
                 <h2><?php echo _("Tools for eduroam admins"); ?></h2>
                 <?php
-                    require_once(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader']);
+                    require_once CONFIG['AUTHENTICATION']['ssp-path-to-autoloader'];
                     $auth = new \web\lib\admin\Authentication();
                     echo '<input type="hidden" id="isadmin" value="';
                     if ($auth->isAuthenticated()) {

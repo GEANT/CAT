@@ -55,11 +55,11 @@ class UserAPI extends CAT {
      * {@link DeviceConfig::setup()} method and finally, called the devide writeInstaller meethod
      * passing the returned path name.
      * 
-     * @param string $device identifier as in {@link devices.php}
-     * @param int $profileId profile identifier
+     * @param string $device       identifier as in {@link devices.php}
+     * @param int    $profileId    profile identifier
      * @param string $generatedFor which download area does this pertain to
-     * @param string $token         for silverbullet: invitation token to consume
-     * @param string $password      for silverbull: import PIN for the future certificate
+     * @param string $token        for silverbullet: invitation token to consume
+     * @param string $password     for silverbull: import PIN for the future certificate
      *
      * @return array|NULL array with the following fields: 
      *  profile - the profile identifier; 

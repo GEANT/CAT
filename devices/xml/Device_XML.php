@@ -31,7 +31,7 @@
  */
 namespace devices\xml;
 use Exception;
-require_once(dirname(__FILE__) . '/XML.inc.php');
+require_once dirname(__FILE__) . '/XML.inc.php';
 
 /**
  * This class implements full functionality of the generic XML device

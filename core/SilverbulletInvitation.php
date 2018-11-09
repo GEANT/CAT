@@ -31,7 +31,7 @@ namespace core;
 
 use \Exception;
 
-require_once("phpqrcode.php");
+require_once "phpqrcode.php";
 const QRCODE_PIXELS_PER_SYMBOL = 12;
 
 
