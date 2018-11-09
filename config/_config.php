@@ -121,6 +121,9 @@ if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == 'LOCAL') {
     include "data://text/plain;base64,".base64_encode("<?php const CONFIG_DIAGNOSTICS = []; ?>");
 }
 
+/**
+ * takes care of starting our session
+ */
 function CAT_session_start() {
     if (session_status() != PHP_SESSION_ACTIVE) {
         session_name("CAT");

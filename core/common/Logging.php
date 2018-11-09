@@ -42,6 +42,7 @@ class Logging {
      * 
      * @param string $filename the name of the log file, relative (path to logdir gets prepended)
      * @param string $message  what to write into the file
+     * @return void
      */
     private function writeToFile($filename, $message) {
         file_put_contents(CONFIG['PATHS']['logdir'] . "/$filename", sprintf("%-015s", microtime(TRUE)) . $message, FILE_APPEND);
@@ -50,8 +51,10 @@ class Logging {
     /**
      * write debug messages to the log, if the debug level is high enough
      *
-     * @param int   $level the debug level of the message that is to be logged
-     * @param mixed $stuff the stuff to be logged (via print_r)
+     * @param int    $level the debug level of the message that is to be logged
+     * @param mixed  $stuff the stuff to be logged (via print_r)
+     * @param string $prefix prefix to the message, optional
+     * @param string $suffix suffix to the message, optional
      * @return void
      */
     public function debug($level, $stuff, $prefix = '', $suffix = '') {
@@ -110,6 +113,7 @@ class Logging {
      * to the log file. The log file path is configurable in _config.php.
      * 
      * @param string $query the SQL query to be logged
+     * @return void
      */
     public function writeSQLAudit($query) {
         // clean up text to be in one line, with no extra spaces

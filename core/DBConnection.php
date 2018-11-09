@@ -72,6 +72,8 @@ class DBConnection {
 
     /**
      * Implemented for safety reasons only. Cloning is forbidden and will tell the user so.
+     *
+     * @return void
      */
     public function __clone() {
         trigger_error('Clone is not allowed.', E_USER_ERROR);
@@ -87,9 +89,9 @@ class DBConnection {
 
     /**
      * executes a query and triggers logging to the SQL audit log if it's not a SELECT
-     * @param string $querystring   the query to be executed
-     * @param string $types         for prepared statements, the type list of parameters
-     * @param mixed   ...$arguments for prepared statements, the parameters
+     * @param string $querystring  the query to be executed
+     * @param string $types        for prepared statements, the type list of parameters
+     * @param mixed  ...$arguments for prepared statements, the parameters
      * @return mixed the query result as mysqli_result object; or TRUE on non-return-value statements
      * @throws Exception
      */

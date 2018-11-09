@@ -32,8 +32,8 @@ class MapGoogle extends AbstractMap {
 
     /**
      * 
-     * @param \core\IdP $inst     the IdP for which the map is displayed
-     * @param boolean $readonly - do we want a read-only map or editable?
+     * @param \core\IdP $inst   the IdP for which the map is displayed
+     * @param boolean $readonly do we want a read-only map or editable?
      * @return $this
      */
     public function __construct($inst, $readonly) {

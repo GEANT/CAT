@@ -592,6 +592,11 @@ class CAT extends \core\common\Entity {
         return($returnArray);
     }
     
+    /**
+     * the (HTML) root path of the CAT deployment
+     * 
+     * @return string
+     */
     public static function getRootUrlPath() {
         return substr(CONFIG['PATHS']['cat_base_url'], -1) === '/' ? substr(CONFIG['PATHS']['cat_base_url'], 0, -1) : CONFIG['PATHS']['cat_base_url'];
     }
