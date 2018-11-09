@@ -81,7 +81,7 @@ class UserAPI extends CAT {
         $installerProperties['device'] = $device;
         $cache = $this->getCache($device, $profile);
         $this->installerPath = $cache['path'];
-        if ($this->installerPath !== NULL && $token == NULL && $password == NULL) {
+        if ($this->installerPath !== NULL && $token === NULL && $password === NULL) {
             $this->loggerInstance->debug(4, "Using cached installer for: $device\n");
             $installerProperties['link'] = "API.php?action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=$profileId&device=$device&generatedfor=$generatedFor";
             $installerProperties['mime'] = $cache['mime'];

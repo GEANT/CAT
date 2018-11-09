@@ -377,7 +377,7 @@ class API {
     /**
      * Returns a JSON construct with details of the successful API call
      * 
-     * @param string $details textual description to return
+     * @param array $details details to return with the SUCCESS
      */
     public function returnSuccess($details) {
         echo json_encode(["result" => "SUCCESS", "details" => $details], JSON_PRETTY_PRINT);

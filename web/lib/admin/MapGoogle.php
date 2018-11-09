@@ -32,7 +32,7 @@ class MapGoogle extends AbstractMap {
 
     /**
      * 
-     * @param int     $inst     - the institution for which we are building locations
+     * @param \core\IdP $inst     the IdP for which the map is displayed
      * @param boolean $readonly - do we want a read-only map or editable?
      * @return $this
      */
