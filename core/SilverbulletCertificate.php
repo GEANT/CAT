@@ -332,10 +332,10 @@ class SilverbulletCertificate extends EntityWithDBProperties {
             throw new Exception("External silverbullet CA is not implemented yet!");
         }
         // regardless if embedded or not, always keep local state in our own DB
-        $this->databaseHandle->exec("UPDATE silverbullet_certificate SET revocation_status = 'REVOKED', revocation_time = ? WHERE serial_number = ?", "si", $nowSql, $this->serial);
+        $this->databaseHandle->exec("UPDATE silverbullet_certificate SET revocation_status = 'REVOKED', revocation_time = ? WHERE serial_number = ? AND ca_type = ?", "sis", $nowSql, $this->serial, $this->ca_type);
         $this->loggerInstance->debug(2, "Certificate revocation status for $this->serial updated, about to call triggerNewOCSPStatement().\n");
         // newly instantiate us, DB content has changed...
-        $certObject = new SilverbulletCertificate($this->serial);
+        $certObject = new SilverbulletCertificate($this->serial, $this->ca_type);
         $certObject->triggerNewOCSPStatement();
     }
 

@@ -314,11 +314,11 @@ class ProfileSilverbullet extends AbstractProfile {
             $invitation->revokeInvitation();
         }
         // and revoke all certificates
-        $query2 = "SELECT serial_number FROM silverbullet_certificate WHERE profile_id = $this->identifier AND silverbullet_user_id = ? AND expiry >= NOW() AND revocation_status = 'NOT_REVOKED'";
+        $query2 = "SELECT serial_number, ca_type FROM silverbullet_certificate WHERE profile_id = $this->identifier AND silverbullet_user_id = ? AND expiry >= NOW() AND revocation_status = 'NOT_REVOKED'";
         $exec2 = $this->databaseHandle->exec($query2, "i", $userId);
         // SELECT -> resource, not boolean
         while ($result = mysqli_fetch_object(/** @scrutinizer ignore-type */ $exec2)) {
-            $certObject = new SilverbulletCertificate($result->serial_number);
+            $certObject = new SilverbulletCertificate($result->serial_number, $result->ca_type);
             $certObject->revokeCertificate();
         }
         // and finally set the user expiry date to NOW(), too
