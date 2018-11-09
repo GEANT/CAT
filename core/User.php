@@ -140,8 +140,8 @@ class User extends EntityWithDBProperties {
     /**
      * shorthand function for email sending to the user
      * 
-     * @param string $subject
-     * @param string $content
+     * @param string $subject addressee of the mail
+     * @param string $content content of the mail
      * @return boolean did it work?
      */
     public function sendMailToUser($subject, $content) {
@@ -187,7 +187,8 @@ class User extends EntityWithDBProperties {
      * that email address. We then see which pretty-print auth provider name
      * was used
      * 
-     * @param string $mail
+     * @param string $mail mail address to search with
+     * @param string $lang language for the eduGAIN request
      * @return boolean|array the list of auth source IdPs we found for the mail, or FALSE if none found or invalid input
      */
     public static function findLoginIdPByEmail($mail, $lang) {

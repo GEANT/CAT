@@ -137,6 +137,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      *
      * @param string $token          the token string
      * @param string $importPassword the PIN
+     * @param string $certtype       is this for the RSA or ECDSA CA?
      * @return array
      */
     public static function issueCertificate($token, $importPassword, $certtype) {

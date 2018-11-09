@@ -434,8 +434,8 @@ class CAT extends \core\common\Entity {
      * Lists all identity providers in the database
      * adding information required by DiscoJuice.
      * 
-     * @param int $activeOnly if set to non-zero will cause listing of only those institutions which have some valid profiles defined.
-     * @param string $country if set, only list IdPs in a specific country
+     * @param int    $activeOnly if set to non-zero will cause listing of only those institutions which have some valid profiles defined.
+     * @param string $country    if set, only list IdPs in a specific country
      * @return array the list of identity providers
      *
      */
@@ -534,7 +534,7 @@ class CAT extends \core\common\Entity {
      * (if any; for eduroam, this would be the official eduroam database)
      * 
      * @param string $externalId the ID of the institution in the external DB
-     * @param string $realm the function can also try to find an inst by its realm in the external DB
+     * @param string $realm      the function can also try to find an inst by its realm in the external DB
      * @return array a list of institutions, ideally with only one member
      */
     public function getExternalDBEntityDetails($externalId, $realm = NULL) {

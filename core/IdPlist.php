@@ -51,8 +51,8 @@ class IdPlist {
      * Lists all identity providers in the database
      * adding information required by DiscoJuice.
      * 
-     * @param int $activeOnly if set to non-zero will cause listing of only those institutions which have some valid profiles defined.
-     * @param string $country if set, only list IdPs in a specific country
+     * @param int    $activeOnly if set to non-zero will cause listing of only those institutions which have some valid profiles defined.
+     * @param string $country    if set, only list IdPs in a specific country
      * @return array the list of identity providers
      *
      */
@@ -159,8 +159,8 @@ class IdPlist {
     /**
      * Calculate the distance in km between two points given their
      * geo coordinates.
-     * @param array $point1 - first point as an 'lat', 'lon' array 
-     * @param array $profile1 - second point as an 'lat', 'lon' array 
+     * @param array $point1   first point as an 'lat', 'lon' array 
+     * @param array $profile1 second point as an 'lat', 'lon' array 
      * @return float distance in km
      */
     private static function geoDistance($point1, $profile1) {
