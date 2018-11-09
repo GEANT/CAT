@@ -209,7 +209,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         foreach ($new as $attrib) {
             $ignore = "";
             foreach ($existing as $approvedAttrib) {
-                if ($attrib["name"] == $approvedAttrib["name"] && $approvedAttrib["level"] != $newlevel) {
+                if (($attrib["name"] == $approvedAttrib["name"] && $approvedAttrib["level"] != $newlevel) && ($approvedAttrib["name"] != "device-specific:redirect") ){
                     $ignore = "YES";
                 }
             }

@@ -89,7 +89,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     $blacklistEntries = $my_profile->getAttributes("device-specific:redirect");
     $blacklisted = FALSE;
     foreach ($blacklistEntries as $oneEntry) {
-        if (!isset($oneEntry['device'])) { // don't act on device-level redirects
+        if ($oneEntry['device'] === NULL) { // don't act on device-level redirects
             $blacklisted = $oneEntry['value'];
         }
     }
