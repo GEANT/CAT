@@ -96,7 +96,7 @@ if ($action !== NULL && $action !== FALSE && $action === \web\lib\common\FormEle
         foreach ($allcerts as $onecert) {
             if ($onecert->serial == $serial && $onecert->revocationStatus == 'NOT_REVOKED') {
                 print "//REVOKING\n";
-                $certObject = new \core\SilverbulletCertificate($serial);
+                $certObject = new \core\SilverbulletCertificate($serial, $onecert->ca_type);
                 $certObject->revokeCertificate();
                 header("Location: accountstatus.php?token=" . $statusInfo['token']);
                 exit;
