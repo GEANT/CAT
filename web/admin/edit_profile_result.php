@@ -178,6 +178,8 @@ if (!$profile instanceof \core\ProfileRADIUS) {
 
     echo $optionParser->processSubmittedFields($profile, $_POST, $_FILES);
 
+    //print_r($profile->getAttributes());
+    //exit(1);
     if ($redirect !== FALSE) {
         if (!isset($_POST['redirect_target']) || $_POST['redirect_target'] == "") {
             echo $uiElements->boxError(_("Redirection can't be activated - you did not specify a target location!"));
@@ -185,7 +187,19 @@ if (!$profile instanceof \core\ProfileRADIUS) {
             echo $uiElements->boxError(_("Redirection can't be activated - the target needs to be a complete URL starting with http:// or https:// !"));
         } else {
             $profile->addAttribute("device-specific:redirect", 'C', $_POST['redirect_target']);
-            echo $uiElements->boxOkay(sprintf("Redirection set to <strong>%s</strong>", htmlspecialchars($_POST['redirect_target'])));
+            // check if there is a device-level redirect which effectively disables profile-level redirect, and warn if so
+            $redirects = $profile->getAttributes("device-specific:redirect");
+            $deviceSpecificFound = FALSE;
+            foreach ($redirects as $oneRedirect) {
+                if ($oneRedirect["level"] == "Method") {
+                    $deviceSpecificFound = TRUE;
+                }
+            }
+            if ($deviceSpecificFound) {
+                echo $uiElements->boxWarning(sprintf(_("Redirection set to <strong>%s</strong>, but will be ignored due to existing device-level redirect."), htmlspecialchars($_POST['redirect_target'])));
+            } else {
+                echo $uiElements->boxOkay(sprintf(_("Redirection set to <strong>%s</strong>"), htmlspecialchars($_POST['redirect_target'])));
+            }
         }
     } else {
         echo $uiElements->boxOkay(_("Redirection is <strong>OFF</strong>"));
