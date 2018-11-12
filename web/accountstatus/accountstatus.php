@@ -83,9 +83,12 @@ if ($profile !== NULL) {
 };
 
 $action = filter_input(INPUT_GET, 'action', FILTER_VALIDATE_INT);
-$serial = filter_input(INPUT_GET, 'serial', FILTER_VALIDATE_INT);
+$caAndSerial = filter_input(INPUT_GET, 'serial', FILTER_SANITIZE_STRING);
 
 if ($action !== NULL && $action !== FALSE && $action === \web\lib\common\FormElements::BUTTON_DELETE && $serial !== NULL && $serial !== FALSE) {
+    $tuple = explode(':',$caAndSerial);
+    $ca_type = $tuple[0];
+    $serial = $tuple[1];
     if ($statusInfo['invitation_object']->invitationTokenStatus != \core\SilverbulletInvitation::SB_TOKENSTATUS_INVALID) {
         $userdata = $profile->userStatus($statusInfo['invitation_object']->userId);
         // if the requested serial belongs to the user, AND it is currently valid, revoke it
@@ -94,9 +97,9 @@ if ($action !== NULL && $action !== FALSE && $action === \web\lib\common\FormEle
             $allcerts = array_merge($allcerts, $content->associatedCertificates);
         }
         foreach ($allcerts as $onecert) {
-            if ($onecert->serial == $serial && $onecert->revocationStatus == 'NOT_REVOKED') {
+            if ($onecert->serial == $serial && $onecert->ca_type == $ca_type && $onecert->revocationStatus == 'NOT_REVOKED') {
                 print "//REVOKING\n";
-                $certObject = new \core\SilverbulletCertificate($serial, $onecert->ca_type);
+                $certObject = new \core\SilverbulletCertificate($serial, $ca_type);
                 $certObject->revokeCertificate();
                 header("Location: accountstatus.php?token=" . $statusInfo['token']);
                 exit;
