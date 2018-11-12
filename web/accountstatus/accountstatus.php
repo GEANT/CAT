@@ -80,12 +80,12 @@ if ($profile !== NULL) {
     $statusInfo["profile"] = $profile;
     $statusInfo["attributes"] = $Gui->profileAttributes($profile->identifier);
     $statusInfo["profile_id"] = $invitationObject->profile;
-};
+}
 
 $action = filter_input(INPUT_GET, 'action', FILTER_VALIDATE_INT);
 $caAndSerial = filter_input(INPUT_GET, 'serial', FILTER_SANITIZE_STRING);
 
-if ($action !== NULL && $action !== FALSE && $action === \web\lib\common\FormElements::BUTTON_DELETE && $serial !== NULL && $serial !== FALSE) {
+if ($action !== NULL && $action !== FALSE && $action === \web\lib\common\FormElements::BUTTON_DELETE && $caAndSerial !== NULL && $caAndSerial !== FALSE) {
     $tuple = explode(':',$caAndSerial);
     $ca_type = $tuple[0];
     $serial = $tuple[1];
