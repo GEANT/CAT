@@ -83,6 +83,7 @@ Var Netsh
 Var Msiexec
 Var main_ssid
 Var rebootRequired
+Var spacesRemoved
 !ifdef GEANTLink
   !define CRED
   !define PASSWORD_BASED_CRED
@@ -1198,6 +1199,24 @@ Pop $R1
 Exch $R0
 FunctionEnd
 
+Function trimTrailingSpaces
+   Pop $R5
+   Push 0
+   Pop $spacesRemoved
+Loop3:
+   StrCpy $R7 $R5 "" -1
+   ${If} $R7 == ' '
+      Push 1
+      Pop $spacesRemoved
+      StrCpy $R5 $R5 -1
+      GoTo Loop3
+   ${EndIf}
+   ${If} $spacesRemoved == 1
+      MessageBox MB_OK "<?php WindowsCommon::echo_nsi(_("Username contained spme trailing spaces which were removed."))?>"
+   ${EndIf}
+   Push $R5
+FunctionEnd
+
 ; validateUsername returns 0 on success
 ; -1 on missing user part
 ;  1 if realm required but not present
@@ -1318,6 +1337,9 @@ Function SavePasswordBasedCredentials
    ${NSD_GetText} $UNAME_F $UNAME
    ${NSD_GetText} $PASS1_F $PASS1
    ${NSD_GetText} $PASS2_F $PASS2
+   Push $UNAME
+   call trimTrailingSpaces
+   Pop $UNAME
    ${If} "$UNAME" == ""
      MessageBox MB_OK "<?php WindowsCommon::echo_nsi(_("Missing username"))?>"
      Abort
