@@ -863,7 +863,8 @@ class CatNMConfigTool(object):
         if Config.eap_outer == 'PEAP' or Config.eap_outer == 'TTLS':
             s_8021x_data['password'] = self.user_data.password
             s_8021x_data['phase2-auth'] = Config.eap_inner.lower()
-            s_8021x_data['anonymous-identity'] = Config.anonymous_identity
+            if Config.anonymous_identity != '':
+                s_8021x_data['anonymous-identity'] = Config.anonymous_identity
             s_8021x_data['password-flags'] = 0
         if Config.eap_outer == 'TLS':
             s_8021x_data['client-cert'] = dbus.ByteArray(
