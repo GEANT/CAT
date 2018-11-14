@@ -1,33 +1,33 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# palaxel <pal.axelsson@uadm.uu.se>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-07 14:23+0100\n"
-"PO-Revision-Date: 2012-08-07 13:23+0000\n"
+"PO-Revision-Date: 2018-11-14 10:07+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
-"Language-Team: Swedish (http://www.transifex.com/projects/p/cat/language/"
-"sv/)\n"
-"Language: sv\n"
+"Language-Team: Swedish (Sweden) (http://www.transifex.com/eduroam_devel/cat/language/sv_SE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: sv_SE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: core/CAT.php:111
 msgid ""
-"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git "
-"Revision</a>"
+"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git"
+" Revision</a>"
 msgstr ""
 
 #: core/CAT.php:121
 #, php-format
 msgid "Release <a href='%s'>%s</a>"
-msgstr ""
+msgstr "Version <a href='%s'>%s</a>"
 
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
@@ -42,7 +42,7 @@ msgstr ""
 
 #: core/CAT.php:136 core/DeviceConfig.php:103
 msgid "organisation"
-msgstr ""
+msgstr "organisation"
 
 #: core/CAT.php:137
 msgid "Identity Provider"
@@ -66,7 +66,7 @@ msgstr "Bulgarien"
 
 #: core/CAT.php:150
 msgid "Cyprus"
-msgstr ""
+msgstr "Cypern"
 
 #: core/CAT.php:151
 msgid "Czech Republic"
@@ -125,9 +125,8 @@ msgid "Latvia"
 msgstr "Lettland"
 
 #: core/CAT.php:165
-#, fuzzy
 msgid "Lithuania"
-msgstr "Litauen"
+msgstr "Littauen"
 
 #: core/CAT.php:166
 msgid "Macedonia"
@@ -227,84 +226,83 @@ msgstr "Venezuela"
 
 #: core/CAT.php:191
 msgid "Default"
-msgstr ""
+msgstr "Default"
 
 #: core/CAT.php:192
 msgid "Armenia"
-msgstr ""
+msgstr "Armenien"
 
 #: core/CAT.php:193
 msgid "Azerbaijan"
-msgstr ""
+msgstr "Azerbajdzjan"
 
 #: core/CAT.php:194
 msgid "Belarus"
-msgstr ""
+msgstr "Vitryssland"
 
 #: core/CAT.php:195
 msgid "Ecuador"
-msgstr ""
+msgstr "Ecuador"
 
 #: core/CAT.php:196
 msgid "Hong Kong"
-msgstr ""
+msgstr "Hong Kong"
 
 #: core/CAT.php:197
 msgid "Kenya"
-msgstr ""
+msgstr "Kenya"
 
 #: core/CAT.php:198
 msgid "Kyrgyzstan"
-msgstr ""
+msgstr "Kirgizistan"
 
 #: core/CAT.php:199
 msgid "Korea"
-msgstr ""
+msgstr "Korea"
 
 #: core/CAT.php:200
 msgid "Kazakhstan"
-msgstr ""
+msgstr "Kazakstan"
 
 #: core/CAT.php:201
 msgid "Morocco"
-msgstr ""
+msgstr "Marocko"
 
 #: core/CAT.php:202
 msgid "Moldova"
-msgstr ""
+msgstr "Moldavien"
 
 #: core/CAT.php:203
 msgid "Montenegro"
-msgstr ""
+msgstr "Montenegro"
 
 #: core/CAT.php:204
 msgid "Macau"
-msgstr ""
+msgstr "Macao"
 
 #: core/CAT.php:205
 msgid "Malta"
-msgstr ""
+msgstr "Malta"
 
 #: core/CAT.php:206
 msgid "Russia"
-msgstr ""
+msgstr "Ryssland"
 
 #: core/CAT.php:207
 msgid "Singapore"
-msgstr ""
+msgstr "Singapore"
 
 #: core/CAT.php:208
-#, fuzzy
 msgid "Thailand"
-msgstr "Finland"
+msgstr "Thailand"
 
 #: core/CAT.php:209
 msgid "Taiwan"
-msgstr ""
+msgstr "Taiwan"
 
 #: core/CAT.php:210
 msgid "South Africa"
-msgstr ""
+msgstr "Sydafrika"
 
 #: core/CAT.php:484 core/IdPlist.php:99
 msgid "Unnamed Entity"
@@ -313,18 +311,16 @@ msgstr ""
 #: core/DeviceConfig.php:202
 #, php-format
 msgid "your local %s support"
-msgstr ""
+msgstr "din lokala %s support"
 
 #: core/DeviceConfig.php:203
 #, php-format
 msgid "your local %s support page"
-msgstr ""
+msgstr "din lokala %s support sida"
 
 #: core/DeviceConfig.php:237
 msgid "Sorry, this should not happen - no additional information is available"
-msgstr ""
-"Attans, detta borde inte inträffa - ingen ytterligare info finns för "
-"tillfället."
+msgstr "Attans, detta borde inte inträffa - ingen ytterligare info finns för tillfället."
 
 #: core/IdP.php:243
 #, php-format
@@ -338,20 +334,20 @@ msgid ""
 "Best regards,\n"
 "\n"
 "%s"
-msgstr ""
+msgstr "Hej,\n\nIdP:n %s i din %s federation %s har blivit borttagen från %s.\n\nVi tyckte du borde känna till detta.\n\nMvh,\n\n%s"
 
 #: core/IdP.php:252
 msgid "IdP in your federation was deleted"
-msgstr ""
+msgstr "IdP:n i din federation blev borttagen"
 
 #: core/SilverbulletInvitation.php:208
 #, php-format
 msgid "Your %s access is ready"
-msgstr ""
+msgstr "Din %s tillgång är klar"
 
 #: core/SilverbulletInvitation.php:216
 msgid "Hello!"
-msgstr ""
+msgstr "Hej!"
 
 #: core/SilverbulletInvitation.php:218
 #, php-format
@@ -379,7 +375,7 @@ msgstr ""
 
 #: core/SilverbulletInvitation.php:224
 msgid "Regards,"
-msgstr ""
+msgstr "Med vänliga hälsningar,"
 
 #: core/SilverbulletInvitation.php:270
 #, php-format
@@ -397,57 +393,57 @@ msgstr ""
 #. /                2. consortium name (e.g. eduroam);
 #. /                3. federation shortname, e.g. "LU";
 #. /                4. product name (e.g. eduroam CAT);
-#. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
+#. /                5. product long name (e.g. eduroam Configuration Assistant
+#. Tool)
 #: core/UserManagement.php:194
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the invitation for the new Identity Provider %s in your %s federation %s has "
-"been used and the IdP was created in %s.\n"
+"the invitation for the new Identity Provider %s in your %s federation %s has been used and the IdP was created in %s.\n"
 "\n"
 "We thought you might want to know.\n"
 "\n"
 "Best regards,\n"
 "\n"
 "%s"
-msgstr ""
+msgstr "Hej,\n\ninvitationen för den nya IdP:n %s i er %s federation %s har nyttjats och IdP:n blev skapad i %s.\n\nVi tyckte att du är intresserad att känna till detta.\n\nVänliga hälsningar,\n\n%s"
 
 #: core/UserManagement.php:203
 msgid "IdP in your federation was created"
-msgstr ""
+msgstr "IdP:n i din federation blev skapad"
 
 #: core/User.php:145
 msgid "Feedback"
-msgstr ""
+msgstr "Feedback"
 
 #: core/common/EAP.php:369
 msgid "PEAP-MSCHAPv2"
-msgstr ""
+msgstr "PEAP-MSCHAPv2"
 
 #: core/common/EAP.php:370
 msgid "TLS"
-msgstr ""
+msgstr "TLS"
 
 #: core/common/EAP.php:371
 msgid "TTLS-PAP"
-msgstr ""
+msgstr "TTLS-PAP"
 
 #: core/common/EAP.php:372
 msgid "TTLS-MSCHAPv2"
-msgstr ""
+msgstr "TTLS-MSCHAPv2"
 
 #: core/common/EAP.php:373
 msgid "TTLS-GTC"
-msgstr ""
+msgstr "TTLS-GTC"
 
 #: core/common/EAP.php:374
 msgid "FAST-GTC"
-msgstr ""
+msgstr "FAST-GTC"
 
 #: core/common/EAP.php:375
 msgid "EAP-pwd"
-msgstr ""
+msgstr "EAP-pwd"
 
 #: core/common/OutsideComm.php:246
 #, php-format
@@ -468,12 +464,12 @@ msgstr ""
 #: core/common/OutsideComm.php:250
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
-msgstr ""
+msgstr "Denna inbjudan gäller i 24 timmar från nu, t.ex. till %s."
 
 #. then, send out the mail
 #: core/common/OutsideComm.php:258
 msgid "Hello,"
-msgstr ""
+msgstr "Hej,"
 
 #. default means we don't have a Reply-To.
 #: core/common/OutsideComm.php:260
@@ -509,22 +505,22 @@ msgstr ""
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
 "Interface at"
-msgstr ""
+msgstr "Om du inte kan klicka på länken kan du gå till %s Administratörsgränssnittet på"
 
 #: core/common/OutsideComm.php:286
 msgid "and enter the invitation token"
-msgstr ""
+msgstr "och mata in din erhållna invitation token"
 
 #: core/common/OutsideComm.php:288
 msgid ""
-"Do NOT forward the mail before the token has expired - or the recipients may "
-"be able to consume the token on your behalf!"
+"Do NOT forward the mail before the token has expired - or the recipients may"
+" be able to consume the token on your behalf!"
 msgstr ""
 
 #: core/common/OutsideComm.php:289
 #, php-format
 msgid "We wish you a lot of fun with the %s."
-msgstr ""
+msgstr "Vi hoppas du har superkul med %s."
 
 #: core/common/OutsideComm.php:290
 #, php-format
@@ -532,7 +528,7 @@ msgid ""
 "Sincerely,\n"
 "\n"
 "Your friendly folks from %s Operations"
-msgstr ""
+msgstr "Med vänliga hälsningar,\nDina vänner på %s Operations"
 
 #. what do we want to say?
 #: core/common/OutsideComm.php:325
@@ -542,31 +538,31 @@ msgstr ""
 
 #: web/lib/common/InputValidation.php:29
 msgid "Input validation error: "
-msgstr ""
+msgstr "Felaktig inmatning:"
 
 #: web/lib/common/InputValidation.php:202
 msgid "Realm is empty!"
-msgstr ""
+msgstr "Realm är tom!"
 
 #: web/lib/common/InputValidation.php:210
 msgid "Realm contains an @ sign!"
-msgstr ""
+msgstr "Realm innehåller ett @ tecken!"
 
 #: web/lib/common/InputValidation.php:211
 msgid "Realm begins with a . (dot)!"
-msgstr ""
+msgstr "Realm börjar med en . (punkt)!"
 
 #: web/lib/common/InputValidation.php:212
 msgid "Realm ends with a . (dot)!"
-msgstr ""
+msgstr "Realm avslutar med en . (punkt)!"
 
 #: web/lib/common/InputValidation.php:213
 msgid "Realm contains spaces!"
-msgstr ""
+msgstr "Realm innehåller mellanslag!"
 
 #: web/lib/common/InputValidation.php:225
 msgid "Realm does not contain at least one . (dot)!"
-msgstr ""
+msgstr "Realm innehåller inte minst en . (punkt)!"
 
 #: web/lib/common/InputValidation.php:311
 msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"

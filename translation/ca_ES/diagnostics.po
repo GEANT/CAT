@@ -2,21 +2,23 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
+# Translators:
+# eduki <ecercos@xtec.cat>, 2018
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-07 14:23+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: eduki <ecercos@xtec.cat>, 2016\n"
-"Language-Team: Catalan (Spain) (https://www.transifex.com/eduroam_devel/"
-"teams/11799/ca_ES/)\n"
-"Language: ca_ES\n"
+"PO-Revision-Date: 2016-07-15 08:52+0000\n"
+"Last-Translator: eduki <ecercos@xtec.cat>, 2018\n"
+"Language-Team: Catalan (Spain) (https://www.transifex.com/eduroam_devel/teams/11799/ca_ES/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ca_ES\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: core/diag/AbstractTest.php:266
@@ -42,8 +44,8 @@ msgstr "No s'ha rebut cap resposta del servidor RADIUS."
 
 #: core/diag/AbstractTest.php:301
 msgid ""
-"There was a bidirectional communication with the RADIUS server, but it ended "
-"halfway through."
+"There was a bidirectional communication with the RADIUS server, but it ended"
+" halfway through."
 msgstr ""
 "Hi ha hagut comunicació bidireccional amb el servidor RADIUS, però s'ha "
 "interromput a la meitat."
@@ -53,8 +55,8 @@ msgid ""
 "The RADIUS server immediately rejected the authentication request in its "
 "first reply."
 msgstr ""
-"El servidor RADIUS ha rebutjat immediatament la petició d'autenticació en la "
-"primera resposta."
+"El servidor RADIUS ha rebutjat immediatament la petició d'autenticació en la"
+" primera resposta."
 
 #: core/diag/AbstractTest.php:315
 msgid ""
@@ -83,8 +85,8 @@ msgid ""
 "any useful purpose but inflates the packet exchange, possibly leading to "
 "more round-trips and thus slower authentication."
 msgstr ""
-"La cadena del certificat inclou el certificat arrel de la CA. Això no suposa "
-"cap benefici excepte augmentar l'intercanvi de paquets, produint "
+"La cadena del certificat inclou el certificat arrel de la CA. Això no suposa"
+" cap benefici excepte augmentar l'intercanvi de paquets, produint "
 "probablement un major retard en l'autenticació."
 
 #: core/diag/AbstractTest.php:351
@@ -111,14 +113,14 @@ msgid ""
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
 "validate this certificate."
 msgstr ""
-"Al menys un certificat de la cadena està signat amb l'algorisme SHA-1. Molts "
-"sistemes operatius, incloent Apple iOS, no validaran aquest certificat."
+"Al menys un certificat de la cadena està signat amb l'algorisme SHA-1. Molts"
+" sistemes operatius, incloent Apple iOS, no validaran aquest certificat."
 
 #: core/diag/AbstractTest.php:379
 msgid ""
 "At least one certificate in the chain had a public key of less than 1024 "
-"bits. Many recent operating systems consider this unacceptable and will fail "
-"to validate the server certificate."
+"bits. Many recent operating systems consider this unacceptable and will fail"
+" to validate the server certificate."
 msgstr ""
 "Al menys un certificat de la cadena té una clau pública de menys de 1024 "
 "bits. Alguns sistemes operatius moderns no ho accepten i no validaran el "
@@ -150,22 +152,22 @@ msgid ""
 "possible."
 msgstr ""
 "L'extensió del certificat de servidor 'CRL Distribution Point' no assenyala "
-"cap a una URL HTTP/HTTPS. Alguns sistemes operatius no podran validar aquest "
-"certificat. La comprovació de la seva validesa no serà possible."
+"cap a una URL HTTP/HTTPS. Alguns sistemes operatius no podran validar aquest"
+" certificat. La comprovació de la seva validesa no serà possible."
 
 #: core/diag/AbstractTest.php:407
 msgid ""
-"The extension 'CRL Distribution Point' in the server certificate points to a "
-"location where no DER-encoded CRL can be found. Some Operating Systems check "
-"certificate validity by consulting the CRL and will fail to validate the "
-"certificate. Checking server certificate validity against a CRL will not be "
-"possible."
+"The extension 'CRL Distribution Point' in the server certificate points to a"
+" location where no DER-encoded CRL can be found. Some Operating Systems "
+"check certificate validity by consulting the CRL and will fail to validate "
+"the certificate. Checking server certificate validity against a CRL will not"
+" be possible."
 msgstr ""
 "L'extensió 'CRL Distribution Point' al certificat del servidor apunta a una "
 "localització sense CRL codificada amb DER. Alguns sistemes operatius "
 "consulten la seva validesa accedint a la CRL i no podran validar el "
-"certificat. No serà possible comprovar la validesa del certificat contra una "
-"CRL."
+"certificat. No serà possible comprovar la validesa del certificat contra una"
+" CRL."
 
 #: core/diag/AbstractTest.php:414
 msgid "The server certificate was revoked by the CA!"
@@ -173,14 +175,14 @@ msgstr "Aquest certificat de servidor va ser revocat per la CA!"
 
 #: core/diag/AbstractTest.php:421
 msgid ""
-"The certificate contained a CN or subjectAltName:DNS which does not parse as "
-"a hostname. This can be problematic on some supplicants. If the certificate "
-"also contains names which are a proper hostname, and you only use those for "
-"your supplicant configuration, then you can safely ignore this notice."
+"The certificate contained a CN or subjectAltName:DNS which does not parse as"
+" a hostname. This can be problematic on some supplicants. If the certificate"
+" also contains names which are a proper hostname, and you only use those for"
+" your supplicant configuration, then you can safely ignore this notice."
 msgstr ""
 "El certificat contenia un CN o un subjectAltName:DNS que no es correspon a "
-"un nom de servidor. Això pot ser problemàtic per a determinats clients wifi. "
-"Si el certificat conté també noms apropiats per a servidors, i només feu "
+"un nom de servidor. Això pot ser problemàtic per a determinats clients wifi."
+" Si el certificat conté també noms apropiats per a servidors, i només feu "
 "servir aquests per a la vostra configuració de client, aleshores podeu "
 "ignorar aquest avís."
 
@@ -248,13 +250,13 @@ msgstr ""
 
 #: core/diag/AbstractTest.php:466
 msgid ""
-"The configured EAP server name matches either the CN or a subjectAltName:DNS "
-"of the incoming certificate; best current practice is that the certificate "
+"The configured EAP server name matches either the CN or a subjectAltName:DNS"
+" of the incoming certificate; best current practice is that the certificate "
 "should contain the name in BOTH places."
 msgstr ""
 "El nom de servidor configurat a l'EAP coincideix amb el CN o amb el "
-"subjectAltName:DNS del certificat rebut; la millor pràctica actual és que el "
-"certificat contingui el nom a tots dos llocs."
+"subjectAltName:DNS del certificat rebut; la millor pràctica actual és que el"
+" certificat contingui el nom a tots dos llocs."
 
 #: core/diag/AbstractTest.php:473
 msgid ""
@@ -278,7 +280,8 @@ msgstr "El servidor ha acceptat el certificat de client NO VALID."
 
 #: core/diag/AbstractTest.php:494
 msgid "The server rejected the client certificate, even though it was valid."
-msgstr "El servidor ha rebutjat el certificat de client, encara que era vàlid."
+msgstr ""
+"El servidor ha rebutjat el certificat de client, encara que era vàlid."
 
 #: core/diag/AbstractTest.php:501
 msgid "The server rejected the client certificate as expected."
@@ -312,8 +315,8 @@ msgstr ""
 
 #: core/diag/AbstractTest.php:536
 msgid ""
-"The certificate public key algorithm is unknown to the system. Please submit "
-"the certificate as a sample to the developers."
+"The certificate public key algorithm is unknown to the system. Please submit"
+" the certificate as a sample to the developers."
 msgstr ""
 "L'algoritme de la clau pública del certificat no és reconegut pel sistema. "
 "Si us plau envieu-lo com a mostra als desenvolupadors."
@@ -325,14 +328,15 @@ msgstr "[Anàlisi eduroam]"
 #: core/diag/Logopath.php:98
 msgid ""
 "(This service is in an early stage. We apologise if this is a false alert. "
-"If this is the case, please send an email report to cat-devel@lists.geant."
-"org, forwarding the entire message (including the 'SUSPECTS' and 'EVIDENCE' "
-"data at the end), and explain why this is a false positive.)"
+"If this is the case, please send an email report to cat-"
+"devel@lists.geant.org, forwarding the entire message (including the "
+"'SUSPECTS' and 'EVIDENCE' data at the end), and explain why this is a false "
+"positive.)"
 msgstr ""
 "(Aquest servei és nou. Us demanem disculpes si és una falsa alarma. Si "
 "aquest és el cas, envieu-nos un informe a cat-devel@lists.geant.org, "
-"reenviant el missatge sencer (incloent les dades 'SUSPECTS' i 'EVIDENCE' del "
-"final), i explicant perquè és un fals positiu.)"
+"reenviant el missatge sencer (incloent les dades 'SUSPECTS' i 'EVIDENCE' del"
+" final), i explicant perquè és un fals positiu.)"
 
 #: core/diag/Logopath.php:100
 msgid "Yours sincerely,"
@@ -359,8 +363,8 @@ msgid ""
 "with that realm in the eduroam database."
 msgstr ""
 "un client ha sol·licitat l'anàlisi del domini %s. Les proves de "
-"connectivitat en temps real determinen que el domini existeix, però no podem "
-"trobar un IdP amb aquest domini a la base de dades d'eduroam."
+"connectivitat en temps real determinen que el domini existeix, però no podem"
+" trobar un IdP amb aquest domini a la base de dades d'eduroam."
 
 #: core/diag/Logopath.php:115
 msgid ""
@@ -399,8 +403,8 @@ msgstr ""
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
-"Access-Reject as planned. Some properties of the connection attempt were sub-"
-"optimal; the list is below."
+"Access-Reject as planned. Some properties of the connection attempt were "
+"sub-optimal; the list is below."
 msgstr ""
 "<strong>Prova satisfactòria parcialment</strong>: s'ha dut a terme una "
 "conversa RADIUS bidireccional amb multiples viatges d'anada i tornada, "
@@ -479,15 +483,15 @@ msgstr ""
 
 #. return codes specific to NAPTR existence checks
 #. *
-#. * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
-#.
+#. * no NAPTRs for domain; this is not an error, simply means that realm is
+#. not doing dynamic discovery for any service
 #: core/diag/RFC7585Tests.php:124 web/diag/action_realmcheck.php:495
 msgid "This realm has no NAPTR records."
 msgstr "Aquest domini no té registres NAPTR."
 
 #. *
-#. * no eduroam NAPTR for domain; this is not an error, simply means that realm is not doing dynamic discovery for eduroam
-#.
+#. * no eduroam NAPTR for domain; this is not an error, simply means that
+#. realm is not doing dynamic discovery for eduroam
 #: core/diag/RFC7585Tests.php:130
 msgid "NAPTR records were found, but all of them refer to unrelated services."
 msgstr ""
@@ -529,18 +533,18 @@ msgid ""
 "you described. Probably, this is not a participating institution and the "
 "account you tried to use does not exist."
 msgstr ""
-"El sistema no ha trobat cap tipus d'informació del proveïdor d'identitat que "
-"heu descrit. Probablement, aquest no està participant com a institució i el "
-"compte que heu provat de fer servir no existeix."
+"El sistema no ha trobat cap tipus d'informació del proveïdor d'identitat que"
+" heu descrit. Probablement, aquest no està participant com a institució i el"
+" compte que heu provat de fer servir no existeix."
 
 #: core/diag/Sociopath.php:48
 msgid ""
-"There are likely some issues around the wireless part of the network you are "
-"trying to connect to. Wireless networks do not always behave "
+"There are likely some issues around the wireless part of the network you are"
+" trying to connect to. Wireless networks do not always behave "
 "deterministically and consistently. All users at a given location have to "
-"share the available bandwidth, and the physical environment (concrete walls, "
-"objects in the way, elevation differences) can have a significant impact on "
-"your connectivity experience."
+"share the available bandwidth, and the physical environment (concrete walls,"
+" objects in the way, elevation differences) can have a significant impact on"
+" your connectivity experience."
 msgstr ""
 "Hi ha diversos problemes a la part WiFi de la xarxa on esteu provant de "
 "connectar. Les xarxes WiFi no sempre es comporten de manera previsible i "
@@ -548,10 +552,15 @@ msgstr ""
 "banda, i l'entorn físic (murs de ciment, objectes, diferencies d'alçada) "
 "poden tenir un impacte significatiu en la vostra connectivitat."
 
-#. here is an array with yes/no answers per failure category, and the factors by which a Yes modifies the score; No's modify it by 1/factor;
-#. the order in this array is important: lower numbered questions will be asked first. So make sure you have high-quality questions in the beginning.
-#. to be clear: "Yes" answers are elsewhere in the class the TRUE case; No's are FALSE, a possible "Don't know or N/A" is NULL
-#. VERDICTLECTURE is text which is displayed to the end user if his answer led to a HIGHER score in the process. We are storing the answers to determine this.
+#. here is an array with yes/no answers per failure category, and the factors
+#. by which a Yes modifies the score; No's modify it by 1/factor;
+#. the order in this array is important: lower numbered questions will be
+#. asked first. So make sure you have high-quality questions in the beginning.
+#. to be clear: "Yes" answers are elsewhere in the class the TRUE case; No's
+#. are FALSE, a possible "Don't know or N/A" is NULL
+#. VERDICTLECTURE is text which is displayed to the end user if his answer led
+#. to a HIGHER score in the process. We are storing the answers to determine
+#. this.
 #: core/diag/Sociopath.php:56
 msgid ""
 "You should use appropriate configuration assistants [MGW: see if the realm "
@@ -560,7 +569,7 @@ msgid ""
 msgstr ""
 "Cal que feu servir els assistents de configuració adequats [MGW: comproveu "
 "que el domini existeix a CAT, posteriorment mostreu un enllaç per "
-"configurar) o contacteu amb el vostre Proveïdor d'Identitat [MGW: mostreu "
+"configurar] o contacteu amb el vostre Proveïdor d'Identitat [MGW: mostreu "
 "informació de contacte]."
 
 #: core/diag/Sociopath.php:60
@@ -577,8 +586,8 @@ msgid ""
 "If your device has never worked before with this setup, then very likely "
 "your device configuation is wrong. %s"
 msgstr ""
-"Si el vostre dispositiu no ha funcionat mai amb aquesta configuració, el més "
-"probable és que sigui errònia. %s"
+"Si el vostre dispositiu no ha funcionat mai amb aquesta configuració, el més"
+" probable és que sigui errònia. %s"
 
 #: core/diag/Sociopath.php:64
 msgid ""
@@ -589,17 +598,18 @@ msgstr ""
 "institucions diferents de la vostra?"
 
 #: core/diag/Sociopath.php:66
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "If roaming consistently does not work, then very likely your device "
-"configuration is wrong. Typical errors causing this symptom include: using a "
-"routing ('outer') username without the @realm.tld suffix - those potentially "
-"work at your home organisation, but can not be used when roaming. %s"
+"configuration is wrong. Typical errors causing this symptom include: using a"
+" routing ('outer') username without the @realm.tld suffix - those "
+"potentially work at your home organisation, but can not be used when "
+"roaming. %s"
 msgstr ""
 "Si el roaming no funciona, aleshores és molt possible que la configuració "
 "sigui incorrecte. Els errors típics que provoquen aquests símptomes són: "
 "utilitzar una identitat exterior ('anònima') sense el sufix @domini.tld - "
-"aquestes acostumen a funcionar a la institució pròpia, però no funcionen "
+"aquestes acostumen a funcionar a la vostra organització, però no funcionen "
 "correctament en visitar d'altres. %s"
 
 #: core/diag/Sociopath.php:68
@@ -614,9 +624,9 @@ msgid ""
 "configuration unless explicitly instructed so by your Identity Provider; "
 "even in the case of temporary login issues."
 msgstr ""
-"Els comptes només s'han de configurar un cop, i es poden fer servir a tot el "
-"mon sense més canvis. Si heu modificat la configuració fa poc, aquest canvi "
-"pot ser el responsable de la fallada. No heu de fer cap canvi en la "
+"Els comptes només s'han de configurar un cop, i es poden fer servir a tot el"
+" mon sense més canvis. Si heu modificat la configuració fa poc, aquest canvi"
+" pot ser el responsable de la fallada. No heu de fer cap canvi en la "
 "configuració de la xarxa a no ser que se us indiqui expressament pel vostre "
 "Proveïdor d'Identitat, fins i tot en el cas de problemes d'accés temporals."
 
@@ -638,21 +648,21 @@ msgstr ""
 
 #: core/diag/Sociopath.php:76
 msgid ""
-"Is the place you are currently at heavily crowded, or is a network-intensive "
-"workload going on?"
+"Is the place you are currently at heavily crowded, or is a network-intensive"
+" workload going on?"
 msgstr ""
 "El lloc on us trobeu està molt ple o hi ha un elevat ús de la xarxa en "
 "aquest moment?"
 
 #: core/diag/Sociopath.php:78
 msgid ""
-"The network is likely overloaded at this location and point in time. You may "
-"have to wait until later before you get a better connectivity. If you think "
-"the network should be reinforced for more capacity at this place, you should "
-"inform the hotspot provider. [MGW: add contact info]"
+"The network is likely overloaded at this location and point in time. You may"
+" have to wait until later before you get a better connectivity. If you think"
+" the network should be reinforced for more capacity at this place, you "
+"should inform the hotspot provider. [MGW: add contact info]"
 msgstr ""
-"La xarxa està probablement saturada en aquest lloc i moment. Cal que espereu "
-"fins que disposeu de millor connectivitat. Si creieu que cal reforçar la "
+"La xarxa està probablement saturada en aquest lloc i moment. Cal que espereu"
+" fins que disposeu de millor connectivitat. Si creieu que cal reforçar la "
 "xarxa en aquest punt, cal que ho comunique al proveïdor del punt d'accés. "
 "[MGW: afegir informació de contacte]"
 
@@ -678,9 +688,9 @@ msgstr "Heu vist errors similars a 'Impossible aconseguir adreça IP'?"
 
 #: core/diag/Sociopath.php:87
 msgid ""
-"The evidence at hand suggests that there may be an infrastructure problem at "
-"this particular hotspot provider. There is nothing you can do to solve this "
-"problem locally. Please be patient and try again at a later time."
+"The evidence at hand suggests that there may be an infrastructure problem at"
+" this particular hotspot provider. There is nothing you can do to solve this"
+" problem locally. Please be patient and try again at a later time."
 msgstr ""
 "Les evidències semblen indicar un problema d'infraestructura en aquest punt "
 "particular. No podeu fer-hi res localment. Sigueu pacients i proveu-ho de "
@@ -743,8 +753,8 @@ msgstr ""
 
 #: web/skins/modern/diag/diag.php:83
 msgid ""
-"What is the realm part of your user account (the part behind the @ of 'your."
-"username@<b>realm.tld</b>):"
+"What is the realm part of your user account (the part behind the @ of "
+"'your.username@<b>realm.tld</b>):"
 msgstr ""
 "Quin és el domini del vostre compte (normalment la part després de l'@ de "
 "'identificador@<b>domini.tld</b>'):"
@@ -875,7 +885,8 @@ msgid "The network environment around you is broken"
 msgstr "L'entorn de xarxa proper està trencat"
 
 #: web/skins/modern/diag/diag.php:319
-msgid "The RADIUS server of your service provider is the source of the problem"
+msgid ""
+"The RADIUS server of your service provider is the source of the problem"
 msgstr "El servidor RADIUS del vostre proveïdor és la causa del problema"
 
 #: web/skins/modern/diag/diag.php:322
@@ -903,8 +914,8 @@ msgstr ""
 
 #: web/skins/modern/diag/diag.php:331
 msgid ""
-"The link between the national server of your home country/region and the top-"
-"level server is broken"
+"The link between the national server of your home country/region and the "
+"top-level server is broken"
 msgstr ""
 "L'enllaç entre el servidor nacional del vostre país/regió d'origen i el "
 "servidor de màxim nivell està trencat"
@@ -921,7 +932,8 @@ msgstr ""
 "correctament."
 
 #: web/skins/modern/diag/diag.php:340
-msgid "The RADIUS server of your home institution is the source of the problem"
+msgid ""
+"The RADIUS server of your home institution is the source of the problem"
 msgstr "El servidor RADIUS de la vostra institució és el causant del problema"
 
 #: web/skins/modern/diag/diag.php:343
@@ -1044,348 +1056,364 @@ msgstr "Cadena errònia de l'OperatorName"
 #: web/diag/action_realmcheck.php:18
 #, php-format
 msgid "Sanity check for dynamic discovery of realms"
-msgstr ""
+msgstr "Comprovació d'estat per al descobriment dinàmic de dominis"
 
 #: web/diag/action_realmcheck.php:46
 msgid ""
 "You asked for a realm check, but we don't know the realm for this profile!"
 msgstr ""
+"Heu demanat per un test de domini, però no es coneix el domini per aquest "
+"perfil!"
 
 #: web/diag/action_realmcheck.php:55
 msgid "No valid realm name given, cannot execute any checks!"
-msgstr ""
+msgstr "No hi ha cap nom de domini vàlid, no podem executar cap test!"
 
 #: web/diag/action_realmcheck.php:59
 msgid "STATIC"
-msgstr ""
+msgstr "ESTÀTIC"
 
 #: web/diag/action_realmcheck.php:60
 msgid "DYNAMIC"
-msgstr ""
+msgstr "DINÀMIC"
 
 #: web/diag/action_realmcheck.php:88
 msgid "PASS"
-msgstr ""
+msgstr "PASSA"
 
 #: web/diag/action_realmcheck.php:89
 msgid "FAIL"
-msgstr ""
+msgstr "FALLA"
 
 #: web/diag/action_realmcheck.php:90
-#, fuzzy
 msgid "Client certificate:"
-msgstr "certificat correcte"
+msgstr "Certificat de client:"
 
 #: web/diag/action_realmcheck.php:91
 msgid "expected result: "
-msgstr ""
+msgstr "resultat esperat:"
 
 #: web/diag/action_realmcheck.php:92
-#, fuzzy
 msgid "Server accepted this client certificate"
-msgstr "El servidor ha acceptat el certificat de client NO VALID."
+msgstr "El servidor ha acceptat aquest certificat de client"
 
 #: web/diag/action_realmcheck.php:93
-#, fuzzy
 msgid "Server accepted this client certificate, but should not have"
-msgstr "El servidor ha rebutjat el certificat de client, encara que era vàlid."
+msgstr ""
+"El servidor ha acceptat aquest certificat de client, però no ho hauria "
+"d'haver fet"
 
 #: web/diag/action_realmcheck.php:94
-#, fuzzy
 msgid "Server did not accept this client certificate"
-msgstr "El servidor ha acceptat el certificat de client NO VALID."
+msgstr "El servidor no ha acceptat aquest certificat de client"
 
 #: web/diag/action_realmcheck.php:95
-#, fuzzy
 msgid "Server did not accept this client certificate - reason"
-msgstr "El servidor ha acceptat el certificat de client NO VALID."
+msgstr "El servidor no ha acceptat aquest certificat de client - raó"
 
 #: web/diag/action_realmcheck.php:96
 msgid "Rest of tests for this CA skipped"
-msgstr ""
+msgstr "S'ha omès la resta de proves  per a aquesta CA"
 
 #: web/diag/action_realmcheck.php:97
 msgid "You should update your list of accredited CAs"
-msgstr ""
+msgstr "Heu d'actualitzar la llista de CAs acreditades"
 
 #: web/diag/action_realmcheck.php:98
 msgid "Get it from here."
-msgstr ""
+msgstr "Obteniu-lo aquí."
 
 #: web/diag/action_realmcheck.php:100
 msgid "more"
-msgstr ""
+msgstr "més"
 
 #: web/diag/action_realmcheck.php:102 web/diag/action_realmcheck.php:644
 msgid "Show detailed information for all tests"
-msgstr ""
+msgstr "Mostra informació detallada per a totes les proves"
 
 #: web/diag/action_realmcheck.php:117
-#, fuzzy
 msgid "Server certificate"
-msgstr "certificat expirat"
+msgstr "Certificat de servidor"
 
 #: web/diag/action_realmcheck.php:118
 msgid "Subject"
-msgstr ""
+msgstr "Assumpte"
 
 #: web/diag/action_realmcheck.php:119
 msgid "Issuer"
-msgstr ""
+msgstr "Emissor"
 
 #: web/diag/action_realmcheck.php:120
 msgid "SubjectAltName"
-msgstr ""
+msgstr "SubjectAltName"
 
 #: web/diag/action_realmcheck.php:121
-#, fuzzy
 msgid "Certificate policies"
-msgstr "certificat caducat"
+msgstr "Política de certificat"
 
 #: web/diag/action_realmcheck.php:122
 msgid "crlDistributionPoint"
-msgstr ""
+msgstr "crlDistributionPoint"
 
 #: web/diag/action_realmcheck.php:123
 msgid "authorityInfoAccess"
-msgstr ""
+msgstr "authorityInfoAccess"
 
 #: web/diag/action_realmcheck.php:124
 msgid "Hide detailed information for all tests"
-msgstr ""
+msgstr "Amaga informació detallada per a totes les proves"
 
 #: web/diag/action_realmcheck.php:128
 msgid "Subject:"
-msgstr ""
+msgstr "Assumpte:"
 
 #: web/diag/action_realmcheck.php:129
 msgid "Issuer:"
-msgstr ""
+msgstr "Emissor:"
 
 #: web/diag/action_realmcheck.php:130
 msgid "Valid from:"
-msgstr ""
+msgstr "Vàlid des de:"
 
 #: web/diag/action_realmcheck.php:131
 msgid "Valid to:"
-msgstr ""
+msgstr "Vàlid per a:"
 
 #: web/diag/action_realmcheck.php:132
 msgid "Serial number:"
-msgstr ""
+msgstr "Número de sèrie:"
 
 #: web/diag/action_realmcheck.php:133
 msgid "SHA1 fingerprint:"
-msgstr ""
+msgstr "Empremta SHA1: "
 
 #: web/diag/action_realmcheck.php:185
 msgid "Some required input is missing!"
-msgstr ""
+msgstr "Manca alguna cosa requerida!"
 
 #: web/diag/action_realmcheck.php:236 web/diag/action_realmcheck.php:317
 #: web/diag/action_realmcheck.php:340 web/diag/action_realmcheck.php:393
 #, php-format
 msgid "elapsed time: %sms."
-msgstr ""
+msgstr "temps transcorregut: %sms."
 
 #: web/diag/action_realmcheck.php:330 web/diag/action_realmcheck.php:383
 msgid "Extensions"
-msgstr ""
+msgstr "Extensions"
 
 #: web/diag/action_realmcheck.php:331
-#, fuzzy
 msgid "show server certificate details"
-msgstr "No hi ha cap certificat de servidor en la cadena."
+msgstr "mostra els detalls del certificat de servidor"
 
 #: web/diag/action_realmcheck.php:351 web/diag/action_realmcheck.php:356
 msgid "See the appropriate tab for details."
-msgstr ""
+msgstr "Mireu la pestanya corresponent per a més detalls."
 
 #: web/diag/action_realmcheck.php:370
-#, fuzzy
 msgid "Server certificate details:"
-msgstr "certificat expirat"
+msgstr "Detalls del certificat de servidor:"
 
 #: web/diag/action_realmcheck.php:470
 #, php-format
 msgid "Realm testing for: %s"
-msgstr ""
+msgstr "Provant el domini per a: %s"
 
 #: web/diag/action_realmcheck.php:475 web/diag/action_realmcheck.php:483
 msgid "Overview"
-msgstr ""
+msgstr "Resum"
 
 #: web/diag/action_realmcheck.php:476 web/diag/action_realmcheck.php:590
 msgid "Static connectivity tests"
-msgstr ""
+msgstr "Proves de connectivitat estàtica"
 
 #: web/diag/action_realmcheck.php:477 web/diag/action_realmcheck.php:595
 msgid "Dynamic connectivity tests"
-msgstr ""
+msgstr "Proves de connectivitat dinàmica"
 
 #: web/diag/action_realmcheck.php:478
 msgid "Live login tests"
-msgstr ""
+msgstr "Proves d'autenticació real"
 
 #. NAPTR existence check
 #: web/diag/action_realmcheck.php:487
 msgid "DNS chekcs"
-msgstr ""
+msgstr "Proves DNS"
 
 #. output in friendly words
 #: web/diag/action_realmcheck.php:492
 msgid "Checking NAPTR existence:"
-msgstr ""
+msgstr "Provant l'existència de NAPTR:"
 
 #: web/diag/action_realmcheck.php:498
 msgid ""
 "This realm has NAPTR records, but none are related to this roaming "
 "consortium."
 msgstr ""
+"Aquest domini té registres NAPTR, però no n'hi ha cap relacionat amb aquest "
+"consorci de roaming."
 
 #. if none of the possible negative retvals, then we have matching NAPTRs
 #: web/diag/action_realmcheck.php:501
-#, fuzzy, php-format
+#, php-format
 msgid "This realm has %d NAPTR records relating to this roaming consortium."
-msgstr "Aquest domini no té registres NAPTR."
+msgstr ""
+"Aquest domini té %d registres NAPTR relatius a aquest consorci de roaming."
 
 #: web/diag/action_realmcheck.php:507
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
-msgstr ""
+msgstr "Comprovant conformitat NAPTR (flag = S i regex = {buit}):"
 
 #: web/diag/action_realmcheck.php:511
 msgid "No issues found."
-msgstr ""
+msgstr "No s'ha detectat cap problema."
 
 #: web/diag/action_realmcheck.php:514 web/diag/action_realmcheck.php:530
 #, php-format
 msgid "At least one NAPTR with invalid content found!"
-msgstr ""
+msgstr "Al menys s'ha trobat un NAPTR amb contingut invàlid!"
 
 #: web/diag/action_realmcheck.php:524
 msgid "Checking SRVs:"
-msgstr ""
+msgstr "Comprovant SRVs:"
 
 #. print number of successfully retrieved SRV targets
 #: web/diag/action_realmcheck.php:533
 #, php-format
 msgid "%d host names discovered."
-msgstr ""
+msgstr "%d noms de servidor descoberts."
 
 #: web/diag/action_realmcheck.php:540
 msgid "Checking IP address resolution:"
-msgstr ""
+msgstr "Comprovant resolució d'adreces IP:"
 
 #: web/diag/action_realmcheck.php:546
 #, php-format
 msgid "At least one hostname could not be resolved!"
-msgstr ""
+msgstr "Al menys un nom de servidor no s'ha pogut resoldre!"
 
 #. print number of successfully retrieved SRV targets
 #: web/diag/action_realmcheck.php:549
 #, php-format
 msgid "%d IP addresses resolved."
-msgstr ""
+msgstr "S'han resolt %d adreces IP."
 
 #: web/diag/action_realmcheck.php:556 web/diag/action_realmcheck.php:558
 #, php-format
 msgid "Realm is <strong>%s</strong> "
-msgstr ""
+msgstr "El domini és <strong>%s</strong> "
 
 #: web/diag/action_realmcheck.php:556
 msgid "with no DNS errors encountered. Congratulations!"
-msgstr ""
+msgstr "sense errors DNS detectats. Enhorabona!"
 
 #: web/diag/action_realmcheck.php:558
-#, fuzzy
 msgid "but there were DNS errors! Check them!"
-msgstr "S'han produit errors durant la prova."
+msgstr "però s'ha detectat errors DNS! Comproveu-los!"
 
 #: web/diag/action_realmcheck.php:558
 msgid ""
 "You should re-run the tests after fixing the errors; more errors might be "
 "uncovered at that point. The exact error causes are listed below."
 msgstr ""
+"Heu de repetir les proves després de corregir els errors; això permetrà "
+"descobrir altres errors no detectats ara. Les causes exactes d'error es "
+"mostren a sota. "
 
 #: web/diag/action_realmcheck.php:588
 msgid "Dynamic discovery test is not configured"
-msgstr ""
+msgstr "No s'ha configurat l'exploració dinàmica"
 
 #: web/diag/action_realmcheck.php:606
 msgid "Repeat static connectivity tests"
-msgstr ""
+msgstr "Repetir la prova de connectivitat estàtica"
 
 #: web/diag/action_realmcheck.php:609
 msgid "STATIC connectivity tests"
-msgstr ""
+msgstr "Proves estàtiques de connectivitat "
 
 #: web/diag/action_realmcheck.php:611
 msgid ""
-"This check sends a request for the realm through various entry points of the "
-"roaming consortium infrastructure. The request will contain the 'Operator-"
+"This check sends a request for the realm through various entry points of the"
+" roaming consortium infrastructure. The request will contain the 'Operator-"
 "Name' attribute, and will be larger than 1500 Bytes to catch two common "
 "configuration problems.<br/>Since we don't have actual credentials for the "
 "realm, we can't authenticate successfully - so the expected outcome is to "
 "get an Access-Reject after having gone through an EAP conversation."
 msgstr ""
+"Aquesta comprovació envia una petició al teu domini a través de diversos "
+"punts d'entrada de la xarxa consorciada en roaming. La petició contindrà "
+"l'atribut \"Operator-Name\", que pot ser més gran de 1500 Bytes. Intentarem "
+"verificar dos dels problemes de configuració més freqüents.<br/> Donat que "
+"no disposem d'un compte al teu domini, no podrem autenticar-nos "
+"correctament. Per això esperem rebre una resposta \"Access-Reject\" després "
+"de mantenir una conversa EAP."
 
 #: web/diag/action_realmcheck.php:615 web/diag/action_realmcheck.php:727
-#, fuzzy, php-format
+#, php-format
 msgid "Testing from: %s"
-msgstr "Provant domini"
+msgstr "Provant des de: %s"
 
 #: web/diag/action_realmcheck.php:620 web/diag/action_realmcheck.php:653
 #: web/diag/action_realmcheck.php:666
 msgid "testing..."
-msgstr ""
+msgstr "provant..."
 
 #: web/diag/action_realmcheck.php:635
 msgid "Repeat dynamic connectivity tests"
-msgstr ""
+msgstr "Repetir proves de connectivitat dinàmica"
 
 #: web/diag/action_realmcheck.php:639
 msgid "DYNAMIC connectivity tests"
-msgstr ""
+msgstr "Proves dinàmiques de connectivitat"
 
 #: web/diag/action_realmcheck.php:643
 msgid "Some errors were found during the tests, see below"
-msgstr ""
+msgstr "S'ha trobat alguns errors durant les proves, mireu a sota"
 
 #: web/diag/action_realmcheck.php:643
 msgid "All tests passed, congratulations!"
-msgstr ""
+msgstr "Felicitats! S'ha superat totes les proves."
 
 #: web/diag/action_realmcheck.php:644
 msgid "Checking server handshake..."
-msgstr ""
+msgstr "Comprovant la salutació del servidor..."
 
 #: web/diag/action_realmcheck.php:674
 msgid "Checking if certificates from  CAs are accepted..."
-msgstr ""
+msgstr "Comprovant si els certificats de les CAs són acceptats..."
 
 #: web/diag/action_realmcheck.php:674
 msgid ""
 "A few client certificates will be tested to check if servers are resistant "
 "to some certificate problems."
 msgstr ""
+"Es comprovaran uns pocs certificats de client per assegurar que els "
+"servidors són immunes a determinats problemes de certificat."
 
 #: web/diag/action_realmcheck.php:688
 msgid "Live login test"
-msgstr ""
+msgstr "Prova d'autenticació real"
 
 #: web/diag/action_realmcheck.php:701
 msgid ""
 "If you enter an existing login credential here, you can test the actual "
 "authentication from various checkpoints all over the world."
 msgstr ""
+"Si entreu unes credencials existents aquí, podreu comprovar l'autenticació "
+"real des de diversos punts de prova de tot el mon."
 
 #: web/diag/action_realmcheck.php:702
 msgid ""
 "The test will use all EAP types you have set in your profile information to "
-"check whether the right CAs and server names are used, and of course whether "
-"the login with these credentials and the given EAP type actually worked. If "
-"you have set anonymous outer ID, the test will use that."
+"check whether the right CAs and server names are used, and of course whether"
+" the login with these credentials and the given EAP type actually worked. If"
+" you have set anonymous outer ID, the test will use that."
 msgstr ""
+"La prova utilitzarà tots els tipus EAP que hàgiu configurat en la informació"
+" dels perfils per comprovar si s'utilitzen els certificats i noms de "
+"servidor correctes, i evidentment si l'accés amb aquests credencials i els "
+"tipus d'EAP configurats funcionen realment. Si heu configurat una identitat "
+"anònima externa, la prova la farà servir."
 
 #: web/diag/action_realmcheck.php:703
 msgid ""
@@ -1394,179 +1422,195 @@ msgid ""
 "<strong>temporary test accounts</strong> here; permanently valid test "
 "accounts in the wild are considered harmful!"
 msgstr ""
+"Nota: l'eina no ofereix intencionalment desar aquestes credencials, i no "
+"seran desades en cap forma a la part de servidor. Sisplau aquí utilitzeu "
+"només <strong>comptes de prova temporals</strong>; comptes de prova vàlides "
+"permanentment es consideren perilloses!"
 
 #: web/diag/action_realmcheck.php:711
 msgid "Password-based EAP types"
-msgstr ""
+msgstr "Tipus EAP basats en contrasenya"
 
 #: web/diag/action_realmcheck.php:712
 msgid "Real (inner) username:"
-msgstr ""
+msgstr "Nom real (intern) de l'usuari:"
 
 #: web/diag/action_realmcheck.php:713
 msgid "Anonymous outer ID (optional):"
-msgstr ""
+msgstr "ID externa anònima (opcional):"
 
 #: web/diag/action_realmcheck.php:714
 msgid "Password:"
-msgstr ""
+msgstr "Contrasenya:"
 
 #: web/diag/action_realmcheck.php:718
 msgid "Certificate-based EAP types"
-msgstr ""
+msgstr "Tipus EAP basats en certificat"
 
 #: web/diag/action_realmcheck.php:719
 msgid "Certificate file (.p12 or .pfx):"
-msgstr ""
+msgstr "Fitxer de certificat (.p12 o .pfx):"
 
 #: web/diag/action_realmcheck.php:720
 msgid "Certificate password, if any:"
-msgstr ""
+msgstr "Contrasenya del certificat, si n'hi ha:"
 
 #: web/diag/action_realmcheck.php:721
 msgid "Username, if different from certificate Subject:"
-msgstr ""
+msgstr "Usuari, si és diferent del Subject del certificat:"
 
 #: web/diag/action_realmcheck.php:723
 msgid "Submit credentials"
-msgstr ""
+msgstr "Enviar credencials"
 
 #: web/diag/action_realmcheck.php:749
-#, fuzzy, php-format
+#, php-format
 msgid "Return to %s administrator area"
-msgstr "administrador/a d'eduroam"
+msgstr "Torna a l'àrea d'administració de %s"
 
 #: web/diag/adminQuery.php:17
 msgid "I suspect a Technical Problem with the IdP"
-msgstr ""
+msgstr "Sospitem d'un problema tècnic amb l'IdP"
 
 #: web/diag/adminQuery.php:18
 msgid "A user from this IdP has allegedly infringed copyrights"
-msgstr ""
+msgstr "Un usuari d'aquest IdP presumptament ha infringit el copyright"
 
 #: web/diag/adminQuery.php:19
 msgid ""
-"A user from this IdP has conducted malicious network operations (spam, "
-"DDoS, ...)"
+"A user from this IdP has conducted malicious network operations (spam, DDoS,"
+" ...)"
 msgstr ""
+"Un usuari d'aquest IdP ha realitzat accions malicioses de xarxa (spam, DDoS,"
+" ...)"
 
 #: web/diag/adminQuery.php:22
 msgid ""
 "User claims connectivity problems but has been authenticated successfully"
 msgstr ""
+"L'usuari es queixa de problemes de connectivitat però s'ha autenticat "
+"correctament"
 
 #: web/diag/adminQuery.php:23
 msgid "User claims that mandatory open port is not open"
-msgstr ""
+msgstr "L'usuari es queixa de que un port obligatori no està obert"
 
 #: web/diag/adminQuery.php:51 web/diag/adminQuery.php:98
 msgid "Select your problem"
-msgstr ""
+msgstr "Escolliu el vostre problema"
 
 #: web/diag/adminQuery.php:55
 msgid "What is the realm of the IdP in question?"
-msgstr ""
+msgstr "Quin és el domini de l'IdP analitzat?"
 
 #: web/diag/adminQuery.php:59
 msgid "Check if this value is registered"
-msgstr ""
+msgstr "Comprove si aquest valor està registrat"
 
 #: web/diag/adminQuery.php:64 web/diag/adminQuery.php:127
 msgid "What is the authentication timestamp of the user session in question?"
 msgstr ""
+"Quin és el registre de temps de l'autenticació de la sessió d'usuari "
+"analitzada?"
 
 #: web/diag/adminQuery.php:70 web/diag/adminQuery.php:134
 msgid "What is the MAC address of the user session in question?"
-msgstr ""
+msgstr "Quina és l'adreça MAC de la sessió d'usuari analitzada?"
 
 #: web/diag/adminQuery.php:74
-#, fuzzy
 msgid "Additional comments"
-msgstr "Descripció addicional"
+msgstr "Comentaris addicionals"
 
 #: web/diag/adminQuery.php:78
 msgid "Please specify an email address on which the IdP can contact you"
 msgstr ""
+"Indiqueu si us plau una adreça de correu on el vostre IdP pugui contactar "
+"amb vosaltres"
 
 #: web/diag/adminQuery.php:82 web/diag/adminQuery.php:150
 msgid "Now you can send your query"
-msgstr ""
+msgstr "Ara podeu enviar la vostra consulta"
 
 #: web/diag/adminQuery.php:83 web/diag/adminQuery.php:151
 msgid "Send"
-msgstr ""
+msgstr "Envia"
 
 #: web/diag/adminQuery.php:102
 msgid "Identify the SP by one of following means"
-msgstr ""
+msgstr "Identifiqueu l'SP per un dels mitjans següents"
 
 #: web/diag/adminQuery.php:106
-#, fuzzy
 msgid "SP Operator-Name attribute"
-msgstr "Nom de l'operador de l'SP"
+msgstr "Atribut SP Operator-Name"
 
 #: web/diag/adminQuery.php:110
 msgid "Select the SP manually:"
-msgstr ""
+msgstr "Escolliu manualment l'SP:"
 
 #: web/diag/adminQuery.php:113
-#, fuzzy
 msgid "click to select country and organisation"
-msgstr "Cliqueu per a escollir el vostre país/regió i organització"
+msgstr "cliqueu per a seleccionar país i organització"
 
 #: web/diag/adminQuery.php:119
 msgid "at least describe the SP location"
-msgstr ""
+msgstr "descriviu almenys la localització de l'SP"
 
 #: web/diag/adminQuery.php:123
 msgid "What is the outer ID of the user session in question?"
-msgstr ""
+msgstr "Quina és l'ID externa de la sessió d'usuari analitzada?"
 
 #: web/diag/adminQuery.php:138
 msgid "Additional comments about the problem"
-msgstr ""
+msgstr "Comentaris addicionals sobre el problema"
 
 #: web/diag/adminQuery.php:142
 msgid ""
 "Do you have any contact details by which the user wishes to be contacted by "
 "the SP?"
-msgstr ""
+msgstr "Teniu dades de contacte on l'usuari desitja ser contactat per l'SP?"
 
 #: web/diag/adminQuery.php:146
 msgid "Please specify an email address on which the SP can contact you"
 msgstr ""
+"Indiqueu si us plau una adreça de correu on l'SP pugui contactar amb "
+"vosaltres"
 
 #: web/diag/radius_tests.php:23 web/diag/radius_tests.php:24
 msgid ""
 "Some properties of the connection attempt were sub-optimal; the list is "
 "below."
 msgstr ""
+"Algunes propietats de l'intent de connexió no eren optimes; a sota teniu la "
+"llista."
 
 #: web/diag/radius_tests.php:25
 msgid "Some configuration errors were observed; the list is below."
-msgstr ""
+msgstr "S'ha observat alguns errors de configuració; a sota teniu la llista."
 
 #: web/diag/radius_tests.php:141
 msgid "<strong>Test successful.</strong>"
-msgstr ""
+msgstr "<strong>Prova satisfactòria.</strong>"
 
 #: web/diag/radius_tests.php:145
 msgid "<strong>Test partially successful</strong>: authentication succeded."
 msgstr ""
+"<strong>Prova parcialment satisfactòria</strong>: autenticació correcte."
 
 #: web/diag/radius_tests.php:148
 msgid "<strong>Test FAILED</strong>: authentication succeded."
-msgstr ""
+msgstr "<strong>Prova FALLADA</strong>: autenticació correcte."
 
 #: web/diag/radius_tests.php:153
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected. The most likely "
 "cause is that you have misspelt the Username and/or the Password."
 msgstr ""
+"<strong>Prova FALLADA</strong>: la petició ha estat rebutjada. El més "
+"probable és que hagueu escrit malament l'identificador i/o la contrasenya."
 
 #: web/diag/radius_tests.php:158
 msgid "This method cannot be tested"
-msgstr ""
+msgstr "Aquest mètode no es pot provar."
 
 #: web/diag/radius_tests.php:162
 msgid ""
@@ -1574,6 +1618,9 @@ msgid ""
 "EAP conversation. Either you have misspelt the Username or there is "
 "something seriously wrong with your server."
 msgstr ""
+"<strong>Prova FALLADA</strong>: la petició ha estat rebutjada immediatament,"
+" sense conversa EAP! Potser heu escrit malament l'identificador o hi ha "
+"alguna cosa malament al servidor."
 
 #: web/diag/radius_tests.php:168 web/diag/radius_tests.php:210
 #, php-format
@@ -1581,54 +1628,62 @@ msgid ""
 "<strong>Test FAILED</strong>: no reply from the RADIUS server after %d "
 "seconds. Either the responsible server is down, or routing is broken!"
 msgstr ""
+"<strong>Prova FALLADA</strong>: sense resposta del servidor RADIUS després "
+"de %d segons. Potser el servidor ha caigut o bé hi ha un problema "
+"d'enrutament!"
 
 #: web/diag/radius_tests.php:173 web/diag/radius_tests.php:214
-#, fuzzy, php-format
+#, php-format
 msgid ""
-"<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation, "
-"but it did not finish after %d seconds!"
+"<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation,"
+" but it did not finish after %d seconds!"
 msgstr ""
-"<strong>Prova satisfactòria</strong>: s'ha dut a terme una conversa RADIUS "
-"bidireccional amb multiples viatges d'anada i tornada, finalitzant amb la "
-"resposta Access-Reject prevista."
+"<strong>Prova FALLADA</strong>: hi ha hagut comunicació RADIUS "
+"bidireccional, però no ha acabat després de %d segons!"
 
 #: web/diag/radius_tests.php:178
 msgid "<strong>Test FAILED</strong>"
-msgstr ""
+msgstr "<strong>Prova FALLADA</strong>"
 
 #: web/diag/radius_tests.php:199
-#, fuzzy
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
 "Access-Reject as planned."
 msgstr ""
-"<strong>Prova satisfactòria</strong>: s'ha dut a terme una conversa RADIUS "
-"bidireccional amb multiples viatges d'anada i tornada, finalitzant amb la "
-"resposta Access-Reject prevista."
+"<strong>Prova satisfactòria parcialment</strong>: s'ha dut a terme una "
+"conversa RADIUS bidireccional amb multiples viatges d'anada i tornada, "
+"finalitzant amb la resposta Access-Reject prevista."
 
 #: web/diag/radius_tests.php:205
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. This is not necessarily an error: if the RADIUS server "
-"enforces that outer identities correspond to an existing username, then this "
-"result is expected (Note: you could configure a valid outer identity in your "
-"profile settings to get past this hurdle). In all other cases, the server "
-"appears misconfigured or it is unreachable."
+"enforces that outer identities correspond to an existing username, then this"
+" result is expected (Note: you could configure a valid outer identity in "
+"your profile settings to get past this hurdle). In all other cases, the "
+"server appears misconfigured or it is unreachable."
 msgstr ""
+"<strong>Test FALLAT</strong>: la petició ha estat rebutjada immediatament, "
+"sense conversa EAP. Això no és necessàriament un error: si el servidor "
+"RADIUS obliga a que les identitats externes corresponguin amb un usuari "
+"existent, aquest és el resultat esperat (nota: podeu configurar una "
+"identitat externa vàlida en el vostre perfil per superar aquest obstacle). "
+"En tots els altres casos, el servidor està mal configurat o és inabastable."
 
 #: web/diag/radius_tests.php:218
 msgid "unhandled error"
-msgstr ""
+msgstr "error no controlat"
 
 #: web/diag/radius_tests.php:236
-#, fuzzy
 msgid ""
 "<strong>ERROR</strong>: the server presented a certificate which is from an "
 "unknown authority!"
-msgstr "El servidor utilitza un certificat d'una autoritat desconeguda."
+msgstr ""
+"<strong>ERROR</strong>: els ervidor ha presentat un certificat signat per "
+"una autoritat desconeguda!"
 
 #: web/diag/radius_tests.php:236 web/diag/radius_tests.php:242
 #, php-format
 msgid "elapsed time: %d"
-msgstr ""
+msgstr "temps transcorregut: %d"

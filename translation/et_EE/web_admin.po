@@ -1,23 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# anne a <anne@eenet.ee>, 2018
+# Anne M <anne@eenet.ee>, 2018
+# Anne M <anne@eenet.ee>, 2018
 # Indrek Rokk <indrek.rokk@eenet.ee>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-07 14:23+0100\n"
-"PO-Revision-Date: 2018-09-28 11:03+0000\n"
+"PO-Revision-Date: 2018-10-30 14:48+0000\n"
 "Last-Translator: Indrek Rokk <indrek.rokk@eenet.ee>\n"
-"Language-Team: Estonian (Estonia) (http://www.transifex.com/eduroam_devel/"
-"cat/language/et_EE/)\n"
-"Language: et_EE\n"
+"Language-Team: Estonian (Estonia) (http://www.transifex.com/eduroam_devel/cat/language/et_EE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: et_EE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: web/admin/action_enrollment.php:41 web/admin/action_enrollment.php:67
@@ -33,40 +33,32 @@ msgstr "See leht vajab kuvamiseks kehtivat kutse koodi!"
 msgid ""
 "You tried to register in self-service, but this deployment does not allow "
 "self-service!"
-msgstr ""
-"Proovisid registreeruda iseteeninduses, aga see versioon ei paku "
-"iseteenindusvõimalust!"
+msgstr "Proovisid registreeruda iseteeninduses, aga see versioon ei paku iseteenindusvõimalust!"
 
 #: web/admin/action_enrollment.php:71
 #, php-format
 msgid ""
-"Sorry... this token has already been used. The %s is already created. If you "
-"got the invitation from a mailing list, probably someone else used it before "
-"you."
-msgstr ""
-"Vabandust, see kood on juba kasutatud. %s on juba loodud. Kui said kutse "
-"postiloendi kaudu, on arvatavasti keegi koodi juba enne Sind kasutanud."
+"Sorry... this token has already been used. The %s is already created. If you"
+" got the invitation from a mailing list, probably someone else used it "
+"before you."
+msgstr "Vabandust, see kood on juba kasutatud. %s on juba loodud. Kui said kutse postiloendi kaudu, on arvatavasti keegi koodi juba enne Sind kasutanud."
 
 #: web/admin/action_enrollment.php:74
 #, php-format
 msgid ""
 "Sorry... this token has expired. Invitation tokens are valid for 24 hours. "
 "The %s administrator can create a new one for you."
-msgstr ""
-"Vabandust, see kood on aegunud. Kutse koodid kehtivad 24 tundi. %s "
-"administraator saab Sulle luua uue koodi."
+msgstr "Vabandust, see kood on aegunud. Kutse koodid kehtivad 24 tundi. %s administraator saab Sulle luua uue koodi."
 
 #: web/admin/action_enrollment.php:77
 msgid ""
-"Sorry... you have come to the enrollment page without a valid token. Are you "
-"a nasty person? If not, you should go to <a href='overview_user.php'>your "
+"Sorry... you have come to the enrollment page without a valid token. Are you"
+" a nasty person? If not, you should go to <a href='overview_user.php'>your "
 "profile page</a> instead."
-msgstr ""
-"Vabandust... saabusid registreerimislehele ilma kehtiva koodita. Oled Sa "
-"paha inimene? Kui ei, peaksid minema <a href='overview_user.php'>oma "
-"profiililehele</a>."
+msgstr "Vabandust... saabusid registreerimislehele ilma kehtiva koodita. Oled Sa paha inimene? Kui ei, peaksid minema <a href='overview_user.php'>oma profiililehele</a>."
 
-#. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
+#. / product name (eduroam CAT), then term used for "federation", then actual
+#. name of federation.
 #: web/admin/edit_federation.php:34
 #, php-format
 msgid "%s: Editing %s '%s'"
@@ -153,11 +145,7 @@ msgid ""
 "questions about it, so that we can generate beautiful profiles for you in "
 "the end. All of the information below is optional, but it is important to "
 "fill out as many fields as possible for the benefit of your end users."
-msgstr ""
-"Tere, uus tulija. %s on meie jaoks uus. Viisard esitab Sulle mitmeid "
-"küsimusi, nii et saaksime luua ilusad profiilid. Teave allpool ei ole "
-"kohustuslik, kuid Su lõppkasutajate huvides on oluline täita nii palju välju "
-"kui võimalik."
+msgstr "Tere, uus tulija. %s on meie jaoks uus. Viisard esitab Sulle mitmeid küsimusi, nii et saaksime luua ilusad profiilid. Teave allpool ei ole kohustuslik, kuid Su lõppkasutajate huvides on oluline täita nii palju välju kui võimalik."
 
 #: web/admin/edit_idp.php:97
 msgid "General Information"
@@ -166,11 +154,9 @@ msgstr "Üldteave"
 #: web/admin/edit_idp.php:101
 msgid ""
 "Some properties are valid across all deployment profiles. This is the place "
-"where you can describe those properties in a fine-grained way. The solicited "
-"information is used as follows:"
-msgstr ""
-"Mõned omadused kehtivad kõigis kasutusprofiilides. Siin saad neid omadusi "
-"täpsemalt kirjeldada. Taotletud teavet kasutatakse järgmiselt:"
+"where you can describe those properties in a fine-grained way. The solicited"
+" information is used as follows:"
+msgstr "Mõned omadused kehtivad kõigis kasutusprofiilides. Siin saad neid omadusi täpsemalt kirjeldada. Taotletud teavet kasutatakse järgmiselt:"
 
 #: web/admin/edit_idp.php:103
 msgid ""
@@ -178,11 +164,7 @@ msgid ""
 "all installers where a custom logo is possible. We accept any image format, "
 "but for best results, we suggest SVG. If you don't upload a logo, we will "
 "use the generic logo instead (see top-right corner of this page)."
-msgstr ""
-"<strong>Logo</strong>: Kui lisad logo, paneme selle kõikidesse "
-"paigaldusprogrammidese, millele on võimalik logo lisada. Meile sobivad kõik "
-"kujutise vormingud, aga soovitame kasutada SVGd. Kui Sa ei lisa logo, "
-"kasutame vaikimisi-logo (vt selle lehe paremas ülenurgas)."
+msgstr "<strong>Logo</strong>: Kui lisad logo, paneme selle kõikidesse paigaldusprogrammidese, millele on võimalik logo lisada. Meile sobivad kõik kujutise vormingud, aga soovitame kasutada SVGd. Kui Sa ei lisa logo, kasutame vaikimisi-logo (vt selle lehe paremas ülenurgas)."
 
 #: web/admin/edit_idp.php:104
 #, php-format
@@ -191,11 +173,7 @@ msgid ""
 "recommended to always populate at least the 'default/other' language, as it "
 "is used as a fallback if the system does not have a name in the exact "
 "language the user requests a download in."
-msgstr ""
-"<strong>Nimi</strong>: %s-del võib olla nimesid mitmetes keeltes. Soovitatav "
-"on määrata vähemalt 'vaikimisi/muu' keele väli, kuna seda kasutatakse juhul, "
-"kui süsteemil puudub nimi selles keeles, milles kasutaja tellib "
-"allalaadimise."
+msgstr "<strong>Nimi</strong>: %s-del võib olla nimesid mitmetes keeltes. Soovitatav on määrata vähemalt 'vaikimisi/muu' keele väli, kuna seda kasutatakse juhul, kui süsteemil puudub nimi selles keeles, milles kasutaja tellib allalaadimise."
 
 #: web/admin/edit_idp.php:115 web/lib/admin/UIElements.php:229
 msgid "Media Properties"
@@ -206,8 +184,7 @@ msgstr "Meedia omadused"
 msgid ""
 "In this section, you define on which media %s should be configured on user "
 "devices."
-msgstr ""
-"Selles osas saad määrata, millised on kasutajate seadmete %s meedia omadused."
+msgstr "Selles osas saad määrata, millised on kasutajate seadmete %s meedia omadused."
 
 #: web/admin/edit_idp.php:122
 msgid "Additional SSIDs:"
@@ -228,17 +205,14 @@ msgstr[1] "Seadistame %s SSIDd alati toetama WPA2/AES: "
 msgid ""
 "They will also be configured for WPA/TKIP if the device supports multiple "
 "encryption types."
-msgstr ""
-"Need seadistatakse ka WPA/TKIP jaoks, kui seade toetab mitmeid "
-"krüpteerimistüüpe."
+msgstr "Need seadistatakse ka WPA/TKIP jaoks, kui seade toetab mitmeid krüpteerimistüüpe."
 
 #: web/admin/edit_idp.php:133
 #, php-format
 msgid ""
 "It is also possible to define custom additional SSIDs with the options '%s' "
 "and '%s' below."
-msgstr ""
-"Võimalik on lisada ka oma muid SSIDsid järgmise kahe valikuga '%s' ja '%s'"
+msgstr "Võimalik on lisada ka oma muid SSIDsid järgmise kahe valikuga '%s' ja '%s'"
 
 #: web/admin/edit_idp.php:135
 msgid "Please configure which SSIDs should be configured in the installers."
@@ -249,10 +223,7 @@ msgid ""
 "By default, we will only configure the SSIDs with WPA2/AES encryption. By "
 "using the '(with WPA/TKIP)' option you can specify that we should include "
 "legacy support for WPA/TKIP where possible."
-msgstr ""
-"Vaikimisi seadistame SSIDd ainult WPA2/AES krüpteeringuga. Kasutades '(with "
-"WPA/TKIP)' suvandit saad määrata, et peaksime võimalusel lisama WPA/TKIP "
-"pärandtoe."
+msgstr "Vaikimisi seadistame SSIDd ainult WPA2/AES krüpteeringuga. Kasutades '(with WPA/TKIP)' suvandit saad määrata, et peaksime võimalusel lisama WPA/TKIP pärandtoe."
 
 #: web/admin/edit_idp.php:141
 msgid "Additional Hotspot 2.0 / Passpoint Consortia:"
@@ -278,10 +249,9 @@ msgstr "OI-sid saab allpool juurde lisada valikuga '%s'."
 
 #: web/admin/edit_idp.php:152
 msgid ""
-"Please configure which Consortium OIs should be configured in the installers."
-msgstr ""
-"Palun lisa Konsortsiumi OId, mis peaksid olema lisatud "
-"paigaldusprogrammidesse."
+"Please configure which Consortium OIs should be configured in the "
+"installers."
+msgstr "Palun lisa Konsortsiumi OId, mis peaksid olema lisatud paigaldusprogrammidesse."
 
 #: web/admin/edit_idp.php:155
 msgid "Support for wired IEEE 802.1X:"
@@ -290,16 +260,11 @@ msgstr "Traadiga IEEE 802.1X tugi:"
 #: web/admin/edit_idp.php:156
 msgid ""
 "If you want to configure your users' devices with IEEE 802.1X support for "
-"wired ethernet, please check the corresponding box. Note that this makes the "
-"installation process a bit more difficult on some platforms (Windows: needs "
-"administrator privileges; Apple: attempting to install a profile with wired "
-"support on a device without an active wired ethernet card will fail)."
-msgstr ""
-"Kui soovid seadistada oma kasutajate seadmeid IEEE 802.1X traadiga etherneti "
-"toega, palun linnuta vastav kastike. Juhime tähelepanu, et see teeb mõne "
-"platvormi puhul paigaldusprotsessi pisut keerulisemaks (Windows: vajab "
-"administraatoriõigusi; Apple: ebaõnnestub katse paigaldada traadiga toega "
-"profiili seadmele, millel aktiivset traadiga etherneti kaarti pole)."
+"wired ethernet, please check the corresponding box. Note that this makes the"
+" installation process a bit more difficult on some platforms (Windows: needs"
+" administrator privileges; Apple: attempting to install a profile with wired"
+" support on a device without an active wired ethernet card will fail)."
+msgstr "Kui soovid seadistada oma kasutajate seadmeid IEEE 802.1X traadiga etherneti toega, palun linnuta vastav kastike. Juhime tähelepanu, et see teeb mõne platvormi puhul paigaldusprotsessi pisut keerulisemaks (Windows: vajab administraatoriõigusi; Apple: ebaõnnestub katse paigaldada traadiga toega profiili seadmele, millel aktiivset traadiga etherneti kaarti pole)."
 
 #: web/admin/edit_idp.php:158
 msgid "Removal of bootstrap/onboarding SSIDs:"
@@ -308,13 +273,9 @@ msgstr "Esmase konfigureerimise/paigaldamise SSID-de eemaldamine:"
 #: web/admin/edit_idp.php:159
 msgid ""
 "If you use a captive portal to distribute configurations, you may want to "
-"unconfigure/disable that SSID after the bootstrap process. With this option, "
-"the SSID will either be removed, or be defined as 'Only connect manually'."
-msgstr ""
-"Kui kasutad seadistuste edastamiseks pääsulehti (Captive Portal), võid "
-"soovida selle SSID seadistused pärast paigaldamist eemaldada (unconfigure/"
-"disable that SSID after the bootstrap process). Selle valiku puhul SSID kas "
-"eemaldatakse või määratakse ainult käsitsi ühendamist nõudvaks."
+"unconfigure/disable that SSID after the bootstrap process. With this option,"
+" the SSID will either be removed, or be defined as 'Only connect manually'."
+msgstr "Kui kasutad seadistuste edastamiseks pääsulehti (Captive Portal), võid soovida selle SSID seadistused pärast paigaldamist eemaldada (unconfigure/disable that SSID after the bootstrap process). Selle valiku puhul SSID kas eemaldatakse või määratakse ainult käsitsi ühendamist nõudvaks."
 
 #: web/admin/edit_idp.php:168
 msgid "Helpdesk Details for all users"
@@ -324,18 +285,14 @@ msgstr "Kasutajatoe andmed kõigile kasutajatele"
 msgid ""
 "This section can be used to upload specific Terms of Use for your users and "
 "to display details of how your users can reach your local helpdesk."
-msgstr ""
-"Seda osa saab kasutada spetsiifiliste Kasutustingimuste üleslaadimiseks ja "
-"kasutajatoe kontaktandmete näitamiseks."
+msgstr "Seda osa saab kasutada spetsiifiliste Kasutustingimuste üleslaadimiseks ja kasutajatoe kontaktandmete näitamiseks."
 
 #: web/admin/edit_idp.php:176
 #, php-format
 msgid ""
 "Do you provide helpdesk services for your users? If so, it would be nice if "
 "you would tell us the pointers to this helpdesk."
-msgstr ""
-"Kas pakud oma kasutajatele kasutajatuge? Kui jah, oleks kena, kui annaksid "
-"viited sellele kasutajatoele."
+msgstr "Kas pakud oma kasutajatele kasutajatuge? Kui jah, oleks kena, kui annaksid viited sellele kasutajatoele."
 
 #: web/admin/edit_idp.php:178
 msgid ""
@@ -344,12 +301,7 @@ msgid ""
 "helpdesks for different user groups (we call this 'profiles') specify per-"
 "profile helpdesk information later in this wizard. If you operate no help "
 "desk at all, just leave these fields empty."
-msgstr ""
-"Siia sisestatud teave lisatakse kõigi Su kasutajate paigaldusprogrammidele "
-"ja näidatakse allalaadimislehel. Kui haldate erinevaid kasutajatugesid "
-"erinevate kasutajagruppide (ehk profiilide) jaoks, määrake profiilikohased "
-"kasutajatoe andmed viisardis pärastpoole. Kui teil ei ole kasutajatuge, "
-"jätke need väljad tühjaks."
+msgstr "Siia sisestatud teave lisatakse kõigi Su kasutajate paigaldusprogrammidele ja näidatakse allalaadimislehel. Kui haldate erinevaid kasutajatugesid erinevate kasutajagruppide (ehk profiilide) jaoks, määrake profiilikohased kasutajatoe andmed viisardis pärastpoole. Kui teil ei ole kasutajatuge, jätke need väljad tühjaks."
 
 #: web/admin/edit_idp.php:180
 #, php-format
@@ -368,8 +320,8 @@ msgstr "Nõutud on vähemalt kohalik e-postikontakt."
 #: web/admin/edit_idp.php:193
 #, php-format
 msgid ""
-"When you are sure that everything is correct, please click on %sContinue ..."
-"%s"
+"When you are sure that everything is correct, please click on %sContinue "
+"...%s"
 msgstr "Kui oled kindel, kõik on korrektne, klõpsa palun %sJätka...%s"
 
 #: web/admin/edit_idp_result.php:51
@@ -392,9 +344,9 @@ msgstr "(WPA2/AES)"
 
 #: web/admin/edit_idp_result.php:107
 #, php-format
-msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
-msgstr ""
-"Su paigaldusprogrammid seadistavad järgmised SSIDd: <strong>%s</strong>"
+msgid ""
+"Your installers will configure the following SSIDs: <strong>%s</strong>"
+msgstr "Su paigaldusprogrammid seadistavad järgmised SSIDd: <strong>%s</strong>"
 
 #: web/admin/edit_idp_result.php:107
 msgid "SSIDs configured"
@@ -413,9 +365,7 @@ msgstr "Traadiga variant seadistatud"
 msgid ""
 "We cannot generate installers because neither wireless SSIDs nor wired "
 "interfaces have been selected as a target!"
-msgstr ""
-"Paigaldusprogramme ei saanud luua, kuna sihiks ei valitud ei traadita SSIDe "
-"ega traadiga liideseid."
+msgstr "Paigaldusprogramme ei saanud luua, kuna sihiks ei valitud ei traadita SSIDe ega traadiga liideseid."
 
 #: web/admin/edit_idp_result.php:133
 #, php-format
@@ -426,12 +376,9 @@ msgstr "Jätka %s seadistamisega"
 #, php-format
 msgid ""
 "You did not submit an e-mail address. This is required for %s. Please go to "
-"the %s dashboard and edit your helpdesk settings to include a helpdesk e-"
-"mail address."
-msgstr ""
-"Sa ei sisestanud e-posti aadressi. See on %s puhul nõutud. Palun mine %s "
-"koondpaneelile ja muuda oma kasutajatoe seadeid nii, et ka e-postiaadress "
-"oleks olemas."
+"the %s dashboard and edit your helpdesk settings to include a helpdesk "
+"e-mail address."
+msgstr "Sa ei sisestanud e-posti aadressi. See on %s puhul nõutud. Palun mine %s koondpaneelile ja muuda oma kasutajatoe seadeid nii, et ka e-postiaadress oleks olemas."
 
 #: web/admin/edit_idp_result.php:136
 msgid "No support e-mail!"
@@ -463,12 +410,9 @@ msgstr "Profiili üldatribuudid"
 msgid ""
 "We will now define a profile for your user group(s).  You can add as many "
 "profiles as you like by choosing the appropriate button on the end of the "
-"page. After we are done, the wizard is finished and you will be taken to the "
-"main IdP administration page."
-msgstr ""
-"Nüüd määrame Su kasutajagrupi/gruppide profiili(d). Saad lisada vajaliku "
-"arvu profiile, kui valid lehe allotsast vastava nupu. Kui see on tehtud, on "
-"viisard lõpetanud ning Sind suunatakse IdP haldamise pealehele."
+"page. After we are done, the wizard is finished and you will be taken to the"
+" main IdP administration page."
+msgstr "Nüüd määrame Su kasutajagrupi/gruppide profiili(d). Saad lisada vajaliku arvu profiile, kui valid lehe allotsast vastava nupu. Kui see on tehtud, on viisard lõpetanud ning Sind suunatakse IdP haldamise pealehele."
 
 #: web/admin/edit_profile.php:132
 msgid "Profile Name and RADIUS realm"
@@ -479,20 +423,14 @@ msgid ""
 "First of all we need a name for the profile. This will be displayed to end "
 "users, so you may want to choose a descriptive name like 'Professors', "
 "'Students of the Faculty of Bioscience', etc."
-msgstr ""
-"Esmalt vajame profiili nime. Seda näidatakse lõppkasutajatele, seetõttu võid "
-"soovida kasutada kirjeldavaid nimesid nagu näiteks 'Professorid'. "
-"'Loodusteaduste teaduskonna tudengid' jne."
+msgstr "Esmalt vajame profiili nime. Seda näidatakse lõppkasutajatele, seetõttu võid soovida kasutada kirjeldavaid nimesid nagu näiteks 'Professorid'. 'Loodusteaduste teaduskonna tudengid' jne."
 
 #: web/admin/edit_profile.php:136
 msgid ""
-"Optionally, you can provide a longer descriptive text about who this profile "
-"is for. If you specify it, it will be displayed on the download page after "
+"Optionally, you can provide a longer descriptive text about who this profile"
+" is for. If you specify it, it will be displayed on the download page after "
 "the user has selected the profile name in the list."
-msgstr ""
-"Võid lisada pikema kirjeldava teksti - kelle jaoks see profiil ette nähtud "
-"on. Seda teksti näidatakse allalaadimislehel pärast seda, kui kasutaja on "
-"profiili nime loetelust ära valinud."
+msgstr "Võid lisada pikema kirjeldava teksti - kelle jaoks see profiil ette nähtud on. Seda teksti näidatakse allalaadimislehel pärast seda, kui kasutaja on profiili nime loetelust ära valinud."
 
 #: web/admin/edit_profile.php:137
 msgid "You can also tell us your RADIUS realm. "
@@ -501,19 +439,15 @@ msgstr "Sa võid õelda ka oma RADIUSe domeeni"
 #: web/admin/edit_profile.php:139
 #, php-format
 msgid ""
-"This is useful if you want to use the sanity check module later, which tests "
-"reachability of your realm in the %s infrastructure. "
-msgstr ""
-"Sellest on kasu, kui soovid hiljem kasutada kõlblikkuse kontrolli moodulit, "
-"mis testib Su domeeni kättesaadavust %s taristus."
+"This is useful if you want to use the sanity check module later, which tests"
+" reachability of your realm in the %s infrastructure. "
+msgstr "Sellest on kasu, kui soovid hiljem kasutada kõlblikkuse kontrolli moodulit, mis testib Su domeeni kättesaadavust %s taristus."
 
 #: web/admin/edit_profile.php:141
 msgid ""
 "It is required to enter the realm name if you want to support anonymous "
 "outer identities (see below)."
-msgstr ""
-"Kui soovid toetada anonüümseid väliseid identiteete (vt allpool), tuleb "
-"sisestada domeeni nimi."
+msgstr "Kui soovid toetada anonüümseid väliseid identiteete (vt allpool), tuleb sisestada domeeni nimi."
 
 #: web/admin/edit_profile.php:154
 msgid "Realm:"
@@ -528,31 +462,21 @@ msgstr "Domeeni valikud"
 msgid ""
 "Some installers support a feature called 'Anonymous outer identity'. If you "
 "don't know what this is, please read <a href='%s'>this article</a>."
-msgstr ""
-"Mõned paigaldusprogrammid toetavad omadust 'Anonüümne väline identiteet'. "
-"Kui Sa ei tea, mis see on, palun loe <a href='%s'>seda artiklit</a>."
+msgstr "Mõned paigaldusprogrammid toetavad omadust 'Anonüümne väline identiteet'. Kui Sa ei tea, mis see on, palun loe <a href='%s'>seda artiklit</a>."
 
 #: web/admin/edit_profile.php:196
 msgid ""
-"On some platforms, the installers can suggest username endings and/or verify "
-"the user input to contain the realm suffix."
-msgstr ""
-"Osadel platvormidel saavad paigaldusprogrammid soovitada kasutajanime lõppu "
-"ja/või kontrollida, et kasutaja sisestus sisaldab järelliitena (sufiksina) "
-"domeeni."
+"On some platforms, the installers can suggest username endings and/or verify"
+" the user input to contain the realm suffix."
+msgstr "Osadel platvormidel saavad paigaldusprogrammid soovitada kasutajanime lõppu ja/või kontrollida, et kasutaja sisestus sisaldab järelliitena (sufiksina) domeeni."
 
 #: web/admin/edit_profile.php:197
-#, fuzzy
 msgid ""
 "The realm check feature needs to know an outer ID which actually gets a "
 "chance to authenticate. If your RADIUS server lets only select usernames "
 "pass, it is useful to supply the information which of those (outer ID) "
 "username we can use for testing."
-msgstr ""
-"Domeeni kontrollimise vahend vajab välist ID-d, millel lubatakse autentida. "
-"Kui Su RADIUSe server laseb läbi ainult valitud kasutajanimed, on kasulik "
-"anda teave, millist neist (välise ID) kasutajanimedest saame testimiseks "
-"kasutada."
+msgstr "Domeenikontrollimise vahend vajab välist ID-d, mille vastu autentida. Kui Su RADIUSe server lubab ainult valitud kasutajanimesid läbi, on otstarbekas anda teada, milliseid neist (väliste ID-de) kasutajanimedest me testimiseks kasutada saame."
 
 #: web/admin/edit_profile.php:209
 msgid "Verify user input to contain realm suffix:"
@@ -580,16 +504,10 @@ msgid ""
 "learn about the support pointers you entered earlier. The CAT can also "
 "immediately offer the installers for the profile for download. If you don't "
 "want that, you can instead enter a web site location where you want your "
-"users to be redirected to. You, as the administrator, can still download the "
-"profiles to place them on that page (see the 'Compatibility Matrix' button "
+"users to be redirected to. You, as the administrator, can still download the"
+" profiles to place them on that page (see the 'Compatibility Matrix' button "
 "on the dashboard)."
-msgstr ""
-"CATil on kasutajate jaoks allalaadimiskoht. Seal saavad nad infot näiteks "
-"kasutajatoe kohta, mille Sa eespool sisestasid. CAT võib pakkuda "
-"paigaldajatele vahetult allalaadimisprofiili. Kui Sa seda ei soovi, saad "
-"sisestada veebiaadressi, kuhu soovid oma kasutajad ümber suunata. Sa ise "
-"saad administraatorina siiski profiile sellele lehele panemiseks alla "
-"laadida (vt koondpaneelil nupp 'Ühildatavuse maatriks')."
+msgstr "CATil on kasutajate jaoks allalaadimiskoht. Seal saavad nad infot näiteks kasutajatoe kohta, mille Sa eespool sisestasid. CAT võib pakkuda paigaldajatele vahetult allalaadimisprofiili. Kui Sa seda ei soovi, saad sisestada veebiaadressi, kuhu soovid oma kasutajad ümber suunata. Sa ise saad administraatorina siiski profiile sellele lehele panemiseks alla laadida (vt koondpaneelil nupp 'Ühildatavuse maatriks')."
 
 #: web/admin/edit_profile.php:279
 msgid "Redirect end users to own web page:"
@@ -604,14 +522,9 @@ msgid ""
 "Now, we need to know which EAP types your IdP supports. If you support "
 "multiple EAP types, you can assign every type a priority (1=highest). This "
 "tool will always generate an automatic installer for the EAP type with the "
-"highest priority; only if the user's device can't use that EAP type, we will "
-"use an EAP type further down in the list."
-msgstr ""
-"Nüüd vajame infot, milliseid EAP tüüpe Su IdP toetab. Kui toetate mitmeid "
-"EAP tüüpe, saad neile määrata prioriteedid (1=kõrgeim). See tööriist "
-"genereerib automaatse paigaldusprogrammi alati kõrgeima prioriteediga EAP "
-"tüübi jaoks; ainult juhul, kui kasutaja seade ei saa seda EAP tüüpi "
-"kasutada, rakendame nimekirjas järgmist EAP tüüpi."
+"highest priority; only if the user's device can't use that EAP type, we will"
+" use an EAP type further down in the list."
+msgstr "Nüüd vajame infot, milliseid EAP tüüpe Su IdP toetab. Kui toetate mitmeid EAP tüüpe, saad neile määrata prioriteedid (1=kõrgeim). See tööriist genereerib automaatse paigaldusprogrammi alati kõrgeima prioriteediga EAP tüübi jaoks; ainult juhul, kui kasutaja seade ei saa seda EAP tüüpi kasutada, rakendame nimekirjas järgmist EAP tüüpi."
 
 #: web/admin/edit_profile.php:338
 msgid "EAP options inherited from Global level:"
@@ -631,10 +544,7 @@ msgid ""
 "Use \"drag &amp; drop\" to mark an EAP method and move it to the supported "
 "(green) area. Prioritisation is done automatically, depending on where you "
 "\"drop\" the method."
-msgstr ""
-"Kasuta lohistamist, et märkida EAP meetod ja viia see toetatavale "
-"(rohelisele) alale. Prioriseerimine toimub automaatselt sõltuvalt sellest, "
-"kuhu Sa meetodi 'maha paned'."
+msgstr "Kasuta lohistamist, et märkida EAP meetod ja viia see toetatavale (rohelisele) alale. Prioriseerimine toimub automaatselt sõltuvalt sellest, kuhu Sa meetodi 'maha paned'."
 
 #: web/admin/edit_profile.php:393
 msgid "Unsupported EAP types"
@@ -658,22 +568,16 @@ msgid ""
 "The option %s is already defined IdP-wide. If you set it here on profile "
 "level, this setting will override the IdP-wide one."
 msgid_plural ""
-"The options %s are already defined IdP-wide. If you set them here on profile "
-"level, these settings will override the IdP-wide ones."
-msgstr[0] ""
-"Suvand %s on juba IdP-üleselt defineeritud. Kui seadistad selle siin "
-"profiili tasemel, eiratakse siinkohal IdP-ülest."
-msgstr[1] ""
-"Suvandid %s on juba IdP-üleselt defineeritud. Kui seadistad need siin "
-"profiili tasemel, eiratakse siinkohal IdP-üleseid."
+"The options %s are already defined IdP-wide. If you set them here on profile"
+" level, these settings will override the IdP-wide ones."
+msgstr[0] "Suvand %s on juba IdP-üleselt defineeritud. Kui seadistad selle siin profiili tasemel, eiratakse siinkohal IdP-ülest."
+msgstr[1] "Suvandid %s on juba IdP-üleselt defineeritud. Kui seadistad need siin profiili tasemel, eiratakse siinkohal IdP-üleseid."
 
 #: web/admin/edit_profile.php:466
 msgid ""
 "When you are sure that everything is correct, please click on 'Save data' "
 "and you will be taken to your IdP Dashboard page."
-msgstr ""
-"Kui oled kindel, et kõik on korrektne, klõpsa palun 'Salvesta andmed' ja "
-"Sind viiakse Su IdP koondpaneelile."
+msgstr "Kui oled kindel, et kõik on korrektne, klõpsa palun 'Salvesta andmed' ja Sind viiakse Su IdP koondpaneelile."
 
 #: web/admin/edit_profile_result.php:33
 #, php-format
@@ -702,9 +606,7 @@ msgstr "Anonüümseid välimisi identiteete ei saa kasutada: domeen on puudu!"
 msgid ""
 "Anonymous Identity support is <strong>%s</strong>, the anonymous outer "
 "identity is <strong>%s</strong>"
-msgstr ""
-"Anonüümse välise identiteedi tugi on <strong>%s</strong>, anonüümne väline "
-"identiteet on <strong>%s</strong>"
+msgstr "Anonüümse välise identiteedi tugi on <strong>%s</strong>, anonüümne väline identiteet on <strong>%s</strong>"
 
 #: web/admin/edit_profile_result.php:134 web/admin/edit_profile_result.php:146
 msgid "ON"
@@ -728,9 +630,7 @@ msgstr "Domeeni kontrollimise kasutajanime ei saa seadistada: domeen puudub!"
 msgid ""
 "Special username for realm check is <strong>%s</strong>, the value is "
 "<strong>%s</strong>"
-msgstr ""
-"Spetsiaalne kasutajanimi domeeni kontrollimiseks on <strong>%s</strong>, "
-"väärtus on <strong>%s</strong>"
+msgstr "Spetsiaalne kasutajanimi domeeni kontrollimiseks on <strong>%s</strong>, väärtus on <strong>%s</strong>"
 
 #: web/admin/edit_profile_result.php:150
 msgid "No special username for realm checks is configured."
@@ -744,24 +644,20 @@ msgstr "ja sisestusväli eeltäidetakse: '<strong>@%s</strong>'."
 #: web/admin/edit_profile_result.php:163
 #, php-format
 msgid ""
-"Where possible, username inputs will be <strong>verified to end with @%s</"
-"strong>%s"
-msgstr ""
-"Kui võimalik, kontrollitakse kasutajanime sisestamisel, et <strong>lõpus "
-"oleks @%s</strong>%s"
+"Where possible, username inputs will be <strong>verified to end with "
+"@%s</strong>%s"
+msgstr "Kui võimalik, kontrollitakse kasutajanime sisestamisel, et <strong>lõpus oleks @%s</strong>%s"
 
 #: web/admin/edit_profile_result.php:173
-msgid "Redirection can't be activated - you did not specify a target location!"
+msgid ""
+"Redirection can't be activated - you did not specify a target location!"
 msgstr "Ümbersuunamist ei saa aktiveerida - Sa ei määranud sihtaadressi."
 
 #: web/admin/edit_profile_result.php:175
-#, fuzzy
 msgid ""
 "Redirection can't be activated - the target needs to be a complete URL "
 "starting with http:// or https:// !"
-msgstr ""
-"Ümbersuunamist ei saa aktiveerida - sihtaadress peab olema URL, mille "
-"alguses on http:// või https://"
+msgstr "Ümbersuunamist ei saa aktiveerida; sihtaadress peab olema terviklik URL mille alguses on http:// või https://"
 
 #: web/admin/edit_profile_result.php:181
 msgid "Redirection is <strong>OFF</strong>"
@@ -775,16 +671,13 @@ msgstr "Toetatud EAP tüübid:"
 #, php-format
 msgid ""
 "Supported EAP Type: <strong>%s</strong> is missing required information %s !"
-msgstr ""
-"Toetatud EAP tüübil: <strong>%s</strong> puudub vajalik informatsioon %s!"
+msgstr "Toetatud EAP tüübil: <strong>%s</strong> puudub vajalik informatsioon %s!"
 
 #: web/admin/edit_profile_result.php:213
 msgid ""
 "The EAP type was added to the profile, but you need to complete the missing "
 "information before we can produce installers for you."
-msgstr ""
-"EAP tüüp lisati profiilile, kuid pead lisama puuduva teabe, enne kui saame "
-"Su jaoks paigaldusprogrammid luua."
+msgstr "EAP tüüp lisati profiilile, kuid pead lisama puuduva teabe, enne kui saame Su jaoks paigaldusprogrammid luua."
 
 #: web/admin/edit_profile_result.php:229
 msgid "Continue to Installer Fine-Tuning and Download"
@@ -800,18 +693,13 @@ msgid ""
 "The mail domain of the mail address <strong>%s</strong> is not secure: some "
 "or all of the mail servers are not accepting encrypted connections (no "
 "consistent support for STARTTLS)."
-msgstr ""
-"Postidomeen e-posti aadressis <strong>%s</strong> ei ole turvaline: mõni või "
-"kõik postiserverid ei aktsepteeri krüpteeritud ühendust (puudub terviklik "
-"toetus STARTTLS-le)."
+msgstr "Postidomeen e-posti aadressis <strong>%s</strong> ei ole turvaline: mõni või kõik postiserverid ei aktsepteeri krüpteeritud ühendust (puudub terviklik toetus STARTTLS-le)."
 
 #: web/admin/edit_silverbullet.php:216
 msgid ""
 "The invitation would need to be sent in cleartext across the internet, and "
 "can possibly be read and abused by anyone in transit."
-msgstr ""
-"Kutse tuleb saata üle Interneti avatekstina ja seda on võimalik teelolemise "
-"ajal igaühel lugeda ja väärkasutada."
+msgstr "Kutse tuleb saata üle Interneti avatekstina ja seda on võimalik teelolemise ajal igaühel lugeda ja väärkasutada."
 
 #: web/admin/edit_silverbullet.php:217
 msgid "Do you want the system to send this mail anyway?"
@@ -853,7 +741,7 @@ msgstr "Mitteaktiivsete kasutajate arv"
 
 #: web/admin/edit_silverbullet.php:334
 msgid "The e-mail was sent successfully."
-msgstr "E-kirja saatmine oli edukas."
+msgstr "E-kirja saatmine õnnestus."
 
 #: web/admin/edit_silverbullet.php:334
 msgid "E-mail OK."
@@ -869,7 +757,7 @@ msgstr "E-kirja saatmisega ei ole hästi."
 
 #: web/admin/edit_silverbullet.php:340
 msgid "The SMS was sent successfully."
-msgstr "SMSi saatmine oli edukas."
+msgstr "SMSi saatmine õnnestus."
 
 #: web/admin/edit_silverbullet.php:340
 msgid "SMS OK."
@@ -988,16 +876,12 @@ msgstr "Aktiveerimisi:"
 #: web/admin/edit_silverbullet.php:539
 #, php-format
 msgid ""
-"You need to acknowledge that the created accounts are still valid within the "
-"next %s days. If all accounts shown as active above are indeed still valid, "
-"please check the box below and push \"Save\". If any of the accounts are "
+"You need to acknowledge that the created accounts are still valid within the"
+" next %s days. If all accounts shown as active above are indeed still valid,"
+" please check the box below and push \"Save\". If any of the accounts are "
 "stale, please deactivate them by pushing the corresponding button before "
 "doing this."
-msgstr ""
-"Palun kinnita kontode kehtivus %s päeva jooksul. Kui kõik ülalpool "
-"aktiivsena näidatud kontod peavad kehtima, linnuta palun alltoodud kast ja "
-"vajuta \"Salvesta\". Aegunud kontod palun deaktiveeri vastava nupu abil enne "
-"salvestamisnupu vajutamist. "
+msgstr "Palun kinnita kontode kehtivus %s päeva jooksul. Kui kõik ülalpool aktiivsena näidatud kontod peavad kehtima, linnuta palun alltoodud kast ja vajuta \"Salvesta\". Aegunud kontod palun deaktiveeri vastava nupu abil enne salvestamisnupu vajutamist. "
 
 #: web/admin/edit_silverbullet.php:547
 #, php-format
@@ -1016,18 +900,13 @@ msgstr "Impordi kasutajad CSV failist"
 msgid ""
 "Please enter a username of your choice and user expiry date to create a new "
 "user:"
-msgstr ""
-"Uue kasutaja lisamiseks palun sisesta soovitud kasutajanimi ja aegumise "
-"kuupäev:"
+msgstr "Uue kasutaja lisamiseks palun sisesta soovitud kasutajanimi ja aegumise kuupäev:"
 
 #: web/admin/edit_silverbullet.php:586
 msgid ""
 "Comma separated values should be provided in CSV file: username, expiration "
 "date 'yyyy-mm-dd', number of tokens (optional):"
-msgstr ""
-"CSV-failis tuleb andmed panna komadega eraldatult järgnevalt:\n"
-"kasutajanimi, aegumiskuupäev formaadis AAAA-KK-PP (aasta, kuu, päev), "
-"võtmete arv (ei ole kohustuslik)."
+msgstr "CSV-failis tuleb andmed panna komadega eraldatult järgnevalt:\nkasutajanimi, aegumiskuupäev formaadis AAAA-KK-PP (aasta, kuu, päev), võtmete arv (ei ole kohustuslik)."
 
 #: web/admin/edit_silverbullet.php:590
 msgid "Import users"
@@ -1086,9 +965,7 @@ msgstr "Lõpetamata väljalogimine"
 msgid ""
 "We were unable to log you out of all your sessions. To be completely sure "
 "that you are logged out, you need to close your web browser."
-msgstr ""
-"Meil ei olnud võimalik Sind kõigist Su sessioonidest välja logida. "
-"Täielikuks väljalogimiseks palun sule oma veebilehitseja."
+msgstr "Meil ei olnud võimalik Sind kõigist Su sessioonidest välja logida. Täielikuks väljalogimiseks palun sule oma veebilehitseja."
 
 #: web/admin/overview_federation.php:18
 #, php-format
@@ -1150,81 +1027,92 @@ msgstr "Admin"
 #: web/admin/overview_federation.php:142 web/admin/inc/manageAdmins.inc.php:99
 msgid "It was sent with transport security (encryption)."
 msgid_plural "They were sent with transport security (encryption)."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "See saadeti turvaliselt (krüpteeritult)."
+msgstr[1] "Need saadeti turvaliselt (krüpteeritult)."
 
-#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:102
+#: web/admin/overview_federation.php:145
+#: web/admin/inc/manageAdmins.inc.php:102
 msgid "It was sent in clear text (no encryption)."
 msgid_plural "They were sent in clear text (no encryption)."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "See saadeti avatekstina (krüpteerimata)."
+msgstr[1] "Need saadeti avatekstina (krüpteerimata)."
 
-#: web/admin/overview_federation.php:148 web/admin/inc/manageAdmins.inc.php:105
+#: web/admin/overview_federation.php:148
+#: web/admin/inc/manageAdmins.inc.php:105
 msgid ""
-"A subset of the mails were sent with transport encryption, the rest in clear "
-"text."
-msgstr ""
+"A subset of the mails were sent with transport encryption, the rest in clear"
+" text."
+msgstr "Osa kirju saadeti turvaliselt (krüpteeritult), ülejäänud avatekstina."
 
-#: web/admin/overview_federation.php:153 web/admin/inc/manageAdmins.inc.php:110
-#, fuzzy
+#: web/admin/overview_federation.php:153
+#: web/admin/inc/manageAdmins.inc.php:110
 msgid "The invitation email was sent successfully."
 msgid_plural "All invitation emails were sent successfully."
-msgstr[0] "Kutse e-kiri saadeti edukalt: %s."
-msgstr[1] "Kutse e-kiri saadeti edukalt: %s."
+msgstr[0] "Kutse saadeti välja."
+msgstr[1] "Kutsed saadeti välja."
 
-#: web/admin/overview_federation.php:153 web/admin/inc/manageAdmins.inc.php:110
-#, fuzzy
+#: web/admin/overview_federation.php:153
+#: web/admin/inc/manageAdmins.inc.php:110
 msgid "Sent successfully."
-msgstr "SMSi saatmine oli edukas."
+msgstr "Saadetud."
 
-#: web/admin/overview_federation.php:156 web/admin/inc/manageAdmins.inc.php:113
-#, fuzzy
+#: web/admin/overview_federation.php:156
+#: web/admin/inc/manageAdmins.inc.php:113
 msgid "No invitation email could be sent!"
-msgstr "Kutse e-kirja ei olnud võimalik saata!"
+msgstr "Kutseid ei saanud saata!"
 
-#: web/admin/overview_federation.php:156 web/admin/inc/manageAdmins.inc.php:113
+#: web/admin/overview_federation.php:156
+#: web/admin/inc/manageAdmins.inc.php:113
 msgid "Sending failure!"
-msgstr ""
+msgstr "Viga saatmisel!"
 
-#: web/admin/overview_federation.php:162 web/admin/inc/manageAdmins.inc.php:119
+#: web/admin/overview_federation.php:162
+#: web/admin/inc/manageAdmins.inc.php:119
 msgid "The successful one was sent with transport security (encryption)."
 msgid_plural ""
 "The successful ones were sent with transport security (encryption)."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "See, mille saatmine õnnestus, saadeti turvaliselt (krüpteeritult)."
+msgstr[1] "Need, mille saatmine õnnestus, saadeti turvaliselt (krüpteeritult)."
 
-#: web/admin/overview_federation.php:165 web/admin/inc/manageAdmins.inc.php:122
+#: web/admin/overview_federation.php:165
+#: web/admin/inc/manageAdmins.inc.php:122
 msgid "The successful one was sent in clear text (no encryption)."
 msgid_plural "The successful ones were sent in clear text (no encryption)."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "See, mille saatmine õnnestus, saadeti avatekstina (krüpteerimata)."
+msgstr[1] "Need, mille saatmine õnnestus, saadeti avatekstina (krüpteerimata)."
 
-#: web/admin/overview_federation.php:168 web/admin/inc/manageAdmins.inc.php:125
+#: web/admin/overview_federation.php:168
+#: web/admin/inc/manageAdmins.inc.php:125
 msgid ""
-"A subset of the successfully sent mails were sent with transport encryption, "
-"the rest in clear text."
-msgstr ""
+"A subset of the successfully sent mails were sent with transport encryption,"
+" the rest in clear text."
+msgstr "Osa kirju saadeti turvaliselt (krüpteeritult), ülejäänud avatekstina."
 
-#: web/admin/overview_federation.php:173 web/admin/inc/manageAdmins.inc.php:130
-#, fuzzy, php-format
+#: web/admin/overview_federation.php:173
+#: web/admin/inc/manageAdmins.inc.php:130
+#, php-format
 msgid ""
 "Some invitation emails were sent successfully (%s in total), the others "
 "failed."
-msgstr "Kutse e-kiri saadeti edukalt: %s."
+msgstr "Osade kutsete saatmine õnnestus (kokku %s), ülejäänute puhul tekkis viga."
 
-#: web/admin/overview_federation.php:173 web/admin/inc/manageAdmins.inc.php:130
+#: web/admin/overview_federation.php:173
+#: web/admin/inc/manageAdmins.inc.php:130
 msgid "Partial success."
-msgstr ""
+msgstr "Saatmine õnnestus osaliselt."
 
-#: web/admin/overview_federation.php:176 web/admin/inc/manageAdmins.inc.php:133
+#: web/admin/overview_federation.php:176
+#: web/admin/inc/manageAdmins.inc.php:133
 msgid "The invitation email address was malformed, no invitation was sent!"
-msgstr "Kutse e-kiri oli valesti vormindatud. Kutset ei saadetud!"
+msgstr "Kutse e-postiaadress oli vigane. Kutset ei saadetud!"
 
-#: web/admin/overview_federation.php:179 web/admin/inc/manageAdmins.inc.php:136
+#: web/admin/overview_federation.php:179
+#: web/admin/inc/manageAdmins.inc.php:136
 msgid "Error: unknown result code of invitation!?!"
 msgstr "Viga: kutsel on tundmatu tulemuskood!?!"
 
-#: web/admin/overview_federation.php:179 web/admin/inc/manageAdmins.inc.php:136
+#: web/admin/overview_federation.php:179
+#: web/admin/inc/manageAdmins.inc.php:136
 msgid "Unknown result!"
 msgstr "Tundmatu tulemus!"
 
@@ -1247,7 +1135,7 @@ msgstr "%s Nimi"
 #: web/admin/overview_federation.php:199
 #, php-format
 msgid "%s Database Sync Status"
-msgstr "%s andmebaasi sünkroniseerimise staatus"
+msgstr "%s andmebaasi sünkroniseerimise seis"
 
 #: web/admin/overview_federation.php:205 web/admin/overview_user.php:103
 msgid "Administrator Management"
@@ -1314,9 +1202,7 @@ msgstr "Muuda %s üldandmeid"
 msgid ""
 "After deleting the %s, you can not recreate it yourself - you need a new "
 "invitation token from the %s administrator!"
-msgstr ""
-"Pärast %s kustutamist ei saa Sa seda ise taasluua, vaid vajad esmalt uut "
-"kutse koodi %s administraatorilt."
+msgstr "Pärast %s kustutamist ei saa Sa seda ise taasluua, vaid vajad esmalt uut kutse koodi %s administraatorilt."
 
 #: web/admin/overview_idp.php:91
 #, php-format
@@ -1334,18 +1220,16 @@ msgid ""
 "This action will delete all properties of the %s and start over the "
 "configuration from scratch. Do you really want to reset all settings of the "
 "%s %s?"
-msgstr ""
-"Toiming kustutab kõik %s väärtused ja alustab seadistamist nullist. Kas Sa "
-"soovid tõesti %s%s kõiki seadistusi lähtestada?"
+msgstr "Toiming kustutab kõik %s väärtused ja alustab seadistamist nullist. Kas Sa soovid tõesti %s%s kõiki seadistusi lähtestada?"
 
 #: web/admin/overview_idp.php:97
 #, php-format
 msgid "Reset all %s settings"
-msgstr "Lähtesta kõik %s seadistused."
+msgstr "Lähtesta kõik %s seadistused"
 
 #: web/admin/overview_idp.php:107
 msgid "Available Support actions"
-msgstr "Võimalikud Kasutajatoe tegevused"
+msgstr "Võimalikud kasutajatoe tegevused"
 
 #: web/admin/overview_idp.php:112
 msgid "Check another realm's reachability"
@@ -1360,7 +1244,7 @@ msgstr "Jätka!"
 #: web/admin/overview_idp.php:122
 #, php-format
 msgid "Check %s server status"
-msgstr "Kontrolli %s serveri staatust"
+msgstr "Kontrolli %s serveri olekut"
 
 #. no profiles yet.
 #: web/admin/overview_idp.php:136
@@ -1381,11 +1265,9 @@ msgstr "Teave vajalik!"
 #: web/admin/overview_idp.php:170
 #, php-format
 msgid ""
-"You can create up to %d users. Their credentials will carry the name <strong>"
-"%s</strong>."
-msgstr ""
-"Saad luua kuni %d kasutajat. Nende kasutajakontod nimetatakse <strong>%s</"
-"strong>."
+"You can create up to %d users. Their credentials will carry the name "
+"<strong>%s</strong>."
+msgstr "Saad luua kuni %d kasutajat. Nende kasutajakontod nimetatakse <strong>%s</strong>."
 
 #: web/admin/overview_idp.php:179
 msgid "Manage User Base"
@@ -1425,10 +1307,7 @@ msgid ""
 "This profile is NOT shown on the user download interface, even though we "
 "have enough information to show. To enable the profile, add the attribute "
 "\"%s\" and tick the corresponding box."
-msgstr ""
-"Seda profiili EI näidata kasutajale allalaadimisliideses, kuigi meil on "
-"kuvamiseks piisavalt teavet. Et lubada profiil, lisa atribuut \"%s\" ja "
-"linnuta vastav kastike."
+msgstr "Seda profiili EI näidata kasutajale allalaadimisliideses, kuigi meil on kuvamiseks piisavalt teavet. Et lubada profiil, lisa atribuut \"%s\" ja linnuta vastav kastike."
 
 #: web/admin/overview_idp.php:262
 #, php-format
@@ -1561,10 +1440,13 @@ msgstr "Superadmini lehele pääsemiseks klõpsa siia"
 msgid "(Need help? Refer to the <a href='%s'>IdP administrator manual</a>)"
 msgstr "(Vajad abi? Vaata <a href='%s'>IdP administraatori juhendit</a>)"
 
-#. / first parameter: number of Identity Providers; second param is the literal configured term for 'Identity Provider' (you may or may not be able to add a plural suffix for your locale)
+#. / first parameter: number of Identity Providers; second param is the
+#. literal configured term for 'Identity Provider' (you may or may not be able
+#. to add a plural suffix for your locale)
 #: web/admin/overview_user.php:80
 #, php-format
-msgid "You are managing the following <span style='display:none'>%d </span>%s:"
+msgid ""
+"You are managing the following <span style='display:none'>%d </span>%s:"
 msgid_plural "You are managing the following <strong>%d</strong> %s:"
 msgstr[0] "Sa haldad <span style='display:none'>%d </span>%s:"
 msgstr[1] "Sa haldad <strong>%d</strong> %s:"
@@ -1594,9 +1476,9 @@ msgstr "Sa ei halda ühtegi %s."
 #: web/admin/overview_user.php:150
 #, php-format
 msgid ""
-"Please ask your %s administrator to invite you to become an %s administrator."
-msgstr ""
-"Palu lase oma %s administraatoril saata kutse%s administraatoriks saamiseks."
+"Please ask your %s administrator to invite you to become an %s "
+"administrator."
+msgstr "Palu lase oma %s administraatoril saata kutse%s administraatoriks saamiseks."
 
 #: web/admin/overview_user.php:154
 #, php-format
@@ -1616,11 +1498,9 @@ msgstr "Kutse koodi QR-kood"
 #: web/admin/inc/manageAdmins.inc.php:46
 #, php-format
 msgid ""
-"You do not have the necessary privileges to alter administrators of this %s. "
-"In fact, you shouldn't have come this far!"
-msgstr ""
-"Sul ei ole vajalikku õigusi, et muuta selle %s administraatoreid. "
-"Õigupoolest ei oleks Sa pidanud siia jõudmagi."
+"You do not have the necessary privileges to alter administrators of this %s."
+" In fact, you shouldn't have come this far!"
+msgstr "Sul ei ole vajalikku õigusi, et muuta selle %s administraatoreid. Õigupoolest ei oleks Sa pidanud siia jõudmagi."
 
 #: web/admin/inc/manageAdmins.inc.php:84
 #, php-format
@@ -1632,9 +1512,7 @@ msgstr "'%s' IdP administraatorid"
 msgid ""
 "You are the %s administrator. You can invite new administrators, who can in "
 "turn appoint further administrators on their own."
-msgstr ""
-"Sa oled %s administraator. Sa saad juurde kutsuda uusi administraatoreid, "
-"kes saavad omakorda ise uusi administraatoreid määrata."
+msgstr "Sa oled %s administraator. Sa saad juurde kutsuda uusi administraatoreid, kes saavad omakorda ise uusi administraatoreid määrata."
 
 #: web/admin/inc/manageAdmins.inc.php:143 web/lib/admin/UIElements.php:102
 #, php-format
@@ -1644,12 +1522,10 @@ msgstr "%s Administraator"
 #: web/admin/inc/manageAdmins.inc.php:149
 #, php-format
 msgid ""
-"You are an administrator who was directly appointed by the %s administrator. "
-"You can appoint further administrators, but these can't in turn appoint any "
-"more administrators."
-msgstr ""
-"Sa oled administraator, kelle määras %s administraator. Sa saad määrata uusi "
-"administraatoreid, kes ise ei saa enam uusi administraatoreid määrata."
+"You are an administrator who was directly appointed by the %s administrator."
+" You can appoint further administrators, but these can't in turn appoint any"
+" more administrators."
+msgstr "Sa oled administraator, kelle määras %s administraator. Sa saad määrata uusi administraatoreid, kes ise ei saa enam uusi administraatoreid määrata."
 
 #: web/admin/inc/manageAdmins.inc.php:149
 msgid "Directly Appointed Administrator"
@@ -1678,7 +1554,7 @@ msgstr "Selle IdP ootelolevad kutsed"
 
 #: web/admin/inc/manageAdmins.inc.php:205
 msgid "New administrator's email address(es) (comma-separated):"
-msgstr "Uute administraatori(te) e-posti aadress(id) (komaga eraldatud):"
+msgstr "Uu(t)e administraatori(te) e-posti aadress(id komaga eraldatud):"
 
 #: web/admin/inc/manageAdmins.inc.php:205
 msgid "Invite new administrator"
@@ -1700,14 +1576,12 @@ msgstr "Sulge"
 msgid ""
 "You do not have the necessary privileges to manage the %s DB link state of "
 "this %s."
-msgstr ""
-"Sul ei ole piisavalt õigusi, et hallata %s andmebaasilingi staatus selles %s-"
-"s."
+msgstr "Sul ei ole piisavalt õigusi, et hallata %s andmebaasilingi staatus selles %s-s."
 
 #: web/admin/inc/manageDBLink.inc.php:76
 #, php-format
 msgid "%s Database Link Status for IdP '%s'"
-msgstr "%s '%s' IdP andmebaasi lingi staatus"
+msgstr "%s '%s' IdP andmebaasi lingi olek"
 
 #: web/admin/inc/manageDBLink.inc.php:85
 #, php-format
@@ -1725,7 +1599,8 @@ msgstr "Järgnev teave IdP kohta on salvestatud %s ja %s andmebaasides:"
 msgid "Information in <strong>%s Database</strong>"
 msgstr "Teave <strong>%s andmebaasis</strong>"
 
-#: web/admin/inc/manageDBLink.inc.php:99 web/admin/inc/manageDBLink.inc.php:125
+#: web/admin/inc/manageDBLink.inc.php:99
+#: web/admin/inc/manageDBLink.inc.php:125
 #, php-format
 msgid "%s Name (%s)"
 msgstr "%s Nimi (%s)"
@@ -1759,9 +1634,7 @@ msgstr "See %s ei ole veel lingitud %s andmebaasiga."
 msgid ""
 "This means that its profiles are not made available on the user download "
 "page."
-msgstr ""
-"See tähendab, et selle profiilid ei ole kasutajale allalaadimislehel "
-"kättesaadavaks tehtud."
+msgstr "See tähendab, et selle profiilid ei ole kasutajale allalaadimislehel kättesaadavaks tehtud."
 
 #: web/admin/inc/manageDBLink.inc.php:141
 #, php-format
@@ -1779,9 +1652,7 @@ msgstr "Palun vali olem %s andmebaasist, mis vastab selle CATi %s-le."
 msgid ""
 "Particularly promising entries (names in CAT and %s DB are a 100%% match) "
 "are on top of the list."
-msgstr ""
-"Nimekirja alguses on tõenäolisemad vasted (nimed CAT-s ja %s andmebaasis "
-"klapivad 100 %%)."
+msgstr "Nimekirja alguses on tõenäolisemad vasted (nimed CAT-s ja %s andmebaasis klapivad 100 %%)."
 
 #: web/admin/inc/manageDBLink.inc.php:149
 msgid "Link to this entity?"
@@ -1803,7 +1674,7 @@ msgstr "Loo link"
 #: web/admin/inc/manageNewInst.inc.php:37
 #, php-format
 msgid "You do not have the necessary privileges to register new %ss."
-msgstr "Sul ei ole piisavalt õigusi uute %s registreerimiseks."
+msgstr "Sul ei ole piisavalt õigusi uueks registreerimiseks (%s)."
 
 #: web/admin/inc/manageNewInst.inc.php:44
 #, php-format
@@ -1815,27 +1686,21 @@ msgstr "%s - Registreeri uus %s"
 msgid ""
 "On this page, you can add a new %s to your %s. Please fill out the form "
 "below to send out an email invitation to the new %s administrator."
-msgstr ""
-"Sel lehel saad lisada uue %s oma %s-le. Palun täida alltoodud vorm, et saata "
-"e-kirjaga kutse uuele %s administraatorile."
+msgstr "Sel lehel saad lisada uue %s oma %s-le. Palun täida alltoodud vorm, et saata e-kirjaga kutse uuele %s administraatorile."
 
 #: web/admin/inc/manageNewInst.inc.php:49
 #, php-format
 msgid ""
-"You can either register a known %s (as defined in the %s database) or create "
-"a totally new %s."
-msgstr ""
-"Saad registreerida teadaoleva %s (nagu kirjeldatud %s andmebaasis) või luua "
-"täiesti uue %s."
+"You can either register a known %s (as defined in the %s database) or create"
+" a totally new %s."
+msgstr "Saad registreerida teadaoleva %s (nagu kirjeldatud %s andmebaasis) või luua täiesti uue %s."
 
 #: web/admin/inc/manageNewInst.inc.php:50
 #, php-format
 msgid ""
 "The latter one is typically for an %s which is yet in a testing phase and "
 "therefore doesn't appear in the %s database yet."
-msgstr ""
-"Viimatinimetatu on reeglina %s jaoks, mis on alles testimisel ja ei ole "
-"seetõttu veel %s andmebaasis."
+msgstr "Viimatinimetatu on reeglina %s jaoks, mis on alles testimisel ja ei ole seetõttu veel %s andmebaasis."
 
 #: web/admin/inc/manageNewInst.inc.php:60
 msgid "Existing IdP:"
@@ -1861,14 +1726,13 @@ msgstr "Administraatori e-post:"
 msgid "Send invitation"
 msgstr "Saada kutse"
 
-#.
 #. *******************************************************************************
-#. * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1
+#. * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+,
+#. GN4-1
 #. * and GN4-2 consortia
 #. *
 #. * License: see the web/copyright.php file in the file structure
 #. *******************************************************************************
-#.
 #: web/admin/inc/overview_js.php:41 web/admin/inc/overview_js.php:98
 msgid "No email address provided"
 msgstr "E-posti aadress puudub"
@@ -1888,11 +1752,9 @@ msgstr "Kutse e-posti aadress:"
 #: web/admin/inc/sendinvite.inc.php:106
 #, php-format
 msgid ""
-"Something's wrong... you are a %s admin, but not for the %s the requested %s "
-"belongs to!"
-msgstr ""
-"Midagi läks valesti... Sa oled %s admin, mitte %s oma, mille juurde soovitud "
-"%s kuulub. "
+"Something's wrong... you are a %s admin, but not for the %s the requested %s"
+" belongs to!"
+msgstr "Midagi läks valesti... Sa oled %s admin, mitte %s oma, mille juurde soovitud %s kuulub. "
 
 #: web/admin/inc/toggleRedirect.inc.php:90
 #, php-format
@@ -1917,33 +1779,25 @@ msgid ""
 "The user download interface (see <a href='../'>here</a>), uses geolocation "
 "to suggest possibly matching IdPs to the user. The more precise you define "
 "the location here, the easier your users will find you."
-msgstr ""
-"Kasutaja allalaadimisliides (vt <a href='../'>siin</a>) kasutab "
-"geolokatsiooni kasutajaga oletatavasti klappivate IdP-de soovitamiseks. Mida "
-"täpsemalt määrad siin oma asukoha, seda täpsemalt Su kasutajad selle IdP "
-"leiavad."
+msgstr "Kasutaja allalaadimisliides (vt <a href='../'>siin</a>) kasutab geolokatsiooni kasutajaga oletatavasti klappivate IdP-de soovitamiseks. Mida täpsemalt määrad siin oma asukoha, seda täpsemalt Su kasutajad selle IdP leiavad."
 
 #: web/lib/admin/AbstractMap.php:107
 msgid ""
 "<li>Drag the marker in the map to your place, or</li>\n"
 "<li>enter your street address in the field below for lookup, or</li>\n"
 "<li>use the 'Locate Me!' button</li>"
-msgstr ""
-"<li>Lohista märgis kaardil oma asukohta või</li>\n"
-"<li>sisesta oma tänavanimi allolevale otsinguväljale või</li>\n"
-"<li>kasuta nuppu 'Leia mind!'</li>"
+msgstr "<li>Lohista märgis kaardil oma asukohta või</li>\n<li>sisesta oma tänavanimi allolevale otsinguväljale või</li>\n<li>kasuta nuppu 'Leia mind!'</li>"
 
 #: web/lib/admin/AbstractMap.php:112
-msgid "We will use the coordinates as indicated by the marker for geolocation."
+msgid ""
+"We will use the coordinates as indicated by the marker for geolocation."
 msgstr "Kasutame märgistatud asukoha koordinaate."
 
 #: web/lib/admin/AbstractMap.php:116
 msgid ""
 "You can enter an <strong>additional</strong> location here. You can see the "
 "already defined locations in the 'General Information' field."
-msgstr ""
-"Siin saad sisestada <strong>lisaasukoha</strong>. Juba määratud asukohti "
-"näed väljal 'Üldteave'."
+msgstr "Siin saad sisestada <strong>lisaasukoha</strong>. Juba määratud asukohti näed väljal 'Üldteave'."
 
 #: web/lib/admin/AbstractMap.php:127
 msgid "Latitude:"
@@ -1986,9 +1840,7 @@ msgstr "Leia mind!"
 msgid ""
 "Address not found, perhaps try another form, like putting the street number "
 "to the front."
-msgstr ""
-"Aadressi ei leitud, proovi vast teistmoodi, näiteks pane majanumber "
-"esimeseks."
+msgstr "Aadressi ei leitud, proovi vast teistmoodi, näiteks pane majanumber esimeseks."
 
 #: web/lib/admin/OptionDisplay.php:148
 #, php-format
@@ -2005,17 +1857,7 @@ msgid ""
 "to another place which happens to have the same SSID name. They might then "
 "be misled to believe that they are connecting to an extra secure network "
 "while they are not."
-msgstr ""
-"Selle atribuudi saab määrata juhul, kui soovid seadistada %s jaoks lisaks "
-"vaikimisi SSID-le lisa-SSID. Enamasti on vaikimisi SSID mittekasutamine halb "
-"mõte. Ainus erand on juhtum, kui Su ruume katab teise %s juurdepääsupunkti "
-"raadiosignaal. Levinud eksiarvamus lisa-SSIDe asjus: Tahan lokaalset SSID "
-"omaenda kasutajatele. On palju parem kasutada vaikimisi SSID ja eraldada "
-"kasutajagrupid VLANidega. Sellisel meetodil on kaks eelist: 1) Su kasutajad "
-"seadistavad %s õigesti, sest see on nende tavaline SSID; 2) kui kasutad "
-"kohandatud nime ja reklaamid seda kui eriti turvalist, võivad Su kasutajad "
-"mingil hetkel sattuda rändlema sama SSID nimega võõrasse võrku, mille "
-"pidamine eriti turvaliseks on viga."
+msgstr "Selle atribuudi saab määrata juhul, kui soovid seadistada %s jaoks lisaks vaikimisi SSID-le lisa-SSID. Enamasti on vaikimisi SSID mittekasutamine halb mõte. Ainus erand on juhtum, kui Su ruume katab teise %s juurdepääsupunkti raadiosignaal. Levinud eksiarvamus lisa-SSIDe asjus: Tahan lokaalset SSID omaenda kasutajatele. On palju parem kasutada vaikimisi SSID ja eraldada kasutajagrupid VLANidega. Sellisel meetodil on kaks eelist: 1) Su kasutajad seadistavad %s õigesti, sest see on nende tavaline SSID; 2) kui kasutad kohandatud nime ja reklaamid seda kui eriti turvalist, võivad Su kasutajad mingil hetkel sattuda rändlema sama SSID nimega võõrasse võrku, mille pidamine eriti turvaliseks on viga."
 
 #: web/lib/admin/OptionDisplay.php:150
 #, php-format
@@ -2024,11 +1866,7 @@ msgid ""
 "through a content filter of your own is a significant invasion of user self-"
 "determination. It also has technical issues. Please throughly read the "
 "discussion at %s before specifying a proxy with this option."
-msgstr ""
-"Selle suvandi formaat on: IPv4|IPv6|hostname:port . Kui sunnid oma "
-"kasutajaid läbima enda määratud sisufiltrit, on see kasutajate "
-"enesemääramise oluline rikkumine. Lisaks on sel ka tehnilisi küsitavusi. "
-"Enne selle suvandiga proksi määramist palun loe läbi arutelu: %s."
+msgstr "Selle suvandi formaat on: IPv4|IPv6|hostname:port . Kui sunnid oma kasutajaid läbima enda määratud sisufiltrit, on see kasutajate enesemääramise oluline rikkumine. Lisaks on sel ka tehnilisi küsitavusi. Enne selle suvandiga proksi määramist palun loe läbi arutelu: %s."
 
 #: web/lib/admin/OptionDisplay.php:223
 msgid "select language"
@@ -2066,14 +1904,10 @@ msgstr "%dx %s"
 #, php-format
 msgid ""
 "You did not set a 'default language' value for %s. This means we can only "
-"display this string for installers which are <strong>exactly</strong> in the "
-"language you configured. For the sake of all other languages, you may want "
+"display this string for installers which are <strong>exactly</strong> in the"
+" language you configured. For the sake of all other languages, you may want "
 "to edit the profile again and populate the 'default/other' language field."
-msgstr ""
-"Sa ei valinud %s jaoks vaikekeelt. See tähendab, et saame näidata seda "
-"stringi ainult paigaldajatele, mis on <strong>täpselt</strong> keeles, mille "
-"seadistasid. Kõigi teiste keelte jaoks võid soovida profiili muuta ja täita "
-"'vaikimisi/muu' keele välja."
+msgstr "Sa ei valinud %s jaoks vaikekeelt. See tähendab, et saame näidata seda stringi ainult paigaldajatele, mis on <strong>täpselt</strong> keeles, mille seadistasid. Kõigi teiste keelte jaoks võid soovida profiili muuta ja täita 'vaikimisi/muu' keele välja."
 
 #: web/lib/admin/PageDecoration.php:35
 msgid "You are:"
@@ -2121,7 +1955,7 @@ msgstr "Administraatori liides - %s haldamine"
 #: web/lib/admin/PageDecoration.php:135
 #, php-format
 msgid "Welcome to %s"
-msgstr "Tere tulemast %s"
+msgstr "Tere tulemast %si"
 
 #: web/lib/admin/PageDecoration.php:140
 msgid "CIC"
@@ -2149,7 +1983,7 @@ msgstr "identiteedipakkuja"
 
 #: web/lib/admin/UIElements.php:48
 msgid "organisation"
-msgstr "organisatsioon"
+msgstr "asutus"
 
 #: web/lib/admin/UIElements.php:67
 msgid "SSID"
@@ -2373,12 +2207,3 @@ msgstr "Hoiatus!"
 #: web/lib/admin/UIElements.php:386
 msgid "Error!"
 msgstr "Viga!"
-
-#~ msgid "and <b>encrypted</b> to the mail domain"
-#~ msgstr "ja <b>krüpteeritult</b> e-posti domeeni"
-
-#~ msgid "but <b>in clear text</b> to the mail domain"
-#~ msgstr "aga <b>krüpteerimata tekstiga</b> e-posti domeeni"
-
-#~ msgid "The invitation email was sent."
-#~ msgstr "Kutse e-kiri saadeti ära."

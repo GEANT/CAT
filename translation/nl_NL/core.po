@@ -1,52 +1,54 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-#   <paul.dekkers@surfnet.nl>, 2012.
+# Jasper Metselaar <jasper@formmailer.net>, 2018
+# pauldekkers <paul.dekkers@surfnet.nl>, 2012
+# TheoHoeks <thoeks@onderwijsgroeptilburg.nl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-07 14:23+0100\n"
-"PO-Revision-Date: 2012-08-07 13:23+0000\n"
+"PO-Revision-Date: 2018-11-14 09:54+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/cat/language/nl/)\n"
-"Language: nl\n"
+"Language-Team: Dutch (Netherlands) (http://www.transifex.com/eduroam_devel/cat/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: core/CAT.php:111
 msgid ""
-"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git "
-"Revision</a>"
+"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git"
+" Revision</a>"
 msgstr ""
 
 #: core/CAT.php:121
 #, php-format
 msgid "Release <a href='%s'>%s</a>"
-msgstr ""
+msgstr "Release <a href='%s'>%s</a>"
 
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
 #. different wording, no translation, sorry
 #: core/CAT.php:134 core/DeviceConfig.php:101
 msgid "National Roaming Operator"
-msgstr ""
+msgstr "National Roaming Operator"
 
 #: core/CAT.php:135 core/DeviceConfig.php:102
 msgid "identity provider"
-msgstr ""
+msgstr "identity provider"
 
 #: core/CAT.php:136 core/DeviceConfig.php:103
 msgid "organisation"
-msgstr ""
+msgstr "organisatie"
 
 #: core/CAT.php:137
 msgid "Identity Provider"
-msgstr ""
+msgstr "identity provider"
 
 #: core/CAT.php:146
 msgid "Andorra"
@@ -66,7 +68,7 @@ msgstr "Bulgarije"
 
 #: core/CAT.php:150
 msgid "Cyprus"
-msgstr ""
+msgstr "Cyprus"
 
 #: core/CAT.php:151
 msgid "Czech Republic"
@@ -125,7 +127,6 @@ msgid "Latvia"
 msgstr "Letland"
 
 #: core/CAT.php:165
-#, fuzzy
 msgid "Lithuania"
 msgstr "Litouwen"
 
@@ -227,102 +228,101 @@ msgstr "Venezuela"
 
 #: core/CAT.php:191
 msgid "Default"
-msgstr ""
+msgstr "Standaard"
 
 #: core/CAT.php:192
 msgid "Armenia"
-msgstr ""
+msgstr "Armenië"
 
 #: core/CAT.php:193
 msgid "Azerbaijan"
-msgstr ""
+msgstr "Azerbeidzjan"
 
 #: core/CAT.php:194
 msgid "Belarus"
-msgstr ""
+msgstr "Wit-Rusland"
 
 #: core/CAT.php:195
 msgid "Ecuador"
-msgstr ""
+msgstr "Ecuador"
 
 #: core/CAT.php:196
 msgid "Hong Kong"
-msgstr ""
+msgstr "Hong Kong"
 
 #: core/CAT.php:197
 msgid "Kenya"
-msgstr ""
+msgstr "Kenia"
 
 #: core/CAT.php:198
 msgid "Kyrgyzstan"
-msgstr ""
+msgstr "Kirgizië"
 
 #: core/CAT.php:199
 msgid "Korea"
-msgstr ""
+msgstr "Korea"
 
 #: core/CAT.php:200
 msgid "Kazakhstan"
-msgstr ""
+msgstr "Kazachstan"
 
 #: core/CAT.php:201
 msgid "Morocco"
-msgstr ""
+msgstr "Marokko"
 
 #: core/CAT.php:202
 msgid "Moldova"
-msgstr ""
+msgstr "Moldavië"
 
 #: core/CAT.php:203
 msgid "Montenegro"
-msgstr ""
+msgstr "Montenegro"
 
 #: core/CAT.php:204
 msgid "Macau"
-msgstr ""
+msgstr "Macau"
 
 #: core/CAT.php:205
 msgid "Malta"
-msgstr ""
+msgstr "Malta"
 
 #: core/CAT.php:206
 msgid "Russia"
-msgstr ""
+msgstr "Rusland"
 
 #: core/CAT.php:207
 msgid "Singapore"
-msgstr ""
+msgstr "Singapore"
 
 #: core/CAT.php:208
-#, fuzzy
 msgid "Thailand"
-msgstr "Finland"
+msgstr "Thailand"
 
 #: core/CAT.php:209
 msgid "Taiwan"
-msgstr ""
+msgstr "Taiwan"
 
 #: core/CAT.php:210
 msgid "South Africa"
-msgstr ""
+msgstr "Zuid-Afrika"
 
 #: core/CAT.php:484 core/IdPlist.php:99
 msgid "Unnamed Entity"
-msgstr ""
+msgstr "onbekende grootheid"
 
 #: core/DeviceConfig.php:202
 #, php-format
 msgid "your local %s support"
-msgstr ""
+msgstr "je lokale %s ondersteuning"
 
 #: core/DeviceConfig.php:203
 #, php-format
 msgid "your local %s support page"
-msgstr ""
+msgstr "je lokale %s ondersteuningspagina"
 
 #: core/DeviceConfig.php:237
 msgid "Sorry, this should not happen - no additional information is available"
-msgstr "Sorry, dit zou niet moeten gebeuren - geen informatie beschikbaar"
+msgstr "Sorry, dit zou niet moeten gebeuren - geen aanvullende informatie beschikbaar"
 
 #: core/IdP.php:243
 #, php-format
@@ -336,27 +336,27 @@ msgid ""
 "Best regards,\n"
 "\n"
 "%s"
-msgstr ""
+msgstr "Hallo,\n\nde Identity Provider %s in jouw %s federatie %s is verwijderd uit %s.\n\nWellicht wil je dit weten.\n\nVriendelijke groet,\n\n%s"
 
 #: core/IdP.php:252
 msgid "IdP in your federation was deleted"
-msgstr ""
+msgstr "Een IdP in jouw federatie is verwijderd"
 
 #: core/SilverbulletInvitation.php:208
 #, php-format
 msgid "Your %s access is ready"
-msgstr ""
+msgstr "Toegang tot %s is gereed"
 
 #: core/SilverbulletInvitation.php:216
 msgid "Hello!"
-msgstr ""
+msgstr "Hallo!"
 
 #: core/SilverbulletInvitation.php:218
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
 "administrator."
-msgstr ""
+msgstr "De netwerkbeheerder heeft nieuwe toegangssgegevens voor %s voor je gemaakt."
 
 #: core/SilverbulletInvitation.php:220
 #, php-format
@@ -364,7 +364,7 @@ msgid ""
 "Please follow the following link with the device you want to enable for %s "
 "to get a custom %s installation program just for you. You can click on the "
 "link, copy and paste it into a browser or scan the attached QR code."
-msgstr ""
+msgstr "Volg onderstaande link op het apparaat waarmee je %s wilt gaan gebruiken. Je krijgt dan een op maat gemaakt %s-installatieprogramma. Je kan de link aanklikken, de koppeling in je browser plakken of de QR-code scannen."
 
 #. gets replaced with the token value by getBody()
 #: core/SilverbulletInvitation.php:222
@@ -373,18 +373,18 @@ msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
 "up your %s installation program, you can use the same link to get status "
 "information about your %s account."
-msgstr ""
+msgstr "Bewaar deze e-mail of bewaar deze link voor later. Nadat je het %s-installatieprogramma hebt uitgevoerd, kan je dezelfde link gebruiken om de status van je %s-account te tonen."
 
 #: core/SilverbulletInvitation.php:224
 msgid "Regards,"
-msgstr ""
+msgstr "Met vriendelijke groet,"
 
 #: core/SilverbulletInvitation.php:270
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
 "'%s'!)"
-msgstr ""
+msgstr "Je toegang tot %s is gereed. Klik hier: %s (Op Android eerst app '%s' installeren!)"
 
 #: core/SilverbulletInvitation.php:283
 #, php-format
@@ -395,57 +395,57 @@ msgstr ""
 #. /                2. consortium name (e.g. eduroam);
 #. /                3. federation shortname, e.g. "LU";
 #. /                4. product name (e.g. eduroam CAT);
-#. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
+#. /                5. product long name (e.g. eduroam Configuration Assistant
+#. Tool)
 #: core/UserManagement.php:194
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the invitation for the new Identity Provider %s in your %s federation %s has "
-"been used and the IdP was created in %s.\n"
+"the invitation for the new Identity Provider %s in your %s federation %s has been used and the IdP was created in %s.\n"
 "\n"
 "We thought you might want to know.\n"
 "\n"
 "Best regards,\n"
 "\n"
 "%s"
-msgstr ""
+msgstr "Hallo,\n\nde uitnodiging voor de nieuwe Identity Provider %s in jou %s federatie %s is aanvaard en de IdP is aangemaakt in %s.\n\nWellicht wil je dit weten.\n\nVriendelijke groet,\n\n%s"
 
 #: core/UserManagement.php:203
 msgid "IdP in your federation was created"
-msgstr ""
+msgstr "Een IdP in jouw federatie is aangemaakt"
 
 #: core/User.php:145
 msgid "Feedback"
-msgstr ""
+msgstr "Feedback"
 
 #: core/common/EAP.php:369
 msgid "PEAP-MSCHAPv2"
-msgstr ""
+msgstr "PEAP-MSCHAPv2"
 
 #: core/common/EAP.php:370
 msgid "TLS"
-msgstr ""
+msgstr "TLS"
 
 #: core/common/EAP.php:371
 msgid "TTLS-PAP"
-msgstr ""
+msgstr "TTLS-PAP"
 
 #: core/common/EAP.php:372
 msgid "TTLS-MSCHAPv2"
-msgstr ""
+msgstr "TTLS-MSCHAPv2"
 
 #: core/common/EAP.php:373
 msgid "TTLS-GTC"
-msgstr ""
+msgstr "TTLS-GTC"
 
 #: core/common/EAP.php:374
 msgid "FAST-GTC"
-msgstr ""
+msgstr "FAST-GTC"
 
 #: core/common/EAP.php:375
 msgid "EAP-pwd"
-msgstr ""
+msgstr "EAP-pwd"
 
 #: core/common/OutsideComm.php:246
 #, php-format
@@ -471,7 +471,7 @@ msgstr ""
 #. then, send out the mail
 #: core/common/OutsideComm.php:258
 msgid "Hello,"
-msgstr ""
+msgstr "Hallo,"
 
 #. default means we don't have a Reply-To.
 #: core/common/OutsideComm.php:260
@@ -487,7 +487,7 @@ msgstr ""
 #: core/common/OutsideComm.php:274
 #, php-format
 msgid "%s administrator"
-msgstr ""
+msgstr "%s beheerder"
 
 #: core/common/OutsideComm.php:277
 #, php-format
@@ -515,14 +515,14 @@ msgstr ""
 
 #: core/common/OutsideComm.php:288
 msgid ""
-"Do NOT forward the mail before the token has expired - or the recipients may "
-"be able to consume the token on your behalf!"
+"Do NOT forward the mail before the token has expired - or the recipients may"
+" be able to consume the token on your behalf!"
 msgstr ""
 
 #: core/common/OutsideComm.php:289
 #, php-format
 msgid "We wish you a lot of fun with the %s."
-msgstr ""
+msgstr "Veel plezier met %s"
 
 #: core/common/OutsideComm.php:290
 #, php-format

@@ -1,35 +1,29 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Alberto Martínez Setién, 2013,2015
-# Alberto Martínez Setién, 2018
-# José Manuel Macías, 2012
-# José Manuel Macías, 2015
-# José Manuel Macías, 2012
+# Alberto Martínez Setién, 2013,2015,2018
+# José Manuel Macías, 2012,2015
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-07 14:23+0100\n"
-"PO-Revision-Date: 2018-06-14 09:23+0000\n"
-"Last-Translator: José Manuel Macías\n"
-"Language-Team: Spanish (http://www.transifex.com/eduroam_devel/cat/language/"
-"es/)\n"
-"Language: es\n"
+"PO-Revision-Date: 2018-11-14 09:17+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"Language-Team: Spanish (Spain) (http://www.transifex.com/eduroam_devel/cat/language/es_ES/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: es_ES\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: core/CAT.php:111
 msgid ""
-"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git "
-"Revision</a>"
-msgstr ""
-"<a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Revisión Git</"
-"a> sin publicar"
+"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git"
+" Revision</a>"
+msgstr "<a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Revisión Git</a> sin publicar"
 
 #: core/CAT.php:121
 #, php-format
@@ -327,8 +321,7 @@ msgstr "la página de soporte local de %s"
 
 #: core/DeviceConfig.php:237
 msgid "Sorry, this should not happen - no additional information is available"
-msgstr ""
-"Lo siento, ésto no debería ocurrir. No hay información adicional disponible"
+msgstr "Lo siento, ésto no debería ocurrir. No hay información adicional disponible"
 
 #: core/IdP.php:243
 #, php-format
@@ -342,10 +335,7 @@ msgid ""
 "Best regards,\n"
 "\n"
 "%s"
-msgstr ""
-"Hola,⏎ ⏎ el proveedor de identidad %s en tu federación %s %s ha sido "
-"eliminado de %s.⏎ ⏎ Pensamos que te gustaría saberlo.⏎ ⏎ Saludos cordiales,⏎ "
-"⏎ %s"
+msgstr "Hola,⏎ ⏎ el proveedor de identidad %s en tu federación %s %s ha sido eliminado de %s.⏎ ⏎ Pensamos que te gustaría saberlo.⏎ ⏎ Saludos cordiales,⏎ ⏎ %s"
 
 #: core/IdP.php:252
 msgid "IdP in your federation was deleted"
@@ -365,9 +355,7 @@ msgstr "¡Hola!"
 msgid ""
 "A new %s access credential has been created for you by your network "
 "administrator."
-msgstr ""
-"Tu administrador de red ha creado una nueva credencial de acceso a %s para "
-"tí. "
+msgstr "Tu administrador de red ha creado una nueva credencial de acceso a %s para tí. "
 
 #: core/SilverbulletInvitation.php:220
 #, php-format
@@ -375,11 +363,7 @@ msgid ""
 "Please follow the following link with the device you want to enable for %s "
 "to get a custom %s installation program just for you. You can click on the "
 "link, copy and paste it into a browser or scan the attached QR code."
-msgstr ""
-"Por favor visita el siguiente enlace desde el dispositivo que quieres "
-"habilitar para %s para conseguir un programa de instalación de %s "
-"personalizado para tí. Puedes hacer clic en el enlace, copiarlo y pegarlo en "
-"un navegador o escanear el código QR adjunto."
+msgstr "Por favor visita el siguiente enlace desde el dispositivo que quieres habilitar para %s para conseguir un programa de instalación de %s personalizado para tí. Puedes hacer clic en el enlace, copiarlo y pegarlo en un navegador o escanear el código QR adjunto."
 
 #. gets replaced with the token value by getBody()
 #: core/SilverbulletInvitation.php:222
@@ -388,10 +372,7 @@ msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
 "up your %s installation program, you can use the same link to get status "
 "information about your %s account."
-msgstr ""
-"Por favor conserva este mensaje de email o guarda este enlace para su uso en "
-"el futuro. Después de descargar tu programa de instalación de %s puedes usar "
-"el mismo enlace para obtener información del estado de tu cuenta de %s."
+msgstr "Por favor conserva este mensaje de email o guarda este enlace para su uso en el futuro. Después de descargar tu programa de instalación de %s puedes usar el mismo enlace para obtener información del estado de tu cuenta de %s."
 
 #: core/SilverbulletInvitation.php:224
 msgid "Regards,"
@@ -402,9 +383,7 @@ msgstr "Saludos,"
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
 "'%s'!)"
-msgstr ""
-"Tu acceso a %s está preparado. Haz clic aquí: %s (en Android instala la "
-"aplicación \"%s\" antes de esto)"
+msgstr "Tu acceso a %s está preparado. Haz clic aquí: %s (en Android instala la aplicación \"%s\" antes de esto)"
 
 #: core/SilverbulletInvitation.php:283
 #, php-format
@@ -415,24 +394,21 @@ msgstr "Sistema de invitación de %s"
 #. /                2. consortium name (e.g. eduroam);
 #. /                3. federation shortname, e.g. "LU";
 #. /                4. product name (e.g. eduroam CAT);
-#. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
+#. /                5. product long name (e.g. eduroam Configuration Assistant
+#. Tool)
 #: core/UserManagement.php:194
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the invitation for the new Identity Provider %s in your %s federation %s has "
-"been used and the IdP was created in %s.\n"
+"the invitation for the new Identity Provider %s in your %s federation %s has been used and the IdP was created in %s.\n"
 "\n"
 "We thought you might want to know.\n"
 "\n"
 "Best regards,\n"
 "\n"
 "%s"
-msgstr ""
-"Hola,⏎ ⏎ la invitación para el nuevo proveedor de identidad %s en tu "
-"federación %s %s ha sido usada y el IdP fue creado en %s.⏎ ⏎ Pensamos que te "
-"gustaría saberlo.⏎ ⏎ Saludos cordiales,⏎ ⏎ %s"
+msgstr "Hola,⏎ ⏎ la invitación para el nuevo proveedor de identidad %s en tu federación %s %s ha sido usada y el IdP fue creado en %s.⏎ ⏎ Pensamos que te gustaría saberlo.⏎ ⏎ Saludos cordiales,⏎ ⏎ %s"
 
 #: core/UserManagement.php:203
 msgid "IdP in your federation was created"
@@ -474,8 +450,7 @@ msgstr "EAP-pwd"
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
-msgstr ""
-"un %s del %s de %s \"%s\" te ha invitado a administrar el %s junto a él."
+msgstr "un %s del %s de %s \"%s\" te ha invitado a administrar el %s junto a él."
 
 #: core/common/OutsideComm.php:247
 #, php-format
@@ -490,9 +465,7 @@ msgstr "un %s de %s te ha invitado a administrar el %s \"%s\"."
 #: core/common/OutsideComm.php:250
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
-msgstr ""
-"Esta invitación es válida durante 24 horas a partir de ahora, es decir, "
-"hasta %s."
+msgstr "Esta invitación es válida durante 24 horas a partir de ahora, es decir, hasta %s."
 
 #. then, send out the mail
 #: core/common/OutsideComm.php:258
@@ -503,9 +476,7 @@ msgstr "Hola,"
 #: core/common/OutsideComm.php:260
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
-msgstr ""
-"de forma manual. Por favor, no respondas a este mensaje. La dirección "
-"remitente no existe."
+msgstr "de forma manual. Por favor, no respondas a este mensaje. La dirección remitente no existe."
 
 #: core/common/OutsideComm.php:266
 #, php-format
@@ -521,27 +492,21 @@ msgstr "Administrador de %s"
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
-msgstr ""
-"de forma manual. Si respondes a este correo electrónico, el mensaje llegará "
-"a los administradores de tu %s."
+msgstr "de forma manual. Si respondes a este correo electrónico, el mensaje llegará a los administradores de tu %s."
 
 #: core/common/OutsideComm.php:282
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
 "link:"
-msgstr ""
-"Para inscribirte como administrador para este %s sigue por favor el "
-"siguiente enlace:"
+msgstr "Para inscribirte como administrador para este %s sigue por favor el siguiente enlace:"
 
 #: core/common/OutsideComm.php:284
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
 "Interface at"
-msgstr ""
-"Si no puede seguir el enlace o no le funciona, puede ir también a la "
-"interfaz de administrador de %s en"
+msgstr "Si no puede seguir el enlace o no le funciona, puede ir también a la interfaz de administrador de %s en"
 
 #: core/common/OutsideComm.php:286
 msgid "and enter the invitation token"
@@ -549,11 +514,9 @@ msgstr "e introduce el token de invitación"
 
 #: core/common/OutsideComm.php:288
 msgid ""
-"Do NOT forward the mail before the token has expired - or the recipients may "
-"be able to consume the token on your behalf!"
-msgstr ""
-"¡NO REENVÍE EL CORREO antes de que el token haya expirado, o los "
-"destinatarios podrán utilizar el token en tu nombre!"
+"Do NOT forward the mail before the token has expired - or the recipients may"
+" be able to consume the token on your behalf!"
+msgstr "¡NO REENVÍE EL CORREO antes de que el token haya expirado, o los destinatarios podrán utilizar el token en tu nombre!"
 
 #: core/common/OutsideComm.php:289
 #, php-format
@@ -604,5 +567,4 @@ msgstr "¡El dominio no contiene al menos un . (punto)!"
 
 #: web/lib/common/InputValidation.php:311
 msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
-msgstr ""
-"Codificación de las coordenadas incorrecta (2.0 usa JSON, no serialización)"
+msgstr "Codificación de las coordenadas incorrecta (2.0 usa JSON, no serialización)"

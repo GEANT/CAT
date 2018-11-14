@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Jari Miettinen <Jari.Miettinen@csc.fi>, 2012
 # Jari Miettinen <Jari.Miettinen@csc.fi>, 2013
@@ -14,14 +14,13 @@ msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-07 14:23+0100\n"
-"PO-Revision-Date: 2018-09-27 11:49+0000\n"
-"Last-Translator: Tomi Salmi\n"
-"Language-Team: Finnish (Finland) (http://www.transifex.com/eduroam_devel/cat/"
-"language/fi_FI/)\n"
-"Language: fi_FI\n"
+"PO-Revision-Date: 2018-11-07 21:22+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"Language-Team: Finnish (Finland) (http://www.transifex.com/eduroam_devel/cat/language/fi_FI/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fi_FI\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. / eduroam CAT, twice the consortium name eduroam, twice eduroam CAT
@@ -35,28 +34,19 @@ msgstr "<span class='edu_cat'>%s</span> on rakennettu yhteistyöalustaksi. "
 msgid ""
 "Local %s administrators enter their %s configuration details and based on "
 "them, <span class='edu_cat'>%s</span> builds customised installers for a "
-"number of popular platforms. An installer prepared for one organisation will "
-"not work for users of another one, therefore if your organisation is not on "
-"the list, you cannot use this system. Please contact your local "
+"number of popular platforms. An installer prepared for one organisation will"
+" not work for users of another one, therefore if your organisation is not on"
+" the list, you cannot use this system. Please contact your local "
 "administrators and try to influence them to add your %s configuration to "
 "<span class='edu_cat'>%s</span>."
-msgstr ""
-"Paikalliset %sylläpitäjät syöttävät %s konfigurointitiedot ja niiden "
-"perusteella <span class='edu_cat'>%s</span> luo sopivia asennusohjelmia "
-"useille suosituille alustoille. Yhdelle organisaatiolle luotu asennusohjelma "
-"ei toimi toisen organisaation käyttäjille, eli jos organisaatiosi ei ole "
-"luettelossa, et voi käyttää tätä järjestelmää. Ota yhteyttä paikallisiin "
-"ylläpitäjiin ja yritä vaikuttaa heihin nii että saat %skonfiguraatiosi <span "
-"class='edu_cat'>%s</span>:hen. "
+msgstr "Paikalliset %sylläpitäjät syöttävät %s konfigurointitiedot ja niiden perusteella <span class='edu_cat'>%s</span> luo sopivia asennusohjelmia useille suosituille alustoille. Yhdelle organisaatiolle luotu asennusohjelma ei toimi toisen organisaation käyttäjille, eli jos organisaatiosi ei ole luettelossa, et voi käyttää tätä järjestelmää. Ota yhteyttä paikallisiin ylläpitäjiin ja yritä vaikuttaa heihin nii että saat %skonfiguraatiosi <span class='edu_cat'>%s</span>:hen. "
 
 #: web/user/about_cat.inc.php:37
 #, php-format
 msgid ""
-"<span class='edu_cat'>%s</span> currently supports the following devices and "
-"EAP type combinations:"
-msgstr ""
-"<span class='edu_cat'>%s</span> tukee tällä hetkellä seuraavia "
-"päätelaitteita ja EAP-tyyppejä:"
+"<span class='edu_cat'>%s</span> currently supports the following devices and"
+" EAP type combinations:"
+msgstr "<span class='edu_cat'>%s</span> tukee tällä hetkellä seuraavia päätelaitteita ja EAP-tyyppejä:"
 
 #: web/user/about_cat.inc.php:38
 msgid "Device Group"
@@ -69,15 +59,12 @@ msgstr "Laite"
 #: web/user/about_cat.inc.php:80
 #, php-format
 msgid ""
-"<p><span class='edu_cat'>%s</span> is publicly accessible. To enable its use "
-"behind captive portals (e.g. on a 'setup' SSID which only allows access to "
+"<p><span class='edu_cat'>%s</span> is publicly accessible. To enable its use"
+" behind captive portals (e.g. on a 'setup' SSID which only allows access to "
 "CAT for device configuration), the following hostnames need to be allowed "
 "for port TCP/443 in the portal:</p><b><u>REQUIRED</u></b><ul><li><b>%s</b> "
 "(the service itself)</li>"
-msgstr ""
-"<p><span class='edu_cat'>%s</span> on käytettävissä mistä tahansa. Jos "
-"haluat sallia käytön, salli yhteydenotot näiden osoitteiden portteihin "
-"TCP/443:</p><b><u>REQUIRED</u></b><ul><li><b>%s</b> (palvelu itse)</li>"
+msgstr "<p><span class='edu_cat'>%s</span> on käytettävissä mistä tahansa. Jos haluat sallia käytön, salli yhteydenotot näiden osoitteiden portteihin TCP/443:</p><b><u>REQUIRED</u></b><ul><li><b>%s</b> (palvelu itse)</li>"
 
 #: web/user/about_cat.inc.php:85
 #, php-format
@@ -87,60 +74,46 @@ msgid ""
 msgid_plural ""
 "<li><b>%s</b> (the CRL Distribution Points for the site certificate), also "
 "TCP/80</li>"
-msgstr[0] ""
-"<li><b>%s</b> (CRL Distribution Point varmenteessa), portti TCP/80</li>"
-msgstr[1] ""
-"<li><b>%s</b> (the CRL Distribution Points for the site certificate), also "
-"TCP/80</li>"
+msgstr[0] "<li><b>%s</b> (CRL Distribution Point varmenteessa), portti TCP/80</li>"
+msgstr[1] "<li><b>%s</b> (the CRL Distribution Points for the site certificate), also TCP/80</li>"
 
 #: web/user/about_cat.inc.php:88
 #, php-format
 msgid ""
-"<li><b>%s</b> (the OCSP Responder for the site certificate), also TCP/80</li>"
+"<li><b>%s</b> (the OCSP Responder for the site certificate), also "
+"TCP/80</li>"
 msgid_plural ""
-"<li><b>%s</b> (the OCSP Responder for the site certificate), also TCP/80</li>"
+"<li><b>%s</b> (the OCSP Responder for the site certificate), also "
+"TCP/80</li>"
 msgstr[0] "<li><b>%s</b> (OCSP Responder), portti TCP/80</li>"
 msgstr[1] "<li><b>%s</b> (OCSP Responder), portti TCP/80</li>"
 
 #: web/user/about_cat.inc.php:90
 #, php-format
 msgid ""
-"<li><b>android.l.google.com</b> (Google Play access for Android App)</"
-"li><li><b>android.clients.google.com</b> (Google Play access for Android "
-"App)</li><li><b>play.google.com</b> (Google Play access for Android App)</"
-"li><li><b>ggpht.com</b> (Google Play access for Android App)</li></"
-"ul><b><u>RECOMMENDED</u></b> for full Google Play functionality (otherwise, "
-"Play Store will look broken to users and/or some non-vital functionality "
-"will not be available)<ul><li><b>photos-ugc.l.google.com</b></"
-"li><li><b>googleusercontent.com</b></li><li><b>ajax.googleapis.com</b></"
-"li><li><b>play.google-apis.com</b></li><li><b>googleapis.l.google.com</b></"
-"li><li><b>apis.google.com</b></li><li><b>gstatic.com</b></li><li><b>www."
-"google-analytics.com</b></li><li><b>wallet.google.com</b></li><li><b>plus."
-"google.com</b></li><li><b>checkout.google.com</b></li><li><b>*.gvt1.com</"
-"li></ul>"
-msgstr ""
-"<li><b>android.l.google.com</b> (Google Play access for Android App)</"
-"li><li><b>android.clients.google.com</b> (Google Play access for Android "
-"App)</li><li><b>play.google.com</b> (Google Play access for Android App)</"
-"li><li><b>ggpht.com</b> (Google Play access for Android App)</li></"
-"ul><b><u>RECOMMENDED</u></b> for full Google Play functionality (otherwise, "
-"Play Store will look broken to users and/or some non-vital functionality "
-"will not be available)<ul><li><b>photos-ugc.l.google.com</b></"
-"li><li><b>googleusercontent.com</b></li><li><b>ajax.googleapis.com</b></"
-"li><li><b>play.google-apis.com</b></li><li><b>googleapis.l.google.com</b></"
-"li><li><b>apis.google.com</b></li><li><b>gstatic.com</b></li><li><b>www."
-"google-analytics.com</b></li><li><b>wallet.google.com</b></li><li><b>plus."
-"google.com</b></li><li><b>checkout.google.com</b></li><li><b>*.gvt1.com</"
-"li></ul>"
+"<li><b>android.l.google.com</b> (Google Play access for Android "
+"App)</li><li><b>android.clients.google.com</b> (Google Play access for "
+"Android App)</li><li><b>play.google.com</b> (Google Play access for Android "
+"App)</li><li><b>ggpht.com</b> (Google Play access for Android "
+"App)</li></ul><b><u>RECOMMENDED</u></b> for full Google Play functionality "
+"(otherwise, Play Store will look broken to users and/or some non-vital "
+"functionality will not be available)<ul><li><b>photos-"
+"ugc.l.google.com</b></li><li><b>googleusercontent.com</b></li><li><b>ajax.googleapis.com</b></li><li><b>play"
+".google-"
+"apis.com</b></li><li><b>googleapis.l.google.com</b></li><li><b>apis.google.com</b></li><li><b>gstatic.com</b></li><li><b>www"
+".google-"
+"analytics.com</b></li><li><b>wallet.google.com</b></li><li><b>plus.google.com</b></li><li><b>checkout.google.com</b></li><li><b>*.gvt1.com</li></ul>"
+msgstr "<li><b>android.l.google.com</b> (Google Play access for Android App)</li><li><b>android.clients.google.com</b> (Google Play access for Android App)</li><li><b>play.google.com</b> (Google Play access for Android App)</li><li><b>ggpht.com</b> (Google Play access for Android App)</li></ul><b><u>RECOMMENDED</u></b> for full Google Play functionality (otherwise, Play Store will look broken to users and/or some non-vital functionality will not be available)<ul><li><b>photos-ugc.l.google.com</b></li><li><b>googleusercontent.com</b></li><li><b>ajax.googleapis.com</b></li><li><b>play.google-apis.com</b></li><li><b>googleapis.l.google.com</b></li><li><b>apis.google.com</b></li><li><b>gstatic.com</b></li><li><b>www.google-analytics.com</b></li><li><b>wallet.google.com</b></li><li><b>plus.google.com</b></li><li><b>checkout.google.com</b></li><li><b>*.gvt1.com</li></ul>"
 
-#.
-#. * ******************************************************************************
-#. * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1
+#. *
+#. ******************************************************************************
+#. * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+,
+#. GN4-1
 #. * and GN4-2 consortia
 #. *
 #. * License: see the web/copyright.php file in the file structure
-#. * ******************************************************************************
-#.
+#. *
+#. ******************************************************************************
 #: web/user/devel.inc.php:12
 msgid "Access the sources"
 msgstr "Access the sources"
@@ -150,16 +123,14 @@ msgstr "Access the sources"
 msgid ""
 "%s is an opensource project. If you are interested in the details of the "
 "implementation, please visit <a href='%s'>GitHub</a>."
-msgstr ""
-"1%s on avoimen lähdekoodin projekti. Jos olet kiinnostunut osallistumisesta, "
-"lisätietoja löydät <a href='%s'>GitHubista</a>."
+msgstr "1%s on avoimen lähdekoodin projekti. Jos olet kiinnostunut osallistumisesta, lisätietoja löydät <a href='%s'>GitHubista</a>."
 
 #: web/user/devel.inc.php:14
 msgid "Join the developers mailing list."
 msgstr "Liity kehittäjien postilistalle."
 
 #: web/user/devel.inc.php:15
-#, fuzzy, php-format
+#, php-format
 msgid "The list is available at: %s"
 msgstr "Lista: %s"
 
@@ -178,35 +149,28 @@ msgstr "Dokumentit"
 
 #: web/user/faq.inc.php:17 web/user/faq.php:14
 msgid "My organisation is not listed. Can't I just use any of the other ones?"
-msgstr ""
-"Kotiorganisaatiotani ei ole listattu. Voinko valita listalta jonkin muun?"
+msgstr "Kotiorganisaatiotani ei ole listattu. Voinko valita listalta jonkin muun?"
 
 #: web/user/faq.inc.php:18 web/user/faq.php:15
 msgid ""
 "No! The installers contain security settings which are specific to the "
-"organisation. If you are not from that organisation, your device will detect "
-"that you are about to send your username and credential to an unauthorised "
+"organisation. If you are not from that organisation, your device will detect"
+" that you are about to send your username and credential to an unauthorised "
 "server and will abort the login. Using an installer from a different "
 "organisation is <i>guaranteed to not work</i>!"
-msgstr ""
-"Et voi. Asennusohjelmat sisältävät organisaatiokohtaisia turva-asetuksia. "
-"Jos et kuulu listattuun organisaatioon, päätelaitteesi lopettaa "
-"kirjautumisen, koska olisit lähettämässä käyttäjätunnustasi ja salasanaasi "
-"väärälle palvelimelle. Toisten organisaatioiden asennusohjelmat <i>eivät "
-"varmasti toimi</i>! "
+msgstr "Et voi. Asennusohjelmat sisältävät organisaatiokohtaisia turva-asetuksia. Jos et kuulu listattuun organisaatioon, päätelaitteesi lopettaa kirjautumisen, koska olisit lähettämässä käyttäjätunnustasi ja salasanaasi väärälle palvelimelle. Toisten organisaatioiden asennusohjelmat <i>eivät varmasti toimi</i>! "
 
 #: web/user/faq.inc.php:22 web/user/faq.php:19
 msgid "What can I do to get my organisation listed?"
 msgstr "Mitä voin tehdä saadakseni kotiorganisaationi mukaan listalle?"
 
 #: web/user/faq.inc.php:23 web/user/faq.php:20
-#, fuzzy, php-format
+#, php-format
 msgid ""
-"Contact %s administrators within your organisation and request that they add "
-"their organisation to the system. It will take at most one hour of their "
+"Contact %s administrators within your organisation and request that they add"
+" their organisation to the system. It will take at most one hour of their "
 "time to get things done."
-msgstr ""
-"Ota yhteyttä %s ylläpitäjiin kotiorganisaatiossasi ja kerro ongelmastasi."
+msgstr "Ota yhteyttä %s-ylläpitäjiin kotiorganisaatiossasi ja kerro että heidän tulisi lisätä organisaatio järjestelmään. Lisääminen on helppoa ja se on tehty tunnissa."
 
 #: web/user/faq.inc.php:27 web/user/faq.php:24
 #, php-format
@@ -220,33 +184,23 @@ msgid ""
 "automatically configured in some way. Many other devices can still be used "
 "with %s, but must be configured manually. Please contact your organisation "
 "to get help in setting up such a device."
-msgstr ""
-"Ei. CAT tukee vain niitä käyttöjärjestelmiä, joita voi konfiguroida "
-"automaattisesti. Monia muita laitteita voi silti käyttää %s:n kanssa, mutta "
-"ne täytyy konfiguroida käsin. Ole hyvä ja ota yhteyttä kotiorganisaatioosi, "
-"jotta saisit laitekohtaiset asennusohjeet. "
+msgstr "Ei. CAT tukee vain niitä käyttöjärjestelmiä, joita voi konfiguroida automaattisesti. Monia muita laitteita voi silti käyttää %s:n kanssa, mutta ne täytyy konfiguroida käsin. Ole hyvä ja ota yhteyttä kotiorganisaatioosi, jotta saisit laitekohtaiset asennusohjeet. "
 
 #: web/user/faq.inc.php:32 web/user/faq.php:29
 #, php-format
 msgid ""
 "I can connect to %s simply by providing username and password, what is the "
 "point of using an installer?"
-msgstr ""
-"Pääsen %siin yksinkertaisesti antamalla käyttäjätunnukseni ja salasanani, "
-"miksi käyttäisin asennusohjelmaa?"
+msgstr "Pääsen %siin yksinkertaisesti antamalla käyttäjätunnukseni ja salasanani, miksi käyttäisin asennusohjelmaa?"
 
 #: web/user/faq.inc.php:33 web/user/faq.php:30
 #, php-format
 msgid ""
 "When you are connecting from an unconfigured device your security is at "
-"risk. The very point of preconfiguration is to set up security, when this is "
-"done, your device will first confirm that it talks to the correct "
+"risk. The very point of preconfiguration is to set up security, when this is"
+" done, your device will first confirm that it talks to the correct "
 "authentication server and will never send your password to an untrusted one."
-msgstr ""
-"Tietoturvasi vaarantuu yhdistäessäsi etukäteen konfiguroimattomalla "
-"laitteella. Esiasennus huolehtii tietoturvasta siten, että laitteesi kykenee "
-"varmistamaan keskustelevansa luotetun tunnistautumispalvelimen kanssa eikä "
-"lähetä salasanaasi tuntemattomalle palvelimelle."
+msgstr "Tietoturvasi vaarantuu yhdistäessäsi etukäteen konfiguroimattomalla laitteella. Esiasennus huolehtii tietoturvasta siten, että laitteesi kykenee varmistamaan keskustelevansa luotetun tunnistautumispalvelimen kanssa eikä lähetä salasanaasi tuntemattomalle palvelimelle."
 
 #: web/user/faq.inc.php:36 web/user/faq.php:41
 #, php-format
@@ -258,88 +212,66 @@ msgstr "Ovatko %s-asennusohjelmat turvallisia käyttää?"
 msgid ""
 "%s installers configure security settings on your device, therefore you "
 "should be sure that you are using genuine ones."
-msgstr ""
-"%s-asennusohjelmat määrittelevät tietoturva-asetukset laitteeseesi, joten "
-"sinun kannattaa siksi varmistaa, että käytät aitoa asennusohjelmaa."
+msgstr "%s-asennusohjelmat määrittelevät tietoturva-asetukset laitteeseesi, joten sinun kannattaa siksi varmistaa, että käytät aitoa asennusohjelmaa."
 
 #: web/user/faq.inc.php:37 web/user/faq.php:42
 #, php-format
 msgid ""
-"This is why %s installers are digitally signed by %s. Watch out for a system "
-"message confirming this."
-msgstr ""
-"Tämän varmistamiseksi %s-asennusohjelmat ovat %s:n allekirjoittamia. "
-"Varmista, että näet tämän vahvistavan viestin."
+"This is why %s installers are digitally signed by %s. Watch out for a system"
+" message confirming this."
+msgstr "Tämän varmistamiseksi %s-asennusohjelmat ovat %s:n allekirjoittamia. Varmista, että näet tämän vahvistavan viestin."
 
 #: web/user/faq.inc.php:41 web/user/faq.php:46
 msgid ""
 "Windows 'SmartScreen' or 'Internet Explorer' tell me that the file is not "
 "commonly downloaded and possibly harmful. Should I be concerned?"
-msgstr ""
-"Windowsin SmartScreen tai Internet Explorer ilmoittavat minulle, että "
-"tiedostoa ei ole yleisesti ladattu ja että se voi olla haitallinen. "
-"Pitäisikö minun huolestua?"
+msgstr "Windowsin SmartScreen tai Internet Explorer ilmoittavat minulle, että tiedostoa ei ole yleisesti ladattu ja että se voi olla haitallinen. Pitäisikö minun huolestua?"
 
 #: web/user/faq.inc.php:42 web/user/faq.php:47
 msgid ""
-"Contrary to what the name suggests, 'SmartScreen' isn't actually very smart. "
-"The warning merely means that the file has not yet been downloaded by enough "
-"users to make Microsoft consider it popular (which would strangely enough "
-"make it be considered 'safe'). This message alone is not a security problem."
-msgstr ""
-"Toisin kuin nimi vihjaa, 'SmartScreen' ei ole oikeastaan kovin nokkela. "
-"Varoitus tarkoittaa vain, että tiedostoa ei ole vielä ladattu niin montaa "
-"kertaa, että Microsoft katsoisi sen olevan suosittu (ja siten 'turvallinen')."
+"Contrary to what the name suggests, 'SmartScreen' isn't actually very smart."
+" The warning merely means that the file has not yet been downloaded by "
+"enough users to make Microsoft consider it popular (which would strangely "
+"enough make it be considered 'safe'). This message alone is not a security "
+"problem."
+msgstr "Toisin kuin nimi vihjaa, 'SmartScreen' ei ole oikeastaan kovin nokkela. Varoitus tarkoittaa vain, että tiedostoa ei ole vielä ladattu niin montaa kertaa, että Microsoft katsoisi sen olevan suosittu (ja siten 'turvallinen')."
 
 #: web/user/faq.inc.php:42 web/user/faq.php:47
 #, php-format
 msgid ""
 "So long as the file is carrying a valid signature from %s, the download is "
 "safe."
-msgstr ""
-"Tiedoston lataaminen on turvallista kunhan tiedostolla on kelpoinen %s-"
-"allekirjoitus."
+msgstr "Tiedoston lataaminen on turvallista kunhan tiedostolla on kelpoinen %s-allekirjoitus."
 
 #: web/user/faq.inc.php:42 web/user/faq.php:47
 #, php-format
 msgid "Please see also Microsoft's FAQ regarding SmartScreen at %s."
-msgstr ""
-"Voit myös lukea Microsoftin SmartScreeniä käsittelevän FAQ:n osoitteessa %s."
+msgstr "Voit myös lukea Microsoftin SmartScreeniä käsittelevän FAQ:n osoitteessa %s."
 
 #: web/user/faq.inc.php:46 web/user/faq.php:61
 #, php-format
 msgid ""
 "I can see %s network and my device is configured but it does not connect, "
 "what can be the cause?"
-msgstr ""
-"Näen %s-verkon ja laitteeni on konfiguroitu, mutta se ei yhdistä. Mikä voi "
-"olla vikana?"
+msgstr "Näen %s-verkon ja laitteeni on konfiguroitu, mutta se ei yhdistä. Mikä voi olla vikana?"
 
 #: web/user/faq.inc.php:47 web/user/faq.php:51
 #, php-format
 msgid ""
-"There can be a number of different reasons. The network you see may not be a "
-"genuine %s one and your device silently drops the connection attempt; there "
-"may be something wrong with the configuration of the network; your account "
+"There can be a number of different reasons. The network you see may not be a"
+" genuine %s one and your device silently drops the connection attempt; there"
+" may be something wrong with the configuration of the network; your account "
 "may have expired; there may be a connection problem with your home "
 "authentication server; you may have broken the regulations of the network "
 "you are using and have been refused access as a consequence. You should "
 "contact your organisation and report the problem, the administrators should "
 "be able to trace your connections."
-msgstr ""
-"Tähän voi olla useita erilaisia syitä. Käyttämäsi verkko ei välttämättä ole "
-"aito %s ja siksi päätelaitteesi katkaisee yhteydenottoyritykset; verkossa "
-"voi olla jotain vikaa; käyttäjätunnuksesi tai salasanasi on voinut "
-"vanhentua; kotiorganisaatiosi autentikointipalvelimessa voi olla vikaa; olet "
-"voinut rikkoa verkon käyttösääntöjä ja käyttösi on sen vuoksi estetty. Ota "
-"yhteyttä kotiorganisaatioosi ja kerro ongelmastasi, verkon ylläpito pystyy "
-"selvittämään yhteysongelmasi syyn."
+msgstr "Tähän voi olla useita erilaisia syitä. Käyttämäsi verkko ei välttämättä ole aito %s ja siksi päätelaitteesi katkaisee yhteydenottoyritykset; verkossa voi olla jotain vikaa; käyttäjätunnuksesi tai salasanasi on voinut vanhentua; kotiorganisaatiosi autentikointipalvelimessa voi olla vikaa; olet voinut rikkoa verkon käyttösääntöjä ja käyttösi on sen vuoksi estetty. Ota yhteyttä kotiorganisaatioosi ja kerro ongelmastasi, verkon ylläpito pystyy selvittämään yhteysongelmasi syyn."
 
 #: web/user/faq.inc.php:51 web/user/faq.php:66
 #, php-format
 msgid "I have a question about this web site. Whom should I contact?"
-msgstr ""
-"Minulla on kysymys tähän www-sivustoon liittyen. Keneen voin ottaa yhteyttä?"
+msgstr "Minulla on kysymys tähän www-sivustoon liittyen. Keneen voin ottaa yhteyttä?"
 
 #: web/user/faq.inc.php:52 web/user/faq.php:67
 #, php-format
@@ -357,38 +289,26 @@ msgid ""
 "%s is a global WiFi roaming consortium which gives members of education and "
 "research access to the internet <i>for free</i> on all %s hotspots on the "
 "planet. There are several million %s users already, enjoying free internet "
-"access on more than 6.000 hotspots! Visit <a href='http://www.eduroam."
-"org'>the %s homepage</a> for more details."
-msgstr ""
-"%s on maailmanlaajuinen WiFi-verkkovierailuyhteenliittymä, jonka kautta "
-"opiskelijat ja tutkijat saavat <i> ilmaisen </i> Internet-yhteyden kaikissa "
-"%s hotspoteissa. %s-käyttäjiä on miljoonia ja eduroam-käyttöpaikkoja useita "
-"tuhansia. Löydät lisätietoja <a href='http://www.eduroam.org'> %skotisivulta "
-"</a>. "
+"access on more than 6.000 hotspots! Visit <a "
+"href='http://www.eduroam.org'>the %s homepage</a> for more details."
+msgstr "%s on maailmanlaajuinen WiFi-verkkovierailuyhteenliittymä, jonka kautta opiskelijat ja tutkijat saavat <i> ilmaisen </i> Internet-yhteyden kaikissa %s hotspoteissa. %s-käyttäjiä on miljoonia ja eduroam-käyttöpaikkoja useita tuhansia. Löydät lisätietoja <a href='http://www.eduroam.org'> %skotisivulta </a>. "
 
 #: web/user/faq.php:58
 #, php-format
 msgid ""
-"There can be a number of different reasons. The network you see may not be a "
-"genuine %s one and your device silently drops the connection attempt; your "
-"account may have expired; you may have broken the regulations of the network "
-"you are using and have been refused access as a consequence; or maybe there "
-"is an actual technical problem. To exclude the latter, you should first "
+"There can be a number of different reasons. The network you see may not be a"
+" genuine %s one and your device silently drops the connection attempt; your "
+"account may have expired; you may have broken the regulations of the network"
+" you are using and have been refused access as a consequence; or maybe there"
+" is an actual technical problem. To exclude the latter, you should first "
 "visit the %s Diagnostics tool <a href=''>here</a>, which can find many "
 "reasons for failure. It also allows you to contact your organisation and "
 "report the problem to them."
-msgstr ""
-"Tähän voi olla useita erilaisia syitä. Käyttämäsi verkko ei välttämättä ole "
-"aito %s verkko ja siksi päätelaitteesi katkaisee yhteydenottoyritykset; "
-"käyttäjätunnuksesi tai salasanasi on voinut vanhentua; olet voinut rikkoa "
-"verkon käyttösääntöjä ja käyttösi on sen vuoksi estetty;  tai verkossa on "
-"tekninen vika. Jotta jälkimmäinen voitaisiin poissulkea, käytä "
-"%svianselvitystyökalu <a href=''>tästä</a>, jotta vika voitaisiin paikantaa. "
-"Sen avulla voit myös olla yhteydessä kotiorganisaatioosi ja kertoa "
-"ongelmastasi. "
+msgstr "Tähän voi olla useita erilaisia syitä. Käyttämäsi verkko ei välttämättä ole aito %s verkko ja siksi päätelaitteesi katkaisee yhteydenottoyritykset; käyttäjätunnuksesi tai salasanasi on voinut vanhentua; olet voinut rikkoa verkon käyttösääntöjä ja käyttösi on sen vuoksi estetty;  tai verkossa on tekninen vika. Jotta jälkimmäinen voitaisiin poissulkea, käytä %svianselvitystyökalu <a href=''>tästä</a>, jotta vika voitaisiin paikantaa. Sen avulla voit myös olla yhteydessä kotiorganisaatioosi ja kertoa ongelmastasi. "
 
 #. *
-#. * This is a template for further FAQ entries. Simply copy&paste and add more
+#. * This is a template for further FAQ entries. Simply copy&paste and add
+#. more
 #. * FAQ text in 'title' and 'text' respectively.
 #. *
 #. array_push($FAQ,
@@ -396,7 +316,6 @@ msgstr ""
 #. 'title'=>sprintf(_("")),
 #. 'text'=>sprintf(_(""))
 #. ));
-#.
 #: web/user/faq.php:84 web/skins/modern/user/cat_info.php:70
 msgid "Frequently Asked Questions"
 msgstr "Usein kysytyt kysymykset"
@@ -407,7 +326,7 @@ msgstr "Käyttöehdot"
 
 #: web/user/tou.inc.php:16
 msgid "(for legal reasons, the Terms of Use are in English only)"
-msgstr ""
+msgstr "(käyttöehdot vain englanniksi)"
 
 #: web/4013.php:34 web/404.php:33 web/lib/user/TextTemplates.php:77
 #, php-format
@@ -432,18 +351,14 @@ msgid ""
 "but we don't want to show it to you. You need to be authenticated and "
 "authorised to see this content. Since you are not, you got this error page "
 "usually known as"
-msgstr ""
-"mutta emme voi näyttää sitä. Sinun tulee autentikoitua nähdäksesi koko "
-"sisällön. Ilman kirjautumista näet vain virhesivun "
+msgstr "mutta emme voi näyttää sitä. Sinun tulee autentikoitua nähdäksesi koko sisällön. Ilman kirjautumista näet vain virhesivun "
 
 #: web/4013.php:50
 #, php-format
 msgid ""
 "Your mistake? Our error? Who knows! Maybe you should go back to the <a "
 "href='%s'>Start Page</a>."
-msgstr ""
-"Sinun virheesi? Meidän virheemme? Kukapa tietää! Ehkä sinun tulisi palata <a "
-"href='%s'>aloitussivulle</a>."
+msgstr "Sinun virheesi? Meidän virheemme? Kukapa tietää! Ehkä sinun tulisi palata <a href='%s'>aloitussivulle</a>."
 
 #: web/404.php:46
 msgid "This is not the CAT you are looking for."
@@ -453,18 +368,14 @@ msgstr "Tämä ei ole se CAT jota olet etsimässä."
 msgid ""
 "Whatever you expected to see at this URL - it's not here. The only thing "
 "here is the number"
-msgstr ""
-"Mitä ikinä oletitkaan täältä löytyvän - se ei ole täällä. Löydät täältä vain "
-"luvun"
+msgstr "Mitä ikinä oletitkaan täältä löytyvän - se ei ole täällä. Löydät täältä vain luvun"
 
 #: web/404.php:49
 #, php-format
 msgid ""
-"staring at you. Your mistake? Our error? Who knows! Maybe you should go back "
-"to the <a href='%s'>Start Page</a>."
-msgstr ""
-"tuijottaa sinua. Sinun virheesi? Meidän virheemme? Kukapa tietää! Ehkä sinun "
-"tulisi palata <a href='%s'>aloitussivulle</a>."
+"staring at you. Your mistake? Our error? Who knows! Maybe you should go back"
+" to the <a href='%s'>Start Page</a>."
+msgstr "tuijottaa sinua. Sinun virheesi? Meidän virheemme? Kukapa tietää! Ehkä sinun tulisi palata <a href='%s'>aloitussivulle</a>."
 
 #: web/tou.php:61 web/skins/modern/Divs.php:279
 #, php-format
@@ -480,9 +391,7 @@ msgstr "Tervetuloa mukaan %s - yhteisöön!"
 msgid ""
 "Your download will start shortly. In case of problems with the automatic "
 "download please use this direct <a href=''>link</a>."
-msgstr ""
-"Lataus on alkamassa. Jos lataus ei käynnisty automaattisesti, voit käyttää "
-"myös <a href=''>tätä linkkiä</a>."
+msgstr "Lataus on alkamassa. Jos lataus ei käynnisty automaattisesti, voit käyttää myös <a href=''>tätä linkkiä</a>."
 
 #: web/lib/user/TextTemplates.php:72 web/skins/modern/div_user_welcome.php:9
 #, php-format
@@ -494,13 +403,9 @@ msgstr "Hyvä %s käyttäjä,"
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
 "need to do is find an %s hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal "
-"certificate') - and be online!"
-msgstr ""
-"Nyt kun olet ladannut ja asentanut asennusohjelman, sinun tarvitsee enää "
-"etsiä lähin %s hotspot ja kirjautua verkkoon antamalla käyttäjätunnuksesi ja "
-"salasanasi (tai henkilövarmenne, mikäli kotiorganisaatiosi käyttää niitä) – "
-"näin olet verkossa! "
+"credentials (this is our fancy name for 'username and password' or 'personal"
+" certificate') - and be online!"
+msgstr "Nyt kun olet ladannut ja asentanut asennusohjelman, sinun tarvitsee enää etsiä lähin %s hotspot ja kirjautua verkkoon antamalla käyttäjätunnuksesi ja salasanasi (tai henkilövarmenne, mikäli kotiorganisaatiosi käyttää niitä) – näin olet verkossa! "
 
 #: web/lib/user/TextTemplates.php:74 web/skins/modern/div_user_welcome.php:17
 #, php-format
@@ -508,9 +413,7 @@ msgid ""
 "Should you have any problems using this service, please always contact the "
 "helpdesk of %s. They will diagnose the problem and help you out. You can "
 "reach them via the means shown above."
-msgstr ""
-"Mikäli sinulla on ongelmia palvelun käytössä, ole hyvä ja ota yhteyttä "
-"organisaation %s IT-käyttötukeen."
+msgstr "Mikäli sinulla on ongelmia palvelun käytössä, ole hyvä ja ota yhteyttä organisaation %s IT-käyttötukeen."
 
 #: web/lib/user/TextTemplates.php:75 web/skins/modern/div_user_welcome.php:20
 msgid "Back to downloads"
@@ -523,10 +426,7 @@ msgid ""
 "From now on, you will be able to use internet access resources on thousands "
 "of universities, research centres and other places all over the globe. All "
 "of this completely free of charge!"
-msgstr ""
-"toivotamme sinut tervetulleeksi miljoonien %s-käyttäjien joukkoon! Tästä "
-"lähtien pääset verkkoon mm. tuhansissa yliopistoissa ympäri maailman. Kaikki "
-"tämä ilmaiseksi oman kotiorganisaatiosi käyttäjätunnuksilla! "
+msgstr "toivotamme sinut tervetulleeksi miljoonien %s-käyttäjien joukkoon! Tästä lähtien pääset verkkoon mm. tuhansissa yliopistoissa ympäri maailman. Kaikki tämä ilmaiseksi oman kotiorganisaatiosi käyttäjätunnuksilla! "
 
 #: web/lib/user/TextTemplates.php:78
 #, php-format
@@ -570,13 +470,10 @@ msgstr "Lataa %s asennuspaketti"
 
 #: web/lib/user/TextTemplates.php:87
 msgid ""
-"Your local administrator has specified a redirect to a local support page."
-"<br>When you click <b>Continue</b> this support page will be opened in a new "
-"window/tab."
-msgstr ""
-"Organisaatiosi ylläpito on määritellyt uudelleenohjauksen paikalliselle "
-"tukisivulle. <br>Kun klikkaat <b>Jatka</b>, tukisivu aukeaa uuteen ikkunaan "
-"tai välilehteen. "
+"Your local administrator has specified a redirect to a local support "
+"page.<br>When you click <b>Continue</b> this support page will be opened in "
+"a new window/tab."
+msgstr "Organisaatiosi ylläpito on määritellyt uudelleenohjauksen paikalliselle tukisivulle. <br>Kun klikkaat <b>Jatka</b>, tukisivu aukeaa uuteen ikkunaan tai välilehteen. "
 
 #: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:268
 #: web/skins/modern/user/js/cat_js.php:276
@@ -593,18 +490,14 @@ msgstr "Allekirjoittajana %sia koordinoiva organisaatio "
 msgid ""
 "You can download your %s installer via a personalised invitation link sent "
 "from your IT support. Please talk to the IT department to get this link."
-msgstr ""
-"Voit ladata %s asennusohjelman henkilökohtaisen kutsulinkin kautta, joka on "
-"lähetetty IT-tuesta. Ota yhteyttä IT-osastoon saadaksesi tämän linkin."
+msgstr "Voit ladata %s asennusohjelman henkilökohtaisen kutsulinkin kautta, joka on lähetetty IT-tuesta. Ota yhteyttä IT-osastoon saadaksesi tämän linkin."
 
 #: web/lib/user/TextTemplates.php:91
 #, php-format
 msgid ""
 "This site provides %s installers for many organisations, click here to see "
 "if yours is on the list."
-msgstr ""
-"Tämä sivusto tarjoaa %sasennusohjelmia monille organisaatioille, klikkaa "
-"tästä nähdäksesi, onko sinun kotiorganisaatiosi listalla."
+msgstr "Tämä sivusto tarjoaa %sasennusohjelmia monille organisaatioille, klikkaa tästä nähdäksesi, onko sinun kotiorganisaatiosi listalla."
 
 #: web/lib/user/TextTemplates.php:92
 msgid "Custom built for you"
@@ -621,22 +514,15 @@ msgid ""
 "eduroam®! From now on, you will be able to use internet access resources on "
 "thousands of universities, research centres and other places all over the "
 "globe. All of this completely free of charge!"
-msgstr ""
-"lämpimästi tervetuloa miljoonien eduroam®-käyttäjien joukkoon! Tästä "
-"eteenpäin voit käyttää tuhansien yliopistojen, tutkimuskeskusten ja muiden "
-"organisaatioiden Internet-yhteyspalveluja ilmaiseksi kaikkialla maailmassa. "
+msgstr "lämpimästi tervetuloa miljoonien eduroam®-käyttäjien joukkoon! Tästä eteenpäin voit käyttää tuhansien yliopistojen, tutkimuskeskusten ja muiden organisaatioiden Internet-yhteyspalveluja ilmaiseksi kaikkialla maailmassa. "
 
 #: web/skins/modern/div_user_welcome.php:15
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
 "need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal "
-"certificate') - and be online!"
-msgstr ""
-"Nyt kun olet ladannut ja asentanut asennusohjelman sinun tarvitsee enää "
-"etsiä lähin eduroam®-hotspot ja kirjautua verkkoon antamalla "
-"käyttäjätunnuksesi ja salasanasi tai käyttämällä henkilövarmennetta – näin "
-"olet verkossa! "
+"credentials (this is our fancy name for 'username and password' or 'personal"
+" certificate') - and be online!"
+msgstr "Nyt kun olet ladannut ja asentanut asennusohjelman sinun tarvitsee enää etsiä lähin eduroam®-hotspot ja kirjautua verkkoon antamalla käyttäjätunnuksesi ja salasanasi tai käyttämällä henkilövarmennetta – näin olet verkossa! "
 
 #: web/skins/modern/index.php:68 web/skins/modern/test.php:70
 msgid "Authenticating"
@@ -713,9 +599,7 @@ msgstr "Käyttöehdot"
 msgid ""
 "You attempted to download an installer that was already downloaded before. "
 "Please request a new token from your administrator instead."
-msgstr ""
-"Yritit ladata asennusohjelman, joka on jo ladattu aiemmin. Pyydä "
-"ylläpitäjältä uusi koodi."
+msgstr "Yritit ladata asennusohjelman, joka on jo ladattu aiemmin. Pyydä ylläpitäjältä uusi koodi."
 
 #: web/skins/modern/accountstatus/accountstatus.php:74
 msgid "Attempt to re-use download link"
@@ -724,8 +608,7 @@ msgstr "Yritetty käyttää latauslinkkiä uudelleen"
 #: web/skins/modern/accountstatus/accountstatus.php:85
 #, php-format
 msgid "You are a new user without a history of %s credentials."
-msgstr ""
-"Olet uusi käyttäjä, jolla ei ole aikaisemmin ollut %s-käyttäjätunnusta."
+msgstr "Olet uusi käyttäjä, jolla ei ole aikaisemmin ollut %s-käyttäjätunnusta."
 
 #: web/skins/modern/accountstatus/accountstatus.php:91
 #, php-format
@@ -751,21 +634,16 @@ msgstr "Haluan nähdä yksityiskohdat."
 msgid ""
 "Your invitation token is valid for %d more device activations (%d have "
 "already been used)."
-msgstr ""
-"Kutsukoodisi voidaan käyttää vielä %d:lle laitteelle  (%don jo käytetty)."
+msgstr "Kutsukoodisi voidaan käyttää vielä %d:lle laitteelle  (%don jo käytetty)."
 
 #: web/skins/modern/accountstatus/accountstatus.php:109
 msgid ""
-"Unfortunately, we are unable to determine your device's operating system. If "
-"you have made modifications on your device which prevent it from being "
+"Unfortunately, we are unable to determine your device's operating system. If"
+" you have made modifications on your device which prevent it from being "
 "recognised (e.g. custom 'User Agent' settings), please undo such "
-"modifications. You can come back to this page again; the invitation link has "
-"not been used up yet."
-msgstr ""
-"Valitettavasti ei voida määrittää laitteesi käyttöjärjestelmää. Jos olet "
-"tehnyt laitteeseesi muutoksia, jotka estävät sen tunnistamista (esimerkiksi "
-"muokannut 'User Agent' käyttäjäasetuksia), kumoa muutokset. Voit palata "
-"tälle sivulle uudelleen; kutsulinkkiä ei ole vielä käytetty."
+"modifications. You can come back to this page again; the invitation link has"
+" not been used up yet."
+msgstr "Valitettavasti ei voida määrittää laitteesi käyttöjärjestelmää. Jos olet tehnyt laitteeseesi muutoksia, jotka estävät sen tunnistamista (esimerkiksi muokannut 'User Agent' käyttäjäasetuksia), kumoa muutokset. Voit palata tälle sivulle uudelleen; kutsulinkkiä ei ole vielä käytetty."
 
 #: web/skins/modern/accountstatus/accountstatus.php:116
 #, php-format
@@ -774,27 +652,24 @@ msgid ""
 "supported for hosted end-user accounts. You can visit this page with a "
 "supported operating system later; the invitation link has not been used up "
 "yet."
-msgstr ""
-"Valitettavasti käyttämäsi käyttöjärjestelmä (%s) ei ole toistaiseksi tuettu "
-"tässä käytössä. Voit kokeilla palvelua toisella laitteella. Kutsulinkkisi on "
-"yhä voimassa."
+msgstr "Valitettavasti käyttämäsi käyttöjärjestelmä (%s) ei ole toistaiseksi tuettu tässä käytössä. Voit kokeilla palvelua toisella laitteella. Kutsulinkkisi on yhä voimassa."
 
 #: web/skins/modern/accountstatus/accountstatus.php:120
 #, php-format
 msgid "You can now download a personalised  %s installation program."
 msgstr "Voit nyt ladata organisaatiolle %s tehdyn asennuspaketin."
 
-#. echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
+#. echo sprintf(_("The installation program is <span class='emph'>strictly
+#. personal</span>, to be used <span class='emph'>only on this device
+#. (%s)</span>, and it is <span class='emph'>not permitted to share</span>
+#. this information with anyone."), $statusInfo['OS']['display']);
 #: web/skins/modern/accountstatus/accountstatus.php:122
 #, php-format
 msgid ""
 "The installation program is <span class='emph'>strictly personal</span>, to "
 "be used <span class='emph'>only on this device (%s)</span>, and it is <span "
 "class='emph'>not permitted to share</span> this information with anyone."
-msgstr ""
-"Asennusohjelma on <span class='emph'>henkilökohtainen</span>, ja "
-"käytettäväksi vain <span class='emph'>tässä kyseisessä laitteessa (%s)</"
-"span>. <span class='emph'>Älä jaa</span> tietoja muille."
+msgstr "Asennusohjelma on <span class='emph'>henkilökohtainen</span>, ja käytettäväksi vain <span class='emph'>tässä kyseisessä laitteessa (%s)</span>. <span class='emph'>Älä jaa</span> tietoja muille."
 
 #: web/skins/modern/accountstatus/accountstatus.php:123
 #, php-format
@@ -802,19 +677,14 @@ msgid ""
 "When the system detects abuse such as sharing login data with others, all "
 "access rights for you will be revoked and you may be sanctioned by your "
 "local %s administrator."
-msgstr ""
-"Jos järjestelmä havaitsee väärinkäyttöä, kuten luvatonta käyttäjätunnusten "
-"jakoa, kaikki käyttöoikeutesi voidaan poistaa ja kotiorganisaatiosi %s "
-"saattaa asettaa rajoituksia tai sanktioita."
+msgstr "Jos järjestelmä havaitsee väärinkäyttöä, kuten luvatonta käyttäjätunnusten jakoa, kaikki käyttöoikeutesi voidaan poistaa ja kotiorganisaatiosi %s saattaa asettaa rajoituksia tai sanktioita."
 
 #: web/skins/modern/accountstatus/accountstatus.php:124
 msgid ""
 "During the installation process, you will be asked for the following import "
 "PIN. This only happens once during the installation. You do not have to "
 "write down this PIN."
-msgstr ""
-"Asennuksen aikana sinulta kysytään oheista PIN-koodia. Koodia kysytään vain "
-"kerran, eikä sinun tarvitse ottaa sitä talteen."
+msgstr "Asennuksen aikana sinulta kysytään oheista PIN-koodia. Koodia kysytään vain kerran, eikä sinun tarvitse ottaa sitä talteen."
 
 #: web/skins/modern/accountstatus/accountstatus.php:129
 #, php-format
@@ -830,12 +700,9 @@ msgstr "Klikkaa tästä ladataksesi %s-asennusohjelma."
 #, php-format
 msgid ""
 "Unfortunately, the invitation link you just used is too old. The %s sign-up "
-"invitation was valid until %s. You cannot use this link any more. Please ask "
-"your administrator to issue you a new invitation link."
-msgstr ""
-"Valitettavasti käyttämäsi kutsulinkki on vanhentunut eikä sitä voi enää "
-"käyttää. %s kutsu oli voimassa %s saakka. Pyydäthän ylläpidoltasi uuden "
-"kutsulinkin."
+"invitation was valid until %s. You cannot use this link any more. Please ask"
+" your administrator to issue you a new invitation link."
+msgstr "Valitettavasti käyttämäsi kutsulinkki on vanhentunut eikä sitä voi enää käyttää. %s kutsu oli voimassa %s saakka. Pyydäthän ylläpidoltasi uuden kutsulinkin."
 
 #: web/skins/modern/accountstatus/accountstatus.php:145
 msgid "Account information not found"
@@ -844,24 +711,18 @@ msgstr "Käyttäjätunnustietoa ei löytynyt"
 #: web/skins/modern/accountstatus/accountstatus.php:146
 #, php-format
 msgid ""
-"The invitation link you followed does not map to any invititation we have on "
-"file."
-msgstr ""
-"Käyttämälläsi kutsulinkillä ei löytynyt liitosta mihinkään eduroam-"
-"organisaatioon."
+"The invitation link you followed does not map to any invititation we have on"
+" file."
+msgstr "Käyttämälläsi kutsulinkillä ei löytynyt liitosta mihinkään eduroam-organisaatioon."
 
 #: web/skins/modern/accountstatus/accountstatus.php:146
 #, php-format
 msgid ""
 "You should use the exact link you got during sign-up to come here. "
-"Alternatively, if you have a valid %s credential already, you can visit this "
-"page and Accept the question about logging in with a client certificate "
+"Alternatively, if you have a valid %s credential already, you can visit this"
+" page and Accept the question about logging in with a client certificate "
 "(select a certificate with a name ending in '…%s')."
-msgstr ""
-"Sinun tulee käyttää samaa linkkiä kuin jonka sait liittyessäsi palveluun. "
-"Vaihtoehtoisesti, jos sinulla on jo toimivat %s-tunnukset, voit käydä "
-"hyväksymässä kirjautumisen client-/henkilövarmenteella (valitse '...%s'-"
-"päätteinen varmenne)."
+msgstr "Sinun tulee käyttää samaa linkkiä kuin jonka sait liittyessäsi palveluun. Vaihtoehtoisesti, jos sinulla on jo toimivat %s-tunnukset, voit käydä hyväksymässä kirjautumisen client-/henkilövarmenteella (valitse '...%s'-päätteinen varmenne)."
 
 #: web/skins/modern/accountstatus/accountstatus.php:178
 #: web/skins/modern/user/js/cat_js.php:235
@@ -873,8 +734,8 @@ msgstr "Jos havaitset ongelmia, pyydä apua kotiorganisaatiostasi:"
 #: web/skins/modern/accountstatus/accountstatus.php:180
 #: web/skins/modern/user/js/cat_js.php:237
 msgid ""
-"If you encounter problems you should ask those who gave you your account for "
-"help."
+"If you encounter problems you should ask those who gave you your account for"
+" help."
 msgstr "Jos havaitset ongelmia, kysy apua kotiorganisaatiostasi."
 
 #: web/skins/modern/accountstatus/accountstatus.php:191
@@ -935,9 +796,7 @@ msgstr "Tahdotko varmasti peruuttaa oikeudet tältä tunnukselta?"
 msgid ""
 "You must have received an invitation from your %s %s before being able to "
 "manage your %s. If that is the case, please continue and log in."
-msgstr ""
-"Tarvitset kutsun taholta %s%s ennen kuin voit hallinnoida organisaatiota %s. "
-"Jos sinulla on jo kutsu, voit edetä ja kirjautua palveluun."
+msgstr "Tarvitset kutsun taholta %s%s ennen kuin voit hallinnoida organisaatiota %s. Jos sinulla on jo kutsu, voit edetä ja kirjautua palveluun."
 
 #: web/skins/modern/user/cat_info.php:92
 msgid "Please authenticate yourself and login"
@@ -953,11 +812,7 @@ msgid ""
 "can try to find out if you specify the email address with which you were "
 "invited to the system in the box below. This may not work if you were "
 "invited from a third-party website via the AdminAPI."
-msgstr ""
-"Oletko unohtanut minkä palveluntarjoajan kautta aiemmin kirjauduit "
-"palveluun? Voimme ehkä auttaa, mikäli annat alle sähköpostiosoitteesi. Tämä "
-"ei välttämättä toimi, mikäli käytit kolmannen osapuolen verkkosivustoa "
-"kirjautumisen yhteydessä."
+msgstr "Oletko unohtanut minkä palveluntarjoajan kautta aiemmin kirjauduit palveluun? Voimme ehkä auttaa, mikäli annat alle sähköpostiosoitteesi. Tämä ei välttämättä toimi, mikäli käytit kolmannen osapuolen verkkosivustoa kirjautumisen yhteydessä."
 
 #: web/skins/modern/user/cat_info.php:99
 msgid "Get IdP Reminder"
@@ -968,10 +823,7 @@ msgid ""
 "This is embarrassing. Generation of your installer failed. System admins "
 "have been notified. We will try to take care of the problem as soon as "
 "possible."
-msgstr ""
-"Valitettavasti asennuspaketin luonti epäonnistui. Järjestelmäylläpitäjille "
-"on ilmoitettu asiasta. Yritämme korjata tämän ongelman niin pian kuin "
-"mahdollista."
+msgstr "Valitettavasti asennuspaketin luonti epäonnistui. Järjestelmäylläpitäjille on ilmoitettu asiasta. Yritämme korjata tämän ongelman niin pian kuin mahdollista."
 
 #: web/skins/modern/user/js/cat_js.php:79
 #: web/skins/modern/user/js/cat_js.php:216
@@ -997,19 +849,16 @@ msgstr "puh:"
 #: web/skins/modern/user/js/cat_js.php:255
 #: web/skins/modern/user/js/cat_js.php:281
 msgid ""
-"This device cannot be configured with the settings used in your organisation."
-msgstr ""
-"Tähän päätelaitteeseen ei voida syöttää kotiorganisaatiosi määrittämiä "
-"asetuksia."
+"This device cannot be configured with the settings used in your "
+"organisation."
+msgstr "Tähän päätelaitteeseen ei voida syöttää kotiorganisaatiosi määrittämiä asetuksia."
 
 #: web/skins/modern/user/js/cat_js.php:268
 msgid ""
 "Your site administrator has specified that this device should be configured "
 "with resources located on a local page. When you click <b>Continue</b> this "
 "page will be opened in a new window/tab."
-msgstr ""
-"Kotiorganisaatiosi ylläpito tarjoaa lisätietoja laitteesi konfigurointiin.  "
-"Klikattuasi <b>Jatka</b>, tämä sivu avautuu uuteen ikkunaan."
+msgstr "Kotiorganisaatiosi ylläpito tarjoaa lisätietoja laitteesi konfigurointiin.  Klikattuasi <b>Jatka</b>, tämä sivu avautuu uuteen ikkunaan."
 
 #: web/skins/modern/user/js/cat_js.php:282
 msgid "Close"
@@ -1049,10 +898,7 @@ msgid ""
 "This system relies on information supplied by local %s administrators. If "
 "your organisation is not on the list, then nag them to add information to "
 "the %s database."
-msgstr ""
-"Järjestelmä perustuu paikallisten %s-ylläpitäjien ylläpitämään tieton. Jos "
-"organisaatiosi puuttuu listalta, olethan yhteydessä oman kotiorganisaatiosi "
-"tukeen ja ilmoita puutteesta %s-tietokannassa."
+msgstr "Järjestelmä perustuu paikallisten %s-ylläpitäjien ylläpitämään tieton. Jos organisaatiosi puuttuu listalta, olethan yhteydessä oman kotiorganisaatiosi tukeen ja ilmoita puutteesta %s-tietokannassa."
 
 #: web/skins/modern/user/js/cat_js.php:567
 msgid "Locate me more accurately using HTML5 Geo-Location"
@@ -1067,7 +913,6 @@ msgid "all countries"
 msgstr "kaikki maat"
 
 #: web/skins/modern/user/js/cat_js.php:570
-#, fuzzy
 msgid "or search for an organisation, for example University of Oslo"
 msgstr "tai etsi organisaatioita, esimerkiksi Helsingin yliopisto"
 
@@ -1120,7 +965,6 @@ msgstr "Lähellä olevat palveluntarjoajat näytetään listan alussa."
 #. the last argument of the OS call specifies whether the module is
 #. signed.  Make sure that this is in sync with your settings
 #. in devices/devices.php
-#.
 #: web/skins/modern/user/js/roll.php:129
 msgid "MS Windows"
 msgstr "MS Windows"
@@ -1160,16 +1004,3 @@ msgstr "kaikki yleisimmät jakelut"
 #: web/skins/modern/user/js/roll.php:134
 msgid "Chrome OS"
 msgstr "Chrome OS"
-
-#~ msgid "%s Copyright and Licensing"
-#~ msgstr "%s Tekijänoikeudet ja lisensointi"
-
-#~ msgid ""
-#~ "When you make use of the international %s infrastructure, e.g. when "
-#~ "roaming with your device, your data is treated according to the <a "
-#~ "href='%s'>%s Privacy Statement</a>."
-#~ msgstr ""
-#~ "Kun käytät kansainvälistä %s-infrastruktuuria, esimerkiksi "
-#~ "verkkovierailua ulkomailla, kirjautumiseen tarvittavia tietoja "
-#~ "käsitellään <a href='%s'>%s tietosuojaselosteen</a> (Privacy Statement) "
-#~ "mukaisesti."

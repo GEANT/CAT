@@ -2,21 +2,26 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
+# Translators:
+# Jari Miettinen <Jari.Miettinen@csc.fi>, 2018
+# Tomi Salmi, 2018
+# tuukka, 2018
+# Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, 2018
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-07 14:23+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, 2018\n"
-"Language-Team: Finnish (Finland) (https://www.transifex.com/eduroam_devel/"
-"teams/11799/fi_FI/)\n"
-"Language: fi_FI\n"
+"Language-Team: Finnish (Finland) (https://www.transifex.com/eduroam_devel/teams/11799/fi_FI/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fi_FI\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: core/diag/AbstractTest.php:266
@@ -42,10 +47,11 @@ msgstr "RADIUS-palvelin ei vastannut."
 
 #: core/diag/AbstractTest.php:301
 msgid ""
-"There was a bidirectional communication with the RADIUS server, but it ended "
-"halfway through."
+"There was a bidirectional communication with the RADIUS server, but it ended"
+" halfway through."
 msgstr ""
-"RADIUS-palvelimen kanssa oli kaksisuuntaista neuvottelua, mutta se keskeytyi."
+"RADIUS-palvelimen kanssa oli kaksisuuntaista neuvottelua, mutta se "
+"keskeytyi."
 
 #: core/diag/AbstractTest.php:308
 msgid ""
@@ -96,9 +102,9 @@ msgid ""
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
 "validate this certificate."
 msgstr ""
-"Vähintään yksi varmenneketjun varmenteista on allekirjoitettu MD5-"
-"tiivistefunktiolla. Monet käyttöjärjestelmät, kuten Apple iOS, eivät salli "
-"MD5:n käyttöä."
+"Vähintään yksi varmenneketjun varmenteista on allekirjoitettu "
+"MD5-tiivistefunktiolla. Monet käyttöjärjestelmät, kuten Apple iOS, eivät "
+"salli MD5:n käyttöä."
 
 #: core/diag/AbstractTest.php:372
 msgid ""
@@ -106,18 +112,19 @@ msgid ""
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
 "validate this certificate."
 msgstr ""
-"Varmenneketjun varmenteista vähintään yksi on allekirjoitettu SHA-1-"
-"algoritmilla. Jotkut käyttöjärjestelmät, kuten Apple iOS, eivät salli "
+"Varmenneketjun varmenteista vähintään yksi on allekirjoitettu "
+"SHA-1-algoritmilla. Jotkut käyttöjärjestelmät, kuten Apple iOS, eivät salli "
 "tällaista varmennetta."
 
 #: core/diag/AbstractTest.php:379
 msgid ""
 "At least one certificate in the chain had a public key of less than 1024 "
-"bits. Many recent operating systems consider this unacceptable and will fail "
-"to validate the server certificate."
+"bits. Many recent operating systems consider this unacceptable and will fail"
+" to validate the server certificate."
 msgstr ""
 "Ainakin yksi varmenneketjun varmenteista on alle 1024-bittinen. Monet "
-"käyttöjärjestelmät eivät enää kelpuuta heikkoja varmenteita tietoturvasyistä."
+"käyttöjärjestelmät eivät enää kelpuuta heikkoja varmenteita "
+"tietoturvasyistä."
 
 #: core/diag/AbstractTest.php:386
 msgid ""
@@ -144,20 +151,21 @@ msgid ""
 "certificate. Checking server certificate validity against a CRL will not be "
 "possible."
 msgstr ""
-"Palvelinvarmenteen sulkulistan jakelupistelaajennos 'CRL Distribution Point' "
-"ei sisällä HTTP/HTTPS-osoitetta. Jotkin käyttöjärjestelmät eivät välttämättä "
-"kykene tarkistamaan varmennetta, koska ne eivät tue muita vaihtoehtoja."
+"Palvelinvarmenteen sulkulistan jakelupistelaajennos 'CRL Distribution Point'"
+" ei sisällä HTTP/HTTPS-osoitetta. Jotkin käyttöjärjestelmät eivät "
+"välttämättä kykene tarkistamaan varmennetta, koska ne eivät tue muita "
+"vaihtoehtoja."
 
 #: core/diag/AbstractTest.php:407
 msgid ""
-"The extension 'CRL Distribution Point' in the server certificate points to a "
-"location where no DER-encoded CRL can be found. Some Operating Systems check "
-"certificate validity by consulting the CRL and will fail to validate the "
-"certificate. Checking server certificate validity against a CRL will not be "
-"possible."
+"The extension 'CRL Distribution Point' in the server certificate points to a"
+" location where no DER-encoded CRL can be found. Some Operating Systems "
+"check certificate validity by consulting the CRL and will fail to validate "
+"the certificate. Checking server certificate validity against a CRL will not"
+" be possible."
 msgstr ""
-"Palvelinvarmenteen sulkulistan jakelupiste 'CRL Distribution Point' osoittaa "
-"olemattomaan osoitteeseen. Jotkin käyttöjärjestelmät eivät välttämättä "
+"Palvelinvarmenteen sulkulistan jakelupiste 'CRL Distribution Point' osoittaa"
+" olemattomaan osoitteeseen. Jotkin käyttöjärjestelmät eivät välttämättä "
 "kelpuuta varmennetta, koska sulkulistan tarkistaminen ei onnistu."
 
 #: core/diag/AbstractTest.php:414
@@ -166,10 +174,10 @@ msgstr "Palvelinvarmenne on sen myöntäneen tahon peruuttama!"
 
 #: core/diag/AbstractTest.php:421
 msgid ""
-"The certificate contained a CN or subjectAltName:DNS which does not parse as "
-"a hostname. This can be problematic on some supplicants. If the certificate "
-"also contains names which are a proper hostname, and you only use those for "
-"your supplicant configuration, then you can safely ignore this notice."
+"The certificate contained a CN or subjectAltName:DNS which does not parse as"
+" a hostname. This can be problematic on some supplicants. If the certificate"
+" also contains names which are a proper hostname, and you only use those for"
+" your supplicant configuration, then you can safely ignore this notice."
 msgstr ""
 "Palvelinvarmenteen CN- tai subjectAltName:DNS-tietue ei jäsenny palvelimen "
 "nimeksi. Siitä voi seurata ongelmia joissakin päätelaitteissa. Voit jättää "
@@ -240,8 +248,8 @@ msgstr ""
 
 #: core/diag/AbstractTest.php:466
 msgid ""
-"The configured EAP server name matches either the CN or a subjectAltName:DNS "
-"of the incoming certificate; best current practice is that the certificate "
+"The configured EAP server name matches either the CN or a subjectAltName:DNS"
+" of the incoming certificate; best current practice is that the certificate "
 "should contain the name in BOTH places."
 msgstr ""
 "Saadusta varmenteesta löytyy määritellyn EAP-palvelimen nimi joko CN- tai "
@@ -290,8 +298,8 @@ msgid ""
 "1024 bit. Mac OS X 10.11 'El Capitan' is known to refuse TLS connections "
 "under these circumstances!"
 msgstr ""
-"Palvelimen Diffie-Hellman-ryhmän (DH) koko on alle 1024 bittiä. Huomaa, että "
-"Mac OS X 10.11 'El Capitan' ei tue alle 1024-bittisiä TLS-yhteyksiä!"
+"Palvelimen Diffie-Hellman-ryhmän (DH) koko on alle 1024 bittiä. Huomaa, että"
+" Mac OS X 10.11 'El Capitan' ei tue alle 1024-bittisiä TLS-yhteyksiä!"
 
 #: core/diag/AbstractTest.php:529
 msgid ""
@@ -303,8 +311,8 @@ msgstr ""
 
 #: core/diag/AbstractTest.php:536
 msgid ""
-"The certificate public key algorithm is unknown to the system. Please submit "
-"the certificate as a sample to the developers."
+"The certificate public key algorithm is unknown to the system. Please submit"
+" the certificate as a sample to the developers."
 msgstr ""
 "Varmenteen julkisen avaimen algoritmi on tuntematon. Ole hyvä ja lähetä "
 "varmenne kehittäjille."
@@ -316,14 +324,15 @@ msgstr "[vianmääritys]"
 #: core/diag/Logopath.php:98
 msgid ""
 "(This service is in an early stage. We apologise if this is a false alert. "
-"If this is the case, please send an email report to cat-devel@lists.geant."
-"org, forwarding the entire message (including the 'SUSPECTS' and 'EVIDENCE' "
-"data at the end), and explain why this is a false positive.)"
+"If this is the case, please send an email report to cat-"
+"devel@lists.geant.org, forwarding the entire message (including the "
+"'SUSPECTS' and 'EVIDENCE' data at the end), and explain why this is a false "
+"positive.)"
 msgstr ""
 "(Palvelu on alkuvaiheessa. Pahoittelemme, jos tämä on väärä hälytys. Jos "
 "näin on, lähetä sähköpostikertomus osoitteeseen cat-devel@lists.geant.org, "
-"joka sisältää koko viestin (mukaan lukien lopun 'SUSPECTS'- ja 'EVIDENCE' -"
-"tiedot) ja kerro, miksi tämä on väärä positiivinen hälytys.)"
+"joka sisältää koko viestin (mukaan lukien lopun 'SUSPECTS'- ja 'EVIDENCE' "
+"-tiedot) ja kerro, miksi tämä on väärä positiivinen hälytys.)"
 
 #: core/diag/Logopath.php:100
 msgid "Yours sincerely,"
@@ -389,8 +398,8 @@ msgstr ""
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
-"Access-Reject as planned. Some properties of the connection attempt were sub-"
-"optimal; the list is below."
+"Access-Reject as planned. Some properties of the connection attempt were "
+"sub-optimal; the list is below."
 msgstr ""
 "<strong>Testi onnistui osittain</strong>: kaksisuuntainen RADIUS-"
 "viestinvaihto onnistui ja päättyi Access-Reject-viestiin kuten pitikin. "
@@ -467,15 +476,15 @@ msgstr "tuntematon varmentaja, ei varmennekäytäntöjä tai muu virhe"
 
 #. return codes specific to NAPTR existence checks
 #. *
-#. * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
-#.
+#. * no NAPTRs for domain; this is not an error, simply means that realm is
+#. not doing dynamic discovery for any service
 #: core/diag/RFC7585Tests.php:124 web/diag/action_realmcheck.php:495
 msgid "This realm has no NAPTR records."
 msgstr "Tällä realmilla ei ole NAPTR-tietueita."
 
 #. *
-#. * no eduroam NAPTR for domain; this is not an error, simply means that realm is not doing dynamic discovery for eduroam
-#.
+#. * no eduroam NAPTR for domain; this is not an error, simply means that
+#. realm is not doing dynamic discovery for eduroam
 #: core/diag/RFC7585Tests.php:130
 msgid "NAPTR records were found, but all of them refer to unrelated services."
 msgstr "NAPTR-tietueita löytyi, mutta niiden viittaukset eivät ole kunnossa."
@@ -518,23 +527,28 @@ msgstr ""
 
 #: core/diag/Sociopath.php:48
 msgid ""
-"There are likely some issues around the wireless part of the network you are "
-"trying to connect to. Wireless networks do not always behave "
+"There are likely some issues around the wireless part of the network you are"
+" trying to connect to. Wireless networks do not always behave "
 "deterministically and consistently. All users at a given location have to "
-"share the available bandwidth, and the physical environment (concrete walls, "
-"objects in the way, elevation differences) can have a significant impact on "
-"your connectivity experience."
+"share the available bandwidth, and the physical environment (concrete walls,"
+" objects in the way, elevation differences) can have a significant impact on"
+" your connectivity experience."
 msgstr ""
 "On todennäköisesti ongelmia verkon langattomassa verkossa, johon yrität "
-"muodostaa yhteyden. Langattomat verkot eivät aina toimi deterministisesti ja "
-"johdonmukaisesti. Tietyssä paikassa olevien käyttäjien on jaettava "
+"muodostaa yhteyden. Langattomat verkot eivät aina toimi deterministisesti ja"
+" johdonmukaisesti. Tietyssä paikassa olevien käyttäjien on jaettava "
 "käytettävissä oleva kaistanleveys, ja fyysinen ympäristö (betoniseinät, "
 "esineet, korkeuserot) voi vaikuttaa merkittävästi liittymiskokemukseen."
 
-#. here is an array with yes/no answers per failure category, and the factors by which a Yes modifies the score; No's modify it by 1/factor;
-#. the order in this array is important: lower numbered questions will be asked first. So make sure you have high-quality questions in the beginning.
-#. to be clear: "Yes" answers are elsewhere in the class the TRUE case; No's are FALSE, a possible "Don't know or N/A" is NULL
-#. VERDICTLECTURE is text which is displayed to the end user if his answer led to a HIGHER score in the process. We are storing the answers to determine this.
+#. here is an array with yes/no answers per failure category, and the factors
+#. by which a Yes modifies the score; No's modify it by 1/factor;
+#. the order in this array is important: lower numbered questions will be
+#. asked first. So make sure you have high-quality questions in the beginning.
+#. to be clear: "Yes" answers are elsewhere in the class the TRUE case; No's
+#. are FALSE, a possible "Don't know or N/A" is NULL
+#. VERDICTLECTURE is text which is displayed to the end user if his answer led
+#. to a HIGHER score in the process. We are storing the answers to determine
+#. this.
 #: core/diag/Sociopath.php:56
 msgid ""
 "You should use appropriate configuration assistants [MGW: see if the realm "
@@ -567,22 +581,23 @@ msgid ""
 "Did the device previously work when roaming, i.e. at other hotspots away "
 "from your home institution?"
 msgstr ""
-"Onko laite aiemmin toiminut verkkovierailun yhteydessä, toisin sanoen muissa "
-"paikoissa kuin kotiorganisaatiosi kampuksilla?"
+"Onko laite aiemmin toiminut verkkovierailun yhteydessä, toisin sanoen muissa"
+" paikoissa kuin kotiorganisaatiosi kampuksilla?"
 
 #: core/diag/Sociopath.php:66
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "If roaming consistently does not work, then very likely your device "
-"configuration is wrong. Typical errors causing this symptom include: using a "
-"routing ('outer') username without the @realm.tld suffix - those potentially "
-"work at your home organisation, but can not be used when roaming. %s"
+"configuration is wrong. Typical errors causing this symptom include: using a"
+" routing ('outer') username without the @realm.tld suffix - those "
+"potentially work at your home organisation, but can not be used when "
+"roaming. %s"
 msgstr ""
-"Jos verkkovierailu jatkuvasti ei toimi, on laitteen konfigurointi "
-"todennäköisesti väärä. Tyypillinen virhe on että reititykseen käytettävässä "
-"('ulkoisessa') käyttäjätunnuksessa ei ole @realm.tld-päätettä. Tässä "
-"tapauksessa kotiorganisaation kampuksella ei välttämättä ole ongelmia, mutta "
-"verkkovierailu ei onnistu.%s"
+"Jos verkkovierailussa on toistuvia ongelmia, on laitteen konfiguraatiossa "
+"todennäköisesti jotain vikaa. Tyypillinen virhe on että reititykseen "
+"käytettävässä (\"ulkoisessa\") käyttäjätunnuksessa ei ole @realm.tld-"
+"päätettä. Tässä tapauksessa kotiorganisaation kampuksella ei välttämättä ole"
+" ongelmia, mutta verkkovierailu muualla ei onnistu. %s"
 
 #: core/diag/Sociopath.php:68
 msgid "Did you recently change the configuration on your device?"
@@ -614,25 +629,25 @@ msgid ""
 "change the password? These questions are best answered by your Identity "
 "Provider [MGW: display contact info]"
 msgstr ""
-"Jos kaikki laitteet lakkasivat toimimasta samanaikaisesti, käyttäjätililläsi "
-"saattaa olla ongelmia. Ehkä tilisi on vanhentunut tai sinua pakotettiin "
+"Jos kaikki laitteet lakkasivat toimimasta samanaikaisesti, käyttäjätililläsi"
+" saattaa olla ongelmia. Ehkä tilisi on vanhentunut tai sinua pakotettiin "
 "vaihtamaan salasanasi? Näihin kysymyksiin kotiorganisaatiosi osaa parhaiten "
 "vastata [MGW: näytä yhteystiedot]"
 
 #: core/diag/Sociopath.php:76
 msgid ""
-"Is the place you are currently at heavily crowded, or is a network-intensive "
-"workload going on?"
+"Is the place you are currently at heavily crowded, or is a network-intensive"
+" workload going on?"
 msgstr ""
 "Onko vierailemassasi paikassa runsaasti muita verkon käyttäjiä, eli voisiko "
 "kyseessä olla ylikuormitustilanne?"
 
 #: core/diag/Sociopath.php:78
 msgid ""
-"The network is likely overloaded at this location and point in time. You may "
-"have to wait until later before you get a better connectivity. If you think "
-"the network should be reinforced for more capacity at this place, you should "
-"inform the hotspot provider. [MGW: add contact info]"
+"The network is likely overloaded at this location and point in time. You may"
+" have to wait until later before you get a better connectivity. If you think"
+" the network should be reinforced for more capacity at this place, you "
+"should inform the hotspot provider. [MGW: add contact info]"
 msgstr ""
 "Verkko on todennäköisesti ylikuormitettu tässä paikassa ja ajankohtana. "
 "Saatat joutua odottamaan, ennen kuin saat paremman yhteyden. Jos mielestäsi "
@@ -661,9 +676,9 @@ msgstr "Näetkö virheitä, joiden mukaan IP-osoitetta ei saada?"
 
 #: core/diag/Sociopath.php:87
 msgid ""
-"The evidence at hand suggests that there may be an infrastructure problem at "
-"this particular hotspot provider. There is nothing you can do to solve this "
-"problem locally. Please be patient and try again at a later time."
+"The evidence at hand suggests that there may be an infrastructure problem at"
+" this particular hotspot provider. There is nothing you can do to solve this"
+" problem locally. Please be patient and try again at a later time."
 msgstr ""
 "Todisteet viittaavat siihen, että kyseisellä hotspot-palveluntarjoajalla "
 "saattaa olla infrastruktuuriongelmia. Et voi ratkaista tätä ongelmaa "
@@ -722,8 +737,8 @@ msgstr "Järjestelmä kysyy muutamia kotiorganisaatioosi liittyviä kysymyksiä"
 
 #: web/skins/modern/diag/diag.php:83
 msgid ""
-"What is the realm part of your user account (the part behind the @ of 'your."
-"username@<b>realm.tld</b>):"
+"What is the realm part of your user account (the part behind the @ of "
+"'your.username@<b>realm.tld</b>):"
 msgstr ""
 "Mikä on käyttäjätunnuksesi toimialueosa (osa  @ -merkin jälkeen "
 "'käyttäjätunnus@<b>organisaatio.fi </b>):"
@@ -853,7 +868,8 @@ msgid "The network environment around you is broken"
 msgstr "Lähistöllä oleva verkkoympäristö on rikki"
 
 #: web/skins/modern/diag/diag.php:319
-msgid "The RADIUS server of your service provider is the source of the problem"
+msgid ""
+"The RADIUS server of your service provider is the source of the problem"
 msgstr "Palveluntarjoajan RADIUS-palvelin on ongelman lähde"
 
 #: web/skins/modern/diag/diag.php:322
@@ -880,8 +896,8 @@ msgstr ""
 
 #: web/skins/modern/diag/diag.php:331
 msgid ""
-"The link between the national server of your home country/region and the top-"
-"level server is broken"
+"The link between the national server of your home country/region and the "
+"top-level server is broken"
 msgstr ""
 "Kotimaasi / alueesi kansallisen palvelimen ja ylätason palvelimen välinen "
 "yhteys on rikki"
@@ -896,7 +912,8 @@ msgid ""
 msgstr "Kansallinen palvelin kotimaassasi / alueellasi ei toimi oikein."
 
 #: web/skins/modern/diag/diag.php:340
-msgid "The RADIUS server of your home institution is the source of the problem"
+msgid ""
+"The RADIUS server of your home institution is the source of the problem"
 msgstr "Kotiorganisaatiosi RADIUS-palvelin on ongelman lähde"
 
 #: web/skins/modern/diag/diag.php:343
@@ -1019,348 +1036,364 @@ msgstr "Tunniste (Operator-Name) on väärin"
 #: web/diag/action_realmcheck.php:18
 #, php-format
 msgid "Sanity check for dynamic discovery of realms"
-msgstr ""
+msgstr "Automaattisesti löydettyjen realmien tarkastus"
 
 #: web/diag/action_realmcheck.php:46
 msgid ""
 "You asked for a realm check, but we don't know the realm for this profile!"
 msgstr ""
+"Pyysit realmin tarkastamista, mutta tämän profiilin realm ei ole tiedossa."
 
 #: web/diag/action_realmcheck.php:55
 msgid "No valid realm name given, cannot execute any checks!"
-msgstr ""
+msgstr "Voimassaolevaa realmia ei ole annettu. Tarkastuksia ei voi tehdä."
 
 #: web/diag/action_realmcheck.php:59
 msgid "STATIC"
-msgstr ""
+msgstr "STAATTINEN "
 
 #: web/diag/action_realmcheck.php:60
 msgid "DYNAMIC"
-msgstr ""
+msgstr "DYNAAMINEN"
 
 #: web/diag/action_realmcheck.php:88
 msgid "PASS"
-msgstr ""
+msgstr "LÄPÄISTY"
 
 #: web/diag/action_realmcheck.php:89
 msgid "FAIL"
-msgstr ""
+msgstr "EPÄONNISTUI"
 
 #: web/diag/action_realmcheck.php:90
-#, fuzzy
 msgid "Client certificate:"
-msgstr "oikea varmenne"
+msgstr "Asiakasvarmenne:"
 
 #: web/diag/action_realmcheck.php:91
 msgid "expected result: "
-msgstr ""
+msgstr "odotettu tulos:"
 
 #: web/diag/action_realmcheck.php:92
-#, fuzzy
 msgid "Server accepted this client certificate"
-msgstr "Palvelin kelpuutti EPÄKELVON asiakasvarmenteen."
+msgstr "Palvelin hyväksyi tämän asiakasvarmenteen"
 
 #: web/diag/action_realmcheck.php:93
-#, fuzzy
 msgid "Server accepted this client certificate, but should not have"
-msgstr "Palvelin hylkäsi asiakasvarmenteen kelvollisuudesta huolimatta."
+msgstr ""
+"Palvelin hyväksyi tämän päätelaitevarmenteen, vaikka sen ei olisi pitänyt "
+"tehdä niin"
 
 #: web/diag/action_realmcheck.php:94
-#, fuzzy
 msgid "Server did not accept this client certificate"
-msgstr "Palvelin kelpuutti EPÄKELVON asiakasvarmenteen."
+msgstr "Palvelin ei hyväksynyt tätä päätelaitevarmennetta"
 
 #: web/diag/action_realmcheck.php:95
-#, fuzzy
 msgid "Server did not accept this client certificate - reason"
-msgstr "Palvelin kelpuutti EPÄKELVON asiakasvarmenteen."
+msgstr "Palvelin ei hyväksynyt tätä päätelaitevarmennetta - syy"
 
 #: web/diag/action_realmcheck.php:96
 msgid "Rest of tests for this CA skipped"
-msgstr ""
+msgstr "Loput tämän CA:n testit ohitetaan"
 
 #: web/diag/action_realmcheck.php:97
 msgid "You should update your list of accredited CAs"
-msgstr ""
+msgstr "Sinun pitää päivittää hyväksyttyjen CA:iden lista"
 
 #: web/diag/action_realmcheck.php:98
 msgid "Get it from here."
-msgstr ""
+msgstr "Hae se täältä."
 
 #: web/diag/action_realmcheck.php:100
 msgid "more"
-msgstr ""
+msgstr "lisää"
 
 #: web/diag/action_realmcheck.php:102 web/diag/action_realmcheck.php:644
 msgid "Show detailed information for all tests"
-msgstr ""
+msgstr "Näytä tarkat tiedot kaikista testeistä"
 
 #: web/diag/action_realmcheck.php:117
-#, fuzzy
 msgid "Server certificate"
-msgstr "vanhentunut varmenne"
+msgstr "Palvelinvarmenne"
 
 #: web/diag/action_realmcheck.php:118
 msgid "Subject"
-msgstr ""
+msgstr "Aihe"
 
 #: web/diag/action_realmcheck.php:119
 msgid "Issuer"
-msgstr ""
+msgstr "Asettaja"
 
 #: web/diag/action_realmcheck.php:120
 msgid "SubjectAltName"
-msgstr ""
+msgstr "SubjectAltName"
 
 #: web/diag/action_realmcheck.php:121
-#, fuzzy
 msgid "Certificate policies"
-msgstr "varmenne vanhentunut"
+msgstr "Varmennepolitiikat"
 
 #: web/diag/action_realmcheck.php:122
 msgid "crlDistributionPoint"
-msgstr ""
+msgstr "crlDistributionPoint"
 
 #: web/diag/action_realmcheck.php:123
 msgid "authorityInfoAccess"
-msgstr ""
+msgstr "authorityInfoAccess"
 
 #: web/diag/action_realmcheck.php:124
 msgid "Hide detailed information for all tests"
-msgstr ""
+msgstr "Piilota tarkat tiedot kaikista testeistä"
 
 #: web/diag/action_realmcheck.php:128
 msgid "Subject:"
-msgstr ""
+msgstr "Otsikko:"
 
 #: web/diag/action_realmcheck.php:129
 msgid "Issuer:"
-msgstr ""
+msgstr "Myöntäjä:"
 
 #: web/diag/action_realmcheck.php:130
 msgid "Valid from:"
-msgstr ""
+msgstr "Voimassa alkaen:"
 
 #: web/diag/action_realmcheck.php:131
 msgid "Valid to:"
-msgstr ""
+msgstr "Voimassaolo päättyy:"
 
 #: web/diag/action_realmcheck.php:132
 msgid "Serial number:"
-msgstr ""
+msgstr "Sarjanumero:"
 
 #: web/diag/action_realmcheck.php:133
 msgid "SHA1 fingerprint:"
-msgstr ""
+msgstr "SHA1-sormenjälki:"
 
 #: web/diag/action_realmcheck.php:185
 msgid "Some required input is missing!"
-msgstr ""
+msgstr "Osa vaadituista tiedoista puuttuu!"
 
 #: web/diag/action_realmcheck.php:236 web/diag/action_realmcheck.php:317
 #: web/diag/action_realmcheck.php:340 web/diag/action_realmcheck.php:393
 #, php-format
 msgid "elapsed time: %sms."
-msgstr ""
+msgstr "kulunut aika: %sms."
 
 #: web/diag/action_realmcheck.php:330 web/diag/action_realmcheck.php:383
 msgid "Extensions"
-msgstr ""
+msgstr "Laajennukset"
 
 #: web/diag/action_realmcheck.php:331
-#, fuzzy
 msgid "show server certificate details"
-msgstr "Varmenneketjussa ei ole palvelinvarmennetta."
+msgstr "näytä palvelinvarmenteen yksityiskohdat"
 
 #: web/diag/action_realmcheck.php:351 web/diag/action_realmcheck.php:356
 msgid "See the appropriate tab for details."
-msgstr ""
+msgstr "Katso lisätietoja välilehdiltä."
 
 #: web/diag/action_realmcheck.php:370
-#, fuzzy
 msgid "Server certificate details:"
-msgstr "vanhentunut varmenne"
+msgstr "Palvelinvarmenteen yksityiskohdat:"
 
 #: web/diag/action_realmcheck.php:470
 #, php-format
 msgid "Realm testing for: %s"
-msgstr ""
+msgstr "Realmin testaus: %s"
 
 #: web/diag/action_realmcheck.php:475 web/diag/action_realmcheck.php:483
 msgid "Overview"
-msgstr ""
+msgstr "Yhteenveto"
 
 #: web/diag/action_realmcheck.php:476 web/diag/action_realmcheck.php:590
 msgid "Static connectivity tests"
-msgstr ""
+msgstr "Staattiset yhteystarkastukset"
 
 #: web/diag/action_realmcheck.php:477 web/diag/action_realmcheck.php:595
 msgid "Dynamic connectivity tests"
-msgstr ""
+msgstr "Dynaamiset yhteystarkastukset"
 
 #: web/diag/action_realmcheck.php:478
 msgid "Live login tests"
-msgstr ""
+msgstr "Live-kirjautumistestit"
 
 #. NAPTR existence check
 #: web/diag/action_realmcheck.php:487
 msgid "DNS chekcs"
-msgstr ""
+msgstr "DNS-tarkistukset"
 
 #. output in friendly words
 #: web/diag/action_realmcheck.php:492
 msgid "Checking NAPTR existence:"
-msgstr ""
+msgstr "Tarkistetaan NAPTR-tietueen olemassaolo:"
 
 #: web/diag/action_realmcheck.php:498
 msgid ""
 "This realm has NAPTR records, but none are related to this roaming "
 "consortium."
 msgstr ""
+"Realmilla on NAPTR-tietueet, mutta mikään ei liity tähän "
+"verkkovierailukonsortioon."
 
 #. if none of the possible negative retvals, then we have matching NAPTRs
 #: web/diag/action_realmcheck.php:501
-#, fuzzy, php-format
+#, php-format
 msgid "This realm has %d NAPTR records relating to this roaming consortium."
-msgstr "Tällä realmilla ei ole NAPTR-tietueita."
+msgstr ""
+"Realmilla on %d NAPTR-tietuetta, jotka liittyvät tähän "
+"verkkovierailukonsortioon."
 
 #: web/diag/action_realmcheck.php:507
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
 msgstr ""
+"Tarkistetaan onko NAPTR:n formaatti yhteensopiva (lippu = S ja regex = "
+"{tyhjä}):"
 
 #: web/diag/action_realmcheck.php:511
 msgid "No issues found."
-msgstr ""
+msgstr "Ongelmia ei löytynyt."
 
 #: web/diag/action_realmcheck.php:514 web/diag/action_realmcheck.php:530
 #, php-format
 msgid "At least one NAPTR with invalid content found!"
-msgstr ""
+msgstr "Vähintään yhden NAPTR-tietueen sisältö on virheellinen!"
 
 #: web/diag/action_realmcheck.php:524
 msgid "Checking SRVs:"
-msgstr ""
+msgstr "Tarkistetaan SRV:t:"
 
 #. print number of successfully retrieved SRV targets
 #: web/diag/action_realmcheck.php:533
 #, php-format
 msgid "%d host names discovered."
-msgstr ""
+msgstr "%d laitenimeä löydetty."
 
 #: web/diag/action_realmcheck.php:540
 msgid "Checking IP address resolution:"
-msgstr ""
+msgstr "Tarkistetaan IP-osoitetta nimipalvelusta:"
 
 #: web/diag/action_realmcheck.php:546
 #, php-format
 msgid "At least one hostname could not be resolved!"
-msgstr ""
+msgstr "Vähintään yhden laitenimen resolvointi epäonnistui!"
 
 #. print number of successfully retrieved SRV targets
 #: web/diag/action_realmcheck.php:549
 #, php-format
 msgid "%d IP addresses resolved."
-msgstr ""
+msgstr "%d IP-osoitetta tarkistettu."
 
 #: web/diag/action_realmcheck.php:556 web/diag/action_realmcheck.php:558
 #, php-format
 msgid "Realm is <strong>%s</strong> "
-msgstr ""
+msgstr "Realm on <strong>%s</strong>"
 
 #: web/diag/action_realmcheck.php:556
 msgid "with no DNS errors encountered. Congratulations!"
-msgstr ""
+msgstr "ilman DNS-virheitä. Onneksi olkoon!"
 
 #: web/diag/action_realmcheck.php:558
-#, fuzzy
 msgid "but there were DNS errors! Check them!"
-msgstr "Testissä havaittiin virheitä."
+msgstr "mutta DNS-virheitä löytyi. Tarkasta ne!"
 
 #: web/diag/action_realmcheck.php:558
 msgid ""
 "You should re-run the tests after fixing the errors; more errors might be "
 "uncovered at that point. The exact error causes are listed below."
 msgstr ""
+"Uudelleenaja tarkistukset korjattuasi virheet; uusiakin virheitä saattaa "
+"löytyä. Varsinaiset virhesyyt on listattu alla."
 
 #: web/diag/action_realmcheck.php:588
 msgid "Dynamic discovery test is not configured"
-msgstr ""
+msgstr "Dynamic discovery ei ole määritelty"
 
 #: web/diag/action_realmcheck.php:606
 msgid "Repeat static connectivity tests"
-msgstr ""
+msgstr "Toista staattiset yhteystarkastukset."
 
 #: web/diag/action_realmcheck.php:609
 msgid "STATIC connectivity tests"
-msgstr ""
+msgstr "STAATTISET yhteystarkastukset"
 
 #: web/diag/action_realmcheck.php:611
 msgid ""
-"This check sends a request for the realm through various entry points of the "
-"roaming consortium infrastructure. The request will contain the 'Operator-"
+"This check sends a request for the realm through various entry points of the"
+" roaming consortium infrastructure. The request will contain the 'Operator-"
 "Name' attribute, and will be larger than 1500 Bytes to catch two common "
 "configuration problems.<br/>Since we don't have actual credentials for the "
 "realm, we can't authenticate successfully - so the expected outcome is to "
 "get an Access-Reject after having gone through an EAP conversation."
 msgstr ""
+"Tämä tarkastus lähettää testipyynnön toimialueelle useasta verkkovierailun "
+"infrastuktuuriin kuuluvasta pisteestä. Pyyntö sisältää 'Operator-"
+"Name'-attribuutin ja se on suurempi kuin 1500 tavua, jotta tavallisimmat "
+"konfiguraatiovirheet löytyisivät. <br/>Koska käytössä ei ole oikeita "
+"käyttäjätunnuksia toimialueelle, autentikointi ei onnistu. Niinpä odotettu "
+"lopputulema on Access-Reject EAP-neuvottelun jälkeen. "
 
 #: web/diag/action_realmcheck.php:615 web/diag/action_realmcheck.php:727
-#, fuzzy, php-format
+#, php-format
 msgid "Testing from: %s"
-msgstr "Testataan toimialue"
+msgstr "Testataan: %s"
 
 #: web/diag/action_realmcheck.php:620 web/diag/action_realmcheck.php:653
 #: web/diag/action_realmcheck.php:666
 msgid "testing..."
-msgstr ""
+msgstr "testataan..."
 
 #: web/diag/action_realmcheck.php:635
 msgid "Repeat dynamic connectivity tests"
-msgstr ""
+msgstr "Toista dynaamiset yhteystarkastukset"
 
 #: web/diag/action_realmcheck.php:639
 msgid "DYNAMIC connectivity tests"
-msgstr ""
+msgstr "DYNAAMISET yhteydenottotestit"
 
 #: web/diag/action_realmcheck.php:643
 msgid "Some errors were found during the tests, see below"
-msgstr ""
+msgstr "Joitakin virheitä löydettiin testeissä, katso tarkemmin alempaa"
 
 #: web/diag/action_realmcheck.php:643
 msgid "All tests passed, congratulations!"
-msgstr ""
+msgstr "Kaikki testit onnistuivat, onneksi olkoon!"
 
 #: web/diag/action_realmcheck.php:644
 msgid "Checking server handshake..."
-msgstr ""
+msgstr "Tarkastan palvelinten kättelyn..."
 
 #: web/diag/action_realmcheck.php:674
 msgid "Checking if certificates from  CAs are accepted..."
-msgstr ""
+msgstr "Tarkastaa ovatko CA:n varmenteet hyväksyttyjä..."
 
 #: web/diag/action_realmcheck.php:674
 msgid ""
 "A few client certificates will be tested to check if servers are resistant "
 "to some certificate problems."
 msgstr ""
+"Muutamia päätelaitevarmenteita testataan tunnettujen varmenneongelmien "
+"varalta."
 
 #: web/diag/action_realmcheck.php:688
 msgid "Live login test"
-msgstr ""
+msgstr "Live-kirjautumistesti"
 
 #: web/diag/action_realmcheck.php:701
 msgid ""
 "If you enter an existing login credential here, you can test the actual "
 "authentication from various checkpoints all over the world."
 msgstr ""
+"Jos syötät tähän olemassa olevat käyttäjätunnukset, voit testata oikeaa "
+"autentikointia eri puolilla maailmaa sijaitsevilta tarkastuspisteiltä käsin."
 
 #: web/diag/action_realmcheck.php:702
 msgid ""
 "The test will use all EAP types you have set in your profile information to "
-"check whether the right CAs and server names are used, and of course whether "
-"the login with these credentials and the given EAP type actually worked. If "
-"you have set anonymous outer ID, the test will use that."
+"check whether the right CAs and server names are used, and of course whether"
+" the login with these credentials and the given EAP type actually worked. If"
+" you have set anonymous outer ID, the test will use that."
 msgstr ""
+"Testi käyttää kaikkia profiilitietoihin määriteltyjä EAP-tyyppejä oikeiden "
+"varmennetahojen ja palvelinnimien tarkastamiseksi. Ja tietysti toimiiko "
+"kirjautuminen annetuilla käyttäjätunnuksilla ja määritellyillä EAP-"
+"tyypeillä. Mikäli anonyymi ulkoidentiteetti on valittu käyttöön, testi "
+"käyttää sitä."
 
 #: web/diag/action_realmcheck.php:703
 msgid ""
@@ -1369,125 +1402,130 @@ msgid ""
 "<strong>temporary test accounts</strong> here; permanently valid test "
 "accounts in the wild are considered harmful!"
 msgstr ""
+"Huomaa: työkalu ei tarkoituksellisesti salli tai ehdota käyttäjätunnusten "
+"tallentamista, ja niitä ei missään vaiheessa tallenneta palvelimelle. Ole "
+"hyvä, ja käytä tästä huolimatta <strong>vain väliaikaisia "
+"testitunnuksia</strong>; jatkuvasti samana pysyvien testitunnusten käyttö on"
+" haitallista."
 
 #: web/diag/action_realmcheck.php:711
 msgid "Password-based EAP types"
-msgstr ""
+msgstr "Salasanapohjaiset EAP-tyypit"
 
 #: web/diag/action_realmcheck.php:712
 msgid "Real (inner) username:"
-msgstr ""
+msgstr "Todellinen (sisempi kuori) käyttäjänimi:"
 
 #: web/diag/action_realmcheck.php:713
 msgid "Anonymous outer ID (optional):"
-msgstr ""
+msgstr "Anonyymi ulomman kuoren käyttäjänimi (ei pakollinen):"
 
 #: web/diag/action_realmcheck.php:714
 msgid "Password:"
-msgstr ""
+msgstr "Salasana:"
 
 #: web/diag/action_realmcheck.php:718
 msgid "Certificate-based EAP types"
-msgstr ""
+msgstr "Varmennepohjaiset EAP-tyypit"
 
 #: web/diag/action_realmcheck.php:719
 msgid "Certificate file (.p12 or .pfx):"
-msgstr ""
+msgstr "Varmennetiedosto (.p12 tai .pfx):"
 
 #: web/diag/action_realmcheck.php:720
 msgid "Certificate password, if any:"
-msgstr ""
+msgstr "Varmenteen mahdollinen salasana:"
 
 #: web/diag/action_realmcheck.php:721
 msgid "Username, if different from certificate Subject:"
-msgstr ""
+msgstr "Käyttäjänimi, mikäli eroaa varmenteen otsikosta:"
 
 #: web/diag/action_realmcheck.php:723
 msgid "Submit credentials"
-msgstr ""
+msgstr "Lähetä tunnukset"
 
 #: web/diag/action_realmcheck.php:749
-#, fuzzy, php-format
+#, php-format
 msgid "Return to %s administrator area"
-msgstr "eduroam-ylläpitäjä"
+msgstr "Takaisin %s ylläpitoalueelle"
 
 #: web/diag/adminQuery.php:17
 msgid "I suspect a Technical Problem with the IdP"
-msgstr ""
+msgstr "Epäilen, että IdP:llä on tekninen ongelma."
 
 #: web/diag/adminQuery.php:18
 msgid "A user from this IdP has allegedly infringed copyrights"
-msgstr ""
+msgstr "Tämän IdP:n käyttäjä on loukannut tekijänoikeuksia"
 
 #: web/diag/adminQuery.php:19
 msgid ""
-"A user from this IdP has conducted malicious network operations (spam, "
-"DDoS, ...)"
+"A user from this IdP has conducted malicious network operations (spam, DDoS,"
+" ...)"
 msgstr ""
+"Tämän IdP:n käyttäjä on käyttänyt haittaohjelmia (roskaposti, DDoS, ...)"
 
 #: web/diag/adminQuery.php:22
 msgid ""
 "User claims connectivity problems but has been authenticated successfully"
 msgstr ""
+"Käyttäjä valittaa liittymisongelmista, mutta hänet on tunnistettu "
+"onnistuneesti "
 
 #: web/diag/adminQuery.php:23
 msgid "User claims that mandatory open port is not open"
-msgstr ""
+msgstr "Käyttäjä väittää, että pakollinen avoin portti ei ole avattu"
 
 #: web/diag/adminQuery.php:51 web/diag/adminQuery.php:98
 msgid "Select your problem"
-msgstr ""
+msgstr "Valitse ongelma"
 
 #: web/diag/adminQuery.php:55
 msgid "What is the realm of the IdP in question?"
-msgstr ""
+msgstr "Mikä on IdP:n toimialue?"
 
 #: web/diag/adminQuery.php:59
 msgid "Check if this value is registered"
-msgstr ""
+msgstr "Tarkista, onko tämä arvo rekisteröity"
 
 #: web/diag/adminQuery.php:64 web/diag/adminQuery.php:127
 msgid "What is the authentication timestamp of the user session in question?"
-msgstr ""
+msgstr "Mikä on kyseisen käyttäjäistunnon todennuksen ajankohta?"
 
 #: web/diag/adminQuery.php:70 web/diag/adminQuery.php:134
 msgid "What is the MAC address of the user session in question?"
-msgstr ""
+msgstr "Mikä on kyseisessä käyttäjäistunnossa käyttäjän MAC-osoite? "
 
 #: web/diag/adminQuery.php:74
-#, fuzzy
 msgid "Additional comments"
-msgstr "Lisäkuvaus"
+msgstr "Muita kommentteja"
 
 #: web/diag/adminQuery.php:78
 msgid "Please specify an email address on which the IdP can contact you"
-msgstr ""
+msgstr "Määritä sähköpostiosoite, jolle IdP voi ottaa sinuun yhteyttä"
 
 #: web/diag/adminQuery.php:82 web/diag/adminQuery.php:150
 msgid "Now you can send your query"
-msgstr ""
+msgstr "Nyt voit lähettää kyselyn"
 
 #: web/diag/adminQuery.php:83 web/diag/adminQuery.php:151
 msgid "Send"
-msgstr ""
+msgstr "Lähetä"
 
 #: web/diag/adminQuery.php:102
 msgid "Identify the SP by one of following means"
-msgstr ""
+msgstr "Tunnista SP yksi seuraavista tavoista"
 
 #: web/diag/adminQuery.php:106
-#, fuzzy
 msgid "SP Operator-Name attribute"
-msgstr "SP:n tunniste"
+msgstr "SP Operator-Name -attribuutti"
 
 #: web/diag/adminQuery.php:110
 msgid "Select the SP manually:"
-msgstr ""
+msgstr "Valitse SP käsin:"
 
 #: web/diag/adminQuery.php:113
-#, fuzzy
 msgid "click to select country and organisation"
-msgstr "Valitse maa ja organisaatio"
+msgstr "valitse maa ja organisaatio klikkaamalla"
 
 #: web/diag/adminQuery.php:119
 msgid "at least describe the SP location"
@@ -1516,32 +1554,35 @@ msgid ""
 "Some properties of the connection attempt were sub-optimal; the list is "
 "below."
 msgstr ""
+"Kaikki yhteysasetukset eivät olleet optimaalisia; katso alla oleva listaus."
 
 #: web/diag/radius_tests.php:25
 msgid "Some configuration errors were observed; the list is below."
-msgstr ""
+msgstr "Löytyi joitain määritysvirheitä; lista alla."
 
 #: web/diag/radius_tests.php:141
 msgid "<strong>Test successful.</strong>"
-msgstr ""
+msgstr "<strong>Testi onnistui.</strong>:"
 
 #: web/diag/radius_tests.php:145
 msgid "<strong>Test partially successful</strong>: authentication succeded."
-msgstr ""
+msgstr "<strong>Testi onnistui osittain</strong>: autentikointi onnistui."
 
 #: web/diag/radius_tests.php:148
 msgid "<strong>Test FAILED</strong>: authentication succeded."
-msgstr ""
+msgstr "<strong>Testi EPÄONNISTUI</strong>: autentikointi onnistui."
 
 #: web/diag/radius_tests.php:153
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected. The most likely "
 "cause is that you have misspelt the Username and/or the Password."
 msgstr ""
+"<strong>Testi EPÄONNISTUI</strong>: pyyntö hylättiin. Todennäköisesti "
+"käyttäjätunnus ja/tai salasana oli väärä."
 
 #: web/diag/radius_tests.php:158
 msgid "This method cannot be tested"
-msgstr ""
+msgstr "Metodia ei voitu testata"
 
 #: web/diag/radius_tests.php:162
 msgid ""
@@ -1549,6 +1590,9 @@ msgid ""
 "EAP conversation. Either you have misspelt the Username or there is "
 "something seriously wrong with your server."
 msgstr ""
+"<strong>Testi EPÄONNISTUI</strong>: pyyntö hylättiin ilman EAP-"
+"viestinvaihtoa. Käyttäjätunnus oli väärä tai palvelimen asetuksissa on "
+"ongelmia."
 
 #: web/diag/radius_tests.php:168 web/diag/radius_tests.php:210
 #, php-format
@@ -1556,52 +1600,58 @@ msgid ""
 "<strong>Test FAILED</strong>: no reply from the RADIUS server after %d "
 "seconds. Either the responsible server is down, or routing is broken!"
 msgstr ""
+"<strong>Testi epäonnistui</strong>: RADIUS-palvelin ei vastannut %d "
+"sekunnissa. Joko palvelimessa on vikaa tai reititys ei toimi."
 
 #: web/diag/radius_tests.php:173 web/diag/radius_tests.php:214
-#, fuzzy, php-format
+#, php-format
 msgid ""
-"<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation, "
-"but it did not finish after %d seconds!"
+"<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation,"
+" but it did not finish after %d seconds!"
 msgstr ""
-"<strong>Testi onnistui</strong>: kaksisuuntainen RADIUS-neuvottelu käytiin "
-"läpi ja se päättyi suunnitellusti Access-Reject-vastaukseen."
+"<strong>Testi EPÄONNISTUI</strong>: kaksisuuntainen RADIUS-neuvottelu ei "
+"onnistunut %d sekunnissa."
 
 #: web/diag/radius_tests.php:178
 msgid "<strong>Test FAILED</strong>"
-msgstr ""
+msgstr "<strong>Testi EPÄONNISTUI</strong>"
 
 #: web/diag/radius_tests.php:199
-#, fuzzy
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
 "Access-Reject as planned."
 msgstr ""
-"<strong>Testi onnistui</strong>: kaksisuuntainen RADIUS-neuvottelu käytiin "
-"läpi ja se päättyi suunnitellusti Access-Reject-vastaukseen."
+"<strong>Testi onnistui</strong>: kaksisuuntainen RADIUS-neuvottelu "
+"suoritettiin ja se päättyi suunnitellusti Access-Reject-tilaan."
 
 #: web/diag/radius_tests.php:205
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. This is not necessarily an error: if the RADIUS server "
-"enforces that outer identities correspond to an existing username, then this "
-"result is expected (Note: you could configure a valid outer identity in your "
-"profile settings to get past this hurdle). In all other cases, the server "
-"appears misconfigured or it is unreachable."
+"enforces that outer identities correspond to an existing username, then this"
+" result is expected (Note: you could configure a valid outer identity in "
+"your profile settings to get past this hurdle). In all other cases, the "
+"server appears misconfigured or it is unreachable."
 msgstr ""
+"<strong>Testi EPÄONNISTUI</strong>: pyyntö hylättiin ilman EAP-"
+"viestinvaihtoa. Tämä ei välttämättä ole ongelma, mikäli RADIUS on määritelty"
+" hylkäämään pyynnöt, joissa ulkoinen identiteetti ei vastaa todellista "
+"käyttäjänimeä. Jos näin ei ole tarkoitettu, palvelin vastasi väärin."
 
 #: web/diag/radius_tests.php:218
 msgid "unhandled error"
-msgstr ""
+msgstr "odottamaton virhe"
 
 #: web/diag/radius_tests.php:236
-#, fuzzy
 msgid ""
 "<strong>ERROR</strong>: the server presented a certificate which is from an "
 "unknown authority!"
-msgstr "Palvelin tarjosi tuntemattoman varmentajan myöntämän varmenteen."
+msgstr ""
+"<strong>VIRHE</strong>: palvelin lähetti varmenteen, joka on peräisin "
+"tuntemattomasta lähteestä!"
 
 #: web/diag/radius_tests.php:236 web/diag/radius_tests.php:242
 #, php-format
 msgid "elapsed time: %d"
-msgstr ""
+msgstr "kulunut aika: %d"

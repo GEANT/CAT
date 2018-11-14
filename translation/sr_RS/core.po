@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Marina Vermezovic <marina.vermezovic@rcub.bg.ac.rs>, 2012
 # Marko Eremija <marko.eremija@amres.ac.rs>, 2013,2015,2018
@@ -11,24 +11,20 @@ msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-07 14:23+0100\n"
-"PO-Revision-Date: 2018-09-24 08:46+0000\n"
-"Last-Translator: Marko Eremija <marko.eremija@amres.ac.rs>\n"
-"Language-Team: Serbian (http://www.transifex.com/eduroam_devel/cat/language/"
-"sr/)\n"
-"Language: sr\n"
+"PO-Revision-Date: 2018-11-14 09:59+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"Language-Team: Serbian (Serbia) (http://www.transifex.com/eduroam_devel/cat/language/sr_RS/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: sr_RS\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: core/CAT.php:111
 msgid ""
-"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git "
-"Revision</a>"
-msgstr ""
-"Neobjavljena verzija <a href='https://github.com/GEANT/CAT/tree/master/"
-"Changes.md'>Git Revision</a>"
+"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git"
+" Revision</a>"
+msgstr "Neobjavljena verzija <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git Revision</a>"
 
 #: core/CAT.php:121
 #, php-format
@@ -326,8 +322,7 @@ msgstr "vaša lokalna %s stranica za podršku"
 
 #: core/DeviceConfig.php:237
 msgid "Sorry, this should not happen - no additional information is available"
-msgstr ""
-"Izvinite, ovo ne bi trebalo da se desi - dodatne informacije nisu dostupne"
+msgstr "Izvinite, ovo ne bi trebalo da se desi - dodatne informacije nisu dostupne"
 
 #: core/IdP.php:243
 #, php-format
@@ -341,16 +336,7 @@ msgid ""
 "Best regards,\n"
 "\n"
 "%s"
-msgstr ""
-"Zdravo,\n"
-"\n"
-"Davalac indentiteta %s u vašoj %s federaciji %s je obrisan iz %s.\n"
-"\n"
-"Mislimo da biste želeli da znate.\n"
-"\n"
-"Pozdrav,\n"
-"\n"
-"%s"
+msgstr "Zdravo,\n\nDavalac indentiteta %s u vašoj %s federaciji %s je obrisan iz %s.\n\nMislimo da biste želeli da znate.\n\nPozdrav,\n\n%s"
 
 #: core/IdP.php:252
 msgid "IdP in your federation was deleted"
@@ -370,8 +356,7 @@ msgstr "Zdravo!"
 msgid ""
 "A new %s access credential has been created for you by your network "
 "administrator."
-msgstr ""
-"Vaš mrežni administrator je kreirao nove %s pristupne kredencijale za vas."
+msgstr "Vaš mrežni administrator je kreirao nove %s pristupne kredencijale za vas."
 
 #: core/SilverbulletInvitation.php:220
 #, php-format
@@ -379,10 +364,7 @@ msgid ""
 "Please follow the following link with the device you want to enable for %s "
 "to get a custom %s installation program just for you. You can click on the "
 "link, copy and paste it into a browser or scan the attached QR code."
-msgstr ""
-"Pratite sledeći link na uređaju na kom želite da omogućite %s korišćenjem  "
-"posebnog %s instalera generisanog za vas. Možete kliknuti na link, kopirati "
-"i uneti u brauzer ili skenirati QR kod. "
+msgstr "Pratite sledeći link na uređaju na kom želite da omogućite %s korišćenjem  posebnog %s instalera generisanog za vas. Možete kliknuti na link, kopirati i uneti u brauzer ili skenirati QR kod. "
 
 #. gets replaced with the token value by getBody()
 #: core/SilverbulletInvitation.php:222
@@ -391,10 +373,7 @@ msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
 "up your %s installation program, you can use the same link to get status "
 "information about your %s account."
-msgstr ""
-"Molimo vas da sačuvate ovaj imejl ili da sačuvate link za buduću upotrebu. "
-"Nakon što preuzmete %s instalacioni program, možete koristiti isti link da "
-"dobijete informacije o vašem %s nalogu."
+msgstr "Molimo vas da sačuvate ovaj imejl ili da sačuvate link za buduću upotrebu. Nakon što preuzmete %s instalacioni program, možete koristiti isti link da dobijete informacije o vašem %s nalogu."
 
 #: core/SilverbulletInvitation.php:224
 msgid "Regards,"
@@ -405,9 +384,7 @@ msgstr "Pozdrav,"
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
 "'%s'!)"
-msgstr ""
-"Vaš %s pristup je spreman! Kliknite ovde: %s (na Androidu, prvo instalirajte "
-"aplikaciju '%s'!)"
+msgstr "Vaš %s pristup je spreman! Kliknite ovde: %s (na Androidu, prvo instalirajte aplikaciju '%s'!)"
 
 #: core/SilverbulletInvitation.php:283
 #, php-format
@@ -418,31 +395,21 @@ msgstr "%s sistem pozivanja"
 #. /                2. consortium name (e.g. eduroam);
 #. /                3. federation shortname, e.g. "LU";
 #. /                4. product name (e.g. eduroam CAT);
-#. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
+#. /                5. product long name (e.g. eduroam Configuration Assistant
+#. Tool)
 #: core/UserManagement.php:194
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the invitation for the new Identity Provider %s in your %s federation %s has "
-"been used and the IdP was created in %s.\n"
+"the invitation for the new Identity Provider %s in your %s federation %s has been used and the IdP was created in %s.\n"
 "\n"
 "We thought you might want to know.\n"
 "\n"
 "Best regards,\n"
 "\n"
 "%s"
-msgstr ""
-"Zdravo,\n"
-"\n"
-"pozivnica za novog Davaoca Identiteta %s iz vaše %s federacije %s je "
-"iskorišćena i Davalac Identiteta je napravljen u %s.\n"
-"\n"
-"Mislimo da biste želeli da znate.\n"
-"\n"
-"Pozdrav,\n"
-"\n"
-"%s"
+msgstr "Zdravo,\n\npozivnica za novog Davaoca Identiteta %s iz vaše %s federacije %s je iskorišćena i Davalac Identiteta je napravljen u %s.\n\nMislimo da biste želeli da znate.\n\nPozdrav,\n\n%s"
 
 #: core/UserManagement.php:203
 msgid "IdP in your federation was created"
@@ -510,9 +477,7 @@ msgstr "Zdravo, "
 #: core/common/OutsideComm.php:260
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
-msgstr ""
-"ručno. Nemojte odgovarati na ovaj mejl; ovo je adresa koja se koristi samo "
-"za slanje."
+msgstr "ručno. Nemojte odgovarati na ovaj mejl; ovo je adresa koja se koristi samo za slanje."
 
 #: core/common/OutsideComm.php:266
 #, php-format
@@ -535,17 +500,14 @@ msgstr "ručno. Ako odgovorite na ovaj mejl, doći ćete do administratora %s."
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
 "link:"
-msgstr ""
-"Da biste se prijavili kao administrator za %s, kliknite ne sledeći link:"
+msgstr "Da biste se prijavili kao administrator za %s, kliknite ne sledeći link:"
 
 #: core/common/OutsideComm.php:284
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
 "Interface at"
-msgstr ""
-"Ukoliko ne možete da kliknete na link, onda pokušajte da odete na %s "
-"interfejs za administraciju na"
+msgstr "Ukoliko ne možete da kliknete na link, onda pokušajte da odete na %s interfejs za administraciju na"
 
 #: core/common/OutsideComm.php:286
 msgid "and enter the invitation token"
@@ -553,11 +515,9 @@ msgstr "i ručno unesite token iz pozivnice"
 
 #: core/common/OutsideComm.php:288
 msgid ""
-"Do NOT forward the mail before the token has expired - or the recipients may "
-"be able to consume the token on your behalf!"
-msgstr ""
-"NEMOJTE prosleđivati ovaj mejl pre nego što token istekne - u suprotnom, oni "
-"koji dobiju mejl će moći da iskoriste token u vaše ime!"
+"Do NOT forward the mail before the token has expired - or the recipients may"
+" be able to consume the token on your behalf!"
+msgstr "NEMOJTE prosleđivati ovaj mejl pre nego što token istekne - u suprotnom, oni koji dobiju mejl će moći da iskoriste token u vaše ime!"
 
 #: core/common/OutsideComm.php:289
 #, php-format
@@ -570,10 +530,7 @@ msgid ""
 "Sincerely,\n"
 "\n"
 "Your friendly folks from %s Operations"
-msgstr ""
-"Srdačan pozdrav,\n"
-"\n"
-"Vaši prijatelji iz %s Operacija"
+msgstr "Srdačan pozdrav,\n\nVaši prijatelji iz %s Operacija"
 
 #. what do we want to say?
 #: core/common/OutsideComm.php:325

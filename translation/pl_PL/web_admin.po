@@ -1,11 +1,11 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Maja Górecka-Wolniewicz <mgw@umk.pl>, 2011-2013
 # Maja Wolniewicz <maja.wolniewicz@gmail.com>, 2018
-# Tomasz Wolniewicz <tw2529@gmail.com>, 2016
+# Tomasz Wolniewicz <tw2529@gmail.com>, 2012,2015-2016
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2015
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2012
 msgid ""
@@ -13,17 +13,14 @@ msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-07 14:23+0100\n"
-"PO-Revision-Date: 2018-09-17 14:13+0000\n"
+"PO-Revision-Date: 2018-10-19 14:08+0000\n"
 "Last-Translator: Maja Wolniewicz <maja.wolniewicz@gmail.com>\n"
-"Language-Team: Polish (Poland) (http://www.transifex.com/eduroam_devel/cat/"
-"language/pl_PL/)\n"
-"Language: pl_PL\n"
+"Language-Team: Polish (Poland) (http://www.transifex.com/eduroam_devel/cat/language/pl_PL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
-"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
-"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Language: pl_PL\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 #: web/admin/action_enrollment.php:41 web/admin/action_enrollment.php:67
 #: web/admin/action_enrollment.php:68
@@ -38,40 +35,32 @@ msgstr "Dostęp do strony wymaga ważnego zaproszenia!"
 msgid ""
 "You tried to register in self-service, but this deployment does not allow "
 "self-service!"
-msgstr ""
-"Próbujesz zarejestrować się w usłudze samoobsługowej, ale ta instalacja nie "
-"pozwala na stosowanie samodzielnej obsługi!"
+msgstr "Próbujesz zarejestrować się w usłudze samoobsługowej, ale ta instalacja nie pozwala na stosowanie samodzielnej obsługi!"
 
 #: web/admin/action_enrollment.php:71
 #, php-format
 msgid ""
-"Sorry... this token has already been used. The %s is already created. If you "
-"got the invitation from a mailing list, probably someone else used it before "
-"you."
-msgstr ""
-"Przepraszamy... ten token został już użyty. Instancja %s jest już utworzona. "
-"Jeśli otrzymałeś token przez jakąś listę mailową, prawdopodobnie ktoś inny "
-"użył go przed Tobą."
+"Sorry... this token has already been used. The %s is already created. If you"
+" got the invitation from a mailing list, probably someone else used it "
+"before you."
+msgstr "Przepraszamy... ten token został już użyty. Instancja %s jest już utworzona. Jeśli otrzymałeś token przez jakąś listę mailową, prawdopodobnie ktoś inny użył go przed Tobą."
 
 #: web/admin/action_enrollment.php:74
 #, php-format
 msgid ""
 "Sorry... this token has expired. Invitation tokens are valid for 24 hours. "
 "The %s administrator can create a new one for you."
-msgstr ""
-"Przepraszamy... ten token stracił ważność. Tokeny z zaproszeniem są ważne "
-"przez 24 godziny. Poproś Twojego administratora %s o nowe zaproszenie."
+msgstr "Przepraszamy... ten token stracił ważność. Tokeny z zaproszeniem są ważne przez 24 godziny. Poproś Twojego administratora %s o nowe zaproszenie."
 
 #: web/admin/action_enrollment.php:77
 msgid ""
-"Sorry... you have come to the enrollment page without a valid token. Are you "
-"a nasty person? If not, you should go to <a href='overview_user.php'>your "
+"Sorry... you have come to the enrollment page without a valid token. Are you"
+" a nasty person? If not, you should go to <a href='overview_user.php'>your "
 "profile page</a> instead."
-msgstr ""
-"Przepraszamy... korzystasz z tej strony bez ważnego tokena. Przejdź do "
-"strony swojego <a href='overview_user.php'>profilu</a>."
+msgstr "Przepraszamy... korzystasz z tej strony bez ważnego tokena. Przejdź do strony swojego <a href='overview_user.php'>profilu</a>."
 
-#. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
+#. / product name (eduroam CAT), then term used for "federation", then actual
+#. name of federation.
 #: web/admin/edit_federation.php:34
 #, php-format
 msgid "%s: Editing %s '%s'"
@@ -158,12 +147,7 @@ msgid ""
 "questions about it, so that we can generate beautiful profiles for you in "
 "the end. All of the information below is optional, but it is important to "
 "fill out as many fields as possible for the benefit of your end users."
-msgstr ""
-"Witaj nowy użytkowniku! %s jest nową instytucją w systemie. Ten kreator zada "
-"Ci kilka pytań dotyczących Twojej instytucji, abyśmy mogli wygenerować dla "
-"Ciebie najbardziej odpowiedni profil. Wszystkie poniższe dane są opcjonalne, "
-"ale zalecamy wypełnienie pól, dzięki czemu będzie możliwe utworzenie "
-"lepszego profilu dla użytkowników. "
+msgstr "Witaj nowy użytkowniku! %s jest nową instytucją w systemie. Ten kreator zada Ci kilka pytań dotyczących Twojej instytucji, abyśmy mogli wygenerować dla Ciebie najbardziej odpowiedni profil. Wszystkie poniższe dane są opcjonalne, ale zalecamy wypełnienie pól, dzięki czemu będzie możliwe utworzenie lepszego profilu dla użytkowników. "
 
 #: web/admin/edit_idp.php:97
 msgid "General Information"
@@ -172,12 +156,9 @@ msgstr "Informacje ogólne"
 #: web/admin/edit_idp.php:101
 msgid ""
 "Some properties are valid across all deployment profiles. This is the place "
-"where you can describe those properties in a fine-grained way. The solicited "
-"information is used as follows:"
-msgstr ""
-"Szereg własności odnosi się do wszystkich tworzonych profili. W tym miejscu "
-"możesz opisać szczegółowo te własności. Informacja ta jest wykorzystywana "
-"następująco:"
+"where you can describe those properties in a fine-grained way. The solicited"
+" information is used as follows:"
+msgstr "Szereg własności odnosi się do wszystkich tworzonych profili. W tym miejscu możesz opisać szczegółowo te własności. Informacja ta jest wykorzystywana następująco:"
 
 #: web/admin/edit_idp.php:103
 msgid ""
@@ -185,11 +166,7 @@ msgid ""
 "all installers where a custom logo is possible. We accept any image format, "
 "but for best results, we suggest SVG. If you don't upload a logo, we will "
 "use the generic logo instead (see top-right corner of this page)."
-msgstr ""
-"<strong>Logo</strong>: Jeżeli wyślesz nam logo, to zostanie ono dołączone do "
-"instalatorów wszędzie, gdzie jest miejsce na indywidualne logo. Akceptujemy "
-"dowolny format, ale dla lepszego efektu, zalecamy stosowanie SVG. Jeżeli nie "
-"przekażesz nam logo, to użyjemy w tym miejscu logo domyślnego."
+msgstr "<strong>Logo</strong>: Jeżeli wyślesz nam logo, to zostanie ono dołączone do instalatorów wszędzie, gdzie jest miejsce na indywidualne logo. Akceptujemy dowolny format, ale dla lepszego efektu, zalecamy stosowanie SVG. Jeżeli nie przekażesz nam logo, to użyjemy w tym miejscu logo domyślnego."
 
 #: web/admin/edit_idp.php:104
 #, php-format
@@ -198,11 +175,7 @@ msgid ""
 "recommended to always populate at least the 'default/other' language, as it "
 "is used as a fallback if the system does not have a name in the exact "
 "language the user requests a download in."
-msgstr ""
-"<strong>Nazwa</strong>: %s może mieć nazwy w różnych językach. Zalecamy "
-"wskazanie domyślnego języka, który będzie używany w sytuacji, gdy system nie "
-"będzie dysponował nazwą w języku wybranym przez użytkownika w ramach "
-"zlecenia pobierania profilu."
+msgstr "<strong>Nazwa</strong>: %s może mieć nazwy w różnych językach. Zalecamy wskazanie domyślnego języka, który będzie używany w sytuacji, gdy system nie będzie dysponował nazwą w języku wybranym przez użytkownika w ramach zlecenia pobierania profilu."
 
 #: web/admin/edit_idp.php:115 web/lib/admin/UIElements.php:229
 msgid "Media Properties"
@@ -213,9 +186,7 @@ msgstr "Dane łącza"
 msgid ""
 "In this section, you define on which media %s should be configured on user "
 "devices."
-msgstr ""
-"W tej sekcji określasz parametry łącza dla konfiguracji %s na urządzeniach "
-"użytkowników."
+msgstr "W tej sekcji określasz parametry łącza dla konfiguracji %s na urządzeniach użytkowników."
 
 #: web/admin/edit_idp.php:122
 msgid "Additional SSIDs:"
@@ -238,17 +209,14 @@ msgstr[3] "Te SSID zostaną zawsze skonfigurowane dla WPA2/AES: %s."
 msgid ""
 "They will also be configured for WPA/TKIP if the device supports multiple "
 "encryption types."
-msgstr ""
-"Zostanie dodatkowo skonfigurowane WPA/TKIP o ile urządzenie wspiera różne "
-"rodzaje szyfrowania."
+msgstr "Zostanie dodatkowo skonfigurowane WPA/TKIP o ile urządzenie wspiera różne rodzaje szyfrowania."
 
 #: web/admin/edit_idp.php:133
 #, php-format
 msgid ""
 "It is also possible to define custom additional SSIDs with the options '%s' "
 "and '%s' below."
-msgstr ""
-"Można skonfigurować dodatkowe SSID przy pomocy poniższych opcji '%s' i '%s'."
+msgstr "Można skonfigurować dodatkowe SSID przy pomocy poniższych opcji '%s' i '%s'."
 
 #: web/admin/edit_idp.php:135
 msgid "Please configure which SSIDs should be configured in the installers."
@@ -259,10 +227,7 @@ msgid ""
 "By default, we will only configure the SSIDs with WPA2/AES encryption. By "
 "using the '(with WPA/TKIP)' option you can specify that we should include "
 "legacy support for WPA/TKIP where possible."
-msgstr ""
-"Domyślnie SSID są konfigurowane wyłącznie dla WPA2/AES. Używając opcji '(z "
-"WPA/TKIP)' możesz dodatkowo wymusić konfigurowanie WPA/TKIP, gdy jest to "
-"możliwe."
+msgstr "Domyślnie SSID są konfigurowane wyłącznie dla WPA2/AES. Używając opcji '(z WPA/TKIP)' możesz dodatkowo wymusić konfigurowanie WPA/TKIP, gdy jest to możliwe."
 
 #: web/admin/edit_idp.php:141
 msgid "Additional Hotspot 2.0 / Passpoint Consortia:"
@@ -286,15 +251,13 @@ msgstr[3] "Te Consortium OI zostaną zawsze skonfigurowane: %s."
 msgid ""
 "It is also possible to define custom additional OIs with the option '%s' "
 "below."
-msgstr ""
-"Możliwe jest również skonfigurowanie dodatkowych OI przy pomocy opcji '%s' "
-"poniżej."
+msgstr "Możliwe jest również skonfigurowanie dodatkowych OI przy pomocy opcji '%s' poniżej."
 
 #: web/admin/edit_idp.php:152
 msgid ""
-"Please configure which Consortium OIs should be configured in the installers."
-msgstr ""
-"Proszę ustaw jakie Consortium OI powinny być skonfigurowane w instalatorach"
+"Please configure which Consortium OIs should be configured in the "
+"installers."
+msgstr "Proszę ustaw jakie Consortium OI powinny być skonfigurowane w instalatorach"
 
 #: web/admin/edit_idp.php:155
 msgid "Support for wired IEEE 802.1X:"
@@ -303,17 +266,11 @@ msgstr "Wsparcie dla przewodowego 802.1X:"
 #: web/admin/edit_idp.php:156
 msgid ""
 "If you want to configure your users' devices with IEEE 802.1X support for "
-"wired ethernet, please check the corresponding box. Note that this makes the "
-"installation process a bit more difficult on some platforms (Windows: needs "
-"administrator privileges; Apple: attempting to install a profile with wired "
-"support on a device without an active wired ethernet card will fail)."
-msgstr ""
-"Jeżeli chcesz, aby urządzenia użytkowników zostały skonfigurowane ze "
-"wsparciem 802.1X dla Ethernetu przewodowego, to zaznacz odpowiednią opcję. "
-"Pamiętaj, że ta opcja niekiedy powoduje pewne utrudnienia (dla Windows "
-"potrzebne są uprawnienia administratora, dla Apple próba instalacji profilu "
-"przewodowego na urządzeniu bez aktywnego interfejsu przewodowego nie "
-"powiedzie się)."
+"wired ethernet, please check the corresponding box. Note that this makes the"
+" installation process a bit more difficult on some platforms (Windows: needs"
+" administrator privileges; Apple: attempting to install a profile with wired"
+" support on a device without an active wired ethernet card will fail)."
+msgstr "Jeżeli chcesz, aby urządzenia użytkowników zostały skonfigurowane ze wsparciem 802.1X dla Ethernetu przewodowego, to zaznacz odpowiednią opcję. Pamiętaj, że ta opcja niekiedy powoduje pewne utrudnienia (dla Windows potrzebne są uprawnienia administratora, dla Apple próba instalacji profilu przewodowego na urządzeniu bez aktywnego interfejsu przewodowego nie powiedzie się)."
 
 #: web/admin/edit_idp.php:158
 msgid "Removal of bootstrap/onboarding SSIDs:"
@@ -322,13 +279,9 @@ msgstr "Usuwanie rozruchowych SSID:"
 #: web/admin/edit_idp.php:159
 msgid ""
 "If you use a captive portal to distribute configurations, you may want to "
-"unconfigure/disable that SSID after the bootstrap process. With this option, "
-"the SSID will either be removed, or be defined as 'Only connect manually'."
-msgstr ""
-"Jeżeli do dystrybuowania konfiguratorów używasz sieci rozruchowej, to po "
-"zakończeniu instalacji możesz odłączyć lub zablokować tę sieć rozruchową w "
-"urządzeniu użytkownika. Po zaznaczeniu tej opcji rozruchowe SSID będzie albo "
-"usunięte, albo będzie miało wyłączone łączenie automatyczne."
+"unconfigure/disable that SSID after the bootstrap process. With this option,"
+" the SSID will either be removed, or be defined as 'Only connect manually'."
+msgstr "Jeżeli do dystrybuowania konfiguratorów używasz sieci rozruchowej, to po zakończeniu instalacji możesz odłączyć lub zablokować tę sieć rozruchową w urządzeniu użytkownika. Po zaznaczeniu tej opcji rozruchowe SSID będzie albo usunięte, albo będzie miało wyłączone łączenie automatyczne."
 
 #: web/admin/edit_idp.php:168
 msgid "Helpdesk Details for all users"
@@ -338,19 +291,14 @@ msgstr "Informacje o helpdesku dla wszystkich użytkowników"
 msgid ""
 "This section can be used to upload specific Terms of Use for your users and "
 "to display details of how your users can reach your local helpdesk."
-msgstr ""
-"W tej części można przekazać plik zawierające Warunki Użytkowania  "
-"przeznaczone dla użytkowników, do wyświetlenia szczegółów dotyczących "
-"kontaktu z lokalnym helpdeskiem."
+msgstr "W tej części można przekazać plik zawierające Warunki Użytkowania  przeznaczone dla użytkowników, do wyświetlenia szczegółów dotyczących kontaktu z lokalnym helpdeskiem."
 
 #: web/admin/edit_idp.php:176
 #, php-format
 msgid ""
 "Do you provide helpdesk services for your users? If so, it would be nice if "
 "you would tell us the pointers to this helpdesk."
-msgstr ""
-"Czy jest oferowany dział pomocy dla użytkowników? Jeśli tak, prosimy o "
-"wskazanie odsyłacza do działu pomocy."
+msgstr "Czy jest oferowany dział pomocy dla użytkowników? Jeśli tak, prosimy o wskazanie odsyłacza do działu pomocy."
 
 #: web/admin/edit_idp.php:178
 msgid ""
@@ -359,20 +307,13 @@ msgid ""
 "helpdesks for different user groups (we call this 'profiles') specify per-"
 "profile helpdesk information later in this wizard. If you operate no help "
 "desk at all, just leave these fields empty."
-msgstr ""
-"Jeżeli wprowadzisz tu jakąś wartość, to zostanie ona dodana do instalatorów "
-"dla Twojej instytucji. Jeżeli w Twojej instytucji funkcjonują oddzielne "
-"działy pomocy dla różnych grup użytkowników (nazywanych tu profilami) "
-"będziesz mógł podać tę informację  później, w trakcie instalacji. Jeśli w "
-"Twojej instytucji nie ma działu pomocy, pozostaw pole puste."
+msgstr "Jeżeli wprowadzisz tu jakąś wartość, to zostanie ona dodana do instalatorów dla Twojej instytucji. Jeżeli w Twojej instytucji funkcjonują oddzielne działy pomocy dla różnych grup użytkowników (nazywanych tu profilami) będziesz mógł podać tę informację  później, w trakcie instalacji. Jeśli w Twojej instytucji nie ma działu pomocy, pozostaw pole puste."
 
 #: web/admin/edit_idp.php:180
 #, php-format
 msgid ""
 "For %s deployments, providing at least a local e-mail contact is required."
-msgstr ""
-"W przypadku instalacji %s wymagane jest podanie co najmniej kontaktu "
-"mailowego."
+msgstr "W przypadku instalacji %s wymagane jest podanie co najmniej kontaktu mailowego."
 
 #: web/admin/edit_idp.php:180 web/admin/edit_idp.php:183
 msgid "This is the contact point for your end users' level 1 support."
@@ -380,18 +321,14 @@ msgstr "Jest to pierwsze miejsce kontaktu dla użytkowników Twojej instytucji."
 
 #: web/admin/edit_idp.php:183
 msgid "Providing at least a local support e-mail contact is required."
-msgstr ""
-"Niezbędne jest podanie co najmniej maila kontaktowego do  lokalnego działu "
-"pomocy."
+msgstr "Niezbędne jest podanie co najmniej maila kontaktowego do  lokalnego działu pomocy."
 
 #: web/admin/edit_idp.php:193
 #, php-format
 msgid ""
-"When you are sure that everything is correct, please click on %sContinue ..."
-"%s"
-msgstr ""
-"Jeżeli jesteś pewny, że wszystkie podane dane są poprawne, to naciśnij "
-"%sDalej...%s"
+"When you are sure that everything is correct, please click on %sContinue "
+"...%s"
+msgstr "Jeżeli jesteś pewny, że wszystkie podane dane są poprawne, to naciśnij %sDalej...%s"
 
 #: web/admin/edit_idp_result.php:51
 #, php-format
@@ -413,7 +350,8 @@ msgstr "(WPA2/AES)"
 
 #: web/admin/edit_idp_result.php:107
 #, php-format
-msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
+msgid ""
+"Your installers will configure the following SSIDs: <strong>%s</strong>"
 msgstr "Twoje instalatory skonfigurują następujące SSID: <strong>%s</strong>"
 
 #: web/admin/edit_idp_result.php:107
@@ -433,9 +371,7 @@ msgstr "Przewodowy skonfigurowany"
 msgid ""
 "We cannot generate installers because neither wireless SSIDs nor wired "
 "interfaces have been selected as a target!"
-msgstr ""
-"Nie możemy wygenerować instalatorów, ponieważ ani przewodowe interfejsy ani "
-"żadne bezprzewodowe SSID nie zostały włączone!"
+msgstr "Nie możemy wygenerować instalatorów, ponieważ ani przewodowe interfejsy ani żadne bezprzewodowe SSID nie zostały włączone!"
 
 #: web/admin/edit_idp_result.php:133
 #, php-format
@@ -446,12 +382,9 @@ msgstr "Przejdź do definicji własności %s"
 #, php-format
 msgid ""
 "You did not submit an e-mail address. This is required for %s. Please go to "
-"the %s dashboard and edit your helpdesk settings to include a helpdesk e-"
-"mail address."
-msgstr ""
-"Nie przekazałaś adresu mailowego. To ustawienie jest wymagane dla instytucji "
-"%s. Przejdź do panelu zarządzania %s i zmień ustawienia dotyczące działu "
-"pomocy, tak by zawierały mail do tego działu."
+"the %s dashboard and edit your helpdesk settings to include a helpdesk "
+"e-mail address."
+msgstr "Nie przekazałaś adresu mailowego. To ustawienie jest wymagane dla instytucji %s. Przejdź do panelu zarządzania %s i zmień ustawienia dotyczące działu pomocy, tak by zawierały mail do tego działu."
 
 #: web/admin/edit_idp_result.php:136
 msgid "No support e-mail!"
@@ -483,13 +416,9 @@ msgstr "Ogólne własności profilu"
 msgid ""
 "We will now define a profile for your user group(s).  You can add as many "
 "profiles as you like by choosing the appropriate button on the end of the "
-"page. After we are done, the wizard is finished and you will be taken to the "
-"main IdP administration page."
-msgstr ""
-"Teraz zdefiniujemy profil dla Twojej grupy (grup) użytkowników. Możesz dodać "
-"dowolną liczbę profili wybierając odpowiedni przycisk na końcu tej strony. "
-"Następnie kreator zakończy pracę i powrócisz na główną stronę zarządzania "
-"IdP."
+"page. After we are done, the wizard is finished and you will be taken to the"
+" main IdP administration page."
+msgstr "Teraz zdefiniujemy profil dla Twojej grupy (grup) użytkowników. Możesz dodać dowolną liczbę profili wybierając odpowiedni przycisk na końcu tej strony. Następnie kreator zakończy pracę i powrócisz na główną stronę zarządzania IdP."
 
 #: web/admin/edit_profile.php:132
 msgid "Profile Name and RADIUS realm"
@@ -500,20 +429,14 @@ msgid ""
 "First of all we need a name for the profile. This will be displayed to end "
 "users, so you may want to choose a descriptive name like 'Professors', "
 "'Students of the Faculty of Bioscience', etc."
-msgstr ""
-"Podaj nazwę profilu. Nazwa ta będzie prezentowana użytkownikom, dlatego "
-"warto wybrać nazwę opisową, np. 'Profesorowie', 'Studenci Wydziału Nauk "
-"Biologicznych', itp."
+msgstr "Podaj nazwę profilu. Nazwa ta będzie prezentowana użytkownikom, dlatego warto wybrać nazwę opisową, np. 'Profesorowie', 'Studenci Wydziału Nauk Biologicznych', itp."
 
 #: web/admin/edit_profile.php:136
 msgid ""
-"Optionally, you can provide a longer descriptive text about who this profile "
-"is for. If you specify it, it will be displayed on the download page after "
+"Optionally, you can provide a longer descriptive text about who this profile"
+" is for. If you specify it, it will be displayed on the download page after "
 "the user has selected the profile name in the list."
-msgstr ""
-"Dodatkowo możesz wprowadzić opis przeznaczenia tego profilu. Jeżeli to "
-"zrobisz, to tekst zostanie wyświetlony użytkownikowi, po tym jak wybierze "
-"profil z listy."
+msgstr "Dodatkowo możesz wprowadzić opis przeznaczenia tego profilu. Jeżeli to zrobisz, to tekst zostanie wyświetlony użytkownikowi, po tym jak wybierze profil z listy."
 
 #: web/admin/edit_profile.php:137
 msgid "You can also tell us your RADIUS realm. "
@@ -522,19 +445,15 @@ msgstr "Możesz nam podać swój realm RADIUS-owy."
 #: web/admin/edit_profile.php:139
 #, php-format
 msgid ""
-"This is useful if you want to use the sanity check module later, which tests "
-"reachability of your realm in the %s infrastructure. "
-msgstr ""
-"Jest to przydatne, aby później korzystać z modułu testowania dostępności "
-"Twojego realmu poprzez infrastrukturę %s."
+"This is useful if you want to use the sanity check module later, which tests"
+" reachability of your realm in the %s infrastructure. "
+msgstr "Jest to przydatne, aby później korzystać z modułu testowania dostępności Twojego realmu poprzez infrastrukturę %s."
 
 #: web/admin/edit_profile.php:141
 msgid ""
 "It is required to enter the realm name if you want to support anonymous "
 "outer identities (see below)."
-msgstr ""
-"Jeżeli chcesz, aby wspierana była anonimowa tożsamość zewnętrzna musisz "
-"wprowadzić nazwę realmu (patrz niżej)."
+msgstr "Jeżeli chcesz, aby wspierana była anonimowa tożsamość zewnętrzna musisz wprowadzić nazwę realmu (patrz niżej)."
 
 #: web/admin/edit_profile.php:154
 msgid "Realm:"
@@ -549,31 +468,21 @@ msgstr "Opcje realmu"
 msgid ""
 "Some installers support a feature called 'Anonymous outer identity'. If you "
 "don't know what this is, please read <a href='%s'>this article</a>."
-msgstr ""
-"Niektóre instalatory wspierają własność nazywaną 'anonimową tożsamością "
-"zewnętrzną'. Jeśli nie wiesz co to oznacza, przeczytaj <a href='%s'>ten "
-"artykuł </a>."
+msgstr "Niektóre instalatory wspierają własność nazywaną 'anonimową tożsamością zewnętrzną'. Jeśli nie wiesz co to oznacza, przeczytaj <a href='%s'>ten artykuł </a>."
 
 #: web/admin/edit_profile.php:196
 msgid ""
-"On some platforms, the installers can suggest username endings and/or verify "
-"the user input to contain the realm suffix."
-msgstr ""
-"W niektórych sytuacjach instalatory mogą sugerować, jak mają kończyć się "
-"nazwy użytkowników i/lub weryfikować, czy wprowadzone przez użytkownika dane "
-"zawierają przyrostek z konkretnym realmem."
+"On some platforms, the installers can suggest username endings and/or verify"
+" the user input to contain the realm suffix."
+msgstr "W niektórych sytuacjach instalatory mogą sugerować, jak mają kończyć się nazwy użytkowników i/lub weryfikować, czy wprowadzone przez użytkownika dane zawierają przyrostek z konkretnym realmem."
 
 #: web/admin/edit_profile.php:197
-#, fuzzy
 msgid ""
 "The realm check feature needs to know an outer ID which actually gets a "
 "chance to authenticate. If your RADIUS server lets only select usernames "
 "pass, it is useful to supply the information which of those (outer ID) "
 "username we can use for testing."
-msgstr ""
-"Procedura sprawdzania realmu musi dysponować zewnętrznym identyfikatorem "
-"użytkownika, ponieważ na jego podstawie jest ustalany przebieg "
-"uwierzytelnienia. Jeśli Twój serwer RADIUS pozwala wyłącznie na?????? "
+msgstr "Procedura sprawdzania realmu musi dysponować zewnętrznym identyfikatorem użytkownika, ponieważ na jego podstawie jest ustalany przebieg uwierzytelnienia. Jeżeli Twój serwer RADIUS akceptuje tylko wybrane identyfikatory użytkowników, to warto wprowadzić identyfikator, który może być użyty jako tożsamość zewnętrzna przy testowaniu."
 
 #: web/admin/edit_profile.php:209
 msgid "Verify user input to contain realm suffix:"
@@ -601,18 +510,10 @@ msgid ""
 "learn about the support pointers you entered earlier. The CAT can also "
 "immediately offer the installers for the profile for download. If you don't "
 "want that, you can instead enter a web site location where you want your "
-"users to be redirected to. You, as the administrator, can still download the "
-"profiles to place them on that page (see the 'Compatibility Matrix' button "
+"users to be redirected to. You, as the administrator, can still download the"
+" profiles to place them on that page (see the 'Compatibility Matrix' button "
 "on the dashboard)."
-msgstr ""
-"CAT pozwala zamieścić informacje, które będą udostępniane użytkownikom. Na "
-"przykład, można zamieścić na stronach CAT adresy miejsc stanowiących lokalne "
-"wsparcie dla użytkowników. CAT oferuje również użytkownikom możliwość "
-"pobrania instalatora dla zadanego profilu. Jeśli wolisz, by użytkownik "
-"korzystał ze stron własnej instytucji, możesz wskazać na stronie CAT "
-"lokalizację, do której użytkownik ma być przekierowywany. Jako administrator "
-"możesz, zawsze możesz, pobrać profile ze strony CAT by udostępnić je "
-"lokalnie (patrz przycisk 'Tablica kompatybilności urządzeń' na panelu)"
+msgstr "CAT pozwala zamieścić informacje, które będą udostępniane użytkownikom. Na przykład, można zamieścić na stronach CAT adresy miejsc stanowiących lokalne wsparcie dla użytkowników. CAT oferuje również użytkownikom możliwość pobrania instalatora dla zadanego profilu. Jeśli wolisz, by użytkownik korzystał ze stron własnej instytucji, możesz wskazać na stronie CAT lokalizację, do której użytkownik ma być przekierowywany. Jako administrator możesz, zawsze możesz, pobrać profile ze strony CAT by udostępnić je lokalnie (patrz przycisk 'Tablica kompatybilności urządzeń' na panelu)"
 
 #: web/admin/edit_profile.php:279
 msgid "Redirect end users to own web page:"
@@ -627,14 +528,9 @@ msgid ""
 "Now, we need to know which EAP types your IdP supports. If you support "
 "multiple EAP types, you can assign every type a priority (1=highest). This "
 "tool will always generate an automatic installer for the EAP type with the "
-"highest priority; only if the user's device can't use that EAP type, we will "
-"use an EAP type further down in the list."
-msgstr ""
-"Teraz musimy dowiedzieć się, jakie typy EAP akceptuje Twój IdP. Jeżeli "
-"dopuszczasz wiele typów EAP, to możesz każdemu z typów przypisać priorytet "
-"(1=najwyższy). Nasz generator przygotuje instalator dla typu EAP o "
-"najwyższym priorytecie, a jeżeli urządzenie użytkownika nie może używać tego "
-"typu EAP, zostanie wybrany kolejny możliwy typ z uporządkowanej listy."
+"highest priority; only if the user's device can't use that EAP type, we will"
+" use an EAP type further down in the list."
+msgstr "Teraz musimy dowiedzieć się, jakie typy EAP akceptuje Twój IdP. Jeżeli dopuszczasz wiele typów EAP, to możesz każdemu z typów przypisać priorytet (1=najwyższy). Nasz generator przygotuje instalator dla typu EAP o najwyższym priorytecie, a jeżeli urządzenie użytkownika nie może używać tego typu EAP, zostanie wybrany kolejny możliwy typ z uporządkowanej listy."
 
 #: web/admin/edit_profile.php:338
 msgid "EAP options inherited from Global level:"
@@ -654,10 +550,7 @@ msgid ""
 "Use \"drag &amp; drop\" to mark an EAP method and move it to the supported "
 "(green) area. Prioritisation is done automatically, depending on where you "
 "\"drop\" the method."
-msgstr ""
-"Użyj \"drag &amp; drop\" by zaznaczyć metodę EAP i przenieść ją do obszaru "
-"dozwolonych (zielonego). Nadawanie priorytetów jest realizowane "
-"automatycznie, w zależności od tego, gdzie umieścisz (\"upuścisz\") metodę."
+msgstr "Użyj \"drag &amp; drop\" by zaznaczyć metodę EAP i przenieść ją do obszaru dozwolonych (zielonego). Nadawanie priorytetów jest realizowane automatycznie, w zależności od tego, gdzie umieścisz (\"upuścisz\") metodę."
 
 #: web/admin/edit_profile.php:393
 msgid "Unsupported EAP types"
@@ -681,28 +574,18 @@ msgid ""
 "The option %s is already defined IdP-wide. If you set it here on profile "
 "level, this setting will override the IdP-wide one."
 msgid_plural ""
-"The options %s are already defined IdP-wide. If you set them here on profile "
-"level, these settings will override the IdP-wide ones."
-msgstr[0] ""
-"Opcje %s są już zdefiniowane na poziomie IdP. Jeżeli ustawisz je na poziomie "
-"profilu, to zastąpią one ustawienia poziomu IdP."
-msgstr[1] ""
-"Opcje %s są już zdefiniowane na poziomie IdP. Jeżeli ustawisz je na poziomie "
-"profilu, to zastąpią one ustawienia poziomu IdP."
-msgstr[2] ""
-"Opcje %s są już zdefiniowane na poziomie IdP. Jeżeli ustawisz je na poziomie "
-"profilu, to zastąpią one ustawienia poziomu IdP."
-msgstr[3] ""
-"Opcje %s są już zdefiniowane na poziomie IdP. Jeżeli ustawisz je na poziomie "
-"profilu, to zastąpią one ustawienia poziomu IdP."
+"The options %s are already defined IdP-wide. If you set them here on profile"
+" level, these settings will override the IdP-wide ones."
+msgstr[0] "Opcje %s są już zdefiniowane na poziomie IdP. Jeżeli ustawisz je na poziomie profilu, to zastąpią one ustawienia poziomu IdP."
+msgstr[1] "Opcje %s są już zdefiniowane na poziomie IdP. Jeżeli ustawisz je na poziomie profilu, to zastąpią one ustawienia poziomu IdP."
+msgstr[2] "Opcje %s są już zdefiniowane na poziomie IdP. Jeżeli ustawisz je na poziomie profilu, to zastąpią one ustawienia poziomu IdP."
+msgstr[3] "Opcje %s są już zdefiniowane na poziomie IdP. Jeżeli ustawisz je na poziomie profilu, to zastąpią one ustawienia poziomu IdP."
 
 #: web/admin/edit_profile.php:466
 msgid ""
 "When you are sure that everything is correct, please click on 'Save data' "
 "and you will be taken to your IdP Dashboard page."
-msgstr ""
-"Jeżeli jesteś pewny, że wszystkie podane dane są poprawne, to naciśnij "
-"przycisk 'Zapamiętaj dane' i przejdziesz do strony ustawień IdP."
+msgstr "Jeżeli jesteś pewny, że wszystkie podane dane są poprawne, to naciśnij przycisk 'Zapamiętaj dane' i przejdziesz do strony ustawień IdP."
 
 #: web/admin/edit_profile_result.php:33
 #, php-format
@@ -731,9 +614,7 @@ msgstr "Nie można włączyć anonimowej tożsamości zewnętrznej - brakuje rea
 msgid ""
 "Anonymous Identity support is <strong>%s</strong>, the anonymous outer "
 "identity is <strong>%s</strong>"
-msgstr ""
-"Status wsparcia anonimowości: <strong>%s</strong>, zewnętrzna tożsamość "
-"anonimowa jest ustawiona na <strong>%s</strong>"
+msgstr "Status wsparcia anonimowości: <strong>%s</strong>, zewnętrzna tożsamość anonimowa jest ustawiona na <strong>%s</strong>"
 
 #: web/admin/edit_profile_result.php:134 web/admin/edit_profile_result.php:146
 msgid "ON"
@@ -750,18 +631,14 @@ msgstr "Nieaktywny"
 
 #: web/admin/edit_profile_result.php:143 web/admin/edit_profile_result.php:155
 msgid "Realm check username cannot be configured: realm is missing!"
-msgstr ""
-"Nie można skonfigurować sprawdzania realmu w nazwie użytkownika: brakuje "
-"nazwy realmu!"
+msgstr "Nie można skonfigurować sprawdzania realmu w nazwie użytkownika: brakuje nazwy realmu!"
 
 #: web/admin/edit_profile_result.php:146
 #, php-format
 msgid ""
 "Special username for realm check is <strong>%s</strong>, the value is "
 "<strong>%s</strong>"
-msgstr ""
-"Specjalna nazwa użytkownika do sprawdzenia realmu to <strong>%s</strong>, "
-"wartość <strong>%s</strong>"
+msgstr "Specjalna nazwa użytkownika do sprawdzenia realmu to <strong>%s</strong>, wartość <strong>%s</strong>"
 
 #: web/admin/edit_profile_result.php:150
 msgid "No special username for realm checks is configured."
@@ -775,24 +652,20 @@ msgstr "domyślną wartością w polu wejściowym będzie '<strong>@%s</strong>'
 #: web/admin/edit_profile_result.php:163
 #, php-format
 msgid ""
-"Where possible, username inputs will be <strong>verified to end with @%s</"
-"strong>%s"
-msgstr ""
-"Wszędzie gdzie jest możliwe sprawdzimy <strong>, czy wprowadzane dane  "
-"kończą się ciągiem @%s</strong>%s"
+"Where possible, username inputs will be <strong>verified to end with "
+"@%s</strong>%s"
+msgstr "Wszędzie gdzie jest możliwe sprawdzimy <strong>, czy wprowadzane dane  kończą się ciągiem @%s</strong>%s"
 
 #: web/admin/edit_profile_result.php:173
-msgid "Redirection can't be activated - you did not specify a target location!"
+msgid ""
+"Redirection can't be activated - you did not specify a target location!"
 msgstr "Nie można włączyć przekierowania - nie podałeś adresu przekierowania!"
 
 #: web/admin/edit_profile_result.php:175
-#, fuzzy
 msgid ""
 "Redirection can't be activated - the target needs to be a complete URL "
 "starting with http:// or https:// !"
-msgstr ""
-"Nie można aktywować  przekierowania - docelowy adres musi być komletnym "
-"adresem URL, zaczynającym się od http:// lub https://!"
+msgstr "Nie można aktywować przekierowania - docelowy adres musi być kompletnym adresem URL, rozpoczynającym się od http:// lub https://!"
 
 #: web/admin/edit_profile_result.php:181
 msgid "Redirection is <strong>OFF</strong>"
@@ -812,9 +685,7 @@ msgstr "dla wspieranej metody EAP <strong>%s</strong> brakuje informacji %s !"
 msgid ""
 "The EAP type was added to the profile, but you need to complete the missing "
 "information before we can produce installers for you."
-msgstr ""
-"Metoda EAP została dodana do profilu, ale do przygotowania instalatorów "
-"niezbędne będzie uzupełnienie informacji."
+msgstr "Metoda EAP została dodana do profilu, ale do przygotowania instalatorów niezbędne będzie uzupełnienie informacji."
 
 #: web/admin/edit_profile_result.php:229
 msgid "Continue to Installer Fine-Tuning and Download"
@@ -830,18 +701,13 @@ msgid ""
 "The mail domain of the mail address <strong>%s</strong> is not secure: some "
 "or all of the mail servers are not accepting encrypted connections (no "
 "consistent support for STARTTLS)."
-msgstr ""
-"Domena w adresie mailowym <strong>%s</strong> nie jest bezpieczna: niektóre "
-"lub wszystkie serwery mailowe nie akceptują połączeń szyfrowanych (brak "
-"wsparcia dla STARTTLS)."
+msgstr "Domena w adresie mailowym <strong>%s</strong> nie jest bezpieczna: niektóre lub wszystkie serwery mailowe nie akceptują połączeń szyfrowanych (brak wsparcia dla STARTTLS)."
 
 #: web/admin/edit_silverbullet.php:216
 msgid ""
 "The invitation would need to be sent in cleartext across the internet, and "
 "can possibly be read and abused by anyone in transit."
-msgstr ""
-"Zaproszenie musi zostać przesłane otwartym tekstem i może zostać odczytane l "
-"wykorzystane przez osoby postronne."
+msgstr "Zaproszenie musi zostać przesłane otwartym tekstem i może zostać odczytane l wykorzystane przez osoby postronne."
 
 #: web/admin/edit_silverbullet.php:217
 msgid "Do you want the system to send this mail anyway?"
@@ -1018,17 +884,12 @@ msgstr "Aktywacje:"
 #: web/admin/edit_silverbullet.php:539
 #, php-format
 msgid ""
-"You need to acknowledge that the created accounts are still valid within the "
-"next %s days. If all accounts shown as active above are indeed still valid, "
-"please check the box below and push \"Save\". If any of the accounts are "
+"You need to acknowledge that the created accounts are still valid within the"
+" next %s days. If all accounts shown as active above are indeed still valid,"
+" please check the box below and push \"Save\". If any of the accounts are "
 "stale, please deactivate them by pushing the corresponding button before "
 "doing this."
-msgstr ""
-"Musisz potwierdzić, że utworzone konta są nadal ważne w najbliższych %s "
-"dniach.  Jeśli wszystkie konta pokazane powyżej jako aktywne są nadal ważne, "
-"wystarczy zaznaczyć poniższe pole i nacisnąć \"Zapisz\". Jeśli wymienione są "
-"konta, które nie powinny już być używane, dezaktywuj je naciskając "
-"odpowiedni przycisk."
+msgstr "Musisz potwierdzić, że utworzone konta są nadal ważne w najbliższych %s dniach.  Jeśli wszystkie konta pokazane powyżej jako aktywne są nadal ważne, wystarczy zaznaczyć poniższe pole i nacisnąć \"Zapisz\". Jeśli wymienione są konta, które nie powinny już być używane, dezaktywuj je naciskając odpowiedni przycisk."
 
 #: web/admin/edit_silverbullet.php:547
 #, php-format
@@ -1047,17 +908,13 @@ msgstr "Zaimportuj użytkowników z pliku CSV"
 msgid ""
 "Please enter a username of your choice and user expiry date to create a new "
 "user:"
-msgstr ""
-"Wprowadź wybraną nazwę użytkownika i datę ważności, by utworzyć nowego "
-"użytkownika:"
+msgstr "Wprowadź wybraną nazwę użytkownika i datę ważności, by utworzyć nowego użytkownika:"
 
 #: web/admin/edit_silverbullet.php:586
 msgid ""
 "Comma separated values should be provided in CSV file: username, expiration "
 "date 'yyyy-mm-dd', number of tokens (optional):"
-msgstr ""
-"W pliku CSV należy podać oddzielone przecinkami wartości: nazwa użytkownika, "
-"data ważności 'yyyy-mm-dd', liczba tokenów (opcjonalnie): "
+msgstr "W pliku CSV należy podać oddzielone przecinkami wartości: nazwa użytkownika, data ważności 'yyyy-mm-dd', liczba tokenów (opcjonalnie): "
 
 #: web/admin/edit_silverbullet.php:590
 msgid "Import users"
@@ -1116,9 +973,7 @@ msgstr "Niekompletne wylogowanie"
 msgid ""
 "We were unable to log you out of all your sessions. To be completely sure "
 "that you are logged out, you need to close your web browser."
-msgstr ""
-"Nie byliśmy w stanie wylogować Cię ze wszystkich sesji. Aby być pewnym, że "
-"zostałeś wylogowany zamknij przeglądarkę."
+msgstr "Nie byliśmy w stanie wylogować Cię ze wszystkich sesji. Aby być pewnym, że zostałeś wylogowany zamknij przeglądarkę."
 
 #: web/admin/overview_federation.php:18
 #, php-format
@@ -1180,93 +1035,102 @@ msgstr "Admin"
 #: web/admin/overview_federation.php:142 web/admin/inc/manageAdmins.inc.php:99
 msgid "It was sent with transport security (encryption)."
 msgid_plural "They were sent with transport security (encryption)."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Został wysłany w bezpiecznym kanale (zaszyfrowany)."
+msgstr[1] "Zostały wysłane w bezpiecznym kanale (zaszyfrowane)."
+msgstr[2] "Zostały wysłane w bezpiecznym kanale (zaszyfrowane)."
+msgstr[3] "Zostały wysłane w bezpiecznym kanale (zaszyfrowane)."
 
-#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:102
+#: web/admin/overview_federation.php:145
+#: web/admin/inc/manageAdmins.inc.php:102
 msgid "It was sent in clear text (no encryption)."
 msgid_plural "They were sent in clear text (no encryption)."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Został wysłany otwartym tekstem (bez szyfrowania)."
+msgstr[1] "Zostały wysłane otwartym tekstem (bez szyfrowania)."
+msgstr[2] "Zostały wysłane otwartym tekstem (bez szyfrowania)."
+msgstr[3] "Zostały wysłane otwartym tekstem (bez szyfrowania)."
 
-#: web/admin/overview_federation.php:148 web/admin/inc/manageAdmins.inc.php:105
+#: web/admin/overview_federation.php:148
+#: web/admin/inc/manageAdmins.inc.php:105
 msgid ""
-"A subset of the mails were sent with transport encryption, the rest in clear "
-"text."
-msgstr ""
+"A subset of the mails were sent with transport encryption, the rest in clear"
+" text."
+msgstr "Część maili została wysłana w sposób zaszyfrowany, a część bez zaszyfrowania."
 
-#: web/admin/overview_federation.php:153 web/admin/inc/manageAdmins.inc.php:110
-#, fuzzy
+#: web/admin/overview_federation.php:153
+#: web/admin/inc/manageAdmins.inc.php:110
 msgid "The invitation email was sent successfully."
 msgid_plural "All invitation emails were sent successfully."
-msgstr[0] "Mail z zaproszeniem został wysłany %s."
-msgstr[1] "Mail z zaproszeniem został wysłany %s."
-msgstr[2] "Mail z zaproszeniem został wysłany %s."
-msgstr[3] "Mail z zaproszeniem został wysłany %s."
+msgstr[0] "Powiodła się wysyłka maila z zaproszeniem."
+msgstr[1] "Udała się wysyłka wszystkich maili z zaproszeniami."
+msgstr[2] "Udała się wysyłka wszystkich maili z zaproszeniami."
+msgstr[3] "Udała się wysyłka wszystkich maili z zaproszeniami."
 
-#: web/admin/overview_federation.php:153 web/admin/inc/manageAdmins.inc.php:110
-#, fuzzy
+#: web/admin/overview_federation.php:153
+#: web/admin/inc/manageAdmins.inc.php:110
 msgid "Sent successfully."
-msgstr "SMS wysłany."
+msgstr "Wysyłka została zabezpieczona (zaszyfrowana)."
 
-#: web/admin/overview_federation.php:156 web/admin/inc/manageAdmins.inc.php:113
-#, fuzzy
+#: web/admin/overview_federation.php:156
+#: web/admin/inc/manageAdmins.inc.php:113
 msgid "No invitation email could be sent!"
-msgstr "Nie udało się wysłać emaila z zaproszeniem."
+msgstr "Nie można wysłać maila żadnego maila z zaproszeniem!"
 
-#: web/admin/overview_federation.php:156 web/admin/inc/manageAdmins.inc.php:113
+#: web/admin/overview_federation.php:156
+#: web/admin/inc/manageAdmins.inc.php:113
 msgid "Sending failure!"
-msgstr ""
+msgstr "Nie udała się wysyłka!"
 
-#: web/admin/overview_federation.php:162 web/admin/inc/manageAdmins.inc.php:119
+#: web/admin/overview_federation.php:162
+#: web/admin/inc/manageAdmins.inc.php:119
 msgid "The successful one was sent with transport security (encryption)."
 msgid_plural ""
 "The successful ones were sent with transport security (encryption)."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Mail, który udało się wysłać został przekazany w bezpiecznym kanale (zaszyfrowane)."
+msgstr[1] "Maile, które udało się wysłać zostały przekazane w bezpiecznym kanale (zaszyfrowane)."
+msgstr[2] "Maile, które udało się wysłać zostały przekazane w bezpiecznym kanale (zaszyfrowane)."
+msgstr[3] "Maile, które udało się wysłać zostały przekazane w bezpiecznym kanale (zaszyfrowane)."
 
-#: web/admin/overview_federation.php:165 web/admin/inc/manageAdmins.inc.php:122
+#: web/admin/overview_federation.php:165
+#: web/admin/inc/manageAdmins.inc.php:122
 msgid "The successful one was sent in clear text (no encryption)."
 msgid_plural "The successful ones were sent in clear text (no encryption)."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Mail, który udało się wysłać został przekazany otwartym tekstem (bez szyfrowania)."
+msgstr[1] "Maile, które udało się wysłać zostały przekazane otwartym tekstem (bez szyfrowania)."
+msgstr[2] "Maile, które udało się wysłać zostały przekazane otwartym tekstem (bez szyfrowania)."
+msgstr[3] "Maile, które udało się wysłać zostały przekazane otwartym tekstem (bez szyfrowania)."
 
-#: web/admin/overview_federation.php:168 web/admin/inc/manageAdmins.inc.php:125
+#: web/admin/overview_federation.php:168
+#: web/admin/inc/manageAdmins.inc.php:125
 msgid ""
-"A subset of the successfully sent mails were sent with transport encryption, "
-"the rest in clear text."
-msgstr ""
+"A subset of the successfully sent mails were sent with transport encryption,"
+" the rest in clear text."
+msgstr "Część pomyślnie wysłanych maili została przesłana w postaci zaszyfrowanej, reszta otwartym tekstem."
 
-#: web/admin/overview_federation.php:173 web/admin/inc/manageAdmins.inc.php:130
-#, fuzzy, php-format
+#: web/admin/overview_federation.php:173
+#: web/admin/inc/manageAdmins.inc.php:130
+#, php-format
 msgid ""
 "Some invitation emails were sent successfully (%s in total), the others "
 "failed."
-msgstr "Mail z zaproszeniem został wysłany %s."
+msgstr "Część maili z zaproszeniami została wysłana (łącznie %s), wysyłka pozostałych nie powiodłą się."
 
-#: web/admin/overview_federation.php:173 web/admin/inc/manageAdmins.inc.php:130
+#: web/admin/overview_federation.php:173
+#: web/admin/inc/manageAdmins.inc.php:130
 msgid "Partial success."
-msgstr ""
+msgstr "Częściowy sukces."
 
-#: web/admin/overview_federation.php:176 web/admin/inc/manageAdmins.inc.php:133
+#: web/admin/overview_federation.php:176
+#: web/admin/inc/manageAdmins.inc.php:133
 msgid "The invitation email address was malformed, no invitation was sent!"
-msgstr ""
-"Adres mailowy, na który ma być wysłane zaproszenie ma niepoprawny format, "
-"nie wysłano zaproszenia!"
+msgstr "Adres mailowy, na który ma być wysłane zaproszenie ma niepoprawny format, nie wysłano zaproszenia!"
 
-#: web/admin/overview_federation.php:179 web/admin/inc/manageAdmins.inc.php:136
+#: web/admin/overview_federation.php:179
+#: web/admin/inc/manageAdmins.inc.php:136
 msgid "Error: unknown result code of invitation!?!"
 msgstr "Błąd: nieznany rezultat zaproszenia?!"
 
-#: web/admin/overview_federation.php:179 web/admin/inc/manageAdmins.inc.php:136
+#: web/admin/overview_federation.php:179
+#: web/admin/inc/manageAdmins.inc.php:136
 msgid "Unknown result!"
 msgstr "Nieprawidłowy wynik!"
 
@@ -1356,9 +1220,7 @@ msgstr "Modyfikuj ogólne ustawienia %s"
 msgid ""
 "After deleting the %s, you can not recreate it yourself - you need a new "
 "invitation token from the %s administrator!"
-msgstr ""
-"Po usunięciu instytucji  %s jest możliwe jej odtworzenie, ale potrzebne jest "
-"nowe zaproszenie od administratora %s!"
+msgstr "Po usunięciu instytucji  %s jest możliwe jej odtworzenie, ale potrzebne jest nowe zaproszenie od administratora %s!"
 
 #: web/admin/overview_idp.php:91
 #, php-format
@@ -1376,9 +1238,7 @@ msgid ""
 "This action will delete all properties of the %s and start over the "
 "configuration from scratch. Do you really want to reset all settings of the "
 "%s %s?"
-msgstr ""
-"W ten sposób skasujesz wszystkie własności Twojej instytucji %s i zaczniesz "
-"ją konfigurować od zera. Czy rzeczywiście chcesz wyczyścić ustawienia %s %s?"
+msgstr "W ten sposób skasujesz wszystkie własności Twojej instytucji %s i zaczniesz ją konfigurować od zera. Czy rzeczywiście chcesz wyczyścić ustawienia %s %s?"
 
 #: web/admin/overview_idp.php:97
 #, php-format
@@ -1423,11 +1283,9 @@ msgstr "Potrzebna informacja!"
 #: web/admin/overview_idp.php:170
 #, php-format
 msgid ""
-"You can create up to %d users. Their credentials will carry the name <strong>"
-"%s</strong>."
-msgstr ""
-"Możesz utworzyć maksymalnie %d użytkowników. Ich dane uwierzytelniania bedą "
-"mieć nazwę <strong>%s</strong>."
+"You can create up to %d users. Their credentials will carry the name "
+"<strong>%s</strong>."
+msgstr "Możesz utworzyć maksymalnie %d użytkowników. Ich dane uwierzytelniania bedą mieć nazwę <strong>%s</strong>."
 
 #: web/admin/overview_idp.php:179
 msgid "Manage User Base"
@@ -1467,10 +1325,7 @@ msgid ""
 "This profile is NOT shown on the user download interface, even though we "
 "have enough information to show. To enable the profile, add the attribute "
 "\"%s\" and tick the corresponding box."
-msgstr ""
-"Ten profil NIE będzie pokazany w interfejsie pobierania instalatorów, "
-"pomimo, że mamy wystarczającą ilość informacji. Aby włączyć ten profil dodaj "
-"atrybut \"%s\" i zaznacz opcję wyboru."
+msgstr "Ten profil NIE będzie pokazany w interfejsie pobierania instalatorów, pomimo, że mamy wystarczającą ilość informacji. Aby włączyć ten profil dodaj atrybut \"%s\" i zaznacz opcję wyboru."
 
 #: web/admin/overview_idp.php:262
 #, php-format
@@ -1601,13 +1456,15 @@ msgstr "Strona superadmina"
 #: web/admin/overview_user.php:71
 #, php-format
 msgid "(Need help? Refer to the <a href='%s'>IdP administrator manual</a>)"
-msgstr ""
-"(Potrzebujesz pomocy? Sprawdź <a href='%s'>Podręcznik administratora IdP</a>)"
+msgstr "(Potrzebujesz pomocy? Sprawdź <a href='%s'>Podręcznik administratora IdP</a>)"
 
-#. / first parameter: number of Identity Providers; second param is the literal configured term for 'Identity Provider' (you may or may not be able to add a plural suffix for your locale)
+#. / first parameter: number of Identity Providers; second param is the
+#. literal configured term for 'Identity Provider' (you may or may not be able
+#. to add a plural suffix for your locale)
 #: web/admin/overview_user.php:80
 #, php-format
-msgid "You are managing the following <span style='display:none'>%d </span>%s:"
+msgid ""
+"You are managing the following <span style='display:none'>%d </span>%s:"
 msgid_plural "You are managing the following <strong>%d</strong> %s:"
 msgstr[0] "Zarządzasz następującą <span style='display:none'>%d</span> %s:"
 msgstr[1] "Zarządzasz następującymi <strong>%d</strong> %s:"
@@ -1641,18 +1498,15 @@ msgstr "Nie zarządzasz żadną instytucją %s."
 #: web/admin/overview_user.php:150
 #, php-format
 msgid ""
-"Please ask your %s administrator to invite you to become an %s administrator."
-msgstr ""
-"Musisz poprosić swojego administratora %s o przysłanie zaproszenia, być "
-"został administratorem %s."
+"Please ask your %s administrator to invite you to become an %s "
+"administrator."
+msgstr "Musisz poprosić swojego administratora %s o przysłanie zaproszenia, być został administratorem %s."
 
 #: web/admin/overview_user.php:154
 #, php-format
 msgid ""
 "Did you receive an invitation token to manage an %s? Please paste it here:"
-msgstr ""
-"Czy otrzymałeś zaproszenie do zarządzania tą instytucją %s? Jeżeli tak, to "
-"wklej przesłany token tutaj: "
+msgstr "Czy otrzymałeś zaproszenie do zarządzania tą instytucją %s? Jeżeli tak, to wklej przesłany token tutaj: "
 
 #: web/admin/overview_user.php:166
 #, php-format
@@ -1666,12 +1520,9 @@ msgstr "Kod QR tokenu zaproszenia"
 #: web/admin/inc/manageAdmins.inc.php:46
 #, php-format
 msgid ""
-"You do not have the necessary privileges to alter administrators of this %s. "
-"In fact, you shouldn't have come this far!"
-msgstr ""
-"Nie masz wystarczających uprawnień, by zmieniać administratorów tej "
-"instytucji %s. W rzeczywistości system w ogóle nie powinien Cie dopuścić do "
-"tej strony!"
+"You do not have the necessary privileges to alter administrators of this %s."
+" In fact, you shouldn't have come this far!"
+msgstr "Nie masz wystarczających uprawnień, by zmieniać administratorów tej instytucji %s. W rzeczywistości system w ogóle nie powinien Cie dopuścić do tej strony!"
 
 #: web/admin/inc/manageAdmins.inc.php:84
 #, php-format
@@ -1683,9 +1534,7 @@ msgstr "Administratorzy IdP '%s'"
 msgid ""
 "You are the %s administrator. You can invite new administrators, who can in "
 "turn appoint further administrators on their own."
-msgstr ""
-"Jesteś administratorem %s. Możesz zaprosić nowych administratorów, którzy z "
-"kolei mogą wyznaczyć kolejnych."
+msgstr "Jesteś administratorem %s. Możesz zaprosić nowych administratorów, którzy z kolei mogą wyznaczyć kolejnych."
 
 #: web/admin/inc/manageAdmins.inc.php:143 web/lib/admin/UIElements.php:102
 #, php-format
@@ -1695,13 +1544,10 @@ msgstr "Administrator %s"
 #: web/admin/inc/manageAdmins.inc.php:149
 #, php-format
 msgid ""
-"You are an administrator who was directly appointed by the %s administrator. "
-"You can appoint further administrators, but these can't in turn appoint any "
-"more administrators."
-msgstr ""
-"Jesteś administratorem wskazanym przez administratora %s. Możesz wyznaczyć "
-"kolejnych administratorów, którzy nie będą już już mieli uprawnień "
-"wskazywania administratora."
+"You are an administrator who was directly appointed by the %s administrator."
+" You can appoint further administrators, but these can't in turn appoint any"
+" more administrators."
+msgstr "Jesteś administratorem wskazanym przez administratora %s. Możesz wyznaczyć kolejnych administratorów, którzy nie będą już już mieli uprawnień wskazywania administratora."
 
 #: web/admin/inc/manageAdmins.inc.php:149
 msgid "Directly Appointed Administrator"
@@ -1730,8 +1576,7 @@ msgstr "Oczekujące zaproszenia dotyczące tego IdP"
 
 #: web/admin/inc/manageAdmins.inc.php:205
 msgid "New administrator's email address(es) (comma-separated):"
-msgstr ""
-"Adres administratora (można wprowadzić kilka rozdzielonych przecinkami)"
+msgstr "Adres administratora (można wprowadzić kilka rozdzielonych przecinkami)"
 
 #: web/admin/inc/manageAdmins.inc.php:205
 msgid "Invite new administrator"
@@ -1753,9 +1598,7 @@ msgstr "Zamknij"
 msgid ""
 "You do not have the necessary privileges to manage the %s DB link state of "
 "this %s."
-msgstr ""
-"Nie masz potrzebnych uprawnień, by zarządzać stanem linków DB %s w tej "
-"instytucji %s. "
+msgstr "Nie masz potrzebnych uprawnień, by zarządzać stanem linków DB %s w tej instytucji %s. "
 
 #: web/admin/inc/manageDBLink.inc.php:76
 #, php-format
@@ -1771,15 +1614,15 @@ msgstr "Ta %s jest dołączona do bazy danych %s."
 #, php-format
 msgid ""
 "The following information about the IdP is stored in the %s DB and %s DB:"
-msgstr ""
-"W bazach %s oraz %s zapisana jest poniższa informacja na temat tego IdP:"
+msgstr "W bazach %s oraz %s zapisana jest poniższa informacja na temat tego IdP:"
 
 #: web/admin/inc/manageDBLink.inc.php:87
 #, php-format
 msgid "Information in <strong>%s Database</strong>"
 msgstr "Informacja w <strong>Bazie %s</strong> "
 
-#: web/admin/inc/manageDBLink.inc.php:99 web/admin/inc/manageDBLink.inc.php:125
+#: web/admin/inc/manageDBLink.inc.php:99
+#: web/admin/inc/manageDBLink.inc.php:125
 #, php-format
 msgid "%s Name (%s)"
 msgstr "%sNazwa (%s)"
@@ -1813,8 +1656,7 @@ msgstr "Ta %s nie jest już dowiązana do bazy danych %s."
 msgid ""
 "This means that its profiles are not made available on the user download "
 "page."
-msgstr ""
-"To oznacza, że profile nie są udostępnione na stronie dla użytkowników."
+msgstr "To oznacza, że profile nie są udostępnione na stronie dla użytkowników."
 
 #: web/admin/inc/manageDBLink.inc.php:141
 #, php-format
@@ -1825,17 +1667,14 @@ msgstr "Możesz ją powiązać z bazą %s."
 #, php-format
 msgid ""
 "Please select an entity from the %s DB which corresponds to this CAT %s."
-msgstr ""
-"Wskaż element z bazy danych %s, który odpowiada tej instancji CAT-a %s."
+msgstr "Wskaż element z bazy danych %s, który odpowiada tej instancji CAT-a %s."
 
 #: web/admin/inc/manageDBLink.inc.php:146
 #, php-format
 msgid ""
 "Particularly promising entries (names in CAT and %s DB are a 100%% match) "
 "are on top of the list."
-msgstr ""
-"Instytucje najbardziej prawdopodobne (nazwy z CAT i bazie %s są w 100%% "
-"zgodne) są na szczycie listy."
+msgstr "Instytucje najbardziej prawdopodobne (nazwy z CAT i bazie %s są w 100%% zgodne) są na szczycie listy."
 
 #: web/admin/inc/manageDBLink.inc.php:149
 msgid "Link to this entity?"
@@ -1848,9 +1687,7 @@ msgstr "Administratorzy"
 #: web/admin/inc/manageDBLink.inc.php:183
 #, php-format
 msgid "There is no single unmapped %s in the external database for this %s!"
-msgstr ""
-"W zewnętrznej bazie danych nie ma żadnego wpisu %s odpowiadającego tej "
-"federacji %s!"
+msgstr "W zewnętrznej bazie danych nie ma żadnego wpisu %s odpowiadającego tej federacji %s!"
 
 #: web/admin/inc/manageDBLink.inc.php:185
 msgid "Create Link"
@@ -1871,28 +1708,21 @@ msgstr "%s - Rejestruj nową %s"
 msgid ""
 "On this page, you can add a new %s to your %s. Please fill out the form "
 "below to send out an email invitation to the new %s administrator."
-msgstr ""
-"Na tej stronie możesz dodać nową %s do swojej federacji %s. Wypełnij "
-"poniższy formularz, aby wysłać mailem zaproszenia do nowych administratorów "
-"%s. "
+msgstr "Na tej stronie możesz dodać nową %s do swojej federacji %s. Wypełnij poniższy formularz, aby wysłać mailem zaproszenia do nowych administratorów %s. "
 
 #: web/admin/inc/manageNewInst.inc.php:49
 #, php-format
 msgid ""
-"You can either register a known %s (as defined in the %s database) or create "
-"a totally new %s."
-msgstr ""
-"Możesz zarejestrować znaną %s (wg definicji w bazie danych %s), albo "
-"utworzyć całkiem nową %s."
+"You can either register a known %s (as defined in the %s database) or create"
+" a totally new %s."
+msgstr "Możesz zarejestrować znaną %s (wg definicji w bazie danych %s), albo utworzyć całkiem nową %s."
 
 #: web/admin/inc/manageNewInst.inc.php:50
 #, php-format
 msgid ""
 "The latter one is typically for an %s which is yet in a testing phase and "
 "therefore doesn't appear in the %s database yet."
-msgstr ""
-"To drugie rozwiązanie jest pomyślane dla %s będącej w fazie testów i z tego "
-"powodu nie są wpisane do bazy%s."
+msgstr "To drugie rozwiązanie jest pomyślane dla %s będącej w fazie testów i z tego powodu nie są wpisane do bazy%s."
 
 #: web/admin/inc/manageNewInst.inc.php:60
 msgid "Existing IdP:"
@@ -1918,14 +1748,13 @@ msgstr "E-Mail administratora:"
 msgid "Send invitation"
 msgstr "Wyślij zaproszenie"
 
-#.
 #. *******************************************************************************
-#. * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1
+#. * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+,
+#. GN4-1
 #. * and GN4-2 consortia
 #. *
 #. * License: see the web/copyright.php file in the file structure
 #. *******************************************************************************
-#.
 #: web/admin/inc/overview_js.php:41 web/admin/inc/overview_js.php:98
 msgid "No email address provided"
 msgstr "Nie podano adresu email"
@@ -1945,11 +1774,9 @@ msgstr "Adres maila, na który ma pójść zaproszenie:"
 #: web/admin/inc/sendinvite.inc.php:106
 #, php-format
 msgid ""
-"Something's wrong... you are a %s admin, but not for the %s the requested %s "
-"belongs to!"
-msgstr ""
-"Coś jest nie tak..., jesteś administratorem %s, ale nie tej %s, do której "
-"należy ta %s. "
+"Something's wrong... you are a %s admin, but not for the %s the requested %s"
+" belongs to!"
+msgstr "Coś jest nie tak..., jesteś administratorem %s, ale nie tej %s, do której należy ta %s. "
 
 #: web/admin/inc/toggleRedirect.inc.php:90
 #, php-format
@@ -1974,34 +1801,25 @@ msgid ""
 "The user download interface (see <a href='../'>here</a>), uses geolocation "
 "to suggest possibly matching IdPs to the user. The more precise you define "
 "the location here, the easier your users will find you."
-msgstr ""
-"Interfejs pobierania (patrz <a href='../'>tutaj</a>), korzysta z mechanizmu "
-"geo-lokalizacji, aby zasugerować dostawców tożsamości przeznaczonych dla "
-"danego użytkownika. Im dokładniej zdefiniujesz tutaj swoje położenie, tym "
-"łatwiej Twoi użytkownicy odnajdą swojego dostawcę."
+msgstr "Interfejs pobierania (patrz <a href='../'>tutaj</a>), korzysta z mechanizmu geo-lokalizacji, aby zasugerować dostawców tożsamości przeznaczonych dla danego użytkownika. Im dokładniej zdefiniujesz tutaj swoje położenie, tym łatwiej Twoi użytkownicy odnajdą swojego dostawcę."
 
 #: web/lib/admin/AbstractMap.php:107
 msgid ""
 "<li>Drag the marker in the map to your place, or</li>\n"
 "<li>enter your street address in the field below for lookup, or</li>\n"
 "<li>use the 'Locate Me!' button</li>"
-msgstr ""
-"<li>Przeciągnij znacznik na mapie do swojej lokalizacji, lub</li>\n"
-"<li>wprowadź nazwę ulicy w poniższym polu wyszukania, lub</li><n <li>użyj "
-"przycisku 'Zlokalizuj mnie!'</li>"
+msgstr "<li>Przeciągnij znacznik na mapie do swojej lokalizacji, lub</li>\n<li>wprowadź nazwę ulicy w poniższym polu wyszukania, lub</li><n <li>użyj przycisku 'Zlokalizuj mnie!'</li>"
 
 #: web/lib/admin/AbstractMap.php:112
-msgid "We will use the coordinates as indicated by the marker for geolocation."
-msgstr ""
-"Użyjemy współrzędnych zgodnie ze wskazaniem zaznaczenia geo-lokalizacji."
+msgid ""
+"We will use the coordinates as indicated by the marker for geolocation."
+msgstr "Użyjemy współrzędnych zgodnie ze wskazaniem zaznaczenia geo-lokalizacji."
 
 #: web/lib/admin/AbstractMap.php:116
 msgid ""
 "You can enter an <strong>additional</strong> location here. You can see the "
 "already defined locations in the 'General Information' field."
-msgstr ""
-"Możesz wprowadzić tutaj <strong>dodatkową</strong> lokalizację. W polu "
-"'Informacje ogólne' możesz sprawdzić już zdefiniowane lokalizacje."
+msgstr "Możesz wprowadzić tutaj <strong>dodatkową</strong> lokalizację. W polu 'Informacje ogólne' możesz sprawdzić już zdefiniowane lokalizacje."
 
 #: web/lib/admin/AbstractMap.php:127
 msgid "Latitude:"
@@ -2044,9 +1862,7 @@ msgstr "Zlokalizuj mnie!"
 msgid ""
 "Address not found, perhaps try another form, like putting the street number "
 "to the front."
-msgstr ""
-"Nie znaleziono adresu, być może potrzebna jest zmiana formatu, np. umieść "
-"numer ulicy na początku."
+msgstr "Nie znaleziono adresu, być może potrzebna jest zmiana formatu, np. umieść numer ulicy na początku."
 
 #: web/lib/admin/OptionDisplay.php:148
 #, php-format
@@ -2063,19 +1879,7 @@ msgid ""
 "to another place which happens to have the same SSID name. They might then "
 "be misled to believe that they are connecting to an extra secure network "
 "while they are not."
-msgstr ""
-"Można użyć tego atrybutu, jeżeli chcesz skonfigurować dodatkowy SSID, poza "
-"domyślnym dla %s. Nie korzystanie z domyślnego SSID jest prawie zawsze "
-"kiepskim pomysłem. Jedynym wyjątkiem jest sytuacja nakładania się zasięgu "
-"naszej sieci z inną siecią %s. Typowe złe pomysły dotyczące dodatkowych SSID "
-"to np. tworzenie lokalnego SSID dla własnych użytkowników. W rzeczywistości "
-"dużo lepiej jest odseparować użytkowników przy pomocy VLAN-u. Za takim "
-"podejściem przemawiają dwa argumenty: 1) użytkownicy będą mieli poprawnie "
-"skonfigurowany SSID %s, ponieważ będzie to ich codzienna sieć; 2) jeżeli "
-"lokalna sieć z dedykowanym SSID będzie się reklamowało jako szczególnie "
-"bezpieczną, to może się przydarzyć, że jeżeli użytkownicy napotkają sieć o "
-"takiej samej nazwie, to automatycznie obdarzą ją takim samym zaufaniem, "
-"narażając się w ten sposób na niebezpieczeństwo."
+msgstr "Można użyć tego atrybutu, jeżeli chcesz skonfigurować dodatkowy SSID, poza domyślnym dla %s. Nie korzystanie z domyślnego SSID jest prawie zawsze kiepskim pomysłem. Jedynym wyjątkiem jest sytuacja nakładania się zasięgu naszej sieci z inną siecią %s. Typowe złe pomysły dotyczące dodatkowych SSID to np. tworzenie lokalnego SSID dla własnych użytkowników. W rzeczywistości dużo lepiej jest odseparować użytkowników przy pomocy VLAN-u. Za takim podejściem przemawiają dwa argumenty: 1) użytkownicy będą mieli poprawnie skonfigurowany SSID %s, ponieważ będzie to ich codzienna sieć; 2) jeżeli lokalna sieć z dedykowanym SSID będzie się reklamowało jako szczególnie bezpieczną, to może się przydarzyć, że jeżeli użytkownicy napotkają sieć o takiej samej nazwie, to automatycznie obdarzą ją takim samym zaufaniem, narażając się w ten sposób na niebezpieczeństwo."
 
 #: web/lib/admin/OptionDisplay.php:150
 #, php-format
@@ -2084,12 +1888,7 @@ msgid ""
 "through a content filter of your own is a significant invasion of user self-"
 "determination. It also has technical issues. Please throughly read the "
 "discussion at %s before specifying a proxy with this option."
-msgstr ""
-"Format tej opcji jest następujący: IPv4|IPv6|hostname:port. Zmuszanie swoich "
-"użytkowników do korzystania z filtra zawartości stanowi istotne naruszenie "
-"samodzielności.  To podejście ma również problemy techniczne. Przed "
-"włączeniem proxy za pomocą tej opcji, zalecamy dokładne przeczytanie "
-"dyskusji %s. "
+msgstr "Format tej opcji jest następujący: IPv4|IPv6|hostname:port. Zmuszanie swoich użytkowników do korzystania z filtra zawartości stanowi istotne naruszenie samodzielności.  To podejście ma również problemy techniczne. Przed włączeniem proxy za pomocą tej opcji, zalecamy dokładne przeczytanie dyskusji %s. "
 
 #: web/lib/admin/OptionDisplay.php:223
 msgid "select language"
@@ -2127,14 +1926,10 @@ msgstr "%d razy %s"
 #, php-format
 msgid ""
 "You did not set a 'default language' value for %s. This means we can only "
-"display this string for installers which are <strong>exactly</strong> in the "
-"language you configured. For the sake of all other languages, you may want "
+"display this string for installers which are <strong>exactly</strong> in the"
+" language you configured. For the sake of all other languages, you may want "
 "to edit the profile again and populate the 'default/other' language field."
-msgstr ""
-"Nie ustawiono opcji 'domyślny język' dla %s. Oznacza to że możemy wyświetlać "
-"ten napis tylko dla instalatorów, które są <strong>w tym samym</strong> "
-"języku jaki został skonfigurowany. Aby były dostępne inne języki, potrzebna "
-"jest edycja profilu i dodanie pola języka 'domyślny/inny'."
+msgstr "Nie ustawiono opcji 'domyślny język' dla %s. Oznacza to że możemy wyświetlać ten napis tylko dla instalatorów, które są <strong>w tym samym</strong> języku jaki został skonfigurowany. Aby były dostępne inne języki, potrzebna jest edycja profilu i dodanie pola języka 'domyślny/inny'."
 
 #: web/lib/admin/PageDecoration.php:35
 msgid "You are:"
@@ -2306,8 +2101,7 @@ msgstr "Adres przekierowania"
 
 #: web/lib/admin/UIElements.php:98
 msgid "Extra text on downloadpage for EAP method"
-msgstr ""
-"Dodatkowy tekst na stronie pobierania instalatora związany z metodą EAP"
+msgstr "Dodatkowy tekst na stronie pobierania instalatora związany z metodą EAP"
 
 #: web/lib/admin/UIElements.php:99
 msgid "Turn on selection of EAP-TLS User-Name"
@@ -2435,12 +2229,3 @@ msgstr "Uwaga!"
 #: web/lib/admin/UIElements.php:386
 msgid "Error!"
 msgstr "Błąd!"
-
-#~ msgid "and <b>encrypted</b> to the mail domain"
-#~ msgstr "w postaci<b>zaszyfrowanej </b> na adres mailowy"
-
-#~ msgid "but <b>in clear text</b> to the mail domain"
-#~ msgstr "w postaci <b>otwartego tekstu </b> na adres mailowy"
-
-#~ msgid "The invitation email was sent."
-#~ msgstr "Email z zaproszeniem został wysłany."

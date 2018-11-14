@@ -1,21 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-#   <paul.dekkers@surfnet.nl>, 2012.
+# Chris Houthuijs <c.houthuijs@clusius.nl>, 2017
+# Jasper Metselaar <jasper@formmailer.net>, 2015
+# pauldekkers <paul.dekkers@surfnet.nl>, 2012
+# TheoHoeks <thoeks@onderwijsgroeptilburg.nl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-07 14:23+0100\n"
-"PO-Revision-Date: 2012-08-07 13:24+0000\n"
+"PO-Revision-Date: 2018-11-14 09:54+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/cat/language/nl/)\n"
-"Language: nl\n"
+"Language-Team: Dutch (Netherlands) (http://www.transifex.com/eduroam_devel/cat/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. / eduroam CAT, twice the consortium name eduroam, twice eduroam CAT
@@ -25,48 +28,41 @@ msgid "<span class='edu_cat'>%s</span> is built as a cooperation platform."
 msgstr ""
 
 #: web/user/about_cat.inc.php:29
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Local %s administrators enter their %s configuration details and based on "
 "them, <span class='edu_cat'>%s</span> builds customised installers for a "
-"number of popular platforms. An installer prepared for one organisation will "
-"not work for users of another one, therefore if your organisation is not on "
-"the list, you cannot use this system. Please contact your local "
+"number of popular platforms. An installer prepared for one organisation will"
+" not work for users of another one, therefore if your organisation is not on"
+" the list, you cannot use this system. Please contact your local "
 "administrators and try to influence them to add your %s configuration to "
 "<span class='edu_cat'>%s</span>."
 msgstr ""
-"<span class='edu_cat'>%s</span> is gemaakt op een gezamelijk platform."
-"<p>Lokale %s beheerders voegen hun %s configuratie gegevens toe en gebaseerd "
-"hierop, maakt <span class='edu_cat'>%s</span> specifieke installatie-"
-"software voor een aantal bekende platformen. Een installer voor de ene "
-"instelling werkt niet voor gebruikers van de andere, dus als je instelling "
-"niet in de lijst staat: werkt het systeem niet voor jou. Neem dan contact op "
-"met je lokale beheerders en overleg over <span class='edu_cat'>%s</span>."
 
 #: web/user/about_cat.inc.php:37
 #, php-format
 msgid ""
-"<span class='edu_cat'>%s</span> currently supports the following devices and "
-"EAP type combinations:"
-msgstr ""
+"<span class='edu_cat'>%s</span> currently supports the following devices and"
+" EAP type combinations:"
+msgstr "<span class='edu_cat'>%s</span> ondersteunt op dit moment de volgende apparaten en EAP-types en -combinaties:"
 
 #: web/user/about_cat.inc.php:38
 msgid "Device Group"
-msgstr ""
+msgstr "Groep apparaten"
 
 #: web/user/about_cat.inc.php:38
 msgid "Device"
-msgstr ""
+msgstr "Apparaat"
 
 #: web/user/about_cat.inc.php:80
 #, php-format
 msgid ""
-"<p><span class='edu_cat'>%s</span> is publicly accessible. To enable its use "
-"behind captive portals (e.g. on a 'setup' SSID which only allows access to "
+"<p><span class='edu_cat'>%s</span> is publicly accessible. To enable its use"
+" behind captive portals (e.g. on a 'setup' SSID which only allows access to "
 "CAT for device configuration), the following hostnames need to be allowed "
 "for port TCP/443 in the portal:</p><b><u>REQUIRED</u></b><ul><li><b>%s</b> "
 "(the service itself)</li>"
-msgstr ""
+msgstr "<p><span class='edu_cat'>%s</span> is openbaar toegankelijk. Bij gebruik achter een captive portal (bijvoorbeeld via een 'setup' SSID met uitsluitend toegang tot CAT) zullen de volgende hostnamen moeten worden toegelaten over poort TCP/443 in het portal: </p><b><u>VERPLICHT</u></b><ul><li><b>%s</b>(deze dienst)</li>"
 
 #: web/user/about_cat.inc.php:85
 #, php-format
@@ -76,44 +72,46 @@ msgid ""
 msgid_plural ""
 "<li><b>%s</b> (the CRL Distribution Points for the site certificate), also "
 "TCP/80</li>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<li><b>%s</b> (het CRL-distributiepunt voor het servercertificaat), evenals TCP/80</li>"
+msgstr[1] "<li><b>%s</b> (de CRL-distributiepunten voor het servercertificaat), evenals TCP/80</li>"
 
 #: web/user/about_cat.inc.php:88
 #, php-format
 msgid ""
-"<li><b>%s</b> (the OCSP Responder for the site certificate), also TCP/80</li>"
+"<li><b>%s</b> (the OCSP Responder for the site certificate), also "
+"TCP/80</li>"
 msgid_plural ""
-"<li><b>%s</b> (the OCSP Responder for the site certificate), also TCP/80</li>"
-msgstr[0] ""
-msgstr[1] ""
+"<li><b>%s</b> (the OCSP Responder for the site certificate), also "
+"TCP/80</li>"
+msgstr[0] "<li><b>%s</b>(de OCSP-responder voor het servercertificaat), evenals TCP/80</li>"
+msgstr[1] "<li><b>%s</b> (de OCSP-responders voor het servercertificaat), evenals TCP/80</li>"
 
 #: web/user/about_cat.inc.php:90
 #, php-format
 msgid ""
-"<li><b>android.l.google.com</b> (Google Play access for Android App)</"
-"li><li><b>android.clients.google.com</b> (Google Play access for Android "
-"App)</li><li><b>play.google.com</b> (Google Play access for Android App)</"
-"li><li><b>ggpht.com</b> (Google Play access for Android App)</li></"
-"ul><b><u>RECOMMENDED</u></b> for full Google Play functionality (otherwise, "
-"Play Store will look broken to users and/or some non-vital functionality "
-"will not be available)<ul><li><b>photos-ugc.l.google.com</b></"
-"li><li><b>googleusercontent.com</b></li><li><b>ajax.googleapis.com</b></"
-"li><li><b>play.google-apis.com</b></li><li><b>googleapis.l.google.com</b></"
-"li><li><b>apis.google.com</b></li><li><b>gstatic.com</b></li><li><b>www."
-"google-analytics.com</b></li><li><b>wallet.google.com</b></li><li><b>plus."
-"google.com</b></li><li><b>checkout.google.com</b></li><li><b>*.gvt1.com</"
-"li></ul>"
+"<li><b>android.l.google.com</b> (Google Play access for Android "
+"App)</li><li><b>android.clients.google.com</b> (Google Play access for "
+"Android App)</li><li><b>play.google.com</b> (Google Play access for Android "
+"App)</li><li><b>ggpht.com</b> (Google Play access for Android "
+"App)</li></ul><b><u>RECOMMENDED</u></b> for full Google Play functionality "
+"(otherwise, Play Store will look broken to users and/or some non-vital "
+"functionality will not be available)<ul><li><b>photos-"
+"ugc.l.google.com</b></li><li><b>googleusercontent.com</b></li><li><b>ajax.googleapis.com</b></li><li><b>play"
+".google-"
+"apis.com</b></li><li><b>googleapis.l.google.com</b></li><li><b>apis.google.com</b></li><li><b>gstatic.com</b></li><li><b>www"
+".google-"
+"analytics.com</b></li><li><b>wallet.google.com</b></li><li><b>plus.google.com</b></li><li><b>checkout.google.com</b></li><li><b>*.gvt1.com</li></ul>"
 msgstr ""
 
-#.
-#. * ******************************************************************************
-#. * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1
+#. *
+#. ******************************************************************************
+#. * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+,
+#. GN4-1
 #. * and GN4-2 consortia
 #. *
 #. * License: see the web/copyright.php file in the file structure
-#. * ******************************************************************************
-#.
+#. *
+#. ******************************************************************************
 #: web/user/devel.inc.php:12
 msgid "Access the sources"
 msgstr ""
@@ -144,9 +142,8 @@ msgid ""
 msgstr ""
 
 #: web/user/devel.inc.php:18
-#, fuzzy
 msgid "Documentation"
-msgstr "Thuis instelling"
+msgstr ""
 
 #: web/user/faq.inc.php:17 web/user/faq.php:14
 msgid "My organisation is not listed. Can't I just use any of the other ones?"
@@ -155,8 +152,8 @@ msgstr ""
 #: web/user/faq.inc.php:18 web/user/faq.php:15
 msgid ""
 "No! The installers contain security settings which are specific to the "
-"organisation. If you are not from that organisation, your device will detect "
-"that you are about to send your username and credential to an unauthorised "
+"organisation. If you are not from that organisation, your device will detect"
+" that you are about to send your username and credential to an unauthorised "
 "server and will abort the login. Using an installer from a different "
 "organisation is <i>guaranteed to not work</i>!"
 msgstr ""
@@ -168,15 +165,15 @@ msgstr ""
 #: web/user/faq.inc.php:23 web/user/faq.php:20
 #, php-format
 msgid ""
-"Contact %s administrators within your organisation and request that they add "
-"their organisation to the system. It will take at most one hour of their "
+"Contact %s administrators within your organisation and request that they add"
+" their organisation to the system. It will take at most one hour of their "
 "time to get things done."
 msgstr ""
 
 #: web/user/faq.inc.php:27 web/user/faq.php:24
 #, php-format
 msgid "My device is not listed! Does that mean I can't do %s?"
-msgstr ""
+msgstr "Mijn apparaat staat niet in de lijst! Houdt dat in dat ik niet kan %s?"
 
 #: web/user/faq.inc.php:28 web/user/faq.php:25
 #, php-format
@@ -192,75 +189,76 @@ msgstr ""
 msgid ""
 "I can connect to %s simply by providing username and password, what is the "
 "point of using an installer?"
-msgstr ""
+msgstr "Ik kan met %s een verbinding maken door simpelweg mijn inlognaam en wachtwoord in te voeren, wat is de meerwaarde van het gebruik van een installatieprogramma?"
 
 #: web/user/faq.inc.php:33 web/user/faq.php:30
 #, php-format
 msgid ""
 "When you are connecting from an unconfigured device your security is at "
-"risk. The very point of preconfiguration is to set up security, when this is "
-"done, your device will first confirm that it talks to the correct "
+"risk. The very point of preconfiguration is to set up security, when this is"
+" done, your device will first confirm that it talks to the correct "
 "authentication server and will never send your password to an untrusted one."
-msgstr ""
+msgstr "Wanneer je een verbinding maakt vanaf een niet-geconfigureerd apparaat, loop je een beveiligingsrisico. Het wezenlijke punt van pre-configuratie is een veilige setup. Wanneer deze wordt uitgevoerd, zal je apparaat eerst verifiëren of het communiceert met de correcte authenticatie server en zal je wachtwoord nooit aan een onbetrouwbare server worden doorgeven."
 
 #: web/user/faq.inc.php:36 web/user/faq.php:41
 #, php-format
 msgid "Is it safe to use %s installers?"
-msgstr ""
+msgstr "Is het veilig om %s installatieprogramma's te gebruiken?"
 
 #: web/user/faq.inc.php:37 web/user/faq.php:42
 #, php-format
 msgid ""
 "%s installers configure security settings on your device, therefore you "
 "should be sure that you are using genuine ones."
-msgstr ""
+msgstr "%s installatieprogramma's configureren beveiligingsinstellingen op je apparaat, daarom dien je er zeker van te zijn dat deze authentiek zijn."
 
 #: web/user/faq.inc.php:37 web/user/faq.php:42
 #, php-format
 msgid ""
-"This is why %s installers are digitally signed by %s. Watch out for a system "
-"message confirming this."
-msgstr ""
+"This is why %s installers are digitally signed by %s. Watch out for a system"
+" message confirming this."
+msgstr "Daarom worden %s installatieprogramma's digitaal ondertekend door %s. Kijk uit naar het systeembericht dat dit bevestigt."
 
 #: web/user/faq.inc.php:41 web/user/faq.php:46
 msgid ""
 "Windows 'SmartScreen' or 'Internet Explorer' tell me that the file is not "
 "commonly downloaded and possibly harmful. Should I be concerned?"
-msgstr ""
+msgstr "Windows 'SmartScreen' of 'Internet Explorer' meldt dat het bestand niet normaal gedownload - en mogelijk schadelijk is. Moet ik me zorgen maken?"
 
 #: web/user/faq.inc.php:42 web/user/faq.php:47
 msgid ""
-"Contrary to what the name suggests, 'SmartScreen' isn't actually very smart. "
-"The warning merely means that the file has not yet been downloaded by enough "
-"users to make Microsoft consider it popular (which would strangely enough "
-"make it be considered 'safe'). This message alone is not a security problem."
-msgstr ""
+"Contrary to what the name suggests, 'SmartScreen' isn't actually very smart."
+" The warning merely means that the file has not yet been downloaded by "
+"enough users to make Microsoft consider it popular (which would strangely "
+"enough make it be considered 'safe'). This message alone is not a security "
+"problem."
+msgstr "In tegenstelling tot wat de naam suggereert, is 'SmartScreen' niet erg slim. De waarschuwing betekent slechts dat het bestand nog niet door voldoende gebruikers is gedownload zodat Microsoft het als gangbaar beschouwt (hetgeen het vreemd genoeg tevens als 'save' beschouwt). Dit bericht alleen, is geen beveiligingsprobleem."
 
 #: web/user/faq.inc.php:42 web/user/faq.php:47
 #, php-format
 msgid ""
 "So long as the file is carrying a valid signature from %s, the download is "
 "safe."
-msgstr ""
+msgstr "Zolang het bestand een valide handtekening heeft van %s, is de download veilig."
 
 #: web/user/faq.inc.php:42 web/user/faq.php:47
 #, php-format
 msgid "Please see also Microsoft's FAQ regarding SmartScreen at %s."
-msgstr ""
+msgstr "Bekijk ook Microsoft's FAQ met betrekking tot SmartScreen bij %s"
 
 #: web/user/faq.inc.php:46 web/user/faq.php:61
 #, php-format
 msgid ""
 "I can see %s network and my device is configured but it does not connect, "
 "what can be the cause?"
-msgstr ""
+msgstr "Ik kan het %s netwerk zien en mijn apparaat is geconfigureerd maar het maakt geen verbinding, wat kan het probleem zijn?"
 
 #: web/user/faq.inc.php:47 web/user/faq.php:51
 #, php-format
 msgid ""
-"There can be a number of different reasons. The network you see may not be a "
-"genuine %s one and your device silently drops the connection attempt; there "
-"may be something wrong with the configuration of the network; your account "
+"There can be a number of different reasons. The network you see may not be a"
+" genuine %s one and your device silently drops the connection attempt; there"
+" may be something wrong with the configuration of the network; your account "
 "may have expired; there may be a connection problem with your home "
 "authentication server; you may have broken the regulations of the network "
 "you are using and have been refused access as a consequence. You should "
@@ -271,12 +269,12 @@ msgstr ""
 #: web/user/faq.inc.php:51 web/user/faq.php:66
 #, php-format
 msgid "I have a question about this web site. Whom should I contact?"
-msgstr ""
+msgstr "Ik heb een vraag betreffende deze website. Met wie kan ik contact opnemen?"
 
 #: web/user/faq.inc.php:52 web/user/faq.php:67
 #, php-format
 msgid "You should send a mail to %s."
-msgstr ""
+msgstr "Stuur een e-mail naar %s"
 
 #: web/user/faq.inc.php:60 web/user/faq.php:35
 #, php-format
@@ -289,25 +287,26 @@ msgid ""
 "%s is a global WiFi roaming consortium which gives members of education and "
 "research access to the internet <i>for free</i> on all %s hotspots on the "
 "planet. There are several million %s users already, enjoying free internet "
-"access on more than 6.000 hotspots! Visit <a href='http://www.eduroam."
-"org'>the %s homepage</a> for more details."
+"access on more than 6.000 hotspots! Visit <a "
+"href='http://www.eduroam.org'>the %s homepage</a> for more details."
 msgstr ""
 
 #: web/user/faq.php:58
 #, php-format
 msgid ""
-"There can be a number of different reasons. The network you see may not be a "
-"genuine %s one and your device silently drops the connection attempt; your "
-"account may have expired; you may have broken the regulations of the network "
-"you are using and have been refused access as a consequence; or maybe there "
-"is an actual technical problem. To exclude the latter, you should first "
+"There can be a number of different reasons. The network you see may not be a"
+" genuine %s one and your device silently drops the connection attempt; your "
+"account may have expired; you may have broken the regulations of the network"
+" you are using and have been refused access as a consequence; or maybe there"
+" is an actual technical problem. To exclude the latter, you should first "
 "visit the %s Diagnostics tool <a href=''>here</a>, which can find many "
 "reasons for failure. It also allows you to contact your organisation and "
 "report the problem to them."
 msgstr ""
 
 #. *
-#. * This is a template for further FAQ entries. Simply copy&paste and add more
+#. * This is a template for further FAQ entries. Simply copy&paste and add
+#. more
 #. * FAQ text in 'title' and 'text' respectively.
 #. *
 #. array_push($FAQ,
@@ -315,14 +314,13 @@ msgstr ""
 #. 'title'=>sprintf(_("")),
 #. 'text'=>sprintf(_(""))
 #. ));
-#.
 #: web/user/faq.php:84 web/skins/modern/user/cat_info.php:70
 msgid "Frequently Asked Questions"
-msgstr ""
+msgstr "Veel gestelde vragen"
 
 #: web/user/tou.inc.php:15 web/user/tou.php:13
 msgid "Terms of Use"
-msgstr ""
+msgstr "Gebruiksvoorwaarden"
 
 #: web/user/tou.inc.php:16
 msgid "(for legal reasons, the Terms of Use are in English only)"
@@ -344,38 +342,38 @@ msgstr "Start pagina"
 
 #: web/4013.php:47
 msgid "Maybe this is the CAT you are looking for..."
-msgstr ""
+msgstr "Misschien is dit de CAT die je zoekt..."
 
 #: web/4013.php:48
 msgid ""
 "but we don't want to show it to you. You need to be authenticated and "
 "authorised to see this content. Since you are not, you got this error page "
 "usually known as"
-msgstr ""
+msgstr "maar je bent niet gerechtigd om dit te zien. Je moet hiervoor geauthentiseerd en geautoriseerd zijn. Omdat je dat niet bent, krijg je deze errorpagina te zien: "
 
 #: web/4013.php:50
 #, php-format
 msgid ""
 "Your mistake? Our error? Who knows! Maybe you should go back to the <a "
 "href='%s'>Start Page</a>."
-msgstr ""
+msgstr "Dit kan een invoer- of programmafout zijn. Probeer terug te gaan naar de <a href='%s'>startpagina</a>."
 
 #: web/404.php:46
 msgid "This is not the CAT you are looking for."
-msgstr ""
+msgstr "Dit is niet de CAT die je zoekt."
 
 #: web/404.php:47
 msgid ""
 "Whatever you expected to see at this URL - it's not here. The only thing "
 "here is the number"
-msgstr ""
+msgstr "Wat je zoekt is niet hier. Het enige is het nummer"
 
 #: web/404.php:49
 #, php-format
 msgid ""
-"staring at you. Your mistake? Our error? Who knows! Maybe you should go back "
-"to the <a href='%s'>Start Page</a>."
-msgstr ""
+"staring at you. Your mistake? Our error? Who knows! Maybe you should go back"
+" to the <a href='%s'>Start Page</a>."
+msgstr "dat je nu ziet. Dit kan een invoer- of programmafout zijn. Probeer terug te gaan naar de <a href='%s'>startpagina</a>."
 
 #: web/tou.php:61 web/skins/modern/Divs.php:279
 #, php-format
@@ -391,20 +389,20 @@ msgstr ""
 msgid ""
 "Your download will start shortly. In case of problems with the automatic "
 "download please use this direct <a href=''>link</a>."
-msgstr ""
+msgstr "Het downloaden zal beginnen. Wanneer er problemen met de automatische download zijn, klik dan <a href=''>hier</a>"
 
 #: web/lib/user/TextTemplates.php:72 web/skins/modern/div_user_welcome.php:9
 #, php-format
 msgid "Dear user from %s,"
-msgstr ""
+msgstr "Beste gebruiker van %s,"
 
 #: web/lib/user/TextTemplates.php:73
 #, php-format
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
 "need to do is find an %s hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal "
-"certificate') - and be online!"
+"credentials (this is our fancy name for 'username and password' or 'personal"
+" certificate') - and be online!"
 msgstr ""
 
 #: web/lib/user/TextTemplates.php:74 web/skins/modern/div_user_welcome.php:17
@@ -413,11 +411,11 @@ msgid ""
 "Should you have any problems using this service, please always contact the "
 "helpdesk of %s. They will diagnose the problem and help you out. You can "
 "reach them via the means shown above."
-msgstr ""
+msgstr "Heb je problemen bij het gebruik van deze service, neem dan a.u.b. altijd contact op met de helpdesk van %s. Zij zullen jou probleem onderzoeken en proberen op te lossen. Je kunt met hen in contact komen op de onderstaande manier:"
 
 #: web/lib/user/TextTemplates.php:75 web/skins/modern/div_user_welcome.php:20
 msgid "Back to downloads"
-msgstr ""
+msgstr "Terug naar de downloads"
 
 #: web/lib/user/TextTemplates.php:76
 #, php-format
@@ -436,17 +434,16 @@ msgstr ""
 #: web/lib/user/TextTemplates.php:79
 #, php-format
 msgid "%s installation made easy:"
-msgstr ""
+msgstr "makkelijke installatie van %s:"
 
 #: web/lib/user/TextTemplates.php:80
-#, fuzzy
 msgid "Custom built for your organisation"
-msgstr "Kies een instelling"
+msgstr ""
 
 #: web/lib/user/TextTemplates.php:81
-#, fuzzy, php-format
+#, php-format
 msgid "Click here to download your %s installer"
-msgstr "Installatie-software downloaden voor"
+msgstr ""
 
 #: web/lib/user/TextTemplates.php:82
 msgid "Select the user group"
@@ -454,32 +451,27 @@ msgstr "Kies een gebruikersgroep"
 
 #: web/lib/user/TextTemplates.php:83
 msgid "select another"
-msgstr "Kies een andere"
+msgstr "selecteer een andere"
 
 #: web/lib/user/TextTemplates.php:84
-#, fuzzy
 msgid "Choose another installer to download"
-msgstr "Kies installatie-software om te downloaden"
+msgstr ""
 
 #: web/lib/user/TextTemplates.php:85
 msgid "All platforms"
-msgstr ""
+msgstr "Alle platforms"
 
 #: web/lib/user/TextTemplates.php:86
-#, fuzzy, php-format
+#, php-format
 msgid "Download your %s installer"
-msgstr "Installatie-software downloaden voor"
+msgstr "Installatie-software downloaden voor %s"
 
 #: web/lib/user/TextTemplates.php:87
-#, fuzzy
 msgid ""
-"Your local administrator has specified a redirect to a local support page."
-"<br>When you click <b>Continue</b> this support page will be opened in a new "
-"window/tab."
+"Your local administrator has specified a redirect to a local support "
+"page.<br>When you click <b>Continue</b> this support page will be opened in "
+"a new window/tab."
 msgstr ""
-"Jouw beheerders hebben opgegeven dat deze gebruikersgroep lokaal ondersteund "
-"moet worden.<br>\n"
-"Als je op <b>Doorgaan</b> klikt komt deze pagina in een nieuw window/tab."
 
 #: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:268
 #: web/skins/modern/user/js/cat_js.php:276
@@ -506,14 +498,13 @@ msgid ""
 msgstr ""
 
 #: web/lib/user/TextTemplates.php:92
-#, fuzzy
 msgid "Custom built for you"
-msgstr "Kies een instelling"
+msgstr ""
 
 #: web/lib/user/TextTemplates.php:94
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s: %s"
-msgstr ""
+msgstr "Digitaal ondertekend door de organisatie die %s coördineert: %s"
 
 #: web/skins/modern/div_user_welcome.php:12
 msgid ""
@@ -527,8 +518,8 @@ msgstr ""
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
 "need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal "
-"certificate') - and be online!"
+"credentials (this is our fancy name for 'username and password' or 'personal"
+" certificate') - and be online!"
 msgstr ""
 
 #: web/skins/modern/index.php:68 web/skins/modern/test.php:70
@@ -543,7 +534,7 @@ msgstr ""
 #: web/skins/modern/Menu.php:35
 #, php-format
 msgid "About %s"
-msgstr ""
+msgstr "Over %s"
 
 #: web/skins/modern/Menu.php:39
 msgid "Language"
@@ -555,15 +546,14 @@ msgid "Help"
 msgstr ""
 
 #: web/skins/modern/Menu.php:42
-#, fuzzy
 msgid "My institution is not listed"
-msgstr "Help, mijn instelling staat niet in de lijst"
+msgstr ""
 
 #: web/skins/modern/Menu.php:42 web/skins/modern/Menu.php:43
 #: web/skins/modern/Menu.php:45 web/skins/modern/Menu.php:46
 #: web/skins/modern/Menu.php:47
 msgid "FAQ"
-msgstr ""
+msgstr "FAQ"
 
 #: web/skins/modern/Menu.php:43
 msgid "My device is not listed"
@@ -591,17 +581,17 @@ msgid "%s admin access"
 msgstr ""
 
 #: web/skins/modern/Menu.php:54
-#, fuzzy, php-format
+#, php-format
 msgid "%s admin:<br>manage your IdP"
-msgstr "%s beheerder:<br>beheer jouw installers"
+msgstr "%s admin:<br>beheer je IdP"
 
 #: web/skins/modern/Menu.php:55 web/skins/modern/Menu.php:56
 msgid "Become a CAT developer"
-msgstr ""
+msgstr "Wordt een CAT ontwikkelaar"
 
 #: web/skins/modern/Menu.php:60
 msgid "Terms of use"
-msgstr ""
+msgstr "Gebruiksvoorwaarde"
 
 #: web/skins/modern/accountstatus/accountstatus.php:74
 msgid ""
@@ -646,11 +636,11 @@ msgstr ""
 
 #: web/skins/modern/accountstatus/accountstatus.php:109
 msgid ""
-"Unfortunately, we are unable to determine your device's operating system. If "
-"you have made modifications on your device which prevent it from being "
+"Unfortunately, we are unable to determine your device's operating system. If"
+" you have made modifications on your device which prevent it from being "
 "recognised (e.g. custom 'User Agent' settings), please undo such "
-"modifications. You can come back to this page again; the invitation link has "
-"not been used up yet."
+"modifications. You can come back to this page again; the invitation link has"
+" not been used up yet."
 msgstr ""
 
 #: web/skins/modern/accountstatus/accountstatus.php:116
@@ -667,7 +657,10 @@ msgstr ""
 msgid "You can now download a personalised  %s installation program."
 msgstr ""
 
-#. echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
+#. echo sprintf(_("The installation program is <span class='emph'>strictly
+#. personal</span>, to be used <span class='emph'>only on this device
+#. (%s)</span>, and it is <span class='emph'>not permitted to share</span>
+#. this information with anyone."), $statusInfo['OS']['display']);
 #: web/skins/modern/accountstatus/accountstatus.php:122
 #, php-format
 msgid ""
@@ -697,16 +690,16 @@ msgid "Import PIN: %s"
 msgstr ""
 
 #: web/skins/modern/accountstatus/accountstatus.php:134
-#, fuzzy, php-format
+#, php-format
 msgid "Click here to download your %s installer!"
-msgstr "Installatie-software downloaden voor"
+msgstr ""
 
 #: web/skins/modern/accountstatus/accountstatus.php:138
 #, php-format
 msgid ""
 "Unfortunately, the invitation link you just used is too old. The %s sign-up "
-"invitation was valid until %s. You cannot use this link any more. Please ask "
-"your administrator to issue you a new invitation link."
+"invitation was valid until %s. You cannot use this link any more. Please ask"
+" your administrator to issue you a new invitation link."
 msgstr ""
 
 #: web/skins/modern/accountstatus/accountstatus.php:145
@@ -716,36 +709,32 @@ msgstr ""
 #: web/skins/modern/accountstatus/accountstatus.php:146
 #, php-format
 msgid ""
-"The invitation link you followed does not map to any invititation we have on "
-"file."
+"The invitation link you followed does not map to any invititation we have on"
+" file."
 msgstr ""
 
 #: web/skins/modern/accountstatus/accountstatus.php:146
 #, php-format
 msgid ""
 "You should use the exact link you got during sign-up to come here. "
-"Alternatively, if you have a valid %s credential already, you can visit this "
-"page and Accept the question about logging in with a client certificate "
+"Alternatively, if you have a valid %s credential already, you can visit this"
+" page and Accept the question about logging in with a client certificate "
 "(select a certificate with a name ending in '…%s')."
 msgstr ""
 
 #: web/skins/modern/accountstatus/accountstatus.php:178
 #: web/skins/modern/user/js/cat_js.php:235
-#, fuzzy
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
 "organisation at:"
 msgstr ""
-"Als je problemen tegen komt, kun je directe ondersteuning krijgen bij jouw "
-"thuis-instelling op:"
 
 #: web/skins/modern/accountstatus/accountstatus.php:180
 #: web/skins/modern/user/js/cat_js.php:237
-#, fuzzy
 msgid ""
-"If you encounter problems you should ask those who gave you your account for "
-"help."
-msgstr "Als je problemen tegen komt, vraag dan hulp bij jouw instelling"
+"If you encounter problems you should ask those who gave you your account for"
+" help."
+msgstr ""
 
 #: web/skins/modern/accountstatus/accountstatus.php:191
 #, php-format
@@ -809,11 +798,11 @@ msgstr ""
 
 #: web/skins/modern/user/cat_info.php:92
 msgid "Please authenticate yourself and login"
-msgstr ""
+msgstr "Maak jezelf s.v.p. bekend en log in"
 
 #: web/skins/modern/user/cat_info.php:97
 msgid "Login"
-msgstr ""
+msgstr "Login"
 
 #: web/skins/modern/user/cat_info.php:98
 msgid ""
@@ -832,12 +821,12 @@ msgid ""
 "This is embarrassing. Generation of your installer failed. System admins "
 "have been notified. We will try to take care of the problem as soon as "
 "possible."
-msgstr ""
+msgstr "Dit is gênant. Het genereren van je installatieprogramma is mislukt. Systeem-beheer is hiervan op de hoogte gebracht. We proberen het probleem zo snel mogelijk op te lossen."
 
 #: web/skins/modern/user/js/cat_js.php:79
 #: web/skins/modern/user/js/cat_js.php:216
 msgid "no matching data found"
-msgstr ""
+msgstr "er zijn geen passende gegevens gevonden"
 
 #: web/skins/modern/user/js/cat_js.php:93
 msgid "select"
@@ -845,34 +834,29 @@ msgstr "kies"
 
 #: web/skins/modern/user/js/cat_js.php:229
 msgid "WWW:"
-msgstr ""
+msgstr "web:"
 
 #: web/skins/modern/user/js/cat_js.php:231
 msgid "email:"
-msgstr ""
+msgstr "e-mail:"
 
 #: web/skins/modern/user/js/cat_js.php:233
 msgid "tel:"
-msgstr ""
+msgstr "tel:"
 
 #: web/skins/modern/user/js/cat_js.php:255
 #: web/skins/modern/user/js/cat_js.php:281
-#, fuzzy
 msgid ""
-"This device cannot be configured with the settings used in your organisation."
+"This device cannot be configured with the settings used in your "
+"organisation."
 msgstr ""
-"Dit apparaat kan niet worden geconfigureerd met instellingen geconfigureerd "
-"door jouw instelling."
 
 #: web/skins/modern/user/js/cat_js.php:268
 msgid ""
 "Your site administrator has specified that this device should be configured "
 "with resources located on a local page. When you click <b>Continue</b> this "
 "page will be opened in a new window/tab."
-msgstr ""
-"Jouw instellings-beheerder heeft opgegeven dat dit apparaat configureerd kan "
-"worden met informatie op een instellings-pagina. Als je op <b>Doorgaan</b> "
-"klikt wordt je doorgestuurd naar deze pagina in een nieuwe tab/window."
+msgstr "Jouw instellings-beheerder heeft opgegeven dat dit apparaat configureerd kan worden met informatie op een instellings-pagina. Als je op <b>Doorgaan</b> klikt wordt je doorgestuurd naar deze pagina in een nieuwe tab/window."
 
 #: web/skins/modern/user/js/cat_js.php:282
 msgid "Close"
@@ -899,43 +883,36 @@ msgid "Organisation"
 msgstr ""
 
 #: web/skins/modern/user/js/cat_js.php:564
-#, fuzzy
 msgid "Select your organisation"
-msgstr "Kies een instelling"
+msgstr ""
 
 #: web/skins/modern/user/js/cat_js.php:565
-#, fuzzy
 msgid "Help, my organisation is not on the list"
-msgstr "Help, mijn instelling staat niet in de lijst"
+msgstr ""
 
 #: web/skins/modern/user/js/cat_js.php:566
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
 "your organisation is not on the list, then nag them to add information to "
 "the %s database."
 msgstr ""
-"Het systeem gebruikt informatie die opgegeven is door de beheerders bij %s. "
-"Als jouw instelling niet in de lijst staat... vraag ze of ze de informatie "
-"toevoegen bij de %s database."
 
 #: web/skins/modern/user/js/cat_js.php:567
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "Geef me de juiste instelling met behulp van HTML5 geo-location."
 
 #: web/skins/modern/user/js/cat_js.php:568
-#, fuzzy
 msgid "Show organisations in"
-msgstr "Laat instellingen zien in"
+msgstr ""
 
 #: web/skins/modern/user/js/cat_js.php:569
 msgid "all countries"
 msgstr "alle landen"
 
 #: web/skins/modern/user/js/cat_js.php:570
-#, fuzzy
 msgid "or search for an organisation, for example University of Oslo"
-msgstr "of zoek een instelling, bijvoorbeeld Universiteit van Oslo"
+msgstr ""
 
 #: web/skins/modern/user/js/cat_js.php:571
 msgid "show all countries"
@@ -951,184 +928,77 @@ msgstr "items - laat meer zien"
 
 #: web/skins/modern/user/js/cat_js.php:574
 msgid "Nearby"
-msgstr ""
+msgstr "Nabijgelegen"
 
 #: web/skins/modern/user/js/cat_js.php:575
 msgid "Location timeout"
-msgstr ""
+msgstr "Locatie timeout"
 
 #: web/skins/modern/user/js/cat_js.php:576
-#, fuzzy
 msgid "Could not get your position"
-msgstr "Kies een instelling"
+msgstr "Kan je standpunt niet bepalen"
 
 #: web/skins/modern/user/js/cat_js.php:577
 msgid "Your browser has denied access to your location"
-msgstr ""
+msgstr "Je browser heeft toegang tot je locatie geweigerd"
 
 #: web/skins/modern/user/js/cat_js.php:578
 msgid "Unknown location error"
-msgstr ""
+msgstr "Onbekende locatie fout"
 
 #: web/skins/modern/user/js/cat_js.php:579
 msgid "You are here:"
-msgstr ""
+msgstr "Je staat hier:"
 
 #: web/skins/modern/user/js/cat_js.php:580
 msgid "Getting your location..."
-msgstr ""
+msgstr "Ophalen van je locatie..."
 
 #: web/skins/modern/user/js/cat_js.php:581
 msgid "Nearby providers shown on top."
-msgstr ""
+msgstr "Nabijgelegen providers worden bovenaan getoond."
 
 #. *
 #. The OS objects define individual frames
 #. the last argument of the OS call specifies whether the module is
 #. signed.  Make sure that this is in sync with your settings
 #. in devices/devices.php
-#.
 #: web/skins/modern/user/js/roll.php:129
 msgid "MS Windows"
-msgstr ""
+msgstr "MS Windows"
 
 #: web/skins/modern/user/js/roll.php:129
 msgid "10, 8, 7, Vista"
-msgstr ""
+msgstr "10, 8, 7, Vista"
 
 #: web/skins/modern/user/js/roll.php:130
 msgid "Apple OS X"
-msgstr ""
+msgstr "Apple OS X"
 
 #: web/skins/modern/user/js/roll.php:131
 msgid "Android"
-msgstr ""
+msgstr "Android"
 
 #: web/skins/modern/user/js/roll.php:131
 msgid "4.3+"
-msgstr ""
+msgstr "4.3+"
 
 #: web/skins/modern/user/js/roll.php:132
 msgid "Apple iOS devices"
-msgstr ""
+msgstr "Apple iOS apparaten"
 
 #: web/skins/modern/user/js/roll.php:132
 msgid "iPhone, iPad, iPod touch"
-msgstr ""
+msgstr "iPhone, iPad, iPod touch"
 
 #: web/skins/modern/user/js/roll.php:133
 msgid "Linux"
-msgstr ""
+msgstr "Linux"
 
 #: web/skins/modern/user/js/roll.php:133
-#, fuzzy
 msgid "all major distributions"
-msgstr "Kies een instelling"
+msgstr "alle belangrijke distributies"
 
 #: web/skins/modern/user/js/roll.php:134
 msgid "Chrome OS"
-msgstr ""
-
-#, fuzzy
-#~ msgid ""
-#~ "If you encounter problems you should ask those who you gave you your "
-#~ "account for help."
-#~ msgstr "Als je problemen tegen komt, vraag dan hulp bij jouw instelling"
-
-#, fuzzy
-#~ msgid "Select your <strong>%s<\\/strong>"
-#~ msgstr "Kies jouw <strong>instelling<\\/strong>"
-
-#, fuzzy
-#~ msgid ""
-#~ "The most important need is adding new installer modules, which will "
-#~ "configure particular devices.  CAT is making this easy for you. If you "
-#~ "know how to create an automatic installer then fitting it into CAT should "
-#~ "be a piece of cake. You should start by contacting us at <a href='mailto:"
-#~ "%s'>%s</a>, but please also take a look at <a href='%s'>CAT "
-#~ "documentation</a>."
-#~ msgstr ""
-#~ "Het belangrijkste is het toevoegen van wat installatie-modules, die "
-#~ "specifieke apparaten zal configureren. CAT maakt dit eenvoudig. Als je "
-#~ "bekend bent met het maken van een automatische installer, dan is het ook "
-#~ "eenvoudig met CAT. Neem contact op met ons op <a href='mailto:%s'>%s</a> "
-#~ "voor meer informatie, maar kijk ook in <a href='%s'>de CAT documentatie</"
-#~ "a>."
-
-#, fuzzy
-#~ msgid ""
-#~ "Please send a problem report to <a href='%s'>%s</a>. Some screen dumps "
-#~ "are very welcome."
-#~ msgstr ""
-#~ "Stuur een melding van het probleem naar <a href='mailto:%s'>%s</a>. Een "
-#~ "screenshot is erg welkom."
-
-#~ msgid "Selected institution:"
-#~ msgstr "Gekozen instelling:"
-
-#, fuzzy
-#~ msgid "Select your country"
-#~ msgstr "Kies een instelling"
-
-#, fuzzy
-#~ msgid ""
-#~ "Your operating system was not properly detected, is not supported yet or "
-#~ "cannot be configured with settings provided by your institution"
-#~ msgstr ""
-#~ "Dit apparaat kan niet worden geconfigureerd met instellingen "
-#~ "geconfigureerd door jouw instelling."
-
-#, fuzzy
-#~ msgid ""
-#~ "Your local administrator has specified a redirect to a local support page."
-#~ msgstr "je zal worden doorgestuurd naar de lokale ondersteunings-pagina"
-
-#, fuzzy
-#~ msgid "Do you have an account at this institution?"
-#~ msgstr "Het profiel komt niet overeen met de instelling"
-
-#, fuzzy
-#~ msgid "Start over"
-#~ msgstr "Start pagina"
-
-#~ msgid "Report a problem"
-#~ msgstr "Meld een probleem"
-
-#~ msgid "Release %s"
-#~ msgstr "Release %s"
-
-#~ msgid "Unreleased SVN Revision"
-#~ msgstr "Unreleased SVN Revision"
-
-#~ msgid "not available with settings provided by your institution"
-#~ msgstr "Niet beschikbaar met instellingen vanuit jouw instelling"
-
-#~ msgid "Your choice"
-#~ msgstr "Jouw keus"
-
-#~ msgid "This is a service under preparation, do not expect it to work."
-#~ msgstr ""
-#~ "Deze dienst is een test; verwacht niet dat het al helmaal goed werkt."
-
-#~ msgid "This is a service under preparation, do not expect it to work"
-#~ msgstr "Deze dienst is een test, verwacht niet dat het meteen goed werkt."
-
-#, fuzzy
-#~ msgid "Manage your institution settings"
-#~ msgstr "Kies een instelling"
-
-#~ msgid ""
-#~ "Your local administrator has specified that this user group should be "
-#~ "supported locally.<br>\n"
-#~ "When you click <b>Continue</b> this support page will be opened in a new "
-#~ "window/tab."
-#~ msgstr ""
-#~ "Jouw beheerders hebben opgegeven dat deze gebruikersgroep lokaal "
-#~ "ondersteund moet worden.<br>\n"
-#~ "Als je op <b>Doorgaan</b> klikt komt deze pagina in een nieuw window/tab."
-
-#~ msgid "no configurator avalable for these input data"
-#~ msgstr "geen installatie beschikbaar voor deze gegevens"
-
-#~ msgid "the %s"
-#~ msgstr "de %s"
+msgstr "Chrome OS"

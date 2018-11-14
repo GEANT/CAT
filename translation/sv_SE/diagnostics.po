@@ -1,26 +1,29 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
 # Translators:
+# eduroam_devel <stefan.winter@restena.lu>, 2018
+# 
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: eduroam CAT\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-07 14:23+0100\n"
-"PO-Revision-Date: 2012-08-07 13:23+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
-"Language-Team: Swedish (http://www.transifex.com/projects/p/cat/language/"
-"sv/)\n"
-"Language: sv\n"
+"PO-Revision-Date: 2016-07-15 08:52+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>, 2018\n"
+"Language-Team: Swedish (Sweden) (https://www.transifex.com/eduroam_devel/teams/11799/sv_SE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: sv_SE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: core/diag/AbstractTest.php:266
 msgid "Completed"
-msgstr ""
+msgstr "Slutfördes"
 
 #: core/diag/AbstractTest.php:273
 msgid "Product is not configured to run this check."
@@ -29,20 +32,20 @@ msgstr ""
 #: core/diag/AbstractTest.php:279 web/diag/action_realmcheck.php:527
 #: web/diag/action_realmcheck.php:543
 msgid "This check was skipped."
-msgstr ""
+msgstr "Denna check utfördes inte."
 
 #: core/diag/AbstractTest.php:286
 msgid "There were errors during the test."
-msgstr ""
+msgstr "Det blev fel under testet."
 
 #: core/diag/AbstractTest.php:294
 msgid "There was no reply at all from the RADIUS server."
-msgstr ""
+msgstr "Inget svar från RADIUS servern."
 
 #: core/diag/AbstractTest.php:301
 msgid ""
-"There was a bidirectional communication with the RADIUS server, but it ended "
-"halfway through."
+"There was a bidirectional communication with the RADIUS server, but it ended"
+" halfway through."
 msgstr ""
 
 #: core/diag/AbstractTest.php:308
@@ -102,8 +105,8 @@ msgstr ""
 #: core/diag/AbstractTest.php:379
 msgid ""
 "At least one certificate in the chain had a public key of less than 1024 "
-"bits. Many recent operating systems consider this unacceptable and will fail "
-"to validate the server certificate."
+"bits. Many recent operating systems consider this unacceptable and will fail"
+" to validate the server certificate."
 msgstr ""
 
 #: core/diag/AbstractTest.php:386
@@ -129,11 +132,11 @@ msgstr ""
 
 #: core/diag/AbstractTest.php:407
 msgid ""
-"The extension 'CRL Distribution Point' in the server certificate points to a "
-"location where no DER-encoded CRL can be found. Some Operating Systems check "
-"certificate validity by consulting the CRL and will fail to validate the "
-"certificate. Checking server certificate validity against a CRL will not be "
-"possible."
+"The extension 'CRL Distribution Point' in the server certificate points to a"
+" location where no DER-encoded CRL can be found. Some Operating Systems "
+"check certificate validity by consulting the CRL and will fail to validate "
+"the certificate. Checking server certificate validity against a CRL will not"
+" be possible."
 msgstr ""
 
 #: core/diag/AbstractTest.php:414
@@ -142,10 +145,10 @@ msgstr ""
 
 #: core/diag/AbstractTest.php:421
 msgid ""
-"The certificate contained a CN or subjectAltName:DNS which does not parse as "
-"a hostname. This can be problematic on some supplicants. If the certificate "
-"also contains names which are a proper hostname, and you only use those for "
-"your supplicant configuration, then you can safely ignore this notice."
+"The certificate contained a CN or subjectAltName:DNS which does not parse as"
+" a hostname. This can be problematic on some supplicants. If the certificate"
+" also contains names which are a proper hostname, and you only use those for"
+" your supplicant configuration, then you can safely ignore this notice."
 msgstr ""
 
 #: core/diag/AbstractTest.php:428
@@ -194,8 +197,8 @@ msgstr ""
 
 #: core/diag/AbstractTest.php:466
 msgid ""
-"The configured EAP server name matches either the CN or a subjectAltName:DNS "
-"of the incoming certificate; best current practice is that the certificate "
+"The configured EAP server name matches either the CN or a subjectAltName:DNS"
+" of the incoming certificate; best current practice is that the certificate "
 "should contain the name in BOTH places."
 msgstr ""
 
@@ -225,11 +228,11 @@ msgstr ""
 
 #: core/diag/AbstractTest.php:508
 msgid "The CRL of a certificate could not be found."
-msgstr ""
+msgstr "CRL:en för certifikatet hittades inte."
 
 #: core/diag/AbstractTest.php:515
 msgid "EAP method negotiation failed!"
-msgstr ""
+msgstr "EAP metod förhandlingen fungerade inte!!"
 
 #: core/diag/AbstractTest.php:522
 msgid ""
@@ -246,8 +249,8 @@ msgstr ""
 
 #: core/diag/AbstractTest.php:536
 msgid ""
-"The certificate public key algorithm is unknown to the system. Please submit "
-"the certificate as a sample to the developers."
+"The certificate public key algorithm is unknown to the system. Please submit"
+" the certificate as a sample to the developers."
 msgstr ""
 
 #: core/diag/Logopath.php:96
@@ -257,9 +260,10 @@ msgstr ""
 #: core/diag/Logopath.php:98
 msgid ""
 "(This service is in an early stage. We apologise if this is a false alert. "
-"If this is the case, please send an email report to cat-devel@lists.geant."
-"org, forwarding the entire message (including the 'SUSPECTS' and 'EVIDENCE' "
-"data at the end), and explain why this is a false positive.)"
+"If this is the case, please send an email report to cat-"
+"devel@lists.geant.org, forwarding the entire message (including the "
+"'SUSPECTS' and 'EVIDENCE' data at the end), and explain why this is a false "
+"positive.)"
 msgstr ""
 
 #: core/diag/Logopath.php:100
@@ -310,34 +314,37 @@ msgid ""
 "multiple round-trips was carried out, and ended in an Access-Reject as "
 "planned."
 msgstr ""
+"<strong>Testet lyckades</strong>: en dubbelriktad RADIUS konversation med "
+"flertalet \"tur-och-returer\" utfördes och slutade med en förväntad Access-"
+"Reject."
 
 #: core/diag/RADIUSTests.php:1054
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
-"Access-Reject as planned. Some properties of the connection attempt were sub-"
-"optimal; the list is below."
+"Access-Reject as planned. Some properties of the connection attempt were "
+"sub-optimal; the list is below."
 msgstr ""
 
 #: core/diag/RFC6614Tests.php:68
 msgid "eduPKI"
-msgstr ""
+msgstr "eduPKI"
 
 #: core/diag/RFC6614Tests.php:69
 msgid "Nicolaus Copernicus University"
-msgstr ""
+msgstr "Nicolaus Copernicus University"
 
 #: core/diag/RFC6614Tests.php:70
 msgid "accredited"
-msgstr ""
+msgstr "ackrediterad"
 
 #: core/diag/RFC6614Tests.php:71
 msgid "non-accredited"
-msgstr ""
+msgstr "icke ackrediterad"
 
 #: core/diag/RFC6614Tests.php:72
 msgid "correct certificate"
-msgstr ""
+msgstr "korrekt certifikat"
 
 #: core/diag/RFC6614Tests.php:73
 msgid "certificate with wrong policy OID"
@@ -345,19 +352,19 @@ msgstr ""
 
 #: core/diag/RFC6614Tests.php:74
 msgid "expired certificate"
-msgstr ""
+msgstr "utgånget certifikat"
 
 #: core/diag/RFC6614Tests.php:75
 msgid "revoked certificate"
-msgstr ""
+msgstr "indraget certifikat"
 
 #: core/diag/RFC6614Tests.php:76
 msgid "pass"
-msgstr ""
+msgstr "passerade (ok)"
 
 #: core/diag/RFC6614Tests.php:77
 msgid "fail"
-msgstr ""
+msgstr "fallerade"
 
 #: core/diag/RFC6614Tests.php:78
 msgid "eduroam-accredited CA (now only for tests)"
@@ -369,19 +376,19 @@ msgstr ""
 
 #: core/diag/RFC6614Tests.php:255
 msgid "certificate expired"
-msgstr ""
+msgstr "certifikatet löpte ut"
 
 #: core/diag/RFC6614Tests.php:257
 msgid "certificate was revoked"
-msgstr ""
+msgstr "certifikatet är revokerat"
 
 #: core/diag/RFC6614Tests.php:259
 msgid "bad policy"
-msgstr ""
+msgstr "felaktig policy"
 
 #: core/diag/RFC6614Tests.php:261
 msgid "unknown authority"
-msgstr ""
+msgstr "okänd authority"
 
 #: core/diag/RFC6614Tests.php:264
 msgid "unknown authority or no certificate policy or another problem"
@@ -389,18 +396,19 @@ msgstr ""
 
 #. return codes specific to NAPTR existence checks
 #. *
-#. * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
-#.
+#. * no NAPTRs for domain; this is not an error, simply means that realm is
+#. not doing dynamic discovery for any service
 #: core/diag/RFC7585Tests.php:124 web/diag/action_realmcheck.php:495
 msgid "This realm has no NAPTR records."
-msgstr ""
+msgstr "Dnna realm har ingen NAPTR records."
 
 #. *
-#. * no eduroam NAPTR for domain; this is not an error, simply means that realm is not doing dynamic discovery for eduroam
-#.
+#. * no eduroam NAPTR for domain; this is not an error, simply means that
+#. realm is not doing dynamic discovery for eduroam
 #: core/diag/RFC7585Tests.php:130
 msgid "NAPTR records were found, but all of them refer to unrelated services."
 msgstr ""
+"NAPTR records hittades, men alla av dem refererade till andra services."
 
 #: core/diag/Sociopath.php:35
 msgid "There is nothing you can do to solve this problem yourself."
@@ -433,18 +441,23 @@ msgstr ""
 
 #: core/diag/Sociopath.php:48
 msgid ""
-"There are likely some issues around the wireless part of the network you are "
-"trying to connect to. Wireless networks do not always behave "
+"There are likely some issues around the wireless part of the network you are"
+" trying to connect to. Wireless networks do not always behave "
 "deterministically and consistently. All users at a given location have to "
-"share the available bandwidth, and the physical environment (concrete walls, "
-"objects in the way, elevation differences) can have a significant impact on "
-"your connectivity experience."
+"share the available bandwidth, and the physical environment (concrete walls,"
+" objects in the way, elevation differences) can have a significant impact on"
+" your connectivity experience."
 msgstr ""
 
-#. here is an array with yes/no answers per failure category, and the factors by which a Yes modifies the score; No's modify it by 1/factor;
-#. the order in this array is important: lower numbered questions will be asked first. So make sure you have high-quality questions in the beginning.
-#. to be clear: "Yes" answers are elsewhere in the class the TRUE case; No's are FALSE, a possible "Don't know or N/A" is NULL
-#. VERDICTLECTURE is text which is displayed to the end user if his answer led to a HIGHER score in the process. We are storing the answers to determine this.
+#. here is an array with yes/no answers per failure category, and the factors
+#. by which a Yes modifies the score; No's modify it by 1/factor;
+#. the order in this array is important: lower numbered questions will be
+#. asked first. So make sure you have high-quality questions in the beginning.
+#. to be clear: "Yes" answers are elsewhere in the class the TRUE case; No's
+#. are FALSE, a possible "Don't know or N/A" is NULL
+#. VERDICTLECTURE is text which is displayed to the end user if his answer led
+#. to a HIGHER score in the process. We are storing the answers to determine
+#. this.
 #: core/diag/Sociopath.php:56
 msgid ""
 "You should use appropriate configuration assistants [MGW: see if the realm "
@@ -475,9 +488,10 @@ msgstr ""
 #, php-format
 msgid ""
 "If roaming consistently does not work, then very likely your device "
-"configuration is wrong. Typical errors causing this symptom include: using a "
-"routing ('outer') username without the @realm.tld suffix - those potentially "
-"work at your home organisation, but can not be used when roaming. %s"
+"configuration is wrong. Typical errors causing this symptom include: using a"
+" routing ('outer') username without the @realm.tld suffix - those "
+"potentially work at your home organisation, but can not be used when "
+"roaming. %s"
 msgstr ""
 
 #: core/diag/Sociopath.php:68
@@ -507,16 +521,16 @@ msgstr ""
 
 #: core/diag/Sociopath.php:76
 msgid ""
-"Is the place you are currently at heavily crowded, or is a network-intensive "
-"workload going on?"
+"Is the place you are currently at heavily crowded, or is a network-intensive"
+" workload going on?"
 msgstr ""
 
 #: core/diag/Sociopath.php:78
 msgid ""
-"The network is likely overloaded at this location and point in time. You may "
-"have to wait until later before you get a better connectivity. If you think "
-"the network should be reinforced for more capacity at this place, you should "
-"inform the hotspot provider. [MGW: add contact info]"
+"The network is likely overloaded at this location and point in time. You may"
+" have to wait until later before you get a better connectivity. If you think"
+" the network should be reinforced for more capacity at this place, you "
+"should inform the hotspot provider. [MGW: add contact info]"
 msgstr ""
 
 #: core/diag/Sociopath.php:80
@@ -537,9 +551,9 @@ msgstr ""
 
 #: core/diag/Sociopath.php:87
 msgid ""
-"The evidence at hand suggests that there may be an infrastructure problem at "
-"this particular hotspot provider. There is nothing you can do to solve this "
-"problem locally. Please be patient and try again at a later time."
+"The evidence at hand suggests that there may be an infrastructure problem at"
+" this particular hotspot provider. There is nothing you can do to solve this"
+" problem locally. Please be patient and try again at a later time."
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:67
@@ -591,8 +605,8 @@ msgstr ""
 
 #: web/skins/modern/diag/diag.php:83
 msgid ""
-"What is the realm part of your user account (the part behind the @ of 'your."
-"username@<b>realm.tld</b>):"
+"What is the realm part of your user account (the part behind the @ of "
+"'your.username@<b>realm.tld</b>):"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:87
@@ -671,11 +685,11 @@ msgstr ""
 
 #: web/skins/modern/diag/diag.php:264
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: web/skins/modern/diag/diag.php:265
 msgid "No"
-msgstr ""
+msgstr "Nej"
 
 #: web/skins/modern/diag/diag.php:266
 msgid "I don't know"
@@ -716,7 +730,8 @@ msgid "The network environment around you is broken"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:319
-msgid "The RADIUS server of your service provider is the source of the problem"
+msgid ""
+"The RADIUS server of your service provider is the source of the problem"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:322
@@ -739,8 +754,8 @@ msgstr ""
 
 #: web/skins/modern/diag/diag.php:331
 msgid ""
-"The link between the national server of your home country/region and the top-"
-"level server is broken"
+"The link between the national server of your home country/region and the "
+"top-level server is broken"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:334
@@ -753,7 +768,8 @@ msgid ""
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:340
-msgid "The RADIUS server of your home institution is the source of the problem"
+msgid ""
+"The RADIUS server of your home institution is the source of the problem"
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:343
@@ -778,7 +794,7 @@ msgstr ""
 
 #: web/skins/modern/diag/diag.php:530
 msgid "Realm:"
-msgstr ""
+msgstr "Realm:"
 
 #: web/skins/modern/diag/diag.php:584 web/skins/modern/diag/diag.php:653
 #: web/skins/modern/diag/diag.php:769
@@ -876,24 +892,26 @@ msgstr ""
 #: web/diag/action_realmcheck.php:18
 #, php-format
 msgid "Sanity check for dynamic discovery of realms"
-msgstr ""
+msgstr "Hälsocheck för dynamsik upptäckt av realm:er"
 
 #: web/diag/action_realmcheck.php:46
 msgid ""
 "You asked for a realm check, but we don't know the realm for this profile!"
 msgstr ""
+"Du efterfrågande en realm check men vi känner inte till realmen för denna "
+"profil!"
 
 #: web/diag/action_realmcheck.php:55
 msgid "No valid realm name given, cannot execute any checks!"
-msgstr ""
+msgstr "Ingen valid realm namn angivet, ingen check kunde utföras!"
 
 #: web/diag/action_realmcheck.php:59
 msgid "STATIC"
-msgstr ""
+msgstr "STATISK"
 
 #: web/diag/action_realmcheck.php:60
 msgid "DYNAMIC"
-msgstr ""
+msgstr "DYNAMISK"
 
 #: web/diag/action_realmcheck.php:88
 msgid "PASS"
@@ -941,7 +959,7 @@ msgstr ""
 
 #: web/diag/action_realmcheck.php:100
 msgid "more"
-msgstr ""
+msgstr "mer"
 
 #: web/diag/action_realmcheck.php:102 web/diag/action_realmcheck.php:644
 msgid "Show detailed information for all tests"
@@ -1093,7 +1111,7 @@ msgstr ""
 #: web/diag/action_realmcheck.php:533
 #, php-format
 msgid "%d host names discovered."
-msgstr ""
+msgstr "%d host namn upptäckta."
 
 #: web/diag/action_realmcheck.php:540
 msgid "Checking IP address resolution:"
@@ -1113,15 +1131,15 @@ msgstr ""
 #: web/diag/action_realmcheck.php:556 web/diag/action_realmcheck.php:558
 #, php-format
 msgid "Realm is <strong>%s</strong> "
-msgstr ""
+msgstr "Realmen är <strong>%s</strong> "
 
 #: web/diag/action_realmcheck.php:556
 msgid "with no DNS errors encountered. Congratulations!"
-msgstr ""
+msgstr "utan att några DNS fel inträffade. Grattis!"
 
 #: web/diag/action_realmcheck.php:558
 msgid "but there were DNS errors! Check them!"
-msgstr ""
+msgstr "men det var DNS fel! kolla upp dem!"
 
 #: web/diag/action_realmcheck.php:558
 msgid ""
@@ -1139,12 +1157,12 @@ msgstr ""
 
 #: web/diag/action_realmcheck.php:609
 msgid "STATIC connectivity tests"
-msgstr ""
+msgstr "STATISKA anslutnings tester"
 
 #: web/diag/action_realmcheck.php:611
 msgid ""
-"This check sends a request for the realm through various entry points of the "
-"roaming consortium infrastructure. The request will contain the 'Operator-"
+"This check sends a request for the realm through various entry points of the"
+" roaming consortium infrastructure. The request will contain the 'Operator-"
 "Name' attribute, and will be larger than 1500 Bytes to catch two common "
 "configuration problems.<br/>Since we don't have actual credentials for the "
 "realm, we can't authenticate successfully - so the expected outcome is to "
@@ -1159,7 +1177,7 @@ msgstr ""
 #: web/diag/action_realmcheck.php:620 web/diag/action_realmcheck.php:653
 #: web/diag/action_realmcheck.php:666
 msgid "testing..."
-msgstr ""
+msgstr "testar..."
 
 #: web/diag/action_realmcheck.php:635
 msgid "Repeat dynamic connectivity tests"
@@ -1167,7 +1185,7 @@ msgstr ""
 
 #: web/diag/action_realmcheck.php:639
 msgid "DYNAMIC connectivity tests"
-msgstr ""
+msgstr "DYNAMISKA anslutnings tester"
 
 #: web/diag/action_realmcheck.php:643
 msgid "Some errors were found during the tests, see below"
@@ -1193,21 +1211,28 @@ msgstr ""
 
 #: web/diag/action_realmcheck.php:688
 msgid "Live login test"
-msgstr ""
+msgstr "Live login test"
 
 #: web/diag/action_realmcheck.php:701
 msgid ""
 "If you enter an existing login credential here, you can test the actual "
 "authentication from various checkpoints all over the world."
 msgstr ""
+"Om du matar in existerande inloggningsuppgifter kan du testa om inloggning "
+"fungerar från olika testpunkter runt om i världen."
 
 #: web/diag/action_realmcheck.php:702
 msgid ""
 "The test will use all EAP types you have set in your profile information to "
-"check whether the right CAs and server names are used, and of course whether "
-"the login with these credentials and the given EAP type actually worked. If "
-"you have set anonymous outer ID, the test will use that."
+"check whether the right CAs and server names are used, and of course whether"
+" the login with these credentials and the given EAP type actually worked. If"
+" you have set anonymous outer ID, the test will use that."
 msgstr ""
+"Testet kommer att använda alla EAP-typer du har ställt in i din "
+"profilinformation att kontrollera om rätt certifikatutfärdare och namn "
+"server används och naturligtvis om inloggning med dessa inloggningsuppgifter"
+" och given EAP-typ faktiskt fungerade. Om du har ställt anonym yttre ID "
+"kommer testet att använda det."
 
 #: web/diag/action_realmcheck.php:703
 msgid ""
@@ -1216,10 +1241,14 @@ msgid ""
 "<strong>temporary test accounts</strong> here; permanently valid test "
 "accounts in the wild are considered harmful!"
 msgstr ""
+"Notera: verktyget kommer avsiktligen inte erbjuda dig att spara dessa "
+"lösenordsuppgifter och de kommer inte överhuvudtaget att sparas på server "
+"sidan. Vänligen använd bara <strong>tillfälliga testkonton</strong> här; "
+"permanent valida testkonton på drift inte önskvärt och anses som skadligt!"
 
 #: web/diag/action_realmcheck.php:711
 msgid "Password-based EAP types"
-msgstr ""
+msgstr "Lösenordsbaserade EAP-typer"
 
 #: web/diag/action_realmcheck.php:712
 msgid "Real (inner) username:"
@@ -1231,11 +1260,11 @@ msgstr ""
 
 #: web/diag/action_realmcheck.php:714
 msgid "Password:"
-msgstr ""
+msgstr "Lösenord:"
 
 #: web/diag/action_realmcheck.php:718
 msgid "Certificate-based EAP types"
-msgstr ""
+msgstr "Certifikate-baserade EAP typer"
 
 #: web/diag/action_realmcheck.php:719
 msgid "Certificate file (.p12 or .pfx):"
@@ -1251,7 +1280,7 @@ msgstr ""
 
 #: web/diag/action_realmcheck.php:723
 msgid "Submit credentials"
-msgstr ""
+msgstr "Tillhandahåll användare/lösenord"
 
 #: web/diag/action_realmcheck.php:749
 #, php-format
@@ -1268,8 +1297,8 @@ msgstr ""
 
 #: web/diag/adminQuery.php:19
 msgid ""
-"A user from this IdP has conducted malicious network operations (spam, "
-"DDoS, ...)"
+"A user from this IdP has conducted malicious network operations (spam, DDoS,"
+" ...)"
 msgstr ""
 
 #: web/diag/adminQuery.php:22
@@ -1404,9 +1433,11 @@ msgstr ""
 #: web/diag/radius_tests.php:173 web/diag/radius_tests.php:214
 #, php-format
 msgid ""
-"<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation, "
-"but it did not finish after %d seconds!"
+"<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation,"
+" but it did not finish after %d seconds!"
 msgstr ""
+"<strong>Testet MISSLYCKADES</strong>: det var en dubbelriktad RADIUS "
+"konversation, men den slutfördes inte efter %d sekunder!"
 
 #: web/diag/radius_tests.php:178
 msgid "<strong>Test FAILED</strong>"
@@ -1423,10 +1454,10 @@ msgstr ""
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. This is not necessarily an error: if the RADIUS server "
-"enforces that outer identities correspond to an existing username, then this "
-"result is expected (Note: you could configure a valid outer identity in your "
-"profile settings to get past this hurdle). In all other cases, the server "
-"appears misconfigured or it is unreachable."
+"enforces that outer identities correspond to an existing username, then this"
+" result is expected (Note: you could configure a valid outer identity in "
+"your profile settings to get past this hurdle). In all other cases, the "
+"server appears misconfigured or it is unreachable."
 msgstr ""
 
 #: web/diag/radius_tests.php:218
@@ -1442,144 +1473,4 @@ msgstr ""
 #: web/diag/radius_tests.php:236 web/diag/radius_tests.php:242
 #, php-format
 msgid "elapsed time: %d"
-msgstr ""
-
-#~ msgid ""
-#~ "Sorry, this should not happen - no additional information is available"
-#~ msgstr ""
-#~ "Attans, detta borde inte inträffa - ingen ytterligare info finns för "
-#~ "tillfället."
-
-#~ msgid "Andorra"
-#~ msgstr "Andorra"
-
-#~ msgid "Austria"
-#~ msgstr "Österike"
-
-#~ msgid "Belgium"
-#~ msgstr "Belgien"
-
-#~ msgid "Bulgaria"
-#~ msgstr "Bulgarien"
-
-#~ msgid "Czech Republic"
-#~ msgstr "Tjeckien"
-
-#~ msgid "Denmark"
-#~ msgstr "Danmark"
-
-#~ msgid "Estonia"
-#~ msgstr "Estland"
-
-#~ msgid "Finland"
-#~ msgstr "Finland"
-
-#~ msgid "France"
-#~ msgstr "Frankrike"
-
-#~ msgid "Germany"
-#~ msgstr "Tyskland"
-
-#~ msgid "Greece"
-#~ msgstr "Grekland"
-
-#~ msgid "Croatia"
-#~ msgstr "Kroatsien"
-
-#~ msgid "Ireland"
-#~ msgstr "Irland"
-
-#~ msgid "Iceland"
-#~ msgstr "Island"
-
-#~ msgid "Italy"
-#~ msgstr "Italien"
-
-#~ msgid "Hungary"
-#~ msgstr "Ungern"
-
-#~ msgid "Luxembourg"
-#~ msgstr "Luxembourg"
-
-#~ msgid "Latvia"
-#~ msgstr "Lettland"
-
-#, fuzzy
-#~ msgid "Lithuania"
-#~ msgstr "Litauen"
-
-#~ msgid "Macedonia"
-#~ msgstr "Mecedonien"
-
-#~ msgid "Serbia"
-#~ msgstr "Serbien"
-
-#~ msgid "Netherlands"
-#~ msgstr "Nederländerna"
-
-#~ msgid "Norway"
-#~ msgstr "Norge"
-
-#~ msgid "Poland"
-#~ msgstr "Polen"
-
-#~ msgid "Portugal"
-#~ msgstr "Portugal"
-
-#~ msgid "Romania"
-#~ msgstr "Rumäien"
-
-#~ msgid "Slovenia"
-#~ msgstr "Slovenien"
-
-#~ msgid "Spain"
-#~ msgstr "Spanien"
-
-#~ msgid "Sweden"
-#~ msgstr "Sverige"
-
-#~ msgid "Slovakia"
-#~ msgstr "Slovenien"
-
-#~ msgid "Switzerland"
-#~ msgstr "Schweiz"
-
-#~ msgid "Turkey"
-#~ msgstr "Turkiet"
-
-#~ msgid "United Kingdom"
-#~ msgstr "Storbritanien"
-
-#~ msgid "Australia"
-#~ msgstr "Australien"
-
-#~ msgid "Canada"
-#~ msgstr "Kanada"
-
-#~ msgid "Israel"
-#~ msgstr "Israel"
-
-#~ msgid "Japan"
-#~ msgstr "Japan"
-
-#~ msgid "New Zealand"
-#~ msgstr "Nya Zealand"
-
-#~ msgid "U.S.A."
-#~ msgstr "USA"
-
-#~ msgid "Brazil"
-#~ msgstr "Brasilien"
-
-#~ msgid "Chile"
-#~ msgstr "Chile"
-
-#~ msgid "Peru"
-#~ msgstr "Peru"
-
-#~ msgid "Venezuela"
-#~ msgstr "Venezuela"
-
-#, fuzzy
-#~ msgid "Thailand"
-#~ msgstr "Finland"
+msgstr "förfluten tid: %d"

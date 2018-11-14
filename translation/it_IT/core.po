@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Daniele Albrizio <dalbrizio@gmail.com>, 2018
 # Daniele Albrizio <daniele@albrizio.it>, 2012-2013,2015,2018
@@ -15,21 +15,18 @@ msgstr ""
 "POT-Creation-Date: 2018-11-07 14:23+0100\n"
 "PO-Revision-Date: 2018-10-05 07:07+0000\n"
 "Last-Translator: Pasquale Mandato <pasquale.mandato@garr.it>\n"
-"Language-Team: Italian (Italy) (http://www.transifex.com/eduroam_devel/cat/"
-"language/it_IT/)\n"
-"Language: it_IT\n"
+"Language-Team: Italian (Italy) (http://www.transifex.com/eduroam_devel/cat/language/it_IT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: it_IT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: core/CAT.php:111
 msgid ""
-"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git "
-"Revision</a>"
-msgstr ""
-"<a href='https://github.com/GEANT/CAT/tree/master/Changes.md'> Revisione Git "
-"</a> non rilasciata"
+"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git"
+" Revision</a>"
+msgstr "<a href='https://github.com/GEANT/CAT/tree/master/Changes.md'> Revisione Git </a> non rilasciata"
 
 #: core/CAT.php:121
 #, php-format
@@ -327,9 +324,7 @@ msgstr "la pagina del tuo supporto locale %s"
 
 #: core/DeviceConfig.php:237
 msgid "Sorry, this should not happen - no additional information is available"
-msgstr ""
-"Spiacenti, questo non dovrebbe succedere - nessuna ulteriore informazione è "
-"disponibile"
+msgstr "Spiacenti, questo non dovrebbe succedere - nessuna ulteriore informazione è disponibile"
 
 #: core/IdP.php:243
 #, php-format
@@ -343,17 +338,7 @@ msgid ""
 "Best regards,\n"
 "\n"
 "%s"
-msgstr ""
-"Salve,\n"
-"\n"
-"L'Identity Provider %s nella tua %s federazione %s è stato cancellato da "
-"%s.\n"
-"\n"
-"Pensiamo ne volessi essere informato.\n"
-"\n"
-"Cordiali saluti,\n"
-"\n"
-"%s"
+msgstr "Salve,\n\nL'Identity Provider %s nella tua %s federazione %s è stato cancellato da %s.\n\nPensiamo ne volessi essere informato.\n\nCordiali saluti,\n\n%s"
 
 #: core/IdP.php:252
 msgid "IdP in your federation was deleted"
@@ -373,9 +358,7 @@ msgstr "Ciao!"
 msgid ""
 "A new %s access credential has been created for you by your network "
 "administrator."
-msgstr ""
-"Una nuova credenziale di accesso %s è stata creata per te dal tuo "
-"amministratore di rete."
+msgstr "Una nuova credenziale di accesso %s è stata creata per te dal tuo amministratore di rete."
 
 #: core/SilverbulletInvitation.php:220
 #, php-format
@@ -383,11 +366,7 @@ msgid ""
 "Please follow the following link with the device you want to enable for %s "
 "to get a custom %s installation program just for you. You can click on the "
 "link, copy and paste it into a browser or scan the attached QR code."
-msgstr ""
-"Segui, per favore, il link seguente con il dispositivo che vuoi abilitare "
-"per %s per ottenere una installazione %s apposta per te. Puoi cliccare sul "
-"link, copiarlo e incollarlo in un browser oppure scansionare il QR code "
-"allegato."
+msgstr "Segui, per favore, il link seguente con il dispositivo che vuoi abilitare per %s per ottenere una installazione %s apposta per te. Puoi cliccare sul link, copiarlo e incollarlo in un browser oppure scansionare il QR code allegato."
 
 #. gets replaced with the token value by getBody()
 #: core/SilverbulletInvitation.php:222
@@ -396,11 +375,7 @@ msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
 "up your %s installation program, you can use the same link to get status "
 "information about your %s account."
-msgstr ""
-"Si prega di conservare questa e-mail o di aggiungere questo collegamento ai "
-"preferiti per usi futuri. Dopo aver raccolto il tuo programma di "
-"installazione %s, puoi utilizzare lo stesso collegamento per ottenere "
-"informazioni sullo stato del tuo account %s."
+msgstr "Si prega di conservare questa e-mail o di aggiungere questo collegamento ai preferiti per usi futuri. Dopo aver raccolto il tuo programma di installazione %s, puoi utilizzare lo stesso collegamento per ottenere informazioni sullo stato del tuo account %s."
 
 #: core/SilverbulletInvitation.php:224
 msgid "Regards,"
@@ -411,9 +386,7 @@ msgstr "Saluti,"
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
 "'%s'!)"
-msgstr ""
-"Il tuo accesso %s è pronto! Clicca qui: %s (su Android, prima installa l'app "
-"'%s'!)"
+msgstr "Il tuo accesso %s è pronto! Clicca qui: %s (su Android, prima installa l'app '%s'!)"
 
 #: core/SilverbulletInvitation.php:283
 #, php-format
@@ -424,31 +397,21 @@ msgstr "%s Sistema Inviti"
 #. /                2. consortium name (e.g. eduroam);
 #. /                3. federation shortname, e.g. "LU";
 #. /                4. product name (e.g. eduroam CAT);
-#. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
+#. /                5. product long name (e.g. eduroam Configuration Assistant
+#. Tool)
 #: core/UserManagement.php:194
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the invitation for the new Identity Provider %s in your %s federation %s has "
-"been used and the IdP was created in %s.\n"
+"the invitation for the new Identity Provider %s in your %s federation %s has been used and the IdP was created in %s.\n"
 "\n"
 "We thought you might want to know.\n"
 "\n"
 "Best regards,\n"
 "\n"
 "%s"
-msgstr ""
-"Salve,\n"
-"\n"
-"l'invito per il nuovo Identity Provider %s nella tua %s federazione %s è "
-"stato usato e l'IdP è stato creato il %s.\n"
-"\n"
-"Pensiamo ne volessi essere informato.\n"
-"\n"
-"Cordiali saluti,\n"
-"\n"
-"%s"
+msgstr "Salve,\n\nl'invito per il nuovo Identity Provider %s nella tua %s federazione %s è stato usato e l'IdP è stato creato il %s.\n\nPensiamo ne volessi essere informato.\n\nCordiali saluti,\n\n%s"
 
 #: core/UserManagement.php:203
 msgid "IdP in your federation was created"
@@ -516,8 +479,7 @@ msgstr "Salve,"
 #: core/common/OutsideComm.php:260
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
-msgstr ""
-"manualmente. Non rispondere a questa mail, è un indirizzo di sola spedizione."
+msgstr "manualmente. Non rispondere a questa mail, è un indirizzo di sola spedizione."
 
 #: core/common/OutsideComm.php:266
 #, php-format
@@ -533,9 +495,7 @@ msgstr "amministratore di %s"
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
-msgstr ""
-"manualmente. Se rispondi a questa mail, raggiungerai gli amministratori del "
-"tuo %s"
+msgstr "manualmente. Se rispondi a questa mail, raggiungerai gli amministratori del tuo %s"
 
 #: core/common/OutsideComm.php:282
 #, php-format
@@ -549,9 +509,7 @@ msgstr "Per diventare amministratore di questo %s, clicca sul seguente link:"
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
 "Interface at"
-msgstr ""
-"Se il link non funziona, raggiungere la interfaccia di amministrazione di %s "
-"al seguente indirizzo "
+msgstr "Se il link non funziona, raggiungere la interfaccia di amministrazione di %s al seguente indirizzo "
 
 #: core/common/OutsideComm.php:286
 msgid "and enter the invitation token"
@@ -559,11 +517,9 @@ msgstr "e inserire il seguente codice"
 
 #: core/common/OutsideComm.php:288
 msgid ""
-"Do NOT forward the mail before the token has expired - or the recipients may "
-"be able to consume the token on your behalf!"
-msgstr ""
-"Non inoltrare la mail prima che il token sia scaduto - o i destinatari "
-"potrebbero essere in grado di usare il token rilasciato a vostro nome."
+"Do NOT forward the mail before the token has expired - or the recipients may"
+" be able to consume the token on your behalf!"
+msgstr "Non inoltrare la mail prima che il token sia scaduto - o i destinatari potrebbero essere in grado di usare il token rilasciato a vostro nome."
 
 #: core/common/OutsideComm.php:289
 #, php-format
@@ -576,10 +532,7 @@ msgid ""
 "Sincerely,\n"
 "\n"
 "Your friendly folks from %s Operations"
-msgstr ""
-"Cordialmente,\n"
-"\n"
-"I tuoi amici da %s Operations"
+msgstr "Cordialmente,\n\nI tuoi amici da %s Operations"
 
 #. what do we want to say?
 #: core/common/OutsideComm.php:325

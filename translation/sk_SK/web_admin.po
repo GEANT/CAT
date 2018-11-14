@@ -1,28 +1,28 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-#   <ms@uakom.sk>, 2012-2013.
+# martins <ms@uakom.sk>, 2013,2015-2016
+# martins <ms@uakom.sk>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-07 14:23+0100\n"
-"PO-Revision-Date: 2013-02-15 15:30+0000\n"
-"Last-Translator: martins <ms@uakom.sk>\n"
-"Language-Team: Slovak (Slovakia) (http://www.transifex.com/projects/p/cat/"
-"language/sk_SK/)\n"
-"Language: sk_SK\n"
+"PO-Revision-Date: 2018-10-18 21:54+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"Language-Team: Slovak (Slovakia) (http://www.transifex.com/eduroam_devel/cat/language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Language: sk_SK\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 #: web/admin/action_enrollment.php:41 web/admin/action_enrollment.php:67
 #: web/admin/action_enrollment.php:68
 msgid "Error creating new IdP binding!"
-msgstr ""
+msgstr "Chyba pri vytvárani väzby na IdP!"
 
 #: web/admin/action_enrollment.php:48
 msgid "This page needs to be called with a valid invitation token!"
@@ -37,9 +37,9 @@ msgstr ""
 #: web/admin/action_enrollment.php:71
 #, php-format
 msgid ""
-"Sorry... this token has already been used. The %s is already created. If you "
-"got the invitation from a mailing list, probably someone else used it before "
-"you."
+"Sorry... this token has already been used. The %s is already created. If you"
+" got the invitation from a mailing list, probably someone else used it "
+"before you."
 msgstr ""
 
 #: web/admin/action_enrollment.php:74
@@ -51,12 +51,13 @@ msgstr ""
 
 #: web/admin/action_enrollment.php:77
 msgid ""
-"Sorry... you have come to the enrollment page without a valid token. Are you "
-"a nasty person? If not, you should go to <a href='overview_user.php'>your "
+"Sorry... you have come to the enrollment page without a valid token. Are you"
+" a nasty person? If not, you should go to <a href='overview_user.php'>your "
 "profile page</a> instead."
-msgstr ""
+msgstr "Je nám ľúto... na registračnej stránke ste zadali neplatný token. Pokušate sa podvádzať? Ak nie, vráťte sa na <a href='overview_user.php'>stránku s vaším profilom</a>."
 
-#. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
+#. / product name (eduroam CAT), then term used for "federation", then actual
+#. name of federation.
 #: web/admin/edit_federation.php:34
 #, php-format
 msgid "%s: Editing %s '%s'"
@@ -76,25 +77,25 @@ msgstr ""
 #: web/admin/edit_federation.php:56 web/admin/edit_idp.php:76
 #: web/lib/admin/UIElements.php:215
 msgid "Country:"
-msgstr ""
+msgstr "Krajina:"
 
 #: web/admin/edit_federation.php:73 web/admin/edit_idp.php:109
 #: web/admin/edit_idp.php:165 web/admin/edit_idp.php:190
 #: web/admin/edit_profile.php:146 web/admin/edit_profile.php:461
 #: web/admin/edit_user.php:46 web/admin/inc/toggleRedirect.inc.php:124
 msgid "Add new option"
-msgstr ""
+msgstr "Pridať novú možnosť"
 
 #: web/admin/edit_federation.php:76 web/admin/edit_idp.php:195
 #: web/admin/edit_profile.php:468 web/admin/edit_user.php:51
 #: web/admin/inc/toggleRedirect.inc.php:127
 msgid "Save data"
-msgstr ""
+msgstr "Uložiť dáta"
 
 #: web/admin/edit_federation.php:76 web/admin/edit_idp.php:195
 #: web/admin/edit_profile.php:468 web/admin/edit_user.php:54
 msgid "Discard changes"
-msgstr ""
+msgstr "Zahodiť zmeny"
 
 #. / first productname (eduroam CAT), then nomenclature for 'federation'
 #: web/admin/edit_federation_result.php:31
@@ -110,26 +111,26 @@ msgstr ""
 #: web/admin/edit_federation_result.php:47 web/admin/edit_idp_result.php:144
 #: web/admin/edit_profile_result.php:224
 msgid "Continue to dashboard"
-msgstr ""
+msgstr "Pokračovať na hlavnú stránku"
 
 #: web/admin/edit_idp.php:32
 #, php-format
 msgid "%s: IdP enrollment wizard (step 2)"
-msgstr ""
+msgstr "%s: Registrácia nového poskytovateľa identity (krok 2)"
 
 #: web/admin/edit_idp.php:34
 #, php-format
 msgid "%s: Editing IdP '%s'"
-msgstr ""
+msgstr "%s: Editácia IdP '%s'"
 
 #: web/admin/edit_idp.php:66
 msgid "Step 2: General Information about your IdP"
-msgstr ""
+msgstr "Krok 2: Všeobecné informácie o vašom poskytovateľovi identity"
 
 #: web/admin/edit_idp.php:68
 #, php-format
 msgid "Editing IdP information for '%s'"
-msgstr ""
+msgstr "Editácia informácií o IdP '%s'"
 
 #: web/admin/edit_idp.php:73
 #, php-format
@@ -147,13 +148,13 @@ msgstr ""
 
 #: web/admin/edit_idp.php:97
 msgid "General Information"
-msgstr ""
+msgstr "Všeobecné informácie"
 
 #: web/admin/edit_idp.php:101
 msgid ""
 "Some properties are valid across all deployment profiles. This is the place "
-"where you can describe those properties in a fine-grained way. The solicited "
-"information is used as follows:"
+"where you can describe those properties in a fine-grained way. The solicited"
+" information is used as follows:"
 msgstr ""
 
 #: web/admin/edit_idp.php:103
@@ -162,7 +163,7 @@ msgid ""
 "all installers where a custom logo is possible. We accept any image format, "
 "but for best results, we suggest SVG. If you don't upload a logo, we will "
 "use the generic logo instead (see top-right corner of this page)."
-msgstr ""
+msgstr "<strong>Logo</strong>: Ak poskytnete logo, vložíme ho do všetkých instalačných programov, které povoľujú zobrazenie vlastného loga. Akceptujeme ľubovoľný grafický formát, ale pre dosiahnutie najlepšieho výsledku doporučujeme SVG. Pokiaľ nenahráte vlastné logo, použijeme všeobecné (viď pravý horný roh tejto stránky)."
 
 #: web/admin/edit_idp.php:104
 #, php-format
@@ -175,110 +176,113 @@ msgstr ""
 
 #: web/admin/edit_idp.php:115 web/lib/admin/UIElements.php:229
 msgid "Media Properties"
-msgstr ""
+msgstr "Sieťové prenosové médiá"
 
 #: web/admin/edit_idp.php:119
 #, php-format
 msgid ""
 "In this section, you define on which media %s should be configured on user "
 "devices."
-msgstr ""
+msgstr "V tejto sekcii je môžné určiť, prostredníctvom ktorých sieťových prenosových médií má byť nakonfigurovaný prístup k %s na zariadeniach používateľov."
 
 #: web/admin/edit_idp.php:122
 msgid "Additional SSIDs:"
-msgstr ""
+msgstr "Ďalšie SSID:"
 
 #: web/admin/edit_idp.php:122
 msgid "SSIDs:"
-msgstr ""
+msgstr "SSID:"
 
 #: web/admin/edit_idp.php:129
 #, php-format
 msgid "We will always configure this SSID for WPA2/AES: %s."
 msgid_plural "We will always configure these SSIDs for WPA2/AES: %s."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Nasledujúci SSID bude vždy nakonfigurovaný pre WPA2/AES: %s."
+msgstr[1] "Nasledujúce SSID budú vždy nakonfigurované pre WPA2/AES: %s."
+msgstr[2] "Nasledujúce SSID budú vždy nakonfigurované pre WPA2/AES: %s."
+msgstr[3] "Nasledujúce SSID budú vždy nakonfigurované pre WPA2/AES: %s."
 
 #: web/admin/edit_idp.php:131
 msgid ""
 "They will also be configured for WPA/TKIP if the device supports multiple "
 "encryption types."
-msgstr ""
+msgstr "Budú tiež nakonfigurované pre WPA/TKIP, ak zariadenie podporuje viac typov šifrovania."
 
 #: web/admin/edit_idp.php:133
 #, php-format
 msgid ""
 "It is also possible to define custom additional SSIDs with the options '%s' "
 "and '%s' below."
-msgstr ""
+msgstr "Pomocou volieb '%s' a '%s nižšie je možné nastaviť ďalšie vlastné SSID identifikátory. "
 
 #: web/admin/edit_idp.php:135
 msgid "Please configure which SSIDs should be configured in the installers."
-msgstr ""
+msgstr "Uveďte prosím, ktoré identifikátory SSID by mali byť nastavené v inštalačných programoch."
 
 #: web/admin/edit_idp.php:137
 msgid ""
 "By default, we will only configure the SSIDs with WPA2/AES encryption. By "
 "using the '(with WPA/TKIP)' option you can specify that we should include "
 "legacy support for WPA/TKIP where possible."
-msgstr ""
+msgstr "Štandardne sú nakonfigurované len identifikátory SSID so šifrovaním WPA2/AES. Pomocou voľby '(s WPA/TKIP)' je možné do konfigurácie zahrnúť aj podporu pre staršie WPA/TKIP, toto však umožňujú len niektoré zariadenia. "
 
 #: web/admin/edit_idp.php:141
 msgid "Additional Hotspot 2.0 / Passpoint Consortia:"
-msgstr ""
+msgstr "Ďalšie Hotspot 2.0 / Passpoint konzorciá:"
 
 #: web/admin/edit_idp.php:141
 msgid "Hotspot 2.0 / Passpoint Consortia:"
-msgstr ""
+msgstr "Hotspot 2.0 / Passpoint konzorciá:"
 
 #: web/admin/edit_idp.php:148
 #, php-format
 msgid "We will always configure this Consortium OI: %s."
 msgid_plural "We will always configure these Consortium OIs: %s."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Nasledujúce konzorcium bude vždy nakonfigurované: %s."
+msgstr[1] "Nasledujúce konzorciá budú vždy nakonfigurované: %s."
+msgstr[2] "Nasledujúce konzorciá budú vždy nakonfigurované: %s."
+msgstr[3] "Nasledujúce konzorciá budú vždy nakonfigurované: %s."
 
 #: web/admin/edit_idp.php:150
 #, php-format
 msgid ""
 "It is also possible to define custom additional OIs with the option '%s' "
 "below."
-msgstr ""
+msgstr "Pomocou voľby '%s' je možné nastaviť ďalšie vlastné konzorciá."
 
 #: web/admin/edit_idp.php:152
 msgid ""
-"Please configure which Consortium OIs should be configured in the installers."
-msgstr ""
+"Please configure which Consortium OIs should be configured in the "
+"installers."
+msgstr "Prosím, nastavte roamingové konzorciá, ktoré budú použité v inštalačných programoch."
 
 #: web/admin/edit_idp.php:155
 msgid "Support for wired IEEE 802.1X:"
-msgstr ""
+msgstr "Pevná sieť s IEEE 802.1X:"
 
 #: web/admin/edit_idp.php:156
 msgid ""
 "If you want to configure your users' devices with IEEE 802.1X support for "
-"wired ethernet, please check the corresponding box. Note that this makes the "
-"installation process a bit more difficult on some platforms (Windows: needs "
-"administrator privileges; Apple: attempting to install a profile with wired "
-"support on a device without an active wired ethernet card will fail)."
-msgstr ""
+"wired ethernet, please check the corresponding box. Note that this makes the"
+" installation process a bit more difficult on some platforms (Windows: needs"
+" administrator privileges; Apple: attempting to install a profile with wired"
+" support on a device without an active wired ethernet card will fail)."
+msgstr "Ak má byť na zariadeniach používateľov nastavená podpora IEEE 802.1X pre pevné siete, zaškrtnite prosím zodpovedajúce políčko. Majte prosím na pamäti, že proces inštalácie sa tým na niektorých platformách skomplikuje (Windows: inštalácia vyžaduje oprávnenia správcu; Apple: pokus o inštaláciu profilu s podporou pre pevné siete na zariadení bez aktívneho ethernet rozhrania zlyhá)."
 
 #: web/admin/edit_idp.php:158
 msgid "Removal of bootstrap/onboarding SSIDs:"
-msgstr ""
+msgstr "Odstránenie zavádzazích/pomocných SSID:"
 
 #: web/admin/edit_idp.php:159
 msgid ""
 "If you use a captive portal to distribute configurations, you may want to "
-"unconfigure/disable that SSID after the bootstrap process. With this option, "
-"the SSID will either be removed, or be defined as 'Only connect manually'."
-msgstr ""
+"unconfigure/disable that SSID after the bootstrap process. With this option,"
+" the SSID will either be removed, or be defined as 'Only connect manually'."
+msgstr "Ak kvôli počiatočnému nastaveniu prístupu do siete realizujete distribúciu profilov aj prostredníctvom nechránenej siete s captive portálom, zrejme budete chcieť túto nechránenú sieť následne v zariadeniach používateľov odkonfigurovať/vypnúť. Pomocou tejto voľby dosiahnete buď následné odstránenie alebo deaktiváciu dotknutej siete/SSID."
 
 #: web/admin/edit_idp.php:168
 msgid "Helpdesk Details for all users"
-msgstr ""
+msgstr "Informácie o technickej podpore"
 
 #: web/admin/edit_idp.php:171
 msgid ""
@@ -319,51 +323,52 @@ msgstr ""
 #: web/admin/edit_idp.php:193
 #, php-format
 msgid ""
-"When you are sure that everything is correct, please click on %sContinue ..."
-"%s"
-msgstr ""
+"When you are sure that everything is correct, please click on %sContinue "
+"...%s"
+msgstr "Ak ste si istý, že všetky údaje sú v poriadku, kliknite na tlačítko %sPokračovať ...%s"
 
 #: web/admin/edit_idp_result.php:51
 #, php-format
 msgid "%s: IdP enrollment wizard (step 2 completed)"
-msgstr ""
+msgstr "%s: Registrácia nového poskytovateľa identít (krok 2 ukončený)"
 
 #: web/admin/edit_idp_result.php:67
 #, php-format
 msgid "Submitted attributes for IdP '%s'"
-msgstr ""
+msgstr "Uložené atribúty pre poskytovateľa identity '%s'"
 
 #: web/admin/edit_idp_result.php:89 web/admin/edit_idp_result.php:94
 msgid "(WPA2/AES and WPA/TKIP)"
-msgstr ""
+msgstr "(WPA2/AES a WPA/TKIP)"
 
 #: web/admin/edit_idp_result.php:89 web/admin/edit_idp_result.php:97
 msgid "(WPA2/AES)"
-msgstr ""
+msgstr "(WPA2/AES)"
 
 #: web/admin/edit_idp_result.php:107
 #, php-format
-msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
-msgstr ""
+msgid ""
+"Your installers will configure the following SSIDs: <strong>%s</strong>"
+msgstr "Vaše inštalačné programy nastavia nasledujúce SSID: <strong>%s</strong>"
 
 #: web/admin/edit_idp_result.php:107
 msgid "SSIDs configured"
-msgstr ""
+msgstr "SSID nastavené"
 
 #: web/admin/edit_idp_result.php:111
 #, php-format
 msgid "Your installers will configure wired interfaces."
-msgstr ""
+msgstr "Vaše inštalačné programy nastavia parametre pripojenia do pevnej siete."
 
 #: web/admin/edit_idp_result.php:111
 msgid "Wired configured"
-msgstr ""
+msgstr "Pripojenie do pevnej siete nakonfigurované"
 
 #: web/admin/edit_idp_result.php:114
 msgid ""
 "We cannot generate installers because neither wireless SSIDs nor wired "
 "interfaces have been selected as a target!"
-msgstr ""
+msgstr "Inštalačné programy nie je možné generovať, keďže ako cieľové nie je vybraté žiadne pripojenie do bezdrôtová siete a zároveň ani podpora pripojenia do pevnej siete."
 
 #: web/admin/edit_idp_result.php:133
 #, php-format
@@ -374,8 +379,8 @@ msgstr ""
 #, php-format
 msgid ""
 "You did not submit an e-mail address. This is required for %s. Please go to "
-"the %s dashboard and edit your helpdesk settings to include a helpdesk e-"
-"mail address."
+"the %s dashboard and edit your helpdesk settings to include a helpdesk "
+"e-mail address."
 msgstr ""
 
 #: web/admin/edit_idp_result.php:136
@@ -389,67 +394,67 @@ msgstr ""
 #: web/admin/edit_profile.php:25
 #, php-format
 msgid "%s: IdP Enrollment Wizard (Step 3)"
-msgstr ""
+msgstr "%s: Registrácia nového poskytovateľa identity (krok 3)"
 
 #: web/admin/edit_profile.php:110
 msgid "Step 3: Defining a user group profile"
-msgstr ""
+msgstr "Krok 3: Definícia profilu pre skupinu používateľov"
 
 #: web/admin/edit_profile.php:112
 #, php-format
 msgid "Edit profile '%s' ..."
-msgstr ""
+msgstr "Upraviť profil '%s' ..."
 
 #: web/admin/edit_profile.php:125
 msgid "General Profile properties"
-msgstr ""
+msgstr "Všeobecná charakteristika profilu"
 
 #: web/admin/edit_profile.php:129
 msgid ""
 "We will now define a profile for your user group(s).  You can add as many "
 "profiles as you like by choosing the appropriate button on the end of the "
-"page. After we are done, the wizard is finished and you will be taken to the "
-"main IdP administration page."
-msgstr ""
+"page. After we are done, the wizard is finished and you will be taken to the"
+" main IdP administration page."
+msgstr "Teraz vytvorte profil pre skupinu(y) vašich používateľov. Ďalší profil môžete pridať kliknutím na príslušné tlačítko na konci stránky. Týmto krokom končí registrácia vášho poskytovateľa identity a následne budete presmerovaný na hlávnú stránku pre správu IdP."
 
 #: web/admin/edit_profile.php:132
 msgid "Profile Name and RADIUS realm"
-msgstr ""
+msgstr "Názov profilu a RADIUS doména"
 
 #: web/admin/edit_profile.php:135
 msgid ""
 "First of all we need a name for the profile. This will be displayed to end "
 "users, so you may want to choose a descriptive name like 'Professors', "
 "'Students of the Faculty of Bioscience', etc."
-msgstr ""
+msgstr "Najskôr je potrebné pre profil vybrať názov. Vyberte deskriptívny názov, kedže je určený pre koncového používateľa, napríklad 'Učitelia', 'Študenti fakulty biotechnológie' atď."
 
 #: web/admin/edit_profile.php:136
 msgid ""
-"Optionally, you can provide a longer descriptive text about who this profile "
-"is for. If you specify it, it will be displayed on the download page after "
+"Optionally, you can provide a longer descriptive text about who this profile"
+" is for. If you specify it, it will be displayed on the download page after "
 "the user has selected the profile name in the list."
-msgstr ""
+msgstr "Voliteľne môžete pridať dlhší textový popis s informáciou, pre koho je určený tento profil. Ak popis pridáte, zobrazí sa na stránke pre stiahnutie potom, ako si používateľ daný profil v zozname vyberie."
 
 #: web/admin/edit_profile.php:137
 msgid "You can also tell us your RADIUS realm. "
-msgstr ""
+msgstr "Môžete tiež zadať meno vami používanej RADIUS domény."
 
 #: web/admin/edit_profile.php:139
 #, php-format
 msgid ""
-"This is useful if you want to use the sanity check module later, which tests "
-"reachability of your realm in the %s infrastructure. "
-msgstr ""
+"This is useful if you want to use the sanity check module later, which tests"
+" reachability of your realm in the %s infrastructure. "
+msgstr "Je to užitočné v prípade, že neskôr budete chciet použiť modul pre kontrolu dostupnosti vašej domény v rámci %s infraštruktúry."
 
 #: web/admin/edit_profile.php:141
 msgid ""
 "It is required to enter the realm name if you want to support anonymous "
 "outer identities (see below)."
-msgstr ""
+msgstr "Ak chcete nastaviť anonymnú vonkajšiu identitu, musíte zadať meno domény (viď nižšie)."
 
 #: web/admin/edit_profile.php:154
 msgid "Realm:"
-msgstr ""
+msgstr "Doména:"
 
 #: web/admin/edit_profile.php:191
 msgid "Realm Options"
@@ -464,8 +469,8 @@ msgstr ""
 
 #: web/admin/edit_profile.php:196
 msgid ""
-"On some platforms, the installers can suggest username endings and/or verify "
-"the user input to contain the realm suffix."
+"On some platforms, the installers can suggest username endings and/or verify"
+" the user input to contain the realm suffix."
 msgstr ""
 
 #: web/admin/edit_profile.php:197
@@ -486,7 +491,7 @@ msgstr ""
 
 #: web/admin/edit_profile.php:233
 msgid "Enable Anonymous Outer Identity:"
-msgstr ""
+msgstr "Povoliť anonymnú vonkajšiu identitu:"
 
 #: web/admin/edit_profile.php:252
 msgid "Use special Outer Identity for realm checks:"
@@ -494,7 +499,7 @@ msgstr ""
 
 #: web/admin/edit_profile.php:269
 msgid "Installer Download Location"
-msgstr ""
+msgstr "Stiahnutie inštalačného programu"
 
 #: web/admin/edit_profile.php:273
 msgid ""
@@ -502,63 +507,63 @@ msgid ""
 "learn about the support pointers you entered earlier. The CAT can also "
 "immediately offer the installers for the profile for download. If you don't "
 "want that, you can instead enter a web site location where you want your "
-"users to be redirected to. You, as the administrator, can still download the "
-"profiles to place them on that page (see the 'Compatibility Matrix' button "
+"users to be redirected to. You, as the administrator, can still download the"
+" profiles to place them on that page (see the 'Compatibility Matrix' button "
 "on the dashboard)."
-msgstr ""
+msgstr "CAT disponuje priestorom určeným pre koncových používateľov. Dozvedia sa tam napríklad informácie o technickej podpore, ktoré ste skôr nastavili. CAT tam zároveň može ponúknuť inštalačné programy na priame stiahnutie. Alebo možete namiesto toho vložiť odkaz na vlastnú stránku s inštalačným programom, na ktorú si želáte presmerovať používateľov. Vám ako administrátorovi stále zostáva prístup ku všetkým inštalačným programom pre váš profil (viď tlačítko 'Matica kompatibility' na hlavnej stránke). Inštalačné programy si ako administrátor dokážete stiahnuť a umiestniť ich môžete na vlastnej stránke."
 
 #: web/admin/edit_profile.php:279
 msgid "Redirect end users to own web page:"
-msgstr ""
+msgstr "Presmerovať koncových používateľov na vlastnú web stránku:"
 
 #: web/admin/edit_profile.php:292
 msgid "Supported EAP types"
-msgstr ""
+msgstr "Podporované metódy EAP:"
 
 #: web/admin/edit_profile.php:295
 msgid ""
 "Now, we need to know which EAP types your IdP supports. If you support "
 "multiple EAP types, you can assign every type a priority (1=highest). This "
 "tool will always generate an automatic installer for the EAP type with the "
-"highest priority; only if the user's device can't use that EAP type, we will "
-"use an EAP type further down in the list."
-msgstr ""
+"highest priority; only if the user's device can't use that EAP type, we will"
+" use an EAP type further down in the list."
+msgstr "Ďalej je potrebné zadať, ktoré metódy EAP podporuje váš IdP. Ak podporuje viacero metód EAP, môžete každej z nich priradiť prioritu (1=najvyššia priorita). Nástroj eduroam CAT potom pri generovaní inštalačného programu použije metódu EAP s najvyššou priradenou prioritu z tých, ktoré zároveň podporuje dotknuté zariadenie používateľa."
 
 #: web/admin/edit_profile.php:338
 msgid "EAP options inherited from Global level:"
-msgstr ""
+msgstr "Nastavenia EAP zdenené zo všeobecných nastavení:"
 
 #: web/admin/edit_profile.php:343
 #, php-format
 msgid "(%dx) %s"
-msgstr ""
+msgstr "(%dx) %s"
 
 #: web/admin/edit_profile.php:371
 msgid "Supported EAP types for this profile"
-msgstr ""
+msgstr "Zoznam podporovaných metód EAP pre tento profil"
 
 #: web/admin/edit_profile.php:385
 msgid ""
 "Use \"drag &amp; drop\" to mark an EAP method and move it to the supported "
 "(green) area. Prioritisation is done automatically, depending on where you "
 "\"drop\" the method."
-msgstr ""
+msgstr "Na označenie metódy EAP a jej premiestnenie do (zeleného) poľa určeného pre podporované metódy EAP použite techniku \"drag &amp; drop\". Priorita je priradená automaticky v závislosti od miesta, na ktorom označenú metódu \"pustíte\"."
 
 #: web/admin/edit_profile.php:393
 msgid "Unsupported EAP types"
-msgstr ""
+msgstr "Nepodporované metódy EAP"
 
 #: web/admin/edit_profile.php:446
 msgid "Helpdesk Details for this profile"
-msgstr ""
+msgstr "Technická podpora pre tento profil"
 
 #: web/admin/edit_profile.php:447
 msgid "EAP Details for this profile"
-msgstr ""
+msgstr "Podrobnosti ohľadom EAP pre tento profil"
 
 #: web/admin/edit_profile.php:448
 msgid "Media Properties for this profile"
-msgstr ""
+msgstr "Charekteristiky prenosového média pre tento profil"
 
 #: web/admin/edit_profile.php:456
 #, php-format
@@ -566,59 +571,60 @@ msgid ""
 "The option %s is already defined IdP-wide. If you set it here on profile "
 "level, this setting will override the IdP-wide one."
 msgid_plural ""
-"The options %s are already defined IdP-wide. If you set them here on profile "
-"level, these settings will override the IdP-wide ones."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+"The options %s are already defined IdP-wide. If you set them here on profile"
+" level, these settings will override the IdP-wide ones."
+msgstr[0] "Voľba %s je už definovaná na úrovni celého IdP. Ak nastavíte voľbu tu na úrovni profilu, prepíšete tým platnosť všeobecného nastavenia v rámci tohto profilu."
+msgstr[1] "Voľby %s sú už definované na úrovni celého IdP. Ak ich nastavíte tu na úrovni profilu, prepíšete tým platnosť všeobecných nastavení v rámci tohto profilu."
+msgstr[2] "Voľby %s sú už definované na úrovni celého IdP. Ak ich nastavíte tu na úrovni profilu, prepíšete tým platnosť všeobecných nastavení v rámci tohto profilu."
+msgstr[3] "Voľby %s sú už definované na úrovni celého IdP. Ak ich nastavíte tu na úrovni profilu, prepíšete tým platnosť všeobecných nastavení v rámci tohto profilu."
 
 #: web/admin/edit_profile.php:466
 msgid ""
 "When you are sure that everything is correct, please click on 'Save data' "
 "and you will be taken to your IdP Dashboard page."
-msgstr ""
+msgstr "Ak ste si istý, že všetky informácie sú správne, kliknite prosím na tlačítko \"Uložiť údaje\" a budete presmerovaný na hlavnú stránku."
 
 #: web/admin/edit_profile_result.php:33
 #, php-format
 msgid "%s: Profile wizard (step 3 completed)"
-msgstr ""
+msgstr "%s: Generovanie profilu (krok 3 ukončený)"
 
 #: web/admin/edit_profile_result.php:113
 msgid "Darn! Could not get a proper profile handle!"
-msgstr ""
+msgstr "Nepodarilo sa nájsť platný popis profilu!"
 
 #: web/admin/edit_profile_result.php:117
 msgid "Submitted attributes for this profile"
-msgstr ""
+msgstr "Atribúty zadané v tomto profile"
 
 #: web/admin/edit_profile_result.php:124
 #, php-format
 msgid "Realm: <strong>%s</strong>"
-msgstr ""
+msgstr "Doména: <strong>%s</strong>"
 
 #: web/admin/edit_profile_result.php:131
 msgid "Anonymous Outer Identities cannot be turned on: realm is missing!"
-msgstr ""
+msgstr "Anonymnú vonkajšiu identitu nie je možné nastaviť: chýba informácia o doméne!"
 
 #: web/admin/edit_profile_result.php:134
 #, php-format
 msgid ""
 "Anonymous Identity support is <strong>%s</strong>, the anonymous outer "
 "identity is <strong>%s</strong>"
-msgstr ""
+msgstr "Použitie anonymnej identity je <strong>%s</strong>, podoba anonymnej vonkajšej identity je <strong>%s</strong>"
 
 #: web/admin/edit_profile_result.php:134 web/admin/edit_profile_result.php:146
 msgid "ON"
-msgstr ""
+msgstr "ZAPNUTÉ"
 
 #: web/admin/edit_profile_result.php:138
 #, php-format
 msgid "Anonymous Identity support is <strong>%s</strong>"
-msgstr ""
+msgstr "Použitie anonymnej vonkajšej identity je <strong>%s</strong>"
 
 #: web/admin/edit_profile_result.php:138
 msgid "OFF"
-msgstr ""
+msgstr "VYPNUTÉ"
 
 #: web/admin/edit_profile_result.php:143 web/admin/edit_profile_result.php:155
 msgid "Realm check username cannot be configured: realm is missing!"
@@ -643,13 +649,14 @@ msgstr ""
 #: web/admin/edit_profile_result.php:163
 #, php-format
 msgid ""
-"Where possible, username inputs will be <strong>verified to end with @%s</"
-"strong>%s"
+"Where possible, username inputs will be <strong>verified to end with "
+"@%s</strong>%s"
 msgstr ""
 
 #: web/admin/edit_profile_result.php:173
-msgid "Redirection can't be activated - you did not specify a target location!"
-msgstr ""
+msgid ""
+"Redirection can't be activated - you did not specify a target location!"
+msgstr "Presmerovanie nebolo možné vytvoriť - nezadali ste cieľovú adresu!"
 
 #: web/admin/edit_profile_result.php:175
 msgid ""
@@ -659,27 +666,27 @@ msgstr ""
 
 #: web/admin/edit_profile_result.php:181
 msgid "Redirection is <strong>OFF</strong>"
-msgstr ""
+msgstr "Presmerovanie je <strong>VYPNUTÉ</strong>"
 
 #: web/admin/edit_profile_result.php:205
 msgid "Supported EAP Type: "
-msgstr ""
+msgstr "Podporovaná metóda EAP:"
 
 #: web/admin/edit_profile_result.php:213
 #, php-format
 msgid ""
 "Supported EAP Type: <strong>%s</strong> is missing required information %s !"
-msgstr ""
+msgstr "Podporovanej metóde EAP <strong>%s</strong> chýbajú dôležité údaje %s!"
 
 #: web/admin/edit_profile_result.php:213
 msgid ""
 "The EAP type was added to the profile, but you need to complete the missing "
 "information before we can produce installers for you."
-msgstr ""
+msgstr "Metóda EAP bola zaradená do profilu, inštalačné programy však bude možné vytvoriť až vo chvíli, keď doplníte chýbaju údaje."
 
 #: web/admin/edit_profile_result.php:229
 msgid "Continue to Installer Fine-Tuning and Download"
-msgstr ""
+msgstr "Pokračovať k inštalačným programom (podrobné nastavenia a stiahnutie)"
 
 #: web/admin/edit_silverbullet.php:214
 msgid "Insecure mail domain!"
@@ -784,7 +791,7 @@ msgstr ""
 
 #: web/admin/edit_silverbullet.php:359 web/admin/overview_federation.php:117
 msgid "User"
-msgstr ""
+msgstr "Používateľ"
 
 #: web/admin/edit_silverbullet.php:360
 msgid "Token/Certificate details"
@@ -874,9 +881,9 @@ msgstr ""
 #: web/admin/edit_silverbullet.php:539
 #, php-format
 msgid ""
-"You need to acknowledge that the created accounts are still valid within the "
-"next %s days. If all accounts shown as active above are indeed still valid, "
-"please check the box below and push \"Save\". If any of the accounts are "
+"You need to acknowledge that the created accounts are still valid within the"
+" next %s days. If all accounts shown as active above are indeed still valid,"
+" please check the box below and push \"Save\". If any of the accounts are "
 "stale, please deactivate them by pushing the corresponding button before "
 "doing this."
 msgstr ""
@@ -912,9 +919,9 @@ msgstr ""
 
 #. Appending terms of use popup
 #: web/admin/edit_silverbullet.php:607
-#, fuzzy, php-format
+#, php-format
 msgid "%s - Terms of Use"
-msgstr "Podmienky používania"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:614
 msgid "I have read and agree to the terms."
@@ -926,44 +933,44 @@ msgstr ""
 
 #: web/admin/edit_user.php:17 web/admin/edit_user.php:26
 msgid "Editing User Attributes"
-msgstr ""
+msgstr "Editácia používateľa"
 
 #: web/admin/edit_user.php:30
 msgid "Current User Attributes"
-msgstr ""
+msgstr "Aktuálne atribúty používateľa"
 
 #: web/admin/edit_user.php:39
 msgid "Your attributes"
-msgstr ""
+msgstr "Vaše osobné údaje"
 
 #: web/admin/edit_user_result.php:18
 msgid "User Attributes - Summary of submitted data"
-msgstr ""
+msgstr "Používateľské atribúty - súhrn zadaných údajov"
 
 #. what are we supposed to do?
 #: web/admin/edit_user_result.php:22
 msgid ""
 "The page was called with insufficient data. Please report this as an error."
-msgstr ""
+msgstr "Táto stránka bola volaná s nedostatočným množstvom parametrov. Prosím, oznáme túto chybu."
 
 #: web/admin/edit_user_result.php:28
 msgid "Submitted attributes"
-msgstr ""
+msgstr "Zadané atribúty"
 
 #: web/admin/edit_user_result.php:71
 msgid "Continue to user overview page"
-msgstr ""
+msgstr "Prejsť na prehľad informácii o používateľovi"
 
 #. Logout failed. Tell the user to close the browser.
 #: web/admin/logout_check.php:39
 msgid "Incomplete Logout"
-msgstr ""
+msgstr "Neúplné odhlásenie"
 
 #: web/admin/logout_check.php:40
 msgid ""
 "We were unable to log you out of all your sessions. To be completely sure "
 "that you are logged out, you need to close your web browser."
-msgstr ""
+msgstr "Vaše úplné odhlásenie zo všetkých relácií nie je možné. Pokiaľ chete mať istotu, že ste úplne odhlásený, musíte zavrieť váš webový prehliadač."
 
 #: web/admin/overview_federation.php:18
 #, php-format
@@ -977,15 +984,15 @@ msgstr ""
 
 #: web/admin/overview_federation.php:35 web/admin/overview_user.php:38
 msgid "Your Personal Information"
-msgstr ""
+msgstr "Vaše osobné údaje"
 
 #: web/admin/overview_federation.php:40 web/admin/overview_user.php:43
 msgid "Unique Identifier"
-msgstr ""
+msgstr "Jedinečný identifikátor"
 
 #: web/admin/overview_federation.php:45 web/admin/overview_user.php:48
 msgid "click to display"
-msgstr ""
+msgstr "kliknutím zobrazíte"
 
 #: web/admin/overview_federation.php:55
 #, php-format
@@ -999,7 +1006,7 @@ msgstr ""
 
 #: web/admin/overview_federation.php:72
 msgid "Country"
-msgstr ""
+msgstr "Krajina"
 
 #: web/admin/overview_federation.php:96
 #, php-format
@@ -1008,19 +1015,19 @@ msgstr ""
 
 #: web/admin/overview_federation.php:101
 msgid "IdPs Total"
-msgstr ""
+msgstr "Spolu IdP"
 
 #: web/admin/overview_federation.php:102
 msgid "Public Download"
-msgstr ""
+msgstr "Publikovaný IdP"
 
 #: web/admin/overview_federation.php:114
 msgid "Downloads"
-msgstr ""
+msgstr "Stiahnutia"
 
 #: web/admin/overview_federation.php:115
 msgid "Admin"
-msgstr ""
+msgstr "Správca"
 
 #: web/admin/overview_federation.php:142 web/admin/inc/manageAdmins.inc.php:99
 msgid "It was sent with transport security (encryption)."
@@ -1028,82 +1035,101 @@ msgid_plural "They were sent with transport security (encryption)."
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
-#: web/admin/overview_federation.php:145 web/admin/inc/manageAdmins.inc.php:102
+#: web/admin/overview_federation.php:145
+#: web/admin/inc/manageAdmins.inc.php:102
 msgid "It was sent in clear text (no encryption)."
 msgid_plural "They were sent in clear text (no encryption)."
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
-#: web/admin/overview_federation.php:148 web/admin/inc/manageAdmins.inc.php:105
+#: web/admin/overview_federation.php:148
+#: web/admin/inc/manageAdmins.inc.php:105
 msgid ""
-"A subset of the mails were sent with transport encryption, the rest in clear "
-"text."
+"A subset of the mails were sent with transport encryption, the rest in clear"
+" text."
 msgstr ""
 
-#: web/admin/overview_federation.php:153 web/admin/inc/manageAdmins.inc.php:110
+#: web/admin/overview_federation.php:153
+#: web/admin/inc/manageAdmins.inc.php:110
 msgid "The invitation email was sent successfully."
 msgid_plural "All invitation emails were sent successfully."
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
-#: web/admin/overview_federation.php:153 web/admin/inc/manageAdmins.inc.php:110
+#: web/admin/overview_federation.php:153
+#: web/admin/inc/manageAdmins.inc.php:110
 msgid "Sent successfully."
 msgstr ""
 
-#: web/admin/overview_federation.php:156 web/admin/inc/manageAdmins.inc.php:113
+#: web/admin/overview_federation.php:156
+#: web/admin/inc/manageAdmins.inc.php:113
 msgid "No invitation email could be sent!"
 msgstr ""
 
-#: web/admin/overview_federation.php:156 web/admin/inc/manageAdmins.inc.php:113
+#: web/admin/overview_federation.php:156
+#: web/admin/inc/manageAdmins.inc.php:113
 msgid "Sending failure!"
 msgstr ""
 
-#: web/admin/overview_federation.php:162 web/admin/inc/manageAdmins.inc.php:119
+#: web/admin/overview_federation.php:162
+#: web/admin/inc/manageAdmins.inc.php:119
 msgid "The successful one was sent with transport security (encryption)."
 msgid_plural ""
 "The successful ones were sent with transport security (encryption)."
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
-#: web/admin/overview_federation.php:165 web/admin/inc/manageAdmins.inc.php:122
+#: web/admin/overview_federation.php:165
+#: web/admin/inc/manageAdmins.inc.php:122
 msgid "The successful one was sent in clear text (no encryption)."
 msgid_plural "The successful ones were sent in clear text (no encryption)."
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
-#: web/admin/overview_federation.php:168 web/admin/inc/manageAdmins.inc.php:125
+#: web/admin/overview_federation.php:168
+#: web/admin/inc/manageAdmins.inc.php:125
 msgid ""
-"A subset of the successfully sent mails were sent with transport encryption, "
-"the rest in clear text."
+"A subset of the successfully sent mails were sent with transport encryption,"
+" the rest in clear text."
 msgstr ""
 
-#: web/admin/overview_federation.php:173 web/admin/inc/manageAdmins.inc.php:130
+#: web/admin/overview_federation.php:173
+#: web/admin/inc/manageAdmins.inc.php:130
 #, php-format
 msgid ""
 "Some invitation emails were sent successfully (%s in total), the others "
 "failed."
 msgstr ""
 
-#: web/admin/overview_federation.php:173 web/admin/inc/manageAdmins.inc.php:130
+#: web/admin/overview_federation.php:173
+#: web/admin/inc/manageAdmins.inc.php:130
 msgid "Partial success."
 msgstr ""
 
-#: web/admin/overview_federation.php:176 web/admin/inc/manageAdmins.inc.php:133
+#: web/admin/overview_federation.php:176
+#: web/admin/inc/manageAdmins.inc.php:133
 msgid "The invitation email address was malformed, no invitation was sent!"
 msgstr ""
 
-#: web/admin/overview_federation.php:179 web/admin/inc/manageAdmins.inc.php:136
+#: web/admin/overview_federation.php:179
+#: web/admin/inc/manageAdmins.inc.php:136
 msgid "Error: unknown result code of invitation!?!"
-msgstr ""
+msgstr "Chyba: neznámy stav pozvánky!?!"
 
-#: web/admin/overview_federation.php:179 web/admin/inc/manageAdmins.inc.php:136
+#: web/admin/overview_federation.php:179
+#: web/admin/inc/manageAdmins.inc.php:136
 msgid "Unknown result!"
-msgstr ""
+msgstr "Výsledok neznámy!"
 
 #: web/admin/overview_federation.php:184
 #, php-format
@@ -1112,7 +1138,7 @@ msgstr ""
 
 #: web/admin/overview_federation.php:192
 msgid "Deployment Status"
-msgstr ""
+msgstr "Stav nasadenia"
 
 #: web/admin/overview_federation.php:193 web/admin/overview_user.php:103
 #: web/admin/inc/manageDBLink.inc.php:149 web/lib/admin/UIElements.php:83
@@ -1124,11 +1150,11 @@ msgstr ""
 #: web/admin/overview_federation.php:199
 #, php-format
 msgid "%s Database Sync Status"
-msgstr ""
+msgstr "Stav synchronizácie s databázou %s"
 
 #: web/admin/overview_federation.php:205 web/admin/overview_user.php:103
 msgid "Administrator Management"
-msgstr ""
+msgstr "Nastavenie správcov"
 
 #. / nomenclature for 'federation', federation name, nomenclature for 'inst'
 #: web/admin/overview_federation.php:214
@@ -1138,19 +1164,19 @@ msgstr ""
 
 #: web/admin/overview_federation.php:250
 msgid "Manage DB Link"
-msgstr ""
+msgstr "Spravovať databázové prepojenie"
 
 #: web/admin/overview_federation.php:256
 msgid "Linked"
-msgstr ""
+msgstr "Prepojené"
 
 #: web/admin/overview_federation.php:260
 msgid "NOT linked"
-msgstr ""
+msgstr "Neprepojené"
 
 #: web/admin/overview_federation.php:275 web/admin/overview_user.php:139
 msgid "Add/Remove Administrators"
-msgstr ""
+msgstr "Pridať/Odobrať správcov"
 
 #: web/admin/overview_federation.php:288
 #, php-format
@@ -1159,7 +1185,7 @@ msgstr ""
 
 #: web/admin/overview_federation.php:305
 msgid "Revoke Invitation"
-msgstr ""
+msgstr "Zrušiť pozvánku"
 
 #: web/admin/overview_federation.php:324
 #, php-format
@@ -1169,7 +1195,7 @@ msgstr ""
 #: web/admin/overview_idp.php:28
 #, php-format
 msgid "%s: IdP Dashboard"
-msgstr ""
+msgstr "%s: Hlavná stránka o IdP"
 
 #: web/admin/overview_idp.php:52
 #, php-format
@@ -1218,16 +1244,16 @@ msgstr ""
 
 #: web/admin/overview_idp.php:107
 msgid "Available Support actions"
-msgstr ""
+msgstr "Možnosti podpory"
 
 #: web/admin/overview_idp.php:112
 msgid "Check another realm's reachability"
-msgstr ""
+msgstr "Skontrolovať dostupnosť inej domény"
 
 #: web/admin/overview_idp.php:115 web/admin/overview_idp.php:125
 #: web/admin/overview_user.php:157
 msgid "Go!"
-msgstr ""
+msgstr "Poďme!"
 
 #. SW: APPROVED
 #: web/admin/overview_idp.php:122
@@ -1249,13 +1275,13 @@ msgstr ""
 
 #: web/admin/overview_idp.php:162 web/admin/overview_idp.php:221
 msgid "Information needed!"
-msgstr ""
+msgstr "Nedostatok informácií!"
 
 #: web/admin/overview_idp.php:170
 #, php-format
 msgid ""
-"You can create up to %d users. Their credentials will carry the name <strong>"
-"%s</strong>."
+"You can create up to %d users. Their credentials will carry the name "
+"<strong>%s</strong>."
 msgstr ""
 
 #: web/admin/overview_idp.php:179
@@ -1264,15 +1290,15 @@ msgstr ""
 
 #: web/admin/overview_idp.php:187 web/admin/overview_idp.php:321
 msgid "User Downloads"
-msgstr ""
+msgstr "Počet stiahnutí "
 
 #: web/admin/overview_idp.php:211
 msgid "<strong>EAP Types</strong> (in order of preference):"
-msgstr ""
+msgstr "<strong>Metódy EAP</strong> (v poradí podľa preferencie):"
 
 #: web/admin/overview_idp.php:218 web/lib/admin/UIElements.php:383
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: web/admin/overview_idp.php:237
 msgid "Options on EAP Method/Device level are in effect."
@@ -1280,15 +1306,15 @@ msgstr ""
 
 #: web/admin/overview_idp.php:247
 msgid "Option override on profile level is in effect."
-msgstr ""
+msgstr "Na úrovni profilu sú zmenené všeobecne platné nastavenia."
 
 #: web/admin/overview_idp.php:250
 msgid "The information in this profile is incomplete."
-msgstr ""
+msgstr "Informácie v tomto profile sú neúplné."
 
 #: web/admin/overview_idp.php:254
 msgid "This profile is shown on the user download interface."
-msgstr ""
+msgstr "Tento profil je zaradený v ponuke pre koncových používateľov na verejných stránkach CAT."
 
 #: web/admin/overview_idp.php:257
 #, php-format
@@ -1296,45 +1322,45 @@ msgid ""
 "This profile is NOT shown on the user download interface, even though we "
 "have enough information to show. To enable the profile, add the attribute "
 "\"%s\" and tick the corresponding box."
-msgstr ""
+msgstr "Tento profil NIE je zaradený v ponuke pre koncových používateľov na verejných stránkach CAT, hoci obsahuje všetky informácie potrebné pre jeho zobrazenie. Profil je možné aktivovať pridaním atribútu \"%s\" a zaškrtnutím príslušného políčka."
 
 #: web/admin/overview_idp.php:262
 #, php-format
 msgid "Profile: %s"
-msgstr ""
+msgstr "Profil: %s"
 
 #: web/admin/overview_idp.php:279
 msgid "The realm can only be checked if you configure the realm!"
-msgstr ""
+msgstr "Doména može byť skontrolovaná iba vtedy, keď ju v profile nakonfigurujete!"
 
 #: web/admin/overview_idp.php:280
 msgid "Check realm reachability"
-msgstr ""
+msgstr "Skontrolovať dostupnosť domény"
 
 #: web/admin/overview_idp.php:285
 msgid "You have not fully configured any supported EAP types!"
-msgstr ""
+msgstr "Nemáte kompletne nakonfigurovanú žiadnu metódu EAP!"
 
 #: web/admin/overview_idp.php:286
 msgid "Installer Fine-Tuning and Download"
-msgstr ""
+msgstr "Inštalačné programy: podrobné nastavenia a stiahnutie"
 
 #: web/admin/overview_idp.php:295
 msgid "Edit"
-msgstr ""
+msgstr "Upraviť"
 
 #: web/admin/overview_idp.php:298
 #, php-format
 msgid "Do you really want to delete the profile %s?"
-msgstr ""
+msgstr "Ste si istý, že chcete odstrániť profil %s?"
 
 #: web/admin/overview_idp.php:299
 msgid "Delete"
-msgstr ""
+msgstr "Odstrániť"
 
 #: web/admin/overview_idp.php:308
 msgid "User Download Link"
-msgstr ""
+msgstr "Odkaz na prevzatie pre používateľov"
 
 #: web/admin/overview_idp.php:350
 #, php-format
@@ -1347,73 +1373,73 @@ msgstr ""
 
 #: web/admin/overview_installers.php:17
 msgid "Device Compatibility matrix"
-msgstr ""
+msgstr "Matica kompatibility"
 
 #: web/admin/overview_installers.php:37
 #, php-format
 msgid "Device compatiblity matrix for %s of %s "
-msgstr ""
+msgstr "Matica kompatibility pre %s, %s"
 
 #: web/admin/overview_installers.php:41
 msgid "Device"
-msgstr ""
+msgstr "Zariadenie"
 
 #: web/admin/overview_installers.php:49
 msgid "EAP-Type-specific options..."
-msgstr ""
+msgstr "Nastavenie metódy EAP..."
 
 #: web/admin/overview_installers.php:68
 msgid "Device-specific options..."
-msgstr ""
+msgstr "Nastavenie zariadenia..."
 
 #: web/admin/overview_installers.php:80
 msgid "Download"
-msgstr ""
+msgstr "Stiahnuť"
 
 #: web/admin/overview_installers.php:141
 msgid "Legend:"
-msgstr ""
+msgstr "Legenda:"
 
 #: web/admin/overview_installers.php:143
 msgid "redirection is set"
-msgstr ""
+msgstr "presmerovanie je nastavené"
 
 #: web/admin/overview_installers.php:144
 msgid "will be offered on download site"
-msgstr ""
+msgstr "bude k dispozícii na stiahnutie na verejnej stránke CAT"
 
 #: web/admin/overview_installers.php:145
 msgid "configured, but not preferred EAP type"
-msgstr ""
+msgstr "nakonfigurovaná, ale nie preferovaná metóda EAP"
 
 #: web/admin/overview_installers.php:146
 msgid "incomplete configuration"
-msgstr ""
+msgstr "nekompletná konfigurácia"
 
 #: web/admin/overview_installers.php:147
 msgid "not supported by CAT"
-msgstr ""
+msgstr "nie je podporovaný v CAT"
 
 #: web/admin/overview_installers.php:151
 msgid "Footnotes:"
-msgstr ""
+msgstr "Poznámky pod čiarou:"
 
 #: web/admin/overview_installers.php:160
 msgid "Return to dashboard"
-msgstr ""
+msgstr "Návrat na hlavnú stránku"
 
 #: web/admin/overview_user.php:19
 #, php-format
 msgid "%s: User Management"
-msgstr ""
+msgstr "%s: Správa používateľov"
 
 #: web/admin/overview_user.php:35
 msgid "User Overview"
-msgstr ""
+msgstr "Prehľad informácií o používateľovi"
 
 #: web/admin/overview_user.php:56
 msgid "Edit User Details"
-msgstr ""
+msgstr "Upraviť podrobnosti o používateľovi"
 
 #: web/admin/overview_user.php:60
 #, php-format
@@ -1422,21 +1448,25 @@ msgstr ""
 
 #: web/admin/overview_user.php:63
 msgid "Click here to access the superadmin page"
-msgstr ""
+msgstr "Prejsť na stránku super správcu"
 
 #: web/admin/overview_user.php:71
 #, php-format
 msgid "(Need help? Refer to the <a href='%s'>IdP administrator manual</a>)"
-msgstr ""
+msgstr "(Potrebujete pomoc? Nahliadnite do <a href='%s'>príručky správcu poskytovateľa identity</a>)"
 
-#. / first parameter: number of Identity Providers; second param is the literal configured term for 'Identity Provider' (you may or may not be able to add a plural suffix for your locale)
+#. / first parameter: number of Identity Providers; second param is the
+#. literal configured term for 'Identity Provider' (you may or may not be able
+#. to add a plural suffix for your locale)
 #: web/admin/overview_user.php:80
 #, php-format
-msgid "You are managing the following <span style='display:none'>%d </span>%s:"
+msgid ""
+"You are managing the following <span style='display:none'>%d </span>%s:"
 msgid_plural "You are managing the following <strong>%d</strong> %s:"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+msgstr[3] ""
 
 #: web/admin/overview_user.php:103
 #, php-format
@@ -1452,9 +1482,10 @@ msgstr ""
 #: web/admin/overview_user.php:135
 msgid "other user"
 msgid_plural "other users"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "ďalší používateľ"
+msgstr[1] "ďalší používatelia"
+msgstr[2] "ďalší používatelia"
+msgstr[3] "ďalší používatelia"
 
 #: web/admin/overview_user.php:146
 #, php-format
@@ -1464,7 +1495,8 @@ msgstr ""
 #: web/admin/overview_user.php:150
 #, php-format
 msgid ""
-"Please ask your %s administrator to invite you to become an %s administrator."
+"Please ask your %s administrator to invite you to become an %s "
+"administrator."
 msgstr ""
 
 #: web/admin/overview_user.php:154
@@ -1485,14 +1517,14 @@ msgstr ""
 #: web/admin/inc/manageAdmins.inc.php:46
 #, php-format
 msgid ""
-"You do not have the necessary privileges to alter administrators of this %s. "
-"In fact, you shouldn't have come this far!"
+"You do not have the necessary privileges to alter administrators of this %s."
+" In fact, you shouldn't have come this far!"
 msgstr ""
 
 #: web/admin/inc/manageAdmins.inc.php:84
 #, php-format
 msgid "Administrators for IdP '%s'"
-msgstr ""
+msgstr "Správcovia pre IdP '%s'"
 
 #: web/admin/inc/manageAdmins.inc.php:143
 #, php-format
@@ -1509,9 +1541,9 @@ msgstr ""
 #: web/admin/inc/manageAdmins.inc.php:149
 #, php-format
 msgid ""
-"You are an administrator who was directly appointed by the %s administrator. "
-"You can appoint further administrators, but these can't in turn appoint any "
-"more administrators."
+"You are an administrator who was directly appointed by the %s administrator."
+" You can appoint further administrators, but these can't in turn appoint any"
+" more administrators."
 msgstr ""
 
 #: web/admin/inc/manageAdmins.inc.php:149
@@ -1520,32 +1552,32 @@ msgstr ""
 
 #: web/admin/inc/manageAdmins.inc.php:162
 msgid "User without name"
-msgstr ""
+msgstr "Neznáme meno"
 
 #: web/admin/inc/manageAdmins.inc.php:171
 #, php-format
 msgid "(originally invited as %s)"
-msgstr ""
+msgstr "(pôvodne pozvaný ako %s)"
 
 #: web/admin/inc/manageAdmins.inc.php:173
 msgid "(self-appointed)"
-msgstr ""
+msgstr "(menovaný sám sebou)"
 
 #: web/admin/inc/manageAdmins.inc.php:180
 msgid "Delete Administrator"
-msgstr ""
+msgstr "Odstrániť správcu"
 
 #: web/admin/inc/manageAdmins.inc.php:194
 msgid "Pending invitations for this IdP"
-msgstr ""
+msgstr "Pozvánky odoslané v kontexte tohto IdP:"
 
 #: web/admin/inc/manageAdmins.inc.php:205
 msgid "New administrator's email address(es) (comma-separated):"
-msgstr ""
+msgstr "E-mail adresay nových správcov (oddelené čiarkou):"
 
 #: web/admin/inc/manageAdmins.inc.php:205
 msgid "Invite new administrator"
-msgstr ""
+msgstr "Pozvať nového správcu"
 
 #: web/admin/inc/manageAdmins.inc.php:219
 #, php-format
@@ -1556,7 +1588,7 @@ msgstr ""
 #: web/admin/inc/manageDBLink.inc.php:194
 #: web/admin/inc/manageNewInst.inc.php:116
 msgid "Close"
-msgstr ""
+msgstr "Zatvoriť"
 
 #: web/admin/inc/manageDBLink.inc.php:43
 #, php-format
@@ -1568,7 +1600,7 @@ msgstr ""
 #: web/admin/inc/manageDBLink.inc.php:76
 #, php-format
 msgid "%s Database Link Status for IdP '%s'"
-msgstr ""
+msgstr "Stav prepojenia %s databázy s IdP '%s'"
 
 #: web/admin/inc/manageDBLink.inc.php:85
 #, php-format
@@ -1579,29 +1611,30 @@ msgstr ""
 #, php-format
 msgid ""
 "The following information about the IdP is stored in the %s DB and %s DB:"
-msgstr ""
+msgstr "Nasledovné informácie o IdP sú uložené v %s DB a %s DB:"
 
 #: web/admin/inc/manageDBLink.inc.php:87
 #, php-format
 msgid "Information in <strong>%s Database</strong>"
-msgstr ""
+msgstr "Informácie v <strong>%s databáze</strong>"
 
-#: web/admin/inc/manageDBLink.inc.php:99 web/admin/inc/manageDBLink.inc.php:125
+#: web/admin/inc/manageDBLink.inc.php:99
+#: web/admin/inc/manageDBLink.inc.php:125
 #, php-format
 msgid "%s Name (%s)"
 msgstr ""
 
 #: web/admin/inc/manageDBLink.inc.php:108 web/lib/admin/Authentication.php:61
 msgid "Unnamed User"
-msgstr ""
+msgstr "Používateľ bez mena"
 
 #: web/admin/inc/manageDBLink.inc.php:110
 msgid "Administrator [invited as]"
-msgstr ""
+msgstr "Správca [pozvaný ako]"
 
 #: web/admin/inc/manageDBLink.inc.php:128
 msgid "Administrator email"
-msgstr ""
+msgstr "E-mail adresa správcu"
 
 #: web/admin/inc/manageDBLink.inc.php:133
 msgid "If this mapping is not correct any more, you can remove the link:"
@@ -1620,12 +1653,12 @@ msgstr ""
 msgid ""
 "This means that its profiles are not made available on the user download "
 "page."
-msgstr ""
+msgstr "To znamená, že jej profily nie sú k dispozícii na verejných stránkach CAT určených pre koncových používateľov."
 
 #: web/admin/inc/manageDBLink.inc.php:141
 #, php-format
 msgid "You can link it to the %s database below."
-msgstr ""
+msgstr "Na tejto stránke môžete nastaviť jej prepojenie s %s databázou."
 
 #: web/admin/inc/manageDBLink.inc.php:144
 #, php-format
@@ -1638,15 +1671,15 @@ msgstr ""
 msgid ""
 "Particularly promising entries (names in CAT and %s DB are a 100%% match) "
 "are on top of the list."
-msgstr ""
+msgstr "Záznamy, kde s vysokou pravdepodobnosťou ide o zhodu (názvy v CAT a v %s databáze sú 100%% identické) sú uvedené na začiatku zoznamu."
 
 #: web/admin/inc/manageDBLink.inc.php:149
 msgid "Link to this entity?"
-msgstr ""
+msgstr "Prepojiť s touto entitou?"
 
 #: web/admin/inc/manageDBLink.inc.php:149
 msgid "Administrators"
-msgstr ""
+msgstr "Správcovia"
 
 #: web/admin/inc/manageDBLink.inc.php:183
 #, php-format
@@ -1655,7 +1688,7 @@ msgstr ""
 
 #: web/admin/inc/manageDBLink.inc.php:185
 msgid "Create Link"
-msgstr ""
+msgstr "Prepojiť"
 
 #: web/admin/inc/manageNewInst.inc.php:37
 #, php-format
@@ -1677,8 +1710,8 @@ msgstr ""
 #: web/admin/inc/manageNewInst.inc.php:49
 #, php-format
 msgid ""
-"You can either register a known %s (as defined in the %s database) or create "
-"a totally new %s."
+"You can either register a known %s (as defined in the %s database) or create"
+" a totally new %s."
 msgstr ""
 
 #: web/admin/inc/manageNewInst.inc.php:50
@@ -1690,137 +1723,137 @@ msgstr ""
 
 #: web/admin/inc/manageNewInst.inc.php:60
 msgid "Existing IdP:"
-msgstr ""
+msgstr "Existujúci IdP:"
 
 #: web/admin/inc/manageNewInst.inc.php:65
 msgid "--- select IdP here ---"
-msgstr ""
+msgstr "--- vyberte IdP ---"
 
 #: web/admin/inc/manageNewInst.inc.php:83
 msgid "New IdP"
-msgstr ""
+msgstr "Nový IdP"
 
 #: web/admin/inc/manageNewInst.inc.php:86
 msgid "Name"
-msgstr ""
+msgstr "Názov"
 
 #: web/admin/inc/manageNewInst.inc.php:107
 msgid "Administrator's E-Mail:"
-msgstr ""
+msgstr "E-mail správcu:"
 
 #: web/admin/inc/manageNewInst.inc.php:112
 msgid "Send invitation"
-msgstr ""
+msgstr "Poslať pozvánku"
 
-#.
 #. *******************************************************************************
-#. * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1
+#. * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+,
+#. GN4-1
 #. * and GN4-2 consortia
 #. *
 #. * License: see the web/copyright.php file in the file structure
 #. *******************************************************************************
-#.
 #: web/admin/inc/overview_js.php:41 web/admin/inc/overview_js.php:98
 msgid "No email address provided"
-msgstr ""
+msgstr "Nezadali ste e-mailovú adresu"
 
 #: web/admin/inc/overview_js.php:54 web/admin/inc/overview_js.php:109
 msgid "Invitation sent to:"
-msgstr ""
+msgstr "Pozvánka odoslaná na adresu:"
 
 #: web/admin/inc/overview_js.php:56 web/admin/inc/overview_js.php:111
 msgid "The invitation email could not be sent!"
-msgstr ""
+msgstr "E-mail s pozvánkou sa nepodarilo odoslať!"
 
 #: web/admin/inc/overview_js.php:83
 msgid "Mail address to invite:"
-msgstr ""
+msgstr "E-mailová adresa:"
 
 #: web/admin/inc/sendinvite.inc.php:106
 #, php-format
 msgid ""
-"Something's wrong... you are a %s admin, but not for the %s the requested %s "
-"belongs to!"
+"Something's wrong... you are a %s admin, but not for the %s the requested %s"
+" belongs to!"
 msgstr ""
 
 #: web/admin/inc/toggleRedirect.inc.php:90
 #, php-format
 msgid "device <strong>%s</strong>"
-msgstr ""
+msgstr "zariadenie <strong>%s</strong>"
 
 #: web/admin/inc/toggleRedirect.inc.php:100
 #, php-format
 msgid "EAP-Type <strong>%s</strong>"
-msgstr ""
+msgstr "metódu EAP <strong>%s</strong>"
 
 #: web/admin/inc/toggleRedirect.inc.php:107
 msgid "Fine-tuning options for "
-msgstr ""
+msgstr "Podrobné nastavenia pre"
 
 #: web/lib/admin/AbstractMap.php:100 web/lib/admin/UIElements.php:84
 msgid "Location"
-msgstr ""
+msgstr "Umiestnenie"
 
 #: web/lib/admin/AbstractMap.php:104
 msgid ""
 "The user download interface (see <a href='../'>here</a>), uses geolocation "
 "to suggest possibly matching IdPs to the user. The more precise you define "
 "the location here, the easier your users will find you."
-msgstr ""
+msgstr "Rozhranie pre koncových používateľov (pozri <a href='../'>tu</a>), využíva geolokáciu pre odporúčanie domovského IdP. Čím presnejšie údaje o pozícii tu zadáte, tým ľahšie vás používatelia nájdu."
 
 #: web/lib/admin/AbstractMap.php:107
 msgid ""
 "<li>Drag the marker in the map to your place, or</li>\n"
 "<li>enter your street address in the field below for lookup, or</li>\n"
 "<li>use the 'Locate Me!' button</li>"
-msgstr ""
+msgstr "<li>Vyznačte svoju pozíciu na mape, alebo</li>⏎\n<li>zadejte svoju adresu v poli pre vyhľadávanie, alebo</li>⏎\n<li>použite tlačítko 'Lokalizuj moju polohu!'</li>"
 
 #: web/lib/admin/AbstractMap.php:112
-msgid "We will use the coordinates as indicated by the marker for geolocation."
-msgstr ""
+msgid ""
+"We will use the coordinates as indicated by the marker for geolocation."
+msgstr "Použijeme súradnice určené značkou pro geolokáciu."
 
 #: web/lib/admin/AbstractMap.php:116
 msgid ""
 "You can enter an <strong>additional</strong> location here. You can see the "
 "already defined locations in the 'General Information' field."
-msgstr ""
+msgstr "Tu môžete pridať <strong>ďalšie</strong> miesta. Zoznam aktuálne definovaných miest je uvedený v sekcii 'Všeobecné informácie'."
 
 #: web/lib/admin/AbstractMap.php:127
 msgid "Latitude:"
-msgstr ""
+msgstr "Zemepisná šírka:"
 
 #: web/lib/admin/AbstractMap.php:127
 msgid "Longitude:"
-msgstr ""
+msgstr "Zemepisná dĺžka:"
 
 #: web/lib/admin/MapGoogle.php:111
 msgid "This is location "
-msgstr ""
+msgstr "Toto je poloha miesta"
 
 #: web/lib/admin/MapGoogle.php:190 web/lib/admin/MapOpenLayers.php:210
 msgid "nothing entered in the address field"
-msgstr ""
+msgstr "pole s adresou je prázdne"
 
 #: web/lib/admin/MapGoogle.php:210 web/lib/admin/MapOpenLayers.php:66
 msgid "locating"
-msgstr ""
+msgstr "lokalizácia"
 
 #: web/lib/admin/MapGoogle.php:320 web/lib/admin/MapOpenLayers.php:264
 msgid "Click to see location"
-msgstr ""
+msgstr "Kliknite pre zobrazenie polohy miesta"
 
 #: web/lib/admin/MapGoogle.php:328 web/lib/admin/MapOpenLayers.php:268
 msgid "Address:"
-msgstr ""
+msgstr "Adresa:"
 
 #: web/lib/admin/MapGoogle.php:328 web/lib/admin/MapOpenLayers.php:268
 msgid "Find address"
-msgstr ""
+msgstr "Vyhľadaj adresu"
 
 #: web/lib/admin/MapGoogle.php:328 web/lib/admin/MapNone.php:67
 #: web/lib/admin/MapOpenLayers.php:268
 msgid "Locate Me!"
-msgstr ""
+msgstr "Lokalizuj moju polohu!"
 
 #: web/lib/admin/MapOpenLayers.php:217
 msgid ""
@@ -1843,7 +1876,7 @@ msgid ""
 "to another place which happens to have the same SSID name. They might then "
 "be misled to believe that they are connecting to an extra secure network "
 "while they are not."
-msgstr ""
+msgstr "Pomocou tohto atribútu je možné nastaviť ďalší identifikátor SSID naviac k SSID štandardným pre %s. Takýto krok je však takmer vždy zlou voľbou. Výnimkou je situácia, keď dochádza k prekrývaniu radiového signálu vzájomne nezávislých %s sietí. Typicky mylná predstava o potrebe dodatočných identifikátorov SSID je: chcem vlastný názov siete pre lokálnych používateľov. Podstatne lepšou možnosťou je použiť štandardný SSID pre všetkých používateľov a rôzne skupiny oddeliť pomocou VLAN-ov. Uvedená možnosť má nasledovné výhody: 1) vaši používatelia budú mať správne nakonfigurovaný %s, pretože ho  budú využívať denne; 2) ak použijete vlastný SSID a túto sieť vyhlásite za extra bezpečnú, používatelia sa neskôr môžu dostať na iné miesto s rovnakým SSID. Môžu sa mylne domnievať, že sa pripájajú k dobre zabezpečnej sieti, avšak skutočnosť može byť iná."
 
 #: web/lib/admin/OptionDisplay.php:150
 #, php-format
@@ -1856,44 +1889,44 @@ msgstr ""
 
 #: web/lib/admin/OptionDisplay.php:223
 msgid "select language"
-msgstr ""
+msgstr "zvoľte jazyk"
 
 #: web/lib/admin/OptionDisplay.php:224 web/lib/admin/UIElements.php:151
 msgid "default/other languages"
-msgstr ""
+msgstr "predvolený/iné jazyky"
 
 #: web/lib/admin/OptionDisplay.php:295
 msgid "(default/other languages)"
-msgstr ""
+msgstr "(predvolený/iné jazyky)"
 
 #: web/lib/admin/OptionDisplay.php:330
 msgid "file content"
-msgstr ""
+msgstr "obsah súboru"
 
 #. only modify in this one case
 #: web/lib/admin/OptionDisplay.php:341 web/lib/admin/UIElements.php:181
 msgid "on"
-msgstr ""
+msgstr "zapnuté"
 
 #: web/lib/admin/OptionDisplay.php:341 web/lib/admin/UIElements.php:181
 msgid "off"
-msgstr ""
+msgstr "vypnuté"
 
 #. / number of times attribute is present, and its name
 #. / Example: "5x Support E-Mail"
 #: web/lib/admin/OptionParser.php:203 web/lib/admin/OptionParser.php:208
 #, php-format
 msgid "%dx %s"
-msgstr ""
+msgstr "%dx %s"
 
 #: web/lib/admin/OptionParser.php:213
 #, php-format
 msgid ""
 "You did not set a 'default language' value for %s. This means we can only "
-"display this string for installers which are <strong>exactly</strong> in the "
-"language you configured. For the sake of all other languages, you may want "
+"display this string for installers which are <strong>exactly</strong> in the"
+" language you configured. For the sake of all other languages, you may want "
 "to edit the profile again and populate the 'default/other' language field."
-msgstr ""
+msgstr "'%s' nemá nastavenú hodnotu pre položku 'predvolený jazyk'. Dôsledkom opísaného stavu je, že tento údaj môžeme v inštalačných programoch zobraziť len v prípadoch, keď voľba jazyka <strong>presne</strong> zodpovedá vami nastavenej. Kvôli všetkým ostaným jazykom by bolo vhodné ešte raz upraviť konfiguráciu profilu a doplniť hodnotu pre položku 'predvolený jazyk'."
 
 #: web/lib/admin/PageDecoration.php:35
 msgid "You are:"
@@ -1913,7 +1946,7 @@ msgstr ""
 
 #: web/lib/admin/PageDecoration.php:62
 msgid "View this page in"
-msgstr "Zobraziť stránku v jazyku"
+msgstr ""
 
 #: web/lib/admin/PageDecoration.php:120
 #, php-format
@@ -1973,109 +2006,107 @@ msgstr ""
 
 #: web/lib/admin/UIElements.php:67
 msgid "SSID"
-msgstr ""
+msgstr "SSID"
 
 #: web/lib/admin/UIElements.php:68
 msgid "SSID (with WPA/TKIP)"
-msgstr ""
+msgstr "SSID (s WPA/TKIP)"
 
 #: web/lib/admin/UIElements.php:69
 msgid "HS20 Consortium OI"
-msgstr ""
+msgstr "HS20 konzorcium OI"
 
 #: web/lib/admin/UIElements.php:72
 msgid "Additional SSID"
-msgstr ""
+msgstr "Ďalší SSID"
 
 #: web/lib/admin/UIElements.php:73
 msgid "Additional SSID (with WPA/TKIP)"
-msgstr ""
+msgstr "Ďalší SSID (s WPA/TKIP)"
 
 #: web/lib/admin/UIElements.php:76
 msgid "Additional HS20 Consortium OI"
-msgstr ""
+msgstr "Ďalšie HS20 konzorcium OI"
 
 #: web/lib/admin/UIElements.php:79
 msgid "Support: Web"
-msgstr ""
+msgstr "Podpora: Web"
 
 #: web/lib/admin/UIElements.php:80
 msgid "Support: EAP Types"
-msgstr ""
+msgstr "Podpora: Metódy EAP"
 
 #: web/lib/admin/UIElements.php:81
 msgid "Support: Phone"
-msgstr ""
+msgstr "Podpora: Telefón"
 
 #: web/lib/admin/UIElements.php:82
 msgid "Support: E-Mail"
-msgstr ""
+msgstr "Podpora: E-mail"
 
 #: web/lib/admin/UIElements.php:85
 msgid "Logo URL"
-msgstr ""
+msgstr "URL loga"
 
 #: web/lib/admin/UIElements.php:86
 msgid "Logo image"
-msgstr ""
+msgstr "Obrázok loga"
 
 #: web/lib/admin/UIElements.php:87
 msgid "Configure Wired Ethernet"
-msgstr ""
+msgstr "Pripojenie do pevnej siete"
 
 #: web/lib/admin/UIElements.php:88
 msgid "Name (CN) of Authentication Server"
-msgstr ""
+msgstr "Meno (CN) autentifikačného servera"
 
 #: web/lib/admin/UIElements.php:89
 msgid "Enable device assessment"
-msgstr ""
+msgstr "Povoliť posudzovanie stavu koncového zariadenia"
 
 #: web/lib/admin/UIElements.php:90
-#, fuzzy
 msgid "Terms of Use"
 msgstr "Podmienky používania"
 
 #: web/lib/admin/UIElements.php:91
 msgid "CA Certificate URL"
-msgstr ""
+msgstr "URL na certifikát CA"
 
 #: web/lib/admin/UIElements.php:92
 msgid "CA Certificate File"
-msgstr ""
+msgstr "Certifikát CA"
 
 #: web/lib/admin/UIElements.php:93
 msgid "Profile Display Name"
-msgstr ""
+msgstr "Názov profilu"
 
 #: web/lib/admin/UIElements.php:94
 msgid "Production-Ready"
-msgstr ""
+msgstr "Pripravený na publikovanie"
 
 #: web/lib/admin/UIElements.php:95
-#, fuzzy
 msgid "Admin Accepted Terms of Use"
-msgstr "Podmienky používania"
+msgstr ""
 
 #: web/lib/admin/UIElements.php:96
 msgid "Extra text on downloadpage for device"
-msgstr ""
+msgstr "Doplňujúce pokyny pre používateľov tohto zariadenia"
 
 #: web/lib/admin/UIElements.php:97
 msgid "Redirection Target"
-msgstr ""
+msgstr "Cieľ presmerovania"
 
 #: web/lib/admin/UIElements.php:98
 msgid "Extra text on downloadpage for EAP method"
-msgstr ""
+msgstr "Doplňujúce pokyny k tejto metóde EAP"
 
 #: web/lib/admin/UIElements.php:99
 msgid "Turn on selection of EAP-TLS User-Name"
-msgstr ""
+msgstr "Povoliť voľbu mena používateľa pre EAP-TLS"
 
 #: web/lib/admin/UIElements.php:100
 msgid "Profile Description"
-msgstr ""
+msgstr "Popis profilu"
 
 #: web/lib/admin/UIElements.php:101
 msgid "Custom Installer Name Suffix"
@@ -2083,15 +2114,15 @@ msgstr ""
 
 #: web/lib/admin/UIElements.php:103
 msgid "Real Name"
-msgstr ""
+msgstr "Meno"
 
 #: web/lib/admin/UIElements.php:104
 msgid "E-Mail Address"
-msgstr ""
+msgstr "E-mail adresa"
 
 #: web/lib/admin/UIElements.php:105
 msgid "Remove/Disable SSID"
-msgstr ""
+msgstr "Odstrániť/deaktivovať SSID"
 
 #: web/lib/admin/UIElements.php:106
 msgid "Mandatory Content Filtering Proxy"
@@ -2152,7 +2183,7 @@ msgstr ""
 
 #: web/lib/admin/UIElements.php:229
 msgid "Global Helpdesk Details"
-msgstr ""
+msgstr "Všeobecné informácie o technickej podpore"
 
 #. we didn't actually get a CA!
 #: web/lib/admin/UIElements.php:324
@@ -2161,15 +2192,15 @@ msgstr ""
 
 #: web/lib/admin/UIElements.php:331
 msgid "There was an error processing the certificate!"
-msgstr ""
+msgstr "Vyskytla sa chyba pri spracovaní certifikátu!"
 
 #: web/lib/admin/UIElements.php:338
 msgid "This is a <strong>SERVER</strong> certificate!"
-msgstr ""
+msgstr "Toto je certifikát <strong>SERVERA</strong>!"
 
 #: web/lib/admin/UIElements.php:351
 msgid "Preview of logo file"
-msgstr ""
+msgstr "Náhľad loga"
 
 #. we didn't actually get a file!
 #: web/lib/admin/UIElements.php:364
@@ -2178,189 +2209,20 @@ msgstr ""
 
 #: web/lib/admin/UIElements.php:368
 msgid "File exists"
-msgstr ""
+msgstr "Súbor existuje"
 
 #: web/lib/admin/UIElements.php:368
 msgid "Preview"
-msgstr ""
+msgstr "Náhľad"
 
 #: web/lib/admin/UIElements.php:384
 msgid "Remark"
-msgstr ""
+msgstr "Poznámka"
 
 #: web/lib/admin/UIElements.php:385
 msgid "Warning!"
-msgstr ""
+msgstr "Upozornenie!"
 
 #: web/lib/admin/UIElements.php:386
 msgid "Error!"
 msgstr "Chyba!"
-
-#, fuzzy
-#~ msgid "No NAPTR records"
-#~ msgstr "Táto doména má %d NAPTR záznamov,"
-
-#, fuzzy
-#~ msgid "No associated NAPTR records"
-#~ msgstr "Táto doména má %d NAPTR záznamov,"
-
-#, fuzzy
-#~ msgid "%d %s NAPTR records"
-#~ msgstr "Táto doména má %d NAPTR záznamov,"
-
-#, fuzzy
-#~ msgid "DNS Checks"
-#~ msgstr "Kontrola DNS"
-
-#~ msgid "Sanity check for dynamic discovery of realms"
-#~ msgstr "Kontrola správnosti nastavenia dynamick"
-
-#~ msgid ""
-#~ "You asked for a realm check, but we don't know the realm for this profile!"
-#~ msgstr ""
-#~ "Tento profil nemožno preveriť, pretože nie je známy príslušný realm!"
-
-#~ msgid "No valid realm name given, cannot execute any checks!"
-#~ msgstr ""
-#~ "Nie je možné spustiť žiadne testy, pretože nebol zadaný žiadny platný "
-#~ "realm. "
-
-#~ msgid "STATIC"
-#~ msgstr "STATICKÝ"
-
-#~ msgid "DYNAMIC"
-#~ msgstr "DYNAMICKÝ"
-
-#, fuzzy
-#~ msgid "Static connectivity tests"
-#~ msgstr "STATICKÝ test pripojenia"
-
-#, fuzzy
-#~ msgid "Dynamic connectivity tests"
-#~ msgstr "DYNAMIICKÝ test pripojenia"
-
-#, fuzzy
-#~ msgid "DNS chekcs"
-#~ msgstr "Kontrola DNS"
-
-#, fuzzy
-#~ msgid "This realm has no NAPTR records."
-#~ msgstr "Táto doména má %d NAPTR záznamov,"
-
-#, fuzzy
-#~ msgid "This realm has NAPTR records, but none are associated with %s."
-#~ msgstr "Táto doména má %d NAPTR záznamov,"
-
-#, fuzzy
-#~ msgid "This realm has %d %s NAPTR records."
-#~ msgstr "Táto doména má %d NAPTR záznamov,"
-
-#, fuzzy
-#~ msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
-#~ msgstr "Kontrola formátu NAPTR záznamu: flag = S regex = (prázdny) ..."
-
-#, fuzzy
-#~ msgid "Checking SRVs:"
-#~ msgstr "Kontrola realmu %s"
-
-#~ msgid "%d host names discovered."
-#~ msgstr "Nájdené doménove meno servera %d."
-
-#, fuzzy
-#~ msgid "At least one hostname could not be resolved!"
-#~ msgstr ""
-#~ "<strong>Chyba:</strong> preklad doménového mena %s sa nepodarilo vykonať!"
-
-#, fuzzy
-#~ msgid "%d IP addresses resolved."
-#~ msgstr "Nájdená IP adresa %d."
-
-#~ msgid "Realm is <strong>%s</strong> "
-#~ msgstr "Realm je <strong>%s</strong>"
-
-#~ msgid "with no DNS errors encountered. Congratulations!"
-#~ msgstr "a počas kontroly neboli objavené žiadne DNS chyby. Gratulujeme!"
-
-#~ msgid "but there were DNS errors! Check them!"
-#~ msgstr "ale počas kontroly boli objavené DNS chyby! Preverte ich!"
-
-#, fuzzy
-#~ msgid "Repeat static connectivity tests"
-#~ msgstr "STATICKÝ test pripojenia"
-
-#~ msgid "STATIC connectivity tests"
-#~ msgstr "STATICKÝ test pripojenia"
-
-#, fuzzy
-#~ msgid "Testing from: %s"
-#~ msgstr "Kontrola realmu %s"
-
-#, fuzzy
-#~ msgid "Repeat dynamic connectivity tests"
-#~ msgstr "STATICKÝ test pripojenia"
-
-#~ msgid "DYNAMIC connectivity tests"
-#~ msgstr "DYNAMIICKÝ test pripojenia"
-
-#, fuzzy
-#~ msgid "<strong>Test successful.</strong>"
-#~ msgstr "Realm je <strong>%s</strong>"
-
-#, fuzzy
-#~ msgid "<strong>Test FAILED</strong>: authentication succeded."
-#~ msgstr "Realm je <strong>%s</strong>"
-
-#, fuzzy
-#~ msgid ""
-#~ "<strong>Test FAILED</strong>: no reply from the RADIUS server after %d "
-#~ "seconds. Either the responsible server is down, or routing is broken!"
-#~ msgstr ""
-#~ "<strong>NEÚSPEŠNÝ test</strong>: žiadna odpoveď z RADIUS servera po "
-#~ "uplynutí %s sekúnd. Buď daný server nie je pripravený alebo ide o problém "
-#~ "so smerovaním."
-
-#~ msgid ""
-#~ "<strong>Test FAILED</strong>: there was a bidirectional RADIUS "
-#~ "conversation, but it did not finish after %d seconds!"
-#~ msgstr ""
-#~ "<strong>NEÚSPEŠNÝ test</strong>: došlo k obojstrannej výmene informácii "
-#~ "medzi RADIUS servermi, ktorá však ani po uplynutí %d sekundy / sekúnd "
-#~ "neskončila."
-
-#, fuzzy
-#~ msgid "<strong>Test FAILED</strong>"
-#~ msgstr "Realm je <strong>%s</strong>"
-
-#~ msgid "OK!"
-#~ msgstr "OK!"
-
-#~ msgid "There are no NAPTR records for this realm."
-#~ msgstr "Pre túto doménu nie je vytvorený žiadny NAPTR záznam."
-
-#~ msgid ""
-#~ "<strong>Error:</strong> eduroam discovery profile only supports 'S' type "
-#~ "NAPTRs."
-#~ msgstr ""
-#~ "<strong>Chyba:</strong> dynamické odkazy určené pre eduroam musia "
-#~ "používať NAPTR záznamy typu 'S'."
-
-#~ msgid ""
-#~ "<strong>Error:</strong> eduroam discovery profile only supports NAPTRs "
-#~ "with empty regex."
-#~ msgstr ""
-#~ "<strong>Chyba:</strong> dynamické odkazy určené pre eduroam musia "
-#~ "používať NAPTR záznamy s prázdnym regulárnym výrazom."
-
-#~ msgid "Trying to resolve the SRVs into host names ... "
-#~ msgstr "Prebieha preklad SRV záznamu na doménové meno ..."
-
-#~ msgid "<strong>Error:</strong> SRV entry %s could not be resolved!"
-#~ msgstr ""
-#~ "<strong>Chyba:</strong> preklad SRV záznamu %s sa nepodarilo vykonať!"
-
-#~ msgid "Skipping further discovery checks because of previous errors!"
-#~ msgstr ""
-#~ "Vzhľadom na predchádzajúce chyby sú ďalšie kontroly a testy zrušené!"
-
-#~ msgid "Checking from <strong>%s</strong>: "
-#~ msgstr "Test spustený z <strong>%s</strong>:"

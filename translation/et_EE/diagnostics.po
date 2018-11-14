@@ -2,21 +2,24 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
+# Translators:
+# Anne M <anne@eenet.ee>, 2018
+# Indrek Rokk <indrek.rokk@eenet.ee>, 2018
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-07 14:23+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: anne a <anne@eenet.ee>, 2018\n"
-"Language-Team: Estonian (Estonia) (https://www.transifex.com/eduroam_devel/"
-"teams/11799/et_EE/)\n"
-"Language: et_EE\n"
+"PO-Revision-Date: 2016-07-15 08:52+0000\n"
+"Last-Translator: Indrek Rokk <indrek.rokk@eenet.ee>, 2018\n"
+"Language-Team: Estonian (Estonia) (https://www.transifex.com/eduroam_devel/teams/11799/et_EE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: et_EE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: core/diag/AbstractTest.php:266
@@ -42,9 +45,10 @@ msgstr "RADIUSe server ei vastanud üldse."
 
 #: core/diag/AbstractTest.php:301
 msgid ""
-"There was a bidirectional communication with the RADIUS server, but it ended "
-"halfway through."
-msgstr "RADIUSe serveriga oli kahepoolne suhtlus, kuid see lõppes poole pealt."
+"There was a bidirectional communication with the RADIUS server, but it ended"
+" halfway through."
+msgstr ""
+"RADIUSe serveriga oli kahepoolne suhtlus, kuid see lõppes poole pealt."
 
 #: core/diag/AbstractTest.php:308
 msgid ""
@@ -107,15 +111,15 @@ msgid ""
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
 "validate this certificate."
 msgstr ""
-"Vähemalt üks sertifikaat ahelas on allkirjastatud SHA-1 allkirjaalgoritmiga. "
-"Selle sertifikaadi kehtivuse kontrollimine ebaõnnestub paljude "
+"Vähemalt üks sertifikaat ahelas on allkirjastatud SHA-1 allkirjaalgoritmiga."
+" Selle sertifikaadi kehtivuse kontrollimine ebaõnnestub paljude "
 "operatsioonisüsteemide, sh Apple iOS puhul. "
 
 #: core/diag/AbstractTest.php:379
 msgid ""
 "At least one certificate in the chain had a public key of less than 1024 "
-"bits. Many recent operating systems consider this unacceptable and will fail "
-"to validate the server certificate."
+"bits. Many recent operating systems consider this unacceptable and will fail"
+" to validate the server certificate."
 msgstr ""
 "Vähemalt üks sertifikaat ahelas omab lühemat kui 1024-bitilist avalikku "
 "võtit. Paljude värskete operatsioonisüsteemide puhul ei ole see lubatav ja "
@@ -152,11 +156,11 @@ msgstr ""
 
 #: core/diag/AbstractTest.php:407
 msgid ""
-"The extension 'CRL Distribution Point' in the server certificate points to a "
-"location where no DER-encoded CRL can be found. Some Operating Systems check "
-"certificate validity by consulting the CRL and will fail to validate the "
-"certificate. Checking server certificate validity against a CRL will not be "
-"possible."
+"The extension 'CRL Distribution Point' in the server certificate points to a"
+" location where no DER-encoded CRL can be found. Some Operating Systems "
+"check certificate validity by consulting the CRL and will fail to validate "
+"the certificate. Checking server certificate validity against a CRL will not"
+" be possible."
 msgstr ""
 "Serveri sertifikaadi 'CRL Distribution Point' laiendus viitab aadressile, "
 "kus ei ole DER-kodeeritud CRLi. Mõned operatsioonisüsteemid kontrollivad "
@@ -169,15 +173,15 @@ msgstr "Serverisertifikaat on CA poolt tühistatud!"
 
 #: core/diag/AbstractTest.php:421
 msgid ""
-"The certificate contained a CN or subjectAltName:DNS which does not parse as "
-"a hostname. This can be problematic on some supplicants. If the certificate "
-"also contains names which are a proper hostname, and you only use those for "
-"your supplicant configuration, then you can safely ignore this notice."
+"The certificate contained a CN or subjectAltName:DNS which does not parse as"
+" a hostname. This can be problematic on some supplicants. If the certificate"
+" also contains names which are a proper hostname, and you only use those for"
+" your supplicant configuration, then you can safely ignore this notice."
 msgstr ""
 "Sertifikaat sisaldas CN või subjectAltName:DNS, mida ei õnnestu hostinimena "
 "tuvastada. See võib osutuda mõnede programmide puhul problemaatiliseks. Kui "
-"sertifikaat sisaldab ka nimesid, mis on korrektsed hostinimed, ja Sa kasutad "
-"neid ainult oma programmi seadistamisel, ei ole seda hoiatust vaja tähele "
+"sertifikaat sisaldab ka nimesid, mis on korrektsed hostinimed, ja Sa kasutad"
+" neid ainult oma programmi seadistamisel, ei ole seda hoiatust vaja tähele "
 "panna."
 
 #: core/diag/AbstractTest.php:428
@@ -240,8 +244,8 @@ msgstr "EAP serveri nimi ei klapi ühegi seadistatud nimega Su profiilis!"
 
 #: core/diag/AbstractTest.php:466
 msgid ""
-"The configured EAP server name matches either the CN or a subjectAltName:DNS "
-"of the incoming certificate; best current practice is that the certificate "
+"The configured EAP server name matches either the CN or a subjectAltName:DNS"
+" of the incoming certificate; best current practice is that the certificate "
 "should contain the name in BOTH places."
 msgstr ""
 "Seadistatud EAP serveri nimi langeb kokku sissetuleva sertifikaadi CN või "
@@ -290,8 +294,8 @@ msgid ""
 "1024 bit. Mac OS X 10.11 'El Capitan' is known to refuse TLS connections "
 "under these circumstances!"
 msgstr ""
-"Server pakub Diffie-Hellman (DH) šifreid, mille DH grupp on väiksem kui 1024 "
-"bitti. Teadaolevalt keeldub Mac OS X 10.11 'El Capitan' sellisel juhul TLS "
+"Server pakub Diffie-Hellman (DH) šifreid, mille DH grupp on väiksem kui 1024"
+" bitti. Teadaolevalt keeldub Mac OS X 10.11 'El Capitan' sellisel juhul TLS "
 "ühendusest!"
 
 #: core/diag/AbstractTest.php:529
@@ -304,8 +308,8 @@ msgstr ""
 
 #: core/diag/AbstractTest.php:536
 msgid ""
-"The certificate public key algorithm is unknown to the system. Please submit "
-"the certificate as a sample to the developers."
+"The certificate public key algorithm is unknown to the system. Please submit"
+" the certificate as a sample to the developers."
 msgstr ""
 "Sertifikaadi avaliku võtme algoritm on süsteemile tundmatu. Palun esitage "
 "sertifikaat arendajatele näidiseks."
@@ -317,9 +321,10 @@ msgstr "[eduroami Diagnostika]"
 #: core/diag/Logopath.php:98
 msgid ""
 "(This service is in an early stage. We apologise if this is a false alert. "
-"If this is the case, please send an email report to cat-devel@lists.geant."
-"org, forwarding the entire message (including the 'SUSPECTS' and 'EVIDENCE' "
-"data at the end), and explain why this is a false positive.)"
+"If this is the case, please send an email report to cat-"
+"devel@lists.geant.org, forwarding the entire message (including the "
+"'SUSPECTS' and 'EVIDENCE' data at the end), and explain why this is a false "
+"positive.)"
 msgstr ""
 "(Teenus on varajases staadiumis. Palume vabandust, kui tegemist on "
 "valehoiatusega. Kui see peaks nii olema, palun saatke aadressile cat-"
@@ -382,19 +387,19 @@ msgid ""
 "multiple round-trips was carried out, and ended in an Access-Reject as "
 "planned."
 msgstr ""
-"<strong>Edukas test</strong>: viidi läbi kahesuunaline RADIUSe suhtlus "
-"mitmete pendeldamistega (round-trips), lõpetati juurdepääsu "
+"<strong>Testimine õnnestus</strong>: viidi läbi kahesuunaline RADIUSe "
+"suhtlus mitmete pendeldamistega (round-trips), lõpetati juurdepääsu "
 "tagasilükkamisega (Access-Reject) nagu kavandatud."
 
 #: core/diag/RADIUSTests.php:1054
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
-"Access-Reject as planned. Some properties of the connection attempt were sub-"
-"optimal; the list is below."
+"Access-Reject as planned. Some properties of the connection attempt were "
+"sub-optimal; the list is below."
 msgstr ""
-"<strong>Test osaliselt edukas</strong>; viidi läbi kahesuunaline RADIUSe "
-"suhtlus mitmete pendeldamistega (round-trips), lõpetati juurdepääsu "
+"<strong>Testimine õnnestus osaliselt</strong>; viidi läbi kahesuunaline "
+"RADIUSe suhtlus mitmete pendeldamistega (round-trips), lõpetati juurdepääsu "
 "tagasilükkamisega (Access-Reject) nagu kavandatud. Osa suhtlusaktide "
 "näitajatest olid optimaalsetest madalamad; nimekiri on toodud allpool."
 
@@ -468,15 +473,15 @@ msgstr "tundmatu väljastaja või puudub sertifikaadipoliitika või muu probleem
 
 #. return codes specific to NAPTR existence checks
 #. *
-#. * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
-#.
+#. * no NAPTRs for domain; this is not an error, simply means that realm is
+#. not doing dynamic discovery for any service
 #: core/diag/RFC7585Tests.php:124 web/diag/action_realmcheck.php:495
 msgid "This realm has no NAPTR records."
 msgstr "Domeenil puuduvad NAPTR kirjed."
 
 #. *
-#. * no eduroam NAPTR for domain; this is not an error, simply means that realm is not doing dynamic discovery for eduroam
-#.
+#. * no eduroam NAPTR for domain; this is not an error, simply means that
+#. realm is not doing dynamic discovery for eduroam
 #: core/diag/RFC7585Tests.php:130
 msgid "NAPTR records were found, but all of them refer to unrelated services."
 msgstr ""
@@ -491,7 +496,8 @@ msgid ""
 "Please be patient and try again at a later time. Do NOT change your device "
 "configuration."
 msgstr ""
-"Palun ole kannatlik ja proovi hiljem uuesti. Ära muuda oma seadme seadistust!"
+"Palun ole kannatlik ja proovi hiljem uuesti. Ära muuda oma seadme "
+"seadistust!"
 
 #: core/diag/Sociopath.php:37
 msgid ""
@@ -505,7 +511,8 @@ msgstr ""
 msgid ""
 "The system has identified possible issues regarding your local device "
 "configuration."
-msgstr "Süsteem tuvastas võimalikud probleemid Su kohaliku seadme seadistuses."
+msgstr ""
+"Süsteem tuvastas võimalikud probleemid Su kohaliku seadme seadistuses."
 
 #: core/diag/Sociopath.php:47
 msgid ""
@@ -518,23 +525,28 @@ msgstr ""
 
 #: core/diag/Sociopath.php:48
 msgid ""
-"There are likely some issues around the wireless part of the network you are "
-"trying to connect to. Wireless networks do not always behave "
+"There are likely some issues around the wireless part of the network you are"
+" trying to connect to. Wireless networks do not always behave "
 "deterministically and consistently. All users at a given location have to "
-"share the available bandwidth, and the physical environment (concrete walls, "
-"objects in the way, elevation differences) can have a significant impact on "
-"your connectivity experience."
+"share the available bandwidth, and the physical environment (concrete walls,"
+" objects in the way, elevation differences) can have a significant impact on"
+" your connectivity experience."
 msgstr ""
-"Arvatavasti on probleeme traadita võrgu osaga selles võrgus, millega proovid "
-"ühenduda. Traadita võrgud ei toimi alati ettemääratult ja järjekindlalt. "
-"Kasutajad mingis asukohas jagavad omavahel pakutavat ribalaiust ja füüsiline "
-"keskkond (kiviseinad, takistused, kõrguserinevused) võib oluliselt mõjutada "
-"ühenduse saamist."
+"Arvatavasti on probleeme traadita võrgu osaga selles võrgus, millega proovid"
+" ühenduda. Traadita võrgud ei toimi alati ettemääratult ja järjekindlalt. "
+"Kasutajad mingis asukohas jagavad omavahel pakutavat ribalaiust ja füüsiline"
+" keskkond (kiviseinad, takistused, kõrguserinevused) võib oluliselt mõjutada"
+" ühenduse saamist."
 
-#. here is an array with yes/no answers per failure category, and the factors by which a Yes modifies the score; No's modify it by 1/factor;
-#. the order in this array is important: lower numbered questions will be asked first. So make sure you have high-quality questions in the beginning.
-#. to be clear: "Yes" answers are elsewhere in the class the TRUE case; No's are FALSE, a possible "Don't know or N/A" is NULL
-#. VERDICTLECTURE is text which is displayed to the end user if his answer led to a HIGHER score in the process. We are storing the answers to determine this.
+#. here is an array with yes/no answers per failure category, and the factors
+#. by which a Yes modifies the score; No's modify it by 1/factor;
+#. the order in this array is important: lower numbered questions will be
+#. asked first. So make sure you have high-quality questions in the beginning.
+#. to be clear: "Yes" answers are elsewhere in the class the TRUE case; No's
+#. are FALSE, a possible "Don't know or N/A" is NULL
+#. VERDICTLECTURE is text which is displayed to the end user if his answer led
+#. to a HIGHER score in the process. We are storing the answers to determine
+#. this.
 #: core/diag/Sociopath.php:56
 msgid ""
 "You should use appropriate configuration assistants [MGW: see if the realm "
@@ -550,7 +562,7 @@ msgid ""
 "Have you ever used the network succesfully, e.g. at your home institution "
 "without roaming?"
 msgstr ""
-"Oled Sa kunagi saanud edukalt seda võrku kasutada, nt oma asutuses kohapeal, "
+"Oled Sul õnnestunud varem seda võrku kasutada, nt oma asutuses kohapeal, "
 "ilma rändluseta?"
 
 #: core/diag/Sociopath.php:62
@@ -571,12 +583,13 @@ msgstr ""
 "asuvates juurdepääsupunktides?"
 
 #: core/diag/Sociopath.php:66
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "If roaming consistently does not work, then very likely your device "
-"configuration is wrong. Typical errors causing this symptom include: using a "
-"routing ('outer') username without the @realm.tld suffix - those potentially "
-"work at your home organisation, but can not be used when roaming. %s"
+"configuration is wrong. Typical errors causing this symptom include: using a"
+" routing ('outer') username without the @realm.tld suffix - those "
+"potentially work at your home organisation, but can not be used when "
+"roaming. %s"
 msgstr ""
 "Kui rändlus ebaõnnestub pidevalt, on arvatavasti Su seadme seadistus vale. "
 "Üks sage viga on kasutajanime kasutamine ilma domeenita (näiteks ilma "
@@ -595,10 +608,10 @@ msgid ""
 "configuration unless explicitly instructed so by your Identity Provider; "
 "even in the case of temporary login issues."
 msgstr ""
-"Kontod tuleb seadistada üks kord ja seejärel saab neid muudatusteta kasutada "
-"kogu planeedil. Kui muutsid hiljuti seadistusi, võib see muudatus ollagi vea "
-"põhjuseks. Sa ei tohiks kunagi muuta oma võrguseadistusi, välja arvatud oma "
-"identiteedipakkuja otsese korralduse puhul; seda isegi mitte ajutiste "
+"Kontod tuleb seadistada üks kord ja seejärel saab neid muudatusteta kasutada"
+" kogu planeedil. Kui muutsid hiljuti seadistusi, võib see muudatus ollagi "
+"vea põhjuseks. Sa ei tohiks kunagi muuta oma võrguseadistusi, välja arvatud "
+"oma identiteedipakkuja otsese korralduse puhul; seda isegi mitte ajutiste "
 "logimisprobleemide korral."
 
 #: core/diag/Sociopath.php:72
@@ -615,21 +628,22 @@ msgid ""
 msgstr ""
 "Kui kõik seadmed lõpetasid korraga töö, võib olla probleem Su "
 "kasutajakontoga. Võib-olla on konto aegunud või olid sunnitud muutma "
-"parooli? Neile küsimustele saab kõige paremini vastata Su identiteedipakkuja "
-"[MGW: näita kontaktteavet]."
+"parooli? Neile küsimustele saab kõige paremini vastata Su identiteedipakkuja"
+" [MGW: näita kontaktteavet]."
 
 #: core/diag/Sociopath.php:76
 msgid ""
-"Is the place you are currently at heavily crowded, or is a network-intensive "
-"workload going on?"
-msgstr "Kas Su asukoht on rahvarohke või käib võrku intensiivselt koormav töö?"
+"Is the place you are currently at heavily crowded, or is a network-intensive"
+" workload going on?"
+msgstr ""
+"Kas Su asukoht on rahvarohke või käib võrku intensiivselt koormav töö?"
 
 #: core/diag/Sociopath.php:78
 msgid ""
-"The network is likely overloaded at this location and point in time. You may "
-"have to wait until later before you get a better connectivity. If you think "
-"the network should be reinforced for more capacity at this place, you should "
-"inform the hotspot provider. [MGW: add contact info]"
+"The network is likely overloaded at this location and point in time. You may"
+" have to wait until later before you get a better connectivity. If you think"
+" the network should be reinforced for more capacity at this place, you "
+"should inform the hotspot provider. [MGW: add contact info]"
 msgstr ""
 "Võrk selles kohas ja ajal on arvatavasti üle koormatud. Sul tuleb vahest "
 "oodata, kuni saad parema ühenduse. Kui arvad, et selles kohas on "
@@ -654,14 +668,14 @@ msgstr ""
 msgid ""
 "Do you see errors stating something similar to 'Unable to get IP address'?"
 msgstr ""
-"Kas näed veateadet, mis väidab midagi sellist nagu 'Ei saa IP-"
-"aadressi' ('Unable to get IP address')?"
+"Kas näed veateadet, mis väidab midagi sellist nagu 'Ei saa IP-aadressi' "
+"('Unable to get IP address')?"
 
 #: core/diag/Sociopath.php:87
 msgid ""
-"The evidence at hand suggests that there may be an infrastructure problem at "
-"this particular hotspot provider. There is nothing you can do to solve this "
-"problem locally. Please be patient and try again at a later time."
+"The evidence at hand suggests that there may be an infrastructure problem at"
+" this particular hotspot provider. There is nothing you can do to solve this"
+" problem locally. Please be patient and try again at a later time."
 msgstr ""
 "Kättesaadavad tõendid viitavad selle juurdepääsupunkti haldaja "
 "taristuprobleemidele. Sa ei saa midagi teha, et probleemi kohapeal "
@@ -676,8 +690,7 @@ msgid ""
 "The diagnostics system will do its best to identify and resolve your "
 "problems!"
 msgstr ""
-"Diagnostikasüsteem annab endast parima Su probleemide tuvastamiseks ja "
-"lahendamiseks!"
+"Diagnostikasüsteem aitab Sind probleemide tuvastamisel ja lahendamisel. "
 
 #: web/skins/modern/diag/diag.php:70
 msgid ""
@@ -690,7 +703,7 @@ msgstr "Oled Sa"
 
 #: web/skins/modern/diag/diag.php:71
 msgid "end-user"
-msgstr "lõpp-kasutaja"
+msgstr "lõppkasutaja"
 
 #: web/skins/modern/diag/diag.php:71 web/diag/adminQuery.php:119
 msgid "or"
@@ -708,7 +721,8 @@ msgstr "Lõppkasutaja vahendid"
 msgid ""
 "To resolve your problem a real-time diagnostics for your realm must be "
 "performed."
-msgstr "Su mure lahendamiseks on vaja teha reaalajas diagnostika Su domeenile."
+msgstr ""
+"Su mure lahendamiseks on vaja teha reaalajas diagnostika Su domeenile."
 
 #: web/skins/modern/diag/diag.php:82
 msgid ""
@@ -718,12 +732,12 @@ msgstr "Süsteem vajab teavet Su koduasutuse ehk konto väljastaja kohta"
 
 #: web/skins/modern/diag/diag.php:83
 msgid ""
-"What is the realm part of your user account (the part behind the @ of 'your."
-"username@<b>realm.tld</b>):"
+"What is the realm part of your user account (the part behind the @ of "
+"'your.username@<b>realm.tld</b>):"
 msgstr ""
 "Mis on Su kasutajakonto domeeniks (see osa, mis on pärast @-märki "
-"kasutajakonto nimes, näiteks 'kasutaja@asutus.ee' puhul on domeeniks 'asutus."
-"ee'):"
+"kasutajakonto nimes, näiteks 'kasutaja@asutus.ee' puhul on domeeniks "
+"'asutus.ee'):"
 
 #: web/skins/modern/diag/diag.php:87
 msgid "alternatively"
@@ -850,7 +864,8 @@ msgid "The network environment around you is broken"
 msgstr "Võrgukeskkond Su ümber on katki"
 
 #: web/skins/modern/diag/diag.php:319
-msgid "The RADIUS server of your service provider is the source of the problem"
+msgid ""
+"The RADIUS server of your service provider is the source of the problem"
 msgstr "Su teenusepakkuja RADIUSe server on probleemi põhjuseks"
 
 #: web/skins/modern/diag/diag.php:322
@@ -870,15 +885,16 @@ msgid ""
 "The link between the national server of the country/region you are visiting "
 "and the top-level server is broken"
 msgstr ""
-"Ühendus Sinu poolt külastatava riigi/piirkonna serveri ja tipptaseme serveri "
-"vahel on katki"
+"Ühendus Sinu poolt külastatava riigi/piirkonna serveri ja tipptaseme serveri"
+" vahel on katki"
 
 #: web/skins/modern/diag/diag.php:331
 msgid ""
-"The link between the national server of your home country/region and the top-"
-"level server is broken"
+"The link between the national server of your home country/region and the "
+"top-level server is broken"
 msgstr ""
-"Ühendus Sinu koduriigi/piirkonna serveri ja tipptaseme serveri vahel on katki"
+"Ühendus Sinu koduriigi/piirkonna serveri ja tipptaseme serveri vahel on "
+"katki"
 
 #: web/skins/modern/diag/diag.php:334
 msgid "The communication to the top-level server is down"
@@ -890,7 +906,8 @@ msgid ""
 msgstr "Su koduriigi/piirkonna peaserver ei tööta korralikult."
 
 #: web/skins/modern/diag/diag.php:340
-msgid "The RADIUS server of your home institution is the source of the problem"
+msgid ""
+"The RADIUS server of your home institution is the source of the problem"
 msgstr "Su koduasutuse RADIUSe server on probleemi põhjuseks"
 
 #: web/skins/modern/diag/diag.php:343
@@ -1042,33 +1059,28 @@ msgid "FAIL"
 msgstr ""
 
 #: web/diag/action_realmcheck.php:90
-#, fuzzy
 msgid "Client certificate:"
-msgstr "õige sertifikaat"
+msgstr ""
 
 #: web/diag/action_realmcheck.php:91
 msgid "expected result: "
 msgstr ""
 
 #: web/diag/action_realmcheck.php:92
-#, fuzzy
 msgid "Server accepted this client certificate"
-msgstr "Server aktsepteeris MITTEKEHTIVA kliendisertifikaadi."
+msgstr ""
 
 #: web/diag/action_realmcheck.php:93
-#, fuzzy
 msgid "Server accepted this client certificate, but should not have"
-msgstr "Server lükkas kliendisertifikaadi tagasi, kuigi see oli kehtiv."
+msgstr ""
 
 #: web/diag/action_realmcheck.php:94
-#, fuzzy
 msgid "Server did not accept this client certificate"
-msgstr "Server aktsepteeris MITTEKEHTIVA kliendisertifikaadi."
+msgstr ""
 
 #: web/diag/action_realmcheck.php:95
-#, fuzzy
 msgid "Server did not accept this client certificate - reason"
-msgstr "Server aktsepteeris MITTEKEHTIVA kliendisertifikaadi."
+msgstr ""
 
 #: web/diag/action_realmcheck.php:96
 msgid "Rest of tests for this CA skipped"
@@ -1091,9 +1103,8 @@ msgid "Show detailed information for all tests"
 msgstr ""
 
 #: web/diag/action_realmcheck.php:117
-#, fuzzy
 msgid "Server certificate"
-msgstr "aegunud sertifikaat"
+msgstr ""
 
 #: web/diag/action_realmcheck.php:118
 msgid "Subject"
@@ -1108,9 +1119,8 @@ msgid "SubjectAltName"
 msgstr ""
 
 #: web/diag/action_realmcheck.php:121
-#, fuzzy
 msgid "Certificate policies"
-msgstr "sertifikaat aegus"
+msgstr ""
 
 #: web/diag/action_realmcheck.php:122
 msgid "crlDistributionPoint"
@@ -1163,18 +1173,16 @@ msgid "Extensions"
 msgstr ""
 
 #: web/diag/action_realmcheck.php:331
-#, fuzzy
 msgid "show server certificate details"
-msgstr "Ahelast puudub serverisertifikaat."
+msgstr ""
 
 #: web/diag/action_realmcheck.php:351 web/diag/action_realmcheck.php:356
 msgid "See the appropriate tab for details."
 msgstr ""
 
 #: web/diag/action_realmcheck.php:370
-#, fuzzy
 msgid "Server certificate details:"
-msgstr "aegunud sertifikaat"
+msgstr ""
 
 #: web/diag/action_realmcheck.php:470
 #, php-format
@@ -1215,9 +1223,9 @@ msgstr ""
 
 #. if none of the possible negative retvals, then we have matching NAPTRs
 #: web/diag/action_realmcheck.php:501
-#, fuzzy, php-format
+#, php-format
 msgid "This realm has %d NAPTR records relating to this roaming consortium."
-msgstr "Domeenil puuduvad NAPTR kirjed."
+msgstr ""
 
 #: web/diag/action_realmcheck.php:507
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
@@ -1267,9 +1275,8 @@ msgid "with no DNS errors encountered. Congratulations!"
 msgstr ""
 
 #: web/diag/action_realmcheck.php:558
-#, fuzzy
 msgid "but there were DNS errors! Check them!"
-msgstr "Vead testi kestel."
+msgstr ""
 
 #: web/diag/action_realmcheck.php:558
 msgid ""
@@ -1291,8 +1298,8 @@ msgstr ""
 
 #: web/diag/action_realmcheck.php:611
 msgid ""
-"This check sends a request for the realm through various entry points of the "
-"roaming consortium infrastructure. The request will contain the 'Operator-"
+"This check sends a request for the realm through various entry points of the"
+" roaming consortium infrastructure. The request will contain the 'Operator-"
 "Name' attribute, and will be larger than 1500 Bytes to catch two common "
 "configuration problems.<br/>Since we don't have actual credentials for the "
 "realm, we can't authenticate successfully - so the expected outcome is to "
@@ -1300,9 +1307,9 @@ msgid ""
 msgstr ""
 
 #: web/diag/action_realmcheck.php:615 web/diag/action_realmcheck.php:727
-#, fuzzy, php-format
+#, php-format
 msgid "Testing from: %s"
-msgstr "Testin domeeni"
+msgstr ""
 
 #: web/diag/action_realmcheck.php:620 web/diag/action_realmcheck.php:653
 #: web/diag/action_realmcheck.php:666
@@ -1352,9 +1359,9 @@ msgstr ""
 #: web/diag/action_realmcheck.php:702
 msgid ""
 "The test will use all EAP types you have set in your profile information to "
-"check whether the right CAs and server names are used, and of course whether "
-"the login with these credentials and the given EAP type actually worked. If "
-"you have set anonymous outer ID, the test will use that."
+"check whether the right CAs and server names are used, and of course whether"
+" the login with these credentials and the given EAP type actually worked. If"
+" you have set anonymous outer ID, the test will use that."
 msgstr ""
 
 #: web/diag/action_realmcheck.php:703
@@ -1379,7 +1386,7 @@ msgstr ""
 
 #: web/diag/action_realmcheck.php:714
 msgid "Password:"
-msgstr ""
+msgstr "Parool:"
 
 #: web/diag/action_realmcheck.php:718
 msgid "Certificate-based EAP types"
@@ -1402,9 +1409,9 @@ msgid "Submit credentials"
 msgstr ""
 
 #: web/diag/action_realmcheck.php:749
-#, fuzzy, php-format
+#, php-format
 msgid "Return to %s administrator area"
-msgstr "eduroami administraator"
+msgstr ""
 
 #: web/diag/adminQuery.php:17
 msgid "I suspect a Technical Problem with the IdP"
@@ -1416,8 +1423,8 @@ msgstr ""
 
 #: web/diag/adminQuery.php:19
 msgid ""
-"A user from this IdP has conducted malicious network operations (spam, "
-"DDoS, ...)"
+"A user from this IdP has conducted malicious network operations (spam, DDoS,"
+" ...)"
 msgstr ""
 
 #: web/diag/adminQuery.php:22
@@ -1450,9 +1457,8 @@ msgid "What is the MAC address of the user session in question?"
 msgstr ""
 
 #: web/diag/adminQuery.php:74
-#, fuzzy
 msgid "Additional comments"
-msgstr "Lisakirjeldus"
+msgstr ""
 
 #: web/diag/adminQuery.php:78
 msgid "Please specify an email address on which the IdP can contact you"
@@ -1471,18 +1477,16 @@ msgid "Identify the SP by one of following means"
 msgstr ""
 
 #: web/diag/adminQuery.php:106
-#, fuzzy
 msgid "SP Operator-Name attribute"
-msgstr "SP Operator-Name"
+msgstr ""
 
 #: web/diag/adminQuery.php:110
 msgid "Select the SP manually:"
 msgstr ""
 
 #: web/diag/adminQuery.php:113
-#, fuzzy
 msgid "click to select country and organisation"
-msgstr "Vali klõpsates oma riik/piirkond ja asutus"
+msgstr ""
 
 #: web/diag/adminQuery.php:119
 msgid "at least describe the SP location"
@@ -1553,38 +1557,31 @@ msgid ""
 msgstr ""
 
 #: web/diag/radius_tests.php:173 web/diag/radius_tests.php:214
-#, fuzzy, php-format
+#, php-format
 msgid ""
-"<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation, "
-"but it did not finish after %d seconds!"
+"<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation,"
+" but it did not finish after %d seconds!"
 msgstr ""
-"<strong>Edukas test</strong>: viidi läbi kahesuunaline RADIUSe suhtlus "
-"mitmete pendeldamistega (round-trips), lõpetati juurdepääsu "
-"tagasilükkamisega (Access-Reject) nagu kavandatud."
 
 #: web/diag/radius_tests.php:178
 msgid "<strong>Test FAILED</strong>"
 msgstr ""
 
 #: web/diag/radius_tests.php:199
-#, fuzzy
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
 "Access-Reject as planned."
 msgstr ""
-"<strong>Edukas test</strong>: viidi läbi kahesuunaline RADIUSe suhtlus "
-"mitmete pendeldamistega (round-trips), lõpetati juurdepääsu "
-"tagasilükkamisega (Access-Reject) nagu kavandatud."
 
 #: web/diag/radius_tests.php:205
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. This is not necessarily an error: if the RADIUS server "
-"enforces that outer identities correspond to an existing username, then this "
-"result is expected (Note: you could configure a valid outer identity in your "
-"profile settings to get past this hurdle). In all other cases, the server "
-"appears misconfigured or it is unreachable."
+"enforces that outer identities correspond to an existing username, then this"
+" result is expected (Note: you could configure a valid outer identity in "
+"your profile settings to get past this hurdle). In all other cases, the "
+"server appears misconfigured or it is unreachable."
 msgstr ""
 
 #: web/diag/radius_tests.php:218
@@ -1592,11 +1589,10 @@ msgid "unhandled error"
 msgstr ""
 
 #: web/diag/radius_tests.php:236
-#, fuzzy
 msgid ""
 "<strong>ERROR</strong>: the server presented a certificate which is from an "
 "unknown authority!"
-msgstr "Serverisertifikaat pärineb tundmatult väljastajalt."
+msgstr ""
 
 #: web/diag/radius_tests.php:236 web/diag/radius_tests.php:242
 #, php-format
