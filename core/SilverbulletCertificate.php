@@ -464,7 +464,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         if ($type == "RA") { // add client auth parameters to the context
             $context_params['ssl']['local_cert'] = ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem";
             $context_params['ssl']['local_pk'] = ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.key";
-            $context_params['ssl']['passphrase'] = '...';
+            $context_params['ssl']['passphrase'] = SilverbulletCertificate::EDUPKI_RA_PKEY_PASSPHRASE;
         }
         // initialse connection to eduPKI CA / eduroam RA
         $soap = new \SoapClient($url, [
@@ -483,6 +483,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
 
     const EDUPKI_RA_ID = 700;
     const EDUPKI_CERT_PROFILE = "User SOAP";
+    const EDUPKI_RA_PKEY_PASSPHRASE = "...";
 
     /**
      * take a CSR and sign it with our issuing CA's certificate
