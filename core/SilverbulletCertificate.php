@@ -413,10 +413,9 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                 }
                 $newCsr = file_get_contents("$tempdir/request.csr");
                 // remove the temp dir!
-                //unlink("$tempdir/pkey.pem");
-                //unlink("$tempdir/request.csr");
-                //rmdir($tempdir);
-                
+                unlink("$tempdir/pkey.pem");
+                unlink("$tempdir/request.csr");
+                rmdir($tempdir);
                 break;
             default:
                 throw new Exception("Unknown CA!");
@@ -588,9 +587,9 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     $tempdir = \core\common\Entity::createTemporaryDirectory("test");
                     file_put_contents($tempdir['dir'] . "/content.txt", $soapRawRequest);
                     // retrieve our RA cert from filesystem
-                    $raCertFile = file_get_contents(ROOT . "../edupki-test-ra.pem");
+                    $raCertFile = file_get_contents(ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem");
                     $raCert = openssl_x509_read($raCertFile);
-                    $raKey = openssl_pkey_get_private("file://" . ROOT . "../edupki-test-ra.clearkey");
+                    $raKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey");
                     // sign the data
                     if (openssl_pkcs7_sign($tempdir['dir'] . "/content.txt", $tempdir['dir'] . "/signature.txt", $raCert, $raKey, []) === FALSE) {
                         throw new Exception("Unable to sign the certificate approval data!");
@@ -602,14 +601,18 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     $loggerInstance->debug(5, "Signature is:\n");
                     $loggerInstance->debug(5, $detachedSigBloat."\n");
                     $detachedSigBloatArray = explode("\n",$detachedSigBloat);
-                    $index = array_search("filename",$detachedSigBloatArray);
+                    $index = array_search('Content-Disposition: attachment; filename="smime.p7s"',$detachedSigBloatArray);
                     $detachedSigSmall = array_slice($detachedSigBloatArray, $index+1);
                     $detachedSigSmall[0] = "-----BEGIN PKCS7-----";
                     array_pop($detachedSigSmall);
                     array_pop($detachedSigSmall);
                     array_pop($detachedSigSmall);
                     $detachedSigSmall[count($detachedSigSmall)-1] = "-----END PKCS7-----";
-                    $detachedSig = implode("/n",$detachedSigSmall);
+                    $detachedSig = implode("\n",$detachedSigSmall);
+                    $loggerInstance->debug(5, "Request for server approveRequest has parameters:\n");
+                    $loggerInstance->debug(5, $soapReqnum."\n");
+                    $loggerInstance->debug(5, base64_encode($soapRawRequest)."\n");
+                    $loggerInstance->debug(5, $detachedSig."\n");
                     $soapIssueCert = $soap->approveRequest($soapReqnum, base64_encode($soapRawRequest), $detachedSig);
                     if ($soapIssueCert === FALSE) {
                         throw new Exception("The locally approved request was NOT processed by the CA.");

@@ -70,4 +70,5 @@ try {
         throw new Exception("Unable to find our accountstatus.php page.");
     }
     header("Location: ../accountstatus/accountstatus.php?token=" . $cleanToken . "&errorcode=GENERATOR_CONSUMED");
+    throw $e;
 }
