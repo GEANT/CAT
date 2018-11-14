@@ -10,7 +10,10 @@ documentation:
 	phpDocumentor.phar run -d . -i core/phpqrcode.php -i core/PHPMailer/ -i tests/ -i core/simpleSAMLphp -i core/PHPUnit -i core/GeoIP2 -t web/apidoc/ --title "CAT - The IEEE 802.1X Configuration Assistant Tool" 
 #	mv core/phpqrcode.xyz core/phpqrcode.php
 
-translation:
+pull_from_transifex:
+	tx pull --all
+
+translation: pull_from_transifex
 	echo "****************************************"
 	echo "*** Generating templates from source ***"
 	echo "****************************************"
