@@ -45,7 +45,7 @@ translation: pull_from_transifex
 
 
 distribution: all
-	git submodule update devices/ms/Files/GEANTLink
+	git submodule update --init devices/ms/Files/GEANTLink
 	find . -name \*.po~ -exec rm {} \;
 	find . -name svn-commit.tmp -exec rm {} \;
 	rm -R -f NewFolder nbproject config/config-master.php config/config-confassistant.php config/config-diagnostics.php devices/Devices.php .codeclimate.yml .git .github .scrutinizer.yml .gitignore .gitmodules core/simpleSAMLphp core/PHPMailer core/PHPUnit core/GeoIP2
