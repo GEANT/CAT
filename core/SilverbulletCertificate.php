@@ -379,24 +379,55 @@ class SilverbulletCertificate extends EntityWithDBProperties {
             }
         }
 
-        $loggerInstance->debug(5, "generateCertificate: generating private key.\n");
+        $loggerInstance->debug(5, "generateCertificate: generating CSR.\n");
 
-        $newCsr = openssl_csr_new(
-                ['O' => CONFIG_CONFASSISTANT['CONSORTIUM']['name'],
-            'OU' => $fed,
-            'CN' => $username,
-            'emailAddress' => $username,
-                ], $privateKey, [
-            'digest_alg' => 'sha256',
-            'req_extensions' => 'v3_req',
-                ]
-        );
+        switch (CONFIG_CONFASSISTANT['SILVERBULLET']['CA']['type']) {
+            case "embedded":
+
+                $newCsr = openssl_csr_new(
+                        ['O' => CONFIG_CONFASSISTANT['CONSORTIUM']['name'],
+                    'OU' => $fed,
+                    'CN' => $username,
+                    'emailAddress' => $username,
+                        ], $privateKey, [
+                    'digest_alg' => 'sha256',
+                    'req_extensions' => 'v3_req',
+                        ]
+                );
+                break;
+            case "eduPKI":
+                $tempdirArray = \core\common\Entity::createTemporaryDirectory("test");
+                $tempdir = $tempdirArray['dir'];
+                // dump private key into directly
+                $outstring = "";
+                openssl_pkey_export($privateKey, $outstring);
+                file_put_contents($tempdir . "/pkey.pem", $outstring);
+                // PHP can only do one DC in the Subject. But we need three.
+                $execCmd = CONFIG['PATHS']['openssl'] . " req -new -sha256 -key $tempdir/pkey.pem -out $tempdir/request.csr -subj /DC=test/DC=test/DC=eduroam/C=$fed/O=".CONFIG_CONFASSISTANT['CONSORTIUM']['name']."/OU=$fed/CN=$username/emailAddress=$username";
+                $loggerInstance->debug(2, "Calling openssl req with following cmdline: $execCmd\n");
+                $output = [];
+                $return = 999;
+                exec($execCmd, $output, $return);
+                if ($return !== 0) {
+                    throw new Exception("Non-zero return value from openssl req!");
+                }
+                $newCsr = file_get_contents("$tempdir/request.csr");
+                // remove the temp dir!
+                //unlink("$tempdir/pkey.pem");
+                //unlink("$tempdir/request.csr");
+                //rmdir($tempdir);
+                
+                break;
+            default:
+                throw new Exception("Unknown CA!");
+        }
         if ($newCsr === FALSE) {
             throw new Exception("Unable to create a CSR!");
         }
         return [
-            "CSR" => $newCsr,
-            "USERNAME" => $username
+            "CSR" => $newCsr, // a resource for embedded, a string for eduPKI
+            "USERNAME" => $username,
+            "FED" => $fed
         ];
     }
 
@@ -490,24 +521,22 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                 try {
                     $altArray = [# Array mit den Subject Alternative Names
                         "email:" . $csr["USERNAME"]
-                            ];
-                    $csrText = "";
-                    openssl_csr_export($csr["CSR"], $csrText);
+                    ];
                     $soapPub = SilverbulletCertificate::initEduPKISoapSession("PUBLIC");
                     $loggerInstance->debug(5, "FIRST ACTUAL SOAP REQUEST (Public, newRequest)!\n");
-                    $loggerInstance->debug(5, "PARAM_1: ".SilverbulletCertificate::EDUPKI_RA_ID."\n");
-                    $loggerInstance->debug(5, "PARAM_2: $csrText\n");
+                    $loggerInstance->debug(5, "PARAM_1: " . SilverbulletCertificate::EDUPKI_RA_ID . "\n");
+                    $loggerInstance->debug(5, "PARAM_2: ".$csr["CSR"]."\n");
                     $loggerInstance->debug(5, "PARAM_3: ");
                     $loggerInstance->debug(5, $altArray);
-                    $loggerInstance->debug(5, "PARAM_4: ".SilverbulletCertificate::EDUPKI_CERT_PROFILE."\n");
-                    $loggerInstance->debug(5, "PARAM_5: ".sha1("notused")."\n");
-                    $loggerInstance->debug(5, "PARAM_6: ".$csr["USERNAME"]."\n");
-                    $loggerInstance->debug(5, "PARAM_7: ".$csr["USERNAME"]."\n");
-                    $loggerInstance->debug(5, "PARAM_8: ".ProfileSilverbullet::PRODUCTNAME."\n");
+                    $loggerInstance->debug(5, "PARAM_4: " . SilverbulletCertificate::EDUPKI_CERT_PROFILE . "\n");
+                    $loggerInstance->debug(5, "PARAM_5: " . sha1("notused") . "\n");
+                    $loggerInstance->debug(5, "PARAM_6: " . $csr["USERNAME"] . "\n");
+                    $loggerInstance->debug(5, "PARAM_7: " . $csr["USERNAME"] . "\n");
+                    $loggerInstance->debug(5, "PARAM_8: " . ProfileSilverbullet::PRODUCTNAME . "\n");
                     $loggerInstance->debug(5, "PARAM_9: false\n");
                     $soapNewRequest = $soapPub->newRequest(
                             SilverbulletCertificate::EDUPKI_RA_ID, # RA-ID
-                            $csrText, # Request im PEM-Format
+                            $csr["CSR"], # Request im PEM-Format
                             $altArray, # altNames
                             SilverbulletCertificate::EDUPKI_CERT_PROFILE, # Zertifikatprofil
                             sha1("notused"), # PIN
@@ -537,6 +566,11 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     $expiry->setTimezone(new \DateTimeZone("UTC"));
                     $soapExpiryChange = $soap->setRequestParameters(
                             $soapReqnum, [
+                        "RaID" => SilverbulletCertificate::EDUPKI_RA_ID,
+                        "Role" => SilverbulletCertificate::EDUPKI_CERT_PROFILE,
+                        "Subject" => "DC=eduroam,DC=test,DC=test,C=".$csr["FED"].",O=".CONFIG_CONFASSISTANT['CONSORTIUM']['name'].",OU=".$csr["FED"].",CN=".$csr['USERNAME'].",emailAddress=".$csr['USERNAME'],
+                        "SubjectAltNames" => ["email:".$csr["USERNAME"]],
+                        "NotBefore" => (new \DateTime())->format('c'),
                         "NotAfter" => $expiry->format('c'),
                             ]
                     );
@@ -561,8 +595,21 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                         throw new Exception("Unable to sign the certificate approval data!");
                     }
                     // and get the signature blob back from the filesystem
-                    $detachedSig = file_get_contents($tempdir['dir'] . "/signature.txt");
-                    $soapIssueCert = $soap->approveRequest($soapReqnum, $soapRawRequest, $detachedSig);
+                    $detachedSigBloat = file_get_contents($tempdir['dir'] . "/signature.txt");
+                    $loggerInstance->debug(5, "Raw Request is:\n");
+                    $loggerInstance->debug(5, $soapRawRequest."\n");
+                    $loggerInstance->debug(5, "Signature is:\n");
+                    $loggerInstance->debug(5, $detachedSigBloat."\n");
+                    $detachedSigBloatArray = explode("\n",$detachedSigBloat);
+                    $index = array_search("filename",$detachedSigBloatArray);
+                    $detachedSigSmall = array_slice($detachedSigBloatArray, $index+1);
+                    $detachedSigSmall[0] = "-----BEGIN PKCS7-----";
+                    array_pop($detachedSigSmall);
+                    array_pop($detachedSigSmall);
+                    array_pop($detachedSigSmall);
+                    $detachedSigSmall[count($detachedSigSmall)-1] = "-----END PKCS7-----";
+                    $detachedSig = implode("/n",$detachedSigSmall);
+                    $soapIssueCert = $soap->approveRequest($soapReqnum, base64_encode($soapRawRequest), $detachedSig);
                     if ($soapIssueCert === FALSE) {
                         throw new Exception("The locally approved request was NOT processed by the CA.");
                     }
