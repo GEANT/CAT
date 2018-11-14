@@ -191,9 +191,9 @@ const CONFIG = [
 
 
 // For the following languages, partial translations exist in Transifex, but
-// they are not complete enough for display. Their Transifex content is not
-// necessarily ported to GitHub yet. Contact the authors if you want the current
-// state of translation of these languages.
+// they are not complete enough for display. There are even more in the "translation/" subdir.
+//
+// Contact the authors if you want to know the current state of translation of these languages.
 //
 //      'nl' => ['display' => 'Nederlands',  'locale' => 'nl_NL.utf8',    'latin_based' => TRUE],
 //      'sv' => ['display' => 'Svenska',     'locale' => 'sv_SE.utf8',    'latin_based' => TRUE],
