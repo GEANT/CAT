@@ -5,15 +5,16 @@
 #
 # Translators:
 # eduroam_devel <stefan.winter@restena.lu>, 2018
+# Tom Ivar Myren <tom.myren@uninett.no>, 2018
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 13:08+0100\n"
+"POT-Creation-Date: 2018-11-15 09:10+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>, 2018\n"
+"Last-Translator: Tom Ivar Myren <tom.myren@uninett.no>, 2018\n"
 "Language-Team: Norwegian Bokmål (Norway) (https://www.transifex.com/"
 "eduroam_devel/teams/11799/nb_NO/)\n"
 "Language: nb_NO\n"
@@ -30,8 +31,8 @@ msgstr "Ferdig"
 msgid "Product is not configured to run this check."
 msgstr "Produktet er ikke konfigurert for å kjøre denne testen."
 
-#: core/diag/AbstractTest.php:289 web/diag/action_realmcheck.php:537
-#: web/diag/action_realmcheck.php:553
+#: core/diag/AbstractTest.php:289 web/diag/action_realmcheck.php:539
+#: web/diag/action_realmcheck.php:555
 msgid "This check was skipped."
 msgstr "Denne testen ble ikke utført."
 
@@ -63,7 +64,7 @@ msgid ""
 "conversation."
 msgstr "RADIUS tjeneren nektet autentiseringsforespørsel etter EAP dialog."
 
-#: core/diag/AbstractTest.php:332 web/diag/action_realmcheck.php:115
+#: core/diag/AbstractTest.php:332 web/diag/action_realmcheck.php:116
 msgid "Connection refused"
 msgstr "Forbindelsen ble avvist"
 
@@ -470,7 +471,7 @@ msgstr "ukjent autoritet eller ingen sertifikat policy eller et annet problem"
 #. *
 #. * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
 #.
-#: core/diag/RFC7585Tests.php:134 web/diag/action_realmcheck.php:505
+#: core/diag/RFC7585Tests.php:134 web/diag/action_realmcheck.php:507
 msgid "This realm has no NAPTR records."
 msgstr "Dette realm har ingen NAPTR records."
 
@@ -1020,253 +1021,256 @@ msgstr "Feil streng oppgitt som OperatorName"
 msgid "Sanity check for dynamic discovery of realms"
 msgstr "Sjekk om dynamisk realm oppdagelse fungerer"
 
-#: web/diag/action_realmcheck.php:56
+#: web/diag/action_realmcheck.php:57
 msgid ""
 "You asked for a realm check, but we don't know the realm for this profile!"
 msgstr "Du ba om en realm sjekk, men kjenner ikke realm for denne profilen!"
 
-#: web/diag/action_realmcheck.php:65
+#: web/diag/action_realmcheck.php:66
 msgid "No valid realm name given, cannot execute any checks!"
 msgstr "Oppgitt realm er ugyldig, kan ikke kjøre sjekker!"
 
-#: web/diag/action_realmcheck.php:69
+#: web/diag/action_realmcheck.php:70
 msgid "STATIC"
 msgstr "STATISK"
 
-#: web/diag/action_realmcheck.php:70
+#: web/diag/action_realmcheck.php:71
 msgid "DYNAMIC"
 msgstr "DYNAMISK"
 
-#: web/diag/action_realmcheck.php:98
+#: web/diag/action_realmcheck.php:99
 msgid "PASS"
 msgstr "OK"
 
-#: web/diag/action_realmcheck.php:99
+#: web/diag/action_realmcheck.php:100
 msgid "FAIL"
 msgstr "FEIL"
 
-#: web/diag/action_realmcheck.php:100
+#: web/diag/action_realmcheck.php:101
 msgid "Client certificate:"
 msgstr "Klient sertifikat:"
 
-#: web/diag/action_realmcheck.php:101
+#: web/diag/action_realmcheck.php:102
 msgid "expected result: "
 msgstr "Forventet resultat"
 
-#: web/diag/action_realmcheck.php:102
+#: web/diag/action_realmcheck.php:103
 msgid "Server accepted this client certificate"
 msgstr "Tjeneren aksepterte dette klient sertifikatet"
 
-#: web/diag/action_realmcheck.php:103
+#: web/diag/action_realmcheck.php:104
 msgid "Server accepted this client certificate, but should not have"
 msgstr ""
 "Tjenren aksepterte dette klient sertifikatet, men burde ikke ha gjort det"
 
-#: web/diag/action_realmcheck.php:104
+#: web/diag/action_realmcheck.php:105
 msgid "Server did not accept this client certificate"
 msgstr "Tjeneren aksepterte ikke dette klient sertifikatet"
 
-#: web/diag/action_realmcheck.php:105
+#: web/diag/action_realmcheck.php:106
 msgid "Server did not accept this client certificate - reason"
 msgstr "Tjeneren aksepterte ikke dette klient sertifikatet - årsak"
 
-#: web/diag/action_realmcheck.php:106
+#: web/diag/action_realmcheck.php:107
 msgid "Rest of tests for this CA skipped"
 msgstr "Hoppet over resten av testene for denne CA"
 
-#: web/diag/action_realmcheck.php:107
+#: web/diag/action_realmcheck.php:108
 msgid "You should update your list of accredited CAs"
 msgstr "Du bør oppdatere listen over akkrediterte Ca'er"
 
-#: web/diag/action_realmcheck.php:108
+#: web/diag/action_realmcheck.php:109
 msgid "Get it from here."
 msgstr "Hent det her."
 
-#: web/diag/action_realmcheck.php:110
+#: web/diag/action_realmcheck.php:111
 msgid "more"
 msgstr "mer"
 
-#: web/diag/action_realmcheck.php:112 web/diag/action_realmcheck.php:654
+#: web/diag/action_realmcheck.php:113 web/diag/action_realmcheck.php:656
 msgid "Show detailed information for all tests"
 msgstr "Vis detaljert informasjon for alle tester"
 
-#: web/diag/action_realmcheck.php:127
+#: web/diag/action_realmcheck.php:128
 msgid "Server certificate"
 msgstr "Tjener sertifikat"
 
-#: web/diag/action_realmcheck.php:128
+#: web/diag/action_realmcheck.php:129
 msgid "Subject"
 msgstr "Subjekt"
 
-#: web/diag/action_realmcheck.php:129
+#: web/diag/action_realmcheck.php:130
 msgid "Issuer"
 msgstr "Utgiver"
 
-#: web/diag/action_realmcheck.php:130
+#: web/diag/action_realmcheck.php:131
 msgid "SubjectAltName"
 msgstr "SubjektAltNavn"
 
-#: web/diag/action_realmcheck.php:131
+#: web/diag/action_realmcheck.php:132
 msgid "Certificate policies"
 msgstr "Sertifikat policies"
 
-#: web/diag/action_realmcheck.php:132
+#: web/diag/action_realmcheck.php:133
 msgid "crlDistributionPoint"
 msgstr "crlDistributionPoint"
 
-#: web/diag/action_realmcheck.php:133
+#: web/diag/action_realmcheck.php:134
 msgid "authorityInfoAccess"
 msgstr "autoritetInfoAdgang"
 
-#: web/diag/action_realmcheck.php:134
+#: web/diag/action_realmcheck.php:135
 msgid "Hide detailed information for all tests"
 msgstr "Gjem detaljert informasjon for alle tester"
 
-#: web/diag/action_realmcheck.php:138
+#: web/diag/action_realmcheck.php:139
 msgid "Subject:"
 msgstr "Emne:"
 
-#: web/diag/action_realmcheck.php:139
+#: web/diag/action_realmcheck.php:140
 msgid "Issuer:"
 msgstr "Utgiver:"
 
-#: web/diag/action_realmcheck.php:140
+#: web/diag/action_realmcheck.php:141
 msgid "Valid from:"
 msgstr "Gyldig fra:"
 
-#: web/diag/action_realmcheck.php:141
+#: web/diag/action_realmcheck.php:142
 msgid "Valid to:"
 msgstr "Gyldig til:"
 
-#: web/diag/action_realmcheck.php:142
+#: web/diag/action_realmcheck.php:143
 msgid "Serial number:"
 msgstr "Serienummer:"
 
-#: web/diag/action_realmcheck.php:143
+#: web/diag/action_realmcheck.php:144
 msgid "SHA1 fingerprint:"
 msgstr "SHA1 fingerprint:"
 
-#: web/diag/action_realmcheck.php:195
+#: web/diag/action_realmcheck.php:196
 msgid "Some required input is missing!"
 msgstr "Nødvendig input mangler!"
 
-#: web/diag/action_realmcheck.php:246 web/diag/action_realmcheck.php:327
-#: web/diag/action_realmcheck.php:350 web/diag/action_realmcheck.php:403
+#: web/diag/action_realmcheck.php:247 web/diag/action_realmcheck.php:328
+#: web/diag/action_realmcheck.php:351 web/diag/action_realmcheck.php:404
 #, php-format
 msgid "elapsed time: %sms."
 msgstr "brukt tid: %sms."
 
-#: web/diag/action_realmcheck.php:340 web/diag/action_realmcheck.php:393
+#: web/diag/action_realmcheck.php:341 web/diag/action_realmcheck.php:394
 msgid "Extensions"
 msgstr "Tillegg"
 
-#: web/diag/action_realmcheck.php:341
+#: web/diag/action_realmcheck.php:342
 msgid "show server certificate details"
 msgstr "vis tjenersertifikat detaljer "
 
-#: web/diag/action_realmcheck.php:361 web/diag/action_realmcheck.php:366
+#: web/diag/action_realmcheck.php:362 web/diag/action_realmcheck.php:367
 msgid "See the appropriate tab for details."
 msgstr "Se tab for detaljer."
 
-#: web/diag/action_realmcheck.php:380
+#: web/diag/action_realmcheck.php:381
 msgid "Server certificate details:"
 msgstr "Tjenersertifikat detaljer:"
 
-#: web/diag/action_realmcheck.php:480
+#: web/diag/action_realmcheck.php:482
 #, php-format
 msgid "Realm testing for: %s"
 msgstr "Tester realm: %s"
 
-#: web/diag/action_realmcheck.php:485 web/diag/action_realmcheck.php:493
+#: web/diag/action_realmcheck.php:487 web/diag/action_realmcheck.php:495
 msgid "Overview"
 msgstr "Oversikt"
 
-#: web/diag/action_realmcheck.php:486 web/diag/action_realmcheck.php:600
+#: web/diag/action_realmcheck.php:488 web/diag/action_realmcheck.php:602
 msgid "Static connectivity tests"
 msgstr "Statiske konnektivitestester"
 
-#: web/diag/action_realmcheck.php:487 web/diag/action_realmcheck.php:605
+#: web/diag/action_realmcheck.php:489 web/diag/action_realmcheck.php:607
 msgid "Dynamic connectivity tests"
 msgstr "Dynamiske konnektivitetstester"
 
-#: web/diag/action_realmcheck.php:488
+#: web/diag/action_realmcheck.php:490
 msgid "Live login tests"
 msgstr "Live login tester"
 
 #. NAPTR existence check
-#: web/diag/action_realmcheck.php:497
+#: web/diag/action_realmcheck.php:499
 msgid "DNS chekcs"
 msgstr "DNS sjekking"
 
 #. output in friendly words
-#: web/diag/action_realmcheck.php:502
+#: web/diag/action_realmcheck.php:504
 msgid "Checking NAPTR existence:"
 msgstr "Sjekker om NAPTR finnes:"
 
-#: web/diag/action_realmcheck.php:508
+#: web/diag/action_realmcheck.php:510
 msgid ""
 "This realm has NAPTR records, but none are related to this roaming "
 "consortium."
 msgstr ""
+"Realmet har NAPTR records, men de er ikke relatert til dette roaming "
+"konsortium."
 
 #. if none of the possible negative retvals, then we have matching NAPTRs
-#: web/diag/action_realmcheck.php:511
+#: web/diag/action_realmcheck.php:513
 #, php-format
 msgid "This realm has %d NAPTR records relating to this roaming consortium."
 msgstr ""
+"Realmet har %dNAPTR records som er relatert til dette roaming konsortium."
 
-#: web/diag/action_realmcheck.php:517
+#: web/diag/action_realmcheck.php:519
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
 msgstr "Sjekker NAPTR korrekthet (flag = S and regex = {empty}):"
 
-#: web/diag/action_realmcheck.php:521
+#: web/diag/action_realmcheck.php:523
 msgid "No issues found."
 msgstr "Ingen problemer funnet."
 
-#: web/diag/action_realmcheck.php:524 web/diag/action_realmcheck.php:540
+#: web/diag/action_realmcheck.php:526 web/diag/action_realmcheck.php:542
 #, php-format
 msgid "At least one NAPTR with invalid content found!"
 msgstr "Minst en NAPTR med ugyldig innhold ble funnet!"
 
-#: web/diag/action_realmcheck.php:534
+#: web/diag/action_realmcheck.php:536
 msgid "Checking SRVs:"
 msgstr "Sjekker SRV records:"
 
 #. print number of successfully retrieved SRV targets
-#: web/diag/action_realmcheck.php:543
+#: web/diag/action_realmcheck.php:545
 #, php-format
 msgid "%d host names discovered."
 msgstr "%d hostnavn ble funnet."
 
-#: web/diag/action_realmcheck.php:550
+#: web/diag/action_realmcheck.php:552
 msgid "Checking IP address resolution:"
 msgstr "Sjekker IP adresse oppslag:"
 
-#: web/diag/action_realmcheck.php:556
+#: web/diag/action_realmcheck.php:558
 #, php-format
 msgid "At least one hostname could not be resolved!"
 msgstr "Minst ett navn kunne ikke slås opp i DNS!"
 
 #. print number of successfully retrieved SRV targets
-#: web/diag/action_realmcheck.php:559
+#: web/diag/action_realmcheck.php:561
 #, php-format
 msgid "%d IP addresses resolved."
 msgstr "%d IP adresser ble funnet i DNS."
 
-#: web/diag/action_realmcheck.php:566 web/diag/action_realmcheck.php:568
+#: web/diag/action_realmcheck.php:568 web/diag/action_realmcheck.php:570
 #, php-format
 msgid "Realm is <strong>%s</strong> "
 msgstr "Realm er  <strong>%s</strong>"
 
-#: web/diag/action_realmcheck.php:566
+#: web/diag/action_realmcheck.php:568
 msgid "with no DNS errors encountered. Congratulations!"
 msgstr "uten DNS feil. Gratulerer!"
 
-#: web/diag/action_realmcheck.php:568
+#: web/diag/action_realmcheck.php:570
 msgid "but there were DNS errors! Check them!"
 msgstr "men det er DNS feil! Sjekk dem!"
 
-#: web/diag/action_realmcheck.php:568
+#: web/diag/action_realmcheck.php:570
 msgid ""
 "You should re-run the tests after fixing the errors; more errors might be "
 "uncovered at that point. The exact error causes are listed below."
@@ -1274,19 +1278,19 @@ msgstr ""
 "Du bør kjøre tester på nytt etter at feil er rettet; flere feil kan dukke "
 "opp etter endringene. Årsaker til feil er listet under. "
 
-#: web/diag/action_realmcheck.php:598
+#: web/diag/action_realmcheck.php:600
 msgid "Dynamic discovery test is not configured"
 msgstr "Test av dynamisk ruting er ikke konfigurert"
 
-#: web/diag/action_realmcheck.php:616
+#: web/diag/action_realmcheck.php:618
 msgid "Repeat static connectivity tests"
 msgstr "Gjenta statiske konnetivitetstester"
 
-#: web/diag/action_realmcheck.php:619
+#: web/diag/action_realmcheck.php:621
 msgid "STATIC connectivity tests"
 msgstr "STATISKE konnektivitets tester"
 
-#: web/diag/action_realmcheck.php:621
+#: web/diag/action_realmcheck.php:623
 msgid ""
 "This check sends a request for the realm through various entry points of the "
 "roaming consortium infrastructure. The request will contain the 'Operator-"
@@ -1295,42 +1299,49 @@ msgid ""
 "realm, we can't authenticate successfully - so the expected outcome is to "
 "get an Access-Reject after having gone through an EAP conversation."
 msgstr ""
+"Denne testen sender en forespørsel for realm'et via forskjellige "
+"inngangsporter til roaming konsortium infrastrukturen. Forespørselen "
+"inneholder attributten 'Operator-Name' og vil være større enn 1500 bytes for "
+"å fange opp to vanlige konfigurasjonsproblemer. <br/>Når vi ikke har et "
+"faktisk brukernavn eller passord for realm'et, kan ikke autentisering gjøres "
+"med suksess - forventet utfall er å motta en Access-Reject etter gjennomført "
+"EAP dialog."
 
-#: web/diag/action_realmcheck.php:625 web/diag/action_realmcheck.php:737
+#: web/diag/action_realmcheck.php:627 web/diag/action_realmcheck.php:739
 #, php-format
 msgid "Testing from: %s"
 msgstr "Tester fra: %s"
 
-#: web/diag/action_realmcheck.php:630 web/diag/action_realmcheck.php:663
-#: web/diag/action_realmcheck.php:676
+#: web/diag/action_realmcheck.php:632 web/diag/action_realmcheck.php:665
+#: web/diag/action_realmcheck.php:678
 msgid "testing..."
 msgstr "tester..."
 
-#: web/diag/action_realmcheck.php:645
+#: web/diag/action_realmcheck.php:647
 msgid "Repeat dynamic connectivity tests"
 msgstr "Gjenta dynamiske konnektivitetstester"
 
-#: web/diag/action_realmcheck.php:649
+#: web/diag/action_realmcheck.php:651
 msgid "DYNAMIC connectivity tests"
 msgstr "DYNAMISKE konnektivitetstester"
 
-#: web/diag/action_realmcheck.php:653
+#: web/diag/action_realmcheck.php:655
 msgid "Some errors were found during the tests, see below"
 msgstr "Noen feil ble funnet under testing, se under"
 
-#: web/diag/action_realmcheck.php:653
+#: web/diag/action_realmcheck.php:655
 msgid "All tests passed, congratulations!"
 msgstr "Alle tester gikk bra, gratulerer!"
 
-#: web/diag/action_realmcheck.php:654
+#: web/diag/action_realmcheck.php:656
 msgid "Checking server handshake..."
 msgstr "Sjekker tjener ..."
 
-#: web/diag/action_realmcheck.php:684
+#: web/diag/action_realmcheck.php:686
 msgid "Checking if certificates from  CAs are accepted..."
 msgstr "Sjekker om sertikikater fra CA'er er akseptert..."
 
-#: web/diag/action_realmcheck.php:684
+#: web/diag/action_realmcheck.php:686
 msgid ""
 "A few client certificates will be tested to check if servers are resistant "
 "to some certificate problems."
@@ -1338,11 +1349,11 @@ msgstr ""
 "Noen klient sertifikat vil bli testet for å sjekke om tjenere er "
 "motstandsdyktige for enkelte sertifikat problemer."
 
-#: web/diag/action_realmcheck.php:698
+#: web/diag/action_realmcheck.php:700
 msgid "Live login test"
 msgstr "Login test"
 
-#: web/diag/action_realmcheck.php:711
+#: web/diag/action_realmcheck.php:713
 msgid ""
 "If you enter an existing login credential here, you can test the actual "
 "authentication from various checkpoints all over the world."
@@ -1350,7 +1361,7 @@ msgstr ""
 "Om du angir ekte login informasjon her kan du teste faktisk autentisering "
 "fra forskjellige punkter i hele verden."
 
-#: web/diag/action_realmcheck.php:712
+#: web/diag/action_realmcheck.php:714
 msgid ""
 "The test will use all EAP types you have set in your profile information to "
 "check whether the right CAs and server names are used, and of course whether "
@@ -1362,7 +1373,7 @@ msgstr ""
 "gitt EAP type faktisk fungerer. Om du har satt anonym ytre identitet vil "
 "testen bruke den."
 
-#: web/diag/action_realmcheck.php:713
+#: web/diag/action_realmcheck.php:715
 msgid ""
 "Note: the tool purposefully does not offer you to save these credentials, "
 "and they will never be saved in any way on the server side. Please use only "
@@ -1373,143 +1384,146 @@ msgstr ""
 "blir aldri lagret på noen måte på tjenersiden. Bruk kun <strong>midlertidig "
 "test konti</strong>; permanent gyldige test konti ansees som skadelig."
 
-#: web/diag/action_realmcheck.php:721
+#: web/diag/action_realmcheck.php:723
 msgid "Password-based EAP types"
 msgstr "Passord-baserte EAP typer"
 
-#: web/diag/action_realmcheck.php:722
+#: web/diag/action_realmcheck.php:724
 msgid "Real (inner) username:"
 msgstr "Faktisk (indre) brukernavn:"
 
-#: web/diag/action_realmcheck.php:723
+#: web/diag/action_realmcheck.php:725
 msgid "Anonymous outer ID (optional):"
 msgstr "Anonym ytre ID (opsjon):"
 
-#: web/diag/action_realmcheck.php:724
+#: web/diag/action_realmcheck.php:726
 msgid "Password:"
 msgstr "Passord:"
 
-#: web/diag/action_realmcheck.php:728
+#: web/diag/action_realmcheck.php:730
 msgid "Certificate-based EAP types"
 msgstr "Sertifikat-baserte EAP typer"
 
-#: web/diag/action_realmcheck.php:729
+#: web/diag/action_realmcheck.php:731
 msgid "Certificate file (.p12 or .pfx):"
 msgstr "Sertifikat fil (.p12 eller .pfx):"
 
-#: web/diag/action_realmcheck.php:730
+#: web/diag/action_realmcheck.php:732
 msgid "Certificate password, if any:"
 msgstr "Sertifikat passord, hvis satt:"
 
-#: web/diag/action_realmcheck.php:731
+#: web/diag/action_realmcheck.php:733
 msgid "Username, if different from certificate Subject:"
 msgstr "Brukernavn, hvis forskjellig fra sertifikat Subject:"
 
-#: web/diag/action_realmcheck.php:733
+#: web/diag/action_realmcheck.php:735
 msgid "Submit credentials"
 msgstr "Oppgi brukeropplysninger"
 
-#: web/diag/action_realmcheck.php:759
+#: web/diag/action_realmcheck.php:761
 #, php-format
 msgid "Return to %s administrator area"
-msgstr ""
+msgstr "Tilbake til %s administrator område"
 
 #: web/diag/adminQuery.php:28
 msgid "I suspect a Technical Problem with the IdP"
-msgstr ""
+msgstr "Jeg mistenker et teknisk problem med din IdP"
 
 #: web/diag/adminQuery.php:29
 msgid "A user from this IdP has allegedly infringed copyrights"
-msgstr ""
+msgstr "En bruker fra denne IdP'en har angivelig brutt opphavsrettigheter"
 
 #: web/diag/adminQuery.php:30
 msgid ""
 "A user from this IdP has conducted malicious network operations (spam, "
 "DDoS, ...)"
 msgstr ""
+"En bruker fra denne IdP'en har utført skadelige nettverksoperasjoner (spam, "
+"DDoS, ...)"
 
 #: web/diag/adminQuery.php:33
 msgid ""
 "User claims connectivity problems but has been authenticated successfully"
 msgstr ""
+"En bruker hevder å ha nettverksproblemer, men autentisering har fungert"
 
 #: web/diag/adminQuery.php:34
 msgid "User claims that mandatory open port is not open"
-msgstr ""
+msgstr "En bruker hevder at påbudt åpen port ikke er åpnet for"
 
 #: web/diag/adminQuery.php:62 web/diag/adminQuery.php:109
 msgid "Select your problem"
-msgstr ""
+msgstr "Velg ditt type problem"
 
 #: web/diag/adminQuery.php:66
 msgid "What is the realm of the IdP in question?"
-msgstr ""
+msgstr "Hvilket realm har denne IdP'en?"
 
 #: web/diag/adminQuery.php:70
 msgid "Check if this value is registered"
-msgstr ""
+msgstr "Sjekk om denne verdien er registrert"
 
 #: web/diag/adminQuery.php:75 web/diag/adminQuery.php:138
 msgid "What is the authentication timestamp of the user session in question?"
-msgstr ""
+msgstr "What er tidsstempel for brukersesjonen?"
 
 #: web/diag/adminQuery.php:81 web/diag/adminQuery.php:145
 msgid "What is the MAC address of the user session in question?"
-msgstr ""
+msgstr "Hva er MAC adressen for brukersesjonen?"
 
 #: web/diag/adminQuery.php:85
 msgid "Additional comments"
-msgstr ""
+msgstr "Andre kommentarer"
 
 #: web/diag/adminQuery.php:89
 msgid "Please specify an email address on which the IdP can contact you"
-msgstr ""
+msgstr "Vennligst angi en e-post adresse som IdP'en kan nå deg på"
 
 #: web/diag/adminQuery.php:93 web/diag/adminQuery.php:161
 msgid "Now you can send your query"
-msgstr ""
+msgstr "Nå kan du sende ditt spørsmål"
 
 #: web/diag/adminQuery.php:94 web/diag/adminQuery.php:162
 msgid "Send"
-msgstr ""
+msgstr "Send"
 
 #: web/diag/adminQuery.php:113
 msgid "Identify the SP by one of following means"
-msgstr ""
+msgstr "Identifiser SP'en på en av følgende måter"
 
 #: web/diag/adminQuery.php:117
 msgid "SP Operator-Name attribute"
-msgstr ""
+msgstr "SP Operator-Name attribute"
 
 #: web/diag/adminQuery.php:121
 msgid "Select the SP manually:"
-msgstr ""
+msgstr "Velg SP manuelt:"
 
 #: web/diag/adminQuery.php:124
 msgid "click to select country and organisation"
-msgstr ""
+msgstr "klikk for å velge land og organisasjon"
 
 #: web/diag/adminQuery.php:130
 msgid "at least describe the SP location"
-msgstr ""
+msgstr "minimum beskriv SP lokasjonen"
 
 #: web/diag/adminQuery.php:134
 msgid "What is the outer ID of the user session in question?"
-msgstr ""
+msgstr "Hva er ytre-ID for brukersesjonen?"
 
 #: web/diag/adminQuery.php:149
 msgid "Additional comments about the problem"
-msgstr ""
+msgstr "Andre kommentarer til problemet"
 
 #: web/diag/adminQuery.php:153
 msgid ""
 "Do you have any contact details by which the user wishes to be contacted by "
 "the SP?"
-msgstr ""
+msgstr "Har du kontakt opplysninger som bruker kan kontaktes av SP via?"
 
 #: web/diag/adminQuery.php:157
 msgid "Please specify an email address on which the SP can contact you"
-msgstr ""
+msgstr "Vennligst oppgi en e-post adresse som SP kan kontakte deg via"
 
 #: web/diag/radius_tests.php:33 web/diag/radius_tests.php:34
 msgid ""

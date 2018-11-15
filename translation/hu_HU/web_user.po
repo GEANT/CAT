@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # András Jákó <jako.andras@eik.bme.hu>, 2017
 # Janos Mohacsi <mohacsi@niif.hu>, 2018
@@ -10,60 +10,75 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-07 14:23+0100\n"
+"POT-Creation-Date: 2018-11-15 09:10+0100\n"
 "PO-Revision-Date: 2018-11-14 12:50+0000\n"
 "Last-Translator: Janos Mohacsi <mohacsi@niif.hu>\n"
-"Language-Team: Hungarian (Hungary) (http://www.transifex.com/eduroam_devel/cat/language/hu_HU/)\n"
+"Language-Team: Hungarian (Hungary) (http://www.transifex.com/eduroam_devel/"
+"cat/language/hu_HU/)\n"
+"Language: hu_HU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. / eduroam CAT, twice the consortium name eduroam, twice eduroam CAT
-#: web/user/about_cat.inc.php:28
+#: web/user/about_cat.inc.php:36
 #, php-format
 msgid "<span class='edu_cat'>%s</span> is built as a cooperation platform."
 msgstr "<span class='edu_cat'>%s</span>együttműködési platformként működik."
 
-#: web/user/about_cat.inc.php:29
+#: web/user/about_cat.inc.php:37
 #, php-format
 msgid ""
 "Local %s administrators enter their %s configuration details and based on "
 "them, <span class='edu_cat'>%s</span> builds customised installers for a "
-"number of popular platforms. An installer prepared for one organisation will"
-" not work for users of another one, therefore if your organisation is not on"
-" the list, you cannot use this system. Please contact your local "
+"number of popular platforms. An installer prepared for one organisation will "
+"not work for users of another one, therefore if your organisation is not on "
+"the list, you cannot use this system. Please contact your local "
 "administrators and try to influence them to add your %s configuration to "
 "<span class='edu_cat'>%s</span>."
-msgstr "A helyi %s rendszergazdák beállítják a %s konfigurációs adataidat, és ezek alapján, <span class='edu_cat'>%s</span> számos népszerű platformra testreszabott telepítőket készít. Egy szervezet számára készített telepítő nem működik más felhasználók számára, ezért ha a szervezeted nem szerepel a listán, akkor nem használhatod ezt a rendszert. Kérjük, lépj kapcsolatba a helyi rendszergazdákkal, és próbáld meg befolyásolni őket a %s konfiguráció hozzáadásához<span class='edu_cat'> %s</span>."
+msgstr ""
+"A helyi %s rendszergazdák beállítják a %s konfigurációs adataidat, és ezek "
+"alapján, <span class='edu_cat'>%s</span> számos népszerű platformra "
+"testreszabott telepítőket készít. Egy szervezet számára készített telepítő "
+"nem működik más felhasználók számára, ezért ha a szervezeted nem szerepel a "
+"listán, akkor nem használhatod ezt a rendszert. Kérjük, lépj kapcsolatba a "
+"helyi rendszergazdákkal, és próbáld meg befolyásolni őket a %s konfiguráció "
+"hozzáadásához<span class='edu_cat'> %s</span>."
 
-#: web/user/about_cat.inc.php:37
+#: web/user/about_cat.inc.php:45
 #, php-format
 msgid ""
-"<span class='edu_cat'>%s</span> currently supports the following devices and"
-" EAP type combinations:"
-msgstr "<span class='edu_cat'>%s</span> jelenleg a következő eszközöket és EAP típus kombinációkat támogatja:"
+"<span class='edu_cat'>%s</span> currently supports the following devices and "
+"EAP type combinations:"
+msgstr ""
+"<span class='edu_cat'>%s</span> jelenleg a következő eszközöket és EAP típus "
+"kombinációkat támogatja:"
 
-#: web/user/about_cat.inc.php:38
+#: web/user/about_cat.inc.php:46
 msgid "Device Group"
 msgstr "Eszközcsoport"
 
-#: web/user/about_cat.inc.php:38
+#: web/user/about_cat.inc.php:46
 msgid "Device"
 msgstr "Eszköz"
 
-#: web/user/about_cat.inc.php:80
+#: web/user/about_cat.inc.php:88
 #, php-format
 msgid ""
-"<p><span class='edu_cat'>%s</span> is publicly accessible. To enable its use"
-" behind captive portals (e.g. on a 'setup' SSID which only allows access to "
+"<p><span class='edu_cat'>%s</span> is publicly accessible. To enable its use "
+"behind captive portals (e.g. on a 'setup' SSID which only allows access to "
 "CAT for device configuration), the following hostnames need to be allowed "
 "for port TCP/443 in the portal:</p><b><u>REQUIRED</u></b><ul><li><b>%s</b> "
 "(the service itself)</li>"
-msgstr "<p><span class='edu_cat'>%s</span> publikusan elérhető. Ha szeretnéd engedélyezni pl. egy captive portál mögött (pl. 'setup' SSID) elérhető legyen a CAT az eszközök konfigurációjához, a követező hostname-et kell engedni  port TCP/443 -hoz a portálon:</p><b><u>REQUIRED</u></b><ul><li><b>%s</b> (A szolgáltatás maga)</li>"
+msgstr ""
+"<p><span class='edu_cat'>%s</span> publikusan elérhető. Ha szeretnéd "
+"engedélyezni pl. egy captive portál mögött (pl. 'setup' SSID) elérhető "
+"legyen a CAT az eszközök konfigurációjához, a követező hostname-et kell "
+"engedni  port TCP/443 -hoz a portálon:</p><b><u>REQUIRED</u></b><ul><li><b>"
+"%s</b> (A szolgáltatás maga)</li>"
 
-#: web/user/about_cat.inc.php:85
+#: web/user/about_cat.inc.php:93
 #, php-format
 msgid ""
 "<li><b>%s</b> (the CRL Distribution Point for the site certificate), also "
@@ -71,241 +86,326 @@ msgid ""
 msgid_plural ""
 "<li><b>%s</b> (the CRL Distribution Points for the site certificate), also "
 "TCP/80</li>"
-msgstr[0] "<li><b>%s</b> (a CRL hirdetési pontja a site tanusítványának), szintén TCP/80</li>"
-msgstr[1] "<li><b>%s</b> (a CRL hirdetési pontjai a site tanusítványának), szintén TCP/80</li>"
+msgstr[0] ""
+"<li><b>%s</b> (a CRL hirdetési pontja a site tanusítványának), szintén "
+"TCP/80</li>"
+msgstr[1] ""
+"<li><b>%s</b> (a CRL hirdetési pontjai a site tanusítványának), szintén "
+"TCP/80</li>"
 
-#: web/user/about_cat.inc.php:88
+#: web/user/about_cat.inc.php:96
 #, php-format
 msgid ""
-"<li><b>%s</b> (the OCSP Responder for the site certificate), also "
-"TCP/80</li>"
+"<li><b>%s</b> (the OCSP Responder for the site certificate), also TCP/80</li>"
 msgid_plural ""
-"<li><b>%s</b> (the OCSP Responder for the site certificate), also "
+"<li><b>%s</b> (the OCSP Responder for the site certificate), also TCP/80</li>"
+msgstr[0] ""
+"<li><b>%s</b> (az OCSP Responder pontja a a site tanusítványának), szintén "
 "TCP/80</li>"
-msgstr[0] "<li><b>%s</b> (az OCSP Responder pontja a a site tanusítványának), szintén TCP/80</li>"
-msgstr[1] "<li><b>%s</b> (az OCSP Responder pontjai a a site tanusítványának), szintén TCP/80</li>"
+msgstr[1] ""
+"<li><b>%s</b> (az OCSP Responder pontjai a a site tanusítványának), szintén "
+"TCP/80</li>"
 
-#: web/user/about_cat.inc.php:90
+#: web/user/about_cat.inc.php:98
 #, php-format
 msgid ""
-"<li><b>android.l.google.com</b> (Google Play access for Android "
-"App)</li><li><b>android.clients.google.com</b> (Google Play access for "
-"Android App)</li><li><b>play.google.com</b> (Google Play access for Android "
-"App)</li><li><b>ggpht.com</b> (Google Play access for Android "
-"App)</li></ul><b><u>RECOMMENDED</u></b> for full Google Play functionality "
-"(otherwise, Play Store will look broken to users and/or some non-vital "
-"functionality will not be available)<ul><li><b>photos-"
-"ugc.l.google.com</b></li><li><b>googleusercontent.com</b></li><li><b>ajax.googleapis.com</b></li><li><b>play"
-".google-"
-"apis.com</b></li><li><b>googleapis.l.google.com</b></li><li><b>apis.google.com</b></li><li><b>gstatic.com</b></li><li><b>www"
-".google-"
-"analytics.com</b></li><li><b>wallet.google.com</b></li><li><b>plus.google.com</b></li><li><b>checkout.google.com</b></li><li><b>*.gvt1.com</li></ul>"
-msgstr " <li> <b> android.l.google.com </b> (Google Play-hozzáférés az Android-alkalmazásokhoz) </li> <li><b> android.clients.google.com </b> (Google Play-hozzáférés az Android-alkalmazásokhoz) </li><li><b>  play.google.com 6 </b>(Google Play-hozzáférés az Android-alkalmazásokhoz) </li><li> <b>  ggpht.com </b> (Google Play-hozzáférés az Android App esetében)</li></ul><b><u>   JAVASOLT</u></b>  a teljes Google Play funkciókért (különben a Play Áruház hibás lesz  és / vagy néhány nem alapvető funkció nem lesz elérhető) <ul><li><b> photos-ugc.l.google.com </b></li><li><b> googleusercontent.com </b></li><li><b> ajax.googleapis.com </b></li><li><b> play.google -apis.com </b></li><li><b> googleapis.l.google.com </b></li><li><b> apis.google.com </b></li><li><b> gstatic.com </b></li><li><b> www.google-anal</b></li><li><b> wallet.google.com </b></li> plus.google.com <b><li><li><b> checkout.google.com </b></li><li><b> * .gvt1.com </li></ul>"
+"<li><b>android.l.google.com</b> (Google Play access for Android App)</"
+"li><li><b>android.clients.google.com</b> (Google Play access for Android "
+"App)</li><li><b>play.google.com</b> (Google Play access for Android App)</"
+"li><li><b>ggpht.com</b> (Google Play access for Android App)</li></"
+"ul><b><u>RECOMMENDED</u></b> for full Google Play functionality (otherwise, "
+"Play Store will look broken to users and/or some non-vital functionality "
+"will not be available)<ul><li><b>photos-ugc.l.google.com</b></"
+"li><li><b>googleusercontent.com</b></li><li><b>ajax.googleapis.com</b></"
+"li><li><b>play.google-apis.com</b></li><li><b>googleapis.l.google.com</b></"
+"li><li><b>apis.google.com</b></li><li><b>gstatic.com</b></li><li><b>www."
+"google-analytics.com</b></li><li><b>wallet.google.com</b></li><li><b>plus."
+"google.com</b></li><li><b>checkout.google.com</b></li><li><b>*.gvt1.com</"
+"li></ul>"
+msgstr ""
+" <li> <b> android.l.google.com </b> (Google Play-hozzáférés az Android-"
+"alkalmazásokhoz) </li> <li><b> android.clients.google.com </b> (Google Play-"
+"hozzáférés az Android-alkalmazásokhoz) </li><li><b>  play.google.com 6 </"
+"b>(Google Play-hozzáférés az Android-alkalmazásokhoz) </li><li> <b>  ggpht."
+"com </b> (Google Play-hozzáférés az Android App esetében)</li></ul><b><u>   "
+"JAVASOLT</u></b>  a teljes Google Play funkciókért (különben a Play Áruház "
+"hibás lesz  és / vagy néhány nem alapvető funkció nem lesz elérhető) "
+"<ul><li><b> photos-ugc.l.google.com </b></li><li><b> googleusercontent.com </"
+"b></li><li><b> ajax.googleapis.com </b></li><li><b> play.google -apis.com </"
+"b></li><li><b> googleapis.l.google.com </b></li><li><b> apis.google.com </"
+"b></li><li><b> gstatic.com </b></li><li><b> www.google-anal</b></li><li><b> "
+"wallet.google.com </b></li> plus.google.com <b><li><li><b> checkout.google."
+"com </b></li><li><b> * .gvt1.com </li></ul>"
 
+#.
+#. * *****************************************************************************
+#. * Contributions to this work were made on behalf of the GÉANT project, a
+#. * project that has received funding from the European Union’s Framework
+#. * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+#. * Horizon 2020 research and innovation programme under Grant Agreements No.
+#. * 691567 (GN4-1) and No. 731122 (GN4-2).
+#. * On behalf of the aforementioned projects, GEANT Association is the sole owner
+#. * of the copyright in all material which was developed by a member of the GÉANT
+#. * project. GÉANT Vereniging (Association) is registered with the Chamber of
+#. * Commerce in Amsterdam with registration number 40535155 and operates in the
+#. * UK as a branch of GÉANT Vereniging.
 #. *
-#. ******************************************************************************
-#. * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+,
-#. GN4-1
-#. * and GN4-2 consortia
+#. * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands.
+#. * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
 #. *
-#. * License: see the web/copyright.php file in the file structure
-#. *
-#. ******************************************************************************
-#: web/user/devel.inc.php:12
+#. * License: see the web/copyright.inc.php file in the file structure or
+#. *          <base_url>/copyright.php after deploying the software
+#.
+#: web/user/devel.inc.php:22
 msgid "Access the sources"
 msgstr "A források elérése"
 
-#: web/user/devel.inc.php:13
+#: web/user/devel.inc.php:23
 #, php-format
 msgid ""
 "%s is an opensource project. If you are interested in the details of the "
 "implementation, please visit <a href='%s'>GitHub</a>."
-msgstr "%s egy nyílt forrású projekt. Ha érdekel az implementáció Iátogass el a <a href='%s'>GitHub</a> oldalra."
+msgstr ""
+"%s egy nyílt forrású projekt. Ha érdekel az implementáció Iátogass el a <a "
+"href='%s'>GitHub</a> oldalra."
 
-#: web/user/devel.inc.php:14
+#: web/user/devel.inc.php:24
 msgid "Join the developers mailing list."
 msgstr "Csatlakozz a fejlesztők levelezési listájához."
 
-#: web/user/devel.inc.php:15
+#: web/user/devel.inc.php:25
 #, php-format
 msgid "The list is available at: %s"
 msgstr "A lista elérhető: %s"
 
-#: web/user/devel.inc.php:16
+#: web/user/devel.inc.php:26
 msgid "Add a translation"
 msgstr "Fordítás hozzáadása"
 
-#: web/user/devel.inc.php:17
+#: web/user/devel.inc.php:27
 msgid ""
 "If you would like to add a new language to CAT then please contact us ..."
-msgstr "Ha új nyelvet szeretne hozzáadni a CAT-hoz, kérjük, lépjen velünk kapcsolatba ..."
+msgstr ""
+"Ha új nyelvet szeretne hozzáadni a CAT-hoz, kérjük, lépjen velünk "
+"kapcsolatba ..."
 
-#: web/user/devel.inc.php:18
+#: web/user/devel.inc.php:28
 msgid "Documentation"
 msgstr "Dokumentáció"
 
-#: web/user/faq.inc.php:17 web/user/faq.php:14
+#: web/user/faq.inc.php:28 web/user/faq.php:25
 msgid "My organisation is not listed. Can't I just use any of the other ones?"
 msgstr "A szervezetem nincs felsorolva. Nem használhatom a többieket?"
 
-#: web/user/faq.inc.php:18 web/user/faq.php:15
+#: web/user/faq.inc.php:29 web/user/faq.php:26
 msgid ""
 "No! The installers contain security settings which are specific to the "
-"organisation. If you are not from that organisation, your device will detect"
-" that you are about to send your username and credential to an unauthorised "
+"organisation. If you are not from that organisation, your device will detect "
+"that you are about to send your username and credential to an unauthorised "
 "server and will abort the login. Using an installer from a different "
 "organisation is <i>guaranteed to not work</i>!"
-msgstr "Nem! A telepítő a szervezetre jellemző biztonsági beállításokat tartalmaz. Ha nem az adott szervezet tagja  vagy, akkor az eszköz észleli, a felhasználóneved és hitelesítő adataidat nem engedélyezett kiszolgálónak küldené el, és megszakítja a bejelentkezést. Egy másik szervezet telepítőjének használata <i>garantáltan nem működik</i>!"
+msgstr ""
+"Nem! A telepítő a szervezetre jellemző biztonsági beállításokat tartalmaz. "
+"Ha nem az adott szervezet tagja  vagy, akkor az eszköz észleli, a "
+"felhasználóneved és hitelesítő adataidat nem engedélyezett kiszolgálónak "
+"küldené el, és megszakítja a bejelentkezést. Egy másik szervezet "
+"telepítőjének használata <i>garantáltan nem működik</i>!"
 
-#: web/user/faq.inc.php:22 web/user/faq.php:19
+#: web/user/faq.inc.php:33 web/user/faq.php:30
 msgid "What can I do to get my organisation listed?"
 msgstr "Mit tudok tenni, hogy a szervezetemet felsorolják?"
 
-#: web/user/faq.inc.php:23 web/user/faq.php:20
+#: web/user/faq.inc.php:34 web/user/faq.php:31
 #, php-format
 msgid ""
-"Contact %s administrators within your organisation and request that they add"
-" their organisation to the system. It will take at most one hour of their "
+"Contact %s administrators within your organisation and request that they add "
+"their organisation to the system. It will take at most one hour of their "
 "time to get things done."
-msgstr "Vedd fel a kapcsolatot a %srendszergazdával a szervezeten belül és keérd meg a szervezet hozzáadására. Legfeljebb egy óra kell ahhoz, hogy az ügyet feldolgozzák. "
+msgstr ""
+"Vedd fel a kapcsolatot a %srendszergazdával a szervezeten belül és keérd meg "
+"a szervezet hozzáadására. Legfeljebb egy óra kell ahhoz, hogy az ügyet "
+"feldolgozzák. "
 
-#: web/user/faq.inc.php:27 web/user/faq.php:24
+#: web/user/faq.inc.php:38 web/user/faq.php:35
 #, php-format
 msgid "My device is not listed! Does that mean I can't do %s?"
-msgstr "Az  eszközöm nem szerepel a listán. Ez azt jelenti, hogy nem használhatom az %sot?"
+msgstr ""
+"Az  eszközöm nem szerepel a listán. Ez azt jelenti, hogy nem használhatom az "
+"%sot?"
 
-#: web/user/faq.inc.php:28 web/user/faq.php:25
+#: web/user/faq.inc.php:39 web/user/faq.php:36
 #, php-format
 msgid ""
 "No. The CAT tool can only support Operating Systems which can be "
 "automatically configured in some way. Many other devices can still be used "
 "with %s, but must be configured manually. Please contact your organisation "
 "to get help in setting up such a device."
-msgstr "Nem. A CAT eszköz csak olyan operációs rendszereket támogat, amelyek valamilyen módon automatikusan konfigurálhatók. Számos más eszköz továbbra is használható a %s használatával, de manuálisan kell beállítani. Kérjük, lépj kapcsolatba szervezeteddel, hogy segítséget kapj egy ilyen eszköz beállításában."
+msgstr ""
+"Nem. A CAT eszköz csak olyan operációs rendszereket támogat, amelyek "
+"valamilyen módon automatikusan konfigurálhatók. Számos más eszköz továbbra "
+"is használható a %s használatával, de manuálisan kell beállítani. Kérjük, "
+"lépj kapcsolatba szervezeteddel, hogy segítséget kapj egy ilyen eszköz "
+"beállításában."
 
-#: web/user/faq.inc.php:32 web/user/faq.php:29
+#: web/user/faq.inc.php:43 web/user/faq.php:40
 #, php-format
 msgid ""
 "I can connect to %s simply by providing username and password, what is the "
 "point of using an installer?"
-msgstr "Rá tudok csatlakozni az %sra felhasználónév és jelszó megadásával. Mi szükségem lehet az installálóra?"
+msgstr ""
+"Rá tudok csatlakozni az %sra felhasználónév és jelszó megadásával. Mi "
+"szükségem lehet az installálóra?"
 
-#: web/user/faq.inc.php:33 web/user/faq.php:30
+#: web/user/faq.inc.php:44 web/user/faq.php:41
 #, php-format
 msgid ""
 "When you are connecting from an unconfigured device your security is at "
-"risk. The very point of preconfiguration is to set up security, when this is"
-" done, your device will first confirm that it talks to the correct "
+"risk. The very point of preconfiguration is to set up security, when this is "
+"done, your device will first confirm that it talks to the correct "
 "authentication server and will never send your password to an untrusted one."
-msgstr "Mikor egy nem konfigurált eszközről csatlakozol, biztonsági kockázatot vállalsz. Az előzetes konfigurálás haszna a biztonság. Így az eszköz azzal kezdi, hogy ellenőrzi a hitelesítő szervert és nem fogja elküldeni a jelszavad egy megbízhatatlannak."
+msgstr ""
+"Mikor egy nem konfigurált eszközről csatlakozol, biztonsági kockázatot "
+"vállalsz. Az előzetes konfigurálás haszna a biztonság. Így az eszköz azzal "
+"kezdi, hogy ellenőrzi a hitelesítő szervert és nem fogja elküldeni a "
+"jelszavad egy megbízhatatlannak."
 
-#: web/user/faq.inc.php:36 web/user/faq.php:41
+#: web/user/faq.inc.php:47 web/user/faq.php:52
 #, php-format
 msgid "Is it safe to use %s installers?"
 msgstr "Az %s installáló biztonságos?"
 
-#: web/user/faq.inc.php:37 web/user/faq.php:42
+#: web/user/faq.inc.php:48 web/user/faq.php:53
 #, php-format
 msgid ""
 "%s installers configure security settings on your device, therefore you "
 "should be sure that you are using genuine ones."
-msgstr "Az %s installáló biztonsági beállásokat végez az eszközödön, ezért biztosnak kell lenned benne, hogy eredeti programot használsz."
+msgstr ""
+"Az %s installáló biztonsági beállásokat végez az eszközödön, ezért biztosnak "
+"kell lenned benne, hogy eredeti programot használsz."
 
-#: web/user/faq.inc.php:37 web/user/faq.php:42
+#: web/user/faq.inc.php:48 web/user/faq.php:53
 #, php-format
 msgid ""
-"This is why %s installers are digitally signed by %s. Watch out for a system"
-" message confirming this."
-msgstr "Ezért vannak az %s installálók digitálisan aláírva a %s tanúsítványával. Ellenőrizd az aláírást futtatás előtt!"
+"This is why %s installers are digitally signed by %s. Watch out for a system "
+"message confirming this."
+msgstr ""
+"Ezért vannak az %s installálók digitálisan aláírva a %s tanúsítványával. "
+"Ellenőrizd az aláírást futtatás előtt!"
 
-#: web/user/faq.inc.php:41 web/user/faq.php:46
+#: web/user/faq.inc.php:52 web/user/faq.php:57
 msgid ""
 "Windows 'SmartScreen' or 'Internet Explorer' tell me that the file is not "
 "commonly downloaded and possibly harmful. Should I be concerned?"
-msgstr "A Windows 'SmartScreen' vagy az 'Internet Explorer' arra figyelmeztet, hogy ez nem egy szokásos fá"
+msgstr ""
+"A Windows 'SmartScreen' vagy az 'Internet Explorer' arra figyelmeztet, hogy "
+"ez nem egy szokásos fá"
 
-#: web/user/faq.inc.php:42 web/user/faq.php:47
+#: web/user/faq.inc.php:53 web/user/faq.php:58
 msgid ""
-"Contrary to what the name suggests, 'SmartScreen' isn't actually very smart."
-" The warning merely means that the file has not yet been downloaded by "
-"enough users to make Microsoft consider it popular (which would strangely "
-"enough make it be considered 'safe'). This message alone is not a security "
-"problem."
-msgstr "Nevével ellentétben a 'SmartScreen' nem valami okos. A figyelmeztetés pusztán azt jelenti, hogy a fájlt még nem töltötte le annyi felhasználó, hogy a Microsoft népszerűnek tekintse – ami nálunk egyben biztonságosat is jelent. Ez az üzenet önmagában nem utal biztonsági problémára."
+"Contrary to what the name suggests, 'SmartScreen' isn't actually very smart. "
+"The warning merely means that the file has not yet been downloaded by enough "
+"users to make Microsoft consider it popular (which would strangely enough "
+"make it be considered 'safe'). This message alone is not a security problem."
+msgstr ""
+"Nevével ellentétben a 'SmartScreen' nem valami okos. A figyelmeztetés "
+"pusztán azt jelenti, hogy a fájlt még nem töltötte le annyi felhasználó, "
+"hogy a Microsoft népszerűnek tekintse – ami nálunk egyben biztonságosat is "
+"jelent. Ez az üzenet önmagában nem utal biztonsági problémára."
 
-#: web/user/faq.inc.php:42 web/user/faq.php:47
+#: web/user/faq.inc.php:53 web/user/faq.php:58
 #, php-format
 msgid ""
 "So long as the file is carrying a valid signature from %s, the download is "
 "safe."
 msgstr "Ameddig a fájlon érvényes %s aláírás van, a letöltés biztonságos."
 
-#: web/user/faq.inc.php:42 web/user/faq.php:47
+#: web/user/faq.inc.php:53 web/user/faq.php:58
 #, php-format
 msgid "Please see also Microsoft's FAQ regarding SmartScreen at %s."
 msgstr "Lásd még a Microsoft Smartscreennel kapcsolatos információit: %s."
 
-#: web/user/faq.inc.php:46 web/user/faq.php:61
+#: web/user/faq.inc.php:57 web/user/faq.php:72
 #, php-format
 msgid ""
 "I can see %s network and my device is configured but it does not connect, "
 "what can be the cause?"
-msgstr "Látom az %s hálózatot és az eszközöm fel is van konfigurálva, mégsem tudok csatlakozni. Mi lehet a baj?"
+msgstr ""
+"Látom az %s hálózatot és az eszközöm fel is van konfigurálva, mégsem tudok "
+"csatlakozni. Mi lehet a baj?"
 
-#: web/user/faq.inc.php:47 web/user/faq.php:51
+#: web/user/faq.inc.php:58 web/user/faq.php:62
 #, php-format
 msgid ""
-"There can be a number of different reasons. The network you see may not be a"
-" genuine %s one and your device silently drops the connection attempt; there"
-" may be something wrong with the configuration of the network; your account "
+"There can be a number of different reasons. The network you see may not be a "
+"genuine %s one and your device silently drops the connection attempt; there "
+"may be something wrong with the configuration of the network; your account "
 "may have expired; there may be a connection problem with your home "
 "authentication server; you may have broken the regulations of the network "
 "you are using and have been refused access as a consequence. You should "
 "contact your organisation and report the problem, the administrators should "
 "be able to trace your connections."
-msgstr "Számos különböző ok lehet. A látott hálózat lehet, hogy nem valódi %s , és a készülék csendben szétkapcsol; lehet, hogy valami nincs rendben a hálózat konfigurációjával; fiókod lejárt; előfordulhat, hogy kapcsolatproblémája van az otthoni hitelesítési kiszolgálóval; megsérted a használt hálózat szabályait, és ennek következtében megtagadták a hozzáférést. Fel kell venned a kapcsolatot a szervezeteddel és jelenteni kell a problémát, a rendszergazdák azonosítani tudják a problémádat."
+msgstr ""
+"Számos különböző ok lehet. A látott hálózat lehet, hogy nem valódi %s , és a "
+"készülék csendben szétkapcsol; lehet, hogy valami nincs rendben a hálózat "
+"konfigurációjával; fiókod lejárt; előfordulhat, hogy kapcsolatproblémája van "
+"az otthoni hitelesítési kiszolgálóval; megsérted a használt hálózat "
+"szabályait, és ennek következtében megtagadták a hozzáférést. Fel kell "
+"venned a kapcsolatot a szervezeteddel és jelenteni kell a problémát, a "
+"rendszergazdák azonosítani tudják a problémádat."
 
-#: web/user/faq.inc.php:51 web/user/faq.php:66
+#: web/user/faq.inc.php:62 web/user/faq.php:77
 #, php-format
 msgid "I have a question about this web site. Whom should I contact?"
 msgstr "Kérdésem van a weboldallal kapcsolatban. Kihez fordulhatok?"
 
-#: web/user/faq.inc.php:52 web/user/faq.php:67
+#: web/user/faq.inc.php:63 web/user/faq.php:78
 #, php-format
 msgid "You should send a mail to %s."
 msgstr "Küldj egy levelet a %s címre!"
 
-#: web/user/faq.inc.php:60 web/user/faq.php:35
+#: web/user/faq.inc.php:71 web/user/faq.php:46
 #, php-format
 msgid "What is this %s thing anyway?"
 msgstr "Mi ez a  %s dolog valójában?"
 
-#: web/user/faq.inc.php:61 web/user/faq.php:36
+#: web/user/faq.inc.php:72 web/user/faq.php:47
 #, php-format
 msgid ""
 "%s is a global WiFi roaming consortium which gives members of education and "
 "research access to the internet <i>for free</i> on all %s hotspots on the "
 "planet. There are several million %s users already, enjoying free internet "
-"access on more than 6.000 hotspots! Visit <a "
-"href='http://www.eduroam.org'>the %s homepage</a> for more details."
-msgstr "A  %s globális WiFi roaming konzorcium, amely az oktatási és kutatási tagoknak hozzáférést biztosít az internethez\n<i> ingyen </i> minden %s hotspotján. Már több millió  %s felhasználó van aki élvezi ingyenes és biztonsásgos internet-hozzáférést  több mint 6.000 helyszínen! További részletekért látogasson el a <a href='http://www.eduroam.org'> %s kezdőlapjára</a>."
+"access on more than 6.000 hotspots! Visit <a href='http://www.eduroam."
+"org'>the %s homepage</a> for more details."
+msgstr ""
+"A  %s globális WiFi roaming konzorcium, amely az oktatási és kutatási "
+"tagoknak hozzáférést biztosít az internethez\n"
+"<i> ingyen </i> minden %s hotspotján. Már több millió  %s felhasználó van "
+"aki élvezi ingyenes és biztonsásgos internet-hozzáférést  több mint 6.000 "
+"helyszínen! További részletekért látogasson el a <a href='http://www.eduroam."
+"org'> %s kezdőlapjára</a>."
 
-#: web/user/faq.php:58
+#: web/user/faq.php:69
 #, php-format
 msgid ""
-"There can be a number of different reasons. The network you see may not be a"
-" genuine %s one and your device silently drops the connection attempt; your "
-"account may have expired; you may have broken the regulations of the network"
-" you are using and have been refused access as a consequence; or maybe there"
-" is an actual technical problem. To exclude the latter, you should first "
+"There can be a number of different reasons. The network you see may not be a "
+"genuine %s one and your device silently drops the connection attempt; your "
+"account may have expired; you may have broken the regulations of the network "
+"you are using and have been refused access as a consequence; or maybe there "
+"is an actual technical problem. To exclude the latter, you should first "
 "visit the %s Diagnostics tool <a href=''>here</a>, which can find many "
 "reasons for failure. It also allows you to contact your organisation and "
 "report the problem to them."
-msgstr "Számos különböző ok lehet. A látott hálózat lehet, hogy nem valódi %s, és a készülék csendben szétkapcsol; fiókod lejárt; megsérted a használt hálózat szabályait, és ennek következtében megtagadták a hozzáférést; vagy talán tényleges technikai probléma van. Az utóbbiak kizárásához először látogass el a %s Diagnostics felületre, ahol számos oka lehet a hibának. Ezenkívül felveheted a kapcsolatot a szervezeteddel, és jelentheted a problémát számukra."
+msgstr ""
+"Számos különböző ok lehet. A látott hálózat lehet, hogy nem valódi %s, és a "
+"készülék csendben szétkapcsol; fiókod lejárt; megsérted a használt hálózat "
+"szabályait, és ennek következtében megtagadták a hozzáférést; vagy talán "
+"tényleges technikai probléma van. Az utóbbiak kizárásához először látogass "
+"el a %s Diagnostics felületre, ahol számos oka lehet a hibának. Ezenkívül "
+"felveheted a kapcsolatot a szervezeteddel, és jelentheted a problémát "
+"számukra."
 
 #. *
-#. * This is a template for further FAQ entries. Simply copy&paste and add
-#. more
+#. * This is a template for further FAQ entries. Simply copy&paste and add more
 #. * FAQ text in 'title' and 'text' respectively.
 #. *
 #. array_push($FAQ,
@@ -313,282 +413,318 @@ msgstr "Számos különböző ok lehet. A látott hálózat lehet, hogy nem val�
 #. 'title'=>sprintf(_("")),
 #. 'text'=>sprintf(_(""))
 #. ));
-#: web/user/faq.php:84 web/skins/modern/user/cat_info.php:70
+#.
+#: web/user/faq.php:95 web/skins/modern/user/cat_info.php:79
 msgid "Frequently Asked Questions"
 msgstr "Gyakori kérdések"
 
-#: web/user/tou.inc.php:15 web/user/tou.php:13
+#: web/user/tou.inc.php:23 web/user/tou.php:23
 msgid "Terms of Use"
 msgstr "Felhasználási feltételek"
 
-#: web/user/tou.inc.php:16
+#: web/user/tou.inc.php:24
 msgid "(for legal reasons, the Terms of Use are in English only)"
 msgstr "(jogi okok miatt a Használati Feltételek angol nyelvű)"
 
-#: web/4013.php:34 web/404.php:33 web/lib/user/TextTemplates.php:77
+#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:88
 #, php-format
 msgid "Welcome to %s"
 msgstr "Üdvözli az %s"
 
-#: web/4013.php:37 web/404.php:36
+#: web/4013.php:47 web/404.php:46
 msgid "View this page in"
 msgstr "Nyelvválasztás:"
 
-#: web/4013.php:43 web/404.php:42 web/skins/modern/Menu.php:29
-#: web/skins/modern/Menu.php:103
+#: web/4013.php:53 web/404.php:52 web/skins/modern/Menu.php:48
+#: web/skins/modern/Menu.php:122
 msgid "Start page"
 msgstr "Címlap"
 
-#: web/4013.php:47
+#: web/4013.php:57
 msgid "Maybe this is the CAT you are looking for..."
 msgstr "Valószínű, hogy az általad keresett CAT..."
 
-#: web/4013.php:48
+#: web/4013.php:58
 msgid ""
 "but we don't want to show it to you. You need to be authenticated and "
 "authorised to see this content. Since you are not, you got this error page "
 "usually known as"
-msgstr "de nem mutatjuk meg neked. Be kell lépned és jogosultnak kéne lenned, hogy lásd ezt a tartalmat.  Mivel ez nem teljesül, ezért ezt a hiba oldalt látod "
+msgstr ""
+"de nem mutatjuk meg neked. Be kell lépned és jogosultnak kéne lenned, hogy "
+"lásd ezt a tartalmat.  Mivel ez nem teljesül, ezért ezt a hiba oldalt látod "
 
-#: web/4013.php:50
+#: web/4013.php:60
 #, php-format
 msgid ""
 "Your mistake? Our error? Who knows! Maybe you should go back to the <a "
 "href='%s'>Start Page</a>."
-msgstr "Te hibáztál, vagy mi? Sajnos nem tudjuk megállapítani. Légyszíves lépj vissza a <a href='%s'>Kezdő oldalra</a>."
+msgstr ""
+"Te hibáztál, vagy mi? Sajnos nem tudjuk megállapítani. Légyszíves lépj "
+"vissza a <a href='%s'>Kezdő oldalra</a>."
 
-#: web/404.php:46
+#: web/404.php:56
 msgid "This is not the CAT you are looking for."
 msgstr "Ez nem az a CAT amit kerestél."
 
-#: web/404.php:47
+#: web/404.php:57
 msgid ""
 "Whatever you expected to see at this URL - it's not here. The only thing "
 "here is the number"
-msgstr "Bármit is szerettél volna látni ezen a URL-en, az nincsen ott. Amit itt van az csak egy szám. "
+msgstr ""
+"Bármit is szerettél volna látni ezen a URL-en, az nincsen ott. Amit itt van "
+"az csak egy szám. "
 
-#: web/404.php:49
+#: web/404.php:59
 #, php-format
 msgid ""
-"staring at you. Your mistake? Our error? Who knows! Maybe you should go back"
-" to the <a href='%s'>Start Page</a>."
-msgstr "Bámulatos! Te hibáztál, vagy mi? Sajnos nem tudjuk megállapítani. Légyszíves lépj vissza a <a href='%s'>Kezdő oldalra</a>."
+"staring at you. Your mistake? Our error? Who knows! Maybe you should go back "
+"to the <a href='%s'>Start Page</a>."
+msgstr ""
+"Bámulatos! Te hibáztál, vagy mi? Sajnos nem tudjuk megállapítani. Légyszíves "
+"lépj vissza a <a href='%s'>Kezdő oldalra</a>."
 
-#: web/tou.php:61 web/skins/modern/Divs.php:279
+#: web/tou.php:70 web/skins/modern/Divs.php:289
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "%s  Adatvédelmi nyilatkozat"
 
-#: web/lib/user/TextTemplates.php:70
+#: web/lib/user/TextTemplates.php:81
 #, php-format
 msgid "Welcome aboard the %s user community!"
 msgstr "Üdvözöljük a %s felhasználói közösségben!"
 
-#: web/lib/user/TextTemplates.php:71
+#: web/lib/user/TextTemplates.php:82
 msgid ""
 "Your download will start shortly. In case of problems with the automatic "
 "download please use this direct <a href=''>link</a>."
-msgstr "A letöltés hamarosan elindul. Ha probléma merülne fel az automatikus letöltéssel, akkor használd a direkt linket: <a href=''>link</a>."
+msgstr ""
+"A letöltés hamarosan elindul. Ha probléma merülne fel az automatikus "
+"letöltéssel, akkor használd a direkt linket: <a href=''>link</a>."
 
-#: web/lib/user/TextTemplates.php:72 web/skins/modern/div_user_welcome.php:9
+#: web/lib/user/TextTemplates.php:83 web/skins/modern/div_user_welcome.php:30
 #, php-format
 msgid "Dear user from %s,"
 msgstr "Tisztelt %s felhasználó!"
 
-#: web/lib/user/TextTemplates.php:73
+#: web/lib/user/TextTemplates.php:84
 #, php-format
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
 "need to do is find an %s hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal"
-" certificate') - and be online!"
-msgstr "Most, hogy letöltöttél és telepítettél egy konfiguráló eszközt, mindössze annyit kell tenned, hogy megtaláld a közelben az  %s hotspotot, és add meg felhasználó hitelesítő adatait (ez a \"username és jelszó\" vagy \"személyes tanúsítványod\") - és máris online lehetsz!"
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Most, hogy letöltöttél és telepítettél egy konfiguráló eszközt, mindössze "
+"annyit kell tenned, hogy megtaláld a közelben az  %s hotspotot, és add meg "
+"felhasználó hitelesítő adatait (ez a \"username és jelszó\" vagy \"személyes "
+"tanúsítványod\") - és máris online lehetsz!"
 
-#: web/lib/user/TextTemplates.php:74 web/skins/modern/div_user_welcome.php:17
+#: web/lib/user/TextTemplates.php:85 web/skins/modern/div_user_welcome.php:38
 #, php-format
 msgid ""
 "Should you have any problems using this service, please always contact the "
 "helpdesk of %s. They will diagnose the problem and help you out. You can "
 "reach them via the means shown above."
-msgstr "A szolgáltatás használatában bármilyen probléma merülne fel vedd fel a kapcsolatot a %s hibabejelentővel. Ők fogják diagnosztizálni a problémát és segítenek elhárítani azt. Elérhetőségük fentebb látható."
+msgstr ""
+"A szolgáltatás használatában bármilyen probléma merülne fel vedd fel a "
+"kapcsolatot a %s hibabejelentővel. Ők fogják diagnosztizálni a problémát és "
+"segítenek elhárítani azt. Elérhetőségük fentebb látható."
 
-#: web/lib/user/TextTemplates.php:75 web/skins/modern/div_user_welcome.php:20
+#: web/lib/user/TextTemplates.php:86 web/skins/modern/div_user_welcome.php:41
 msgid "Back to downloads"
 msgstr "Vissza a letöltéshez"
 
-#: web/lib/user/TextTemplates.php:76
+#: web/lib/user/TextTemplates.php:87
 #, php-format
 msgid ""
 "we would like to warmly welcome you among the several million users of %s! "
 "From now on, you will be able to use internet access resources on thousands "
 "of universities, research centres and other places all over the globe. All "
 "of this completely free of charge!"
-msgstr "Szeretettel üdvözlünk a %s több millió felhasználója között! Mostantól internetes hozzáférési erőforrásokat használhat az egyetemek, kutatóközpontok és más helyszínek ezrein szerte a világon. Mindez teljesen ingyen!"
+msgstr ""
+"Szeretettel üdvözlünk a %s több millió felhasználója között! Mostantól "
+"internetes hozzáférési erőforrásokat használhat az egyetemek, "
+"kutatóközpontok és más helyszínek ezrein szerte a világon. Mindez teljesen "
+"ingyen!"
 
-#: web/lib/user/TextTemplates.php:78
+#: web/lib/user/TextTemplates.php:89
 #, php-format
 msgid "Connect your device to %s"
 msgstr "Csatlakoztassa eszközét a következőhöz:  %s"
 
-#: web/lib/user/TextTemplates.php:79
+#: web/lib/user/TextTemplates.php:90
 #, php-format
 msgid "%s installation made easy:"
 msgstr "%s telepítés könnyű lett:"
 
-#: web/lib/user/TextTemplates.php:80
+#: web/lib/user/TextTemplates.php:91
 msgid "Custom built for your organisation"
 msgstr "egyedileg a szervezetedre számára készített"
 
-#: web/lib/user/TextTemplates.php:81
+#: web/lib/user/TextTemplates.php:92
 #, php-format
 msgid "Click here to download your %s installer"
 msgstr "Kattintson ide a %s telepítőjének letöltéséhez"
 
-#: web/lib/user/TextTemplates.php:82
+#: web/lib/user/TextTemplates.php:93
 msgid "Select the user group"
 msgstr "Válaszd ki a felhasználói csoportot"
 
-#: web/lib/user/TextTemplates.php:83
+#: web/lib/user/TextTemplates.php:94
 msgid "select another"
 msgstr "válassz másikat"
 
-#: web/lib/user/TextTemplates.php:84
+#: web/lib/user/TextTemplates.php:95
 msgid "Choose another installer to download"
 msgstr "Válasszon egy másik telepítőt a letöltéshez"
 
-#: web/lib/user/TextTemplates.php:85
+#: web/lib/user/TextTemplates.php:96
 msgid "All platforms"
 msgstr "Minden platform"
 
-#: web/lib/user/TextTemplates.php:86
+#: web/lib/user/TextTemplates.php:97
 #, php-format
 msgid "Download your %s installer"
 msgstr "%s telepítő letöltése"
 
-#: web/lib/user/TextTemplates.php:87
+#: web/lib/user/TextTemplates.php:98
 msgid ""
-"Your local administrator has specified a redirect to a local support "
-"page.<br>When you click <b>Continue</b> this support page will be opened in "
-"a new window/tab."
-msgstr "A helyi rendszergazda átirányítást adott a helyi támogatási oldalra.<br> A <b>Tovább </b>gombra kattintva a támogatási oldal új ablakban nyílik meg."
+"Your local administrator has specified a redirect to a local support page."
+"<br>When you click <b>Continue</b> this support page will be opened in a new "
+"window/tab."
+msgstr ""
+"A helyi rendszergazda átirányítást adott a helyi támogatási oldalra.<br> A "
+"<b>Tovább </b>gombra kattintva a támogatási oldal új ablakban nyílik meg."
 
-#: web/lib/user/TextTemplates.php:88 web/skins/modern/user/js/cat_js.php:268
-#: web/skins/modern/user/js/cat_js.php:276
+#: web/lib/user/TextTemplates.php:99 web/skins/modern/user/js/cat_js.php:278
+#: web/skins/modern/user/js/cat_js.php:286
 msgid "Continue"
 msgstr "Tovább"
 
-#: web/lib/user/TextTemplates.php:89
+#: web/lib/user/TextTemplates.php:100
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s"
 msgstr "Digitálisan aláírta a%s-ot koordináló szervezet "
 
-#: web/lib/user/TextTemplates.php:90
+#: web/lib/user/TextTemplates.php:101
 #, php-format
 msgid ""
 "You can download your %s installer via a personalised invitation link sent "
 "from your IT support. Please talk to the IT department to get this link."
-msgstr "A1 %s telepítőjét az IT-támogatásból személyre szabott meghívón keresztül töltheti le. Kérjük, forduljon az IT részleghez, hogy megkapja ezt a linket."
+msgstr ""
+"A1 %s telepítőjét az IT-támogatásból személyre szabott meghívón keresztül "
+"töltheti le. Kérjük, forduljon az IT részleghez, hogy megkapja ezt a linket."
 
-#: web/lib/user/TextTemplates.php:91
+#: web/lib/user/TextTemplates.php:102
 #, php-format
 msgid ""
 "This site provides %s installers for many organisations, click here to see "
 "if yours is on the list."
-msgstr "Ez a webhely sok szervezet számára   kínál %stelepítőt, kattints ide, hogy megnézd, a tiéd a listán van-e."
+msgstr ""
+"Ez a webhely sok szervezet számára   kínál %stelepítőt, kattints ide, hogy "
+"megnézd, a tiéd a listán van-e."
 
-#: web/lib/user/TextTemplates.php:92
+#: web/lib/user/TextTemplates.php:103
 msgid "Custom built for you"
 msgstr "Neked rendelésre készített"
 
-#: web/lib/user/TextTemplates.php:94
+#: web/lib/user/TextTemplates.php:105
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Digitálisan aláírta a szervezet, amelyet  %s:%s koordinál."
 
-#: web/skins/modern/div_user_welcome.php:12
+#: web/skins/modern/div_user_welcome.php:33
 msgid ""
 "we would like to warmly welcome you among the several million users of "
 "eduroam®! From now on, you will be able to use internet access resources on "
 "thousands of universities, research centres and other places all over the "
 "globe. All of this completely free of charge!"
-msgstr "Szeretettel üdvözöljük az eduroam® több millió felhasználóját! Mostantól internetes hozzáférési erőforrásokat használhat az egyetemek, kutatóközpontok és más helyszínek ezrein szerte a világon. Mindez teljesen ingyen!"
+msgstr ""
+"Szeretettel üdvözöljük az eduroam® több millió felhasználóját! Mostantól "
+"internetes hozzáférési erőforrásokat használhat az egyetemek, "
+"kutatóközpontok és más helyszínek ezrein szerte a világon. Mindez teljesen "
+"ingyen!"
 
-#: web/skins/modern/div_user_welcome.php:15
+#: web/skins/modern/div_user_welcome.php:36
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
 "need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal"
-" certificate') - and be online!"
-msgstr "Most, hogy letöltötte és telepítette az ügyfélkonfigurátort, mindössze annyit kell tennie, hogy találjon egy eduroam® hotspotot a környéken, és írja be a felhasználói hitelesítő adatait (ez a \"username és jelszó\" vagy \"személyes tanúsítványunk\") - és máris elérhető!"
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Most, hogy letöltötte és telepítette az ügyfélkonfigurátort, mindössze "
+"annyit kell tennie, hogy találjon egy eduroam® hotspotot a környéken, és "
+"írja be a felhasználói hitelesítő adatait (ez a \"username és jelszó\" vagy "
+"\"személyes tanúsítványunk\") - és máris elérhető!"
 
-#: web/skins/modern/index.php:68 web/skins/modern/test.php:70
+#: web/skins/modern/index.php:78 web/skins/modern/test.php:80
 msgid "Authenticating"
 msgstr "Azonosítás folyamatban"
 
-#: web/skins/modern/Menu.php:32
+#: web/skins/modern/Menu.php:51
 msgid "About"
 msgstr "Névjegy"
 
-#: web/skins/modern/Menu.php:33 web/skins/modern/Menu.php:34
-#: web/skins/modern/Menu.php:35
+#: web/skins/modern/Menu.php:52 web/skins/modern/Menu.php:53
+#: web/skins/modern/Menu.php:54
 #, php-format
 msgid "About %s"
 msgstr "Az %s"
 
-#: web/skins/modern/Menu.php:39
+#: web/skins/modern/Menu.php:58
 msgid "Language"
 msgstr "Nyelv"
 
-#: web/skins/modern/Menu.php:41 web/skins/modern/Menu.php:44
-#: web/skins/modern/user/cat_info.php:60
+#: web/skins/modern/Menu.php:60 web/skins/modern/Menu.php:63
+#: web/skins/modern/user/cat_info.php:69
 msgid "Help"
 msgstr "Segítség"
 
-#: web/skins/modern/Menu.php:42
+#: web/skins/modern/Menu.php:61
 msgid "My institution is not listed"
 msgstr "Az intézményem nincs felsorolva"
 
-#: web/skins/modern/Menu.php:42 web/skins/modern/Menu.php:43
-#: web/skins/modern/Menu.php:45 web/skins/modern/Menu.php:46
-#: web/skins/modern/Menu.php:47
+#: web/skins/modern/Menu.php:61 web/skins/modern/Menu.php:62
+#: web/skins/modern/Menu.php:64 web/skins/modern/Menu.php:65
+#: web/skins/modern/Menu.php:66
 msgid "FAQ"
 msgstr "GYIK"
 
-#: web/skins/modern/Menu.php:43
+#: web/skins/modern/Menu.php:62
 msgid "My device is not listed"
 msgstr "A készülékem nem szerepel a listán"
 
-#: web/skins/modern/Menu.php:45
+#: web/skins/modern/Menu.php:64
 msgid "What is eduroam"
 msgstr "Mi az eduroam"
 
-#: web/skins/modern/Menu.php:47
+#: web/skins/modern/Menu.php:66
 msgid "Contact"
 msgstr "Kapcsolat"
 
-#: web/skins/modern/Menu.php:48
+#: web/skins/modern/Menu.php:67
 msgid "Diagnostics"
 msgstr "Diagnosztika"
 
-#: web/skins/modern/Menu.php:52
+#: web/skins/modern/Menu.php:71
 msgid "Manage"
 msgstr "Kezel"
 
-#: web/skins/modern/Menu.php:53
+#: web/skins/modern/Menu.php:72
 #, php-format
 msgid "%s admin access"
 msgstr " %s adminisztrációs hozzáférés"
 
-#: web/skins/modern/Menu.php:54
+#: web/skins/modern/Menu.php:73
 #, php-format
 msgid "%s admin:<br>manage your IdP"
 msgstr "%s adminisztrálás:<br>a saját IdP-d kezelése"
 
-#: web/skins/modern/Menu.php:55 web/skins/modern/Menu.php:56
+#: web/skins/modern/Menu.php:74 web/skins/modern/Menu.php:75
 msgid "Become a CAT developer"
 msgstr "Légy CAT fejlesztő!"
 
-#: web/skins/modern/Menu.php:60
+#: web/skins/modern/Menu.php:79
 msgid "Terms of use"
 msgstr "Felhasználási feltételek"
 
@@ -596,7 +732,9 @@ msgstr "Felhasználási feltételek"
 msgid ""
 "You attempted to download an installer that was already downloaded before. "
 "Please request a new token from your administrator instead."
-msgstr "Megpróbált letölteni egy már korábban használt telepítőt. Kérjen új hozzáférési tokent  a rendszergazdától."
+msgstr ""
+"Megpróbált letölteni egy már korábban használt telepítőt. Kérjen új "
+"hozzáférési tokent  a rendszergazdától."
 
 #: web/skins/modern/accountstatus/accountstatus.php:74
 msgid "Attempt to re-use download link"
@@ -631,16 +769,23 @@ msgstr "Szeretném látni a részleteket."
 msgid ""
 "Your invitation token is valid for %d more device activations (%d have "
 "already been used)."
-msgstr "A meghívási tokenje  %d több eszközaktiválásra érvényes (  %d már használatban van)."
+msgstr ""
+"A meghívási tokenje  %d több eszközaktiválásra érvényes (  %d már "
+"használatban van)."
 
 #: web/skins/modern/accountstatus/accountstatus.php:109
 msgid ""
-"Unfortunately, we are unable to determine your device's operating system. If"
-" you have made modifications on your device which prevent it from being "
+"Unfortunately, we are unable to determine your device's operating system. If "
+"you have made modifications on your device which prevent it from being "
 "recognised (e.g. custom 'User Agent' settings), please undo such "
-"modifications. You can come back to this page again; the invitation link has"
-" not been used up yet."
-msgstr "Sajnos nem tudjuk meghatározni az eszköz operációs rendszerét. Ha módosított az eszközén olyan beállításokat, amelyek megakadályozzák az azonosítását (például az egyéni \"User-Agent\" beállításait), kérjük, törölje az ilyen módosításokat. Visszajöhetsz erre az oldalra; a meghívó linket még nem használtad fel."
+"modifications. You can come back to this page again; the invitation link has "
+"not been used up yet."
+msgstr ""
+"Sajnos nem tudjuk meghatározni az eszköz operációs rendszerét. Ha módosított "
+"az eszközén olyan beállításokat, amelyek megakadályozzák az azonosítását "
+"(például az egyéni \"User-Agent\" beállításait), kérjük, törölje az ilyen "
+"módosításokat. Visszajöhetsz erre az oldalra; a meghívó linket még nem "
+"használtad fel."
 
 #: web/skins/modern/accountstatus/accountstatus.php:116
 #, php-format
@@ -649,24 +794,28 @@ msgid ""
 "supported for hosted end-user accounts. You can visit this page with a "
 "supported operating system later; the invitation link has not been used up "
 "yet."
-msgstr "Sajnos az eszköz által használt ( %s ) operációs rendszer jelenleg nem támogatott a tárolt végfelhasználói fiókszolgáltatás  esetén. Ezt az oldalt támogatott operációs rendszerrel később is megtekintheti; a meghívó linket még nem használta fel."
+msgstr ""
+"Sajnos az eszköz által használt ( %s ) operációs rendszer jelenleg nem "
+"támogatott a tárolt végfelhasználói fiókszolgáltatás  esetén. Ezt az oldalt "
+"támogatott operációs rendszerrel később is megtekintheti; a meghívó linket "
+"még nem használta fel."
 
 #: web/skins/modern/accountstatus/accountstatus.php:120
 #, php-format
 msgid "You can now download a personalised  %s installation program."
 msgstr "Most letöltheted a személyre szabott %s telepítőprogramot."
 
-#. echo sprintf(_("The installation program is <span class='emph'>strictly
-#. personal</span>, to be used <span class='emph'>only on this device
-#. (%s)</span>, and it is <span class='emph'>not permitted to share</span>
-#. this information with anyone."), $statusInfo['OS']['display']);
+#. echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
 #: web/skins/modern/accountstatus/accountstatus.php:122
 #, php-format
 msgid ""
 "The installation program is <span class='emph'>strictly personal</span>, to "
 "be used <span class='emph'>only on this device (%s)</span>, and it is <span "
 "class='emph'>not permitted to share</span> this information with anyone."
-msgstr "A telepítési program<span class='emph'> szigorúan személyes </span>, <span class='emph'>csak ezen az eszközön (%s) </span>használható, és ez az információ <span class='emph'> nem osztható </span> meg senkivel."
+msgstr ""
+"A telepítési program<span class='emph'> szigorúan személyes </span>, <span "
+"class='emph'>csak ezen az eszközön (%s) </span>használható, és ez az "
+"információ <span class='emph'> nem osztható </span> meg senkivel."
 
 #: web/skins/modern/accountstatus/accountstatus.php:123
 #, php-format
@@ -674,14 +823,19 @@ msgid ""
 "When the system detects abuse such as sharing login data with others, all "
 "access rights for you will be revoked and you may be sanctioned by your "
 "local %s administrator."
-msgstr "Ha a rendszer olyan visszaéléseket észlel, mint például a bejelentkezési adatok megosztása másokkal, minden hozzáférési jogosultság visszavonásra kerül, és a helyi %s rendszergazda letiltja Önt."
+msgstr ""
+"Ha a rendszer olyan visszaéléseket észlel, mint például a bejelentkezési "
+"adatok megosztása másokkal, minden hozzáférési jogosultság visszavonásra "
+"kerül, és a helyi %s rendszergazda letiltja Önt."
 
 #: web/skins/modern/accountstatus/accountstatus.php:124
 msgid ""
 "During the installation process, you will be asked for the following import "
 "PIN. This only happens once during the installation. You do not have to "
 "write down this PIN."
-msgstr "A telepítés során a telepítő a import PIN-t fog  kérdezni. Ezt  egyszer fogja a telepító kérdezni. Ezért nem szükséges hosszútávon feljegyeznie."
+msgstr ""
+"A telepítés során a telepítő a import PIN-t fog  kérdezni. Ezt  egyszer "
+"fogja a telepító kérdezni. Ezért nem szükséges hosszútávon feljegyeznie."
 
 #: web/skins/modern/accountstatus/accountstatus.php:129
 #, php-format
@@ -697,9 +851,12 @@ msgstr "Kattints ide a  %s telepítőjének letöltéséhez!"
 #, php-format
 msgid ""
 "Unfortunately, the invitation link you just used is too old. The %s sign-up "
-"invitation was valid until %s. You cannot use this link any more. Please ask"
-" your administrator to issue you a new invitation link."
-msgstr "Sajnos a meghívó link, amelyet most használtál, lejárt. A  %s  meghívó  %s -ig érvényes. Ezt a linket többé nem használhatja. Kérje meg a rendszergazdáját, hogy adjon ki új meghívót."
+"invitation was valid until %s. You cannot use this link any more. Please ask "
+"your administrator to issue you a new invitation link."
+msgstr ""
+"Sajnos a meghívó link, amelyet most használtál, lejárt. A  %s  meghívó  %s -"
+"ig érvényes. Ezt a linket többé nem használhatja. Kérje meg a "
+"rendszergazdáját, hogy adjon ki új meghívót."
 
 #: web/skins/modern/accountstatus/accountstatus.php:145
 msgid "Account information not found"
@@ -708,32 +865,42 @@ msgstr "A fiókadatok nem találhatóak"
 #: web/skins/modern/accountstatus/accountstatus.php:146
 #, php-format
 msgid ""
-"The invitation link you followed does not map to any invititation we have on"
-" file."
-msgstr "A meghívó link, amelyet mutat semmilyen általunk nyilvántatott  meghívóra."
+"The invitation link you followed does not map to any invititation we have on "
+"file."
+msgstr ""
+"A meghívó link, amelyet mutat semmilyen általunk nyilvántatott  meghívóra."
 
 #: web/skins/modern/accountstatus/accountstatus.php:146
 #, php-format
 msgid ""
 "You should use the exact link you got during sign-up to come here. "
-"Alternatively, if you have a valid %s credential already, you can visit this"
-" page and Accept the question about logging in with a client certificate "
+"Alternatively, if you have a valid %s credential already, you can visit this "
+"page and Accept the question about logging in with a client certificate "
 "(select a certificate with a name ending in '…%s')."
-msgstr "Használja a pontos linket, amelyet a regisztráció során kapott. Alternatív megoldásként, ha már rendelkezik érvényes  %s hitelesítővel, akkor látogasson el erre az oldalra, és fogadja el az ügyféllel való bejelentkezéshez szükséges kérdést (jelölje ki a tanúsítványt egy olyan névvel, amelynek neve \"... %s\")."
+msgstr ""
+"Használja a pontos linket, amelyet a regisztráció során kapott. Alternatív "
+"megoldásként, ha már rendelkezik érvényes  %s hitelesítővel, akkor "
+"látogasson el erre az oldalra, és fogadja el az ügyféllel való "
+"bejelentkezéshez szükséges kérdést (jelölje ki a tanúsítványt egy olyan "
+"névvel, amelynek neve \"... %s\")."
 
 #: web/skins/modern/accountstatus/accountstatus.php:178
-#: web/skins/modern/user/js/cat_js.php:235
+#: web/skins/modern/user/js/cat_js.php:245
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
 "organisation at:"
-msgstr "Ha problémákat tapasztalsz, akkor közvetlen segítséget kaphatsz szervezetedtől a következő címen:"
+msgstr ""
+"Ha problémákat tapasztalsz, akkor közvetlen segítséget kaphatsz "
+"szervezetedtől a következő címen:"
 
 #: web/skins/modern/accountstatus/accountstatus.php:180
-#: web/skins/modern/user/js/cat_js.php:237
+#: web/skins/modern/user/js/cat_js.php:247
 msgid ""
-"If you encounter problems you should ask those who gave you your account for"
-" help."
-msgstr "Ha problémákat tapasztalsz, kérdezd meg azokat, akiktől segítséget kaptál az azonosítód kapcsán."
+"If you encounter problems you should ask those who gave you your account for "
+"help."
+msgstr ""
+"Ha problémákat tapasztalsz, kérdezd meg azokat, akiktől segítséget kaptál az "
+"azonosítód kapcsán."
 
 #: web/skins/modern/accountstatus/accountstatus.php:191
 #, php-format
@@ -788,172 +955,190 @@ msgstr "A részletek az alábbiakban láthatók."
 msgid "Really revoke this access credential?"
 msgstr "Valóban visszavonja ezt a hozzáférést?"
 
-#: web/skins/modern/user/cat_info.php:90
+#: web/skins/modern/user/cat_info.php:99
 #, php-format
 msgid ""
 "You must have received an invitation from your %s %s before being able to "
 "manage your %s. If that is the case, please continue and log in."
-msgstr "Meg kellett volna kapnia a meghívót a  %s  %s -ról, mielőtt menedzselné a  %s tartalmat. Ha ez a helyzet, folytassa és jelentkezzen be."
+msgstr ""
+"Meg kellett volna kapnia a meghívót a  %s  %s -ról, mielőtt menedzselné a  "
+"%s tartalmat. Ha ez a helyzet, folytassa és jelentkezzen be."
 
-#: web/skins/modern/user/cat_info.php:92
+#: web/skins/modern/user/cat_info.php:101
 msgid "Please authenticate yourself and login"
 msgstr "Légy szíves azonosítsd magad és lépj be"
 
-#: web/skins/modern/user/cat_info.php:97
+#: web/skins/modern/user/cat_info.php:106
 msgid "Login"
 msgstr "Belépés"
 
-#: web/skins/modern/user/cat_info.php:98
+#: web/skins/modern/user/cat_info.php:107
 msgid ""
 "Did you forget with which Identity Provider you logged in to the system? We "
 "can try to find out if you specify the email address with which you were "
 "invited to the system in the box below. This may not work if you were "
 "invited from a third-party website via the AdminAPI."
-msgstr "Elfelejtetted, hogy melyik IdP-vel jelentkezett be a rendszerbe? Megpróbálhatjuk kideríteni, ha megadja-e az e-mail címét, az alábbi mezőbe amellyel meghívták a rendszerbe. Előfordulhat, hogy ez nem működik, ha a meghívást egy külső webhelyről kaptad AdminAPI segítségével."
+msgstr ""
+"Elfelejtetted, hogy melyik IdP-vel jelentkezett be a rendszerbe? "
+"Megpróbálhatjuk kideríteni, ha megadja-e az e-mail címét, az alábbi mezőbe "
+"amellyel meghívták a rendszerbe. Előfordulhat, hogy ez nem működik, ha a "
+"meghívást egy külső webhelyről kaptad AdminAPI segítségével."
 
-#: web/skins/modern/user/cat_info.php:99
+#: web/skins/modern/user/cat_info.php:108
 msgid "Get IdP Reminder"
 msgstr "Küldj IdP emlékeztetőt"
 
-#: web/skins/modern/user/js/cat_js.php:32
+#: web/skins/modern/user/js/cat_js.php:42
 msgid ""
 "This is embarrassing. Generation of your installer failed. System admins "
 "have been notified. We will try to take care of the problem as soon as "
 "possible."
-msgstr "Probléma lépett fel. A telepítő csomagot nem lehetett elkészíteni. A rendszer adminisztrátorait értesítettük. A hibát a lehető leggyorsabban igyekszünk elhárítani. "
+msgstr ""
+"Probléma lépett fel. A telepítő csomagot nem lehetett elkészíteni. A "
+"rendszer adminisztrátorait értesítettük. A hibát a lehető leggyorsabban "
+"igyekszünk elhárítani. "
 
-#: web/skins/modern/user/js/cat_js.php:79
-#: web/skins/modern/user/js/cat_js.php:216
+#: web/skins/modern/user/js/cat_js.php:89
+#: web/skins/modern/user/js/cat_js.php:226
 msgid "no matching data found"
 msgstr "Nem találtam illeszkedő adatot"
 
-#: web/skins/modern/user/js/cat_js.php:93
+#: web/skins/modern/user/js/cat_js.php:103
 msgid "select"
 msgstr "válassz"
 
-#: web/skins/modern/user/js/cat_js.php:229
+#: web/skins/modern/user/js/cat_js.php:239
 msgid "WWW:"
 msgstr "Web:"
 
-#: web/skins/modern/user/js/cat_js.php:231
+#: web/skins/modern/user/js/cat_js.php:241
 msgid "email:"
 msgstr "E-mail:"
 
-#: web/skins/modern/user/js/cat_js.php:233
+#: web/skins/modern/user/js/cat_js.php:243
 msgid "tel:"
 msgstr "Tel:"
 
-#: web/skins/modern/user/js/cat_js.php:255
-#: web/skins/modern/user/js/cat_js.php:281
+#: web/skins/modern/user/js/cat_js.php:265
+#: web/skins/modern/user/js/cat_js.php:291
 msgid ""
-"This device cannot be configured with the settings used in your "
-"organisation."
-msgstr "Ez az eszköz nem konfigurálható a szervezetben használt beállításokkal."
+"This device cannot be configured with the settings used in your organisation."
+msgstr ""
+"Ez az eszköz nem konfigurálható a szervezetben használt beállításokkal."
 
-#: web/skins/modern/user/js/cat_js.php:268
+#: web/skins/modern/user/js/cat_js.php:278
 msgid ""
 "Your site administrator has specified that this device should be configured "
 "with resources located on a local page. When you click <b>Continue</b> this "
 "page will be opened in a new window/tab."
-msgstr "Az anyaintézmény rendszergazdája úgy rendelkezett, hogy az eszközök konfigurációját a helyi oldal alapján kell megtenni. Ha  <b>Folytatás</b> gombra kattintasz, akkor az az oldal fog megnyilni egy új böngésző lapon."
+msgstr ""
+"Az anyaintézmény rendszergazdája úgy rendelkezett, hogy az eszközök "
+"konfigurációját a helyi oldal alapján kell megtenni. Ha  <b>Folytatás</b> "
+"gombra kattintasz, akkor az az oldal fog megnyilni egy új böngésző lapon."
 
-#: web/skins/modern/user/js/cat_js.php:282
+#: web/skins/modern/user/js/cat_js.php:292
 msgid "Close"
 msgstr "Bezárás"
 
-#: web/skins/modern/user/js/cat_js.php:379
+#: web/skins/modern/user/js/cat_js.php:389
 msgid "Missing email address"
 msgstr "Hiányzó e-mail cím"
 
-#: web/skins/modern/user/js/cat_js.php:393
+#: web/skins/modern/user/js/cat_js.php:403
 msgid "No providers found for this email"
 msgstr "Nem található szolgáltató ehhez az e-mailhez"
 
-#: web/skins/modern/user/js/cat_js.php:398
+#: web/skins/modern/user/js/cat_js.php:408
 msgid "Your IdP is:"
 msgstr "Az IdP -d a következő:"
 
-#: web/skins/modern/user/js/cat_js.php:400
+#: web/skins/modern/user/js/cat_js.php:410
 msgid "Your IdP could be one of:"
 msgstr "Az IdP-d  az egyik alábbiak közül:"
 
-#: web/skins/modern/user/js/cat_js.php:563
+#: web/skins/modern/user/js/cat_js.php:573
 msgid "Organisation"
 msgstr "Szervezet"
 
-#: web/skins/modern/user/js/cat_js.php:564
+#: web/skins/modern/user/js/cat_js.php:574
 msgid "Select your organisation"
 msgstr "Válaszd ki a szervezetedet"
 
-#: web/skins/modern/user/js/cat_js.php:565
+#: web/skins/modern/user/js/cat_js.php:575
 msgid "Help, my organisation is not on the list"
 msgstr "Segítség, a szervezetem nincs a listán"
 
-#: web/skins/modern/user/js/cat_js.php:566
+#: web/skins/modern/user/js/cat_js.php:576
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
 "your organisation is not on the list, then nag them to add information to "
 "the %s database."
-msgstr "Ez a rendszer a helyi %s rendszergazdák által szolgáltatott információkra támaszkodik. Ha a szervezeted nem szerepel a listán, akkor kérd meg őket, hogy adjanak hozzá információkat az %s adatbázishoz."
+msgstr ""
+"Ez a rendszer a helyi %s rendszergazdák által szolgáltatott információkra "
+"támaszkodik. Ha a szervezeted nem szerepel a listán, akkor kérd meg őket, "
+"hogy adjanak hozzá információkat az %s adatbázishoz."
 
-#: web/skins/modern/user/js/cat_js.php:567
+#: web/skins/modern/user/js/cat_js.php:577
 msgid "Locate me more accurately using HTML5 Geo-Location"
-msgstr "Pontosabb helymeghatározást kérek a HTML5 Geo-Location szolgáltatása révén"
+msgstr ""
+"Pontosabb helymeghatározást kérek a HTML5 Geo-Location szolgáltatása révén"
 
-#: web/skins/modern/user/js/cat_js.php:568
+#: web/skins/modern/user/js/cat_js.php:578
 msgid "Show organisations in"
 msgstr "Szervezetek listája:"
 
-#: web/skins/modern/user/js/cat_js.php:569
+#: web/skins/modern/user/js/cat_js.php:579
 msgid "all countries"
 msgstr "minden ország"
 
-#: web/skins/modern/user/js/cat_js.php:570
+#: web/skins/modern/user/js/cat_js.php:580
 msgid "or search for an organisation, for example University of Oslo"
-msgstr "vagy keress egy szervezetet, például az Budapest Műszaki és Gazdaságtudományi Egyetem"
+msgstr ""
+"vagy keress egy szervezetet, például az Budapest Műszaki és "
+"Gazdaságtudományi Egyetem"
 
-#: web/skins/modern/user/js/cat_js.php:571
+#: web/skins/modern/user/js/cat_js.php:581
 msgid "show all countries"
 msgstr "Mutass minden országot"
 
-#: web/skins/modern/user/js/cat_js.php:572
+#: web/skins/modern/user/js/cat_js.php:582
 msgid "Results limited to"
 msgstr "Az eredmények számának korlátja:"
 
-#: web/skins/modern/user/js/cat_js.php:573
+#: web/skins/modern/user/js/cat_js.php:583
 msgid "entries - show more"
 msgstr "bejegyzések - mutass még"
 
-#: web/skins/modern/user/js/cat_js.php:574
+#: web/skins/modern/user/js/cat_js.php:584
 msgid "Nearby"
 msgstr "közeli"
 
-#: web/skins/modern/user/js/cat_js.php:575
+#: web/skins/modern/user/js/cat_js.php:585
 msgid "Location timeout"
 msgstr "helymeghatározási időtúllépés"
 
-#: web/skins/modern/user/js/cat_js.php:576
+#: web/skins/modern/user/js/cat_js.php:586
 msgid "Could not get your position"
 msgstr "Nem tudom meghatározni a poziciód"
 
-#: web/skins/modern/user/js/cat_js.php:577
+#: web/skins/modern/user/js/cat_js.php:587
 msgid "Your browser has denied access to your location"
 msgstr "A böngésző visszautasította a helyinformációkhoz való hozzáférést."
 
-#: web/skins/modern/user/js/cat_js.php:578
+#: web/skins/modern/user/js/cat_js.php:588
 msgid "Unknown location error"
 msgstr "Ismeretlen helymeghatározási hiba"
 
-#: web/skins/modern/user/js/cat_js.php:579
+#: web/skins/modern/user/js/cat_js.php:589
 msgid "You are here:"
 msgstr "Itt vagy:"
 
-#: web/skins/modern/user/js/cat_js.php:580
+#: web/skins/modern/user/js/cat_js.php:590
 msgid "Getting your location..."
 msgstr "Helymeghatározás folyamatban..."
 
-#: web/skins/modern/user/js/cat_js.php:581
+#: web/skins/modern/user/js/cat_js.php:591
 msgid "Nearby providers shown on top."
 msgstr "Közelebbi szolgáltatók legfelül talalhatóak"
 
@@ -962,42 +1147,43 @@ msgstr "Közelebbi szolgáltatók legfelül talalhatóak"
 #. the last argument of the OS call specifies whether the module is
 #. signed.  Make sure that this is in sync with your settings
 #. in devices/devices.php
-#: web/skins/modern/user/js/roll.php:129
+#.
+#: web/skins/modern/user/js/roll.php:139
 msgid "MS Windows"
 msgstr "MS Windows"
 
-#: web/skins/modern/user/js/roll.php:129
+#: web/skins/modern/user/js/roll.php:139
 msgid "10, 8, 7, Vista"
 msgstr "10, 8, 7, Vista"
 
-#: web/skins/modern/user/js/roll.php:130
+#: web/skins/modern/user/js/roll.php:140
 msgid "Apple OS X"
 msgstr "Apple OS X"
 
-#: web/skins/modern/user/js/roll.php:131
+#: web/skins/modern/user/js/roll.php:141
 msgid "Android"
 msgstr "Android"
 
-#: web/skins/modern/user/js/roll.php:131
+#: web/skins/modern/user/js/roll.php:141
 msgid "4.3+"
 msgstr "4.3+"
 
-#: web/skins/modern/user/js/roll.php:132
+#: web/skins/modern/user/js/roll.php:142
 msgid "Apple iOS devices"
 msgstr "Apple iOS eszközök"
 
-#: web/skins/modern/user/js/roll.php:132
+#: web/skins/modern/user/js/roll.php:142
 msgid "iPhone, iPad, iPod touch"
 msgstr "iPhone, iPad, iPod touch"
 
-#: web/skins/modern/user/js/roll.php:133
+#: web/skins/modern/user/js/roll.php:143
 msgid "Linux"
 msgstr "Linux"
 
-#: web/skins/modern/user/js/roll.php:133
+#: web/skins/modern/user/js/roll.php:143
 msgid "all major distributions"
 msgstr "Minden nagyobb kiadás"
 
-#: web/skins/modern/user/js/roll.php:134
+#: web/skins/modern/user/js/roll.php:144
 msgid "Chrome OS"
 msgstr "Chrome OS"

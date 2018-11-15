@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 13:08+0100\n"
-"PO-Revision-Date: 2018-10-18 21:54+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"PO-Revision-Date: 2018-11-14 21:56+0000\n"
+"Last-Translator: Iñigo Zendegi Urzelai <izendegi@mondragon.edu>\n"
 "Language-Team: Basque (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/eu_ES/)\n"
 "Language: eu_ES\n"
@@ -746,9 +746,9 @@ msgid ""
 msgstr ""
 
 #: web/admin/edit_profile_result.php:199
-#, fuzzy, php-format
+#, php-format
 msgid "Redirection set to <strong>%s</strong>"
-msgstr "Berbideraketa <strong>DESGAITUTA</strong> dago"
+msgstr ""
 
 #: web/admin/edit_profile_result.php:203
 msgid "Redirection is <strong>OFF</strong>"
@@ -2119,9 +2119,8 @@ msgid "organisation"
 msgstr "erakundea"
 
 #: web/lib/admin/UIElements.php:59
-#, fuzzy
 msgid "Identity Provider"
-msgstr "identifikazio hornitzailea"
+msgstr "Identifikazio Hornitzailea"
 
 #: web/lib/admin/UIElements.php:78
 msgid "SSID"

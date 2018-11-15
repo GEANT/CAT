@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 13:08+0100\n"
-"PO-Revision-Date: 2018-10-30 14:48+0000\n"
+"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"PO-Revision-Date: 2018-11-14 21:56+0000\n"
 "Last-Translator: Indrek Rokk <indrek.rokk@eenet.ee>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/et_EE/)\n"
@@ -770,9 +770,9 @@ msgid ""
 msgstr ""
 
 #: web/admin/edit_profile_result.php:199
-#, fuzzy, php-format
+#, php-format
 msgid "Redirection set to <strong>%s</strong>"
-msgstr "Ümbersuunamine on <strong>VÄLJAS</strong>"
+msgstr ""
 
 #: web/admin/edit_profile_result.php:203
 msgid "Redirection is <strong>OFF</strong>"
@@ -2173,9 +2173,8 @@ msgid "organisation"
 msgstr "asutus"
 
 #: web/lib/admin/UIElements.php:59
-#, fuzzy
 msgid "Identity Provider"
-msgstr "identiteedipakkuja"
+msgstr "Identiteedipakkuja"
 
 #: web/lib/admin/UIElements.php:78
 msgid "SSID"

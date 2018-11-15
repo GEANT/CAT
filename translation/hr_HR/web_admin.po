@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 13:08+0100\n"
-"PO-Revision-Date: 2018-10-20 19:19+0000\n"
+"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"PO-Revision-Date: 2018-11-14 21:56+0000\n"
 "Last-Translator: Dubravko Penezic <dpenezic@gmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/hr_HR/)\n"
@@ -782,9 +782,9 @@ msgid ""
 msgstr ""
 
 #: web/admin/edit_profile_result.php:199
-#, fuzzy, php-format
+#, php-format
 msgid "Redirection set to <strong>%s</strong>"
-msgstr "Preusmjeravanje je <strong>ISKLJUČENO</strong>"
+msgstr ""
 
 #: web/admin/edit_profile_result.php:203
 msgid "Redirection is <strong>OFF</strong>"
@@ -2200,9 +2200,8 @@ msgid "organisation"
 msgstr "organizacija"
 
 #: web/lib/admin/UIElements.php:59
-#, fuzzy
 msgid "Identity Provider"
-msgstr "davatelj identiteta"
+msgstr "Davatelj identiteta"
 
 #: web/lib/admin/UIElements.php:78
 msgid "SSID"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 13:08+0100\n"
+"POT-Creation-Date: 2018-11-15 09:10+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>, 2018\n"
 "Language-Team: Bulgarian (Bulgaria) (https://www.transifex.com/eduroam_devel/"
@@ -31,8 +31,8 @@ msgstr "Завършен"
 msgid "Product is not configured to run this check."
 msgstr "Продуктът не е конфигуриран да стартира тази проверка."
 
-#: core/diag/AbstractTest.php:289 web/diag/action_realmcheck.php:537
-#: web/diag/action_realmcheck.php:553
+#: core/diag/AbstractTest.php:289 web/diag/action_realmcheck.php:539
+#: web/diag/action_realmcheck.php:555
 msgid "This check was skipped."
 msgstr "Тази проверка беше пропусната."
 
@@ -64,7 +64,7 @@ msgid ""
 "conversation."
 msgstr "RADIUS сървърът отхвърли заявката за аутентикация след EAP разговор."
 
-#: core/diag/AbstractTest.php:332 web/diag/action_realmcheck.php:115
+#: core/diag/AbstractTest.php:332 web/diag/action_realmcheck.php:116
 msgid "Connection refused"
 msgstr "Връзката е отхвърлена."
 
@@ -480,7 +480,7 @@ msgstr "неизвестно ауторити или няма политика �
 #. *
 #. * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
 #.
-#: core/diag/RFC7585Tests.php:134 web/diag/action_realmcheck.php:505
+#: core/diag/RFC7585Tests.php:134 web/diag/action_realmcheck.php:507
 msgid "This realm has no NAPTR records."
 msgstr "Тази област няма NAPTR записи."
 
@@ -1044,191 +1044,191 @@ msgstr "Грешен символен низ е даден като OperatorName
 msgid "Sanity check for dynamic discovery of realms"
 msgstr "Проверка за динамично откриване на области."
 
-#: web/diag/action_realmcheck.php:56
+#: web/diag/action_realmcheck.php:57
 msgid ""
 "You asked for a realm check, but we don't know the realm for this profile!"
 msgstr ""
 "Вие сте задали проверка на области, но ние не знаем област за този профил!"
 
-#: web/diag/action_realmcheck.php:65
+#: web/diag/action_realmcheck.php:66
 msgid "No valid realm name given, cannot execute any checks!"
 msgstr ""
 "Не е дадено валидно име на област, не могат да се изпълнят никакви проверки!"
 
-#: web/diag/action_realmcheck.php:69
+#: web/diag/action_realmcheck.php:70
 msgid "STATIC"
 msgstr "СТАТИЧЕН"
 
-#: web/diag/action_realmcheck.php:70
+#: web/diag/action_realmcheck.php:71
 msgid "DYNAMIC"
 msgstr "ДИНАМИЧЕН"
 
-#: web/diag/action_realmcheck.php:98
+#: web/diag/action_realmcheck.php:99
 msgid "PASS"
 msgstr "УСПЕХ"
 
-#: web/diag/action_realmcheck.php:99
+#: web/diag/action_realmcheck.php:100
 msgid "FAIL"
 msgstr "НЕУСПЕХ"
 
-#: web/diag/action_realmcheck.php:100
+#: web/diag/action_realmcheck.php:101
 msgid "Client certificate:"
 msgstr "Клиентски сертификат:"
 
-#: web/diag/action_realmcheck.php:101
+#: web/diag/action_realmcheck.php:102
 msgid "expected result: "
 msgstr "очакван резултат:"
 
-#: web/diag/action_realmcheck.php:102
+#: web/diag/action_realmcheck.php:103
 msgid "Server accepted this client certificate"
 msgstr "Сървърът прие клиентския сертификат."
 
-#: web/diag/action_realmcheck.php:103
+#: web/diag/action_realmcheck.php:104
 msgid "Server accepted this client certificate, but should not have"
 msgstr "Сървърът прие клиентския сертификат, но не трябваше да го приема."
 
-#: web/diag/action_realmcheck.php:104
+#: web/diag/action_realmcheck.php:105
 msgid "Server did not accept this client certificate"
 msgstr "Сървърът не прие клиентския сертификат."
 
-#: web/diag/action_realmcheck.php:105
+#: web/diag/action_realmcheck.php:106
 msgid "Server did not accept this client certificate - reason"
 msgstr "Сървърът не прие клиентския сертификат - причина."
 
-#: web/diag/action_realmcheck.php:106
+#: web/diag/action_realmcheck.php:107
 msgid "Rest of tests for this CA skipped"
 msgstr "Останалите тестове за това CA са пропуснати."
 
-#: web/diag/action_realmcheck.php:107
+#: web/diag/action_realmcheck.php:108
 msgid "You should update your list of accredited CAs"
 msgstr "Вие трябва да актуализирате Вашия списък с акредитирани CA."
 
-#: web/diag/action_realmcheck.php:108
+#: web/diag/action_realmcheck.php:109
 msgid "Get it from here."
 msgstr "Вземете ги оттук."
 
-#: web/diag/action_realmcheck.php:110
+#: web/diag/action_realmcheck.php:111
 msgid "more"
 msgstr "още"
 
-#: web/diag/action_realmcheck.php:112 web/diag/action_realmcheck.php:654
+#: web/diag/action_realmcheck.php:113 web/diag/action_realmcheck.php:656
 msgid "Show detailed information for all tests"
 msgstr "Покажи подробна информация за всички тестове."
 
-#: web/diag/action_realmcheck.php:127
+#: web/diag/action_realmcheck.php:128
 msgid "Server certificate"
 msgstr "Сертификат на сървър"
 
-#: web/diag/action_realmcheck.php:128
+#: web/diag/action_realmcheck.php:129
 msgid "Subject"
 msgstr "Предмет"
 
-#: web/diag/action_realmcheck.php:129
+#: web/diag/action_realmcheck.php:130
 msgid "Issuer"
 msgstr "Издател"
 
-#: web/diag/action_realmcheck.php:130
+#: web/diag/action_realmcheck.php:131
 msgid "SubjectAltName"
 msgstr "Алтернативно име на предмета"
 
-#: web/diag/action_realmcheck.php:131
+#: web/diag/action_realmcheck.php:132
 msgid "Certificate policies"
 msgstr "Сертификатиционни политики"
 
-#: web/diag/action_realmcheck.php:132
+#: web/diag/action_realmcheck.php:133
 msgid "crlDistributionPoint"
 msgstr "crlDistributionPoint"
 
-#: web/diag/action_realmcheck.php:133
+#: web/diag/action_realmcheck.php:134
 msgid "authorityInfoAccess"
 msgstr "authorityInfoAccess"
 
-#: web/diag/action_realmcheck.php:134
+#: web/diag/action_realmcheck.php:135
 msgid "Hide detailed information for all tests"
 msgstr "Скрий подробната информация за всички тестове."
 
-#: web/diag/action_realmcheck.php:138
+#: web/diag/action_realmcheck.php:139
 msgid "Subject:"
 msgstr "Предмет:"
 
-#: web/diag/action_realmcheck.php:139
+#: web/diag/action_realmcheck.php:140
 msgid "Issuer:"
 msgstr "Издател:"
 
-#: web/diag/action_realmcheck.php:140
+#: web/diag/action_realmcheck.php:141
 msgid "Valid from:"
 msgstr "Валидно от:"
 
-#: web/diag/action_realmcheck.php:141
+#: web/diag/action_realmcheck.php:142
 msgid "Valid to:"
 msgstr "Валидно до:"
 
-#: web/diag/action_realmcheck.php:142
+#: web/diag/action_realmcheck.php:143
 msgid "Serial number:"
 msgstr "Сериен номер:"
 
-#: web/diag/action_realmcheck.php:143
+#: web/diag/action_realmcheck.php:144
 msgid "SHA1 fingerprint:"
 msgstr "SHA1 fingerprint:"
 
-#: web/diag/action_realmcheck.php:195
+#: web/diag/action_realmcheck.php:196
 msgid "Some required input is missing!"
 msgstr "Липсват някои изисквани входни данни."
 
-#: web/diag/action_realmcheck.php:246 web/diag/action_realmcheck.php:327
-#: web/diag/action_realmcheck.php:350 web/diag/action_realmcheck.php:403
+#: web/diag/action_realmcheck.php:247 web/diag/action_realmcheck.php:328
+#: web/diag/action_realmcheck.php:351 web/diag/action_realmcheck.php:404
 #, php-format
 msgid "elapsed time: %sms."
 msgstr "Изтекло време: %sms."
 
-#: web/diag/action_realmcheck.php:340 web/diag/action_realmcheck.php:393
+#: web/diag/action_realmcheck.php:341 web/diag/action_realmcheck.php:394
 msgid "Extensions"
 msgstr "Разширения"
 
-#: web/diag/action_realmcheck.php:341
+#: web/diag/action_realmcheck.php:342
 msgid "show server certificate details"
 msgstr "Покажи подробно сертификата на сървъра."
 
-#: web/diag/action_realmcheck.php:361 web/diag/action_realmcheck.php:366
+#: web/diag/action_realmcheck.php:362 web/diag/action_realmcheck.php:367
 msgid "See the appropriate tab for details."
 msgstr "Вижте подходящия таб за подробности."
 
-#: web/diag/action_realmcheck.php:380
+#: web/diag/action_realmcheck.php:381
 msgid "Server certificate details:"
 msgstr "Детайли на сертификата на сървъра"
 
-#: web/diag/action_realmcheck.php:480
+#: web/diag/action_realmcheck.php:482
 #, php-format
 msgid "Realm testing for: %s"
 msgstr "Тестване на област за: %s"
 
-#: web/diag/action_realmcheck.php:485 web/diag/action_realmcheck.php:493
+#: web/diag/action_realmcheck.php:487 web/diag/action_realmcheck.php:495
 msgid "Overview"
 msgstr "Преглед"
 
-#: web/diag/action_realmcheck.php:486 web/diag/action_realmcheck.php:600
+#: web/diag/action_realmcheck.php:488 web/diag/action_realmcheck.php:602
 msgid "Static connectivity tests"
 msgstr "Тестове на статичната свързаност."
 
-#: web/diag/action_realmcheck.php:487 web/diag/action_realmcheck.php:605
+#: web/diag/action_realmcheck.php:489 web/diag/action_realmcheck.php:607
 msgid "Dynamic connectivity tests"
 msgstr "Тестове на динамичната свързаност."
 
-#: web/diag/action_realmcheck.php:488
+#: web/diag/action_realmcheck.php:490
 msgid "Live login tests"
 msgstr "Тестове по време на влизане."
 
 #. NAPTR existence check
-#: web/diag/action_realmcheck.php:497
+#: web/diag/action_realmcheck.php:499
 msgid "DNS chekcs"
 msgstr "DNS проверки"
 
 #. output in friendly words
-#: web/diag/action_realmcheck.php:502
+#: web/diag/action_realmcheck.php:504
 msgid "Checking NAPTR existence:"
 msgstr "Проверяване за наличие на NAPTR."
 
-#: web/diag/action_realmcheck.php:508
+#: web/diag/action_realmcheck.php:510
 msgid ""
 "This realm has NAPTR records, but none are related to this roaming "
 "consortium."
@@ -1237,64 +1237,64 @@ msgstr ""
 "роуминг консорциум."
 
 #. if none of the possible negative retvals, then we have matching NAPTRs
-#: web/diag/action_realmcheck.php:511
+#: web/diag/action_realmcheck.php:513
 #, php-format
 msgid "This realm has %d NAPTR records relating to this roaming consortium."
 msgstr ""
 "Тази област има %d NAPTR записи, отнасящи се до този роуминг консорциум."
 
-#: web/diag/action_realmcheck.php:517
+#: web/diag/action_realmcheck.php:519
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
 msgstr "Проверка за NAPTR съответствие (flag = S и regex = {empty}):"
 
-#: web/diag/action_realmcheck.php:521
+#: web/diag/action_realmcheck.php:523
 msgid "No issues found."
 msgstr "Няма намерени изходи."
 
-#: web/diag/action_realmcheck.php:524 web/diag/action_realmcheck.php:540
+#: web/diag/action_realmcheck.php:526 web/diag/action_realmcheck.php:542
 #, php-format
 msgid "At least one NAPTR with invalid content found!"
 msgstr "Намерен е поне един NAPTR с невалидно съдържание!"
 
-#: web/diag/action_realmcheck.php:534
+#: web/diag/action_realmcheck.php:536
 msgid "Checking SRVs:"
 msgstr "Проверяване на SRV записите:"
 
 #. print number of successfully retrieved SRV targets
-#: web/diag/action_realmcheck.php:543
+#: web/diag/action_realmcheck.php:545
 #, php-format
 msgid "%d host names discovered."
 msgstr "Открити са имена на %d хостове."
 
-#: web/diag/action_realmcheck.php:550
+#: web/diag/action_realmcheck.php:552
 msgid "Checking IP address resolution:"
 msgstr "Проверяване разпределението на IP адреси:"
 
-#: web/diag/action_realmcheck.php:556
+#: web/diag/action_realmcheck.php:558
 #, php-format
 msgid "At least one hostname could not be resolved!"
 msgstr "Поне един хост не можа да бъде намерен!"
 
 #. print number of successfully retrieved SRV targets
-#: web/diag/action_realmcheck.php:559
+#: web/diag/action_realmcheck.php:561
 #, php-format
 msgid "%d IP addresses resolved."
 msgstr "%d IP адреси са намерени."
 
-#: web/diag/action_realmcheck.php:566 web/diag/action_realmcheck.php:568
+#: web/diag/action_realmcheck.php:568 web/diag/action_realmcheck.php:570
 #, php-format
 msgid "Realm is <strong>%s</strong> "
 msgstr "Област е <strong>%s</strong>."
 
-#: web/diag/action_realmcheck.php:566
+#: web/diag/action_realmcheck.php:568
 msgid "with no DNS errors encountered. Congratulations!"
 msgstr "Никакви DNS грешки не са открити. Поздравления!"
 
-#: web/diag/action_realmcheck.php:568
+#: web/diag/action_realmcheck.php:570
 msgid "but there were DNS errors! Check them!"
 msgstr "но имаше DNS грешки! Проверете ги!"
 
-#: web/diag/action_realmcheck.php:568
+#: web/diag/action_realmcheck.php:570
 msgid ""
 "You should re-run the tests after fixing the errors; more errors might be "
 "uncovered at that point. The exact error causes are listed below."
@@ -1303,19 +1303,19 @@ msgstr ""
 "могат да бъдат открити още грешки. Точните причини за грешка са изброени по-"
 "долу."
 
-#: web/diag/action_realmcheck.php:598
+#: web/diag/action_realmcheck.php:600
 msgid "Dynamic discovery test is not configured"
 msgstr "Тест за динамично откриване не е конфигуриран."
 
-#: web/diag/action_realmcheck.php:616
+#: web/diag/action_realmcheck.php:618
 msgid "Repeat static connectivity tests"
 msgstr "Повторете тестовете за статичната свързаност."
 
-#: web/diag/action_realmcheck.php:619
+#: web/diag/action_realmcheck.php:621
 msgid "STATIC connectivity tests"
 msgstr "Тестове за СТАТИЧНАТА свързаност."
 
-#: web/diag/action_realmcheck.php:621
+#: web/diag/action_realmcheck.php:623
 msgid ""
 "This check sends a request for the realm through various entry points of the "
 "roaming consortium infrastructure. The request will contain the 'Operator-"
@@ -1332,41 +1332,41 @@ msgstr ""
 "успешно - така че очакваният резултат е да получим Access-Reject след "
 "приключване на EAP разговора. "
 
-#: web/diag/action_realmcheck.php:625 web/diag/action_realmcheck.php:737
+#: web/diag/action_realmcheck.php:627 web/diag/action_realmcheck.php:739
 #, php-format
 msgid "Testing from: %s"
 msgstr "Тестване от: %s"
 
-#: web/diag/action_realmcheck.php:630 web/diag/action_realmcheck.php:663
-#: web/diag/action_realmcheck.php:676
+#: web/diag/action_realmcheck.php:632 web/diag/action_realmcheck.php:665
+#: web/diag/action_realmcheck.php:678
 msgid "testing..."
 msgstr "тестване ..."
 
-#: web/diag/action_realmcheck.php:645
+#: web/diag/action_realmcheck.php:647
 msgid "Repeat dynamic connectivity tests"
 msgstr "Повторете тестовете за динамичната свързаност."
 
-#: web/diag/action_realmcheck.php:649
+#: web/diag/action_realmcheck.php:651
 msgid "DYNAMIC connectivity tests"
 msgstr "Тестове за ДИНАМИЧНА свързаност"
 
-#: web/diag/action_realmcheck.php:653
+#: web/diag/action_realmcheck.php:655
 msgid "Some errors were found during the tests, see below"
 msgstr "По време на тестовете бяха открити някои грешки, вижте по-долу."
 
-#: web/diag/action_realmcheck.php:653
+#: web/diag/action_realmcheck.php:655
 msgid "All tests passed, congratulations!"
 msgstr "Всички тестове са преминати, поздравления!"
 
-#: web/diag/action_realmcheck.php:654
+#: web/diag/action_realmcheck.php:656
 msgid "Checking server handshake..."
 msgstr "Проверяване на server handshake..."
 
-#: web/diag/action_realmcheck.php:684
+#: web/diag/action_realmcheck.php:686
 msgid "Checking if certificates from  CAs are accepted..."
 msgstr "Проверяване дали сертификатите от CAs са приети ..."
 
-#: web/diag/action_realmcheck.php:684
+#: web/diag/action_realmcheck.php:686
 msgid ""
 "A few client certificates will be tested to check if servers are resistant "
 "to some certificate problems."
@@ -1374,11 +1374,11 @@ msgstr ""
 "Няколко клиентски сертификата ще бъдат тествани, за да се провери дали "
 "сървърите са устойчиви на някои сертификационни проблеми."
 
-#: web/diag/action_realmcheck.php:698
+#: web/diag/action_realmcheck.php:700
 msgid "Live login test"
 msgstr "Тест по време на влизане."
 
-#: web/diag/action_realmcheck.php:711
+#: web/diag/action_realmcheck.php:713
 msgid ""
 "If you enter an existing login credential here, you can test the actual "
 "authentication from various checkpoints all over the world."
@@ -1386,7 +1386,7 @@ msgstr ""
 "Ако тук въведете съществуваща самоличност, може да тествате действителната "
 "аутентикация от различни точки за влизане по целия свят."
 
-#: web/diag/action_realmcheck.php:712
+#: web/diag/action_realmcheck.php:714
 msgid ""
 "The test will use all EAP types you have set in your profile information to "
 "check whether the right CAs and server names are used, and of course whether "
@@ -1398,7 +1398,7 @@ msgstr ""
 "се, дали влизане с тези лични данни и даденият EAP тип действително работи. "
 "Ако сте настроили анонимно външно ID, тестът ще го използва."
 
-#: web/diag/action_realmcheck.php:713
+#: web/diag/action_realmcheck.php:715
 msgid ""
 "Note: the tool purposefully does not offer you to save these credentials, "
 "and they will never be saved in any way on the server side. Please use only "
@@ -1410,43 +1410,43 @@ msgstr ""
 "използвайте само <strong>временни тестови акаунти</strong> тук; постоянно "
 "валидни тестови акаунти се считат за вредни!"
 
-#: web/diag/action_realmcheck.php:721
+#: web/diag/action_realmcheck.php:723
 msgid "Password-based EAP types"
 msgstr "Password-based EAP типове"
 
-#: web/diag/action_realmcheck.php:722
+#: web/diag/action_realmcheck.php:724
 msgid "Real (inner) username:"
 msgstr "Реални (вътрешни) потребителски имена:"
 
-#: web/diag/action_realmcheck.php:723
+#: web/diag/action_realmcheck.php:725
 msgid "Anonymous outer ID (optional):"
 msgstr "Анонимен външен ID (опция):"
 
-#: web/diag/action_realmcheck.php:724
+#: web/diag/action_realmcheck.php:726
 msgid "Password:"
 msgstr "Парола:"
 
-#: web/diag/action_realmcheck.php:728
+#: web/diag/action_realmcheck.php:730
 msgid "Certificate-based EAP types"
 msgstr "Сертификат-базирани EAP типове"
 
-#: web/diag/action_realmcheck.php:729
+#: web/diag/action_realmcheck.php:731
 msgid "Certificate file (.p12 or .pfx):"
 msgstr "Файл на сертификат (.p12 или .pfx):"
 
-#: web/diag/action_realmcheck.php:730
+#: web/diag/action_realmcheck.php:732
 msgid "Certificate password, if any:"
 msgstr "Парола за сертификат, ако има:"
 
-#: web/diag/action_realmcheck.php:731
+#: web/diag/action_realmcheck.php:733
 msgid "Username, if different from certificate Subject:"
 msgstr "Потребителско име, ако се различава от Subject полето на сертификата:"
 
-#: web/diag/action_realmcheck.php:733
+#: web/diag/action_realmcheck.php:735
 msgid "Submit credentials"
 msgstr "Изпратете личните данни"
 
-#: web/diag/action_realmcheck.php:759
+#: web/diag/action_realmcheck.php:761
 #, php-format
 msgid "Return to %s administrator area"
 msgstr "Върнете се към %s администраторска област"

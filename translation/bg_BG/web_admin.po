@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 13:08+0100\n"
-"PO-Revision-Date: 2018-10-19 06:57+0000\n"
+"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"PO-Revision-Date: 2018-11-14 21:56+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/eduroam_devel/"
 "cat/language/bg_BG/)\n"
@@ -794,9 +794,9 @@ msgid ""
 msgstr ""
 
 #: web/admin/edit_profile_result.php:199
-#, fuzzy, php-format
+#, php-format
 msgid "Redirection set to <strong>%s</strong>"
-msgstr "Пренасочването е <strong>ИЗКЛЮЧЕНО</strong>"
+msgstr ""
 
 #: web/admin/edit_profile_result.php:203
 msgid "Redirection is <strong>OFF</strong>"
@@ -2215,9 +2215,8 @@ msgid "organisation"
 msgstr "организация"
 
 #: web/lib/admin/UIElements.php:59
-#, fuzzy
 msgid "Identity Provider"
-msgstr "доставчик на самоличност"
+msgstr "Доставчик на Удостоверения"
 
 #: web/lib/admin/UIElements.php:78
 msgid "SSID"

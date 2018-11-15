@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 13:08+0100\n"
-"PO-Revision-Date: 2018-11-14 11:46+0000\n"
+"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"PO-Revision-Date: 2018-11-14 21:56+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Nepali (Nepal) (http://www.transifex.com/eduroam_devel/cat/"
 "language/ne_NP/)\n"
@@ -1986,7 +1986,6 @@ msgid "organisation"
 msgstr "संस्था"
 
 #: web/lib/admin/UIElements.php:59
-#, fuzzy
 msgid "Identity Provider"
 msgstr "पहिचान प्रदायक"
 

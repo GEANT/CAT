@@ -4,15 +4,16 @@
 #
 # Translators:
 # Marina Vermezovic <marina.vermezovic@rcub.bg.ac.rs>, 2012
+# Marko Eremija <marko.eremija@amres.ac.rs>, 2018
 # marko <marko.stojakovic@rcub.bg.ac.rs>, 2012
 # nlemajic <natasa.lemajic@rcub.bg.ac.rs>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 13:08+0100\n"
-"PO-Revision-Date: 2018-11-14 10:01+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"PO-Revision-Date: 2018-11-14 13:25+0000\n"
+"Last-Translator: Marko Eremija <marko.eremija@amres.ac.rs>\n"
 "Language-Team: Serbian (Serbia) (http://www.transifex.com/eduroam_devel/cat/"
 "language/sr_RS/)\n"
 "Language: sr_RS\n"
@@ -178,7 +179,7 @@ msgstr "Pridružite se mejling listi za razvoj."
 #: web/user/devel.inc.php:25
 #, php-format
 msgid "The list is available at: %s"
-msgstr ""
+msgstr "Lista se može videti na: %s"
 
 #: web/user/devel.inc.php:26
 msgid "Add a translation"
@@ -224,6 +225,8 @@ msgid ""
 "their organisation to the system. It will take at most one hour of their "
 "time to get things done."
 msgstr ""
+"Kontaktirajte %s administratore u vašoj instituciji i zahtevajte da dodaju "
+"vašu instituciju u sistem. To će im oduzeti najviše sat vremena."
 
 #: web/user/faq.inc.php:38 web/user/faq.php:35
 #, php-format
@@ -424,6 +427,7 @@ msgstr "Pravila korišćenja"
 #: web/user/tou.inc.php:24
 msgid "(for legal reasons, the Terms of Use are in English only)"
 msgstr ""
+"(iz pravnih razloga, Pravila korišćenja su dostupna samo na engleskom jeziku)"
 
 #: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:88
 #, php-format
@@ -952,7 +956,7 @@ msgstr "pogrešan token"
 
 #: web/skins/modern/accountstatus/accountstatus.php:244
 msgid "revoke"
-msgstr ""
+msgstr "povuci"
 
 #: web/skins/modern/accountstatus/accountstatus.php:256
 msgid "The details are displayed below."
@@ -1100,7 +1104,7 @@ msgstr "sve zemlje"
 
 #: web/skins/modern/user/js/cat_js.php:580
 msgid "or search for an organisation, for example University of Oslo"
-msgstr ""
+msgstr "ili pretražite po imenu institucije, npr. Ekonomski fakultet"
 
 #: web/skins/modern/user/js/cat_js.php:581
 msgid "show all countries"

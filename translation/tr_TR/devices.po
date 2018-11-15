@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 13:08+0100\n"
-"PO-Revision-Date: 2018-11-14 10:15+0000\n"
+"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"PO-Revision-Date: 2018-11-15 07:36+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/eduroam_devel/cat/"
 "language/tr_TR/)\n"
@@ -896,7 +896,7 @@ msgid "Incorrect certificate password$\\r$\\nenter again"
 msgstr "Yanlış sertifika parolası\\$r$\\n yeniden girin"
 
 #: devices/ms/Files/common.inc:1215
-msgid "Username contained spme trailing spaces which were removed."
+msgid "Username contained some trailing spaces which were removed."
 msgstr ""
 
 #: devices/ms/Files/common.inc:1250

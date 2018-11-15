@@ -4,14 +4,15 @@
 #
 # Translators:
 # Stefan Winter, 2011
+# eduroam_devel <stefan.winter@restena.lu>, 2018
 # stefanwinter <stefan.winter@gmail.com>, 2012
 # Steffen Klemer <klemer@dfn.de>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 13:08+0100\n"
-"PO-Revision-Date: 2018-11-14 09:05+0000\n"
+"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"PO-Revision-Date: 2018-11-15 07:37+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/eduroam_devel/cat/"
 "language/de_DE/)\n"
@@ -925,8 +926,8 @@ msgid "Incorrect certificate password$\\r$\\nenter again"
 msgstr "Falsches Passwort für das Zertifikat$\\r$\\nNeuer Versuch"
 
 #: devices/ms/Files/common.inc:1215
-msgid "Username contained spme trailing spaces which were removed."
-msgstr ""
+msgid "Username contained some trailing spaces which were removed."
+msgstr "Benutzername enthielt Leerzeichen am Ende; diese wurden entfernt."
 
 #: devices/ms/Files/common.inc:1250
 msgid ""

@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 13:08+0100\n"
-"PO-Revision-Date: 2018-10-19 14:08+0000\n"
-"Last-Translator: Maja Wolniewicz <maja.wolniewicz@gmail.com>\n"
+"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"PO-Revision-Date: 2018-11-14 21:56+0000\n"
+"Last-Translator: Tomasz Wolniewicz <tw2529@gmail.com>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/eduroam_devel/cat/"
 "language/pl_PL/)\n"
 "Language: pl_PL\n"
@@ -802,9 +802,9 @@ msgid ""
 msgstr ""
 
 #: web/admin/edit_profile_result.php:199
-#, fuzzy, php-format
+#, php-format
 msgid "Redirection set to <strong>%s</strong>"
-msgstr "Przekierowanie <strong>nieaktywne</strong> "
+msgstr "Ustawiono przekierowanie na realm <strong>%s</strong> "
 
 #: web/admin/edit_profile_result.php:203
 msgid "Redirection is <strong>OFF</strong>"
@@ -2255,9 +2255,8 @@ msgid "organisation"
 msgstr "instytucja"
 
 #: web/lib/admin/UIElements.php:59
-#, fuzzy
 msgid "Identity Provider"
-msgstr "dostawca tożsamości"
+msgstr "Dostawca tożsamości"
 
 #: web/lib/admin/UIElements.php:78
 msgid "SSID"

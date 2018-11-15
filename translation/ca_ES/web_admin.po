@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 13:08+0100\n"
-"PO-Revision-Date: 2018-10-19 07:14+0000\n"
+"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"PO-Revision-Date: 2018-11-15 07:28+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/ca_ES/)\n"
@@ -784,11 +784,13 @@ msgid ""
 "Redirection set to <strong>%s</strong>, but will be ignored due to existing "
 "device-level redirect."
 msgstr ""
+"S'ha configurat la redirecció cap a <strong>%s</strong>, però s'ignora a "
+"l'existir una redirecció a nivell de dispositiu."
 
 #: web/admin/edit_profile_result.php:199
-#, fuzzy, php-format
+#, php-format
 msgid "Redirection set to <strong>%s</strong>"
-msgstr "La redirecció està <strong>INACTIVA</strong>"
+msgstr "La redirecció està <strong>%s</strong>"
 
 #: web/admin/edit_profile_result.php:203
 msgid "Redirection is <strong>OFF</strong>"
@@ -2204,9 +2206,8 @@ msgid "organisation"
 msgstr "organització"
 
 #: web/lib/admin/UIElements.php:59
-#, fuzzy
 msgid "Identity Provider"
-msgstr "proveïdor d'identitat"
+msgstr "Proveïdor d'Identitat"
 
 #: web/lib/admin/UIElements.php:78
 msgid "SSID"

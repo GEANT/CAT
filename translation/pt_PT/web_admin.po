@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 13:08+0100\n"
-"PO-Revision-Date: 2018-10-18 21:54+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"PO-Revision-Date: 2018-11-14 21:56+0000\n"
+"Last-Translator: Pedro Simões <psimoes@fccn.pt>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/eduroam_devel/"
 "cat/language/pt_PT/)\n"
 "Language: pt_PT\n"
@@ -791,9 +791,9 @@ msgid ""
 msgstr ""
 
 #: web/admin/edit_profile_result.php:199
-#, fuzzy, php-format
+#, php-format
 msgid "Redirection set to <strong>%s</strong>"
-msgstr "Reencaminhamento está <strong>DESACTIVADO</strong>"
+msgstr ""
 
 #: web/admin/edit_profile_result.php:203
 msgid "Redirection is <strong>OFF</strong>"
@@ -2215,9 +2215,8 @@ msgid "organisation"
 msgstr "organização"
 
 #: web/lib/admin/UIElements.php:59
-#, fuzzy
 msgid "Identity Provider"
-msgstr "fornecedor de identidade"
+msgstr "Fornecedor de Identidade"
 
 #: web/lib/admin/UIElements.php:78
 msgid "SSID"

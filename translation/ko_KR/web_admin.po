@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 13:08+0100\n"
-"PO-Revision-Date: 2018-10-18 21:54+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"PO-Revision-Date: 2018-11-14 21:56+0000\n"
+"Last-Translator: Minseok Jang <msjang@kisti.re.kr>\n"
 "Language-Team: Korean (Korea) (http://www.transifex.com/eduroam_devel/cat/"
 "language/ko_KR/)\n"
 "Language: ko_KR\n"
@@ -1975,7 +1975,6 @@ msgid "organisation"
 msgstr "기관"
 
 #: web/lib/admin/UIElements.php:59
-#, fuzzy
 msgid "Identity Provider"
 msgstr "계정관리기관(IdP)"
 

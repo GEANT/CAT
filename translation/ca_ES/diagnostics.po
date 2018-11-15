@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 13:08+0100\n"
+"POT-Creation-Date: 2018-11-15 09:10+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>, 2018\n"
 "Language-Team: Catalan (Spain) (https://www.transifex.com/eduroam_devel/"
@@ -30,8 +30,8 @@ msgstr "Completat"
 msgid "Product is not configured to run this check."
 msgstr "El producte no està configurat per fer aquesta comprovació."
 
-#: core/diag/AbstractTest.php:289 web/diag/action_realmcheck.php:537
-#: web/diag/action_realmcheck.php:553
+#: core/diag/AbstractTest.php:289 web/diag/action_realmcheck.php:539
+#: web/diag/action_realmcheck.php:555
 msgid "This check was skipped."
 msgstr "Aquesta comprovació s'ha omès."
 
@@ -67,7 +67,7 @@ msgstr ""
 "El servidor RADIUS ha rebutjat la petició d'autenticació després d'una "
 "conversa EAP."
 
-#: core/diag/AbstractTest.php:332 web/diag/action_realmcheck.php:115
+#: core/diag/AbstractTest.php:332 web/diag/action_realmcheck.php:116
 msgid "Connection refused"
 msgstr "S'ha negat la connexió"
 
@@ -484,7 +484,7 @@ msgstr ""
 #. *
 #. * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
 #.
-#: core/diag/RFC7585Tests.php:134 web/diag/action_realmcheck.php:505
+#: core/diag/RFC7585Tests.php:134 web/diag/action_realmcheck.php:507
 msgid "This realm has no NAPTR records."
 msgstr "Aquest domini no té registres NAPTR."
 
@@ -1049,193 +1049,193 @@ msgstr "Cadena errònia de l'OperatorName"
 msgid "Sanity check for dynamic discovery of realms"
 msgstr "Comprovació d'estat per al descobriment dinàmic de dominis"
 
-#: web/diag/action_realmcheck.php:56
+#: web/diag/action_realmcheck.php:57
 msgid ""
 "You asked for a realm check, but we don't know the realm for this profile!"
 msgstr ""
 "Heu demanat per un test de domini, però no es coneix el domini per aquest "
 "perfil!"
 
-#: web/diag/action_realmcheck.php:65
+#: web/diag/action_realmcheck.php:66
 msgid "No valid realm name given, cannot execute any checks!"
 msgstr "No hi ha cap nom de domini vàlid, no podem executar cap test!"
 
-#: web/diag/action_realmcheck.php:69
+#: web/diag/action_realmcheck.php:70
 msgid "STATIC"
 msgstr "ESTÀTIC"
 
-#: web/diag/action_realmcheck.php:70
+#: web/diag/action_realmcheck.php:71
 msgid "DYNAMIC"
 msgstr "DINÀMIC"
 
-#: web/diag/action_realmcheck.php:98
+#: web/diag/action_realmcheck.php:99
 msgid "PASS"
 msgstr "PASSA"
 
-#: web/diag/action_realmcheck.php:99
+#: web/diag/action_realmcheck.php:100
 msgid "FAIL"
 msgstr "FALLA"
 
-#: web/diag/action_realmcheck.php:100
+#: web/diag/action_realmcheck.php:101
 msgid "Client certificate:"
 msgstr "Certificat de client:"
 
-#: web/diag/action_realmcheck.php:101
+#: web/diag/action_realmcheck.php:102
 msgid "expected result: "
 msgstr "resultat esperat:"
 
-#: web/diag/action_realmcheck.php:102
+#: web/diag/action_realmcheck.php:103
 msgid "Server accepted this client certificate"
 msgstr "El servidor ha acceptat aquest certificat de client"
 
-#: web/diag/action_realmcheck.php:103
+#: web/diag/action_realmcheck.php:104
 msgid "Server accepted this client certificate, but should not have"
 msgstr ""
 "El servidor ha acceptat aquest certificat de client, però no ho hauria "
 "d'haver fet"
 
-#: web/diag/action_realmcheck.php:104
+#: web/diag/action_realmcheck.php:105
 msgid "Server did not accept this client certificate"
 msgstr "El servidor no ha acceptat aquest certificat de client"
 
-#: web/diag/action_realmcheck.php:105
+#: web/diag/action_realmcheck.php:106
 msgid "Server did not accept this client certificate - reason"
 msgstr "El servidor no ha acceptat aquest certificat de client - raó"
 
-#: web/diag/action_realmcheck.php:106
+#: web/diag/action_realmcheck.php:107
 msgid "Rest of tests for this CA skipped"
 msgstr "S'ha omès la resta de proves  per a aquesta CA"
 
-#: web/diag/action_realmcheck.php:107
+#: web/diag/action_realmcheck.php:108
 msgid "You should update your list of accredited CAs"
 msgstr "Heu d'actualitzar la llista de CAs acreditades"
 
-#: web/diag/action_realmcheck.php:108
+#: web/diag/action_realmcheck.php:109
 msgid "Get it from here."
 msgstr "Obteniu-lo aquí."
 
-#: web/diag/action_realmcheck.php:110
+#: web/diag/action_realmcheck.php:111
 msgid "more"
 msgstr "més"
 
-#: web/diag/action_realmcheck.php:112 web/diag/action_realmcheck.php:654
+#: web/diag/action_realmcheck.php:113 web/diag/action_realmcheck.php:656
 msgid "Show detailed information for all tests"
 msgstr "Mostra informació detallada per a totes les proves"
 
-#: web/diag/action_realmcheck.php:127
+#: web/diag/action_realmcheck.php:128
 msgid "Server certificate"
 msgstr "Certificat de servidor"
 
-#: web/diag/action_realmcheck.php:128
+#: web/diag/action_realmcheck.php:129
 msgid "Subject"
 msgstr "Assumpte"
 
-#: web/diag/action_realmcheck.php:129
+#: web/diag/action_realmcheck.php:130
 msgid "Issuer"
 msgstr "Emissor"
 
-#: web/diag/action_realmcheck.php:130
+#: web/diag/action_realmcheck.php:131
 msgid "SubjectAltName"
 msgstr "SubjectAltName"
 
-#: web/diag/action_realmcheck.php:131
+#: web/diag/action_realmcheck.php:132
 msgid "Certificate policies"
 msgstr "Política de certificat"
 
-#: web/diag/action_realmcheck.php:132
+#: web/diag/action_realmcheck.php:133
 msgid "crlDistributionPoint"
 msgstr "crlDistributionPoint"
 
-#: web/diag/action_realmcheck.php:133
+#: web/diag/action_realmcheck.php:134
 msgid "authorityInfoAccess"
 msgstr "authorityInfoAccess"
 
-#: web/diag/action_realmcheck.php:134
+#: web/diag/action_realmcheck.php:135
 msgid "Hide detailed information for all tests"
 msgstr "Amaga informació detallada per a totes les proves"
 
-#: web/diag/action_realmcheck.php:138
+#: web/diag/action_realmcheck.php:139
 msgid "Subject:"
 msgstr "Assumpte:"
 
-#: web/diag/action_realmcheck.php:139
+#: web/diag/action_realmcheck.php:140
 msgid "Issuer:"
 msgstr "Emissor:"
 
-#: web/diag/action_realmcheck.php:140
+#: web/diag/action_realmcheck.php:141
 msgid "Valid from:"
 msgstr "Vàlid des de:"
 
-#: web/diag/action_realmcheck.php:141
+#: web/diag/action_realmcheck.php:142
 msgid "Valid to:"
 msgstr "Vàlid per a:"
 
-#: web/diag/action_realmcheck.php:142
+#: web/diag/action_realmcheck.php:143
 msgid "Serial number:"
 msgstr "Número de sèrie:"
 
-#: web/diag/action_realmcheck.php:143
+#: web/diag/action_realmcheck.php:144
 msgid "SHA1 fingerprint:"
 msgstr "Empremta SHA1: "
 
-#: web/diag/action_realmcheck.php:195
+#: web/diag/action_realmcheck.php:196
 msgid "Some required input is missing!"
 msgstr "Manca alguna cosa requerida!"
 
-#: web/diag/action_realmcheck.php:246 web/diag/action_realmcheck.php:327
-#: web/diag/action_realmcheck.php:350 web/diag/action_realmcheck.php:403
+#: web/diag/action_realmcheck.php:247 web/diag/action_realmcheck.php:328
+#: web/diag/action_realmcheck.php:351 web/diag/action_realmcheck.php:404
 #, php-format
 msgid "elapsed time: %sms."
 msgstr "temps transcorregut: %sms."
 
-#: web/diag/action_realmcheck.php:340 web/diag/action_realmcheck.php:393
+#: web/diag/action_realmcheck.php:341 web/diag/action_realmcheck.php:394
 msgid "Extensions"
 msgstr "Extensions"
 
-#: web/diag/action_realmcheck.php:341
+#: web/diag/action_realmcheck.php:342
 msgid "show server certificate details"
 msgstr "mostra els detalls del certificat de servidor"
 
-#: web/diag/action_realmcheck.php:361 web/diag/action_realmcheck.php:366
+#: web/diag/action_realmcheck.php:362 web/diag/action_realmcheck.php:367
 msgid "See the appropriate tab for details."
 msgstr "Mireu la pestanya corresponent per a més detalls."
 
-#: web/diag/action_realmcheck.php:380
+#: web/diag/action_realmcheck.php:381
 msgid "Server certificate details:"
 msgstr "Detalls del certificat de servidor:"
 
-#: web/diag/action_realmcheck.php:480
+#: web/diag/action_realmcheck.php:482
 #, php-format
 msgid "Realm testing for: %s"
 msgstr "Provant el domini per a: %s"
 
-#: web/diag/action_realmcheck.php:485 web/diag/action_realmcheck.php:493
+#: web/diag/action_realmcheck.php:487 web/diag/action_realmcheck.php:495
 msgid "Overview"
 msgstr "Resum"
 
-#: web/diag/action_realmcheck.php:486 web/diag/action_realmcheck.php:600
+#: web/diag/action_realmcheck.php:488 web/diag/action_realmcheck.php:602
 msgid "Static connectivity tests"
 msgstr "Proves de connectivitat estàtica"
 
-#: web/diag/action_realmcheck.php:487 web/diag/action_realmcheck.php:605
+#: web/diag/action_realmcheck.php:489 web/diag/action_realmcheck.php:607
 msgid "Dynamic connectivity tests"
 msgstr "Proves de connectivitat dinàmica"
 
-#: web/diag/action_realmcheck.php:488
+#: web/diag/action_realmcheck.php:490
 msgid "Live login tests"
 msgstr "Proves d'autenticació real"
 
 #. NAPTR existence check
-#: web/diag/action_realmcheck.php:497
+#: web/diag/action_realmcheck.php:499
 msgid "DNS chekcs"
 msgstr "Proves DNS"
 
 #. output in friendly words
-#: web/diag/action_realmcheck.php:502
+#: web/diag/action_realmcheck.php:504
 msgid "Checking NAPTR existence:"
 msgstr "Provant l'existència de NAPTR:"
 
-#: web/diag/action_realmcheck.php:508
+#: web/diag/action_realmcheck.php:510
 msgid ""
 "This realm has NAPTR records, but none are related to this roaming "
 "consortium."
@@ -1244,64 +1244,64 @@ msgstr ""
 "consorci de roaming."
 
 #. if none of the possible negative retvals, then we have matching NAPTRs
-#: web/diag/action_realmcheck.php:511
+#: web/diag/action_realmcheck.php:513
 #, php-format
 msgid "This realm has %d NAPTR records relating to this roaming consortium."
 msgstr ""
 "Aquest domini té %d registres NAPTR relatius a aquest consorci de roaming."
 
-#: web/diag/action_realmcheck.php:517
+#: web/diag/action_realmcheck.php:519
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
 msgstr "Comprovant conformitat NAPTR (flag = S i regex = {buit}):"
 
-#: web/diag/action_realmcheck.php:521
+#: web/diag/action_realmcheck.php:523
 msgid "No issues found."
 msgstr "No s'ha detectat cap problema."
 
-#: web/diag/action_realmcheck.php:524 web/diag/action_realmcheck.php:540
+#: web/diag/action_realmcheck.php:526 web/diag/action_realmcheck.php:542
 #, php-format
 msgid "At least one NAPTR with invalid content found!"
 msgstr "Al menys s'ha trobat un NAPTR amb contingut invàlid!"
 
-#: web/diag/action_realmcheck.php:534
+#: web/diag/action_realmcheck.php:536
 msgid "Checking SRVs:"
 msgstr "Comprovant SRVs:"
 
 #. print number of successfully retrieved SRV targets
-#: web/diag/action_realmcheck.php:543
+#: web/diag/action_realmcheck.php:545
 #, php-format
 msgid "%d host names discovered."
 msgstr "%d noms de servidor descoberts."
 
-#: web/diag/action_realmcheck.php:550
+#: web/diag/action_realmcheck.php:552
 msgid "Checking IP address resolution:"
 msgstr "Comprovant resolució d'adreces IP:"
 
-#: web/diag/action_realmcheck.php:556
+#: web/diag/action_realmcheck.php:558
 #, php-format
 msgid "At least one hostname could not be resolved!"
 msgstr "Al menys un nom de servidor no s'ha pogut resoldre!"
 
 #. print number of successfully retrieved SRV targets
-#: web/diag/action_realmcheck.php:559
+#: web/diag/action_realmcheck.php:561
 #, php-format
 msgid "%d IP addresses resolved."
 msgstr "S'han resolt %d adreces IP."
 
-#: web/diag/action_realmcheck.php:566 web/diag/action_realmcheck.php:568
+#: web/diag/action_realmcheck.php:568 web/diag/action_realmcheck.php:570
 #, php-format
 msgid "Realm is <strong>%s</strong> "
 msgstr "El domini és <strong>%s</strong> "
 
-#: web/diag/action_realmcheck.php:566
+#: web/diag/action_realmcheck.php:568
 msgid "with no DNS errors encountered. Congratulations!"
 msgstr "sense errors DNS detectats. Enhorabona!"
 
-#: web/diag/action_realmcheck.php:568
+#: web/diag/action_realmcheck.php:570
 msgid "but there were DNS errors! Check them!"
 msgstr "però s'ha detectat errors DNS! Comproveu-los!"
 
-#: web/diag/action_realmcheck.php:568
+#: web/diag/action_realmcheck.php:570
 msgid ""
 "You should re-run the tests after fixing the errors; more errors might be "
 "uncovered at that point. The exact error causes are listed below."
@@ -1310,19 +1310,19 @@ msgstr ""
 "descobrir altres errors no detectats ara. Les causes exactes d'error es "
 "mostren a sota. "
 
-#: web/diag/action_realmcheck.php:598
+#: web/diag/action_realmcheck.php:600
 msgid "Dynamic discovery test is not configured"
 msgstr "No s'ha configurat l'exploració dinàmica"
 
-#: web/diag/action_realmcheck.php:616
+#: web/diag/action_realmcheck.php:618
 msgid "Repeat static connectivity tests"
 msgstr "Repetir la prova de connectivitat estàtica"
 
-#: web/diag/action_realmcheck.php:619
+#: web/diag/action_realmcheck.php:621
 msgid "STATIC connectivity tests"
 msgstr "Proves estàtiques de connectivitat "
 
-#: web/diag/action_realmcheck.php:621
+#: web/diag/action_realmcheck.php:623
 msgid ""
 "This check sends a request for the realm through various entry points of the "
 "roaming consortium infrastructure. The request will contain the 'Operator-"
@@ -1339,41 +1339,41 @@ msgstr ""
 "correctament. Per això esperem rebre una resposta \"Access-Reject\" després "
 "de mantenir una conversa EAP."
 
-#: web/diag/action_realmcheck.php:625 web/diag/action_realmcheck.php:737
+#: web/diag/action_realmcheck.php:627 web/diag/action_realmcheck.php:739
 #, php-format
 msgid "Testing from: %s"
 msgstr "Provant des de: %s"
 
-#: web/diag/action_realmcheck.php:630 web/diag/action_realmcheck.php:663
-#: web/diag/action_realmcheck.php:676
+#: web/diag/action_realmcheck.php:632 web/diag/action_realmcheck.php:665
+#: web/diag/action_realmcheck.php:678
 msgid "testing..."
 msgstr "provant..."
 
-#: web/diag/action_realmcheck.php:645
+#: web/diag/action_realmcheck.php:647
 msgid "Repeat dynamic connectivity tests"
 msgstr "Repetir proves de connectivitat dinàmica"
 
-#: web/diag/action_realmcheck.php:649
+#: web/diag/action_realmcheck.php:651
 msgid "DYNAMIC connectivity tests"
 msgstr "Proves dinàmiques de connectivitat"
 
-#: web/diag/action_realmcheck.php:653
+#: web/diag/action_realmcheck.php:655
 msgid "Some errors were found during the tests, see below"
 msgstr "S'ha trobat alguns errors durant les proves, mireu a sota"
 
-#: web/diag/action_realmcheck.php:653
+#: web/diag/action_realmcheck.php:655
 msgid "All tests passed, congratulations!"
 msgstr "Felicitats! S'ha superat totes les proves."
 
-#: web/diag/action_realmcheck.php:654
+#: web/diag/action_realmcheck.php:656
 msgid "Checking server handshake..."
 msgstr "Comprovant la salutació del servidor..."
 
-#: web/diag/action_realmcheck.php:684
+#: web/diag/action_realmcheck.php:686
 msgid "Checking if certificates from  CAs are accepted..."
 msgstr "Comprovant si els certificats de les CAs són acceptats..."
 
-#: web/diag/action_realmcheck.php:684
+#: web/diag/action_realmcheck.php:686
 msgid ""
 "A few client certificates will be tested to check if servers are resistant "
 "to some certificate problems."
@@ -1381,11 +1381,11 @@ msgstr ""
 "Es comprovaran uns pocs certificats de client per assegurar que els "
 "servidors són immunes a determinats problemes de certificat."
 
-#: web/diag/action_realmcheck.php:698
+#: web/diag/action_realmcheck.php:700
 msgid "Live login test"
 msgstr "Prova d'autenticació real"
 
-#: web/diag/action_realmcheck.php:711
+#: web/diag/action_realmcheck.php:713
 msgid ""
 "If you enter an existing login credential here, you can test the actual "
 "authentication from various checkpoints all over the world."
@@ -1393,7 +1393,7 @@ msgstr ""
 "Si entreu unes credencials existents aquí, podreu comprovar l'autenticació "
 "real des de diversos punts de prova de tot el mon."
 
-#: web/diag/action_realmcheck.php:712
+#: web/diag/action_realmcheck.php:714
 msgid ""
 "The test will use all EAP types you have set in your profile information to "
 "check whether the right CAs and server names are used, and of course whether "
@@ -1406,7 +1406,7 @@ msgstr ""
 "d'EAP configurats funcionen realment. Si heu configurat una identitat "
 "anònima externa, la prova la farà servir."
 
-#: web/diag/action_realmcheck.php:713
+#: web/diag/action_realmcheck.php:715
 msgid ""
 "Note: the tool purposefully does not offer you to save these credentials, "
 "and they will never be saved in any way on the server side. Please use only "
@@ -1418,43 +1418,43 @@ msgstr ""
 "només <strong>comptes de prova temporals</strong>; comptes de prova vàlides "
 "permanentment es consideren perilloses!"
 
-#: web/diag/action_realmcheck.php:721
+#: web/diag/action_realmcheck.php:723
 msgid "Password-based EAP types"
 msgstr "Tipus EAP basats en contrasenya"
 
-#: web/diag/action_realmcheck.php:722
+#: web/diag/action_realmcheck.php:724
 msgid "Real (inner) username:"
 msgstr "Nom real (intern) de l'usuari:"
 
-#: web/diag/action_realmcheck.php:723
+#: web/diag/action_realmcheck.php:725
 msgid "Anonymous outer ID (optional):"
 msgstr "ID externa anònima (opcional):"
 
-#: web/diag/action_realmcheck.php:724
+#: web/diag/action_realmcheck.php:726
 msgid "Password:"
 msgstr "Contrasenya:"
 
-#: web/diag/action_realmcheck.php:728
+#: web/diag/action_realmcheck.php:730
 msgid "Certificate-based EAP types"
 msgstr "Tipus EAP basats en certificat"
 
-#: web/diag/action_realmcheck.php:729
+#: web/diag/action_realmcheck.php:731
 msgid "Certificate file (.p12 or .pfx):"
 msgstr "Fitxer de certificat (.p12 o .pfx):"
 
-#: web/diag/action_realmcheck.php:730
+#: web/diag/action_realmcheck.php:732
 msgid "Certificate password, if any:"
 msgstr "Contrasenya del certificat, si n'hi ha:"
 
-#: web/diag/action_realmcheck.php:731
+#: web/diag/action_realmcheck.php:733
 msgid "Username, if different from certificate Subject:"
 msgstr "Usuari, si és diferent del Subject del certificat:"
 
-#: web/diag/action_realmcheck.php:733
+#: web/diag/action_realmcheck.php:735
 msgid "Submit credentials"
 msgstr "Enviar credencials"
 
-#: web/diag/action_realmcheck.php:759
+#: web/diag/action_realmcheck.php:761
 #, php-format
 msgid "Return to %s administrator area"
 msgstr "Torna a l'àrea d'administració de %s"

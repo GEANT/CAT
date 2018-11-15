@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 13:08+0100\n"
-"PO-Revision-Date: 2018-11-14 10:15+0000\n"
+"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"PO-Revision-Date: 2018-11-14 21:56+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/eduroam_devel/cat/"
 "language/tr_TR/)\n"
@@ -784,9 +784,9 @@ msgid ""
 msgstr ""
 
 #: web/admin/edit_profile_result.php:199
-#, fuzzy, php-format
+#, php-format
 msgid "Redirection set to <strong>%s</strong>"
-msgstr "Yönlendirme <strong>KAPALI</strong>"
+msgstr ""
 
 #: web/admin/edit_profile_result.php:203
 msgid "Redirection is <strong>OFF</strong>"
@@ -2196,9 +2196,8 @@ msgid "organisation"
 msgstr "kurum"
 
 #: web/lib/admin/UIElements.php:59
-#, fuzzy
 msgid "Identity Provider"
-msgstr "kimlik sağlayıcı"
+msgstr "Kimlik Sağlayıcı"
 
 #: web/lib/admin/UIElements.php:78
 msgid "SSID"

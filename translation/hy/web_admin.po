@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 13:08+0100\n"
-"PO-Revision-Date: 2018-10-18 21:54+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"PO-Revision-Date: 2018-11-14 21:56+0000\n"
+"Last-Translator: Arthur Petrosyan <arthur@sci.am>\n"
 "Language-Team: Armenian (http://www.transifex.com/eduroam_devel/cat/language/"
 "hy/)\n"
 "Language: hy\n"
@@ -1985,9 +1985,8 @@ msgid "organisation"
 msgstr "կազմակերպություն"
 
 #: web/lib/admin/UIElements.php:59
-#, fuzzy
 msgid "Identity Provider"
-msgstr "ինքնության մատակարար"
+msgstr "Ինքնության Մատակարար (IdP)"
 
 #: web/lib/admin/UIElements.php:78
 msgid "SSID"

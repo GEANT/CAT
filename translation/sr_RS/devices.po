@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Marko Eremija <marko.eremija@amres.ac.rs>, 2018
 # marko <marko.stojakovic@rcub.bg.ac.rs>, 2012
 # nlemajic <natasa.lemajic@rcub.bg.ac.rs>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 13:08+0100\n"
-"PO-Revision-Date: 2018-11-14 10:00+0000\n"
+"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"PO-Revision-Date: 2018-11-15 07:36+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Serbian (Serbia) (http://www.transifex.com/eduroam_devel/cat/"
 "language/sr_RS/)\n"
@@ -100,7 +101,7 @@ msgstr ""
 
 #: devices/Devices-template.php:347
 msgid "Android 9.0 Pie"
-msgstr ""
+msgstr "Android 9.0 Pie"
 
 #: devices/Devices-template.php:353 devices/Devices-template.php:369
 #: devices/Devices-template.php:385 devices/Devices-template.php:401
@@ -127,11 +128,11 @@ msgstr "kao lokalno preuzimanje"
 
 #: devices/Devices-template.php:363
 msgid "Android 8.0 Oreo"
-msgstr ""
+msgstr "Android 8.0 Oreo"
 
 #: devices/Devices-template.php:379
 msgid "Android 6.0 Nougat"
-msgstr ""
+msgstr "Android 6.0 Nougat"
 
 #: devices/Devices-template.php:395
 msgid "Android 6.0 Marshmallow"
@@ -600,6 +601,8 @@ msgid ""
 "You will be required to enter the same credentials for each of the "
 "configured networks:"
 msgstr ""
+"Od vas će se zahtevati da uneste iste kredencijale za svaku konfigurisanu "
+"mrežu:"
 
 #: devices/ms/WindowsCommon.php:264 devices/ms/WindowsCommon.php:265
 #, php-format
@@ -905,7 +908,7 @@ msgid "Incorrect certificate password$\\r$\\nenter again"
 msgstr "Netačna lozinka za sertifikat $\\r$\\nunesite ponovo"
 
 #: devices/ms/Files/common.inc:1215
-msgid "Username contained spme trailing spaces which were removed."
+msgid "Username contained some trailing spaces which were removed."
 msgstr ""
 
 #: devices/ms/Files/common.inc:1250

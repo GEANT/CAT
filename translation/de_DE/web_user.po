@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# eduroam_devel <stefan.winter@restena.lu>, 2018
 # stefanwinter <stefan.winter@gmail.com>, 2015
 # Steffen Klemer <klemer@dfn.de>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 13:08+0100\n"
-"PO-Revision-Date: 2018-11-14 09:06+0000\n"
+"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"PO-Revision-Date: 2018-11-15 07:28+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/eduroam_devel/cat/"
 "language/de_DE/)\n"
@@ -967,7 +968,7 @@ msgstr "Ungültiger Token"
 
 #: web/skins/modern/accountstatus/accountstatus.php:244
 msgid "revoke"
-msgstr ""
+msgstr "Sperren"
 
 #: web/skins/modern/accountstatus/accountstatus.php:256
 msgid "The details are displayed below."
