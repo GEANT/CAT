@@ -27,6 +27,7 @@ $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 echo $deco->defaultPagePrelude(sprintf(_("Sanity check for dynamic discovery of realms"), CONFIG['APPEARANCE']['productname']));
 $gui = new \web\lib\user\Gui();
+$gui->langObject->setTextDomain("web_admin");
 $ourlocale = $gui->langObject->getLang();
 
 $my_profile = NULL;
@@ -65,7 +66,7 @@ if ($profile_id) {
         $error_message = _("No valid realm name given, cannot execute any checks!");
     }
 }
-
+$gui->langObject->setTextDomain("diagnostics");
 $translate1 = _("STATIC");
 $translate2 = _("DYNAMIC");
 $errorstate = [];
@@ -473,6 +474,7 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
 <body>
 <?php
 echo $deco->productheader("ADMIN");
+$gui->langObject->setTextDomain("diagnostics");
 
 if ($check_realm === FALSE) {
     print "<p>$error_message</p>";
