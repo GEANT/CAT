@@ -1212,7 +1212,7 @@ Loop3:
       GoTo Loop3
    ${EndIf}
    ${If} $spacesRemoved == 1
-      MessageBox MB_OK "<?php WindowsCommon::echo_nsi(_("Username contained spme trailing spaces which were removed."))?>"
+      MessageBox MB_OK "<?php WindowsCommon::echo_nsi(_("Username contained some trailing spaces which were removed."))?>"
    ${EndIf}
    Push $R5
 FunctionEnd
