@@ -578,10 +578,15 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                         throw new Exception("Error when sending SOAP request (unable to change expiry date).");
                     }
                     // retrieve the raw request to prepare for signature and approval
-                    $soapRawRequest = $soap->getRawRequest($soapReqnum);
+                    // this seems to come out base64-decoded already; maybe PHP
+                    // considers this "convenience"? But we need it as sent on
+                    // the wire, so re-encode it!
+                    $soapRawRequest = trim(chunk_split(base64_encode($soap->getRawRequest($soapReqnum)), 76, "\r\n"));
                     if (strlen($soapRawRequest) < 10) { // very basic error handling
                         throw new Exception("Suspiciously short data to sign!");
                     }
+                    $loggerInstance->debug(5,"Actual received SOAP request was:\n\n");
+                    $loggerInstance->debug(5, $soap->__getLastResponse());
                     // for obnoxious reasons, we have to dump the request into a file and let pkcs7_sign read from the file
                     // rather than just using the string. Grr.
                     $tempdir = \core\common\Entity::createTemporaryDirectory("test");
@@ -611,9 +616,9 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     $detachedSig = implode("\n",$detachedSigSmall);
                     $loggerInstance->debug(5, "Request for server approveRequest has parameters:\n");
                     $loggerInstance->debug(5, $soapReqnum."\n");
-                    $loggerInstance->debug(5, base64_encode($soapRawRequest)."\n");
+                    $loggerInstance->debug(5, $soapRawRequest."\n");
                     $loggerInstance->debug(5, $detachedSig."\n");
-                    $soapIssueCert = $soap->approveRequest($soapReqnum, base64_encode($soapRawRequest), $detachedSig);
+                    $soapIssueCert = $soap->approveRequest($soapReqnum, $soapRawRequest, $detachedSig);
                     if ($soapIssueCert === FALSE) {
                         throw new Exception("The locally approved request was NOT processed by the CA.");
                     }
