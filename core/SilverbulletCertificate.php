@@ -403,7 +403,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                 openssl_pkey_export($privateKey, $outstring);
                 file_put_contents($tempdir . "/pkey.pem", $outstring);
                 // PHP can only do one DC in the Subject. But we need three.
-                $execCmd = CONFIG['PATHS']['openssl'] . " req -new -sha256 -key $tempdir/pkey.pem -out $tempdir/request.csr -subj /DC=test/DC=test/DC=eduroam/C=$fed/O=".CONFIG_CONFASSISTANT['CONSORTIUM']['name']."/OU=$fed/CN=$username/emailAddress=$username";
+                $execCmd = CONFIG['PATHS']['openssl'] . " req -new -sha256 -key $tempdir/pkey.pem -out $tempdir/request.csr -subj /DC=test/DC=test/DC=eduroam/C=$fed/O=" . CONFIG_CONFASSISTANT['CONSORTIUM']['name'] . "/OU=$fed/CN=$username/emailAddress=$username";
                 $loggerInstance->debug(2, "Calling openssl req with following cmdline: $execCmd\n");
                 $output = [];
                 $return = 999;
@@ -525,7 +525,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     $soapPub = SilverbulletCertificate::initEduPKISoapSession("PUBLIC");
                     $loggerInstance->debug(5, "FIRST ACTUAL SOAP REQUEST (Public, newRequest)!\n");
                     $loggerInstance->debug(5, "PARAM_1: " . SilverbulletCertificate::EDUPKI_RA_ID . "\n");
-                    $loggerInstance->debug(5, "PARAM_2: ".$csr["CSR"]."\n");
+                    $loggerInstance->debug(5, "PARAM_2: " . $csr["CSR"] . "\n");
                     $loggerInstance->debug(5, "PARAM_3: ");
                     $loggerInstance->debug(5, $altArray);
                     $loggerInstance->debug(5, "PARAM_4: " . SilverbulletCertificate::EDUPKI_CERT_PROFILE . "\n");
@@ -568,8 +568,8 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                             $soapReqnum, [
                         "RaID" => SilverbulletCertificate::EDUPKI_RA_ID,
                         "Role" => SilverbulletCertificate::EDUPKI_CERT_PROFILE,
-                        "Subject" => "DC=eduroam,DC=test,DC=test,C=".$csr["FED"].",O=".CONFIG_CONFASSISTANT['CONSORTIUM']['name'].",OU=".$csr["FED"].",CN=".$csr['USERNAME'].",emailAddress=".$csr['USERNAME'],
-                        "SubjectAltNames" => ["email:".$csr["USERNAME"]],
+                        "Subject" => "DC=eduroam,DC=test,DC=test,C=" . $csr["FED"] . ",O=" . CONFIG_CONFASSISTANT['CONSORTIUM']['name'] . ",OU=" . $csr["FED"] . ",CN=" . $csr['USERNAME'] . ",emailAddress=" . $csr['USERNAME'],
+                        "SubjectAltNames" => ["email:" . $csr["USERNAME"]],
                         "NotBefore" => (new \DateTime())->format('c'),
                         "NotAfter" => $expiry->format('c'),
                             ]
@@ -585,7 +585,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     if (strlen($soapRawRequest) < 10) { // very basic error handling
                         throw new Exception("Suspiciously short data to sign!");
                     }
-                    $loggerInstance->debug(5,"Actual received SOAP request was:\n\n");
+                    $loggerInstance->debug(5, "Actual received SOAP request was:\n\n");
                     $loggerInstance->debug(5, $soap->__getLastResponse());
                     // for obnoxious reasons, we have to dump the request into a file and let pkcs7_sign read from the file
                     // rather than just using the string. Grr.
@@ -595,29 +595,21 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     $raCertFile = file_get_contents(ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem");
                     $raCert = openssl_x509_read($raCertFile);
                     $raKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey");
-                    // sign the data
-                    if (openssl_pkcs7_sign($tempdir['dir'] . "/content.txt", $tempdir['dir'] . "/signature.txt", $raCert, $raKey, []) === FALSE) {
-                        throw new Exception("Unable to sign the certificate approval data!");
+                    // sign the data, using cmdline because openssl_pkcs7_sign produces strange results
+                    $execCmd = CONFIG['PATHS']['openssl'] . " smime -sign -in ".$tempdir['dir']."/content.txt -out ".$tempdir['dir']."/signature.txt -outform pem -inkey ".ROOT."/config/SilverbulletClientCerts/edupki-test-ra.clearkey -signer ".ROOT."/config/SilverbulletClientCerts/edupki-test-ra.pem";
+                    $loggerInstance->debug(2, "Calling openssl smime with following cmdline: $execCmd\n");
+                    $output = [];
+                    $return = 999;
+                    exec($execCmd, $output, $return);
+                    if ($return !== 0) {
+                        throw new Exception("Non-zero return value from openssl smime!");
                     }
                     // and get the signature blob back from the filesystem
-                    $detachedSigBloat = file_get_contents($tempdir['dir'] . "/signature.txt");
-                    $loggerInstance->debug(5, "Raw Request is:\n");
-                    $loggerInstance->debug(5, $soapRawRequest."\n");
-                    $loggerInstance->debug(5, "Signature is:\n");
-                    $loggerInstance->debug(5, $detachedSigBloat."\n");
-                    $detachedSigBloatArray = explode("\n",$detachedSigBloat);
-                    $index = array_search('Content-Disposition: attachment; filename="smime.p7s"',$detachedSigBloatArray);
-                    $detachedSigSmall = array_slice($detachedSigBloatArray, $index+1);
-                    $detachedSigSmall[0] = "-----BEGIN PKCS7-----";
-                    array_pop($detachedSigSmall);
-                    array_pop($detachedSigSmall);
-                    array_pop($detachedSigSmall);
-                    $detachedSigSmall[count($detachedSigSmall)-1] = "-----END PKCS7-----";
-                    $detachedSig = implode("\n",$detachedSigSmall);
+                    $detachedSig = file_get_contents($tempdir['dir'] . "/signature.txt");
                     $loggerInstance->debug(5, "Request for server approveRequest has parameters:\n");
-                    $loggerInstance->debug(5, $soapReqnum."\n");
-                    $loggerInstance->debug(5, $soapRawRequest."\n");
-                    $loggerInstance->debug(5, $detachedSig."\n");
+                    $loggerInstance->debug(5, $soapReqnum . "\n");
+                    $loggerInstance->debug(5, $soapRawRequest . "\n");
+                    $loggerInstance->debug(5, $detachedSig . "\n");
                     $soapIssueCert = $soap->approveRequest($soapReqnum, $soapRawRequest, $detachedSig);
                     if ($soapIssueCert === FALSE) {
                         throw new Exception("The locally approved request was NOT processed by the CA.");
