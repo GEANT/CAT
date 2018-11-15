@@ -2,7 +2,7 @@ VERSION = CAT-2.0.0-beta3
 VV = $(VERSION)/
 .PHONY: translation
 
-all: translation
+all: translation documentation
 
 documentation:
 	rm -Rf web/apidoc build
@@ -11,7 +11,7 @@ documentation:
 #	mv core/phpqrcode.xyz core/phpqrcode.php
 
 pull_from_transifex:
-	tx pull --all
+	tx pull --all --force
 
 translation: pull_from_transifex
 	echo "****************************************"
@@ -48,5 +48,5 @@ distribution: all
 	git submodule update --init devices/ms/Files/GEANTLink
 	find . -name \*.po~ -exec rm {} \;
 	find . -name svn-commit.tmp -exec rm {} \;
-	rm -R -f NewFolder nbproject config/config-master.php config/config-confassistant.php config/config-diagnostics.php devices/Devices.php .codeclimate.yml .git .github .scrutinizer.yml .gitignore .gitmodules core/simpleSAMLphp core/PHPMailer core/PHPUnit core/GeoIP2
+	rm -R -f NewFolder nbproject .tx config/config-master.php config/config-confassistant.php config/config-diagnostics.php devices/Devices.php .codeclimate.yml .git .github .scrutinizer.yml .gitignore .gitmodules core/simpleSAMLphp core/PHPMailer core/PHPUnit core/GeoIP2
 	tar -cvjf ../$(VERSION).tar.bz2 --show-transformed-names --exclude-vcs --xform 's/^\.\(\/\)/$(VERSION)\1/' .
