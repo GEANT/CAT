@@ -312,6 +312,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
     echo $deco->productHeader("ADMIN-IDP-USERS");
     ?>
     <img src='../resources/images/icons/loading51.gif' id='spin' style='position:absolute;left: 50%; top: 50%; transform: translate(-100px, -50px); display:none; z-index: 100;'>
+    <?php echo $uiElements->instLevelInfoBoxes($inst);?>
     <div class='infobox'>
         <h2><?php echo sprintf(_('Current %s users'), \core\ProfileSilverbullet::PRODUCTNAME); ?></h2>
         <table>
