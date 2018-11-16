@@ -189,6 +189,10 @@ class UIElements {
                         }
                         break;
                     case "boolean":
+                        if ($option['name'] == "fed:silverbullet" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
+                            // do not display the option at all; it gets auto-set by the ProfileSilverbullet constructor and doesn't have to be seen
+                            break;
+                        }
                         $retval .= "<tr><td>" . $this->displayName($option['name']) . "</td><td>$language</td><td><strong>" . ($content == "on" ? _("on") : _("off") ) . "</strong></td></tr>";
                         break;
                     default:
