@@ -257,7 +257,7 @@ class SilverbulletInvitation extends common\Entity {
      */
     public function revokeInvitation() {
         $query = "UPDATE silverbullet_invitation SET expiry = NOW() WHERE id = ? AND profile_id = ?";
-        $this->databaseHandle->exec($query, "ii", $this->invitationTokenString, $this->identifier);
+        $this->databaseHandle->exec($query, "ii", $this->identifier, $this->profile);
     }
 
     /**

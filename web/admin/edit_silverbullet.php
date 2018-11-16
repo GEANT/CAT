@@ -152,12 +152,9 @@ if (isset($_POST['command'])) {
             }
             break;
         case \web\lib\common\FormElements::BUTTON_REVOKEINVITATION:
-            if (isset($_POST['invitationid'])) {
-                $filteredId = $validator->integer(filter_input(INPUT_POST, 'invitationid'));
-                if ($filteredId === FALSE) { // not a real invitation ID, ignore
-                    continue;
-                }
-                $invitationObject = new core\SilverbulletInvitation($filteredId);
+            if (isset($_POST['invitationtoken'])) {
+                $filteredToken = $validator->token(filter_input(INPUT_POST, 'invitationtoken'));
+                $invitationObject = new core\SilverbulletInvitation($filteredToken);
                 $invitationObject->revokeInvitation();
                 sleep(1); // make sure the expiry timestamps of invitations and certs are at least one second in the past
             }
@@ -479,7 +476,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                                     $tokenHtmlBuffer .= "<td>" . _("Expiry Date:") . " " . $invitationObject->expiry . " UTC<br>" . _("Activations remaining:") . " " . sprintf(_("%d of %d"), $invitationObject->activationsRemaining, $invitationObject->activationsTotal) . "</td>";
                                     $tokenHtmlBuffer .= "<td>"
                                             . $formtext
-                                            . "<input type='hidden' name='invitationid' value='" . $invitationObject->identifier . "'/>"
+                                            . "<input type='hidden' name='invitationtoken' value='" . $invitationObject->invitationTokenString . "'/>"
                                             . "<button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_REVOKEINVITATION . "' class='delete'>"._("Revoke"). "</button></form>"
                                             . "</td></tr>";
                                     break;

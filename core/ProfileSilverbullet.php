@@ -306,11 +306,11 @@ class ProfileSilverbullet extends AbstractProfile {
             return FALSE;
         }
         // set the expiry date of any still valid invitations to NOW()
-        $query = "SELECT id FROM silverbullet_invitation WHERE profile_id = $this->identifier AND silverbullet_user_id = ? AND expiry >= NOW()";
+        $query = "SELECT token FROM silverbullet_invitation WHERE profile_id = $this->identifier AND silverbullet_user_id = ? AND expiry >= NOW()";
         $exec = $this->databaseHandle->exec($query, "i", $userId);
         // SELECT -> resource, not boolean
         while ($result = mysqli_fetch_object(/** @scrutinizer ignore-type */ $exec)) {
-            $invitation = new SilverbulletInvitation($result->id);
+            $invitation = new SilverbulletInvitation($result->token);
             $invitation->revokeInvitation();
         }
         // and revoke all certificates
