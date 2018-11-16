@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -113,10 +114,13 @@ class OptionDisplay {
         $retval = "";
 
         $optioninfo = \core\Options::instance();
-
+        $blackListOnPrefill = "user:fedadmin";
+        if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
+            $blackListOnPrefill .= "|fed:silverbullet";
+        }
         if (is_array($prepopulate) && ( count($prepopulate) > 1 || $class == "device-specific" || $class == "eap-specific")) { // editing... fill with values
             foreach ($prepopulate as $option) {
-                if (preg_match("/$class:/", $option['name']) && !preg_match("/(user:fedadmin)/", $option['name'])) {
+                if (preg_match("/$class:/", $option['name']) && !preg_match("/($blackListOnPrefill)/", $option['name'])) {
                     $optiontypearray = $optioninfo->optionType($option['name']);
                     $loggerInstance = new \core\common\Logging();
                     $loggerInstance->debug(5, "About to execute optiontext with PREFILL!\n");
@@ -134,6 +138,13 @@ class OptionDisplay {
                     break;
                 case "user":
                     $blacklistItem = array_search("user:fedadmin", $list);
+                    break;
+                case "fed":
+                    // if we are a Managed IdP exclusive deployment, do not display or allow
+                    // to change the "Enable Managed IdP" boolean - it is simply always there
+                    if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
+                        $blacklistItem = array_search("fed:silverbullet", $list);
+                    }
                     break;
                 default:
                     $blacklistItem = FALSE;
@@ -315,7 +326,7 @@ FOO;
             case \core\Options::TYPECODE_COORDINATES:
                 $this->allLocationCount = $this->allLocationCount + 1;
                 // display of the locations varies by map provider
-                $classname = "\web\lib\admin\Map".CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER'];
+                $classname = "\web\lib\admin\Map" . CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER'];
                 $link = $classname::optionListDisplayCode($optionValue, $this->allLocationCount);
                 $retval .= "<input readonly style='display:none' type='text' name='value[S$rowid-" . \core\Options::TYPECODE_TEXT . "]' id='S$rowid-input-text' value='$optionValue'>$link";
                 break;
@@ -393,11 +404,10 @@ FOO;
        <td>
           <button type='button' class='delete' onclick='";
         if ($prefillValue !== NULL && $item == "general:geo_coordinates") {
-            $funcname = "Map".CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER'].'DeleteCoord';
-                $retval .= 'if (typeof '.$funcname.' === "function") { '.$funcname.'('.$this->allLocationCount.'); } ';
-            
+            $funcname = "Map" . CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER'] . 'DeleteCoord';
+            $retval .= 'if (typeof ' . $funcname . ' === "function") { ' . $funcname . '(' . $this->allLocationCount . '); } ';
         }
-        $retval .= 'deleteOption("option-S'.$rowid.'")';
+        $retval .= 'deleteOption("option-S' . $rowid . '")';
         $retval .= "'>-</button>
        </td>
     </tr>";

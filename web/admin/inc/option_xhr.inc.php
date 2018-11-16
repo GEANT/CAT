@@ -30,7 +30,7 @@ const DO_NOT_DISPLAY = [
     "support" => [],
     "profile" => [],
     "media" => [],
-    "fed" => [],
+    "fed" => [(CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL" ? "fed:silverbullet" : "")],
     "device-specific" => [],
     "eap-specific" => [],
 ];
