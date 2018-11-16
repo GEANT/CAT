@@ -107,7 +107,13 @@ if (isset($_POST['command'])) {
         case \web\lib\common\FormElements::BUTTON_ADDUSER:
             if (isset($_POST['username']) && isset($_POST['userexpiry'])) {
                 $properName = $validator->User($_POST['username']);
-                $properDate = new DateTime($_POST['userexpiry']);
+                try {
+                    $properDate = new DateTime($_POST['userexpiry']);
+                } catch (Exception $e) {
+                    // it's okay if this fails. Just bogus input from the user
+                    // just don't do anything
+                    break;
+                }
                 $profile->addUser($properName, $properDate);
             }
             if (isset($_FILES['newusers']) && $_FILES['newusers']['size'] > 0) {
@@ -147,7 +153,12 @@ if (isset($_POST['command'])) {
                 if ($properId === FALSE) { // not a real user ID
                     continue;
                 }
-                $properDate = new DateTime($_POST['userexpiry']);
+                try {
+                    $properDate = new DateTime($_POST['userexpiry']);
+                } catch (Exception $e) {
+                    // do nothing, just ignore the bogus request
+                    break;
+                }
                 $profile->setUserExpiryDate($properId, $properDate);
             }
             break;
