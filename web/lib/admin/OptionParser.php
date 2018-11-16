@@ -397,6 +397,13 @@ class OptionParser {
                                         continue 3;
                                     }
                                     break;
+                                case "support:email":
+                                    $content = $this->validator->email($listOfEntries["$objId-" . \core\Options::TYPECODE_STRING]);
+                                    if ($content === FALSE) {
+                                        $bad[] = $objValue;
+                                        continue 3;
+                                    }
+                                    break;
                                 default:
                                     $content = $this->validator->string($listOfEntries["$objId-" . \core\Options::TYPECODE_STRING]);
                                     break;
