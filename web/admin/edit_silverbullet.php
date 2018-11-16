@@ -90,6 +90,9 @@ if (isset($_POST['token'])) {
 
 if (isset($_POST['command'])) {
     switch ($_POST['command']) {
+        case \web\lib\common\FormElements::BUTTON_CLOSE:
+            header("Location: overview_idp.php?inst_id=".$inst->identifier);
+            break;
         case \web\lib\common\FormElements::BUTTON_TERMSOFUSE:
             if (isset($_POST['agreement']) && $_POST['agreement'] == 'true') {
                 $profile->addAttribute("hiddenprofile:tou_accepted", NULL, 1);
@@ -608,7 +611,6 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
             <div id="msgbox">
                 <div style="top: 100px;">
                     <div class="graybox">
-                        <img class="sb-popup-message-redirect" src="../resources/images/icons/button_cancel.png" alt="cancel">
                         <h1><?php echo sprintf(_("%s - Terms of Use"), core\ProfileSilverbullet::PRODUCTNAME); ?></h1>
                         <div class="containerbox" style="position: relative;">
                             <hr>
@@ -619,6 +621,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                                 <input type="checkbox" name="agreement" value="true"> <label><?php echo _("I have read and agree to the terms."); ?></label>
                             </div>
                             <button type="submit" name="command" value="<?php echo \web\lib\common\FormElements::BUTTON_TERMSOFUSE ?>"><?php echo _("Continue"); ?></button>
+                            <button class="delete" type="submit" name="command" value="<?php echo \web\lib\common\FormElements::BUTTON_CLOSE ?>"><?php echo _("Abort"); ?></button>
                             </form>
                         </div>
                     </div>
