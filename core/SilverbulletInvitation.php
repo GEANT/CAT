@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Contributions to this work were made on behalf of the GÉANT project, a 
  * project that has received funding from the European Union’s Horizon 2020 
@@ -32,8 +33,8 @@ namespace core;
 use \Exception;
 
 require_once "phpqrcode.php";
-const QRCODE_PIXELS_PER_SYMBOL = 12;
 
+const QRCODE_PIXELS_PER_SYMBOL = 12;
 
 class SilverbulletInvitation extends common\Entity {
 
@@ -149,28 +150,30 @@ class SilverbulletInvitation extends common\Entity {
             $this->associatedCertificates[] = new \core\SilverbulletCertificate($runner->serial_number, $runner->ca_type);
         }
         $this->activationsRemaining = (int) $this->activationsTotal - (int) $certificatesNumber;
-        switch ($certificatesNumber) {
-            case 0:
-                // find out if it has expired
-                $now = new \DateTime();
-                $expiryObject = new \DateTime($this->expiry);
-                $delta = $now->diff($expiryObject);
-                if ($delta->invert == 1) {
-                    $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_EXPIRED;
-                    $this->activationsRemaining = 0;
-                    break;
-                }
-                $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_VALID;
-                break;
-            case $invitationRow->quantity:
-                $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_REDEEMED;
-                break;
-            default:
-                assert($certificatesNumber > 0); // no negatives allowed
-                assert($certificatesNumber < $invitationRow->quantity || $invitationRow->quantity == 0); // not more than max quantity allowed (unless quantity is zero)
-                $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_PARTIALLY_REDEEMED;
+        // always check first if it is expired
+        $now = new \DateTime();
+        $expiryObject = new \DateTime($this->expiry);
+        $delta = $now->diff($expiryObject);
+        //print_r($delta); exit(1);
+        if ($delta->invert == 1) {
+            $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_EXPIRED;
+            $this->activationsRemaining = 0;
         }
-
+        if ($this->invitationTokenStatus != SilverbulletInvitation::SB_TOKENSTATUS_INVALID && $this->invitationTokenStatus != SilverbulletInvitation::SB_TOKENSTATUS_EXPIRED) {
+            switch ($certificatesNumber) {
+                case 0:
+                    // find out if it has expired
+                    $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_VALID;
+                    break;
+                case $invitationRow->quantity:
+                    $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_REDEEMED;
+                    break;
+                default:
+                    assert($certificatesNumber > 0); // no negatives allowed
+                    assert($certificatesNumber < $invitationRow->quantity || $invitationRow->quantity == 0); // not more than max quantity allowed (unless quantity is zero)
+                    $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_PARTIALLY_REDEEMED;
+            }
+        }
         $this->loggerInstance->debug(5, "Done creating invitation token state from DB.\n");
     }
 
@@ -256,7 +259,7 @@ class SilverbulletInvitation extends common\Entity {
      * revokes the invitation
      */
     public function revokeInvitation() {
-        $query = "UPDATE silverbullet_invitation SET expiry = NOW() WHERE id = ? AND profile_id = ?";
+        $query = "UPDATE silverbullet_invitation SET expiry = UNIX_TIMESTAMP() WHERE id = ? AND profile_id = ?";
         $this->databaseHandle->exec($query, "ii", $this->identifier, $this->profile);
     }
 
