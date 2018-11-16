@@ -623,5 +623,12 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
         </div>
         <?php
     }
-    echo $deco->footer();
+    ?>
     
+    <form action="overview_idp.php?inst_id=<?php echo $inst->identifier; ?>" method="POST">
+        <p>
+        <button type='submit' name='submitbutton' value="nomatter"><?php echo _("Back to IdP page");?></button>
+        </p>
+    </form>
+    <?php
+    echo $deco->footer();
