@@ -107,7 +107,7 @@ if (isset($_POST['command'])) {
         case \web\lib\common\FormElements::BUTTON_ADDUSER:
             if (isset($_POST['username']) && isset($_POST['userexpiry'])) {
                 $properName = $validator->User($_POST['username']);
-                $properDate = new DateTime($_POST['userexpiry'] . " 00:00:00");
+                $properDate = new DateTime($_POST['userexpiry']);
                 $profile->addUser($properName, $properDate);
             }
             if (isset($_FILES['newusers']) && $_FILES['newusers']['size'] > 0) {
@@ -147,7 +147,7 @@ if (isset($_POST['command'])) {
                 if ($properId === FALSE) { // not a real user ID
                     continue;
                 }
-                $properDate = new DateTime($_POST['userexpiry'] . " 00:00:00");
+                $properDate = new DateTime($_POST['userexpiry']);
                 $profile->setUserExpiryDate($properId, $properDate);
             }
             break;
@@ -495,9 +495,8 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
 
                         <td>
                             <?php echo $formtext; ?>
-                            <div class="sb-date-container">
-                                <input type="text" maxlength="10" id="sb-date-picker-1" class="sb-date-picker" name="userexpiry" value="<?php echo $profile->getUserExpiryDate($oneUserId); ?>">
-                                <button class="sb-date-button" type="button">▼</button>
+                            <div class="sb-date-container" style='min-width: 200px;'>
+                                <span><input type="text" maxlength="19" id="sb-date-picker-1" class="sb-date-picker" name="userexpiry" value="<?php echo $profile->getUserExpiryDate($oneUserId); ?>">&nbsp;(UTC)</span>
                             </div>
                             <input type="hidden" name="userid" value="<?php echo $oneUserId; ?>"/>
                             <button type="submit" id="updateexpiry" name="command" value="<?php echo \web\lib\common\FormElements::BUTTON_CHANGEUSEREXPIRY ?>">Update</button>
@@ -572,13 +571,10 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
             <?php echo $formtext; ?>
             <div class="sb-add-new-user">
                 <label for="username"><?php echo _("Please enter a username of your choice and user expiry date to create a new user:"); ?></label>
-                <div style="margin: 5px 0px 10px 0px;">
+                <span style="margin: 5px 0px 10px 0px;">
                     <input type="text" name="username">
-                    <div class="sb-date-container">
-                        <input type="text" maxlength="10" id="sb-date-picker-5" class="sb-date-picker" name="userexpiry" value="yyyy-MM-dd"/>
-                        <button class="sb-date-button" type="button">▼</button>
-                    </div>                
-                </div>
+                    <input type="text" maxlength="19" id="sb-date-picker-5" class="sb-date-picker" name="userexpiry" value="yyyy-MM-dd HH:MM:SS"/>(UTC)
+                </span>
                 <button type="submit" name="command" value="<?php echo \web\lib\common\FormElements::BUTTON_ADDUSER ?>"><?php echo _("Add new user"); ?></button>
             </div>
             </form>

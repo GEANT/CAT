@@ -239,7 +239,7 @@ class ProfileSilverbullet extends AbstractProfile {
      */
     public function setUserExpiryDate($userId, $date) {
         $query = "UPDATE silverbullet_user SET expiry = ? WHERE profile_id = ? AND id = ?";
-        $theDate = $date->format("Y-m-d");
+        $theDate = $date->format("Y-m-d H:i:s");
         $this->databaseHandle->exec($query, "sii", $theDate, $this->identifier, $userId);
     }
 
@@ -287,7 +287,7 @@ class ProfileSilverbullet extends AbstractProfile {
      */
     public function addUser($username, \DateTime $expiry) {
         $query = "INSERT INTO silverbullet_user (profile_id, username, expiry) VALUES(?,?,?)";
-        $date = $expiry->format("Y-m-d");
+        $date = $expiry->format("Y-m-d H:i:s");
         $this->databaseHandle->exec($query, "iss", $this->identifier, $username, $date);
         return $this->databaseHandle->lastID();
     }
