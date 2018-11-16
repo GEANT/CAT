@@ -22,6 +22,7 @@
 namespace core;
 
 use \Exception;
+use \SoapFault;
 
 class SilverbulletCertificate extends EntityWithDBProperties {
 
@@ -581,7 +582,8 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     // this seems to come out base64-decoded already; maybe PHP
                     // considers this "convenience"? But we need it as sent on
                     // the wire, so re-encode it!
-                    $soapRawRequest = trim(chunk_split(base64_encode($soap->getRawRequest($soapReqnum)), 76, "\r\n"));
+                    $soapCleartext = $soap->getRawRequest($soapReqnum);
+                    $soapRawRequest = trim(base64_encode($soapCleartext));
                     if (strlen($soapRawRequest) < 10) { // very basic error handling
                         throw new Exception("Suspiciously short data to sign!");
                     }
@@ -596,7 +598,8 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     $raCert = openssl_x509_read($raCertFile);
                     $raKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey");
                     // sign the data, using cmdline because openssl_pkcs7_sign produces strange results
-                    $execCmd = CONFIG['PATHS']['openssl'] . " smime -sign -in ".$tempdir['dir']."/content.txt -out ".$tempdir['dir']."/signature.txt -outform pem -inkey ".ROOT."/config/SilverbulletClientCerts/edupki-test-ra.clearkey -signer ".ROOT."/config/SilverbulletClientCerts/edupki-test-ra.pem";
+                    // -binary didn't help, nor switch -md to sha1 sha256 or sha512
+                    $execCmd = CONFIG['PATHS']['openssl'] . " smime -sign -in " . $tempdir['dir'] . "/content.txt -out " . $tempdir['dir'] . "/signature.txt -outform pem -inkey " . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey -signer " . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem";
                     $loggerInstance->debug(2, "Calling openssl smime with following cmdline: $execCmd\n");
                     $output = [];
                     $return = 999;
@@ -605,12 +608,12 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                         throw new Exception("Non-zero return value from openssl smime!");
                     }
                     // and get the signature blob back from the filesystem
-                    $detachedSig = file_get_contents($tempdir['dir'] . "/signature.txt");
+                    $detachedSig = trim(file_get_contents($tempdir['dir'] . "/signature.txt"));
                     $loggerInstance->debug(5, "Request for server approveRequest has parameters:\n");
                     $loggerInstance->debug(5, $soapReqnum . "\n");
-                    $loggerInstance->debug(5, $soapRawRequest . "\n");
+                    $loggerInstance->debug(5, $soapCleartext . "\n"); // PHP magically encodes this as base64 while sending!
                     $loggerInstance->debug(5, $detachedSig . "\n");
-                    $soapIssueCert = $soap->approveRequest($soapReqnum, $soapRawRequest, $detachedSig);
+                    $soapIssueCert = $soap->approveRequest($soapReqnum, $soapCleartext, $detachedSig);
                     if ($soapIssueCert === FALSE) {
                         throw new Exception("The locally approved request was NOT processed by the CA.");
                     }
@@ -635,12 +638,10 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     if ($theRoot == "") {
                         throw new Exception("CAInfo has no root certificate for us!");
                     }
+                } catch (SoapFault $e) {
+                    throw new Exception("SoapFault: Error when sending or receiving SOAP message: " . "{$e->faultcode}: {$e->faultname}: {$e->faultstring}: {$e->faultactor}: {$e->detail}: {$e->headerfault}\n");
                 } catch (Exception $e) {
-                    // PHP 7.1 can do this much better
-                    if (is_soap_fault($e)) {
-                        throw new Exception("Error when sending SOAP request: " . "{$e->faultcode}: {$e->faultstring}\n");
-                    }
-                    throw new Exception("Something odd happened while doing the SOAP request:" . $e->getMessage());
+                    throw new Exception("Exception: Something odd happened between the SOAP requests:" . $e->getMessage());
                 }
                 return [
                     "CERT" => openssl_x509_read($parsedCert['pem']),
