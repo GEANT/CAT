@@ -558,7 +558,7 @@ div.footer table td {
     font-size: 20px;
     padding-top: 20px;
     padding-bottom: 18px;
-    padding-right: 100px;
+    padding-right: 35vw;
     padding-left: 20px;
     background: var(--color3);
     color: white;
@@ -745,7 +745,7 @@ td.vendor {
     font-size: 24px;
     padding-top: 20px;
     padding-bottom: 18px;
-    padding-right: 120px;
+    padding-right: 33vw;
     padding-left: 20px;
     background: var(--color3);
     color: white;
@@ -1268,7 +1268,7 @@ a.signin {
 
 #select_another {
    position: absolute;
-   max-width: 110px;
+   max-width: 30vw;
    width: auto;
    top: 0px;
    right: 20px;
