@@ -461,6 +461,7 @@ function reset_footer() {
       $("#wrap").css("min-height","auto");
       $("#vertical_fill").hide();
    }
+   $("#institution_name").css("min-height", $("#inst_extra_text").height());
 }
 
 function processDownload(data) {
