@@ -253,6 +253,8 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 // alert("V:"+statusCount[1]+"; E:"+statusCount[2]+"; R"+statusCount[3])
             });
             $("#cert_details").show();
+            $(this).css("cursor", "default");
+            $(this).off("click");
             $(this).html("<?php escaped_echo(_("The details are displayed below.")); ?>");
         });
 
