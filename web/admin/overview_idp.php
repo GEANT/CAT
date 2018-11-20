@@ -29,10 +29,11 @@
 require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 require_once dirname(dirname(dirname(__FILE__))) . "/core/phpqrcode.php";
 
-$uiElements = new web\lib\admin\UIElements();
 
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
+$uiElements = new web\lib\admin\UIElements();
+
 
 const QRCODE_PIXELS_PER_SYMBOL = 12;
 
