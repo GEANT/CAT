@@ -108,6 +108,8 @@ class UIElements {
             _("Redirection Target") => "device-specific:redirect",
             _("Extra text on downloadpage for EAP method") => "eap-specific:customtext",
             _("Turn on selection of EAP-TLS User-Name") => "eap-specific:tls_use_other_id",
+            _("Use GEANTlink TTLS supplicant for W8") => "device-specific:geantlink",
+            _("Use bultin TTLS supplicant for Windows 10") => "device-specific:builtin_ttls",
             _("Profile Description") => "profile:description",
             _("Custom Installer Name Suffix") => "profile:customsuffix",
             sprintf(_("%s Administrator"), $this->nomenclature_fed) => "user:fedadmin",

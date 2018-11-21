@@ -60,6 +60,7 @@ use \Exception;
         $allSSID = $this->attributes['internal:SSID'];
         $delSSIDs = $this->attributes['internal:remove_SSID'];
         $this->prepareInstallerLang();
+        $this->setGeantLink();
         $setWired = isset($this->attributes['media:wired'][0]) && $this->attributes['media:wired'][0] == 'on' ? 1 : 0;
 //   create a list of profiles to be deleted after installation
         $delProfiles = [];
@@ -371,16 +372,25 @@ use \Exception;
         return('<ConfigBlob></ConfigBlob>');
     }
 
+    private function setGeantLink() {
+        $this->useGeantLink = FALSE;
+        if (\core\common\Entity::getAttributeValue($this->attributes, 'device-specific:geantlink', 0) === 'on') {
+            $this->useGeantLink = TRUE;device-spec
+        }
+        if (isset($this->options['args']) && $this->options['args'] == 'gl') {
+            $this->useGeantLink = TRUE;
+        }
+        if (\core\common\Entity::getAttributeValue($this->attributes, 'device-specific:builtin_ttls', 0) === 'on') {
+            $this->useGeantLink = FALSE;
+        }
+    }
+
     private function prepareEapConfig() {
         if ($this->useAnon) {
             $this->outerUser = $this->attributes['internal:anon_local_value'][0];
             $this->outerId = $this->outerUser . '@' . $this->attributes['internal:realm'][0];
         }
-        if (isset($this->options['args']) && $this->options['args'] == 'gl') {
-            $this->useGeantLink = TRUE;
-        } else {
-            $this->useGeantLink = FALSE;
-        }
+
         $profileFileCont = $this->eapConfigHeader();
 
         switch ($this->selectedEap['OUTER']) {
@@ -536,7 +546,7 @@ use \Exception;
             \core\common\EAP::TTLS => ['str' => 'TTLS', 'exec' => 'user'],
             \core\common\EAP::PWD => ['str' => 'PWD', 'exec' => 'user'],
         ];
-        if (isset($this->options['args']) && $this->options['args'] == 'gl') {
+        if ($this->useGeantLink) {
             $eapOptions[\core\common\EAP::TTLS]['str'] = 'GEANTLink';
         }
 
@@ -569,7 +579,7 @@ use \Exception;
         $this->copyBasicFiles();
         switch ($eap["OUTER"]) {
             case \core\common\EAP::TTLS:
-                if (isset($this->options['args']) && $this->options['args'] == 'gl') {
+                if ($this->useGeantLink) {
                     $this->copyGeantLinkFiles();
                 } else {
                     $this->copyStandardNsi();
