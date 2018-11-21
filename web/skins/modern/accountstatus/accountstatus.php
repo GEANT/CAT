@@ -154,6 +154,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
 
                     <input type="hidden" name="inst_name" id="inst_name"/>
                     <input type="hidden" name="lang" id="lang"/>
+                    <input type="hidden" name="token" id="token" value="<?php echo $cleanToken?>"/>
                 </div>
             </div>
             </div>
