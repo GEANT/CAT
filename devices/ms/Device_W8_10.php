@@ -375,7 +375,7 @@ use \Exception;
     private function setGeantLink() {
         $this->useGeantLink = FALSE;
         if (\core\common\Entity::getAttributeValue($this->attributes, 'device-specific:geantlink', 0) === 'on') {
-            $this->useGeantLink = TRUE;device-spec
+            $this->useGeantLink = TRUE;
         }
         if (isset($this->options['args']) && $this->options['args'] == 'gl') {
             $this->useGeantLink = TRUE;
