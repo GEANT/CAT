@@ -432,7 +432,13 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                                             echo "$formtext"
                                             . "<input type='hidden' name='certSerial' value='" . $oneCert->serial . "'/>"
                                             . "<input type='hidden' name='certAlgo' value='" . $oneCert->ca_type . "'/>"
-                                            . "<button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_REVOKECREDENTIAL . "' class='delete'>" . _("Revoke") . "</button>"
+                                            . "<button type='submit' "
+                                                    . "name='command' "
+                                                    . "value='" . \web\lib\common\FormElements::BUTTON_REVOKECREDENTIAL . "' "
+                                                    . "class='delete' "
+                                                    . "onclick='return confirm(\"" . sprintf(_("The device in question will stop functioning with %s. The revocation cannot be undone. Are you sure you want to do this?"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "\")'>"
+                                                    . _("Revoke") 
+                                                    . "</button>"
                                             . "</form>";
                                         } else {
                                             echo $buttonText;
@@ -518,9 +524,18 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                             <div class="sb-user-buttons">
                                 <?php
                                 if ($hasOnePendingInvite || count($validCerts) > 0) {
+                                    $deletionText = sprintf(_("All of the currently active devices will stop functioning with %s. While the user can be re-activated later, they will then need to be re-provisioned with new invitation tokens. Are you sure you want to do this?"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
                                     echo $formtext . "
                                     <input type='hidden' name='userid' value='$oneUserId'/>
-                                    <button type='submit' id='userdel' name='command' value='" . \web\lib\common\FormElements::BUTTON_DEACTIVATEUSER . "' class='delete'>" . _("Deactivate User") . "</button>
+                                    <button type='submit' "
+                                            . "id='userdel' "
+                                            . "name='command' "
+                                            . "value='" . \web\lib\common\FormElements::BUTTON_DEACTIVATEUSER . "' "
+                                            . "class='delete' "
+                                            . ( count($validCerts) > 0 ? "onclick='return confirm(\"".$deletionText."\")' " : "" )
+                                            . ">" 
+                                            . _("Deactivate User") 
+                                            . "</button>
                                 </form>";
                                 }
                                 $expiryDate = $profile->getUserExpiryDate($oneUserId);
