@@ -524,7 +524,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                             <div class="sb-user-buttons">
                                 <?php
                                 if ($hasOnePendingInvite || count($validCerts) > 0) {
-                                    $deletionText = sprintf(_("All of the currently active devices will stop functioning with %s. While the user can be re-activated later, they will then need to be re-provisioned with new invitation tokens. Are you sure you want to do this?"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+                                    $deletionText = sprintf(_("All of the currently active devices will stop functioning with %s. This cannot be undone. While the user can be re-activated later, they will then need to be re-provisioned with new invitation tokens. Are you sure you want to do this?"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
                                     echo $formtext . "
                                     <input type='hidden' name='userid' value='$oneUserId'/>
                                     <button type='submit' "
