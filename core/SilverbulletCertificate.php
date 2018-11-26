@@ -203,6 +203,9 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         // with the cert, our private key and import password, make a PKCS#12 container out of it
         $exportedCertProt = "";
         openssl_pkcs12_export($cert, $exportedCertProt, $privateKey, $importPassword, ['extracerts' => [$issuingCaPem /* , $rootCaPem */]]);
+        // and without intermediate, to keep EAP conversation short where possible
+        $exportedNoInterm = "";
+        openssl_pkcs12_export($cert, $exportedNoInterm, $privateKey, $importPassword, []);
         $exportedCertClear = "";
         openssl_pkcs12_export($cert, $exportedCertClear, $privateKey, "", ['extracerts' => [$issuingCaPem, $rootCaPem]]);
         // store resulting cert CN and expiry date in separate columns into DB - do not store the cert data itself as it contains the private key!
@@ -223,6 +226,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         return [
             "certObject" => $certObject,
             "certdata" => $exportedCertProt,
+            "certdata_nointermediate" => $exportedNoInterm,
             "certdataclear" => $exportedCertClear,
             "sha1" => $sha1,
             'importPassword' => $importPassword,
