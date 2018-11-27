@@ -347,7 +347,7 @@ td.vendor img {
 #idp_logo {
    display:none;
    float:right;
-   padding-right: 30px;
+   padding-right: 20px;
    max-height:150px;
    padding-top:10px;
 }
@@ -492,6 +492,10 @@ span.edu_cat {
     font-size: 14px;  
     line-height: 150%;
     font-weight: normal; 
+}
+
+#user_info table td,th {
+    text-align: left;
 }
 
 span.user_info {
@@ -1105,7 +1109,8 @@ button.guess_os {
 }
 
 #menu_top a.selected-lang {
-   background: lightgreen;
+   background: lightblue;
+   color: black;
 }
 
 #menu_top > ul > li > ul > li > a:hover {
