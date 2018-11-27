@@ -177,7 +177,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                 $privateKey = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
                 break;
             case \devices\Devices::SUPPORT_ECDSA:
-                $privateKey = openssl_pkey_new(['curve_name' => 'secp521r1', 'private_key_type' => OPENSSL_KEYTYPE_EC, 'encrypt_key' => FALSE]);
+                $privateKey = openssl_pkey_new(['curve_name' => 'secp384r1', 'private_key_type' => OPENSSL_KEYTYPE_EC, 'encrypt_key' => FALSE]);
                 break;
             default:
                 throw new Exception("Unknown certificate type!");
@@ -431,7 +431,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                         $alg = "sha256";
                         break;
                     case \devices\Devices::SUPPORT_ECDSA:
-                        $alg = "ecdsa-with-SHA512";
+                        $alg = "ecdsa-with-SHA1";
                         break;
                     default:
                         throw new Exception("Unknown cert type!");

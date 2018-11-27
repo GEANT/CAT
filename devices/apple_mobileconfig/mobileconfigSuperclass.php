@@ -495,7 +495,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         if (!is_array($this->clientCert)) {
             throw new Exception("the client block was called but there is no client certificate!");
         }
-        $binaryBlob = $this->clientCert["certdata"];
+        $binaryBlob = $this->clientCert["certdata_nointermediate"];
         $mimeBlob = base64_encode($binaryBlob);
         $mimeFormatted = chunk_split($mimeBlob, 52, "\r\n");
         $payloadUUID = \core\common\Entity::uuid('', $mimeBlob);
