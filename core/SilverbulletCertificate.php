@@ -375,7 +375,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                 $alg = "sha256";
                 break;
             case \devices\Devices::SUPPORT_ECDSA:
-                $alg = "ecdsa-with-sha512";
+                $alg = "ecdsa-with-SHA1";
                 break;
             default:
                 throw new Exception("Unknown certificate type!");
