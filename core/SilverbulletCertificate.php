@@ -384,7 +384,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                 ['O' => CONFIG_CONFASSISTANT['CONSORTIUM']['name'],
             'OU' => $fed,
             'CN' => $username,
-            'emailAddress' => $username,
+            // 'emailAddress' => $username,
                 ], $privateKey, [
             'digest_alg' => $alg,
             'req_extensions' => 'v3_req',
