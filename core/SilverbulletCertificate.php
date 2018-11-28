@@ -279,7 +279,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     $serialHex = "0" . $serialHex;
                 }
 
-                $indexStatement = "$certstatus\t$expiryIndexTxt\t" . ($certstatus == "R" ? "$nowIndexTxt,unspecified" : "") . "\t$serialHex\tunknown\t/O=" . CONFIG_CONFASSISTANT['CONSORTIUM']['name'] . "/OU=$federation/CN=$this->username/emailAddress=$this->username\n";
+                $indexStatement = "$certstatus\t$expiryIndexTxt\t" . ($certstatus == "R" ? "$nowIndexTxt,unspecified" : "") . "\t$serialHex\tunknown\t/O=" . CONFIG_CONFASSISTANT['CONSORTIUM']['name'] . "/OU=$federation/CN=$this->username\n";
                 $logHandle->debug(4, "index.txt contents-to-be: $indexStatement");
                 if (!file_put_contents($tempdir . "/index.txt", $indexStatement)) {
                     $logHandle->debug(1, "Unable to write openssl index.txt file for revocation handling!");
