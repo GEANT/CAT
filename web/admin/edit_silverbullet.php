@@ -341,25 +341,26 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
             </tr>
         </table>
     </div>
-    <div>
-        <?php
+    <?php
+    $boundaryPre = "<div class='ca-summary'><table>";
+    $boundaryPost = "</table></div>";
         switch ($displaySendStatus) {
             case "NOSTIPULATION":
                 break;
             case "EMAIL-SENT":
-                echo $uiElements->boxOkay(_("The e-mail was sent successfully."), _("E-mail OK."), TRUE);
+                echo $boundaryPre.$uiElements->boxOkay(_("The e-mail was sent successfully."), _("E-mail OK."), FALSE).$boundaryPost;
                 break;
             case "EMAIL-NOTSENT":
-                echo $uiElements->boxError(_("The e-mail was NOT sent."), _("E-mail not OK."), TRUE);
+                echo $boundaryPre.$uiElements->boxError(_("The e-mail was NOT sent."), _("E-mail not OK."), FALSE).$boundaryPost;
                 break;
             case "SMS-SENT":
-                echo $uiElements->boxOkay(_("The SMS was sent successfully."), _("SMS OK."), TRUE);
+                echo $boundaryPre.$uiElements->boxOkay(_("The SMS was sent successfully."), _("SMS OK."), FALSE).$boundaryPost;
                 break;
             case "SMS-NOTSENT":
-                echo $uiElements->boxOkay(_("The SMS was NOT sent."), _("SMS not OK."), TRUE);
+                echo $boundaryPre.$uiElements->boxOkay(_("The SMS was NOT sent."), _("SMS not OK."), FALSE).$boundaryPost;
                 break;
             case "SMS-FRAGMENT":
-                echo $uiElements->boxWarning(_("Only a fragment of the SMS was sent. You should re-send it."), _("SMS Fragment."), TRUE);
+                echo $boundaryPre.$uiElements->boxWarning(_("Only a fragment of the SMS was sent. You should re-send it."), _("SMS Fragment."), FALSE).$boundaryPost;
                 break;
         }
         ?>
