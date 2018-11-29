@@ -298,19 +298,13 @@ td.vendor img {
 
 #welcome_top1 {
     clear: both;
-//    padding-top: 140px;
     padding-top: 30px;
+    color: #575757;
     font-weight: bold;
     font-size: 20px;
     text-align: center;
 }
 
-#welcome_top2 {
-   font-weight: bold;
-    font-size: 16px;
-    text-align: center;
-   display: none;
-}
 
 #cat_logo {
    width: 180px;
