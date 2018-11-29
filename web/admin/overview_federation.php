@@ -191,11 +191,10 @@ require_once "inc/click_button_js.php";
         echo "</table></div>";
     }
     if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == 'eduroam') {
-        $helptext = "<h3>" . sprintf(_("Need help? Refer to the <a href='%s'>%s manual</a>"), "https://wiki.geant.org/x/KQB_AQ", $uiElements->nomenclature_fed) . "</h3>";
+        $helptext = "<h3>" . sprintf(_("Need help? Refer to the <a href='%s'>%s manual</a>"), "https://wiki.geant.org/x/fgBwBg", $uiElements->nomenclature_fed) . "</h3>";
     } else {
         $helptext = "";
     }
-    echo $helptext;
     ?>
     <table class='user_overview' style='border:0px;'>
         <tr>
@@ -337,5 +336,6 @@ require_once "inc/click_button_js.php";
         <br/>
         <?php
     }
+    echo "<hr/>$helptext<hr/>";
     echo $deco->footer();
     
