@@ -79,7 +79,11 @@ require_once "inc/click_button_js.php";
     $hasInst = $instMgmt->listInstitutionsByAdmin($_SESSION['user']);
 
     if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == 'eduroam') {
-        $helptext = "&nbsp;<h3 style='display:inline;'>" . sprintf(_("(Need help? Refer to the <a href='%s'>IdP administrator manual</a>)"), "https://wiki.geant.org/x/SwB_AQ") . "</h3>";
+        $target = "https://wiki.geant.org/x/SwB_AQ"; // CAT manual, outdated
+        if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
+            $target = "https://wiki.geant.org/x/SSNwBg"; // Managed IdP manual
+        }
+        $helptext = "<h3 style='display:inline;'>" . sprintf(_("(Need help? Refer to the <a href='%s'>IdP administrator manual</a>)"), $target) . "</h3>";
     } else {
         $helptext = "";
     }
@@ -89,7 +93,6 @@ require_once "inc/click_button_js.php";
         $cat = new \core\CAT;
         /// first parameter: number of Identity Providers; second param is the literal configured term for 'Identity Provider' (you may or may not be able to add a plural suffix for your locale)
         echo "<h2>" . sprintf(ngettext("You are managing the following <span style='display:none'>%d </span>%s:", "You are managing the following <strong>%d</strong> %s:", sizeof($hasInst)), sizeof($hasInst), $uiElements->nomenclature_inst) . "</h2>";
-        echo $helptext;
         $instlist = [];
         $my_idps = [];
         $myFeds = [];
@@ -179,6 +182,7 @@ require_once "inc/click_button_js.php";
         </form>
         </div>";
         }
+        echo "<hr/>$helptext<hr/>";
     }
     ?>
     <?php
