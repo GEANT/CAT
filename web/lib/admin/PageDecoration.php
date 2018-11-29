@@ -164,7 +164,7 @@ class PageDecoration {
         $retval .= "<div class='trick'>"; // closes in footer again
         $retval .= "<div id='secondrow'>
             <div id='secondarycaptions' style='display:inline-block; float:left'>
-                <h2>$cap2</h2>
+                <h2 style='padding-left:10px;'>$cap2</h2>
             </div><!--secondarycaptions-->";
 
         if (isset(CONFIG['APPEARANCE']['MOTD']) && CONFIG['APPEARANCE']['MOTD'] != "") {
