@@ -111,7 +111,7 @@ class Divs {
 <div id='welcome_top1'>
     " . $this->Gui->textTemplates->templates[user\HEADING_TOPLEVEL_GREET] . "
 </div>
-<div id='top_invite' class='signin'>
+<div id='top_invite'>
     " . $this->Gui->textTemplates->templates[user\HEADING_TOPLEVEL_PURPOSE] . "
 </div>";
     }
