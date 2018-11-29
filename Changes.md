@@ -1,5 +1,13 @@
 Changes in 2.0-beta3
 ====================
+- [FEATURE #1]  allow to invite more than one admin for a new institution.
+                Contrary to previous CAT 1.x, every invitation is now unique
+                per destination mail address, so there is no "race condition"
+                any more on who is the first one to consume an invitation
+- [FEATURE #2]  fine-tuning options to allow admin steering of whether GEANTlink
+                or the native supplicant is preferred on Windows 10 and 8
+- [FEATURE #3]  always check username input for trailing spaces and warn user
+                if found
 - [BUGFIX  #1]  restore ability for admins to download non-published installers
                 from their fine-tuning page
 - [BUGFIX  #2]  for Apple installers, check is a CA was duplicate and if so do
@@ -19,7 +27,6 @@ Changes in 2.0-beta3
                 attributes in the "fine-tuning" pages (e.g. deletion of 
                 attribute not possible; editing general profile properties
                 erroneously also deletes fine-tuning attributes
-                
 
 Changes in 2.0-beta2
 ====================
