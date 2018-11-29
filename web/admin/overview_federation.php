@@ -336,6 +336,6 @@ require_once "inc/click_button_js.php";
         <br/>
         <?php
     }
-    echo "<hr/>$helptext<hr/>";
+    echo "<hr/>$helptext";
     echo $deco->footer();
     

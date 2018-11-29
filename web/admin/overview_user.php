@@ -182,7 +182,7 @@ require_once "inc/click_button_js.php";
         </form>
         </div>";
         }
-        echo "<hr/>$helptext<hr/>";
+        echo "<hr/>$helptext";
     }
     ?>
     <?php

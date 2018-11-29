@@ -225,7 +225,6 @@ class PageDecoration {
         $retval = "</div><!-- thirdrow --></div><!-- trick -->
           </div><!-- pagecontent -->
         <div class='footer'>
-            <hr />
             <table style='width:100%'>
                 <tr>
                     <td style='padding-left:20px; padding-right:20px; text-align:left; vertical-align:top;'>
