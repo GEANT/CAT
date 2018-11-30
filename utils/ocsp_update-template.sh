@@ -27,7 +27,7 @@ TARGETUSER="statements"
 TARGETDIR_RSA="/home/statements-rsa/files"
 TARGETDIR_ECDSA="/home/statements-ecdsa/files"
 TARGETSCRIPT_RSA="/home/statements-rsa/mv_files.sh"
-TARGETSCRIPT_RSA="/home/statements-ecdsa/mv_files.sh"
+TARGETSCRIPT_ECDSA="/home/statements-ecdsa/mv_files.sh"
 SSH_KEY="/root/.ssh/statements_id_rsa"
 
 script="$0"
