@@ -1721,7 +1721,7 @@ msgid ""
 "more administrators."
 msgstr ""
 "Sie sind ein Administrator der direkt von einem %s Administrator hinzugefügt "
-"wurde. Daher können Sie weitere Admnistratoren hinzufügen; diese können "
+"wurde. Daher können Sie weitere Administratoren hinzufügen; diese können "
 "jedoch dann selber keine weiteren hinzufügen."
 
 #: web/admin/inc/manageAdmins.inc.php:160
