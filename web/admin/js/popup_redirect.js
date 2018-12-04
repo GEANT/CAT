@@ -71,7 +71,11 @@ function createMsgbox(type, onclick) {
         body.removeChild(document.getElementById("msgbox"));
     }
     var msgbox = document.createElement("div");
-    msgbox.setAttribute("id", "msgbox");
+    if (type === "qr") {
+        msgbox.setAttribute("id", "qrbox")
+    } else {
+        msgbox.setAttribute("id", "msgbox");
+    }
     var div = document.createElement("div");
     var msg = document.createElement("div");
     if (type === "err") {
@@ -80,14 +84,24 @@ function createMsgbox(type, onclick) {
         msg.setAttribute("id", "warnbox");
     } else if (type === "info") {
         msg.setAttribute("class", "graybox");
+    } else if (type === "qr") {
+        msg.setAttribute("class", "qrbox");
     }
     var img = document.createElement("img");
     img.setAttribute("src", "../resources/images/icons/button_cancel.png");
     img.setAttribute("alt", "cancel");
     if (onclick) {
-        img.setAttribute("onclick", "removeMsgbox(); " + onclick);
+        if (type === "qr") {
+            img.setAttribute("onclick", "removeQRbox(); " + onclick);
+        } else {
+            img.setAttribute("onclick", "removeMsgbox(); " + onclick);
+        }
     } else {
-        img.setAttribute("onclick", "removeMsgbox()");
+        if (type === "qr") {
+            img.setAttribute("onclick", "removeQRbox()");
+        } else {
+            img.setAttribute("onclick", "removeMsgbox()");
+        }
     }
     msg.appendChild(img);
     div.appendChild(msg);
@@ -103,6 +117,11 @@ function removeMsgbox() {
     body.removeChild(document.getElementById("msgbox"));
 }
 
+function removeQRbox() {
+    var body = document.getElementsByTagName("body")[0];
+    body.removeChild(document.getElementById("overlay"));
+    body.removeChild(document.getElementById("qrbox"));
+}
 
 function addEvent(elem, type, eventHandle) {
     if (elem === null || elem === undefined) {
@@ -130,11 +149,24 @@ function popupRedirectWindow(form) {
     postXML(createWindow, form);
 }
 
+function popupQRWindow(form) {
+    postXML(createQRWindow, form);
+}
+
 function createWindow() {
     if (this.readyState === 4 && this.status === 200) {
         var infoBox;
         infoBox = createMsgbox("info");
         infoBox.innerHTML += this.responseText;
         centerElement(infoBox);
+    }
+}
+
+function createQRWindow() {
+    if (this.readyState === 4 && this.status === 200) {
+        var infoBox;
+        qrBox = createMsgbox("qr");
+        qrBox.innerHTML += this.responseText;
+        centerElement(qrBox);
     }
 }

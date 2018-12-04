@@ -483,7 +483,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
 				</td></tr>
                                     <tr><td style='vertical-align:bottom;'>Manual:</td><td>
 				<button type='button' class='clipboardButton' onclick='clipboardCopy(" . $invitationObject->identifier . ");'>" . _("Copy to Clipboard") . "</button>
-                                    <form style='display:inline-block;' method='post' action='inc/displayQRcode.inc.php' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
+                                    <form style='display:inline-block;' method='post' action='inc/displayQRcode.inc.php' onsubmit='popupQRWindow(this); return false;' accept-charset='UTF-8'>
                                     <input type='hidden' value='" . $invitationObject->invitationTokenString . "' name='token'><br/>
                                       <button type='submit'>" . _("Display QR code") . "</button>
                                   </form>

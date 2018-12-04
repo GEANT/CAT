@@ -293,6 +293,20 @@ div.graybox {
     margin: 0px auto 10px;
 }
 
+div.qrbox {
+    position: absolute;
+    background-color: #fbfcfc;
+    border: 1px solid #e6e6e6;
+    clear: both;
+    display: block;
+    padding: 15px;
+    text-align: left;
+    width: 850px;
+    left: 100px;
+    top: 50px;
+    z-index: 100;
+}
+
 div#msgbox {
     position: absolute;
     top: 0;
