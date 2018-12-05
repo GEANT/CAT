@@ -463,14 +463,14 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         }
         if ($type == "RA") { // add client auth parameters to the context
             $context_params['ssl']['local_cert'] = ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem";
-            $context_params['ssl']['local_pk'] = ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.key";
-            $context_params['ssl']['passphrase'] = SilverbulletCertificate::EDUPKI_RA_PKEY_PASSPHRASE;
+            $context_params['ssl']['local_pk'] = ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey";
+            // $context_params['ssl']['passphrase'] = SilverbulletCertificate::EDUPKI_RA_PKEY_PASSPHRASE;
         }
         // initialse connection to eduPKI CA / eduroam RA
         $soap = new \SoapClient($url, [
             'soap_version' => SOAP_1_1,
             'trace' => TRUE,
-            'exceptions' => TRUE,
+            'exceptions' => false,
             'connection_timeout' => 5, // if can't establish the connection within 5 sec, something's wrong
             'cache_wsdl' => WSDL_CACHE_NONE,
             'user_agent' => 'eduroam CAT to eduPKI SOAP Interface',
@@ -583,22 +583,20 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     // considers this "convenience"? But we need it as sent on
                     // the wire, so re-encode it!
                     $soapCleartext = $soap->getRawRequest($soapReqnum);
-                    $soapRawRequest = trim(base64_encode($soapCleartext));
-                    if (strlen($soapRawRequest) < 10) { // very basic error handling
-                        throw new Exception("Suspiciously short data to sign!");
-                    }
-                    $loggerInstance->debug(5, "Actual received SOAP request was:\n\n");
+                    
+                    $loggerInstance->debug(5, "Actual received SOAP resonse for getRawRequest was:\n\n");
                     $loggerInstance->debug(5, $soap->__getLastResponse());
                     // for obnoxious reasons, we have to dump the request into a file and let pkcs7_sign read from the file
                     // rather than just using the string. Grr.
                     $tempdir = \core\common\Entity::createTemporaryDirectory("test");
-                    file_put_contents($tempdir['dir'] . "/content.txt", $soapRawRequest);
+                    file_put_contents($tempdir['dir'] . "/content.txt", $soapCleartext);
                     // retrieve our RA cert from filesystem
                     $raCertFile = file_get_contents(ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem");
                     $raCert = openssl_x509_read($raCertFile);
                     $raKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey");
                     // sign the data, using cmdline because openssl_pkcs7_sign produces strange results
                     // -binary didn't help, nor switch -md to sha1 sha256 or sha512
+                    $loggerInstance->debug(5, "Actual content to be signed is this:\n$soapCleartext\n");
                     $execCmd = CONFIG['PATHS']['openssl'] . " smime -sign -in " . $tempdir['dir'] . "/content.txt -out " . $tempdir['dir'] . "/signature.txt -outform pem -inkey " . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey -signer " . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem";
                     $loggerInstance->debug(2, "Calling openssl smime with following cmdline: $execCmd\n");
                     $output = [];
@@ -614,6 +612,8 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     $loggerInstance->debug(5, $soapCleartext . "\n"); // PHP magically encodes this as base64 while sending!
                     $loggerInstance->debug(5, $detachedSig . "\n");
                     $soapIssueCert = $soap->approveRequest($soapReqnum, $soapCleartext, $detachedSig);
+                    $loggerInstance->debug(5,"approveRequest Request was: \n".$soap->__getLastRequest());
+                    $loggerInstance->debug(5,"approveRequest Response was: \n".$soap->__getLastResponse());
                     if ($soapIssueCert === FALSE) {
                         throw new Exception("The locally approved request was NOT processed by the CA.");
                     }
