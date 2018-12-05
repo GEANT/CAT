@@ -345,7 +345,7 @@ public static function listDevices() {
  'android_pie'=>[
     'group' => "android",
     'display'=>_("Android 9.0 Pie"),
-     'match'=>'Android 9\.[0-9]',
+     'match'=>'Android 9',
     'directory'=>'xml',
     'module'=>'Lollipop',
     'options'=>[
@@ -361,7 +361,7 @@ public static function listDevices() {
  'android_oreo'=>[
     'group' => "android",
     'display'=>_("Android 8.0 Oreo"),
-     'match'=>'Android 8\.[0-9]',
+     'match'=>'Android 8',
     'directory'=>'xml',
     'module'=>'Lollipop',
     'options'=>[
@@ -376,8 +376,8 @@ public static function listDevices() {
         
  'android_nougat'=>[
     'group' => "android",
-    'display'=>_("Android 6.0 Nougat"),
-     'match'=>'Android 7\.[0-9]',
+    'display'=>_("Android 7.0 Nougat"),
+     'match'=>'Android 7',
     'directory'=>'xml',
     'module'=>'Lollipop',
     'options'=>[
@@ -393,7 +393,7 @@ public static function listDevices() {
  'android_marshmallow'=>[
     'group' => "android",
     'display'=>_("Android 6.0 Marshmallow"),
-     'match'=>'Android 6\.[0-9]',
+     'match'=>'Android 6',
     'directory'=>'xml',
     'module'=>'Lollipop',
     'options'=>[
@@ -409,7 +409,7 @@ public static function listDevices() {
  'android_lollipop'=>[
     'group' => "android",
     'display'=>_("Android 5.0 Lollipop"),
-     'match'=>'Android 5\.[0-9]',
+     'match'=>'Android 5',
     'directory'=>'xml',
     'module'=>'Lollipop',
     'options'=>[
