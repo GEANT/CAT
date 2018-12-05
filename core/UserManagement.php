@@ -305,13 +305,13 @@ Best regards,
      */
     public function listPendingInvitations($idpIdentifier = 0) {
         $retval = [];
-        $invitations = $this->databaseHandle->exec("SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, invite_token 
+        $invitations = $this->databaseHandle->exec("SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, invite_token , TIMESTAMPADD(DAY, 1, invite_created) as expiry
                                         FROM invitations 
                                         WHERE cat_institution_id " . ( $idpIdentifier != 0 ? "= $idpIdentifier" : "IS NULL") . " AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0");
         // SELECT -> resource, not boolean
         $this->loggerInstance->debug(4, "Retrieving pending invitations for " . ($idpIdentifier != 0 ? "IdP $idpIdentifier" : "IdPs awaiting initial creation" ) . ".\n");
         while ($invitationQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $invitations)) {
-            $retval[] = ["country" => $invitationQuery->country, "name" => $invitationQuery->name, "mail" => $invitationQuery->invite_dest_mail, "token" => $invitationQuery->invite_token];
+            $retval[] = ["country" => $invitationQuery->country, "name" => $invitationQuery->name, "mail" => $invitationQuery->invite_dest_mail, "token" => $invitationQuery->invite_token, "expiry" => $invitationQuery->expiry];
         }
         return $retval;
     }

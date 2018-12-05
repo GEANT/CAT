@@ -205,7 +205,7 @@ if (count($pending_invites) > 0) {
     echo "<strong>" . _("Pending invitations for this IdP") . "</strong>";
     echo "<table>";
     foreach ($pending_invites as $invitee) {
-        echo "<tr><td>" . $invitee['mail'] . "</td></tr>";
+        echo "<tr><td>" . $invitee['mail'] . "</td><td>".sprintf(_("(expires %s)"), $invitee['expiry'])."</td></tr>";
     }
     echo "</table>";
 }

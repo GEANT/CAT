@@ -311,8 +311,9 @@ require_once "inc/click_button_js.php";
                         if ($readonly === FALSE) {
                             echo "<form method='post' action='overview_federation.php' accept-charset='UTF-8'>
                                 <input type='hidden' name='invitation_id' value='" . $oneinvite['token'] . "'/>
-                                <button class='delete' type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_DELETE . "'>" . _("Revoke Invitation") . "</button>
-                              </form>";
+                                <button class='delete' type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_DELETE . "'>" . _("Revoke Invitation") . "</button> "
+                              . sprintf(_("(expires %s)"),$oneinvite['expiry'])
+                              .     "</form>";
                         }
                         echo "      </td>
                                  </tr>";
