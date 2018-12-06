@@ -262,7 +262,7 @@ if (isset($_POST['command'])) {
             }
             
             $number = $validator->sms($_POST['smsnumber']);
-            if ($number === FALSE) {
+            if (is_bool($number)) {
                 break;
             }
             $sent = $invitationObject->sendBySms($number);

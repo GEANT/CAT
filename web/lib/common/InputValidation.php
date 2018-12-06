@@ -392,7 +392,7 @@ public function email($input) {
 
 /**
  * is this a well-formed SMS number? Light massaging - leading + will be removed
- * @param type $input the raw input
+ * @param string $input the raw input
  * @return boolean|string
  */
 public function sms($input) {

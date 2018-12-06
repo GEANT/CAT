@@ -304,7 +304,11 @@ switch ($inputDecoded['ACTION']) {
     case \web\lib\admin\API::ACTION_ENDUSER_DEACTIVATE:
     // fall-through intended: both actions are very similar
     case \web\lib\admin\API::ACTION_TOKEN_NEW:
-        $evaluation = commonSbProfileChecks($fed, $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID));
+        $profile_id = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID);
+        if ($profile_id === FALSE) {
+            exit(1);
+        }
+        $evaluation = commonSbProfileChecks($fed, $profile_id);
         if ($evaluation === FALSE) {
             exit(1);
         }
@@ -340,7 +344,7 @@ switch ($inputDecoded['ACTION']) {
                     }
                 }
                 $smsRaw = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_TARGETSMS);
-                if ($smsRaw) {
+                if ($smsRaw !== FALSE) {
                     $sms = $validator->sms($smsRaw);
                     if ($sms) {
                         $wasSent = $invitation->sendBySms($sms);
@@ -359,7 +363,11 @@ switch ($inputDecoded['ACTION']) {
     case \web\lib\admin\API::ACTION_ENDUSER_LIST:
         // fall-through: those two are similar
             case \web\lib\admin\API::ACTION_TOKEN_LIST:
-        $evaluation = commonSbProfileChecks($fed, $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID));
+        $profile_id = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID);
+        if ($profile_id === FALSE) {
+            exit(1);
+        }
+        $evaluation = commonSbProfileChecks($fed, $profile_id);
         if ($evaluation === FALSE) {
             exit(1);
         }

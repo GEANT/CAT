@@ -27,7 +27,6 @@
  *
  * @package Developer
  */
-
 function check_my_nonce($nonce, $optSalt='') {
     $remote = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
     $lasthour = date("G")-1<0 ? date('Ymd').'23' : date("YmdG")-1;
