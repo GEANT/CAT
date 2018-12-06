@@ -103,6 +103,7 @@ class Sociopath extends AbstractTest {
      * 
      * @param int       $questionNumber number of the question that was answered
      * @param bool|NULL $answer         TRUE if the answer was "Yes", FALSE if "No", NULL is "Dont know / N/A"
+     * @return void
      */
     public function revaluate($questionNumber, $answer) {
         if ($questionNumber == "") {
@@ -163,7 +164,7 @@ class Sociopath extends AbstractTest {
     
     /**
      * constructs the final diagnosis result text to show to the user
-     * @param string $area
+     * @param string $area retrieve lecture texts for this area
      * @return string
      */
     public function verdictText($area) {

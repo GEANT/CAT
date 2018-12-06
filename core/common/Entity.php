@@ -93,8 +93,8 @@ abstract class Entity {
      * if something on the way is not defined, NULL is returned
      * 
      * @param array      $attributeArray the array to search in
-     * @param string|int $index1 first-level index to check
-     * @param string|int $index2 second-level index to check
+     * @param string|int $index1         first-level index to check
+     * @param string|int $index2         second-level index to check
      * @return mixed
      */
     public static function getAttributeValue($attributeArray, $index1, $index2) {

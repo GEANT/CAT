@@ -104,7 +104,8 @@ class Telepath extends AbstractTest {
 
     /**
      * ask the monitoring API about the things it knows
-     * @param string $type which type of test to execute
+     * 
+     * @param string $type   which type of test to execute
      * @param string $param1 test-specific parameter number 1, if any
      * @param string $param2 test-specific parameter number 2, if any
      * @return array
@@ -223,7 +224,7 @@ class Telepath extends AbstractTest {
 
     /**
      * Is the uplink between an NRO server and the ETLRs in order?
-     * @param string $whichSide
+     * @param string $whichSide test towards the IdP or SP side?
      * @return array
      */
     private function checkFedEtlrUplink($whichSide) {
@@ -264,7 +265,7 @@ class Telepath extends AbstractTest {
 
     /**
      * Is the NRO server itself in order?
-     * @param string $whichSide
+     * @param string $whichSide test towards the IdP or SP side?
      * @return array
      */
     private function checkFlrServerStatus($whichSide) {
@@ -371,6 +372,13 @@ class Telepath extends AbstractTest {
         }
     }
 
+    /**
+     * can we run thorough checks or not? Thorough can only be done if we can
+     * deterministically map the realm to be checked against a CAT Profile, and
+     * then only if the profile is complete.
+     * 
+     * @return void
+     */
     private function determineTestsuiteParameters() {
         if ($this->catProfile > 0) {
             $profileObject = \core\ProfileFactory::instantiate($this->catProfile);

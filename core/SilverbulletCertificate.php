@@ -61,7 +61,8 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * 
      * Use static issueCertificate() to generate a whole new cert.
      * 
-     * @param int|string $identifier
+     * @param int|string $identifier identify certificate either by CN or by serial
+     * @param string $certtype RSA or ECDSA?
      */
     public function __construct($identifier, $certtype) {
         $this->databaseType = "INST";
@@ -117,6 +118,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
     }
 
     /**
+     * retrieve basic information about the certificate
      * 
      * @return array of basic certificate details
      */
@@ -128,6 +130,11 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         return($returnArray);
     }
 
+    /**
+     * we don't use caching in SB, so this function does nothing
+     * 
+     * @return void
+     */
     public function updateFreshness() {
         // nothing to be done here.
     }

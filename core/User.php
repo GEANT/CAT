@@ -123,8 +123,9 @@ class User extends EntityWithDBProperties {
     }
 
     /**
-     *  This function tests if the current user is an ovner of a given IdP
+     * This function tests if the current user is an ovner of a given IdP
      *
+     * @param int $idp integer identifier of the IdP
      * @return boolean TRUE if the user is an owner, FALSE if not 
      */
     public function isIdPOwner($idp) {
@@ -165,6 +166,8 @@ class User extends EntityWithDBProperties {
 
     /**
      * NOOP in this class, only need to override abstract base class
+     * 
+     * @return void
      */
     public function updateFreshness() {
         // User is always fresh

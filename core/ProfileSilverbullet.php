@@ -165,6 +165,7 @@ class ProfileSilverbullet extends AbstractProfile {
      * @param string $path           the path where the new installer can be found
      * @param string $mime           the mime type of the new installer
      * @param int    $integerEapType the inter-representation of the EAP type that is configured in this installer
+     * @return void
      */
     public function updateCache($device, $path, $mime, $integerEapType) {
         // caching is not supported in SB (private key in installers)
@@ -180,7 +181,7 @@ class ProfileSilverbullet extends AbstractProfile {
      *
      * @param \core\common\EAP $type       The EAP Type, as defined in class EAP
      * @param int              $preference preference of this EAP Type. If a preference value is re-used, the order of EAP types of the same preference level is undefined.
-     *
+     * @return void
      */
     public function addSupportedEapMethod(\core\common\EAP $type, $preference) {
         // the parameters really should only list SB and with prio 1 - otherwise,
@@ -193,7 +194,8 @@ class ProfileSilverbullet extends AbstractProfile {
 
     /**
      * It's EAP-TLS and there is no point in anonymity
-     * @param boolean $shallwe
+     * @param boolean $shallwe always FALSE
+     * @return void
      */
     public function setAnonymousIDSupport($shallwe) {
         // we don't do anonymous outer IDs in SB
@@ -220,7 +222,7 @@ class ProfileSilverbullet extends AbstractProfile {
 
     /**
      * finds out the expiry date of a given user
-     * @param int $userId
+     * @param int $userId the numerical user ID of the user in question
      * @return string
      */
     public function getUserExpiryDate($userId) {
@@ -235,6 +237,7 @@ class ProfileSilverbullet extends AbstractProfile {
      * sets the expiry date of a user to a new date of choice
      * @param int       $userId the username
      * @param \DateTime $date   the expiry date
+     * @return void
      */
     public function setUserExpiryDate($userId, $date) {
         $query = "UPDATE silverbullet_user SET expiry = ? WHERE profile_id = ? AND id = ?";
@@ -333,6 +336,8 @@ class ProfileSilverbullet extends AbstractProfile {
     
     /**
      * updates the last_ack for all users (invoked when the admin claims to have re-verified continued eligibility of all users)
+     * 
+     * @return void
      */
     public function refreshEligibility() {
         $query = "UPDATE silverbullet_user SET last_ack = NOW() WHERE profile_id = ?";

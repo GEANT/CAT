@@ -175,6 +175,12 @@ class RADIUSTests extends AbstractTest {
         $this->languageInstance->setTextDomain($oldlocale);
     }
 
+    /**
+     * creates a string with the DistinguishedName (comma-separated name=value fields)
+     * 
+     * @param array $distinguishedName the components of the DN
+     * @return string
+     */
     private function printDN($distinguishedName) {
         $out = '';
         foreach (array_reverse($distinguishedName) as $nameType => $nameValue) { // to give an example: "CN" => "some.host.example" 
@@ -191,6 +197,12 @@ class RADIUSTests extends AbstractTest {
         return($out);
     }
 
+    /**
+     * prints a timestamp in gmdate formatting
+     * 
+     * @param int $time time in UNIX timestamp
+     * @return string
+     */
     private function printTm($time) {
         return(gmdate(\DateTime::COOKIE, $time));
     }
@@ -198,9 +210,11 @@ class RADIUSTests extends AbstractTest {
     /**
      * This function parses a X.509 server cert and checks if it finds client device incompatibilities
      * 
-     * @param array $servercert the properties of the certificate as returned by processCertificate(), 
-     *    $servercert is modified, if CRL is defied, it is downloaded and added to the array
-     *    incoming_server_names, sAN_DNS and CN array values are also defined
+     * @param array $servercert the properties of the certificate as returned by
+     *                          processCertificate(), $servercert is modified, 
+     *                          if CRL is defied, it is downloaded and added to
+     *                          the array incoming_server_names, sAN_DNS and CN 
+     *                          array values are also defined
      * @return array of oddities; the array is empty if everything is fine
      */
     private function propertyCheckServercert(&$servercert) {
@@ -253,8 +267,8 @@ class RADIUSTests extends AbstractTest {
     /**
      * This function parses a X.509 intermediate CA cert and checks if it finds client device incompatibilities
      * 
-     * @param array $intermediateCa the properties of the certificate as returned by processCertificate()
-     * @param boolean complain_about_cdp_existence: for intermediates, not having a CDP is less of an issue than for servers. Set the REMARK (..._INTERMEDIATE) flag if not complaining; and _SERVER if so
+     * @param array   $intermediateCa the properties of the certificate as returned by processCertificate()
+     * @param boolean $serverCert treat as servercert?
      * @return array of oddities; the array is empty if everything is fine
      */
     private function propertyCheckIntermediate(&$intermediateCa, $serverCert = FALSE) {
@@ -384,7 +398,7 @@ class RADIUSTests extends AbstractTest {
     /**
      * We don't want to write passwords of the live login test to our logs. Filter them out
      * @param string $stringToRedact what should be redacted
-     * @param array $inputarray array of strings (outputs of eapol_test command)
+     * @param array  $inputarray     array of strings (outputs of eapol_test command)
      * @return string[] the output of eapol_test with the password redacted
      */
     private function redact($stringToRedact, $inputarray) {
@@ -436,8 +450,8 @@ class RADIUSTests extends AbstractTest {
      * * was an EAP method ever acknowledged by both sides during the EAP
      *   conversation
      * 
-     * @param array $inputarray array of strings (outputs of eapol_test command)
-     * @param int $desiredCheck which test should be run (see constants above)
+     * @param array $inputarray   array of strings (outputs of eapol_test command)
+     * @param int   $desiredCheck which test should be run (see constants above)
      * @return boolean returns TRUE if ETLR Reject logic was detected; FALSE if not
      */
     private function checkLineparse($inputarray, $desiredCheck) {
@@ -467,9 +481,9 @@ class RADIUSTests extends AbstractTest {
 
     /**
      * 
-     * @param array $eaptype array representation of the EAP type
-     * @param string $inner inner username
-     * @param string $outer outer username
+     * @param array  $eaptype  array representation of the EAP type
+     * @param string $inner    inner username
+     * @param string $outer    outer username
      * @param string $password the password
      * @return string[] [0] is the actual config for wpa_supplicant, [1] is a redacted version for logs
      */
@@ -517,6 +531,14 @@ network={
         return [$config, $logConfig];
     }
 
+    /**
+     * Checks whether the packets received are as expected in numbers
+     * 
+     * @param array $testresults by-reference array of the testresults so far
+     *                           function adds its own findings to that array
+     * @param array $packetcount the count of incoming packets
+     * @return int
+     */
     private function packetCountEvaluation(&$testresults, $packetcount) {
         $reqs = $packetcount[1] ?? 0;
         $accepts = $packetcount[2] ?? 0;
@@ -556,9 +578,9 @@ network={
     /**
      * generate an eapol_test command-line config for the fixed config filename 
      * ./udp_login_test.conf
-     * @param int $probeindex number of the probe to check against
-     * @param boolean $opName include Operator-Name in request?
-     * @param boolean $frag make request so large that fragmentation is needed?
+     * @param int     $probeindex number of the probe to check against
+     * @param boolean $opName     include Operator-Name in request?
+     * @param boolean $frag       make request so large that fragmentation is needed?
      * @return string the command-line for eapol_test
      */
     private function eapolTestConfig($probeindex, $opName, $frag) {
@@ -580,12 +602,23 @@ network={
         return $cmdline;
     }
 
+    /**
+     * collects CA certificates, both from the incoming EAP chain and from CAT
+     * config. Writes the root CAs into a trusted root CA dir and intermediate 
+     * and first server cert into a PEM file for later chain validation
+     * 
+     * @param string $tmpDir            working directory
+     * @param array  $intermOdditiesCAT by-reference array of already found 
+     *                                  oddities; adds its own
+     * @param array $servercert         the servercert to validate
+     * @param array $eapIntermediates   list of intermediate CA certs that came
+     *                                  in via EAP
+     * @param type $eapIntermediateCRLs list of CRLs for the EAP-supplied
+     *                                  intermediate CAs
+     * @return string
+     * @throws Exception
+     */
     private function createCArepository($tmpDir, &$intermOdditiesCAT, $servercert, $eapIntermediates, $eapIntermediateCRLs) {
-        // collect CA certificates, both the incoming EAP chain and from CAT config
-        // Write the root CAs into a trusted root CA dir
-        // and intermediate and first server cert into a PEM file
-        // for later chain validation
-
         if (!mkdir($tmpDir . "/root-ca-allcerts/", 0700, true)) {
             throw new Exception("unable to create root CA directory (RADIUS Tests): $tmpDir/root-ca-allcerts/\n");
         }
@@ -643,6 +676,23 @@ network={
         return $checkstring;
     }
 
+    /**
+     * for checks which have a known trust root CA (i.e. a valid CAT profile 
+     * exists), check against those known-good roots
+     * 
+     * @param array $testresults        by-reference list of testresults so far.
+     *                                  Function adds its own.
+     * @param array $intermOdditiesCAT  by-reference list of oddities in the CA
+     *                                  certs which are configured in CAT
+     * @param string $tmpDir            working directory
+     * @param array $servercert         the server certificate to validate
+     * @param array $eapIntermediates   list of intermediate CA certs that came
+     *                                  in via EAP
+     * @param type $eapIntermediateCRLs list of CRLs for the EAP-supplied
+     *                                  intermediate CAs
+     * @return int
+     * @throws Exception
+     */
     private function thoroughChainChecks(&$testresults, &$intermOdditiesCAT, $tmpDir, $servercert, $eapIntermediates, $eapIntermediateCRLs) {
 
         $crlCheckString = $this->createCArepository($tmpDir, $intermOdditiesCAT, $servercert, $eapIntermediates, $eapIntermediateCRLs);
@@ -702,19 +752,26 @@ network={
         return 3;
     }
 
+    /**
+     * check the incoming hostname (both Subject:CN and subjectAltName:DNS
+     * against what is configured in the profile; it's a significant error
+     * if there is no match!
+     * 
+     * FAIL if none of the configured names show up in the server cert
+     * WARN if the configured name is only in either CN or sAN:DNS
+     * 
+     * @param array $servercert  the server certificate to check
+     * @param array $testresults by-reference the existing testresults. Function
+     *                           adds its own findings.
+     * @return void
+     */
     private function thoroughNameChecks($servercert, &$testresults) {
-        // check the incoming hostname (both Subject:CN and subjectAltName:DNS
-        // against what is configured in the profile; it's a significant error
-        // if there is no match!
-        // FAIL if none of the configured names show up in the server cert
-        // WARN if the configured name is only in either CN or sAN:DNS
         // Strategy for checks: we are TOTALLY happy if any one of the
         // configured names shows up in both the CN and a sAN
         // This is the primary check.
         // If that was not the case, we are PARTIALLY happy if any one of
         // the configured names was in either of the CN or sAN lists.
         // we are UNHAPPY if no names match!
-
         $happiness = "UNHAPPY";
         foreach ($this->expectedServerNames as $expectedName) {
             $this->loggerInstance->debug(4, "Managing expectations for $expectedName: " . print_r($servercert['CN'], TRUE) . print_r($servercert['sAN_DNS'], TRUE));
@@ -741,6 +798,19 @@ network={
         }
     }
 
+    /**
+     * run eapol_test
+     * 
+     * @param string  $tmpDir      working directory
+     * @param int     $probeindex  number of the probe this test should run through
+     * @param array   $eaptype     EAP type in array representation
+     * @param string  $innerUser   EAP method inner username to use
+     * @param string  $password    password to use
+     * @param boolean $opnameCheck inject Operator-Name?
+     * @param boolean $frag        provoke UDP fragmentation?
+     * @return array timing information of the executed eapol_test run
+     * @throws Exception
+     */
     private function executeEapolTest($tmpDir, $probeindex, $eaptype, $innerUser, $password, $opnameCheck, $frag) {
         $finalInner = $innerUser;
         $finalOuter = $this->outerUsernameForChecks;
@@ -767,6 +837,15 @@ network={
         ];
     }
 
+    /**
+     * checks if the RADIUS packets were coming in in the order they are 
+     * expected. The function massages the raw result for some known oddities.
+     * 
+     * @param array $testresults     by-reference array of test results so far.
+     *                               function adds its own.
+     * @param array $packetflow_orig original flow of packets
+     * @return int
+     */
     private function checkRadiusPacketFlow(&$testresults, $packetflow_orig) {
 
         $packetflow = $this->filterPackettype($packetflow_orig);
@@ -799,7 +878,8 @@ network={
      * parses the eapol_test output to determine whether we got to a point where
      * an EAP type was mutually agreed
      * 
-     * @param array $testresults by-reference, we add our findings if something is noteworthy
+     * @param array $testresults     by-reference, we add our findings if 
+     *                               something is noteworthy
      * @param array $packetflow_orig the array of text output from eapol_test
      * @return bool
      */
@@ -819,6 +899,12 @@ network={
     const CA_INTERMEDIATE = 3;
     const CA_ROOT = 4;
 
+    /**
+     * what is the incoming certificate - root, intermediate, or server?
+     * @param array $cert           the certificate to check
+     * @param int   $totalCertCount number of certs in total in chain
+     * @return type
+     */
     private function determineCertificateType(&$cert, $totalCertCount) {
         if ($cert['ca'] == 0 && $cert['root'] == 0) {
             return RADIUSTests::SERVER_NO_CA_EXTENSION;
@@ -834,6 +920,14 @@ network={
         return RADIUSTests::CA_INTERMEDIATE;
     }
 
+    /**
+     * pull out the certificates that were sent during the EAP conversation
+     * 
+     * @param array  $testresults by-reference, add our findings if any
+     * @param string $tmpDir      working directory
+     * @return array
+     * @throws Exception
+     */
     private function extractIncomingCertsfromEAP(&$testresults, $tmpDir) {
 
         /*
@@ -1020,10 +1114,20 @@ network={
         return $radiusResult;
     }
 
+    /**
+     * sets the outer identity to use in the checks
+     * 
+     * @param string $id the outer ID to use
+     */
     public function setOuterIdentity($id) {
         $this->outerUsernameForChecks = $id;
     }
 
+    /**
+     * pull together all sub tests into a cohesive test result
+     * @param int $host index of the probe for which the results are collated
+     * @return array
+     */
     public function consolidateUdpResult($host) {
         $ret = [];
         $serverCert = [];

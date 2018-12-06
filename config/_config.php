@@ -123,6 +123,8 @@ if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == 'LOCAL') {
 
 /**
  * takes care of starting our session
+ * 
+ * @return void
  */
 function CAT_session_start() {
     if (session_status() != PHP_SESSION_ACTIVE) {

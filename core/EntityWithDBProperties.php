@@ -176,6 +176,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * after a beginFlushAttributes, deletes all attributes which are in the tobedeleted array.
      *
      * @param array $tobedeleted array of database rows which are to be deleted
+     * @return void
      */
     public function commitFlushAttributes(array $tobedeleted) {
         $quotedIdentifier = (!is_int($this->getRelevantIdentifier()) ? "\"" : "") . $this->getRelevantIdentifier() . (!is_int($this->getRelevantIdentifier()) ? "\"" : "");
@@ -187,6 +188,8 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
 
     /**
      * deletes all attributes of this entity from the database
+     * 
+     * @return void
      */
     public function flushAttributes() {
         $this->commitFlushAttributes($this->beginFlushAttributes());
@@ -198,6 +201,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * @param string $attrName  Name of the attribute. This must be a well-known value from the profile_option_dict table in the DB.
      * @param string $attrLang  language of the attribute. Can be NULL.
      * @param mixed  $attrValue Value of the attribute. Can be anything; will be stored in the DB as-is.
+     * @return void
      */
     public function addAttribute($attrName, $attrLang, $attrValue) {
         $relevantId = $this->getRelevantIdentifier();
@@ -282,6 +286,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
         switch ($table) {
             case "profile_option": // both of these are similar
                 $columnName = "profile_id";
+                // fall-through intended
             case "institution_option":
                 $blobId = -1;
                 $columnName = $columnName ?? "institution_id";
@@ -323,6 +328,8 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
 
     /**
      * when options in the DB change, this can mean generated installers become stale. sub-classes must define whether this is the case for them
+     * 
+     * @return void
      */
     abstract public function updateFreshness();
 }

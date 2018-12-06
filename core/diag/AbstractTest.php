@@ -553,6 +553,8 @@ class AbstractTest extends \core\common\Entity {
      * turns $this->possibleFailureReasons into something where the sum of all
      * occurence factors is 1. A bit like a probability distribution, but they
      * are not actual probabilities.
+     * 
+     * @return void
      */
     protected function normaliseResultSet() {
         // done. return both the list of possible problem sources with their occurence rating, and the additional findings we collected along the way.

@@ -192,6 +192,8 @@ class IdP extends EntityWithDBProperties {
      * This is needed for installer caching: all installers which are on disk 
      * must be re-created if an attribute changes. This timestamp here
      * is used to determine if the installer on disk is still new enough.
+     * 
+     * @return void
      */
     public function updateFreshness() {
         // freshness is always defined for *Profiles*
@@ -228,6 +230,8 @@ class IdP extends EntityWithDBProperties {
 
     /**
      * deletes the IdP and all its profiles
+     * 
+     * @return void
      */
     public function destroy() {
         /* delete all profiles */
@@ -345,6 +349,7 @@ Best regards,
      * Associates the external DB id with a CAT id
      * 
      * @param string $identifier the external DB id, which can be alpha-numeric
+     * @return void
      */
     public function setExternalDBId(string $identifier) {
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
@@ -359,6 +364,8 @@ Best regards,
 
     /**
      * removes the link between a CAT institution and the external DB
+     * 
+     * @return void
      */
     public function removeExternalDBId() {
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED

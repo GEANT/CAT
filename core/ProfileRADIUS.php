@@ -200,6 +200,7 @@ class ProfileRADIUS extends AbstractProfile {
      * @param string $path           the path where the new installer can be found
      * @param string $mime           the MIME type of the new installer
      * @param int    $integerEapType the numeric representation of the EAP type for which this installer was generated
+     * @return void
      */
     public function updateCache($device, $path, $mime, $integerEapType) {
         $lang = $this->languageInstance->getLang();
@@ -217,6 +218,7 @@ class ProfileRADIUS extends AbstractProfile {
      * @param string $attrValue value of the attribute to set
      * @param int    $eapType   identifier of the EAP type in the database. 0 if the attribute is valid for all EAP types.
      * @param string $device    identifier of the device in the databse. Omit the argument if attribute is valid for all devices.
+     * @return void
      */
     private function addAttributeAllLevels($attrName, $attrLang, $attrValue, $eapType, $device) {
         $prepQuery = "INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_lang, option_value, eap_method_id, device_id) 
@@ -232,6 +234,7 @@ class ProfileRADIUS extends AbstractProfile {
      * @param string $attrLang  language of the attribute to set (if multilang, can be NULL)
      * @param string $attrValue value of the attribute to set
      * @param int    $eapType   identifier of the EAP type in the database. 0 if the attribute is valid for all EAP types.
+     * @return void
      */
     public function addAttributeEAPSpecific($attrName, $attrLang, $attrValue, $eapType) {
         $this->addAttributeAllLevels($attrName, $attrLang, $attrValue, $eapType, NULL);
@@ -244,6 +247,7 @@ class ProfileRADIUS extends AbstractProfile {
      * @param string $attrLang  language of the attribute to set (if multilang, can be NULL)
      * @param string $attrValue value of the attribute to set
      * @param string $device    identifier of the device in the databse. Omit the argument if attribute is valid for all devices.
+     * @return void
      */
     public function addAttributeDeviceSpecific($attrName, $attrLang, $attrValue, $device) {
         $this->addAttributeAllLevels($attrName, $attrLang, $attrValue, 0, $device);
@@ -255,6 +259,7 @@ class ProfileRADIUS extends AbstractProfile {
      * @param string $attrName  name of the attribute to set
      * @param string $attrLang  language of the attribute to set (if multilang, can be NULL)
      * @param string $attrValue value of the attribute to set
+     * @return void
      */
     public function addAttribute($attrName, $attrLang, $attrValue) {
         $this->addAttributeAllLevels($attrName, $attrLang, $attrValue, 0, NULL);
@@ -277,7 +282,7 @@ class ProfileRADIUS extends AbstractProfile {
     /** Toggle anonymous outer ID support.
      *
      * @param boolean $shallwe TRUE to enable outer identities (needs valid $realm), FALSE to disable
-     *
+     * @return void
      */
     public function setAnonymousIDSupport($shallwe) {
         $this->databaseHandle->exec("UPDATE profile SET use_anon_outer = " . ($shallwe === true ? "1" : "0") . " WHERE profile_id = $this->identifier");
@@ -287,7 +292,7 @@ class ProfileRADIUS extends AbstractProfile {
      *
      * @param boolean $shallwe   TRUE to enable outer identities (needs valid $realm), FALSE to disable
      * @param string  $localpart the username
-     *
+     * @return void
      */
     public function setRealmCheckUser($shallwe, $localpart = NULL) {
         $this->databaseHandle->exec("UPDATE profile SET checkuser_outer = " . ($shallwe === true ? "1" : "0") .
@@ -295,10 +300,12 @@ class ProfileRADIUS extends AbstractProfile {
                 " WHERE profile_id = $this->identifier");
     }
 
-    /** should username be verified or even prefilled?
+    /** 
+     * should username be verified or even prefilled?
      * 
      * @param bool $verify should the user input be verified by the installer?
      * @param bool $hint   should the user be shown username formatting hints?
+     * @return void
      */
     public function setInputVerificationPreference($verify, $hint) {
         $this->databaseHandle->exec("UPDATE profile SET verify_userinput_suffix = " . ($verify === true ? "1" : "0") .

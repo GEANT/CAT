@@ -51,8 +51,8 @@ class Logging {
     /**
      * write debug messages to the log, if the debug level is high enough
      *
-     * @param int    $level the debug level of the message that is to be logged
-     * @param mixed  $stuff the stuff to be logged (via print_r)
+     * @param int    $level  the debug level of the message that is to be logged
+     * @param mixed  $stuff  the stuff to be logged (via print_r)
      * @param string $prefix prefix to the message, optional
      * @param string $suffix suffix to the message, optional
      * @return void

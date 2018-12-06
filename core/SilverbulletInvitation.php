@@ -110,7 +110,12 @@ class SilverbulletInvitation extends common\Entity {
     const SB_TOKENSTATUS_REDEEMED = 2;
     const SB_TOKENSTATUS_EXPIRED = 3;
     const SB_TOKENSTATUS_INVALID = 4;
-
+    
+    /**
+     * instantiates an invitation identified by the token
+     * 
+     * @param string $invitationId token
+     */
     public function __construct($invitationId) {
         parent::__construct();
         $this->invitationTokenString = $invitationId;
@@ -177,6 +182,12 @@ class SilverbulletInvitation extends common\Entity {
         $this->loggerInstance->debug(5, "Done creating invitation token state from DB.\n");
     }
 
+    /**
+     * creates the full URL link, including the token as a GET parameter
+     * 
+     * @return string
+     * @throws Exception
+     */
     public function link() {
         if (isset($_SERVER['HTTPS'])) {
             $link = 'https://';
@@ -205,6 +216,7 @@ class SilverbulletInvitation extends common\Entity {
 
     /**
      * returns the subject to use in an invitation mail
+     * 
      * @return string
      */
     public function invitationMailSubject() {
@@ -213,6 +225,7 @@ class SilverbulletInvitation extends common\Entity {
 
     /**
      * returns the body to use in an invitation mail
+     * 
      * @return string
      */
     public function invitationMailBody() {
@@ -257,6 +270,8 @@ class SilverbulletInvitation extends common\Entity {
 
     /**
      * revokes the invitation
+     * 
+     * @return void
      */
     public function revokeInvitation() {
         $query = "UPDATE silverbullet_invitation SET expiry = UNIX_TIMESTAMP() WHERE id = ? AND profile_id = ?";

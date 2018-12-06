@@ -85,7 +85,7 @@ class UserManagement extends \core\common\Entity {
      * FAIL-ALREADYCONSUMED the token exists, but has been used before
      * FAIL-EXPIRED the token exists, but has expired
      * 
-     * @param string $token
+     * @param string $token the invitation token
      * @return int
      */
     public function checkTokenValidity($token) {

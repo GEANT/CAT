@@ -96,6 +96,8 @@ class Federation extends EntityWithDBProperties {
      * when a Federation attribute changes, invalidate caches of all IdPs 
      * in that federation (e.g. change of fed logo changes the actual 
      * installers)
+     * 
+     * @return void
      */
     public function updateFreshness() {
         $idplist = $this->listIdentityProviders();
@@ -148,8 +150,8 @@ class Federation extends EntityWithDBProperties {
      *
      * Constructs a Federation object.
      *
-     * @param string $fedname - textual representation of the Federation object
-     *        Example: "lu" (for Luxembourg)
+     * @param string $fedname textual representation of the Federation object
+     *                        Example: "lu" (for Luxembourg)
      */
     public function __construct($fedname) {
 

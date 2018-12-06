@@ -92,6 +92,8 @@ class Options {
 
     /**
      * Prevent cloning - this is a singleton.
+     * 
+     * @return void
      */
     public function __clone() {
         trigger_error('Cloning not allowed for singleton classes.', E_USER_ERROR);

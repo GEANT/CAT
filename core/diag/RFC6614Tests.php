@@ -95,6 +95,8 @@ class RFC6614Tests extends AbstractTest {
 
     /**
      * run all checks on all candidates
+     * 
+     * @return void
      */
     public function allChecks() {
         foreach ($this->candidateIPs as $oneIP) {
@@ -113,7 +115,7 @@ class RFC6614Tests extends AbstractTest {
         if (!isset($this->TLS_CA_checks_result[$host])) {
             $this->TLS_CA_checks_result[$host] = [];
         }
-        $opensslbabble = $this->openssl_s_client($host, '', $this->TLS_CA_checks_result[$host]);
+        $opensslbabble = $this->ExecOpensslClient($host, '', $this->TLS_CA_checks_result[$host]);
         return $this->opensslCAResult($host, $opensslbabble, $this->TLS_CA_checks_result);
     }
 
@@ -144,7 +146,7 @@ class RFC6614Tests extends AbstractTest {
                 if (!isset($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k])) {
                     $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k] = [];
                 }
-                $opensslbabble = $this->openssl_s_client($host, $add, $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]);
+                $opensslbabble = $this->ExecOpensslClient($host, $add, $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]);
                 $res = $this->opensslClientsResult($host, $opensslbabble, $this->TLS_clients_checks_result, $type, $k);
                 if ($cert['expected'] == 'PASS') {
                     if (!$this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['connected']) {
@@ -173,12 +175,12 @@ class RFC6614Tests extends AbstractTest {
     /**
      * This function executes openssl s_client command
      * 
-     * @param string $host IP address
-     * @param string $arg arguments to add to the openssl command 
-     * @param array $testresults by-reference: the testresults array we are writing into
+     * @param string $host        IP address
+     * @param string $arg         arguments to add to the openssl command 
+     * @param array  $testresults by-reference: the testresults array we are writing into
      * @return array result of openssl s_client ...
      */
-    private function openssl_s_client($host, $arg, &$testresults) {
+    private function ExecOpensslClient($host, $arg, &$testresults) {
 // we got the IP address either from DNS (guaranteeing well-formedness)
 // or from filter_var'ed user input. So it is always safe as an argument
 // but code analysers want this more explicit, so here is this extra
@@ -198,9 +200,9 @@ class RFC6614Tests extends AbstractTest {
     /**
      * This function parses openssl s_client result
      * 
-     * @param string $host IP:port
-     * @param array $opensslbabble openssl command output
-     * @param array $testresults by-reference: pointer to results array we write into
+     * @param string $host          IP:port
+     * @param array  $opensslbabble openssl command output
+     * @param array  $testresults   by-reference: pointer to results array we write into
      * @return int return code
      */
     private function opensslCAResult($host, $opensslbabble, &$testresults) {
@@ -243,11 +245,11 @@ class RFC6614Tests extends AbstractTest {
     /**
      * This function parses openssl s_client result
      * 
-     * @param string $host IP:port
-     * @param array $opensslbabble openssl command output
-     * @param array $testresults by-reference: pointer to results array we write into
-     * @param string $type type of certificate
-     * @param int $resultArrayKey results array key
+     * @param string $host           IP:port
+     * @param array  $opensslbabble  openssl command output
+     * @param array  $testresults    by-reference: pointer to results array we write into
+     * @param string $type           type of certificate
+     * @param int    $resultArrayKey results array key
      * @return int return code
      */
     private function opensslClientsResult($host, $opensslbabble, &$testresults, $type = '', $resultArrayKey = 0) {
@@ -317,8 +319,8 @@ class RFC6614Tests extends AbstractTest {
     /**
      * This function parses a X.509 cert and returns the value of $field
      * 
-     * @param array $cert (returned from openssl_x509_parse) 
-     * @param string $field 
+     * @param array  $cert  (returned from openssl_x509_parse) 
+     * @param string $field the field to search for
      * @return string value of the extention named $field or ''
      */
     private function getCertificatePropertyField($cert, $field) {

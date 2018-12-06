@@ -25,7 +25,8 @@ namespace core;
 class IdPlist {
     /**
      * Order active identity providers according to their distance and name
-     * @param array $currentLocation - current location
+     * @param string $country         the country from which to list IdPs
+     * @param array  $currentLocation current location
      * @return array $IdPs -  list of arrays ('id', 'name');
      */
     public static function orderIdentityProviders($country, $currentLocation = NULL) {
@@ -121,6 +122,12 @@ class IdPlist {
     }
 
 
+    /**
+     * sets the current location
+     * 
+     * @param array $currentLocation
+     * @return array
+     */
     private static function setCurrentLocation($currentLocation) {
         if (is_null($currentLocation)) {
             $currentLocation = ['lat' => "90", 'lon' => "0"];
@@ -132,6 +139,12 @@ class IdPlist {
         return($currentLocation);
     }
     
+    /**
+     * calculate surface distance from user location to IdP location
+     * @param array $idp the IdP in question
+     * @param array $location user location
+     * @return string
+     */
     private static function getIdpDistance($idp, $location) {
         $dist = 10000;
         if (isset($idp['geo'])) {
