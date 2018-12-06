@@ -68,13 +68,13 @@ echo $mapCode->htmlHeadCode();
         <div class='infobox' style='text-align:center;'>
             <h2><?php echo sprintf(_("%s download area QR code"), $uiElements->nomenclature_inst); ?></h2>
             <?php
-            $displayurl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier;
-            $uri = "data:image/png;base64," . base64_encode($uiElements->pngInjectConsortiumLogo(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL), QRCODE_PIXELS_PER_SYMBOL));
+            $idpLevelUrl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier;
+            $uri = "data:image/png;base64," . base64_encode($uiElements->pngInjectConsortiumLogo(QRcode::png($idpLevelUrl, FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL), QRCODE_PIXELS_PER_SYMBOL));
             $size = getimagesize($uri);
             echo "<img width='" . ($size[0] / 4) . "' height='" . ($size[1] / 4) . "' src='$uri' alt='QR-code'/>";
             ?>
             <br>
-            <?php echo "<a href='$displayurl'>$displayurl</a>"; ?>
+            <?php echo "<a href='$idpLevelUrl'>$idpLevelUrl</a>"; ?>
         </div>
         <?php
         foreach ($idpoptions as $optionname => $optionvalue) {
@@ -318,10 +318,10 @@ echo $mapCode->htmlHeadCode();
                 echo "<div style='width:20px;'></div>";
                 if ($readiness == core\AbstractProfile::READINESS_LEVEL_SHOWTIME) {
                     echo "<div style='display: table-cell; text-align:center;'><p><strong>" . _("User Download Link") . "</strong></p>";
-                    $URL = $profile_list->getCollapsedAttributes();                    
-                    $displayurl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier . "&profile=" . $profile_list->identifier;
+                    $displayurl = $idpLevelUrl . "&amp;profile=" . $profile_list->identifier;
+                    $QRurl = $idpLevelUrl . "&profile=" . $profile_list->identifier;
                     echo "<a href='$displayurl' style='white-space: nowrap; text-align: center;'>";
-                    $uri = "data:image/png;base64," . base64_encode($uiElements->pngInjectConsortiumLogo(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL), QRCODE_PIXELS_PER_SYMBOL));
+                    $uri = "data:image/png;base64," . base64_encode($uiElements->pngInjectConsortiumLogo(QRcode::png($QRurl, FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL), QRCODE_PIXELS_PER_SYMBOL));
                     $size = getimagesize($uri);
                     echo "<img width='" . ($size[0] / 4) . "' height='" . ($size[1] / 4) . "' src='$uri' alt='QR-code'/>";
 
