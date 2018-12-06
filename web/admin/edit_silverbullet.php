@@ -528,7 +528,6 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                                     echo $formtext . "
                                     <input type='hidden' name='userid' value='$oneUserId'/>
                                     <button type='submit' "
-                                            . "id='userdel' "
                                             . "name='command' "
                                             . "value='" . \web\lib\common\FormElements::BUTTON_DEACTIVATEUSER . "' "
                                             . "class='delete' "
