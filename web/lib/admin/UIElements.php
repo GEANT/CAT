@@ -209,7 +209,7 @@ class UIElements {
                 $locationCount++;
                 $marker .= '<marker name="' . $locationCount . '" lat="' . $g['lat'] . '" lng="' . $g['lon'] . '" />';
             }
-            $marker .= '</markers>';
+            $marker .= '<\/markers>'; // some validator says this should be escaped
             $jMarker = json_encode($locationMarkers);
             $retval .= '<tr><td><script>markers=\'' . $marker . '\'; jmarkers = \'' . $jMarker . '\';</script></td><td></td><td></td></tr>';
         }
