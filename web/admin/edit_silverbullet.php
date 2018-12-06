@@ -464,7 +464,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                                     $jsEncodedBody = str_replace('\n', '%0D%0A', str_replace('"', '', json_encode($invitationObject->invitationMailBody())));
                                     $tokenHtmlBuffer .= "<td>
                                 
-                                    The invitation token <input type='text' readonly='readonly' color='grey' size='60' value='" . $invitationObject->link() . "' name='token' class='identifiedtokenarea-" . $invitationObject->identifier . "'>(…)<br/> is ready for sending! Choose how to send it:
+                                    The invitation token <input type='text' readonly='readonly' style='background-color:lightgrey;' size='60' value='" . $invitationObject->link() . "' name='token' class='identifiedtokenarea-" . $invitationObject->identifier . "'>(…)<br/> is ready for sending! Choose how to send it:
                                     <table>
                                     <tr><td style='vertical-align:bottom;'>E-Mail:</td><td>
                                     $formtext
