@@ -318,9 +318,9 @@ class UIElements {
     /**
      * 
      * @param string $reference a reference pointer to a database entry
+     * @return void
      * @throws Exception
      */
-    
     private function checkROWIDpresence($reference) {
         $found = preg_match("/^ROWID-.*/", $reference);
         if ($found  != 1) { // get excited on not-found AND on execution error
@@ -388,10 +388,10 @@ class UIElements {
     /**
      * creates HTML code for a UI element which informs the user about something.
      * 
-     * @param int $level what kind of information is to be displayed?
-     * @param string $text the text to display
-     * @param string $caption the caption to display
-     * @param bool $omittabletags the output usually has tr/td table tags, this option suppresses them
+     * @param int    $level         what kind of information is to be displayed?
+     * @param string $text          the text to display
+     * @param string $caption       the caption to display
+     * @param bool   $omittabletags the output usually has tr/td table tags, this option suppresses them
      * @return string
      */
     public function boxFlexible(int $level, string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {

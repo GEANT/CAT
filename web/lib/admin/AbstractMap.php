@@ -49,8 +49,8 @@ abstract class AbstractMap {
     /**
      * loads the configured map type
      * 
-     * @param \core\IdP $inst
-     * @param boolean $readonly
+     * @param \core\IdP $inst     the institution for which the map is loaded
+     * @param boolean   $readonly is this a readonly map?
      * @return \web\lib\admin\MapNone|\web\lib\admin\MapOpenLayers|\web\lib\admin\MapGoogle
      * @throws Exception
      */
@@ -61,6 +61,8 @@ abstract class AbstractMap {
 
     /**
      * If the map needs to inject code into <head>, it is generated in this function.
+     * 
+     * @return string
      */
     abstract public function htmlHeadCode();
 
@@ -68,12 +70,16 @@ abstract class AbstractMap {
      * If the map needs to inject code into <body> to enable a map (like 
      * JavaScript code), it is generated in this function. The actual HTML
      * is defined in the htmlShowtime() function below.
+     * 
+     * @return string
      */
     abstract public function htmlBodyCode();
 
     /**
      * If the map needs to modify the <body> tag itself (e.g. an onLoad()
      * function), it is generated in this function
+     * 
+     * @return string
      */
     abstract public function bodyTagCode();
 
@@ -138,6 +144,7 @@ abstract class AbstractMap {
      * This HTML goes below the actual map, and is map provider independent.
      * 
      * @param boolean $allowDirectInput should the input fields be editable?
+     * @return string
      */
     protected function htmlPostEdit($allowDirectInput) {
         return "<br/>" . _("Latitude:") . " <input style='width:80px' name='geo_lat' id='geo_lat' " .($allowDirectInput ? "": "readonly"). ">" . _("Longitude:") . " <input name='geo_long' id='geo_long' style='width:80px' " .($allowDirectInput ? "": "readonly"). "></fieldset>";

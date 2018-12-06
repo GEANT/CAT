@@ -49,6 +49,7 @@ class Authentication {
     /**
      * authenticates a user.
      * 
+     * @return void
      * @throws Exception
      */
     public function authenticate() {
@@ -105,8 +106,9 @@ class Authentication {
 
     /**
      * deauthenticates the user.
-     * 
      * Sends a SAML LogoutRequest to the IdP, which will kill the SSO session and return us to our own logout_check page.
+     * 
+     * @return void
      */
     public function deauthenticate() {
 

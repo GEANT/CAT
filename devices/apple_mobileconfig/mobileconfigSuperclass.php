@@ -66,7 +66,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
     /**
      * massage a name so that it becomes acceptable inside the plist XML
      * 
-     * @param type $input the literal name
+     * @param string $input the literal name
      * @return string
      */
     private function massageName($input) {
@@ -391,8 +391,9 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
 
     /**
      * produces an entire Network block
-     * @param int          $blocktype      which type of network block is this?
-     * @param string|array $toBeConfigured variable part of the config. Single SSID or list of ConsortiumOi
+     * 
+     * @param int                  $blocktype      which type of network block is this?
+     * @param string|array|boolean $toBeConfigured variable part of the config. Single SSID or list of ConsortiumOi
      * @return string
      * @throws Exception
      */
@@ -400,6 +401,9 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
         $eapType = $this->selectedEap;
         switch ($blocktype) {
             case MobileconfigSuperclass::NETWORK_BLOCK_TYPE_SSID:
+                if (!is_string($toBeConfigured)) {
+                    throw new Exception("SSID must be a string!");
+                }
                 $escapedSSID = htmlspecialchars($toBeConfigured, ENT_XML1, 'UTF-8');
                 $payloadIdentifier = "wifi." . $this->serial;
                 $payloadShortName = sprintf(_("SSID %s"), $escapedSSID);
@@ -410,6 +414,9 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
                   <string>$escapedSSID</string>";
                 break;
             case MobileconfigSuperclass::NETWORK_BLOCK_TYPE_WIRED:
+                if (!is_bool($toBeConfigured)) {
+                    throw new Exception("We expected a TRUE here!");
+                }
                 $payloadIdentifier = "firstactiveethernet";
                 $payloadShortName = _("Wired Network");
                 $payloadName = sprintf(_("%s configuration for wired network"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
@@ -422,6 +429,9 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
                 $wifiNetworkIdentification = "";
                 break;
             case MobileconfigSuperclass::NETWORK_BLOCK_TYPE_CONSORTIUMOIS:
+                if (!is_array($toBeConfigured)) {
+                    throw new Exception("ConsortiumOI list must be an array!");
+                }
                 $payloadIdentifier = "hs20";
                 $payloadShortName = _("Hotspot 2.0 Settings");
                 $payloadName = sprintf(_("%s Hotspot 2.0 configuration"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);

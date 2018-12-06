@@ -173,7 +173,7 @@ class InputValidation {
 /**
  * Is this an integer, or a string that represents an integer?
  * 
- * @param mixed $input
+ * @param mixed $input the raw input
  * @return boolean|int returns the input, or FALSE if it is not an integer-like value
  */
 public function integer($input) {
@@ -187,7 +187,7 @@ public function integer($input) {
  * Checks if the input is the hex representation of a Consortium OI (i.e. three
  * or five bytes)
  * 
- * @param mixed $input
+ * @param mixed $input the raw input
  * @return boolean|string returns the input, or FALSE on validation failure
  */
 public function consortiumOI($input) {
@@ -271,7 +271,7 @@ public function User($input) {
  * could this be a valid token? 
  * 
  * Only checks correct form, not if the token actually exists in the system.
- * @param mixed $input
+ * @param mixed $input the raw input
  * @return string echoes back the input string, or throws an Exception if bogus
  * @throws Exception
  */
@@ -362,7 +362,7 @@ public function databaseReference($input) {
 /**
  * is this a valid hostname?
  * 
- * @param mixed $input
+ * @param mixed $input the raw input
  * @return boolean|string echoes the hostname, or FALSE if bogus
  */
 public function hostname($input) {
@@ -378,7 +378,7 @@ public function hostname($input) {
 /**
  * is this a valid email address?
  * 
- * @param mixed $input
+ * @param mixed $input the raw input
  * @return boolean|string echoes the mail address, or FALSE if bogus
  */
 public function email($input) {
@@ -390,6 +390,11 @@ public function email($input) {
     return FALSE;
 }
 
+/**
+ * is this a well-formed SMS number? Light massaging - leading + will be removed
+ * @param type $input the raw input
+ * @return boolean|string
+ */
 public function sms($input) {
     $number = str_replace(' ', '', str_replace(".", "", str_replace("+", "", $input)));
     if (!is_numeric($number)) {
@@ -421,7 +426,7 @@ public function supportedLanguage($input) {
  * Makes sure we are not receiving a bogus option name. The called function throws
  * an assertion if the name is not known.
  * 
- * @param mixed $input
+ * @param mixed $input the unvetted option name
  * @return string
  */
 public function optionName($input) {

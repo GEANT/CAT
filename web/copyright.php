@@ -37,4 +37,4 @@ $Gui->defaultPagePrelude();
 
 // and now, serve actual data
 //include dirname(dirname(dirname(__FILE__))) . "/copyright.php";
-include("skins/".$Gui->skinObject->skin."/copyright.php");
+require "skins/".$Gui->skinObject->skin."/copyright.php";

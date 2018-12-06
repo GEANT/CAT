@@ -27,6 +27,9 @@ class PageDecoration {
     private $ui;
     private $langObject;
     
+    /**
+     * construct the PageDecoration object
+     */
     public function __construct() {
         $this->langObject = new \core\common\Language();
         $this->langObject->setTextDomain("web_admin");
@@ -36,7 +39,9 @@ class PageDecoration {
 
     /**
      * Our (very modest and light) sidebar. authenticated admins get more options, like logout
-     * @param boolean $advancedControls
+     * 
+     * @param boolean $advancedControls display the admin-side advanced controls?
+     * @return string
      */
     private function sidebar($advancedControls) {
         $retval = "<div class='sidebar'><p>";
@@ -116,6 +121,7 @@ class PageDecoration {
      * the entire top of the page (<body> part)
      * 
      * @param string $area the area we are in
+     * @return string
      */
     public function productheader($area) {
         $langObject = new \core\common\Language();
@@ -179,8 +185,9 @@ class PageDecoration {
 
     /**
      * 
-     * @param string $pagetitle Title of the page to display
+     * @param string  $pagetitle    Title of the page to display
      * @param boolean $authRequired does the user need to be autenticated to access this page?
+     * @return string
      */
     public function defaultPagePrelude($pagetitle, $authRequired = TRUE) {
         if ($authRequired === TRUE) {
@@ -219,6 +226,8 @@ class PageDecoration {
 
     /**
      * displays the admin area footer
+     * 
+     * @return string
      */
     public function footer() {
         $cat = new \core\CAT();

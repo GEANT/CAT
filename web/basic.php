@@ -42,4 +42,4 @@ $skinObject = new \web\lib\user\Skinjob($_REQUEST['skin'] ?? $_SESSION['skin'] ?
 
 
 // and now, serve actual data
-include("skins/".$skinObject->skin."/basic.php");
+require "skins/".$skinObject->skin."/basic.php";

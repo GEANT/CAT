@@ -31,10 +31,10 @@ require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 class MapGoogle extends AbstractMap {
 
     /**
+     * construct a Google Map object
      * 
-     * @param \core\IdP $inst   the IdP for which the map is displayed
-     * @param boolean $readonly do we want a read-only map or editable?
-     * @return $this
+     * @param \core\IdP $inst     the IdP for which the map is displayed
+     * @param boolean   $readonly do we want a read-only map or editable?
      */
     public function __construct($inst, $readonly) {
         parent::__construct($inst, $readonly);
@@ -368,6 +368,11 @@ class MapGoogle extends AbstractMap {
         return "onload='load(" . ($this->readOnly ? "0" : "1") . ")'";
     }
 
+    /**
+     * code to enable user to find a location by licking the option
+     * 
+     * @return string
+     */
     private function findLocationHtml() {
         return "<p>" . _("Address:") . " <input name='address' id='address' /><button type='button' onclick='getAddressLocation()'>" . _("Find address") . "</button> <button type='button' onclick='locateMe()'>" . _("Locate Me!") . "</button></p>";
     }

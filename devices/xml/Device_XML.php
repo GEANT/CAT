@@ -46,7 +46,6 @@ abstract class Device_XML extends \core\DeviceConfig {
     /**
      * construct the device
      */
-
     public function __construct() {
         parent::__construct();
     }

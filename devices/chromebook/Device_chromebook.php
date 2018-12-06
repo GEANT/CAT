@@ -103,7 +103,7 @@ class Device_Chromebook extends \core\DeviceConfig {
      * credential
      * 
      * @param string $clearJson the cleartext JSON string to encrypt
-     * @param string $password the import PIN we told the user
+     * @param string $password  the import PIN we told the user
      * @return string
      */
     private function encryptConfig($clearJson, $password) {
@@ -136,8 +136,8 @@ class Device_Chromebook extends \core\DeviceConfig {
 
     /**
      * Creates a WiFi block (SSID based only, no support for Passpoint)
-     * @param string $ssid the SSID to configure
-     * @param array $eapdetails the EAP sub-block as derived from EapBlock()
+     * @param string $ssid       the SSID to configure
+     * @param array  $eapdetails the EAP sub-block as derived from EapBlock()
      * @return array
      */
     private function wifiBlock($ssid, $eapdetails) {

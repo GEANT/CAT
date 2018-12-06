@@ -165,7 +165,7 @@ if ($queryType == 'idp') {
     $res = $res . $javascript;
 }
 if ($queryType == 'idp_send' || $queryType == 'sp_send') {
-    require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
+    include_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
     $languageInstance = new \core\common\Language();
     $languageInstance->setTextDomain("web_user");
     $cat = new \core\CAT();

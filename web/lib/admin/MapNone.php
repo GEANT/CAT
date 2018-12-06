@@ -31,10 +31,10 @@ require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 class MapNone extends AbstractMap {
 
     /**
+     * construct a NULL Map
      * 
-     * @param \core\IdP $inst   the IdP for which the map is displayed
-     * @param boolean $readonly do we want a read-only map or editable?
-     * @return $this
+     * @param \core\IdP $inst     the IdP for which the map is displayed
+     * @param boolean   $readonly do we want a read-only map or editable?
      */
     public function __construct($inst, $readonly) {
         parent::__construct($inst, $readonly);
@@ -108,6 +108,12 @@ class MapNone extends AbstractMap {
         $pair = json_decode($coords, true);
         return "<table><tr><td>Latitude</td><td><strong>" . $pair['lat'] . "</strong></td></tr><tr><td>Longitude</td><td><strong>" . $pair['lon'] . "</strong></td></tr></table>";
     }
+    
+    /**
+     * code to enable user to find a location by licking the option
+     * 
+     * @return string
+     */
     private function findLocationHtml() {
         return "<button type='button' onclick='locateMe()'>" . _("Locate Me!") . "</button></p>";
     }

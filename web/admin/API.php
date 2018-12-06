@@ -23,9 +23,9 @@ require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 
 /**
  * Checks if the profile is a valid SB profile belonging to the federation
- * @param string $fed federation identifier
- * @param int $id profile identifier
- * @return boolean
+ * @param \core\Federation $fed federation identifier
+ * @param int              $id  profile identifier
+ * @return boolean|array
  */
 function commonSbProfileChecks($fed, $id) {
     $validator = new \web\lib\common\InputValidation();
@@ -273,7 +273,11 @@ switch ($inputDecoded['ACTION']) {
         $adminApi->returnSuccess([\web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID => $profileFresh->identifier]);
         break;
     case web\lib\admin\API::ACTION_ENDUSER_NEW:
-        $evaluation = commonSbProfileChecks($fed, $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID));
+        $prof_id = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID);
+        if ($prof_id === FALSE) {
+            exit(1);
+        }
+        $evaluation = commonSbProfileChecks($fed, $prof_id);
         if ($evaluation === FALSE) {
             exit(1);
         }

@@ -35,4 +35,4 @@ $Gui->loggerInstance->debug(4, "\n---------------------- index.php START -------
 $Gui->defaultPagePrelude();
 
 // and now, serve actual data
-include("skins/".$Gui->skinObject->skin."/index.php");
+require "skins/".$Gui->skinObject->skin."/index.php";

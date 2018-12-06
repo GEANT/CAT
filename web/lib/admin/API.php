@@ -221,6 +221,9 @@ class API {
      */
     private $validator;
 
+    /**
+     * construct the API class
+     */
     public function __construct() {
         $this->validator = new \web\lib\common\InputValidation();
     }
@@ -313,7 +316,8 @@ class API {
      * we use for the HTML POST user-interactively.
      * That's ugly, hence the function name.
      * 
-     * @param array $parameters
+     * @param array $parameters the parameters as provided by JSON input
+     * @return array
      */
     public function uglify($parameters) {
         $coercedInline = [];

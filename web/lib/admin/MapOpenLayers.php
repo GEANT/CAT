@@ -32,9 +32,8 @@ class MapOpenLayers extends AbstractMap {
 
     /**
      * 
-     * @param \core\IdP $inst   the IdP for which the map is displayed
-     * @param boolean $readonly do we want a read-only map or editable?
-     * @return $this
+     * @param \core\IdP $inst     the IdP for which the map is displayed
+     * @param boolean   $readonly do we want a read-only map or editable?
      */
     public function __construct($inst, $readonly) {
         parent::__construct($inst, $readonly);
@@ -288,6 +287,11 @@ class MapOpenLayers extends AbstractMap {
         }
     }
 
+    /**
+     * not needed for OpenLayers
+     * 
+     * @return string
+     */
     public function bodyTagCode() {
         // your magic here
         return "";
@@ -304,6 +308,11 @@ class MapOpenLayers extends AbstractMap {
         return "<button id='location_b_" . $number . "' class='location_button'>" . _("Click to see location") . " $number</button>";
     }
     
+    /**
+     * code to enable user to find a location by licking the option
+     * 
+     * @return string
+     */
     private function findLocationHtml() {
         return "<p>" . _("Address:") . " <input name='address' id='address' /><button type='button' onclick='getAddressLocation()'>" . _("Find address") . "</button> <button type='button' onclick='locateMe()'>" . _("Locate Me!") . "</button></p>";
     }

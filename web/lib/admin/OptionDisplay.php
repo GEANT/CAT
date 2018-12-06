@@ -105,6 +105,7 @@ class OptionDisplay {
      * 
      * @param string $class       the class of options that is to be displayed
      * @param array  $prepopulate should an empty set of fillable options be displayed, or do we have existing data to prefill with
+     * @return string
      */
     private function addOption(string $class, array $prepopulate = []) { // no GET class ? we've been called directly:
         // this can mean either a new object (list all options with empty values)
@@ -163,6 +164,16 @@ class OptionDisplay {
         return $retval;
     }
 
+    /**
+     * produce code for a option-specific tooltip
+     * @param int     $rowid     the number (nonce during page build) of the option 
+     *                           that should get the tooltip
+     * @param string  $input     the option name. Tooltip for it will be displayed
+     *                           if we have one available.
+     * @param boolean $isVisible should the tooltip be visible with the option,
+     *                           or are they both currently hidden?
+     * @return string
+     */
     private function tooltip($rowid, $input, $isVisible) {
         $descriptions = [];
         if (count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0) {
@@ -176,6 +187,14 @@ class OptionDisplay {
         return "<span class='tooltip' id='S$rowid-tooltip-$input' style='display:" . ($isVisible ? "block" : "none") . "' onclick='alert(\"" . $descriptions[$input] . "\")'><img src='../resources/images/icons/question-mark-icon.png" . "'></span>";
     }
 
+    /**
+     * 
+     * @param int   $rowid the number (nonce during page build) of the option 
+     *                     that should get the tooltip
+     * @param array $list  elements of the drop-down list
+     * @return array HTML code and which option is active
+     * @throws Exception
+     */
     private function selectElement($rowid, $list) {
         $jsmagic = "onchange='
                                if (/#ML#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
@@ -239,6 +258,14 @@ FOO;
         return ["TEXT" => $retval, "ACTIVE" => $activelisttype];
     }
 
+    /**
+     * HTML code to display the language selector
+     * 
+     * @param int     $rowid       the number (nonce during page build) of the option 
+     *                             that should get the tooltip
+     * @param boolean $makeVisible is the language selector to be made visible?
+     * @return string
+     */
     private function selectLanguage($rowid, $makeVisible) {
         $retval = "<select style='display:" . ($makeVisible ? "block" : "none") . "' name='value[S$rowid-lang]' id='S" . $rowid . "-input-langselect'>
             <option value='' name='select_language' selected>" . _("select language") . "</option>
@@ -259,6 +286,13 @@ FOO;
         \core\Options::TYPECODE_TEXT => ["html" => "textarea cols='30' rows='3'", "tail" => '></textarea'],
     ];
 
+    /**
+     * HTML code for a given option. Marks the matching datatype as visible, all other datatypes hidden
+     * @param int   $rowid      the number (nonce during page build) of the option 
+     *                          that should get the tooltip
+     * @param array $activetype the active datatype that is to be visible
+     * @return string
+     */
     private function inputFields($rowid, $activetype) {
         $retval = "";
         foreach (OptionDisplay::HTML_DATATYPE_TEXTS as $key => $type) {
@@ -269,8 +303,8 @@ FOO;
 
     /**
      * HTML code to display a "fresh" option (including type selector and JavaScript to show/hide relevant input fields)
-     * @param int $rowid the HTML field base name of the option to be displayed
-     * @param array $list the list of option names to include in the type selector
+     * @param int   $rowid the HTML field base name of the option to be displayed
+     * @param array $list  the list of option names to include in the type selector
      * @return string HTML code
      * @throws Exception
      */
@@ -288,10 +322,10 @@ FOO;
     /**
      * generates HTML code that displays an already set option.
      * 
-     * @param int $rowid the HTML field base name of the option to be displayed
-     * @param string $optionName the name of the option to display
+     * @param int    $rowid       the HTML field base name of the option to be displayed
+     * @param string $optionName  the name of the option to display
      * @param string $optionValue the value of the option to display
-     * @param mixed $optionLang the language of the option to display
+     * @param mixed  $optionLang  the language of the option to display
      * @return string HTML code
      * @throws Exception
      */
