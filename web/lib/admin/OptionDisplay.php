@@ -141,6 +141,8 @@ class OptionDisplay {
                     $blacklistItem = array_search("user:fedadmin", $list);
                     break;
                 case "fed":
+                    //normally, we have nothing to hide on that level
+                    $blacklistItem = FALSE;
                     // if we are a Managed IdP exclusive deployment, do not display or allow
                     // to change the "Enable Managed IdP" boolean - it is simply always there
                     if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
