@@ -52,7 +52,7 @@ class RADIUSTests extends AbstractTest {
     /**
      * Was the reachability check executed already?
      * 
-     * @var boolean
+     * @var int
      */
     private $UDP_reachability_executed;
     
@@ -268,7 +268,7 @@ class RADIUSTests extends AbstractTest {
      * This function parses a X.509 intermediate CA cert and checks if it finds client device incompatibilities
      * 
      * @param array   $intermediateCa the properties of the certificate as returned by processCertificate()
-     * @param boolean $serverCert treat as servercert?
+     * @param boolean $serverCert     treat as servercert?
      * @return array of oddities; the array is empty if everything is fine
      */
     private function propertyCheckIntermediate(&$intermediateCa, $serverCert = FALSE) {
@@ -607,14 +607,14 @@ network={
      * config. Writes the root CAs into a trusted root CA dir and intermediate 
      * and first server cert into a PEM file for later chain validation
      * 
-     * @param string $tmpDir            working directory
-     * @param array  $intermOdditiesCAT by-reference array of already found 
-     *                                  oddities; adds its own
-     * @param array $servercert         the servercert to validate
-     * @param array $eapIntermediates   list of intermediate CA certs that came
-     *                                  in via EAP
-     * @param type $eapIntermediateCRLs list of CRLs for the EAP-supplied
-     *                                  intermediate CAs
+     * @param string $tmpDir              working directory
+     * @param array  $intermOdditiesCAT   by-reference array of already found 
+     *                                    oddities; adds its own
+     * @param array  $servercert          the servercert to validate
+     * @param array  $eapIntermediates    list of intermediate CA certs that came
+     *                                    in via EAP
+     * @param array  $eapIntermediateCRLs list of CRLs for the EAP-supplied
+     *                                    intermediate CAs
      * @return string
      * @throws Exception
      */
@@ -680,16 +680,16 @@ network={
      * for checks which have a known trust root CA (i.e. a valid CAT profile 
      * exists), check against those known-good roots
      * 
-     * @param array $testresults        by-reference list of testresults so far.
-     *                                  Function adds its own.
-     * @param array $intermOdditiesCAT  by-reference list of oddities in the CA
-     *                                  certs which are configured in CAT
-     * @param string $tmpDir            working directory
-     * @param array $servercert         the server certificate to validate
-     * @param array $eapIntermediates   list of intermediate CA certs that came
-     *                                  in via EAP
-     * @param type $eapIntermediateCRLs list of CRLs for the EAP-supplied
-     *                                  intermediate CAs
+     * @param array  $testresults         by-reference list of testresults so far
+     *                                    Function adds its own.
+     * @param array  $intermOdditiesCAT   by-reference list of oddities in the CA
+     *                                    certs which are configured in CAT
+     * @param string $tmpDir              working directory
+     * @param array  $servercert          the server certificate to validate
+     * @param array  $eapIntermediates    list of intermediate CA certs that came
+     *                                    in via EAP
+     * @param array  $eapIntermediateCRLs list of CRLs for the EAP-supplied
+     *                                    intermediate CAs
      * @return int
      * @throws Exception
      */
@@ -903,7 +903,7 @@ network={
      * what is the incoming certificate - root, intermediate, or server?
      * @param array $cert           the certificate to check
      * @param int   $totalCertCount number of certs in total in chain
-     * @return type
+     * @return int
      */
     private function determineCertificateType(&$cert, $totalCertCount) {
         if ($cert['ca'] == 0 && $cert['root'] == 0) {
@@ -1118,6 +1118,7 @@ network={
      * sets the outer identity to use in the checks
      * 
      * @param string $id the outer ID to use
+     * @return void
      */
     public function setOuterIdentity($id) {
         $this->outerUsernameForChecks = $id;

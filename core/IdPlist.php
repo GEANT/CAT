@@ -125,7 +125,7 @@ class IdPlist {
     /**
      * sets the current location
      * 
-     * @param array $currentLocation
+     * @param array $currentLocation the location to set
      * @return array
      */
     private static function setCurrentLocation($currentLocation) {
@@ -141,7 +141,7 @@ class IdPlist {
     
     /**
      * calculate surface distance from user location to IdP location
-     * @param array $idp the IdP in question
+     * @param array $idp      the IdP in question
      * @param array $location user location
      * @return string
      */

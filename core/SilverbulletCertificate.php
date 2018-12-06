@@ -62,7 +62,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * Use static issueCertificate() to generate a whole new cert.
      * 
      * @param int|string $identifier identify certificate either by CN or by serial
-     * @param string $certtype RSA or ECDSA?
+     * @param string     $certtype   RSA or ECDSA?
      */
     public function __construct($identifier, $certtype) {
         $this->databaseType = "INST";

@@ -115,7 +115,7 @@ class RFC6614Tests extends AbstractTest {
         if (!isset($this->TLS_CA_checks_result[$host])) {
             $this->TLS_CA_checks_result[$host] = [];
         }
-        $opensslbabble = $this->ExecOpensslClient($host, '', $this->TLS_CA_checks_result[$host]);
+        $opensslbabble = $this->execOpensslClient($host, '', $this->TLS_CA_checks_result[$host]);
         return $this->opensslCAResult($host, $opensslbabble, $this->TLS_CA_checks_result);
     }
 
@@ -146,7 +146,7 @@ class RFC6614Tests extends AbstractTest {
                 if (!isset($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k])) {
                     $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k] = [];
                 }
-                $opensslbabble = $this->ExecOpensslClient($host, $add, $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]);
+                $opensslbabble = $this->execOpensslClient($host, $add, $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]);
                 $res = $this->opensslClientsResult($host, $opensslbabble, $this->TLS_clients_checks_result, $type, $k);
                 if ($cert['expected'] == 'PASS') {
                     if (!$this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['connected']) {
@@ -180,7 +180,7 @@ class RFC6614Tests extends AbstractTest {
      * @param array  $testresults by-reference: the testresults array we are writing into
      * @return array result of openssl s_client ...
      */
-    private function ExecOpensslClient($host, $arg, &$testresults) {
+    private function execOpensslClient($host, $arg, &$testresults) {
 // we got the IP address either from DNS (guaranteeing well-formedness)
 // or from filter_var'ed user input. So it is always safe as an argument
 // but code analysers want this more explicit, so here is this extra
