@@ -251,9 +251,9 @@ echo $mapCode->htmlHeadCode();
                     }
                     $buffer_eaptypediv .= "<br/>";
                 }
-                $buffer_headline = "<h2 style='overflow:auto;'>";
+                $buffer_headline = "<div style='padding-bottom:20px;'><h2 style='overflow:auto; display:inline; padding-bottom: 10px;'>".sprintf(_("Profile: %s"), $profile_name) . "</h2>";
 
-                $buffer_headline .= "<div style='float:right;'>";
+                $buffer_headline .= "<span style='float:right;'>";
                 $readiness = $profile_list->readinessLevel();
                 if ($has_overrides) {
                     $buffer_headline .= $uiElements->boxRemark("", _("Option override on profile level is in effect."), TRUE);
@@ -269,9 +269,7 @@ echo $mapCode->htmlHeadCode();
                         $buffer_headline .= $uiElements->boxWarning("", sprintf(_("This profile is NOT shown on the user download interface, even though we have enough information to show. To enable the profile, add the attribute \"%s\" and tick the corresponding box."), $uiElements->displayName("profile:production")), TRUE);
                 }
 
-                $buffer_headline .= "</div>";
-
-                $buffer_headline .= sprintf(_("Profile: %s"), $profile_name) . "</h2>";
+                $buffer_headline .= "</span></div>";
 
                 echo $buffer_headline;
 

@@ -404,12 +404,12 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                                 switch ($oneCert->status) {
                                     case core\SilverbulletCertificate::CERTSTATUS_REVOKED:
                                         $style = "style='background-color:#F0C0C0;' ";
-                                        $buttonStyle = "style:'height:22px; margin-top:7px; text-align:center;'";
+                                        $buttonStyle = "height:22px; margin-top:7px; text-align:center;";
                                         $buttonText = _("REVOKED");
                                         break;
                                     case core\SilverbulletCertificate::CERTSTATUS_EXPIRED:
                                         $style = "style='background-color:lightgrey;'";
-                                        $buttonStyle = "style:'height:22px; margin-top:7px; text-align:center;'";
+                                        $buttonStyle = "height:22px; margin-top:7px; text-align:center;";
                                         $buttonText = _("EXPIRED");
                                         break;
                                     default:
@@ -469,15 +469,15 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                                     <tr><td style='vertical-align:bottom;'>E-Mail:</td><td>
                                     $formtext
                                 <input type='hidden' value='" . $invitationObject->invitationTokenString . "' name='token'><br/>
-                                <input type='text' name='address' id='address'/>
-                                <button type='button' id='sb-compose-email-client' onclick='window.location=\"mailto:\"+document.getElementById(\"address\").value+\"?subject=" . $invitationObject->invitationMailSubject() . "&amp;body=$jsEncodedBody\"; return false;'>" . _("Local mail client") . "</button>
+                                <input type='text' name='address' id='address-$invitationObject->identifier'/>
+                                <button type='button' onclick='window.location=\"mailto:\"+document.getElementById(\"address-$invitationObject->identifier\").value+\"?subject=" . $invitationObject->invitationMailSubject() . "&amp;body=$jsEncodedBody\"; return false;'>" . _("Local mail client") . "</button>
                                 <button type='submit' name='command' onclick='document.getElementById(\"spin\").style.display =\"block\"' value='" . \web\lib\common\FormElements::BUTTON_SENDINVITATIONMAILBYCAT . "'>Send with CAT</button>
                                     </form>
                                     </td></tr>
                                     <tr><td style='vertical-align:bottom;'>SMS:</td><td>
                                     $formtext
                                     <input type='hidden' value='" . $invitationObject->invitationTokenString . "' name='token'><br/>
-                                    <input type='text' name='smsnumber' id='smsnumber'/>
+                                    <input type='text' name='smsnumber' />
 				<button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_SENDINVITATIONSMS . "'>" . _("Send in SMS...") . "</button>
                                     </form>
 				</td></tr>
@@ -514,10 +514,10 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                         <td>
                             <?php echo $formtext; ?>
                             <div class="sb-date-container" style='min-width: 200px;'>
-                                <span><input type="text" maxlength="19" id="sb-date-picker-1" class="sb-date-picker" name="userexpiry" value="<?php echo $profile->getUserExpiryDate($oneUserId); ?>">&nbsp;(UTC)</span>
+                                <span><input type="text" maxlength="19" class="sb-date-picker" name="userexpiry" value="<?php echo $profile->getUserExpiryDate($oneUserId); ?>">&nbsp;(UTC)</span>
                             </div>
                             <input type="hidden" name="userid" value="<?php echo $oneUserId; ?>"/>
-                            <button type="submit" id="updateexpiry" name="command" value="<?php echo \web\lib\common\FormElements::BUTTON_CHANGEUSEREXPIRY ?>">Update</button>
+                            <button type="submit" name="command" value="<?php echo \web\lib\common\FormElements::BUTTON_CHANGEUSEREXPIRY ?>">Update</button>
                             </form>
                         </td>
                         <td>
@@ -543,7 +543,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                                     echo $formtext;
                                     ?>
                                     <input type='hidden' name='userid' value='<?php echo $oneUserId ?>'/>
-                                    <button type='submit' id='userinvite' name='command' value='<?php echo \web\lib\common\FormElements::BUTTON_NEWINVITATION ?>'><?php echo _("New Invitation"); ?></button>
+                                    <button type='submit' name='command' value='<?php echo \web\lib\common\FormElements::BUTTON_NEWINVITATION ?>'><?php echo _("New Invitation"); ?></button>
 
                                     <label>
                                         <?php echo _("Activations:"); ?>
@@ -599,8 +599,8 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
             <div class="sb-add-new-user">
                 <label for="username"><?php echo _("Please enter a username of your choice and user expiry date to create a new user:"); ?></label>
                 <span style="margin: 5px 0px 10px 0px;">
-                    <input type="text" name="username">
-                    <input type="text" maxlength="19" id="sb-date-picker-5" class="sb-date-picker" name="userexpiry" value="yyyy-MM-dd HH:MM:SS"/>(UTC)
+                    <input type="text" name="username" id="username">
+                    <input type="text" maxlength="19" class="sb-date-picker" name="userexpiry" value="yyyy-MM-dd HH:MM:SS"/>(UTC)
                 </span>
                 <button type="submit" name="command" value="<?php echo \web\lib\common\FormElements::BUTTON_ADDUSER ?>"><?php echo _("Add new user"); ?></button>
             </div>
