@@ -371,7 +371,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                 <strong><?php echo sprintf(_('Manage %s users'), \core\ProfileSilverbullet::PRODUCTNAME); ?></strong>
             </legend>
             <!-- table with actual user details ... -->
-            <table cellpadding="5" style="max-width:1920px;">
+            <table class='sb-user-table' style="max-width:1920px;">
                 <tr class="sb-title-row">
                     <td><?php echo _("User"); ?></td>
                     <td><?php echo _("Token/Certificate details"); ?></td>
