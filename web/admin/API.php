@@ -21,6 +21,12 @@
 
 require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 
+/**
+ * Checks if the profile is a valid SB profile belonging to the federation
+ * @param string $fed federation identifier
+ * @param int $id profile identifier
+ * @return boolean
+ */
 function commonSbProfileChecks($fed, $id) {
     $validator = new \web\lib\common\InputValidation();
     $adminApi = new \web\lib\admin\API();

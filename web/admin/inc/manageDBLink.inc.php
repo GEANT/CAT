@@ -92,7 +92,6 @@ if (isset($_POST['submitbutton'])) {
     $cat = new \core\CAT();
     switch ($my_inst->getExternalDBSyncState()) {
         case \core\IdP::EXTERNAL_DB_SYNCSTATE_SYNCED:
-
             printf(_("This %s is linked to the %s database."), $uiElements->nomenclature_inst, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</p>";
             echo "<p>" . sprintf(_("The following information about the IdP is stored in the %s DB and %s DB:"), CONFIG['APPEARANCE']['productname'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</p>";
             echo "<table><tr><td>" . sprintf(_("Information in <strong>%s Database</strong>"), CONFIG['APPEARANCE']['productname']) . "</td><td>" . sprintf(_("Information in <strong>%s Database</strong>"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</td></tr>";

@@ -43,8 +43,9 @@ $auth->authenticate();
 /**
  * Something went wrong. We display the error cause and then throw an Exception.
  * 
- * @param string $uiDisplay error string to display
+ * @param string                        $uiDisplay  error string to display
  * @param \web\lib\admin\PageDecoration $decoObject the instance of PageDecoration, needed for footer display.
+ * @return void
  * @throws Exception
  */
 function bailout(string $uiDisplay, $decoObject) {

@@ -40,7 +40,7 @@ use \Exception;
  *
  * @package Developer
  */
-abstract class mobileconfigSuperclass extends \core\DeviceConfig {
+abstract class MobileconfigSuperclass extends \core\DeviceConfig {
 
     private $instName;
     private $profileName;
@@ -52,6 +52,10 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
     static private $iPhonePayloadPrefix = "org.1x-config";
     private $clientCertUUID;
 
+    /**
+     * construct with the standard set of EAP methods we support, and preload
+     * specialities
+     */
     public function __construct() {
         parent::__construct();
         // that's what all variants support. Sub-classes can change it.
@@ -59,10 +63,20 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         $this->specialities['internal:verify_userinput_suffix'] = _("It is not possible to actively verify the user input for suffix match; but if there is no 'Terms of Use' configured, the installer will display a corresponding hint to the user instead.");
     }
 
+    /**
+     * massage a name so that it becomes acceptable inside the plist XML
+     * 
+     * @param type $input the literal name
+     * @return string
+     */
     private function massageName($input) {
         return htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(['/ /', '/\//'], '_', $input))), ENT_XML1, 'UTF-8');
     }
 
+    /**
+     * the general part of a mobileconfig file in plist format
+     * @return string
+     */
     private function generalPayload() {
         $tagline = sprintf(_("Network configuration profile '%s' of '%s' - provided by %s"), htmlspecialchars($this->profileName, ENT_XML1, 'UTF-8'), htmlspecialchars($this->instName, ENT_XML1, 'UTF-8'), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
 
@@ -104,39 +118,32 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
          </dict>
          ";
 
+    /**
+     * creates a ConsentText block if either Terms of Use are specified or the
+     * user input hints should be displayed. Otherwise, produces nothing.
+     * 
+     * @return string
+     */
     protected function consentBlock() {
         if (isset($this->attributes['support:info_file'])) {
-            return mobileconfigSuperclass::BUFFER_CONSENT_PRE . htmlspecialchars(iconv("UTF-8", "UTF-8//TRANSLIT", $this->attributes['support:info_file'][0]), ENT_XML1, 'UTF-8') . mobileconfigSuperclass::BUFFER_CONSENT_POST;
+            return MobileconfigSuperclass::BUFFER_CONSENT_PRE . htmlspecialchars(iconv("UTF-8", "UTF-8//TRANSLIT", $this->attributes['support:info_file'][0]), ENT_XML1, 'UTF-8') . MobileconfigSuperclass::BUFFER_CONSENT_POST;
         }
         if ($this->attributes['internal:verify_userinput_suffix'][0] != 0) {
             if (strlen($this->attributes['internal:realm'][0]) > 0) {
-                return mobileconfigSuperclass::BUFFER_CONSENT_PRE . sprintf(_("Important Notice: your username must end with @%s!"), $this->attributes['internal:realm'][0]) . mobileconfigSuperclass::BUFFER_CONSENT_POST;
+                return MobileconfigSuperclass::BUFFER_CONSENT_PRE . sprintf(_("Important Notice: your username must end with @%s!"), $this->attributes['internal:realm'][0]) . MobileconfigSuperclass::BUFFER_CONSENT_POST;
             }
-            return mobileconfigSuperclass::BUFFER_CONSENT_PRE . _("Important Notice: your username MUST be in the form of xxx@yyy where the yyy is a common suffix identifying your Identity Provider. Please find out what to use there and enter the username in the correct format.") . mobileconfigSuperclass::BUFFER_CONSENT_POST;
+            return MobileconfigSuperclass::BUFFER_CONSENT_PRE . _("Important Notice: your username MUST be in the form of xxx@yyy where the yyy is a common suffix identifying your Identity Provider. Please find out what to use there and enter the username in the correct format.") . MobileconfigSuperclass::BUFFER_CONSENT_POST;
         }
         return "";
     }
 
     /**
-     * prepare a zip archive containing files and settings which normally would be used inside the module to produce an installer
+     * create the actual installer XML file
+     * 
+     * @return string filename of the generated installer
      *
      */
     public function writeInstaller() {
-        /** run innitial setup
-          this will:
-          - create the temporary directory and save its path as $this->FPATH
-          - process the CA certificates and store results in $this->attributes['internal:CAs'][0]
-          $this->attributes['internal:CAs'][0] is an array of processed CA certificates
-          a processed certifincate is an array
-          'pem' points to pem feromat certificate
-          'der' points to der format certificate
-          'md5' points to md5 fingerprint
-          'sha1' points to sha1 fingerprint
-          'name' points to the certificate subject
-          'root' can be 1 for self-signed certificate or 0 otherwise
-
-          - save the info_file (if exists) and put the name in $this->attributes['internal:info_file_name'][0]
-         */
         $dom = textdomain(NULL);
         textdomain("devices");
 
@@ -204,6 +211,12 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         return $fileName;
     }
 
+    /**
+     * produces the HTML text to be displayed when clicking on the "help" button
+     * besides the download button.
+     * 
+     * @return string
+     */
     public function writeDeviceInfo() {
         $ssidCount = count($this->attributes['internal:SSID']);
         $certCount = count($this->attributes['internal:CAs'][0]);
@@ -227,6 +240,12 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         return $out;
     }
 
+    /**
+     * collates a list of the UUIDs of all the CAs which are to be included in
+     * the mobileconfig file
+     * 
+     * @return array
+     */
     private function listCAUuids() {
         $retval = [];
         foreach ($this->attributes['internal:CAs'][0] as $ca) {
@@ -235,6 +254,13 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         return $retval;
     }
 
+    /**
+     * This is the XML structure subtree of a Network block which contains the
+     * settings specific to Passpoint
+     * 
+     * @param array $consortiumOi list of consortiumOi to put into structure
+     * @return string
+     */
     private function passPointBlock($consortiumOi) {
         $retval = "
                <key>IsHotspot</key>
@@ -278,6 +304,12 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
     private $removeSerial;
     private $caSerial;
 
+    /**
+     * produces the EAP sub-block of a Network block
+     * 
+     * @param array $eapType EAP type in array notation
+     * @return string
+     */
     private function eapBlock($eapType) {
         $realm = $this->determineOuterIdString();
         $retval = "<key>EAPClientConfiguration</key>
@@ -330,6 +362,11 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         return $retval;
     }
 
+    /**
+     * produces the Proxy sub-block of a Network block
+     * 
+     * @return string
+     */
     protected function proxySettings() {
         $buffer = "<key>ProxyType</key>";
         if (isset($this->attributes['media:force_proxy'])) {
@@ -352,10 +389,17 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         return $buffer;
     }
 
+    /**
+     * produces an entire Network block
+     * @param int          $blocktype      which type of network block is this?
+     * @param string|array $toBeConfigured variable part of the config. Single SSID or list of ConsortiumOi
+     * @return string
+     * @throws Exception
+     */
     private function networkBlock($blocktype, $toBeConfigured) {
         $eapType = $this->selectedEap;
         switch ($blocktype) {
-            case mobileconfigSuperclass::NETWORK_BLOCK_TYPE_SSID:
+            case MobileconfigSuperclass::NETWORK_BLOCK_TYPE_SSID:
                 $escapedSSID = htmlspecialchars($toBeConfigured, ENT_XML1, 'UTF-8');
                 $payloadIdentifier = "wifi." . $this->serial;
                 $payloadShortName = sprintf(_("SSID %s"), $escapedSSID);
@@ -365,7 +409,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
                 $wifiNetworkIdentification = "<key>SSID_STR</key>
                   <string>$escapedSSID</string>";
                 break;
-            case mobileconfigSuperclass::NETWORK_BLOCK_TYPE_WIRED:
+            case MobileconfigSuperclass::NETWORK_BLOCK_TYPE_WIRED:
                 $payloadIdentifier = "firstactiveethernet";
                 $payloadShortName = _("Wired Network");
                 $payloadName = sprintf(_("%s configuration for wired network"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
@@ -377,7 +421,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
                   </array>";
                 $wifiNetworkIdentification = "";
                 break;
-            case mobileconfigSuperclass::NETWORK_BLOCK_TYPE_CONSORTIUMOIS:
+            case MobileconfigSuperclass::NETWORK_BLOCK_TYPE_CONSORTIUMOIS:
                 $payloadIdentifier = "hs20";
                 $payloadShortName = _("Hotspot 2.0 Settings");
                 $payloadName = sprintf(_("%s Hotspot 2.0 configuration"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
@@ -403,7 +447,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
                <key>PayloadOrganization</key>
                   <string>" . $this->massagedConsortium . ".1x-config.org</string>
                <key>PayloadType</key>
-                  <string>com.apple." . ($blocktype == mobileconfigSuperclass::NETWORK_BLOCK_TYPE_WIRED ? "firstactiveethernet" : "wifi") . ".managed</string>";
+                  <string>com.apple." . ($blocktype == MobileconfigSuperclass::NETWORK_BLOCK_TYPE_WIRED ? "firstactiveethernet" : "wifi") . ".managed</string>";
         $retval .= $this->proxySettings();
         $retval .= $setupModesString;
         if ($eapType['INNER'] == \core\common\EAP::NE_SILVERBULLET) {
@@ -423,6 +467,13 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         return $retval;
     }
 
+    /**
+     * Produces a Network block which sets a network to manual join (we don't
+     * get any closer to removing a network in mobileconfig)
+     * 
+     * @param string $ssid the SSID to set to manual join only
+     * @return string
+     */
     private function removenetworkBlock($ssid) {
         $retval = "
 <dict>
@@ -458,18 +509,24 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
     const NETWORK_BLOCK_TYPE_CONSORTIUMOIS = 101;
     const NETWORK_BLOCK_TYPE_WIRED = 102;
 
+    /**
+     * produces the entire series of Network blocks; all for SSID-based, 
+     * Passpoint-based, wired, and manual-select only SSIDs
+     * 
+     * @return string
+     */
     private function allNetworkBlocks() {
         $retval = "";
         $this->serial = 0;
 
         foreach (array_keys($this->attributes['internal:SSID']) as $ssid) {
-            $retval .= $this->networkBlock(mobileconfigSuperclass::NETWORK_BLOCK_TYPE_SSID, $ssid);
+            $retval .= $this->networkBlock(MobileconfigSuperclass::NETWORK_BLOCK_TYPE_SSID, $ssid);
         }
         if (isset($this->attributes['media:wired']) && get_class($this) == "devices\apple_mobileconfig\Device_mobileconfig_os_x") {
-            $retval .= $this->networkBlock(mobileconfigSuperclass::NETWORK_BLOCK_TYPE_WIRED, TRUE);
+            $retval .= $this->networkBlock(MobileconfigSuperclass::NETWORK_BLOCK_TYPE_WIRED, TRUE);
         }
         if (count($this->attributes['internal:consortia']) > 0) {
-            $retval .= $this->networkBlock(mobileconfigSuperclass::NETWORK_BLOCK_TYPE_CONSORTIUMOIS, $this->attributes['internal:consortia']);
+            $retval .= $this->networkBlock(MobileconfigSuperclass::NETWORK_BLOCK_TYPE_CONSORTIUMOIS, $this->attributes['internal:consortia']);
         }
         if (isset($this->attributes['media:remove_SSID'])) {
             $this->removeSerial = 0;
@@ -481,6 +538,11 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         return $retval;
     }
 
+    /**
+     * collates a block with all CAs that are to be included in the mobileconfig
+     * 
+     * @return string
+     */
     private function allCA() {
         $retval = "";
         $this->caSerial = 0;
@@ -491,6 +553,11 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         return $retval;
     }
 
+    /**
+     * creates a Cert block containing a client certificate (used in SB only)
+     * @return array the block itself, and the UUID of the certificate
+     * @throws Exception
+     */
     private function clientP12Block() {
         if (!is_array($this->clientCert)) {
             throw new Exception("the client block was called but there is no client certificate!");
@@ -525,6 +592,13 @@ $mimeFormatted
             "UUID" => $payloadUUID,];
     }
 
+    /**
+     * creates an Expiry block. This is only done in SB; the profile expires
+     * when the client cert expires.
+     * 
+     * @return string
+     * @throws Exception
+     */
     private function expiryBlock() {
         if (!is_array($this->clientCert)) {
             throw new Exception("the expiry block was called but there is no client certificate!");
@@ -536,6 +610,12 @@ $mimeFormatted
 
     private $CAsAccountedFor = [];
 
+    /**
+     * creates a block for one single CA
+     * 
+     * @param array $ca the CA for which to generate the XML block
+     * @return string
+     */
     private function caBlob($ca) {
         $stream = "";
         if (!in_array($ca['uuid'], $this->CAsAccountedFor)) { // skip if this is a duplicate

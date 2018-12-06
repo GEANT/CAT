@@ -48,6 +48,13 @@ if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == "LOCAL") {
 
 ini_set('display_errors', '0');
 
+/**
+ * creates the HTML code displaying the result of a test that was run previously
+ * 
+ * @param \core\SanityTests $test the test that was run
+ * @return string
+ * @throws Exception
+ */
 function print_test_results($test) {
     $out = '';
     switch ($test->test_result['global']) {

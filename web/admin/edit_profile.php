@@ -311,9 +311,10 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     /**
      * creates HTML code which lists the EAP types in their desired property order.
      * 
-     * @param string $eapType
-     * @param bool $isenabled
-     * @param int $priority
+     * @param string  $eapType   EAP type in string representation
+     * @param boolean $isenabled is this EAP type selected or not
+     * @param int     $priority  priority order for the EAP type
+     * @return void
      */
     function priority(string $eapType, bool $isenabled, int $priority) {
         echo "<td><select id='$eapType-priority' name='$eapType-priority' " . (!$isenabled ? "disabled='disabled'" : "") . ">";
@@ -328,9 +329,10 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
      * 
      * Since CAT-next does not allow to set EAP properties IdP-wide any more, this is probably useless and can be deleted at some point.
      * 
-     * @param array $idpwideoptions
-     * @param string $eapType
-     * @param bool $isVisible
+     * @param array  $idpwideoptions list of options on IdP level
+     * @param string $eapType        EAP type in string representation
+     * @param bool   $isVisible      should the HTML code be visible?
+     * @return void
      */
     function inherited_options($idpwideoptions, $eapType, $isVisible) {
         echo "<td><div style='" . (!$isVisible ? "visibility:hidden" : "") . "' class='inheritedoptions' id='$eapType-inherited-global'>";

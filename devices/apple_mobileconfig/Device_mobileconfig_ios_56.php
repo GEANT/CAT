@@ -41,12 +41,21 @@ namespace devices\apple_mobileconfig;
  *
  * @package Developer
  */
-class Device_mobileconfig_ios_56 extends mobileconfigSuperclass {
+class Device_mobileconfig_ios_56 extends MobileconfigSuperclass {
 
+    /**
+     * construct device and load specialities array
+     */
     public function __construct() {
         parent::__construct();
         $this->specialities['media:force_proxy'] = _("This device does not support forcing setting an HTTPS proxy.");
     }
+    
+    /**
+     * We don't suppory any proxy settings, just override the parent class empty
+     * 
+     * @return string
+     */
     protected function proxySettings() {
         // iOS 5 and 6 do not support the Proxy auto-detect block properly, so 
         // override the function to do nothing.

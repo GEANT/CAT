@@ -116,8 +116,6 @@ public static $Options=[
  * @example devices/devices-template.php file listing
  * @return array the device modules
  */
-
-
 public static function listDevices() {
     return [
  'w10'=>[

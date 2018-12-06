@@ -37,7 +37,7 @@ $new_idp_authorized_fedadmin = FALSE;
 /**
  * aborts code execution if a required mail address is invalid
  * 
- * @param mixed $newmailaddress input string, possibly one or more mail addresses
+ * @param mixed  $newmailaddress       input string, possibly one or more mail addresses
  * @param string $redirect_destination destination to send user to if validation failed
  * @return array mail address if validation passed
  */

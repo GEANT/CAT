@@ -98,6 +98,14 @@ class Device_Chromebook extends \core\DeviceConfig {
         $this->setSupportedEapMethods([\core\common\EAP::EAPTYPE_PEAP_MSCHAP2, \core\common\EAP::EAPTYPE_TTLS_PAP, \core\common\EAP::EAPTYPE_TTLS_MSCHAP2, \core\common\EAP::EAPTYPE_TLS, \core\common\EAP::EAPTYPE_SILVERBULLET]);
     }
 
+    /**
+     * encrypts the entire configuration. Only used in SB to protect the client
+     * credential
+     * 
+     * @param string $clearJson the cleartext JSON string to encrypt
+     * @param string $password the import PIN we told the user
+     * @return string
+     */
     private function encryptConfig($clearJson, $password) {
         $salt = \core\common\Entity::randomString(12);
         $encryptionKey = hash_pbkdf2("sha1", $password, $salt, Device_Chromebook::PBKDF2_ITERATIONS, 32, TRUE); // the spec is not clear about the algo. Source code in Chromium makes clear it's SHA1.
@@ -126,6 +134,12 @@ class Device_Chromebook extends \core\DeviceConfig {
         return json_encode($finalArray);
     }
 
+    /**
+     * Creates a WiFi block (SSID based only, no support for Passpoint)
+     * @param string $ssid the SSID to configure
+     * @param array $eapdetails the EAP sub-block as derived from EapBlock()
+     * @return array
+     */
     private function wifiBlock($ssid, $eapdetails) {
         return [
             "GUID" => \core\common\Entity::uuid('', $ssid),
@@ -143,6 +157,11 @@ class Device_Chromebook extends \core\DeviceConfig {
         ];
     }
 
+    /**
+     * Creates the ProxySettings block
+     * 
+     * @return array
+     */
     protected function proxySettings() {
         if (isset($this->attributes['media:force_proxy'])) {
             // find the port delimiter. In case of IPv6, there are multiple ':' 
@@ -161,6 +180,12 @@ class Device_Chromebook extends \core\DeviceConfig {
         return ["Type" => "WPAD"];
     }
 
+    /**
+     * Creates a configuration block for wired Ethernet
+     * 
+     * @param array $eapdetails the EAP configuration as created with eapBlock()
+     * @return array
+     */
     private function wiredBlock($eapdetails) {
         return [
             "GUID" => \core\common\Entity::uuid('', "wired-dot1x-ethernet") . "}",
@@ -175,6 +200,12 @@ class Device_Chromebook extends \core\DeviceConfig {
         ];
     }
 
+    /**
+     * Creates the EAP configuration sub-block
+     * 
+     * @param array $caRefs list of strings with CA references
+     * @return array
+     */
     private function eapBlock($caRefs) {
         $selectedEap = $this->selectedEap;
         $outerId = $this->determineOuterIdString();

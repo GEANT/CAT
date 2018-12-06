@@ -265,7 +265,6 @@ require_once "inc/click_button_js.php";
                             echo "<div class='acceptable'>" . _("Linked") . "</div>";
                             break;
                         case \core\IdP::EXTERNAL_DB_SYNCSTATE_NOT_SYNCED:
-
                             echo "<div class='notacceptable'>" . _("NOT linked") . "</div>";
 
 

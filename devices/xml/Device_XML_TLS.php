@@ -23,6 +23,9 @@ namespace devices\xml;
 
 class Device_XML_TLS extends Device_XML {
 
+    /**
+     * construct the device
+     */
     final public function __construct() {
         parent::__construct();
         $this->setSupportedEapMethods([

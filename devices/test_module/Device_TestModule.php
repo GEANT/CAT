@@ -132,6 +132,7 @@ class Device_TestModule extends \core\DeviceConfig {
     /**
      * zip files and return the archive name
      *
+     * @param array $attr device and profile attributes
      * @return string
      */
     private function zipInstaller($attr) {

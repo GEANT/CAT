@@ -40,10 +40,12 @@ namespace devices\apple_mobileconfig;
  *
  * @package Developer
  */
-class Device_mobileconfig_os_x extends mobileconfigSuperclass {
+class Device_mobileconfig_os_x extends MobileconfigSuperclass {
 
     /**
-     * this array holds the list of EAP methods supported by this device
+     * construct and preload the list of EAP methods supported by this device
+     * (overrides the standard EAP methods list because we do support generic 
+     * TLS in this one)
      */
     final public function __construct() {
         parent::__construct();

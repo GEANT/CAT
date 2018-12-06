@@ -40,6 +40,6 @@ namespace devices\apple_mobileconfig;
  *
  * @package Developer
  */
-class Device_mobileconfig_ios extends mobileconfigSuperclass {
+class Device_mobileconfig_ios extends MobileconfigSuperclass {
         
 }
