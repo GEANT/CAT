@@ -81,7 +81,7 @@ assert($profile instanceof \core\ProfileSilverbullet);
 
 $displaySendStatus = "NOSTIPULATION";
 
-$formtext = "<form enctype='multipart/form-data' action='edit_silverbullet.php?inst_id=$inst->identifier&profile_id=$profile->identifier' method='post' accept-charset='UTF-8'>";
+$formtext = "<form enctype='multipart/form-data' action='edit_silverbullet.php?inst_id=$inst->identifier&amp;profile_id=$profile->identifier' method='post' accept-charset='UTF-8'>";
 
 $invitationObject = NULL;
 if (isset($_POST['token'])) {
@@ -403,12 +403,12 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                             foreach ($allCerts as $oneCert) {
                                 switch ($oneCert->status) {
                                     case core\SilverbulletCertificate::CERTSTATUS_REVOKED:
-                                        $style = "style:'background-color:#F0C0C0;' ";
+                                        $style = "style='background-color:#F0C0C0;' ";
                                         $buttonStyle = "style:'height:22px; margin-top:7px; text-align:center;'";
                                         $buttonText = _("REVOKED");
                                         break;
                                     case core\SilverbulletCertificate::CERTSTATUS_EXPIRED:
-                                        $style = "style:'background-color:lightgrey;'";
+                                        $style = "style='background-color:lightgrey;'";
                                         $buttonStyle = "style:'height:22px; margin-top:7px; text-align:center;'";
                                         $buttonText = _("EXPIRED");
                                         break;
@@ -420,8 +420,8 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                                 }
                                 ?>
 
-                                <div class="sb-certificate-summary ca-summary">
-                                    <div class="sb-certificate-details" <?php echo $style; ?> ><?php echo _("Device:") . " " . $oneCert->device; ?>
+                                <div class="sb-certificate-summary ca-summary" <?php echo $style; ?>>
+                                    <div class="sb-certificate-details"><?php echo _("Device:") . " " . $oneCert->device; ?>
                                         <br><?php echo _("Serial Number:") . "&nbsp;" . dechex($oneCert->serial); ?>
                                         <br><?php echo _("CN:") . "&nbsp;" . explode('@', $oneCert->username)[0] . "@…"; ?>
                                         <br><?php echo _("Expiry:") . "&nbsp;" . $oneCert->expiry; ?>
@@ -470,7 +470,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                                     $formtext
                                 <input type='hidden' value='" . $invitationObject->invitationTokenString . "' name='token'><br/>
                                 <input type='text' name='address' id='address'/>
-                                <button type='button' id='sb-compose-email-client' onclick='window.location=\"mailto:\"+document.getElementById(\"address\").value+\"?subject=" . $invitationObject->invitationMailSubject() . "&body=$jsEncodedBody\"; return false;'>" . _("Local mail client") . "</button>
+                                <button type='button' id='sb-compose-email-client' onclick='window.location=\"mailto:\"+document.getElementById(\"address\").value+\"?subject=" . $invitationObject->invitationMailSubject() . "&amp;body=$jsEncodedBody\"; return false;'>" . _("Local mail client") . "</button>
                                 <button type='submit' name='command' onclick='document.getElementById(\"spin\").style.display =\"block\"' value='" . \web\lib\common\FormElements::BUTTON_SENDINVITATIONMAILBYCAT . "'>Send with CAT</button>
                                     </form>
                                     </td></tr>
