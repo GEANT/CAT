@@ -490,7 +490,6 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                                         </td></tr>
                                         
                                 </table>
-                                </form>
                                 </td>";
                                     $tokenHtmlBuffer .= "<td>" . _("Expiry Date:") . " " . $invitationObject->expiry . " UTC<br>" . _("Activations remaining:") . " " . sprintf(_("%d of %d"), $invitationObject->activationsRemaining, $invitationObject->activationsTotal) . "</td>";
                                     $tokenHtmlBuffer .= "<td>"
