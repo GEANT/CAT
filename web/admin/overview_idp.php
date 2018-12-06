@@ -187,7 +187,7 @@ echo $mapCode->htmlHeadCode();
                         <?php
                         if ($readonly === FALSE) {
                             ?>
-                            <form action='edit_silverbullet.php?inst_id=<?php echo $my_inst->identifier; ?>&profile_id=<?php echo $profile_list->identifier; ?>' method='POST'>
+                            <form action='edit_silverbullet.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;profile_id=<?php echo $profile_list->identifier; ?>' method='POST'>
                                 <button <?php echo ( is_array($completeness) ? "disabled" : "" ); ?> type='submit' name='sb_action' value='sb_edit'><?php echo _("Manage User Base"); ?></button>
                             </form>
                             <?php
