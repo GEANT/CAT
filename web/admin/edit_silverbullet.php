@@ -364,7 +364,6 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                 break;
         }
         ?>
-    </div>
     <div class="sb-editable-block">
         <fieldset>
             <legend>
