@@ -125,7 +125,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                                 if ($message != '' && $sbMessage != '') {
                                     $message = $message . "<p>" . $sbMessage;
                                 } else {
-                                    $message = $message . $sbMessgae;
+                                    $message = $message . $sbMessage;
                                 }
                          
                                 echo "<div id='sb_download_message'><p>" . sprintf(_("You can now download a personalised  %s installation program."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
@@ -218,7 +218,6 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         }
 
         $("#user_button_sb").click(function (event) {
-            alert(message);
             event.preventDefault();
             $("#cat_form").attr('action', '<?php echo $Gui->skinObject->findResourceUrl("BASE", "user/sb_download.php"); ?>');
             if(message != '0') {
