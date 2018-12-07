@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"POT-Creation-Date: 2018-12-07 13:38+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: Daniele Albrizio <daniele@albrizio.it>, 2018\n"
 "Language-Team: Italian (Italy) (https://www.transifex.com/eduroam_devel/"
@@ -393,12 +393,12 @@ msgstr ""
 "di indirizzare gli utenti finali al loro IdP per ulteriori diagnosi/"
 "istruzioni perché non ci sono punti di contatto per quell'IdP nel database."
 
-#: core/diag/RADIUSTests.php:1055
+#: core/diag/RADIUSTests.php:1160
 #, php-format
 msgid "Connected to %s."
 msgstr "Connesso a %s"
 
-#: core/diag/RADIUSTests.php:1060 web/diag/radius_tests.php:211
+#: core/diag/RADIUSTests.php:1165 web/diag/radius_tests.php:211
 msgid ""
 "<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
 "multiple round-trips was carried out, and ended in an Access-Reject as "
@@ -408,7 +408,7 @@ msgstr ""
 "bidirezionale con round-trips multipli ha avuto luogo ed è finita con un "
 "Access-Reject come previsto."
 
-#: core/diag/RADIUSTests.php:1064
+#: core/diag/RADIUSTests.php:1169
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
@@ -464,27 +464,27 @@ msgstr "fallito"
 msgid "eduroam-accredited CA (now only for tests)"
 msgstr "eduroam-accredited CA (ora solo per i test)"
 
-#: core/diag/RFC6614Tests.php:263
+#: core/diag/RFC6614Tests.php:265
 msgid "No TLS connection established: Connection refused"
 msgstr "Nessuna connessione TLS stabilita: Connessione rifiutata"
 
-#: core/diag/RFC6614Tests.php:265
+#: core/diag/RFC6614Tests.php:267
 msgid "certificate expired"
 msgstr "certificato scaduto"
 
-#: core/diag/RFC6614Tests.php:267
+#: core/diag/RFC6614Tests.php:269
 msgid "certificate was revoked"
 msgstr "il certificato è stato revocato"
 
-#: core/diag/RFC6614Tests.php:269
+#: core/diag/RFC6614Tests.php:271
 msgid "bad policy"
 msgstr "Policy errata"
 
-#: core/diag/RFC6614Tests.php:271
+#: core/diag/RFC6614Tests.php:273
 msgid "unknown authority"
 msgstr "authority sconosciuta"
 
-#: core/diag/RFC6614Tests.php:274
+#: core/diag/RFC6614Tests.php:276
 msgid "unknown authority or no certificate policy or another problem"
 msgstr ""
 "autority sconosciuta o nessuna policy per i certificati oppure un altro "

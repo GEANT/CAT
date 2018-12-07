@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"POT-Creation-Date: 2018-12-07 13:38+0100\n"
 "PO-Revision-Date: 2018-11-14 12:47+0000\n"
 "Last-Translator: Jasper Metselaar <jasper@formmailer.net>\n"
 "Language-Team: Swedish (Sweden) (http://www.transifex.com/eduroam_devel/cat/"
@@ -306,7 +306,7 @@ msgstr "Taiwan"
 msgid "South Africa"
 msgstr "Sydafrika"
 
-#: core/CAT.php:492 core/IdPlist.php:109
+#: core/CAT.php:492 core/IdPlist.php:110
 msgid "Unnamed Entity"
 msgstr ""
 
@@ -326,7 +326,7 @@ msgstr ""
 "Attans, detta borde inte inträffa - ingen ytterligare info finns för "
 "tillfället."
 
-#: core/IdP.php:253
+#: core/IdP.php:257
 #, php-format
 msgid ""
 "Hi,\n"
@@ -349,27 +349,27 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/IdP.php:262
+#: core/IdP.php:266
 msgid "IdP in your federation was deleted"
 msgstr "IdP:n i din federation blev borttagen"
 
-#: core/SilverbulletInvitation.php:208
+#: core/SilverbulletInvitation.php:223
 #, php-format
 msgid "Your %s access is ready"
 msgstr "Din %s tillgång är klar"
 
-#: core/SilverbulletInvitation.php:216
+#: core/SilverbulletInvitation.php:232
 msgid "Hello!"
 msgstr "Hej!"
 
-#: core/SilverbulletInvitation.php:218
+#: core/SilverbulletInvitation.php:234
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
 "administrator."
 msgstr ""
 
-#: core/SilverbulletInvitation.php:220
+#: core/SilverbulletInvitation.php:236
 #, php-format
 msgid ""
 "Please follow the following link with the device you want to enable for %s "
@@ -378,7 +378,7 @@ msgid ""
 msgstr ""
 
 #. gets replaced with the token value by getBody()
-#: core/SilverbulletInvitation.php:222
+#: core/SilverbulletInvitation.php:238
 #, php-format
 msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
@@ -386,18 +386,18 @@ msgid ""
 "information about your %s account."
 msgstr ""
 
-#: core/SilverbulletInvitation.php:224
+#: core/SilverbulletInvitation.php:240
 msgid "Regards,"
 msgstr "Med vänliga hälsningar,"
 
-#: core/SilverbulletInvitation.php:270
+#: core/SilverbulletInvitation.php:288
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
 "'%s'!)"
 msgstr ""
 
-#: core/SilverbulletInvitation.php:283
+#: core/SilverbulletInvitation.php:301
 #, php-format
 msgid "%s Invitation System"
 msgstr ""
@@ -436,7 +436,7 @@ msgstr ""
 msgid "IdP in your federation was created"
 msgstr "IdP:n i din federation blev skapad"
 
-#: core/User.php:155
+#: core/User.php:156
 msgid "Feedback"
 msgstr "Feedback"
 

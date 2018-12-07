@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"POT-Creation-Date: 2018-12-07 13:38+0100\n"
 "PO-Revision-Date: 2018-11-14 15:40+0000\n"
 "Last-Translator: Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>\n"
 "Language-Team: Finnish (Finland) (http://www.transifex.com/eduroam_devel/cat/"
@@ -591,7 +591,9 @@ msgstr ""
 "tukisivulle. <br>Kun klikkaat <b>Jatka</b>, tukisivu aukeaa uuteen ikkunaan "
 "tai välilehteen. "
 
-#: web/lib/user/TextTemplates.php:99 web/skins/modern/user/js/cat_js.php:278
+#: web/lib/user/TextTemplates.php:99
+#: web/skins/modern/accountstatus/accountstatus.php:225
+#: web/skins/modern/user/js/cat_js.php:278
 #: web/skins/modern/user/js/cat_js.php:286
 msgid "Continue"
 msgstr "Jatka"
@@ -722,7 +724,7 @@ msgstr "Ryhdy CAT-kehittäjäksi:"
 msgid "Terms of use"
 msgstr "Käyttöehdot"
 
-#: web/skins/modern/accountstatus/accountstatus.php:74
+#: web/skins/modern/accountstatus/accountstatus.php:77
 msgid ""
 "You attempted to download an installer that was already downloaded before. "
 "Please request a new token from your administrator instead."
@@ -730,36 +732,36 @@ msgstr ""
 "Yritit ladata asennusohjelman, joka on jo ladattu aiemmin. Pyydä "
 "ylläpitäjältä uusi koodi."
 
-#: web/skins/modern/accountstatus/accountstatus.php:74
+#: web/skins/modern/accountstatus/accountstatus.php:77
 msgid "Attempt to re-use download link"
 msgstr "Yritetty käyttää latauslinkkiä uudelleen"
 
-#: web/skins/modern/accountstatus/accountstatus.php:85
+#: web/skins/modern/accountstatus/accountstatus.php:88
 #, php-format
 msgid "You are a new user without a history of %s credentials."
 msgstr ""
 "Olet uusi käyttäjä, jolla ei ole aikaisemmin ollut %s-käyttäjätunnusta."
 
-#: web/skins/modern/accountstatus/accountstatus.php:91
+#: web/skins/modern/accountstatus/accountstatus.php:94
 #, php-format
 msgid "You have <strong>%d</strong> currently valid %s credential."
 msgid_plural "You have <strong>%d</strong> currently valid %s credentials."
 msgstr[0] "Sinulla on <strong>%d</strong>voimassaolevaa %skäyttäjätunnusta."
 msgstr[1] "Sinulla on<strong>%d</strong> voimassaolevaa %s käyttäjätunnusta."
 
-#: web/skins/modern/accountstatus/accountstatus.php:95
+#: web/skins/modern/accountstatus/accountstatus.php:98
 #, php-format
 msgid "<strong>%d</strong> of your credentials is not valid any more."
 msgid_plural "<strong>%d</strong> of your credentials are not valid any more."
 msgstr[0] "<strong>%d</strong>käyttäjätunnuksistasi eivät ole enää voimassa."
 msgstr[1] "<strong>%d</strong>käyttäjätunnuksistasi eivät ole enää voimassa."
 
-#: web/skins/modern/accountstatus/accountstatus.php:97
+#: web/skins/modern/accountstatus/accountstatus.php:100
 msgid "I want to see the details."
 msgstr "Haluan nähdä yksityiskohdat."
 
 #. only show this extra info in the non-trivial case.
-#: web/skins/modern/accountstatus/accountstatus.php:106
+#: web/skins/modern/accountstatus/accountstatus.php:109
 #, php-format
 msgid ""
 "Your invitation token is valid for %d more device activations (%d have "
@@ -767,7 +769,7 @@ msgid ""
 msgstr ""
 "Kutsukoodisi voidaan käyttää vielä %d:lle laitteelle  (%don jo käytetty)."
 
-#: web/skins/modern/accountstatus/accountstatus.php:109
+#: web/skins/modern/accountstatus/accountstatus.php:112
 msgid ""
 "Unfortunately, we are unable to determine your device's operating system. If "
 "you have made modifications on your device which prevent it from being "
@@ -780,7 +782,7 @@ msgstr ""
 "muokannut 'User Agent' käyttäjäasetuksia), kumoa muutokset. Voit palata "
 "tälle sivulle uudelleen; kutsulinkkiä ei ole vielä käytetty."
 
-#: web/skins/modern/accountstatus/accountstatus.php:116
+#: web/skins/modern/accountstatus/accountstatus.php:119
 #, php-format
 msgid ""
 "Unfortunately, the operating system your device uses (%s) is currently not "
@@ -792,13 +794,13 @@ msgstr ""
 "tässä käytössä. Voit kokeilla palvelua toisella laitteella. Kutsulinkkisi on "
 "yhä voimassa."
 
-#: web/skins/modern/accountstatus/accountstatus.php:120
+#: web/skins/modern/accountstatus/accountstatus.php:131
 #, php-format
 msgid "You can now download a personalised  %s installation program."
 msgstr "Voit nyt ladata organisaatiolle %s tehdyn asennuspaketin."
 
 #. echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
-#: web/skins/modern/accountstatus/accountstatus.php:122
+#: web/skins/modern/accountstatus/accountstatus.php:133
 #, php-format
 msgid ""
 "The installation program is <span class='emph'>strictly personal</span>, to "
@@ -809,7 +811,7 @@ msgstr ""
 "käytettäväksi vain <span class='emph'>tässä kyseisessä laitteessa (%s)</"
 "span>. <span class='emph'>Älä jaa</span> tietoja muille."
 
-#: web/skins/modern/accountstatus/accountstatus.php:123
+#: web/skins/modern/accountstatus/accountstatus.php:134
 #, php-format
 msgid ""
 "When the system detects abuse such as sharing login data with others, all "
@@ -820,7 +822,7 @@ msgstr ""
 "jakoa, kaikki käyttöoikeutesi voidaan poistaa ja kotiorganisaatiosi %s "
 "saattaa asettaa rajoituksia tai sanktioita."
 
-#: web/skins/modern/accountstatus/accountstatus.php:124
+#: web/skins/modern/accountstatus/accountstatus.php:135
 msgid ""
 "During the installation process, you will be asked for the following import "
 "PIN. This only happens once during the installation. You do not have to "
@@ -829,17 +831,17 @@ msgstr ""
 "Asennuksen aikana sinulta kysytään oheista PIN-koodia. Koodia kysytään vain "
 "kerran, eikä sinun tarvitse ottaa sitä talteen."
 
-#: web/skins/modern/accountstatus/accountstatus.php:129
+#: web/skins/modern/accountstatus/accountstatus.php:140
 #, php-format
 msgid "Import PIN: %s"
 msgstr "PIN-koodi: %s"
 
-#: web/skins/modern/accountstatus/accountstatus.php:134
+#: web/skins/modern/accountstatus/accountstatus.php:145
 #, php-format
 msgid "Click here to download your %s installer!"
 msgstr "Klikkaa tästä ladataksesi %s-asennusohjelma."
 
-#: web/skins/modern/accountstatus/accountstatus.php:138
+#: web/skins/modern/accountstatus/accountstatus.php:150
 #, php-format
 msgid ""
 "Unfortunately, the invitation link you just used is too old. The %s sign-up "
@@ -850,11 +852,11 @@ msgstr ""
 "käyttää. %s kutsu oli voimassa %s saakka. Pyydäthän ylläpidoltasi uuden "
 "kutsulinkin."
 
-#: web/skins/modern/accountstatus/accountstatus.php:145
+#: web/skins/modern/accountstatus/accountstatus.php:157
 msgid "Account information not found"
 msgstr "Käyttäjätunnustietoa ei löytynyt"
 
-#: web/skins/modern/accountstatus/accountstatus.php:146
+#: web/skins/modern/accountstatus/accountstatus.php:158
 #, php-format
 msgid ""
 "The invitation link you followed does not map to any invititation we have on "
@@ -863,7 +865,7 @@ msgstr ""
 "Käyttämälläsi kutsulinkillä ei löytynyt liitosta mihinkään eduroam-"
 "organisaatioon."
 
-#: web/skins/modern/accountstatus/accountstatus.php:146
+#: web/skins/modern/accountstatus/accountstatus.php:158
 #, php-format
 msgid ""
 "You should use the exact link you got during sign-up to come here. "
@@ -876,70 +878,70 @@ msgstr ""
 "hyväksymässä kirjautumisen client-/henkilövarmenteella (valitse '...%s'-"
 "päätteinen varmenne)."
 
-#: web/skins/modern/accountstatus/accountstatus.php:178
+#: web/skins/modern/accountstatus/accountstatus.php:191
 #: web/skins/modern/user/js/cat_js.php:245
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
 "organisation at:"
 msgstr "Jos havaitset ongelmia, pyydä apua kotiorganisaatiostasi:"
 
-#: web/skins/modern/accountstatus/accountstatus.php:180
+#: web/skins/modern/accountstatus/accountstatus.php:193
 #: web/skins/modern/user/js/cat_js.php:247
 msgid ""
 "If you encounter problems you should ask those who gave you your account for "
 "help."
 msgstr "Jos havaitset ongelmia, kysy apua kotiorganisaatiostasi."
 
-#: web/skins/modern/accountstatus/accountstatus.php:191
+#: web/skins/modern/accountstatus/accountstatus.php:209
 #, php-format
 msgid "Your personal %s account status page"
 msgstr "Henkilökohtainen %s-sivusi"
 
-#: web/skins/modern/accountstatus/accountstatus.php:219
+#: web/skins/modern/accountstatus/accountstatus.php:246
 msgid "Current login tokens"
 msgstr "Voimassaolevat poletit"
 
-#: web/skins/modern/accountstatus/accountstatus.php:220
+#: web/skins/modern/accountstatus/accountstatus.php:247
 msgid "Previous login tokens"
 msgstr "Käytetyt poletit"
 
-#: web/skins/modern/accountstatus/accountstatus.php:221
+#: web/skins/modern/accountstatus/accountstatus.php:248
 msgid "Revoked login tokens"
 msgstr "Peruutetut poletit"
 
-#: web/skins/modern/accountstatus/accountstatus.php:222
+#: web/skins/modern/accountstatus/accountstatus.php:249
 msgid "Serial Number"
 msgstr "Sarjanumero"
 
-#: web/skins/modern/accountstatus/accountstatus.php:222
+#: web/skins/modern/accountstatus/accountstatus.php:249
 msgid "Pseudonym"
 msgstr "Pseudonyymi"
 
-#: web/skins/modern/accountstatus/accountstatus.php:222
+#: web/skins/modern/accountstatus/accountstatus.php:249
 msgid "Device Type"
 msgstr "Laitetyyppi"
 
-#: web/skins/modern/accountstatus/accountstatus.php:222
+#: web/skins/modern/accountstatus/accountstatus.php:249
 msgid "Issue Date"
 msgstr "Luontipäivä"
 
-#: web/skins/modern/accountstatus/accountstatus.php:222
+#: web/skins/modern/accountstatus/accountstatus.php:249
 msgid "Expiry Date"
 msgstr "Päättymispäivä"
 
-#: web/skins/modern/accountstatus/accountstatus.php:232
+#: web/skins/modern/accountstatus/accountstatus.php:259
 msgid "invalid token"
 msgstr "epäkelpo poletti"
 
-#: web/skins/modern/accountstatus/accountstatus.php:244
+#: web/skins/modern/accountstatus/accountstatus.php:271
 msgid "revoke"
 msgstr "peruuta"
 
-#: web/skins/modern/accountstatus/accountstatus.php:256
+#: web/skins/modern/accountstatus/accountstatus.php:285
 msgid "The details are displayed below."
 msgstr "Yksityiskohdat alempana."
 
-#: web/skins/modern/accountstatus/accountstatus.php:262
+#: web/skins/modern/accountstatus/accountstatus.php:291
 msgid "Really revoke this access credential?"
 msgstr "Tahdotko varmasti peruuttaa oikeudet tältä tunnukselta?"
 
@@ -1044,19 +1046,19 @@ msgstr "Käyttämäsi IdP:"
 msgid "Your IdP could be one of:"
 msgstr "Käyttämäsi IdP on ehkä jokin seuraavista:"
 
-#: web/skins/modern/user/js/cat_js.php:573
+#: web/skins/modern/user/js/cat_js.php:574
 msgid "Organisation"
 msgstr "Organisaatio"
 
-#: web/skins/modern/user/js/cat_js.php:574
+#: web/skins/modern/user/js/cat_js.php:575
 msgid "Select your organisation"
 msgstr "Valitse organisaatiosi"
 
-#: web/skins/modern/user/js/cat_js.php:575
+#: web/skins/modern/user/js/cat_js.php:576
 msgid "Help, my organisation is not on the list"
 msgstr "Apua, organisaationi ei ole listalla"
 
-#: web/skins/modern/user/js/cat_js.php:576
+#: web/skins/modern/user/js/cat_js.php:577
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -1067,63 +1069,63 @@ msgstr ""
 "organisaatiosi puuttuu listalta, olethan yhteydessä oman kotiorganisaatiosi "
 "tukeen ja ilmoita puutteesta %s-tietokannassa."
 
-#: web/skins/modern/user/js/cat_js.php:577
+#: web/skins/modern/user/js/cat_js.php:578
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "Paikanna minut tarkemmin HTML5:n paikantamistoiminnon avulla."
 
-#: web/skins/modern/user/js/cat_js.php:578
+#: web/skins/modern/user/js/cat_js.php:579
 msgid "Show organisations in"
 msgstr "Näytä organisaatiot kohteessa"
 
-#: web/skins/modern/user/js/cat_js.php:579
+#: web/skins/modern/user/js/cat_js.php:580
 msgid "all countries"
 msgstr "kaikki maat"
 
-#: web/skins/modern/user/js/cat_js.php:580
+#: web/skins/modern/user/js/cat_js.php:581
 msgid "or search for an organisation, for example University of Oslo"
 msgstr "tai etsi organisaatioita, esimerkiksi Helsingin yliopisto"
 
-#: web/skins/modern/user/js/cat_js.php:581
+#: web/skins/modern/user/js/cat_js.php:582
 msgid "show all countries"
 msgstr "näytä kaikki maat"
 
-#: web/skins/modern/user/js/cat_js.php:582
+#: web/skins/modern/user/js/cat_js.php:583
 msgid "Results limited to"
 msgstr "Rajoita tulokset"
 
-#: web/skins/modern/user/js/cat_js.php:583
+#: web/skins/modern/user/js/cat_js.php:584
 msgid "entries - show more"
 msgstr "hakutulokset - näytä lisää"
 
-#: web/skins/modern/user/js/cat_js.php:584
+#: web/skins/modern/user/js/cat_js.php:585
 msgid "Nearby"
 msgstr "Lähistöllä"
 
-#: web/skins/modern/user/js/cat_js.php:585
+#: web/skins/modern/user/js/cat_js.php:586
 msgid "Location timeout"
 msgstr "Paikkatiedon etsiminen vei liian paljon aikaa."
 
-#: web/skins/modern/user/js/cat_js.php:586
+#: web/skins/modern/user/js/cat_js.php:587
 msgid "Could not get your position"
 msgstr "Paikkatietojasi ei saatu"
 
-#: web/skins/modern/user/js/cat_js.php:587
+#: web/skins/modern/user/js/cat_js.php:588
 msgid "Your browser has denied access to your location"
 msgstr "Selaimesi ei salli paikkatietojen lähettämistä"
 
-#: web/skins/modern/user/js/cat_js.php:588
+#: web/skins/modern/user/js/cat_js.php:589
 msgid "Unknown location error"
 msgstr "Tuntematon paikkatietovirhe"
 
-#: web/skins/modern/user/js/cat_js.php:589
+#: web/skins/modern/user/js/cat_js.php:590
 msgid "You are here:"
 msgstr "Olet täällä:"
 
-#: web/skins/modern/user/js/cat_js.php:590
+#: web/skins/modern/user/js/cat_js.php:591
 msgid "Getting your location..."
 msgstr "Paikkatietoasi selvitetään..."
 
-#: web/skins/modern/user/js/cat_js.php:591
+#: web/skins/modern/user/js/cat_js.php:592
 msgid "Nearby providers shown on top."
 msgstr "Lähellä olevat palveluntarjoajat näytetään listan alussa."
 

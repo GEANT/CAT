@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"POT-Creation-Date: 2018-12-07 13:38+0100\n"
 "PO-Revision-Date: 2018-11-15 07:36+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/eduroam_devel/"
@@ -22,71 +22,79 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: devices/Devices-template.php:125
+#: devices/Devices-template.php:127
 msgid "MS Windows 10"
 msgstr "MS Windows 10"
 
-#: devices/Devices-template.php:140
+#: devices/Devices-template.php:142
 msgid "MS Windows 8, 8.1"
 msgstr "MS Windows 8, 8.1"
 
-#: devices/Devices-template.php:154
+#: devices/Devices-template.php:156
 msgid "MS Windows 7"
 msgstr "MS Windows 7"
 
-#: devices/Devices-template.php:168
+#: devices/Devices-template.php:170
 msgid "MS Windows Vista"
 msgstr "MS Windows Vista"
 
-#: devices/Devices-template.php:182
+#: devices/Devices-template.php:184
 msgid "Windows RT"
 msgstr "Windows RT"
 
-#: devices/Devices-template.php:194
+#: devices/Devices-template.php:196
 msgid "Apple macOS High Sierra"
 msgstr "Apple macOS High Sierra"
 
-#: devices/Devices-template.php:210
+#: devices/Devices-template.php:212
 msgid "Apple macOS Sierra"
 msgstr "Apple macOS Sierra"
 
-#: devices/Devices-template.php:225
+#: devices/Devices-template.php:227
 msgid "Apple OS X El Capitan"
 msgstr "Apple OS X El Capitan"
 
-#: devices/Devices-template.php:239
+#: devices/Devices-template.php:241
 msgid "Apple OS X Yosemite"
 msgstr "Apple OS X Yosemite"
 
-#: devices/Devices-template.php:253
+#: devices/Devices-template.php:255
 msgid "Apple OS X Mavericks"
 msgstr "Apple OS X Mavericks"
 
-#: devices/Devices-template.php:267
+#: devices/Devices-template.php:269
 msgid "Apple OS X Mountain Lion"
 msgstr "Apple OS X Mountain Lion"
 
-#: devices/Devices-template.php:281
+#: devices/Devices-template.php:283
 msgid "Apple OS X Lion"
 msgstr "Apple OS X Lion"
 
-#: devices/Devices-template.php:295
+#: devices/Devices-template.php:297
 msgid "Apple iOS mobile devices"
 msgstr "Apple iOS mobileszközök"
 
-#: devices/Devices-template.php:309
+#: devices/Devices-template.php:306
+msgid ""
+"During the installation you will be first asked to enter your passcode - "
+"this is you device security code! Later on you will be prompted for the "
+"password to the certificate and there you need to enter the import PIN shown "
+"on this page."
+msgstr ""
+
+#: devices/Devices-template.php:312
 msgid "Apple iOS mobile devices (iOS 5 and 6)"
 msgstr "Apple iOS mobil eszköz (iOS 5 vagy 6)"
 
-#: devices/Devices-template.php:324
+#: devices/Devices-template.php:327
 msgid "Linux"
 msgstr "Linux"
 
-#: devices/Devices-template.php:335
+#: devices/Devices-template.php:338
 msgid "Chrome OS"
 msgstr "Chrome OS"
 
-#: devices/Devices-template.php:341
+#: devices/Devices-template.php:344
 #, php-format
 msgid ""
 "After downloading the file, open the Chrome browser and browse to this URL: "
@@ -100,14 +108,14 @@ msgstr ""
 "konfiguráció betöltés ennek hatására megtörténik; Az új hálózati definició a "
 "preferált hálózatokhoz kerül hozzáadásra."
 
-#: devices/Devices-template.php:347
+#: devices/Devices-template.php:350
 msgid "Android 9.0 Pie"
 msgstr "Android 9.0 Pie"
 
-#: devices/Devices-template.php:353 devices/Devices-template.php:369
-#: devices/Devices-template.php:385 devices/Devices-template.php:401
-#: devices/Devices-template.php:417 devices/Devices-template.php:433
-#: devices/Devices-template.php:450
+#: devices/Devices-template.php:356 devices/Devices-template.php:372
+#: devices/Devices-template.php:388 devices/Devices-template.php:404
+#: devices/Devices-template.php:420 devices/Devices-template.php:436
+#: devices/Devices-template.php:453
 #, php-format
 msgid ""
 "Before you proceed with installation on Android systems, please make sure "
@@ -119,46 +127,47 @@ msgstr ""
 "telepítve van-e. Ez az alkalmazás elérhető %s, %s  és %s címről és az CAT-"
 "ről letöltött konfigurációs fájlt fogja használni a beállítások elvégzéséhez."
 
-#: devices/Devices-template.php:357 devices/Devices-template.php:373
-#: devices/Devices-template.php:389 devices/Devices-template.php:405
-#: devices/Devices-template.php:421 devices/Devices-template.php:437
-#: devices/Devices-template.php:454
+#: devices/Devices-template.php:360 devices/Devices-template.php:376
+#: devices/Devices-template.php:392 devices/Devices-template.php:408
+#: devices/Devices-template.php:424 devices/Devices-template.php:440
+#: devices/Devices-template.php:457
 msgid "as local download"
 msgstr "mint helyi letöltés"
 
-#: devices/Devices-template.php:363
+#: devices/Devices-template.php:366
 msgid "Android 8.0 Oreo"
 msgstr "Android 8.0 Oreo"
 
-#: devices/Devices-template.php:379
-msgid "Android 6.0 Nougat"
+#: devices/Devices-template.php:382
+#, fuzzy
+msgid "Android 7.0 Nougat"
 msgstr "Android 6.0 Nougat"
 
-#: devices/Devices-template.php:395
+#: devices/Devices-template.php:398
 msgid "Android 6.0 Marshmallow"
 msgstr "Android 6.0 Marshmallow"
 
-#: devices/Devices-template.php:411
+#: devices/Devices-template.php:414
 msgid "Android 5.0 Lollipop"
 msgstr "Android 5.0 Lollipop"
 
-#: devices/Devices-template.php:427
+#: devices/Devices-template.php:430
 msgid "Android 4.4 KitKat"
 msgstr "Android 4.4 KitKat"
 
-#: devices/Devices-template.php:444
+#: devices/Devices-template.php:447
 msgid "Android 4.3"
 msgstr "Android 4.3"
 
-#: devices/Devices-template.php:460
+#: devices/Devices-template.php:463
 msgid "Android"
 msgstr "Android"
 
-#: devices/Devices-template.php:471
+#: devices/Devices-template.php:474
 msgid "EAP config"
 msgstr "EAP konfiguráció"
 
-#: devices/Devices-template.php:476
+#: devices/Devices-template.php:479
 #, php-format
 msgid ""
 "This option provides a generic EAP config XML file, which can be consumed by "
@@ -170,15 +179,15 @@ msgstr ""
 "alkalmazni, hogy be lehessen állítani a hozzáférést. Ez egyenlőre kísérleti "
 "jellegű lehetőség."
 
-#: devices/Devices-template.php:482
+#: devices/Devices-template.php:485
 msgid "Test"
 msgstr "Teszt"
 
-#: devices/apple_mobileconfig/Device_mobileconfig_ios_56.php:48
+#: devices/apple_mobileconfig/Device_mobileconfig_ios_56.php:51
 msgid "This device does not support forcing setting an HTTPS proxy."
 msgstr "Ez az eszköz nem támogatja a HTTPS proxy beállítását."
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:59
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:63
 msgid ""
 "It is not possible to actively verify the user input for suffix match; but "
 "if there is no 'Terms of Use' configured, the installer will display a "
@@ -188,22 +197,22 @@ msgstr ""
 "egyezéshez; de ha nincs beállítva a \"Felhasználási feltételek\", akkor a "
 "telepítő a megfelelő megjegyzést jeleníti meg a felhasználónak."
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:67
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:81
 #, php-format
 msgid "Network configuration profile '%s' of '%s' - provided by %s"
 msgstr "'%s'  '%s' hálózati konfigurációs profil – %s hozta létre"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:72
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:86
 #, php-format
 msgid "%s configuration for IdP '%s' - provided by %s"
 msgstr "%s Idp által megadott %s konfiguráció %s"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:113
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:133
 #, php-format
 msgid "Important Notice: your username must end with @%s!"
 msgstr "Fontos megjegyzés: a felhasználónévnek a végén @ %s  van"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:115
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:135
 msgid ""
 "Important Notice: your username MUST be in the form of xxx@yyy where the yyy "
 "is a common suffix identifying your Identity Provider. Please find out what "
@@ -214,15 +223,15 @@ msgstr ""
 "azonosítja. Kérjük,  tudja meg, mit kell használnia, és adja meg a "
 "felhasználónevet a megfelelő formátumban."
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:151
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:158
 msgid "Unnamed Organisation"
 msgstr "Nem megnevezett szervezet"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:152
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:159
 msgid "Unnamed Profile"
 msgstr "Névtelen profil"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:210
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:223
 msgid ""
 "For best results, please use the built-in browser (Safari) to open the "
 "configuration file."
@@ -230,7 +239,7 @@ msgstr ""
 "A legjobban akkor jársz, ha a beépített böngészőt használod (Safari) a "
 "konfiguráicós fájl letöltéséhez."
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:212
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:225
 msgid ""
 "The profile will install itself after you click (or tap) the button. You "
 "will be asked for confirmation/input at several points:"
@@ -238,84 +247,84 @@ msgstr ""
 "A profil telepítése a gombra való kattintással kezdhető meg. A folyamat több "
 "pontján kell megerősítést vagy választ adnod:"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:214
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:227
 msgid "to install the profile"
 msgstr "a profil telepítésekor"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:215
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:228
 msgid "to accept the server certificate authority"
 msgid_plural "to accept the server certificate authorities"
 msgstr[0] "a szerver tanúsítványkiadójának (CA) elfogadásakor"
 msgstr[1] "a szerver tanúsítványkiadóinak (CA) elfogadásakor"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:217
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:230
 #, php-format
 msgid "(%d times)"
 msgstr "(%d alkalommal)"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:220
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:233
 msgid ""
 "to enter the username and password you have been given by your organisation"
 msgstr "add meg a szervezettől kapott felhasználónevet és jelszót"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:222
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:235
 #, php-format
 msgid "(%d times each, because %s is installed for %d SSIDs)"
 msgstr "(%d alkalommal, mivel %s telepítésre került %d SSID számára)"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:361
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:409
 #, php-format
 msgid "SSID %s"
 msgstr "SSID %s"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:362
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:410
 #, php-format
 msgid "%s configuration for network name %s"
 msgstr "%s konfiguráció az %s hálózat számára"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:370
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:421
 msgid "Wired Network"
 msgstr "Vezetékes Hálózat"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:371
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:422
 #, php-format
 msgid "%s configuration for wired network"
 msgstr "%s konfiguráció vezetékes hálózathoz"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:382
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:436
 msgid "Hotspot 2.0 Settings"
 msgstr "Hotspot 2.0 beállítások"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:383
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:437
 #, php-format
 msgid "%s Hotspot 2.0 configuration"
 msgstr "%s Hotspot 2.0 konfiguráció"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:438
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:499
 #, php-format
 msgid "This SSID should not be used after bootstrapping %s"
 msgstr "Ezt az SSID-t nem szabad használni a %s bootstrap-ja után."
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:440
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:501
 msgid "Disabled WiFi network"
 msgstr "Letiltott WiFi hálózat"
 
 #. we don't include the import password. It's displayed on screen, and should be input by the user.
 #. <key>Password</key>
 #. <string>" . $this->clientCert['password'] . "</string>
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:515
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:592
 msgid "eduroam user certificate"
 msgstr "eduroam felhasználói tanúsítvány"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:555
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:645
 msgid "Your Identity Providers Certification Authority"
 msgstr "Az azonosító intézmény által használt tanúsítványkiadó (CA)"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:557
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:647
 msgid "Identity Provider's CA"
 msgstr "Az IdP által használt CA"
 
-#: devices/chromebook/Device_chromebook.php:298
+#: devices/chromebook/Device_chromebook.php:329
 msgid ""
 "This installer is an example only. It produces a zip file containig the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
@@ -601,7 +610,7 @@ msgstr ""
 msgid "%s installer for %s"
 msgstr "%s telepítő %s-hez"
 
-#: devices/redirect_dev/Device_RedirectDev.php:37
+#: devices/redirect_dev/Device_RedirectDev.php:43
 msgid ""
 "This device is not yet supported by CAT, but your local administrator "
 "created a redirect to local installation instructions."
@@ -609,7 +618,7 @@ msgstr ""
 "Ez az eszköz jelenleg nem támogatott a CAT által, de a rendszergazda "
 "beállított egy redirectet a helyi beállítások leírásával."
 
-#: devices/xml/Device_XML.php:61
+#: devices/xml/Device_XML.php:64
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"POT-Creation-Date: 2018-12-07 13:38+0100\n"
 "PO-Revision-Date: 2018-11-15 07:36+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Swedish (Sweden) (http://www.transifex.com/eduroam_devel/cat/"
@@ -19,71 +19,79 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: devices/Devices-template.php:125
+#: devices/Devices-template.php:127
 msgid "MS Windows 10"
 msgstr "MS Windows 10"
 
-#: devices/Devices-template.php:140
+#: devices/Devices-template.php:142
 msgid "MS Windows 8, 8.1"
 msgstr "MS Windows 8, 8.1"
 
-#: devices/Devices-template.php:154
+#: devices/Devices-template.php:156
 msgid "MS Windows 7"
 msgstr "MS Windows 7"
 
-#: devices/Devices-template.php:168
+#: devices/Devices-template.php:170
 msgid "MS Windows Vista"
 msgstr "MS Windows Vista"
 
-#: devices/Devices-template.php:182
+#: devices/Devices-template.php:184
 msgid "Windows RT"
 msgstr "Windows RT"
 
-#: devices/Devices-template.php:194
+#: devices/Devices-template.php:196
 msgid "Apple macOS High Sierra"
 msgstr ""
 
-#: devices/Devices-template.php:210
+#: devices/Devices-template.php:212
 msgid "Apple macOS Sierra"
 msgstr ""
 
-#: devices/Devices-template.php:225
+#: devices/Devices-template.php:227
 msgid "Apple OS X El Capitan"
 msgstr "Apple OS X El Capitan"
 
-#: devices/Devices-template.php:239
+#: devices/Devices-template.php:241
 msgid "Apple OS X Yosemite"
 msgstr "Apple OS X Yosemite"
 
-#: devices/Devices-template.php:253
+#: devices/Devices-template.php:255
 msgid "Apple OS X Mavericks"
 msgstr "Apple OS X Mavericks"
 
-#: devices/Devices-template.php:267
+#: devices/Devices-template.php:269
 msgid "Apple OS X Mountain Lion"
 msgstr "Apple OS X Mountain Lion"
 
-#: devices/Devices-template.php:281
+#: devices/Devices-template.php:283
 msgid "Apple OS X Lion"
 msgstr "Apple OS X Lion"
 
-#: devices/Devices-template.php:295
+#: devices/Devices-template.php:297
 msgid "Apple iOS mobile devices"
 msgstr "Apple iOS mobila enheter"
 
-#: devices/Devices-template.php:309
+#: devices/Devices-template.php:306
+msgid ""
+"During the installation you will be first asked to enter your passcode - "
+"this is you device security code! Later on you will be prompted for the "
+"password to the certificate and there you need to enter the import PIN shown "
+"on this page."
+msgstr ""
+
+#: devices/Devices-template.php:312
 msgid "Apple iOS mobile devices (iOS 5 and 6)"
 msgstr "Apple iOS mobila enheter (iOS 5 och 6)"
 
-#: devices/Devices-template.php:324
+#: devices/Devices-template.php:327
 msgid "Linux"
 msgstr "Linux"
 
-#: devices/Devices-template.php:335
+#: devices/Devices-template.php:338
 msgid "Chrome OS"
 msgstr "Chrome OS"
 
-#: devices/Devices-template.php:341
+#: devices/Devices-template.php:344
 #, php-format
 msgid ""
 "After downloading the file, open the Chrome browser and browse to this URL: "
@@ -92,14 +100,14 @@ msgid ""
 "network definitions will be added to the preferred networks."
 msgstr ""
 
-#: devices/Devices-template.php:347
+#: devices/Devices-template.php:350
 msgid "Android 9.0 Pie"
 msgstr ""
 
-#: devices/Devices-template.php:353 devices/Devices-template.php:369
-#: devices/Devices-template.php:385 devices/Devices-template.php:401
-#: devices/Devices-template.php:417 devices/Devices-template.php:433
-#: devices/Devices-template.php:450
+#: devices/Devices-template.php:356 devices/Devices-template.php:372
+#: devices/Devices-template.php:388 devices/Devices-template.php:404
+#: devices/Devices-template.php:420 devices/Devices-template.php:436
+#: devices/Devices-template.php:453
 #, php-format
 msgid ""
 "Before you proceed with installation on Android systems, please make sure "
@@ -108,46 +116,47 @@ msgid ""
 "to create all necessary settings."
 msgstr ""
 
-#: devices/Devices-template.php:357 devices/Devices-template.php:373
-#: devices/Devices-template.php:389 devices/Devices-template.php:405
-#: devices/Devices-template.php:421 devices/Devices-template.php:437
-#: devices/Devices-template.php:454
+#: devices/Devices-template.php:360 devices/Devices-template.php:376
+#: devices/Devices-template.php:392 devices/Devices-template.php:408
+#: devices/Devices-template.php:424 devices/Devices-template.php:440
+#: devices/Devices-template.php:457
 msgid "as local download"
 msgstr "som lokal nedladdning"
 
-#: devices/Devices-template.php:363
+#: devices/Devices-template.php:366
 msgid "Android 8.0 Oreo"
 msgstr ""
 
-#: devices/Devices-template.php:379
-msgid "Android 6.0 Nougat"
-msgstr ""
+#: devices/Devices-template.php:382
+#, fuzzy
+msgid "Android 7.0 Nougat"
+msgstr "Android 4.4 KitKat"
 
-#: devices/Devices-template.php:395
+#: devices/Devices-template.php:398
 msgid "Android 6.0 Marshmallow"
 msgstr "Android 6.0 Marshmallow"
 
-#: devices/Devices-template.php:411
+#: devices/Devices-template.php:414
 msgid "Android 5.0 Lollipop"
 msgstr "Android 5.0 Lollipop"
 
-#: devices/Devices-template.php:427
+#: devices/Devices-template.php:430
 msgid "Android 4.4 KitKat"
 msgstr "Android 4.4 KitKat"
 
-#: devices/Devices-template.php:444
+#: devices/Devices-template.php:447
 msgid "Android 4.3"
 msgstr "Android 4.3"
 
-#: devices/Devices-template.php:460
+#: devices/Devices-template.php:463
 msgid "Android"
 msgstr "Android"
 
-#: devices/Devices-template.php:471
+#: devices/Devices-template.php:474
 msgid "EAP config"
 msgstr "EAP config"
 
-#: devices/Devices-template.php:476
+#: devices/Devices-template.php:479
 #, php-format
 msgid ""
 "This option provides a generic EAP config XML file, which can be consumed by "
@@ -155,59 +164,59 @@ msgid ""
 "is still an experimental feature."
 msgstr ""
 
-#: devices/Devices-template.php:482
+#: devices/Devices-template.php:485
 msgid "Test"
 msgstr "Test"
 
-#: devices/apple_mobileconfig/Device_mobileconfig_ios_56.php:48
+#: devices/apple_mobileconfig/Device_mobileconfig_ios_56.php:51
 msgid "This device does not support forcing setting an HTTPS proxy."
 msgstr ""
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:59
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:63
 msgid ""
 "It is not possible to actively verify the user input for suffix match; but "
 "if there is no 'Terms of Use' configured, the installer will display a "
 "corresponding hint to the user instead."
 msgstr ""
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:67
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:81
 #, php-format
 msgid "Network configuration profile '%s' of '%s' - provided by %s"
 msgstr ""
 "Profilen för nätverkskonfigurationen '%s' för '%s' tillhandahålls av %s"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:72
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:86
 #, php-format
 msgid "%s configuration for IdP '%s' - provided by %s"
 msgstr ""
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:113
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:133
 #, php-format
 msgid "Important Notice: your username must end with @%s!"
 msgstr ""
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:115
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:135
 msgid ""
 "Important Notice: your username MUST be in the form of xxx@yyy where the yyy "
 "is a common suffix identifying your Identity Provider. Please find out what "
 "to use there and enter the username in the correct format."
 msgstr ""
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:151
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:158
 msgid "Unnamed Organisation"
 msgstr ""
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:152
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:159
 msgid "Unnamed Profile"
 msgstr ""
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:210
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:223
 msgid ""
 "For best results, please use the built-in browser (Safari) to open the "
 "configuration file."
 msgstr ""
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:212
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:225
 msgid ""
 "The profile will install itself after you click (or tap) the button. You "
 "will be asked for confirmation/input at several points:"
@@ -215,84 +224,84 @@ msgstr ""
 "Profilen kommer installeras efter att du klickat (eller tryckt) på knappen. "
 "Under installationen kommer du få bekräfta eller mata in uppgifter:"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:214
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:227
 msgid "to install the profile"
 msgstr "för att installera profilen"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:215
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:228
 msgid "to accept the server certificate authority"
 msgid_plural "to accept the server certificate authorities"
 msgstr[0] "för att acceptera servercertifikatsutfärdare"
 msgstr[1] "för att acceptera servercertifikatsutfärdare"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:217
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:230
 #, php-format
 msgid "(%d times)"
 msgstr "(%d gånger)"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:220
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:233
 msgid ""
 "to enter the username and password you have been given by your organisation"
 msgstr ""
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:222
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:235
 #, php-format
 msgid "(%d times each, because %s is installed for %d SSIDs)"
 msgstr "(%d gånger vardera beroende på att %s installeras för %d SSID)"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:361
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:409
 #, php-format
 msgid "SSID %s"
 msgstr "SSID %s"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:362
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:410
 #, php-format
 msgid "%s configuration for network name %s"
 msgstr "%s konfiguration för nätverksnamnet %s"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:370
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:421
 msgid "Wired Network"
 msgstr "Trådat Nätverk"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:371
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:422
 #, php-format
 msgid "%s configuration for wired network"
 msgstr "%s konfiguration för trådat nätverk"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:382
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:436
 msgid "Hotspot 2.0 Settings"
 msgstr "Hotspot 2.0 Inställningar"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:383
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:437
 #, php-format
 msgid "%s Hotspot 2.0 configuration"
 msgstr "%s Hotspot 2.0 konfiguration"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:438
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:499
 #, php-format
 msgid "This SSID should not be used after bootstrapping %s"
 msgstr ""
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:440
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:501
 msgid "Disabled WiFi network"
 msgstr "Inaktiverat WiFi nätverk"
 
 #. we don't include the import password. It's displayed on screen, and should be input by the user.
 #. <key>Password</key>
 #. <string>" . $this->clientCert['password'] . "</string>
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:515
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:592
 msgid "eduroam user certificate"
 msgstr ""
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:555
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:645
 msgid "Your Identity Providers Certification Authority"
 msgstr "Certifikatsutfärdare för er identitetsleverantör"
 
-#: devices/apple_mobileconfig/mobileconfigSuperclass.php:557
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:647
 msgid "Identity Provider's CA"
 msgstr "Identity Provider CA"
 
-#: devices/chromebook/Device_chromebook.php:298
+#: devices/chromebook/Device_chromebook.php:329
 msgid ""
 "This installer is an example only. It produces a zip file containig the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
@@ -538,13 +547,13 @@ msgstr ""
 msgid "%s installer for %s"
 msgstr ""
 
-#: devices/redirect_dev/Device_RedirectDev.php:37
+#: devices/redirect_dev/Device_RedirectDev.php:43
 msgid ""
 "This device is not yet supported by CAT, but your local administrator "
 "created a redirect to local installation instructions."
 msgstr ""
 
-#: devices/xml/Device_XML.php:61
+#: devices/xml/Device_XML.php:64
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "

@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"POT-Creation-Date: 2018-12-07 13:38+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: Kaja Kumer <kaja.kumer@arnes.si>, 2018\n"
 "Language-Team: Slovenian (Slovenia) (https://www.transifex.com/eduroam_devel/"
@@ -54,8 +54,8 @@ msgid ""
 "There was a bidirectional communication with the RADIUS server, but it ended "
 "halfway through."
 msgstr ""
-"Kmunikacija med strežnikoma RADIUS je bila vzpostavljena v obeh smereh, a se "
-"je prekinila na sredini."
+"Komunikacija med strežnikoma RADIUS je bila vzpostavljena v obeh smereh, a "
+"se je vmes prekinila."
 
 #: core/diag/AbstractTest.php:318
 msgid ""
@@ -108,7 +108,7 @@ msgid ""
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
 "validate this certificate."
 msgstr ""
-"Vsaj en certifikat v vreigi je podpisan z algoritmom MD5. Veliko "
+"Vsaj en certifikat v verigi je podpisan z algoritmom MD5. Veliko "
 "operacijskih sistemov, vključno z Applovim iOS ne bodo sprejeli ta "
 "certifikat."
 
@@ -140,15 +140,15 @@ msgid ""
 msgstr ""
 "Strežniški certifikat nima razširitve 'extendedKeyUsage: TLS Web Server "
 "Authentication'. Večina Microsoftovih operacijskih sistemov ne bo sprejela "
-"ta certifikat."
+"tega certifikata."
 
 #: core/diag/AbstractTest.php:403
 msgid ""
 "The server certificate did not include a CRL Distribution Point, creating "
 "compatibility problems with Windows Phone 8."
 msgstr ""
-"Certifikat strežnika ne vključuje lokacije CRL in ni zdužljiv s telefonskim "
-"operacijskih sistemom Windows Phone 8."
+"Certifikat strežnika ne vključuje lokacije CRL in ni zdužljiv z operacijskim "
+"sistemom Windows Phone 8."
 
 #: core/diag/AbstractTest.php:410
 msgid ""
@@ -170,7 +170,7 @@ msgid ""
 "possible."
 msgstr ""
 "Razširitev 'CRL Distribution Point' v certifikatu strežnika kaže na "
-"loakcijo, kjer ni najden DER-kodiran CRL. Nekateri operacijski sistemi "
+"lokacijo, kjer ni najden DER-kodiran CRL. Nekateri operacijski sistemi "
 "preverjajo veljavnost certifikata preko CRL in zato preverjanje ne bo "
 "mogoče. Preverjanje veljavnosti certifikata nasproti CRL ni možno."
 
@@ -381,12 +381,12 @@ msgstr ""
 "odkrivanje težav in navodila, ker ni nikakršnih povezav za tega ponudnika v "
 "podatkovni bazi."
 
-#: core/diag/RADIUSTests.php:1055
+#: core/diag/RADIUSTests.php:1160
 #, php-format
 msgid "Connected to %s."
 msgstr "Povezano s/z %s."
 
-#: core/diag/RADIUSTests.php:1060 web/diag/radius_tests.php:211
+#: core/diag/RADIUSTests.php:1165 web/diag/radius_tests.php:211
 msgid ""
 "<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
 "multiple round-trips was carried out, and ended in an Access-Reject as "
@@ -395,7 +395,7 @@ msgstr ""
 "<strong>Test uspel</strong>: večkratna dvosmerna komunikacija RADIUS se je "
 "izvedla in bila, kot zahtevano, zaključena z Access-Reject."
 
-#: core/diag/RADIUSTests.php:1064
+#: core/diag/RADIUSTests.php:1169
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
@@ -450,27 +450,27 @@ msgstr "ni potrjeno"
 msgid "eduroam-accredited CA (now only for tests)"
 msgstr "akreditiran CA za eduroam (trenutno samo za test)"
 
-#: core/diag/RFC6614Tests.php:263
+#: core/diag/RFC6614Tests.php:265
 msgid "No TLS connection established: Connection refused"
 msgstr "Ni vzpostavljena povezava TLS: Povezava zavrnjena"
 
-#: core/diag/RFC6614Tests.php:265
+#: core/diag/RFC6614Tests.php:267
 msgid "certificate expired"
 msgstr "certifikat je potekel"
 
-#: core/diag/RFC6614Tests.php:267
+#: core/diag/RFC6614Tests.php:269
 msgid "certificate was revoked"
 msgstr "certifikat je bil preklican"
 
-#: core/diag/RFC6614Tests.php:269
+#: core/diag/RFC6614Tests.php:271
 msgid "bad policy"
 msgstr "slaba politika"
 
-#: core/diag/RFC6614Tests.php:271
+#: core/diag/RFC6614Tests.php:273
 msgid "unknown authority"
 msgstr "nepoznana avtoriteta"
 
-#: core/diag/RFC6614Tests.php:274
+#: core/diag/RFC6614Tests.php:276
 msgid "unknown authority or no certificate policy or another problem"
 msgstr "nepoznana avtoriteta ali ni politike certifikata ali druga težava"
 
@@ -551,9 +551,9 @@ msgid ""
 "exists in CAT, then display link to config] or contact your Identity "
 "Provider [MGW: show contact info]."
 msgstr ""
-"Uporabiti morate ustrezeno orodje za konfiguracijo [MGW: preveri, če "
-"kraljestvo obstaja v CAT, nato prikaži povezavo do konfiguracije] ali "
-"kontaktirajte svojega ponudnika identitete [MGW: prikaži kontaktne podatke]."
+"Uporabiti morate ustrezeno orodje za konfiguracijo [MGW: see if the realm "
+"exists in CAT, then display link to config] ali kontaktirajte svojega "
+"ponudnika identitete [MGW: show contact info]."
 
 #: core/diag/Sociopath.php:70
 msgid ""
@@ -626,7 +626,7 @@ msgstr ""
 "Če so vse naprave prenehale delovati istočasno, je lahko težava v vašem "
 "računu. Preverite veljavnost računa in pravilnost gesla, če ste ga pred "
 "kratkim spreminjali. To najlažje preverite pri ponudniku identitete [MGW: "
-"prikaži kontaktne podatke]"
+"display contact info]"
 
 #: core/diag/Sociopath.php:86
 msgid ""
@@ -645,8 +645,7 @@ msgid ""
 msgstr ""
 "Omrežje je najverjetneje trenutno preobremenjeno na tej ,lokaciji. Za boljše "
 "delovanje, počakajte na razbremenitev. Če mislite, da bi bila potrebna večja "
-"zmogljivost, se obrnite na ponudnika dostopne točke. [MGW: dodaj kontaktne "
-"podatke]"
+"zmogljivost, se obrnite na ponudnika dostopne točke. [MGW: add contact info]"
 
 #: core/diag/Sociopath.php:90
 msgid "Does the connection get better when you move around?"
@@ -661,7 +660,7 @@ msgstr ""
 "Svetujemo, da se premaknete na drugo lokacijo, kjer boste morda dosegli "
 "boljšo pokritost in bolj zmogljivo povezavo. Če ste mnenja, da mesto, kjer "
 "se nahajate, zasluži boljšo pokritost, se obrnite na ponudnika dostopne "
-"točke. [MGW: dodaj kontaktne podatke] "
+"točke. [MGW: add contact info] "
 
 #: core/diag/Sociopath.php:95
 msgid ""
@@ -1262,7 +1261,7 @@ msgstr "Preverjanje tolmačenja IP naslovov:"
 #: web/diag/action_realmcheck.php:558
 #, php-format
 msgid "At least one hostname could not be resolved!"
-msgstr "Vsaj enega imena gostitelja ni bilo moč tolmačiti!"
+msgstr "Vsaj enega imena strežnika ni bilo moč tolmačiti!"
 
 #. print number of successfully retrieved SRV targets
 #: web/diag/action_realmcheck.php:561

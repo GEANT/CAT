@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"POT-Creation-Date: 2018-12-07 13:38+0100\n"
 "PO-Revision-Date: 2018-11-08 09:42+0000\n"
 "Last-Translator: Petr Adamec <p.b.adamec@gmail.com>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/"
@@ -607,7 +607,9 @@ msgstr ""
 "přesměrujeme.<br>Pokud kliknete na <b>Pokračovat</b>, otevřeme vám stránky "
 "uživatelské podpory v novém okně/záložce."
 
-#: web/lib/user/TextTemplates.php:99 web/skins/modern/user/js/cat_js.php:278
+#: web/lib/user/TextTemplates.php:99
+#: web/skins/modern/accountstatus/accountstatus.php:225
+#: web/skins/modern/user/js/cat_js.php:278
 #: web/skins/modern/user/js/cat_js.php:286
 msgid "Continue"
 msgstr "Pokračovat"
@@ -738,7 +740,7 @@ msgstr "Staňte se vývojařem CAT"
 msgid "Terms of use"
 msgstr "Podmínky používaní"
 
-#: web/skins/modern/accountstatus/accountstatus.php:74
+#: web/skins/modern/accountstatus/accountstatus.php:77
 msgid ""
 "You attempted to download an installer that was already downloaded before. "
 "Please request a new token from your administrator instead."
@@ -746,16 +748,16 @@ msgstr ""
 "Pokusili jste se stáhnout instalační program, který byl stažen dříve. Místo "
 "toho, prosím, požádejte správce o nový token."
 
-#: web/skins/modern/accountstatus/accountstatus.php:74
+#: web/skins/modern/accountstatus/accountstatus.php:77
 msgid "Attempt to re-use download link"
 msgstr "Pokus o opětovné použití odkazu ke stažení"
 
-#: web/skins/modern/accountstatus/accountstatus.php:85
+#: web/skins/modern/accountstatus/accountstatus.php:88
 #, php-format
 msgid "You are a new user without a history of %s credentials."
 msgstr "Jste nový uživatel, který nemá historii přihlašovacích údajů do %s."
 
-#: web/skins/modern/accountstatus/accountstatus.php:91
+#: web/skins/modern/accountstatus/accountstatus.php:94
 #, php-format
 msgid "You have <strong>%d</strong> currently valid %s credential."
 msgid_plural "You have <strong>%d</strong> currently valid %s credentials."
@@ -764,7 +766,7 @@ msgstr[1] "Máte <strong>%d</strong> platné %s přihlašovací údaje."
 msgstr[2] "Máte <strong>%d</strong> platné %s pihlašovací údaje."
 msgstr[3] "Máte <strong>%d</strong> platné %s pihlašovací údaje."
 
-#: web/skins/modern/accountstatus/accountstatus.php:95
+#: web/skins/modern/accountstatus/accountstatus.php:98
 #, php-format
 msgid "<strong>%d</strong> of your credentials is not valid any more."
 msgid_plural "<strong>%d</strong> of your credentials are not valid any more."
@@ -776,12 +778,12 @@ msgstr[2] ""
 msgstr[3] ""
 "<strong>%d</strong> z vašich přihlašovacích údajů již nejsou platné."
 
-#: web/skins/modern/accountstatus/accountstatus.php:97
+#: web/skins/modern/accountstatus/accountstatus.php:100
 msgid "I want to see the details."
 msgstr "I want to see the details."
 
 #. only show this extra info in the non-trivial case.
-#: web/skins/modern/accountstatus/accountstatus.php:106
+#: web/skins/modern/accountstatus/accountstatus.php:109
 #, php-format
 msgid ""
 "Your invitation token is valid for %d more device activations (%d have "
@@ -789,7 +791,7 @@ msgid ""
 msgstr ""
 "Váše pozvánka/token je platný pro %d aktivaci zařízení (%d bylo použito)."
 
-#: web/skins/modern/accountstatus/accountstatus.php:109
+#: web/skins/modern/accountstatus/accountstatus.php:112
 msgid ""
 "Unfortunately, we are unable to determine your device's operating system. If "
 "you have made modifications on your device which prevent it from being "
@@ -802,7 +804,7 @@ msgstr ""
 "vlastní nastavení uživatele), tyto změny zrušte. Tuto stránku můžete "
 "navštívit později; pozvánka dosud nebyla využita."
 
-#: web/skins/modern/accountstatus/accountstatus.php:116
+#: web/skins/modern/accountstatus/accountstatus.php:119
 #, php-format
 msgid ""
 "Unfortunately, the operating system your device uses (%s) is currently not "
@@ -815,13 +817,13 @@ msgstr ""
 "navštívit později s podporovaným operačním systémem. Pozvánka dosud nebyla "
 "využita."
 
-#: web/skins/modern/accountstatus/accountstatus.php:120
+#: web/skins/modern/accountstatus/accountstatus.php:131
 #, php-format
 msgid "You can now download a personalised  %s installation program."
 msgstr "Nyní můžete stáhnout personalizovaný instalační program %s."
 
 #. echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
-#: web/skins/modern/accountstatus/accountstatus.php:122
+#: web/skins/modern/accountstatus/accountstatus.php:133
 #, php-format
 msgid ""
 "The installation program is <span class='emph'>strictly personal</span>, to "
@@ -832,7 +834,7 @@ msgstr ""
 "používat <span class='emph'>pouze v tomto zařízení (%s)</span> a <span "
 "class='emph'>není povoleno sdílet</span> tyto informace s nikým jiným."
 
-#: web/skins/modern/accountstatus/accountstatus.php:123
+#: web/skins/modern/accountstatus/accountstatus.php:134
 #, php-format
 msgid ""
 "When the system detects abuse such as sharing login data with others, all "
@@ -843,7 +845,7 @@ msgstr ""
 "ostatními, budou všechna vaše přístupová práva zrušena a můžete být "
 "sankcionován vaším lokálním správcem %s."
 
-#: web/skins/modern/accountstatus/accountstatus.php:124
+#: web/skins/modern/accountstatus/accountstatus.php:135
 msgid ""
 "During the installation process, you will be asked for the following import "
 "PIN. This only happens once during the installation. You do not have to "
@@ -852,17 +854,17 @@ msgstr ""
 "Během procesu instalace budete vyzváni k zadání následujícího kódu PIN. Toto "
 "nastane pouze jednou během instalace. PIN kód si proto nemusíte zapisovat."
 
-#: web/skins/modern/accountstatus/accountstatus.php:129
+#: web/skins/modern/accountstatus/accountstatus.php:140
 #, php-format
 msgid "Import PIN: %s"
 msgstr "Vložit PIN: %s"
 
-#: web/skins/modern/accountstatus/accountstatus.php:134
+#: web/skins/modern/accountstatus/accountstatus.php:145
 #, php-format
 msgid "Click here to download your %s installer!"
 msgstr "Pro stažení instalátoru %s klikněte zde!"
 
-#: web/skins/modern/accountstatus/accountstatus.php:138
+#: web/skins/modern/accountstatus/accountstatus.php:150
 #, php-format
 msgid ""
 "Unfortunately, the invitation link you just used is too old. The %s sign-up "
@@ -873,11 +875,11 @@ msgstr ""
 "%s byla platná do %s. Tento odkaz již nelze použít. Požádejte správce, aby "
 "vám vydal nový."
 
-#: web/skins/modern/accountstatus/accountstatus.php:145
+#: web/skins/modern/accountstatus/accountstatus.php:157
 msgid "Account information not found"
 msgstr "Informace o účtu nebyly nalezeny"
 
-#: web/skins/modern/accountstatus/accountstatus.php:146
+#: web/skins/modern/accountstatus/accountstatus.php:158
 #, php-format
 msgid ""
 "The invitation link you followed does not map to any invititation we have on "
@@ -886,7 +888,7 @@ msgstr ""
 "Odkaz na pozvánku, který jste použili, nesouhlasí s žádnou pozvánkou, kterou "
 "máme k dispozici."
 
-#: web/skins/modern/accountstatus/accountstatus.php:146
+#: web/skins/modern/accountstatus/accountstatus.php:158
 #, php-format
 msgid ""
 "You should use the exact link you got during sign-up to come here. "
@@ -899,7 +901,7 @@ msgstr ""
 "navštívit a akceptovat přihlášení pomocí klientského certifikátu (vyberte "
 "certifikát s názvem který končí příponou '... %s')."
 
-#: web/skins/modern/accountstatus/accountstatus.php:178
+#: web/skins/modern/accountstatus/accountstatus.php:191
 #: web/skins/modern/user/js/cat_js.php:245
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
@@ -908,7 +910,7 @@ msgstr ""
 "Přímou pomoc vám, v případě problémů, může poskytnout vaše domovská "
 "organizace na:"
 
-#: web/skins/modern/accountstatus/accountstatus.php:180
+#: web/skins/modern/accountstatus/accountstatus.php:193
 #: web/skins/modern/user/js/cat_js.php:247
 msgid ""
 "If you encounter problems you should ask those who gave you your account for "
@@ -916,56 +918,56 @@ msgid ""
 msgstr ""
 "V případě problému se pro pomoc obraťte na ty kteří vám poskytli váš účet."
 
-#: web/skins/modern/accountstatus/accountstatus.php:191
+#: web/skins/modern/accountstatus/accountstatus.php:209
 #, php-format
 msgid "Your personal %s account status page"
 msgstr "Stránka o stavu vašeho účtu %s"
 
-#: web/skins/modern/accountstatus/accountstatus.php:219
+#: web/skins/modern/accountstatus/accountstatus.php:246
 msgid "Current login tokens"
 msgstr "Aktuální přihlašovací token"
 
-#: web/skins/modern/accountstatus/accountstatus.php:220
+#: web/skins/modern/accountstatus/accountstatus.php:247
 msgid "Previous login tokens"
 msgstr "Dříve použitý přihlašovací token"
 
-#: web/skins/modern/accountstatus/accountstatus.php:221
+#: web/skins/modern/accountstatus/accountstatus.php:248
 msgid "Revoked login tokens"
 msgstr "Neplatný přihlašovací token"
 
-#: web/skins/modern/accountstatus/accountstatus.php:222
+#: web/skins/modern/accountstatus/accountstatus.php:249
 msgid "Serial Number"
 msgstr "Sériové číslo:"
 
-#: web/skins/modern/accountstatus/accountstatus.php:222
+#: web/skins/modern/accountstatus/accountstatus.php:249
 msgid "Pseudonym"
 msgstr "Přezdívka"
 
-#: web/skins/modern/accountstatus/accountstatus.php:222
+#: web/skins/modern/accountstatus/accountstatus.php:249
 msgid "Device Type"
 msgstr "Typ zařízení"
 
-#: web/skins/modern/accountstatus/accountstatus.php:222
+#: web/skins/modern/accountstatus/accountstatus.php:249
 msgid "Issue Date"
 msgstr "Datum vystavení"
 
-#: web/skins/modern/accountstatus/accountstatus.php:222
+#: web/skins/modern/accountstatus/accountstatus.php:249
 msgid "Expiry Date"
 msgstr "Datum vypršení"
 
-#: web/skins/modern/accountstatus/accountstatus.php:232
+#: web/skins/modern/accountstatus/accountstatus.php:259
 msgid "invalid token"
 msgstr "neplatný token"
 
-#: web/skins/modern/accountstatus/accountstatus.php:244
+#: web/skins/modern/accountstatus/accountstatus.php:271
 msgid "revoke"
 msgstr "revokován"
 
-#: web/skins/modern/accountstatus/accountstatus.php:256
+#: web/skins/modern/accountstatus/accountstatus.php:285
 msgid "The details are displayed below."
 msgstr "Podrobnosti jsou zobrazeny níže."
 
-#: web/skins/modern/accountstatus/accountstatus.php:262
+#: web/skins/modern/accountstatus/accountstatus.php:291
 msgid "Really revoke this access credential?"
 msgstr "Skutečně chcete zneplatnit toto přístupové oprávnění?"
 
@@ -1070,19 +1072,19 @@ msgstr "Vaše IdP je:"
 msgid "Your IdP could be one of:"
 msgstr "Vaše IDP by mohlo být jedním z následujících:"
 
-#: web/skins/modern/user/js/cat_js.php:573
+#: web/skins/modern/user/js/cat_js.php:574
 msgid "Organisation"
 msgstr "Organizace"
 
-#: web/skins/modern/user/js/cat_js.php:574
+#: web/skins/modern/user/js/cat_js.php:575
 msgid "Select your organisation"
 msgstr "Vyberte vaši organizaci"
 
-#: web/skins/modern/user/js/cat_js.php:575
+#: web/skins/modern/user/js/cat_js.php:576
 msgid "Help, my organisation is not on the list"
 msgstr "Pomoc! Moje organizace není uvedena v seznamu"
 
-#: web/skins/modern/user/js/cat_js.php:576
+#: web/skins/modern/user/js/cat_js.php:577
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -1093,63 +1095,63 @@ msgstr ""
 "organizace není uvedená v seznamu, přesvědčte vaše správce, aby doplnili "
 "informace do %s databáze."
 
-#: web/skins/modern/user/js/cat_js.php:577
+#: web/skins/modern/user/js/cat_js.php:578
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "Urči mojí polohu přesněji pomocí HTML5 geo-lokace"
 
-#: web/skins/modern/user/js/cat_js.php:578
+#: web/skins/modern/user/js/cat_js.php:579
 msgid "Show organisations in"
 msgstr "Zobrazit následující domovské organizace:"
 
-#: web/skins/modern/user/js/cat_js.php:579
+#: web/skins/modern/user/js/cat_js.php:580
 msgid "all countries"
 msgstr "všechny země"
 
-#: web/skins/modern/user/js/cat_js.php:580
+#: web/skins/modern/user/js/cat_js.php:581
 msgid "or search for an organisation, for example University of Oslo"
 msgstr "nebo organizaci vyhledejte, např. Technická univerzita v Liberci"
 
-#: web/skins/modern/user/js/cat_js.php:581
+#: web/skins/modern/user/js/cat_js.php:582
 msgid "show all countries"
 msgstr "zobrazit všechny země"
 
-#: web/skins/modern/user/js/cat_js.php:582
+#: web/skins/modern/user/js/cat_js.php:583
 msgid "Results limited to"
 msgstr "Výsledky omezeny na"
 
-#: web/skins/modern/user/js/cat_js.php:583
+#: web/skins/modern/user/js/cat_js.php:584
 msgid "entries - show more"
 msgstr "položky - zobrazit další"
 
-#: web/skins/modern/user/js/cat_js.php:584
+#: web/skins/modern/user/js/cat_js.php:585
 msgid "Nearby"
 msgstr "Blízko"
 
-#: web/skins/modern/user/js/cat_js.php:585
+#: web/skins/modern/user/js/cat_js.php:586
 msgid "Location timeout"
 msgstr "Časový limit pro určení polohy vypršel"
 
-#: web/skins/modern/user/js/cat_js.php:586
+#: web/skins/modern/user/js/cat_js.php:587
 msgid "Could not get your position"
 msgstr "Nebylo možné zjistit vaši polohu"
 
-#: web/skins/modern/user/js/cat_js.php:587
+#: web/skins/modern/user/js/cat_js.php:588
 msgid "Your browser has denied access to your location"
 msgstr "Váš prohlížeč neumožnil získat vaši polohu"
 
-#: web/skins/modern/user/js/cat_js.php:588
+#: web/skins/modern/user/js/cat_js.php:589
 msgid "Unknown location error"
 msgstr "Nespecifikovaná chyba při určovaní polohy"
 
-#: web/skins/modern/user/js/cat_js.php:589
+#: web/skins/modern/user/js/cat_js.php:590
 msgid "You are here:"
 msgstr "Nacházíte se:"
 
-#: web/skins/modern/user/js/cat_js.php:590
+#: web/skins/modern/user/js/cat_js.php:591
 msgid "Getting your location..."
 msgstr "Probíhá zjišťování vaší polohy..."
 
-#: web/skins/modern/user/js/cat_js.php:591
+#: web/skins/modern/user/js/cat_js.php:592
 msgid "Nearby providers shown on top."
 msgstr "Organizace ve vaší blízkosti jsou zobrazené nahoře v  seznamu."
 

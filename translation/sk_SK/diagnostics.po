@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"POT-Creation-Date: 2018-12-07 13:38+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: martins <ms@uakom.sk>, 2018\n"
 "Language-Team: Slovak (Slovakia) (https://www.transifex.com/eduroam_devel/"
@@ -364,12 +364,12 @@ msgid ""
 "there are no contact points for that IdP in the database."
 msgstr ""
 
-#: core/diag/RADIUSTests.php:1055
+#: core/diag/RADIUSTests.php:1160
 #, php-format
 msgid "Connected to %s."
 msgstr "Pripojeny k serveru %s."
 
-#: core/diag/RADIUSTests.php:1060 web/diag/radius_tests.php:211
+#: core/diag/RADIUSTests.php:1165 web/diag/radius_tests.php:211
 msgid ""
 "<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
 "multiple round-trips was carried out, and ended in an Access-Reject as "
@@ -378,7 +378,7 @@ msgstr ""
 "<strong>Úspešný test</strong>: RADIUS konverzácia úspešne prebehla v oboch "
 "smeroch a v súlade s očakávaniami skončila správou 'Access-Reject'."
 
-#: core/diag/RADIUSTests.php:1064
+#: core/diag/RADIUSTests.php:1169
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
@@ -433,27 +433,27 @@ msgstr "neúspešný"
 msgid "eduroam-accredited CA (now only for tests)"
 msgstr "akreditovaná CA pre eduroam (v súčasnosti len pre testy)"
 
-#: core/diag/RFC6614Tests.php:263
+#: core/diag/RFC6614Tests.php:265
 msgid "No TLS connection established: Connection refused"
 msgstr ""
 
-#: core/diag/RFC6614Tests.php:265
+#: core/diag/RFC6614Tests.php:267
 msgid "certificate expired"
 msgstr "platnosť certifikátu vypršala"
 
-#: core/diag/RFC6614Tests.php:267
+#: core/diag/RFC6614Tests.php:269
 msgid "certificate was revoked"
 msgstr "certifikát bol zrušený"
 
-#: core/diag/RFC6614Tests.php:269
+#: core/diag/RFC6614Tests.php:271
 msgid "bad policy"
 msgstr "chybná politika"
 
-#: core/diag/RFC6614Tests.php:271
+#: core/diag/RFC6614Tests.php:273
 msgid "unknown authority"
 msgstr "neznáma CA"
 
-#: core/diag/RFC6614Tests.php:274
+#: core/diag/RFC6614Tests.php:276
 msgid "unknown authority or no certificate policy or another problem"
 msgstr "neznáma CA alebo chýba certifikačná politika alebo iný problém"
 

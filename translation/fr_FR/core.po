@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 09:10+0100\n"
-"PO-Revision-Date: 2018-10-24 13:05+0000\n"
-"Last-Translator: Christian Claveleira <christian.claveleira@renater.fr>\n"
+"POT-Creation-Date: 2018-12-07 13:38+0100\n"
+"PO-Revision-Date: 2018-11-29 11:03+0000\n"
+"Last-Translator: dominique.launay <dominique.launay@renater.fr>\n"
 "Language-Team: French (France) (http://www.transifex.com/eduroam_devel/cat/"
 "language/fr_FR/)\n"
 "Language: fr_FR\n"
@@ -28,6 +28,8 @@ msgid ""
 "Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git "
 "Revision</a>"
 msgstr ""
+"<a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Version Git</"
+"a> non publiée"
 
 #: core/CAT.php:129
 #, php-format
@@ -309,7 +311,7 @@ msgstr "Taïwan"
 msgid "South Africa"
 msgstr "Afrique du Sud"
 
-#: core/CAT.php:492 core/IdPlist.php:109
+#: core/CAT.php:492 core/IdPlist.php:110
 msgid "Unnamed Entity"
 msgstr "Entité sans nom"
 
@@ -329,7 +331,7 @@ msgstr ""
 "Désolé, cela ne devrait pas arriver - pas d'information complémentaire "
 "disponible"
 
-#: core/IdP.php:253
+#: core/IdP.php:257
 #, php-format
 msgid ""
 "Hi,\n"
@@ -353,20 +355,20 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/IdP.php:262
+#: core/IdP.php:266
 msgid "IdP in your federation was deleted"
 msgstr "Un fournisseur d'identité dans votre fédération à été supprimé"
 
-#: core/SilverbulletInvitation.php:208
+#: core/SilverbulletInvitation.php:223
 #, php-format
 msgid "Your %s access is ready"
 msgstr "Votre accès à %s est prêt"
 
-#: core/SilverbulletInvitation.php:216
+#: core/SilverbulletInvitation.php:232
 msgid "Hello!"
 msgstr "Bonjour !"
 
-#: core/SilverbulletInvitation.php:218
+#: core/SilverbulletInvitation.php:234
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
@@ -374,7 +376,7 @@ msgid ""
 msgstr ""
 "Un nouvel identifiant d'accès %s a été créé par votre administrateur réseau."
 
-#: core/SilverbulletInvitation.php:220
+#: core/SilverbulletInvitation.php:236
 #, php-format
 msgid ""
 "Please follow the following link with the device you want to enable for %s "
@@ -387,7 +389,7 @@ msgstr ""
 "ou scanner le QR code attaché."
 
 #. gets replaced with the token value by getBody()
-#: core/SilverbulletInvitation.php:222
+#: core/SilverbulletInvitation.php:238
 #, php-format
 msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
@@ -399,11 +401,11 @@ msgstr ""
 "%s, vous pouvez utiliser le même lien pour obtenir des informations sur "
 "l'état de votre compte %s. "
 
-#: core/SilverbulletInvitation.php:224
+#: core/SilverbulletInvitation.php:240
 msgid "Regards,"
 msgstr "Cordialement,"
 
-#: core/SilverbulletInvitation.php:270
+#: core/SilverbulletInvitation.php:288
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
@@ -412,7 +414,7 @@ msgstr ""
 "Votre accès %s est prêt ! Cliquez ici : %s (sur Android installez "
 "l'application '%s' au préalable !)"
 
-#: core/SilverbulletInvitation.php:283
+#: core/SilverbulletInvitation.php:301
 #, php-format
 msgid "%s Invitation System"
 msgstr "Système d'invitation %s"
@@ -438,10 +440,10 @@ msgid ""
 msgstr ""
 "Bonjour,\n"
 "\n"
-"Le fournisseur d'identité %s dans votre %s fédération %s à été crée dans "
+"Le fournisseur d'identité %s dans votre %s fédération %s à été créé dans "
 "%s.\n"
 "\n"
-"Nous avons pensés que vous aimeriez le savoir.\n"
+"Nous avons pensé que vous aimeriez le savoir.\n"
 "\n"
 "Cordialement,\n"
 "\n"
@@ -449,9 +451,9 @@ msgstr ""
 
 #: core/UserManagement.php:213
 msgid "IdP in your federation was created"
-msgstr "l'IdP dans votre fédération à été crée"
+msgstr "l'IdP dans votre fédération à été créé"
 
-#: core/User.php:155
+#: core/User.php:156
 msgid "Feedback"
 msgstr "Feedback"
 
@@ -487,17 +489,17 @@ msgstr "EAP-pwd"
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
-msgstr ""
+msgstr "Un %s du %s %s \"%s\" vous a invité à administrer le %s avec lui."
 
 #: core/common/OutsideComm.php:257
 #, php-format
 msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
-msgstr ""
+msgstr "Un %s %s vous a invité à administrer le futur %s \"%s\" (%s)."
 
 #: core/common/OutsideComm.php:258
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\"."
-msgstr ""
+msgstr "Un %s %s vous a invité à administrer le %s \"%s\"."
 
 #: core/common/OutsideComm.php:260
 #, php-format
@@ -597,24 +599,26 @@ msgstr "Le domaine est vide"
 
 #: web/lib/common/InputValidation.php:220
 msgid "Realm contains an @ sign!"
-msgstr "Le nom de domaine contient un @!"
+msgstr "Le nom de domaine contient un @ !"
 
 #: web/lib/common/InputValidation.php:221
 msgid "Realm begins with a . (dot)!"
-msgstr "Le nom de domaine commence par un .(point)!"
+msgstr "Le nom de domaine commence par un .(point) !"
 
 #: web/lib/common/InputValidation.php:222
 msgid "Realm ends with a . (dot)!"
-msgstr "Le nom de domaine se termine par un .(point)!"
+msgstr "Le nom de domaine se termine par un .(point) !"
 
 #: web/lib/common/InputValidation.php:223
 msgid "Realm contains spaces!"
-msgstr "Le nom de domaine contient des espaces!"
+msgstr "Le nom de domaine contient des espaces !"
 
 #: web/lib/common/InputValidation.php:235
 msgid "Realm does not contain at least one . (dot)!"
-msgstr "Le nom de domaine ne contient pas de .(point)!"
+msgstr "Le nom de domaine ne contient pas de .(point) !"
 
 #: web/lib/common/InputValidation.php:321
 msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
 msgstr ""
+"Mauvais format d'encodage de coordonnées (2.0 utilise JSON, pas \"serialize"
+"\")!"

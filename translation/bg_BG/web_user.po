@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"POT-Creation-Date: 2018-12-07 13:38+0100\n"
 "PO-Revision-Date: 2018-11-09 12:40+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/eduroam_devel/"
@@ -602,7 +602,9 @@ msgstr ""
 "страница за поддръжка.<br> Когато кликнете <b>Продължете</b> страницата за "
 "поддръжка ще се отвори в нов прозорец/таб."
 
-#: web/lib/user/TextTemplates.php:99 web/skins/modern/user/js/cat_js.php:278
+#: web/lib/user/TextTemplates.php:99
+#: web/skins/modern/accountstatus/accountstatus.php:225
+#: web/skins/modern/user/js/cat_js.php:278
 #: web/skins/modern/user/js/cat_js.php:286
 msgid "Continue"
 msgstr "Продължете"
@@ -736,7 +738,7 @@ msgstr "Станете CAT разработчик"
 msgid "Terms of use"
 msgstr "Условия за ползване"
 
-#: web/skins/modern/accountstatus/accountstatus.php:74
+#: web/skins/modern/accountstatus/accountstatus.php:77
 msgid ""
 "You attempted to download an installer that was already downloaded before. "
 "Please request a new token from your administrator instead."
@@ -744,16 +746,16 @@ msgstr ""
 "Опитахте се да изтеглите инсталатор, който вече е изтеглен. Моля вместо това "
 "заявете нов временен ключ от Вашия администратор."
 
-#: web/skins/modern/accountstatus/accountstatus.php:74
+#: web/skins/modern/accountstatus/accountstatus.php:77
 msgid "Attempt to re-use download link"
 msgstr "Опит за повторно използване на линка за изтегляне"
 
-#: web/skins/modern/accountstatus/accountstatus.php:85
+#: web/skins/modern/accountstatus/accountstatus.php:88
 #, php-format
 msgid "You are a new user without a history of %s credentials."
 msgstr "Вие сте нов потребител без история на %s удостоверения за самоличност."
 
-#: web/skins/modern/accountstatus/accountstatus.php:91
+#: web/skins/modern/accountstatus/accountstatus.php:94
 #, php-format
 msgid "You have <strong>%d</strong> currently valid %s credential."
 msgid_plural "You have <strong>%d</strong> currently valid %s credentials."
@@ -764,7 +766,7 @@ msgstr[1] ""
 "Понастоящем имате <strong>%d</strong> валидни %s удостоверения за "
 "самоличност."
 
-#: web/skins/modern/accountstatus/accountstatus.php:95
+#: web/skins/modern/accountstatus/accountstatus.php:98
 #, php-format
 msgid "<strong>%d</strong> of your credentials is not valid any more."
 msgid_plural "<strong>%d</strong> of your credentials are not valid any more."
@@ -775,12 +777,12 @@ msgstr[1] ""
 "<strong>%d</strong> повече няма да бъдат валидни удостоверенията Ви за "
 "самоличност."
 
-#: web/skins/modern/accountstatus/accountstatus.php:97
+#: web/skins/modern/accountstatus/accountstatus.php:100
 msgid "I want to see the details."
 msgstr "Вие искате да видите подробности."
 
 #. only show this extra info in the non-trivial case.
-#: web/skins/modern/accountstatus/accountstatus.php:106
+#: web/skins/modern/accountstatus/accountstatus.php:109
 #, php-format
 msgid ""
 "Your invitation token is valid for %d more device activations (%d have "
@@ -789,7 +791,7 @@ msgstr ""
 "Вашия поканващ ключ е валиден за%d повече активации на устройство (%d вече е "
 "бил използван)."
 
-#: web/skins/modern/accountstatus/accountstatus.php:109
+#: web/skins/modern/accountstatus/accountstatus.php:112
 msgid ""
 "Unfortunately, we are unable to determine your device's operating system. If "
 "you have made modifications on your device which prevent it from being "
@@ -803,7 +805,7 @@ msgstr ""
 "\"), моля отменете тези модификации. Може отново да се върнете на тази "
 "страница; поканващият линк все още не е бил използван."
 
-#: web/skins/modern/accountstatus/accountstatus.php:116
+#: web/skins/modern/accountstatus/accountstatus.php:119
 #, php-format
 msgid ""
 "Unfortunately, the operating system your device uses (%s) is currently not "
@@ -816,13 +818,13 @@ msgstr ""
 "Можете да посетите тази страница по-късно с поддържана операционна система; "
 "поканващият линк все още не е бил използван."
 
-#: web/skins/modern/accountstatus/accountstatus.php:120
+#: web/skins/modern/accountstatus/accountstatus.php:131
 #, php-format
 msgid "You can now download a personalised  %s installation program."
 msgstr "Сега можете да изтеглите персонализирана %s инсталационна програма."
 
 #. echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
-#: web/skins/modern/accountstatus/accountstatus.php:122
+#: web/skins/modern/accountstatus/accountstatus.php:133
 #, php-format
 msgid ""
 "The installation program is <span class='emph'>strictly personal</span>, to "
@@ -834,7 +836,7 @@ msgstr ""
 "тази информация <span class='emph'>не епозволено да се споделя</span> с "
 "никой друг."
 
-#: web/skins/modern/accountstatus/accountstatus.php:123
+#: web/skins/modern/accountstatus/accountstatus.php:134
 #, php-format
 msgid ""
 "When the system detects abuse such as sharing login data with others, all "
@@ -845,7 +847,7 @@ msgstr ""
 "с други, всичките Ви права за достъп ще бъдат отменени и може би ще бъдете "
 "санкциониран от Вашия локален %s администратор"
 
-#: web/skins/modern/accountstatus/accountstatus.php:124
+#: web/skins/modern/accountstatus/accountstatus.php:135
 msgid ""
 "During the installation process, you will be asked for the following import "
 "PIN. This only happens once during the installation. You do not have to "
@@ -855,17 +857,17 @@ msgstr ""
 "Това се случва само веднъж по време на инсталация. Не трябва да си записвате "
 "този ПИН."
 
-#: web/skins/modern/accountstatus/accountstatus.php:129
+#: web/skins/modern/accountstatus/accountstatus.php:140
 #, php-format
 msgid "Import PIN: %s"
 msgstr "Въведете PIN: %s"
 
-#: web/skins/modern/accountstatus/accountstatus.php:134
+#: web/skins/modern/accountstatus/accountstatus.php:145
 #, php-format
 msgid "Click here to download your %s installer!"
 msgstr "Кликнете тук, за да изтеглите Вашия %s инсталатор!"
 
-#: web/skins/modern/accountstatus/accountstatus.php:138
+#: web/skins/modern/accountstatus/accountstatus.php:150
 #, php-format
 msgid ""
 "Unfortunately, the invitation link you just used is too old. The %s sign-up "
@@ -877,11 +879,11 @@ msgstr ""
 "този линк. Моля поискайте от Вашия администратор да Ви издаде нов поканващ "
 "линк. "
 
-#: web/skins/modern/accountstatus/accountstatus.php:145
+#: web/skins/modern/accountstatus/accountstatus.php:157
 msgid "Account information not found"
 msgstr "Не е намерена информация за акаунта"
 
-#: web/skins/modern/accountstatus/accountstatus.php:146
+#: web/skins/modern/accountstatus/accountstatus.php:158
 #, php-format
 msgid ""
 "The invitation link you followed does not map to any invititation we have on "
@@ -890,7 +892,7 @@ msgstr ""
 "Поканващият линк, който сте последвали, не съвпада с нито една покана, която "
 "имаме във файл."
 
-#: web/skins/modern/accountstatus/accountstatus.php:146
+#: web/skins/modern/accountstatus/accountstatus.php:158
 #, php-format
 msgid ""
 "You should use the exact link you got during sign-up to come here. "
@@ -903,7 +905,7 @@ msgstr ""
 "може да посетите тази страница и да се Съгласите с въпроса за влизане с "
 "клиентски сертификат (изберете сертификат с име, завършващо на '...%s')."
 
-#: web/skins/modern/accountstatus/accountstatus.php:178
+#: web/skins/modern/accountstatus/accountstatus.php:191
 #: web/skins/modern/user/js/cat_js.php:245
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
@@ -912,7 +914,7 @@ msgstr ""
 "Ако срещнете проблеми, можете да получите помощ директно от Вашата "
 "организация на адрес:"
 
-#: web/skins/modern/accountstatus/accountstatus.php:180
+#: web/skins/modern/accountstatus/accountstatus.php:193
 #: web/skins/modern/user/js/cat_js.php:247
 msgid ""
 "If you encounter problems you should ask those who gave you your account for "
@@ -921,56 +923,56 @@ msgstr ""
 "Ако срещнете проблеми, трябва да потърсите помощ от този, който Ви е създал "
 "акаунта. "
 
-#: web/skins/modern/accountstatus/accountstatus.php:191
+#: web/skins/modern/accountstatus/accountstatus.php:209
 #, php-format
 msgid "Your personal %s account status page"
 msgstr "Вашата персонална %s страница за състояние на акаунта"
 
-#: web/skins/modern/accountstatus/accountstatus.php:219
+#: web/skins/modern/accountstatus/accountstatus.php:246
 msgid "Current login tokens"
 msgstr "Текущ ключ за влизане"
 
-#: web/skins/modern/accountstatus/accountstatus.php:220
+#: web/skins/modern/accountstatus/accountstatus.php:247
 msgid "Previous login tokens"
 msgstr "Предишен ключ за влизане"
 
-#: web/skins/modern/accountstatus/accountstatus.php:221
+#: web/skins/modern/accountstatus/accountstatus.php:248
 msgid "Revoked login tokens"
 msgstr "Анулиран временен ключ за влизане"
 
-#: web/skins/modern/accountstatus/accountstatus.php:222
+#: web/skins/modern/accountstatus/accountstatus.php:249
 msgid "Serial Number"
 msgstr "Сериен номер"
 
-#: web/skins/modern/accountstatus/accountstatus.php:222
+#: web/skins/modern/accountstatus/accountstatus.php:249
 msgid "Pseudonym"
 msgstr "Псевдоним"
 
-#: web/skins/modern/accountstatus/accountstatus.php:222
+#: web/skins/modern/accountstatus/accountstatus.php:249
 msgid "Device Type"
 msgstr "Тип на устройството"
 
-#: web/skins/modern/accountstatus/accountstatus.php:222
+#: web/skins/modern/accountstatus/accountstatus.php:249
 msgid "Issue Date"
 msgstr "Дата на издаване"
 
-#: web/skins/modern/accountstatus/accountstatus.php:222
+#: web/skins/modern/accountstatus/accountstatus.php:249
 msgid "Expiry Date"
 msgstr "Срок на годност"
 
-#: web/skins/modern/accountstatus/accountstatus.php:232
+#: web/skins/modern/accountstatus/accountstatus.php:259
 msgid "invalid token"
 msgstr "Невалиден ключ"
 
-#: web/skins/modern/accountstatus/accountstatus.php:244
+#: web/skins/modern/accountstatus/accountstatus.php:271
 msgid "revoke"
 msgstr "Анулирайте "
 
-#: web/skins/modern/accountstatus/accountstatus.php:256
+#: web/skins/modern/accountstatus/accountstatus.php:285
 msgid "The details are displayed below."
 msgstr "Подробно е показано по-долу."
 
-#: web/skins/modern/accountstatus/accountstatus.php:262
+#: web/skins/modern/accountstatus/accountstatus.php:291
 msgid "Really revoke this access credential?"
 msgstr "Наистина ли анулирате тези удостоверения за достъп?"
 
@@ -1075,19 +1077,19 @@ msgstr "Вашият IdP е:"
 msgid "Your IdP could be one of:"
 msgstr "Вашият IdP би могъл да бъде един от:"
 
-#: web/skins/modern/user/js/cat_js.php:573
+#: web/skins/modern/user/js/cat_js.php:574
 msgid "Organisation"
 msgstr "Организация"
 
-#: web/skins/modern/user/js/cat_js.php:574
+#: web/skins/modern/user/js/cat_js.php:575
 msgid "Select your organisation"
 msgstr "Изберете Вашата организация"
 
-#: web/skins/modern/user/js/cat_js.php:575
+#: web/skins/modern/user/js/cat_js.php:576
 msgid "Help, my organisation is not on the list"
 msgstr "Помощ, моята организация не е в списъка "
 
-#: web/skins/modern/user/js/cat_js.php:576
+#: web/skins/modern/user/js/cat_js.php:577
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -1098,63 +1100,63 @@ msgstr ""
 "администратори. Ако Вашата организация не е в списъка, уведомете ги да "
 "добавят информация в %s базата данни. "
 
-#: web/skins/modern/user/js/cat_js.php:577
+#: web/skins/modern/user/js/cat_js.php:578
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "Определи местоположението ми по-точно използвайки HTML5 Geo-Location"
 
-#: web/skins/modern/user/js/cat_js.php:578
+#: web/skins/modern/user/js/cat_js.php:579
 msgid "Show organisations in"
 msgstr "Покажи организациите в "
 
-#: web/skins/modern/user/js/cat_js.php:579
+#: web/skins/modern/user/js/cat_js.php:580
 msgid "all countries"
 msgstr "всички държави"
 
-#: web/skins/modern/user/js/cat_js.php:580
+#: web/skins/modern/user/js/cat_js.php:581
 msgid "or search for an organisation, for example University of Oslo"
 msgstr "или търсете организация, например \"Univerity of Oslo\" "
 
-#: web/skins/modern/user/js/cat_js.php:581
+#: web/skins/modern/user/js/cat_js.php:582
 msgid "show all countries"
 msgstr "Покажи всички държави"
 
-#: web/skins/modern/user/js/cat_js.php:582
+#: web/skins/modern/user/js/cat_js.php:583
 msgid "Results limited to"
 msgstr "Резултатите са ограничени до"
 
-#: web/skins/modern/user/js/cat_js.php:583
+#: web/skins/modern/user/js/cat_js.php:584
 msgid "entries - show more"
 msgstr "записа - покажи повече"
 
-#: web/skins/modern/user/js/cat_js.php:584
+#: web/skins/modern/user/js/cat_js.php:585
 msgid "Nearby"
 msgstr "Наблизо"
 
-#: web/skins/modern/user/js/cat_js.php:585
+#: web/skins/modern/user/js/cat_js.php:586
 msgid "Location timeout"
 msgstr "Времето за локализация изтече"
 
-#: web/skins/modern/user/js/cat_js.php:586
+#: web/skins/modern/user/js/cat_js.php:587
 msgid "Could not get your position"
 msgstr "Не можа да се установи Вашата позиция"
 
-#: web/skins/modern/user/js/cat_js.php:587
+#: web/skins/modern/user/js/cat_js.php:588
 msgid "Your browser has denied access to your location"
 msgstr "Вашият браузер забрани достъпът до местоположението Ви"
 
-#: web/skins/modern/user/js/cat_js.php:588
+#: web/skins/modern/user/js/cat_js.php:589
 msgid "Unknown location error"
 msgstr "Неизвестна грешка при локализация"
 
-#: web/skins/modern/user/js/cat_js.php:589
+#: web/skins/modern/user/js/cat_js.php:590
 msgid "You are here:"
 msgstr "Вие сте тук:"
 
-#: web/skins/modern/user/js/cat_js.php:590
+#: web/skins/modern/user/js/cat_js.php:591
 msgid "Getting your location..."
 msgstr "Получаване на Вашето населено място ..."
 
-#: web/skins/modern/user/js/cat_js.php:591
+#: web/skins/modern/user/js/cat_js.php:592
 msgid "Nearby providers shown on top."
 msgstr "Близките доставчици са показани най-отгоре."
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"POT-Creation-Date: 2018-12-07 13:38+0100\n"
 "PO-Revision-Date: 2018-09-28 09:55+0000\n"
 "Last-Translator: Arthur Petrosyan <arthur@sci.am>\n"
 "Language-Team: Armenian (http://www.transifex.com/eduroam_devel/cat/language/"
@@ -307,7 +307,7 @@ msgstr "Թայվան"
 msgid "South Africa"
 msgstr "Հարավային Աֆրիկա"
 
-#: core/CAT.php:492 core/IdPlist.php:109
+#: core/CAT.php:492 core/IdPlist.php:110
 msgid "Unnamed Entity"
 msgstr "Անանուն"
 
@@ -325,7 +325,7 @@ msgstr "ձեր տեղի %s սպասարկման էջը"
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr "Ներեցեք, սա չպետք է տեղի ունենար, ոչ մի լրացուցիչ տեղեկություն չկա"
 
-#: core/IdP.php:253
+#: core/IdP.php:257
 #, php-format
 msgid ""
 "Hi,\n"
@@ -349,27 +349,27 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/IdP.php:262
+#: core/IdP.php:266
 msgid "IdP in your federation was deleted"
 msgstr "Ձեր ֆեդերացիայի ինքնության մատակարարը (IdP) հեռացվել է"
 
-#: core/SilverbulletInvitation.php:208
+#: core/SilverbulletInvitation.php:223
 #, php-format
 msgid "Your %s access is ready"
 msgstr " Ձեր%sմուտքը պատրաստ է"
 
-#: core/SilverbulletInvitation.php:216
+#: core/SilverbulletInvitation.php:232
 msgid "Hello!"
 msgstr "Ողջու՛յն"
 
-#: core/SilverbulletInvitation.php:218
+#: core/SilverbulletInvitation.php:234
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
 "administrator."
 msgstr "Նոր %s մուտքի տվյալ է ստեղծվել ձեր ցանցային ադմինիստրատորի կողմից:"
 
-#: core/SilverbulletInvitation.php:220
+#: core/SilverbulletInvitation.php:236
 #, php-format
 msgid ""
 "Please follow the following link with the device you want to enable for %s "
@@ -383,7 +383,7 @@ msgstr ""
 "կոդը:"
 
 #. gets replaced with the token value by getBody()
-#: core/SilverbulletInvitation.php:222
+#: core/SilverbulletInvitation.php:238
 #, php-format
 msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
@@ -394,11 +394,11 @@ msgstr ""
 "համար: Ձեր %s տեղադրող ծրագիրը ստանալուց հետո,  այդ նույն հղումը կարող եք "
 "օգտագործել ձեր %s հաշվեհամարի կարգավիճակի մասին տեղեկանալու համար։"
 
-#: core/SilverbulletInvitation.php:224
+#: core/SilverbulletInvitation.php:240
 msgid "Regards,"
 msgstr "Հարգանքներով,"
 
-#: core/SilverbulletInvitation.php:270
+#: core/SilverbulletInvitation.php:288
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
@@ -407,7 +407,7 @@ msgstr ""
 "Ձեր%s մուտքի տվյալները պատրաստ են: Սեղմեք այստեղ՝ %s (Android համակարգում, "
 "նախ պետք է տեղադրեք հավելվածը '%s')"
 
-#: core/SilverbulletInvitation.php:283
+#: core/SilverbulletInvitation.php:301
 #, php-format
 msgid "%s Invitation System"
 msgstr "%s Հրավերի համակարգ"
@@ -446,7 +446,7 @@ msgstr ""
 msgid "IdP in your federation was created"
 msgstr "Ձեր ֆեդերացիայում ստեղծվել է IdP"
 
-#: core/User.php:155
+#: core/User.php:156
 msgid "Feedback"
 msgstr "Հետադարձ կապ"
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"POT-Creation-Date: 2018-12-07 13:38+0100\n"
 "PO-Revision-Date: 2018-11-14 09:17+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/eduroam_devel/cat/"
@@ -608,7 +608,9 @@ msgstr ""
 "local.<br>Cuando hagas click en <b>Continuar</b> esta página de soporte se "
 "abrirá en una nueva ventana o pestaña."
 
-#: web/lib/user/TextTemplates.php:99 web/skins/modern/user/js/cat_js.php:278
+#: web/lib/user/TextTemplates.php:99
+#: web/skins/modern/accountstatus/accountstatus.php:225
+#: web/skins/modern/user/js/cat_js.php:278
 #: web/skins/modern/user/js/cat_js.php:286
 msgid "Continue"
 msgstr "Continuar"
@@ -742,7 +744,7 @@ msgstr "Conviértete en desarrollador de CAT"
 msgid "Terms of use"
 msgstr "Términos de uso"
 
-#: web/skins/modern/accountstatus/accountstatus.php:74
+#: web/skins/modern/accountstatus/accountstatus.php:77
 msgid ""
 "You attempted to download an installer that was already downloaded before. "
 "Please request a new token from your administrator instead."
@@ -750,35 +752,35 @@ msgstr ""
 "Has intentado descargar un instalador que ya estaba descargado antes. Por "
 "favor, pide un nuevo token a tu administrador."
 
-#: web/skins/modern/accountstatus/accountstatus.php:74
+#: web/skins/modern/accountstatus/accountstatus.php:77
 msgid "Attempt to re-use download link"
 msgstr "Intento de reutilización del enlace de descarga"
 
-#: web/skins/modern/accountstatus/accountstatus.php:85
+#: web/skins/modern/accountstatus/accountstatus.php:88
 #, php-format
 msgid "You are a new user without a history of %s credentials."
 msgstr "Eres un usuario nuevo sin un historial de credenciales para %s."
 
-#: web/skins/modern/accountstatus/accountstatus.php:91
+#: web/skins/modern/accountstatus/accountstatus.php:94
 #, php-format
 msgid "You have <strong>%d</strong> currently valid %s credential."
 msgid_plural "You have <strong>%d</strong> currently valid %s credentials."
 msgstr[0] "Tienes <strong>%d</strong> credencial válida para %s."
 msgstr[1] "Tienes <strong>%d</strong> credenciales válidas para %s."
 
-#: web/skins/modern/accountstatus/accountstatus.php:95
+#: web/skins/modern/accountstatus/accountstatus.php:98
 #, php-format
 msgid "<strong>%d</strong> of your credentials is not valid any more."
 msgid_plural "<strong>%d</strong> of your credentials are not valid any more."
 msgstr[0] "<strong>%d</strong> de tus credenciales ya no es válida."
 msgstr[1] "<strong>%d</strong> de tus credenciales ya no son válidas."
 
-#: web/skins/modern/accountstatus/accountstatus.php:97
+#: web/skins/modern/accountstatus/accountstatus.php:100
 msgid "I want to see the details."
 msgstr "Quiero ver los detalles."
 
 #. only show this extra info in the non-trivial case.
-#: web/skins/modern/accountstatus/accountstatus.php:106
+#: web/skins/modern/accountstatus/accountstatus.php:109
 #, php-format
 msgid ""
 "Your invitation token is valid for %d more device activations (%d have "
@@ -787,7 +789,7 @@ msgstr ""
 "Tu token de invitación es válido para %d activaciones de dispositivo más (se "
 "han usado ya %d)."
 
-#: web/skins/modern/accountstatus/accountstatus.php:109
+#: web/skins/modern/accountstatus/accountstatus.php:112
 msgid ""
 "Unfortunately, we are unable to determine your device's operating system. If "
 "you have made modifications on your device which prevent it from being "
@@ -801,7 +803,7 @@ msgstr ""
 "cambios. Puedes volver a esta página de nuevo, el enlace de la invitación "
 "aún no se ha consumido."
 
-#: web/skins/modern/accountstatus/accountstatus.php:116
+#: web/skins/modern/accountstatus/accountstatus.php:119
 #, php-format
 msgid ""
 "Unfortunately, the operating system your device uses (%s) is currently not "
@@ -814,13 +816,13 @@ msgstr ""
 "Puedes visitar esta página más tarde con un sistema operativo soportado, el "
 "enlace de la invitación aún no se ha consumido."
 
-#: web/skins/modern/accountstatus/accountstatus.php:120
+#: web/skins/modern/accountstatus/accountstatus.php:131
 #, php-format
 msgid "You can now download a personalised  %s installation program."
 msgstr "Puedes descargar ahora un programa de instalación de %s personalizado."
 
 #. echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
-#: web/skins/modern/accountstatus/accountstatus.php:122
+#: web/skins/modern/accountstatus/accountstatus.php:133
 #, php-format
 msgid ""
 "The installation program is <span class='emph'>strictly personal</span>, to "
@@ -832,7 +834,7 @@ msgstr ""
 "span>, y <span class='emph'>no se permite compartir</span> esta información "
 "con nadie."
 
-#: web/skins/modern/accountstatus/accountstatus.php:123
+#: web/skins/modern/accountstatus/accountstatus.php:134
 #, php-format
 msgid ""
 "When the system detects abuse such as sharing login data with others, all "
@@ -843,7 +845,7 @@ msgstr ""
 "inicio de sesión con otros, todos tus derechos de acceso serán revocados y "
 "podrías ser sancionado por tu administrador local de %s."
 
-#: web/skins/modern/accountstatus/accountstatus.php:124
+#: web/skins/modern/accountstatus/accountstatus.php:135
 msgid ""
 "During the installation process, you will be asked for the following import "
 "PIN. This only happens once during the installation. You do not have to "
@@ -853,17 +855,17 @@ msgstr ""
 "importación. Esto sólo sucede una vez durante la instalación. No tienes que "
 "escribir este PIN."
 
-#: web/skins/modern/accountstatus/accountstatus.php:129
+#: web/skins/modern/accountstatus/accountstatus.php:140
 #, php-format
 msgid "Import PIN: %s"
 msgstr "PIN de importación: %s"
 
-#: web/skins/modern/accountstatus/accountstatus.php:134
+#: web/skins/modern/accountstatus/accountstatus.php:145
 #, php-format
 msgid "Click here to download your %s installer!"
 msgstr "Haz clic aquí para descargar tu instalador de %s"
 
-#: web/skins/modern/accountstatus/accountstatus.php:138
+#: web/skins/modern/accountstatus/accountstatus.php:150
 #, php-format
 msgid ""
 "Unfortunately, the invitation link you just used is too old. The %s sign-up "
@@ -875,11 +877,11 @@ msgstr ""
 "no puedes utilizar este enlace. Por favor, pide a tu administrador que te "
 "emita un nuevo enlace de invitación."
 
-#: web/skins/modern/accountstatus/accountstatus.php:145
+#: web/skins/modern/accountstatus/accountstatus.php:157
 msgid "Account information not found"
 msgstr "Información de la cuenta no encontrada"
 
-#: web/skins/modern/accountstatus/accountstatus.php:146
+#: web/skins/modern/accountstatus/accountstatus.php:158
 #, php-format
 msgid ""
 "The invitation link you followed does not map to any invititation we have on "
@@ -888,7 +890,7 @@ msgstr ""
 "En enlace de la invitación con la que has accedido no se corresponde con "
 "ninguna invitación que nos conste."
 
-#: web/skins/modern/accountstatus/accountstatus.php:146
+#: web/skins/modern/accountstatus/accountstatus.php:158
 #, php-format
 msgid ""
 "You should use the exact link you got during sign-up to come here. "
@@ -902,7 +904,7 @@ msgstr ""
 "pregunta acerca de iniciar sesión con un certificado cliente (selecciona un "
 "certificado con un nombre acabado en \"...%s\")."
 
-#: web/skins/modern/accountstatus/accountstatus.php:178
+#: web/skins/modern/accountstatus/accountstatus.php:191
 #: web/skins/modern/user/js/cat_js.php:245
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
@@ -911,7 +913,7 @@ msgstr ""
 "Si encuentras problemas, puedes obtener ayuda directamente de tu "
 "organización en:"
 
-#: web/skins/modern/accountstatus/accountstatus.php:180
+#: web/skins/modern/accountstatus/accountstatus.php:193
 #: web/skins/modern/user/js/cat_js.php:247
 msgid ""
 "If you encounter problems you should ask those who gave you your account for "
@@ -920,56 +922,56 @@ msgstr ""
 "Si encuentras problemas deberías pedir ayuda a aquellos que te "
 "proporcionaron tu cuenta."
 
-#: web/skins/modern/accountstatus/accountstatus.php:191
+#: web/skins/modern/accountstatus/accountstatus.php:209
 #, php-format
 msgid "Your personal %s account status page"
 msgstr "Tu página de estado de tu cuenta personal de %s"
 
-#: web/skins/modern/accountstatus/accountstatus.php:219
+#: web/skins/modern/accountstatus/accountstatus.php:246
 msgid "Current login tokens"
 msgstr "Tokens de inicio de sesión vigentes"
 
-#: web/skins/modern/accountstatus/accountstatus.php:220
+#: web/skins/modern/accountstatus/accountstatus.php:247
 msgid "Previous login tokens"
 msgstr "Tokens de inicio de sesión anteriores"
 
-#: web/skins/modern/accountstatus/accountstatus.php:221
+#: web/skins/modern/accountstatus/accountstatus.php:248
 msgid "Revoked login tokens"
 msgstr "Tokens de inicio de sesión revocados"
 
-#: web/skins/modern/accountstatus/accountstatus.php:222
+#: web/skins/modern/accountstatus/accountstatus.php:249
 msgid "Serial Number"
 msgstr "Número de serie"
 
-#: web/skins/modern/accountstatus/accountstatus.php:222
+#: web/skins/modern/accountstatus/accountstatus.php:249
 msgid "Pseudonym"
 msgstr "Pseudónimo"
 
-#: web/skins/modern/accountstatus/accountstatus.php:222
+#: web/skins/modern/accountstatus/accountstatus.php:249
 msgid "Device Type"
 msgstr "Tipo de dispositivo"
 
-#: web/skins/modern/accountstatus/accountstatus.php:222
+#: web/skins/modern/accountstatus/accountstatus.php:249
 msgid "Issue Date"
 msgstr "Fecha de emisión"
 
-#: web/skins/modern/accountstatus/accountstatus.php:222
+#: web/skins/modern/accountstatus/accountstatus.php:249
 msgid "Expiry Date"
 msgstr "Fecha de caducidad"
 
-#: web/skins/modern/accountstatus/accountstatus.php:232
+#: web/skins/modern/accountstatus/accountstatus.php:259
 msgid "invalid token"
 msgstr "Token inválido"
 
-#: web/skins/modern/accountstatus/accountstatus.php:244
+#: web/skins/modern/accountstatus/accountstatus.php:271
 msgid "revoke"
 msgstr "revocar"
 
-#: web/skins/modern/accountstatus/accountstatus.php:256
+#: web/skins/modern/accountstatus/accountstatus.php:285
 msgid "The details are displayed below."
 msgstr "Los detalles se muestran debajo."
 
-#: web/skins/modern/accountstatus/accountstatus.php:262
+#: web/skins/modern/accountstatus/accountstatus.php:291
 msgid "Really revoke this access credential?"
 msgstr "¿Revocar esta credencial de acceso?"
 
@@ -1077,19 +1079,19 @@ msgstr "Tu IdP es:"
 msgid "Your IdP could be one of:"
 msgstr "Tu IdP podría ser alguno de estos:"
 
-#: web/skins/modern/user/js/cat_js.php:573
+#: web/skins/modern/user/js/cat_js.php:574
 msgid "Organisation"
 msgstr "Organización"
 
-#: web/skins/modern/user/js/cat_js.php:574
+#: web/skins/modern/user/js/cat_js.php:575
 msgid "Select your organisation"
 msgstr "Selecciona tu organización"
 
-#: web/skins/modern/user/js/cat_js.php:575
+#: web/skins/modern/user/js/cat_js.php:576
 msgid "Help, my organisation is not on the list"
 msgstr "Ayuda, mi organización no está en la lista"
 
-#: web/skins/modern/user/js/cat_js.php:576
+#: web/skins/modern/user/js/cat_js.php:577
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -1100,63 +1102,63 @@ msgstr ""
 "administradores de %s. Si tu organización no está en la lista, solicítales "
 "que añadan la información a la base de datos de %s."
 
-#: web/skins/modern/user/js/cat_js.php:577
+#: web/skins/modern/user/js/cat_js.php:578
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "Localízame con mayor fiabilidad usando geolocalización HTML5"
 
-#: web/skins/modern/user/js/cat_js.php:578
+#: web/skins/modern/user/js/cat_js.php:579
 msgid "Show organisations in"
 msgstr "Mostrar organizaciones en"
 
-#: web/skins/modern/user/js/cat_js.php:579
+#: web/skins/modern/user/js/cat_js.php:580
 msgid "all countries"
 msgstr "todos los países"
 
-#: web/skins/modern/user/js/cat_js.php:580
+#: web/skins/modern/user/js/cat_js.php:581
 msgid "or search for an organisation, for example University of Oslo"
 msgstr "o busca una organización, por ejemplo, Universidad de Sevilla"
 
-#: web/skins/modern/user/js/cat_js.php:581
+#: web/skins/modern/user/js/cat_js.php:582
 msgid "show all countries"
 msgstr "mostrar todos los países"
 
-#: web/skins/modern/user/js/cat_js.php:582
+#: web/skins/modern/user/js/cat_js.php:583
 msgid "Results limited to"
 msgstr "Resultados limitados a "
 
-#: web/skins/modern/user/js/cat_js.php:583
+#: web/skins/modern/user/js/cat_js.php:584
 msgid "entries - show more"
 msgstr "entradas - mostrar más"
 
-#: web/skins/modern/user/js/cat_js.php:584
+#: web/skins/modern/user/js/cat_js.php:585
 msgid "Nearby"
 msgstr "Próximo"
 
-#: web/skins/modern/user/js/cat_js.php:585
+#: web/skins/modern/user/js/cat_js.php:586
 msgid "Location timeout"
 msgstr "Expirado el tiempo de espera para la localización"
 
-#: web/skins/modern/user/js/cat_js.php:586
+#: web/skins/modern/user/js/cat_js.php:587
 msgid "Could not get your position"
 msgstr "No se pudo determinar tu posición"
 
-#: web/skins/modern/user/js/cat_js.php:587
+#: web/skins/modern/user/js/cat_js.php:588
 msgid "Your browser has denied access to your location"
 msgstr "Tu navegador ha denegado el acceso a tu localización"
 
-#: web/skins/modern/user/js/cat_js.php:588
+#: web/skins/modern/user/js/cat_js.php:589
 msgid "Unknown location error"
 msgstr "Error de localización desconocida"
 
-#: web/skins/modern/user/js/cat_js.php:589
+#: web/skins/modern/user/js/cat_js.php:590
 msgid "You are here:"
 msgstr "Te encuentras aquí:"
 
-#: web/skins/modern/user/js/cat_js.php:590
+#: web/skins/modern/user/js/cat_js.php:591
 msgid "Getting your location..."
 msgstr "Obteniendo tu localización..."
 
-#: web/skins/modern/user/js/cat_js.php:591
+#: web/skins/modern/user/js/cat_js.php:592
 msgid "Nearby providers shown on top."
 msgstr "Los proveedores cercanos se muestran primero."
 

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"POT-Creation-Date: 2018-12-07 13:38+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>, 2018\n"
 "Language-Team: Turkish (Turkey) (https://www.transifex.com/eduroam_devel/"
@@ -378,12 +378,12 @@ msgstr ""
 "sağlayıcı için hiçbir iletişim noktası olmadığından, son kullanıcıları daha "
 "fazla tanı/talimat için kendi kimlik sunucusuna yönlendiremeyiz."
 
-#: core/diag/RADIUSTests.php:1055
+#: core/diag/RADIUSTests.php:1160
 #, php-format
 msgid "Connected to %s."
 msgstr "%s'ye bağlanıldı."
 
-#: core/diag/RADIUSTests.php:1060 web/diag/radius_tests.php:211
+#: core/diag/RADIUSTests.php:1165 web/diag/radius_tests.php:211
 msgid ""
 "<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
 "multiple round-trips was carried out, and ended in an Access-Reject as "
@@ -393,7 +393,7 @@ msgstr ""
 "RADIUS iletişimi gerçekleştirildi ve planlandığı gibi bir Erişim-Red ile "
 "sonlandı."
 
-#: core/diag/RADIUSTests.php:1064
+#: core/diag/RADIUSTests.php:1169
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
@@ -449,27 +449,27 @@ msgstr "başarısız"
 msgid "eduroam-accredited CA (now only for tests)"
 msgstr "akredite-eduroam CA(şimdilik sadece testler için)"
 
-#: core/diag/RFC6614Tests.php:263
+#: core/diag/RFC6614Tests.php:265
 msgid "No TLS connection established: Connection refused"
 msgstr "TLS bağlantısı kurulamadı: Bağlantı reddedildi"
 
-#: core/diag/RFC6614Tests.php:265
+#: core/diag/RFC6614Tests.php:267
 msgid "certificate expired"
 msgstr "sertifika süresi dolmuş"
 
-#: core/diag/RFC6614Tests.php:267
+#: core/diag/RFC6614Tests.php:269
 msgid "certificate was revoked"
 msgstr "sertifika iptal edildi"
 
-#: core/diag/RFC6614Tests.php:269
+#: core/diag/RFC6614Tests.php:271
 msgid "bad policy"
 msgstr "kötü politika"
 
-#: core/diag/RFC6614Tests.php:271
+#: core/diag/RFC6614Tests.php:273
 msgid "unknown authority"
 msgstr "bilinmeyen otorite"
 
-#: core/diag/RFC6614Tests.php:274
+#: core/diag/RFC6614Tests.php:276
 msgid "unknown authority or no certificate policy or another problem"
 msgstr ""
 "bilinmeyen otorite yada sertifika politikası yok yada diğer bir problem"

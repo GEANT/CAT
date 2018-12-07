@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"POT-Creation-Date: 2018-12-07 13:38+0100\n"
 "PO-Revision-Date: 2018-11-07 21:22+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/eduroam_devel/"
@@ -597,7 +597,9 @@ msgstr ""
 "pomoći.<br>Kada kliknete na <b>Nastavi</b> stranica s podrškom bit će "
 "otvorena u novom prozoru."
 
-#: web/lib/user/TextTemplates.php:99 web/skins/modern/user/js/cat_js.php:278
+#: web/lib/user/TextTemplates.php:99
+#: web/skins/modern/accountstatus/accountstatus.php:225
+#: web/skins/modern/user/js/cat_js.php:278
 #: web/skins/modern/user/js/cat_js.php:286
 msgid "Continue"
 msgstr "Nastavi"
@@ -728,7 +730,7 @@ msgstr "Postani CAT razvijatelj"
 msgid "Terms of use"
 msgstr "Uvjeti korištenja"
 
-#: web/skins/modern/accountstatus/accountstatus.php:74
+#: web/skins/modern/accountstatus/accountstatus.php:77
 msgid ""
 "You attempted to download an installer that was already downloaded before. "
 "Please request a new token from your administrator instead."
@@ -736,16 +738,16 @@ msgstr ""
 "Pokušali ste preuzeti installer koji je već prije preuzet.Molimo zatražite "
 "novi token od Vašeg administratora."
 
-#: web/skins/modern/accountstatus/accountstatus.php:74
+#: web/skins/modern/accountstatus/accountstatus.php:77
 msgid "Attempt to re-use download link"
 msgstr "Pokušaj ponovnog korištenja linka za preuzimanje"
 
-#: web/skins/modern/accountstatus/accountstatus.php:85
+#: web/skins/modern/accountstatus/accountstatus.php:88
 #, php-format
 msgid "You are a new user without a history of %s credentials."
 msgstr "Vi ste novi korisnik bez povijesti vjerodajnica %s"
 
-#: web/skins/modern/accountstatus/accountstatus.php:91
+#: web/skins/modern/accountstatus/accountstatus.php:94
 #, php-format
 msgid "You have <strong>%d</strong> currently valid %s credential."
 msgid_plural "You have <strong>%d</strong> currently valid %s credentials."
@@ -753,7 +755,7 @@ msgstr[0] "Imate <strong>%d</strong> trenutno važećih %s akreditiva."
 msgstr[1] "Imate <strong>%d</strong> trenutno važećih %s akreditiva."
 msgstr[2] "Imate <strong>%d</strong> trenutno važećih %s akreditiva."
 
-#: web/skins/modern/accountstatus/accountstatus.php:95
+#: web/skins/modern/accountstatus/accountstatus.php:98
 #, php-format
 msgid "<strong>%d</strong> of your credentials is not valid any more."
 msgid_plural "<strong>%d</strong> of your credentials are not valid any more."
@@ -761,12 +763,12 @@ msgstr[0] "<strong>%d</strong> vaših akreditiva nije ispravno."
 msgstr[1] "<strong>%d</strong> vaših akreditiva nije ispravno."
 msgstr[2] "<strong>%d</strong> vaših akreditiva nije ispravno."
 
-#: web/skins/modern/accountstatus/accountstatus.php:97
+#: web/skins/modern/accountstatus/accountstatus.php:100
 msgid "I want to see the details."
 msgstr "Želim vidjeti detalje."
 
 #. only show this extra info in the non-trivial case.
-#: web/skins/modern/accountstatus/accountstatus.php:106
+#: web/skins/modern/accountstatus/accountstatus.php:109
 #, php-format
 msgid ""
 "Your invitation token is valid for %d more device activations (%d have "
@@ -775,7 +777,7 @@ msgstr ""
 "Vaš aktivacijski token je ispravan %d za aktivaciju više uređaja. (%d "
 "iskorišteno)"
 
-#: web/skins/modern/accountstatus/accountstatus.php:109
+#: web/skins/modern/accountstatus/accountstatus.php:112
 msgid ""
 "Unfortunately, we are unable to determine your device's operating system. If "
 "you have made modifications on your device which prevent it from being "
@@ -788,7 +790,7 @@ msgstr ""
 "promijenite te postavke.Možete se vratiti na ovaj link ponovo; link s "
 "pozivnicom je aktivan."
 
-#: web/skins/modern/accountstatus/accountstatus.php:116
+#: web/skins/modern/accountstatus/accountstatus.php:119
 #, php-format
 msgid ""
 "Unfortunately, the operating system your device uses (%s) is currently not "
@@ -800,13 +802,13 @@ msgstr ""
 "hostane račune krajnjih korisnika.Možete posjetiti stranicu sa podržanim "
 "operativnim sustavima kasnije; link s pozivnicom zasad nije iskorišten."
 
-#: web/skins/modern/accountstatus/accountstatus.php:120
+#: web/skins/modern/accountstatus/accountstatus.php:131
 #, php-format
 msgid "You can now download a personalised  %s installation program."
 msgstr "Sada možete preuzeti personalizirani %s instalacijski program,"
 
 #. echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
-#: web/skins/modern/accountstatus/accountstatus.php:122
+#: web/skins/modern/accountstatus/accountstatus.php:133
 #, php-format
 msgid ""
 "The installation program is <span class='emph'>strictly personal</span>, to "
@@ -817,7 +819,7 @@ msgstr ""
 "<span class='emph'>samo na ovom uređaju (%s)</span>i nije <span "
 "class='emph'>namijenjen za dijeljenje</span> ovih informacija sa nikime."
 
-#: web/skins/modern/accountstatus/accountstatus.php:123
+#: web/skins/modern/accountstatus/accountstatus.php:134
 #, php-format
 msgid ""
 "When the system detects abuse such as sharing login data with others, all "
@@ -828,7 +830,7 @@ msgstr ""
 "prijavu s drugima sva Vaša prava bit će opozvana i bit ćete sankcionirani od "
 "strane Vašeg lokalnog administratora. "
 
-#: web/skins/modern/accountstatus/accountstatus.php:124
+#: web/skins/modern/accountstatus/accountstatus.php:135
 msgid ""
 "During the installation process, you will be asked for the following import "
 "PIN. This only happens once during the installation. You do not have to "
@@ -837,17 +839,17 @@ msgstr ""
 "Tokom procesa instalcije. bit ćete zatraženi PIN za uvoz.To se događa samo "
 "jednom tokom instalacije. Nije potrebno zapisivati PIN."
 
-#: web/skins/modern/accountstatus/accountstatus.php:129
+#: web/skins/modern/accountstatus/accountstatus.php:140
 #, php-format
 msgid "Import PIN: %s"
 msgstr "PIN za uvoz: %s"
 
-#: web/skins/modern/accountstatus/accountstatus.php:134
+#: web/skins/modern/accountstatus/accountstatus.php:145
 #, php-format
 msgid "Click here to download your %s installer!"
 msgstr "Kliknite za preuzimanje %s installera"
 
-#: web/skins/modern/accountstatus/accountstatus.php:138
+#: web/skins/modern/accountstatus/accountstatus.php:150
 #, php-format
 msgid ""
 "Unfortunately, the invitation link you just used is too old. The %s sign-up "
@@ -858,11 +860,11 @@ msgstr ""
 "valjana do %s. Više ne možete koristiti ovaj link. Molimo Vas da "
 "kontaktirate administratora da Vam izda novi link s pozivnicom. "
 
-#: web/skins/modern/accountstatus/accountstatus.php:145
+#: web/skins/modern/accountstatus/accountstatus.php:157
 msgid "Account information not found"
 msgstr "Podaci o korisničkom računu nisu pronađeni"
 
-#: web/skins/modern/accountstatus/accountstatus.php:146
+#: web/skins/modern/accountstatus/accountstatus.php:158
 #, php-format
 msgid ""
 "The invitation link you followed does not map to any invititation we have on "
@@ -871,7 +873,7 @@ msgstr ""
 "Link s pozivnicom kojeg ste slijedili nije povezan s nijednom aktivnom "
 "pozivnicom."
 
-#: web/skins/modern/accountstatus/accountstatus.php:146
+#: web/skins/modern/accountstatus/accountstatus.php:158
 #, php-format
 msgid ""
 "You should use the exact link you got during sign-up to come here. "
@@ -884,7 +886,7 @@ msgstr ""
 "stranicu te prihvatiti pitanje o logiranju s klijentskim certifikatom "
 "(izaberite certifikat kojem naziv završava sa '...%s')"
 
-#: web/skins/modern/accountstatus/accountstatus.php:178
+#: web/skins/modern/accountstatus/accountstatus.php:191
 #: web/skins/modern/user/js/cat_js.php:245
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
@@ -893,63 +895,63 @@ msgstr ""
 "Ako je došlo do problema, možete direktno zatražiti pomoć Vaše matične "
 "ustanove na:"
 
-#: web/skins/modern/accountstatus/accountstatus.php:180
+#: web/skins/modern/accountstatus/accountstatus.php:193
 #: web/skins/modern/user/js/cat_js.php:247
 msgid ""
 "If you encounter problems you should ask those who gave you your account for "
 "help."
 msgstr "Ako je došlo do problema kontaktirajte izdavatelja korisničkog računa"
 
-#: web/skins/modern/accountstatus/accountstatus.php:191
+#: web/skins/modern/accountstatus/accountstatus.php:209
 #, php-format
 msgid "Your personal %s account status page"
 msgstr "Vaša osobna %s korisnička stranica"
 
-#: web/skins/modern/accountstatus/accountstatus.php:219
+#: web/skins/modern/accountstatus/accountstatus.php:246
 msgid "Current login tokens"
 msgstr "Trenutni tokeni prijave"
 
-#: web/skins/modern/accountstatus/accountstatus.php:220
+#: web/skins/modern/accountstatus/accountstatus.php:247
 msgid "Previous login tokens"
 msgstr "Prošli tokeni prijave"
 
-#: web/skins/modern/accountstatus/accountstatus.php:221
+#: web/skins/modern/accountstatus/accountstatus.php:248
 msgid "Revoked login tokens"
 msgstr "Opozvani tokeni prijave"
 
-#: web/skins/modern/accountstatus/accountstatus.php:222
+#: web/skins/modern/accountstatus/accountstatus.php:249
 msgid "Serial Number"
 msgstr "Serijski broj"
 
-#: web/skins/modern/accountstatus/accountstatus.php:222
+#: web/skins/modern/accountstatus/accountstatus.php:249
 msgid "Pseudonym"
 msgstr "Pseudonim"
 
-#: web/skins/modern/accountstatus/accountstatus.php:222
+#: web/skins/modern/accountstatus/accountstatus.php:249
 msgid "Device Type"
 msgstr "Vrsta uređaja"
 
-#: web/skins/modern/accountstatus/accountstatus.php:222
+#: web/skins/modern/accountstatus/accountstatus.php:249
 msgid "Issue Date"
 msgstr "Datum izdavanja"
 
-#: web/skins/modern/accountstatus/accountstatus.php:222
+#: web/skins/modern/accountstatus/accountstatus.php:249
 msgid "Expiry Date"
 msgstr "Datum isteka"
 
-#: web/skins/modern/accountstatus/accountstatus.php:232
+#: web/skins/modern/accountstatus/accountstatus.php:259
 msgid "invalid token"
 msgstr "neispravan token"
 
-#: web/skins/modern/accountstatus/accountstatus.php:244
+#: web/skins/modern/accountstatus/accountstatus.php:271
 msgid "revoke"
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:256
+#: web/skins/modern/accountstatus/accountstatus.php:285
 msgid "The details are displayed below."
 msgstr "Detalji prikazani ispod."
 
-#: web/skins/modern/accountstatus/accountstatus.php:262
+#: web/skins/modern/accountstatus/accountstatus.php:291
 msgid "Really revoke this access credential?"
 msgstr "Zaista opozvati ove pristupne vjerodajnice?"
 
@@ -1055,19 +1057,19 @@ msgstr "Vaš IdP je:"
 msgid "Your IdP could be one of:"
 msgstr "Vaš IdP mogao bi biti jedan od:"
 
-#: web/skins/modern/user/js/cat_js.php:573
+#: web/skins/modern/user/js/cat_js.php:574
 msgid "Organisation"
 msgstr "Ustanova"
 
-#: web/skins/modern/user/js/cat_js.php:574
+#: web/skins/modern/user/js/cat_js.php:575
 msgid "Select your organisation"
 msgstr "Izaberite svoju ustanovu"
 
-#: web/skins/modern/user/js/cat_js.php:575
+#: web/skins/modern/user/js/cat_js.php:576
 msgid "Help, my organisation is not on the list"
 msgstr "Molim pomoć, moja ustanova nije na popisu"
 
-#: web/skins/modern/user/js/cat_js.php:576
+#: web/skins/modern/user/js/cat_js.php:577
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -1077,63 +1079,63 @@ msgstr ""
 "Ovaj sustav zasniva se na podacima danim od lokalnih %s administratora. Ako "
 "Vaša ustanova nije na popisu, zamolite ih da dodaju informacije u %s bazu."
 
-#: web/skins/modern/user/js/cat_js.php:577
+#: web/skins/modern/user/js/cat_js.php:578
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "Pronađi moju lokaciju preciznije koristeći HTML5 Geo-Location"
 
-#: web/skins/modern/user/js/cat_js.php:578
+#: web/skins/modern/user/js/cat_js.php:579
 msgid "Show organisations in"
 msgstr "Prikaži ustanovu u"
 
-#: web/skins/modern/user/js/cat_js.php:579
+#: web/skins/modern/user/js/cat_js.php:580
 msgid "all countries"
 msgstr "sve zemlje"
 
-#: web/skins/modern/user/js/cat_js.php:580
+#: web/skins/modern/user/js/cat_js.php:581
 msgid "or search for an organisation, for example University of Oslo"
 msgstr "ili traži ustanovu, na primjer Sveučilište u Zagrebu"
 
-#: web/skins/modern/user/js/cat_js.php:581
+#: web/skins/modern/user/js/cat_js.php:582
 msgid "show all countries"
 msgstr "prikaži sve zemlje"
 
-#: web/skins/modern/user/js/cat_js.php:582
+#: web/skins/modern/user/js/cat_js.php:583
 msgid "Results limited to"
 msgstr "Rezultati ograničeni na "
 
-#: web/skins/modern/user/js/cat_js.php:583
+#: web/skins/modern/user/js/cat_js.php:584
 msgid "entries - show more"
 msgstr "podaci - pokaži više"
 
-#: web/skins/modern/user/js/cat_js.php:584
+#: web/skins/modern/user/js/cat_js.php:585
 msgid "Nearby"
 msgstr "U blizini"
 
-#: web/skins/modern/user/js/cat_js.php:585
+#: web/skins/modern/user/js/cat_js.php:586
 msgid "Location timeout"
 msgstr "Istek vremena za lociranje"
 
-#: web/skins/modern/user/js/cat_js.php:586
+#: web/skins/modern/user/js/cat_js.php:587
 msgid "Could not get your position"
 msgstr "Nije moguće odrediti Vašu poziciju"
 
-#: web/skins/modern/user/js/cat_js.php:587
+#: web/skins/modern/user/js/cat_js.php:588
 msgid "Your browser has denied access to your location"
 msgstr "Vaš preglednik zabranio je otkrivanje Vaše lokacije"
 
-#: web/skins/modern/user/js/cat_js.php:588
+#: web/skins/modern/user/js/cat_js.php:589
 msgid "Unknown location error"
 msgstr "Greška: Nepoznata lokacija"
 
-#: web/skins/modern/user/js/cat_js.php:589
+#: web/skins/modern/user/js/cat_js.php:590
 msgid "You are here:"
 msgstr "Vi ste ovdje:"
 
-#: web/skins/modern/user/js/cat_js.php:590
+#: web/skins/modern/user/js/cat_js.php:591
 msgid "Getting your location..."
 msgstr "Dohvaćanje Vaše lokacije..."
 
-#: web/skins/modern/user/js/cat_js.php:591
+#: web/skins/modern/user/js/cat_js.php:592
 msgid "Nearby providers shown on top."
 msgstr "Najbliži davatelji nalaze se na vrhu popisa"
 

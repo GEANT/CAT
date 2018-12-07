@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"POT-Creation-Date: 2018-12-07 13:38+0100\n"
 "PO-Revision-Date: 2018-05-30 11:48+0000\n"
 "Last-Translator: Maja Wolniewicz <maja.wolniewicz@gmail.com>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/eduroam_devel/cat/"
@@ -312,7 +312,7 @@ msgstr "Taiwan"
 msgid "South Africa"
 msgstr "RPA"
 
-#: core/CAT.php:492 core/IdPlist.php:109
+#: core/CAT.php:492 core/IdPlist.php:110
 msgid "Unnamed Entity"
 msgstr "Nienazwana jednostka"
 
@@ -331,7 +331,7 @@ msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 "Przepraszamy, to nie powinno się wydarzyć - nie ma dodatkowych informacji"
 
-#: core/IdP.php:253
+#: core/IdP.php:257
 #, php-format
 msgid ""
 "Hi,\n"
@@ -355,20 +355,20 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/IdP.php:262
+#: core/IdP.php:266
 msgid "IdP in your federation was deleted"
 msgstr "Usunięto dostawcę tożsamości w Twojej federacji"
 
-#: core/SilverbulletInvitation.php:208
+#: core/SilverbulletInvitation.php:223
 #, php-format
 msgid "Your %s access is ready"
 msgstr "Twój dostęp %s jest gotowy do użycia"
 
-#: core/SilverbulletInvitation.php:216
+#: core/SilverbulletInvitation.php:232
 msgid "Hello!"
 msgstr "Witaj!"
 
-#: core/SilverbulletInvitation.php:218
+#: core/SilverbulletInvitation.php:234
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
@@ -376,7 +376,7 @@ msgid ""
 msgstr ""
 "Administrator Twojej sieci przygotował dla Ciebie nowe dane dostępowe %s. "
 
-#: core/SilverbulletInvitation.php:220
+#: core/SilverbulletInvitation.php:236
 #, php-format
 msgid ""
 "Please follow the following link with the device you want to enable for %s "
@@ -388,7 +388,7 @@ msgstr ""
 "i wkleić go do przeglądarki  lub zeskanować kod QR."
 
 #. gets replaced with the token value by getBody()
-#: core/SilverbulletInvitation.php:222
+#: core/SilverbulletInvitation.php:238
 #, php-format
 msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
@@ -399,11 +399,11 @@ msgstr ""
 "instalacyjnego %s, będzie możliwe ponowne skorzystanie z tego samego linku w "
 "celu pobrania informacji o statusie Twojego konta %s. "
 
-#: core/SilverbulletInvitation.php:224
+#: core/SilverbulletInvitation.php:240
 msgid "Regards,"
 msgstr "Z poważaniem,"
 
-#: core/SilverbulletInvitation.php:270
+#: core/SilverbulletInvitation.php:288
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
@@ -412,7 +412,7 @@ msgstr ""
 "Twój dostęp do %s został przygotowany! Kliknij tutaj: %s (na Adnroidzie "
 "zainstaluj najpierw aplikację '%s'!)"
 
-#: core/SilverbulletInvitation.php:283
+#: core/SilverbulletInvitation.php:301
 #, php-format
 msgid "%s Invitation System"
 msgstr "System zaproszeń %s"
@@ -451,7 +451,7 @@ msgstr ""
 msgid "IdP in your federation was created"
 msgstr "Utworzono dostawcę tożsamości w Twojej federacji."
 
-#: core/User.php:155
+#: core/User.php:156
 msgid "Feedback"
 msgstr "Kontakt"
 

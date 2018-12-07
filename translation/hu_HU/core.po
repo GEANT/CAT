@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"POT-Creation-Date: 2018-12-07 13:38+0100\n"
 "PO-Revision-Date: 2018-11-14 12:46+0000\n"
 "Last-Translator: Janos Mohacsi <mohacsi@niif.hu>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/eduroam_devel/"
@@ -306,7 +306,7 @@ msgstr "Tajvan"
 msgid "South Africa"
 msgstr "Dél Afrika"
 
-#: core/CAT.php:492 core/IdPlist.php:109
+#: core/CAT.php:492 core/IdPlist.php:110
 msgid "Unnamed Entity"
 msgstr "Azonosítatlan entitás"
 
@@ -325,7 +325,7 @@ msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 "Ennek nem lett volna szabad bekövetkeznie - nincsen további információ "
 
-#: core/IdP.php:253
+#: core/IdP.php:257
 #, php-format
 msgid ""
 "Hi,\n"
@@ -348,20 +348,20 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/IdP.php:262
+#: core/IdP.php:266
 msgid "IdP in your federation was deleted"
 msgstr "IdP-t a szövetségből töröltük"
 
-#: core/SilverbulletInvitation.php:208
+#: core/SilverbulletInvitation.php:223
 #, php-format
 msgid "Your %s access is ready"
 msgstr "Hozzáférése %s készen áll"
 
-#: core/SilverbulletInvitation.php:216
+#: core/SilverbulletInvitation.php:232
 msgid "Hello!"
 msgstr "Szia!"
 
-#: core/SilverbulletInvitation.php:218
+#: core/SilverbulletInvitation.php:234
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
@@ -370,7 +370,7 @@ msgstr ""
 "A hálózati rendszergazda új hozzáférési jogosultságot %shozott létre az Ön "
 "számára."
 
-#: core/SilverbulletInvitation.php:220
+#: core/SilverbulletInvitation.php:236
 #, php-format
 msgid ""
 "Please follow the following link with the device you want to enable for %s "
@@ -382,7 +382,7 @@ msgstr ""
 "és beillesztheti egy böngészőbe, vagy beolvashatja a mellékelt QR-kódot."
 
 #. gets replaced with the token value by getBody()
-#: core/SilverbulletInvitation.php:222
+#: core/SilverbulletInvitation.php:238
 #, php-format
 msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
@@ -393,11 +393,11 @@ msgstr ""
 "telepítőprogramot %s , ugyanazt a linket használhatja a fiókhoz %s tartozó "
 "információkhoz."
 
-#: core/SilverbulletInvitation.php:224
+#: core/SilverbulletInvitation.php:240
 msgid "Regards,"
 msgstr "Üdvözlettel,"
 
-#: core/SilverbulletInvitation.php:270
+#: core/SilverbulletInvitation.php:288
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
@@ -406,7 +406,7 @@ msgstr ""
 "Hozzáférésed készen áll %s ! Kattintson ide:  %s (Android-on, először "
 "telepítse az %salkalmazást!)"
 
-#: core/SilverbulletInvitation.php:283
+#: core/SilverbulletInvitation.php:301
 #, php-format
 msgid "%s Invitation System"
 msgstr "Meghívó rendszer%s"
@@ -445,7 +445,7 @@ msgstr ""
 msgid "IdP in your federation was created"
 msgstr "IdP jött létre a föderációban"
 
-#: core/User.php:155
+#: core/User.php:156
 msgid "Feedback"
 msgstr "Visszajelzés"
 

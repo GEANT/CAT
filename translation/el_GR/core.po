@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"POT-Creation-Date: 2018-12-07 13:38+0100\n"
 "PO-Revision-Date: 2018-11-14 09:22+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Greek (Greece) (http://www.transifex.com/eduroam_devel/cat/"
@@ -311,7 +311,7 @@ msgstr "Ταϊβάν"
 msgid "South Africa"
 msgstr "Νότια Αφρική"
 
-#: core/CAT.php:492 core/IdPlist.php:109
+#: core/CAT.php:492 core/IdPlist.php:110
 msgid "Unnamed Entity"
 msgstr "Ανώνυμη Οντότητα"
 
@@ -331,7 +331,7 @@ msgstr ""
 "Λυπούμαστε, αυτό δεν έπρεπε να συμβεί - δεν είναι διαθέσιμες επιπρόσθετες "
 "πληροφορίες"
 
-#: core/IdP.php:253
+#: core/IdP.php:257
 #, php-format
 msgid ""
 "Hi,\n"
@@ -354,20 +354,20 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/IdP.php:262
+#: core/IdP.php:266
 msgid "IdP in your federation was deleted"
 msgstr "Διαγράφηκε ένας IdP στην ομοσπονδία σας"
 
-#: core/SilverbulletInvitation.php:208
+#: core/SilverbulletInvitation.php:223
 #, php-format
 msgid "Your %s access is ready"
 msgstr "Η πρόσβαση %s σας είναι έτοιμη"
 
-#: core/SilverbulletInvitation.php:216
+#: core/SilverbulletInvitation.php:232
 msgid "Hello!"
 msgstr "Χαίρετε!"
 
-#: core/SilverbulletInvitation.php:218
+#: core/SilverbulletInvitation.php:234
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
@@ -376,7 +376,7 @@ msgstr ""
 "Ένα νέο %s διαπιστευτήριο πρόσβασης έχει δημιουργηθεί για λογαριασμό σας από "
 "τον διαχειριστή του δικτύου σας."
 
-#: core/SilverbulletInvitation.php:220
+#: core/SilverbulletInvitation.php:236
 #, php-format
 msgid ""
 "Please follow the following link with the device you want to enable for %s "
@@ -390,7 +390,7 @@ msgstr ""
 "συνημμένο QR code."
 
 #. gets replaced with the token value by getBody()
-#: core/SilverbulletInvitation.php:222
+#: core/SilverbulletInvitation.php:238
 #, php-format
 msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
@@ -402,11 +402,11 @@ msgstr ""
 "σας, μπορείτε να χρησιμοποιήσετε τον ίδιο σύνδεσμο για να δείτε πληροφορίες "
 "σχετικά με την κατάσταση του λογαριασμού %s σας."
 
-#: core/SilverbulletInvitation.php:224
+#: core/SilverbulletInvitation.php:240
 msgid "Regards,"
 msgstr "Χαιρετισμοί, "
 
-#: core/SilverbulletInvitation.php:270
+#: core/SilverbulletInvitation.php:288
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
@@ -415,7 +415,7 @@ msgstr ""
 "Η πρόσβαση %s σας είναι έτοιμη! Κάντε κλικ εδώ: %s (για Android, "
 "εγκαταστήστε πρώτα την εφαρμογή '%s'!)"
 
-#: core/SilverbulletInvitation.php:283
+#: core/SilverbulletInvitation.php:301
 #, php-format
 msgid "%s Invitation System"
 msgstr "Σύστημα Προσκλήσεων %s"
@@ -454,7 +454,7 @@ msgstr ""
 msgid "IdP in your federation was created"
 msgstr "Δημιουργήθηκε ένας IdP στην ομοσπονδία σας"
 
-#: core/User.php:155
+#: core/User.php:156
 msgid "Feedback"
 msgstr "Ανατροφοδότηση"
 

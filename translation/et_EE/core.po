@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 09:10+0100\n"
+"POT-Creation-Date: 2018-12-07 13:38+0100\n"
 "PO-Revision-Date: 2018-10-10 12:45+0000\n"
 "Last-Translator: Anne M <anne@eenet.ee>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/eduroam_devel/"
@@ -309,7 +309,7 @@ msgstr "Taiwan"
 msgid "South Africa"
 msgstr "Lõuna-Aafrika"
 
-#: core/CAT.php:492 core/IdPlist.php:109
+#: core/CAT.php:492 core/IdPlist.php:110
 msgid "Unnamed Entity"
 msgstr "Riik määramata"
 
@@ -328,7 +328,7 @@ msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 "Vabandust, seda ei peaks juhtuma - täpsemat infot kahjuks ei ole saadaval"
 
-#: core/IdP.php:253
+#: core/IdP.php:257
 #, php-format
 msgid ""
 "Hi,\n"
@@ -351,20 +351,20 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/IdP.php:262
+#: core/IdP.php:266
 msgid "IdP in your federation was deleted"
 msgstr "sinu föderatsioonis olev IdP kustutati."
 
-#: core/SilverbulletInvitation.php:208
+#: core/SilverbulletInvitation.php:223
 #, php-format
 msgid "Your %s access is ready"
 msgstr "Ligipääs %si on valmis"
 
-#: core/SilverbulletInvitation.php:216
+#: core/SilverbulletInvitation.php:232
 msgid "Hello!"
 msgstr "Tere!"
 
-#: core/SilverbulletInvitation.php:218
+#: core/SilverbulletInvitation.php:234
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
@@ -374,7 +374,7 @@ msgstr ""
 "\n"
 "Võrguadministraator andis Sulle juurdepääsuõiguse %sile."
 
-#: core/SilverbulletInvitation.php:220
+#: core/SilverbulletInvitation.php:236
 #, php-format
 msgid ""
 "Please follow the following link with the device you want to enable for %s "
@@ -387,7 +387,7 @@ msgstr ""
 "või skaneerida lisatud QR-koodi. "
 
 #. gets replaced with the token value by getBody()
-#: core/SilverbulletInvitation.php:222
+#: core/SilverbulletInvitation.php:238
 #, php-format
 msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
@@ -398,11 +398,11 @@ msgstr ""
 "Pärast %si paigaldusprogrammi allalaadimist saad sama lingi kaudu vaadata "
 "teavet oma %si konto seisundi kohta."
 
-#: core/SilverbulletInvitation.php:224
+#: core/SilverbulletInvitation.php:240
 msgid "Regards,"
 msgstr "Lugupidamisega"
 
-#: core/SilverbulletInvitation.php:270
+#: core/SilverbulletInvitation.php:288
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
@@ -412,7 +412,7 @@ msgstr ""
 "Klõpsa %s\n"
 "(Kui kasutad Androidi, paigalda esmalt äpp/rakendus '%s'.)"
 
-#: core/SilverbulletInvitation.php:283
+#: core/SilverbulletInvitation.php:301
 #, php-format
 msgid "%s Invitation System"
 msgstr "%si kutsete süsteem"
@@ -449,7 +449,7 @@ msgstr ""
 msgid "IdP in your federation was created"
 msgstr "Föderatsiooni on lisatud uus identiteedipakkuja"
 
-#: core/User.php:155
+#: core/User.php:156
 msgid "Feedback"
 msgstr "Tagasiside"
 
