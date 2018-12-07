@@ -26,7 +26,8 @@ $Gui->defaultPagePrelude();
 <!-- JQuery -->
 <script type="text/javascript">
     var recognisedOS = '';
-    var downloadMessage;
+    var downloadMessage = '';
+    var message = '0';
     var noDisco = 1;
     var sbPage = 1;
 <?php
@@ -35,6 +36,8 @@ include_once(dirname(__DIR__) . '/Divs.php');
 $divs = new Divs($Gui);
 $visibility = 'sb';
 $operatingSystem = $Gui->detectOS();
+$sbMessage = '';
+$message = '';
 
 $Gui->loggerInstance->debug(4, $operatingSystem);
 $uiElements = new web\lib\admin\UIElements();
@@ -116,7 +119,15 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                                     echo "<p>" . sprintf(_("Unfortunately, the operating system your device uses (%s) is currently not supported for hosted end-user accounts. You can visit this page with a supported operating system later; the invitation link has not been used up yet."), $statusInfo['OS']['display']) . "</p>";
                                     break;
                                 }
+                                $message = $dev->device->options['message'] ?? '' ;
 
+                                $sbMessage = $dev->device->options['sb_message'] ?? '';
+                                if ($message != '' && $sbMessage != '') {
+                                    $message = $message . "<p>" . $sbMessage;
+                                } else {
+                                    $message = $message . $sbMessgae;
+                                }
+                         
                                 echo "<div id='sb_download_message'><p>" . sprintf(_("You can now download a personalised  %s installation program."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
 //                       echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
                                 echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
@@ -132,6 +143,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                                 echo "<input type='hidden' name='device' value='" . $statusInfo['OS']['device'] . "'/>";
                                 echo "<input type='hidden' name='generatedfor' value='silverbullet'/>";
                                 echo "<button class='large_button' id='user_button_sb' style='height:80px;'><span id='user_buttonnnn'>" . sprintf(_("Click here to download your %s installer!"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</span></button>";
+                                echo "<div class='device_info' id='info_g_sb'></div>";
                                 break;
                             case \core\SilverbulletInvitation::SB_TOKENSTATUS_EXPIRED:
                                 echo "<h2>Invitation link expired</h2>";
@@ -186,6 +198,11 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             var idpName = "<?php echo $statusInfo['idp_name']; ?>";
             var logo = <?php echo $statusInfo['idp_logo']; ?>;
             var idpId = <?php echo $statusInfo['idp_id']; ?>;
+            <?php
+                if($message != '') {
+                    echo "message = \"$message\";\n";
+                }
+            ?>
             $("#inst_name").val(idpName);
             $("#inst_name_span").html(idpName);
             $(".inst_name").text(idpName);
@@ -196,16 +213,25 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             }
             $("#user_info").html("<?php escaped_echo($supportInfo); ?>");
             $("#user_info").show();
-
-
             //$("#user_page").show();
             //$("#institution_name").show();
         }
 
         $("#user_button_sb").click(function (event) {
+            alert(message);
             event.preventDefault();
             $("#cat_form").attr('action', '<?php echo $Gui->skinObject->findResourceUrl("BASE", "user/sb_download.php"); ?>');
-            $("#cat_form").submit();
+            if(message != '0') {
+                var continue_text = "<?php escaped_echo(_("Continue")); ?>";
+                var t = message + "<br><span class='redirect_link'>"+continue_text+"</span>";
+                $("#info_g_sb").html(t);
+                $(".redirect_link").click(function(event) {
+                    $("#cat_form").submit();
+                });
+                $("#info_g_sb").show();
+            } else {
+    //            $("#cat_form").submit();
+            }
         });
 
         $("#detailtext").click(function (event) {

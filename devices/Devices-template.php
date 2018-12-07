@@ -60,7 +60,11 @@ class Devices{
  *         if device redirect has been defined by the admin
  * - 'message' if defined will cause a display of the contents of this option as
  *         an additional warning
- *
+ * - 'sb_message' aplickable only in the distribuition of Silverbullet profiles,
+ *         if defined will cause a display of the contents of this option as
+ *         an additional message. If the 'message' option is also defined then
+ *         the sb_message will be displayed in the same window AFTER the contents
+ *         of the 'message' option if that one.
  * - 'device_id' - used in building the installer filename; when this option
  *         is not defined, the filename will use the index from 
  *         the listDevices array; when defined and not empty, it will be 
