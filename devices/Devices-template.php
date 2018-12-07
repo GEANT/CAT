@@ -303,6 +303,7 @@ public static function listDevices() {
        'sign'=>1,
        'device_id'=>'iOS',
        'mime'=>'application/x-apple-aspen-config',
+       'sb_message' => _("During the installation you will be first asked to enter your passcode - this is you device security code! Later on you will be prompted for the password to the certificate and there you need to enter the import PIN shown on this page."),
       ],
     ],
 
