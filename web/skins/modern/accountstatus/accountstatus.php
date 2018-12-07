@@ -229,7 +229,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 });
                 $("#info_g_sb").show();
             } else {
-    //            $("#cat_form").submit();
+                $("#cat_form").submit();
             }
         });
 
