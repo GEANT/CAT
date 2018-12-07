@@ -581,7 +581,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
             // <key>Password</key>
             //   <string>" . $this->clientCert['password'] . "</string>
             "<key>PayloadCertificateFileName</key>
-                     <string>cert-cli.pfx</string>
+                     <string>".$this->massagedConsortium.".pfx</string>
                   <key>PayloadContent</key>
                      <data>
 $mimeFormatted
