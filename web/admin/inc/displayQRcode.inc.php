@@ -41,4 +41,4 @@ header("Content-Type:text/html;charset=utf-8");
 ?>
 <h1 style='text-align:center;'><?php echo _("Invitation Token QR Code");?></h1>
 <img style='float:none' src='data:image/png;base64,<?php echo base64_encode($uiElements->pngInjectConsortiumLogo(\QRcode::png($invitationObject->link(), FALSE, QR_ECLEVEL_Q, 11), 11));?>'/>
-<p>(<a href='<?php echo $link;?>'><?php echo $link;?>)</a></p>
+<p>(<a href='<?php echo $invitationObject->link();?>'><?php echo $invitationObject->link();?>)</a></p>
