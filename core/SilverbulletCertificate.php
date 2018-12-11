@@ -334,9 +334,6 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * @return array with revocation information
      */
     public function revokeCertificate() {
-
-
-// TODO for now, just mark as revoked in the certificates table (and use the stub OCSP updater)
         $nowSql = (new \DateTime())->format("Y-m-d H:i:s");
         if (CONFIG_CONFASSISTANT['SILVERBULLET']['CA']['type'] != "embedded") {
             // send revocation request to CA.

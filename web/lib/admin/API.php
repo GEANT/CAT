@@ -70,6 +70,7 @@ class API {
     const AUXATTRIB_SB_TOU = "ATTRIB-MANAGED-TOU";
     const AUXATTRIB_SB_USERNAME = "ATTRIB-MANAGED-USERNAME";
     const AUXATTRIB_SB_USERID = "ATTRIB-MANAGED-USERID";
+    const AUXATTRIB_SB_CERTSERIAL = "ATTRIB-MANAGED-CERTSERIAL";
     const AUXATTRIB_SB_EXPIRY = "ATTRIB-MANAGED-EXPIRY"; /* MySQL timestamp format */
     const AUXATTRIB_TOKEN = "ATTRIB-TOKEN";
     const AUXATTRIB_TOKENURL = "ATTRIB-TOKENURL";
@@ -115,29 +116,44 @@ class API {
                 'support:phone',
                 'support:url'
             ],
+            "RETVAL" => [
+                API::AUXATTRIB_CAT_INST_ID, // new inst ID
+            ],
         ],
         API::ACTION_DELINST => [
             "REQ" => [API::AUXATTRIB_CAT_INST_ID],
-            "OPT" => []
+            "OPT" => [],
+            "RETVAL" => [],
         ],
         # inst administrator management
         API::ACTION_ADMIN_LIST => [
             "REQ" => [API::AUXATTRIB_CAT_INST_ID],
-            "OPT" => []
+            "OPT" => [
+                
+            ],
+            "RETVAL" => [
+                ["ID", "MAIL", "LEVEL"] // array with all admins of inst
+            ]
         ],
         API::ACTION_ADMIN_ADD => [
             "REQ" => [
                 API::AUXATTRIB_ADMINID,
                 API::AUXATTRIB_CAT_INST_ID
             ],
-            "OPT" => [API::AUXATTRIB_TARGETMAIL]
+            "OPT" => [API::AUXATTRIB_TARGETMAIL],
+            "RETVAL" => [
+                ["TOKEN URL", 
+                 "EMAIL SENT",              // dependent on TARGETMAIL input
+                 "EMAIL TRANSPORT SECURE"], // dependent on TARGETMAIL input
+            ]
         ],
         API::ACTION_ADMIN_DEL => [
             "REQ" => [
                 API::AUXATTRIB_ADMINID,
                 API::AUXATTRIB_CAT_INST_ID
             ],
-            "OPT" => []
+            "OPT" => [],
+            "RETVAL" => [],
         ],
         # statistics
         API::ACTION_STATISTICS_INST => [
@@ -146,7 +162,10 @@ class API {
         ],
         API::ACTION_STATISTICS_FED => [
             "REQ" => [],
-            "OPT" => []
+            "OPT" => [],
+            "RETVAL" => [
+                ["device_id" => ["ADMIN", "SILVERBULLET", "USER"]] // plus "TOTAL"
+            ],
         ],
         # RADIUS profile actions
         API::ACTION_NEWPROF_RADIUS => [
@@ -174,44 +193,66 @@ class API {
                 API::AUXATTRIB_PROFILE_REALM,
                 API::AUXATTRIB_PROFILE_TESTUSER,
                 API::AUXATTRIB_PROFILE_EAPTYPE,
-            ]
+            ],
+            "RETVAL" => API::AUXATTRIB_CAT_PROFILE_ID,
         ],
         # Silverbullet profile actions
         API::ACTION_NEWPROF_SB => [
             "REQ" => [API::AUXATTRIB_CAT_INST_ID],
-            "OPT" => [API::AUXATTRIB_SB_TOU]
+            "OPT" => [API::AUXATTRIB_SB_TOU],
+            "RETVAL" => API::AUXATTRIB_CAT_PROFILE_ID,
         ],
         API::ACTION_ENDUSER_NEW => [
             "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_USERNAME, API::AUXATTRIB_SB_EXPIRY],
-            "OPT" => []
+            "OPT" => [],
+            "RETVAL" => [ API::AUXATTRIB_SB_USERNAME, API::AUXATTRIB_SB_USERID ],
         ],
         API::ACTION_ENDUSER_DEACTIVATE => [
             "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_USERID],
-            "OPT" => []
+            "OPT" => [],
+            "RETVAL" => [],
         ],
         API::ACTION_ENDUSER_LIST => [
             "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID],
-            "OPT" => []
+            "OPT" => [],
+            "RETVAL" => [
+                [ API::AUXATTRIB_SB_USERID => API::AUXATTRIB_SB_USERNAME],
+            ],
         ],
         API::ACTION_TOKEN_NEW => [
             "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_USERID],
-            "OPT" => [API::AUXATTRIB_TOKEN_ACTIVATIONS, API::AUXATTRIB_TARGETMAIL, API::AUXATTRIB_TARGETSMS]
+            "OPT" => [API::AUXATTRIB_TOKEN_ACTIVATIONS, API::AUXATTRIB_TARGETMAIL, API::AUXATTRIB_TARGETSMS],
+            "RETVAL" => [
+                API::AUXATTRIB_TOKENURL, 
+                API::AUXATTRIB_TOKEN, 
+                "EMAIL SENT",             // dependent on TARGETMAIL input
+                "EMAIL TRANSPORT SECURE", // dependent on TARGETMAIL input
+                "SMS SENT",               // dependent on TARGETSMS input
+            ]
         ],
         API::ACTION_TOKEN_REVOKE => [
             "REQ" => [API::AUXATTRIB_TOKEN],
-            "OPT" => []
+            "OPT" => [],
+            "RETVAL" => [],
         ],
         API::ACTION_TOKEN_LIST => [
             "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID],
-            "OPT" => [API::AUXATTRIB_SB_USERID]
+            "OPT" => [API::AUXATTRIB_SB_USERID],
+            "RETVAL" => [
+                [API::AUXATTRIB_SB_USERID => [API::AUXATTRIB_TOKEN, "STATUS"]],
+            ]
         ],
         API::ACTION_CERT_LIST => [
             "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_USERID],
-            "OPT" => []
+            "OPT" => [],
+            "RETVAL" => [
+                [ API::AUXATTRIB_SB_CERTSERIAL => ["ISSUED", "EXPIRY", "STATUS", "DEVICE", "CN" ]]
+            ]
         ],
         API::ACTION_CERT_REVOKE => [
-            "REQ" => [],
-            "OPT" => []
+            "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_CERTSERIAL],
+            "OPT" => [],
+            "RETVAL" => [],
         ],
     ];
 

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -68,7 +69,7 @@ if (!isset(CONFIG_CONFASSISTANT['CONSORTIUM']['registration_API_keys']) || count
 $inputRaw = file_get_contents('php://input');
 $inputDecoded = json_decode($inputRaw, TRUE);
 if (!is_array($inputDecoded)) {
-    $adminApi->returnError(web\lib\admin\API::ERROR_MALFORMED_REQUEST, "Unable to decode JSON POST data.".json_last_error_msg().$inputRaw);
+    $adminApi->returnError(web\lib\admin\API::ERROR_MALFORMED_REQUEST, "Unable to decode JSON POST data." . json_last_error_msg() . $inputRaw);
     exit(1);
 }
 
@@ -156,8 +157,8 @@ switch ($inputDecoded['ACTION']) {
         if ($admin === FALSE) {
             throw new Exception("A required parameter is missing, and this wasn't caught earlier?!");
         }
-        $newtokens = $mgmt->createTokens(true, [ $admin ], $idp);
-        $URL = "https://" . $_SERVER['SERVER_NAME'] . dirname($_SERVER['SCRIPT_NAME']) . "/action_enrollment.php?token=".array_keys($newtokens)[0];
+        $newtokens = $mgmt->createTokens(true, [$admin], $idp);
+        $URL = "https://" . $_SERVER['SERVER_NAME'] . dirname($_SERVER['SCRIPT_NAME']) . "/action_enrollment.php?token=" . array_keys($newtokens)[0];
         $success = ["TOKEN URL" => $URL, "TOKEN" => array_keys($newtokens)[0]];
         // done with the essentials - display in response. But if we also have an email address, send it there
         $email = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_TARGETMAIL);
@@ -361,8 +362,8 @@ switch ($inputDecoded['ACTION']) {
         $adminApi->returnSuccess($additionalInfo);
         break;
     case \web\lib\admin\API::ACTION_ENDUSER_LIST:
-        // fall-through: those two are similar
-            case \web\lib\admin\API::ACTION_TOKEN_LIST:
+    // fall-through: those two are similar
+    case \web\lib\admin\API::ACTION_TOKEN_LIST:
         $profile_id = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID);
         if ($profile_id === FALSE) {
             exit(1);
@@ -387,7 +388,12 @@ switch ($inputDecoded['ACTION']) {
                 foreach ($allUsers as $oneUser) {
                     $tokens = array_merge($tokens, $profile->userStatus($oneUser));
                 }
-                $adminApi->returnSuccess($tokens);
+                // reduce to important subset of information
+                $infoSet = [];
+                foreach ($tokens as $oneTokenObject) {
+                    $infoSet[$oneTokenObject->userId] = [\web\lib\admin\API::AUXATTRIB_TOKEN => $oneTokenObject->invitationTokenString, "STATUS" => $oneTokenObject->invitationTokenStatus];
+                }
+                $adminApi->returnSuccess($infoSet);
         }
         break;
     case \web\lib\admin\API::ACTION_TOKEN_REVOKE:
@@ -397,6 +403,52 @@ switch ($inputDecoded['ACTION']) {
             exit(1);
         }
         $token->revokeInvitation();
+        $adminApi->returnSuccess([]);
+        break;
+    case \web\lib\admin\API::ACTION_CERT_LIST:
+        $prof_id = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID);
+        $user_id = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_USERID);
+        if ($prof_id === FALSE) {
+            exit(1);
+        }
+        $evaluation = commonSbProfileChecks($fed, $prof_id);
+        if ($evaluation === FALSE) {
+            exit(1);
+        }
+        list($idp, $profile) = $evaluation;
+        $invitations = $profile->userStatus($user_id);
+        // now pull out cert information from the object
+        $certObjects = [];
+        foreach ($invitations as $oneInvitation) {
+            array_merge($certs, $oneInvitation->associatedCertificates);
+        }
+        // extract relevant subset of information from cert objects
+        $certDetails = [];
+        foreach ($certs as $cert) {
+            $certDetails[$cert->ca_type . ":" . $cert->serial] = ["ISSUED" => $cert->issued, "EXPIRY" => $cert->expiry, "STATUS" => $cert->status, "DEVICE" => $cert->device, "CN" => $cert->username];
+        }
+        $adminApi->returnSuccess($certDetails);
+        break;
+    case \web\lib\admin\API::ACTION_CERT_REVOKE:
+        $prof_id = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID);
+        if ($prof_id === FALSE) {
+            exit(1);
+        }
+        $evaluation = commonSbProfileChecks($fed, $prof_id);
+        if ($evaluation === FALSE) {
+            exit(1);
+        }
+        list($idp, $profile) = $evaluation;
+        // tear apart the serial
+        $serial = explode(":", $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_CERTSERIAL));
+        $cert = new \core\SilverbulletCertificate($serial[1], $serial[0]);
+        if ($cert->status == \core\SilverbulletCertificate::CERTSTATUS_INVALID) {
+            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Serial not found.");
+        }
+        if ($cert->profileId != $profile->identifier) {
+            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Serial does not belong to this profile.");
+        }
+        $cert->revokeCertificate();
         $adminApi->returnSuccess([]);
         break;
     default:
