@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-07 13:38+0100\n"
+"POT-Creation-Date: 2018-12-12 09:52+0100\n"
 "PO-Revision-Date: 2018-11-15 14:55+0000\n"
 "Last-Translator: Kaja Kumer <kaja.kumer@arnes.si>\n"
 "Language-Team: Slovenian (Slovenia) (http://www.transifex.com/eduroam_devel/"
@@ -609,7 +609,7 @@ msgstr ""
 "zavihku."
 
 #: web/lib/user/TextTemplates.php:99
-#: web/skins/modern/accountstatus/accountstatus.php:225
+#: web/skins/modern/accountstatus/accountstatus.php:224
 #: web/skins/modern/user/js/cat_js.php:278
 #: web/skins/modern/user/js/cat_js.php:286
 msgid "Continue"
@@ -923,51 +923,51 @@ msgstr ""
 msgid "Your personal %s account status page"
 msgstr "Stran, ki prikazuje status vaše osebnega %s računa"
 
-#: web/skins/modern/accountstatus/accountstatus.php:246
+#: web/skins/modern/accountstatus/accountstatus.php:245
 msgid "Current login tokens"
 msgstr "Trenutni žetoni za prijavo"
 
-#: web/skins/modern/accountstatus/accountstatus.php:247
+#: web/skins/modern/accountstatus/accountstatus.php:246
 msgid "Previous login tokens"
 msgstr "Predhodni žetoni za prijavo"
 
-#: web/skins/modern/accountstatus/accountstatus.php:248
+#: web/skins/modern/accountstatus/accountstatus.php:247
 msgid "Revoked login tokens"
 msgstr "Razveljavljeni žetoni za prijavo"
 
-#: web/skins/modern/accountstatus/accountstatus.php:249
+#: web/skins/modern/accountstatus/accountstatus.php:248
 msgid "Serial Number"
 msgstr "Serijska številka"
 
-#: web/skins/modern/accountstatus/accountstatus.php:249
+#: web/skins/modern/accountstatus/accountstatus.php:248
 msgid "Pseudonym"
 msgstr "Psevdonim"
 
-#: web/skins/modern/accountstatus/accountstatus.php:249
+#: web/skins/modern/accountstatus/accountstatus.php:248
 msgid "Device Type"
 msgstr "Tip naprave"
 
-#: web/skins/modern/accountstatus/accountstatus.php:249
+#: web/skins/modern/accountstatus/accountstatus.php:248
 msgid "Issue Date"
 msgstr "Datum zadeve"
 
-#: web/skins/modern/accountstatus/accountstatus.php:249
+#: web/skins/modern/accountstatus/accountstatus.php:248
 msgid "Expiry Date"
 msgstr "Datum poteka"
 
-#: web/skins/modern/accountstatus/accountstatus.php:259
+#: web/skins/modern/accountstatus/accountstatus.php:258
 msgid "invalid token"
 msgstr "neveljaven žeton"
 
-#: web/skins/modern/accountstatus/accountstatus.php:271
+#: web/skins/modern/accountstatus/accountstatus.php:270
 msgid "revoke"
 msgstr "razveljaviti"
 
-#: web/skins/modern/accountstatus/accountstatus.php:285
+#: web/skins/modern/accountstatus/accountstatus.php:284
 msgid "The details are displayed below."
 msgstr "Podrobnosti so prikazane spodaj."
 
-#: web/skins/modern/accountstatus/accountstatus.php:291
+#: web/skins/modern/accountstatus/accountstatus.php:290
 msgid "Really revoke this access credential?"
 msgstr "Res želite razveljaviti te prijavne podatke za dostop?"
 

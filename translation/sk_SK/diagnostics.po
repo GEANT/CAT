@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-07 13:38+0100\n"
+"POT-Creation-Date: 2018-12-12 09:52+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: martins <ms@uakom.sk>, 2018\n"
 "Language-Team: Slovak (Slovakia) (https://www.transifex.com/eduroam_devel/"
@@ -31,8 +31,8 @@ msgstr "Ukončený"
 msgid "Product is not configured to run this check."
 msgstr ""
 
-#: core/diag/AbstractTest.php:289 web/diag/action_realmcheck.php:539
-#: web/diag/action_realmcheck.php:555
+#: core/diag/AbstractTest.php:289 web/diag/action_realmcheck.php:540
+#: web/diag/action_realmcheck.php:556
 msgid "This check was skipped."
 msgstr "Tento test bol preskočený."
 
@@ -66,7 +66,7 @@ msgid ""
 msgstr ""
 "RADIUS server po skončení EAP konverzácie požiadavu o overenie zamietol."
 
-#: core/diag/AbstractTest.php:332 web/diag/action_realmcheck.php:116
+#: core/diag/AbstractTest.php:332 web/diag/action_realmcheck.php:117
 msgid "Connection refused"
 msgstr "Spojenie odmietnuté"
 
@@ -364,12 +364,12 @@ msgid ""
 "there are no contact points for that IdP in the database."
 msgstr ""
 
-#: core/diag/RADIUSTests.php:1160
+#: core/diag/RADIUSTests.php:1158
 #, php-format
 msgid "Connected to %s."
 msgstr "Pripojeny k serveru %s."
 
-#: core/diag/RADIUSTests.php:1165 web/diag/radius_tests.php:211
+#: core/diag/RADIUSTests.php:1163 web/diag/radius_tests.php:211
 msgid ""
 "<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
 "multiple round-trips was carried out, and ended in an Access-Reject as "
@@ -378,7 +378,7 @@ msgstr ""
 "<strong>Úspešný test</strong>: RADIUS konverzácia úspešne prebehla v oboch "
 "smeroch a v súlade s očakávaniami skončila správou 'Access-Reject'."
 
-#: core/diag/RADIUSTests.php:1169
+#: core/diag/RADIUSTests.php:1167
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
@@ -461,7 +461,7 @@ msgstr "neznáma CA alebo chýba certifikačná politika alebo iný problém"
 #. *
 #. * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
 #.
-#: core/diag/RFC7585Tests.php:134 web/diag/action_realmcheck.php:507
+#: core/diag/RFC7585Tests.php:134 web/diag/action_realmcheck.php:508
 msgid "This realm has no NAPTR records."
 msgstr "Pre túto doménu nie sú vytvorené žiadne NAPTR záznamy."
 
@@ -943,260 +943,279 @@ msgstr ""
 msgid "Wrong string given as OperatorName"
 msgstr ""
 
-#: web/diag/action_realmcheck.php:28
+#: web/diag/action_realmcheck.php:30
 #, php-format
 msgid "Sanity check for dynamic discovery of realms"
 msgstr "Kontrola správnosti nastavenia dynamického mapovania pre domény. "
 
-#: web/diag/action_realmcheck.php:57
+#: web/diag/action_realmcheck.php:58
 msgid ""
 "You asked for a realm check, but we don't know the realm for this profile!"
 msgstr ""
 "Požiadali ste o kontrolu domény, ale tento profil nemá priradenú doménu!"
 
-#: web/diag/action_realmcheck.php:66
+#: web/diag/action_realmcheck.php:67
 msgid "No valid realm name given, cannot execute any checks!"
 msgstr ""
 "Nebola uvedená žiadna platná doména, nie je možné spustiť žiadne kontroly!"
 
-#: web/diag/action_realmcheck.php:70
+#: web/diag/action_realmcheck.php:71
 msgid "STATIC"
 msgstr "STATICKÝ"
 
-#: web/diag/action_realmcheck.php:71
+#: web/diag/action_realmcheck.php:72
 msgid "DYNAMIC"
 msgstr "DYNAMICKÝ"
 
-#: web/diag/action_realmcheck.php:99
+#: web/diag/action_realmcheck.php:100
 msgid "PASS"
 msgstr "OK"
 
-#: web/diag/action_realmcheck.php:100
+#: web/diag/action_realmcheck.php:101
 msgid "FAIL"
 msgstr "ZLYHAL"
 
-#: web/diag/action_realmcheck.php:101
+#: web/diag/action_realmcheck.php:102
 msgid "Client certificate:"
 msgstr "Certifikát klienta:"
 
-#: web/diag/action_realmcheck.php:102
+#: web/diag/action_realmcheck.php:103
 msgid "expected result: "
 msgstr "očakávaný vysledok:"
 
-#: web/diag/action_realmcheck.php:103
+#: web/diag/action_realmcheck.php:104
 msgid "Server accepted this client certificate"
 msgstr "Server akceptoval klientsky certifikát"
 
-#: web/diag/action_realmcheck.php:104
+#: web/diag/action_realmcheck.php:105
 msgid "Server accepted this client certificate, but should not have"
 msgstr "Server akceptoval klientsky certifikát, ktorý by nemal akceptovať"
 
-#: web/diag/action_realmcheck.php:105
+#: web/diag/action_realmcheck.php:106
 msgid "Server did not accept this client certificate"
 msgstr "Server neakceptoval klientsky certifikát"
 
-#: web/diag/action_realmcheck.php:106
+#: web/diag/action_realmcheck.php:107
 msgid "Server did not accept this client certificate - reason"
 msgstr "Server neakceptoval klientsky certifikát - dôvod"
 
-#: web/diag/action_realmcheck.php:107
+#: web/diag/action_realmcheck.php:108
 msgid "Rest of tests for this CA skipped"
 msgstr "Ďalšie testy pre túto CA sú vynechané"
 
-#: web/diag/action_realmcheck.php:108
+#: web/diag/action_realmcheck.php:109
 msgid "You should update your list of accredited CAs"
 msgstr "Mali by ste aktualizovať zoznam akreditovaných CA"
 
-#: web/diag/action_realmcheck.php:109
+#: web/diag/action_realmcheck.php:110
 msgid "Get it from here."
 msgstr "Stiahnite si ho tu."
 
-#: web/diag/action_realmcheck.php:111
+#: web/diag/action_realmcheck.php:112
 msgid "more"
 msgstr "viac"
 
-#: web/diag/action_realmcheck.php:113 web/diag/action_realmcheck.php:656
+#: web/diag/action_realmcheck.php:114 web/diag/action_realmcheck.php:657
 msgid "Show detailed information for all tests"
 msgstr "Zobraziť podrobné informácie pre všetky testy."
 
-#: web/diag/action_realmcheck.php:128
+#: web/diag/action_realmcheck.php:119
+#, fuzzy
+msgid "All tests passed."
+msgstr "Všetky testy skončili úspešne, gratulujeme!"
+
+#: web/diag/action_realmcheck.php:120
+#, fuzzy
+msgid "There were some warnings."
+msgstr "V priebehu tohto testu sa vyskytli chyby."
+
+#: web/diag/action_realmcheck.php:121
+#, fuzzy
+msgid "There were some errors."
+msgstr "V priebehu tohto testu sa vyskytli chyby."
+
+#: web/diag/action_realmcheck.php:122
+msgid "There were some remarks."
+msgstr ""
+
+#: web/diag/action_realmcheck.php:129
 msgid "Server certificate"
 msgstr "Certifikát servera"
 
-#: web/diag/action_realmcheck.php:129
+#: web/diag/action_realmcheck.php:130
 msgid "Subject"
 msgstr "Názov"
 
-#: web/diag/action_realmcheck.php:130
+#: web/diag/action_realmcheck.php:131
 msgid "Issuer"
 msgstr "Vydavateľ"
 
-#: web/diag/action_realmcheck.php:131
+#: web/diag/action_realmcheck.php:132
 msgid "SubjectAltName"
 msgstr "Alternatívne názvy (SubjectAltName)"
 
-#: web/diag/action_realmcheck.php:132
+#: web/diag/action_realmcheck.php:133
 msgid "Certificate policies"
 msgstr "Certifikačná politika"
 
-#: web/diag/action_realmcheck.php:133
+#: web/diag/action_realmcheck.php:134
 msgid "crlDistributionPoint"
 msgstr "crlDistributionPoint"
 
-#: web/diag/action_realmcheck.php:134
+#: web/diag/action_realmcheck.php:135
 msgid "authorityInfoAccess"
 msgstr "authorityInfoAccess"
 
-#: web/diag/action_realmcheck.php:135
+#: web/diag/action_realmcheck.php:136
 msgid "Hide detailed information for all tests"
 msgstr "Skryť podrobné informácie pre všetky testy."
 
-#: web/diag/action_realmcheck.php:139
+#: web/diag/action_realmcheck.php:140
 msgid "Subject:"
 msgstr "Názov:"
 
-#: web/diag/action_realmcheck.php:140
+#: web/diag/action_realmcheck.php:141
 msgid "Issuer:"
 msgstr "Vydavateľ:"
 
-#: web/diag/action_realmcheck.php:141
+#: web/diag/action_realmcheck.php:142
 msgid "Valid from:"
 msgstr "Platný od:"
 
-#: web/diag/action_realmcheck.php:142
+#: web/diag/action_realmcheck.php:143
 msgid "Valid to:"
 msgstr "Platný do:"
 
-#: web/diag/action_realmcheck.php:143
+#: web/diag/action_realmcheck.php:144
 msgid "Serial number:"
 msgstr "Sériové číslo:"
 
-#: web/diag/action_realmcheck.php:144
+#: web/diag/action_realmcheck.php:145
 msgid "SHA1 fingerprint:"
 msgstr "SHA1 odtlačok:"
 
-#: web/diag/action_realmcheck.php:196
+#: web/diag/action_realmcheck.php:197
 msgid "Some required input is missing!"
 msgstr "Niektoré požadované vstupné údaje chýbajú!"
 
-#: web/diag/action_realmcheck.php:247 web/diag/action_realmcheck.php:328
-#: web/diag/action_realmcheck.php:351 web/diag/action_realmcheck.php:404
+#: web/diag/action_realmcheck.php:248 web/diag/action_realmcheck.php:329
+#: web/diag/action_realmcheck.php:352 web/diag/action_realmcheck.php:405
 #, php-format
 msgid "elapsed time: %sms."
 msgstr "doba trvania: %sms."
 
-#: web/diag/action_realmcheck.php:341 web/diag/action_realmcheck.php:394
+#: web/diag/action_realmcheck.php:342 web/diag/action_realmcheck.php:395
 msgid "Extensions"
 msgstr "Rozšírenia"
 
-#: web/diag/action_realmcheck.php:342
+#: web/diag/action_realmcheck.php:343
 msgid "show server certificate details"
 msgstr "zobraziť podrobnosti o certifikáte servera"
 
-#: web/diag/action_realmcheck.php:362 web/diag/action_realmcheck.php:367
+#: web/diag/action_realmcheck.php:363 web/diag/action_realmcheck.php:368
 msgid "See the appropriate tab for details."
 msgstr "Pre podrobnosti prejdite na príslušnú kartu."
 
-#: web/diag/action_realmcheck.php:381
+#: web/diag/action_realmcheck.php:382
 msgid "Server certificate details:"
 msgstr "Podrobnosti o certifikáte servera:"
 
-#: web/diag/action_realmcheck.php:482
+#: web/diag/action_realmcheck.php:483
 #, php-format
 msgid "Realm testing for: %s"
 msgstr "Testovanie domény: %s"
 
-#: web/diag/action_realmcheck.php:487 web/diag/action_realmcheck.php:495
+#: web/diag/action_realmcheck.php:488 web/diag/action_realmcheck.php:496
 msgid "Overview"
 msgstr "Prehľad"
 
-#: web/diag/action_realmcheck.php:488 web/diag/action_realmcheck.php:602
+#: web/diag/action_realmcheck.php:489 web/diag/action_realmcheck.php:603
 msgid "Static connectivity tests"
 msgstr "Skúška statického spojenia"
 
-#: web/diag/action_realmcheck.php:489 web/diag/action_realmcheck.php:607
+#: web/diag/action_realmcheck.php:490 web/diag/action_realmcheck.php:608
 msgid "Dynamic connectivity tests"
 msgstr "Skúška dynamického spojenia"
 
-#: web/diag/action_realmcheck.php:490
+#: web/diag/action_realmcheck.php:491
 msgid "Live login tests"
 msgstr "Skúška prihlásenia so skutočnými dátami"
 
 #. NAPTR existence check
-#: web/diag/action_realmcheck.php:499
+#: web/diag/action_realmcheck.php:500
 msgid "DNS chekcs"
 msgstr "Kontrola DNS"
 
 #. output in friendly words
-#: web/diag/action_realmcheck.php:504
+#: web/diag/action_realmcheck.php:505
 msgid "Checking NAPTR existence:"
 msgstr "Kontrola existencie NAPTR záznamu:"
 
-#: web/diag/action_realmcheck.php:510
+#: web/diag/action_realmcheck.php:511
 msgid ""
 "This realm has NAPTR records, but none are related to this roaming "
 "consortium."
 msgstr ""
 
 #. if none of the possible negative retvals, then we have matching NAPTRs
-#: web/diag/action_realmcheck.php:513
+#: web/diag/action_realmcheck.php:514
 #, php-format
 msgid "This realm has %d NAPTR records relating to this roaming consortium."
 msgstr ""
 
-#: web/diag/action_realmcheck.php:519
+#: web/diag/action_realmcheck.php:520
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
 msgstr "Kontrola súladu NAPTR záznamu (flag = S and regex = {prázdny}):"
 
-#: web/diag/action_realmcheck.php:523
+#: web/diag/action_realmcheck.php:524
 msgid "No issues found."
 msgstr "Neboli zistené žiadne problémy."
 
-#: web/diag/action_realmcheck.php:526 web/diag/action_realmcheck.php:542
+#: web/diag/action_realmcheck.php:527 web/diag/action_realmcheck.php:543
 #, php-format
 msgid "At least one NAPTR with invalid content found!"
 msgstr "Najmenej jeden NAPTR záznam obsahuje neplatné údaje!"
 
-#: web/diag/action_realmcheck.php:536
+#: web/diag/action_realmcheck.php:537
 msgid "Checking SRVs:"
 msgstr "Kontrola SRV záznamov:"
 
 #. print number of successfully retrieved SRV targets
-#: web/diag/action_realmcheck.php:545
+#: web/diag/action_realmcheck.php:546
 #, php-format
 msgid "%d host names discovered."
 msgstr "Počet zistených mien serverov je %d."
 
-#: web/diag/action_realmcheck.php:552
+#: web/diag/action_realmcheck.php:553
 msgid "Checking IP address resolution:"
 msgstr "Preklad mena na IP adresu:"
 
-#: web/diag/action_realmcheck.php:558
+#: web/diag/action_realmcheck.php:559
 #, php-format
 msgid "At least one hostname could not be resolved!"
 msgstr "Najmenej jedno meno sa nepodarilo preložiť!"
 
 #. print number of successfully retrieved SRV targets
-#: web/diag/action_realmcheck.php:561
+#: web/diag/action_realmcheck.php:562
 #, php-format
 msgid "%d IP addresses resolved."
 msgstr "Počet prekladom zistených IP adries je %d."
 
-#: web/diag/action_realmcheck.php:568 web/diag/action_realmcheck.php:570
+#: web/diag/action_realmcheck.php:569 web/diag/action_realmcheck.php:571
 #, php-format
 msgid "Realm is <strong>%s</strong> "
 msgstr "Doména je <strong>%s</strong>"
 
-#: web/diag/action_realmcheck.php:568
+#: web/diag/action_realmcheck.php:569
 msgid "with no DNS errors encountered. Congratulations!"
 msgstr "a počas kontroly neboli zistené žiadne chyby v DNS. Gratulujeme!"
 
-#: web/diag/action_realmcheck.php:570
+#: web/diag/action_realmcheck.php:571
 msgid "but there were DNS errors! Check them!"
 msgstr ""
 "ale počas kontroly boli zistené chyby v DNS! Je potrebné chyby preveriť!"
 
-#: web/diag/action_realmcheck.php:570
+#: web/diag/action_realmcheck.php:571
 msgid ""
 "You should re-run the tests after fixing the errors; more errors might be "
 "uncovered at that point. The exact error causes are listed below."
@@ -1205,19 +1224,19 @@ msgstr ""
 "indikovať prípadne ďalšie chyby. Presné príčiny chýb su uvedené v zozname "
 "nižšie."
 
-#: web/diag/action_realmcheck.php:600
+#: web/diag/action_realmcheck.php:601
 msgid "Dynamic discovery test is not configured"
 msgstr "Test dynamického vyhľadávania nie je nakonfigurovaný"
 
-#: web/diag/action_realmcheck.php:618
+#: web/diag/action_realmcheck.php:619
 msgid "Repeat static connectivity tests"
 msgstr "Zopakovať skúšku statického spojenia"
 
-#: web/diag/action_realmcheck.php:621
+#: web/diag/action_realmcheck.php:622
 msgid "STATIC connectivity tests"
 msgstr "Skúška STATICKÉHO spojenia"
 
-#: web/diag/action_realmcheck.php:623
+#: web/diag/action_realmcheck.php:624
 msgid ""
 "This check sends a request for the realm through various entry points of the "
 "roaming consortium infrastructure. The request will contain the 'Operator-"
@@ -1227,43 +1246,43 @@ msgid ""
 "get an Access-Reject after having gone through an EAP conversation."
 msgstr ""
 
-#: web/diag/action_realmcheck.php:627 web/diag/action_realmcheck.php:739
+#: web/diag/action_realmcheck.php:628 web/diag/action_realmcheck.php:740
 #, php-format
 msgid "Testing from: %s"
 msgstr "Test spustený z lokality: %s"
 
-#: web/diag/action_realmcheck.php:632 web/diag/action_realmcheck.php:665
-#: web/diag/action_realmcheck.php:678
+#: web/diag/action_realmcheck.php:633 web/diag/action_realmcheck.php:666
+#: web/diag/action_realmcheck.php:679
 msgid "testing..."
 msgstr "prebieha testovanie..."
 
-#: web/diag/action_realmcheck.php:647
+#: web/diag/action_realmcheck.php:648
 msgid "Repeat dynamic connectivity tests"
 msgstr "Zopakovať skúšku dynamického spojenia"
 
-#: web/diag/action_realmcheck.php:651
+#: web/diag/action_realmcheck.php:652
 msgid "DYNAMIC connectivity tests"
 msgstr "Skúška DYNAMICKÉHO spojenia"
 
-#: web/diag/action_realmcheck.php:655
+#: web/diag/action_realmcheck.php:656
 msgid "Some errors were found during the tests, see below"
 msgstr "Počas testov sa vyskytli chyby, viď zoznam nižsie"
 
-#: web/diag/action_realmcheck.php:655
+#: web/diag/action_realmcheck.php:656
 msgid "All tests passed, congratulations!"
 msgstr "Všetky testy skončili úspešne, gratulujeme!"
 
-#: web/diag/action_realmcheck.php:656
+#: web/diag/action_realmcheck.php:657
 msgid "Checking server handshake..."
 msgstr "Skúška nadviazania spojenia so serverom..."
 
-#: web/diag/action_realmcheck.php:686
+#: web/diag/action_realmcheck.php:687
 msgid "Checking if certificates from  CAs are accepted..."
 msgstr ""
 "Kontrola, či sú akceptované certifikáty od všetkých akreditovaných "
 "certifikačných autorít..."
 
-#: web/diag/action_realmcheck.php:686
+#: web/diag/action_realmcheck.php:687
 msgid ""
 "A few client certificates will be tested to check if servers are resistant "
 "to some certificate problems."
@@ -1271,11 +1290,11 @@ msgstr ""
 "Testovnie s pomocou vybraných klientskych certifikátov, či ich kontrola na "
 "strane servera prebieha správne."
 
-#: web/diag/action_realmcheck.php:700
+#: web/diag/action_realmcheck.php:701
 msgid "Live login test"
 msgstr "Skúška skutočného prihlásenia"
 
-#: web/diag/action_realmcheck.php:713
+#: web/diag/action_realmcheck.php:714
 msgid ""
 "If you enter an existing login credential here, you can test the actual "
 "authentication from various checkpoints all over the world."
@@ -1283,7 +1302,7 @@ msgstr ""
 "Ak tu zadáte funkčné prihlasovacie údaje, možete následne vykonať skúšky "
 "skutočného prihlásenia z viacerých miest v rámci celého sveta."
 
-#: web/diag/action_realmcheck.php:714
+#: web/diag/action_realmcheck.php:715
 msgid ""
 "The test will use all EAP types you have set in your profile information to "
 "check whether the right CAs and server names are used, and of course whether "
@@ -1296,7 +1315,7 @@ msgstr ""
 "prihlasovacie údaje fungujú. Ak ste nastavili anonymnú vonkajšiu identitu, "
 "tak bude použitá."
 
-#: web/diag/action_realmcheck.php:715
+#: web/diag/action_realmcheck.php:716
 msgid ""
 "Note: the tool purposefully does not offer you to save these credentials, "
 "and they will never be saved in any way on the server side. Please use only "
@@ -1309,43 +1328,43 @@ msgstr ""
 "testovacie prihlasovacie údaje známe mimo vašu vlastnú organizáciu sú "
 "považované za veľmi nebezpečné!"
 
-#: web/diag/action_realmcheck.php:723
+#: web/diag/action_realmcheck.php:724
 msgid "Password-based EAP types"
 msgstr "Metódy EAP na báze hesla"
 
-#: web/diag/action_realmcheck.php:724
+#: web/diag/action_realmcheck.php:725
 msgid "Real (inner) username:"
 msgstr "Skutočné (vnútorné) meno používateľa:"
 
-#: web/diag/action_realmcheck.php:725
+#: web/diag/action_realmcheck.php:726
 msgid "Anonymous outer ID (optional):"
 msgstr "Anonymná vonkajšia identita (voliteľné):"
 
-#: web/diag/action_realmcheck.php:726
+#: web/diag/action_realmcheck.php:727
 msgid "Password:"
 msgstr "Heslo:"
 
-#: web/diag/action_realmcheck.php:730
+#: web/diag/action_realmcheck.php:731
 msgid "Certificate-based EAP types"
 msgstr "Metódy EAP na báze certifikátu"
 
-#: web/diag/action_realmcheck.php:731
+#: web/diag/action_realmcheck.php:732
 msgid "Certificate file (.p12 or .pfx):"
 msgstr "Súbor s klientskym certifikátom (.p12 alebo .pfx):"
 
-#: web/diag/action_realmcheck.php:732
+#: web/diag/action_realmcheck.php:733
 msgid "Certificate password, if any:"
 msgstr "Heslo pre klúč certifikátu, ak je potrebné:"
 
-#: web/diag/action_realmcheck.php:733
+#: web/diag/action_realmcheck.php:734
 msgid "Username, if different from certificate Subject:"
 msgstr "Meno používateľa, pokiaľ sa lýši od Názvu v certifikáte:"
 
-#: web/diag/action_realmcheck.php:735
+#: web/diag/action_realmcheck.php:736
 msgid "Submit credentials"
 msgstr "Odoslať"
 
-#: web/diag/action_realmcheck.php:761
+#: web/diag/action_realmcheck.php:762
 #, php-format
 msgid "Return to %s administrator area"
 msgstr ""

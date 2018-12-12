@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-07 13:38+0100\n"
+"POT-Creation-Date: 2018-12-12 09:52+0100\n"
 "PO-Revision-Date: 2018-11-09 12:40+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/eduroam_devel/"
@@ -603,7 +603,7 @@ msgstr ""
 "поддръжка ще се отвори в нов прозорец/таб."
 
 #: web/lib/user/TextTemplates.php:99
-#: web/skins/modern/accountstatus/accountstatus.php:225
+#: web/skins/modern/accountstatus/accountstatus.php:224
 #: web/skins/modern/user/js/cat_js.php:278
 #: web/skins/modern/user/js/cat_js.php:286
 msgid "Continue"
@@ -928,51 +928,51 @@ msgstr ""
 msgid "Your personal %s account status page"
 msgstr "Вашата персонална %s страница за състояние на акаунта"
 
-#: web/skins/modern/accountstatus/accountstatus.php:246
+#: web/skins/modern/accountstatus/accountstatus.php:245
 msgid "Current login tokens"
 msgstr "Текущ ключ за влизане"
 
-#: web/skins/modern/accountstatus/accountstatus.php:247
+#: web/skins/modern/accountstatus/accountstatus.php:246
 msgid "Previous login tokens"
 msgstr "Предишен ключ за влизане"
 
-#: web/skins/modern/accountstatus/accountstatus.php:248
+#: web/skins/modern/accountstatus/accountstatus.php:247
 msgid "Revoked login tokens"
 msgstr "Анулиран временен ключ за влизане"
 
-#: web/skins/modern/accountstatus/accountstatus.php:249
+#: web/skins/modern/accountstatus/accountstatus.php:248
 msgid "Serial Number"
 msgstr "Сериен номер"
 
-#: web/skins/modern/accountstatus/accountstatus.php:249
+#: web/skins/modern/accountstatus/accountstatus.php:248
 msgid "Pseudonym"
 msgstr "Псевдоним"
 
-#: web/skins/modern/accountstatus/accountstatus.php:249
+#: web/skins/modern/accountstatus/accountstatus.php:248
 msgid "Device Type"
 msgstr "Тип на устройството"
 
-#: web/skins/modern/accountstatus/accountstatus.php:249
+#: web/skins/modern/accountstatus/accountstatus.php:248
 msgid "Issue Date"
 msgstr "Дата на издаване"
 
-#: web/skins/modern/accountstatus/accountstatus.php:249
+#: web/skins/modern/accountstatus/accountstatus.php:248
 msgid "Expiry Date"
 msgstr "Срок на годност"
 
-#: web/skins/modern/accountstatus/accountstatus.php:259
+#: web/skins/modern/accountstatus/accountstatus.php:258
 msgid "invalid token"
 msgstr "Невалиден ключ"
 
-#: web/skins/modern/accountstatus/accountstatus.php:271
+#: web/skins/modern/accountstatus/accountstatus.php:270
 msgid "revoke"
 msgstr "Анулирайте "
 
-#: web/skins/modern/accountstatus/accountstatus.php:285
+#: web/skins/modern/accountstatus/accountstatus.php:284
 msgid "The details are displayed below."
 msgstr "Подробно е показано по-долу."
 
-#: web/skins/modern/accountstatus/accountstatus.php:291
+#: web/skins/modern/accountstatus/accountstatus.php:290
 msgid "Really revoke this access credential?"
 msgstr "Наистина ли анулирате тези удостоверения за достъп?"
 

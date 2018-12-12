@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-07 13:38+0100\n"
-"PO-Revision-Date: 2018-11-14 21:56+0000\n"
+"POT-Creation-Date: 2018-12-12 09:52+0100\n"
+"PO-Revision-Date: 2018-12-11 09:44+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Vietnamese (Viet Nam) (http://www.transifex.com/eduroam_devel/"
 "cat/language/vi_VN/)\n"
@@ -838,40 +838,65 @@ msgid ""
 "be undone. Are you sure you want to do this?"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:440 web/admin/edit_silverbullet.php:497
+#: web/admin/edit_silverbullet.php:440 web/admin/edit_silverbullet.php:496
 msgid "Revoke"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:472
+#: web/admin/edit_silverbullet.php:465
+#, php-format
+msgid "The invitation token %s is ready for sending! Choose how to send it:"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:467
+msgid "E-Mail:"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:471
 msgid "Local mail client"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:480
+#: web/admin/edit_silverbullet.php:472
+msgid "Send with CAT"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:475
+msgid "SMS:"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:479
 msgid "Send in SMS..."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:484
+#: web/admin/edit_silverbullet.php:482
+msgid "Manual:"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:483
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:487
+#: web/admin/edit_silverbullet.php:486
 msgid "Display QR code"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:493
+#: web/admin/edit_silverbullet.php:492
 msgid "Expiry Date:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:493
+#: web/admin/edit_silverbullet.php:492
 msgid "Activations remaining:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:493
+#: web/admin/edit_silverbullet.php:492
 #, php-format
 msgid "%d of %d"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:526
+#: web/admin/edit_silverbullet.php:518
+msgid "Update"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:525
 #, php-format
 msgid ""
 "All of the currently active devices will stop functioning with %s. This "
@@ -880,19 +905,20 @@ msgid ""
 "to do this?"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:535
+#: web/admin/edit_silverbullet.php:534
 msgid "Deactivate User"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:544
+#: web/admin/edit_silverbullet.php:543
 msgid "New Invitation"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:547
+#: web/admin/edit_silverbullet.php:546
 msgid "Activations:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:568
+#. false because this restriction is currently not in effect and thus no UI is needed for it.
+#: web/admin/edit_silverbullet.php:567
 #, php-format
 msgid ""
 "You need to acknowledge that the created accounts are still valid within the "
@@ -902,54 +928,58 @@ msgid ""
 "doing this."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:576
+#: web/admin/edit_silverbullet.php:575
 #, php-format
 msgid "I have verified that all configured users are still eligible for %s."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:588 web/admin/edit_silverbullet.php:603
+#: web/admin/edit_silverbullet.php:577
+msgid "Save"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:587 web/admin/edit_silverbullet.php:602
 msgid "Add new user"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:591
+#: web/admin/edit_silverbullet.php:590
 msgid "Import users from CSV file"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:598
+#: web/admin/edit_silverbullet.php:597
 msgid ""
 "Please enter a username of your choice and user expiry date to create a new "
 "user:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:612
+#: web/admin/edit_silverbullet.php:611
 msgid ""
 "Comma separated values should be provided in CSV file: username, expiration "
 "date 'yyyy-mm-dd', number of tokens (optional):"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:616
+#: web/admin/edit_silverbullet.php:615
 msgid "Import users"
 msgstr ""
 
 #. Appending terms of use popup
-#: web/admin/edit_silverbullet.php:632
+#: web/admin/edit_silverbullet.php:631
 #, php-format
 msgid "%s - Terms of Use"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:639
+#: web/admin/edit_silverbullet.php:638
 msgid "I have read and agree to the terms."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:641
+#: web/admin/edit_silverbullet.php:640
 msgid "Continue"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:642
+#: web/admin/edit_silverbullet.php:641
 msgid "Abort"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:655
+#: web/admin/edit_silverbullet.php:654
 msgid "Back to IdP page"
 msgstr ""
 

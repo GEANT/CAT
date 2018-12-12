@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-07 13:38+0100\n"
+"POT-Creation-Date: 2018-12-12 09:52+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, 2018\n"
 "Language-Team: Finnish (Finland) (https://www.transifex.com/eduroam_devel/"
@@ -33,8 +33,8 @@ msgstr "Valmis"
 msgid "Product is not configured to run this check."
 msgstr "Tämän tarkistuksen ajamista ei ole valmisteltu."
 
-#: core/diag/AbstractTest.php:289 web/diag/action_realmcheck.php:539
-#: web/diag/action_realmcheck.php:555
+#: core/diag/AbstractTest.php:289 web/diag/action_realmcheck.php:540
+#: web/diag/action_realmcheck.php:556
 msgid "This check was skipped."
 msgstr "Ohitettu."
 
@@ -65,7 +65,7 @@ msgid ""
 "conversation."
 msgstr "RADIUS-palvelin hylkäsi autentikointiyrityksen EAP-vaiheessa."
 
-#: core/diag/AbstractTest.php:332 web/diag/action_realmcheck.php:116
+#: core/diag/AbstractTest.php:332 web/diag/action_realmcheck.php:117
 msgid "Connection refused"
 msgstr "Yhteydenotto hylättiin"
 
@@ -377,12 +377,12 @@ msgstr ""
 "heidän omalle IdP:lle lisädiagnostiikkaa/ohjeita varten, koska tietokantaan "
 "ei ole määritelty yhteystietoja kyseiselle IdP: lle."
 
-#: core/diag/RADIUSTests.php:1160
+#: core/diag/RADIUSTests.php:1158
 #, php-format
 msgid "Connected to %s."
 msgstr "Yhdistetty: %s."
 
-#: core/diag/RADIUSTests.php:1165 web/diag/radius_tests.php:211
+#: core/diag/RADIUSTests.php:1163 web/diag/radius_tests.php:211
 msgid ""
 "<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
 "multiple round-trips was carried out, and ended in an Access-Reject as "
@@ -391,7 +391,7 @@ msgstr ""
 "<strong>Testi onnistui</strong>: kaksisuuntainen RADIUS-neuvottelu käytiin "
 "läpi ja se päättyi suunnitellusti Access-Reject-vastaukseen."
 
-#: core/diag/RADIUSTests.php:1169
+#: core/diag/RADIUSTests.php:1167
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
@@ -475,7 +475,7 @@ msgstr "tuntematon varmentaja, ei varmennekäytäntöjä tai muu virhe"
 #. *
 #. * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
 #.
-#: core/diag/RFC7585Tests.php:134 web/diag/action_realmcheck.php:507
+#: core/diag/RFC7585Tests.php:134 web/diag/action_realmcheck.php:508
 msgid "This realm has no NAPTR records."
 msgstr "Tällä realmilla ei ole NAPTR-tietueita."
 
@@ -1022,197 +1022,216 @@ msgstr "Ulkoinen identiteetti on väärässä muodossa"
 msgid "Wrong string given as OperatorName"
 msgstr "Tunniste (Operator-Name) on väärin"
 
-#: web/diag/action_realmcheck.php:28
+#: web/diag/action_realmcheck.php:30
 #, php-format
 msgid "Sanity check for dynamic discovery of realms"
 msgstr "Automaattisesti löydettyjen realmien tarkastus"
 
-#: web/diag/action_realmcheck.php:57
+#: web/diag/action_realmcheck.php:58
 msgid ""
 "You asked for a realm check, but we don't know the realm for this profile!"
 msgstr ""
 "Pyysit realmin tarkastamista, mutta tämän profiilin realm ei ole tiedossa."
 
-#: web/diag/action_realmcheck.php:66
+#: web/diag/action_realmcheck.php:67
 msgid "No valid realm name given, cannot execute any checks!"
 msgstr "Voimassaolevaa realmia ei ole annettu. Tarkastuksia ei voi tehdä."
 
-#: web/diag/action_realmcheck.php:70
+#: web/diag/action_realmcheck.php:71
 msgid "STATIC"
 msgstr "STAATTINEN "
 
-#: web/diag/action_realmcheck.php:71
+#: web/diag/action_realmcheck.php:72
 msgid "DYNAMIC"
 msgstr "DYNAAMINEN"
 
-#: web/diag/action_realmcheck.php:99
+#: web/diag/action_realmcheck.php:100
 msgid "PASS"
 msgstr "LÄPÄISTY"
 
-#: web/diag/action_realmcheck.php:100
+#: web/diag/action_realmcheck.php:101
 msgid "FAIL"
 msgstr "EPÄONNISTUI"
 
-#: web/diag/action_realmcheck.php:101
+#: web/diag/action_realmcheck.php:102
 msgid "Client certificate:"
 msgstr "Asiakasvarmenne:"
 
-#: web/diag/action_realmcheck.php:102
+#: web/diag/action_realmcheck.php:103
 msgid "expected result: "
 msgstr "odotettu tulos:"
 
-#: web/diag/action_realmcheck.php:103
+#: web/diag/action_realmcheck.php:104
 msgid "Server accepted this client certificate"
 msgstr "Palvelin hyväksyi tämän asiakasvarmenteen"
 
-#: web/diag/action_realmcheck.php:104
+#: web/diag/action_realmcheck.php:105
 msgid "Server accepted this client certificate, but should not have"
 msgstr ""
 "Palvelin hyväksyi tämän päätelaitevarmenteen, vaikka sen ei olisi pitänyt "
 "tehdä niin"
 
-#: web/diag/action_realmcheck.php:105
+#: web/diag/action_realmcheck.php:106
 msgid "Server did not accept this client certificate"
 msgstr "Palvelin ei hyväksynyt tätä päätelaitevarmennetta"
 
-#: web/diag/action_realmcheck.php:106
+#: web/diag/action_realmcheck.php:107
 msgid "Server did not accept this client certificate - reason"
 msgstr "Palvelin ei hyväksynyt tätä päätelaitevarmennetta - syy"
 
-#: web/diag/action_realmcheck.php:107
+#: web/diag/action_realmcheck.php:108
 msgid "Rest of tests for this CA skipped"
 msgstr "Loput tämän CA:n testit ohitetaan"
 
-#: web/diag/action_realmcheck.php:108
+#: web/diag/action_realmcheck.php:109
 msgid "You should update your list of accredited CAs"
 msgstr "Sinun pitää päivittää hyväksyttyjen CA:iden lista"
 
-#: web/diag/action_realmcheck.php:109
+#: web/diag/action_realmcheck.php:110
 msgid "Get it from here."
 msgstr "Hae se täältä."
 
-#: web/diag/action_realmcheck.php:111
+#: web/diag/action_realmcheck.php:112
 msgid "more"
 msgstr "lisää"
 
-#: web/diag/action_realmcheck.php:113 web/diag/action_realmcheck.php:656
+#: web/diag/action_realmcheck.php:114 web/diag/action_realmcheck.php:657
 msgid "Show detailed information for all tests"
 msgstr "Näytä tarkat tiedot kaikista testeistä"
 
-#: web/diag/action_realmcheck.php:128
+#: web/diag/action_realmcheck.php:119
+#, fuzzy
+msgid "All tests passed."
+msgstr "Kaikki testit onnistuivat, onneksi olkoon!"
+
+#: web/diag/action_realmcheck.php:120
+#, fuzzy
+msgid "There were some warnings."
+msgstr "Testissä havaittiin virheitä."
+
+#: web/diag/action_realmcheck.php:121
+#, fuzzy
+msgid "There were some errors."
+msgstr "Testissä havaittiin virheitä."
+
+#: web/diag/action_realmcheck.php:122
+msgid "There were some remarks."
+msgstr ""
+
+#: web/diag/action_realmcheck.php:129
 msgid "Server certificate"
 msgstr "Palvelinvarmenne"
 
-#: web/diag/action_realmcheck.php:129
+#: web/diag/action_realmcheck.php:130
 msgid "Subject"
 msgstr "Aihe"
 
-#: web/diag/action_realmcheck.php:130
+#: web/diag/action_realmcheck.php:131
 msgid "Issuer"
 msgstr "Asettaja"
 
-#: web/diag/action_realmcheck.php:131
+#: web/diag/action_realmcheck.php:132
 msgid "SubjectAltName"
 msgstr "SubjectAltName"
 
-#: web/diag/action_realmcheck.php:132
+#: web/diag/action_realmcheck.php:133
 msgid "Certificate policies"
 msgstr "Varmennepolitiikat"
 
-#: web/diag/action_realmcheck.php:133
+#: web/diag/action_realmcheck.php:134
 msgid "crlDistributionPoint"
 msgstr "crlDistributionPoint"
 
-#: web/diag/action_realmcheck.php:134
+#: web/diag/action_realmcheck.php:135
 msgid "authorityInfoAccess"
 msgstr "authorityInfoAccess"
 
-#: web/diag/action_realmcheck.php:135
+#: web/diag/action_realmcheck.php:136
 msgid "Hide detailed information for all tests"
 msgstr "Piilota tarkat tiedot kaikista testeistä"
 
-#: web/diag/action_realmcheck.php:139
+#: web/diag/action_realmcheck.php:140
 msgid "Subject:"
 msgstr "Otsikko:"
 
-#: web/diag/action_realmcheck.php:140
+#: web/diag/action_realmcheck.php:141
 msgid "Issuer:"
 msgstr "Myöntäjä:"
 
-#: web/diag/action_realmcheck.php:141
+#: web/diag/action_realmcheck.php:142
 msgid "Valid from:"
 msgstr "Voimassa alkaen:"
 
-#: web/diag/action_realmcheck.php:142
+#: web/diag/action_realmcheck.php:143
 msgid "Valid to:"
 msgstr "Voimassaolo päättyy:"
 
-#: web/diag/action_realmcheck.php:143
+#: web/diag/action_realmcheck.php:144
 msgid "Serial number:"
 msgstr "Sarjanumero:"
 
-#: web/diag/action_realmcheck.php:144
+#: web/diag/action_realmcheck.php:145
 msgid "SHA1 fingerprint:"
 msgstr "SHA1-sormenjälki:"
 
-#: web/diag/action_realmcheck.php:196
+#: web/diag/action_realmcheck.php:197
 msgid "Some required input is missing!"
 msgstr "Osa vaadituista tiedoista puuttuu!"
 
-#: web/diag/action_realmcheck.php:247 web/diag/action_realmcheck.php:328
-#: web/diag/action_realmcheck.php:351 web/diag/action_realmcheck.php:404
+#: web/diag/action_realmcheck.php:248 web/diag/action_realmcheck.php:329
+#: web/diag/action_realmcheck.php:352 web/diag/action_realmcheck.php:405
 #, php-format
 msgid "elapsed time: %sms."
 msgstr "kulunut aika: %sms."
 
-#: web/diag/action_realmcheck.php:341 web/diag/action_realmcheck.php:394
+#: web/diag/action_realmcheck.php:342 web/diag/action_realmcheck.php:395
 msgid "Extensions"
 msgstr "Laajennukset"
 
-#: web/diag/action_realmcheck.php:342
+#: web/diag/action_realmcheck.php:343
 msgid "show server certificate details"
 msgstr "näytä palvelinvarmenteen yksityiskohdat"
 
-#: web/diag/action_realmcheck.php:362 web/diag/action_realmcheck.php:367
+#: web/diag/action_realmcheck.php:363 web/diag/action_realmcheck.php:368
 msgid "See the appropriate tab for details."
 msgstr "Katso lisätietoja välilehdiltä."
 
-#: web/diag/action_realmcheck.php:381
+#: web/diag/action_realmcheck.php:382
 msgid "Server certificate details:"
 msgstr "Palvelinvarmenteen yksityiskohdat:"
 
-#: web/diag/action_realmcheck.php:482
+#: web/diag/action_realmcheck.php:483
 #, php-format
 msgid "Realm testing for: %s"
 msgstr "Realmin testaus: %s"
 
-#: web/diag/action_realmcheck.php:487 web/diag/action_realmcheck.php:495
+#: web/diag/action_realmcheck.php:488 web/diag/action_realmcheck.php:496
 msgid "Overview"
 msgstr "Yhteenveto"
 
-#: web/diag/action_realmcheck.php:488 web/diag/action_realmcheck.php:602
+#: web/diag/action_realmcheck.php:489 web/diag/action_realmcheck.php:603
 msgid "Static connectivity tests"
 msgstr "Staattiset yhteystarkastukset"
 
-#: web/diag/action_realmcheck.php:489 web/diag/action_realmcheck.php:607
+#: web/diag/action_realmcheck.php:490 web/diag/action_realmcheck.php:608
 msgid "Dynamic connectivity tests"
 msgstr "Dynaamiset yhteystarkastukset"
 
-#: web/diag/action_realmcheck.php:490
+#: web/diag/action_realmcheck.php:491
 msgid "Live login tests"
 msgstr "Live-kirjautumistestit"
 
 #. NAPTR existence check
-#: web/diag/action_realmcheck.php:499
+#: web/diag/action_realmcheck.php:500
 msgid "DNS chekcs"
 msgstr "DNS-tarkistukset"
 
 #. output in friendly words
-#: web/diag/action_realmcheck.php:504
+#: web/diag/action_realmcheck.php:505
 msgid "Checking NAPTR existence:"
 msgstr "Tarkistetaan NAPTR-tietueen olemassaolo:"
 
-#: web/diag/action_realmcheck.php:510
+#: web/diag/action_realmcheck.php:511
 msgid ""
 "This realm has NAPTR records, but none are related to this roaming "
 "consortium."
@@ -1221,67 +1240,67 @@ msgstr ""
 "verkkovierailukonsortioon."
 
 #. if none of the possible negative retvals, then we have matching NAPTRs
-#: web/diag/action_realmcheck.php:513
+#: web/diag/action_realmcheck.php:514
 #, php-format
 msgid "This realm has %d NAPTR records relating to this roaming consortium."
 msgstr ""
 "Realmilla on %d NAPTR-tietuetta, jotka liittyvät tähän "
 "verkkovierailukonsortioon."
 
-#: web/diag/action_realmcheck.php:519
+#: web/diag/action_realmcheck.php:520
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
 msgstr ""
 "Tarkistetaan onko NAPTR:n formaatti yhteensopiva (lippu = S ja regex = "
 "{tyhjä}):"
 
-#: web/diag/action_realmcheck.php:523
+#: web/diag/action_realmcheck.php:524
 msgid "No issues found."
 msgstr "Ongelmia ei löytynyt."
 
-#: web/diag/action_realmcheck.php:526 web/diag/action_realmcheck.php:542
+#: web/diag/action_realmcheck.php:527 web/diag/action_realmcheck.php:543
 #, php-format
 msgid "At least one NAPTR with invalid content found!"
 msgstr "Vähintään yhden NAPTR-tietueen sisältö on virheellinen!"
 
-#: web/diag/action_realmcheck.php:536
+#: web/diag/action_realmcheck.php:537
 msgid "Checking SRVs:"
 msgstr "Tarkistetaan SRV:t:"
 
 #. print number of successfully retrieved SRV targets
-#: web/diag/action_realmcheck.php:545
+#: web/diag/action_realmcheck.php:546
 #, php-format
 msgid "%d host names discovered."
 msgstr "%d laitenimeä löydetty."
 
-#: web/diag/action_realmcheck.php:552
+#: web/diag/action_realmcheck.php:553
 msgid "Checking IP address resolution:"
 msgstr "Tarkistetaan IP-osoitetta nimipalvelusta:"
 
-#: web/diag/action_realmcheck.php:558
+#: web/diag/action_realmcheck.php:559
 #, php-format
 msgid "At least one hostname could not be resolved!"
 msgstr "Vähintään yhden laitenimen resolvointi epäonnistui!"
 
 #. print number of successfully retrieved SRV targets
-#: web/diag/action_realmcheck.php:561
+#: web/diag/action_realmcheck.php:562
 #, php-format
 msgid "%d IP addresses resolved."
 msgstr "%d IP-osoitetta tarkistettu."
 
-#: web/diag/action_realmcheck.php:568 web/diag/action_realmcheck.php:570
+#: web/diag/action_realmcheck.php:569 web/diag/action_realmcheck.php:571
 #, php-format
 msgid "Realm is <strong>%s</strong> "
 msgstr "Realm on <strong>%s</strong>"
 
-#: web/diag/action_realmcheck.php:568
+#: web/diag/action_realmcheck.php:569
 msgid "with no DNS errors encountered. Congratulations!"
 msgstr "ilman DNS-virheitä. Onneksi olkoon!"
 
-#: web/diag/action_realmcheck.php:570
+#: web/diag/action_realmcheck.php:571
 msgid "but there were DNS errors! Check them!"
 msgstr "mutta DNS-virheitä löytyi. Tarkasta ne!"
 
-#: web/diag/action_realmcheck.php:570
+#: web/diag/action_realmcheck.php:571
 msgid ""
 "You should re-run the tests after fixing the errors; more errors might be "
 "uncovered at that point. The exact error causes are listed below."
@@ -1289,19 +1308,19 @@ msgstr ""
 "Uudelleenaja tarkistukset korjattuasi virheet; uusiakin virheitä saattaa "
 "löytyä. Varsinaiset virhesyyt on listattu alla."
 
-#: web/diag/action_realmcheck.php:600
+#: web/diag/action_realmcheck.php:601
 msgid "Dynamic discovery test is not configured"
 msgstr "Dynamic discovery ei ole määritelty"
 
-#: web/diag/action_realmcheck.php:618
+#: web/diag/action_realmcheck.php:619
 msgid "Repeat static connectivity tests"
 msgstr "Toista staattiset yhteystarkastukset."
 
-#: web/diag/action_realmcheck.php:621
+#: web/diag/action_realmcheck.php:622
 msgid "STATIC connectivity tests"
 msgstr "STAATTISET yhteystarkastukset"
 
-#: web/diag/action_realmcheck.php:623
+#: web/diag/action_realmcheck.php:624
 msgid ""
 "This check sends a request for the realm through various entry points of the "
 "roaming consortium infrastructure. The request will contain the 'Operator-"
@@ -1317,41 +1336,41 @@ msgstr ""
 "käyttäjätunnuksia toimialueelle, autentikointi ei onnistu. Niinpä odotettu "
 "lopputulema on Access-Reject EAP-neuvottelun jälkeen. "
 
-#: web/diag/action_realmcheck.php:627 web/diag/action_realmcheck.php:739
+#: web/diag/action_realmcheck.php:628 web/diag/action_realmcheck.php:740
 #, php-format
 msgid "Testing from: %s"
 msgstr "Testataan: %s"
 
-#: web/diag/action_realmcheck.php:632 web/diag/action_realmcheck.php:665
-#: web/diag/action_realmcheck.php:678
+#: web/diag/action_realmcheck.php:633 web/diag/action_realmcheck.php:666
+#: web/diag/action_realmcheck.php:679
 msgid "testing..."
 msgstr "testataan..."
 
-#: web/diag/action_realmcheck.php:647
+#: web/diag/action_realmcheck.php:648
 msgid "Repeat dynamic connectivity tests"
 msgstr "Toista dynaamiset yhteystarkastukset"
 
-#: web/diag/action_realmcheck.php:651
+#: web/diag/action_realmcheck.php:652
 msgid "DYNAMIC connectivity tests"
 msgstr "DYNAAMISET yhteydenottotestit"
 
-#: web/diag/action_realmcheck.php:655
+#: web/diag/action_realmcheck.php:656
 msgid "Some errors were found during the tests, see below"
 msgstr "Joitakin virheitä löydettiin testeissä, katso tarkemmin alempaa"
 
-#: web/diag/action_realmcheck.php:655
+#: web/diag/action_realmcheck.php:656
 msgid "All tests passed, congratulations!"
 msgstr "Kaikki testit onnistuivat, onneksi olkoon!"
 
-#: web/diag/action_realmcheck.php:656
+#: web/diag/action_realmcheck.php:657
 msgid "Checking server handshake..."
 msgstr "Tarkastan palvelinten kättelyn..."
 
-#: web/diag/action_realmcheck.php:686
+#: web/diag/action_realmcheck.php:687
 msgid "Checking if certificates from  CAs are accepted..."
 msgstr "Tarkastaa ovatko CA:n varmenteet hyväksyttyjä..."
 
-#: web/diag/action_realmcheck.php:686
+#: web/diag/action_realmcheck.php:687
 msgid ""
 "A few client certificates will be tested to check if servers are resistant "
 "to some certificate problems."
@@ -1359,11 +1378,11 @@ msgstr ""
 "Muutamia päätelaitevarmenteita testataan tunnettujen varmenneongelmien "
 "varalta."
 
-#: web/diag/action_realmcheck.php:700
+#: web/diag/action_realmcheck.php:701
 msgid "Live login test"
 msgstr "Live-kirjautumistesti"
 
-#: web/diag/action_realmcheck.php:713
+#: web/diag/action_realmcheck.php:714
 msgid ""
 "If you enter an existing login credential here, you can test the actual "
 "authentication from various checkpoints all over the world."
@@ -1371,7 +1390,7 @@ msgstr ""
 "Jos syötät tähän olemassa olevat käyttäjätunnukset, voit testata oikeaa "
 "autentikointia eri puolilla maailmaa sijaitsevilta tarkastuspisteiltä käsin."
 
-#: web/diag/action_realmcheck.php:714
+#: web/diag/action_realmcheck.php:715
 msgid ""
 "The test will use all EAP types you have set in your profile information to "
 "check whether the right CAs and server names are used, and of course whether "
@@ -1384,7 +1403,7 @@ msgstr ""
 "tyypeillä. Mikäli anonyymi ulkoidentiteetti on valittu käyttöön, testi "
 "käyttää sitä."
 
-#: web/diag/action_realmcheck.php:715
+#: web/diag/action_realmcheck.php:716
 msgid ""
 "Note: the tool purposefully does not offer you to save these credentials, "
 "and they will never be saved in any way on the server side. Please use only "
@@ -1396,43 +1415,43 @@ msgstr ""
 "hyvä, ja käytä tästä huolimatta <strong>vain väliaikaisia testitunnuksia</"
 "strong>; jatkuvasti samana pysyvien testitunnusten käyttö on haitallista."
 
-#: web/diag/action_realmcheck.php:723
+#: web/diag/action_realmcheck.php:724
 msgid "Password-based EAP types"
 msgstr "Salasanapohjaiset EAP-tyypit"
 
-#: web/diag/action_realmcheck.php:724
+#: web/diag/action_realmcheck.php:725
 msgid "Real (inner) username:"
 msgstr "Todellinen (sisempi kuori) käyttäjänimi:"
 
-#: web/diag/action_realmcheck.php:725
+#: web/diag/action_realmcheck.php:726
 msgid "Anonymous outer ID (optional):"
 msgstr "Anonyymi ulomman kuoren käyttäjänimi (ei pakollinen):"
 
-#: web/diag/action_realmcheck.php:726
+#: web/diag/action_realmcheck.php:727
 msgid "Password:"
 msgstr "Salasana:"
 
-#: web/diag/action_realmcheck.php:730
+#: web/diag/action_realmcheck.php:731
 msgid "Certificate-based EAP types"
 msgstr "Varmennepohjaiset EAP-tyypit"
 
-#: web/diag/action_realmcheck.php:731
+#: web/diag/action_realmcheck.php:732
 msgid "Certificate file (.p12 or .pfx):"
 msgstr "Varmennetiedosto (.p12 tai .pfx):"
 
-#: web/diag/action_realmcheck.php:732
+#: web/diag/action_realmcheck.php:733
 msgid "Certificate password, if any:"
 msgstr "Varmenteen mahdollinen salasana:"
 
-#: web/diag/action_realmcheck.php:733
+#: web/diag/action_realmcheck.php:734
 msgid "Username, if different from certificate Subject:"
 msgstr "Käyttäjänimi, mikäli eroaa varmenteen otsikosta:"
 
-#: web/diag/action_realmcheck.php:735
+#: web/diag/action_realmcheck.php:736
 msgid "Submit credentials"
 msgstr "Lähetä tunnukset"
 
-#: web/diag/action_realmcheck.php:761
+#: web/diag/action_realmcheck.php:762
 #, php-format
 msgid "Return to %s administrator area"
 msgstr "Takaisin %s ylläpitoalueelle"

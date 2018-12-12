@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-07 13:38+0100\n"
+"POT-Creation-Date: 2018-12-12 09:52+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>, 2018\n"
 "Language-Team: Greek (Greece) (https://www.transifex.com/eduroam_devel/"
@@ -31,8 +31,8 @@ msgid "Product is not configured to run this check."
 msgstr ""
 "Το προϊόν δεν έχει παραμετροποιηθεί για να εκτελέσει αυτόν τον έλεγχο.  "
 
-#: core/diag/AbstractTest.php:289 web/diag/action_realmcheck.php:539
-#: web/diag/action_realmcheck.php:555
+#: core/diag/AbstractTest.php:289 web/diag/action_realmcheck.php:540
+#: web/diag/action_realmcheck.php:556
 msgid "This check was skipped."
 msgstr "Αυτός ο έλεγχος παραλείφθηκε."
 
@@ -68,7 +68,7 @@ msgstr ""
 "Ο εξυπηρετητής RADIUS απέρριψε το αίτημα πιστοποίησης ύστερα από μια "
 "συνομιλία EAP."
 
-#: core/diag/AbstractTest.php:332 web/diag/action_realmcheck.php:116
+#: core/diag/AbstractTest.php:332 web/diag/action_realmcheck.php:117
 msgid "Connection refused"
 msgstr "Άρνηση σύνδεσης"
 
@@ -394,12 +394,12 @@ msgstr ""
 "περαιτέρω διάγνωση/οδηγίες επειδή δεν υπάρχουν στοιχεία επικοινωνίας για "
 "εκείνο το IdP στη βάση δεδομένων."
 
-#: core/diag/RADIUSTests.php:1160
+#: core/diag/RADIUSTests.php:1158
 #, php-format
 msgid "Connected to %s."
 msgstr "Συνδεδεμένος σε %s."
 
-#: core/diag/RADIUSTests.php:1165 web/diag/radius_tests.php:211
+#: core/diag/RADIUSTests.php:1163 web/diag/radius_tests.php:211
 msgid ""
 "<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
 "multiple round-trips was carried out, and ended in an Access-Reject as "
@@ -409,7 +409,7 @@ msgstr ""
 "πολλές κυκλικές διαδρομές πραγματοποιήθηκε και ολοκληρώθηκε με Access-Reject "
 "όπως ήταν αναμενόμενο."
 
-#: core/diag/RADIUSTests.php:1169
+#: core/diag/RADIUSTests.php:1167
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
@@ -493,7 +493,7 @@ msgstr "άγνωστη αρχή ή χωρίς πολιτική πιστοποι�
 #. *
 #. * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
 #.
-#: core/diag/RFC7585Tests.php:134 web/diag/action_realmcheck.php:507
+#: core/diag/RFC7585Tests.php:134 web/diag/action_realmcheck.php:508
 msgid "This realm has no NAPTR records."
 msgstr "Αυτός ο τομέας δεν έχει εγγραφές NAPTR."
 
@@ -1065,197 +1065,216 @@ msgstr "Λάθος μορφή του εξωτερικού ID"
 msgid "Wrong string given as OperatorName"
 msgstr "Εσφαλμένη συμβολοσειρά δόθηκε ως OperatorName"
 
-#: web/diag/action_realmcheck.php:28
+#: web/diag/action_realmcheck.php:30
 #, php-format
 msgid "Sanity check for dynamic discovery of realms"
 msgstr "Έλεγχος ακεραιότητας για το δυναμικό εντοπισμό τομέων"
 
-#: web/diag/action_realmcheck.php:57
+#: web/diag/action_realmcheck.php:58
 msgid ""
 "You asked for a realm check, but we don't know the realm for this profile!"
 msgstr ""
 "Ζητήσατε να γίνει έλεγχος τομέα, αλλά δε γνωρίζουμε τον τομέα για αυτό το "
 "προφίλ!"
 
-#: web/diag/action_realmcheck.php:66
+#: web/diag/action_realmcheck.php:67
 msgid "No valid realm name given, cannot execute any checks!"
 msgstr "Δε δόθηκε έγκυρο όνομα τομέα, δεν είναι δυνατή η εκτέλεση ελέγχων!"
 
-#: web/diag/action_realmcheck.php:70
+#: web/diag/action_realmcheck.php:71
 msgid "STATIC"
 msgstr "ΣΤΑΤΙΚΟΙ"
 
-#: web/diag/action_realmcheck.php:71
+#: web/diag/action_realmcheck.php:72
 msgid "DYNAMIC"
 msgstr "ΔΥΝΑΜΙΚΟΙ"
 
-#: web/diag/action_realmcheck.php:99
+#: web/diag/action_realmcheck.php:100
 msgid "PASS"
 msgstr "ΕΠΙΤΥΧΙΑ"
 
-#: web/diag/action_realmcheck.php:100
+#: web/diag/action_realmcheck.php:101
 msgid "FAIL"
 msgstr "ΑΠΟΤΥΧΙΑ"
 
-#: web/diag/action_realmcheck.php:101
+#: web/diag/action_realmcheck.php:102
 msgid "Client certificate:"
 msgstr "Πιστοποιητικό πελάτη:"
 
-#: web/diag/action_realmcheck.php:102
+#: web/diag/action_realmcheck.php:103
 msgid "expected result: "
 msgstr "αναμενόμενο αποτέλεσμα:"
 
-#: web/diag/action_realmcheck.php:103
+#: web/diag/action_realmcheck.php:104
 msgid "Server accepted this client certificate"
 msgstr "Ο εξυπηρετητής αποδέχτηκε αυτό το πιστοποιητικό πελάτη"
 
-#: web/diag/action_realmcheck.php:104
+#: web/diag/action_realmcheck.php:105
 msgid "Server accepted this client certificate, but should not have"
 msgstr ""
 "Ο εξυπηρετητής αποδέχτηκε αυτό το πιστοποιητικό πελάτη, αλλά δεν έπρεπε"
 
-#: web/diag/action_realmcheck.php:105
+#: web/diag/action_realmcheck.php:106
 msgid "Server did not accept this client certificate"
 msgstr "Ο εξυπηρετητής δεν αποδέχτηκε αυτό το πιστοποιητικό πελάτη"
 
-#: web/diag/action_realmcheck.php:106
+#: web/diag/action_realmcheck.php:107
 msgid "Server did not accept this client certificate - reason"
 msgstr "Ο εξυπηρετητής δεν αποδέχτηκε αυτό το πιστοποιητικό πελάτη - αιτία"
 
-#: web/diag/action_realmcheck.php:107
+#: web/diag/action_realmcheck.php:108
 msgid "Rest of tests for this CA skipped"
 msgstr "Οι υπόλοιπες δοκιμές για αυτό το CA θα παραβλεφθούν"
 
-#: web/diag/action_realmcheck.php:108
+#: web/diag/action_realmcheck.php:109
 msgid "You should update your list of accredited CAs"
 msgstr "Πρέπει να ενημερώσετε τη λίστα των διαπιστευμένων CA"
 
-#: web/diag/action_realmcheck.php:109
+#: web/diag/action_realmcheck.php:110
 msgid "Get it from here."
 msgstr "Λήψη από εδώ"
 
-#: web/diag/action_realmcheck.php:111
+#: web/diag/action_realmcheck.php:112
 msgid "more"
 msgstr "περισσότερα"
 
-#: web/diag/action_realmcheck.php:113 web/diag/action_realmcheck.php:656
+#: web/diag/action_realmcheck.php:114 web/diag/action_realmcheck.php:657
 msgid "Show detailed information for all tests"
 msgstr "Εμφάνιση λεπτομερών πληροφοριών για όλους τους ελέγχους"
 
-#: web/diag/action_realmcheck.php:128
+#: web/diag/action_realmcheck.php:119
+#, fuzzy
+msgid "All tests passed."
+msgstr "Επιτυχία σε όλες τις δοκιμές, συγχαρητήρια!"
+
+#: web/diag/action_realmcheck.php:120
+#, fuzzy
+msgid "There were some warnings."
+msgstr "Υπήρξαν σφάλματα κατά τις δοκιμές."
+
+#: web/diag/action_realmcheck.php:121
+#, fuzzy
+msgid "There were some errors."
+msgstr "Υπήρξαν σφάλματα κατά τις δοκιμές."
+
+#: web/diag/action_realmcheck.php:122
+msgid "There were some remarks."
+msgstr ""
+
+#: web/diag/action_realmcheck.php:129
 msgid "Server certificate"
 msgstr "Πιστοποιητικό εξυπηρετητή"
 
-#: web/diag/action_realmcheck.php:129
+#: web/diag/action_realmcheck.php:130
 msgid "Subject"
 msgstr "Θέμα"
 
-#: web/diag/action_realmcheck.php:130
+#: web/diag/action_realmcheck.php:131
 msgid "Issuer"
 msgstr "Εκδότης"
 
-#: web/diag/action_realmcheck.php:131
+#: web/diag/action_realmcheck.php:132
 msgid "SubjectAltName"
 msgstr "SubjectAltName"
 
-#: web/diag/action_realmcheck.php:132
+#: web/diag/action_realmcheck.php:133
 msgid "Certificate policies"
 msgstr "Πολιτικές πιστοποιητικών"
 
-#: web/diag/action_realmcheck.php:133
+#: web/diag/action_realmcheck.php:134
 msgid "crlDistributionPoint"
 msgstr "crlDistributionPoint"
 
-#: web/diag/action_realmcheck.php:134
+#: web/diag/action_realmcheck.php:135
 msgid "authorityInfoAccess"
 msgstr "authorityInfoAccess"
 
-#: web/diag/action_realmcheck.php:135
+#: web/diag/action_realmcheck.php:136
 msgid "Hide detailed information for all tests"
 msgstr "Απόκρυψη λεπτομερών πληροφοριών για όλους τους ελέγχους"
 
-#: web/diag/action_realmcheck.php:139
+#: web/diag/action_realmcheck.php:140
 msgid "Subject:"
 msgstr "Θέμα:"
 
-#: web/diag/action_realmcheck.php:140
+#: web/diag/action_realmcheck.php:141
 msgid "Issuer:"
 msgstr "Εκδότης:"
 
-#: web/diag/action_realmcheck.php:141
+#: web/diag/action_realmcheck.php:142
 msgid "Valid from:"
 msgstr "Εγκρίθηκε από:"
 
-#: web/diag/action_realmcheck.php:142
+#: web/diag/action_realmcheck.php:143
 msgid "Valid to:"
 msgstr "Έγκυρο σε:"
 
-#: web/diag/action_realmcheck.php:143
+#: web/diag/action_realmcheck.php:144
 msgid "Serial number:"
 msgstr "Σειριακός αριθμός:"
 
-#: web/diag/action_realmcheck.php:144
+#: web/diag/action_realmcheck.php:145
 msgid "SHA1 fingerprint:"
 msgstr "SHA1 αποτύπωμα:"
 
-#: web/diag/action_realmcheck.php:196
+#: web/diag/action_realmcheck.php:197
 msgid "Some required input is missing!"
 msgstr "Δεν έχουν συμπληρωθεί όλα τα απαιτούμενα πεδία!"
 
-#: web/diag/action_realmcheck.php:247 web/diag/action_realmcheck.php:328
-#: web/diag/action_realmcheck.php:351 web/diag/action_realmcheck.php:404
+#: web/diag/action_realmcheck.php:248 web/diag/action_realmcheck.php:329
+#: web/diag/action_realmcheck.php:352 web/diag/action_realmcheck.php:405
 #, php-format
 msgid "elapsed time: %sms."
 msgstr "υπολειπόμενος χρόνος: %sms."
 
-#: web/diag/action_realmcheck.php:341 web/diag/action_realmcheck.php:394
+#: web/diag/action_realmcheck.php:342 web/diag/action_realmcheck.php:395
 msgid "Extensions"
 msgstr "Επεκτάσεις"
 
-#: web/diag/action_realmcheck.php:342
+#: web/diag/action_realmcheck.php:343
 msgid "show server certificate details"
 msgstr "προβολή λεπτομερειών πιστοποιητικού εξυπηρετητή"
 
-#: web/diag/action_realmcheck.php:362 web/diag/action_realmcheck.php:367
+#: web/diag/action_realmcheck.php:363 web/diag/action_realmcheck.php:368
 msgid "See the appropriate tab for details."
 msgstr "Δείτε στην κατάλληλη καρτέλα για λεπτομέρειες."
 
-#: web/diag/action_realmcheck.php:381
+#: web/diag/action_realmcheck.php:382
 msgid "Server certificate details:"
 msgstr "Λεπτομέρειες πιστοποιητικού εξυπηρετητή"
 
-#: web/diag/action_realmcheck.php:482
+#: web/diag/action_realmcheck.php:483
 #, php-format
 msgid "Realm testing for: %s"
 msgstr "Δοκιμές τομέα για: %s"
 
-#: web/diag/action_realmcheck.php:487 web/diag/action_realmcheck.php:495
+#: web/diag/action_realmcheck.php:488 web/diag/action_realmcheck.php:496
 msgid "Overview"
 msgstr "Επισκόπηση"
 
-#: web/diag/action_realmcheck.php:488 web/diag/action_realmcheck.php:602
+#: web/diag/action_realmcheck.php:489 web/diag/action_realmcheck.php:603
 msgid "Static connectivity tests"
 msgstr "Δοκιμές στατικής συνδεσιμότητας"
 
-#: web/diag/action_realmcheck.php:489 web/diag/action_realmcheck.php:607
+#: web/diag/action_realmcheck.php:490 web/diag/action_realmcheck.php:608
 msgid "Dynamic connectivity tests"
 msgstr "Δοκιμές δυναμικής συνδεσιμότητας"
 
-#: web/diag/action_realmcheck.php:490
+#: web/diag/action_realmcheck.php:491
 msgid "Live login tests"
 msgstr "Ζωντανές δοκιμές σύνδεσης"
 
 #. NAPTR existence check
-#: web/diag/action_realmcheck.php:499
+#: web/diag/action_realmcheck.php:500
 msgid "DNS chekcs"
 msgstr "Έλεγχοι DNS"
 
 #. output in friendly words
-#: web/diag/action_realmcheck.php:504
+#: web/diag/action_realmcheck.php:505
 msgid "Checking NAPTR existence:"
 msgstr "Έλεγχος ύπαρξης NAPTR:"
 
-#: web/diag/action_realmcheck.php:510
+#: web/diag/action_realmcheck.php:511
 msgid ""
 "This realm has NAPTR records, but none are related to this roaming "
 "consortium."
@@ -1264,63 +1283,63 @@ msgstr ""
 "αυτήν την κοινοπραξία περιαγωγής."
 
 #. if none of the possible negative retvals, then we have matching NAPTRs
-#: web/diag/action_realmcheck.php:513
+#: web/diag/action_realmcheck.php:514
 #, php-format
 msgid "This realm has %d NAPTR records relating to this roaming consortium."
 msgstr ""
 
-#: web/diag/action_realmcheck.php:519
+#: web/diag/action_realmcheck.php:520
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
 msgstr "Έλεγχος συμβατότητας NAPTR (flag = S και regex = {empty}):"
 
-#: web/diag/action_realmcheck.php:523
+#: web/diag/action_realmcheck.php:524
 msgid "No issues found."
 msgstr "Δεν βρέθηκαν θέματα."
 
-#: web/diag/action_realmcheck.php:526 web/diag/action_realmcheck.php:542
+#: web/diag/action_realmcheck.php:527 web/diag/action_realmcheck.php:543
 #, php-format
 msgid "At least one NAPTR with invalid content found!"
 msgstr "Βρέθηκε τουλάχιστον ένα NAPTR με άκυρο περιεχόμενο!"
 
-#: web/diag/action_realmcheck.php:536
+#: web/diag/action_realmcheck.php:537
 msgid "Checking SRVs:"
 msgstr "Έλεγχος SRVs:"
 
 #. print number of successfully retrieved SRV targets
-#: web/diag/action_realmcheck.php:545
+#: web/diag/action_realmcheck.php:546
 #, php-format
 msgid "%d host names discovered."
 msgstr "Εντοπίστηκαν %d hostnames."
 
-#: web/diag/action_realmcheck.php:552
+#: web/diag/action_realmcheck.php:553
 msgid "Checking IP address resolution:"
 msgstr "Έλεγχος ανάλυσης της IP διεύθυνσης:"
 
-#: web/diag/action_realmcheck.php:558
+#: web/diag/action_realmcheck.php:559
 #, php-format
 msgid "At least one hostname could not be resolved!"
 msgstr "Τουλάχιστον ένα hostname δεν μπόρεσε να εντοπιστεί!"
 
 #. print number of successfully retrieved SRV targets
-#: web/diag/action_realmcheck.php:561
+#: web/diag/action_realmcheck.php:562
 #, php-format
 msgid "%d IP addresses resolved."
 msgstr "Εντοπίστηκαν %d διευθύνσεις IP."
 
-#: web/diag/action_realmcheck.php:568 web/diag/action_realmcheck.php:570
+#: web/diag/action_realmcheck.php:569 web/diag/action_realmcheck.php:571
 #, php-format
 msgid "Realm is <strong>%s</strong> "
 msgstr "Ο τομέας είναι <strong>%s</strong> "
 
-#: web/diag/action_realmcheck.php:568
+#: web/diag/action_realmcheck.php:569
 msgid "with no DNS errors encountered. Congratulations!"
 msgstr "χωρίς να αντιμετωπιστούν σφάλματα DNS. Συγχαρητήρια!"
 
-#: web/diag/action_realmcheck.php:570
+#: web/diag/action_realmcheck.php:571
 msgid "but there were DNS errors! Check them!"
 msgstr "αλλά υπήρχαν σφάλματα DNS! Ελέγξτε τα!"
 
-#: web/diag/action_realmcheck.php:570
+#: web/diag/action_realmcheck.php:571
 msgid ""
 "You should re-run the tests after fixing the errors; more errors might be "
 "uncovered at that point. The exact error causes are listed below."
@@ -1329,19 +1348,19 @@ msgstr ""
 "περισσότερα σφάλματα μπορεί να προκύψουν σε αυτό το σημείο. Οι ακριβείς "
 "αιτίες των σφαλμάτων παραθέτονται παρακάτω."
 
-#: web/diag/action_realmcheck.php:600
+#: web/diag/action_realmcheck.php:601
 msgid "Dynamic discovery test is not configured"
 msgstr "Δεν έχει ρυθμιστεί η δοκιμή δυναμικού εντοπισμού"
 
-#: web/diag/action_realmcheck.php:618
+#: web/diag/action_realmcheck.php:619
 msgid "Repeat static connectivity tests"
 msgstr "Επαναλάβετε τις δοκιμές στατικής συνδεσιμότητας"
 
-#: web/diag/action_realmcheck.php:621
+#: web/diag/action_realmcheck.php:622
 msgid "STATIC connectivity tests"
 msgstr "Δοκιμές ΣΤΑΤΙΚΗΣ συνδεσιμότητας"
 
-#: web/diag/action_realmcheck.php:623
+#: web/diag/action_realmcheck.php:624
 msgid ""
 "This check sends a request for the realm through various entry points of the "
 "roaming consortium infrastructure. The request will contain the 'Operator-"
@@ -1351,42 +1370,42 @@ msgid ""
 "get an Access-Reject after having gone through an EAP conversation."
 msgstr ""
 
-#: web/diag/action_realmcheck.php:627 web/diag/action_realmcheck.php:739
+#: web/diag/action_realmcheck.php:628 web/diag/action_realmcheck.php:740
 #, php-format
 msgid "Testing from: %s"
 msgstr "Δοκιμάζεται από: %s"
 
-#: web/diag/action_realmcheck.php:632 web/diag/action_realmcheck.php:665
-#: web/diag/action_realmcheck.php:678
+#: web/diag/action_realmcheck.php:633 web/diag/action_realmcheck.php:666
+#: web/diag/action_realmcheck.php:679
 msgid "testing..."
 msgstr "δοκιμάζοντας..."
 
-#: web/diag/action_realmcheck.php:647
+#: web/diag/action_realmcheck.php:648
 msgid "Repeat dynamic connectivity tests"
 msgstr "Επαναλάβετε τις δοκιμές δυναμικής συνδεσιμότητας"
 
-#: web/diag/action_realmcheck.php:651
+#: web/diag/action_realmcheck.php:652
 msgid "DYNAMIC connectivity tests"
 msgstr "Δοκιμές ΔΥΝΑΜΙΚΗΣ συνδεσιμότητας"
 
-#: web/diag/action_realmcheck.php:655
+#: web/diag/action_realmcheck.php:656
 msgid "Some errors were found during the tests, see below"
 msgstr ""
 "Παρουσιάστηκαν κάποια σφάλματα κατά τη διάρκεια των δοκιμών, δείτε παρακάτω"
 
-#: web/diag/action_realmcheck.php:655
+#: web/diag/action_realmcheck.php:656
 msgid "All tests passed, congratulations!"
 msgstr "Επιτυχία σε όλες τις δοκιμές, συγχαρητήρια!"
 
-#: web/diag/action_realmcheck.php:656
+#: web/diag/action_realmcheck.php:657
 msgid "Checking server handshake..."
 msgstr "Έλεγχος χειραψίας εξυπηρετητή..."
 
-#: web/diag/action_realmcheck.php:686
+#: web/diag/action_realmcheck.php:687
 msgid "Checking if certificates from  CAs are accepted..."
 msgstr "Έλεγχος αν είναι αποδεκτά τα πιστοποιητικά από CA..."
 
-#: web/diag/action_realmcheck.php:686
+#: web/diag/action_realmcheck.php:687
 msgid ""
 "A few client certificates will be tested to check if servers are resistant "
 "to some certificate problems."
@@ -1394,11 +1413,11 @@ msgstr ""
 "Θα δοκιμαστούν μερικά πιστοποιητικά πελάτη για να ελεγχθεί αν οι "
 "εξυπηρετητές έχουν ανοχές σε προβλήματα πιστοποιητικών."
 
-#: web/diag/action_realmcheck.php:700
+#: web/diag/action_realmcheck.php:701
 msgid "Live login test"
 msgstr "Live δοκιμή εισόδου"
 
-#: web/diag/action_realmcheck.php:713
+#: web/diag/action_realmcheck.php:714
 msgid ""
 "If you enter an existing login credential here, you can test the actual "
 "authentication from various checkpoints all over the world."
@@ -1406,7 +1425,7 @@ msgstr ""
 "Αν εισάγετε ενεργά διαπιστευτήρια εισόδου εδώ, μπορείτε να ελέγξετε την "
 "πιστοποίηση από διάφορα σημεία ελέγχου σε όλο τον κόσμο."
 
-#: web/diag/action_realmcheck.php:714
+#: web/diag/action_realmcheck.php:715
 msgid ""
 "The test will use all EAP types you have set in your profile information to "
 "check whether the right CAs and server names are used, and of course whether "
@@ -1419,7 +1438,7 @@ msgstr ""
 "και τον τύπο EAP που δόθηκε δούλεψε πραγματικά. Αν έχετε ορίσει ανώνυμο "
 "εξωτερικό ID, ο έλεγχος θα χρησιμοποιήσει αυτό."
 
-#: web/diag/action_realmcheck.php:715
+#: web/diag/action_realmcheck.php:716
 msgid ""
 "Note: the tool purposefully does not offer you to save these credentials, "
 "and they will never be saved in any way on the server side. Please use only "
@@ -1432,43 +1451,43 @@ msgstr ""
 "δοκιμαστικούς λογαριασμούς</strong> εδώ· οι μόνιμοι έγκυροι δοκιμαστικοί "
 "λογαριασμοί που κυκλοφορούν ελεύθεροι θεωρούνται επικίνδυνοι!"
 
-#: web/diag/action_realmcheck.php:723
+#: web/diag/action_realmcheck.php:724
 msgid "Password-based EAP types"
 msgstr "Τύποι EAP με κωδικό"
 
-#: web/diag/action_realmcheck.php:724
+#: web/diag/action_realmcheck.php:725
 msgid "Real (inner) username:"
 msgstr "Πραγματικό (εσωτερικό) όνομα χρήστη:"
 
-#: web/diag/action_realmcheck.php:725
+#: web/diag/action_realmcheck.php:726
 msgid "Anonymous outer ID (optional):"
 msgstr "Ανώνυμο εξωτερικό ID (προαιρετικό):"
 
-#: web/diag/action_realmcheck.php:726
+#: web/diag/action_realmcheck.php:727
 msgid "Password:"
 msgstr "Κωδικός:"
 
-#: web/diag/action_realmcheck.php:730
+#: web/diag/action_realmcheck.php:731
 msgid "Certificate-based EAP types"
 msgstr "Τύποι EAP με πιστοποιητικό"
 
-#: web/diag/action_realmcheck.php:731
+#: web/diag/action_realmcheck.php:732
 msgid "Certificate file (.p12 or .pfx):"
 msgstr "Αρχείο πιστοποιητικού (.p12 or .pfx):"
 
-#: web/diag/action_realmcheck.php:732
+#: web/diag/action_realmcheck.php:733
 msgid "Certificate password, if any:"
 msgstr "Κωδικός πιστοποιητικού, εάν υπάρχει:"
 
-#: web/diag/action_realmcheck.php:733
+#: web/diag/action_realmcheck.php:734
 msgid "Username, if different from certificate Subject:"
 msgstr "Όνομα χρήστη, εάν διαφέρει από το Θέμα του πιστοποιητικού:"
 
-#: web/diag/action_realmcheck.php:735
+#: web/diag/action_realmcheck.php:736
 msgid "Submit credentials"
 msgstr "Υποβολή διαπιστευτηρίων"
 
-#: web/diag/action_realmcheck.php:761
+#: web/diag/action_realmcheck.php:762
 #, php-format
 msgid "Return to %s administrator area"
 msgstr ""

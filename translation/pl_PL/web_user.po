@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-07 13:38+0100\n"
+"POT-Creation-Date: 2018-12-12 09:52+0100\n"
 "PO-Revision-Date: 2018-11-07 21:22+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/eduroam_devel/cat/"
@@ -619,7 +619,7 @@ msgstr ""
 "otworzy się w nowym oknie/karcie."
 
 #: web/lib/user/TextTemplates.php:99
-#: web/skins/modern/accountstatus/accountstatus.php:225
+#: web/skins/modern/accountstatus/accountstatus.php:224
 #: web/skins/modern/user/js/cat_js.php:278
 #: web/skins/modern/user/js/cat_js.php:286
 msgid "Continue"
@@ -934,51 +934,51 @@ msgstr ""
 msgid "Your personal %s account status page"
 msgstr "Strona statusu Twojego konta %s"
 
-#: web/skins/modern/accountstatus/accountstatus.php:246
+#: web/skins/modern/accountstatus/accountstatus.php:245
 msgid "Current login tokens"
 msgstr "Aktualne tokeny logowania"
 
-#: web/skins/modern/accountstatus/accountstatus.php:247
+#: web/skins/modern/accountstatus/accountstatus.php:246
 msgid "Previous login tokens"
 msgstr "Poprzednie tokeny logowania"
 
-#: web/skins/modern/accountstatus/accountstatus.php:248
+#: web/skins/modern/accountstatus/accountstatus.php:247
 msgid "Revoked login tokens"
 msgstr "Odwołane tokeny logowania"
 
-#: web/skins/modern/accountstatus/accountstatus.php:249
+#: web/skins/modern/accountstatus/accountstatus.php:248
 msgid "Serial Number"
 msgstr "Numer seryjny"
 
-#: web/skins/modern/accountstatus/accountstatus.php:249
+#: web/skins/modern/accountstatus/accountstatus.php:248
 msgid "Pseudonym"
 msgstr "Pseudonim"
 
-#: web/skins/modern/accountstatus/accountstatus.php:249
+#: web/skins/modern/accountstatus/accountstatus.php:248
 msgid "Device Type"
 msgstr "Typ urządzenia"
 
-#: web/skins/modern/accountstatus/accountstatus.php:249
+#: web/skins/modern/accountstatus/accountstatus.php:248
 msgid "Issue Date"
 msgstr "Data wystawienia"
 
-#: web/skins/modern/accountstatus/accountstatus.php:249
+#: web/skins/modern/accountstatus/accountstatus.php:248
 msgid "Expiry Date"
 msgstr "Data ważności"
 
-#: web/skins/modern/accountstatus/accountstatus.php:259
+#: web/skins/modern/accountstatus/accountstatus.php:258
 msgid "invalid token"
 msgstr "nieważny token"
 
-#: web/skins/modern/accountstatus/accountstatus.php:271
+#: web/skins/modern/accountstatus/accountstatus.php:270
 msgid "revoke"
 msgstr ""
 
-#: web/skins/modern/accountstatus/accountstatus.php:285
+#: web/skins/modern/accountstatus/accountstatus.php:284
 msgid "The details are displayed below."
 msgstr "Szczegóły podajemy poniżej."
 
-#: web/skins/modern/accountstatus/accountstatus.php:291
+#: web/skins/modern/accountstatus/accountstatus.php:290
 msgid "Really revoke this access credential?"
 msgstr "Rzeczywiście odwołać dane dostępowe?"
 
