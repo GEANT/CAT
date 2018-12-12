@@ -127,7 +127,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         foreach (['status', 'serial', 'username', 'issued', 'expiry', 'ca_type'] as $key) {
             $returnArray[$key] = $this->$key;
         }
-        $returnArray['device'] = \devices\Devices::listDevices()[$this->device]['display'];
+        $returnArray['device'] = \devices\Devices::listDevices()[$this->device]['display'] ?? $this->device;
         return($returnArray);
     }
 
