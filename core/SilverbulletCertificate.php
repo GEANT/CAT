@@ -470,7 +470,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         $soap = new \SoapClient($url, [
             'soap_version' => SOAP_1_1,
             'trace' => TRUE,
-            'exceptions' => false,
+            'exceptions' => TRUE,
             'connection_timeout' => 5, // if can't establish the connection within 5 sec, something's wrong
             'cache_wsdl' => WSDL_CACHE_NONE,
             'user_agent' => 'eduroam CAT to eduPKI SOAP Interface',
@@ -583,7 +583,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     // considers this "convenience"? But we need it as sent on
                     // the wire, so re-encode it!
                     $soapCleartext = $soap->getRawRequest($soapReqnum);
-                    
+
                     $loggerInstance->debug(5, "Actual received SOAP resonse for getRawRequest was:\n\n");
                     $loggerInstance->debug(5, $soap->__getLastResponse());
                     // for obnoxious reasons, we have to dump the request into a file and let pkcs7_sign read from the file
@@ -612,21 +612,29 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     $loggerInstance->debug(5, $soapCleartext . "\n"); // PHP magically encodes this as base64 while sending!
                     $loggerInstance->debug(5, $detachedSig . "\n");
                     $soapIssueCert = $soap->approveRequest($soapReqnum, $soapCleartext, $detachedSig);
-                    $loggerInstance->debug(5,"approveRequest Request was: \n".$soap->__getLastRequest());
-                    $loggerInstance->debug(5,"approveRequest Response was: \n".$soap->__getLastResponse());
+                    $loggerInstance->debug(5, "approveRequest Request was: \n" . $soap->__getLastRequest());
+                    $loggerInstance->debug(5, "approveRequest Response was: \n" . $soap->__getLastResponse());
                     if ($soapIssueCert === FALSE) {
                         throw new Exception("The locally approved request was NOT processed by the CA.");
                     }
                     // now, get the actual cert from the CA
-                    $soapCert = $soap->getCertificateByRequestSerial($soapReqnum);
-                    $x509 = new common\X509();
-                    $parsedCert = $x509->processCertificate($soapCert);
+                    $counter = 0;
+                    do {
+                        $soapCert = $soap->getCertificateByRequestSerial($soapReqnum);
+                        $x509 = new common\X509();
+                        $parsedCert = $x509->processCertificate($soapCert);
+                        sleep(5);
+                        $counter += 5;
+                    } while (!is_array($parsedCert) && $counter < 500);
+
                     if (!is_array($parsedCert)) {
-                        throw new Exception("We did not actually get a certificate.");
+                        throw new Exception("We did not actually get a certificate after waiting for 5 minutes.");
                     }
                     // let's get the CA certificate chain
+
                     $caInfo = $soap->getCAInfo();
-                    $certList = $x509->splitCertificate($caInfo['CAChain']);
+                    error_log(print_r($caInfo, true));
+                    $certList = $x509->splitCertificate($caInfo->CAChain[0]);
                     // find the root
                     $theRoot = "";
                     foreach ($certList as $oneCert) {
@@ -643,10 +651,11 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                 } catch (Exception $e) {
                     throw new Exception("Exception: Something odd happened between the SOAP requests:" . $e->getMessage());
                 }
+                
                 return [
                     "CERT" => openssl_x509_read($parsedCert['pem']),
                     "SERIAL" => $parsedCert['serial'],
-                    "ISSUER" => $raCertFile, // change this to the actual eduPKI Issuer CA
+                    "ISSUER" => $theRoot, // change this to the actual eduPKI Issuer CA
                     "ROOT" => $theRoot, // change this to the actual eduPKI Root CA
                 ];
             default:
