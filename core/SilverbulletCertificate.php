@@ -618,18 +618,16 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                         throw new Exception("The locally approved request was NOT processed by the CA.");
                     }
                     // now, get the actual cert from the CA
-                    $counter = 0;
+                    sleep(55);
+                    $counter = 55;
                     do {
+                        $counter += 5;
+                        sleep(5); // always start with a wait. Signature round-trip on the server side is at least one minute.
                         $soapCert = $soap->getCertificateByRequestSerial($soapReqnum);
                         $x509 = new common\X509();
                         if (strlen($soapCert) > 10) {
                             $parsedCert = $x509->processCertificate($soapCert);
-                            if (is_array($parsedCert)) {
-                                break;
-                            }
                         }
-                        sleep(5);
-                        $counter += 5;
                     } while (!is_array($parsedCert) && $counter < 500);
 
                     if (!is_array($parsedCert)) {
