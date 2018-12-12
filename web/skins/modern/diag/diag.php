@@ -855,6 +855,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
             url: "adminQuery.php",
             data: {type: type, data: JSON.stringify(o)},
             dataType: "json",
+            lang: lang,
             success:function(data) {
                 if (data.status === 1) {
                     var result = '';
@@ -958,7 +959,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
         if (t == 1) { 
             /* show SP problem block */
             if ($('#sp_abuse').html() === '') {
-                $.get("adminQuery.php?type=sp", function(data, status) {
+                $.get("adminQuery.php?type=sp&lang="+lang, function(data, status) {
                     $('#sp_abuse').html(data);
                     $('#sp_abuse').show();         
                     $('#idp_problem').html('');
@@ -969,7 +970,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
             /* show IdP problem block */
             $('#sp_abuse').html('');
             if ($('#idp_problem').html() === '') {
-                $.get("adminQuery.php?type=idp", function(data, status) {
+                $.get("adminQuery.php?type=idp&lang="+lang, function(data, status) {
                     $('#idp_problem').html(data);
                     $('#sp_abuse').hide();
                     $('#idp_problem').show();
