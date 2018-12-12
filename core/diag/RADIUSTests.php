@@ -128,7 +128,6 @@ class RADIUSTests extends AbstractTest {
      */
     public function __construct($realm, $outerUsernameForChecks, $supportedEapTypes = [], $expectedServerNames = [], $expectedCABundle = []) {
         parent::__construct();
-        $oldlocale = $this->languageInstance->setTextDomain('diagnostics');
 
         $this->realm = $realm;
         $this->outerUsernameForChecks = $outerUsernameForChecks;
@@ -172,7 +171,6 @@ class RADIUSTests extends AbstractTest {
 
         $this->UDP_reachability_result = [];
         $this->errorlist = [];
-        $this->languageInstance->setTextDomain($oldlocale);
     }
 
     /**

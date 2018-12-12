@@ -461,26 +461,25 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                                     $hasOnePendingInvite = TRUE;
                                     $tokenHtmlBuffer .= "<tr class='sb-certificate-row'><td></td>";
                                     $jsEncodedBody = str_replace('\n', '%0D%0A', str_replace('"', '', json_encode($invitationObject->invitationMailBody())));
-                                    $tokenHtmlBuffer .= "<td>
-                                
-                                    The invitation token <input type='text' readonly='readonly' style='background-color:lightgrey;' size='60' value='" . $invitationObject->link() . "' name='token' class='identifiedtokenarea-" . $invitationObject->identifier . "'>(…)<br/> is ready for sending! Choose how to send it:
-                                    <table>
-                                    <tr><td style='vertical-align:bottom;'>E-Mail:</td><td>
+                                    $tokenHtmlBuffer .= "<td>";
+                                    $tokenHtmlBuffer .= sprintf(_("The invitation token %s is ready for sending! Choose how to send it:"),"<input type='text' readonly='readonly' style='background-color:lightgrey;' size='60' value='" . $invitationObject->link() . "' name='token' class='identifiedtokenarea-" . $invitationObject->identifier . "'>(…)<br/>");
+                                    $tokenHtmlBuffer .= "<table>
+                                    <tr><td style='vertical-align:bottom;'>"._("E-Mail:")."</td><td>
                                     $formtext
                                 <input type='hidden' value='" . $invitationObject->invitationTokenString . "' name='token'><br/>
                                 <input type='text' name='address' id='address-$invitationObject->identifier'/>
                                 <button type='button' onclick='window.location=\"mailto:\"+document.getElementById(\"address-$invitationObject->identifier\").value+\"?subject=" . $invitationObject->invitationMailSubject() . "&amp;body=$jsEncodedBody\"; return false;'>" . _("Local mail client") . "</button>
-                                <button type='submit' name='command' onclick='document.getElementById(\"spin\").style.display =\"block\"' value='" . \web\lib\common\FormElements::BUTTON_SENDINVITATIONMAILBYCAT . "'>Send with CAT</button>
+                                <button type='submit' name='command' onclick='document.getElementById(\"spin\").style.display =\"block\"' value='" . \web\lib\common\FormElements::BUTTON_SENDINVITATIONMAILBYCAT . "'>"._("Send with CAT")."</button>
                                     </form>
                                     </td></tr>
-                                    <tr><td style='vertical-align:bottom;'>SMS:</td><td>
+                                    <tr><td style='vertical-align:bottom;'>"._("SMS:")."</td><td>
                                     $formtext
                                     <input type='hidden' value='" . $invitationObject->invitationTokenString . "' name='token'><br/>
                                     <input type='text' name='smsnumber' />
 				<button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_SENDINVITATIONSMS . "'>" . _("Send in SMS...") . "</button>
                                     </form>
 				</td></tr>
-                                    <tr><td style='vertical-align:bottom;'>Manual:</td><td>
+                                    <tr><td style='vertical-align:bottom;'>"._("Manual:")."</td><td>
 				<button type='button' class='clipboardButton' onclick='clipboardCopy(" . $invitationObject->identifier . ");'>" . _("Copy to Clipboard") . "</button>
                                     <form style='display:inline-block;' method='post' action='inc/displayQRcode.inc.php' onsubmit='popupQRWindow(this); return false;' accept-charset='UTF-8'>
                                     <input type='hidden' value='" . $invitationObject->invitationTokenString . "' name='token'><br/>
@@ -516,7 +515,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                                 <span><input type="text" maxlength="19" class="sb-date-picker" name="userexpiry" value="<?php echo $profile->getUserExpiryDate($oneUserId); ?>">&nbsp;(UTC)</span>
                             </div>
                             <input type="hidden" name="userid" value="<?php echo $oneUserId; ?>"/>
-                            <button type="submit" name="command" value="<?php echo \web\lib\common\FormElements::BUTTON_CHANGEUSEREXPIRY ?>">Update</button>
+                            <button type="submit" name="command" value="<?php echo \web\lib\common\FormElements::BUTTON_CHANGEUSEREXPIRY ?>"><?php echo _("Update");?></button>
                             </form>
                         </td>
                         <td>
@@ -564,7 +563,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
             <!-- ... ends here -->
             <div style="padding: 20px;">
                 <?php
-                if (count($allUsers) > 0) {
+                if (count($allUsers) > 0 && false) { // false because this restriction is currently not in effect and thus no UI is needed for it.
                     $acknowledgeText = sprintf(_('You need to acknowledge that the created accounts are still valid within the next %s days.'
                                     . ' If all accounts shown as active above are indeed still valid, please check the box below and push "Save".'
                                     . ' If any of the accounts are stale, please deactivate them by pushing the corresponding button before doing this.'), CONFIG_CONFASSISTANT['SILVERBULLET']['gracetime'] ?? core\ProfileSilverbullet::SB_ACKNOWLEDGEMENT_REQUIRED_DAYS);
@@ -575,7 +574,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                     <input type='checkbox' name='acknowledge' value='true'>
                     <label>" . sprintf(_("I have verified that all configured users are still eligible for %s."),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</label>
                 </div>
-                <button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_ACKUSERELIGIBILITY . "'>Save</button></form>";
+                <button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_ACKUSERELIGIBILITY . "'>"._("Save")."</button></form>";
                 }
                 ?>
             </div>

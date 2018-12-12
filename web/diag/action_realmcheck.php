@@ -25,9 +25,10 @@ $loggerInstance = new \core\common\Logging();
 
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
-echo $deco->defaultPagePrelude(sprintf(_("Sanity check for dynamic discovery of realms"), CONFIG['APPEARANCE']['productname']));
 $gui = new \web\lib\user\Gui();
 $gui->langObject->setTextDomain("web_admin");
+echo $deco->defaultPagePrelude(sprintf(_("Sanity check for dynamic discovery of realms"), CONFIG['APPEARANCE']['productname']));
+$gui->langObject->setTextDomain("diagnostics");
 $ourlocale = $gui->langObject->getLang();
 
 $my_profile = NULL;
@@ -115,10 +116,10 @@ $errorstate = [];
     var refused_code = "<?php echo \core\diag\RADIUSTests::RETVAL_CONNECTION_REFUSED ?>";
     var refused_info = "<?php echo _("Connection refused") ?>";
     var global_info = new Array();
-    global_info[L_OK] = "<?php echo "All tests passed." ?>";
-    global_info[L_WARN] = "<?php echo "There were some warnings." ?>";
-    global_info[L_ERROR] = "<?php echo "There were some errors." ?>";
-    global_info[L_REMARK] = "<?php echo "There were some remarks." ?>";
+    global_info[L_OK] = "<?php echo _("All tests passed."); ?>";
+    global_info[L_WARN] = "<?php echo _("There were some warnings."); ?>";
+    global_info[L_ERROR] = "<?php echo _("There were some errors."); ?>";
+    global_info[L_REMARK] = "<?php echo _("There were some remarks."); ?>";
     var servercert = new Array();
     var arefailed = 0;
     var running_ajax_stat = 0;

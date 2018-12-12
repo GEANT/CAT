@@ -24,7 +24,7 @@ require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 $loggerInstance = new \core\common\Logging();
 $validator = new \web\lib\common\InputValidation();
 $languageInstance = new \core\common\Language();
-$languageInstance->setTextDomain("web_admin");
+$languageInstance->setTextDomain("diagnostics");
 
 
 

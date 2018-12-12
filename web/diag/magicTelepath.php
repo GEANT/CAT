@@ -24,7 +24,8 @@ $realm = filter_input(INPUT_GET, 'realm', FILTER_SANITIZE_STRING);
 $visited = filter_input(INPUT_GET,'visited', FILTER_SANITIZE_STRING);
 
 CAT_session_start();
-
+$languageObject = new core\common\Language();
+$languageObject->setTextDomain("diagonstics");
 $telepath = new \core\diag\Telepath($realm, $visited);
 $telepathArray = $telepath->magic();
 
