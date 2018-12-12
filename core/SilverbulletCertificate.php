@@ -624,6 +624,9 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                         $x509 = new common\X509();
                         if (strlen($soapCert) > 10) {
                             $parsedCert = $x509->processCertificate($soapCert);
+                            if (is_array($parsedCert)) {
+                                break;
+                            }
                         }
                         sleep(5);
                         $counter += 5;
