@@ -622,7 +622,9 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     do {
                         $soapCert = $soap->getCertificateByRequestSerial($soapReqnum);
                         $x509 = new common\X509();
-                        $parsedCert = $x509->processCertificate($soapCert);
+                        if (strlen($soapCert) > 10) {
+                            $parsedCert = $x509->processCertificate($soapCert);
+                        }
                         sleep(5);
                         $counter += 5;
                     } while (!is_array($parsedCert) && $counter < 500);
@@ -651,7 +653,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                 } catch (Exception $e) {
                     throw new Exception("Exception: Something odd happened between the SOAP requests:" . $e->getMessage());
                 }
-                
+
                 return [
                     "CERT" => openssl_x509_read($parsedCert['pem']),
                     "SERIAL" => $parsedCert['serial'],
