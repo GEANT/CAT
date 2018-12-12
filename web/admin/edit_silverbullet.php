@@ -399,6 +399,8 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                         <td>
                             <!-- list of certificates for the user-->
                             <?php
+                            // we need to translate the device id to readable device name
+                            
                             foreach ($allCerts as $oneCert) {
                                 switch ($oneCert->status) {
                                     case core\SilverbulletCertificate::CERTSTATUS_REVOKED:
@@ -420,7 +422,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                                 ?>
 
                                 <div class="sb-certificate-summary ca-summary" <?php echo $style; ?>>
-                                    <div class="sb-certificate-details"><?php echo _("Device:") . " " . $oneCert->device; ?>
+                                    <div class="sb-certificate-details"><?php echo _("Device:") . " " . devices\Devices::listDevices()[$oneCert->device]; ?>
                                         <br><?php echo _("Serial Number:") . "&nbsp;" . dechex($oneCert->serial); ?>
                                         <br><?php echo _("CN:") . "&nbsp;" . explode('@', $oneCert->username)[0] . "@…"; ?>
                                         <br><?php echo _("Expiry:") . "&nbsp;" . $oneCert->expiry; ?>
