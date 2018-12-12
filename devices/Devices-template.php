@@ -219,7 +219,7 @@ public static function listDevices() {
        'sign'=>1,
        'device_id'=>'OS_X',
        'mime'=>'application/x-apple-aspen-config',
-       'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page, later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."), 
+       'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page. Later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."), 
       ),
     ),
 	
@@ -235,7 +235,7 @@ public static function listDevices() {
        'sign'=>1,
        'device_id'=>'OS_X',
        'mime'=>'application/x-apple-aspen-config',
-       'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page, later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."), 
+       'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page. Later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."), 
       ),
     ],
 
@@ -250,7 +250,7 @@ public static function listDevices() {
        'sign'=>1,
        'device_id'=>'OS_X',
        'mime'=>'application/x-apple-aspen-config',
-       'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page, later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."), 
+       'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page. Later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."), 
       ],
     ],
 
@@ -265,7 +265,7 @@ public static function listDevices() {
        'sign'=>1,
        'device_id'=>'OS_X',
        'mime'=>'application/x-apple-aspen-config',
-       'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page, later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."), 
+       'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page. Later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."), 
       ],
     ],
 
@@ -280,7 +280,7 @@ public static function listDevices() {
        'sign'=>1,
        'device_id'=>'OS_X',
        'mime'=>'application/x-apple-aspen-config',
-       'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page, later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."), 
+       'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page. Later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."), 
       ],
     ],
 	
@@ -295,7 +295,7 @@ public static function listDevices() {
        'sign'=>1,
        'device_id'=>'OS_X',
        'mime'=>'application/x-apple-aspen-config',
-       'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page, later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."), 
+       'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page. Later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."), 
       ],
     ],
         
