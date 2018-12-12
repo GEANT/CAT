@@ -235,7 +235,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
 
         $("#detailtext").click(function (event) {
             token = "<?php echo $statusInfo['token']; ?>";
-            $.post('<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>', {action: 'getUserCerts', api_version: 2, token: token}, function (data) {
+            $.post('<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>', {action: 'getUserCerts', api_version: 2, token: token, lang: lang}, function (data) {
                 var validCerts = new Array();
                 var revokedCerts = new Array();
                 var expiredCerts = new Array();
