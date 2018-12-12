@@ -597,7 +597,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     // sign the data, using cmdline because openssl_pkcs7_sign produces strange results
                     // -binary didn't help, nor switch -md to sha1 sha256 or sha512
                     $loggerInstance->debug(5, "Actual content to be signed is this:\n$soapCleartext\n");
-                    $execCmd = CONFIG['PATHS']['openssl'] . " smime -sign -in " . $tempdir['dir'] . "/content.txt -out " . $tempdir['dir'] . "/signature.txt -outform pem -inkey " . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey -signer " . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem";
+                    $execCmd = CONFIG['PATHS']['openssl'] . " smime -sign -binary -in " . $tempdir['dir'] . "/content.txt -out " . $tempdir['dir'] . "/signature.txt -outform pem -inkey " . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey -signer " . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem";
                     $loggerInstance->debug(2, "Calling openssl smime with following cmdline: $execCmd\n");
                     $output = [];
                     $return = 999;
