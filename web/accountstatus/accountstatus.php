@@ -68,7 +68,8 @@ if ($profile !== NULL) {
 };
 
 $action = filter_input(INPUT_GET, 'action', FILTER_VALIDATE_INT);
-$serial = filter_input(INPUT_GET, 'serial', FILTER_VALIDATE_INT);
+$serialRaw = filter_input(INPUT_GET, 'serial', FILTER_DEFAULT);
+$serial = $validator->hugeInteger($serialRaw);
 
 if ($action !== NULL && $action !== FALSE && $action === \web\lib\common\FormElements::BUTTON_DELETE && $serial !== NULL && $serial !== FALSE) {
     if ($statusInfo['invitation_object']->invitationTokenStatus != \core\SilverbulletInvitation::SB_TOKENSTATUS_INVALID) {

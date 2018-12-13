@@ -174,6 +174,19 @@ public function integer($input) {
 }
 
 /**
+ * Is this a string representing a potentially more than 64-Bit length integer?
+ * 
+ * @param string $input
+ * @return boolean|string returns the input, or FALSE if it is not an integer-like string
+ */
+public function hugeInteger($input) {
+    if (is_numeric($input)) {
+        return $input;
+    }
+    return FALSE;
+}
+
+/**
  * Checks if the input is the hex representation of a Consortium OI (i.e. three
  * or five bytes)
  * 

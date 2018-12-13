@@ -152,7 +152,7 @@ if (isset($_POST['command'])) {
             break;
         case \web\lib\common\FormElements::BUTTON_REVOKECREDENTIAL:
             if (isset($_POST['certSerial'])) {
-                $certSerial = $validator->integer(filter_input(INPUT_POST, 'certSerial', FILTER_SANITIZE_STRING));
+                $certSerial = $validator->hugeInteger(filter_input(INPUT_POST, 'certSerial', FILTER_SANITIZE_STRING));
                 if ($certSerial === FALSE) {
                     continue;
                 }
@@ -399,7 +399,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
 
                                 <div class="sb-certificate-summary ca-summary">
                                     <div class="sb-certificate-details" <?php echo $style; ?> ><?php echo _("Device:") . " " . $oneCert->device; ?>
-                                        <br><?php echo _("Serial Number:") . "&nbsp;" . dechex($oneCert->serial); ?>
+                                        <br><?php echo _("Serial Number:") . "&nbsp;" . gmp_strval($oneCert->serial, 16); ?>
                                         <br><?php echo _("CN:") . "&nbsp;" . explode('@', $oneCert->username)[0] . "@…"; ?>
                                         <br><?php echo _("Expiry:") . "&nbsp;" . $oneCert->expiry; ?>
                                         <br><?php echo _("Issued:") . "&nbsp;" . $oneCert->issued; ?>

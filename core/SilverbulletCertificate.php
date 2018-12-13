@@ -74,16 +74,16 @@ class SilverbulletCertificate extends EntityWithDBProperties {
 
         $incoming = FALSE;
         if (is_numeric($identifier)) {
-            $incoming = $this->databaseHandle->exec("SELECT `id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`, `issued`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp` FROM `silverbullet_certificate` WHERE serial_number = ?", "i", $identifier);
+            $incoming = $this->databaseHandle->exec("SELECT `id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, CONCAT('',`serial_number`) AS sn, `cn` ,`expiry`, `issued`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp` FROM `silverbullet_certificate` WHERE serial_number = ?", "i", $identifier);
         } else { // it's a string instead
-            $incoming = $this->databaseHandle->exec("SELECT `id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`, `issued`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp` FROM `silverbullet_certificate` WHERE cn = ?", "s", $identifier);
+            $incoming = $this->databaseHandle->exec("SELECT `id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, CONCAT('',`serial_number`) AS sn, `cn` ,`expiry`, `issued`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp` FROM `silverbullet_certificate` WHERE cn = ?", "s", $identifier);
         }
 
         // SELECT -> mysqli_resource, not boolean
         while ($oneResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $incoming)) { // there is only at most one
             $this->username = $oneResult->cn;
             $this->expiry = $oneResult->expiry;
-            $this->serial = $oneResult->serial_number;
+            $this->serial = $oneResult->sn;
             $this->dbId = $oneResult->id;
             $this->invitationId = $oneResult->silverbullet_invitation_id;
             $this->userId = $oneResult->silverbullet_user_id;
@@ -309,7 +309,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         $this->databaseHandle->exec("UPDATE silverbullet_certificate SET revocation_status = 'REVOKED', revocation_time = ? WHERE serial_number = ?", "si", $nowSql, $this->serial);
         $this->loggerInstance->debug(2, "Certificate revocation status for $this->serial updated, about to call triggerNewOCSPStatement().\n");
         // newly instantiate us, DB content has changed...
-        $certObject = new SilverbulletCertificate($this->serial);
+        $certObject = new SilverbulletCertificate((string)$this->serial);
         // embedded CA does "nothing special" for revocation: the DB change was the entire thing to do
         // but for external CAs, we need to notify explicitly that the cert is now revoked
         switch (CONFIG_CONFASSISTANT['SILVERBULLET']['CA']['type']) {
@@ -318,7 +318,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
             case "eduPKI":
                 try {
                     $soap = SilverbulletCertificate::initEduPKISoapSession("RA");
-                    $soapRevocationSerial = $soap->newRevocationRequest($this->serial, "");
+                    $soapRevocationSerial = $soap->newRevocationRequest(["Serial", $certObject->serial], "");
                     if ($soapRevocationSerial == 0) {
                         throw new Exception("Unable to create revocation request, serial number was zero.");
                     }
@@ -332,15 +332,19 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     $tempdir = \core\common\Entity::createTemporaryDirectory("test");
                     file_put_contents($tempdir['dir'] . "/content.txt", $soapRawRevRequest);
                     // retrieve our RA cert from filesystem
-                    $raCertFile = file_get_contents(ROOT . "../edupki-test-ra.pem");
-                    $raCert = openssl_x509_read($raCertFile);
-                    $raKey = openssl_pkey_get_private("file://" . ROOT . "../edupki-test-ra.clearkey");
-                    // sign the data
-                    if (openssl_pkcs7_sign($tempdir['dir'] . "/content.txt", $tempdir['dir'] . "/signature.txt", $raCert, $raKey, []) === FALSE) {
-                        throw new Exception("Unable to sign the revocation approval data!");
+                    // sign the data, using cmdline because openssl_pkcs7_sign produces strange results
+                    // -binary didn't help, nor switch -md to sha1 sha256 or sha512
+                    $this->loggerInstance->debug(5, "Actual content to be signed is this:\n$soapRawRevRequest\n");
+                    $execCmd = CONFIG['PATHS']['openssl'] . " smime -sign -binary -in " . $tempdir['dir'] . "/content.txt -out " . $tempdir['dir'] . "/signature.txt -outform pem -inkey " . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey -signer " . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem";
+                    $this->loggerInstance->debug(2, "Calling openssl smime with following cmdline: $execCmd\n");
+                    $output = [];
+                    $return = 999;
+                    exec($execCmd, $output, $return);
+                    if ($return !== 0) {
+                        throw new Exception("Non-zero return value from openssl smime!");
                     }
                     // and get the signature blob back from the filesystem
-                    $detachedSig = file_get_contents($tempdir['dir'] . "/signature.txt");
+                    $detachedSig = trim(file_get_contents($tempdir['dir'] . "/signature.txt"));
                     $soapIssueRev = $soap->approveRevocationRequest($soapRevocationSerial, $soapRawRevRequest, $detachedSig);
                     if ($soapIssueRev === FALSE) {
                         throw new Exception("The locally approved revocation request was NOT processed by the CA.");
@@ -432,6 +436,23 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         ];
     }
 
+    // taken and adapted from 
+    // https://www.uni-muenster.de/WWUCA/de/howto-special-phpsoap.html
+    
+    public static function soap_from_xml_integer($x) {
+        $y = simplexml_load_string($x);
+        return array(
+            $y->getName(),
+            $y->__toString()
+        );
+    }
+
+    public static function soap_to_xml_integer($x) {
+        return '<' . $x[0] . '>'
+                . htmlentities($x[1], ENT_NOQUOTES | ENT_XML1)
+                . '</' . $x[0] . '>';
+    }
+
     private static function initEduPKISoapSession($type) {
         // set context parameters common to both endpoints
         $context_params = [
@@ -477,6 +498,14 @@ class SilverbulletCertificate extends EntityWithDBProperties {
             'user_agent' => 'eduroam CAT to eduPKI SOAP Interface',
             'features' => SOAP_SINGLE_ELEMENT_ARRAYS,
             'stream_context' => stream_context_create($context_params),
+            'typemap' => [
+                [
+                    'type_ns' => 'http://www.w3.org/2001/XMLSchema',
+                    'type_name' => 'integer',
+                    'from_xml' => 'core\SilverbulletCertificate::soap_from_xml_integer',
+                    'to_xml' => 'core\SilverbulletCertificate::soap_to_xml_integer',
+                ],
+            ],
                 ]
         );
         return $soap;
