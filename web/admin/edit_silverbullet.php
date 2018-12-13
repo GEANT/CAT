@@ -422,7 +422,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                                 ?>
 
                                 <div class="sb-certificate-summary ca-summary" <?php echo $style; ?>>
-                                    <div class="sb-certificate-details"><?php echo _("Device:") . " " . devices\Devices::listDevices()[$oneCert->device]['display']; ?>
+                                    <div class="sb-certificate-details"><?php echo _("Device:") . " " . devices\Devices::listDevices()[$oneCert->device]['display'] ?? $oneCert->device; ?>
                                         <br><?php echo _("Serial Number:") . "&nbsp;" . dechex($oneCert->serial); ?>
                                         <br><?php echo _("CN:") . "&nbsp;" . explode('@', $oneCert->username)[0] . "@…"; ?>
                                         <br><?php echo _("Expiry:") . "&nbsp;" . $oneCert->expiry; ?>
