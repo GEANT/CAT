@@ -638,7 +638,6 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     // let's get the CA certificate chain
 
                     $caInfo = $soap->getCAInfo();
-                    error_log(print_r($caInfo, true));
                     $certList = $x509->splitCertificate($caInfo->CAChain[0]);
                     // find the root
                     $theRoot = "";
@@ -656,10 +655,9 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                 } catch (Exception $e) {
                     throw new Exception("Exception: Something odd happened between the SOAP requests:" . $e->getMessage());
                 }
-
                 return [
                     "CERT" => openssl_x509_read($parsedCert['pem']),
-                    "SERIAL" => $parsedCert['serial'],
+                    "SERIAL" => $parsedCert['full_details']['serialNumber'],
                     "ISSUER" => $theRoot, // change this to the actual eduPKI Issuer CA
                     "ROOT" => $theRoot, // change this to the actual eduPKI Root CA
                 ];
