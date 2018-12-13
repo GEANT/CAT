@@ -200,8 +200,9 @@ class SilverbulletCertificate extends EntityWithDBProperties {
             "certObject" => $certObject,
             "certdata" => $exportedCertProt,
             "certdataclear" => $exportedCertClear,
-            "sha1" => openssl_x509_fingerprint($cert, "sha1"),
-            "sha256" => openssl_x509_fingerprint($cert, "sha256"),
+            // Scrutinizer thinks this needs to be a string, but a resource is just fine
+            "sha1" => openssl_x509_fingerprint(/** @scrutinizer ignore-type */$cert, "sha1"),
+            "sha256" => openssl_x509_fingerprint(/** @scrutinizer ignore-type */$cert, "sha256"),
             'importPassword' => $importPassword,
             'GUID' => common\Entity::uuid("", $exportedCertProt),
         ];
@@ -620,6 +621,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     // now, get the actual cert from the CA
                     sleep(55);
                     $counter = 55;
+                    $parsedCert = NULL;
                     do {
                         $counter += 5;
                         sleep(5); // always start with a wait. Signature round-trip on the server side is at least one minute.
