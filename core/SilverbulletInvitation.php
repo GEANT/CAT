@@ -110,7 +110,7 @@ class SilverbulletInvitation extends common\Entity {
     const SB_TOKENSTATUS_REDEEMED = 2;
     const SB_TOKENSTATUS_EXPIRED = 3;
     const SB_TOKENSTATUS_INVALID = 4;
-    
+
     /**
      * instantiates an invitation identified by the token
      * 
@@ -159,24 +159,30 @@ class SilverbulletInvitation extends common\Entity {
         $now = new \DateTime();
         $expiryObject = new \DateTime($this->expiry);
         $delta = $now->diff($expiryObject);
-        //print_r($delta); exit(1);
-        if ($delta->invert == 1) {
-            $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_EXPIRED;
-            $this->activationsRemaining = 0;
-        }
-        if ($this->invitationTokenStatus != SilverbulletInvitation::SB_TOKENSTATUS_INVALID && $this->invitationTokenStatus != SilverbulletInvitation::SB_TOKENSTATUS_EXPIRED) {
+        if ($this->invitationTokenStatus != SilverbulletInvitation::SB_TOKENSTATUS_INVALID) {
             switch ($certificatesNumber) {
                 case 0:
                     // find out if it has expired
-                    $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_VALID;
+                    if ($delta->invert == 1) {
+                        $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_EXPIRED;
+                        $this->activationsRemaining = 0;
+                    } else {
+                        $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_VALID;
+                    }
                     break;
                 case $invitationRow->quantity:
                     $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_REDEEMED;
                     break;
                 default:
-                    assert($certificatesNumber > 0); // no negatives allowed
-                    assert($certificatesNumber < $invitationRow->quantity || $invitationRow->quantity == 0); // not more than max quantity allowed (unless quantity is zero)
-                    $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_PARTIALLY_REDEEMED;
+                    // find out if it has expired
+                    if ($delta->invert == 1) {
+                        $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_EXPIRED;
+                        $this->activationsRemaining = 0;
+                    } else {
+                        assert($certificatesNumber > 0); // no negatives allowed
+                        assert($certificatesNumber < $invitationRow->quantity || $invitationRow->quantity == 0); // not more than max quantity allowed (unless quantity is zero)
+                        $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_PARTIALLY_REDEEMED;
+                    }
             }
         }
         $this->loggerInstance->debug(5, "Done creating invitation token state from DB.\n");
