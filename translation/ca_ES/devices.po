@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-12 12:38+0100\n"
-"PO-Revision-Date: 2018-12-12 08:33+0000\n"
+"POT-Creation-Date: 2018-12-14 14:26+0100\n"
+"PO-Revision-Date: 2018-12-13 12:18+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/ca_ES/)\n"
@@ -49,16 +49,17 @@ msgstr "Apple macOS High Sierra"
 #: devices/Devices-template.php:238 devices/Devices-template.php:253
 #: devices/Devices-template.php:268 devices/Devices-template.php:283
 #: devices/Devices-template.php:298
-#, fuzzy
 msgid ""
 "During the installation you will be first asked to enter settings for "
 "certificate and there you need to enter the import PIN shown on this page. "
 "Later you will be prompted to enter your password to allow making changes to "
 "the profile, this time it is your computer password."
 msgstr ""
-"Durant la instal.lació se us preguntarà per un codi de seguretat - aquest és "
-"un codi del vostre dispositiu! Després se us demanarà la contrasenya del "
-"certificat i aquí necessitareu introduir el PIN mostrat en aquesta pàgina."
+"Durant la instal.lació se us demanarà configurar el certificat i allí caldrà "
+"que hi entreu el PIN d'importació que trobareu en aquesta pàgina. Més "
+"endavant se us demanarà introduir la vostra contrasenya per a permetre "
+"canvis en el perfil. En aquest cas es tracta de la contrasenya del vostre "
+"ordinador."
 
 #: devices/Devices-template.php:213
 msgid "Apple macOS Sierra"

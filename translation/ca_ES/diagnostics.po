@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-12 12:38+0100\n"
+"POT-Creation-Date: 2018-12-14 14:26+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>, 2018\n"
 "Language-Team: Catalan (Spain) (https://www.transifex.com/eduroam_devel/"
@@ -716,7 +716,7 @@ msgstr "Sou "
 msgid "end-user"
 msgstr "usuari/a final"
 
-#: web/skins/modern/diag/diag.php:91 web/diag/adminQuery.php:130
+#: web/skins/modern/diag/diag.php:91 web/diag/adminQuery.php:133
 msgid "or"
 msgstr "o"
 
@@ -801,7 +801,7 @@ msgstr "Eines per a administradors d'eduroam"
 msgid "Which problem are you reporting?"
 msgstr "Quins problemes esteu informant?"
 
-#: web/skins/modern/diag/diag.php:156 web/skins/modern/diag/diag.php:864
+#: web/skins/modern/diag/diag.php:156 web/skins/modern/diag/diag.php:865
 msgid "SP contacting IdP due to technical problems or abuse"
 msgstr "SP comunicant amb IdP per problemes tècnics o abús"
 
@@ -980,67 +980,67 @@ msgstr "Aquesta prova inclou comprovacions dels següents dominis"
 msgid "You should report this to"
 msgstr "Hauríeu d'informar a"
 
-#: web/skins/modern/diag/diag.php:861
+#: web/skins/modern/diag/diag.php:862
 msgid "eduroam admin report submission"
 msgstr "enviament de l'informe d'administració d'eduroam"
 
-#: web/skins/modern/diag/diag.php:866 web/skins/modern/diag/diag.php:876
+#: web/skins/modern/diag/diag.php:867 web/skins/modern/diag/diag.php:877
 msgid "Reason"
 msgstr "Motiu"
 
-#: web/skins/modern/diag/diag.php:867
+#: web/skins/modern/diag/diag.php:868
 msgid "SP email"
 msgstr "Mail SP"
 
-#: web/skins/modern/diag/diag.php:868
+#: web/skins/modern/diag/diag.php:869
 msgid "IdP email(s)"
 msgstr "emails IdP(s)"
 
-#: web/skins/modern/diag/diag.php:869 web/skins/modern/diag/diag.php:880
+#: web/skins/modern/diag/diag.php:870 web/skins/modern/diag/diag.php:881
 msgid "Event's timestamp"
 msgstr "Marca de temps de l'esdeveniment"
 
-#: web/skins/modern/diag/diag.php:870 web/skins/modern/diag/diag.php:881
+#: web/skins/modern/diag/diag.php:871 web/skins/modern/diag/diag.php:882
 msgid "Calling-Station-Id"
 msgstr "Id de l'estació origen (Calling-Station-Id)"
 
-#: web/skins/modern/diag/diag.php:871 web/skins/modern/diag/diag.php:882
+#: web/skins/modern/diag/diag.php:872 web/skins/modern/diag/diag.php:883
 msgid "Additional description"
 msgstr "Descripció addicional"
 
-#: web/skins/modern/diag/diag.php:874
+#: web/skins/modern/diag/diag.php:875
 msgid "IdP contacting SP due to technical problems or abuse"
 msgstr "IdP comunicant amb SP per problemes tècnics o abús"
 
-#: web/skins/modern/diag/diag.php:877
+#: web/skins/modern/diag/diag.php:878
 msgid "SP's Operator-Name"
 msgstr "Nom de l'operador de l'SP"
 
-#: web/skins/modern/diag/diag.php:878
+#: web/skins/modern/diag/diag.php:879
 msgid "User's outer ID"
 msgstr "ID externa de l'usuari"
 
-#: web/skins/modern/diag/diag.php:879
+#: web/skins/modern/diag/diag.php:880
 msgid "IdP email"
 msgstr "IdP mail"
 
-#: web/skins/modern/diag/diag.php:883
+#: web/skins/modern/diag/diag.php:884
 msgid "How to contact the user"
 msgstr "Com contactar amb l'usuari"
 
-#: web/skins/modern/diag/diag.php:900
+#: web/skins/modern/diag/diag.php:901
 msgid "MAC address is incomplete"
 msgstr "Adreça MAC incompleta"
 
-#: web/skins/modern/diag/diag.php:909
+#: web/skins/modern/diag/diag.php:910
 msgid "Wrong format of email"
 msgstr "Format de mail erroni"
 
-#: web/skins/modern/diag/diag.php:918
+#: web/skins/modern/diag/diag.php:919
 msgid "Wrong format of outer ID"
 msgstr "Format erroni de la ID externa"
 
-#: web/skins/modern/diag/diag.php:927
+#: web/skins/modern/diag/diag.php:928
 msgid "Wrong string given as OperatorName"
 msgstr "Cadena errònia de l'OperatorName"
 
@@ -1123,23 +1123,20 @@ msgid "Show detailed information for all tests"
 msgstr "Mostra informació detallada per a totes les proves"
 
 #: web/diag/action_realmcheck.php:119
-#, fuzzy
 msgid "All tests passed."
-msgstr "Felicitats! S'ha superat totes les proves."
+msgstr "S'ha superat totes les proves."
 
 #: web/diag/action_realmcheck.php:120
-#, fuzzy
 msgid "There were some warnings."
-msgstr "S'han produit errors durant la prova."
+msgstr "Hi ha hagut alguns avisos."
 
 #: web/diag/action_realmcheck.php:121
-#, fuzzy
 msgid "There were some errors."
-msgstr "S'han produit errors durant la prova."
+msgstr "S'han produït alguns errors."
 
 #: web/diag/action_realmcheck.php:122
 msgid "There were some remarks."
-msgstr ""
+msgstr "Hi ha hagut algunes indicacions."
 
 #: web/diag/action_realmcheck.php:129
 msgid "Server certificate"
@@ -1478,15 +1475,15 @@ msgstr "Enviar credencials"
 msgid "Return to %s administrator area"
 msgstr "Torna a l'àrea d'administració de %s"
 
-#: web/diag/adminQuery.php:28
+#: web/diag/adminQuery.php:31
 msgid "I suspect a Technical Problem with the IdP"
 msgstr "Sospitem d'un problema tècnic amb l'IdP"
 
-#: web/diag/adminQuery.php:29
+#: web/diag/adminQuery.php:32
 msgid "A user from this IdP has allegedly infringed copyrights"
 msgstr "Un usuari d'aquest IdP presumptament ha infringit el copyright"
 
-#: web/diag/adminQuery.php:30
+#: web/diag/adminQuery.php:33
 msgid ""
 "A user from this IdP has conducted malicious network operations (spam, "
 "DDoS, ...)"
@@ -1494,92 +1491,92 @@ msgstr ""
 "Un usuari d'aquest IdP ha realitzat accions malicioses de xarxa (spam, "
 "DDoS, ...)"
 
-#: web/diag/adminQuery.php:33
+#: web/diag/adminQuery.php:36
 msgid ""
 "User claims connectivity problems but has been authenticated successfully"
 msgstr ""
 "L'usuari es queixa de problemes de connectivitat però s'ha autenticat "
 "correctament"
 
-#: web/diag/adminQuery.php:34
+#: web/diag/adminQuery.php:37
 msgid "User claims that mandatory open port is not open"
 msgstr "L'usuari es queixa de que un port obligatori no està obert"
 
-#: web/diag/adminQuery.php:62 web/diag/adminQuery.php:109
+#: web/diag/adminQuery.php:65 web/diag/adminQuery.php:112
 msgid "Select your problem"
 msgstr "Escolliu el vostre problema"
 
-#: web/diag/adminQuery.php:66
+#: web/diag/adminQuery.php:69
 msgid "What is the realm of the IdP in question?"
 msgstr "Quin és el domini de l'IdP analitzat?"
 
-#: web/diag/adminQuery.php:70
+#: web/diag/adminQuery.php:73
 msgid "Check if this value is registered"
 msgstr "Comprove si aquest valor està registrat"
 
-#: web/diag/adminQuery.php:75 web/diag/adminQuery.php:138
+#: web/diag/adminQuery.php:78 web/diag/adminQuery.php:141
 msgid "What is the authentication timestamp of the user session in question?"
 msgstr ""
 "Quin és el registre de temps de l'autenticació de la sessió d'usuari "
 "analitzada?"
 
-#: web/diag/adminQuery.php:81 web/diag/adminQuery.php:145
+#: web/diag/adminQuery.php:84 web/diag/adminQuery.php:148
 msgid "What is the MAC address of the user session in question?"
 msgstr "Quina és l'adreça MAC de la sessió d'usuari analitzada?"
 
-#: web/diag/adminQuery.php:85
+#: web/diag/adminQuery.php:88
 msgid "Additional comments"
 msgstr "Comentaris addicionals"
 
-#: web/diag/adminQuery.php:89
+#: web/diag/adminQuery.php:92
 msgid "Please specify an email address on which the IdP can contact you"
 msgstr ""
 "Indiqueu si us plau una adreça de correu on el vostre IdP pugui contactar "
 "amb vosaltres"
 
-#: web/diag/adminQuery.php:93 web/diag/adminQuery.php:161
+#: web/diag/adminQuery.php:96 web/diag/adminQuery.php:164
 msgid "Now you can send your query"
 msgstr "Ara podeu enviar la vostra consulta"
 
-#: web/diag/adminQuery.php:94 web/diag/adminQuery.php:162
+#: web/diag/adminQuery.php:97 web/diag/adminQuery.php:165
 msgid "Send"
 msgstr "Envia"
 
-#: web/diag/adminQuery.php:113
+#: web/diag/adminQuery.php:116
 msgid "Identify the SP by one of following means"
 msgstr "Identifiqueu l'SP per un dels mitjans següents"
 
-#: web/diag/adminQuery.php:117
+#: web/diag/adminQuery.php:120
 msgid "SP Operator-Name attribute"
 msgstr "Atribut SP Operator-Name"
 
-#: web/diag/adminQuery.php:121
+#: web/diag/adminQuery.php:124
 msgid "Select the SP manually:"
 msgstr "Escolliu manualment l'SP:"
 
-#: web/diag/adminQuery.php:124
+#: web/diag/adminQuery.php:127
 msgid "click to select country and organisation"
 msgstr "cliqueu per a seleccionar país i organització"
 
-#: web/diag/adminQuery.php:130
+#: web/diag/adminQuery.php:133
 msgid "at least describe the SP location"
 msgstr "descriviu almenys la localització de l'SP"
 
-#: web/diag/adminQuery.php:134
+#: web/diag/adminQuery.php:137
 msgid "What is the outer ID of the user session in question?"
 msgstr "Quina és l'ID externa de la sessió d'usuari analitzada?"
 
-#: web/diag/adminQuery.php:149
+#: web/diag/adminQuery.php:152
 msgid "Additional comments about the problem"
 msgstr "Comentaris addicionals sobre el problema"
 
-#: web/diag/adminQuery.php:153
+#: web/diag/adminQuery.php:156
 msgid ""
 "Do you have any contact details by which the user wishes to be contacted by "
 "the SP?"
 msgstr "Teniu dades de contacte on l'usuari desitja ser contactat per l'SP?"
 
-#: web/diag/adminQuery.php:157
+#: web/diag/adminQuery.php:160
 msgid "Please specify an email address on which the SP can contact you"
 msgstr ""
 "Indiqueu si us plau una adreça de correu on l'SP pugui contactar amb "

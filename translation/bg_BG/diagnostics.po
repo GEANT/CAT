@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-12 12:38+0100\n"
+"POT-Creation-Date: 2018-12-14 14:26+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>, 2018\n"
 "Language-Team: Bulgarian (Bulgaria) (https://www.transifex.com/eduroam_devel/"
@@ -714,7 +714,7 @@ msgstr "Вие ли сте"
 msgid "end-user"
 msgstr "краен потребител"
 
-#: web/skins/modern/diag/diag.php:91 web/diag/adminQuery.php:130
+#: web/skins/modern/diag/diag.php:91 web/diag/adminQuery.php:133
 msgid "or"
 msgstr "или"
 
@@ -798,7 +798,7 @@ msgstr "Средства за администратори на eduroam"
 msgid "Which problem are you reporting?"
 msgstr "Кой проблем докладвате?"
 
-#: web/skins/modern/diag/diag.php:156 web/skins/modern/diag/diag.php:864
+#: web/skins/modern/diag/diag.php:156 web/skins/modern/diag/diag.php:865
 msgid "SP contacting IdP due to technical problems or abuse"
 msgstr "SP контактува с IdP поради технически проблеми или злоупотреба"
 
@@ -975,67 +975,67 @@ msgstr "Този тест включва проверка на следните 
 msgid "You should report this to"
 msgstr "Вие трябва да докладвате това на"
 
-#: web/skins/modern/diag/diag.php:861
+#: web/skins/modern/diag/diag.php:862
 msgid "eduroam admin report submission"
 msgstr "eduroam администратора подава отчета си"
 
-#: web/skins/modern/diag/diag.php:866 web/skins/modern/diag/diag.php:876
+#: web/skins/modern/diag/diag.php:867 web/skins/modern/diag/diag.php:877
 msgid "Reason"
 msgstr "Причина"
 
-#: web/skins/modern/diag/diag.php:867
+#: web/skins/modern/diag/diag.php:868
 msgid "SP email"
 msgstr "SP е-мейл"
 
-#: web/skins/modern/diag/diag.php:868
+#: web/skins/modern/diag/diag.php:869
 msgid "IdP email(s)"
 msgstr "IdP е-мейл(и)"
 
-#: web/skins/modern/diag/diag.php:869 web/skins/modern/diag/diag.php:880
+#: web/skins/modern/diag/diag.php:870 web/skins/modern/diag/diag.php:881
 msgid "Event's timestamp"
 msgstr "Време на събитието"
 
-#: web/skins/modern/diag/diag.php:870 web/skins/modern/diag/diag.php:881
+#: web/skins/modern/diag/diag.php:871 web/skins/modern/diag/diag.php:882
 msgid "Calling-Station-Id"
 msgstr "Идентификатор на повикващата станция"
 
-#: web/skins/modern/diag/diag.php:871 web/skins/modern/diag/diag.php:882
+#: web/skins/modern/diag/diag.php:872 web/skins/modern/diag/diag.php:883
 msgid "Additional description"
 msgstr "Допълнително описание"
 
-#: web/skins/modern/diag/diag.php:874
+#: web/skins/modern/diag/diag.php:875
 msgid "IdP contacting SP due to technical problems or abuse"
 msgstr "IdP се свързва със SP, поради технически проблеми или злоупотреба"
 
-#: web/skins/modern/diag/diag.php:877
+#: web/skins/modern/diag/diag.php:878
 msgid "SP's Operator-Name"
 msgstr "Operator-Name на SP"
 
-#: web/skins/modern/diag/diag.php:878
+#: web/skins/modern/diag/diag.php:879
 msgid "User's outer ID"
 msgstr "Външен ID на потребителя"
 
-#: web/skins/modern/diag/diag.php:879
+#: web/skins/modern/diag/diag.php:880
 msgid "IdP email"
 msgstr "IdP е-мейл"
 
-#: web/skins/modern/diag/diag.php:883
+#: web/skins/modern/diag/diag.php:884
 msgid "How to contact the user"
 msgstr "Как да се свържете с потребителя"
 
-#: web/skins/modern/diag/diag.php:900
+#: web/skins/modern/diag/diag.php:901
 msgid "MAC address is incomplete"
 msgstr "MAC адресът е непълен"
 
-#: web/skins/modern/diag/diag.php:909
+#: web/skins/modern/diag/diag.php:910
 msgid "Wrong format of email"
 msgstr "Грешен формат на е-мейл"
 
-#: web/skins/modern/diag/diag.php:918
+#: web/skins/modern/diag/diag.php:919
 msgid "Wrong format of outer ID"
 msgstr "Грешен формат на външен ID"
 
-#: web/skins/modern/diag/diag.php:927
+#: web/skins/modern/diag/diag.php:928
 msgid "Wrong string given as OperatorName"
 msgstr "Грешен символен низ е даден като OperatorName"
 
@@ -1116,19 +1116,16 @@ msgid "Show detailed information for all tests"
 msgstr "Покажи подробна информация за всички тестове."
 
 #: web/diag/action_realmcheck.php:119
-#, fuzzy
 msgid "All tests passed."
-msgstr "Всички тестове са преминати, поздравления!"
+msgstr ""
 
 #: web/diag/action_realmcheck.php:120
-#, fuzzy
 msgid "There were some warnings."
-msgstr "Имаше грешки по време на теста."
+msgstr ""
 
 #: web/diag/action_realmcheck.php:121
-#, fuzzy
 msgid "There were some errors."
-msgstr "Имаше грешки по време на теста."
+msgstr ""
 
 #: web/diag/action_realmcheck.php:122
 msgid "There were some remarks."
@@ -1470,15 +1467,15 @@ msgstr "Изпратете личните данни"
 msgid "Return to %s administrator area"
 msgstr "Върнете се към %s администраторска област"
 
-#: web/diag/adminQuery.php:28
+#: web/diag/adminQuery.php:31
 msgid "I suspect a Technical Problem with the IdP"
 msgstr "Предполагам, че е технически проблем с IdP"
 
-#: web/diag/adminQuery.php:29
+#: web/diag/adminQuery.php:32
 msgid "A user from this IdP has allegedly infringed copyrights"
 msgstr "Потребител от този IdP е нарушил авторските права."
 
-#: web/diag/adminQuery.php:30
+#: web/diag/adminQuery.php:33
 msgid ""
 "A user from this IdP has conducted malicious network operations (spam, "
 "DDoS, ...)"
@@ -1486,83 +1483,83 @@ msgstr ""
 "Потребител от този IdP е извършил зловредни операции в мрежата (спам, "
 "DDoS, ...)"
 
-#: web/diag/adminQuery.php:33
+#: web/diag/adminQuery.php:36
 msgid ""
 "User claims connectivity problems but has been authenticated successfully"
 msgstr "Потребител заявява проблеми с връзката, но е удостоверен успешно"
 
-#: web/diag/adminQuery.php:34
+#: web/diag/adminQuery.php:37
 msgid "User claims that mandatory open port is not open"
 msgstr ""
 "Потребител твърди, че порт, който задължително трябва да е отворен, не е "
 "отворен"
 
-#: web/diag/adminQuery.php:62 web/diag/adminQuery.php:109
+#: web/diag/adminQuery.php:65 web/diag/adminQuery.php:112
 msgid "Select your problem"
 msgstr "Изберете Вашия проблем"
 
-#: web/diag/adminQuery.php:66
+#: web/diag/adminQuery.php:69
 msgid "What is the realm of the IdP in question?"
 msgstr "Коя е областта на IdP във въпроса?"
 
-#: web/diag/adminQuery.php:70
+#: web/diag/adminQuery.php:73
 msgid "Check if this value is registered"
 msgstr "Проверете дали тази стойност е регистрирана"
 
-#: web/diag/adminQuery.php:75 web/diag/adminQuery.php:138
+#: web/diag/adminQuery.php:78 web/diag/adminQuery.php:141
 msgid "What is the authentication timestamp of the user session in question?"
 msgstr ""
 "Кое е точното време на удостоверяване на потребителската сесия във въпроса?"
 
-#: web/diag/adminQuery.php:81 web/diag/adminQuery.php:145
+#: web/diag/adminQuery.php:84 web/diag/adminQuery.php:148
 msgid "What is the MAC address of the user session in question?"
 msgstr "Кой е MAC адресът на потребителската сесия във въпроса?"
 
-#: web/diag/adminQuery.php:85
+#: web/diag/adminQuery.php:88
 msgid "Additional comments"
 msgstr "Допълнителни бележки"
 
-#: web/diag/adminQuery.php:89
+#: web/diag/adminQuery.php:92
 msgid "Please specify an email address on which the IdP can contact you"
 msgstr "Моля посочете и-мейл адрес, на който IdP може да се свърже с Вас"
 
-#: web/diag/adminQuery.php:93 web/diag/adminQuery.php:161
+#: web/diag/adminQuery.php:96 web/diag/adminQuery.php:164
 msgid "Now you can send your query"
 msgstr "Вече може да изпратите Вашето запитване"
 
-#: web/diag/adminQuery.php:94 web/diag/adminQuery.php:162
+#: web/diag/adminQuery.php:97 web/diag/adminQuery.php:165
 msgid "Send"
 msgstr "Изпратете"
 
-#: web/diag/adminQuery.php:113
+#: web/diag/adminQuery.php:116
 msgid "Identify the SP by one of following means"
 msgstr "Определете SP по един от следните начини"
 
-#: web/diag/adminQuery.php:117
+#: web/diag/adminQuery.php:120
 msgid "SP Operator-Name attribute"
 msgstr "SP Operator-Name параметър"
 
-#: web/diag/adminQuery.php:121
+#: web/diag/adminQuery.php:124
 msgid "Select the SP manually:"
 msgstr "Изберете SP ръчно:"
 
-#: web/diag/adminQuery.php:124
+#: web/diag/adminQuery.php:127
 msgid "click to select country and organisation"
 msgstr "кликнете, за да изберете страна и организация"
 
-#: web/diag/adminQuery.php:130
+#: web/diag/adminQuery.php:133
 msgid "at least describe the SP location"
 msgstr "най-малко опишете мястото на SP"
 
-#: web/diag/adminQuery.php:134
+#: web/diag/adminQuery.php:137
 msgid "What is the outer ID of the user session in question?"
 msgstr "Какво е външното ID на потребителската сесия във въпроса?"
 
-#: web/diag/adminQuery.php:149
+#: web/diag/adminQuery.php:152
 msgid "Additional comments about the problem"
 msgstr "Допълнителни бележки относно проблема"
 
-#: web/diag/adminQuery.php:153
+#: web/diag/adminQuery.php:156
 msgid ""
 "Do you have any contact details by which the user wishes to be contacted by "
 "the SP?"
@@ -1570,7 +1567,7 @@ msgstr ""
 "Имате ли някакви данни за контакт, по които потребителят желае SP да се "
 "свърже с него?"
 
-#: web/diag/adminQuery.php:157
+#: web/diag/adminQuery.php:160
 msgid "Please specify an email address on which the SP can contact you"
 msgstr "Моля посочете и-мейл адрес, на който SP може да се свърже с Вас "
 

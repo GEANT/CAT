@@ -5,18 +5,18 @@
 #
 # Translators:
 # Jari Miettinen <Jari.Miettinen@csc.fi>, 2018
-# Tomi Salmi, 2018
 # tuukka, 2018
 # Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, 2018
+# Tomi Salmi, 2018
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-12 12:38+0100\n"
+"POT-Creation-Date: 2018-12-14 14:26+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, 2018\n"
+"Last-Translator: Tomi Salmi, 2018\n"
 "Language-Team: Finnish (Finland) (https://www.transifex.com/eduroam_devel/"
 "teams/11799/fi_FI/)\n"
 "Language: fi_FI\n"
@@ -700,7 +700,7 @@ msgstr "Oletko"
 msgid "end-user"
 msgstr "loppukäyttäjä"
 
-#: web/skins/modern/diag/diag.php:91 web/diag/adminQuery.php:130
+#: web/skins/modern/diag/diag.php:91 web/diag/adminQuery.php:133
 msgid "or"
 msgstr "vai"
 
@@ -782,7 +782,7 @@ msgstr "eduroam-ylläpitäjien työkalut"
 msgid "Which problem are you reporting?"
 msgstr "Millaisesta ongelmasta tahdot raportoida?"
 
-#: web/skins/modern/diag/diag.php:156 web/skins/modern/diag/diag.php:864
+#: web/skins/modern/diag/diag.php:156 web/skins/modern/diag/diag.php:865
 msgid "SP contacting IdP due to technical problems or abuse"
 msgstr "SP on yhteydessä IdP:hen teknisten ongelmien tai väärinkäytön takia."
 
@@ -958,67 +958,67 @@ msgstr "Testi sisältää seuraavan toimialueen testaamisen"
 msgid "You should report this to"
 msgstr "Sinun pitäisi ilmoittaa asiasta"
 
-#: web/skins/modern/diag/diag.php:861
+#: web/skins/modern/diag/diag.php:862
 msgid "eduroam admin report submission"
 msgstr "raportin lähettäminen eduroam ylläpitäjälle"
 
-#: web/skins/modern/diag/diag.php:866 web/skins/modern/diag/diag.php:876
+#: web/skins/modern/diag/diag.php:867 web/skins/modern/diag/diag.php:877
 msgid "Reason"
 msgstr "Syy"
 
-#: web/skins/modern/diag/diag.php:867
+#: web/skins/modern/diag/diag.php:868
 msgid "SP email"
 msgstr "SP sähköposti"
 
-#: web/skins/modern/diag/diag.php:868
+#: web/skins/modern/diag/diag.php:869
 msgid "IdP email(s)"
 msgstr "IdP:n sähköpostiosoite(et)"
 
-#: web/skins/modern/diag/diag.php:869 web/skins/modern/diag/diag.php:880
+#: web/skins/modern/diag/diag.php:870 web/skins/modern/diag/diag.php:881
 msgid "Event's timestamp"
 msgstr "Tapahtuman aikaleima"
 
-#: web/skins/modern/diag/diag.php:870 web/skins/modern/diag/diag.php:881
+#: web/skins/modern/diag/diag.php:871 web/skins/modern/diag/diag.php:882
 msgid "Calling-Station-Id"
 msgstr "Laitteen tunniste"
 
-#: web/skins/modern/diag/diag.php:871 web/skins/modern/diag/diag.php:882
+#: web/skins/modern/diag/diag.php:872 web/skins/modern/diag/diag.php:883
 msgid "Additional description"
 msgstr "Lisäkuvaus"
 
-#: web/skins/modern/diag/diag.php:874
+#: web/skins/modern/diag/diag.php:875
 msgid "IdP contacting SP due to technical problems or abuse"
 msgstr "IdP on yhteydessä SP:hen teknisten ongelmien tai väärinkäytön takia."
 
-#: web/skins/modern/diag/diag.php:877
+#: web/skins/modern/diag/diag.php:878
 msgid "SP's Operator-Name"
 msgstr "SP:n tunniste"
 
-#: web/skins/modern/diag/diag.php:878
+#: web/skins/modern/diag/diag.php:879
 msgid "User's outer ID"
 msgstr "Käyttäjän ulkoinen identiteetti"
 
-#: web/skins/modern/diag/diag.php:879
+#: web/skins/modern/diag/diag.php:880
 msgid "IdP email"
 msgstr "IdP:n sähköpostiosoite"
 
-#: web/skins/modern/diag/diag.php:883
+#: web/skins/modern/diag/diag.php:884
 msgid "How to contact the user"
 msgstr "Yhteydenotto käyttäjään"
 
-#: web/skins/modern/diag/diag.php:900
+#: web/skins/modern/diag/diag.php:901
 msgid "MAC address is incomplete"
 msgstr "MAC-osoite on epätäydellinen"
 
-#: web/skins/modern/diag/diag.php:909
+#: web/skins/modern/diag/diag.php:910
 msgid "Wrong format of email"
 msgstr "Sähköpostiosoite on väärässä muodossa"
 
-#: web/skins/modern/diag/diag.php:918
+#: web/skins/modern/diag/diag.php:919
 msgid "Wrong format of outer ID"
 msgstr "Ulkoinen identiteetti on väärässä muodossa"
 
-#: web/skins/modern/diag/diag.php:927
+#: web/skins/modern/diag/diag.php:928
 msgid "Wrong string given as OperatorName"
 msgstr "Tunniste (Operator-Name) on väärin"
 
@@ -1100,23 +1100,20 @@ msgid "Show detailed information for all tests"
 msgstr "Näytä tarkat tiedot kaikista testeistä"
 
 #: web/diag/action_realmcheck.php:119
-#, fuzzy
 msgid "All tests passed."
-msgstr "Kaikki testit onnistuivat, onneksi olkoon!"
+msgstr "Kaikki testit läpäisty."
 
 #: web/diag/action_realmcheck.php:120
-#, fuzzy
 msgid "There were some warnings."
-msgstr "Testissä havaittiin virheitä."
+msgstr "Muutamia varoituksia."
 
 #: web/diag/action_realmcheck.php:121
-#, fuzzy
 msgid "There were some errors."
-msgstr "Testissä havaittiin virheitä."
+msgstr "Muutamia virheitä."
 
 #: web/diag/action_realmcheck.php:122
 msgid "There were some remarks."
-msgstr ""
+msgstr "Muutamia huomautuksia."
 
 #: web/diag/action_realmcheck.php:129
 msgid "Server certificate"
@@ -1456,97 +1453,97 @@ msgstr "Lähetä tunnukset"
 msgid "Return to %s administrator area"
 msgstr "Takaisin %s ylläpitoalueelle"
 
-#: web/diag/adminQuery.php:28
+#: web/diag/adminQuery.php:31
 msgid "I suspect a Technical Problem with the IdP"
 msgstr "Epäilen, että IdP:llä on tekninen ongelma."
 
-#: web/diag/adminQuery.php:29
+#: web/diag/adminQuery.php:32
 msgid "A user from this IdP has allegedly infringed copyrights"
 msgstr "Tämän IdP:n käyttäjä on loukannut tekijänoikeuksia"
 
-#: web/diag/adminQuery.php:30
+#: web/diag/adminQuery.php:33
 msgid ""
 "A user from this IdP has conducted malicious network operations (spam, "
 "DDoS, ...)"
 msgstr ""
 "Tämän IdP:n käyttäjä on käyttänyt haittaohjelmia (roskaposti, DDoS, ...)"
 
-#: web/diag/adminQuery.php:33
+#: web/diag/adminQuery.php:36
 msgid ""
 "User claims connectivity problems but has been authenticated successfully"
 msgstr ""
 "Käyttäjä valittaa liittymisongelmista, mutta hänet on tunnistettu "
 "onnistuneesti "
 
-#: web/diag/adminQuery.php:34
+#: web/diag/adminQuery.php:37
 msgid "User claims that mandatory open port is not open"
 msgstr "Käyttäjä väittää, että pakollinen avoin portti ei ole avattu"
 
-#: web/diag/adminQuery.php:62 web/diag/adminQuery.php:109
+#: web/diag/adminQuery.php:65 web/diag/adminQuery.php:112
 msgid "Select your problem"
 msgstr "Valitse ongelma"
 
-#: web/diag/adminQuery.php:66
+#: web/diag/adminQuery.php:69
 msgid "What is the realm of the IdP in question?"
 msgstr "Mikä on IdP:n toimialue?"
 
-#: web/diag/adminQuery.php:70
+#: web/diag/adminQuery.php:73
 msgid "Check if this value is registered"
 msgstr "Tarkista, onko tämä arvo rekisteröity"
 
-#: web/diag/adminQuery.php:75 web/diag/adminQuery.php:138
+#: web/diag/adminQuery.php:78 web/diag/adminQuery.php:141
 msgid "What is the authentication timestamp of the user session in question?"
 msgstr "Mikä on kyseisen käyttäjäistunnon todennuksen ajankohta?"
 
-#: web/diag/adminQuery.php:81 web/diag/adminQuery.php:145
+#: web/diag/adminQuery.php:84 web/diag/adminQuery.php:148
 msgid "What is the MAC address of the user session in question?"
 msgstr "Mikä on kyseisessä käyttäjäistunnossa käyttäjän MAC-osoite? "
 
-#: web/diag/adminQuery.php:85
+#: web/diag/adminQuery.php:88
 msgid "Additional comments"
 msgstr "Muita kommentteja"
 
-#: web/diag/adminQuery.php:89
+#: web/diag/adminQuery.php:92
 msgid "Please specify an email address on which the IdP can contact you"
 msgstr "Määritä sähköpostiosoite, jolle IdP voi ottaa sinuun yhteyttä"
 
-#: web/diag/adminQuery.php:93 web/diag/adminQuery.php:161
+#: web/diag/adminQuery.php:96 web/diag/adminQuery.php:164
 msgid "Now you can send your query"
 msgstr "Nyt voit lähettää kyselyn"
 
-#: web/diag/adminQuery.php:94 web/diag/adminQuery.php:162
+#: web/diag/adminQuery.php:97 web/diag/adminQuery.php:165
 msgid "Send"
 msgstr "Lähetä"
 
-#: web/diag/adminQuery.php:113
+#: web/diag/adminQuery.php:116
 msgid "Identify the SP by one of following means"
 msgstr "Tunnista SP yksi seuraavista tavoista"
 
-#: web/diag/adminQuery.php:117
+#: web/diag/adminQuery.php:120
 msgid "SP Operator-Name attribute"
 msgstr "SP Operator-Name -attribuutti"
 
-#: web/diag/adminQuery.php:121
+#: web/diag/adminQuery.php:124
 msgid "Select the SP manually:"
 msgstr "Valitse SP käsin:"
 
-#: web/diag/adminQuery.php:124
+#: web/diag/adminQuery.php:127
 msgid "click to select country and organisation"
 msgstr "valitse maa ja organisaatio klikkaamalla"
 
-#: web/diag/adminQuery.php:130
+#: web/diag/adminQuery.php:133
 msgid "at least describe the SP location"
 msgstr "ainakin kuvaile SP:n sijaintia"
 
-#: web/diag/adminQuery.php:134
+#: web/diag/adminQuery.php:137
 msgid "What is the outer ID of the user session in question?"
 msgstr "Mikä on kyseisessä käyttäjäistunnossa käyttäjän ulkoinen identiteetti?"
 
-#: web/diag/adminQuery.php:149
+#: web/diag/adminQuery.php:152
 msgid "Additional comments about the problem"
 msgstr "Muita kommentteja ongelmasta"
 
-#: web/diag/adminQuery.php:153
+#: web/diag/adminQuery.php:156
 msgid ""
 "Do you have any contact details by which the user wishes to be contacted by "
 "the SP?"
@@ -1554,7 +1551,7 @@ msgstr ""
 "Onko sinulla yhteystietoja, joiden kautta käyttäjä haluaa että SP ottaa "
 "yhteyttä?"
 
-#: web/diag/adminQuery.php:157
+#: web/diag/adminQuery.php:160
 msgid "Please specify an email address on which the SP can contact you"
 msgstr "Määritä sähköpostiosoite, johon SP voi ottaa sinuun yhteyttä"
 

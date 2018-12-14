@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-12 12:38+0100\n"
+"POT-Creation-Date: 2018-12-14 14:26+0100\n"
 "PO-Revision-Date: 2018-11-14 09:54+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/eduroam_devel/"
@@ -311,17 +311,17 @@ msgstr "Zuid-Afrika"
 msgid "Unnamed Entity"
 msgstr "onbekende grootheid"
 
-#: core/DeviceConfig.php:214
+#: core/DeviceConfig.php:213
 #, php-format
 msgid "your local %s support"
 msgstr "je lokale %s ondersteuning"
 
-#: core/DeviceConfig.php:215
+#: core/DeviceConfig.php:214
 #, php-format
 msgid "your local %s support page"
 msgstr "je lokale %s ondersteuningspagina"
 
-#: core/DeviceConfig.php:250
+#: core/DeviceConfig.php:249
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 "Sorry, dit zou niet moeten gebeuren - geen aanvullende informatie beschikbaar"
@@ -353,16 +353,16 @@ msgstr ""
 msgid "IdP in your federation was deleted"
 msgstr "Een IdP in jouw federatie is verwijderd"
 
-#: core/SilverbulletInvitation.php:223
+#: core/SilverbulletInvitation.php:229
 #, php-format
 msgid "Your %s access is ready"
 msgstr "Toegang tot %s is gereed"
 
-#: core/SilverbulletInvitation.php:232
+#: core/SilverbulletInvitation.php:238
 msgid "Hello!"
 msgstr "Hallo!"
 
-#: core/SilverbulletInvitation.php:234
+#: core/SilverbulletInvitation.php:240
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
@@ -370,7 +370,7 @@ msgid ""
 msgstr ""
 "De netwerkbeheerder heeft nieuwe toegangssgegevens voor %s voor je gemaakt."
 
-#: core/SilverbulletInvitation.php:236
+#: core/SilverbulletInvitation.php:242
 #, php-format
 msgid ""
 "Please follow the following link with the device you want to enable for %s "
@@ -382,7 +382,7 @@ msgstr ""
 "aanklikken, de koppeling in je browser plakken of de QR-code scannen."
 
 #. gets replaced with the token value by getBody()
-#: core/SilverbulletInvitation.php:238
+#: core/SilverbulletInvitation.php:244
 #, php-format
 msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
@@ -393,11 +393,11 @@ msgstr ""
 "installatieprogramma hebt uitgevoerd, kan je dezelfde link gebruiken om de "
 "status van je %s-account te tonen."
 
-#: core/SilverbulletInvitation.php:240
+#: core/SilverbulletInvitation.php:246
 msgid "Regards,"
 msgstr "Met vriendelijke groet,"
 
-#: core/SilverbulletInvitation.php:288
+#: core/SilverbulletInvitation.php:294
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
@@ -406,7 +406,7 @@ msgstr ""
 "Je toegang tot %s is gereed. Klik hier: %s (Op Android eerst app '%s' "
 "installeren!)"
 
-#: core/SilverbulletInvitation.php:301
+#: core/SilverbulletInvitation.php:307
 #, php-format
 msgid "%s Invitation System"
 msgstr ""

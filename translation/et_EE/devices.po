@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-12 12:38+0100\n"
-"PO-Revision-Date: 2018-12-11 09:31+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2018-12-14 14:26+0100\n"
+"PO-Revision-Date: 2018-12-14 08:47+0000\n"
+"Last-Translator: Indrek Rokk <indrek.rokk@eenet.ee>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/et_EE/)\n"
 "Language: et_EE\n"
@@ -149,7 +149,7 @@ msgstr "Android 8.0 Oreo"
 
 #: devices/Devices-template.php:389
 msgid "Android 7.0 Nougat"
-msgstr ""
+msgstr "Android 7.0 Nougat"
 
 #: devices/Devices-template.php:405
 msgid "Android 6.0 Marshmallow"

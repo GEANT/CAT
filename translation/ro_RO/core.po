@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-12 12:38+0100\n"
+"POT-Creation-Date: 2018-12-14 14:26+0100\n"
 "PO-Revision-Date: 2018-11-14 11:48+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/eduroam_devel/"
@@ -310,17 +310,17 @@ msgstr "Africa de Sud"
 msgid "Unnamed Entity"
 msgstr "Entitate nedefinită"
 
-#: core/DeviceConfig.php:214
+#: core/DeviceConfig.php:213
 #, php-format
 msgid "your local %s support"
 msgstr "echipa locală de suport %s"
 
-#: core/DeviceConfig.php:215
+#: core/DeviceConfig.php:214
 #, php-format
 msgid "your local %s support page"
 msgstr "pagina locală de suport %s"
 
-#: core/DeviceConfig.php:250
+#: core/DeviceConfig.php:249
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 "Ne pare rău, acest lucru nu ar trebui să se întâmple - nu există informații "
@@ -354,23 +354,23 @@ msgstr ""
 msgid "IdP in your federation was deleted"
 msgstr "IdP-ul din federația dumneavoastră a fost șters"
 
-#: core/SilverbulletInvitation.php:223
+#: core/SilverbulletInvitation.php:229
 #, php-format
 msgid "Your %s access is ready"
 msgstr ""
 
-#: core/SilverbulletInvitation.php:232
+#: core/SilverbulletInvitation.php:238
 msgid "Hello!"
 msgstr ""
 
-#: core/SilverbulletInvitation.php:234
+#: core/SilverbulletInvitation.php:240
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
 "administrator."
 msgstr ""
 
-#: core/SilverbulletInvitation.php:236
+#: core/SilverbulletInvitation.php:242
 #, php-format
 msgid ""
 "Please follow the following link with the device you want to enable for %s "
@@ -379,7 +379,7 @@ msgid ""
 msgstr ""
 
 #. gets replaced with the token value by getBody()
-#: core/SilverbulletInvitation.php:238
+#: core/SilverbulletInvitation.php:244
 #, php-format
 msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
@@ -387,18 +387,18 @@ msgid ""
 "information about your %s account."
 msgstr ""
 
-#: core/SilverbulletInvitation.php:240
+#: core/SilverbulletInvitation.php:246
 msgid "Regards,"
 msgstr "Cu bine,"
 
-#: core/SilverbulletInvitation.php:288
+#: core/SilverbulletInvitation.php:294
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
 "'%s'!)"
 msgstr ""
 
-#: core/SilverbulletInvitation.php:301
+#: core/SilverbulletInvitation.php:307
 #, php-format
 msgid "%s Invitation System"
 msgstr "%sSistem de Invitare"

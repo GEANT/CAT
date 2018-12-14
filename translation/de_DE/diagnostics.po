@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-12 12:38+0100\n"
+"POT-Creation-Date: 2018-12-14 14:26+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>, 2018\n"
 "Language-Team: German (Germany) (https://www.transifex.com/eduroam_devel/"
@@ -732,7 +732,7 @@ msgstr "Sind Sie ein"
 msgid "end-user"
 msgstr "Endnutzer"
 
-#: web/skins/modern/diag/diag.php:91 web/diag/adminQuery.php:130
+#: web/skins/modern/diag/diag.php:91 web/diag/adminQuery.php:133
 msgid "or"
 msgstr "oder"
 
@@ -817,7 +817,7 @@ msgstr "Werkzeuge für eduroam Administratoren"
 msgid "Which problem are you reporting?"
 msgstr "Welche Art von Problem melden Sie?"
 
-#: web/skins/modern/diag/diag.php:156 web/skins/modern/diag/diag.php:864
+#: web/skins/modern/diag/diag.php:156 web/skins/modern/diag/diag.php:865
 msgid "SP contacting IdP due to technical problems or abuse"
 msgstr "SP kontaktiert IdP wegen technischer Probleme oder Missbrauch"
 
@@ -1003,67 +1003,67 @@ msgstr "Dieser Test wird durchgeführt für die folgenden Realms"
 msgid "You should report this to"
 msgstr "Sie sollten dies melden an"
 
-#: web/skins/modern/diag/diag.php:861
+#: web/skins/modern/diag/diag.php:862
 msgid "eduroam admin report submission"
 msgstr "eduroam Administrator Problemmeldung"
 
-#: web/skins/modern/diag/diag.php:866 web/skins/modern/diag/diag.php:876
+#: web/skins/modern/diag/diag.php:867 web/skins/modern/diag/diag.php:877
 msgid "Reason"
 msgstr "Grund"
 
-#: web/skins/modern/diag/diag.php:867
+#: web/skins/modern/diag/diag.php:868
 msgid "SP email"
 msgstr "SP E-Mail"
 
-#: web/skins/modern/diag/diag.php:868
+#: web/skins/modern/diag/diag.php:869
 msgid "IdP email(s)"
 msgstr "IdP E-Mail(s)"
 
-#: web/skins/modern/diag/diag.php:869 web/skins/modern/diag/diag.php:880
+#: web/skins/modern/diag/diag.php:870 web/skins/modern/diag/diag.php:881
 msgid "Event's timestamp"
 msgstr "Zeitpunkt des Problems"
 
-#: web/skins/modern/diag/diag.php:870 web/skins/modern/diag/diag.php:881
+#: web/skins/modern/diag/diag.php:871 web/skins/modern/diag/diag.php:882
 msgid "Calling-Station-Id"
 msgstr "Calling-Station-Id"
 
-#: web/skins/modern/diag/diag.php:871 web/skins/modern/diag/diag.php:882
+#: web/skins/modern/diag/diag.php:872 web/skins/modern/diag/diag.php:883
 msgid "Additional description"
 msgstr "Zusätzliche Angaben"
 
-#: web/skins/modern/diag/diag.php:874
+#: web/skins/modern/diag/diag.php:875
 msgid "IdP contacting SP due to technical problems or abuse"
 msgstr "Kontaktaufnahme IdP zu SP wegen technischer Probleme oder Missbrauch"
 
-#: web/skins/modern/diag/diag.php:877
+#: web/skins/modern/diag/diag.php:878
 msgid "SP's Operator-Name"
 msgstr "SP Operator-Name"
 
-#: web/skins/modern/diag/diag.php:878
+#: web/skins/modern/diag/diag.php:879
 msgid "User's outer ID"
 msgstr "Äußere Identität des Nutzers"
 
-#: web/skins/modern/diag/diag.php:879
+#: web/skins/modern/diag/diag.php:880
 msgid "IdP email"
 msgstr "IdP E-Mail"
 
-#: web/skins/modern/diag/diag.php:883
+#: web/skins/modern/diag/diag.php:884
 msgid "How to contact the user"
 msgstr "Wie kann der Nutzer kontaktiert werden"
 
-#: web/skins/modern/diag/diag.php:900
+#: web/skins/modern/diag/diag.php:901
 msgid "MAC address is incomplete"
 msgstr "MAC Adresse ist fehlerhaft"
 
-#: web/skins/modern/diag/diag.php:909
+#: web/skins/modern/diag/diag.php:910
 msgid "Wrong format of email"
 msgstr "E-Mail-Adresse hat falsches Format"
 
-#: web/skins/modern/diag/diag.php:918
+#: web/skins/modern/diag/diag.php:919
 msgid "Wrong format of outer ID"
 msgstr "Äußere Identität hat falsches Format"
 
-#: web/skins/modern/diag/diag.php:927
+#: web/skins/modern/diag/diag.php:928
 msgid "Wrong string given as OperatorName"
 msgstr "Angegebener Operator-Name hat ungültiges Format"
 
@@ -1146,19 +1146,16 @@ msgid "Show detailed information for all tests"
 msgstr "Detaillierte Informationen zu allen Tests anzeigen"
 
 #: web/diag/action_realmcheck.php:119
-#, fuzzy
 msgid "All tests passed."
-msgstr "Alle Tests bestanden, Glückwunsch!"
+msgstr ""
 
 #: web/diag/action_realmcheck.php:120
-#, fuzzy
 msgid "There were some warnings."
-msgstr "Im Test sind Fehler aufgetreten."
+msgstr ""
 
 #: web/diag/action_realmcheck.php:121
-#, fuzzy
 msgid "There were some errors."
-msgstr "Im Test sind Fehler aufgetreten."
+msgstr ""
 
 #: web/diag/action_realmcheck.php:122
 msgid "There were some remarks."
@@ -1506,15 +1503,15 @@ msgstr "Daten übertragen"
 msgid "Return to %s administrator area"
 msgstr "Rückkehr zum %s Administrator Bereich"
 
-#: web/diag/adminQuery.php:28
+#: web/diag/adminQuery.php:31
 msgid "I suspect a Technical Problem with the IdP"
 msgstr "Ich vermute ein technisches Problem auf Seiten des IdP"
 
-#: web/diag/adminQuery.php:29
+#: web/diag/adminQuery.php:32
 msgid "A user from this IdP has allegedly infringed copyrights"
 msgstr "Ein Nutzer dieses IdP hat angeblich Urheberrechtsverletzungen begangen"
 
-#: web/diag/adminQuery.php:30
+#: web/diag/adminQuery.php:33
 msgid ""
 "A user from this IdP has conducted malicious network operations (spam, "
 "DDoS, ...)"
@@ -1522,86 +1519,86 @@ msgstr ""
 "Ein Nutzer dieses IdP hat bösartige Aktivitäten durchgeführt (Spam, "
 "DDoS, ...)"
 
-#: web/diag/adminQuery.php:33
+#: web/diag/adminQuery.php:36
 msgid ""
 "User claims connectivity problems but has been authenticated successfully"
 msgstr ""
 "Der Nutzer behauptet, Verbindungsprobleme zu haben, wurde aber erfolgreich "
 "authentifiziert."
 
-#: web/diag/adminQuery.php:34
+#: web/diag/adminQuery.php:37
 msgid "User claims that mandatory open port is not open"
 msgstr "Der Nutzer behauptet, ein zwingend zu öffnender Port sei nicht offen."
 
-#: web/diag/adminQuery.php:62 web/diag/adminQuery.php:109
+#: web/diag/adminQuery.php:65 web/diag/adminQuery.php:112
 msgid "Select your problem"
 msgstr "Wählen Sie Ihr Problem"
 
-#: web/diag/adminQuery.php:66
+#: web/diag/adminQuery.php:69
 msgid "What is the realm of the IdP in question?"
 msgstr "Um welchen Realm handelt es sich?"
 
-#: web/diag/adminQuery.php:70
+#: web/diag/adminQuery.php:73
 msgid "Check if this value is registered"
 msgstr "Überprüfen Sie ob dieser Wert registriert ist"
 
-#: web/diag/adminQuery.php:75 web/diag/adminQuery.php:138
+#: web/diag/adminQuery.php:78 web/diag/adminQuery.php:141
 msgid "What is the authentication timestamp of the user session in question?"
 msgstr ""
 "Zu welchem Zeitpunkt fand die Authentifizierung der fraglichen Sitzung statt?"
 
-#: web/diag/adminQuery.php:81 web/diag/adminQuery.php:145
+#: web/diag/adminQuery.php:84 web/diag/adminQuery.php:148
 msgid "What is the MAC address of the user session in question?"
 msgstr "Wie ist die MAC Adresse die bei der fraglichen Sitzung benutzt wurde?"
 
-#: web/diag/adminQuery.php:85
+#: web/diag/adminQuery.php:88
 msgid "Additional comments"
 msgstr "Zusätzliche Kommentare"
 
-#: web/diag/adminQuery.php:89
+#: web/diag/adminQuery.php:92
 msgid "Please specify an email address on which the IdP can contact you"
 msgstr ""
 "Bitte geben Sie eine E-Mail-Adresse an, unter der der IdP Sie kontaktieren "
 "kann"
 
-#: web/diag/adminQuery.php:93 web/diag/adminQuery.php:161
+#: web/diag/adminQuery.php:96 web/diag/adminQuery.php:164
 msgid "Now you can send your query"
 msgstr "Jetzt können Sie Ihre Anfrage absenden"
 
-#: web/diag/adminQuery.php:94 web/diag/adminQuery.php:162
+#: web/diag/adminQuery.php:97 web/diag/adminQuery.php:165
 msgid "Send"
 msgstr "Absenden"
 
-#: web/diag/adminQuery.php:113
+#: web/diag/adminQuery.php:116
 msgid "Identify the SP by one of following means"
 msgstr "Identifizieren Sie den SP anhand der folgenden Methoden"
 
-#: web/diag/adminQuery.php:117
+#: web/diag/adminQuery.php:120
 msgid "SP Operator-Name attribute"
 msgstr "SP Operator-Name Attribut"
 
-#: web/diag/adminQuery.php:121
+#: web/diag/adminQuery.php:124
 msgid "Select the SP manually:"
 msgstr "SP manuell auswählen:"
 
-#: web/diag/adminQuery.php:124
+#: web/diag/adminQuery.php:127
 msgid "click to select country and organisation"
 msgstr "Klicken Sie zur Länder- und Organisationsauswahl"
 
-#: web/diag/adminQuery.php:130
+#: web/diag/adminQuery.php:133
 msgid "at least describe the SP location"
 msgstr "Beschreiben Sie mindestens den Ort an dem der SP ist"
 
-#: web/diag/adminQuery.php:134
+#: web/diag/adminQuery.php:137
 msgid "What is the outer ID of the user session in question?"
 msgstr ""
 "Wie ist die äußere Identität die bei der fraglichen Sitzung benutzt wurde"
 
-#: web/diag/adminQuery.php:149
+#: web/diag/adminQuery.php:152
 msgid "Additional comments about the problem"
 msgstr "Zusätzliche Kommentare zum Problem"
 
-#: web/diag/adminQuery.php:153
+#: web/diag/adminQuery.php:156
 msgid ""
 "Do you have any contact details by which the user wishes to be contacted by "
 "the SP?"
@@ -1609,7 +1606,7 @@ msgstr ""
 "Haben Sie Kontaktdaten unter denen der Nutzer gerne vom SP kontaktiert "
 "werden möchte?"
 
-#: web/diag/adminQuery.php:157
+#: web/diag/adminQuery.php:160
 msgid "Please specify an email address on which the SP can contact you"
 msgstr ""
 "Bitte geben Sie eine E-Mail-Adresse an, unter der der SP Sie kontaktieren "

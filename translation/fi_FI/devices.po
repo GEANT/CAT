@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-12 12:38+0100\n"
-"PO-Revision-Date: 2018-12-11 09:31+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2018-12-14 14:26+0100\n"
+"PO-Revision-Date: 2018-12-13 09:38+0000\n"
+"Last-Translator: Tomi Salmi\n"
 "Language-Team: Finnish (Finland) (http://www.transifex.com/eduroam_devel/cat/"
 "language/fi_FI/)\n"
 "Language: fi_FI\n"
@@ -57,6 +57,10 @@ msgid ""
 "Later you will be prompted to enter your password to allow making changes to "
 "the profile, this time it is your computer password."
 msgstr ""
+"Asennuksen aikana sinulta tullaan kysymään varmenneasetuksia, missä "
+"yhteydessä tarvitset myös tällä sivulla kerrotun PIN-koodin. Myöhemmin "
+"tarvitset oman tietokoneesi salasanan, jotta muutokset voidaan tallentaa "
+"langattoman verkon profiiliisi."
 
 #: devices/Devices-template.php:213
 msgid "Apple macOS Sierra"
@@ -93,6 +97,9 @@ msgid ""
 "password to the certificate and there you need to enter the import PIN shown "
 "on this page."
 msgstr ""
+"Asennuksen aikana sinulta tullaan kysymään turvakoodia - se on laitteesi "
+"yksilöivä turvakoodi. Myöhemmin tarvitset salasanan varmennetta varten, saat "
+"salasanan eli PIN-koodin tältä sivulta."
 
 #: devices/Devices-template.php:319
 msgid "Apple iOS mobile devices (iOS 5 and 6)"
@@ -152,7 +159,7 @@ msgstr "Android 8.0 Oreo"
 
 #: devices/Devices-template.php:389
 msgid "Android 7.0 Nougat"
-msgstr ""
+msgstr "Android 7.0 Nougat"
 
 #: devices/Devices-template.php:405
 msgid "Android 6.0 Marshmallow"

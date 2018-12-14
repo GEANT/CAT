@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-12 12:38+0100\n"
-"PO-Revision-Date: 2018-12-11 09:44+0000\n"
+"POT-Creation-Date: 2018-12-14 14:26+0100\n"
+"PO-Revision-Date: 2018-12-12 22:44+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Hindi (India) (http://www.transifex.com/eduroam_devel/cat/"
 "language/hi_IN/)\n"
@@ -806,100 +806,100 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:407
+#: web/admin/edit_silverbullet.php:409
 msgid "REVOKED"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:412
+#: web/admin/edit_silverbullet.php:414
 msgid "EXPIRED"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:423
+#: web/admin/edit_silverbullet.php:425
 msgid "Device:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:424
+#: web/admin/edit_silverbullet.php:426
 msgid "Serial Number:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:425
+#: web/admin/edit_silverbullet.php:427
 msgid "CN:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:426
+#: web/admin/edit_silverbullet.php:428
 msgid "Expiry:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:427
+#: web/admin/edit_silverbullet.php:429
 msgid "Issued:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:439
+#: web/admin/edit_silverbullet.php:441
 #, php-format
 msgid ""
 "The device in question will stop functioning with %s. The revocation cannot "
 "be undone. Are you sure you want to do this?"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:440 web/admin/edit_silverbullet.php:496
+#: web/admin/edit_silverbullet.php:442 web/admin/edit_silverbullet.php:498
 msgid "Revoke"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:465
+#: web/admin/edit_silverbullet.php:467
 #, php-format
 msgid "The invitation token %s is ready for sending! Choose how to send it:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:467
+#: web/admin/edit_silverbullet.php:469
 msgid "E-Mail:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:471
+#: web/admin/edit_silverbullet.php:473
 msgid "Local mail client"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:472
+#: web/admin/edit_silverbullet.php:474
 msgid "Send with CAT"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:475
+#: web/admin/edit_silverbullet.php:477
 msgid "SMS:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:479
+#: web/admin/edit_silverbullet.php:481
 msgid "Send in SMS..."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:482
+#: web/admin/edit_silverbullet.php:484
 msgid "Manual:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:483
+#: web/admin/edit_silverbullet.php:485
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:486
+#: web/admin/edit_silverbullet.php:488
 msgid "Display QR code"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:492
+#: web/admin/edit_silverbullet.php:494
 msgid "Expiry Date:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:492
+#: web/admin/edit_silverbullet.php:494
 msgid "Activations remaining:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:492
+#: web/admin/edit_silverbullet.php:494
 #, php-format
 msgid "%d of %d"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:518
+#: web/admin/edit_silverbullet.php:520
 msgid "Update"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:525
+#: web/admin/edit_silverbullet.php:527
 #, php-format
 msgid ""
 "All of the currently active devices will stop functioning with %s. This "
@@ -908,20 +908,20 @@ msgid ""
 "to do this?"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:534
+#: web/admin/edit_silverbullet.php:536
 msgid "Deactivate User"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:543
+#: web/admin/edit_silverbullet.php:545
 msgid "New Invitation"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:546
+#: web/admin/edit_silverbullet.php:548
 msgid "Activations:"
 msgstr ""
 
 #. false because this restriction is currently not in effect and thus no UI is needed for it.
-#: web/admin/edit_silverbullet.php:567
+#: web/admin/edit_silverbullet.php:569
 #, php-format
 msgid ""
 "You need to acknowledge that the created accounts are still valid within the "
@@ -931,58 +931,58 @@ msgid ""
 "doing this."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:575
+#: web/admin/edit_silverbullet.php:577
 #, php-format
 msgid "I have verified that all configured users are still eligible for %s."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:577
+#: web/admin/edit_silverbullet.php:579
 msgid "Save"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:587 web/admin/edit_silverbullet.php:602
+#: web/admin/edit_silverbullet.php:589 web/admin/edit_silverbullet.php:604
 msgid "Add new user"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:590
+#: web/admin/edit_silverbullet.php:592
 msgid "Import users from CSV file"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:597
+#: web/admin/edit_silverbullet.php:599
 msgid ""
 "Please enter a username of your choice and user expiry date to create a new "
 "user:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:611
+#: web/admin/edit_silverbullet.php:613
 msgid ""
 "Comma separated values should be provided in CSV file: username, expiration "
 "date 'yyyy-mm-dd', number of tokens (optional):"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:615
+#: web/admin/edit_silverbullet.php:617
 msgid "Import users"
 msgstr ""
 
 #. Appending terms of use popup
-#: web/admin/edit_silverbullet.php:631
+#: web/admin/edit_silverbullet.php:633
 #, php-format
 msgid "%s - Terms of Use"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:638
+#: web/admin/edit_silverbullet.php:640
 msgid "I have read and agree to the terms."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:640
+#: web/admin/edit_silverbullet.php:642
 msgid "Continue"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:641
+#: web/admin/edit_silverbullet.php:643
 msgid "Abort"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:654
+#: web/admin/edit_silverbullet.php:656
 msgid "Back to IdP page"
 msgstr ""
 
@@ -2152,7 +2152,7 @@ msgid "Use GEANTlink TTLS supplicant for W8"
 msgstr ""
 
 #: web/lib/admin/UIElements.php:112
-msgid "Use bultin TTLS supplicant for Windows 10"
+msgid "Use builtin TTLS supplicant for Windows 10"
 msgstr ""
 
 #: web/lib/admin/UIElements.php:113

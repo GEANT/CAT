@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-12 12:38+0100\n"
-"PO-Revision-Date: 2018-12-11 15:30+0000\n"
+"POT-Creation-Date: 2018-12-14 14:26+0100\n"
+"PO-Revision-Date: 2018-12-13 21:18+0000\n"
 "Last-Translator: Petr Adamec <p.b.adamec@gmail.com>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/"
 "eduroam_devel/cat/language/cs_CZ/)\n"
@@ -53,16 +53,16 @@ msgstr "Apple macOS High Sierra"
 #: devices/Devices-template.php:238 devices/Devices-template.php:253
 #: devices/Devices-template.php:268 devices/Devices-template.php:283
 #: devices/Devices-template.php:298
-#, fuzzy
 msgid ""
 "During the installation you will be first asked to enter settings for "
 "certificate and there you need to enter the import PIN shown on this page. "
 "Later you will be prompted to enter your password to allow making changes to "
 "the profile, this time it is your computer password."
 msgstr ""
-"Během instalace budete nejprve požádáni o zadání hesla! Později budete "
-"vyzváni k zadání hesla k certifikátu a budete muset zadat PIN kód pro "
-"vložení, který je uveden na této stránce."
+"Během instalace budete nejprve požádáni o zadání nastavení certifikátu kde "
+"budete muset zadat PIN kód pro import, uvedený na této stránce. Později "
+"budete vyzváni k zadání hesla, aby bylo možné provést změny profilu, "
+"tentokrát to je heslo do vašeho počítače."
 
 #: devices/Devices-template.php:213
 msgid "Apple macOS Sierra"
