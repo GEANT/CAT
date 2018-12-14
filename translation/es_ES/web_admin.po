@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-14 14:26+0100\n"
+"POT-Creation-Date: 2018-12-14 15:06+0100\n"
 "PO-Revision-Date: 2018-12-13 08:40+0000\n"
 "Last-Translator: Alberto Martínez Setién\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/eduroam_devel/cat/"
@@ -1152,7 +1152,8 @@ msgid "Abort"
 msgstr "Anular"
 
 #: web/admin/edit_silverbullet.php:656
-msgid "Back to IdP page"
+#, fuzzy, php-format
+msgid "Back to %s page"
 msgstr "Volver a la página del Proveedor de Identidad"
 
 #: web/admin/edit_user.php:27 web/admin/edit_user.php:36

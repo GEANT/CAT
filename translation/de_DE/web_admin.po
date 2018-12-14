@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-14 14:26+0100\n"
-"PO-Revision-Date: 2018-12-12 22:44+0000\n"
+"POT-Creation-Date: 2018-12-14 15:06+0100\n"
+"PO-Revision-Date: 2018-12-14 13:45+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/eduroam_devel/cat/"
 "language/de_DE/)\n"
@@ -997,6 +997,9 @@ msgid ""
 "The device in question will stop functioning with %s. The revocation cannot "
 "be undone. Are you sure you want to do this?"
 msgstr ""
+"Das fragliche Gerät wird nicht mehr mit %s funktionieren. Die "
+"Zertifikatssperrung kann nicht rückgängig gemacht werden. Sind Sie sicher "
+"dass Sie das tun wollen?"
 
 #: web/admin/edit_silverbullet.php:442 web/admin/edit_silverbullet.php:498
 msgid "Revoke"
@@ -1006,10 +1009,12 @@ msgstr "Widerrufen"
 #, php-format
 msgid "The invitation token %s is ready for sending! Choose how to send it:"
 msgstr ""
+"Der Einladungslink %s kann versandt werden. Wählen Sie aus, wie Sie Ihn "
+"versenden möchten:"
 
 #: web/admin/edit_silverbullet.php:469
 msgid "E-Mail:"
-msgstr ""
+msgstr "E-Mail:"
 
 #: web/admin/edit_silverbullet.php:473
 msgid "Local mail client"
@@ -1017,11 +1022,11 @@ msgstr "Lokales Mailprogramm"
 
 #: web/admin/edit_silverbullet.php:474
 msgid "Send with CAT"
-msgstr ""
+msgstr "Mit CAT senden"
 
 #: web/admin/edit_silverbullet.php:477
 msgid "SMS:"
-msgstr ""
+msgstr "SMS:"
 
 #: web/admin/edit_silverbullet.php:481
 msgid "Send in SMS..."
@@ -1029,7 +1034,7 @@ msgstr "Als SMS senden..."
 
 #: web/admin/edit_silverbullet.php:484
 msgid "Manual:"
-msgstr ""
+msgstr "Händisch:"
 
 #: web/admin/edit_silverbullet.php:485
 msgid "Copy to Clipboard"
@@ -1054,7 +1059,7 @@ msgstr "%d von %d"
 
 #: web/admin/edit_silverbullet.php:520
 msgid "Update"
-msgstr ""
+msgstr "Aktualisieren"
 
 #: web/admin/edit_silverbullet.php:527
 #, php-format
@@ -1064,6 +1069,11 @@ msgid ""
 "need to be re-provisioned with new invitation tokens. Are you sure you want "
 "to do this?"
 msgstr ""
+"Alle momentan aktivierten Geräte werden nicht mehr mit %s funktionieren. "
+"Dies kann nicht rückgängig gemacht werden. Obwohl der Nutzer selbst später "
+"wieder aktiviert werden kann, muss er später wieder mit neuen "
+"Einladungslinks seine Geräte neu aktivieren. Sind Sie sicher, dass Sie das "
+"tun wollen?"
 
 #: web/admin/edit_silverbullet.php:536
 msgid "Deactivate User"
@@ -1103,7 +1113,7 @@ msgstr ""
 
 #: web/admin/edit_silverbullet.php:579
 msgid "Save"
-msgstr ""
+msgstr "Speichern"
 
 #: web/admin/edit_silverbullet.php:589 web/admin/edit_silverbullet.php:604
 msgid "Add new user"
@@ -1148,11 +1158,12 @@ msgstr "Weiter"
 
 #: web/admin/edit_silverbullet.php:643
 msgid "Abort"
-msgstr ""
+msgstr "Abbrechen"
 
 #: web/admin/edit_silverbullet.php:656
-msgid "Back to IdP page"
-msgstr ""
+#, fuzzy, php-format
+msgid "Back to %s page"
+msgstr "Zurück zur Übersichtsseite"
 
 #: web/admin/edit_user.php:27 web/admin/edit_user.php:36
 msgid "Editing User Attributes"
@@ -1405,7 +1416,7 @@ msgstr "Einladung zurücknehmen"
 #: web/admin/overview_federation.php:314 web/admin/inc/manageAdmins.inc.php:208
 #, php-format
 msgid "(expires %s)"
-msgstr ""
+msgstr "(läuft ab am %s)"
 
 #: web/admin/overview_federation.php:333
 #, php-format
@@ -1686,6 +1697,8 @@ msgstr "Klicken Sie hier um die Superadmin Seite anzuzeigen"
 #, php-format
 msgid "(Need help? Refer to the <a href='%s'>%s administrator manual</a>)"
 msgstr ""
+"(Benötigen Sie Hilfe? Konsultieren Sie das <a href='%s'>%s "
+"Administratorhandbuch</a>)"
 
 #. / first parameter: number of Identity Providers; second param is the literal configured term for 'Identity Provider' (you may or may not be able to add a plural suffix for your locale)
 #: web/admin/overview_user.php:95
@@ -2416,11 +2429,12 @@ msgstr "Eingabe eines abweichenden EAP-TLS Benutzernamens erlauben"
 
 #: web/lib/admin/UIElements.php:111
 msgid "Use GEANTlink TTLS supplicant for W8"
-msgstr ""
+msgstr "Unter Win8 GEANTLink Supplikant nutzen"
 
 #: web/lib/admin/UIElements.php:112
+#, fuzzy
 msgid "Use builtin TTLS supplicant for Windows 10"
-msgstr ""
+msgstr "Unter Win10 eingebauten Supplikant nutzen"
 
 #: web/lib/admin/UIElements.php:113
 msgid "Profile Description"

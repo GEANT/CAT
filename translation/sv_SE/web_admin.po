@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-14 14:26+0100\n"
+"POT-Creation-Date: 2018-12-14 15:06+0100\n"
 "PO-Revision-Date: 2018-12-12 22:44+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Swedish (Sweden) (http://www.transifex.com/eduroam_devel/cat/"
@@ -1016,7 +1016,8 @@ msgid "Abort"
 msgstr ""
 
 #: web/admin/edit_silverbullet.php:656
-msgid "Back to IdP page"
+#, php-format
+msgid "Back to %s page"
 msgstr ""
 
 #: web/admin/edit_user.php:27 web/admin/edit_user.php:36
