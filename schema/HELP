@@ -37,6 +37,6 @@ When upgrading from CAT 2.0 beta2 to beta3:
 - for each device which should get ECDSA certificates, set $Options['clientcert'] to Devices::SUPPORT_ECDSA and make SUPPORT_RSA the default in the global $Options
 
 When updtting from beta3 add new device-specific options:
-insert into profile_option_dict values ('device-specific:builtin_ttls','Use bultin TTLS supplicant for Windows 10', 'boolean', NULL);
+insert into profile_option_dict values ('device-specific:builtin_ttls','Use builtin TTLS supplicant for Windows 10', 'boolean', NULL);
 insert into profile_option_dict values ('device-specific:geantlink','Use GEANTlink TTLS supplicant for W8', 'boolean', NULL);
 isert into 
