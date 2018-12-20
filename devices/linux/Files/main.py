@@ -1,21 +1,7 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import subprocess 
 import sys
-
-def missing_dbus():
-    print("Cannot import the dbus module")
-    sys.exit(1)
-    
-try:
-    import dbus
-except:
-    if sys.version_info.major == 3:
-        missing_dbus()
-    try:
-        subprocess.call(['python3'] + sys.argv)
-    except:
-        missing_dbus()
-    sys.exit(0)
 import re
 import os
 import uuid
@@ -60,18 +46,33 @@ def debug(msg):
     
 def run_installer():
     global debug_on
+    if sys.version_info.major < 3:
+        print("This script is for python3 but you are running it with an older version. Trying to reopen myself in python3.")
+        subprocess.call(['python3'] + sys.argv)
+        sys.exit(0)
     try:
         if sys.argv[1] == '-d':
             debug_on = True
-            print("Runnng debug mode")
+            debug("Running in debug mode.")
     except:
         pass
+
     debug(get_system())
     inst = InstallerData();
     inst.get_user_cred()
+    
+    no_dbus = False
+    try:
+        import dbus
+        global dbus
+    except ImportError:
+        debug("Can't import python dbus module. Please install python-dbus.")
+        no_dbus = True
+
     ENMCT = CatNMConfigTool()
-    if ENMCT.main(inst) == None:
+    if no_dbus or ENMCT.main(inst) == None:
         inst.save_wpa_conf()  
+
     inst.show_info(Messages.installation_finished)
 
 class Messages:
@@ -188,8 +189,7 @@ class InstallerData:
             question + "\n\n" + prompt,
             '--title=',
             Config.title]
-        returncode = subprocess.call(command)
- #       out, err = q.communicate()
+        returncode = subprocess.call(command,stderr=self.stderr_redir)
         return returncode
 
     def show_info(self, data):
@@ -202,8 +202,8 @@ class InstallerData:
             command = ['kdialog', '--msgbox', data]
         else:
             sys.exit(1)
-        subprocess.call(command)
-#        out, err = q.communicate()
+
+        subprocess.call(command,stderr=self.stderr_redir)
 
     def confirm_exit(self):
         ret = self.ask(Messages.quit)
@@ -221,8 +221,7 @@ class InstallerData:
             command = ['kdialog','--sorry', text]
         else:
             sys.exit(1)
-        subprocess.call(command)
-#        out, err = q.communicate()
+        subprocess.call(command,stderr=self.stderr_redir)
 
     def prompt_nonempty_string(self, show, prompt, val = ''):
         if self.graphics == 'tty':
@@ -303,11 +302,16 @@ class InstallerData:
         self.PASSWORD = PASSWORD
     
     def __get_graphics_support(self):
+        
+        # zenity always throws a GTK error to stderr; we shouldn't show it if not in debug mode
+        self.stderr_redir=None
         if os.environ.get('DISPLAY') != None:
             q = subprocess.Popen(['which', 'zenity'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             q.wait()
             if q.returncode == 0:
                 self.graphics = 'zenity'
+                if not debug_on:
+                    self.stderr_redir=subprocess.DEVNULL
             else:
                 q = subprocess.Popen(['which', 'kdialog'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 out, err = q.communicate()
