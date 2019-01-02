@@ -83,20 +83,17 @@ Function InstallGEANTLink
   Pop $0
   !insertmacro debug_cat 4 "MsiUseFeature returned $0"
   StrCmp $0 0 Cont2
-  File "GEANTLink-x86.msi"
-  nsArray::Set Delete_files "GEANTLink-x86.msi"
-  File "GEANTLink-x64.msi"
-  nsArray::Set Delete_files "GEANTLink-x64.msi"
+  File "GEANTLink32.msi"
+  nsArray::Set Delete_files "GEANTLink32.msi"
+  File "GEANTLink64.msi"
+  nsArray::Set Delete_files "GEANTLink64.msi"
   DetailPrint "Install GEANTLink installer"
-  File "GEANTLink-x86.msi"
-  nsArray::Set Delete_files "GEANTLink-ARM64.msi"
-  File "GEANTLink-ARM64.msi"
   IfSilent +2
   MessageBox MB_OK  "<?php WindowsCommon::echo_nsi( _("An additional piece of software 'GEANTlink' needs to be installed. This installation requires Administrator rights; you will be prompted to give permission for that action."))?>"
   !insertmacro debug_cat 1 "Run GEANTLink installer"
-  !insertmacro debug_cat 3 'Execute: msiexec.exe /i "$OUTDIR\GEANTLink-$Platform.msi" REBOOT=Supress'
+  !insertmacro debug_cat 3 'Execute: msiexec.exe /i "$OUTDIR\GEANTLink$Platform.msi" REBOOT=Supress'
   ClearErrors
-  ExecWait '$Msiexec.exe /i "$TEMP\GEANTLink-$Platform.msi" /qb REBOOT=Supress' $0
+  ExecWait '$Msiexec.exe /i "$TEMP\GEANTLink$Platform.msi" /qb REBOOT=Supress' $0
   !insertmacro debug_cat 4 "GEANTLink returned $0"
   StrCmp $0 0 Cont2
   ${If} $0 == 3010
