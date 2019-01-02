@@ -69,8 +69,9 @@ abstract class WindowsCommon extends \core\DeviceConfig {
     }
 
     public function copyGeantLinkFiles() {
-        if (!($this->copyFile('GEANTLink/GEANTLink32.msi', 'GEANTLink32.msi') &&
-                $this->copyFile('GEANTLink/GEANTLink64.msi', 'GEANTLink64.msi') &&
+        if (!($this->copyFile('GEANTLink/GEANTLink-x86.msi', 'GEANTLink-x86.msi') &&
+                $this->copyFile('GEANTLink/GEANTLink-x64.msi', 'GEANTLink-x64.msi') &&
+                $this->copyFile('GEANTLink/GEANTLink-ARM64.msi', 'GEANTLink-ARM64.msi') &&
                 $this->copyFile('GEANTLink/CredWrite.exe', 'CredWrite.exe') &&
                 $this->copyFile('GEANTLink/MsiUseFeature.exe', 'MsiUseFeature.exe'))) {
             throw new Exception("Copying needed files (GEANTLink) failed for at least one file!");
