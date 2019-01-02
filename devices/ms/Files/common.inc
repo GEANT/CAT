@@ -335,16 +335,16 @@ Function .onInit
       StrCpy $Platform "x86"
       StrCpy $Netsh "netsh"
       StrCpy $Msiexec "msiexec"
-     ${Else}
+    ${Else}
        Abort "Unsupported CPU architecture!"
     ${EndIf}
   !else
     ${If} ${RunningX64}
-      StrCpy $Platform "64"
+      StrCpy $Platform "x64"
       StrCpy $Netsh "$WINDIR\sysnative\netsh"
       StrCpy $Msiexec "$WINDIR\sysnative\msiexec"
       ${Else}
-      StrCpy $Platform "32"
+      StrCpy $Platform "x86"
       StrCpy $Netsh "netsh"
       StrCpy $Msiexec "msiexec"
     ${EndIf}
