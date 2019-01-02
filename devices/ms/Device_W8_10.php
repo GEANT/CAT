@@ -1,12 +1,22 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 /**
@@ -43,12 +53,14 @@ use \Exception;
         textdomain("devices");
         // create certificate files and save their names in $caFiles arrary
         $caFiles = $this->saveCertificateFiles('der');
-        $this->caArray = $this->getAttibute('internal:CAs')[0];
-        $this->useAnon = $this->attributes['internal:use_anon_outer'] [0] === NULL ? FALSE : TRUE;
+        $this->caArray = $this->getAttribute('internal:CAs')[0];
+        $outerId = $this->determineOuterIdString();
+        $this->useAnon = $outerId === NULL ? FALSE : TRUE;
         $this->servers = empty($this->attributes['eap:server_name']) ? '' :  implode(';', $this->attributes['eap:server_name']);
         $allSSID = $this->attributes['internal:SSID'];
         $delSSIDs = $this->attributes['internal:remove_SSID'];
         $this->prepareInstallerLang();
+        $this->setGeantLink();
         $setWired = isset($this->attributes['media:wired'][0]) && $this->attributes['media:wired'][0] == 'on' ? 1 : 0;
 //   create a list of profiles to be deleted after installation
         $delProfiles = [];
@@ -360,16 +372,25 @@ use \Exception;
         return('<ConfigBlob></ConfigBlob>');
     }
 
+    private function setGeantLink() {
+        $this->useGeantLink = FALSE;
+        if (\core\common\Entity::getAttributeValue($this->attributes, 'device-specific:geantlink', 0) === 'on') {
+            $this->useGeantLink = TRUE;
+        }
+        if (isset($this->options['args']) && $this->options['args'] == 'gl') {
+            $this->useGeantLink = TRUE;
+        }
+        if (\core\common\Entity::getAttributeValue($this->attributes, 'device-specific:builtin_ttls', 0) === 'on') {
+            $this->useGeantLink = FALSE;
+        }
+    }
+
     private function prepareEapConfig() {
         if ($this->useAnon) {
             $this->outerUser = $this->attributes['internal:anon_local_value'][0];
             $this->outerId = $this->outerUser . '@' . $this->attributes['internal:realm'][0];
         }
-        if (isset($this->options['args']) && $this->options['args'] == 'gl') {
-            $this->useGeantLink = TRUE;
-        } else {
-            $this->useGeantLink = FALSE;
-        }
+
         $profileFileCont = $this->eapConfigHeader();
 
         switch ($this->selectedEap['OUTER']) {
@@ -525,7 +546,7 @@ use \Exception;
             \core\common\EAP::TTLS => ['str' => 'TTLS', 'exec' => 'user'],
             \core\common\EAP::PWD => ['str' => 'PWD', 'exec' => 'user'],
         ];
-        if (isset($this->options['args']) && $this->options['args'] == 'gl') {
+        if ($this->useGeantLink) {
             $eapOptions[\core\common\EAP::TTLS]['str'] = 'GEANTLink';
         }
 
@@ -558,7 +579,7 @@ use \Exception;
         $this->copyBasicFiles();
         switch ($eap["OUTER"]) {
             case \core\common\EAP::TTLS:
-                if (isset($this->options['args']) && $this->options['args'] == 'gl') {
+                if ($this->useGeantLink) {
                     $this->copyGeantLinkFiles();
                 } else {
                     $this->copyStandardNsi();

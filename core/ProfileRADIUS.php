@@ -1,12 +1,22 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 /**
@@ -186,10 +196,11 @@ class ProfileRADIUS extends AbstractProfile {
     /**
      * Updates database with new installler location
      * 
-     * @param string $device the device identifier string
-     * @param string $path the path where the new installer can be found
-     * @param string $mime the MIME type of the new installer
-     * @param int $integerEapType the numeric representation of the EAP type for which this installer was generated
+     * @param string $device         the device identifier string
+     * @param string $path           the path where the new installer can be found
+     * @param string $mime           the MIME type of the new installer
+     * @param int    $integerEapType the numeric representation of the EAP type for which this installer was generated
+     * @return void
      */
     public function updateCache($device, $path, $mime, $integerEapType) {
         $lang = $this->languageInstance->getLang();
@@ -202,11 +213,12 @@ class ProfileRADIUS extends AbstractProfile {
      * adds an attribute to this profile; not the usual function from EntityWithDBProperties
      * because this class also has per-EAP-type and per-device sub-settings
      *
-     * @param string $attrName name of the attribute to set
-     * @param string $attrLang language of the attribute to set (if multilang, can be NULL)
+     * @param string $attrName  name of the attribute to set
+     * @param string $attrLang  language of the attribute to set (if multilang, can be NULL)
      * @param string $attrValue value of the attribute to set
-     * @param int $eapType identifier of the EAP type in the database. 0 if the attribute is valid for all EAP types.
-     * @param string $device identifier of the device in the databse. Omit the argument if attribute is valid for all devices.
+     * @param int    $eapType   identifier of the EAP type in the database. 0 if the attribute is valid for all EAP types.
+     * @param string $device    identifier of the device in the databse. Omit the argument if attribute is valid for all devices.
+     * @return void
      */
     private function addAttributeAllLevels($attrName, $attrLang, $attrValue, $eapType, $device) {
         $prepQuery = "INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_lang, option_value, eap_method_id, device_id) 
@@ -218,10 +230,11 @@ class ProfileRADIUS extends AbstractProfile {
     /**
      * this is the variant which sets attributes for specific EAP types
      * 
-     * @param string $attrName name of the attribute to set
-     * @param string $attrLang language of the attribute to set (if multilang, can be NULL)
+     * @param string $attrName  name of the attribute to set
+     * @param string $attrLang  language of the attribute to set (if multilang, can be NULL)
      * @param string $attrValue value of the attribute to set
-     * @param int $eapType identifier of the EAP type in the database. 0 if the attribute is valid for all EAP types.
+     * @param int    $eapType   identifier of the EAP type in the database. 0 if the attribute is valid for all EAP types.
+     * @return void
      */
     public function addAttributeEAPSpecific($attrName, $attrLang, $attrValue, $eapType) {
         $this->addAttributeAllLevels($attrName, $attrLang, $attrValue, $eapType, NULL);
@@ -230,10 +243,11 @@ class ProfileRADIUS extends AbstractProfile {
     /**
      * this is the variant which sets attributes for specific devices
      * 
-     * @param string $attrName name of the attribute to set
-     * @param string $attrLang language of the attribute to set (if multilang, can be NULL)
+     * @param string $attrName  name of the attribute to set
+     * @param string $attrLang  language of the attribute to set (if multilang, can be NULL)
      * @param string $attrValue value of the attribute to set
-     * @param string $device identifier of the device in the databse. Omit the argument if attribute is valid for all devices.
+     * @param string $device    identifier of the device in the databse. Omit the argument if attribute is valid for all devices.
+     * @return void
      */
     public function addAttributeDeviceSpecific($attrName, $attrLang, $attrValue, $device) {
         $this->addAttributeAllLevels($attrName, $attrLang, $attrValue, 0, $device);
@@ -242,9 +256,10 @@ class ProfileRADIUS extends AbstractProfile {
     /**
      * this is the variant which sets attributes which are valid profile-wide
      * 
-     * @param string $attrName name of the attribute to set
-     * @param string $attrLang language of the attribute to set (if multilang, can be NULL)
+     * @param string $attrName  name of the attribute to set
+     * @param string $attrLang  language of the attribute to set (if multilang, can be NULL)
      * @param string $attrValue value of the attribute to set
+     * @return void
      */
     public function addAttribute($attrName, $attrLang, $attrValue) {
         $this->addAttributeAllLevels($attrName, $attrLang, $attrValue, 0, NULL);
@@ -254,16 +269,20 @@ class ProfileRADIUS extends AbstractProfile {
      * overrides the parent class definition: in Profile, we additionally need 
      * to delete the supported EAP types list in addition to just flushing the
      * normal DB-based attributes
+     * 
+     * @param string $extracondition we need to provide an extra filter text to prevent deletion of EAP/device-specific attributes
+     * @return array list of row id's of file-based attributes which weren't deleted
      */
-    public function beginFlushAttributes() {
+    public function beginFlushAttributes($extracondition = "") {
         $this->databaseHandle->exec("DELETE FROM supported_eap WHERE profile_id = $this->identifier");
-        return parent::beginFlushAttributes();
+        // parent operates on profile_options and we need the following to exclude eap-specific and device-specific
+        return parent::beginFlushAttributes("AND eap_method_id = 0 AND device_id IS NULL");
     }
 
     /** Toggle anonymous outer ID support.
      *
      * @param boolean $shallwe TRUE to enable outer identities (needs valid $realm), FALSE to disable
-     *
+     * @return void
      */
     public function setAnonymousIDSupport($shallwe) {
         $this->databaseHandle->exec("UPDATE profile SET use_anon_outer = " . ($shallwe === true ? "1" : "0") . " WHERE profile_id = $this->identifier");
@@ -271,9 +290,9 @@ class ProfileRADIUS extends AbstractProfile {
 
     /** Toggle special username for realm checks
      *
-     * @param boolean $shallwe TRUE to enable outer identities (needs valid $realm), FALSE to disable
-     * @param string $localpart the username
-     *
+     * @param boolean $shallwe   TRUE to enable outer identities (needs valid $realm), FALSE to disable
+     * @param string  $localpart the username
+     * @return void
      */
     public function setRealmCheckUser($shallwe, $localpart = NULL) {
         $this->databaseHandle->exec("UPDATE profile SET checkuser_outer = " . ($shallwe === true ? "1" : "0") .
@@ -281,10 +300,12 @@ class ProfileRADIUS extends AbstractProfile {
                 " WHERE profile_id = $this->identifier");
     }
 
-    /** should username be verified or even prefilled?
+    /** 
+     * should username be verified or even prefilled?
      * 
      * @param bool $verify should the user input be verified by the installer?
-     * @param bool $hint should the user be shown username formatting hints?
+     * @param bool $hint   should the user be shown username formatting hints?
+     * @return void
      */
     public function setInputVerificationPreference($verify, $hint) {
         $this->databaseHandle->exec("UPDATE profile SET verify_userinput_suffix = " . ($verify === true ? "1" : "0") .
@@ -295,12 +316,12 @@ class ProfileRADIUS extends AbstractProfile {
     /**
      * deletes all attributes in this profile on the method level
      *
-     * @param int $eapId the numeric identifier of the EAP method
+     * @param int    $eapId    the numeric identifier of the EAP method
      * @param string $deviceId the name of the device
      * @return array list of row id's of file-based attributes which weren't deleted
      */
     public function beginFlushMethodLevelAttributes($eapId, $deviceId) {
-        if ($eapId == 0 && $deviceId = "") {
+        if ($eapId == 0 && $deviceId == "") {
             throw new Exception("MethodLevel attributes pertain either to an EAP method or a device - none was specified in the parameters.");
         }
         if ($eapId != 0 && $deviceId != "") {

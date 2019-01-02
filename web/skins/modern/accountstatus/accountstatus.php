@@ -1,4 +1,21 @@
 <?php
+/*
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Horizon 2020 
+ * research and innovation programme under Grant Agreement No. 731122 (GN4-2).
+ * 
+ * On behalf of the GÉANT project, GEANT Association is the sole owner of the 
+ * copyright in all material which was developed by a member of the GÉANT 
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the
+ * UK as a branch of GÉANT Vereniging. 
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
+ * 
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
+ */
 error_reporting(E_ALL | E_STRICT);
 $Gui->defaultPagePrelude();
 ?>
@@ -9,7 +26,8 @@ $Gui->defaultPagePrelude();
 <!-- JQuery -->
 <script type="text/javascript">
     var recognisedOS = '';
-    var downloadMessage;
+    var downloadMessage = '';
+    var message = '0';
     var noDisco = 1;
     var sbPage = 1;
 <?php
@@ -18,6 +36,8 @@ include_once(dirname(__DIR__) . '/Divs.php');
 $divs = new Divs($Gui);
 $visibility = 'sb';
 $operatingSystem = $Gui->detectOS();
+$sbMessage = '';
+$message = '';
 
 $Gui->loggerInstance->debug(4, $operatingSystem);
 $uiElements = new web\lib\admin\UIElements();
@@ -35,8 +55,8 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
 </head>
 <body>
     <div id="wrap">
-        <form id="cat_form" name="cat_form" method="POST"  accept-charset="UTF-8" action="">
-
+        <form id="cat_form" name="cat_form" method="POST"  accept-charset="UTF-8" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
+            <div id="main_page">
             <?php echo $divs->div_heading($visibility); ?>
             <div id="info_overlay"> <!-- device info -->
                 <div id="info_window"></div>
@@ -99,7 +119,15 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                                     echo "<p>" . sprintf(_("Unfortunately, the operating system your device uses (%s) is currently not supported for hosted end-user accounts. You can visit this page with a supported operating system later; the invitation link has not been used up yet."), $statusInfo['OS']['display']) . "</p>";
                                     break;
                                 }
+                                $message = $dev->device->options['message'] ?? '' ;
 
+                                $sbMessage = $dev->device->options['sb_message'] ?? '';
+                                if ($message != '' && $sbMessage != '') {
+                                    $message = $message . "<p>" . $sbMessage;
+                                } else {
+                                    $message = $message . $sbMessage;
+                                }
+                         
                                 echo "<div id='sb_download_message'><p>" . sprintf(_("You can now download a personalised  %s installation program."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
 //                       echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
                                 echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
@@ -115,6 +143,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                                 echo "<input type='hidden' name='device' value='" . $statusInfo['OS']['device'] . "'/>";
                                 echo "<input type='hidden' name='generatedfor' value='silverbullet'/>";
                                 echo "<button class='large_button' id='user_button_sb' style='height:80px;'><span id='user_buttonnnn'>" . sprintf(_("Click here to download your %s installer!"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</span></button>";
+                                echo "<div class='device_info' id='info_g_sb'></div>";
                                 break;
                             case \core\SilverbulletInvitation::SB_TOKENSTATUS_EXPIRED:
                                 echo "<h2>Invitation link expired</h2>";
@@ -137,12 +166,15 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
 
                     <input type="hidden" name="inst_name" id="inst_name"/>
                     <input type="hidden" name="lang" id="lang"/>
+                    <input type="hidden" name="token" id="token" value="<?php echo $cleanToken?>"/>
                 </div>
             </div>
+            </div>
         </form>
+        <div id="vertical_fill">&nbsp;</div>
+        <?php echo $divs->div_footer(); ?>
     </div>
     <?php
-    echo $divs->div_footer();
     if (isset($statusInfo['profile_id']) && isset($statusInfo['idp_id'])) {
     $attributes = $statusInfo['attributes'];
     $supportInfo = '';
@@ -166,6 +198,11 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             var idpName = "<?php echo $statusInfo['idp_name']; ?>";
             var logo = <?php echo $statusInfo['idp_logo']; ?>;
             var idpId = <?php echo $statusInfo['idp_id']; ?>;
+            <?php
+                if($message != '') {
+                    echo "message = \"$message\";\n";
+                }
+            ?>
             $("#inst_name").val(idpName);
             $("#inst_name_span").html(idpName);
             $(".inst_name").text(idpName);
@@ -176,8 +213,6 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             }
             $("#user_info").html("<?php escaped_echo($supportInfo); ?>");
             $("#user_info").show();
-
-
             //$("#user_page").show();
             //$("#institution_name").show();
         }
@@ -185,12 +220,22 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         $("#user_button_sb").click(function (event) {
             event.preventDefault();
             $("#cat_form").attr('action', '<?php echo $Gui->skinObject->findResourceUrl("BASE", "user/sb_download.php"); ?>');
-            $("#cat_form").submit();
+            if(message != '0') {
+                var continue_text = "<?php escaped_echo(_("Continue")); ?>";
+                var t = message + "<br><span class='redirect_link'>"+continue_text+"</span>";
+                $("#info_g_sb").html(t);
+                $(".redirect_link").click(function(event) {
+                    $("#cat_form").submit();
+                });
+                $("#info_g_sb").show();
+            } else {
+                $("#cat_form").submit();
+            }
         });
 
         $("#detailtext").click(function (event) {
             token = "<?php echo $statusInfo['token']; ?>";
-            $.post('<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>', {action: 'getUserCerts', api_version: 2, token: token}, function (data) {
+            $.post('<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>', {action: 'getUserCerts', api_version: 2, token: token, lang: lang}, function (data) {
                 var validCerts = new Array();
                 var revokedCerts = new Array();
                 var expiredCerts = new Array();
@@ -215,14 +260,14 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 j = j.data;
                 $.each(j, function (index, value) {
                     statusCount[value.status]++;
-                    allArray[value.status].rows.push('<tr style="color:' + allArray[value.status].color + ';"><td>' + value.serial + '</td><td>' + value.username + '</td><td>' + value.device + '</td><td>' + value.issued + '</td><td>' + value.expiry + '</td>');
+                    allArray[value.status].rows.push('<tr style="color:' + allArray[value.status].color + ';"><td>' + value.ca_type + ':' + value.serial + '</td><td>' + value.username + '</td><td>' + value.device + '</td><td>' + value.issued + '</td><td>' + value.expiry + '</td>');
                 });
                 $.each(allArray, function (index, value) {
                     if (value !== undefined && value.rows.length > 2) {
                         $.each(value.rows, function (i, line) {
                             if (i > 1) {
                                 if (index === <?php echo \core\SilverbulletCertificate::CERTSTATUS_VALID; ?>)
-                                    line = line + '<td class="revoke"><a href="" TITLE="revoke certificate">revoke</a></td></tr>';
+                                    line = line + '<td class="revoke"><a href="" TITLE="revoke certificate"><?php echo _("revoke") ?></a></td></tr>';
                                 else
                                     line = line + '</tr>';
                             }
@@ -234,6 +279,8 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 // alert("V:"+statusCount[1]+"; E:"+statusCount[2]+"; R"+statusCount[3])
             });
             $("#cert_details").show();
+            $(this).css("cursor", "default");
+            $(this).off("click");
             $(this).html("<?php escaped_echo(_("The details are displayed below.")); ?>");
         });
 
@@ -241,9 +288,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             event.preventDefault();
             serial = $(this).parent().siblings().first().html();    
             if (confirm("<?php escaped_echo(_("Really revoke this access credential?")); ?>" + serial)) {
-                alert("deleting - not yet implemented");
                 link = "accountstatus.php?serial=" + serial + "&action=2" + "&token=" + "<?php echo $statusInfo['token']; ?>";
-                alert(link);
                 document.location = link;
             }
         })

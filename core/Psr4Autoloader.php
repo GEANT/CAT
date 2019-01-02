@@ -1,11 +1,20 @@
 <?php
-/* 
- *******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
- *
- * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+/*
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Horizon 2020 
+ * research and innovation programme under Grant Agreement No. 731122 (GN4-2).
+ * 
+ * On behalf of the GÉANT project, GEANT Association is the sole owner of the 
+ * copyright in all material which was developed by a member of the GÉANT 
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the
+ * UK as a branch of GÉANT Vereniging. 
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
+ * 
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 namespace core\autoloader;
@@ -78,12 +87,11 @@ class Psr4Autoloader
     /**
      * Adds a base directory for a namespace prefix.
      *
-     * @param string $prefix The namespace prefix.
-     * @param string $base_dir A base directory for class files in the
-     * namespace.
-     * @param bool $prepend If true, prepend the base directory to the stack
-     * instead of appending it; this causes it to be searched first rather
-     * than last.
+     * @param string $prefix   The namespace prefix.
+     * @param string $base_dir A base directory for class files in the namespace
+     * @param bool   $prepend  If true, prepend the base directory to the stack
+     *                         instead of appending it; this causes it to be 
+     *                         searched first rather than last
      * @return void
      */
     public function addNamespace($prefix, $base_dir, $prepend = false)
@@ -153,9 +161,9 @@ class Psr4Autoloader
     /**
      * Load the mapped file for a namespace prefix and relative class.
      *
-     * @param string $prefix The namespace prefix.
+     * @param string $prefix         The namespace prefix.
      * @param string $relative_class The relative class name.
-     * @return mixed Boolean false if no mapped file can be loaded, or the
+     * @return boolean|string FALSE if no mapped file can be loaded, or the
      * name of the mapped file that was loaded.
      */
     protected function loadMappedFile($prefix, $relative_class)
@@ -195,7 +203,7 @@ class Psr4Autoloader
     protected function requireFile($file)
     {
         if (file_exists($file)) {
-            require $file;
+            include $file;
             return true;
         }
         return false;

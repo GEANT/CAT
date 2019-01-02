@@ -1,23 +1,32 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
-/* 
-*/
 
         $Tou =  [
     'title' => _("Terms of Use"),
+    'subtitle' => _("(for legal reasons, the Terms of Use are in English only)"),
     'short' => "<p>The purpose of this service is to make eduroam configuration easier for end users and eduroam
 Identity Providers by making available customised and securely configured eduroam installers.</p>
 <p>On a high level and in reader-friendly words, the Terms of Use are as follows; the corresponding
 legal text which is ulimately binding is available after clicking on the link below.</p>
-<p><strong>It is fine for eduroam users to download the software, to install and use it, and to pass it on 
+<p><strong>It is fine for eduroam users to download the software, and to install and use it. If the installer is not a PIN-protected personal installer, then it is also allowed to pass it on 
 to peers from the same user group.</strong></p>
 <p><strong>It is also fine for eduroam Identity Providers to download and 
 re-distribute the installers on media of their choice so that it reaches their end users easily.</strong></p>
@@ -30,6 +39,10 @@ computing devices. This information is called 'Metadata'.
 </li>
 <li><strong>Installers</strong>. This website makes available executable programs and configuration files which
 transfer Metadata onto computers and other computing devices. These programs and files are called 'Installers'.
+<ul>
+<li><strong>Generic Installers</strong>. Installers which are not PIN-protected and which are downloadable directly from the website without the need for personalised invitation links.</li>
+<li><strong>Personal Installers</strong>. Installers which are PIN-protected and which can only be downloaded after receiving a personalised invitation link from outside the website.</li>
+</ul>
 <li><strong>You</strong>. The information is made available to the individuals and organisations who are
 downloading the Metadata, hereafter referred to as 'You'.
 </li>
@@ -45,9 +58,9 @@ continue to use this Metadata.
 You may only use the Metadata as follows:
 <ul><li>If You are an eduroam user, you are allowed to download the Installer and execute it on
 your own systems for the purpose of establishing trusted communications between your systems
-and your eduroam Identity Provider. You are also allowed to share the installer with other users if
-    they are from the same user group. You are not allowed to share them to an unlimited
-    audience (e.g. on a publicly accessible web server).</li>
+and your eduroam Identity Provider. If the downloaded Installer is a Generic Installer, then you are also allowed to share the installer with other users if
+    they are from the same user group. You are not allowed to share Generic Installers to an unlimited
+    audience (e.g. on a publicly accessible web server). If the downloaded Installer is a Personal Installer, then no redistribution of any kind is permitted.</li>
 <li>If You are an eduroam Identity Provider administrator, you are allowed to download and pass on the Installers to
 your own ".CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution']." end users, e.g. on the support web pages of your ".CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'].", on Welcome Package CDs or USB sticks, etc.</li>
 <li>If You are a third-party not affiliated with eduroam, you are only allowed to download and pass on

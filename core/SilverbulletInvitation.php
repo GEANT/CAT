@@ -1,12 +1,21 @@
 <?php
 
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
- *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Horizon 2020 
+ * research and innovation programme under Grant Agreement No. 731122 (GN4-2).
+ * 
+ * On behalf of the GÉANT project, GEANT Association is the sole owner of the 
+ * copyright in all material which was developed by a member of the GÉANT 
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the
+ * UK as a branch of GÉANT Vereniging. 
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
+ * 
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 /**
@@ -23,9 +32,9 @@ namespace core;
 
 use \Exception;
 
-require_once("phpqrcode.php");
-const QRCODE_PIXELS_PER_SYMBOL = 12;
+require_once "phpqrcode.php";
 
+const QRCODE_PIXELS_PER_SYMBOL = 12;
 
 class SilverbulletInvitation extends common\Entity {
 
@@ -102,6 +111,11 @@ class SilverbulletInvitation extends common\Entity {
     const SB_TOKENSTATUS_EXPIRED = 3;
     const SB_TOKENSTATUS_INVALID = 4;
 
+    /**
+     * instantiates an invitation identified by the token
+     * 
+     * @param string $invitationId token
+     */
     public function __construct($invitationId) {
         parent::__construct();
         $this->invitationTokenString = $invitationId;
@@ -133,39 +147,53 @@ class SilverbulletInvitation extends common\Entity {
         $this->userId = $invitationRow->silverbullet_user_id;
         $this->expiry = $invitationRow->expiry;
         $this->activationsTotal = $invitationRow->quantity;
-        $certificatesResult = $this->databaseHandle->exec("SELECT `serial_number` FROM `silverbullet_certificate` WHERE `silverbullet_invitation_id` = ? ORDER BY `revocation_status`, `expiry` DESC", "i", $this->identifier);
+        $certificatesResult = $this->databaseHandle->exec("SELECT `serial_number`, `ca_type` FROM `silverbullet_certificate` WHERE `silverbullet_invitation_id` = ? ORDER BY `revocation_status`, `expiry` DESC", "i", $this->identifier);
         $certificatesNumber = ($certificatesResult ? $certificatesResult->num_rows : 0);
         $this->loggerInstance->debug(5, "At token validation level, " . $certificatesNumber . " certificates exist.\n");
         // SELECT -> resource, no boolean
         while ($runner = mysqli_fetch_object(/** @scrutinizer ignore-type */ $certificatesResult)) {
-            $this->associatedCertificates[] = new \core\SilverbulletCertificate($runner->serial_number);
+            $this->associatedCertificates[] = new \core\SilverbulletCertificate($runner->serial_number, $runner->ca_type);
         }
         $this->activationsRemaining = (int) $this->activationsTotal - (int) $certificatesNumber;
+        // always check first if it is expired
+        $now = new \DateTime();
+        $expiryObject = new \DateTime($this->expiry);
+        $delta = $now->diff($expiryObject);
+
         switch ($certificatesNumber) {
             case 0:
                 // find out if it has expired
-                $now = new \DateTime();
-                $expiryObject = new \DateTime($this->expiry);
-                $delta = $now->diff($expiryObject);
                 if ($delta->invert == 1) {
                     $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_EXPIRED;
                     $this->activationsRemaining = 0;
-                    break;
+                } else {
+                    $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_VALID;
                 }
-                $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_VALID;
                 break;
             case $invitationRow->quantity:
                 $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_REDEEMED;
                 break;
             default:
-                assert($certificatesNumber > 0); // no negatives allowed
-                assert($certificatesNumber < $invitationRow->quantity || $invitationRow->quantity == 0); // not more than max quantity allowed (unless quantity is zero)
-                $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_PARTIALLY_REDEEMED;
+                // find out if it has expired
+                if ($delta->invert == 1) {
+                    $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_EXPIRED;
+                    $this->activationsRemaining = 0;
+                } else {
+                    assert($certificatesNumber > 0); // no negatives allowed
+                    assert($certificatesNumber < $invitationRow->quantity || $invitationRow->quantity == 0); // not more than max quantity allowed (unless quantity is zero)
+                    $this->invitationTokenStatus = SilverbulletInvitation::SB_TOKENSTATUS_PARTIALLY_REDEEMED;
+                }
         }
 
         $this->loggerInstance->debug(5, "Done creating invitation token state from DB.\n");
     }
 
+    /**
+     * creates the full URL link, including the token as a GET parameter
+     * 
+     * @return string
+     * @throws Exception
+     */
     public function link() {
         if (isset($_SERVER['HTTPS'])) {
             $link = 'https://';
@@ -194,6 +222,7 @@ class SilverbulletInvitation extends common\Entity {
 
     /**
      * returns the subject to use in an invitation mail
+     * 
      * @return string
      */
     public function invitationMailSubject() {
@@ -202,6 +231,7 @@ class SilverbulletInvitation extends common\Entity {
 
     /**
      * returns the body to use in an invitation mail
+     * 
      * @return string
      */
     public function invitationMailBody() {
@@ -231,9 +261,10 @@ class SilverbulletInvitation extends common\Entity {
 
     /**
      * creates a new invitation in the database
-     * @param int $profileId
-     * @param int $userId
-     * @param int $activationCount
+     * @param int $profileId       the profile identifier
+     * @param int $userId          the user identifier
+     * @param int $activationCount number of activations for this invitation
+     * @return SilverbulletInvitation the generated invitation
      */
     public static function createInvitation($profileId, $userId, $activationCount) {
         $handle = DBConnection::handle("INST");
@@ -244,14 +275,17 @@ class SilverbulletInvitation extends common\Entity {
     }
 
     /**
-     * revokes an invitation
+     * revokes the invitation
+     * 
+     * @return void
      */
     public function revokeInvitation() {
-        $query = "UPDATE silverbullet_invitation SET expiry = NOW() WHERE id = ? AND profile_id = ?";
-        $this->databaseHandle->exec($query, "ii", $this->invitationTokenString, $this->identifier);
+        $query = "UPDATE silverbullet_invitation SET expiry = UNIX_TIMESTAMP() WHERE id = ? AND profile_id = ?";
+        $this->databaseHandle->exec($query, "ii", $this->identifier, $this->profile);
     }
 
     /**
+     * sends out the invitation by SMS
      * 
      * @param string $number the number to send to
      * @return int an OutsideComm constant indicating how the sending went
@@ -260,6 +294,12 @@ class SilverbulletInvitation extends common\Entity {
         return \core\common\OutsideComm::sendSMS($number, sprintf(_("Your %s access is ready! Click here: %s (on Android, first install the app '%s'!)"), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $this->link(), "eduroam CAT"));
     }
 
+    /**
+     * sends out the invitation by email
+     * 
+     * @param string $properEmail the email address
+     * @return array status of the sending
+     */
     public function sendByMail($properEmail) {
         $mail = \core\common\OutsideComm::mailHandle();
         $uiElements = new \web\lib\admin\UIElements();

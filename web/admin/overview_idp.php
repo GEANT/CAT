@@ -1,11 +1,22 @@
 <?php
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 /**
@@ -15,18 +26,19 @@
  */
 ?>
 <?php
-require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-require_once(dirname(dirname(dirname(__FILE__))) . "/core/phpqrcode.php");
+require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
+require_once dirname(dirname(dirname(__FILE__))) . "/core/phpqrcode.php";
 
-$uiElements = new web\lib\admin\UIElements();
 
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
+$uiElements = new web\lib\admin\UIElements();
+
 
 const QRCODE_PIXELS_PER_SYMBOL = 12;
 
 echo $deco->defaultPagePrelude(sprintf(_("%s: IdP Dashboard"), CONFIG['APPEARANCE']['productname']));
-require_once("inc/click_button_js.php");
+require_once "inc/click_button_js.php";
 
 // let's check if the inst handle actually exists in the DB
 $my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
@@ -56,13 +68,13 @@ echo $mapCode->htmlHeadCode();
         <div class='infobox' style='text-align:center;'>
             <h2><?php echo sprintf(_("%s download area QR code"), $uiElements->nomenclature_inst); ?></h2>
             <?php
-            $displayurl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier;
-            $uri = "data:image/png;base64," . base64_encode($uiElements->pngInjectConsortiumLogo(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL), QRCODE_PIXELS_PER_SYMBOL));
+            $idpLevelUrl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier;
+            $uri = "data:image/png;base64," . base64_encode($uiElements->pngInjectConsortiumLogo(QRcode::png($idpLevelUrl, FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL), QRCODE_PIXELS_PER_SYMBOL));
             $size = getimagesize($uri);
             echo "<img width='" . ($size[0] / 4) . "' height='" . ($size[1] / 4) . "' src='$uri' alt='QR-code'/>";
             ?>
             <br>
-            <?php echo "<a href='$displayurl'>$displayurl</a>"; ?>
+            <?php echo "<a href='$idpLevelUrl'>$idpLevelUrl</a>"; ?>
         </div>
         <?php
         foreach ($idpoptions as $optionname => $optionvalue) {
@@ -88,7 +100,7 @@ echo $mapCode->htmlHeadCode();
                 </td>
                 <td>
                     <form action='edit_idp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                        <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'] === NULL ? sprintf(_("After deleting the %s, you can not recreate it yourself - you need a new invitation token from the %s administrator!"), $uiElements->nomenclature_fed) . " " : "" ) . sprintf(_("Do you really want to delete your %s %s?"), $uiElements->nomenclature_inst, $uiElements->nomenclature_inst, $my_inst->name); ?>')"><?php echo sprintf(_("Delete %s"), $uiElements->nomenclature_inst); ?></button>
+                        <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'] === NULL ? sprintf(_("After deleting the %s, you can not recreate it yourself - you need a new invitation token from the %s administrator!"), $uiElements->nomenclature_inst, $uiElements->nomenclature_fed) . " " : "" ) . sprintf(_("Do you really want to delete your %s %s?"), $uiElements->nomenclature_inst, $my_inst->name); ?>')"><?php echo sprintf(_("Delete %s"), $uiElements->nomenclature_inst); ?></button>
                     </form>
 
                 </td>
@@ -175,7 +187,7 @@ echo $mapCode->htmlHeadCode();
                         <?php
                         if ($readonly === FALSE) {
                             ?>
-                            <form action='edit_silverbullet.php?inst_id=<?php echo $my_inst->identifier; ?>&profile_id=<?php echo $profile_list->identifier; ?>' method='POST'>
+                            <form action='edit_silverbullet.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;profile_id=<?php echo $profile_list->identifier; ?>' method='POST'>
                                 <button <?php echo ( is_array($completeness) ? "disabled" : "" ); ?> type='submit' name='sb_action' value='sb_edit'><?php echo _("Manage User Base"); ?></button>
                             </form>
                             <?php
@@ -239,9 +251,9 @@ echo $mapCode->htmlHeadCode();
                     }
                     $buffer_eaptypediv .= "<br/>";
                 }
-                $buffer_headline = "<h2 style='overflow:auto;'>";
+                $buffer_headline = "<div style='padding-bottom:20px;'><h2 style='overflow:auto; display:inline; padding-bottom: 10px;'>".sprintf(_("Profile: %s"), $profile_name) . "</h2>";
 
-                $buffer_headline .= "<div style='float:right;'>";
+                $buffer_headline .= "<span style='float:right;'>";
                 $readiness = $profile_list->readinessLevel();
                 if ($has_overrides) {
                     $buffer_headline .= $uiElements->boxRemark("", _("Option override on profile level is in effect."), TRUE);
@@ -257,9 +269,7 @@ echo $mapCode->htmlHeadCode();
                         $buffer_headline .= $uiElements->boxWarning("", sprintf(_("This profile is NOT shown on the user download interface, even though we have enough information to show. To enable the profile, add the attribute \"%s\" and tick the corresponding box."), $uiElements->displayName("profile:production")), TRUE);
                 }
 
-                $buffer_headline .= "</div>";
-
-                $buffer_headline .= sprintf(_("Profile: %s"), $profile_name) . "</h2>";
+                $buffer_headline .= "</span></div>";
 
                 echo $buffer_headline;
 
@@ -306,14 +316,10 @@ echo $mapCode->htmlHeadCode();
                 echo "<div style='width:20px;'></div>";
                 if ($readiness == core\AbstractProfile::READINESS_LEVEL_SHOWTIME) {
                     echo "<div style='display: table-cell; text-align:center;'><p><strong>" . _("User Download Link") . "</strong></p>";
-                    $URL = $profile_list->getCollapsedAttributes();
-                    if (isset($URL['device-specific:redirect'])) {
-                        $displayurl = $URL['device-specific:redirect'][0];
-                    } else {
-                        $displayurl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier . "&amp;profile=" . $profile_list->identifier;
-                    }
+                    $displayurl = $idpLevelUrl . "&amp;profile=" . $profile_list->identifier;
+                    $QRurl = $idpLevelUrl . "&profile=" . $profile_list->identifier;
                     echo "<a href='$displayurl' style='white-space: nowrap; text-align: center;'>";
-                    $uri = "data:image/png;base64," . base64_encode($uiElements->pngInjectConsortiumLogo(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL), QRCODE_PIXELS_PER_SYMBOL));
+                    $uri = "data:image/png;base64," . base64_encode($uiElements->pngInjectConsortiumLogo(QRcode::png($QRurl, FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL), QRCODE_PIXELS_PER_SYMBOL));
                     $size = getimagesize($uri);
                     echo "<img width='" . ($size[0] / 4) . "' height='" . ($size[1] / 4) . "' src='$uri' alt='QR-code'/>";
 

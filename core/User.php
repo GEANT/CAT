@@ -1,12 +1,22 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 /**
@@ -113,8 +123,9 @@ class User extends EntityWithDBProperties {
     }
 
     /**
-     *  This function tests if the current user is an ovner of a given IdP
+     * This function tests if the current user is an ovner of a given IdP
      *
+     * @param int $idp integer identifier of the IdP
      * @return boolean TRUE if the user is an owner, FALSE if not 
      */
     public function isIdPOwner($idp) {
@@ -130,8 +141,8 @@ class User extends EntityWithDBProperties {
     /**
      * shorthand function for email sending to the user
      * 
-     * @param string $subject
-     * @param string $content
+     * @param string $subject addressee of the mail
+     * @param string $content content of the mail
      * @return boolean did it work?
      */
     public function sendMailToUser($subject, $content) {
@@ -155,6 +166,8 @@ class User extends EntityWithDBProperties {
 
     /**
      * NOOP in this class, only need to override abstract base class
+     * 
+     * @return void
      */
     public function updateFreshness() {
         // User is always fresh
@@ -177,10 +190,11 @@ class User extends EntityWithDBProperties {
      * that email address. We then see which pretty-print auth provider name
      * was used
      * 
-     * @param string $mail
+     * @param string $mail mail address to search with
+     * @param string $lang language for the eduGAIN request
      * @return boolean|array the list of auth source IdPs we found for the mail, or FALSE if none found or invalid input
      */
-    public static function findLoginIdPByEmail($mail) {
+    public static function findLoginIdPByEmail($mail, $lang) {
         $listOfProviders = [];
         $matchedProviders = [];
         $skipCurl = 0;
@@ -219,7 +233,7 @@ class User extends EntityWithDBProperties {
                         $matchedProviders[] = $idp;
                         $name = $idp;
                         if ($skipCurl == 0) {
-                            $url = CONFIG_DIAGNOSTICS['eduGainResolver']['url'] . "?action=get_entity_name&type=idp&e_id=$idp&lang=pl";
+                            $url = CONFIG_DIAGNOSTICS['eduGainResolver']['url'] . "?action=get_entity_name&type=idp&e_id=$idp&lang=$lang";
                             $ch = curl_init($url);
                             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                             curl_setopt($ch, CURLOPT_TIMEOUT, CONFIG_DIAGNOSTICS['eduGainResolver']['timeout']);

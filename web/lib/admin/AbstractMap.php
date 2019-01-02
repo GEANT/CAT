@@ -1,17 +1,27 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 namespace web\lib\admin;
 
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
+require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
 
 /**
  * This class provides map display functionality
@@ -27,8 +37,8 @@ abstract class AbstractMap {
     /**
      * loads the map, taking identifiers from the IdP in question
      * 
-     * @param \core\IdP $inst the IdP for which the map is displayed
-     * @param boolean $readonly whether the HTML code should yield an editable field
+     * @param \core\IdP $inst     the IdP for which the map is displayed
+     * @param boolean   $readonly whether the HTML code should yield an editable field
      */
     protected function __construct($inst, $readonly) {
         $this->instName = $inst->name;
@@ -39,8 +49,8 @@ abstract class AbstractMap {
     /**
      * loads the configured map type
      * 
-     * @param \core\IdP $inst
-     * @param boolean $readonly
+     * @param \core\IdP $inst     the institution for which the map is loaded
+     * @param boolean   $readonly is this a readonly map?
      * @return \web\lib\admin\MapNone|\web\lib\admin\MapOpenLayers|\web\lib\admin\MapGoogle
      * @throws Exception
      */
@@ -51,6 +61,8 @@ abstract class AbstractMap {
 
     /**
      * If the map needs to inject code into <head>, it is generated in this function.
+     * 
+     * @return string
      */
     abstract public function htmlHeadCode();
 
@@ -58,12 +70,16 @@ abstract class AbstractMap {
      * If the map needs to inject code into <body> to enable a map (like 
      * JavaScript code), it is generated in this function. The actual HTML
      * is defined in the htmlShowtime() function below.
+     * 
+     * @return string
      */
     abstract public function htmlBodyCode();
 
     /**
      * If the map needs to modify the <body> tag itself (e.g. an onLoad()
      * function), it is generated in this function
+     * 
+     * @return string
      */
     abstract public function bodyTagCode();
 
@@ -77,6 +93,10 @@ abstract class AbstractMap {
      * function should fill these parameters. The parameters themselves are
      * generated if making use of the htmlPostEdit() function, or can of course
      * be written by this htmlShowtime function itself.
+     * 
+     * @param boolean $wizard     are we in wizard mode?
+     * @param boolean $additional is this an additional location or a first?
+     * @return string
      */
     abstract public function htmlShowtime($wizard, $additional);
 
@@ -84,7 +104,9 @@ abstract class AbstractMap {
      * How are coordinates displayed in the enumeration of inst options?
      * This function provides the HTML for that.
      * 
-     * The parameter is the JSON representation of a coordinate pair.
+     * @param string $coords JSON encoded array of a coordinate pair
+     * @param int    $number the number of the location
+     * @return string
      */
     abstract public static function optionListDisplayCode($coords, $number);
     
@@ -122,6 +144,7 @@ abstract class AbstractMap {
      * This HTML goes below the actual map, and is map provider independent.
      * 
      * @param boolean $allowDirectInput should the input fields be editable?
+     * @return string
      */
     protected function htmlPostEdit($allowDirectInput) {
         return "<br/>" . _("Latitude:") . " <input style='width:80px' name='geo_lat' id='geo_lat' " .($allowDirectInput ? "": "readonly"). ">" . _("Longitude:") . " <input name='geo_long' id='geo_long' style='width:80px' " .($allowDirectInput ? "": "readonly"). "></fieldset>";

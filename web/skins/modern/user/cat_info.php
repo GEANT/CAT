@@ -1,14 +1,23 @@
 <?php
-/* 
- *******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+/*
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
-?>
-<?php
 
 /**
  * Back-end supplying information for the main_menu_content window
@@ -21,7 +30,7 @@
  * the receiving end to strip this marker and not add the title by itself.
  *
  */
-require_once(dirname(dirname(dirname((dirname(dirname(__FILE__)))))) . "/config/_config.php");
+require_once dirname(dirname(dirname((dirname(dirname(__FILE__)))))) . "/config/_config.php";
 
 $Gui = new \web\lib\user\Gui();
 
@@ -31,16 +40,16 @@ $page = $_REQUEST['page'];
 $subpage = $_REQUEST['subpage'];
 switch ($page) {
     case 'about' :
-        require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/user/about_cat.inc.php");
+        require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/user/about_cat.inc.php";
         $out = "<div class='padding'>$out</div>";
         break;
     case 'tou':
-        require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/user/tou.inc.php");
+        require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/user/tou.inc.php";
         $out = "no_title<div>
            <h1>
          " . $Tou['title'] . "
     </h1>
-<div id='tou_1'> " .
+<div id='tou_1'>" . $Tou['subtitle'] . 
 $Tou['short'] . "
 </div>
 <div id='all_tou_link'><a href='javascript:showTOU()'>Click here to see the full terms</a></div>
@@ -51,7 +60,7 @@ $Tou['full'] . "
 ";
         break;
     case 'help':
-        require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/user/faq.inc.php");
+        require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/user/faq.inc.php";
         switch ($subpage) {
             case 'contact' :
             case 'idp_not_listed' :
@@ -102,7 +111,7 @@ $Tou['full'] . "
                     }
                 break;
             case 'develop' :
-                        require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/user/devel.inc.php");
+                        require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/user/devel.inc.php";
                         $out = "<div class='padding'>$out</div>";
                 break;
         }

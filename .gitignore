@@ -2,7 +2,7 @@
 /devices/chromebook/testing.php
 /phpdoc.log
 /phpdoc/
-
+/translation/*/*.po~
 /config/config-confassistant.php
 /config/config-master.php
 /config/config-diagnostics.php

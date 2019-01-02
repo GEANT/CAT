@@ -388,7 +388,7 @@ DiscoJuice.UI = {
 	"enable": function(control) {
 		var imgpath = this.parent.Utils.options.get('discoPath', '') + 'images/';
 		
-		var textSearch = this.parent.Utils.options.get('textSearch', 'or search for a provider, in example Univerity of Oslo');
+		var textSearch = this.parent.Utils.options.get('textSearch', 'or search for a provider, in example University of Oslo');
 		var textHelp = this.parent.Utils.options.get('textHelp', 'Help me, I cannot find my provider');
 		var textHelpMore = this.parent.Utils.options.get('textHelpMore', 'If your institusion is not connected to Foodle, you may create a new account using any of the Guest providers, such as <strong>OpenIdP (Guest users)</strong>.');
                 var textLocateMe = this.parent.Utils.options.get('textLocateMe', 'Locate me more accurately using HTML5 Geo-Location');

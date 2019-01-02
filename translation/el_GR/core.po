@@ -3,331 +3,335 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Halil Adem <hadem@noc.grnet.gr>, 2018
 # HELPDESK <npapalouka@admin.grnet.gr>, 2015
 # Panos Bouklis <panos@echidna-band.com>, 2012
 # Wasilis <m.wasilis@yahoo.de>, 2013
-# Zenon Mousmoulas <zenon@mousmoulas.gr>, 2015
+# Zenon Mousmoulas <zenon@mousmoulas.gr>, 2015,2018
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-18 11:18+0200\n"
-"PO-Revision-Date: 2015-04-07 16:41+0000\n"
-"Last-Translator: Zenon Mousmoulas <zenon@mousmoulas.gr>\n"
-"Language-Team: Greek (http://www.transifex.com/projects/p/cat/language/el/)\n"
-"Language: el\n"
+"POT-Creation-Date: 2018-12-14 15:06+0100\n"
+"PO-Revision-Date: 2018-11-14 09:22+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"Language-Team: Greek (Greece) (http://www.transifex.com/eduroam_devel/cat/"
+"language/el_GR/)\n"
+"Language: el_GR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/CAT.php:111
+#: core/CAT.php:119
 msgid ""
 "Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git "
 "Revision</a>"
 msgstr ""
+"Ακυκλοφόρητη <a href='https://github.com/GEANT/CAT/tree/master/Changes."
+"md'>αναθεώρηση Git</a>"
 
-#: core/CAT.php:121
+#: core/CAT.php:129
 #, php-format
 msgid "Release <a href='%s'>%s</a>"
-msgstr ""
+msgstr "Έκδοση <a href='%s'>%s</a>"
 
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
 #. different wording, no translation, sorry
-#: core/CAT.php:134 core/DeviceConfig.php:101
+#: core/CAT.php:142 core/DeviceConfig.php:112
 msgid "National Roaming Operator"
-msgstr ""
+msgstr "Εθνικός Φορέας Περιαγωγής"
 
-#: core/CAT.php:135 core/DeviceConfig.php:102
+#: core/CAT.php:143 core/DeviceConfig.php:113
 msgid "identity provider"
-msgstr ""
+msgstr "πάροχος ταυτότητας "
 
-#: core/CAT.php:136 core/DeviceConfig.php:103
+#: core/CAT.php:144 core/DeviceConfig.php:114
 msgid "organisation"
-msgstr ""
+msgstr "οργανισμός"
 
-#: core/CAT.php:137
+#: core/CAT.php:145 core/DeviceConfig.php:115
 msgid "Identity Provider"
-msgstr ""
+msgstr "Πάροχος Ταυτότητας"
 
-#: core/CAT.php:146
+#: core/CAT.php:154
 msgid "Andorra"
 msgstr "Ανδόρα"
 
-#: core/CAT.php:147
+#: core/CAT.php:155
 msgid "Austria"
 msgstr "Αυστρία"
 
-#: core/CAT.php:148
+#: core/CAT.php:156
 msgid "Belgium"
 msgstr "Βέλγιο"
 
-#: core/CAT.php:149
+#: core/CAT.php:157
 msgid "Bulgaria"
 msgstr "Βουλγαρία"
 
-#: core/CAT.php:150
+#: core/CAT.php:158
 msgid "Cyprus"
 msgstr "Κύπρος"
 
-#: core/CAT.php:151
+#: core/CAT.php:159
 msgid "Czech Republic"
 msgstr "Τσεχία"
 
-#: core/CAT.php:152
+#: core/CAT.php:160
 msgid "Denmark"
 msgstr "Δανία"
 
-#: core/CAT.php:153
+#: core/CAT.php:161
 msgid "Estonia"
 msgstr "Εσθονία"
 
-#: core/CAT.php:154
+#: core/CAT.php:162
 msgid "Finland"
 msgstr "Φινλανδία"
 
-#: core/CAT.php:155
+#: core/CAT.php:163
 msgid "France"
 msgstr "Γαλλία"
 
-#: core/CAT.php:156
+#: core/CAT.php:164
 msgid "Germany"
 msgstr "Γερμανία"
 
-#: core/CAT.php:157
+#: core/CAT.php:165
 msgid "Greece"
 msgstr "Ελλάδα"
 
-#: core/CAT.php:158
+#: core/CAT.php:166
 msgid "Croatia"
 msgstr "Κροατία"
 
-#: core/CAT.php:159
+#: core/CAT.php:167
 msgid "Ireland"
 msgstr "Ιρλανδία"
 
-#: core/CAT.php:160
+#: core/CAT.php:168
 msgid "Iceland"
 msgstr "Ισλανδία"
 
-#: core/CAT.php:161
+#: core/CAT.php:169
 msgid "Italy"
 msgstr "Ιταλία"
 
-#: core/CAT.php:162
+#: core/CAT.php:170
 msgid "Hungary"
 msgstr "Ουγγαρία"
 
-#: core/CAT.php:163
+#: core/CAT.php:171
 msgid "Luxembourg"
 msgstr "Λουξεμβούργο"
 
-#: core/CAT.php:164
+#: core/CAT.php:172
 msgid "Latvia"
 msgstr "Λετονία"
 
-#: core/CAT.php:165
+#: core/CAT.php:173
 msgid "Lithuania"
 msgstr "Λιθουανία"
 
-#: core/CAT.php:166
+#: core/CAT.php:174
 msgid "Macedonia"
 msgstr "Πρώην Γιουγκοσλαβική Δημοκρατία της Μακεδονίας"
 
-#: core/CAT.php:167
+#: core/CAT.php:175
 msgid "Serbia"
 msgstr "Σερβία"
 
-#: core/CAT.php:168
+#: core/CAT.php:176
 msgid "Netherlands"
 msgstr "Ολλανδία"
 
-#: core/CAT.php:169
+#: core/CAT.php:177
 msgid "Norway"
 msgstr "Νορβηγία"
 
-#: core/CAT.php:170
+#: core/CAT.php:178
 msgid "Poland"
 msgstr "Πολωνία"
 
-#: core/CAT.php:171
+#: core/CAT.php:179
 msgid "Portugal"
 msgstr "Πορτογαλία"
 
-#: core/CAT.php:172
+#: core/CAT.php:180
 msgid "Romania"
 msgstr "Ρουμανία"
 
-#: core/CAT.php:173
+#: core/CAT.php:181
 msgid "Slovenia"
 msgstr "Σλοβενία"
 
-#: core/CAT.php:174
+#: core/CAT.php:182
 msgid "Spain"
 msgstr "Ισπανία"
 
-#: core/CAT.php:175
+#: core/CAT.php:183
 msgid "Sweden"
 msgstr "Σουηδία"
 
-#: core/CAT.php:176
+#: core/CAT.php:184
 msgid "Slovakia"
 msgstr "Σλοβακία"
 
-#: core/CAT.php:177
+#: core/CAT.php:185
 msgid "Switzerland"
 msgstr "Ελβετία"
 
-#: core/CAT.php:178
+#: core/CAT.php:186
 msgid "Turkey"
 msgstr "Τουρκία"
 
-#: core/CAT.php:179
+#: core/CAT.php:187
 msgid "United Kingdom"
 msgstr "Ηνωμένο Βασίλειο"
 
-#: core/CAT.php:181
+#: core/CAT.php:189
 msgid "Australia"
 msgstr "Αυστραλία"
 
-#: core/CAT.php:182
+#: core/CAT.php:190
 msgid "Canada"
 msgstr "Καναδάς"
 
-#: core/CAT.php:183
+#: core/CAT.php:191
 msgid "Israel"
 msgstr "Ισραήλ"
 
-#: core/CAT.php:184
+#: core/CAT.php:192
 msgid "Japan"
 msgstr "Ιαπωνία"
 
-#: core/CAT.php:185
+#: core/CAT.php:193
 msgid "New Zealand"
 msgstr "Νέα Ζηλανδία"
 
-#: core/CAT.php:186
+#: core/CAT.php:194
 msgid "U.S.A."
 msgstr "Η.Π.Α."
 
-#: core/CAT.php:187
+#: core/CAT.php:195
 msgid "Brazil"
 msgstr "Βραζιλία"
 
-#: core/CAT.php:188
+#: core/CAT.php:196
 msgid "Chile"
 msgstr "Χιλή"
 
-#: core/CAT.php:189
+#: core/CAT.php:197
 msgid "Peru"
 msgstr "Περού"
 
-#: core/CAT.php:190
+#: core/CAT.php:198
 msgid "Venezuela"
 msgstr "Βενεζουέλα"
 
-#: core/CAT.php:191
+#: core/CAT.php:199
 msgid "Default"
 msgstr "Προεπιλογή"
 
-#: core/CAT.php:192
+#: core/CAT.php:200
 msgid "Armenia"
 msgstr "Αρμενία"
 
-#: core/CAT.php:193
+#: core/CAT.php:201
 msgid "Azerbaijan"
 msgstr "Αζερμπαϊτζάν"
 
-#: core/CAT.php:194
+#: core/CAT.php:202
 msgid "Belarus"
 msgstr "Λευκορωσία"
 
-#: core/CAT.php:195
+#: core/CAT.php:203
 msgid "Ecuador"
 msgstr "Ισημερινός"
 
-#: core/CAT.php:196
+#: core/CAT.php:204
 msgid "Hong Kong"
 msgstr "Χονγκ Κονγκ"
 
-#: core/CAT.php:197
+#: core/CAT.php:205
 msgid "Kenya"
 msgstr "Κένυα"
 
-#: core/CAT.php:198
+#: core/CAT.php:206
 msgid "Kyrgyzstan"
 msgstr "Κιργιζία"
 
-#: core/CAT.php:199
+#: core/CAT.php:207
 msgid "Korea"
 msgstr "Κορέα"
 
-#: core/CAT.php:200
+#: core/CAT.php:208
 msgid "Kazakhstan"
 msgstr "Καζακστάν"
 
-#: core/CAT.php:201
+#: core/CAT.php:209
 msgid "Morocco"
 msgstr "Μαρόκο"
 
-#: core/CAT.php:202
+#: core/CAT.php:210
 msgid "Moldova"
 msgstr "Μολδαβία"
 
-#: core/CAT.php:203
+#: core/CAT.php:211
 msgid "Montenegro"
 msgstr "Μαυροβούνιο"
 
-#: core/CAT.php:204
+#: core/CAT.php:212
 msgid "Macau"
 msgstr "Μακάου"
 
-#: core/CAT.php:205
+#: core/CAT.php:213
 msgid "Malta"
 msgstr "Μάλτα"
 
-#: core/CAT.php:206
+#: core/CAT.php:214
 msgid "Russia"
 msgstr "Ρωσία"
 
-#: core/CAT.php:207
+#: core/CAT.php:215
 msgid "Singapore"
 msgstr "Σιγκαπούρη"
 
-#: core/CAT.php:208
+#: core/CAT.php:216
 msgid "Thailand"
 msgstr "Ταϊλάνδη"
 
-#: core/CAT.php:209
+#: core/CAT.php:217
 msgid "Taiwan"
 msgstr "Ταϊβάν"
 
-#: core/CAT.php:210
+#: core/CAT.php:218
 msgid "South Africa"
 msgstr "Νότια Αφρική"
 
-#: core/CAT.php:484 core/IdPlist.php:99
+#: core/CAT.php:492 core/IdPlist.php:110
 msgid "Unnamed Entity"
-msgstr ""
+msgstr "Ανώνυμη Οντότητα"
 
-#: core/DeviceConfig.php:200
+#: core/DeviceConfig.php:213
 #, php-format
 msgid "your local %s support"
 msgstr "η τοπική σας υποστήριξη για %s"
 
-#: core/DeviceConfig.php:201
+#: core/DeviceConfig.php:214
 #, php-format
 msgid "your local %s support page"
 msgstr "η τοπική σας σελίδα υποστήριξης για %s"
 
-#: core/DeviceConfig.php:235
+#: core/DeviceConfig.php:249
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 "Λυπούμαστε, αυτό δεν έπρεπε να συμβεί - δεν είναι διαθέσιμες επιπρόσθετες "
 "πληροφορίες"
 
-#: core/IdP.php:243
+#: core/IdP.php:257
 #, php-format
 msgid ""
 "Hi,\n"
@@ -350,65 +354,78 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/IdP.php:252
+#: core/IdP.php:266
 msgid "IdP in your federation was deleted"
 msgstr "Διαγράφηκε ένας IdP στην ομοσπονδία σας"
 
-#: core/SilverbulletInvitation.php:200
+#: core/SilverbulletInvitation.php:229
 #, php-format
 msgid "Your %s access is ready"
-msgstr ""
+msgstr "Η πρόσβαση %s σας είναι έτοιμη"
 
-#: core/SilverbulletInvitation.php:208
+#: core/SilverbulletInvitation.php:238
 msgid "Hello!"
-msgstr ""
+msgstr "Χαίρετε!"
 
-#: core/SilverbulletInvitation.php:210
+#: core/SilverbulletInvitation.php:240
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
 "administrator."
 msgstr ""
+"Ένα νέο %s διαπιστευτήριο πρόσβασης έχει δημιουργηθεί για λογαριασμό σας από "
+"τον διαχειριστή του δικτύου σας."
 
-#: core/SilverbulletInvitation.php:212
+#: core/SilverbulletInvitation.php:242
 #, php-format
 msgid ""
 "Please follow the following link with the device you want to enable for %s "
 "to get a custom %s installation program just for you. You can click on the "
 "link, copy and paste it into a browser or scan the attached QR code."
 msgstr ""
+"Παρακαλώ ακολουθήστε τον παρακάτω σύνδεσμο από την συσκευή που θέλετε να "
+"παραμετροποιήσετε για το %s ώστε να λάβετε ένα πρόγραμμα εγκατάστασης %s  "
+"προσαρμοσμένο ειδικά για σας. Μπορείτε να κάνετε κλικ στο σύνδεσμο, να τον "
+"αντιγράψετε και να τον επικολλήσετε σε ένα φυλλομετρητή ή να σαρώσετε το "
+"συνημμένο QR code."
 
 #. gets replaced with the token value by getBody()
-#: core/SilverbulletInvitation.php:214
+#: core/SilverbulletInvitation.php:244
 #, php-format
 msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
 "up your %s installation program, you can use the same link to get status "
 "information about your %s account."
 msgstr ""
+"Παρακαλούμε κρατήστε αυτό το email ή αποθηκεύσετε ως σελιδοδείκτη αυτό τον "
+"σύνδεσμο για μελλοντική χρήση. Αφού επιλέξετε το πρόγραμμα εγκατάστασης %s "
+"σας, μπορείτε να χρησιμοποιήσετε τον ίδιο σύνδεσμο για να δείτε πληροφορίες "
+"σχετικά με την κατάσταση του λογαριασμού %s σας."
 
-#: core/SilverbulletInvitation.php:216
+#: core/SilverbulletInvitation.php:246
 msgid "Regards,"
-msgstr ""
+msgstr "Χαιρετισμοί, "
 
-#: core/SilverbulletInvitation.php:260
+#: core/SilverbulletInvitation.php:294
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
 "'%s'!)"
 msgstr ""
+"Η πρόσβαση %s σας είναι έτοιμη! Κάντε κλικ εδώ: %s (για Android, "
+"εγκαταστήστε πρώτα την εφαρμογή '%s'!)"
 
-#: core/SilverbulletInvitation.php:267
+#: core/SilverbulletInvitation.php:307
 #, php-format
 msgid "%s Invitation System"
-msgstr ""
+msgstr "Σύστημα Προσκλήσεων %s"
 
 #. / arguments are: 1. IdP name;
 #. /                2. consortium name (e.g. eduroam);
 #. /                3. federation shortname, e.g. "LU";
 #. /                4. product name (e.g. eduroam CAT);
 #. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/UserManagement.php:179
+#: core/UserManagement.php:204
 #, php-format
 msgid ""
 "Hi,\n"
@@ -433,457 +450,179 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/UserManagement.php:188
+#: core/UserManagement.php:213
 msgid "IdP in your federation was created"
 msgstr "Δημιουργήθηκε ένας IdP στην ομοσπονδία σας"
 
-#: core/User.php:145
+#: core/User.php:156
 msgid "Feedback"
 msgstr "Ανατροφοδότηση"
 
-#: core/common/EAP.php:369
+#: core/common/EAP.php:379
 msgid "PEAP-MSCHAPv2"
-msgstr ""
+msgstr "PEAP-MSCHAPv2"
 
-#: core/common/EAP.php:370
+#: core/common/EAP.php:380
 msgid "TLS"
-msgstr ""
+msgstr "TLS"
 
-#: core/common/EAP.php:371
+#: core/common/EAP.php:381
 msgid "TTLS-PAP"
-msgstr ""
+msgstr "TTLS-PAP"
 
-#: core/common/EAP.php:372
+#: core/common/EAP.php:382
 msgid "TTLS-MSCHAPv2"
-msgstr ""
+msgstr "TTLS-MSCHAPv2"
 
-#: core/common/EAP.php:373
+#: core/common/EAP.php:383
 msgid "TTLS-GTC"
-msgstr ""
+msgstr "TTLS-GTC"
 
-#: core/common/EAP.php:374
+#: core/common/EAP.php:384
 msgid "FAST-GTC"
-msgstr ""
+msgstr "FAST-GTC"
 
-#: core/common/EAP.php:375
+#: core/common/EAP.php:385
 msgid "EAP-pwd"
-msgstr ""
+msgstr "EAP-pwd"
 
-#: core/common/OutsideComm.php:239
+#: core/common/OutsideComm.php:256
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
 msgstr ""
+"ένας %s από το %s %s \"%s\" σας προσκάλεσε να διαχειριστείτε το %s μαζί του."
 
-#: core/common/OutsideComm.php:240
+#: core/common/OutsideComm.php:257
 #, php-format
 msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
 msgstr ""
+"ένας %s %s σας έχει προσκαλέσει για να διαχειριστείτε το μελλοντικό %s  \"%s"
+"\" (%s)."
 
-#: core/common/OutsideComm.php:241
+#: core/common/OutsideComm.php:258
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\"."
-msgstr ""
+msgstr "ένας %s %s σας έχει προσκαλέσει να διαχειριστείτε το %s  \"%s\"."
 
-#: core/common/OutsideComm.php:243
+#: core/common/OutsideComm.php:260
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
-msgstr ""
+msgstr "Αυτή η πρόσκληση είναι έγκυρη για 24 ώρες από τώρα, δηλαδή μέχρι %s."
 
 #. then, send out the mail
-#: core/common/OutsideComm.php:251
+#: core/common/OutsideComm.php:268
 msgid "Hello,"
-msgstr ""
+msgstr "Χαίρετε,"
 
 #. default means we don't have a Reply-To.
-#: core/common/OutsideComm.php:253
+#: core/common/OutsideComm.php:270
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
+"χειροκίνητα. Παρακαλούμε μην απαντάτε σε αυτό το email, είναι αποκλειστικά "
+"διεύθυνση αποστολής."
 
-#: core/common/OutsideComm.php:259
+#: core/common/OutsideComm.php:276
 #, php-format
 msgid "Additional message from your %s administrator:"
-msgstr ""
+msgstr "Επιπρόσθετο μήνυμα από τον  διαχειριστή του %s σας:"
 
-#: core/common/OutsideComm.php:267
+#: core/common/OutsideComm.php:284
 #, php-format
 msgid "%s administrator"
-msgstr ""
+msgstr "%s διαχειριστής"
 
-#: core/common/OutsideComm.php:270
+#: core/common/OutsideComm.php:287
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
 msgstr ""
+"χειροκίνητα. Αν απαντήσετε σε αυτό το email, θα έρθετε σε επαφή με τους "
+"διαχειριστές του %s σας."
 
-#: core/common/OutsideComm.php:275
+#: core/common/OutsideComm.php:292
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
 "link:"
 msgstr ""
+"Για να εγγραφείτε ως διαχειριστής για το %s, παρακαλούμε όπως κάνετε κλικ "
+"στον ακόλουθο σύνδεσμο:"
 
-#: core/common/OutsideComm.php:277
+#: core/common/OutsideComm.php:294
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
 "Interface at"
 msgstr ""
+"Αν το κλικ στον σύνδεσμο δε λειτουργεί, μπορείτε επίσης να πάτε στη Διεπαφή "
+"Διαχείρισης %s στο"
 
-#: core/common/OutsideComm.php:279
+#: core/common/OutsideComm.php:296
 msgid "and enter the invitation token"
-msgstr ""
+msgstr "και εισάγετε το κουπόνι πρόσκλησης"
 
-#: core/common/OutsideComm.php:281
+#: core/common/OutsideComm.php:298
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
 msgstr ""
+"Μην προωθείτε το μήνυμα πριν λήξει το κουπόνι - οι παραλήπτες ίσως είναι σε "
+"θέση να το χρησιμοποιήσουν για λογαριασμό σας!"
 
-#: core/common/OutsideComm.php:282
+#: core/common/OutsideComm.php:299
 #, php-format
 msgid "We wish you a lot of fun with the %s."
-msgstr ""
+msgstr "Σας ευχόμαστε να περάσετε καλά με το %s."
 
-#: core/common/OutsideComm.php:283
+#: core/common/OutsideComm.php:300
 #, php-format
 msgid ""
 "Sincerely,\n"
 "\n"
 "Your friendly folks from %s Operations"
 msgstr ""
+"Με εκτίμηση,\n"
+"\n"
+"Οι φίλοι σας από την Ομάδα Λειτουργίας %s"
 
 #. what do we want to say?
-#: core/common/OutsideComm.php:318
+#: core/common/OutsideComm.php:335
 #, php-format
 msgid "%s: you have been invited to manage an %s"
-msgstr ""
+msgstr "%s: έχετε λάβει πρόσκληση για την διαχείριση του %s"
 
-#: web/lib/common/InputValidation.php:29
+#: web/lib/common/InputValidation.php:39
 msgid "Input validation error: "
-msgstr ""
-
-#: web/lib/common/InputValidation.php:202
-msgid "Realm is empty!"
-msgstr ""
-
-#: web/lib/common/InputValidation.php:210
-msgid "Realm contains an @ sign!"
-msgstr ""
-
-#: web/lib/common/InputValidation.php:211
-msgid "Realm begins with a . (dot)!"
-msgstr ""
+msgstr "Σφάλμα επικύρωσης εισόδου:"
 
 #: web/lib/common/InputValidation.php:212
+msgid "Realm is empty!"
+msgstr "Ο τομέας είναι κενός!"
+
+#: web/lib/common/InputValidation.php:220
+msgid "Realm contains an @ sign!"
+msgstr "Ο τομέας περιέχει ένα σύμβολο @!"
+
+#: web/lib/common/InputValidation.php:221
+msgid "Realm begins with a . (dot)!"
+msgstr "Ο τομέας ξεκινάει με . (τελεία)!"
+
+#: web/lib/common/InputValidation.php:222
 msgid "Realm ends with a . (dot)!"
-msgstr ""
+msgstr "Ο τομέας τελειώνει με . (τελεία)!"
 
-#: web/lib/common/InputValidation.php:213
+#: web/lib/common/InputValidation.php:223
 msgid "Realm contains spaces!"
-msgstr ""
+msgstr "Ο τομέας περιέχει κενά!"
 
-#: web/lib/common/InputValidation.php:225
+#: web/lib/common/InputValidation.php:235
 msgid "Realm does not contain at least one . (dot)!"
-msgstr ""
+msgstr "Ο τομέας δεν περιέχει τουλάχιστον μία . (τελεία)!"
 
-#: web/lib/common/InputValidation.php:311
+#: web/lib/common/InputValidation.php:321
 msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
 msgstr ""
-
-#~ msgid "Could not create a new Institution!"
-#~ msgstr "Αδυναμία δημιουργίας νέου ιδρύματος!"
-
-#~ msgid "eduPKI"
-#~ msgstr "eduPKI"
-
-#~ msgid "Nicolaus Copernicus University"
-#~ msgstr "Πανεπιστήμιο Nicolaus Copernicus"
-
-#~ msgid "accredited"
-#~ msgstr "διαπιστευμένο"
-
-#~ msgid "non-accredited"
-#~ msgstr "μη διαπιστευμένο"
-
-#~ msgid "correct certificate"
-#~ msgstr "σωστό πιστοποιητικό"
-
-#~ msgid "certificate with wrong policy OID"
-#~ msgstr "πιστοποιητικό με λάθος πολιτική OID"
-
-#~ msgid "expired certificate"
-#~ msgstr "πιστοποιητικό που έχει λήξει"
-
-#~ msgid "revoked certificate"
-#~ msgstr "πιστοποιητικό που έχει ανακληθεί"
-
-#~ msgid "pass"
-#~ msgstr "επιτυχία"
-
-#~ msgid "fail"
-#~ msgstr "αποτυχία"
-
-#~ msgid "eduroam-accredited CA (now only for tests)"
-#~ msgstr "διαπιστευμένα από το eduroam CA (προς το παρόν μόνο για δοκιμές)"
-
-#~ msgid "Completed"
-#~ msgstr "Ολοκληρωμένο"
-
-#~ msgid "This check was skipped."
-#~ msgstr "Αυτός ο έλεγχος παραλείφθηκε."
-
-#~ msgid "There were errors during the test."
-#~ msgstr "Υπήρξαν σφάλματα κατά τις δοκιμές."
-
-#~ msgid "This realm has no NAPTR records."
-#~ msgstr "Αυτός ο τομέας δεν έχει εγγραφές NAPTR."
-
-#~ msgid ""
-#~ "NAPTR records were found, but all of them refer to unrelated services."
-#~ msgstr ""
-#~ "Βρέθηκαν εγγραφές NAPTR, αλλά όλες τους αναφέρονται σε μη συσχετισμένες "
-#~ "συσκευές."
-
-#~ msgid "There was no reply at all from the RADIUS server."
-#~ msgstr "Δεν υπήρξε καμία απόκριση από τον εξυπηρετητή RADIUS."
-
-#~ msgid ""
-#~ "There was a bidirectional communication with the RADIUS server, but it "
-#~ "ended halfway through."
-#~ msgstr ""
-#~ "Υπήρξε μια αμφίδρομη επικοινωνία με τον εξυπηρετητή RADIUS, αλλά έληξε "
-#~ "στο ενδιάμεσο της διαδρομής. "
-
-#~ msgid ""
-#~ "The RADIUS server immediately rejected the authentication request in its "
-#~ "first reply."
-#~ msgstr ""
-#~ "Ο εξυπηρετητής RADIUS άμεσα απέρριψε το αίτημα πιστοποίησης στην πρώτη "
-#~ "απάντηση του."
-
-#~ msgid ""
-#~ "The RADIUS server rejected the authentication request after an EAP "
-#~ "conversation."
-#~ msgstr ""
-#~ "Ο εξυπηρετητής RADIUS απέρριψε το αίτημα πιστοποίησης ύστερα από μια "
-#~ "συνομιλία EAP."
-
-#~ msgid "Connection refused"
-#~ msgstr "Άρνηση σύνδεσης"
-
-#~ msgid "Not enough data provided to perform an authentication"
-#~ msgstr ""
-#~ "Δεν υπάρχουν αρκετά δεδομένα για να πραγματοποιηθεί μια ταυτοποίηση."
-
-#~ msgid ""
-#~ "The certificate password you provided does not match the certificate file."
-#~ msgstr ""
-#~ "Ο κωδικός του πιστοποιητικού που υποβάλλατε δεν αντιστοιχεί στο αρχείο "
-#~ "πιστοποίησης."
-
-#~ msgid ""
-#~ "The certificate chain includes the root CA certificate. This does not "
-#~ "serve any useful purpose but inflates the packet exchange, possibly "
-#~ "leading to more round-trips and thus slower authentication."
-#~ msgstr ""
-#~ "Η αλυσίδα πιστοποιήσης περιλαμβάνει το βασικό CA πιστοποιητικό. Αυτό δεν "
-#~ "εξυπηρετεί κανένα σκοπό αλλά μεγαλώνει τον όγκο των πακέτων που "
-#~ "ανταλλάσσονται, πιθανώς προκαλώντας περισσότερες κυκλικές διαδρομές και "
-#~ "συνεπώς πιο αργή ταυτοποίηση."
-
-#~ msgid "There is more than one server certificate in the chain."
-#~ msgstr ""
-#~ "Υπάρχουν περισσότερα από ένα πιστοποιητικά εξυπηρετητή στην αλυσίδα."
-
-#~ msgid "There is no server certificate in the chain."
-#~ msgstr "Δεν υπάρχει πιστοποιητικό εξυπηρετητή στην αλυσίδα."
-
-#~ msgid ""
-#~ "At least one certificate in the chain is signed with the MD5 signature "
-#~ "algorithm. Many Operating Systems, including Apple iOS, will fail to "
-#~ "validate this certificate."
-#~ msgstr ""
-#~ "Τουλάχιστον ένα πιστοποιητικό στην αλυσίδα είναι υπογεγραμμένο με τον "
-#~ "αλγόριθμο υπογραφής MD5. Πολλά Λειτουργικά Συστήματα, συμπεριλαμβανομένου "
-#~ "του Apple iOS, θα αποτύχει να επαληθεύσει αυτό το πιστοποιητικό."
-
-#~ msgid ""
-#~ "At least one certificate in the chain had a public key of less than 1024 "
-#~ "bits. Many recent operating systems consider this unacceptable and will "
-#~ "fail to validate the server certificate."
-#~ msgstr ""
-#~ "Τουλάχιστον ένα πιστοποιητικό στην αλυσίδα περιέχει δημόσιο κλειδί με "
-#~ "λιγότερα από 1024 bits. Πολλά πρόσφατα λειτουργικά συστήματα το θεωρούν "
-#~ "ως μη αποδεκτό και θα αποτύχουν να επαληθεύσουν το πιστοποιητικό "
-#~ "διακομιστή."
-
-#~ msgid ""
-#~ "The server certificate does not have the extension 'extendedKeyUsage: TLS "
-#~ "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
-#~ "validate this certificate."
-#~ msgstr ""
-#~ "Το πιστοποιητικό εξυπηρετητή δεν έχει την προσθήκη 'extendedKeyUsage: TLS "
-#~ "Web Server Authentication'. Τα περισσότερα Λειτουργικά Συστήματα της "
-#~ "Microsoft θα αποτύχουν να επαληθεύσουν αυτό το πιστοποιητικό."
-
-#~ msgid ""
-#~ "The server certificate did not include a CRL Distribution Point, creating "
-#~ "compatibility problems with Windows Phone 8."
-#~ msgstr ""
-#~ "Το πιστοποιητικό εξυπηρετητή δεν περιλαμβάνει ένα CRL Distribution Point, "
-#~ "δημιουργώντας προβλήματα συμβατότητας με τα Windows Phone 8."
-
-#~ msgid ""
-#~ "The server certificate's 'CRL Distribution Point' extension does not "
-#~ "point to an HTTP/HTTPS URL. Some Operating Systems may fail to validate "
-#~ "this certificate. Checking server certificate validity against a CRL will "
-#~ "not be possible."
-#~ msgstr ""
-#~ "Η προσθήκη 'CRL Distribution Point' του πιστοποιητικού του εξυπηρετητή "
-#~ "δεν δείχνει σε κάποιο HTTP/HTTPS URL. Μερικά Λειτουργικά Συστήματα ίσως "
-#~ "αποτύχουν να επαληθεύσουν αυτό το πιστοποιητικό. Ο έλεγχος της "
-#~ "εγκυρότητας του πιστοποιητικού εξυπηρετητή ενάντια σε ένα CRL δεν θα "
-#~ "είναι εφικτός."
-
-#~ msgid ""
-#~ "The extension 'CRL Distribution Point' in the server certificate points "
-#~ "to a non-existing location. Some Operating Systems check certificate "
-#~ "validity by consulting the CRL and will fail to validate the certificate. "
-#~ "Checking server certificate validity against a CRL will not be possible."
-#~ msgstr ""
-#~ "Το πεδίο 'CRL Distribution Point' στο πιστοποιητικό εξυπηρετητή δείχνει "
-#~ "σε μια μη υπάρχουσα τοποθεσία δικτύου. Μερικά Λειτουργικά Συστήματα "
-#~ "ελέγχουν την εγκυρότητα του πιστοποιητικού ανατρέχοντας στο CRL και θα "
-#~ "αποτύχουν να επαληθεύσουν το πιστοποιητικό. Ο έλεγχος της εγκυρότητας του "
-#~ "πιστοποιητικού εξυπηρετητή με βάση ένα CRL δε θα είναι εφικτός."
-
-#~ msgid "The server certificate was revoked by the CA!"
-#~ msgstr "Το πιστοποιητικό του εξυπηρετητή ανακλήθηκε από το CA!"
-
-#~ msgid ""
-#~ "The certificate contained a CN or subjectAltName:DNS which does not parse "
-#~ "as a hostname. This can be problematic on some supplicants. If the "
-#~ "certificate also contains names which are a proper hostname, and you only "
-#~ "use those for your supplicant configuration, then you can safely ignore "
-#~ "this notice."
-#~ msgstr ""
-#~ "Το πιστοποιητικό περιελάμβανε CN ή subjectAltName:DNS το οποίο δεν είναι "
-#~ "έγκυρο hostname. Αυτό μπορεί να είναι προβληματικό σε κάποια supplicants. "
-#~ "Εάν το πιστοποιητικό περιλαμβάνει επίσης έγκυρα ονόματα εξυπηρετητή και "
-#~ "χρησιμοποιείτε μόνο αυτά για την διαμόρφωση του supplicant, τότε μπορείτε "
-#~ "ασφαλώς να αγνοήσετε αυτή την ειδοποίηση."
-
-#~ msgid ""
-#~ "The certificate contained a CN or subjectAltName:DNS which contains a "
-#~ "wildcard ('*'). This can be problematic on some supplicants. If the "
-#~ "certificate also contains names which are wildcardless, and you only use "
-#~ "those for your supplicant configuration, then you can safely ignore this "
-#~ "notice."
-#~ msgstr ""
-#~ "Το πιστοποιητικό περιελάμβανε CN ή subjectAltName:DNS το οποίο "
-#~ "περιλαμβάνει χαρακτήρα μπαλαντέρ ('*'). Αυτό μπορεί να είναι προβληματικό "
-#~ "σε κάποια supplicants. Εάν το πιστοποιητικό περιλαμβάνει επίσης ονόματα "
-#~ "τα οποία δεν περιλαμβάνουν χαρακτήρες μπαλαντέρ, τότε μπορείτε ασφαλώς να "
-#~ "αγνοήσετε αυτή την ειδοποίηση."
-
-#~ msgid ""
-#~ "At least one certificate is outside its validity period (not yet valid, "
-#~ "or already expired)!"
-#~ msgstr ""
-#~ "Τουλάχιστον ένα πιστοποιητικό βρίσκεται εκτός της περιόδου ισχύος (δεν "
-#~ "είναι ακόμη έγκυρο, ή έχει ήδη λήξει)!"
-
-#~ msgid ""
-#~ "At least one intermediate certificate in your CAT profile is outside its "
-#~ "validity period (not yet valid, or already expired), but this certificate "
-#~ "was not used for server validation. Consider removing it from your %s "
-#~ "configuration."
-#~ msgstr ""
-#~ "Τουλάχιστον ένα ενδιάμεσο πιστοποιητικό στο προφίλ CAT βρίσκεται εκτός "
-#~ "της περιόδου ισχύος του (δεν είναι ακόμη έγκυρο, ή έχει ήδη λήξει), αλλά "
-#~ "αυτό το πιστοποιητικό δεν χρησιμοποιήθηκε για επαλήθευση της ταυτότητας "
-#~ "του εξυπηρετητή. Εξετάστε την αφαίρεσή του από την %s παραμετροποίηση."
-
-#~ msgid ""
-#~ "The server certificate could not be verified to the root CA you "
-#~ "configured in your profile!"
-#~ msgstr ""
-#~ "Το πιστοποιητικό εξυπηρετητή δεν ήταν δυνατό να επαληθευτεί στο βασικό CA "
-#~ "που διαμορφώσατε στο προφίλ σας!"
-
-#~ msgid ""
-#~ "The certificate chain as received in EAP was not sufficient to verify the "
-#~ "certificate to the root CA in your profile. It was verified using the "
-#~ "intermediate CAs in your profile though. You should consider sending the "
-#~ "required intermediate CAs inside the EAP conversation."
-#~ msgstr ""
-#~ "Η αλυσίδα πιστοποίησης όπως λήφθηκε στο EAP δεν ήταν επαρκής για να "
-#~ "επαληθευτεί το πιστοποιητικό στο βασικό CA στο προφίλ σας. Ωστόσο "
-#~ "επαληθεύτηκε χρησιμοποιώντας τα ενδιάμεσα CAs στο προφίλ σας. Θα πρέπει "
-#~ "να εξετάσετε το ενδεχόμενο να στέλνετε τα απαραίτητα ενδιάμεσα CAs στο "
-#~ "πλαίσιο της συνομιλίας EAP."
-
-#~ msgid ""
-#~ "The EAP server name does not match any of the configured names in your "
-#~ "profile!"
-#~ msgstr ""
-#~ "Το όνομα του εξυπηρετητή EAP δεν αντιστοιχεί σε κανένα από τα "
-#~ "διαμορφωμένα ονόματα στο προφίλ σας!"
-
-#~ msgid ""
-#~ "The configured EAP server name matches either the CN or a subjectAltName:"
-#~ "DNS of the incoming certificate; best current practice is that the "
-#~ "certificate should contain the name in BOTH places."
-#~ msgstr ""
-#~ "Το διαμορφωμένο όνομα του εξυπηρετητή EAP ταιριάζει είτε με το CN ή με "
-#~ "ένα subjectAltName:DNS του εισερχόμενου πιστοποιητικού; η καλύτερη "
-#~ "τρέχουσα πρακτική θα ήταν αυτό το πιστοποιητικό να περιλαμβάνει το όνομα "
-#~ "και στα ΔΥΟ σημεία."
-
-#~ msgid ""
-#~ "At least one certificate did not contain any BasicConstraints extension; "
-#~ "which makes it unclear if it's a CA certificate or end-entity "
-#~ "certificate. At least Mac OS X 10.8 (Mountain Lion) will not validate "
-#~ "this certificate for EAP purposes!"
-#~ msgstr ""
-#~ "Τουλάχιστον ένα πιστοποιητικό δεν περιλαμβάνει καμία προσθήκη "
-#~ "BasicConstraints; κάτι το οποίο κάνει ασαφές εάν είναι ένα πιστοποιητικό "
-#~ "CA ή ένα πιστοποιητικό end-entity. Τουλάχιστον το Mac OS X 10.8 (Mountain "
-#~ "Lion) δεν θα επαληθεύσει αυτό το πιστοποιητικό για τους σκοπούς του EAP!"
-
-#~ msgid "The server presented a certificate from an unknown authority."
-#~ msgstr "Ο εξυπηρετητής παρουσίασε ένα πιστοποιητικό από μια άγνωστη αρχή."
-
-#~ msgid "The server accepted the INVALID client certificate."
-#~ msgstr "Ο εξυπηρετητής αποδέχτηκε το ΑΚΥΡΟ πιστοποιητικό πελάτη."
-
-#~ msgid ""
-#~ "The server rejected the client certificate, even though it was valid."
-#~ msgstr ""
-#~ "Ο εξυπηρετητής απέρριψε το πιστοποιητικό πελάτη μολονότι ήταν έγκυρο."
-
-#~ msgid "The server rejected the client certificate as expected."
-#~ msgstr "Ο εξυπηρετητής απέρριψε το πιστοποιητικό πελάτη όπως αναμενόταν."
-
-#~ msgid "The CRL of a certificate could not be found."
-#~ msgstr "Το CRL ενός πιστοποιητικού δεν βρέθηκε."
-
-#~ msgid "EAP method negotiation failed!"
-#~ msgstr "Η μέθοδος διαπραγμάτευσης EAP απέτυχε!"
-
-#~ msgid "certificate expired"
-#~ msgstr "το πιστοποιητικό έληξε"
-
-#~ msgid "certificate was revoked"
-#~ msgstr "το πιστοποιητικό έχει ανακληθεί"
-
-#~ msgid "bad policy"
-#~ msgstr "κακή πολιτική"
-
-#~ msgid "unknown authority"
-#~ msgstr "άγνωστη αρχή"
-
-#~ msgid "unknown authority or no certificate policy or another problem"
-#~ msgstr "άγνωστη αρχή ή χωρίς πολιτική πιστοποιητικού ή άλλο πρόβλημα"
+"Μη έγκυρη κωδικοποίηση συντεταγμένης (το 2.0 χρησιμοποιεί JSON, όχι "
+"serialize)!"

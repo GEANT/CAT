@@ -1,12 +1,22 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 /**
@@ -51,7 +61,7 @@ class EAP {
     const NE_MSCHAP2 = 3;
     const NE_SILVERBULLET = 999;
     const INTEGER_TTLS_PAP = 1;
-    const INTEGER_PEAP_MSCHAPv2 = 2;
+    const INTEGER_PEAP_MSCHAP2 = 2;
     const INTEGER_TLS = 3;
     const INTEGER_FAST_GTC = 4;
     const INTEGER_TTLS_GTC = 5;
@@ -117,7 +127,7 @@ class EAP {
      */
     const EAPTYPES_CONVERSION = [
         EAP::INTEGER_FAST_GTC => EAP::EAPTYPE_FAST_GTC,
-        EAP::INTEGER_PEAP_MSCHAPv2 => EAP::EAPTYPE_PEAP_MSCHAP2,
+        EAP::INTEGER_PEAP_MSCHAP2 => EAP::EAPTYPE_PEAP_MSCHAP2,
         EAP::INTEGER_EAP_PWD => EAP::EAPTYPE_PWD,
         EAP::INTEGER_TLS => EAP::EAPTYPE_TLS,
         EAP::INTEGER_TTLS_GTC => EAP::EAPTYPE_TTLS_GTC,
@@ -172,7 +182,7 @@ class EAP {
         switch ($this->intRep) {
             case EAP::INTEGER_EAP_PWD:
             case EAP::INTEGER_FAST_GTC:
-            case EAP::INTEGER_PEAP_MSCHAPv2:
+            case EAP::INTEGER_PEAP_MSCHAP2:
             case EAP::INTEGER_TTLS_GTC:
             case EAP::INTEGER_TTLS_MSCHAP2:
             case EAP::INTEGER_TTLS_PAP:
@@ -203,7 +213,7 @@ class EAP {
         switch ($this->intRep) {
             case EAP::INTEGER_EAP_PWD:
             case EAP::INTEGER_FAST_GTC:
-            case EAP::INTEGER_PEAP_MSCHAPv2:
+            case EAP::INTEGER_PEAP_MSCHAP2:
             case EAP::INTEGER_TTLS_GTC:
             case EAP::INTEGER_TTLS_MSCHAP2:
             case EAP::INTEGER_TTLS_PAP:
@@ -228,7 +238,7 @@ class EAP {
             case EAP::INTEGER_SILVERBULLET:
                 return FALSE;
             case EAP::INTEGER_FAST_GTC:
-            case EAP::INTEGER_PEAP_MSCHAPv2:
+            case EAP::INTEGER_PEAP_MSCHAP2:
             case EAP::INTEGER_TTLS_GTC:
             case EAP::INTEGER_TTLS_MSCHAP2:
             case EAP::INTEGER_TTLS_PAP:
@@ -248,7 +258,7 @@ class EAP {
             case EAP::INTEGER_EAP_PWD:
                 return FALSE;
             case EAP::INTEGER_FAST_GTC:
-            case EAP::INTEGER_PEAP_MSCHAPv2:
+            case EAP::INTEGER_PEAP_MSCHAP2:
             case EAP::INTEGER_TTLS_GTC:
             case EAP::INTEGER_TTLS_MSCHAP2:
             case EAP::INTEGER_TTLS_PAP:
@@ -269,7 +279,7 @@ class EAP {
     public function needsServerName() {
         switch ($this->intRep) {
             case EAP::INTEGER_FAST_GTC:
-            case EAP::INTEGER_PEAP_MSCHAPv2:
+            case EAP::INTEGER_PEAP_MSCHAP2:
             case EAP::INTEGER_TTLS_GTC:
             case EAP::INTEGER_TTLS_MSCHAP2:
             case EAP::INTEGER_TTLS_PAP:
@@ -304,7 +314,7 @@ class EAP {
     /**
      * This function takes the EAP method in array representation (OUTER/INNER) and returns it in a custom format for the
      * Linux installers (not numbers, but strings as values).
-     * @param array EAP method in array representation (OUTER/INNER)
+     * @param array $eap EAP method in array representation (OUTER/INNER)
      * @return array EAP method in array representation (OUTER as string/INNER as string)
      */
     public static function eapDisplayName($eap) {
@@ -324,7 +334,7 @@ class EAP {
 
     /**
      * determines the inner authentication. Is it EAP, and which mechanism is used to convey actual auth data
-     * @param array $eap
+     * @param array $eap the EAP type for which we want to get the inner auth
      * @return array
      */
     public static function innerAuth($eap) {

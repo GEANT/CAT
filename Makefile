@@ -1,8 +1,8 @@
-VERSION = CAT-2.0.0-beta1
+VERSION = CAT-2.0.0-RC1
 VV = $(VERSION)/
 .PHONY: translation
 
-all: translation
+all: translation documentation
 
 documentation:
 	rm -Rf web/apidoc build
@@ -10,11 +10,14 @@ documentation:
 	phpDocumentor.phar run -d . -i core/phpqrcode.php -i core/PHPMailer/ -i tests/ -i core/simpleSAMLphp -i core/PHPUnit -i core/GeoIP2 -t web/apidoc/ --title "CAT - The IEEE 802.1X Configuration Assistant Tool" 
 #	mv core/phpqrcode.xyz core/phpqrcode.php
 
-translation:
+pull_from_transifex:
+	tx pull --all --force
+
+translation: pull_from_transifex
 	echo "****************************************"
 	echo "*** Generating templates from source ***"
 	echo "****************************************"
-	xgettext --from-code=UTF-8 --add-comments=/ -c -L php core/diag/*.php web/skins/*/diag/*.php -o translation/diagnostics.pot
+	xgettext --from-code=UTF-8 --add-comments=/ -c -L php core/diag/*.php web/skins/*/diag/*.php web/diag/*.php -o translation/diagnostics.pot
 	xgettext --from-code=UTF-8 --add-comments=/ -c -L php core/*.php core/common/*.php web/lib/common/*.php -o translation/core.pot
 	xgettext --from-code=UTF-8 --add-comments=/ -c -L php devices/*.php devices/*/*.php devices/ms/Files/*.inc -o translation/devices.pot
 	xgettext --from-code=UTF-8 --add-comments=/ -c -L php web/admin/*.php web/admin/inc/*.php web/lib/admin/*.php -o translation/web_admin.pot
@@ -42,8 +45,8 @@ translation:
 
 
 distribution: all
-	git submodule update devices/ms/Files/GEANTLink
+	git submodule update --init devices/ms/Files/GEANTLink
 	find . -name \*.po~ -exec rm {} \;
 	find . -name svn-commit.tmp -exec rm {} \;
-	rm -R -f NewFolder nbproject config/config-master.php config/config-confassistant.php config/config-diagnostics.php devices/Devices.php .codeclimate.yml .git .github .scrutinizer.yml .gitignore .gitmodules core/simpleSAMLphp core/PHPMailer core/PHPUnit core/GeoIP2
+	rm -R -f NewFolder nbproject .tx config/config-master.php config/config-confassistant.php config/config-diagnostics.php devices/Devices.php .codeclimate.yml .git .github .scrutinizer.yml .gitignore .gitmodules core/simpleSAMLphp core/PHPMailer core/PHPUnit core/GeoIP2
 	tar -cvjf ../$(VERSION).tar.bz2 --show-transformed-names --exclude-vcs --xform 's/^\.\(\/\)/$(VERSION)\1/' .

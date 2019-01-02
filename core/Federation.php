@@ -1,12 +1,22 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 /**
@@ -83,10 +93,17 @@ class Federation extends EntityWithDBProperties {
     }
 
     /**
-     * NOOP on Federations, but have to override the abstract parent method
+     * when a Federation attribute changes, invalidate caches of all IdPs 
+     * in that federation (e.g. change of fed logo changes the actual 
+     * installers)
+     * 
+     * @return void
      */
     public function updateFreshness() {
-        // Federation is always fresh
+        $idplist = $this->listIdentityProviders();
+        foreach ($idplist as $idpDetail) {
+            $idpDetail['instance']->updateFreshness();
+        }
     }
 
     /**
@@ -133,8 +150,8 @@ class Federation extends EntityWithDBProperties {
      *
      * Constructs a Federation object.
      *
-     * @param string $fedname - textual representation of the Federation object
-     *        Example: "lu" (for Luxembourg)
+     * @param string $fedname textual representation of the Federation object
+     *                        Example: "lu" (for Luxembourg)
      */
     public function __construct($fedname) {
 
@@ -176,7 +193,7 @@ class Federation extends EntityWithDBProperties {
             // to the list of fed attributes
             $this->attributes[] = array("name" => "fed:silverbullet",
             "lang" => NULL,
-            "value" => TRUE,
+            "value" => "on",
             "level" => "FED",
             "row" => 0,
             "flag" => NULL);
@@ -190,8 +207,8 @@ class Federation extends EntityWithDBProperties {
      * Creates a new IdP inside the federation.
      * 
      * @param string $ownerId Persistent identifier of the user for whom this IdP is created (first administrator)
-     * @param string $level Privilege level of the first administrator (was he blessed by a federation admin or a peer?)
-     * @param string $mail e-mail address with which the user was invited to administer (useful for later user identification if the user chooses a "funny" real name)
+     * @param string $level   Privilege level of the first administrator (was he blessed by a federation admin or a peer?)
+     * @param string $mail    e-mail address with which the user was invited to administer (useful for later user identification if the user chooses a "funny" real name)
      * @return int identifier of the new IdP
      */
     public function newIdP($ownerId, $level, $mail = NULL) {
@@ -266,7 +283,7 @@ class Federation extends EntityWithDBProperties {
     /**
      * returns an array with information about the authorised administrators of the federation
      * 
-     * @return array
+     * @return array list of the admins of this federation
      */
     public function listFederationAdmins() {
         $returnarray = [];
@@ -369,8 +386,8 @@ class Federation extends EntityWithDBProperties {
      * for a MySQL list of institutions, find an institution or find out that
      * there is no single best match
      * 
-     * @param \mysqli_result $dbResult
-     * @param string $country used to return the country of the inst, if can be found out
+     * @param \mysqli_result $dbResult the query object to work with
+     * @param string         $country  used to return the country of the inst, if can be found out
      * @return int the identifier of the inst, or one of the special return values if unsuccessful
      */
     private static function findCandidates(\mysqli_result $dbResult, &$country) {

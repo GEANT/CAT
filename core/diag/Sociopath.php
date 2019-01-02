@@ -1,19 +1,29 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 namespace core\diag;
 
 use \Exception;
 
-require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
+require_once dirname(dirname(__DIR__)) . "/config/_config.php";
 
 /**
  * This class talks to end users, asking them annoying questions to get to the
@@ -63,7 +73,7 @@ class Sociopath extends AbstractTest {
             2 => ["AREA" => AbstractTest::INFRA_DEVICE, 
                   "TXT" => _("Did the device previously work when roaming, i.e. at other hotspots away from your home institution?"), 
                   "FACTOR" => 0.33,
-                  "VERDICTLECTURE" => sprintf(_("If roaming consistently does not work, then very likely your device configuration is wrong. Typical errors causing this symptom include: using a routing ('outer') username without the @realm.tld suffix - those potentially work at home, but can not be used when roaming. %s"),$confAssistantText)],
+                  "VERDICTLECTURE" => sprintf(_("If roaming consistently does not work, then very likely your device configuration is wrong. Typical errors causing this symptom include: using a routing ('outer') username without the @realm.tld suffix - those potentially work at your home organisation, but can not be used when roaming. %s"),$confAssistantText)],
             3 => ["AREA" => AbstractTest::INFRA_DEVICE, 
                   "TXT" => _("Did you recently change the configuration on your device?"), 
                   "FACTOR" => 3,
@@ -91,8 +101,9 @@ class Sociopath extends AbstractTest {
     /**
      * re-evaluates the occurence factor of the SUSPECTS, taking the answer to the given question into account
      * 
-     * @param int $questionNumber
-     * @param bool|NULL $answer TRUE if the answer was "Yes", FALSE if "No", NULL is "Dont know / N/A"
+     * @param int       $questionNumber number of the question that was answered
+     * @param bool|NULL $answer         TRUE if the answer was "Yes", FALSE if "No", NULL is "Dont know / N/A"
+     * @return void
      */
     public function revaluate($questionNumber, $answer) {
         if ($questionNumber == "") {
@@ -153,7 +164,7 @@ class Sociopath extends AbstractTest {
     
     /**
      * constructs the final diagnosis result text to show to the user
-     * @param string $area
+     * @param string $area retrieve lecture texts for this area
      * @return string
      */
     public function verdictText($area) {

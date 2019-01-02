@@ -1,19 +1,30 @@
 <?php
 
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 namespace web\lib\admin;
 
 use Exception;
 
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
+require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
 
 /**
  * We need to display previously set options in various forms. This class covers
@@ -60,8 +71,8 @@ class OptionDisplay {
 
     /**
      * Which attributes are we talking about?
-     * @param array $options the options of interest
-     * @param string $level the level on which these options were defined by the user
+     * @param array  $options the options of interest
+     * @param string $level   the level on which these options were defined by the user
      */
     public function __construct(array $options, string $level) {
         $this->listOfOptions = $options;
@@ -92,8 +103,9 @@ class OptionDisplay {
     /**
      * Displays options for a given option class.
      * 
-     * @param string $class the class of options that is to be displayed
-     * @param array $prepopulate should an empty set of fillable options be displayed, or do we have existing data to prefill with
+     * @param string $class       the class of options that is to be displayed
+     * @param array  $prepopulate should an empty set of fillable options be displayed, or do we have existing data to prefill with
+     * @return string
      */
     private function addOption(string $class, array $prepopulate = []) { // no GET class ? we've been called directly:
         // this can mean either a new object (list all options with empty values)
@@ -103,10 +115,13 @@ class OptionDisplay {
         $retval = "";
 
         $optioninfo = \core\Options::instance();
-
+        $blackListOnPrefill = "user:fedadmin";
+        if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
+            $blackListOnPrefill .= "|fed:silverbullet";
+        }
         if (is_array($prepopulate) && ( count($prepopulate) > 1 || $class == "device-specific" || $class == "eap-specific")) { // editing... fill with values
             foreach ($prepopulate as $option) {
-                if (preg_match("/$class:/", $option['name']) && !preg_match("/(user:fedadmin)/", $option['name'])) {
+                if (preg_match("/$class:/", $option['name']) && !preg_match("/($blackListOnPrefill)/", $option['name'])) {
                     $optiontypearray = $optioninfo->optionType($option['name']);
                     $loggerInstance = new \core\common\Logging();
                     $loggerInstance->debug(5, "About to execute optiontext with PREFILL!\n");
@@ -125,6 +140,15 @@ class OptionDisplay {
                 case "user":
                     $blacklistItem = array_search("user:fedadmin", $list);
                     break;
+                case "fed":
+                    //normally, we have nothing to hide on that level
+                    $blacklistItem = FALSE;
+                    // if we are a Managed IdP exclusive deployment, do not display or allow
+                    // to change the "Enable Managed IdP" boolean - it is simply always there
+                    if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
+                        $blacklistItem = array_search("fed:silverbullet", $list);
+                    }
+                    break;
                 default:
                     $blacklistItem = FALSE;
             }
@@ -142,6 +166,16 @@ class OptionDisplay {
         return $retval;
     }
 
+    /**
+     * produce code for a option-specific tooltip
+     * @param int     $rowid     the number (nonce during page build) of the option 
+     *                           that should get the tooltip
+     * @param string  $input     the option name. Tooltip for it will be displayed
+     *                           if we have one available.
+     * @param boolean $isVisible should the tooltip be visible with the option,
+     *                           or are they both currently hidden?
+     * @return string
+     */
     private function tooltip($rowid, $input, $isVisible) {
         $descriptions = [];
         if (count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0) {
@@ -155,6 +189,14 @@ class OptionDisplay {
         return "<span class='tooltip' id='S$rowid-tooltip-$input' style='display:" . ($isVisible ? "block" : "none") . "' onclick='alert(\"" . $descriptions[$input] . "\")'><img src='../resources/images/icons/question-mark-icon.png" . "'></span>";
     }
 
+    /**
+     * 
+     * @param int   $rowid the number (nonce during page build) of the option 
+     *                     that should get the tooltip
+     * @param array $list  elements of the drop-down list
+     * @return array HTML code and which option is active
+     * @throws Exception
+     */
     private function selectElement($rowid, $list) {
         $jsmagic = "onchange='
                                if (/#ML#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
@@ -218,6 +260,14 @@ FOO;
         return ["TEXT" => $retval, "ACTIVE" => $activelisttype];
     }
 
+    /**
+     * HTML code to display the language selector
+     * 
+     * @param int     $rowid       the number (nonce during page build) of the option 
+     *                             that should get the tooltip
+     * @param boolean $makeVisible is the language selector to be made visible?
+     * @return string
+     */
     private function selectLanguage($rowid, $makeVisible) {
         $retval = "<select style='display:" . ($makeVisible ? "block" : "none") . "' name='value[S$rowid-lang]' id='S" . $rowid . "-input-langselect'>
             <option value='' name='select_language' selected>" . _("select language") . "</option>
@@ -238,6 +288,13 @@ FOO;
         \core\Options::TYPECODE_TEXT => ["html" => "textarea cols='30' rows='3'", "tail" => '></textarea'],
     ];
 
+    /**
+     * HTML code for a given option. Marks the matching datatype as visible, all other datatypes hidden
+     * @param int   $rowid      the number (nonce during page build) of the option 
+     *                          that should get the tooltip
+     * @param array $activetype the active datatype that is to be visible
+     * @return string
+     */
     private function inputFields($rowid, $activetype) {
         $retval = "";
         foreach (OptionDisplay::HTML_DATATYPE_TEXTS as $key => $type) {
@@ -248,8 +305,8 @@ FOO;
 
     /**
      * HTML code to display a "fresh" option (including type selector and JavaScript to show/hide relevant input fields)
-     * @param int $rowid the HTML field base name of the option to be displayed
-     * @param array $list the list of option names to include in the type selector
+     * @param int   $rowid the HTML field base name of the option to be displayed
+     * @param array $list  the list of option names to include in the type selector
      * @return string HTML code
      * @throws Exception
      */
@@ -267,10 +324,10 @@ FOO;
     /**
      * generates HTML code that displays an already set option.
      * 
-     * @param int $rowid the HTML field base name of the option to be displayed
-     * @param string $optionName the name of the option to display
+     * @param int    $rowid       the HTML field base name of the option to be displayed
+     * @param string $optionName  the name of the option to display
      * @param string $optionValue the value of the option to display
-     * @param mixed $optionLang the language of the option to display
+     * @param mixed  $optionLang  the language of the option to display
      * @return string HTML code
      * @throws Exception
      */
@@ -305,7 +362,7 @@ FOO;
             case \core\Options::TYPECODE_COORDINATES:
                 $this->allLocationCount = $this->allLocationCount + 1;
                 // display of the locations varies by map provider
-                $classname = "\web\lib\admin\Map".CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER'];
+                $classname = "\web\lib\admin\Map" . CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER'];
                 $link = $classname::optionListDisplayCode($optionValue, $this->allLocationCount);
                 $retval .= "<input readonly style='display:none' type='text' name='value[S$rowid-" . \core\Options::TYPECODE_TEXT . "]' id='S$rowid-input-text' value='$optionValue'>$link";
                 break;
@@ -354,9 +411,9 @@ FOO;
      * Displays a container for options. Either with prefilled data or empty; if
      * empty then has HTML <input> tags with clever javaScript to allow selection
      * of different option names and types
-     * @param array $list options which should be displayed; can be only exactly one if existing option, or multiple if new option type
+     * @param array  $list         options which should be displayed; can be only exactly one if existing option, or multiple if new option type
      * @param string $prefillValue for an existing option, it's value to be displayed
-     * @param string $prefillLang for an existing option, the language of the value to be displayed
+     * @param string $prefillLang  for an existing option, the language of the value to be displayed
      * @return string HTML code <tr>
      */
     public function optiontext(array $list, string $prefillValue = NULL, string $prefillLang = NULL) {
@@ -383,11 +440,10 @@ FOO;
        <td>
           <button type='button' class='delete' onclick='";
         if ($prefillValue !== NULL && $item == "general:geo_coordinates") {
-            $funcname = "Map".CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER'].'DeleteCoord';
-                $retval .= 'if (typeof '.$funcname.' === "function") { '.$funcname.'('.$this->allLocationCount.'); } ';
-            
+            $funcname = "Map" . CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER'] . 'DeleteCoord';
+            $retval .= 'if (typeof ' . $funcname . ' === "function") { ' . $funcname . '(' . $this->allLocationCount . '); } ';
         }
-        $retval .= 'deleteOption("option-S'.$rowid.'")';
+        $retval .= 'deleteOption("option-S' . $rowid . '")';
         $retval .= "'>-</button>
        </td>
     </tr>";

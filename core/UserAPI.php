@@ -1,12 +1,22 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 /**
@@ -45,11 +55,13 @@ class UserAPI extends CAT {
      * {@link DeviceConfig::setup()} method and finally, called the devide writeInstaller meethod
      * passing the returned path name.
      * 
-     * @param string $device identifier as in {@link devices.php}
-     * @param int $profileId profile identifier
+     * @param string $device       identifier as in {@link devices.php}
+     * @param int    $profileId    profile identifier
+     * @param string $generatedFor which download area does this pertain to
+     * @param string $token        for silverbullet: invitation token to consume
+     * @param string $password     for silverbull: import PIN for the future certificate
      *
-     * @return array|NULL
-     *  array with the following fields: 
+     * @return array|NULL array with the following fields: 
      *  profile - the profile identifier; 
      *  device - the device identifier; 
      *  link - the path name of the resulting installer
@@ -69,7 +81,7 @@ class UserAPI extends CAT {
         $installerProperties['device'] = $device;
         $cache = $this->getCache($device, $profile);
         $this->installerPath = $cache['path'];
-        if ($this->installerPath !== NULL && $token == NULL && $password == NULL) {
+        if ($this->installerPath !== NULL && $token === NULL && $password === NULL) {
             $this->loggerInstance->debug(4, "Using cached installer for: $device\n");
             $installerProperties['link'] = "API.php?action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=$profileId&device=$device&generatedfor=$generatedFor";
             $installerProperties['mime'] = $cache['mime'];
@@ -94,6 +106,7 @@ class UserAPI extends CAT {
                 header("HTTP/1.0 403 Not Authorized");
                 return FALSE;
             }
+            $auth->authenticate();
             $userObject = new User($_SESSION['user']);
             if (!$userObject->isIdPOwner($profile->institution)) {
                 $this->loggerInstance->debug(2, "User not an owner of a non-production profile - access forbidden\n");
@@ -200,8 +213,8 @@ class UserAPI extends CAT {
 
     /**
      * 
-     * @param string $device
-     * @param int $profileId
+     * @param string $device    identifier of the device
+     * @param int    $profileId identifier of the profile
      */
     public function deviceInfo($device, $profileId) {
         $this->languageInstance->setTextDomain("devices");
@@ -257,8 +270,11 @@ class UserAPI extends CAT {
     /**
      * Generate and send the installer
      *
-     * @param string $device identifier as in {@link devices.php}
-     * @param int $prof_id profile identifier
+     * @param string $device        identifier as in {@link devices.php}
+     * @param int    $prof_id       profile identifier
+     * @param string $generated_for which download area does this pertain to
+     * @param string $token         for silverbullet: invitation token to consume
+     * @param string $password      for silverbull: import PIN for the future certificate
      * @return string binary stream: installerFile
      */
     public function downloadInstaller($device, $prof_id, $generated_for = 'user', $token = NULL, $password = NULL) {
@@ -401,8 +417,8 @@ class UserAPI extends CAT {
      * Lists all identity providers in the database
      * adding information required by DiscoJuice.
      * 
-     * @param int $activeOnly if set to non-zero will cause listing of only those institutions which have some valid profiles defined.
-     * @param string $country if set, only list IdPs in a specific country
+     * @param int    $activeOnly if set to non-zero will cause listing of only those institutions which have some valid profiles defined.
+     * @param string $country    if set, only list IdPs in a specific country
      * @return array the list of identity providers
      *
      */
@@ -412,7 +428,9 @@ class UserAPI extends CAT {
     
     /**
      * Order active identity providers according to their distance and name
-     * @param array $currentLocation - current location
+     * @param string $country         NRO to work with
+     * @param array  $currentLocation current location
+     *
      * @return array $IdPs -  list of arrays ('id', 'name');
      */
     public function orderIdentityProviders($country, $currentLocation = NULL) {

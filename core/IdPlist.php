@@ -1,12 +1,22 @@
 <?php
-
-/* 
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+/*
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
  * 
- *  License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
+ *
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 
@@ -15,7 +25,8 @@ namespace core;
 class IdPlist {
     /**
      * Order active identity providers according to their distance and name
-     * @param array $currentLocation - current location
+     * @param string $country         the country from which to list IdPs
+     * @param array  $currentLocation current location
      * @return array $IdPs -  list of arrays ('id', 'name');
      */
     public static function orderIdentityProviders($country, $currentLocation = NULL) {
@@ -41,8 +52,8 @@ class IdPlist {
      * Lists all identity providers in the database
      * adding information required by DiscoJuice.
      * 
-     * @param int $activeOnly if set to non-zero will cause listing of only those institutions which have some valid profiles defined.
-     * @param string $country if set, only list IdPs in a specific country
+     * @param int    $activeOnly if set to non-zero will cause listing of only those institutions which have some valid profiles defined.
+     * @param string $country    if set, only list IdPs in a specific country
      * @return array the list of identity providers
      *
      */
@@ -111,6 +122,12 @@ class IdPlist {
     }
 
 
+    /**
+     * sets the current location
+     * 
+     * @param array $currentLocation the location to set
+     * @return array
+     */
     private static function setCurrentLocation($currentLocation) {
         if (is_null($currentLocation)) {
             $currentLocation = ['lat' => "90", 'lon' => "0"];
@@ -122,6 +139,12 @@ class IdPlist {
         return($currentLocation);
     }
     
+    /**
+     * calculate surface distance from user location to IdP location
+     * @param array $idp      the IdP in question
+     * @param array $location user location
+     * @return string
+     */
     private static function getIdpDistance($idp, $location) {
         $dist = 10000;
         if (isset($idp['geo'])) {
@@ -149,8 +172,8 @@ class IdPlist {
     /**
      * Calculate the distance in km between two points given their
      * geo coordinates.
-     * @param array $point1 - first point as an 'lat', 'lon' array 
-     * @param array $profile1 - second point as an 'lat', 'lon' array 
+     * @param array $point1   first point as an 'lat', 'lon' array 
+     * @param array $profile1 second point as an 'lat', 'lon' array 
      * @return float distance in km
      */
     private static function geoDistance($point1, $profile1) {

@@ -1,12 +1,20 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
- *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Horizon 2020 
+ * research and innovation programme under Grant Agreement No. 731122 (GN4-2).
+ * 
+ * On behalf of the GÉANT project, GEANT Association is the sole owner of the 
+ * copyright in all material which was developed by a member of the GÉANT 
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the
+ * UK as a branch of GÉANT Vereniging. 
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
+ * 
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 /**
@@ -125,8 +133,7 @@ class ProfileSilverbullet extends AbstractProfile {
             <ul>
                 <li>a web-based user management interface where user accounts and access credentials can be created and revoked (there is a limit to the number of active users)</li>
                 <li>a technical infrastructure ('CA') which issues and revokes credentials</li>
-                <li>a technical infrastructure ('RADIUS') which verifies access credentials and subsequently grants access to " . CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'] . "</li>
-                <li><span style='color: red;'>TBD: a lookup/notification system which informs you of network abuse complaints by " . CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'] . " Service Providers that pertain to your users</span></li>
+                <li>a technical infrastructure ('RADIUS') which verifies access credentials and subsequently grants access to " . CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'] . "</li>           
             </ul>
         <h2>User Account Liability</h2>
         <p>As an " . CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'] . " " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] . " administrator using this system, you are authorized to create user accounts according to your local " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] . " policy. You are fully responsible for the accounts you issue and are the data controller for all user information you deposit in this system; the system is a data processor.</p>";
@@ -154,10 +161,11 @@ class ProfileSilverbullet extends AbstractProfile {
      * Updates database with new installer location; NOOP because we do not
      * cache anything in Silverbullet
      * 
-     * @param string $device the device identifier string
-     * @param string $path the path where the new installer can be found
-     * @param string $mime the mime type of the new installer
-     * @param int $integerEapType the inter-representation of the EAP type that is configured in this installer
+     * @param string $device         the device identifier string
+     * @param string $path           the path where the new installer can be found
+     * @param string $mime           the mime type of the new installer
+     * @param int    $integerEapType the inter-representation of the EAP type that is configured in this installer
+     * @return void
      */
     public function updateCache($device, $path, $mime, $integerEapType) {
         // caching is not supported in SB (private key in installers)
@@ -171,9 +179,9 @@ class ProfileSilverbullet extends AbstractProfile {
     /**
      * register new supported EAP method for this profile
      *
-     * @param \core\common\EAP $type The EAP Type, as defined in class EAP
-     * @param int $preference preference of this EAP Type. If a preference value is re-used, the order of EAP types of the same preference level is undefined.
-     *
+     * @param \core\common\EAP $type       The EAP Type, as defined in class EAP
+     * @param int              $preference preference of this EAP Type. If a preference value is re-used, the order of EAP types of the same preference level is undefined.
+     * @return void
      */
     public function addSupportedEapMethod(\core\common\EAP $type, $preference) {
         // the parameters really should only list SB and with prio 1 - otherwise,
@@ -186,7 +194,8 @@ class ProfileSilverbullet extends AbstractProfile {
 
     /**
      * It's EAP-TLS and there is no point in anonymity
-     * @param boolean $shallwe
+     * @param boolean $shallwe always FALSE
+     * @return void
      */
     public function setAnonymousIDSupport($shallwe) {
         // we don't do anonymous outer IDs in SB
@@ -213,7 +222,7 @@ class ProfileSilverbullet extends AbstractProfile {
 
     /**
      * finds out the expiry date of a given user
-     * @param int $userId
+     * @param int $userId the numerical user ID of the user in question
      * @return string
      */
     public function getUserExpiryDate($userId) {
@@ -226,12 +235,13 @@ class ProfileSilverbullet extends AbstractProfile {
     
     /**
      * sets the expiry date of a user to a new date of choice
-     * @param int $userId
-     * @param \DateTime $date
+     * @param int       $userId the username
+     * @param \DateTime $date   the expiry date
+     * @return void
      */
     public function setUserExpiryDate($userId, $date) {
         $query = "UPDATE silverbullet_user SET expiry = ? WHERE profile_id = ? AND id = ?";
-        $theDate = $date->format("Y-m-d");
+        $theDate = $date->format("Y-m-d H:i:s");
         $this->databaseHandle->exec($query, "sii", $theDate, $this->identifier, $userId);
     }
 
@@ -273,20 +283,20 @@ class ProfileSilverbullet extends AbstractProfile {
     /**
      * adds a new user to the profile
      * 
-     * @param string $username
-     * @param \DateTime $expiry
+     * @param string    $username the username
+     * @param \DateTime $expiry   the expiry date
      * @return int row ID of the new user in the database
      */
     public function addUser($username, \DateTime $expiry) {
         $query = "INSERT INTO silverbullet_user (profile_id, username, expiry) VALUES(?,?,?)";
-        $date = $expiry->format("Y-m-d");
+        $date = $expiry->format("Y-m-d H:i:s");
         $this->databaseHandle->exec($query, "iss", $this->identifier, $username, $date);
         return $this->databaseHandle->lastID();
     }
 
     /**
      * revoke all active certificates and pending invitations of a user
-     * @param int $userId
+     * @param int $userId the username
      * @return boolean was the user found and deactivated?
      */
     public function deactivateUser($userId) {
@@ -298,19 +308,19 @@ class ProfileSilverbullet extends AbstractProfile {
             return FALSE;
         }
         // set the expiry date of any still valid invitations to NOW()
-        $query = "SELECT id FROM silverbullet_invitation WHERE profile_id = $this->identifier AND silverbullet_user_id = ? AND expiry >= NOW()";
+        $query = "SELECT token FROM silverbullet_invitation WHERE profile_id = $this->identifier AND silverbullet_user_id = ? AND expiry >= NOW()";
         $exec = $this->databaseHandle->exec($query, "i", $userId);
         // SELECT -> resource, not boolean
         while ($result = mysqli_fetch_object(/** @scrutinizer ignore-type */ $exec)) {
-            $invitation = new SilverbulletInvitation($result->id);
+            $invitation = new SilverbulletInvitation($result->token);
             $invitation->revokeInvitation();
         }
         // and revoke all certificates
-        $query2 = "SELECT CONCAT('',serial_number) AS sn FROM silverbullet_certificate WHERE profile_id = $this->identifier AND silverbullet_user_id = ? AND expiry >= NOW() AND revocation_status = 'NOT_REVOKED'";
+        $query2 = "SELECT serial_number, ca_type FROM silverbullet_certificate WHERE profile_id = $this->identifier AND silverbullet_user_id = ? AND expiry >= NOW() AND revocation_status = 'NOT_REVOKED'";
         $exec2 = $this->databaseHandle->exec($query2, "i", $userId);
         // SELECT -> resource, not boolean
         while ($result = mysqli_fetch_object(/** @scrutinizer ignore-type */ $exec2)) {
-            $certObject = new SilverbulletCertificate($result->sn);
+            $certObject = new SilverbulletCertificate($result->serial_number, $result->ca_type);
             $certObject->revokeCertificate();
         }
         // and finally set the user expiry date to NOW(), too
@@ -326,6 +336,8 @@ class ProfileSilverbullet extends AbstractProfile {
     
     /**
      * updates the last_ack for all users (invoked when the admin claims to have re-verified continued eligibility of all users)
+     * 
+     * @return void
      */
     public function refreshEligibility() {
         $query = "UPDATE silverbullet_user SET last_ack = NOW() WHERE profile_id = ?";

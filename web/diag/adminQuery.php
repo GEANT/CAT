@@ -1,30 +1,44 @@
 <?php
-/* 
- *******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+
+/*
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
-?>
-<?php
-    $o = new stdClass();
-    if (isset($_REQUEST['data'])) {
-        $o = json_decode($_REQUEST['data']);
-    }
-    $sp_problem = array(
-    'technical' =>  _("I suspect a Technical Problem with the IdP"),
+require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
+$languageInstance = new \core\common\Language();
+$languageInstance->setTextDomain("diagnostics");
+
+$o = new stdClass();
+if (isset($_REQUEST['data'])) {
+    $o = json_decode($_REQUEST['data']);
+}
+$sp_problem = array(
+    'technical' => _("I suspect a Technical Problem with the IdP"),
     'abuse-copyright' => _("A user from this IdP has allegedly infringed copyrights"),
     'abuse-network' => _("A user from this IdP has conducted malicious network operations (spam, DDoS, ...)")
-    );
-    $idp_problem = array(
-    'technical' =>  _("User claims connectivity problems but has been authenticated successfully"),
-    'abuse-copyright' => _("User claims that mandatory open port is not open")   
-    );
-    $queryType = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING);
-    $res = '';
-    $javascript = "<script>
+);
+$idp_problem = array(
+    'technical' => _("User claims connectivity problems but has been authenticated successfully"),
+    'abuse-copyright' => _("User claims that mandatory open port is not open")
+);
+$queryType = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING);
+$res = '';
+$javascript = "<script>
     var mac = $('#mac');
     mac.on('keyup', formatMAC);
     var now = new Date();
@@ -38,14 +52,14 @@
     });
 </script>
     ";
-    if ($queryType == 'sp') {
-        $select = "<div id='sp_abuse_problem'>
+if ($queryType == 'sp') {
+    $select = "<div id='sp_abuse_problem'>
 <select style='margin-left: 0px;' id='select_sp_problem'>";
-        foreach ($sp_problem as $pname => $pdesc) {
-            $select = $select . "<option value='$pname'>$pdesc</option>\n";
-        }
-        $select = $select . "</select></div>";
-        $res = "
+    foreach ($sp_problem as $pname => $pdesc) {
+        $select = $select . "<option value='$pname'>$pdesc</option>\n";
+    }
+    $select = $select . "</select></div>";
+    $res = "
 <table id='sp_questions'>
     <tr>
         <td>" . _("Select your problem") . "</td>
@@ -56,8 +70,8 @@
         <td>
                 <input type='text' name='admin_realm' id='admin_realm' value=''>
                 <button id='realm_in_db_admin' accesskey='R' type='button'>" .
-                _("Check if this value is registered") .
-                "</button>
+            _("Check if this value is registered") .
+            "</button>
         </td>
     </tr>
     <tr class='hidden_row'>
@@ -83,16 +97,16 @@
         <td><button type='submit' id='submit_idp_query' name='go'>" . _("Send") . "</button></td>
     </tr>
  </table>";
-        $res = $res . $javascript;
-    }
-    if ($queryType == 'idp') {
-        $select = "<div id='idp_reported_problem' style='display:;'>
+    $res = $res . $javascript;
+}
+if ($queryType == 'idp') {
+    $select = "<div id='idp_reported_problem' style='display:;'>
 <select style='margin-left:0px;' id='select_idp_problem'>";
-        foreach ($idp_problem as $pname => $pdesc) {
-            $select = $select . "<option value='$pname'>$pdesc</option>\n";
-        }
-        $select = $select . "</select></div>";
-        $res = "
+    foreach ($idp_problem as $pname => $pdesc) {
+        $select = $select . "<option value='$pname'>$pdesc</option>\n";
+    }
+    $select = $select . "</select></div>";
+    $res = "
 <table id='idp_questions'>
     <tr>
         <td>" . _("Select your problem") . "</td>
@@ -151,44 +165,43 @@
         <td><button type='submit' id='submit_sp_query' name='go'>" . _("Send") . "</button></td>
     </tr>
 </table>";
-        $res = $res . $javascript;
-    }
-    if ($queryType == 'idp_send' || $queryType == 'sp_send') {
-        require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-        $languageInstance = new \core\common\Language();
-        $languageInstance->setTextDomain("web_user");
-        $cat = new \core\CAT();
-        $returnArray = array();
-        if (count((array)$o)  > 0) {
-            foreach ($o as $key => $value) {
-                $value = trim($value);
-                switch ($key) {
-                    case 'realm':                       
-                    case 'email':
-                    case 'mac':
-                    case 'freetext':
-                    case 'timestamp':
-                    case 'opname':
-                    case 'outerid':
-                    case 'cdetails':
-                        $returnArray[$key] = $value;
-                        break;
-                    case 'idpcontact':
-                        $returnArray[$key] = base64_decode($value);
-                        break;
-                    case 'reason':
-                        if ($queryType == 'idp_send') {
-                            $returnArray[$key] = $sp_problem[$value];
-                        } else {
-                            $returnArray[$key] = $idp_problem[$value];
-                        }
-                        break;
-                    default:
-                        break;
-                }
+    $res = $res . $javascript;
+}
+if ($queryType == 'idp_send' || $queryType == 'sp_send') {
+    include_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
+    $languageInstance->setTextDomain("web_user");
+    $cat = new \core\CAT();
+    $returnArray = array();
+    if (count((array) $o) > 0) {
+        foreach ($o as $key => $value) {
+            $value = trim($value);
+            switch ($key) {
+                case 'realm':
+                case 'email':
+                case 'mac':
+                case 'freetext':
+                case 'timestamp':
+                case 'opname':
+                case 'outerid':
+                case 'cdetails':
+                    $returnArray[$key] = $value;
+                    break;
+                case 'idpcontact':
+                    $returnArray[$key] = base64_decode($value);
+                    break;
+                case 'reason':
+                    if ($queryType == 'idp_send') {
+                        $returnArray[$key] = $sp_problem[$value];
+                    } else {
+                        $returnArray[$key] = $idp_problem[$value];
+                    }
+                    break;
+                default:
+                    break;
             }
         }
-        $returnArray['status'] = 1;
-        $res = json_encode($returnArray);
     }
-    echo $res;
+    $returnArray['status'] = 1;
+    $res = json_encode($returnArray);
+}
+echo $res;

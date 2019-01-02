@@ -1,11 +1,22 @@
 <?php
-/* 
- *******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+/*
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 /**
@@ -24,6 +35,9 @@ namespace devices;
  * @package ModuleWriting
  */
 class Devices{
+    
+    const SUPPORT_RSA = 'RSA';
+    const SUPPORT_ECDSA = 'ECDSA';
 
 /**
  * This array lists available configuration options for local device management.
@@ -46,7 +60,11 @@ class Devices{
  *         if device redirect has been defined by the admin
  * - 'message' if defined will cause a display of the contents of this option as
  *         an additional warning
- *
+ * - 'sb_message' aplickable only in the distribuition of Silverbullet profiles,
+ *         if defined will cause a display of the contents of this option as
+ *         an additional message. If the 'message' option is also defined then
+ *         the sb_message will be displayed in the same window AFTER the contents
+ *         of the 'message' option if that one.
  * - 'device_id' - used in building the installer filename; when this option
  *         is not defined, the filename will use the index from 
  *         the listDevices array; when defined and not empty, it will be 
@@ -68,6 +86,7 @@ public static $Options=[
   'no_cache'=>0,
   'hidden'=>0,
   'redirect'=>0,
+  'clientcert'=> Devices::SUPPORT_RSA,
 ];
 
 /**
@@ -101,8 +120,6 @@ public static $Options=[
  * @example devices/devices-template.php file listing
  * @return array the device modules
  */
-
-
 public static function listDevices() {
     return [
  'w10'=>[
@@ -185,6 +202,8 @@ public static function listDevices() {
        'sign'=>1,
        'device_id'=>'OS_X',
        'mime'=>'application/x-apple-aspen-config',
+       'clientcert'=> Devices::SUPPORT_ECDSA,
+       'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page. Later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."), 
       ),
     ),
 	
@@ -200,6 +219,7 @@ public static function listDevices() {
        'sign'=>1,
        'device_id'=>'OS_X',
        'mime'=>'application/x-apple-aspen-config',
+       'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page. Later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."), 
       ),
     ),
 	
@@ -215,6 +235,7 @@ public static function listDevices() {
        'sign'=>1,
        'device_id'=>'OS_X',
        'mime'=>'application/x-apple-aspen-config',
+       'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page. Later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."), 
       ),
     ],
 
@@ -229,6 +250,7 @@ public static function listDevices() {
        'sign'=>1,
        'device_id'=>'OS_X',
        'mime'=>'application/x-apple-aspen-config',
+       'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page. Later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."), 
       ],
     ],
 
@@ -243,6 +265,7 @@ public static function listDevices() {
        'sign'=>1,
        'device_id'=>'OS_X',
        'mime'=>'application/x-apple-aspen-config',
+       'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page. Later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."), 
       ],
     ],
 
@@ -257,6 +280,7 @@ public static function listDevices() {
        'sign'=>1,
        'device_id'=>'OS_X',
        'mime'=>'application/x-apple-aspen-config',
+       'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page. Later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."), 
       ],
     ],
 	
@@ -271,6 +295,7 @@ public static function listDevices() {
        'sign'=>1,
        'device_id'=>'OS_X',
        'mime'=>'application/x-apple-aspen-config',
+       'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page. Later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."), 
       ],
     ],
         
@@ -285,6 +310,7 @@ public static function listDevices() {
        'sign'=>1,
        'device_id'=>'iOS',
        'mime'=>'application/x-apple-aspen-config',
+       'sb_message' => _("During the installation you will be first asked to enter your passcode - this is you device security code! Later on you will be prompted for the password to the certificate and there you need to enter the import PIN shown on this page."),
       ],
     ],
 
@@ -337,11 +363,11 @@ public static function listDevices() {
        'message'=>sprintf(_("After downloading the file, open the Chrome browser and browse to this URL: <a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</a>. Then, use the 'Import ONC file' button. The import is silent; the new network definitions will be added to the preferred networks.")),
       ],
    ],
-        
- 'android_marshmallow'=>[
+      
+ 'android_pie'=>[
     'group' => "android",
-    'display'=>_("Android 6.0 Marshmallow"),
-     'match'=>'Android 6\.[0-9]',
+    'display'=>_("Android 9.0 Pie"),
+     'match'=>'Android 9',
     'directory'=>'xml',
     'module'=>'Lollipop',
     'options'=>[
@@ -349,7 +375,55 @@ public static function listDevices() {
        'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
                             "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
-                            "<a target='_blank' href='unbeknownst'>Amazon Appstore</a>",
+                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
+                            "<a target='_blank' href='eduroamCAT-stable.apk'>"._("as local download")."</a>"),
+      ],
+   ],
+        
+ 'android_oreo'=>[
+    'group' => "android",
+    'display'=>_("Android 8.0 Oreo"),
+     'match'=>'Android 8',
+    'directory'=>'xml',
+    'module'=>'Lollipop',
+    'options'=>[
+       'mime'=>'application/eap-config',
+       'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                            "eduroamCAT",
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
+                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
+                            "<a target='_blank' href='eduroamCAT-stable.apk'>"._("as local download")."</a>"),
+      ],
+   ],
+        
+ 'android_nougat'=>[
+    'group' => "android",
+    'display'=>_("Android 7.0 Nougat"),
+     'match'=>'Android 7',
+    'directory'=>'xml',
+    'module'=>'Lollipop',
+    'options'=>[
+       'mime'=>'application/eap-config',
+       'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                            "eduroamCAT",
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
+                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
+                            "<a target='_blank' href='eduroamCAT-stable.apk'>"._("as local download")."</a>"),
+      ],
+   ],
+        
+ 'android_marshmallow'=>[
+    'group' => "android",
+    'display'=>_("Android 6.0 Marshmallow"),
+     'match'=>'Android 6',
+    'directory'=>'xml',
+    'module'=>'Lollipop',
+    'options'=>[
+       'mime'=>'application/eap-config',
+       'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                            "eduroamCAT",
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
+                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
                             "<a target='_blank' href='eduroamCAT-stable.apk'>"._("as local download")."</a>"),
       ],
    ],
@@ -357,7 +431,7 @@ public static function listDevices() {
  'android_lollipop'=>[
     'group' => "android",
     'display'=>_("Android 5.0 Lollipop"),
-     'match'=>'Android 5\.[0-9]',
+     'match'=>'Android 5',
     'directory'=>'xml',
     'module'=>'Lollipop',
     'options'=>[
@@ -365,7 +439,7 @@ public static function listDevices() {
        'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
                             "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
-                            "<a target='_blank' href='unbeknownst'>Amazon Appstore</a>",
+                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
                             "<a target='_blank' href='eduroamCAT-stable.apk'>"._("as local download")."</a>"),
       ],
    ],
@@ -381,7 +455,7 @@ public static function listDevices() {
        'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
                             "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
-                            "<a target='_blank' href='unbeknownst'>Amazon Appstore</a>",
+                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
                             "<a target='_blank' href='eduroamCAT-stable.apk'>"._("as local download")."</a>"),
       ],
    ],
@@ -398,7 +472,7 @@ public static function listDevices() {
        'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
                             "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
-                            "<a target='_blank' href='unbeknownst'>Amazon Appstore</a>",
+                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
                             "<a target='_blank' href='eduroamCAT-stable.apk'>"._("as local download")."</a>"),
       ],
    ],

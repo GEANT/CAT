@@ -1,12 +1,22 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 use web\lib\user;
@@ -48,8 +58,11 @@ class Divs {
             $retval .= "<img id='hamburger' src='$loc2' alt='Menu'/>";
         }
         $retval .= "<div id='menu_top'>";
-        $retval .= $menu->printMenu();
-
+        if ($visibility === 'start') {
+            $retval .= $menu->printMinimalMenu();
+        } else {
+            $retval .= $menu->printMenu();
+        }
         $retval .= "</div></div>\n";
         return $retval;
     }
@@ -98,7 +111,7 @@ class Divs {
 <div id='welcome_top1'>
     " . $this->Gui->textTemplates->templates[user\HEADING_TOPLEVEL_GREET] . "
 </div>
-<div id='top_invite' class='signin'>
+<div id='top_invite'>
     " . $this->Gui->textTemplates->templates[user\HEADING_TOPLEVEL_PURPOSE] . "
 </div>";
     }
@@ -161,14 +174,9 @@ class Divs {
         return "
 <div id='profiles'> <!-- this is the profile selection filled during run time -->
     <div id='profiles_h' class='sub_h'>" . $this->Gui->textTemplates->templates[user\PROFILE_SELECTION] . "
-    </div>
-    <table>
-        <tr>
-            <td><select id='profile_list'></select></td>
-            <td><div id='profile_desc' class='profile_desc'></div></td>
-        </tr>
-    </table>
-</div>";
+    </div>" .
+"<select id='profile_list'></select><div id='profile_desc' class='profile_desc'></div>" .
+                "</div>";
     }
 
     public function div_pagetitle($mainText, $extraText = '') {
@@ -275,8 +283,12 @@ class Divs {
             <td>" .
                 $this->Gui->CAT_COPYRIGHT
                 . "
-            </td>
-            <td>";
+            </td>";
+            
+        if (!empty(CONFIG['APPEARANCE']['privacy_notice_url'])) {
+            $retval .= "<td><a href='".CONFIG['APPEARANCE']['privacy_notice_url']."'>" . sprintf(_("%s Privacy Notice"),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</a></td>";
+        }
+        $retval .= "<td>";
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {
             $geant = $this->Gui->skinObject->findResourceUrl("IMAGES", "dante.png");
             $eu = $this->Gui->skinObject->findResourceUrl("IMAGES", "eu.png");

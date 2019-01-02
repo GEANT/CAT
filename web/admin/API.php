@@ -1,18 +1,33 @@
 <?php
 
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
-?>
-<?php
 
-require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
+require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 
+/**
+ * Checks if the profile is a valid SB profile belonging to the federation
+ * @param \core\Federation $fed federation identifier
+ * @param int              $id  profile identifier
+ * @return boolean|array
+ */
 function commonSbProfileChecks($fed, $id) {
     $validator = new \web\lib\common\InputValidation();
     $adminApi = new \web\lib\admin\API();
@@ -54,7 +69,7 @@ if (!isset(CONFIG_CONFASSISTANT['CONSORTIUM']['registration_API_keys']) || count
 $inputRaw = file_get_contents('php://input');
 $inputDecoded = json_decode($inputRaw, TRUE);
 if (!is_array($inputDecoded)) {
-    $adminApi->returnError(web\lib\admin\API::ERROR_MALFORMED_REQUEST, "Unable to decode JSON POST data.");
+    $adminApi->returnError(web\lib\admin\API::ERROR_MALFORMED_REQUEST, "Unable to decode JSON POST data." . json_last_error_msg() . $inputRaw);
     exit(1);
 }
 
@@ -142,13 +157,13 @@ switch ($inputDecoded['ACTION']) {
         if ($admin === FALSE) {
             throw new Exception("A required parameter is missing, and this wasn't caught earlier?!");
         }
-        $newtoken = $mgmt->createToken(true, $admin, $idp);
-        $URL = "https://" . $_SERVER['SERVER_NAME'] . dirname($_SERVER['SCRIPT_NAME']) . "/action_enrollment.php?token=$newtoken";
-        $success = ["TOKEN URL" => $URL, "TOKEN" => $newtoken];
+        $newtokens = $mgmt->createTokens(true, [$admin], $idp);
+        $URL = "https://" . $_SERVER['SERVER_NAME'] . dirname($_SERVER['SCRIPT_NAME']) . "/action_enrollment.php?token=" . array_keys($newtokens)[0];
+        $success = ["TOKEN URL" => $URL, "TOKEN" => array_keys($newtokens)[0]];
         // done with the essentials - display in response. But if we also have an email address, send it there
         $email = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_TARGETMAIL);
         if ($email !== FALSE) {
-            $sent = \core\common\OutsideComm::adminInvitationMail($email, "EXISTING-FED", $newtoken, $idp->name, $fed);
+            $sent = \core\common\OutsideComm::adminInvitationMail($email, "EXISTING-FED", array_keys($newtokens)[0], $idp->name, $fed);
             $success["EMAIL SENT"] = $sent["SENT"];
             if ($sent["SENT"] === TRUE) {
                 $success["EMAIL TRANSPORT SECURE"] = $sent["TRANSPORT"];
@@ -253,10 +268,17 @@ switch ($inputDecoded['ACTION']) {
                 $iterator = $iterator + 1;
             }
         }
-        $adminApi->returnSuccess([\web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID => $profile->identifier]);
+        // reinstantiate $profile freshly from DB - it was updated in the process
+        $profileFresh = new core\ProfileRADIUS($profile->identifier);
+        $profileFresh->prepShowtime();
+        $adminApi->returnSuccess([\web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID => $profileFresh->identifier]);
         break;
     case web\lib\admin\API::ACTION_ENDUSER_NEW:
-        $evaluation = commonSbProfileChecks($fed, $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID));
+        $prof_id = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID);
+        if ($prof_id === FALSE) {
+            exit(1);
+        }
+        $evaluation = commonSbProfileChecks($fed, $prof_id);
         if ($evaluation === FALSE) {
             exit(1);
         }
@@ -283,7 +305,11 @@ switch ($inputDecoded['ACTION']) {
     case \web\lib\admin\API::ACTION_ENDUSER_DEACTIVATE:
     // fall-through intended: both actions are very similar
     case \web\lib\admin\API::ACTION_TOKEN_NEW:
-        $evaluation = commonSbProfileChecks($fed, $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID));
+        $profile_id = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID);
+        if ($profile_id === FALSE) {
+            exit(1);
+        }
+        $evaluation = commonSbProfileChecks($fed, $profile_id);
         if ($evaluation === FALSE) {
             exit(1);
         }
@@ -310,7 +336,7 @@ switch ($inputDecoded['ACTION']) {
                 $emailRaw = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_TARGETMAIL);
                 if ($emailRaw) { // an email parameter was specified
                     $email = $validator->email($emailRaw);
-                    if ($email) { // it's a valid address
+                    if (is_string($email)) { // it's a valid address
                         $retval = $invitation->sendByMail($email);
                         $additionalInfo["EMAIL SENT"] = $retval["SENT"];
                         if ($retval["SENT"]) {
@@ -319,7 +345,7 @@ switch ($inputDecoded['ACTION']) {
                     }
                 }
                 $smsRaw = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_TARGETSMS);
-                if ($smsRaw) {
+                if ($smsRaw !== FALSE) {
                     $sms = $validator->sms($smsRaw);
                     if ($sms) {
                         $wasSent = $invitation->sendBySms($sms);
@@ -336,9 +362,13 @@ switch ($inputDecoded['ACTION']) {
         $adminApi->returnSuccess($additionalInfo);
         break;
     case \web\lib\admin\API::ACTION_ENDUSER_LIST:
-        // fall-through: those two are similar
-            case \web\lib\admin\API::ACTION_TOKEN_LIST:
-        $evaluation = commonSbProfileChecks($fed, $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID));
+    // fall-through: those two are similar
+    case \web\lib\admin\API::ACTION_TOKEN_LIST:
+        $profile_id = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID);
+        if ($profile_id === FALSE) {
+            exit(1);
+        }
+        $evaluation = commonSbProfileChecks($fed, $profile_id);
         if ($evaluation === FALSE) {
             exit(1);
         }
@@ -358,7 +388,12 @@ switch ($inputDecoded['ACTION']) {
                 foreach ($allUsers as $oneUser) {
                     $tokens = array_merge($tokens, $profile->userStatus($oneUser));
                 }
-                $adminApi->returnSuccess($tokens);
+                // reduce to important subset of information
+                $infoSet = [];
+                foreach ($tokens as $oneTokenObject) {
+                    $infoSet[$oneTokenObject->userId] = [\web\lib\admin\API::AUXATTRIB_TOKEN => $oneTokenObject->invitationTokenString, "STATUS" => $oneTokenObject->invitationTokenStatus];
+                }
+                $adminApi->returnSuccess($infoSet);
         }
         break;
     case \web\lib\admin\API::ACTION_TOKEN_REVOKE:
@@ -368,6 +403,52 @@ switch ($inputDecoded['ACTION']) {
             exit(1);
         }
         $token->revokeInvitation();
+        $adminApi->returnSuccess([]);
+        break;
+    case \web\lib\admin\API::ACTION_CERT_LIST:
+        $prof_id = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID);
+        $user_id = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_USERID);
+        if ($prof_id === FALSE) {
+            exit(1);
+        }
+        $evaluation = commonSbProfileChecks($fed, $prof_id);
+        if ($evaluation === FALSE) {
+            exit(1);
+        }
+        list($idp, $profile) = $evaluation;
+        $invitations = $profile->userStatus($user_id);
+        // now pull out cert information from the object
+        $certObjects = [];
+        foreach ($invitations as $oneInvitation) {
+            array_merge($certs, $oneInvitation->associatedCertificates);
+        }
+        // extract relevant subset of information from cert objects
+        $certDetails = [];
+        foreach ($certs as $cert) {
+            $certDetails[$cert->ca_type . ":" . $cert->serial] = ["ISSUED" => $cert->issued, "EXPIRY" => $cert->expiry, "STATUS" => $cert->status, "DEVICE" => $cert->device, "CN" => $cert->username];
+        }
+        $adminApi->returnSuccess($certDetails);
+        break;
+    case \web\lib\admin\API::ACTION_CERT_REVOKE:
+        $prof_id = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID);
+        if ($prof_id === FALSE) {
+            exit(1);
+        }
+        $evaluation = commonSbProfileChecks($fed, $prof_id);
+        if ($evaluation === FALSE) {
+            exit(1);
+        }
+        list($idp, $profile) = $evaluation;
+        // tear apart the serial
+        $serial = explode(":", $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_CERTSERIAL));
+        $cert = new \core\SilverbulletCertificate($serial[1], $serial[0]);
+        if ($cert->status == \core\SilverbulletCertificate::CERTSTATUS_INVALID) {
+            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Serial not found.");
+        }
+        if ($cert->profileId != $profile->identifier) {
+            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Serial does not belong to this profile.");
+        }
+        $cert->revokeCertificate();
         $adminApi->returnSuccess([]);
         break;
     default:

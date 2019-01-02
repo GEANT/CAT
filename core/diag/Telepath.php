@@ -1,19 +1,29 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 namespace core\diag;
 
 use \Exception;
 
-require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
+require_once dirname(dirname(__DIR__)) . "/config/_config.php";
 
 /**
  * The overall coordination class that runs all kinds of tests to find out where
@@ -38,8 +48,8 @@ class Telepath extends AbstractTest {
 
     /**
      * prime the Telepath with info it needs to know to successfully meditate over the problem
-     * @param string $realm the realm of the user
-     * @param string|null $visitedFlr which NRO is the user visiting
+     * @param string      $realm          the realm of the user
+     * @param string|null $visitedFlr     which NRO is the user visiting
      * @param string|null $visitedHotspot external DB ID of the hotspot he visited
      */
     public function __construct(string $realm, $visitedFlr = NULL, $visitedHotspot = NULL) {
@@ -94,7 +104,8 @@ class Telepath extends AbstractTest {
 
     /**
      * ask the monitoring API about the things it knows
-     * @param string $type which type of test to execute
+     * 
+     * @param string $type   which type of test to execute
      * @param string $param1 test-specific parameter number 1, if any
      * @param string $param2 test-specific parameter number 2, if any
      * @return array
@@ -213,7 +224,7 @@ class Telepath extends AbstractTest {
 
     /**
      * Is the uplink between an NRO server and the ETLRs in order?
-     * @param string $whichSide
+     * @param string $whichSide test towards the IdP or SP side?
      * @return array
      */
     private function checkFedEtlrUplink($whichSide) {
@@ -254,7 +265,7 @@ class Telepath extends AbstractTest {
 
     /**
      * Is the NRO server itself in order?
-     * @param string $whichSide
+     * @param string $whichSide test towards the IdP or SP side?
      * @return array
      */
     private function checkFlrServerStatus($whichSide) {
@@ -361,6 +372,13 @@ class Telepath extends AbstractTest {
         }
     }
 
+    /**
+     * can we run thorough checks or not? Thorough can only be done if we can
+     * deterministically map the realm to be checked against a CAT Profile, and
+     * then only if the profile is complete.
+     * 
+     * @return void
+     */
     private function determineTestsuiteParameters() {
         if ($this->catProfile > 0) {
             $profileObject = \core\ProfileFactory::instantiate($this->catProfile);

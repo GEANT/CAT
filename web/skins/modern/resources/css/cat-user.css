@@ -1,3 +1,22 @@
+/*
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
+ *
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
+ */
 
 :root {
     --color1: #FFFFFF;
@@ -10,7 +29,7 @@ html {
 }
 
 body {
-    background: var(--color1); 
+    background: #FFFFFF; 
     color: #000000;
     font-family:"Open Sans", Helvetica, sans-serif;
     font-size:12px;
@@ -60,7 +79,7 @@ input {
 }
 
 input[button] {
-    background: var(--color1);
+    background: #FFFFFF;
 }
 
 select {
@@ -73,7 +92,7 @@ a:link {
 }
 
 a:visited {
-    color: var(--color2);
+    color: #575757;
 }
 
 a:hover {
@@ -81,7 +100,7 @@ a:hover {
 }
 
 a:active {
-    color: var(--color2);
+    color: #575757;
 }
 
 #wrap {
@@ -95,7 +114,6 @@ a:active {
 
 #cat_form {
     height: 100%;
-    padding-bottom: 80px; 
 }
 
 #heading {
@@ -116,7 +134,7 @@ a:active {
 
 button {
     cursor: pointer;
-    background: var(--color2); 
+    background: #575757; 
     color: #FFFFFF; 
     height: 23px;
 }
@@ -145,7 +163,7 @@ button.delete {
 #device_list button {
    min-height: 23px;
    color: white;
-    background:  var(--color3);
+    background:  #1d4a74;
 }
 
 #device_list button.more_info_b {
@@ -215,7 +233,7 @@ td.vendor img {
     position: absolute;
     left: 0px;
     height:272px;
-    background: var(--color3);
+    background: #1d4a74;
     background-image: url("../images//image_5a.jpg");
     background-size: 100%;
     background-repeat: no-repeat;
@@ -280,19 +298,13 @@ td.vendor img {
 
 #welcome_top1 {
     clear: both;
-//    padding-top: 140px;
     padding-top: 30px;
+    color: #575757;
     font-weight: bold;
     font-size: 20px;
     text-align: center;
 }
 
-#welcome_top2 {
-   font-weight: bold;
-    font-size: 16px;
-    text-align: center;
-   display: none;
-}
 
 #cat_logo {
    width: 180px;
@@ -322,14 +334,14 @@ td.vendor img {
     left: 20%;
     text-align: justify;
     top: 200px;
-    border-top: 4px solid var(--color3);
+    border-top: 4px solid #1d4a74;
     box-shadow: 0px 3px 2px 1px rgba(0,0,0,0.06)
 }
 
 #idp_logo {
    display:none;
    float:right;
-   padding-right: 30px;
+   padding-right: 20px;
    max-height:150px;
    padding-top:10px;
 }
@@ -372,7 +384,7 @@ div.device_info {
 }
 
 span.redirect_link {
-    background: var(--color2);
+    background: #575757;
     color: #FFFFFF; height: 23px;
     padding-left: 5px;
     padding-right: 5px;
@@ -417,7 +429,7 @@ span.redirect_link a:active {
 }
 
 #profile_desc {
-   display:none;
+    display:none;
     background: #f0f0f0;
     position: relative;
     border: 1px solid #dddddd;
@@ -438,6 +450,7 @@ div.sub_h {
 #profile_redirect {
     padding-left: 30px;
     padding-top: 20px;
+    padding-bottom: 16px;
     font-size: 12px;
     font-weight: normal;
     max-width:500px;
@@ -447,7 +460,7 @@ div.sub_h {
 
 span.edu_cat {
     font-weight: bold;
-    color: var(--color2);
+    color: #575757;
 }
 
 #welcome {
@@ -456,7 +469,7 @@ span.edu_cat {
     text-align: justify;
     border-bottom-style:solid;
     border-bottom-width:5px;
-    border-color: var(--color1);
+    border-color: #FFFFFF;
     font-size: 14px;
     font-weight: normal;
 }
@@ -468,10 +481,28 @@ span.edu_cat {
 }
 
 #user_info {
+    max-width: 100%;
     padding-left: 30px; 
     font-size: 14px;  
     line-height: 150%;
     font-weight: normal; 
+}
+
+#user_info table td,th {
+    text-align: left;
+}
+
+span.user_info {
+    overflow: hidden;
+    padding-right:10px;
+    display: inline-block;
+    max-width:100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+span.user_info_header {
+    font-weight: bold;
 }
 
 #loading_ico {
@@ -494,18 +525,18 @@ span.edu_cat {
    padding:0px;
    padding-right: 20px;
    width: 100%;
-   background: var(--color3);
+   background: #1d4a74;
    box-sizing: border-box;
 }
 
 #footer {
     position: relative;
-    margin-top: -65px;
     min-height: 49px;
     width: 100%;
+    background: white;
+    margin: auto;
     padding-top:5px;
     padding-bottom:10px;
-    background: white;
     border-top: 1px solid #000;
 }
 
@@ -525,9 +556,9 @@ div.footer table td {
     font-size: 20px;
     padding-top: 20px;
     padding-bottom: 18px;
-    padding-right: 100px;
+    padding-right: 35vw;
     padding-left: 20px;
-    background: var(--color3);
+    background: #1d4a74;
     color: white;
     text-align: left;
 }
@@ -594,9 +625,10 @@ button.guess_os {
 
 #profile_list {
     width: auto;
+    max-width: 90%;
     padding-left: 10px;
     padding-right: 0px;
-    background-color: var(--color3);
+    background-color: #1d4a74;
     color: white;
 }
 
@@ -711,9 +743,9 @@ td.vendor {
     font-size: 24px;
     padding-top: 20px;
     padding-bottom: 18px;
-    padding-right: 120px;
+    padding-right: 33vw;
     padding-left: 20px;
-    background: var(--color3);
+    background: #1d4a74;
     color: white;
     text-align: left;
 }
@@ -813,7 +845,7 @@ button.guess_os {
     width: auto;
     padding-left: 10px;
     padding-right: 0px;
-    background-color: var(--color3);
+    background-color: #1d4a74;
     color: white;
 }
 
@@ -914,7 +946,7 @@ body {
     padding-bottom: 28px;
     padding-right: 120px;
     padding-left: 30px;
-    background: var(--color3);
+    background: #1d4a74;
     color: white;
     text-align: left;
 }
@@ -1011,7 +1043,7 @@ button.guess_os {
     width: 30em;
     padding-left: 10px;
     padding-right: 0px;
-    background-color: var(--color3);
+    background-color: #1d4a74;
     color: white;
 }
 
@@ -1047,12 +1079,12 @@ button.guess_os {
 }
 
 #menu_top > ul > li:hover {
-    background: var(--color3);
+    background: #1d4a74;
     color: white;
 }
 
 #menu_top> ul > li > span:hover, #menu_top > ul > li > a:hover {
-    background: var(--color3);
+    background: #1d4a74;
     color: white;
 }
 
@@ -1071,7 +1103,8 @@ button.guess_os {
 }
 
 #menu_top a.selected-lang {
-   background: lightgreen;
+   background: lightblue;
+   color: black;
 }
 
 #menu_top > ul > li > ul > li > a:hover {
@@ -1106,7 +1139,7 @@ button.guess_os {
 
 #menu_top > ul > li > ul > li > a {
    position:relative;
-   background: var(--color3);
+   background: #1d4a74;
    color: white;
    display: block;
    width: 200px;
@@ -1162,7 +1195,7 @@ img.close_button {
     font-size: 24px;
     font-weight: normal;
     color: white;
-    background: var(--color3);
+    background: #1d4a74;
 }
 
 #main_menu_content div > div {
@@ -1204,7 +1237,7 @@ img.close_button {
 }
 
 button.large_button {
-    background-color: var(--color3);
+    background-color: #1d4a74;
     border: 6px solid  #e7e7e7;
     border-radius: 12px;
     padding-left:20px;
@@ -1234,7 +1267,7 @@ a.signin {
 
 #select_another {
    position: absolute;
-   max-width: 110px;
+   max-width: 30vw;
    width: auto;
    top: 0px;
    right: 20px;
@@ -1296,7 +1329,6 @@ a.signin {
     padding-left: 20px;
     padding-top:1px;
     padding-bottom: 1px;
-    background: #eee;
     position: relative;
     left: -20px;
     top: 10px;

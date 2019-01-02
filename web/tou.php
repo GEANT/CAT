@@ -1,15 +1,24 @@
 <?php
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
-?>
-<?php
-// error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+
 /**
  * This file contains the implementation of the simple CAT user interdace
  * 
@@ -56,6 +65,11 @@ $loggerInstance->debug(4, "\n----------------------------------TOU.PHP----------
                     <td style='padding-left:20px; padding-right:20px; text-align:left; vertical-align:top;'>
                         <?php echo $cat->CAT_COPYRIGHT; ?>
                     </td>
+                    <?php
+                    if (!empty(CONFIG['APPEARANCE']['privacy_notice_url'])) {
+                        $retval .= "<td><a href='".CONFIG['APPEARANCE']['privacy_notice_url']."'>" . sprintf(_("%s Privacy Notice"),CONFIG_CONFASSISTANT['CONSORTIUM']['name']) . "</a></td>";
+                    }
+                    ?>
                     <td style='padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;'>
                         <?php
                         $deco = new \web\lib\admin\PageDecoration();

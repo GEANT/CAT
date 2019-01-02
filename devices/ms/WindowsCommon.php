@@ -1,11 +1,22 @@
 <?php
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 /**
@@ -105,7 +116,7 @@ abstract class WindowsCommon extends \core\DeviceConfig {
     }
 
     public function writeDeviceInfo() {
-        $ssids = $this->getAttibute('internal:SSID');
+        $ssids = $this->getAttribute('internal:SSID');
         $ssidCount = count($ssids);
         $out = "<p>";
         $out .= sprintf(_("%s installer will be in the form of an EXE file. It will configure %s on your device, by creating wireless network profiles.<p>When you click the download button, the installer will be saved by your browser. Copy it to the machine you want to configure and execute."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
@@ -132,7 +143,7 @@ abstract class WindowsCommon extends \core\DeviceConfig {
             $out .= _("When you are connecting to the network for the first time, Windows will pop up a login box, where you should enter your user name and password. This information will be saved so that you will reconnect to the network automatically each time you are in the range.");
             if ($ssidCount > 1) {
                 $out .= "<p>";
-                $out .= _("You will be required to enter the same credentials for each of the configured notworks:") . " ";
+                $out .= _("You will be required to enter the same credentials for each of the configured networks:") . " ";
                 $out .= '<strong>' . join('</strong>, <strong>', array_keys($ssids)) . '</strong>';
             }
         }
@@ -177,7 +188,7 @@ abstract class WindowsCommon extends \core\DeviceConfig {
         $this->background = [];
         $this->background['freeHeight'] = $bgImageSize['height'] - $freeTop - $freeBottom;
 
-        if ($this->getAttibute('fed:include_logo_installers') === NULL) {
+        if ($this->getAttribute('fed:include_logo_installers') === NULL) {
             $fedLogo = NULL;
         }
         if ($fedLogo != NULL) {
@@ -223,8 +234,11 @@ abstract class WindowsCommon extends \core\DeviceConfig {
         } else {
             $makensis = CONFIG_CONFASSISTANT['PATHS']['makensis'];
         }
+        $lcAll = getenv("LC_ALL");
+        putenv("LC_ALL=en_US.UTF-8");
         $command = $makensis . ' -V4 cat.NSI > nsis.log 2>&1';
         system($command);
+        putenv("LC_ALL=" . $lcAll);
         $this->loggerInstance->debug(4, "compileNSIS:$command\n");
     }
 

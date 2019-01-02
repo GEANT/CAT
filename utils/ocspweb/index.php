@@ -1,12 +1,22 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 /**
@@ -19,8 +29,6 @@
  * and POST are to be supported), decode them, verify that they are pertinent to
  * the CA (compare issuer hash), extract the serial number, and return the OCSP
  * statement for that serial number by fetching it from statements/
- * this script works only if it is exactly one subdir down from hostname base
- * i.e. http://hostname/whatever/index.php
  */
 /**
  * The following constants define for which issuer and key hash we respond. You
@@ -35,6 +43,25 @@ error_reporting(E_ALL);
 const OUR_NAME_HASH = "DCEB2C72264239201A4A5DF547C78268A1CB33A2";
 const OUR_KEY_HASH = "BC8DDD42F7B3B458E8ECEE403D21D404CEB9F2D0";
 
+/**
+ * We also need to do some string magic for GET requests and need to know how
+ * far down in the URL the OCSP statement starts.
+ * 
+ * The following constant tells us the number of slashes before the base64 of
+ * the actual request starts
+ * 
+ * [http://hostname]/whatever/index.php/OCSP_REQ_DATA -> three slashes
+ * [http://hostname]/something/else/entirely/ocsp/REQ_DATA -> five slashes
+ */
+const SLASHES_IN_URL_INCL_LEADING = 2;
+
+/**
+ * Die loudly, logging it everywhere.
+ * 
+ * @param string $message the error message to log
+ * @throws Exception
+ * @return void
+ */
 function instantDeath($message) {
     error_log($message);
     throw new Exception($message);
@@ -46,7 +73,16 @@ switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
         // the GET URL *is* the request.
         // don't just cut off at last slash; base64 data may have embedded slashes
-        $rawStream = substr(filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_STRING), strpos($_SERVER['PHP_SELF'], '/', 1) + 1);
+        // so remove the leading slash first:
+        $rawStream = filter_input(INPUT_SERVER, $_SERVER['PHP_SELF'], FILTER_SANITIZE_STRING);
+        // and now find and cut at every slash until SLASHES_IN_URL is reached
+        for ($iterator = 0; $iterator < SLASHES_IN_URL_INCL_LEADING; $iterator++) {
+            $nextSlash = strpos($rawStream, '/');
+            if ($nextSlash === FALSE) {
+                instantDeath("We were supposed to find and strip a slash in the base URL, but it doesn't exist!");
+            }
+            $rawStream = substr($rawStream, $nextSlash + 1);
+        }
         $ocspRequestDer = base64_decode(urldecode($rawStream), TRUE);
         if ($ocspRequestDer === FALSE) {
             instantDeath("The input data was not cleanly base64-encoded data!");
@@ -102,17 +138,47 @@ if (strlen($serialHex) == 0 || strlen($keyHash) == 0 || strlen($serialHex) == 0)
  * get the canned response for the requested serial from filesystem and send it
  * back (if we have it).
  */
-if ($nameHash != OUR_NAME_HASH || $keyHash != OUR_KEY_HASH) {
+if (strcasecmp($nameHash, OUR_NAME_HASH) != 0 || strcasecmp($keyHash, OUR_KEY_HASH) != 0) {
     instantDeath("The request is about a different Issuer name / public key. Expected vs. actual name hash: " . OUR_NAME_HASH . " / $nameHash, " . OUR_KEY_HASH . " / $keyHash");
 }
 error_log("base64-encoded request: " . base64_encode($ocspRequestDer));
+
 $response = fopen(__DIR__ . "/statements/" . $serialHex . ".der", "r");
-if ($response === FALSE) {
-    $response = fopen(__DIR__ . "/statements/UNAUTHORIZED.der", "r");
-    error_log("Serving OCSP UNAUTHORIZED response (no statement for serial number found)!");
-    if ($response === FALSE) {
+if ($response === FALSE) { // not found
+    // first lets load the unauthorised response, which is the default reply
+    $unauthResponse = fopen(__DIR__ . "/statements/UNAUTHORIZED.der", "r");
+    if ($unauthResponse === FALSE) {
         instantDeath("Unable to open our canned UNAUTHORIZED response!");
     }
+    // this might be a very young certificate, just issued, OCSP statement is 
+    // not on the server yet. Apply some amount of grace for a while...
+    $graceRaw = file_get_contents("gracelist.serialised");
+    if ($graceRaw !== FALSE) {
+        $grace = unserialize($graceRaw);
+        if (array_key_exists($serialHex, $grace)) {
+            // we applied grace earlier. Check if we are still in the window.
+            $now = new DateTime();
+            $first = $grace[$serialHex]; // this is a DateTime object
+            $diff = $now->diff($first);
+            if ($diff->y == 0 && $diff->m == 0 && $diff->d == 0 && $diff->h == 0) {
+                // this certificate gets a small dose of amazing grace. 
+                error_log("Not sending any reply for serial $serialHex because we've applied grace (subsequently).");
+                exit(1);
+            } else {
+                $response = $unauthResponse;
+            }
+        } else {
+            // this certificate gets a small dose of amazing grace. Do not reply
+            // but remember when this happened.
+            $grace[$serialHex] = new DateTime();
+            file_put_contents("gracelist.serialised", serialize($grace));
+            error_log("Not sending any reply for serial $serialHex because we've applied grace (first time).");
+            exit(1);
+        }
+    }
+    // if we are outside the grace window, send back a negative reply
+    $response = $unauthResponse;
+    error_log("Serving OCSP response for serial number $serialHex! (we ran out of grace)");
 } else {
     error_log("Serving OCSP response for serial number $serialHex!");
 }

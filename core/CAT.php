@@ -1,17 +1,25 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 /**
- * 
- * 
  *  This is the definition of the CAT class
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
@@ -24,7 +32,7 @@
 
 namespace core;
 
-require_once(dirname(__DIR__) . "/config/_config.php");
+require_once dirname(__DIR__) . "/config/_config.php";
 
 CAT_session_start();
 
@@ -48,16 +56,16 @@ class CAT extends \core\common\Entity {
     const VERSION_MAJOR = 2;
     const VERSION_MINOR = 0;
     const VERSION_PATCH = 0;
-    const VERSION_EXTRA = "beta1";
-    const RELEASE_VERSION = TRUE;
+    const VERSION_EXTRA = "RC1";
+    const RELEASE_VERSION = FALSE;
     const USER_API_VERSION = 2;
 
     /**
      * trying to keep up with the name changes of copyright holder and consortia
      * updating those on *one* place should change display everywhere!
      */
-    const COPYRIGHT_HOLDER = "DANTE Ltd. and G&Eacute;ANT";
-    const COPYRIGHT_CONSORTIA = "the GN3, GN3+, GN4-1 and GN4-2 consortia";
+    const COPYRIGHT_HOLDER = "G&Eacute;ANT Association";
+    const COPYRIGHT_CONSORTIA = "the G&Eacute;ANT Projects funded by EU";
     const COPYRIGHT_MIN_YEAR = 2011;
     const COPYRIGHT_MAX_YEAR = 2018;
 
@@ -426,8 +434,8 @@ class CAT extends \core\common\Entity {
      * Lists all identity providers in the database
      * adding information required by DiscoJuice.
      * 
-     * @param int $activeOnly if set to non-zero will cause listing of only those institutions which have some valid profiles defined.
-     * @param string $country if set, only list IdPs in a specific country
+     * @param int    $activeOnly if set to non-zero will cause listing of only those institutions which have some valid profiles defined.
+     * @param string $country    if set, only list IdPs in a specific country
      * @return array the list of identity providers
      *
      */
@@ -526,7 +534,7 @@ class CAT extends \core\common\Entity {
      * (if any; for eduroam, this would be the official eduroam database)
      * 
      * @param string $externalId the ID of the institution in the external DB
-     * @param string $realm the function can also try to find an inst by its realm in the external DB
+     * @param string $realm      the function can also try to find an inst by its realm in the external DB
      * @return array a list of institutions, ideally with only one member
      */
     public function getExternalDBEntityDetails($externalId, $realm = NULL) {
@@ -584,6 +592,11 @@ class CAT extends \core\common\Entity {
         return($returnArray);
     }
     
+    /**
+     * the (HTML) root path of the CAT deployment
+     * 
+     * @return string
+     */
     public static function getRootUrlPath() {
         return substr(CONFIG['PATHS']['cat_base_url'], -1) === '/' ? substr(CONFIG['PATHS']['cat_base_url'], 0, -1) : CONFIG['PATHS']['cat_base_url'];
     }

@@ -1,15 +1,28 @@
 <?php
-
-/* * ********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/*
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
+ *
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
+ */
 
 /**
  * This file creates Linux installers
  *
  * @author Tomasz Wolniewicz <twoln@umk.pl>
- * @author Michał Gasewicz <genn@umk.pl> (Network Manager support)
  *
  * @package ModuleWriting
  */
@@ -38,8 +51,9 @@ class Device_Linux extends \core\DeviceConfig {
         if ($installer === FALSE) {
             throw new Exception("Unable to open installer file for writing!");
         }
-        fwrite($installer,$this->writeMessages());
-        fwrite($installer,$this->writeConfigVars());
+        fwrite($installer, "\n\n");
+        $this->writeMessages($installer);
+        $this->writeConfigVars($installer);
         fwrite($installer, "run_installer()\n");
         fclose($installer);
         return($installerPath);
@@ -49,7 +63,7 @@ class Device_Linux extends \core\DeviceConfig {
         $ssidCount = count($this->attributes['internal:SSID']);
         $out = '';
 
-        $out .= sprint(_("The installer is in the form of a Python script. It will try to configure %s under NetworkManager and if this is either not appropriate for your system or your version of NetworkManager is too old, a wpa_supplicant config file will be created instead."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        $out .= sprintf(_("The installer is in the form of a Python script. It will try to configure %s under NetworkManager and if this is either not appropriate for your system or your version of NetworkManager is too old, a wpa_supplicant config file will be created instead."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $out .= "<p>";
         if ($ssidCount > 1) {
             if ($ssidCount > 2) {
@@ -82,82 +96,113 @@ class Device_Linux extends \core\DeviceConfig {
         return $out;
     }
     
-    private function writeMessages() {
-        $out = '';
-        $out .= 'Messages.quit = "' . _("Really quit?") . "\"\n";
-        $out .= 'Messages.username_prompt = "' . _("enter your userid") . "\"\n";
-        $out .= 'Messages.enter_password = "' . _("enter password") . "\"\n";
-        $out .= 'Messages.enter_import_password = "' . _("enter your import password") . "\"\n";
-        $out .= 'Messages.incorrect_password = "' . _("incorrect password") . "\"\n";
-        $out .= 'Messages.repeat_password = "' . _("repeat your password") . "\"\n";
-        $out .= 'Messages.passwords_difffer = "' . _("passwords do not match") . "\"\n";
-        $out .= 'Messages.installation_finished = "' . _("Installation successful") . "\"\n";
-        $out .= 'Messages.cat_dir_exisits = "' . _("Directory {} exists; some of its files may be overwritten.") . "\"\n";
-        $out .= 'Messages.cont = "' . _("Continue?") . "\"\n";
-        $out .= 'Messages.nm_not_supported = "' . _("This NetworkManager version is not supported") . "\"\n";
-        $out .= 'Messages.cert_error = "' . _("Certificate file not found, looks like a CAT error") . "\"\n";
-        $out .= 'Messages.unknown_version = "' . _("Unknown version") . "\"\n";
-        $out .= 'Messages.dbus_error = "' . _("DBus connection problem, a sudo might help") . "\"\n";
-        $out .= 'Messages.yes = "' . _("Y") . "\"\n";
-        $out .= 'Messages.no = "' . _("N") . "\"\n";
-        $out .= 'Messages.p12_filter = "' . _("personal certificate file (p12 or pfx)") . "\"\n";
-        $out .= 'Messages.all_filter = "' . _("All files") . "\"\n";
-        $out .= 'Messages.p12_title = "' . _("personal certificate file (p12 or pfx)") . "\"\n";
-        $out .= 'Messages.save_wpa_conf = "' . _("NetworkManager configuration failed, but we may generate a wpa_supplicant configuration file if you wish. Be warned that your connection password will be saved in this file as clear text.") . "\"\n";
-        $out .= 'Messages.save_wpa_confirm = "' . _("Write the file") . "\"\n";
-        $out .= 'Messages.wrongUsernameFormat = "' ._("Error: Your username must be of the form 'xxx@institutionID' e.g. 'john@example.net'!") . "\"\n";
-        $out .= 'Messages.wrong_realm = "' . _("Error: your username must be in the form of 'xxx@{}'. Please enter the username in the correct format.") . "\"\n";
-        $out .= 'Messages.wrong_realm_suffix = "' . _("Error: your username must be in the form of 'xxx@institutionID' and end with '{}'. Please enter the username in the correct format.") . "\"\n";
-        $out .= 'Messages.user_cert_missing = "' . _("personal certificate file not found") . "\"\n";
-    
-        return $out;
+    private function writeConfigLine($file, $prefix, $name, $text) {
+        $out = $prefix . $name . ' = "' . $text;
+        fwrite($file, wordwrap($out, 70, " \" \\\n    \"") . "\n");
     }
     
-    private function writeConfigVars() {
-        $eapMethod = \core\common\EAP::eapDisplayName($this->selectedEap);
-        $out = '';
-        $out .= 'Config.instname = "' . $this->attributes['general:instname'][0] . '"' . "\n";
-        $out .= 'Config.profilename = "' . $this->attributes['profile:name'][0] . '"' . "\n";
-        $contacts = $this->mkSupportContacts();
-        $out .= 'Config.url = "' . $contacts['url'] . '"' . "\n";
-        $out .= 'Config.email = "' . $contacts['email'] . '"' . "\n";
-        $out .= 'Config.title = "' . "eduroam CAT" . "\"\n";
-        $out .= 'Config.servers = ' . $this->mkSubjectAltNameList() . "\n";
-        $out .= 'Config.ssids = ' . $this->mkSsidList() . "\n";
-        $out .= 'Config.del_ssids = ' . $this->mkDelSsidList() . "\n";
-        $out .= "Config.server_match = '" . $this->glueServerNames() . "'\n";
-        $out .= "Config.eap_outer = '" . $eapMethod['OUTER'] . "'\n";
-        $out .= "Config.eap_inner = '" . $eapMethod['INNER'] . "'\n";
-        if ($this->selectedEap == \core\common\EAP::EAPTYPE_TLS && isset($this->attributes['eap-specific:tls_use_other_id']) && $this->attributes['eap-specific:tls_use_other_id'][0] == 'on') {
-            $out .= "Config.use_other_tls_id = True\n";
+    private function writeMessages($file) {
+        $messages = [
+        'quit'=> _("Really quit?"),
+        'username_prompt'=> _("enter your userid"),
+        'enter_password' => _("enter password"),
+        'enter_import_password' => _("enter your import password"),
+        'incorrect_password' => _("incorrect password"),
+        'repeat_password' => _("repeat your password"),
+        'passwords_difffer'=> _("passwords do not match"),
+        'installation_finished' => _("Installation successful"),
+        'cat_dir_exisits' => _("Directory {} exists; some of its files may be overwritten."),
+        'cont' => _("Continue?"),
+        'nm_not_supported' => _("This NetworkManager version is not supported"),
+        'cert_error' => _("Certificate file not found, looks like a CAT error"),
+        'unknown_version' => _("Unknown version"),
+        'dbus_error' => _("DBus connection problem, a sudo might help"),
+        'yes' => _("Y"),
+        'no' => _("N"),
+        'p12_filter' => _("personal certificate file (p12 or pfx)"),
+        'all_filter' => _("All files"),
+        'p12_title' => _("personal certificate file (p12 or pfx)"),
+        'save_wpa_conf' => _("NetworkManager configuration failed, but we may generate a wpa_supplicant configuration file if you wish. Be warned that your connection password will be saved in this file as clear text."),
+        'save_wpa_confirm' => _("Write the file"),
+        'wrongUsernameFormat' =>_("Error: Your username must be of the form 'xxx@institutionID' e.g. 'john@example.net'!"),
+        'wrong_realm' => _("Error: your username must be in the form of 'xxx@{}'. Please enter the username in the correct format."),
+        'wrong_realm_suffix' => _("Error: your username must be in the form of 'xxx@institutionID' and end with '{}'. Please enter the username in the correct format."),
+        'user_cert_missing' => _("personal certificate file not found"),
+        ];
+        foreach ($messages as $name => $value) {
+            $this->writeConfigLine($file, 'Messages.', $name, $value . '"');
         }
-        else {
-            $out .= "Config.use_other_tls_id = False\n";
-        }
-        $tou = $this->mkUserConsent();
-        $out .= 'Config.tou = ' . ( $tou ? '"""' . $tou . '"""' : 'None' ) . "\n"; 
-        $out .= 'Config.CA = """' . $this->mkCAfile()  . '"""' . "\n";
-        $outerId = $this->determineOuterIdString();
-        if ($outerId !== NULL) {
-            $out .= "Config.anonymous_identity = '$outerId'\n";
-        }
-        $out .= 'Config.init_info = """' . $this->mkIntro() . '"""' . "\n";
-        $out .= 'Config.init_confirmation = "' . $this->mkProfileConfirmation() . "\"\n";
-        
-        $out .= 'Config.sb_user_file = """' . $this->mkSbUserFile() . '"""' . "\n";
-        if (!empty($this->attributes['internal:realm'][0])) {
-           $out .= 'Config.user_realm = "' . $this->attributes['internal:realm'][0] . "\"\n";
-        }
-        if(!empty($this->attributes['internal:hint_userinput_suffix'][0]) && $this->attributes['internal:hint_userinput_suffix'][0] == 1) {
-            $out .= "Config.hint_user_input = True\n";
-        }
-        if(!empty($this->attributes['internal:verify_userinput_suffix'][0]) && $this->attributes['internal:verify_userinput_suffix'][0] == 1) {
-            $out .= "Config.verify_user_realm_input = True\n";
-        }        
-        return $out;
     }
 
-    
+    private function writeConfigVars($file) {
+        $eapMethod = \core\common\EAP::eapDisplayName($this->selectedEap);
+        $contacts = $this->mkSupportContacts();
+        $tou = $this->mkUserConsent();
+        $outerId = $this->determineOuterIdString();
+        $config = [
+            'instname' => $this->attributes['general:instname'][0],
+            'profilename' => $this->attributes['profile:name'][0],
+            'url' => $contacts['url'],
+            'email' => $contacts['email'],
+            'title' => "eduroam CAT",
+            'server_match' => $this->glueServerNames(),
+            'eap_outer' => $eapMethod['OUTER'],
+            'eap_inner' => $eapMethod['INNER'],
+            'init_info' => $this->mkIntro(),
+            'init_confirmation' => $this->mkProfileConfirmation(),
+//            'sb_user_file' => $this->mkSbUserFile(),
+        ];
+        
+        $configRaw = [
+            'ssids' => $this->mkSsidList(),
+            'del_ssids' => $this->mkDelSsidList(),
+            'servers' => $this->mkSubjectAltNameList(),
+        ];
+            
+        if ($this->selectedEap == \core\common\EAP::EAPTYPE_TLS && isset($this->attributes['eap-specific:tls_use_other_id']) && $this->attributes['eap-specific:tls_use_other_id'][0] == 'on') {
+            $configRaw['use_other_tls_id'] = "True";
+        }
+        else {
+            $configRaw['use_other_tls_id'] = "False";
+        }
+
+        if ($outerId !== NULL) {
+            $config['anonymous_identity'] = $outerId;
+        }
+
+        if (!empty($this->attributes['internal:realm'][0])) {
+           $config['user_realm'] = $this->attributes['internal:realm'][0];
+        }
+        
+        if(!empty($this->attributes['internal:hint_userinput_suffix'][0]) && $this->attributes['internal:hint_userinput_suffix'][0] == 1) {
+            $configRaw['hint_user_input'] = "True";
+        }
+        
+        if(!empty($this->attributes['internal:verify_userinput_suffix'][0]) && $this->attributes['internal:verify_userinput_suffix'][0] == 1) {
+            $configRaw['verify_user_realm_input'] = "True";
+        }
+        
+        foreach ($config as $name => $value) {
+            $this->writeConfigLine($file, 'Config.', $name, $value . '"');
+        }
+        
+        foreach ($configRaw as $name => $value) {
+            fwrite($file, 'Config.' . $name . ' = ' . $value . "\n");
+        }
+        
+        if ($tou === '') {
+            fwrite($file, 'Config.tou = ""' . "\n");
+        } else {
+            fwrite($file, 'Config.tou = """' . $tou . '"""' . "\n");
+        }
+        
+        fwrite($file, 'Config.CA = """' . $this->mkCAfile() . '"""' . "\n");
+        $sbUserFile = $this->mkSbUserFile();
+        if ($sbUserFile !== '') {
+            fwrite($file, 'Config.sb_user_file = """' . $sbUserFile . '"""' . "\n");
+        }
+    }
+
     private function glueServerNames() {
         $serverList = $this->attributes['eap:server_name'];        
         if (!$serverList) {
@@ -187,7 +232,7 @@ class Device_Linux extends \core\DeviceConfig {
         $out = '';
         foreach ($serverList as $oneServer) {
             if ($out) {
-                $out .= ',';
+                $out .= ', ';
             }
             $out .= "'DNS:$oneServer'";
         }
@@ -219,14 +264,14 @@ class Device_Linux extends \core\DeviceConfig {
         $out = '';
         $cAlist = $this->attributes['internal:CAs'][0];
         foreach ($cAlist as $oneCa) {
-            $out .= $oneCa['pem'] . "\n";
+            $out .= $oneCa['pem'];
         }
         return $out;
     }
     
     private function mkIntro() {
         $out = _("This installer has been prepared for {0}") . '\n\n' . _("More information and comments:") . '\n\nEMAIL: {1}\nWWW: {2}\n\n' .
-            _("Installer created with software from the GEANT project.") . "\"\n";
+            _("Installer created with software from the GEANT project.");
         return $out;
     }
     

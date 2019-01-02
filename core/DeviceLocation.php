@@ -1,12 +1,22 @@
 <?php
-
-/* 
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+/*
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
  * 
- *  License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
+ *
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 /*
@@ -23,8 +33,9 @@ class DeviceLocation {
     /**
      * find out where the user is currently located
      * set $location with the discovered value
+     * 
+     * @return array
      */
-    
     public static function locateDevice() {
         $geoipVersion = CONFIG['GEOIP']['version'] ?? 0;
         switch ($geoipVersion) {
@@ -39,6 +50,11 @@ class DeviceLocation {
         }
     }
     
+    /**
+     * locate end-user with GeoIP version 1
+     * 
+     * @return array
+     */
     private static function locateDevice1() {
         if (CONFIG['GEOIP']['version'] != 1) {
             return ['status' => 'error', 'error' => 'Function for GEOIPv1 called, but config says this is not the version to use!'];
@@ -62,13 +78,14 @@ class DeviceLocation {
     
     /**
      * find out where the user is currently located, using GeoIP2
+     * 
      * @return array
      */
     private static function locateDevice2() {
         if (CONFIG['GEOIP']['version'] != 2) {
             return ['status' => 'error', 'error' => 'Function for GEOIPv2 called, but config says this is not the version to use!'];
         }
-        require_once CONFIG['GEOIP']['geoip2-path-to-autoloader'];
+        include_once CONFIG['GEOIP']['geoip2-path-to-autoloader'];
         $reader = new Reader(CONFIG['GEOIP']['geoip2-path-to-db']);
         $host = filter_input(INPUT_SERVER, 'REMOTE_ADDR', FILTER_VALIDATE_IP);
         try {

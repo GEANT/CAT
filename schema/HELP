@@ -1,3 +1,23 @@
+/*
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
+ *
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
+ */
+
 When upgrading from the newest CAT 1.1 database structure:
 
 - run 1_1-2_0.sql to convert the schema
@@ -6,3 +26,17 @@ When upgrading from the newest CAT 1.1 database structure:
 When deploying CAT 2.0 from scratch:
 
 - use schema.sql to create a new schema
+
+When upgrading from CAT 2.0 beta2 to beta3:
+
+- run this SQL command: 
+  alter table silverbullet_certificate add column `ca_type` ENUM('RSA','ECDSA') NOT NULL DEFAULT 'RSA';
+- rename the existing RSA keys from rootca.pem, real.pem, real.key to rootca-RSA.pem. real-RSA.pem, real-RSA.key
+- add the ECDSA variants as rootca-ECDSA.pem, real-ECDSA.pem, real-ECDSA.key
+- there are two new class constants in Devices-template.php. Remember to carry the two LOC over to Devices.php
+- for each device which should get ECDSA certificates, set $Options['clientcert'] to Devices::SUPPORT_ECDSA and make SUPPORT_RSA the default in the global $Options
+
+When updtting from beta3 add new device-specific options:
+insert into profile_option_dict values ('device-specific:builtin_ttls','Use builtin TTLS supplicant for Windows 10', 'boolean', NULL);
+insert into profile_option_dict values ('device-specific:geantlink','Use GEANTlink TTLS supplicant for W8', 'boolean', NULL);
+isert into 

@@ -1,12 +1,22 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 /**
@@ -38,9 +48,9 @@ namespace core;
 use GeoIp2\Database\Reader;
 use \Exception;
 
-require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
-require_once(dirname(dirname(__FILE__)) . "/core/PHPMailer/src/PHPMailer.php");
-require_once(dirname(dirname(__FILE__)) . "/core/PHPMailer/src/SMTP.php");
+require_once dirname(dirname(__FILE__)) . "/config/_config.php";
+require_once dirname(dirname(__FILE__)) . "/core/PHPMailer/src/PHPMailer.php";
+require_once dirname(dirname(__FILE__)) . "/core/PHPMailer/src/SMTP.php";
 
 class SanityTests extends CAT {
     /* in this section set current CAT requirements */
@@ -49,7 +59,7 @@ class SanityTests extends CAT {
 
     // because of bug:
     // Fixed bug #74005 (mail.add_x_header causes RFC-breaking lone line feed).
-    private $php_needversion = '7.0.17';
+    private $php_needversion = '7.2.0';
     private $ssp_needversion = ['major' => 1, 'minor' => 15];
 
 
@@ -101,6 +111,7 @@ class SanityTests extends CAT {
     /**
      * The single test wrapper
      * @param string $test the test name
+     * @return void
      */
     public function test($test) {
         $this->out[$test] = [];
@@ -116,12 +127,12 @@ class SanityTests extends CAT {
 
     /**
      * The multiple tests wrapper
-     * @param array $Tests the tests array.
-     *
-     * The $Tests is a simple string array, where each entry is a test name
-     * the test names can also be given in the format "test=>subtest", which 
-     * defines a conditional execution of the "subtest" if the "test" was run earier
-     * and returned a success.
+     * @param array $Tests the tests array is a simple string array, where each 
+     *                     entry is a test name. The test names can also be 
+     *                     given in the format "test=>subtest", which defines a
+     *                     conditional execution of the "subtest" if the "test"
+     *                     was run earlier and returned a success.
+     * @return void
      */
     public function run_tests($Tests) {
         foreach ($Tests as $testName) {
@@ -170,8 +181,9 @@ class SanityTests extends CAT {
     /**
      * stores the result of a given test in standardised format
      * 
-     * @param int $level severity level of the result
+     * @param int    $level   severity level of the result
      * @param string $message verbal description of the result
+     * @return void
      */
     private function test_return($level, $message) {
         $this->out[$this->name][] = ['level' => $level, 'message' => $message];
@@ -181,7 +193,7 @@ class SanityTests extends CAT {
 
     /**
      * finds out if a path name is configured as an absolute path or only implicit (e.g. is in $PATH)
-     * @param string $pathToCheck
+     * @param string $pathToCheck the path to check
      * @return array
      */
     private function get_exec_path($pathToCheck) {
@@ -206,6 +218,8 @@ class SanityTests extends CAT {
 
     /**
      *  Test for php version
+     * 
+     * @return void
      */
     private function php_test() {
         if (version_compare(phpversion(), $this->php_needversion, '>=')) {
@@ -217,6 +231,8 @@ class SanityTests extends CAT {
 
     /**
      * set for cat_base_url setting
+     * 
+     * @return void
      */
     private function cat_base_url_test() {
         $rootUrl = substr(CONFIG['PATHS']['cat_base_url'], -1) === '/' ? substr(CONFIG['PATHS']['cat_base_url'], 0, -1) : CONFIG['PATHS']['cat_base_url'];
@@ -231,12 +247,14 @@ class SanityTests extends CAT {
 
     /**
      * test for simpleSAMLphp
+     * 
+     * @return void
      */
     private function ssp_test() {
         if (!is_file(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader'])) {
             $this->test_return(\core\common\Entity::L_ERROR, "<strong>simpleSAMLphp</strong> not found!");
         } else {
-            require_once(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader']);
+            include_once CONFIG['AUTHENTICATION']['ssp-path-to-autoloader'];
             $SSPconfig = \SimpleSAML_Configuration::getInstance();
             $sspVersion = explode('.', $SSPconfig->getVersion());
             if ((int) $sspVersion[0] >= $this->ssp_needversion['major'] && (int) $sspVersion[1] >= $this->ssp_needversion['minor']) {
@@ -249,15 +267,19 @@ class SanityTests extends CAT {
 
     /**
      * test for security setting
+     * 
+     * @return void
      */
     private function security_test() {
         if (in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
-            $this->test_return(\core\common\Entity::L_WARN, "You do not care about security. This page should be made accessible to the CAT admin only! See config.php 'Superadmins'!");
+            $this->test_return(\core\common\Entity::L_WARN, "You do not care about security. This page should be made accessible to the CAT admin only! See config-master.php: 'SUPERADMINS'!");
         }
     }
 
     /**
      * test if zip is available
+     * 
+     * @return void
      */
     private function zip_test() {
         if (exec("which zip") != "") {
@@ -268,7 +290,9 @@ class SanityTests extends CAT {
     }
 
     /**
-     * test if eapol_test is availabe and reacent enough
+     * test if eapol_test is available and recent enough
+     * 
+     * @return void
      */
     private function eapol_test_test() {
         exec(CONFIG_DIAGNOSTICS['PATHS']['eapol_test'], $out, $retval);
@@ -286,6 +310,8 @@ class SanityTests extends CAT {
 
     /**
      * test if logdir exists and is writable
+     * 
+     * @return void
      */
     private function logdir_test() {
         if (fopen(CONFIG['PATHS']['logdir'] . "/debug.log", "a") == FALSE) {
@@ -297,6 +323,8 @@ class SanityTests extends CAT {
 
     /**
      * test for required PHP modules
+     * 
+     * @return void
      */
     private function phpModules_test() {
         if (function_exists('idn_to_ascii')) {
@@ -338,6 +366,8 @@ class SanityTests extends CAT {
 
     /**
      * test if GeoIP is installed correctly
+     * 
+     * @return void
      */
     private function geoip_test() {
         $host_4 = '145.0.2.50';
@@ -403,6 +433,8 @@ class SanityTests extends CAT {
 
     /**
      * test if openssl is available
+     * 
+     * @return void
      */
     private function openssl_test() {
         $A = $this->get_exec_path('openssl');
@@ -420,6 +452,8 @@ class SanityTests extends CAT {
 
     /**
      * test if makensis is available
+     * 
+     * @return void
      */
     private function makensis_test() {
         if (!is_numeric(CONFIG_CONFASSISTANT['NSIS_VERSION'])) {
@@ -453,6 +487,8 @@ class SanityTests extends CAT {
 
     /**
      * test if all required NSIS modules are available
+     * 
+     * @return void
      */
     private function NSISmodules_test() {
         $tmp_dir = \core\common\Entity::createTemporaryDirectory('installer', 0)['dir'];
@@ -486,6 +522,8 @@ class SanityTests extends CAT {
 
     /**
      * test access to dowloads directories
+     * 
+     * @return void
      */
     private function directories_test() {
         $Dir1 = \core\common\Entity::createTemporaryDirectory('installer', 0);
@@ -519,6 +557,8 @@ class SanityTests extends CAT {
 
     /**
      * test if all required locales are enabled
+     * 
+     * @return void
      */
     private function locales_test() {
         $locales = shell_exec("locale -a");
@@ -584,6 +624,8 @@ class SanityTests extends CAT {
 
     /**
      * test if defaults in the config have been replaced with some real values
+     * 
+     * @return void
      */
     private function defaults_test() {
         $defaultvalues = "";
@@ -621,6 +663,8 @@ class SanityTests extends CAT {
 
     /**
      * test access to databases
+     * 
+     * @return void
      */
     private function databases_test() {
         $databaseName1 = 'INST';
@@ -676,6 +720,8 @@ class SanityTests extends CAT {
 
     /**
      * test devices.php for the no_cache option
+     * 
+     * @return void
      */
     private function device_cache_test() {
         if ((!empty(\devices\Devices::$Options['no_cache'])) && \devices\Devices::$Options['no_cache']) {
@@ -717,6 +763,8 @@ class SanityTests extends CAT {
 
     /**
      * test if mailer works
+     * 
+     * @return void
      */
     private function mailer_test() {
         if (empty(CONFIG['APPEARANCE']['abuse-mail']) || CONFIG['APPEARANCE']['abuse-mail'] == "my-abuse-contact@your-cat-installation.example") {
@@ -731,6 +779,7 @@ class SanityTests extends CAT {
         $mail->Host = CONFIG['MAILSETTINGS']['host'];
         $mail->Username = CONFIG['MAILSETTINGS']['user'];
         $mail->Password = CONFIG['MAILSETTINGS']['pass'];
+        $mail->SMTPOptions = CONFIG['MAILSETTINGS']['options'];
         $mail->WordWrap = 72;
         $mail->isHTML(FALSE);
         $mail->CharSet = 'UTF-8';
@@ -749,6 +798,8 @@ class SanityTests extends CAT {
 
     /**
      * TODO test if RADIUS connections work
+     * 
+     * @return void
      */
     private function UDPhosts_test() {
 //        if(empty)

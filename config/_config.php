@@ -1,16 +1,26 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
-require_once ("autoloader.php");
-require_once(__DIR__ . "/../packageRoot.php");
+require_once "autoloader.php";
+require_once __DIR__ . "/../packageRoot.php";
 
 /* This code block compares the template config against the actual one to find
  * out which of the values are MISSING, which are still at DEFAULT and which
@@ -78,8 +88,12 @@ require_once(__DIR__ . "/../packageRoot.php");
  */
 // this is the actual config
 
+if (!file_exists(ROOT . "/config/config-master.php")) {
+    echo "Master configuration file not found. You need to configure the product! At least config-master.php is required!";
+    throw new Exception("Master config file not found!");
+}
 
-include(ROOT . "/config/config-master.php");
+require ROOT . "/config/config-master.php";
 
 /* as a test for the config comparison, run this, display in browser and exit 
 
@@ -95,13 +109,23 @@ include(ROOT . "/config/config-master.php");
 /* load sub-configs if we are dealing with those in this installation */
 
 if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == 'LOCAL' || CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == 'LOCAL') {
-    include(ROOT . "/config/config-confassistant.php");
+    include ROOT . "/config/config-confassistant.php";
+} else { // we want to define the constant itself anyway, to avoid some ugly warnings on the console
+    // this is done with an inline include
+    define("CONFIG_CONFASSISTANT", []);
 }
 
 if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == 'LOCAL') {
-    include(ROOT . "/config/config-diagnostics.php");
+    include ROOT . "/config/config-diagnostics.php";
+} else { // same here
+    define("CONFIG_DIAGNOSTICS", []);
 }
 
+/**
+ * takes care of starting our session
+ * 
+ * @return void
+ */
 function CAT_session_start() {
     if (session_status() != PHP_SESSION_ACTIVE) {
         session_name("CAT");

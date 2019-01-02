@@ -1,22 +1,33 @@
 <?php
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
-?>
-<?php
-require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
+
+require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 
 $deco = new \web\lib\admin\PageDecoration();
 $uiElements = new web\lib\admin\UIElements();
+$validator = new \web\lib\common\InputValidation();
 
 echo $deco->defaultPagePrelude(sprintf(_("%s: %s Management"), CONFIG['APPEARANCE']['productname'], $uiElements->nomenclature_fed));
 $user = new \core\User($_SESSION['user']);
-require_once("inc/click_button_js.php");
+require_once "inc/click_button_js.php";
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/popup_redirect.js" type="text/javascript"></script>
@@ -129,23 +140,47 @@ require_once("inc/click_button_js.php");
 
     if (isset($_GET['invitation'])) {
         echo "<div class='ca-summary' style='position:relative;'><table>";
+        $counter = $validator->integer($_GET['successcount']);
+        if ($counter === FALSE) {
+            $counter = 1;
+        }
         switch ($_GET['invitation']) {
             case "SUCCESS":
                 $cryptText = "";
                 switch ($_GET['transportsecurity']) {
                     case "ENCRYPTED":
-                        $cryptText = _("and <b>encrypted</b> to the mail domain");
+                        $cryptText = ngettext("It was sent with transport security (encryption).", "They were sent with transport security (encryption).", $counter);
                         break;
                     case "CLEAR":
-                        $cryptText = _("but <b>in clear text</b> to the mail domain");
+                        $cryptText = ngettext("It was sent in clear text (no encryption).", "They were sent in clear text (no encryption).", $counter);
+                        break;
+                    case "PARTIAL":
+                        $cryptText = _("A subset of the mails were sent with transport encryption, the rest in clear text.");
                         break;
                     default:
                         throw new Exception("Error: unknown encryption status of invitation!?!");
                 }
-                echo $uiElements->boxRemark(sprintf(_("The invitation email was sent successfully %s."), $cryptText), _("The invitation email was sent."));
+                echo $uiElements->boxRemark(ngettext("The invitation email was sent successfully.", "All invitation emails were sent successfully.", $counter) . " " . $cryptText, _("Sent successfully."));
                 break;
             case "FAILURE":
-                echo $uiElements->boxError(_("The invitation email could not be sent!"), _("The invitation email could not be sent!"));
+                echo $uiElements->boxError(_("No invitation email could be sent!"), _("Sending failure!"));
+                break;
+            case "PARTIAL":
+                $cryptText = "";
+                switch ($_GET['transportsecurity']) {
+                    case "ENCRYPTED":
+                        $cryptText = ngettext("The successful one was sent with transport security (encryption).", "The successful ones were sent with transport security (encryption).", $counter);
+                        break;
+                    case "CLEAR":
+                        $cryptText = ngettext("The successful one was sent in clear text (no encryption).", "The successful ones were sent in clear text (no encryption).", $counter);
+                        break;
+                    case "PARTIAL":
+                        $cryptText = _("A subset of the successfully sent mails were sent with transport encryption, the rest in clear text.");
+                        break;
+                    default:
+                        throw new Exception("Error: unknown encryption status of invitation!?!");
+                }
+                echo $uiElements->boxWarning(sprintf(_("Some invitation emails were sent successfully (%s in total), the others failed."), $counter) . " " . $cryptText, _("Partial success."));
                 break;
             case "INVALIDSYNTAX":
                 echo $uiElements->boxError(_("The invitation email address was malformed, no invitation was sent!"), _("The invitation email address was malformed, no invitation was sent!"));
@@ -156,11 +191,10 @@ require_once("inc/click_button_js.php");
         echo "</table></div>";
     }
     if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == 'eduroam') {
-        $helptext = "<h3>" . sprintf(_("Need help? Refer to the <a href='%s'>%s manual</a>"), "https://wiki.geant.org/x/KQB_AQ", $uiElements->nomenclature_fed) . "</h3>";
+        $helptext = "<h3>" . sprintf(_("Need help? Refer to the <a href='%s'>%s manual</a>"), "https://wiki.geant.org/x/fgBwBg", $uiElements->nomenclature_fed) . "</h3>";
     } else {
         $helptext = "";
     }
-    echo $helptext;
     ?>
     <table class='user_overview' style='border:0px;'>
         <tr>
@@ -231,7 +265,6 @@ require_once("inc/click_button_js.php");
                             echo "<div class='acceptable'>" . _("Linked") . "</div>";
                             break;
                         case \core\IdP::EXTERNAL_DB_SYNCSTATE_NOT_SYNCED:
-
                             echo "<div class='notacceptable'>" . _("NOT linked") . "</div>";
 
 
@@ -277,8 +310,9 @@ require_once("inc/click_button_js.php");
                         if ($readonly === FALSE) {
                             echo "<form method='post' action='overview_federation.php' accept-charset='UTF-8'>
                                 <input type='hidden' name='invitation_id' value='" . $oneinvite['token'] . "'/>
-                                <button class='delete' type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_DELETE . "'>" . _("Revoke Invitation") . "</button>
-                              </form>";
+                                <button class='delete' type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_DELETE . "'>" . _("Revoke Invitation") . "</button> "
+                              . sprintf(_("(expires %s)"),$oneinvite['expiry'])
+                              .     "</form>";
                         }
                         echo "      </td>
                                  </tr>";
@@ -302,4 +336,6 @@ require_once("inc/click_button_js.php");
         <br/>
         <?php
     }
+    echo "<hr/>$helptext";
     echo $deco->footer();
+    

@@ -1,12 +1,22 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 /**
@@ -77,16 +87,22 @@ abstract class AbstractProfile extends EntityWithDBProperties {
 
     /**
      * number of profiles of the IdP this profile is attached to
+     * 
+     * @var int
      */
     protected $idpNumberOfProfiles;
 
     /**
      * IdP-wide attributes of the IdP this profile is attached to
+     * 
+     * @var array
      */
     protected $idpAttributes;
 
     /**
      * Federation level attributes that this profile is attached to via its IdP
+     * 
+     * @var array
      */
     protected $fedAttributes;
 
@@ -99,6 +115,18 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      */
     protected $frontendHandle;
 
+    /**
+     *  generates a detailed log of which installer was downloaded
+     * 
+     * @param int    $idpIdentifier the IdP identifier
+     * @param int    $profileId     the Profile identifier
+     * @param string $deviceId      the Device identifier
+     * @param string $area          the download area (user, silverbullet, admin)
+     * @param string $lang          the language of the installer
+     * @param int    $eapType       the EAP type of the installer
+     * @return void
+     * @throws Exception
+     */
     protected function saveDownloadDetails($idpIdentifier, $profileId, $deviceId, $area, $lang, $eapType) {
         if (CONFIG['PATHS']['logdir']) {
             $file = fopen(CONFIG['PATHS']['logdir'] . "/download_details.log", "a");
@@ -113,6 +141,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     /**
      * each profile has supported EAP methods, so get this from DB, Silver Bullet has one
      * static EAP method.
+     * 
+     * @return array list of supported EAP methods
      */
     protected function fetchEAPMethods() {
         $eapMethod = $this->databaseHandle->exec("SELECT eap_method_id 
@@ -136,7 +166,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * sub-classes need to set the property $realm, $name themselves!
      * 
      * @param int $profileIdRaw identifier of the profile in the DB
-     * @param IdP $idpObject optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
+     * @param IdP $idpObject    optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
      */
     public function __construct($profileIdRaw, $idpObject = NULL) {
         $this->databaseType = "INST";
@@ -170,8 +200,9 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     /**
      * join new attributes to existing ones, but only if not already defined on
      * a different level in the existing set
-     * @param array $existing the already existing attributes
-     * @param array $new the new set of attributes
+     * 
+     * @param array  $existing the already existing attributes
+     * @param array  $new      the new set of attributes
      * @param string $newlevel the level of the new attributes
      * @return array the new set of attributes
      */
@@ -179,7 +210,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         foreach ($new as $attrib) {
             $ignore = "";
             foreach ($existing as $approvedAttrib) {
-                if ($attrib["name"] == $approvedAttrib["name"] && $approvedAttrib["level"] != $newlevel) {
+                if (($attrib["name"] == $approvedAttrib["name"] && $approvedAttrib["level"] != $newlevel) && ($approvedAttrib["name"] != "device-specific:redirect") ){
                     $ignore = "YES";
                 }
             }
@@ -192,6 +223,9 @@ abstract class AbstractProfile extends EntityWithDBProperties {
 
     /**
      * find a profile, given its realm
+     * 
+     * @param string $realm the realm for which we are trying to find a profile
+     * @return int|false the profile identifier, if any
      */
     public static function profileFromRealm($realm) {
         // static, need to create our own handle
@@ -209,7 +243,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * can only do something useful if the realm is known to the system.
      * 
      * @return string the outer ID to use for realm check operations
-     * @thorws Exception
+     * @throws Exception
      */
     public function getRealmCheckOuterUsername() {
         $realm = $this->getAttributes("internal:realm")[0]['value'] ?? FALSE;
@@ -233,6 +267,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
 
     /**
      * update the last_changed timestamp for this profile
+     * 
+     * @return void
      */
     public function updateFreshness() {
         $this->databaseHandle->exec("UPDATE profile SET last_change = CURRENT_TIMESTAMP WHERE profile_id = $this->identifier");
@@ -240,6 +276,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
 
     /**
      * gets the last-modified timestamp (useful for caching "dirty" check)
+     * 
+     * @return string the date in string form, as returned by SQL
      */
     public function getFreshness() {
         $execLastChange = $this->databaseHandle->exec("SELECT last_change FROM profile WHERE profile_id = $this->identifier");
@@ -291,17 +329,18 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * Updates database with new installer location. Actually does stuff when
      * caching is possible; is a noop if not
      * 
-     * @param string $device the device identifier string
-     * @param string $path the path where the new installer can be found
-     * @param string $mime the mime type of the new installer
-     * @param int $integerEapType the inter-representation of the EAP type that is configured in this installer
+     * @param string $device         the device identifier string
+     * @param string $path           the path where the new installer can be found
+     * @param string $mime           the mime type of the new installer
+     * @param int    $integerEapType the inter-representation of the EAP type that is configured in this installer
+     * @return void
      */
     abstract public function updateCache($device, $path, $mime, $integerEapType);
 
     /** Toggle anonymous outer ID support.
      *
      * @param boolean $shallwe TRUE to enable outer identities (needs valid $realm), FALSE to disable
-     *
+     * @return void
      */
     abstract public function setAnonymousIDSupport($shallwe) ;
     
@@ -309,7 +348,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * Log a new download for our stats
      * 
      * @param string $device the device id string
-     * @param string $area either admin or user
+     * @param string $area   either admin or user
      * @return boolean TRUE if incrementing worked, FALSE if not
      */
     public function incrementDownloadStats($device, $area) {
@@ -335,6 +374,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
 
     /**
      * Retrieve current download stats from database, either for one specific device or for all devices
+     * 
      * @param string $device the device id string
      * @return mixed user downloads of this profile; if device is given, returns the counter as int, otherwise an array with devicename => counter
      */
@@ -370,7 +410,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * Deletes the profile from database and uninstantiates itself.
      * Works fine also for Silver Bullet; the first query will simply do nothing
      * because there are no stored options
-     *
+     * 
+     * @return void
      */
     public function destroy() {
         $this->databaseHandle->exec("DELETE FROM profile_option WHERE profile_id = $this->identifier");
@@ -387,6 +428,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * runtime.
      * 
      * @param string $realm the realm (potentially with the local@ part that should be used for anonymous identities)
+     * @return void
      */
     public function setRealm(string $realm) {
         $this->databaseHandle->exec("UPDATE profile SET realm = ? WHERE profile_id = ?", "si", $realm, $this->identifier);
@@ -396,9 +438,9 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     /**
      * register new supported EAP method for this profile
      *
-     * @param \core\common\EAP $type The EAP Type, as defined in class EAP
-     * @param int $preference preference of this EAP Type. If a preference value is re-used, the order of EAP types of the same preference level is undefined.
-     *
+     * @param \core\common\EAP $type       The EAP Type, as defined in class EAP
+     * @param int              $preference preference of this EAP Type. If a preference value is re-used, the order of EAP types of the same preference level is undefined.
+     * @return void
      */
     public function addSupportedEapMethod(\core\common\EAP $type, $preference) {
         $eapInt = $type->getIntegerRep();
@@ -492,10 +534,14 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             $dev = $factory->device;
             // find the attribute pertaining to the specific device
             $redirectUrl = 0;
+            $redirects = [];
             foreach ($redirect as $index => $oneRedirect) {
                 if ($oneRedirect["device"] == $deviceIndex) {
-                    $redirectUrl = $this->languageInstance->getLocalisedValue($oneRedirect);
+                    $redirects[] = $oneRedirect;
                 }
+            }
+            if (count($redirects) > 0) {
+                $redirectUrl = $this->languageInstance->getLocalisedValue($redirects);
             }
             $devStatus = self::AVAILABLE;
             $message = 0;
@@ -517,7 +563,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                             // fetch customtexts from method-level attributes
                             $eapCustomtext = 0;
                             $customTextAttributes = [];
-                            $attributeList = $this->getAttributes("eap-specific:redirect"); // eap-specific attributes always have the array index 'eapmethod' set
+                            $attributeList = $this->getAttributes("eap-specific:customtext"); // eap-specific attributes always have the array index 'eapmethod' set
                             foreach ($attributeList as $oneAttribute) {
                                 if ($oneAttribute["eapmethod"] == $eap) {
                                     $customTextAttributes[] = $oneAttribute;
@@ -530,7 +576,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                         }
                         // fetch customtexts for device
                         $customTextAttributes = [];
-                        $attributeList = $this->getAttributes("device-specific:redirect");
+                        $attributeList = $this->getAttributes("device-specific:customtext");
                         foreach ($attributeList as $oneAttribute) {
                             if ($oneAttribute["device"] == $deviceIndex) { // device-specific attributes always have the array index "device" set
                                 $customTextAttributes[] = $oneAttribute;
@@ -595,7 +641,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * it? Silverbullet will always return TRUE; RADIUS profiles need to do some
      * heavy lifting here.
      * 
-     * * @return int one of the constants above which tell if enough info is set to enable installers
+     * @return int one of the constants above which tell if enough info is set to enable installers
      */
     public function readinessLevel() {
         $result = $this->databaseHandle->exec("SELECT sufficient_config, showtime FROM profile WHERE profile_id = ?", "i", $this->identifier);
@@ -645,6 +691,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
 
     /**
      * set the showtime property if prepShowTime says that there is enough info *and* the admin flagged the profile for showing
+     * 
+     * @return void
      */
     public function prepShowtime() {
         $properConfig = $this->readyForShowtime();

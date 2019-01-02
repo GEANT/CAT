@@ -113,6 +113,7 @@
             <xs:element name="UserName" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="Password" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="ClientCertificate" type="CertData" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="IntermediateCACertificate" type="CertData" minOccurs="0" maxOccurs="unbounded"/>
             <xs:element name="Passphrase" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="PAC" type="xs:string" minOccurs="0" maxOccurs="1"/>
             <xs:element name="ProvisionPAC" type="xs:boolean" minOccurs="0" maxOccurs="1"/>

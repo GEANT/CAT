@@ -1,12 +1,22 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 /**
@@ -146,13 +156,14 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
     /**
      * deletes all attributes in this profile except the _file ones, these are reported as array
      *
+     * @param string $extracondition a condition to append to the deletion query. RADIUS Profiles have eap-level or device-level options which shouldn't be purged; this can be steered in the overriding function.
      * @return array list of row id's of file-based attributes which weren't deleted
      */
-    public function beginFlushAttributes() {
+    public function beginFlushAttributes($extracondition = "") {
         $quotedIdentifier = (!is_int($this->getRelevantIdentifier()) ? "\"" : "") . $this->getRelevantIdentifier() . (!is_int($this->getRelevantIdentifier()) ? "\"" : "");
-        $this->databaseHandle->exec("DELETE FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier AND option_name NOT LIKE '%_file'");
+        $this->databaseHandle->exec("DELETE FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier AND option_name NOT LIKE '%_file' $extracondition");
         $this->updateFreshness();
-        $execFlush = $this->databaseHandle->exec("SELECT row FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier");
+        $execFlush = $this->databaseHandle->exec("SELECT row FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier $extracondition");
         $returnArray = [];
         // SELECT always returns a resourse, never a boolean
         while ($queryResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $execFlush)) {
@@ -165,6 +176,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * after a beginFlushAttributes, deletes all attributes which are in the tobedeleted array.
      *
      * @param array $tobedeleted array of database rows which are to be deleted
+     * @return void
      */
     public function commitFlushAttributes(array $tobedeleted) {
         $quotedIdentifier = (!is_int($this->getRelevantIdentifier()) ? "\"" : "") . $this->getRelevantIdentifier() . (!is_int($this->getRelevantIdentifier()) ? "\"" : "");
@@ -176,6 +188,8 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
 
     /**
      * deletes all attributes of this entity from the database
+     * 
+     * @return void
      */
     public function flushAttributes() {
         $this->commitFlushAttributes($this->beginFlushAttributes());
@@ -184,9 +198,10 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
     /**
      * Adds an attribute for the entity instance into the database. Multiple instances of the same attribute are supported.
      *
-     * @param string $attrName Name of the attribute. This must be a well-known value from the profile_option_dict table in the DB.
-     * @param string $attrLang language of the attribute. Can be NULL.
-     * @param mixed $attrValue Value of the attribute. Can be anything; will be stored in the DB as-is.
+     * @param string $attrName  Name of the attribute. This must be a well-known value from the profile_option_dict table in the DB.
+     * @param string $attrLang  language of the attribute. Can be NULL.
+     * @param mixed  $attrValue Value of the attribute. Can be anything; will be stored in the DB as-is.
+     * @return void
      */
     public function addAttribute($attrName, $attrLang, $attrValue) {
         $relevantId = $this->getRelevantIdentifier();
@@ -230,7 +245,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * Retrieves data from the underlying tables, for situations where instantiating the IdP or Profile object is inappropriate
      * 
      * @param string $table institution_option or profile_option
-     * @param string $row rowindex
+     * @param string $row   rowindex
      * @return string|boolean the data, or FALSE if something went wrong
      */
     public static function fetchRawDataByIndex($table, $row) {
@@ -259,7 +274,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * yes who the authorised admins to view it are (return array of user IDs)
      * 
      * @param string $table which database table is this about
-     * @param int $row row index of the table
+     * @param int    $row   row index of the table
      * @return mixed FALSE if the data is public, an array of owners of the data if it is NOT public
      */
     public static function isDataRestricted($table, $row) {
@@ -271,6 +286,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
         switch ($table) {
             case "profile_option": // both of these are similar
                 $columnName = "profile_id";
+                // fall-through intended
             case "institution_option":
                 $blobId = -1;
                 $columnName = $columnName ?? "institution_id";
@@ -312,6 +328,8 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
 
     /**
      * when options in the DB change, this can mean generated installers become stale. sub-classes must define whether this is the case for them
+     * 
+     * @return void
      */
     abstract public function updateFreshness();
 }

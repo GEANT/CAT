@@ -1,12 +1,22 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 namespace web\lib\admin;
@@ -46,11 +56,12 @@ class UIElements {
         $dummy_NRO = _("National Roaming Operator");
         $dummy_inst1 = _("identity provider");
         $dummy_inst2 = _("organisation");
+        $dummy_inst3 = _("Identity Provider");
         // and do something useless with the strings so that there's no "unused" complaint
-        if ( $dummy_NRO . $dummy_inst1 . $dummy_inst2 == "") {
-            // Oh well.
-            explode(' ',$dummy_NRO);
+        if (strlen($dummy_NRO . $dummy_inst1 . $dummy_inst2 . $dummy_inst3) < 0) {
+            throw new \Exception("Strings are usually not shorter than 0 characters. We've encountered a string blackhole.");
         }
+
         $this->nomenclature_fed = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']);
         $this->nomenclature_inst = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution']);
     }
@@ -97,6 +108,8 @@ class UIElements {
             _("Redirection Target") => "device-specific:redirect",
             _("Extra text on downloadpage for EAP method") => "eap-specific:customtext",
             _("Turn on selection of EAP-TLS User-Name") => "eap-specific:tls_use_other_id",
+            _("Use GEANTlink TTLS supplicant for W8") => "device-specific:geantlink",
+            _("Use builtin TTLS supplicant for Windows 10") => "device-specific:builtin_ttls",
             _("Profile Description") => "profile:description",
             _("Custom Installer Name Suffix") => "profile:customsuffix",
             sprintf(_("%s Administrator"), $this->nomenclature_fed) => "user:fedadmin",
@@ -130,9 +143,9 @@ class UIElements {
 
     /**
      * creates an HTML information block with a list of options from a given category and level
-     * @param array $optionlist list of options
-     * @param string $class option class of interest
-     * @param string $level option level of interest
+     * @param array  $optionlist list of options
+     * @param string $class      option class of interest
+     * @param string $level      option level of interest
      * @return string HTML code
      */
     public function infoblock(array $optionlist, string $class, string $level) {
@@ -178,6 +191,10 @@ class UIElements {
                         }
                         break;
                     case "boolean":
+                        if ($option['name'] == "fed:silverbullet" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
+                            // do not display the option at all; it gets auto-set by the ProfileSilverbullet constructor and doesn't have to be seen
+                            break;
+                        }
                         $retval .= "<tr><td>" . $this->displayName($option['name']) . "</td><td>$language</td><td><strong>" . ($content == "on" ? _("on") : _("off") ) . "</strong></td></tr>";
                         break;
                     default:
@@ -192,7 +209,7 @@ class UIElements {
                 $locationCount++;
                 $marker .= '<marker name="' . $locationCount . '" lat="' . $g['lat'] . '" lng="' . $g['lon'] . '" />';
             }
-            $marker .= '</markers>';
+            $marker .= '<\/markers>'; // some validator says this should be escaped
             $jMarker = json_encode($locationMarkers);
             $retval .= '<tr><td><script>markers=\'' . $marker . '\'; jmarkers = \'' . $jMarker . '\';</script></td><td></td><td></td></tr>';
         }
@@ -255,7 +272,7 @@ class UIElements {
 
     /**
      * 
-     * @param string $ref the database reference string
+     * @param string  $ref         the database reference string
      * @param boolean $checkpublic should we check if the requested piece of data is public?
      * @return string|boolean the requested data, or FALSE if something went wrong
      */
@@ -301,9 +318,9 @@ class UIElements {
     /**
      * 
      * @param string $reference a reference pointer to a database entry
+     * @return void
      * @throws Exception
      */
-    
     private function checkROWIDpresence($reference) {
         $found = preg_match("/^ROWID-.*/", $reference);
         if ($found  != 1) { // get excited on not-found AND on execution error
@@ -371,10 +388,10 @@ class UIElements {
     /**
      * creates HTML code for a UI element which informs the user about something.
      * 
-     * @param int $level what kind of information is to be displayed?
-     * @param string $text the text to display
-     * @param string $caption the caption to display
-     * @param bool $omittabletags the output usually has tr/td table tags, this option suppresses them
+     * @param int    $level         what kind of information is to be displayed?
+     * @param string $text          the text to display
+     * @param string $caption       the caption to display
+     * @param bool   $omittabletags the output usually has tr/td table tags, this option suppresses them
      * @return string
      */
     public function boxFlexible(int $level, string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
@@ -407,9 +424,9 @@ class UIElements {
     /**
      * creates HTML code to display an "all is okay" message
      * 
-     * @param string $text the text to display
-     * @param string $caption the caption to display
-     * @param bool $omittabletags the output usually has tr/td table tags, this option suppresses them
+     * @param string $text          the text to display
+     * @param string $caption       the caption to display
+     * @param bool   $omittabletags the output usually has tr/td table tags, this option suppresses them
      * @return string HTML: the box
      */
     public function boxOkay(string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
@@ -419,9 +436,9 @@ class UIElements {
     /**
      * creates HTML code to display a "smartass comment" message
      * 
-     * @param string $text the text to display
-     * @param string $caption the caption to display
-     * @param bool $omittabletags the output usually has tr/td table tags, this option suppresses them
+     * @param string $text          the text to display
+     * @param string $caption       the caption to display
+     * @param bool   $omittabletags the output usually has tr/td table tags, this option suppresses them
      * @return string HTML: the box
      */
     public function boxRemark(string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
@@ -431,9 +448,9 @@ class UIElements {
     /**
      * creates HTML code to display a "something's a bit wrong" message
      * 
-     * @param string $text the text to display
-     * @param string $caption the caption to display
-     * @param bool $omittabletags the output usually has tr/td table tags, this option suppresses them
+     * @param string $text          the text to display
+     * @param string $caption       the caption to display
+     * @param bool   $omittabletags the output usually has tr/td table tags, this option suppresses them
      * @return string HTML: the box
      */
     public function boxWarning(string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
@@ -443,9 +460,9 @@ class UIElements {
     /**
      * creates HTML code to display a "Whoa! Danger, Will Robinson!" message
      * 
-     * @param string $text the text to display
-     * @param string $caption the caption to display
-     * @param bool $omittabletags the output usually has tr/td table tags, this option suppresses them
+     * @param string $text          the text to display
+     * @param string $caption       the caption to display
+     * @param bool   $omittabletags the output usually has tr/td table tags, this option suppresses them
      * @return string HTML: the box
      */
     public function boxError(string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
@@ -459,8 +476,8 @@ class UIElements {
      * the QR code so that the logo does not prevent parsing of the QR code.
      * 
      * @param string $inputpngstring the PNG to edit
-     * @param int $symbolsize size in pixels of one QR "pixel"
-     * @param int $marginsymbols size in pixels of border around the actual QR
+     * @param int    $symbolsize     size in pixels of one QR "pixel"
+     * @param int    $marginsymbols  size in pixels of border around the actual QR
      * @return string the image with logo centered in the middle
      */
     public function pngInjectConsortiumLogo(string $inputpngstring, int $symbolsize, int $marginsymbols = 4) {

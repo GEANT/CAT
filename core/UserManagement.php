@@ -1,12 +1,22 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 /**
@@ -75,7 +85,7 @@ class UserManagement extends \core\common\Entity {
      * FAIL-ALREADYCONSUMED the token exists, but has been used before
      * FAIL-EXPIRED the token exists, but has expired
      * 
-     * @param string $token
+     * @param string $token the invitation token
      * @return int
      */
     public function checkTokenValidity($token) {
@@ -165,6 +175,21 @@ class UserManagement extends \core\common\Entity {
             }
             $this->loggerInstance->writeAudit($owner, "NEW", "IdP " . $idp->identifier . " - created from invitation");
 
+            // in case we have more admins in the queue which were invited to 
+            // administer the same inst but haven't redeemed their invitations 
+            // yet, then we will have to rewrite the invitations to point to the
+            // newly created actual IdP rather than the placeholder entry in the
+            // invitations table
+            // which other pending invites do we have?
+            
+            $otherPending = $this->databaseHandle->exec("SELECT id
+                             FROM invitations 
+                             WHERE invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0 AND name = ? AND country = ? AND ( cat_institution_id IS NULL OR external_db_uniquehandle IS NULL ) ", "ss", $invitationDetails->name, $invitationDetails->country);
+            // SELECT -> resource, no boolean
+            while ($pendingDetail = mysqli_fetch_object(/** @scrutinizer ignore-type */ $otherPending)) {
+                $this->databaseHandle->exec("UPDATE invitations SET cat_institution_id = " . $idp->identifier . " WHERE id = " . $pendingDetail->id);
+            }
+
             $admins = $fed->listFederationAdmins();
 
             // notify the fed admins...
@@ -197,7 +222,7 @@ Best regards,
 
     /**
      * Adds a new administrator to an existing IdP
-     * @param IdP $idp institution to which the admin is to be added.
+     * @param IdP    $idp  institution to which the admin is to be added.
      * @param string $user persistent user ID that is to be added as an admin.
      * @return boolean This function always returns TRUE.
      */
@@ -212,7 +237,7 @@ Best regards,
 
     /**
      * Deletes an administrator from the IdP. If the IdP and user combination doesn't match, nothing happens.
-     * @param IdP $idp institution from which the admin is to be deleted.
+     * @param IdP    $idp  institution from which the admin is to be deleted.
      * @param string $user persistent user ID that is to be deleted as an admin.
      * @return boolean This function always returns TRUE.
      */
@@ -239,32 +264,37 @@ Best regards,
      * administrator of an existing institution, or for a new institution. In the latter case, the institution only actually gets 
      * created in the DB if the token is actually consumed via createIdPFromToken().
      * 
-     * @param boolean $isByFedadmin is the invitation token created for a federation admin (TRUE) or from an existing inst admin (FALSE)
-     * @param string $for identifier (typically email address) for which the invitation is created
-     * @param mixed $instIdentifier either an instance of the IdP class (for existing institutions to invite new admins) or a string (new institution - this is the inst name then)
-     * @param string $externalId if the IdP to be created is related to an external DB entity, this parameter contains that ID
-     * @param string $country if the institution is new (i.e. $inst is a string) this parameter needs to specify the federation of the new inst
+     * @param boolean $isByFedadmin   is the invitation token created for a federation admin (TRUE) or from an existing inst admin (FALSE)
+     * @param array   $for            identifiers (typically email addresses) for which the invitation is created
+     * @param mixed   $instIdentifier either an instance of the IdP class (for existing institutions to invite new admins) or a string (new institution - this is the inst name then)
+     * @param string  $externalId     if the IdP to be created is related to an external DB entity, this parameter contains that ID
+     * @param string  $country        if the institution is new (i.e. $inst is a string) this parameter needs to specify the federation of the new inst
      * @return mixed The function returns either the token (as string) or FALSE if something went wrong
      */
-    public function createToken($isByFedadmin, $for, $instIdentifier, $externalId = 0, $country = 0) {
-        $token =  bin2hex(random_bytes(40));
+    public function createTokens($isByFedadmin, $for, $instIdentifier, $externalId = 0, $country = 0) {
         $level = ($isByFedadmin ? "FED" : "INST");
-
-        if ($instIdentifier instanceof IdP) {
-            $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,cat_institution_id) VALUES(?, ?, ?, ?)", "sssi", $level, $for, $token, $instIdentifier->identifier);
-            return $token;
-        } else if (func_num_args() == 4) { // string name, but no country - new IdP with link to external DB
-            // what country are we talking about?
-            $cat = new CAT();
-            $extinfo = $cat->getExternalDBEntityDetails($externalId);
-            $extCountry = $extinfo['country'];
-            $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country, external_db_uniquehandle) VALUES(?, ?, ?, ?, ?, ?)", "ssssss", $level, $for, $token, $instIdentifier, $extCountry, $externalId);
-            return $token;
-        } else if (func_num_args() == 5) { // string name, and country set - whole new IdP
-            $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country) VALUES(?, ?, ?, ?, ?)", "sssss", $level, $for, $token, $instIdentifier, $country);
-            return $token;
+        $tokenList = [];
+        foreach ($for as $oneDest) {
+            $token = bin2hex(random_bytes(40));
+            if ($instIdentifier instanceof IdP) {
+                $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,cat_institution_id) VALUES(?, ?, ?, ?)", "sssi", $level, $oneDest, $token, $instIdentifier->identifier);
+                $tokenList[$token] = $oneDest;
+            } else if (func_num_args() == 4) { // string name, but no country - new IdP with link to external DB
+                // what country are we talking about?
+                $cat = new CAT();
+                $extinfo = $cat->getExternalDBEntityDetails($externalId);
+                $extCountry = $extinfo['country'];
+                $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country, external_db_uniquehandle) VALUES(?, ?, ?, ?, ?, ?)", "ssssss", $level, $oneDest, $token, $instIdentifier, $extCountry, $externalId);
+                $tokenList[$token] = $oneDest;
+            } else if (func_num_args() == 5) { // string name, and country set - whole new IdP
+                $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country) VALUES(?, ?, ?, ?, ?)", "sssss", $level, $oneDest, $token, $instIdentifier, $country);
+                $tokenList[$token] = $oneDest;
+            }
         }
-        throw new Exception("Creation of a new token failed!");
+        if (count($for) != count($tokenList)) {
+            throw new Exception("Creation of a new token failed!");
+        }
+        return $tokenList;
     }
 
     /**
@@ -275,13 +305,13 @@ Best regards,
      */
     public function listPendingInvitations($idpIdentifier = 0) {
         $retval = [];
-        $invitations = $this->databaseHandle->exec("SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, invite_token 
+        $invitations = $this->databaseHandle->exec("SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, invite_token , TIMESTAMPADD(DAY, 1, invite_created) as expiry
                                         FROM invitations 
                                         WHERE cat_institution_id " . ( $idpIdentifier != 0 ? "= $idpIdentifier" : "IS NULL") . " AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0");
         // SELECT -> resource, not boolean
         $this->loggerInstance->debug(4, "Retrieving pending invitations for " . ($idpIdentifier != 0 ? "IdP $idpIdentifier" : "IdPs awaiting initial creation" ) . ".\n");
         while ($invitationQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $invitations)) {
-            $retval[] = ["country" => $invitationQuery->country, "name" => $invitationQuery->name, "mail" => $invitationQuery->invite_dest_mail, "token" => $invitationQuery->invite_token];
+            $retval[] = ["country" => $invitationQuery->country, "name" => $invitationQuery->name, "mail" => $invitationQuery->invite_dest_mail, "token" => $invitationQuery->invite_token, "expiry" => $invitationQuery->expiry];
         }
         return $retval;
     }

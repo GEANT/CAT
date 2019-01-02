@@ -1,11 +1,22 @@
 <?php
-/* 
- *******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+/*
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 ?>
 <?php
@@ -62,6 +73,7 @@ const CONFIG = [
         'skins' => ["modern", "example"],
         // get your key here: https://developers.google.com/maps/documentation/javascript/get-api-key?refresh=1
         'google_maps_api_key' => '',
+        'privacy_notice_url' => 'https://www.eduroam.org/privacy/',
     ],
     
     'FUNCTIONALITY_LOCATIONS' => [
@@ -124,8 +136,18 @@ const CONFIG = [
      * Configures the host to use to send emails to the outside world. We assume
      * the host is able to listen on the new Submission port (TCP/587). 
      * host: Submission host
-     * user: username for the login to the host
+     * user: username for the login to the host. If NULL (and pass is also NULL)
+     *       then no SMTP authentication will be triggered.
      * pass: password for the username
+     * options: these may be some additional options, for instance setting that to:
+     *     [
+              'ssl' => [
+              'verify_peer' => false,
+          'verify_peer_name' => false,
+          'allow_self_signed' => true
+              ]
+           ]
+     *    will fix a certificate verification problem with sending mail to localhost
      * certfilename, keyfilename, keypass: if you want to send S/MIME signed 
      *    mails, just configure the signing cert with these parameters. All must
      *    be non-NULL for signing to happen. If you don't need a keypass, make 
@@ -137,6 +159,7 @@ const CONFIG = [
         'host' => 'submission.capable.mta',
         'user'=> 'mailuser',
         'pass' => 'mailpass',
+        'options' => [],
         // in case the mails should be signed with S/MIME
         'certfilename' => NULL,
         'keyfilename' => NULL,
@@ -153,36 +176,35 @@ const CONFIG = [
       'ca' => ['display' => 'Català',      'locale' => 'ca_ES.utf8',    'latin_based' => TRUE],
       'cs' => ['display' => 'Čeština',     'locale' => 'cs_CZ.utf8',    'latin_based' => TRUE],
       'de' => ['display' => 'Deutsch',     'locale' => 'de_DE.utf8',    'latin_based' => TRUE],
+      'el' => ['display' => 'Ελληνικά',    'locale' => 'el_GR.utf8',    'latin_based' => FALSE],
       'en' => ['display' => 'English(GB)', 'locale' => 'en_GB.utf8',    'latin_based' => TRUE],
       'es' => ['display' => 'Español',     'locale' => 'es_ES.utf8',    'latin_based' => TRUE],     
+      'et' => ['display' => 'Eesti',       'locale' => 'et_EE.utf8',    'latin_based' => TRUE], 
       'hr' => ['display' => 'Hrvatski',    'locale' => 'hr_HR.utf8',    'latin_based' => TRUE],
+      'hu' => ['display' => 'Magyar',      'locale' => 'hu_HU.utf8',    'latin_based' => TRUE],
       'it' => ['display' => 'Italiano',    'locale' => 'it_IT.utf8',    'latin_based' => TRUE],
       'pl' => ['display' => 'Polski',      'locale' => 'pl_PL.utf8',    'latin_based' => TRUE],
+      'pt' => ['display' => 'Português',   'locale' => 'pt_PT.utf8',    'latin_based' => TRUE],
+      'sl' => ['display' => 'Slovenščina', 'locale' => 'sl_SI.utf8',    'latin_based' => TRUE],
       'sr' => ['display' => 'Srpski',      'locale' => 'sr_RS@latin',   'latin_based' => TRUE],
       'fi' => ['display' => 'Suomi',       'locale' => 'fi_FI.utf8',    'latin_based' => TRUE],
-      'pt' => ['display' => 'Português',   'locale' => 'pt_PT.utf8',    'latin_based' => TRUE],
+      'tr' => ['display' => 'Türkçe',      'locale' => 'tr_TR.utf8',    'latin_based' => TRUE],
+
+
 
 // For the following languages, partial translations exist in Transifex, but
-// they are not complete enough for display. Their Transifex content is not
-// necessarily ported to SVN yet. Contact the authors if you want the current
-// state of translation of these languages.
+// they are not complete enough for display. There are even more in the "translation/" subdir.
 //
-// these two were in for 1.0 but didn't make 1.1
-//      'sk' => ['display' => 'Slovenčina',  'locale' => 'sk_SK.utf8',    'latin_based' => TRUE],
+// Contact the authors if you want to know the current state of translation of these languages.
 //
-// and these were never complete
-//
-//      'nl' => ['display' => 'Nederlands', 'locale' => 'nl_NL.utf8',    'latin_based' => TRUE],
-//      'sv' => ['display' => 'Svenska', 'locale' => 'sv_SE.utf8',    'latin_based' => TRUE],
-//      'cy' => ['display' => 'Cymraeg', 'locale' => 'cy_GB.utf8',    'latin_based' => TRUE],
-//      'el' => ['display' => 'Ελληνικά',    'locale' => 'el_GR.utf8',    'latin_based' => FALSE],
+//      'nl' => ['display' => 'Nederlands',  'locale' => 'nl_NL.utf8',    'latin_based' => TRUE],
+//      'sv' => ['display' => 'Svenska',     'locale' => 'sv_SE.utf8',    'latin_based' => TRUE],
+//      'cy' => ['display' => 'Cymraeg',     'locale' => 'cy_GB.utf8',    'latin_based' => TRUE],
 //      'fr' => ['display' => 'Français',    'locale' => 'fr_FR.utf8',    'latin_based' => TRUE],
 //      'gl' => ['display' => 'Galego',      'locale' => 'gl_ES.utf8',    'latin_based' => TRUE],
 //      'lt' => ['display' => 'lietuvių',    'locale' => 'lt_LT.utf8',    'latin_based' => TRUE],
 //      'nb' => ['display' => 'Norsk',       'locale' => 'nb_NO.utf8',    'latin_based' => TRUE],
-//      'sl' => ['display' => 'Slovenščina', 'locale' => 'sl_SI.utf8',    'latin_based' => TRUE],
-//      'hu' => ['display' => 'Magyar',      'locale' => 'hu_HU.utf8',    'latin_based' => TRUE],
-
+//      'sk' => ['display' => 'Slovenčina',  'locale' => 'sk_SK.utf8',    'latin_based' => TRUE],
     ],
 
 

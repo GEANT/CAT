@@ -1,19 +1,29 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 namespace core\diag;
 
 use \Exception;
 
-require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
+require_once dirname(dirname(__DIR__)) . "/config/_config.php";
 
 /**
  * Test suite to verify that a given NAI realm has NAPTR records according to
@@ -85,6 +95,8 @@ class RFC6614Tests extends AbstractTest {
 
     /**
      * run all checks on all candidates
+     * 
+     * @return void
      */
     public function allChecks() {
         foreach ($this->candidateIPs as $oneIP) {
@@ -103,7 +115,7 @@ class RFC6614Tests extends AbstractTest {
         if (!isset($this->TLS_CA_checks_result[$host])) {
             $this->TLS_CA_checks_result[$host] = [];
         }
-        $opensslbabble = $this->openssl_s_client($host, '', $this->TLS_CA_checks_result[$host]);
+        $opensslbabble = $this->execOpensslClient($host, '', $this->TLS_CA_checks_result[$host]);
         return $this->opensslCAResult($host, $opensslbabble, $this->TLS_CA_checks_result);
     }
 
@@ -134,7 +146,7 @@ class RFC6614Tests extends AbstractTest {
                 if (!isset($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k])) {
                     $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k] = [];
                 }
-                $opensslbabble = $this->openssl_s_client($host, $add, $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]);
+                $opensslbabble = $this->execOpensslClient($host, $add, $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]);
                 $res = $this->opensslClientsResult($host, $opensslbabble, $this->TLS_clients_checks_result, $type, $k);
                 if ($cert['expected'] == 'PASS') {
                     if (!$this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['connected']) {
@@ -163,12 +175,12 @@ class RFC6614Tests extends AbstractTest {
     /**
      * This function executes openssl s_client command
      * 
-     * @param string $host IP address
-     * @param string $arg arguments to add to the openssl command 
-     * @param array $testresults by-reference: the testresults array we are writing into
+     * @param string $host        IP address
+     * @param string $arg         arguments to add to the openssl command 
+     * @param array  $testresults by-reference: the testresults array we are writing into
      * @return array result of openssl s_client ...
      */
-    private function openssl_s_client($host, $arg, &$testresults) {
+    private function execOpensslClient($host, $arg, &$testresults) {
 // we got the IP address either from DNS (guaranteeing well-formedness)
 // or from filter_var'ed user input. So it is always safe as an argument
 // but code analysers want this more explicit, so here is this extra
@@ -188,9 +200,9 @@ class RFC6614Tests extends AbstractTest {
     /**
      * This function parses openssl s_client result
      * 
-     * @param string $host IP:port
-     * @param array $opensslbabble openssl command output
-     * @param array $testresults by-reference: pointer to results array we write into
+     * @param string $host          IP:port
+     * @param array  $opensslbabble openssl command output
+     * @param array  $testresults   by-reference: pointer to results array we write into
      * @return int return code
      */
     private function opensslCAResult($host, $opensslbabble, &$testresults) {
@@ -233,11 +245,11 @@ class RFC6614Tests extends AbstractTest {
     /**
      * This function parses openssl s_client result
      * 
-     * @param string $host IP:port
-     * @param array $opensslbabble openssl command output
-     * @param array $testresults by-reference: pointer to results array we write into
-     * @param string $type type of certificate
-     * @param int $resultArrayKey results array key
+     * @param string $host           IP:port
+     * @param array  $opensslbabble  openssl command output
+     * @param array  $testresults    by-reference: pointer to results array we write into
+     * @param string $type           type of certificate
+     * @param int    $resultArrayKey results array key
      * @return int return code
      */
     private function opensslClientsResult($host, $opensslbabble, &$testresults, $type = '', $resultArrayKey = 0) {
@@ -307,8 +319,8 @@ class RFC6614Tests extends AbstractTest {
     /**
      * This function parses a X.509 cert and returns the value of $field
      * 
-     * @param array $cert (returned from openssl_x509_parse) 
-     * @param string $field 
+     * @param array  $cert  (returned from openssl_x509_parse) 
+     * @param string $field the field to search for
      * @return string value of the extention named $field or ''
      */
     private function getCertificatePropertyField($cert, $field) {

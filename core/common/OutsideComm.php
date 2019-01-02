@@ -1,12 +1,22 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 namespace core\common;
@@ -22,7 +32,7 @@ class OutsideComm {
 
     /**
      * downloads a file from the internet
-     * @param string $url
+     * @param string $url the URL to download
      * @return string|boolean the data we got back, or FALSE on failure
      */
     public static function downloadFile($url) {
@@ -53,12 +63,17 @@ class OutsideComm {
 // use PHPMailer to send the mail
         $mail = new \PHPMailer\PHPMailer\PHPMailer();
         $mail->isSMTP();
-        $mail->SMTPAuth = true;
         $mail->Port = 587;
         $mail->SMTPSecure = 'tls';
         $mail->Host = CONFIG['MAILSETTINGS']['host'];
-        $mail->Username = CONFIG['MAILSETTINGS']['user'];
-        $mail->Password = CONFIG['MAILSETTINGS']['pass'];
+        if (CONFIG['MAILSETTINGS']['user'] === NULL && CONFIG['MAILSETTINGS']['pass'] === NULL) {
+            $mail->SMTPAuth = false;
+        } else {
+            $mail->SMTPAuth = true;
+            $mail->Username = CONFIG['MAILSETTINGS']['user'];
+            $mail->Password = CONFIG['MAILSETTINGS']['pass'];
+        }
+        $mail->SMTPOptions = CONFIG['MAILSETTINGS']['options'];
 // formatting nitty-gritty
         $mail->WordWrap = 72;
         $mail->isHTML(FALSE);
@@ -80,7 +95,8 @@ class OutsideComm {
 
     /**
      * verifies whether a mail address is in an existing and STARTTLS enabled mail domain
-     * @param string $address
+     * 
+     * @param string $address the mail address to check
      * @return int status of the mail domain
      */
     public static function mailAddressValidSecure($address) {
@@ -160,7 +176,7 @@ class OutsideComm {
     /**
      * Send SMS invitations to end users
      * 
-     * @param string $number the number to send to: with country prefix, but without the + sign ("352123456" for a Luxembourg example)
+     * @param string $number  the number to send to: with country prefix, but without the + sign ("352123456" for a Luxembourg example)
      * @param string $content the text to send
      * @return integer status of the sending process
      * @throws Exception
@@ -219,10 +235,11 @@ class OutsideComm {
 
     /**
      * 
-     * @param string $targets one or more mail addresses, comma-separated
-     * @param string $introtext introductory sentence (varies by situation)
-     * @param string $newtoken the token to send
-     * @param \core\Federation $federation if not NULL, indicates that invitation comes from authorised fed admin of that federation
+     * @param string           $targets       one or more mail addresses, comma-separated
+     * @param string           $introtext     introductory sentence (varies by situation)
+     * @param string           $newtoken      the token to send
+     * @param string           $idpPrettyName the name of the IdP, in best-match language
+     * @param \core\Federation $federation    if not NULL, indicates that invitation comes from authorised fed admin of that federation
      * @return array
      */
     public static function adminInvitationMail($targets, $introtext, $newtoken, $idpPrettyName, $federation) {
@@ -320,6 +337,14 @@ class OutsideComm {
         return ["SENT" => $mail->send(), "TRANSPORT" => $secStatus];
     }
 
+    /**
+     * sends a POST with some JSON inside
+     * 
+     * @param string $url       the URL to POST to
+     * @param array  $dataArray the data to be sent in PHP array representation
+     * @return array the JSON response, decoded into PHP associative array
+     * @throws \Exception
+     */
     public static function postJson($url, $dataArray) {
         $ch = \curl_init($url);
         \curl_setopt_array($ch, array(
@@ -335,21 +360,20 @@ class OutsideComm {
         return json_decode($response, TRUE);
     }
 
-        /**
+    /**
      * performs an HTTP request. Currently unused, will be for external CA API calls.
      * 
      * @param string $url the URL to send the request to
      * @param array $postValues POST values to send
      * @return string the returned HTTP content
-     
-    public static function PostHttp($url, $postValues) {
-        $options = [
-            'http' => ['header' => 'Content-type: application/x-www-form-urlencoded\r\n', "method" => 'POST', 'content' => http_build_query($postValues)]
-        ];
-        $context = stream_context_create($options);
-        return file_get_contents($url, false, $context);
-    }
-         * 
-         */
 
+      public static function PostHttp($url, $postValues) {
+      $options = [
+      'http' => ['header' => 'Content-type: application/x-www-form-urlencoded\r\n', "method" => 'POST', 'content' => http_build_query($postValues)]
+      ];
+      $context = stream_context_create($options);
+      return file_get_contents($url, false, $context);
+      }
+     * 
+     */
 }

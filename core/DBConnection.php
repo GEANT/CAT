@@ -1,12 +1,22 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 /**
@@ -22,7 +32,7 @@ namespace core;
 
 use \Exception;
 
-require_once(dirname(__DIR__) . "/config/_config.php");
+require_once dirname(__DIR__) . "/config/_config.php";
 
 /**
  * This class is a singleton for establishing a connection to the database
@@ -38,6 +48,8 @@ class DBConnection {
 
     /**
      * This is the actual constructor for the singleton. It creates a database connection if it is not up yet, and returns a handle to the database connection on every call.
+     * 
+     * @param string $database the database type to open
      * @return DBConnection the (only) instance of this class
      */
     public static function handle($database) {
@@ -60,6 +72,8 @@ class DBConnection {
 
     /**
      * Implemented for safety reasons only. Cloning is forbidden and will tell the user so.
+     *
+     * @return void
      */
     public function __clone() {
         trigger_error('Clone is not allowed.', E_USER_ERROR);
@@ -75,8 +89,11 @@ class DBConnection {
 
     /**
      * executes a query and triggers logging to the SQL audit log if it's not a SELECT
-     * @param string $querystring the query to be executed
+     * @param string $querystring  the query to be executed
+     * @param string $types        for prepared statements, the type list of parameters
+     * @param mixed  ...$arguments for prepared statements, the parameters
      * @return mixed the query result as mysqli_result object; or TRUE on non-return-value statements
+     * @throws Exception
      */
     public function exec($querystring, $types = NULL, &...$arguments) {
         // log exact query to audit log, if it's not a SELECT
@@ -89,14 +106,14 @@ class DBConnection {
         }
         // log exact query to debug log, if log level is at 5
         $this->loggerInstance->debug(5, "DB ATTEMPT: " . $querystring . "\n");
-        if ($types != NULL) {
+        if ($types !== NULL) {
             $this->loggerInstance->debug(5, "Argument type sequence: $types, parameters are: " . print_r($arguments, true));
         }
 
         if ($this->connection->connect_error) {
             throw new Exception("ERROR: Cannot send query to $this->databaseInstance database (no connection, error number" . $this->connection->connect_error . ")!");
         }
-        if ($types == NULL) {
+        if ($types === NULL) {
             $result = $this->connection->query($querystring);
             if ($result === FALSE) {
                 throw new Exception("DB: Unable to execute simple statement! Error was --> " . $this->connection->error . " <--");
@@ -146,7 +163,7 @@ class DBConnection {
 
         if ($isMoreThanSelect) {
             $this->loggerInstance->writeSQLAudit("[DB: " . strtoupper($this->databaseInstance) . "] " . $querystring);
-            if ($types != NULL) {
+            if ($types !== NULL) {
                 $this->loggerInstance->writeSQLAudit("Argument type sequence: $types, parameters are: " . print_r($arguments, true));
             }
         }
@@ -216,6 +233,8 @@ class DBConnection {
 
     /**
      * Class constructor. Cannot be called directly; use handle()
+     * 
+     * @param string $database the database to open
      */
     private function __construct($database) {
         $this->loggerInstance = new \core\common\Logging();

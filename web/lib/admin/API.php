@@ -1,19 +1,29 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2018 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 namespace web\lib\admin;
 
 use Exception;
 
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
+require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
 
 class API {
 
@@ -60,6 +70,7 @@ class API {
     const AUXATTRIB_SB_TOU = "ATTRIB-MANAGED-TOU";
     const AUXATTRIB_SB_USERNAME = "ATTRIB-MANAGED-USERNAME";
     const AUXATTRIB_SB_USERID = "ATTRIB-MANAGED-USERID";
+    const AUXATTRIB_SB_CERTSERIAL = "ATTRIB-MANAGED-CERTSERIAL";
     const AUXATTRIB_SB_EXPIRY = "ATTRIB-MANAGED-EXPIRY"; /* MySQL timestamp format */
     const AUXATTRIB_TOKEN = "ATTRIB-TOKEN";
     const AUXATTRIB_TOKENURL = "ATTRIB-TOKENURL";
@@ -105,29 +116,44 @@ class API {
                 'support:phone',
                 'support:url'
             ],
+            "RETVAL" => [
+                API::AUXATTRIB_CAT_INST_ID, // new inst ID
+            ],
         ],
         API::ACTION_DELINST => [
             "REQ" => [API::AUXATTRIB_CAT_INST_ID],
-            "OPT" => []
+            "OPT" => [],
+            "RETVAL" => [],
         ],
         # inst administrator management
         API::ACTION_ADMIN_LIST => [
             "REQ" => [API::AUXATTRIB_CAT_INST_ID],
-            "OPT" => []
+            "OPT" => [
+                
+            ],
+            "RETVAL" => [
+                ["ID", "MAIL", "LEVEL"] // array with all admins of inst
+            ]
         ],
         API::ACTION_ADMIN_ADD => [
             "REQ" => [
                 API::AUXATTRIB_ADMINID,
                 API::AUXATTRIB_CAT_INST_ID
             ],
-            "OPT" => [API::AUXATTRIB_TARGETMAIL]
+            "OPT" => [API::AUXATTRIB_TARGETMAIL],
+            "RETVAL" => [
+                ["TOKEN URL", 
+                 "EMAIL SENT",              // dependent on TARGETMAIL input
+                 "EMAIL TRANSPORT SECURE"], // dependent on TARGETMAIL input
+            ]
         ],
         API::ACTION_ADMIN_DEL => [
             "REQ" => [
                 API::AUXATTRIB_ADMINID,
                 API::AUXATTRIB_CAT_INST_ID
             ],
-            "OPT" => []
+            "OPT" => [],
+            "RETVAL" => [],
         ],
         # statistics
         API::ACTION_STATISTICS_INST => [
@@ -136,7 +162,10 @@ class API {
         ],
         API::ACTION_STATISTICS_FED => [
             "REQ" => [],
-            "OPT" => []
+            "OPT" => [],
+            "RETVAL" => [
+                ["device_id" => ["ADMIN", "SILVERBULLET", "USER"]] // plus "TOTAL"
+            ],
         ],
         # RADIUS profile actions
         API::ACTION_NEWPROF_RADIUS => [
@@ -164,44 +193,66 @@ class API {
                 API::AUXATTRIB_PROFILE_REALM,
                 API::AUXATTRIB_PROFILE_TESTUSER,
                 API::AUXATTRIB_PROFILE_EAPTYPE,
-            ]
+            ],
+            "RETVAL" => API::AUXATTRIB_CAT_PROFILE_ID,
         ],
         # Silverbullet profile actions
         API::ACTION_NEWPROF_SB => [
             "REQ" => [API::AUXATTRIB_CAT_INST_ID],
-            "OPT" => [API::AUXATTRIB_SB_TOU]
+            "OPT" => [API::AUXATTRIB_SB_TOU],
+            "RETVAL" => API::AUXATTRIB_CAT_PROFILE_ID,
         ],
         API::ACTION_ENDUSER_NEW => [
             "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_USERNAME, API::AUXATTRIB_SB_EXPIRY],
-            "OPT" => []
+            "OPT" => [],
+            "RETVAL" => [ API::AUXATTRIB_SB_USERNAME, API::AUXATTRIB_SB_USERID ],
         ],
         API::ACTION_ENDUSER_DEACTIVATE => [
             "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_USERID],
-            "OPT" => []
+            "OPT" => [],
+            "RETVAL" => [],
         ],
         API::ACTION_ENDUSER_LIST => [
             "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID],
-            "OPT" => []
+            "OPT" => [],
+            "RETVAL" => [
+                [ API::AUXATTRIB_SB_USERID => API::AUXATTRIB_SB_USERNAME],
+            ],
         ],
         API::ACTION_TOKEN_NEW => [
             "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_USERID],
-            "OPT" => [API::AUXATTRIB_TOKEN_ACTIVATIONS, API::AUXATTRIB_TARGETMAIL, API::AUXATTRIB_TARGETSMS]
+            "OPT" => [API::AUXATTRIB_TOKEN_ACTIVATIONS, API::AUXATTRIB_TARGETMAIL, API::AUXATTRIB_TARGETSMS],
+            "RETVAL" => [
+                API::AUXATTRIB_TOKENURL, 
+                API::AUXATTRIB_TOKEN, 
+                "EMAIL SENT",             // dependent on TARGETMAIL input
+                "EMAIL TRANSPORT SECURE", // dependent on TARGETMAIL input
+                "SMS SENT",               // dependent on TARGETSMS input
+            ]
         ],
         API::ACTION_TOKEN_REVOKE => [
             "REQ" => [API::AUXATTRIB_TOKEN],
-            "OPT" => []
+            "OPT" => [],
+            "RETVAL" => [],
         ],
         API::ACTION_TOKEN_LIST => [
             "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID],
-            "OPT" => [API::AUXATTRIB_SB_USERID]
+            "OPT" => [API::AUXATTRIB_SB_USERID],
+            "RETVAL" => [
+                [API::AUXATTRIB_SB_USERID => [API::AUXATTRIB_TOKEN, "STATUS"]],
+            ]
         ],
         API::ACTION_CERT_LIST => [
             "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_USERID],
-            "OPT" => []
+            "OPT" => [],
+            "RETVAL" => [
+                [ API::AUXATTRIB_SB_CERTSERIAL => ["ISSUED", "EXPIRY", "STATUS", "DEVICE", "CN" ]]
+            ]
         ],
         API::ACTION_CERT_REVOKE => [
-            "REQ" => [],
-            "OPT" => []
+            "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_CERTSERIAL],
+            "OPT" => [],
+            "RETVAL" => [],
         ],
     ];
 
@@ -211,6 +262,9 @@ class API {
      */
     private $validator;
 
+    /**
+     * construct the API class
+     */
     public function __construct() {
         $this->validator = new \web\lib\common\InputValidation();
     }
@@ -219,7 +273,7 @@ class API {
      * Only leave attributes in the request which are related to the ACTION.
      * Also sanitise by enforcing LANG attribute in multi-lang attributes.
      * 
-     * @param array $inputJson the incoming JSON request
+     * @param array            $inputJson the incoming JSON request
      * @param \core\Federation $fedObject the federation the user is acting within
      * @return array the scrubbed attributes
      */
@@ -285,7 +339,7 @@ class API {
     /**
      * extracts the first occurence of a given parameter name from the set of inputs
      * 
-     * @param array $inputs incoming set of arrays
+     * @param array  $inputs   incoming set of arrays
      * @param string $expected attribute that is to be extracted
      * @return mixed the value, or FALSE if none was found
      */
@@ -303,7 +357,8 @@ class API {
      * we use for the HTML POST user-interactively.
      * That's ugly, hence the function name.
      * 
-     * @param array $parameters
+     * @param array $parameters the parameters as provided by JSON input
+     * @return array
      */
     public function uglify($parameters) {
         $coercedInline = [];
@@ -353,10 +408,23 @@ class API {
         return ["POST" => $coercedInline, "FILES" => $coercedFile];
     }
 
+    /**
+     * Returns a JSON construct detailing the error that happened
+     * 
+     * @param int    $code        error code to return
+     * @param string $description textual description to return
+     * @return string
+     */
     public function returnError($code, $description) {
         echo json_encode(["result" => "ERROR", "details" => ["errorcode" => $code, "description" => $description]], JSON_PRETTY_PRINT);
     }
 
+    /**
+     * Returns a JSON construct with details of the successful API call
+     * 
+     * @param array $details details to return with the SUCCESS
+     * @return string
+     */
     public function returnSuccess($details) {
         echo json_encode(["result" => "SUCCESS", "details" => $details], JSON_PRETTY_PRINT);
     }

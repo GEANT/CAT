@@ -1,0 +1,37 @@
+[main]
+host = https://www.transifex.com
+
+[cat.core]
+file_filter = translation/<lang>/core.po
+minimum_perc = 0
+source_file = translation/core.pot
+source_lang = en
+type = PO
+
+[cat.devices]
+file_filter = translation/<lang>/devices.po
+minimum_perc = 0
+source_file = translation/devices.pot
+source_lang = en
+type = PO
+
+[cat.diagnosticspot]
+file_filter = translation/<lang>/diagnostics.po
+minimum_perc = 0
+source_file = translation/diagnostics.pot
+source_lang = en
+type = PO
+
+[cat.web_user]
+file_filter = translation/<lang>/web_user.po
+minimum_perc = 0
+source_file = translation/web_user.pot
+source_lang = en
+type = PO
+
+[cat.web_admin]
+file_filter = translation/<lang>/web_admin.po
+minimum_perc = 0
+source_file = translation/web_admin.pot
+source_lang = en
+type = PO

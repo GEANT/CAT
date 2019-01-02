@@ -1,12 +1,22 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 namespace web\lib\admin;
@@ -15,22 +25,30 @@ class PageDecoration {
 
     private $validator;
     private $ui;
+    private $langObject;
     
+    /**
+     * construct the PageDecoration object
+     */
     public function __construct() {
+        $this->langObject = new \core\common\Language();
+        $this->langObject->setTextDomain("web_admin");
         $this->validator = new \web\lib\common\InputValidation();
         $this->ui = new UIElements();
     }
+
     /**
      * Our (very modest and light) sidebar. authenticated admins get more options, like logout
-     * @param boolean $advancedControls
+     * 
+     * @param boolean $advancedControls display the admin-side advanced controls?
+     * @return string
      */
     private function sidebar($advancedControls) {
         $retval = "<div class='sidebar'><p>";
 
         if ($advancedControls) {
-            $retval .= "<strong>" . _("You are:") . "</strong> "
-                    . (isset($_SESSION['name']) ? $_SESSION['name'] : _("Unnamed User")) . "
-              <br/>
+            $retval .= "<strong>" . _("You are:") . "</strong> ".$_SESSION['name']
+            ."<br/>
               <br/>
               <a href='" . \core\CAT::getRootUrlPath() . "/admin/overview_user.php'>" . _("Go to your Profile page") . "</a> 
               <a href='" . \core\CAT::getRootUrlPath() . "/admin/inc/logout.php'>" . _("Logout") . "</a> ";
@@ -43,7 +61,7 @@ class PageDecoration {
 
     /**
      * constructs a <div> called 'header' for use on the top of the page
-     * @param string $cap1 caption to display in this div
+     * @param string $cap1     caption to display in this div
      * @param string $language current language (this one gets pre-set in the lang selector drop-down
      */
     private function headerDiv($cap1, $language) {
@@ -86,9 +104,10 @@ class PageDecoration {
      * (e.g. onload) then you should call defaultPagePrelude, close head, open body,
      * and then call productheader.
      * 
-     * @param string $pagetitle Title of the page to display
-     * @param string $area the area in which this page is (displays some matching <h1>s)
-     * @param boolean $authRequired
+     * @param string  $pagetitle    Title of the page to display
+     * @param string  $area         the area in which this page is (displays some matching <h1>s)
+     * @param boolean $authRequired is authentication required on this page?
+     * @return string
      */
     public function pageheader($pagetitle, $area, $authRequired = TRUE) {
         $retval = "";
@@ -102,6 +121,7 @@ class PageDecoration {
      * the entire top of the page (<body> part)
      * 
      * @param string $area the area we are in
+     * @return string
      */
     public function productheader($area) {
         $langObject = new \core\common\Language();
@@ -114,7 +134,7 @@ class PageDecoration {
         $advancedControls = TRUE;
         switch ($area) {
             case "ADMIN-IDP":
-                $cap2 = sprintf(_("Administrator Interface - %s"),$this->ui->nomenclature_inst);
+                $cap2 = sprintf(_("Administrator Interface - %s"), $this->ui->nomenclature_inst);
                 break;
             case "ADMIN-IDP-USERS":
                 $cap2 = sprintf(_("Administrator Interface - %s User Management"), \core\ProfileSilverbullet::PRODUCTNAME);
@@ -126,7 +146,7 @@ class PageDecoration {
                 $cap2 = _("Management of User Details");
                 break;
             case "FEDERATION":
-                $cap2 = sprintf(_("Administrator Interface - %s Management"),$this->ui->nomenclature_fed);
+                $cap2 = sprintf(_("Administrator Interface - %s Management"), $this->ui->nomenclature_fed);
                 break;
             case "USER":
                 $cap1 = sprintf(_("Welcome to %s"), CONFIG['APPEARANCE']['productname']);
@@ -150,7 +170,7 @@ class PageDecoration {
         $retval .= "<div class='trick'>"; // closes in footer again
         $retval .= "<div id='secondrow'>
             <div id='secondarycaptions' style='display:inline-block; float:left'>
-                <h2>$cap2</h2>
+                <h2 style='padding-left:10px;'>$cap2</h2>
             </div><!--secondarycaptions-->";
 
         if (isset(CONFIG['APPEARANCE']['MOTD']) && CONFIG['APPEARANCE']['MOTD'] != "") {
@@ -165,17 +185,16 @@ class PageDecoration {
 
     /**
      * 
-     * @param string $pagetitle Title of the page to display
+     * @param string  $pagetitle    Title of the page to display
      * @param boolean $authRequired does the user need to be autenticated to access this page?
+     * @return string
      */
     public function defaultPagePrelude($pagetitle, $authRequired = TRUE) {
         if ($authRequired === TRUE) {
             $auth = new \web\lib\admin\Authentication();
             $auth->authenticate();
         }
-        $langObject = new \core\common\Language();
-        $langObject->setTextDomain("web_admin");
-        $ourlocale = $langObject->getLang();
+        $ourlocale = $this->langObject->getLang();
         header("Content-Type:text/html;charset=utf-8");
         $retval = "<!DOCTYPE html>
           <html xmlns='http://www.w3.org/1999/xhtml' lang='$ourlocale'>
@@ -194,11 +213,11 @@ class PageDecoration {
      */
     public function attributionEurope() {
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {// SW: APPROVED
-        // we may need to jump up one dir if we are either in admin/ or accountstatus/
-        // (accountstatus courtesy of my good mood. It's userspace not admin space so
-        // it shouldn't be using this function any more.)
-        $logoBase = \core\CAT::getRootUrlPath() . "/resources/images";
-        return "<span id='logos' style='position:fixed; left:50%;'><img src='$logoBase/dante.png' alt='DANTE' style='height:23px;width:47px'/>
+            // we may need to jump up one dir if we are either in admin/ or accountstatus/
+            // (accountstatus courtesy of my good mood. It's userspace not admin space so
+            // it shouldn't be using this function any more.)
+            $logoBase = \core\CAT::getRootUrlPath() . "/resources/images";
+            return "<span id='logos' style='position:fixed; left:50%;'><img src='$logoBase/dante.png' alt='DANTE' style='height:23px;width:47px'/>
               <img src='$logoBase/eu.png' alt='EU' style='height:23px;width:27px;border-width:0px;'/></span>
               <span id='eu_text' style='text-align:right;'><a href='http://ec.europa.eu/dgs/connect/index_en.htm' style='text-decoration:none; vertical-align:top;'>European Commission Communications Networks, Content and Technology</a></span>";
         }
@@ -207,18 +226,22 @@ class PageDecoration {
 
     /**
      * displays the admin area footer
+     * 
+     * @return string
      */
     public function footer() {
         $cat = new \core\CAT();
         $retval = "</div><!-- thirdrow --></div><!-- trick -->
           </div><!-- pagecontent -->
         <div class='footer'>
-            <hr />
             <table style='width:100%'>
                 <tr>
                     <td style='padding-left:20px; padding-right:20px; text-align:left; vertical-align:top;'>
-                        " . $cat->CAT_COPYRIGHT . "</td>
-                    <td style='padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;'>";
+                        " . $cat->CAT_COPYRIGHT . "</td>";
+        if (!empty(CONFIG['APPEARANCE']['privacy_notice_url'])) {
+            $retval .= "<td><a href='".CONFIG['APPEARANCE']['privacy_notice_url']."'>" . sprintf(_("%s Privacy Notice"),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</a></td>";
+        }
+        $retval .= "            <td style='padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;'>";
 
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $retval .= $this->attributionEurope();

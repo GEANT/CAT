@@ -1,12 +1,22 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 /** This file contains the X509 class.
@@ -77,6 +87,13 @@ class X509 {
         return $pem;
     }
 
+    /**
+     * parses openssl text output (there are some properties which aren't
+     * available with the built-in openssl_x509_parse function)
+     * @param string $myca the CA to inspect
+     * @param array  $out  by-reference: properties to add to the CA properties array
+     * @return void
+     */
     private function opensslTextParse($myca, &$out) {
         $algoMatch = [];
         $keyLengthMatch = [];
@@ -97,6 +114,13 @@ class X509 {
         }
     }
 
+    /**
+     * Is this a root CA, an intermediate CA, or an end-entity certificate?
+     * 
+     * @param string $myca the CA to inspect
+     * @param array  $out  by-reference: properties to add to the CA properties array
+     * @return array
+     */
     private function typeOfCertificate($myca, &$out) {
         $mydetails = openssl_x509_parse($myca);
         $out['root'] = 0; // default not a root, unless concinved otherwise below

@@ -1,0 +1,909 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: eduroam CAT\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-12-14 15:06+0100\n"
+"PO-Revision-Date: 2018-12-12 22:29+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"Language-Team: Nepali (Nepal) (http://www.transifex.com/eduroam_devel/cat/"
+"language/ne_NP/)\n"
+"Language: ne_NP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: devices/Devices-template.php:127
+msgid "MS Windows 10"
+msgstr ""
+
+#: devices/Devices-template.php:142
+msgid "MS Windows 8, 8.1"
+msgstr ""
+
+#: devices/Devices-template.php:156
+msgid "MS Windows 7"
+msgstr ""
+
+#: devices/Devices-template.php:170
+msgid "MS Windows Vista"
+msgstr ""
+
+#: devices/Devices-template.php:184
+msgid "Windows RT"
+msgstr ""
+
+#: devices/Devices-template.php:196
+msgid "Apple macOS High Sierra"
+msgstr ""
+
+#: devices/Devices-template.php:206 devices/Devices-template.php:222
+#: devices/Devices-template.php:238 devices/Devices-template.php:253
+#: devices/Devices-template.php:268 devices/Devices-template.php:283
+#: devices/Devices-template.php:298
+msgid ""
+"During the installation you will be first asked to enter settings for "
+"certificate and there you need to enter the import PIN shown on this page. "
+"Later you will be prompted to enter your password to allow making changes to "
+"the profile, this time it is your computer password."
+msgstr ""
+
+#: devices/Devices-template.php:213
+msgid "Apple macOS Sierra"
+msgstr ""
+
+#: devices/Devices-template.php:229
+msgid "Apple OS X El Capitan"
+msgstr ""
+
+#: devices/Devices-template.php:244
+msgid "Apple OS X Yosemite"
+msgstr ""
+
+#: devices/Devices-template.php:259
+msgid "Apple OS X Mavericks"
+msgstr ""
+
+#: devices/Devices-template.php:274
+msgid "Apple OS X Mountain Lion"
+msgstr ""
+
+#: devices/Devices-template.php:289
+msgid "Apple OS X Lion"
+msgstr ""
+
+#: devices/Devices-template.php:304
+msgid "Apple iOS mobile devices"
+msgstr ""
+
+#: devices/Devices-template.php:313
+msgid ""
+"During the installation you will be first asked to enter your passcode - "
+"this is you device security code! Later on you will be prompted for the "
+"password to the certificate and there you need to enter the import PIN shown "
+"on this page."
+msgstr ""
+
+#: devices/Devices-template.php:319
+msgid "Apple iOS mobile devices (iOS 5 and 6)"
+msgstr ""
+
+#: devices/Devices-template.php:334
+msgid "Linux"
+msgstr ""
+
+#: devices/Devices-template.php:345
+msgid "Chrome OS"
+msgstr ""
+
+#: devices/Devices-template.php:351
+#, php-format
+msgid ""
+"After downloading the file, open the Chrome browser and browse to this URL: "
+"<a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</"
+"a>. Then, use the 'Import ONC file' button. The import is silent; the new "
+"network definitions will be added to the preferred networks."
+msgstr ""
+
+#: devices/Devices-template.php:357
+msgid "Android 9.0 Pie"
+msgstr ""
+
+#: devices/Devices-template.php:363 devices/Devices-template.php:379
+#: devices/Devices-template.php:395 devices/Devices-template.php:411
+#: devices/Devices-template.php:427 devices/Devices-template.php:443
+#: devices/Devices-template.php:460
+#, php-format
+msgid ""
+"Before you proceed with installation on Android systems, please make sure "
+"that you have installed the %s application. This application is available "
+"from %s, %s and %s, and will use the configuration file downloaded from CAT "
+"to create all necessary settings."
+msgstr ""
+
+#: devices/Devices-template.php:367 devices/Devices-template.php:383
+#: devices/Devices-template.php:399 devices/Devices-template.php:415
+#: devices/Devices-template.php:431 devices/Devices-template.php:447
+#: devices/Devices-template.php:464
+msgid "as local download"
+msgstr ""
+
+#: devices/Devices-template.php:373
+msgid "Android 8.0 Oreo"
+msgstr ""
+
+#: devices/Devices-template.php:389
+msgid "Android 7.0 Nougat"
+msgstr ""
+
+#: devices/Devices-template.php:405
+msgid "Android 6.0 Marshmallow"
+msgstr ""
+
+#: devices/Devices-template.php:421
+msgid "Android 5.0 Lollipop"
+msgstr ""
+
+#: devices/Devices-template.php:437
+msgid "Android 4.4 KitKat"
+msgstr ""
+
+#: devices/Devices-template.php:454
+msgid "Android 4.3"
+msgstr ""
+
+#: devices/Devices-template.php:470
+msgid "Android"
+msgstr ""
+
+#: devices/Devices-template.php:481
+msgid "EAP config"
+msgstr ""
+
+#: devices/Devices-template.php:486
+#, php-format
+msgid ""
+"This option provides a generic EAP config XML file, which can be consumed by "
+"dedicated applications like eduroamCAT for Android and Linux platforms. This "
+"is still an experimental feature."
+msgstr ""
+
+#: devices/Devices-template.php:492
+msgid "Test"
+msgstr ""
+
+#: devices/apple_mobileconfig/Device_mobileconfig_ios_56.php:51
+msgid "This device does not support forcing setting an HTTPS proxy."
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:63
+msgid ""
+"It is not possible to actively verify the user input for suffix match; but "
+"if there is no 'Terms of Use' configured, the installer will display a "
+"corresponding hint to the user instead."
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:81
+#, php-format
+msgid "Network configuration profile '%s' of '%s' - provided by %s"
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:86
+#, php-format
+msgid "%s configuration for IdP '%s' - provided by %s"
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:133
+#, php-format
+msgid "Important Notice: your username must end with @%s!"
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:135
+msgid ""
+"Important Notice: your username MUST be in the form of xxx@yyy where the yyy "
+"is a common suffix identifying your Identity Provider. Please find out what "
+"to use there and enter the username in the correct format."
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:158
+msgid "Unnamed Organisation"
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:159
+msgid "Unnamed Profile"
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:223
+msgid ""
+"For best results, please use the built-in browser (Safari) to open the "
+"configuration file."
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:225
+msgid ""
+"The profile will install itself after you click (or tap) the button. You "
+"will be asked for confirmation/input at several points:"
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:227
+msgid "to install the profile"
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:228
+msgid "to accept the server certificate authority"
+msgid_plural "to accept the server certificate authorities"
+msgstr[0] ""
+msgstr[1] ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:230
+#, php-format
+msgid "(%d times)"
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:233
+msgid ""
+"to enter the username and password you have been given by your organisation"
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:235
+#, php-format
+msgid "(%d times each, because %s is installed for %d SSIDs)"
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:409
+#, php-format
+msgid "SSID %s"
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:410
+#, php-format
+msgid "%s configuration for network name %s"
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:421
+msgid "Wired Network"
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:422
+#, php-format
+msgid "%s configuration for wired network"
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:436
+msgid "Hotspot 2.0 Settings"
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:437
+#, php-format
+msgid "%s Hotspot 2.0 configuration"
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:499
+#, php-format
+msgid "This SSID should not be used after bootstrapping %s"
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:501
+msgid "Disabled WiFi network"
+msgstr ""
+
+#. we don't include the import password. It's displayed on screen, and should be input by the user.
+#. <key>Password</key>
+#. <string>" . $this->clientCert['password'] . "</string>
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:592
+msgid "eduroam user certificate"
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:645
+msgid "Your Identity Providers Certification Authority"
+msgstr ""
+
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:647
+msgid "Identity Provider's CA"
+msgstr ""
+
+#: devices/chromebook/Device_chromebook.php:329
+msgid ""
+"This installer is an example only. It produces a zip file containig the IdP "
+"certificates, info and logo files (if such have been defined by the IdP "
+"administrator) and a dump of all available attributes."
+msgstr ""
+
+#: devices/linux/Device_Linux.php:66
+#, php-format
+msgid ""
+"The installer is in the form of a Python script. It will try to configure %s "
+"under NetworkManager and if this is either not appropriate for your system "
+"or your version of NetworkManager is too old, a wpa_supplicant config file "
+"will be created instead."
+msgstr ""
+
+#: devices/linux/Device_Linux.php:70 devices/ms/WindowsCommon.php:126
+#, php-format
+msgid ""
+"In addition to <strong>%s</strong> the installer will also configure access "
+"to the following networks:"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:72 devices/ms/WindowsCommon.php:128
+#, php-format
+msgid ""
+"In addition to <strong>%s</strong> the installer will also configure access "
+"to:"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:86
+msgid ""
+"The installer will create .cat_installer sub-directory in your home "
+"directory and will copy your server certificates there."
+msgstr ""
+
+#: devices/linux/Device_Linux.php:88
+msgid ""
+"In order to connect to the network you will need a personal certificate in "
+"the form of a p12 file. You should obtain this certificate from your "
+"organisation. Consult the support page to find out how this certificate can "
+"be obtained. Such certificate files are password protected. You should have "
+"both the file and the password available during the installation process. "
+"Your p12 file will also be copied to the .cat_installer directory."
+msgstr ""
+
+#. not EAP-TLS
+#: devices/linux/Device_Linux.php:90 devices/ms/WindowsCommon.php:139
+msgid ""
+"In order to connect to the network you will need an account from your "
+"organisation. You should consult the support page to find out how this "
+"account can be obtained. It is very likely that your account is already "
+"activated."
+msgstr ""
+
+#: devices/linux/Device_Linux.php:92
+msgid ""
+"You will be requested to enter your account credentials during the "
+"installation. This information will be saved so that you will reconnect to "
+"the network automatically each time you are in the range."
+msgstr ""
+
+#: devices/linux/Device_Linux.php:106
+msgid "Really quit?"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:107
+msgid "enter your userid"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:108
+msgid "enter password"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:109
+msgid "enter your import password"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:110
+msgid "incorrect password"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:111
+msgid "repeat your password"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:112
+msgid "passwords do not match"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:113
+msgid "Installation successful"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:114
+msgid "Directory {} exists; some of its files may be overwritten."
+msgstr ""
+
+#: devices/linux/Device_Linux.php:115
+msgid "Continue?"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:116
+msgid "This NetworkManager version is not supported"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:117
+msgid "Certificate file not found, looks like a CAT error"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:118
+msgid "Unknown version"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:119
+msgid "DBus connection problem, a sudo might help"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:120
+msgid "Y"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:121
+msgid "N"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:122 devices/linux/Device_Linux.php:124
+msgid "personal certificate file (p12 or pfx)"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:123 devices/ms/Files/common.inc:1089
+msgid "All files"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:125
+msgid ""
+"NetworkManager configuration failed, but we may generate a wpa_supplicant "
+"configuration file if you wish. Be warned that your connection password will "
+"be saved in this file as clear text."
+msgstr ""
+
+#: devices/linux/Device_Linux.php:126
+msgid "Write the file"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:127 devices/ms/Files/common.inc:1235
+#: devices/ms/Files/common.inc:1255 devices/ms/Files/common.inc:1306
+msgid ""
+"Error: Your username must be of the form 'xxx@institutionID' e.g. "
+"'john@example.net'!"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:128
+msgid ""
+"Error: your username must be in the form of 'xxx@{}'. Please enter the "
+"username in the correct format."
+msgstr ""
+
+#: devices/linux/Device_Linux.php:129
+msgid ""
+"Error: your username must be in the form of 'xxx@institutionID' and end with "
+"'{}'. Please enter the username in the correct format."
+msgstr ""
+
+#: devices/linux/Device_Linux.php:130
+msgid "personal certificate file not found"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:273
+msgid "This installer has been prepared for {0}"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:273 devices/ms/Files/common.inc:458
+#: devices/ms/Files/common.inc:465
+msgid "More information and comments:"
+msgstr ""
+
+#: devices/linux/Device_Linux.php:274 devices/ms/Files/common.inc:491
+msgid "Installer created with software from the GEANT project."
+msgstr ""
+
+#: devices/linux/Device_Linux.php:290
+msgid ""
+"This installer will only work properly if you are a member of {0} and the "
+"user group: {1}."
+msgstr ""
+
+#: devices/linux/Device_Linux.php:292
+msgid "This installer will only work properly if you are a member of {0}."
+msgstr ""
+
+#: devices/ms/Device_Vista7.php:43 devices/ms/Device_W8_10.php:49
+msgid ""
+"Anonymous identities do not use the realm as specified in the profile - it "
+"is derived from the suffix of the user's username input instead."
+msgstr ""
+
+#: devices/ms/WindowsCommon.php:122
+#, php-format
+msgid ""
+"%s installer will be in the form of an EXE file. It will configure %s on "
+"your device, by creating wireless network profiles.<p>When you click the "
+"download button, the installer will be saved by your browser. Copy it to the "
+"machine you want to configure and execute."
+msgstr ""
+
+#: devices/ms/WindowsCommon.php:135
+msgid ""
+"In order to connect to the network you will need an a personal certificate "
+"in the form of a p12 file. You should obtain this certificate from your "
+"organisation. Consult the support page to find out how this certificate can "
+"be obtained. Such certificate files are password protected. You should have "
+"both the file and the password available during the installation process."
+msgstr ""
+
+#: devices/ms/WindowsCommon.php:143
+msgid ""
+"When you are connecting to the network for the first time, Windows will pop "
+"up a login box, where you should enter your user name and password. This "
+"information will be saved so that you will reconnect to the network "
+"automatically each time you are in the range."
+msgstr ""
+
+#: devices/ms/WindowsCommon.php:146
+msgid ""
+"You will be required to enter the same credentials for each of the "
+"configured networks:"
+msgstr ""
+
+#: devices/ms/WindowsCommon.php:264 devices/ms/WindowsCommon.php:265
+#, php-format
+msgid "%s installer for %s"
+msgstr ""
+
+#: devices/redirect_dev/Device_RedirectDev.php:43
+msgid ""
+"This device is not yet supported by CAT, but your local administrator "
+"created a redirect to local installation instructions."
+msgstr ""
+
+#: devices/xml/Device_XML.php:64
+#, php-format
+msgid ""
+"This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
+"-00</a> XML format."
+msgstr ""
+
+#: devices/ms/Files/common.inc:138
+#, php-format
+msgid "Welcome to the %s installer"
+msgstr ""
+
+#: devices/ms/Files/common.inc:139
+msgid "Installation complete"
+msgstr ""
+
+#: devices/ms/Files/common.inc:140
+msgid "Network profiles have been installed."
+msgstr ""
+
+#: devices/ms/Files/common.inc:140
+msgid "Your system is ready."
+msgstr ""
+
+#: devices/ms/Files/common.inc:141
+msgid "Network installation had errors."
+msgstr ""
+
+#: devices/ms/Files/common.inc:141 devices/ms/Files/common.inc:907
+msgid "Please contact ${SUPPORT}."
+msgstr ""
+
+#: devices/ms/Files/common.inc:149
+msgid "Accept"
+msgstr ""
+
+#: devices/ms/Files/common.inc:150
+msgid ""
+"If you accept the conditions then select Accept and then click Install to "
+"continue."
+msgstr ""
+
+#: devices/ms/Files/common.inc:156
+msgid "Finish"
+msgstr ""
+
+#: devices/ms/Files/common.inc:189
+msgid "searching for certificate"
+msgstr ""
+
+#: devices/ms/Files/common.inc:251
+msgid "installing certificate"
+msgstr ""
+
+#: devices/ms/Files/common.inc:257
+msgid "could not install certificate"
+msgstr ""
+
+#: devices/ms/Files/common.inc:446
+msgid ""
+"The non TKIP profiles are preferred. Always use them if you have a choice."
+msgstr ""
+
+#: devices/ms/Files/common.inc:448
+msgid "The non TKIP profile is preferred. Always use it if you have a choice."
+msgstr ""
+
+#: devices/ms/Files/common.inc:454 devices/ms/Files/common.inc:462
+msgid "This installer has been prepared for ${ORGANISATION}"
+msgstr ""
+
+#: devices/ms/Files/common.inc:455
+msgid "The installer will create the following wireless profiles:"
+msgstr ""
+
+#: devices/ms/Files/common.inc:463
+msgid "The installer will create the wireless profile:"
+msgstr ""
+
+#: devices/ms/Files/common.inc:544
+msgid ""
+"You are running Windows $WindowsName but this installer is only for Windows "
+"10 and newer. Please download the correct installer and try again."
+msgstr ""
+
+#: devices/ms/Files/common.inc:552 devices/ms/Files/common.inc:559
+msgid ""
+"You are running Windows $WindowsName but this installer is only for Windows "
+"8 and 8.1. Please download the correct installer and try again."
+msgstr ""
+
+#: devices/ms/Files/common.inc:568
+msgid ""
+"You are running Windows $WindowsName but this installer is only for Windows "
+"Vista and Windows 7. Please download the correct installer and try again."
+msgstr ""
+
+#: devices/ms/Files/common.inc:604
+msgid ""
+"Windows wireless configuration service is not enabled. The installer cannot "
+"continue."
+msgstr ""
+
+#: devices/ms/Files/common.inc:609
+msgid "No wireless interfaces found. The installer cannot continue."
+msgstr ""
+
+#: devices/ms/Files/common.inc:615
+msgid ""
+"No wireless interfaces found. Wireless access will not be configured. Would "
+"you like to continue and configure access on the wired interface?"
+msgstr ""
+
+#: devices/ms/Files/common.inc:631
+msgid "Do you want to enable access on wired interfaces?"
+msgstr ""
+
+#: devices/ms/Files/common.inc:672
+msgid "Profiles installation"
+msgstr ""
+
+#: devices/ms/Files/common.inc:691
+msgid "Checking for profile $R8"
+msgstr ""
+
+#: devices/ms/Files/common.inc:699
+msgid "found profile $R8"
+msgstr ""
+
+#: devices/ms/Files/common.inc:728
+msgid ""
+"This installer will only work properly if you are a member of "
+"${ORGANISATION} and the user group: ${USER_GROUP}."
+msgstr ""
+
+#: devices/ms/Files/common.inc:728 devices/ms/Files/common.inc:731
+msgid "Click OK to continue with installation."
+msgstr ""
+
+#: devices/ms/Files/common.inc:731
+msgid ""
+"This installer will only work properly if you are a member of "
+"${ORGANISATION}."
+msgstr ""
+
+#: devices/ms/Files/common.inc:739
+msgid ""
+"Please read the additional information from ${ORGANISATION} which will be "
+"displayed in a moment."
+msgstr ""
+
+#: devices/ms/Files/common.inc:794
+#, php-format
+msgid ""
+"Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may "
+"be due to the fact that Symantec Endpoint Protection is installed on your "
+"machine.$\\r$\\nWhile this is a well-known bug of the Symantec product, "
+"about which the installer can not do anything, there is a workaround.$\\r$"
+"\\nWhen you close this window the installer will exit and an explorer window "
+"will be started (it could appear underneath already opened windows). In this "
+"window you should see a script named inst_cat. Start it by double-clicking, "
+"It will install the profiles. You will need to login to %s with your "
+"username and password."
+msgstr ""
+
+#: devices/ms/Files/common.inc:804
+msgid "Please restart your system after installation finishes."
+msgstr ""
+
+#: devices/ms/Files/common.inc:828
+msgid "installing wired profile"
+msgstr ""
+
+#: devices/ms/Files/common.inc:866 devices/ms/Files/common.inc:885
+msgid "deleting profile $R1"
+msgstr ""
+
+#: devices/ms/Files/common.inc:894
+msgid "installing profile $R1"
+msgstr ""
+
+#: devices/ms/Files/common.inc:907
+msgid "Profile installation error for $R1."
+msgstr ""
+
+#: devices/ms/Files/common.inc:932
+msgid "installing credentials for wired"
+msgstr ""
+
+#: devices/ms/Files/common.inc:938
+msgid "installing credentials TLS"
+msgstr ""
+
+#: devices/ms/Files/common.inc:1054
+msgid "installing credentials for profile $R1"
+msgstr ""
+
+#: devices/ms/Files/common.inc:1071 devices/ms/Files/geant_link.inc:122
+msgid "Credentials installation problem"
+msgstr ""
+
+#: devices/ms/Files/common.inc:1080
+#, php-format
+msgid "%s installer for"
+msgstr ""
+
+#: devices/ms/Files/common.inc:1080
+msgid "Install personal certificate"
+msgstr ""
+
+#: devices/ms/Files/common.inc:1083
+msgid "Preparing to install personal certificate."
+msgstr ""
+
+#: devices/ms/Files/common.inc:1083
+msgid "Click OK to continue"
+msgstr ""
+
+#: devices/ms/Files/common.inc:1089
+msgid "Certificate files (*.p12)"
+msgstr ""
+
+#: devices/ms/Files/common.inc:1089
+msgid "Certificate files (*pfx)"
+msgstr ""
+
+#: devices/ms/Files/common.inc:1092
+msgid "certificate password:"
+msgstr ""
+
+#: devices/ms/Files/common.inc:1094 devices/ms/Files/common.inc:1323
+msgid "Username:"
+msgstr ""
+
+#: devices/ms/Files/common.inc:1098
+msgid "Selected file: $Cert_file"
+msgstr ""
+
+#: devices/ms/Files/common.inc:1100
+msgid "import password:"
+msgstr ""
+
+#: devices/ms/Files/common.inc:1135
+msgid "No certificate file selected"
+msgstr ""
+
+#: devices/ms/Files/common.inc:1139
+msgid "Incorrect import password$\\r$\\nenter again"
+msgstr ""
+
+#: devices/ms/Files/common.inc:1141
+msgid "Incorrect certificate password$\\r$\\nenter again"
+msgstr ""
+
+#: devices/ms/Files/common.inc:1215
+msgid "Username contained some trailing spaces which were removed."
+msgstr ""
+
+#: devices/ms/Files/common.inc:1250
+msgid ""
+"Error: your username must be in the form of 'xxx@${REALM}'. Please enter the "
+"username in the correct format."
+msgstr ""
+
+#: devices/ms/Files/common.inc:1252
+msgid ""
+"Error: your username must be in the form of 'xxx@institutionID' and end with "
+"'${REALM}'. Please enter the username in the correct format."
+msgstr ""
+
+#: devices/ms/Files/common.inc:1319
+msgid "User credentials"
+msgstr ""
+
+#: devices/ms/Files/common.inc:1326
+msgid "Password:"
+msgstr ""
+
+#: devices/ms/Files/common.inc:1329
+msgid "Repeat password:"
+msgstr ""
+
+#: devices/ms/Files/common.inc:1344
+msgid "Missing username"
+msgstr ""
+
+#: devices/ms/Files/common.inc:1356
+msgid "Missing password"
+msgstr ""
+
+#: devices/ms/Files/common.inc:1362
+msgid "Password missmatch"
+msgstr ""
+
+#: devices/ms/Files/common.inc:1452 devices/ms/Files/eap_w8.inc:31
+#: devices/ms/Files/geant_link.inc:33 devices/ms/Files/geant_link.inc:43
+#: devices/ms/Files/peap_tls.inc:31 devices/ms/Files/pwd.inc:30
+#: devices/ms/Files/pwd.inc:60
+msgid "Installation"
+msgstr ""
+
+#: devices/ms/Files/common.inc:1452
+msgid "Checking for existing wireless profiles"
+msgstr ""
+
+#: devices/ms/Files/eap_w8.inc:24 devices/ms/Files/peap_tls.inc:24
+msgid "Installation of the personal certificate"
+msgstr ""
+
+#: devices/ms/Files/eap_w8.inc:25 devices/ms/Files/peap_tls.inc:25
+msgid "Components installation"
+msgstr ""
+
+#: devices/ms/Files/eap_w8.inc:25 devices/ms/Files/peap_tls.inc:25
+msgid "Personal certificate"
+msgstr ""
+
+#: devices/ms/Files/eap_w8.inc:29 devices/ms/Files/geant_link.inc:41
+#: devices/ms/Files/peap_tls.inc:29 devices/ms/Files/pwd.inc:58
+msgid "Installation of network profiles"
+msgstr ""
+
+#: devices/ms/Files/eap_w8.inc:29 devices/ms/Files/geant_link.inc:41
+#: devices/ms/Files/peap_tls.inc:29 devices/ms/Files/pwd.inc:58
+msgid "profiles"
+msgstr ""
+
+#: devices/ms/Files/eap_w8.inc:31 devices/ms/Files/geant_link.inc:43
+#: devices/ms/Files/peap_tls.inc:31 devices/ms/Files/pwd.inc:60
+msgid "Network profiles update"
+msgstr ""
+
+#: devices/ms/Files/geant_link.inc:27 devices/ms/Files/pwd.inc:24
+msgid "user profile"
+msgstr ""
+
+#: devices/ms/Files/geant_link.inc:31 devices/ms/Files/pwd.inc:28
+msgid "install program"
+msgstr ""
+
+#: devices/ms/Files/geant_link.inc:92
+msgid ""
+"An additional piece of software 'GEANTlink' needs to be installed. This "
+"installation requires Administrator rights; you will be prompted to give "
+"permission for that action."
+msgstr ""
+
+#: devices/ms/Files/geant_link.inc:104
+msgid ""
+"Error installing GEANTLink.$\\nEmbedded installer didn't complete "
+"succesfully."
+msgstr ""
+
+#: devices/ms/Files/geant_link.inc:114
+msgid "installing credentials for ${PROVIDERID}"
+msgstr ""
+
+#: devices/ms/Files/pwd.inc:48
+msgid "EAP-pwd installation error. Please try again or contact Support."
+msgstr ""

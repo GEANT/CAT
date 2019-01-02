@@ -1,11 +1,22 @@
 <?php
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 /**
@@ -16,14 +27,14 @@
 
 ?>
 <?php
-require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
+require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
 
 echo $deco->defaultPagePrelude(sprintf(_("%s: IdP Enrollment Wizard (Step 3)"), CONFIG['APPEARANCE']['productname']));
-require_once("inc/click_button_js.php");
+require_once "inc/click_button_js.php";
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/option_expand.js" type="text/javascript"></script>
@@ -75,12 +86,11 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     $prefill_methods = $my_profile->getEapMethodsinOrderOfPreference();
     $profile_options = $my_profile->getAttributes();
     // is there a general redirect? it is one which have device = 0
-    $blacklistedDevices = $my_profile->getAttributes("device-specific:redirect");
+    $blacklistEntries = $my_profile->getAttributes("device-specific:redirect");
     $blacklisted = FALSE;
-    foreach ($blacklistedDevices as $oneDevice) {
-        if ($oneDevice['device'] == NULL) {
-            $blacklistedArray = $oneDevice['value'];
-            $blacklisted = $blacklistedArray['content'];
+    foreach ($blacklistEntries as $oneEntry) {
+        if ($oneEntry['device'] === NULL) { // don't act on device-level redirects
+            $blacklisted = $oneEntry['value'];
         }
     }
 } else {
@@ -195,7 +205,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         if ($wizardStyle) {
             echo "<p>" . sprintf(_("Some installers support a feature called 'Anonymous outer identity'. If you don't know what this is, please read <a href='%s'>this article</a>."), "https://confluence.terena.org/display/H2eduroam/eap-types") . "</p>";
             echo "<p>" . _("On some platforms, the installers can suggest username endings and/or verify the user input to contain the realm suffix.") . "</p>";
-            echo "<p>" . _("The realm check feature needs to know an outer ID which actually gets a chance to authenticate. If your RADIUS server lets only select usernames pass, it is useful to supply the inforamtion which of those (outer ID) username we can use for testing.") . "</p>";
+            echo "<p>" . _("The realm check feature needs to know an outer ID which actually gets a chance to authenticate. If your RADIUS server lets only select usernames pass, it is useful to supply the information which of those (outer ID) username we can use for testing.") . "</p>";
         }
         ?>
         <p>
@@ -301,9 +311,10 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     /**
      * creates HTML code which lists the EAP types in their desired property order.
      * 
-     * @param string $eapType
-     * @param bool $isenabled
-     * @param int $priority
+     * @param string  $eapType   EAP type in string representation
+     * @param boolean $isenabled is this EAP type selected or not
+     * @param int     $priority  priority order for the EAP type
+     * @return void
      */
     function priority(string $eapType, bool $isenabled, int $priority) {
         echo "<td><select id='$eapType-priority' name='$eapType-priority' " . (!$isenabled ? "disabled='disabled'" : "") . ">";
@@ -318,9 +329,10 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
      * 
      * Since CAT-next does not allow to set EAP properties IdP-wide any more, this is probably useless and can be deleted at some point.
      * 
-     * @param array $idpwideoptions
-     * @param string $eapType
-     * @param bool $isVisible
+     * @param array  $idpwideoptions list of options on IdP level
+     * @param string $eapType        EAP type in string representation
+     * @param bool   $isVisible      should the HTML code be visible?
+     * @return void
      */
     function inherited_options($idpwideoptions, $eapType, $isVisible) {
         echo "<td><div style='" . (!$isVisible ? "visibility:hidden" : "") . "' class='inheritedoptions' id='$eapType-inherited-global'>";

@@ -1,18 +1,27 @@
 <?php
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
- *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Horizon 2020 
+ * research and innovation programme under Grant Agreement No. 731122 (GN4-2).
+ * 
+ * On behalf of the GÉANT project, GEANT Association is the sole owner of the 
+ * copyright in all material which was developed by a member of the GÉANT 
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the
+ * UK as a branch of GÉANT Vereniging. 
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
+ * 
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 /*
  * Class autoloader invocation, should be included prior to any other code at the entry points to the application
  */
-require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-require_once(dirname(dirname(dirname(__FILE__))) . "/core/phpqrcode.php");
+require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
+require_once dirname(dirname(dirname(__FILE__))) . "/core/phpqrcode.php";
 const QRCODE_PIXELS_PER_SYMBOL = 12;
 
 $auth = new \web\lib\admin\Authentication();
@@ -72,7 +81,7 @@ assert($profile instanceof \core\ProfileSilverbullet);
 
 $displaySendStatus = "NOSTIPULATION";
 
-$formtext = "<form enctype='multipart/form-data' action='edit_silverbullet.php?inst_id=$inst->identifier&profile_id=$profile->identifier' method='post' accept-charset='UTF-8'>";
+$formtext = "<form enctype='multipart/form-data' action='edit_silverbullet.php?inst_id=$inst->identifier&amp;profile_id=$profile->identifier' method='post' accept-charset='UTF-8'>";
 
 $invitationObject = NULL;
 if (isset($_POST['token'])) {
@@ -81,6 +90,9 @@ if (isset($_POST['token'])) {
 
 if (isset($_POST['command'])) {
     switch ($_POST['command']) {
+        case \web\lib\common\FormElements::BUTTON_CLOSE:
+            header("Location: overview_idp.php?inst_id=".$inst->identifier);
+            break;
         case \web\lib\common\FormElements::BUTTON_TERMSOFUSE:
             if (isset($_POST['agreement']) && $_POST['agreement'] == 'true') {
                 $profile->addAttribute("hiddenprofile:tou_accepted", NULL, 1);
@@ -95,7 +107,13 @@ if (isset($_POST['command'])) {
         case \web\lib\common\FormElements::BUTTON_ADDUSER:
             if (isset($_POST['username']) && isset($_POST['userexpiry'])) {
                 $properName = $validator->User($_POST['username']);
-                $properDate = new DateTime($_POST['userexpiry'] . " 00:00:00");
+                try {
+                    $properDate = new DateTime($_POST['userexpiry']);
+                } catch (Exception $e) {
+                    // it's okay if this fails. Just bogus input from the user
+                    // just don't do anything
+                    break;
+                }
                 $profile->addUser($properName, $properDate);
             }
             if (isset($_FILES['newusers']) && $_FILES['newusers']['size'] > 0) {
@@ -135,28 +153,34 @@ if (isset($_POST['command'])) {
                 if ($properId === FALSE) { // not a real user ID
                     continue;
                 }
-                $properDate = new DateTime($_POST['userexpiry'] . " 00:00:00");
+                try {
+                    $properDate = new DateTime($_POST['userexpiry']);
+                } catch (Exception $e) {
+                    // do nothing, just ignore the bogus request
+                    break;
+                }
                 $profile->setUserExpiryDate($properId, $properDate);
             }
             break;
         case \web\lib\common\FormElements::BUTTON_REVOKEINVITATION:
-            if (isset($_POST['invitationid'])) {
-                $filteredId = $validator->integer(filter_input(INPUT_POST, 'invitationid'));
-                if ($filteredId === FALSE) { // not a real invitation ID, ignore
-                    continue;
-                }
-                $invitationObject = new core\SilverbulletInvitation($filteredId);
+            if (isset($_POST['invitationtoken'])) {
+                $filteredToken = $validator->token(filter_input(INPUT_POST, 'invitationtoken'));
+                $invitationObject = new core\SilverbulletInvitation($filteredToken);
                 $invitationObject->revokeInvitation();
                 sleep(1); // make sure the expiry timestamps of invitations and certs are at least one second in the past
             }
             break;
         case \web\lib\common\FormElements::BUTTON_REVOKECREDENTIAL:
-            if (isset($_POST['certSerial'])) {
-                $certSerial = $validator->hugeInteger(filter_input(INPUT_POST, 'certSerial', FILTER_SANITIZE_STRING));
+            if (isset($_POST['certSerial']) && isset($_POST['certAlgo'])) {
+                $certSerial = $validator->integer(filter_input(INPUT_POST, 'certSerial', FILTER_SANITIZE_STRING));
                 if ($certSerial === FALSE) {
                     continue;
                 }
-                $certObject = new \core\SilverbulletCertificate($certSerial);
+                $certAlgo = $validator->string($_POST['certAlgo']);
+                if ($certAlgo != devices\Devices::SUPPORT_RSA && $certAlgo != devices\Devices::SUPPORT_ECDSA) {
+                    continue;
+                }
+                $certObject = new \core\SilverbulletCertificate($certSerial, $certAlgo);
                 $certObject->revokeCertificate();
                 sleep(1); // make sure the expiry timestamps of invitations and certs are at least one second in the past
             }
@@ -238,7 +262,7 @@ if (isset($_POST['command'])) {
             }
             
             $number = $validator->sms($_POST['smsnumber']);
-            if ($number === FALSE) {
+            if (is_bool($number)) {
                 break;
             }
             $sent = $invitationObject->sendBySms($number);
@@ -301,7 +325,8 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
     <?php
     echo $deco->productHeader("ADMIN-IDP-USERS");
     ?>
-    <img src='../resources/images/icons/loading51.gif' id='spin' style='position:absolute;left: 50%; top: 50%; transform: translate(-100px, -50px); display:none; z-index: 100;'>
+    <img src='../resources/images/icons/loading51.gif' id='spin' alt='loading...' style='position:absolute;left: 50%; top: 50%; transform: translate(-100px, -50px); display:none; z-index: 100;'>
+    <?php echo $uiElements->instLevelInfoBoxes($inst);?>
     <div class='infobox'>
         <h2><?php echo sprintf(_('Current %s users'), \core\ProfileSilverbullet::PRODUCTNAME); ?></h2>
         <table>
@@ -319,36 +344,36 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
             </tr>
         </table>
     </div>
-    <div>
-        <?php
+    <?php
+    $boundaryPre = "<div class='ca-summary'><table>";
+    $boundaryPost = "</table></div>";
         switch ($displaySendStatus) {
             case "NOSTIPULATION":
                 break;
             case "EMAIL-SENT":
-                echo $uiElements->boxOkay(_("The e-mail was sent successfully."), _("E-mail OK."), TRUE);
+                echo $boundaryPre.$uiElements->boxOkay(_("The e-mail was sent successfully."), _("E-mail OK."), FALSE).$boundaryPost;
                 break;
             case "EMAIL-NOTSENT":
-                echo $uiElements->boxError(_("The e-mail was NOT sent."), _("E-mail not OK."), TRUE);
+                echo $boundaryPre.$uiElements->boxError(_("The e-mail was NOT sent."), _("E-mail not OK."), FALSE).$boundaryPost;
                 break;
             case "SMS-SENT":
-                echo $uiElements->boxOkay(_("The SMS was sent successfully."), _("SMS OK."), TRUE);
+                echo $boundaryPre.$uiElements->boxOkay(_("The SMS was sent successfully."), _("SMS OK."), FALSE).$boundaryPost;
                 break;
             case "SMS-NOTSENT":
-                echo $uiElements->boxOkay(_("The SMS was NOT sent."), _("SMS not OK."), TRUE);
+                echo $boundaryPre.$uiElements->boxOkay(_("The SMS was NOT sent."), _("SMS not OK."), FALSE).$boundaryPost;
                 break;
             case "SMS-FRAGMENT":
-                echo $uiElements->boxWarning(_("Only a fragment of the SMS was sent. You should re-send it."), _("SMS Fragment."), TRUE);
+                echo $boundaryPre.$uiElements->boxWarning(_("Only a fragment of the SMS was sent. You should re-send it."), _("SMS Fragment."), FALSE).$boundaryPost;
                 break;
         }
         ?>
-    </div>
     <div class="sb-editable-block">
         <fieldset>
             <legend>
                 <strong><?php echo sprintf(_('Manage %s users'), \core\ProfileSilverbullet::PRODUCTNAME); ?></strong>
             </legend>
             <!-- table with actual user details ... -->
-            <table cellpadding="5" style="max-width:1920px;">
+            <table class='sb-user-table' style="max-width:1920px;">
                 <tr class="sb-title-row">
                     <td><?php echo _("User"); ?></td>
                     <td><?php echo _("Token/Certificate details"); ?></td>
@@ -377,16 +402,18 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
                         <td>
                             <!-- list of certificates for the user-->
                             <?php
+                            // we need to translate the device id to readable device name
+                            
                             foreach ($allCerts as $oneCert) {
                                 switch ($oneCert->status) {
                                     case core\SilverbulletCertificate::CERTSTATUS_REVOKED:
-                                        $style = "style:'background-color:#F0C0C0;' ";
-                                        $buttonStyle = "style:'height:22px; margin-top:7px; text-align:center;'";
+                                        $style = "style='background-color:#F0C0C0;' ";
+                                        $buttonStyle = "height:22px; margin-top:7px; text-align:center;";
                                         $buttonText = _("REVOKED");
                                         break;
                                     case core\SilverbulletCertificate::CERTSTATUS_EXPIRED:
-                                        $style = "style:'background-color:lightgrey;'";
-                                        $buttonStyle = "style:'height:22px; margin-top:7px; text-align:center;'";
+                                        $style = "style='background-color:lightgrey;'";
+                                        $buttonStyle = "height:22px; margin-top:7px; text-align:center;";
                                         $buttonText = _("EXPIRED");
                                         break;
                                     default:
@@ -395,10 +422,11 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
                                         $buttonStyle = "";
                                         $buttonText = "";
                                 }
+                                $display = empty(devices\Devices::listDevices()[$oneCert->device]['display']) ? $oneCert->device : devices\Devices::listDevices()[$oneCert->device]['display'];
                                 ?>
 
-                                <div class="sb-certificate-summary ca-summary">
-                                    <div class="sb-certificate-details" <?php echo $style; ?> ><?php echo _("Device:") . " " . $oneCert->device; ?>
+                                <div class="sb-certificate-summary ca-summary" <?php echo $style; ?>>
+                                    <div class="sb-certificate-details"><?php echo _("Device:") . " " . $display; ?>
                                         <br><?php echo _("Serial Number:") . "&nbsp;" . gmp_strval($oneCert->serial, 16); ?>
                                         <br><?php echo _("CN:") . "&nbsp;" . explode('@', $oneCert->username)[0] . "@…"; ?>
                                         <br><?php echo _("Expiry:") . "&nbsp;" . $oneCert->expiry; ?>
@@ -409,7 +437,14 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
                                         if ($buttonText == "") {
                                             echo "$formtext"
                                             . "<input type='hidden' name='certSerial' value='" . $oneCert->serial . "'/>"
-                                            . "<button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_REVOKECREDENTIAL . "' class='delete'>" . _("Revoke") . "</button>"
+                                            . "<input type='hidden' name='certAlgo' value='" . $oneCert->ca_type . "'/>"
+                                            . "<button type='submit' "
+                                                    . "name='command' "
+                                                    . "value='" . \web\lib\common\FormElements::BUTTON_REVOKECREDENTIAL . "' "
+                                                    . "class='delete' "
+                                                    . "onclick='return confirm(\"" . sprintf(_("The device in question will stop functioning with %s. The revocation cannot be undone. Are you sure you want to do this?"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "\")'>"
+                                                    . _("Revoke") 
+                                                    . "</button>"
                                             . "</form>";
                                         } else {
                                             echo $buttonText;
@@ -432,41 +467,39 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
                                     $hasOnePendingInvite = TRUE;
                                     $tokenHtmlBuffer .= "<tr class='sb-certificate-row'><td></td>";
                                     $jsEncodedBody = str_replace('\n', '%0D%0A', str_replace('"', '', json_encode($invitationObject->invitationMailBody())));
-                                    $tokenHtmlBuffer .= "<td>
-                                
-                                    The invitation token <input type='text' readonly='readonly' color='grey' size='60' value='" . $invitationObject->link() . "' name='token' class='identifiedtokenarea-" . $invitationObject->identifier . "'>(…)<br/> is ready for sending! Choose how to send it:
-                                    <table>
-                                    <tr><td style='vertical-align:bottom;'>E-Mail:</td><td>
+                                    $tokenHtmlBuffer .= "<td>";
+                                    $tokenHtmlBuffer .= sprintf(_("The invitation token %s is ready for sending! Choose how to send it:"),"<input type='text' readonly='readonly' style='background-color:lightgrey;' size='60' value='" . $invitationObject->link() . "' name='token' class='identifiedtokenarea-" . $invitationObject->identifier . "'>(…)<br/>");
+                                    $tokenHtmlBuffer .= "<table>
+                                    <tr><td style='vertical-align:bottom;'>"._("E-Mail:")."</td><td>
                                     $formtext
                                 <input type='hidden' value='" . $invitationObject->invitationTokenString . "' name='token'><br/>
-                                <input type='text' name='address' id='address'/>
-                                <button type='button' id='sb-compose-email-client' onclick='window.location=\"mailto:\"+document.getElementById(\"address\").value+\"?subject=" . $invitationObject->invitationMailSubject() . "&body=$jsEncodedBody\"; return false;'>" . _("Local mail client") . "</button>
-                                <button type='submit' name='command' onclick='document.getElementById(\"spin\").style.display =\"block\"' value='" . \web\lib\common\FormElements::BUTTON_SENDINVITATIONMAILBYCAT . "'>Send with CAT</button>
+                                <input type='text' name='address' id='address-$invitationObject->identifier'/>
+                                <button type='button' onclick='window.location=\"mailto:\"+document.getElementById(\"address-$invitationObject->identifier\").value+\"?subject=" . $invitationObject->invitationMailSubject() . "&amp;body=$jsEncodedBody\"; return false;'>" . _("Local mail client") . "</button>
+                                <button type='submit' name='command' onclick='document.getElementById(\"spin\").style.display =\"block\"' value='" . \web\lib\common\FormElements::BUTTON_SENDINVITATIONMAILBYCAT . "'>"._("Send with CAT")."</button>
                                     </form>
                                     </td></tr>
-                                    <tr><td style='vertical-align:bottom;'>SMS:</td><td>
+                                    <tr><td style='vertical-align:bottom;'>"._("SMS:")."</td><td>
                                     $formtext
                                     <input type='hidden' value='" . $invitationObject->invitationTokenString . "' name='token'><br/>
-                                    <input type='text' name='smsnumber' id='smsnumber'/>
+                                    <input type='text' name='smsnumber' />
 				<button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_SENDINVITATIONSMS . "'>" . _("Send in SMS...") . "</button>
                                     </form>
 				</td></tr>
-                                    <tr><td style='vertical-align:bottom;'>Manual:</td><td>
+                                    <tr><td style='vertical-align:bottom;'>"._("Manual:")."</td><td>
 				<button type='button' class='clipboardButton' onclick='clipboardCopy(" . $invitationObject->identifier . ");'>" . _("Copy to Clipboard") . "</button>
-                                    <form style='display:inline-block;' method='post' action='inc/displayQRcode.inc.php' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
+                                    <form style='display:inline-block;' method='post' action='inc/displayQRcode.inc.php' onsubmit='popupQRWindow(this); return false;' accept-charset='UTF-8'>
                                     <input type='hidden' value='" . $invitationObject->invitationTokenString . "' name='token'><br/>
                                       <button type='submit'>" . _("Display QR code") . "</button>
                                   </form>
                                         </td></tr>
                                         
                                 </table>
-                                </form>
                                 </td>";
                                     $tokenHtmlBuffer .= "<td>" . _("Expiry Date:") . " " . $invitationObject->expiry . " UTC<br>" . _("Activations remaining:") . " " . sprintf(_("%d of %d"), $invitationObject->activationsRemaining, $invitationObject->activationsTotal) . "</td>";
                                     $tokenHtmlBuffer .= "<td>"
                                             . $formtext
-                                            . "<input type='hidden' name='invitationid' value='" . $invitationObject->identifier . "'/>"
-                                            . "<button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_REVOKEINVITATION . "' class='delete'>Revoke</button></form>"
+                                            . "<input type='hidden' name='invitationtoken' value='" . $invitationObject->invitationTokenString . "'/>"
+                                            . "<button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_REVOKEINVITATION . "' class='delete'>"._("Revoke"). "</button></form>"
                                             . "</td></tr>";
                                     break;
                                 case core\SilverbulletInvitation::SB_TOKENSTATUS_EXPIRED:
@@ -484,21 +517,28 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
 
                         <td>
                             <?php echo $formtext; ?>
-                            <div class="sb-date-container">
-                                <input type="text" maxlength="10" id="sb-date-picker-1" class="sb-date-picker" name="userexpiry" value="<?php echo $profile->getUserExpiryDate($oneUserId); ?>">
-                                <button class="sb-date-button" type="button">▼</button>
+                            <div class="sb-date-container" style='min-width: 200px;'>
+                                <span><input type="text" maxlength="19" class="sb-date-picker" name="userexpiry" value="<?php echo $profile->getUserExpiryDate($oneUserId); ?>">&nbsp;(UTC)</span>
                             </div>
                             <input type="hidden" name="userid" value="<?php echo $oneUserId; ?>"/>
-                            <button type="submit" id="updateexpiry" name="command" value="<?php echo \web\lib\common\FormElements::BUTTON_CHANGEUSEREXPIRY ?>">Update</button>
+                            <button type="submit" name="command" value="<?php echo \web\lib\common\FormElements::BUTTON_CHANGEUSEREXPIRY ?>"><?php echo _("Update");?></button>
                             </form>
                         </td>
                         <td>
                             <div class="sb-user-buttons">
                                 <?php
                                 if ($hasOnePendingInvite || count($validCerts) > 0) {
+                                    $deletionText = sprintf(_("All of the currently active devices will stop functioning with %s. This cannot be undone. While the user can be re-activated later, they will then need to be re-provisioned with new invitation tokens. Are you sure you want to do this?"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
                                     echo $formtext . "
                                     <input type='hidden' name='userid' value='$oneUserId'/>
-                                    <button type='submit' id='userdel' name='command' value='" . \web\lib\common\FormElements::BUTTON_DEACTIVATEUSER . "' class='delete'>" . _("Deactivate User") . "</button>
+                                    <button type='submit' "
+                                            . "name='command' "
+                                            . "value='" . \web\lib\common\FormElements::BUTTON_DEACTIVATEUSER . "' "
+                                            . "class='delete' "
+                                            . ( count($validCerts) > 0 ? "onclick='return confirm(\"".$deletionText."\")' " : "" )
+                                            . ">" 
+                                            . _("Deactivate User") 
+                                            . "</button>
                                 </form>";
                                 }
                                 $expiryDate = $profile->getUserExpiryDate($oneUserId);
@@ -506,7 +546,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
                                     echo $formtext;
                                     ?>
                                     <input type='hidden' name='userid' value='<?php echo $oneUserId ?>'/>
-                                    <button type='submit' id='userinvite' name='command' value='<?php echo \web\lib\common\FormElements::BUTTON_NEWINVITATION ?>'><?php echo _("New Invitation"); ?></button>
+                                    <button type='submit' name='command' value='<?php echo \web\lib\common\FormElements::BUTTON_NEWINVITATION ?>'><?php echo _("New Invitation"); ?></button>
 
                                     <label>
                                         <?php echo _("Activations:"); ?>
@@ -529,7 +569,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
             <!-- ... ends here -->
             <div style="padding: 20px;">
                 <?php
-                if (count($allUsers) > 0) {
+                if (count($allUsers) > 0 && false) { // false because this restriction is currently not in effect and thus no UI is needed for it.
                     $acknowledgeText = sprintf(_('You need to acknowledge that the created accounts are still valid within the next %s days.'
                                     . ' If all accounts shown as active above are indeed still valid, please check the box below and push "Save".'
                                     . ' If any of the accounts are stale, please deactivate them by pushing the corresponding button before doing this.'), CONFIG_CONFASSISTANT['SILVERBULLET']['gracetime'] ?? core\ProfileSilverbullet::SB_ACKNOWLEDGEMENT_REQUIRED_DAYS);
@@ -540,7 +580,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
                     <input type='checkbox' name='acknowledge' value='true'>
                     <label>" . sprintf(_("I have verified that all configured users are still eligible for %s."),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</label>
                 </div>
-                <button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_ACKUSERELIGIBILITY . "'>Save</button></form>";
+                <button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_ACKUSERELIGIBILITY . "'>"._("Save")."</button></form>";
                 }
                 ?>
             </div>
@@ -561,13 +601,10 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
             <?php echo $formtext; ?>
             <div class="sb-add-new-user">
                 <label for="username"><?php echo _("Please enter a username of your choice and user expiry date to create a new user:"); ?></label>
-                <div style="margin: 5px 0px 10px 0px;">
-                    <input type="text" name="username">
-                    <div class="sb-date-container">
-                        <input type="text" maxlength="10" id="sb-date-picker-5" class="sb-date-picker" name="userexpiry" value="yyyy-MM-dd"/>
-                        <button class="sb-date-button" type="button">▼</button>
-                    </div>                
-                </div>
+                <span style="margin: 5px 0px 10px 0px;">
+                    <input type="text" name="username" id="username">
+                    <input type="text" maxlength="19" class="sb-date-picker" name="userexpiry" value="yyyy-MM-dd HH:MM:SS"/>(UTC)
+                </span>
                 <button type="submit" name="command" value="<?php echo \web\lib\common\FormElements::BUTTON_ADDUSER ?>"><?php echo _("Add new user"); ?></button>
             </div>
             </form>
@@ -597,7 +634,6 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
             <div id="msgbox">
                 <div style="top: 100px;">
                     <div class="graybox">
-                        <img class="sb-popup-message-redirect" src="../resources/images/icons/button_cancel.png" alt="cancel">
                         <h1><?php echo sprintf(_("%s - Terms of Use"), core\ProfileSilverbullet::PRODUCTNAME); ?></h1>
                         <div class="containerbox" style="position: relative;">
                             <hr>
@@ -608,6 +644,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
                                 <input type="checkbox" name="agreement" value="true"> <label><?php echo _("I have read and agree to the terms."); ?></label>
                             </div>
                             <button type="submit" name="command" value="<?php echo \web\lib\common\FormElements::BUTTON_TERMSOFUSE ?>"><?php echo _("Continue"); ?></button>
+                            <button class="delete" type="submit" name="command" value="<?php echo \web\lib\common\FormElements::BUTTON_CLOSE ?>"><?php echo _("Abort"); ?></button>
                             </form>
                         </div>
                     </div>
@@ -616,5 +653,12 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
         </div>
         <?php
     }
-    echo $deco->footer();
+    ?>
     
+    <form action="overview_idp.php?inst_id=<?php echo $inst->identifier; ?>" method="POST">
+        <p>
+        <button type='submit' name='submitbutton' value="nomatter"><?php echo sprintf(_("Back to %s page"),$uiElements->nomenclature_inst);?></button>
+        </p>
+    </form>
+    <?php
+    echo $deco->footer();

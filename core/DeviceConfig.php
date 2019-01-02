@@ -1,12 +1,22 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 /**
@@ -80,6 +90,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * sets the supported EAP methods for a device
      * 
      * @param array $eapArray the list of EAP methods the device supports
+     * @return void
      */
     protected function setSupportedEapMethods($eapArray) {
         $this->supportedEapMethods = $eapArray;
@@ -101,11 +112,11 @@ abstract class DeviceConfig extends \core\common\Entity {
         $dummy_NRO = _("National Roaming Operator");
         $dummy_inst1 = _("identity provider");
         $dummy_inst2 = _("organisation");
+        $dummy_inst3 = _("Identity Provider");
         // and do something useless with the strings so that there's no "unused" complaint
         // by Scrutinizer
-        if( $dummy_NRO . $dummy_inst1 . $dummy_inst2 == "") {
-            // oh well.
-            explode(' ',$dummy_NRO);
+        if (strlen($dummy_NRO . $dummy_inst1 . $dummy_inst2 . $dummy_inst3) < 0) {
+            throw new \Exception("Strings are usually not shorter than 0 characters. We've encountered a string blackhole.");
         }
 
         $this->nomenclature_fed = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']);
@@ -127,7 +138,10 @@ abstract class DeviceConfig extends \core\common\Entity {
      * - process CA certificates and store them as 'internal:CAs' attribute
      * - process and save optional info files and store references to them in
      *   'internal:info_file' attribute
-     * @param AbstractProfile $profile the profile object which will be passed by the caller
+     * @param AbstractProfile $profile        the profile object which will be passed by the caller
+     * @param string          $token          the invitation token for silverbullet requests
+     * @param string          $importPassword the PIN for the installer for silverbullet requests
+     * @return void
      * @final not to be redefined
      */
     final public function setup(AbstractProfile $profile, $token = NULL, $importPassword = NULL) {
@@ -150,15 +164,14 @@ abstract class DeviceConfig extends \core\common\Entity {
 
         $this->loggerInstance->debug(5, "DeviceConfig->setup() - preliminaries done.\n");
         if ($profile instanceof ProfileSilverbullet && $token !== NULL && $importPassword !== NULL) {
-            $this->clientCert = SilverbulletCertificate::issueCertificate($token, $importPassword);
+            $this->clientCert = SilverbulletCertificate::issueCertificate($token, $importPassword, $this->options['clientcert']);
             // we need to drag this along; ChromeOS needs it outside the P12 container to encrypt the entire *config* with it.
             // Because encrypted private keys are not supported as per spec!
             $purpose = 'silverbullet';
             // let's keep a record for which device type this token was consumed
             $dbInstance = DBConnection::handle("INST");
-            $devicename = \devices\Devices::listDevices()[$this->device_id]['display'];
             $certId = $this->clientCert['certObject']->dbId;
-            $dbInstance->exec("UPDATE `silverbullet_certificate` SET `device` = ? WHERE `id` = ?", "si", $devicename, $certId);    
+            $dbInstance->exec("UPDATE `silverbullet_certificate` SET `device` = ? WHERE `id` = ?", "si", $this->device_id, $certId);
         }
         $this->loggerInstance->debug(5, "DeviceConfig->setup() - silverbullet checks done.\n");
         // create temporary directory, its full path will be saved in $this->FPATH;
@@ -211,6 +224,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * Selects the preferred eap method based on profile EAP configuration and device EAP capabilities
      *
      * @param array $eapArrayofObjects an array of eap methods supported by a given device
+     * @return void
      */
     public function calculatePreferredEapType($eapArrayofObjects) {
         $this->selectedEap = [];
@@ -235,7 +249,13 @@ abstract class DeviceConfig extends \core\common\Entity {
         return _("Sorry, this should not happen - no additional information is available");
     }
     
-    public function getAttibute($attrName) {
+    /**
+     * function to return exactly one attribute type
+     * 
+     * @param string $attrName the attribute to retrieve
+     * @return array|NULL the attributes
+     */
+    public function getAttribute($attrName) {
         return empty($this->attributes[$attrName]) ? NULL : $this->attributes[$attrName];
     }
 
@@ -243,7 +263,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * some modules have a complex directory structure. This helper finds resources
      * in that structure. Mostly used in the Windows modules.
      * 
-     * @param string $file the filename to search for (without path)
+     * @param  string $file the filename to search for (without path)
      * @return string|boolean the filename as found, with path, or FALSE if it does not exist
      */
     private function findSourceFile($file) {
@@ -308,8 +328,8 @@ abstract class DeviceConfig extends \core\common\Entity {
      *
      * @param string $source_name The source file name
      * @param string $output_name The destination file name
-     * @param int $encoding Set Windows charset if non-zero
-     *
+     * @param int    $encoding    Set Windows charset if non-zero
+     * @return boolean
      * @final not to be redefined
      */
     final protected function translateFile($source_name, $output_name = NULL, $encoding = 0) {
@@ -326,7 +346,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         $source = $this->findSourceFile($source_name);
         
         if ($source !== FALSE) { // if there is no file found, don't attempt to include an uninitialised variable
-            include($source);
+            include $source;
         }
         $output = ob_get_clean();
         if ($encoding) {
@@ -358,14 +378,14 @@ abstract class DeviceConfig extends \core\common\Entity {
      * This is required by the Windows installer and is expected to go away in the future.
      *
      * @param string $source_string The source string
-     * @param int $encoding Set Windows charset if non-zero
-     *
+     * @param int    $encoding      Set Windows charset if non-zero
+     * @return string
      * @final not to be redefined
      */
     final protected function translateString($source_string, $encoding = 0) {
         $this->loggerInstance->debug(5, "translateString input: \"$source_string\"\n");
         if (empty($source_string)) {
-            return($source_string);
+            return $source_string;
         }
         if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
             $encoding = 0;
@@ -387,12 +407,15 @@ abstract class DeviceConfig extends \core\common\Entity {
      * Save certificate files in either DER or PEM format
      *
      * Certificate files will be saved in the module working directory.
-     * @param string $format  only "der" and "pem" are currently allowed
-     * @return array an array of arrays or empty array on error
+     * 
      * saved certificate file names are avalable under the 'file' index
      * additional array entries are indexed as 'sha1', 'md5', and 'root'.
      * sha1 and md5 are correcponding certificate hashes
      * root is set to 1 for the CA roor certicicate and 0 otherwise
+     * 
+     * @param string $format only "der" and "pem" are currently allowed
+     * @return array an array of arrays or empty array on error
+     
      */
     final protected function saveCertificateFiles($format) {
         switch ($format) {
@@ -436,6 +459,8 @@ abstract class DeviceConfig extends \core\common\Entity {
      * Normally the device identifier follows the Consortium name.
      * The sting taken for the device identifier equals (by default) to the index in the listDevices array,
      * but can be overriden with the 'device_id' device option.
+     * 
+     * @return string
      */
     private function getInstallerBasename() {
         $replace_pattern = '/[ ()\/\'"]+/';
@@ -562,8 +587,8 @@ abstract class DeviceConfig extends \core\common\Entity {
     /**
      * saves a number of logos to a cache directory on disk.
      * 
-     * @param array $logos list of logos (binary strings each)
-     * @param string $type a qualifier what type of logo this is
+     * @param array  $logos list of logos (binary strings each)
+     * @param string $type  a qualifier what type of logo this is
      * @return array list of filenames and the mime types
      * @throws Exception
      */
@@ -619,7 +644,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * returns the attributes of the profile for which to generate an installer
      * 
      * In condensed notion, and most specific level only (i.e. ignores overriden attributes from a higher level)
-     * @param \core\AbstractProfile $profile
+     * @param \core\AbstractProfile $profile the Profile in question
      * @return array
      */
     private function getProfileAttributes(AbstractProfile $profile) {
@@ -640,6 +665,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * dumpAttibutes method is supplied for debuging purposes, it simply dumps the attribute array
      * to a file with name passed in the attribute.
      * @param string $file the output file name
+     * @return void
      */
     protected function dumpAttibutes($file) {
         ob_start();

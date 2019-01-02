@@ -1,20 +1,28 @@
 <?php
-/* 
- *******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+/*
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
-?>
-<?php 
+
 function escaped_echo($s) {
     echo preg_replace('/"/', '&quot;', $s);
 }
 
-$langObject = new \core\common\Language();
-$langObject->setTextDomain('web_user');
 $cat = new core\CAT();
 $idpId = filter_input(INPUT_GET, 'idp', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'idp', FILTER_VALIDATE_INT)?? 0;
 $profileId = filter_input(INPUT_GET, 'profile', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'profile', FILTER_VALIDATE_INT) ?? 0;
@@ -52,8 +60,7 @@ $.fn.redraw = function(){
      $("#guess_os").hide();
      $("#other_installers").show();
      $("#devices").redraw();
-     var y = reset_footer();
-     $("#footer").css('top',y);
+     reset_footer();
    }
 
    function listProfiles(inst_id,selected_profile){
@@ -97,7 +104,7 @@ $.fn.redraw = function(){
     $.each(j,printP);
     if(n <= profile_list_size)
     $("#profile_list").append('<option value="0" selected style="display:none"> </option>');
-    if(logo) {
+    if(logo == 1) {
         $("#idp_logo").attr("src","<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendLogo&api_version=2&idp="+inst_id);
         $("#idp_logo").show();
     }
@@ -122,10 +129,14 @@ $.fn.redraw = function(){
       $("#profiles").show();
      }
      if(n > 1 && selected_profile) {
-       $('#profile_list option[value='+selected_profile+']').attr("selected",true);
-       showProfile(selected_profile);
-       $("#devices").show();
+       var theProfile = $('#profile_list option[value='+selected_profile+']');
+       if ( theProfile.length == 1) { 
+           theProfile.attr("selected",true);
+           showProfile(selected_profile);
+           $("#devices").show();
+       } 
      }
+      reset_footer();
       });
    }
 function printP(i,v) {
@@ -142,7 +153,6 @@ function resetDevices() {
  if(recognisedOS !== '' ) {
     $("#guess_os").show();
     $("#other_installers").hide();
-    $("#footer").css('top',0);
     $("#download_button_header_"+recognisedOS).html(downloadMessage);
     $("#cross_icon_"+recognisedOS).hide();
  }
@@ -219,21 +229,22 @@ function resetDevices() {
        j = j1.data;
        if(j.description !== undefined && j.description) {
          $("#profile_desc").text(j.description);
-         $("#profile_desc").show();
+         $("#profile_desc").css("display","inline-block");
+       //  $("#profile_desc").show();
        } else {
          $("#profile_desc").hide();
          $("#profile_desc").text('');
        }
        if(j.local_url !== undefined && j.local_url) 
-         txt = txt+'<tr><td><?php escaped_echo(_("WWW:")); ?></td><td><a href="'+j.local_url+'" target="_blank">'+j.local_url+'</a></td></tr>';
+       txt = txt+'<span class="user_info"><?php escaped_echo(_("WWW:")); ?> <a href="'+j.local_url+'" target="_blank">'+j.local_url+'</a></span><br/>';
        if(j.local_email !== undefined && j.local_email) 
-         txt = txt+'<tr><td><?php escaped_echo(_("email:")); ?></td><td><a href=mailto:"'+j.local_email+'">'+j.local_email+'</a></td></tr>';
+       txt = txt+'<span class="user_info"><?php escaped_echo(_("email:")); ?> <a href=mailto:"'+j.local_email+'">'+j.local_email+'</a></span><br/>';
        if(j.local_phone !== undefined && j.local_phone) 
-         txt = txt+'<tr><td><?php escaped_echo(_("tel:")); ?></td><td>'+j.local_phone+'</td></tr>';
+       txt = txt+'<span class="user_info"><?php escaped_echo(_("tel:")); ?> '+j.local_phone+'</span><br/>';
        if(txt) 
-         txt = "<table><tr><th colspan='2'><?php escaped_echo(_("If you encounter problems, then you can obtain direct assistance from your organisation at:")); ?></th></tr>"+txt+'</table>';
+       txt = "<span class='user_info_header'><?php escaped_echo(_("If you encounter problems, then you can obtain direct assistance from your organisation at:")); ?></span><br/>"+txt;
         else
-         txt = "<table><tr><th colspan='2'><?php escaped_echo(_("If you encounter problems you should ask those who gave you your account for help.")); ?>.</th></tr></table>";
+        txt = "<span class='user_info_header'><?php escaped_echo(_("If you encounter problems you should ask those who gave you your account for help.")); ?>" + '</span><br/>';
       $("#user_info").html(txt);
       $("#user_info").show();
       if(j.silverbullet) {
@@ -325,6 +336,7 @@ function resetDevices() {
       $("#profile_redirect_bt").attr('href',redirect_profile);
       $("#profile_redirect").show();
    }
+   reset_footer();
    })
   }
 
@@ -439,9 +451,17 @@ function back_to_downloads() {
 }
 
 function reset_footer() {
-   var y = parseInt($("#footer").css("height")) + 16;
-   $("#footer").css("margin-top", -y);
-   return y;
+   var wh = parseInt($(window ).height());
+   var mph = parseInt($("#main_page").height()) + parseInt($("#footer").css("height"));
+   if (wh > mph) {
+      $("#wrap").css("min-height","100%");
+      $("#vertical_fill").css("height",wh - mph - 16);
+      $("#vertical_fill").show();    
+   } else {
+      $("#wrap").css("min-height","auto");
+      $("#vertical_fill").hide();
+   }
+   $("#institution_name").css("min-height", $("#inst_extra_text").height());
 }
 
 function processDownload(data) {
@@ -514,7 +534,6 @@ $(document).ready(function(){
     ?>
 
 $(".signin").click(function(event){
-    $("#footer").css('top',0);
      event.preventDefault();
 });
 
@@ -549,7 +568,7 @@ catWelcome = $("#main_menu_content").html();
 if (noDisco === 0) {
 $(".signin").DiscoJuice({
    "discoPath":"external/discojuice/",
-   "iconPath":"<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendLogo&api_version=2&disco=1&lang=en&idp=",
+   "iconPath":"<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendLogo&api_version=2&disco=1&lang=" + lang + "&idp=",
    "overlay":true,"cookie":true,"type":false,
    "country":true,"location":true,
    "title":"<?php escaped_echo(_("Organisation")) ?>",
@@ -559,7 +578,7 @@ $(".signin").DiscoJuice({
    "textLocateMe": "<?php escaped_echo(_("Locate me more accurately using HTML5 Geo-Location")) ?>",
    "textShowProviders": "<?php escaped_echo(_("Show organisations in")) ?>",
    "textAllCountries": "<?php escaped_echo(_("all countries")) ?>",
-   "textSearch" : "<?php escaped_echo(_("or search for an organisation, for example Univerity of Oslo")) ?>",
+   "textSearch" : "<?php escaped_echo(_("or search for an organisation, for example University of Oslo")) ?>",
    "textShowAllCountries": "<?php escaped_echo(_("show all countries")) ?>",
    "textLimited1" : "<?php escaped_echo(_("Results limited to"))?>",
    "textLimited2" : "<?php escaped_echo(_("entries - show more"))?>",
@@ -591,7 +610,7 @@ $(".signin").DiscoJuice({
      $("#profiles").hide();
      $("#institutions").hide();
      listProfiles(e.idp,0);
-            }
+     }
         });
 DiscoJuice.Constants.Countries = {
 <?php 

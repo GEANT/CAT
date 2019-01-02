@@ -1,16 +1,27 @@
 <?php
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 namespace core;
 
-require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
+require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 
 $instMgmt = new \core\UserManagement();
 $deco = new \web\lib\admin\PageDecoration();
@@ -18,10 +29,10 @@ $uiElements = new \web\lib\admin\UIElements();
 
 echo $deco->defaultPagePrelude(sprintf(_("%s: User Management"), CONFIG['APPEARANCE']['productname']));
 $user = new \core\User($_SESSION['user']);
-require_once("inc/click_button_js.php");
+require_once "inc/click_button_js.php";
 ?>
 
-<script type="text/javascript"><?php require_once("inc/overview_js.php") ?> </script>
+<script type="text/javascript"><?php require_once "inc/overview_js.php" ?> </script>
 
 
 <script src="js/XHR.js" type="text/javascript"></script>
@@ -68,7 +79,11 @@ require_once("inc/click_button_js.php");
     $hasInst = $instMgmt->listInstitutionsByAdmin($_SESSION['user']);
 
     if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == 'eduroam') {
-        $helptext = "&nbsp;<h3 style='display:inline;'>" . sprintf(_("(Need help? Refer to the <a href='%s'>IdP administrator manual</a>)"), "https://wiki.geant.org/x/SwB_AQ") . "</h3>";
+        $target = "https://wiki.geant.org/x/SwB_AQ"; // CAT manual, outdated
+        if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
+            $target = "https://wiki.geant.org/x/SSNwBg"; // Managed IdP manual
+        }
+        $helptext = "<h3 style='display:inline;'>" . sprintf(_("(Need help? Refer to the <a href='%s'>%s administrator manual</a>)"), $target, $uiElements->nomenclature_inst) . "</h3>";
     } else {
         $helptext = "";
     }
@@ -78,7 +93,6 @@ require_once("inc/click_button_js.php");
         $cat = new \core\CAT;
         /// first parameter: number of Identity Providers; second param is the literal configured term for 'Identity Provider' (you may or may not be able to add a plural suffix for your locale)
         echo "<h2>" . sprintf(ngettext("You are managing the following <span style='display:none'>%d </span>%s:", "You are managing the following <strong>%d</strong> %s:", sizeof($hasInst)), sizeof($hasInst), $uiElements->nomenclature_inst) . "</h2>";
-        echo $helptext;
         $instlist = [];
         $my_idps = [];
         $myFeds = [];
@@ -168,6 +182,7 @@ require_once("inc/click_button_js.php");
         </form>
         </div>";
         }
+        echo "<hr/>$helptext";
     }
     ?>
     <?php

@@ -1,12 +1,22 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 /**
@@ -82,9 +92,9 @@ abstract class Entity {
      * the same with the second and finally returns the value
      * if something on the way is not defined, NULL is returned
      * 
-     * @param array $attributeArray 
-     * @param string|int $index1 
-     * @param string|int $index2
+     * @param array      $attributeArray the array to search in
+     * @param string|int $index1         first-level index to check
+     * @param string|int $index2         second-level index to check
      * @return mixed
      */
     public static function getAttributeValue($attributeArray, $index1, $index2) {
@@ -97,8 +107,8 @@ abstract class Entity {
 
     /**
      * create a temporary directory and return the location
-     * @param string $purpose one of 'installer', 'logo', 'test' defined the purpose of the directory
-     * @param bool $failIsFatal decides if a creation failure should cause an error; defaults to true
+     * @param string  $purpose     one of 'installer', 'logo', 'test' defined the purpose of the directory
+     * @param boolean $failIsFatal decides if a creation failure should cause an error; defaults to true
      * @return array the tuple of: base path, absolute path for directory, directory name
      */
     public static function createTemporaryDirectory($purpose = 'installer', $failIsFatal = 1) {
@@ -138,6 +148,7 @@ abstract class Entity {
      * this direcory delete function has been copied from PHP documentation
      * 
      * @param string $dir name of the directory to delete
+     * @return void
      */
     public static function rrmdir($dir) {
         foreach (glob($dir . '/*') as $file) {
@@ -153,7 +164,8 @@ abstract class Entity {
     /**
      * generates a UUID, for the devices which identify file contents by UUID
      *
-     * @param string $prefix an extra prefix to set before the UUID
+     * @param string $prefix              an extra prefix to set before the UUID
+     * @param mixed  $deterministicSource don't generate a random UUID, base it deterministically on the provided input
      * @return string UUID (possibly prefixed)
      */
     public static function uuid($prefix = '', $deterministicSource = NULL) {
@@ -174,7 +186,7 @@ abstract class Entity {
     
         /**
      * produces a random string
-     * @param int $length the length of the string to produce
+     * @param int    $length   the length of the string to produce
      * @param string $keyspace the pool of characters to use for producing the string
      * @return string
      * @throws Exception

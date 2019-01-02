@@ -1,15 +1,26 @@
 <?php
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 ?>
 <?php
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
+require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
 
 $auth = new \web\lib\admin\Authentication();
 $languageInstance = new \core\common\Language();
@@ -87,29 +98,53 @@ if (isset($_POST['submitbutton'])) {
 <?php
 if (isset($_GET['invitation'])) {
     echo "<div class='ca-summary' style='position:relative;'><table>";
+    $counter = $validator->integer($_GET['successcount']);
+    if ($counter === FALSE) {
+        $counter = 1;
+    }
     switch ($_GET['invitation']) {
         case "SUCCESS":
             $cryptText = "";
             switch ($_GET['transportsecurity']) {
                 case "ENCRYPTED":
-                    $cryptText = _("and <b>encrypted</b> to the mail domain");
+                    $cryptText = ngettext("It was sent with transport security (encryption).", "They were sent with transport security (encryption).", $counter);
                     break;
                 case "CLEAR":
-                    $cryptText = _("but <b>in clear text</b> to the mail domain");
+                    $cryptText = ngettext("It was sent in clear text (no encryption).", "They were sent in clear text (no encryption).", $counter);
+                    break;
+                case "PARTIAL":
+                    $cryptText = _("A subset of the mails were sent with transport encryption, the rest in clear text.");
                     break;
                 default:
                     throw new Exception("Error: unknown encryption status of invitation!?!");
             }
-            echo $uiElements->boxRemark(sprintf(_("The invitation email was sent successfully %s."), $cryptText), _("The invitation email was sent."));
+            echo $uiElements->boxRemark(ngettext("The invitation email was sent successfully.", "All invitation emails were sent successfully.", $counter) . " " . $cryptText, _("Sent successfully."));
             break;
         case "FAILURE":
-            echo $uiElements->boxError(_("The invitation email could not be sent!"), _("The invitation email could not be sent!"));
+            echo $uiElements->boxError(_("No invitation email could be sent!"), _("Sending failure!"));
+            break;
+        case "PARTIAL":
+            $cryptText = "";
+            switch ($_GET['transportsecurity']) {
+                case "ENCRYPTED":
+                    $cryptText = ngettext("The successful one was sent with transport security (encryption).", "The successful ones were sent with transport security (encryption).", $counter);
+                    break;
+                case "CLEAR":
+                    $cryptText = ngettext("The successful one was sent in clear text (no encryption).", "The successful ones were sent in clear text (no encryption).", $counter);
+                    break;
+                case "PARTIAL":
+                    $cryptText = _("A subset of the successfully sent mails were sent with transport encryption, the rest in clear text.");
+                    break;
+                default:
+                    throw new Exception("Error: unknown encryption status of invitation!?!");
+            }
+            echo $uiElements->boxWarning(sprintf(_("Some invitation emails were sent successfully (%s in total), the others failed."), $counter) . " " . $cryptText, _("Partial success."));
             break;
         case "INVALIDSYNTAX":
             echo $uiElements->boxError(_("The invitation email address was malformed, no invitation was sent!"), _("The invitation email address was malformed, no invitation was sent!"));
             break;
         default:
-            throw new Exception("Error: unknown result code of invitation!?!");
+            echo $uiElements->boxError(_("Error: unknown result code of invitation!?!"), _("Unknown result!"));
     }
     echo "</table></div>";
 }
@@ -170,7 +205,7 @@ if (count($pending_invites) > 0) {
     echo "<strong>" . _("Pending invitations for this IdP") . "</strong>";
     echo "<table>";
     foreach ($pending_invites as $invitee) {
-        echo "<tr><td>" . $invitee['mail'] . "</td></tr>";
+        echo "<tr><td>" . $invitee['mail'] . "</td><td>".sprintf(_("(expires %s)"), $invitee['expiry'])."</td></tr>";
     }
     echo "</table>";
 }
@@ -178,7 +213,7 @@ if (count($pending_invites) > 0) {
 <br/>
 <img src='../resources/images/icons/loading51.gif' id='spin' style='position:absolute;left: 50%; top: 50%; transform: translate(-100px, -50px); display:none;'>
 <form action='inc/sendinvite.inc.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
-    <?php echo _("New administrator's email address(es) (comma-separated):"); ?><input type="text" name="mailaddr"/><button type='submit' name='submitbutton' onclick='document.getElementById("spin").style.display ="block"' value='<?php echo web\lib\common\FormElements::BUTTON_SAVE; ?>'><?php echo _("Invite new administrator"); ?></button>
+    <?php echo _("New administrator's email address(es) (comma-separated):"); ?><input type="text" name="mailaddr"/><button type='submit' name='submitbutton' onclick='document.getElementById("spin").style.display = "block"' value='<?php echo web\lib\common\FormElements::BUTTON_SAVE; ?>'><?php echo _("Invite new administrator"); ?></button>
 </form>
 <br/>
 <?php

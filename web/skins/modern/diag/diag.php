@@ -1,4 +1,24 @@
 <?php
+/*
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
+ *
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
+ */
+
 function my_nonce($optSalt = '') {
     $remote = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
     return hash_hmac('sha256', session_id() . $optSalt, date("YmdG") . '1qaz2wsx3edc!QAZ@WSX#EDC' . $remote);
@@ -44,7 +64,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
 </head>
 <body>
 <div id='wrap'>
-
+<form id="cat_form" name="cat_form" method="POST"  accept-charset="UTF-8" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 <?php
 echo $divs->div_heading($visibility);
 $Gui->languageInstance->setTextDomain("diagnostics");
@@ -53,7 +73,6 @@ $Gui->languageInstance->setTextDomain("diagnostics");
     <div id="loading_ico">
           <span id='load_comment'></span><br><img src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES", "icons/loading51.gif"); ?>" alt="Loading stuff ..."/>
     </div>
-    <form id="cat_form" name="cat_form" method="POST"  accept-charset="UTF-8" action="">
     <input name="myNonce" id="myNonce" type="hidden" value="<?php echo my_nonce($_SERVER['SCRIPT_NAME']); ?>">
     <div id="info_overlay"> <!-- device info -->
         <div id="info_window"></div>
@@ -65,15 +84,15 @@ $Gui->languageInstance->setTextDomain("diagnostics");
     </div>
     <div id="main_body">
         <div id="user_page">
-            <?php echo $divs->div_pagetitle(_("Diagnostics site"), _("The diagnostics system will do its best to identify and resolve your problems!"). "<br>"._("Please help the system by answering the questions as precisely as possible.")); ?>
+            <?php echo $divs->div_pagetitle(_("Diagnostics site"), ""); ?>
             <div id="user_info" style='padding-top: 10px;'>
             <div id='diagnostic_choice'>
-                <?php echo _("The diagnostics system will do its best to identify and resolve your problems!") . '<br>' . _("Are you a") . ' '; ?>
+                <?php echo _("The diagnostics system will do its best to identify and resolve your problems!") . ' ' . _("Please help the system by answering the questions as precisely as possible.") . "<br/>" . _("Are you a") . ' '; ?>
                 <input type='radio' name='diagnostic_usertype' value='0'><?php echo _("end-user") . ' ' . _("or"); ?>   
                 <input type='radio' name='diagnostic_usertype' value='1' <?php if ($admin == 1) { echo " checked"; } ?> > <?php echo _("eduroam administrator") .'?'; ?>
             </div>
             <div id='diagnostic_enduser' style='display: none;'>
-                <h2><?php echo '<h2>' . _("Tools for End Users"); ?></h2>
+                <h2><?php echo _("Tools for End Users"); ?></h2>
                 <p>
                 <?php 
                     echo _("To resolve your problem a real-time diagnostics for your realm must be performed.");
@@ -88,7 +107,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                     echo '<div id="realm_by_select"><br/>' . _("alternatively") . '<br/>';
                     echo _("You can select your home institution from the following list") . '<br/>';
                     echo '<div id="select_idp_country"><a href="" id="idp_countries_list">';    
-                    echo '<span id="realmselect">' . _("Click to select your country/region and organisation") . '</a></span></div>';
+                    echo '<span id="realmselect">' . _("Click to select your country/region and organisation") . '</span></a></div>';
                 ?>
                 <div id="select_idp_area" style="display:none;">
                 </div>
@@ -97,7 +116,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                     <?php
                         echo '<h3>' . _("Optionally, to improve tests, you can provide information on your current location") . '</h3>';
                         echo '<div id="select_sp_country"><a href="" id="sp_countries_list">';    
-                        echo '<span id="spselect">' . _("Click to select a location in which you have an eduroam problem") . '</a></span></div>';
+                        echo '<span id="spselect">' . _("Click to select a location in which you have an eduroam problem") . '</span></a></div>';
                     ?>
                     <div id="select_sp_area" style="display:none;">
                     </div>
@@ -122,7 +141,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
             <div id='diagnostic_admin' style='display: <?php if (!$admin) { echo 'none'; } ?> ;'>
                 <h2><?php echo _("Tools for eduroam admins"); ?></h2>
                 <?php
-                    require_once(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader']);
+                    require_once CONFIG['AUTHENTICATION']['ssp-path-to-autoloader'];
                     $auth = new \web\lib\admin\Authentication();
                     echo '<input type="hidden" id="isadmin" value="';
                     if ($auth->isAuthenticated()) {
@@ -153,12 +172,12 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                 <input type="hidden" name="lang" id="lang"/>
         </div>
     </div>
+    </div>
    </form>
+    <div id="vertical_fill">&nbsp;</div>
+    <?php echo $divs->div_footer(); ?>
 </div>
-</div>
-<?php echo $divs->div_footer(); 
-    
-?>
+
 <script>
     function countryAddSelect(selecthead, select, type) {
         if (selecthead !== '') {
@@ -836,6 +855,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
             url: "adminQuery.php",
             data: {type: type, data: JSON.stringify(o)},
             dataType: "json",
+            lang: lang,
             success:function(data) {
                 if (data.status === 1) {
                     var result = '';
@@ -939,7 +959,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
         if (t == 1) { 
             /* show SP problem block */
             if ($('#sp_abuse').html() === '') {
-                $.get("adminQuery.php?type=sp", function(data, status) {
+                $.get("adminQuery.php?type=sp&lang="+lang, function(data, status) {
                     $('#sp_abuse').html(data);
                     $('#sp_abuse').show();         
                     $('#idp_problem').html('');
@@ -950,7 +970,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
             /* show IdP problem block */
             $('#sp_abuse').html('');
             if ($('#idp_problem').html() === '') {
-                $.get("adminQuery.php?type=idp", function(data, status) {
+                $.get("adminQuery.php?type=idp&lang="+lang, function(data, status) {
                     $('#idp_problem').html(data);
                     $('#sp_abuse').hide();
                     $('#idp_problem').show();

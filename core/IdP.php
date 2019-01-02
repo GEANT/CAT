@@ -1,12 +1,22 @@
 <?php
-
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
+ * *****************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Framework 
+ * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
+ * Horizon 2020 research and innovation programme under Grant Agreements No. 
+ * 691567 (GN4-1) and No. 731122 (GN4-2).
+ * On behalf of the aforementioned projects, GEANT Association is the sole owner
+ * of the copyright in all material which was developed by a member of the GÉANT
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the 
+ * UK as a branch of GÉANT Vereniging.
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 /**
@@ -110,7 +120,7 @@ class IdP extends EntityWithDBProperties {
             $returnarray[] = $oneProfile;
         }
 
-        $this->loggerInstance->debug(2, "listProfiles: " . print_r($returnarray, true));
+        $this->loggerInstance->debug(4, "listProfiles: " . print_r($returnarray, true));
         return $returnarray;
     }
 
@@ -182,6 +192,8 @@ class IdP extends EntityWithDBProperties {
      * This is needed for installer caching: all installers which are on disk 
      * must be re-created if an attribute changes. This timestamp here
      * is used to determine if the installer on disk is still new enough.
+     * 
+     * @return void
      */
     public function updateFreshness() {
         // freshness is always defined for *Profiles*
@@ -218,6 +230,8 @@ class IdP extends EntityWithDBProperties {
 
     /**
      * deletes the IdP and all its profiles
+     * 
+     * @return void
      */
     public function destroy() {
         /* delete all profiles */
@@ -335,6 +349,7 @@ Best regards,
      * Associates the external DB id with a CAT id
      * 
      * @param string $identifier the external DB id, which can be alpha-numeric
+     * @return void
      */
     public function setExternalDBId(string $identifier) {
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
@@ -349,6 +364,8 @@ Best regards,
 
     /**
      * removes the link between a CAT institution and the external DB
+     * 
+     * @return void
      */
     public function removeExternalDBId() {
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED

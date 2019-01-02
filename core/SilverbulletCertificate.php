@@ -1,12 +1,21 @@
 <?php
 
 /*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
- *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
+ * Contributions to this work were made on behalf of the GÉANT project, a 
+ * project that has received funding from the European Union’s Horizon 2020 
+ * research and innovation programme under Grant Agreement No. 731122 (GN4-2).
+ * 
+ * On behalf of the GÉANT project, GEANT Association is the sole owner of the 
+ * copyright in all material which was developed by a member of the GÉANT 
+ * project. GÉANT Vereniging (Association) is registered with the Chamber of 
+ * Commerce in Amsterdam with registration number 40535155 and operates in the
+ * UK as a branch of GÉANT Vereniging. 
+ * 
+ * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands. 
+ * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
+ * 
+ * License: see the web/copyright.inc.php file in the file structure or
+ *          <base_url>/copyright.php after deploying the software
  */
 
 /**
@@ -40,6 +49,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
     public $ocsp;
     public $ocspTimestamp;
     public $status;
+    public $ca_type;
 
     const CERTSTATUS_VALID = 1;
     const CERTSTATUS_EXPIRED = 2;
@@ -52,9 +62,10 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * 
      * Use static issueCertificate() to generate a whole new cert.
      * 
-     * @param int|string $identifier
+     * @param int|string $identifier identify certificate either by CN or by serial
+     * @param string     $certtype   RSA or ECDSA?
      */
-    public function __construct($identifier) {
+    public function __construct($identifier, $certtype) {
         $this->databaseType = "INST";
         parent::__construct();
         $this->username = "";
@@ -70,13 +81,14 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         $this->revocationTime = "2000-01-01 00:00:00";
         $this->ocsp = NULL;
         $this->ocspTimestamp = "2000-01-01 00:00:00";
+        $this->ca_type = $certtype;
         $this->status = SilverbulletCertificate::CERTSTATUS_INVALID;
 
         $incoming = FALSE;
         if (is_numeric($identifier)) {
-            $incoming = $this->databaseHandle->exec("SELECT `id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, CONCAT('',`serial_number`) AS sn, `cn` ,`expiry`, `issued`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp` FROM `silverbullet_certificate` WHERE serial_number = ?", "i", $identifier);
+            $incoming = $this->databaseHandle->exec("SELECT `id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`, `issued`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp` FROM `silverbullet_certificate` WHERE serial_number = ? AND ca_type = ?", "is", $identifier, $certtype);
         } else { // it's a string instead
-            $incoming = $this->databaseHandle->exec("SELECT `id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, CONCAT('',`serial_number`) AS sn, `cn` ,`expiry`, `issued`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp` FROM `silverbullet_certificate` WHERE cn = ?", "s", $identifier);
+            $incoming = $this->databaseHandle->exec("SELECT `id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`, `issued`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp` FROM `silverbullet_certificate` WHERE cn = ? AND ca_type = ?", "ss", $identifier, $certtype);
         }
 
         // SELECT -> mysqli_resource, not boolean
@@ -107,17 +119,26 @@ class SilverbulletCertificate extends EntityWithDBProperties {
     }
 
     /**
+     * retrieve basic information about the certificate
      * 
      * @return array of basic certificate details
      */
     public function getBasicInfo() {
         $returnArray = []; // unnecessary because the iterator below is never empty, but Scrutinizer gets excited nontheless
-        foreach (['status', 'serial', 'username', 'device', 'issued', 'expiry'] as $key) {
+        foreach (['status', 'serial', 'username', 'issued', 'expiry', 'ca_type'] as $key) {
             $returnArray[$key] = $this->$key;
         }
+        $olddomain = $this->languageInstance->setTextDomain("devices");
+        $returnArray['device'] = \devices\Devices::listDevices()[$this->device]['display'] ?? $this->device;
+        $this->languageInstance->setTextDomain($olddomain);
         return($returnArray);
     }
 
+    /**
+     * we don't use caching in SB, so this function does nothing
+     * 
+     * @return void
+     */
     public function updateFreshness() {
         // nothing to be done here.
     }
@@ -125,11 +146,12 @@ class SilverbulletCertificate extends EntityWithDBProperties {
     /**
      * issue a certificate based on a token
      *
-     * @param string $token
-     * @param string $importPassword
+     * @param string $token          the token string
+     * @param string $importPassword the PIN
+     * @param string $certtype       is this for the RSA or ECDSA CA?
      * @return array
      */
-    public static function issueCertificate($token, $importPassword) {
+    public static function issueCertificate($token, $importPassword, $certtype) {
         $loggerInstance = new common\Logging();
         $databaseHandle = DBConnection::handle("INST");
         $loggerInstance->debug(5, "generateCertificate() - starting.\n");
@@ -161,24 +183,38 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         if ($validity->invert == 1) { // negative! That should not be possible
             throw new Exception("Attempt to generate a certificate for a user which is already expired!");
         }
+        switch ($certtype) {
+            case \devices\Devices::SUPPORT_RSA:
+                $privateKey = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
+                break;
+            case \devices\Devices::SUPPORT_ECDSA:
+                $privateKey = openssl_pkey_new(['curve_name' => 'secp384r1', 'private_key_type' => OPENSSL_KEYTYPE_EC, 'encrypt_key' => FALSE]);
+                break;
+            default:
+                throw new Exception("Unknown certificate type!");
+        }
 
-        $privateKey = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
-
-        $csr = SilverbulletCertificate::generateCsr($privateKey, strtoupper($inst->federation), $profile->getAttributes("internal:realm")[0]['value']);
+        $csr = SilverbulletCertificate::generateCsr($privateKey, strtoupper($inst->federation), $profile->getAttributes("internal:realm")[0]['value'], $certtype);
 
         $loggerInstance->debug(5, "generateCertificate: proceeding to sign cert.\n");
 
-        $certMeta = SilverbulletCertificate::signCsr($csr, $expiryDays);
+        $certMeta = SilverbulletCertificate::signCsr($csr["CSR"], $expiryDays, $certtype);
         $cert = $certMeta["CERT"];
         $issuingCaPem = $certMeta["ISSUER"];
         $rootCaPem = $certMeta["ROOT"];
         $serial = $certMeta["SERIAL"];
 
+        if ($cert === FALSE) {
+            throw new Exception("The CA did not generate a certificate.");
+        }
         $loggerInstance->debug(5, "generateCertificate: post-processing certificate.\n");
 
         // with the cert, our private key and import password, make a PKCS#12 container out of it
         $exportedCertProt = "";
         openssl_pkcs12_export($cert, $exportedCertProt, $privateKey, $importPassword, ['extracerts' => [$issuingCaPem /* , $rootCaPem */]]);
+        // and without intermediate, to keep EAP conversation short where possible
+        $exportedNoInterm = "";
+        openssl_pkcs12_export($cert, $exportedNoInterm, $privateKey, $importPassword, []);
         $exportedCertClear = "";
         openssl_pkcs12_export($cert, $exportedCertClear, $privateKey, "", ['extracerts' => [$issuingCaPem, $rootCaPem]]);
         // store resulting cert CN and expiry date in separate columns into DB - do not store the cert data itself as it contains the private key!
@@ -191,14 +227,15 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         $realExpiryDate = date_create_from_format("U", $parsedCert['full_details']['validTo_time_t'])->format("Y-m-d H:i:s");
 
         // store new cert info in DB
-        $databaseHandle->exec("INSERT INTO `silverbullet_certificate` (`profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`) VALUES (?, ?, ?, ?, ?, ?)", "iiisss", $invitationObject->profile, $invitationObject->userId, $invitationObject->identifier, $serial, $csr["USERNAME"], $realExpiryDate);
+        $databaseHandle->exec("INSERT INTO `silverbullet_certificate` (`profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`, `ca_type`) VALUES (?, ?, ?, ?, ?, ?, ?)", "iiissss", $invitationObject->profile, $invitationObject->userId, $invitationObject->identifier, $serial, $csr["USERNAME"], $realExpiryDate, $certtype);
         // newborn cert immediately gets its "valid" OCSP response
-        $certObject = new SilverbulletCertificate($serial);
+        $certObject = new SilverbulletCertificate($serial, $certtype);
         $certObject->triggerNewOCSPStatement();
 // return PKCS#12 data stream
         return [
             "certObject" => $certObject,
             "certdata" => $exportedCertProt,
+            "certdata_nointermediate" => $exportedNoInterm,
             "certdataclear" => $exportedCertClear,
             // Scrutinizer thinks this needs to be a string, but a resource is just fine
             "sha1" => openssl_x509_fingerprint(/** @scrutinizer ignore-type */$cert, "sha1"),
@@ -252,7 +289,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     $serialHex = "0" . $serialHex;
                 }
 
-                $indexStatement = "$certstatus\t$expiryIndexTxt\t" . ($certstatus == "R" ? "$nowIndexTxt,unspecified" : "") . "\t$serialHex\tunknown\t/O=" . CONFIG_CONFASSISTANT['CONSORTIUM']['name'] . "/OU=$federation/CN=$this->username/emailAddress=$this->username\n";
+                $indexStatement = "$certstatus\t$expiryIndexTxt\t" . ($certstatus == "R" ? "$nowIndexTxt,unspecified" : "") . "\t$serialHex\tunknown\t/O=" . CONFIG_CONFASSISTANT['CONSORTIUM']['name'] . "/OU=$federation/CN=$this->username\n";
                 $logHandle->debug(4, "index.txt contents-to-be: $indexStatement");
                 if (!file_put_contents($tempdir . "/index.txt", $indexStatement)) {
                     $logHandle->debug(1, "Unable to write openssl index.txt file for revocation handling!");
@@ -264,7 +301,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                 // choice of signature algorithm for the response explicit
                 // but it's only available from openssl-1.1.0 (which we do not
                 // want to require just for that one thing).
-                $execCmd = CONFIG['PATHS']['openssl'] . " ocsp -issuer " . ROOT . "/config/SilverbulletClientCerts/real.pem -sha1 -ndays 10 -no_nonce -serial 0x$serialHex -CA " . ROOT . "/config/SilverbulletClientCerts/real.pem -rsigner " . ROOT . "/config/SilverbulletClientCerts/real.pem -rkey " . ROOT . "/config/SilverbulletClientCerts/real.key -index $tempdir/index.txt -no_cert_verify -respout $tempdir/$serialHex.response.der";
+                $execCmd = CONFIG['PATHS']['openssl'] . " ocsp -issuer " . ROOT . "/config/SilverbulletClientCerts/real-" . $this->ca_type . ".pem -sha1 -ndays 10 -no_nonce -serial 0x$serialHex -CA " . ROOT . "/config/SilverbulletClientCerts/real-" . $this->ca_type . ".pem -rsigner " . ROOT . "/config/SilverbulletClientCerts/real-" . $this->ca_type . ".pem -rkey " . ROOT . "/config/SilverbulletClientCerts/real-" . $this->ca_type . ".key -index $tempdir/index.txt -no_cert_verify -respout $tempdir/$serialHex.response.der";
                 $logHandle->debug(2, "Calling openssl ocsp with following cmdline: $execCmd\n");
                 $output = [];
                 $return = 999;
@@ -306,14 +343,15 @@ class SilverbulletCertificate extends EntityWithDBProperties {
     public function revokeCertificate() {
         $nowSql = (new \DateTime())->format("Y-m-d H:i:s");
         // regardless if embedded or not, always keep local state in our own DB
-        $this->databaseHandle->exec("UPDATE silverbullet_certificate SET revocation_status = 'REVOKED', revocation_time = ? WHERE serial_number = ?", "si", $nowSql, $this->serial);
+        $this->databaseHandle->exec("UPDATE silverbullet_certificate SET revocation_status = 'REVOKED', revocation_time = ? WHERE serial_number = ? AND ca_type = ?", "sis", $nowSql, $this->serial, $this->ca_type);
         $this->loggerInstance->debug(2, "Certificate revocation status for $this->serial updated, about to call triggerNewOCSPStatement().\n");
         // newly instantiate us, DB content has changed...
-        $certObject = new SilverbulletCertificate((string)$this->serial);
+        $certObject = new SilverbulletCertificate((string) $this->serial, $this->ca_type);
         // embedded CA does "nothing special" for revocation: the DB change was the entire thing to do
         // but for external CAs, we need to notify explicitly that the cert is now revoked
         switch (CONFIG_CONFASSISTANT['SILVERBULLET']['CA']['type']) {
             case "embedded":
+                $certObject->triggerNewOCSPStatement();
                 break;
             case "eduPKI":
                 try {
@@ -360,17 +398,18 @@ class SilverbulletCertificate extends EntityWithDBProperties {
             default:
                 throw new Exception("Unknown type of CA requested!");
         }
-        // what happens wrt OCSP etc. is really something for the following function to decide. We just call it.
-        $certObject->triggerNewOCSPStatement();
     }
 
     /**
      * create a CSR
      * 
      * @param resource $privateKey the private key to create the CSR with
+     * @param string   $fed        the federation to which the certificate belongs
+     * @param string   $realm      the realm for the future username
+     * @param string   $certtype   which type of certificate to generate: RSA or ECDSA
      * @return array with the CSR and some meta info
      */
-    private static function generateCsr($privateKey, $fed, $realm) {
+    private static function generateCsr($privateKey, $fed, $realm, $certtype) {
         $databaseHandle = DBConnection::handle("INST");
         $loggerInstance = new common\Logging();
         $usernameIsUnique = FALSE;
@@ -382,24 +421,33 @@ class SilverbulletCertificate extends EntityWithDBProperties {
             // SELECT -> resource, not boolean
             if (mysqli_num_rows(/** @scrutinizer ignore-type */ $uniquenessQuery) == 0) {
                 $usernameIsUnique = TRUE;
-            }
-        }
+                }
+                }
 
-        $loggerInstance->debug(5, "generateCertificate: generating CSR.\n");
+                $loggerInstance->debug(5, "generateCertificate: generating CSR.\n");
 
         switch (CONFIG_CONFASSISTANT['SILVERBULLET']['CA']['type']) {
             case "embedded":
-
-                $newCsr = openssl_csr_new(
-                        ['O' => CONFIG_CONFASSISTANT['CONSORTIUM']['name'],
-                    'OU' => $fed,
-                    'CN' => $username,
-                    'emailAddress' => $username,
-                        ], $privateKey, [
-                    'digest_alg' => 'sha256',
-                    'req_extensions' => 'v3_req',
-                        ]
-                );
+        switch ($certtype) {
+            case \devices\Devices::SUPPORT_RSA:
+                $alg = "sha256";
+                break;
+            case \devices\Devices::SUPPORT_ECDSA:
+                $alg = "ecdsa-with-SHA1";
+                break;
+            default:
+                throw new Exception("Unknown certificate type!");
+        }
+        $newCsr = openssl_csr_new(
+                ['O' => CONFIG_CONFASSISTANT['CONSORTIUM']['name'],
+            'OU' => $fed,
+            'CN' => $username,
+            // 'emailAddress' => $username,
+                ], $privateKey, [
+            'digest_alg' => $alg,
+            'req_extensions' => 'v3_req',
+                ]
+        );
                 break;
             case "eduPKI":
                 $tempdirArray = \core\common\Entity::createTemporaryDirectory("test");
@@ -518,31 +566,42 @@ class SilverbulletCertificate extends EntityWithDBProperties {
     /**
      * take a CSR and sign it with our issuing CA's certificate
      * 
-     * @param mixed $csr the CSR
-     * @param int $expiryDays the number of days until the cert is going to expire
+     * @param mixed  $csr        the CSR
+     * @param int    $expiryDays the number of days until the cert is going to expire
+     * @param string $certtype   which type of certificate to use for signing
      * @return array the cert and some meta info
      */
-    private static function signCsr($csr, $expiryDays) {
+    private static function signCsr($csr, $expiryDays, $certtype) {
         $loggerInstance = new common\Logging();
         $databaseHandle = DBConnection::handle("INST");
         switch (CONFIG_CONFASSISTANT['SILVERBULLET']['CA']['type']) {
             case "embedded":
-                $rootCaPem = file_get_contents(ROOT . "/config/SilverbulletClientCerts/rootca.pem");
-                $raCertFile = file_get_contents(ROOT . "/config/SilverbulletClientCerts/real.pem");
-                $raCert = openssl_x509_read($raCertFile);
-                $raKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/real.key");
+                $rootCaPem = file_get_contents(ROOT . "/config/SilverbulletClientCerts/rootca-$certtype.pem");
+                $issuingCaPem = file_get_contents(ROOT . "/config/SilverbulletClientCerts/real-$certtype.pem");
+                $issuingCa = openssl_x509_read($issuingCaPem);
+                $issuingCaKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/real-$certtype.key");
                 $nonDupSerialFound = FALSE;
                 do {
                     $serial = random_int(1000000000, PHP_INT_MAX);
-                    $dupeQuery = $databaseHandle->exec("SELECT serial_number FROM silverbullet_certificate WHERE serial_number = ?", "i", $serial);
+                    $dupeQuery = $databaseHandle->exec("SELECT serial_number FROM silverbullet_certificate WHERE serial_number = ? AND ca_type = ?", "is", $serial, $certtype);
                     // SELECT -> resource, not boolean
                     if (mysqli_num_rows(/** @scrutinizer ignore-type */$dupeQuery) == 0) {
                         $nonDupSerialFound = TRUE;
                     }
                 } while (!$nonDupSerialFound);
-                $loggerInstance->debug(5, "generateCertificate: signing imminent with unique serial $serial.\n");
+                $loggerInstance->debug(5, "generateCertificate: signing imminent with unique serial $serial, cert type $certtype.\n");
+                switch ($certtype) {
+                    case \devices\Devices::SUPPORT_RSA:
+                        $alg = "sha256";
+                        break;
+                    case \devices\Devices::SUPPORT_ECDSA:
+                        $alg = "ecdsa-with-SHA1";
+                        break;
+                    default:
+                        throw new Exception("Unknown cert type!");
+                }
                 return [
-                    "CERT" => openssl_csr_sign($csr["CSR"], $raCert, $raKey, $expiryDays, ['digest_alg' => 'sha256'], $serial),
+                    "CERT" => openssl_csr_sign($csr, $issuingCa, $issuingCaKey, $expiryDays, ['digest_alg' => $alg, 'config' => dirname(__DIR__) . "/config/SilverbulletClientCerts/openssl-$certtype.cnf"], $serial),
                     "SERIAL" => $serial,
                     "ISSUER" => $raCertFile,
                     "ROOT" => $rootCaPem,
@@ -585,7 +644,9 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                 } catch (Exception $e) {
                     // PHP 7.1 can do this much better
                     if (is_soap_fault($e)) {
-                        throw new Exception("Error when sending SOAP request: " . "{$e->faultcode}: {$e->faultstring}\n");
+                        throw new Exception("Error when sending SOAP request: " . "{$e->faultcode}:  {
+                    $e->faultstring
+                }\n");
                     }
                     throw new Exception("Something odd happened while doing the SOAP request:" . $e->getMessage());
                 }
@@ -626,9 +687,9 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     $raKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey");
                     // sign the data, using cmdline because openssl_pkcs7_sign produces strange results
                     // -binary didn't help, nor switch -md to sha1 sha256 or sha512
-                    $loggerInstance->debug(5, "Actual content to be signed is this:\n$soapCleartext\n");
+                    $loggerInstance->debug(5, "Actual content to be signed is this:\n  $soapCleartext\n");
                     $execCmd = CONFIG['PATHS']['openssl'] . " smime -sign -binary -in " . $tempdir['dir'] . "/content.txt -out " . $tempdir['dir'] . "/signature.txt -outform pem -inkey " . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey -signer " . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem";
-                    $loggerInstance->debug(2, "Calling openssl smime with following cmdline: $execCmd\n");
+                    $loggerInstance->debug(2, "Calling openssl smime with following cmdline:   $execCmd\n");
                     $output = [];
                     $return = 999;
                     exec($execCmd, $output, $return);
@@ -636,14 +697,14 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                         throw new Exception("Non-zero return value from openssl smime!");
                     }
                     // and get the signature blob back from the filesystem
-                    $detachedSig = trim(file_get_contents($tempdir['dir'] . "/signature.txt"));
-                    $loggerInstance->debug(5, "Request for server approveRequest has parameters:\n");
-                    $loggerInstance->debug(5, $soapReqnum . "\n");
-                    $loggerInstance->debug(5, $soapCleartext . "\n"); // PHP magically encodes this as base64 while sending!
-                    $loggerInstance->debug(5, $detachedSig . "\n");
-                    $soapIssueCert = $soap->approveRequest($soapReqnum, $soapCleartext, $detachedSig);
-                    $loggerInstance->debug(5, "approveRequest Request was: \n" . $soap->__getLastRequest());
-                    $loggerInstance->debug(5, "approveRequest Response was: \n" . $soap->__getLastResponse());
+                    $detachedSig = trim(file_get_contents($tempdir['dir'] . "/signature.txt"));    
+                    $loggerInstance->debug(5, "Request for server approveRequest has parameters:\n");  
+                    $loggerInstance->debug(5,   $soapReqnum . "\n");
+                    $loggerInstance->debug(5,   $soapCleartext . "\n"); // PHP magically encodes this as base64 while sending!
+                    $loggerInstance->debug(5,   $detachedSig . "\n");
+                    $soapIssueCert = $soap->approveRequest($soapReqnum  , $soapCleartext  , $detachedSig);
+                    $loggerInstance->debug(5, "approveRequest Request was: \n" .   $soap->__getLastRequest());
+                    $loggerInstance->debug(5, "approveRequest Response was: \n" .   $soap->__getLastResponse());
                     if ($soapIssueCert === FALSE) {
                         throw new Exception("The locally approved request was NOT processed by the CA.");
                     }
@@ -670,7 +731,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     $certList = $x509->splitCertificate($caInfo->CAChain[0]);
                     // find the root
                     $theRoot = "";
-                    foreach ($certList as $oneCert) {
+                    foreach ($certList as   $oneCert) {
                         $content = $x509->processCertificate($oneCert);
                         if ($content['root'] == 1) {
                             $theRoot = $content;
