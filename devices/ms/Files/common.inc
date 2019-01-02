@@ -321,34 +321,16 @@ Function .onInit
   Push 0
   Pop $profile_fail
 
-  # switch between nsis 3.03 and 3.04
-  !if "${NSIS_PACKEDVERSION}" > 0x3003000 ;
-    ${If} ${IsNativeAMD64}
-      StrCpy $Platform "x64"
-      StrCpy $Netsh "$WINDIR\sysnative\netsh"
-      StrCpy $Msiexec "$WINDIR\sysnative\msiexec"
-    ${ElseIf} ${IsNativeARM64}
-      StrCpy $Platform "ARM64"
-      StrCpy $Netsh "$WINDIR\sysnative\netsh"
-      StrCpy $Msiexec "$WINDIR\sysnative\msiexec"
-    ${ElseIf} ${IsNativeIA32}
-      StrCpy $Platform "x86"
-      StrCpy $Netsh "netsh"
-      StrCpy $Msiexec "msiexec"
+
+  ${If} ${RunningX64}
+    StrCpy $Platform "64"
+    StrCpy $Netsh "$WINDIR\sysnative\netsh"
+    StrCpy $Msiexec "$WINDIR\sysnative\msiexec"
     ${Else}
-       Abort "Unsupported CPU architecture!"
-    ${EndIf}
-  !else
-    ${If} ${RunningX64}
-      StrCpy $Platform "x64"
-      StrCpy $Netsh "$WINDIR\sysnative\netsh"
-      StrCpy $Msiexec "$WINDIR\sysnative\msiexec"
-      ${Else}
-      StrCpy $Platform "x86"
-      StrCpy $Netsh "netsh"
-      StrCpy $Msiexec "msiexec"
-    ${EndIf}
-  !endif
+    StrCpy $Platform "32"
+    StrCpy $Netsh "netsh"
+    StrCpy $Msiexec "msiexec"
+  ${EndIf}
   !insertmacro debug_cat 3 "Platfrom:$Platform"
 
   Call wVersionCheck
