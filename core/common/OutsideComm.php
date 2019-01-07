@@ -191,7 +191,7 @@ class OutsideComm {
                                     'api_key' => CONFIG_CONFASSISTANT['SMSSETTINGS']['username'],
                                     'api_secret' => CONFIG_CONFASSISTANT['SMSSETTINGS']['password'],
                                     'to' => $number,
-                                    'from' => CONFIG['APPEARANCE']['productname'],
+                                    'from' => CONFIG_CONFASSISTANT['CONSORTIUM']['name'],
                                     'text' => $content,
                                 ]
                 );
