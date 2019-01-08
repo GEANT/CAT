@@ -301,6 +301,7 @@ class SilverbulletInvitation extends common\Entity {
      * @return array status of the sending
      */
     public function sendByMail($properEmail) {
+        common\Entity::intoThePotatoes();
         $mail = \core\common\OutsideComm::mailHandle();
         $uiElements = new \web\lib\admin\UIElements();
         $bytestream = $uiElements->pngInjectConsortiumLogo(\QRcode::png($this->link(), FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL), QRCODE_PIXELS_PER_SYMBOL);
@@ -310,6 +311,7 @@ class SilverbulletInvitation extends common\Entity {
         $mail->addStringAttachment($bytestream, "qr-code-invitation.png", "base64", "image/png");
         $mail->addAddress($properEmail);
         $domainStatus = \core\common\OutsideComm::mailAddressValidSecure($properEmail);
+        common\Entity::outOfThePotatoes();
         return ["SENT" => $mail->send(), "TRANSPORT" => $domainStatus == common\OutsideComm::MAILDOMAIN_STARTTLS ? TRUE : FALSE];
     }
 

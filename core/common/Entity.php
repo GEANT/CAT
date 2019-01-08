@@ -67,6 +67,12 @@ abstract class Entity {
     public $languageInstance;
 
     /**
+     * keep internal track of the gettext catalogue that was used outside the
+     * class call
+     */
+    protected static $gettextCatalogue;
+    
+    /**
      * initialise the entity.
      * 
      * Logs the start of lifetime of the entity to the debug log on levels 3 and higher.
@@ -205,4 +211,29 @@ abstract class Entity {
         return $str;
     }
 
+    public static function determineOwnCatalogue() {
+        $myName = get_class();
+        if (preg_match("/diag/",$myName) == 1) {
+            return "diagnostics";
+        }
+        if (preg_match("/core/",$myName) == 1) {
+            return "core";
+        }
+        if (preg_match("/devices/",$myName) == 1) {
+            return "devices";
+        }
+        if (preg_match("/admin/",$myName) == 1) {
+            return "web_admin";
+        }
+        return "web_user";
+    }
+    
+    public static function intoThePotatoes() {
+        Entity::$gettextCatalogue = textdomain(NULL);
+        textdomain(Entity::determineOwnCatalogue());
+    }
+    
+    public static function outOfThePotatoes() {
+        textdomain(Entity::$gettextCatalogue);
+    }
 }
