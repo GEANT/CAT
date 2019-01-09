@@ -228,11 +228,19 @@ abstract class Entity {
         return "web_user";
     }
     
+    /**
+     * sets the language catalogue to one matching the gettext segmentation of
+     * source files. Also memorises the previous catalogue so that it can be
+     * restored later on.
+     */
     public static function intoThePotatoes() {
         Entity::$gettextCatalogue = textdomain(NULL);
         textdomain(Entity::determineOwnCatalogue());
     }
     
+    /**
+     * restores the previous language catalogue.
+     */
     public static function outOfThePotatoes() {
         textdomain(Entity::$gettextCatalogue);
     }
