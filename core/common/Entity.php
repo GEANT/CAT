@@ -69,6 +69,8 @@ abstract class Entity {
     /**
      * keep internal track of the gettext catalogue that was used outside the
      * class call
+     * 
+     * @var string
      */
     protected static $gettextCatalogue;
     
