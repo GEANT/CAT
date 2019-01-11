@@ -58,7 +58,7 @@ STDERR_REDIR = DEV_NULL
 
 
 def debug(msg):
-    """Print debbuging messages to stdout"""
+    """Print debugging messages to stdout"""
     if not DEBUG_ON:
         return
     print("DEBUG:" + str(msg))
@@ -176,7 +176,7 @@ def run_installer():
     args = parser.parse_args()
     if args.debug:
         DEBUG_ON = True
-        print("Runnng debug mode")
+        print("Running debug mode")
 
     if args.username:
         username = args.username
@@ -677,7 +677,7 @@ class InstallerData(object):
                 self.alert(Messages.wrong_realm.format(Config.user_realm))
                 return False
             if self.username.endswith(Config.user_realm, pos):
-                debug("real ends with expected suffix")
+                debug("realm ends with expected suffix")
                 return True
             debug("realm suffix error; expected: " + Config.user_realm)
             self.alert(Messages.wrong_realm_suffix.format(
