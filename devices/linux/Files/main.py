@@ -38,7 +38,7 @@ selected by the user.
 
 The script is meant to run both under python 2.7 and python3. It tests
 for the crucial dbus module and if it does not find it and if it is not
-running python3 it will try reruning iself again with python3.
+running python3 it will try rerunning iself again with python3.
 """
 import argparse
 import base64
@@ -58,7 +58,7 @@ STDERR_REDIR = DEV_NULL
 
 
 def debug(msg):
-    """Print debbuging messages to stdout"""
+    """Print debugging messages to stdout"""
     if not DEBUG_ON:
         return
     print("DEBUG:" + str(msg))
@@ -114,7 +114,7 @@ else:
 def detect_desktop_environment():
     """
     Detect what desktop type is used. This method is prepared for
-    possible future use with password encryption on supported distrs
+    possible future use with password encryption on supported distros
     """
     desktop_environment = 'generic'
     if os.environ.get('KDE_FULL_SESSION') == 'true':
@@ -140,7 +140,7 @@ def detect_desktop_environment():
 def get_system():
     """
     Detect Linux platform. Not used at this stage.
-    It is meant to enable password encryption in distos
+    It is meant to enable password encryption in distros
     that can handle this well.
     """
     if sys.version_info.major == 3 and sys.version_info.minor >= 8:
@@ -176,7 +176,7 @@ def run_installer():
     args = parser.parse_args()
     if args.debug:
         DEBUG_ON = True
-        print("Runnng debug mode")
+        print("Running debug mode")
 
     if args.username:
         username = args.username
@@ -212,8 +212,8 @@ def run_installer():
 
 class Messages(object):
     """
-    These are innitial definitions of messages, but they will be
-    overriden with translated strings.
+    These are initial definitions of messages, but they will be
+    overridden with translated strings.
     """
     quit = "Really quit?"
     username_prompt = "enter your userid"
@@ -254,7 +254,7 @@ class Messages(object):
 
 class Config(object):
     """
-    This is used to prepare settings durig installer generation.
+    This is used to prepare settings during installer generation.
     """
     instname = ""
     profilename = ""
@@ -281,7 +281,7 @@ class Config(object):
 
 class InstallerData(object):
     """
-    General user intercation handling, supports zenity, kdialog and
+    General user interaction handling, supports zenity, kdialog and
     standard command-line interface
     """
 
@@ -446,7 +446,7 @@ class InstallerData(object):
 
     def get_user_cred(self):
         """
-        Get user credentials both username/password and personame certificate
+        Get user credentials both username/password and personal certificate
         based
         """
         if Config.eap_outer == 'PEAP' or Config.eap_outer == 'TTLS':
@@ -677,7 +677,7 @@ class InstallerData(object):
                 self.alert(Messages.wrong_realm.format(Config.user_realm))
                 return False
             if self.username.endswith(Config.user_realm, pos):
-                debug("real ends with expected suffix")
+                debug("realm ends with expected suffix")
                 return True
             debug("realm suffix error; expected: " + Config.user_realm)
             self.alert(Messages.wrong_realm_suffix.format(
@@ -699,7 +699,7 @@ class InstallerData(object):
 
 class WpaConf(object):
     """
-    Preapre and save wpa_supplicant config file
+    Prepare and save wpa_supplicant config file
     """
     def __prepare_network_block(self, ssid, user_data):
         altsubj_match = "altsubject_match=\"%s\"" % ";".join(Config.servers)
@@ -766,7 +766,7 @@ class CatNMConfigTool(object):
             sysproxy = self.bus.get_object(
                 self.settings_service_name,
                 "/org/freedesktop/NetworkManager/Settings")
-            # settings intrface
+            # settings interface
             self.settings = dbus.Interface(sysproxy, "org.freedesktop."
                                            "NetworkManager.Settings")
         elif self.nm_version == "0.8":
@@ -904,7 +904,7 @@ class CatNMConfigTool(object):
         self.settings.AddConnection(con)
 
     def add_connections(self, user_data):
-        """Deleta and then add connections to the system"""
+        """Delete and then add connections to the system"""
         self.__check_opts()
         self.user_data = user_data
         for ssid in Config.ssids:
