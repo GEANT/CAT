@@ -878,6 +878,7 @@ Function CreateWirelessProfiles
      Loop2:
      nsArray::Iterate Additional_deletes
      IfErrors Done2
+     Pop $0
      call FindProfile
      Pop $0
      ${If} $0 == 0
