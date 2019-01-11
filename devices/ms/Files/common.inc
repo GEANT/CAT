@@ -727,10 +727,10 @@ FunctionEnd
 Function CheckWirelessProfiles
   !ifdef CRED
   !insertmacro debug_cat 4 "Unpacking WLANSetEAPUserData"
-  File "WLANSetEAPUserData32.exe"
-  File "WLANSetEAPUserData64.exe"
-  nsArray::Set Delete_files "WLANSetEAPUserData32.exe"
-  nsArray::Set Delete_files "WLANSetEAPUserData64.exe"
+  File "WLANSetEAPUserDatax86.exe"
+  File "WLANSetEAPUserDatax64.exe"
+  nsArray::Set Delete_files "WLANSetEAPUserDatax86.exe"
+  nsArray::Set Delete_files "WLANSetEAPUserDatax64.exe"
   !endif
   ${ForEach} $R9 0 $profile_count + 1
     Push $R9
