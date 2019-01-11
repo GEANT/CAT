@@ -1,1 +1,1 @@
-jquery-ui-1.12.1.custom/external/jquery/jquery.js
+jquery-3.3.1.min.js
