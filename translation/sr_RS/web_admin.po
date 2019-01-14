@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-14 15:06+0100\n"
-"PO-Revision-Date: 2018-12-12 22:44+0000\n"
+"POT-Creation-Date: 2019-01-14 13:42+0100\n"
+"PO-Revision-Date: 2018-12-14 22:33+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Serbian (Serbia) (http://www.transifex.com/eduroam_devel/cat/"
 "language/sr_RS/)\n"
@@ -959,92 +959,92 @@ msgstr "POVUČEN"
 msgid "EXPIRED"
 msgstr "ISTEKAO"
 
-#: web/admin/edit_silverbullet.php:425
+#: web/admin/edit_silverbullet.php:426
 msgid "Device:"
 msgstr "Uređaj:"
 
-#: web/admin/edit_silverbullet.php:426
+#: web/admin/edit_silverbullet.php:427
 msgid "Serial Number:"
 msgstr "Serijski broj:"
 
-#: web/admin/edit_silverbullet.php:427
+#: web/admin/edit_silverbullet.php:428
 msgid "CN:"
 msgstr "CN:"
 
-#: web/admin/edit_silverbullet.php:428
+#: web/admin/edit_silverbullet.php:429
 msgid "Expiry:"
 msgstr "Ističe:"
 
-#: web/admin/edit_silverbullet.php:429
+#: web/admin/edit_silverbullet.php:430
 msgid "Issued:"
 msgstr "Izdat:"
 
-#: web/admin/edit_silverbullet.php:441
+#: web/admin/edit_silverbullet.php:442
 #, php-format
 msgid ""
 "The device in question will stop functioning with %s. The revocation cannot "
 "be undone. Are you sure you want to do this?"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:442 web/admin/edit_silverbullet.php:498
+#: web/admin/edit_silverbullet.php:443 web/admin/edit_silverbullet.php:499
 msgid "Revoke"
 msgstr "Povuci sertifikat"
 
-#: web/admin/edit_silverbullet.php:467
+#: web/admin/edit_silverbullet.php:468
 #, php-format
 msgid "The invitation token %s is ready for sending! Choose how to send it:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:469
+#: web/admin/edit_silverbullet.php:470
 msgid "E-Mail:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:473
+#: web/admin/edit_silverbullet.php:474
 msgid "Local mail client"
 msgstr "Lokalni mejl klijent"
 
-#: web/admin/edit_silverbullet.php:474
+#: web/admin/edit_silverbullet.php:475
 msgid "Send with CAT"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:477
+#: web/admin/edit_silverbullet.php:478
 msgid "SMS:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:481
+#: web/admin/edit_silverbullet.php:482
 msgid "Send in SMS..."
 msgstr "Pošalji u SMSu..."
 
-#: web/admin/edit_silverbullet.php:484
+#: web/admin/edit_silverbullet.php:485
 msgid "Manual:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:485
+#: web/admin/edit_silverbullet.php:486
 msgid "Copy to Clipboard"
 msgstr "Kopiraj"
 
-#: web/admin/edit_silverbullet.php:488
+#: web/admin/edit_silverbullet.php:489
 msgid "Display QR code"
 msgstr "Prikaži QR kod"
 
-#: web/admin/edit_silverbullet.php:494
+#: web/admin/edit_silverbullet.php:495
 msgid "Expiry Date:"
 msgstr "Datum isteka:"
 
-#: web/admin/edit_silverbullet.php:494
+#: web/admin/edit_silverbullet.php:495
 msgid "Activations remaining:"
 msgstr "Aktivacija preostalo:"
 
-#: web/admin/edit_silverbullet.php:494
+#: web/admin/edit_silverbullet.php:495
 #, php-format
 msgid "%d of %d"
 msgstr "%d od %d"
 
-#: web/admin/edit_silverbullet.php:520
+#: web/admin/edit_silverbullet.php:521
 msgid "Update"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:527
+#: web/admin/edit_silverbullet.php:528
 #, php-format
 msgid ""
 "All of the currently active devices will stop functioning with %s. This "
@@ -1053,20 +1053,20 @@ msgid ""
 "to do this?"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:536
+#: web/admin/edit_silverbullet.php:537
 msgid "Deactivate User"
 msgstr "Deaktiviraj korisnika"
 
-#: web/admin/edit_silverbullet.php:545
+#: web/admin/edit_silverbullet.php:546
 msgid "New Invitation"
 msgstr "Nova pozivnica"
 
-#: web/admin/edit_silverbullet.php:548
+#: web/admin/edit_silverbullet.php:549
 msgid "Activations:"
 msgstr "Broj aktivacija:"
 
 #. false because this restriction is currently not in effect and thus no UI is needed for it.
-#: web/admin/edit_silverbullet.php:569
+#: web/admin/edit_silverbullet.php:570
 #, php-format
 msgid ""
 "You need to acknowledge that the created accounts are still valid within the "
@@ -1081,25 +1081,25 @@ msgstr ""
 "deaktivirajte ih tako što ćete kliknuti na odgovarajuće dugme pre nego što "
 "uradite kao što je opisano u prethodnoj rečenici."
 
-#: web/admin/edit_silverbullet.php:577
+#: web/admin/edit_silverbullet.php:578
 #, php-format
 msgid "I have verified that all configured users are still eligible for %s."
 msgstr ""
 "Utvrdio/la sam da svi konfigurisani korisnici i dalje mogu da koriste %s."
 
-#: web/admin/edit_silverbullet.php:579
+#: web/admin/edit_silverbullet.php:580
 msgid "Save"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:589 web/admin/edit_silverbullet.php:604
+#: web/admin/edit_silverbullet.php:590 web/admin/edit_silverbullet.php:605
 msgid "Add new user"
 msgstr "Dodaj novog korisnika"
 
-#: web/admin/edit_silverbullet.php:592
+#: web/admin/edit_silverbullet.php:593
 msgid "Import users from CSV file"
 msgstr "Uvezi korisnike iz CSV fajla"
 
-#: web/admin/edit_silverbullet.php:599
+#: web/admin/edit_silverbullet.php:600
 msgid ""
 "Please enter a username of your choice and user expiry date to create a new "
 "user:"
@@ -1107,7 +1107,7 @@ msgstr ""
 "Unesite korisničko ime po vašem izboru i datum isteka naloga kako biste "
 "dodali novog korisnika:"
 
-#: web/admin/edit_silverbullet.php:613
+#: web/admin/edit_silverbullet.php:614
 msgid ""
 "Comma separated values should be provided in CSV file: username, expiration "
 "date 'yyyy-mm-dd', number of tokens (optional):"
@@ -1115,29 +1115,29 @@ msgstr ""
 "U CSV fajlu bi trebalo da se nalaze vrednosti razdvojene zarezom: korisničko "
 "ime, datum isteka u formatu 'gggg-mm-dd', broj tokena (opciono):"
 
-#: web/admin/edit_silverbullet.php:617
+#: web/admin/edit_silverbullet.php:618
 msgid "Import users"
 msgstr "Uvezi korisnike"
 
 #. Appending terms of use popup
-#: web/admin/edit_silverbullet.php:633
+#: web/admin/edit_silverbullet.php:634
 #, php-format
 msgid "%s - Terms of Use"
 msgstr "%s - Pravila korišćenja"
 
-#: web/admin/edit_silverbullet.php:640
+#: web/admin/edit_silverbullet.php:641
 msgid "I have read and agree to the terms."
 msgstr "Pročitao/la sam i slažem se sa uslovima."
 
-#: web/admin/edit_silverbullet.php:642
+#: web/admin/edit_silverbullet.php:643
 msgid "Continue"
 msgstr "Nastavi"
 
-#: web/admin/edit_silverbullet.php:643
+#: web/admin/edit_silverbullet.php:644
 msgid "Abort"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:656
+#: web/admin/edit_silverbullet.php:657
 #, php-format
 msgid "Back to %s page"
 msgstr ""
