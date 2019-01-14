@@ -6,13 +6,14 @@
 # eduki <ecercos@xtec.cat>, 2013,2015-2018
 # eduki <ecercos@xtec.cat>, 2012
 # José Manuel Macías, 2015
+# eduroam_devel <stefan.winter@restena.lu>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-14 09:43+0100\n"
-"PO-Revision-Date: 2018-12-13 12:18+0000\n"
-"Last-Translator: eduki <ecercos@xtec.cat>\n"
+"POT-Creation-Date: 2019-01-14 13:42+0100\n"
+"PO-Revision-Date: 2019-01-14 12:30+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/ca_ES/)\n"
 "Language: ca_ES\n"
@@ -90,7 +91,6 @@ msgid "Apple iOS mobile devices"
 msgstr "Dispositius mòbils "
 
 #: devices/Devices-template.php:313
-#, fuzzy
 msgid ""
 "During the installation you will be first asked to enter your passcode - "
 "this is your device security code! Later on you will be prompted for the "

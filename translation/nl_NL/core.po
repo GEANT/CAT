@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-14 09:43+0100\n"
+"POT-Creation-Date: 2019-01-14 13:42+0100\n"
 "PO-Revision-Date: 2018-11-14 09:54+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/eduroam_devel/"
@@ -397,7 +397,7 @@ msgstr ""
 msgid "Regards,"
 msgstr "Met vriendelijke groet,"
 
-#: core/SilverbulletInvitation.php:294
+#: core/SilverbulletInvitation.php:295
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
@@ -406,7 +406,7 @@ msgstr ""
 "Je toegang tot %s is gereed. Klik hier: %s (Op Android eerst app '%s' "
 "installeren!)"
 
-#: core/SilverbulletInvitation.php:308
+#: core/SilverbulletInvitation.php:311
 #, php-format
 msgid "%s Invitation System"
 msgstr ""

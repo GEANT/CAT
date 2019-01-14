@@ -9,13 +9,14 @@
 # martins <ms@uakom.sk>, 2012-2013
 # Petr Adamec <p.b.adamec@gmail.com>, 2013,2015
 # Petr Adamec <p.b.adamec@gmail.com>, 2013,2015-2018
+# eduroam_devel <stefan.winter@restena.lu>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-14 09:43+0100\n"
-"PO-Revision-Date: 2018-12-13 21:18+0000\n"
-"Last-Translator: Petr Adamec <p.b.adamec@gmail.com>\n"
+"POT-Creation-Date: 2019-01-14 13:42+0100\n"
+"PO-Revision-Date: 2019-01-14 12:32+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/"
 "eduroam_devel/cat/language/cs_CZ/)\n"
 "Language: cs_CZ\n"
@@ -93,7 +94,6 @@ msgid "Apple iOS mobile devices"
 msgstr "Apple iOS pro mobilní zařízení"
 
 #: devices/Devices-template.php:313
-#, fuzzy
 msgid ""
 "During the installation you will be first asked to enter your passcode - "
 "this is your device security code! Later on you will be prompted for the "

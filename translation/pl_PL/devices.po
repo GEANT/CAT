@@ -5,6 +5,7 @@
 # Translators:
 # Maja Górecka-Wolniewicz <mgw@umk.pl>, 2011-2013
 # Maja Wolniewicz <maja.wolniewicz@gmail.com>, 2018
+# eduroam_devel <stefan.winter@restena.lu>, 2019
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2016-2017,2019
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2013,2015
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2012
@@ -12,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-14 09:43+0100\n"
-"PO-Revision-Date: 2019-01-07 08:31+0000\n"
-"Last-Translator: Tomasz Wolniewicz <tw2529@gmail.com>\n"
+"POT-Creation-Date: 2019-01-14 13:42+0100\n"
+"PO-Revision-Date: 2019-01-14 12:29+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/eduroam_devel/cat/"
 "language/pl_PL/)\n"
 "Language: pl_PL\n"
@@ -93,7 +94,6 @@ msgid "Apple iOS mobile devices"
 msgstr "Przenośne urządzenia Apple (iOS)"
 
 #: devices/Devices-template.php:313
-#, fuzzy
 msgid ""
 "During the installation you will be first asked to enter your passcode - "
 "this is your device security code! Later on you will be prompted for the "

@@ -4,15 +4,15 @@
 #
 # Translators:
 # Stefan Winter, 2011
-# eduroam_devel <stefan.winter@restena.lu>, 2018
+# eduroam_devel <stefan.winter@restena.lu>, 2018-2019
 # stefanwinter <stefan.winter@gmail.com>, 2012
 # Steffen Klemer <klemer@dfn.de>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-14 09:43+0100\n"
-"PO-Revision-Date: 2018-12-14 13:35+0000\n"
+"POT-Creation-Date: 2019-01-14 13:42+0100\n"
+"PO-Revision-Date: 2019-01-14 12:29+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/eduroam_devel/cat/"
 "language/de_DE/)\n"
@@ -91,7 +91,6 @@ msgid "Apple iOS mobile devices"
 msgstr "Apple iOS Mobilgeräte"
 
 #: devices/Devices-template.php:313
-#, fuzzy
 msgid ""
 "During the installation you will be first asked to enter your passcode - "
 "this is your device security code! Later on you will be prompted for the "

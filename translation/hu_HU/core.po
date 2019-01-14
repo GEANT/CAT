@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-14 09:43+0100\n"
+"POT-Creation-Date: 2019-01-14 13:42+0100\n"
 "PO-Revision-Date: 2018-11-14 12:46+0000\n"
 "Last-Translator: Janos Mohacsi <mohacsi@niif.hu>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/eduroam_devel/"
@@ -397,7 +397,7 @@ msgstr ""
 msgid "Regards,"
 msgstr "Üdvözlettel,"
 
-#: core/SilverbulletInvitation.php:294
+#: core/SilverbulletInvitation.php:295
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
@@ -406,7 +406,7 @@ msgstr ""
 "Hozzáférésed készen áll %s ! Kattintson ide:  %s (Android-on, először "
 "telepítse az %salkalmazást!)"
 
-#: core/SilverbulletInvitation.php:308
+#: core/SilverbulletInvitation.php:311
 #, php-format
 msgid "%s Invitation System"
 msgstr "Meghívó rendszer%s"

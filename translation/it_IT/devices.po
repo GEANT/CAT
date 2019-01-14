@@ -10,13 +10,14 @@
 # Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2013
 # Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2012
 # Pasquale Mandato <pasquale.mandato@garr.it>, 2018
+# eduroam_devel <stefan.winter@restena.lu>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-14 09:43+0100\n"
-"PO-Revision-Date: 2018-12-31 16:44+0000\n"
-"Last-Translator: Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>\n"
+"POT-Creation-Date: 2019-01-14 13:42+0100\n"
+"PO-Revision-Date: 2019-01-14 12:37+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/eduroam_devel/cat/"
 "language/it_IT/)\n"
 "Language: it_IT\n"
@@ -93,15 +94,14 @@ msgid "Apple iOS mobile devices"
 msgstr "Apple iOS dispositivi mobili"
 
 #: devices/Devices-template.php:313
-#, fuzzy
 msgid ""
 "During the installation you will be first asked to enter your passcode - "
 "this is your device security code! Later on you will be prompted for the "
 "password to the certificate and there you need to enter the import PIN shown "
 "on this page."
 msgstr ""
-"Durante l'installazione ti sarà chiesto di inserire il tuo passcode -  "
-"questo è il codice di sicurezza del tuo dispositivo! Dopo ti sarà chiesta la "
+"Durante l'installazione ti sarà chiesto di inserire il tuo passcode - questo "
+"è il codice di sicurezza del tuo dispositivo! Dopo ti sarà chiesta la "
 "password per il certificato e dopo dovrai importare il PIN mostrato in "
 "questa pagina."
 

@@ -6,15 +6,16 @@
 # Halil Adem <hadem@noc.grnet.gr>, 2018
 # HELPDESK <npapalouka@admin.grnet.gr>, 2015
 # Panos Bouklis <panos@echidna-band.com>, 2012
+# eduroam_devel <stefan.winter@restena.lu>, 2019
 # Vicky Kons <vickyk@admin.grnet.gr>, 2016
 # Zenon Mousmoulas <zenon@mousmoulas.gr>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-14 09:43+0100\n"
-"PO-Revision-Date: 2018-12-31 12:27+0000\n"
-"Last-Translator: Zenon Mousmoulas <zenon@mousmoulas.gr>\n"
+"POT-Creation-Date: 2019-01-14 13:42+0100\n"
+"PO-Revision-Date: 2019-01-14 12:35+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Greek (Greece) (http://www.transifex.com/eduroam_devel/cat/"
 "language/el_GR/)\n"
 "Language: el_GR\n"
@@ -92,7 +93,6 @@ msgid "Apple iOS mobile devices"
 msgstr "Φορητές συσκευές Apple iOS"
 
 #: devices/Devices-template.php:313
-#, fuzzy
 msgid ""
 "During the installation you will be first asked to enter your passcode - "
 "this is your device security code! Later on you will be prompted for the "

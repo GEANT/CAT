@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# eduroam_devel <stefan.winter@restena.lu>, 2019
 # University of Ruse <support@uni-ruse.bg>, 2014-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-14 09:43+0100\n"
-"PO-Revision-Date: 2018-12-17 09:25+0000\n"
-"Last-Translator: University of Ruse <support@uni-ruse.bg>\n"
+"POT-Creation-Date: 2019-01-14 13:42+0100\n"
+"PO-Revision-Date: 2019-01-14 12:27+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/eduroam_devel/"
 "cat/language/bg_BG/)\n"
 "Language: bg_BG\n"
@@ -88,7 +89,6 @@ msgid "Apple iOS mobile devices"
 msgstr "Apple iOS мобилни устройства"
 
 #: devices/Devices-template.php:313
-#, fuzzy
 msgid ""
 "During the installation you will be first asked to enter your passcode - "
 "this is your device security code! Later on you will be prompted for the "
@@ -98,7 +98,7 @@ msgstr ""
 "По време на инсталацията първо ще бъдете помолен да въведете кода за "
 "паролата си - това е кодът за сигурност на Вашето устройство! По-късно ще "
 "бъдете подканени за паролата на сертификата и там трябва да въведете PIN "
-"кода за влизане, показан на тази страница. "
+"кода за влизане, показан на тази страница."
 
 #: devices/Devices-template.php:319
 msgid "Apple iOS mobile devices (iOS 5 and 6)"

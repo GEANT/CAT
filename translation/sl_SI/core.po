@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-14 09:43+0100\n"
+"POT-Creation-Date: 2019-01-14 13:42+0100\n"
 "PO-Revision-Date: 2018-11-14 12:16+0000\n"
 "Last-Translator: Kaja Kumer <kaja.kumer@arnes.si>\n"
 "Language-Team: Slovenian (Slovenia) (http://www.transifex.com/eduroam_devel/"
@@ -405,7 +405,7 @@ msgstr ""
 msgid "Regards,"
 msgstr "Pozdrav,"
 
-#: core/SilverbulletInvitation.php:294
+#: core/SilverbulletInvitation.php:295
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
@@ -414,7 +414,7 @@ msgstr ""
 "Vaš %s dostop je pripravljen! Kliknite tukaj: %s (na operacijskem sistemu "
 "Android je potrebno predhodno naložiti aplikacijo '%s'!)"
 
-#: core/SilverbulletInvitation.php:308
+#: core/SilverbulletInvitation.php:311
 #, php-format
 msgid "%s Invitation System"
 msgstr "%s Sistem povabil"
