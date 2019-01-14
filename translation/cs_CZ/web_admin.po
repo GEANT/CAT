@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-14 15:06+0100\n"
-"PO-Revision-Date: 2018-12-13 21:11+0000\n"
+"POT-Creation-Date: 2019-01-14 09:43+0100\n"
+"PO-Revision-Date: 2018-12-15 12:44+0000\n"
 "Last-Translator: Petr Adamec <p.b.adamec@gmail.com>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/"
 "eduroam_devel/cat/language/cs_CZ/)\n"
@@ -950,27 +950,27 @@ msgstr "Revokován"
 msgid "EXPIRED"
 msgstr "Vypršel"
 
-#: web/admin/edit_silverbullet.php:425
+#: web/admin/edit_silverbullet.php:426
 msgid "Device:"
 msgstr "Zařízení:"
 
-#: web/admin/edit_silverbullet.php:426
+#: web/admin/edit_silverbullet.php:427
 msgid "Serial Number:"
 msgstr "Sériové číslo:"
 
-#: web/admin/edit_silverbullet.php:427
+#: web/admin/edit_silverbullet.php:428
 msgid "CN:"
 msgstr "CN:"
 
-#: web/admin/edit_silverbullet.php:428
+#: web/admin/edit_silverbullet.php:429
 msgid "Expiry:"
 msgstr "Ukončení platnosti:"
 
-#: web/admin/edit_silverbullet.php:429
+#: web/admin/edit_silverbullet.php:430
 msgid "Issued:"
 msgstr "Vydán:"
 
-#: web/admin/edit_silverbullet.php:441
+#: web/admin/edit_silverbullet.php:442
 #, php-format
 msgid ""
 "The device in question will stop functioning with %s. The revocation cannot "
@@ -979,65 +979,65 @@ msgstr ""
 "Zmíněné zařízení přestane v %s fungovat. Odvolání nelze vrátit zpět. Opravdu "
 "to chcete udělat?"
 
-#: web/admin/edit_silverbullet.php:442 web/admin/edit_silverbullet.php:498
+#: web/admin/edit_silverbullet.php:443 web/admin/edit_silverbullet.php:499
 msgid "Revoke"
 msgstr "Revokován"
 
-#: web/admin/edit_silverbullet.php:467
+#: web/admin/edit_silverbullet.php:468
 #, php-format
 msgid "The invitation token %s is ready for sending! Choose how to send it:"
 msgstr "Token z pozvánky %s je připraven k odeslání Vyberte způsob odeslání:"
 
-#: web/admin/edit_silverbullet.php:469
+#: web/admin/edit_silverbullet.php:470
 msgid "E-Mail:"
 msgstr "E-mail:"
 
-#: web/admin/edit_silverbullet.php:473
+#: web/admin/edit_silverbullet.php:474
 msgid "Local mail client"
 msgstr "Lokální poštovní klient"
 
-#: web/admin/edit_silverbullet.php:474
+#: web/admin/edit_silverbullet.php:475
 msgid "Send with CAT"
 msgstr "Odeslat s CATem"
 
-#: web/admin/edit_silverbullet.php:477
+#: web/admin/edit_silverbullet.php:478
 msgid "SMS:"
 msgstr "SMS:"
 
-#: web/admin/edit_silverbullet.php:481
+#: web/admin/edit_silverbullet.php:482
 msgid "Send in SMS..."
 msgstr "Odeslat v SMS..."
 
-#: web/admin/edit_silverbullet.php:484
+#: web/admin/edit_silverbullet.php:485
 msgid "Manual:"
 msgstr "Manuál:"
 
-#: web/admin/edit_silverbullet.php:485
+#: web/admin/edit_silverbullet.php:486
 msgid "Copy to Clipboard"
 msgstr "Zkopírovat do schránky"
 
-#: web/admin/edit_silverbullet.php:488
+#: web/admin/edit_silverbullet.php:489
 msgid "Display QR code"
 msgstr "Zobrazit QR kód"
 
-#: web/admin/edit_silverbullet.php:494
+#: web/admin/edit_silverbullet.php:495
 msgid "Expiry Date:"
 msgstr "Datum ukončení platnosti:"
 
-#: web/admin/edit_silverbullet.php:494
+#: web/admin/edit_silverbullet.php:495
 msgid "Activations remaining:"
 msgstr "Počet zbývajících aktivací:"
 
-#: web/admin/edit_silverbullet.php:494
+#: web/admin/edit_silverbullet.php:495
 #, php-format
 msgid "%d of %d"
 msgstr "%d z %d"
 
-#: web/admin/edit_silverbullet.php:520
+#: web/admin/edit_silverbullet.php:521
 msgid "Update"
 msgstr "Aktualizace"
 
-#: web/admin/edit_silverbullet.php:527
+#: web/admin/edit_silverbullet.php:528
 #, php-format
 msgid ""
 "All of the currently active devices will stop functioning with %s. This "
@@ -1048,20 +1048,20 @@ msgstr ""
 "Všechna momentálně aktivní zařízení přestanou v %s fungovat. Tuto akci nelze "
 "vrátit zpět. Opravdu to chcete udělat?"
 
-#: web/admin/edit_silverbullet.php:536
+#: web/admin/edit_silverbullet.php:537
 msgid "Deactivate User"
 msgstr "Deaktivovat uživatele"
 
-#: web/admin/edit_silverbullet.php:545
+#: web/admin/edit_silverbullet.php:546
 msgid "New Invitation"
 msgstr "Nová pozvánka"
 
-#: web/admin/edit_silverbullet.php:548
+#: web/admin/edit_silverbullet.php:549
 msgid "Activations:"
 msgstr "Aktivace:"
 
 #. false because this restriction is currently not in effect and thus no UI is needed for it.
-#: web/admin/edit_silverbullet.php:569
+#: web/admin/edit_silverbullet.php:570
 #, php-format
 msgid ""
 "You need to acknowledge that the created accounts are still valid within the "
@@ -1075,33 +1075,33 @@ msgstr ""
 "stiskněte tlačítko \"Uložit\". Pokud je některý z účtů zastaralý, "
 "deaktivujte jej stisknutím příslušného tlačítka předtím, než účty uložíte."
 
-#: web/admin/edit_silverbullet.php:577
+#: web/admin/edit_silverbullet.php:578
 #, php-format
 msgid "I have verified that all configured users are still eligible for %s."
 msgstr ""
 "Ověřil jsem, že všichni nakonfigurovaní uživatelé jsou stále oprávněni "
 "používat %s."
 
-#: web/admin/edit_silverbullet.php:579
+#: web/admin/edit_silverbullet.php:580
 msgid "Save"
 msgstr "Uložit"
 
-#: web/admin/edit_silverbullet.php:589 web/admin/edit_silverbullet.php:604
+#: web/admin/edit_silverbullet.php:590 web/admin/edit_silverbullet.php:605
 msgid "Add new user"
 msgstr "Přidat uživatele"
 
-#: web/admin/edit_silverbullet.php:592
+#: web/admin/edit_silverbullet.php:593
 msgid "Import users from CSV file"
 msgstr "Vložit uživatele ze souboru CVS"
 
-#: web/admin/edit_silverbullet.php:599
+#: web/admin/edit_silverbullet.php:600
 msgid ""
 "Please enter a username of your choice and user expiry date to create a new "
 "user:"
 msgstr ""
 "Pro vytvoření nového uživatele zadejte jméno a datum vypršení platnosti:"
 
-#: web/admin/edit_silverbullet.php:613
+#: web/admin/edit_silverbullet.php:614
 msgid ""
 "Comma separated values should be provided in CSV file: username, expiration "
 "date 'yyyy-mm-dd', number of tokens (optional):"
@@ -1109,32 +1109,32 @@ msgstr ""
 "V CVS souboru oddělte čárkami: uživatelské jméno, datum vypršení \"YYYY-MM-DD"
 "\" a počet tokenů (nepovinně):"
 
-#: web/admin/edit_silverbullet.php:617
+#: web/admin/edit_silverbullet.php:618
 msgid "Import users"
 msgstr "Vložit uživatele"
 
 #. Appending terms of use popup
-#: web/admin/edit_silverbullet.php:633
+#: web/admin/edit_silverbullet.php:634
 #, php-format
 msgid "%s - Terms of Use"
 msgstr "%s Podmínky používaní"
 
-#: web/admin/edit_silverbullet.php:640
+#: web/admin/edit_silverbullet.php:641
 msgid "I have read and agree to the terms."
 msgstr "Četl jsem a souhlasím s těmito podmínkami."
 
-#: web/admin/edit_silverbullet.php:642
+#: web/admin/edit_silverbullet.php:643
 msgid "Continue"
 msgstr "Pokračovat"
 
-#: web/admin/edit_silverbullet.php:643
+#: web/admin/edit_silverbullet.php:644
 msgid "Abort"
 msgstr "Zrušit"
 
-#: web/admin/edit_silverbullet.php:656
-#, fuzzy, php-format
+#: web/admin/edit_silverbullet.php:657
+#, php-format
 msgid "Back to %s page"
-msgstr "Zpět na stránku IdP"
+msgstr "Zpět na stránku %s"
 
 #: web/admin/edit_user.php:27 web/admin/edit_user.php:36
 msgid "Editing User Attributes"
@@ -2381,7 +2381,6 @@ msgid "Use GEANTlink TTLS supplicant for W8"
 msgstr "Pro W8 použijte GEANTlink TTLS supplicant"
 
 #: web/lib/admin/UIElements.php:112
-#, fuzzy
 msgid "Use builtin TTLS supplicant for Windows 10"
 msgstr "Pro Windows 10 použijte vestavěné TTLS."
 

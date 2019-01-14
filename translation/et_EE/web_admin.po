@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-14 15:06+0100\n"
-"PO-Revision-Date: 2018-12-14 13:21+0000\n"
-"Last-Translator: Anne M <anne@eenet.ee>\n"
+"POT-Creation-Date: 2019-01-14 09:43+0100\n"
+"PO-Revision-Date: 2018-12-18 14:01+0000\n"
+"Last-Translator: Indrek Rokk <indrek.rokk@eenet.ee>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/et_EE/)\n"
 "Language: et_EE\n"
@@ -933,94 +933,94 @@ msgstr "TÜHISTATUD"
 msgid "EXPIRED"
 msgstr "AEGUNUD"
 
-#: web/admin/edit_silverbullet.php:425
+#: web/admin/edit_silverbullet.php:426
 msgid "Device:"
 msgstr "Seade:"
 
-#: web/admin/edit_silverbullet.php:426
+#: web/admin/edit_silverbullet.php:427
 msgid "Serial Number:"
 msgstr "Seerianumber"
 
-#: web/admin/edit_silverbullet.php:427
+#: web/admin/edit_silverbullet.php:428
 msgid "CN:"
 msgstr "CN:"
 
-#: web/admin/edit_silverbullet.php:428
+#: web/admin/edit_silverbullet.php:429
 msgid "Expiry:"
 msgstr "Aegub:"
 
-#: web/admin/edit_silverbullet.php:429
+#: web/admin/edit_silverbullet.php:430
 msgid "Issued:"
 msgstr "Väljastatud:"
 
-#: web/admin/edit_silverbullet.php:441
+#: web/admin/edit_silverbullet.php:442
 #, php-format
 msgid ""
 "The device in question will stop functioning with %s. The revocation cannot "
 "be undone. Are you sure you want to do this?"
 msgstr ""
-"Kõnealune seade lõpetab toimimise %sga. Tühistamist ei saa tagasi  võtta. "
+"Kõnealune seade lõpetab toimimise %siga. Tühistamist ei saa tagasi  võtta. "
 "Oled kindel, et soovid seda teha?"
 
-#: web/admin/edit_silverbullet.php:442 web/admin/edit_silverbullet.php:498
+#: web/admin/edit_silverbullet.php:443 web/admin/edit_silverbullet.php:499
 msgid "Revoke"
 msgstr "Tühista"
 
-#: web/admin/edit_silverbullet.php:467
+#: web/admin/edit_silverbullet.php:468
 #, php-format
 msgid "The invitation token %s is ready for sending! Choose how to send it:"
 msgstr "Kutse kood %s on saatmiseks valmis. Vali saatmisviis:"
 
-#: web/admin/edit_silverbullet.php:469
+#: web/admin/edit_silverbullet.php:470
 msgid "E-Mail:"
 msgstr "E-post:"
 
-#: web/admin/edit_silverbullet.php:473
+#: web/admin/edit_silverbullet.php:474
 msgid "Local mail client"
 msgstr "Kohalik e-posti klient"
 
-#: web/admin/edit_silverbullet.php:474
+#: web/admin/edit_silverbullet.php:475
 msgid "Send with CAT"
 msgstr "Saada CATiga"
 
-#: web/admin/edit_silverbullet.php:477
+#: web/admin/edit_silverbullet.php:478
 msgid "SMS:"
 msgstr "SMS:"
 
-#: web/admin/edit_silverbullet.php:481
+#: web/admin/edit_silverbullet.php:482
 msgid "Send in SMS..."
 msgstr "Saada SMSiga..."
 
-#: web/admin/edit_silverbullet.php:484
+#: web/admin/edit_silverbullet.php:485
 msgid "Manual:"
 msgstr "Käsitsi:"
 
-#: web/admin/edit_silverbullet.php:485
+#: web/admin/edit_silverbullet.php:486
 msgid "Copy to Clipboard"
 msgstr "Kopeeri lõikepuhvrisse"
 
-#: web/admin/edit_silverbullet.php:488
+#: web/admin/edit_silverbullet.php:489
 msgid "Display QR code"
 msgstr "Näita QR-koodi"
 
-#: web/admin/edit_silverbullet.php:494
+#: web/admin/edit_silverbullet.php:495
 msgid "Expiry Date:"
 msgstr "Aegumise kuupäev:"
 
-#: web/admin/edit_silverbullet.php:494
+#: web/admin/edit_silverbullet.php:495
 msgid "Activations remaining:"
 msgstr "Aktiveerimisi jäänud:"
 
-#: web/admin/edit_silverbullet.php:494
+#: web/admin/edit_silverbullet.php:495
 #, php-format
 msgid "%d of %d"
 msgstr "%d/%d"
 
-#: web/admin/edit_silverbullet.php:520
+#: web/admin/edit_silverbullet.php:521
 msgid "Update"
 msgstr "Uuenda"
 
-#: web/admin/edit_silverbullet.php:527
+#: web/admin/edit_silverbullet.php:528
 #, php-format
 msgid ""
 "All of the currently active devices will stop functioning with %s. This "
@@ -1032,20 +1032,20 @@ msgstr ""
 "tagasi võtta. Kasutajaid saab hiljem taas aktiveerida, neile on siis vaja "
 "anda uued kutsekoodid. Oled kindel, et soovid seda teha?"
 
-#: web/admin/edit_silverbullet.php:536
+#: web/admin/edit_silverbullet.php:537
 msgid "Deactivate User"
 msgstr "Deaktiveeri kasutaja"
 
-#: web/admin/edit_silverbullet.php:545
+#: web/admin/edit_silverbullet.php:546
 msgid "New Invitation"
 msgstr "Uus kutse"
 
-#: web/admin/edit_silverbullet.php:548
+#: web/admin/edit_silverbullet.php:549
 msgid "Activations:"
 msgstr "Aktiveerimisi:"
 
 #. false because this restriction is currently not in effect and thus no UI is needed for it.
-#: web/admin/edit_silverbullet.php:569
+#: web/admin/edit_silverbullet.php:570
 #, php-format
 msgid ""
 "You need to acknowledge that the created accounts are still valid within the "
@@ -1059,24 +1059,24 @@ msgstr ""
 "vajuta \"Salvesta\". Aegunud kontod palun deaktiveeri vastava nupu abil enne "
 "salvestamisnupu vajutamist. "
 
-#: web/admin/edit_silverbullet.php:577
+#: web/admin/edit_silverbullet.php:578
 #, php-format
 msgid "I have verified that all configured users are still eligible for %s."
 msgstr "Kinnitan, et kõik seadistatud kasutajad on õigustatud %s'i kasutama."
 
-#: web/admin/edit_silverbullet.php:579
+#: web/admin/edit_silverbullet.php:580
 msgid "Save"
 msgstr "Salvesta"
 
-#: web/admin/edit_silverbullet.php:589 web/admin/edit_silverbullet.php:604
+#: web/admin/edit_silverbullet.php:590 web/admin/edit_silverbullet.php:605
 msgid "Add new user"
 msgstr "Lisa uus kasutaja"
 
-#: web/admin/edit_silverbullet.php:592
+#: web/admin/edit_silverbullet.php:593
 msgid "Import users from CSV file"
 msgstr "Impordi kasutajad CSV failist"
 
-#: web/admin/edit_silverbullet.php:599
+#: web/admin/edit_silverbullet.php:600
 msgid ""
 "Please enter a username of your choice and user expiry date to create a new "
 "user:"
@@ -1084,7 +1084,7 @@ msgstr ""
 "Uue kasutaja lisamiseks palun sisesta soovitud kasutajanimi ja aegumise "
 "kuupäev:"
 
-#: web/admin/edit_silverbullet.php:613
+#: web/admin/edit_silverbullet.php:614
 msgid ""
 "Comma separated values should be provided in CSV file: username, expiration "
 "date 'yyyy-mm-dd', number of tokens (optional):"
@@ -1093,32 +1093,32 @@ msgstr ""
 "kasutajanimi, aegumiskuupäev formaadis AAAA-KK-PP (aasta, kuu, päev), "
 "võtmete arv (ei ole kohustuslik)."
 
-#: web/admin/edit_silverbullet.php:617
+#: web/admin/edit_silverbullet.php:618
 msgid "Import users"
 msgstr "Impordi kasutajad"
 
 #. Appending terms of use popup
-#: web/admin/edit_silverbullet.php:633
+#: web/admin/edit_silverbullet.php:634
 #, php-format
 msgid "%s - Terms of Use"
 msgstr "%s - Kasutustingimused"
 
-#: web/admin/edit_silverbullet.php:640
+#: web/admin/edit_silverbullet.php:641
 msgid "I have read and agree to the terms."
 msgstr "Kinnitan, et olen tutvunud kasutustingimustega ja kohustun neid täitma"
 
-#: web/admin/edit_silverbullet.php:642
+#: web/admin/edit_silverbullet.php:643
 msgid "Continue"
 msgstr "Jätka"
 
-#: web/admin/edit_silverbullet.php:643
+#: web/admin/edit_silverbullet.php:644
 msgid "Abort"
 msgstr "Loobu"
 
-#: web/admin/edit_silverbullet.php:656
-#, fuzzy, php-format
+#: web/admin/edit_silverbullet.php:657
+#, php-format
 msgid "Back to %s page"
-msgstr "Tagasi IdP lehele"
+msgstr "Tagasi %si lehele"
 
 #: web/admin/edit_user.php:27 web/admin/edit_user.php:36
 msgid "Editing User Attributes"
@@ -1635,7 +1635,7 @@ msgstr "Superadmini lehele pääsemiseks klõpsa siia"
 #: web/admin/overview_user.php:86
 #, php-format
 msgid "(Need help? Refer to the <a href='%s'>%s administrator manual</a>)"
-msgstr "(Vajad abi? Vaata <a href='%s'>%si administraatorijuhendit</a>)<"
+msgstr "(Vajad abi? Vaata <a href='%s'>%si administraatorijuhendit</a>)"
 
 #. / first parameter: number of Identity Providers; second param is the literal configured term for 'Identity Provider' (you may or may not be able to add a plural suffix for your locale)
 #: web/admin/overview_user.php:95
@@ -2345,12 +2345,11 @@ msgstr "Luba EAP-TLS User-Name kasutajanime valik"
 
 #: web/lib/admin/UIElements.php:111
 msgid "Use GEANTlink TTLS supplicant for W8"
-msgstr "Kasuta GEANTlinki TTLS taotlejat W8 jaoks"
+msgstr "Kasuta GEANTlinki TTLS programmi W8 jaoks"
 
 #: web/lib/admin/UIElements.php:112
-#, fuzzy
 msgid "Use builtin TTLS supplicant for Windows 10"
-msgstr "Kasuta sisseehitatud TTLS taotlejat Windows 10 jaoks"
+msgstr "Kasuta sisseehitatud TTLS programmi Windows 10 jaoks"
 
 #: web/lib/admin/UIElements.php:113
 msgid "Profile Description"

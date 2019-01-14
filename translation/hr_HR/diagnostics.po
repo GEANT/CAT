@@ -5,17 +5,17 @@
 #
 # Translators:
 # eduroam_devel <stefan.winter@restena.lu>, 2018
-# Dubravko Penezic <dpenezic@gmail.com>, 2018
 # dsafar <dsafar@srce.hr>, 2018
+# Dubravko Penezic <dpenezic@gmail.com>, 2018
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-14 15:06+0100\n"
+"POT-Creation-Date: 2019-01-14 09:43+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: dsafar <dsafar@srce.hr>, 2018\n"
+"Last-Translator: Dubravko Penezic <dpenezic@gmail.com>, 2018\n"
 "Language-Team: Croatian (Croatia) (https://www.transifex.com/eduroam_devel/"
 "teams/11799/hr_HR/)\n"
 "Language: hr_HR\n"
@@ -1100,19 +1100,19 @@ msgstr "Prikaži detaljne informacije za sve testove"
 
 #: web/diag/action_realmcheck.php:119
 msgid "All tests passed."
-msgstr ""
+msgstr "Sve provjere uspješno završene."
 
 #: web/diag/action_realmcheck.php:120
 msgid "There were some warnings."
-msgstr ""
+msgstr "Bilo je nekoliko upozorenja"
 
 #: web/diag/action_realmcheck.php:121
 msgid "There were some errors."
-msgstr ""
+msgstr "Bilo je nekoliko grešaka."
 
 #: web/diag/action_realmcheck.php:122
 msgid "There were some remarks."
-msgstr ""
+msgstr "Bilo je nekoliko primjedbi."
 
 #: web/diag/action_realmcheck.php:129
 msgid "Server certificate"
@@ -1232,12 +1232,15 @@ msgid ""
 "This realm has NAPTR records, but none are related to this roaming "
 "consortium."
 msgstr ""
+"Ova domena sadrži NAPTR zapise ali nema povezanih sa ovim roaming "
+"konzorcijem."
 
 #. if none of the possible negative retvals, then we have matching NAPTRs
 #: web/diag/action_realmcheck.php:514
 #, php-format
 msgid "This realm has %d NAPTR records relating to this roaming consortium."
 msgstr ""
+"Ova domena sadrži %d NAPTR zapisa povezanih sa ovim roaming konzorcijem."
 
 #: web/diag/action_realmcheck.php:520
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
@@ -1320,6 +1323,11 @@ msgid ""
 "realm, we can't authenticate successfully - so the expected outcome is to "
 "get an Access-Reject after having gone through an EAP conversation."
 msgstr ""
+"Ova provjera šalje zahtjeve kroz različite ulazne točke roaming "
+"infrastrukture.Zahtjev će sadržavati Operator-name atribut i bit će veći od "
+"1500 bita kako bi uhvatio dva uobičajena konfiguracijska problemaBudući da "
+"nemamo stvarne vjerodajnice za domenu ne možemo se uspješno autenticirati - "
+"pa je očekivani ishod odbijanje nakon EPA-a."
 
 #: web/diag/action_realmcheck.php:628 web/diag/action_realmcheck.php:740
 #, php-format
@@ -1441,104 +1449,112 @@ msgstr "Prijavi korisničke podatke"
 #: web/diag/action_realmcheck.php:762
 #, php-format
 msgid "Return to %s administrator area"
-msgstr ""
+msgstr "Povratak na %s administriranje"
 
 #: web/diag/adminQuery.php:31
 msgid "I suspect a Technical Problem with the IdP"
-msgstr ""
+msgstr "Sumnjam u tehnički problem s davateljem identiteta"
 
 #: web/diag/adminQuery.php:32
 msgid "A user from this IdP has allegedly infringed copyrights"
 msgstr ""
+"Korisnik iz ovog davatelja identiteta-a navodno je prekršio autorska prava"
 
 #: web/diag/adminQuery.php:33
 msgid ""
 "A user from this IdP has conducted malicious network operations (spam, "
 "DDoS, ...)"
 msgstr ""
+"Korisnik iz ovog davatelja identiteta-a proveo je zlonamjerne operacije na "
+"mreži (spam, DDoS,...)"
 
 #: web/diag/adminQuery.php:36
 msgid ""
 "User claims connectivity problems but has been authenticated successfully"
-msgstr ""
+msgstr "Korisnik tvrdi da ima probleme sa spajanjem a uspješno je autenticiran"
 
 #: web/diag/adminQuery.php:37
 msgid "User claims that mandatory open port is not open"
-msgstr ""
+msgstr "Korisnik tvrdi da port koji terba biti otvoren, nije otvoren"
 
 #: web/diag/adminQuery.php:65 web/diag/adminQuery.php:112
 msgid "Select your problem"
-msgstr ""
+msgstr "Izaberite Vaš problem"
 
 #: web/diag/adminQuery.php:69
 msgid "What is the realm of the IdP in question?"
-msgstr ""
+msgstr "O kojoj domeni davatelja identiteta se radi?"
 
 #: web/diag/adminQuery.php:73
 msgid "Check if this value is registered"
-msgstr ""
+msgstr "Provjerite dali je registrirana ova vrijednost"
 
 #: web/diag/adminQuery.php:78 web/diag/adminQuery.php:141
 msgid "What is the authentication timestamp of the user session in question?"
-msgstr ""
+msgstr "Koji je timestamp autentikacije korisničke sesije u pitanju?"
 
 #: web/diag/adminQuery.php:84 web/diag/adminQuery.php:148
 msgid "What is the MAC address of the user session in question?"
-msgstr ""
+msgstr "O kojoj se MAC adresi korisničke sesije radi?"
 
 #: web/diag/adminQuery.php:88
 msgid "Additional comments"
-msgstr ""
+msgstr "Dodatni komentari"
 
 #: web/diag/adminQuery.php:92
 msgid "Please specify an email address on which the IdP can contact you"
 msgstr ""
+"Molimo unesite e-mail adresu na koju Vas davatelj identiteta može "
+"kontaktirati"
 
 #: web/diag/adminQuery.php:96 web/diag/adminQuery.php:164
 msgid "Now you can send your query"
-msgstr ""
+msgstr "Sada možete poslati upit"
 
 #: web/diag/adminQuery.php:97 web/diag/adminQuery.php:165
 msgid "Send"
-msgstr ""
+msgstr "Pošalji"
 
 #: web/diag/adminQuery.php:116
 msgid "Identify the SP by one of following means"
-msgstr ""
+msgstr "Odaberite pružatelja usluge na jedan od sljedećih načina"
 
 #: web/diag/adminQuery.php:120
 msgid "SP Operator-Name attribute"
-msgstr ""
+msgstr "atribut SP Operator-name"
 
 #: web/diag/adminQuery.php:124
 msgid "Select the SP manually:"
-msgstr ""
+msgstr "Ručno izaberite pružatelja usluge"
 
 #: web/diag/adminQuery.php:127
 msgid "click to select country and organisation"
-msgstr ""
+msgstr "Kliknite za odabr zemlje i ustanove"
 
 #: web/diag/adminQuery.php:133
 msgid "at least describe the SP location"
-msgstr ""
+msgstr "Unesite barem lokaciju pružatelja usluge"
 
 #: web/diag/adminQuery.php:137
 msgid "What is the outer ID of the user session in question?"
-msgstr ""
+msgstr "Koji je vanjski ID korisnikove sesije u pitanju?"
 
 #: web/diag/adminQuery.php:152
 msgid "Additional comments about the problem"
-msgstr ""
+msgstr "Dodatni komentari vezani uz problem"
 
 #: web/diag/adminQuery.php:156
 msgid ""
 "Do you have any contact details by which the user wishes to be contacted by "
 "the SP?"
 msgstr ""
+"Imate li kontakt informacije kojima korisnik želi biti kontaktiran od "
+"davatelja usluge?"
 
 #: web/diag/adminQuery.php:160
 msgid "Please specify an email address on which the SP can contact you"
 msgstr ""
+"Molimo unestite e-mail adresu na koju Vas davatelj usluge može kontaktirati"
 
 #: web/diag/radius_tests.php:33 web/diag/radius_tests.php:34
 msgid ""

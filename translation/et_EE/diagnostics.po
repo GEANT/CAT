@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-14 15:06+0100\n"
+"POT-Creation-Date: 2019-01-14 09:43+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: Anne M <anne@eenet.ee>, 2018\n"
 "Language-Team: Estonian (Estonia) (https://www.transifex.com/eduroam_devel/"
@@ -673,7 +673,7 @@ msgstr ""
 
 #: web/skins/modern/diag/diag.php:87
 msgid "Diagnostics site"
-msgstr "Diagnostikakoht"
+msgstr "Diagnostikasüsteem"
 
 #: web/skins/modern/diag/diag.php:90
 msgid ""
@@ -711,7 +711,8 @@ msgstr "Lõppkasutaja vahendid"
 msgid ""
 "To resolve your problem a real-time diagnostics for your realm must be "
 "performed."
-msgstr "Su mure lahendamiseks on vaja teha reaalajas diagnostika Su domeenile."
+msgstr ""
+"Probleemi lahendamiseks on vaja teha reaalajas diagnostika Su domeenile."
 
 #: web/skins/modern/diag/diag.php:102
 msgid ""
@@ -730,11 +731,11 @@ msgstr ""
 
 #: web/skins/modern/diag/diag.php:107
 msgid "alternatively"
-msgstr "teise võimalusena"
+msgstr "või"
 
 #: web/skins/modern/diag/diag.php:108
 msgid "You can select your home institution from the following list"
-msgstr "Võid valida oma koduasutuse järgmisest nimekirjast"
+msgstr "vali oma koduasutus:"
 
 #: web/skins/modern/diag/diag.php:110
 msgid "Click to select your country/region and organisation"
@@ -1092,19 +1093,19 @@ msgstr "Näita kõigi testide detailset teavet"
 
 #: web/diag/action_realmcheck.php:119
 msgid "All tests passed."
-msgstr ""
+msgstr "Kõik testid õnnestusid."
 
 #: web/diag/action_realmcheck.php:120
 msgid "There were some warnings."
-msgstr ""
+msgstr "Esines hoiatusi."
 
 #: web/diag/action_realmcheck.php:121
 msgid "There were some errors."
-msgstr ""
+msgstr "Esines vigu."
 
 #: web/diag/action_realmcheck.php:122
 msgid "There were some remarks."
-msgstr ""
+msgstr "Oli märkusi."
 
 #: web/diag/action_realmcheck.php:129
 msgid "Server certificate"

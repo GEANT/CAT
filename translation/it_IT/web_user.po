@@ -6,7 +6,7 @@
 # Daniele Albrizio <daniele@albrizio.it>, 2012-2013,2015-2018
 # Daniele Albrizio <daniele@albrizio.it>, 2012
 # Giuseppe De Marco <giuseppe.demarco@unical.it>, 2018
-# Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2015,2017
+# Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2015,2017-2018
 # Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2013
 # Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2012
 # Pasquale Mandato <pasquale.mandato@garr.it>, 2018
@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-14 15:06+0100\n"
-"PO-Revision-Date: 2018-11-07 21:22+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2019-01-14 09:43+0100\n"
+"PO-Revision-Date: 2018-12-31 16:36+0000\n"
+"Last-Translator: Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/eduroam_devel/cat/"
 "language/it_IT/)\n"
 "Language: it_IT\n"
@@ -965,7 +965,7 @@ msgstr "Token non valido"
 
 #: web/skins/modern/accountstatus/accountstatus.php:270
 msgid "revoke"
-msgstr ""
+msgstr "revoca"
 
 #: web/skins/modern/accountstatus/accountstatus.php:284
 msgid "The details are displayed below."
