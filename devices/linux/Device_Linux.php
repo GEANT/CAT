@@ -167,7 +167,7 @@ class Device_Linux extends \core\DeviceConfig {
         }
 
         if ($outerId !== NULL) {
-            $config['anonymous_identity'] = $outerId;
+            $configRaw['anonymous_identity'] = '"' . $outerId . '"';
         }
 
         if (!empty($this->attributes['internal:realm'][0])) {
