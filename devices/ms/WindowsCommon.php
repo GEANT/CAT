@@ -48,8 +48,8 @@ abstract class WindowsCommon extends \core\DeviceConfig {
 
         if (!($this->copyFile('cat32.ico') &&
                 $this->copyFile('cat_150.bmp') &&
-                $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData32.exe', 'WLANSetEAPUserData32.exe') &&
-                $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData64.exe', 'WLANSetEAPUserData64.exe'))) {
+                $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData32.exe', 'WLANSetEAPUserDatax86.exe') &&
+                $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData64.exe', 'WLANSetEAPUserDatax64.exe'))) {
             throw new Exception("Copying needed files (part 2) failed for at least one file!");
         }
         if (!$this->translateFile('common.inc', 'common.nsh', $this->codePage)) {

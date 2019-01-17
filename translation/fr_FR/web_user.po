@@ -4,20 +4,21 @@
 #
 # Translators:
 # Cedric Houssier <cedric.houssier@univ-rouen.fr>, 2018
-# Christian Claveleira <christian.claveleira@renater.fr>, 2018
-# dominique.launay <dominique.launay@renater.fr>, 2013,2015
+# Christian Claveleira <christian.claveleira@renater.fr>, 2018-2019
+# dominique.launay <dominique.launay@renater.fr>, 2013,2015,2019
 # dominique.launay <dominique.launay@renater.fr>, 2012
 # J.-M.Kubek <jean-marie.kubek@univ-jfc.fr>, 2015
 # Joël Kwan <joel.kwan@univ-reunion.fr>, 2018
+# Jonathan CHATRIOT <jonathan.chatriot@ac-lille.fr>, 2019
 # Nicolas Garnier <nicolas.garnier@renater.fr>, 2013
 # Nicolas Garnier <nicolas.garnier@renater.fr>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-14 15:06+0100\n"
-"PO-Revision-Date: 2018-12-05 13:54+0000\n"
-"Last-Translator: Cedric Houssier <cedric.houssier@univ-rouen.fr>\n"
+"POT-Creation-Date: 2019-01-14 13:42+0100\n"
+"PO-Revision-Date: 2019-01-11 08:59+0000\n"
+"Last-Translator: dominique.launay <dominique.launay@renater.fr>\n"
 "Language-Team: French (France) (http://www.transifex.com/eduroam_devel/cat/"
 "language/fr_FR/)\n"
 "Language: fr_FR\n"
@@ -45,6 +46,15 @@ msgid ""
 "administrators and try to influence them to add your %s configuration to "
 "<span class='edu_cat'>%s</span>."
 msgstr ""
+"Les administrateurs locaux %s saisissent leurs détails de configuration %s "
+"et, sur cette base, <span class='edu_cat'>%s</span>construit des programmes "
+"d'installation personnalisés pour un certain nombre de plates-formes "
+"populaires. Un programme d'installation préparé pour une organisation ne "
+"fonctionnera pas pour les utilisateurs d'une autre. Par conséquent, si votre "
+"organisation ne figure pas dans la liste, vous ne pouvez pas utiliser ce "
+"système. Veuillez contacter vos administrateurs locaux et essayez de les "
+"influencer pour qu'ils ajoutent votre configuration %sà <span "
+"class='edu_cat'>%s</span>."
 
 #: web/user/about_cat.inc.php:45
 #, php-format
@@ -52,7 +62,7 @@ msgid ""
 "<span class='edu_cat'>%s</span> currently supports the following devices and "
 "EAP type combinations:"
 msgstr ""
-"<span class='edu_cat'>%s</span> supportent actuellement les combinaisons de "
+"<span class='edu_cat'>%s</span> supporte actuellement les combinaisons de "
 "type d'appareil et de méthode EAP suivantes :"
 
 #: web/user/about_cat.inc.php:46
@@ -72,11 +82,11 @@ msgid ""
 "for port TCP/443 in the portal:</p><b><u>REQUIRED</u></b><ul><li><b>%s</b> "
 "(the service itself)</li>"
 msgstr ""
-"<p><span class='edu_cat'>%s</span> accessible publiquement. Afin de pouvoir "
-"y accéder au travers d'un portail captif, (par ex. à partir d'un SSID de "
-"configuration n'autorisant qu'un accès à CAT) vous devez autoriser "
+"<p><span class='edu_cat'>%s</span> est accessible publiquement. Afin de "
+"pouvoir y accéder au travers d'un portail captif, (par ex. à partir d'un "
+"SSID de configuration n'autorisant qu'un accès à CAT) vous devez autoriser "
 "l'utilisation du port 443 pour les machines  suivantes dans le portail : </"
-"p><b><u>REQUIRED</u></b><ul><li><b>%s</b> (accès au service lui même)</li>"
+"p><b><u>REQUIS</u></b><ul><li><b>%s</b> (accès au service lui même)</li>"
 
 #: web/user/about_cat.inc.php:93
 #, php-format
@@ -91,7 +101,7 @@ msgstr[0] ""
 "site),  TCP/80  lui aussi</li>"
 msgstr[1] ""
 "<li><b>%s</b> (les points de  distribution de CRL pour le certificat de "
-"site),  TCP/80  lui aussi</li>"
+"site),  TCP/80 compris</li>"
 
 #: web/user/about_cat.inc.php:96
 #, php-format
@@ -123,6 +133,19 @@ msgid ""
 "google.com</b></li><li><b>checkout.google.com</b></li><li><b>*.gvt1.com</"
 "li></ul>"
 msgstr ""
+"<li><b>android.l.google.com</b> (Google Play access for Android App)</"
+"li><li><b>android.clients.google.com</b> (Google Play access for Android "
+"App)</li><li><b>play.google.com</b> (Google Play access for Android App)</"
+"li><li><b>ggpht.com</b> (Google Play access for Android App)</li></"
+"ul><b><u>RECOMMANDÉ</u></b> pour pleine fonctionnalité de Google Play  "
+"(sinon, Play Store semblera cassé aux utilisateurs et/ou certaines "
+"fonctionnalités non essentielles ne seront pas disponibles)<ul><li><b>photos-"
+"ugc.l.google.com</b></li><li><b>googleusercontent.com</b></li><li><b>ajax."
+"googleapis.com</b></li><li><b>play.google-apis.com</b></li><li><b>googleapis."
+"l.google.com</b></li><li><b>apis.google.com</b></li><li><b>gstatic.com</b></"
+"li><li><b>www.google-analytics.com</b></li><li><b>wallet.google.com</b></"
+"li><li><b>plus.google.com</b></li><li><b>checkout.google.com</b></"
+"li><li><b>*.gvt1.com</li></ul>"
 
 #.
 #. * *****************************************************************************
@@ -163,7 +186,7 @@ msgstr "Rejoignez la liste de diffusion des développeurs."
 #: web/user/devel.inc.php:25
 #, php-format
 msgid "The list is available at: %s"
-msgstr "La liste est disponible à %s"
+msgstr "La liste est disponible via %s"
 
 #: web/user/devel.inc.php:26
 msgid "Add a translation"
@@ -183,7 +206,7 @@ msgstr "Documentation"
 #: web/user/faq.inc.php:28 web/user/faq.php:25
 msgid "My organisation is not listed. Can't I just use any of the other ones?"
 msgstr ""
-"Mon établissement n'est pas présent. Puis-je utiliser n'importe quel autre ?"
+"Mon établissement n'est pas présent. Ne puis-je pas en utiliser un autre ?"
 
 #: web/user/faq.inc.php:29 web/user/faq.php:26
 msgid ""
@@ -193,7 +216,7 @@ msgid ""
 "server and will abort the login. Using an installer from a different "
 "organisation is <i>guaranteed to not work</i>!"
 msgstr ""
-"Non! Les installateurs contiennent des paramètres de sécurité spécifiques à "
+"Non ! Les installateurs contiennent des paramètres de sécurité spécifiques à "
 "votre établissement. Si vous n'appartenez pas à cet établissement, votre "
 "appareil détectera que vous vous apprêtez à transmettre votre nom "
 "d'utilisateur et votre mot de passe à un serveur non autorisé et interrompra "
@@ -219,7 +242,7 @@ msgstr ""
 #, php-format
 msgid "My device is not listed! Does that mean I can't do %s?"
 msgstr ""
-"Mon appareil n'est pas présent! Cela signifie que je ne peut pas faire %s?"
+"Mon appareil n'est pas présent! Cela signifie que je ne peut pas utiliser %s?"
 
 #: web/user/faq.inc.php:39 web/user/faq.php:36
 #, php-format
@@ -261,7 +284,7 @@ msgstr ""
 #: web/user/faq.inc.php:47 web/user/faq.php:52
 #, php-format
 msgid "Is it safe to use %s installers?"
-msgstr "Est-il sur d'utiliser l'installateur %s?"
+msgstr "Est-il sûr d'utiliser les installateurs %s?"
 
 #: web/user/faq.inc.php:48 web/user/faq.php:53
 #, php-format
@@ -269,7 +292,7 @@ msgid ""
 "%s installers configure security settings on your device, therefore you "
 "should be sure that you are using genuine ones."
 msgstr ""
-"les installateurs %s configurent les paramètres de sécurité sur votre "
+"Les installateurs %s configurent les paramètres de sécurité sur votre "
 "appareil, vous devriez donc vérifier que vous utilisez un installateur "
 "authentique."
 
@@ -279,7 +302,7 @@ msgid ""
 "This is why %s installers are digitally signed by %s. Watch out for a system "
 "message confirming this."
 msgstr ""
-"C'est pourquoi les installateurs % sont signés numériquement par %s. Un "
+"C'est pourquoi les installateurs %s sont signés numériquement par %s. Un "
 "message système devrait vous le confirmer."
 
 #: web/user/faq.inc.php:52 web/user/faq.php:57
@@ -288,8 +311,8 @@ msgid ""
 "commonly downloaded and possibly harmful. Should I be concerned?"
 msgstr ""
 "Windows 'Internet Explorer' ou 'SmartScreen' m'indique que le fichier ne "
-"s'est pas téléchargé correctement et est une possible menace. Dois-je me "
-"sentir concerné ?"
+"s'est pas téléchargé correctement et constitue une menace possible. Dois-je "
+"me sentir concerné ?"
 
 #: web/user/faq.inc.php:53 web/user/faq.php:58
 msgid ""
@@ -302,7 +325,7 @@ msgstr ""
 "intelligent. Cet avertissement part du principe que ce fichier n'a pas été "
 "téléchargé par un nombre assez important d'utilisateurs, ce qui ne le rends "
 "pas populaire auprès de Microsoft (ce qui curieusement voudrait le rendre "
-"'sécurisé'). Ce message seul n'est donc pas un problème de sécurité."
+"'sécurisé'). Ce message affiché seul ne révèle pas un problème de sécurité."
 
 #: web/user/faq.inc.php:53 web/user/faq.php:58
 #, php-format
@@ -310,13 +333,13 @@ msgid ""
 "So long as the file is carrying a valid signature from %s, the download is "
 "safe."
 msgstr ""
-"Tant que le fichier comporte une signature valide auprès de %s, le "
-"téléchargement est sur."
+"Tant que le fichier comporte une signature de %s valide, le téléchargement "
+"est sûr."
 
 #: web/user/faq.inc.php:53 web/user/faq.php:58
 #, php-format
 msgid "Please see also Microsoft's FAQ regarding SmartScreen at %s."
-msgstr "Veuillez vous référer a la FAQ Microsoft pour SmartScreen a %s."
+msgstr "Veuillez vous référer a la FAQ Microsoft pour SmartScreen à %s."
 
 #: web/user/faq.inc.php:57 web/user/faq.php:72
 #, php-format
@@ -340,19 +363,20 @@ msgid ""
 "be able to trace your connections."
 msgstr ""
 "Il peut y avoir de nombreuses raisons différentes. Le réseau que vous voyez "
-"peut ne pas être authentique %s et votre appareil refuser silencieusement la "
-"connexion, il peut y avoir un mauvais paramètre dans la configuration du "
-"réseau, votre compte peut avoir expiré, il peut y avoir un problème de "
-"connexion avec le serveur d'authentification de votre établissement, vous "
-"pouvez ne pas respecter la réglementation d'utilisation du réseau que vous "
-"utilisez et avoir été refusé en conséquence...\n"
-" Veuillez contacter votre établissement d'origine et signaler le problème, "
-"les administrateurs devraient être en mesure de tracer votre connexion."
+"peut ne pas être un authentique réseau %s et votre appareil refuser "
+"silencieusement la connexion. Il peut y avoir un mauvais paramètre dans la "
+"configuration du réseau ; votre compte peut avoir expiré ; il peut y avoir "
+"un problème de connexion avec le serveur d'authentification de votre "
+"établissement ; vous pouvez ne pas respecter la réglementation d'utilisation "
+"du réseau que vous utilisez et avoir été refusé en conséquence.\n"
+" Vous devriez contacter votre établissement d'origine et signaler le "
+"problème, les administrateurs devraient être en mesure de tracer votre "
+"connexion."
 
 #: web/user/faq.inc.php:62 web/user/faq.php:77
 #, php-format
 msgid "I have a question about this web site. Whom should I contact?"
-msgstr "J'ai une question à propos de ce site web, Qui dois-je contacter ?"
+msgstr "J'ai une question à propos de ce site web. Qui dois-je contacter ?"
 
 #: web/user/faq.inc.php:63 web/user/faq.php:78
 #, php-format
@@ -362,7 +386,7 @@ msgstr "Vous devriez envoyer un mail à %s."
 #: web/user/faq.inc.php:71 web/user/faq.php:46
 #, php-format
 msgid "What is this %s thing anyway?"
-msgstr "Quelle est cette chose %s ?"
+msgstr "Mais quel est cet %s ?"
 
 #: web/user/faq.inc.php:72 web/user/faq.php:47
 #, php-format
@@ -373,11 +397,12 @@ msgid ""
 "access on more than 6.000 hotspots! Visit <a href='http://www.eduroam."
 "org'>the %s homepage</a> for more details."
 msgstr ""
-"%s est un réseau WiFi universel qui donne accès aux membres de la communauté "
+"%s est un réseau WiFi universel qui donne aux membres de la communauté "
 "éducation-recherche l'accès à internet <i> gratuitement </i> sur tous les "
-"hotspot %s de la planète. Il y a déjà plusieurs millions d’utilisateurs %s, "
-"qui profitent d'accès gratuit à Internet sur plus de 6.000 hotspots! Visitez "
-"<a href='http://www.eduroam.org'>la page %s</a> pour plus de détails."
+"points d'accès %s de la planète. Il y a déjà plusieurs millions "
+"d’utilisateurs %s qui profitent d'accès gratuit à Internet sur plus de 6.000 "
+"points d'accès ! Visitez <a href='http://www.eduroam.org'>la page %s</a> "
+"pour plus de détails."
 
 #: web/user/faq.php:69
 #, php-format
@@ -391,15 +416,15 @@ msgid ""
 "reasons for failure. It also allows you to contact your organisation and "
 "report the problem to them."
 msgstr ""
-"Il peut y avoir différentes raisons. Le réseau que vous voyez n'est le vrai "
-"%s et votre appareil rejette silencieusement la tentative de connexion; "
-"votre compte a expiré; vous avez peut-être enfreint les règles du réseau que "
-"vous utilisez, en conséquence de quoi, l'accès vous est refusé;  peut-être y "
-"a-t-il effectivement un problème technique. Pour exclure cette dernière "
-"possibilité, vous devriez vous connecter à l'outil de diagnostic de %s, <a "
-"href=''>disponible ici</a>. Il peut identifier plusieurs des causes  "
-"possibles de votre problème. Il vous permet également de contacter votre "
-"établissement d'origine et de leur signaler le problème."
+"Il peut y avoir différentes raisons. Le réseau que vous voyez n'est pas le "
+"vrai %s et votre appareil rejette silencieusement la tentative de "
+"connexion ; votre compte a expiré ; vous avez peut-être enfreint les règles "
+"du réseau que vous utilisez, en conséquence de quoi, l'accès vous est "
+"refusé ;  peut-être y a-t-il effectivement un problème technique. Pour "
+"exclure cette dernière possibilité, vous devriez vous connecter à l'outil de "
+"diagnostic de %s, <a href=''>disponible ici</a>. Il peut identifier "
+"plusieurs des causes  possibles de votre problème. Il vous permet également "
+"de contacter votre établissement d'origine et de leur signaler le problème."
 
 #. *
 #. * This is a template for further FAQ entries. Simply copy&paste and add more
@@ -422,8 +447,8 @@ msgstr "Conditions d'utilisation"
 #: web/user/tou.inc.php:24
 msgid "(for legal reasons, the Terms of Use are in English only)"
 msgstr ""
-"(pour des raisons légales, les conditions d'utilisation sont seulement en "
-"Anglais)"
+"(pour des raisons légales, les conditions d'utilisation ne sont disponibles "
+"qu'en Anglais)"
 
 #: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:88
 #, php-format
@@ -459,8 +484,8 @@ msgid ""
 "Your mistake? Our error? Who knows! Maybe you should go back to the <a "
 "href='%s'>Start Page</a>."
 msgstr ""
-"Mauvaise manip de votre part ? Erreur de notre part ? Qui sait ! Vous "
-"devriez peut-être retourner à la <a href='%s'>Page d'accueil</a>"
+"Erreur de votre part ? De notre part ? Qui sait ! Vous devriez peut-être "
+"retourner à la <a href='%s'>Page d'accueil</a>"
 
 #: web/404.php:56
 msgid "This is not the CAT you are looking for."
@@ -471,8 +496,8 @@ msgid ""
 "Whatever you expected to see at this URL - it's not here. The only thing "
 "here is the number"
 msgstr ""
-"Quelque soit ce que vous espériez trouver à cet URL, ce n'est pas là. Seul "
-"un numéro est apparait ici."
+"Quelque soit ce que vous espériez trouver à cet URL, ce n'est pas là. Vous "
+"ne trouverez ici que le numéro"
 
 #: web/404.php:59
 #, php-format
@@ -480,13 +505,13 @@ msgid ""
 "staring at you. Your mistake? Our error? Who knows! Maybe you should go back "
 "to the <a href='%s'>Start Page</a>."
 msgstr ""
-"on vous observe. Mauvaise manip de votre part ? Erreur de notre part ? Qui "
-"sait ! Vous devriez peut-être retourner à la <a href='%s'>Page d'accueil</a>."
+"on vous observe. Erreur votre part ? De notre part ? Qui sait ! Vous devriez "
+"peut-être retourner à la <a href='%s'>Page d'accueil</a>."
 
 #: web/tou.php:70 web/skins/modern/Divs.php:289
 #, php-format
 msgid "%s Privacy Notice"
-msgstr "Avis de confidentialité %s"
+msgstr "Avis concernant la confidentialité %s"
 
 #: web/lib/user/TextTemplates.php:81
 #, php-format
@@ -499,8 +524,7 @@ msgid ""
 "download please use this direct <a href=''>link</a>."
 msgstr ""
 "Votre téléchargement va débuter rapidement. En cas de difficultés avec le "
-"téléchargement automatique  veuillez utiliser ce lien direct<a href=''>link</"
-"a>."
+"téléchargement automatique  veuillez utiliser ce <a href=''>lien direct</a>."
 
 #: web/lib/user/TextTemplates.php:83 web/skins/modern/div_user_welcome.php:30
 #, php-format
@@ -516,9 +540,9 @@ msgid ""
 "certificate') - and be online!"
 msgstr ""
 "Maintenant que vous avez téléchargé et installé une configuration cliente, "
-"tout ce qui reste à faire est de trouver un hotspot %s à proximité, d'entrer "
-"vos identifiants d'utilisateur (nom et mot de passe ou certificat personnel) "
-"et être connecté !"
+"tout ce qui reste à faire est de trouver un point d'accès %s à proximité, "
+"d'entrer vos identifiants d'utilisateur (nom d'utilisateur et mot de passe "
+"ou certificat personnel) et être connecté !"
 
 #: web/lib/user/TextTemplates.php:85 web/skins/modern/div_user_welcome.php:38
 #, php-format
@@ -527,8 +551,8 @@ msgid ""
 "helpdesk of %s. They will diagnose the problem and help you out. You can "
 "reach them via the means shown above."
 msgstr ""
-"Quelque soit le problème que vous pourriez éventuellement rencontrer, ou "
-"pour totu autre renseignement, veuillez contacter le centre de support de "
+"Quel que soit le problème que vous pourriez éventuellement rencontrer, ou "
+"pour tout autre renseignement, veuillez contacter le centre de support de "
 "%s. Ils diagnostiqueront le problème ou vous apporteront toute autre aide "
 "qui pourrait être nécessaire. Vous pouvez les joindre en utilisant l'un des "
 "moyens décrits ci dessus."
@@ -545,11 +569,10 @@ msgid ""
 "of universities, research centres and other places all over the globe. All "
 "of this completely free of charge!"
 msgstr ""
-"nous souhaitons vous accueillir chaleureusement parmi plusieurs millions "
-"d'utilisateurs de %s ! A partir de maintenant vous pouvez utiliser les "
-"ressources d'accès à Internet de milliers d'universités, de centres de "
-"recherche et d'autres organismes tout autour du globe. Tout cela "
-"gratuitement !"
+"nous aimerions vous souhaiter la bienvenue parmi les millions d'utilisateurs "
+"de %s ! À partir de maintenant vous êtes en mesure d'utiliser les ressources "
+"d'accès à Internet de milliers d'universités, de centres de recherche et "
+"d'autres organismes tout autour du globe. Tout cela gratuitement !"
 
 #: web/lib/user/TextTemplates.php:89
 #, php-format
@@ -559,7 +582,7 @@ msgstr "Connectez votre appareil  à %s"
 #: web/lib/user/TextTemplates.php:90
 #, php-format
 msgid "%s installation made easy:"
-msgstr "%s installation simplifiée:"
+msgstr "%s installation simplifiée :"
 
 #: web/lib/user/TextTemplates.php:91
 msgid "Custom built for your organisation"
@@ -584,12 +607,12 @@ msgstr "Choisissez un autre installateur à télécharger"
 
 #: web/lib/user/TextTemplates.php:96
 msgid "All platforms"
-msgstr "Toutes les plates-formes."
+msgstr "Toutes les plates-formes"
 
 #: web/lib/user/TextTemplates.php:97
 #, php-format
 msgid "Download your %s installer"
-msgstr "Téléchargez votre installteur %s"
+msgstr "Téléchargez votre installateur %s"
 
 #: web/lib/user/TextTemplates.php:98
 msgid ""
@@ -612,7 +635,7 @@ msgstr "Continuer"
 #: web/lib/user/TextTemplates.php:100
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s"
-msgstr "Signé numériquement par les organisations qui coordonnent %s"
+msgstr "Signé numériquement par l'organisation qui coordonne %s"
 
 #: web/lib/user/TextTemplates.php:101
 #, php-format
@@ -631,7 +654,7 @@ msgid ""
 "if yours is on the list."
 msgstr ""
 "Ce site fournit %s installateurs pour de nombreuses organisations, cliquer "
-"ici pour voir si la votre est dans la liste."
+"ici pour voir si le vôtre est dans la liste."
 
 #: web/lib/user/TextTemplates.php:103
 msgid "Custom built for you"
@@ -640,7 +663,7 @@ msgstr "Généré sur mesure pour vous"
 #: web/lib/user/TextTemplates.php:105
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s: %s"
-msgstr "Signé numériquement par les organisations qui coordonnent %s: %s"
+msgstr "Signé numériquement par l'organisation qui coordonne %s: %s"
 
 #: web/skins/modern/div_user_welcome.php:33
 msgid ""
@@ -728,7 +751,7 @@ msgstr "Accès administrateur %s"
 #: web/skins/modern/Menu.php:73
 #, php-format
 msgid "%s admin:<br>manage your IdP"
-msgstr "%s administrateurs:<br>gérez votre IdP"
+msgstr "administrateurs %s : gérer  votre IdP"
 
 #: web/skins/modern/Menu.php:74 web/skins/modern/Menu.php:75
 msgid "Become a CAT developer"
@@ -743,8 +766,8 @@ msgid ""
 "You attempted to download an installer that was already downloaded before. "
 "Please request a new token from your administrator instead."
 msgstr ""
-"Vous avez essayé de télécharger un installateur qui a déjà été téléchargé. "
-"Veuillez plutôt demander un nouveau jeton à votre administrateur."
+"Vous avez essayé de télécharger un installateur que vous aviez déjà "
+"téléchargé. Veuillez plutôt demander un nouveau jeton à votre administrateur."
 
 #: web/skins/modern/accountstatus/accountstatus.php:77
 msgid "Attempt to re-use download link"
@@ -760,9 +783,9 @@ msgstr "Vous êtes un nouvel utilisateur sans historique d'identifiant %s"
 msgid "You have <strong>%d</strong> currently valid %s credential."
 msgid_plural "You have <strong>%d</strong> currently valid %s credentials."
 msgstr[0] ""
-"Vous avez actuellement <strong>%d</strong> identifiant valide pour %s."
+"Vous avez actuellement <strong>%d</strong> identifiant(s) valide(s) pour %s."
 msgstr[1] ""
-"Vous avez actuellement <strong>%d</strong> identifiants valides pour %s."
+"Vous avez  <strong>%d</strong> identifiants actuellement valides pour %s."
 
 #: web/skins/modern/accountstatus/accountstatus.php:98
 #, php-format
@@ -807,6 +830,10 @@ msgid ""
 "supported operating system later; the invitation link has not been used up "
 "yet."
 msgstr ""
+"Malheureusement, le système d'exploitation utilisé par votre appareil (%s) "
+"n'est pas supporté actuellement pour les comptes utilisateurs hébergés. Vous "
+"pouvez visiter cette page ultérieurement avec un système supporté ; le lien "
+"d'invitation n'a pas encore été utilisé."
 
 #: web/skins/modern/accountstatus/accountstatus.php:131
 #, php-format
@@ -823,6 +850,10 @@ msgid ""
 "be used <span class='emph'>only on this device (%s)</span>, and it is <span "
 "class='emph'>not permitted to share</span> this information with anyone."
 msgstr ""
+"Le programme d'installation est <span class='emph'>strictement personnel</"
+"span>, à utiliser <span class='emph'>seulement sur cet appareil (%s)</span>, "
+"et il est <span class='emph'>interdit de partager</span> cette information "
+"avec quiconque."
 
 #: web/skins/modern/accountstatus/accountstatus.php:134
 #, php-format
@@ -831,6 +862,9 @@ msgid ""
 "access rights for you will be revoked and you may be sanctioned by your "
 "local %s administrator."
 msgstr ""
+"Quand le système détecte un abus tel que le partage d'informations de "
+"connexion avec d'autres personnes, tous vos accès seront révoqués et vous "
+"pouvez être sanctionné par votre administrateur local %s."
 
 #: web/skins/modern/accountstatus/accountstatus.php:135
 msgid ""
@@ -885,6 +919,11 @@ msgid ""
 "page and Accept the question about logging in with a client certificate "
 "(select a certificate with a name ending in '…%s')."
 msgstr ""
+"Vous devez utiliser le lien exact que vous avez obtenu lors de votre "
+"inscription pour venir ici. Sinon, si vous avez déjà des informations "
+"d'identification valides %s, vous pouvez  visiter cette page et accepter la "
+"question relative à la connexion avec un certificat client (sélectionnez un "
+"certificat dont le nom se termine par '…%s')."
 
 #: web/skins/modern/accountstatus/accountstatus.php:191
 #: web/skins/modern/user/js/cat_js.php:245
@@ -963,6 +1002,8 @@ msgid ""
 "You must have received an invitation from your %s %s before being able to "
 "manage your %s. If that is the case, please continue and log in."
 msgstr ""
+"Vous devez avoir reçu une invitation de votre %s %s avant de pouvoir gérer "
+"votre %s. Si tel est le cas, continuez et connectez-vous."
 
 #: web/skins/modern/user/cat_info.php:101
 msgid "Please authenticate yourself and login"
@@ -979,10 +1020,15 @@ msgid ""
 "invited to the system in the box below. This may not work if you were "
 "invited from a third-party website via the AdminAPI."
 msgstr ""
+"Avez-vous oublié avec quel fournisseur d'identité vous vous êtes connecté au "
+"système? Nous pouvons essayer de le savoir si vous indiquez l'adresse e-mail "
+"avec laquelle vous avez été invité à utiliser le système dans la boite ci-"
+"dessous. Cela peut ne pas fonctionner si vous avez été invité à partir d'un "
+"site Web tiers via l'interface AdminAPI."
 
 #: web/skins/modern/user/cat_info.php:108
 msgid "Get IdP Reminder"
-msgstr ""
+msgstr "Obtenir un rappel du fournisseurs d'identité"
 
 #: web/skins/modern/user/js/cat_js.php:42
 msgid ""

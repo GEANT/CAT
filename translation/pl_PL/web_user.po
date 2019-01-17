@@ -5,16 +5,16 @@
 # Translators:
 # Maja Górecka-Wolniewicz <mgw@umk.pl>, 2011-2013
 # Maja Wolniewicz <maja.wolniewicz@gmail.com>, 2018
-# Tomasz Wolniewicz <tw2529@gmail.com>, 2016-2018
+# Tomasz Wolniewicz <tw2529@gmail.com>, 2016-2019
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2013,2015
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-14 15:06+0100\n"
-"PO-Revision-Date: 2018-11-07 21:22+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2019-01-14 13:42+0100\n"
+"PO-Revision-Date: 2019-01-03 10:17+0000\n"
+"Last-Translator: Tomasz Wolniewicz <tw2529@gmail.com>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/eduroam_devel/cat/"
 "language/pl_PL/)\n"
 "Language: pl_PL\n"
@@ -972,7 +972,7 @@ msgstr "nieważny token"
 
 #: web/skins/modern/accountstatus/accountstatus.php:270
 msgid "revoke"
-msgstr ""
+msgstr "odwołaj"
 
 #: web/skins/modern/accountstatus/accountstatus.php:284
 msgid "The details are displayed below."

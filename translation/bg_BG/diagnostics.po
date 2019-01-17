@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-14 15:06+0100\n"
+"POT-Creation-Date: 2019-01-14 13:42+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>, 2018\n"
 "Language-Team: Bulgarian (Bulgaria) (https://www.transifex.com/eduroam_devel/"
@@ -1117,19 +1117,19 @@ msgstr "Покажи подробна информация за всички т�
 
 #: web/diag/action_realmcheck.php:119
 msgid "All tests passed."
-msgstr ""
+msgstr "Всички тестове минаха."
 
 #: web/diag/action_realmcheck.php:120
 msgid "There were some warnings."
-msgstr ""
+msgstr "Имаше някои предупреждения."
 
 #: web/diag/action_realmcheck.php:121
 msgid "There were some errors."
-msgstr ""
+msgstr "Имаше някои грешки."
 
 #: web/diag/action_realmcheck.php:122
 msgid "There were some remarks."
-msgstr ""
+msgstr "Имаше някои забележки."
 
 #: web/diag/action_realmcheck.php:129
 msgid "Server certificate"

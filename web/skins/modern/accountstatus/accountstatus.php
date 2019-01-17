@@ -113,7 +113,9 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                                     break;
                                 }
 
+                                $oldDomain = $Gui->langObject->setTextDomain('devices');
                                 $dev = new \core\DeviceFactory($statusInfo['OS']['device']);
+                                $Gui->langObject->setTextDomain($oldDomain);
                                 $dev->device->calculatePreferredEapType([new \core\common\EAP(\core\common\EAP::EAPTYPE_SILVERBULLET)]);
                                 if ($dev->device->selectedEap == []) {
                                     echo "<p>" . sprintf(_("Unfortunately, the operating system your device uses (%s) is currently not supported for hosted end-user accounts. You can visit this page with a supported operating system later; the invitation link has not been used up yet."), $statusInfo['OS']['display']) . "</p>";

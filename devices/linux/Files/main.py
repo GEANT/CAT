@@ -128,7 +128,7 @@ def detect_desktop_environment():
                                              stdout=subprocess.PIPE,
                                              stderr=subprocess.PIPE)
             out, err = shell_command.communicate()
-            info = out.strip().decode('utf-8')
+            info = out.decode('utf-8').strip()
         except (OSError, RuntimeError):
             pass
         else:
@@ -439,7 +439,7 @@ class InstallerData(object):
             shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
                                              stderr=subprocess.PIPE)
             out, err = shell_command.communicate()
-            output = out.strip().decode('utf-8')
+            output = out.decode('utf-8').strip()
             if shell_command.returncode == 1:
                 self.confirm_exit()
         return output
@@ -536,7 +536,7 @@ class InstallerData(object):
                 return False
             if Config.use_other_tls_id:
                 return True
-            out_str = out.decode('utf-8')
+            out_str = out.decode('utf-8').strip()
             subject = re.split(r'\s*[/,]\s*',
                                re.findall(r'subject=/?(.*)$',
                                           out_str, re.MULTILINE)[0])
@@ -605,7 +605,7 @@ class InstallerData(object):
             shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
                                              stderr=STDERR_REDIR)
             cert, err = shell_command.communicate()
-        return cert.strip().decode('utf-8')
+        return cert.decode('utf-8').strip()
 
     def __save_sb_pfx(self):
         """write the user PFX file"""
