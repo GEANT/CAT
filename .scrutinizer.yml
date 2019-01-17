@@ -377,8 +377,9 @@ build:
                     - cp /home/scrutinizer/build/signer/mobileconfig_sign-template /home/scrutinizer/build/signer/mobileconfig_sign
                     - sudo chown scrutinizer:scrutinizer /home/scrutinizer/.rnd
                     - sudo apt -y remove python
-                    - sudo apt -y install python3.5 python3-pip python3-astroid
-                    - pip3 install pylint
+                    - sudo apt -y install python3.5 python3-pip
+                    - python3.5 -m pip install --upgrade --force pip
+                    - python3.5 -m pip install pylint
 
             tests:
                 override:
