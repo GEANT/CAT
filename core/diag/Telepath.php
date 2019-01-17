@@ -318,7 +318,7 @@ class Telepath extends AbstractTest {
         // If that's true, we can exclude two sources of problems (both proxy levels). Hooray!
         $allAreConversationReject = TRUE;
         $atLeastOneConversationReject = FALSE;
-
+        
         foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $probeindex => $probe) {
             $reachCheck = $this->testsuite->udpReachability($probeindex);
             if ($reachCheck != RADIUSTests::RETVAL_CONVERSATION_REJECT) {
@@ -326,12 +326,12 @@ class Telepath extends AbstractTest {
             } else {
                 $atLeastOneConversationReject = TRUE;
             }
-
+            
             $this->additionalFindings[AbstractTest::INFRA_ETLR][] = ["DETAIL" => $this->testsuite->consolidateUdpResult($probeindex)];
             $this->additionalFindings[AbstractTest::INFRA_NRO_IDP][] = ["DETAIL" => $this->testsuite->consolidateUdpResult($probeindex)];
             $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][] = ["DETAIL" => $this->testsuite->consolidateUdpResult($probeindex)];
         }
-
+        
         if ($allAreConversationReject) {
             $this->additionalFindings[AbstractTest::INFRA_ETLR][] = ["CONNCHECK" => RADIUSTests::RETVAL_CONVERSATION_REJECT];
             $this->additionalFindings[AbstractTest::INFRA_NRO_IDP][] = ["CONNCHECK" => RADIUSTests::RETVAL_CONVERSATION_REJECT];
@@ -353,7 +353,11 @@ class Telepath extends AbstractTest {
             // in combination with the device lead to a broken auth
             // if there is nothing beyond the "REMARK" level, then it's not an IdP problem
             // otherwise, add the corresponding warnings and errors to $additionalFindings
-            switch ($this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][0]['DETAIL']['level']) {
+            $highestObservedErrorLevel = 0;
+            foreach ($this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS] as $oneRun) {
+                $highestObservedErrorLevel = max($highestObservedErrorLevel, $oneRun['DETAIL']['level'] ?? 0);
+            }
+            switch ($highestObservedErrorLevel) {
                 case RADIUSTests::L_OK:
                 case RADIUSTests::L_REMARK:
                     // both are fine - the IdP is working and the user problem
