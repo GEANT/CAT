@@ -193,6 +193,7 @@ class OutsideComm {
                                     'to' => $number,
                                     'from' => CONFIG_CONFASSISTANT['CONSORTIUM']['name'],
                                     'text' => $content,
+                                    'type' => 'unicode',
                                 ]
                 );
 
