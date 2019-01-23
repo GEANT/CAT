@@ -133,7 +133,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                     </b>
                     <div id="sociopath_queries"></div>
                 </div>
-                <div id="start_test_area" style="padding-top: 10px; display:none; text-align:center;">
+                <div id="start_test_area" style="padding-top: 10px; padding-bottom: 5px; display:none; text-align:center;">
                     <button id='realmtest' accesskey="T" type='button'><?php echo _("Run tests"); ?>
                     </button>
                 </div>
@@ -201,6 +201,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
             $('#select_' + type+'_area').html(select + shtml);
             $('#select_' + type+'_area').show();
         }  
+        reset_footer();
     }
     function countrySelection(type1) {
         var type2;
@@ -290,6 +291,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                         else {
                             $('#current_query').html(data['TEXT']);
                         }
+                        reset_footer();
                    } else {
                         var realm = $('#tested_realm').val();
                         $('#tested_realm').remove();
@@ -300,7 +302,8 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                         $('#before_stage_1').show();
                         $('#realm_by_select').show();
                         $('#position_info').show();
-                        finalVerdict(realm, data['SUSPECTS'])
+                        finalVerdict(realm, data['SUSPECTS']);
+                        reset_footer();
                    }
                 }
                 
@@ -440,7 +443,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
             $('#idp_problem').html('');
             $('#diagnostic_enduser').show();
         }
-       
+        reset_footer();
     });
     $('#user_realm').bind('change keyup blur input', function(e)  {
         if (isDomain($('#user_realm').val())) {
@@ -501,6 +504,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                             $('#inst_' + type + '_area').html(select);
                             $('#' + type + '_desc').show();
                         }    
+                        reset_footer();
                     }
                 },
                 error:function() {
@@ -558,6 +562,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                     $('#start_test_area').show();
                     $("#user_realm").val("");
                     $("#realm_info+ok").hide();
+                    reset_footer();
                 }
             },
             error:function() {
@@ -694,28 +699,24 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                 });
             }
         }
-        console.log('realm to test '+realm);
         var visited = 0;
         if ($('#sp_inst').val()) {
             visited = $('#sp_inst').val();
         }
+        reset_footer();
         if (realm !== '') {
-            console.log('call magicTelepath');
             $.ajax({
                 url: "magicTelepath.php",
                 data: {realm: realm, lang: lang, visited: visited},
                 dataType: "json",
                 success:function(data) {
                     inProgress(0);
-                    console.log('magiceTelepath status '+ data.status)
                     if (data.status === 1) {
                         var realm =  data.realm;
-                        console.log('realm '+realm);
-                        console.log(data.suspects);
                         $('#before_stage_1').hide();
                         $('#realm_name').text(realm);
                         $('#after_stage_1').show();
-                        console.log('calling testSociopath');
+                        reset_footer();
                         testSociopath(realm, 0);
                     } else {
                         var title = <?php echo '"' . _("Diagnostics results for selected realms") . '"'; ?>;
@@ -740,11 +741,13 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                         $('#before_stage_1').show();
                         $('#realm_by_select').show();
                         $('#position_info').show();
+                        reset_footer();
                         showInfo(result, title);
                     }  
                 },
                 error: function (error) {
                     inProgress(0);
+                    reset_footer();
                     alert('magicTelepath error');
                 }
             });
@@ -963,6 +966,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                     $('#sp_abuse').html(data);
                     $('#sp_abuse').show();         
                     $('#idp_problem').html('');
+                    reset_footer();
                 });
             }
             
@@ -974,8 +978,10 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                     $('#idp_problem').html(data);
                     $('#sp_abuse').hide();
                     $('#idp_problem').show();
+                    reset_footer();
                 });
             }
+            
         }
     });
     $(document).on('change', '#asp_inst' , function() {
