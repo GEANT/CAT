@@ -87,24 +87,31 @@ Installing CAT
 --------------
 1.  unpack the distribution
 1A. if you use a clone of the Git repo instead, remember to "git submodule --init --recursive" at least for the GEANTlink repo in devices/ms/Files/ (there are more submodules referenced in core/ which you may already have on your system, you should double-check)
-2.  create the config/config.php file from the supplied template config-template.php
-3.  create the devices/devices.php file from the supplied template
-4.  on a MySQL/MariaDB server, create the databases as per the schema definition in schema/schema.sql
-5.  make sure that you can connect to that database
-6.  make sure that the web/downloads directory exists and is writeable to the Apache web server user
-7.  make sure that simplesamlphp is installed
-8.  make sure that simplesamlphp openid module is enabled and google (or any IdP of your choice) is uncommented in authsources
-9.  using your browser, check if the main interface is running (web subdirectory)
-10. if so, go to the master management page to have your system prerequisites checked (web/admin/112365365321.php)
+2.  create the config/config-master.php file from the supplied template config-master-template.php
+3.  create the config/config-diagnostics.php and/or config/config-confassistant.php files as needed in the same manner
+4.  create the devices/Devices.php file from the supplied template
+5.  on a MySQL/MariaDB server, create the databases as per the schema definition in schema/schema.sql
+6.  make sure that you can connect to that database
+7.  make sure that the var/installer_cache, var/silverbullet and var/tmp directories exists and are writeable to the Apache web server user
+8.  make sure that simpleSAMLphp is installed
+9.  make sure that simpleSAMLphp openid module is enabled and google (or any IdP of your choice) is uncommented in authsources
+10. using your browser, check if the main interface is running (web subdirectory)
+11. if so, go to the master management page to have your system prerequisites checked (web/admin/112365365321.php)
 
 Configuring CAT
 ---------------
-After creating config.php as above, adapt it to your needs and the realities on your server. A full description of the config options in this file can be read by clicking on "Classes: Config" on the left-hand side. In particular, pay attention to the following:
+After creating config-*.php as above, adapt it to your needs and the realities on your server. In particular, pay attention to the following:
 
-* reference the autoloader of your simpleSAMLphp installation correctly in config.php
+* reference the autoloader of your simpleSAMLphp installation correctly in config-master.php
 * enter the connection details to the database(s)
 
-The device configuration file is in devices/devices.php. There is a template file devices-template.php - you can simply copy it to have a devices.php. Unless you want to disable specific device modules, or have custom ways to digitally sign installers, it is not necessary to change this file.
+The device configuration file is in devices/Devices.php. There is a template file devices-template.php - you can simply copy it to have a Devices.php. Unless you want to disable specific device modules, or have custom ways to digitally sign installers, it is not necessary to change this file.
+
+After logging in with simpleSAMLphp, you should enable protection of the superadmin page. This can be done by editing the config-master "SUPERADMINS" array - remove everything and instead add only the unique identifiers that are supposed to have access to that page.
+
+Similarly, you may want to make yourself the federation administrator for at least one federation. You can do so by adding that privilege to your unique identifier with the following SQL statement in the USER database:
+
+```INSERT INTO user_options (user_id, option_name, option_value) VALUES("<your unique ID>","user:fedadmin","LU");```
 
 Additional configuration for Managed IdP
 ----------------------------------------
