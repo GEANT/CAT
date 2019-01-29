@@ -109,7 +109,7 @@ The device configuration file is in devices/Devices.php. There is a template fil
 
 After logging in with simpleSAMLphp, you should enable protection of the superadmin page. This can be done by editing the config-master "SUPERADMINS" array - remove everything and instead add only the unique identifiers that are supposed to have access to that page.
 
-Similarly, you may want to make yourself the federation administrator for at least one federation. You can do so by adding that privilege to your unique identifier with the following SQL statement in the USER database:
+Similarly, you may want to make yourself the federation administrator for at least one federation. You can do so by adding that privilege to your unique identifier with the following SQL statement in the USER database (in this example, for "LU" -> Luxembourg):
 
 ```INSERT INTO user_options (user_id, option_name, option_value) VALUES("<your unique ID>","user:fedadmin","LU");```
 
