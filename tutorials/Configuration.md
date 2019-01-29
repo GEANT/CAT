@@ -7,7 +7,7 @@ The CAT generates installers for numerous operating systems. Consequently, many 
 
 * Apache2 Web Server
 * MySQL/MariaDB Server
-* PHP 7.0.0 or higher; on Ubuntu also the "php7.0-intl" package
+* PHP 7.2.0 or higher; on Ubuntu also the "php7.0-intl" package
 * Required PHP extensions: "gettext", "openssl", "PECL:IMagick", "GD" and "MySQL"
 * Optional PHP extensions: "GeoIP" (deprecated v1 GeoIP API)
 * simpleSAMLphp version 1.15.0 or higher
