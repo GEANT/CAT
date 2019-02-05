@@ -33,7 +33,7 @@ require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
  * 
  * @author Stefan Winter <stefan.winter@restena.lu>
  */
-class OptionDisplay {
+class OptionDisplay extends \core\common\Entity {
 
     /**
      * stores all the options we are caring about

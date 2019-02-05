@@ -249,13 +249,7 @@ abstract class Entity {
      * @return string the catalogue
      */
     private static function determineOwnCatalogue() {
-        $loggerInstance = new Logging();
-        $trace = debug_backtrace();
-        $caller = $trace[2];
-        // if called from a class, guess based on the class name; 
-        // otherwise, on the filename relative to ROOT
-        $myName = $caller['class'] ?? substr($caller['file'], strlen(ROOT));
-        $loggerInstance->debug(1,$trace);
+        $myName = get_class();
         if (preg_match("/diag/", $myName) == 1) {
             return "diagnostics";
         }
@@ -280,6 +274,7 @@ abstract class Entity {
      * restored later on.
      * 
      * @param string $catalogue the catalogue to select, overrides detection
+     * @return void
      */
     public static function intoThePotatoes($catalogue = NULL) {
         // array_push, without the function call overhead

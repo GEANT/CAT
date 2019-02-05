@@ -21,7 +21,7 @@
 
 namespace web\lib\admin;
 
-class PageDecoration {
+class PageDecoration extends \core\common\Entity {
 
     private $validator;
     private $ui;

@@ -113,10 +113,11 @@ class Device_Linux extends \core\DeviceConfig {
     /**
      * writes a line of Python code into the installer script
      * 
-     * @param resource $file the file handle
-     * @param string $prefix prefix to write
-     * @param string $name config item to write
-     * @param string $text text to write
+     * @param resource $file   the file handle
+     * @param string   $prefix prefix to write
+     * @param string   $name   config item to write
+     * @param string   $text   text to write
+     * @return void
      */
     private function writeConfigLine($file, $prefix, $name, $text) {
         $out = $prefix . $name . ' = "' . $text;
@@ -127,6 +128,7 @@ class Device_Linux extends \core\DeviceConfig {
      * localises the user messages and writes them into the file
      * 
      * @param resource $file the file resource of the installer script
+     * @return void
      */
     private function writeMessages($file) {
         \core\common\Entity::intoThePotatoes();
@@ -167,6 +169,7 @@ class Device_Linux extends \core\DeviceConfig {
      * writes configuration variables into the installer script
      * 
      * @param resource $file the file handle
+     * @return void
      */
     private function writeConfigVars($file) {
         $eapMethod = \core\common\EAP::eapDisplayName($this->selectedEap);

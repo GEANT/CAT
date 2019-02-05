@@ -22,7 +22,7 @@
 
 namespace core;
 
-class IdPlist {
+class IdPlist extends common\Entity {
     /**
      * Order active identity providers according to their distance and name
      * @param string $country         the country from which to list IdPs

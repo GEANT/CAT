@@ -26,7 +26,7 @@ use \Exception;
 /**
  * performs validation of user inputs
  */
-class InputValidation {
+class InputValidation extends \core\common\Entity {
 
     /**
      * returns a simple HTML <p> element with basic explanations about what was

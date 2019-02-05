@@ -28,7 +28,7 @@ namespace core\common;
  *
  * @package Developer
  */
-class OutsideComm {
+class OutsideComm extends Entity {
 
     /**
      * downloads a file from the internet

@@ -37,7 +37,7 @@ namespace devices;
  * 
  * @package ModuleWriting
  */
-class Devices {
+class Devices extends \core\common\Entity {
 
     const SUPPORT_RSA = 'RSA';
     const SUPPORT_ECDSA = 'ECDSA';

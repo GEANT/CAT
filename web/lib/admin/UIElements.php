@@ -29,7 +29,7 @@ use Exception;
  * 
  * @author Stefan Winter <stefan.winter@restena.lu>
  */
-class UIElements {
+class UIElements extends \core\common\Entity {
 
     /**
      * the custom displayable variant of the term 'federation'

@@ -43,7 +43,7 @@ use \Exception;
  *
  * @package Developer
  */
-class EAP {
+class EAP extends Entity {
 
     /**
      * some EAP-related constants.

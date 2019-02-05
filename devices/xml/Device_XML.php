@@ -63,7 +63,6 @@ abstract class Device_XML extends \core\DeviceConfig {
      * create HTML code explaining the installer
      * 
      * @return string
-     *
      */
 
     public function writeDeviceInfo() {

@@ -31,7 +31,7 @@ require_once CONFIG['AUTHENTICATION']['ssp-path-to-autoloader'];
  * 
  * @author Stefan Winter <stefan.winter@restena.lu>
  */
-class Authentication {
+class Authentication extends \core\common\Entity {
 
     /**
      * finds out whether the user is already authenticated. Does not trigger an authentication if not.

@@ -61,7 +61,7 @@ const EDUROAM_WELCOME_ADVERTISING = 2000;
  * 
  * @author Stefan Winter <stefan.winter@restena.lu>
  */
-class TextTemplates {
+class TextTemplates extends \core\common\Entity {
     
     /**
      * An array with lots of template texts. 

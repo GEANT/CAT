@@ -33,7 +33,7 @@ require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
  * 
  * @author Stefan Winter <stefan.winter@restena.lu>
  */
-class OptionParser {
+class OptionParser extends \core\common\Entity {
 
     /**
      * an instance of the InputValidation class which we use heavily for syntax checks.

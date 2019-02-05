@@ -28,7 +28,7 @@ require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
  * 
  * @author Stefan Winter <stefan.winter@restena.lu>
  */
-abstract class AbstractMap {
+abstract class AbstractMap extends \core\common\Entity {
 
     protected $instName;
     protected $fedName;
