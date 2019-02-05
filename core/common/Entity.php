@@ -70,7 +70,7 @@ abstract class Entity {
      * keep internal track of the gettext catalogue that was used outside the
      * class call
      * 
-     * @var string
+     * @var array
      */
     protected static $gettextCatalogue;
     
@@ -235,15 +235,24 @@ abstract class Entity {
      * source files. Also memorises the previous catalogue so that it can be
      * restored later on.
      */
-    public static function intoThePotatoes() {
-        Entity::$gettextCatalogue = textdomain(NULL);
-        textdomain(Entity::determineOwnCatalogue());
+    public static function intoThePotatoes($catalogue = NULL) {
+        // array_push, without the function call overhead
+        Entity::$gettextCatalogue[] = textdomain(NULL);
+        if ($catalogue === NULL) {
+            textdomain(Entity::determineOwnCatalogue());
+        } else {
+            texdomain($catalogue);
+        }
     }
     
     /**
      * restores the previous language catalogue.
      */
     public static function outOfThePotatoes() {
-        textdomain(Entity::$gettextCatalogue);
+        $restoreCatalogue = array_pop(Entity::$gettextCatalogue);
+        if ($restoreCatalogue === NULL) {
+            throw new Exception("Unable to restore previous catalogue - outOfThePotatoes called too often?!");
+        }
+        textdomain($restoreCatalogue);
     }
 }
