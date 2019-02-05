@@ -514,15 +514,15 @@ class UIElements {
         $scale = sqrt($maxoccupy / $totallogopixels);
         $loggerInstance->debug(4, "Scaling info: $scale, $maxoccupy, $totallogopixels\n");
         // determine final pixel size - round to multitude of $symbolsize to match exact symbol boundary
-        $targetwidth = $symbolsize * (int) round($sizelogo[0] * $scale / $symbolsize);
-        $targetheight = $symbolsize * (int) round($sizelogo[1] * $scale / $symbolsize);
+        $targetwidth = (int)($symbolsize * round($sizelogo[0] * $scale / $symbolsize));
+        $targetheight = (int)($symbolsize * round($sizelogo[1] * $scale / $symbolsize));
         // paint white below the logo, in case it has transparencies (looks bad)
         // have one symbol in each direction extra white space
         $whiteimage = imagecreate($targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize);
         imagecolorallocate($whiteimage, 255, 255, 255);
         // also make sure the initial placement is a multitude of 12; otherwise "two half" symbols might be affected
-        $targetplacementx = $symbolsize * (int) round(($sizeinput[0] / 2 - ($targetwidth - $symbolsize) / 2) / $symbolsize);
-        $targetplacementy = $symbolsize * (int) round(($sizeinput[1] / 2 - ($targetheight - $symbolsize) / 2) / $symbolsize);
+        $targetplacementx = (int)($symbolsize * round(($sizeinput[0] / 2 - ($targetwidth - $symbolsize) / 2) / $symbolsize));
+        $targetplacementy = (int)($symbolsize * round(($sizeinput[1] / 2 - ($targetheight - $symbolsize) / 2) / $symbolsize));
         imagecopyresized($inputgd, $whiteimage, $targetplacementx - $symbolsize, $targetplacementy - $symbolsize, 0, 0, $targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize, $targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize);
         imagecopyresized($inputgd, $logogd, $targetplacementx, $targetplacementy, 0, 0, $targetwidth, $targetheight, $sizelogo[0], $sizelogo[1]);
         ob_start();

@@ -251,7 +251,7 @@ class OutsideComm {
         }
         Entity::intoThePotatoes();
         $mail = OutsideComm::mailHandle();
-        $cat = new \core\CAT(); // makes sure Entity is initialised
+        new \core\CAT(); // makes sure Entity is initialised
         // we have a few stock intro texts on file
         $introTexts = [
             OutsideComm::INVITE_CONTEXTS[0] => sprintf(_("a %s of the %s %s \"%s\" has invited you to manage the %s together with him."), Entity::$nomenclature_fed, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], Entity::$nomenclature_inst, $idpPrettyName, Entity::$nomenclature_inst),

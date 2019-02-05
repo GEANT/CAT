@@ -59,6 +59,13 @@ abstract class Device_XML extends \core\DeviceConfig {
     public $allEaps = FALSE;
     public $VendorSpecific;
 
+    /**
+     * create HTML code explaining the installer
+     * 
+     * @return string
+     *
+     */
+
     public function writeDeviceInfo() {
         \core\common\Entity::intoThePotatoes();
         $out = "<p>";
@@ -67,6 +74,12 @@ abstract class Device_XML extends \core\DeviceConfig {
         return $out;
     }
 
+    /**
+     * create the actual XML file
+     * 
+     * @return string filename of the generated installer
+     *
+     */
     public function writeInstaller() {
         $attr = $this->attributes;
         $NAMESPACE = 'urn:RFC4282:realm';

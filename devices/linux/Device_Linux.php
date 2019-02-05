@@ -44,6 +44,12 @@ class Device_Linux extends \core\DeviceConfig {
         $this->setSupportedEapMethods([\core\common\EAP::EAPTYPE_PEAP_MSCHAP2, \core\common\EAP::EAPTYPE_TTLS_PAP, \core\common\EAP::EAPTYPE_TTLS_MSCHAP2, \core\common\EAP::EAPTYPE_TLS, \core\common\EAP::EAPTYPE_SILVERBULLET]);
     }
 
+    /**
+     * create the actual installer script
+     * 
+     * @return string filename of the generated installer
+     *
+     */
     public function writeInstaller() {
         $installerPath = $this->installerBasename . ".py";
         $this->copyFile("main.py", $installerPath);
@@ -58,7 +64,13 @@ class Device_Linux extends \core\DeviceConfig {
         fclose($installer);
         return($installerPath);
     }
-
+    
+    /**
+     * produces the HTML text to be displayed when clicking on the "help" button
+     * besides the download button.
+     * 
+     * @return string
+     */
     public function writeDeviceInfo() {
         \core\common\Entity::intoThePotatoes();
         $ssidCount = count($this->attributes['internal:SSID']);
@@ -98,11 +110,24 @@ class Device_Linux extends \core\DeviceConfig {
         return $out;
     }
     
+    /**
+     * writes a line of Python code into the installer script
+     * 
+     * @param resource $file the file handle
+     * @param string $prefix prefix to write
+     * @param string $name config item to write
+     * @param string $text text to write
+     */
     private function writeConfigLine($file, $prefix, $name, $text) {
         $out = $prefix . $name . ' = "' . $text;
         fwrite($file, wordwrap($out, 70, " \" \\\n    \"") . "\n");
     }
     
+    /**
+     * localises the user messages and writes them into the file
+     * 
+     * @param resource $file the file resource of the installer script
+     */
     private function writeMessages($file) {
         \core\common\Entity::intoThePotatoes();
         $messages = [
@@ -138,6 +163,11 @@ class Device_Linux extends \core\DeviceConfig {
         \core\common\Entity::outOfThePotatoes();
     }
 
+    /**
+     * writes configuration variables into the installer script
+     * 
+     * @param resource $file the file handle
+     */
     private function writeConfigVars($file) {
         $eapMethod = \core\common\EAP::eapDisplayName($this->selectedEap);
         $contacts = $this->mkSupportContacts();
@@ -207,6 +237,11 @@ class Device_Linux extends \core\DeviceConfig {
         }
     }
 
+    /**
+     * coerces the list of EAP server names into a single string
+     * 
+     * @return string
+     */
     private function glueServerNames() {
         $serverList = $this->attributes['eap:server_name'];        
         if (!$serverList) {
@@ -222,12 +257,22 @@ class Device_Linux extends \core\DeviceConfig {
         return(implode('.', array_reverse($B)));
     }
 
+    /**
+     * generates the list of support contacts
+     * 
+     * @return array
+     */
     private function mkSupportContacts() {
         $url = (!empty($this->attributes['support:url'][0])) ? $this->attributes['support:url'][0] : $this->support_url_substitute;
         $email = (!empty($this->attributes['support:email'][0])) ? $this->attributes['support:email'][0] : $this->support_email_substitute;
         return(['url'=>$url, 'email'=>$email]);
     }   
     
+    /**
+     * generates the list of subjectAltNames to configure
+     * 
+     * @return string
+     */
     private function mkSubjectAltNameList() {
         $serverList = $this->attributes['eap:server_name'];
         if (!$serverList) {
@@ -243,7 +288,11 @@ class Device_Linux extends \core\DeviceConfig {
         return "[" . $out. "]";
     }
 
-    
+    /**
+     * generates the list of SSIDs to configure
+     * 
+     * @return string
+     */
     private function mkSsidList() {
         $ssids = $this->attributes['internal:SSID'];
         $outArray = [];
@@ -253,6 +302,11 @@ class Device_Linux extends \core\DeviceConfig {
         return '[' . implode(', ', $outArray) . ']';
     }
     
+    /**
+     * generates the list of SSIDs to delete from the system
+     * 
+     * @return string
+     */
     private function mkDelSsidList() {
         $outArray = [];
         $delSSIDs = $this->attributes['internal:remove_SSID'];
@@ -273,6 +327,11 @@ class Device_Linux extends \core\DeviceConfig {
         return $out;
     }
     
+    /**
+     * generates the welcome text
+     * 
+     * @return string
+     */
     private function mkIntro() {
         \core\common\Entity::intoThePotatoes();
         $out = _("This installer has been prepared for {0}") . '\n\n' . _("More information and comments:") . '\n\nEMAIL: {1}\nWWW: {2}\n\n' .
@@ -281,6 +340,11 @@ class Device_Linux extends \core\DeviceConfig {
         return $out;
     }
     
+    /**
+     * generates text for the user consent dialog box, if any
+     * 
+     * @return string
+     */
     private function mkUserConsent() {
         $out = '';
         if (isset($this->attributes['support:info_file'])) {
@@ -291,6 +355,11 @@ class Device_Linux extends \core\DeviceConfig {
         return $out;
     }
     
+    /**
+     * generates the warning that the account will only work for inst members
+     * 
+     * @return string
+     */
     private function mkProfileConfirmation() {
         \core\common\Entity::intoThePotatoes();
         if ($this->attributes['internal:profile_count'][0] > 1) {
@@ -303,7 +372,11 @@ class Device_Linux extends \core\DeviceConfig {
     }
     
 
-    
+    /**
+     * generates the client certificate data for Silberbullet installers
+     * 
+     * @return string
+     */
     private function mkSbUserFile() {
         if ($this->selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
             return chunk_split(base64_encode($this->clientCert["certdata"]), 64, "\n");

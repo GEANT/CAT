@@ -243,14 +243,19 @@ abstract class Entity {
         return $str;
     }
 
-    public static function determineOwnCatalogue() {
+    /**
+     * Finds out which gettext catalogue has the translations for the caller
+     * 
+     * @return string the catalogue
+     */
+    private static function determineOwnCatalogue() {
         $loggerInstance = new Logging();
         $trace = debug_backtrace();
         $caller = $trace[2];
         // if called from a class, guess based on the class name; 
         // otherwise, on the filename relative to ROOT
         $myName = $caller['class'] ?? substr($caller['file'], strlen(ROOT));
-        
+        $loggerInstance->debug(1,$trace);
         if (preg_match("/diag/", $myName) == 1) {
             return "diagnostics";
         }
@@ -273,6 +278,8 @@ abstract class Entity {
      * sets the language catalogue to one matching the gettext segmentation of
      * source files. Also memorises the previous catalogue so that it can be
      * restored later on.
+     * 
+     * @param string $catalogue the catalogue to select, overrides detection
      */
     public static function intoThePotatoes($catalogue = NULL) {
         // array_push, without the function call overhead

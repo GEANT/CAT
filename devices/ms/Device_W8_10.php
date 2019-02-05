@@ -51,6 +51,12 @@ use \Exception;
         \core\common\Entity::outOfThePotatoes();
     }
     
+    /**
+     * create the actual installer executable
+     * 
+     * @return string filename of the generated installer
+     *
+     */    
     public function writeInstaller() {
         $dom = textdomain(NULL);
         textdomain("devices");
