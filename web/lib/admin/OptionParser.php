@@ -202,6 +202,7 @@ class OptionParser {
      * @return string HTML code
      */
     private function displaySummaryInUI(array $good, array $bad, array $mlAttribsWithC) {
+        \core\common\Entity::intoThePotatoes();
         $retval = "";
         // don't do your own table - only the <tr>s here
         // list all attributes that were set correctly
@@ -223,6 +224,7 @@ class OptionParser {
                 $retval .= $this->uiElements->boxWarning(sprintf(_("You did not set a 'default language' value for %s. This means we can only display this string for installers which are <strong>exactly</strong> in the language you configured. For the sake of all other languages, you may want to edit the profile again and populate the 'default/other' language field."), $uiElements->displayName($attribName)));
             }
         }
+        \core\common\Entity::outOfThePotatoes();
         return $retval;
     }
 

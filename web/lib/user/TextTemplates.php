@@ -77,7 +77,7 @@ class TextTemplates {
      * Initialises the texts.
      */
     public function __construct() {
-        
+        \core\common\Entity::intoThePotatoes();
         $this->templates[WELCOME_ABOARD_PAGEHEADING] = sprintf(_("Welcome aboard the %s user community!"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $this->templates[WELCOME_ABOARD_DOWNLOAD] = _("Your download will start shortly. In case of problems with the automatic download please use this direct <a href=''>link</a>.");
         $this->templates[WELCOME_ABOARD_HEADING] = sprintf(_("Dear user from %s,"), "<span class='inst_name'></span>");
@@ -104,5 +104,6 @@ class TextTemplates {
         if (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['signer_name'])) {
             $this->templates[FRONTPAGE_ROLLER_SIGNEDBY] = sprintf(_("Digitally signed by the organisation that coordinates %s: %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['signer_name']);
         }
+        \core\common\Entity::outOfThePotatoes();
     }
 }

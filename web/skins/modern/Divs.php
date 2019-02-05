@@ -207,7 +207,6 @@ class Divs {
     <div id='other_installers'>" . $this->Gui->textTemplates->templates[user\DOWNLOAD_CHOOSE] . "
          <table id='device_list' style='padding:0px;'>";
 
-        $this->Gui->langObject->setTextDomain("devices");
         foreach ($this->Gui->listDevices(isset($_REQUEST['hidden']) ? $_REQUEST['hidden'] : 0) as $group => $deviceGroup) {
             $groupIndex = count($deviceGroup);
             $deviceIndex = 0;
@@ -229,7 +228,7 @@ class Divs {
             }
             $retval .= "</tbody>";
         }
-        $this->Gui->langObject->setTextDomain("web_user");
+        
         $retval .= "    
         </table>
     </div>

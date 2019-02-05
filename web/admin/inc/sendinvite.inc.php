@@ -180,7 +180,7 @@ switch ($operationMode) {
 }
 
 // send, and invalidate the token immediately if the mail could not be sent!
-$languageInstance->setTextDomain("core");
+
 $status = [];
 $allEncrypted = TRUE;
 $allClear = TRUE;
@@ -197,7 +197,6 @@ foreach ($newtokens as $onetoken => $oneDest) {
         }
     }
 }
-$languageInstance->setTextDomain("web_admin");
 
 if (count($status) == 0) {
     header("Location: $redirect_destination" . "invitation=FAILURE");

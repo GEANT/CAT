@@ -1128,6 +1128,7 @@ network={
      * @return array
      */
     public function consolidateUdpResult($host) {
+        \core\common\Entity::intoThePotatoes();
         $ret = [];
         $serverCert = [];
         $udpResult = $this->UDP_reachability_result[$host];
@@ -1161,6 +1162,7 @@ network={
         $ret['time_millisec'] = sprintf("%d", $udpResult['time_millisec']);
         if (empty($udpResult['cert_oddities'])) {
             $ret['message'] = _("<strong>Test successful</strong>: a bidirectional RADIUS conversation with multiple round-trips was carried out, and ended in an Access-Reject as planned.");
+            \core\common\Entity::outOfThePotatoes();
             return $ret;
         }
 
@@ -1174,7 +1176,7 @@ network={
             $ret['level'] = max($ret['level'], $this->returnCodes[$oddity]["severity"]);
             $ret['cert_oddities'][] = $o;
         }
-
+        \core\common\Entity::outOfThePotatoes();
         return $ret;
     }
 

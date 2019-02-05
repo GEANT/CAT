@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -39,7 +40,7 @@ class MapOpenLayers extends AbstractMap {
         parent::__construct($inst, $readonly);
         return $this;
     }
-    
+
     /**
      * Code to insert into the <head></head> of a page
      * 
@@ -47,7 +48,8 @@ class MapOpenLayers extends AbstractMap {
      */
     public function htmlHeadCode() {
         $cat = new \core\CAT();
-        return "
+        \core\common\Entity::intoThePotatoes();
+        $retval = "
         <link href='../external/OpenLayers/ol.css' rel='stylesheet' type='text/css'>
         <script src='../external/OpenLayers/ol.js'></script>
         <script src='../lib/admin/ol_drag.js'></script>
@@ -242,8 +244,8 @@ class MapOpenLayers extends AbstractMap {
             }, 'json');
         }
         
-        "  .
-        '$(document).ready(function () {
+        " .
+                '$(document).ready(function () {
             $(".location_button").on("click", (function (event) {
                 event.preventDefault();
                 marker_index = $(this).attr("id").substr(11) - 1;
@@ -258,8 +260,10 @@ class MapOpenLayers extends AbstractMap {
 
             }));
         });' .
-        "</script>
+                "</script>
         ";
+        \core\common\Entity::outOfThePotatoes();
+        return $retval;
     }
 
     /**
@@ -271,7 +275,7 @@ class MapOpenLayers extends AbstractMap {
 
         return "";
     }
-    
+
     /**
      * Code which actually shows the map
      * 
@@ -296,7 +300,7 @@ class MapOpenLayers extends AbstractMap {
         // your magic here
         return "";
     }
-    
+
     /**
      * This function produces the code for the "Click to see" text
      * 
@@ -305,15 +309,22 @@ class MapOpenLayers extends AbstractMap {
      * @return string
      */
     public static function optionListDisplayCode($coords, $number) {
-        return "<button id='location_b_" . $number . "' class='location_button'>" . _("Click to see location") . " $number</button>";
+        \core\common\Entity::intoThePotatoes();
+        $retval = "<button id='location_b_" . $number . "' class='location_button'>" . _("Click to see location") . " $number</button>";
+        \core\common\Entity::outOfThePotatoes();
+        return $retval;
     }
-    
+
     /**
      * code to enable user to find a location by licking the option
      * 
      * @return string
      */
     private function findLocationHtml() {
-        return "<p>" . _("Address:") . " <input name='address' id='address' /><button type='button' onclick='getAddressLocation()'>" . _("Find address") . "</button> <button type='button' onclick='locateMe()'>" . _("Locate Me!") . "</button></p>";
+        \core\common\Entity::intoThePotatoes();
+        $retval = "<p>" . _("Address:") . " <input name='address' id='address' /><button type='button' onclick='getAddressLocation()'>" . _("Find address") . "</button> <button type='button' onclick='locateMe()'>" . _("Locate Me!") . "</button></p>";
+        \core\common\Entity::outOfThePotatoes();
+        return $retval;
     }
+
 }

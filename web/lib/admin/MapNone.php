@@ -115,6 +115,9 @@ class MapNone extends AbstractMap {
      * @return string
      */
     private function findLocationHtml() {
-        return "<button type='button' onclick='locateMe()'>" . _("Locate Me!") . "</button></p>";
+        \core\common\Entity::intoThePotatoes();
+        $retval = "<button type='button' onclick='locateMe()'>" . _("Locate Me!") . "</button></p>";
+        \core\common\Entity::outOfThePotatoes();
+        return $retval;
     }
 }

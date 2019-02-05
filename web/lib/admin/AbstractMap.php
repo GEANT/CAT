@@ -118,6 +118,7 @@ abstract class AbstractMap {
      * @return string
      */
     protected function htmlPreEdit($wizardMode, $additional) {
+        \core\common\Entity::intoThePotatoes();
         $retval = "<fieldset class='option_container'>
         <legend><strong>" . _("Location") . "</strong></legend>";
 
@@ -137,6 +138,7 @@ abstract class AbstractMap {
         if ($additional) {
             $retval .= _("You can enter an <strong>additional</strong> location here. You can see the already defined locations in the 'General Information' field.");
         }
+        \core\common\Entity::outOfThePotatoes();
         return $retval;
     }
 
@@ -147,7 +149,10 @@ abstract class AbstractMap {
      * @return string
      */
     protected function htmlPostEdit($allowDirectInput) {
-        return "<br/>" . _("Latitude:") . " <input style='width:80px' name='geo_lat' id='geo_lat' " .($allowDirectInput ? "": "readonly"). ">" . _("Longitude:") . " <input name='geo_long' id='geo_long' style='width:80px' " .($allowDirectInput ? "": "readonly"). "></fieldset>";
+        \core\common\Entity::intoThePotatoes();
+        $retval = "<br/>" . _("Latitude:") . " <input style='width:80px' name='geo_lat' id='geo_lat' " .($allowDirectInput ? "": "readonly"). ">" . _("Longitude:") . " <input name='geo_long' id='geo_long' style='width:80px' " .($allowDirectInput ? "": "readonly"). "></fieldset>";
+        \core\common\Entity::outOfThePotatoes();
+        return $retval;
     }
 
 }

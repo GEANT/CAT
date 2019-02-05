@@ -122,6 +122,8 @@ class UserManagement extends \core\common\Entity {
      * @return IdP 
      */
     public function createIdPFromToken(string $token, string $owner) {
+        new CAT(); // be sure that Entity's static members are initialised
+        common\Entity::intoThePotatoes();
         // the token either has cat_institution_id set -> new admin for existing inst
         // or contains a number of parameters from external DB -> set up new inst
         $instinfo = $this->databaseHandle->exec("SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, external_db_uniquehandle 
@@ -144,6 +146,7 @@ class UserManagement extends \core\common\Entity {
                     $this->databaseHandle->exec("INSERT INTO ownership (user_id, institution_id, blesslevel, orig_mail) VALUES(?, ?, ?, ?)", "siss", $owner, $catId, $level, $destMail);
                 }
                 $this->loggerInstance->writeAudit((string) $owner, "OWN", "IdP " . $invitationDetails->cat_institution_id . " - added user as owner");
+                common\Entity::outOfThePotatoes();
                 return new IdP($invitationDetails->cat_institution_id);
             }
             // create new IdP
@@ -196,26 +199,27 @@ class UserManagement extends \core\common\Entity {
 
             foreach ($admins as $id) {
                 $user = new User($id);
-                /// arguments are: 1. IdP name; 
-                ///                2. consortium name (e.g. eduroam); 
-                ///                3. federation shortname, e.g. "LU"; 
-                ///                4. product name (e.g. eduroam CAT); 
-                ///                5. product long name (e.g. eduroam Configuration Assistant Tool)
+                /// arguments are: 1. nomenclature for "institution"
+                //                 2. IdP name; 
+                ///                3. consortium name (e.g. eduroam); 
+                ///                4. federation shortname, e.g. "LU"; 
+                ///                5. product name (e.g. eduroam CAT); 
+                ///                6. product long name (e.g. eduroam Configuration Assistant Tool)
                 $message = sprintf(_("Hi,
 
-the invitation for the new Identity Provider %s in your %s federation %s has been used and the IdP was created in %s.
+the invitation for the new %s %s in your %s federation %s has been used and the IdP was created in %s.
 
 We thought you might want to know.
 
 Best regards,
 
-%s"), $bestnameguess, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], strtoupper($fed->tld), CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname_long']);
-                $retval = $user->sendMailToUser(_("IdP in your federation was created"), $message);
+%s"), common\Entity::$nomenclature_inst, $bestnameguess, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], strtoupper($fed->tld), CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname_long']);
+                $retval = $user->sendMailToUser(sprintf(_("%s in your federation was created"), common\Entity::$nomenclature_inst), $message);
                 if ($retval === FALSE) {
                     $this->loggerInstance->debug(2, "Mail to federation admin was NOT sent!\n");
                 }
             }
-
+            common\Entity::outOfThePotatoes();
             return $idp;
         }
     }

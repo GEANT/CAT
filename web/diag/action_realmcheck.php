@@ -26,9 +26,9 @@ $loggerInstance = new \core\common\Logging();
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $gui = new \web\lib\user\Gui();
-$gui->langObject->setTextDomain("web_admin");
-echo $deco->defaultPagePrelude(sprintf(_("Sanity check for dynamic discovery of realms"), CONFIG['APPEARANCE']['productname']));
 $gui->langObject->setTextDomain("diagnostics");
+echo $deco->defaultPagePrelude(sprintf(_("Sanity check for dynamic discovery of realms"), CONFIG['APPEARANCE']['productname']));
+
 $ourlocale = $gui->langObject->getLang();
 
 $my_profile = NULL;
@@ -67,7 +67,7 @@ if ($profile_id) {
         $error_message = _("No valid realm name given, cannot execute any checks!");
     }
 }
-$gui->langObject->setTextDomain("diagnostics");
+
 $translate1 = _("STATIC");
 $translate2 = _("DYNAMIC");
 $errorstate = [];
@@ -475,7 +475,6 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
 <body>
 <?php
 echo $deco->productheader("ADMIN");
-$gui->langObject->setTextDomain("diagnostics");
 
 if ($check_realm === FALSE) {
     print "<p>$error_message</p>";
@@ -759,7 +758,7 @@ if ($check_realm === FALSE) {
         }
         ?>
         <form method='post' action='<?php echo $returnUrl; ?>' accept-charset='UTF-8'>
-            <button type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_CLOSE; ?>'><?php echo sprintf(_("Return to %s administrator area"), $gui->nomenclature_inst); ?></button>
+            <button type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_CLOSE; ?>'><?php echo sprintf(_("Return to %s administrator area"), core\common\Entity::$nomenclature_inst); ?></button>
         </form>
         <?php
         if ($check_realm !== FALSE) {

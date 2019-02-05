@@ -58,9 +58,11 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
      */
     public function __construct() {
         parent::__construct();
+        \core\common\Entity::intoThePotatoes();
         // that's what all variants support. Sub-classes can change it.
         $this->setSupportedEapMethods([\core\common\EAP::EAPTYPE_PEAP_MSCHAP2, \core\common\EAP::EAPTYPE_TTLS_PAP, \core\common\EAP::EAPTYPE_TTLS_MSCHAP2, \core\common\EAP::EAPTYPE_SILVERBULLET]);
         $this->specialities['internal:verify_userinput_suffix'] = _("It is not possible to actively verify the user input for suffix match; but if there is no 'Terms of Use' configured, the installer will display a corresponding hint to the user instead.");
+        \core\common\Entity::outOfThePotatoes();
     }
 
     /**
@@ -78,6 +80,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
      * @return string
      */
     private function generalPayload() {
+        \core\common\Entity::intoThePotatoes();
         $tagline = sprintf(_("Network configuration profile '%s' of '%s' - provided by %s"), htmlspecialchars($this->profileName, ENT_XML1, 'UTF-8'), htmlspecialchars($this->instName, ENT_XML1, 'UTF-8'), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
 
         $eapType = $this->selectedEap;
@@ -86,7 +89,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
             $tagline = sprintf(_("%s configuration for IdP '%s' - provided by %s"), \core\ProfileSilverbullet::PRODUCTNAME, htmlspecialchars($this->instName, ENT_XML1, 'UTF-8'), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         }
 
-        return "
+        $retval = "
       <key>PayloadDescription</key>
          <string>$tagline</string>
       <key>PayloadDisplayName</key>
@@ -101,6 +104,8 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
          <string>" . \core\common\Entity::uuid('', self::$iPhonePayloadPrefix . $this->massagedConsortium . $this->massagedCountry . $this->massagedInst . $this->massagedProfile) . "</string>
       <key>PayloadVersion</key>
          <integer>1</integer>";
+        \core\common\Entity::outOfThePotatoes();
+        return $retval;
     }
 
     const FILE_START = "<?xml version=\"1.0\" encoding=\"utf-8\"?>
@@ -125,15 +130,21 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
      * @return string
      */
     protected function consentBlock() {
+        \core\common\Entity::intoThePotatoes();
         if (isset($this->attributes['support:info_file'])) {
             return MobileconfigSuperclass::BUFFER_CONSENT_PRE . htmlspecialchars(iconv("UTF-8", "UTF-8//TRANSLIT", $this->attributes['support:info_file'][0]), ENT_XML1, 'UTF-8') . MobileconfigSuperclass::BUFFER_CONSENT_POST;
         }
         if ($this->attributes['internal:verify_userinput_suffix'][0] != 0) {
             if (strlen($this->attributes['internal:realm'][0]) > 0) {
-                return MobileconfigSuperclass::BUFFER_CONSENT_PRE . sprintf(_("Important Notice: your username must end with @%s!"), $this->attributes['internal:realm'][0]) . MobileconfigSuperclass::BUFFER_CONSENT_POST;
+                $retval =MobileconfigSuperclass::BUFFER_CONSENT_PRE . sprintf(_("Important Notice: your username must end with @%s!"), $this->attributes['internal:realm'][0]) . MobileconfigSuperclass::BUFFER_CONSENT_POST;
+                \core\common\Entity::outOfThePotatoes();
+                return $retval;
             }
-            return MobileconfigSuperclass::BUFFER_CONSENT_PRE . _("Important Notice: your username MUST be in the form of xxx@yyy where the yyy is a common suffix identifying your Identity Provider. Please find out what to use there and enter the username in the correct format.") . MobileconfigSuperclass::BUFFER_CONSENT_POST;
+            $retval = MobileconfigSuperclass::BUFFER_CONSENT_PRE . _("Important Notice: your username MUST be in the form of xxx@yyy where the yyy is a common suffix identifying your Identity Provider. Please find out what to use there and enter the username in the correct format.") . MobileconfigSuperclass::BUFFER_CONSENT_POST;
+            \core\common\Entity::outOfThePotatoes();
+            return $retval;
         }
+        \core\common\Entity::outOfThePotatoes();
         return "";
     }
 
@@ -144,6 +155,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
      *
      */
     public function writeInstaller() {
+        \core\common\Entity::intoThePotatoes();
         $dom = textdomain(NULL);
         textdomain("devices");
 
@@ -201,6 +213,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
 
         if (!$this->sign) {
             rename("installer_profile", $fileName);
+            \core\common\Entity::outOfThePotatoes();
             return $fileName;
         }
         // still here? Then we are signing.
@@ -208,6 +221,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
         if ($signing === FALSE) {
             $this->loggerInstance->debug(2, "Signing the mobileconfig installer $fileName FAILED!\n");
         }
+        \core\common\Entity::outOfThePotatoes();
         return $fileName;
     }
 
@@ -218,6 +232,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
      * @return string
      */
     public function writeDeviceInfo() {
+        \core\common\Entity::intoThePotatoes();
         $ssidCount = count($this->attributes['internal:SSID']);
         $certCount = count($this->attributes['internal:CAs'][0]);
         $out = "<p>" . _("For best results, please use the built-in browser (Safari) to open the configuration file.") . "</p>";
@@ -237,6 +252,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
         $out .= "</li>";
         $out .= "</ul>";
         $out .= "</p>";
+        \core\common\Entity::outOfThePotatoes();
         return $out;
     }
 
@@ -398,6 +414,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
      * @throws Exception
      */
     private function networkBlock($blocktype, $toBeConfigured) {
+        \core\common\Entity::intoThePotatoes();
         $eapType = $this->selectedEap;
         switch ($blocktype) {
             case MobileconfigSuperclass::NETWORK_BLOCK_TYPE_SSID:
@@ -474,6 +491,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
                   <integer>1</integer>
                   $wifiNetworkIdentification</dict>";
         $this->serial = $this->serial + 1;
+        \core\common\Entity::outOfThePotatoes();
         return $retval;
     }
 
@@ -485,6 +503,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
      * @return string
      */
     private function removenetworkBlock($ssid) {
+        \core\common\Entity::intoThePotatoes();
         $retval = "
 <dict>
 	<key>AutoJoin</key>
@@ -512,6 +531,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
 	<string>$ssid</string>
 </dict>
 ";
+        \core\common\Entity::outOfThePotatoes();
         return $retval;
     }
 
@@ -569,6 +589,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
      * @throws Exception
      */
     private function clientP12Block() {
+        \core\common\Entity::intoThePotatoes();
         if (!is_array($this->clientCert)) {
             throw new Exception("the client block was called but there is no client certificate!");
         }
@@ -576,7 +597,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
         $mimeBlob = base64_encode($binaryBlob);
         $mimeFormatted = chunk_split($mimeBlob, 52, "\r\n");
         $payloadUUID = \core\common\Entity::uuid('', $mimeBlob);
-        return ["block" => "<dict>" .
+        $retArray = ["block" => "<dict>" .
             // we don't include the import password. It's displayed on screen, and should be input by the user.
             // <key>Password</key>
             //   <string>" . $this->clientCert['password'] . "</string>
@@ -600,6 +621,8 @@ $mimeFormatted
                      <integer>1</integer>
                 </dict>",
             "UUID" => $payloadUUID,];
+        \core\common\Entity::outOfThePotatoes();
+        return $retArray;
     }
 
     /**
@@ -627,6 +650,7 @@ $mimeFormatted
      * @return string
      */
     private function caBlob($ca) {
+        \core\common\Entity::intoThePotatoes();
         $stream = "";
         if (!in_array($ca['uuid'], $this->CAsAccountedFor)) { // skip if this is a duplicate
             // cut lines with CERTIFICATE
@@ -642,9 +666,9 @@ $mimeFormatted
                <data>
 " . $trimmedPem . "</data>
                <key>PayloadDescription</key>
-               <string>" . _("Your Identity Providers Certification Authority") . "</string>
+               <string>" . sprintf(_("The %s Certification Authority"), \core\common\Entity::$nomenclature_inst) . "</string>
                <key>PayloadDisplayName</key>
-               <string>" . _("Identity Provider's CA") . "</string>
+               <string>" . sprintf(_("%s CA"), \core\common\Entity::$nomenclature_inst) . "</string>
                <key>PayloadIdentifier</key>
                <string>" . self::$iPhonePayloadPrefix . ".$this->massagedConsortium.$this->massagedCountry.$this->massagedInst.$this->massagedProfile.credential.$this->caSerial</string>
                <key>PayloadOrganization</key>
@@ -657,6 +681,7 @@ $mimeFormatted
             </dict>";
             $this->CAsAccountedFor[] = $ca['uuid'];
         }
+        \core\common\Entity::outOfThePotatoes();
         return $stream;
     }
 

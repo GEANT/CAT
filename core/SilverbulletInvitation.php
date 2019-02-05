@@ -226,7 +226,10 @@ class SilverbulletInvitation extends common\Entity {
      * @return string
      */
     public function invitationMailSubject() {
-        return sprintf(_("Your %s access is ready"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        common\Entity::intoThePotatoes();
+        $retval = sprintf(_("Your %s access is ready"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        common\Entity::outOfThePotatoes();
+        return $retval;
     }
 
     /**
@@ -235,6 +238,7 @@ class SilverbulletInvitation extends common\Entity {
      * @return string
      */
     public function invitationMailBody() {
+        common\Entity::intoThePotatoes();
         $text = _("Hello!");
         $text .= "\n\n";
         $text .= sprintf(_("A new %s access credential has been created for you by your network administrator."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
@@ -246,7 +250,7 @@ class SilverbulletInvitation extends common\Entity {
         $text .= _("Regards,");
         $text .= "\n\n";
         $text .= sprintf("%s", CONFIG['APPEARANCE']['productname_long']);
-
+        common\Entity::outOfThePotatoes();
         return $text;
     }
 

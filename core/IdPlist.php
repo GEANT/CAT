@@ -58,6 +58,7 @@ class IdPlist {
      *
      */
     public static function listAllIdentityProviders($activeOnly = 0, $country = "") {
+        common\Entity::intoThePotatoes();
         $handle = DBConnection::handle("INST");
         $handle->exec("SET SESSION group_concat_max_len=10000");
         $query = "SELECT distinct institution.inst_id AS inst_id, institution.country AS country,
@@ -118,6 +119,7 @@ class IdPlist {
             }
             $returnarray[] = $oneInstitutionResult;
         }
+        common\Entity::outOfThePotatoes();
         return $returnarray;
     }
 

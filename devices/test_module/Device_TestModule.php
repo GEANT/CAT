@@ -123,9 +123,11 @@ class Device_TestModule extends \core\DeviceConfig {
      * @return string HTML text to be displayed in the information window
      */
     public function writeDeviceInfo() {
+        \core\common\Entity::intoThePotatoes();
         $ssidCount = count($this->attributes['internal:SSID']);
         $out = "<p>";
-        $out .= _("This installer is an example only. It produces a zip file containig the IdP certificates, info and logo files (if such have been defined by the IdP administrator) and a dump of all available attributes. The installer is called with $ssidCount SSIDs to configure.");
+        $out .= sprintf(_("This installer is an example only. It produces a zip file containig the IdP certificates, info and logo files (if such have been defined by the IdP administrator) and a dump of all available attributes. The installer is called with %d SSIDs to configure."), $ssidCount);
+        \core\common\Entity::outOfThePotatoes();
         return $out;
     }
 

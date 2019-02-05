@@ -44,6 +44,7 @@ class PageDecoration {
      * @return string
      */
     private function sidebar($advancedControls) {
+        \core\common\Entity::intoThePotatoes();
         $retval = "<div class='sidebar'><p>";
 
         if ($advancedControls) {
@@ -56,6 +57,7 @@ class PageDecoration {
         $retval .= "<a href='" . \core\CAT::getRootUrlPath() . "/'>" . _("Start page") . "</a>
             </p>
         </div> <!-- sidebar -->";
+        \core\common\Entity::outOfThePotatoes();
         return $retval;
     }
 
@@ -65,7 +67,7 @@ class PageDecoration {
      * @param string $language current language (this one gets pre-set in the lang selector drop-down
      */
     private function headerDiv($cap1, $language) {
-
+        \core\common\Entity::intoThePotatoes();
         $place = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
         $retval = "<div class='header'>
@@ -95,6 +97,7 @@ class PageDecoration {
                 </div> <!-- consortium_logo -->
             </div><!--header_toprow-->
         </div> <!-- header -->";
+        \core\common\Entity::outOfThePotatoes();
         return $retval;
     }
 
@@ -124,6 +127,7 @@ class PageDecoration {
      * @return string
      */
     public function productheader($area) {
+        \core\common\Entity::intoThePotatoes();
         $langObject = new \core\common\Language();
         $language = $langObject->getLang();
         // this <div is closing in footer, keep it in PHP for Netbeans syntax
@@ -180,6 +184,7 @@ class PageDecoration {
         }
         $retval .= $this->sidebar($advancedControls);
         $retval .= "</div><!--secondrow--><div id='thirdrow'>";
+        \core\common\Entity::outOfThePotatoes();
         return $retval;
     }
 
@@ -231,6 +236,7 @@ class PageDecoration {
      */
     public function footer() {
         $cat = new \core\CAT();
+        \core\common\Entity::intoThePotatoes();
         $retval = "</div><!-- thirdrow --></div><!-- trick -->
           </div><!-- pagecontent -->
         <div class='footer'>
@@ -256,6 +262,7 @@ class PageDecoration {
         </div><!-- maincontent -->
         </body>
         </html>";
+        \core\common\Entity::outOfThePotatoes();
         return $retval;
     }
 

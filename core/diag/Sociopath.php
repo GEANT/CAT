@@ -40,7 +40,7 @@ class Sociopath extends AbstractTest {
      */
     public function __construct() {
         parent::__construct();
-        $this->languageInstance->setTextDomain("diagnostics");
+        \core\common\Entity::intoThePotatoes();
         $this->previousQuestions = $_SESSION['EVIDENCE']['QUESTIONSASKED'] ?? [];
         $noCanDo = _("There is nothing you can do to solve this problem yourself.");
         $noChange = _("Please be patient and try again at a later time. Do NOT change your device configuration.");
@@ -96,6 +96,7 @@ class Sociopath extends AbstractTest {
                   "FACTOR" => 3,
                   "VERDICTLECTURE" => _("The evidence at hand suggests that there may be an infrastructure problem at this particular hotspot provider. There is nothing you can do to solve this problem locally. Please be patient and try again at a later time.")],
         ];
+        \core\common\Entity::outOfThePotatoes();
     }
 
     /**

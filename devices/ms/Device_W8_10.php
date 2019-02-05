@@ -38,6 +38,7 @@ use \Exception;
  class Device_W8_10 extends WindowsCommon {
     final public function __construct() {
         parent::__construct();
+        \core\common\Entity::intoThePotatoes();
         $this->setSupportedEapMethods(
                 [
                     \core\common\EAP::EAPTYPE_TLS,
@@ -47,7 +48,9 @@ use \Exception;
                     \core\common\EAP::EAPTYPE_SILVERBULLET
                 ]);
         $this->specialities['internal:use_anon_outer'][serialize(\core\common\EAP::EAPTYPE_PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
+        \core\common\Entity::outOfThePotatoes();
     }
+    
     public function writeInstaller() {
         $dom = textdomain(NULL);
         textdomain("devices");

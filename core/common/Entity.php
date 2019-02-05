@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -73,7 +74,19 @@ abstract class Entity {
      * @var array
      */
     protected static $gettextCatalogue;
-    
+
+    /**
+     * the custom displayable variant of the term 'federation'
+     * @var string
+     */
+    public static $nomenclature_fed;
+
+    /**
+     * the custom displayable variant of the term 'institution'
+     * @var string
+     */
+    public static $nomenclature_inst;
+
     /**
      * initialise the entity.
      * 
@@ -83,6 +96,23 @@ abstract class Entity {
         $this->loggerInstance = new Logging();
         $this->loggerInstance->debug(3, "--- BEGIN constructing class " . get_class($this) . " .\n");
         $this->languageInstance = new Language();
+        Entity::intoThePotatoes();
+        // some config elements are displayable. We need some dummies to 
+        // translate the common values for them. If a deployment chooses a 
+        // different wording, no translation, sorry
+
+        $dummy_NRO = _("National Roaming Operator");
+        $dummy_inst1 = _("identity provider");
+        $dummy_inst2 = _("organisation");
+        $dummy_inst3 = _("Identity Provider");
+        // and do something useless with the strings so that there's no "unused" complaint
+        if (strlen($dummy_NRO . $dummy_inst1 . $dummy_inst2 . $dummy_inst3) < 0) {
+            throw new \Exception("Strings are usually not shorter than 0 characters. We've encountered a string blackhole.");
+        }
+        Entity::$nomenclature_fed = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']);
+        Entity::$nomenclature_inst = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution']);
+
+        Entity::outOfThePotatoes();
     }
 
     /**
@@ -191,8 +221,8 @@ abstract class Entity {
         $uuid .= /** @scrutinizer ignore-type */ substr($chars, 20, 12);
         return $prefix . $uuid;
     }
-    
-        /**
+
+    /**
      * produces a random string
      * @param int    $length   the length of the string to produce
      * @param string $keyspace the pool of characters to use for producing the string
@@ -200,7 +230,7 @@ abstract class Entity {
      * @throws Exception
      */
     public static function randomString(
-    $length, $keyspace = '23456789abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+            $length, $keyspace = '23456789abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
     ) {
         $str = '';
         $max = strlen($keyspace) - 1;
@@ -214,22 +244,31 @@ abstract class Entity {
     }
 
     public static function determineOwnCatalogue() {
-        $myName = get_class();
-        if (preg_match("/diag/",$myName) == 1) {
+        $loggerInstance = new Logging();
+        $trace = debug_backtrace();
+        $caller = $trace[2];
+        // if called from a class, guess based on the class name; 
+        // otherwise, on the filename relative to ROOT
+        $myName = $caller['class'] ?? substr($caller['file'], strlen(ROOT));
+        
+        if (preg_match("/diag/", $myName) == 1) {
             return "diagnostics";
         }
-        if (preg_match("/core/",$myName) == 1) {
+        if (preg_match("/core/", $myName) == 1) {
             return "core";
         }
-        if (preg_match("/devices/",$myName) == 1) {
+        if (preg_match("/common/", $myName) == 1) {
+            return "core";
+        }
+        if (preg_match("/devices/", $myName) == 1) {
             return "devices";
         }
-        if (preg_match("/admin/",$myName) == 1) {
+        if (preg_match("/admin/", $myName) == 1) {
             return "web_admin";
         }
         return "web_user";
     }
-    
+
     /**
      * sets the language catalogue to one matching the gettext segmentation of
      * source files. Also memorises the previous catalogue so that it can be
@@ -241,10 +280,10 @@ abstract class Entity {
         if ($catalogue === NULL) {
             textdomain(Entity::determineOwnCatalogue());
         } else {
-            texdomain($catalogue);
+            textdomain($catalogue);
         }
     }
-    
+
     /**
      * restores the previous language catalogue.
      */
@@ -255,4 +294,5 @@ abstract class Entity {
         }
         textdomain($restoreCatalogue);
     }
+
 }

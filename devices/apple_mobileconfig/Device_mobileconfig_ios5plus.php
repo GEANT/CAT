@@ -48,7 +48,9 @@ class Device_mobileconfig_ios5plus extends MobileconfigSuperclass {
      */
     public function __construct() {
         parent::__construct();
+        \core\common\Entity::intoThePotatoes();
         $this->specialities['media:force_proxy'] = _("This device does not support forcing setting an HTTPS proxy.");
+        \core\common\Entity::outOfThePotatoes();
     }
     
     /**

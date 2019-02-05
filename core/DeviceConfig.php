@@ -73,18 +73,6 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @var array EAP methods
      */
     public $supportedEapMethods;
-
-    /**
-     * the custom displayable variant of the term 'federation'
-     * @var string
-     */
-    public $nomenclature_fed;
-    
-    /**
-     * the custom displayable variant of the term 'institution'
-     * @var string
-     */
-    public $nomenclature_inst;
     
     /**
      * sets the supported EAP methods for a device
@@ -105,22 +93,6 @@ abstract class DeviceConfig extends \core\common\Entity {
      */
     public function __construct() {
         parent::__construct();
-        // some config elements are displayable. We need some dummies to 
-        // translate the common values for them. If a deployment chooses a 
-        // different wording, no translation, sorry
-
-        $dummy_NRO = _("National Roaming Operator");
-        $dummy_inst1 = _("identity provider");
-        $dummy_inst2 = _("organisation");
-        $dummy_inst3 = _("Identity Provider");
-        // and do something useless with the strings so that there's no "unused" complaint
-        // by Scrutinizer
-        if (strlen($dummy_NRO . $dummy_inst1 . $dummy_inst2 . $dummy_inst3) < 0) {
-            throw new \Exception("Strings are usually not shorter than 0 characters. We've encountered a string blackhole.");
-        }
-
-        $this->nomenclature_fed = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']);
-        $this->nomenclature_inst = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution']);
     }
 
     /**
@@ -146,6 +118,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      */
     final public function setup(AbstractProfile $profile, $token = NULL, $importPassword = NULL) {
         $this->loggerInstance->debug(4, "module setup start\n");
+        common\Entity::intoThePotatoes();
         $purpose = 'installer';
         $eaps = $profile->getEapMethodsinOrderOfPreference(1);
         $this->calculatePreferredEapType($eaps);
@@ -209,15 +182,15 @@ abstract class DeviceConfig extends \core\common\Entity {
         $this->attributes['internal:remove_SSID'] = $this->getSSIDs()['del'];
 
         $this->attributes['internal:consortia'] = $this->getConsortia();
-        $olddomain = $this->languageInstance->setTextDomain("core");
+        
         $this->support_email_substitute = sprintf(_("your local %s support"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $this->support_url_substitute = sprintf(_("your local %s support page"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
-        $this->languageInstance->setTextDomain($olddomain);
 
         if ($this->signer && $this->options['sign']) {
             $this->sign = ROOT . '/signer/' . $this->signer;
         }
         $this->installerBasename = $this->getInstallerBasename();
+        common\Entity::outOfThePotatoes();
     }
 
     /**
@@ -246,7 +219,10 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @return string HTML text to be displayed
      */
     public function writeDeviceInfo() {
-        return _("Sorry, this should not happen - no additional information is available");
+        common\Entity::intoThePotatoes();
+        $retval = _("Sorry, this should not happen - no additional information is available");
+        common\Entity::outOfThePotatoes();
+        return $retval;
     }
     
     /**
@@ -333,6 +309,10 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @final not to be redefined
      */
     final protected function translateFile($source_name, $output_name = NULL, $encoding = 0) {
+        // there is no explicit gettext() call in this function, but catalogues
+        // and translations occur in the varios ".inc" files - so make sure we
+        // operate in the correct catalogue
+        common\Entity::intoThePotatoes();
         if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
             $encoding = 0;
         }
@@ -358,11 +338,13 @@ abstract class DeviceConfig extends \core\common\Entity {
         $fileHandle = fopen("$output_name", "w");
         if ($fileHandle === FALSE) {
             $this->loggerInstance->debug(2, "translateFile($source, $output_name, $encoding) failed\n");
+            common\Entity::outOfThePotatoes();
             return FALSE;
         }
         fwrite($fileHandle, $output);
         fclose($fileHandle);
         $this->loggerInstance->debug(5, "translateFile($source, $output_name, $encoding) end\n");
+        common\Entity::outOfThePotatoes();
         return TRUE;
     }
 

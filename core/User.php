@@ -146,10 +146,12 @@ class User extends EntityWithDBProperties {
      * @return boolean did it work?
      */
     public function sendMailToUser($subject, $content) {
+        
         $mailaddr = $this->getAttributes("user:email");
         if (count($mailaddr) == 0) { // we don't know user's mail address
             return FALSE;
         }
+        common\Entity::intoThePotatoes();
         $mail = \core\common\OutsideComm::mailHandle();
 // who to whom?
         $mail->FromName = CONFIG['APPEARANCE']['productname'] . " Notification System";
@@ -160,7 +162,7 @@ class User extends EntityWithDBProperties {
         $mail->Body = $content;
 
         $sent = $mail->send();
-
+        common\Entity::outOfThePotatoes();
         return $sent;
     }
 

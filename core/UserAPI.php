@@ -68,7 +68,6 @@ class UserAPI extends CAT {
      *  mime - the mimetype of the installer
      */
     public function generateInstaller($device, $profileId, $generatedFor = "user", $token = NULL, $password = NULL) {
-        $this->languageInstance->setTextDomain("devices");
         $this->loggerInstance->debug(4, "installer:$device:$profileId\n");
         $validator = new \web\lib\common\InputValidation();
         $profile = $validator->Profile($profileId);
@@ -92,7 +91,6 @@ class UserAPI extends CAT {
             }
             $installerProperties['link'] = $myInstaller['link'];
         }
-        $this->languageInstance->setTextDomain("web_user");
         return $installerProperties;
     }
     
@@ -217,7 +215,6 @@ class UserAPI extends CAT {
      * @param int    $profileId identifier of the profile
      */
     public function deviceInfo($device, $profileId) {
-        $this->languageInstance->setTextDomain("devices");
         $validator = new \web\lib\common\InputValidation();
         $out = 0;
         $profile = $validator->Profile($profileId);
@@ -227,7 +224,6 @@ class UserAPI extends CAT {
             $dev->setup($profile);
             $out = $dev->writeDeviceInfo();
         }
-        $this->languageInstance->setTextDomain("web_user");
         echo $out;
     }
 
@@ -244,7 +240,6 @@ class UserAPI extends CAT {
      * - devices - an array of device names and their statuses (for a given profile)
      */
     public function profileAttributes($profId) {
-        $this->languageInstance->setTextDomain("devices");
         $validator = new \web\lib\common\InputValidation();
         $profile = $validator->Profile($profId);
         $attribs = $profile->getCollapsedAttributes();
@@ -263,7 +258,6 @@ class UserAPI extends CAT {
             $returnArray['description'] = $attribs['profile:description'][0];
         }
         $returnArray['devices'] = $profile->listDevices();
-        $this->languageInstance->setTextDomain("web_user");
         return $returnArray;
     }
 
@@ -444,9 +438,7 @@ class UserAPI extends CAT {
      * @return array|boolean OS information, indexed by 'id', 'display', 'group'
      */
     public function detectOS() {
-        $oldDomain = $this->languageInstance->setTextDomain("devices");
         $Dev = \devices\Devices::listDevices();
-        $this->languageInstance->setTextDomain($oldDomain);
         $devId = $this->deviceFromRequest();
         if ($devId !== NULL) {
             $ret = $this->returnDevice($devId, $Dev[$devId]);

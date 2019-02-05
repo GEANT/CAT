@@ -169,7 +169,6 @@ if ($queryType == 'idp') {
 }
 if ($queryType == 'idp_send' || $queryType == 'sp_send') {
     include_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
-    $languageInstance->setTextDomain("web_user");
     $cat = new \core\CAT();
     $returnArray = array();
     if (count((array) $o) > 0) {

@@ -234,6 +234,7 @@ class IdP extends EntityWithDBProperties {
      * @return void
      */
     public function destroy() {
+        common\Entity::intoThePotatoes();
         /* delete all profiles */
         foreach ($this->listProfiles() as $profile) {
             $profile->destroy();
@@ -256,15 +257,16 @@ class IdP extends EntityWithDBProperties {
             $user = new User($id);
             $message = sprintf(_("Hi,
 
-the Identity Provider %s in your %s federation %s has been deleted from %s.
+the %s %s in your %s federation %s has been deleted from %s.
 
 We thought you might want to know.
 
 Best regards,
 
-%s"), $this->name, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], strtoupper($fed->name), CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname_long']);
-            $user->sendMailToUser(_("IdP in your federation was deleted"), $message);
+%s"), common\Entity::$nomenclature_inst, $this->name, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], strtoupper($fed->name), CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname_long']);
+            $user->sendMailToUser(sprintf(_("%s in your federation was deleted"), common\Entity::$nomenclature_inst), $message);
         }
+        common\Entity::outOfThePotatoes();
     }
 
     /**

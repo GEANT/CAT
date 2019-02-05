@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -20,6 +21,7 @@
  */
 
 namespace web\lib\admin;
+
 use Exception;
 
 /**
@@ -49,21 +51,12 @@ class UIElements {
      * Mainly fetches various nomenclature from the config and attempts to translate those into local language. Needs pre-loading some terms.
      */
     public function __construct() {
-        // some config elements are displayable. We need some dummies to 
-        // translate the common values for them. If a deployment chooses a 
-        // different wording, no translation, sorry
+        // pick up the nomenclature translations from core - no need to repeat
+        // them here in this catalogue
 
-        $dummy_NRO = _("National Roaming Operator");
-        $dummy_inst1 = _("identity provider");
-        $dummy_inst2 = _("organisation");
-        $dummy_inst3 = _("Identity Provider");
-        // and do something useless with the strings so that there's no "unused" complaint
-        if (strlen($dummy_NRO . $dummy_inst1 . $dummy_inst2 . $dummy_inst3) < 0) {
-            throw new \Exception("Strings are usually not shorter than 0 characters. We've encountered a string blackhole.");
-        }
-
-        $this->nomenclature_fed = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']);
-        $this->nomenclature_inst = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution']);
+        new \core\CAT(); // initialises Entity static members, in correct langauge
+        $this->nomenclature_fed = \core\common\Entity::$nomenclature_fed;
+        $this->nomenclature_inst = \core\common\Entity::$nomenclature_inst;
     }
 
     /**
@@ -74,7 +67,7 @@ class UIElements {
      * @throws Exception
      */
     public function displayName($input) {
-
+        \core\common\Entity::intoThePotatoes();
         $ssidText = _("SSID");
         $ssidLegacyText = _("SSID (with WPA/TKIP)");
         $passpointOiText = _("HS20 Consortium OI");
@@ -120,14 +113,14 @@ class UIElements {
             _("Custom CSS file for User Area") => "fed:css_file",
             sprintf(_("%s Logo"), $this->nomenclature_fed) => "fed:logo_file",
             _("Preferred Skin for User Area") => "fed:desired_skin",
-            sprintf(_("Include %s branding in installers"),$this->nomenclature_fed) => "fed:include_logo_installers",
+            sprintf(_("Include %s branding in installers"), $this->nomenclature_fed) => "fed:include_logo_installers",
             sprintf(_("%s Name"), $this->nomenclature_fed) => "fed:realname",
             sprintf(_("%s Homepage"), $this->nomenclature_fed) => "fed:url",
-            sprintf(_("Custom text in %s Invitations"),$this->nomenclature_inst) => "fed:custominvite",
+            sprintf(_("Custom text in %s Invitations"), $this->nomenclature_inst) => "fed:custominvite",
             sprintf(_("Enable %s"), \core\ProfileSilverbullet::PRODUCTNAME) => "fed:silverbullet",
             sprintf(_("%s: Do not terminate EAP"), \core\ProfileSilverbullet::PRODUCTNAME) => "fed:silverbullet-noterm",
             sprintf(_("%s: max users per profile"), \core\ProfileSilverbullet::PRODUCTNAME) => "fed:silverbullet-maxusers",
-            sprintf(_("Mint %s with CA on creation"),$this->nomenclature_inst) => "fed:minted_ca_file",
+            sprintf(_("Mint %s with CA on creation"), $this->nomenclature_inst) => "fed:minted_ca_file",
             $ssidText => "media:SSID",
             $ssidLegacyText => "media:SSID_with_legacy",
             $passpointOiText => "media:consortium_OI",
@@ -138,6 +131,7 @@ class UIElements {
         if (count($find) == 0) { // this is an error! throw an Exception
             throw new \Exception("The translation of an option name was requested, but the option is not known to the system: " . htmlentities($input));
         }
+        \core\common\Entity::outOfThePotatoes();
         return $find[0];
     }
 
@@ -149,6 +143,7 @@ class UIElements {
      * @return string HTML code
      */
     public function infoblock(array $optionlist, string $class, string $level) {
+        \core\common\Entity::intoThePotatoes();
         $locationMarkers = [];
         $retval = "";
         $optioninfo = \core\Options::instance();
@@ -180,7 +175,7 @@ class UIElements {
                                 $retval .= $this->previewImageinHTML('ROWID-' . $option['level'] . '-' . $option['row']);
                                 break;
                             case "eap:ca_file":
-                                // fall-through intended: display both the same way
+                            // fall-through intended: display both the same way
                             case "fed:minted_ca_file":
                                 $retval .= $this->previewCAinHTML('ROWID-' . $option['level'] . '-' . $option['row']);
                                 break;
@@ -213,6 +208,7 @@ class UIElements {
             $jMarker = json_encode($locationMarkers);
             $retval .= '<tr><td><script>markers=\'' . $marker . '\'; jmarkers = \'' . $jMarker . '\';</script></td><td></td><td></td></tr>';
         }
+        \core\common\Entity::outOfThePotatoes();
         return $retval;
     }
 
@@ -223,6 +219,7 @@ class UIElements {
      * @return string HTML code
      */
     public function instLevelInfoBoxes(\core\IdP $myInst) {
+        \core\common\Entity::intoThePotatoes();
         $idpoptions = $myInst->getAttributes();
         $retval = "<div class='infobox'>
         <h2>" . sprintf(_("General %s details"), $this->nomenclature_inst) . "</h2>
@@ -252,6 +249,7 @@ class UIElements {
                     "</table>
         </div>";
         }
+        \core\common\Entity::outOfThePotatoes();
         return $retval;
     }
 
@@ -287,7 +285,7 @@ class UIElements {
         // the data is either public (just give it away) or not; in this case, only
         // release if the data belongs to admin himself
         if ($checkpublic) {
-            
+
             $owners = \core\EntityWithDBProperties::isDataRestricted($reference["table"], $reference["rowindex"]);
 
             $ownersCondensed = [];
@@ -300,7 +298,7 @@ class UIElements {
                 // we might be called without session context (filepreview) so get the
                 // context if needed
                 CAT_session_start();
-            
+
                 foreach ($owners as $oneowner) {
                     $ownersCondensed[] = $oneowner['ID'];
                 }
@@ -323,11 +321,11 @@ class UIElements {
      */
     private function checkROWIDpresence($reference) {
         $found = preg_match("/^ROWID-.*/", $reference);
-        if ($found  != 1) { // get excited on not-found AND on execution error
+        if ($found != 1) { // get excited on not-found AND on execution error
             throw new Exception("Error, ROWID expected.");
         }
     }
-    
+
     /**
      * creates HTML code to display a nice UI representation of a CA
      * 
@@ -335,26 +333,35 @@ class UIElements {
      * @return string HTML code
      */
     public function previewCAinHTML($cAReference) {
+        \core\common\Entity::intoThePotatoes();
         $this->checkROWIDpresence($cAReference);
         $rawResult = UIElements::getBlobFromDB($cAReference, FALSE);
         if (is_bool($rawResult)) { // we didn't actually get a CA!
-            return "<div class='ca-summary'>"._("There was an error while retrieving the certificate from the database!")."</div>";
+            $retval = "<div class='ca-summary'>" . _("There was an error while retrieving the certificate from the database!") . "</div>";
+            \core\common\Entity::outOfThePotatoes();
+            return $retval;
         }
         $cAblob = base64_decode($rawResult);
 
         $func = new \core\common\X509;
         $details = $func->processCertificate($cAblob);
         if ($details === FALSE) {
-            return _("There was an error processing the certificate!");
+            $retval = _("There was an error processing the certificate!");
+            \core\common\Entity::outOfThePotatoes();
+            return $retval;
         }
 
         $details['name'] = preg_replace('/(.)\/(.)/', "$1<br/>$2", $details['name']);
         $details['name'] = preg_replace('/\//', "", $details['name']);
         $certstatus = ( $details['root'] == 1 ? "R" : "I");
         if ($details['ca'] == 0 && $details['root'] != 1) {
-            return "<div class='ca-summary' style='background-color:red'><div style='position:absolute; right: 0px; width:20px; height:20px; background-color:maroon;  border-radius:10px; text-align: center;'><div style='padding-top:3px; font-weight:bold; color:#ffffff;'>S</div></div>" . _("This is a <strong>SERVER</strong> certificate!") . "<br/>" . $details['name'] . "</div>";
+            $retval = "<div class='ca-summary' style='background-color:red'><div style='position:absolute; right: 0px; width:20px; height:20px; background-color:maroon;  border-radius:10px; text-align: center;'><div style='padding-top:3px; font-weight:bold; color:#ffffff;'>S</div></div>" . _("This is a <strong>SERVER</strong> certificate!") . "<br/>" . $details['name'] . "</div>";
+            \core\common\Entity::outOfThePotatoes();
+            return $retval;
         }
-        return "<div class='ca-summary'                                ><div style='position:absolute; right: 0px; width:20px; height:20px; background-color:#0000ff; border-radius:10px; text-align: center;'><div style='padding-top:3px; font-weight:bold; color:#ffffff;'>$certstatus</div></div>" . $details['name'] . "</div>";
+        $retval = "<div class='ca-summary'                                ><div style='position:absolute; right: 0px; width:20px; height:20px; background-color:#0000ff; border-radius:10px; text-align: center;'><div style='padding-top:3px; font-weight:bold; color:#ffffff;'>$certstatus</div></div>" . $details['name'] . "</div>";
+        \core\common\Entity::outOfThePotatoes();
+        return $retval;
     }
 
     /**
@@ -364,8 +371,11 @@ class UIElements {
      * @return string HTML code
      */
     public function previewImageinHTML($imageReference) {
+        \core\common\Entity::intoThePotatoes();
         $this->checkROWIDpresence($imageReference);
-        return "<img style='max-width:150px' src='inc/filepreview.php?id=" . $imageReference . "' alt='" . _("Preview of logo file") . "'/>";
+        $retval = "<img style='max-width:150px' src='inc/filepreview.php?id=" . $imageReference . "' alt='" . _("Preview of logo file") . "'/>";
+        \core\common\Entity::outOfThePotatoes();
+        return $retval;
     }
 
     /**
@@ -375,14 +385,19 @@ class UIElements {
      * @return string HTML code
      */
     public function previewInfoFileinHTML($fileReference) {
+        \core\common\Entity::intoThePotatoes();
         $this->checkROWIDpresence($fileReference);
         $fileBlob = UIElements::getBlobFromDB($fileReference, FALSE);
         if (is_bool($fileBlob)) { // we didn't actually get a file!
-            return "<div class='ca-summary'>"._("There was an error while retrieving the file from the database!")."</div>";
+            $retval = "<div class='ca-summary'>" . _("There was an error while retrieving the file from the database!") . "</div>";
+            \core\common\Entity::outOfThePotatoes();
+            return $retval;
         }
         $decodedFileBlob = base64_decode($fileBlob);
         $fileinfo = new \finfo();
-        return "<div class='ca-summary'>" . _("File exists") . " (" . $fileinfo->buffer($decodedFileBlob, FILEINFO_MIME_TYPE) . ", " . $this->displaySize(strlen($decodedFileBlob)) . ")<br/><a href='inc/filepreview.php?id=$fileReference'>" . _("Preview") . "</a></div>";
+        $retval = "<div class='ca-summary'>" . _("File exists") . " (" . $fileinfo->buffer($decodedFileBlob, FILEINFO_MIME_TYPE) . ", " . $this->displaySize(strlen($decodedFileBlob)) . ")<br/><a href='inc/filepreview.php?id=$fileReference'>" . _("Preview") . "</a></div>";
+        \core\common\Entity::outOfThePotatoes();
+        return $retval;
     }
 
     /**
@@ -395,7 +410,7 @@ class UIElements {
      * @return string
      */
     public function boxFlexible(int $level, string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
-
+        \core\common\Entity::intoThePotatoes();
         $uiMessages = [
             \core\common\Entity::L_OK => ['icon' => '../resources/images/icons/Quetto/check-icon.png', 'text' => _("OK")],
             \core\common\Entity::L_REMARK => ['icon' => '../resources/images/icons/Quetto/info-icon.png', 'text' => _("Remark")],
@@ -418,6 +433,7 @@ class UIElements {
         if (!$omittabletags) {
             $retval .= "</td></tr>";
         }
+        \core\common\Entity::outOfThePotatoes();
         return $retval;
     }
 
@@ -498,15 +514,15 @@ class UIElements {
         $scale = sqrt($maxoccupy / $totallogopixels);
         $loggerInstance->debug(4, "Scaling info: $scale, $maxoccupy, $totallogopixels\n");
         // determine final pixel size - round to multitude of $symbolsize to match exact symbol boundary
-        $targetwidth = $symbolsize * (int)round($sizelogo[0] * $scale / $symbolsize);
-        $targetheight = $symbolsize * (int)round($sizelogo[1] * $scale / $symbolsize);
+        $targetwidth = $symbolsize * (int) round($sizelogo[0] * $scale / $symbolsize);
+        $targetheight = $symbolsize * (int) round($sizelogo[1] * $scale / $symbolsize);
         // paint white below the logo, in case it has transparencies (looks bad)
         // have one symbol in each direction extra white space
         $whiteimage = imagecreate($targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize);
         imagecolorallocate($whiteimage, 255, 255, 255);
         // also make sure the initial placement is a multitude of 12; otherwise "two half" symbols might be affected
-        $targetplacementx = $symbolsize * (int)round(($sizeinput[0] / 2 - ($targetwidth - $symbolsize) / 2) / $symbolsize);
-        $targetplacementy = $symbolsize * (int)round(($sizeinput[1] / 2 - ($targetheight - $symbolsize) / 2) / $symbolsize);
+        $targetplacementx = $symbolsize * (int) round(($sizeinput[0] / 2 - ($targetwidth - $symbolsize) / 2) / $symbolsize);
+        $targetplacementy = $symbolsize * (int) round(($sizeinput[1] / 2 - ($targetheight - $symbolsize) / 2) / $symbolsize);
         imagecopyresized($inputgd, $whiteimage, $targetplacementx - $symbolsize, $targetplacementy - $symbolsize, 0, 0, $targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize, $targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize);
         imagecopyresized($inputgd, $logogd, $targetplacementx, $targetplacementy, 0, 0, $targetwidth, $targetheight, $sizelogo[0], $sizelogo[1]);
         ob_start();

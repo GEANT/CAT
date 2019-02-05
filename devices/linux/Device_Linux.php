@@ -60,6 +60,7 @@ class Device_Linux extends \core\DeviceConfig {
     }
 
     public function writeDeviceInfo() {
+        \core\common\Entity::intoThePotatoes();
         $ssidCount = count($this->attributes['internal:SSID']);
         $out = '';
 
@@ -93,6 +94,7 @@ class Device_Linux extends \core\DeviceConfig {
         }
         // nothing to say if we are doing silverbullet.
         $out .= "<p>";
+        \core\common\Entity::outOfThePotatoes();
         return $out;
     }
     
@@ -102,6 +104,7 @@ class Device_Linux extends \core\DeviceConfig {
     }
     
     private function writeMessages($file) {
+        \core\common\Entity::intoThePotatoes();
         $messages = [
         'quit'=> _("Really quit?"),
         'username_prompt'=> _("enter your userid"),
@@ -132,6 +135,7 @@ class Device_Linux extends \core\DeviceConfig {
         foreach ($messages as $name => $value) {
             $this->writeConfigLine($file, 'Messages.', $name, $value . '"');
         }
+        \core\common\Entity::outOfThePotatoes();
     }
 
     private function writeConfigVars($file) {
@@ -270,8 +274,10 @@ class Device_Linux extends \core\DeviceConfig {
     }
     
     private function mkIntro() {
+        \core\common\Entity::intoThePotatoes();
         $out = _("This installer has been prepared for {0}") . '\n\n' . _("More information and comments:") . '\n\nEMAIL: {1}\nWWW: {2}\n\n' .
             _("Installer created with software from the GEANT project.");
+        \core\common\Entity::outOfThePotatoes();
         return $out;
     }
     
@@ -286,11 +292,13 @@ class Device_Linux extends \core\DeviceConfig {
     }
     
     private function mkProfileConfirmation() {
+        \core\common\Entity::intoThePotatoes();
         if ($this->attributes['internal:profile_count'][0] > 1) {
             $out = _("This installer will only work properly if you are a member of {0} and the user group: {1}.");
         } else {
             $out = _("This installer will only work properly if you are a member of {0}.");
         }
+        \core\common\Entity::outOfThePotatoes();
         return $out;
     }
     

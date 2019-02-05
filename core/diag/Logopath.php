@@ -92,6 +92,7 @@ class Logopath extends AbstractTest {
      */
     public function __construct() {
         parent::__construct();
+        \core\common\Entity::intoThePotatoes();
         $this->userEmail = FALSE;
         $this->additionalScreenshot = FALSE;
 
@@ -129,6 +130,7 @@ class Logopath extends AbstractTest {
                 . "Please stop the policy violation ASAP by listing the IdP which is associated to this realm.",
             ],
         ];
+        \core\common\Entity::outOfThePotatoes();
     }
 
     /**

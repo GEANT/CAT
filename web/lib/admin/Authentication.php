@@ -53,6 +53,7 @@ class Authentication {
      * @throws Exception
      */
     public function authenticate() {
+        \core\common\Entity::intoThePotatoes();
         $loggerInstance = new \core\common\Logging();
         $authSimple = new \SimpleSAML\Auth\Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
         $authSimple->requireAuth();
@@ -102,6 +103,7 @@ class Authentication {
                 $_SESSION['name'] = $nameArray[0]['value'];
             }
         }
+        \core\common\Entity::outOfThePotatoes();
     }
 
     /**
