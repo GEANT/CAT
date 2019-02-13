@@ -25,7 +25,7 @@ $deco = new \web\lib\admin\PageDecoration();
 $uiElements = new web\lib\admin\UIElements();
 $validator = new \web\lib\common\InputValidation();
 
-echo $deco->defaultPagePrelude(sprintf(_("%s: %s Management"), CONFIG['APPEARANCE']['productname'], $uiElements->nomenclature_fed));
+echo $deco->defaultPagePrelude(sprintf(_("%s: %s Management"), CONFIG['APPEARANCE']['productname'], $uiElements->nomenclatureFed));
 $user = new \core\User($_SESSION['user']);
 require_once "inc/click_button_js.php";
 ?>
@@ -38,7 +38,7 @@ require_once "inc/click_button_js.php";
     $readonly = CONFIG['DB']['INST']['readonly'];
     ?>
     <h1>
-        <?php echo sprintf(_("%s Overview"), $uiElements->nomenclature_fed); ?>
+        <?php echo sprintf(_("%s Overview"), $uiElements->nomenclatureFed); ?>
     </h1>
 
     <div class="infobox">
@@ -62,7 +62,7 @@ require_once "inc/click_button_js.php";
     $mgmt = new \core\UserManagement();
 
     if (!$user->isFederationAdmin()) {
-        echo "<p>" . sprintf(_("You are not a %s manager."), $uiElements->nomenclature_fed) . "</p>";
+        echo "<p>" . sprintf(_("You are not a %s manager."), $uiElements->nomenclatureFed) . "</p>";
         echo $deco->footer();
         exit(0);
     }
@@ -73,7 +73,7 @@ require_once "inc/click_button_js.php";
         ?>
 
         <div class='infobox'><h2>
-                <?php echo sprintf(_("%s Properties: %s"), $uiElements->nomenclature_fed, $thefed->name); ?>
+                <?php echo sprintf(_("%s Properties: %s"), $uiElements->nomenclatureFed, $thefed->name); ?>
             </h2>
             <table>
                 <!-- fed properties -->
@@ -103,7 +103,7 @@ require_once "inc/click_button_js.php";
         </div>
         <div class='infobox'>
             <h2>
-                <?php echo sprintf(_("%s Statistics: %s"), $uiElements->nomenclature_fed, $thefed->name); ?>
+                <?php echo sprintf(_("%s Statistics: %s"), $uiElements->nomenclatureFed, $thefed->name); ?>
             </h2>
             <table>
                 <!-- idp stats -->
@@ -191,7 +191,7 @@ require_once "inc/click_button_js.php";
         echo "</table></div>";
     }
     if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == 'eduroam') {
-        $helptext = "<h3>" . sprintf(_("Need help? Refer to the <a href='%s'>%s manual</a>"), "https://wiki.geant.org/x/fgBwBg", $uiElements->nomenclature_fed) . "</h3>";
+        $helptext = "<h3>" . sprintf(_("Need help? Refer to the <a href='%s'>%s manual</a>"), "https://wiki.geant.org/x/fgBwBg", $uiElements->nomenclatureFed) . "</h3>";
     } else {
         $helptext = "";
     }
@@ -199,7 +199,7 @@ require_once "inc/click_button_js.php";
     <table class='user_overview' style='border:0px;'>
         <tr>
             <th><?php echo _("Deployment Status"); ?></th>
-            <th><?php echo sprintf(_("%s Name"), $uiElements->nomenclature_inst); ?></th>
+            <th><?php echo sprintf(_("%s Name"), $uiElements->nomenclatureInst); ?></th>
 
             <?php
             $pending_invites = $mgmt->listPendingInvitations();
@@ -220,7 +220,7 @@ require_once "inc/click_button_js.php";
         foreach ($feds as $onefed) {
             $thefed = new \core\Federation(strtoupper($onefed['value']));
             /// nomenclature for 'federation', federation name, nomenclature for 'inst'
-            echo "<tr><td colspan='8'><strong>" . sprintf(_("The following %s are in your %s %s:"), $uiElements->nomenclature_inst, $uiElements->nomenclature_fed, '<span style="color:green">' . $thefed->name . '</span>') . "</strong></td></tr>";
+            echo "<tr><td colspan='8'><strong>" . sprintf(_("The following %s are in your %s %s:"), $uiElements->nomenclatureInst, $uiElements->nomenclatureFed, '<span style="color:green">' . $thefed->name . '</span>') . "</strong></td></tr>";
 
             // extract only pending invitations for *this* fed
             $display_pendings = FALSE;
@@ -293,7 +293,7 @@ require_once "inc/click_button_js.php";
                 echo "<tr>
                             <td colspan='2'>
                                <strong>" .
-                sprintf(_("Pending invitations in the %s:"), $uiElements->nomenclature_fed) . "
+                sprintf(_("Pending invitations in the %s:"), $uiElements->nomenclatureFed) . "
                                </strong>
                             </td>
                          </tr>";
@@ -330,7 +330,7 @@ require_once "inc/click_button_js.php";
         <form method='post' action='inc/manageNewInst.inc.php' onsubmit='popupRedirectWindow(this);
                 return false;' accept-charset='UTF-8'>
             <button type='submit' class='download'>
-                <?php echo sprintf(_("Register a new %s!"), $uiElements->nomenclature_inst); ?>
+                <?php echo sprintf(_("Register a new %s!"), $uiElements->nomenclatureInst); ?>
             </button>
         </form>
         <br/>

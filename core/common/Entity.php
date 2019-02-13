@@ -249,23 +249,38 @@ abstract class Entity {
      * @return string the catalogue
      */
     private static function determineOwnCatalogue() {
-        $myName = get_class();
+        $loggerInstance = new Logging();
+        $trace = debug_backtrace();
+        $caller = [];
+        // find the first caller in the stack trace which is NOT "Entity" itself
+        // this means walking back from the end of the trace to the penultimate
+        // index before something with "Entity" comes in
+        for ($i = count($trace) - 1; $i--; $i > 0) {
+            if (preg_match('/Entity/', $trace[$i - 1]['class'])) {
+                $caller = $trace[$i];
+                break;
+            }
+        }
+        // if called from a class, guess based on the class name; 
+        // otherwise, on the filename relative to ROOT
+        $myName = $caller['class'] ?? substr($caller['file'], strlen(ROOT));
+        $loggerInstance->debug(1,$caller);
+        $loggerInstance->debug(1,"\nFOUND ".$myName."\n");
         if (preg_match("/diag/", $myName) == 1) {
-            return "diagnostics";
+            $ret = "diagnostics";
+        } elseif (preg_match("/core/", $myName) == 1) {
+            $ret = "core";
+        } elseif (preg_match("/common/", $myName) == 1) {
+            $ret = "core";
+        } elseif (preg_match("/devices/", $myName) == 1) {
+            $ret = "devices";
+        } elseif (preg_match("/admin/", $myName) == 1) {
+            $ret = "web_admin";
+        } else {
+            $ret = "web_user";
         }
-        if (preg_match("/core/", $myName) == 1) {
-            return "core";
-        }
-        if (preg_match("/common/", $myName) == 1) {
-            return "core";
-        }
-        if (preg_match("/devices/", $myName) == 1) {
-            return "devices";
-        }
-        if (preg_match("/admin/", $myName) == 1) {
-            return "web_admin";
-        }
-        return "web_user";
+        $loggerInstance->debug(1,"\nRETURNING ".$ret."\n");
+        return $ret;
     }
 
     /**
@@ -274,15 +289,17 @@ abstract class Entity {
      * restored later on.
      * 
      * @param string $catalogue the catalogue to select, overrides detection
-     * @return void
      */
     public static function intoThePotatoes($catalogue = NULL) {
         // array_push, without the function call overhead
         Entity::$gettextCatalogue[] = textdomain(NULL);
         if ($catalogue === NULL) {
-            textdomain(Entity::determineOwnCatalogue());
+            $theCatalogue = Entity::determineOwnCatalogue();
+            textdomain($theCatalogue);
+            bindtextdomain($theCatalogue, ROOT . "/translation/");
         } else {
             textdomain($catalogue);
+            bindtextdomain($catalogue, ROOT . "/translation/");
         }
     }
 
@@ -297,4 +314,12 @@ abstract class Entity {
         textdomain($restoreCatalogue);
     }
 
+    /**
+     * for debugging only
+     */
+    public static function potatoStack() {
+        $debugArray = Entity::$gettextCatalogue;
+        array_push($debugArray, Entity::determineOwnCatalogue());
+        return $debugArray;
+    }
 }

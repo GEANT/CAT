@@ -41,6 +41,7 @@ abstract class AbstractMap extends \core\common\Entity {
      * @param boolean   $readonly whether the HTML code should yield an editable field
      */
     protected function __construct($inst, $readonly) {
+        parent::__construct();
         $this->instName = $inst->name;
         $this->fedName = $inst->federation;
         $this->readOnly = $readonly;

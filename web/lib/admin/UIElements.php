@@ -36,14 +36,14 @@ class UIElements extends \core\common\Entity {
      * 
      * @var string
      */
-    public $nomenclature_fed;
+    public $nomenclatureFed;
 
     /**
      * the custom displayable variant of the term 'institution'
      * 
      * @var string
      */
-    public $nomenclature_inst;
+    public $nomenclatureInst;
 
     /**
      * Initialises the class.
@@ -53,10 +53,9 @@ class UIElements extends \core\common\Entity {
     public function __construct() {
         // pick up the nomenclature translations from core - no need to repeat
         // them here in this catalogue
-
-        new \core\CAT(); // initialises Entity static members, in correct langauge
-        $this->nomenclature_fed = \core\common\Entity::$nomenclature_fed;
-        $this->nomenclature_inst = \core\common\Entity::$nomenclature_inst;
+        parent::__construct();
+        $this->nomenclatureFed = \core\common\Entity::$nomenclature_fed;
+        $this->nomenclatureInst = \core\common\Entity::$nomenclature_inst;
     }
 
     /**
@@ -84,7 +83,7 @@ class UIElements extends \core\common\Entity {
             _("Support: EAP Types") => "support:eap_types",
             _("Support: Phone") => "support:phone",
             _("Support: E-Mail") => "support:email",
-            sprintf(_("%s Name"), $this->nomenclature_inst) => "general:instname",
+            sprintf(_("%s Name"), $this->nomenclatureInst) => "general:instname",
             _("Location") => "general:geo_coordinates",
             _("Logo URL") => "general:logo_url",
             _("Logo image") => "general:logo_file",
@@ -105,22 +104,22 @@ class UIElements extends \core\common\Entity {
             _("Use builtin TTLS supplicant for Windows 10") => "device-specific:builtin_ttls",
             _("Profile Description") => "profile:description",
             _("Custom Installer Name Suffix") => "profile:customsuffix",
-            sprintf(_("%s Administrator"), $this->nomenclature_fed) => "user:fedadmin",
+            sprintf(_("%s Administrator"), $this->nomenclatureFed) => "user:fedadmin",
             _("Real Name") => "user:realname",
             _("E-Mail Address") => "user:email",
             _("Remove/Disable SSID") => "media:remove_SSID",
             _("Mandatory Content Filtering Proxy") => "media:force_proxy",
             _("Custom CSS file for User Area") => "fed:css_file",
-            sprintf(_("%s Logo"), $this->nomenclature_fed) => "fed:logo_file",
+            sprintf(_("%s Logo"), $this->nomenclatureFed) => "fed:logo_file",
             _("Preferred Skin for User Area") => "fed:desired_skin",
-            sprintf(_("Include %s branding in installers"), $this->nomenclature_fed) => "fed:include_logo_installers",
-            sprintf(_("%s Name"), $this->nomenclature_fed) => "fed:realname",
-            sprintf(_("%s Homepage"), $this->nomenclature_fed) => "fed:url",
-            sprintf(_("Custom text in %s Invitations"), $this->nomenclature_inst) => "fed:custominvite",
+            sprintf(_("Include %s branding in installers"), $this->nomenclatureFed) => "fed:include_logo_installers",
+            sprintf(_("%s Name"), $this->nomenclatureFed) => "fed:realname",
+            sprintf(_("%s Homepage"), $this->nomenclatureFed) => "fed:url",
+            sprintf(_("Custom text in %s Invitations"), $this->nomenclatureInst) => "fed:custominvite",
             sprintf(_("Enable %s"), \core\ProfileSilverbullet::PRODUCTNAME) => "fed:silverbullet",
             sprintf(_("%s: Do not terminate EAP"), \core\ProfileSilverbullet::PRODUCTNAME) => "fed:silverbullet-noterm",
             sprintf(_("%s: max users per profile"), \core\ProfileSilverbullet::PRODUCTNAME) => "fed:silverbullet-maxusers",
-            sprintf(_("Mint %s with CA on creation"), $this->nomenclature_inst) => "fed:minted_ca_file",
+            sprintf(_("Mint %s with CA on creation"), $this->nomenclatureInst) => "fed:minted_ca_file",
             $ssidText => "media:SSID",
             $ssidLegacyText => "media:SSID_with_legacy",
             $passpointOiText => "media:consortium_OI",
@@ -222,7 +221,7 @@ class UIElements extends \core\common\Entity {
         \core\common\Entity::intoThePotatoes();
         $idpoptions = $myInst->getAttributes();
         $retval = "<div class='infobox'>
-        <h2>" . sprintf(_("General %s details"), $this->nomenclature_inst) . "</h2>
+        <h2>" . sprintf(_("General %s details"), $this->nomenclatureInst) . "</h2>
         <table>
             <tr>
                 <td>

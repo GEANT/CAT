@@ -138,7 +138,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
 
                                 $importPassword = \core\common\Entity::randomString(4, "0123456789");
                                 $profile = new \core\ProfileSilverbullet($statusInfo['profile']->identifier, NULL);
-
+                                
                                 echo "<h2>" . sprintf(_("Import PIN: %s"), $importPassword) . "</h2>";
                                 $_SESSION['individualtoken'] = $cleanToken;
                                 $_SESSION['importpassword'] = $importPassword;

@@ -141,7 +141,7 @@ if (count($my_inst->listProfiles()) == 0) {
             echo "<form method='post' action='edit_silverbullet.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . sprintf(_("Continue to %s properties"), \core\ProfileSilverbullet::PRODUCTNAME) . "</button></form>";
         } else {
             echo "<table>";
-            echo $uiElements->boxError(sprintf(_("You did not submit an e-mail address. This is required for %s. Please go to the %s dashboard and edit your helpdesk settings to include a helpdesk e-mail address."), core\ProfileSilverbullet::PRODUCTNAME, $ui->nomenclature_inst), _("No support e-mail!"));
+            echo $uiElements->boxError(sprintf(_("You did not submit an e-mail address. This is required for %s. Please go to the %s dashboard and edit your helpdesk settings to include a helpdesk e-mail address."), core\ProfileSilverbullet::PRODUCTNAME, $ui->nomenclatureInst), _("No support e-mail!"));
             echo "</table>";
         }
     }

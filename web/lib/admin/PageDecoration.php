@@ -31,6 +31,7 @@ class PageDecoration extends \core\common\Entity {
      * construct the PageDecoration object
      */
     public function __construct() {
+        parent::__construct();
         $this->langObject = new \core\common\Language();
         $this->langObject->setTextDomain("web_admin");
         $this->validator = new \web\lib\common\InputValidation();
@@ -128,8 +129,7 @@ class PageDecoration extends \core\common\Entity {
      */
     public function productheader($area) {
         \core\common\Entity::intoThePotatoes();
-        $langObject = new \core\common\Language();
-        $language = $langObject->getLang();
+        $language = $this->languageInstance->getLang();
         // this <div is closing in footer, keep it in PHP for Netbeans syntax
         // highlighting to work
         $retval = "<div class='maincontent'>";
@@ -138,7 +138,7 @@ class PageDecoration extends \core\common\Entity {
         $advancedControls = TRUE;
         switch ($area) {
             case "ADMIN-IDP":
-                $cap2 = sprintf(_("Administrator Interface - %s"), $this->ui->nomenclature_inst);
+                $cap2 = sprintf(_("Administrator Interface - %s"), $this->ui->nomenclatureInst);
                 break;
             case "ADMIN-IDP-USERS":
                 $cap2 = sprintf(_("Administrator Interface - %s User Management"), \core\ProfileSilverbullet::PRODUCTNAME);
@@ -150,7 +150,7 @@ class PageDecoration extends \core\common\Entity {
                 $cap2 = _("Management of User Details");
                 break;
             case "FEDERATION":
-                $cap2 = sprintf(_("Administrator Interface - %s Management"), $this->ui->nomenclature_fed);
+                $cap2 = sprintf(_("Administrator Interface - %s Management"), $this->ui->nomenclatureFed);
                 break;
             case "USER":
                 $cap1 = sprintf(_("Welcome to %s"), CONFIG['APPEARANCE']['productname']);
