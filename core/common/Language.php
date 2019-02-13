@@ -30,6 +30,8 @@
  */
 namespace core\common;
 
+require_once dirname(dirname(__DIR__)) . "/config/_config.php";
+
 /**
  * This class maintains state of the selected language and can set the language.
  */
@@ -97,6 +99,7 @@ class Language {
             $recoverLang = filter_input(INPUT_GET,'lang', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'lang', FILTER_SANITIZE_STRING);
             $langConverted[] = $recoverLang;
         }
+        CAT_session_start();
         if (!empty($_SESSION['language'])) {
             $langConverted[] = $_SESSION['language'];
         }
