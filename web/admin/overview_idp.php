@@ -34,6 +34,14 @@ $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
 
+// our own location, to give to diag URLs
+if (isset($_SERVER['HTTPS'])) {
+    $link = 'https://';
+} else {
+    $link = 'http://';
+}
+$link .= $_SERVER['SERVER_NAME'] . $_SERVER['SCRIPT_NAME'];
+$link = htmlspecialchars($link);
 
 const QRCODE_PIXELS_PER_SYMBOL = 12;
 
@@ -124,6 +132,7 @@ echo $mapCode->htmlHeadCode();
                         <td>" . _("Check another realm's reachability") . "</td>
                         <td><form method='post' action='../diag/action_realmcheck.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'>
                               <input type='text' name='realm' id='realm'>
+                              <input type='hidden' name='comefrom' id='comefrom' value='$link'/>
                               <button type='submit'>" . _("Go!") . "</button>
                             </form>
                         </td>
@@ -154,7 +163,7 @@ echo $mapCode->htmlHeadCode();
 // simple widget with just a "Manage" button
     $sbProfileExists = FALSE;
 
-    foreach ($profiles_for_this_idp as $profile_list) {
+    foreach ($profiles_for_this_idp as $profilecount => $profile_list) {
         ?>
         <div style='display: table-row; margin-bottom: 20px;'>
             <div class='profilebox' style='display: table-cell;'>
@@ -251,7 +260,7 @@ echo $mapCode->htmlHeadCode();
                     }
                     $buffer_eaptypediv .= "<br/>";
                 }
-                $buffer_headline = "<div style='padding-bottom:20px;'><h2 style='overflow:auto; display:inline; padding-bottom: 10px;'>".sprintf(_("Profile: %s"), $profile_name) . "</h2>";
+                $buffer_headline = "<div style='padding-bottom:20px;'><h2 style='overflow:auto; display:inline; padding-bottom: 10px;'>" . sprintf(_("Profile: %s"), $profile_name) . "</h2>";
 
                 $buffer_headline .= "<span style='float:right;'>";
                 $readiness = $profile_list->readinessLevel();
@@ -286,6 +295,7 @@ echo $mapCode->htmlHeadCode();
                         $diagUrl = CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] . "/diag/";
                     }
                     echo "<form action='" . $diagUrl . "action_realmcheck.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post' accept-charset='UTF-8'>
+                              <input type='hidden' name='comefrom' id='comefrom-$profilecount' value='$link'/>
                               <button type='submit' name='profile_action' value='check' " . ($has_realm ? "" : "disabled='disabled' title='" . _("The realm can only be checked if you configure the realm!") . "'") . ">
                                   " . _("Check realm reachability") . "
                               </button>
