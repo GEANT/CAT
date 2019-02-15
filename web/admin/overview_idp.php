@@ -77,7 +77,12 @@ echo $mapCode->htmlHeadCode();
             <h2><?php echo sprintf(_("%s download area QR code"), $uiElements->nomenclatureInst); ?></h2>
             <?php
             $idpLevelUrl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier;
-            $uri = "data:image/png;base64," . base64_encode($uiElements->pngInjectConsortiumLogo(QRcode::png($idpLevelUrl, FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL), QRCODE_PIXELS_PER_SYMBOL));
+            // never NULL, because $filename is FALSE; but make Scrutinizer happy
+            $rawQr = QRcode::png($idpLevelUrl, FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL);
+            if ($rawQr === NULL) {
+                throw new Exception("Something went seriously wrong during QR code generation!");
+            }
+            $uri = "data:image/png;base64," . base64_encode($uiElements->pngInjectConsortiumLogo($rawQr, QRCODE_PIXELS_PER_SYMBOL));
             $size = getimagesize($uri);
             echo "<img width='" . ($size[0] / 4) . "' height='" . ($size[1] / 4) . "' src='$uri' alt='QR-code'/>";
             ?>

@@ -64,7 +64,6 @@ abstract class Device_XML extends \core\DeviceConfig {
      * 
      * @return string
      */
-
     public function writeDeviceInfo() {
         \core\common\Entity::intoThePotatoes();
         $out = "<p>";

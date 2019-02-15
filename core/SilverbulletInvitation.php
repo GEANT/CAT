@@ -311,7 +311,13 @@ class SilverbulletInvitation extends common\Entity {
         common\Entity::intoThePotatoes();
         $mail = \core\common\OutsideComm::mailHandle();
         $uiElements = new \web\lib\admin\UIElements();
-        $bytestream = $uiElements->pngInjectConsortiumLogo(\QRcode::png($this->link(), FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL), QRCODE_PIXELS_PER_SYMBOL);
+        // the following never returns NULL because $filename is FALSE; but
+        // make sure it really is so for Scrutinizer
+        $rawQr = \QRcode::png($this->link(), FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL);
+        if ($rawQr === NULL) {
+            throw new Exception("Something went seriously wrong with the QR code generation!");
+        }
+        $bytestream = $uiElements->pngInjectConsortiumLogo($rawQr, QRCODE_PIXELS_PER_SYMBOL);
         $mail->FromName = sprintf(_("%s Invitation System"), CONFIG['APPEARANCE']['productname']);
         $mail->Subject = $this->invitationMailSubject();
         $mail->Body = $this->invitationMailBody();

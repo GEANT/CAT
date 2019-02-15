@@ -316,6 +316,8 @@ abstract class Entity {
 
     /**
      * for debugging only
+     * 
+     * @return array the stack of language contexts
      */
     public static function potatoStack() {
         $debugArray = Entity::$gettextCatalogue;
