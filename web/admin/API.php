@@ -224,7 +224,7 @@ switch ($inputDecoded['ACTION']) {
         if ($inputDecoded['ACTION'] == web\lib\admin\API::ACTION_NEWPROF_SB) {
             // auto-accept ToU?
             if ($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_TOU) !== FALSE) {
-                $profile->addAttribute("hiddenprofile:tou_accepted", NULL, TRUE);
+                $profile->addAttribute("hiddenprofile:tou_accepted", NULL, 1);
             }
             // we're done at this point
             $adminApi->returnSuccess([\web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID => $profile->identifier]);
@@ -347,7 +347,7 @@ switch ($inputDecoded['ACTION']) {
                 $smsRaw = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_TARGETSMS);
                 if ($smsRaw !== FALSE) {
                     $sms = $validator->sms($smsRaw);
-                    if ($sms) {
+                    if (is_string($sms)) {
                         $wasSent = $invitation->sendBySms($sms);
                         $additionalInfo["SMS SENT"] = $wasSent == core\common\OutsideComm::SMS_SENT ? TRUE : FALSE;
                     }
@@ -397,7 +397,11 @@ switch ($inputDecoded['ACTION']) {
         }
         break;
     case \web\lib\admin\API::ACTION_TOKEN_REVOKE:
-        $token = new core\SilverbulletInvitation($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_TOKEN));
+        $tokenRaw = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_TOKEN);
+        if ($tokenRaw === FALSE) {
+            exit(1);
+        }
+        $token = new core\SilverbulletInvitation($tokenRaw);
         if ($token->invitationTokenStatus !== core\SilverbulletInvitation::SB_TOKENSTATUS_VALID && $token->invitationTokenStatus !== core\SilverbulletInvitation::SB_TOKENSTATUS_PARTIALLY_REDEEMED) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "This is not a currently valid token.");
             exit(1);
@@ -408,7 +412,7 @@ switch ($inputDecoded['ACTION']) {
     case \web\lib\admin\API::ACTION_CERT_LIST:
         $prof_id = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID);
         $user_id = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_USERID);
-        if ($prof_id === FALSE) {
+        if ($prof_id === FALSE || !is_int($user_id)) {
             exit(1);
         }
         $evaluation = commonSbProfileChecks($fed, $prof_id);
@@ -440,7 +444,11 @@ switch ($inputDecoded['ACTION']) {
         }
         list($idp, $profile) = $evaluation;
         // tear apart the serial
-        $serial = explode(":", $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_CERTSERIAL));
+        $serialRaw = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_CERTSERIAL);
+        if ($serialRaw === FALSE) {
+            exit(1);
+        }
+        $serial = explode(":", $serialRaw);
         $cert = new \core\SilverbulletCertificate($serial[1], $serial[0]);
         if ($cert->status == \core\SilverbulletCertificate::CERTSTATUS_INVALID) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Serial not found.");
