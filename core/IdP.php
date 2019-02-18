@@ -75,7 +75,7 @@ class IdP extends EntityWithDBProperties {
         $this->entityOptionTable = "institution_option";
         $this->entityIdColumn = "institution_id";
         
-        $this->identifier = (int) $instId;
+        $this->identifier = $instId;
 
         $idp = $this->databaseHandle->exec("SELECT inst_id, country,external_db_syncstate FROM institution WHERE inst_id = $this->identifier");
         // SELECT -> returns resource, not boolean

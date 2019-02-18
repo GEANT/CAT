@@ -289,6 +289,7 @@ abstract class Entity {
      * restored later on.
      * 
      * @param string $catalogue the catalogue to select, overrides detection
+     * @return void
      */
     public static function intoThePotatoes($catalogue = NULL) {
         // array_push, without the function call overhead
@@ -305,6 +306,8 @@ abstract class Entity {
 
     /**
      * restores the previous language catalogue.
+     * 
+     * @return void
      */
     public static function outOfThePotatoes() {
         $restoreCatalogue = array_pop(Entity::$gettextCatalogue);

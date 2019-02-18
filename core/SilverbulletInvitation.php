@@ -154,7 +154,7 @@ class SilverbulletInvitation extends common\Entity {
         while ($runner = mysqli_fetch_object(/** @scrutinizer ignore-type */ $certificatesResult)) {
             $this->associatedCertificates[] = new \core\SilverbulletCertificate($runner->serial_number, $runner->ca_type);
         }
-        $this->activationsRemaining = (int) $this->activationsTotal - (int) $certificatesNumber;
+        $this->activationsRemaining = (int) ($this->activationsTotal - $certificatesNumber);
         // always check first if it is expired
         $now = new \DateTime();
         $expiryObject = new \DateTime($this->expiry);
