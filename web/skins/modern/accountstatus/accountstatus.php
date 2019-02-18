@@ -33,7 +33,7 @@ $Gui->languageInstance->setTextDomain("web_user");
     var sbPage = 1;
 <?php
 $profile_list_size = 1;
-include_once(dirname(__DIR__) . '/Divs.php');
+require_once dirname(__DIR__) . '/Divs.php';
 $divs = new Divs($Gui);
 
 $visibility = 'sb';
@@ -46,7 +46,7 @@ $uiElements = new web\lib\admin\UIElements();
 if ($operatingSystem) {
     print "recognisedOS = '" . $operatingSystem['device'] . "';\n";
 }
-include(dirname(__DIR__) . '/user/js/cat_js.php');
+require dirname(__DIR__) . '/user/js/cat_js.php';
 ?>
     var lang = "<?php echo($Gui->langObject->getLang()) ?>";
 </script>

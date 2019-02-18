@@ -35,6 +35,12 @@ $additional_message = [
     \core\common\Entity::L_ERROR => _("Some configuration errors were observed; the list is below."),
 ];
 
+/**
+ * returns the friendly name of an EAP type
+ * 
+ * @param array $eap array representation of the EAP type to be returned
+ * @return string the friendly name
+ */
 function disp_name($eap) {
     $displayName = \core\common\EAP::eapDisplayName($eap);
     return $displayName['OUTER'] . ( $displayName['INNER'] != '' ? '-' . $displayName['INNER'] : '');
@@ -95,7 +101,7 @@ if (is_numeric($posted_host)) { // UDP tests, this is an index to the test host 
 $returnarray = [];
 $timeout = CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$hostindex]['timeout'];
 switch ($test_type) {
-    case 'udp_login' :
+    case 'udp_login':
         $i = 0;
         $returnarray['hostindex'] = $hostindex;
         $eaps = $my_profile->getEapMethodsinOrderOfPreference(1);
@@ -144,17 +150,17 @@ switch ($test_type) {
 
 
             switch ($testresult) {
-                case \core\diag\RADIUSTests::RETVAL_OK :
+                case \core\diag\RADIUSTests::RETVAL_OK:
                     $level = $returnarray['result'][$i]['level'];
                     switch ($level) {
-                        case \core\common\Entity::L_OK :
+                        case \core\common\Entity::L_OK:
                             $message = _("<strong>Test successful.</strong>");
                             break;
-                        case \core\common\Entity::L_REMARK :
-                        case \core\common\Entity::L_WARN :
+                        case \core\common\Entity::L_REMARK:
+                        case \core\common\Entity::L_WARN:
                             $message = _("<strong>Test partially successful</strong>: authentication succeded.") . ' ' . $additional_message[$level];
                             break;
-                        case \core\common\Entity::L_ERROR :
+                        case \core\common\Entity::L_ERROR:
                             $message = _("<strong>Test FAILED</strong>: authentication succeded.") . ' ' . $additional_message[$level];
                             break;
                     }
@@ -194,7 +200,7 @@ switch ($test_type) {
             $i++;
         }
         break;
-    case 'udp' :
+    case 'udp':
         $i = 0;
         $returnarray['hostindex'] = $hostindex;
         $testresult = $testsuite->udpReachability($hostindex);

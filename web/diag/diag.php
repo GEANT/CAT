@@ -27,6 +27,6 @@ if ($admin == 1) {
 }
 $Gui = new \web\lib\user\Gui();
 $skinObject = new \web\lib\user\Skinjob($_REQUEST['skin'] ?? $_SESSION['skin'] ?? $fedskin[0] ?? CONFIG['APPEARANCE']['skins'][0]);
-include("../skins/" . $skinObject->skin . "/diag/diag.php");
+require "../skins/" . $skinObject->skin . "/diag/diag.php";
 
 

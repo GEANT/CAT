@@ -19,6 +19,12 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
+/**
+ * generates a nonce
+ * 
+ * @param string $optSalt an optional salt for the hashing
+ * @return string
+ */
 function my_nonce($optSalt = '') {
     $remote = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
     return hash_hmac('sha256', session_id() . $optSalt, date("YmdG") . '1qaz2wsx3edc!QAZ@WSX#EDC' . $remote);
@@ -45,7 +51,7 @@ $_SESSION['current_page'] = $_SERVER['SCRIPT_NAME'];
 <?php
 $admin = filter_input(INPUT_GET, 'admin', FILTER_VALIDATE_INT);
 $profile_list_size = 1;
-include_once(dirname(__DIR__) . '/Divs.php');
+require_once dirname(__DIR__) . '/Divs.php';
 $divs = new Divs($Gui);
 $visibility = 'index';
 $operatingSystem = $Gui->detectOS();
@@ -54,7 +60,7 @@ $uiElements = new web\lib\admin\UIElements();
 if ($operatingSystem) {
     print "recognisedOS = '" . $operatingSystem['device'] . "';\n";
 }
-include(dirname(__DIR__) . '/user/js/cat_js.php');
+require dirname(__DIR__) . '/user/js/cat_js.php';
 ?>
 
 </script>

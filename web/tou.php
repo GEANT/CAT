@@ -27,7 +27,7 @@
  * @package UserGUI
  * 
  */
-include(dirname(dirname(__FILE__)) . "/config/_config.php");
+require dirname(dirname(__FILE__)) . "/config/_config.php";
 $loggerInstance = new \core\common\Logging();
 $langObject = new \core\common\Language();
 $cat = new \core\CAT();
@@ -56,7 +56,7 @@ $loggerInstance->debug(4, "\n----------------------------------TOU.PHP----------
         <h1><a href="<?php echo dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . $langObject->getLang(); ?>"><?php echo CONFIG['APPEARANCE']['productname']; ?></a></h1>
         <div id="tou">
             <?php
-            include("user/tou.php");
+            require "user/tou.php";
             ?>
         </div>
         <div>

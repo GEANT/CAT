@@ -38,7 +38,7 @@
     var downloadMessage;
 <?php
 $visibility = 'index';
-include_once('Divs.php');
+require_once 'Divs.php';
 $divs = new Divs($Gui);
 $operatingSystem = $Gui->detectOS();
 $Gui->loggerInstance->debug(4, $operatingSystem);
@@ -54,8 +54,8 @@ if (preg_match('/Android/', $userAgent)) {
 } else {
     $profile_list_size = 4;
 }
-include("user/js/roll.php");
-include("user/js/cat_js.php");
+require "user/js/roll.php";
+require "user/js/cat_js.php";
 ?>
     var loading_ico = new Image();
 </script>

@@ -64,8 +64,10 @@ class PageDecoration extends \core\common\Entity {
 
     /**
      * constructs a <div> called 'header' for use on the top of the page
+     * 
      * @param string $cap1     caption to display in this div
      * @param string $language current language (this one gets pre-set in the lang selector drop-down
+     * @return string
      */
     private function headerDiv($cap1, $language) {
         \core\common\Entity::intoThePotatoes();

@@ -19,7 +19,7 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
-include_once('Divs.php');
+require_once 'Divs.php';
 $divs = new Divs($Gui);
 ?>
 <head>
@@ -35,7 +35,7 @@ $divs = new Divs($Gui);
             <div id="user_page" style="display:block">
                 <?php echo $divs->div_pagetitle("eduroam CAT Copyright and Licensing", ""); ?>
                 <div style="padding:20px">
-            <?php include dirname(dirname(__DIR__)) . "/copyright.inc.php"; ?>
+            <?php require dirname(dirname(__DIR__)) . "/copyright.inc.php"; ?>
                 </div>
             </div>
         </div>

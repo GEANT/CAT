@@ -256,7 +256,7 @@ public function realm($input) {
  * 
  * Only checks correct form, not if the user actually exists in the system.
  * 
- * @param mixed $input
+ * @param mixed $input the username
  * @return string echoes back the input string, or throws an Exception if bogus
  * @throws Exception
  */
