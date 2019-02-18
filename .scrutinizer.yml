@@ -418,6 +418,7 @@ filter:
         - "web/external/*"
         - "web/apidoc/*"
         - "vendor/*"
+        - "tests/*"
     dependency_paths:
         - "core/PHPMailer/"
         - "core/phpqrcode.php"
