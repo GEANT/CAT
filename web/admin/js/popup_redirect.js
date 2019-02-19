@@ -164,7 +164,7 @@ function createWindow() {
 
 function createQRWindow() {
     if (this.readyState === 4 && this.status === 200) {
-        var infoBox;
+        var qrBox;
         qrBox = createMsgbox("qr");
         qrBox.innerHTML += this.responseText;
         centerElement(qrBox);
