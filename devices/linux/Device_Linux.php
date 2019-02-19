@@ -39,6 +39,9 @@ use Exception;
  */
 class Device_Linux extends \core\DeviceConfig {
 
+    /**
+     * constructor. Sets supported EAP methods.
+     */
     final public function __construct() {
         parent::__construct();
         $this->setSupportedEapMethods([\core\common\EAP::EAPTYPE_PEAP_MSCHAP2, \core\common\EAP::EAPTYPE_TTLS_PAP, \core\common\EAP::EAPTYPE_TTLS_MSCHAP2, \core\common\EAP::EAPTYPE_TLS, \core\common\EAP::EAPTYPE_SILVERBULLET]);
@@ -257,7 +260,7 @@ class Device_Linux extends \core\DeviceConfig {
             $B = array_intersect_assoc($A0, $A);
             $A0 = $B;
         }
-        return(implode('.', array_reverse($B)));
+        return implode('.', array_reverse($B));
     }
 
     /**
@@ -268,7 +271,7 @@ class Device_Linux extends \core\DeviceConfig {
     private function mkSupportContacts() {
         $url = (!empty($this->attributes['support:url'][0])) ? $this->attributes['support:url'][0] : $this->support_url_substitute;
         $email = (!empty($this->attributes['support:email'][0])) ? $this->attributes['support:email'][0] : $this->support_email_substitute;
-        return(['url'=>$url, 'email'=>$email]);
+        return ['url'=>$url, 'email'=>$email];
     }   
     
     /**
@@ -321,6 +324,11 @@ class Device_Linux extends \core\DeviceConfig {
         return '[' . implode(', ', $outArray) . ']';
     }
     
+    /**
+     * creates a blob containing all CA certificates
+     * 
+     * @return string
+     */
     private function mkCAfile(){
         $out = '';
         $cAlist = $this->attributes['internal:CAs'][0];
