@@ -114,7 +114,7 @@ class Device_TestModule extends \core\DeviceConfig {
             $this->loggerInstance->debug(2, "copying of Module.howto to copied_test_file failed\n");
         }
         $this->dumpAttibutes('profile_attributes');
-        return $this->zipInstaller($this->attributes);
+        return $this->zipInstaller();
     }
 
     /**
@@ -137,12 +137,8 @@ class Device_TestModule extends \core\DeviceConfig {
      * @param array $attr device and profile attributes
      * @return string
      */
-    private function zipInstaller($attr) {
-        if (count($attr)==0) {
-            // never mind, just checking. You CAN use the $attr array to extract
-            // information about the IdP/Profile if there's a need
-            $attr = [];
-        }
+    private function zipInstaller() {
+        // one can always access $this->attributes to check things
         $fileName = $this->installerBasename . '.zip';
         $output = system('zip -q ' . $fileName . ' *');
         if ($output === FALSE) {
