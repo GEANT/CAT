@@ -472,8 +472,9 @@ class SanityTests extends CAT {
             } else {
                 $this->testReturn(\core\common\Entity::L_WARN, "<strong>makensis $t</strong> was found, but is not configured with an absolute path in your config.");
             }
-            exec($A['exec'] . ' -HELP', $t);
-            $t1 = count(preg_grep('/INPUTCHARSET/', $t));
+            $outputArray = [];
+            exec($A['exec'] . ' -HELP', $outputArray);
+            $t1 = count(preg_grep('/INPUTCHARSET/', $outputArray));
             if ($t1 == 1 && CONFIG_CONFASSISTANT['NSIS_VERSION'] == 2) {
                 $this->testReturn(\core\common\Entity::L_ERROR, "Declared NSIS_VERSION does not seem to match the file pointed to by PATHS['makensis']!");
             }
