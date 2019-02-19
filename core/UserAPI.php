@@ -435,7 +435,7 @@ class UserAPI extends CAT {
      *
      * @return array $IdPs -  list of arrays ('id', 'name');
      */
-    public function orderIdentityProviders($country, $currentLocation = NULL) {
+    public function orderIdentityProviders($country, $currentLocation) {
         return IdPlist::orderIdentityProviders($country, $currentLocation);
     }
 

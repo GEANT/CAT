@@ -131,7 +131,7 @@ class UserNetAPI extends UserAPI {
      * @param array $location the coordinates of the approximate user location
      *
      */
-    public function JSON_orderIdentityProviders($country, $location = NULL) {
+    public function JSON_orderIdentityProviders($country, $location) {
         $idps = $this->orderIdentityProviders($country, $location);
         $returnArray = [];
         foreach ($idps as $idp) {

@@ -29,7 +29,7 @@ class IdPlist extends common\Entity {
      * @param array  $currentLocation current location
      * @return array $IdPs -  list of arrays ('id', 'name');
      */
-    public static function orderIdentityProviders($country, $currentLocation = NULL) {
+    public static function orderIdentityProviders($country, $currentLocation) {
         $idps = self::listAllIdentityProviders(1, $country);
         $here = self::setCurrentLocation($currentLocation);
         $idpTitle = [];
@@ -138,7 +138,7 @@ class IdPlist extends common\Entity {
                 $currentLocation = $userLocation['geo'];
             }
         }
-        return($currentLocation);
+        return $currentLocation;
     }
     
     /**
