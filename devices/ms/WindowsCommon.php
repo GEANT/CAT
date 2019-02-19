@@ -119,16 +119,14 @@ abstract class WindowsCommon extends \core\DeviceConfig {
     public function writeDeviceInfo() {
         $ssids = $this->getAttribute('internal:SSID');
         $ssidCount = count($ssids);
+        $configCount = count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']);
+        $configList = CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'] ?? [];
         $out = "<p>";
         $out .= sprintf(_("%s installer will be in the form of an EXE file. It will configure %s on your device, by creating wireless network profiles.<p>When you click the download button, the installer will be saved by your browser. Copy it to the machine you want to configure and execute."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $out .= "<p>";
-        if ($ssidCount > 1) {
-            if ($ssidCount > 2) {
-                $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to the following networks:"), implode(', ', CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) . " ";
-            } else {
-                $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to:"), implode(', ', CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) . " ";
-            }
-            $out .= '<strong>' . join('</strong>, <strong>', array_diff(array_keys($ssids), CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) . '</strong>';
+        if ($ssidCount > $configCount) {
+            $out .= sprintf(ngettext("In addition to <strong>%s</strong> the installer will also configure access to:", "In addition to <strong>%s</strong> the installer will also configure access to the following networks:", $ssidCount - $configCount), implode(', ', $configList)) . " ";
+            $out .= '<strong>' . join('</strong>, <strong>', array_diff(array_keys($ssids), $configList)) . '</strong>';
             $out .= "<p>";
         }
 // TODO - change this below
