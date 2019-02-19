@@ -119,8 +119,9 @@ class UserAPI extends CAT {
     /**
      * This function tries to find a cached copy of an installer for a given
      * combination of Profile and device
-     * @param string $device
-     * @param AbstractProfile $profile
+     * 
+     * @param string          $device  the device for which the installer is searched in cache
+     * @param AbstractProfile $profile the profile for which the installer is searched in cache
      * @return array containing path to the installer and mime type of the file, the path is set to NULL if no cache can be returned
      */
     private function getCache($device, $profile) {
@@ -145,8 +146,11 @@ class UserAPI extends CAT {
     /**
      * Generates a new installer for the given combination of device and Profile
      * 
-     * @param string $device
-     * @param AbstractProfile $profile
+     * @param string          $device       the device for which we want an installer
+     * @param AbstractProfile $profile      the profile for which we want an installer
+     * @param string          $generatedFor type of download requested (admin/user/silverbullet)
+     * @param string          $token        in case of silverbullet, the token that was used to trigger the generation
+     * @param string          $password     in case of silverbullet, the import PIN for the future client certificate
      * @return array info about the new installer (mime and link)
      */
     private function generateNewInstaller($device, $profile, $generatedFor, $token, $password) {
@@ -187,6 +191,9 @@ class UserAPI extends CAT {
 
     /**
      * interface to Devices::listDevices() 
+     * 
+     * @param int $showHidden whether or not hidden devices should be shown
+     * @return array the list of devices
      */
     public function listDevices($showHidden = 0) {
         $returnList = [];
@@ -213,6 +220,7 @@ class UserAPI extends CAT {
      * 
      * @param string $device    identifier of the device
      * @param int    $profileId identifier of the profile
+     * @return void
      */
     public function deviceInfo($device, $profileId) {
         $validator = new \web\lib\common\InputValidation();
@@ -297,11 +305,11 @@ class UserAPI extends CAT {
     /**
      * resizes image files
      * 
-     * @param string $inputImage
-     * @param string $destFile
-     * @param int $width
-     * @param int $height
-     * @param bool $resize shall we do resizing? width and height are ignored otherwise
+     * @param string $inputImage the image we want to process
+     * @param string $destFile   the output file for the processed image
+     * @param int    $width      if resizing, the target width
+     * @param int    $height     if resizing, the target height
+     * @param bool   $resize     shall we do resizing? width and height are ignored otherwise
      * @return array
      */
     private function processImage($inputImage, $destFile, $width, $height, $resize) {
@@ -330,10 +338,10 @@ class UserAPI extends CAT {
      *
      * When called for DiscoJuice, first check if file cache exists
      * If not then generate the file and save it in the cache
-     * @param int|string $identifier IdP of Federation identifier
-     * @param string $type either 'idp' or 'federation' is allowed 
-     * @param int $widthIn maximum width of the generated image - if 0 then it is treated as no upper bound
-     * @param int $heightIn  maximum height of the generated image - if 0 then it is treated as no upper bound
+     * @param int|string $identifier IdP or Federation identifier
+     * @param string     $type       either 'idp' or 'federation' is allowed 
+     * @param int        $widthIn    maximum width of the generated image - if 0 then it is treated as no upper bound
+     * @param int        $heightIn   maximum height of the generated image - if 0 then it is treated as no upper bound
      * @return array|null array with image information or NULL if there is no logo
      */
     protected function getLogo($identifier, $type, $widthIn = 0, $heightIn = 0) {
@@ -461,9 +469,12 @@ class UserAPI extends CAT {
         return FALSE;
     }
     
-    /*
+    /**
      * test if devise is defined and is not hidden. If all is fine return extracted information.
-     * Return FALSE if the device has not been correctly specified
+     * 
+     * @param string $devId device id as defined as index in Devices.php
+     * @param array $device device info as defined in Devices.php
+     * @return array|FALSE if the device has not been correctly specified
      */
     private function returnDevice($devId, $device) {
         if (\core\common\Entity::getAttributeValue($device, 'options', 'hidden') !== 1) {
@@ -475,6 +486,7 @@ class UserAPI extends CAT {
    
     /**
      * This methods cheks if the devide has been specified as the HTTP parameters
+     * 
      * @return device id|NULL if correcty specified or FALSE otherwise
      */
     private function deviceFromRequest() {
@@ -492,7 +504,8 @@ class UserAPI extends CAT {
 
     /**
      * finds all the user certificates that originated in a given token
-     * @param string $token
+     * 
+     * @param string $token the token for which we are fetching all associated user certs
      * @return array|boolean returns FALSE if a token is invalid, otherwise array of certs
      */
     public function getUserCerts($token) {
