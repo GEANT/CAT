@@ -141,6 +141,7 @@ class Device_TestModule extends \core\DeviceConfig {
         if (count($attr)==0) {
             // never mind, just checking. You CAN use the $attr array to extract
             // information about the IdP/Profile if there's a need
+            $attr = [];
         }
         $fileName = $this->installerBasename . '.zip';
         $output = system('zip -q ' . $fileName . ' *');

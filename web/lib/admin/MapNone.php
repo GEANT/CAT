@@ -105,6 +105,8 @@ class MapNone extends AbstractMap {
      * @return string
      */
     public static function optionListDisplayCode($coords, $number) {
+        // quiesce warnings about unused parameter
+        sprintf("%d", $number);
         $pair = json_decode($coords, true);
         return "<table><tr><td>Latitude</td><td><strong>" . $pair['lat'] . "</strong></td></tr><tr><td>Longitude</td><td><strong>" . $pair['lon'] . "</strong></td></tr></table>";
     }
