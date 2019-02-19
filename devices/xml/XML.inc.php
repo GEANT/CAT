@@ -51,7 +51,7 @@ class XMLElement {
     /**
      * return object variables for a given object
      * 
-     * @param object $obj
+     * @param object $obj the object
      * @return array
      */
     protected function getObjectVars($obj) {
@@ -134,7 +134,7 @@ class XMLElement {
     /**
      * does this object have attributes?
      * 
-     * @return boolean
+     * @return int
      */
     public function areAttributes() {
         return empty($this->attributes) ? 0 : 1;
