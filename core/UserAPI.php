@@ -472,8 +472,8 @@ class UserAPI extends CAT {
     /**
      * test if devise is defined and is not hidden. If all is fine return extracted information.
      * 
-     * @param string $devId device id as defined as index in Devices.php
-     * @param array $device device info as defined in Devices.php
+     * @param string $devId  device id as defined as index in Devices.php
+     * @param array  $device device info as defined in Devices.php
      * @return array|FALSE if the device has not been correctly specified
      */
     private function returnDevice($devId, $device) {
