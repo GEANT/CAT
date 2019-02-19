@@ -118,7 +118,7 @@ class Device_Vista7 extends WindowsCommon {
      * creates the XML snippet that describes the EAP configuration
      * 
      * @param array $attr the attributes for the profile
-     * @return string the XML snippet describing the EAP configuration
+     * @return array two XML snippets describing the EAP configuration, for Vista and 7 respectively
      */
     private function prepareEapConfig($attr) {
         $outerUser = '';

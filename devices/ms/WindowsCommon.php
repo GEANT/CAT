@@ -182,7 +182,7 @@ abstract class WindowsCommon extends \core\DeviceConfig {
     /**
      * scales a logo to the desired size
      * @param string $imagePath path to the image
-     * @param int $maxSize maximum size of output image (larger axis counts)
+     * @param int    $maxSize   maximum size of output image (larger axis counts)
      * @return \IMagick IMagick image object
      */
     private function scaleLogo($imagePath, $maxSize) {
@@ -297,7 +297,7 @@ abstract class WindowsCommon extends \core\DeviceConfig {
     /**
      * find out where the user can get support
      * 
-     * @param array $attr list of profile attributes
+     * @param array  $attr list of profile attributes
      * @param string $type which type of support resource to we want
      * @return string NSH line with the resulting !define
      */
