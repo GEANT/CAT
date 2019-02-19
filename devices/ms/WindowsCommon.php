@@ -117,10 +117,10 @@ abstract class WindowsCommon extends \core\DeviceConfig {
     }
 
     public function writeDeviceInfo() {
-        $ssids = $this->getAttribute('internal:SSID');
+        $ssids = $this->getAttribute('internal:SSID') ?? [];
         $ssidCount = count($ssids);
-        $configCount = count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']);
         $configList = CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'] ?? [];
+        $configCount = count($configList);
         $out = "<p>";
         $out .= sprintf(_("%s installer will be in the form of an EXE file. It will configure %s on your device, by creating wireless network profiles.<p>When you click the download button, the installer will be saved by your browser. Copy it to the machine you want to configure and execute."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $out .= "<p>";
