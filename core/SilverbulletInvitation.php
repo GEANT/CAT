@@ -260,7 +260,7 @@ class SilverbulletInvitation extends common\Entity {
      * @return string
      */
     private static function generateInvitation() {
-        return hash("sha512", base_convert(rand(0, (int) 10e16), 10, 36));
+        return hash("sha512", openssl_random_pseudo_bytes(100));
     }
 
     /**
