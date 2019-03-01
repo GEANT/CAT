@@ -422,9 +422,9 @@ switch ($inputDecoded['ACTION']) {
         list($idp, $profile) = $evaluation;
         $invitations = $profile->userStatus($user_id);
         // now pull out cert information from the object
-        $certObjects = [];
+        $certs = [];
         foreach ($invitations as $oneInvitation) {
-            array_merge($certs, $oneInvitation->associatedCertificates);
+            $certs = array_merge($certs, $oneInvitation->associatedCertificates);
         }
         // extract relevant subset of information from cert objects
         $certDetails = [];
