@@ -218,6 +218,27 @@ class IdP extends EntityWithDBProperties {
         return(mysqli_num_rows(/** @scrutinizer ignore-type */ $result));
     }
 
+    const ELIGIBILITY_IDP = "IdP";
+    const ELIGIBILITY_SP = "SP";
+    /**
+     * checks whether the participant is an IdP, an SP, or both.
+     * 
+     * @return array list of eligibilities
+     */
+    public function eligility() {
+        $eligibilites = $this->databaseHandle->exec("SELECT type FROM institution WHERE institution_id = $this->identifier");
+        while ($iterator = mysqli_fetch_object($eligibilites)) {
+            switch ($iterator->type) {
+                case "IdP":
+                    return [ IdP::ELIGIBILITY_IDP ];
+                case "SP":
+                    return [ IdP::ELIGIBILITY_SP ];
+                default:
+                    return [ IdP::ELIGIBILITY_IDP, IdP::ELIGIBILITY_SP ];
+            }
+        }
+    }
+    
     /**
      * This function sets the timestamp of last modification of the child profiles to the current timestamp.
      * 
@@ -266,6 +287,7 @@ class IdP extends EntityWithDBProperties {
      * Only creates the DB entry for the deployment. If you want to add attributes later, see Profile::addAttribute().
      *
      * @param string $type exactly "RADIUS-SP" or "MANAGED-SP", all other values throw an Exception
+     * @return DeploymentManaged the newly created deployment
      */
     public function newDeployment(string $type) {
             switch ($type) {
@@ -279,7 +301,6 @@ class IdP extends EntityWithDBProperties {
                 default:
                     throw new Exception("This type of deployment is unknown and can not be added.");
             }
-        return NULL;
     }
 
     /**

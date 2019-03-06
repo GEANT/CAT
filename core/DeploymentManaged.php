@@ -92,7 +92,7 @@ class DeploymentManaged extends AbstractDeployment {
      * IdP::newDeployment() to actually create one). Retrieves all 
      * attributes from the DB and stores them in the priv_ arrays.
      * 
-     * @param IdP $idpObject       optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
+     * @param IdP        $idpObject       optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
      * @param string|int $deploymentIdRaw identifier of the deployment in the DB
      */
     public function __construct($idpObject, $deploymentIdRaw) {
@@ -119,7 +119,7 @@ class DeploymentManaged extends AbstractDeployment {
             }
         }
         $serverdetails = $this->databaseHandle->exec("SELECT radius_ip4, radius_ip6 FROM managed_sp_servers WHERE server_id = '$this->radius_instance'");
-        while ($iterator2 = mysqli_fetch_object($serverdetails)) {
+        while ($iterator2 = mysqli_fetch_object(/** @scrutinizer ignore-type */ $serverdetails)) {
             $this->host4 = $iterator2->radius_ip4;
             $this->host6 = $iterator2->radius_ip6;
         }
@@ -136,7 +136,7 @@ class DeploymentManaged extends AbstractDeployment {
         $servers = $this->databaseHandle->exec("SELECT server_id, location_lon, location_lat FROM managed_sp_servers");
         $ourserver = [];
         // TODO: for ease of prototyping, no particular order - add location-based selection later
-        while ($iterator = mysqli_fetch_object($servers)) {
+        while ($iterator = mysqli_fetch_object(/** @scrutinizer ignore-type */ $servers)) {
             $clientCount = $this->databaseHandle->exec("SELECT count(port) AS tenants FROM deployment WHERE radius_instance = '$iterator->server_id'");
             while ($iterator2 = mysqli_fetch_object($clientCount)) {
                 $clients = $iterator2->tenants;
@@ -156,7 +156,7 @@ class DeploymentManaged extends AbstractDeployment {
         while ($foundFreePort == 0) {
             $portCandidate = random_int(1025, 65535);
             $check = $this->databaseHandle->exec("SELECT port FROM deployment WHERE radius_instance = '" . $ourserver[0] . "' AND port = $portCandidate");
-            if (mysqli_num_rows($check) == 0) {
+            if (mysqli_num_rows(/** @scrutinizer ignore-type */ $check) == 0) {
                 $foundFreePort = $portCandidate;
             }
         };

@@ -178,12 +178,22 @@ require_once "inc/click_button_js.php";
                     <form method='post' action='inc/manageAdmins.inc.php?inst_id=<?php echo $the_inst->identifier; ?>' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
                         <button type='submit'><?php echo sprintf(_("Add/Remove %s Administrators"), $uiElements->nomenclatureParticipant); ?></button>
                     </form>
+                    <?php 
+                    if (in_array(IdP::ELIGIBILITY_IDP, $the_inst->eligility())) 
+                    { ?>
                     <form action='overview_idp.php?inst_id=<?php echo $the_inst->identifier; ?>' method='POST' accept-charset='UTF-8'>
                         <button type='submit'><?php echo sprintf(_("Manage %s functions"), $uiElements->nomenclatureInst); ?></button>
                     </form>
+                    <?php
+                    };
+                    if (in_array(IdP::ELIGIBILITY_SP, $the_inst->eligility())) 
+                    { ?>
                     <form action='overview_sp.php?inst_id=<?php echo $the_inst->identifier; ?>' method='POST' accept-charset='UTF-8'>
                         <button type='submit'><?php echo sprintf(_("Manage %s functions"), $uiElements->nomenclatureHotspot); ?></button>
                     </form>
+                    <?php
+                    }
+                    ?>
                 </div>
                 <?php
             }

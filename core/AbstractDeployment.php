@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -51,24 +52,23 @@ abstract class AbstractDeployment extends EntityWithDBProperties {
 
     const INACTIVE = 0;
     const ACTIVE = 1;
-
     const DEPLOYMENTTYPE_CLASSIC = "RADIUS-SP";
     const DEPLOYMENTTYPE_MANAGED = "MANAGED-SP";
-    
+
     /**
      * status of this deployment. Defaults to INACTIVE.
      * 
      * @var int
      */
     public $status = AbstractDeployment::INACTIVE;
-    
+
     /**
      * which type of deployment is this. Not initialised, done by sub-classes.
      * 
      * @var string
      */
     public $type;
-    
+
     /**
      * DB identifier of the parent institution of this profile
      * @var int
@@ -116,20 +116,16 @@ abstract class AbstractDeployment extends EntityWithDBProperties {
      * IdP::newDeployment() to actually create one). Retrieves all 
      * attributes from the DB and stores them in the priv_ arrays.
      * 
-     * @param IdP $idpObject       optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
+     * @param IdP        $idpObject       optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
      * @param string|int $deploymentIdRaw identifier of the deployment in the DB, or 
      */
-    public function __construct($idpObject,$deploymentIdRaw = NULL) {
+    public function __construct($idpObject, $deploymentIdRaw = NULL) {
         $this->databaseType = "INST";
         parent::__construct(); // we now have access to our INST database handle and logging
         $this->frontendHandle = DBConnection::handle("FRONTEND");
-            if (!($idpObject instanceof IdP)) {
-                throw new Exception("Always provide an IdP object when constructing Deployment.");
-            } else {
-            $idp = $idpObject;
-            $this->institution = $idp->identifier;
-        }
-        if ($deploymentIdRaw !== NULL) {
+        $idp = $idpObject;
+        $this->institution = $idp->identifier;
+        if ($deploymentIdRaw !== NULL && is_numeric($deploymentIdRaw)) {
             $this->identifier = $deploymentIdRaw;
         }
         $this->instName = $idp->name;
