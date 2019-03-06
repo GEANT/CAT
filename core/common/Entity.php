@@ -88,6 +88,18 @@ abstract class Entity {
     public static $nomenclature_inst;
 
     /**
+     * the custom displayable variant of the term "hotspot"
+     * @var string
+     */
+    public static $nomenclature_hotspot;
+    
+    /**
+     * the custom displayable variant of the term "participating organisation"
+     * @var string
+     */
+    public static $nomenclature_participant;
+    
+    /**
      * initialise the entity.
      * 
      * Logs the start of lifetime of the entity to the debug log on levels 3 and higher.
@@ -105,12 +117,21 @@ abstract class Entity {
         $dummy_inst1 = _("identity provider");
         $dummy_inst2 = _("organisation");
         $dummy_inst3 = _("Identity Provider");
+        $dummy_hotspot1 = _("Wi-Fi Hotspot");
+        $dummy_hotspot2 = _("Hotspot");
+        $dummy_hotspot3 = _("Service Provider");
+        $dummy_organisation1 = _("participant");
+        $dummy_organisation2 = _("organisation");
+        $dummy_organisation2a = _("organization");
+        $dummy_organisation3 = _("entity");
         // and do something useless with the strings so that there's no "unused" complaint
-        if (strlen($dummy_NRO . $dummy_inst1 . $dummy_inst2 . $dummy_inst3) < 0) {
+        if (strlen($dummy_NRO . $dummy_inst1 . $dummy_inst2 . $dummy_inst3 . $dummy_hotspot1 . $dummy_hotspot2 . $dummy_hotspot3 . $dummy_organisation1 . $dummy_organisation2 . $dummy_organisation2a . $dummy_organisation3) < 0) {
             throw new \Exception("Strings are usually not shorter than 0 characters. We've encountered a string blackhole.");
         }
         Entity::$nomenclature_fed = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']);
         Entity::$nomenclature_inst = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution']);
+        Entity::$nomenclature_hotspot = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_hotspot']);
+        Entity::$nomenclature_participant = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_participant']);
 
         Entity::outOfThePotatoes();
     }

@@ -45,7 +45,7 @@ $link = htmlspecialchars($link);
 
 const QRCODE_PIXELS_PER_SYMBOL = 12;
 
-echo $deco->defaultPagePrelude(sprintf(_("%s: IdP Dashboard"), CONFIG['APPEARANCE']['productname']));
+echo $deco->defaultPagePrelude(sprintf(_("%s: %s Dashboard"), CONFIG['APPEARANCE']['productname'], $uiElements->nomenclatureInst));
 require_once "inc/click_button_js.php";
 
 // let's check if the inst handle actually exists in the DB
@@ -73,22 +73,6 @@ echo $mapCode->htmlHeadCode();
         <?php
         echo $uiElements->instLevelInfoBoxes($my_inst);
         ?>
-        <div class='infobox' style='text-align:center;'>
-            <h2><?php echo sprintf(_("%s download area QR code"), $uiElements->nomenclatureInst); ?></h2>
-            <?php
-            $idpLevelUrl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier;
-            // never NULL, because $filename is FALSE; but make Scrutinizer happy
-            $rawQr = QRcode::png($idpLevelUrl, FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL);
-            if ($rawQr === NULL) {
-                throw new Exception("Something went seriously wrong during QR code generation!");
-            }
-            $uri = "data:image/png;base64," . base64_encode($uiElements->pngInjectConsortiumLogo($rawQr, QRCODE_PIXELS_PER_SYMBOL));
-            $size = getimagesize($uri);
-            echo "<img width='" . ($size[0] / 4) . "' height='" . ($size[1] / 4) . "' src='$uri' alt='QR-code'/>";
-            ?>
-            <br>
-            <?php echo "<a href='$idpLevelUrl'>$idpLevelUrl</a>"; ?>
-        </div>
         <?php
         foreach ($idpoptions as $optionname => $optionvalue) {
             if ($optionvalue['name'] == "general:geo_coordinates") {
@@ -102,61 +86,6 @@ echo $mapCode->htmlHeadCode();
     </div>
     <?php
     $readonly = CONFIG['DB']['INST']['readonly'];
-    if ($readonly === FALSE) {
-        ?>
-        <table>
-            <tr>
-                <td>
-                    <form action='edit_idp.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                        <button type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_EDIT; ?>'><?php echo sprintf(_("Edit general %s details"), $uiElements->nomenclatureInst); ?></button>
-                    </form>
-                </td>
-                <td>
-                    <form action='edit_idp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                        <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'] === NULL ? sprintf(_("After deleting the %s, you can not recreate it yourself - you need a new invitation token from the %s administrator!"), $uiElements->nomenclatureInst, $uiElements->nomenclatureFed) . " " : "" ) . sprintf(_("Do you really want to delete your %s %s?"), $uiElements->nomenclatureInst, $my_inst->name); ?>')"><?php echo sprintf(_("Delete %s"), $uiElements->nomenclatureInst); ?></button>
-                    </form>
-
-                </td>
-                <td>
-                    <form action='edit_idp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                        <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_FLUSH_AND_RESTART; ?>' onclick="return confirm('<?php echo sprintf(_("This action will delete all properties of the %s and start over the configuration from scratch. Do you really want to reset all settings of the %s %s?"), $uiElements->nomenclatureInst, $uiElements->nomenclatureInst, $my_inst->name); ?>')"><?php echo sprintf(_("Reset all %s settings"), $uiElements->nomenclatureInst); ?></button>
-                    </form>
-
-                </td>
-            </tr>
-        </table>
-        <hr/>
-        <?php
-    }
-    ?>
-    <h2><?php echo _("Available Support actions"); ?></h2>
-    <table>
-        <?php
-        if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] !== NULL) {
-            echo "<tr>
-                        <td>" . _("Check another realm's reachability") . "</td>
-                        <td><form method='post' action='../diag/action_realmcheck.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'>
-                              <input type='text' name='realm' id='realm'>
-                              <input type='hidden' name='comefrom' id='comefrom' value='$link'/>
-                              <button type='submit'>" . _("Go!") . "</button>
-                            </form>
-                        </td>
-                    </tr>";
-        }
-        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam") { // SW: APPROVED
-            echo "<tr>
-                        <td>" . sprintf(_("Check %s server status"), $uiElements->nomenclatureFed) . "</td>
-                        <td>
-                           <form action='https://monitor.eduroam.org/mon_direct.php' accept-charset='UTF-8'>
-                              <button type='submit'>" . _("Go!") . "</button>
-                           </form>
-                        </td>
-                    </tr>";
-        }
-        ?>
-    </table>
-    <hr/>
-    <?php
     $profiles_for_this_idp = $my_inst->listProfiles();
     if (count($profiles_for_this_idp) == 0) { // no profiles yet.
         echo "<h2>" . sprintf(_("There are not yet any profiles for your %s."), $uiElements->nomenclatureInst) . "</h2>";
@@ -330,6 +259,7 @@ echo $mapCode->htmlHeadCode();
 // dummy width to keep a little distance
                 echo "<div style='width:20px;'></div>";
                 if ($readiness == core\AbstractProfile::READINESS_LEVEL_SHOWTIME) {
+                    $idpLevelUrl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier;
                     echo "<div style='display: table-cell; text-align:center;'><p><strong>" . _("User Download Link") . "</strong></p>";
                     $displayurl = $idpLevelUrl . "&amp;profile=" . $profile_list->identifier;
                     $QRurl = $idpLevelUrl . "&profile=" . $profile_list->identifier;

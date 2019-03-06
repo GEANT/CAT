@@ -43,6 +43,7 @@ CREATE TABLE `federation` (
 CREATE TABLE `institution` (
   `inst_id` int(11) NOT NULL AUTO_INCREMENT,
   `country` char(100) DEFAULT NULL,
+  `type` enum('IdP','SP','IdPSP') NOT NULL DEFAULT 'IdPSP',
   `external_db_id` varchar(64) DEFAULT NULL,
   `external_db_syncstate` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`inst_id`)

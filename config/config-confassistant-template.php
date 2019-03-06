@@ -94,6 +94,8 @@ const CONFIG_CONFASSISTANT = [
          */
         'nomenclature_federation' => 'National Roaming Operator',
         'nomenclature_institution' => 'Identity Provider',
+        'nomenclature_hotspot' => 'Service Provider',
+        'nomenclature_participant' => 'Organisation',
     ],
 
     /* silverbullet options:

@@ -39,9 +39,9 @@ $idpoptions = $my_inst->getAttributes();
 $inst_name = $my_inst->name;
 
 if ($wizardStyle) {
-    echo $deco->defaultPagePrelude(sprintf(_("%s: IdP enrollment wizard (step 2)"), CONFIG['APPEARANCE']['productname']));
+    echo $deco->defaultPagePrelude(sprintf(_("%s: %s enrollment wizard (step 2)"), CONFIG['APPEARANCE']['productname'],  $uiElements->nomenclatureParticipant));
 } else {
-    echo $deco->defaultPagePrelude(sprintf(_("%s: Editing IdP '%s'"), CONFIG['APPEARANCE']['productname'], $inst_name));
+    echo $deco->defaultPagePrelude(sprintf(_("%s: Editing %s '%s'"), CONFIG['APPEARANCE']['productname'], $uiElements->nomenclatureParticipant, $inst_name));
 }
 require_once "inc/click_button_js.php";
 // let's check if the inst handle actually exists in the DB and user is authorised
@@ -67,20 +67,20 @@ echo $mapCode->htmlHeadCode();
 <body <?php echo $mapCode->bodyTagCode(); ?>>
     <?php
     $langObject = new \core\common\Language();
-    echo $deco->productheader("ADMIN-IDP");
+    echo $deco->productheader("ADMIN-PARTICIPANT");
     ?>
 
     <h1>
         <?php
         if ($wizardStyle) {
-            echo _("Step 2: General Information about your IdP");
+            printf(_("Step 2: General Information about your %s"), $uiElements->nomenclatureParticipant);
         } else {
-            printf(_("Editing IdP information for '%s'"), $inst_name);
+            printf(_("Editing %s information for '%s'"), $uiElements->nomenclatureParticipant, $inst_name);
         }
         ?>
     </h1>
     <div class='infobox'>
-        <h2><?php echo sprintf(_("%s general properties"), $uiElements->nomenclatureInst); ?></h2>
+        <h2><?php echo sprintf(_("%s general properties"), $uiElements->nomenclatureParticipant); ?></h2>
         <table>
             <tr>
                 <td><?php echo _("Country:"); ?></td>
@@ -99,7 +99,7 @@ echo $mapCode->htmlHeadCode();
 
     if ($wizardStyle) {
         echo "<p>" .
-        sprintf(_("Hello, newcomer. The %s is new to us. This wizard will ask you several questions about it, so that we can generate beautiful profiles for you in the end. All of the information below is optional, but it is important to fill out as many fields as possible for the benefit of your end users."), $uiElements->nomenclatureInst) . "</p>";
+        sprintf(_("Hello, newcomer. The %s is new to us. This wizard will ask you several questions about it, so that we can generate beautiful profiles for you in the end. All of the information below is optional, but it is important to fill out as many fields as possible for the benefit of your end users."), $uiElements->nomenclatureParticipant) . "</p>";
     }
     $optionDisplay = new web\lib\admin\OptionDisplay($idpoptions, "IdP");
     ?>
@@ -111,7 +111,7 @@ echo $mapCode->htmlHeadCode();
             _("Some properties are valid across all deployment profiles. This is the place where you can describe those properties in a fine-grained way. The solicited information is used as follows:") . "</p>
                       <ul>
                          <li>" . _("<strong>Logo</strong>: When you submit a logo, we will embed this logo into all installers where a custom logo is possible. We accept any image format, but for best results, we suggest SVG. If you don't upload a logo, we will use the generic logo instead (see top-right corner of this page).") . "</li>
-                         <li>" . sprintf(_("<strong>Name</strong>: The %s may have names in multiple languages. It is recommended to always populate at least the 'default/other' language, as it is used as a fallback if the system does not have a name in the exact language the user requests a download in."),$uiElements->nomenclatureInst) . "</li>";
+                         <li>" . sprintf(_("<strong>Name</strong>: The %s may have names in multiple languages. It is recommended to always populate at least the 'default/other' language, as it is used as a fallback if the system does not have a name in the exact language the user requests a download in."),$uiElements->nomenclatureParticipant) . "</li>";
             echo "</ul>";
         }
         echo $optionDisplay->prefilledOptionTable("general");
@@ -183,7 +183,7 @@ echo $mapCode->htmlHeadCode();
             if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL") {
                 echo "<p>" .
                         
-                sprintf(_("Do you provide helpdesk services for your users? If so, it would be nice if you would tell us the pointers to this helpdesk."),$uiElements->nomenclatureInst)  . "</p>" .
+                sprintf(_("Do you provide helpdesk services for your users? If so, it would be nice if you would tell us the pointers to this helpdesk."),$uiElements->nomenclatureParticipant)  . "</p>" .
                 "<p>" .
                 _("If you enter a value here, it will be added to the installers for all your users, and will be displayed on the download page. If you operate separate helpdesks for different user groups (we call this 'profiles') specify per-profile helpdesk information later in this wizard. If you operate no help desk at all, just leave these fields empty.") . "</p>";
                 if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
@@ -202,6 +202,6 @@ echo $mapCode->htmlHeadCode();
     if ($wizardStyle) {
         echo "<p>" . sprintf(_("When you are sure that everything is correct, please click on %sContinue ...%s"), "<button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_CONTINUE . "'>", "</button>") . "</p></form>";
     } else {
-        echo "<div><button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button> <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_idp.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></div></form>";
+        echo "<div><button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button> <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_user.php\"'>" . _("Discard changes") . "</button></div></form>";
     }
     echo $deco->footer();

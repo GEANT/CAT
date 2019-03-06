@@ -139,8 +139,14 @@ class PageDecoration extends \core\common\Entity {
         $cap1 = CONFIG['APPEARANCE']['productname_long'];
         $advancedControls = TRUE;
         switch ($area) {
+            case "ADMIN-PARTICIPANT":
+                $cap2 = sprintf(_("Administrator Interface - %s"), $this->ui->nomenclatureParticipant);
+                break;
             case "ADMIN-IDP":
                 $cap2 = sprintf(_("Administrator Interface - %s"), $this->ui->nomenclatureInst);
+                break;
+            case "ADMIN-SP":
+                $cap2 = sprintf(_("Administrator Interface - %s"), $this->ui->nomenclatureHotspot);
                 break;
             case "ADMIN-IDP-USERS":
                 $cap2 = sprintf(_("Administrator Interface - %s User Management"), \core\ProfileSilverbullet::PRODUCTNAME);

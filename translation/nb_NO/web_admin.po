@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-14 13:42+0100\n"
+"POT-Creation-Date: 2019-03-04 15:19+0100\n"
 "PO-Revision-Date: 2019-01-07 13:30+0000\n"
 "Last-Translator: Tom Ivar Myren <tom.myren@uninett.no>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/"
@@ -84,7 +84,7 @@ msgid "%s Properties"
 msgstr "%s Egenskaper"
 
 #: web/admin/edit_federation.php:67 web/admin/edit_idp.php:86
-#: web/lib/admin/UIElements.php:232
+#: web/lib/admin/UIElements.php:228
 msgid "Country:"
 msgstr "Land:"
 
@@ -198,7 +198,7 @@ msgstr ""
 "systemet ikke har en oversettelse i akkurat det språket brukeren forespurte "
 "nedlasting i."
 
-#: web/admin/edit_idp.php:125 web/lib/admin/UIElements.php:246
+#: web/admin/edit_idp.php:125 web/lib/admin/UIElements.php:242
 msgid "Media Properties"
 msgstr "Medie egenskaper"
 
@@ -1170,7 +1170,7 @@ msgstr ""
 msgid "%s: %s Management"
 msgstr "%s: %s Management"
 
-#: web/admin/overview_federation.php:41 web/admin/overview_idp.php:62
+#: web/admin/overview_federation.php:41 web/admin/overview_idp.php:70
 #, php-format
 msgid "%s Overview"
 msgstr "%s Oversikt"
@@ -1313,8 +1313,8 @@ msgid "Deployment Status"
 msgstr "Utrullingsstatus"
 
 #: web/admin/overview_federation.php:202 web/admin/overview_user.php:117
-#: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:94
-#: web/lib/admin/UIElements.php:124
+#: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:86
+#: web/lib/admin/UIElements.php:116
 #, php-format
 msgid "%s Name"
 msgstr "%s navn"
@@ -1369,27 +1369,27 @@ msgstr "(utløper %s)"
 msgid "Register a new %s!"
 msgstr "Registrer en ny %s!"
 
-#: web/admin/overview_idp.php:40
+#: web/admin/overview_idp.php:48
 #, php-format
 msgid "%s: IdP Dashboard"
 msgstr "%s: IdP Dashbord"
 
-#: web/admin/overview_idp.php:64
+#: web/admin/overview_idp.php:72
 #, php-format
 msgid "%s general settings"
 msgstr "%s generelle innstillinger"
 
-#: web/admin/overview_idp.php:69
+#: web/admin/overview_idp.php:77
 #, php-format
 msgid "%s download area QR code"
 msgstr "%s nedlasting QR kode"
 
-#: web/admin/overview_idp.php:98
+#: web/admin/overview_idp.php:111
 #, php-format
 msgid "Edit general %s details"
 msgstr "Rediger generelle %s detaljer"
 
-#: web/admin/overview_idp.php:103
+#: web/admin/overview_idp.php:116
 #, php-format
 msgid ""
 "After deleting the %s, you can not recreate it yourself - you need a new "
@@ -1398,17 +1398,17 @@ msgstr ""
 "Etter sletting av %s, kan du ikke gjenskape den selv - du trenger en ny "
 "invitasjon fra %s administrator!"
 
-#: web/admin/overview_idp.php:103
+#: web/admin/overview_idp.php:116
 #, php-format
 msgid "Do you really want to delete your %s %s?"
 msgstr "Sikker på at du vil slette din %s%s?"
 
-#: web/admin/overview_idp.php:103
+#: web/admin/overview_idp.php:116
 #, php-format
 msgid "Delete %s"
 msgstr "Slett %s"
 
-#: web/admin/overview_idp.php:109
+#: web/admin/overview_idp.php:122
 #, php-format
 msgid ""
 "This action will delete all properties of the %s and start over the "
@@ -1418,47 +1418,47 @@ msgstr ""
 "Dette vil slette alle egenskaper for %s og konfigurasjon må startes på nytt. "
 "Sikker på at du vil nullstille alle egenskaper for %s %s?"
 
-#: web/admin/overview_idp.php:109
+#: web/admin/overview_idp.php:122
 #, php-format
 msgid "Reset all %s settings"
 msgstr "Nulstill all %s innstillinger"
 
-#: web/admin/overview_idp.php:119
+#: web/admin/overview_idp.php:132
 msgid "Available Support actions"
 msgstr "Tilgjengelige brukerstøtte aksjoner"
 
-#: web/admin/overview_idp.php:124
+#: web/admin/overview_idp.php:137
 msgid "Check another realm's reachability"
 msgstr "Sjekk et annet realm's tilgjengelighet"
 
-#: web/admin/overview_idp.php:127 web/admin/overview_idp.php:137
+#: web/admin/overview_idp.php:141 web/admin/overview_idp.php:151
 #: web/admin/overview_user.php:171
 msgid "Go!"
 msgstr "Gå!"
 
 #. SW: APPROVED
-#: web/admin/overview_idp.php:134
+#: web/admin/overview_idp.php:148
 #, php-format
 msgid "Check %s server status"
 msgstr "Sjekk %s tjener status"
 
 #. no profiles yet.
-#: web/admin/overview_idp.php:148
+#: web/admin/overview_idp.php:162
 #, php-format
 msgid "There are not yet any profiles for your %s."
 msgstr "Det finnes ingen profiler for %s"
 
 #. no profiles yet.
-#: web/admin/overview_idp.php:151
+#: web/admin/overview_idp.php:165
 #, php-format
 msgid "Profiles for this %s"
 msgstr "Profiler for denne %s"
 
-#: web/admin/overview_idp.php:174 web/admin/overview_idp.php:233
+#: web/admin/overview_idp.php:188 web/admin/overview_idp.php:247
 msgid "Information needed!"
 msgstr "Informasjon trengs!"
 
-#: web/admin/overview_idp.php:182
+#: web/admin/overview_idp.php:196
 #, php-format
 msgid ""
 "You can create up to %d users. Their credentials will carry the name <strong>"
@@ -1467,44 +1467,44 @@ msgstr ""
 "Du kan opprette inntil %d brukere. Deres credentials vil bære navnet <strong>"
 "%s</strong>."
 
-#: web/admin/overview_idp.php:191
+#: web/admin/overview_idp.php:205
 msgid "Manage User Base"
 msgstr "Administrer brukere"
 
-#: web/admin/overview_idp.php:199 web/admin/overview_idp.php:331
+#: web/admin/overview_idp.php:213 web/admin/overview_idp.php:350
 msgid "User Downloads"
 msgstr "Bruker nedlastninger"
 
-#: web/admin/overview_idp.php:223
+#: web/admin/overview_idp.php:237
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr "<strong>EAP Typer</strong> (i foretrukket rekkefølge):"
 
-#: web/admin/overview_idp.php:230 web/lib/admin/UIElements.php:400
+#: web/admin/overview_idp.php:244 web/lib/admin/UIElements.php:414
 msgid "OK"
 msgstr "OK"
 
-#: web/admin/overview_idp.php:249
+#: web/admin/overview_idp.php:263
 msgid "Options on EAP Method/Device level are in effect."
 msgstr "Opsjoner på EAP Metode/Enheter er aktive"
 
-#: web/admin/overview_idp.php:254
+#: web/admin/overview_idp.php:268
 #, php-format
 msgid "Profile: %s"
 msgstr "Profil: %s"
 
-#: web/admin/overview_idp.php:259
+#: web/admin/overview_idp.php:273
 msgid "Option override on profile level is in effect."
 msgstr "Overstyringsopsjon på profil nivå er aktivert. "
 
-#: web/admin/overview_idp.php:262
+#: web/admin/overview_idp.php:276
 msgid "The information in this profile is incomplete."
 msgstr "Informasjonen i profilen er ufullstendig"
 
-#: web/admin/overview_idp.php:266
+#: web/admin/overview_idp.php:280
 msgid "This profile is shown on the user download interface."
 msgstr "Profilen vises i bruker nedlastningssiden."
 
-#: web/admin/overview_idp.php:269
+#: web/admin/overview_idp.php:283
 #, php-format
 msgid ""
 "This profile is NOT shown on the user download interface, even though we "
@@ -1515,45 +1515,45 @@ msgstr ""
 "er nok informasjon til å vise den. For å aktivere profilen, legg til "
 "attributt \"%s\" og huk av korresponderende boks."
 
-#: web/admin/overview_idp.php:289
+#: web/admin/overview_idp.php:304
 msgid "The realm can only be checked if you configure the realm!"
 msgstr "Dette realm kan bare sjekkes om du konfigurerer det først!"
 
-#: web/admin/overview_idp.php:290
+#: web/admin/overview_idp.php:305
 msgid "Check realm reachability"
 msgstr "Sjekk realm tilgjengelighet"
 
-#: web/admin/overview_idp.php:295
+#: web/admin/overview_idp.php:310
 msgid "You have not fully configured any supported EAP types!"
 msgstr "Du har ikke konfigurert ferdig minst 1 støtte EAP type!"
 
-#: web/admin/overview_idp.php:296
+#: web/admin/overview_idp.php:311
 msgid "Installer Fine-Tuning and Download"
 msgstr "Installasjonsprogram finjustering og nedlasting "
 
-#: web/admin/overview_idp.php:305
+#: web/admin/overview_idp.php:320
 msgid "Edit"
 msgstr "Endre"
 
-#: web/admin/overview_idp.php:308
+#: web/admin/overview_idp.php:323
 #, php-format
 msgid "Do you really want to delete the profile %s?"
 msgstr "Sikker på at du vil slette profilen %s?"
 
-#: web/admin/overview_idp.php:309
+#: web/admin/overview_idp.php:324
 msgid "Delete"
 msgstr "Slett"
 
-#: web/admin/overview_idp.php:318
+#: web/admin/overview_idp.php:333
 msgid "User Download Link"
 msgstr "Bruker nedlastningslink"
 
-#: web/admin/overview_idp.php:360
+#: web/admin/overview_idp.php:379
 #, php-format
 msgid "Add %s profile ..."
 msgstr "Legg till %s profil ..."
 
-#: web/admin/overview_idp.php:373
+#: web/admin/overview_idp.php:392
 msgid "Add new RADIUS/EAP profile ..."
 msgstr "Legg til ny RADIUS/EAP profil ---"
 
@@ -1719,7 +1719,7 @@ msgstr ""
 "Du er %s administrator. Du kan invitere flere administratorer, som igjen kan "
 "utnevne flere administratorer."
 
-#: web/admin/inc/manageAdmins.inc.php:154 web/lib/admin/UIElements.php:115
+#: web/admin/inc/manageAdmins.inc.php:154 web/lib/admin/UIElements.php:107
 #, php-format
 msgid "%s Administrator"
 msgstr "%s administrator"
@@ -1815,7 +1815,7 @@ msgstr "Informasjon i <strong>%s Database</strong>"
 msgid "%s Name (%s)"
 msgstr "%s Navn (%s)"
 
-#: web/admin/inc/manageDBLink.inc.php:118 web/lib/admin/Authentication.php:72
+#: web/admin/inc/manageDBLink.inc.php:118 web/lib/admin/Authentication.php:73
 msgid "Unnamed User"
 msgstr "Bruker uten navn"
 
@@ -2006,11 +2006,11 @@ msgstr "EAP-Type <strong>%s</strong>"
 msgid "Fine-tuning options for "
 msgstr "Finjusteringsvalg for"
 
-#: web/lib/admin/AbstractMap.php:122 web/lib/admin/UIElements.php:95
+#: web/lib/admin/AbstractMap.php:124 web/lib/admin/UIElements.php:87
 msgid "Location"
 msgstr "Lokasjon"
 
-#: web/lib/admin/AbstractMap.php:126
+#: web/lib/admin/AbstractMap.php:128
 msgid ""
 "The user download interface (see <a href='../'>here</a>), uses geolocation "
 "to suggest possibly matching IdPs to the user. The more precise you define "
@@ -2020,7 +2020,7 @@ msgstr ""
 "for å foreslå mulige IdP'er for brukere. Jo mer presist du definerer "
 "lokasjonen her, jo lettere vil brukerene finne dekning."
 
-#: web/lib/admin/AbstractMap.php:129
+#: web/lib/admin/AbstractMap.php:131
 msgid ""
 "<li>Drag the marker in the map to your place, or</li>\n"
 "<li>enter your street address in the field below for lookup, or</li>\n"
@@ -2029,11 +2029,11 @@ msgstr ""
 "<li>Dra markøren på kartet til rett sted, eller </li>⏎ <li>oppgi gateadresse "
 "i feltet under, eller </li>⏎ <li>eller bruk 'Finn meg!' knappen</li>"
 
-#: web/lib/admin/AbstractMap.php:134
+#: web/lib/admin/AbstractMap.php:136
 msgid "We will use the coordinates as indicated by the marker for geolocation."
 msgstr "Vi bruker koordinatene som er indikert av markør for geolokasjon."
 
-#: web/lib/admin/AbstractMap.php:138
+#: web/lib/admin/AbstractMap.php:140
 msgid ""
 "You can enter an <strong>additional</strong> location here. You can see the "
 "already defined locations in the 'General Information' field."
@@ -2041,44 +2041,44 @@ msgstr ""
 "Du kan oppgi <strong>ytterligere</strong> en lokasjon her. Du kan se "
 "allerede definerte lokasjoner i 'Generell informasjon' feltet."
 
-#: web/lib/admin/AbstractMap.php:150
+#: web/lib/admin/AbstractMap.php:154
 msgid "Latitude:"
 msgstr "Breddegrad:"
 
-#: web/lib/admin/AbstractMap.php:150
+#: web/lib/admin/AbstractMap.php:154
 msgid "Longitude:"
 msgstr "Lengdegrad:"
 
-#: web/lib/admin/MapGoogle.php:132
+#: web/lib/admin/MapGoogle.php:133
 msgid "This is location "
 msgstr "Dette er lokasjonen"
 
-#: web/lib/admin/MapGoogle.php:211 web/lib/admin/MapOpenLayers.php:230
+#: web/lib/admin/MapGoogle.php:212 web/lib/admin/MapOpenLayers.php:232
 msgid "nothing entered in the address field"
 msgstr "uten innhold i adresse feltet"
 
-#: web/lib/admin/MapGoogle.php:231 web/lib/admin/MapOpenLayers.php:86
+#: web/lib/admin/MapGoogle.php:232 web/lib/admin/MapOpenLayers.php:88
 msgid "locating"
 msgstr "lokaliserer"
 
-#: web/lib/admin/MapGoogle.php:359 web/lib/admin/MapOpenLayers.php:308
+#: web/lib/admin/MapGoogle.php:365 web/lib/admin/MapOpenLayers.php:313
 msgid "Click to see location"
 msgstr "Klikk for å se lokasjon"
 
-#: web/lib/admin/MapGoogle.php:377 web/lib/admin/MapOpenLayers.php:317
+#: web/lib/admin/MapGoogle.php:386 web/lib/admin/MapOpenLayers.php:325
 msgid "Address:"
 msgstr "Adresse:"
 
-#: web/lib/admin/MapGoogle.php:377 web/lib/admin/MapOpenLayers.php:317
+#: web/lib/admin/MapGoogle.php:386 web/lib/admin/MapOpenLayers.php:325
 msgid "Find address"
 msgstr "Finn adresse"
 
-#: web/lib/admin/MapGoogle.php:377 web/lib/admin/MapNone.php:118
-#: web/lib/admin/MapOpenLayers.php:317
+#: web/lib/admin/MapGoogle.php:386 web/lib/admin/MapNone.php:121
+#: web/lib/admin/MapOpenLayers.php:325
 msgid "Locate Me!"
 msgstr "Lokaliser meg!"
 
-#: web/lib/admin/MapOpenLayers.php:237
+#: web/lib/admin/MapOpenLayers.php:239
 msgid ""
 "Address not found, perhaps try another form, like putting the street number "
 "to the front."
@@ -2086,7 +2086,7 @@ msgstr ""
 "Adressen ble ikke funnet, du kan prøve et annet format, som å dette "
 "gatenummer først."
 
-#: web/lib/admin/OptionDisplay.php:182
+#: web/lib/admin/OptionDisplay.php:183
 #, php-format
 msgid ""
 "This attribute can be set if you want to configure an additional SSID "
@@ -2114,7 +2114,7 @@ msgstr ""
 "De kan dermed komme til å tro at de kobler til et spesielt sikkert nettverk "
 "noe de faktisk ikke gjør."
 
-#: web/lib/admin/OptionDisplay.php:184
+#: web/lib/admin/OptionDisplay.php:185
 #, php-format
 msgid ""
 "The format of this option is: IPv4|IPv6|hostname:port . Forcing your users "
@@ -2127,39 +2127,39 @@ msgstr ""
 "selvbestemmelse. Det gir også tekniske utfordringer. Vennligst les gjennom "
 "diskusjonen på %s før du angir en proxy med denne opsjonen."
 
-#: web/lib/admin/OptionDisplay.php:273
+#: web/lib/admin/OptionDisplay.php:275
 msgid "select language"
 msgstr "velg språk"
 
-#: web/lib/admin/OptionDisplay.php:274 web/lib/admin/UIElements.php:164
+#: web/lib/admin/OptionDisplay.php:276 web/lib/admin/UIElements.php:158
 msgid "default/other languages"
 msgstr "standard/andre språk"
 
-#: web/lib/admin/OptionDisplay.php:352
+#: web/lib/admin/OptionDisplay.php:356
 msgid "(default/other languages)"
 msgstr "(standard/andre språk)"
 
-#: web/lib/admin/OptionDisplay.php:387
+#: web/lib/admin/OptionDisplay.php:391
 msgid "file content"
 msgstr "filinnhold"
 
 #. only modify in this one case
-#: web/lib/admin/OptionDisplay.php:398 web/lib/admin/UIElements.php:198
+#: web/lib/admin/OptionDisplay.php:402 web/lib/admin/UIElements.php:192
 msgid "on"
 msgstr "på"
 
-#: web/lib/admin/OptionDisplay.php:398 web/lib/admin/UIElements.php:198
+#: web/lib/admin/OptionDisplay.php:402 web/lib/admin/UIElements.php:192
 msgid "off"
 msgstr "av"
 
 #. / number of times attribute is present, and its name
 #. / Example: "5x Support E-Mail"
-#: web/lib/admin/OptionParser.php:213 web/lib/admin/OptionParser.php:218
+#: web/lib/admin/OptionParser.php:214 web/lib/admin/OptionParser.php:219
 #, php-format
 msgid "%dx %s"
 msgstr "%dx %s"
 
-#: web/lib/admin/OptionParser.php:223
+#: web/lib/admin/OptionParser.php:224
 #, php-format
 msgid ""
 "You did not set a 'default language' value for %s. This means we can only "
@@ -2172,277 +2172,258 @@ msgstr ""
 "språket du konfigurerte. Av hensyn til alle andre språk, vil du kanskje "
 "redigere profilen og fylle i 'standard/andre' språk feltet. "
 
-#: web/lib/admin/PageDecoration.php:50
+#: web/lib/admin/PageDecoration.php:52
 msgid "You are:"
 msgstr "Du er:"
 
-#: web/lib/admin/PageDecoration.php:53
+#: web/lib/admin/PageDecoration.php:55
 msgid "Go to your Profile page"
 msgstr "Gå til profil siden:"
 
-#: web/lib/admin/PageDecoration.php:54
+#: web/lib/admin/PageDecoration.php:56
 msgid "Logout"
 msgstr "Logg ut"
 
-#: web/lib/admin/PageDecoration.php:56
+#: web/lib/admin/PageDecoration.php:58
 msgid "Start page"
 msgstr "Startside"
 
-#: web/lib/admin/PageDecoration.php:77
+#: web/lib/admin/PageDecoration.php:82
 msgid "View this page in"
 msgstr "Vis denne siden i"
 
-#: web/lib/admin/PageDecoration.php:137
+#: web/lib/admin/PageDecoration.php:143
 #, php-format
 msgid "Administrator Interface - %s"
 msgstr "Administrator grensesnitt - %s"
 
-#: web/lib/admin/PageDecoration.php:140
+#: web/lib/admin/PageDecoration.php:146
 #, php-format
 msgid "Administrator Interface - %s User Management"
 msgstr "Administrator grensesnitt - %s Bruker administrasjon"
 
-#: web/lib/admin/PageDecoration.php:143
+#: web/lib/admin/PageDecoration.php:149
 msgid "Administrator Interface"
 msgstr "Administrator grensesnitt"
 
-#: web/lib/admin/PageDecoration.php:146
+#: web/lib/admin/PageDecoration.php:152
 msgid "Management of User Details"
 msgstr "Endring av bruker detaljer"
 
-#: web/lib/admin/PageDecoration.php:149
+#: web/lib/admin/PageDecoration.php:155
 #, php-format
 msgid "Administrator Interface - %s Management"
 msgstr "Administrator grensesnitt - %s Management"
 
-#: web/lib/admin/PageDecoration.php:152
+#: web/lib/admin/PageDecoration.php:158
 #, php-format
 msgid "Welcome to %s"
 msgstr "Velkommen til %s"
 
-#: web/lib/admin/PageDecoration.php:157
+#: web/lib/admin/PageDecoration.php:163
 msgid "CIC"
 msgstr "CIC"
 
-#: web/lib/admin/PageDecoration.php:160
+#: web/lib/admin/PageDecoration.php:166
 msgid "Diagnostics"
 msgstr "Diagnostikk"
 
-#: web/lib/admin/PageDecoration.php:242
+#: web/lib/admin/PageDecoration.php:250
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "%s Personvern"
 
-#. some config elements are displayable. We need some dummies to
-#. translate the common values for them. If a deployment chooses a
-#. different wording, no translation, sorry
-#: web/lib/admin/UIElements.php:56
-msgid "National Roaming Operator"
-msgstr "Nasjonal roaming operatør"
-
-#: web/lib/admin/UIElements.php:57
-msgid "identity provider"
-msgstr "Identitetstilbyder"
-
-#: web/lib/admin/UIElements.php:58
-msgid "organisation"
-msgstr "organisasjon"
-
-#: web/lib/admin/UIElements.php:59
-msgid "Identity Provider"
-msgstr "Identitetstilbyder"
-
-#: web/lib/admin/UIElements.php:78
+#: web/lib/admin/UIElements.php:70
 msgid "SSID"
 msgstr "SSID"
 
-#: web/lib/admin/UIElements.php:79
+#: web/lib/admin/UIElements.php:71
 msgid "SSID (with WPA/TKIP)"
 msgstr "SSID (med WPA/TKIP)"
 
-#: web/lib/admin/UIElements.php:80
+#: web/lib/admin/UIElements.php:72
 msgid "HS20 Consortium OI"
 msgstr "HS20 Consortium OI"
 
-#: web/lib/admin/UIElements.php:83
+#: web/lib/admin/UIElements.php:75
 msgid "Additional SSID"
 msgstr "Tilleggs SSID"
 
-#: web/lib/admin/UIElements.php:84
+#: web/lib/admin/UIElements.php:76
 msgid "Additional SSID (with WPA/TKIP)"
 msgstr "Tilleggs SSID (med WPA/TKIP)"
 
-#: web/lib/admin/UIElements.php:87
+#: web/lib/admin/UIElements.php:79
 msgid "Additional HS20 Consortium OI"
 msgstr "HS20 tilleggs Consortium OI"
 
-#: web/lib/admin/UIElements.php:90
+#: web/lib/admin/UIElements.php:82
 msgid "Support: Web"
 msgstr "Brukerstøtte: Web"
 
-#: web/lib/admin/UIElements.php:91
+#: web/lib/admin/UIElements.php:83
 msgid "Support: EAP Types"
 msgstr "Brukerstøtte: EAP typer"
 
-#: web/lib/admin/UIElements.php:92
+#: web/lib/admin/UIElements.php:84
 msgid "Support: Phone"
 msgstr "Brukerstøtte: Telefon"
 
-#: web/lib/admin/UIElements.php:93
+#: web/lib/admin/UIElements.php:85
 msgid "Support: E-Mail"
 msgstr "Brukerstøtte: E-post"
 
-#: web/lib/admin/UIElements.php:96
+#: web/lib/admin/UIElements.php:88
 msgid "Logo URL"
 msgstr "Logo URL"
 
-#: web/lib/admin/UIElements.php:97
+#: web/lib/admin/UIElements.php:89
 msgid "Logo image"
 msgstr "Logo bilde"
 
-#: web/lib/admin/UIElements.php:98
+#: web/lib/admin/UIElements.php:90
 msgid "Configure Wired Ethernet"
 msgstr "Konfigurer kablet ethernet"
 
-#: web/lib/admin/UIElements.php:99
+#: web/lib/admin/UIElements.php:91
 msgid "Name (CN) of Authentication Server"
 msgstr "Navn (CN) på autentiseringstjener"
 
-#: web/lib/admin/UIElements.php:100
+#: web/lib/admin/UIElements.php:92
 msgid "Enable device assessment"
 msgstr "Aktiver vurdering av enhet"
 
-#: web/lib/admin/UIElements.php:101
+#: web/lib/admin/UIElements.php:93
 msgid "Terms of Use"
 msgstr "Bruksvilkår"
 
-#: web/lib/admin/UIElements.php:102
+#: web/lib/admin/UIElements.php:94
 msgid "CA Certificate URL"
 msgstr "CA sertifikat URL"
 
-#: web/lib/admin/UIElements.php:103
+#: web/lib/admin/UIElements.php:95
 msgid "CA Certificate File"
 msgstr "CA sertifikat fil"
 
-#: web/lib/admin/UIElements.php:104
+#: web/lib/admin/UIElements.php:96
 msgid "Profile Display Name"
 msgstr "Profil Visningsnavn"
 
-#: web/lib/admin/UIElements.php:105
+#: web/lib/admin/UIElements.php:97
 msgid "Production-Ready"
 msgstr "Produksjons-klar"
 
-#: web/lib/admin/UIElements.php:106
+#: web/lib/admin/UIElements.php:98
 msgid "Admin Accepted Terms of Use"
 msgstr "Admin aksepterte brukervilkår"
 
-#: web/lib/admin/UIElements.php:107
+#: web/lib/admin/UIElements.php:99
 msgid "Extra text on downloadpage for device"
 msgstr "Ekstra tekst på nedlastningsside for enhet"
 
-#: web/lib/admin/UIElements.php:108
+#: web/lib/admin/UIElements.php:100
 msgid "Redirection Target"
 msgstr "Redirigeringsmål"
 
-#: web/lib/admin/UIElements.php:109
+#: web/lib/admin/UIElements.php:101
 msgid "Extra text on downloadpage for EAP method"
 msgstr "Ekstra tekst på nedlastningsside for EAP metode"
 
-#: web/lib/admin/UIElements.php:110
+#: web/lib/admin/UIElements.php:102
 msgid "Turn on selection of EAP-TLS User-Name"
 msgstr "Slå på valg av EAP-TLS brukernavn"
 
-#: web/lib/admin/UIElements.php:111
+#: web/lib/admin/UIElements.php:103
 msgid "Use GEANTlink TTLS supplicant for W8"
 msgstr "Bruk GEANTlink TTLS supplikant for W8"
 
-#: web/lib/admin/UIElements.php:112
+#: web/lib/admin/UIElements.php:104
 msgid "Use builtin TTLS supplicant for Windows 10"
 msgstr "Bruk builtin TTLS supplikant for Windows 10"
 
-#: web/lib/admin/UIElements.php:113
+#: web/lib/admin/UIElements.php:105
 msgid "Profile Description"
 msgstr "Profil beskrivelse"
 
-#: web/lib/admin/UIElements.php:114
+#: web/lib/admin/UIElements.php:106
 msgid "Custom Installer Name Suffix"
 msgstr "Custom Installer Name Suffix"
 
-#: web/lib/admin/UIElements.php:116
+#: web/lib/admin/UIElements.php:108
 msgid "Real Name"
 msgstr "Navn"
 
-#: web/lib/admin/UIElements.php:117
+#: web/lib/admin/UIElements.php:109
 msgid "E-Mail Address"
 msgstr "Epost adresse"
 
-#: web/lib/admin/UIElements.php:118
+#: web/lib/admin/UIElements.php:110
 msgid "Remove/Disable SSID"
 msgstr "Fjern/deaktiver SSID"
 
-#: web/lib/admin/UIElements.php:119
+#: web/lib/admin/UIElements.php:111
 msgid "Mandatory Content Filtering Proxy"
 msgstr "Obligatorisk innholdsfiltreringsproxy"
 
-#: web/lib/admin/UIElements.php:120
+#: web/lib/admin/UIElements.php:112
 msgid "Custom CSS file for User Area"
 msgstr "Tilpasset CSS fil for brukerområde"
 
-#: web/lib/admin/UIElements.php:121
+#: web/lib/admin/UIElements.php:113
 #, php-format
 msgid "%s Logo"
 msgstr "%s Logo"
 
-#: web/lib/admin/UIElements.php:122
+#: web/lib/admin/UIElements.php:114
 msgid "Preferred Skin for User Area"
 msgstr "Foretrukket skin for brukere"
 
-#: web/lib/admin/UIElements.php:123
+#: web/lib/admin/UIElements.php:115
 #, php-format
 msgid "Include %s branding in installers"
 msgstr "Inkluder %s branding i installasjonsprogram"
 
-#: web/lib/admin/UIElements.php:125
+#: web/lib/admin/UIElements.php:117
 #, php-format
 msgid "%s Homepage"
 msgstr "%s Hjemmeside"
 
-#: web/lib/admin/UIElements.php:126
+#: web/lib/admin/UIElements.php:118
 #, php-format
 msgid "Custom text in %s Invitations"
 msgstr "Tilpasset tekst i %s invitasjoner"
 
-#: web/lib/admin/UIElements.php:127
+#: web/lib/admin/UIElements.php:119
 #, php-format
 msgid "Enable %s"
 msgstr "Aktiver %s"
 
-#: web/lib/admin/UIElements.php:128
+#: web/lib/admin/UIElements.php:120
 #, php-format
 msgid "%s: Do not terminate EAP"
 msgstr "%s: Terminerer ikke EAP"
 
-#: web/lib/admin/UIElements.php:129
+#: web/lib/admin/UIElements.php:121
 #, php-format
 msgid "%s: max users per profile"
 msgstr "%s: maks brukere pr profil"
 
-#: web/lib/admin/UIElements.php:130
+#: web/lib/admin/UIElements.php:122
 #, php-format
 msgid "Mint %s with CA on creation"
 msgstr "Mint %s med CA ved opprettelse"
 
-#: web/lib/admin/UIElements.php:228
+#: web/lib/admin/UIElements.php:224
 #, php-format
 msgid "General %s details"
 msgstr "Generelle %s detaljer"
 
-#: web/lib/admin/UIElements.php:246
+#: web/lib/admin/UIElements.php:242
 msgid "Global Helpdesk Details"
 msgstr "Globale brukerstøtte detaljer"
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:341
+#: web/lib/admin/UIElements.php:339
 msgid "There was an error while retrieving the certificate from the database!"
 msgstr "Det oppstod en feil under henting av sertifikatet fra databasen."
 
@@ -2450,35 +2431,47 @@ msgstr "Det oppstod en feil under henting av sertifikatet fra databasen."
 msgid "There was an error processing the certificate!"
 msgstr "Feil under prossessering av sertifikat!"
 
-#: web/lib/admin/UIElements.php:355
+#: web/lib/admin/UIElements.php:357
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr "Dette er et <strong>TJENER</strong> sertifikat!"
 
-#: web/lib/admin/UIElements.php:368
+#: web/lib/admin/UIElements.php:375
 msgid "Preview of logo file"
 msgstr "Forhåndsvisning av logo fil"
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:381
+#: web/lib/admin/UIElements.php:391
 msgid "There was an error while retrieving the file from the database!"
 msgstr "Det oppstod en feil under henting av filen fra databasen!"
 
-#: web/lib/admin/UIElements.php:385
+#: web/lib/admin/UIElements.php:397
 msgid "File exists"
 msgstr "Filen finnes"
 
-#: web/lib/admin/UIElements.php:385
+#: web/lib/admin/UIElements.php:397
 msgid "Preview"
 msgstr "Forhåndsvisning"
 
-#: web/lib/admin/UIElements.php:401
+#: web/lib/admin/UIElements.php:415
 msgid "Remark"
 msgstr "Merk"
 
-#: web/lib/admin/UIElements.php:402
+#: web/lib/admin/UIElements.php:416
 msgid "Warning!"
 msgstr "Advarsel!"
 
-#: web/lib/admin/UIElements.php:403
+#: web/lib/admin/UIElements.php:417
 msgid "Error!"
 msgstr "Feil!"
+
+#~ msgid "National Roaming Operator"
+#~ msgstr "Nasjonal roaming operatør"
+
+#~ msgid "identity provider"
+#~ msgstr "Identitetstilbyder"
+
+#~ msgid "organisation"
+#~ msgstr "organisasjon"
+
+#~ msgid "Identity Provider"
+#~ msgstr "Identitetstilbyder"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-14 13:42+0100\n"
+"POT-Creation-Date: 2019-03-04 15:19+0100\n"
 "PO-Revision-Date: 2018-12-17 09:09+0000\n"
 "Last-Translator: Alberto Martínez Setién\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/eduroam_devel/cat/"
@@ -86,7 +86,7 @@ msgid "%s Properties"
 msgstr "Propiedades de %s"
 
 #: web/admin/edit_federation.php:67 web/admin/edit_idp.php:86
-#: web/lib/admin/UIElements.php:232
+#: web/lib/admin/UIElements.php:228
 msgid "Country:"
 msgstr "País:"
 
@@ -203,7 +203,7 @@ msgstr ""
 "\", porque se usa como valor por defecto si no se dispone del nombre en el "
 "idioma con que el usuario accede a las descargas,"
 
-#: web/admin/edit_idp.php:125 web/lib/admin/UIElements.php:246
+#: web/admin/edit_idp.php:125 web/lib/admin/UIElements.php:242
 msgid "Media Properties"
 msgstr "Propiedades del medio"
 
@@ -1206,7 +1206,7 @@ msgstr ""
 msgid "%s: %s Management"
 msgstr "%s: Administración de %s"
 
-#: web/admin/overview_federation.php:41 web/admin/overview_idp.php:62
+#: web/admin/overview_federation.php:41 web/admin/overview_idp.php:70
 #, php-format
 msgid "%s Overview"
 msgstr "Vista general de %s"
@@ -1355,8 +1355,8 @@ msgid "Deployment Status"
 msgstr "Estado del despliegue"
 
 #: web/admin/overview_federation.php:202 web/admin/overview_user.php:117
-#: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:94
-#: web/lib/admin/UIElements.php:124
+#: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:86
+#: web/lib/admin/UIElements.php:116
 #, php-format
 msgid "%s Name"
 msgstr "Nombre de %s"
@@ -1411,27 +1411,27 @@ msgstr "(caduca %s)"
 msgid "Register a new %s!"
 msgstr "Registra una nueva %s"
 
-#: web/admin/overview_idp.php:40
+#: web/admin/overview_idp.php:48
 #, php-format
 msgid "%s: IdP Dashboard"
 msgstr "%s: panel de mandos del IdP"
 
-#: web/admin/overview_idp.php:64
+#: web/admin/overview_idp.php:72
 #, php-format
 msgid "%s general settings"
 msgstr "Configuración general de %s"
 
-#: web/admin/overview_idp.php:69
+#: web/admin/overview_idp.php:77
 #, php-format
 msgid "%s download area QR code"
 msgstr "Código QR apuntando a la zona de descargas de la %s"
 
-#: web/admin/overview_idp.php:98
+#: web/admin/overview_idp.php:111
 #, php-format
 msgid "Edit general %s details"
 msgstr "Editar los detalles generales de %s"
 
-#: web/admin/overview_idp.php:103
+#: web/admin/overview_idp.php:116
 #, php-format
 msgid ""
 "After deleting the %s, you can not recreate it yourself - you need a new "
@@ -1440,17 +1440,17 @@ msgstr ""
 "Tras eliminar al %s no podrás recrearlo tú mismo. Necesitas un nuevo token "
 "de invitación de parte del administrador de %s."
 
-#: web/admin/overview_idp.php:103
+#: web/admin/overview_idp.php:116
 #, php-format
 msgid "Do you really want to delete your %s %s?"
 msgstr "¿Deseas borrar de verdad tu %s %s?"
 
-#: web/admin/overview_idp.php:103
+#: web/admin/overview_idp.php:116
 #, php-format
 msgid "Delete %s"
 msgstr "Borrar %s"
 
-#: web/admin/overview_idp.php:109
+#: web/admin/overview_idp.php:122
 #, php-format
 msgid ""
 "This action will delete all properties of the %s and start over the "
@@ -1460,47 +1460,47 @@ msgstr ""
 "Esta acción eliminará todas las propiedades de la %s y la dejará sin "
 "configuración. ¿De verdad quieres restablecer la configuración de la %s %s?"
 
-#: web/admin/overview_idp.php:109
+#: web/admin/overview_idp.php:122
 #, php-format
 msgid "Reset all %s settings"
 msgstr "Restablecer toda la configuración de %s"
 
-#: web/admin/overview_idp.php:119
+#: web/admin/overview_idp.php:132
 msgid "Available Support actions"
 msgstr "Acciones de soporte disponibles"
 
-#: web/admin/overview_idp.php:124
+#: web/admin/overview_idp.php:137
 msgid "Check another realm's reachability"
 msgstr "Comprobar que otro dominio es alcanzable"
 
-#: web/admin/overview_idp.php:127 web/admin/overview_idp.php:137
+#: web/admin/overview_idp.php:141 web/admin/overview_idp.php:151
 #: web/admin/overview_user.php:171
 msgid "Go!"
 msgstr "¡Adelante!"
 
 #. SW: APPROVED
-#: web/admin/overview_idp.php:134
+#: web/admin/overview_idp.php:148
 #, php-format
 msgid "Check %s server status"
 msgstr "Comprobar el estado de los servidores de %s"
 
 #. no profiles yet.
-#: web/admin/overview_idp.php:148
+#: web/admin/overview_idp.php:162
 #, php-format
 msgid "There are not yet any profiles for your %s."
 msgstr "Aún no hay perfiles para tu %s."
 
 #. no profiles yet.
-#: web/admin/overview_idp.php:151
+#: web/admin/overview_idp.php:165
 #, php-format
 msgid "Profiles for this %s"
 msgstr "Perfiles para esta %s"
 
-#: web/admin/overview_idp.php:174 web/admin/overview_idp.php:233
+#: web/admin/overview_idp.php:188 web/admin/overview_idp.php:247
 msgid "Information needed!"
 msgstr "¡Se necesita información!"
 
-#: web/admin/overview_idp.php:182
+#: web/admin/overview_idp.php:196
 #, php-format
 msgid ""
 "You can create up to %d users. Their credentials will carry the name <strong>"
@@ -1509,44 +1509,44 @@ msgstr ""
 "Puedes crear hasta %d usuarios. Sus credenciales llevarán el nombre <strong>"
 "%s</strong>."
 
-#: web/admin/overview_idp.php:191
+#: web/admin/overview_idp.php:205
 msgid "Manage User Base"
 msgstr "Administrar la base de usuarios"
 
-#: web/admin/overview_idp.php:199 web/admin/overview_idp.php:331
+#: web/admin/overview_idp.php:213 web/admin/overview_idp.php:350
 msgid "User Downloads"
 msgstr "Descargas de los usuarios"
 
-#: web/admin/overview_idp.php:223
+#: web/admin/overview_idp.php:237
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr "<strong>Tipos EAP</strong> (en orden de preferencia):"
 
-#: web/admin/overview_idp.php:230 web/lib/admin/UIElements.php:400
+#: web/admin/overview_idp.php:244 web/lib/admin/UIElements.php:414
 msgid "OK"
 msgstr "OK"
 
-#: web/admin/overview_idp.php:249
+#: web/admin/overview_idp.php:263
 msgid "Options on EAP Method/Device level are in effect."
 msgstr "Se están aplicando opciones a nivel de [método EAP / dispositivo]."
 
-#: web/admin/overview_idp.php:254
+#: web/admin/overview_idp.php:268
 #, php-format
 msgid "Profile: %s"
 msgstr "Perfil: %s"
 
-#: web/admin/overview_idp.php:259
+#: web/admin/overview_idp.php:273
 msgid "Option override on profile level is in effect."
 msgstr "Se aplica sobreescritura de opción a nivel de perfil."
 
-#: web/admin/overview_idp.php:262
+#: web/admin/overview_idp.php:276
 msgid "The information in this profile is incomplete."
 msgstr "La información en este perfil está incompleta."
 
-#: web/admin/overview_idp.php:266
+#: web/admin/overview_idp.php:280
 msgid "This profile is shown on the user download interface."
 msgstr "El perfil es mostrado en la interfaz de descarga del usuario."
 
-#: web/admin/overview_idp.php:269
+#: web/admin/overview_idp.php:283
 #, php-format
 msgid ""
 "This profile is NOT shown on the user download interface, even though we "
@@ -1557,45 +1557,45 @@ msgstr ""
 "tengamos suficiente información como para mostrarlo. Para habilitar el "
 "perfil, añade el atributo \"%s\" y habilitar la correspondiente casilla."
 
-#: web/admin/overview_idp.php:289
+#: web/admin/overview_idp.php:304
 msgid "The realm can only be checked if you configure the realm!"
 msgstr "¡El dominio sólo puede ser comprobado si configuras el dominio!"
 
-#: web/admin/overview_idp.php:290
+#: web/admin/overview_idp.php:305
 msgid "Check realm reachability"
 msgstr "Comprobar que el dominio es alcanzable"
 
-#: web/admin/overview_idp.php:295
+#: web/admin/overview_idp.php:310
 msgid "You have not fully configured any supported EAP types!"
 msgstr "¡No has configurado al completo ningún tipo EAP soportado!"
 
-#: web/admin/overview_idp.php:296
+#: web/admin/overview_idp.php:311
 msgid "Installer Fine-Tuning and Download"
 msgstr "Ajustes del instalador y descarga"
 
-#: web/admin/overview_idp.php:305
+#: web/admin/overview_idp.php:320
 msgid "Edit"
 msgstr "Editar"
 
-#: web/admin/overview_idp.php:308
+#: web/admin/overview_idp.php:323
 #, php-format
 msgid "Do you really want to delete the profile %s?"
 msgstr "¿Deseas borrar de verdad el perfil %s?"
 
-#: web/admin/overview_idp.php:309
+#: web/admin/overview_idp.php:324
 msgid "Delete"
 msgstr "Borrar"
 
-#: web/admin/overview_idp.php:318
+#: web/admin/overview_idp.php:333
 msgid "User Download Link"
 msgstr "Enlace de descarga para usuarios"
 
-#: web/admin/overview_idp.php:360
+#: web/admin/overview_idp.php:379
 #, php-format
 msgid "Add %s profile ..."
 msgstr "Añadir perfil de %s..."
 
-#: web/admin/overview_idp.php:373
+#: web/admin/overview_idp.php:392
 msgid "Add new RADIUS/EAP profile ..."
 msgstr "Añadir nuevo perfil RADIUS/EAP..."
 
@@ -1764,7 +1764,7 @@ msgstr ""
 "Eres el administrador de %s. Puedes invitar a nuevos administradores, "
 "quienes por su parte podrán invitar a nuevos administradores."
 
-#: web/admin/inc/manageAdmins.inc.php:154 web/lib/admin/UIElements.php:115
+#: web/admin/inc/manageAdmins.inc.php:154 web/lib/admin/UIElements.php:107
 #, php-format
 msgid "%s Administrator"
 msgstr "Administrador de %s"
@@ -1863,7 +1863,7 @@ msgstr "La información en <strong>base de datos %s</strong>"
 msgid "%s Name (%s)"
 msgstr "Nombre de %s (%s)"
 
-#: web/admin/inc/manageDBLink.inc.php:118 web/lib/admin/Authentication.php:72
+#: web/admin/inc/manageDBLink.inc.php:118 web/lib/admin/Authentication.php:73
 msgid "Unnamed User"
 msgstr "Usuario sin nombre"
 
@@ -2056,11 +2056,11 @@ msgstr " el tipo EAP <strong>%s</strong> "
 msgid "Fine-tuning options for "
 msgstr "Opciones de ajuste para"
 
-#: web/lib/admin/AbstractMap.php:122 web/lib/admin/UIElements.php:95
+#: web/lib/admin/AbstractMap.php:124 web/lib/admin/UIElements.php:87
 msgid "Location"
 msgstr "Localización"
 
-#: web/lib/admin/AbstractMap.php:126
+#: web/lib/admin/AbstractMap.php:128
 msgid ""
 "The user download interface (see <a href='../'>here</a>), uses geolocation "
 "to suggest possibly matching IdPs to the user. The more precise you define "
@@ -2071,7 +2071,7 @@ msgstr ""
 "usuario. Cuanto precisa definas una localización aquí, más fácil será para "
 "tus usuarios localizarte."
 
-#: web/lib/admin/AbstractMap.php:129
+#: web/lib/admin/AbstractMap.php:131
 msgid ""
 "<li>Drag the marker in the map to your place, or</li>\n"
 "<li>enter your street address in the field below for lookup, or</li>\n"
@@ -2081,12 +2081,12 @@ msgstr ""
 "tu dirección en el campo más abajo o</li>⏎ <li>usa el botón \"¡Localízame!"
 "\"</li>"
 
-#: web/lib/admin/AbstractMap.php:134
+#: web/lib/admin/AbstractMap.php:136
 msgid "We will use the coordinates as indicated by the marker for geolocation."
 msgstr ""
 "Usaremos las coordenadas indicadas por el marcador para la geolocalización."
 
-#: web/lib/admin/AbstractMap.php:138
+#: web/lib/admin/AbstractMap.php:140
 msgid ""
 "You can enter an <strong>additional</strong> location here. You can see the "
 "already defined locations in the 'General Information' field."
@@ -2094,44 +2094,44 @@ msgstr ""
 "Puedes introducir una localización <strong>adicional</strong> aquí. Puedes "
 "ver las localizaciones ya definidas en el campo 'Información general'."
 
-#: web/lib/admin/AbstractMap.php:150
+#: web/lib/admin/AbstractMap.php:154
 msgid "Latitude:"
 msgstr "Latitud:"
 
-#: web/lib/admin/AbstractMap.php:150
+#: web/lib/admin/AbstractMap.php:154
 msgid "Longitude:"
 msgstr "Longitud:"
 
-#: web/lib/admin/MapGoogle.php:132
+#: web/lib/admin/MapGoogle.php:133
 msgid "This is location "
 msgstr "Ésta es la localización "
 
-#: web/lib/admin/MapGoogle.php:211 web/lib/admin/MapOpenLayers.php:230
+#: web/lib/admin/MapGoogle.php:212 web/lib/admin/MapOpenLayers.php:232
 msgid "nothing entered in the address field"
 msgstr "no se introdujo nada en el campo de dirección"
 
-#: web/lib/admin/MapGoogle.php:231 web/lib/admin/MapOpenLayers.php:86
+#: web/lib/admin/MapGoogle.php:232 web/lib/admin/MapOpenLayers.php:88
 msgid "locating"
 msgstr "localizando"
 
-#: web/lib/admin/MapGoogle.php:359 web/lib/admin/MapOpenLayers.php:308
+#: web/lib/admin/MapGoogle.php:365 web/lib/admin/MapOpenLayers.php:313
 msgid "Click to see location"
 msgstr "Haz click para ver la localización"
 
-#: web/lib/admin/MapGoogle.php:377 web/lib/admin/MapOpenLayers.php:317
+#: web/lib/admin/MapGoogle.php:386 web/lib/admin/MapOpenLayers.php:325
 msgid "Address:"
 msgstr "Dirección:"
 
-#: web/lib/admin/MapGoogle.php:377 web/lib/admin/MapOpenLayers.php:317
+#: web/lib/admin/MapGoogle.php:386 web/lib/admin/MapOpenLayers.php:325
 msgid "Find address"
 msgstr "Buscar dirección "
 
-#: web/lib/admin/MapGoogle.php:377 web/lib/admin/MapNone.php:118
-#: web/lib/admin/MapOpenLayers.php:317
+#: web/lib/admin/MapGoogle.php:386 web/lib/admin/MapNone.php:121
+#: web/lib/admin/MapOpenLayers.php:325
 msgid "Locate Me!"
 msgstr "¡Localízame!"
 
-#: web/lib/admin/MapOpenLayers.php:237
+#: web/lib/admin/MapOpenLayers.php:239
 msgid ""
 "Address not found, perhaps try another form, like putting the street number "
 "to the front."
@@ -2139,7 +2139,7 @@ msgstr ""
 "Dirección no encontrada. Podrías probar de otra forma, como poniendo el "
 "número de la calle al principio."
 
-#: web/lib/admin/OptionDisplay.php:182
+#: web/lib/admin/OptionDisplay.php:183
 #, php-format
 msgid ""
 "This attribute can be set if you want to configure an additional SSID "
@@ -2168,7 +2168,7 @@ msgstr ""
 "nombre de SSID. En tal caso, podrían llevarse a creer que se están tratando "
 "de conectar a una red extra segura cuando esto no es así. "
 
-#: web/lib/admin/OptionDisplay.php:184
+#: web/lib/admin/OptionDisplay.php:185
 #, php-format
 msgid ""
 "The format of this option is: IPv4|IPv6|hostname:port . Forcing your users "
@@ -2181,39 +2181,39 @@ msgstr ""
 "la autodeterminación del usuario. También conlleva problemas técnicos. Por "
 "favor lee la exposición en %s antes de especificar un proxy con esta opción."
 
-#: web/lib/admin/OptionDisplay.php:273
+#: web/lib/admin/OptionDisplay.php:275
 msgid "select language"
 msgstr "selecciona idioma"
 
-#: web/lib/admin/OptionDisplay.php:274 web/lib/admin/UIElements.php:164
+#: web/lib/admin/OptionDisplay.php:276 web/lib/admin/UIElements.php:158
 msgid "default/other languages"
 msgstr "por defecto/otros idiomas"
 
-#: web/lib/admin/OptionDisplay.php:352
+#: web/lib/admin/OptionDisplay.php:356
 msgid "(default/other languages)"
 msgstr "(por defecto/otros idiomas)"
 
-#: web/lib/admin/OptionDisplay.php:387
+#: web/lib/admin/OptionDisplay.php:391
 msgid "file content"
 msgstr "contenido del fichero"
 
 #. only modify in this one case
-#: web/lib/admin/OptionDisplay.php:398 web/lib/admin/UIElements.php:198
+#: web/lib/admin/OptionDisplay.php:402 web/lib/admin/UIElements.php:192
 msgid "on"
 msgstr "activado"
 
-#: web/lib/admin/OptionDisplay.php:398 web/lib/admin/UIElements.php:198
+#: web/lib/admin/OptionDisplay.php:402 web/lib/admin/UIElements.php:192
 msgid "off"
 msgstr "desactivado"
 
 #. / number of times attribute is present, and its name
 #. / Example: "5x Support E-Mail"
-#: web/lib/admin/OptionParser.php:213 web/lib/admin/OptionParser.php:218
+#: web/lib/admin/OptionParser.php:214 web/lib/admin/OptionParser.php:219
 #, php-format
 msgid "%dx %s"
 msgstr "%ds %s"
 
-#: web/lib/admin/OptionParser.php:223
+#: web/lib/admin/OptionParser.php:224
 #, php-format
 msgid ""
 "You did not set a 'default language' value for %s. This means we can only "
@@ -2227,277 +2227,258 @@ msgstr ""
 "el perfil de nuevo y poner algún valor para 'por defecto/otros idiomas' en "
 "el campo idioma. "
 
-#: web/lib/admin/PageDecoration.php:50
+#: web/lib/admin/PageDecoration.php:52
 msgid "You are:"
 msgstr "Eres:"
 
-#: web/lib/admin/PageDecoration.php:53
+#: web/lib/admin/PageDecoration.php:55
 msgid "Go to your Profile page"
 msgstr "Ir a la página de tu perfil"
 
-#: web/lib/admin/PageDecoration.php:54
+#: web/lib/admin/PageDecoration.php:56
 msgid "Logout"
 msgstr "Cerrar sesión"
 
-#: web/lib/admin/PageDecoration.php:56
+#: web/lib/admin/PageDecoration.php:58
 msgid "Start page"
 msgstr "Página de inicio"
 
-#: web/lib/admin/PageDecoration.php:77
+#: web/lib/admin/PageDecoration.php:82
 msgid "View this page in"
 msgstr "Ver esta página en"
 
-#: web/lib/admin/PageDecoration.php:137
+#: web/lib/admin/PageDecoration.php:143
 #, php-format
 msgid "Administrator Interface - %s"
 msgstr "Interfaz de administrador - %s"
 
-#: web/lib/admin/PageDecoration.php:140
+#: web/lib/admin/PageDecoration.php:146
 #, php-format
 msgid "Administrator Interface - %s User Management"
 msgstr "Interfaz de administrador - Administración de usuarios de %s"
 
-#: web/lib/admin/PageDecoration.php:143
+#: web/lib/admin/PageDecoration.php:149
 msgid "Administrator Interface"
 msgstr "Interfaz de administrador"
 
-#: web/lib/admin/PageDecoration.php:146
+#: web/lib/admin/PageDecoration.php:152
 msgid "Management of User Details"
 msgstr "Administración de detalles de usuario"
 
-#: web/lib/admin/PageDecoration.php:149
+#: web/lib/admin/PageDecoration.php:155
 #, php-format
 msgid "Administrator Interface - %s Management"
 msgstr "Interfaz de administrador - Administración de %s"
 
-#: web/lib/admin/PageDecoration.php:152
+#: web/lib/admin/PageDecoration.php:158
 #, php-format
 msgid "Welcome to %s"
 msgstr "Bienvenido a %s"
 
-#: web/lib/admin/PageDecoration.php:157
+#: web/lib/admin/PageDecoration.php:163
 msgid "CIC"
 msgstr "CIC"
 
-#: web/lib/admin/PageDecoration.php:160
+#: web/lib/admin/PageDecoration.php:166
 msgid "Diagnostics"
 msgstr "Diagnósticos"
 
-#: web/lib/admin/PageDecoration.php:242
+#: web/lib/admin/PageDecoration.php:250
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "Aviso de privacidad de %s"
 
-#. some config elements are displayable. We need some dummies to
-#. translate the common values for them. If a deployment chooses a
-#. different wording, no translation, sorry
-#: web/lib/admin/UIElements.php:56
-msgid "National Roaming Operator"
-msgstr "Operador Nacional de Itinerancia"
-
-#: web/lib/admin/UIElements.php:57
-msgid "identity provider"
-msgstr "proveedor de identidad"
-
-#: web/lib/admin/UIElements.php:58
-msgid "organisation"
-msgstr "organización"
-
-#: web/lib/admin/UIElements.php:59
-msgid "Identity Provider"
-msgstr "Proveedor de Identidad"
-
-#: web/lib/admin/UIElements.php:78
+#: web/lib/admin/UIElements.php:70
 msgid "SSID"
 msgstr "SSID"
 
-#: web/lib/admin/UIElements.php:79
+#: web/lib/admin/UIElements.php:71
 msgid "SSID (with WPA/TKIP)"
 msgstr "SSID (con WPA/TKIP)"
 
-#: web/lib/admin/UIElements.php:80
+#: web/lib/admin/UIElements.php:72
 msgid "HS20 Consortium OI"
 msgstr "HS20 Consortium OI"
 
-#: web/lib/admin/UIElements.php:83
+#: web/lib/admin/UIElements.php:75
 msgid "Additional SSID"
 msgstr "SSID adicional"
 
-#: web/lib/admin/UIElements.php:84
+#: web/lib/admin/UIElements.php:76
 msgid "Additional SSID (with WPA/TKIP)"
 msgstr "SSID adicional (con WPA/TKIP)"
 
-#: web/lib/admin/UIElements.php:87
+#: web/lib/admin/UIElements.php:79
 msgid "Additional HS20 Consortium OI"
 msgstr "HS20 Consortium OI adicional"
 
-#: web/lib/admin/UIElements.php:90
+#: web/lib/admin/UIElements.php:82
 msgid "Support: Web"
 msgstr "Soporte: Web"
 
-#: web/lib/admin/UIElements.php:91
+#: web/lib/admin/UIElements.php:83
 msgid "Support: EAP Types"
 msgstr "Soporte: tipos de EAP"
 
-#: web/lib/admin/UIElements.php:92
+#: web/lib/admin/UIElements.php:84
 msgid "Support: Phone"
 msgstr "Soporte: Teléfono"
 
-#: web/lib/admin/UIElements.php:93
+#: web/lib/admin/UIElements.php:85
 msgid "Support: E-Mail"
 msgstr "Soporte: Correo electrónico"
 
-#: web/lib/admin/UIElements.php:96
+#: web/lib/admin/UIElements.php:88
 msgid "Logo URL"
 msgstr "URL del logotipo"
 
-#: web/lib/admin/UIElements.php:97
+#: web/lib/admin/UIElements.php:89
 msgid "Logo image"
 msgstr "Imagen del logotipo"
 
-#: web/lib/admin/UIElements.php:98
+#: web/lib/admin/UIElements.php:90
 msgid "Configure Wired Ethernet"
 msgstr "Configurar la red cableada"
 
-#: web/lib/admin/UIElements.php:99
+#: web/lib/admin/UIElements.php:91
 msgid "Name (CN) of Authentication Server"
 msgstr "Nombre (CN) del servidor de autenticación"
 
-#: web/lib/admin/UIElements.php:100
+#: web/lib/admin/UIElements.php:92
 msgid "Enable device assessment"
 msgstr "Habilitar evaluación del dispositivo"
 
-#: web/lib/admin/UIElements.php:101
+#: web/lib/admin/UIElements.php:93
 msgid "Terms of Use"
 msgstr "Términos de uso"
 
-#: web/lib/admin/UIElements.php:102
+#: web/lib/admin/UIElements.php:94
 msgid "CA Certificate URL"
 msgstr "URL del certificado de CA"
 
-#: web/lib/admin/UIElements.php:103
+#: web/lib/admin/UIElements.php:95
 msgid "CA Certificate File"
 msgstr "Fichero del certificado de CA"
 
-#: web/lib/admin/UIElements.php:104
+#: web/lib/admin/UIElements.php:96
 msgid "Profile Display Name"
 msgstr "Nombre del perfil"
 
-#: web/lib/admin/UIElements.php:105
+#: web/lib/admin/UIElements.php:97
 msgid "Production-Ready"
 msgstr "Listo para producción"
 
-#: web/lib/admin/UIElements.php:106
+#: web/lib/admin/UIElements.php:98
 msgid "Admin Accepted Terms of Use"
 msgstr "Términos de Uso aceptados por el administrador"
 
-#: web/lib/admin/UIElements.php:107
+#: web/lib/admin/UIElements.php:99
 msgid "Extra text on downloadpage for device"
 msgstr "Texto adicional para la página de descargas del dispositivo"
 
-#: web/lib/admin/UIElements.php:108
+#: web/lib/admin/UIElements.php:100
 msgid "Redirection Target"
 msgstr "Destino de la redirección"
 
-#: web/lib/admin/UIElements.php:109
+#: web/lib/admin/UIElements.php:101
 msgid "Extra text on downloadpage for EAP method"
 msgstr "Texto adicional en la página de descargas para el método EAP"
 
-#: web/lib/admin/UIElements.php:110
+#: web/lib/admin/UIElements.php:102
 msgid "Turn on selection of EAP-TLS User-Name"
 msgstr "Activa la selección de nombre de usuario para EAP-TLS"
 
-#: web/lib/admin/UIElements.php:111
+#: web/lib/admin/UIElements.php:103
 msgid "Use GEANTlink TTLS supplicant for W8"
 msgstr "Usar el suplicante TTLS GEANTlink para Windows 8"
 
-#: web/lib/admin/UIElements.php:112
+#: web/lib/admin/UIElements.php:104
 msgid "Use builtin TTLS supplicant for Windows 10"
 msgstr "Usar el suplicante TTLS nativo de Windows 10"
 
-#: web/lib/admin/UIElements.php:113
+#: web/lib/admin/UIElements.php:105
 msgid "Profile Description"
 msgstr "Descripción del perfil"
 
-#: web/lib/admin/UIElements.php:114
+#: web/lib/admin/UIElements.php:106
 msgid "Custom Installer Name Suffix"
 msgstr "Sufijo a medida del nombre del instalador"
 
-#: web/lib/admin/UIElements.php:116
+#: web/lib/admin/UIElements.php:108
 msgid "Real Name"
 msgstr "Nombre real"
 
-#: web/lib/admin/UIElements.php:117
+#: web/lib/admin/UIElements.php:109
 msgid "E-Mail Address"
 msgstr "Dirección de correo electrónico"
 
-#: web/lib/admin/UIElements.php:118
+#: web/lib/admin/UIElements.php:110
 msgid "Remove/Disable SSID"
 msgstr "Eliminación/desactivación de SSID"
 
-#: web/lib/admin/UIElements.php:119
+#: web/lib/admin/UIElements.php:111
 msgid "Mandatory Content Filtering Proxy"
 msgstr "Proxy de filtrado de contenido obligatorio"
 
-#: web/lib/admin/UIElements.php:120
+#: web/lib/admin/UIElements.php:112
 msgid "Custom CSS file for User Area"
 msgstr "CSS a medida para el área de usuario"
 
-#: web/lib/admin/UIElements.php:121
+#: web/lib/admin/UIElements.php:113
 #, php-format
 msgid "%s Logo"
 msgstr "Logo de %s"
 
-#: web/lib/admin/UIElements.php:122
+#: web/lib/admin/UIElements.php:114
 msgid "Preferred Skin for User Area"
 msgstr "\"Piel\" preferida para el área de usuario"
 
-#: web/lib/admin/UIElements.php:123
+#: web/lib/admin/UIElements.php:115
 #, php-format
 msgid "Include %s branding in installers"
 msgstr "Incluir imagen de marca del %s en los instaladores"
 
-#: web/lib/admin/UIElements.php:125
+#: web/lib/admin/UIElements.php:117
 #, php-format
 msgid "%s Homepage"
 msgstr "Página de inicio de %s"
 
-#: web/lib/admin/UIElements.php:126
+#: web/lib/admin/UIElements.php:118
 #, php-format
 msgid "Custom text in %s Invitations"
 msgstr "Texto personalizado en las invitaciones de %s"
 
-#: web/lib/admin/UIElements.php:127
+#: web/lib/admin/UIElements.php:119
 #, php-format
 msgid "Enable %s"
 msgstr "Habilitar %s"
 
-#: web/lib/admin/UIElements.php:128
+#: web/lib/admin/UIElements.php:120
 #, php-format
 msgid "%s: Do not terminate EAP"
 msgstr "%s: No finalizar EAP"
 
-#: web/lib/admin/UIElements.php:129
+#: web/lib/admin/UIElements.php:121
 #, php-format
 msgid "%s: max users per profile"
 msgstr "%s: numero máximo de usuarios por perfil"
 
-#: web/lib/admin/UIElements.php:130
+#: web/lib/admin/UIElements.php:122
 #, php-format
 msgid "Mint %s with CA on creation"
 msgstr "Acuñar %s con CA en su creación"
 
-#: web/lib/admin/UIElements.php:228
+#: web/lib/admin/UIElements.php:224
 #, php-format
 msgid "General %s details"
 msgstr "Detalles generales de %s"
 
-#: web/lib/admin/UIElements.php:246
+#: web/lib/admin/UIElements.php:242
 msgid "Global Helpdesk Details"
 msgstr "Opciones globales de Helpdesk"
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:341
+#: web/lib/admin/UIElements.php:339
 msgid "There was an error while retrieving the certificate from the database!"
 msgstr "Hubo un error al obtener el certificado desde la base de datos."
 
@@ -2505,35 +2486,47 @@ msgstr "Hubo un error al obtener el certificado desde la base de datos."
 msgid "There was an error processing the certificate!"
 msgstr "¡Hubo un error procesando el certificado!"
 
-#: web/lib/admin/UIElements.php:355
+#: web/lib/admin/UIElements.php:357
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr "¡Este es un certificado de <strong>SERVIDOR</strong>!"
 
-#: web/lib/admin/UIElements.php:368
+#: web/lib/admin/UIElements.php:375
 msgid "Preview of logo file"
 msgstr "Vista previa del fichero de logotipo"
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:381
+#: web/lib/admin/UIElements.php:391
 msgid "There was an error while retrieving the file from the database!"
 msgstr "Hubo un error al obtener el archivo desde la base de datos."
 
-#: web/lib/admin/UIElements.php:385
+#: web/lib/admin/UIElements.php:397
 msgid "File exists"
 msgstr "El fichero existe"
 
-#: web/lib/admin/UIElements.php:385
+#: web/lib/admin/UIElements.php:397
 msgid "Preview"
 msgstr "Vista previa"
 
-#: web/lib/admin/UIElements.php:401
+#: web/lib/admin/UIElements.php:415
 msgid "Remark"
 msgstr "Observación"
 
-#: web/lib/admin/UIElements.php:402
+#: web/lib/admin/UIElements.php:416
 msgid "Warning!"
 msgstr "¡Advertencia!"
 
-#: web/lib/admin/UIElements.php:403
+#: web/lib/admin/UIElements.php:417
 msgid "Error!"
 msgstr "¡Error!"
+
+#~ msgid "National Roaming Operator"
+#~ msgstr "Operador Nacional de Itinerancia"
+
+#~ msgid "identity provider"
+#~ msgstr "proveedor de identidad"
+
+#~ msgid "organisation"
+#~ msgstr "organización"
+
+#~ msgid "Identity Provider"
+#~ msgstr "Proveedor de Identidad"

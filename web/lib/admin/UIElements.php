@@ -44,7 +44,20 @@ class UIElements extends \core\common\Entity {
      * @var string
      */
     public $nomenclatureInst;
+    
+    /**
+     * the custom displayable variant of the term 'hotspot'
+     * 
+     * @var string
+     */
+    public $nomenclatureHotspot;
 
+    /**
+     * the custom displayable variant of the term 'hotspot'
+     * 
+     * @var string
+     */
+    public $nomenclatureParticipant;
     /**
      * Initialises the class.
      * 
@@ -56,6 +69,8 @@ class UIElements extends \core\common\Entity {
         parent::__construct();
         $this->nomenclatureFed = \core\common\Entity::$nomenclature_fed;
         $this->nomenclatureInst = \core\common\Entity::$nomenclature_inst;
+        $this->nomenclatureHotspot = \core\common\Entity::$nomenclature_hotspot;
+        $this->nomenclatureParticipant = \core\common\Entity::$nomenclature_participant;
     }
 
     /**
@@ -83,7 +98,7 @@ class UIElements extends \core\common\Entity {
             _("Support: EAP Types") => "support:eap_types",
             _("Support: Phone") => "support:phone",
             _("Support: E-Mail") => "support:email",
-            sprintf(_("%s Name"), $this->nomenclatureInst) => "general:instname",
+            sprintf(_("%s Name"), $this->nomenclatureParticipant) => "general:instname",
             _("Location") => "general:geo_coordinates",
             _("Logo URL") => "general:logo_url",
             _("Logo image") => "general:logo_file",
