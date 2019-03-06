@@ -198,4 +198,23 @@ class DeploymentManaged extends AbstractDeployment {
         $this->databaseHandle->exec("DELETE FROM deployment WHERE deployment_id = $this->identifier");
     }
 
+    /**
+     * deactivates the deployment.
+     * TODO: needs to call the RADIUS server reconfiguration routines...
+     * 
+     * @return void
+     */
+    public function deactivate() {
+        $this->databaseHandle->exec("UPDATE deployment SET status = ".DeploymentManaged::INACTIVE." WHERE deployment_id = $this->identifier");
+    }
+    
+    /**
+     * activates the deployment.
+     * TODO: needs to call the RADIUS server reconfiguration routines...
+     * 
+     * @return void
+     */
+    public function activate() {
+        $this->databaseHandle->exec("UPDATE deployment SET status = ".DeploymentManaged::ACTIVE." WHERE deployment_id = $this->identifier");
+    }
 }

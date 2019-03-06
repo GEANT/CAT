@@ -128,19 +128,19 @@ echo $mapCode->htmlHeadCode();
         ?>
         <div style='display: table-row; margin-bottom: 20px;'>
             <div class='profilebox' style='display: table-cell;'>
-                <h2><?php echo core\DeploymentManaged::PRODUCTNAME . " (<span style='color:".( $deploymentObject->status == \core\AbstractDeployment::INACTIVE ? "red;'>"._("inactive") : "green;'>"._("active") )."</span>)"; ?></h2>
+                <h2><?php echo core\DeploymentManaged::PRODUCTNAME . " (<span style='color:" . ( $deploymentObject->status == \core\AbstractDeployment::INACTIVE ? "red;'>" . _("inactive") : "green;'>" . _("active") ) . "</span>)"; ?></h2>
                 <table>
                     <tr>
                         <td><?php echo _("IP addresses of your RADIUS server: ") ?></td>
                         <td><?php
                             if ($deploymentObject->host4 !== NULL) {
-                                echo _("IPv4").": ".$deploymentObject->host4;
+                                echo _("IPv4") . ": " . $deploymentObject->host4;
                             }
                             if ($deploymentObject->host4 !== NULL && $deploymentObject->host6 !== NULL) {
                                 echo "<br/>";
                             }
                             if ($deploymentObject->host6 !== NULL) {
-                                echo _("IPv6").": ".$deploymentObject->host6;
+                                echo _("IPv6") . ": " . $deploymentObject->host6;
                             }
                             ?></td>
                     </tr>
@@ -153,6 +153,29 @@ echo $mapCode->htmlHeadCode();
                         <td><?php echo $deploymentObject->secret; ?></td>
                     </tr>
                 </table>
+                <div class='buttongroupprofilebox' style='clear:both;'>
+                    <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
+                        <hr/>
+                        <button type='submit' name='profile_action' value='edit'><?php echo _("Advanced Configuration"); ?></button>
+                    </form>
+                    <?php if ($deploymentObject->status == \core\AbstractDeployment::ACTIVE) { ?>
+                        <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
+                            <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php printf(_("Do you really want to deactivate the %s deployment?"), core\DeploymentManaged::PRODUCTNAME); ?>')">
+                                <?php echo _("Deactivate"); ?>
+                            </button>
+                        </form>
+                        <?php
+                    } else {
+                        ?>
+                        <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
+                            <button class='delete' style='background-color: green;' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_ACTIVATE; ?>'>
+                                <?php echo _("Activate"); ?>
+                            </button>
+                        </form>
+                    <?php
+                    }
+                    ?>
+                </div>
             </div>
             <div style='width:20px;'></div> <!-- QR code space, reserved -->
             <div style='display: table-cell; min-width:200px;'></div> <!-- statistics space, reserved -->
@@ -173,7 +196,7 @@ echo $mapCode->htmlHeadCode();
             <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
                 <div>
                     <button type='submit' <?php echo ($hasMail > 0 ? "" : "disabled"); ?> name='profile_action' value='new'>
-        <?php echo sprintf(_("Add %s deployment ..."), \core\DeploymentManaged::PRODUCTNAME); ?>
+                        <?php echo sprintf(_("Add %s deployment ..."), \core\DeploymentManaged::PRODUCTNAME); ?>
                     </button>
                 </div>
             </form>

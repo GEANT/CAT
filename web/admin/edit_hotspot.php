@@ -48,6 +48,21 @@ if (isset($_GET['deployment_id'])) { // oh! We should edit an existing profile, 
     header("Location: overview_sp.php?inst_id=".$my_inst->identifier);
     exit(0);
 }
+
+if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_DELETE) {
+    $deployment = new core\DeploymentManaged($my_inst, $_GET['deployment_id']);
+    $deployment->deactivate();
+    header("Location: overview_sp.php?inst_id=".$my_inst->identifier);
+    exit(0);
+}
+
+if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_ACTIVATE) {
+    $deployment = new core\DeploymentManaged($my_inst, $_GET['deployment_id']);
+    $deployment->activate();
+    header("Location: overview_sp.php?inst_id=".$my_inst->identifier);
+    exit(0);
+}
+
 echo $deco->defaultPagePrelude(sprintf(_("%s: Enrollment Wizard (Step 3)"), CONFIG['APPEARANCE']['productname']));
 ?>
 </head>

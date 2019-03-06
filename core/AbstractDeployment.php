@@ -156,4 +156,18 @@ abstract class AbstractDeployment extends EntityWithDBProperties {
      * @return void
      */
     abstract public function destroy();
+    
+    /**
+     * Deactivates the deployment
+     * 
+     * @return void
+     */
+    abstract public function deactivate();
+    
+    /**
+     * activates the deployment
+     * 
+     * @return void
+     */
+    abstract public function activate();
 }

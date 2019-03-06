@@ -102,4 +102,17 @@ class DeploymentClassic extends AbstractDeployment {
         // we can't delete data from the eduroam DB
     }
 
+    /**
+     * activates a deployment, but that is not how classic works
+     */
+    public function activate() {
+        // nothing to be done, this is managed externally
+    }
+    
+    /**
+     * deactivates a deployment, but that is not how classic works
+     */
+    public function deactivate() {
+        // nothing to be done, this is managed externally
+    }
 }
