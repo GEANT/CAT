@@ -45,7 +45,7 @@ $link = htmlspecialchars($link);
 
 const QRCODE_PIXELS_PER_SYMBOL = 12;
 
-echo $deco->defaultPagePrelude(sprintf(_("%s: %s Dashboard"), CONFIG['APPEARANCE']['productname']), $uiElements->nomenclatureHotspot);
+echo $deco->defaultPagePrelude(sprintf(_("%s: %s Dashboard"), CONFIG['APPEARANCE']['productname'], $uiElements->nomenclatureHotspot));
 require_once "inc/click_button_js.php";
 
 // let's check if the inst handle actually exists in the DB
@@ -67,9 +67,9 @@ echo $mapCode->htmlHeadCode();
     // Sanity check complete. Show what we know about this IdP.
     $idpoptions = $my_inst->getAttributes();
     ?>
-    <h1><?php echo sprintf(_("%s Overview"), $uiElements->nomenclatureInst); ?></h1>
+    <h1><?php echo sprintf(_("%s Overview"), $uiElements->nomenclatureHotspot); ?></h1>
     <div>
-        <h2><?php echo sprintf(_("%s general settings"), $uiElements->nomenclatureInst); ?></h2>
+        <h2><?php echo sprintf(_("%s general settings"), $uiElements->nomenclatureHotspot); ?></h2>
         <?php
         echo $uiElements->instLevelInfoBoxes($my_inst);
         ?>
@@ -86,32 +86,8 @@ echo $mapCode->htmlHeadCode();
     </div>
     <?php
     $readonly = CONFIG['DB']['INST']['readonly'];
-    if ($readonly === FALSE) {
-        ?>
-        <table>
-            <tr>
-                <td>
-                    
-                </td>
-                <td>
-                    <form action='edit_sp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                        <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'] === NULL ? sprintf(_("After deleting the %s, you can not recreate it yourself - you need a new invitation token from the %s administrator!"), $uiElements->nomenclatureInst, $uiElements->nomenclatureFed) . " " : "" ) . sprintf(_("Do you really want to delete your %s %s?"), $uiElements->nomenclatureInst, $my_inst->name); ?>')"><?php echo sprintf(_("Delete %s"), $uiElements->nomenclatureInst); ?></button>
-                    </form>
-
-                </td>
-                <td>
-                    <form action='edit_sp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                        <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_FLUSH_AND_RESTART; ?>' onclick="return confirm('<?php echo sprintf(_("This action will delete all properties of the %s and start over the configuration from scratch. Do you really want to reset all settings of the %s %s?"), $uiElements->nomenclatureInst, $uiElements->nomenclatureInst, $my_inst->name); ?>')"><?php echo sprintf(_("Reset all %s settings"), $uiElements->nomenclatureInst); ?></button>
-                    </form>
-
-                </td>
-            </tr>
-        </table>
-        <hr/>
-        <?php
-    }
     ?>
-    <h2><?php echo _("Available Support actions"); ?></h2>
+    <hr><h2><?php echo _("Available Support actions"); ?></h2>
     <table>
         <?php
         if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] !== NULL) {

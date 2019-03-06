@@ -94,7 +94,7 @@ echo $mapCode->htmlHeadCode();
         </table>
     </div>
     <?php
-    echo "<form enctype='multipart/form-data' action='edit_idp_result.php?inst_id=$my_inst->identifier" . ($wizardStyle ? "&wizard=true" : "") . "' method='post' accept-charset='UTF-8'>
+    echo "<form enctype='multipart/form-data' action='edit_participant_result.php?inst_id=$my_inst->identifier" . ($wizardStyle ? "&wizard=true" : "") . "' method='post' accept-charset='UTF-8'>
               <input type='hidden' name='MAX_FILE_SIZE' value='" . CONFIG['MAX_UPLOAD_SIZE'] . "'>";
 
     if ($wizardStyle) {

@@ -51,7 +51,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\Fo
     // flush all IdP attributes and send user to creation wizard
     $my_inst->flushAttributes();
     $loggerInstance->writeAudit($_SESSION['user'], "DEL", "IdP starting over" . $instId);
-    header("Location: edit_idp.php?inst_id=$instId&wizard=true");
+    header("Location: edit_participant.php?inst_id=$instId&wizard=true");
     exit;
 }
 

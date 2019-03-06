@@ -112,5 +112,5 @@ switch ($token) {
 if ($checkval == \core\UserManagement::TOKENSTATUS_OK_EXISTING) {
     header("Location: overview_user.php");
 } else {
-    header("Location: edit_idp.php?inst_id=$newidp->identifier&wizard=true");
+    header("Location: edit_participant.php?inst_id=$newidp->identifier&wizard=true");
 }
