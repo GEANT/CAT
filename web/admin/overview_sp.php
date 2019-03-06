@@ -128,7 +128,7 @@ echo $mapCode->htmlHeadCode();
         ?>
         <div style='display: table-row; margin-bottom: 20px;'>
             <div class='profilebox' style='display: table-cell;'>
-                <h2><?php echo core\DeploymentManaged::PRODUCTNAME; ?></h2>
+                <h2><?php echo core\DeploymentManaged::PRODUCTNAME . " (<span style='color:".( $deploymentObject->status == \core\AbstractDeployment::INACTIVE ? "red;'>"._("inactive") : "green;'>"._("active") )."</span>)"; ?></h2>
                 <table>
                     <tr>
                         <td><?php echo _("IP addresses of your RADIUS server: ") ?></td>

@@ -227,7 +227,7 @@ class IdP extends EntityWithDBProperties {
      */
     public function eligility() {
         $eligibilites = $this->databaseHandle->exec("SELECT type FROM institution WHERE institution_id = $this->identifier");
-        while ($iterator = mysqli_fetch_object($eligibilites)) {
+        while ($iterator = mysqli_fetch_object(/** @scrutinizer ignore-type */ $eligibilites)) {
             switch ($iterator->type) {
                 case "IdP":
                     return [ IdP::ELIGIBILITY_IDP ];

@@ -138,7 +138,7 @@ class DeploymentManaged extends AbstractDeployment {
         // TODO: for ease of prototyping, no particular order - add location-based selection later
         while ($iterator = mysqli_fetch_object(/** @scrutinizer ignore-type */ $servers)) {
             $clientCount = $this->databaseHandle->exec("SELECT count(port) AS tenants FROM deployment WHERE radius_instance = '$iterator->server_id'");
-            while ($iterator2 = mysqli_fetch_object($clientCount)) {
+            while ($iterator2 = mysqli_fetch_object(/** @scrutinizer ignore-type */ $clientCount)) {
                 $clients = $iterator2->tenants;
                 if ($clients < DeploymentManaged::MAX_CLIENTS_PER_SERVER) {
                     $ourserver[] = $iterator->server_id;
