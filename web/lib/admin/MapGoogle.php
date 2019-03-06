@@ -48,7 +48,8 @@ class MapGoogle extends AbstractMap {
      */
     public function htmlHeadCode() {
         $cat = new \core\CAT();
-        return "<script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?key=" . CONFIG['APPEARANCE']['google_maps_api_key'] . "'></script>
+        \core\common\Entity::intoThePotatoes();
+        $retval = "<script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?key=" . CONFIG['APPEARANCE']['google_maps_api_key'] . "'></script>
     <script type='text/javascript'>
         // some global variables;
         var center_lat=49.6114885608729;
@@ -323,6 +324,8 @@ class MapGoogle extends AbstractMap {
 
     });' .
                 "</script>";
+        \core\common\Entity::outOfThePotatoes();
+        return $retval;
     }
 
     /**
@@ -356,7 +359,12 @@ class MapGoogle extends AbstractMap {
      * @return string
      */
     public static function optionListDisplayCode($coords, $number) {
-        return "<button id='location_b_" . $number . "' class='location_button'>" . _("Click to see location") . " $number</button>";
+        // quiesce warnings about unused variable
+        sprintf("%s", $coords);
+        \core\common\Entity::intoThePotatoes();
+        $retval = "<button id='location_b_" . $number . "' class='location_button'>" . _("Click to see location") . " $number</button>";
+        \core\common\Entity::outOfThePotatoes();
+        return $retval;
     }
 
     /**
@@ -374,7 +382,10 @@ class MapGoogle extends AbstractMap {
      * @return string
      */
     private function findLocationHtml() {
-        return "<p>" . _("Address:") . " <input name='address' id='address' /><button type='button' onclick='getAddressLocation()'>" . _("Find address") . "</button> <button type='button' onclick='locateMe()'>" . _("Locate Me!") . "</button></p>";
+        \core\common\Entity::intoThePotatoes();
+        $retval = "<p>" . _("Address:") . " <input name='address' id='address' /><button type='button' onclick='getAddressLocation()'>" . _("Find address") . "</button> <button type='button' onclick='locateMe()'>" . _("Locate Me!") . "</button></p>";
+        \core\common\Entity::outOfThePotatoes();
+        return $retval;
     }
 
 }

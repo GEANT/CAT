@@ -31,7 +31,7 @@ require_once CONFIG['AUTHENTICATION']['ssp-path-to-autoloader'];
  * 
  * @author Stefan Winter <stefan.winter@restena.lu>
  */
-class Authentication {
+class Authentication extends \core\common\Entity {
 
     /**
      * finds out whether the user is already authenticated. Does not trigger an authentication if not.
@@ -53,6 +53,7 @@ class Authentication {
      * @throws Exception
      */
     public function authenticate() {
+        \core\common\Entity::intoThePotatoes();
         $loggerInstance = new \core\common\Logging();
         $authSimple = new \SimpleSAML\Auth\Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
         $authSimple->requireAuth();
@@ -102,6 +103,7 @@ class Authentication {
                 $_SESSION['name'] = $nameArray[0]['value'];
             }
         }
+        \core\common\Entity::outOfThePotatoes();
     }
 
     /**

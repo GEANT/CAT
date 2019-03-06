@@ -186,7 +186,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             $idp = new IdP($this->institution);
         } else {
             $idp = $idpObject;
-            $this->institution = (int) $idp->identifier;
+            $this->institution = $idp->identifier;
         }
 
         $this->instName = $idp->name;

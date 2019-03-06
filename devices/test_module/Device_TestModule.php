@@ -114,7 +114,7 @@ class Device_TestModule extends \core\DeviceConfig {
             $this->loggerInstance->debug(2, "copying of Module.howto to copied_test_file failed\n");
         }
         $this->dumpAttibutes('profile_attributes');
-        return $this->zipInstaller($this->attributes);
+        return $this->zipInstaller();
     }
 
     /**
@@ -123,9 +123,11 @@ class Device_TestModule extends \core\DeviceConfig {
      * @return string HTML text to be displayed in the information window
      */
     public function writeDeviceInfo() {
+        \core\common\Entity::intoThePotatoes();
         $ssidCount = count($this->attributes['internal:SSID']);
         $out = "<p>";
-        $out .= _("This installer is an example only. It produces a zip file containig the IdP certificates, info and logo files (if such have been defined by the IdP administrator) and a dump of all available attributes. The installer is called with $ssidCount SSIDs to configure.");
+        $out .= sprintf(_("This installer is an example only. It produces a zip file containig the IdP certificates, info and logo files (if such have been defined by the IdP administrator) and a dump of all available attributes. The installer is called with %d SSIDs to configure."), $ssidCount);
+        \core\common\Entity::outOfThePotatoes();
         return $out;
     }
 
@@ -135,11 +137,8 @@ class Device_TestModule extends \core\DeviceConfig {
      * @param array $attr device and profile attributes
      * @return string
      */
-    private function zipInstaller($attr) {
-        if (count($attr)==0) {
-            // never mind, just checking. You CAN use the $attr array to extract
-            // information about the IdP/Profile if there's a need
-        }
+    private function zipInstaller() {
+        // one can always access $this->attributes to check things
         $fileName = $this->installerBasename . '.zip';
         $output = system('zip -q ' . $fileName . ' *');
         if ($output === FALSE) {

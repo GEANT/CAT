@@ -33,7 +33,7 @@ require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
  * 
  * @author Stefan Winter <stefan.winter@restena.lu>
  */
-class OptionDisplay {
+class OptionDisplay extends \core\common\Entity {
 
     /**
      * stores all the options we are caring about
@@ -177,12 +177,13 @@ class OptionDisplay {
      * @return string
      */
     private function tooltip($rowid, $input, $isVisible) {
+        \core\common\Entity::intoThePotatoes();
         $descriptions = [];
         if (count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0) {
             $descriptions["media:SSID"] = sprintf(_("This attribute can be set if you want to configure an additional SSID besides the default SSIDs for %s. It is almost always a bad idea not to use the default SSIDs. The only exception is if you have premises with an overlap of the radio signal with another %s hotspot. Typical misconceptions about additional SSIDs include: I want to have a local SSID for my own users. It is much better to use the default SSID and separate user groups with VLANs. That approach has two advantages: 1) your users will configure %s properly because it is their everyday SSID; 2) if you use a custom name and advertise this one as extra secure, your users might at some point roam to another place which happens to have the same SSID name. They might then be misled to believe that they are connecting to an extra secure network while they are not."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         }
         $descriptions["media:force_proxy"] = sprintf(_("The format of this option is: IPv4|IPv6|hostname:port . Forcing your users through a content filter of your own is a significant invasion of user self-determination. It also has technical issues. Please throughly read the discussion at %s before specifying a proxy with this option."), "https://github.com/GEANT/CAT/issues/96");
-
+        \core\common\Entity::outOfThePotatoes();
         if (!isset($descriptions[$input])) {
             return "";
         }
@@ -269,6 +270,7 @@ FOO;
      * @return string
      */
     private function selectLanguage($rowid, $makeVisible) {
+        \core\common\Entity::intoThePotatoes();
         $retval = "<select style='display:" . ($makeVisible ? "block" : "none") . "' name='value[S$rowid-lang]' id='S" . $rowid . "-input-langselect'>
             <option value='' name='select_language' selected>" . _("select language") . "</option>
             <option value='C' name='all_languages'>" . _("default/other languages") . "</option>";
@@ -277,6 +279,7 @@ FOO;
             $retval .= "<option value='$langindex' name='$langindex'>$thislang</option>";
         }
         $retval .= "</select>";
+        \core\common\Entity::outOfThePotatoes();
         return $retval;
     }
 
@@ -332,6 +335,7 @@ FOO;
      * @throws Exception
      */
     private function prefillText(int $rowid, string $optionName, string $optionValue, $optionLang) {
+        \core\common\Entity::intoThePotatoes();
         $retval = "";
         $optioninfo = \core\Options::instance();
         $loggerInstance = new \core\common\Logging();
@@ -404,6 +408,7 @@ FOO;
                 throw new Exception("Internal Error: unknown attribute type $listtype!");
         }
         $retval .= "</td>";
+        \core\common\Entity::outOfThePotatoes();
         return $retval;
     }
 

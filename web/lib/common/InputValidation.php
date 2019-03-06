@@ -26,7 +26,7 @@ use \Exception;
 /**
  * performs validation of user inputs
  */
-class InputValidation {
+class InputValidation extends \core\common\Entity {
 
     /**
      * returns a simple HTML <p> element with basic explanations about what was
@@ -36,7 +36,10 @@ class InputValidation {
      * @return string
      */
     private function inputValidationError($customtext) {
-        return "<p>" . _("Input validation error: ") . $customtext . "</p>";
+        \core\common\Entity::intoThePotatoes();
+        $retval = "<p>" . _("Input validation error: ") . $customtext . "</p>";
+        \core\common\Entity::outOfThePotatoes();
+        return $retval;
     }
 
     /**
@@ -49,10 +52,10 @@ class InputValidation {
      */
     public function Federation($input, $owner = NULL) {
 
-        $cat = new \core\CAT();
+        $cat = new \core\CAT(); // initialises Entity static members
         $fedIdentifiers = array_keys($cat->knownFederations);
         if (!in_array(strtoupper($input), $fedIdentifiers)) {
-            throw new Exception($this->inputValidationError(sprintf("This %s does not exist!", $cat->nomenclature_fed)));
+            throw new Exception($this->inputValidationError(sprintf("This %s does not exist!", \core\common\Entity::$nomenclature_fed)));
         }
         // totally circular, but this hopefully *finally* make Scrutinizer happier
         $correctIndex = array_search(strtoupper($input), $fedIdentifiers);
@@ -68,7 +71,7 @@ class InputValidation {
                 return $temp;
             }
         }
-        throw new Exception($this->inputValidationError(sprintf("User is not %s administrator!", $cat->nomenclature_fed)));
+        throw new Exception($this->inputValidationError(sprintf("User is not %s administrator!", \core\common\Entity::$nomenclature_fed)));
     }
 
     /**
@@ -221,8 +224,10 @@ public function consortiumOI($input) {
  * @return boolean|string returns the realm, or FALSE if it was malformed
  */
 public function realm($input) {
+    \core\common\Entity::intoThePotatoes();
     if (strlen($input) == 0) {
         echo $this->inputValidationError(_("Realm is empty!"));
+        \core\common\Entity::outOfThePotatoes();
         return FALSE;
     }
 
@@ -240,12 +245,14 @@ public function realm($input) {
     foreach ($pregCheck as $search => $error) {
         if (preg_match($search, $check) == 1) {
             echo $this->inputValidationError($error);
+            \core\common\Entity::outOfThePotatoes();
             return FALSE;
         }
     }
 
     if (preg_match("/\./", $check) == 0) {
         echo $this->inputValidationError(_("Realm does not contain at least one . (dot)!"));
+        \core\common\Entity::outOfThePotatoes();
         return FALSE;
     }
 
@@ -253,6 +260,7 @@ public function realm($input) {
     // to mount a CSS attack by providing something that matches the realm constructs
     // below but has interesting stuff between, mangle the input so that these
     // characters do not do any harm.
+    \core\common\Entity::outOfThePotatoes();
     return htmlentities($check, ENT_QUOTES);
 }
 
@@ -261,7 +269,7 @@ public function realm($input) {
  * 
  * Only checks correct form, not if the user actually exists in the system.
  * 
- * @param mixed $input
+ * @param mixed $input the username
  * @return string echoes back the input string, or throws an Exception if bogus
  * @throws Exception
  */
@@ -331,7 +339,7 @@ public function coordJsonEncoded($input) {
             return $input;
         }
     }
-    throw new Exception($this->inputValidationError(_("Wrong coordinate encoding (2.0 uses JSON, not serialize)!")));
+    throw new Exception($this->inputValidationError("Wrong coordinate encoding (2.0 uses JSON, not serialize)!"));
 }
 
 /**

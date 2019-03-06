@@ -83,7 +83,12 @@ class Federation extends EntityWithDBProperties {
         $deviceArray = \devices\Devices::listDevices();
         // SELECT -> resource, no boolean
         while ($queryResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $profilesList)) {
-            $dataArray[$deviceArray[$queryResult->dev_id]['display']] = ["ADMIN" => $queryResult->dl_admin, "SILVERBULLET" => $queryResult->dl_sb, "USER" => $queryResult->dl_user];
+            if (isset($deviceArray[$queryResult->dev_id])) {
+                $displayName = $deviceArray[$queryResult->dev_id]['display'];
+            } else { // this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
+                $displayName = sprintf(_("(discontinued) %s"), $queryResult->dev_id);
+            }
+            $dataArray[$displayName] = ["ADMIN" => $queryResult->dl_admin, "SILVERBULLET" => $queryResult->dl_sb, "USER" => $queryResult->dl_user];
             $grossAdmin = $grossAdmin + $queryResult->dl_admin;
             $grossSilverbullet = $grossSilverbullet + $queryResult->dl_sb;
             $grossUser = $grossUser + $queryResult->dl_user;

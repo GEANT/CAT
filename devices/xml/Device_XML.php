@@ -59,12 +59,25 @@ abstract class Device_XML extends \core\DeviceConfig {
     public $allEaps = FALSE;
     public $VendorSpecific;
 
+    /**
+     * create HTML code explaining the installer
+     * 
+     * @return string
+     */
     public function writeDeviceInfo() {
+        \core\common\Entity::intoThePotatoes();
         $out = "<p>";
         $out .= sprintf(_("This is a generic configuration file in the IETF <a href='%s'>EAP Metadata -00</a> XML format."), "https://tools.ietf.org/html/draft-winter-opsawg-eap-metadata-00");
+        \core\common\Entity::outOfThePotatoes();
         return $out;
     }
 
+    /**
+     * create the actual XML file
+     * 
+     * @return string filename of the generated installer
+     *
+     */
     public function writeInstaller() {
         $attr = $this->attributes;
         $NAMESPACE = 'urn:RFC4282:realm';

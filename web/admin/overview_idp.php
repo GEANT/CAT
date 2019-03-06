@@ -34,6 +34,14 @@ $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
 
+// our own location, to give to diag URLs
+if (isset($_SERVER['HTTPS'])) {
+    $link = 'https://';
+} else {
+    $link = 'http://';
+}
+$link .= $_SERVER['SERVER_NAME'] . $_SERVER['SCRIPT_NAME'];
+$link = htmlspecialchars($link);
 
 const QRCODE_PIXELS_PER_SYMBOL = 12;
 
@@ -59,17 +67,22 @@ echo $mapCode->htmlHeadCode();
     // Sanity check complete. Show what we know about this IdP.
     $idpoptions = $my_inst->getAttributes();
     ?>
-    <h1><?php echo sprintf(_("%s Overview"), $uiElements->nomenclature_inst); ?></h1>
+    <h1><?php echo sprintf(_("%s Overview"), $uiElements->nomenclatureInst); ?></h1>
     <div>
-        <h2><?php echo sprintf(_("%s general settings"), $uiElements->nomenclature_inst); ?></h2>
+        <h2><?php echo sprintf(_("%s general settings"), $uiElements->nomenclatureInst); ?></h2>
         <?php
         echo $uiElements->instLevelInfoBoxes($my_inst);
         ?>
         <div class='infobox' style='text-align:center;'>
-            <h2><?php echo sprintf(_("%s download area QR code"), $uiElements->nomenclature_inst); ?></h2>
+            <h2><?php echo sprintf(_("%s download area QR code"), $uiElements->nomenclatureInst); ?></h2>
             <?php
             $idpLevelUrl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier;
-            $uri = "data:image/png;base64," . base64_encode($uiElements->pngInjectConsortiumLogo(QRcode::png($idpLevelUrl, FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL), QRCODE_PIXELS_PER_SYMBOL));
+            // never NULL, because $filename is FALSE; but make Scrutinizer happy
+            $rawQr = QRcode::png($idpLevelUrl, FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL);
+            if ($rawQr === NULL) {
+                throw new Exception("Something went seriously wrong during QR code generation!");
+            }
+            $uri = "data:image/png;base64," . base64_encode($uiElements->pngInjectConsortiumLogo($rawQr, QRCODE_PIXELS_PER_SYMBOL));
             $size = getimagesize($uri);
             echo "<img width='" . ($size[0] / 4) . "' height='" . ($size[1] / 4) . "' src='$uri' alt='QR-code'/>";
             ?>
@@ -95,18 +108,18 @@ echo $mapCode->htmlHeadCode();
             <tr>
                 <td>
                     <form action='edit_idp.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                        <button type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_EDIT; ?>'><?php echo sprintf(_("Edit general %s details"), $uiElements->nomenclature_inst); ?></button>
+                        <button type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_EDIT; ?>'><?php echo sprintf(_("Edit general %s details"), $uiElements->nomenclatureInst); ?></button>
                     </form>
                 </td>
                 <td>
                     <form action='edit_idp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                        <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'] === NULL ? sprintf(_("After deleting the %s, you can not recreate it yourself - you need a new invitation token from the %s administrator!"), $uiElements->nomenclature_inst, $uiElements->nomenclature_fed) . " " : "" ) . sprintf(_("Do you really want to delete your %s %s?"), $uiElements->nomenclature_inst, $my_inst->name); ?>')"><?php echo sprintf(_("Delete %s"), $uiElements->nomenclature_inst); ?></button>
+                        <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'] === NULL ? sprintf(_("After deleting the %s, you can not recreate it yourself - you need a new invitation token from the %s administrator!"), $uiElements->nomenclatureInst, $uiElements->nomenclatureFed) . " " : "" ) . sprintf(_("Do you really want to delete your %s %s?"), $uiElements->nomenclatureInst, $my_inst->name); ?>')"><?php echo sprintf(_("Delete %s"), $uiElements->nomenclatureInst); ?></button>
                     </form>
 
                 </td>
                 <td>
                     <form action='edit_idp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                        <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_FLUSH_AND_RESTART; ?>' onclick="return confirm('<?php echo sprintf(_("This action will delete all properties of the %s and start over the configuration from scratch. Do you really want to reset all settings of the %s %s?"), $uiElements->nomenclature_inst, $uiElements->nomenclature_inst, $my_inst->name); ?>')"><?php echo sprintf(_("Reset all %s settings"), $uiElements->nomenclature_inst); ?></button>
+                        <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_FLUSH_AND_RESTART; ?>' onclick="return confirm('<?php echo sprintf(_("This action will delete all properties of the %s and start over the configuration from scratch. Do you really want to reset all settings of the %s %s?"), $uiElements->nomenclatureInst, $uiElements->nomenclatureInst, $my_inst->name); ?>')"><?php echo sprintf(_("Reset all %s settings"), $uiElements->nomenclatureInst); ?></button>
                     </form>
 
                 </td>
@@ -124,6 +137,7 @@ echo $mapCode->htmlHeadCode();
                         <td>" . _("Check another realm's reachability") . "</td>
                         <td><form method='post' action='../diag/action_realmcheck.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'>
                               <input type='text' name='realm' id='realm'>
+                              <input type='hidden' name='comefrom' id='comefrom' value='$link'/>
                               <button type='submit'>" . _("Go!") . "</button>
                             </form>
                         </td>
@@ -131,7 +145,7 @@ echo $mapCode->htmlHeadCode();
         }
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam") { // SW: APPROVED
             echo "<tr>
-                        <td>" . sprintf(_("Check %s server status"), $uiElements->nomenclature_fed) . "</td>
+                        <td>" . sprintf(_("Check %s server status"), $uiElements->nomenclatureFed) . "</td>
                         <td>
                            <form action='https://monitor.eduroam.org/mon_direct.php' accept-charset='UTF-8'>
                               <button type='submit'>" . _("Go!") . "</button>
@@ -145,16 +159,16 @@ echo $mapCode->htmlHeadCode();
     <?php
     $profiles_for_this_idp = $my_inst->listProfiles();
     if (count($profiles_for_this_idp) == 0) { // no profiles yet.
-        echo "<h2>" . sprintf(_("There are not yet any profiles for your %s."), $uiElements->nomenclature_inst) . "</h2>";
+        echo "<h2>" . sprintf(_("There are not yet any profiles for your %s."), $uiElements->nomenclatureInst) . "</h2>";
     }
     if (count($profiles_for_this_idp) > 0) { // no profiles yet.
-        echo "<h2>" . sprintf(_("Profiles for this %s"), $uiElements->nomenclature_inst) . "</h2>";
+        echo "<h2>" . sprintf(_("Profiles for this %s"), $uiElements->nomenclatureInst) . "</h2>";
     }
 // if there is one profile and it is of type Silver Bullet, display a very
 // simple widget with just a "Manage" button
     $sbProfileExists = FALSE;
 
-    foreach ($profiles_for_this_idp as $profile_list) {
+    foreach ($profiles_for_this_idp as $profilecount => $profile_list) {
         ?>
         <div style='display: table-row; margin-bottom: 20px;'>
             <div class='profilebox' style='display: table-cell;'>
@@ -251,7 +265,7 @@ echo $mapCode->htmlHeadCode();
                     }
                     $buffer_eaptypediv .= "<br/>";
                 }
-                $buffer_headline = "<div style='padding-bottom:20px;'><h2 style='overflow:auto; display:inline; padding-bottom: 10px;'>".sprintf(_("Profile: %s"), $profile_name) . "</h2>";
+                $buffer_headline = "<div style='padding-bottom:20px;'><h2 style='overflow:auto; display:inline; padding-bottom: 10px;'>" . sprintf(_("Profile: %s"), $profile_name) . "</h2>";
 
                 $buffer_headline .= "<span style='float:right;'>";
                 $readiness = $profile_list->readinessLevel();
@@ -286,6 +300,7 @@ echo $mapCode->htmlHeadCode();
                         $diagUrl = CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] . "/diag/";
                     }
                     echo "<form action='" . $diagUrl . "action_realmcheck.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post' accept-charset='UTF-8'>
+                              <input type='hidden' name='comefrom' id='comefrom-$profilecount' value='$link'/>
                               <button type='submit' name='profile_action' value='check' " . ($has_realm ? "" : "disabled='disabled' title='" . _("The realm can only be checked if you configure the realm!") . "'") . ">
                                   " . _("Check realm reachability") . "
                               </button>
@@ -319,7 +334,11 @@ echo $mapCode->htmlHeadCode();
                     $displayurl = $idpLevelUrl . "&amp;profile=" . $profile_list->identifier;
                     $QRurl = $idpLevelUrl . "&profile=" . $profile_list->identifier;
                     echo "<a href='$displayurl' style='white-space: nowrap; text-align: center;'>";
-                    $uri = "data:image/png;base64," . base64_encode($uiElements->pngInjectConsortiumLogo(QRcode::png($QRurl, FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL), QRCODE_PIXELS_PER_SYMBOL));
+                    $rawQr = QRcode::png($QRurl, FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL);
+                    if ($rawQr === NULL) {
+                        throw new Exception("Something went seriously wrong during QR code generation!");
+                    }
+                    $uri = "data:image/png;base64," . base64_encode($uiElements->pngInjectConsortiumLogo($rawQr, QRCODE_PIXELS_PER_SYMBOL));
                     $size = getimagesize($uri);
                     echo "<img width='" . ($size[0] / 4) . "' height='" . ($size[1] / 4) . "' src='$uri' alt='QR-code'/>";
 

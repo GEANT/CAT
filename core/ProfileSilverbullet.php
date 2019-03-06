@@ -207,7 +207,7 @@ class ProfileSilverbullet extends AbstractProfile {
 
     /**
      * find out about the status of a given SB user; retrieves the info regarding all his tokens (and thus all his certificates)
-     * @param int $userId
+     * @param int $userId the userid
      * @return array of invitationObjects
      */
     public function userStatus($userId) {

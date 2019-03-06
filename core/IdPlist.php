@@ -22,14 +22,14 @@
 
 namespace core;
 
-class IdPlist {
+class IdPlist extends common\Entity {
     /**
      * Order active identity providers according to their distance and name
      * @param string $country         the country from which to list IdPs
      * @param array  $currentLocation current location
      * @return array $IdPs -  list of arrays ('id', 'name');
      */
-    public static function orderIdentityProviders($country, $currentLocation = NULL) {
+    public static function orderIdentityProviders($country, $currentLocation) {
         $idps = self::listAllIdentityProviders(1, $country);
         $here = self::setCurrentLocation($currentLocation);
         $idpTitle = [];
@@ -58,6 +58,7 @@ class IdPlist {
      *
      */
     public static function listAllIdentityProviders($activeOnly = 0, $country = "") {
+        common\Entity::intoThePotatoes();
         $handle = DBConnection::handle("INST");
         $handle->exec("SET SESSION group_concat_max_len=10000");
         $query = "SELECT distinct institution.inst_id AS inst_id, institution.country AS country,
@@ -118,6 +119,7 @@ class IdPlist {
             }
             $returnarray[] = $oneInstitutionResult;
         }
+        common\Entity::outOfThePotatoes();
         return $returnarray;
     }
 
@@ -136,7 +138,7 @@ class IdPlist {
                 $currentLocation = $userLocation['geo'];
             }
         }
-        return($currentLocation);
+        return $currentLocation;
     }
     
     /**

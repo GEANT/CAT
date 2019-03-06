@@ -40,7 +40,9 @@ INSERT INTO `profile_option_dict` VALUES
 ('fed:minted_ca_file','set of default CAs to add to new IdPs on signup','file',NULL),
 ('hiddenprofile:tou_accepted','were the terms of use accepted?','boolean',NULL),
 ('profile:customsuffix','The filename suffix to use for the generated installers','string','ML'),
-('fed:url', 'URL to the homepage of a federation', 'string', 'ML');
+('fed:url', 'URL to the homepage of a federation', 'string', 'ML'),
+('device-specific:geantlink','Use GEANTlink TTLS supplicant for W8', 'boolean',NULL),
+('device-specific:builtin_ttls','Use builtin TTLS supplicant for Windows 10', 'boolean',NULL);
 
 
 CREATE TABLE `federation` (

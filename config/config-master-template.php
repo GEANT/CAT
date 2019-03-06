@@ -61,7 +61,7 @@ const CONFIG = [
         'abuse-mail' => 'my-abuse-contact@your-cat-installation.example',
         'invitation-bcc-mail' => NULL,
         'defaultlocale' => 'en',
-        'MOTD' => "Release Candidate. All bugs to be shot on sight!",
+        'MOTD' => "If you can read this, then the administrator did not change the default MOTD in config-master.php",
         // # signs before the colour code
         'colour1' => '#FFFFFF',
         'colour2' => '#0A698E',

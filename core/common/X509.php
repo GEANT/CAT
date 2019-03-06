@@ -90,8 +90,8 @@ class X509 {
     /**
      * parses openssl text output (there are some properties which aren't
      * available with the built-in openssl_x509_parse function)
-     * @param string $myca the CA to inspect
-     * @param array  $out  by-reference: properties to add to the CA properties array
+     * @param resource $myca the CA to inspect
+     * @param array    $out  by-reference: properties to add to the CA properties array
      * @return void
      */
     private function opensslTextParse($myca, &$out) {
@@ -117,8 +117,8 @@ class X509 {
     /**
      * Is this a root CA, an intermediate CA, or an end-entity certificate?
      * 
-     * @param string $myca the CA to inspect
-     * @param array  $out  by-reference: properties to add to the CA properties array
+     * @param resource $myca the CA to inspect
+     * @param array    $out  by-reference: properties to add to the CA properties array
      * @return array
      */
     private function typeOfCertificate($myca, &$out) {
@@ -167,9 +167,6 @@ class X509 {
      * @return array|boolean
      */
     public function processCertificate($cadata) {
-        if ($cadata === FALSE) { // we are expecting a string anyway
-            return FALSE;
-        }
         $pemBegin = strpos($cadata, "-----BEGIN CERTIFICATE-----");
         if ($pemBegin !== FALSE) {
             $pemEnd = strpos($cadata, "-----END CERTIFICATE-----") + 25;

@@ -242,7 +242,7 @@ class AbstractTest extends \core\common\Entity {
      */
     public function __construct() {
         parent::__construct();
-
+        \core\common\Entity::intoThePotatoes();
         // the numbers are NOT constant - in the course of checks, we may find a "smoking gun" and elevate the probability
         // in the end, use the numbers of those elements which were not deterministically excluded and normalise to 1
         // to get a percentage to report on.
@@ -267,7 +267,6 @@ class AbstractTest extends \core\common\Entity {
         
         $this->additionalFindings = $_SESSION["EVIDENCE"] ?? [];
         
-        $oldlocale = $this->languageInstance->setTextDomain('diagnostics');
         $this->returnCodes = [];
         /**
          * Test was executed and the result was as expected.
@@ -546,7 +545,7 @@ class AbstractTest extends \core\common\Entity {
         $this->returnCodes[$code41]["message"] = _("The certificate public key algorithm is unknown to the system. Please submit the certificate as a sample to the developers.");
         $this->returnCodes[$code41]["severity"] = \core\common\Entity::L_REMARK;
 
-        $this->languageInstance->setTextDomain($oldlocale);
+        \core\common\Entity::outOfThePotatoes();
     }
 
     /**

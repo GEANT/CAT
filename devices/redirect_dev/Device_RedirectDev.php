@@ -39,8 +39,10 @@ class Device_RedirectDev extends \core\DeviceConfig {
      * @return string
      */
     public function writeDeviceInfo() {
+        \core\common\Entity::intoThePotatoes();
         $out = "<p>";
         $out .= _("This device is not yet supported by CAT, but your local administrator created a redirect to local installation instructions.");
+        \core\common\Entity::outOfThePotatoes();
         return $out;
     }
 

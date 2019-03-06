@@ -28,7 +28,7 @@ require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
  * 
  * @author Stefan Winter <stefan.winter@restena.lu>
  */
-abstract class AbstractMap {
+abstract class AbstractMap extends \core\common\Entity {
 
     protected $instName;
     protected $fedName;
@@ -41,6 +41,7 @@ abstract class AbstractMap {
      * @param boolean   $readonly whether the HTML code should yield an editable field
      */
     protected function __construct($inst, $readonly) {
+        parent::__construct();
         $this->instName = $inst->name;
         $this->fedName = $inst->federation;
         $this->readOnly = $readonly;
@@ -118,6 +119,7 @@ abstract class AbstractMap {
      * @return string
      */
     protected function htmlPreEdit($wizardMode, $additional) {
+        \core\common\Entity::intoThePotatoes();
         $retval = "<fieldset class='option_container'>
         <legend><strong>" . _("Location") . "</strong></legend>";
 
@@ -137,6 +139,7 @@ abstract class AbstractMap {
         if ($additional) {
             $retval .= _("You can enter an <strong>additional</strong> location here. You can see the already defined locations in the 'General Information' field.");
         }
+        \core\common\Entity::outOfThePotatoes();
         return $retval;
     }
 
@@ -147,7 +150,10 @@ abstract class AbstractMap {
      * @return string
      */
     protected function htmlPostEdit($allowDirectInput) {
-        return "<br/>" . _("Latitude:") . " <input style='width:80px' name='geo_lat' id='geo_lat' " .($allowDirectInput ? "": "readonly"). ">" . _("Longitude:") . " <input name='geo_long' id='geo_long' style='width:80px' " .($allowDirectInput ? "": "readonly"). "></fieldset>";
+        \core\common\Entity::intoThePotatoes();
+        $retval = "<br/>" . _("Latitude:") . " <input style='width:80px' name='geo_lat' id='geo_lat' " .($allowDirectInput ? "": "readonly"). ">" . _("Longitude:") . " <input name='geo_long' id='geo_long' style='width:80px' " .($allowDirectInput ? "": "readonly"). "></fieldset>";
+        \core\common\Entity::outOfThePotatoes();
+        return $retval;
     }
 
 }

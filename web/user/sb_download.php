@@ -27,7 +27,7 @@
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @package UserGUI
  */
-include(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
+require dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 $API = new \core\UserAPI();
 $loggerInstance = new \core\common\Logging();
 $validator = new \web\lib\common\InputValidation();

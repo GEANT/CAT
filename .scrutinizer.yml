@@ -376,8 +376,10 @@ build:
                     - cp /home/scrutinizer/build/devices/Devices-template.php /home/scrutinizer/build/devices/Devices.php
                     - cp /home/scrutinizer/build/signer/mobileconfig_sign-template /home/scrutinizer/build/signer/mobileconfig_sign
                     - sudo chown scrutinizer:scrutinizer /home/scrutinizer/.rnd
-                    - sudo apt -y install pylint python-dbus python-openssl python-distro-info python-pip
-                    - pip install distro
+                    - sudo apt -y remove python
+                    - sudo apt -y install python3.5 python3-pip
+                    - sudo python3.5 -m pip install --upgrade --force pip
+                    - sudo python3.5 -m pip install pylint distro
 
             tests:
                 override:
@@ -416,6 +418,7 @@ filter:
         - "web/external/*"
         - "web/apidoc/*"
         - "vendor/*"
+        - "tests/*"
     dependency_paths:
         - "core/PHPMailer/"
         - "core/phpqrcode.php"

@@ -74,6 +74,7 @@ class RFC6614Tests extends AbstractTest {
      */
     public function __construct($listOfIPs) {
         parent::__construct();
+        \core\common\Entity::intoThePotatoes();
         $this->TLS_certkeys = [
             'eduPKI' => _('eduPKI'),
             'NCU' => _('Nicolaus Copernicus University'),
@@ -91,6 +92,7 @@ class RFC6614Tests extends AbstractTest {
         $this->TLS_clients_checks_result = [];
         
         $this->candidateIPs = $listOfIPs;
+        \core\common\Entity::outOfThePotatoes();
     }
 
     /**
@@ -253,6 +255,7 @@ class RFC6614Tests extends AbstractTest {
      * @return int return code
      */
     private function opensslClientsResult($host, $opensslbabble, &$testresults, $type = '', $resultArrayKey = 0) {
+        \core\common\Entity::intoThePotatoes();
         $res = RADIUSTests::RETVAL_OK;
         $ret = $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['returncode'];
         $output = implode($opensslbabble);
@@ -277,6 +280,7 @@ class RFC6614Tests extends AbstractTest {
             }
             $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['resultcomment'] = $resComment;
         }
+        \core\common\Entity::outOfThePotatoes();
         return $res;
     }
 

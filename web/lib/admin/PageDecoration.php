@@ -21,7 +21,7 @@
 
 namespace web\lib\admin;
 
-class PageDecoration {
+class PageDecoration extends \core\common\Entity {
 
     private $validator;
     private $ui;
@@ -31,6 +31,7 @@ class PageDecoration {
      * construct the PageDecoration object
      */
     public function __construct() {
+        parent::__construct();
         $this->langObject = new \core\common\Language();
         $this->langObject->setTextDomain("web_admin");
         $this->validator = new \web\lib\common\InputValidation();
@@ -44,6 +45,7 @@ class PageDecoration {
      * @return string
      */
     private function sidebar($advancedControls) {
+        \core\common\Entity::intoThePotatoes();
         $retval = "<div class='sidebar'><p>";
 
         if ($advancedControls) {
@@ -56,16 +58,19 @@ class PageDecoration {
         $retval .= "<a href='" . \core\CAT::getRootUrlPath() . "/'>" . _("Start page") . "</a>
             </p>
         </div> <!-- sidebar -->";
+        \core\common\Entity::outOfThePotatoes();
         return $retval;
     }
 
     /**
      * constructs a <div> called 'header' for use on the top of the page
+     * 
      * @param string $cap1     caption to display in this div
      * @param string $language current language (this one gets pre-set in the lang selector drop-down
+     * @return string
      */
     private function headerDiv($cap1, $language) {
-
+        \core\common\Entity::intoThePotatoes();
         $place = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
         $retval = "<div class='header'>
@@ -95,6 +100,7 @@ class PageDecoration {
                 </div> <!-- consortium_logo -->
             </div><!--header_toprow-->
         </div> <!-- header -->";
+        \core\common\Entity::outOfThePotatoes();
         return $retval;
     }
 
@@ -124,8 +130,8 @@ class PageDecoration {
      * @return string
      */
     public function productheader($area) {
-        $langObject = new \core\common\Language();
-        $language = $langObject->getLang();
+        \core\common\Entity::intoThePotatoes();
+        $language = $this->languageInstance->getLang();
         // this <div is closing in footer, keep it in PHP for Netbeans syntax
         // highlighting to work
         $retval = "<div class='maincontent'>";
@@ -134,7 +140,7 @@ class PageDecoration {
         $advancedControls = TRUE;
         switch ($area) {
             case "ADMIN-IDP":
-                $cap2 = sprintf(_("Administrator Interface - %s"), $this->ui->nomenclature_inst);
+                $cap2 = sprintf(_("Administrator Interface - %s"), $this->ui->nomenclatureInst);
                 break;
             case "ADMIN-IDP-USERS":
                 $cap2 = sprintf(_("Administrator Interface - %s User Management"), \core\ProfileSilverbullet::PRODUCTNAME);
@@ -146,7 +152,7 @@ class PageDecoration {
                 $cap2 = _("Management of User Details");
                 break;
             case "FEDERATION":
-                $cap2 = sprintf(_("Administrator Interface - %s Management"), $this->ui->nomenclature_fed);
+                $cap2 = sprintf(_("Administrator Interface - %s Management"), $this->ui->nomenclatureFed);
                 break;
             case "USER":
                 $cap1 = sprintf(_("Welcome to %s"), CONFIG['APPEARANCE']['productname']);
@@ -180,6 +186,7 @@ class PageDecoration {
         }
         $retval .= $this->sidebar($advancedControls);
         $retval .= "</div><!--secondrow--><div id='thirdrow'>";
+        \core\common\Entity::outOfThePotatoes();
         return $retval;
     }
 
@@ -231,6 +238,7 @@ class PageDecoration {
      */
     public function footer() {
         $cat = new \core\CAT();
+        \core\common\Entity::intoThePotatoes();
         $retval = "</div><!-- thirdrow --></div><!-- trick -->
           </div><!-- pagecontent -->
         <div class='footer'>
@@ -256,6 +264,7 @@ class PageDecoration {
         </div><!-- maincontent -->
         </body>
         </html>";
+        \core\common\Entity::outOfThePotatoes();
         return $retval;
     }
 

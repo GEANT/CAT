@@ -19,14 +19,36 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
-require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
-$admin = filter_input(INPUT_GET, 'admin', FILTER_VALIDATE_INT);
-if ($admin == 1) {
-    $auth = new \web\lib\admin\Authentication();
-    $auth->authenticate();
+/**
+ * This file contains the installer for iOS devices and Apple 10.7 Lion
+ *
+ *
+ * @author Stefan Winter <stefan.winter@restena.lu>
+ * @package Developer
+ */
+/**
+ * 
+ */
+namespace devices\apple_mobileconfig;
+
+/**
+ * This is the main implementation class of the module
+ *
+ * The class should only define one public method: writeInstaller.
+ *
+ * All other methods and properties should be private. This example sets zipInstaller method to protected, so that it can be seen in the documentation.
+ *
+ * @package Developer
+ */
+class Device_mobileconfig_ios12plus extends MobileconfigSuperclass {
+
+    /**
+     * construct and preload the list of EAP methods supported by this device
+     * (overrides the standard EAP methods list because we do support generic 
+     * TLS in this one)
+     */
+    final public function __construct() {
+        parent::__construct();
+        $this->setSupportedEapMethods([\core\common\EAP::EAPTYPE_PEAP_MSCHAP2, \core\common\EAP::EAPTYPE_TTLS_PAP, \core\common\EAP::EAPTYPE_TTLS_MSCHAP2, \core\common\EAP::EAPTYPE_TLS, \core\common\EAP::EAPTYPE_SILVERBULLET]);
+    }
 }
-$Gui = new \web\lib\user\Gui();
-$skinObject = new \web\lib\user\Skinjob($_REQUEST['skin'] ?? $_SESSION['skin'] ?? $fedskin[0] ?? CONFIG['APPEARANCE']['skins'][0]);
-require "../skins/" . $skinObject->skin . "/diag/diag.php";
-
-

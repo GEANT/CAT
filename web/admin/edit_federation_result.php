@@ -36,11 +36,11 @@ $uiElements = new \web\lib\admin\UIElements();
 $auth->authenticate();
 
 /// first productname (eduroam CAT), then nomenclature for 'federation'
-echo $deco->pageheader(sprintf(_("%s: %s Customisation (submission completed)"), CONFIG['APPEARANCE']['productname'], $uiElements->nomenclature_fed), "FEDERATION");
+echo $deco->pageheader(sprintf(_("%s: %s Customisation (submission completed)"), CONFIG['APPEARANCE']['productname'], $uiElements->nomenclatureFed), "FEDERATION");
 $my_fed = $validator->Federation($_GET['fed_id'], $_SESSION['user']);
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_SAVE) { // here we go
     $fed_name = $my_fed->name;
-    echo "<h1>" . sprintf(_("Submitted attributes for %s '%s'"), $uiElements->nomenclature_fed, $fed_name) . "</h1>";
+    echo "<h1>" . sprintf(_("Submitted attributes for %s '%s'"), $uiElements->nomenclatureFed, $fed_name) . "</h1>";
     echo "<table>";
     echo $optionParser->processSubmittedFields($my_fed, $_POST, $_FILES);
     echo "</table>";

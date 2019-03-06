@@ -18,6 +18,7 @@
  */
 error_reporting(E_ALL | E_STRICT);
 $Gui->defaultPagePrelude();
+$Gui->languageInstance->setTextDomain("web_user");
 ?>
 <!-- JQuery -->
 <script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery.js"); ?>"></script>
@@ -32,8 +33,9 @@ $Gui->defaultPagePrelude();
     var sbPage = 1;
 <?php
 $profile_list_size = 1;
-include_once(dirname(__DIR__) . '/Divs.php');
+require_once dirname(__DIR__) . '/Divs.php';
 $divs = new Divs($Gui);
+
 $visibility = 'sb';
 $operatingSystem = $Gui->detectOS();
 $sbMessage = '';
@@ -44,7 +46,7 @@ $uiElements = new web\lib\admin\UIElements();
 if ($operatingSystem) {
     print "recognisedOS = '" . $operatingSystem['device'] . "';\n";
 }
-include(dirname(__DIR__) . '/user/js/cat_js.php');
+require dirname(__DIR__) . '/user/js/cat_js.php';
 ?>
     var lang = "<?php echo($Gui->langObject->getLang()) ?>";
 </script>
@@ -113,9 +115,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                                     break;
                                 }
 
-                                $oldDomain = $Gui->langObject->setTextDomain('devices');
                                 $dev = new \core\DeviceFactory($statusInfo['OS']['device']);
-                                $Gui->langObject->setTextDomain($oldDomain);
                                 $dev->device->calculatePreferredEapType([new \core\common\EAP(\core\common\EAP::EAPTYPE_SILVERBULLET)]);
                                 if ($dev->device->selectedEap == []) {
                                     echo "<p>" . sprintf(_("Unfortunately, the operating system your device uses (%s) is currently not supported for hosted end-user accounts. You can visit this page with a supported operating system later; the invitation link has not been used up yet."), $statusInfo['OS']['display']) . "</p>";
@@ -138,7 +138,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
 
                                 $importPassword = \core\common\Entity::randomString(4, "0123456789");
                                 $profile = new \core\ProfileSilverbullet($statusInfo['profile']->identifier, NULL);
-
+                                
                                 echo "<h2>" . sprintf(_("Import PIN: %s"), $importPassword) . "</h2>";
                                 $_SESSION['individualtoken'] = $cleanToken;
                                 $_SESSION['importpassword'] = $importPassword;
