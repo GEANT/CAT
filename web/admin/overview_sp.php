@@ -115,28 +115,65 @@ echo $mapCode->htmlHeadCode();
     </table>
     <hr/>
     <?php
-    $hotspotProfiles = []; // $my_inst->listHotspots();
+    $hotspotProfiles = $my_inst->listDeployments();
     if (count($hotspotProfiles) == 0) { // no profiles yet.
         echo "<h2>" . sprintf(_("There are not yet any known deployments for your %s."), $uiElements->nomenclatureHotspot) . "</h2>";
     }
     if (count($hotspotProfiles) > 0) { // no profiles yet.
         echo "<h2>" . sprintf(_("Deployments for this %s"), $uiElements->nomenclatureHotspot) . "</h2>";
+        // display an info box with the connection data
     }
 
+    foreach ($hotspotProfiles as $counter => $deploymentObject) {
+        ?>
+        <div style='display: table-row; margin-bottom: 20px;'>
+            <div class='profilebox' style='display: table-cell;'>
+                <h2><?php echo core\DeploymentManaged::PRODUCTNAME; ?></h2>
+                <table>
+                    <tr>
+                        <td><?php echo _("IP addresses of your RADIUS server: ") ?></td>
+                        <td><?php
+                            if ($deploymentObject->host4 !== NULL) {
+                                echo _("IPv4").": ".$deploymentObject->host4;
+                            }
+                            if ($deploymentObject->host4 !== NULL && $deploymentObject->host6 !== NULL) {
+                                echo "<br/>";
+                            }
+                            if ($deploymentObject->host6 !== NULL) {
+                                echo _("IPv6").": ".$deploymentObject->host6;
+                            }
+                            ?></td>
+                    </tr>
+                    <tr>
+                        <td><?php echo _("RADIUS port number: ") ?></td>
+                        <td><?php echo $deploymentObject->port; ?></td>
+                    </tr>
+                    <tr>
+                        <td><?php echo _("RADIUS shared secret: "); ?></td>
+                        <td><?php echo $deploymentObject->secret; ?></td>
+                    </tr>
+                </table>
+            </div>
+            <div style='width:20px;'></div> <!-- QR code space, reserved -->
+            <div style='display: table-cell; min-width:200px;'></div> <!-- statistics space, reserved -->
+        </div>
+
+        <?php
+    }
     if ($readonly === FALSE) {
         // the opportunity to add a new silverbullet profile is only shown if
         // a) there is no SB profile yet
         // b) federation wants this to happen
 
         $myfed = new \core\Federation($my_inst->federation);
-        if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0 && $sbProfileExists === FALSE) {
+        if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0 && $my_inst->deploymentCount() == 0) {
             // the button is grayed out if there's no support email address configured...
             $hasMail = count($my_inst->getAttributes("support:email"));
             ?>
             <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
                 <div>
                     <button type='submit' <?php echo ($hasMail > 0 ? "" : "disabled"); ?> name='profile_action' value='new'>
-                        <?php echo sprintf(_("Add %s deployment ..."), "Managed SP" );// \core\ProfileSilverbullet::PRODUCTNAME); ?>
+        <?php echo sprintf(_("Add %s deployment ..."), \core\DeploymentManaged::PRODUCTNAME); ?>
                     </button>
                 </div>
             </form>

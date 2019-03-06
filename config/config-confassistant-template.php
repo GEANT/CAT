@@ -121,6 +121,7 @@ const CONFIG_CONFASSISTANT = [
       # 'CA' => ["type" => "DFN", "SOAP_API_ENDPOINT" => "http://no.idea.where/"],
 
     ],
+    
     /**
      * Various paths.
      * makensis: absolute path to the makensis executable. If you just fill in "makensis" the one from the system $PATH will be taken.

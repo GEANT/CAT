@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -74,7 +75,7 @@ class IdP extends EntityWithDBProperties {
         parent::__construct(); // now databaseHandle and logging is available
         $this->entityOptionTable = "institution_option";
         $this->entityIdColumn = "institution_id";
-        
+
         $this->identifier = $instId;
 
         $idp = $this->databaseHandle->exec("SELECT inst_id, country,external_db_syncstate FROM institution WHERE inst_id = $this->identifier");
@@ -121,6 +122,25 @@ class IdP extends EntityWithDBProperties {
         }
 
         $this->loggerInstance->debug(4, "listProfiles: " . print_r($returnarray, true));
+        return $returnarray;
+    }
+    
+    /**
+     * This function retrieves all SP deployments for this organisation from the database
+     *
+     * @param bool $activeOnly if and set to non-zero will cause listing of only those institutions which have some valid profiles defined.
+     * @return array list of Profiles of this IdP
+     */
+    public function listDeployments(bool $activeOnly = FALSE) {
+        $query = "SELECT deployment_id FROM deployment WHERE inst_id = $this->identifier" . ($activeOnly ? " AND status = " . AbstractDeployment::ACTIVE : "");
+        $allDeployments = $this->databaseHandle->exec($query);
+        $returnarray = [];
+        // SELECT -> resource, not boolean
+        while ($deploymentQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allDeployments)) {
+            $returnarray[] = new DeploymentManaged($this,$deploymentQuery->deployment_id);
+        }
+
+        $this->loggerInstance->debug(4, "listDeployments: " . print_r($returnarray, true));
         return $returnarray;
     }
 
@@ -187,6 +207,18 @@ class IdP extends EntityWithDBProperties {
     }
 
     /**
+     * This function gets the deployment count for a given IdP.
+     *
+     * @return int deployment count
+     */
+    public function deploymentCount() {
+        $result = $this->databaseHandle->exec("SELECT deployment_id FROM deployment
+             WHERE inst_id = $this->identifier");
+        // SELECT -> resource, not boolean
+        return(mysqli_num_rows(/** @scrutinizer ignore-type */ $result));
+    }
+
+    /**
      * This function sets the timestamp of last modification of the child profiles to the current timestamp.
      * 
      * This is needed for installer caching: all installers which are on disk 
@@ -225,6 +257,28 @@ class IdP extends EntityWithDBProperties {
                     throw new Exception("This type of profile is unknown and can not be added.");
             }
         }
+        return NULL;
+    }
+
+    /**
+     * Adds a new hotspot deployment to this IdP.
+     * 
+     * Only creates the DB entry for the deployment. If you want to add attributes later, see Profile::addAttribute().
+     *
+     * @param string $type exactly "RADIUS-SP" or "MANAGED-SP", all other values throw an Exception
+     */
+    public function newDeployment(string $type) {
+            switch ($type) {
+                case AbstractDeployment::DEPLOYMENTTYPE_CLASSIC:
+                    // classic deployment exist in the eduroam DB. We don't do anything here.
+                    throw new Exception("This type of deployment is handled externally and requesting it here makes no sense.");
+                case AbstractDeployment::DEPLOYMENTTYPE_MANAGED:
+                    $this->databaseHandle->exec("INSERT INTO deployment (inst_id) VALUES($this->identifier)");
+                    $identifier = $this->databaseHandle->lastID();
+                    return new DeploymentManaged($this, $identifier);
+                default:
+                    throw new Exception("This type of deployment is unknown and can not be added.");
+            }
         return NULL;
     }
 

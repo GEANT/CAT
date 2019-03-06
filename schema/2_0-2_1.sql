@@ -24,3 +24,38 @@
  */
 
 ALTER TABLE `institution` ADD COLUMN `type` enum('IdP','SP','IdPSP') NOT NULL DEFAULT 'IdPSP';
+
+CREATE TABLE `deployment` (
+  `deployment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `inst_id` int(11) NOT NULL DEFAULT '0',
+  `status` tinyint(2) NOT NULL DEFAULT '0',
+  `port` int(11) NOT NULL DEFAULT 1812,
+  `secret` varchar(16) DEFAULT NULL,
+  `radius_instance` varchar(32) DEFAULT NULL,
+  `last_change` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`deployment_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `deployment_option` (
+  `deployment_id` int(11) NOT NULL DEFAULT '0',
+  `option_name` varchar(32) DEFAULT NULL,
+  `option_lang` varchar(8) DEFAULT NULL,
+  `option_value` longblob,
+  `row` int(11) NOT NULL AUTO_INCREMENT,
+  KEY `option_name` (`option_name`),
+  KEY `rowindex` (`row`),
+  CONSTRAINT `deployment_option_ibfk_1` FOREIGN KEY (`option_name`) REFERENCES `profile_option_dict` (`name`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `managed_sp_servers` (
+  `server_id` varchar(64) NOT NULL,
+  `mgmt_hostname` varchar(64) NOT NULL,
+  `radius_ip4` varchar(64) DEFAULT NULL,
+  `radius_ip6` varchar(64) DEFAULT NULL,
+  `location_lon` double NOT NULL,
+  `location_lat` double NOT NULL,
+  PRIMARY KEY (`server_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO profile_option_dict (name, description,type,flag) VALUES ('managedsp:vlan','VLAN tag to add if Managed IdP user logs into hotspot of organisation','integer',NULL);
+
