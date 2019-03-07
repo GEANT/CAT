@@ -127,7 +127,7 @@ const CONFIG = [
       */
       
     'GEOIP' => [
-        'version' => 0,
+        'version' => 2,
         'geoip2-path-to-autoloader' => '/usr/share/GeoIP2/vendor/autoload.php',
         'geoip2-path-to-db' => '/usr/share/GeoIP2/DB/GeoLite2-City.mmdb',
     ],

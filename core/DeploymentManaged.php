@@ -138,38 +138,47 @@ class DeploymentManaged extends AbstractDeployment {
      * @throws Exception
      */
     private function initialise() {
-        // find a server near us (list of all servers, ordered by distance)
+        // find out where the admin is located approximately
+        $ourLocation = ['lon' => 0, 'lat' => 0];
+        $geoip = DeviceLocation::locateDevice();
+        if ($geoip['status'] == 'ok') {
+            $ourLocation = ['lon' => $geoip['geo']['lon'], 'lat' => $geoip['geo']['lat'] ];
+        }
+        // find a server near him (list of all servers with capacity, ordered by distance)
         $servers = $this->databaseHandle->exec("SELECT server_id, location_lon, location_lat FROM managed_sp_servers");
-        $ourserver = [];
-        // TODO: for ease of prototyping, no particular order - add location-based selection later
+        $serverCandidates = [];
         while ($iterator = mysqli_fetch_object(/** @scrutinizer ignore-type */ $servers)) {
             $clientCount = $this->databaseHandle->exec("SELECT count(port) AS tenants FROM deployment WHERE radius_instance = '$iterator->server_id'");
             while ($iterator2 = mysqli_fetch_object(/** @scrutinizer ignore-type */ $clientCount)) {
                 $clients = $iterator2->tenants;
                 if ($clients < DeploymentManaged::MAX_CLIENTS_PER_SERVER) {
-                    $ourserver[] = $iterator->server_id;
+                    $serverCandidates[IdPlist::geoDistance($ourLocation, ['lat' => $iterator->location_lat , 'lon' => $iterator->location_lon ] )] = $iterator->server_id;
                 }
                 if ($clients > DeploymentManaged::MAX_CLIENTS_PER_SERVER * 0.9) {
                     $this->loggerInstance->debug(1, "A RADIUS server for Managed SP (" . $iterator->server_id . ") is serving at more than 90% capacity!");
                 }
             }
         }
-        if (count($ourserver) == 0) {
+        if (count($serverCandidates) == 0) {
             throw new Exception("No available server found for new SP!");
         }
-        // now, find an unused port in our preferred server
+        // put the nearest server on top of the list
+        ksort($serverCandidates);
+        $this->loggerInstance->debug(1, $serverCandidates);
+        $ourserver = array_shift($serverCandidates);
+        // now, find an unused port in the preferred server
         $foundFreePort = 0;
         while ($foundFreePort == 0) {
             $portCandidate = random_int(1025, 65535);
-            $check = $this->databaseHandle->exec("SELECT port FROM deployment WHERE radius_instance = '" . $ourserver[0] . "' AND port = $portCandidate");
+            $check = $this->databaseHandle->exec("SELECT port FROM deployment WHERE radius_instance = '" . $ourserver . "' AND port = $portCandidate");
             if (mysqli_num_rows(/** @scrutinizer ignore-type */ $check) == 0) {
                 $foundFreePort = $portCandidate;
             }
         };
         // and make up a shared secret that is halfways readable
         $futureSecret = $this->randomString(16, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
-        $this->databaseHandle->exec("UPDATE deployment SET radius_instance = '".$ourserver[0]."', port = $foundFreePort, secret = '$futureSecret' WHERE deployment_id = $this->identifier");
-        return ["port" => $foundFreePort, "secret" => $futureSecret, "radius_instance" => $ourserver[0]];
+        $this->databaseHandle->exec("UPDATE deployment SET radius_instance = '".$ourserver."', port = $foundFreePort, secret = '$futureSecret' WHERE deployment_id = $this->identifier");
+        return ["port" => $foundFreePort, "secret" => $futureSecret, "radius_instance" => $ourserver];
     }
 
     /**

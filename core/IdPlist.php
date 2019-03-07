@@ -178,7 +178,7 @@ class IdPlist extends common\Entity {
      * @param array $profile1 second point as an 'lat', 'lon' array 
      * @return float distance in km
      */
-    private static function geoDistance($point1, $profile1) {
+    public static function geoDistance($point1, $profile1) {
 
         $distIntermediate = sin(deg2rad($point1['lat'])) * sin(deg2rad($profile1['lat'])) +
                 cos(deg2rad($point1['lat'])) * cos(deg2rad($profile1['lat'])) * cos(deg2rad($point1['lon'] - $profile1['lon']));

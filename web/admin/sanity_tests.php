@@ -36,6 +36,7 @@ $Tests = [
     'Databases',
     'DeviceCache',
     'Mailer',
+    'Geoip',
 ];
 
 if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" || CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL" ) {

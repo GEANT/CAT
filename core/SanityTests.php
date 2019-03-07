@@ -406,11 +406,11 @@ class SanityTests extends CAT {
                 try {
                     $record = $reader->city($host_4);
                 } catch (Exception $e) {
-                    $this->storeTestResult(\core\common\Entity::L_ERROR, "PHP extension <strong>GeoIP2</strong> found but not working properly, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
+                    $this->storeTestResult(\core\common\Entity::L_ERROR, "PHP extension <strong>GeoIP2</strong> found but not working properly, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it to update the GeoIP database regularly.");
                     return;
                 }
                 if ($record->city->name != 'Utrecht') {
-                    $this->storeTestResult(\core\common\Entity::L_ERROR, "PHP extension <strong>GeoIP2</strong> found but not working properly, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
+                    $this->storeTestResult(\core\common\Entity::L_ERROR, "PHP extension <strong>GeoIP2</strong> found but not working properly, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it to update the GeoIP database regularly.");
                     return;
                 }
                 try {
