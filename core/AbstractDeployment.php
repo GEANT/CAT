@@ -125,7 +125,7 @@ abstract class AbstractDeployment extends EntityWithDBProperties {
         $this->frontendHandle = DBConnection::handle("FRONTEND");
         $idp = $idpObject;
         $this->institution = $idp->identifier;
-        if ($deploymentIdRaw !== NULL && is_numeric($deploymentIdRaw)) {
+        if ($deploymentIdRaw !== NULL && is_int($deploymentIdRaw)) {
             $this->identifier = $deploymentIdRaw;
         }
         $this->instName = $idp->name;
