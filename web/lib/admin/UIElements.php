@@ -138,6 +138,8 @@ class UIElements extends \core\common\Entity {
             $ssidText => "media:SSID",
             $ssidLegacyText => "media:SSID_with_legacy",
             $passpointOiText => "media:consortium_OI",
+            _("VLAN for own users") => "managedsp:vlan",
+            _("Realm for VLAN tagging") => "managedsp:realmforvlan",
         ];
 
         $find = array_keys($displayNames, $input, TRUE);

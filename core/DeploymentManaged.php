@@ -97,6 +97,8 @@ class DeploymentManaged extends AbstractDeployment {
      */
     public function __construct($idpObject, $deploymentIdRaw) {
         parent::__construct($idpObject, $deploymentIdRaw); // we now have access to our INST database handle and logging
+        $this->entityOptionTable = "deployment_option";
+        $this->entityIdColumn = "deployment_id";
         $this->type = AbstractDeployment::DEPLOYMENTTYPE_MANAGED;
         if (!is_numeric($deploymentIdRaw)) {
             throw new Exception("Managed SP instances have to have a numeric identifier");
@@ -123,6 +125,10 @@ class DeploymentManaged extends AbstractDeployment {
             $this->host4 = $iterator2->radius_ip4;
             $this->host6 = $iterator2->radius_ip6;
         }
+        $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row 
+                                            FROM $this->entityOptionTable
+                                            WHERE $this->entityIdColumn = ?  
+                                            ORDER BY option_name", "Profile");
     }
 
     /**

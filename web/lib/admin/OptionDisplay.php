@@ -119,7 +119,7 @@ class OptionDisplay extends \core\common\Entity {
         if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
             $blackListOnPrefill .= "|fed:silverbullet";
         }
-        if (is_array($prepopulate) && ( count($prepopulate) > 1 || $class == "device-specific" || $class == "eap-specific")) { // editing... fill with values
+        if (is_array($prepopulate) && ( count($prepopulate) > 0 || $class == "device-specific" || $class == "eap-specific" )) { // editing... fill with values
             foreach ($prepopulate as $option) {
                 if (preg_match("/$class:/", $option['name']) && !preg_match("/($blackListOnPrefill)/", $option['name'])) {
                     $optiontypearray = $optioninfo->optionType($option['name']);
@@ -183,6 +183,7 @@ class OptionDisplay extends \core\common\Entity {
             $descriptions["media:SSID"] = sprintf(_("This attribute can be set if you want to configure an additional SSID besides the default SSIDs for %s. It is almost always a bad idea not to use the default SSIDs. The only exception is if you have premises with an overlap of the radio signal with another %s hotspot. Typical misconceptions about additional SSIDs include: I want to have a local SSID for my own users. It is much better to use the default SSID and separate user groups with VLANs. That approach has two advantages: 1) your users will configure %s properly because it is their everyday SSID; 2) if you use a custom name and advertise this one as extra secure, your users might at some point roam to another place which happens to have the same SSID name. They might then be misled to believe that they are connecting to an extra secure network while they are not."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         }
         $descriptions["media:force_proxy"] = sprintf(_("The format of this option is: IPv4|IPv6|hostname:port . Forcing your users through a content filter of your own is a significant invasion of user self-determination. It also has technical issues. Please throughly read the discussion at %s before specifying a proxy with this option."), "https://github.com/GEANT/CAT/issues/96");
+        $descriptions["managedsp:realmforvlan"] = sprintf(_("If you are also using %s, then your own realm is automatically tagged with the VLAN you choose, there is no need to add it here manually."), \core\ProfileSilverbullet::PRODUCTNAME);
         \core\common\Entity::outOfThePotatoes();
         if (!isset($descriptions[$input])) {
             return "";

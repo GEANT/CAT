@@ -283,8 +283,9 @@ class OptionParser extends \core\common\Entity {
                     case 'core\\IdP':
                     case 'core\\User':
                     case 'core\\Federation':
+                    case 'core\\DeploymentManaged':
                         $object->addAttribute($name, $optionPayload['lang'], $optionPayload['content']);
-                        break;
+                        break;    
                     default:
                         throw new Exception("This type of object can't have options that are parsed by this file!");
                 }

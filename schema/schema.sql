@@ -241,7 +241,8 @@ INSERT INTO `profile_option_dict` VALUES
 ('fed:silverbullet-noterm','to tell us we should not terminate EAP for this federation silverbullet','boolean',NULL),
 ('fed:silverbullet-maxusers','maximum number of users per silverbullet profile','integer',NULL),
 ('fed:minted_ca_file','set of default CAs to add to new IdPs on signup','file',NULL),
-('managedsp:vlan','VLAN tag to add if Managed IdP user logs into hotspot of organisation','integer',NULL);
+('managedsp:vlan','VLAN tag to add if Managed IdP user logs into hotspot of organisation','integer',NULL),
+('managedsp:realmforvlan','a realm which should get this VLAN tag, in addition to the Managed IdP ones (those are handled ex officio','string',NULL);
 
 
 CREATE TABLE `silverbullet_user` (

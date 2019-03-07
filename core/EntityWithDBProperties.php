@@ -118,6 +118,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
             case "core\ProfileRADIUS":
             case "core\ProfileSilverbullet":
             case "core\IdP":
+            case "core\DeploymentManaged":
                 return $this->identifier;
             case "core\Federation":
                 return $this->tld;
