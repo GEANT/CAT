@@ -35,8 +35,8 @@ cd $dir
 # first test for the GeoIP version set in the config.php
 a=`php << EOF
 <?php
-require "../config/config.php";
-print(Config::\\\$GEOIP["version"]);
+require "../config/config-master.php";
+print(CONFIG["GEOIP"]["version"]);
 ?>
 EOF`
 
@@ -56,8 +56,8 @@ if [ $a -eq 2 ] ; then
 
 db=`php << EOFF
 <?php
-require "../config/config.php";
-print(Config::\\\$GEOIP["geoip2-path-to-db"]);
+require "../config/config-master.php";
+print(CONFIG["GEOIP"]["geoip2-path-to-db"]);
 ?>
 EOFF`
    cd /tmp/GeoIP
