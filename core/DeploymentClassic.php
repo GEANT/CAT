@@ -104,6 +104,8 @@ class DeploymentClassic extends AbstractDeployment {
 
     /**
      * activates a deployment, but that is not how classic works
+     * 
+     * @return void
      */
     public function activate() {
         // nothing to be done, this is managed externally
@@ -111,6 +113,8 @@ class DeploymentClassic extends AbstractDeployment {
     
     /**
      * deactivates a deployment, but that is not how classic works
+     * 
+     * @return void
      */
     public function deactivate() {
         // nothing to be done, this is managed externally
