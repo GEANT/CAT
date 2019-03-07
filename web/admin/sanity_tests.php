@@ -93,7 +93,7 @@ if (!in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
     }
 }
 $test = new \core\SanityTests();
-$test->run_tests($Tests);
+$test->runTests($Tests);
 $format = empty($_REQUEST['format']) ? 'include' : $_REQUEST['format'];
 switch ($format) {
     case 'include':

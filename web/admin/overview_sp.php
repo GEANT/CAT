@@ -192,6 +192,7 @@ echo $mapCode->htmlHeadCode();
         if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0 && $my_inst->deploymentCount() == 0) {
             // the button is grayed out if there's no support email address configured...
             $hasMail = count($my_inst->getAttributes("support:email"));
+            print_r($my_inst->getAttributes());
             ?>
             <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
                 <div>
