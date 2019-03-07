@@ -116,7 +116,7 @@ class SanityTests extends CAT {
     public function test($test) {
         $this->out[$test] = [];
         $this->name = $test;
-        $m_name = $test . '_test';
+        $m_name = 'test' . $test;
         $this->test_result[$test] = 0;
         if (!method_exists($this, $m_name)) {
             $this->testReturn(\core\common\Entity::L_ERROR, "Configuration error, no test configured for <strong>$test</strong>.");
@@ -221,7 +221,7 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function php_test() {
+    private function testPhp() {
         if (version_compare(phpversion(), $this->php_needversion, '>=')) {
             $this->testReturn(\core\common\Entity::L_OK, "<strong>PHP</strong> is sufficiently recent. You are running " . phpversion() . ".");
         } else {
@@ -234,7 +234,7 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function cat_base_url_test() {
+    private function testCatBaseUrl() {
         $rootUrl = substr(CONFIG['PATHS']['cat_base_url'], -1) === '/' ? substr(CONFIG['PATHS']['cat_base_url'], 0, -1) : CONFIG['PATHS']['cat_base_url'];
         preg_match('/(^.*)\/admin\/112365365321.php/', $_SERVER['SCRIPT_NAME'], $m);
         if ($rootUrl === $m[1]) {
@@ -250,7 +250,7 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function ssp_test() {
+    private function testSsp() {
         if (!is_file(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader'])) {
             $this->testReturn(\core\common\Entity::L_ERROR, "<strong>simpleSAMLphp</strong> not found!");
         } else {
@@ -270,7 +270,7 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function security_test() {
+    private function testSecurity() {
         if (in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
             $this->testReturn(\core\common\Entity::L_WARN, "You do not care about security. This page should be made accessible to the CAT admin only! See config-master.php: 'SUPERADMINS'!");
         }
@@ -281,7 +281,7 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function zip_test() {
+    private function testZip() {
         if (exec("which zip") != "") {
             $this->testReturn(\core\common\Entity::L_OK, "<strong>zip</strong> binary found.");
         } else {
@@ -294,7 +294,7 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function eapol_test_test() {
+    private function testEapoltest() {
         exec(CONFIG_DIAGNOSTICS['PATHS']['eapol_test'], $out, $retval);
         if ($retval == 255) {
             $o = preg_grep('/-o<server cert/', $out);
@@ -313,7 +313,7 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function logdir_test() {
+    private function testLogdir() {
         if (fopen(CONFIG['PATHS']['logdir'] . "/debug.log", "a") == FALSE) {
             $this->testReturn(\core\common\Entity::L_WARN, "Log files in <strong>" . CONFIG['PATHS']['logdir'] . "</strong> are not writable!");
         } else {
@@ -326,7 +326,7 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function phpModules_test() {
+    private function testPhpModules() {
         if (function_exists('idn_to_ascii')) {
             $this->testReturn(\core\common\Entity::L_OK, "PHP can handle internationalisation.");
         } else {
@@ -369,7 +369,7 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function geoip_test() {
+    private function testGeoip() {
         $host_4 = '145.0.2.50';
         $host_6 = '2001:610:188:444::50';
         switch (CONFIG['GEOIP']['version']) {
@@ -436,7 +436,7 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function openssl_test() {
+    private function testOpenssl() {
         $A = $this->getExecPath('openssl');
         if ($A['exec'] != "") {
             $t = exec($A['exec'] . ' version');
@@ -455,7 +455,7 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function makensis_test() {
+    private function testMakensis() {
         if (!is_numeric(CONFIG_CONFASSISTANT['NSIS_VERSION'])) {
             $this->testReturn(\core\common\Entity::L_ERROR, "NSIS_VERSION needs to be numeric!");
             return;
@@ -491,7 +491,7 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function NSISmodules_test() {
+    private function testNSISmodules() {
         $tmp_dir = \core\common\Entity::createTemporaryDirectory('installer', 0)['dir'];
         if (!chdir($tmp_dir)) {
             $this->loggerInstance->debug(2, "Cannot chdir to $tmp_dir\n");
@@ -526,7 +526,7 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function directories_test() {
+    private function testDirectories() {
         $Dir1 = \core\common\Entity::createTemporaryDirectory('installer', 0);
         $dir1 = $Dir1['dir'];
         $base1 = $Dir1['base'];
@@ -561,7 +561,7 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function locales_test() {
+    private function testLocales() {
         $locales = shell_exec("locale -a");
         $allthere = "";
         foreach (CONFIG['LANGUAGES'] as $onelanguage) {
@@ -628,7 +628,7 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function defaults_test() {
+    private function testDefaults() {
         $defaultvalues = "";
         $missingvalues = "";
         // all the checks for equality with a shipped default value
@@ -667,7 +667,7 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function databases_test() {
+    private function testDatabases() {
         $databaseName1 = 'INST';
         try {
             $db1 = DBConnection::handle($databaseName1);
@@ -724,7 +724,7 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function device_cache_test() {
+    private function testDeviceCache() {
         if ((!empty(\devices\Devices::$Options['no_cache'])) && \devices\Devices::$Options['no_cache']) {
             $global_no_cache = 1;
         } else {
@@ -767,7 +767,7 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function mailer_test() {
+    private function testMailer() {
         if (empty(CONFIG['APPEARANCE']['abuse-mail']) || CONFIG['APPEARANCE']['abuse-mail'] == "my-abuse-contact@your-cat-installation.example") {
             $this->testReturn(\core\common\Entity::L_ERROR, "Your abuse-mail has not been set, cannot continue with mailer tests.");
             return;
@@ -802,7 +802,7 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function UDPhosts_test() {
+    private function testUDPhosts() {
 //        if(empty)
     }
 

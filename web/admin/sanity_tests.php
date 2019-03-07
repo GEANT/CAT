@@ -22,28 +22,29 @@
 require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 
 $Tests = [
-    'cat_base_url',
-    'ssp',
-    'security',
-    'php',
-    'phpModules',
-    'openssl',
-    'zip',
-    'directories',
-    'locales',
-    'defaults',
-    'databases',
-    'device_cache',
-    'mailer',
+    'CatBaseUrl',
+    'Ssp',
+    'Security',
+    'Php',
+    'PhpModules',
+    'Openssl',
+    'Zip',
+    'Directories',
+    'Logdir',
+    'Locales',
+    'Defaults',
+    'Databases',
+    'DeviceCache',
+    'Mailer',
 ];
 
 if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" || CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL" ) {
-    $Tests[] = 'makensis';
-    $Tests[] = 'makensis=>NSISmodules';
+    $Tests[] = 'Makensis';
+    $Tests[] = 'Makensis=>NSISmodules';
 }
 
 if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == "LOCAL") {
-    $Tests[] = 'eapol_test';
+    $Tests[] = 'Eapoltest';
 }
 
 ini_set('display_errors', '0');
