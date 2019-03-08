@@ -185,7 +185,7 @@ abstract class Device_XML extends \core\DeviceConfig {
      * consists of the best-language-match inst name, and if the inst has more 
      * than one profile also the best-language-match profile name
      * 
-     * @return \devices\xml\DisplayName
+     * @return devices\xml\DisplayName[]
      */
     private function getDisplayName() {
         $attr = $this->attributes;
@@ -245,7 +245,7 @@ abstract class Device_XML extends \core\DeviceConfig {
         $providerinfo = new ProviderInfo();
         $providerinfo->setProperty('DisplayName', $this->getDisplayName());
         $providerinfo->setProperty('Description', $this->getSimpleMLAttribute('profile:description'));
-        $providerinfo->setProperty('ProviderLocation', $this->getProvideLocation());
+        $providerinfo->setProperty('ProviderLocation', $this->getProviderLocation());
         $providerinfo->setProperty('ProviderLogo', $this->getProviderLogo());
         $providerinfo->setProperty('TermsOfUse', $this->getSimpleMLAttribute('support:info_file'));
         $providerinfo->setProperty('Helpdesk', $this->getHelpdesk());
@@ -257,7 +257,7 @@ abstract class Device_XML extends \core\DeviceConfig {
      * 
      * @return \devices\xml\ProviderLocation
      */
-    private function getProvideLocation() {
+    private function getProviderLocation() {
         $attr = $this->attributes;
         if (isset($attr['general:geo_coordinates'])) {
             $attrCoordinates = $attr['general:geo_coordinates'];

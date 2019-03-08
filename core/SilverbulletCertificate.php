@@ -504,8 +504,8 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * a function that converts integers beyond PHP_INT_MAX to strings for
      * sending in XML messages
      * 
-     * @param arry $x the integer in array notation
-     * @return the integer as string in an XML fragment
+     * @param array $x the integer in array notation
+     * @return string the integer as string in an XML fragment
      */
     public static function soap_to_xml_integer($x) {
         return '<' . $x[0] . '>'
@@ -702,14 +702,14 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     // rather than just using the string. Grr.
                     $tempdir = \core\common\Entity::createTemporaryDirectory("test");
                     file_put_contents($tempdir['dir'] . "/content.txt", $soapCleartext);
-                    // retrieve our RA cert from filesystem
-                    $raCertFile = file_get_contents(ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem");
+                    // retrieve our RA cert from filesystem                    
                     // the RA certificates are not needed right now because we
                     // have resorted to S/MIME signatures with openssl command-line
                     // rather than the built-in functions. But that may change in
                     // the future, so let's park these two lines for future use.
+                    // $raCertFile = file_get_contents(ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem");
                     // $raCert = openssl_x509_read($raCertFile);
-                    //$raKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey");
+                    // $raKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey");
                    
                     // sign the data, using cmdline because openssl_pkcs7_sign produces strange results
                     // -binary didn't help, nor switch -md to sha1 sha256 or sha512

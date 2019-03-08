@@ -406,8 +406,8 @@ class Phone extends XMLElement {
 
 /**
  * 
- * @param \SimpleXMLElement $key
- * @param \SimpleXMLElement $value
+ * @param \SimpleXMLElement $key   where to append the new element
+ * @param \SimpleXMLElement $value the value to append
  * @return void
  */
 function SimpleXMLElement_append($key, $value) {
@@ -420,14 +420,14 @@ function SimpleXMLElement_append($key, $value) {
             SimpleXMLElement_append($element, $child);
         }
     } else {
-        $element = $key->addChild($value->getName(), trim((string) $value));
+        $key->addChild($value->getName(), trim((string) $value));
     }
 }
 
 /**
  * 
- * @param \SimpleXMLElement   $node
- * @param EAPIdentityProvider $object
+ * @param \SimpleXMLElement   $node   the XML node to marshal
+ * @param EAPIdentityProvider $object the Object
  * @return void
  */
 function marshalObject($node, $object) {
