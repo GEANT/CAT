@@ -270,9 +270,14 @@ class ProfileRADIUS extends AbstractProfile {
      * to delete the supported EAP types list in addition to just flushing the
      * normal DB-based attributes
      * 
+     * @param string $extracondition a condition to append to the deletion query. RADIUS Profiles have eap-level or device-level options which shouldn't be purged; this can be steered in the overriding function.
      * @return array list of row id's of file-based attributes which weren't deleted
      */
-    public function beginFlushAttributes() {
+    public function beginFlushAttributes($extracondition = "") {
+        // we don't take extraconditions
+        if ($extracondition != "") {
+            throw new Exception("Parameter only provided for consistent function override. You are not expected to use it.");
+        }
         $this->databaseHandle->exec("DELETE FROM supported_eap WHERE profile_id = $this->identifier");
         // parent operates on profile_options and we need the following to exclude eap-specific and device-specific
         return parent::beginFlushAttributes("AND eap_method_id = 0 AND device_id IS NULL");

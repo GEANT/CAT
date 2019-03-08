@@ -139,6 +139,8 @@ build:
                       'display_name' => 'eduroam®',
                       'nomenclature_federation' => 'National Roaming Operator',
                       'nomenclature_institution' => 'Identity Provider',
+                      'nomenclature_hotspt' => 'Hotspot',
+                      'nomenclature_participant' => 'Customer',
                       'ssid' => [ 'eduroam' ],
                       'registration_API_keys' => [ 'iabcd' => 'LU' ],
                       ],
@@ -396,7 +398,7 @@ build:
         variables:
             MY_PATH: '/home/scrutinizer/vault/'
         php:
-            version: 7.2.0
+            version: 7.3.3
         postgresql: false
         redis: false
         mysql: 5.7
