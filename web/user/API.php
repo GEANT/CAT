@@ -24,7 +24,7 @@
  *
  * @package UserAPI
  */
-include(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
+require dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 $API = new \core\UserNetAPI();
 $validator = new web\lib\common\InputValidation();
 $loggerInstance = new \core\common\Logging();

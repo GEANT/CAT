@@ -482,9 +482,16 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         ];
     }
 
-    // taken and adapted from 
-    // https://www.uni-muenster.de/WWUCA/de/howto-special-phpsoap.html
-    
+    /**
+     * a function that converts integers beyond PHP_INT_MAX to strings for
+     * sending in XML messages
+     *
+     * taken and adapted from 
+     * https://www.uni-muenster.de/WWUCA/de/howto-special-phpsoap.html
+     * 
+     * @param string $x the integer as an XML fragment
+     * @return array the integer in array notation
+     */
     public static function soap_from_xml_integer($x) {
         $y = simplexml_load_string($x);
         return array(
@@ -493,12 +500,28 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         );
     }
 
+    /**
+     * a function that converts integers beyond PHP_INT_MAX to strings for
+     * sending in XML messages
+     * 
+     * @param arry $x the integer in array notation
+     * @return the integer as string in an XML fragment
+     */
     public static function soap_to_xml_integer($x) {
         return '<' . $x[0] . '>'
                 . htmlentities($x[1], ENT_NOQUOTES | ENT_XML1)
                 . '</' . $x[0] . '>';
     }
 
+    /**
+     * sets up a connection to the eduPKI SOAP interfaces
+     * There is a public interface and an RA-restricted interface;
+     * the latter needs an RA client certificate to identify the operator
+     * 
+     * @param string $type to which interface should we connect to - "PUBLIC" or "RA"
+     * @return \SoapClient the connection object
+     * @throws Exception
+     */
     private static function initEduPKISoapSession($type) {
         // set context parameters common to both endpoints
         $context_params = [
@@ -681,8 +704,13 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     file_put_contents($tempdir['dir'] . "/content.txt", $soapCleartext);
                     // retrieve our RA cert from filesystem
                     $raCertFile = file_get_contents(ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem");
-                    $raCert = openssl_x509_read($raCertFile);
-                    $raKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey");
+                    // the RA certificates are not needed right now because we
+                    // have resorted to S/MIME signatures with openssl command-line
+                    // rather than the built-in functions. But that may change in
+                    // the future, so let's park these two lines for future use.
+                    // $raCert = openssl_x509_read($raCertFile);
+                    //$raKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey");
+                   
                     // sign the data, using cmdline because openssl_pkcs7_sign produces strange results
                     // -binary didn't help, nor switch -md to sha1 sha256 or sha512
                     $loggerInstance->debug(5, "Actual content to be signed is this:\n  $soapCleartext\n");

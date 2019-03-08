@@ -30,6 +30,9 @@ class Gui extends \core\UserAPI {
      */
     public $textTemplates;
 
+    /**
+     * constructs a new Gui object
+     */
     public function __construct() {
         $validator = new \web\lib\common\InputValidation();
         parent::__construct();

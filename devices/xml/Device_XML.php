@@ -150,7 +150,7 @@ abstract class Device_XML extends \core\DeviceConfig {
 
     /**
      * 
-     * @param string $attrName
+     * @param string $attrName the attribute name
      * @return array of values for this attribute
      */
     private function getSimpleMLAttribute($attrName) {
@@ -180,6 +180,13 @@ abstract class Device_XML extends \core\DeviceConfig {
         return($objs);
     }
 
+    /**
+     * constructs the name of the institution and puts it into the XML.
+     * consists of the best-language-match inst name, and if the inst has more 
+     * than one profile also the best-language-match profile name
+     * 
+     * @return \devices\xml\DisplayName
+     */
     private function getDisplayName() {
         $attr = $this->attributes;
         $objs = [];
@@ -211,6 +218,11 @@ abstract class Device_XML extends \core\DeviceConfig {
         return $objs;
     }
 
+    /**
+     * retrieves the provider logo and puts it into the XML structure
+     * 
+     * @return \devices\xml\ProviderLogo
+     */
     private function getProviderLogo() {
         $attr = $this->attributes;
         if (isset($attr['general:logo_file'][0])) {
@@ -223,6 +235,12 @@ abstract class Device_XML extends \core\DeviceConfig {
         }
     }
 
+    /**
+     * retrieves provider information and puts it into the XML structure.
+     * contains the profile description and the ToU file, if any
+     * 
+     * @return \devices\xml\ProviderInfo
+     */
     private function getProviderInfo() {
         $providerinfo = new ProviderInfo();
         $providerinfo->setProperty('DisplayName', $this->getDisplayName());
@@ -234,6 +252,11 @@ abstract class Device_XML extends \core\DeviceConfig {
         return $providerinfo;
     }
 
+    /**
+     * retrieves the location information and puts it into the XML structure
+     * 
+     * @return \devices\xml\ProviderLocation
+     */
     private function getProvideLocation() {
         $attr = $this->attributes;
         if (isset($attr['general:geo_coordinates'])) {
@@ -258,6 +281,11 @@ abstract class Device_XML extends \core\DeviceConfig {
         }
     }
 
+    /**
+     * retrieves helpdesk contact information and puts it into the XML structure
+     * 
+     * @return \devices\xml\Helpdesk
+     */
     private function getHelpdesk() {
         $helpdesk = new Helpdesk();
         $helpdesk->setProperty('EmailAddress', $this->getSimpleMLAttribute('support:email'));
@@ -286,6 +314,13 @@ abstract class Device_XML extends \core\DeviceConfig {
         return($credentialapplicability);
     }
 
+    /**
+     * retrieves the parameters needed for the given EAP method and creates
+     * appropriate nodes in the XML structure for them
+     * 
+     * @param array $eap the EAP type in question
+     * @return array a recap of the findings
+     */
     private function getAuthenticationMethodParams($eap) {
         $inner = \core\common\EAP::innerAuth($eap);
         $outerMethod = $eap["OUTER"];

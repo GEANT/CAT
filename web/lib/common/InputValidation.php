@@ -189,7 +189,7 @@ public function integer($input) {
 /**
  * Is this a string representing a potentially more than 64-Bit length integer?
  * 
- * @param string $input
+ * @param string $input the input data which is possibly a really large integer
  * @return boolean|string returns the input, or FALSE if it is not an integer-like string
  */
 public function hugeInteger($input) {

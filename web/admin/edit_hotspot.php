@@ -34,13 +34,13 @@ $uiElements = new web\lib\admin\UIElements();
 // initialize inputs
 $my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
 
-if (isset($_GET['deployment_id'])) { // oh! We should edit an existing profile, not create a new one!
-    // TBD (not much to be done actually, but we should ask about VLANs if there is also a Managed IdP profile
-} else {
+if (!isset($_GET['deployment_id'])) {
     $my_inst->newDeployment(\core\AbstractDeployment::DEPLOYMENTTYPE_MANAGED);
     header("Location: overview_sp.php?inst_id=" . $my_inst->identifier);
     exit(0);
 }
+
+// if we have come this far, we are editing an existing deployment
 
 $deployment = new core\DeploymentManaged($my_inst, $_GET['deployment_id']);
 
