@@ -336,7 +336,6 @@ class SilverbulletCertificate extends EntityWithDBProperties {
 
     /**
      * revokes a certificate
-     * @return array with revocation information
      */
     public function revokeCertificate() {
         $nowSql = (new \DateTime())->format("Y-m-d H:i:s");

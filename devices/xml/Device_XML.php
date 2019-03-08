@@ -185,7 +185,7 @@ abstract class Device_XML extends \core\DeviceConfig {
      * consists of the best-language-match inst name, and if the inst has more 
      * than one profile also the best-language-match profile name
      * 
-     * @return devices\xml\DisplayName[]
+     * @return \devices\xml\DisplayName[]
      */
     private function getDisplayName() {
         $attr = $this->attributes;
