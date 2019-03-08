@@ -85,9 +85,6 @@ checks:
 build:
     nodes:
         analysis:
-            dependencies:
-                after:
-                    - composer require --dev "squizlabs/php_codesniffer=3.4.0"
             project_setup:
                 override: true
             tests:
