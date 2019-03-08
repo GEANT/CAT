@@ -129,19 +129,19 @@ class InputValidation extends \core\common\Entity {
      * IdP identifier and then checks if the Profile belongs to the refernced 
      * IdP
      * 
-     * @param mixed $input         the numeric ID of the Deployment in the system
-     * @param int   $idpIdentifier the numeric ID of the IdP in the system
+     * @param mixed        $input         the numeric ID of the Deployment in the system
+     * @param \core\IdP    $idp the IdP
      * @return \core\DeploymentManaged
      * @throws Exception
      */
-    public function DeploymentManaged($input, $idpIdentifier) {
+    public function DeploymentManaged($input, $idp) {
         $clean = $this->integer($input);
         if ($clean === FALSE) {
             throw new Exception("Non-integer was passed to Profile validator!");
         }
-        $temp = new \core\DeploymentManaged($idpIdentifier, $clean); // constructor throws an exception if NX, game over
+        $temp = new \core\DeploymentManaged($idp, $clean); // constructor throws an exception if NX, game over
 
-        if ($temp->institution != $idpIdentifier) {
+        if ($temp->institution != $idp->identifier) {
             throw new Exception($this->inputValidationError("The profile does not belong to the IdP!"));
         }
         return $temp;

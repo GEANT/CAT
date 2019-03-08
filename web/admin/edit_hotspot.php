@@ -42,7 +42,7 @@ if (!isset($_GET['deployment_id'])) {
 
 // if we have come this far, we are editing an existing deployment
 
-$deployment = $validator->DeploymentManaged($_GET['deployment_id'], $my_inst->identifier);
+$deployment = $validator->DeploymentManaged($_GET['deployment_id'], $my_inst);
         
 if (isset($_POST['submitbutton'])) {
     if ($_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_DELETE) {
