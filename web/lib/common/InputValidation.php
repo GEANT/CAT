@@ -123,7 +123,30 @@ class InputValidation extends \core\common\Entity {
         }
         return $temp;
     }
+    
+    /**
+     * Checks if the input refers to a known DeploymentManaged. Optionally also takes an
+     * IdP identifier and then checks if the Profile belongs to the refernced 
+     * IdP
+     * 
+     * @param mixed $input         the numeric ID of the Deployment in the system
+     * @param int   $idpIdentifier the numeric ID of the IdP in the system
+     * @return \core\DeploymentManaged
+     * @throws Exception
+     */
+    public function DeploymentManaged($input, $idpIdentifier) {
+        $clean = $this->integer($input);
+        if ($clean === FALSE) {
+            throw new Exception("Non-integer was passed to Profile validator!");
+        }
+        $temp = new \core\DeploymentManaged($idpIdentifier, $clean); // constructor throws an exception if NX, game over
 
+        if ($temp->institution != $idpIdentifier) {
+            throw new Exception($this->inputValidationError("The profile does not belong to the IdP!"));
+        }
+        return $temp;
+    }
+    
     /**
      * Checks if this is a device known to the system
      * @param mixed $input the name of the device (index in the Devices.php array)
