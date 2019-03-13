@@ -29,9 +29,11 @@ CREATE TABLE `deployment` (
   `deployment_id` int(11) NOT NULL AUTO_INCREMENT,
   `inst_id` int(11) NOT NULL DEFAULT '0',
   `status` tinyint(2) NOT NULL DEFAULT '0',
-  `port` int(11) NOT NULL DEFAULT 1812,
+  `port_instance_1` int(11) NOT NULL DEFAULT 1812,
+  `port_instance_2` int(11) NOT NULL DEFAULT 1812,
   `secret` varchar(16) DEFAULT NULL,
-  `radius_instance` varchar(32) DEFAULT NULL,
+  `radius_instance_1` varchar(32) DEFAULT NULL,
+  `radius_instance_2` varchar(32) DEFAULT NULL,
   `last_change` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`deployment_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

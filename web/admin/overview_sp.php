@@ -131,25 +131,41 @@ echo $mapCode->htmlHeadCode();
                 <h2><?php echo core\DeploymentManaged::PRODUCTNAME . " (<span style='color:" . ( $deploymentObject->status == \core\AbstractDeployment::INACTIVE ? "red;'>" . _("inactive") : "green;'>" . _("active") ) . "</span>)"; ?></h2>
                 <table>
                     <tr>
-                        <td><?php echo _("IP addresses of your RADIUS server: ") ?></td>
-                        <td><?php
-                            if ($deploymentObject->host4 !== NULL) {
-                                echo _("IPv4") . ": " . $deploymentObject->host4;
+                        <td><strong><?php echo _("Your primary RADIUS server") ?></strong><br/>
+                        <?php
+                            if ($deploymentObject->host1_v4 !== NULL) {
+                                echo _("IPv4") . ": " . $deploymentObject->host1_v4;
                             }
-                            if ($deploymentObject->host4 !== NULL && $deploymentObject->host6 !== NULL) {
+                            if ($deploymentObject->host1_v4 !== NULL && $deploymentObject->host1_v6 !== NULL) {
                                 echo "<br/>";
                             }
-                            if ($deploymentObject->host6 !== NULL) {
-                                echo _("IPv6") . ": " . $deploymentObject->host6;
+                            if ($deploymentObject->host1_v6 !== NULL) {
+                                echo _("IPv6") . ": " . $deploymentObject->host1_v6;
+                            }
+                            ?>
+                        </td>
+                        <td><?php echo _("RADIUS port number: ") ?></td>
+                        <td><?php echo $deploymentObject->port1; ?></td>
+                    </tr>
+                    <tr>
+                        <td><strong><?php echo _("Your backup RADIUS server") ?><br/></strong>
+                            <?php
+                            if ($deploymentObject->host2_v4 !== NULL) {
+                                echo _("IPv4") . ": " . $deploymentObject->host2_v4;
+                            }
+                            if ($deploymentObject->host2_v4 !== NULL && $deploymentObject->host2_v6 !== NULL) {
+                                echo "<br/>";
+                            }
+                            if ($deploymentObject->host2_v6 !== NULL) {
+                                echo _("IPv6") . ": " . $deploymentObject->host2_v6;
                             }
                             ?></td>
-                    </tr>
-                    <tr>
                         <td><?php echo _("RADIUS port number: ") ?></td>
-                        <td><?php echo $deploymentObject->port; ?></td>
+                        <td><?php echo $deploymentObject->port2; ?></td>
                     </tr>
+                    
                     <tr>
-                        <td><?php echo _("RADIUS shared secret: "); ?></td>
+                        <td><strong><?php echo _("RADIUS shared secret"); ?></strong></td>
                         <td><?php echo $deploymentObject->secret; ?></td>
                     </tr>
                 </table>
