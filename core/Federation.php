@@ -234,7 +234,7 @@ class Federation extends EntityWithDBProperties {
             }
             $this->databaseHandle->exec("INSERT INTO ownership (user_id,institution_id, blesslevel, orig_mail) VALUES(?,?,?,?)", "siss", $ownerId, $identifier, $level, $mail);
         }
-        if ($bestnameguess == NULL) {
+        if ($bestnameguess === NULL) {
             $bestnameguess = "(no name yet, identifier $identifier)";
         }
         $admins = $this->listFederationAdmins();
