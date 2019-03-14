@@ -12,4 +12,7 @@
     <exclude-pattern>./core/PHPUnit/*</exclude-pattern>
     <exclude-pattern>./core/simpleSAMLphp/*</exclude-pattern>
     <rule ref="PSR1" />
+    <rule ref="PSR1.Sniffs.Files.SideEffectsSniff"/>
+	<severity>0</severity>
+    </rule>
 </ruleset>
