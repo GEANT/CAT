@@ -378,10 +378,10 @@ build:
                     - cp /home/scrutinizer/build/devices/Devices-template.php /home/scrutinizer/build/devices/Devices.php
                     - cp /home/scrutinizer/build/signer/mobileconfig_sign-template /home/scrutinizer/build/signer/mobileconfig_sign
                     - sudo chown scrutinizer:scrutinizer /home/scrutinizer/.rnd
-                    - sudo apt -y remove python
-                    - sudo apt -y install python3.5 python3-pip
-                    - sudo python3.5 -m pip install --upgrade --force pip
-                    - sudo python3.5 -m pip install pylint distro
+#                    - sudo apt -y remove python
+#                    - sudo apt -y install python3.5 python3-pip
+#                    - sudo python3.5 -m pip install --upgrade --force pip
+                    - sudo /home/scrutinizer/build/bin/python3.7 -m pip install pylint distro
 
             tests:
                 override:
