@@ -212,9 +212,10 @@ class Federation extends EntityWithDBProperties {
     /**
      * Creates a new IdP inside the federation.
      * 
-     * @param string $ownerId Persistent identifier of the user for whom this IdP is created (first administrator)
-     * @param string $level   Privilege level of the first administrator (was he blessed by a federation admin or a peer?)
-     * @param string $mail    e-mail address with which the user was invited to administer (useful for later user identification if the user chooses a "funny" real name)
+     * @param string $ownerId       Persistent identifier of the user for whom this IdP is created (first administrator)
+     * @param string $level         Privilege level of the first administrator (was he blessed by a federation admin or a peer?)
+     * @param string $mail          e-mail address with which the user was invited to administer (useful for later user identification if the user chooses a "funny" real name)
+     * @param string $bestnameguess name of the IdP, if already known, in the best-match language
      * @return int identifier of the new IdP
      */
     public function newIdP($ownerId, $level, $mail = NULL, $bestnameguess = NULL) {
