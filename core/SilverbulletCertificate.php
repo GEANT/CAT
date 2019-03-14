@@ -494,7 +494,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * @param string $x the integer as an XML fragment
      * @return array the integer in array notation
      */
-    public static function soap_from_xml_integer($x) {
+    public static function soapFromXmlInteger($x) {
         $y = simplexml_load_string($x);
         return array(
             $y->getName(),
@@ -509,7 +509,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * @param array $x the integer in array notation
      * @return string the integer as string in an XML fragment
      */
-    public static function soap_to_xml_integer($x) {
+    public static function soapToXmlInteger($x) {
         return '<' . $x[0] . '>'
                 . htmlentities($x[1], ENT_NOQUOTES | ENT_XML1)
                 . '</' . $x[0] . '>';
@@ -573,8 +573,8 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                 [
                     'type_ns' => 'http://www.w3.org/2001/XMLSchema',
                     'type_name' => 'integer',
-                    'from_xml' => 'core\SilverbulletCertificate::soap_from_xml_integer',
-                    'to_xml' => 'core\SilverbulletCertificate::soap_to_xml_integer',
+                    'from_xml' => 'core\SilverbulletCertificate::soapFromXmlInteger',
+                    'to_xml' => 'core\SilverbulletCertificate::soapToXmlInteger',
                 ],
             ],
                 ]
