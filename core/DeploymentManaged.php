@@ -198,8 +198,8 @@ class DeploymentManaged extends AbstractDeployment {
             }
             $clientCount1 = $this->databaseHandle->exec("SELECT count(port_instance_1) AS tenants1 FROM deployment WHERE radius_instance_1 = '$iterator->server_id'");
             $clientCount2 = $this->databaseHandle->exec("SELECT count(port_instance_2) AS tenants2 FROM deployment WHERE radius_instance_2 = '$iterator->server_id'");
-            $row1 = mysqli_fetch_row($clientCount1);
-            $row2 = mysqli_fetch_row($clientCount2);
+            $row1 = mysqli_fetch_row(/** @scrutinizer ignore-type */ $clientCount1);
+            $row2 = mysqli_fetch_row(/** @scrutinizer ignore-type */ $clientCount2);
 
             $clients = $row1[0] + $row2[0];
             if (in_array($iterator->server_id, $blacklistedServers)) {
