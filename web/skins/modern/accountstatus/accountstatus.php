@@ -34,7 +34,7 @@ $Gui->languageInstance->setTextDomain("web_user");
 <?php
 $profile_list_size = 1;
 require_once dirname(__DIR__) . '/Divs.php';
-$divs = new Divs($Gui);
+$divs = new \web\skins\modern\Divs($Gui);
 
 $visibility = 'sb';
 $operatingSystem = $Gui->detectOS();

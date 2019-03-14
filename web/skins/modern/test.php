@@ -38,8 +38,8 @@
     var downloadMessage;
     front_page=0;
 <?php
-include_once('Divs.php');
-$divs = new Divs($Gui);
+include_once 'Divs.php';
+$divs = new \web\skins\modern\Divs($Gui);
 $visibility = 'sb';
 $operatingSystem = $Gui->detectOS();
 $Gui->loggerInstance->debug(4, $operatingSystem);

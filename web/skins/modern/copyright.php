@@ -20,7 +20,7 @@
  */
 
 require_once 'Divs.php';
-$divs = new Divs($Gui);
+$divs = new \web\skins\modern\Divs($Gui);
 ?>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">

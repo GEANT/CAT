@@ -19,9 +19,10 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
+namespace web\skins\modern;
 use web\lib\user;
 
-require("Menu.php");
+require_once "Menu.php";
 
 /**
  * This class delivers various <div> elements for the front page.
