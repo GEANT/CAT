@@ -255,7 +255,7 @@ abstract class Device_XML extends \core\DeviceConfig {
     /**
      * retrieves the location information and puts it into the XML structure
      * 
-     * @return \devices\xml\ProviderLocation
+     * @return \devices\xml\ProviderLocation|\devices\xml\ProviderLocation[]
      */
     private function getProviderLocation() {
         $attr = $this->attributes;
