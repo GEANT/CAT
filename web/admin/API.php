@@ -117,7 +117,8 @@ foreach (web\lib\admin\API::ACTIONS[$inputDecoded['ACTION']]['REQ'] as $oneRequi
 switch ($inputDecoded['ACTION']) {
     case web\lib\admin\API::ACTION_NEWINST:
         // create the inst, no admin, no attributes
-        $idp = new \core\IdP($fed->newIdP("PENDING", "API"));
+        $type = $validator->partType($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_INSTTYPE));
+        $idp = new \core\IdP($fed->newIdP($type, "PENDING", "API"));
         // now add all submitted attributes
         $inputs = $adminApi->uglify($scrubbedParameters);
         $optionParser->processSubmittedFields($idp, $inputs["POST"], $inputs["FILES"]);
@@ -163,7 +164,7 @@ switch ($inputDecoded['ACTION']) {
         // done with the essentials - display in response. But if we also have an email address, send it there
         $email = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_TARGETMAIL);
         if ($email !== FALSE) {
-            $sent = \core\common\OutsideComm::adminInvitationMail($email, "EXISTING-FED", array_keys($newtokens)[0], $idp->name, $fed);
+            $sent = \core\common\OutsideComm::adminInvitationMail($email, "EXISTING-FED", array_keys($newtokens)[0], $idp->name, $fed, $idp->type);
             $success["EMAIL SENT"] = $sent["SENT"];
             if ($sent["SENT"] === TRUE) {
                 $success["EMAIL TRANSPORT SECURE"] = $sent["TRANSPORT"];

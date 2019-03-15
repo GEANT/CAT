@@ -91,6 +91,7 @@ CREATE TABLE `invitations` (
   `cat_institution_id` varchar(64) DEFAULT NULL,
   `invite_issuer_level` varchar(16) NOT NULL DEFAULT 'LEGACY',
   `invite_dest_mail` varchar(128) NOT NULL DEFAULT 'LEGACY',
+  `invite_fortype` enum('IdP','SP','IdPSP') NOT NULL DEFAULT 'IdPSP',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

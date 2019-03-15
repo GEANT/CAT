@@ -330,7 +330,7 @@ require_once "inc/click_button_js.php";
         <form method='post' action='inc/manageNewInst.inc.php' onsubmit='popupRedirectWindow(this);
                 return false;' accept-charset='UTF-8'>
             <button type='submit' class='download'>
-                <?php echo sprintf(_("Register a new %s!"), $uiElements->nomenclatureInst); ?>
+                <?php echo sprintf(_("Register a new %s!"), $uiElements->nomenclatureParticipant); ?>
             </button>
         </form>
         <br/>

@@ -241,23 +241,38 @@ class OutsideComm extends Entity {
      * @param string           $newtoken      the token to send
      * @param string           $idpPrettyName the name of the IdP, in best-match language
      * @param \core\Federation $federation    if not NULL, indicates that invitation comes from authorised fed admin of that federation
+     * @param string           $type          the type of participant we're invited to
      * @return array
      */
-    public static function adminInvitationMail($targets, $introtext, $newtoken, $idpPrettyName, $federation) {
+    public static function adminInvitationMail($targets, $introtext, $newtoken, $idpPrettyName, $federation, $type) {
         if (!in_array($introtext, OutsideComm::INVITE_CONTEXTS)) {
             throw new \Exception("Unknown invite mode!");
         }
         if ($introtext == OutsideComm::INVITE_CONTEXTS[1] && $federation === NULL) { // comes from fed admin, so federation must be set
             throw new \Exception("Invitation from a fed admin, but we do not know the corresponding federation!");
         }
+        $prettyPrintType = "";
+        switch ($type) {
+            case \core\IdP::TYPE_IDP:
+                $prettyPrintType = Entity::$nomenclature_inst;
+                break;
+            case \core\IdP::TYPE_SP:
+                $prettyPrintType = Entity::$nomenclature_hotspot;
+                break;
+            case \core\IdP::TYPE_IDPSP:
+                $prettyPrintType = sprintf(_("%s and %s"), Entity::$nomenclature_inst, Entity::$nomenclature_hotspot);
+                break;
+            default:
+                throw new Exception("This is controlled vocabulary, impossible.");
+        }
         Entity::intoThePotatoes();
         $mail = OutsideComm::mailHandle();
         new \core\CAT(); // makes sure Entity is initialised
         // we have a few stock intro texts on file
         $introTexts = [
-            OutsideComm::INVITE_CONTEXTS[0] => sprintf(_("a %s of the %s %s \"%s\" has invited you to manage the %s together with him."), Entity::$nomenclature_fed, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], Entity::$nomenclature_inst, $idpPrettyName, Entity::$nomenclature_inst),
-            OutsideComm::INVITE_CONTEXTS[1] => sprintf(_("a %s %s has invited you to manage the future %s  \"%s\" (%s)."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], Entity::$nomenclature_fed, Entity::$nomenclature_inst, $idpPrettyName, strtoupper($federation->tld)),
-            OutsideComm::INVITE_CONTEXTS[2] => sprintf(_("a %s %s has invited you to manage the %s  \"%s\"."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], Entity::$nomenclature_fed, Entity::$nomenclature_inst, $idpPrettyName),
+            OutsideComm::INVITE_CONTEXTS[0] => sprintf(_("a %s of the %s %s \"%s\" has invited you to manage the %s together with him."), Entity::$nomenclature_fed, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], Entity::$nomenclature_participant, $idpPrettyName, Entity::$nomenclature_participant),
+            OutsideComm::INVITE_CONTEXTS[1] => sprintf(_("a %s %s has invited you to manage the future %s  \"%s\" (%s). The organisation will be a %s."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], Entity::$nomenclature_fed, Entity::$nomenclature_participant, $idpPrettyName, strtoupper($federation->tld), $prettyPrintType),
+            OutsideComm::INVITE_CONTEXTS[2] => sprintf(_("a %s %s has invited you to manage the %s  \"%s\". This is a %s."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], Entity::$nomenclature_fed, Entity::$nomenclature_participant, $idpPrettyName, $prettyPrintType),
         ];
         $validity = sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X %Z", time() + 86400));
         // need some nomenclature
@@ -291,7 +306,7 @@ class OutsideComm extends Entity {
             }
         }
 
-        $message .= wordwrap(sprintf(_("To enlist as an administrator for that %s, please click on the following link:"), Entity::$nomenclature_inst), 72) . "\n\n" .
+        $message .= wordwrap(sprintf(_("To enlist as an administrator for that %s, please click on the following link:"), Entity::$nomenclature_participant), 72) . "\n\n" .
                 $proto . $_SERVER['SERVER_NAME'] . CONFIG['PATHS']['cat_base_url'] . "admin/action_enrollment.php?token=$newtoken\n\n" .
                 wordwrap(sprintf(_("If clicking the link doesn't work, you can also go to the %s Administrator Interface at"), CONFIG['APPEARANCE']['productname']), 72) . "\n\n" .
                 $proto . $_SERVER['SERVER_NAME'] . CONFIG['PATHS']['cat_base_url'] . "admin/\n\n" .
@@ -335,7 +350,7 @@ class OutsideComm extends Entity {
 
 // what do we want to say?
         Entity::intoThePotatoes();
-        $mail->Subject = sprintf(_("%s: you have been invited to manage an %s"), CONFIG['APPEARANCE']['productname'], Entity::$nomenclature_inst);
+        $mail->Subject = sprintf(_("%s: you have been invited to manage an %s"), CONFIG['APPEARANCE']['productname'], Entity::$nomenclature_participant);
         Entity::outOfThePotatoes();
         $mail->Body = $message;
         return ["SENT" => $mail->send(), "TRANSPORT" => $secStatus];

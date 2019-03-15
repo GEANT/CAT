@@ -126,7 +126,7 @@ class UserManagement extends \core\common\Entity {
         common\Entity::intoThePotatoes();
         // the token either has cat_institution_id set -> new admin for existing inst
         // or contains a number of parameters from external DB -> set up new inst
-        $instinfo = $this->databaseHandle->exec("SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, external_db_uniquehandle 
+        $instinfo = $this->databaseHandle->exec("SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, external_db_uniquehandle, invite_fortype 
                              FROM invitations 
                              WHERE invite_token = ? AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0", "s", $token);
         // SELECT -> resource, no boolean
@@ -151,7 +151,7 @@ class UserManagement extends \core\common\Entity {
             }
             // create new IdP
             $fed = new Federation($invitationDetails->country);
-            $idp = new IdP($fed->newIdP($owner, $invitationDetails->invite_issuer_level, $invitationDetails->invite_dest_mail));
+            $idp = new IdP($fed->newIdP($invitationDetails->invite_fortype, $owner, $invitationDetails->invite_issuer_level, $invitationDetails->invite_dest_mail));
 
             if ($invitationDetails->external_db_uniquehandle != NULL) {
                 $idp->setExternalDBId($invitationDetails->external_db_uniquehandle);
@@ -199,22 +199,23 @@ class UserManagement extends \core\common\Entity {
 
             foreach ($admins as $id) {
                 $user = new User($id);
-                /// arguments are: 1. nomenclature for "institution"
+                /// arguments are: 1. nomenclature for "participant"
                 //                 2. IdP name; 
                 ///                3. consortium name (e.g. eduroam); 
                 ///                4. federation shortname, e.g. "LU"; 
-                ///                5. product name (e.g. eduroam CAT); 
-                ///                6. product long name (e.g. eduroam Configuration Assistant Tool)
+                ///                5. nomenclature for "participant"
+                ///                6. product name (e.g. eduroam CAT); 
+                ///                7. product long name (e.g. eduroam Configuration Assistant Tool)
                 $message = sprintf(_("Hi,
 
-the invitation for the new %s %s in your %s federation %s has been used and the IdP was created in %s.
+the invitation for the new %s %s in your %s federation %s has been used and the %s was created in %s.
 
 We thought you might want to know.
 
 Best regards,
 
-%s"), common\Entity::$nomenclature_inst, $bestnameguess, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], strtoupper($fed->tld), CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname_long']);
-                $retval = $user->sendMailToUser(sprintf(_("%s in your federation was created"), common\Entity::$nomenclature_inst), $message);
+%s"), common\Entity::$nomenclature_participant, $bestnameguess, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], strtoupper($fed->tld), common\Entity::$nomenclature_participant, CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname_long']);
+                $retval = $user->sendMailToUser(sprintf(_("%s in your federation was created"), common\Entity::$nomenclature_participant), $message);
                 if ($retval === FALSE) {
                     $this->loggerInstance->debug(2, "Mail to federation admin was NOT sent!\n");
                 }
@@ -273,15 +274,16 @@ Best regards,
      * @param mixed   $instIdentifier either an instance of the IdP class (for existing institutions to invite new admins) or a string (new institution - this is the inst name then)
      * @param string  $externalId     if the IdP to be created is related to an external DB entity, this parameter contains that ID
      * @param string  $country        if the institution is new (i.e. $inst is a string) this parameter needs to specify the federation of the new inst
+     * @param string  $partType       the type of participant
      * @return mixed The function returns either the token (as string) or FALSE if something went wrong
      */
-    public function createTokens($isByFedadmin, $for, $instIdentifier, $externalId = 0, $country = 0) {
+    public function createTokens($isByFedadmin, $for, $instIdentifier, $externalId = 0, $country = 0, $partType = 0) {
         $level = ($isByFedadmin ? "FED" : "INST");
         $tokenList = [];
         foreach ($for as $oneDest) {
             $token = bin2hex(random_bytes(40));
             if ($instIdentifier instanceof IdP) {
-                $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,cat_institution_id) VALUES(?, ?, ?, ?)", "sssi", $level, $oneDest, $token, $instIdentifier->identifier);
+                $this->databaseHandle->exec("INSERT INTO invitations (invite_fortype, invite_issuer_level, invite_dest_mail, invite_token,cat_institution_id) VALUES(?, ?, ?, ?, ?)", "ssssi", $instIdentifier->type, $level, $oneDest, $token, $instIdentifier->identifier);
                 $tokenList[$token] = $oneDest;
             } else if (func_num_args() == 4) { // string name, but no country - new IdP with link to external DB
                 // what country are we talking about?
@@ -290,9 +292,11 @@ Best regards,
                 $extCountry = $extinfo['country'];
                 $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country, external_db_uniquehandle) VALUES(?, ?, ?, ?, ?, ?)", "ssssss", $level, $oneDest, $token, $instIdentifier, $extCountry, $externalId);
                 $tokenList[$token] = $oneDest;
-            } else if (func_num_args() == 5) { // string name, and country set - whole new IdP
-                $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country) VALUES(?, ?, ?, ?, ?)", "sssss", $level, $oneDest, $token, $instIdentifier, $country);
+            } else if (func_num_args() == 6) { // string name, and country set - whole new IdP
+                $this->databaseHandle->exec("INSERT INTO invitations (invite_fortype, invite_issuer_level, invite_dest_mail, invite_token,name,country) VALUES(?, ?, ?, ?, ?, ?)", "ssssss", $partType, $level, $oneDest, $token, $instIdentifier, $country);
                 $tokenList[$token] = $oneDest;
+            } else {
+                throw new Exception("The invitation is somehow ... wrong.");
             }
         }
         if (count($for) != count($tokenList)) {

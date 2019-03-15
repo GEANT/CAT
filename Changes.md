@@ -1,3 +1,10 @@
+Changes in 2.1-alpha1
+- [FEATURE #1]  institutions are now an SP, IdP, or both. Creation of unlinked
+                insts now has a selection to that end; linked insts extract the
+                corresponding info from the external DB; API creations now have
+                to specify the type of inst in AUXATTRIB_INSTTYPE for the API
+                action ACTION_NEWINST
+
 Changes in 2.0-beta3
 ====================
 - [FEATURE #1]  allow to invite more than one admin for a new institution.

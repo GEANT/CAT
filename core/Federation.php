@@ -211,13 +211,14 @@ class Federation extends EntityWithDBProperties {
     /**
      * Creates a new IdP inside the federation.
      * 
+     * @param string $type    type of institution - IdP, SP or IdPSP
      * @param string $ownerId Persistent identifier of the user for whom this IdP is created (first administrator)
      * @param string $level   Privilege level of the first administrator (was he blessed by a federation admin or a peer?)
      * @param string $mail    e-mail address with which the user was invited to administer (useful for later user identification if the user chooses a "funny" real name)
      * @return int identifier of the new IdP
      */
-    public function newIdP($ownerId, $level, $mail = NULL) {
-        $this->databaseHandle->exec("INSERT INTO institution (country) VALUES('$this->tld')");
+    public function newIdP($type, $ownerId, $level, $mail = NULL) {
+        $this->databaseHandle->exec("INSERT INTO institution (country, type) VALUES('$this->tld', '$type')");
         $identifier = $this->databaseHandle->lastID();
 
         if ($identifier == 0 || !$this->loggerInstance->writeAudit($ownerId, "NEW", "IdP $identifier")) {

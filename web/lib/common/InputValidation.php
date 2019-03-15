@@ -382,6 +382,24 @@ public function boolean($input) {
     return TRUE;
 }
 
+/**
+ * checks if we have the strings "IdP" "SP" or "IdPSP"
+ * 
+ * @param string $partTypeRaw the string to be validated as participant type
+ */
+public function partType($partTypeRaw) {
+    switch ($partTypeRaw) {
+        case \core\IdP::TYPE_IDP:
+            return \core\IdP::TYPE_IDP;
+        case \core\IdP::TYPE_SP:
+            return \core\IdP::TYPE_SP;
+        case \core\IdP::TYPE_IDPSP:
+            return \core\IdP::TYPE_IDPSP;    
+        default:
+            throw new Exception("Unknown Participant Type!");
+    }
+}
+
 const TABLEMAPPING = [
     "IdP" => "institution_option",
     "Profile" => "profile_option",

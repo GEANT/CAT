@@ -179,14 +179,14 @@ require_once "inc/click_button_js.php";
                         <button type='submit'><?php echo sprintf(_("Add/Remove %s Administrators"), $uiElements->nomenclatureParticipant); ?></button>
                     </form>
                     <?php 
-                    if (in_array(IdP::ELIGIBILITY_IDP, $the_inst->eligility())) 
+                    if (in_array(IdP::ELIGIBILITY_IDP, $the_inst->eligibility())) 
                     { ?>
                     <form action='overview_idp.php?inst_id=<?php echo $the_inst->identifier; ?>' method='POST' accept-charset='UTF-8'>
                         <button type='submit'><?php echo sprintf(_("Manage %s functions"), $uiElements->nomenclatureInst); ?></button>
                     </form>
                     <?php
                     };
-                    if (in_array(IdP::ELIGIBILITY_SP, $the_inst->eligility())) 
+                    if (in_array(IdP::ELIGIBILITY_SP, $the_inst->eligibility())) 
                     { ?>
                     <form action='overview_sp.php?inst_id=<?php echo $the_inst->identifier; ?>' method='POST' accept-charset='UTF-8'>
                         <button type='submit'><?php echo sprintf(_("Manage %s functions"), $uiElements->nomenclatureHotspot); ?></button>

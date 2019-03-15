@@ -99,7 +99,7 @@ $loggerInstance = new \core\common\Logging();
 switch ($token) {
     case "SELF-REGISTER":
         $fed = new \core\Federation($federation);
-        $newidp = new \core\IdP($fed->newIdP($user, "FED", "SELFSERVICE"));
+        $newidp = new \core\IdP($fed->newIdP(core\IdP::TYPE_IDPSP, $user, "FED", "SELFSERVICE"));
         $loggerInstance->writeAudit($user, "MOD", "IdP " . $newidp->identifier . " - selfservice registration");
         break;
     default:

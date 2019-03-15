@@ -68,10 +68,10 @@ if (CONFIG['DB']['enforce-external-sync']) {
         <?php
         if (CONFIG['DB']['enforce-external-sync']) {
             echo "<tr><td>
-                <input type='radio' name='creation' value='existing'>" . _("Existing IdP:") . "</input>
+                <input type='radio' name='creation' value='existing'>" . sprintf(_("Existing %s:"), $uiElements->nomenclatureParticipant) . "</input>
                      </td>";
 
-            echo "<td colspan='2'>
+            echo "<td colspan='4'>
                 <select id='externals' name='externals' onchange='document.sendinvite.creation[0].checked=true; document.sendinvite.mailaddr.value=this.options[this.selectedIndex].id;'>
                     <option value='FREETEXT'>" . _("--- select IdP here ---") . "</option>";
 
@@ -91,10 +91,17 @@ if (CONFIG['DB']['enforce-external-sync']) {
         ?>
         <tr>
             <td>
-                <input type='radio' name='creation' value='new'><?php echo _("New IdP"); ?></input>
+                <input type='radio' name='creation' value='new'><?php echo sprintf(_("New %s"),$uiElements->nomenclatureParticipant); ?></input>
             </td>
             <td>
-                <?php echo _("Name"); ?><input type='text' size='40' id='name' name='name' onchange='document.sendinvite.creation[1].checked = true'/>
+                <?php echo _("Name"); ?><input type='text' size='30' id='name' name='name' onchange='document.sendinvite.creation[1].checked = true'/>
+            </td>
+            <td>
+                <select name="participant_type">
+                    <option value="IdPSP" selected><?php printf(_("%s and %s"),$uiElements->nomenclatureInst, $uiElements->nomenclatureHotspot)?></option>
+                    <option value="IdP"><?php printf(_("%s"),$uiElements->nomenclatureInst)?></option>
+                    <option value="SP"><?php printf(_("%s"),$uiElements->nomenclatureHotspot)?></option>
+                </select>
             </td>
             <td><?php echo $uiElements->nomenclatureFed; ?>
                 <select id='country' name='country'>

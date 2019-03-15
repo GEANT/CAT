@@ -75,6 +75,7 @@ class API {
     const AUXATTRIB_TOKEN = "ATTRIB-TOKEN";
     const AUXATTRIB_TOKENURL = "ATTRIB-TOKENURL";
     const AUXATTRIB_TOKEN_ACTIVATIONS = "ATTRIB-TOKEN-ACTIVATIONS";
+    const AUXATTRIB_INSTTYPE = "ATTRIB-INSTITUTION-TYPE";
 
     /*
      * ACTIONS consists of a list of keywords, and associated REQuired and OPTional parameters
@@ -100,7 +101,7 @@ class API {
             ],
         ],
         API::ACTION_NEWINST => [
-            "REQ" => [],
+            "REQ" => [API::AUXATTRIB_INSTTYPE,], // "IdP", "SP" or "IdPSP"
             "OPT" => [
                 'general:instname',
                 'general:geo_coordinates',

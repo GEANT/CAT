@@ -52,6 +52,10 @@ class IdP extends EntityWithDBProperties {
     const EXTERNAL_DB_SYNCSTATE_SYNCED = 1;
     const EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING = 2;
 
+    const TYPE_IDP = 'IdP';
+    const TYPE_SP  = 'SP';
+    const TYPE_IDPSP = 'IdPSP';
+    
     /**
      *
      * @var int synchronisation state with external database, if any
@@ -64,6 +68,12 @@ class IdP extends EntityWithDBProperties {
      */
     public $federation;
 
+    /**
+     * The type of participant in DB enum notation
+     * @var string
+     */
+    public $type;
+    
     /**
      * Constructs an IdP object based on its details in the database.
      * Cannot be used to define a new IdP in the database! This happens via Federation::newIdP()
@@ -101,6 +111,14 @@ class IdP extends EntityWithDBProperties {
             "flag" => NULL];
 
         $this->name = $this->languageInstance->getLocalisedValue($this->getAttributes('general:instname'));
+        $eligibility = $this->eligibility();
+        if (in_array(IdP::ELIGIBILITY_IDP, $eligibility) && in_array(IdP::ELIGIBILITY_SP, $eligibility)) {
+            $this->type = IdP::TYPE_IDPSP;
+        } elseif (in_array(IdP::ELIGIBILITY_IDP, $eligibility)) {
+            $this->type = IdP::TYPE_IDP;
+        } else {
+            $this->type = IdP::TYPE_SP;
+        }
         $this->loggerInstance->debug(3, "--- END Constructing new IdP object ... ---\n");
     }
 
@@ -225,7 +243,7 @@ class IdP extends EntityWithDBProperties {
      * 
      * @return array list of eligibilities
      */
-    public function eligility() {
+    public function eligibility() {
         $eligibilites = $this->databaseHandle->exec("SELECT type FROM institution WHERE inst_id = $this->identifier");
         while ($iterator = mysqli_fetch_object(/** @scrutinizer ignore-type */ $eligibilites)) {
             switch ($iterator->type) {

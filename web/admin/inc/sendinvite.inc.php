@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -119,6 +120,7 @@ switch ($operationMode) {
         $newtokens = $mgmt->createTokens($fedadmin, $mailaddress, $idp);
         $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $idp->identifier . " - Token created for " . implode(",", $mailaddress));
         $introtext = "CO-ADMIN";
+        $participant_type = $idp->type;
         break;
     case OPERATION_MODE_NEWUNLINKED:
         $redirect_destination = "../overview_federation.php?";
@@ -126,6 +128,7 @@ switch ($operationMode) {
         // run an input check and conversion of the raw inputs... just in case
         $newinstname = $validator->string($_POST['name']);
         $newcountry = $validator->string($_POST['country']);
+        $participant_type = $validator->partType($_POST['participant_type']);
         $new_idp_authorized_fedadmin = $userObject->isFederationAdmin($newcountry);
         if ($new_idp_authorized_fedadmin !== TRUE) {
             throw new Exception("Something's wrong... you want to create a new " . $uiElements->nomenclatureInst . ", but are not a " . $uiElements->nomenclatureFed . " admin for the " . $uiElements->nomenclatureFed . " it should be in!");
@@ -135,8 +138,8 @@ switch ($operationMode) {
         $introtext = "NEW-FED";
         // send the user back to his federation overview page, append the result of the operation later
         // do the token creation magic
-        $newtokens = $mgmt->createTokens(TRUE, $mailaddress, $newinstname, 0, $newcountry);
-        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . implode(",", $mailaddress));
+        $newtokens = $mgmt->createTokens(TRUE, $mailaddress, $newinstname, 0, $newcountry, $participant_type);
+        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "ORG FUTURE  - Token created for $participant_type " . implode(",", $mailaddress));
         break;
     case OPERATION_MODE_NEWFROMDB:
         $redirect_destination = "../overview_federation.php?";
@@ -165,6 +168,8 @@ switch ($operationMode) {
                 $prettyprintname = $name;
             }
         }
+        // TODO when we have access to the data
+        $participant_type = "IdPSP";
         // fill the rest of the text
         $introtext = "EXISTING-FED";
         // do the token creation magic
@@ -185,12 +190,12 @@ $status = [];
 $allEncrypted = TRUE;
 $allClear = TRUE;
 foreach ($newtokens as $onetoken => $oneDest) {
-    $sent = \core\common\OutsideComm::adminInvitationMail($oneDest, $introtext, $onetoken, $prettyprintname, $federation);
+    $sent = \core\common\OutsideComm::adminInvitationMail($oneDest, $introtext, $onetoken, $prettyprintname, $federation, $participant_type);
     if ($sent["SENT"] === FALSE) {
         $mgmt->invalidateToken($onetoken);
     } else {
         $status[$onetoken] = $sent["TRANSPORT"];
-        if (! $sent["TRANSPORT"]) {
+        if (!$sent["TRANSPORT"]) {
             $allEncrypted = FALSE;
         } else {
             $allClear = FALSE;
@@ -206,7 +211,7 @@ $finalDestParams = "invitation=SUCCESS";
 if (count($status) < count($totalSegments)) { // only a subset of mails was sent, update status
     $finalDestParams = "invitation=PARTIAL";
 }
-$finalDestParams .= "&successcount=".count($status);
+$finalDestParams .= "&successcount=" . count($status);
 if ($allEncrypted === TRUE) {
     $finalDestParams .= "&transportsecurity=ENCRYPTED";
 } elseif ($allClear === TRUE) {
