@@ -407,6 +407,13 @@ class OptionParser extends \core\common\Entity {
                                         continue 3;
                                     }
                                     break;
+                                case "managedsp:operatorname":
+                                    $content = $listOfEntries["$objId-" . \core\Options::TYPECODE_STRING];
+                                    if (!preg_match("/^1.*\..*/", $content)) {
+                                        $bad[] = $objValue;
+                                        continue 3;
+                                    }
+                                    break;
                                 default:
                                     $content = $this->validator->string($listOfEntries["$objId-" . \core\Options::TYPECODE_STRING]);
                                     break;

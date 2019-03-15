@@ -60,5 +60,7 @@ CREATE TABLE `managed_sp_servers` (
   PRIMARY KEY (`server_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO profile_option_dict (name, description,type,flag) VALUES ('managedsp:vlan','VLAN tag to add if Managed IdP user logs into hotspot of organisation','integer',NULL),
-('managedsp:realmforvlan','a realm which should get this VLAN tag, in addition to the Managed IdP ones (those are handled ex officio','string',NULL);
+INSERT INTO profile_option_dict (name, description,type,flag) VALUES 
+('managedsp:vlan','VLAN tag to add if Managed IdP user logs into hotspot of organisation','integer',NULL),
+('managedsp:realmforvlan','a realm which should get this VLAN tag, in addition to the Managed IdP ones (those are handled ex officio','string',NULL),
+('managedsp:operatorname','Operator-Name attribute to be added to requests','string',NULL);

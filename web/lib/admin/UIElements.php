@@ -140,6 +140,7 @@ class UIElements extends \core\common\Entity {
             $passpointOiText => "media:consortium_OI",
             _("VLAN for own users") => "managedsp:vlan",
             _("Realm for VLAN tagging") => "managedsp:realmforvlan",
+            _("Operator-Name attribute") => "managedsp:operatorname",
         ];
 
         $find = array_keys($displayNames, $input, TRUE);
