@@ -185,14 +185,17 @@ class DeploymentManaged extends AbstractDeployment {
     /**
      * finds a suitable server which is geographically close to the admin
      * 
-     * @param array $adminLocation      the current geographic position of the admin
-     * @param array $blacklistedServers list of server to IGNORE
+     * @param array  $adminLocation      the current geographic position of the admin
+     * @param string $federation         the federation this deployment belongs to
+     * @param array  $blacklistedServers list of server to IGNORE
      * @return string the server ID
      * @throws Exception
      */
-    private function findGoodServerLocation($adminLocation, $blacklistedServers) {
+    private function findGoodServerLocation($adminLocation, $federation, $blacklistedServers) {
         // find a server near him (list of all servers with capacity, ordered by distance)
-        $servers = $this->databaseHandle->exec("SELECT server_id, radius_ip4, radius_ip6, location_lon, location_lat FROM managed_sp_servers");
+        // first, if there is a pool of servers specifically for this federation, prefer it
+        $servers = $this->databaseHandle->exec("SELECT server_id, radius_ip4, radius_ip6, location_lon, location_lat FROM managed_sp_servers WHERE pool = '$federation'");
+        
         $serverCandidates = [];
         while ($iterator = mysqli_fetch_object(/** @scrutinizer ignore-type */ $servers)) {
             $maxSupportedClients = DeploymentManaged::MAX_CLIENTS_PER_SERVER;
@@ -200,12 +203,10 @@ class DeploymentManaged extends AbstractDeployment {
                 // half the amount of IP stacks means half the amount of FDs in use, so we can take twice as many
                 $maxSupportedClients = $maxSupportedClients * 2;
             }
-            $clientCount1 = $this->databaseHandle->exec("SELECT count(port_instance_1) AS tenants1 FROM deployment WHERE radius_instance_1 = '$iterator->server_id'");
-            $clientCount2 = $this->databaseHandle->exec("SELECT count(port_instance_2) AS tenants2 FROM deployment WHERE radius_instance_2 = '$iterator->server_id'");
-            $row1 = mysqli_fetch_row(/** @scrutinizer ignore-type */ $clientCount1);
-            $row2 = mysqli_fetch_row(/** @scrutinizer ignore-type */ $clientCount2);
+            $clientCount1 = $this->databaseHandle->exec("SELECT port_instance_1 AS tenants1 FROM deployment WHERE radius_instance_1 = '$iterator->server_id'");
+            $clientCount2 = $this->databaseHandle->exec("SELECT port_instance_2 AS tenants2 FROM deployment WHERE radius_instance_2 = '$iterator->server_id'");
 
-            $clients = $row1[0] + $row2[0];
+            $clients = $clientCount1->num_rows + $clientCount2->num_rows;
             if (in_array($iterator->server_id, $blacklistedServers)) {
                 continue;
             }
@@ -216,8 +217,13 @@ class DeploymentManaged extends AbstractDeployment {
                 $this->loggerInstance->debug(1, "A RADIUS server for Managed SP (" . $iterator->server_id . ") is serving at more than 90% capacity!");
             }
         }
+        if (count($serverCandidates) == 0 && $federation != "DEFAULT") {
+            // we look in the default pool instead
+            // recursivity! Isn't that cool!
+            return $this->findGoodServerLocation($adminLocation, "DEFAULT", $blacklistedServers);
+        }
         if (count($serverCandidates) == 0) {
-            throw new Exception("No available server found for new SP!");
+            throw new Exception("No available server found for new SP! $federation ".print_r($serverCandidates, true));
         }
         // put the nearest server on top of the list
         ksort($serverCandidates);
@@ -238,7 +244,8 @@ class DeploymentManaged extends AbstractDeployment {
         if ($geoip['status'] == 'ok') {
             $ourLocation = ['lon' => $geoip['geo']['lon'], 'lat' => $geoip['geo']['lat']];
         }
-        $ourserver = $this->findGoodServerLocation($ourLocation, []);
+        $inst = new IdP($this->institution);
+        $ourserver = $this->findGoodServerLocation($ourLocation, $inst->federation , []);
         // now, find an unused port in the preferred server
         $foundFreePort1 = 0;
         while ($foundFreePort1 == 0) {
@@ -248,7 +255,7 @@ class DeploymentManaged extends AbstractDeployment {
                 $foundFreePort1 = $portCandidate;
             }
         }
-        $ourSecondServer = $this->findGoodServerLocation($ourLocation, [$ourserver]);
+        $ourSecondServer = $this->findGoodServerLocation($ourLocation, $inst->federation , [$ourserver]);
         $foundFreePort2 = 0;
         while ($foundFreePort2 == 0) {
             $portCandidate = random_int(1025, 65535);

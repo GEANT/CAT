@@ -56,6 +56,7 @@ CREATE TABLE `managed_sp_servers` (
   `radius_ip6` varchar(64) DEFAULT NULL,
   `location_lon` double NOT NULL,
   `location_lat` double NOT NULL,
+  `pool` varchar(16) NOT NULL DEFAULT 'DEFAULT',
   PRIMARY KEY (`server_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
