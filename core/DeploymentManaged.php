@@ -143,7 +143,7 @@ class DeploymentManaged extends AbstractDeployment {
         }
         $propertyQuery = "SELECT status,port_instance_1,port_instance_2,secret,radius_instance_1,radius_instance_2 FROM deployment WHERE deployment_id = ?";
         $queryExec = $this->databaseHandle->exec($propertyQuery, "i", $deploymentIdRaw);
-        if (mysqli_num_rows($queryExec) == 0) {
+        if (mysqli_num_rows(/** @scrutinizer ignore-type */ $queryExec) == 0) {
             throw new Exception("Attempt to construct an unknown DeploymentManaged!");
         }
         $this->identifier = $deploymentIdRaw;
