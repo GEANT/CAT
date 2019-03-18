@@ -96,6 +96,7 @@ build:
             dependencies:
                 before:
                     - sudo apt-get -y install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev
+                    - sudo /home/scrutinizer/.phpenv/versions/7.3.3/bin/pecl channel-update pecl.php.net
                     - sudo /home/scrutinizer/.phpenv/versions/7.3.3/bin/pecl install imagick
                     - sudo apachectl restart
                     - git submodule update --init
