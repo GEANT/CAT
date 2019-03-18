@@ -97,6 +97,7 @@ build:
                 before:
                     - sudo apt-get -y install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev
                     - sudo /home/scrutinizer/.phpenv/versions/7.3.3/bin/pecl install imagick
+                    - sudo apachectl restart
                     - git submodule update --init
                     - mysql -h 127.0.0.1 -u root -e 'create database cat'
                     - mysql -h 127.0.0.1 -u root cat < schema/schema.sql
