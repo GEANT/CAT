@@ -233,7 +233,7 @@ switch ($inputDecoded['ACTION']) {
             }
             // we're done at this point
             $adminApi->returnSuccess([\web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID => $profile->identifier]);
-            continue;
+            break;
         }
         if (!$profile instanceof core\ProfileRADIUS) {
             throw new Exception("Can't be. This is only here to convince Scrutinizer that we're really talking RADIUS.");
