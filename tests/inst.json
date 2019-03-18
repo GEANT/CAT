@@ -6,6 +6,8 @@
     "LANG": "C", "NAME": "general:instname", "VALUE": "Continuous Integration Test IdP"
   },
   { "LANG": "C", "NAME": "support:email", "VALUE": "ci-test@nowhere.example"
+  },
+  { "NAME": "ATTRIB-INSTITUTION-TYPE", "VALUE": "IdPSP"
   }
  ]
 }
