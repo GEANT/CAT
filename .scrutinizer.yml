@@ -84,6 +84,9 @@ checks:
 
 build:
     nodes:
+        dependencies:
+            before:
+                - sudo apt-get install imagemagick
         analysis:
             project_setup:
                 override: true
@@ -93,9 +96,7 @@ build:
                     - php-scrutinizer-run --enable-security-analysis
                     - js-scrutinizer-run
         tests:
-            dependencies:
                 before:
-                    - sudo apt-get install imagemagick
                     - mysql -h 127.0.0.1 -u root -e 'create database cat'
                     - mysql -h 127.0.0.1 -u root cat < schema/schema.sql
                     - mysql -h 127.0.0.1 -u root cat < tests/cat_integration_scrutinizer.sql
