@@ -327,7 +327,7 @@ class API {
                         }
                         break;
                     default:
-                        continue;
+                        break;
                 }
             }
             if (in_array($oneIncomingParam['NAME'], $allPossibleAttribs)) {
