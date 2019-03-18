@@ -223,7 +223,8 @@ abstract class WindowsCommon extends \core\DeviceConfig {
         // this will depend on the design of the background
         $freeBottom = 30;
         
-        $bgImage = new \Imagick('cat_bg.bmp');
+        $bgImage = new \Imagick(ROOT.'/devices/ms/Files/cat_bg.bmp');
+        
         $bgImage->setFormat('BMP3');
         $bgImageSize = $bgImage->getImageGeometry();
         $logosToPlace = [];
