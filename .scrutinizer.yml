@@ -83,10 +83,6 @@ checks:
         check_for_loops_test: true
 
 build:
-    project_setup:
-        before:
-            - sudo apt-get install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev
-            - sudo pecl install imagick
     nodes:
         analysis:
             project_setup:
@@ -99,6 +95,8 @@ build:
         tests:
             dependencies:
                 before:
+                    - sudo apt-get -y install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev
+                    - sudo pecl install imagic
                     - mysql -h 127.0.0.1 -u root -e 'create database cat'
                     - mysql -h 127.0.0.1 -u root cat < schema/schema.sql
                     - mysql -h 127.0.0.1 -u root cat < tests/cat_integration_scrutinizer.sql
@@ -396,8 +394,6 @@ build:
             MY_PATH: '/home/scrutinizer/vault/'
         php:
             version: 7.3.3
-#            pecl_extensions:
-#              - imagick
         postgresql: false
         redis: false
         mysql: 5.7
