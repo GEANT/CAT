@@ -117,7 +117,11 @@ foreach (web\lib\admin\API::ACTIONS[$inputDecoded['ACTION']]['REQ'] as $oneRequi
 switch ($inputDecoded['ACTION']) {
     case web\lib\admin\API::ACTION_NEWINST:
         // create the inst, no admin, no attributes
-        $type = $validator->partType($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_INSTTYPE));
+        $typeRaw = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_INSTTYPE);
+        if ($typeRaw === FALSE) {
+            throw new Exception("We did not receive a valid participant type!");
+        }
+        $type = $validator->partType($typeRaw);
         $idp = new \core\IdP($fed->newIdP($type, "PENDING", "API"));
         // now add all submitted attributes
         $inputs = $adminApi->uglify($scrubbedParameters);

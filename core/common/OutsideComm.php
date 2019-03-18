@@ -263,7 +263,7 @@ class OutsideComm extends Entity {
                 $prettyPrintType = sprintf(_("%s and %s"), Entity::$nomenclature_inst, Entity::$nomenclature_hotspot);
                 break;
             default:
-                throw new Exception("This is controlled vocabulary, impossible.");
+                throw new \Exception("This is controlled vocabulary, impossible.");
         }
         Entity::intoThePotatoes();
         $mail = OutsideComm::mailHandle();
