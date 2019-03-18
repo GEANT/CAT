@@ -95,7 +95,7 @@ build:
         tests:
             dependencies:
                 before:
-                    - sudo apt-get -y install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev
+                    - sudo apt-get -y install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev php-pear
                     - sudo pecl install imagic
                     - mysql -h 127.0.0.1 -u root -e 'create database cat'
                     - mysql -h 127.0.0.1 -u root cat < schema/schema.sql
