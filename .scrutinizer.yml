@@ -394,6 +394,8 @@ build:
             MY_PATH: '/home/scrutinizer/vault/'
         php:
             version: 7.3.3
+            pecl_extensions:
+              - imagick
         postgresql: false
         redis: false
         mysql: 5.7
