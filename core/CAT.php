@@ -54,10 +54,10 @@ class CAT extends \core\common\Entity {
      * is generated into $CAT_VERSION_STRING and $CAT_COPYRIGHT below
      */
     const VERSION_MAJOR = 2;
-    const VERSION_MINOR = 0;
+    const VERSION_MINOR = 1;
     const VERSION_PATCH = 0;
-    const VERSION_EXTRA = "";
-    const RELEASE_VERSION = TRUE;
+    const VERSION_EXTRA = "alpha1";
+    const RELEASE_VERSION = FALSE;
     const USER_API_VERSION = 2;
 
     /**
