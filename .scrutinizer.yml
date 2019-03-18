@@ -85,7 +85,7 @@ checks:
 build:
     project_setup:
         before:
-            - sudo apt-get install imagemagick
+            - sudo apt-get install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev
     nodes:
         analysis:
             project_setup:
