@@ -83,10 +83,10 @@ checks:
         check_for_loops_test: true
 
 build:
+    dependencies:
+        before:
+            - sudo apt-get install imagemagick
     nodes:
-        dependencies:
-            before:
-                - sudo apt-get install imagemagick
         analysis:
             project_setup:
                 override: true
