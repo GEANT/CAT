@@ -83,7 +83,7 @@ checks:
         check_for_loops_test: true
 
 build:
-    dependencies:
+    project_setup:
         before:
             - sudo apt-get install imagemagick
     nodes:
