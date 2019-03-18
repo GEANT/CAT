@@ -25,18 +25,18 @@
 # MY_PATH - Full path to the directory in which the certificates and keys are located
 # Beware that this directory must be protected against the WEB download, othewise you keys mey be compromised. 
 # The directory must be accessible by the Apache proceess
+if [ "$MY_PATH" == "" ]; then MY_PATH="/home/scrutinizer/vault"; fi
 
-MY_PATH=""
-
-#
 # public key in the SPC format
-SPC="xxx.spc"
+if [ "$SPC" == "" ]; then SPC="xxx.spc"; fi
+
 # maching private key, it cannot be password protected
-PRIVKEY="xxx_key.der"
+if [ "$PRIVKEY" == "" ]; then PRIVKEY="xxx_key.der"; fi
+
 # URL shown to the user requiring more information about your installer
-URL=""
+URL="https://github.com/GEANT/CAT"
 # product name
-NAME=""
+NAME="Configuration Assistant Tool"
 # timestamp URL
 # you should be using timestamping to make sure the signatures will still
 # be valid even if the signing certificate has expired
