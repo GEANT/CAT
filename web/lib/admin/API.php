@@ -307,23 +307,23 @@ class API {
                         try {
                             $inst = $this->validator->IdP($oneIncomingParam['VALUE']);
                         } catch (Exception $e) {
-                            continue;
+                            continue 2;
                         }
                         if (strtoupper($inst->federation) != strtoupper($fedObject->tld)) {
                             // IdP in different fed, scrub it.
-                            continue;
+                            continue 2;
                         }
                         break;
                     case API::AUXATTRIB_TARGETMAIL:
                         if ($this->validator->email($oneIncomingParam['VALUE']) === FALSE) {
-                            continue;
+                            continue 2;
                         }
                         break;
                     case API::AUXATTRIB_ADMINID:
                         try {
                             $oneIncomingParam['VALUE'] = $this->validator->string($oneIncomingParam['VALUE']);
                         } catch (Exception $e) {
-                            continue;
+                            continue 2;
                         }
                         break;
                     default:
