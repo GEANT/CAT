@@ -379,9 +379,7 @@ build:
                     - cp /home/scrutinizer/build/signer/mobileconfig_sign-template /home/scrutinizer/build/signer/mobileconfig_sign
                     - sudo chown scrutinizer:scrutinizer /home/scrutinizer/.rnd
                     - sudo -H /home/scrutinizer/build/bin/python3.7 -m pip install pylint distro
-
-            tests:
-                override:
+            override:
                     - wget http://ci.test/admin/API.php -O /home/scrutinizer/artifacts/inst.log --method=POST --no-verbose --body-file=tests/inst.json
                     - wget http://ci.test/admin/API.php -O /home/scrutinizer/artifacts/profile.log --method=POST --no-verbose --body-file=tests/profile1.json
                     - wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=chromeos\&profile=3 -O /home/scrutinizer/artifacts/ChromeInstaller.onc --no-verbose
