@@ -18,25 +18,10 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
-When upgrading from the newest CAT 1.1 database structure:
+When upgrading from the newest CAT 2.0 database structure:
 
-- run 1_1-2_0.sql to convert the schema
-- run 1_1-2_0-script.php for the data conversion
+- run 2_0-2_1.sql to convert the schema
 
-When deploying CAT 2.0 from scratch:
+When deploying CAT 2.1 from scratch:
 
 - use schema.sql to create a new schema
-
-When upgrading from CAT 2.0 beta2 to beta3:
-
-- run this SQL command: 
-  alter table silverbullet_certificate add column `ca_type` ENUM('RSA','ECDSA') NOT NULL DEFAULT 'RSA';
-- rename the existing RSA keys from rootca.pem, real.pem, real.key to rootca-RSA.pem. real-RSA.pem, real-RSA.key
-- add the ECDSA variants as rootca-ECDSA.pem, real-ECDSA.pem, real-ECDSA.key
-- there are two new class constants in Devices-template.php. Remember to carry the two LOC over to Devices.php
-- for each device which should get ECDSA certificates, set $Options['clientcert'] to Devices::SUPPORT_ECDSA and make SUPPORT_RSA the default in the global $Options
-
-When updtting from beta3 add new device-specific options:
-insert into profile_option_dict values ('device-specific:builtin_ttls','Use builtin TTLS supplicant for Windows 10', 'boolean', NULL);
-insert into profile_option_dict values ('device-specific:geantlink','Use GEANTlink TTLS supplicant for W8', 'boolean', NULL);
-isert into 
