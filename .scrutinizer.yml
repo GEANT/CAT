@@ -101,6 +101,12 @@ build:
                     - sudo apachectl restart
                     - git submodule update --init
                     - sudo cp -r /home/scrutinizer/build/tests/nsis3 /usr/local/share
+                    - git clone https://github.com/theuni/osslsigncode.git
+                    - cd osslsigncode
+                    - ./autogen.sh
+                    - ./configure
+                    - make
+                    - sudo make install
                     - mysql -h 127.0.0.1 -u root -e 'create database cat'
                     - mysql -h 127.0.0.1 -u root cat < schema/schema.sql
                     - mysql -h 127.0.0.1 -u root cat < tests/cat_integration_scrutinizer.sql
