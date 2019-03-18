@@ -1099,7 +1099,7 @@ button.guess_os {
     text-align: center;
     padding: 35px 2vw 35px 2vw;
     text-decoration: none;
-    height: 20px;
+    min-height: 20px;
 }
 
 #menu_top a.selected-lang {
