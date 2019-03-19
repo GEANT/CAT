@@ -527,9 +527,14 @@ switch ($inputDecoded['ACTION']) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Serial does not belong to this profile.");
         }
         $annotationRaw = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_CERTANNOTATION);
+        if ($annotationRaw === FALSE) {
+            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Unable to extract annotation.");
+            break;
+        }
         $annotation = json_decode($annotationRaw, TRUE);
         $cert->annotate($annotation);
         $adminApi->returnSuccess([]);
+        
         break;
         
     default:
