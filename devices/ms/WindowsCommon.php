@@ -256,6 +256,9 @@ abstract class WindowsCommon extends \core\DeviceConfig {
 //new image is saved as the background
         $bgImage->setImageFormat("BMP3");
         $fileHandle = fopen($this->FPATH."/tmp/cat_bg.bmp", "w");
+        if ($fileHandle === FALSE) {
+            throw new Exception("Unable to open the destination file for cat_bg.bmp");
+        }
         $bgImage->writeImageFile($fileHandle);
         fclose($fileHandle);
     }
