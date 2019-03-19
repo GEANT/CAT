@@ -427,9 +427,6 @@ build:
             MY_PATH: '/home/scrutinizer/vault/'
         php:
             version: 7.3.3
-        postgresql: false
-        redis: false
-        mysql: 5.7
         hosts:
             ci.test: 127.0.0.1
         apache2:
@@ -438,7 +435,8 @@ build:
                 domain:
                     web_root: web/
                     host: ci.test
-
+    services:
+        mariadb: 10
 tools:
     php_code_coverage:
         enabled: true
