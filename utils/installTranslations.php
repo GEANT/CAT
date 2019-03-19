@@ -10,7 +10,10 @@
  */
 require_once "../config/config-master-template.php";
 const AREAS = ["web_admin", "web_user", "devices", "core", "diagnostics"];
-foreach (CONFIG['LANGUAGES'] as $details) {
+foreach (CONFIG['LANGUAGES'] as $lang => $details) {
+    if ($lang == "en") {
+        continue;
+    }
     $langCode = substr($details['locale'], 0, 5);
     echo "Generating locale for ".$details['locale']."\n";
     exec("sudo locale-gen ".$details['locale']);
