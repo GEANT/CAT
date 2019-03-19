@@ -12,7 +12,10 @@ require_once "../config/config-master-template.php";
 const OSLIST = ["chromeos", "w10", "apple_hi_sierra", "linux", "eap-config"];
 $bashLines = "";
 foreach (CONFIG['LANGUAGES'] as $lang => $details) {
-    echo "Generating bash script for generation of all language variants except English, locale = $lang";
+    if ($lang == "en") {
+        continue;
+    }
+    echo "Generating bash script for generation of all language variants except English, locale = $lang\n";
     foreach (OSLIST as $oneOS) {
         $filename = "/home/scrutinizer/artifacts/$lang-$oneOS";
         $bashLines .= "wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=$lang\&device=$oneOS\&profile=3 -O $filename --no-verbose\n";
