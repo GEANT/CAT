@@ -429,7 +429,7 @@ build:
                           command: xmlstarlet val -s "/home/scrutinizer/build/devices/xml/eap-metadata.xsd" "/home/scrutinizer/artifacts/GenericInstaller.xml"
                           title: "Checking whether output is well-formed XML and validates against Schema"
                     - 
-                          command: if [ "$TEST_LANGUAGE_VARIANTS" == "1" ]; then /home/scrutinizer/.phpenv/versions/7.3.3/bin/php /home/scrutinizer/build/utils/installTranslations.php; /home/scrutinizer/.phpenv/versions/7.3.3/bin/php /home/scrutinizer/build/tests/prepareMultiLangDownloads.php; /bin/bash /home/scrutinizer/build/tests/langTestScript.sh; else exit 0; fi
+                          command: if [ "$TEST_LANGUAGE_VARIANTS" == "1" ]; then cd /home/srutinizer/build/utils; /home/scrutinizer/.phpenv/versions/7.3.3/bin/php installTranslations.php; cd /home/scrutnizer/build/tests; /home/scrutinizer/.phpenv/versions/7.3.3/bin/php prepareMultiLangDownloads.php; /bin/bash ./langTestScript.sh; else exit 0; fi
     environment:
         variables:
             MY_PATH: '/home/scrutinizer/vault/'
