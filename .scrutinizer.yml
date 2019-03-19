@@ -392,19 +392,36 @@ build:
                     - sudo chown scrutinizer:scrutinizer /home/scrutinizer/.rnd
                     - sudo -H /home/scrutinizer/build/bin/python3.7 -m pip install pylint distro
                 override:
-                    - wget http://ci.test/admin/API.php -O /home/scrutinizer/artifacts/inst.log --method=POST --no-verbose --body-file=tests/inst.json
-                    - wget http://ci.test/admin/API.php -O /home/scrutinizer/artifacts/profile.log --method=POST --no-verbose --body-file=tests/profile1.json
-                    - wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=chromeos\&profile=3 -O /home/scrutinizer/artifacts/ChromeInstaller.onc --no-verbose
+                    - 
+                          command: wget http://ci.test/admin/API.php -O /home/scrutinizer/artifacts/inst.log --method=POST --no-verbose --body-file=tests/inst.json
+                          title: "Creating a new participant organisation via API call"
+                    - 
+                          command: wget http://ci.test/admin/API.php -O /home/scrutinizer/artifacts/profile.log --method=POST --no-verbose --body-file=tests/profile1.json
+                          title: "Creating a new RADIUS profile for this organisation via API call"
+                    - 
+                          command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=chromeos\&profile=3 -O /home/scrutinizer/artifacts/ChromeInstaller.onc --no-verbose
+                          title: "Generating a ChromeOS installer via API call"
+                    - 
+                          command: cat /home/scrutinizer/artifacts/ChromeInstaller.onc | jq -r .Type | grep UnencryptedConfiguration
+                          title: "Checking whether output parses as JSON with expected top-level parameter"
                     - 
                           command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=w10\&profile=3 -O /home/scrutinizer/artifacts/WinInstaller.exe --no-verbose
                           title: "Generating Windows 10 installer via API call"
                     - 
                           command: file /home/scrutinizer/artifacts/WinInstaller.exe | egrep 'executable.*Intel.*Windows.*Nullsoft'
                           title: "Checking whether output is a Windows executable and Nullsoft installer"
-                    - wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=apple_hi_sierra\&profile=3 -O /home/scrutinizer/artifacts/AppleInstaller.mobileconfig --no-verbose
-                    - file /home/scrutinizer/artifacts/AppleInstaller.mobileconfig
-                    - wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=linux\&profile=3 -O /home/scrutinizer/artifacts/LinuxInstaller.py --no-verbose
-                    - pylint -E /home/scrutinizer/artifacts/LinuxInstaller.py
+                    - 
+                          command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=apple_hi_sierra\&profile=3 -O /home/scrutinizer/artifacts/AppleInstaller.mobileconfig --no-verbose
+                          title: "Generating a Apple High Sierra installer via API call"
+                    - 
+                          command: openssl smime -verify -in /home/scrutinizer/artifacts/AppleInstaller.mobileconfig -inform der -noverify 2>&1 | egrep '(Verification successful|plist)' | wc -l | grep 4
+                          title: "Checking whether output is a S/MIME signed Apple plist file"
+                    - 
+                          command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=linux\&profile=3 -O /home/scrutinizer/artifacts/LinuxInstaller.py --no-verbose
+                          title: "Generaring a Linux installer via API call"
+                    - 
+                          command: pylint -E /home/scrutinizer/artifacts/LinuxInstaller.py
+                          title: "Checking whether output is a error-free Python file"
     environment:
         variables:
             MY_PATH: '/home/scrutinizer/vault/'
