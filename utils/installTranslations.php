@@ -12,8 +12,8 @@ require_once "../config/config-master-template.php";
 const AREAS = ["web_admin", "web_user", "devices", "core", "diagnostics"];
 foreach (CONFIG['LANGUAGES'] as $lang => $details) {
     echo "Generating locale for ".$details['locale'];
-    exec("localegen ".$details['locale']);
+    exec("sudo locale-gen ".$details['locale']);
     foreach (AREAS as $oneArea) {
-        exec("msgfmt $lang/$oneArea.po -o $lang/LC_MESSAGES/$oneArea.mo");
+        exec("msgfmt ../$lang/$oneArea.po -o ../$lang/LC_MESSAGES/$oneArea.mo");
     }
 }
