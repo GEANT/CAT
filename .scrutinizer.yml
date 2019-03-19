@@ -422,6 +422,12 @@ build:
                     - 
                           command: pylint -E /home/scrutinizer/artifacts/LinuxInstaller.py
                           title: "Checking whether output is a error-free Python file"
+                    - 
+                          command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=eap-config\&profile=3 -O /home/scrutinizer/artifacts/GenericInstaller.xml --no-verbose
+                          title: "Generating an eap-config XML file via API call"
+                    - 
+                          command: xmlstarlet val -s "/home/scrutinizer/build/devices/xml/eap-metadata.xsd" "/home/scrutinizer/artifacts/GenericInstaller.xml"
+                          title: "Checking whether output is well-formed XML and validates against Schema"
     environment:
         variables:
             MY_PATH: '/home/scrutinizer/vault/'
