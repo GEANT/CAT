@@ -473,7 +473,7 @@ switch ($inputDecoded['ACTION']) {
         // extract relevant subset of information from cert objects
         $certDetails = [];
         foreach ($certs as $cert) {
-            $certDetails[$cert->ca_type . ":" . $cert->serial] = ["ISSUED" => $cert->issued, "EXPIRY" => $cert->expiry, "STATUS" => $cert->status, "DEVICE" => $cert->device, "CN" => $cert->username];
+            $certDetails[$cert->ca_type . ":" . $cert->serial] = ["ISSUED" => $cert->issued, "EXPIRY" => $cert->expiry, "STATUS" => $cert->status, "DEVICE" => $cert->device, "CN" => $cert->username, "ANNOTATION" => $cert->annotation];
         }
         $adminApi->returnSuccess($certDetails);
         break;
@@ -503,6 +503,35 @@ switch ($inputDecoded['ACTION']) {
         $cert->revokeCertificate();
         $adminApi->returnSuccess([]);
         break;
+    case \web\lib\admin\API::ACTION_CERT_ANNOTATE:
+        $prof_id = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID);
+        if ($prof_id === FALSE) {
+            exit(1);
+        }
+        $evaluation = commonSbProfileChecks($fed, $prof_id);
+        if ($evaluation === FALSE) {
+            exit(1);
+        }
+        list($idp, $profile) = $evaluation;
+        // tear apart the serial
+        $serialRaw = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_CERTSERIAL);
+        if ($serialRaw === FALSE) {
+            exit(1);
+        }
+        $serial = explode(":", $serialRaw);
+        $cert = new \core\SilverbulletCertificate($serial[1], $serial[0]);
+        if ($cert->status == \core\SilverbulletCertificate::CERTSTATUS_INVALID) {
+            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Serial not found.");
+        }
+        if ($cert->profileId != $profile->identifier) {
+            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Serial does not belong to this profile.");
+        }
+        $annotationRaw = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_CERTANNOTATION);
+        $annotation = json_decode($annotationRaw, TRUE);
+        $cert->annotate($annotation);
+        $adminApi->returnSuccess([]);
+        break;
+        
     default:
         $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_ACTION, "Not implemented yet.");
 }

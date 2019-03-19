@@ -49,6 +49,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
     public $ocspTimestamp;
     public $status;
     public $ca_type;
+    public $annotation;
 
     const CERTSTATUS_VALID = 1;
     const CERTSTATUS_EXPIRED = 2;
@@ -82,12 +83,13 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         $this->ocspTimestamp = "2000-01-01 00:00:00";
         $this->ca_type = $certtype;
         $this->status = SilverbulletCertificate::CERTSTATUS_INVALID;
+        $this->annotation = NULL;
 
         $incoming = FALSE;
         if (is_numeric($identifier)) {
-            $incoming = $this->databaseHandle->exec("SELECT `id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`, `issued`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp` FROM `silverbullet_certificate` WHERE serial_number = ? AND ca_type = ?", "is", $identifier, $certtype);
+            $incoming = $this->databaseHandle->exec("SELECT `id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`, `issued`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp`, `extrainfo` FROM `silverbullet_certificate` WHERE serial_number = ? AND ca_type = ?", "is", $identifier, $certtype);
         } else { // it's a string instead
-            $incoming = $this->databaseHandle->exec("SELECT `id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`, `issued`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp` FROM `silverbullet_certificate` WHERE cn = ? AND ca_type = ?", "ss", $identifier, $certtype);
+            $incoming = $this->databaseHandle->exec("SELECT `id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`, `issued`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp`, `extrainfo` FROM `silverbullet_certificate` WHERE cn = ? AND ca_type = ?", "ss", $identifier, $certtype);
         }
 
         // SELECT -> mysqli_resource, not boolean
@@ -105,6 +107,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
             $this->revocationTime = $oneResult->revocation_time;
             $this->ocsp = $oneResult->OCSP;
             $this->ocspTimestamp = $oneResult->OCSP_timestamp;
+            $this->annotation = $oneResult->extrainfo;
             // is the cert expired?
             $now = new \DateTime();
             $cert_expiry = new \DateTime($this->expiry);
@@ -124,13 +127,24 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      */
     public function getBasicInfo() {
         $returnArray = []; // unnecessary because the iterator below is never empty, but Scrutinizer gets excited nontheless
-        foreach (['status', 'serial', 'username', 'issued', 'expiry', 'ca_type'] as $key) {
+        foreach (['status', 'serial', 'username', 'issued', 'expiry', 'ca_type', 'annotation'] as $key) {
             $returnArray[$key] = $this->$key;
         }
         $returnArray['device'] = \devices\Devices::listDevices()[$this->device]['display'] ?? $this->device;
         return $returnArray;
     }
 
+    /**
+     * adds extra information about the certificate to the DB
+     * 
+     * @param array $annotation information to be stored
+     * @return void
+     */
+    public function annotate($annotation) {
+        $encoded = json_encode($annotation);
+        $this->annotation = $encoded;
+        $this->databaseHandle->exec("UPDATE silverbullet_certificate SET annotation = '$annotation' WHERE serial_number = ?", "i", $this->serial);
+    }
     /**
      * we don't use caching in SB, so this function does nothing
      * 

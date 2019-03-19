@@ -258,6 +258,7 @@ CREATE TABLE `silverbullet_certificate` (
   `revocation_time` TIMESTAMP DEFAULT '2001-01-01 00:00:00',
   `OCSP` BLOB DEFAULT NULL,
   `OCSP_timestamp` TIMESTAMP DEFAULT '2001-01-01 00:00:00',
+  `extrainfo` longblob DEFAULT NULL,
   PRIMARY KEY (`id`, `profile_id`, `silverbullet_user_id`)  COMMENT '',
   INDEX `fk_silverbullet_certificate_silverbullet_user1_idx` (`silverbullet_user_id` ASC, `profile_id` ASC)  COMMENT '',
   INDEX `fk_silverbullet_certificate_silverbullet_invitation1_idx` (`silverbullet_invitation_id` ASC)  COMMENT '', /* new index */
