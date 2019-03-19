@@ -1007,7 +1007,6 @@ FunctionEnd
 
 
 Function writePeapUserProfle
-MessageBox MB_OK "$PASS1"
     FileOpen $9 "$TEMP\user_cred.xml" w
     !if ${NSIS_MAJOR_VERSION} >= 3
     FileWriteUTF16LE $9 '<?xml version=$\"1.0$\"?>$\r$\n\
