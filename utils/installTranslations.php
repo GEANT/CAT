@@ -10,10 +10,11 @@
  */
 require_once "../config/config-master-template.php";
 const AREAS = ["web_admin", "web_user", "devices", "core", "diagnostics"];
-foreach (CONFIG['LANGUAGES'] as $lang => $details) {
-    echo "Generating locale for ".$details['locale'];
+foreach (CONFIG['LANGUAGES'] as $details) {
+    $langCode = substr($details['locale'], 0, 5);
+    echo "Generating locale for ".$details['locale']."\n";
     exec("sudo locale-gen ".$details['locale']);
     foreach (AREAS as $oneArea) {
-        exec("msgfmt ../translation/$lang/$oneArea.po -o ../translation/$lang/LC_MESSAGES/$oneArea.mo");
+        exec("msgfmt ../translation/$langCode/$oneArea.po -o ../translation/$langCode/LC_MESSAGES/$oneArea.mo");
     }
 }
