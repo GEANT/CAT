@@ -21,19 +21,19 @@ foreach (CONFIG['LANGUAGES'] as $lang => $details) {
         $bashLines .= "wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=$lang\&device=$oneOS\&profile=3 -O $filename --no-verbose\n";
         switch ($oneOS) {
             case "chromeos":
-                $bashLines .= "cat $filename | jq -r .Type | grep UnencryptedConfiguration\n";
+                $bashLines .= "cat $filename | jq -r .Type | grep UnencryptedConfiguration || exit 1\n";
                 break;
             case "w10":
-                $bashLines .= "file $filename | egrep 'executable.*Intel.*Windows.*Nullsoft'\n";
+                $bashLines .= "file $filename | egrep 'executable.*Intel.*Windows.*Nullsoft' || exit 2\n";
                 break;
             case "apple_hi_sierra":
-                $bashLines .= "openssl smime -verify -in $filename -inform der -noverify 2>&1 | egrep '(Verification successful|plist)' | wc -l | grep 4\n";
+                $bashLines .= "openssl smime -verify -in $filename -inform der -noverify 2>&1 | egrep '(Verification successful|plist)' | wc -l | grep 4 || exit 3\n";
                 break;
             case "linux":
-                $bashLines .= "pylint -E $filename\n";
+                $bashLines .= "pylint -E $filename || exit 4\n";
                 break;
             case "eap-config":
-                $bashLines .= "xmlstarlet val -s \"/home/scrutinizer/build/devices/xml/eap-metadata.xsd\" \"$filename\"\n";
+                $bashLines .= "xmlstarlet val -s \"/home/scrutinizer/build/devices/xml/eap-metadata.xsd\" \"$filename\" || exit 5\n";
                 break;
         }
     }
