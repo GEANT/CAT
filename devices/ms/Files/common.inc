@@ -249,7 +249,7 @@ MiscButtonText "" "" "" "<?php WindowsCommon::echo_nsi( _("Finish"))?>"
    !insertmacro debug_cat 2 "installing certificate $TEMP\${ca_file}"
    !insertmacro debug_cat 3 "Execute: certutil -addstore -user ${level} $TEMP\${ca_file}"
    DetailPrint "<?php WindowsCommon::echo_nsi( _("installing certificate"))?> ${ca_file}"
-   nsExec::Exec '"certutil" -addstore -user ${level} $TEMP\${ca_file}'
+   nsExec::Exec '"certutil" -addstore -user ${level} "$TEMP"\${ca_file}'
    Pop $0
    !insertmacro debug_cat 3 "certutil returned $0"
    ${If} $0 != 0
@@ -1007,6 +1007,7 @@ FunctionEnd
 
 
 Function writePeapUserProfle
+MessageBox MB_OK "$PASS1"
     FileOpen $9 "$TEMP\user_cred.xml" w
     !if ${NSIS_MAJOR_VERSION} >= 3
     FileWriteUTF16LE $9 '<?xml version=$\"1.0$\"?>$\r$\n\
@@ -1330,6 +1331,32 @@ Function validateUsername
    Push 0
 FunctionEnd
 
+Function EncodeXmlChars
+   ;$R0 will contain the current string location
+   Push $R0
+   Push $R1
+   Push $R2
+   Push $R9
+   Push 0
+   Pop $R0
+   ;$R9 will contain the output string
+   StrCpy $R9 ""
+   StrLen $R2 $PASS1
+   ${Do}
+      StrCpy $R1 $PASS1 1 $R0
+      ${If} $R1 == "&"
+         StrCpy $R1 "&amp;"
+      ${EndIf}
+      StrCpy $R9 "$R9$R1"
+      IntOp $R0 $R0 + 1
+   ${LoopUntil} $R0 = $R2
+   StrCpy $PASS1 $R9
+   Pop $R9
+   Pop $R2
+   Pop $R1
+   Pop $R0
+FunctionEnd
+
 Function GetPasswordBasedCredentials
   !ifdef HINT_USER_INPUT
     StrCpy $UNAME "@${REALM}"
@@ -1391,6 +1418,7 @@ FunctionEnd
 ;=============================
 !ifdef CRED
 Function InstallUserCredentials
+  Call EncodeXmlChars
   Call InstallWirelessUserCredentials
   Call InstallWiredUserCredentials
 FunctionEnd
