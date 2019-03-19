@@ -118,6 +118,7 @@ build:
                       'productname' => 'CAT', 
                       'productname_long' => 'Configuration Assistant Tool',
                       'defaultlocale' => 'en',
+                      'skins' => ['modern', 'example'],
                       ],
                       'FUNCTIONALITY_LOCATIONS' =>
                       ['CONFASSISTANT_SILVERBULLET' => 'LOCAL',
