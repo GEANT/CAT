@@ -249,7 +249,7 @@ class DeploymentManaged extends AbstractDeployment {
         // now, find an unused port in the preferred server
         $foundFreePort1 = 0;
         while ($foundFreePort1 == 0) {
-            $portCandidate = random_int(1025, 65535);
+            $portCandidate = random_int(1050, 65535);
             $check = $this->databaseHandle->exec("SELECT port_instance_1 FROM deployment WHERE radius_instance_1 = '" . $ourserver . "' AND port_instance_1 = $portCandidate");
             if (mysqli_num_rows(/** @scrutinizer ignore-type */ $check) == 0) {
                 $foundFreePort1 = $portCandidate;
@@ -258,7 +258,7 @@ class DeploymentManaged extends AbstractDeployment {
         $ourSecondServer = $this->findGoodServerLocation($ourLocation, $inst->federation , [$ourserver]);
         $foundFreePort2 = 0;
         while ($foundFreePort2 == 0) {
-            $portCandidate = random_int(1025, 65535);
+            $portCandidate = random_int(1050, 65535);
             $check = $this->databaseHandle->exec("SELECT port_instance_2 FROM deployment WHERE radius_instance_2 = '" . $ourSecondServer . "' AND port_instance_2 = $portCandidate");
             if (mysqli_num_rows(/** @scrutinizer ignore-type */ $check) == 0) {
                 $foundFreePort2 = $portCandidate;
