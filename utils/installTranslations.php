@@ -14,6 +14,6 @@ foreach (CONFIG['LANGUAGES'] as $lang => $details) {
     echo "Generating locale for ".$details['locale'];
     exec("sudo locale-gen ".$details['locale']);
     foreach (AREAS as $oneArea) {
-        exec("msgfmt ../translations/$lang/$oneArea.po -o ../translations/$lang/LC_MESSAGES/$oneArea.mo");
+        exec("msgfmt ../translation/$lang/$oneArea.po -o ../translation/$lang/LC_MESSAGES/$oneArea.mo");
     }
 }
