@@ -968,7 +968,7 @@ network={
                 case RADIUSTests::SERVER_CA_SELFSIGNED:
                     $servercert[] = $cert;
                     if (count($servercert) == 1) {
-                        if (file_put_contents($tmpDir . "/incomingserver.pem", $certPem . "\n") === FALSE) {
+                        if (file_put_contents($tmpDir . "/incomingserver.pem", $cert['pem'] . "\n") === FALSE) {
                             $this->loggerInstance->debug(4, "The (first) server certificate could not be written to $tmpDir/incomingserver.pem!\n");
                         }
                         $this->loggerInstance->debug(4, "This is the (first) server certificate, with CRL content if applicable: " . print_r($servercert[0], true));
@@ -986,7 +986,7 @@ network={
                     break;
                 case RADIUSTests::CA_INTERMEDIATE:
                     $intermOdditiesEAP = array_merge($intermOdditiesEAP, $this->propertyCheckIntermediate($cert));
-                    $eapIntermediates[] = $certPem;
+                    $eapIntermediates[] = $cert['pem'];
 
                     if (isset($cert['CRL']) && isset($cert['CRL'][0])) {
                         $eapIntermediateCRLs[] = $cert['CRL'][0];
