@@ -152,9 +152,13 @@ build:
                       'nomenclature_federation' => 'National Roaming Operator',
                       'nomenclature_institution' => 'Identity Provider',
                       'nomenclature_hotspot' => 'Hotspot',
+                      'homepage' => 'https://www.eduroam.org',
                       'nomenclature_participant' => 'Customer',
                       'ssid' => [ 'eduroam' ],
                       'registration_API_keys' => [ 'iabcd' => 'LU' ],
+                      ],
+                      'SILVERBULLET' => [
+                      'documentation' => 'https://wiki.geant.org/pages/viewpage.action?pageId=66650390',
                       ],
                       'PATHS' => [ 'makensis' => '/home/scrutinizer/build/tests/nsis3/bin/makensis' ],
                       'NSIS_VERSION' => 3,
