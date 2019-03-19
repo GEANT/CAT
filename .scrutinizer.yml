@@ -456,7 +456,7 @@ build:
     environment:
         variables:
             MY_PATH: '/home/scrutinizer/vault/'
-            TEST_LANGUAGE_VARIANTS: 1
+            TEST_LANGUAGE_VARIANTS: 0
         php:
             version: 7.3.3
         hosts:
