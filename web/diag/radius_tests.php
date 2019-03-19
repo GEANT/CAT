@@ -117,7 +117,7 @@ switch ($test_type) {
                     $clientcertdata = file_get_contents($_FILES['cert']['tmp_name']);
                     $privkey_pass = isset($_REQUEST['privkey_pass']) && $_REQUEST['privkey_pass'] ? $_REQUEST['privkey_pass'] : ""; //!!
                     if (isset($_REQUEST['tls_username']) && $_REQUEST['tls_username']) {
-                        $tls_username = $validator->User($_REQUEST['tls_username']);
+                        $tls_username = $validator->User(filter_input(INPUT_POST, 'tls_username', FILTER_SANITIZE_STRING));
                     } else {
                         if (openssl_pkcs12_read($clientcertdata, $certs, $privkey_pass)) {
                             $mydetails = openssl_x509_parse($certs['cert']);
