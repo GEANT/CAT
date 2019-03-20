@@ -21,9 +21,9 @@ Known deployments
 -----------------
 There are three known production deployments of CAT (please let us know if you are deploying the software and want to be on this list!).
 
-* *eduroam CAT* https://cat.eduroam.org (for all eduroam institutions and users world-wide, except Germany)
-* *DFN eduroam CAT* https://cat.eduroam.de (for eduroam institutions in Germany and their users)
-* *Enterprise Network CAT* https://802.1x-config.org (for enterprise networks unrelated to eduroam)
+* *eduroam CAT* https://cat.eduroam.org (for all eduroam institutions and users world-wide)
+* *eduroam Managed IdP* https://hosted.eduroam.org (deploying exclusively the 'silverbullet' feature set, for eduroam institutions and users world-wide)
+* *Enterprise Wi-Fi CAT* https://enterprise-wifi.net (for enterprise networks unrelated to eduroam)
 
 Installation and configuration of your own deployment
 -----------------------------------------------------
