@@ -322,4 +322,16 @@ class DeploymentManaged extends AbstractDeployment {
         $this->databaseHandle->exec("UPDATE deployment SET status = " . DeploymentManaged::ACTIVE . " WHERE deployment_id = $this->identifier");
     }
 
+    /**
+     * determines the Operator-Name attribute content to use in the RADIUS config
+     * 
+     * @return string
+     */
+    public function getOperatorName() {
+        $customAttrib = $this->getAttributes("managedsp:operatorname");
+        if (count($customAttrib) == 0) {
+            return "1sp.".$this->identifier."-".$this->institution.CONFIG_CONFASSISTANT['SILVERBULLET']['realm_suffix'];
+        }
+        return $customAttrib[0]["value"];
+    }
 }
