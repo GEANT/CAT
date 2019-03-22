@@ -4,13 +4,12 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Christian Claveleira <christian.claveleira@renater.fr>, 2018
-# dominique.launay <dominique.launay@renater.fr>, 2018
 # Nicolas Garnier <nicolas.garnier@renater.fr>, 2018
 # J.-M.Kubek <jean-marie.kubek@univ-jfc.fr>, 2018
 # Joël Kwan <joel.kwan@univ-reunion.fr>, 2018
 # Cedric Houssier <cedric.houssier@univ-rouen.fr>, 2018
 # Jonathan CHATRIOT <jonathan.chatriot@ac-lille.fr>, 2019
+# dominique.launay <dominique.launay@renater.fr>, 2019
 # Emmanuel Halbwachs <emmanuel.halbwachs@obspm.fr>, 2019
 #
 #, fuzzy
@@ -18,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-14 13:42+0100\n"
+"POT-Creation-Date: 2019-03-22 09:49+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: Emmanuel Halbwachs <emmanuel.halbwachs@obspm.fr>, 2019\n"
 "Language-Team: French (France) (https://www.transifex.com/eduroam_devel/"
@@ -29,28 +28,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: core/diag/AbstractTest.php:276
+#: core/diag/AbstractTest.php:275
 msgid "Completed"
 msgstr "Complété"
 
-#: core/diag/AbstractTest.php:283
+#: core/diag/AbstractTest.php:282
 msgid "Product is not configured to run this check."
 msgstr "Le produit n'est pas configuré pour exécuter cette vérification."
 
-#: core/diag/AbstractTest.php:289 web/diag/action_realmcheck.php:540
-#: web/diag/action_realmcheck.php:556
+#: core/diag/AbstractTest.php:288 web/diag/action_realmcheck.php:539
+#: web/diag/action_realmcheck.php:555
 msgid "This check was skipped."
 msgstr "Cette vérification a été ignorée."
 
-#: core/diag/AbstractTest.php:296
+#: core/diag/AbstractTest.php:295
 msgid "There were errors during the test."
 msgstr "Il y a eu des erreurs pendant le test."
 
-#: core/diag/AbstractTest.php:304
+#: core/diag/AbstractTest.php:303
 msgid "There was no reply at all from the RADIUS server."
 msgstr "Il n 'y a eu aucune réponse du serveur RADIUS."
 
-#: core/diag/AbstractTest.php:311
+#: core/diag/AbstractTest.php:310
 msgid ""
 "There was a bidirectional communication with the RADIUS server, but it ended "
 "halfway through."
@@ -58,7 +57,7 @@ msgstr ""
 "Il y a eu un ou plusieurs échanges avec le serveur RADIUS mais la "
 "communication a été interrompue."
 
-#: core/diag/AbstractTest.php:318
+#: core/diag/AbstractTest.php:317
 msgid ""
 "The RADIUS server immediately rejected the authentication request in its "
 "first reply."
@@ -66,7 +65,7 @@ msgstr ""
 "Le serveur RADIUS a immédiatement rejeté la demande d'authentification dès "
 "sa première réponse."
 
-#: core/diag/AbstractTest.php:325
+#: core/diag/AbstractTest.php:324
 msgid ""
 "The RADIUS server rejected the authentication request after an EAP "
 "conversation."
@@ -74,23 +73,23 @@ msgstr ""
 "Le serveur RADIUS a rejeté la demande d'authentification à la suite "
 "d'échanges EAP."
 
-#: core/diag/AbstractTest.php:332 web/diag/action_realmcheck.php:117
+#: core/diag/AbstractTest.php:331 web/diag/action_realmcheck.php:117
 msgid "Connection refused"
 msgstr "Connexion refusée"
 
-#: core/diag/AbstractTest.php:339
+#: core/diag/AbstractTest.php:338
 msgid "Not enough data provided to perform an authentication"
 msgstr ""
 "Il n'y a pas assez de données fournies pour réaliser une authentification"
 
-#: core/diag/AbstractTest.php:346
+#: core/diag/AbstractTest.php:345
 msgid ""
 "The certificate password you provided does not match the certificate file."
 msgstr ""
 "Le mot de passe que vous avez saisi  pour le certificat ne correspond pas à "
 "ceui du fichier"
 
-#: core/diag/AbstractTest.php:354
+#: core/diag/AbstractTest.php:353
 msgid ""
 "The certificate chain includes the root CA certificate. This does not serve "
 "any useful purpose but inflates the packet exchange, possibly leading to "
@@ -101,35 +100,35 @@ msgstr ""
 "échangés ce qui peut multiplier les échanges et donc ralentir "
 "l'authentification."
 
-#: core/diag/AbstractTest.php:361
+#: core/diag/AbstractTest.php:360
 msgid "There is more than one server certificate in the chain."
 msgstr "Il y a plus d'un certificat serveur dans la chaîne."
 
-#: core/diag/AbstractTest.php:368
+#: core/diag/AbstractTest.php:367
 msgid "There is no server certificate in the chain."
 msgstr "Il 'y a aucun certificat serveur dans la chaîne."
 
-#: core/diag/AbstractTest.php:375
+#: core/diag/AbstractTest.php:374
 msgid ""
 "At least one certificate in the chain is signed with the MD5 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
 "validate this certificate."
 msgstr ""
 "L'un, au moins, des certificats de la chaîne est signé avec l'algorithme "
-"MD5. De nombreux systèmes d'exploitation, en particulier iOS de l'entreprise "
-"Apple, ne pourront valider ce(s) certificat(s)."
+"MD5. De nombreux systèmes d'exploitation, en particulier Apple iOS, ne "
+"pourront valider ce certificat."
 
-#: core/diag/AbstractTest.php:382
+#: core/diag/AbstractTest.php:381
 msgid ""
 "At least one certificate in the chain is signed with the SHA-1 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
 "validate this certificate."
 msgstr ""
 "L'un, au moins, des certificats de la chaîne est signé avec l'algorithme "
-"SHA-1 . De nombreux systèmes d'exploitation, en particulier iOS de "
-"l'entreprise Apple, ne pourront pas valider ce certificat."
+"SHA-1 . De nombreux systèmes d'exploitation, en particulier Apple iOS, ne "
+"pourront pas valider ce certificat."
 
-#: core/diag/AbstractTest.php:389
+#: core/diag/AbstractTest.php:388
 msgid ""
 "At least one certificate in the chain had a public key of less than 1024 "
 "bits. Many recent operating systems consider this unacceptable and will fail "
@@ -137,41 +136,41 @@ msgid ""
 msgstr ""
 "L'un, au moins, des certificats de la chaîne est associé à une clef publique "
 "de moins de 1024 bits. La plupart des systèmes d'exploitation récents "
-"considère qu'il s'agit d'une imitation inacceptable. Ces systèmes échoueront "
-"lors de a phase de validation du certificat serveur."
+"considèrent qu'il s'agit d'une imitation inacceptable. Ces systèmes "
+"échoueront lors de la phase de validation du certificat serveur."
 
-#: core/diag/AbstractTest.php:396
+#: core/diag/AbstractTest.php:395
 msgid ""
 "The server certificate does not have the extension 'extendedKeyUsage: TLS "
 "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
 "validate this certificate."
 msgstr ""
-"Le certificat serveur ne possède pas l'extension 'extendedKeyUsage: TLS Web "
-"Server Authentication'. La plupart des systèmes d'exploitation de "
+"Le certificat serveur ne possède pas l'extension \"extendedKeyUsage: TLS Web "
+"Server Authentication\". La plupart des systèmes d'exploitation de "
 "l'entreprise Microsoft échoueront lors de la phase de validation du "
 "certificat."
 
-#: core/diag/AbstractTest.php:403
+#: core/diag/AbstractTest.php:402
 msgid ""
 "The server certificate did not include a CRL Distribution Point, creating "
 "compatibility problems with Windows Phone 8."
 msgstr ""
-"Ce certiticat serveur n'inclue aucun point de distribution CRL, ce qui va "
-"entraîner des problèmes de compatibilité avec "
+"Ce certificat serveur n'inclut aucun point de distribution CRL, ce qui va "
+"entraîner des problèmes de compatibilité avec Windows Phone 8."
 
-#: core/diag/AbstractTest.php:410
+#: core/diag/AbstractTest.php:409
 msgid ""
 "The server certificate's 'CRL Distribution Point' extension does not point "
 "to an HTTP/HTTPS URL. Some Operating Systems may fail to validate this "
 "certificate. Checking server certificate validity against a CRL will not be "
 "possible."
 msgstr ""
-"L\"extension 'CRL Distribution Point' du certificat serveur ne pointe pas "
-"vers un URLHTTP/HTTPS. Certains systèmes d'exploitation pourraient échouer "
+"L'extension \"CRL Distribution Point\" du certificat serveur ne pointe pas "
+"vers une URL HTTP/HTTPS. Certains systèmes d'exploitation pourraient échouer "
 "lors de la validation du certificat. De plus la vérification de validité du "
 "certificat vis-à-vis d'une CRL ne sera pas possible."
 
-#: core/diag/AbstractTest.php:417
+#: core/diag/AbstractTest.php:416
 msgid ""
 "The extension 'CRL Distribution Point' in the server certificate points to a "
 "location where no DER-encoded CRL can be found. Some Operating Systems check "
@@ -179,32 +178,32 @@ msgid ""
 "certificate. Checking server certificate validity against a CRL will not be "
 "possible."
 msgstr ""
-"L'extension 'Point de distribution CRL' dans le certificat serveur\n"
+"L'extension \"CRL Distribution Point\" dans le certificat serveur\n"
 "pointe vers une adresse où aucune CRL encodée DER n'a été trouvée.\n"
 "Certains systèmes d'exploitation vérifient la validité des\n"
 "certificats en consultant la CRL, et vont invalider ce certificat.\n"
 "La vérification de la validité du certificat par rapport à une CRL\n"
 "ne sera pas possible."
 
-#: core/diag/AbstractTest.php:424
+#: core/diag/AbstractTest.php:423
 msgid "The server certificate was revoked by the CA!"
 msgstr ""
 "Ce certificat serveur a été révoqué par l'autorité de certification (CA) !"
 
-#: core/diag/AbstractTest.php:431
+#: core/diag/AbstractTest.php:430
 msgid ""
 "The certificate contained a CN or subjectAltName:DNS which does not parse as "
 "a hostname. This can be problematic on some supplicants. If the certificate "
 "also contains names which are a proper hostname, and you only use those for "
 "your supplicant configuration, then you can safely ignore this notice."
 msgstr ""
-"Le certificat contient un CN ou subjectAltName:DNS dont la syntaxe DNS n'est "
-"pas valide. Ce qui peut-être problématique pour certains supplicants. Vous "
-"pouvez sans doute ignorer cette information si le certificat contient aussi "
-"des noms valides et que vous utilisez ceux-ci dans la configuration du "
-"supplicant."
+"Le certificat contient un CN ou subjectAltName:DNS qui ne correspond pas à "
+"un nom de machine. Ce qui peut-être problématique pour certains supplicants. "
+"Vous pouvez sans doute ignorer cette information si le certificat contient "
+"aussi des noms valides et que vous utilisez ceux-ci dans la configuration du "
+"client."
 
-#: core/diag/AbstractTest.php:438
+#: core/diag/AbstractTest.php:437
 msgid ""
 "The certificate contained a CN or subjectAltName:DNS which contains a "
 "wildcard ('*'). This can be problematic on some supplicants. If the "
@@ -213,20 +212,19 @@ msgid ""
 "notice."
 msgstr ""
 "Le certificat contient un CN ou subjectAltName:DNS qui utilise un wildcard "
-"('*'). Ce qui peut-être problématique pour certains supplicants. Vous pouvez "
+"('*'). Ce qui peut-être problématique pour certains clients. Vous pouvez "
 "sans doute ignorer cette information si le certificat contient aussi des "
-"noms sans wildcards et que vous les utilisez pour la configuration du "
-"supplicant."
+"noms sans wildcards et que vous les utilisez pour la configuration du client."
 
-#: core/diag/AbstractTest.php:445
+#: core/diag/AbstractTest.php:444
 msgid ""
 "At least one certificate is outside its validity period (not yet valid, or "
 "already expired)!"
 msgstr ""
 "L'un des certificats, au moins, est en dehors de sa période de validité (pas "
-"encore vaide ou déjà expiré)."
+"encore valide ou déjà expiré)."
 
-#: core/diag/AbstractTest.php:452
+#: core/diag/AbstractTest.php:451
 #, php-format
 msgid ""
 "At least one intermediate certificate in your CAT profile is outside its "
@@ -239,27 +237,28 @@ msgstr ""
 "certificat n'a pas été utilisé pour la validation du serveur. Vous devriez "
 "envisager d’enlever ce(s) certificat(s) de la configuration %s."
 
-#: core/diag/AbstractTest.php:459
+#: core/diag/AbstractTest.php:458
 msgid ""
 "The server certificate could not be verified to the root CA you configured "
 "in your profile!"
 msgstr ""
 "Le certificat serveur n'a pas pu être vérifié au regard de l'autorité de "
-"certification (AC) configurée dans votre profil!"
+"certification racine configurée dans votre profil !"
 
-#: core/diag/AbstractTest.php:463
+#: core/diag/AbstractTest.php:462
 msgid ""
 "The certificate chain as received in EAP was not sufficient to verify the "
 "certificate to the root CA in your profile. It was verified using the "
 "intermediate CAs in your profile though. You should consider sending the "
 "required intermediate CAs inside the EAP conversation."
 msgstr ""
-"La chaîne de certification reçue pour EAP n'est pas suffisante pour vérifier "
-"le certificat vis-à-vis de l'AC racine renseignée dans votre profil. Ce "
-"certificat a toutefois été vérifié auprès des Acs intermédiaires. Vous "
-"devriez envisager d'envoyer ces ACs intermédiaires lors de l'échange EAP."
+"La chaîne de certification reçue lors de l'échange EAP n'est pas suffisante "
+"pour vérifier le certificat vis-à-vis de l'AC racine renseignée dans votre "
+"profil. Ce certificat a toutefois été vérifié auprès des ACs intermédiaires. "
+"Vous devriez envisager d'envoyer ces ACs intermédiaires lors de l'échange "
+"EAP."
 
-#: core/diag/AbstractTest.php:469
+#: core/diag/AbstractTest.php:468
 msgid ""
 "The EAP server name does not match any of the configured names in your "
 "profile!"
@@ -267,18 +266,18 @@ msgstr ""
 "Le nom du serveur EAP ne correspond à aucun des noms indiqués dans votre "
 "profil."
 
-#: core/diag/AbstractTest.php:476
+#: core/diag/AbstractTest.php:475
 msgid ""
 "The configured EAP server name matches either the CN or a subjectAltName:DNS "
 "of the incoming certificate; best current practice is that the certificate "
 "should contain the name in BOTH places."
 msgstr ""
 "Le nom du serveur EAP configuré correspond soit au CN soit à l'un "
-"subjectAltNameDNS du certificat entrant. La meilleure des bonnes pratiques "
-"actuelle recommande de renseigner le nom du serveur dans le certificat aux "
+"subjectAltName:DNS du certificat entrant. La meilleure des bonnes pratiques "
+"actuelles recommande de renseigner le nom du serveur dans le certificat aux "
 "deux endroits à la fois."
 
-#: core/diag/AbstractTest.php:483
+#: core/diag/AbstractTest.php:482
 msgid ""
 "At least one certificate did not contain any BasicConstraints extension; "
 "which makes it unclear if it's a CA certificate or end-entity certificate. "
@@ -286,69 +285,70 @@ msgid ""
 "for EAP purposes!"
 msgstr ""
 "Au moins l'un des certificats ne renseigne aucune extension "
-"'BasicConstraints', ce qui sous-détermine s'il s'agit d'un certificat d'AC "
-"ou d'un certificat d'entité terminale.   Mac OS X 10.8 (Mountain Lion), a "
-"minima, ne pourra valider ce certificat pour l'utilisation d'EAP."
+"\"BasicConstraints'\", ce qui ne permet pas de savoir s'il s'agit d'un "
+"certificat d'AC ou d'un certificat d'entité terminale.   Mac OS X 10.8 "
+"(Mountain Lion), à minima, ne pourra valider ce certificat pour "
+"l'utilisation d'EAP."
 
-#: core/diag/AbstractTest.php:490
+#: core/diag/AbstractTest.php:489
 msgid "The server presented a certificate from an unknown authority."
 msgstr ""
 "Le certificat présenté par le serveur émane d'une autorité de certification "
 "(CA) inconnue."
 
-#: core/diag/AbstractTest.php:497
+#: core/diag/AbstractTest.php:496
 msgid "The server accepted the INVALID client certificate."
 msgstr "Le serveur a accepté le certificat client INVALIDE."
 
-#: core/diag/AbstractTest.php:504
+#: core/diag/AbstractTest.php:503
 msgid "The server rejected the client certificate, even though it was valid."
 msgstr "Le serveur a rejeté le certificat client bien qu'il soit valide."
 
-#: core/diag/AbstractTest.php:511
+#: core/diag/AbstractTest.php:510
 msgid "The server rejected the client certificate as expected."
 msgstr "Comme prévu, le serveur a rejeté le certificat client."
 
-#: core/diag/AbstractTest.php:518
+#: core/diag/AbstractTest.php:517
 msgid "The CRL of a certificate could not be found."
 msgstr "La CRL d'un des certificats n'a pu être trouvée."
 
-#: core/diag/AbstractTest.php:525
+#: core/diag/AbstractTest.php:524
 msgid "EAP method negotiation failed!"
-msgstr "Échec lors de la négociation de la méthode EAP."
+msgstr "Échec lors de la négociation de la méthode EAP !"
 
-#: core/diag/AbstractTest.php:532
+#: core/diag/AbstractTest.php:531
 msgid ""
 "The server offers Diffie-Hellman (DH) ciphers with a DH group smaller than "
 "1024 bit. Mac OS X 10.11 'El Capitan' is known to refuse TLS connections "
 "under these circumstances!"
 msgstr ""
-"Le serveur utilise des codes Diffie-Hellman (DH) associés à un groupe DH "
-"dont la longueur est inférieure à 1024 bits.  Mac OS X 10.11 'El Capitan' "
-"refusera d'établir des connexions TLS dans ces conditions."
+"Le serveur utilise des méthodes de chiffrement Diffie-Hellman (DH) associés "
+"à un groupe DH dont la longueur est inférieure à 1024 bits. Mac OS X 10.11 "
+"\"El Capitan\" refusera d'établir des connexions TLS dans ces conditions."
 
-#: core/diag/AbstractTest.php:539
+#: core/diag/AbstractTest.php:538
 msgid ""
 "The certificate contains more than one CommonName (CN) field. This is "
 "reportedly problematic on many supplicants."
 msgstr ""
-"Le certificat contient plus d'un champ CommonName (CN).\n"
+"Le certificat contient plus d'un champ \"CommonName\" (CN).\n"
 "Il s'est avéré que ce type de certificat pose problème pour de nombreux "
-"supplicants."
+"clients."
 
-#: core/diag/AbstractTest.php:546
+#: core/diag/AbstractTest.php:545
 msgid ""
 "The certificate public key algorithm is unknown to the system. Please submit "
 "the certificate as a sample to the developers."
 msgstr ""
 "L'algorithme de la clé publique du certificat n'est pas connu du système.\n"
-"Faites SVP un rapport de bug aux développeurs de CAT et\n"
+"Veuillez faire un rapport de bug aux développeurs de CAT et\n"
 "fournissez ce certificat pour qu'ils puissent l'étudier."
 
-#: core/diag/Logopath.php:106
+#: core/diag/Logopath.php:107
 msgid "[eduroam Diagnostics]"
 msgstr "[Diagnostics eduroam]"
 
-#: core/diag/Logopath.php:108
+#: core/diag/Logopath.php:109
 msgid ""
 "(This service is in an early stage. We apologise if this is a false alert. "
 "If this is the case, please send an email report to cat-devel@lists.geant."
@@ -362,25 +362,25 @@ msgstr ""
 "(en incluant les données 'SUSPECTS' et 'EVIDENCE' se trouvant à la fin)\n"
 "et en expliquant pourquoi vous pensez que ce cas est un faux positif.)"
 
-#: core/diag/Logopath.php:110
+#: core/diag/Logopath.php:111
 msgid "Yours sincerely,"
 msgstr "Cordialement,"
 
-#: core/diag/Logopath.php:112
+#: core/diag/Logopath.php:113
 msgid "Ed U. Roam, the eduroam diagnostics algorithm"
 msgstr "Ed U. Roam, l'algorithme de diagnostic d'eduroam"
 
-#: core/diag/Logopath.php:120
+#: core/diag/Logopath.php:121
 msgid "[POLICYVIOLATION NATIONAL] IdP with no entry in eduroam database"
 msgstr ""
 "[POLICYVIOLATION NATIONAL] IdP sans entrée correspondante dans la base de "
 "données eduroam"
 
-#: core/diag/Logopath.php:121
+#: core/diag/Logopath.php:122
 msgid "Dear NRO administrator,"
 msgstr "Cher administrateur ou administratrice NRO,"
 
-#: core/diag/Logopath.php:123
+#: core/diag/Logopath.php:124
 #, php-format
 msgid ""
 "an end-user requested diagnostics for realm %s. Real-time connectivity "
@@ -392,7 +392,7 @@ msgstr ""
 "mais les tests n'ont pas trouvé d'IdP pour ce domaine dans la base de "
 "données eduroam."
 
-#: core/diag/Logopath.php:125
+#: core/diag/Logopath.php:126
 msgid ""
 "By not listing IdPs in the eduroam database, you are violating the eduroam "
 "policy."
@@ -400,7 +400,7 @@ msgstr ""
 "En ne faisant pas apparaître les IdP dans la base de données eduroam,\n"
 "vous ne respectez pas les conditions de participation à eduroam."
 
-#: core/diag/Logopath.php:127
+#: core/diag/Logopath.php:128
 msgid ""
 "Additionally, this creates operational issues. In particular, we are unable "
 "to direct end users to their IdP for further diagnosis/instructions because "
@@ -413,22 +413,22 @@ msgstr ""
 "IdP\n"
 "dans la base de données."
 
-#: core/diag/RADIUSTests.php:1158
+#: core/diag/RADIUSTests.php:1159
 #, php-format
 msgid "Connected to %s."
 msgstr "Connecté à %s."
 
-#: core/diag/RADIUSTests.php:1163 web/diag/radius_tests.php:211
+#: core/diag/RADIUSTests.php:1164 web/diag/radius_tests.php:217
 msgid ""
 "<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
 "multiple round-trips was carried out, and ended in an Access-Reject as "
 "planned."
 msgstr ""
 "<strong>Test réussi</strong> : une communication RADIUS bidirectionnelle "
-"avec plusieurs échanges a été établie. Elle s'est achevé par un 'Access-"
-"Reject' comme prévu."
+"avec plusieurs échanges a été établie. Elle s'est achevé par un \"Access-"
+"Reject\" comme prévu."
 
-#: core/diag/RADIUSTests.php:1167
+#: core/diag/RADIUSTests.php:1169
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
@@ -437,83 +437,84 @@ msgid ""
 msgstr ""
 "<strong>Réussite partielle du test</strong>: une conversation "
 "bidirectionnelle RADIUS a donné lieu à plusieurs échanges, elle s'est "
-"terminée par un Access-Reject comme prévu. Toutefois certaines "
-"caractéristiques de la tentative de connexion sont sous optimales, voir la "
+"terminée par un \"Access-Reject\" comme prévu. Toutefois certaines "
+"caractéristiques de la tentative de connexion sont sous optimales ; voir la "
 "liste ci dessous."
 
-#: core/diag/RFC6614Tests.php:78
+#: core/diag/RFC6614Tests.php:79
 msgid "eduPKI"
 msgstr "eduPKI"
 
-#: core/diag/RFC6614Tests.php:79
+#: core/diag/RFC6614Tests.php:80
 msgid "Nicolaus Copernicus University"
 msgstr "Nicolaus Copernicus University"
 
-#: core/diag/RFC6614Tests.php:80
-msgid "accredited"
-msgstr "accrédite"
-
 #: core/diag/RFC6614Tests.php:81
+msgid "accredited"
+msgstr "accrédité"
+
+#: core/diag/RFC6614Tests.php:82
 msgid "non-accredited"
 msgstr "non-accrédité"
 
-#: core/diag/RFC6614Tests.php:82
-msgid "correct certificate"
-msgstr "certificate correcte"
-
 #: core/diag/RFC6614Tests.php:83
-msgid "certificate with wrong policy OID"
-msgstr "certificat avec un mauvais policy OID"
+msgid "correct certificate"
+msgstr "certificate correct"
 
 #: core/diag/RFC6614Tests.php:84
+msgid "certificate with wrong policy OID"
+msgstr "certificat avec un mauvais \"policy OID\""
+
+#: core/diag/RFC6614Tests.php:85
 msgid "expired certificate"
 msgstr "certificat expiré"
 
-#: core/diag/RFC6614Tests.php:85
+#: core/diag/RFC6614Tests.php:86
 msgid "revoked certificate"
 msgstr "certificat révoqué"
 
-#: core/diag/RFC6614Tests.php:86
-msgid "pass"
-msgstr "mot de passe"
-
 #: core/diag/RFC6614Tests.php:87
-msgid "fail"
-msgstr "erreur"
+msgid "pass"
+msgstr "correct"
 
 #: core/diag/RFC6614Tests.php:88
+msgid "fail"
+msgstr "échec"
+
+#: core/diag/RFC6614Tests.php:89
 msgid "eduroam-accredited CA (now only for tests)"
-msgstr "CA accrédité eduroam (à fin de test uniquement pour l'instant)"
+msgstr "AC accréditée eduroam (à fin de test uniquement pour l'instant)"
 
-#: core/diag/RFC6614Tests.php:265
+#: core/diag/RFC6614Tests.php:268
 msgid "No TLS connection established: Connection refused"
-msgstr "Pas de connexion TLS établie. Connexion refusée."
+msgstr "Pas de connexion TLS établie : Connexion refusée."
 
-#: core/diag/RFC6614Tests.php:267
+#: core/diag/RFC6614Tests.php:270
 msgid "certificate expired"
 msgstr "certificat expiré"
 
-#: core/diag/RFC6614Tests.php:269
+#: core/diag/RFC6614Tests.php:272
 msgid "certificate was revoked"
 msgstr "le certificat a été révoqué"
 
-#: core/diag/RFC6614Tests.php:271
+#: core/diag/RFC6614Tests.php:274
 msgid "bad policy"
-msgstr "Mauvaise règle"
+msgstr "mauvaise politique"
 
-#: core/diag/RFC6614Tests.php:273
+#: core/diag/RFC6614Tests.php:276
 msgid "unknown authority"
 msgstr "autorité inconnue"
 
-#: core/diag/RFC6614Tests.php:276
+#: core/diag/RFC6614Tests.php:279
 msgid "unknown authority or no certificate policy or another problem"
-msgstr "autorité inconnue ou aucune règle de certificats ou autre problème"
+msgstr ""
+"autorité inconnue ou aucune politique de certification ou autre problème"
 
 #. return codes specific to NAPTR existence checks
 #. *
 #. * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
 #.
-#: core/diag/RFC7585Tests.php:134 web/diag/action_realmcheck.php:508
+#: core/diag/RFC7585Tests.php:134 web/diag/action_realmcheck.php:507
 msgid "This realm has no NAPTR records."
 msgstr "Ce domaine n'a pas d'enregistrement NAPTR."
 
@@ -563,7 +564,7 @@ msgstr ""
 "Le système n'a trouvé aucune information sur le fournisseur d'identité (IdP) "
 "que vous indiquez.\n"
 "Il est probable que cette institution ne participe pas à eduroam\n"
-"et ainsi que le compte que vous tentez d'utiliser n'existe pas."
+"et donc que le compte que vous tentez d'utiliser n'existe pas."
 
 #: core/diag/Sociopath.php:58
 msgid ""
@@ -574,15 +575,14 @@ msgid ""
 "objects in the way, elevation differences) can have a significant impact on "
 "your connectivity experience."
 msgstr ""
-"Il y a probablement des problèmes radio (wifi) sur le réseau auquel vous "
-"tentez de vous connecter.\n"
+"Il y a probablement des problèmes sur la partie sans-fil du réseau auquel "
+"vous tentez de vous connecter.\n"
 "Les réseaux wifi ne se comportent pas toujours de façon prévisible ou "
 "cohérente.\n"
-"Le wifi est un médium partagé et tous les utilisateurs doivent ainsi "
-"partager la capacité totale en débit.\n"
-"L'environnement physique (murs en béton, obstacles sur le passage, "
-"différences d'élévation)\n"
-"peut également avoir un impact important sur votre expérience utilisateur."
+"Tous les utilisateurs situés à un endroit donné doivent partager la bande "
+"passante disponible et l'environnement physique (murs en béton, obstacles "
+"sur le passage, différences d'élévation) peut également avoir un impact "
+"important sur votre expérience utilisateur."
 
 #. here is an array with yes/no answers per failure category, and the factors by which a Yes modifies the score; No's modify it by 1/factor;
 #. the order in this array is important: lower numbered questions will be asked first. So make sure you have high-quality questions in the beginning.
@@ -594,7 +594,7 @@ msgid ""
 "exists in CAT, then display link to config] or contact your Identity "
 "Provider [MGW: show contact info]."
 msgstr ""
-"Vous devriez utiliser un assistant de configuration approprié\n"
+"Vous devriez utiliser l'assistant de configuration approprié\n"
 "[MGW: voir si le domaine existe dans CAT, puis afficher un lien vers la "
 "config.]\n"
 "ou contacter votre fournisseur d'identité (celui de votre établissement)\n"
@@ -608,7 +608,9 @@ msgstr ""
 "Avez-vous déjà réussi à vous connecter à un réseau, p. ex. à celui de votre "
 "établissement d'origine sans être en nomadisme ?"
 
-#: core/diag/Sociopath.php:72
+#. that's good, but it doesn't mean strikingly much
+#. that's bad, and points strongly to a config on this end
+#: core/diag/Sociopath.php:73
 #, php-format
 msgid ""
 "If your device has never worked before with this setup, then very likely "
@@ -619,15 +621,18 @@ msgstr ""
 "alors il est très probable que la configuration de votre appareil est "
 "incorrecte."
 
-#: core/diag/Sociopath.php:74
+#: core/diag/Sociopath.php:75
 msgid ""
 "Did the device previously work when roaming, i.e. at other hotspots away "
 "from your home institution?"
 msgstr ""
-"Est-ce que l'appareil fonctionnait auparavant en nomadisme, c.-à-d. sur\n"
+"Est-ce que l'appareil fonctionnait auparavant en situation de nomadisme, c.-"
+"à-d. sur\n"
 "des réseaux wifi en dehors de votre établissement ?"
 
-#: core/diag/Sociopath.php:76
+#. that's good, and somewhat encouraging
+#. that is almost a smoking gun
+#: core/diag/Sociopath.php:78
 #, php-format
 msgid ""
 "If roaming consistently does not work, then very likely your device "
@@ -639,16 +644,19 @@ msgstr ""
 "que\n"
 "la configuration de votre appareil soit incorrecte. Les causes de ce "
 "symptôme sont typiquement :\n"
-"l'utilisation d'un identifiant non complètement qualifié, c.-à-d. sans\n"
+"l'utilisation d'un identifiant externe (outer) non complètement qualifié, c.-"
+"à-d. sans\n"
 "le suffixe @domaine.tld - cela peut peut-être fonctionner dans votre "
 "établissement d'origine,\n"
-"mais ne peut pas fonctionner lorsque vous êtes nomade."
+"mais ne peut pas fonctionner lorsque vous êtes nomade.%s"
 
-#: core/diag/Sociopath.php:78
+#: core/diag/Sociopath.php:80
 msgid "Did you recently change the configuration on your device?"
 msgstr "Avez-vous récemment changé la configuration de votre appareil ?"
 
-#: core/diag/Sociopath.php:80
+#. that is almost a smoking gun
+#. encouraging
+#: core/diag/Sociopath.php:83
 msgid ""
 "Accounts only need to be configured once, and can then be used anywhere on "
 "the planet without any changes. If you recently changed the configuration, "
@@ -656,21 +664,36 @@ msgid ""
 "configuration unless explicitly instructed so by your Identity Provider; "
 "even in the case of temporary login issues."
 msgstr ""
-"Les comptes sont à configurer une fois et peuvent ensuite être utilisés sans "
-"changements n'importe où sur la planète.\n"
+"Les comptes n'ont besoin d'être configurés qu'une fois et peuvent ensuite "
+"être utilisés sans changement n'importe où sur la planète.\n"
 "Si vous avez récemment changé la configuration, ce changement pourrait être "
 "le fautif.\n"
 "Vous ne devriez jamais changer la configuration à moins d'y être "
 "explicitement invité par votre founisseur d'identité,\n"
 "même en cas de soucis temporaires de connexion."
 
-#: core/diag/Sociopath.php:82
+#: core/diag/Sociopath.php:85
+#, fuzzy
+msgid "Did you recently change your password?"
+msgstr "Avez-vous récemment changé la configuration de votre appareil ?"
+
+#. that doesn't mean it is the source of the problem, but it /might/ be that the user forgot to provide the new password
+#. encouraging
+#: core/diag/Sociopath.php:88
+msgid ""
+"When you change your password, you also need to supply the new password in "
+"the device configuration."
+msgstr ""
+
+#: core/diag/Sociopath.php:90
 msgid "If you use more than one device: do your other devices still work?"
 msgstr ""
 "Si vous utilisez plus d'un appareil : est-ce que les autres appareils "
 "fonctionnent toujours ?"
 
-#: core/diag/Sociopath.php:83
+#. seems that all is okay with the account as such
+#. now that is suspicious indeed
+#: core/diag/Sociopath.php:93
 msgid ""
 "If all devices stopped working simultaneously, there may be a problem with "
 "your account as such. Maybe your account expired, or you were forced to "
@@ -685,15 +708,16 @@ msgstr ""
 "fournisseur d'identité\n"
 "[MGW: afficher l'information de contact]."
 
-#: core/diag/Sociopath.php:86
+#: core/diag/Sociopath.php:95
 msgid ""
 "Is the place you are currently at heavily crowded, or is a network-intensive "
 "workload going on?"
 msgstr ""
 "Y a-t-il beaucoup de monde à l'endroit où vous vous trouvez, ou y a-t-il une "
-"tâche gourmande en trafic réseau qui fonctionne actuellement ?"
+"tâche gourmande en trafic réseau qui fonctionne actuellement sur votre "
+"appareil ?"
 
-#: core/diag/Sociopath.php:88
+#: core/diag/Sociopath.php:98
 msgid ""
 "The network is likely overloaded at this location and point in time. You may "
 "have to wait until later before you get a better connectivity. If you think "
@@ -705,15 +729,15 @@ msgstr ""
 "Il est possible que vous ayez à attendre avant d'obtenir une meilleure "
 "connectivité.\n"
 "Si vous pensez que le réseau devrait être renforcé pour plus de capacité,\n"
-"vous pouvez le suggérer au fournisseur du réseau. [MGW: ajouter "
-"l'information de contact]\n"
+"vous pouvez le suggérer au fournisseur du réseau local. [MGW: ajouter "
+"l'information de contact]"
 
-#: core/diag/Sociopath.php:90
+#: core/diag/Sociopath.php:100
 msgid "Does the connection get better when you move around?"
 msgstr ""
 "Est-ce que la connexion s'améliore lorsque vous vous déplacez aux alentours ?"
 
-#: core/diag/Sociopath.php:92
+#: core/diag/Sociopath.php:103
 msgid ""
 "You should move to a different location to achieve better network coverage "
 "and service. If you think the exact spot you are at deserves better "
@@ -723,33 +747,35 @@ msgstr ""
 "couverture réseau et un meilleur service.\n"
 "Si vous pensez que l'endroit exact où vous vous trouvez mérite une meilleure "
 "couverture,\n"
-"vous pouvez le suggérer au fournisseur du réseau. [MGW: ajouter "
+"vous pouvez le suggérer au fournisseur du réseau local. [MGW: ajouter "
 "l'information de contact]"
 
-#: core/diag/Sociopath.php:95
+#: core/diag/Sociopath.php:105
 msgid ""
 "Do you see errors stating something similar to 'Unable to get IP address'?"
 msgstr ""
-"Voyez-vous des messages d'erreurs qui ressembleraient à 'Impossible "
-"d'obtenir une adresse IP' ?"
+"Voyez-vous des messages d'erreurs qui ressembleraient à \"Impossible "
+"d'obtenir une adresse IP\" ?"
 
-#: core/diag/Sociopath.php:97
+#. gotcha
+#. the user saying no is not conclusive; maybe the device isn't that verbose or he's not looking at the right spot
+#: core/diag/Sociopath.php:108
 msgid ""
 "The evidence at hand suggests that there may be an infrastructure problem at "
 "this particular hotspot provider. There is nothing you can do to solve this "
 "problem locally. Please be patient and try again at a later time."
 msgstr ""
 "Les éléments dont nous disposons laissent à penser qu'il y a un problème "
-"d'infrastructure au niveau du fournisseur du réseau.\n"
+"d'infrastructure au niveau du fournisseur du réseau local.\n"
 "Il n'y a rien que vous puissiez faire pour résoudre le problème à l'endroit "
 "où vous vous trouvez.\n"
 "Soyez SVP patient et réessayez plus tard."
 
-#: web/skins/modern/diag/diag.php:87
+#: web/skins/modern/diag/diag.php:93
 msgid "Diagnostics site"
 msgstr "Diagnostics pour le site"
 
-#: web/skins/modern/diag/diag.php:90
+#: web/skins/modern/diag/diag.php:96
 msgid ""
 "The diagnostics system will do its best to identify and resolve your "
 "problems!"
@@ -757,72 +783,72 @@ msgstr ""
 "L'outil de diagnostic va faire de son mieux pour identifier et résoudre "
 "votre problème !"
 
-#: web/skins/modern/diag/diag.php:90
+#: web/skins/modern/diag/diag.php:96
 msgid ""
 "Please help the system by answering the questions as precisely as possible."
 msgstr ""
 "Pour aider l'outil, répondez SVP aux questions aussi précisément que "
 "possible."
 
-#: web/skins/modern/diag/diag.php:90
+#: web/skins/modern/diag/diag.php:96
 msgid "Are you a"
 msgstr "Êtes-vous un"
 
-#: web/skins/modern/diag/diag.php:91
+#: web/skins/modern/diag/diag.php:97
 msgid "end-user"
 msgstr "utilisateur final"
 
-#: web/skins/modern/diag/diag.php:91 web/diag/adminQuery.php:133
+#: web/skins/modern/diag/diag.php:97 web/diag/adminQuery.php:133
 msgid "or"
 msgstr "ou"
 
-#: web/skins/modern/diag/diag.php:92
+#: web/skins/modern/diag/diag.php:98
 msgid "eduroam administrator"
 msgstr "administrateur eduroam"
 
-#: web/skins/modern/diag/diag.php:95
+#: web/skins/modern/diag/diag.php:101
 msgid "Tools for End Users"
 msgstr "Outils pour les Utilisateurs Finaux"
 
-#: web/skins/modern/diag/diag.php:98
+#: web/skins/modern/diag/diag.php:104
 msgid ""
 "To resolve your problem a real-time diagnostics for your realm must be "
 "performed."
 msgstr ""
 "Pour résoudre votre problème, il est nécessaire de réaliser un diagnostic en "
-"temps réel de votre royaume d'authentification."
+"temps réel de votre domaine d'authentification."
 
-#: web/skins/modern/diag/diag.php:102
+#: web/skins/modern/diag/diag.php:108
 msgid ""
 "The system needs some information on your home institution - issuer of your "
 "account"
 msgstr ""
-"Le système a besoin d'information relative à votre établissement d'origine - "
-"créateur de votre compte"
+"Le système a besoin d'informations relatives à votre établissement d'origine "
+"- créateur de votre compte"
 
-#: web/skins/modern/diag/diag.php:103
+#: web/skins/modern/diag/diag.php:109
 msgid ""
 "What is the realm part of your user account (the part behind the @ of 'your."
 "username@<b>realm.tld</b>):"
 msgstr ""
 "Quel est la partie indiquant le domaine dans votre identifiant (la partie se "
-"trouvant après le '@' dans votre\n"
-"identifiant de la forme 'votre.login@<b>domaine.tld</b>) :"
+"trouvant après le \"@\" dans votre identifiant de la forme \"votre."
+"login@<b>domaine.tld</b>\") :"
 
-#: web/skins/modern/diag/diag.php:107
+#: web/skins/modern/diag/diag.php:113
 msgid "alternatively"
 msgstr "autrement"
 
-#: web/skins/modern/diag/diag.php:108
+#: web/skins/modern/diag/diag.php:114
 msgid "You can select your home institution from the following list"
 msgstr ""
 "Vous pouvez sélectionner votre établissement d'origine dans la liste suivante"
 
-#: web/skins/modern/diag/diag.php:110
+#: web/skins/modern/diag/diag.php:116
 msgid "Click to select your country/region and organisation"
 msgstr "Cliquer pour sélectionner votre pays/région et votre établissement"
 
-#: web/skins/modern/diag/diag.php:117
+#: web/skins/modern/diag/diag.php:123
 msgid ""
 "Optionally, to improve tests, you can provide information on your current "
 "location"
@@ -830,119 +856,118 @@ msgstr ""
 "Optionnellement, pour améliorer les test, vous pouvez fournir des "
 "informations sur votre localisation actuelle"
 
-#: web/skins/modern/diag/diag.php:119
+#: web/skins/modern/diag/diag.php:125
 msgid "Click to select a location in which you have an eduroam problem"
 msgstr ""
 "Cliquer pour sélectionner le lieu où vous rencontrez un problème avec eduroam"
 
-#: web/skins/modern/diag/diag.php:126 web/skins/modern/diag/diag.php:257
+#: web/skins/modern/diag/diag.php:132 web/skins/modern/diag/diag.php:263
 msgid "Testing realm"
-msgstr "test du royaume d'authentification en cours"
+msgstr "test du domaine d'authentification en cours"
 
-#: web/skins/modern/diag/diag.php:127
+#: web/skins/modern/diag/diag.php:133
 msgid "First stage completed."
 msgstr "Première étape complétée."
 
-#: web/skins/modern/diag/diag.php:132
+#: web/skins/modern/diag/diag.php:138
 msgid "To narrow down the problem, please answer the following few questions."
 msgstr ""
-"Pour mieux identifier le problème, veuillez répondre aux questions suivantes."
+"Pour mieux identifier le problème, veuillez répondre à quelques questions."
 
-#: web/skins/modern/diag/diag.php:137
+#: web/skins/modern/diag/diag.php:143
 msgid "Run tests"
 msgstr "Lancer les tests"
 
-#: web/skins/modern/diag/diag.php:142
+#: web/skins/modern/diag/diag.php:148
 msgid "Tools for eduroam admins"
 msgstr "Outils pour les administrateurs eduroam"
 
-#: web/skins/modern/diag/diag.php:154
+#: web/skins/modern/diag/diag.php:160
 msgid "Which problem are you reporting?"
 msgstr "Quel problème souhaitez-vous signaler ?"
 
-#: web/skins/modern/diag/diag.php:156 web/skins/modern/diag/diag.php:865
+#: web/skins/modern/diag/diag.php:162 web/skins/modern/diag/diag.php:871
 msgid "SP contacting IdP due to technical problems or abuse"
 msgstr "SP contactant un IdP suite à un problème technique ou un abus"
 
-#: web/skins/modern/diag/diag.php:158
+#: web/skins/modern/diag/diag.php:164
 msgid "IdP contacting SP due to technical problems"
 msgstr "Idp contactant un SP suite à un problème technique"
 
-#: web/skins/modern/diag/diag.php:165
+#: web/skins/modern/diag/diag.php:171
 msgid "This service is for authenticated admins only."
 msgstr "Ce service est réservé aux administrateurs authentifiés."
 
-#: web/skins/modern/diag/diag.php:167
+#: web/skins/modern/diag/diag.php:173
 msgid "eduroam® admin access is needed"
 msgstr "L'accès administrateur eduroam® est nécessaire"
 
-#: web/skins/modern/diag/diag.php:191
+#: web/skins/modern/diag/diag.php:197
 msgid "Select institiution:"
-msgstr "Sélectionne un établissement :"
+msgstr "Sélectionner un établissement :"
 
-#: web/skins/modern/diag/diag.php:216
+#: web/skins/modern/diag/diag.php:222
 msgid "Select country or region:"
 msgstr "Sélectionner un pays ou une région :"
 
-#: web/skins/modern/diag/diag.php:224
+#: web/skins/modern/diag/diag.php:230
 msgid "Fetching country/region list"
 msgstr "Récupération de la liste des pays/régions"
 
-#: web/skins/modern/diag/diag.php:284
+#: web/skins/modern/diag/diag.php:290
 msgid "Yes"
 msgstr "Oui"
 
-#: web/skins/modern/diag/diag.php:285
+#: web/skins/modern/diag/diag.php:291
 msgid "No"
 msgstr "Non"
 
-#: web/skins/modern/diag/diag.php:286
+#: web/skins/modern/diag/diag.php:292
 msgid "I don't know"
 msgstr "Je ne sais pas"
 
-#: web/skins/modern/diag/diag.php:315
+#: web/skins/modern/diag/diag.php:321
 msgid "Diagnostic tests results for selected realm"
-msgstr "Résultats des tests de diagnostic du royaume d'authentification"
+msgstr "Résultats des tests de diagnostic pour le domaine sélectionné"
 
-#: web/skins/modern/diag/diag.php:318
+#: web/skins/modern/diag/diag.php:324
 msgid "The result for tested realm:"
-msgstr "Le résultat du royaume d’authentification testé:"
+msgstr "Le résultat du domaine testé :"
 
-#: web/skins/modern/diag/diag.php:320
+#: web/skins/modern/diag/diag.php:326
 msgid "The system identified"
 msgstr "Le système identifié"
 
-#: web/skins/modern/diag/diag.php:322
+#: web/skins/modern/diag/diag.php:328
 msgid "suspected areas which potentially can cause a problem."
 msgstr "champs suspects qui pourraient causer un problème."
 
-#: web/skins/modern/diag/diag.php:323
+#: web/skins/modern/diag/diag.php:329
 msgid ""
 "Next to the problem description we show a speculated probability of this "
 "event."
 msgstr ""
-"A côté de la description du problème, nous affichons une cause probable de "
+"À côté de la description du problème, nous affichons une cause probable de "
 "cet événement."
 
-#: web/skins/modern/diag/diag.php:330
+#: web/skins/modern/diag/diag.php:336
 msgid "Your device configuration is broken"
 msgstr "La configuration de votre appareil est corrompue"
 
-#: web/skins/modern/diag/diag.php:333
+#: web/skins/modern/diag/diag.php:339
 msgid "The Wi-Fi network in your vicinity has quality issues"
 msgstr "Le réseau Wi-Fi à proximité  présente des problèmes de performances"
 
-#: web/skins/modern/diag/diag.php:336
+#: web/skins/modern/diag/diag.php:342
 msgid "The network environment around you is broken"
 msgstr "L'environnement réseau dans votre secteur est en panne"
 
-#: web/skins/modern/diag/diag.php:339
+#: web/skins/modern/diag/diag.php:345
 msgid "The RADIUS server of your service provider is the source of the problem"
 msgstr ""
-"Le serveur RADIUS de votre fournisseur de service (SP) est à l'origine du "
-"problème"
+"Le serveur RADIUS de votre fournisseur de service est à l'origine du problème"
 
-#: web/skins/modern/diag/diag.php:342
+#: web/skins/modern/diag/diag.php:348
 msgid ""
 "The RADIUS server in your home institution is currently unable to "
 "authenticate you"
@@ -950,7 +975,7 @@ msgstr ""
 "Le serveur RADIUS de votre établissement d'origine est actuellement "
 "incapable de vous authentifier"
 
-#: web/skins/modern/diag/diag.php:345
+#: web/skins/modern/diag/diag.php:351
 msgid ""
 "The national server in the country/region you are visiting is not "
 "functioning correctly"
@@ -958,154 +983,156 @@ msgstr ""
 "Le serveur national dans le pays/la région que vous visitez ne fonctionne "
 "pas correctement"
 
-#: web/skins/modern/diag/diag.php:348
+#: web/skins/modern/diag/diag.php:354
 msgid ""
 "The link between the national server of the country/region you are visiting "
 "and the top-level server is broken"
 msgstr ""
 "La liaison entre le serveur national du pays/région que vous visitez et le "
-"serveur de premier niveau est rompu"
+"serveur de plus haut niveau est rompu"
 
-#: web/skins/modern/diag/diag.php:351
+#: web/skins/modern/diag/diag.php:357
 msgid ""
 "The link between the national server of your home country/region and the top-"
 "level server is broken"
 msgstr ""
 "La liaison entre le serveur national de votre pays/région d'origine et le "
-"serveur de premier niveau est rompu"
+"serveur de plus haut niveau est rompu"
 
-#: web/skins/modern/diag/diag.php:354
+#: web/skins/modern/diag/diag.php:360
 msgid "The communication to the top-level server is down"
-msgstr "La communication avec le serveur de premier niveau est interrompue"
+msgstr "La communication avec le serveur de plus haut niveau est interrompue"
 
-#: web/skins/modern/diag/diag.php:357
+#: web/skins/modern/diag/diag.php:363
 msgid ""
 "The national server in your home country/region is not functioning properly."
 msgstr ""
 "Le serveur national de votre pays/région d'origine ne fonctionne pas "
 "correctement."
 
-#: web/skins/modern/diag/diag.php:360
+#: web/skins/modern/diag/diag.php:366
 msgid "The RADIUS server of your home institution is the source of the problem"
 msgstr ""
 "Le serveur RADIUS de votre établissement d'origine est la source du problème"
 
-#: web/skins/modern/diag/diag.php:363
+#: web/skins/modern/diag/diag.php:369
 msgid "This realm does not exist"
-msgstr "Le royaume d'authentification n'existe pas"
+msgstr "Le domaine d'authentification n'existe pas"
 
-#: web/skins/modern/diag/diag.php:469
+#: web/skins/modern/diag/diag.php:475
 msgid "Fetching institutions list"
 msgstr "Récupération de la liste des établissements"
 
-#: web/skins/modern/diag/diag.php:487
+#: web/skins/modern/diag/diag.php:493
 msgid "Select institution:"
 msgstr "Sélectionner un établissement :"
 
-#: web/skins/modern/diag/diag.php:526
+#: web/skins/modern/diag/diag.php:532
 msgid "Fetching realms list"
-msgstr "Récupération de la liste des royaumes d'authentification"
+msgstr "Récupération de la liste des domaines d'authentification"
 
-#: web/skins/modern/diag/diag.php:538
+#: web/skins/modern/diag/diag.php:544
 msgid "Check realm(s):"
-msgstr "Vérifier les royaume(s) d’authentification:"
+msgstr "Vérifier le(s) domaine(s) d’authentification:"
 
-#: web/skins/modern/diag/diag.php:550
+#: web/skins/modern/diag/diag.php:556
 msgid "Realm:"
-msgstr "Domaine:"
+msgstr "Domaine d'authentification :"
 
-#: web/skins/modern/diag/diag.php:604 web/skins/modern/diag/diag.php:673
-#: web/skins/modern/diag/diag.php:789
+#: web/skins/modern/diag/diag.php:610 web/skins/modern/diag/diag.php:679
+#: web/skins/modern/diag/diag.php:795
 msgid "Running realm tests"
-msgstr "Test des royaumes d’authentification en cours"
+msgstr "Test des domaines d’authentification en cours"
 
-#: web/skins/modern/diag/diag.php:648
+#: web/skins/modern/diag/diag.php:654
 msgid "Realm is not registered with the eduroam database:"
 msgstr ""
-"Le royaume d'authentification n'est pas enregistré dans la base eduroam: "
+"Le domaine d'authentification n'est pas enregistré dans la base eduroam: "
 
-#: web/skins/modern/diag/diag.php:721
+#: web/skins/modern/diag/diag.php:727
 msgid "Diagnostics results for selected realms"
 msgstr ""
-"Résultats des diagnostics pour les royaumes d'authentification sélectionnés"
+"Résultats des diagnostics pour les domaines d'authentification sélectionnés"
 
-#: web/skins/modern/diag/diag.php:722
+#: web/skins/modern/diag/diag.php:728
 msgid "An unknown problem occured"
 msgstr "Un problème inconnu est survenu"
 
-#: web/skins/modern/diag/diag.php:725
+#: web/skins/modern/diag/diag.php:731
 msgid "This test includes checking of the following realm"
-msgstr "Ce test comprend la vérification du royaume suivant"
+msgstr "Ce test comprend la vérification du domaine suivant"
 
-#: web/skins/modern/diag/diag.php:727
+#: web/skins/modern/diag/diag.php:733
 msgid "This test includes checking of the following realms"
-msgstr "Ce test comprend la vérification des royaumes suivants"
+msgstr "Ce test comprend la vérification des domaines suivants"
 
-#: web/skins/modern/diag/diag.php:737
+#: web/skins/modern/diag/diag.php:743
 msgid "You should report this to"
 msgstr "Vous devriez signaler ceci à"
 
-#: web/skins/modern/diag/diag.php:862
+#: web/skins/modern/diag/diag.php:868
 msgid "eduroam admin report submission"
 msgstr "Soumettre un rapport à l'administrateur eduroam"
 
-#: web/skins/modern/diag/diag.php:867 web/skins/modern/diag/diag.php:877
+#: web/skins/modern/diag/diag.php:873 web/skins/modern/diag/diag.php:883
 msgid "Reason"
 msgstr "Cause"
 
-#: web/skins/modern/diag/diag.php:868
+#: web/skins/modern/diag/diag.php:874
 msgid "SP email"
 msgstr "e-mail du SP"
 
-#: web/skins/modern/diag/diag.php:869
+#: web/skins/modern/diag/diag.php:875
 msgid "IdP email(s)"
-msgstr "e-mail de l'IdP"
+msgstr "e-mail(s) de l'IdP"
 
-#: web/skins/modern/diag/diag.php:870 web/skins/modern/diag/diag.php:881
+#: web/skins/modern/diag/diag.php:876 web/skins/modern/diag/diag.php:887
 msgid "Event's timestamp"
 msgstr "Horodatage de l’événement"
 
-#: web/skins/modern/diag/diag.php:871 web/skins/modern/diag/diag.php:882
+#: web/skins/modern/diag/diag.php:877 web/skins/modern/diag/diag.php:888
 msgid "Calling-Station-Id"
-msgstr "Id-Station-Appelante"
+msgstr "Calling-Station-Id"
 
-#: web/skins/modern/diag/diag.php:872 web/skins/modern/diag/diag.php:883
+#: web/skins/modern/diag/diag.php:878 web/skins/modern/diag/diag.php:889
 msgid "Additional description"
 msgstr "Description supplémentaire"
 
-#: web/skins/modern/diag/diag.php:875
+#: web/skins/modern/diag/diag.php:881
 msgid "IdP contacting SP due to technical problems or abuse"
-msgstr "IdP contactant le SP suite à un problème technique ou un abus"
-
-#: web/skins/modern/diag/diag.php:878
-msgid "SP's Operator-Name"
-msgstr "Nom de l’opérateur du SP"
-
-#: web/skins/modern/diag/diag.php:879
-msgid "User's outer ID"
-msgstr "ID externe de l'utilisateur"
-
-#: web/skins/modern/diag/diag.php:880
-msgid "IdP email"
-msgstr "e-mail de l'IdP"
+msgstr ""
+"Fournisseur d'identité contactant le fournisseur de service suite à un "
+"problème technique ou un abus"
 
 #: web/skins/modern/diag/diag.php:884
+msgid "SP's Operator-Name"
+msgstr "Nom de l’opérateur du fournisseur de service"
+
+#: web/skins/modern/diag/diag.php:885
+msgid "User's outer ID"
+msgstr "Identité externe de l'utilisateur"
+
+#: web/skins/modern/diag/diag.php:886
+msgid "IdP email"
+msgstr "e-mail du fournisseur de service"
+
+#: web/skins/modern/diag/diag.php:890
 msgid "How to contact the user"
 msgstr "Comment contacter l'utilisateur"
 
-#: web/skins/modern/diag/diag.php:901
+#: web/skins/modern/diag/diag.php:907
 msgid "MAC address is incomplete"
 msgstr "L'adresse MAC est incomplète"
 
-#: web/skins/modern/diag/diag.php:910
+#: web/skins/modern/diag/diag.php:916
 msgid "Wrong format of email"
 msgstr "Mauvais formatage du courrier électronique"
 
-#: web/skins/modern/diag/diag.php:919
+#: web/skins/modern/diag/diag.php:925
 msgid "Wrong format of outer ID"
-msgstr "Mauvais format de l'ID externe"
+msgstr "Mauvais format de l'identité externe"
 
-#: web/skins/modern/diag/diag.php:928
+#: web/skins/modern/diag/diag.php:934
 msgid "Wrong string given as OperatorName"
 msgstr "Erreur dans la chaîne de caractères fournie pour OperatorName"
 
@@ -1157,7 +1184,7 @@ msgstr "Le serveur a accepté ce certificat client"
 
 #: web/diag/action_realmcheck.php:105
 msgid "Server accepted this client certificate, but should not have"
-msgstr "Le serveur à accepté ce certificat client, mais n'aurait pas dû"
+msgstr "Le serveur a accepté ce certificat client, mais n'aurait pas dû"
 
 #: web/diag/action_realmcheck.php:106
 msgid "Server did not accept this client certificate"
@@ -1165,15 +1192,15 @@ msgstr "Le serveur n'a pas accepté ce certificat client"
 
 #: web/diag/action_realmcheck.php:107
 msgid "Server did not accept this client certificate - reason"
-msgstr "Le serveur n'a pas accepté ce certificat client - raison"
+msgstr "Le serveur n'a pas accepté ce certificat client - cause"
 
 #: web/diag/action_realmcheck.php:108
 msgid "Rest of tests for this CA skipped"
-msgstr "Les tests suivants pour ce CA ont été abandonnés"
+msgstr "Les tests suivants pour cette AC ont été abandonnés"
 
 #: web/diag/action_realmcheck.php:109
 msgid "You should update your list of accredited CAs"
-msgstr "Vous devez mettre à jour votre liste des CA accrédités"
+msgstr "Vous devez mettre à jour votre liste des AC accréditées"
 
 #: web/diag/action_realmcheck.php:110
 msgid "Get it from here."
@@ -1183,7 +1210,7 @@ msgstr "Obtenez-le ici."
 msgid "more"
 msgstr "voir plus"
 
-#: web/diag/action_realmcheck.php:114 web/diag/action_realmcheck.php:657
+#: web/diag/action_realmcheck.php:114 web/diag/action_realmcheck.php:656
 msgid "Show detailed information for all tests"
 msgstr "Montrer le détail de tous les tests."
 
@@ -1221,7 +1248,7 @@ msgstr "Noms alternatifs"
 
 #: web/diag/action_realmcheck.php:133
 msgid "Certificate policies"
-msgstr "Politique de certification"
+msgstr "Politiques de certification"
 
 #: web/diag/action_realmcheck.php:134
 msgid "crlDistributionPoint"
@@ -1241,7 +1268,7 @@ msgstr "Sujet :"
 
 #: web/diag/action_realmcheck.php:141
 msgid "Issuer:"
-msgstr "Émetteur:"
+msgstr "Émetteur :"
 
 #: web/diag/action_realmcheck.php:142
 msgid "Valid from:"
@@ -1253,7 +1280,7 @@ msgstr "Valide jusqu'au :"
 
 #: web/diag/action_realmcheck.php:144
 msgid "Serial number:"
-msgstr "Numéro de série ;"
+msgstr "Numéro de série :"
 
 #: web/diag/action_realmcheck.php:145
 msgid "SHA1 fingerprint:"
@@ -1285,38 +1312,38 @@ msgstr "Voir l'onglet correspondant pour plus de détails."
 msgid "Server certificate details:"
 msgstr "Détails du certificat serveur :"
 
-#: web/diag/action_realmcheck.php:483
+#: web/diag/action_realmcheck.php:482
 #, php-format
 msgid "Realm testing for: %s"
 msgstr "Test du domaine : %s"
 
-#: web/diag/action_realmcheck.php:488 web/diag/action_realmcheck.php:496
+#: web/diag/action_realmcheck.php:487 web/diag/action_realmcheck.php:495
 msgid "Overview"
 msgstr "Aperçu"
 
-#: web/diag/action_realmcheck.php:489 web/diag/action_realmcheck.php:603
+#: web/diag/action_realmcheck.php:488 web/diag/action_realmcheck.php:602
 msgid "Static connectivity tests"
 msgstr "Tests statiques de connectivité"
 
-#: web/diag/action_realmcheck.php:490 web/diag/action_realmcheck.php:608
+#: web/diag/action_realmcheck.php:489 web/diag/action_realmcheck.php:607
 msgid "Dynamic connectivity tests"
-msgstr "Tests dynamique de connectivité"
+msgstr "Tests dynamiques de connectivité"
 
-#: web/diag/action_realmcheck.php:491
+#: web/diag/action_realmcheck.php:490
 msgid "Live login tests"
 msgstr "Tests de connexion en ligne"
 
 #. NAPTR existence check
-#: web/diag/action_realmcheck.php:500
+#: web/diag/action_realmcheck.php:499
 msgid "DNS chekcs"
 msgstr "vérifications DNS"
 
 #. output in friendly words
-#: web/diag/action_realmcheck.php:505
+#: web/diag/action_realmcheck.php:504
 msgid "Checking NAPTR existence:"
 msgstr "Vérification de l'existence des enregistrements NAPTR :"
 
-#: web/diag/action_realmcheck.php:511
+#: web/diag/action_realmcheck.php:510
 msgid ""
 "This realm has NAPTR records, but none are related to this roaming "
 "consortium."
@@ -1325,86 +1352,86 @@ msgstr ""
 "consortium de nomadisme."
 
 #. if none of the possible negative retvals, then we have matching NAPTRs
-#: web/diag/action_realmcheck.php:514
+#: web/diag/action_realmcheck.php:513
 #, php-format
 msgid "This realm has %d NAPTR records relating to this roaming consortium."
 msgstr ""
 "Ce domaine possède %s enregistrements NAPTR correspondant à ce consortium de "
 "nomadisme."
 
-#: web/diag/action_realmcheck.php:520
+#: web/diag/action_realmcheck.php:519
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
 msgstr "Vérification de la conformité NAPTR (flag = S et regex = {empty}) :"
 
-#: web/diag/action_realmcheck.php:524
+#: web/diag/action_realmcheck.php:523
 msgid "No issues found."
 msgstr "Aucun problème n'a été trouvé."
 
-#: web/diag/action_realmcheck.php:527 web/diag/action_realmcheck.php:543
+#: web/diag/action_realmcheck.php:526 web/diag/action_realmcheck.php:542
 #, php-format
 msgid "At least one NAPTR with invalid content found!"
 msgstr "Détection d'au moins un contenu  NAPTR  invalide !"
 
-#: web/diag/action_realmcheck.php:537
+#: web/diag/action_realmcheck.php:536
 msgid "Checking SRVs:"
 msgstr "Vérification des enregistrements SRV :"
 
 #. print number of successfully retrieved SRV targets
-#: web/diag/action_realmcheck.php:546
+#: web/diag/action_realmcheck.php:545
 #, php-format
 msgid "%d host names discovered."
 msgstr "%d noms d'hôtes ont été découverts."
 
-#: web/diag/action_realmcheck.php:553
+#: web/diag/action_realmcheck.php:552
 msgid "Checking IP address resolution:"
 msgstr "Vérification de résolution des adresses IP :"
 
-#: web/diag/action_realmcheck.php:559
+#: web/diag/action_realmcheck.php:558
 #, php-format
 msgid "At least one hostname could not be resolved!"
 msgstr "L'un, au moins, des noms d'hôte n'a pu être résolu !"
 
 #. print number of successfully retrieved SRV targets
-#: web/diag/action_realmcheck.php:562
+#: web/diag/action_realmcheck.php:561
 #, php-format
 msgid "%d IP addresses resolved."
 msgstr "%d addresses IP résolues."
 
-#: web/diag/action_realmcheck.php:569 web/diag/action_realmcheck.php:571
+#: web/diag/action_realmcheck.php:568 web/diag/action_realmcheck.php:570
 #, php-format
 msgid "Realm is <strong>%s</strong> "
 msgstr "Le domaine est <strong>%s</strong>"
 
-#: web/diag/action_realmcheck.php:569
+#: web/diag/action_realmcheck.php:568
 msgid "with no DNS errors encountered. Congratulations!"
 msgstr "sans aucune erreur DNS. Félicitations !"
 
-#: web/diag/action_realmcheck.php:571
+#: web/diag/action_realmcheck.php:570
 msgid "but there were DNS errors! Check them!"
 msgstr "mais avec des erreurs DNS ! Vérifiez-les !"
 
-#: web/diag/action_realmcheck.php:571
+#: web/diag/action_realmcheck.php:570
 msgid ""
 "You should re-run the tests after fixing the errors; more errors might be "
 "uncovered at that point. The exact error causes are listed below."
 msgstr ""
 "Vous devriez ré-exécuter les tests après avoir corrigé les sources d'erreur "
-"(vous risquez cependant de rencontrer de nouvelles erreurs à ce moment là) "
+"(vous risquez cependant de rencontrer de nouvelles erreurs à ce moment là). "
 "Les erreurs rencontrés jusqu'à présent sont listées ci dessous."
 
-#: web/diag/action_realmcheck.php:601
+#: web/diag/action_realmcheck.php:600
 msgid "Dynamic discovery test is not configured"
 msgstr "Le test de découverte dynamique n'est pas configuré"
 
-#: web/diag/action_realmcheck.php:619
+#: web/diag/action_realmcheck.php:618
 msgid "Repeat static connectivity tests"
 msgstr "Recommencer les tests de connectivité statique"
 
-#: web/diag/action_realmcheck.php:622
+#: web/diag/action_realmcheck.php:621
 msgid "STATIC connectivity tests"
 msgstr "Tests de connectivité STATIQUE"
 
-#: web/diag/action_realmcheck.php:624
+#: web/diag/action_realmcheck.php:623
 msgid ""
 "This check sends a request for the realm through various entry points of the "
 "roaming consortium infrastructure. The request will contain the 'Operator-"
@@ -1413,69 +1440,69 @@ msgid ""
 "realm, we can't authenticate successfully - so the expected outcome is to "
 "get an Access-Reject after having gone through an EAP conversation."
 msgstr ""
-"Cette vérification envoie une requête au domaine au travers de\n"
-"plusieurs points d'entrée de l'infrastructure du consortium de nomadisme.\n"
-"Cette requête contiendra l'attribut 'Operator-Name' et sera plus grande que\n"
-"1500 octets pour détecter deux problèmes classiques de configuration.<br/>\n"
-"Comme le test n'a pas de vrais identifiants pour le domaine, il ne peut pas\n"
-"s'authentifier avec succès - ainsi le résultat attendu est un Access-Reject\n"
-"après l'établissement du dialogue EAP.\n"
+"Cette vérification envoie une requête au domaine au travers de plusieurs "
+"points d'entrée de l'infrastructure du consortium de nomadisme. Cette "
+"requête contiendra l'attribut 'Operator-Name' et sera plus grande que 1500 "
+"octets pour détecter deux problèmes classiques de configuration.<br/>Comme "
+"le test n'a pas de vrais identifiants pour le domaine, il ne peut pas "
+"s'authentifier avec succès - ainsi le résultat attendu est un Access-Reject "
+"après l'établissement du dialogue EAP."
 
-#: web/diag/action_realmcheck.php:628 web/diag/action_realmcheck.php:740
+#: web/diag/action_realmcheck.php:627 web/diag/action_realmcheck.php:739
 #, php-format
 msgid "Testing from: %s"
 msgstr "En cours de test à partir de : %s"
 
-#: web/diag/action_realmcheck.php:633 web/diag/action_realmcheck.php:666
-#: web/diag/action_realmcheck.php:679
+#: web/diag/action_realmcheck.php:632 web/diag/action_realmcheck.php:665
+#: web/diag/action_realmcheck.php:678
 msgid "testing..."
 msgstr "Test en cours ..."
 
-#: web/diag/action_realmcheck.php:648
+#: web/diag/action_realmcheck.php:647
 msgid "Repeat dynamic connectivity tests"
 msgstr "Recommencer les tests de connectivité dynamique"
 
-#: web/diag/action_realmcheck.php:652
+#: web/diag/action_realmcheck.php:651
 msgid "DYNAMIC connectivity tests"
 msgstr "Tests de connectivité DYNAMIQUE"
 
-#: web/diag/action_realmcheck.php:656
+#: web/diag/action_realmcheck.php:655
 msgid "Some errors were found during the tests, see below"
 msgstr "Des erreurs ont été trouvés pendant les tests, voir ci-dessous"
 
-#: web/diag/action_realmcheck.php:656
+#: web/diag/action_realmcheck.php:655
 msgid "All tests passed, congratulations!"
-msgstr "Tout les tests ont été passés avec succès, félicitation!"
+msgstr "Tout les tests ont été passés avec succès, félicitation !"
 
-#: web/diag/action_realmcheck.php:657
+#: web/diag/action_realmcheck.php:656
 msgid "Checking server handshake..."
-msgstr "Vérification du handshake serveur"
+msgstr "Vérification du handshake serveur.."
 
-#: web/diag/action_realmcheck.php:687
+#: web/diag/action_realmcheck.php:686
 msgid "Checking if certificates from  CAs are accepted..."
-msgstr "Vérification que les certificats des  CA sont acceptés..."
+msgstr "Vérification que les certificats des  AC sont acceptés..."
 
-#: web/diag/action_realmcheck.php:687
+#: web/diag/action_realmcheck.php:686
 msgid ""
 "A few client certificates will be tested to check if servers are resistant "
 "to some certificate problems."
 msgstr ""
 "Quelques certificats clients vont être testés pour vérifier que les serveurs "
-"sont résistant à divers problèmes de certificats."
+"sont résistants à divers problèmes de certificats."
 
-#: web/diag/action_realmcheck.php:701
+#: web/diag/action_realmcheck.php:700
 msgid "Live login test"
 msgstr "Test d'authentification en direct"
 
-#: web/diag/action_realmcheck.php:714
+#: web/diag/action_realmcheck.php:713
 msgid ""
 "If you enter an existing login credential here, you can test the actual "
 "authentication from various checkpoints all over the world."
 msgstr ""
-"Si vous indiquez ici des informations d'authentification valides ici, vous "
+"Si vous indiquez ici des informations d'authentification valides, vous "
 "pourrez tester l'authentification depuis différents points dans le monde. "
 
-#: web/diag/action_realmcheck.php:715
+#: web/diag/action_realmcheck.php:714
 msgid ""
 "The test will use all EAP types you have set in your profile information to "
 "check whether the right CAs and server names are used, and of course whether "
@@ -1483,12 +1510,12 @@ msgid ""
 "you have set anonymous outer ID, the test will use that."
 msgstr ""
 "Le test exploitera tous les types EAP que vous avez renseigné dans vos "
-"information de profil afin de vérifier si les bonnes AC et les bons noms de "
-"serveurs sont utilisés, et bien sur si l'authentification avec ces "
-"identifiants et les types EAP fournis fonctionne. Si vous avez indiqué une "
+"informations de profil afin de vérifier si les bonnes AC et les bons noms de "
+"serveurs sont utilisés, et bien sûr si l'authentification avec ces "
+"identifiants et types EAP fournis fonctionne. Si vous avez indiqué une "
 "identité externe anonyme, le test l'utilisera."
 
-#: web/diag/action_realmcheck.php:716
+#: web/diag/action_realmcheck.php:715
 msgid ""
 "Note: the tool purposefully does not offer you to save these credentials, "
 "and they will never be saved in any way on the server side. Please use only "
@@ -1498,66 +1525,67 @@ msgstr ""
 "Note : l'outil ne vous propose pas de sauvegarder ces identifiants et il ne "
 "seront jamais sauvegardés d'aucune manière que ce soit côté serveur. "
 "Veuillez n'utiliser que <strong>des comptes de test temporaires</strong> "
-"ici; la divulgation de comptes de test valides et permanents étant "
+"ici ; la divulgation de comptes de test valides et permanents étant "
 "considérée comme dangereuse !"
 
-#: web/diag/action_realmcheck.php:724
+#: web/diag/action_realmcheck.php:723
 msgid "Password-based EAP types"
 msgstr "Types EAP reposant sur des mots de passe "
 
-#: web/diag/action_realmcheck.php:725
+#: web/diag/action_realmcheck.php:724
 msgid "Real (inner) username:"
-msgstr "Nom réél (interne) d'utiisateur :"
+msgstr "Nom d'utilisateur (interne) réel :"
+
+#: web/diag/action_realmcheck.php:725
+msgid "Anonymous outer ID (optional):"
+msgstr "Identifiant externe anonyme (optionnel) :"
 
 #: web/diag/action_realmcheck.php:726
-msgid "Anonymous outer ID (optional):"
-msgstr "Identifiant externe anonyme (optionel) :"
-
-#: web/diag/action_realmcheck.php:727
 msgid "Password:"
 msgstr "Mot de passe :"
 
-#: web/diag/action_realmcheck.php:731
+#: web/diag/action_realmcheck.php:730
 msgid "Certificate-based EAP types"
 msgstr "Types EAP reposant sur des certificats"
 
-#: web/diag/action_realmcheck.php:732
+#: web/diag/action_realmcheck.php:731
 msgid "Certificate file (.p12 or .pfx):"
-msgstr "Fichier contenznt le certifica (.p12 or .pfx):"
+msgstr "Fichier contenant le certificat (.p12 or .pfx) :"
 
-#: web/diag/action_realmcheck.php:733
+#: web/diag/action_realmcheck.php:732
 msgid "Certificate password, if any:"
 msgstr "Mot de passe du certificat, si nécessaire :"
 
-#: web/diag/action_realmcheck.php:734
+#: web/diag/action_realmcheck.php:733
 msgid "Username, if different from certificate Subject:"
-msgstr "Nom d’utilisateur si différent du Sujet (Subject) du certificat :"
+msgstr "Nom d’utilisateur si différent du Sujet du certificat :"
 
-#: web/diag/action_realmcheck.php:736
+#: web/diag/action_realmcheck.php:735
 msgid "Submit credentials"
 msgstr "Soumettre les données d'identification"
 
-#: web/diag/action_realmcheck.php:762
+#: web/diag/action_realmcheck.php:757
 #, php-format
 msgid "Return to %s administrator area"
 msgstr "Retour à la zone d'administration pour %s"
 
 #: web/diag/adminQuery.php:31
 msgid "I suspect a Technical Problem with the IdP"
-msgstr "Je soupçonne un problème technique avec l'IdP"
+msgstr "Je soupçonne un problème technique avec le fournisseur d'identité"
 
 #: web/diag/adminQuery.php:32
 msgid "A user from this IdP has allegedly infringed copyrights"
 msgstr ""
-"Un utilisateur de cet IdP aurait prétendûment enfreint les droits d'auteurs"
+"Un utilisateur de ce fournisseur d'identité aurait prétendument enfreint les "
+"droits d'auteurs"
 
 #: web/diag/adminQuery.php:33
 msgid ""
 "A user from this IdP has conducted malicious network operations (spam, "
 "DDoS, ...)"
 msgstr ""
-"Un utilisateur de cet IdP a généré des opérations réseau malveillantes "
-"(spam, DDoS, etc.)"
+"Un utilisateur de ce fournisseur d'identité a généré des opérations réseau "
+"malveillantes (spam, DDoS, etc.)"
 
 #: web/diag/adminQuery.php:36
 msgid ""
@@ -1578,7 +1606,7 @@ msgstr "Sélectionner votre problème"
 
 #: web/diag/adminQuery.php:69
 msgid "What is the realm of the IdP in question?"
-msgstr "Quel est le domaine de l'IdP dont il s'agit ?"
+msgstr "Quel est le domaine du fournisseur d'identité dont il s'agit ?"
 
 #: web/diag/adminQuery.php:73
 msgid "Check if this value is registered"
@@ -1588,7 +1616,7 @@ msgstr "Vérifier si cette valeur est connue"
 msgid "What is the authentication timestamp of the user session in question?"
 msgstr ""
 "Quel est l'horodatage d'authentification de la session utilisateur en "
-"question?"
+"question ?"
 
 #: web/diag/adminQuery.php:84 web/diag/adminQuery.php:148
 msgid "What is the MAC address of the user session in question?"
@@ -1601,8 +1629,8 @@ msgstr "Commentaires supplémentaires"
 #: web/diag/adminQuery.php:92
 msgid "Please specify an email address on which the IdP can contact you"
 msgstr ""
-"Veuillez entrer l'adresse de courrier électronique à laquelle l'IdP peut "
-"vous joindre"
+"Veuillez entrer l'adresse de courrier électronique à laquelle le fournisseur "
+"d'identité peut vous joindre"
 
 #: web/diag/adminQuery.php:96 web/diag/adminQuery.php:164
 msgid "Now you can send your query"
@@ -1610,32 +1638,33 @@ msgstr "Vous pouvez maintenant envoyer votre demande"
 
 #: web/diag/adminQuery.php:97 web/diag/adminQuery.php:165
 msgid "Send"
-msgstr "Envoyé"
+msgstr "Envoyer"
 
 #: web/diag/adminQuery.php:116
 msgid "Identify the SP by one of following means"
-msgstr "Veuillez identifier le SP par l'un des moyens suivants"
+msgstr ""
+"Veuillez identifier le fournisseur de service par l'un des moyens suivants"
 
 #: web/diag/adminQuery.php:120
 msgid "SP Operator-Name attribute"
-msgstr "L'attribut Operator-Name du SP"
+msgstr "L'attribut Operator-Name du fournisseur de service"
 
 #: web/diag/adminQuery.php:124
 msgid "Select the SP manually:"
-msgstr "Sélectionnez manuellement le SP :"
+msgstr "Sélectionnez manuellement le fournisseur de service :"
 
 #: web/diag/adminQuery.php:127
 msgid "click to select country and organisation"
-msgstr "Cliquez pour sélectionner pays puis établissement"
+msgstr "Cliquez pour sélectionner pays puis l'établissement"
 
 #: web/diag/adminQuery.php:133
 msgid "at least describe the SP location"
-msgstr "Au minimum, indiquez l'emplacement du SP"
+msgstr "Au minimum, indiquez l'emplacement du fournisseur de service"
 
 #: web/diag/adminQuery.php:137
 msgid "What is the outer ID of the user session in question?"
 msgstr ""
-"Quel est l'identifiant externe de la session utilisateur dont il s'agit ?"
+"Quel est l'identifiant externe de la session utilisateur dont il s'agit ?"
 
 #: web/diag/adminQuery.php:152
 msgid "Additional comments about the problem"
@@ -1647,13 +1676,13 @@ msgid ""
 "the SP?"
 msgstr ""
 "Avez-vous des informations de contact via lesquelles l'utilisateur souhaite "
-"être contacté par le SP ?"
+"être contacté par le fournisseur de service ?"
 
 #: web/diag/adminQuery.php:160
 msgid "Please specify an email address on which the SP can contact you"
 msgstr ""
-"Veuillez fournir une adresse de courrier électronique via laquelle le SP "
-"pourra vous contacter"
+"Veuillez fournir une adresse de courrier électronique via laquelle le "
+"fournisseur de service pourra vous contacter"
 
 #: web/diag/radius_tests.php:33 web/diag/radius_tests.php:34
 msgid ""
@@ -1661,50 +1690,51 @@ msgid ""
 "below."
 msgstr ""
 "Certaines caractéristiques de la tentative de connexion pourraient être "
-"mieux définies., cf la liste ci dessous."
+"mieux définies ; cf. la liste ci dessous."
 
 #: web/diag/radius_tests.php:35
 msgid "Some configuration errors were observed; the list is below."
 msgstr ""
-"Une ou pusieurs erreurs de configuration ont été relevées dans la liste ci "
+"Une ou plusieurs erreurs de configuration ont été relevées dans la liste ci "
 "dessous."
 
-#: web/diag/radius_tests.php:151
+#: web/diag/radius_tests.php:157
 msgid "<strong>Test successful.</strong>"
 msgstr "<strong>Test réalisé avec succès</strong>"
 
-#: web/diag/radius_tests.php:155
+#: web/diag/radius_tests.php:161
 msgid "<strong>Test partially successful</strong>: authentication succeded."
-msgstr "<strong>Réussite partielle du test</strong>: authentification réussie."
+msgstr ""
+"<strong>Réussite partielle du test</strong> : authentification réussie."
 
-#: web/diag/radius_tests.php:158
+#: web/diag/radius_tests.php:164
 msgid "<strong>Test FAILED</strong>: authentication succeded."
-msgstr "<strong>ÉCHEC du test</strong>: authentification réussie."
+msgstr "<strong>ÉCHEC du test</strong> : authentification réussie."
 
-#: web/diag/radius_tests.php:163
+#: web/diag/radius_tests.php:169
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected. The most likely "
 "cause is that you have misspelt the Username and/or the Password."
 msgstr ""
-"<strong>ÉCHEC du test</strong>: la demande a été rejetée. La raison la plus "
-"probable  repose sans doute sur la présence d'une faute de frappe dans le "
-"nom et/ou le mot de passe utilisateur."
+"<strong>ÉCHEC du test</strong> : la demande a été rejetée. La raison la plus "
+"probable repose sans doute sur la présence d'une faute de frappe dans le nom "
+"et/ou le mot de passe utilisateur."
 
-#: web/diag/radius_tests.php:168
+#: web/diag/radius_tests.php:174
 msgid "This method cannot be tested"
 msgstr "Cette méthode ne peut-être testée."
 
-#: web/diag/radius_tests.php:172
+#: web/diag/radius_tests.php:178
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. Either you have misspelt the Username or there is "
 "something seriously wrong with your server."
 msgstr ""
 "<strong>ÉCHEC du test</strong> : la requête a été rejetée immédiatement, "
-"sans dialogue EAP ! Il y a eu  un problème  lors de la saisie du nom "
-"utilisateur ou bien votre serveur rencontre un grave problème."
+"sans dialogue EAP ! Soit vous avez mal saisi le nom d'utilisateur soit votre "
+"serveur rencontre un grave problème."
 
-#: web/diag/radius_tests.php:178 web/diag/radius_tests.php:220
+#: web/diag/radius_tests.php:184 web/diag/radius_tests.php:226
 #, php-format
 msgid ""
 "<strong>Test FAILED</strong>: no reply from the RADIUS server after %d "
@@ -1714,7 +1744,7 @@ msgstr ""
 "de %d secondes. Soit le serveur considéré est arrêté, soit   le routage est "
 "erroné !"
 
-#: web/diag/radius_tests.php:183 web/diag/radius_tests.php:224
+#: web/diag/radius_tests.php:189 web/diag/radius_tests.php:230
 #, php-format
 msgid ""
 "<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation, "
@@ -1723,11 +1753,11 @@ msgstr ""
 "<strong>ÉCHEC du test</strong> : un dialogue bidirectionnel RADIUS a bien "
 "été établi, mais il ne s'est toujours pas achevé au bout de %d secondes ! "
 
-#: web/diag/radius_tests.php:188
+#: web/diag/radius_tests.php:194
 msgid "<strong>Test FAILED</strong>"
-msgstr "<strong>ECHEC du test</strong>"
+msgstr "<strong>ÉCHEC du test</strong>"
 
-#: web/diag/radius_tests.php:209
+#: web/diag/radius_tests.php:215
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
@@ -1737,7 +1767,7 @@ msgstr ""
 "bidirectionnelle RADIUS a donné lieu à plusieurs échanges, elle s'est "
 "terminée par un Access-Reject comme prévu."
 
-#: web/diag/radius_tests.php:215
+#: web/diag/radius_tests.php:221
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. This is not necessarily an error: if the RADIUS server "
@@ -1754,19 +1784,19 @@ msgstr ""
 "cas), S'il ne s'agit pas d'un problème lié à l 'utilisateur externe le "
 "serveur  est soit mal  configuré soit inaccessible."
 
-#: web/diag/radius_tests.php:228
+#: web/diag/radius_tests.php:234
 msgid "unhandled error"
 msgstr "Erreur non traitée"
 
-#: web/diag/radius_tests.php:246
+#: web/diag/radius_tests.php:252
 msgid ""
 "<strong>ERROR</strong>: the server presented a certificate which is from an "
 "unknown authority!"
 msgstr ""
-"<strong>ERREUR</strong>: le serveur présente un certificat d'une autorité "
-"inconnue!"
+"<strong>ERREUR</strong>: le serveur présente un certificat provenant d'une "
+"autorité inconnue!"
 
-#: web/diag/radius_tests.php:246 web/diag/radius_tests.php:252
+#: web/diag/radius_tests.php:252 web/diag/radius_tests.php:258
 #, php-format
 msgid "elapsed time: %d"
 msgstr "temps écoulé: %d"

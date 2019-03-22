@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-14 13:42+0100\n"
+"POT-Creation-Date: 2019-03-22 09:49+0100\n"
 "PO-Revision-Date: 2019-01-14 12:26+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/eduroam_devel/"
@@ -23,15 +23,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: devices/Devices-template.php:127
+#: devices/Devices-template.php:130
 msgid "MS Windows 10"
 msgstr "MS Windows 10"
 
-#: devices/Devices-template.php:142
+#: devices/Devices-template.php:144
 msgid "MS Windows 8, 8.1"
 msgstr "MS Windows 8, 8.1"
 
-#: devices/Devices-template.php:156
+#: devices/Devices-template.php:157
 msgid "MS Windows 7"
 msgstr "MS Windows 7"
 
@@ -39,18 +39,18 @@ msgstr "MS Windows 7"
 msgid "MS Windows Vista"
 msgstr "MS Windows Vista"
 
-#: devices/Devices-template.php:184
+#: devices/Devices-template.php:183
 msgid "Windows RT"
 msgstr "Windows RT"
 
-#: devices/Devices-template.php:196
+#: devices/Devices-template.php:193
 msgid "Apple macOS High Sierra"
 msgstr "Apple macOS High Sierra"
 
-#: devices/Devices-template.php:206 devices/Devices-template.php:222
-#: devices/Devices-template.php:238 devices/Devices-template.php:253
-#: devices/Devices-template.php:268 devices/Devices-template.php:283
-#: devices/Devices-template.php:298
+#: devices/Devices-template.php:203 devices/Devices-template.php:217
+#: devices/Devices-template.php:231 devices/Devices-template.php:245
+#: devices/Devices-template.php:259 devices/Devices-template.php:273
+#: devices/Devices-template.php:287
 msgid ""
 "During the installation you will be first asked to enter settings for "
 "certificate and there you need to enter the import PIN shown on this page. "
@@ -58,35 +58,35 @@ msgid ""
 "the profile, this time it is your computer password."
 msgstr ""
 
-#: devices/Devices-template.php:213
+#: devices/Devices-template.php:208
 msgid "Apple macOS Sierra"
 msgstr "Apple macOS Sierra"
 
-#: devices/Devices-template.php:229
+#: devices/Devices-template.php:222
 msgid "Apple OS X El Capitan"
 msgstr "Apple OS X El Capitan"
 
-#: devices/Devices-template.php:244
+#: devices/Devices-template.php:236
 msgid "Apple OS X Yosemite"
 msgstr "Apple OS X Yosemite"
 
-#: devices/Devices-template.php:259
+#: devices/Devices-template.php:250
 msgid "Apple OS X Mavericks"
 msgstr "Apple OS X Mavericks"
 
-#: devices/Devices-template.php:274
+#: devices/Devices-template.php:264
 msgid "Apple OS X Mountain Lion"
 msgstr "Apple OS X Mountain Lion"
 
-#: devices/Devices-template.php:289
+#: devices/Devices-template.php:278
 msgid "Apple OS X Lion"
 msgstr "Apple OS X Lion"
 
-#: devices/Devices-template.php:304
+#: devices/Devices-template.php:292
 msgid "Apple iOS mobile devices"
 msgstr "Apple iOS mobileszközök"
 
-#: devices/Devices-template.php:313
+#: devices/Devices-template.php:301 devices/Devices-template.php:315
 msgid ""
 "During the installation you will be first asked to enter your passcode - "
 "this is your device security code! Later on you will be prompted for the "
@@ -94,19 +94,24 @@ msgid ""
 "on this page."
 msgstr ""
 
-#: devices/Devices-template.php:319
+#: devices/Devices-template.php:306
+#, fuzzy
+msgid "Apple iOS mobile devices (iOS 7-11)"
+msgstr "Apple iOS mobil eszköz (iOS 5 vagy 6)"
+
+#: devices/Devices-template.php:320
 msgid "Apple iOS mobile devices (iOS 5 and 6)"
 msgstr "Apple iOS mobil eszköz (iOS 5 vagy 6)"
 
-#: devices/Devices-template.php:334
+#: devices/Devices-template.php:333
 msgid "Linux"
 msgstr "Linux"
 
-#: devices/Devices-template.php:345
+#: devices/Devices-template.php:343
 msgid "Chrome OS"
 msgstr "Chrome OS"
 
-#: devices/Devices-template.php:351
+#: devices/Devices-template.php:349
 #, php-format
 msgid ""
 "After downloading the file, open the Chrome browser and browse to this URL: "
@@ -120,14 +125,14 @@ msgstr ""
 "konfiguráció betöltés ennek hatására megtörténik; Az új hálózati definició a "
 "preferált hálózatokhoz kerül hozzáadásra."
 
-#: devices/Devices-template.php:357
+#: devices/Devices-template.php:354
 msgid "Android 9.0 Pie"
 msgstr "Android 9.0 Pie"
 
-#: devices/Devices-template.php:363 devices/Devices-template.php:379
-#: devices/Devices-template.php:395 devices/Devices-template.php:411
-#: devices/Devices-template.php:427 devices/Devices-template.php:443
-#: devices/Devices-template.php:460
+#: devices/Devices-template.php:360 devices/Devices-template.php:375
+#: devices/Devices-template.php:390 devices/Devices-template.php:405
+#: devices/Devices-template.php:420 devices/Devices-template.php:435
+#: devices/Devices-template.php:450
 #, php-format
 msgid ""
 "Before you proceed with installation on Android systems, please make sure "
@@ -139,46 +144,46 @@ msgstr ""
 "telepítve van-e. Ez az alkalmazás elérhető %s, %s  és %s címről és az CAT-"
 "ről letöltött konfigurációs fájlt fogja használni a beállítások elvégzéséhez."
 
-#: devices/Devices-template.php:367 devices/Devices-template.php:383
-#: devices/Devices-template.php:399 devices/Devices-template.php:415
-#: devices/Devices-template.php:431 devices/Devices-template.php:447
-#: devices/Devices-template.php:464
+#: devices/Devices-template.php:364 devices/Devices-template.php:379
+#: devices/Devices-template.php:394 devices/Devices-template.php:409
+#: devices/Devices-template.php:424 devices/Devices-template.php:439
+#: devices/Devices-template.php:454
 msgid "as local download"
 msgstr "mint helyi letöltés"
 
-#: devices/Devices-template.php:373
+#: devices/Devices-template.php:369
 msgid "Android 8.0 Oreo"
 msgstr "Android 8.0 Oreo"
 
-#: devices/Devices-template.php:389
+#: devices/Devices-template.php:384
 msgid "Android 7.0 Nougat"
 msgstr ""
 
-#: devices/Devices-template.php:405
+#: devices/Devices-template.php:399
 msgid "Android 6.0 Marshmallow"
 msgstr "Android 6.0 Marshmallow"
 
-#: devices/Devices-template.php:421
+#: devices/Devices-template.php:414
 msgid "Android 5.0 Lollipop"
 msgstr "Android 5.0 Lollipop"
 
-#: devices/Devices-template.php:437
+#: devices/Devices-template.php:429
 msgid "Android 4.4 KitKat"
 msgstr "Android 4.4 KitKat"
 
-#: devices/Devices-template.php:454
+#: devices/Devices-template.php:444
 msgid "Android 4.3"
 msgstr "Android 4.3"
 
-#: devices/Devices-template.php:470
+#: devices/Devices-template.php:459
 msgid "Android"
 msgstr "Android"
 
-#: devices/Devices-template.php:481
+#: devices/Devices-template.php:469
 msgid "EAP config"
 msgstr "EAP konfiguráció"
 
-#: devices/Devices-template.php:486
+#: devices/Devices-template.php:474
 #, php-format
 msgid ""
 "This option provides a generic EAP config XML file, which can be consumed by "
@@ -190,15 +195,15 @@ msgstr ""
 "alkalmazni, hogy be lehessen állítani a hozzáférést. Ez egyenlőre kísérleti "
 "jellegű lehetőség."
 
-#: devices/Devices-template.php:492
+#: devices/Devices-template.php:479
 msgid "Test"
 msgstr "Teszt"
 
-#: devices/apple_mobileconfig/Device_mobileconfig_ios_56.php:51
+#: devices/apple_mobileconfig/Device_mobileconfig_ios5plus.php:52
 msgid "This device does not support forcing setting an HTTPS proxy."
 msgstr "Ez az eszköz nem támogatja a HTTPS proxy beállítását."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:63
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:64
 msgid ""
 "It is not possible to actively verify the user input for suffix match; but "
 "if there is no 'Terms of Use' configured, the installer will display a "
@@ -208,22 +213,22 @@ msgstr ""
 "egyezéshez; de ha nincs beállítva a \"Felhasználási feltételek\", akkor a "
 "telepítő a megfelelő megjegyzést jeleníti meg a felhasználónak."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:81
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:84
 #, php-format
 msgid "Network configuration profile '%s' of '%s' - provided by %s"
 msgstr "'%s'  '%s' hálózati konfigurációs profil – %s hozta létre"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:86
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:89
 #, php-format
 msgid "%s configuration for IdP '%s' - provided by %s"
 msgstr "%s Idp által megadott %s konfiguráció %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:133
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:139
 #, php-format
 msgid "Important Notice: your username must end with @%s!"
 msgstr "Fontos megjegyzés: a felhasználónévnek a végén @ %s  van"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:135
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:143
 msgid ""
 "Important Notice: your username MUST be in the form of xxx@yyy where the yyy "
 "is a common suffix identifying your Identity Provider. Please find out what "
@@ -234,15 +239,15 @@ msgstr ""
 "azonosítja. Kérjük,  tudja meg, mit kell használnia, és adja meg a "
 "felhasználónevet a megfelelő formátumban."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:158
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:170
 msgid "Unnamed Organisation"
 msgstr "Nem megnevezett szervezet"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:159
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:171
 msgid "Unnamed Profile"
 msgstr "Névtelen profil"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:223
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:238
 msgid ""
 "For best results, please use the built-in browser (Safari) to open the "
 "configuration file."
@@ -250,7 +255,7 @@ msgstr ""
 "A legjobban akkor jársz, ha a beépített böngészőt használod (Safari) a "
 "konfiguráicós fájl letöltéséhez."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:225
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:240
 msgid ""
 "The profile will install itself after you click (or tap) the button. You "
 "will be asked for confirmation/input at several points:"
@@ -258,94 +263,101 @@ msgstr ""
 "A profil telepítése a gombra való kattintással kezdhető meg. A folyamat több "
 "pontján kell megerősítést vagy választ adnod:"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:227
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:242
 msgid "to install the profile"
 msgstr "a profil telepítésekor"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:228
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:243
 msgid "to accept the server certificate authority"
 msgid_plural "to accept the server certificate authorities"
 msgstr[0] "a szerver tanúsítványkiadójának (CA) elfogadásakor"
 msgstr[1] "a szerver tanúsítványkiadóinak (CA) elfogadásakor"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:230
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:245
 #, php-format
 msgid "(%d times)"
 msgstr "(%d alkalommal)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:233
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:248
 msgid ""
 "to enter the username and password you have been given by your organisation"
 msgstr "add meg a szervezettől kapott felhasználónevet és jelszót"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:235
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:250
 #, php-format
 msgid "(%d times each, because %s is installed for %d SSIDs)"
 msgstr "(%d alkalommal, mivel %s telepítésre került %d SSID számára)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:409
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:426
 #, php-format
 msgid "SSID %s"
 msgstr "SSID %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:410
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:427
 #, php-format
 msgid "%s configuration for network name %s"
 msgstr "%s konfiguráció az %s hálózat számára"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:421
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:438
 msgid "Wired Network"
 msgstr "Vezetékes Hálózat"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:422
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:439
 #, php-format
 msgid "%s configuration for wired network"
 msgstr "%s konfiguráció vezetékes hálózathoz"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:436
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:453
 msgid "Hotspot 2.0 Settings"
 msgstr "Hotspot 2.0 beállítások"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:437
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:454
 #, php-format
 msgid "%s Hotspot 2.0 configuration"
 msgstr "%s Hotspot 2.0 konfiguráció"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:499
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:518
 #, php-format
 msgid "This SSID should not be used after bootstrapping %s"
 msgstr "Ezt az SSID-t nem szabad használni a %s bootstrap-ja után."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:501
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:520
 msgid "Disabled WiFi network"
 msgstr "Letiltott WiFi hálózat"
 
 #. we don't include the import password. It's displayed on screen, and should be input by the user.
 #. <key>Password</key>
 #. <string>" . $this->clientCert['password'] . "</string>
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:592
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:613
 msgid "eduroam user certificate"
 msgstr "eduroam felhasználói tanúsítvány"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:645
-msgid "Your Identity Providers Certification Authority"
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:669
+#, fuzzy, php-format
+msgid "The %s Certification Authority"
 msgstr "Az azonosító intézmény által használt tanúsítványkiadó (CA)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:647
-msgid "Identity Provider's CA"
-msgstr "Az IdP által használt CA"
-
-#: devices/chromebook/Device_chromebook.php:329
-msgid ""
-"This installer is an example only. It produces a zip file containig the IdP "
-"certificates, info and logo files (if such have been defined by the IdP "
-"administrator) and a dump of all available attributes."
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:671
+#, php-format
+msgid "%s CA"
 msgstr ""
-"Ez a telepítő csak egy példa. Ez ez egy  zip fájl, amely tartalmazza IdP "
-"tanúsítványát, informácókat és logót (ha az  IdP adminisztrátor definiálta) "
-"és az összes definiált attributumot."
 
-#: devices/linux/Device_Linux.php:66
+#: devices/chromebook/Device_chromebook.php:330
+#, fuzzy
+msgid ""
+"The installer is a file with the extension '.onc'. Please download it, open "
+"Chrome, and navigate to the URL <a href='chrome://net-internals/"
+"#chromeos'>chrome://net-internals/#chromeos</a>. Then, use the 'Import ONC "
+"file' button. The import is silent; the new network definitions will be "
+"added to the preferred networks."
+msgstr ""
+"Miután letöltötte a fájlt, nyissa meg a  Chrome böngészőt és navigáljon a "
+"következő URL-re: <a href='chrome://net-internals/#chromeos'>chrome://net-"
+"internals/#chromeos</a>. Kattintson a 'Import ONC file'  nyomógombra. A "
+"konfiguráció betöltés ennek hatására megtörténik; Az új hálózati definició a "
+"preferált hálózatokhoz kerül hozzáadásra."
+
+#: devices/linux/Device_Linux.php:82
 #, php-format
 msgid ""
 "The installer is in the form of a Python script. It will try to configure %s "
@@ -358,7 +370,7 @@ msgstr ""
 "NetworkManager verziója túl régi, helyette egy wpa_supplicant konfigurációs "
 "fájlt hoz létre."
 
-#: devices/linux/Device_Linux.php:70 devices/ms/WindowsCommon.php:127
+#: devices/linux/Device_Linux.php:86
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
@@ -367,16 +379,22 @@ msgstr ""
 "A(z) <strong>%s</strong> mellett az installáló az alábbi hálózatokhoz is "
 "bekonfigurálja a hozzáférést:"
 
-#: devices/linux/Device_Linux.php:72 devices/ms/WindowsCommon.php:129
-#, php-format
+#: devices/linux/Device_Linux.php:88 devices/ms/WindowsCommon.php:158
+#, fuzzy, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to:"
-msgstr ""
+msgid_plural ""
+"In addition to <strong>%s</strong> the installer will also configure access "
+"to the following networks:"
+msgstr[0] ""
+"A(z) <strong>%s</strong> mellett az installáló ezekhez is bekonfigurálja a "
+"hozzáférést:"
+msgstr[1] ""
 "A(z) <strong>%s</strong> mellett az installáló ezekhez is bekonfigurálja a "
 "hozzáférést:"
 
-#: devices/linux/Device_Linux.php:86
+#: devices/linux/Device_Linux.php:102
 msgid ""
 "The installer will create .cat_installer sub-directory in your home "
 "directory and will copy your server certificates there."
@@ -384,7 +402,7 @@ msgstr ""
 "A telepítő létrehoz .cat_installer alkönyvtárat a saját home könyvtáradban "
 "és oda fogja bemásolni a szerver tanúsítványát."
 
-#: devices/linux/Device_Linux.php:88
+#: devices/linux/Device_Linux.php:104
 msgid ""
 "In order to connect to the network you will need a personal certificate in "
 "the form of a p12 file. You should obtain this certificate from your "
@@ -401,7 +419,7 @@ msgstr ""
 "p12 fájl is át lesz másolva a .cat_installer könyvtárba."
 
 #. not EAP-TLS
-#: devices/linux/Device_Linux.php:90 devices/ms/WindowsCommon.php:140
+#: devices/linux/Device_Linux.php:106 devices/ms/WindowsCommon.php:168
 msgid ""
 "In order to connect to the network you will need an account from your "
 "organisation. You should consult the support page to find out how this "
@@ -412,7 +430,7 @@ msgstr ""
 "azonosítódra a szervezetednél. A támogatási oldalon olvasd el, hogyan "
 "szerezhető be ez az azonosító. Valószínűleg az azonosítód már aktiválva van."
 
-#: devices/linux/Device_Linux.php:92
+#: devices/linux/Device_Linux.php:108
 msgid ""
 "You will be requested to enter your account credentials during the "
 "installation. This information will be saved so that you will reconnect to "
@@ -422,79 +440,79 @@ msgstr ""
 "program eltárolja, így ettől kezdve a hálózathoz való csatlakozás "
 "automatikusan megtörténik, ha arra jársz."
 
-#: devices/linux/Device_Linux.php:106
+#: devices/linux/Device_Linux.php:139
 msgid "Really quit?"
 msgstr "Tényleg kilépsz?"
 
-#: devices/linux/Device_Linux.php:107
+#: devices/linux/Device_Linux.php:140
 msgid "enter your userid"
 msgstr "add meg a felhasználóneved"
 
-#: devices/linux/Device_Linux.php:108
+#: devices/linux/Device_Linux.php:141
 msgid "enter password"
 msgstr "írja be a jelszavát"
 
-#: devices/linux/Device_Linux.php:109
+#: devices/linux/Device_Linux.php:142
 msgid "enter your import password"
 msgstr "írja be az importált jelszavát"
 
-#: devices/linux/Device_Linux.php:110
+#: devices/linux/Device_Linux.php:143
 msgid "incorrect password"
 msgstr "hibás jelszó"
 
-#: devices/linux/Device_Linux.php:111
+#: devices/linux/Device_Linux.php:144
 msgid "repeat your password"
 msgstr "ismételd meg a jelszavad"
 
-#: devices/linux/Device_Linux.php:112
+#: devices/linux/Device_Linux.php:145
 msgid "passwords do not match"
 msgstr "a két jelszó nem egyezik"
 
-#: devices/linux/Device_Linux.php:113
+#: devices/linux/Device_Linux.php:146
 msgid "Installation successful"
 msgstr "Sikeres telepítés"
 
-#: devices/linux/Device_Linux.php:114
+#: devices/linux/Device_Linux.php:147
 msgid "Directory {} exists; some of its files may be overwritten."
 msgstr "Könyvtár {} létezik; néhány fájl felülírásra kerül"
 
-#: devices/linux/Device_Linux.php:115
+#: devices/linux/Device_Linux.php:148
 msgid "Continue?"
 msgstr "Folytatja?"
 
-#: devices/linux/Device_Linux.php:116
+#: devices/linux/Device_Linux.php:149
 msgid "This NetworkManager version is not supported"
 msgstr "Ez a NetworkManager verzió nem támogatott"
 
-#: devices/linux/Device_Linux.php:117
+#: devices/linux/Device_Linux.php:150
 msgid "Certificate file not found, looks like a CAT error"
 msgstr "A tanúsítványfájl nem található, úgy néz ki, mint egy CAT hiba"
 
-#: devices/linux/Device_Linux.php:118
+#: devices/linux/Device_Linux.php:151
 msgid "Unknown version"
 msgstr "Ismeretlen verzió"
 
-#: devices/linux/Device_Linux.php:119
+#: devices/linux/Device_Linux.php:152
 msgid "DBus connection problem, a sudo might help"
 msgstr "DBus kapcsolat probléma, a sudo segíthet"
 
-#: devices/linux/Device_Linux.php:120
+#: devices/linux/Device_Linux.php:153
 msgid "Y"
 msgstr "I"
 
-#: devices/linux/Device_Linux.php:121
+#: devices/linux/Device_Linux.php:154
 msgid "N"
 msgstr "N"
 
-#: devices/linux/Device_Linux.php:122 devices/linux/Device_Linux.php:124
+#: devices/linux/Device_Linux.php:155 devices/linux/Device_Linux.php:157
 msgid "personal certificate file (p12 or pfx)"
 msgstr "a személyes tanúsítványt tartalmazó (p12 vagy pfx) fájl"
 
-#: devices/linux/Device_Linux.php:123 devices/ms/Files/common.inc:1108
+#: devices/linux/Device_Linux.php:156 devices/ms/Files/common.inc:1108
 msgid "All files"
 msgstr "Minden fájl"
 
-#: devices/linux/Device_Linux.php:125
+#: devices/linux/Device_Linux.php:158
 msgid ""
 "NetworkManager configuration failed, but we may generate a wpa_supplicant "
 "configuration file if you wish. Be warned that your connection password will "
@@ -504,11 +522,11 @@ msgstr ""
 "létrehozhatunk egy wpa_supplicant konfigurációs fájlt. Figyelmeztetés: a "
 "jelszavad olvasható szövegként kerül mentésre ebben a fájlban."
 
-#: devices/linux/Device_Linux.php:126
+#: devices/linux/Device_Linux.php:159
 msgid "Write the file"
 msgstr "Fájl írása"
 
-#: devices/linux/Device_Linux.php:127 devices/ms/Files/common.inc:1254
+#: devices/linux/Device_Linux.php:160 devices/ms/Files/common.inc:1254
 #: devices/ms/Files/common.inc:1274 devices/ms/Files/common.inc:1325
 msgid ""
 "Error: Your username must be of the form 'xxx@institutionID' e.g. "
@@ -517,7 +535,7 @@ msgstr ""
 "Hiba: A felhasználónévnek az 'xxx @ intézményazonosító' formátumnak kell "
 "lennie pl. 'John@pelda.net'!"
 
-#: devices/linux/Device_Linux.php:128
+#: devices/linux/Device_Linux.php:161
 msgid ""
 "Error: your username must be in the form of 'xxx@{}'. Please enter the "
 "username in the correct format."
@@ -525,7 +543,7 @@ msgstr ""
 "Hiba: a felhasználónévnek 'xxx@{}' formátumúnak kell lennie. Kérjük, adja "
 "meg a felhasználónevet a megfelelő formátumban."
 
-#: devices/linux/Device_Linux.php:129
+#: devices/linux/Device_Linux.php:162
 msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'{}'. Please enter the username in the correct format."
@@ -534,24 +552,24 @@ msgstr ""
 "lennie, és '{}' kell végződnie. Kérjük, adja meg a felhasználónevet a "
 "megfelelő formátumban."
 
-#: devices/linux/Device_Linux.php:130
+#: devices/linux/Device_Linux.php:163
 msgid "personal certificate file not found"
 msgstr "személyes tanusítvány fájl nem található"
 
-#: devices/linux/Device_Linux.php:273
+#: devices/linux/Device_Linux.php:348
 msgid "This installer has been prepared for {0}"
 msgstr "Erre a telepítőprogramra készült {0}"
 
-#: devices/linux/Device_Linux.php:273 devices/ms/Files/common.inc:476
+#: devices/linux/Device_Linux.php:348 devices/ms/Files/common.inc:476
 #: devices/ms/Files/common.inc:483
 msgid "More information and comments:"
 msgstr "További információk és hozzászólások:"
 
-#: devices/linux/Device_Linux.php:274 devices/ms/Files/common.inc:509
+#: devices/linux/Device_Linux.php:349 devices/ms/Files/common.inc:509
 msgid "Installer created with software from the GEANT project."
 msgstr "A telepítő a GEANT projektből származó szoftverrel készült."
 
-#: devices/linux/Device_Linux.php:290
+#: devices/linux/Device_Linux.php:377
 msgid ""
 "This installer will only work properly if you are a member of {0} and the "
 "user group: {1}."
@@ -559,11 +577,11 @@ msgstr ""
 "Ez a telepítő csak akkor működik megfelelően, ha a {0} és a felhasználói "
 "csoport tagja: {1}."
 
-#: devices/linux/Device_Linux.php:292
+#: devices/linux/Device_Linux.php:379
 msgid "This installer will only work properly if you are a member of {0}."
 msgstr "Ez a telepítő csak akkor működik megfelelően, ha tagja {0}-nak."
 
-#: devices/ms/Device_Vista7.php:43 devices/ms/Device_W8_10.php:49
+#: devices/ms/Device_Vista7.php:47 devices/ms/Device_W8_10.php:50
 msgid ""
 "Anonymous identities do not use the realm as specified in the profile - it "
 "is derived from the suffix of the user's username input instead."
@@ -571,7 +589,7 @@ msgstr ""
 "Az külső azonosító nem azt a tartományt használja, mint ami a beállításoknál "
 "meg van adva, hanem ami a felhasználónév végződéséből származik."
 
-#: devices/ms/WindowsCommon.php:123
+#: devices/ms/WindowsCommon.php:155
 #, php-format
 msgid ""
 "%s installer will be in the form of an EXE file. It will configure %s on "
@@ -583,7 +601,7 @@ msgstr ""
 "a program létrehoz egy WiFi hálózati profilt.<p>A letöltés gombra kattintva "
 "a böngésződ lementi az installálót. Másold a megfelelő gépre és indítsd el!"
 
-#: devices/ms/WindowsCommon.php:136
+#: devices/ms/WindowsCommon.php:164
 msgid ""
 "In order to connect to the network you will need an a personal certificate "
 "in the form of a p12 file. You should obtain this certificate from your "
@@ -597,7 +615,7 @@ msgstr ""
 "tanúsítvány. Az ilyen tanúsítványfájlok jelszóval védettek. A telepítési "
 "folyamat során mind a fájlnak, mind a jelszónak rendelkezésre kell állnia."
 
-#: devices/ms/WindowsCommon.php:144
+#: devices/ms/WindowsCommon.php:172
 msgid ""
 "When you are connecting to the network for the first time, Windows will pop "
 "up a login box, where you should enter your user name and password. This "
@@ -609,19 +627,19 @@ msgstr ""
 "jelszavad. Ezeket aztán a program elmenti, és minden további alkalommal "
 "automatikusan fogsz kapcsolódni."
 
-#: devices/ms/WindowsCommon.php:147
+#: devices/ms/WindowsCommon.php:175
 msgid ""
 "You will be required to enter the same credentials for each of the "
 "configured networks:"
 msgstr ""
 "Ugyanazt azt az azonosítót kell meg adni minden konfigurált hálózat esetén: "
 
-#: devices/ms/WindowsCommon.php:265 devices/ms/WindowsCommon.php:266
+#: devices/ms/WindowsCommon.php:328 devices/ms/WindowsCommon.php:329
 #, php-format
 msgid "%s installer for %s"
 msgstr "%s telepítő %s-hez"
 
-#: devices/redirect_dev/Device_RedirectDev.php:43
+#: devices/redirect_dev/Device_RedirectDev.php:44
 msgid ""
 "This device is not yet supported by CAT, but your local administrator "
 "created a redirect to local installation instructions."
@@ -629,7 +647,19 @@ msgstr ""
 "Ez az eszköz jelenleg nem támogatott a CAT által, de a rendszergazda "
 "beállított egy redirectet a helyi beállítások leírásával."
 
-#: devices/xml/Device_XML.php:64
+#: devices/test_module/Device_TestModule.php:129
+#, fuzzy, php-format
+msgid ""
+"This installer is an example only. It produces a zip file containig the IdP "
+"certificates, info and logo files (if such have been defined by the IdP "
+"administrator) and a dump of all available attributes. The installer is "
+"called with %d SSIDs to configure."
+msgstr ""
+"Ez a telepítő csak egy példa. Ez ez egy  zip fájl, amely tartalmazza IdP "
+"tanúsítványát, informácókat és logót (ha az  IdP adminisztrátor definiálta) "
+"és az összes definiált attributumot."
+
+#: devices/xml/Device_XML.php:70
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
@@ -891,7 +921,7 @@ msgstr "Tanúsítvány fájlok (*.pfx)"
 msgid "certificate password:"
 msgstr "Tanúsítvány jelszó:"
 
-#: devices/ms/Files/common.inc:1113 devices/ms/Files/common.inc:1342
+#: devices/ms/Files/common.inc:1113 devices/ms/Files/common.inc:1368
 msgid "Username:"
 msgstr "Felhasználónév:"
 
@@ -936,38 +966,38 @@ msgstr ""
 "és a \"${REALM}\" kifejezéssel kell végződnie. Kérjük, adja meg a "
 "felhasználónevet a megfelelő formátumban."
 
-#: devices/ms/Files/common.inc:1338
+#: devices/ms/Files/common.inc:1364
 msgid "User credentials"
 msgstr "Felhasználói azonosítók"
 
-#: devices/ms/Files/common.inc:1345
+#: devices/ms/Files/common.inc:1371
 msgid "Password:"
 msgstr "Jelszó:"
 
-#: devices/ms/Files/common.inc:1348
+#: devices/ms/Files/common.inc:1374
 msgid "Repeat password:"
 msgstr "Jelszó ismét:"
 
-#: devices/ms/Files/common.inc:1363
+#: devices/ms/Files/common.inc:1389
 msgid "Missing username"
 msgstr "Hiányzó felhasználói név"
 
-#: devices/ms/Files/common.inc:1375
+#: devices/ms/Files/common.inc:1401
 msgid "Missing password"
 msgstr "Hiányzó jelszó"
 
-#: devices/ms/Files/common.inc:1381
+#: devices/ms/Files/common.inc:1407
 msgid "Password missmatch"
 msgstr "Nem illeszkedő jelszó"
 
-#: devices/ms/Files/common.inc:1471 devices/ms/Files/eap_w8.inc:31
+#: devices/ms/Files/common.inc:1498 devices/ms/Files/eap_w8.inc:31
 #: devices/ms/Files/geant_link.inc:33 devices/ms/Files/geant_link.inc:43
 #: devices/ms/Files/peap_tls.inc:31 devices/ms/Files/pwd.inc:30
 #: devices/ms/Files/pwd.inc:60
 msgid "Installation"
 msgstr "Telepítés"
 
-#: devices/ms/Files/common.inc:1471
+#: devices/ms/Files/common.inc:1498
 msgid "Checking for existing wireless profiles"
 msgstr "A létező vezetéknélküli profile-ok ellenőrzése"
 
@@ -1033,3 +1063,6 @@ msgid "EAP-pwd installation error. Please try again or contact Support."
 msgstr ""
 "EAP-pwd telepítési hiba. Próbálja újra vagy lépjen kapcsolatba a "
 "Támogatással."
+
+#~ msgid "Identity Provider's CA"
+#~ msgstr "Az IdP által használt CA"

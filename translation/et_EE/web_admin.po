@@ -4,15 +4,15 @@
 #
 # Translators:
 # Anne M <anne@eenet.ee>, 2018
-# Anne M <anne@eenet.ee>, 2018
-# Indrek Rokk <indrek.rokk@eenet.ee>, 2018
+# Anne M <anne@eenet.ee>, 2018-2019
+# Indrek Rokk <indrek.rokk@eenet.ee>, 2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-14 13:42+0100\n"
-"PO-Revision-Date: 2018-12-18 14:01+0000\n"
-"Last-Translator: Indrek Rokk <indrek.rokk@eenet.ee>\n"
+"POT-Creation-Date: 2019-03-22 09:49+0100\n"
+"PO-Revision-Date: 2019-03-21 13:55+0000\n"
+"Last-Translator: Anne M <anne@eenet.ee>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/et_EE/)\n"
 "Language: et_EE\n"
@@ -85,7 +85,7 @@ msgid "%s Properties"
 msgstr "%s Atribuudid"
 
 #: web/admin/edit_federation.php:67 web/admin/edit_idp.php:86
-#: web/lib/admin/UIElements.php:232
+#: web/lib/admin/UIElements.php:228
 msgid "Country:"
 msgstr "Riik:"
 
@@ -155,10 +155,9 @@ msgid ""
 "the end. All of the information below is optional, but it is important to "
 "fill out as many fields as possible for the benefit of your end users."
 msgstr ""
-"Tere, uus tulija. %s on meie jaoks uus. Viisard esitab Sulle mitmeid "
-"küsimusi, nii et saaksime luua ilusad profiilid. Teave allpool ei ole "
-"kohustuslik, kuid Su lõppkasutajate huvides on oluline täita nii palju välju "
-"kui võimalik."
+"Tere! Seadistad uut %st. Viisard esitab Sulle mitmeid küsimusi, et saaksime "
+"luua ilusad profiilid. Kuigi vastamine ei ole kohustuslik, on lõppkasutajate "
+"huvides soovitav täita võimalikult palju välju."
 
 #: web/admin/edit_idp.php:107
 msgid "General Information"
@@ -170,8 +169,8 @@ msgid ""
 "where you can describe those properties in a fine-grained way. The solicited "
 "information is used as follows:"
 msgstr ""
-"Mõned omadused kehtivad kõigis kasutusprofiilides. Siin saad neid omadusi "
-"täpsemalt kirjeldada. Taotletud teavet kasutatakse järgmiselt:"
+"Mõned andmed on kõigile kasutusprofiilidele ühised. Siin saad need andmed "
+"täpsemalt kirjeldada. Selgitus andmete kasutamise kohta:"
 
 #: web/admin/edit_idp.php:113
 msgid ""
@@ -180,10 +179,10 @@ msgid ""
 "but for best results, we suggest SVG. If you don't upload a logo, we will "
 "use the generic logo instead (see top-right corner of this page)."
 msgstr ""
-"<strong>Logo</strong>: Kui lisad logo, paneme selle kõikidesse "
-"paigaldusprogrammidese, millele on võimalik logo lisada. Meile sobivad kõik "
-"kujutise vormingud, aga soovitame kasutada SVGd. Kui Sa ei lisa logo, "
-"kasutame vaikimisi-logo (vt selle lehe paremas ülenurgas)."
+"<strong>Logo</strong>: Kui lisad logo, paneme selle kõikidesse seadistatava "
+"logoga paigaldusprogrammidesse. Sobivad kõik vormingud, kuid soovitame "
+"kasutada SVGd. Kui Sa ise logo ei lisa, kasutame vaikimisi-logo (vt selle "
+"lehe paremas ülanurgas)."
 
 #: web/admin/edit_idp.php:114
 #, php-format
@@ -193,12 +192,11 @@ msgid ""
 "is used as a fallback if the system does not have a name in the exact "
 "language the user requests a download in."
 msgstr ""
-"<strong>Nimi</strong>: %s-del võib olla nimesid mitmetes keeltes. Soovitatav "
-"on määrata vähemalt 'vaikimisi/muu' keele väli, kuna seda kasutatakse juhul, "
-"kui süsteemil puudub nimi selles keeles, milles kasutaja tellib "
-"allalaadimise."
+"<strong>Nimi</strong>: %s nimi võib olla eri keeltes erinev. Soovitatav on "
+"täita vähemalt 'vaikimisi/muu' keele väli, kuna seda kasutatakse juhul, kui "
+"allalaadimiseks määratud keeles eraldi nime ei ole."
 
-#: web/admin/edit_idp.php:125 web/lib/admin/UIElements.php:246
+#: web/admin/edit_idp.php:125 web/lib/admin/UIElements.php:242
 msgid "Media Properties"
 msgstr "Meedia omadused"
 
@@ -212,7 +210,7 @@ msgstr ""
 
 #: web/admin/edit_idp.php:132
 msgid "Additional SSIDs:"
-msgstr "Lisa-SSIDd:"
+msgstr "Lisatavad SSIDd:"
 
 #: web/admin/edit_idp.php:132
 msgid "SSIDs:"
@@ -223,14 +221,14 @@ msgstr "SSIDd"
 msgid "We will always configure this SSID for WPA2/AES: %s."
 msgid_plural "We will always configure these SSIDs for WPA2/AES: %s."
 msgstr[0] "Me konfigureerime %s SSID alati toetama WPA2/AES: "
-msgstr[1] "Seadistame %s SSIDd alati toetama WPA2/AES: "
+msgstr[1] "Seadistame need SSIDd alati WPA2/AES toega: %s."
 
 #: web/admin/edit_idp.php:141
 msgid ""
 "They will also be configured for WPA/TKIP if the device supports multiple "
 "encryption types."
 msgstr ""
-"Need seadistatakse ka WPA/TKIP jaoks, kui seade toetab mitmeid "
+"Need seadistatakse ka WPA/TKIP toega, kui seade toetab mitmeid "
 "krüpteerimistüüpe."
 
 #: web/admin/edit_idp.php:143
@@ -238,8 +236,7 @@ msgstr ""
 msgid ""
 "It is also possible to define custom additional SSIDs with the options '%s' "
 "and '%s' below."
-msgstr ""
-"Võimalik on lisada ka oma muid SSIDsid järgmise kahe valikuga '%s' ja '%s'"
+msgstr "Saad lisada ka oma teisi SSID-sid, valides allpool '%s' või '%s'."
 
 #: web/admin/edit_idp.php:145
 msgid "Please configure which SSIDs should be configured in the installers."
@@ -251,9 +248,8 @@ msgid ""
 "using the '(with WPA/TKIP)' option you can specify that we should include "
 "legacy support for WPA/TKIP where possible."
 msgstr ""
-"Vaikimisi seadistame SSIDd ainult WPA2/AES krüpteeringuga. Kasutades '(with "
-"WPA/TKIP)' suvandit saad määrata, et peaksime võimalusel lisama WPA/TKIP "
-"pärandtoe."
+"Vaikimisi seadistame SSIDd ainult WPA2/AES krüpteeringuga. Valides '(WPA/"
+"TKIP toega)' määrad, et peaksime võimalusel lisama WPA/TKIP pärandtoe."
 
 #: web/admin/edit_idp.php:151
 msgid "Additional Hotspot 2.0 / Passpoint Consortia:"
@@ -326,8 +322,8 @@ msgid ""
 "This section can be used to upload specific Terms of Use for your users and "
 "to display details of how your users can reach your local helpdesk."
 msgstr ""
-"Seda osa saab kasutada spetsiifiliste Kasutustingimuste üleslaadimiseks ja "
-"kasutajatoe kontaktandmete näitamiseks."
+"Seda osa saad kasutada oma Kasutustingimuste üleslaadimiseks ja kasutajatoe "
+"kontaktandmete näitamiseks."
 
 #: web/admin/edit_idp.php:186
 #, php-format
@@ -348,9 +344,9 @@ msgid ""
 msgstr ""
 "Siia sisestatud teave lisatakse kõigi Su kasutajate paigaldusprogrammidele "
 "ja näidatakse allalaadimislehel. Kui haldate erinevaid kasutajatugesid "
-"erinevate kasutajagruppide (ehk profiilide) jaoks, määrake profiilikohased "
-"kasutajatoe andmed viisardis pärastpoole. Kui teil ei ole kasutajatuge, "
-"jätke need väljad tühjaks."
+"erinevate kasutajagruppide (ehk profiilide) jaoks, määra profiilikohased "
+"kasutajatoe andmed viisardis pärastpoole. Kui teil ei ole kasutajatuge, jäta "
+"need väljad tühjaks."
 
 #: web/admin/edit_idp.php:190
 #, php-format
@@ -497,7 +493,7 @@ msgstr ""
 
 #: web/admin/edit_profile.php:148
 msgid "You can also tell us your RADIUS realm. "
-msgstr "Sa võid õelda ka oma RADIUSe domeeni"
+msgstr "Sa võid öelda ka oma RADIUSe domeeni. "
 
 #: web/admin/edit_profile.php:150
 #, php-format
@@ -589,7 +585,7 @@ msgstr ""
 "paigaldajatele vahetult allalaadimisprofiili. Kui Sa seda ei soovi, saad "
 "sisestada veebiaadressi, kuhu soovid oma kasutajad ümber suunata. Sa ise "
 "saad administraatorina siiski profiile sellele lehele panemiseks alla "
-"laadida (vt koondpaneelil nupp 'Ühildatavuse maatriks')."
+"laadida (vt koondpaneelil nupp 'Ühilduvuse maatriks')."
 
 #: web/admin/edit_profile.php:290
 msgid "Redirect end users to own web page:"
@@ -634,7 +630,7 @@ msgid ""
 msgstr ""
 "Kasuta lohistamist, et märkida EAP meetod ja viia see toetatavale "
 "(rohelisele) alale. Prioriseerimine toimub automaatselt sõltuvalt sellest, "
-"kuhu Sa meetodi 'maha paned'."
+"kuhu Sa meetodi lohistad."
 
 #: web/admin/edit_profile.php:406
 msgid "Unsupported EAP types"
@@ -1168,10 +1164,10 @@ msgstr ""
 msgid "%s: %s Management"
 msgstr "%s: %s Haldamine"
 
-#: web/admin/overview_federation.php:41 web/admin/overview_idp.php:62
+#: web/admin/overview_federation.php:41 web/admin/overview_idp.php:70
 #, php-format
 msgid "%s Overview"
-msgstr "%s Ülevaade"
+msgstr "%s ülevaade"
 
 #: web/admin/overview_federation.php:45 web/admin/overview_user.php:49
 msgid "Your Personal Information"
@@ -1309,11 +1305,11 @@ msgid "Deployment Status"
 msgstr "Rakendamise seis"
 
 #: web/admin/overview_federation.php:202 web/admin/overview_user.php:117
-#: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:94
-#: web/lib/admin/UIElements.php:124
+#: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:86
+#: web/lib/admin/UIElements.php:116
 #, php-format
 msgid "%s Name"
-msgstr "%s Nimi"
+msgstr "%s nimi"
 
 #: web/admin/overview_federation.php:208
 #, php-format
@@ -1365,27 +1361,27 @@ msgstr "(aegub %s)"
 msgid "Register a new %s!"
 msgstr "Registreeri uus %s!"
 
-#: web/admin/overview_idp.php:40
+#: web/admin/overview_idp.php:48
 #, php-format
 msgid "%s: IdP Dashboard"
 msgstr "%s: IdP koondpaneel"
 
-#: web/admin/overview_idp.php:64
+#: web/admin/overview_idp.php:72
 #, php-format
 msgid "%s general settings"
 msgstr "%s üldseadistused"
 
-#: web/admin/overview_idp.php:69
+#: web/admin/overview_idp.php:77
 #, php-format
 msgid "%s download area QR code"
 msgstr "%s allalaadimise ala QR-kood"
 
-#: web/admin/overview_idp.php:98
+#: web/admin/overview_idp.php:111
 #, php-format
 msgid "Edit general %s details"
 msgstr "Muuda %s üldandmeid"
 
-#: web/admin/overview_idp.php:103
+#: web/admin/overview_idp.php:116
 #, php-format
 msgid ""
 "After deleting the %s, you can not recreate it yourself - you need a new "
@@ -1394,17 +1390,17 @@ msgstr ""
 "Pärast %s kustutamist ei saa Sa seda ise taasluua, vaid vajad esmalt uut "
 "kutse koodi %s administraatorilt."
 
-#: web/admin/overview_idp.php:103
+#: web/admin/overview_idp.php:116
 #, php-format
 msgid "Do you really want to delete your %s %s?"
 msgstr "Kas sa tõesti tahad kustutada %s %s?"
 
-#: web/admin/overview_idp.php:103
+#: web/admin/overview_idp.php:116
 #, php-format
 msgid "Delete %s"
 msgstr "Kustuta %s"
 
-#: web/admin/overview_idp.php:109
+#: web/admin/overview_idp.php:122
 #, php-format
 msgid ""
 "This action will delete all properties of the %s and start over the "
@@ -1414,47 +1410,47 @@ msgstr ""
 "Toiming kustutab kõik %s väärtused ja alustab seadistamist nullist. Kas Sa "
 "soovid tõesti %s%s kõiki seadistusi lähtestada?"
 
-#: web/admin/overview_idp.php:109
+#: web/admin/overview_idp.php:122
 #, php-format
 msgid "Reset all %s settings"
 msgstr "Lähtesta kõik %s seadistused"
 
-#: web/admin/overview_idp.php:119
+#: web/admin/overview_idp.php:132
 msgid "Available Support actions"
 msgstr "Võimalikud kasutajatoe tegevused"
 
-#: web/admin/overview_idp.php:124
+#: web/admin/overview_idp.php:137
 msgid "Check another realm's reachability"
 msgstr "Kontrolli mõne teise domeeni kättesaadavust"
 
-#: web/admin/overview_idp.php:127 web/admin/overview_idp.php:137
+#: web/admin/overview_idp.php:141 web/admin/overview_idp.php:151
 #: web/admin/overview_user.php:171
 msgid "Go!"
 msgstr "Jätka!"
 
 #. SW: APPROVED
-#: web/admin/overview_idp.php:134
+#: web/admin/overview_idp.php:148
 #, php-format
 msgid "Check %s server status"
 msgstr "Kontrolli %s serveri olekut"
 
 #. no profiles yet.
-#: web/admin/overview_idp.php:148
+#: web/admin/overview_idp.php:162
 #, php-format
 msgid "There are not yet any profiles for your %s."
 msgstr "Veel ei ole Su %s jaoks profiile."
 
 #. no profiles yet.
-#: web/admin/overview_idp.php:151
+#: web/admin/overview_idp.php:165
 #, php-format
 msgid "Profiles for this %s"
 msgstr "Profiilid sellele %s"
 
-#: web/admin/overview_idp.php:174 web/admin/overview_idp.php:233
+#: web/admin/overview_idp.php:188 web/admin/overview_idp.php:247
 msgid "Information needed!"
 msgstr "Teave vajalik!"
 
-#: web/admin/overview_idp.php:182
+#: web/admin/overview_idp.php:196
 #, php-format
 msgid ""
 "You can create up to %d users. Their credentials will carry the name <strong>"
@@ -1463,44 +1459,44 @@ msgstr ""
 "Saad luua kuni %d kasutajat. Nende kasutajakontod nimetatakse <strong>%s</"
 "strong>."
 
-#: web/admin/overview_idp.php:191
+#: web/admin/overview_idp.php:205
 msgid "Manage User Base"
 msgstr "Halda kasutajaid"
 
-#: web/admin/overview_idp.php:199 web/admin/overview_idp.php:331
+#: web/admin/overview_idp.php:213 web/admin/overview_idp.php:350
 msgid "User Downloads"
 msgstr "Kasutajate allalaadimised"
 
-#: web/admin/overview_idp.php:223
+#: web/admin/overview_idp.php:237
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr "<strong>EAP tüübid</strong> (eelistamise järjekorras):"
 
-#: web/admin/overview_idp.php:230 web/lib/admin/UIElements.php:400
+#: web/admin/overview_idp.php:244 web/lib/admin/UIElements.php:414
 msgid "OK"
 msgstr "OK"
 
-#: web/admin/overview_idp.php:249
+#: web/admin/overview_idp.php:263
 msgid "Options on EAP Method/Device level are in effect."
 msgstr "EAP meetodi/seadme taseme suvandid on käigus."
 
-#: web/admin/overview_idp.php:254
+#: web/admin/overview_idp.php:268
 #, php-format
 msgid "Profile: %s"
 msgstr "Profiil: %s"
 
-#: web/admin/overview_idp.php:259
+#: web/admin/overview_idp.php:273
 msgid "Option override on profile level is in effect."
 msgstr "Kehtib suvandi eiramine profiili tasemel."
 
-#: web/admin/overview_idp.php:262
+#: web/admin/overview_idp.php:276
 msgid "The information in this profile is incomplete."
 msgstr "Teave selles profiilis ei ole täielik."
 
-#: web/admin/overview_idp.php:266
+#: web/admin/overview_idp.php:280
 msgid "This profile is shown on the user download interface."
 msgstr "Seda profiili näidatakse kasutajale allalaadimisliideses."
 
-#: web/admin/overview_idp.php:269
+#: web/admin/overview_idp.php:283
 #, php-format
 msgid ""
 "This profile is NOT shown on the user download interface, even though we "
@@ -1511,45 +1507,45 @@ msgstr ""
 "kuvamiseks piisavalt teavet. Et lubada profiil, lisa atribuut \"%s\" ja "
 "linnuta vastav kastike."
 
-#: web/admin/overview_idp.php:289
+#: web/admin/overview_idp.php:304
 msgid "The realm can only be checked if you configure the realm!"
 msgstr "Domeeni saab ainult siis kontrollida, kui Sa domeeni seadistad!"
 
-#: web/admin/overview_idp.php:290
+#: web/admin/overview_idp.php:305
 msgid "Check realm reachability"
 msgstr "Kontrolli domeeni kättesaadavust"
 
-#: web/admin/overview_idp.php:295
+#: web/admin/overview_idp.php:310
 msgid "You have not fully configured any supported EAP types!"
 msgstr "Sa ei ole veel ühtegi toetatud EAP tüüpi lõpuni seadistanud!"
 
-#: web/admin/overview_idp.php:296
+#: web/admin/overview_idp.php:311
 msgid "Installer Fine-Tuning and Download"
 msgstr "Paigaldusprogrammi peenhäälestus ja allalaadimine"
 
-#: web/admin/overview_idp.php:305
+#: web/admin/overview_idp.php:320
 msgid "Edit"
 msgstr "Muuda"
 
-#: web/admin/overview_idp.php:308
+#: web/admin/overview_idp.php:323
 #, php-format
 msgid "Do you really want to delete the profile %s?"
 msgstr "Kas Sa tõesti tahad kustutada %s profiili?"
 
-#: web/admin/overview_idp.php:309
+#: web/admin/overview_idp.php:324
 msgid "Delete"
 msgstr "Kustuta"
 
-#: web/admin/overview_idp.php:318
+#: web/admin/overview_idp.php:333
 msgid "User Download Link"
 msgstr "Allalaadimislink kasutajale"
 
-#: web/admin/overview_idp.php:360
+#: web/admin/overview_idp.php:379
 #, php-format
 msgid "Add %s profile ..."
 msgstr "Lisa %s profiil ..."
 
-#: web/admin/overview_idp.php:373
+#: web/admin/overview_idp.php:392
 msgid "Add new RADIUS/EAP profile ..."
 msgstr "Lisa uus RADIUS/EAP profiil"
 
@@ -1560,7 +1556,7 @@ msgstr "Seadmete ühilduvuse maatriks"
 #: web/admin/overview_installers.php:47
 #, php-format
 msgid "Device compatiblity matrix for %s of %s "
-msgstr "Seadmete ühildatavuse maatriks %s jaoks %sst"
+msgstr "Seadmete ühilduvuse maatriks profiilile %s (identiteedipakkuja %s)"
 
 #: web/admin/overview_installers.php:51
 msgid "Device"
@@ -1635,7 +1631,7 @@ msgstr "Superadmini lehele pääsemiseks klõpsa siia"
 #: web/admin/overview_user.php:86
 #, php-format
 msgid "(Need help? Refer to the <a href='%s'>%s administrator manual</a>)"
-msgstr "(Vajad abi? Vaata <a href='%s'>%si administraatorijuhendit</a>)"
+msgstr "(Vajad abi? Kasuta <a href='%s'>%s administraatori juhendit</a>)"
 
 #. / first parameter: number of Identity Providers; second param is the literal configured term for 'Identity Provider' (you may or may not be able to add a plural suffix for your locale)
 #: web/admin/overview_user.php:95
@@ -1665,14 +1661,15 @@ msgstr[1] "teised kasutajad"
 #: web/admin/overview_user.php:160
 #, php-format
 msgid "You are not managing any %s."
-msgstr "Sa ei halda ühtegi %s."
+msgstr "Sa ei halda ühtegi %st."
 
 #: web/admin/overview_user.php:164
 #, php-format
 msgid ""
 "Please ask your %s administrator to invite you to become an %s administrator."
 msgstr ""
-"Palu lase oma %s administraatoril saata kutse%s administraatoriks saamiseks."
+"Palun lase oma %s administraatoril saata kutse %s administraatoriks "
+"saamiseks."
 
 #: web/admin/overview_user.php:168
 #, php-format
@@ -1712,7 +1709,7 @@ msgstr ""
 "Sa oled %s administraator. Sa saad juurde kutsuda uusi administraatoreid, "
 "kes saavad omakorda ise uusi administraatoreid määrata."
 
-#: web/admin/inc/manageAdmins.inc.php:154 web/lib/admin/UIElements.php:115
+#: web/admin/inc/manageAdmins.inc.php:154 web/lib/admin/UIElements.php:107
 #, php-format
 msgid "%s Administrator"
 msgstr "%s Administraator"
@@ -1805,9 +1802,9 @@ msgstr "Teave <strong>%s andmebaasis</strong>"
 #: web/admin/inc/manageDBLink.inc.php:135
 #, php-format
 msgid "%s Name (%s)"
-msgstr "%s Nimi (%s)"
+msgstr "%s nimi (%s)"
 
-#: web/admin/inc/manageDBLink.inc.php:118 web/lib/admin/Authentication.php:72
+#: web/admin/inc/manageDBLink.inc.php:118 web/lib/admin/Authentication.php:73
 msgid "Unnamed User"
 msgstr "Määramata kasutaja"
 
@@ -1996,11 +1993,11 @@ msgstr "EAP-Type <strong> %s </strong>"
 msgid "Fine-tuning options for "
 msgstr "Peenhäälestuse võimalused"
 
-#: web/lib/admin/AbstractMap.php:122 web/lib/admin/UIElements.php:95
+#: web/lib/admin/AbstractMap.php:124 web/lib/admin/UIElements.php:87
 msgid "Location"
 msgstr "Asukoht"
 
-#: web/lib/admin/AbstractMap.php:126
+#: web/lib/admin/AbstractMap.php:128
 msgid ""
 "The user download interface (see <a href='../'>here</a>), uses geolocation "
 "to suggest possibly matching IdPs to the user. The more precise you define "
@@ -2011,7 +2008,7 @@ msgstr ""
 "täpsemalt määrad siin oma asukoha, seda täpsemalt Su kasutajad selle IdP "
 "leiavad."
 
-#: web/lib/admin/AbstractMap.php:129
+#: web/lib/admin/AbstractMap.php:131
 msgid ""
 "<li>Drag the marker in the map to your place, or</li>\n"
 "<li>enter your street address in the field below for lookup, or</li>\n"
@@ -2021,11 +2018,11 @@ msgstr ""
 "<li>sisesta oma tänavanimi allolevale otsinguväljale või</li>\n"
 "<li>kasuta nuppu 'Leia mind!'</li>"
 
-#: web/lib/admin/AbstractMap.php:134
+#: web/lib/admin/AbstractMap.php:136
 msgid "We will use the coordinates as indicated by the marker for geolocation."
 msgstr "Kasutame märgistatud asukoha koordinaate."
 
-#: web/lib/admin/AbstractMap.php:138
+#: web/lib/admin/AbstractMap.php:140
 msgid ""
 "You can enter an <strong>additional</strong> location here. You can see the "
 "already defined locations in the 'General Information' field."
@@ -2033,44 +2030,44 @@ msgstr ""
 "Siin saad sisestada <strong>lisaasukoha</strong>. Juba määratud asukohti "
 "näed väljal 'Üldteave'."
 
-#: web/lib/admin/AbstractMap.php:150
+#: web/lib/admin/AbstractMap.php:154
 msgid "Latitude:"
 msgstr "Laiuskraad:"
 
-#: web/lib/admin/AbstractMap.php:150
+#: web/lib/admin/AbstractMap.php:154
 msgid "Longitude:"
 msgstr "Pikkuskraad:"
 
-#: web/lib/admin/MapGoogle.php:132
+#: web/lib/admin/MapGoogle.php:133
 msgid "This is location "
 msgstr "See on asukoht"
 
-#: web/lib/admin/MapGoogle.php:211 web/lib/admin/MapOpenLayers.php:230
+#: web/lib/admin/MapGoogle.php:212 web/lib/admin/MapOpenLayers.php:232
 msgid "nothing entered in the address field"
 msgstr "aadressiväljale ei ole midagi sisestatud"
 
-#: web/lib/admin/MapGoogle.php:231 web/lib/admin/MapOpenLayers.php:86
+#: web/lib/admin/MapGoogle.php:232 web/lib/admin/MapOpenLayers.php:88
 msgid "locating"
 msgstr "otsin asukohta"
 
-#: web/lib/admin/MapGoogle.php:359 web/lib/admin/MapOpenLayers.php:308
+#: web/lib/admin/MapGoogle.php:365 web/lib/admin/MapOpenLayers.php:313
 msgid "Click to see location"
 msgstr "Klõpsa, et näha asukohta"
 
-#: web/lib/admin/MapGoogle.php:377 web/lib/admin/MapOpenLayers.php:317
+#: web/lib/admin/MapGoogle.php:386 web/lib/admin/MapOpenLayers.php:325
 msgid "Address:"
 msgstr "Aadress:"
 
-#: web/lib/admin/MapGoogle.php:377 web/lib/admin/MapOpenLayers.php:317
+#: web/lib/admin/MapGoogle.php:386 web/lib/admin/MapOpenLayers.php:325
 msgid "Find address"
 msgstr "Leia aadress"
 
-#: web/lib/admin/MapGoogle.php:377 web/lib/admin/MapNone.php:118
-#: web/lib/admin/MapOpenLayers.php:317
+#: web/lib/admin/MapGoogle.php:386 web/lib/admin/MapNone.php:121
+#: web/lib/admin/MapOpenLayers.php:325
 msgid "Locate Me!"
 msgstr "Leia mind!"
 
-#: web/lib/admin/MapOpenLayers.php:237
+#: web/lib/admin/MapOpenLayers.php:239
 msgid ""
 "Address not found, perhaps try another form, like putting the street number "
 "to the front."
@@ -2078,7 +2075,7 @@ msgstr ""
 "Aadressi ei leitud, proovi vast teistmoodi, näiteks pane majanumber "
 "esimeseks."
 
-#: web/lib/admin/OptionDisplay.php:182
+#: web/lib/admin/OptionDisplay.php:183
 #, php-format
 msgid ""
 "This attribute can be set if you want to configure an additional SSID "
@@ -2105,7 +2102,7 @@ msgstr ""
 "mingil hetkel sattuda rändlema sama SSID nimega võõrasse võrku, mille "
 "pidamine eriti turvaliseks on viga."
 
-#: web/lib/admin/OptionDisplay.php:184
+#: web/lib/admin/OptionDisplay.php:185
 #, php-format
 msgid ""
 "The format of this option is: IPv4|IPv6|hostname:port . Forcing your users "
@@ -2118,39 +2115,39 @@ msgstr ""
 "enesemääramise oluline rikkumine. Lisaks on sel ka tehnilisi küsitavusi. "
 "Enne selle suvandiga proksi määramist palun loe läbi arutelu: %s."
 
-#: web/lib/admin/OptionDisplay.php:273
+#: web/lib/admin/OptionDisplay.php:275
 msgid "select language"
 msgstr "vali keel"
 
-#: web/lib/admin/OptionDisplay.php:274 web/lib/admin/UIElements.php:164
+#: web/lib/admin/OptionDisplay.php:276 web/lib/admin/UIElements.php:158
 msgid "default/other languages"
-msgstr "vaikimisi/teised keeled"
+msgstr "vaikimisi/muud keeled"
 
-#: web/lib/admin/OptionDisplay.php:352
+#: web/lib/admin/OptionDisplay.php:356
 msgid "(default/other languages)"
-msgstr "(vaikimisi/teised keeled)"
+msgstr "(vaikimisi/muud keeled)"
 
-#: web/lib/admin/OptionDisplay.php:387
+#: web/lib/admin/OptionDisplay.php:391
 msgid "file content"
 msgstr "faili sisu"
 
 #. only modify in this one case
-#: web/lib/admin/OptionDisplay.php:398 web/lib/admin/UIElements.php:198
+#: web/lib/admin/OptionDisplay.php:402 web/lib/admin/UIElements.php:192
 msgid "on"
 msgstr "sees"
 
-#: web/lib/admin/OptionDisplay.php:398 web/lib/admin/UIElements.php:198
+#: web/lib/admin/OptionDisplay.php:402 web/lib/admin/UIElements.php:192
 msgid "off"
 msgstr "väljas"
 
 #. / number of times attribute is present, and its name
 #. / Example: "5x Support E-Mail"
-#: web/lib/admin/OptionParser.php:213 web/lib/admin/OptionParser.php:218
+#: web/lib/admin/OptionParser.php:214 web/lib/admin/OptionParser.php:219
 #, php-format
 msgid "%dx %s"
 msgstr "%dx %s"
 
-#: web/lib/admin/OptionParser.php:223
+#: web/lib/admin/OptionParser.php:224
 #, php-format
 msgid ""
 "You did not set a 'default language' value for %s. This means we can only "
@@ -2160,280 +2157,261 @@ msgid ""
 msgstr ""
 "Sa ei valinud %s jaoks vaikekeelt. See tähendab, et saame näidata seda "
 "stringi ainult paigaldajatele, mis on <strong>täpselt</strong> keeles, mille "
-"seadistasid. Kõigi teiste keelte jaoks võid soovida profiili muuta ja täita "
+"seadistasid. Kõigi teiste keelte jaoks võiksid profiili muuta ja täita "
 "'vaikimisi/muu' keele välja."
 
-#: web/lib/admin/PageDecoration.php:50
+#: web/lib/admin/PageDecoration.php:52
 msgid "You are:"
 msgstr "Sa oled:"
 
-#: web/lib/admin/PageDecoration.php:53
+#: web/lib/admin/PageDecoration.php:55
 msgid "Go to your Profile page"
 msgstr "Mine oma profiili lehele"
 
-#: web/lib/admin/PageDecoration.php:54
+#: web/lib/admin/PageDecoration.php:56
 msgid "Logout"
 msgstr "Logi välja"
 
-#: web/lib/admin/PageDecoration.php:56
+#: web/lib/admin/PageDecoration.php:58
 msgid "Start page"
 msgstr "Esileht"
 
-#: web/lib/admin/PageDecoration.php:77
+#: web/lib/admin/PageDecoration.php:82
 msgid "View this page in"
-msgstr "Vaata seda lehte"
+msgstr "Vali keel:"
 
-#: web/lib/admin/PageDecoration.php:137
+#: web/lib/admin/PageDecoration.php:143
 #, php-format
 msgid "Administrator Interface - %s"
 msgstr "Administraatori liides - %s"
 
-#: web/lib/admin/PageDecoration.php:140
+#: web/lib/admin/PageDecoration.php:146
 #, php-format
 msgid "Administrator Interface - %s User Management"
 msgstr "Administraatori liides - %s kasutajahaldus"
 
-#: web/lib/admin/PageDecoration.php:143
+#: web/lib/admin/PageDecoration.php:149
 msgid "Administrator Interface"
 msgstr "Administraatori liides"
 
-#: web/lib/admin/PageDecoration.php:146
+#: web/lib/admin/PageDecoration.php:152
 msgid "Management of User Details"
 msgstr "Kasutajate andmete haldamine"
 
-#: web/lib/admin/PageDecoration.php:149
+#: web/lib/admin/PageDecoration.php:155
 #, php-format
 msgid "Administrator Interface - %s Management"
 msgstr "Administraatori liides - %s haldamine"
 
-#: web/lib/admin/PageDecoration.php:152
+#: web/lib/admin/PageDecoration.php:158
 #, php-format
 msgid "Welcome to %s"
 msgstr "Tere tulemast %si"
 
-#: web/lib/admin/PageDecoration.php:157
+#: web/lib/admin/PageDecoration.php:163
 msgid "CIC"
 msgstr "CIC"
 
-#: web/lib/admin/PageDecoration.php:160
+#: web/lib/admin/PageDecoration.php:166
 msgid "Diagnostics"
 msgstr "Diagnostika"
 
-#: web/lib/admin/PageDecoration.php:242
+#: web/lib/admin/PageDecoration.php:250
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "%s privaatsusteave"
 
-#. some config elements are displayable. We need some dummies to
-#. translate the common values for them. If a deployment chooses a
-#. different wording, no translation, sorry
-#: web/lib/admin/UIElements.php:56
-msgid "National Roaming Operator"
-msgstr "Riigi rändlusteenuse vahendaja (NRO)"
-
-#: web/lib/admin/UIElements.php:57
-msgid "identity provider"
-msgstr "identiteedipakkuja"
-
-#: web/lib/admin/UIElements.php:58
-msgid "organisation"
-msgstr "asutus"
-
-#: web/lib/admin/UIElements.php:59
-msgid "Identity Provider"
-msgstr "Identiteedipakkuja"
-
-#: web/lib/admin/UIElements.php:78
+#: web/lib/admin/UIElements.php:70
 msgid "SSID"
 msgstr "SSID"
 
-#: web/lib/admin/UIElements.php:79
+#: web/lib/admin/UIElements.php:71
 msgid "SSID (with WPA/TKIP)"
-msgstr "SSID (koos WPA/TKIP)"
+msgstr "SSID (WPA/TKIP toega)"
 
-#: web/lib/admin/UIElements.php:80
+#: web/lib/admin/UIElements.php:72
 msgid "HS20 Consortium OI"
 msgstr "HS20 Consortium OI"
 
-#: web/lib/admin/UIElements.php:83
+#: web/lib/admin/UIElements.php:75
 msgid "Additional SSID"
 msgstr "Lisa-SSID"
 
-#: web/lib/admin/UIElements.php:84
+#: web/lib/admin/UIElements.php:76
 msgid "Additional SSID (with WPA/TKIP)"
-msgstr "Lisa-SSID (koos WPA/TKIP)"
+msgstr "Lisatav SSID (WPA/TKIP toega)"
 
-#: web/lib/admin/UIElements.php:87
+#: web/lib/admin/UIElements.php:79
 msgid "Additional HS20 Consortium OI"
 msgstr "Uus HS20 Consortium OI"
 
-#: web/lib/admin/UIElements.php:90
+#: web/lib/admin/UIElements.php:82
 msgid "Support: Web"
 msgstr "Kasutajatugi: Veeb"
 
-#: web/lib/admin/UIElements.php:91
+#: web/lib/admin/UIElements.php:83
 msgid "Support: EAP Types"
 msgstr "Kasutajatugi: EAP tüübid"
 
-#: web/lib/admin/UIElements.php:92
+#: web/lib/admin/UIElements.php:84
 msgid "Support: Phone"
 msgstr "Kasutajatugi: Telefon"
 
-#: web/lib/admin/UIElements.php:93
+#: web/lib/admin/UIElements.php:85
 msgid "Support: E-Mail"
 msgstr "Kasutajatugi: E-post"
 
-#: web/lib/admin/UIElements.php:96
+#: web/lib/admin/UIElements.php:88
 msgid "Logo URL"
 msgstr "Logo URL"
 
-#: web/lib/admin/UIElements.php:97
+#: web/lib/admin/UIElements.php:89
 msgid "Logo image"
 msgstr "Logo pilt"
 
-#: web/lib/admin/UIElements.php:98
+#: web/lib/admin/UIElements.php:90
 msgid "Configure Wired Ethernet"
 msgstr "Seadista 802.1X traadiga võrk"
 
-#: web/lib/admin/UIElements.php:99
+#: web/lib/admin/UIElements.php:91
 msgid "Name (CN) of Authentication Server"
 msgstr "Autentimisserveri nimi (CN)"
 
-#: web/lib/admin/UIElements.php:100
+#: web/lib/admin/UIElements.php:92
 msgid "Enable device assessment"
 msgstr "Luba seadme hindamine"
 
-#: web/lib/admin/UIElements.php:101
+#: web/lib/admin/UIElements.php:93
 msgid "Terms of Use"
 msgstr "Kasutustingimused"
 
-#: web/lib/admin/UIElements.php:102
+#: web/lib/admin/UIElements.php:94
 msgid "CA Certificate URL"
 msgstr "CA sertifikaadi URL"
 
-#: web/lib/admin/UIElements.php:103
+#: web/lib/admin/UIElements.php:95
 msgid "CA Certificate File"
 msgstr "CA sertifikaadi fail"
 
-#: web/lib/admin/UIElements.php:104
+#: web/lib/admin/UIElements.php:96
 msgid "Profile Display Name"
 msgstr "Profiili kuvatav nimi"
 
-#: web/lib/admin/UIElements.php:105
+#: web/lib/admin/UIElements.php:97
 msgid "Production-Ready"
 msgstr "Käikuandmiseks valmis"
 
-#: web/lib/admin/UIElements.php:106
+#: web/lib/admin/UIElements.php:98
 msgid "Admin Accepted Terms of Use"
 msgstr "Administraatori poolt kinnitatud kasutustingimused"
 
-#: web/lib/admin/UIElements.php:107
+#: web/lib/admin/UIElements.php:99
 msgid "Extra text on downloadpage for device"
 msgstr "Lisatekst allalaadimislehel seadme jaoks"
 
-#: web/lib/admin/UIElements.php:108
+#: web/lib/admin/UIElements.php:100
 msgid "Redirection Target"
 msgstr "Ümbersuunamise sihtkoht"
 
-#: web/lib/admin/UIElements.php:109
+#: web/lib/admin/UIElements.php:101
 msgid "Extra text on downloadpage for EAP method"
 msgstr "EAP meetodi allalaadimislehe lisatekst"
 
-#: web/lib/admin/UIElements.php:110
+#: web/lib/admin/UIElements.php:102
 msgid "Turn on selection of EAP-TLS User-Name"
 msgstr "Luba EAP-TLS User-Name kasutajanime valik"
 
-#: web/lib/admin/UIElements.php:111
+#: web/lib/admin/UIElements.php:103
 msgid "Use GEANTlink TTLS supplicant for W8"
 msgstr "Kasuta GEANTlinki TTLS programmi W8 jaoks"
 
-#: web/lib/admin/UIElements.php:112
+#: web/lib/admin/UIElements.php:104
 msgid "Use builtin TTLS supplicant for Windows 10"
 msgstr "Kasuta sisseehitatud TTLS programmi Windows 10 jaoks"
 
-#: web/lib/admin/UIElements.php:113
+#: web/lib/admin/UIElements.php:105
 msgid "Profile Description"
 msgstr "Profiili kirjeldus"
 
-#: web/lib/admin/UIElements.php:114
+#: web/lib/admin/UIElements.php:106
 msgid "Custom Installer Name Suffix"
 msgstr "Kohandatud paigaldusprogrammi nime järelliide (sufiks)"
 
-#: web/lib/admin/UIElements.php:116
+#: web/lib/admin/UIElements.php:108
 msgid "Real Name"
 msgstr "Pärisnimi"
 
-#: web/lib/admin/UIElements.php:117
+#: web/lib/admin/UIElements.php:109
 msgid "E-Mail Address"
 msgstr "E-posti aadress"
 
-#: web/lib/admin/UIElements.php:118
+#: web/lib/admin/UIElements.php:110
 msgid "Remove/Disable SSID"
 msgstr "Eemalda/Keela SSID"
 
-#: web/lib/admin/UIElements.php:119
+#: web/lib/admin/UIElements.php:111
 msgid "Mandatory Content Filtering Proxy"
 msgstr "Kohustuslik sisufilter-proksi"
 
-#: web/lib/admin/UIElements.php:120
+#: web/lib/admin/UIElements.php:112
 msgid "Custom CSS file for User Area"
 msgstr "Kasutajaliidese jaoks kohandatud CSS fail"
 
-#: web/lib/admin/UIElements.php:121
+#: web/lib/admin/UIElements.php:113
 #, php-format
 msgid "%s Logo"
 msgstr "%s logo"
 
-#: web/lib/admin/UIElements.php:122
+#: web/lib/admin/UIElements.php:114
 msgid "Preferred Skin for User Area"
 msgstr "Kasutajaliidese puhul eelistatud veebikujundus"
 
-#: web/lib/admin/UIElements.php:123
+#: web/lib/admin/UIElements.php:115
 #, php-format
 msgid "Include %s branding in installers"
 msgstr "Lisa %s kaubamärgid paigaldusprogrammi"
 
-#: web/lib/admin/UIElements.php:125
+#: web/lib/admin/UIElements.php:117
 #, php-format
 msgid "%s Homepage"
 msgstr "%s koduleht"
 
-#: web/lib/admin/UIElements.php:126
+#: web/lib/admin/UIElements.php:118
 #, php-format
 msgid "Custom text in %s Invitations"
 msgstr "Kohandatud tekst %s kutsetes"
 
-#: web/lib/admin/UIElements.php:127
+#: web/lib/admin/UIElements.php:119
 #, php-format
 msgid "Enable %s"
 msgstr "Luba %s"
 
-#: web/lib/admin/UIElements.php:128
+#: web/lib/admin/UIElements.php:120
 #, php-format
 msgid "%s: Do not terminate EAP"
 msgstr "%s: Ära lõpeta EAPd"
 
-#: web/lib/admin/UIElements.php:129
+#: web/lib/admin/UIElements.php:121
 #, php-format
 msgid "%s: max users per profile"
 msgstr "%s: maksimaalne kasutajate arv profiili kohta"
 
-#: web/lib/admin/UIElements.php:130
+#: web/lib/admin/UIElements.php:122
 #, php-format
 msgid "Mint %s with CA on creation"
 msgstr "Lisa %s-le CA "
 
-#: web/lib/admin/UIElements.php:228
+#: web/lib/admin/UIElements.php:224
 #, php-format
 msgid "General %s details"
 msgstr "%s üldandmed"
 
-#: web/lib/admin/UIElements.php:246
+#: web/lib/admin/UIElements.php:242
 msgid "Global Helpdesk Details"
 msgstr "Ülemaailmse kasutajatoe andmed"
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:341
+#: web/lib/admin/UIElements.php:339
 msgid "There was an error while retrieving the certificate from the database!"
 msgstr "Viga sertifikaadi võtmisel andmebaasist!"
 
@@ -2441,35 +2419,47 @@ msgstr "Viga sertifikaadi võtmisel andmebaasist!"
 msgid "There was an error processing the certificate!"
 msgstr "Viga sertifikaadi töötlemisel!"
 
-#: web/lib/admin/UIElements.php:355
+#: web/lib/admin/UIElements.php:357
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr "See on <strong>SERVERI</strong> sertifikaat!"
 
-#: web/lib/admin/UIElements.php:368
+#: web/lib/admin/UIElements.php:375
 msgid "Preview of logo file"
 msgstr "Logo faili eelvaade"
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:381
+#: web/lib/admin/UIElements.php:391
 msgid "There was an error while retrieving the file from the database!"
 msgstr "Viga faili võtmisel andmebaasist!"
 
-#: web/lib/admin/UIElements.php:385
+#: web/lib/admin/UIElements.php:397
 msgid "File exists"
 msgstr "Fail on olemas"
 
-#: web/lib/admin/UIElements.php:385
+#: web/lib/admin/UIElements.php:397
 msgid "Preview"
 msgstr "Eelvaade"
 
-#: web/lib/admin/UIElements.php:401
+#: web/lib/admin/UIElements.php:415
 msgid "Remark"
 msgstr "Märkus"
 
-#: web/lib/admin/UIElements.php:402
+#: web/lib/admin/UIElements.php:416
 msgid "Warning!"
 msgstr "Hoiatus!"
 
-#: web/lib/admin/UIElements.php:403
+#: web/lib/admin/UIElements.php:417
 msgid "Error!"
 msgstr "Viga!"
+
+#~ msgid "National Roaming Operator"
+#~ msgstr "Riigi rändlusteenuse vahendaja (NRO)"
+
+#~ msgid "identity provider"
+#~ msgstr "identiteedipakkuja"
+
+#~ msgid "organisation"
+#~ msgstr "asutus"
+
+#~ msgid "Identity Provider"
+#~ msgstr "Identiteedipakkuja"
