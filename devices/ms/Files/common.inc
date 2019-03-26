@@ -1404,7 +1404,7 @@ Function SavePasswordBasedCredentials
    ${If} "$PASS1" != "$PASS2"
    ${NSD_SetText} $PASS1_F ""
    ${NSD_SetText} $PASS2_F ""
-   MessageBox MB_OK "<?php WindowsCommon::echo_nsi(_("Password missmatch"))?>"
+   MessageBox MB_OK "<?php WindowsCommon::echo_nsi(_("Password mismatch"))?>"
    Abort
    ${EndIf}
    ${Base64_Encode} $PASS1
