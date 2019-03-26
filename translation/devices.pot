@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -859,7 +859,7 @@ msgid "Missing password"
 msgstr ""
 
 #: devices/ms/Files/common.inc:1407
-msgid "Password missmatch"
+msgid "Password mismatch"
 msgstr ""
 
 #: devices/ms/Files/common.inc:1498 devices/ms/Files/eap_w8.inc:31
