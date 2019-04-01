@@ -21,8 +21,12 @@
 
 require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 $admin = filter_input(INPUT_GET, 'admin', FILTER_VALIDATE_INT);
-if ($admin == 1) {
-    $auth = new \web\lib\admin\Authentication();
+$auth = new \web\lib\admin\Authentication();
+$isauth = 0;
+if ($auth->isAuthenticated()) {
+    $isauth = 1;
+}
+if ($admin == 1 && !$isauth) {
     $auth->authenticate();
 }
 $Gui = new \web\lib\user\Gui();
