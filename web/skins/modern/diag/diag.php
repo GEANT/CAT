@@ -52,7 +52,7 @@ $_SESSION['current_page'] = $_SERVER['SCRIPT_NAME'];
 $admin = filter_input(INPUT_GET, 'admin', FILTER_VALIDATE_INT);
 $profile_list_size = 1;
 require_once dirname(__DIR__) . '/Divs.php';
-$divs = new \web\skins\modern\Divs($Gui);
+$divs = new Divs($Gui);
 $visibility = 'index';
 $operatingSystem = $Gui->detectOS();
 $Gui->loggerInstance->debug(4, $operatingSystem);
