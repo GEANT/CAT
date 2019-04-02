@@ -498,13 +498,15 @@ class UIElements extends \core\common\Entity {
     public function pngInjectConsortiumLogo(string $inputpngstring, int $symbolsize, int $marginsymbols = 4) {
         $loggerInstance = new \core\common\Logging();
         $inputgd = imagecreatefromstring($inputpngstring);
-        if ($inputgd === FALSE) { // consortium logo is bogus; don't do anything
+        if ($inputgd === FALSE) { // source image is bogus; don't do anything
             return "";
         }
 
         $loggerInstance->debug(4, "Consortium logo is at: " . ROOT . "/web/resources/images/consortium_logo_large.png");
         $logogd = imagecreatefrompng(ROOT . "/web/resources/images/consortium_logo_large.png");
-
+        if ($logogd === FALSE) { // consortium logo is bogus; don't do anything
+            return "";
+        }
         $sizeinput = [imagesx($inputgd), imagesy($inputgd)];
         $sizelogo = [imagesx($logogd), imagesy($logogd)];
         // Q level QR-codes can sustain 25% "damage"

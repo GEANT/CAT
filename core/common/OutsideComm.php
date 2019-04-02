@@ -353,9 +353,10 @@ class OutsideComm extends Entity {
      * @throws \Exception
      */
     public static function postJson($url, $dataArray) {
+        $loggerInstance = new Logging();
         $ch = \curl_init($url);
         if ($ch === FALSE) {
-            $this->loggerInstance->debug(2,"Unable to POST JSON request: CURL init failed!");
+            $loggerInstance->debug(2,"Unable to POST JSON request: CURL init failed!");
             return json_decode(json_encode(FALSE), TRUE);
         }
         \curl_setopt_array($ch, array(
