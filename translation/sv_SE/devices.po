@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2019-01-14 10:15+0000\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-22 09:07+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Swedish (Sweden) (http://www.transifex.com/eduroam_devel/cat/"
 "language/sv_SE/)\n"
@@ -91,9 +91,8 @@ msgid ""
 msgstr ""
 
 #: devices/Devices-template.php:306
-#, fuzzy
 msgid "Apple iOS mobile devices (iOS 7-11)"
-msgstr "Apple iOS mobila enheter (iOS 5 och 6)"
+msgstr ""
 
 #: devices/Devices-template.php:320
 msgid "Apple iOS mobile devices (iOS 5 and 6)"
@@ -309,9 +308,9 @@ msgid "eduroam user certificate"
 msgstr ""
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:669
-#, fuzzy, php-format
+#, php-format
 msgid "The %s Certification Authority"
-msgstr "Certifikatsutfärdare för er identitetsleverantör"
+msgstr ""
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:671
 #, php-format
@@ -346,7 +345,7 @@ msgstr ""
 "följande nätverk:"
 
 #: devices/linux/Device_Linux.php:88 devices/ms/WindowsCommon.php:158
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to:"
@@ -354,11 +353,7 @@ msgid_plural ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to the following networks:"
 msgstr[0] ""
-"Förutom <strong>%s</strong> kommer installeraren även att konfigurera till "
-"följande:"
 msgstr[1] ""
-"Förutom <strong>%s</strong> kommer installeraren även att konfigurera till "
-"följande:"
 
 #: devices/linux/Device_Linux.php:102
 msgid ""
@@ -884,7 +879,8 @@ msgid "Missing password"
 msgstr "Lösenord saknas"
 
 #: devices/ms/Files/common.inc:1407
-msgid "Password missmatch"
+#, fuzzy
+msgid "Password mismatch"
 msgstr "Lösenord stämmer inte överens"
 
 #: devices/ms/Files/common.inc:1498 devices/ms/Files/eap_w8.inc:31
@@ -953,6 +949,3 @@ msgstr ""
 #: devices/ms/Files/pwd.inc:48
 msgid "EAP-pwd installation error. Please try again or contact Support."
 msgstr ""
-
-#~ msgid "Identity Provider's CA"
-#~ msgstr "Identity Provider CA"

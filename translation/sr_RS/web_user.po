@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2018-11-14 13:25+0000\n"
-"Last-Translator: Marko Eremija <marko.eremija@amres.ac.rs>\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-22 09:37+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Serbian (Serbia) (http://www.transifex.com/eduroam_devel/cat/"
 "language/sr_RS/)\n"
 "Language: sr_RS\n"
@@ -371,7 +371,7 @@ msgid "What is this %s thing anyway?"
 msgstr "Šta je uopšte %s?"
 
 #: web/user/faq.inc.php:74
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s is a global WiFi roaming consortium which gives members of education and "
 "research access to the internet <i>for free</i> on all %s hotspots on the "
@@ -380,12 +380,6 @@ msgid ""
 "%s homepage</a> or <a href='http://monitor.eduroam.org/map_service_loc."
 "php'>the %s location map</a> for more details."
 msgstr ""
-"%s eduroam je globalni WiFi roming konzorcijum koji omogućava članovima "
-"obrazovnih i istraživačkih ustanova <i>besplatan</i> pristup internetu u "
-"svim %s pristupnim tačkama na planeti. Postoji nekoliko miliona %s "
-"korisnika, koji uživaju u besplatnom pristupu internetu na više od 6,000 "
-"lokacija! Posetitie <a href='http://www.eduroam.org'> glavnu %s stranicu</a> "
-"za više detalja."
 
 #: web/user/faq.php:47
 #, php-format

@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2018-11-14 12:50+0000\n"
-"Last-Translator: Janos Mohacsi <mohacsi@niif.hu>\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-22 09:37+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/eduroam_devel/"
 "cat/language/hu_HU/)\n"
 "Language: hu_HU\n"
@@ -369,7 +369,7 @@ msgid "What is this %s thing anyway?"
 msgstr "Mi ez a  %s dolog valójában?"
 
 #: web/user/faq.inc.php:74
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s is a global WiFi roaming consortium which gives members of education and "
 "research access to the internet <i>for free</i> on all %s hotspots on the "
@@ -378,12 +378,6 @@ msgid ""
 "%s homepage</a> or <a href='http://monitor.eduroam.org/map_service_loc."
 "php'>the %s location map</a> for more details."
 msgstr ""
-"A  %s globális WiFi roaming konzorcium, amely az oktatási és kutatási "
-"tagoknak hozzáférést biztosít az internethez\n"
-"<i> ingyen </i> minden %s hotspotján. Már több millió  %s felhasználó van "
-"aki élvezi ingyenes és biztonsásgos internet-hozzáférést  több mint 6.000 "
-"helyszínen! További részletekért látogasson el a <a href='http://www.eduroam."
-"org'> %s kezdőlapjára</a>."
 
 #: web/user/faq.php:47
 #, php-format

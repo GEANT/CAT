@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2018-05-18 12:20+0000\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-22 20:48+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/eduroam_devel/cat/"
 "language/sk_SK/)\n"
@@ -321,7 +321,7 @@ msgstr ""
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
 #: core/Federation.php:252
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -334,24 +334,14 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Ahoj,\n"
-"\n"
-"pozvánka určená pre nového poskytovateľa identity %s vo vašej %s federácii "
-"%s bola použitá a IdP bol vytvorený v %s.\n"
-"\n"
-"Predpokladali sme, že o tom budete chcieť byť informovaný.\n"
-"\n"
-"S pozdravom,\n"
-"\n"
-"%s"
 
 #: core/Federation.php:261
-#, fuzzy, php-format
+#, php-format
 msgid "%s in your federation was created"
-msgstr "IdP vo vašej federácii bol vytvorený"
+msgstr ""
 
 #: core/IdP.php:258
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -363,20 +353,11 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Ahoj,\n"
-"\n"
-"poskytovateľ identity %s vo vašej %s federácii %s bol odstránený z %s.\n"
-"\n"
-"Predpokladali sme, že o tom budete chcieť byť informovaný.\n"
-"\n"
-"S pozdravom,\n"
-"\n"
-"%s"
 
 #: core/IdP.php:267
-#, fuzzy, php-format
+#, php-format
 msgid "%s in your federation was deleted"
-msgstr "Odstránený poskytovateľ identity vo vašej federácii"
+msgstr ""
 
 #: core/SilverbulletInvitation.php:230
 #, php-format

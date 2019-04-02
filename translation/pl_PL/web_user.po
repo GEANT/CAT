@@ -4,7 +4,7 @@
 #
 # Translators:
 # Maja Górecka-Wolniewicz <mgw@umk.pl>, 2011-2013
-# Maja Wolniewicz <maja.wolniewicz@gmail.com>, 2018
+# Maja Wolniewicz <maja.wolniewicz@gmail.com>, 2018-2019
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2016-2019
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2013,2015
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2012
@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2019-01-03 10:17+0000\n"
-"Last-Translator: Tomasz Wolniewicz <tw2529@gmail.com>\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-25 11:45+0000\n"
+"Last-Translator: Maja Wolniewicz <maja.wolniewicz@gmail.com>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/eduroam_devel/cat/"
 "language/pl_PL/)\n"
 "Language: pl_PL\n"
@@ -386,7 +386,7 @@ msgid "What is this %s thing anyway?"
 msgstr "Czym jest %s?"
 
 #: web/user/faq.inc.php:74
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s is a global WiFi roaming consortium which gives members of education and "
 "research access to the internet <i>for free</i> on all %s hotspots on the "
@@ -395,11 +395,13 @@ msgid ""
 "%s homepage</a> or <a href='http://monitor.eduroam.org/map_service_loc."
 "php'>the %s location map</a> for more details."
 msgstr ""
-"%s to ogólnoświatowe porozumienie, dzięki któremu osoby związane z "
-"instytucjami akademickimi i naukowymi mogą korzystać ze wszystkich hotspotów "
-"%s na świecie <i>za darmo</i>. Obecnie %s ma kilka milionów użytkowników "
-"korzystających z ponad 6000 hotspotów! Zajrzyj na stronę <a href='http://www."
-"eduroam.org'>%s</a>, żeby dowiedzieć się więcej. "
+"%sto ogólnoświatowe porozumienie, dzięki któremu osoby związane z "
+"instytucjami akademickimi i naukowymi mogą korzystać <i>za darmo</i>ze "
+"wszystkich hotspotów %s na świecie. Obecnie %s ma  kilka milionów "
+"użytkowników korzystających z ponad %d hotspotów! Aby dowiedzieć się więcej, "
+"zajrzyj <a href='http://www.eduroam.org'>na stronę %s </a>lub <a "
+"href='http://monitor.eduroam.org/map_service_loc.php'>mapę lokalizacji %s</"
+"a>."
 
 #: web/user/faq.php:47
 #, php-format

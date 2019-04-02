@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2018-11-07 21:22+0000\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-22 09:37+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/eduroam_devel/"
 "cat/language/pt_PT/)\n"
@@ -377,7 +377,7 @@ msgid "What is this %s thing anyway?"
 msgstr "O que esta coisa de %s afinal?"
 
 #: web/user/faq.inc.php:74
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s is a global WiFi roaming consortium which gives members of education and "
 "research access to the internet <i>for free</i> on all %s hotspots on the "
@@ -386,11 +386,6 @@ msgid ""
 "%s homepage</a> or <a href='http://monitor.eduroam.org/map_service_loc."
 "php'>the %s location map</a> for more details."
 msgstr ""
-"%s é um consorcio global de roaming WI-FI que garante aos membros de "
-"educação e investigação acesso à internet <i>gratuitamente</i> em todos os "
-"hotspots %s no planeta. Existem vários milhões de utilizadores %s, usando o "
-"acesso à internet gratuito em mais de 6.000 hotspots! Visite <a href='http://"
-"www.eduroam.org'>a página do %s</a> para mais detalhes."
 
 #: web/user/faq.php:47
 #, php-format

@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# University of Ruse <support@uni-ruse.bg>, 2014-2018
+# University of Ruse <support@uni-ruse.bg>, 2014-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2018-11-09 12:40+0000\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-26 07:16+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/eduroam_devel/"
 "cat/language/bg_BG/)\n"
@@ -371,7 +371,7 @@ msgid "What is this %s thing anyway?"
 msgstr "Какво все пак е това %s?"
 
 #: web/user/faq.inc.php:74
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s is a global WiFi roaming consortium which gives members of education and "
 "research access to the internet <i>for free</i> on all %s hotspots on the "
@@ -381,11 +381,12 @@ msgid ""
 "php'>the %s location map</a> for more details."
 msgstr ""
 "%s е световен WiFi роуминг консорциум, който дава на членовете на "
-"образованието и научните изследвания достъп до интернет <i>безплатно</i> до "
-"всички %s точки за интернет достъп на планетата. Вече има няколко милиона %s "
-"потребители, ползващи се от свободния интернет достъп до повече от 6.000 "
+"образованието и научните изследвания достъп до интернет <i> безплатно </i> "
+"до всички %s  точки за интернет достъп на планетата. Вече има няколко "
+"милиона %s потребители, ползващи свободния интернет достъп до повече от %d "
 "точки за интернет достъп! Посетете <a href='http://www.eduroam.org'> %s "
-"начална страница </a> за повече подробности."
+"начална страница </a> или <a href='http://monitor.eduroam.org/"
+"map_service_loc.php'> %s карта </a> за повече подробности."
 
 #: web/user/faq.php:47
 #, php-format

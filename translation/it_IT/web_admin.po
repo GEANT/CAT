@@ -4,7 +4,7 @@
 #
 # Translators:
 # Daniele Albrizio <dalbrizio@gmail.com>, 2018
-# Daniele Albrizio <daniele@albrizio.it>, 2012-2013,2015-2016,2018
+# Daniele Albrizio <daniele@albrizio.it>, 2012-2013,2015-2016,2018-2019
 # Daniele Albrizio <daniele@albrizio.it>, 2012
 # Giuseppe De Marco <giuseppe.demarco@unical.it>, 2018
 # Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2015,2017
@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2019-02-26 15:36+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-25 14:03+0000\n"
+"Last-Translator: Daniele Albrizio <daniele@albrizio.it>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/eduroam_devel/cat/"
 "language/it_IT/)\n"
 "Language: it_IT\n"
@@ -797,6 +797,8 @@ msgid ""
 "Redirection set to <strong>%s</strong>, but will be ignored due to existing "
 "device-level redirect."
 msgstr ""
+"Una redirezione a <strong>%s</strong> è stata impostata, ma sarà ignorata a "
+"causa di una preesistente redirezione a livello di dispositivo."
 
 #: web/admin/edit_profile_result.php:199
 #, php-format
@@ -990,6 +992,8 @@ msgid ""
 "The device in question will stop functioning with %s. The revocation cannot "
 "be undone. Are you sure you want to do this?"
 msgstr ""
+"Il dispositivo in questione smetterà di funzionare con %s. La revoca non può "
+"essere annullata. Sei sicuro di volerlo fare?"
 
 #: web/admin/edit_silverbullet.php:443 web/admin/edit_silverbullet.php:499
 msgid "Revoke"
@@ -999,6 +1003,7 @@ msgstr "Revoca"
 #, php-format
 msgid "The invitation token %s is ready for sending! Choose how to send it:"
 msgstr ""
+"Il token di invito %s è pronto per essere spedito! Scegli come spedirlo:"
 
 #: web/admin/edit_silverbullet.php:470
 msgid "E-Mail:"
@@ -1010,11 +1015,11 @@ msgstr "Client di posta locale"
 
 #: web/admin/edit_silverbullet.php:475
 msgid "Send with CAT"
-msgstr ""
+msgstr "Manda con CAT"
 
 #: web/admin/edit_silverbullet.php:478
 msgid "SMS:"
-msgstr ""
+msgstr "SMS:"
 
 #: web/admin/edit_silverbullet.php:482
 msgid "Send in SMS..."
@@ -1022,7 +1027,7 @@ msgstr "Manda in SMS..."
 
 #: web/admin/edit_silverbullet.php:485
 msgid "Manual:"
-msgstr ""
+msgstr "Manuale:"
 
 #: web/admin/edit_silverbullet.php:486
 msgid "Copy to Clipboard"
@@ -1047,7 +1052,7 @@ msgstr "%d di %d"
 
 #: web/admin/edit_silverbullet.php:521
 msgid "Update"
-msgstr ""
+msgstr "Aggiorna"
 
 #: web/admin/edit_silverbullet.php:528
 #, php-format
@@ -1057,6 +1062,10 @@ msgid ""
 "need to be re-provisioned with new invitation tokens. Are you sure you want "
 "to do this?"
 msgstr ""
+"Tutti i dispositivi attualmente attivi smetteranno di funzionare con %s. "
+"Questo non può essere annullato. Anche se l'utente può essere riattivato più "
+"tardi, loro avranno bisogno di essere nuovamente dotati in seguito di nuovi "
+"token di invito. Sei sicuro di volerlo fare?"
 
 #: web/admin/edit_silverbullet.php:537
 msgid "Deactivate User"
@@ -1094,7 +1103,7 @@ msgstr ""
 
 #: web/admin/edit_silverbullet.php:580
 msgid "Save"
-msgstr ""
+msgstr "Salva"
 
 #: web/admin/edit_silverbullet.php:590 web/admin/edit_silverbullet.php:605
 msgid "Add new user"
@@ -1139,12 +1148,12 @@ msgstr "Continua"
 
 #: web/admin/edit_silverbullet.php:644
 msgid "Abort"
-msgstr ""
+msgstr "Interrompi"
 
 #: web/admin/edit_silverbullet.php:657
 #, php-format
 msgid "Back to %s page"
-msgstr ""
+msgstr "Ritorna alla pagina %s"
 
 #: web/admin/edit_user.php:27 web/admin/edit_user.php:36
 msgid "Editing User Attributes"
@@ -1401,7 +1410,7 @@ msgstr "Revoca invito"
 #: web/admin/overview_federation.php:314 web/admin/inc/manageAdmins.inc.php:208
 #, php-format
 msgid "(expires %s)"
-msgstr ""
+msgstr "(scade %s)"
 
 #: web/admin/overview_federation.php:333
 #, php-format
@@ -1681,6 +1690,8 @@ msgstr "Clicca qui per la pqgina di superadmin"
 #, php-format
 msgid "(Need help? Refer to the <a href='%s'>%s administrator manual</a>)"
 msgstr ""
+"(Hai bisogno di aiuto? Fai riferimento al <a href='%s'>manuale "
+"dell'amministratore %s</a>)"
 
 #. / first parameter: number of Identity Providers; second param is the literal configured term for 'Identity Provider' (you may or may not be able to add a plural suffix for your locale)
 #: web/admin/overview_user.php:95
@@ -2383,11 +2394,11 @@ msgstr "Accendi l'opzione di EAP-TLS User-name"
 
 #: web/lib/admin/UIElements.php:103
 msgid "Use GEANTlink TTLS supplicant for W8"
-msgstr ""
+msgstr "Usa GEANTlink TTLS supplicant per W8"
 
 #: web/lib/admin/UIElements.php:104
 msgid "Use builtin TTLS supplicant for Windows 10"
-msgstr ""
+msgstr "Usa il TTLS supplicant incorporato per Windows 10"
 
 #: web/lib/admin/UIElements.php:105
 msgid "Profile Description"
@@ -2512,15 +2523,3 @@ msgstr "Attenzione!"
 #: web/lib/admin/UIElements.php:417
 msgid "Error!"
 msgstr "Errore! "
-
-#~ msgid "National Roaming Operator"
-#~ msgstr "Operatore Nazionale di Roaming"
-
-#~ msgid "identity provider"
-#~ msgstr "identity provider"
-
-#~ msgid "organisation"
-#~ msgstr "organizzazione"
-
-#~ msgid "Identity Provider"
-#~ msgstr "Identity Provider"

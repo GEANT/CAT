@@ -4,16 +4,16 @@
 #
 # Translators:
 # Alberto Martínez Setién, 2013,2015,2018
-# Alberto Martínez Setién, 2018
+# Alberto Martínez Setién, 2018-2019
 # José Manuel Macías, 2012-2013,2015
 # eduroam_devel <stefan.winter@restena.lu>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2019-01-14 12:36+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-25 09:42+0000\n"
+"Last-Translator: Alberto Martínez Setién\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/es_ES/)\n"
 "Language: es_ES\n"
@@ -103,9 +103,8 @@ msgstr ""
 "esta página."
 
 #: devices/Devices-template.php:306
-#, fuzzy
 msgid "Apple iOS mobile devices (iOS 7-11)"
-msgstr "Dispositivos móviles Apple iOS (iOS 5 y 6)"
+msgstr "Dispositivos móviles Apple iOS (versiones iOS 7 a 11)"
 
 #: devices/Devices-template.php:320
 msgid "Apple iOS mobile devices (iOS 5 and 6)"
@@ -342,17 +341,16 @@ msgid "eduroam user certificate"
 msgstr "certificado de usuario de eduroam"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:669
-#, fuzzy, php-format
+#, php-format
 msgid "The %s Certification Authority"
-msgstr "La autoridad de certificación de su proveedor de identidad"
+msgstr "La autoridad de certificación de %s"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:671
 #, php-format
 msgid "%s CA"
-msgstr ""
+msgstr "CA %s"
 
 #: devices/chromebook/Device_chromebook.php:330
-#, fuzzy
 msgid ""
 "The installer is a file with the extension '.onc'. Please download it, open "
 "Chrome, and navigate to the URL <a href='chrome://net-internals/"
@@ -360,11 +358,12 @@ msgid ""
 "file' button. The import is silent; the new network definitions will be "
 "added to the preferred networks."
 msgstr ""
-"Después de descargar el archivo abra el navegador Chrome y acceda a esta "
-"URL: <a href='chrome://net-internals/#chromeos'>chrome://net-internals/"
-"#chromeos</a>. Una vez cargada la página use el botón \"Importar archivo ONC"
-"\". La importación es silenciosa, y las nuevas definiciones de red se "
-"añadirán a las redes preferidas."
+"El instalador es un archivo con la extensión \".onc\". Después de descargar "
+"el archivo abra el navegador Chrome y acceda a esta URL: <a href='chrome://"
+"net-internals/#chromeos'>chrome://net-internals/#chromeos</a>. Una vez "
+"cargada la página use el botón \"Importar archivo ONC\". La importación es "
+"silenciosa, y las nuevas definiciones de red se añadirán a las redes "
+"preferidas."
 
 #: devices/linux/Device_Linux.php:82
 #, php-format
@@ -389,7 +388,7 @@ msgstr ""
 "siguientes redes:"
 
 #: devices/linux/Device_Linux.php:88 devices/ms/WindowsCommon.php:158
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to:"
@@ -399,7 +398,8 @@ msgid_plural ""
 msgstr[0] ""
 "Además de a <strong>%s</strong> el instalador configurará el acceso a:"
 msgstr[1] ""
-"Además de a <strong>%s</strong> el instalador configurará el acceso a:"
+"Además de a <strong>%s</strong>, el instalador configurará el acceso a las "
+"siguientes redes:"
 
 #: devices/linux/Device_Linux.php:102
 msgid ""
@@ -660,7 +660,7 @@ msgstr ""
 "local creó una redirección hacia las instrucciones de instalación locales."
 
 #: devices/test_module/Device_TestModule.php:129
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This installer is an example only. It produces a zip file containig the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
@@ -670,7 +670,7 @@ msgstr ""
 "Este instalador es sólo un ejemplo. Produce un fichero .zip que contiene los "
 "certificados del IdP y ficheros de  información y logotipo (si estos han "
 "sido definidos por el administrador del IdP), y vuelca todos los atributos "
-"disponibles."
+"disponibles. El instalador es invocado con %d SSIDs a configurar."
 
 #: devices/xml/Device_XML.php:70
 #, php-format
@@ -1004,7 +1004,8 @@ msgid "Missing password"
 msgstr "Falta la contraseña"
 
 #: devices/ms/Files/common.inc:1407
-msgid "Password missmatch"
+#, fuzzy
+msgid "Password mismatch"
 msgstr "Las contraseñas no coinciden"
 
 #: devices/ms/Files/common.inc:1498 devices/ms/Files/eap_w8.inc:31
@@ -1080,6 +1081,3 @@ msgid "EAP-pwd installation error. Please try again or contact Support."
 msgstr ""
 "Error en la instalación de EAP-pwd. Por favor inténtalo de nuevo o contacta "
 "con el servicio de soporte."
-
-#~ msgid "Identity Provider's CA"
-#~ msgstr "CA del proveedor de identidad"

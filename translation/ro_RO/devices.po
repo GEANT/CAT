@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2019-01-14 10:15+0000\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-22 09:07+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/eduroam_devel/"
 "cat/language/ro_RO/)\n"
@@ -92,9 +92,8 @@ msgid ""
 msgstr ""
 
 #: devices/Devices-template.php:306
-#, fuzzy
 msgid "Apple iOS mobile devices (iOS 7-11)"
-msgstr "Dispozitive mobile Apple cu iOS 5 și 6"
+msgstr ""
 
 #: devices/Devices-template.php:320
 msgid "Apple iOS mobile devices (iOS 5 and 6)"
@@ -325,9 +324,9 @@ msgid "eduroam user certificate"
 msgstr ""
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:669
-#, fuzzy, php-format
+#, php-format
 msgid "The %s Certification Authority"
-msgstr "Autoritatea de certificate a furnizorului dumenavoastră de identitate"
+msgstr ""
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:671
 #, php-format
@@ -335,7 +334,6 @@ msgid "%s CA"
 msgstr ""
 
 #: devices/chromebook/Device_chromebook.php:330
-#, fuzzy
 msgid ""
 "The installer is a file with the extension '.onc'. Please download it, open "
 "Chrome, and navigate to the URL <a href='chrome://net-internals/"
@@ -343,11 +341,6 @@ msgid ""
 "file' button. The import is silent; the new network definitions will be "
 "added to the preferred networks."
 msgstr ""
-"După ce descărcați fișierul, deschideți programul de navigare Chrome și "
-"accesați următoarea adresă:<a href='chrome://net-internals/"
-"#chromeos'>chrome://net-internals/#chromeos</a>. În continuare, folosiți "
-"butonul 'Import ONC'. Operațiunea de importare este transparentă, noile "
-"definiții de rețea vor fi adăugate la cele preferate."
 
 #: devices/linux/Device_Linux.php:82
 #, php-format
@@ -368,7 +361,7 @@ msgstr ""
 "accesul la următoarele rețele:"
 
 #: devices/linux/Device_Linux.php:88 devices/ms/WindowsCommon.php:158
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to:"
@@ -376,14 +369,8 @@ msgid_plural ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to the following networks:"
 msgstr[0] ""
-"În plus față de <strong>%s</strong>, programul de instalare va configura și "
-"accesul la următoarele:"
 msgstr[1] ""
-"În plus față de <strong>%s</strong>, programul de instalare va configura și "
-"accesul la următoarele:"
 msgstr[2] ""
-"În plus față de <strong>%s</strong>, programul de instalare va configura și "
-"accesul la următoarele:"
 
 #: devices/linux/Device_Linux.php:102
 msgid ""
@@ -617,17 +604,13 @@ msgstr ""
 "specifice."
 
 #: devices/test_module/Device_TestModule.php:129
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This installer is an example only. It produces a zip file containig the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
 "administrator) and a dump of all available attributes. The installer is "
 "called with %d SSIDs to configure."
 msgstr ""
-"Acest program de instalare este un exemplu. PRogramul va avea ca rezultat un "
-"fișier ZIP care va conține certificatele furnizorului de servicii, fișiere "
-"cu informații și logo-uri (dacă au fost definite de administratorul "
-"furnizorului de identitate) și toate atributele disponibile."
 
 #: devices/xml/Device_XML.php:70
 #, php-format
@@ -951,7 +934,8 @@ msgid "Missing password"
 msgstr "Lipsește parola"
 
 #: devices/ms/Files/common.inc:1407
-msgid "Password missmatch"
+#, fuzzy
+msgid "Password mismatch"
 msgstr "Parola incorectă"
 
 #: devices/ms/Files/common.inc:1498 devices/ms/Files/eap_w8.inc:31
@@ -1025,6 +1009,3 @@ msgstr "instalare credențiale pentru ${PROVIDERID}"
 #: devices/ms/Files/pwd.inc:48
 msgid "EAP-pwd installation error. Please try again or contact Support."
 msgstr ""
-
-#~ msgid "Identity Provider's CA"
-#~ msgstr "CA-ul furnizorului de identitate"

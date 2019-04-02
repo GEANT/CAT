@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# eduroam_devel <stefan.winter@restena.lu>, 2018
+# eduroam_devel <stefan.winter@restena.lu>, 2018-2019
 # stefanwinter <stefan.winter@gmail.com>, 2015
 # Steffen Klemer <klemer@dfn.de>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2018-11-15 07:28+0000\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-22 14:18+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/eduroam_devel/cat/"
 "language/de_DE/)\n"
@@ -384,7 +384,7 @@ msgid "What is this %s thing anyway?"
 msgstr "Was ist %s überhaupt?"
 
 #: web/user/faq.inc.php:74
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s is a global WiFi roaming consortium which gives members of education and "
 "research access to the internet <i>for free</i> on all %s hotspots on the "
@@ -395,9 +395,10 @@ msgid ""
 msgstr ""
 "%s ist ein weltweites WLAN Roaming Konsortium, das Mitgliedern von Forschung "
 "und Lehre an allen %s Hotspots <i>kostenlosen</i> Zugang zum Internet gibt. "
-"Mehre Millionen Menschen benutzen bereits %s und genießen kostenlosen Zugang "
-"an über 6.000 Hotspots weltweit! Besuchen Sie <a href='http://www.eduroam."
-"org'>die %s Homepage</a> für weitere Informationen."
+"Mehrere Millionen Menschen benutzen %s bereits und genießen kostenlosen "
+"Zugang an über %d Hotspots weltweit! Besuchen Sie <a href='http://www."
+"eduroam.org'>die %s Homepage</a> oder <a href='http://monitor.eduroam.org/"
+"map_service_loc.php'>die %s Hotspotkarte</a> für weitere Informationen. "
 
 #: web/user/faq.php:47
 #, php-format

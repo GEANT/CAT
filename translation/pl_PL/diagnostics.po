@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: Maja Wolniewicz <maja.wolniewicz@gmail.com>, 2019\n"
 "Language-Team: Polish (Poland) (https://www.transifex.com/eduroam_devel/"
@@ -627,9 +627,8 @@ msgstr ""
 "jej nawet jeśli masz tymczasowe problemy z logowaniem."
 
 #: core/diag/Sociopath.php:85
-#, fuzzy
 msgid "Did you recently change your password?"
-msgstr "Czy ostatnio była zmieniana konfiguracja Twojego urządzenia? "
+msgstr "Czy ostatnio zmieniłeś swoje hasło?"
 
 #. that doesn't mean it is the source of the problem, but it /might/ be that the user forgot to provide the new password
 #. encouraging
@@ -638,6 +637,8 @@ msgid ""
 "When you change your password, you also need to supply the new password in "
 "the device configuration."
 msgstr ""
+"Po każdej zmianie hasła konieczne jest przekazanie nowego hasła konfiguracji "
+"urządzenia. "
 
 #: core/diag/Sociopath.php:90
 msgid "If you use more than one device: do your other devices still work?"

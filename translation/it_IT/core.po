@@ -4,7 +4,7 @@
 #
 # Translators:
 # Daniele Albrizio <dalbrizio@gmail.com>, 2018
-# Daniele Albrizio <daniele@albrizio.it>, 2012-2013,2015,2018
+# Daniele Albrizio <daniele@albrizio.it>, 2012-2013,2015,2018-2019
 # Giuseppe De Marco <giuseppe.demarco@unical.it>, 2018
 # Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2015
 # Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2012
@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2018-10-05 07:07+0000\n"
-"Last-Translator: Pasquale Mandato <pasquale.mandato@garr.it>\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-25 09:22+0000\n"
+"Last-Translator: Daniele Albrizio <daniele@albrizio.it>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/eduroam_devel/cat/"
 "language/it_IT/)\n"
 "Language: it_IT\n"
@@ -316,7 +316,7 @@ msgstr ""
 #: core/Federation.php:90
 #, php-format
 msgid "(discontinued) %s"
-msgstr ""
+msgstr "(dismesso) %s"
 
 #. / arguments are: 1. nomenclature for "institution"
 #. 2. IdP name;
@@ -325,7 +325,7 @@ msgstr ""
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
 #: core/Federation.php:252
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -340,8 +340,8 @@ msgid ""
 msgstr ""
 "Salve,\n"
 "\n"
-"l'invito per il nuovo Identity Provider %s nella tua %s federazione %s è "
-"stato usato e l'IdP è stato creato il %s.\n"
+"l'invito per il nuovo %s %s nella tua federazione %s %s è stato usato e "
+"l'IdP è stato creato in %s.\n"
 "\n"
 "Pensiamo ne volessi essere informato.\n"
 "\n"
@@ -350,12 +350,12 @@ msgstr ""
 "%s"
 
 #: core/Federation.php:261
-#, fuzzy, php-format
+#, php-format
 msgid "%s in your federation was created"
-msgstr "E' stato creato un IdP nella tua federazione"
+msgstr "%s è stato creato nella tua federazione"
 
 #: core/IdP.php:258
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -369,8 +369,7 @@ msgid ""
 msgstr ""
 "Salve,\n"
 "\n"
-"L'Identity Provider %s nella tua %s federazione %s è stato cancellato da "
-"%s.\n"
+"%s %s nella tua %s federazione %s è stato cancellato da %s.\n"
 "\n"
 "Pensiamo ne volessi essere informato.\n"
 "\n"
@@ -379,9 +378,9 @@ msgstr ""
 "%s"
 
 #: core/IdP.php:267
-#, fuzzy, php-format
+#, php-format
 msgid "%s in your federation was deleted"
-msgstr "E' stato cancellato un IdP nella tua federazione"
+msgstr "%s è stato cancellato nella tua federazione"
 
 #: core/SilverbulletInvitation.php:230
 #, php-format
@@ -622,6 +621,3 @@ msgstr "Il Realm contiene spazi!"
 #: web/lib/common/InputValidation.php:241
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Il Realm non contiene almeno un . (punto)!"
-
-#~ msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
-#~ msgstr "Codifica delle coordinate errata (2.0 usa JSON, non serialize)!"

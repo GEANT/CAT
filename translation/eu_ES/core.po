@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2018-06-14 13:48+0000\n"
-"Last-Translator: Iñigo Zendegi Urzelai <izendegi@mondragon.edu>\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-22 20:48+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Basque (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/eu_ES/)\n"
 "Language: eu_ES\n"
@@ -323,7 +323,7 @@ msgstr ""
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
 #: core/Federation.php:252
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -336,25 +336,14 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Kaixo,\n"
-"\n"
-"zure %s %s federazioko %s Identifikazio Hornitzaile berriarentzako "
-"gonbidapena dagoeneko erabili dute eta Identifikazio Hornitzailea %s sortu "
-"zuten.\n"
-"\n"
-"Jakitea gustatuko litzaizukeela pentsatu dugu.\n"
-"\n"
-"Agur bero bat,\n"
-"\n"
-" %s"
 
 #: core/Federation.php:261
-#, fuzzy, php-format
+#, php-format
 msgid "%s in your federation was created"
-msgstr "Zure federazioko Identifikazio Hornitzailea sortuta dago"
+msgstr ""
 
 #: core/IdP.php:258
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -366,21 +355,11 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Kaixo,\n"
-"\n"
-"zure %s %s federazioko %s Identifikazio Hornitzaile %s-(e)tik ezabatua izan "
-"da.\n"
-"\n"
-"Jakitea gustatuko litzaizukeela pentsatu dugu.\n"
-"\n"
-"Agur bero bat,\n"
-"\n"
-" %s"
 
 #: core/IdP.php:267
-#, fuzzy, php-format
+#, php-format
 msgid "%s in your federation was deleted"
-msgstr "Zure federazioko Identifikazio Hornitzailea ezabatua izan da"
+msgstr ""
 
 #: core/SilverbulletInvitation.php:230
 #, php-format
@@ -622,8 +601,3 @@ msgstr "Domeinuak espazioak ditu! "
 #: web/lib/common/InputValidation.php:241
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Domeinuak ez dauka ezta . (puntu) bakar bat ere! "
-
-#~ msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
-#~ msgstr ""
-#~ "Kodetze-koordinazio baliogabea (2.0 bertsioak JSON erabiltzen du, "
-#~ "serialize-ren ordez)!"

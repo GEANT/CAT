@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Canadian Access Federation <chris.phillips@canarie.ca>, 2019
 # Cedric Houssier <cedric.houssier@univ-rouen.fr>, 2018
 # Christian Claveleira <christian.claveleira@renater.fr>, 2018-2019
 # dominique.launay <dominique.launay@renater.fr>, 2013,2015,2019
@@ -16,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2019-01-22 07:12+0000\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-25 14:05+0000\n"
 "Last-Translator: dominique.launay <dominique.launay@renater.fr>\n"
 "Language-Team: French (France) (http://www.transifex.com/eduroam_devel/cat/"
 "language/fr_FR/)\n"
@@ -389,7 +390,7 @@ msgid "What is this %s thing anyway?"
 msgstr "Mais quel est cet %s ?"
 
 #: web/user/faq.inc.php:74
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s is a global WiFi roaming consortium which gives members of education and "
 "research access to the internet <i>for free</i> on all %s hotspots on the "
@@ -399,11 +400,12 @@ msgid ""
 "php'>the %s location map</a> for more details."
 msgstr ""
 "%s est un réseau WiFi universel qui donne aux membres de la communauté "
-"éducation-recherche l'accès à internet <i> gratuitement </i> sur tous les "
-"points d'accès %s de la planète. Il y a déjà plusieurs millions "
-"d’utilisateurs %s qui profitent d'accès gratuit à Internet sur plus de 6.000 "
-"points d'accès ! Visitez <a href='http://www.eduroam.org'>la page %s</a> "
-"pour plus de détails."
+"éducation-recherche l'accès à internet <i>gratuitement </i> sur tous les "
+"points d'accès  %s de la planète.  Il y a déjà plusieurs millions "
+"d’utilisateurs  %s qui profitent d'accès gratuit à Internet sur plus de  %d "
+"points d'accès ! Visitez <a href='http://www.eduroam.org'>la page  %s </a>  "
+"ou <a href='http://monitor.eduroam.org/map_service_loc.php'> %s la carte de "
+"localisation</a> pour plus de détails."
 
 #: web/user/faq.php:47
 #, php-format

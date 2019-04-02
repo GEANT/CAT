@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# eduki <ecercos@xtec.cat>, 2018
+# eduki <ecercos@xtec.cat>, 2019
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: eduki <ecercos@xtec.cat>, 2018\n"
+"Last-Translator: eduki <ecercos@xtec.cat>, 2019\n"
 "Language-Team: Catalan (Spain) (https://www.transifex.com/eduroam_devel/"
 "teams/11799/ca_ES/)\n"
 "Language: ca_ES\n"
@@ -630,9 +630,8 @@ msgstr ""
 "Proveïdor d'Identitat, fins i tot en el cas de problemes d'accés temporals."
 
 #: core/diag/Sociopath.php:85
-#, fuzzy
 msgid "Did you recently change your password?"
-msgstr "Heu modificat la configuració del vostre dispositiu recentment?"
+msgstr "Heu modificat la vostra contrasenya recentment?"
 
 #. that doesn't mean it is the source of the problem, but it /might/ be that the user forgot to provide the new password
 #. encouraging
@@ -641,6 +640,8 @@ msgid ""
 "When you change your password, you also need to supply the new password in "
 "the device configuration."
 msgstr ""
+"Quan canvieu la contrasenya, també l'heu de facilitar a la configuració del "
+"dispositiu."
 
 #: core/diag/Sociopath.php:90
 msgid "If you use more than one device: do your other devices still work?"

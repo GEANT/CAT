@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: Emmanuel Halbwachs <emmanuel.halbwachs@obspm.fr>, 2019\n"
 "Language-Team: French (France) (https://www.transifex.com/eduroam_devel/"
@@ -594,11 +594,10 @@ msgid ""
 "exists in CAT, then display link to config] or contact your Identity "
 "Provider [MGW: show contact info]."
 msgstr ""
-"Vous devriez utiliser l'assistant de configuration approprié\n"
-"[MGW: voir si le domaine existe dans CAT, puis afficher un lien vers la "
-"config.]\n"
-"ou contacter votre fournisseur d'identité (celui de votre établissement)\n"
-"[MGW: afficher l'information du contact]."
+"Vous devriez utiliser l'assistant de configuration approprié [MGW: voir si "
+"le domaine existe dans CAT, puis afficher un lien vers la config.] ou "
+"contacter votre fournisseur d'identité [MGW: afficher l'information du "
+"contact]."
 
 #: core/diag/Sociopath.php:70
 msgid ""
@@ -673,9 +672,8 @@ msgstr ""
 "même en cas de soucis temporaires de connexion."
 
 #: core/diag/Sociopath.php:85
-#, fuzzy
 msgid "Did you recently change your password?"
-msgstr "Avez-vous récemment changé la configuration de votre appareil ?"
+msgstr ""
 
 #. that doesn't mean it is the source of the problem, but it /might/ be that the user forgot to provide the new password
 #. encouraging

@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2019-02-01 14:49+0000\n"
-"Last-Translator: Alberto Martínez Setién\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-22 09:07+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Basque (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/eu_ES/)\n"
 "Language: eu_ES\n"
@@ -95,9 +95,8 @@ msgid ""
 msgstr ""
 
 #: devices/Devices-template.php:306
-#, fuzzy
 msgid "Apple iOS mobile devices (iOS 7-11)"
-msgstr "Apple iOS gailu mugikorrak (iOS 5 eta 6)"
+msgstr ""
 
 #: devices/Devices-template.php:320
 msgid "Apple iOS mobile devices (iOS 5 and 6)"
@@ -335,9 +334,9 @@ msgid "eduroam user certificate"
 msgstr "eduroam erabiltzaile-ziurtagiria"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:669
-#, fuzzy, php-format
+#, php-format
 msgid "The %s Certification Authority"
-msgstr "Zure Identifikazio Hornitzailearen (IdP) egiaztatze-baimena (CN)"
+msgstr ""
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:671
 #, php-format
@@ -345,7 +344,6 @@ msgid "%s CA"
 msgstr ""
 
 #: devices/chromebook/Device_chromebook.php:330
-#, fuzzy
 msgid ""
 "The installer is a file with the extension '.onc'. Please download it, open "
 "Chrome, and navigate to the URL <a href='chrome://net-internals/"
@@ -353,11 +351,6 @@ msgid ""
 "file' button. The import is silent; the new network definitions will be "
 "added to the preferred networks."
 msgstr ""
-"Fitxategia deskargatu ondoren, ireki Chrome nabigatzailea eta joan hurrengo "
-"URL honetara: <a href='chrome://net-internals/#chromeos'>chrome://net-"
-"internals/#chromeos</a>. Ondoren erabili 'Import ONC file' botoia. "
-"Inportazioa isila da; sare-definizio berria sare-konexio gogokoetara "
-"gehituko da."
 
 #: devices/linux/Device_Linux.php:82
 #, php-format
@@ -378,7 +371,7 @@ msgstr ""
 "sarbidea ere konfiguratuko du:"
 
 #: devices/linux/Device_Linux.php:88 devices/ms/WindowsCommon.php:158
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to:"
@@ -386,11 +379,7 @@ msgid_plural ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to the following networks:"
 msgstr[0] ""
-"<strong>%s</strong> -(e)z gainera, instalatzaileak honako hauetarako "
-"sarbidea ere konfiguratuko du:"
 msgstr[1] ""
-"<strong>%s</strong> -(e)z gainera, instalatzaileak honako hauetarako "
-"sarbidea ere konfiguratuko du:"
 
 #: devices/linux/Device_Linux.php:102
 msgid ""
@@ -628,17 +617,13 @@ msgstr ""
 "bertako argibideetara berbideraketa sortu du."
 
 #: devices/test_module/Device_TestModule.php:129
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This installer is an example only. It produces a zip file containig the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
 "administrator) and a dump of all available attributes. The installer is "
 "called with %d SSIDs to configure."
 msgstr ""
-"Instalatzaile hau adibide bat baino ez da. Identifikazio Hornitzailearen "
-"(IdP) ziurtagiriak, informazioa, logoen fitxategiak (Identifikazio "
-"Hornitzailearen kudeatzaileak definitu baditu) eta zehaztutako ezaugarri "
-"guztiak biltzen dituen zip-fitxategia sortzen du."
 
 #: devices/xml/Device_XML.php:70
 #, php-format
@@ -963,7 +948,8 @@ msgid "Missing password"
 msgstr "Pasahitza falta da"
 
 #: devices/ms/Files/common.inc:1407
-msgid "Password missmatch"
+#, fuzzy
+msgid "Password mismatch"
 msgstr "Pasahitza ez dator bat"
 
 #: devices/ms/Files/common.inc:1498 devices/ms/Files/eap_w8.inc:31
@@ -1037,6 +1023,3 @@ msgstr "${PROVIDERID}-entzako kredentzialak instalatzen"
 #: devices/ms/Files/pwd.inc:48
 msgid "EAP-pwd installation error. Please try again or contact Support."
 msgstr ""
-
-#~ msgid "Identity Provider's CA"
-#~ msgstr "Identifikazio Hornitzailearen CA"

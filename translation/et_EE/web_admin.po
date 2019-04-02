@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2019-03-21 13:55+0000\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-26 08:49+0000\n"
 "Last-Translator: Anne M <anne@eenet.ee>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/et_EE/)\n"
@@ -450,7 +450,7 @@ msgstr "Samm 3: Kasutaja grupiprofiili määramine"
 #: web/admin/edit_profile.php:123
 #, php-format
 msgid "Edit profile '%s' ..."
-msgstr "Muuda '%s' profiili ..."
+msgstr "Muuda profiili '%s' ..."
 
 #: web/admin/edit_profile.php:136
 msgid "General Profile properties"
@@ -704,7 +704,7 @@ msgstr ""
 
 #: web/admin/edit_profile_result.php:144 web/admin/edit_profile_result.php:156
 msgid "ON"
-msgstr "Sees"
+msgstr "AKTIIVNE"
 
 #: web/admin/edit_profile_result.php:148
 #, php-format
@@ -713,7 +713,7 @@ msgstr "Anonüümse välise identiteedi tugi on <strong>%s</strong>"
 
 #: web/admin/edit_profile_result.php:148
 msgid "OFF"
-msgstr "Väljas"
+msgstr "MITTEAKTIIVNE"
 
 #: web/admin/edit_profile_result.php:153 web/admin/edit_profile_result.php:165
 msgid "Realm check username cannot be configured: realm is missing!"
@@ -774,7 +774,7 @@ msgstr "Ümbersuunamine <strong>%s</strong>-le seadistatud"
 
 #: web/admin/edit_profile_result.php:203
 msgid "Redirection is <strong>OFF</strong>"
-msgstr "Ümbersuunamine on <strong>VÄLJAS</strong>"
+msgstr "Ümbersuunamine on <strong>MITTEAKTIIVNE</strong>"
 
 #: web/admin/edit_profile_result.php:227
 msgid "Supported EAP Type: "
@@ -1130,7 +1130,7 @@ msgstr "Sinu atribuudid"
 
 #: web/admin/edit_user_result.php:28
 msgid "User Attributes - Summary of submitted data"
-msgstr "Kasutaja atribuudid - Sisestatud andmete kokkuvõte"
+msgstr "Kasutaja atribuudid - sisestatud andmete kokkuvõte"
 
 #. what are we supposed to do?
 #: web/admin/edit_user_result.php:32
@@ -1564,11 +1564,11 @@ msgstr "Seade"
 
 #: web/admin/overview_installers.php:59
 msgid "EAP-Type-specific options..."
-msgstr "EPA-Type põhised omadused"
+msgstr "EPA-Type põhised omadused..."
 
 #: web/admin/overview_installers.php:78
 msgid "Device-specific options..."
-msgstr "Seadmepõhised omadused"
+msgstr "Seadmepõhised omadused..."
 
 #: web/admin/overview_installers.php:90
 msgid "Download"
@@ -1751,7 +1751,7 @@ msgstr "Selle IdP ootelolevad kutsed"
 
 #: web/admin/inc/manageAdmins.inc.php:216
 msgid "New administrator's email address(es) (comma-separated):"
-msgstr "Uu(t)e administraatori(te) e-posti aadress(id komaga eraldatud):"
+msgstr "Uu(t)e administraatori(te) e-posti aadress(id, komaga eraldatud):"
 
 #: web/admin/inc/manageAdmins.inc.php:216
 msgid "Invite new administrator"
@@ -2134,11 +2134,11 @@ msgstr "faili sisu"
 #. only modify in this one case
 #: web/lib/admin/OptionDisplay.php:402 web/lib/admin/UIElements.php:192
 msgid "on"
-msgstr "sees"
+msgstr "aktiivne"
 
 #: web/lib/admin/OptionDisplay.php:402 web/lib/admin/UIElements.php:192
 msgid "off"
-msgstr "väljas"
+msgstr "mitteaktiivne"
 
 #. / number of times attribute is present, and its name
 #. / Example: "5x Support E-Mail"
@@ -2155,7 +2155,7 @@ msgid ""
 "language you configured. For the sake of all other languages, you may want "
 "to edit the profile again and populate the 'default/other' language field."
 msgstr ""
-"Sa ei valinud %s jaoks vaikekeelt. See tähendab, et saame näidata seda "
+"Sa ei valinud %si jaoks vaikekeelt. See tähendab, et saame näidata seda "
 "stringi ainult paigaldajatele, mis on <strong>täpselt</strong> keeles, mille "
 "seadistasid. Kõigi teiste keelte jaoks võiksid profiili muuta ja täita "
 "'vaikimisi/muu' keele välja."
@@ -2319,7 +2319,7 @@ msgstr "EAP meetodi allalaadimislehe lisatekst"
 
 #: web/lib/admin/UIElements.php:102
 msgid "Turn on selection of EAP-TLS User-Name"
-msgstr "Luba EAP-TLS User-Name kasutajanime valik"
+msgstr "Luba EAP-TLS User-Name valik"
 
 #: web/lib/admin/UIElements.php:103
 msgid "Use GEANTlink TTLS supplicant for W8"
@@ -2451,15 +2451,3 @@ msgstr "Hoiatus!"
 #: web/lib/admin/UIElements.php:417
 msgid "Error!"
 msgstr "Viga!"
-
-#~ msgid "National Roaming Operator"
-#~ msgstr "Riigi rändlusteenuse vahendaja (NRO)"
-
-#~ msgid "identity provider"
-#~ msgstr "identiteedipakkuja"
-
-#~ msgid "organisation"
-#~ msgstr "asutus"
-
-#~ msgid "Identity Provider"
-#~ msgstr "Identiteedipakkuja"

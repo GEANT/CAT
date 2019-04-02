@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2018-12-14 22:33+0000\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-22 21:59+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Serbian (Serbia) (http://www.transifex.com/eduroam_devel/cat/"
 "language/sr_RS/)\n"
@@ -2497,15 +2497,3 @@ msgstr "Upozorenje!"
 #: web/lib/admin/UIElements.php:417
 msgid "Error!"
 msgstr "Greška!"
-
-#~ msgid "National Roaming Operator"
-#~ msgstr "Nacionalni Roming Operator"
-
-#~ msgid "identity provider"
-#~ msgstr "davalac identiteta"
-
-#~ msgid "organisation"
-#~ msgstr "organizacija"
-
-#~ msgid "Identity Provider"
-#~ msgstr "Davalac Identiteta"

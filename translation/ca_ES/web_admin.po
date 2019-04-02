@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2018-12-17 08:06+0000\n"
-"Last-Translator: eduki <ecercos@xtec.cat>\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-22 21:59+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/ca_ES/)\n"
 "Language: ca_ES\n"
@@ -2484,15 +2484,3 @@ msgstr "Alerta!"
 #: web/lib/admin/UIElements.php:417
 msgid "Error!"
 msgstr "Error!"
-
-#~ msgid "National Roaming Operator"
-#~ msgstr "Operador de Roaming nacional"
-
-#~ msgid "identity provider"
-#~ msgstr "proveïdor d'identitat"
-
-#~ msgid "organisation"
-#~ msgstr "organització"
-
-#~ msgid "Identity Provider"
-#~ msgstr "Proveïdor d'Identitat"

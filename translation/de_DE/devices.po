@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2019-01-14 12:29+0000\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-22 14:16+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/eduroam_devel/cat/"
 "language/de_DE/)\n"
@@ -104,9 +104,8 @@ msgstr ""
 "hier auf der Seite angezeigt wird."
 
 #: devices/Devices-template.php:306
-#, fuzzy
 msgid "Apple iOS mobile devices (iOS 7-11)"
-msgstr "Apple Mobilgeräte (iOS 5 und 6)"
+msgstr "Apple Mobilgeräte (iOS 7 bis 11)"
 
 #: devices/Devices-template.php:320
 msgid "Apple iOS mobile devices (iOS 5 and 6)"
@@ -347,17 +346,16 @@ msgid "eduroam user certificate"
 msgstr "eduroam Benutzer-Zertifikat"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:669
-#, fuzzy, php-format
+#, php-format
 msgid "The %s Certification Authority"
-msgstr "CA Zertifikat Ihres Identitätsproviders"
+msgstr "Das %s CA Zertifikat "
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:671
 #, php-format
 msgid "%s CA"
-msgstr ""
+msgstr "%s CA"
 
 #: devices/chromebook/Device_chromebook.php:330
-#, fuzzy
 msgid ""
 "The installer is a file with the extension '.onc'. Please download it, open "
 "Chrome, and navigate to the URL <a href='chrome://net-internals/"
@@ -365,12 +363,12 @@ msgid ""
 "file' button. The import is silent; the new network definitions will be "
 "added to the preferred networks."
 msgstr ""
-"Nach dem Herunterladen der Datei müssen Sie den Chrome Browser öffnen und "
-"die folgende URL aufrufen: <a href='chrome://net-internals/"
-"#chromeos'>chrome://net-internals/#chromeos</a>. Dort benutzen Sie dann den "
-"'Import ONC file' Knopf. Der Import geht ohne jegliche Rückmeldung "
-"vonstatten; das neue Netzwerk taucht nach Abschluss in Ihrer "
-"Gerätekonfiguration auf."
+"Die heruntergeladene Datei hat die Endung '.onc'. Nach dem Herunterladen der "
+"Datei müssen Sie den Chrome Browser öffnen und die folgende URL aufrufen: <a "
+"href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</"
+"a>. Dort benutzen Sie dann den 'Import ONC file' Knopf. Der Import geht ohne "
+"jegliche Rückmeldung vonstatten; das neue Netzwerk taucht nach Abschluss in "
+"Ihrer Gerätekonfiguration auf. "
 
 #: devices/linux/Device_Linux.php:82
 #, php-format
@@ -395,7 +393,7 @@ msgstr ""
 "folgenden Netzwerknamen einrichten:"
 
 #: devices/linux/Device_Linux.php:88 devices/ms/WindowsCommon.php:158
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to:"
@@ -403,11 +401,11 @@ msgid_plural ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to the following networks:"
 msgstr[0] ""
-"Zusätzlich zum Netzwerknamen <strong>%s</strong> wird das Programm das "
-"folgende einrichten:"
+"Zusätzlich zu <strong>%s</strong> wird das Installationsprogramm auch den "
+"Zugriff auf das folgende Netzwerk konfigurieren:"
 msgstr[1] ""
-"Zusätzlich zum Netzwerknamen <strong>%s</strong> wird das Programm das "
-"folgende einrichten:"
+"Zusätzlich zu <strong>%s</strong> wird das Installationsprogramm auch den "
+"Zugriff auf die folgenden Netzwerke konfigurieren:"
 
 #: devices/linux/Device_Linux.php:102
 msgid ""
@@ -676,17 +674,17 @@ msgstr ""
 "hinterlegt."
 
 #: devices/test_module/Device_TestModule.php:129
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This installer is an example only. It produces a zip file containig the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
 "administrator) and a dump of all available attributes. The installer is "
 "called with %d SSIDs to configure."
 msgstr ""
-"Dieses Modul ist nur ein Beispiel. Es erzeugt eine ZIP Datei die alle "
-"Zertifikate, die Informationsdateien, das Logo (sofern diese vom "
-"Administrator angegeben wurden) und sämtliche konfigurierten Attribute "
-"enthält."
+"Dieses Installationsprogramm ist nur ein Beispiel. Es erzeugt eine ZIP Datei "
+"die die CA Zertifikate des IdPs, Logos (sofern vorhanden) und eine Liste "
+"aller eingepflegten Attribute enthält. Das Installationsprogramm wird mit %d "
+"SSID(s) aufgerufen."
 
 #: devices/xml/Device_XML.php:70
 #, php-format
@@ -1026,7 +1024,8 @@ msgid "Missing password"
 msgstr "Fehlendes Passwort"
 
 #: devices/ms/Files/common.inc:1407
-msgid "Password missmatch"
+#, fuzzy
+msgid "Password mismatch"
 msgstr "Die Passwörter stimmen nicht überein"
 
 #: devices/ms/Files/common.inc:1498 devices/ms/Files/eap_w8.inc:31
@@ -1102,6 +1101,3 @@ msgid "EAP-pwd installation error. Please try again or contact Support."
 msgstr ""
 "Fehler bei der Installation von EAP-pwd. Bitte versuchen Sie es erneut oder "
 "wenden Sie sich an Ihr IT-Service-Center."
-
-#~ msgid "Identity Provider's CA"
-#~ msgstr "CA des IdP"

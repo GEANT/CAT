@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2019-01-14 10:15+0000\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-22 09:07+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Galician (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/gl_ES/)\n"
@@ -95,9 +95,8 @@ msgid ""
 msgstr ""
 
 #: devices/Devices-template.php:306
-#, fuzzy
 msgid "Apple iOS mobile devices (iOS 7-11)"
-msgstr "Apple iOS dispositivos móbiles (iOS 5 and 6)"
+msgstr ""
 
 #: devices/Devices-template.php:320
 msgid "Apple iOS mobile devices (iOS 5 and 6)"
@@ -326,9 +325,9 @@ msgid "eduroam user certificate"
 msgstr ""
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:669
-#, fuzzy, php-format
+#, php-format
 msgid "The %s Certification Authority"
-msgstr "A autoridade de certificación do seu fornecedor de identidade"
+msgstr ""
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:671
 #, php-format
@@ -336,7 +335,6 @@ msgid "%s CA"
 msgstr ""
 
 #: devices/chromebook/Device_chromebook.php:330
-#, fuzzy
 msgid ""
 "The installer is a file with the extension '.onc'. Please download it, open "
 "Chrome, and navigate to the URL <a href='chrome://net-internals/"
@@ -344,11 +342,6 @@ msgid ""
 "file' button. The import is silent; the new network definitions will be "
 "added to the preferred networks."
 msgstr ""
-"Despois de descargar o arquivo abra o navegador Chrome e acceda a esta URL: "
-"<a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</"
-"a>. Unha vez cargada a páxina use o botón \"Importar arquivo ONC\". A "
-"importación é silenciosa, e as novas definicións de rede engadiranse ás "
-"redes preferidas."
 
 #: devices/linux/Device_Linux.php:82
 #, php-format
@@ -369,7 +362,7 @@ msgstr ""
 "redes seguintes:"
 
 #: devices/linux/Device_Linux.php:88 devices/ms/WindowsCommon.php:158
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to:"
@@ -377,9 +370,7 @@ msgid_plural ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to the following networks:"
 msgstr[0] ""
-"Ademáis de a <strong>%s</strong> o instalador tamén configurará acceso a"
 msgstr[1] ""
-"Ademáis de a <strong>%s</strong> o instalador tamén configurará acceso a"
 
 #: devices/linux/Device_Linux.php:102
 msgid ""
@@ -609,16 +600,13 @@ msgstr ""
 "una redirección ás instrucciones de instalación."
 
 #: devices/test_module/Device_TestModule.php:129
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This installer is an example only. It produces a zip file containig the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
 "administrator) and a dump of all available attributes. The installer is "
 "called with %d SSIDs to configure."
 msgstr ""
-"Este instalador soamente é un exemplo. Produce un ficheiro zip que contén os "
-"certificados IdP, info e os ficheiros do logo (se é que o administrador de "
-"IdP os definiu) e un envorcado de atributos dispoñibles."
 
 #: devices/xml/Device_XML.php:70
 #, php-format
@@ -937,7 +925,8 @@ msgid "Missing password"
 msgstr "Perdeuse o contrasinal"
 
 #: devices/ms/Files/common.inc:1407
-msgid "Password missmatch"
+#, fuzzy
+msgid "Password mismatch"
 msgstr "O contrasinal non coincide"
 
 #: devices/ms/Files/common.inc:1498 devices/ms/Files/eap_w8.inc:31
@@ -1011,6 +1000,3 @@ msgstr "instalando credenciais para ${PROVIDERID}"
 #: devices/ms/Files/pwd.inc:48
 msgid "EAP-pwd installation error. Please try again or contact Support."
 msgstr ""
-
-#~ msgid "Identity Provider's CA"
-#~ msgstr "AC do provedor de identidade"

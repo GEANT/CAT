@@ -4,15 +4,15 @@
 #
 # Translators:
 # , 2012-2013
-# Maja Wolniewicz <maja.wolniewicz@gmail.com>, 2018
+# Maja Wolniewicz <maja.wolniewicz@gmail.com>, 2018-2019
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2015
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2018-05-30 11:48+0000\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-25 11:38+0000\n"
 "Last-Translator: Maja Wolniewicz <maja.wolniewicz@gmail.com>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/eduroam_devel/cat/"
 "language/pl_PL/)\n"
@@ -325,7 +325,7 @@ msgstr ""
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
 #: core/Federation.php:252
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -340,22 +340,20 @@ msgid ""
 msgstr ""
 "Witaj,\n"
 "\n"
-"użyto zaproszenia skierowanego do dostawcy tożsamości %s w konsorcjum %s dla "
-"federacji %s i utworzono dostawcę tożsamości w %s.\n"
-"\n"
-"Ta informacja może być dla Ciebie przydatna.\n"
+"zostało użyte zaproszenie do utworzenia nowego %s%s w Twojej %s federacji %s "
+"i powstał nowy IdP w %s.\n"
 "\n"
 "Pozdrawiamy,\n"
-" \n"
+"\n"
 "%s"
 
 #: core/Federation.php:261
-#, fuzzy, php-format
+#, php-format
 msgid "%s in your federation was created"
-msgstr "Utworzono dostawcę tożsamości w Twojej federacji."
+msgstr "W Twojej federacji utworzono %s"
 
 #: core/IdP.php:258
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -367,21 +365,11 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Witaj,\n"
-"\n"
-"dostawca tożsamości %s w konsorcjum %s, w Twojej federacji %s został "
-"usunięty z %s.\n"
-"\n"
-"Ta informacja może być dla Ciebie przydatna.\n"
-"\n"
-"Pozdrawiamy,\n"
-"\n"
-"%s"
 
 #: core/IdP.php:267
-#, fuzzy, php-format
+#, php-format
 msgid "%s in your federation was deleted"
-msgstr "Usunięto dostawcę tożsamości w Twojej federacji"
+msgstr ""
 
 #: core/SilverbulletInvitation.php:230
 #, php-format
@@ -620,8 +608,3 @@ msgstr "Realm zawiera spacje!"
 #: web/lib/common/InputValidation.php:241
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Realm nie zawiera ani jednego znaku . (kropki)."
-
-#~ msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
-#~ msgstr ""
-#~ "Błędna reprezentacja współrzędnych (wersja 2.0 używa formatu JSON, nie "
-#~ "serializacji)!"

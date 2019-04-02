@@ -8,16 +8,17 @@
 # Helena Pinkasová <helena.pinkasova@tul.cz>, 2018
 # ch0b0tr0b0t <pavel.satrapa@gmail.com>, 2018
 # Alice Vixie <alice.vixie@osu.cz>, 2018
-# Petr Adamec <p.b.adamec@gmail.com>, 2018
+# Martin Šimek <simek.mar@gmail.com>, 2019
+# Petr Adamec <p.b.adamec@gmail.com>, 2019
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: Petr Adamec <p.b.adamec@gmail.com>, 2018\n"
+"Last-Translator: Petr Adamec <p.b.adamec@gmail.com>, 2019\n"
 "Language-Team: Czech (Czech Republic) (https://www.transifex.com/"
 "eduroam_devel/teams/11799/cs_CZ/)\n"
 "Language: cs_CZ\n"
@@ -618,9 +619,8 @@ msgstr ""
 "poskytovatel identit; a to ani v případě problémů s dočasným přihlášením."
 
 #: core/diag/Sociopath.php:85
-#, fuzzy
 msgid "Did you recently change your password?"
-msgstr "Změnili jste nedávno konfiguraci zařízení?"
+msgstr "Změnili jste nedávno své heslo?"
 
 #. that doesn't mean it is the source of the problem, but it /might/ be that the user forgot to provide the new password
 #. encouraging
@@ -628,7 +628,7 @@ msgstr "Změnili jste nedávno konfiguraci zařízení?"
 msgid ""
 "When you change your password, you also need to supply the new password in "
 "the device configuration."
-msgstr ""
+msgstr "Změníte-li heslo, musíte jej také zadat v konfiguraci vašeho zařízení."
 
 #: core/diag/Sociopath.php:90
 msgid "If you use more than one device: do your other devices still work?"

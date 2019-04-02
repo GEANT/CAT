@@ -7,13 +7,13 @@
 # Helena Pinkasová <helena.pinkasova@tul.cz>, 2013
 # martins <ms@uakom.sk>, 2012-2013
 # Petr Adamec <p.b.adamec@gmail.com>, 2013,2015
-# Petr Adamec <p.b.adamec@gmail.com>, 2016-2018
+# Petr Adamec <p.b.adamec@gmail.com>, 2016-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2018-11-08 09:42+0000\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-26 08:28+0000\n"
 "Last-Translator: Petr Adamec <p.b.adamec@gmail.com>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/"
 "eduroam_devel/cat/language/cs_CZ/)\n"
@@ -78,10 +78,10 @@ msgid ""
 "(the service itself)</li>"
 msgstr ""
 "<p><span class='edu_cat'>%s</span> je veřejně přístupný. Chcete-li povolit "
-"jeho použití na captive portálech (například na SSID, které umožňuje přístup "
-"pouze ke CAT pro konfiguraci zařízení), následující názvy hostitelů musejí "
-"být povoleny, pro komunikaci na portu TCP/443:</p><b><u>Požadováno</u></"
-"b><ul><li><b>%s</b> (the service itself)</li>"
+"jeho použití na captive portálech (například na SSID, umožnující přístup "
+"pouze pro konfiguraci zařízení), musí být povolena komunikace na portu "
+"TCP/443 pro následující názvy hostitelů:</p><b><u>Požadováno</u></"
+"b><ul><li><b>%s</b> (vlastní CAT)</li>"
 
 #: web/user/about_cat.inc.php:93
 #, php-format
@@ -188,7 +188,7 @@ msgstr "Připojit se k poštovní konferenci vývojářů."
 #: web/user/devel.inc.php:25
 #, php-format
 msgid "The list is available at: %s"
-msgstr "Výpis je dostupný na: %s"
+msgstr "Poštovní konference je dostupná na adrese: %s"
 
 #: web/user/devel.inc.php:26
 msgid "Add a translation"
@@ -215,11 +215,11 @@ msgid ""
 "server and will abort the login. Using an installer from a different "
 "organisation is <i>guaranteed to not work</i>!"
 msgstr ""
-"Ne! Instalační programy obsahují bezpečnostní nastavení, které jsou šité na "
-"míru konkrétní organizaci. Pokud nejste členem dané organizace, vaše "
+"Ne! Instalační programy obsahují bezpečnostní nastavení, která jsou "
+"přizpůsobena konkrétní organizaci. Pokud nejste členem dané organizace, vaše "
 "zařízení rozpozná, že se chystáte odeslat svoje přihlašovací údaje "
 "neoprávněnému serveru a zruší proces přihlašování. Instalační program určený "
-"pro jinou organizaci <i>zaručeně nebude fungovat</i>!"
+"pro jinou organizaci tedy <i>zaručeně nebude fungovat</i>!"
 
 #: web/user/faq.inc.php:33 web/user/faq.php:30
 msgid "What can I do to get my organisation listed?"
@@ -232,9 +232,9 @@ msgid ""
 "their organisation to the system. It will take at most one hour of their "
 "time to get things done."
 msgstr ""
-"Obraťte se na správce %s ve vaší domovské organizaci požádejte jej o přidání "
-"vaší organizace do systému. Vyplnění požadovaných informací jej nebude stát "
-"více než jednu hodinu času."
+"Obraťte se na správce %s ve vaší domovské organizaci a požádejte jej o "
+"přidání vaší organizace do systému. Vyplnění požadovaných informací nezabere "
+"více, než hodinu času."
 
 #: web/user/faq.inc.php:38 web/user/faq.php:35
 #, php-format
@@ -250,10 +250,10 @@ msgid ""
 "with %s, but must be configured manually. Please contact your organisation "
 "to get help in setting up such a device."
 msgstr ""
-"Ne. CAT však podporuje pouze operační systémy, které je možné nastavit "
-"automaticky. Mnoho dalších zařízení je možné použít pro připojení k %s, ale "
-"musí být nastaveny ručně. Pro pomoc s nastavením takových zařízení se prosím "
-"obraťte na uživatelskou podporu ve vaší organizaci."
+"Ne. CAT podporuje pouze operační systémy, které je možné nastavit "
+"automaticky. Mnoho dalších zařízení je stále možné použít pro připojení k "
+"%s, ale musí být nastaveny ručně. Pro pomoc s nastavením takových zařízení "
+"se prosím obraťte na uživatelskou podporu ve vaší organizaci."
 
 #: web/user/faq.inc.php:43 web/user/faq.php:40
 #, php-format
@@ -382,7 +382,7 @@ msgid "What is this %s thing anyway?"
 msgstr "Co je to %s?"
 
 #: web/user/faq.inc.php:74
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s is a global WiFi roaming consortium which gives members of education and "
 "research access to the internet <i>for free</i> on all %s hotspots on the "
@@ -394,8 +394,9 @@ msgstr ""
 "%s je celosvětová dohoda o roamingu ve WiFi sítích. Členům vzdělávacích a "
 "výzkumných organizací umožnuje <i>bezplatně</i> přistupovat k internetu ve "
 "všech %s sítích na světě. V současnosti má %s několik miliónů uživatelů a "
-"více než 6.000 přístupových bodů sítě. Více informací se dozvíte na <a "
-"href='http://www.eduroam.org'>domovské stránce %s</a>."
+"více než%d přístupových bodů. Více informací se dozvíte na <a href='http://"
+"www.eduroam.org'>domovské stránce %s</a> nebo na <a href='http://monitor."
+"eduroam.org/map_service_loc.php'> mapě sítě %s</a>."
 
 #: web/user/faq.php:47
 #, php-format
@@ -452,7 +453,7 @@ msgstr "Podmínky používaní"
 
 #: web/user/tou.inc.php:24
 msgid "(for legal reasons, the Terms of Use are in English only)"
-msgstr "(z právních důvodů jsou podmínky používání pouze v angličtině)"
+msgstr "(Z právních důvodů jsou podmínky používání pouze v angličtině)"
 
 #: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:88
 #, php-format
@@ -525,13 +526,13 @@ msgid ""
 "Your download will start shortly. In case of problems with the automatic "
 "download please use this direct <a href=''>link</a>."
 msgstr ""
-"Za chvíli by mělo začít automatické stahování, ale jestli ne, klikněte "
-"rovnou <a href=''>sem</a>."
+"Za chvíli by mělo začít automatické stahování aplikace, pokud ne, klikněte "
+"<a href=''>sem</a>."
 
 #: web/lib/user/TextTemplates.php:83 web/skins/modern/div_user_welcome.php:30
 #, php-format
 msgid "Dear user from %s,"
-msgstr "Vážený uživateli z %s,"
+msgstr "Vážený uživateli (%s),"
 
 #: web/lib/user/TextTemplates.php:84
 #, php-format
@@ -543,7 +544,7 @@ msgid ""
 msgstr ""
 "Po instalaci a konfiguraci klienta vám stačí najít nejbližšší přístupový bod "
 "%s ve vašem okolí a zadat svoje přihlašovací údaje (uživatelské jméno a "
-"heslo nebo osobní certifikát) - a jste připojeni!"
+"heslo nebo osobní certifikát) a jste připojeni!"
 
 #: web/lib/user/TextTemplates.php:85 web/skins/modern/div_user_welcome.php:38
 #, php-format
@@ -552,9 +553,10 @@ msgid ""
 "helpdesk of %s. They will diagnose the problem and help you out. You can "
 "reach them via the means shown above."
 msgstr ""
-"Jestli budete mít s touto službou problém, prosíme, kontakujte vždy nejprve "
-"helpdesk instituce %s  a oni to zkusí nějak pošolíchat. Nahoře píšeme, jak "
-"je kontaktovat."
+"Budete-li mít s touto službou problém, prosíme, kontaktujte vždy nejprve "
+"podporu instituce %s. Pracovníci technické podpory provedou diagnostiku "
+"problému a pomohou vám s jeho řešením. Můžete je kontaktovat výše uvedenými "
+"způsoby."
 
 #: web/lib/user/TextTemplates.php:86 web/skins/modern/div_user_welcome.php:41
 msgid "Back to downloads"
@@ -568,10 +570,9 @@ msgid ""
 "of universities, research centres and other places all over the globe. All "
 "of this completely free of charge!"
 msgstr ""
-"rádi bychom vás srdečně přivítali ve společnosti několika miliónů uživatelů "
-"%s! Od této chvíle budete moci používat přístup k internetu na tisíci "
-"univerzitách, výzkumných centrech a dalších místech po celém světě. A to vše "
-"úplně zdarma!"
+"rádi bychom vás přivítali ve společnosti několika miliónů uživatelů %s Od "
+"této chvíle budete moci používat přístup k internetu na univerzitách, "
+"výzkumných centrech a dalších místech po celém světě. A to zcela zdarma!"
 
 #: web/lib/user/TextTemplates.php:89
 #, php-format
@@ -581,11 +582,11 @@ msgstr "Připojte své zařízení k %s."
 #: web/lib/user/TextTemplates.php:90
 #, php-format
 msgid "%s installation made easy:"
-msgstr "%s - snadná instalace:"
+msgstr "Snadná instalace %s pro:"
 
 #: web/lib/user/TextTemplates.php:91
 msgid "Custom built for your organisation"
-msgstr "Vytvořena pro vaši organizaci"
+msgstr "Vytvořeno pro vaši organizaci"
 
 #: web/lib/user/TextTemplates.php:92
 #, php-format
@@ -660,7 +661,7 @@ msgstr "Vytvořeno pro vás"
 #: web/lib/user/TextTemplates.php:105
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s: %s"
-msgstr "Digitálně podepsaná organizací koordinující %s - %s"
+msgstr "Digitálně podepsáno organizací koordinující %s - %s"
 
 #: web/skins/modern/div_user_welcome.php:33
 msgid ""
@@ -923,8 +924,7 @@ msgid ""
 "If you encounter problems, then you can obtain direct assistance from your "
 "organisation at:"
 msgstr ""
-"Přímou pomoc vám, v případě problémů, může poskytnout vaše domovská "
-"organizace na:"
+"V případě problémů vám může poskytnout pomoc vaše domovská organizace na:"
 
 #: web/skins/modern/accountstatus/accountstatus.php:195
 #: web/skins/modern/user/js/cat_js.php:247
@@ -1199,7 +1199,7 @@ msgstr "4.3+"
 
 #: web/skins/modern/user/js/roll.php:142
 msgid "Apple iOS devices"
-msgstr "Zařízení Apple iOS"
+msgstr "zařízení s Apple iOS"
 
 #: web/skins/modern/user/js/roll.php:142
 msgid "iPhone, iPad, iPod touch"

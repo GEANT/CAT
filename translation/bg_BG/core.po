@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# University of Ruse <support@uni-ruse.bg>, 2014-2015,2018
+# University of Ruse <support@uni-ruse.bg>, 2014-2015,2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2018-05-21 08:23+0000\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-26 08:19+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/eduroam_devel/"
 "cat/language/bg_BG/)\n"
@@ -312,7 +312,7 @@ msgstr ""
 #: core/Federation.php:90
 #, php-format
 msgid "(discontinued) %s"
-msgstr ""
+msgstr "(преустановен) %s"
 
 #. / arguments are: 1. nomenclature for "institution"
 #. 2. IdP name;
@@ -321,7 +321,7 @@ msgstr ""
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
 #: core/Federation.php:252
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -334,24 +334,14 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Здравейте,\n"
-"\n"
-"поканата за нов IdP %s във Вашата %s федерация %s  беше използвана и беше "
-"създаден такъв в %s.\n"
-"\n"
-"Решихме, че може би бихте искали да знаете.\n"
-"\n"
-"Най-добри пожелания,\n"
-"\n"
-"%s"
 
 #: core/Federation.php:261
-#, fuzzy, php-format
+#, php-format
 msgid "%s in your federation was created"
-msgstr "IdP във Вашата федерация беше създаден"
+msgstr "%s във Вашата федерация беше създаден"
 
 #: core/IdP.php:258
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -365,7 +355,7 @@ msgid ""
 msgstr ""
 "Здравейте,\n"
 "\n"
-"IdP %s във Вашата %s федерция %s беше премахнат от %s.\n"
+"%s%s във Вашата %s федерация %s беше премахнат от %s.\n"
 "\n"
 "Решихме, че може би бихте искали да знаете.\n"
 "\n"
@@ -374,9 +364,9 @@ msgstr ""
 "%s"
 
 #: core/IdP.php:267
-#, fuzzy, php-format
+#, php-format
 msgid "%s in your federation was deleted"
-msgstr "IdP във Вашата федерация беше премахнат."
+msgstr "%s във Вашата федерация беше премахнат. "
 
 #: core/SilverbulletInvitation.php:230
 #, php-format
@@ -615,6 +605,3 @@ msgstr "Областта съдържа интервали!"
 #: web/lib/common/InputValidation.php:241
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Областта не съдържа дори една точка (.)!"
-
-#~ msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
-#~ msgstr "Грешно кодирани координати (2.0 използва JSON, а не на части)!"

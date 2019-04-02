@@ -31,6 +31,18 @@ namespace core\diag;
 class AbstractTest extends \core\common\Entity {
 
     /**
+     * to keep track of diagnostics runs
+     * 
+     * @var \core\DBConnection
+     */
+    protected $databaseHandle;
+    /**
+     * unique identifier for test
+     * 
+     * @var string
+     */
+    protected $testId;
+    /**
      * generic return codes
      * 
      * @var array
@@ -242,6 +254,9 @@ class AbstractTest extends \core\common\Entity {
      */
     public function __construct() {
         parent::__construct();
+        // initialise the DB
+        $this->databaseHandle = \core\DBConnection::handle("DIAGNOSTICS");
+
         \core\common\Entity::intoThePotatoes();
         // the numbers are NOT constant - in the course of checks, we may find a "smoking gun" and elevate the probability
         // in the end, use the numbers of those elements which were not deterministically excluded and normalise to 1

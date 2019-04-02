@@ -42,6 +42,7 @@ class Sociopath extends AbstractTest {
         parent::__construct();
         \core\common\Entity::intoThePotatoes();
         $this->previousQuestions = $_SESSION['EVIDENCE']['QUESTIONSASKED'] ?? [];
+        $this->testId = $_SESSION['TESTID'];
         $noCanDo = _("There is nothing you can do to solve this problem yourself.");
         $noChange = _("Please be patient and try again at a later time. Do NOT change your device configuration.");
         $infraInformed = _("The infrastructure operators have automatically been informed and will investigate the issue as soon as possible.");
@@ -135,6 +136,10 @@ class Sociopath extends AbstractTest {
         }
         $this->previousQuestions[$questionNumber] = $factor;
         $this->normaliseResultSet();
+        $jsonQuestions = json_encode($this->previousQuestions, JSON_PRETTY_PRINT);
+        $jsonEvidence = json_encode($this->additionalFindings, JSON_PRETTY_PRINT);
+        $jsonSuspects = json_encode($this->possibleFailureReasons, JSON_PRETTY_PRINT);
+        $this->databaseHandle->exec("UPDATE diagnosticrun SET questionsasked = ?, suspects = ?, evidence = ? WHERE test_id = ?", "ssss", $jsonQuestions, $jsonSuspects, $jsonEvidence, $this->testId);
         $this->additionalFindings["QUESTIONSASKED"] = $this->previousQuestions;
         $_SESSION["SUSPECTS"] = $this->possibleFailureReasons;
         $_SESSION["EVIDENCE"] = $this->additionalFindings;
@@ -163,6 +168,7 @@ class Sociopath extends AbstractTest {
             }
         }
         // if we got here, we ran out of questions. Return that fact
+        $this->databaseHandle->exec("UPDATE diagnosticrun SET concluded = 1 WHERE test_id = ?", "s", $this->testId);
         return json_encode(["NEXTEXISTS" => FALSE]);
     }
     

@@ -5,15 +5,16 @@
 # Translators:
 # Alice Vixie <alice.vixie@osu.cz>, 2015
 # Ludmila Kovářová <ludmila.kovarova@fsv.cvut.cz>, 2015
+# Martin Šimek <simek.mar@gmail.com>, 2019
 # martins <ms@uakom.sk>, 2012
 # Petr Adamec <p.b.adamec@gmail.com>, 2013,2015
-# Petr Adamec <p.b.adamec@gmail.com>, 2018
+# Petr Adamec <p.b.adamec@gmail.com>, 2013,2015,2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2018-05-23 14:46+0000\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-26 08:47+0000\n"
 "Last-Translator: Petr Adamec <p.b.adamec@gmail.com>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/"
 "eduroam_devel/cat/language/cs_CZ/)\n"
@@ -317,7 +318,7 @@ msgstr ""
 #: core/Federation.php:90
 #, php-format
 msgid "(discontinued) %s"
-msgstr ""
+msgstr "(přerušená) %s"
 
 #. / arguments are: 1. nomenclature for "institution"
 #. 2. IdP name;
@@ -326,7 +327,7 @@ msgstr ""
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
 #: core/Federation.php:252
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -339,17 +340,17 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Dobrý den,⏎ ⏎ pozvánka určená pro nového poskytovatele identity %s ve vaší "
-"%s federaci %s byla použitá a IdP byl vytvořený v %s.⏎ ⏎ Předpokládali jsme, "
-"že budete chtít být o tomto informován.⏎ ⏎ S pozdravom,⏎ ⏎ %s"
+"Dobrý den,  pozvánka určená pro nového %s %s ve vaší %s federaci %s byla "
+"použitá a IdP byl vytvořený v %s.  Předpokládali jsme, že o tom budete chtít "
+"být informováni.  S pozdravem,  %s"
 
 #: core/Federation.php:261
-#, fuzzy, php-format
+#, php-format
 msgid "%s in your federation was created"
-msgstr "IdP ve vaší federaci byl vytvořen"
+msgstr "%s ve vaší federaci byl vytvořen"
 
 #: core/IdP.php:258
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -361,14 +362,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Dobrý den,⏎ ⏎ poskytovatel identity %s ve vaší %s federaci %s byl smazán z "
-"%s.⏎ ⏎ Předpokládali jsme, že budete chtít být o tomto informován.⏎ ⏎ S "
-"pozdravem,⏎ ⏎ %s"
+"Dobrý den,  %s %s ve vaší %s federaci %s byl smazán z %s.  Předpokládali "
+"jsme, že o tom budete chtít být informováni. S pozdravem,  %s"
 
 #: core/IdP.php:267
-#, fuzzy, php-format
+#, php-format
 msgid "%s in your federation was deleted"
-msgstr "Smazaný poskytovatel identity ve vaší federaci"
+msgstr "Smazaný %s ve vaší federaci"
 
 #: core/SilverbulletInvitation.php:230
 #, php-format
@@ -384,7 +384,7 @@ msgstr "Ahoj!"
 msgid ""
 "A new %s access credential has been created for you by your network "
 "administrator."
-msgstr "Nová přístupová pověření %s pro vás byla vytvořena vaším správcem."
+msgstr "Váš správce sítě Vám vytvořil nová %s přístupová pověření."
 
 #: core/SilverbulletInvitation.php:246
 #, php-format
@@ -411,7 +411,7 @@ msgstr ""
 
 #: core/SilverbulletInvitation.php:250
 msgid "Regards,"
-msgstr "Pozdrav,"
+msgstr "S pozdravem,"
 
 #: core/SilverbulletInvitation.php:299
 #, php-format
@@ -468,7 +468,7 @@ msgstr "Národní roamingový operátor"
 
 #: core/common/Entity.php:105
 msgid "identity provider"
-msgstr "posklytovatel identit"
+msgstr "poskytovatel identit"
 
 #: core/common/Entity.php:106
 msgid "organisation"
@@ -476,13 +476,13 @@ msgstr "organizace"
 
 #: core/common/Entity.php:107
 msgid "Identity Provider"
-msgstr "Posklytovatel identit"
+msgstr "poskytovatele identit"
 
 #: core/common/OutsideComm.php:257
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
-msgstr " %s z %s %s \"%s\" vás pozval ke společné správě %s."
+msgstr " %s %s, %s \"%s\" vás pozval ke společné správě %s."
 
 #: core/common/OutsideComm.php:258
 #, php-format
@@ -509,8 +509,8 @@ msgstr "Zdravím,"
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
-"manuálně. Prosím, neodpovídejte na tuto zprávu, byla odeslána z "
-"nemonitorované adresy. "
+"Prosím, neodpovídejte na tuto zprávu, byla odeslána z adresy sloužící pouze "
+"k zasílání pozvánek."
 
 #: core/common/OutsideComm.php:277
 #, php-format
@@ -534,7 +534,7 @@ msgid ""
 "To enlist as an administrator for that %s, please click on the following "
 "link:"
 msgstr ""
-"Pokud se chcete zaregistrovat jako správce uvedeného %s, klikněte prosím na "
+"Chcete-li se zaregistrovat jako správce uvedeného %s, klikněte prosím na "
 "následující odkaz:"
 
 #: core/common/OutsideComm.php:295
@@ -543,19 +543,19 @@ msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
 "Interface at"
 msgstr ""
-"Pokud odkaz nefunguje, můžete navštívit administrátorské rozhraní %s na "
+"Není-li odkaz funkční, můžete navštívit administrátorské rozhraní %s na "
 "webové adrese "
 
 #: core/common/OutsideComm.php:297
 msgid "and enter the invitation token"
-msgstr "a zadat token z pozvánky"
+msgstr "a zadat token z pozvánky manuálně:"
 
 #: core/common/OutsideComm.php:299
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
 msgstr ""
-"Nepřeposílejte e-mail dokud token nevyprší - jinak budou moci příjemci "
+"Nepřeposílejte tento e-mail dokud token nevyprší - jinak budou moci příjemci "
 "použít token místo vás!"
 
 #: core/common/OutsideComm.php:300
@@ -606,6 +606,3 @@ msgstr "Doména obsahuje mezery!"
 #: web/lib/common/InputValidation.php:241
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Doména neobsahuje ani jeden znak . (tečka)!"
-
-#~ msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
-#~ msgstr "Špatný formát souřadnic (2.0 používá JSON, neserializuje)!"

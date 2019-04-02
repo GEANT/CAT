@@ -4,14 +4,15 @@
 #
 # Translators:
 # Alberto Martínez Setién, 2018
+# Alberto Martínez Setién, 2019
 # José Manuel Macías, 2012-2013,2015
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2018-11-14 09:17+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-25 09:28+0000\n"
+"Last-Translator: Alberto Martínez Setién\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/es_ES/)\n"
 "Language: es_ES\n"
@@ -376,7 +377,7 @@ msgid "What is this %s thing anyway?"
 msgstr "¿De qué va esto de %s?"
 
 #: web/user/faq.inc.php:74
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s is a global WiFi roaming consortium which gives members of education and "
 "research access to the internet <i>for free</i> on all %s hotspots on the "
@@ -387,10 +388,11 @@ msgid ""
 msgstr ""
 "%s es un consorcio de roaming WiFi global que permite ofrece a miembros de "
 "la comunidad educativa y de investigación acceso a Internet <i>gratis</i> en "
-"todas las localizaciones de %s del planeta. ¡Ya hay varios usuarios de %s "
-"disfrutando de acceso gratuito a Internet en más de 6.000 localizaciones! "
-"Visita <a href='http://www.eduroam.org'>la página web de %s</a> para más "
-"detalles."
+"todas las localizaciones de %s del planeta. Ya hay varios millones de "
+"usuarios de %s, disfrutando de acceso gratuito a Internet en más de %d "
+"localizaciones! Visita <a href='http://www.eduroam.org'>la página web de %s</"
+"a> o <a href='http://monitor.eduroam.org/map_service_loc.php'>el mapa de "
+"localizaciones de %s</a> para más detalles."
 
 #: web/user/faq.php:47
 #, php-format

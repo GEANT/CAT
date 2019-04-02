@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# eduki <ecercos@xtec.cat>, 2013,2015,2018
+# eduki <ecercos@xtec.cat>, 2013,2015,2018-2019
 # eduki <ecercos@xtec.cat>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2018-05-22 07:08+0000\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-25 07:59+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/ca_ES/)\n"
@@ -312,7 +312,7 @@ msgstr ""
 #: core/Federation.php:90
 #, php-format
 msgid "(discontinued) %s"
-msgstr ""
+msgstr "(discontinuat) %s"
 
 #. / arguments are: 1. nomenclature for "institution"
 #. 2. IdP name;
@@ -321,7 +321,7 @@ msgstr ""
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
 #: core/Federation.php:252
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -336,8 +336,8 @@ msgid ""
 msgstr ""
 "Hola,\n"
 "\n"
-"la invitació per al nou proveidor d'identitat (IdP) %s a la vostra federació "
-"%s s'ha utilitzat %s i l'IdP s'ha creat a %s.\n"
+"la invitació per al nou  %s  %s a la vostra federació %s s'ha utilitzat %s i "
+"l'IdP s'ha creat a %s.\n"
 "\n"
 "Pensem que ho havíeu de saber.\n"
 "\n"
@@ -346,12 +346,12 @@ msgstr ""
 "%s"
 
 #: core/Federation.php:261
-#, fuzzy, php-format
+#, php-format
 msgid "%s in your federation was created"
-msgstr "S'ha creat l'IdP a la vostra federació"
+msgstr "S'ha creat %s a la vostra federació"
 
 #: core/IdP.php:258
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -365,8 +365,7 @@ msgid ""
 msgstr ""
 "Hola,\n"
 "\n"
-"el proveidor d'identitat (IdP) %s de la vostra federació d'%s %s ha estat "
-"esborrat de %s.\n"
+"el %s %s de la vostra federació %s  %s ha estat esborrat de %s.\n"
 "\n"
 "Pensem que ho havíeu de saber.\n"
 "\n"
@@ -375,9 +374,9 @@ msgstr ""
 "%s"
 
 #: core/IdP.php:267
-#, fuzzy, php-format
+#, php-format
 msgid "%s in your federation was deleted"
-msgstr "S'ha esborrat l'IdP a la vostra federació"
+msgstr "S'ha esborrat %s a la vostra federació"
 
 #: core/SilverbulletInvitation.php:230
 #, php-format
@@ -622,8 +621,3 @@ msgstr "El domini conté espais!"
 #: web/lib/common/InputValidation.php:241
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "El domini no conté almenys un . (punt)!"
-
-#~ msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
-#~ msgstr ""
-#~ "Error en la codificació de les coordenades (2.0 utilitza JSON, no "
-#~ "serialitzat)!"
