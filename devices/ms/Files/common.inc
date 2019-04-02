@@ -1345,9 +1345,17 @@ Function EncodeXmlChars
    StrLen $R2 $PASS1
    ${Do}
       StrCpy $R1 $PASS1 1 $R0
-      ${If} $R1 == "&"
-         StrCpy $R1 "&amp;"
-      ${EndIf}
+      ${Switch} $R1
+         ${Case} "&"
+           StrCpy $R1 "&amp;"
+           ${Break}
+         ${Case} "<"
+           StrCpy $R1 "&lt;"
+           ${Break}
+           ${Case} ">"
+           StrCpy $R1 "&gt;"
+           ${Break}
+      ${EndSwitch}
       StrCpy $R9 "$R9$R1"
       IntOp $R0 $R0 + 1
    ${LoopUntil} $R0 = $R2
