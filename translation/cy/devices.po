@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2019-01-14 10:15+0000\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-22 09:07+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Welsh (http://www.transifex.com/eduroam_devel/cat/language/"
 "cy/)\n"
@@ -93,9 +93,8 @@ msgid ""
 msgstr ""
 
 #: devices/Devices-template.php:306
-#, fuzzy
 msgid "Apple iOS mobile devices (iOS 7-11)"
-msgstr "Dyfeisiau symudol Apple iOS"
+msgstr ""
 
 #: devices/Devices-template.php:320
 msgid "Apple iOS mobile devices (iOS 5 and 6)"
@@ -867,8 +866,9 @@ msgid "Missing password"
 msgstr ""
 
 #: devices/ms/Files/common.inc:1407
-msgid "Password missmatch"
-msgstr ""
+#, fuzzy
+msgid "Password mismatch"
+msgstr "Cyfrinair:"
 
 #: devices/ms/Files/common.inc:1498 devices/ms/Files/eap_w8.inc:31
 #: devices/ms/Files/geant_link.inc:33 devices/ms/Files/geant_link.inc:43

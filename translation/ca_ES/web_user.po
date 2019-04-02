@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# eduki <ecercos@xtec.cat>, 2013,2015-2018
+# eduki <ecercos@xtec.cat>, 2013,2015-2019
 # eduki <ecercos@xtec.cat>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2018-11-08 12:24+0000\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-25 08:02+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/ca_ES/)\n"
@@ -370,7 +370,7 @@ msgid "What is this %s thing anyway?"
 msgstr "Però que és això de %s?"
 
 #: web/user/faq.inc.php:74
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s is a global WiFi roaming consortium which gives members of education and "
 "research access to the internet <i>for free</i> on all %s hotspots on the "
@@ -382,9 +382,10 @@ msgstr ""
 "%s és un consorci global de WiFi en itinerància que subministra als membres "
 "de la comunitat educativa i investigadors accés a internet <i>lliure</i> a "
 "tots els punts d'accés %s del planeta. Hi ha milions d'usuaris %s, "
-"disfrutant d'accés lliure a internet a més de 6.000 punts d'accés! Visiteu "
-"<a href='http://www.eduroam.org'>la pàgina inicial d'%s</a> per a més "
-"detalls."
+"disfrutant d'accés lliure a internet a més de %d punts d'accés! Visiteu <a "
+"href='http://www.eduroam.org'>la pàgina inicial d'%s</a> o <a href='http://"
+"monitor.eduroam.org/map_service_loc.php'> el mapa de localització %s </a>per "
+"a més detalls."
 
 #: web/user/faq.php:47
 #, php-format

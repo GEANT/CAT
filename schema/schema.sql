@@ -273,3 +273,16 @@ CREATE TABLE `silverbullet_certificate` (
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB CHARSET=utf8;
+
+CREATE TABLE `diagnosticrun` (
+  `test_id` VARCHAR(128) NOT NULL,
+  `last_touched` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `realm` VARCHAR(128) NOT NULL,
+  `visited_flr` VARCHAR(10) DEFAULT NULL, 
+  `visited_hotspot` VARCHAR(128) DEFAULT NULL,
+  `suspects` LONGBLOB DEFAULT NULL,
+  `evidence` LONGBLOB DEFAULT NULL,
+  `questionsasked` LONGBLOB DEFAULT NULL,
+  `concluded` TINYINT(1) DEFAULT 0,
+  PRIMARY KEY (`test_id`))
+ENGINE = InnoDB CHARSET=utf8;

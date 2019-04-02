@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2018-11-14 09:59+0000\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-22 20:48+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Serbian (Serbia) (http://www.transifex.com/eduroam_devel/cat/"
 "language/sr_RS/)\n"
@@ -323,7 +323,7 @@ msgstr ""
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
 #: core/Federation.php:252
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -336,24 +336,14 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Zdravo,\n"
-"\n"
-"pozivnica za novog Davaoca Identiteta %s iz vaše %s federacije %s je "
-"iskorišćena i Davalac Identiteta je napravljen u %s.\n"
-"\n"
-"Mislimo da biste želeli da znate.\n"
-"\n"
-"Pozdrav,\n"
-"\n"
-"%s"
 
 #: core/Federation.php:261
-#, fuzzy, php-format
+#, php-format
 msgid "%s in your federation was created"
-msgstr "Davalac identiteta u vašoj federaciji je kreiran"
+msgstr ""
 
 #: core/IdP.php:258
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -365,20 +355,11 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Zdravo,\n"
-"\n"
-"Davalac indentiteta %s u vašoj %s federaciji %s je obrisan iz %s.\n"
-"\n"
-"Mislimo da biste želeli da znate.\n"
-"\n"
-"Pozdrav,\n"
-"\n"
-"%s"
 
 #: core/IdP.php:267
-#, fuzzy, php-format
+#, php-format
 msgid "%s in your federation was deleted"
-msgstr "Davalac identiteta u vašoj federaciji je obrisan"
+msgstr ""
 
 #: core/SilverbulletInvitation.php:230
 #, php-format
@@ -616,7 +597,3 @@ msgstr "Domen sadrži razmake!"
 #: web/lib/common/InputValidation.php:241
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Domen ne sadrži barem jednu .(tačku)!"
-
-#~ msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
-#~ msgstr ""
-#~ "Pogrešno kodiranje koordinata (2.0 koristi JSON, ne serijske podatke)!"

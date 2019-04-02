@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2018-05-30 06:20+0000\n"
-"Last-Translator: Dubravko Penezic <dpenezic@gmail.com>\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-22 20:48+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/hr_HR/)\n"
 "Language: hr_HR\n"
@@ -322,7 +322,7 @@ msgstr ""
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
 #: core/Federation.php:252
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -335,24 +335,14 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Poštovani,\n"
-"\n"
-"pozivnica za novog IdP-a %s u vašoj %s federaciji %s je iskorištena i profil "
-"je generirarn %s.\n"
-"\n"
-"Mislimo da biste to trebali znati.\n"
-"\n"
-"S poštovanjem, \n"
-"\n"
-"%s"
 
 #: core/Federation.php:261
-#, fuzzy, php-format
+#, php-format
 msgid "%s in your federation was created"
-msgstr "IdP u vašoj federaciji je kreiran"
+msgstr ""
 
 #: core/IdP.php:258
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -364,20 +354,11 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Poštovani,\n"
-"\n"
-"IdP %s u vašoj %s federaciji %s je obrisan od %s. \n"
-"\n"
-"Mislimo da biste to trebali znati.\n"
-"\n"
-"S poštovanjem, \n"
-"\n"
-"%s"
 
 #: core/IdP.php:267
-#, fuzzy, php-format
+#, php-format
 msgid "%s in your federation was deleted"
-msgstr "IdP u vašoj federaciji je obrisan"
+msgstr ""
 
 #: core/SilverbulletInvitation.php:230
 #, php-format
@@ -619,6 +600,3 @@ msgstr "Realm sadrži prazninu!"
 #: web/lib/common/InputValidation.php:241
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Realm ne sadrži barem jednu . (točku)!"
-
-#~ msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
-#~ msgstr "Pogrešno šifriranje koordinata (2.0 uses JSON, not serialize)!"

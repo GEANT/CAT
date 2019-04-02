@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2019-01-14 10:15+0000\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-22 09:07+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/eduroam_devel/"
 "cat/language/nl_NL/)\n"
@@ -93,9 +93,8 @@ msgid ""
 msgstr ""
 
 #: devices/Devices-template.php:306
-#, fuzzy
 msgid "Apple iOS mobile devices (iOS 7-11)"
-msgstr "Apple iPhone, iPad en iPod Touch (iOS 5 en 6)"
+msgstr ""
 
 #: devices/Devices-template.php:320
 msgid "Apple iOS mobile devices (iOS 5 and 6)"
@@ -324,9 +323,9 @@ msgid "eduroam user certificate"
 msgstr ""
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:669
-#, fuzzy, php-format
+#, php-format
 msgid "The %s Certification Authority"
-msgstr "De certificaatautoriteit van jouw identiteitsaanbieder"
+msgstr ""
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:671
 #, php-format
@@ -334,7 +333,6 @@ msgid "%s CA"
 msgstr ""
 
 #: devices/chromebook/Device_chromebook.php:330
-#, fuzzy
 msgid ""
 "The installer is a file with the extension '.onc'. Please download it, open "
 "Chrome, and navigate to the URL <a href='chrome://net-internals/"
@@ -342,11 +340,6 @@ msgid ""
 "file' button. The import is silent; the new network definitions will be "
 "added to the preferred networks."
 msgstr ""
-"Download het bestand, open vervolgens de Chrome-browser en ga naar <a "
-"href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</"
-"a>. Importeer het bestand via de knop 'Bestand kiezen' of 'Choose File'. Het "
-"importeren vindt vervolgens onmerkbaar plaats, maar de nieuwe "
-"netwerkinstellingen zullen worden toegevoegd aan de bestaande."
 
 #: devices/linux/Device_Linux.php:82
 #, php-format
@@ -367,7 +360,7 @@ msgstr ""
 "netwerken configureren:"
 
 #: devices/linux/Device_Linux.php:88 devices/ms/WindowsCommon.php:158
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to:"
@@ -375,11 +368,7 @@ msgid_plural ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to the following networks:"
 msgstr[0] ""
-"Naast <strong>%s</strong> zal de installatie-software ook toegang tot het "
-"volgende configureren:"
 msgstr[1] ""
-"Naast <strong>%s</strong> zal de installatie-software ook toegang tot het "
-"volgende configureren:"
 
 #: devices/linux/Device_Linux.php:102
 msgid ""
@@ -611,17 +600,13 @@ msgstr ""
 "link voor instructies voor het handmatig instellen van eduroam."
 
 #: devices/test_module/Device_TestModule.php:129
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This installer is an example only. It produces a zip file containig the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
 "administrator) and a dump of all available attributes. The installer is "
 "called with %d SSIDs to configure."
 msgstr ""
-"Deze installatie-software is alleen een voorbeeld. Het installeert een zip-"
-"bestand met daarin de certificaten van de IdP, extra informatie en logo-"
-"bestanden (als die beschikbaar zijn) en een overzicht van alle beschikbare "
-"attributen."
 
 #: devices/xml/Device_XML.php:70
 #, php-format
@@ -942,7 +927,8 @@ msgid "Missing password"
 msgstr "Wachtwoord is niet ingevoerd"
 
 #: devices/ms/Files/common.inc:1407
-msgid "Password missmatch"
+#, fuzzy
+msgid "Password mismatch"
 msgstr "Wachtwoord komt niet overeen"
 
 #: devices/ms/Files/common.inc:1498 devices/ms/Files/eap_w8.inc:31
@@ -1016,6 +1002,3 @@ msgstr "installatie van referenties voor ${PROVIDERID}"
 #: devices/ms/Files/pwd.inc:48
 msgid "EAP-pwd installation error. Please try again or contact Support."
 msgstr ""
-
-#~ msgid "Identity Provider's CA"
-#~ msgstr "CA van identiteitsaanbieder"

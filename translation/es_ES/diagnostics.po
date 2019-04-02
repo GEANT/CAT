@@ -5,16 +5,16 @@
 #
 # Translators:
 # eduroam_devel <stefan.winter@restena.lu>, 2018
-# Alberto Martínez Setién, 2018
+# Alberto Martínez Setién, 2019
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: Alberto Martínez Setién, 2018\n"
+"Last-Translator: Alberto Martínez Setién, 2019\n"
 "Language-Team: Spanish (Spain) (https://www.transifex.com/eduroam_devel/"
 "teams/11799/es_ES/)\n"
 "Language: es_ES\n"
@@ -638,9 +638,8 @@ msgstr ""
 "problemas a la hora de autentificar."
 
 #: core/diag/Sociopath.php:85
-#, fuzzy
 msgid "Did you recently change your password?"
-msgstr "¿Has modificado recientemente la configuración en tu dispositivo?"
+msgstr "¿Has modificado recientemente tu contraseña?"
 
 #. that doesn't mean it is the source of the problem, but it /might/ be that the user forgot to provide the new password
 #. encouraging
@@ -649,6 +648,8 @@ msgid ""
 "When you change your password, you also need to supply the new password in "
 "the device configuration."
 msgstr ""
+"Cuando modificas tu contraseña también debes introducir la nueva contraseña "
+"en la configuración del dispositivo."
 
 #: core/diag/Sociopath.php:90
 msgid "If you use more than one device: do your other devices still work?"

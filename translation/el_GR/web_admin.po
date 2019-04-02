@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2018-12-31 12:36+0000\n"
-"Last-Translator: Zenon Mousmoulas <zenon@mousmoulas.gr>\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-22 21:59+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Greek (Greece) (http://www.transifex.com/eduroam_devel/cat/"
 "language/el_GR/)\n"
 "Language: el_GR\n"
@@ -2536,15 +2536,3 @@ msgstr "Προειδοποίηση!"
 #: web/lib/admin/UIElements.php:417
 msgid "Error!"
 msgstr "Σφάλμα!"
-
-#~ msgid "National Roaming Operator"
-#~ msgstr "Εθνικός Φορέας Περιαγωγής"
-
-#~ msgid "identity provider"
-#~ msgstr "πάροχος ταυτότητας "
-
-#~ msgid "organisation"
-#~ msgstr "οργανισμός"
-
-#~ msgid "Identity Provider"
-#~ msgstr "Πάροχος Ταυτότητας"

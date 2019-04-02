@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2018-09-13 10:46+0000\n"
-"Last-Translator: Pedro Simões <psimoes@fccn.pt>\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-22 20:48+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/eduroam_devel/"
 "cat/language/pt_PT/)\n"
 "Language: pt_PT\n"
@@ -323,7 +323,7 @@ msgstr ""
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
 #: core/Federation.php:252
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -336,17 +336,14 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Viva,⏎⏎ o convite para o novo fornecedor de identidade %s na federação %s %s "
-"foi utilizado e o fornecedor de identidade foi criado em %s.⏎⏎Julgamos ser "
-"útil fazer-lhe chegar esta informação.⏎⏎Cumprimentos,⏎⏎%s"
 
 #: core/Federation.php:261
-#, fuzzy, php-format
+#, php-format
 msgid "%s in your federation was created"
-msgstr "IdP criado na federação."
+msgstr ""
 
 #: core/IdP.php:258
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -358,20 +355,11 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Bom dia,\n"
-"\n"
-"o fornecedor de identidade %s na %s federação %s foi apagado da %s.\n"
-"\n"
-"Julgamos ser útil fazer-lhe chegar esta informação.\n"
-"\n"
-"Cumprimentos,\n"
-"\n"
-"%s"
 
 #: core/IdP.php:267
-#, fuzzy, php-format
+#, php-format
 msgid "%s in your federation was deleted"
-msgstr "IdP removido da federação"
+msgstr ""
 
 #: core/SilverbulletInvitation.php:230
 #, php-format
@@ -614,6 +602,3 @@ msgstr "O real contém espaços!"
 #: web/lib/common/InputValidation.php:241
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Reino não contém, pelo menos, um . (ponto)!"
-
-#~ msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
-#~ msgstr "Codificação de coordenadas errada (2.0 usa JSON, não serialize)!"

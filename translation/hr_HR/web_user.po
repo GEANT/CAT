@@ -8,13 +8,13 @@
 # dsafar <dsafar@srce.hr>, 2012-2013
 # dsafar <dsafar@srce.hr>, 2013
 # dsafar <dsafar@srce.hr>, 2012
-# Dubravko Penezic <dpenezic@gmail.com>, 2012-2013,2015-2016,2018
+# Dubravko Penezic <dpenezic@gmail.com>, 2012-2013,2015-2016,2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2018-12-19 12:42+0000\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-25 09:19+0000\n"
 "Last-Translator: Dubravko Penezic <dpenezic@gmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/hr_HR/)\n"
@@ -372,7 +372,7 @@ msgid "What is this %s thing anyway?"
 msgstr "O čemu se radi uopće?"
 
 #: web/user/faq.inc.php:74
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s is a global WiFi roaming consortium which gives members of education and "
 "research access to the internet <i>for free</i> on all %s hotspots on the "
@@ -381,12 +381,11 @@ msgid ""
 "%s homepage</a> or <a href='http://monitor.eduroam.org/map_service_loc."
 "php'>the %s location map</a> for more details."
 msgstr ""
-"%s je globalni WiFi roaming konzorcij koji pruža članovima edukacije i "
-"istraživanja pristup internetu <i>besplatno</i> na svim %s pristupnim "
-"točkama na svijetu. Već postoji nekoliko milijuna %s korisnika, koji uživaju "
-"u besplatnom pristupu internetu na više od 6.000 pristupnih točaka! "
-"Posjetite <a href='http://www.eduroam.org'> %s stranicu</a> za više "
-"informacija."
+"%s je globalni WiFi roaming kozorcij koji pruža članovima znastvene i "
+"istraživačke zajednice pristup besplatan na Internet na svim %s pristupnim "
+"mjestima na svjetu. Trenutno je nekoliko milijuna korisnika %s,  koriste "
+"besplatni pristup Internetu na više od  %d pristupnih točaka! Posjetite %s "
+"homepage ili  %s mapu s lokacijama. "
 
 #: web/user/faq.php:47
 #, php-format

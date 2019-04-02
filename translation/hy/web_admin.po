@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2018-12-14 22:33+0000\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-22 21:59+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Armenian (http://www.transifex.com/eduroam_devel/cat/language/"
 "hy/)\n"
@@ -2259,15 +2259,3 @@ msgstr ""
 #: web/lib/admin/UIElements.php:417
 msgid "Error!"
 msgstr ""
-
-#~ msgid "National Roaming Operator"
-#~ msgstr "Ազգային ռոումինգի օպերատոր"
-
-#~ msgid "identity provider"
-#~ msgstr "ինքնության մատակարար"
-
-#~ msgid "organisation"
-#~ msgstr "կազմակերպություն"
-
-#~ msgid "Identity Provider"
-#~ msgstr "Ինքնության Մատակարար (IdP)"

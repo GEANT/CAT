@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2018-11-14 12:16+0000\n"
-"Last-Translator: Kaja Kumer <kaja.kumer@arnes.si>\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-22 20:48+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Slovenian (Slovenia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/sl_SI/)\n"
 "Language: sl_SI\n"
@@ -327,7 +327,7 @@ msgstr ""
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
 #: core/Federation.php:252
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -340,22 +340,14 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Živjo,\n"
-"\n"
-"povabilo za novega ponudnika identitete %s v vaši %s federaciji %s je bilo "
-"uporabljeno in IdP je bil ustvarjen v %s.\n"
-"\n"
-"Z lepimi pozdravi,\n"
-"\n"
-"%s"
 
 #: core/Federation.php:261
-#, fuzzy, php-format
+#, php-format
 msgid "%s in your federation was created"
-msgstr "IdP v vaši federaciji je bil ustvarjen"
+msgstr ""
 
 #: core/IdP.php:258
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -367,20 +359,11 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Živjo,\n"
-"\n"
-"ponudnik identitete %s v vaši %s federaciji %s je bil odstranjen iz/z %s.\n"
-"\n"
-"Zdelo se nam je, da bi vas to znalo zanimati.\n"
-"\n"
-"Z lepimi pozdravi,\n"
-"\n"
-"%s"
 
 #: core/IdP.php:267
-#, fuzzy, php-format
+#, php-format
 msgid "%s in your federation was deleted"
-msgstr "IdP v vaši federaciji je bil odstranjen"
+msgstr ""
 
 #: core/SilverbulletInvitation.php:230
 #, php-format
@@ -617,6 +600,3 @@ msgstr "Domena vsebuje presledke!"
 #: web/lib/common/InputValidation.php:241
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Domena ne vsebuje vsaj ene . (pike)!"
-
-#~ msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
-#~ msgstr "Napačnen zapis koordinat (2.0 uporablja JSON, ne zaporedno)!"

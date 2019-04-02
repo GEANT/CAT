@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: Tomi Salmi, 2018\n"
 "Language-Team: Finnish (Finland) (https://www.transifex.com/eduroam_devel/"
@@ -615,9 +615,8 @@ msgstr ""
 "tekemään sitä, vaikka sinulla olisikin tilapäisiä kirjautumisongelmia."
 
 #: core/diag/Sociopath.php:85
-#, fuzzy
 msgid "Did you recently change your password?"
-msgstr "Oletko hiljattain muuttanut laitteesi verkkoasetuksia?"
+msgstr ""
 
 #. that doesn't mean it is the source of the problem, but it /might/ be that the user forgot to provide the new password
 #. encouraging

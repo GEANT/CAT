@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2019-01-14 12:29+0000\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-22 09:07+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/eduroam_devel/cat/"
 "language/pl_PL/)\n"
@@ -105,9 +105,8 @@ msgstr ""
 "w tym miejscu należy wprowadzić PIN importu pokazany na tej stronie."
 
 #: devices/Devices-template.php:306
-#, fuzzy
 msgid "Apple iOS mobile devices (iOS 7-11)"
-msgstr "Urządzenia mobilne Apple (iOS 5 i 6)"
+msgstr ""
 
 #: devices/Devices-template.php:320
 msgid "Apple iOS mobile devices (iOS 5 and 6)"
@@ -345,9 +344,9 @@ msgid "eduroam user certificate"
 msgstr "certyfikat użytkownika w usłudze eduroam"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:669
-#, fuzzy, php-format
+#, php-format
 msgid "The %s Certification Authority"
-msgstr "Urząd Certyfikacyjny Twojego dostawcy tożsamości"
+msgstr ""
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:671
 #, php-format
@@ -355,7 +354,6 @@ msgid "%s CA"
 msgstr ""
 
 #: devices/chromebook/Device_chromebook.php:330
-#, fuzzy
 msgid ""
 "The installer is a file with the extension '.onc'. Please download it, open "
 "Chrome, and navigate to the URL <a href='chrome://net-internals/"
@@ -363,10 +361,6 @@ msgid ""
 "file' button. The import is silent; the new network definitions will be "
 "added to the preferred networks."
 msgstr ""
-"Po pobraniu pliku użyj przeglądarki Chrome i przejdź do linku: <a "
-"href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</"
-"a>. Następnie użyj przycisku 'Importuj plik ONC'. Import przebiegnie bez "
-"komunikatów; nowe ustawienia sieciowe zostaną dodane do preferowanych sieci."
 
 #: devices/linux/Device_Linux.php:82
 #, php-format
@@ -391,7 +385,7 @@ msgstr ""
 "następujące sieci:"
 
 #: devices/linux/Device_Linux.php:88 devices/ms/WindowsCommon.php:158
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to:"
@@ -399,13 +393,9 @@ msgid_plural ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to the following networks:"
 msgstr[0] ""
-"Oprócz sieci <strong>%s</strong>, instalator skonfiguruje również sieć:"
 msgstr[1] ""
-"Oprócz sieci <strong>%s</strong>, instalator skonfiguruje również sieć:"
 msgstr[2] ""
-"Oprócz sieci <strong>%s</strong>, instalator skonfiguruje również sieć:"
 msgstr[3] ""
-"Oprócz sieci <strong>%s</strong>, instalator skonfiguruje również sieć:"
 
 #: devices/linux/Device_Linux.php:102
 msgid ""
@@ -668,17 +658,13 @@ msgstr ""
 "lokalny stworzył link do lokalnych instrukcji instalacyjnych."
 
 #: devices/test_module/Device_TestModule.php:129
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This installer is an example only. It produces a zip file containig the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
 "administrator) and a dump of all available attributes. The installer is "
 "called with %d SSIDs to configure."
 msgstr ""
-"Ten instalator to jedynie przykład. Przygotowuje archiwum zip zawierające "
-"certyfikaty instytucji, pliki informacyjne oraz logo (o ile zostały dodane "
-"przez administratora instytucji) oraz plik ze zrzutem wszystkich dostępnych "
-"atrybutów."
 
 #: devices/xml/Device_XML.php:70
 #, php-format
@@ -1011,7 +997,8 @@ msgid "Missing password"
 msgstr "Brak hasła"
 
 #: devices/ms/Files/common.inc:1407
-msgid "Password missmatch"
+#, fuzzy
+msgid "Password mismatch"
 msgstr "Niezgodność haseł"
 
 #: devices/ms/Files/common.inc:1498 devices/ms/Files/eap_w8.inc:31
@@ -1087,6 +1074,3 @@ msgid "EAP-pwd installation error. Please try again or contact Support."
 msgstr ""
 "Błąd instalacji EAP-pwd. Ponów instalację lub skontaktuj się z działem "
 "wsparcia."
-
-#~ msgid "Identity Provider's CA"
-#~ msgstr "Urząd certyfikacyjny dostawcy tożsamości"

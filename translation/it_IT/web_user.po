@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Daniele Albrizio <daniele@albrizio.it>, 2012-2013,2015-2018
+# Daniele Albrizio <daniele@albrizio.it>, 2012-2013,2015-2019
 # Daniele Albrizio <daniele@albrizio.it>, 2012
 # Giuseppe De Marco <giuseppe.demarco@unical.it>, 2018
 # Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>, 2015,2017-2018
@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2018-12-31 16:36+0000\n"
-"Last-Translator: Nunzio Napolitano <nunzio.napolitano@uniparthenope.it>\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-25 09:27+0000\n"
+"Last-Translator: Daniele Albrizio <daniele@albrizio.it>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/eduroam_devel/cat/"
 "language/it_IT/)\n"
 "Language: it_IT\n"
@@ -378,7 +378,7 @@ msgid "What is this %s thing anyway?"
 msgstr "Cos'è questa %s comunque?"
 
 #: web/user/faq.inc.php:74
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s is a global WiFi roaming consortium which gives members of education and "
 "research access to the internet <i>for free</i> on all %s hotspots on the "
@@ -387,11 +387,12 @@ msgid ""
 "%s homepage</a> or <a href='http://monitor.eduroam.org/map_service_loc."
 "php'>the %s location map</a> for more details."
 msgstr ""
-"%s è un consorzio di roaming globale del WiFi che fornisce <i>gratuitamente</"
-"i> ai propri membri di istruzione e ricerca l'accesso a Internet su tutti "
+"%s è un consorzio di roaming globale del WiFi che permette ai propri membri "
+"dell'istruzione e della ricerca l'accesso a Internet <i>gratis</i> su tutti "
 "gli hotspot %s del pianeta. Ci sono già diversi milioni di utenti %s che "
-"godono di un accesso gratuito a Internet su oltre 6.000 hotspot! Visita l'<a "
-"href='http://www.eduroam.org'>homepage %s</a> per maggiori dettagli."
+"godono di un accesso gratuito a Internet su oltre %d hotspot! Visita l'<a "
+"href='http://www.eduroam.org'>homepage %s</a> o la mappa %s per maggiori "
+"dettagli."
 
 #: web/user/faq.php:47
 #, php-format

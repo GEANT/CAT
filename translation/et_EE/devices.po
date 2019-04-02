@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2019-03-21 08:46+0000\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-26 08:55+0000\n"
 "Last-Translator: Anne M <anne@eenet.ee>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/et_EE/)\n"
@@ -101,9 +101,8 @@ msgstr ""
 "sisestama sel lehel näidatud impordi-PIN'i."
 
 #: devices/Devices-template.php:306
-#, fuzzy
 msgid "Apple iOS mobile devices (iOS 7-11)"
-msgstr "Apple iOS mobiilseadmed (iOS 5 ja 6)"
+msgstr "Aplle iOS mobiilseadmed (iOS 7-11)"
 
 #: devices/Devices-template.php:320
 msgid "Apple iOS mobile devices (iOS 5 and 6)"
@@ -146,7 +145,7 @@ msgid ""
 "to create all necessary settings."
 msgstr ""
 "Enne Androidi süsteemis paigalduse alustamist veendu, et oleks paigaldatud "
-"%s rakendus. Rakenduse leiad järgmistest kohtadest: %s, %s, %s. See rakendus "
+"rakendus %s. Rakenduse leiad järgmistest kohtadest: %s, %s, %s. See rakendus "
 "kasutab CAT lehelt alla laaditud faili vajalike seadistuste tegemiseks."
 
 #: devices/Devices-template.php:364 devices/Devices-template.php:379
@@ -297,7 +296,7 @@ msgstr "SSID %s"
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:427
 #, php-format
 msgid "%s configuration for network name %s"
-msgstr "%s seadistus %s võrgule"
+msgstr "%s seadistus võrgule %s"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:438
 msgid "Wired Network"
@@ -334,17 +333,16 @@ msgid "eduroam user certificate"
 msgstr "eduroami kasutaja sertifikaat"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:669
-#, fuzzy, php-format
+#, php-format
 msgid "The %s Certification Authority"
-msgstr "Sinu identiteedipakkuja sertifitseerimiskeskus"
+msgstr "%s, sertifitseerimiskeskus"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:671
 #, php-format
 msgid "%s CA"
-msgstr ""
+msgstr "%s CA"
 
 #: devices/chromebook/Device_chromebook.php:330
-#, fuzzy
 msgid ""
 "The installer is a file with the extension '.onc'. Please download it, open "
 "Chrome, and navigate to the URL <a href='chrome://net-internals/"
@@ -352,10 +350,11 @@ msgid ""
 "file' button. The import is silent; the new network definitions will be "
 "added to the preferred networks."
 msgstr ""
-"Peale faili allalaadimist ava Chrome veebilehitseja ja mine järgmisele "
-"URLile: <a href='chrome://net-internals/#chromeos'>chrome://net-internals/"
-"#chromeos</a>. Klõpsa 'Import ONC file' nuppu. Import tehakse taustal ja uue "
-"võrgu definitsioon lisatakse eelistatud võrkudele."
+"Paigaldusprogramm on fail laiendiga '.onc'. Palun lae see alla, ava Chrome,  "
+"liigu aadressile <a href='chrome://net-internals/#chromeos'>chrome://net-"
+"internals/#chromeos</a>. Seejärel kasuta nuppu 'Import ONC file' (Impordi "
+"ONC fail). Import tehakse taustal ja uue võrgu definitsioon lisatakse "
+"eelistatud võrkudele."
 
 #: devices/linux/Device_Linux.php:82
 #, php-format
@@ -379,7 +378,7 @@ msgstr ""
 "võrkudesse:"
 
 #: devices/linux/Device_Linux.php:88 devices/ms/WindowsCommon.php:158
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to:"
@@ -388,17 +387,17 @@ msgid_plural ""
 "to the following networks:"
 msgstr[0] ""
 "Lisaks <strong>%sile</strong> seadistab paigaldusprogramm pääsu järgmisse "
-"võrku:"
+"võrku: "
 msgstr[1] ""
-"Lisaks <strong>%sile</strong> seadistab paigaldusprogramm pääsu järgmisse "
-"võrku:"
+"Lisaks <strong>%sile</strong> seadistab paigaldusprogramm pääsu järgmistesse "
+"võrkudesse:"
 
 #: devices/linux/Device_Linux.php:102
 msgid ""
 "The installer will create .cat_installer sub-directory in your home "
 "directory and will copy your server certificates there."
 msgstr ""
-"Paigaldaja loob Su kodukataloogi .cat_installer kataloogi ning kopeerib "
+"Paigaldaja loob Su kodukataloogis alamkataloogi .cat_installer ning kopeerib "
 "sinna sertifikaadid. "
 
 #: devices/linux/Device_Linux.php:104
@@ -434,8 +433,7 @@ msgid ""
 "the network automatically each time you are in the range."
 msgstr ""
 "Paigaldamise ajal palutakse Sul sisestada kasutajakonto andmed. See teave "
-"salvestatakse ja edaspidi ühendatakse Sind selle võrguga automaatselt iga "
-"kord, kui oled selle levialas. "
+"salvestatakse ja edaspidi ühendatakse Sind selle võrgu levialas automaatselt."
 
 #: devices/linux/Device_Linux.php:139
 msgid "Really quit?"
@@ -622,8 +620,7 @@ msgid ""
 msgstr ""
 "Kui ühendud võrguga esmakordselt, avaneb Windowsis sisselogimiskast, kuhu "
 "tuleb sisestada kasutajanimi ja parool. See teave salvestatakse ja edaspidi "
-"ühendatakse Sind selle võrguga automaatselt iga kord, kui oled selle "
-"levialas."
+"ühendatakse Sind selle võrgu levialas automaatselt."
 
 #: devices/ms/WindowsCommon.php:175
 msgid ""
@@ -642,20 +639,21 @@ msgid ""
 "This device is not yet supported by CAT, but your local administrator "
 "created a redirect to local installation instructions."
 msgstr ""
-"Käesolev seade ei toeta CAT programmi, aga Su asutuse administraator on "
-"teinud suunamise asutuse paigaldusjuhendile."
+"CAT ei toeta veel seda seadet, aga Su asutuse administraator on teinud "
+"suunamise asutusepoolsele paigaldusjuhendile."
 
 #: devices/test_module/Device_TestModule.php:129
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This installer is an example only. It produces a zip file containig the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
 "administrator) and a dump of all available attributes. The installer is "
 "called with %d SSIDs to configure."
 msgstr ""
-"See on vaid näidispaigaldusprogramm, mis loob zip-faili identiteedipakkuja "
+"See on vaid näidispaigaldusprogramm, mis loob loob zip-faili IdP "
 "sertifikaatide, teabe ja logo failidest (kui need on IdP administraatori "
-"poolt määratud) ning kõigist kättesaadavatest atribuutidest."
+"poolt määratud) ja tõmmise kõigist saadaolevatest atribuutidest. "
+"Paigaldusprogrammi saab kasutada SSID-ga %d."
 
 #: devices/xml/Device_XML.php:70
 #, php-format
@@ -689,7 +687,7 @@ msgstr "Võrgu seadistamisel tekkisid vead."
 
 #: devices/ms/Files/common.inc:141 devices/ms/Files/common.inc:926
 msgid "Please contact ${SUPPORT}."
-msgstr "Palun kontakteeru ${SUPPORT}."
+msgstr "Palun kontakteeru: ${SUPPORT}."
 
 #: devices/ms/Files/common.inc:149
 msgid "Accept"
@@ -730,7 +728,7 @@ msgstr "Võimaluse korral kasuta mitte-TKIP profiili."
 
 #: devices/ms/Files/common.inc:472 devices/ms/Files/common.inc:480
 msgid "This installer has been prepared for ${ORGANISATION}"
-msgstr "Paigaldamisprogramm on ${ORGANISATION} jaoks ette valmistatud"
+msgstr "${ORGANISATION} - paigaldamisprogramm on ette valmistatud"
 
 #: devices/ms/Files/common.inc:473
 msgid "The installer will create the following wireless profiles:"
@@ -808,8 +806,8 @@ msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION} and the user group: ${USER_GROUP}."
 msgstr ""
-"See paigaldamisprogramm töötab korralikult ainult juhul, kui Sa kuulud "
-"${ORGANISATION} asutuse ${USER_GROUP} kasutajagruppi."
+"See paigaldamisprogramm töötab korralikult ainult juhul, kui Sa kuulud  "
+"asutuse ${ORGANISATION} kasutajagruppi ${USER_GROUP}."
 
 #: devices/ms/Files/common.inc:746 devices/ms/Files/common.inc:749
 msgid "Click OK to continue with installation."
@@ -821,7 +819,7 @@ msgid ""
 "${ORGANISATION}."
 msgstr ""
 "See paigaldamisprogramm töötab korralikult ainult juhul, kui Sa oled "
-"${ORGANISATION} asutusest."
+"asutusest ${ORGANISATION}."
 
 #: devices/ms/Files/common.inc:757
 msgid ""
@@ -869,7 +867,7 @@ msgstr "paigaldame $R1 profiili"
 
 #: devices/ms/Files/common.inc:926
 msgid "Profile installation error for $R1."
-msgstr "Probleem $R1 profiili paigaldamisega."
+msgstr "Probleem $R1 jaoks profiili paigaldamisega."
 
 #: devices/ms/Files/common.inc:951
 msgid "installing credentials for wired"
@@ -881,7 +879,7 @@ msgstr "TLS kasutajakonto andmete paigaldamine"
 
 #: devices/ms/Files/common.inc:1073
 msgid "installing credentials for profile $R1"
-msgstr "kasutajakonto paigaldamine $R1 profiilile"
+msgstr "kasutajakonto paigaldamine profiilile $R1"
 
 #: devices/ms/Files/common.inc:1090 devices/ms/Files/geant_link.inc:125
 msgid "Credentials installation problem"
@@ -890,7 +888,7 @@ msgstr "Viga kasutajakonto paigaldamisel"
 #: devices/ms/Files/common.inc:1099
 #, php-format
 msgid "%s installer for"
-msgstr "%s paigaldusprogramm"
+msgstr "%si paigaldusprogramm"
 
 #: devices/ms/Files/common.inc:1099
 msgid "Install personal certificate"
@@ -914,7 +912,7 @@ msgstr "Sertifikaadi failid (*.pfx)"
 
 #: devices/ms/Files/common.inc:1111
 msgid "certificate password:"
-msgstr "sertifikaadi parool"
+msgstr "sertifikaadi parool:"
 
 #: devices/ms/Files/common.inc:1113 devices/ms/Files/common.inc:1368
 msgid "Username:"
@@ -922,7 +920,7 @@ msgstr "Kasutajanimi:"
 
 #: devices/ms/Files/common.inc:1117
 msgid "Selected file: $Cert_file"
-msgstr "Vali fail: $Cert_file"
+msgstr "Valitud fail: $Cert_file"
 
 #: devices/ms/Files/common.inc:1119
 msgid "import password:"
@@ -981,7 +979,8 @@ msgid "Missing password"
 msgstr "Puudub parool"
 
 #: devices/ms/Files/common.inc:1407
-msgid "Password missmatch"
+#, fuzzy
+msgid "Password mismatch"
 msgstr "Paroolid ei kattu"
 
 #: devices/ms/Files/common.inc:1498 devices/ms/Files/eap_w8.inc:31
@@ -1056,6 +1055,3 @@ msgid "EAP-pwd installation error. Please try again or contact Support."
 msgstr ""
 "EAP-pwd paigaldamise viga. Palun proovi uuesti või võta ühendust "
 "kasutajatoega."
-
-#~ msgid "Identity Provider's CA"
-#~ msgstr "Identiteedipakkuja CA"

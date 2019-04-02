@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2018-11-14 09:48+0000\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-22 20:48+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/"
 "eduroam_devel/cat/language/nb_NO/)\n"
@@ -320,7 +320,7 @@ msgstr ""
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
 #: core/Federation.php:252
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -333,17 +333,14 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Hei, ⏎ ⏎ Invitasjonen til den nye IdP %s i din %s føderasjon %s har blitt "
-"brukt og IdP ble opprettet i %s. ⏎ ⏎ Dette til informasjon. ⏎ ⏎ Vennlig "
-"hilsen, ⏎ ⏎ %s"
 
 #: core/Federation.php:261
-#, fuzzy, php-format
+#, php-format
 msgid "%s in your federation was created"
-msgstr "IdP i din føderasjon ble opprettet"
+msgstr ""
 
 #: core/IdP.php:258
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -355,13 +352,11 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Hei, ⏎ ⏎ IdP %s i din %s føderasjon %s er slettet fra %s. ⏎ ⏎ Dette til "
-"informasjon. ⏎ ⏎ Vennlig hilsen, ⏎ ⏎ %s"
 
 #: core/IdP.php:267
-#, fuzzy, php-format
+#, php-format
 msgid "%s in your federation was deleted"
-msgstr "IdP i din føderasjon ble slettet"
+msgstr ""
 
 #: core/SilverbulletInvitation.php:230
 #, php-format
@@ -599,6 +594,3 @@ msgstr "Realm inneholder blankt tegn!"
 #: web/lib/common/InputValidation.php:241
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Realm inneholder ikke minst et . (punktum)!"
-
-#~ msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
-#~ msgstr "Feil koordinat koding (2.0 bruker JSON, ikke serialiser)!"

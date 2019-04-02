@@ -5,16 +5,16 @@
 #
 # Translators:
 # eduroam_devel <stefan.winter@restena.lu>, 2016
-# University of Ruse <support@uni-ruse.bg>, 2018
+# University of Ruse <support@uni-ruse.bg>, 2019
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: University of Ruse <support@uni-ruse.bg>, 2018\n"
+"Last-Translator: University of Ruse <support@uni-ruse.bg>, 2019\n"
 "Language-Team: Bulgarian (Bulgaria) (https://www.transifex.com/eduroam_devel/"
 "teams/11799/bg_BG/)\n"
 "Language: bg_BG\n"
@@ -625,9 +625,8 @@ msgstr ""
 "на временни проблеми с влизането."
 
 #: core/diag/Sociopath.php:85
-#, fuzzy
 msgid "Did you recently change your password?"
-msgstr "Променяли ли сте конфигурацията на устройството си скоро?"
+msgstr "Променяли ли сте паролата си скоро?"
 
 #. that doesn't mean it is the source of the problem, but it /might/ be that the user forgot to provide the new password
 #. encouraging
@@ -636,6 +635,8 @@ msgid ""
 "When you change your password, you also need to supply the new password in "
 "the device configuration."
 msgstr ""
+"Когато промените паролата си, трябва да въведете новата парола в "
+"конфигурацията на устройството."
 
 #: core/diag/Sociopath.php:90
 msgid "If you use more than one device: do your other devices still work?"

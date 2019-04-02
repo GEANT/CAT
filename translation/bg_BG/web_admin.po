@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2018-12-17 08:57+0000\n"
-"Last-Translator: University of Ruse <support@uni-ruse.bg>\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-22 21:59+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/eduroam_devel/"
 "cat/language/bg_BG/)\n"
 "Language: bg_BG\n"
@@ -2499,15 +2499,3 @@ msgstr "Предупреждение!"
 #: web/lib/admin/UIElements.php:417
 msgid "Error!"
 msgstr "Грешка!"
-
-#~ msgid "National Roaming Operator"
-#~ msgstr "Национален оператор на роуминг"
-
-#~ msgid "identity provider"
-#~ msgstr "доставчик на самоличност"
-
-#~ msgid "organisation"
-#~ msgstr "организация"
-
-#~ msgid "Identity Provider"
-#~ msgstr "Доставчик на Удостоверения"

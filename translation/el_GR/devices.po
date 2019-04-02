@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Halil Adem <hadem@noc.grnet.gr>, 2018
+# Halil Adem <hadem@noc.grnet.gr>, 2018-2019
 # HELPDESK <npapalouka@admin.grnet.gr>, 2015
 # Panos Bouklis <panos@echidna-band.com>, 2012
 # eduroam_devel <stefan.winter@restena.lu>, 2019
@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:49+0100\n"
-"PO-Revision-Date: 2019-01-14 12:35+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"PO-Revision-Date: 2019-03-22 11:41+0000\n"
+"Last-Translator: Halil Adem <hadem@noc.grnet.gr>\n"
 "Language-Team: Greek (Greece) (http://www.transifex.com/eduroam_devel/cat/"
 "language/el_GR/)\n"
 "Language: el_GR\n"
@@ -105,9 +105,8 @@ msgstr ""
 "το PIN εισαγωγής που εμφανίζεται σε αυτή τη σελίδα."
 
 #: devices/Devices-template.php:306
-#, fuzzy
 msgid "Apple iOS mobile devices (iOS 7-11)"
-msgstr "Apple iOS φορητές συσκευές (iOS 5 και 6)"
+msgstr "Apple iOS φορητές συσκευές (iOS 7-11)"
 
 #: devices/Devices-template.php:320
 msgid "Apple iOS mobile devices (iOS 5 and 6)"
@@ -349,17 +348,16 @@ msgid "eduroam user certificate"
 msgstr "πιστοποιητικό χρήστη eduroam"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:669
-#, fuzzy, php-format
+#, php-format
 msgid "The %s Certification Authority"
-msgstr "Η Αρχή Πιστοποίησης του Παρόχου Ταυτότητάς σας"
+msgstr ""
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:671
 #, php-format
 msgid "%s CA"
-msgstr ""
+msgstr "%s CA"
 
 #: devices/chromebook/Device_chromebook.php:330
-#, fuzzy
 msgid ""
 "The installer is a file with the extension '.onc'. Please download it, open "
 "Chrome, and navigate to the URL <a href='chrome://net-internals/"
@@ -367,11 +365,6 @@ msgid ""
 "file' button. The import is silent; the new network definitions will be "
 "added to the preferred networks."
 msgstr ""
-"Μετά τη λήψη του αρχείου, ανοίξτε τον φυλλομετρητή Chrome και πλοηγηθείτε σε "
-"αυτό το URL : <a href='chrome://net-internals/#chromeos'>chrome://net-"
-"internals/#chromeos</a>.  Έπειτα, χρησιμοποιήστε το κουμπί  'Εισαγωγή "
-"αρχείου ONC'. Η εισαγωγή γίνεται σιωπηρά· οι νέοι ορισμοί του δικτύου θα "
-"προστεθούν στα προτιμώμενα δίκτυα."
 
 #: devices/linux/Device_Linux.php:82
 #, php-format
@@ -396,7 +389,7 @@ msgstr ""
 "την πρόσβαση στα ακόλουθα δίκτυα:"
 
 #: devices/linux/Device_Linux.php:88 devices/ms/WindowsCommon.php:158
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to:"
@@ -404,11 +397,7 @@ msgid_plural ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to the following networks:"
 msgstr[0] ""
-"Εκτός από το <strong>%s</strong>, το πακέτο εγκατάστασης θα ρυθμίσει επίσης "
-"την πρόσβαση σε:"
 msgstr[1] ""
-"Εκτός από το <strong>%s</strong>, το πακέτο εγκατάστασης θα ρυθμίσει επίσης "
-"την πρόσβαση σε:"
 
 #: devices/linux/Device_Linux.php:102
 msgid ""
@@ -673,17 +662,13 @@ msgstr ""
 "εγκατάστασης."
 
 #: devices/test_module/Device_TestModule.php:129
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This installer is an example only. It produces a zip file containig the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
 "administrator) and a dump of all available attributes. The installer is "
 "called with %d SSIDs to configure."
 msgstr ""
-"Αυτό το πακέτο εγκατάστασης είναι μόνο ένα παράδειγμα. Παράγει ένα αρχείο "
-"zip το οποίο περιέχει τα πιστοποιητικά του IdP, αρχεία πληροφοριών και "
-"λογοτύπων (αν έχουν οριστεί από τον διαχειριστή του IdP) και μία αποτύπωση "
-"όλων των διαθεσίμων ορισμάτων."
 
 #: devices/xml/Device_XML.php:70
 #, php-format
@@ -1023,7 +1008,8 @@ msgid "Missing password"
 msgstr "Λείπει ο κωδικός"
 
 #: devices/ms/Files/common.inc:1407
-msgid "Password missmatch"
+#, fuzzy
+msgid "Password mismatch"
 msgstr "Οι κωδικοί δεν ταιριάζουν"
 
 #: devices/ms/Files/common.inc:1498 devices/ms/Files/eap_w8.inc:31
@@ -1099,6 +1085,3 @@ msgid "EAP-pwd installation error. Please try again or contact Support."
 msgstr ""
 "σφάλμα εγκατάστασης EAP-pwd. Παρακαλώ προσπαθήστε ξανά ή επικοινωνήστε με "
 "την Υποστήριξη."
-
-#~ msgid "Identity Provider's CA"
-#~ msgstr "CA του Παρόχου Ταυτότητας"
