@@ -923,7 +923,7 @@ network={
      * 
      * @param array  $testresults by-reference, add our findings if any
      * @param string $tmpDir      working directory
-     * @return array
+     * @return array|FALSE an array with all the certs, CRLs and oddities, or FALSE if the EAP conversation did not yield a certificate at all
      * @throws Exception
      */
     private function extractIncomingCertsfromEAP(&$testresults, $tmpDir) {
@@ -939,7 +939,6 @@ network={
          */
         
         $x509 = new \core\common\X509();
-        $eapCertArray = [];
 // $eap_certarray holds all certs received in EAP conversation
         $incomingData = file_get_contents($tmpDir . "/serverchain.pem");
         if ($incomingData !== FALSE && strlen($incomingData) > 0) {
