@@ -250,6 +250,10 @@ class AbstractTest extends \core\common\Entity {
     const CERTPROB_MULTIPLE_CN = -226;
 
     /**
+     * An EAP conversation took place, but for some reason there is not a single certificate inside
+     */
+    const CERTPROB_NO_CERTIFICATE_IN_CONVERSATION = -230;
+    /**
      * initialises the error messages.
      */
     public function __construct() {
@@ -560,6 +564,12 @@ class AbstractTest extends \core\common\Entity {
         $this->returnCodes[$code41]["message"] = _("The certificate public key algorithm is unknown to the system. Please submit the certificate as a sample to the developers.");
         $this->returnCodes[$code41]["severity"] = \core\common\Entity::L_REMARK;
 
+        /**
+         * Unable to find any server certificate
+         */
+        $code42 = RADIUSTests::CERTPROB_NO_CERTIFICATE_IN_CONVERSATION;
+        $this->returnCodes[$code42]["message"] = _("No certificate at all was sent by the server.");
+        $this->returnCodes[$code42]["severity"] = \core\common\Entity::L_ERROR;
         \core\common\Entity::outOfThePotatoes();
     }
 

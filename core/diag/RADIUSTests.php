@@ -937,13 +937,16 @@ network={
          * 4) CDP URL (Windows Phone 8 barks if not present)
          * 5) there should be exactly one server cert in the chain
          */
-
+        
         $x509 = new \core\common\X509();
         $eapCertArray = [];
 // $eap_certarray holds all certs received in EAP conversation
         $incomingData = file_get_contents($tmpDir . "/serverchain.pem");
-        if ($incomingData !== FALSE) {
+        if ($incomingData !== FALSE && strlen($incomingData) > 0) {
             $eapCertArray = $x509->splitCertificate($incomingData);
+        } else {
+            $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_NO_CERTIFICATE_IN_CONVERSATION;
+            return FALSE;
         }
         $eapIntermediates = [];
         $eapIntermediateCRLs = [];
@@ -999,7 +1002,7 @@ network={
         }
         switch (count($servercert)) {
             case 0:
-                $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_NO_SERVER_CERT;
+                    $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_NO_SERVER_CERT;
                 break;
             default:
 // check (first) server cert's properties
@@ -1083,12 +1086,12 @@ network={
             $intermOdditiesCAT = [];
             $verifyResult = 0;
 
-            if ($this->opMode == self::RADIUS_TEST_OPERATION_MODE_THOROUGH) {
+            if ($this->opMode == self::RADIUS_TEST_OPERATION_MODE_THOROUGH && $bundle !== FALSE) {
                 $verifyResult = $this->thoroughChainChecks($testresults, $intermOdditiesCAT, $tmpDir, $bundle["SERVERCERT"], $bundle["INTERMEDIATE_CA"], $bundle["INTERMEDIATE_CRL"]);
                 $this->thoroughNameChecks($bundle["SERVERCERT"][0], $testresults);
             }
 
-            $testresults['cert_oddities'] = array_merge($testresults['cert_oddities'], $bundle["INTERMEDIATE_OBSERVED_ODDITIES"]);
+            $testresults['cert_oddities'] = array_merge($testresults['cert_oddities'], $bundle["INTERMEDIATE_OBSERVED_ODDITIES"] ?? []);
             if (in_array(RADIUSTests::CERTPROB_OUTSIDE_VALIDITY_PERIOD, $intermOdditiesCAT) && $verifyResult == 3) {
                 $key = array_search(RADIUSTests::CERTPROB_OUTSIDE_VALIDITY_PERIOD, $intermOdditiesCAT);
                 $intermOdditiesCAT[$key] = RADIUSTests::CERTPROB_OUTSIDE_VALIDITY_PERIOD_WARN;
