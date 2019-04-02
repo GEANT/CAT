@@ -702,16 +702,15 @@ class WpaConf(object):
     Prepare and save wpa_supplicant config file
     """
     def __prepare_network_block(self, ssid, user_data):
-        altsubj_match = "altsubject_match=\"%s\"" % ";".join(Config.servers)
         out = """network={
-        ssid=""" + ssid + """
+        ssid=\"""" + ssid + """\"
         key_mgmt=WPA-EAP
         pairwise=CCMP
         group=CCMP TKIP
         eap=""" + Config.eap_outer + """
         ca_cert=\"""" + os.environ.get('HOME') + """/.cat_installer/ca.pem\"
         identity=\"""" + user_data.username + """\"
-        altsubject_match=\"""" + altsubj_match + """\"
+        altsubject_match=\"""" + ";".join(Config.servers) + """\"
         phase2=\"auth=""" + Config.eap_inner + """\"
         password=\"""" + user_data.password + """\"
         anonymous_identity=\"""" + Config.anonymous_identity + """\"
