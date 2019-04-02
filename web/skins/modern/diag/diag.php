@@ -19,17 +19,7 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
-/**
- * generates a nonce
- * 
- * @param string $optSalt an optional salt for the hashing
- * @return string
- */
-function my_nonce($optSalt = '') {
-    $remote = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
-    return hash_hmac('sha256', session_id() . $optSalt, date("YmdG") . '1qaz2wsx3edc!QAZ@WSX#EDC' . $remote);
-}
-error_reporting(E_ALL | E_STRICT);
+
 $Gui->defaultPagePrelude();
 $_SESSION['current_page'] = $_SERVER['SCRIPT_NAME'];
 ?>
@@ -49,10 +39,9 @@ $_SESSION['current_page'] = $_SERVER['SCRIPT_NAME'];
     var dir = "<?php echo dirname(__DIR__); ?>";
 
 <?php
-$admin = filter_input(INPUT_GET, 'admin', FILTER_VALIDATE_INT);
 $profile_list_size = 1;
 require_once dirname(__DIR__) . '/Divs.php';
-$divs = new Divs($Gui);
+$divs = new \web\skins\modern\Divs($Gui);
 $visibility = 'index';
 $operatingSystem = $Gui->detectOS();
 $Gui->loggerInstance->debug(4, $operatingSystem);
@@ -70,7 +59,7 @@ require dirname(__DIR__) . '/user/js/cat_js.php';
 </head>
 <body>
 <div id='wrap'>
-<form id="cat_form" name="cat_form" method="POST"  accept-charset="UTF-8" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
+<form id="cat_form" name="cat_form" accept-charset="UTF-8" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="POST">
 <?php
 echo $divs->div_heading($visibility);
 $Gui->languageInstance->setTextDomain("diagnostics");
@@ -79,7 +68,6 @@ $Gui->languageInstance->setTextDomain("diagnostics");
     <div id="loading_ico">
           <span id='load_comment'></span><br><img src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES", "icons/loading51.gif"); ?>" alt="Loading stuff ..."/>
     </div>
-    <input name="myNonce" id="myNonce" type="hidden" value="<?php echo my_nonce($_SERVER['SCRIPT_NAME']); ?>">
     <div id="info_overlay"> <!-- device info -->
         <div id="info_window"></div>
         <img id="info_menu_close" class="close_button" src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES", "icons/button_cancel.png"); ?>" ALT="Close"/>
@@ -168,7 +156,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                         echo "0\">";
                         echo _("This service is for authenticated admins only.") . '<br>';
                         echo "<a href=\"diag.php?admin=1\">" .
-                            _("eduroam® admin access is needed") . "</a>";
+                             _("eduroam® admin access is needed") . "</a>";
                     }
                 ?>
             </div> 
@@ -707,6 +695,10 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                 });
             }
         }
+        var nro = 0;
+        if ($('#sp_country').val()) {
+            nro = $('#sp_country').val();
+        }
         var visited = 0;
         if ($('#sp_inst').val()) {
             visited = $('#sp_inst').val();
@@ -715,7 +707,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
         if (realm !== '') {
             $.ajax({
                 url: "magicTelepath.php",
-                data: {realm: realm, lang: lang, visited: visited},
+                data: {realm: realm, lang: lang, nro: nro, visited: visited},
                 dataType: "json",
                 success:function(data) {
                     inProgress(0);
