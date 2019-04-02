@@ -139,7 +139,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                     </b>
                     <div id="sociopath_queries"></div>
                 </div>
-                <div id="start_test_area" style="padding-top: 10px; display:none; text-align:center;">
+                <div id="start_test_area" style="padding-top: 10px; padding-bottom: 5px; display:none; text-align:center;">
                     <button id='realmtest' accesskey="T" type='button'><?php echo _("Run tests"); ?>
                     </button>
                 </div>
@@ -147,10 +147,8 @@ $Gui->languageInstance->setTextDomain("diagnostics");
             <div id='diagnostic_admin' style='display: <?php if (!$admin) { echo 'none'; } ?> ;'>
                 <h2><?php echo _("Tools for eduroam admins"); ?></h2>
                 <?php
-                    require_once CONFIG['AUTHENTICATION']['ssp-path-to-autoloader'];
-                    $auth = new \web\lib\admin\Authentication();
                     echo '<input type="hidden" id="isadmin" value="';
-                    if ($auth->isAuthenticated()) {
+                    if ($isauth) {
                         echo "1\">";
                         echo "<div id='admin_test_area' style='display: ";
                         if (!$admin) {
@@ -207,6 +205,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
             $('#select_' + type+'_area').html(select + shtml);
             $('#select_' + type+'_area').show();
         }  
+        reset_footer();
     }
     function countrySelection(type1) {
         var type2;
@@ -253,6 +252,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
         }  
     }
     function isDomain(realm) {
+        realm = trimRealm(realm);
         var re = new RegExp(/^((([0-9]{1,3}\.){3}[0-9]{1,3})|(([a-zA-Z0-9]+(([\-]?[a-zA-Z0-9]+)*\.)+)*[a-zA-Z]{2,}))$/);
         if (re.test(realm)) {
             return true;
@@ -263,7 +263,6 @@ $Gui->languageInstance->setTextDomain("diagnostics");
         var comment = <?php echo '"' . _("Testing realm") . '..."'; ?>; 
         inProgress(1, comment);
         if ($('#tested_realm').length == 0) {
-            console.log('MGW, tested_realm=0')
             $('<input>').attr({
                 type: 'hidden',
                 id: 'tested_realm',
@@ -279,7 +278,6 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                 $('#start_test_area').hide();
                 if (data) {
                     inProgress(0);
-                    console.log(data);
                     if (data['NEXTEXISTS']) {
                         if ($('#sociopath_queries').html() == '') {
                             var query = '';
@@ -296,6 +294,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                         else {
                             $('#current_query').html(data['TEXT']);
                         }
+                        reset_footer();
                    } else {
                         var realm = $('#tested_realm').val();
                         $('#tested_realm').remove();
@@ -306,7 +305,8 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                         $('#before_stage_1').show();
                         $('#realm_by_select').show();
                         $('#position_info').show();
-                        finalVerdict(realm, data['SUSPECTS'])
+                        finalVerdict(realm, data['SUSPECTS']);
+                        reset_footer();
                    }
                 }
                 
@@ -422,6 +422,12 @@ $Gui->languageInstance->setTextDomain("diagnostics");
             elements[i].disabled = b;
         }
     }
+    function trimRealm(r) {
+        if (r.substring(0,1) == '@') {
+            return r.substring(1);
+        }
+        return r;
+    }
     
     $('input[name="diagnostic_usertype"]').click(function() {   
         var t = $('input[name=diagnostic_usertype]:checked').val();
@@ -446,7 +452,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
             $('#idp_problem').html('');
             $('#diagnostic_enduser').show();
         }
-       
+        reset_footer();
     });
     $('#user_realm').bind('change keyup blur input', function(e)  {
         if (isDomain($('#user_realm').val())) {
@@ -507,6 +513,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                             $('#inst_' + type + '_area').html(select);
                             $('#' + type + '_desc').show();
                         }    
+                        reset_footer();
                     }
                 },
                 error:function() {
@@ -564,6 +571,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                     $('#start_test_area').show();
                     $("#user_realm").val("");
                     $("#realm_info+ok").hide();
+                    reset_footer();
                 }
             },
             error:function() {
@@ -580,9 +588,9 @@ $Gui->languageInstance->setTextDomain("diagnostics");
             $('#select_idp_area').hide();
             $('#select_idp_area').html('');
             $('#select_idp_country').show();
-            realm = $("#user_realm").val();
+            realm = trimRealm($("#user_realm").val());
         } else {
-            realm = $("#admin_realm").val();
+            realm = trimRealm($("#admin_realm").val());
             $('#idp_contact_area').html('');
             $('#sp_questions > tbody  > tr').each(function() {
                 if ($(this).attr('class') == 'visible_row') {
@@ -672,7 +680,6 @@ $Gui->languageInstance->setTextDomain("diagnostics");
         if ($(this).attr('id') === 'answer_noidea') {
             answer = 3; /* No idea */
         }
-        console.log('answer '+answer);
         testSociopath('', answer);
     });
     $('#realmtest').click(function(event){
@@ -687,7 +694,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
         }
         var realm = '';
         if ($('#user_realm').val()) {
-            realm = $('#user_realm').val();
+            realm = trimRealm($('#user_realm').val());
         }
         if ($('#idp_inst').val()) {
             if ($('input[name="realm"]').attr('type') === 'hidden') {
@@ -700,28 +707,24 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                 });
             }
         }
-        console.log('realm to test '+realm);
         var visited = 0;
         if ($('#sp_inst').val()) {
             visited = $('#sp_inst').val();
         }
+        reset_footer();
         if (realm !== '') {
-            console.log('call magicTelepath');
             $.ajax({
                 url: "magicTelepath.php",
                 data: {realm: realm, lang: lang, visited: visited},
                 dataType: "json",
                 success:function(data) {
                     inProgress(0);
-                    console.log('magiceTelepath status '+ data.status)
                     if (data.status === 1) {
                         var realm =  data.realm;
-                        console.log('realm '+realm);
-                        console.log(data.suspects);
                         $('#before_stage_1').hide();
                         $('#realm_name').text(realm);
                         $('#after_stage_1').show();
-                        console.log('calling testSociopath');
+                        reset_footer();
                         testSociopath(realm, 0);
                     } else {
                         var title = <?php echo '"' . _("Diagnostics results for selected realms") . '"'; ?>;
@@ -746,11 +749,13 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                         $('#before_stage_1').show();
                         $('#realm_by_select').show();
                         $('#position_info').show();
+                        reset_footer();
                         showInfo(result, title);
                     }  
                 },
                 error: function (error) {
                     inProgress(0);
+                    reset_footer();
                     alert('magicTelepath error');
                 }
             });
@@ -768,8 +773,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
     });
     $(document).on('click', '#realm_in_db_admin' , function() {
         var id = $(this).attr('id');
-       
-        realm = $("#admin_realm").val();
+        realm = trimRealm($("#admin_realm").val());
         $('#idp_contact_area').html('');
         $('#sp_questions > tbody  > tr').each(function() {
             if ($(this).attr('class') == 'visible_row') {
@@ -823,8 +827,6 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                                 $(this).removeClass('visible_row').addClass('hidden_row');
                             }
                     });
-                    $('#sp_questions > tbody').append('<tr class="error_row"><td>' + "Realm is not registered with the eduroam database:" +
-                        '</td><td>' + realm + '</td></tr>');
                     $('#admin_realm').val('');
                 }
             },
@@ -969,6 +971,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                     $('#sp_abuse').html(data);
                     $('#sp_abuse').show();         
                     $('#idp_problem').html('');
+                    reset_footer();
                 });
             }
             
@@ -980,8 +983,10 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                     $('#idp_problem').html(data);
                     $('#sp_abuse').hide();
                     $('#idp_problem').show();
+                    reset_footer();
                 });
             }
+            
         }
     });
     $(document).on('change', '#asp_inst' , function() {
