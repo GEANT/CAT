@@ -38,7 +38,7 @@ function commonSbProfileChecks($fed, $id) {
         return FALSE;
     }
     if (!$profile instanceof core\ProfileSilverbullet) {
-        $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Profile identifier is not SB!");
+        $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, sprintf("Profile identifier is not %s!", \core\ProfileSilverbullet::PRODUCTNAME));
         return FALSE;
     }
     $idp = new \core\IdP($profile->institution);
