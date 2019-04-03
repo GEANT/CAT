@@ -296,6 +296,19 @@ td.vendor img {
     text-decoration: none;
 }
 
+#top_invite_ad {
+    font-weight: normal;
+    font-size: 15px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: black;
+}
+
+#top_invite_ad a {
+    white-space: nowrap;
+}
+
 #welcome_top1 {
     clear: both;
     padding-top: 30px;
@@ -564,15 +577,9 @@ div.footer table td {
 }
 
 #top_invite {
-    cursor: pointer;
-    text-decoration: underline;
-    text-decoration: underline;
     padding-bottom: 10px;
 }
 
-#top_invite:hover {
-    text-decoration: underline;
-}
 
 #user_button_td {
     padding-top: 10px;
@@ -748,16 +755,6 @@ td.vendor {
     background: #1d4a74;
     color: white;
     text-align: left;
-}
-
-#top_invite {
-    cursor: pointer;
-    text-decoration: underline;
-    text-decoration: underline;
-}
-
-#top_invite:hover {
-    text-decoration: underline;
 }
 
 #slides span {

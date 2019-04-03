@@ -108,12 +108,16 @@ class Divs {
     }
 
     public function div_top_welcome() {
+        $retval = '';
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+            $retval = "<br><span id='top_invite_ad'>".$this->Gui->textTemplates->templates[user\FRONTPAGE_EDUROAM_AD]."</span>";
+        }
         return "
 <div id='welcome_top1'>
     " . $this->Gui->textTemplates->templates[user\HEADING_TOPLEVEL_GREET] . "
 </div>
 <div id='top_invite'>
-    " . $this->Gui->textTemplates->templates[user\HEADING_TOPLEVEL_PURPOSE] . "
+    " . $this->Gui->textTemplates->templates[user\HEADING_TOPLEVEL_PURPOSE] . $retval . "
 </div>";
     }
 
@@ -152,9 +156,6 @@ class Divs {
 
     public function div_main_button() {
         $retval = "<div id='user_button_td'>";
-        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-            $retval .= "<span>".$this->Gui->textTemplates->templates[user\FRONTPAGE_EDUROAM_AD]."</span>";
-        }
         $retval .= "<span id='signin'>
      <button class='large_button signin signin_large' id='user_button1'>
         <span id='user_button'>";
