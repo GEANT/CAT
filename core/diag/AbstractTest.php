@@ -404,7 +404,7 @@ class AbstractTest extends \core\common\Entity {
          * Low public key length (<1024)
          */
         $code18 = RADIUSTests::CERTPROB_LOW_KEY_LENGTH;
-        $this->returnCodes[$code18]["message"] = _("At least one certificate in the chain had a public key of less than 1024 bits. Many recent operating systems consider this unacceptable and will fail to validate the server certificate.");
+        $this->returnCodes[$code18]["message"] = _("At least one certificate in the chain had a public key of less than 2048 bits. Many recent operating systems consider this unacceptable and will fail to validate the server certificate.");
         $this->returnCodes[$code18]["severity"] = \core\common\Entity::L_WARN;
 
         /**
