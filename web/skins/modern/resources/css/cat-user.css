@@ -88,7 +88,7 @@ select {
 }
 
 a:link {
-    color: var(--color2);
+    color: #575757;
 }
 
 a:visited {
@@ -1107,6 +1107,9 @@ button.guess_os {
 #menu_top > ul > li > ul > li > a:hover {
     background: #333;
     color: white;
+}
+#menu_top > ul > li > a {
+    color: #000000;
 }
 
 #menu_top > ul li:hover ul {
