@@ -39,6 +39,7 @@ const FRONTPAGE_ROLLER_EASY = 1020;
 const FRONTPAGE_ROLLER_CUSTOMBUILT = 1021;
 const FRONTPAGE_ROLLER_SIGNEDBY = 1022;
 const FRONTPAGE_BIGDOWNLOADBUTTON = 1023;
+const FRONTPAGE_EDUROAM_AD = 1024;
 const INSTITUTION_SELECTION = 1030;
 const PROFILE_SELECTION = 1040;
 const DOWNLOAD_CHOOSE = 1050;
@@ -49,6 +50,7 @@ const DOWNLOAD_REDIRECT_CONTINUE = 1054;
 const SB_GO_AWAY = 1060;
 const SB_FRONTPAGE_BIGDOWNLOADBUTTON = 1061;
 const SB_FRONTPAGE_ROLLER_CUSTOMBUILT= 1062;
+
 
 /**
  * some of the texts we write are consortium-specific.
@@ -90,6 +92,7 @@ class TextTemplates extends \core\common\Entity {
         $this->templates[FRONTPAGE_ROLLER_EASY] = sprintf(_("%s installation made easy:"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $this->templates[FRONTPAGE_ROLLER_CUSTOMBUILT] = _("Custom built for your organisation");
         $this->templates[FRONTPAGE_BIGDOWNLOADBUTTON] = sprintf(_("Click here to download your %s installer"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        $this->templates[FRONTPAGE_EDUROAM_AD] = sprintf(_("%s provides access to thousands of Wi-Fi hotspots around the world, free of charge. <a href='%s'>Learn more</a>"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['homepage']);
         $this->templates[PROFILE_SELECTION] = _("Select the user group");
         $this->templates[INSTITUTION_SELECTION] = _("select another");
         $this->templates[DOWNLOAD_CHOOSE] = _("Choose another installer to download");
