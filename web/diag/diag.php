@@ -26,8 +26,24 @@ $isauth = 0;
 if ($auth->isAuthenticated()) {
     $isauth = 1;
 }
-if ($admin == 1 && !$isauth) {
+if ($admin == 1 && !$isauth) { 
+    if ($_SERVER['QUERY_STRING']) {
+        $q_el = explode('&', $_SERVER['QUERY_STRING']);
+        if (($idx = array_search("admin=1", $q_el)) !== NULL) {
+            unset($q_el[$idx]);
+            $q_r = preg_replace("/\?.*/", "", $_SERVER['REQUEST_URI']);
+            if (count($q_el)) {
+                $q_r = $q_r . '?' . implode('&', $q_el);
+            }
+            $_SERVER['REQUEST_URI'] = $q_r;
+        }
+    }
+    $_SESSION['admin_diag_auth'] = 1;
     $auth->authenticate();
+}
+if (isset($_SESSION['admin_diag_auth'])) {
+   $admin =  1;
+   unset($_SESSION['admin_diag_auth']);
 }
 $Gui = new \web\lib\user\Gui();
 $skinObject = new \web\lib\user\Skinjob($_REQUEST['skin'] ?? $_SESSION['skin'] ?? $fedskin[0] ?? CONFIG['APPEARANCE']['skins'][0]);
