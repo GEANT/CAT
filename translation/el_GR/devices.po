@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-26 09:57+0100\n"
-"PO-Revision-Date: 2019-03-22 11:41+0000\n"
+"POT-Creation-Date: 2019-04-04 08:35+0200\n"
+"PO-Revision-Date: 2019-03-27 10:03+0000\n"
 "Last-Translator: Halil Adem <hadem@noc.grnet.gr>\n"
 "Language-Team: Greek (Greece) (http://www.transifex.com/eduroam_devel/cat/"
 "language/el_GR/)\n"
@@ -302,57 +302,57 @@ msgstr ""
 msgid "(%d times each, because %s is installed for %d SSIDs)"
 msgstr "(%d φορές το καθένα, επειδή το %s έχει εγκατασταθεί για %d SSIDs)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:426
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:430
 #, php-format
 msgid "SSID %s"
 msgstr "SSID %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:427
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:431
 #, php-format
 msgid "%s configuration for network name %s"
 msgstr "διαμόρφωση %s για το όνομα δικτύου %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:438
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:442
 msgid "Wired Network"
 msgstr "Ενσύρματο Δίκτυο"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:439
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:443
 #, php-format
 msgid "%s configuration for wired network"
 msgstr "%s διαμόρφωση για ενσύρματο δίκτυο"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:453
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:457
 msgid "Hotspot 2.0 Settings"
 msgstr "Hotspot 2.0 Ρυθμίσεις"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:454
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:458
 #, php-format
 msgid "%s Hotspot 2.0 configuration"
 msgstr "%s Hotspot 2.0 διαμόρφωση"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:518
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:522
 #, php-format
 msgid "This SSID should not be used after bootstrapping %s"
 msgstr ""
 "Αυτό το SSID δεν πρέπει να χρησιμοποιηθεί μετά από το bootstrapping του %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:520
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:524
 msgid "Disabled WiFi network"
 msgstr "Απενεργοποιημένο δίκτυο WiFi"
 
 #. we don't include the import password. It's displayed on screen, and should be input by the user.
 #. <key>Password</key>
 #. <string>" . $this->clientCert['password'] . "</string>
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:613
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:617
 msgid "eduroam user certificate"
 msgstr "πιστοποιητικό χρήστη eduroam"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:669
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:673
 #, php-format
 msgid "The %s Certification Authority"
-msgstr ""
+msgstr "Η Αρχή Πιστοποίησης %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:671
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:675
 #, php-format
 msgid "%s CA"
 msgstr "%s CA"
@@ -365,6 +365,12 @@ msgid ""
 "file' button. The import is silent; the new network definitions will be "
 "added to the preferred networks."
 msgstr ""
+"Το πακέτο εγκατάστασης είναι ένα αρχείο με κατάληξη  '.onc'. Μετά τη λήψη "
+"του αρχείου, ανοίξτε τον φυλλομετρητή Chrome και πλοηγηθείτε σε αυτό το URL "
+"<a href='chrome://net-internals/#chromeos'> chrome://net-internals/"
+"#chromeos</a>. Έπειτα, χρησιμοποιήστε το κουμπί 'Εισαγωγή αρχείου ONC'.  Η "
+"εισαγωγή γίνεται σιωπηρά· οι νέοι ορισμοί του δικτύου θα προστεθούν στα "
+"προτιμώμενα δίκτυα."
 
 #: devices/linux/Device_Linux.php:82
 #, php-format
@@ -397,7 +403,11 @@ msgid_plural ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to the following networks:"
 msgstr[0] ""
+"Εκτός από το <strong>%s</strong>, το πακέτο εγκατάστασης θα ρυθμίσει επίσης "
+"την πρόσβαση σε:"
 msgstr[1] ""
+"Εκτός από το <strong>%s</strong>, το πακέτο εγκατάστασης θα ρυθμίσει επίσης "
+"την πρόσβαση στα ακόλουθα δίκτυα:"
 
 #: devices/linux/Device_Linux.php:102
 msgid ""
@@ -515,7 +525,7 @@ msgstr "Ο"
 msgid "personal certificate file (p12 or pfx)"
 msgstr "αρχείο προσωπικού πιστοποιητικού (p12 or pfx)"
 
-#: devices/linux/Device_Linux.php:156 devices/ms/Files/common.inc:1108
+#: devices/linux/Device_Linux.php:156 devices/ms/Files/common.inc:1110
 msgid "All files"
 msgstr "Όλα τα αρχεία"
 
@@ -533,8 +543,8 @@ msgstr ""
 msgid "Write the file"
 msgstr "Γράψτε το αρχείο"
 
-#: devices/linux/Device_Linux.php:160 devices/ms/Files/common.inc:1254
-#: devices/ms/Files/common.inc:1274 devices/ms/Files/common.inc:1325
+#: devices/linux/Device_Linux.php:160 devices/ms/Files/common.inc:1256
+#: devices/ms/Files/common.inc:1276 devices/ms/Files/common.inc:1327
 msgid ""
 "Error: Your username must be of the form 'xxx@institutionID' e.g. "
 "'john@example.net'!"
@@ -669,6 +679,11 @@ msgid ""
 "administrator) and a dump of all available attributes. The installer is "
 "called with %d SSIDs to configure."
 msgstr ""
+"Αυτό το πακέτο εγκατάστασης είναι μόνο ένα παράδειγμα. Παράγει ένα αρχείο "
+"zip το οποίο περιέχει τα πιστοποιητικά του IdP, αρχεία πληροφοριών και "
+"λογοτύπων (αν έχουν οριστεί από τον διαχειριστή του IdP) και μία αποτύπωση "
+"όλων των διαθεσίμων ορισμάτων. Το πακέτο εγκατάστασης καλείται με %d SSIDs "
+"προς παραμετροποίηση"
 
 #: devices/xml/Device_XML.php:70
 #, php-format
@@ -700,7 +715,7 @@ msgstr "Το σύστημά σας είναι έτοιμο."
 msgid "Network installation had errors."
 msgstr "Η εγκατάσταση δικτύου παρουσίασε σφάλματα."
 
-#: devices/ms/Files/common.inc:141 devices/ms/Files/common.inc:926
+#: devices/ms/Files/common.inc:141 devices/ms/Files/common.inc:928
 msgid "Please contact ${SUPPORT}."
 msgstr "Παρακαλούμε επικοινωνήστε με ${SUPPORT}."
 
@@ -884,93 +899,93 @@ msgstr ""
 msgid "installing wired profile"
 msgstr "εγκατάσταση ενσύρματου προφίλ"
 
-#: devices/ms/Files/common.inc:885 devices/ms/Files/common.inc:904
+#: devices/ms/Files/common.inc:887 devices/ms/Files/common.inc:906
 msgid "deleting profile $R1"
 msgstr "Διαγραφή προφίλ $R1"
 
-#: devices/ms/Files/common.inc:913
+#: devices/ms/Files/common.inc:915
 msgid "installing profile $R1"
 msgstr "Εγκατάσταση προφίλ $R1"
 
-#: devices/ms/Files/common.inc:926
+#: devices/ms/Files/common.inc:928
 msgid "Profile installation error for $R1."
 msgstr "Σφάλμα εγκατάστασης προφίλ για το $R1."
 
-#: devices/ms/Files/common.inc:951
+#: devices/ms/Files/common.inc:953
 msgid "installing credentials for wired"
 msgstr "εγκατάσταση διαπιστευτηρίων για το ενσύρματο"
 
-#: devices/ms/Files/common.inc:957
+#: devices/ms/Files/common.inc:959
 msgid "installing credentials TLS"
 msgstr "εγκατάσταση διαπιστευτηρίων TLS"
 
-#: devices/ms/Files/common.inc:1073
+#: devices/ms/Files/common.inc:1075
 msgid "installing credentials for profile $R1"
 msgstr "εγκατάσταση διαπιστευτηρίων για το προφίλ $R1"
 
-#: devices/ms/Files/common.inc:1090 devices/ms/Files/geant_link.inc:125
+#: devices/ms/Files/common.inc:1092 devices/ms/Files/geant_link.inc:125
 msgid "Credentials installation problem"
 msgstr "Πρόβλημα κατά την εγκατάσταση των διαπιστευτηρίων"
 
-#: devices/ms/Files/common.inc:1099
+#: devices/ms/Files/common.inc:1101
 #, php-format
 msgid "%s installer for"
 msgstr "%s πακέτο εγκατάστασης για"
 
-#: devices/ms/Files/common.inc:1099
+#: devices/ms/Files/common.inc:1101
 msgid "Install personal certificate"
 msgstr "Εγκατάσταση προσωπικού πιστοποιητικού"
 
-#: devices/ms/Files/common.inc:1102
+#: devices/ms/Files/common.inc:1104
 msgid "Preparing to install personal certificate."
 msgstr "Προετοιμασία για εγκατάσταση προσωπικού πιστοποιητικού."
 
-#: devices/ms/Files/common.inc:1102
+#: devices/ms/Files/common.inc:1104
 msgid "Click OK to continue"
 msgstr "Πατήστε ΟΚ για να συνεχίσετε"
 
-#: devices/ms/Files/common.inc:1108
+#: devices/ms/Files/common.inc:1110
 msgid "Certificate files (*.p12)"
 msgstr "Αρχεία πιστοποιητικού (*.p12)"
 
-#: devices/ms/Files/common.inc:1108
+#: devices/ms/Files/common.inc:1110
 msgid "Certificate files (*pfx)"
 msgstr "Αρχεία πιστοποιητικού (*pfx)"
 
-#: devices/ms/Files/common.inc:1111
+#: devices/ms/Files/common.inc:1113
 msgid "certificate password:"
 msgstr "κωδικός πιστοποιητικού:"
 
-#: devices/ms/Files/common.inc:1113 devices/ms/Files/common.inc:1368
+#: devices/ms/Files/common.inc:1115 devices/ms/Files/common.inc:1378
 msgid "Username:"
 msgstr "Όνομα χρήστη:"
 
-#: devices/ms/Files/common.inc:1117
+#: devices/ms/Files/common.inc:1119
 msgid "Selected file: $Cert_file"
 msgstr "Επιλεγμένο αρχείο: $Cert_file"
 
-#: devices/ms/Files/common.inc:1119
+#: devices/ms/Files/common.inc:1121
 msgid "import password:"
 msgstr "κωδικός εισαγωγής:"
 
-#: devices/ms/Files/common.inc:1154
+#: devices/ms/Files/common.inc:1156
 msgid "No certificate file selected"
 msgstr "Δεν επιλέχθηκε αρχείο πιστοποιητικού"
 
-#: devices/ms/Files/common.inc:1158
+#: devices/ms/Files/common.inc:1160
 msgid "Incorrect import password$\\r$\\nenter again"
 msgstr "Λανθασμένος κωδικός εισαγωγής$\\r$\\nεισάγετε ξανά"
 
-#: devices/ms/Files/common.inc:1160
+#: devices/ms/Files/common.inc:1162
 msgid "Incorrect certificate password$\\r$\\nenter again"
 msgstr "Λανθασμένος κωδικός πιστοποιητικού$\\r$\\nεισάγετε ξανά"
 
-#: devices/ms/Files/common.inc:1234
+#: devices/ms/Files/common.inc:1236
 msgid "Username contained some trailing spaces which were removed."
 msgstr ""
 "Το Username περιείχε στο τέλος του κενά διαστήματα τα οποία αφαιρέθηκαν."
 
-#: devices/ms/Files/common.inc:1269
+#: devices/ms/Files/common.inc:1271
 msgid ""
 "Error: your username must be in the form of 'xxx@${REALM}'. Please enter the "
 "username in the correct format."
@@ -978,7 +993,7 @@ msgstr ""
 "Σφάλμα: το όνομα χρήστη σας πρέπει να είναι στην μορφή 'xxx@${REALM}'. "
 "Παρακαλώ εισάγετε το όνομα χρήστη σας στην ορθή μορφή."
 
-#: devices/ms/Files/common.inc:1271
+#: devices/ms/Files/common.inc:1273
 msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'${REALM}'. Please enter the username in the correct format."
@@ -987,39 +1002,38 @@ msgstr ""
 "και να λήγει με '${REALM}'. Παρακαλώ πολύ εισάγετε το όνομα χρήστη σας στην "
 "ορθή μορφή."
 
-#: devices/ms/Files/common.inc:1364
+#: devices/ms/Files/common.inc:1374
 msgid "User credentials"
 msgstr "Διαπιστευτήρια χρήστη"
 
-#: devices/ms/Files/common.inc:1371
+#: devices/ms/Files/common.inc:1381
 msgid "Password:"
 msgstr "Κωδικός:"
 
-#: devices/ms/Files/common.inc:1374
+#: devices/ms/Files/common.inc:1384
 msgid "Repeat password:"
 msgstr "Επανάληψη κωδικού:"
 
-#: devices/ms/Files/common.inc:1389
+#: devices/ms/Files/common.inc:1399
 msgid "Missing username"
 msgstr "Λείπει το όνομα χρήστη"
 
-#: devices/ms/Files/common.inc:1401
+#: devices/ms/Files/common.inc:1411
 msgid "Missing password"
 msgstr "Λείπει ο κωδικός"
 
-#: devices/ms/Files/common.inc:1407
-#, fuzzy
+#: devices/ms/Files/common.inc:1417
 msgid "Password mismatch"
-msgstr "Οι κωδικοί δεν ταιριάζουν"
+msgstr "Αναντιστοιχία κωδικών"
 
-#: devices/ms/Files/common.inc:1498 devices/ms/Files/eap_w8.inc:31
+#: devices/ms/Files/common.inc:1508 devices/ms/Files/eap_w8.inc:31
 #: devices/ms/Files/geant_link.inc:33 devices/ms/Files/geant_link.inc:43
 #: devices/ms/Files/peap_tls.inc:31 devices/ms/Files/pwd.inc:30
 #: devices/ms/Files/pwd.inc:60
 msgid "Installation"
 msgstr "Εγκατάσταση"
 
-#: devices/ms/Files/common.inc:1498
+#: devices/ms/Files/common.inc:1508
 msgid "Checking for existing wireless profiles"
 msgstr "Έλεγχος για υπάρχοντα προφίλ ασύρματου δικτύου"
 

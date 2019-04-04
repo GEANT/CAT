@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Halil Adem <hadem@noc.grnet.gr>, 2018
+# Halil Adem <hadem@noc.grnet.gr>, 2018-2019
 # HELPDESK <npapalouka@admin.grnet.gr>, 2015
 # Panos Bouklis <panos@echidna-band.com>, 2012
 # Wasilis <m.wasilis@yahoo.de>, 2013
@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-26 09:57+0100\n"
-"PO-Revision-Date: 2019-03-22 20:48+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2019-04-04 08:35+0200\n"
+"PO-Revision-Date: 2019-03-26 14:29+0000\n"
+"Last-Translator: Halil Adem <hadem@noc.grnet.gr>\n"
 "Language-Team: Greek (Greece) (http://www.transifex.com/eduroam_devel/cat/"
 "language/el_GR/)\n"
 "Language: el_GR\n"
@@ -316,7 +316,7 @@ msgstr ""
 #: core/Federation.php:90
 #, php-format
 msgid "(discontinued) %s"
-msgstr ""
+msgstr "(καταργημένος) %s"
 
 #. / arguments are: 1. nomenclature for "institution"
 #. 2. IdP name;
@@ -338,11 +338,21 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Χαίρετε,\n"
+"\n"
+"η πρόσκληση για το νέο %s %s στην %s ομοσπονδία σας %s χρησιμοποιήθηκε και "
+"δημιουργήθηκε ο IdP στο %s.\n"
+"\n"
+"Πιστεύουμε ότι έπρεπε να το γνωρίζετε.\n"
+"\n"
+"Χαιρετισμούς,\n"
+"\n"
+"%s"
 
 #: core/Federation.php:261
 #, php-format
 msgid "%s in your federation was created"
-msgstr ""
+msgstr "Δημιουργήθηκε ένας %s στην ομοσπονδία σας"
 
 #: core/IdP.php:258
 #, php-format
@@ -357,11 +367,20 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Χαίρετε,\n"
+"\n"
+"ο %s %s στην %s ομοσπονδία σας %s διαγράφηκε από %s.\n"
+"\n"
+"Πιστεύουμε ότι έπρεπε να το γνωρίζετε.\n"
+"\n"
+"Χαιρετισμούς,\n"
+"\n"
+"%s"
 
 #: core/IdP.php:267
 #, php-format
 msgid "%s in your federation was deleted"
-msgstr ""
+msgstr "Διαγράφηκε ένας %s στην ομοσπονδία σας"
 
 #: core/SilverbulletInvitation.php:230
 #, php-format
@@ -476,54 +495,54 @@ msgstr "οργανισμός"
 msgid "Identity Provider"
 msgstr "Πάροχος Ταυτότητας"
 
-#: core/common/OutsideComm.php:257
+#: core/common/OutsideComm.php:261
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
 msgstr ""
 "ένας %s από το %s %s \"%s\" σας προσκάλεσε να διαχειριστείτε το %s μαζί του."
 
-#: core/common/OutsideComm.php:258
+#: core/common/OutsideComm.php:262
 #, php-format
 msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
 msgstr ""
 "ένας %s %s σας έχει προσκαλέσει για να διαχειριστείτε το μελλοντικό %s  \"%s"
 "\" (%s)."
 
-#: core/common/OutsideComm.php:259
+#: core/common/OutsideComm.php:263
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\"."
 msgstr "ένας %s %s σας έχει προσκαλέσει να διαχειριστείτε το %s  \"%s\"."
 
-#: core/common/OutsideComm.php:261
+#: core/common/OutsideComm.php:265
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr "Αυτή η πρόσκληση είναι έγκυρη για 24 ώρες από τώρα, δηλαδή μέχρι %s."
 
 #. then, send out the mail
-#: core/common/OutsideComm.php:269
+#: core/common/OutsideComm.php:273
 msgid "Hello,"
 msgstr "Χαίρετε,"
 
 #. default means we don't have a Reply-To.
-#: core/common/OutsideComm.php:271
+#: core/common/OutsideComm.php:275
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
 "χειροκίνητα. Παρακαλούμε μην απαντάτε σε αυτό το email, είναι αποκλειστικά "
 "διεύθυνση αποστολής."
 
-#: core/common/OutsideComm.php:277
+#: core/common/OutsideComm.php:281
 #, php-format
 msgid "Additional message from your %s administrator:"
 msgstr "Επιπρόσθετο μήνυμα από τον  διαχειριστή του %s σας:"
 
-#: core/common/OutsideComm.php:285
+#: core/common/OutsideComm.php:289
 #, php-format
 msgid "%s administrator"
 msgstr "%s διαχειριστής"
 
-#: core/common/OutsideComm.php:288
+#: core/common/OutsideComm.php:292
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
@@ -531,7 +550,7 @@ msgstr ""
 "χειροκίνητα. Αν απαντήσετε σε αυτό το email, θα έρθετε σε επαφή με τους "
 "διαχειριστές του %s σας."
 
-#: core/common/OutsideComm.php:293
+#: core/common/OutsideComm.php:297
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
@@ -540,7 +559,7 @@ msgstr ""
 "Για να εγγραφείτε ως διαχειριστής για το %s, παρακαλούμε όπως κάνετε κλικ "
 "στον ακόλουθο σύνδεσμο:"
 
-#: core/common/OutsideComm.php:295
+#: core/common/OutsideComm.php:299
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
@@ -549,11 +568,11 @@ msgstr ""
 "Αν το κλικ στον σύνδεσμο δε λειτουργεί, μπορείτε επίσης να πάτε στη Διεπαφή "
 "Διαχείρισης %s στο"
 
-#: core/common/OutsideComm.php:297
+#: core/common/OutsideComm.php:301
 msgid "and enter the invitation token"
 msgstr "και εισάγετε το κουπόνι πρόσκλησης"
 
-#: core/common/OutsideComm.php:299
+#: core/common/OutsideComm.php:303
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
@@ -561,12 +580,12 @@ msgstr ""
 "Μην προωθείτε το μήνυμα πριν λήξει το κουπόνι - οι παραλήπτες ίσως είναι σε "
 "θέση να το χρησιμοποιήσουν για λογαριασμό σας!"
 
-#: core/common/OutsideComm.php:300
+#: core/common/OutsideComm.php:304
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr "Σας ευχόμαστε να περάσετε καλά με το %s."
 
-#: core/common/OutsideComm.php:301
+#: core/common/OutsideComm.php:305
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -577,7 +596,7 @@ msgstr ""
 "\n"
 "Οι φίλοι σας από την Ομάδα Λειτουργίας %s"
 
-#: core/common/OutsideComm.php:337
+#: core/common/OutsideComm.php:341
 #, php-format
 msgid "%s: you have been invited to manage an %s"
 msgstr "%s: έχετε λάβει πρόσκληση για την διαχείριση του %s"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"POT-Creation-Date: 2019-04-04 08:35+0200\n"
 "PO-Revision-Date: 2019-03-25 11:45+0000\n"
 "Last-Translator: Maja Wolniewicz <maja.wolniewicz@gmail.com>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/eduroam_devel/cat/"
@@ -463,7 +463,7 @@ msgstr ""
 "(z powodów prawnych Zasady użytkowania są przygotowane wyłącznie w języku "
 "angielskim)"
 
-#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:88
+#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:90
 #, php-format
 msgid "Welcome to %s"
 msgstr "Witamy w %s"
@@ -521,17 +521,17 @@ msgstr ""
 "Pomyłka, po Twojej stronie? A być może nasz błąd; trudno powiedzieć! Być "
 "może powinieneś przejść na <a href='%s'>stronę startową</a>."
 
-#: web/tou.php:70 web/skins/modern/Divs.php:288
+#: web/tou.php:70 web/skins/modern/Divs.php:291
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "Polityka prywatności %s"
 
-#: web/lib/user/TextTemplates.php:81
+#: web/lib/user/TextTemplates.php:83
 #, php-format
 msgid "Welcome aboard the %s user community!"
 msgstr "Witamy zagranicą użytkowniku %s!"
 
-#: web/lib/user/TextTemplates.php:82
+#: web/lib/user/TextTemplates.php:84
 msgid ""
 "Your download will start shortly. In case of problems with the automatic "
 "download please use this direct <a href=''>link</a>."
@@ -539,12 +539,12 @@ msgstr ""
 "Pobieranie za chwilę się rozpocznie. Gdyby tak się nie stało użyj tego "
 "bezpośredniego  <a href=''>linku</a>."
 
-#: web/lib/user/TextTemplates.php:83 web/skins/modern/div_user_welcome.php:30
+#: web/lib/user/TextTemplates.php:85 web/skins/modern/div_user_welcome.php:30
 #, php-format
 msgid "Dear user from %s,"
 msgstr "Drogi użytkowniku z instytucji %s,"
 
-#: web/lib/user/TextTemplates.php:84
+#: web/lib/user/TextTemplates.php:86
 #, php-format
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
@@ -557,7 +557,7 @@ msgstr ""
 "uwierzytelnienia (tak określamy parę danych 'identyfikator użytkownika i "
 "hasło' lub 'certyfikat osobisty')  i będziesz podłączony!"
 
-#: web/lib/user/TextTemplates.php:85 web/skins/modern/div_user_welcome.php:38
+#: web/lib/user/TextTemplates.php:87 web/skins/modern/div_user_welcome.php:38
 #, php-format
 msgid ""
 "Should you have any problems using this service, please always contact the "
@@ -569,11 +569,11 @@ msgstr ""
 "Możesz się skontaktować ze swoim helpdeskiem za pomocą wskazanych powyżej "
 "metod."
 
-#: web/lib/user/TextTemplates.php:86 web/skins/modern/div_user_welcome.php:41
+#: web/lib/user/TextTemplates.php:88 web/skins/modern/div_user_welcome.php:41
 msgid "Back to downloads"
 msgstr "Powrót do listy urządzeń"
 
-#: web/lib/user/TextTemplates.php:87
+#: web/lib/user/TextTemplates.php:89
 #, php-format
 msgid ""
 "we would like to warmly welcome you among the several million users of %s! "
@@ -586,47 +586,54 @@ msgstr ""
 "centrów badawczych i innych miejsc na świecie. A wszystko to uzyskujesz bez "
 "żadnych opłat!"
 
-#: web/lib/user/TextTemplates.php:89
+#: web/lib/user/TextTemplates.php:91
 #, php-format
 msgid "Connect your device to %s"
 msgstr "Podłącz urządzenie do %s"
 
-#: web/lib/user/TextTemplates.php:90
+#: web/lib/user/TextTemplates.php:92
 #, php-format
 msgid "%s installation made easy:"
 msgstr "Prosta instalacja %s:"
 
-#: web/lib/user/TextTemplates.php:91
+#: web/lib/user/TextTemplates.php:93
 msgid "Custom built for your organisation"
 msgstr "Przygotowane specjalnie dla Twojej instytucji"
 
-#: web/lib/user/TextTemplates.php:92
+#: web/lib/user/TextTemplates.php:94
 #, php-format
 msgid "Click here to download your %s installer"
 msgstr "Kliknij, by pobrać instalator %s"
 
-#: web/lib/user/TextTemplates.php:93
+#: web/lib/user/TextTemplates.php:95
+#, php-format
+msgid ""
+"%s provides access to thousands of Wi-Fi hotspots around the world, free of "
+"charge. <a href='%s'>Learn more</a>"
+msgstr ""
+
+#: web/lib/user/TextTemplates.php:96
 msgid "Select the user group"
 msgstr "Wybierz grupę użytkowników"
 
-#: web/lib/user/TextTemplates.php:94
+#: web/lib/user/TextTemplates.php:97
 msgid "select another"
 msgstr "wybierz inną"
 
-#: web/lib/user/TextTemplates.php:95
+#: web/lib/user/TextTemplates.php:98
 msgid "Choose another installer to download"
 msgstr "Wybierz inny instalator do pobrania"
 
-#: web/lib/user/TextTemplates.php:96
+#: web/lib/user/TextTemplates.php:99
 msgid "All platforms"
 msgstr "Wszystkie urządzenia"
 
-#: web/lib/user/TextTemplates.php:97
+#: web/lib/user/TextTemplates.php:100
 #, php-format
 msgid "Download your %s installer"
 msgstr "Pobierz instalator %s"
 
-#: web/lib/user/TextTemplates.php:98
+#: web/lib/user/TextTemplates.php:101
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
 "<br>When you click <b>Continue</b> this support page will be opened in a new "
@@ -636,19 +643,19 @@ msgstr ""
 "lokalnej strony wsparcia. <br>Kiedy klikniesz <b>Dalej </b> ta strona "
 "otworzy się w nowym oknie/karcie."
 
-#: web/lib/user/TextTemplates.php:99
+#: web/lib/user/TextTemplates.php:102
 #: web/skins/modern/accountstatus/accountstatus.php:226
 #: web/skins/modern/user/js/cat_js.php:278
 #: web/skins/modern/user/js/cat_js.php:286
 msgid "Continue"
 msgstr "Dalej"
 
-#: web/lib/user/TextTemplates.php:100
+#: web/lib/user/TextTemplates.php:103
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s"
 msgstr "Podpisane cyfrowo przez instytucję zarządzającą  %s"
 
-#: web/lib/user/TextTemplates.php:101
+#: web/lib/user/TextTemplates.php:104
 #, php-format
 msgid ""
 "You can download your %s installer via a personalised invitation link sent "
@@ -658,7 +665,7 @@ msgstr ""
 "przez Twój dział wsparcia. Skontaktuj się z działem wsparcia i poproś o taki "
 "link."
 
-#: web/lib/user/TextTemplates.php:102
+#: web/lib/user/TextTemplates.php:105
 #, php-format
 msgid ""
 "This site provides %s installers for many organisations, click here to see "
@@ -667,42 +674,14 @@ msgstr ""
 "System udostępnia instalatory  %s dla wielu instytucji, kliknij tutaj, by "
 "sprawdzić, czy Twoja instytucja jest na liście."
 
-#: web/lib/user/TextTemplates.php:103
+#: web/lib/user/TextTemplates.php:106
 msgid "Custom built for you"
 msgstr "Przygotowane specjalnie dla Ciebie"
 
-#: web/lib/user/TextTemplates.php:105
+#: web/lib/user/TextTemplates.php:108
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Podpisane cyfrowo przez instytucję zarządzającą %s: %s"
-
-#: web/skins/modern/div_user_welcome.php:33
-msgid ""
-"we would like to warmly welcome you among the several million users of "
-"eduroam®! From now on, you will be able to use internet access resources on "
-"thousands of universities, research centres and other places all over the "
-"globe. All of this completely free of charge!"
-msgstr ""
-"Gorąco witamy wśród kilkumilionowej rzeszy użytkowników usługi eduroam®! Od "
-"teraz będziesz mógł korzystać z dostępu internetowego na tysiącach "
-"uniwersytetów, centrów badawczych i innych miejsc na świecie. A wszystko to "
-"uzyskujesz bez żadnych opłat!"
-
-#: web/skins/modern/div_user_welcome.php:36
-msgid ""
-"Now that you have downloaded and installed a client configurator, all you "
-"need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal "
-"certificate') - and be online!"
-msgstr ""
-"Po tym jak już ściągnąłeś konfigurator kliencki, musisz tylko odnaleźć w "
-"pobliżu hotspot eduroam® oraz wprowadzić swoje dane uwierzytelniania (tak "
-"nazywamy parę 'identyfikator użytkownika i hasło' lub 'osobisty certyfikat') "
-"i będziesz podłączony!"
-
-#: web/skins/modern/index.php:78 web/skins/modern/test.php:80
-msgid "Authenticating"
-msgstr "Czekam na uwierzytelnienie"
 
 #: web/skins/modern/Menu.php:51
 msgid "About"
@@ -770,6 +749,34 @@ msgstr "Dołącz do programistów CAT"
 #: web/skins/modern/Menu.php:79
 msgid "Terms of use"
 msgstr "Warunki korzystania"
+
+#: web/skins/modern/div_user_welcome.php:33
+msgid ""
+"we would like to warmly welcome you among the several million users of "
+"eduroam®! From now on, you will be able to use internet access resources on "
+"thousands of universities, research centres and other places all over the "
+"globe. All of this completely free of charge!"
+msgstr ""
+"Gorąco witamy wśród kilkumilionowej rzeszy użytkowników usługi eduroam®! Od "
+"teraz będziesz mógł korzystać z dostępu internetowego na tysiącach "
+"uniwersytetów, centrów badawczych i innych miejsc na świecie. A wszystko to "
+"uzyskujesz bez żadnych opłat!"
+
+#: web/skins/modern/div_user_welcome.php:36
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an eduroam® hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Po tym jak już ściągnąłeś konfigurator kliencki, musisz tylko odnaleźć w "
+"pobliżu hotspot eduroam® oraz wprowadzić swoje dane uwierzytelniania (tak "
+"nazywamy parę 'identyfikator użytkownika i hasło' lub 'osobisty certyfikat') "
+"i będziesz podłączony!"
+
+#: web/skins/modern/index.php:78 web/skins/modern/test.php:80
+msgid "Authenticating"
+msgstr "Czekam na uwierzytelnienie"
 
 #: web/skins/modern/accountstatus/accountstatus.php:79
 msgid ""

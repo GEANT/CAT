@@ -5,13 +5,14 @@
 # Translators:
 # eduki <ecercos@xtec.cat>, 2013,2015-2016,2018
 # eduki <ecercos@xtec.cat>, 2012
+# jmontane, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-26 09:57+0100\n"
-"PO-Revision-Date: 2019-03-22 21:59+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2019-04-04 08:35+0200\n"
+"PO-Revision-Date: 2019-03-26 09:12+0000\n"
+"Last-Translator: jmontane\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/ca_ES/)\n"
 "Language: ca_ES\n"
@@ -117,7 +118,7 @@ msgstr "Personalització %s:%s (enviament complert)"
 msgid "Submitted attributes for %s '%s'"
 msgstr "Atributs enviats a %s '%s'"
 
-#: web/admin/edit_federation_result.php:55 web/admin/edit_idp_result.php:152
+#: web/admin/edit_federation_result.php:55 web/admin/edit_idp_result.php:156
 #: web/admin/edit_profile_result.php:246
 msgid "Continue to dashboard"
 msgstr "Continueu al panell de control"
@@ -180,10 +181,10 @@ msgid ""
 "but for best results, we suggest SVG. If you don't upload a logo, we will "
 "use the generic logo instead (see top-right corner of this page)."
 msgstr ""
-"<strong>Logo</strong>: Quan envieu un logo, l'incrustarem a tots els instal."
-"ladors que ho permetin. Acceptem qualsevosl format d'imatge, però per als "
-"millors resultats recomanem SVG. Si no envieu un logo, utilitzarem el logo "
-"genèric en el seu lloc (mireu la cantonada superior dreta)."
+"<strong>Logo</strong>: Quan envieu un logo, l'incrustarem a tots els "
+"instal·ladors que ho permetin. Acceptem qualsevol format d'imatge, però per "
+"als millors resultats recomanem SVG. Si no envieu un logo, utilitzarem el "
+"logo genèric en el seu lloc (mireu la cantonada superior dreta)."
 
 #: web/admin/edit_idp.php:114
 #, php-format
@@ -244,8 +245,7 @@ msgstr ""
 
 #: web/admin/edit_idp.php:145
 msgid "Please configure which SSIDs should be configured in the installers."
-msgstr ""
-"Indiqueu sisplau quins SSIDs s'han de configurar amb els instal.ladors."
+msgstr "Indiqueu quins SSIDs s'han de configurar amb els instal·ladors."
 
 #: web/admin/edit_idp.php:147
 msgid ""
@@ -284,9 +284,7 @@ msgstr ""
 #: web/admin/edit_idp.php:162
 msgid ""
 "Please configure which Consortium OIs should be configured in the installers."
-msgstr ""
-"Indiqueu sisplau quins Consorcis OI s'han de configurar amb els instal."
-"ladors."
+msgstr "Indiqueu quins Consorcis OI s'han de configurar amb els instal·ladors."
 
 #: web/admin/edit_idp.php:165
 msgid "Support for wired IEEE 802.1X:"
@@ -301,11 +299,11 @@ msgid ""
 "support on a device without an active wired ethernet card will fail)."
 msgstr ""
 "Si voleu configurar els dispositius dels vostres usuaris amb  IEEE 802.1X "
-"per a xarxes ethernet de cable, marqueu sisplau la caixa corresponent. "
-"TIngueu present que això farà el procés d'instal.lació un mica més "
-"dificultós en algunes plataformes (Windows: requereix privilegis "
-"d'administrador; Apple: falla en intentar instal.lar un perfil si no disposa "
-"de tarja ethernet activa)."
+"per a xarxes ethernet de cable, marqueu la caixa corresponent. Tingueu "
+"present que això farà el procés d'instal·lació un mica més dificultós en "
+"algunes plataformes (Windows: requereix privilegis d'administrador; Apple: "
+"falla en intentar instal·lar un perfil si no disposa de tarja ethernet "
+"activa)."
 
 #: web/admin/edit_idp.php:168
 msgid "Removal of bootstrap/onboarding SSIDs:"
@@ -352,7 +350,7 @@ msgid ""
 "desk at all, just leave these fields empty."
 msgstr ""
 "Si introduïu un valor aquí, s'afegirà als instal·ladors de tots els usuaris, "
-"i es mostrarà a la pàgina de descàrrega. Si disposeu de centres de suport "
+"i es mostrarà a la pàgina de baixada. Si disposeu de centres de suport "
 "diferents per a diferents grups d'usuaris (ho anomenem 'perfils'), podreu "
 "indicar-ho posteriorment en aquest assistent. Si no disposeu de cap centre "
 "de suport, podeu deixar aquests camps buits."
@@ -390,47 +388,47 @@ msgstr "%s: Assistent d'inscripció d'IdP (pas 2 completat)"
 msgid "Submitted attributes for IdP '%s'"
 msgstr "Atributs enviats a IdP '%s'"
 
-#: web/admin/edit_idp_result.php:97 web/admin/edit_idp_result.php:102
+#: web/admin/edit_idp_result.php:101 web/admin/edit_idp_result.php:106
 msgid "(WPA2/AES and WPA/TKIP)"
 msgstr "(WPA2/AES i WPA/TKIP)"
 
-#: web/admin/edit_idp_result.php:97 web/admin/edit_idp_result.php:105
+#: web/admin/edit_idp_result.php:101 web/admin/edit_idp_result.php:109
 msgid "(WPA2/AES)"
 msgstr "(WPA2/AES)"
 
-#: web/admin/edit_idp_result.php:115
+#: web/admin/edit_idp_result.php:119
 #, php-format
 msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
 msgstr ""
-"Els vostres instal.ladors configuraran els següents SSIDs: <strong>%s</"
+"Els vostres instal·ladors configuraran els següents SSIDs: <strong>%s</"
 "strong>"
 
-#: web/admin/edit_idp_result.php:115
+#: web/admin/edit_idp_result.php:119
 msgid "SSIDs configured"
 msgstr "SSID configurats"
 
-#: web/admin/edit_idp_result.php:119
+#: web/admin/edit_idp_result.php:123
 #, php-format
 msgid "Your installers will configure wired interfaces."
-msgstr "Els vostres instal.ladors configuraran les targes LAN."
+msgstr "Els vostres instal·ladors configuraran les targes LAN."
 
-#: web/admin/edit_idp_result.php:119
+#: web/admin/edit_idp_result.php:123
 msgid "Wired configured"
 msgstr "LAN configurada"
 
-#: web/admin/edit_idp_result.php:122
+#: web/admin/edit_idp_result.php:126
 msgid ""
 "We cannot generate installers because neither wireless SSIDs nor wired "
 "interfaces have been selected as a target!"
 msgstr ""
-"No podem configurar instal.ladors perquè no s'ha seleccionat SSIDs o LAN!"
+"No podem configurar instal·ladors perquè no s'ha seleccionat SSIDs o LAN!"
 
-#: web/admin/edit_idp_result.php:141
+#: web/admin/edit_idp_result.php:145
 #, php-format
 msgid "Continue to %s properties"
 msgstr "Continueu a les propietats de %s"
 
-#: web/admin/edit_idp_result.php:144
+#: web/admin/edit_idp_result.php:148
 #, php-format
 msgid ""
 "You did not submit an e-mail address. This is required for %s. Please go to "
@@ -441,11 +439,11 @@ msgstr ""
 "aneu al panell de control de %s i editeu-ne els ajustos de per a incloure "
 "l'adreça electrònica del centre de suport."
 
-#: web/admin/edit_idp_result.php:144
+#: web/admin/edit_idp_result.php:148
 msgid "No support e-mail!"
 msgstr "No hi ha correu d'ajuda!"
 
-#: web/admin/edit_idp_result.php:149
+#: web/admin/edit_idp_result.php:153
 msgid "Continue to RADIUS/EAP profile definition"
 msgstr "Seguiu a la definició del perfil RADIUS/EAP"
 
@@ -580,7 +578,7 @@ msgstr "Identitat externa especial per a les comprovacions de domini:"
 
 #: web/admin/edit_profile.php:280
 msgid "Installer Download Location"
-msgstr "Localització de la descàrrega de l'instal·lador"
+msgstr "Localització de la baixada de l'instal·lador"
 
 #: web/admin/edit_profile.php:284
 msgid ""
@@ -593,7 +591,7 @@ msgid ""
 "on the dashboard)."
 msgstr ""
 "El CAT disposa d'una àrea de descàrrega per als usuaris finals. Allà podran, "
-"per exemple, conèixer els canals de suport que heu introduit abans. El CAT "
+"per exemple, conèixer els canals de suport que heu introduït abans. El CAT "
 "també pot oferir de forma immediata els instal·ladors per al perfil "
 "escollit. Si no ho voleu, en el seu lloc podeu introduir un lloc web on "
 "voleu que els vostres usuaris siguin redirigits. Vosaltres, com a "
@@ -813,11 +811,11 @@ msgid ""
 "information before we can produce installers for you."
 msgstr ""
 "El tipus EAP s'ha afegit al perfil, però necessiteu completar la informació "
-"que manca abans que us poguem crear els instal·ladors."
+"que manca abans que us puguem crear els instal·ladors."
 
 #: web/admin/edit_profile_result.php:251
 msgid "Continue to Installer Fine-Tuning and Download"
-msgstr "Seguiu a Ajustos de l'Instal.lador i Descàrrega"
+msgstr "Seguiu a Ajustos de l'Instal·lador i Descàrrega"
 
 #: web/admin/edit_silverbullet.php:229
 msgid "Insecure mail domain!"
@@ -1547,7 +1545,7 @@ msgstr "No heu configurat correctament cap tipus EAP suportat!"
 
 #: web/admin/overview_idp.php:311
 msgid "Installer Fine-Tuning and Download"
-msgstr "Ajustos de l'instal.lador i Descàrrega"
+msgstr "Ajustos de l'instal·lador i Descàrrega"
 
 #: web/admin/overview_idp.php:320
 msgid "Edit"
@@ -2187,10 +2185,10 @@ msgid ""
 "language you configured. For the sake of all other languages, you may want "
 "to edit the profile again and populate the 'default/other' language field."
 msgstr ""
-"No heu indicat un 'llenguatge per defecte' per a %s. Això vol dir que només "
-"es mostrarà per als instal.ladors que estiguin configurats "
-"<strong>exactament</strong> en el llenguatge utilitzat. En nom de tots els "
-"altres llenguatges, podeu editar el perfil de nou i omplir-hi el camp 'per "
+"No heu indicat un 'llengua predeterminada' per a %s. Això vol dir que només "
+"es mostrarà per als instal·ladors que estiguin configurats "
+"<strong>exactament</strong> en la llengua utilitzada. En nom de tots les "
+"altres llengües, podeu editar el perfil de nou i omplir-hi el camp 'per "
 "defecte/altres'."
 
 #: web/lib/admin/PageDecoration.php:52

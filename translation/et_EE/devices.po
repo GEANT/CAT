@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-26 09:57+0100\n"
-"PO-Revision-Date: 2019-03-26 08:55+0000\n"
-"Last-Translator: Anne M <anne@eenet.ee>\n"
+"POT-Creation-Date: 2019-04-04 08:35+0200\n"
+"PO-Revision-Date: 2019-03-27 16:37+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/et_EE/)\n"
 "Language: et_EE\n"
@@ -288,56 +288,56 @@ msgstr "asutuse poolt antud kasutajanime ja parooli sisestamine"
 msgid "(%d times each, because %s is installed for %d SSIDs)"
 msgstr "(%d korda korrata, sest %s paigaldatakse %d SSID jaoks)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:426
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:430
 #, php-format
 msgid "SSID %s"
 msgstr "SSID %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:427
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:431
 #, php-format
 msgid "%s configuration for network name %s"
 msgstr "%s seadistus võrgule %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:438
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:442
 msgid "Wired Network"
 msgstr "Traadiga võrk"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:439
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:443
 #, php-format
 msgid "%s configuration for wired network"
 msgstr "%s seadistus traadiga võrgule"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:453
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:457
 msgid "Hotspot 2.0 Settings"
 msgstr "Hotspot 2.0 seaded"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:454
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:458
 #, php-format
 msgid "%s Hotspot 2.0 configuration"
 msgstr "%s Hotspot 2.0 seadistus"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:518
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:522
 #, php-format
 msgid "This SSID should not be used after bootstrapping %s"
 msgstr "Seda SSIDd ei peaks kasutama peale %si paigaldamist"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:520
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:524
 msgid "Disabled WiFi network"
 msgstr "WiFi võrk on keelatud"
 
 #. we don't include the import password. It's displayed on screen, and should be input by the user.
 #. <key>Password</key>
 #. <string>" . $this->clientCert['password'] . "</string>
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:613
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:617
 msgid "eduroam user certificate"
 msgstr "eduroami kasutaja sertifikaat"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:669
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:673
 #, php-format
 msgid "The %s Certification Authority"
 msgstr "%s, sertifitseerimiskeskus"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:671
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:675
 #, php-format
 msgid "%s CA"
 msgstr "%s CA"
@@ -505,7 +505,7 @@ msgstr "Ei"
 msgid "personal certificate file (p12 or pfx)"
 msgstr "isikusertifikaadi fail (p12 või pfx)"
 
-#: devices/linux/Device_Linux.php:156 devices/ms/Files/common.inc:1108
+#: devices/linux/Device_Linux.php:156 devices/ms/Files/common.inc:1110
 msgid "All files"
 msgstr "Kõik failid"
 
@@ -523,8 +523,8 @@ msgstr ""
 msgid "Write the file"
 msgstr "Kirjuta faili"
 
-#: devices/linux/Device_Linux.php:160 devices/ms/Files/common.inc:1254
-#: devices/ms/Files/common.inc:1274 devices/ms/Files/common.inc:1325
+#: devices/linux/Device_Linux.php:160 devices/ms/Files/common.inc:1256
+#: devices/ms/Files/common.inc:1276 devices/ms/Files/common.inc:1327
 msgid ""
 "Error: Your username must be of the form 'xxx@institutionID' e.g. "
 "'john@example.net'!"
@@ -685,7 +685,7 @@ msgstr "Süsteem on valmis."
 msgid "Network installation had errors."
 msgstr "Võrgu seadistamisel tekkisid vead."
 
-#: devices/ms/Files/common.inc:141 devices/ms/Files/common.inc:926
+#: devices/ms/Files/common.inc:141 devices/ms/Files/common.inc:928
 msgid "Please contact ${SUPPORT}."
 msgstr "Palun kontakteeru: ${SUPPORT}."
 
@@ -826,7 +826,7 @@ msgid ""
 "Please read the additional information from ${ORGANISATION} which will be "
 "displayed in a moment."
 msgstr ""
-"Järgmiseks palun loe ${ORGANISATION} asutuse kohta kohe kuvatavat lisateavet."
+"Järgmiseks palun loe asutuse ${ORGANISATION} kohta kohe kuvatavat lisateavet."
 
 #: devices/ms/Files/common.inc:812
 #, php-format
@@ -857,92 +857,92 @@ msgstr "Palun taaskäivita süsteem, kui paigaldamine on lõpetatud."
 msgid "installing wired profile"
 msgstr "paigaldame traadiga profiili"
 
-#: devices/ms/Files/common.inc:885 devices/ms/Files/common.inc:904
+#: devices/ms/Files/common.inc:887 devices/ms/Files/common.inc:906
 msgid "deleting profile $R1"
 msgstr "kustutame $R1 profiili"
 
-#: devices/ms/Files/common.inc:913
+#: devices/ms/Files/common.inc:915
 msgid "installing profile $R1"
 msgstr "paigaldame $R1 profiili"
 
-#: devices/ms/Files/common.inc:926
+#: devices/ms/Files/common.inc:928
 msgid "Profile installation error for $R1."
 msgstr "Probleem $R1 jaoks profiili paigaldamisega."
 
-#: devices/ms/Files/common.inc:951
+#: devices/ms/Files/common.inc:953
 msgid "installing credentials for wired"
 msgstr "kasutajakonto paigaldamine traadiga profiilile"
 
-#: devices/ms/Files/common.inc:957
+#: devices/ms/Files/common.inc:959
 msgid "installing credentials TLS"
 msgstr "TLS kasutajakonto andmete paigaldamine"
 
-#: devices/ms/Files/common.inc:1073
+#: devices/ms/Files/common.inc:1075
 msgid "installing credentials for profile $R1"
 msgstr "kasutajakonto paigaldamine profiilile $R1"
 
-#: devices/ms/Files/common.inc:1090 devices/ms/Files/geant_link.inc:125
+#: devices/ms/Files/common.inc:1092 devices/ms/Files/geant_link.inc:125
 msgid "Credentials installation problem"
 msgstr "Viga kasutajakonto paigaldamisel"
 
-#: devices/ms/Files/common.inc:1099
+#: devices/ms/Files/common.inc:1101
 #, php-format
 msgid "%s installer for"
 msgstr "%si paigaldusprogramm"
 
-#: devices/ms/Files/common.inc:1099
+#: devices/ms/Files/common.inc:1101
 msgid "Install personal certificate"
 msgstr "Paigalda isikusertifikaat"
 
-#: devices/ms/Files/common.inc:1102
+#: devices/ms/Files/common.inc:1104
 msgid "Preparing to install personal certificate."
 msgstr "Valmistume paigaldama isikusertifikaati"
 
-#: devices/ms/Files/common.inc:1102
+#: devices/ms/Files/common.inc:1104
 msgid "Click OK to continue"
 msgstr "Jätkamiseks klõpsa OK"
 
-#: devices/ms/Files/common.inc:1108
+#: devices/ms/Files/common.inc:1110
 msgid "Certificate files (*.p12)"
 msgstr "Sertifikaadi failid (*.p12)"
 
-#: devices/ms/Files/common.inc:1108
+#: devices/ms/Files/common.inc:1110
 msgid "Certificate files (*pfx)"
 msgstr "Sertifikaadi failid (*.pfx)"
 
-#: devices/ms/Files/common.inc:1111
+#: devices/ms/Files/common.inc:1113
 msgid "certificate password:"
 msgstr "sertifikaadi parool:"
 
-#: devices/ms/Files/common.inc:1113 devices/ms/Files/common.inc:1368
+#: devices/ms/Files/common.inc:1115 devices/ms/Files/common.inc:1378
 msgid "Username:"
 msgstr "Kasutajanimi:"
 
-#: devices/ms/Files/common.inc:1117
+#: devices/ms/Files/common.inc:1119
 msgid "Selected file: $Cert_file"
 msgstr "Valitud fail: $Cert_file"
 
-#: devices/ms/Files/common.inc:1119
+#: devices/ms/Files/common.inc:1121
 msgid "import password:"
-msgstr "importimise parool"
+msgstr "importimise parool:"
 
-#: devices/ms/Files/common.inc:1154
+#: devices/ms/Files/common.inc:1156
 msgid "No certificate file selected"
 msgstr "Sertifikaadi faili ei ole valitud"
 
-#: devices/ms/Files/common.inc:1158
+#: devices/ms/Files/common.inc:1160
 msgid "Incorrect import password$\\r$\\nenter again"
 msgstr "Importimise parool on vale$\\r$\\nsisesta uuesti"
 
-#: devices/ms/Files/common.inc:1160
+#: devices/ms/Files/common.inc:1162
 msgid "Incorrect certificate password$\\r$\\nenter again"
 msgstr "Sertifikaadi parool on vale$\\r$\\nsisesta uuesti"
 
-#: devices/ms/Files/common.inc:1234
+#: devices/ms/Files/common.inc:1236
 msgid "Username contained some trailing spaces which were removed."
 msgstr "Kasutajanimi sisaldas mõningaid tühikuid, mis eemaldati."
 
-#: devices/ms/Files/common.inc:1269
+#: devices/ms/Files/common.inc:1271
 msgid ""
 "Error: your username must be in the form of 'xxx@${REALM}'. Please enter the "
 "username in the correct format."
@@ -950,7 +950,7 @@ msgstr ""
 "Viga: kasutajanimi peab olema kujul 'xxx@${REALM}'. Palun sisesta "
 "kasutajanimi korrektsel kujul."
 
-#: devices/ms/Files/common.inc:1271
+#: devices/ms/Files/common.inc:1273
 msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'${REALM}'. Please enter the username in the correct format."
@@ -958,39 +958,38 @@ msgstr ""
 "Viga: kasutajanimi peab olema kujul 'xxx@asutuseID' ja peab lõppema "
 "'${REALM}' domeeniga. Palun sisesta kasutajanimi korrektsel kujul."
 
-#: devices/ms/Files/common.inc:1364
+#: devices/ms/Files/common.inc:1374
 msgid "User credentials"
 msgstr "Kasutajakonto andmed"
 
-#: devices/ms/Files/common.inc:1371
+#: devices/ms/Files/common.inc:1381
 msgid "Password:"
 msgstr "Parool:"
 
-#: devices/ms/Files/common.inc:1374
+#: devices/ms/Files/common.inc:1384
 msgid "Repeat password:"
 msgstr "Korda parooli:"
 
-#: devices/ms/Files/common.inc:1389
+#: devices/ms/Files/common.inc:1399
 msgid "Missing username"
 msgstr "Puudub kasutajanimi"
 
-#: devices/ms/Files/common.inc:1401
+#: devices/ms/Files/common.inc:1411
 msgid "Missing password"
 msgstr "Puudub parool"
 
-#: devices/ms/Files/common.inc:1407
-#, fuzzy
+#: devices/ms/Files/common.inc:1417
 msgid "Password mismatch"
 msgstr "Paroolid ei kattu"
 
-#: devices/ms/Files/common.inc:1498 devices/ms/Files/eap_w8.inc:31
+#: devices/ms/Files/common.inc:1508 devices/ms/Files/eap_w8.inc:31
 #: devices/ms/Files/geant_link.inc:33 devices/ms/Files/geant_link.inc:43
 #: devices/ms/Files/peap_tls.inc:31 devices/ms/Files/pwd.inc:30
 #: devices/ms/Files/pwd.inc:60
 msgid "Installation"
 msgstr "Paigaldamine"
 
-#: devices/ms/Files/common.inc:1498
+#: devices/ms/Files/common.inc:1508
 msgid "Checking for existing wireless profiles"
 msgstr "Kontrollime traadita profiilide olemasolu"
 

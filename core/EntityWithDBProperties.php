@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -30,6 +31,7 @@
  */
 
 namespace core;
+
 use Exception;
 
 /**
@@ -124,10 +126,10 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
             case "core\User":
                 return $this->userName;
             default:
-                throw new Exception("Operating on a class where we don't know the relevant identifier in the DB - ".get_class($this)."!");
+                throw new Exception("Operating on a class where we don't know the relevant identifier in the DB - " . get_class($this) . "!");
         }
     }
-    
+
     /**
      * This function retrieves the entity's attributes. 
      * 
@@ -152,7 +154,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
         }
         return $this->attributes;
     }
-    
+
     /**
      * deletes all attributes in this profile except the _file ones, these are reported as array
      *
@@ -245,28 +247,26 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * Retrieves data from the underlying tables, for situations where instantiating the IdP or Profile object is inappropriate
      * 
      * @param string $table institution_option or profile_option
-     * @param string $row   rowindex
+     * @param int $row   rowindex
      * @return string|boolean the data, or FALSE if something went wrong
      */
     public static function fetchRawDataByIndex($table, $row) {
         // only for select tables!
-        if ($table != "institution_option" && $table != "profile_option" && $table != "federation_option") {
-            return FALSE;
+        switch ($table) {
+            case "institution_option":
+            // fall-through intended
+            case "profile_option":
+            // fall-through intended
+            case "federation_option":
+                break;
+            default:
+                return FALSE;
         }
-        if (!is_numeric($row)) {
-            return FALSE;
-        }
-
         $handle = DBConnection::handle("INST");
         $blobQuery = $handle->exec("SELECT option_value from $table WHERE row = $row");
         // SELECT -> returns resource, not boolean
-        while ($returnedData =  mysqli_fetch_object(/** @scrutinizer ignore-type */ $blobQuery)) {
-            $blob = $returnedData->option_value;
-        }
-        if (!isset($blob)) {
-            return FALSE;
-        }
-        return $blob;
+        $dataset = mysqli_fetch_row(/** @scrutinizer ignore-type */ $blobQuery);
+        return $dataset[0] ?? FALSE;
     }
 
     /**
@@ -286,7 +286,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
         switch ($table) {
             case "profile_option": // both of these are similar
                 $columnName = "profile_id";
-                // fall-through intended
+            // fall-through intended
             case "institution_option":
                 $blobId = -1;
                 $columnName = $columnName ?? "institution_id";
@@ -298,7 +298,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
                 if ($blobId == -1) {
                     return []; // err on the side of caution: we did not find any data. It's a severe error, but not fatal. Nobody owns non-existent data.
                 }
-                
+
                 if ($table == "profile_option") { // is the profile in question public?
                     $profile = ProfileFactory::instantiate($blobId);
                     if ($profile->readinessLevel() == AbstractProfile::READINESS_LEVEL_SHOWTIME) { // public data

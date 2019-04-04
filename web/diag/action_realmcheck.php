@@ -143,6 +143,7 @@ $errorstate = [];
     server_cert.validTo = "<?php echo _("Valid to:") ?>";
     server_cert.serialNumber = "<?php echo _("Serial number:") ?>";
     server_cert.sha1 = "<?php echo _("SHA1 fingerprint:") ?>";
+    var not_known_server = "<?php echo _("Connected to undetermined server") ?>";
     $(document).ready(function () {
         $('.caresult, .eap_test_results, .udp_results').on('click', '.morelink', function () {
             if ($(this).hasClass('less')) {
@@ -331,17 +332,14 @@ $errorstate = [];
             $.each(server_cert, function (l, s) {
                 cert_data = cert_data + "<dt>" + s + "</dt><dd>" + v.server_cert[l] + "</dd>";
             });
-
             var ext = '';
             $.each(v.server_cert.extensions, function (l, s) {
                 if (ext !== '')
                     ext = ext + '<br>';
                 ext = ext + '<strong>' + l + ': </strong>' + s;
             });
-
             cert_data = cert_data + "<dt><?php echo _("Extensions") ?></dt><dd>" + ext + "</dd></dl>";
             cert_data = cert_data + "<a href='' class='morelink'><?php echo _("show server certificate details") ?>&raquo;</a></div></tr>";
-
             if (v.level > L_OK && v.cert_oddities !== undefined) {
                 $.each(v.cert_oddities, function (j, w) {
                     $("#src" + data.hostindex).append('<tr class="results_tr"><td>&nbsp;</td><td class="icon_td"><img src="' + icons[w.level] + '"></td><td>' + w.message + '</td></tr>');
@@ -349,7 +347,12 @@ $errorstate = [];
             }
             $("#src" + data.hostindex).append(cert_data);
         } else {
-            $("#src" + data.hostindex).html('<br/><?php printf(_("elapsed time: %sms."), "'+v.time_millisec+'&nbsp;") ?><p>' + v.message + '</p>');
+            $("#src" + data.hostindex).html('<strong>' + not_known_server + '</strong><br/><?php printf(_("elapsed time: %sms."), "'+v.time_millisec+'&nbsp;") ?><p>' + v.message + '</p>');
+            if (v.level > L_OK && v.cert_oddities !== undefined) {
+                $.each(v.cert_oddities, function (j, w) {
+                    $("#src" + data.hostindex).append('<tr class="results_tr"><td>&nbsp;</td><td class="icon_td"><img src="' + icons[w.level] + '"></td><td>' + w.message + '</td></tr>');
+                });
+            }
         }
         global_level_udp = Math.max(global_level_udp, v.level);
         $(".server_cert").show();

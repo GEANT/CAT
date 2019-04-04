@@ -5,7 +5,7 @@
 # Translators:
 # Alice Vixie <alice.vixie@osu.cz>, 2015
 # Ludmila Kovářová <ludmila.kovarova@fsv.cvut.cz>, 2015
-# Martin Šimek <simek.mar@gmail.com>, 2015
+# Martin Šimek <simek.mar@gmail.com>, 2015,2019
 # martins <ms@uakom.sk>, 2012-2013
 # Petr Adamec <p.b.adamec@gmail.com>, 2013,2015
 # Petr Adamec <p.b.adamec@gmail.com>, 2013,2015-2019
@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-26 09:57+0100\n"
-"PO-Revision-Date: 2019-03-25 13:00+0000\n"
+"POT-Creation-Date: 2019-04-04 08:35+0200\n"
+"PO-Revision-Date: 2019-03-27 12:48+0000\n"
 "Last-Translator: Martin Šimek <simek.mar@gmail.com>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/"
 "eduroam_devel/cat/language/cs_CZ/)\n"
@@ -60,10 +60,10 @@ msgid ""
 "Later you will be prompted to enter your password to allow making changes to "
 "the profile, this time it is your computer password."
 msgstr ""
-"Během instalace budete nejprve požádáni o zadání nastavení certifikátu kde "
-"budete muset zadat PIN kód pro import, uvedený na této stránce. Později "
-"budete vyzváni k zadání hesla, aby bylo možné provést změny profilu, "
-"tentokrát to je heslo do vašeho počítače."
+"Během instalace budete nejprve požádáni o zadání nastavení certifikátu, kde "
+"budete muset zadat PIN kód pro import, který je uveden na této stránce. "
+"Později budete vyzváni k zadání hesla, aby bylo možné provést změny profilu. "
+"Tentokrát to je heslo do vašeho počítače."
 
 #: devices/Devices-template.php:208
 msgid "Apple macOS Sierra"
@@ -100,9 +100,9 @@ msgid ""
 "password to the certificate and there you need to enter the import PIN shown "
 "on this page."
 msgstr ""
-"Během instalace budete nejprve požádáni o zadání hesla! Později budete "
-"vyzváni k zadání hesla k certifikátu a budete muset zadat PIN kód pro "
-"vložení, který je uveden na této stránce."
+"Během instalace budete nejprve požádáni o zadání hesla do vašeho počítače! "
+"Později budete vyzváni k zadání hesla k certifikátu a budete muset zadat PIN "
+"kód pro import, který je uveden na této stránce."
 
 #: devices/Devices-template.php:306
 msgid "Apple iOS mobile devices (iOS 7-11)"
@@ -201,7 +201,7 @@ msgid ""
 msgstr ""
 "Tato volba nabízí všeobecný XML soubor pro konfiguraci EAP, který umí "
 "zpracovat aplikace k tomu určené jako eduroamCAT pro Android a pro Linux. To "
-"je však stále nehotová funkce."
+"je však stále experimentální funkce."
 
 #: devices/Devices-template.php:479
 msgid "Test"
@@ -217,7 +217,7 @@ msgid ""
 "if there is no 'Terms of Use' configured, the installer will display a "
 "corresponding hint to the user instead."
 msgstr ""
-"Nelze ověřit příponu zadanou uživatelem; pokud nejsou nastaveny \"Podmínky "
+"Nelze ověřit příponu zadanou uživatelem. Pokud nejsou nastaveny \"Podmínky "
 "použití\", zobrazí instalátor uživateli namísto toho odpovídající nápovědu."
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:84
@@ -233,7 +233,7 @@ msgstr "%s konfigurace pro organizaci '%s' - poskytuje %s"
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:139
 #, php-format
 msgid "Important Notice: your username must end with @%s!"
-msgstr "Důležité upozornění: vaše uživatelské jméno musí končit se @%s!"
+msgstr "Důležité upozornění: vaše uživatelské jméno musí končit znakem @%s!"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:143
 msgid ""
@@ -258,7 +258,7 @@ msgid ""
 "For best results, please use the built-in browser (Safari) to open the "
 "configuration file."
 msgstr ""
-"Pro dosažení nejlepších výsledků, použijte k otevření konfiguračního souboru "
+"Pro dosažení nejlepších výsledků použijte k otevření konfiguračního souboru "
 "vestavěný prohlížeč (Safari)."
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:240
@@ -266,8 +266,8 @@ msgid ""
 "The profile will install itself after you click (or tap) the button. You "
 "will be asked for confirmation/input at several points:"
 msgstr ""
-"Instalaci profilu spustíte kliknutím na tlačítko. V průběhu instalace budete "
-"vícekrát požádáni o potvrzení případně o vstupní údaje:"
+"Instalaci profilu spustíte kliknutím na tlačítko Stáhnout. V průběhu "
+"instalace budete vícekrát požádáni o potvrzení případně o vstupní údaje:"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:242
 msgid "to install the profile"
@@ -296,56 +296,56 @@ msgstr "zadejte svoje uživatelské jméno a heslo poskytnuté vaší organizac�
 msgid "(%d times each, because %s is installed for %d SSIDs)"
 msgstr "(%d krát, protože %s je nainstalovaný pro %d SSID)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:426
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:430
 #, php-format
 msgid "SSID %s"
 msgstr "SSID %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:427
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:431
 #, php-format
 msgid "%s configuration for network name %s"
 msgstr "Nastavení %s pro síť s názvem %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:438
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:442
 msgid "Wired Network"
 msgstr "Kabelová síť"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:439
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:443
 #, php-format
 msgid "%s configuration for wired network"
 msgstr "Konfigurace %s pro kabelovou síť."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:453
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:457
 msgid "Hotspot 2.0 Settings"
 msgstr "Nastavení Hotspot 2.0"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:454
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:458
 #, php-format
 msgid "%s Hotspot 2.0 configuration"
 msgstr "Konfigurace Hotspot 2.0 %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:518
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:522
 #, php-format
 msgid "This SSID should not be used after bootstrapping %s"
 msgstr "Toto SSID by nemělo být po instalaci %s již používáno."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:520
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:524
 msgid "Disabled WiFi network"
 msgstr "WiFi síť je zakázána."
 
 #. we don't include the import password. It's displayed on screen, and should be input by the user.
 #. <key>Password</key>
 #. <string>" . $this->clientCert['password'] . "</string>
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:613
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:617
 msgid "eduroam user certificate"
 msgstr "uživatelský certifikát pro eduroam"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:669
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:673
 #, php-format
 msgid "The %s Certification Authority"
 msgstr "Certifikační autorita %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:671
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:675
 #, php-format
 msgid "%s CA"
 msgstr "%s CA"
@@ -372,10 +372,10 @@ msgid ""
 "or your version of NetworkManager is too old, a wpa_supplicant config file "
 "will be created instead."
 msgstr ""
-"Instalační program je ve formě skriptu v Pythonu. Pokusí se nakonfigurovat "
-"%s pomocí aplikace NetworkManager. Pokud je verze aplikace NetworkManager ve "
-"vašem systému příliš stará nebo není k dispozici, bude vytvořen konfigurační "
-"soubor pro nástroj wpa_supplicant."
+"Instalační program bude připraven ve formě skriptu v Pythonu. Pokusí se "
+"nakonfigurovat %s pomocí aplikace NetworkManager. Pokud je verze aplikace "
+"NetworkManager na vašem systému příliš stará nebo není k dispozici, bude "
+"vytvořen konfigurační soubor pro nástroj wpa_supplicant."
 
 #: devices/linux/Device_Linux.php:86
 #, php-format
@@ -383,7 +383,7 @@ msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to the following networks:"
 msgstr ""
-"Zároveň s nastavením <strong>%s</strong> bude nastavený i přístup k "
+"Zároveň s nastavením <strong>%s</strong> bude nastaven také přístup k "
 "následujícím sítím:"
 
 #: devices/linux/Device_Linux.php:88 devices/ms/WindowsCommon.php:158
@@ -409,7 +409,7 @@ msgid ""
 "The installer will create .cat_installer sub-directory in your home "
 "directory and will copy your server certificates there."
 msgstr ""
-"Instalátor vytvoří ve vašem domácím adresáři novou složku .cat_installer "
+"Instalátor vytvoří ve vašem domácím adresáři novou složku .cat_installer a "
 "nahraje do ní vaše serverové certifikáty."
 
 #: devices/linux/Device_Linux.php:104
@@ -421,12 +421,11 @@ msgid ""
 "both the file and the password available during the installation process. "
 "Your p12 file will also be copied to the .cat_installer directory."
 msgstr ""
-"Pro připojení k vaší síti potřebujete svůj osobní certifikát uložený v "
-"souboru s příponou .p12 . Takový certifikát byste si měli zajistit u  vaší "
-"organizace. Zjistěte si na tamních stránkách podpory, jak na to. A dále: "
-"soubory p12 jsou chráněné heslem, takže během instalace budete potřebovat "
-"soubor i heslo. Váš soubor .p12 bude také nakopírován do složky ."
-"cat_installer ."
+"Pro připojení k síti budete potřebovat osobní certifikát uložený v souboru s "
+"příponou .p12, který získáte od vaší organizace. Zjistěte si na stránkách "
+"vaší podpory, jak na to. Soubor s certifikátem je obvykle chráněný heslem, "
+"mějte jej prosím při instalaci k dispozici. Soubor s certifikátem bude také "
+"nakopírován do složky .cat_installer."
 
 #. not EAP-TLS
 #: devices/linux/Device_Linux.php:106 devices/ms/WindowsCommon.php:168
@@ -447,7 +446,7 @@ msgid ""
 "the network automatically each time you are in the range."
 msgstr ""
 "V průběhu instalace budete požádáni o zadání vašeho uživatelského jména a "
-"hesla. Tyto údaje budou uloženy a použity při dalším přihlášení k síti "
+"hesla. Tyto údaje budou uloženy a použity při dalším přihlášení k síti, "
 "budete-li v jejím dosahu."
 
 #: devices/linux/Device_Linux.php:139
@@ -518,7 +517,7 @@ msgstr "N"
 msgid "personal certificate file (p12 or pfx)"
 msgstr "soubor osobního certifikátu (p12 nebo pfx)"
 
-#: devices/linux/Device_Linux.php:156 devices/ms/Files/common.inc:1108
+#: devices/linux/Device_Linux.php:156 devices/ms/Files/common.inc:1110
 msgid "All files"
 msgstr "Všechny soubory"
 
@@ -536,8 +535,8 @@ msgstr ""
 msgid "Write the file"
 msgstr "Zapsat soubor"
 
-#: devices/linux/Device_Linux.php:160 devices/ms/Files/common.inc:1254
-#: devices/ms/Files/common.inc:1274 devices/ms/Files/common.inc:1325
+#: devices/linux/Device_Linux.php:160 devices/ms/Files/common.inc:1256
+#: devices/ms/Files/common.inc:1276 devices/ms/Files/common.inc:1327
 msgid ""
 "Error: Your username must be of the form 'xxx@institutionID' e.g. "
 "'john@example.net'!"
@@ -610,9 +609,9 @@ msgid ""
 msgstr ""
 "Instalační program %s bude připraven ve formě spustitelného souboru s "
 "příponou .exe. Po spuštění nakonfiguruje %s na vašem zařízení a vytvoří "
-"jeden nebo více síťových profilů.<p>Kliknutím na tlačítku Stáhnout bude "
-"instalační program uložen. Zkopírujte jej na zařízení kde chcete "
-"nakonfigurovat eduroam a spusťte jej."
+"jeden nebo více síťových profilů.<p>Kliknutím na tlačítko Stáhnout bude "
+"instalační program uložen. Zkopírujte jej na zařízení kde, chcete "
+"nakonfigurovat eduroam, a spusťte jej."
 
 #: devices/ms/WindowsCommon.php:164
 msgid ""
@@ -622,10 +621,10 @@ msgid ""
 "be obtained. Such certificate files are password protected. You should have "
 "both the file and the password available during the installation process."
 msgstr ""
-"Pro připojení k síti budete potřebovat osobní certifikát ve formátu souboru "
-"p12. Certifikát získáte od vaší organizace. Více o získání certifikátu se "
-"dozvíte na stránkách uživatelské podpory. Soubory s certifikátem jsou "
-"chráněné heslem, mějte jej prosím při instalaci k dispozici."
+"Pro připojení k síti budete potřebovat osobní certifikát uložený v souboru s "
+"příponou .p12, který získáte od vaší organizace. Zjistěte si na stránkách "
+"vaší podpory, jak na to. Soubor s certifikátem je obvykle chráněný heslem, "
+"mějte jej prosím při instalaci k dispozici."
 
 #: devices/ms/WindowsCommon.php:172
 msgid ""
@@ -636,7 +635,7 @@ msgid ""
 msgstr ""
 "Při prvním přihlášení k síti vás systém Windows vyzve k zadání vašeho "
 "uživatelského jména a hesla. Tyto údaje budou uloženy a použity při dalším "
-"přihlášení k síti budete-li v jejím dosahu."
+"přihlášení k síti, budete-li v jejím dosahu."
 
 #: devices/ms/WindowsCommon.php:175
 msgid ""
@@ -648,7 +647,7 @@ msgstr ""
 #: devices/ms/WindowsCommon.php:328 devices/ms/WindowsCommon.php:329
 #, php-format
 msgid "%s installer for %s"
-msgstr "Instalační program %s pre organizaci %s"
+msgstr "Instalační program %s pro organizaci %s"
 
 #: devices/redirect_dev/Device_RedirectDev.php:44
 msgid ""
@@ -701,7 +700,7 @@ msgstr "Váš systém je připraven."
 msgid "Network installation had errors."
 msgstr "V průběhu instalace se vyskytly chyby."
 
-#: devices/ms/Files/common.inc:141 devices/ms/Files/common.inc:926
+#: devices/ms/Files/common.inc:141 devices/ms/Files/common.inc:928
 msgid "Please contact ${SUPPORT}."
 msgstr "Kontaktujte, prosím, ${SUPPORT}."
 
@@ -737,14 +736,14 @@ msgstr "nebylo možné nainstalovat certifikát"
 msgid ""
 "The non TKIP profiles are preferred. Always use them if you have a choice."
 msgstr ""
-"Profily s pokročilým šifrováním bez TKIP jsou bezpečnější. Použijte je proto "
-"vždy, pokud je to možné."
+"Profily bez šifrování TKIP jsou bezpečnější. Pokud je to možné, nepoužívejte "
+"TKIP."
 
 #: devices/ms/Files/common.inc:466
 msgid "The non TKIP profile is preferred. Always use it if you have a choice."
 msgstr ""
-"Profily s pokročilým šifrováním bez TKIP je bezpečnější. Použijte je proto "
-"vždy, pokud je to možné."
+"Profily bez šifrování TKIP jsou bezpečnější. Pokud je to možné, nepoužívejte "
+"TKIP."
 
 #: devices/ms/Files/common.inc:472 devices/ms/Files/common.inc:480
 msgid "This installer has been prepared for ${ORGANISATION}"
@@ -752,7 +751,7 @@ msgstr "Tento instalační program byl připravený pro ${ORGANISATION}"
 
 #: devices/ms/Files/common.inc:473
 msgid "The installer will create the following wireless profiles:"
-msgstr "Instalační program vytvoří následující profily bezdrátových sítí:"
+msgstr "Instalační program vytvoří profily těchto bezdrátových sítí:"
 
 #: devices/ms/Files/common.inc:481
 msgid "The installer will create the wireless profile:"
@@ -764,7 +763,8 @@ msgid ""
 "10 and newer. Please download the correct installer and try again."
 msgstr ""
 "Provozujete Windows $WindowsName, ale tento instalátor je jenom pro Windows "
-"10 a novější. Stáhněte si instalátor pro správnou verzi a zkuste to znovu."
+"10 a novější. Stáhněte si instalátor pro správnou verzi Windows a zkuste to "
+"znovu."
 
 #: devices/ms/Files/common.inc:570 devices/ms/Files/common.inc:577
 msgid ""
@@ -772,7 +772,7 @@ msgid ""
 "8 and 8.1. Please download the correct installer and try again."
 msgstr ""
 "Provozujete Windows $WindowsName, ale tento instalátor je jenom pro Windows "
-"8 a 8.1. Stáhněte si instalátor pro správnou verzi a zkuste to znovu."
+"8 a 8.1. Stáhněte si instalátor pro správnou verzi Windows a zkuste to znovu."
 
 #: devices/ms/Files/common.inc:586
 msgid ""
@@ -780,8 +780,8 @@ msgid ""
 "Vista and Windows 7. Please download the correct installer and try again."
 msgstr ""
 "Provozujete Windows $WindowsName, ale tento instalátor je jenom pro Windows "
-"Vista a Windows 7. Stáhněte si instalátor pro správnou verzi a zkuste to "
-"znovu."
+"Vista a Windows 7. Stáhněte si instalátor pro správnou verzi Windows a "
+"zkuste to znovu."
 
 #: devices/ms/Files/common.inc:622
 msgid ""
@@ -876,94 +876,94 @@ msgstr "Po dokončení instalace restartujte prosím váš systém."
 
 #: devices/ms/Files/common.inc:846
 msgid "installing wired profile"
-msgstr "Instaluje se profil pro pevnou síť"
+msgstr "Instaluje se profil pro kabelovou síť"
 
-#: devices/ms/Files/common.inc:885 devices/ms/Files/common.inc:904
+#: devices/ms/Files/common.inc:887 devices/ms/Files/common.inc:906
 msgid "deleting profile $R1"
 msgstr "smazání profilu $R1"
 
-#: devices/ms/Files/common.inc:913
+#: devices/ms/Files/common.inc:915
 msgid "installing profile $R1"
 msgstr "instalace profilu $R1"
 
-#: devices/ms/Files/common.inc:926
+#: devices/ms/Files/common.inc:928
 msgid "Profile installation error for $R1."
 msgstr "Chyba při instalaci profilu $R1."
 
-#: devices/ms/Files/common.inc:951
+#: devices/ms/Files/common.inc:953
 msgid "installing credentials for wired"
 msgstr "Instaluji přihlašovací údaje pro kabelovou síť."
 
-#: devices/ms/Files/common.inc:957
+#: devices/ms/Files/common.inc:959
 msgid "installing credentials TLS"
 msgstr "Instaluji přihlašovací údaje pro TLS"
 
-#: devices/ms/Files/common.inc:1073
+#: devices/ms/Files/common.inc:1075
 msgid "installing credentials for profile $R1"
 msgstr "nastavení přihlašovacích údajů pro profil $R1"
 
-#: devices/ms/Files/common.inc:1090 devices/ms/Files/geant_link.inc:125
+#: devices/ms/Files/common.inc:1092 devices/ms/Files/geant_link.inc:125
 msgid "Credentials installation problem"
 msgstr "Problém s nastavením přihlašovacích údajů"
 
-#: devices/ms/Files/common.inc:1099
+#: devices/ms/Files/common.inc:1101
 #, php-format
 msgid "%s installer for"
 msgstr "instalační program %s pro"
 
-#: devices/ms/Files/common.inc:1099
+#: devices/ms/Files/common.inc:1101
 msgid "Install personal certificate"
 msgstr "Instalovat osobní certifikát"
 
-#: devices/ms/Files/common.inc:1102
+#: devices/ms/Files/common.inc:1104
 msgid "Preparing to install personal certificate."
 msgstr "Připravuje se instalace osobního certifikátu."
 
-#: devices/ms/Files/common.inc:1102
+#: devices/ms/Files/common.inc:1104
 msgid "Click OK to continue"
 msgstr "Pro pokračování stiskněte OK"
 
-#: devices/ms/Files/common.inc:1108
+#: devices/ms/Files/common.inc:1110
 msgid "Certificate files (*.p12)"
 msgstr "Soubory s certifikátem (*.p12)"
 
-#: devices/ms/Files/common.inc:1108
+#: devices/ms/Files/common.inc:1110
 msgid "Certificate files (*pfx)"
 msgstr "Soubory s certifikátem (*pfx)"
 
-#: devices/ms/Files/common.inc:1111
+#: devices/ms/Files/common.inc:1113
 msgid "certificate password:"
 msgstr "heslo k certifikátu:"
 
-#: devices/ms/Files/common.inc:1113 devices/ms/Files/common.inc:1368
+#: devices/ms/Files/common.inc:1115 devices/ms/Files/common.inc:1378
 msgid "Username:"
 msgstr "Uživatelské jméno:"
 
-#: devices/ms/Files/common.inc:1117
+#: devices/ms/Files/common.inc:1119
 msgid "Selected file: $Cert_file"
 msgstr "Vybraný soubor: $Cert_file"
 
-#: devices/ms/Files/common.inc:1119
+#: devices/ms/Files/common.inc:1121
 msgid "import password:"
 msgstr "heslo pro vložení"
 
-#: devices/ms/Files/common.inc:1154
+#: devices/ms/Files/common.inc:1156
 msgid "No certificate file selected"
 msgstr "Nebyl vybrán soubor s certifikátem"
 
-#: devices/ms/Files/common.inc:1158
+#: devices/ms/Files/common.inc:1160
 msgid "Incorrect import password$\\r$\\nenter again"
 msgstr "Nesprávné heslo ke vložení$\\r$\\nzadajte znovu heslo"
 
-#: devices/ms/Files/common.inc:1160
+#: devices/ms/Files/common.inc:1162
 msgid "Incorrect certificate password$\\r$\\nenter again"
 msgstr "Nesprávné heslo k certifikátu$\\r$\\nzadejte znovu heslo"
 
-#: devices/ms/Files/common.inc:1234
+#: devices/ms/Files/common.inc:1236
 msgid "Username contained some trailing spaces which were removed."
-msgstr "Mezery které obsahovalo uživatelské jméno byly odstraněny."
+msgstr "Uživatelské jméno obsahovalo mezery, které odstraněny."
 
-#: devices/ms/Files/common.inc:1269
+#: devices/ms/Files/common.inc:1271
 msgid ""
 "Error: your username must be in the form of 'xxx@${REALM}'. Please enter the "
 "username in the correct format."
@@ -971,7 +971,7 @@ msgstr ""
 "Chyba: Vaše uživatelské jméno musí být ve formátu 'jméno@${REALM}'. Zadejte "
 "prosím uživatelské jméno ve správném formátu."
 
-#: devices/ms/Files/common.inc:1271
+#: devices/ms/Files/common.inc:1273
 msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'${REALM}'. Please enter the username in the correct format."
@@ -979,39 +979,38 @@ msgstr ""
 "Chyba: Vaše uživatelské jméno musí být ve formátu 'jméno@institutionID' a "
 "končit s '${REALM}'. Zadejte prosím uživatelské jméno ve správném formátu."
 
-#: devices/ms/Files/common.inc:1364
+#: devices/ms/Files/common.inc:1374
 msgid "User credentials"
 msgstr "Přihlašovací údaje"
 
-#: devices/ms/Files/common.inc:1371
+#: devices/ms/Files/common.inc:1381
 msgid "Password:"
 msgstr "Heslo:"
 
-#: devices/ms/Files/common.inc:1374
+#: devices/ms/Files/common.inc:1384
 msgid "Repeat password:"
 msgstr "Zopakujte heslo:"
 
-#: devices/ms/Files/common.inc:1389
+#: devices/ms/Files/common.inc:1399
 msgid "Missing username"
 msgstr "Chybí uživatelské jméno"
 
-#: devices/ms/Files/common.inc:1401
+#: devices/ms/Files/common.inc:1411
 msgid "Missing password"
 msgstr "Chybí heslo"
 
-#: devices/ms/Files/common.inc:1407
-#, fuzzy
+#: devices/ms/Files/common.inc:1417
 msgid "Password mismatch"
-msgstr "Hesla se neshodují"
+msgstr "Heslo není shodné"
 
-#: devices/ms/Files/common.inc:1498 devices/ms/Files/eap_w8.inc:31
+#: devices/ms/Files/common.inc:1508 devices/ms/Files/eap_w8.inc:31
 #: devices/ms/Files/geant_link.inc:33 devices/ms/Files/geant_link.inc:43
 #: devices/ms/Files/peap_tls.inc:31 devices/ms/Files/pwd.inc:30
 #: devices/ms/Files/pwd.inc:60
 msgid "Installation"
 msgstr "Instalace"
 
-#: devices/ms/Files/common.inc:1498
+#: devices/ms/Files/common.inc:1508
 msgid "Checking for existing wireless profiles"
 msgstr "Kontrola existujících bezdrátových profilů"
 
@@ -1073,5 +1072,4 @@ msgstr "Instaluji přihlašovací údaje pro ${PROVIDERID}"
 #: devices/ms/Files/pwd.inc:48
 msgid "EAP-pwd installation error. Please try again or contact Support."
 msgstr ""
-"Chyba při instalaci EAP-pwd. Zkuste to, prosím, znova, nebo kontaktujte "
-"podporu."
+"Chyba při instalaci EAP-pwd. Zkuste to prosím znova nebo kontaktujte podporu."

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"POT-Creation-Date: 2019-04-04 08:35+0200\n"
 "PO-Revision-Date: 2019-03-25 09:19+0000\n"
 "Last-Translator: Dubravko Penezic <dpenezic@gmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/eduroam_devel/"
@@ -447,7 +447,7 @@ msgstr "Uvijeti korištenja"
 msgid "(for legal reasons, the Terms of Use are in English only)"
 msgstr "(iz pravnih razloga Pravila koristenja su na engleskom jeziku)"
 
-#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:88
+#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:90
 #, php-format
 msgid "Welcome to %s"
 msgstr "Dobro došli na %s"
@@ -501,17 +501,17 @@ msgid ""
 "to the <a href='%s'>Start Page</a>."
 msgstr "Najbolje bi bilo da se vratite na <a href='%s'>početnu stranicu</a>."
 
-#: web/tou.php:70 web/skins/modern/Divs.php:288
+#: web/tou.php:70 web/skins/modern/Divs.php:291
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "%s obavijesti privatnosti"
 
-#: web/lib/user/TextTemplates.php:81
+#: web/lib/user/TextTemplates.php:83
 #, php-format
 msgid "Welcome aboard the %s user community!"
 msgstr "Dobrodošli u %s korisničku zajednicu!"
 
-#: web/lib/user/TextTemplates.php:82
+#: web/lib/user/TextTemplates.php:84
 msgid ""
 "Your download will start shortly. In case of problems with the automatic "
 "download please use this direct <a href=''>link</a>."
@@ -519,12 +519,12 @@ msgstr ""
 "Vasa programska podrska u dolasku biti će pokrenuta u kratkom vremenu.Ako se "
 "to ne dogodi odaberite <a href=''>link</a>."
 
-#: web/lib/user/TextTemplates.php:83 web/skins/modern/div_user_welcome.php:30
+#: web/lib/user/TextTemplates.php:85 web/skins/modern/div_user_welcome.php:30
 #, php-format
 msgid "Dear user from %s,"
 msgstr "Dragi korisniče iz %s,"
 
-#: web/lib/user/TextTemplates.php:84
+#: web/lib/user/TextTemplates.php:86
 #, php-format
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
@@ -536,7 +536,7 @@ msgstr ""
 "pronaći pristupnu točku u svojoj blizini te unijeti svoje korisničke podatke "
 "(korisničko ime i lozinku ili osobni certifikat) te biti online!"
 
-#: web/lib/user/TextTemplates.php:85 web/skins/modern/div_user_welcome.php:38
+#: web/lib/user/TextTemplates.php:87 web/skins/modern/div_user_welcome.php:38
 #, php-format
 msgid ""
 "Should you have any problems using this service, please always contact the "
@@ -547,11 +547,11 @@ msgstr ""
 "helpdesk od %s. Oni će dijagnosticirati problem i pomoći vam. Možete ih "
 "kontaktirati na slijedeće načine."
 
-#: web/lib/user/TextTemplates.php:86 web/skins/modern/div_user_welcome.php:41
+#: web/lib/user/TextTemplates.php:88 web/skins/modern/div_user_welcome.php:41
 msgid "Back to downloads"
 msgstr "Povratak na dohvat podataka"
 
-#: web/lib/user/TextTemplates.php:87
+#: web/lib/user/TextTemplates.php:89
 #, php-format
 msgid ""
 "we would like to warmly welcome you among the several million users of %s! "
@@ -563,47 +563,54 @@ msgstr ""
 "u mogućnosti koristiti internet pristup na tisuće sveučilišta, istraživačkih "
 "centara i drugih mjesta širom svijeta. I to potpuno besplatno."
 
-#: web/lib/user/TextTemplates.php:89
+#: web/lib/user/TextTemplates.php:91
 #, php-format
 msgid "Connect your device to %s"
 msgstr "Povežite svoj uređaj s %s"
 
-#: web/lib/user/TextTemplates.php:90
+#: web/lib/user/TextTemplates.php:92
 #, php-format
 msgid "%s installation made easy:"
 msgstr "%s jednostavna instalacija:"
 
-#: web/lib/user/TextTemplates.php:91
+#: web/lib/user/TextTemplates.php:93
 msgid "Custom built for your organisation"
 msgstr "Razvijen za Vašu ustanovu."
 
-#: web/lib/user/TextTemplates.php:92
+#: web/lib/user/TextTemplates.php:94
 #, php-format
 msgid "Click here to download your %s installer"
 msgstr "Kliknite za preuzimanje %s installera"
 
-#: web/lib/user/TextTemplates.php:93
+#: web/lib/user/TextTemplates.php:95
+#, php-format
+msgid ""
+"%s provides access to thousands of Wi-Fi hotspots around the world, free of "
+"charge. <a href='%s'>Learn more</a>"
+msgstr ""
+
+#: web/lib/user/TextTemplates.php:96
 msgid "Select the user group"
 msgstr "Odaberite korisničku grupu"
 
-#: web/lib/user/TextTemplates.php:94
+#: web/lib/user/TextTemplates.php:97
 msgid "select another"
 msgstr "odaberite dodatnu"
 
-#: web/lib/user/TextTemplates.php:95
+#: web/lib/user/TextTemplates.php:98
 msgid "Choose another installer to download"
 msgstr "Izaberite drugi installer za preuzimanje"
 
-#: web/lib/user/TextTemplates.php:96
+#: web/lib/user/TextTemplates.php:99
 msgid "All platforms"
 msgstr "Sve platforme"
 
-#: web/lib/user/TextTemplates.php:97
+#: web/lib/user/TextTemplates.php:100
 #, php-format
 msgid "Download your %s installer"
 msgstr "Dohvat  %s konfiguracije"
 
-#: web/lib/user/TextTemplates.php:98
+#: web/lib/user/TextTemplates.php:101
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
 "<br>When you click <b>Continue</b> this support page will be opened in a new "
@@ -613,19 +620,19 @@ msgstr ""
 "pomoći.<br>Kada kliknete na <b>Nastavi</b> stranica s podrškom bit će "
 "otvorena u novom prozoru."
 
-#: web/lib/user/TextTemplates.php:99
+#: web/lib/user/TextTemplates.php:102
 #: web/skins/modern/accountstatus/accountstatus.php:226
 #: web/skins/modern/user/js/cat_js.php:278
 #: web/skins/modern/user/js/cat_js.php:286
 msgid "Continue"
 msgstr "Nastavi"
 
-#: web/lib/user/TextTemplates.php:100
+#: web/lib/user/TextTemplates.php:103
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s"
 msgstr "Digitalno potpisano od strane organizacije koja koordinira %s"
 
-#: web/lib/user/TextTemplates.php:101
+#: web/lib/user/TextTemplates.php:104
 #, php-format
 msgid ""
 "You can download your %s installer via a personalised invitation link sent "
@@ -635,7 +642,7 @@ msgstr ""
 "strane Vaše IT podrške. Molimo Vas kontaktirajte IT odjel da Vam pošalju "
 "link. "
 
-#: web/lib/user/TextTemplates.php:102
+#: web/lib/user/TextTemplates.php:105
 #, php-format
 msgid ""
 "This site provides %s installers for many organisations, click here to see "
@@ -644,40 +651,14 @@ msgstr ""
 "Ova stranica sadrži %s installere za mnoge ustanove, kliknite ovdje za "
 "provjeru dali je Vaša ustanova na listi."
 
-#: web/lib/user/TextTemplates.php:103
+#: web/lib/user/TextTemplates.php:106
 msgid "Custom built for you"
 msgstr "Prilagođeno za Vas"
 
-#: web/lib/user/TextTemplates.php:105
+#: web/lib/user/TextTemplates.php:108
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Digitalno potpisano od organizacije koja koordinira %s: %s"
-
-#: web/skins/modern/div_user_welcome.php:33
-msgid ""
-"we would like to warmly welcome you among the several million users of "
-"eduroam®! From now on, you will be able to use internet access resources on "
-"thousands of universities, research centres and other places all over the "
-"globe. All of this completely free of charge!"
-msgstr ""
-"Želimo Vam srdačnu dobrodošlicu među nekoliko milijuna eduroam® korisnika!Od "
-"sada, u mogućnosti ste koristiti internet pristup na tisuće sveučilišta "
-"istraživačkih centara i drugih mjesta diljem svijeta, i to besplatno!"
-
-#: web/skins/modern/div_user_welcome.php:36
-msgid ""
-"Now that you have downloaded and installed a client configurator, all you "
-"need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal "
-"certificate') - and be online!"
-msgstr ""
-"Sada kada ste preuzeli i instalirali konfigurator klijenta, sve što "
-"trebateje pronaći eduroam hotspot u svojoj blizini te unijeti korisničke "
-"podatke(korisničko ime i lozinku ili osobni certifikat) i biti povezani."
-
-#: web/skins/modern/index.php:78 web/skins/modern/test.php:80
-msgid "Authenticating"
-msgstr "Autenticiranje"
 
 #: web/skins/modern/Menu.php:51
 msgid "About"
@@ -745,6 +726,32 @@ msgstr "Postani CAT razvijatelj"
 #: web/skins/modern/Menu.php:79
 msgid "Terms of use"
 msgstr "Uvjeti korištenja"
+
+#: web/skins/modern/div_user_welcome.php:33
+msgid ""
+"we would like to warmly welcome you among the several million users of "
+"eduroam®! From now on, you will be able to use internet access resources on "
+"thousands of universities, research centres and other places all over the "
+"globe. All of this completely free of charge!"
+msgstr ""
+"Želimo Vam srdačnu dobrodošlicu među nekoliko milijuna eduroam® korisnika!Od "
+"sada, u mogućnosti ste koristiti internet pristup na tisuće sveučilišta "
+"istraživačkih centara i drugih mjesta diljem svijeta, i to besplatno!"
+
+#: web/skins/modern/div_user_welcome.php:36
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an eduroam® hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Sada kada ste preuzeli i instalirali konfigurator klijenta, sve što "
+"trebateje pronaći eduroam hotspot u svojoj blizini te unijeti korisničke "
+"podatke(korisničko ime i lozinku ili osobni certifikat) i biti povezani."
+
+#: web/skins/modern/index.php:78 web/skins/modern/test.php:80
+msgid "Authenticating"
+msgstr "Autenticiranje"
 
 #: web/skins/modern/accountstatus/accountstatus.php:79
 msgid ""

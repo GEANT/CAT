@@ -4,14 +4,14 @@
 #
 # Translators:
 # Jørn Åne <yorn@uninett.no>, 2015
-# Tom Ivar Myren <tom.myren@uninett.no>, 2013,2015,2018
+# Tom Ivar Myren <tom.myren@uninett.no>, 2013,2015,2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-26 09:57+0100\n"
-"PO-Revision-Date: 2019-03-22 20:48+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2019-04-04 08:35+0200\n"
+"PO-Revision-Date: 2019-03-27 08:02+0000\n"
+"Last-Translator: Tom Ivar Myren <tom.myren@uninett.no>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/"
 "eduroam_devel/cat/language/nb_NO/)\n"
 "Language: nb_NO\n"
@@ -311,7 +311,7 @@ msgstr "Beklager, dette skal ikke skje - mer informasjon er ikke tilgjengelig"
 #: core/Federation.php:90
 #, php-format
 msgid "(discontinued) %s"
-msgstr ""
+msgstr "(Ikke lenger støttet) %s"
 
 #. / arguments are: 1. nomenclature for "institution"
 #. 2. IdP name;
@@ -333,11 +333,21 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Hei,\n"
+"\n"
+"Invitasjonen til den nye %s%s i din %s føderasjon %s har blitt brukt og "
+"IdP'en ble opprettet i %s.\n"
+"\n"
+"Dette til informasjon.\n"
+"\n"
+"Vennlig hilsen,\n"
+"\n"
+"%s"
 
 #: core/Federation.php:261
 #, php-format
 msgid "%s in your federation was created"
-msgstr ""
+msgstr "%s i din føderasjon ble opprettet"
 
 #: core/IdP.php:258
 #, php-format
@@ -352,11 +362,20 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Hei,\n"
+"\n"
+"%s %s i din %s føderasjon %s har blitt slettet fra %s.\n"
+"\n"
+"Dette til informasjon.\n"
+"\n"
+"Vennlig hilsen,\n"
+"\n"
+"%s"
 
 #: core/IdP.php:267
 #, php-format
 msgid "%s in your federation was deleted"
-msgstr ""
+msgstr "%s i din føderasjon ble slettet"
 
 #: core/SilverbulletInvitation.php:230
 #, php-format
@@ -468,67 +487,67 @@ msgstr "organisasjon"
 msgid "Identity Provider"
 msgstr "Identitetstilbyder"
 
-#: core/common/OutsideComm.php:257
+#: core/common/OutsideComm.php:261
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
 msgstr ""
 "en %s av %s %s \"%s\" har invitert deg til å administrere %s sammen med han."
 
-#: core/common/OutsideComm.php:258
+#: core/common/OutsideComm.php:262
 #, php-format
 msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
 msgstr ""
 "en %s %s har invitert deg til å administrere den fremtidige %s \"%s\" (%s)."
 
-#: core/common/OutsideComm.php:259
+#: core/common/OutsideComm.php:263
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\"."
 msgstr "en %s %s har invitert deg til å administrere %s \"%s\"."
 
-#: core/common/OutsideComm.php:261
+#: core/common/OutsideComm.php:265
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr "Denne invitasjonen er gyldig i 24 timer fra nå, altså fram til %s."
 
 #. then, send out the mail
-#: core/common/OutsideComm.php:269
+#: core/common/OutsideComm.php:273
 msgid "Hello,"
 msgstr "Hallo,"
 
 #. default means we don't have a Reply-To.
-#: core/common/OutsideComm.php:271
+#: core/common/OutsideComm.php:275
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
 "manuelt. Vennligst ikke svar på denne e-posten; denne adressen brukes kun "
 "for utgående e-post."
 
-#: core/common/OutsideComm.php:277
+#: core/common/OutsideComm.php:281
 #, php-format
 msgid "Additional message from your %s administrator:"
 msgstr "Ekstra melding fra din %s administrator:"
 
-#: core/common/OutsideComm.php:285
+#: core/common/OutsideComm.php:289
 #, php-format
 msgid "%s administrator"
 msgstr "%s administrator"
 
-#: core/common/OutsideComm.php:288
+#: core/common/OutsideComm.php:292
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
 msgstr ""
 "manuelt. Et svar på denne e-posten, vil sendes dine %s administratorer."
 
-#: core/common/OutsideComm.php:293
+#: core/common/OutsideComm.php:297
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
 "link:"
 msgstr "For å bli administrator for %s, vennligst klikk på følgende link:"
 
-#: core/common/OutsideComm.php:295
+#: core/common/OutsideComm.php:299
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
@@ -537,11 +556,11 @@ msgstr ""
 "Hvis klikking på linken ikke fungerer, kan du gå til %s Administrator "
 "grensesnitt på"
 
-#: core/common/OutsideComm.php:297
+#: core/common/OutsideComm.php:301
 msgid "and enter the invitation token"
 msgstr "og oppgi invitasjons token"
 
-#: core/common/OutsideComm.php:299
+#: core/common/OutsideComm.php:303
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
@@ -549,12 +568,12 @@ msgstr ""
 "IKKE videresendt e-posten før token har utløpt - i så fall kan mottaker "
 "bruke token på dine vegne! "
 
-#: core/common/OutsideComm.php:300
+#: core/common/OutsideComm.php:304
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr "Ha det moro med %s."
 
-#: core/common/OutsideComm.php:301
+#: core/common/OutsideComm.php:305
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -562,7 +581,7 @@ msgid ""
 "Your friendly folks from %s Operations"
 msgstr "Vennlig hilsen,⏎ ⏎ Oss på %s drift"
 
-#: core/common/OutsideComm.php:337
+#: core/common/OutsideComm.php:341
 #, php-format
 msgid "%s: you have been invited to manage an %s"
 msgstr "%s: du er invitert til å administrere en %s"

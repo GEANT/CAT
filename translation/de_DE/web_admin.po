@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"POT-Creation-Date: 2019-04-04 08:35+0200\n"
 "PO-Revision-Date: 2019-03-22 21:59+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/eduroam_devel/cat/"
@@ -121,7 +121,7 @@ msgstr "%s: %s Eigenschaften (Senden abgeschlossen)"
 msgid "Submitted attributes for %s '%s'"
 msgstr "Übermittelte Eigenschaften für %s '%s'"
 
-#: web/admin/edit_federation_result.php:55 web/admin/edit_idp_result.php:152
+#: web/admin/edit_federation_result.php:55 web/admin/edit_idp_result.php:156
 #: web/admin/edit_profile_result.php:246
 msgid "Continue to dashboard"
 msgstr "Weiter zur IdP Übersichtsseite"
@@ -403,36 +403,36 @@ msgstr "%s: Erzeugen eines neuen Identitätsproviders (Schritt 2 abgeschlossen)"
 msgid "Submitted attributes for IdP '%s'"
 msgstr "Übermittelte Attribute für Identitätsprovider '%s'"
 
-#: web/admin/edit_idp_result.php:97 web/admin/edit_idp_result.php:102
+#: web/admin/edit_idp_result.php:101 web/admin/edit_idp_result.php:106
 msgid "(WPA2/AES and WPA/TKIP)"
 msgstr "(WPA2/AES und WPA/TKIP)"
 
-#: web/admin/edit_idp_result.php:97 web/admin/edit_idp_result.php:105
+#: web/admin/edit_idp_result.php:101 web/admin/edit_idp_result.php:109
 msgid "(WPA2/AES)"
 msgstr "(WPA2/AES)"
 
-#: web/admin/edit_idp_result.php:115
+#: web/admin/edit_idp_result.php:119
 #, php-format
 msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
 msgstr ""
 "Ihre Installationsprogramme werden die folgenden SSIDs einrichten: <strong>"
 "%s</strong>"
 
-#: web/admin/edit_idp_result.php:115
+#: web/admin/edit_idp_result.php:119
 msgid "SSIDs configured"
 msgstr "SSIDs eingerichtet"
 
-#: web/admin/edit_idp_result.php:119
+#: web/admin/edit_idp_result.php:123
 #, php-format
 msgid "Your installers will configure wired interfaces."
 msgstr ""
 "Ihre Installationsprogramme werden kabelgebundene Netzwerke konfigurieren."
 
-#: web/admin/edit_idp_result.php:119
+#: web/admin/edit_idp_result.php:123
 msgid "Wired configured"
 msgstr "Kabelnetzwerke konfiguriert"
 
-#: web/admin/edit_idp_result.php:122
+#: web/admin/edit_idp_result.php:126
 msgid ""
 "We cannot generate installers because neither wireless SSIDs nor wired "
 "interfaces have been selected as a target!"
@@ -440,12 +440,12 @@ msgstr ""
 "Es können keine Installationsprogramme erzeugt werden, da weder WLAN-"
 "Netzwerke noch Unterstützung für kabelgebundene Netzwerke ausgewählt wurden."
 
-#: web/admin/edit_idp_result.php:141
+#: web/admin/edit_idp_result.php:145
 #, php-format
 msgid "Continue to %s properties"
 msgstr "Weiter zu den %s Eigenschaften"
 
-#: web/admin/edit_idp_result.php:144
+#: web/admin/edit_idp_result.php:148
 #, php-format
 msgid ""
 "You did not submit an e-mail address. This is required for %s. Please go to "
@@ -456,11 +456,11 @@ msgstr ""
 "Bitte gehen Sie zur %s Übersichtsseite und bearbeiten Sie die Angaben zum "
 "Helpdesk. Fügen Sie mindestens eine E-Mail-Adresse hinzu."
 
-#: web/admin/edit_idp_result.php:144
+#: web/admin/edit_idp_result.php:148
 msgid "No support e-mail!"
 msgstr "Keine Kontakt E-Mail Adresse!"
 
-#: web/admin/edit_idp_result.php:149
+#: web/admin/edit_idp_result.php:153
 msgid "Continue to RADIUS/EAP profile definition"
 msgstr "Weiter zur Definition eines RADIUS/EAP Profils"
 
