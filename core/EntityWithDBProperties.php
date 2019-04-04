@@ -260,13 +260,8 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
         $handle = DBConnection::handle("INST");
         $blobQuery = $handle->exec("SELECT option_value from $table WHERE row = $row");
         // SELECT -> returns resource, not boolean
-        while ($returnedData =  mysqli_fetch_object(/** @scrutinizer ignore-type */ $blobQuery)) {
-            $blob = $returnedData->option_value;
-        }
-        if (!isset($blob)) {
-            return FALSE;
-        }
-        return $blob;
+        $dataset = mysqli_fetch_row(/** @scrutinizer ignore-type */ $blobQuery);
+        return $dataset[0] ?? FALSE;
     }
 
     /**
