@@ -298,15 +298,17 @@ td.vendor img {
 
 #top_invite_ad {
     font-weight: normal;
-    font-size: 15px;
-    padding-top: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
+    font-size: 18px;
+    padding-top: 25px;
+    padding-left: 15px;
+    padding-right: 15px;
+    line-height: 1.3;
     color: black;
 }
 
 #top_invite_ad a {
     white-space: nowrap;
+    font-weight: bold;
 }
 
 #welcome_top1 {
