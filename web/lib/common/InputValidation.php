@@ -356,7 +356,7 @@ const TABLEMAPPING = [
  * Is this a valid database reference? Has the form <tablename>-<rowID> and there
  * needs to be actual data at that place
  * 
- * @param mixed $input the reference to check
+ * @param string $input the reference to check
  * @return boolean|array the reference split up into "table" and "rowindex", or FALSE
  */
 public function databaseReference($input) {
