@@ -122,7 +122,10 @@ class X509 {
      * @return array
      */
     private function typeOfCertificate($myca, &$out) {
-        $mydetails = openssl_x509_parse($myca);
+        // PHP docs deliberately don't document the return type of this function
+        // well thank you, this makes Scrutinizer nuts
+        // work around this my making some easily observable array operations
+        $mydetails = array_merge([], openssl_x509_parse($myca));
         $out['root'] = 0; // default not a root, unless concinved otherwise below
         if ($mydetails['issuer'] === $mydetails['subject']) {
             $out['root'] = 1;
@@ -184,7 +187,7 @@ class X509 {
 
         // check that the certificate is OK
         $myca = openssl_x509_read($authorityPem);
-        if ($myca == FALSE) {
+        if ($myca === FALSE) {
             return FALSE;
         }
         
