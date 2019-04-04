@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-26 09:57+0100\n"
-"PO-Revision-Date: 2019-03-26 08:53+0000\n"
+"POT-Creation-Date: 2019-04-04 08:35+0200\n"
+"PO-Revision-Date: 2019-03-26 11:20+0000\n"
 "Last-Translator: Anne M <anne@eenet.ee>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/et_EE/)\n"
@@ -436,7 +436,7 @@ msgstr "Kasutustingimused"
 msgid "(for legal reasons, the Terms of Use are in English only)"
 msgstr "(õiguslikel kaalutlustel on Kasutustingimused ainult ingliskeelsed)"
 
-#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:88
+#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:90
 #, php-format
 msgid "Welcome to %s"
 msgstr "Tere tulemast %si"
@@ -491,17 +491,17 @@ msgstr ""
 "Sinu aps? Meie viga? Kes teab. Vahest peaksid minema tagasi <a "
 "href='%s'>avalehele</a>."
 
-#: web/tou.php:70 web/skins/modern/Divs.php:288
+#: web/tou.php:70 web/skins/modern/Divs.php:291
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "%s privaatsuspoliitika"
 
-#: web/lib/user/TextTemplates.php:81
+#: web/lib/user/TextTemplates.php:83
 #, php-format
 msgid "Welcome aboard the %s user community!"
 msgstr "Tere tulemast %si!"
 
-#: web/lib/user/TextTemplates.php:82
+#: web/lib/user/TextTemplates.php:84
 msgid ""
 "Your download will start shortly. In case of problems with the automatic "
 "download please use this direct <a href=''>link</a>."
@@ -509,14 +509,14 @@ msgstr ""
 "Allalaadimine algab peatselt. Kui see ei peaks õnnestuma, kasuta palun  <a "
 "href=''>otselinki.</a>"
 
-#: web/lib/user/TextTemplates.php:83 web/skins/modern/div_user_welcome.php:30
+#: web/lib/user/TextTemplates.php:85 web/skins/modern/div_user_welcome.php:30
 #, php-format
 msgid "Dear user from %s,"
 msgstr ""
 "%s\n"
 "Hea kasutaja"
 
-#: web/lib/user/TextTemplates.php:84
+#: web/lib/user/TextTemplates.php:86
 #, php-format
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
@@ -529,7 +529,7 @@ msgstr ""
 "andmed (kasutajanimi ja parool või isikusertifikaat) ning saadki "
 "võrguühenduse."
 
-#: web/lib/user/TextTemplates.php:85 web/skins/modern/div_user_welcome.php:38
+#: web/lib/user/TextTemplates.php:87 web/skins/modern/div_user_welcome.php:38
 #, php-format
 msgid ""
 "Should you have any problems using this service, please always contact the "
@@ -539,11 +539,11 @@ msgstr ""
 "Palun võta teenuse kasutamisel tekkivate probleemide korral abi saamiseks "
 "ühendust kasutajatoega: %s, vt kontaktandmed ülalpool."
 
-#: web/lib/user/TextTemplates.php:86 web/skins/modern/div_user_welcome.php:41
+#: web/lib/user/TextTemplates.php:88 web/skins/modern/div_user_welcome.php:41
 msgid "Back to downloads"
 msgstr "Tagasi allalaadimisse"
 
-#: web/lib/user/TextTemplates.php:87
+#: web/lib/user/TextTemplates.php:89
 #, php-format
 msgid ""
 "we would like to warmly welcome you among the several million users of %s! "
@@ -551,50 +551,57 @@ msgid ""
 "of universities, research centres and other places all over the globe. All "
 "of this completely free of charge!"
 msgstr ""
-"%sis saad tasuta kasutada internetiühendust tuhandetes sellega liitunud "
+"%s võimaldab kasutada tasuta internetiühendust tuhandetes sellega liitunud "
 "ülikoolides, teadusasutustes jmt."
 
-#: web/lib/user/TextTemplates.php:89
+#: web/lib/user/TextTemplates.php:91
 #, php-format
 msgid "Connect your device to %s"
 msgstr "Ühenda oma seade %si"
 
-#: web/lib/user/TextTemplates.php:90
+#: web/lib/user/TextTemplates.php:92
 #, php-format
 msgid "%s installation made easy:"
 msgstr "%s paigaldamine on tehtud lihtsaks:"
 
-#: web/lib/user/TextTemplates.php:91
+#: web/lib/user/TextTemplates.php:93
 msgid "Custom built for your organisation"
 msgstr "Kohandatud Sinu asutuse jaoks"
 
-#: web/lib/user/TextTemplates.php:92
+#: web/lib/user/TextTemplates.php:94
 #, php-format
 msgid "Click here to download your %s installer"
 msgstr "Klõpsa siin %si paigaldusprogrammi allalaadimiseks."
 
-#: web/lib/user/TextTemplates.php:93
+#: web/lib/user/TextTemplates.php:95
+#, php-format
+msgid ""
+"%s provides access to thousands of Wi-Fi hotspots around the world, free of "
+"charge. <a href='%s'>Learn more</a>"
+msgstr ""
+
+#: web/lib/user/TextTemplates.php:96
 msgid "Select the user group"
 msgstr "Vali kasutajagrupp"
 
-#: web/lib/user/TextTemplates.php:94
+#: web/lib/user/TextTemplates.php:97
 msgid "select another"
 msgstr "vali mõni muu"
 
-#: web/lib/user/TextTemplates.php:95
+#: web/lib/user/TextTemplates.php:98
 msgid "Choose another installer to download"
 msgstr "Vali allalaadimiseks teine paigaldusprogramm"
 
-#: web/lib/user/TextTemplates.php:96
+#: web/lib/user/TextTemplates.php:99
 msgid "All platforms"
 msgstr "Kõik platvormid"
 
-#: web/lib/user/TextTemplates.php:97
+#: web/lib/user/TextTemplates.php:100
 #, php-format
 msgid "Download your %s installer"
 msgstr "Lae alla oma %si paigaldusprogramm"
 
-#: web/lib/user/TextTemplates.php:98
+#: web/lib/user/TextTemplates.php:101
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
 "<br>When you click <b>Continue</b> this support page will be opened in a new "
@@ -604,20 +611,20 @@ msgstr ""
 "<br>Kui klõpsad <b>Jätka</b>, avatakse see kasutajatoe leht uues aknas/"
 "vahekaardil."
 
-#: web/lib/user/TextTemplates.php:99
+#: web/lib/user/TextTemplates.php:102
 #: web/skins/modern/accountstatus/accountstatus.php:226
 #: web/skins/modern/user/js/cat_js.php:278
 #: web/skins/modern/user/js/cat_js.php:286
 msgid "Continue"
 msgstr "Jätka"
 
-#: web/lib/user/TextTemplates.php:100
+#: web/lib/user/TextTemplates.php:103
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s"
 msgstr ""
 "Digitaalselt allkirjastatud organisatsiooni poolt, mis koordineerib %si"
 
-#: web/lib/user/TextTemplates.php:101
+#: web/lib/user/TextTemplates.php:104
 #, php-format
 msgid ""
 "You can download your %s installer via a personalised invitation link sent "
@@ -627,7 +634,7 @@ msgstr ""
 "kaudu, mille saadab Su IT-tugi. Palun pöördu lingi saamiseks oma IT-osakonna "
 "poole. "
 
-#: web/lib/user/TextTemplates.php:102
+#: web/lib/user/TextTemplates.php:105
 #, php-format
 msgid ""
 "This site provides %s installers for many organisations, click here to see "
@@ -636,41 +643,15 @@ msgstr ""
 "See leht pakub paljudele asutustele %si paigaldusprogrammi. Kõpsa siia, et "
 "näha, kas Sinu asutus on nimekirjas."
 
-#: web/lib/user/TextTemplates.php:103
+#: web/lib/user/TextTemplates.php:106
 msgid "Custom built for you"
 msgstr "Sinu jaoks kohandatud"
 
-#: web/lib/user/TextTemplates.php:105
+#: web/lib/user/TextTemplates.php:108
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr ""
 "Digitaalselt allkirjastatud organisatsiooni poolt, mis koordineerib %si: %s"
-
-#: web/skins/modern/div_user_welcome.php:33
-msgid ""
-"we would like to warmly welcome you among the several million users of "
-"eduroam®! From now on, you will be able to use internet access resources on "
-"thousands of universities, research centres and other places all over the "
-"globe. All of this completely free of charge!"
-msgstr ""
-"eduroamis saad tasuta kasutada internetiühendust tuhandetes sellega liitunud "
-"ülikoolides, teadusasutustes jmt."
-
-#: web/skins/modern/div_user_welcome.php:36
-msgid ""
-"Now that you have downloaded and installed a client configurator, all you "
-"need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal "
-"certificate') - and be online!"
-msgstr ""
-"Nüüd on Sul alla llaaditud ja paigaldatud kliendiseadistusprogramm. Edasi on "
-"vaja leida üles lähim  eduroami juurdepääsupunkt ja sisestada oma "
-"kasutajakonto andmed (kasutajanimi ja parool või isikusertifikaat) ning "
-"saadki võrguühenduse."
-
-#: web/skins/modern/index.php:78 web/skins/modern/test.php:80
-msgid "Authenticating"
-msgstr "Autendime"
 
 #: web/skins/modern/Menu.php:51
 msgid "About"
@@ -739,6 +720,32 @@ msgstr "Löö kaasa CATi arendamisel"
 msgid "Terms of use"
 msgstr "Kasutustingimused"
 
+#: web/skins/modern/div_user_welcome.php:33
+msgid ""
+"we would like to warmly welcome you among the several million users of "
+"eduroam®! From now on, you will be able to use internet access resources on "
+"thousands of universities, research centres and other places all over the "
+"globe. All of this completely free of charge!"
+msgstr ""
+"eduroam®is saad tasuta kasutada internetiühendust tuhandetes sellega "
+"liitunud ülikoolides, teadusasutustes jmt."
+
+#: web/skins/modern/div_user_welcome.php:36
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an eduroam® hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Nüüd on Sul alla laaditud ja paigaldatud kliendiseadistusprogramm. Edasi on "
+"vaja leida üles lähim eduroam®i juurdepääsupunkt ja sisestada oma "
+"kasutajakonto andmed (kasutajanimi ja parool või isikusertifikaat) ning "
+"saadki võrguühenduse."
+
+#: web/skins/modern/index.php:78 web/skins/modern/test.php:80
+msgid "Authenticating"
+msgstr "Autendime"
+
 #: web/skins/modern/accountstatus/accountstatus.php:79
 msgid ""
 "You attempted to download an installer that was already downloaded before. "
@@ -768,7 +775,7 @@ msgstr[1] "Sul on <strong>%d</strong> hetkel kehtivat %s kasutajakontot."
 msgid "<strong>%d</strong> of your credentials is not valid any more."
 msgid_plural "<strong>%d</strong> of your credentials are not valid any more."
 msgstr[0] "<strong>%d</strong> Su kasutajakontodest ei ole enam kehtiv."
-msgstr[1] "<strong>%d</strong> Su kasutajakontodest ei ole enam kehtiv."
+msgstr[1] "<strong>%d</strong> Su kasutajakontodest ei ole enam kehtivad."
 
 #: web/skins/modern/accountstatus/accountstatus.php:102
 msgid "I want to see the details."
@@ -911,7 +918,7 @@ msgstr ""
 #: web/skins/modern/accountstatus/accountstatus.php:211
 #, php-format
 msgid "Your personal %s account status page"
-msgstr "Sinu isikliku %s konto seisundileht"
+msgstr "Sinu isikliku %si konto seisundileht"
 
 #: web/skins/modern/accountstatus/accountstatus.php:247
 msgid "Current login tokens"
@@ -955,7 +962,7 @@ msgstr "tühista"
 
 #: web/skins/modern/accountstatus/accountstatus.php:286
 msgid "The details are displayed below."
-msgstr "Detailsem info on allpool"
+msgstr "Detailsem info on allpool."
 
 #: web/skins/modern/accountstatus/accountstatus.php:292
 msgid "Really revoke this access credential?"

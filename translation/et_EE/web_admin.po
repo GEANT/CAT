@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-26 09:57+0100\n"
-"PO-Revision-Date: 2019-03-26 08:49+0000\n"
+"POT-Creation-Date: 2019-04-04 08:35+0200\n"
+"PO-Revision-Date: 2019-03-26 14:32+0000\n"
 "Last-Translator: Anne M <anne@eenet.ee>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/et_EE/)\n"
@@ -118,7 +118,7 @@ msgstr "%s: %s kohandamine (sisestamine lõpetatud)"
 msgid "Submitted attributes for %s '%s'"
 msgstr "Sisestatud atribuudid %s föderatsioonile '%s'"
 
-#: web/admin/edit_federation_result.php:55 web/admin/edit_idp_result.php:152
+#: web/admin/edit_federation_result.php:55 web/admin/edit_idp_result.php:156
 #: web/admin/edit_profile_result.php:246
 msgid "Continue to dashboard"
 msgstr "Mine koondpaneelile"
@@ -198,7 +198,7 @@ msgstr ""
 
 #: web/admin/edit_idp.php:125 web/lib/admin/UIElements.php:242
 msgid "Media Properties"
-msgstr "Meedia omadused"
+msgstr "Meedia atribuudid"
 
 #: web/admin/edit_idp.php:129
 #, php-format
@@ -379,34 +379,34 @@ msgstr "%s: IdP loomine (samm 2 tehtud)"
 msgid "Submitted attributes for IdP '%s'"
 msgstr "'%s' IdP Sisestatud atribuudid"
 
-#: web/admin/edit_idp_result.php:97 web/admin/edit_idp_result.php:102
+#: web/admin/edit_idp_result.php:101 web/admin/edit_idp_result.php:106
 msgid "(WPA2/AES and WPA/TKIP)"
 msgstr "(WPA2/AES ja WPA/TKIP)"
 
-#: web/admin/edit_idp_result.php:97 web/admin/edit_idp_result.php:105
+#: web/admin/edit_idp_result.php:101 web/admin/edit_idp_result.php:109
 msgid "(WPA2/AES)"
 msgstr "(WPA2/AES)"
 
-#: web/admin/edit_idp_result.php:115
+#: web/admin/edit_idp_result.php:119
 #, php-format
 msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
 msgstr ""
 "Su paigaldusprogrammid seadistavad järgmised SSIDd: <strong>%s</strong>"
 
-#: web/admin/edit_idp_result.php:115
+#: web/admin/edit_idp_result.php:119
 msgid "SSIDs configured"
 msgstr "SSIDd on seadistatud"
 
-#: web/admin/edit_idp_result.php:119
+#: web/admin/edit_idp_result.php:123
 #, php-format
 msgid "Your installers will configure wired interfaces."
 msgstr "Su paigaldusprogrammid seadistavad traadiga liidesed."
 
-#: web/admin/edit_idp_result.php:119
+#: web/admin/edit_idp_result.php:123
 msgid "Wired configured"
 msgstr "Traadiga variant seadistatud"
 
-#: web/admin/edit_idp_result.php:122
+#: web/admin/edit_idp_result.php:126
 msgid ""
 "We cannot generate installers because neither wireless SSIDs nor wired "
 "interfaces have been selected as a target!"
@@ -414,12 +414,12 @@ msgstr ""
 "Paigaldusprogramme ei saanud luua, kuna sihiks ei valitud ei traadita SSIDe "
 "ega traadiga liideseid."
 
-#: web/admin/edit_idp_result.php:141
+#: web/admin/edit_idp_result.php:145
 #, php-format
 msgid "Continue to %s properties"
 msgstr "Jätka %s seadistamisega"
 
-#: web/admin/edit_idp_result.php:144
+#: web/admin/edit_idp_result.php:148
 #, php-format
 msgid ""
 "You did not submit an e-mail address. This is required for %s. Please go to "
@@ -430,11 +430,11 @@ msgstr ""
 "koondpaneelile ja muuda oma kasutajatoe seadeid nii, et ka e-postiaadress "
 "oleks olemas."
 
-#: web/admin/edit_idp_result.php:144
+#: web/admin/edit_idp_result.php:148
 msgid "No support e-mail!"
 msgstr "Puudub kasutajatoe e-posti aadress!"
 
-#: web/admin/edit_idp_result.php:149
+#: web/admin/edit_idp_result.php:153
 msgid "Continue to RADIUS/EAP profile definition"
 msgstr "Jätka RADIUSe/EAP profiili määramisega"
 
@@ -837,7 +837,7 @@ msgstr "Saada ikkagi."
 #: web/admin/edit_silverbullet.php:291
 #, php-format
 msgid "Managing %s users"
-msgstr "Haldad %s kasutajaid"
+msgstr "Kasutajate haldamine - %s"
 
 #: web/admin/edit_silverbullet.php:328
 #, php-format
@@ -903,7 +903,7 @@ msgstr "SMS fragment."
 #: web/admin/edit_silverbullet.php:370
 #, php-format
 msgid "Manage %s users"
-msgstr "Halda %s kasutajaid"
+msgstr "Halda kasutajaid (%s)"
 
 #: web/admin/edit_silverbullet.php:375 web/admin/overview_federation.php:127
 msgid "User"
@@ -1085,8 +1085,8 @@ msgid ""
 "Comma separated values should be provided in CSV file: username, expiration "
 "date 'yyyy-mm-dd', number of tokens (optional):"
 msgstr ""
-"CSV-failis tuleb andmed panna komadega eraldatult järgnevalt:\n"
-"kasutajanimi, aegumiskuupäev formaadis AAAA-KK-PP (aasta, kuu, päev), "
+"CSV-failis tuleb andmed esitada komadega eraldatult järgnevalt:\n"
+"kasutajanimi, aegumiskuupäev (formaadis AAAA-KK-PP ehk aasta-kuu-päev), "
 "võtmete arv (ei ole kohustuslik)."
 
 #: web/admin/edit_silverbullet.php:618
@@ -1189,7 +1189,7 @@ msgstr "Sa ei ole %s haldaja."
 #: web/admin/overview_federation.php:76
 #, php-format
 msgid "%s Properties: %s"
-msgstr "%s Omadused: %s"
+msgstr "%s Atribuudid: %s"
 
 #: web/admin/overview_federation.php:82
 msgid "Country"
@@ -1345,7 +1345,7 @@ msgstr "Lisa/Eemalda administraatoreid"
 #: web/admin/overview_federation.php:296
 #, php-format
 msgid "Pending invitations in the %s:"
-msgstr "Ootel kutseid %s:"
+msgstr "Ootel kutseid %s-s:"
 
 #: web/admin/overview_federation.php:313
 msgid "Revoke Invitation"
@@ -1393,7 +1393,7 @@ msgstr ""
 #: web/admin/overview_idp.php:116
 #, php-format
 msgid "Do you really want to delete your %s %s?"
-msgstr "Kas sa tõesti tahad kustutada %s %s?"
+msgstr "%s %s - kas Sa soovid selle tõesti kustutada?"
 
 #: web/admin/overview_idp.php:116
 #, php-format
@@ -1408,7 +1408,7 @@ msgid ""
 "%s %s?"
 msgstr ""
 "Toiming kustutab kõik %s väärtused ja alustab seadistamist nullist. Kas Sa "
-"soovid tõesti %s%s kõiki seadistusi lähtestada?"
+"soovid tõesti kõiki seadistusi (%s%s) lähtestada?"
 
 #: web/admin/overview_idp.php:122
 #, php-format
@@ -1661,7 +1661,7 @@ msgstr[1] "teised kasutajad"
 #: web/admin/overview_user.php:160
 #, php-format
 msgid "You are not managing any %s."
-msgstr "Sa ei halda ühtegi %st."
+msgstr "Ükski %s ei ole Sinu halduses."
 
 #: web/admin/overview_user.php:164
 #, php-format
@@ -1774,8 +1774,8 @@ msgid ""
 "You do not have the necessary privileges to manage the %s DB link state of "
 "this %s."
 msgstr ""
-"Sul ei ole piisavalt õigusi, et hallata %s andmebaasilingi staatus selles %s-"
-"s."
+"Sul ei ole piisavalt õigusi, et hallata %s andmebaasilingi staatust selles "
+"%s-s."
 
 #: web/admin/inc/manageDBLink.inc.php:87
 #, php-format
@@ -1785,7 +1785,7 @@ msgstr "%s '%s' IdP andmebaasi lingi olek"
 #: web/admin/inc/manageDBLink.inc.php:95
 #, php-format
 msgid "This %s is linked to the %s database."
-msgstr "See %s on seotud %s andmebaasiga."
+msgstr "See %s on seotud andmebaasiga %s."
 
 #: web/admin/inc/manageDBLink.inc.php:96
 #, php-format
@@ -1827,7 +1827,7 @@ msgstr "Eemalda link"
 #: web/admin/inc/manageDBLink.inc.php:149
 #, php-format
 msgid "This %s is not yet linked to the %s database."
-msgstr "See %s ei ole veel lingitud %s andmebaasiga."
+msgstr "See %s ei ole veel seotud andmebaasiga %s."
 
 #: web/admin/inc/manageDBLink.inc.php:150
 msgid ""

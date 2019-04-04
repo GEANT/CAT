@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"POT-Creation-Date: 2019-04-04 08:35+0200\n"
 "PO-Revision-Date: 2019-03-22 21:59+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Serbian (Serbia) (http://www.transifex.com/eduroam_devel/cat/"
@@ -120,7 +120,7 @@ msgstr "%s: %s Prilagođavanje (podnošenje podataka završeno)"
 msgid "Submitted attributes for %s '%s'"
 msgstr "Uneti atributi za %s '%s'"
 
-#: web/admin/edit_federation_result.php:55 web/admin/edit_idp_result.php:152
+#: web/admin/edit_federation_result.php:55 web/admin/edit_idp_result.php:156
 #: web/admin/edit_profile_result.php:246
 msgid "Continue to dashboard"
 msgstr "Nastavi na kontrolni panel"
@@ -394,36 +394,36 @@ msgstr "%s: Čarobnjak za unos Davaoca Identiteta (2. korak završen)"
 msgid "Submitted attributes for IdP '%s'"
 msgstr "Poslati atributi za Davaoca Identiteta '%s'"
 
-#: web/admin/edit_idp_result.php:97 web/admin/edit_idp_result.php:102
+#: web/admin/edit_idp_result.php:101 web/admin/edit_idp_result.php:106
 msgid "(WPA2/AES and WPA/TKIP)"
 msgstr "(WPA2/AES i WPA/TKIP)"
 
-#: web/admin/edit_idp_result.php:97 web/admin/edit_idp_result.php:105
+#: web/admin/edit_idp_result.php:101 web/admin/edit_idp_result.php:109
 msgid "(WPA2/AES)"
 msgstr "(WPA2/AES)"
 
-#: web/admin/edit_idp_result.php:115
+#: web/admin/edit_idp_result.php:119
 #, php-format
 msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
 msgstr ""
 "Vaši softveri za instalaciju će biti konfigurisani sa sledećim SSID-evima: "
 "<strong>%s</strong>"
 
-#: web/admin/edit_idp_result.php:115
+#: web/admin/edit_idp_result.php:119
 msgid "SSIDs configured"
 msgstr "Konfigurisani SSID-evi"
 
-#: web/admin/edit_idp_result.php:119
+#: web/admin/edit_idp_result.php:123
 #, php-format
 msgid "Your installers will configure wired interfaces."
 msgstr ""
 "Vaši instaleri će moći da se koriste za konfigurisanje žičnih interfejsa."
 
-#: web/admin/edit_idp_result.php:119
+#: web/admin/edit_idp_result.php:123
 msgid "Wired configured"
 msgstr "Podrška za žični "
 
-#: web/admin/edit_idp_result.php:122
+#: web/admin/edit_idp_result.php:126
 msgid ""
 "We cannot generate installers because neither wireless SSIDs nor wired "
 "interfaces have been selected as a target!"
@@ -431,12 +431,12 @@ msgstr ""
 "Nije moguće generisati instalere zato što nisu definisani ni SSID za bežični "
 "pristup ni interfejs za žični pristup!"
 
-#: web/admin/edit_idp_result.php:141
+#: web/admin/edit_idp_result.php:145
 #, php-format
 msgid "Continue to %s properties"
 msgstr "Nastavni na podešavanja %s"
 
-#: web/admin/edit_idp_result.php:144
+#: web/admin/edit_idp_result.php:148
 #, php-format
 msgid ""
 "You did not submit an e-mail address. This is required for %s. Please go to "
@@ -447,11 +447,11 @@ msgstr ""
 "stranicu i da podesite vrednosti za službu za podršku korisnicima tako da "
 "sadrže i email adresu."
 
-#: web/admin/edit_idp_result.php:144
+#: web/admin/edit_idp_result.php:148
 msgid "No support e-mail!"
 msgstr "Nije definisan email za podršku!"
 
-#: web/admin/edit_idp_result.php:149
+#: web/admin/edit_idp_result.php:153
 msgid "Continue to RADIUS/EAP profile definition"
 msgstr "Nastavi na definiciju RADIUS/EAP profila"
 

@@ -7,7 +7,7 @@
 # ch0b0tr0b0t <pavel.satrapa@gmail.com>, 2013
 # Helena Pinkasová <helena.pinkasova@tul.cz>, 2013
 # Jan Tomášek <jan.tomasek@cesnet.cz>, 2013
-# Martin Šimek <simek.mar@gmail.com>, 2017
+# Martin Šimek <simek.mar@gmail.com>, 2017,2019
 # martins <ms@uakom.sk>, 2013
 # Petr Adamec <p.b.adamec@gmail.com>, 2013,2015
 # Petr Adamec <p.b.adamec@gmail.com>, 2016,2018-2019
@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-26 09:57+0100\n"
-"PO-Revision-Date: 2019-03-25 23:19+0000\n"
+"POT-Creation-Date: 2019-04-04 08:35+0200\n"
+"PO-Revision-Date: 2019-03-27 08:24+0000\n"
 "Last-Translator: Petr Adamec <p.b.adamec@gmail.com>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/"
 "eduroam_devel/cat/language/cs_CZ/)\n"
@@ -50,7 +50,7 @@ msgid ""
 "got the invitation from a mailing list, probably someone else used it before "
 "you."
 msgstr ""
-"Je nám líto... tento token už byl použit. %s je již vytvořena. Pokud jste "
+"Je nám líto... tento token již byl použit. %s je již vytvořena. Pokud jste "
 "pozvánku dostali prostřednictvím emailové konference, pravděpodobně ji někdo "
 "použil před vámi."
 
@@ -124,7 +124,7 @@ msgstr "%s: %s Přizpůsobení (odeslání dokončeno)"
 msgid "Submitted attributes for %s '%s'"
 msgstr "Uložené atributy pro %s '%s'"
 
-#: web/admin/edit_federation_result.php:55 web/admin/edit_idp_result.php:152
+#: web/admin/edit_federation_result.php:55 web/admin/edit_idp_result.php:156
 #: web/admin/edit_profile_result.php:246
 msgid "Continue to dashboard"
 msgstr "Pokračovat na hlavní stránku"
@@ -186,10 +186,11 @@ msgid ""
 "but for best results, we suggest SVG. If you don't upload a logo, we will "
 "use the generic logo instead (see top-right corner of this page)."
 msgstr ""
-"<strong>Logo</strong>: Pokud poskytnete logo, vložíme je do všech "
+"<strong>Logo</strong>: Pokud poskytnete logo, vložíme jej do všech "
 "instalačních programů, které připouštějí uživatelské logo. Akceptujeme "
-"libovolný grafický formát, ale jako nejkvalitnější doporučujeme SVG. Pokud "
-"nenahrajete své logo, použijeme obecné (viz pravý horní roh této stránky)."
+"libovolný grafický formát, ale pro nejlepší výsledek doporučujeme použít "
+"SVG. Pokud nenahrajete své logo, použijeme obecné (viz pravý horní roh této "
+"stránky)."
 
 #: web/admin/edit_idp.php:114
 #, php-format
@@ -376,7 +377,7 @@ msgstr "Toto je kontaktní místo pro podporu první úrovně koncových uživat
 
 #: web/admin/edit_idp.php:193
 msgid "Providing at least a local support e-mail contact is required."
-msgstr "Je zapotřebí alespoň jeden e-mailový kontakt pro místní podporu."
+msgstr "Je zapotřebí alespoň jeden e-mailový kontakt na místní podporu."
 
 #: web/admin/edit_idp.php:203
 #, php-format
@@ -397,33 +398,33 @@ msgstr "%s: průvodce přidáním IdP (dokončen krok 2)"
 msgid "Submitted attributes for IdP '%s'"
 msgstr "Uložené atributy pro poskytovatele identit '%s'"
 
-#: web/admin/edit_idp_result.php:97 web/admin/edit_idp_result.php:102
+#: web/admin/edit_idp_result.php:101 web/admin/edit_idp_result.php:106
 msgid "(WPA2/AES and WPA/TKIP)"
 msgstr "(WPA2/AES a WPA/TKIP)"
 
-#: web/admin/edit_idp_result.php:97 web/admin/edit_idp_result.php:105
+#: web/admin/edit_idp_result.php:101 web/admin/edit_idp_result.php:109
 msgid "(WPA2/AES)"
 msgstr "(WPA2/AES)"
 
-#: web/admin/edit_idp_result.php:115
+#: web/admin/edit_idp_result.php:119
 #, php-format
 msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
 msgstr "Vaše instalační programy nastaví následující SSID: <strong>%s</strong>"
 
-#: web/admin/edit_idp_result.php:115
+#: web/admin/edit_idp_result.php:119
 msgid "SSIDs configured"
 msgstr "SSID konfigurována"
 
-#: web/admin/edit_idp_result.php:119
+#: web/admin/edit_idp_result.php:123
 #, php-format
 msgid "Your installers will configure wired interfaces."
 msgstr "Vaše instalátory budou nastavovat kabelová rozhraní."
 
-#: web/admin/edit_idp_result.php:119
+#: web/admin/edit_idp_result.php:123
 msgid "Wired configured"
 msgstr "Připojení po kabelu nakonfigurováno."
 
-#: web/admin/edit_idp_result.php:122
+#: web/admin/edit_idp_result.php:126
 msgid ""
 "We cannot generate installers because neither wireless SSIDs nor wired "
 "interfaces have been selected as a target!"
@@ -431,12 +432,12 @@ msgstr ""
 "Nemůžeme vygenerovat instalátory, protože jste nezvolili jako cíl bezdrátová "
 "SSID ani kabelová rozhraní."
 
-#: web/admin/edit_idp_result.php:141
+#: web/admin/edit_idp_result.php:145
 #, php-format
 msgid "Continue to %s properties"
 msgstr "Pokračovat na %s vlastnosti"
 
-#: web/admin/edit_idp_result.php:144
+#: web/admin/edit_idp_result.php:148
 #, php-format
 msgid ""
 "You did not submit an e-mail address. This is required for %s. Please go to "
@@ -446,11 +447,11 @@ msgstr ""
 "Nezadal jste e-mailovou adresu. To je nezbytné pro %s. Přejděte prosím do "
 "panelu %s a upravte nastavení podpory tak, aby obsahovala e-mailovou adresu."
 
-#: web/admin/edit_idp_result.php:144
+#: web/admin/edit_idp_result.php:148
 msgid "No support e-mail!"
 msgstr "Adresa podpory není uvedena!"
 
-#: web/admin/edit_idp_result.php:149
+#: web/admin/edit_idp_result.php:153
 msgid "Continue to RADIUS/EAP profile definition"
 msgstr "Pokračovat nastavením profilu RADIUS/EAP"
 
@@ -1404,7 +1405,7 @@ msgstr "Všeobecné nastavení %s"
 #: web/admin/overview_idp.php:77
 #, php-format
 msgid "%s download area QR code"
-msgstr "QR kód ke %s stažení"
+msgstr "QR kód %ske stažení"
 
 #: web/admin/overview_idp.php:111
 #, php-format
@@ -1495,7 +1496,7 @@ msgstr "Správa uživatelů"
 
 #: web/admin/overview_idp.php:213 web/admin/overview_idp.php:350
 msgid "User Downloads"
-msgstr "Počet stáhnutí "
+msgstr "Počet stažení "
 
 #: web/admin/overview_idp.php:237
 msgid "<strong>EAP Types</strong> (in order of preference):"
@@ -1756,8 +1757,8 @@ msgid ""
 "You can appoint further administrators, but these can't in turn appoint any "
 "more administrators."
 msgstr ""
-"Jste správcem, který byl přímo jmenován %s.Můžete jmenovat další správce, ti "
-"ale nebudou mít oprávnění sami jmenovat další správce."
+"Jste správcem, který byl přímo jmenován %s. Můžete jmenovat další správce, "
+"ale ti nebudou již mít oprávnění jmenovat další správce."
 
 #: web/admin/inc/manageAdmins.inc.php:160
 msgid "Directly Appointed Administrator"

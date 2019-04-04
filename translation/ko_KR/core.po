@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"POT-Creation-Date: 2019-04-04 08:35+0200\n"
 "PO-Revision-Date: 2019-03-22 20:48+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Korean (Korea) (http://www.transifex.com/eduroam_devel/cat/"
@@ -457,73 +457,73 @@ msgstr "기관"
 msgid "Identity Provider"
 msgstr "계정관리기관(IdP)"
 
-#: core/common/OutsideComm.php:257
+#: core/common/OutsideComm.php:261
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
 msgstr ""
 
-#: core/common/OutsideComm.php:258
+#: core/common/OutsideComm.php:262
 #, php-format
 msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
 msgstr ""
 
-#: core/common/OutsideComm.php:259
+#: core/common/OutsideComm.php:263
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\"."
 msgstr ""
 
-#: core/common/OutsideComm.php:261
+#: core/common/OutsideComm.php:265
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr "초대장은 지금부터 24시간 동안, %s까지 유효합니다."
 
 #. then, send out the mail
-#: core/common/OutsideComm.php:269
+#: core/common/OutsideComm.php:273
 msgid "Hello,"
 msgstr "안녕하세요, "
 
 #. default means we don't have a Reply-To.
-#: core/common/OutsideComm.php:271
+#: core/common/OutsideComm.php:275
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr "이 메일에 회신하지 마십시오. 발신 전용 주소입니다."
 
-#: core/common/OutsideComm.php:277
+#: core/common/OutsideComm.php:281
 #, php-format
 msgid "Additional message from your %s administrator:"
 msgstr "%s 관리자의 추가 메시지: "
 
-#: core/common/OutsideComm.php:285
+#: core/common/OutsideComm.php:289
 #, php-format
 msgid "%s administrator"
 msgstr "%s 관리자"
 
-#: core/common/OutsideComm.php:288
+#: core/common/OutsideComm.php:292
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
 msgstr "이 메일에 답신을 하면, %s 관리자에게 전달됩니다."
 
-#: core/common/OutsideComm.php:293
+#: core/common/OutsideComm.php:297
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
 "link:"
 msgstr ""
 
-#: core/common/OutsideComm.php:295
+#: core/common/OutsideComm.php:299
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
 "Interface at"
 msgstr ""
 
-#: core/common/OutsideComm.php:297
+#: core/common/OutsideComm.php:301
 msgid "and enter the invitation token"
 msgstr "그리고, 초대 토큰(Invitation Token)을 입력하세요."
 
-#: core/common/OutsideComm.php:299
+#: core/common/OutsideComm.php:303
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
@@ -531,12 +531,12 @@ msgstr ""
 "토큰이 만료되기 전에 메일을 전달하지 마십시오. 수신자가 대신 토큰을 사용할 "
 "수 있습니다."
 
-#: core/common/OutsideComm.php:300
+#: core/common/OutsideComm.php:304
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr ""
 
-#: core/common/OutsideComm.php:301
+#: core/common/OutsideComm.php:305
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -544,7 +544,7 @@ msgid ""
 "Your friendly folks from %s Operations"
 msgstr ""
 
-#: core/common/OutsideComm.php:337
+#: core/common/OutsideComm.php:341
 #, php-format
 msgid "%s: you have been invited to manage an %s"
 msgstr "%s: 당신은 1%s 의 관리자로 초대되었습니다."

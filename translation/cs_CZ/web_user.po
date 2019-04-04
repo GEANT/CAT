@@ -5,6 +5,7 @@
 # Translators:
 # Alice Vixie <alice.vixie@osu.cz>, 2015
 # Helena Pinkasová <helena.pinkasova@tul.cz>, 2013
+# Martin Šimek <simek.mar@gmail.com>, 2019
 # martins <ms@uakom.sk>, 2012-2013
 # Petr Adamec <p.b.adamec@gmail.com>, 2013,2015
 # Petr Adamec <p.b.adamec@gmail.com>, 2016-2019
@@ -12,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-26 09:57+0100\n"
-"PO-Revision-Date: 2019-03-26 08:28+0000\n"
+"POT-Creation-Date: 2019-04-04 08:35+0200\n"
+"PO-Revision-Date: 2019-03-27 08:19+0000\n"
 "Last-Translator: Petr Adamec <p.b.adamec@gmail.com>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/"
 "eduroam_devel/cat/language/cs_CZ/)\n"
@@ -78,7 +79,7 @@ msgid ""
 "(the service itself)</li>"
 msgstr ""
 "<p><span class='edu_cat'>%s</span> je veřejně přístupný. Chcete-li povolit "
-"jeho použití na captive portálech (například na SSID, umožnující přístup "
+"jeho použití na captive portálech (například na SSID umožnující přístup "
 "pouze pro konfiguraci zařízení), musí být povolena komunikace na portu "
 "TCP/443 pro následující názvy hostitelů:</p><b><u>Požadováno</u></"
 "b><ul><li><b>%s</b> (vlastní CAT)</li>"
@@ -327,15 +328,15 @@ msgid ""
 "So long as the file is carrying a valid signature from %s, the download is "
 "safe."
 msgstr ""
-"Dokud je součástí souboru platný digitální podpis od %s, je jeho stahování "
+"Pokud je součástí souboru platný digitální podpis od %s, je jeho stahování "
 "bezpečné."
 
 #: web/user/faq.inc.php:53 web/user/faq.php:58
 #, php-format
 msgid "Please see also Microsoft's FAQ regarding SmartScreen at %s."
 msgstr ""
-"Další informace naleznete na stránkách Microsoft, v odpovědích na "
-"nejčastější otázky o SmartScreen na %s."
+"Další informace naleznete na stránkách Microsoft v odpovědích na nejčastější "
+"otázky o SmartScreen na %s."
 
 #: web/user/faq.inc.php:57 web/user/faq.php:72
 #, php-format
@@ -360,7 +361,7 @@ msgid ""
 msgstr ""
 "Může být vícero různých příčin. Síť, kterou vidíte na vašem zařízení, nemusí "
 "být pravá %s síť a zařízení v takovém případě zruší pokus o připojení; nebo "
-"je síť pravá ale může být nesprávně nakonfigurovaná; vašemu uživatelskému "
+"je síť pravá, ale může být nesprávně nakonfigurovaná; vašemu uživatelskému "
 "účtu mohla vypršet platnost; mohl se vyskytnout problém při spojení s vaším "
 "domovským ověřovacím serverem; váš přístup mohl být zablokovaný z důvodu "
 "porušení pravidel. Obraťte se, prosím, na vaší organizaci a nahlaste "
@@ -427,11 +428,11 @@ msgid ""
 msgstr ""
 "Může být vícero různých příčin. Síť, kterou vidíte na vašem zařízení, nemusí "
 "být pravá %s síť a zařízení v takovém případě zruší pokus o připojení; "
-"vašemu uživatelskému účtu mohla vypršet platnost; váš přístup mohl být "
+"vašemu uživatelskému účtu mohla vypršet platnost; váš přístup mohl být "
 "zablokovaný z důvodu porušení pravidel; nebo se vyskytl technický problém. "
 "Chcete-li tuto chybu vyloučit, měli byste nejprve použít nástroj %s "
 "Diagnostika <a href´=''>zde</a>, který vám může pomoci s řešením problému. "
-"Umožňuje také kontaktovat vaší oragnizaci a ohlásit problém."
+"Umožňuje také kontaktovat vaší organizaci a ohlásit problém."
 
 #. *
 #. * This is a template for further FAQ entries. Simply copy&paste and add more
@@ -455,7 +456,7 @@ msgstr "Podmínky používaní"
 msgid "(for legal reasons, the Terms of Use are in English only)"
 msgstr "(Z právních důvodů jsou podmínky používání pouze v angličtině)"
 
-#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:88
+#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:90
 #, php-format
 msgid "Welcome to %s"
 msgstr "Vítejte v %s"
@@ -494,13 +495,13 @@ msgstr ""
 
 #: web/404.php:56
 msgid "This is not the CAT you are looking for."
-msgstr "Tahle KOČKA vám zdrhla."
+msgstr "Tohle není KOČKA (CAT), kterou hledáte."
 
 #: web/404.php:57
 msgid ""
 "Whatever you expected to see at this URL - it's not here. The only thing "
 "here is the number"
-msgstr "Tady není nic zajímavého... pokud jste teda nechtěli vidět číslo"
+msgstr "Není zde nic zajímavého... Je zde pouze toto číslo"
 
 #: web/404.php:59
 #, php-format
@@ -508,33 +509,33 @@ msgid ""
 "staring at you. Your mistake? Our error? Who knows! Maybe you should go back "
 "to the <a href='%s'>Start Page</a>."
 msgstr ""
-"To se nám povedlo. Překlep? Omyl? Tak už neřešte nesmrtelnost chrousta a "
-"zkuste to znovu pěkně <a href='%s'>od začátku</a>."
+"To se nám povedlo. Překlep? Omyl? Možná jste chtěli jít zpět <a href='%s'>na "
+"začátek</a>."
 
-#: web/tou.php:70 web/skins/modern/Divs.php:288
+#: web/tou.php:70 web/skins/modern/Divs.php:291
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "%s Ochrana osobních údajů"
 
-#: web/lib/user/TextTemplates.php:81
+#: web/lib/user/TextTemplates.php:83
 #, php-format
 msgid "Welcome aboard the %s user community!"
 msgstr "Vítejte v komunitě uživatelů %s!"
 
-#: web/lib/user/TextTemplates.php:82
+#: web/lib/user/TextTemplates.php:84
 msgid ""
 "Your download will start shortly. In case of problems with the automatic "
 "download please use this direct <a href=''>link</a>."
 msgstr ""
-"Za chvíli by mělo začít automatické stahování aplikace, pokud ne, klikněte "
-"<a href=''>sem</a>."
+"Za chvíli by mělo začít automatické stahování aplikace. Pokud ne, klikněte "
+"<a href=''>zde</a>."
 
-#: web/lib/user/TextTemplates.php:83 web/skins/modern/div_user_welcome.php:30
+#: web/lib/user/TextTemplates.php:85 web/skins/modern/div_user_welcome.php:30
 #, php-format
 msgid "Dear user from %s,"
 msgstr "Vážený uživateli (%s),"
 
-#: web/lib/user/TextTemplates.php:84
+#: web/lib/user/TextTemplates.php:86
 #, php-format
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
@@ -543,10 +544,10 @@ msgid ""
 "certificate') - and be online!"
 msgstr ""
 "Po instalaci a konfiguraci klienta vám stačí najít nejbližšší přístupový bod "
-"%s ve vašem okolí a zadat svoje přihlašovací údaje (uživatelské jméno a "
+"sítě %s ve vašem okolí a zadat svoje přihlašovací údaje (uživatelské jméno a "
 "heslo nebo osobní certifikát) a jste připojeni!"
 
-#: web/lib/user/TextTemplates.php:85 web/skins/modern/div_user_welcome.php:38
+#: web/lib/user/TextTemplates.php:87 web/skins/modern/div_user_welcome.php:38
 #, php-format
 msgid ""
 "Should you have any problems using this service, please always contact the "
@@ -558,11 +559,11 @@ msgstr ""
 "problému a pomohou vám s jeho řešením. Můžete je kontaktovat výše uvedenými "
 "způsoby."
 
-#: web/lib/user/TextTemplates.php:86 web/skins/modern/div_user_welcome.php:41
+#: web/lib/user/TextTemplates.php:88 web/skins/modern/div_user_welcome.php:41
 msgid "Back to downloads"
 msgstr "Zpět na stahování"
 
-#: web/lib/user/TextTemplates.php:87
+#: web/lib/user/TextTemplates.php:89
 #, php-format
 msgid ""
 "we would like to warmly welcome you among the several million users of %s! "
@@ -574,69 +575,76 @@ msgstr ""
 "této chvíle budete moci používat přístup k internetu na univerzitách, "
 "výzkumných centrech a dalších místech po celém světě. A to zcela zdarma!"
 
-#: web/lib/user/TextTemplates.php:89
+#: web/lib/user/TextTemplates.php:91
 #, php-format
 msgid "Connect your device to %s"
 msgstr "Připojte své zařízení k %s."
 
-#: web/lib/user/TextTemplates.php:90
+#: web/lib/user/TextTemplates.php:92
 #, php-format
 msgid "%s installation made easy:"
 msgstr "Snadná instalace %s pro:"
 
-#: web/lib/user/TextTemplates.php:91
+#: web/lib/user/TextTemplates.php:93
 msgid "Custom built for your organisation"
 msgstr "Vytvořeno pro vaši organizaci"
 
-#: web/lib/user/TextTemplates.php:92
+#: web/lib/user/TextTemplates.php:94
 #, php-format
 msgid "Click here to download your %s installer"
 msgstr "Pro stažení vašeho %s instalátoru klikněte zde"
 
-#: web/lib/user/TextTemplates.php:93
+#: web/lib/user/TextTemplates.php:95
+#, php-format
+msgid ""
+"%s provides access to thousands of Wi-Fi hotspots around the world, free of "
+"charge. <a href='%s'>Learn more</a>"
+msgstr ""
+
+#: web/lib/user/TextTemplates.php:96
 msgid "Select the user group"
 msgstr "Vyberte uživatelskou skupinu"
 
-#: web/lib/user/TextTemplates.php:94
+#: web/lib/user/TextTemplates.php:97
 msgid "select another"
 msgstr "vybrat jiný"
 
-#: web/lib/user/TextTemplates.php:95
+#: web/lib/user/TextTemplates.php:98
 msgid "Choose another installer to download"
 msgstr "Zvolte jiný instalátor, který chcete stáhnout"
 
-#: web/lib/user/TextTemplates.php:96
+#: web/lib/user/TextTemplates.php:99
 msgid "All platforms"
 msgstr "Všechny platformy"
 
-#: web/lib/user/TextTemplates.php:97
+#: web/lib/user/TextTemplates.php:100
 #, php-format
 msgid "Download your %s installer"
 msgstr "Stáhněte si instalátor pro %s"
 
-#: web/lib/user/TextTemplates.php:98
+#: web/lib/user/TextTemplates.php:101
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
 "<br>When you click <b>Continue</b> this support page will be opened in a new "
 "window/tab."
 msgstr ""
-"Správce z vaší instituce připravil stránku lokální podpory na kterou vás "
+"Správce vaší instituce připravil stránku lokální podpory, na kterou vás "
 "přesměrujeme.<br>Pokud kliknete na <b>Pokračovat</b>, otevřeme vám stránky "
 "uživatelské podpory v novém okně/záložce."
 
-#: web/lib/user/TextTemplates.php:99
+#: web/lib/user/TextTemplates.php:102
 #: web/skins/modern/accountstatus/accountstatus.php:226
 #: web/skins/modern/user/js/cat_js.php:278
 #: web/skins/modern/user/js/cat_js.php:286
 msgid "Continue"
 msgstr "Pokračovat"
 
-#: web/lib/user/TextTemplates.php:100
+#: web/lib/user/TextTemplates.php:103
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s"
 msgstr "Digitálně podepsaná organizací koordinující %s"
 
-#: web/lib/user/TextTemplates.php:101
+#: web/lib/user/TextTemplates.php:104
 #, php-format
 msgid ""
 "You can download your %s installer via a personalised invitation link sent "
@@ -645,7 +653,7 @@ msgstr ""
 "Instalační program %s si můžete stáhnout pomocí odkazu zaslaného vaší IT "
 "podporou. Pro získání odkazu prosím požádejte vaše IT oddělení."
 
-#: web/lib/user/TextTemplates.php:102
+#: web/lib/user/TextTemplates.php:105
 #, php-format
 msgid ""
 "This site provides %s installers for many organisations, click here to see "
@@ -654,41 +662,14 @@ msgstr ""
 "Tato webová stránka poskytuje %s instalační program pro více oraganizací, "
 "klikněte zde a zjistěte, zda je vaše organizace uvedena na seznamu."
 
-#: web/lib/user/TextTemplates.php:103
+#: web/lib/user/TextTemplates.php:106
 msgid "Custom built for you"
 msgstr "Vytvořeno pro vás"
 
-#: web/lib/user/TextTemplates.php:105
+#: web/lib/user/TextTemplates.php:108
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Digitálně podepsáno organizací koordinující %s - %s"
-
-#: web/skins/modern/div_user_welcome.php:33
-msgid ""
-"we would like to warmly welcome you among the several million users of "
-"eduroam®! From now on, you will be able to use internet access resources on "
-"thousands of universities, research centres and other places all over the "
-"globe. All of this completely free of charge!"
-msgstr ""
-"rádi bychom vás srdečně přivítali ve společnosti několika miliónů uživatelů "
-"eduroam®! Od této chvíle budete moci používat přístup k internetu na tisici "
-"univerzitách, výzkumných centrech a dalších místech po celém světě. A to vše "
-"úplně zdarma!"
-
-#: web/skins/modern/div_user_welcome.php:36
-msgid ""
-"Now that you have downloaded and installed a client configurator, all you "
-"need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal "
-"certificate') - and be online!"
-msgstr ""
-"Po instalaci a konfiguraci klienta vám stačí najít nejbližšší přístupový bod "
-"eduroam® ve vašem okolí a zadat svoje přihlašovací údaje (uživatelské jméno "
-"a heslo nebo osobní certifikát) - a jste připojeni!"
-
-#: web/skins/modern/index.php:78 web/skins/modern/test.php:80
-msgid "Authenticating"
-msgstr "Přihlašování"
 
 #: web/skins/modern/Menu.php:51
 msgid "About"
@@ -756,6 +737,33 @@ msgstr "Staňte se vývojařem CAT"
 #: web/skins/modern/Menu.php:79
 msgid "Terms of use"
 msgstr "Podmínky používaní"
+
+#: web/skins/modern/div_user_welcome.php:33
+msgid ""
+"we would like to warmly welcome you among the several million users of "
+"eduroam®! From now on, you will be able to use internet access resources on "
+"thousands of universities, research centres and other places all over the "
+"globe. All of this completely free of charge!"
+msgstr ""
+"rádi bychom vás srdečně přivítali ve společnosti několika miliónů uživatelů "
+"eduroam®! Od této chvíle budete moci používat přístup k internetu na tisici "
+"univerzitách, výzkumných centrech a dalších místech po celém světě. A to vše "
+"úplně zdarma!"
+
+#: web/skins/modern/div_user_welcome.php:36
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an eduroam® hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Po instalaci a konfiguraci klienta vám stačí najít nejbližšší přístupový bod "
+"sítě eduroam® ve vašem okolí a zadat svoje přihlašovací údaje (uživatelské "
+"jméno a heslo nebo osobní certifikát) - a jste připojeni!"
+
+#: web/skins/modern/index.php:78 web/skins/modern/test.php:80
+msgid "Authenticating"
+msgstr "Přihlašování"
 
 #: web/skins/modern/accountstatus/accountstatus.php:79
 msgid ""
@@ -1012,10 +1020,10 @@ msgid ""
 "invited to the system in the box below. This may not work if you were "
 "invited from a third-party website via the AdminAPI."
 msgstr ""
-"Zapomněli jste, s jakým Poskytovatelem identit jste se přihlásili do "
-"systému? Můžeme se to pokusit zjistit, pokud v níže uvedeném poli zadáte e-"
-"mailovou adresu, na kterou jste obdrželi pozvánku. Toto nebude fungovat "
-"pokud jste byli pozváni ze služby AdminAPI."
+"Zapomněli jste, s jakým poskytovatelem identit jste se do systému "
+"přihlásili. Pokusíme se to zjistit, pokud v níže uvedeném poli zadáte e-"
+"mailovou adresu, na kterou jste obdrželi pozvánku. Pokud jste však byli  "
+"pozváni ze služby AdminAPI, nebe to fungovat."
 
 #: web/skins/modern/user/cat_info.php:108
 msgid "Get IdP Reminder"

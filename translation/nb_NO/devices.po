@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-26 09:57+0100\n"
-"PO-Revision-Date: 2019-03-22 09:07+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2019-04-04 08:35+0200\n"
+"PO-Revision-Date: 2019-03-27 08:22+0000\n"
+"Last-Translator: Tom Ivar Myren <tom.myren@uninett.no>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/"
 "eduroam_devel/cat/language/nb_NO/)\n"
 "Language: nb_NO\n"
@@ -101,7 +101,7 @@ msgstr ""
 
 #: devices/Devices-template.php:306
 msgid "Apple iOS mobile devices (iOS 7-11)"
-msgstr ""
+msgstr "Apple iOS mobile enheter (iOS 7-11)"
 
 #: devices/Devices-template.php:320
 msgid "Apple iOS mobile devices (iOS 5 and 6)"
@@ -290,59 +290,59 @@ msgstr "for å angi brukernavnet og passordet du har fått av organisasjonen din
 msgid "(%d times each, because %s is installed for %d SSIDs)"
 msgstr "(%d ganger hver, fordi %s er installert for %d SSIDer)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:426
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:430
 #, php-format
 msgid "SSID %s"
 msgstr "SSID %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:427
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:431
 #, php-format
 msgid "%s configuration for network name %s"
 msgstr "%s konfigurasjon for nettverksnavn %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:438
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:442
 msgid "Wired Network"
 msgstr "Kablet nettverk"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:439
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:443
 #, php-format
 msgid "%s configuration for wired network"
 msgstr "%s konfigurasjon for kablet nettverk"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:453
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:457
 msgid "Hotspot 2.0 Settings"
 msgstr "Hotspot 2.0 innstillinger"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:454
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:458
 #, php-format
 msgid "%s Hotspot 2.0 configuration"
 msgstr "%s Hotspot 2.0 konfigurasjon"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:518
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:522
 #, php-format
 msgid "This SSID should not be used after bootstrapping %s"
 msgstr "Denne SSID skal ikke benyttes etter oppsett av %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:520
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:524
 msgid "Disabled WiFi network"
 msgstr "Deaktivert WiFi nettverk"
 
 #. we don't include the import password. It's displayed on screen, and should be input by the user.
 #. <key>Password</key>
 #. <string>" . $this->clientCert['password'] . "</string>
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:613
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:617
 msgid "eduroam user certificate"
 msgstr "eduroam bruker sertifikat"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:669
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:673
 #, php-format
 msgid "The %s Certification Authority"
-msgstr ""
+msgstr "%s Certification Authority"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:671
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:675
 #, php-format
 msgid "%s CA"
-msgstr ""
+msgstr "%s CA"
 
 #: devices/chromebook/Device_chromebook.php:330
 msgid ""
@@ -352,6 +352,11 @@ msgid ""
 "file' button. The import is silent; the new network definitions will be "
 "added to the preferred networks."
 msgstr ""
+"Installasjonsfilen har endelsen '.onc'. Vennligst last ned filen, åpne "
+"Chrome og gå til URL <a href='chrome://net-internals/#chromeos'>chrome://net-"
+"internals/#chromeos1</a>. Bruk deretter 'Importer ONC fil' knappen. Importen "
+"gjøres i bakgrunnen; den nye nettverksdefinisjonen blir lagt til i "
+"foretrukne nettverk. "
 
 #: devices/linux/Device_Linux.php:82
 #, php-format
@@ -384,7 +389,11 @@ msgid_plural ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to the following networks:"
 msgstr[0] ""
+"I tillegg til <strong>%s</strong> vil installasjonsprogrammet også "
+"konfigurere aksess til følgende nettverk:"
 msgstr[1] ""
+"I tillegg til <strong>%s</strong> vil installasjonsprogrammet også sette opp "
+"tilgang til følgende nettverk:"
 
 #: devices/linux/Device_Linux.php:102
 msgid ""
@@ -500,7 +509,7 @@ msgstr "N"
 msgid "personal certificate file (p12 or pfx)"
 msgstr "personlig sertifikat fil (p12 eller pfx)"
 
-#: devices/linux/Device_Linux.php:156 devices/ms/Files/common.inc:1108
+#: devices/linux/Device_Linux.php:156 devices/ms/Files/common.inc:1110
 msgid "All files"
 msgstr "Alle filer"
 
@@ -518,8 +527,8 @@ msgstr ""
 msgid "Write the file"
 msgstr "Skriv fil"
 
-#: devices/linux/Device_Linux.php:160 devices/ms/Files/common.inc:1254
-#: devices/ms/Files/common.inc:1274 devices/ms/Files/common.inc:1325
+#: devices/linux/Device_Linux.php:160 devices/ms/Files/common.inc:1256
+#: devices/ms/Files/common.inc:1276 devices/ms/Files/common.inc:1327
 msgid ""
 "Error: Your username must be of the form 'xxx@institutionID' e.g. "
 "'john@example.net'!"
@@ -647,6 +656,10 @@ msgid ""
 "administrator) and a dump of all available attributes. The installer is "
 "called with %d SSIDs to configure."
 msgstr ""
+"Dette installasjonsprogrammet er kun et eksempel. Det oppretter en zip fil "
+"som inneholder IdP sertifikat, info og logo filer (om slike har blitt lagt "
+"til av IdP administrator) og en dump av alle tilgjengelige attributter. "
+"Informasjonen hentes ved konfigurasjon av %d SSID'er."
 
 #: devices/xml/Device_XML.php:70
 #, php-format
@@ -678,7 +691,7 @@ msgstr "Ditt system er klart."
 msgid "Network installation had errors."
 msgstr "Nettverksinstallasjonen feilet."
 
-#: devices/ms/Files/common.inc:141 devices/ms/Files/common.inc:926
+#: devices/ms/Files/common.inc:141 devices/ms/Files/common.inc:928
 msgid "Please contact ${SUPPORT}."
 msgstr "Vennligst kontakt ${SUPPORT}."
 
@@ -851,92 +864,92 @@ msgstr "Vennligst start systemet på nytt etter at installasjonen er fullført."
 msgid "installing wired profile"
 msgstr "installerer profil for kablet tilkobling"
 
-#: devices/ms/Files/common.inc:885 devices/ms/Files/common.inc:904
+#: devices/ms/Files/common.inc:887 devices/ms/Files/common.inc:906
 msgid "deleting profile $R1"
 msgstr "sletter profil $R1"
 
-#: devices/ms/Files/common.inc:913
+#: devices/ms/Files/common.inc:915
 msgid "installing profile $R1"
 msgstr "installerer profil $R1"
 
-#: devices/ms/Files/common.inc:926
+#: devices/ms/Files/common.inc:928
 msgid "Profile installation error for $R1."
 msgstr "Profil installasjonsfeil for $R1"
 
-#: devices/ms/Files/common.inc:951
+#: devices/ms/Files/common.inc:953
 msgid "installing credentials for wired"
 msgstr "installerer brukerdetaljer for kablet tilknytning"
 
-#: devices/ms/Files/common.inc:957
+#: devices/ms/Files/common.inc:959
 msgid "installing credentials TLS"
 msgstr "installerer TLS brukeropplysninger"
 
-#: devices/ms/Files/common.inc:1073
+#: devices/ms/Files/common.inc:1075
 msgid "installing credentials for profile $R1"
 msgstr "installerer brukeropplysninger for profil $R1"
 
-#: devices/ms/Files/common.inc:1090 devices/ms/Files/geant_link.inc:125
+#: devices/ms/Files/common.inc:1092 devices/ms/Files/geant_link.inc:125
 msgid "Credentials installation problem"
 msgstr "Problem med installasjon av brukeropplysninger"
 
-#: devices/ms/Files/common.inc:1099
+#: devices/ms/Files/common.inc:1101
 #, php-format
 msgid "%s installer for"
 msgstr "%s installasjonsprogram for"
 
-#: devices/ms/Files/common.inc:1099
+#: devices/ms/Files/common.inc:1101
 msgid "Install personal certificate"
 msgstr "Installer personlig sertifikat"
 
-#: devices/ms/Files/common.inc:1102
+#: devices/ms/Files/common.inc:1104
 msgid "Preparing to install personal certificate."
 msgstr "Forbereder installasjon av personlig sertifikat"
 
-#: devices/ms/Files/common.inc:1102
+#: devices/ms/Files/common.inc:1104
 msgid "Click OK to continue"
 msgstr "Klikk OK for å fortsette"
 
-#: devices/ms/Files/common.inc:1108
+#: devices/ms/Files/common.inc:1110
 msgid "Certificate files (*.p12)"
 msgstr "Sertifikat filer (*.p12)"
 
-#: devices/ms/Files/common.inc:1108
+#: devices/ms/Files/common.inc:1110
 msgid "Certificate files (*pfx)"
 msgstr "Sertifikat filer (*pfx)"
 
-#: devices/ms/Files/common.inc:1111
+#: devices/ms/Files/common.inc:1113
 msgid "certificate password:"
 msgstr "sertifikat passord:"
 
-#: devices/ms/Files/common.inc:1113 devices/ms/Files/common.inc:1368
+#: devices/ms/Files/common.inc:1115 devices/ms/Files/common.inc:1378
 msgid "Username:"
 msgstr "Brukernavn:"
 
-#: devices/ms/Files/common.inc:1117
+#: devices/ms/Files/common.inc:1119
 msgid "Selected file: $Cert_file"
 msgstr "Velg fil: $Cert_file"
 
-#: devices/ms/Files/common.inc:1119
+#: devices/ms/Files/common.inc:1121
 msgid "import password:"
 msgstr "importer passord:"
 
-#: devices/ms/Files/common.inc:1154
+#: devices/ms/Files/common.inc:1156
 msgid "No certificate file selected"
 msgstr "Ingen sertifikat fil er valgt"
 
-#: devices/ms/Files/common.inc:1158
+#: devices/ms/Files/common.inc:1160
 msgid "Incorrect import password$\\r$\\nenter again"
 msgstr "Feil import passord $\\r$\\n prøv igjen"
 
-#: devices/ms/Files/common.inc:1160
+#: devices/ms/Files/common.inc:1162
 msgid "Incorrect certificate password$\\r$\\nenter again"
 msgstr "Feil sertifikat passord$\\r$\\n forsøk igjen"
 
-#: devices/ms/Files/common.inc:1234
+#: devices/ms/Files/common.inc:1236
 msgid "Username contained some trailing spaces which were removed."
 msgstr "Brukernavn innehold mellomrom til slutt, de ble fjernet."
 
-#: devices/ms/Files/common.inc:1269
+#: devices/ms/Files/common.inc:1271
 msgid ""
 "Error: your username must be in the form of 'xxx@${REALM}'. Please enter the "
 "username in the correct format."
@@ -944,7 +957,7 @@ msgstr ""
 "Feil: Brukernavn må være på formen 'xxx@${REALM}'. Vennligst oppgi "
 "brukernavn i korrekt format."
 
-#: devices/ms/Files/common.inc:1271
+#: devices/ms/Files/common.inc:1273
 msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'${REALM}'. Please enter the username in the correct format."
@@ -952,39 +965,38 @@ msgstr ""
 "Feil: Brukernavn må være på formen 'xxx@institutionID' og slutte med "
 "'${REALM}'. Vennligst oppgi brukernavn i korrekt format. "
 
-#: devices/ms/Files/common.inc:1364
+#: devices/ms/Files/common.inc:1374
 msgid "User credentials"
 msgstr "Brukeropplysninger"
 
-#: devices/ms/Files/common.inc:1371
+#: devices/ms/Files/common.inc:1381
 msgid "Password:"
 msgstr "Passord:"
 
-#: devices/ms/Files/common.inc:1374
+#: devices/ms/Files/common.inc:1384
 msgid "Repeat password:"
 msgstr "Gjenta passord:"
 
-#: devices/ms/Files/common.inc:1389
+#: devices/ms/Files/common.inc:1399
 msgid "Missing username"
 msgstr "Mangler brukernavn"
 
-#: devices/ms/Files/common.inc:1401
+#: devices/ms/Files/common.inc:1411
 msgid "Missing password"
 msgstr "Passord mangler"
 
-#: devices/ms/Files/common.inc:1407
-#, fuzzy
+#: devices/ms/Files/common.inc:1417
 msgid "Password mismatch"
 msgstr "Passord mismatch"
 
-#: devices/ms/Files/common.inc:1498 devices/ms/Files/eap_w8.inc:31
+#: devices/ms/Files/common.inc:1508 devices/ms/Files/eap_w8.inc:31
 #: devices/ms/Files/geant_link.inc:33 devices/ms/Files/geant_link.inc:43
 #: devices/ms/Files/peap_tls.inc:31 devices/ms/Files/pwd.inc:30
 #: devices/ms/Files/pwd.inc:60
 msgid "Installation"
 msgstr "Installasjon"
 
-#: devices/ms/Files/common.inc:1498
+#: devices/ms/Files/common.inc:1508
 msgid "Checking for existing wireless profiles"
 msgstr "Ser etter eksisterende trådløse profiler."
 

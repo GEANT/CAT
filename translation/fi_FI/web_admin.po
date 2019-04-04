@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"POT-Creation-Date: 2019-04-04 08:35+0200\n"
 "PO-Revision-Date: 2019-03-22 21:59+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Finnish (Finland) (http://www.transifex.com/eduroam_devel/cat/"
@@ -116,7 +116,7 @@ msgstr "%s:%sRäätälöinti (lähetys valmis)"
 msgid "Submitted attributes for %s '%s'"
 msgstr "Lähetetyt attribuutit%s'%s' :lle"
 
-#: web/admin/edit_federation_result.php:55 web/admin/edit_idp_result.php:152
+#: web/admin/edit_federation_result.php:55 web/admin/edit_idp_result.php:156
 #: web/admin/edit_profile_result.php:246
 msgid "Continue to dashboard"
 msgstr "Jatka dashboardiin"
@@ -380,33 +380,33 @@ msgstr "%s: IdP:n käyttöönttovelho (vaihe 2 suoritettu)"
 msgid "Submitted attributes for IdP '%s'"
 msgstr "Lähetty IdP:n '%s' tiedot"
 
-#: web/admin/edit_idp_result.php:97 web/admin/edit_idp_result.php:102
+#: web/admin/edit_idp_result.php:101 web/admin/edit_idp_result.php:106
 msgid "(WPA2/AES and WPA/TKIP)"
 msgstr "(WPA2/AES ja WPA/TKIP)"
 
-#: web/admin/edit_idp_result.php:97 web/admin/edit_idp_result.php:105
+#: web/admin/edit_idp_result.php:101 web/admin/edit_idp_result.php:109
 msgid "(WPA2/AES)"
 msgstr "(WPA2/AES)"
 
-#: web/admin/edit_idp_result.php:115
+#: web/admin/edit_idp_result.php:119
 #, php-format
 msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
 msgstr "Asennusohjelmasi konfiguroivat seuraavat SSID:t: <strong>%s</strong>"
 
-#: web/admin/edit_idp_result.php:115
+#: web/admin/edit_idp_result.php:119
 msgid "SSIDs configured"
 msgstr "SSID:t ovat konfiguroitu"
 
-#: web/admin/edit_idp_result.php:119
+#: web/admin/edit_idp_result.php:123
 #, php-format
 msgid "Your installers will configure wired interfaces."
 msgstr "Asennusohjelmasi konfiguroivat langalliset liitynnät."
 
-#: web/admin/edit_idp_result.php:119
+#: web/admin/edit_idp_result.php:123
 msgid "Wired configured"
 msgstr "Langallinen määritelty"
 
-#: web/admin/edit_idp_result.php:122
+#: web/admin/edit_idp_result.php:126
 msgid ""
 "We cannot generate installers because neither wireless SSIDs nor wired "
 "interfaces have been selected as a target!"
@@ -414,12 +414,12 @@ msgstr ""
 "Asennusohjelmia ei voitu luoda, koska yhtään SSID:tä tai langallista "
 "liityntää ei ole asetettu!"
 
-#: web/admin/edit_idp_result.php:141
+#: web/admin/edit_idp_result.php:145
 #, php-format
 msgid "Continue to %s properties"
 msgstr "Jatka %s:n ominaisuuksiin."
 
-#: web/admin/edit_idp_result.php:144
+#: web/admin/edit_idp_result.php:148
 #, php-format
 msgid ""
 "You did not submit an e-mail address. This is required for %s. Please go to "
@@ -429,11 +429,11 @@ msgstr ""
 "Et ole määrittänyt sähköpostiosoitetta. Tämä vaaditaan %s:lle. Siirry %s:n "
 "hallintapaneeliin ja lisä sähköpostiosoite käyttötukiasetuksiisi. "
 
-#: web/admin/edit_idp_result.php:144
+#: web/admin/edit_idp_result.php:148
 msgid "No support e-mail!"
 msgstr "Ei käyttötuen sähköpostiosoitetta!"
 
-#: web/admin/edit_idp_result.php:149
+#: web/admin/edit_idp_result.php:153
 msgid "Continue to RADIUS/EAP profile definition"
 msgstr "Jatka RADIUS/EAP-profiilin määrittelyyn"
 

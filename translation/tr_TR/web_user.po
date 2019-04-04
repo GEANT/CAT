@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"POT-Creation-Date: 2019-04-04 08:35+0200\n"
 "PO-Revision-Date: 2019-03-22 09:37+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/eduroam_devel/cat/"
@@ -441,7 +441,7 @@ msgstr "Kullanım Kuralları"
 msgid "(for legal reasons, the Terms of Use are in English only)"
 msgstr ""
 
-#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:88
+#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:90
 #, php-format
 msgid "Welcome to %s"
 msgstr "%s ye Hoşgeldiniz"
@@ -498,17 +498,17 @@ msgstr ""
 "size bakıyor. Sizin yanlışınız mı? Bizim hatamız mı? Kimbilir! Belkide <a "
 "href='%s'>Başlangıç Sayfası</a> na dönmeniz gerekiyor."
 
-#: web/tou.php:70 web/skins/modern/Divs.php:288
+#: web/tou.php:70 web/skins/modern/Divs.php:291
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "%s Gizlilik Bildirimi"
 
-#: web/lib/user/TextTemplates.php:81
+#: web/lib/user/TextTemplates.php:83
 #, php-format
 msgid "Welcome aboard the %s user community!"
 msgstr "%s kullanıcı topluluğuna hoş geldiniz!"
 
-#: web/lib/user/TextTemplates.php:82
+#: web/lib/user/TextTemplates.php:84
 msgid ""
 "Your download will start shortly. In case of problems with the automatic "
 "download please use this direct <a href=''>link</a>."
@@ -516,12 +516,12 @@ msgstr ""
 "İndirme işleminiz kısa süre içinde başlayacaktır. Otomatik indirme işleminde "
 "problemle karşılaşırsanız, lütfen <a href=\">link</a> linkini kullanın."
 
-#: web/lib/user/TextTemplates.php:83 web/skins/modern/div_user_welcome.php:30
+#: web/lib/user/TextTemplates.php:85 web/skins/modern/div_user_welcome.php:30
 #, php-format
 msgid "Dear user from %s,"
 msgstr "%s den sevgili kullanıcı,"
 
-#: web/lib/user/TextTemplates.php:84
+#: web/lib/user/TextTemplates.php:86
 #, php-format
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
@@ -534,7 +534,7 @@ msgstr ""
 "kullanıcı bilgilerinizi ('kullanıcı adı ve parola' veya 'kişisel sertifika') "
 "girerek çevrimiçi olmak!"
 
-#: web/lib/user/TextTemplates.php:85 web/skins/modern/div_user_welcome.php:38
+#: web/lib/user/TextTemplates.php:87 web/skins/modern/div_user_welcome.php:38
 #, php-format
 msgid ""
 "Should you have any problems using this service, please always contact the "
@@ -545,11 +545,11 @@ msgstr ""
 "%s yardım masası ile bağlantıya geçin. Problemi tespit edip size yardımcı "
 "olacaklardır. Üstte gösterilen araçla onlara erişebilirsiniz."
 
-#: web/lib/user/TextTemplates.php:86 web/skins/modern/div_user_welcome.php:41
+#: web/lib/user/TextTemplates.php:88 web/skins/modern/div_user_welcome.php:41
 msgid "Back to downloads"
 msgstr "İndirilenlere geri dön"
 
-#: web/lib/user/TextTemplates.php:87
+#: web/lib/user/TextTemplates.php:89
 #, php-format
 msgid ""
 "we would like to warmly welcome you among the several million users of %s! "
@@ -562,47 +562,54 @@ msgstr ""
 "dört bir yanındaki diğer yerlerde internet erişim kaynaklarını "
 "kullanabileceksiniz. Bütün bunlar tamamen ücretsiz!"
 
-#: web/lib/user/TextTemplates.php:89
+#: web/lib/user/TextTemplates.php:91
 #, php-format
 msgid "Connect your device to %s"
 msgstr "Aygıtınızı %sa bağlayın"
 
-#: web/lib/user/TextTemplates.php:90
+#: web/lib/user/TextTemplates.php:92
 #, php-format
 msgid "%s installation made easy:"
 msgstr "%s kurulumu kolaylaştırır:"
 
-#: web/lib/user/TextTemplates.php:91
+#: web/lib/user/TextTemplates.php:93
 msgid "Custom built for your organisation"
 msgstr "Kuruluşunuz için özel olarak oluşturulmuştur"
 
-#: web/lib/user/TextTemplates.php:92
+#: web/lib/user/TextTemplates.php:94
 #, php-format
 msgid "Click here to download your %s installer"
 msgstr "%s yükleyicinizi indirmek için buraya tıklayın"
 
-#: web/lib/user/TextTemplates.php:93
+#: web/lib/user/TextTemplates.php:95
+#, php-format
+msgid ""
+"%s provides access to thousands of Wi-Fi hotspots around the world, free of "
+"charge. <a href='%s'>Learn more</a>"
+msgstr ""
+
+#: web/lib/user/TextTemplates.php:96
 msgid "Select the user group"
 msgstr "Diğer kullanıcı grubunu seçin"
 
-#: web/lib/user/TextTemplates.php:94
+#: web/lib/user/TextTemplates.php:97
 msgid "select another"
 msgstr "diğerini seçin"
 
-#: web/lib/user/TextTemplates.php:95
+#: web/lib/user/TextTemplates.php:98
 msgid "Choose another installer to download"
 msgstr "İndirmek için başka bir yükleyici seçin"
 
-#: web/lib/user/TextTemplates.php:96
+#: web/lib/user/TextTemplates.php:99
 msgid "All platforms"
 msgstr "Tüm platformlar"
 
-#: web/lib/user/TextTemplates.php:97
+#: web/lib/user/TextTemplates.php:100
 #, php-format
 msgid "Download your %s installer"
 msgstr "%s için yükleyiciyi indirin."
 
-#: web/lib/user/TextTemplates.php:98
+#: web/lib/user/TextTemplates.php:101
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
 "<br>When you click <b>Continue</b> this support page will be opened in a new "
@@ -612,19 +619,19 @@ msgstr ""
 "<br><b>Devam</b>'ı tıklattığınızda bu destek sayfası yeni bir pencerede/"
 "sekmede açılır."
 
-#: web/lib/user/TextTemplates.php:99
+#: web/lib/user/TextTemplates.php:102
 #: web/skins/modern/accountstatus/accountstatus.php:226
 #: web/skins/modern/user/js/cat_js.php:278
 #: web/skins/modern/user/js/cat_js.php:286
 msgid "Continue"
 msgstr "Devam Et"
 
-#: web/lib/user/TextTemplates.php:100
+#: web/lib/user/TextTemplates.php:103
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s"
 msgstr "%s'i koordine eden kurum tarafından dijital olarak imzalandı"
 
-#: web/lib/user/TextTemplates.php:101
+#: web/lib/user/TextTemplates.php:104
 #, php-format
 msgid ""
 "You can download your %s installer via a personalised invitation link sent "
@@ -634,7 +641,7 @@ msgstr ""
 "davetiye aracılığıyla indirebilirsiniz. Bu bağlantıyı almak için lütfen BT "
 "bölümüyle konuşun."
 
-#: web/lib/user/TextTemplates.php:102
+#: web/lib/user/TextTemplates.php:105
 #, php-format
 msgid ""
 "This site provides %s installers for many organisations, click here to see "
@@ -643,42 +650,14 @@ msgstr ""
 "Bu site birçok kurum için %s yükleyicisi barındırır, sizin kurumunuzun "
 "listede olup olmadığını görmek için buraya tıklayın."
 
-#: web/lib/user/TextTemplates.php:103
+#: web/lib/user/TextTemplates.php:106
 msgid "Custom built for you"
 msgstr "Sizin için özel olarak oluşturulmuştur"
 
-#: web/lib/user/TextTemplates.php:105
+#: web/lib/user/TextTemplates.php:108
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Organizasyon tarafından dijital olarak imzalanmış kordinatlar %s:%s"
-
-#: web/skins/modern/div_user_welcome.php:33
-msgid ""
-"we would like to warmly welcome you among the several million users of "
-"eduroam®! From now on, you will be able to use internet access resources on "
-"thousands of universities, research centres and other places all over the "
-"globe. All of this completely free of charge!"
-msgstr ""
-"'eduroam®'un birkaç milyon kullanıcısı arasında sizi sıcak bir şekilde "
-"ağırlamak isteriz! Bundan sonra, binlerce üniversite, araştırma merkezi ve "
-"dünyanın dört bir yanındaki diğer yerlerde internet erişim kaynaklarını "
-"kullanabileceksiniz. Bütün bunlar tamamen ücretsiz!"
-
-#: web/skins/modern/div_user_welcome.php:36
-msgid ""
-"Now that you have downloaded and installed a client configurator, all you "
-"need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal "
-"certificate') - and be online!"
-msgstr ""
-"Artık bir istemci yapılandırıcıyı indirip kurduğunuza göre, tek yapmanız "
-"gereken, yakınınızda bir eduroam®  kablosuz internet erişim noktası bulmak "
-"ve kullanıcı bilgilerinizi ('kullanıcı adı ve parola' veya 'kişisel "
-"sertifika') girerek çevrimiçi olmak!"
-
-#: web/skins/modern/index.php:78 web/skins/modern/test.php:80
-msgid "Authenticating"
-msgstr "Kimlik doğrulanıyor"
 
 #: web/skins/modern/Menu.php:51
 msgid "About"
@@ -746,6 +725,34 @@ msgstr "CAT geliştiricisi ol"
 #: web/skins/modern/Menu.php:79
 msgid "Terms of use"
 msgstr "Kullanım kuralları"
+
+#: web/skins/modern/div_user_welcome.php:33
+msgid ""
+"we would like to warmly welcome you among the several million users of "
+"eduroam®! From now on, you will be able to use internet access resources on "
+"thousands of universities, research centres and other places all over the "
+"globe. All of this completely free of charge!"
+msgstr ""
+"'eduroam®'un birkaç milyon kullanıcısı arasında sizi sıcak bir şekilde "
+"ağırlamak isteriz! Bundan sonra, binlerce üniversite, araştırma merkezi ve "
+"dünyanın dört bir yanındaki diğer yerlerde internet erişim kaynaklarını "
+"kullanabileceksiniz. Bütün bunlar tamamen ücretsiz!"
+
+#: web/skins/modern/div_user_welcome.php:36
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an eduroam® hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Artık bir istemci yapılandırıcıyı indirip kurduğunuza göre, tek yapmanız "
+"gereken, yakınınızda bir eduroam®  kablosuz internet erişim noktası bulmak "
+"ve kullanıcı bilgilerinizi ('kullanıcı adı ve parola' veya 'kişisel "
+"sertifika') girerek çevrimiçi olmak!"
+
+#: web/skins/modern/index.php:78 web/skins/modern/test.php:80
+msgid "Authenticating"
+msgstr "Kimlik doğrulanıyor"
 
 #: web/skins/modern/accountstatus/accountstatus.php:79
 msgid ""

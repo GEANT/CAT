@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"POT-Creation-Date: 2019-04-04 08:35+0200\n"
 "PO-Revision-Date: 2019-03-22 21:59+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/eduroam_devel/"
@@ -117,7 +117,7 @@ msgstr "%s: %s Персонализиране (предаването е зав�
 msgid "Submitted attributes for %s '%s'"
 msgstr "Предадени свойства за %s '%s'"
 
-#: web/admin/edit_federation_result.php:55 web/admin/edit_idp_result.php:152
+#: web/admin/edit_federation_result.php:55 web/admin/edit_idp_result.php:156
 #: web/admin/edit_profile_result.php:246
 msgid "Continue to dashboard"
 msgstr "Продължете към таблото"
@@ -394,33 +394,33 @@ msgstr "%s: IdP съветник за вписване (стъпка 2 завъ�
 msgid "Submitted attributes for IdP '%s'"
 msgstr "Изпратете атрибутите за IdP '%s'"
 
-#: web/admin/edit_idp_result.php:97 web/admin/edit_idp_result.php:102
+#: web/admin/edit_idp_result.php:101 web/admin/edit_idp_result.php:106
 msgid "(WPA2/AES and WPA/TKIP)"
 msgstr "(WPA2/AES и WPA/TKIP)"
 
-#: web/admin/edit_idp_result.php:97 web/admin/edit_idp_result.php:105
+#: web/admin/edit_idp_result.php:101 web/admin/edit_idp_result.php:109
 msgid "(WPA2/AES)"
 msgstr "(WPA2/AES)"
 
-#: web/admin/edit_idp_result.php:115
+#: web/admin/edit_idp_result.php:119
 #, php-format
 msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
 msgstr "Вашите инсталатори ще конфигурират следните SSIDs: <strong>%s</strong>"
 
-#: web/admin/edit_idp_result.php:115
+#: web/admin/edit_idp_result.php:119
 msgid "SSIDs configured"
 msgstr "SSID-тата са конфигурирани"
 
-#: web/admin/edit_idp_result.php:119
+#: web/admin/edit_idp_result.php:123
 #, php-format
 msgid "Your installers will configure wired interfaces."
 msgstr "Вашите инсталатори ще конфигурират жичните интерфейси."
 
-#: web/admin/edit_idp_result.php:119
+#: web/admin/edit_idp_result.php:123
 msgid "Wired configured"
 msgstr "Кабелните интерфейси са конфигурирани"
 
-#: web/admin/edit_idp_result.php:122
+#: web/admin/edit_idp_result.php:126
 msgid ""
 "We cannot generate installers because neither wireless SSIDs nor wired "
 "interfaces have been selected as a target!"
@@ -428,12 +428,12 @@ msgstr ""
 "Не може да се инсталира, защото не са избрани нито безжични SSIDs, нито "
 "кабелни интерфейси."
 
-#: web/admin/edit_idp_result.php:141
+#: web/admin/edit_idp_result.php:145
 #, php-format
 msgid "Continue to %s properties"
 msgstr "Продължете до %s свойства"
 
-#: web/admin/edit_idp_result.php:144
+#: web/admin/edit_idp_result.php:148
 #, php-format
 msgid ""
 "You did not submit an e-mail address. This is required for %s. Please go to "
@@ -444,11 +444,11 @@ msgstr ""
 "таблото и редактирайте настройките на Вашия отдел за помощ, така че да "
 "включват и-мейл адреса му. "
 
-#: web/admin/edit_idp_result.php:144
+#: web/admin/edit_idp_result.php:148
 msgid "No support e-mail!"
 msgstr "Не поддържа и-мейл!"
 
-#: web/admin/edit_idp_result.php:149
+#: web/admin/edit_idp_result.php:153
 msgid "Continue to RADIUS/EAP profile definition"
 msgstr "Продължете до RADIUS/EAP дефиниране на профила"
 

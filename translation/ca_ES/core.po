@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"POT-Creation-Date: 2019-04-04 08:35+0200\n"
 "PO-Revision-Date: 2019-03-25 07:59+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/eduroam_devel/cat/"
@@ -488,24 +488,24 @@ msgstr "organització"
 msgid "Identity Provider"
 msgstr "Proveïdor d'Identitat"
 
-#: core/common/OutsideComm.php:257
+#: core/common/OutsideComm.php:261
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
 msgstr ""
 "un %s de %sde %s \"%s\" us ha convidat a gestionar %sconjuntament amb ell."
 
-#: core/common/OutsideComm.php:258
+#: core/common/OutsideComm.php:262
 #, php-format
 msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
 msgstr "un %s de %s us ha invitat a gestionar %s  \"%s\" (%s)."
 
-#: core/common/OutsideComm.php:259
+#: core/common/OutsideComm.php:263
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\"."
 msgstr "un %s de %s us ha invitat a gestionar %s  \"%s\" ."
 
-#: core/common/OutsideComm.php:261
+#: core/common/OutsideComm.php:265
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr ""
@@ -513,29 +513,29 @@ msgstr ""
 "les %s."
 
 #. then, send out the mail
-#: core/common/OutsideComm.php:269
+#: core/common/OutsideComm.php:273
 msgid "Hello,"
 msgstr "Hola,"
 
 #. default means we don't have a Reply-To.
-#: core/common/OutsideComm.php:271
+#: core/common/OutsideComm.php:275
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
 "manualment. Si us plau no respongueu a aquest correu; és una adreça només "
 "per a enviar."
 
-#: core/common/OutsideComm.php:277
+#: core/common/OutsideComm.php:281
 #, php-format
 msgid "Additional message from your %s administrator:"
 msgstr "Missatge addicional del vostre administrador %s:"
 
-#: core/common/OutsideComm.php:285
+#: core/common/OutsideComm.php:289
 #, php-format
 msgid "%s administrator"
 msgstr "Administrador de %s"
 
-#: core/common/OutsideComm.php:288
+#: core/common/OutsideComm.php:292
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
@@ -543,7 +543,7 @@ msgstr ""
 "manualment. Si responeu a aquest correu, us comunicareu amb l'administrador "
 "de %s."
 
-#: core/common/OutsideComm.php:293
+#: core/common/OutsideComm.php:297
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
@@ -552,7 +552,7 @@ msgstr ""
 "Per a participar-hi com a administrador de %s, si us plau cliqueu al següent "
 "enllaç:"
 
-#: core/common/OutsideComm.php:295
+#: core/common/OutsideComm.php:299
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
@@ -561,11 +561,11 @@ msgstr ""
 "Si clicant a l'enllaç aquest no funciona, podeu també anar a l'entorn "
 "d'Administració de %s a "
 
-#: core/common/OutsideComm.php:297
+#: core/common/OutsideComm.php:301
 msgid "and enter the invitation token"
 msgstr "i entreu el codi d'invitació"
 
-#: core/common/OutsideComm.php:299
+#: core/common/OutsideComm.php:303
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
@@ -573,12 +573,12 @@ msgstr ""
 "NO reenvieu el correu abans que hagi expirat el token - o els destinataris "
 "podran fer-lo servir en lloc vostre!"
 
-#: core/common/OutsideComm.php:300
+#: core/common/OutsideComm.php:304
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr "Us desitgem que disfruteu amb %s"
 
-#: core/common/OutsideComm.php:301
+#: core/common/OutsideComm.php:305
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -589,7 +589,7 @@ msgstr ""
 "\n"
 "Els companys d'Operacions d'%s"
 
-#: core/common/OutsideComm.php:337
+#: core/common/OutsideComm.php:341
 #, php-format
 msgid "%s: you have been invited to manage an %s"
 msgstr "%s: heu estat invitat a gestionar %s"

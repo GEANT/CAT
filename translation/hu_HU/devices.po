@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-26 09:57+0100\n"
-"PO-Revision-Date: 2019-03-22 09:07+0000\n"
+"POT-Creation-Date: 2019-04-04 08:35+0200\n"
+"PO-Revision-Date: 2019-03-26 21:18+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/eduroam_devel/"
 "cat/language/hu_HU/)\n"
@@ -287,56 +287,56 @@ msgstr "add meg a szervezettől kapott felhasználónevet és jelszót"
 msgid "(%d times each, because %s is installed for %d SSIDs)"
 msgstr "(%d alkalommal, mivel %s telepítésre került %d SSID számára)"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:426
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:430
 #, php-format
 msgid "SSID %s"
 msgstr "SSID %s"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:427
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:431
 #, php-format
 msgid "%s configuration for network name %s"
 msgstr "%s konfiguráció az %s hálózat számára"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:438
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:442
 msgid "Wired Network"
 msgstr "Vezetékes Hálózat"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:439
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:443
 #, php-format
 msgid "%s configuration for wired network"
 msgstr "%s konfiguráció vezetékes hálózathoz"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:453
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:457
 msgid "Hotspot 2.0 Settings"
 msgstr "Hotspot 2.0 beállítások"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:454
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:458
 #, php-format
 msgid "%s Hotspot 2.0 configuration"
 msgstr "%s Hotspot 2.0 konfiguráció"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:518
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:522
 #, php-format
 msgid "This SSID should not be used after bootstrapping %s"
 msgstr "Ezt az SSID-t nem szabad használni a %s bootstrap-ja után."
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:520
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:524
 msgid "Disabled WiFi network"
 msgstr "Letiltott WiFi hálózat"
 
 #. we don't include the import password. It's displayed on screen, and should be input by the user.
 #. <key>Password</key>
 #. <string>" . $this->clientCert['password'] . "</string>
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:613
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:617
 msgid "eduroam user certificate"
 msgstr "eduroam felhasználói tanúsítvány"
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:669
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:673
 #, php-format
 msgid "The %s Certification Authority"
 msgstr ""
 
-#: devices/apple_mobileconfig/MobileconfigSuperclass.php:671
+#: devices/apple_mobileconfig/MobileconfigSuperclass.php:675
 #, php-format
 msgid "%s CA"
 msgstr ""
@@ -497,7 +497,7 @@ msgstr "N"
 msgid "personal certificate file (p12 or pfx)"
 msgstr "a személyes tanúsítványt tartalmazó (p12 vagy pfx) fájl"
 
-#: devices/linux/Device_Linux.php:156 devices/ms/Files/common.inc:1108
+#: devices/linux/Device_Linux.php:156 devices/ms/Files/common.inc:1110
 msgid "All files"
 msgstr "Minden fájl"
 
@@ -515,8 +515,8 @@ msgstr ""
 msgid "Write the file"
 msgstr "Fájl írása"
 
-#: devices/linux/Device_Linux.php:160 devices/ms/Files/common.inc:1254
-#: devices/ms/Files/common.inc:1274 devices/ms/Files/common.inc:1325
+#: devices/linux/Device_Linux.php:160 devices/ms/Files/common.inc:1256
+#: devices/ms/Files/common.inc:1276 devices/ms/Files/common.inc:1327
 msgid ""
 "Error: Your username must be of the form 'xxx@institutionID' e.g. "
 "'john@example.net'!"
@@ -675,7 +675,7 @@ msgstr "A rendszer kész."
 msgid "Network installation had errors."
 msgstr "A hálózati telepítés hibával leállt."
 
-#: devices/ms/Files/common.inc:141 devices/ms/Files/common.inc:926
+#: devices/ms/Files/common.inc:141 devices/ms/Files/common.inc:928
 msgid "Please contact ${SUPPORT}."
 msgstr "Lépj kapcsolatba ${SUPPORT}-val."
 
@@ -850,92 +850,92 @@ msgstr "Indítsd újra a rendszert a telepítés után. "
 msgid "installing wired profile"
 msgstr "Vezetékes profile telepítve"
 
-#: devices/ms/Files/common.inc:885 devices/ms/Files/common.inc:904
+#: devices/ms/Files/common.inc:887 devices/ms/Files/common.inc:906
 msgid "deleting profile $R1"
 msgstr "$R1 profil törlése"
 
-#: devices/ms/Files/common.inc:913
+#: devices/ms/Files/common.inc:915
 msgid "installing profile $R1"
 msgstr "$R1 profil telepítése"
 
-#: devices/ms/Files/common.inc:926
+#: devices/ms/Files/common.inc:928
 msgid "Profile installation error for $R1."
 msgstr "$R1 profile telepítése során hiba keletkezett"
 
-#: devices/ms/Files/common.inc:951
+#: devices/ms/Files/common.inc:953
 msgid "installing credentials for wired"
 msgstr "Vezetékes hozzáférési adatok telepítve"
 
-#: devices/ms/Files/common.inc:957
+#: devices/ms/Files/common.inc:959
 msgid "installing credentials TLS"
 msgstr "TLS tanúsítvány telepítése"
 
-#: devices/ms/Files/common.inc:1073
+#: devices/ms/Files/common.inc:1075
 msgid "installing credentials for profile $R1"
 msgstr "$R1 profile telepítésre került"
 
-#: devices/ms/Files/common.inc:1090 devices/ms/Files/geant_link.inc:125
+#: devices/ms/Files/common.inc:1092 devices/ms/Files/geant_link.inc:125
 msgid "Credentials installation problem"
 msgstr "Azonosító telepítési probléma"
 
-#: devices/ms/Files/common.inc:1099
+#: devices/ms/Files/common.inc:1101
 #, php-format
 msgid "%s installer for"
 msgstr "%s telepítő "
 
-#: devices/ms/Files/common.inc:1099
+#: devices/ms/Files/common.inc:1101
 msgid "Install personal certificate"
 msgstr "személyes tanúsítvány telepítése"
 
-#: devices/ms/Files/common.inc:1102
+#: devices/ms/Files/common.inc:1104
 msgid "Preparing to install personal certificate."
 msgstr "Felkészülés a személyes tanúsítvány telepítésére"
 
-#: devices/ms/Files/common.inc:1102
+#: devices/ms/Files/common.inc:1104
 msgid "Click OK to continue"
 msgstr "Kattints a Rendben gombra a folytatáshoz"
 
-#: devices/ms/Files/common.inc:1108
+#: devices/ms/Files/common.inc:1110
 msgid "Certificate files (*.p12)"
 msgstr "Tanúsítvány fájlok (*.p12)"
 
-#: devices/ms/Files/common.inc:1108
+#: devices/ms/Files/common.inc:1110
 msgid "Certificate files (*pfx)"
 msgstr "Tanúsítvány fájlok (*.pfx)"
 
-#: devices/ms/Files/common.inc:1111
+#: devices/ms/Files/common.inc:1113
 msgid "certificate password:"
 msgstr "Tanúsítvány jelszó:"
 
-#: devices/ms/Files/common.inc:1113 devices/ms/Files/common.inc:1368
+#: devices/ms/Files/common.inc:1115 devices/ms/Files/common.inc:1378
 msgid "Username:"
 msgstr "Felhasználónév:"
 
-#: devices/ms/Files/common.inc:1117
+#: devices/ms/Files/common.inc:1119
 msgid "Selected file: $Cert_file"
 msgstr "A kiválasztott fájl: $Cert_file"
 
-#: devices/ms/Files/common.inc:1119
+#: devices/ms/Files/common.inc:1121
 msgid "import password:"
 msgstr "importáló jelszó"
 
-#: devices/ms/Files/common.inc:1154
+#: devices/ms/Files/common.inc:1156
 msgid "No certificate file selected"
 msgstr "Nem lett kiválasztva tanúsítvány fájl"
 
-#: devices/ms/Files/common.inc:1158
+#: devices/ms/Files/common.inc:1160
 msgid "Incorrect import password$\\r$\\nenter again"
 msgstr "Nem megfelelő importáló jelszó$\\r$\\nenter"
 
-#: devices/ms/Files/common.inc:1160
+#: devices/ms/Files/common.inc:1162
 msgid "Incorrect certificate password$\\r$\\nenter again"
 msgstr "Hibás tanúsítvány jelszó$\\r$\\nPróbáld újra"
 
-#: devices/ms/Files/common.inc:1234
+#: devices/ms/Files/common.inc:1236
 msgid "Username contained some trailing spaces which were removed."
 msgstr ""
 
-#: devices/ms/Files/common.inc:1269
+#: devices/ms/Files/common.inc:1271
 msgid ""
 "Error: your username must be in the form of 'xxx@${REALM}'. Please enter the "
 "username in the correct format."
@@ -943,7 +943,7 @@ msgstr ""
 "Hiba: a felhasználónevének \"xxx@${REALM}\" formában kell lennie. Kérjük, "
 "adja meg a felhasználónevet a megfelelő formátumban."
 
-#: devices/ms/Files/common.inc:1271
+#: devices/ms/Files/common.inc:1273
 msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'${REALM}'. Please enter the username in the correct format."
@@ -952,39 +952,38 @@ msgstr ""
 "és a \"${REALM}\" kifejezéssel kell végződnie. Kérjük, adja meg a "
 "felhasználónevet a megfelelő formátumban."
 
-#: devices/ms/Files/common.inc:1364
+#: devices/ms/Files/common.inc:1374
 msgid "User credentials"
 msgstr "Felhasználói azonosítók"
 
-#: devices/ms/Files/common.inc:1371
+#: devices/ms/Files/common.inc:1381
 msgid "Password:"
 msgstr "Jelszó:"
 
-#: devices/ms/Files/common.inc:1374
+#: devices/ms/Files/common.inc:1384
 msgid "Repeat password:"
 msgstr "Jelszó ismét:"
 
-#: devices/ms/Files/common.inc:1389
+#: devices/ms/Files/common.inc:1399
 msgid "Missing username"
 msgstr "Hiányzó felhasználói név"
 
-#: devices/ms/Files/common.inc:1401
+#: devices/ms/Files/common.inc:1411
 msgid "Missing password"
 msgstr "Hiányzó jelszó"
 
-#: devices/ms/Files/common.inc:1407
-#, fuzzy
+#: devices/ms/Files/common.inc:1417
 msgid "Password mismatch"
-msgstr "Nem illeszkedő jelszó"
+msgstr ""
 
-#: devices/ms/Files/common.inc:1498 devices/ms/Files/eap_w8.inc:31
+#: devices/ms/Files/common.inc:1508 devices/ms/Files/eap_w8.inc:31
 #: devices/ms/Files/geant_link.inc:33 devices/ms/Files/geant_link.inc:43
 #: devices/ms/Files/peap_tls.inc:31 devices/ms/Files/pwd.inc:30
 #: devices/ms/Files/pwd.inc:60
 msgid "Installation"
 msgstr "Telepítés"
 
-#: devices/ms/Files/common.inc:1498
+#: devices/ms/Files/common.inc:1508
 msgid "Checking for existing wireless profiles"
 msgstr "A létező vezetéknélküli profile-ok ellenőrzése"
 

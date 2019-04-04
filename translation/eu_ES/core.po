@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-26 09:57+0100\n"
+"POT-Creation-Date: 2019-04-04 08:35+0200\n"
 "PO-Revision-Date: 2019-03-22 20:48+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Basque (Spain) (http://www.transifex.com/eduroam_devel/cat/"
@@ -471,7 +471,7 @@ msgstr "erakundea"
 msgid "Identity Provider"
 msgstr "Identifikazio Hornitzailea"
 
-#: core/common/OutsideComm.php:257
+#: core/common/OutsideComm.php:261
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
@@ -479,17 +479,17 @@ msgstr ""
 "%s-eko %s \"%s\"-etako %s-(e)k %sberarekin batera kudeatzeko gonbitea egin "
 "dizu."
 
-#: core/common/OutsideComm.php:258
+#: core/common/OutsideComm.php:262
 #, php-format
 msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
 msgstr "%s%s-(e)k etorkizuneko %s \"%s\" (%s) kudeatzeko gonbitea egin dizu"
 
-#: core/common/OutsideComm.php:259
+#: core/common/OutsideComm.php:263
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\"."
 msgstr "%s%s-(e)k %s \"%s\" kudeatzeko gonbitea egin dizu."
 
-#: core/common/OutsideComm.php:261
+#: core/common/OutsideComm.php:265
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr ""
@@ -497,36 +497,36 @@ msgstr ""
 "-ak arte."
 
 #. then, send out the mail
-#: core/common/OutsideComm.php:269
+#: core/common/OutsideComm.php:273
 msgid "Hello,"
 msgstr "Kaixo, "
 
 #. default means we don't have a Reply-To.
-#: core/common/OutsideComm.php:271
+#: core/common/OutsideComm.php:275
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
 "eskuz. Mesedez ez erantzun mezu honi; helbide hau bidalketak egiteko baino "
 "ez da."
 
-#: core/common/OutsideComm.php:277
+#: core/common/OutsideComm.php:281
 #, php-format
 msgid "Additional message from your %s administrator:"
 msgstr "Zure %s kudeatzailearen mezu gehigarria:"
 
-#: core/common/OutsideComm.php:285
+#: core/common/OutsideComm.php:289
 #, php-format
 msgid "%s administrator"
 msgstr "%skudeatzailea"
 
-#: core/common/OutsideComm.php:288
+#: core/common/OutsideComm.php:292
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
 msgstr ""
 "eskuz. Mezu honi erantzuten badiozu, zure %skudeatzaileei helduko zaie."
 
-#: core/common/OutsideComm.php:293
+#: core/common/OutsideComm.php:297
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
@@ -535,7 +535,7 @@ msgstr ""
 "%shorretarako kudeatzaileen zerrendan gehitzeko, mesedez klik egin hurrengo "
 "estekan:"
 
-#: core/common/OutsideComm.php:295
+#: core/common/OutsideComm.php:299
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
@@ -544,11 +544,11 @@ msgstr ""
 "Esteka apurtuta badago, %s -(e)ko kudeatzaile-interfazera ere jo dezakezu, "
 "hemen: "
 
-#: core/common/OutsideComm.php:297
+#: core/common/OutsideComm.php:301
 msgid "and enter the invitation token"
 msgstr "eta gonbidapen-tokena sartu "
 
-#: core/common/OutsideComm.php:299
+#: core/common/OutsideComm.php:303
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
@@ -556,12 +556,12 @@ msgstr ""
 "EZ birbidali e-posta mezu hau gonbidapena iraungitu baino lehen - edo "
 "jasotzaileek gonbidapena zure izenean erabili ahalko dute!"
 
-#: core/common/OutsideComm.php:300
+#: core/common/OutsideComm.php:304
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr "%s-(r)ekin ondo pasa dezazula opa dizugu. "
 
-#: core/common/OutsideComm.php:301
+#: core/common/OutsideComm.php:305
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -569,7 +569,7 @@ msgid ""
 "Your friendly folks from %s Operations"
 msgstr "Adeitasunez,⏎ ⏎ %s -(e)ko eragiketa-taldeko zure adiskideak  "
 
-#: core/common/OutsideComm.php:337
+#: core/common/OutsideComm.php:341
 #, php-format
 msgid "%s: you have been invited to manage an %s"
 msgstr "%s: %skudeatzeko gonbitea jaso duzu"

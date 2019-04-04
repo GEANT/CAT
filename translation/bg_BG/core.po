@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-26 09:57+0100\n"
-"PO-Revision-Date: 2019-03-26 08:19+0000\n"
+"POT-Creation-Date: 2019-04-04 08:35+0200\n"
+"PO-Revision-Date: 2019-03-26 09:07+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/eduroam_devel/"
 "cat/language/bg_BG/)\n"
@@ -334,6 +334,16 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Здравейте,\n"
+"\n"
+"поканата за нова %s %s във Вашата %s федерация %s беше използвана и беше "
+"създаден IdP в %s.\n"
+"\n"
+"Решихме, че може би бихте искали да знаете.\n"
+"\n"
+"Най-добри пожелания,\n"
+"\n"
+"%s"
 
 #: core/Federation.php:261
 #, php-format
@@ -477,56 +487,56 @@ msgstr "организация"
 msgid "Identity Provider"
 msgstr "Доставчик на Удостоверения"
 
-#: core/common/OutsideComm.php:257
+#: core/common/OutsideComm.php:261
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
 msgstr "%s на %s %s \"%s\" Ви е поканил да управлявате %s заедно с него."
 
-#: core/common/OutsideComm.php:258
+#: core/common/OutsideComm.php:262
 #, php-format
 msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
 msgstr "%s %s Ви е поканил да управлявате бъдещ %s \"%s\" (%s)."
 
-#: core/common/OutsideComm.php:259
+#: core/common/OutsideComm.php:263
 #, php-format
 msgid "a %s %s has invited you to manage the %s  \"%s\"."
 msgstr "%s %s Ви е поканил да управлявате %s \"%s\"."
 
-#: core/common/OutsideComm.php:261
+#: core/common/OutsideComm.php:265
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr "Поканата е валидна 24 часа считано от сега, т.е. до %s."
 
 #. then, send out the mail
-#: core/common/OutsideComm.php:269
+#: core/common/OutsideComm.php:273
 msgid "Hello,"
 msgstr "Здравейте,"
 
 #. default means we don't have a Reply-To.
-#: core/common/OutsideComm.php:271
+#: core/common/OutsideComm.php:275
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr "ръчно. Моля не отговаряйте на този мейл; адресът е само за изпращане."
 
-#: core/common/OutsideComm.php:277
+#: core/common/OutsideComm.php:281
 #, php-format
 msgid "Additional message from your %s administrator:"
 msgstr "Допълнително съобщение от Вашия %s администратор:"
 
-#: core/common/OutsideComm.php:285
+#: core/common/OutsideComm.php:289
 #, php-format
 msgid "%s administrator"
 msgstr "%s администратор"
 
-#: core/common/OutsideComm.php:288
+#: core/common/OutsideComm.php:292
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
 msgstr ""
 "ръчно. Ако отговорите на този мейл, ще стигнете до Вашите %s администратори."
 
-#: core/common/OutsideComm.php:293
+#: core/common/OutsideComm.php:297
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
@@ -535,7 +545,7 @@ msgstr ""
 "За да се включите като администратор за това %s, моля кликнете върху следния "
 "линк:"
 
-#: core/common/OutsideComm.php:295
+#: core/common/OutsideComm.php:299
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
@@ -544,11 +554,11 @@ msgstr ""
 "Ако кликването на линка не работи, може да отидете на %s администраторския "
 "интерфейс на "
 
-#: core/common/OutsideComm.php:297
+#: core/common/OutsideComm.php:301
 msgid "and enter the invitation token"
 msgstr "и въведете token-а с покана"
 
-#: core/common/OutsideComm.php:299
+#: core/common/OutsideComm.php:303
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
@@ -556,12 +566,12 @@ msgstr ""
 "Не препращайте мейл, преди да е изтекъл token - или получателите ще имат "
 "възможността да изразходват token от свое име."
 
-#: core/common/OutsideComm.php:300
+#: core/common/OutsideComm.php:304
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr "Ние Ви пожелаваме много забавления с %s."
 
-#: core/common/OutsideComm.php:301
+#: core/common/OutsideComm.php:305
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -573,7 +583,7 @@ msgstr ""
 "\n"
 "Ваши приятели от  %s операции"
 
-#: core/common/OutsideComm.php:337
+#: core/common/OutsideComm.php:341
 #, php-format
 msgid "%s: you have been invited to manage an %s"
 msgstr "%s: Вие сте били поканен да управлявате %s"
