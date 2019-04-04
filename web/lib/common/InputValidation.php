@@ -361,7 +361,7 @@ const TABLEMAPPING = [
  */
 public function databaseReference($input) {
     $pregMatches = [];
-    if (preg_match("/^ROWID-(IdP|Profile|FED)-([0-9]+)$/", $input, $pregMatches) === FALSE) {
+    if (preg_match("/^ROWID-(IdP|Profile|FED)-([0-9]+)$/", $input, $pregMatches) != 1) {
         return FALSE;
     }
     return ["table" => self::TABLEMAPPING[$pregMatches[1]], "rowindex" => $pregMatches[2]];
