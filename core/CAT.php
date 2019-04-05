@@ -105,7 +105,7 @@ class CAT extends \core\common\Entity {
         parent::__construct();
         common\Entity::intoThePotatoes();
         
-        $this->CAT_VERSION_STRING = _("Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git Revision</a>");
+        $this->CAT_VERSION_STRING = sprintf(_("Unreleased %s Git Revision"),"<a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>")."</a>";
         if (CAT::RELEASE_VERSION) {
             $temp_version = "CAT-" . CAT::VERSION_MAJOR . "." . CAT::VERSION_MINOR;
             $branch = "release_" . CAT::VERSION_MAJOR . "_" . CAT::VERSION_MINOR;
