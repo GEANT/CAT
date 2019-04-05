@@ -37,7 +37,7 @@ use Exception;
  *
  * @package ModuleWriting
  */
-class Device_Linux extends \core\DeviceConfig {
+class DeviceLinux extends \core\DeviceConfig {
 
     /**
      * constructor. Sets supported EAP methods.

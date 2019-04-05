@@ -41,7 +41,7 @@ namespace devices\apple_mobileconfig;
  *
  * @package Developer
  */
-class Device_mobileconfig_ios5plus extends MobileconfigSuperclass {
+class DeviceMobileconfigIos5plus extends MobileconfigSuperclass {
 
     /**
      * construct device and load specialities array

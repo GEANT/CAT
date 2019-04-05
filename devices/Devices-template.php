@@ -130,7 +130,7 @@ class Devices extends \core\common\Entity {
                 'display' => _("MS Windows 10"),
                 'match' => 'Windows NT 10',
                 'directory' => 'ms',
-                'module' => 'W8_10',
+                'module' => 'W8W10',
                 'signer' => 'ms_windows_sign',
                 'options' => [
                     'sign' => 1,
@@ -144,7 +144,7 @@ class Devices extends \core\common\Entity {
                 'display' => _("MS Windows 8, 8.1"),
                 'match' => 'Windows NT 6[._][23]',
                 'directory' => 'ms',
-                'module' => 'W8_10',
+                'module' => 'W8W10',
                 'signer' => 'ms_windows_sign',
                 'options' => [
                     'sign' => 1,
@@ -193,7 +193,7 @@ class Devices extends \core\common\Entity {
                 'display' => _("Apple macOS High Sierra"),
                 'match' => 'Mac OS X 10[._]13',
                 'directory' => 'apple_mobileconfig',
-                'module' => 'mobileconfig_os_x',
+                'module' => 'MobileconfigOsX',
                 'signer' => 'mobileconfig_sign',
                 'options' => array(
                     'sign' => 1,
@@ -208,7 +208,7 @@ class Devices extends \core\common\Entity {
                 'display' => _("Apple macOS Sierra"),
                 'match' => 'Mac OS X 10[._]12',
                 'directory' => 'apple_mobileconfig',
-                'module' => 'mobileconfig_os_x',
+                'module' => 'MobileconfigOsX',
                 'signer' => 'mobileconfig_sign',
                 'options' => array(
                     'sign' => 1,
@@ -222,7 +222,7 @@ class Devices extends \core\common\Entity {
                 'display' => _("Apple OS X El Capitan"),
                 'match' => 'Mac OS X 10[._]11',
                 'directory' => 'apple_mobileconfig',
-                'module' => 'mobileconfig_os_x',
+                'module' => 'MobileconfigOsX',
                 'signer' => 'mobileconfig_sign',
                 'options' => array(
                     'sign' => 1,
@@ -236,7 +236,7 @@ class Devices extends \core\common\Entity {
                 'display' => _("Apple OS X Yosemite"),
                 'match' => 'Mac OS X 10[._]10',
                 'directory' => 'apple_mobileconfig',
-                'module' => 'mobileconfig_os_x',
+                'module' => 'MobileconfigOsX',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
                     'sign' => 1,
@@ -250,7 +250,7 @@ class Devices extends \core\common\Entity {
                 'display' => _("Apple OS X Mavericks"),
                 'match' => 'Mac OS X 10[._]9',
                 'directory' => 'apple_mobileconfig',
-                'module' => 'mobileconfig_os_x',
+                'module' => 'MobileconfigOsX',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
                     'sign' => 1,
@@ -264,7 +264,7 @@ class Devices extends \core\common\Entity {
                 'display' => _("Apple OS X Mountain Lion"),
                 'match' => 'Mac OS X 10[._]8',
                 'directory' => 'apple_mobileconfig',
-                'module' => 'mobileconfig_os_x',
+                'module' => 'MobileconfigOsX',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
                     'sign' => 1,
@@ -278,7 +278,7 @@ class Devices extends \core\common\Entity {
                 'display' => _("Apple OS X Lion"),
                 'match' => 'Mac OS X 10[._]7',
                 'directory' => 'apple_mobileconfig',
-                'module' => 'mobileconfig_os_x',
+                'module' => 'MobileconfigOsX',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
                     'sign' => 1,
@@ -292,7 +292,7 @@ class Devices extends \core\common\Entity {
                 'display' => _("Apple iOS mobile devices"),
                 'match' => '(iPad|iPhone|iPod);.*OS (1[2-9])_',
                 'directory' => 'apple_mobileconfig',
-                'module' => 'mobileconfig_ios12plus',
+                'module' => 'MobileconfigIos12plus',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
                     'sign' => 1,
@@ -306,7 +306,7 @@ class Devices extends \core\common\Entity {
                 'display' => _("Apple iOS mobile devices (iOS 7-11)"),
                 'match' => '(iPad|iPhone|iPod);.*OS ([7-9]|1[0-1])_',
                 'directory' => 'apple_mobileconfig',
-                'module' => 'mobileconfig_ios7plus',
+                'module' => 'MobileconfigIos7plus',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
                     'sign' => 1,
@@ -320,7 +320,7 @@ class Devices extends \core\common\Entity {
                 'display' => _("Apple iOS mobile devices (iOS 5 and 6)"),
                 'match' => '(iPad|iPhone|iPod);.*OS [56]_',
                 'directory' => 'apple_mobileconfig',
-                'module' => 'mobileconfig_ios5plus',
+                'module' => 'MobileconfigIos5plus',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
                     'sign' => 1,
@@ -343,7 +343,7 @@ class Devices extends \core\common\Entity {
                 'display' => _("Chrome OS"),
                 'match' => 'CrOS',
                 'directory' => 'chromebook',
-                'module' => 'chromebook',
+                'module' => 'Chromebook',
                 'options' => [
                     'mime' => 'application/x-onc',
                     'message' => sprintf(_("After downloading the file, open the Chrome browser and browse to this URL: <a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</a>. Then, use the 'Import ONC file' button. The import is silent; the new network definitions will be added to the preferred networks.")),
@@ -468,7 +468,7 @@ class Devices extends \core\common\Entity {
                 'group' => "eap-config",
                 'display' => _("EAP config"),
                 'directory' => 'xml',
-                'module' => 'XML_ALL',
+                'module' => 'XMLAll',
                 'options' => [
                     'mime' => 'application/eap-config',
                     'message' => sprintf(_("This option provides a generic EAP config XML file, which can be consumed by dedicated applications like eduroamCAT for Android and Linux platforms. This is still an experimental feature.")),

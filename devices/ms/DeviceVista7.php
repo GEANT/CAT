@@ -33,7 +33,7 @@
 namespace devices\ms;
 use \Exception;
 
-class Device_Vista7 extends WindowsCommon {
+class DeviceVista7 extends WindowsCommon {
 
     /**
      * constructor; tells the world about supported EAP types and device anomalies

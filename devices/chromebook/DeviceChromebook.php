@@ -78,7 +78,7 @@ use Exception;
  *
  * @package ModuleWriting
  */
-class Device_Chromebook extends \core\DeviceConfig {
+class DeviceChromebook extends \core\DeviceConfig {
 
     /**
      * Number of iterations for the PBKDF2 function. 

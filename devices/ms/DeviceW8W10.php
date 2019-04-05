@@ -35,7 +35,7 @@ use \Exception;
  * @author Tomasz Wolniewicz <twoln@umk.pl>
  * @package ModuleWriting
  */
- class Device_W8_10 extends WindowsCommon {
+ class DeviceW8W10 extends WindowsCommon {
     final public function __construct() {
         parent::__construct();
         \core\common\Entity::intoThePotatoes();

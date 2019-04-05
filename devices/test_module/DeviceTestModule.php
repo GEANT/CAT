@@ -76,7 +76,7 @@ namespace devices\test_module;
  *
  * @package ModuleWriting
  */
-class Device_TestModule extends \core\DeviceConfig {
+class DeviceTestModule extends \core\DeviceConfig {
 
     /**
      * Constructs a Device object.

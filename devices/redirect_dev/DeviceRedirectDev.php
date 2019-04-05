@@ -21,7 +21,7 @@
 
 namespace devices\redirect_dev;
 
-class Device_RedirectDev extends \core\DeviceConfig {
+class DeviceRedirectDev extends \core\DeviceConfig {
    /**
     * Constructs a Device object.
     *

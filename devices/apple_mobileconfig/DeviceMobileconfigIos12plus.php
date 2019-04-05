@@ -40,7 +40,7 @@ namespace devices\apple_mobileconfig;
  *
  * @package Developer
  */
-class Device_mobileconfig_ios12plus extends MobileconfigSuperclass {
+class DeviceMobileconfigIos12plus extends MobileconfigSuperclass {
 
     /**
      * construct and preload the list of EAP methods supported by this device

@@ -59,7 +59,7 @@ class DeviceFactory extends \core\common\Entity {
         $Dev = \devices\Devices::listDevices();
         if (isset($Dev[$blueprint])) {
             $this->loggerInstance->debug(4, "loaded: devices/" . $Dev[$blueprint]['directory'] . "/" . $Dev[$blueprint]['module'] . ".php\n");
-            $class_name = "\devices\\".$Dev[$blueprint]['directory']."\Device_" . $Dev[$blueprint]['module'];
+            $class_name = "\devices\\".$Dev[$blueprint]['directory']."\Device" . $Dev[$blueprint]['module'];
             $this->device = new $class_name();
             if (!$this->device) {
                 $this->loggerInstance->debug(2, "module loading failed");
