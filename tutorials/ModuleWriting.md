@@ -38,7 +38,7 @@ Directory structure and naming
 ------------------------------
 All device modules reside in the devices directory. Each device module has its own subdirectory. If a device module requires additional files that will need to be copied to the working directory, then these files should be placed in the Files subdirectory of the module directory.
 
-The name of the module directory may be arbitrary, but the name of the module file and the name of the device class must be synchronised. For instance, if the name of the module is TestModule, then it's source file should be called TestModule.php and the name of the class must be Device_TestModule.
+The name of the module directory may be arbitrary, but the name of the module file and the name of the device class must be synchronised. For instance, if the name of the module is TestModule, then it's source file should be called TestModule.php and the name of the class must be DeviceTestModule.
 
 Naming is defined in the devices.php file, it is a configuration feature and is irrelevant external from the module point of view.
 

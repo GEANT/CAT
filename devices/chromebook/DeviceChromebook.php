@@ -38,7 +38,7 @@
  * Finally, the installer will create a zip archive containing all above files and this file 
  * will be sent to the user as the configurator file.
  *
- * Go to the {@link Device_TestModule} and {@link DeviceConfig} class definitions to learn more.
+ * Go to the {@link DeviceTestModule} and {@link DeviceConfig} class definitions to learn more.
  *  
  * @package ModuleWriting
  */
@@ -50,9 +50,9 @@ use Exception;
 /**
  * This is the main implementation class of the module
  *
- * The name of the class must the the 'Device_' followed by the name of the module file
+ * The name of the class must the the 'Device' followed by the name of the module file
  * (without the '.php' extension), so in this case the file is "TestModule.php" and
- * the class is Device_TestModule.
+ * the class is DeviceTestModule.
  *
  * The class MUST define the constructor method and one additional 
  * public method: {@link writeInstaller()}.
@@ -108,11 +108,11 @@ class DeviceChromebook extends \core\DeviceConfig {
      */
     private function encryptConfig($clearJson, $password) {
         $salt = \core\common\Entity::randomString(12);
-        $encryptionKey = hash_pbkdf2("sha1", $password, $salt, Device_Chromebook::PBKDF2_ITERATIONS, 32, TRUE); // the spec is not clear about the algo. Source code in Chromium makes clear it's SHA1.
+        $encryptionKey = hash_pbkdf2("sha1", $password, $salt, DeviceChromebook::PBKDF2_ITERATIONS, 32, TRUE); // the spec is not clear about the algo. Source code in Chromium makes clear it's SHA1.
         $strong = FALSE; // should become TRUE if strong crypto is available like it should.
         $initVector = openssl_random_pseudo_bytes(16, $strong);
         if ($strong === FALSE) {
-            $this->loggerInstance->debug(1, "WARNING: OpenSSL reports that a random value was generated with a weak cryptographic algorithm (Device_chromebook::writeInstaller()). You should investigate the reason for this!");
+            $this->loggerInstance->debug(1, "WARNING: OpenSSL reports that a random value was generated with a weak cryptographic algorithm (DeviceChromebook::writeInstaller()). You should investigate the reason for this!");
         }
         $cryptoJson = openssl_encrypt($clearJson, 'AES-256-CBC', $encryptionKey, OPENSSL_RAW_DATA, $initVector);
         $hmac = hash_hmac("sha1", $cryptoJson, $encryptionKey, TRUE);
@@ -127,7 +127,7 @@ class DeviceChromebook extends \core\DeviceConfig {
             "HMACMethod" => "SHA1",
             "Salt" => base64_encode($salt), // this is B64 encoded, but had to read Chromium source code to find out! Not in the spec!
             "Stretch" => "PBKDF2",
-            "Iterations" => Device_Chromebook::PBKDF2_ITERATIONS,
+            "Iterations" => DeviceChromebook::PBKDF2_ITERATIONS,
             "IV" => base64_encode($initVector),
             "Type" => "EncryptedConfiguration",
         ];

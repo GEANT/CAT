@@ -28,7 +28,7 @@
  * Finally, the installer will create a zip archive containing all above files and this file 
  * will be sent to the user as the configurator file.
  *
- * Go to the {@link Device_TestModule} and {@link DeviceConfig} class definitions to learn more.
+ * Go to the {@link DeviceTestModule} and {@link DeviceConfig} class definitions to learn more.
  *  
  * @package ModuleWriting
  */
@@ -40,9 +40,9 @@ use Exception;
 /**
  * This is the main implementation class of the module
  *
- * The name of the class must the the 'Device_' followed by the name of the module file
+ * The name of the class must the the 'Device' followed by the name of the module file
  * (without the '.php' extension), so in this case the file is "TestModule.php" and
- * the class is Device_TestModule.
+ * the class is DeviceTestModule.
  *
  * The class MUST define the constructor method and one additional 
  * public method: {@link writeInstaller()}.
@@ -68,7 +68,7 @@ use Exception;
  *
  * @package ModuleWriting
  */
-class Device_PP_OSU_XML extends \core\DeviceConfig {
+class DevicePPOSUXML extends \core\DeviceConfig {
 
     /**
      * Constructs a Device object.
