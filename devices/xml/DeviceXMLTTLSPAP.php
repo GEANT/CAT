@@ -21,7 +21,7 @@
 
 namespace devices\xml;
 
-class Device_XML_ALL extends Device_XML {
+class DeviceXMLTTLSPAP extends DeviceXML {
 
     /**
      * construct the device
@@ -29,15 +29,9 @@ class Device_XML_ALL extends Device_XML {
     final public function __construct() {
         parent::__construct();
         $this->setSupportedEapMethods([
-            \core\common\EAP::EAPTYPE_PEAP_MSCHAP2,
             \core\common\EAP::EAPTYPE_TTLS_PAP,
-            \core\common\EAP::EAPTYPE_TTLS_MSCHAP2,
-            \core\common\EAP::EAPTYPE_TLS,
-            \core\common\EAP::EAPTYPE_PWD,
-            \core\common\EAP::EAPTYPE_SILVERBULLET,
         ]);
         $this->langScope = 'single';
-        $this->allEaps = TRUE;
     }
 
 }

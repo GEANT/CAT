@@ -41,7 +41,7 @@ require_once dirname(__FILE__) . '/XML.inc.php';
  * this will cause the installer to configure all EAP methods supported by 
  * the current profile and declared by the given device.
  */
-abstract class Device_XML extends \core\DeviceConfig {
+abstract class DeviceXML extends \core\DeviceConfig {
 
     /**
      * construct the device
