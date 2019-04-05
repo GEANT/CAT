@@ -220,7 +220,7 @@ class Federation extends EntityWithDBProperties {
      * @return int identifier of the new IdP
      */
     public function newIdP($type, $ownerId, $level, $mail = NULL, $bestnameguess = NULL) {
-        $this->databaseHandle->exec("INSERT INTO institution (country) VALUES('$this->tld', '$type')");
+        $this->databaseHandle->exec("INSERT INTO institution (country, type) VALUES('$this->tld', '$type')");
         $identifier = $this->databaseHandle->lastID();
 
         if ($identifier == 0 || !$this->loggerInstance->writeAudit($ownerId, "NEW", "IdP $identifier")) {
