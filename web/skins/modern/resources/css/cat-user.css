@@ -88,7 +88,7 @@ select {
 }
 
 a:link {
-    color: var(--color2);
+    color: #575757;
 }
 
 a:visited {
@@ -294,6 +294,21 @@ td.vendor img {
     min-height: 50px;
     cursor: auto;
     text-decoration: none;
+}
+
+#top_invite_ad {
+    font-weight: normal;
+    font-size: 18px;
+    padding-top: 25px;
+    padding-left: 15px;
+    padding-right: 15px;
+    line-height: 1.3;
+    color: black;
+}
+
+#top_invite_ad a {
+    white-space: nowrap;
+    font-weight: bold;
 }
 
 #welcome_top1 {
@@ -564,15 +579,9 @@ div.footer table td {
 }
 
 #top_invite {
-    cursor: pointer;
-    text-decoration: underline;
-    text-decoration: underline;
     padding-bottom: 10px;
 }
 
-#top_invite:hover {
-    text-decoration: underline;
-}
 
 #user_button_td {
     padding-top: 10px;
@@ -748,16 +757,6 @@ td.vendor {
     background: #1d4a74;
     color: white;
     text-align: left;
-}
-
-#top_invite {
-    cursor: pointer;
-    text-decoration: underline;
-    text-decoration: underline;
-}
-
-#top_invite:hover {
-    text-decoration: underline;
 }
 
 #slides span {
@@ -1110,6 +1109,9 @@ button.guess_os {
 #menu_top > ul > li > ul > li > a:hover {
     background: #333;
     color: white;
+}
+#menu_top > ul > li > a {
+    color: #000000;
 }
 
 #menu_top > ul li:hover ul {

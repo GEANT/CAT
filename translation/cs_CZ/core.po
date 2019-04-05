@@ -5,15 +5,16 @@
 # Translators:
 # Alice Vixie <alice.vixie@osu.cz>, 2015
 # Ludmila Kovářová <ludmila.kovarova@fsv.cvut.cz>, 2015
+# Martin Šimek <simek.mar@gmail.com>, 2019
 # martins <ms@uakom.sk>, 2012
 # Petr Adamec <p.b.adamec@gmail.com>, 2013,2015
-# Petr Adamec <p.b.adamec@gmail.com>, 2018
+# Petr Adamec <p.b.adamec@gmail.com>, 2013,2015,2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-04 15:19+0100\n"
-"PO-Revision-Date: 2018-05-23 14:46+0000\n"
+"POT-Creation-Date: 2019-04-05 11:11+0200\n"
+"PO-Revision-Date: 2019-03-27 19:59+0000\n"
 "Last-Translator: Petr Adamec <p.b.adamec@gmail.com>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/"
 "eduroam_devel/cat/language/cs_CZ/)\n"
@@ -107,7 +108,7 @@ msgstr "Maďarsko"
 
 #: core/CAT.php:144
 msgid "Luxembourg"
-msgstr "Luxembursko"
+msgstr "Lucembursko"
 
 #: core/CAT.php:145
 msgid "Latvia"
@@ -314,13 +315,42 @@ msgstr ""
 "dispozici"
 
 #. this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
-#: core/Federation.php:89
+#: core/Federation.php:90
 #, php-format
 msgid "(discontinued) %s"
-msgstr ""
+msgstr "(přerušená) %s"
 
-#: core/IdP.php:258
-#, fuzzy, php-format
+#. / arguments are: 1. nomenclature for "institution"
+#. 2. IdP name;
+#. /                3. consortium name (e.g. eduroam);
+#. /                4. federation shortname, e.g. "LU";
+#. /                5. product name (e.g. eduroam CAT);
+#. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
+#: core/Federation.php:253
+#, php-format
+msgid ""
+"Hi,\n"
+"\n"
+"the invitation for the new %s %s in your %s federation %s has been used and "
+"the IdP was created in %s.\n"
+"\n"
+"We thought you might want to know.\n"
+"\n"
+"Best regards,\n"
+"\n"
+"%s"
+msgstr ""
+"Dobrý den,  pozvánka určená pro nového %s %s ve vaší %s federaci %s byla "
+"použitá a IdP byl vytvořený v %s.  Předpokládali jsme, že o tom budete chtít "
+"být informováni.  S pozdravem,  %s"
+
+#: core/Federation.php:262
+#, php-format
+msgid "%s in your federation was created"
+msgstr "%s ve vaší federaci byl vytvořen"
+
+#: core/IdP.php:351
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -332,14 +362,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Dobrý den,⏎ ⏎ poskytovatel identity %s ve vaší %s federaci %s byl smazán z "
-"%s.⏎ ⏎ Předpokládali jsme, že budete chtít být o tomto informován.⏎ ⏎ S "
-"pozdravem,⏎ ⏎ %s"
+"Dobrý den,  %s %s ve vaší %s federaci %s byl smazán z %s.  Předpokládali "
+"jsme, že o tom budete chtít být informováni. S pozdravem,  %s"
 
-#: core/IdP.php:267
-#, fuzzy, php-format
+#: core/IdP.php:360
+#, php-format
 msgid "%s in your federation was deleted"
-msgstr "Smazaný poskytovatel identity ve vaší federaci"
+msgstr "Smazaný %s ve vaší federaci"
 
 #: core/SilverbulletInvitation.php:230
 #, php-format
@@ -355,7 +384,7 @@ msgstr "Ahoj!"
 msgid ""
 "A new %s access credential has been created for you by your network "
 "administrator."
-msgstr "Nová přístupová pověření %s pro vás byla vytvořena vaším správcem."
+msgstr "Váš správce sítě Vám vytvořil nová %s přístupová pověření."
 
 #: core/SilverbulletInvitation.php:246
 #, php-format
@@ -382,7 +411,7 @@ msgstr ""
 
 #: core/SilverbulletInvitation.php:250
 msgid "Regards,"
-msgstr "Pozdrav,"
+msgstr "S pozdravem,"
 
 #: core/SilverbulletInvitation.php:299
 #, php-format
@@ -390,42 +419,13 @@ msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
 "'%s'!)"
 msgstr ""
-"Váš %s přístup je připraven! Klikněte zde: %s (v zařízení s Androidem, "
+"Váš %s přístup je připraven! Klikněte zde: %s (v zařízení s Androidem "
 "nejdříve nainstalujte aplikaci '%s'!)"
 
 #: core/SilverbulletInvitation.php:321
 #, php-format
 msgid "%s Invitation System"
-msgstr "%s pozvánkový systém"
-
-#. / arguments are: 1. nomenclature for "institution"
-#. 2. IdP name;
-#. /                3. consortium name (e.g. eduroam);
-#. /                4. federation shortname, e.g. "LU";
-#. /                5. product name (e.g. eduroam CAT);
-#. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/UserManagement.php:208
-#, fuzzy, php-format
-msgid ""
-"Hi,\n"
-"\n"
-"the invitation for the new %s %s in your %s federation %s has been used and "
-"the IdP was created in %s.\n"
-"\n"
-"We thought you might want to know.\n"
-"\n"
-"Best regards,\n"
-"\n"
-"%s"
-msgstr ""
-"Dobrý den,⏎ ⏎ pozvánka určená pro nového poskytovatele identity %s ve vaší "
-"%s federaci %s byla použitá a IdP byl vytvořený v %s.⏎ ⏎ Předpokládali jsme, "
-"že budete chtít být o tomto informován.⏎ ⏎ S pozdravom,⏎ ⏎ %s"
-
-#: core/UserManagement.php:217
-#, fuzzy, php-format
-msgid "%s in your federation was created"
-msgstr "IdP ve vaší federaci byl vytvořen"
+msgstr "%s Systém pozvánek"
 
 #: core/User.php:158
 msgid "Feedback"
@@ -462,108 +462,142 @@ msgstr "EAP-pwd"
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
 #. different wording, no translation, sorry
-#: core/common/Entity.php:104
+#: core/common/Entity.php:116
 msgid "National Roaming Operator"
-msgstr "Národní roamingový operátor"
+msgstr "národního provozovatele roamingu"
 
-#: core/common/Entity.php:105
+#: core/common/Entity.php:117
 msgid "identity provider"
-msgstr "posklytovatel identit"
+msgstr "poskytovatel identit"
 
-#: core/common/Entity.php:106
+#: core/common/Entity.php:118 core/common/Entity.php:124
 msgid "organisation"
 msgstr "organizace"
 
-#: core/common/Entity.php:107
+#: core/common/Entity.php:119
 msgid "Identity Provider"
-msgstr "Posklytovatel identit"
+msgstr "poskytovatele identit"
 
-#: core/common/OutsideComm.php:257
+#: core/common/Entity.php:120
+msgid "Wi-Fi Hotspot"
+msgstr ""
+
+#: core/common/Entity.php:121
+msgid "Hotspot"
+msgstr ""
+
+#: core/common/Entity.php:122
+#, fuzzy
+msgid "Service Provider"
+msgstr "poskytovatele identit"
+
+#: core/common/Entity.php:123
+msgid "participant"
+msgstr ""
+
+#: core/common/Entity.php:125
+#, fuzzy
+msgid "organization"
+msgstr "organizace"
+
+#: core/common/Entity.php:126
+#, fuzzy
+msgid "entity"
+msgstr "Nepojmenovaná entita"
+
+#: core/common/OutsideComm.php:267
+#, php-format
+msgid "%s and %s"
+msgstr ""
+
+#: core/common/OutsideComm.php:277
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
-msgstr " %s z %s %s \"%s\" vás pozval ke společné správě %s."
+msgstr " %s %s, %s \"%s\" vás pozval ke společné správě %s."
 
-#: core/common/OutsideComm.php:258
-#, php-format
-msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
+#: core/common/OutsideComm.php:278
+#, fuzzy, php-format
+msgid ""
+"a %s %s has invited you to manage the future %s  \"%s\" (%s). The "
+"organisation will be a %s."
 msgstr "%s %s vás pozval k budoucí správě %s  \"%s\" (%s)."
 
-#: core/common/OutsideComm.php:259
-#, php-format
-msgid "a %s %s has invited you to manage the %s  \"%s\"."
+#: core/common/OutsideComm.php:279
+#, fuzzy, php-format
+msgid "a %s %s has invited you to manage the %s  \"%s\". This is a %s."
 msgstr " %s %s vás pozval ke správě %s  \"%s\"."
 
-#: core/common/OutsideComm.php:261
+#: core/common/OutsideComm.php:281
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr "Tato pozvánka platí příštích 24 hodin, tzn. do %s."
 
 #. then, send out the mail
-#: core/common/OutsideComm.php:269
+#: core/common/OutsideComm.php:289
 msgid "Hello,"
-msgstr "Zdravím,"
+msgstr "Dobrý den,"
 
 #. default means we don't have a Reply-To.
-#: core/common/OutsideComm.php:271
+#: core/common/OutsideComm.php:291
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
-"manuálně. Prosím, neodpovídejte na tuto zprávu, byla odeslána z "
-"nemonitorované adresy. "
+"Prosím, neodpovídejte na tuto zprávu, byla odeslána z adresy sloužící pouze "
+"k zasílání pozvánek."
 
-#: core/common/OutsideComm.php:277
+#: core/common/OutsideComm.php:297
 #, php-format
 msgid "Additional message from your %s administrator:"
 msgstr "Další zpráva od vašeho správce %s:"
 
-#: core/common/OutsideComm.php:285
+#: core/common/OutsideComm.php:305
 #, php-format
 msgid "%s administrator"
 msgstr "%s správce"
 
-#: core/common/OutsideComm.php:288
+#: core/common/OutsideComm.php:308
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
 msgstr "manuálně. Pokud na tuto zprávu odpovíte, oslovíte správce vaší %s."
 
-#: core/common/OutsideComm.php:293
+#: core/common/OutsideComm.php:313
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
 "link:"
 msgstr ""
-"Pokud se chcete zaregistrovat jako správce uvedeného %s, klikněte prosím na "
+"Chcete-li se zaregistrovat jako správce uvedeného %s, klikněte prosím na "
 "následující odkaz:"
 
-#: core/common/OutsideComm.php:295
+#: core/common/OutsideComm.php:315
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
 "Interface at"
 msgstr ""
-"Pokud odkaz nefunguje, můžete navštívit administrátorské rozhraní %s na "
-"webové adrese "
+"Není-li odkaz funkční, můžete navštívit administrátorské rozhraní %s na "
+"webové adrese:"
 
-#: core/common/OutsideComm.php:297
+#: core/common/OutsideComm.php:317
 msgid "and enter the invitation token"
-msgstr "a zadat token z pozvánky"
+msgstr "a zadat token z pozvánky manuálně:"
 
-#: core/common/OutsideComm.php:299
+#: core/common/OutsideComm.php:319
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
 msgstr ""
-"Nepřeposílejte e-mail dokud token nevyprší - jinak budou moci příjemci "
+"Nepřeposílejte tento e-mail dokud token nevyprší - jinak budou moci příjemci "
 "použít token místo vás!"
 
-#: core/common/OutsideComm.php:300
+#: core/common/OutsideComm.php:320
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr "Přejeme vám mnoho zábavy s %s."
 
-#: core/common/OutsideComm.php:301
+#: core/common/OutsideComm.php:321
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -574,7 +608,7 @@ msgstr ""
 "\n"
 "tým správců %s"
 
-#: core/common/OutsideComm.php:337
+#: core/common/OutsideComm.php:357
 #, php-format
 msgid "%s: you have been invited to manage an %s"
 msgstr "%s: byl jste pozván spravovat %s"
@@ -583,29 +617,26 @@ msgstr "%s: byl jste pozván spravovat %s"
 msgid "Input validation error: "
 msgstr "Chyba při zadávání:"
 
-#: web/lib/common/InputValidation.php:216
+#: web/lib/common/InputValidation.php:252
 msgid "Realm is empty!"
 msgstr "Doména je prázdná!"
 
-#: web/lib/common/InputValidation.php:225
+#: web/lib/common/InputValidation.php:261
 msgid "Realm contains an @ sign!"
 msgstr "Doména obsahuje znak '@'!"
 
-#: web/lib/common/InputValidation.php:226
+#: web/lib/common/InputValidation.php:262
 msgid "Realm begins with a . (dot)!"
 msgstr "Doména začína znakem . (tečka)!"
 
-#: web/lib/common/InputValidation.php:227
+#: web/lib/common/InputValidation.php:263
 msgid "Realm ends with a . (dot)!"
 msgstr "Doména končí znakem . (tečka)!"
 
-#: web/lib/common/InputValidation.php:228
+#: web/lib/common/InputValidation.php:264
 msgid "Realm contains spaces!"
 msgstr "Doména obsahuje mezery!"
 
-#: web/lib/common/InputValidation.php:241
+#: web/lib/common/InputValidation.php:277
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Doména neobsahuje ani jeden znak . (tečka)!"
-
-#~ msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
-#~ msgstr "Špatný formát souřadnic (2.0 používá JSON, neserializuje)!"

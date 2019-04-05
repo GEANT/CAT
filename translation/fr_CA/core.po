@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-04 15:19+0100\n"
-"PO-Revision-Date: 2018-10-23 19:38+0000\n"
+"POT-Creation-Date: 2019-04-05 11:11+0200\n"
+"PO-Revision-Date: 2019-04-04 19:34+0000\n"
 "Last-Translator: Canadian Access Federation <chris.phillips@canarie.ca>\n"
 "Language-Team: French (Canada) (http://www.transifex.com/eduroam_devel/cat/"
 "language/fr_CA/)\n"
@@ -310,13 +310,39 @@ msgstr ""
 "disponible"
 
 #. this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
-#: core/Federation.php:89
+#: core/Federation.php:90
 #, php-format
 msgid "(discontinued) %s"
 msgstr ""
 
-#: core/IdP.php:258
-#, fuzzy, php-format
+#. / arguments are: 1. nomenclature for "institution"
+#. 2. IdP name;
+#. /                3. consortium name (e.g. eduroam);
+#. /                4. federation shortname, e.g. "LU";
+#. /                5. product name (e.g. eduroam CAT);
+#. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
+#: core/Federation.php:253
+#, php-format
+msgid ""
+"Hi,\n"
+"\n"
+"the invitation for the new %s %s in your %s federation %s has been used and "
+"the IdP was created in %s.\n"
+"\n"
+"We thought you might want to know.\n"
+"\n"
+"Best regards,\n"
+"\n"
+"%s"
+msgstr ""
+
+#: core/Federation.php:262
+#, php-format
+msgid "%s in your federation was created"
+msgstr ""
+
+#: core/IdP.php:351
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -328,21 +354,11 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Bonjour,\n"
-"\n"
-"Le fournisseur d'identité %s dans votre %s fédération %s à été supprimé de "
-"%s.\n"
-"\n"
-"Nous avons pensés que vous aimeriez le savoir.\n"
-"\n"
-"Cordialement,\n"
-"\n"
-"%s"
 
-#: core/IdP.php:267
-#, fuzzy, php-format
+#: core/IdP.php:360
+#, php-format
 msgid "%s in your federation was deleted"
-msgstr "Un fournisseur d'identité dans votre fédération à été supprimé"
+msgstr ""
 
 #: core/SilverbulletInvitation.php:230
 #, php-format
@@ -393,42 +409,6 @@ msgstr ""
 msgid "%s Invitation System"
 msgstr "%s Système d'Invitation"
 
-#. / arguments are: 1. nomenclature for "institution"
-#. 2. IdP name;
-#. /                3. consortium name (e.g. eduroam);
-#. /                4. federation shortname, e.g. "LU";
-#. /                5. product name (e.g. eduroam CAT);
-#. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/UserManagement.php:208
-#, fuzzy, php-format
-msgid ""
-"Hi,\n"
-"\n"
-"the invitation for the new %s %s in your %s federation %s has been used and "
-"the IdP was created in %s.\n"
-"\n"
-"We thought you might want to know.\n"
-"\n"
-"Best regards,\n"
-"\n"
-"%s"
-msgstr ""
-"Bonjour,\n"
-"\n"
-"Le fournisseur d'identité %s dans votre %s fédération %s à été crée dans "
-"%s.\n"
-"\n"
-"Nous avons pensés que vous aimeriez le savoir.\n"
-"\n"
-"Cordialement,\n"
-"\n"
-"%s"
-
-#: core/UserManagement.php:217
-#, fuzzy, php-format
-msgid "%s in your federation was created"
-msgstr "l'IdP dans votre fédération à été crée"
-
 #: core/User.php:158
 msgid "Feedback"
 msgstr "Feedback"
@@ -464,80 +444,113 @@ msgstr "EAP-pwd"
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
 #. different wording, no translation, sorry
-#: core/common/Entity.php:104
+#: core/common/Entity.php:116
 msgid "National Roaming Operator"
 msgstr "Opérateur national de mobilité"
 
-#: core/common/Entity.php:105
+#: core/common/Entity.php:117
 msgid "identity provider"
 msgstr "fournisseur d'identité"
 
-#: core/common/Entity.php:106
+#: core/common/Entity.php:118 core/common/Entity.php:124
 msgid "organisation"
 msgstr "organisation"
 
-#: core/common/Entity.php:107
+#: core/common/Entity.php:119
 msgid "Identity Provider"
 msgstr "Fournisseur d'Identité"
 
-#: core/common/OutsideComm.php:257
+#: core/common/Entity.php:120
+msgid "Wi-Fi Hotspot"
+msgstr ""
+
+#: core/common/Entity.php:121
+msgid "Hotspot"
+msgstr ""
+
+#: core/common/Entity.php:122
+#, fuzzy
+msgid "Service Provider"
+msgstr "Fournisseur d'Identité"
+
+#: core/common/Entity.php:123
+msgid "participant"
+msgstr ""
+
+#: core/common/Entity.php:125
+#, fuzzy
+msgid "organization"
+msgstr "organisation"
+
+#: core/common/Entity.php:126
+msgid "entity"
+msgstr ""
+
+#: core/common/OutsideComm.php:267
+#, php-format
+msgid "%s and %s"
+msgstr ""
+
+#: core/common/OutsideComm.php:277
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
 msgstr ""
 
-#: core/common/OutsideComm.php:258
+#: core/common/OutsideComm.php:278
 #, php-format
-msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
+msgid ""
+"a %s %s has invited you to manage the future %s  \"%s\" (%s). The "
+"organisation will be a %s."
 msgstr ""
 
-#: core/common/OutsideComm.php:259
+#: core/common/OutsideComm.php:279
 #, php-format
-msgid "a %s %s has invited you to manage the %s  \"%s\"."
+msgid "a %s %s has invited you to manage the %s  \"%s\". This is a %s."
 msgstr ""
 
-#: core/common/OutsideComm.php:261
+#: core/common/OutsideComm.php:281
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr "Cette invitation est valide pendant 24 heures, i.e. jusqu’à %s."
 
 #. then, send out the mail
-#: core/common/OutsideComm.php:269
+#: core/common/OutsideComm.php:289
 msgid "Hello,"
 msgstr "Bonjour,"
 
 #. default means we don't have a Reply-To.
-#: core/common/OutsideComm.php:271
+#: core/common/OutsideComm.php:291
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
 "manuellement. Veuillez ne pas répondre à ce message ; il est émis par une "
 "adresse qui ne fait que des envois."
 
-#: core/common/OutsideComm.php:277
+#: core/common/OutsideComm.php:297
 #, php-format
 msgid "Additional message from your %s administrator:"
 msgstr ""
 
-#: core/common/OutsideComm.php:285
+#: core/common/OutsideComm.php:305
 #, php-format
 msgid "%s administrator"
 msgstr ""
 
-#: core/common/OutsideComm.php:288
+#: core/common/OutsideComm.php:308
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
 msgstr ""
 
-#: core/common/OutsideComm.php:293
+#: core/common/OutsideComm.php:313
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
 "link:"
 msgstr ""
 
-#: core/common/OutsideComm.php:295
+#: core/common/OutsideComm.php:315
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
@@ -546,22 +559,22 @@ msgstr ""
 "Si le lien ne fonctionne pas, vous pouvez vous rendre sur l'interface "
 "d'administration %s a"
 
-#: core/common/OutsideComm.php:297
+#: core/common/OutsideComm.php:317
 msgid "and enter the invitation token"
 msgstr "et entrez le jeton d'invitation"
 
-#: core/common/OutsideComm.php:299
+#: core/common/OutsideComm.php:319
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
 msgstr ""
 
-#: core/common/OutsideComm.php:300
+#: core/common/OutsideComm.php:320
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr "Nous vous souhaitons beaucoup de plaisir avec le %s."
 
-#: core/common/OutsideComm.php:301
+#: core/common/OutsideComm.php:321
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -572,7 +585,7 @@ msgstr ""
 "\n"
 "Votre amicale équipe opérationnelle de %s"
 
-#: core/common/OutsideComm.php:337
+#: core/common/OutsideComm.php:357
 #, php-format
 msgid "%s: you have been invited to manage an %s"
 msgstr ""
@@ -581,26 +594,26 @@ msgstr ""
 msgid "Input validation error: "
 msgstr "erreur de validation de l'entrée:"
 
-#: web/lib/common/InputValidation.php:216
+#: web/lib/common/InputValidation.php:252
 msgid "Realm is empty!"
 msgstr "Le domaine est vide"
 
-#: web/lib/common/InputValidation.php:225
+#: web/lib/common/InputValidation.php:261
 msgid "Realm contains an @ sign!"
 msgstr "Le nom de domaine contient un @!"
 
-#: web/lib/common/InputValidation.php:226
+#: web/lib/common/InputValidation.php:262
 msgid "Realm begins with a . (dot)!"
 msgstr "Le nom de domaine commence par un .(point)!"
 
-#: web/lib/common/InputValidation.php:227
+#: web/lib/common/InputValidation.php:263
 msgid "Realm ends with a . (dot)!"
 msgstr "Le nom de domaine se termine par un .(point)!"
 
-#: web/lib/common/InputValidation.php:228
+#: web/lib/common/InputValidation.php:264
 msgid "Realm contains spaces!"
 msgstr "Le nom de domaine contient des espaces!"
 
-#: web/lib/common/InputValidation.php:241
+#: web/lib/common/InputValidation.php:277
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Le nom de domaine ne contient pas de .(point)!"

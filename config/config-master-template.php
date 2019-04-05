@@ -226,6 +226,15 @@ const CONFIG = [
             'user' => 'someuser',
             'pass' => 'somepass',
             'readonly' => FALSE, ],
+        // this DB stores diagnostics data. The connection details can be
+        // identical to INST as there is no table overlap
+        'DIAGNOSTICS' => [
+            'host' => 'db.host.example',
+            'db' => 'cat',
+            'user' => 'someuser',
+            'pass' => 'somepass',
+            'readonly' => FALSE, ],
+
         // this slice of DB user is about the downloads table. The corresponding
         // DB user should have write access to update statistics and the cache
         // locations of installers. 

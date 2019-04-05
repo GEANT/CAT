@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# eduki <ecercos@xtec.cat>, 2013,2015,2018
+# eduki <ecercos@xtec.cat>, 2013,2015,2018-2019
 # eduki <ecercos@xtec.cat>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-04 15:19+0100\n"
-"PO-Revision-Date: 2018-05-22 07:08+0000\n"
+"POT-Creation-Date: 2019-04-05 11:11+0200\n"
+"PO-Revision-Date: 2019-03-25 07:59+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/ca_ES/)\n"
@@ -309,13 +309,49 @@ msgstr ""
 "Disculpeu, això no hauria de passar - no hi ha més informació disponible"
 
 #. this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
-#: core/Federation.php:89
+#: core/Federation.php:90
 #, php-format
 msgid "(discontinued) %s"
-msgstr ""
+msgstr "(discontinuat) %s"
 
-#: core/IdP.php:258
-#, fuzzy, php-format
+#. / arguments are: 1. nomenclature for "institution"
+#. 2. IdP name;
+#. /                3. consortium name (e.g. eduroam);
+#. /                4. federation shortname, e.g. "LU";
+#. /                5. product name (e.g. eduroam CAT);
+#. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
+#: core/Federation.php:253
+#, php-format
+msgid ""
+"Hi,\n"
+"\n"
+"the invitation for the new %s %s in your %s federation %s has been used and "
+"the IdP was created in %s.\n"
+"\n"
+"We thought you might want to know.\n"
+"\n"
+"Best regards,\n"
+"\n"
+"%s"
+msgstr ""
+"Hola,\n"
+"\n"
+"la invitació per al nou  %s  %s a la vostra federació %s s'ha utilitzat %s i "
+"l'IdP s'ha creat a %s.\n"
+"\n"
+"Pensem que ho havíeu de saber.\n"
+"\n"
+"Salutacions,\n"
+"\n"
+"%s"
+
+#: core/Federation.php:262
+#, php-format
+msgid "%s in your federation was created"
+msgstr "S'ha creat %s a la vostra federació"
+
+#: core/IdP.php:351
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -329,8 +365,7 @@ msgid ""
 msgstr ""
 "Hola,\n"
 "\n"
-"el proveidor d'identitat (IdP) %s de la vostra federació d'%s %s ha estat "
-"esborrat de %s.\n"
+"el %s %s de la vostra federació %s  %s ha estat esborrat de %s.\n"
 "\n"
 "Pensem que ho havíeu de saber.\n"
 "\n"
@@ -338,10 +373,10 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/IdP.php:267
-#, fuzzy, php-format
+#: core/IdP.php:360
+#, php-format
 msgid "%s in your federation was deleted"
-msgstr "S'ha esborrat l'IdP a la vostra federació"
+msgstr "S'ha esborrat %s a la vostra federació"
 
 #: core/SilverbulletInvitation.php:230
 #, php-format
@@ -402,42 +437,6 @@ msgstr ""
 msgid "%s Invitation System"
 msgstr "Sistema d'invitacions %s"
 
-#. / arguments are: 1. nomenclature for "institution"
-#. 2. IdP name;
-#. /                3. consortium name (e.g. eduroam);
-#. /                4. federation shortname, e.g. "LU";
-#. /                5. product name (e.g. eduroam CAT);
-#. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/UserManagement.php:208
-#, fuzzy, php-format
-msgid ""
-"Hi,\n"
-"\n"
-"the invitation for the new %s %s in your %s federation %s has been used and "
-"the IdP was created in %s.\n"
-"\n"
-"We thought you might want to know.\n"
-"\n"
-"Best regards,\n"
-"\n"
-"%s"
-msgstr ""
-"Hola,\n"
-"\n"
-"la invitació per al nou proveidor d'identitat (IdP) %s a la vostra federació "
-"%s s'ha utilitzat %s i l'IdP s'ha creat a %s.\n"
-"\n"
-"Pensem que ho havíeu de saber.\n"
-"\n"
-"Salutacions,\n"
-"\n"
-"%s"
-
-#: core/UserManagement.php:217
-#, fuzzy, php-format
-msgid "%s in your federation was created"
-msgstr "S'ha creat l'IdP a la vostra federació"
-
 #: core/User.php:158
 msgid "Feedback"
 msgstr "Suggeriments"
@@ -473,40 +472,74 @@ msgstr "Contrasenya EAP"
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
 #. different wording, no translation, sorry
-#: core/common/Entity.php:104
+#: core/common/Entity.php:116
 msgid "National Roaming Operator"
 msgstr "Operador de Roaming nacional"
 
-#: core/common/Entity.php:105
+#: core/common/Entity.php:117
 msgid "identity provider"
 msgstr "proveïdor d'identitat"
 
-#: core/common/Entity.php:106
+#: core/common/Entity.php:118 core/common/Entity.php:124
 msgid "organisation"
 msgstr "organització"
 
-#: core/common/Entity.php:107
+#: core/common/Entity.php:119
 msgid "Identity Provider"
 msgstr "Proveïdor d'Identitat"
 
-#: core/common/OutsideComm.php:257
+#: core/common/Entity.php:120
+msgid "Wi-Fi Hotspot"
+msgstr ""
+
+#: core/common/Entity.php:121
+msgid "Hotspot"
+msgstr ""
+
+#: core/common/Entity.php:122
+#, fuzzy
+msgid "Service Provider"
+msgstr "Proveïdor d'Identitat"
+
+#: core/common/Entity.php:123
+msgid "participant"
+msgstr ""
+
+#: core/common/Entity.php:125
+#, fuzzy
+msgid "organization"
+msgstr "organització"
+
+#: core/common/Entity.php:126
+#, fuzzy
+msgid "entity"
+msgstr "Entitat sense nom"
+
+#: core/common/OutsideComm.php:267
+#, php-format
+msgid "%s and %s"
+msgstr ""
+
+#: core/common/OutsideComm.php:277
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
 msgstr ""
 "un %s de %sde %s \"%s\" us ha convidat a gestionar %sconjuntament amb ell."
 
-#: core/common/OutsideComm.php:258
-#, php-format
-msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
+#: core/common/OutsideComm.php:278
+#, fuzzy, php-format
+msgid ""
+"a %s %s has invited you to manage the future %s  \"%s\" (%s). The "
+"organisation will be a %s."
 msgstr "un %s de %s us ha invitat a gestionar %s  \"%s\" (%s)."
 
-#: core/common/OutsideComm.php:259
-#, php-format
-msgid "a %s %s has invited you to manage the %s  \"%s\"."
+#: core/common/OutsideComm.php:279
+#, fuzzy, php-format
+msgid "a %s %s has invited you to manage the %s  \"%s\". This is a %s."
 msgstr "un %s de %s us ha invitat a gestionar %s  \"%s\" ."
 
-#: core/common/OutsideComm.php:261
+#: core/common/OutsideComm.php:281
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr ""
@@ -514,29 +547,29 @@ msgstr ""
 "les %s."
 
 #. then, send out the mail
-#: core/common/OutsideComm.php:269
+#: core/common/OutsideComm.php:289
 msgid "Hello,"
 msgstr "Hola,"
 
 #. default means we don't have a Reply-To.
-#: core/common/OutsideComm.php:271
+#: core/common/OutsideComm.php:291
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
 "manualment. Si us plau no respongueu a aquest correu; és una adreça només "
 "per a enviar."
 
-#: core/common/OutsideComm.php:277
+#: core/common/OutsideComm.php:297
 #, php-format
 msgid "Additional message from your %s administrator:"
 msgstr "Missatge addicional del vostre administrador %s:"
 
-#: core/common/OutsideComm.php:285
+#: core/common/OutsideComm.php:305
 #, php-format
 msgid "%s administrator"
 msgstr "Administrador de %s"
 
-#: core/common/OutsideComm.php:288
+#: core/common/OutsideComm.php:308
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
@@ -544,7 +577,7 @@ msgstr ""
 "manualment. Si responeu a aquest correu, us comunicareu amb l'administrador "
 "de %s."
 
-#: core/common/OutsideComm.php:293
+#: core/common/OutsideComm.php:313
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
@@ -553,7 +586,7 @@ msgstr ""
 "Per a participar-hi com a administrador de %s, si us plau cliqueu al següent "
 "enllaç:"
 
-#: core/common/OutsideComm.php:295
+#: core/common/OutsideComm.php:315
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
@@ -562,11 +595,11 @@ msgstr ""
 "Si clicant a l'enllaç aquest no funciona, podeu també anar a l'entorn "
 "d'Administració de %s a "
 
-#: core/common/OutsideComm.php:297
+#: core/common/OutsideComm.php:317
 msgid "and enter the invitation token"
 msgstr "i entreu el codi d'invitació"
 
-#: core/common/OutsideComm.php:299
+#: core/common/OutsideComm.php:319
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
@@ -574,12 +607,12 @@ msgstr ""
 "NO reenvieu el correu abans que hagi expirat el token - o els destinataris "
 "podran fer-lo servir en lloc vostre!"
 
-#: core/common/OutsideComm.php:300
+#: core/common/OutsideComm.php:320
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr "Us desitgem que disfruteu amb %s"
 
-#: core/common/OutsideComm.php:301
+#: core/common/OutsideComm.php:321
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -590,7 +623,7 @@ msgstr ""
 "\n"
 "Els companys d'Operacions d'%s"
 
-#: core/common/OutsideComm.php:337
+#: core/common/OutsideComm.php:357
 #, php-format
 msgid "%s: you have been invited to manage an %s"
 msgstr "%s: heu estat invitat a gestionar %s"
@@ -599,31 +632,26 @@ msgstr "%s: heu estat invitat a gestionar %s"
 msgid "Input validation error: "
 msgstr "Error en la validació de l'entrada:"
 
-#: web/lib/common/InputValidation.php:216
+#: web/lib/common/InputValidation.php:252
 msgid "Realm is empty!"
 msgstr "Domini és buit!"
 
-#: web/lib/common/InputValidation.php:225
+#: web/lib/common/InputValidation.php:261
 msgid "Realm contains an @ sign!"
 msgstr "El domini conté un símbol @!"
 
-#: web/lib/common/InputValidation.php:226
+#: web/lib/common/InputValidation.php:262
 msgid "Realm begins with a . (dot)!"
 msgstr "El domini comença amb un . (punt)!"
 
-#: web/lib/common/InputValidation.php:227
+#: web/lib/common/InputValidation.php:263
 msgid "Realm ends with a . (dot)!"
 msgstr "El domini acaba amb un . (punt)!"
 
-#: web/lib/common/InputValidation.php:228
+#: web/lib/common/InputValidation.php:264
 msgid "Realm contains spaces!"
 msgstr "El domini conté espais!"
 
-#: web/lib/common/InputValidation.php:241
+#: web/lib/common/InputValidation.php:277
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "El domini no conté almenys un . (punt)!"
-
-#~ msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
-#~ msgstr ""
-#~ "Error en la codificació de les coordenades (2.0 utilitza JSON, no "
-#~ "serialitzat)!"

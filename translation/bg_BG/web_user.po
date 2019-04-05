@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# University of Ruse <support@uni-ruse.bg>, 2014-2018
+# University of Ruse <support@uni-ruse.bg>, 2014-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-04 15:19+0100\n"
-"PO-Revision-Date: 2018-11-09 12:40+0000\n"
+"POT-Creation-Date: 2019-04-05 11:11+0200\n"
+"PO-Revision-Date: 2019-04-04 11:11+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/eduroam_devel/"
 "cat/language/bg_BG/)\n"
@@ -365,12 +365,30 @@ msgstr "Имам въпрос относно този веб сайт. С ког
 msgid "You should send a mail to %s."
 msgstr "Трябва да изпратите мейл до %s."
 
-#: web/user/faq.inc.php:71 web/user/faq.php:46
+#: web/user/faq.inc.php:73 web/user/faq.php:46
 #, php-format
 msgid "What is this %s thing anyway?"
 msgstr "Какво все пак е това %s?"
 
-#: web/user/faq.inc.php:72 web/user/faq.php:47
+#: web/user/faq.inc.php:74
+#, php-format
+msgid ""
+"%s is a global WiFi roaming consortium which gives members of education and "
+"research access to the internet <i>for free</i> on all %s hotspots on the "
+"planet. There are several million %s users already, enjoying free internet "
+"access on more than %d hotspots! Visit <a href='http://www.eduroam.org'>the "
+"%s homepage</a> or <a href='http://monitor.eduroam.org/map_service_loc."
+"php'>the %s location map</a> for more details."
+msgstr ""
+"%s е световен WiFi роуминг консорциум, който дава на членовете на "
+"образованието и научните изследвания достъп до интернет <i> безплатно </i> "
+"до всички %s  точки за интернет достъп на планетата. Вече има няколко "
+"милиона %s потребители, ползващи свободния интернет достъп до повече от %d "
+"точки за интернет достъп! Посетете <a href='http://www.eduroam.org'> %s "
+"начална страница </a> или <a href='http://monitor.eduroam.org/"
+"map_service_loc.php'> %s карта </a> за повече подробности."
+
+#: web/user/faq.php:47
 #, php-format
 msgid ""
 "%s is a global WiFi roaming consortium which gives members of education and "
@@ -429,7 +447,7 @@ msgstr "Условия за ползване"
 msgid "(for legal reasons, the Terms of Use are in English only)"
 msgstr "(по правни причини, Условията за ползване са само на английски език)"
 
-#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:88
+#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:90
 #, php-format
 msgid "Welcome to %s"
 msgstr "Добре дошли в %s"
@@ -487,17 +505,17 @@ msgstr ""
 "което се е втренчило във Вас. Ваша грешка? Наша грешка? Кой знае! Може би "
 "трябва да се върнете към <a href='%s'>Началната страница</a>."
 
-#: web/tou.php:70 web/skins/modern/Divs.php:288
+#: web/tou.php:70 web/skins/modern/Divs.php:292
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "%s Поверително"
 
-#: web/lib/user/TextTemplates.php:81
+#: web/lib/user/TextTemplates.php:83
 #, php-format
 msgid "Welcome aboard the %s user community!"
 msgstr "Добре дошли в %s потребителското общество!"
 
-#: web/lib/user/TextTemplates.php:82
+#: web/lib/user/TextTemplates.php:84
 msgid ""
 "Your download will start shortly. In case of problems with the automatic "
 "download please use this direct <a href=''>link</a>."
@@ -505,12 +523,12 @@ msgstr ""
 "Изтеглянето скоро ще започне. В случай на проблеми с автоматичното "
 "изтегляне, моля използвайте директния <a href=''>link</a>."
 
-#: web/lib/user/TextTemplates.php:83 web/skins/modern/div_user_welcome.php:30
+#: web/lib/user/TextTemplates.php:85 web/skins/modern/div_user_welcome.php:30
 #, php-format
 msgid "Dear user from %s,"
 msgstr "Скъпи потребители от %s,"
 
-#: web/lib/user/TextTemplates.php:84
+#: web/lib/user/TextTemplates.php:86
 #, php-format
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
@@ -524,7 +542,7 @@ msgstr ""
 "\"потребителско име и парола\" или \"персонален сертификат\") - и да бъдете "
 "на линия!"
 
-#: web/lib/user/TextTemplates.php:85 web/skins/modern/div_user_welcome.php:38
+#: web/lib/user/TextTemplates.php:87 web/skins/modern/div_user_welcome.php:38
 #, php-format
 msgid ""
 "Should you have any problems using this service, please always contact the "
@@ -535,11 +553,11 @@ msgstr ""
 "съдействие от helpdesk на %s. Те ще диагностицират проблема и ще Ви "
 "помогнат. Можете да се свържете с тях по начините, показани по-горе."
 
-#: web/lib/user/TextTemplates.php:86 web/skins/modern/div_user_welcome.php:41
+#: web/lib/user/TextTemplates.php:88 web/skins/modern/div_user_welcome.php:41
 msgid "Back to downloads"
 msgstr "Назад към изтегляне"
 
-#: web/lib/user/TextTemplates.php:87
+#: web/lib/user/TextTemplates.php:89
 #, php-format
 msgid ""
 "we would like to warmly welcome you among the several million users of %s! "
@@ -552,47 +570,56 @@ msgstr ""
 "ресурсите на хиляди университети, научно-изследователски центрове и други "
 "места по цялото земно кълбо. Всичко това напълно безплатно!"
 
-#: web/lib/user/TextTemplates.php:89
+#: web/lib/user/TextTemplates.php:91
 #, php-format
 msgid "Connect your device to %s"
 msgstr "Свържете устройството си към %s"
 
-#: web/lib/user/TextTemplates.php:90
+#: web/lib/user/TextTemplates.php:92
 #, php-format
 msgid "%s installation made easy:"
 msgstr "%s инсталацията се прави лесно:"
 
-#: web/lib/user/TextTemplates.php:91
+#: web/lib/user/TextTemplates.php:93
 msgid "Custom built for your organisation"
 msgstr "Специално създаден за Вашата организация"
 
-#: web/lib/user/TextTemplates.php:92
+#: web/lib/user/TextTemplates.php:94
 #, php-format
 msgid "Click here to download your %s installer"
 msgstr "Кликнете тук, за да изтеглите Вашия %s инсталатор"
 
-#: web/lib/user/TextTemplates.php:93
+#: web/lib/user/TextTemplates.php:95
+#, php-format
+msgid ""
+"%s provides access to thousands of Wi-Fi hotspots around the world, free of "
+"charge. <a href='%s'>Learn more</a>"
+msgstr ""
+"%s предоставя безплатно достъп до хиляди Wi-Fi точки за достъп по света. <a "
+"href='%s'> Научете повече </a>"
+
+#: web/lib/user/TextTemplates.php:96
 msgid "Select the user group"
 msgstr "Изберете потребителска група"
 
-#: web/lib/user/TextTemplates.php:94
+#: web/lib/user/TextTemplates.php:97
 msgid "select another"
 msgstr "изберете друг/а"
 
-#: web/lib/user/TextTemplates.php:95
+#: web/lib/user/TextTemplates.php:98
 msgid "Choose another installer to download"
 msgstr "Изберете друг инсталатор за изтегляне"
 
-#: web/lib/user/TextTemplates.php:96
+#: web/lib/user/TextTemplates.php:99
 msgid "All platforms"
 msgstr "Всички платформи"
 
-#: web/lib/user/TextTemplates.php:97
+#: web/lib/user/TextTemplates.php:100
 #, php-format
 msgid "Download your %s installer"
 msgstr "Изтеглете Вашия %s инсталатор"
 
-#: web/lib/user/TextTemplates.php:98
+#: web/lib/user/TextTemplates.php:101
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
 "<br>When you click <b>Continue</b> this support page will be opened in a new "
@@ -602,19 +629,19 @@ msgstr ""
 "страница за поддръжка.<br> Когато кликнете <b>Продължете</b> страницата за "
 "поддръжка ще се отвори в нов прозорец/таб."
 
-#: web/lib/user/TextTemplates.php:99
+#: web/lib/user/TextTemplates.php:102
 #: web/skins/modern/accountstatus/accountstatus.php:226
 #: web/skins/modern/user/js/cat_js.php:278
 #: web/skins/modern/user/js/cat_js.php:286
 msgid "Continue"
 msgstr "Продължете"
 
-#: web/lib/user/TextTemplates.php:100
+#: web/lib/user/TextTemplates.php:103
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s"
 msgstr "Цифрово подписан от организацията, която координира %s"
 
-#: web/lib/user/TextTemplates.php:101
+#: web/lib/user/TextTemplates.php:104
 #, php-format
 msgid ""
 "You can download your %s installer via a personalised invitation link sent "
@@ -624,7 +651,7 @@ msgstr ""
 "изпратен от Вашата ИТ поддръжка. Моля говорете с ИТ отдела, за да получите "
 "този линк."
 
-#: web/lib/user/TextTemplates.php:102
+#: web/lib/user/TextTemplates.php:105
 #, php-format
 msgid ""
 "This site provides %s installers for many organisations, click here to see "
@@ -633,11 +660,11 @@ msgstr ""
 "Сайтът предоставя %s инсталатори за много организации, кликнете тук, за да "
 "видите дали Вашата е в списъка. "
 
-#: web/lib/user/TextTemplates.php:103
+#: web/lib/user/TextTemplates.php:106
 msgid "Custom built for you"
 msgstr "Специално създаден за Вас"
 
-#: web/lib/user/TextTemplates.php:105
+#: web/lib/user/TextTemplates.php:108
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Цифрово подписан от организацията, която координира %s: %s"

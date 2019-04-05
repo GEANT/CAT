@@ -31,6 +31,18 @@ namespace core\diag;
 class AbstractTest extends \core\common\Entity {
 
     /**
+     * to keep track of diagnostics runs
+     * 
+     * @var \core\DBConnection
+     */
+    protected $databaseHandle;
+    /**
+     * unique identifier for test
+     * 
+     * @var string
+     */
+    protected $testId;
+    /**
      * generic return codes
      * 
      * @var array
@@ -238,10 +250,17 @@ class AbstractTest extends \core\common\Entity {
     const CERTPROB_MULTIPLE_CN = -226;
 
     /**
+     * An EAP conversation took place, but for some reason there is not a single certificate inside
+     */
+    const CERTPROB_NO_CERTIFICATE_IN_CONVERSATION = -230;
+    /**
      * initialises the error messages.
      */
     public function __construct() {
         parent::__construct();
+        // initialise the DB
+        $this->databaseHandle = \core\DBConnection::handle("DIAGNOSTICS");
+
         \core\common\Entity::intoThePotatoes();
         // the numbers are NOT constant - in the course of checks, we may find a "smoking gun" and elevate the probability
         // in the end, use the numbers of those elements which were not deterministically excluded and normalise to 1
@@ -385,7 +404,7 @@ class AbstractTest extends \core\common\Entity {
          * Low public key length (<1024)
          */
         $code18 = RADIUSTests::CERTPROB_LOW_KEY_LENGTH;
-        $this->returnCodes[$code18]["message"] = _("At least one certificate in the chain had a public key of less than 1024 bits. Many recent operating systems consider this unacceptable and will fail to validate the server certificate.");
+        $this->returnCodes[$code18]["message"] = _("At least one certificate in the chain had a public key of less than 2048 bits. Many recent operating systems consider this unacceptable and will fail to validate the server certificate.");
         $this->returnCodes[$code18]["severity"] = \core\common\Entity::L_WARN;
 
         /**
@@ -545,6 +564,12 @@ class AbstractTest extends \core\common\Entity {
         $this->returnCodes[$code41]["message"] = _("The certificate public key algorithm is unknown to the system. Please submit the certificate as a sample to the developers.");
         $this->returnCodes[$code41]["severity"] = \core\common\Entity::L_REMARK;
 
+        /**
+         * Unable to find any server certificate
+         */
+        $code42 = RADIUSTests::CERTPROB_NO_CERTIFICATE_IN_CONVERSATION;
+        $this->returnCodes[$code42]["message"] = _("No certificate at all was sent by the server.");
+        $this->returnCodes[$code42]["severity"] = \core\common\Entity::L_ERROR;
         \core\common\Entity::outOfThePotatoes();
     }
 

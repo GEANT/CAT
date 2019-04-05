@@ -38,7 +38,7 @@ class Telepath extends AbstractTest {
     private $visitedHotspot;
     private $catProfile;
     private $dbIdP;
-
+    
     /**
      *
      * @var string|null
@@ -411,7 +411,8 @@ class Telepath extends AbstractTest {
      * @return array the findings
      */
     public function magic() {
-
+        $this->testId = \core\CAT::uuid();
+        $this->databaseHandle->exec("INSERT INTO diagnosticrun (test_id, suspects, evidence) VALUES ('$this->testId', NULL, NULL)");
         // simple things first: do we know anything about the realm, either
         // because it's a CAT participant or because it's in the eduroam DB?
         // if so, we can exclude the INFRA_NONEXISTENTREALM cause
@@ -486,7 +487,10 @@ class Telepath extends AbstractTest {
         }
 
         $this->normaliseResultSet();
-
+        $jsonSuspects = json_encode($this->possibleFailureReasons, JSON_PRETTY_PRINT);
+        $jsonEvidence = json_encode($this->additionalFindings, JSON_PRETTY_PRINT);
+        $this->databaseHandle->exec("UPDATE diagnosticrun SET realm = ?, visited_flr = ?, visited_hotspot = ?, suspects = ?, evidence = ? WHERE test_id = ?", "ssssss", $this->realm, $this->visitedFlr, $this->visitedHotspot, $jsonSuspects, $jsonEvidence, $this->testId);
+        $_SESSION['TESTID'] = $this->testId;
         $_SESSION["SUSPECTS"] = $this->possibleFailureReasons;
         $_SESSION["EVIDENCE"] = $this->additionalFindings;
         return ["SUSPECTS" => $this->possibleFailureReasons, "EVIDENCE" => $this->additionalFindings];

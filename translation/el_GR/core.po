@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Halil Adem <hadem@noc.grnet.gr>, 2018
+# Halil Adem <hadem@noc.grnet.gr>, 2018-2019
 # HELPDESK <npapalouka@admin.grnet.gr>, 2015
 # Panos Bouklis <panos@echidna-band.com>, 2012
 # Wasilis <m.wasilis@yahoo.de>, 2013
@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-04 15:19+0100\n"
-"PO-Revision-Date: 2018-11-14 09:22+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2019-04-05 11:11+0200\n"
+"PO-Revision-Date: 2019-03-26 14:29+0000\n"
+"Last-Translator: Halil Adem <hadem@noc.grnet.gr>\n"
 "Language-Team: Greek (Greece) (http://www.transifex.com/eduroam_devel/cat/"
 "language/el_GR/)\n"
 "Language: el_GR\n"
@@ -313,13 +313,49 @@ msgstr ""
 "πληροφορίες"
 
 #. this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
-#: core/Federation.php:89
+#: core/Federation.php:90
 #, php-format
 msgid "(discontinued) %s"
-msgstr ""
+msgstr "(καταργημένος) %s"
 
-#: core/IdP.php:258
-#, fuzzy, php-format
+#. / arguments are: 1. nomenclature for "institution"
+#. 2. IdP name;
+#. /                3. consortium name (e.g. eduroam);
+#. /                4. federation shortname, e.g. "LU";
+#. /                5. product name (e.g. eduroam CAT);
+#. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
+#: core/Federation.php:253
+#, php-format
+msgid ""
+"Hi,\n"
+"\n"
+"the invitation for the new %s %s in your %s federation %s has been used and "
+"the IdP was created in %s.\n"
+"\n"
+"We thought you might want to know.\n"
+"\n"
+"Best regards,\n"
+"\n"
+"%s"
+msgstr ""
+"Χαίρετε,\n"
+"\n"
+"η πρόσκληση για το νέο %s %s στην %s ομοσπονδία σας %s χρησιμοποιήθηκε και "
+"δημιουργήθηκε ο IdP στο %s.\n"
+"\n"
+"Πιστεύουμε ότι έπρεπε να το γνωρίζετε.\n"
+"\n"
+"Χαιρετισμούς,\n"
+"\n"
+"%s"
+
+#: core/Federation.php:262
+#, php-format
+msgid "%s in your federation was created"
+msgstr "Δημιουργήθηκε ένας %s στην ομοσπονδία σας"
+
+#: core/IdP.php:351
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -333,7 +369,7 @@ msgid ""
 msgstr ""
 "Χαίρετε,\n"
 "\n"
-"ο Πάροχος Ταυτότητας %s στην %s ομοσπονδία σας %s διαγράφηκε από %s.\n"
+"ο %s %s στην %s ομοσπονδία σας %s διαγράφηκε από %s.\n"
 "\n"
 "Πιστεύουμε ότι έπρεπε να το γνωρίζετε.\n"
 "\n"
@@ -341,10 +377,10 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/IdP.php:267
-#, fuzzy, php-format
+#: core/IdP.php:360
+#, php-format
 msgid "%s in your federation was deleted"
-msgstr "Διαγράφηκε ένας IdP στην ομοσπονδία σας"
+msgstr "Διαγράφηκε ένας %s στην ομοσπονδία σας"
 
 #: core/SilverbulletInvitation.php:230
 #, php-format
@@ -408,42 +444,6 @@ msgstr ""
 msgid "%s Invitation System"
 msgstr "Σύστημα Προσκλήσεων %s"
 
-#. / arguments are: 1. nomenclature for "institution"
-#. 2. IdP name;
-#. /                3. consortium name (e.g. eduroam);
-#. /                4. federation shortname, e.g. "LU";
-#. /                5. product name (e.g. eduroam CAT);
-#. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/UserManagement.php:208
-#, fuzzy, php-format
-msgid ""
-"Hi,\n"
-"\n"
-"the invitation for the new %s %s in your %s federation %s has been used and "
-"the IdP was created in %s.\n"
-"\n"
-"We thought you might want to know.\n"
-"\n"
-"Best regards,\n"
-"\n"
-"%s"
-msgstr ""
-"Χαίρετε,\n"
-"\n"
-"η πρόσκληση για το νέο Πάροχο Ταυτότητας %s στην %s ομοσπονδία σας %s "
-"χρησιμοποιήθηκε και δημιουργήθηκε ο IdP στο %s.\n"
-"\n"
-"Πιστεύουμε ότι έπρεπε να το γνωρίζετε.\n"
-"\n"
-"Χαιρετισμούς,\n"
-"\n"
-"%s"
-
-#: core/UserManagement.php:217
-#, fuzzy, php-format
-msgid "%s in your federation was created"
-msgstr "Δημιουργήθηκε ένας IdP στην ομοσπονδία σας"
-
 #: core/User.php:158
 msgid "Feedback"
 msgstr "Ανατροφοδότηση"
@@ -479,70 +479,104 @@ msgstr "EAP-pwd"
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
 #. different wording, no translation, sorry
-#: core/common/Entity.php:104
+#: core/common/Entity.php:116
 msgid "National Roaming Operator"
 msgstr "Εθνικός Φορέας Περιαγωγής"
 
-#: core/common/Entity.php:105
+#: core/common/Entity.php:117
 msgid "identity provider"
 msgstr "πάροχος ταυτότητας "
 
-#: core/common/Entity.php:106
+#: core/common/Entity.php:118 core/common/Entity.php:124
 msgid "organisation"
 msgstr "οργανισμός"
 
-#: core/common/Entity.php:107
+#: core/common/Entity.php:119
 msgid "Identity Provider"
 msgstr "Πάροχος Ταυτότητας"
 
-#: core/common/OutsideComm.php:257
+#: core/common/Entity.php:120
+msgid "Wi-Fi Hotspot"
+msgstr ""
+
+#: core/common/Entity.php:121
+msgid "Hotspot"
+msgstr ""
+
+#: core/common/Entity.php:122
+#, fuzzy
+msgid "Service Provider"
+msgstr "Πάροχος Ταυτότητας"
+
+#: core/common/Entity.php:123
+msgid "participant"
+msgstr ""
+
+#: core/common/Entity.php:125
+#, fuzzy
+msgid "organization"
+msgstr "οργανισμός"
+
+#: core/common/Entity.php:126
+#, fuzzy
+msgid "entity"
+msgstr "Ανώνυμη Οντότητα"
+
+#: core/common/OutsideComm.php:267
+#, php-format
+msgid "%s and %s"
+msgstr ""
+
+#: core/common/OutsideComm.php:277
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
 msgstr ""
 "ένας %s από το %s %s \"%s\" σας προσκάλεσε να διαχειριστείτε το %s μαζί του."
 
-#: core/common/OutsideComm.php:258
-#, php-format
-msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
+#: core/common/OutsideComm.php:278
+#, fuzzy, php-format
+msgid ""
+"a %s %s has invited you to manage the future %s  \"%s\" (%s). The "
+"organisation will be a %s."
 msgstr ""
 "ένας %s %s σας έχει προσκαλέσει για να διαχειριστείτε το μελλοντικό %s  \"%s"
 "\" (%s)."
 
-#: core/common/OutsideComm.php:259
-#, php-format
-msgid "a %s %s has invited you to manage the %s  \"%s\"."
+#: core/common/OutsideComm.php:279
+#, fuzzy, php-format
+msgid "a %s %s has invited you to manage the %s  \"%s\". This is a %s."
 msgstr "ένας %s %s σας έχει προσκαλέσει να διαχειριστείτε το %s  \"%s\"."
 
-#: core/common/OutsideComm.php:261
+#: core/common/OutsideComm.php:281
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr "Αυτή η πρόσκληση είναι έγκυρη για 24 ώρες από τώρα, δηλαδή μέχρι %s."
 
 #. then, send out the mail
-#: core/common/OutsideComm.php:269
+#: core/common/OutsideComm.php:289
 msgid "Hello,"
 msgstr "Χαίρετε,"
 
 #. default means we don't have a Reply-To.
-#: core/common/OutsideComm.php:271
+#: core/common/OutsideComm.php:291
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
 "χειροκίνητα. Παρακαλούμε μην απαντάτε σε αυτό το email, είναι αποκλειστικά "
 "διεύθυνση αποστολής."
 
-#: core/common/OutsideComm.php:277
+#: core/common/OutsideComm.php:297
 #, php-format
 msgid "Additional message from your %s administrator:"
 msgstr "Επιπρόσθετο μήνυμα από τον  διαχειριστή του %s σας:"
 
-#: core/common/OutsideComm.php:285
+#: core/common/OutsideComm.php:305
 #, php-format
 msgid "%s administrator"
 msgstr "%s διαχειριστής"
 
-#: core/common/OutsideComm.php:288
+#: core/common/OutsideComm.php:308
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
@@ -550,7 +584,7 @@ msgstr ""
 "χειροκίνητα. Αν απαντήσετε σε αυτό το email, θα έρθετε σε επαφή με τους "
 "διαχειριστές του %s σας."
 
-#: core/common/OutsideComm.php:293
+#: core/common/OutsideComm.php:313
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
@@ -559,7 +593,7 @@ msgstr ""
 "Για να εγγραφείτε ως διαχειριστής για το %s, παρακαλούμε όπως κάνετε κλικ "
 "στον ακόλουθο σύνδεσμο:"
 
-#: core/common/OutsideComm.php:295
+#: core/common/OutsideComm.php:315
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
@@ -568,11 +602,11 @@ msgstr ""
 "Αν το κλικ στον σύνδεσμο δε λειτουργεί, μπορείτε επίσης να πάτε στη Διεπαφή "
 "Διαχείρισης %s στο"
 
-#: core/common/OutsideComm.php:297
+#: core/common/OutsideComm.php:317
 msgid "and enter the invitation token"
 msgstr "και εισάγετε το κουπόνι πρόσκλησης"
 
-#: core/common/OutsideComm.php:299
+#: core/common/OutsideComm.php:319
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
@@ -580,12 +614,12 @@ msgstr ""
 "Μην προωθείτε το μήνυμα πριν λήξει το κουπόνι - οι παραλήπτες ίσως είναι σε "
 "θέση να το χρησιμοποιήσουν για λογαριασμό σας!"
 
-#: core/common/OutsideComm.php:300
+#: core/common/OutsideComm.php:320
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr "Σας ευχόμαστε να περάσετε καλά με το %s."
 
-#: core/common/OutsideComm.php:301
+#: core/common/OutsideComm.php:321
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -596,7 +630,7 @@ msgstr ""
 "\n"
 "Οι φίλοι σας από την Ομάδα Λειτουργίας %s"
 
-#: core/common/OutsideComm.php:337
+#: core/common/OutsideComm.php:357
 #, php-format
 msgid "%s: you have been invited to manage an %s"
 msgstr "%s: έχετε λάβει πρόσκληση για την διαχείριση του %s"
@@ -605,31 +639,26 @@ msgstr "%s: έχετε λάβει πρόσκληση για την διαχεί�
 msgid "Input validation error: "
 msgstr "Σφάλμα επικύρωσης εισόδου:"
 
-#: web/lib/common/InputValidation.php:216
+#: web/lib/common/InputValidation.php:252
 msgid "Realm is empty!"
 msgstr "Ο τομέας είναι κενός!"
 
-#: web/lib/common/InputValidation.php:225
+#: web/lib/common/InputValidation.php:261
 msgid "Realm contains an @ sign!"
 msgstr "Ο τομέας περιέχει ένα σύμβολο @!"
 
-#: web/lib/common/InputValidation.php:226
+#: web/lib/common/InputValidation.php:262
 msgid "Realm begins with a . (dot)!"
 msgstr "Ο τομέας ξεκινάει με . (τελεία)!"
 
-#: web/lib/common/InputValidation.php:227
+#: web/lib/common/InputValidation.php:263
 msgid "Realm ends with a . (dot)!"
 msgstr "Ο τομέας τελειώνει με . (τελεία)!"
 
-#: web/lib/common/InputValidation.php:228
+#: web/lib/common/InputValidation.php:264
 msgid "Realm contains spaces!"
 msgstr "Ο τομέας περιέχει κενά!"
 
-#: web/lib/common/InputValidation.php:241
+#: web/lib/common/InputValidation.php:277
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Ο τομέας δεν περιέχει τουλάχιστον μία . (τελεία)!"
-
-#~ msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
-#~ msgstr ""
-#~ "Μη έγκυρη κωδικοποίηση συντεταγμένης (το 2.0 χρησιμοποιεί JSON, όχι "
-#~ "serialize)!"

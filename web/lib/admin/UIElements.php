@@ -516,10 +516,15 @@ class UIElements extends \core\common\Entity {
     public function pngInjectConsortiumLogo(string $inputpngstring, int $symbolsize, int $marginsymbols = 4) {
         $loggerInstance = new \core\common\Logging();
         $inputgd = imagecreatefromstring($inputpngstring);
+        if ($inputgd === FALSE) { // source image is bogus; don't do anything
+            return "";
+        }
 
         $loggerInstance->debug(4, "Consortium logo is at: " . ROOT . "/web/resources/images/consortium_logo_large.png");
         $logogd = imagecreatefrompng(ROOT . "/web/resources/images/consortium_logo_large.png");
-
+        if ($logogd === FALSE) { // consortium logo is bogus; don't do anything
+            return "";
+        }
         $sizeinput = [imagesx($inputgd), imagesy($inputgd)];
         $sizelogo = [imagesx($logogd), imagesy($logogd)];
         // Q level QR-codes can sustain 25% "damage"
@@ -536,6 +541,9 @@ class UIElements extends \core\common\Entity {
         // paint white below the logo, in case it has transparencies (looks bad)
         // have one symbol in each direction extra white space
         $whiteimage = imagecreate($targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize);
+        if ($whiteimage === FALSE) { // we can't create an empty canvas. Weird. Stop processing.
+            return "";
+        }
         imagecolorallocate($whiteimage, 255, 255, 255);
         // also make sure the initial placement is a multitude of 12; otherwise "two half" symbols might be affected
         $targetplacementx = (int)($symbolsize * round(($sizeinput[0] / 2 - ($targetwidth - $symbolsize) / 2) / $symbolsize));

@@ -7,13 +7,13 @@
 # dsafar <dsafar@srce.hr>, 2012-2013
 # dsafar <dsafar@srce.hr>, 2013
 # dsafar <dsafar@srce.hr>, 2012
-# Dubravko Penezic <dpenezic@gmail.com>, 2012,2015
+# Dubravko Penezic <dpenezic@gmail.com>, 2012,2015,2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-04 15:19+0100\n"
-"PO-Revision-Date: 2018-05-30 06:20+0000\n"
+"POT-Creation-Date: 2019-04-05 11:11+0200\n"
+"PO-Revision-Date: 2019-04-04 09:35+0000\n"
 "Last-Translator: Dubravko Penezic <dpenezic@gmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/hr_HR/)\n"
@@ -310,13 +310,43 @@ msgid "Sorry, this should not happen - no additional information is available"
 msgstr "Pogreška, nema dodatnih informacija"
 
 #. this device has stats, but doesn't exist in current config. We don't even know its display name, so display its raw representation
-#: core/Federation.php:89
+#: core/Federation.php:90
 #, php-format
 msgid "(discontinued) %s"
-msgstr ""
+msgstr "(nepodržano) %s"
 
-#: core/IdP.php:258
-#, fuzzy, php-format
+#. / arguments are: 1. nomenclature for "institution"
+#. 2. IdP name;
+#. /                3. consortium name (e.g. eduroam);
+#. /                4. federation shortname, e.g. "LU";
+#. /                5. product name (e.g. eduroam CAT);
+#. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
+#: core/Federation.php:253
+#, php-format
+msgid ""
+"Hi,\n"
+"\n"
+"the invitation for the new %s %s in your %s federation %s has been used and "
+"the IdP was created in %s.\n"
+"\n"
+"We thought you might want to know.\n"
+"\n"
+"Best regards,\n"
+"\n"
+"%s"
+msgstr ""
+"Key\n"
+"Hi, the invitation for the new %s %s in your %s federation %s has been used "
+"and the IdP was created in %s. We thought you might want to know. Best "
+"regards, %s"
+
+#: core/Federation.php:262
+#, php-format
+msgid "%s in your federation was created"
+msgstr "%s kreiran u vašoj federaciji"
+
+#: core/IdP.php:351
+#, php-format
 msgid ""
 "Hi,\n"
 "\n"
@@ -328,20 +358,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Poštovani,\n"
-"\n"
-"IdP %s u vašoj %s federaciji %s je obrisan od %s. \n"
-"\n"
-"Mislimo da biste to trebali znati.\n"
-"\n"
-"S poštovanjem, \n"
-"\n"
-"%s"
+"Hi, the %s %s in your %s federation %s has been deleted from %s. We thought "
+"you might want to know. Best regards, %s"
 
-#: core/IdP.php:267
-#, fuzzy, php-format
+#: core/IdP.php:360
+#, php-format
 msgid "%s in your federation was deleted"
-msgstr "IdP u vašoj federaciji je obrisan"
+msgstr "%s obrisan u vašoj federaciji"
 
 #: core/SilverbulletInvitation.php:230
 #, php-format
@@ -403,42 +426,6 @@ msgstr ""
 msgid "%s Invitation System"
 msgstr "%s sustav pozivanja"
 
-#. / arguments are: 1. nomenclature for "institution"
-#. 2. IdP name;
-#. /                3. consortium name (e.g. eduroam);
-#. /                4. federation shortname, e.g. "LU";
-#. /                5. product name (e.g. eduroam CAT);
-#. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/UserManagement.php:208
-#, fuzzy, php-format
-msgid ""
-"Hi,\n"
-"\n"
-"the invitation for the new %s %s in your %s federation %s has been used and "
-"the IdP was created in %s.\n"
-"\n"
-"We thought you might want to know.\n"
-"\n"
-"Best regards,\n"
-"\n"
-"%s"
-msgstr ""
-"Poštovani,\n"
-"\n"
-"pozivnica za novog IdP-a %s u vašoj %s federaciji %s je iskorištena i profil "
-"je generirarn %s.\n"
-"\n"
-"Mislimo da biste to trebali znati.\n"
-"\n"
-"S poštovanjem, \n"
-"\n"
-"%s"
-
-#: core/UserManagement.php:217
-#, fuzzy, php-format
-msgid "%s in your federation was created"
-msgstr "IdP u vašoj federaciji je kreiran"
-
 #: core/User.php:158
 msgid "Feedback"
 msgstr "Povratna informacija"
@@ -474,74 +461,108 @@ msgstr "EAP-pwd"
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
 #. different wording, no translation, sorry
-#: core/common/Entity.php:104
+#: core/common/Entity.php:116
 msgid "National Roaming Operator"
 msgstr "Nacionalni roaming operater"
 
-#: core/common/Entity.php:105
+#: core/common/Entity.php:117
 msgid "identity provider"
 msgstr "davatelj identiteta"
 
-#: core/common/Entity.php:106
+#: core/common/Entity.php:118 core/common/Entity.php:124
 msgid "organisation"
 msgstr "organizacija"
 
-#: core/common/Entity.php:107
+#: core/common/Entity.php:119
 msgid "Identity Provider"
 msgstr "Davatelj identiteta"
 
-#: core/common/OutsideComm.php:257
+#: core/common/Entity.php:120
+msgid "Wi-Fi Hotspot"
+msgstr ""
+
+#: core/common/Entity.php:121
+msgid "Hotspot"
+msgstr ""
+
+#: core/common/Entity.php:122
+#, fuzzy
+msgid "Service Provider"
+msgstr "Davatelj identiteta"
+
+#: core/common/Entity.php:123
+msgid "participant"
+msgstr ""
+
+#: core/common/Entity.php:125
+#, fuzzy
+msgid "organization"
+msgstr "organizacija"
+
+#: core/common/Entity.php:126
+#, fuzzy
+msgid "entity"
+msgstr "Neimenovani entitet"
+
+#: core/common/OutsideComm.php:267
+#, php-format
+msgid "%s and %s"
+msgstr ""
+
+#: core/common/OutsideComm.php:277
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
 msgstr "a %s iz %s %s \"%s\" Vas je pozvao da uređujete %s zajedno s njim."
 
-#: core/common/OutsideComm.php:258
-#, php-format
-msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
+#: core/common/OutsideComm.php:278
+#, fuzzy, php-format
+msgid ""
+"a %s %s has invited you to manage the future %s  \"%s\" (%s). The "
+"organisation will be a %s."
 msgstr "%s %s Vas je pozvao da uređujete %s  \"%s\" (%s)."
 
-#: core/common/OutsideComm.php:259
-#, php-format
-msgid "a %s %s has invited you to manage the %s  \"%s\"."
+#: core/common/OutsideComm.php:279
+#, fuzzy, php-format
+msgid "a %s %s has invited you to manage the %s  \"%s\". This is a %s."
 msgstr "%s %s pozvao Vas je da uredite %s  \"%s\"."
 
-#: core/common/OutsideComm.php:261
+#: core/common/OutsideComm.php:281
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr "Pozivnica je valjana 24 sata od ovog trenutka, i.e. do %s."
 
 #. then, send out the mail
-#: core/common/OutsideComm.php:269
+#: core/common/OutsideComm.php:289
 msgid "Hello,"
 msgstr "Poštovani,"
 
 #. default means we don't have a Reply-To.
-#: core/common/OutsideComm.php:271
+#: core/common/OutsideComm.php:291
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
 "Molimo Vas ne odgovarajte na ovaj email; ova adresa koristi se samo za "
 "slanje."
 
-#: core/common/OutsideComm.php:277
+#: core/common/OutsideComm.php:297
 #, php-format
 msgid "Additional message from your %s administrator:"
 msgstr "Dodatna poruka od %s administratora:"
 
-#: core/common/OutsideComm.php:285
+#: core/common/OutsideComm.php:305
 #, php-format
 msgid "%s administrator"
 msgstr "%s: administrator"
 
-#: core/common/OutsideComm.php:288
+#: core/common/OutsideComm.php:308
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
 msgstr ""
 "ručno. Ako odgovorite na ovaj email, kontaktirat ćete %s administratore"
 
-#: core/common/OutsideComm.php:293
+#: core/common/OutsideComm.php:313
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
@@ -550,7 +571,7 @@ msgstr ""
 "Da biste se prijavili kao administrator za %s, molimo Vas kliknite na "
 "sljedeći link:"
 
-#: core/common/OutsideComm.php:295
+#: core/common/OutsideComm.php:315
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
@@ -559,11 +580,11 @@ msgstr ""
 "Ukoliko se kod klika na poveznicu ništa ne događa, možete posjetiti %s "
 "sučelje za administratore na"
 
-#: core/common/OutsideComm.php:297
+#: core/common/OutsideComm.php:317
 msgid "and enter the invitation token"
 msgstr "i unijeti token iz pozivnice"
 
-#: core/common/OutsideComm.php:299
+#: core/common/OutsideComm.php:319
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
@@ -571,12 +592,12 @@ msgstr ""
 "Ne proslijeđuj email prije no sto token istekne, ili ce primatelj imati "
 "mogućnost uporabe tokena za sebe!"
 
-#: core/common/OutsideComm.php:300
+#: core/common/OutsideComm.php:320
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr "Želimo Vam puno zabave sa %s."
 
-#: core/common/OutsideComm.php:301
+#: core/common/OutsideComm.php:321
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -587,7 +608,7 @@ msgstr ""
 "\n"
 "Tim %s operativaca"
 
-#: core/common/OutsideComm.php:337
+#: core/common/OutsideComm.php:357
 #, php-format
 msgid "%s: you have been invited to manage an %s"
 msgstr "%s: pozvani ste da uredite %s:"
@@ -596,29 +617,26 @@ msgstr "%s: pozvani ste da uredite %s:"
 msgid "Input validation error: "
 msgstr "Greška pri validaciji unosa:"
 
-#: web/lib/common/InputValidation.php:216
+#: web/lib/common/InputValidation.php:252
 msgid "Realm is empty!"
 msgstr "Realm je prazan!"
 
-#: web/lib/common/InputValidation.php:225
+#: web/lib/common/InputValidation.php:261
 msgid "Realm contains an @ sign!"
 msgstr "Realm sadrži @ znak!"
 
-#: web/lib/common/InputValidation.php:226
+#: web/lib/common/InputValidation.php:262
 msgid "Realm begins with a . (dot)!"
 msgstr "Realm počinje sa . (točkom)!"
 
-#: web/lib/common/InputValidation.php:227
+#: web/lib/common/InputValidation.php:263
 msgid "Realm ends with a . (dot)!"
 msgstr "Realm završava sa . (točkom)!"
 
-#: web/lib/common/InputValidation.php:228
+#: web/lib/common/InputValidation.php:264
 msgid "Realm contains spaces!"
 msgstr "Realm sadrži prazninu!"
 
-#: web/lib/common/InputValidation.php:241
+#: web/lib/common/InputValidation.php:277
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Realm ne sadrži barem jednu . (točku)!"
-
-#~ msgid "Wrong coordinate encoding (2.0 uses JSON, not serialize)!"
-#~ msgstr "Pogrešno šifriranje koordinata (2.0 uses JSON, not serialize)!"

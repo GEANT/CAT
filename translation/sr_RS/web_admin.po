@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-04 15:19+0100\n"
-"PO-Revision-Date: 2018-12-14 22:33+0000\n"
+"POT-Creation-Date: 2019-04-05 11:11+0200\n"
+"PO-Revision-Date: 2019-03-22 21:59+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Serbian (Serbia) (http://www.transifex.com/eduroam_devel/cat/"
 "language/sr_RS/)\n"
@@ -70,13 +70,13 @@ msgstr ""
 "vašeg profila</a>."
 
 #. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
-#: web/admin/edit_federation.php:45
+#: web/admin/edit_federation.php:45 web/admin/edit_participant.php:44
 #, php-format
 msgid "%s: Editing %s '%s'"
 msgstr "%s: Izmena podataka za %s '%s'"
 
 #. / nomenclature for federation, then actual federation name
-#: web/admin/edit_federation.php:60
+#: web/admin/edit_federation.php:60 web/admin/edit_participant.php:78
 #, php-format
 msgid "Editing %s information for '%s'"
 msgstr "Izmena informacija %s za '%s'"
@@ -86,26 +86,28 @@ msgstr "Izmena informacija %s za '%s'"
 msgid "%s Properties"
 msgstr "Karakteristike %s"
 
-#: web/admin/edit_federation.php:67 web/admin/edit_idp.php:86
-#: web/lib/admin/UIElements.php:228
+#: web/admin/edit_federation.php:67 web/admin/edit_participant.php:86
+#: web/lib/admin/UIElements.php:246
 msgid "Country:"
 msgstr "Zemlja:"
 
-#: web/admin/edit_federation.php:84 web/admin/edit_idp.php:119
-#: web/admin/edit_idp.php:175 web/admin/edit_idp.php:200
-#: web/admin/edit_profile.php:157 web/admin/edit_profile.php:474
-#: web/admin/edit_user.php:56 web/admin/inc/toggleRedirect.inc.php:134
+#: web/admin/edit_federation.php:84 web/admin/edit_hotspot.php:98
+#: web/admin/edit_participant.php:119 web/admin/edit_participant.php:175
+#: web/admin/edit_participant.php:200 web/admin/edit_profile.php:157
+#: web/admin/edit_profile.php:474 web/admin/edit_user.php:56
+#: web/admin/inc/toggleRedirect.inc.php:134
 msgid "Add new option"
 msgstr "Dodaj novu opciju"
 
-#: web/admin/edit_federation.php:87 web/admin/edit_idp.php:205
-#: web/admin/edit_profile.php:481 web/admin/edit_user.php:61
-#: web/admin/inc/toggleRedirect.inc.php:137
+#: web/admin/edit_federation.php:87 web/admin/edit_hotspot.php:102
+#: web/admin/edit_participant.php:205 web/admin/edit_profile.php:481
+#: web/admin/edit_user.php:61 web/admin/inc/toggleRedirect.inc.php:137
 msgid "Save data"
 msgstr "Sačuvaj podatke"
 
-#: web/admin/edit_federation.php:87 web/admin/edit_idp.php:205
-#: web/admin/edit_profile.php:481 web/admin/edit_user.php:64
+#: web/admin/edit_federation.php:87 web/admin/edit_hotspot.php:102
+#: web/admin/edit_participant.php:205 web/admin/edit_profile.php:481
+#: web/admin/edit_user.php:64
 msgid "Discard changes"
 msgstr "Odbaci promene"
 
@@ -120,36 +122,42 @@ msgstr "%s: %s Prilagođavanje (podnošenje podataka završeno)"
 msgid "Submitted attributes for %s '%s'"
 msgstr "Uneti atributi za %s '%s'"
 
-#: web/admin/edit_federation_result.php:55 web/admin/edit_idp_result.php:152
+#: web/admin/edit_federation_result.php:55
+#: web/admin/edit_participant_result.php:156
 #: web/admin/edit_profile_result.php:246
 msgid "Continue to dashboard"
 msgstr "Nastavi na kontrolni panel"
 
-#: web/admin/edit_idp.php:42
+#: web/admin/edit_hotspot.php:67
+#, fuzzy, php-format
+msgid "%s: Enrollment Wizard (Step 3)"
+msgstr "%s: Čarobnjak za unos Davaoca Identiteta (Korak 3)"
+
+#: web/admin/edit_hotspot.php:80
 #, php-format
-msgid "%s: IdP enrollment wizard (step 2)"
+msgid "Editing %s deployment"
+msgstr ""
+
+#: web/admin/edit_hotspot.php:91
+msgid "Options for this deployment"
+msgstr ""
+
+#: web/admin/edit_participant.php:42
+#, fuzzy, php-format
+msgid "%s: %s enrollment wizard (step 2)"
 msgstr "%s:Čarobnjak za unos Davaoca Identiteta (korak 2)"
 
-#: web/admin/edit_idp.php:44
-#, php-format
-msgid "%s: Editing IdP '%s'"
-msgstr "%s: Izmena podataka za Davaoca Identiteta '%s'"
-
-#: web/admin/edit_idp.php:76
-msgid "Step 2: General Information about your IdP"
+#: web/admin/edit_participant.php:76
+#, fuzzy, php-format
+msgid "Step 2: General Information about your %s"
 msgstr "Korak 2: Osnovni podaci o vašem Davaocu Identiteta"
 
-#: web/admin/edit_idp.php:78
-#, php-format
-msgid "Editing IdP information for '%s'"
-msgstr "Izmena podataka o Davaocu Identiteta za '%s'"
-
-#: web/admin/edit_idp.php:83
+#: web/admin/edit_participant.php:83
 #, php-format
 msgid "%s general properties"
 msgstr "Osnovna podešavanja za %s"
 
-#: web/admin/edit_idp.php:102
+#: web/admin/edit_participant.php:102
 #, php-format
 msgid ""
 "Hello, newcomer. The %s is new to us. This wizard will ask you several "
@@ -162,11 +170,11 @@ msgstr ""
 "kraju. Sve informacije koje se traže su opcione, ali je važno da se popuni "
 "što više polja kako bi krajnji korisnici imali koristi."
 
-#: web/admin/edit_idp.php:107
+#: web/admin/edit_participant.php:107
 msgid "General Information"
 msgstr "Osnovne informacije"
 
-#: web/admin/edit_idp.php:111
+#: web/admin/edit_participant.php:111
 msgid ""
 "Some properties are valid across all deployment profiles. This is the place "
 "where you can describe those properties in a fine-grained way. The solicited "
@@ -175,7 +183,7 @@ msgstr ""
 "Neke karakteristike su važeće za više profila. Ovde možete opisati te "
 "karakteristike precizno. Tražene informacije se koriste na sledeći način:"
 
-#: web/admin/edit_idp.php:113
+#: web/admin/edit_participant.php:113
 msgid ""
 "<strong>Logo</strong>: When you submit a logo, we will embed this logo into "
 "all installers where a custom logo is possible. We accept any image format, "
@@ -188,7 +196,7 @@ msgstr ""
 "umesto njega ćemo koristiti generički logo (pogledajte gornji desni ugao ove "
 "stranice).  "
 
-#: web/admin/edit_idp.php:114
+#: web/admin/edit_participant.php:114
 #, php-format
 msgid ""
 "<strong>Name</strong>: The %s may have names in multiple languages. It is "
@@ -201,11 +209,11 @@ msgstr ""
 "kao mehanizam na koji se vraća sistem u slučaju da ne može da prikaže ime na "
 "jeziku za koji je korisnik zahtevao preuzimanje."
 
-#: web/admin/edit_idp.php:125 web/lib/admin/UIElements.php:242
+#: web/admin/edit_participant.php:125 web/lib/admin/UIElements.php:260
 msgid "Media Properties"
 msgstr "Karakteristike medijuma"
 
-#: web/admin/edit_idp.php:129
+#: web/admin/edit_participant.php:129
 #, php-format
 msgid ""
 "In this section, you define on which media %s should be configured on user "
@@ -214,15 +222,15 @@ msgstr ""
 "U ovom delu definišete koji medijum %s bi trebalo da bude konfigurisan na "
 "korisničkim uređajima."
 
-#: web/admin/edit_idp.php:132
+#: web/admin/edit_participant.php:132
 msgid "Additional SSIDs:"
 msgstr "Dodatni SSID-evi:"
 
-#: web/admin/edit_idp.php:132
+#: web/admin/edit_participant.php:132
 msgid "SSIDs:"
 msgstr "SSID-evi:"
 
-#: web/admin/edit_idp.php:139
+#: web/admin/edit_participant.php:139
 #, php-format
 msgid "We will always configure this SSID for WPA2/AES: %s."
 msgid_plural "We will always configure these SSIDs for WPA2/AES: %s."
@@ -230,7 +238,7 @@ msgstr[0] "Uvek ćemo koristiti WPA2/AES: %s za podešavanje ovog SSID-a"
 msgstr[1] "Uvek ćemo koristiti WPA2/AES: %s za podešavanje ovih SSID-eva"
 msgstr[2] "Uvek ćemo koristiti WPA2/AES: %s za podešavanje ovih SSID-eva"
 
-#: web/admin/edit_idp.php:141
+#: web/admin/edit_participant.php:141
 msgid ""
 "They will also be configured for WPA/TKIP if the device supports multiple "
 "encryption types."
@@ -238,7 +246,7 @@ msgstr ""
 "Oni će takođe biti konfigurisani za WPA/TKIP ako uređaj podržava različite "
 "tipove enkripcije."
 
-#: web/admin/edit_idp.php:143
+#: web/admin/edit_participant.php:143
 #, php-format
 msgid ""
 "It is also possible to define custom additional SSIDs with the options '%s' "
@@ -247,11 +255,11 @@ msgstr ""
 "Moguće je takođe definisati dodatne prilagođene SSID-eve pomoću opcija '%s' "
 "i '%s' ispod. "
 
-#: web/admin/edit_idp.php:145
+#: web/admin/edit_participant.php:145
 msgid "Please configure which SSIDs should be configured in the installers."
 msgstr "Molimo podesite koji SSID bi trebalo konfigurisati u instalerima. "
 
-#: web/admin/edit_idp.php:147
+#: web/admin/edit_participant.php:147
 msgid ""
 "By default, we will only configure the SSIDs with WPA2/AES encryption. By "
 "using the '(with WPA/TKIP)' option you can specify that we should include "
@@ -261,15 +269,15 @@ msgstr ""
 "Korišćenjem opcije '(sa WPA/TKIP)' možete naznačiti da bi trebalo uključiti "
 "i podršku za WPA/TKIP gde je to moguće. "
 
-#: web/admin/edit_idp.php:151
+#: web/admin/edit_participant.php:151
 msgid "Additional Hotspot 2.0 / Passpoint Consortia:"
 msgstr "Dodatni Hotspot 2.0 / Passpoint Consortia:"
 
-#: web/admin/edit_idp.php:151
+#: web/admin/edit_participant.php:151
 msgid "Hotspot 2.0 / Passpoint Consortia:"
 msgstr "Hotspot 2.0 / Passpoint Consortia:"
 
-#: web/admin/edit_idp.php:158
+#: web/admin/edit_participant.php:158
 #, php-format
 msgid "We will always configure this Consortium OI: %s."
 msgid_plural "We will always configure these Consortium OIs: %s."
@@ -277,7 +285,7 @@ msgstr[0] "Uvek ćemo konfigurisati sledeći Consortium OI: %s."
 msgstr[1] "Uvek ćemo konfigurisati sledeće Consortium OI: %s."
 msgstr[2] "Uvek ćemo konfigurisati sledeće Consortium OI: %s."
 
-#: web/admin/edit_idp.php:160
+#: web/admin/edit_participant.php:160
 #, php-format
 msgid ""
 "It is also possible to define custom additional OIs with the option '%s' "
@@ -285,17 +293,17 @@ msgid ""
 msgstr ""
 "Moguće je definisati dodatne prilagođene OI korišćenjem opcije '%s' ispod."
 
-#: web/admin/edit_idp.php:162
+#: web/admin/edit_participant.php:162
 msgid ""
 "Please configure which Consortium OIs should be configured in the installers."
 msgstr ""
 "Molimo vas da definišete koji Consortim OI će se konfigurisati u instalerima."
 
-#: web/admin/edit_idp.php:165
+#: web/admin/edit_participant.php:165
 msgid "Support for wired IEEE 802.1X:"
 msgstr "Podrška za žični IEEE 802.1X:"
 
-#: web/admin/edit_idp.php:166
+#: web/admin/edit_participant.php:166
 msgid ""
 "If you want to configure your users' devices with IEEE 802.1X support for "
 "wired ethernet, please check the corresponding box. Note that this makes the "
@@ -309,11 +317,11 @@ msgstr ""
 "da se instalira profil sa podrškom za žični Eternet na uređaju koji nema "
 "aktivnu Eternet karticu neće uspeti)."
 
-#: web/admin/edit_idp.php:168
+#: web/admin/edit_participant.php:168
 msgid "Removal of bootstrap/onboarding SSIDs:"
 msgstr "Ukljanjanje inicijalizovanih/predefinisanih SSID:"
 
-#: web/admin/edit_idp.php:169
+#: web/admin/edit_participant.php:169
 msgid ""
 "If you use a captive portal to distribute configurations, you may want to "
 "unconfigure/disable that SSID after the bootstrap process. With this option, "
@@ -325,11 +333,11 @@ msgstr ""
 "opcije, SSID će ili biti uklonjen, ili će biti označen kao 'Only connect "
 "manually'."
 
-#: web/admin/edit_idp.php:178
+#: web/admin/edit_participant.php:178
 msgid "Helpdesk Details for all users"
 msgstr "Detalji o službi za podršku korisnicima"
 
-#: web/admin/edit_idp.php:181
+#: web/admin/edit_participant.php:181
 msgid ""
 "This section can be used to upload specific Terms of Use for your users and "
 "to display details of how your users can reach your local helpdesk."
@@ -338,7 +346,7 @@ msgstr ""
 "korisnike i da bi se prikazali detalji o načinu na koji vaši korisnici mogu "
 "da dođu do službe za podršku korisnicima."
 
-#: web/admin/edit_idp.php:186
+#: web/admin/edit_participant.php:186
 #, php-format
 msgid ""
 "Do you provide helpdesk services for your users? If so, it would be nice if "
@@ -347,7 +355,7 @@ msgstr ""
 "Da li pružate podršku za svoje korisnike? Ukoliko pružate, bilo bi dobro da "
 "unesete kontakte te službe. "
 
-#: web/admin/edit_idp.php:188
+#: web/admin/edit_participant.php:188
 msgid ""
 "If you enter a value here, it will be added to the installers for all your "
 "users, and will be displayed on the download page. If you operate separate "
@@ -362,68 +370,70 @@ msgstr ""
 "kasnije u ovom vodiču. Ako nemate službu za podršku korisnicima, samo "
 "ostavite ova polja prazna."
 
-#: web/admin/edit_idp.php:190
+#: web/admin/edit_participant.php:190
 #, php-format
 msgid ""
 "For %s deployments, providing at least a local e-mail contact is required."
 msgstr "Za upotrebu %s, neophodno je navesti minimum podatke o email adresi."
 
-#: web/admin/edit_idp.php:190 web/admin/edit_idp.php:193
+#: web/admin/edit_participant.php:190 web/admin/edit_participant.php:193
 msgid "This is the contact point for your end users' level 1 support."
 msgstr "Ovo su kontakt podaci za 1. nivo podrške vašim korisnicima."
 
-#: web/admin/edit_idp.php:193
+#: web/admin/edit_participant.php:193
 msgid "Providing at least a local support e-mail contact is required."
 msgstr ""
 "Neophodno je navesti minimum podatke o lokalnoj email adresi za podršku."
 
-#: web/admin/edit_idp.php:203
+#: web/admin/edit_participant.php:203
 #, php-format
 msgid ""
 "When you are sure that everything is correct, please click on %sContinue ..."
 "%s"
 msgstr "Kada ste sigurni da je sve ispravno, kliknite na %sNastavi ...%s"
 
-#: web/admin/edit_idp_result.php:59
+#: web/admin/edit_participant_result.php:59
 #, php-format
 msgid "%s: IdP enrollment wizard (step 2 completed)"
 msgstr "%s: Čarobnjak za unos Davaoca Identiteta (2. korak završen)"
 
-#: web/admin/edit_idp_result.php:75
+#: web/admin/edit_participant_result.php:75
 #, php-format
 msgid "Submitted attributes for IdP '%s'"
 msgstr "Poslati atributi za Davaoca Identiteta '%s'"
 
-#: web/admin/edit_idp_result.php:97 web/admin/edit_idp_result.php:102
+#: web/admin/edit_participant_result.php:101
+#: web/admin/edit_participant_result.php:106
 msgid "(WPA2/AES and WPA/TKIP)"
 msgstr "(WPA2/AES i WPA/TKIP)"
 
-#: web/admin/edit_idp_result.php:97 web/admin/edit_idp_result.php:105
+#: web/admin/edit_participant_result.php:101
+#: web/admin/edit_participant_result.php:109
 msgid "(WPA2/AES)"
 msgstr "(WPA2/AES)"
 
-#: web/admin/edit_idp_result.php:115
+#: web/admin/edit_participant_result.php:119
 #, php-format
 msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
 msgstr ""
 "Vaši softveri za instalaciju će biti konfigurisani sa sledećim SSID-evima: "
 "<strong>%s</strong>"
 
-#: web/admin/edit_idp_result.php:115
+#: web/admin/edit_participant_result.php:119
 msgid "SSIDs configured"
 msgstr "Konfigurisani SSID-evi"
 
-#: web/admin/edit_idp_result.php:119
+#: web/admin/edit_participant_result.php:123
 #, php-format
 msgid "Your installers will configure wired interfaces."
 msgstr ""
 "Vaši instaleri će moći da se koriste za konfigurisanje žičnih interfejsa."
 
-#: web/admin/edit_idp_result.php:119
+#: web/admin/edit_participant_result.php:123
 msgid "Wired configured"
 msgstr "Podrška za žični "
 
-#: web/admin/edit_idp_result.php:122
+#: web/admin/edit_participant_result.php:126
 msgid ""
 "We cannot generate installers because neither wireless SSIDs nor wired "
 "interfaces have been selected as a target!"
@@ -431,12 +441,12 @@ msgstr ""
 "Nije moguće generisati instalere zato što nisu definisani ni SSID za bežični "
 "pristup ni interfejs za žični pristup!"
 
-#: web/admin/edit_idp_result.php:141
+#: web/admin/edit_participant_result.php:145
 #, php-format
 msgid "Continue to %s properties"
 msgstr "Nastavni na podešavanja %s"
 
-#: web/admin/edit_idp_result.php:144
+#: web/admin/edit_participant_result.php:148
 #, php-format
 msgid ""
 "You did not submit an e-mail address. This is required for %s. Please go to "
@@ -447,11 +457,11 @@ msgstr ""
 "stranicu i da podesite vrednosti za službu za podršku korisnicima tako da "
 "sadrže i email adresu."
 
-#: web/admin/edit_idp_result.php:144
+#: web/admin/edit_participant_result.php:148
 msgid "No support e-mail!"
 msgstr "Nije definisan email za podršku!"
 
-#: web/admin/edit_idp_result.php:149
+#: web/admin/edit_participant_result.php:153
 msgid "Continue to RADIUS/EAP profile definition"
 msgstr "Nastavi na definiciju RADIUS/EAP profila"
 
@@ -869,182 +879,182 @@ msgstr "Pošalji u svakom slučaju."
 msgid "Managing %s users"
 msgstr "Upravljanje korisnicima %s"
 
-#: web/admin/edit_silverbullet.php:328
+#: web/admin/edit_silverbullet.php:331
 #, php-format
 msgid "Current %s users"
 msgstr "Trenutni korisnici %s"
 
-#: web/admin/edit_silverbullet.php:331
+#: web/admin/edit_silverbullet.php:334
 msgid "Assigned Realm"
 msgstr "Dodeljen domen"
 
-#: web/admin/edit_silverbullet.php:334
+#: web/admin/edit_silverbullet.php:337
 msgid "Total number of active users allowed"
 msgstr "Ukupan broj dozvoljenih aktivnih korisnika"
 
-#: web/admin/edit_silverbullet.php:337
+#: web/admin/edit_silverbullet.php:340
 msgid "Number of active users"
 msgstr "Broj aktivnih korisnika"
 
-#: web/admin/edit_silverbullet.php:340
+#: web/admin/edit_silverbullet.php:343
 msgid "Number of inactive users"
 msgstr "Broj neaktivnih korisnika"
 
-#: web/admin/edit_silverbullet.php:351
+#: web/admin/edit_silverbullet.php:354
 msgid "The e-mail was sent successfully."
 msgstr "Mejl je poslat uspešno."
 
-#: web/admin/edit_silverbullet.php:351
+#: web/admin/edit_silverbullet.php:354
 msgid "E-mail OK."
 msgstr "E-mail OK."
 
-#: web/admin/edit_silverbullet.php:354
+#: web/admin/edit_silverbullet.php:357
 msgid "The e-mail was NOT sent."
 msgstr "Mejl NIJE poslat."
 
-#: web/admin/edit_silverbullet.php:354
+#: web/admin/edit_silverbullet.php:357
 msgid "E-mail not OK."
 msgstr "E-mail nije OK."
 
-#: web/admin/edit_silverbullet.php:357
+#: web/admin/edit_silverbullet.php:360
 msgid "The SMS was sent successfully."
 msgstr "SMS je poslat uspešno."
 
-#: web/admin/edit_silverbullet.php:357
+#: web/admin/edit_silverbullet.php:360
 msgid "SMS OK."
 msgstr "SMS OK."
 
-#: web/admin/edit_silverbullet.php:360
+#: web/admin/edit_silverbullet.php:363
 msgid "The SMS was NOT sent."
 msgstr "SMS nije poslat uspešno."
 
-#: web/admin/edit_silverbullet.php:360
+#: web/admin/edit_silverbullet.php:363
 msgid "SMS not OK."
 msgstr "SMS nije OK."
 
-#: web/admin/edit_silverbullet.php:363
+#: web/admin/edit_silverbullet.php:366
 msgid "Only a fragment of the SMS was sent. You should re-send it."
 msgstr "Samo jedan deo SMSa je poslat. Trebalo bi da ga pošaljete ponovo."
 
-#: web/admin/edit_silverbullet.php:363
+#: web/admin/edit_silverbullet.php:366
 msgid "SMS Fragment."
 msgstr "Deo SMSa."
 
-#: web/admin/edit_silverbullet.php:370
+#: web/admin/edit_silverbullet.php:373
 #, php-format
 msgid "Manage %s users"
 msgstr "Upravljaj korisnicima %s"
 
-#: web/admin/edit_silverbullet.php:375 web/admin/overview_federation.php:127
+#: web/admin/edit_silverbullet.php:378 web/admin/overview_federation.php:127
 msgid "User"
 msgstr "Korisnik"
 
-#: web/admin/edit_silverbullet.php:376
+#: web/admin/edit_silverbullet.php:379
 msgid "Token/Certificate details"
 msgstr "Detalji o tokenu/sertifikatu"
 
-#: web/admin/edit_silverbullet.php:377
+#: web/admin/edit_silverbullet.php:380
 msgid "User/Token Expiry"
 msgstr "Datum isteka korisnika/tokena"
 
-#: web/admin/edit_silverbullet.php:378
+#: web/admin/edit_silverbullet.php:381
 msgid "Actions"
 msgstr "Akcije"
 
-#: web/admin/edit_silverbullet.php:409
+#: web/admin/edit_silverbullet.php:412
 msgid "REVOKED"
 msgstr "POVUČEN"
 
-#: web/admin/edit_silverbullet.php:414
+#: web/admin/edit_silverbullet.php:417
 msgid "EXPIRED"
 msgstr "ISTEKAO"
 
-#: web/admin/edit_silverbullet.php:426
+#: web/admin/edit_silverbullet.php:429
 msgid "Device:"
 msgstr "Uređaj:"
 
-#: web/admin/edit_silverbullet.php:427
+#: web/admin/edit_silverbullet.php:430
 msgid "Serial Number:"
 msgstr "Serijski broj:"
 
-#: web/admin/edit_silverbullet.php:428
+#: web/admin/edit_silverbullet.php:431
 msgid "CN:"
 msgstr "CN:"
 
-#: web/admin/edit_silverbullet.php:429
+#: web/admin/edit_silverbullet.php:432
 msgid "Expiry:"
 msgstr "Ističe:"
 
-#: web/admin/edit_silverbullet.php:430
+#: web/admin/edit_silverbullet.php:433
 msgid "Issued:"
 msgstr "Izdat:"
 
-#: web/admin/edit_silverbullet.php:442
+#: web/admin/edit_silverbullet.php:445
 #, php-format
 msgid ""
 "The device in question will stop functioning with %s. The revocation cannot "
 "be undone. Are you sure you want to do this?"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:443 web/admin/edit_silverbullet.php:499
+#: web/admin/edit_silverbullet.php:446 web/admin/edit_silverbullet.php:502
 msgid "Revoke"
 msgstr "Povuci sertifikat"
 
-#: web/admin/edit_silverbullet.php:468
+#: web/admin/edit_silverbullet.php:471
 #, php-format
 msgid "The invitation token %s is ready for sending! Choose how to send it:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:470
+#: web/admin/edit_silverbullet.php:473
 msgid "E-Mail:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:474
+#: web/admin/edit_silverbullet.php:477
 msgid "Local mail client"
 msgstr "Lokalni mejl klijent"
 
-#: web/admin/edit_silverbullet.php:475
+#: web/admin/edit_silverbullet.php:478
 msgid "Send with CAT"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:478
+#: web/admin/edit_silverbullet.php:481
 msgid "SMS:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:482
+#: web/admin/edit_silverbullet.php:485
 msgid "Send in SMS..."
 msgstr "Pošalji u SMSu..."
 
-#: web/admin/edit_silverbullet.php:485
+#: web/admin/edit_silverbullet.php:488
 msgid "Manual:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:486
+#: web/admin/edit_silverbullet.php:489
 msgid "Copy to Clipboard"
 msgstr "Kopiraj"
 
-#: web/admin/edit_silverbullet.php:489
+#: web/admin/edit_silverbullet.php:492
 msgid "Display QR code"
 msgstr "Prikaži QR kod"
 
-#: web/admin/edit_silverbullet.php:495
+#: web/admin/edit_silverbullet.php:498
 msgid "Expiry Date:"
 msgstr "Datum isteka:"
 
-#: web/admin/edit_silverbullet.php:495
+#: web/admin/edit_silverbullet.php:498
 msgid "Activations remaining:"
 msgstr "Aktivacija preostalo:"
 
-#: web/admin/edit_silverbullet.php:495
+#: web/admin/edit_silverbullet.php:498
 #, php-format
 msgid "%d of %d"
 msgstr "%d od %d"
 
-#: web/admin/edit_silverbullet.php:521
+#: web/admin/edit_silverbullet.php:524
 msgid "Update"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:528
+#: web/admin/edit_silverbullet.php:531
 #, php-format
 msgid ""
 "All of the currently active devices will stop functioning with %s. This "
@@ -1053,20 +1063,20 @@ msgid ""
 "to do this?"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:537
+#: web/admin/edit_silverbullet.php:540
 msgid "Deactivate User"
 msgstr "Deaktiviraj korisnika"
 
-#: web/admin/edit_silverbullet.php:546
+#: web/admin/edit_silverbullet.php:549
 msgid "New Invitation"
 msgstr "Nova pozivnica"
 
-#: web/admin/edit_silverbullet.php:549
+#: web/admin/edit_silverbullet.php:552
 msgid "Activations:"
 msgstr "Broj aktivacija:"
 
 #. false because this restriction is currently not in effect and thus no UI is needed for it.
-#: web/admin/edit_silverbullet.php:570
+#: web/admin/edit_silverbullet.php:573
 #, php-format
 msgid ""
 "You need to acknowledge that the created accounts are still valid within the "
@@ -1081,25 +1091,25 @@ msgstr ""
 "deaktivirajte ih tako što ćete kliknuti na odgovarajuće dugme pre nego što "
 "uradite kao što je opisano u prethodnoj rečenici."
 
-#: web/admin/edit_silverbullet.php:578
+#: web/admin/edit_silverbullet.php:581
 #, php-format
 msgid "I have verified that all configured users are still eligible for %s."
 msgstr ""
 "Utvrdio/la sam da svi konfigurisani korisnici i dalje mogu da koriste %s."
 
-#: web/admin/edit_silverbullet.php:580
+#: web/admin/edit_silverbullet.php:583
 msgid "Save"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:590 web/admin/edit_silverbullet.php:605
+#: web/admin/edit_silverbullet.php:593 web/admin/edit_silverbullet.php:608
 msgid "Add new user"
 msgstr "Dodaj novog korisnika"
 
-#: web/admin/edit_silverbullet.php:593
+#: web/admin/edit_silverbullet.php:596
 msgid "Import users from CSV file"
 msgstr "Uvezi korisnike iz CSV fajla"
 
-#: web/admin/edit_silverbullet.php:600
+#: web/admin/edit_silverbullet.php:603
 msgid ""
 "Please enter a username of your choice and user expiry date to create a new "
 "user:"
@@ -1107,7 +1117,7 @@ msgstr ""
 "Unesite korisničko ime po vašem izboru i datum isteka naloga kako biste "
 "dodali novog korisnika:"
 
-#: web/admin/edit_silverbullet.php:614
+#: web/admin/edit_silverbullet.php:617
 msgid ""
 "Comma separated values should be provided in CSV file: username, expiration "
 "date 'yyyy-mm-dd', number of tokens (optional):"
@@ -1115,29 +1125,29 @@ msgstr ""
 "U CSV fajlu bi trebalo da se nalaze vrednosti razdvojene zarezom: korisničko "
 "ime, datum isteka u formatu 'gggg-mm-dd', broj tokena (opciono):"
 
-#: web/admin/edit_silverbullet.php:618
+#: web/admin/edit_silverbullet.php:621
 msgid "Import users"
 msgstr "Uvezi korisnike"
 
 #. Appending terms of use popup
-#: web/admin/edit_silverbullet.php:634
+#: web/admin/edit_silverbullet.php:637
 #, php-format
 msgid "%s - Terms of Use"
 msgstr "%s - Pravila korišćenja"
 
-#: web/admin/edit_silverbullet.php:641
+#: web/admin/edit_silverbullet.php:644
 msgid "I have read and agree to the terms."
 msgstr "Pročitao/la sam i slažem se sa uslovima."
 
-#: web/admin/edit_silverbullet.php:643
+#: web/admin/edit_silverbullet.php:646
 msgid "Continue"
 msgstr "Nastavi"
 
-#: web/admin/edit_silverbullet.php:644
+#: web/admin/edit_silverbullet.php:647
 msgid "Abort"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:657
+#: web/admin/edit_silverbullet.php:660
 #, php-format
 msgid "Back to %s page"
 msgstr ""
@@ -1193,6 +1203,7 @@ msgid "%s: %s Management"
 msgstr "%s: Upravljanje %s"
 
 #: web/admin/overview_federation.php:41 web/admin/overview_idp.php:70
+#: web/admin/overview_sp.php:70
 #, php-format
 msgid "%s Overview"
 msgstr "Pregled %s"
@@ -1342,9 +1353,9 @@ msgstr "Potrebna vam je pomoć? Pogledajte <a href='%s'>Uputstvo za %s</a>"
 msgid "Deployment Status"
 msgstr "Status"
 
-#: web/admin/overview_federation.php:202 web/admin/overview_user.php:117
-#: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:86
-#: web/lib/admin/UIElements.php:116
+#: web/admin/overview_federation.php:202 web/admin/overview_user.php:119
+#: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:101
+#: web/lib/admin/UIElements.php:131
 #, php-format
 msgid "%s Name"
 msgstr "Ime %s"
@@ -1354,7 +1365,7 @@ msgstr "Ime %s"
 msgid "%s Database Sync Status"
 msgstr "%s status sinhronizovanja DB"
 
-#: web/admin/overview_federation.php:214 web/admin/overview_user.php:117
+#: web/admin/overview_federation.php:214
 msgid "Administrator Management"
 msgstr "Upravljanje administracijom"
 
@@ -1376,7 +1387,7 @@ msgstr "Povezano"
 msgid "NOT linked"
 msgstr "NIJE povezano"
 
-#: web/admin/overview_federation.php:283 web/admin/overview_user.php:153
+#: web/admin/overview_federation.php:283
 msgid "Add/Remove Administrators"
 msgstr "Dodaj/Obriši administratore"
 
@@ -1399,97 +1410,33 @@ msgstr ""
 msgid "Register a new %s!"
 msgstr "Registruj novu %s!"
 
-#: web/admin/overview_idp.php:48
-#, php-format
-msgid "%s: IdP Dashboard"
+#: web/admin/overview_idp.php:48 web/admin/overview_sp.php:48
+#, fuzzy, php-format
+msgid "%s: %s Dashboard"
 msgstr "%s: kontrolni panel Davaoca Identiteta"
 
-#: web/admin/overview_idp.php:72
+#: web/admin/overview_idp.php:72 web/admin/overview_sp.php:72
 #, php-format
 msgid "%s general settings"
 msgstr "Generalna podešavanja za %s"
 
-#: web/admin/overview_idp.php:77
-#, php-format
-msgid "%s download area QR code"
-msgstr "QR Code stranice za preuzimanje za %s"
-
-#: web/admin/overview_idp.php:111
-#, php-format
-msgid "Edit general %s details"
-msgstr "Izmeni uopštene podatke o %s"
-
-#: web/admin/overview_idp.php:116
-#, php-format
-msgid ""
-"After deleting the %s, you can not recreate it yourself - you need a new "
-"invitation token from the %s administrator!"
-msgstr ""
-"Nakon što izbrišete %s, ne možete ga kreirati ponovo sami - potreban vam je "
-"novi pozivni token od administratora %s!"
-
-#: web/admin/overview_idp.php:116
-#, php-format
-msgid "Do you really want to delete your %s %s?"
-msgstr "Da li zaista želite da obrišete vašeg %s %s?"
-
-#: web/admin/overview_idp.php:116
-#, php-format
-msgid "Delete %s"
-msgstr "Obriši %s"
-
-#: web/admin/overview_idp.php:122
-#, php-format
-msgid ""
-"This action will delete all properties of the %s and start over the "
-"configuration from scratch. Do you really want to reset all settings of the "
-"%s %s?"
-msgstr ""
-"Izbor ove opcije znači da će biti obrisana sva podešavanja za %s i da će "
-"morati da se konfiguriše od početka. Da li stvarno želite da poništite sva "
-"podešavanja za %s %s?"
-
-#: web/admin/overview_idp.php:122
-#, php-format
-msgid "Reset all %s settings"
-msgstr "Izmeni sva podešavanja za %s"
-
-#: web/admin/overview_idp.php:132
-msgid "Available Support actions"
-msgstr "Dostupne akcije za podršku"
-
-#: web/admin/overview_idp.php:137
-msgid "Check another realm's reachability"
-msgstr "Proveri dostupnost drugog domena"
-
-#: web/admin/overview_idp.php:141 web/admin/overview_idp.php:151
-#: web/admin/overview_user.php:171
-msgid "Go!"
-msgstr "Idi!"
-
-#. SW: APPROVED
-#: web/admin/overview_idp.php:148
-#, php-format
-msgid "Check %s server status"
-msgstr "Proveri status servera %s"
-
 #. no profiles yet.
-#: web/admin/overview_idp.php:162
+#: web/admin/overview_idp.php:91
 #, php-format
 msgid "There are not yet any profiles for your %s."
 msgstr "Još uvek ne postoji ni jednan profil za vašu %s."
 
 #. no profiles yet.
-#: web/admin/overview_idp.php:165
+#: web/admin/overview_idp.php:94
 #, php-format
 msgid "Profiles for this %s"
 msgstr "Profili za ovu %s"
 
-#: web/admin/overview_idp.php:188 web/admin/overview_idp.php:247
+#: web/admin/overview_idp.php:117 web/admin/overview_idp.php:176
 msgid "Information needed!"
 msgstr "Potrebne informacije!"
 
-#: web/admin/overview_idp.php:196
+#: web/admin/overview_idp.php:125
 #, php-format
 msgid ""
 "You can create up to %d users. Their credentials will carry the name <strong>"
@@ -1498,45 +1445,45 @@ msgstr ""
 "Možete dodati do %d korisnika. Njihovi kredencijali će imati ime <strong>%s</"
 "strong>"
 
-#: web/admin/overview_idp.php:205
+#: web/admin/overview_idp.php:134
 msgid "Manage User Base"
 msgstr "Upravljaj bazom korisnika"
 
-#: web/admin/overview_idp.php:213 web/admin/overview_idp.php:350
+#: web/admin/overview_idp.php:142 web/admin/overview_idp.php:280
 msgid "User Downloads"
 msgstr "Korisnička preuzimanja"
 
-#: web/admin/overview_idp.php:237
+#: web/admin/overview_idp.php:166
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr "<strong>EAP tipovi</strong> (po prioritetu):"
 
-#: web/admin/overview_idp.php:244 web/lib/admin/UIElements.php:414
+#: web/admin/overview_idp.php:173 web/lib/admin/UIElements.php:432
 msgid "OK"
 msgstr "OK"
 
-#: web/admin/overview_idp.php:263
+#: web/admin/overview_idp.php:192
 msgid "Options on EAP Method/Device level are in effect."
 msgstr "Opcije na nivou EAP metoda/uređaja su važeće."
 
-#: web/admin/overview_idp.php:268
+#: web/admin/overview_idp.php:197
 #, php-format
 msgid "Profile: %s"
 msgstr "Profil: %s"
 
-#: web/admin/overview_idp.php:273
+#: web/admin/overview_idp.php:202
 msgid "Option override on profile level is in effect."
 msgstr "Opcija \"override\" na profilu je aktivna."
 
-#: web/admin/overview_idp.php:276
+#: web/admin/overview_idp.php:205
 msgid "The information in this profile is incomplete."
 msgstr "Podaci u ovom profilu nisu kompletni."
 
-#: web/admin/overview_idp.php:280
+#: web/admin/overview_idp.php:209
 msgid "This profile is shown on the user download interface."
 msgstr ""
 "Ovaj profil je prikazan na korisničkom interfejsu za preuzimanje (download)."
 
-#: web/admin/overview_idp.php:283
+#: web/admin/overview_idp.php:212
 #, php-format
 msgid ""
 "This profile is NOT shown on the user download interface, even though we "
@@ -1547,45 +1494,45 @@ msgstr ""
 "imamo dovoljno informacija. Da biste aktivirali profil, dodajte atribut \"%s"
 "\" i obeležite odgovarajuće polje."
 
-#: web/admin/overview_idp.php:304
+#: web/admin/overview_idp.php:233
 msgid "The realm can only be checked if you configure the realm!"
 msgstr "Domen može biti proveren samo ako ste uneli podešavanja za taj domen!"
 
-#: web/admin/overview_idp.php:305
+#: web/admin/overview_idp.php:234
 msgid "Check realm reachability"
 msgstr "Proveri dostupnost domena"
 
-#: web/admin/overview_idp.php:310
+#: web/admin/overview_idp.php:239
 msgid "You have not fully configured any supported EAP types!"
 msgstr "Niste u potpunosti konfigurisali ni jedan podržani EAP tip!"
 
-#: web/admin/overview_idp.php:311
+#: web/admin/overview_idp.php:240
 msgid "Installer Fine-Tuning and Download"
 msgstr "Precizna podešavanja softvera za instalaciju i Preuzimanje"
 
-#: web/admin/overview_idp.php:320
+#: web/admin/overview_idp.php:249
 msgid "Edit"
 msgstr "Izmeni"
 
-#: web/admin/overview_idp.php:323
+#: web/admin/overview_idp.php:252
 #, php-format
 msgid "Do you really want to delete the profile %s?"
 msgstr "Da li zaista želite da obrišete profil %s?"
 
-#: web/admin/overview_idp.php:324
+#: web/admin/overview_idp.php:253
 msgid "Delete"
 msgstr "Obriši"
 
-#: web/admin/overview_idp.php:333
+#: web/admin/overview_idp.php:263
 msgid "User Download Link"
 msgstr "Korisnički link za preuzimanje"
 
-#: web/admin/overview_idp.php:379
+#: web/admin/overview_idp.php:309
 #, php-format
 msgid "Add %s profile ..."
 msgstr "Dodaj %s profil ..."
 
-#: web/admin/overview_idp.php:392
+#: web/admin/overview_idp.php:322
 msgid "Add new RADIUS/EAP profile ..."
 msgstr "Dodaj novi RADIUS/EAP profil ..."
 
@@ -1646,6 +1593,94 @@ msgstr "Fusnote:"
 msgid "Return to dashboard"
 msgstr "Povratak na kontrolni panel"
 
+#: web/admin/overview_sp.php:90
+msgid "Available Support actions"
+msgstr "Dostupne akcije za podršku"
+
+#: web/admin/overview_sp.php:95
+msgid "Check another realm's reachability"
+msgstr "Proveri dostupnost drugog domena"
+
+#: web/admin/overview_sp.php:99 web/admin/overview_sp.php:109
+#: web/admin/overview_user.php:225
+msgid "Go!"
+msgstr "Idi!"
+
+#. SW: APPROVED
+#: web/admin/overview_sp.php:106
+#, php-format
+msgid "Check %s server status"
+msgstr "Proveri status servera %s"
+
+#. no profiles yet.
+#: web/admin/overview_sp.php:120
+#, fuzzy, php-format
+msgid "There are not yet any known deployments for your %s."
+msgstr "Još uvek ne postoji ni jednan profil za vašu %s."
+
+#. no profiles yet.
+#: web/admin/overview_sp.php:123
+#, fuzzy, php-format
+msgid "Deployments for this %s"
+msgstr "Profili za ovu %s"
+
+#: web/admin/overview_sp.php:131
+msgid "inactive"
+msgstr ""
+
+#: web/admin/overview_sp.php:131
+msgid "active"
+msgstr ""
+
+#: web/admin/overview_sp.php:134
+msgid "Your primary RADIUS server"
+msgstr ""
+
+#: web/admin/overview_sp.php:137 web/admin/overview_sp.php:154
+msgid "IPv4"
+msgstr ""
+
+#: web/admin/overview_sp.php:143 web/admin/overview_sp.php:160
+msgid "IPv6"
+msgstr ""
+
+#: web/admin/overview_sp.php:147 web/admin/overview_sp.php:163
+msgid "RADIUS port number: "
+msgstr ""
+
+#: web/admin/overview_sp.php:151
+msgid "Your backup RADIUS server"
+msgstr ""
+
+#: web/admin/overview_sp.php:168
+msgid "RADIUS shared secret"
+msgstr ""
+
+#: web/admin/overview_sp.php:175
+#, fuzzy
+msgid "Advanced Configuration"
+msgstr "nekompletna podešavanja"
+
+#: web/admin/overview_sp.php:179
+#, fuzzy, php-format
+msgid "Do you really want to deactivate the %s deployment?"
+msgstr "Da li zaista želite da obrišete profil %s?"
+
+#: web/admin/overview_sp.php:180
+#, fuzzy
+msgid "Deactivate"
+msgstr "Deaktiviraj korisnika"
+
+#: web/admin/overview_sp.php:188
+#, fuzzy
+msgid "Activate"
+msgstr "Broj aktivacija:"
+
+#: web/admin/overview_sp.php:215
+#, fuzzy, php-format
+msgid "Add %s deployment ..."
+msgstr "Dodaj %s profil ..."
+
 #: web/admin/overview_user.php:30
 #, php-format
 msgid "%s: User Management"
@@ -1683,30 +1718,90 @@ msgstr[0] ""
 msgstr[1] "Vi održavate podatke sledećih <strong>%d</strong> %s:"
 msgstr[2] "Vi održavate podatke sledećih <strong>%d</strong> %s:"
 
-#: web/admin/overview_user.php:117
+#: web/admin/overview_user.php:121
 #, php-format
 msgid "Other admins of this %s"
 msgstr "Drugi administratori ove %s"
 
+#: web/admin/overview_user.php:125
+#, fuzzy
+msgid "Management"
+msgstr "%s: Upravljanje %s"
+
+#: web/admin/overview_user.php:132
+msgid "Danger Zone"
+msgstr ""
+
 #. / nomenclature 'fed', fed name, nomenclature 'inst'
-#: web/admin/overview_user.php:120
+#: web/admin/overview_user.php:139
 #, php-format
 msgid "%s %s: %s list"
 msgstr "%s %s: %s lista"
 
-#: web/admin/overview_user.php:149
+#: web/admin/overview_user.php:169
 msgid "other user"
 msgid_plural "other users"
 msgstr[0] "drugi korisnik"
 msgstr[1] "drugi korisnici"
 msgstr[2] "drugi korisnici"
 
-#: web/admin/overview_user.php:160
+#: web/admin/overview_user.php:176
+#, php-format
+msgid "Edit general %s details"
+msgstr "Izmeni uopštene podatke o %s"
+
+#: web/admin/overview_user.php:179
+#, fuzzy, php-format
+msgid "Add/Remove %s Administrators"
+msgstr "Dodaj/Obriši administratore"
+
+#: web/admin/overview_user.php:185 web/admin/overview_user.php:192
+#, fuzzy, php-format
+msgid "Manage %s functions"
+msgstr "Upravljaj korisnicima %s"
+
+#. danger zone
+#: web/admin/overview_user.php:203
+#, php-format
+msgid ""
+"After deleting the %s, you can not recreate it yourself - you need a new "
+"invitation token from the %s administrator!"
+msgstr ""
+"Nakon što izbrišete %s, ne možete ga kreirati ponovo sami - potreban vam je "
+"novi pozivni token od administratora %s!"
+
+#: web/admin/overview_user.php:203
+#, php-format
+msgid "Do you really want to delete your %s %s?"
+msgstr "Da li zaista želite da obrišete vašeg %s %s?"
+
+#: web/admin/overview_user.php:203
+#, php-format
+msgid "Delete %s"
+msgstr "Obriši %s"
+
+#: web/admin/overview_user.php:206
+#, php-format
+msgid ""
+"This action will delete all properties of the %s and start over the "
+"configuration from scratch. Do you really want to reset all settings of the "
+"%s %s?"
+msgstr ""
+"Izbor ove opcije znači da će biti obrisana sva podešavanja za %s i da će "
+"morati da se konfiguriše od početka. Da li stvarno želite da poništite sva "
+"podešavanja za %s %s?"
+
+#: web/admin/overview_user.php:206
+#, php-format
+msgid "Reset all %s settings"
+msgstr "Izmeni sva podešavanja za %s"
+
+#: web/admin/overview_user.php:214
 #, php-format
 msgid "You are not managing any %s."
 msgstr "Vi ne održavate podatke ni za jednu %s. "
 
-#: web/admin/overview_user.php:164
+#: web/admin/overview_user.php:218
 #, php-format
 msgid ""
 "Please ask your %s administrator to invite you to become an %s administrator."
@@ -1714,7 +1809,7 @@ msgstr ""
 "Molimo vas tražite od administratora %s da Vas pozove kako biste postali "
 "administrator %s."
 
-#: web/admin/overview_user.php:168
+#: web/admin/overview_user.php:222
 #, php-format
 msgid ""
 "Did you receive an invitation token to manage an %s? Please paste it here:"
@@ -1722,7 +1817,7 @@ msgstr ""
 "Da li ste primili pozivnicu da upravljate %s? Molimo vas unesite token iz "
 "pozivnice ovde:"
 
-#: web/admin/overview_user.php:180
+#: web/admin/overview_user.php:234
 #, php-format
 msgid "New %s Registration"
 msgstr "Registracija nove %s"
@@ -1754,7 +1849,7 @@ msgstr ""
 "Vi ste administrator %s. Možete pozvati nove administratore, koji mogu dalje "
 "da imenuju druge administratore."
 
-#: web/admin/inc/manageAdmins.inc.php:154 web/lib/admin/UIElements.php:107
+#: web/admin/inc/manageAdmins.inc.php:154 web/lib/admin/UIElements.php:122
 #, php-format
 msgid "%s Administrator"
 msgstr "%s administrator"
@@ -1809,7 +1904,7 @@ msgstr "Upravljajte ovom %s"
 
 #: web/admin/inc/manageAdmins.inc.php:237
 #: web/admin/inc/manageDBLink.inc.php:204
-#: web/admin/inc/manageNewInst.inc.php:127
+#: web/admin/inc/manageNewInst.inc.php:134
 msgid "Close"
 msgstr "Zatvori"
 
@@ -1956,7 +2051,8 @@ msgstr ""
 "pojavljuju u %s bazi podataka još uvek."
 
 #: web/admin/inc/manageNewInst.inc.php:71
-msgid "Existing IdP:"
+#, fuzzy, php-format
+msgid "Existing %s:"
 msgstr "Postojeći IdP:"
 
 #: web/admin/inc/manageNewInst.inc.php:76
@@ -1964,18 +2060,30 @@ msgid "--- select IdP here ---"
 msgstr "--- Izaberite IdP ---"
 
 #: web/admin/inc/manageNewInst.inc.php:94
-msgid "New IdP"
+#, fuzzy, php-format
+msgid "New %s"
 msgstr "Novi IdP"
 
 #: web/admin/inc/manageNewInst.inc.php:97
 msgid "Name"
 msgstr "Ime"
 
-#: web/admin/inc/manageNewInst.inc.php:118
+#: web/admin/inc/manageNewInst.inc.php:101
+#, php-format
+msgid "%s and %s"
+msgstr ""
+
+#: web/admin/inc/manageNewInst.inc.php:102
+#: web/admin/inc/manageNewInst.inc.php:103
+#, php-format
+msgid "%s"
+msgstr ""
+
+#: web/admin/inc/manageNewInst.inc.php:125
 msgid "Administrator's E-Mail:"
 msgstr "E-mail administratora:"
 
-#: web/admin/inc/manageNewInst.inc.php:123
+#: web/admin/inc/manageNewInst.inc.php:130
 msgid "Send invitation"
 msgstr "Pošalji pozivnicu"
 
@@ -2014,7 +2122,7 @@ msgstr "Pozivni mail ne može biti poslat!"
 msgid "Mail address to invite:"
 msgstr "E-mail adresa za poziv:"
 
-#: web/admin/inc/sendinvite.inc.php:114
+#: web/admin/inc/sendinvite.inc.php:115
 #, php-format
 msgid ""
 "Something's wrong... you are a %s admin, but not for the %s the requested %s "
@@ -2037,7 +2145,7 @@ msgstr "EAP-tip <strong>%s</strong>"
 msgid "Fine-tuning options for "
 msgstr "Opcije za fina podešavanja za"
 
-#: web/lib/admin/AbstractMap.php:124 web/lib/admin/UIElements.php:87
+#: web/lib/admin/AbstractMap.php:124 web/lib/admin/UIElements.php:102
 msgid "Location"
 msgstr "Lokacija"
 
@@ -2161,28 +2269,35 @@ msgstr ""
 "pažljivo pročitate diskusiju %s pre nego što se odlučite da koristite proksi "
 "sa ovom opcijom. "
 
-#: web/lib/admin/OptionDisplay.php:275
+#: web/lib/admin/OptionDisplay.php:186
+#, php-format
+msgid ""
+"If you are also using %s, then your own realm is automatically tagged with "
+"the VLAN you choose, there is no need to add it here manually."
+msgstr ""
+
+#: web/lib/admin/OptionDisplay.php:276
 msgid "select language"
 msgstr "odaberi jezik"
 
-#: web/lib/admin/OptionDisplay.php:276 web/lib/admin/UIElements.php:158
+#: web/lib/admin/OptionDisplay.php:277 web/lib/admin/UIElements.php:176
 msgid "default/other languages"
 msgstr "inicijalni/ostali jezici"
 
-#: web/lib/admin/OptionDisplay.php:356
+#: web/lib/admin/OptionDisplay.php:357
 msgid "(default/other languages)"
 msgstr "(inicijalni/drugi jezici)"
 
-#: web/lib/admin/OptionDisplay.php:391
+#: web/lib/admin/OptionDisplay.php:392
 msgid "file content"
 msgstr "sadržaj fajla"
 
 #. only modify in this one case
-#: web/lib/admin/OptionDisplay.php:402 web/lib/admin/UIElements.php:192
+#: web/lib/admin/OptionDisplay.php:403 web/lib/admin/UIElements.php:210
 msgid "on"
 msgstr "uključeno"
 
-#: web/lib/admin/OptionDisplay.php:402 web/lib/admin/UIElements.php:192
+#: web/lib/admin/OptionDisplay.php:403 web/lib/admin/UIElements.php:210
 msgid "off"
 msgstr "isključeno"
 
@@ -2226,286 +2341,296 @@ msgstr "Početna stranica"
 msgid "View this page in"
 msgstr "Pogledaj ovu stranicu na"
 
-#: web/lib/admin/PageDecoration.php:143
+#: web/lib/admin/PageDecoration.php:143 web/lib/admin/PageDecoration.php:146
+#: web/lib/admin/PageDecoration.php:149
 #, php-format
 msgid "Administrator Interface - %s"
 msgstr "Administratorski interfejs - %s"
 
-#: web/lib/admin/PageDecoration.php:146
+#: web/lib/admin/PageDecoration.php:152
 #, php-format
 msgid "Administrator Interface - %s User Management"
 msgstr "Interfejs za administratore - upravljanje korisnicima %s "
 
-#: web/lib/admin/PageDecoration.php:149
+#: web/lib/admin/PageDecoration.php:155
 msgid "Administrator Interface"
 msgstr "Administratorski interfejs"
 
-#: web/lib/admin/PageDecoration.php:152
+#: web/lib/admin/PageDecoration.php:158
 msgid "Management of User Details"
 msgstr "Upravljanje detaljima o korisniku"
 
-#: web/lib/admin/PageDecoration.php:155
+#: web/lib/admin/PageDecoration.php:161
 #, php-format
 msgid "Administrator Interface - %s Management"
 msgstr "Interfejs za administratore - upravljanje %s"
 
-#: web/lib/admin/PageDecoration.php:158
+#: web/lib/admin/PageDecoration.php:164
 #, php-format
 msgid "Welcome to %s"
 msgstr "Dobrodošli na %s"
 
-#: web/lib/admin/PageDecoration.php:163
+#: web/lib/admin/PageDecoration.php:169
 msgid "CIC"
 msgstr "CIC"
 
-#: web/lib/admin/PageDecoration.php:166
+#: web/lib/admin/PageDecoration.php:172
 msgid "Diagnostics"
 msgstr "Dijagnostika"
 
-#: web/lib/admin/PageDecoration.php:250
+#: web/lib/admin/PageDecoration.php:256
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "%s obaveštenje o privatnosti"
 
-#: web/lib/admin/UIElements.php:70
+#: web/lib/admin/UIElements.php:85
 msgid "SSID"
 msgstr "SSID"
 
-#: web/lib/admin/UIElements.php:71
+#: web/lib/admin/UIElements.php:86
 msgid "SSID (with WPA/TKIP)"
 msgstr "SSID (sa WPA/TKIP)"
 
-#: web/lib/admin/UIElements.php:72
+#: web/lib/admin/UIElements.php:87
 msgid "HS20 Consortium OI"
 msgstr "HS20 Consortium OI"
 
-#: web/lib/admin/UIElements.php:75
+#: web/lib/admin/UIElements.php:90
 msgid "Additional SSID"
 msgstr "Dodatni SSID"
 
-#: web/lib/admin/UIElements.php:76
+#: web/lib/admin/UIElements.php:91
 msgid "Additional SSID (with WPA/TKIP)"
 msgstr "Dodatni SSID (sa WPA/TKIP)"
 
-#: web/lib/admin/UIElements.php:79
+#: web/lib/admin/UIElements.php:94
 msgid "Additional HS20 Consortium OI"
 msgstr "Dodatni HS20 Consortium OI"
 
-#: web/lib/admin/UIElements.php:82
+#: web/lib/admin/UIElements.php:97
 msgid "Support: Web"
 msgstr "Podrška: Web"
 
-#: web/lib/admin/UIElements.php:83
+#: web/lib/admin/UIElements.php:98
 msgid "Support: EAP Types"
 msgstr "Podrška: EAP tipovi"
 
-#: web/lib/admin/UIElements.php:84
+#: web/lib/admin/UIElements.php:99
 msgid "Support: Phone"
 msgstr "Podrška: Telefon"
 
-#: web/lib/admin/UIElements.php:85
+#: web/lib/admin/UIElements.php:100
 msgid "Support: E-Mail"
 msgstr "Podrška: E-mail"
 
-#: web/lib/admin/UIElements.php:88
+#: web/lib/admin/UIElements.php:103
 msgid "Logo URL"
 msgstr "URL logo-a"
 
-#: web/lib/admin/UIElements.php:89
+#: web/lib/admin/UIElements.php:104
 msgid "Logo image"
 msgstr "Slika logo-a"
 
-#: web/lib/admin/UIElements.php:90
+#: web/lib/admin/UIElements.php:105
 msgid "Configure Wired Ethernet"
 msgstr "Konfiguriši žični Eternet"
 
-#: web/lib/admin/UIElements.php:91
+#: web/lib/admin/UIElements.php:106
 msgid "Name (CN) of Authentication Server"
 msgstr "Ime (CN) autentifikacionog servera"
 
-#: web/lib/admin/UIElements.php:92
+#: web/lib/admin/UIElements.php:107
 msgid "Enable device assessment"
 msgstr "Omogući procenu uređaja"
 
-#: web/lib/admin/UIElements.php:93
+#: web/lib/admin/UIElements.php:108
 msgid "Terms of Use"
 msgstr "Pravila korišćenja"
 
-#: web/lib/admin/UIElements.php:94
+#: web/lib/admin/UIElements.php:109
 msgid "CA Certificate URL"
 msgstr "URL CA sertifikata"
 
-#: web/lib/admin/UIElements.php:95
+#: web/lib/admin/UIElements.php:110
 msgid "CA Certificate File"
 msgstr "Fajl sa CA sertifikatom"
 
-#: web/lib/admin/UIElements.php:96
+#: web/lib/admin/UIElements.php:111
 msgid "Profile Display Name"
 msgstr "Ime profila za prikaz"
 
-#: web/lib/admin/UIElements.php:97
+#: web/lib/admin/UIElements.php:112
 msgid "Production-Ready"
 msgstr "Spreman/a za produkciju"
 
-#: web/lib/admin/UIElements.php:98
+#: web/lib/admin/UIElements.php:113
 msgid "Admin Accepted Terms of Use"
 msgstr "Administrator je prihvatio pravila korišćenja"
 
-#: web/lib/admin/UIElements.php:99
+#: web/lib/admin/UIElements.php:114
 msgid "Extra text on downloadpage for device"
 msgstr "Dodatni tekst na stranici za preuzimanje za uređaj"
 
-#: web/lib/admin/UIElements.php:100
+#: web/lib/admin/UIElements.php:115
 msgid "Redirection Target"
 msgstr "Odredište za preusmeravanje"
 
-#: web/lib/admin/UIElements.php:101
+#: web/lib/admin/UIElements.php:116
 msgid "Extra text on downloadpage for EAP method"
 msgstr "Dodatni tekst za EAP metodu na stranici za preuzimanje"
 
-#: web/lib/admin/UIElements.php:102
+#: web/lib/admin/UIElements.php:117
 msgid "Turn on selection of EAP-TLS User-Name"
 msgstr "Uključite izbor EAP-TLS User-Name"
 
-#: web/lib/admin/UIElements.php:103
+#: web/lib/admin/UIElements.php:118
 msgid "Use GEANTlink TTLS supplicant for W8"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:104
+#: web/lib/admin/UIElements.php:119
 msgid "Use builtin TTLS supplicant for Windows 10"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:105
+#: web/lib/admin/UIElements.php:120
 msgid "Profile Description"
 msgstr "Opis profila"
 
-#: web/lib/admin/UIElements.php:106
+#: web/lib/admin/UIElements.php:121
 msgid "Custom Installer Name Suffix"
 msgstr "Prilagođen nastavak za imena instalera"
 
-#: web/lib/admin/UIElements.php:108
+#: web/lib/admin/UIElements.php:123
 msgid "Real Name"
 msgstr "Pravo ime"
 
-#: web/lib/admin/UIElements.php:109
+#: web/lib/admin/UIElements.php:124
 msgid "E-Mail Address"
 msgstr "E-mail adresa"
 
-#: web/lib/admin/UIElements.php:110
+#: web/lib/admin/UIElements.php:125
 msgid "Remove/Disable SSID"
 msgstr "Ukloni/Onemogući SSID"
 
-#: web/lib/admin/UIElements.php:111
+#: web/lib/admin/UIElements.php:126
 msgid "Mandatory Content Filtering Proxy"
 msgstr "Obavezan proksi za filtriranje sadržaja"
 
-#: web/lib/admin/UIElements.php:112
+#: web/lib/admin/UIElements.php:127
 msgid "Custom CSS file for User Area"
 msgstr "Prilagođen CSS fajl za prostor za korisnike"
 
-#: web/lib/admin/UIElements.php:113
+#: web/lib/admin/UIElements.php:128
 #, php-format
 msgid "%s Logo"
 msgstr "%s logo"
 
-#: web/lib/admin/UIElements.php:114
+#: web/lib/admin/UIElements.php:129
 msgid "Preferred Skin for User Area"
 msgstr "Odabrana pozadina za prostor za korisnike"
 
-#: web/lib/admin/UIElements.php:115
+#: web/lib/admin/UIElements.php:130
 #, php-format
 msgid "Include %s branding in installers"
 msgstr "Uključi %s brendiranje u instalere"
 
-#: web/lib/admin/UIElements.php:117
+#: web/lib/admin/UIElements.php:132
 #, php-format
 msgid "%s Homepage"
 msgstr "%s početna strana"
 
-#: web/lib/admin/UIElements.php:118
+#: web/lib/admin/UIElements.php:133
 #, php-format
 msgid "Custom text in %s Invitations"
 msgstr "Prilagođen tekst u %s pozivnicama"
 
-#: web/lib/admin/UIElements.php:119
+#: web/lib/admin/UIElements.php:134
 #, php-format
 msgid "Enable %s"
 msgstr "Omogući %s"
 
-#: web/lib/admin/UIElements.php:120
+#: web/lib/admin/UIElements.php:135
 #, php-format
 msgid "%s: Do not terminate EAP"
 msgstr "%s: Ne terminirati EAP"
 
-#: web/lib/admin/UIElements.php:121
+#: web/lib/admin/UIElements.php:136
 #, php-format
 msgid "%s: max users per profile"
 msgstr "%s: maksimalan broj korisnika po profilu"
 
-#: web/lib/admin/UIElements.php:122
+#: web/lib/admin/UIElements.php:137
 #, php-format
 msgid "Mint %s with CA on creation"
 msgstr "Napravi %s sa CA sertifikatom prilikom kreiranja"
 
-#: web/lib/admin/UIElements.php:224
+#: web/lib/admin/UIElements.php:141
+msgid "VLAN for own users"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:142
+msgid "Realm for VLAN tagging"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:143
+msgid "Custom Operator-Name attribute"
+msgstr ""
+
+#: web/lib/admin/UIElements.php:242
 #, php-format
 msgid "General %s details"
 msgstr "Generalni podaci o %s"
 
-#: web/lib/admin/UIElements.php:242
+#: web/lib/admin/UIElements.php:260
 msgid "Global Helpdesk Details"
 msgstr "Glavni podaci o službi za pomoć korisnicima"
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:339
+#: web/lib/admin/UIElements.php:357
 msgid "There was an error while retrieving the certificate from the database!"
 msgstr "Došlo je do greške prilikom vraćanja sertifikata iz baze podataka!"
 
-#: web/lib/admin/UIElements.php:348
+#: web/lib/admin/UIElements.php:366
 msgid "There was an error processing the certificate!"
 msgstr "Prilikom obrade sertifikata desila se greška!"
 
-#: web/lib/admin/UIElements.php:357
+#: web/lib/admin/UIElements.php:375
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr "Ovo je <strong>SERVERSKI</strong> sertifikat!"
 
-#: web/lib/admin/UIElements.php:375
+#: web/lib/admin/UIElements.php:393
 msgid "Preview of logo file"
 msgstr "Pregled logo fajla"
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:391
+#: web/lib/admin/UIElements.php:409
 msgid "There was an error while retrieving the file from the database!"
 msgstr "Došlo je do greške prilikom vraćanja fajla iz baze podataka!"
 
-#: web/lib/admin/UIElements.php:397
+#: web/lib/admin/UIElements.php:415
 msgid "File exists"
 msgstr "Fajl postoji"
 
-#: web/lib/admin/UIElements.php:397
+#: web/lib/admin/UIElements.php:415
 msgid "Preview"
 msgstr "Pregled"
 
-#: web/lib/admin/UIElements.php:415
+#: web/lib/admin/UIElements.php:433
 msgid "Remark"
 msgstr "Napomena"
 
-#: web/lib/admin/UIElements.php:416
+#: web/lib/admin/UIElements.php:434
 msgid "Warning!"
 msgstr "Upozorenje!"
 
-#: web/lib/admin/UIElements.php:417
+#: web/lib/admin/UIElements.php:435
 msgid "Error!"
 msgstr "Greška!"
 
-#~ msgid "National Roaming Operator"
-#~ msgstr "Nacionalni Roming Operator"
+#~ msgid "%s: Editing IdP '%s'"
+#~ msgstr "%s: Izmena podataka za Davaoca Identiteta '%s'"
 
-#~ msgid "identity provider"
-#~ msgstr "davalac identiteta"
+#~ msgid "Editing IdP information for '%s'"
+#~ msgstr "Izmena podataka o Davaocu Identiteta za '%s'"
 
-#~ msgid "organisation"
-#~ msgstr "organizacija"
-
-#~ msgid "Identity Provider"
-#~ msgstr "Davalac Identiteta"
+#~ msgid "%s download area QR code"
+#~ msgstr "QR Code stranice za preuzimanje za %s"

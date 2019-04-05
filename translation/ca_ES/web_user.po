@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# eduki <ecercos@xtec.cat>, 2013,2015-2018
+# eduki <ecercos@xtec.cat>, 2013,2015-2019
 # eduki <ecercos@xtec.cat>, 2012
+# jmontane, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-04 15:19+0100\n"
-"PO-Revision-Date: 2018-11-08 12:24+0000\n"
+"POT-Creation-Date: 2019-04-05 11:11+0200\n"
+"PO-Revision-Date: 2019-04-04 16:11+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/ca_ES/)\n"
@@ -43,9 +44,8 @@ msgstr ""
 "personalitzats per a diverses plataformes conegudes. Un instal·lador generat "
 "per a una organització pot no funcionar per a usuaris d'una altra, per tant "
 "si la vostra organització no es troba a la llista no podeu fer servir aquest "
-"sistema. Si us plau contacteu amb els administradors locals i proveu de "
-"convèncer-los per a afegir la configuració de %s a <span class='edu_cat'> "
-"%s</span>."
+"sistema. Contacteu amb els administradors locals i proveu de convèncer-los "
+"per a afegir la configuració de %s a <span class='edu_cat'> %s</span>."
 
 #: web/user/about_cat.inc.php:45
 #, php-format
@@ -206,11 +206,11 @@ msgid ""
 "server and will abort the login. Using an installer from a different "
 "organisation is <i>guaranteed to not work</i>!"
 msgstr ""
-"No! Els instal.ladors contenen paràmetres de seguretat que són específics "
+"No! Els instal·ladors contenen paràmetres de seguretat que són específics "
 "per l'organització. Si no en sou membre, el vostre dispositiu detectarà que "
 "esteu a punt d'enviar l'identificador i credencial a un servidor no "
-"autoritzat i abortarà la connexió. Utilitzar un instal.lador d'una "
-"organització diferent és <i>garantia de malfuncionament</i>!"
+"autoritzat i avortarà la connexió. Utilitzar un instal.lador d'una "
+"organització diferent és <i>garantia de mal funcionament</i>!"
 
 #: web/user/faq.inc.php:33 web/user/faq.php:30
 msgid "What can I do to get my organisation listed?"
@@ -250,8 +250,8 @@ msgid ""
 "I can connect to %s simply by providing username and password, what is the "
 "point of using an installer?"
 msgstr ""
-"Puc connectar-me a %s simplement suministrant l'identificador i la "
-"contrasenya, quina utilitat té l'instal.lador?"
+"Puc connectar-me a %s simplement subministrant l'identificador i la "
+"contrasenya, quina utilitat té l'instal·lador?"
 
 #: web/user/faq.inc.php:44 web/user/faq.php:41
 #, php-format
@@ -270,7 +270,7 @@ msgstr ""
 #: web/user/faq.inc.php:47 web/user/faq.php:52
 #, php-format
 msgid "Is it safe to use %s installers?"
-msgstr "És segur utilitzar els instal.ladors d' %s?"
+msgstr "És segur utilitzar els instal·ladors d'%s?"
 
 #: web/user/faq.inc.php:48 web/user/faq.php:53
 #, php-format
@@ -278,7 +278,7 @@ msgid ""
 "%s installers configure security settings on your device, therefore you "
 "should be sure that you are using genuine ones."
 msgstr ""
-"El instal.ladors %s configuren paràmetres de seguretat en el vostre "
+"El instal·ladors %s configuren paràmetres de seguretat en el vostre "
 "dispositiu, per tan assegureu-vos que esteu utilitzant els autèntics."
 
 #: web/user/faq.inc.php:48 web/user/faq.php:53
@@ -287,7 +287,7 @@ msgid ""
 "This is why %s installers are digitally signed by %s. Watch out for a system "
 "message confirming this."
 msgstr ""
-"Per això els instal.ladors %s estan signats digitalment per %s. Comproveu "
+"Per això els instal·ladors %s estan signats digitalment per %s. Comproveu "
 "els missatges de sistema que ho confirmin."
 
 #: web/user/faq.inc.php:52 web/user/faq.php:57
@@ -364,12 +364,30 @@ msgstr "Tinc una pregunta sobre aquesta web. Amb qui puc contactar?"
 msgid "You should send a mail to %s."
 msgstr "Podeu enviar un correu electrònic a %s."
 
-#: web/user/faq.inc.php:71 web/user/faq.php:46
+#: web/user/faq.inc.php:73 web/user/faq.php:46
 #, php-format
 msgid "What is this %s thing anyway?"
 msgstr "Però que és això de %s?"
 
-#: web/user/faq.inc.php:72 web/user/faq.php:47
+#: web/user/faq.inc.php:74
+#, php-format
+msgid ""
+"%s is a global WiFi roaming consortium which gives members of education and "
+"research access to the internet <i>for free</i> on all %s hotspots on the "
+"planet. There are several million %s users already, enjoying free internet "
+"access on more than %d hotspots! Visit <a href='http://www.eduroam.org'>the "
+"%s homepage</a> or <a href='http://monitor.eduroam.org/map_service_loc."
+"php'>the %s location map</a> for more details."
+msgstr ""
+"%s és un consorci global de WiFi en itinerància que subministra als membres "
+"de la comunitat educativa i investigadors accés a internet <i>lliure</i> a "
+"tots els punts d'accés %s del planeta. Hi ha milions d'usuaris %s, "
+"disfrutant d'accés lliure a internet a més de %d punts d'accés! Visiteu <a "
+"href='http://www.eduroam.org'>la pàgina inicial d'%s</a> o <a href='http://"
+"monitor.eduroam.org/map_service_loc.php'> el mapa de localització %s </a>per "
+"a més detalls."
+
+#: web/user/faq.php:47
 #, php-format
 msgid ""
 "%s is a global WiFi roaming consortium which gives members of education and "
@@ -427,7 +445,7 @@ msgstr "Condicions d'ús"
 msgid "(for legal reasons, the Terms of Use are in English only)"
 msgstr "(per raons legals, les Condicions d'ús es troben només en anglès)"
 
-#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:88
+#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:90
 #, php-format
 msgid "Welcome to %s"
 msgstr "Us donem la benvinguda a %s"
@@ -485,17 +503,17 @@ msgstr ""
 "mirant-te. Error vostre? Nostre? Qui sap! Potser hau&iacute;eu de tornar a "
 "la <a href='%s'>P&agrave;gina d'inici</a>"
 
-#: web/tou.php:70 web/skins/modern/Divs.php:288
+#: web/tou.php:70 web/skins/modern/Divs.php:292
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "%s avís de privacitat"
 
-#: web/lib/user/TextTemplates.php:81
+#: web/lib/user/TextTemplates.php:83
 #, php-format
 msgid "Welcome aboard the %s user community!"
 msgstr "Benvingut/da a la comunitat d'usuaris de %s!"
 
-#: web/lib/user/TextTemplates.php:82
+#: web/lib/user/TextTemplates.php:84
 msgid ""
 "Your download will start shortly. In case of problems with the automatic "
 "download please use this direct <a href=''>link</a>."
@@ -503,12 +521,12 @@ msgstr ""
 "La vostra descàrrega s'iniciarà en breu. Si hi ha problemes amb la "
 "descàrrega automàtica podeu fer servir aquest <a href=''>enllaç</a>."
 
-#: web/lib/user/TextTemplates.php:83 web/skins/modern/div_user_welcome.php:30
+#: web/lib/user/TextTemplates.php:85 web/skins/modern/div_user_welcome.php:30
 #, php-format
 msgid "Dear user from %s,"
 msgstr "Benvolgut/da usuari de %s,"
 
-#: web/lib/user/TextTemplates.php:84
+#: web/lib/user/TextTemplates.php:86
 #, php-format
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
@@ -516,12 +534,12 @@ msgid ""
 "credentials (this is our fancy name for 'username and password' or 'personal "
 "certificate') - and be online!"
 msgstr ""
-"Un cop heu descarregat i instal.lat el configurador de client, només cal que "
+"Un cop heu descarregat i instal·lat el configurador de client, només cal que "
 "trobeu un punt %s a prop i introduïu les vostres credencials (és el nom que "
 "donem a 'identificador i contrasenya' o 'certificat personal') i connecteu-"
 "vos!"
 
-#: web/lib/user/TextTemplates.php:85 web/skins/modern/div_user_welcome.php:38
+#: web/lib/user/TextTemplates.php:87 web/skins/modern/div_user_welcome.php:38
 #, php-format
 msgid ""
 "Should you have any problems using this service, please always contact the "
@@ -533,11 +551,11 @@ msgstr ""
 "en la seva resolució. Podeu comunicar-hi per qualsevol dels mitjans indicats "
 "més amunt."
 
-#: web/lib/user/TextTemplates.php:86 web/skins/modern/div_user_welcome.php:41
+#: web/lib/user/TextTemplates.php:88 web/skins/modern/div_user_welcome.php:41
 msgid "Back to downloads"
 msgstr "Torna a Descàrregues"
 
-#: web/lib/user/TextTemplates.php:87
+#: web/lib/user/TextTemplates.php:89
 #, php-format
 msgid ""
 "we would like to warmly welcome you among the several million users of %s! "
@@ -550,47 +568,56 @@ msgstr ""
 "milers d'universitats, centres de recerca i d'altres llocs arreu del món. I "
 "de forma totalment gratuïta!"
 
-#: web/lib/user/TextTemplates.php:89
+#: web/lib/user/TextTemplates.php:91
 #, php-format
 msgid "Connect your device to %s"
 msgstr "Connecta el teu dispositiu a %s"
 
-#: web/lib/user/TextTemplates.php:90
+#: web/lib/user/TextTemplates.php:92
 #, php-format
 msgid "%s installation made easy:"
-msgstr "%s fa la instal.lació fàcil:"
+msgstr "%s fa la instal·lació fàcil:"
 
-#: web/lib/user/TextTemplates.php:91
+#: web/lib/user/TextTemplates.php:93
 msgid "Custom built for your organisation"
 msgstr "Fet a mida per a la vostra organització"
 
-#: web/lib/user/TextTemplates.php:92
+#: web/lib/user/TextTemplates.php:94
 #, php-format
 msgid "Click here to download your %s installer"
-msgstr "Cliqueu aquí per a descarregar el vostre instal·lador %s"
+msgstr "Cliqueu aquí per a baixar-vos instal·lador %s"
 
-#: web/lib/user/TextTemplates.php:93
+#: web/lib/user/TextTemplates.php:95
+#, php-format
+msgid ""
+"%s provides access to thousands of Wi-Fi hotspots around the world, free of "
+"charge. <a href='%s'>Learn more</a>"
+msgstr ""
+"%sproveeix l'accés a milers de punts d'accés Wi-FI a tot el mon, sense cost. "
+"<a href='%s'>Saber més</a>"
+
+#: web/lib/user/TextTemplates.php:96
 msgid "Select the user group"
 msgstr "Escolliu el grup d'usuaris"
 
-#: web/lib/user/TextTemplates.php:94
+#: web/lib/user/TextTemplates.php:97
 msgid "select another"
 msgstr "selecciona un altre"
 
-#: web/lib/user/TextTemplates.php:95
+#: web/lib/user/TextTemplates.php:98
 msgid "Choose another installer to download"
-msgstr "Escolliu un altre instal·lador per a descarregar"
+msgstr "Trieu un altre instal·lador per a baixar"
 
-#: web/lib/user/TextTemplates.php:96
+#: web/lib/user/TextTemplates.php:99
 msgid "All platforms"
 msgstr "Per a totes les plataformes"
 
-#: web/lib/user/TextTemplates.php:97
+#: web/lib/user/TextTemplates.php:100
 #, php-format
 msgid "Download your %s installer"
-msgstr "Descarregueu-vos el vostre instal.lador %s "
+msgstr "Baixeu-vos el vostre instal·lador %s "
 
-#: web/lib/user/TextTemplates.php:98
+#: web/lib/user/TextTemplates.php:101
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
 "<br>When you click <b>Continue</b> this support page will be opened in a new "
@@ -600,42 +627,42 @@ msgstr ""
 "local.<br>Quan cliqueu a <b>Continua</b> aquesta pàgina de suport s'obrirà "
 "en una nova finestra/pestanya."
 
-#: web/lib/user/TextTemplates.php:99
+#: web/lib/user/TextTemplates.php:102
 #: web/skins/modern/accountstatus/accountstatus.php:226
 #: web/skins/modern/user/js/cat_js.php:278
 #: web/skins/modern/user/js/cat_js.php:286
 msgid "Continue"
 msgstr "Continua"
 
-#: web/lib/user/TextTemplates.php:100
+#: web/lib/user/TextTemplates.php:103
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s"
 msgstr "Signat digitalment per la organització que coordina %s"
 
-#: web/lib/user/TextTemplates.php:101
+#: web/lib/user/TextTemplates.php:104
 #, php-format
 msgid ""
 "You can download your %s installer via a personalised invitation link sent "
 "from your IT support. Please talk to the IT department to get this link."
 msgstr ""
-"Podeu descarregar l'instal·lador %s a través d'un enllaç personalitzat "
-"enviat pel vostre equip de suport TIC. Contacteu amb el vostre departament "
-"TIC per aconseguir aquest enllaç."
+"Podeu baixar l'instal·lador %s a través d'un enllaç personalitzat enviat pel "
+"vostre equip de suport TIC. Contacteu amb el vostre departament TIC per "
+"aconseguir aquest enllaç."
 
-#: web/lib/user/TextTemplates.php:102
+#: web/lib/user/TextTemplates.php:105
 #, php-format
 msgid ""
 "This site provides %s installers for many organisations, click here to see "
 "if yours is on the list."
 msgstr ""
-"Aquest web facilita instal·ladors de %s per a diverses organitzacions, "
-"cliqueu aquí per veure si la vostra organització hi és."
+"Aquest web facilita instal·ladors de %s per a diverses organitzacions, feu "
+"clic aquí per a veure si la vostra organització hi és."
 
-#: web/lib/user/TextTemplates.php:103
+#: web/lib/user/TextTemplates.php:106
 msgid "Custom built for you"
 msgstr "Manufactura personalitzada per a tu"
 
-#: web/lib/user/TextTemplates.php:105
+#: web/lib/user/TextTemplates.php:108
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Signat digitalment per la organització que coordina %s: %s"
@@ -659,7 +686,7 @@ msgid ""
 "credentials (this is our fancy name for 'username and password' or 'personal "
 "certificate') - and be online!"
 msgstr ""
-"Un cop heu descarregat i insta·lat el configurador de client, només cal que "
+"Un cop heu baixat i instal·lat el configurador de client, només cal que "
 "trobeu un punt eduroam® a prop i introduïu les vostres credencials (és el "
 "nom que donem a 'identificador i contrasenya' o 'certificat personal') i "
 "connecteu-vos!"
@@ -740,8 +767,8 @@ msgid ""
 "You attempted to download an installer that was already downloaded before. "
 "Please request a new token from your administrator instead."
 msgstr ""
-"Heu intentat descarregar un instal·lador que ja ha estat descarregat. "
-"Sol·liciteu un nou codi al vostre administrador."
+"Heu intentat baixar un instal·lador que ja ha s'ha baixat. Sol·liciteu un "
+"nou codi al vostre administrador."
 
 #: web/skins/modern/accountstatus/accountstatus.php:79
 msgid "Attempt to re-use download link"
@@ -810,7 +837,7 @@ msgstr ""
 #: web/skins/modern/accountstatus/accountstatus.php:133
 #, php-format
 msgid "You can now download a personalised  %s installation program."
-msgstr "Podeu descarregar-vos el programa d'instal·lació de %s personalitzat."
+msgstr "Podeu baixar el programa d'instal·lació de %s personalitzat."
 
 #. echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
 #: web/skins/modern/accountstatus/accountstatus.php:135
@@ -853,7 +880,7 @@ msgstr "PIN per a l'importació: %s"
 #: web/skins/modern/accountstatus/accountstatus.php:147
 #, php-format
 msgid "Click here to download your %s installer!"
-msgstr "Cliqueu aquí per a descarregar el vostre instal·lador de %s!"
+msgstr "Feu clic aquí per a baixar l'instal·lador de %s!"
 
 #: web/skins/modern/accountstatus/accountstatus.php:152
 #, php-format
@@ -1000,7 +1027,7 @@ msgid ""
 "have been notified. We will try to take care of the problem as soon as "
 "possible."
 msgstr ""
-"Això és vergonyós. La generació del vostre instal.lador ha fallat. Els "
+"Això és vergonyós. La generació de l'instal·lador ha fallat. Els "
 "administradors del sistema han estat avisats. Procurarem resoldre el "
 "problema el més aviat possible."
 

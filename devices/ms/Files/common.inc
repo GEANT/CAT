@@ -249,7 +249,7 @@ MiscButtonText "" "" "" "<?php WindowsCommon::echo_nsi( _("Finish"))?>"
    !insertmacro debug_cat 2 "installing certificate $TEMP\${ca_file}"
    !insertmacro debug_cat 3 "Execute: certutil -addstore -user ${level} $TEMP\${ca_file}"
    DetailPrint "<?php WindowsCommon::echo_nsi( _("installing certificate"))?> ${ca_file}"
-   nsExec::Exec '"certutil" -addstore -user ${level} $TEMP\${ca_file}'
+   nsExec::Exec '"certutil" -addstore -user ${level} "$TEMP"\${ca_file}'
    Pop $0
    !insertmacro debug_cat 3 "certutil returned $0"
    ${If} $0 != 0
@@ -879,6 +879,8 @@ Function CreateWirelessProfiles
      nsArray::Iterate Additional_deletes
      IfErrors Done2
      Pop $0
+     Pop $R1
+     Push $R1
      call FindProfile
      Pop $0
      ${If} $0 == 0
@@ -1330,6 +1332,40 @@ Function validateUsername
    Push 0
 FunctionEnd
 
+Function EncodeXmlChars
+   ;$R0 will contain the current string location
+   Push $R0
+   Push $R1
+   Push $R2
+   Push $R9
+   Push 0
+   Pop $R0
+   ;$R9 will contain the output string
+   StrCpy $R9 ""
+   StrLen $R2 $PASS1
+   ${Do}
+      StrCpy $R1 $PASS1 1 $R0
+      ${Switch} $R1
+         ${Case} "&"
+           StrCpy $R1 "&amp;"
+           ${Break}
+         ${Case} "<"
+           StrCpy $R1 "&lt;"
+           ${Break}
+           ${Case} ">"
+           StrCpy $R1 "&gt;"
+           ${Break}
+      ${EndSwitch}
+      StrCpy $R9 "$R9$R1"
+      IntOp $R0 $R0 + 1
+   ${LoopUntil} $R0 = $R2
+   StrCpy $PASS1 $R9
+   Pop $R9
+   Pop $R2
+   Pop $R1
+   Pop $R0
+FunctionEnd
+
 Function GetPasswordBasedCredentials
   !ifdef HINT_USER_INPUT
     StrCpy $UNAME "@${REALM}"
@@ -1378,7 +1414,7 @@ Function SavePasswordBasedCredentials
    ${If} "$PASS1" != "$PASS2"
    ${NSD_SetText} $PASS1_F ""
    ${NSD_SetText} $PASS2_F ""
-   MessageBox MB_OK "<?php WindowsCommon::echo_nsi(_("Password missmatch"))?>"
+   MessageBox MB_OK "<?php WindowsCommon::echo_nsi(_("Password mismatch"))?>"
    Abort
    ${EndIf}
    ${Base64_Encode} $PASS1
@@ -1391,6 +1427,7 @@ FunctionEnd
 ;=============================
 !ifdef CRED
 Function InstallUserCredentials
+  Call EncodeXmlChars
   Call InstallWirelessUserCredentials
   Call InstallWiredUserCredentials
 FunctionEnd

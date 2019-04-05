@@ -198,6 +198,10 @@ class OutsideComm extends Entity {
                 );
 
                 $ch = curl_init($url);
+                if ($ch === FALSE) {
+                    $loggerInstance->debug(2, 'Problem with SMS invitation: unable to send API request with CURL!');
+                    return OutsideComm::SMS_NOTSENT;
+                }
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 $response = curl_exec($ch);
 
@@ -365,7 +369,12 @@ class OutsideComm extends Entity {
      * @throws \Exception
      */
     public static function postJson($url, $dataArray) {
+        $loggerInstance = new Logging();
         $ch = \curl_init($url);
+        if ($ch === FALSE) {
+            $loggerInstance->debug(2,"Unable to POST JSON request: CURL init failed!");
+            return json_decode(json_encode(FALSE), TRUE);
+        }
         \curl_setopt_array($ch, array(
             CURLOPT_POST => TRUE,
             CURLOPT_RETURNTRANSFER => TRUE,
@@ -373,7 +382,7 @@ class OutsideComm extends Entity {
             CURLOPT_FRESH_CONNECT => TRUE,
         ));
         $response = \curl_exec($ch);
-        if ($response === FALSE || $response === NULL) {
+        if ($response === FALSE || $response === NULL || $response === TRUE) { // With RETURNTRANSFER, TRUE is not a valid return
             throw new \Exception("the POST didn't work!");
         }
         return json_decode($response, TRUE);

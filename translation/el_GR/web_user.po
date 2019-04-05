@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Halil Adem <hadem@noc.grnet.gr>, 2018
+# Halil Adem <hadem@noc.grnet.gr>, 2018-2019
 # HELPDESK <npapalouka@admin.grnet.gr>, 2015
 # Panos Bouklis <panos@echidna-band.com>, 2012
 # Vicky Kons <vickyk@admin.grnet.gr>, 2016
@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-04 15:19+0100\n"
-"PO-Revision-Date: 2018-11-14 09:23+0000\n"
+"POT-Creation-Date: 2019-04-05 11:11+0200\n"
+"PO-Revision-Date: 2019-04-04 09:20+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Greek (Greece) (http://www.transifex.com/eduroam_devel/cat/"
 "language/el_GR/)\n"
@@ -380,12 +380,30 @@ msgstr ""
 msgid "You should send a mail to %s."
 msgstr "Θα πρέπει να στείλετε e-mail στο %s."
 
-#: web/user/faq.inc.php:71 web/user/faq.php:46
+#: web/user/faq.inc.php:73 web/user/faq.php:46
 #, php-format
 msgid "What is this %s thing anyway?"
 msgstr "Τι είναι το %s τέλος πάντων;"
 
-#: web/user/faq.inc.php:72 web/user/faq.php:47
+#: web/user/faq.inc.php:74
+#, php-format
+msgid ""
+"%s is a global WiFi roaming consortium which gives members of education and "
+"research access to the internet <i>for free</i> on all %s hotspots on the "
+"planet. There are several million %s users already, enjoying free internet "
+"access on more than %d hotspots! Visit <a href='http://www.eduroam.org'>the "
+"%s homepage</a> or <a href='http://monitor.eduroam.org/map_service_loc."
+"php'>the %s location map</a> for more details."
+msgstr ""
+"το %s είναι μια παγκόσμια κοινοπραξία περιαγωγής WiFi που δίνει στα μέλη της "
+"εκπαιδευτικής και ερευνητικής κοινότητας πρόσβαση στο Διαδίκτυο <i>χωρίς "
+"κόστος</i> σε όλα τα %s hotspots στον κόσμο. Ήδη υπάρχουν πολλά εκατομμύρια "
+"χρήστες %s, που απολαμβάνουν δωρεάν πρόσβαση στο διαδίκτυο σε περισσότερα "
+"από %d hotspots! Επισκεφθείτε <a href='http://www.eduroam.org'> την "
+"ιστοσελίδα του %s</a> ή <a href='http://monitor.eduroam.org/map_service_loc."
+"php'> %s χάρτη τοποθεσίας </a>για περισσότερες λεπτομέρειες. "
+
+#: web/user/faq.php:47
 #, php-format
 msgid ""
 "%s is a global WiFi roaming consortium which gives members of education and "
@@ -445,7 +463,7 @@ msgstr "Όροι χρήσης"
 msgid "(for legal reasons, the Terms of Use are in English only)"
 msgstr "(για νομικούς λόγους, οι Όροι Χρήσης είναι μόνο στα Αγγλικά)"
 
-#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:88
+#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:90
 #, php-format
 msgid "Welcome to %s"
 msgstr "Καλως Ήρθατε στο %s"
@@ -503,17 +521,17 @@ msgstr ""
 " να σας κοιτάζει. Δικό σας λάθος; Δικό μας σφάλμα; Ποιος ξέρει! Ίσως να "
 "πρέπει να επιστρέψετε στην <a href='%s'>Αρχική Σελίδα</a>."
 
-#: web/tou.php:70 web/skins/modern/Divs.php:288
+#: web/tou.php:70 web/skins/modern/Divs.php:292
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "Δήλωση περί Απορρήτου %s"
 
-#: web/lib/user/TextTemplates.php:81
+#: web/lib/user/TextTemplates.php:83
 #, php-format
 msgid "Welcome aboard the %s user community!"
 msgstr "Καλώς ήρθατε στην κοινότητα χρηστών%s!"
 
-#: web/lib/user/TextTemplates.php:82
+#: web/lib/user/TextTemplates.php:84
 msgid ""
 "Your download will start shortly. In case of problems with the automatic "
 "download please use this direct <a href=''>link</a>."
@@ -521,12 +539,12 @@ msgstr ""
 "Η λήψη θα ξεκινήσει άμεσα, σε περίπτωση που υπάρξει κάποιο πρόβλημα με την "
 "αυτόματη λήψη παρακαλώ χρησιμοποιήστε απευθείας τον <a href=''>σύνδεσμο</a>."
 
-#: web/lib/user/TextTemplates.php:83 web/skins/modern/div_user_welcome.php:30
+#: web/lib/user/TextTemplates.php:85 web/skins/modern/div_user_welcome.php:30
 #, php-format
 msgid "Dear user from %s,"
 msgstr "Αγαπητέ χρήστη από %s,"
 
-#: web/lib/user/TextTemplates.php:84
+#: web/lib/user/TextTemplates.php:86
 #, php-format
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
@@ -540,7 +558,7 @@ msgstr ""
 "τον 'κωδικό πρόσβασης' ή το 'προσωπικό πιστοποιητικό') - και θα είστε "
 "συνδεδεμένος!"
 
-#: web/lib/user/TextTemplates.php:85 web/skins/modern/div_user_welcome.php:38
+#: web/lib/user/TextTemplates.php:87 web/skins/modern/div_user_welcome.php:38
 #, php-format
 msgid ""
 "Should you have any problems using this service, please always contact the "
@@ -552,11 +570,11 @@ msgstr ""
 "πρόβλημα και θα σας βοηθήσουν. Μπορείτε να επικοινωνείτε μαζί τους με τους "
 "τρόπους που υπάρχουν παρακάτω."
 
-#: web/lib/user/TextTemplates.php:86 web/skins/modern/div_user_welcome.php:41
+#: web/lib/user/TextTemplates.php:88 web/skins/modern/div_user_welcome.php:41
 msgid "Back to downloads"
 msgstr "Επιστροφή στις λήψεις"
 
-#: web/lib/user/TextTemplates.php:87
+#: web/lib/user/TextTemplates.php:89
 #, php-format
 msgid ""
 "we would like to warmly welcome you among the several million users of %s! "
@@ -569,47 +587,54 @@ msgstr ""
 "πόρων πρόσβασης στο διαδίκτυο χιλιάδων πανεπιστημίων, ερευνητικών κέντρων "
 "και άλλων σημείων ανά τον κόσμο. Όλα αυτά εντελώς δωρεάν!"
 
-#: web/lib/user/TextTemplates.php:89
+#: web/lib/user/TextTemplates.php:91
 #, php-format
 msgid "Connect your device to %s"
 msgstr "Συνδέστε την συσκευή σας στο %s"
 
-#: web/lib/user/TextTemplates.php:90
+#: web/lib/user/TextTemplates.php:92
 #, php-format
 msgid "%s installation made easy:"
 msgstr "η εγκατάσταση %s διευκόλυνε:"
 
-#: web/lib/user/TextTemplates.php:91
+#: web/lib/user/TextTemplates.php:93
 msgid "Custom built for your organisation"
 msgstr "Προσαρμοσμένη έκδοση για τον οργανισμό σας"
 
-#: web/lib/user/TextTemplates.php:92
+#: web/lib/user/TextTemplates.php:94
 #, php-format
 msgid "Click here to download your %s installer"
 msgstr "Πατήστε εδώ για λήψη του πακέτου εγκατάστασης %s"
 
-#: web/lib/user/TextTemplates.php:93
+#: web/lib/user/TextTemplates.php:95
+#, php-format
+msgid ""
+"%s provides access to thousands of Wi-Fi hotspots around the world, free of "
+"charge. <a href='%s'>Learn more</a>"
+msgstr ""
+
+#: web/lib/user/TextTemplates.php:96
 msgid "Select the user group"
 msgstr "Επιλέξτε την ομάδα χρηστών"
 
-#: web/lib/user/TextTemplates.php:94
+#: web/lib/user/TextTemplates.php:97
 msgid "select another"
 msgstr "επιλογή άλλου"
 
-#: web/lib/user/TextTemplates.php:95
+#: web/lib/user/TextTemplates.php:98
 msgid "Choose another installer to download"
 msgstr "Επιλέξτε διαφορετικό πακέτο εγκατάστασης για λήψη"
 
-#: web/lib/user/TextTemplates.php:96
+#: web/lib/user/TextTemplates.php:99
 msgid "All platforms"
 msgstr "Όλες οι πλατφόρμες"
 
-#: web/lib/user/TextTemplates.php:97
+#: web/lib/user/TextTemplates.php:100
 #, php-format
 msgid "Download your %s installer"
 msgstr "Κατεβάστε το πακέτο εγκατάστασης %s"
 
-#: web/lib/user/TextTemplates.php:98
+#: web/lib/user/TextTemplates.php:101
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
 "<br>When you click <b>Continue</b> this support page will be opened in a new "
@@ -619,19 +644,19 @@ msgstr ""
 "σελίδα υποστήριξης.<br>Όταν επιλέξετε <b>Συνέχεια</b> η σελίδα υποστήριξης "
 "θα ανοίξει σε νέο παράθυρο/καρτέλα."
 
-#: web/lib/user/TextTemplates.php:99
+#: web/lib/user/TextTemplates.php:102
 #: web/skins/modern/accountstatus/accountstatus.php:226
 #: web/skins/modern/user/js/cat_js.php:278
 #: web/skins/modern/user/js/cat_js.php:286
 msgid "Continue"
 msgstr "Συνέχεια"
 
-#: web/lib/user/TextTemplates.php:100
+#: web/lib/user/TextTemplates.php:103
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s"
 msgstr "Ψηφιακά υπογεγραμμένο από τον οργανισμό που συντονίζει το %s"
 
-#: web/lib/user/TextTemplates.php:101
+#: web/lib/user/TextTemplates.php:104
 #, php-format
 msgid ""
 "You can download your %s installer via a personalised invitation link sent "
@@ -642,7 +667,7 @@ msgstr ""
 "τεχνικής υποστήριξης σας. Παρακαλούμε επικοινωνήστε με το τμήμα πληροφορικής "
 "για να λάβετε αυτό το σύνδεσμο."
 
-#: web/lib/user/TextTemplates.php:102
+#: web/lib/user/TextTemplates.php:105
 #, php-format
 msgid ""
 "This site provides %s installers for many organisations, click here to see "
@@ -651,11 +676,11 @@ msgstr ""
 "Αυτή η ιστοσελίδα παρέχει πακέτα εγκατάστασης %s για πολλούς οργανισμούς, "
 "πατήστε εδώ για να διαπιστώσετε αν υπάρχει στη λίστα ο δικός σας."
 
-#: web/lib/user/TextTemplates.php:103
+#: web/lib/user/TextTemplates.php:106
 msgid "Custom built for you"
 msgstr "Προσαρμοσμένη έκδοση για σας"
 
-#: web/lib/user/TextTemplates.php:105
+#: web/lib/user/TextTemplates.php:108
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Ψηφιακά υπογεγραμμένο από τον οργανισμό που συντονίζει το %s: %s"

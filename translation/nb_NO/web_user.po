@@ -4,13 +4,13 @@
 #
 # Translators:
 # Jørn Åne <yorn@uninett.no>, 2015
-# Tom Ivar Myren <tom.myren@uninett.no>, 2018
+# Tom Ivar Myren <tom.myren@uninett.no>, 2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-04 15:19+0100\n"
-"PO-Revision-Date: 2018-11-14 13:55+0000\n"
+"POT-Creation-Date: 2019-04-05 11:11+0200\n"
+"PO-Revision-Date: 2019-04-04 10:42+0000\n"
 "Last-Translator: Tom Ivar Myren <tom.myren@uninett.no>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/"
 "eduroam_devel/cat/language/nb_NO/)\n"
@@ -356,12 +356,29 @@ msgstr "Jeg har et spørsmål til denne websiden. Hvem kan jeg kontakte?"
 msgid "You should send a mail to %s."
 msgstr "Start med å sende en epost til %s."
 
-#: web/user/faq.inc.php:71 web/user/faq.php:46
+#: web/user/faq.inc.php:73 web/user/faq.php:46
 #, php-format
 msgid "What is this %s thing anyway?"
 msgstr "Hva er %s egentlig?"
 
-#: web/user/faq.inc.php:72 web/user/faq.php:47
+#: web/user/faq.inc.php:74
+#, php-format
+msgid ""
+"%s is a global WiFi roaming consortium which gives members of education and "
+"research access to the internet <i>for free</i> on all %s hotspots on the "
+"planet. There are several million %s users already, enjoying free internet "
+"access on more than %d hotspots! Visit <a href='http://www.eduroam.org'>the "
+"%s homepage</a> or <a href='http://monitor.eduroam.org/map_service_loc."
+"php'>the %s location map</a> for more details."
+msgstr ""
+"%s er et globalt WiFi samarbeid som gir medlemmer av forskning og "
+"utdanningssektoren tilgang til internett <i>gratis</i> i alle %s hotspots på "
+"planeten. Det er allerede flere millioner %s brukere, som nyter godt av "
+"gratis internett tilgang på mer enn %d hotspots! Se <a href='http://www."
+"eduroam.org'> %s hjemmesiden</a> eller <a href='http://monitor.eduroam.org/"
+"map_service_loc.php'> %s dekningskartet </a> for flere detaljer. "
+
+#: web/user/faq.php:47
 #, php-format
 msgid ""
 "%s is a global WiFi roaming consortium which gives members of education and "
@@ -420,7 +437,7 @@ msgstr "Brukervilkår"
 msgid "(for legal reasons, the Terms of Use are in English only)"
 msgstr "(av juridiske grunner er brukervilkårene kun på engelsk)"
 
-#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:88
+#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:90
 #, php-format
 msgid "Welcome to %s"
 msgstr "Velkommen til %s"
@@ -477,17 +494,17 @@ msgstr ""
 "Din feil eller en feil hos oss? Hvem vet! Forsøk å gå tilbake til <a "
 "href='%s'>Startsiden</a>."
 
-#: web/tou.php:70 web/skins/modern/Divs.php:288
+#: web/tou.php:70 web/skins/modern/Divs.php:292
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "%s Personvern"
 
-#: web/lib/user/TextTemplates.php:81
+#: web/lib/user/TextTemplates.php:83
 #, php-format
 msgid "Welcome aboard the %s user community!"
 msgstr "Velkommen til %s bruker forum!"
 
-#: web/lib/user/TextTemplates.php:82
+#: web/lib/user/TextTemplates.php:84
 msgid ""
 "Your download will start shortly. In case of problems with the automatic "
 "download please use this direct <a href=''>link</a>."
@@ -495,12 +512,12 @@ msgstr ""
 "Nedlastingen starter straks, hvis den automatiske nedlatingen ikke starter "
 "bruk denne direkte <a href=''>linken</a>."
 
-#: web/lib/user/TextTemplates.php:83 web/skins/modern/div_user_welcome.php:30
+#: web/lib/user/TextTemplates.php:85 web/skins/modern/div_user_welcome.php:30
 #, php-format
 msgid "Dear user from %s,"
 msgstr "Kjære bruker fra %s,"
 
-#: web/lib/user/TextTemplates.php:84
+#: web/lib/user/TextTemplates.php:86
 #, php-format
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
@@ -513,7 +530,7 @@ msgstr ""
 "ord for 'brukernavn og passord' eller 'personlig sertifikat') - og du er på "
 "nett!"
 
-#: web/lib/user/TextTemplates.php:85 web/skins/modern/div_user_welcome.php:38
+#: web/lib/user/TextTemplates.php:87 web/skins/modern/div_user_welcome.php:38
 #, php-format
 msgid ""
 "Should you have any problems using this service, please always contact the "
@@ -524,11 +541,11 @@ msgstr ""
 "%s. De kan stille en diagnose. Du når dem via kontaktinformasjon som vises "
 "over."
 
-#: web/lib/user/TextTemplates.php:86 web/skins/modern/div_user_welcome.php:41
+#: web/lib/user/TextTemplates.php:88 web/skins/modern/div_user_welcome.php:41
 msgid "Back to downloads"
 msgstr "Tilbake til nedlastinger"
 
-#: web/lib/user/TextTemplates.php:87
+#: web/lib/user/TextTemplates.php:89
 #, php-format
 msgid ""
 "we would like to warmly welcome you among the several million users of %s! "
@@ -540,47 +557,56 @@ msgstr ""
 "internett aksess hos tusenvis av universiteter, forskningssentre og mange "
 "andre steder over hele verden. Alt dette helt uten kostnad!"
 
-#: web/lib/user/TextTemplates.php:89
+#: web/lib/user/TextTemplates.php:91
 #, php-format
 msgid "Connect your device to %s"
 msgstr "Koble din enhet til %s"
 
-#: web/lib/user/TextTemplates.php:90
+#: web/lib/user/TextTemplates.php:92
 #, php-format
 msgid "%s installation made easy:"
 msgstr "Enkel %s installasjon:"
 
-#: web/lib/user/TextTemplates.php:91
+#: web/lib/user/TextTemplates.php:93
 msgid "Custom built for your organisation"
 msgstr "Spesialbygd for din organisasjon"
 
-#: web/lib/user/TextTemplates.php:92
+#: web/lib/user/TextTemplates.php:94
 #, php-format
 msgid "Click here to download your %s installer"
 msgstr "Klikk her for å laste ned din %s installer"
 
-#: web/lib/user/TextTemplates.php:93
+#: web/lib/user/TextTemplates.php:95
+#, php-format
+msgid ""
+"%s provides access to thousands of Wi-Fi hotspots around the world, free of "
+"charge. <a href='%s'>Learn more</a>"
+msgstr ""
+"%s gir tilgang til tusenvis av Wi-Fi hotspots i hele verden, helt gratis. <a "
+"href='%s'> Finn ut mer </a>"
+
+#: web/lib/user/TextTemplates.php:96
 msgid "Select the user group"
 msgstr "Velg brukergruppe"
 
-#: web/lib/user/TextTemplates.php:94
+#: web/lib/user/TextTemplates.php:97
 msgid "select another"
 msgstr "velg en annen"
 
-#: web/lib/user/TextTemplates.php:95
+#: web/lib/user/TextTemplates.php:98
 msgid "Choose another installer to download"
 msgstr "Velg en annen installer for nedlasting"
 
-#: web/lib/user/TextTemplates.php:96
+#: web/lib/user/TextTemplates.php:99
 msgid "All platforms"
 msgstr "Alle plattformer"
 
-#: web/lib/user/TextTemplates.php:97
+#: web/lib/user/TextTemplates.php:100
 #, php-format
 msgid "Download your %s installer"
 msgstr "Last ned din %s profil"
 
-#: web/lib/user/TextTemplates.php:98
+#: web/lib/user/TextTemplates.php:101
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
 "<br>When you click <b>Continue</b> this support page will be opened in a new "
@@ -590,19 +616,19 @@ msgstr ""
 "support side. <br>Når du klikker <b>Fortsett</b> vil denne support siden "
 "åpnes i ett nytt vindu/fane."
 
-#: web/lib/user/TextTemplates.php:99
+#: web/lib/user/TextTemplates.php:102
 #: web/skins/modern/accountstatus/accountstatus.php:226
 #: web/skins/modern/user/js/cat_js.php:278
 #: web/skins/modern/user/js/cat_js.php:286
 msgid "Continue"
 msgstr "Fortsett"
 
-#: web/lib/user/TextTemplates.php:100
+#: web/lib/user/TextTemplates.php:103
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s"
 msgstr "Digitalt signert av organisasjonen som koordinerer %s"
 
-#: web/lib/user/TextTemplates.php:101
+#: web/lib/user/TextTemplates.php:104
 #, php-format
 msgid ""
 "You can download your %s installer via a personalised invitation link sent "
@@ -611,7 +637,7 @@ msgstr ""
 "Du kan laste ned din %s installer via en personlig invitasjonslink sent fra "
 "din IT support. Vennligst kontakt IT avdelingen for å få en slik link"
 
-#: web/lib/user/TextTemplates.php:102
+#: web/lib/user/TextTemplates.php:105
 #, php-format
 msgid ""
 "This site provides %s installers for many organisations, click here to see "
@@ -620,11 +646,11 @@ msgstr ""
 "Dette nettstedet tilbyr %s installers for mange organisasjoner, klikk her "
 "for å se om din organisasjon er blant dem."
 
-#: web/lib/user/TextTemplates.php:103
+#: web/lib/user/TextTemplates.php:106
 msgid "Custom built for you"
 msgstr "Spesielt bygget for deg"
 
-#: web/lib/user/TextTemplates.php:105
+#: web/lib/user/TextTemplates.php:108
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Digitalt signert av organisasjonen som koordinerer %s: %s"

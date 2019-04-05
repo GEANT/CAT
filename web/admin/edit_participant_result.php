@@ -79,7 +79,11 @@ echo "</table>";
 
 // delete cached logo, if present
 $dir = ROOT . '/web/downloads/logos/';
-array_map('unlink', glob($dir . $my_inst->identifier . "_*.png"));
+$globResult = glob($dir . $my_inst->identifier . "_*.png");
+if ($globResult === FALSE) { // we should catch the improbable error condition
+    $globResult = [];
+}
+array_map('unlink', $globResult);
 $loggerInstance->debug(4, "UNLINK from $dir\n");
 
 $loggerInstance->writeAudit($_SESSION['user'], "MOD", "IdP " . $my_inst->identifier . " - attributes changed");

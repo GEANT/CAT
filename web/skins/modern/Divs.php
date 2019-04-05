@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -49,7 +50,7 @@ class Divs {
         $location = $this->Gui->skinObject->findResourceUrl("IMAGES", "consortium_logo.png");
         if ($location !== FALSE) {
             $retval .= "<div id='cat_logo'>
-            <a href='".CONFIG_CONFASSISTANT['CONSORTIUM']['homepage']."'><img id='logo_img' src='$location' alt='Consortium Logo'/></a>
+            <a href='" . CONFIG_CONFASSISTANT['CONSORTIUM']['homepage'] . "'><img id='logo_img' src='$location' alt='Consortium Logo'/></a>
             <span>Configuration Assistant Tool</span>
             </div>";
         }
@@ -101,19 +102,23 @@ class Divs {
     public function div_silverbullet() {
         $retval = "
 <div id='silverbullet'>"
-    . $this->Gui->textTemplates->templates[user\SB_GO_AWAY] . 
-    "</div>
+                . $this->Gui->textTemplates->templates[user\SB_GO_AWAY] .
+                "</div>
     ";
         return $retval;
     }
 
     public function div_top_welcome() {
+        $retval = '';
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+            $retval = "<br><div id='top_invite_ad'>".$this->Gui->textTemplates->templates[user\FRONTPAGE_EDUROAM_AD]."</div>";
+        }
         return "
 <div id='welcome_top1'>
     " . $this->Gui->textTemplates->templates[user\HEADING_TOPLEVEL_GREET] . "
 </div>
 <div id='top_invite'>
-    " . $this->Gui->textTemplates->templates[user\HEADING_TOPLEVEL_PURPOSE] . "
+    " . $this->Gui->textTemplates->templates[user\HEADING_TOPLEVEL_PURPOSE] . $retval . "
 </div>";
     }
 
@@ -125,13 +130,13 @@ class Divs {
         <span id='line2'></span>
         <span id='line3'></span>
         <span id='line4'>";
-        
+
         if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL") {
             $retval .= $this->Gui->textTemplates->templates[user\FRONTPAGE_ROLLER_CUSTOMBUILT];
         } elseif (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
             $retval .= $this->Gui->textTemplates->templates[user\SB_FRONTPAGE_ROLLER_CUSTOMBUILT];
         }
-                
+
         $retval .= "</span>
         <span id='line5'>";
         if (!empty(CONFIG_CONFASSISTANT['CONSORTIUM']['signer_name'])) {
@@ -151,9 +156,8 @@ class Divs {
     }
 
     public function div_main_button() {
-        $retval = "
-<div id='user_button_td'>
-  <span id='signin'>
+        $retval = "<div id='user_button_td'>";
+        $retval .= "<span id='signin'>
      <button class='large_button signin signin_large' id='user_button1'>
         <span id='user_button'>";
         if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL") {
@@ -161,7 +165,7 @@ class Divs {
         } elseif (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
             $retval .= $this->Gui->textTemplates->templates[user\SB_FRONTPAGE_BIGDOWNLOADBUTTON];
         }
-        
+
         $retval .= "
         </span>
      </button>
@@ -176,7 +180,7 @@ class Divs {
 <div id='profiles'> <!-- this is the profile selection filled during run time -->
     <div id='profiles_h' class='sub_h'>" . $this->Gui->textTemplates->templates[user\PROFILE_SELECTION] . "
     </div>" .
-"<select id='profile_list'></select><div id='profile_desc' class='profile_desc'></div>" .
+                "<select id='profile_list'></select><div id='profile_desc' class='profile_desc'></div>" .
                 "</div>";
     }
 
@@ -186,7 +190,6 @@ class Divs {
     <span id='inst_name_span'>$mainText</span> <div id='inst_extra_text'>$extraText</div> 
 </div>";
     }
-    
 
     public function div_institution($selectButton = TRUE) {
         $retval = "<div id='institution_name'>
@@ -196,7 +199,7 @@ class Divs {
         $retval .= $this->emptyImage('idp_logo', 'IdP Logo');
         return $retval;
     }
-    
+
     public function div_federation() {
         $retval = $this->emptyImage('fed_logo', 'Federation Logo');
         return $retval;
@@ -229,7 +232,7 @@ class Divs {
             }
             $retval .= "</tbody>";
         }
-        
+
         $retval .= "    
         </table>
     </div>
@@ -284,9 +287,9 @@ class Divs {
                 $this->Gui->CAT_COPYRIGHT
                 . "
             </td>";
-            
+
         if (!empty(CONFIG['APPEARANCE']['privacy_notice_url'])) {
-            $retval .= "<td><a href='".CONFIG['APPEARANCE']['privacy_notice_url']."'>" . sprintf(_("%s Privacy Notice"),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</a></td>";
+            $retval .= "<td><a href='" . CONFIG['APPEARANCE']['privacy_notice_url'] . "'>" . sprintf(_("%s Privacy Notice"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</a></td>";
         }
         $retval .= "<td>";
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {

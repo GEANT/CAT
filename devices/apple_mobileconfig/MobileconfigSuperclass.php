@@ -307,12 +307,16 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
         // no because ConsortiumOI is enough.
         // but which release is OS X doing? And what should we fill in, given
         // that we have thousands of realms? Try just eduroam.org
-        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam") {
+        // 
+        // tests from Hideaki suggest it's better not to set it; if Roaming
+        // consortium OI and NAIRealmNames are both set, connecting to a hotspot
+        // with just RCOI does not work
+        /* if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam") {
             $retval .= "<key>NAIRealmNames</key>
                 <array>
                     <string>eduroam.org</string>
                 </array>";
-        }
+        }*/
         return $retval;
     }
 

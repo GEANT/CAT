@@ -4,7 +4,7 @@
 #
 # Translators:
 # Maja Górecka-Wolniewicz <mgw@umk.pl>, 2011-2013
-# Maja Wolniewicz <maja.wolniewicz@gmail.com>, 2018
+# Maja Wolniewicz <maja.wolniewicz@gmail.com>, 2018-2019
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2016-2019
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2013,2015
 # Tomasz Wolniewicz <tw2529@gmail.com>, 2012
@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-04 15:19+0100\n"
-"PO-Revision-Date: 2019-01-03 10:17+0000\n"
-"Last-Translator: Tomasz Wolniewicz <tw2529@gmail.com>\n"
+"POT-Creation-Date: 2019-04-05 11:11+0200\n"
+"PO-Revision-Date: 2019-04-04 09:44+0000\n"
+"Last-Translator: Maja Wolniewicz <maja.wolniewicz@gmail.com>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/eduroam_devel/cat/"
 "language/pl_PL/)\n"
 "Language: pl_PL\n"
@@ -380,12 +380,30 @@ msgstr "Mam pytanie dotyczące tego serwisu. Z kim mogę się skontaktować."
 msgid "You should send a mail to %s."
 msgstr "Wyślij maila do %s."
 
-#: web/user/faq.inc.php:71 web/user/faq.php:46
+#: web/user/faq.inc.php:73 web/user/faq.php:46
 #, php-format
 msgid "What is this %s thing anyway?"
 msgstr "Czym jest %s?"
 
-#: web/user/faq.inc.php:72 web/user/faq.php:47
+#: web/user/faq.inc.php:74
+#, php-format
+msgid ""
+"%s is a global WiFi roaming consortium which gives members of education and "
+"research access to the internet <i>for free</i> on all %s hotspots on the "
+"planet. There are several million %s users already, enjoying free internet "
+"access on more than %d hotspots! Visit <a href='http://www.eduroam.org'>the "
+"%s homepage</a> or <a href='http://monitor.eduroam.org/map_service_loc."
+"php'>the %s location map</a> for more details."
+msgstr ""
+"%sto ogólnoświatowe porozumienie, dzięki któremu osoby związane z "
+"instytucjami akademickimi i naukowymi mogą korzystać <i>za darmo</i>ze "
+"wszystkich hotspotów %s na świecie. Obecnie %s ma  kilka milionów "
+"użytkowników korzystających z ponad %d hotspotów! Aby dowiedzieć się więcej, "
+"zajrzyj <a href='http://www.eduroam.org'>na stronę %s </a>lub <a "
+"href='http://monitor.eduroam.org/map_service_loc.php'>mapę lokalizacji %s</"
+"a>."
+
+#: web/user/faq.php:47
 #, php-format
 msgid ""
 "%s is a global WiFi roaming consortium which gives members of education and "
@@ -445,7 +463,7 @@ msgstr ""
 "(z powodów prawnych Zasady użytkowania są przygotowane wyłącznie w języku "
 "angielskim)"
 
-#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:88
+#: web/4013.php:44 web/404.php:43 web/lib/user/TextTemplates.php:90
 #, php-format
 msgid "Welcome to %s"
 msgstr "Witamy w %s"
@@ -503,17 +521,17 @@ msgstr ""
 "Pomyłka, po Twojej stronie? A być może nasz błąd; trudno powiedzieć! Być "
 "może powinieneś przejść na <a href='%s'>stronę startową</a>."
 
-#: web/tou.php:70 web/skins/modern/Divs.php:288
+#: web/tou.php:70 web/skins/modern/Divs.php:292
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "Polityka prywatności %s"
 
-#: web/lib/user/TextTemplates.php:81
+#: web/lib/user/TextTemplates.php:83
 #, php-format
 msgid "Welcome aboard the %s user community!"
 msgstr "Witamy zagranicą użytkowniku %s!"
 
-#: web/lib/user/TextTemplates.php:82
+#: web/lib/user/TextTemplates.php:84
 msgid ""
 "Your download will start shortly. In case of problems with the automatic "
 "download please use this direct <a href=''>link</a>."
@@ -521,12 +539,12 @@ msgstr ""
 "Pobieranie za chwilę się rozpocznie. Gdyby tak się nie stało użyj tego "
 "bezpośredniego  <a href=''>linku</a>."
 
-#: web/lib/user/TextTemplates.php:83 web/skins/modern/div_user_welcome.php:30
+#: web/lib/user/TextTemplates.php:85 web/skins/modern/div_user_welcome.php:30
 #, php-format
 msgid "Dear user from %s,"
 msgstr "Drogi użytkowniku z instytucji %s,"
 
-#: web/lib/user/TextTemplates.php:84
+#: web/lib/user/TextTemplates.php:86
 #, php-format
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
@@ -539,7 +557,7 @@ msgstr ""
 "uwierzytelnienia (tak określamy parę danych 'identyfikator użytkownika i "
 "hasło' lub 'certyfikat osobisty')  i będziesz podłączony!"
 
-#: web/lib/user/TextTemplates.php:85 web/skins/modern/div_user_welcome.php:38
+#: web/lib/user/TextTemplates.php:87 web/skins/modern/div_user_welcome.php:38
 #, php-format
 msgid ""
 "Should you have any problems using this service, please always contact the "
@@ -551,11 +569,11 @@ msgstr ""
 "Możesz się skontaktować ze swoim helpdeskiem za pomocą wskazanych powyżej "
 "metod."
 
-#: web/lib/user/TextTemplates.php:86 web/skins/modern/div_user_welcome.php:41
+#: web/lib/user/TextTemplates.php:88 web/skins/modern/div_user_welcome.php:41
 msgid "Back to downloads"
 msgstr "Powrót do listy urządzeń"
 
-#: web/lib/user/TextTemplates.php:87
+#: web/lib/user/TextTemplates.php:89
 #, php-format
 msgid ""
 "we would like to warmly welcome you among the several million users of %s! "
@@ -568,47 +586,56 @@ msgstr ""
 "centrów badawczych i innych miejsc na świecie. A wszystko to uzyskujesz bez "
 "żadnych opłat!"
 
-#: web/lib/user/TextTemplates.php:89
+#: web/lib/user/TextTemplates.php:91
 #, php-format
 msgid "Connect your device to %s"
 msgstr "Podłącz urządzenie do %s"
 
-#: web/lib/user/TextTemplates.php:90
+#: web/lib/user/TextTemplates.php:92
 #, php-format
 msgid "%s installation made easy:"
 msgstr "Prosta instalacja %s:"
 
-#: web/lib/user/TextTemplates.php:91
+#: web/lib/user/TextTemplates.php:93
 msgid "Custom built for your organisation"
 msgstr "Przygotowane specjalnie dla Twojej instytucji"
 
-#: web/lib/user/TextTemplates.php:92
+#: web/lib/user/TextTemplates.php:94
 #, php-format
 msgid "Click here to download your %s installer"
 msgstr "Kliknij, by pobrać instalator %s"
 
-#: web/lib/user/TextTemplates.php:93
+#: web/lib/user/TextTemplates.php:95
+#, php-format
+msgid ""
+"%s provides access to thousands of Wi-Fi hotspots around the world, free of "
+"charge. <a href='%s'>Learn more</a>"
+msgstr ""
+"%s daje bezpłatny dostęp do tysięcy hotspotów Wi-Fi na świecie. <a "
+"href='%s'>Dowiedz się więcej</a>"
+
+#: web/lib/user/TextTemplates.php:96
 msgid "Select the user group"
 msgstr "Wybierz grupę użytkowników"
 
-#: web/lib/user/TextTemplates.php:94
+#: web/lib/user/TextTemplates.php:97
 msgid "select another"
 msgstr "wybierz inną"
 
-#: web/lib/user/TextTemplates.php:95
+#: web/lib/user/TextTemplates.php:98
 msgid "Choose another installer to download"
 msgstr "Wybierz inny instalator do pobrania"
 
-#: web/lib/user/TextTemplates.php:96
+#: web/lib/user/TextTemplates.php:99
 msgid "All platforms"
 msgstr "Wszystkie urządzenia"
 
-#: web/lib/user/TextTemplates.php:97
+#: web/lib/user/TextTemplates.php:100
 #, php-format
 msgid "Download your %s installer"
 msgstr "Pobierz instalator %s"
 
-#: web/lib/user/TextTemplates.php:98
+#: web/lib/user/TextTemplates.php:101
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
 "<br>When you click <b>Continue</b> this support page will be opened in a new "
@@ -618,19 +645,19 @@ msgstr ""
 "lokalnej strony wsparcia. <br>Kiedy klikniesz <b>Dalej </b> ta strona "
 "otworzy się w nowym oknie/karcie."
 
-#: web/lib/user/TextTemplates.php:99
+#: web/lib/user/TextTemplates.php:102
 #: web/skins/modern/accountstatus/accountstatus.php:226
 #: web/skins/modern/user/js/cat_js.php:278
 #: web/skins/modern/user/js/cat_js.php:286
 msgid "Continue"
 msgstr "Dalej"
 
-#: web/lib/user/TextTemplates.php:100
+#: web/lib/user/TextTemplates.php:103
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s"
 msgstr "Podpisane cyfrowo przez instytucję zarządzającą  %s"
 
-#: web/lib/user/TextTemplates.php:101
+#: web/lib/user/TextTemplates.php:104
 #, php-format
 msgid ""
 "You can download your %s installer via a personalised invitation link sent "
@@ -640,7 +667,7 @@ msgstr ""
 "przez Twój dział wsparcia. Skontaktuj się z działem wsparcia i poproś o taki "
 "link."
 
-#: web/lib/user/TextTemplates.php:102
+#: web/lib/user/TextTemplates.php:105
 #, php-format
 msgid ""
 "This site provides %s installers for many organisations, click here to see "
@@ -649,11 +676,11 @@ msgstr ""
 "System udostępnia instalatory  %s dla wielu instytucji, kliknij tutaj, by "
 "sprawdzić, czy Twoja instytucja jest na liście."
 
-#: web/lib/user/TextTemplates.php:103
+#: web/lib/user/TextTemplates.php:106
 msgid "Custom built for you"
 msgstr "Przygotowane specjalnie dla Ciebie"
 
-#: web/lib/user/TextTemplates.php:105
+#: web/lib/user/TextTemplates.php:108
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Podpisane cyfrowo przez instytucję zarządzającą %s: %s"

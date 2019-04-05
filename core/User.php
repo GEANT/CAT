@@ -197,6 +197,7 @@ class User extends EntityWithDBProperties {
      * @return boolean|array the list of auth source IdPs we found for the mail, or FALSE if none found or invalid input
      */
     public static function findLoginIdPByEmail($mail, $lang) {
+        $loggerInstance = new common\Logging();
         $listOfProviders = [];
         $matchedProviders = [];
         $skipCurl = 0;
@@ -228,7 +229,7 @@ class User extends EntityWithDBProperties {
                     $moreMatches = [];
                     $exactIdP = preg_match("/.*!(.*)$/", $matches[2], $moreMatches);
                     if ($exactIdP === 0 || $exactIdP === FALSE) {
-                        return FALSE;
+                        break;
                     }
                     $idp = $moreMatches[1];
                     if (!in_array($idp, $matchedProviders)) {
@@ -237,10 +238,14 @@ class User extends EntityWithDBProperties {
                         if ($skipCurl == 0) {
                             $url = CONFIG_DIAGNOSTICS['eduGainResolver']['url'] . "?action=get_entity_name&type=idp&e_id=$idp&lang=$lang";
                             $ch = curl_init($url);
+                            if ($ch === FALSE) {
+                                $loggerInstance->debug(2, "Unable ask eduGAIN about IdP - CURL init failed!");
+                                break;
+                            }
                             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                             curl_setopt($ch, CURLOPT_TIMEOUT, CONFIG_DIAGNOSTICS['eduGainResolver']['timeout']);
                             $response = curl_exec($ch);
-                            if ($response == FALSE) {
+                            if (is_bool($response)) { // catch both FALSE and TRUE because we use CURLOPT_RETURNTRANSFER
                                 $skipCurl = 1;
                             } else {
                                 $name = json_decode($response);
