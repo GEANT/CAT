@@ -366,6 +366,50 @@ switch ($inputDecoded['ACTION']) {
         }
         $adminApi->returnSuccess($additionalInfo);
         break;
+    case \web\lib\admin\API::ACTION_ENDUSER_IDENTIFY:
+        $profile_id = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID);
+        if ($profile_id === FALSE) {
+            exit(1);
+        }
+        $evaluation = commonSbProfileChecks($fed, $profile_id);
+        if ($evaluation === FALSE) {
+            exit(1);
+        }
+        list($idp, $profile) = $evaluation;
+        $userId = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_USERID);
+        $userName = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_USERNAME);
+        $certSerial = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_CERTSERIAL);
+        if ($userId === FALSE && $userName === FALSE && $certSerial === FALSE) {
+            // we need at least one of those
+            $adminApi->returnError(\web\lib\admin\API::ERROR_MISSING_PARAMETER, "At least one of User ID, Username, or certificate serial is required.");
+        }
+        $userlist = $profile->listAllUsers();
+        if ($userName === FALSE && $certSerial === FALSE) { // we got a user ID
+            if (!isset($userlist[$userId])) {
+                return $adminApi->returnError(\web\lib\admin\API::ERROR_INVALID_PARAMETER, "This user ID does not exist in this profile.");
+            }
+            $adminApi->returnSuccess([$userId => $userlist[$userId]]);
+        }
+        if ($userId === FALSE && $certSerial === FALSE) { // we got a username
+            $key = array_search($userName, $userlist);
+            if ($key === FALSE) {
+                return $adminApi->returnError(\web\lib\admin\API::ERROR_INVALID_PARAMETER, "This username does not exist in this profile.");
+            }
+            $adminApi->returnSuccess([$key => $userlist[$key]]);
+        }
+        if ($userId === FALSE && $userName === FALSE) { // we got a cert serial
+            $serial = explode(":", $certSerial);
+            $cert = new \core\SilverbulletCertificate($serial[1], $serial[0]);
+            if ($cert->status == \core\SilverbulletCertificate::CERTSTATUS_INVALID) {
+                $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Serial not found.");
+            }
+            if ($cert->profileId != $profile->identifier) {
+                $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Serial does not belong to this profile.");
+            }
+            $adminApi->returnSuccess([$cert->userId => $userlist[$cert->userId]]);
+        }
+        $adminApi->returnError(\web\lib\admin\API::ERROR_INVALID_PARAMETER, "Only exactly one of User ID, username or cert serial can be specified.");
+        break;
     case \web\lib\admin\API::ACTION_ENDUSER_LIST:
     // fall-through: those two are similar
     case \web\lib\admin\API::ACTION_TOKEN_LIST:

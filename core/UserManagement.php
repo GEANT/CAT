@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -151,31 +152,22 @@ class UserManagement extends \core\common\Entity {
             }
             // create new IdP
             $fed = new Federation($invitationDetails->country);
-            $idp = new IdP($fed->newIdP($invitationDetails->invite_fortype, $owner, $invitationDetails->invite_issuer_level, $invitationDetails->invite_dest_mail));
-
+            // find the best name for the entity: C if specified, otherwise English, otherwise whatever
             if ($invitationDetails->external_db_uniquehandle != NULL) {
-                $idp->setExternalDBId($invitationDetails->external_db_uniquehandle);
+                // see if we had a C language, and if not, pick a good candidate 
                 $cat = new CAT();
                 $externalinfo = $cat->getExternalDBEntityDetails($invitationDetails->external_db_uniquehandle);
+                $bestnameguess = $externalinfo['names']['C'] ?? $externalinfo['names']['en'] ?? reset($externalinfo['names']);
+                $idp = new IdP($fed->newIdP($invitationDetails->invite_fortype, $owner, $invitationDetails->invite_issuer_level, $invitationDetails->invite_dest_mail, $bestnameguess));
                 foreach ($externalinfo['names'] as $instlang => $instname) {
                     $idp->addAttribute("general:instname", $instlang, $instname);
                 }
-                // see if we had a C language, and if not, pick a good candidate
-                if (!array_key_exists('C', $externalinfo['names'])) {
-                    if (array_key_exists('en', $externalinfo['names'])) { // English is a good candidate
-                        $idp->addAttribute("general:instname", 'C', $externalinfo['names']['en']);
-                        $bestnameguess = $externalinfo['names']['en'];
-                    } else { // no idea, let's take the first language we found
-                        $idp->addAttribute("general:instname", 'C', reset($externalinfo['names']));
-                        $bestnameguess = reset($externalinfo['names']);
-                    }
-                } else {
-                    $bestnameguess = $externalinfo['names']['C'];
-                }
+                $idp->setExternalDBId($invitationDetails->external_db_uniquehandle);
             } else {
-                $idp->addAttribute("general:instname", 'C', $invitationDetails->name);
                 $bestnameguess = $invitationDetails->name;
+                $idp = new IdP($fed->newIdP($invitationDetails->invite_fortype, $owner, $invitationDetails->invite_issuer_level, $invitationDetails->invite_dest_mail, $bestnameguess));
             }
+            $idp->addAttribute("general:instname", 'C', $bestnameguess);
             $this->loggerInstance->writeAudit($owner, "NEW", "IdP " . $idp->identifier . " - created from invitation");
 
             // in case we have more admins in the queue which were invited to 
@@ -184,7 +176,7 @@ class UserManagement extends \core\common\Entity {
             // newly created actual IdP rather than the placeholder entry in the
             // invitations table
             // which other pending invites do we have?
-            
+
             $otherPending = $this->databaseHandle->exec("SELECT id
                              FROM invitations 
                              WHERE invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0 AND name = ? AND country = ? AND ( cat_institution_id IS NULL OR external_db_uniquehandle IS NULL ) ", "ss", $invitationDetails->name, $invitationDetails->country);
@@ -192,34 +184,7 @@ class UserManagement extends \core\common\Entity {
             while ($pendingDetail = mysqli_fetch_object(/** @scrutinizer ignore-type */ $otherPending)) {
                 $this->databaseHandle->exec("UPDATE invitations SET cat_institution_id = " . $idp->identifier . " WHERE id = " . $pendingDetail->id);
             }
-
-            $admins = $fed->listFederationAdmins();
-
-            // notify the fed admins...
-
-            foreach ($admins as $id) {
-                $user = new User($id);
-                /// arguments are: 1. nomenclature for "participant"
-                //                 2. IdP name; 
-                ///                3. consortium name (e.g. eduroam); 
-                ///                4. federation shortname, e.g. "LU"; 
-                ///                5. nomenclature for "participant"
-                ///                6. product name (e.g. eduroam CAT); 
-                ///                7. product long name (e.g. eduroam Configuration Assistant Tool)
-                $message = sprintf(_("Hi,
-
-the invitation for the new %s %s in your %s federation %s has been used and the %s was created in %s.
-
-We thought you might want to know.
-
-Best regards,
-
-%s"), common\Entity::$nomenclature_participant, $bestnameguess, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], strtoupper($fed->tld), common\Entity::$nomenclature_participant, CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname_long']);
-                $retval = $user->sendMailToUser(sprintf(_("%s in your federation was created"), common\Entity::$nomenclature_participant), $message);
-                if ($retval === FALSE) {
-                    $this->loggerInstance->debug(2, "Mail to federation admin was NOT sent!\n");
-                }
-            }
+        
             common\Entity::outOfThePotatoes();
             return $idp;
         }
@@ -287,6 +252,7 @@ Best regards,
                 $tokenList[$token] = $oneDest;
             } else if (func_num_args() == 4) { // string name, but no country - new IdP with link to external DB
                 // what country are we talking about?
+                // TODO: find out participant type!
                 $cat = new CAT();
                 $extinfo = $cat->getExternalDBEntityDetails($externalId);
                 $extCountry = $extinfo['country'];

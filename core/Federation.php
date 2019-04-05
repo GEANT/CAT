@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -191,19 +192,19 @@ class Federation extends EntityWithDBProperties {
             "level" => "FED",
             "row" => 0,
             "flag" => NULL);
-        
+
         if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != 'LOCAL' && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == 'LOCAL') {
             // this instance exclusively does SB, so it is not necessary to ask
             // fed ops whether they want to enable it or not. So always add it
             // to the list of fed attributes
             $this->attributes[] = array("name" => "fed:silverbullet",
-            "lang" => NULL,
-            "value" => "on",
-            "level" => "FED",
-            "row" => 0,
-            "flag" => NULL);
+                "lang" => NULL,
+                "value" => "on",
+                "level" => "FED",
+                "row" => 0,
+                "flag" => NULL);
         }
-        
+
         $this->idpListActive = [];
         $this->idpListAll = [];
     }
@@ -211,14 +212,15 @@ class Federation extends EntityWithDBProperties {
     /**
      * Creates a new IdP inside the federation.
      * 
-     * @param string $type    type of institution - IdP, SP or IdPSP
-     * @param string $ownerId Persistent identifier of the user for whom this IdP is created (first administrator)
-     * @param string $level   Privilege level of the first administrator (was he blessed by a federation admin or a peer?)
-     * @param string $mail    e-mail address with which the user was invited to administer (useful for later user identification if the user chooses a "funny" real name)
+     * @param string $type          type of institution - IdP, SP or IdPSP
+     * @param string $ownerId       Persistent identifier of the user for whom this IdP is created (first administrator)
+     * @param string $level         Privilege level of the first administrator (was he blessed by a federation admin or a peer?)
+     * @param string $mail          e-mail address with which the user was invited to administer (useful for later user identification if the user chooses a "funny" real name)
+     * @param string $bestnameguess name of the IdP, if already known, in the best-match language
      * @return int identifier of the new IdP
      */
-    public function newIdP($type, $ownerId, $level, $mail = NULL) {
-        $this->databaseHandle->exec("INSERT INTO institution (country, type) VALUES('$this->tld', '$type')");
+    public function newIdP($type, $ownerId, $level, $mail = NULL, $bestnameguess = NULL) {
+        $this->databaseHandle->exec("INSERT INTO institution (country) VALUES('$this->tld', '$type')");
         $identifier = $this->databaseHandle->lastID();
 
         if ($identifier == 0 || !$this->loggerInstance->writeAudit($ownerId, "NEW", "IdP $identifier")) {
@@ -233,12 +235,42 @@ class Federation extends EntityWithDBProperties {
             }
             $this->databaseHandle->exec("INSERT INTO ownership (user_id,institution_id, blesslevel, orig_mail) VALUES(?,?,?,?)", "siss", $ownerId, $identifier, $level, $mail);
         }
+        if ($bestnameguess === NULL) {
+            $bestnameguess = "(no name yet, identifier $identifier)";
+        }
+        $admins = $this->listFederationAdmins();
+
+        // notify the fed admins...
+
+        foreach ($admins as $id) {
+            $user = new User($id);
+            /// arguments are: 1. nomenclature for "institution"
+            //                 2. IdP name; 
+            ///                3. consortium name (e.g. eduroam); 
+            ///                4. federation shortname, e.g. "LU"; 
+            ///                5. product name (e.g. eduroam CAT); 
+            ///                6. product long name (e.g. eduroam Configuration Assistant Tool)
+            $message = sprintf(_("Hi,
+
+the invitation for the new %s %s in your %s federation %s has been used and the IdP was created in %s.
+
+We thought you might want to know.
+
+Best regards,
+
+%s"), common\Entity::$nomenclature_inst, $bestnameguess, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], strtoupper($this->tld), CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname_long']);
+            $retval = $user->sendMailToUser(sprintf(_("%s in your federation was created"), common\Entity::$nomenclature_inst), $message);
+            if ($retval === FALSE) {
+                $this->loggerInstance->debug(2, "Mail to federation admin was NOT sent!\n");
+            }
+        }
+
         return $identifier;
     }
 
     private $idpListAll;
     private $idpListActive;
-    
+
     /**
      * Lists all Identity Providers in this federation
      *
