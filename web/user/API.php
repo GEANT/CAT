@@ -91,10 +91,10 @@ $id = $idR ? $idR : FALSE;
 
 switch ($action) {
     case 'listLanguages':
-        $API->JSON_listLanguages();
+        $API->jsonListLanguages();
         break;
     case 'listCountries':
-        $API->JSON_listCountries();
+        $API->jsonListCountries();
         break;
     case 'listIdentityProviders':
         if ($federation === FALSE) {
@@ -103,10 +103,10 @@ switch ($action) {
         if ($federation === FALSE) { // federation is a mandatory parameter!
             exit;
         }
-        $API->JSON_listIdentityProviders($federation);
+        $API->jsonListIdentityProviders($federation);
         break;
     case 'listAllIdentityProviders':
-        $API->JSON_listIdentityProvidersForDisco();
+        $API->jsonListIdentityProvidersForDisco();
         break;
     case 'listProfiles': // needs $idp set - abort if not
         if ($idp === FALSE) {
@@ -115,7 +115,7 @@ switch ($action) {
         if ($idp === FALSE) {
             exit;
         }
-        $API->JSON_listProfiles($idp, $sort);
+        $API->jsonListProfiles($idp, $sort);
         break;
     case 'listDevices':
         if ($profile === FALSE) {
@@ -124,7 +124,7 @@ switch ($action) {
         if ($profile === FALSE) {
             exit;
         }
-        $API->JSON_listDevices($profile);
+        $API->jsonListDevices($profile);
         break;
     case 'generateInstaller': // needs $device and $profile set
         if ($device === FALSE) {
@@ -133,7 +133,7 @@ switch ($action) {
         if ($device === FALSE || $profile === FALSE) {
             exit;
         }
-        $API->JSON_generateInstaller($device, $profile);
+        $API->jsonGenerateInstaller($device, $profile);
         break;
     case 'downloadInstaller': // needs $device and $profile set optional $generatedfor
         if ($device === FALSE) {
@@ -151,7 +151,7 @@ switch ($action) {
         if ($profile === FALSE) {
             exit;
         }
-        $API->JSON_profileAttributes($profile);
+        $API->jsonProfileAttributes($profile);
         break;
     case 'sendLogo': // needs $idp and $disco set
         if ($idp === FALSE) {
@@ -186,10 +186,10 @@ switch ($action) {
         $API->deviceInfo($device, $profile);
         break;
     case 'locateUser':
-        $API->JSON_locateUser();
+        $API->jsonLocateUser();
         break;
     case 'detectOS':
-        $API->JSON_detectOS();
+        $API->jsonDetectOS();
         break;
     case 'orderIdentityProviders':
         $coordinateArray = NULL;
@@ -200,10 +200,10 @@ switch ($action) {
         if ($federation === FALSE) { // is this parameter mandatory? The entire API call is not mentioned in UserAPI.md documentation currently
             $federation = "";
         }
-        $API->JSON_orderIdentityProviders($federation, $coordinateArray);
+        $API->jsonOrderIdentityProviders($federation, $coordinateArray);
         break;
     case 'getUserCerts':
-        $API->JSON_getUserCerts($token);
+        $API->jsonGetUserCerts($token);
         break;
 }
 
