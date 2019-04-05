@@ -43,7 +43,7 @@ class Divs {
         $this->Gui = $Gui;
     }
 
-    public function div_heading($visibility = 'all') {
+    public function divHeading($visibility = 'all') {
         $selectedLang = $this->Gui->langObject->getLang();
         $menu = new Menu($visibility, $selectedLang);
         $retval = "<div id='heading'>";
@@ -69,7 +69,7 @@ class Divs {
         return $retval;
     }
 
-    public function div_user_welcome() {
+    public function divUserWelcome() {
         $retval = "
 <div id='user_welcome'> <!-- this information is shown just before the download -->
     <strong>" . $this->Gui->textTemplates->templates[user\WELCOME_ABOARD_PAGEHEADING] . "</strong>
@@ -99,7 +99,7 @@ class Divs {
         return $retval;
     }
 
-    public function div_silverbullet() {
+    public function divSilverbullet() {
         $retval = "
 <div id='silverbullet'>"
                 . $this->Gui->textTemplates->templates[user\SB_GO_AWAY] .
@@ -108,7 +108,7 @@ class Divs {
         return $retval;
     }
 
-    public function div_top_welcome() {
+    public function divTopWelcome() {
         $retval = '';
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $retval = "<br><div id='top_invite_ad'>".$this->Gui->textTemplates->templates[user\FRONTPAGE_EDUROAM_AD]."</div>";
@@ -122,7 +122,7 @@ class Divs {
 </div>";
     }
 
-    public function div_roller() {
+    public function divRoller() {
         $retval = "
 <div id='roller'>
     <div id='slides'>
@@ -155,7 +155,7 @@ class Divs {
         return $retval;
     }
 
-    public function div_main_button() {
+    public function divMainButton() {
         $retval = "<div id='user_button_td'>";
         $retval .= "<span id='signin'>
      <button class='large_button signin signin_large' id='user_button1'>
@@ -175,7 +175,7 @@ class Divs {
         return $retval;
     }
 
-    public function div_profiles() {
+    public function divProfiles() {
         return "
 <div id='profiles'> <!-- this is the profile selection filled during run time -->
     <div id='profiles_h' class='sub_h'>" . $this->Gui->textTemplates->templates[user\PROFILE_SELECTION] . "
@@ -184,14 +184,14 @@ class Divs {
                 "</div>";
     }
 
-    public function div_pagetitle($mainText, $extraText = '') {
+    public function divPagetitle($mainText, $extraText = '') {
         return "
 <div id='institution_name'>
     <span id='inst_name_span'>$mainText</span> <div id='inst_extra_text'>$extraText</div> 
 </div>";
     }
 
-    public function div_institution($selectButton = TRUE) {
+    public function divInstitution($selectButton = TRUE) {
         $retval = "<div id='institution_name'>
     <span id='inst_name_span'></span> <div id='inst_extra_text'></div><!-- this will be filled with the IdP name -->" .
                 ($selectButton ? "<a  id='select_another' class='signin' href=\"\">" . $this->Gui->textTemplates->templates[user\INSTITUTION_SELECTION] . "</a>" : "") .
@@ -200,12 +200,12 @@ class Divs {
         return $retval;
     }
 
-    public function div_federation() {
+    public function divFederation() {
         $retval = $this->emptyImage('fed_logo', 'Federation Logo');
         return $retval;
     }
 
-    public function div_otherinstallers() {
+    public function divOtherinstallers() {
         $retval = "
 <div class='sub_h'>
     <div id='other_installers'>" . $this->Gui->textTemplates->templates[user\DOWNLOAD_CHOOSE] . "
@@ -240,7 +240,7 @@ class Divs {
         return $retval;
     }
 
-    public function div_guess_os($operatingSystem) {
+    public function divGuessOs($operatingSystem) {
         $vendorlogo = $this->Gui->skinObject->findResourceUrl("IMAGES", "vendorlogo/" . $operatingSystem['group'] . ".png");
         $vendorstyle = "";
         if ($vendorlogo !== FALSE) {
@@ -278,7 +278,7 @@ class Divs {
 </div> <!-- id='guess_os' -->";
     }
 
-    public function div_footer() {
+    public function divFooter() {
         $retval = "
 <div class='footer' id='footer'>
     <table>

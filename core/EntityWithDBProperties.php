@@ -248,7 +248,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * Retrieves data from the underlying tables, for situations where instantiating the IdP or Profile object is inappropriate
      * 
      * @param string $table institution_option or profile_option
-     * @param int $row   rowindex
+     * @param int    $row   rowindex
      * @return string|boolean the data, or FALSE if something went wrong
      */
     public static function fetchRawDataByIndex($table, $row) {

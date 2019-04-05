@@ -59,7 +59,7 @@ require dirname(__DIR__) . '/user/js/cat_js.php';
     <div id="wrap">
         <form id="cat_form" name="cat_form" method="POST"  accept-charset="UTF-8" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
             <div id="main_page">
-            <?php echo $divs->div_heading($visibility); ?>
+            <?php echo $divs->divHeading($visibility); ?>
             <div id="info_overlay"> <!-- device info -->
                 <div id="info_window"></div>
                 <img id="info_menu_close" class="close_button" src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES", "icons/button_cancel.png") ?>" ALT="Close"/>
@@ -70,7 +70,7 @@ require dirname(__DIR__) . '/user/js/cat_js.php';
             </div>
             <div id="main_body">
                 <div id="user_page">
-                    <?php echo $divs->div_institution(FALSE); ?>
+                    <?php echo $divs->divInstitution(FALSE); ?>
                     <div id="user_info"></div> <!-- this will be filled with the profile contact information -->
                     <div id="sb_info">
                         <?php
@@ -174,7 +174,7 @@ require dirname(__DIR__) . '/user/js/cat_js.php';
             </div>
         </form>
         <div id="vertical_fill">&nbsp;</div>
-        <?php echo $divs->div_footer(); ?>
+        <?php echo $divs->divFooter(); ?>
     </div>
     <?php
     if (isset($statusInfo['profile_id']) && isset($statusInfo['idp_id'])) {
