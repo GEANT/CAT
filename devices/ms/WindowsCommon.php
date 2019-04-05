@@ -105,7 +105,7 @@ abstract class WindowsCommon extends \core\DeviceConfig {
      * @param string $in input string
      * @return string
      */
-    public static function echo_nsi($in) {
+    public static function echoNsis($in) {
         echo preg_replace('/"/', '$\"', $in);
     }
 
@@ -113,7 +113,7 @@ abstract class WindowsCommon extends \core\DeviceConfig {
      * @param string $input input string
      * @return string
      */
-    public static function sprint_nsi($input) {
+    public static function sprintNsis($input) {
         return preg_replace('/"/', '$\"', $input);
     }
 
@@ -332,8 +332,8 @@ abstract class WindowsCommon extends \core\DeviceConfig {
 ';
         }
         $fcontents .=  '
-Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s installer for %s")), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $attr['general:instname'][0]), $this->codePage) . '"
-!define APPLICATION "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s installer for %s")), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $attr['general:instname'][0]), $this->codePage) . '"
+Caption "' . $this->translateString(sprintf(WindowsCommon::sprintNsis(_("%s installer for %s")), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $attr['general:instname'][0]), $this->codePage) . '"
+!define APPLICATION "' . $this->translateString(sprintf(WindowsCommon::sprintNsis(_("%s installer for %s")), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $attr['general:instname'][0]), $this->codePage) . '"
 !define VERSION "' . \core\CAT::VERSION_MAJOR . '.' . \core\CAT::VERSION_MINOR . '"
 !define INSTALLER_NAME "installer.exe"
 !define LANG "' . $this->lang . '"

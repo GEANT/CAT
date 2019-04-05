@@ -92,7 +92,7 @@ Function InstallGEANTLink
   nsArray::Set Delete_files "GEANTLink-ARM64.msi"
   File "GEANTLink-ARM64.msi"
   IfSilent +2
-  MessageBox MB_OK  "<?php WindowsCommon::echo_nsi( _("An additional piece of software 'GEANTlink' needs to be installed. This installation requires Administrator rights; you will be prompted to give permission for that action."))?>"
+  MessageBox MB_OK  "<?php WindowsCommon::echoNsis( _("An additional piece of software 'GEANTlink' needs to be installed. This installation requires Administrator rights; you will be prompted to give permission for that action."))?>"
   !insertmacro debug_cat 1 "Run GEANTLink installer"
   !insertmacro debug_cat 3 'Execute: msiexec.exe /i "$OUTDIR\GEANTLink-$Platform.msi" REBOOT=Supress'
   ClearErrors
@@ -104,7 +104,7 @@ Function InstallGEANTLink
   Pop $rebootRequired
   ${Else}
   IfSilent +2
-  MessageBox MB_OK "<?php WindowsCommon::echo_nsi( _("Error installing GEANTLink.\$\\nEmbedded installer didn't complete succesfully."))?>"
+  MessageBox MB_OK "<?php WindowsCommon::echoNsis( _("Error installing GEANTLink.\$\\nEmbedded installer didn't complete succesfully."))?>"
   Quit
   ${EndIf}
   Cont2:
@@ -114,7 +114,7 @@ FunctionEnd
 
 ; Install credentials
 Function InstallGEANTLinkCred
-  DetailPrint "<?php WindowsCommon::echo_nsi(_("installing credentials for \${PROVIDERID}"))?>"
+  DetailPrint "<?php WindowsCommon::echoNsis(_("installing credentials for \${PROVIDERID}"))?>"
   !insertmacro debug_cat 3 "Execute: $TEMP\CredWrite.exe $\"$UNAME_B64$\" $\"base_64_password_not_recorded$\" $\"${PROVIDERID}$\" 1"
   nsExec::Exec "$TEMP\CredWrite.exe $\"$UNAME_B64$\" $\"$PASS_B64$\" $\"${PROVIDERID}$\" 1"
   Pop $0
@@ -122,7 +122,7 @@ Function InstallGEANTLinkCred
   StrCmp $0 0 Cont1
 ; Error Label, show error box
   IfSilent +2
-  MessageBox MB_OK|MB_ICONEXCLAMATION "<?php WindowsCommon::echo_nsi(_("Credentials installation problem"))?>"
+  MessageBox MB_OK|MB_ICONEXCLAMATION "<?php WindowsCommon::echoNsis(_("Credentials installation problem"))?>"
   Cont1:
 FunctionEnd
 ;=============================
