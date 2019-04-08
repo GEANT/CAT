@@ -115,9 +115,12 @@ class RFC5997Tests extends AbstractTest {
             throw new Exception("Unable to write packet to socket ($written)!");
         }
         $read = fread($netHandle, 4096);
+        if ($read === FALSE) {
+            return AbstractTest::RETVAL_NO_RESPONSE;
+        }
         if ($read === FALSE || strlen($read) < 20 || $read[0] != RFC5997Tests::PACKET_TYPE_ACCESS_ACCEPT || $read[1] != $packetIdentifier) {
             // we didn't get any useful response. The hotspot is not operational.
-            return FALSE;
+            return AbstractTest::RETVAL_INVALID;
         }
         // check the response authenticator to prevent spoofing.
         $sigResponse = RFC5997Tests::PACKET_TYPE_ACCESS_ACCEPT .
@@ -132,7 +135,7 @@ class RFC5997Tests extends AbstractTest {
         }
         // we don't validate Message-Authenticator, as it is optional in RFC5997
         // and we have checked Response-Authenticaor.
-        return TRUE;
+        return AbstractTest::RETVAL_OK;
     }
 
 }
