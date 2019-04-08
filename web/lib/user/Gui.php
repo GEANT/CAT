@@ -37,8 +37,8 @@ class Gui extends \core\UserAPI {
         $validator = new \web\lib\common\InputValidation();
         parent::__construct();
         if (!empty($_REQUEST['idp'])) { // determine skin to use based on NROs preference
-            $idp = $validator->IdP($_REQUEST['idp']);
-            $fed = $validator->Federation($idp->federation);
+            $idp = $validator->existingIdP($_REQUEST['idp']);
+            $fed = $validator->existingFederation($idp->federation);
             $fedskin = $fed->getAttributes("fed:desired_skin");
         }
         $this->skinObject = new \web\lib\user\Skinjob($_REQUEST['skin'] ?? $_SESSION['skin'] ?? $fedskin[0] ?? CONFIG['APPEARANCE']['skins'][0]);

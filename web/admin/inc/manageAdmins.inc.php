@@ -44,7 +44,7 @@ if (isset($_SERVER['HTTP_REFERER']) && ($_SERVER['HTTP_REFERER'] != "") && preg_
     $dest = "../overview_user.php";
 }
 
-$my_inst = $validator->IdP($_GET['inst_id']);
+$my_inst = $validator->existingIdP($_GET['inst_id']);
 $user = new \core\User($_SESSION['user']);
 $mgmt = new \core\UserManagement();
 

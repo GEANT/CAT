@@ -70,7 +70,7 @@ class UserAPI extends CAT {
     public function generateInstaller($device, $profileId, $generatedFor = "user", $token = NULL, $password = NULL) {
         $this->loggerInstance->debug(4, "installer:$device:$profileId\n");
         $validator = new \web\lib\common\InputValidation();
-        $profile = $validator->Profile($profileId);
+        $profile = $validator->existingProfile($profileId);
         // test if the profile is production-ready and if not if the authenticated user is an owner
         if ($this->verifyDownloadAccess($profile) === FALSE) {
             return;
@@ -225,7 +225,7 @@ class UserAPI extends CAT {
     public function deviceInfo($device, $profileId) {
         $validator = new \web\lib\common\InputValidation();
         $out = 0;
-        $profile = $validator->Profile($profileId);
+        $profile = $validator->existingProfile($profileId);
         $factory = new DeviceFactory($device);
         $dev = $factory->device;
         if (isset($dev)) {
@@ -249,7 +249,7 @@ class UserAPI extends CAT {
      */
     public function profileAttributes($profId) {
         $validator = new \web\lib\common\InputValidation();
-        $profile = $validator->Profile($profId);
+        $profile = $validator->existingProfile($profId);
         $attribs = $profile->getCollapsedAttributes();
         $returnArray = [];
         $returnArray['silverbullet'] = $profile instanceof ProfileSilverbullet ? 1 : 0;
@@ -289,7 +289,7 @@ class UserAPI extends CAT {
             return;
         }
         $validator = new \web\lib\common\InputValidation();
-        $profile = $validator->Profile($prof_id);
+        $profile = $validator->existingProfile($prof_id);
         $profile->incrementDownloadStats($device, $generated_for);
         $file = $this->installerPath;
         $filetype = $output['mime'];
@@ -356,14 +356,14 @@ class UserAPI extends CAT {
         $validator = new \web\lib\common\InputValidation();
         switch ($type) {
             case "federation":
-                $entity = $validator->Federation($identifier);
+                $entity = $validator->existingFederation($identifier);
                 break;
             case "idp":
-                $entity = $validator->IdP($identifier);
+                $entity = $validator->existingIdP($identifier);
                 break;
             case "federation_from_idp":
-                $idp = $validator->IdP($identifier);
-                $entity = $validator->Federation($idp->federation);
+                $idp = $validator->existingIdP($identifier);
+                $entity = $validator->existingFederation($idp->federation);
                 break;
             default:
                 throw new Exception("Unknown type of logo requested!");

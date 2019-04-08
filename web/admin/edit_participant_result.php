@@ -30,7 +30,7 @@ $ui = new \web\lib\admin\UIElements();
 
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_DELETE && isset($_GET['inst_id'])) {
     $auth->authenticate();
-    $my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
+    $my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
     $instId = $my_inst->identifier;
     // delete the IdP and send user to enrollment
     $my_inst->destroy();
@@ -41,7 +41,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\Fo
 
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_FLUSH_AND_RESTART && isset($_GET['inst_id'])) {
     $auth->authenticate();
-    $my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
+    $my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
     $instId = $my_inst->identifier;
     //
     $profiles = $my_inst->listProfiles();
@@ -57,7 +57,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\Fo
 
 
 echo $deco->pageheader(sprintf(_("%s: IdP enrollment wizard (step 2 completed)"), CONFIG['APPEARANCE']['productname']), "ADMIN-PARTICIPANT");
-$my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
+$my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
 
 if ((!isset($_POST['submitbutton'])) || (!isset($_POST['option'])) || (!isset($_POST['value']))) {
     // this page doesn't make sense without POST values
@@ -90,7 +90,7 @@ $loggerInstance->writeAudit($_SESSION['user'], "MOD", "IdP " . $my_inst->identif
 
 // re-instantiate ourselves... profiles need fresh data
 
-$my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
+$my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
 
 // check if we have any SSID at all.
 

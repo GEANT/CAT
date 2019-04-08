@@ -39,7 +39,7 @@ $auth->authenticate();
 $fedPost = $_POST['fed_id'];
 
 
-$my_fed = $validator->Federation($fedPost, $_SESSION['user']);
+$my_fed = $validator->existingFederation($fedPost, $_SESSION['user']);
 $fed_options = $my_fed->getAttributes();
 /// product name (eduroam CAT), then term used for "federation", then actual name of federation.
 echo $deco->defaultPagePrelude(sprintf(_("%s: Editing %s '%s'"), CONFIG['APPEARANCE']['productname'], $uiElements->nomenclatureFed, $my_fed->name));

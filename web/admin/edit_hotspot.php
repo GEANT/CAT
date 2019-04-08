@@ -32,7 +32,7 @@ $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
 // initialize inputs
-$my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
+$my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
 
 if (!isset($_GET['deployment_id'])) {
     $my_inst->newDeployment(\core\AbstractDeployment::DEPLOYMENTTYPE_MANAGED);
@@ -42,7 +42,7 @@ if (!isset($_GET['deployment_id'])) {
 
 // if we have come this far, we are editing an existing deployment
 
-$deployment = $validator->DeploymentManaged($_GET['deployment_id'], $my_inst);
+$deployment = $validator->existingDeploymentManaged($_GET['deployment_id'], $my_inst);
         
 if (isset($_POST['submitbutton'])) {
     if ($_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_DELETE) {

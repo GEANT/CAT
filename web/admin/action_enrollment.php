@@ -92,7 +92,7 @@ if ($checkval < 0) {
 }
 
 // token is valid. Get meta-info and create inst
-$user = $validator->User($_SESSION['user']);
+$user = $validator->syntaxConformUser($_SESSION['user']);
 
 $loggerInstance = new \core\common\Logging();
 

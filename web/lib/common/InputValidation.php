@@ -50,7 +50,7 @@ class InputValidation extends \core\common\Entity {
      * @return \core\Federation
      * @throws Exception
      */
-    public function Federation($input, $owner = NULL) {
+    public function existingFederation($input, $owner = NULL) {
 
         $cat = new \core\CAT(); // initialises Entity static members
         $fedIdentifiers = array_keys($cat->knownFederations);
@@ -82,7 +82,7 @@ class InputValidation extends \core\common\Entity {
      * @return \core\IdP
      * @throws Exception
      */
-    public function IdP($input, $owner = NULL) {
+    public function existingIdP($input, $owner = NULL) {
         $clean = $this->integer($input);
         if ($clean === FALSE) {
             throw new Exception($this->inputValidationError("Value for IdP is not an integer!"));
@@ -111,7 +111,7 @@ class InputValidation extends \core\common\Entity {
      * @return \core\AbstractProfile
      * @throws Exception
      */
-    public function Profile($input, $idpIdentifier = NULL) {
+    public function existingProfile($input, $idpIdentifier = NULL) {
         $clean = $this->integer($input);
         if ($clean === FALSE) {
             throw new Exception("Non-integer was passed to Profile validator!");
@@ -134,7 +134,7 @@ class InputValidation extends \core\common\Entity {
      * @return \core\DeploymentManaged
      * @throws Exception
      */
-    public function DeploymentManaged($input, $idp) {
+    public function existingDeploymentManaged($input, $idp) {
         $clean = $this->integer($input);
         if ($clean === FALSE) {
             throw new Exception("Non-integer was passed to Profile validator!");
@@ -153,7 +153,7 @@ class InputValidation extends \core\common\Entity {
      * @return string returns the same string on success, throws an Exception on failure
      * @throws Exception
      */
-    public function Device($input) {
+    public function existingDevice($input) {
         $devicelist = \devices\Devices::listDevices();
         $keyArray = array_keys($devicelist);
         if (!isset($devicelist[$input])) {
@@ -296,7 +296,7 @@ public function realm($input) {
  * @return string echoes back the input string, or throws an Exception if bogus
  * @throws Exception
  */
-public function User($input) {
+public function syntaxConformUser($input) {
     $retvalStep0 = iconv("UTF-8", "UTF-8//TRANSLIT", $input);
     if ($retvalStep0 === FALSE) {
         throw new Exception("iconv failure for string sanitisation. With TRANSLIT, this should never happen!");

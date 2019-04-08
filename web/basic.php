@@ -31,8 +31,8 @@ require_once dirname(dirname(__FILE__)) . "/config/_config.php";
 $validator = new \web\lib\common\InputValidation();
 
 if (isset($_REQUEST['idp'])) { // determine skin to use based on NROs preference
-    $idp = $validator->IdP($_REQUEST['idp']);
-    $fed = $validator->Federation($idp->federation);
+    $idp = $validator->existingIdP($_REQUEST['idp']);
+    $fed = $validator->existingFederation($idp->federation);
     $fedskin = $fed->getAttributes("fed:desired_skin");
 }
 // ... unless overwritten by direct GET/POST parameter in the request

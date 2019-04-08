@@ -41,7 +41,7 @@ if ((isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\F
 }
 
 // if not, must operate on a proper IdP
-$my_inst = $validator->IdP($_GET['inst_id']);
+$my_inst = $validator->existingIdP($_GET['inst_id']);
 $user = new \core\User($_SESSION['user']);
 $mgmt = new \core\UserManagement();
 

@@ -49,7 +49,7 @@ echo $deco->defaultPagePrelude(sprintf(_("%s: %s Dashboard"), CONFIG['APPEARANCE
 require_once "inc/click_button_js.php";
 
 // let's check if the inst handle actually exists in the DB
-$my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
+$my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
 
 // delete stored realm
 

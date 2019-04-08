@@ -32,7 +32,7 @@ function commonSbProfileChecks($fed, $id) {
     $validator = new \web\lib\common\InputValidation();
     $adminApi = new \web\lib\admin\API();
     try {
-        $profile = $validator->Profile($id);
+        $profile = $validator->existingProfile($id);
     } catch (Exception $e) {
         $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Profile identifier does not exist!");
         return FALSE;
@@ -130,7 +130,7 @@ switch ($inputDecoded['ACTION']) {
         break;
     case web\lib\admin\API::ACTION_DELINST:
         try {
-            $idp = $validator->IdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
+            $idp = $validator->existingIdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
         } catch (Exception $e) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
             exit(1);
@@ -140,7 +140,7 @@ switch ($inputDecoded['ACTION']) {
         break;
     case web\lib\admin\API::ACTION_ADMIN_LIST:
         try {
-            $idp = $validator->IdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
+            $idp = $validator->existingIdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
         } catch (Exception $e) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
             exit(1);
@@ -150,7 +150,7 @@ switch ($inputDecoded['ACTION']) {
     case web\lib\admin\API::ACTION_ADMIN_ADD:
         // IdP in question
         try {
-            $idp = $validator->IdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
+            $idp = $validator->existingIdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
         } catch (Exception $e) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
             exit(1);
@@ -179,7 +179,7 @@ switch ($inputDecoded['ACTION']) {
     case web\lib\admin\API::ACTION_ADMIN_DEL:
         // IdP in question
         try {
-            $idp = $validator->IdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
+            $idp = $validator->existingIdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
         } catch (Exception $e) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
             exit(1);
@@ -209,7 +209,7 @@ switch ($inputDecoded['ACTION']) {
     // fall-through intended: both get mostly identical treatment
     case web\lib\admin\API::ACTION_NEWPROF_SB:
         try {
-            $idp = $validator->IdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
+            $idp = $validator->existingIdP($adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID));
         } catch (Exception $e) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
             exit(1);

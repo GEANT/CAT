@@ -61,13 +61,13 @@ if ($profileId == 0) { // invalid invitation
     header("HTTP/1.0 404 Not Found");
     return;
 }
-$profile = $validator->Profile($profileId);
+$profile = $validator->existingProfile($profileId);
 
 $loggerInstance->debug(4, "download: profile:$profile->identifier; inst:$profile->institution; device:$device\n");
 
 // now we generate the installer
 try {
-    $cleanDevice = $validator->Device($device); // throws an Exception if unknown
+    $cleanDevice = $validator->existingDevice($device); // throws an Exception if unknown
     $API->downloadInstaller($cleanDevice, $profile->identifier, $generatedFor, $cleanToken, $cleanPassword);
 } catch (\Exception $e) {
     $skinObject = new \web\lib\user\Skinjob();

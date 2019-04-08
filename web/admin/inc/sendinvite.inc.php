@@ -101,7 +101,7 @@ if (isset($_POST['creation']) && ($_POST['creation'] == "existing") && isset($_P
 
 switch ($operationMode) {
     case OPERATION_MODE_EDIT:
-        $idp = $validator->IdP($_GET['inst_id']);
+        $idp = $validator->existingIdP($_GET['inst_id']);
         // editing IdPs is done from within the popup. When we're done, send the 
         // user back to the popup (append the result of the operation later)
         $redirect_destination = "manageAdmins.inc.php?inst_id=" . $idp->identifier . "&";
@@ -133,7 +133,7 @@ switch ($operationMode) {
         if ($new_idp_authorized_fedadmin !== TRUE) {
             throw new Exception("Something's wrong... you want to create a new " . $uiElements->nomenclatureInst . ", but are not a " . $uiElements->nomenclatureFed . " admin for the " . $uiElements->nomenclatureFed . " it should be in!");
         }
-        $federation = $validator->Federation($newcountry);
+        $federation = $validator->existingFederation($newcountry);
         $prettyprintname = $newinstname;
         $introtext = "NEW-FED";
         // send the user back to his federation overview page, append the result of the operation later
@@ -151,7 +151,7 @@ switch ($operationMode) {
         if ($new_idp_authorized_fedadmin !== TRUE) {
             throw new Exception("Something's wrong... you want to create a new " . $uiElements->nomenclatureInst . ", but are not a " . $uiElements->nomenclatureFed . " admin for the " . $uiElements->nomenclatureFed . " it should be in!");
         }
-        $federation = $validator->Federation($extinfo['country']);
+        $federation = $validator->existingFederation($extinfo['country']);
         $newcountry = $extinfo['country'];
         // see if the inst name is defined in the currently set language; if not, pick its English name; if N/A, pick the last in the list
         $prettyprintname = "";

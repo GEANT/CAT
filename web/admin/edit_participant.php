@@ -34,7 +34,7 @@ if (isset($_GET['wizard']) && $_GET['wizard'] == "true") {
 } else {
     $wizardStyle = FALSE;
 }
-$my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
+$my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
 $idpoptions = $my_inst->getAttributes();
 $inst_name = $my_inst->name;
 

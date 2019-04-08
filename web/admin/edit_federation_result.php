@@ -37,7 +37,7 @@ $auth->authenticate();
 
 /// first productname (eduroam CAT), then nomenclature for 'federation'
 echo $deco->pageheader(sprintf(_("%s: %s Customisation (submission completed)"), CONFIG['APPEARANCE']['productname'], $uiElements->nomenclatureFed), "FEDERATION");
-$my_fed = $validator->Federation($_GET['fed_id'], $_SESSION['user']);
+$my_fed = $validator->existingFederation($_GET['fed_id'], $_SESSION['user']);
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_SAVE) { // here we go
     $fed_name = $my_fed->name;
     echo "<h1>" . sprintf(_("Submitted attributes for %s '%s'"), $uiElements->nomenclatureFed, $fed_name) . "</h1>";
@@ -50,7 +50,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\Fo
 
     // re-instantiate ourselves... profiles need fresh data
 
-    $my_fed = $validator->Federation($_GET['fed_id'], $_SESSION['user']);
+    $my_fed = $validator->existingFederation($_GET['fed_id'], $_SESSION['user']);
 
     echo "<br/><form method='post' action='overview_federation.php' accept-charset='UTF-8'><button type='submit'>" . _("Continue to dashboard") . "</button></form>";
 }

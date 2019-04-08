@@ -73,13 +73,13 @@ if (!in_array($action, LISTOFACTIONS)) {
 $langR = getRequest('lang', 'safe_text');
 $lang = $langR ? $validator->supportedLanguage($langR) : FALSE;
 $deviceR = getRequest('device', 'safe_text');
-$device = $deviceR ? $validator->Device($deviceR) : FALSE;
+$device = $deviceR ? $validator->existingDevice($deviceR) : FALSE;
 $idpR = getRequest('idp', 'int');
-$idp = $idpR ? $validator->IdP($idpR)->identifier : FALSE;
+$idp = $idpR ? $validator->existingIdP($idpR)->identifier : FALSE;
 $profileR = getRequest('profile', 'int');
-$profile = $profileR ? $validator->Profile($profileR)->identifier : FALSE;
+$profile = $profileR ? $validator->existingProfile($profileR)->identifier : FALSE;
 $federationR = getRequest('federation', 'safe_text');
-$federation = $federationR ? $validator->Federation($federationR)->tld : FALSE;
+$federation = $federationR ? $validator->existingFederation($federationR)->tld : FALSE;
 $disco = getRequest('disco', 'int');
 $width = getRequest('width', 'int') ?? 0;
 $height = getRequest('height', 'int') ?? 0;
@@ -98,7 +98,7 @@ switch ($action) {
         break;
     case 'listIdentityProviders':
         if ($federation === FALSE) {
-           $federation = $id ? $validator->Federation($id)->tld : FALSE;
+           $federation = $id ? $validator->existingFederation($id)->tld : FALSE;
         }
         if ($federation === FALSE) { // federation is a mandatory parameter!
             exit;
@@ -110,7 +110,7 @@ switch ($action) {
         break;
     case 'listProfiles': // needs $idp set - abort if not
         if ($idp === FALSE) {
-           $idp = $id ? $validator->IdP($id)->identifier : FALSE;
+           $idp = $id ? $validator->existingIdP($id)->identifier : FALSE;
         }
         if ($idp === FALSE) {
             exit;
@@ -119,7 +119,7 @@ switch ($action) {
         break;
     case 'listDevices':
         if ($profile === FALSE) {
-           $profile = $id ? $validator->Profile($id)->identifier : FALSE;
+           $profile = $id ? $validator->existingProfile($id)->identifier : FALSE;
         }
         if ($profile === FALSE) {
             exit;
@@ -146,7 +146,7 @@ switch ($action) {
         break;
     case 'profileAttributes': // needs $profile set
         if ($profile === FALSE) {
-           $profile = $id ? $validator->Profile($id)->identifier : FALSE;
+           $profile = $id ? $validator->existingProfile($id)->identifier : FALSE;
         }
         if ($profile === FALSE) {
             exit;
@@ -155,7 +155,7 @@ switch ($action) {
         break;
     case 'sendLogo': // needs $idp and $disco set
         if ($idp === FALSE) {
-           $idp = $id ? $validator->IdP($id)->identifier : FALSE;
+           $idp = $id ? $validator->existingIdP($id)->identifier : FALSE;
         }
         if ($idp === FALSE) {
             exit;

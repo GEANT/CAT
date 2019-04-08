@@ -59,7 +59,7 @@ if ($check_realm === FALSE) {
 }
 
 if (isset($_REQUEST['profile_id'])) {
-    $my_profile = $validator->Profile($_REQUEST['profile_id']);
+    $my_profile = $validator->existingProfile($_REQUEST['profile_id']);
     if (!$my_profile instanceof \core\ProfileRADIUS) {
         throw new Exception("RADIUS Tests can only be performed on RADIUS Profiles (d'oh!)");
     }
@@ -105,8 +105,8 @@ switch ($test_type) {
         $i = 0;
         $returnarray['hostindex'] = $hostindex;
         $eaps = $my_profile->getEapMethodsinOrderOfPreference(1);
-        $user_name = $validator->User(isset($_REQUEST['username']) && $_REQUEST['username'] ? $_REQUEST['username'] : "");
-        $outer_user_name = $validator->User(isset($_REQUEST['outer_username']) && $_REQUEST['outer_username'] ? $_REQUEST['outer_username'] : $user_name);
+        $user_name = $validator->syntaxConformUser(isset($_REQUEST['username']) && $_REQUEST['username'] ? $_REQUEST['username'] : "");
+        $outer_user_name = $validator->syntaxConformUser(isset($_REQUEST['outer_username']) && $_REQUEST['outer_username'] ? $_REQUEST['outer_username'] : $user_name);
         $testsuite->setOuterIdentity($outer_user_name);
         $user_password = isset($_REQUEST['password']) && $_REQUEST['password'] ? $_REQUEST['password'] : ""; //!!
         $returnarray['result'] = [];
@@ -117,7 +117,7 @@ switch ($test_type) {
                     $clientcertdata = file_get_contents($_FILES['cert']['tmp_name']);
                     $privkey_pass = isset($_REQUEST['privkey_pass']) && $_REQUEST['privkey_pass'] ? $_REQUEST['privkey_pass'] : ""; //!!
                     if (isset($_REQUEST['tls_username']) && $_REQUEST['tls_username']) {
-                        $tls_username = $validator->User(filter_input(INPUT_POST, 'tls_username', FILTER_SANITIZE_STRING));
+                        $tls_username = $validator->syntaxConformUser(filter_input(INPUT_POST, 'tls_username', FILTER_SANITIZE_STRING));
                     } else {
                         if (openssl_pkcs12_read($clientcertdata, $certs, $privkey_pass)) {
                             $mydetails = openssl_x509_parse($certs['cert']);

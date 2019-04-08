@@ -31,7 +31,7 @@ $validator = new web\lib\common\InputValidation();
 $deco = new \web\lib\admin\PageDecoration();
 $loggerInstance = new core\common\Logging();
 
-$inst = $validator->IdP(filter_input(INPUT_GET, 'inst_id'));
+$inst = $validator->existingIdP(filter_input(INPUT_GET, 'inst_id'));
 
 // this page may have been called for the first time, when the profile does not
 // actually exist in the DB yet. If so, we will need to create it first.
@@ -43,7 +43,7 @@ if (!isset($_REQUEST['profile_id'])) {
         throw new Exception("We were told to create a new SB profile, but this deployment is not configured for SB!");
     }
 
-    $inst = $validator->IdP(filter_input(INPUT_GET, 'inst_id'));
+    $inst = $validator->existingIdP(filter_input(INPUT_GET, 'inst_id'));
     if ($inst->profileCount() > 0) {
         foreach ($inst->listProfiles() as $oneProfile) {
             $profileEapMethod = $oneProfile->getEapMethodsInOrderOfPreference()[0];
@@ -70,7 +70,7 @@ if (!isset($_REQUEST['profile_id'])) {
     $_GET['profile_id'] = $newProfile->identifier;
     $profile = $newProfile;
 } else {
-    $profile = $validator->Profile(filter_input(INPUT_GET, "profile_id"));
+    $profile = $validator->existingProfile(filter_input(INPUT_GET, "profile_id"));
 }
 // at this point, we should really have a SB profile in our hands, not a RADIUS one
 if (!($profile instanceof \core\ProfileSilverbullet)) {
@@ -106,7 +106,7 @@ if (isset($_POST['command'])) {
             break;
         case \web\lib\common\FormElements::BUTTON_ADDUSER:
             if (isset($_POST['username']) && isset($_POST['userexpiry'])) {
-                $properName = $validator->User($_POST['username']);
+                $properName = $validator->syntaxConformUser($_POST['username']);
                 try {
                     $properDate = new DateTime($_POST['userexpiry']);
                 } catch (Exception $e) {
@@ -133,7 +133,7 @@ if (isset($_POST['command'])) {
                     if (count($elements) < 2) {
                         break;
                     }
-                    $properName = $validator->User($elements[0]);
+                    $properName = $validator->syntaxConformUser($elements[0]);
                     $properDate = new DateTime($elements[1] . " 00:00:00");
                     $numberOfActivations = $elements[2] ?? 1;
                     $number = $validator->integer($numberOfActivations);
