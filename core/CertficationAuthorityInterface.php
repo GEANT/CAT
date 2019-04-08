@@ -27,7 +27,7 @@ interface CertificationAuthorityInterface {
      * 
      * @return resource
      */
-    public function generateCompatiblePrivateKey() : resource;
+    public function generateCompatiblePrivateKey() : \resource;
     
     /**
      * Creates an updated OCSP statement

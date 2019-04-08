@@ -201,7 +201,7 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
         ];
     }
 
-    public function generateCompatiblePrivateKey(): resource {
+    public function generateCompatiblePrivateKey(): \resource {
         $key = openssl_pkey_new(['curve_name' => 'secp384r1', 'private_key_type' => OPENSSL_KEYTYPE_EC, 'encrypt_key' => FALSE]);
         if ($key === FALSE) {
             throw new Exception("Unable to generate a private key.");

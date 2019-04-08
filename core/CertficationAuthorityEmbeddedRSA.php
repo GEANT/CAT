@@ -201,7 +201,7 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
         ];
     }
 
-    public function generateCompatiblePrivateKey(): resource {
+    public function generateCompatiblePrivateKey(): \resource {
         $key = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
         if ($key === FALSE) {
             throw new Exception("Unable to generate a private key.");

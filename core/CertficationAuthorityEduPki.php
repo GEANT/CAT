@@ -96,8 +96,8 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
             $expiry->setTimezone(new \DateTimeZone("UTC"));
             $soapExpiryChange = $soap->setRequestParameters(
                     $soapReqnum, [
-                "RaID" => SilverbulletCertificate::EDUPKI_RA_ID,
-                "Role" => SilverbulletCertificate::EDUPKI_CERT_PROFILE,
+                "RaID" => CertificationAuthorityEduPki::EDUPKI_RA_ID,
+                "Role" => CertificationAuthorityEduPki::EDUPKI_CERT_PROFILE,
                 "Subject" => "DC=eduroam,DC=test,DC=test,C=" . $csr["FED"] . ",O=" . CONFIG_CONFASSISTANT['CONSORTIUM']['name'] . ",OU=" . $csr["FED"] . ",CN=" . $csr['USERNAME'] . ",emailAddress=" . $csr['USERNAME'],
                 "SubjectAltNames" => ["email:" . $csr["USERNAME"]],
                 "NotBefore" => (new \DateTime())->format('c'),
@@ -367,7 +367,7 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
         ];
     }
 
-    public function generateCompatiblePrivateKey(): resource {
+    public function generateCompatiblePrivateKey(): \resource {
         $key = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
         if ($key === FALSE) {
             throw new Exception("Unable to generate a private key.");
