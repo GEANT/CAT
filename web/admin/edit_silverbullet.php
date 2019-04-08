@@ -177,7 +177,7 @@ if (isset($_POST['command'])) {
                     continue;
                 }
                 $certAlgo = $validator->string($_POST['certAlgo']);
-                if ($certAlgo != devices\Devices::SUPPORT_RSA && $certAlgo != devices\Devices::SUPPORT_ECDSA) {
+                if ($certAlgo != devices\Devices::SUPPORT_EMBEDDED_RSA && $certAlgo != devices\Devices::SUPPORT_EMBEDDED_ECDSA) {
                     continue;
                 }
                 $certObject = new \core\SilverbulletCertificate($certSerial, $certAlgo);

@@ -39,7 +39,8 @@ $allSerials = $dbLink->exec("SELECT serial_number, ca_type FROM silverbullet_cer
 while ($serialRow = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allSerials)) {
 #    echo "Updating OCSP statement for serial number $serialRow->serial_number\n";
     $certObject = new \core\SilverbulletCertificate($serialRow->serial_number, $serialRow->ca_type);
-    $certObject->triggerNewOCSPStatement();
+    $caEngine = \core\SilverbulletCertificate::getCaEngine($serialRow->ca_type);
+    $caEngine->triggerNewOCSPStatement($certObject);
 }
 
  /* 

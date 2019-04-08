@@ -39,8 +39,9 @@ namespace devices;
  */
 class Devices extends \core\common\Entity {
 
-    const SUPPORT_RSA = 'RSA';
-    const SUPPORT_ECDSA = 'ECDSA';
+    const SUPPORT_EMBEDDED_RSA = 'RSA';
+    const SUPPORT_EMBEDDED_ECDSA = 'ECDSA';
+    const SUPPORT_EDUPKI = 'EDUPKI';
 
     /**
      * This array lists available configuration options for local device management.
@@ -88,7 +89,7 @@ class Devices extends \core\common\Entity {
         'no_cache' => 0,
         'hidden' => 0,
         'redirect' => 0,
-        'clientcert' => Devices::SUPPORT_RSA,
+        'clientcert' => Devices::SUPPORT_EMBEDDED_RSA,
     ];
 
     /**
@@ -199,7 +200,7 @@ class Devices extends \core\common\Entity {
                     'sign' => 1,
                     'device_id' => 'OS_X',
                     'mime' => 'application/x-apple-aspen-config',
-                    'clientcert' => Devices::SUPPORT_ECDSA,
+                    'clientcert' => Devices::SUPPORT_EMBEDDED_ECDSA,
                     'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page. Later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."),
                 ),
             ),
