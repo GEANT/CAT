@@ -23,6 +23,13 @@ interface CertificationAuthorityInterface {
     public function generateCompatibleCsr($privateKey, $fed, $username) : array;
     
     /**
+     * generates a private key that can be processed by this CA
+     * 
+     * @return resource
+     */
+    public function generateCompatiblePrivateKey() : resource;
+    
+    /**
      * Creates an updated OCSP statement
      * 
      * @param \core\SilverbulletCertificate $cert

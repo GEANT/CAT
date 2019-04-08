@@ -11,6 +11,8 @@
 
 namespace core;
 
+use \Exception;
+
 class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implements CertificationAuthorityInterface {
 
     private const LOCATION_ROOT_CA = ROOT . "/config/SilverbulletClientCerts/rootca-RSA.pem";
@@ -28,7 +30,7 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
     /**
      * string with the PEM variant of the issuing CA
      * 
-     * @var resource
+     * @var string
      */
     public $issuingCertRaw;
 
@@ -71,10 +73,11 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
         if (stat(CertificationAuthorityEmbeddedRSA::LOCATION_ISSUING_KEY) === FALSE) {
             throw new Exception("Private key not found: " . CertificationAuthorityEmbeddedRSA::LOCATION_ISSUING_KEY);
         }
-        $this->issuingKey = openssl_pkey_get_private("file://" . CertificationAuthorityEmbeddedRSA::LOCATION_ISSUING_KEY);
-        if ($this->issuingKey === FALSE) {
+        $issuingKeyTemp = openssl_pkey_get_private("file://" . CertificationAuthorityEmbeddedRSA::LOCATION_ISSUING_KEY);
+        if ($issuingKeyTemp === FALSE) {
             throw new Exception("The private key did not parse correctly!");
         }
+        $this->issuingKey = $issuingKeyTemp;
         if (stat(CertificationAuthorityEmbeddedRSA::LOCATION_CONFIG) === FALSE) {
             throw new Exception("openssl configuration not found: " . CertificationAuthorityEmbeddedRSA::LOCATION_CONFIG);
         }
@@ -150,7 +153,8 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
         $nonDupSerialFound = FALSE;
         do {
             $serial = random_int(1000000000, PHP_INT_MAX);
-            $dupeQuery = $this->databaseHandle->exec("SELECT serial_number FROM silverbullet_certificate WHERE serial_number = ? AND ca_type = ?", "is", $serial, \devices\Devices::SUPPORT_EMBEDDED_RSA);
+            $rsa = \devices\Devices::SUPPORT_EMBEDDED_RSA;
+            $dupeQuery = $this->databaseHandle->exec("SELECT serial_number FROM silverbullet_certificate WHERE serial_number = ? AND ca_type = ?", "is", $serial, $rsa);
             // SELECT -> resource, not boolean
             if (mysqli_num_rows(/** @scrutinizer ignore-type */$dupeQuery) == 0) {
                 $nonDupSerialFound = TRUE;
@@ -169,7 +173,7 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
         ];
     }
 
-    public function revokeCertificate(SilverbulletCertificate $cert) : void {
+    public function revokeCertificate(SilverbulletCertificate $cert): void {
         // the generic caller in SilverbulletCertificate::revokeCertificate
         // has already updated the DB. So all is done; we simply create a new
         // OCSP statement based on the updated DB content
@@ -195,6 +199,23 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
             "USERNAME" => $username,
             "FED" => $fed
         ];
+    }
+
+    public function generateCompatiblePrivateKey(): resource {
+        $key = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
+        if ($key === FALSE) {
+            throw new Exception("Unable to generate a private key.");
+        }
+        return $key;
+    }
+
+    /**
+     * CAs don't have any local caching or other freshness issues
+     * 
+     * @return void
+     */
+    public function updateFreshness() {
+        // nothing to be done here.
     }
 
 }

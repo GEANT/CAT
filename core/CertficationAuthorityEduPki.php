@@ -11,6 +11,9 @@
 
 namespace core;
 
+use \Exception;
+use \SoapFault;
+
 class CertificationAuthorityEduPki extends EntityWithDBProperties implements CertificationAuthorityInterface {
 
     private const LOCATION_RA_CERT = ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem";
@@ -19,27 +22,6 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
     private const EDUPKI_RA_ID = 700;
     private const EDUPKI_CERT_PROFILE = "User SOAP";
     private const EDUPKI_RA_PKEY_PASSPHRASE = "...";
-
-    /**
-     * RA operator certificate in PEM format
-     * 
-     * @var string
-     */
-    private $raFile;
-
-    /**
-     * resource holding the RA operator certificate
-     * 
-     * @var type 
-     */
-    private $raResource;
-
-    /**
-     * resource holding the private key to the RA cert
-     * 
-     * @var resource
-     */
-    private $raKey;
 
     public function __construct() {
         $this->databaseType = "INST";
@@ -70,21 +52,21 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
             ];
             $soapPub = $this->initEduPKISoapSession("PUBLIC");
             $this->loggerInstance->debug(5, "FIRST ACTUAL SOAP REQUEST (Public, newRequest)!\n");
-            $this->loggerInstance->debug(5, "PARAM_1: " . SilverbulletCertificate::EDUPKI_RA_ID . "\n");
+            $this->loggerInstance->debug(5, "PARAM_1: " . CertificationAuthorityEduPki::EDUPKI_RA_ID . "\n");
             $this->loggerInstance->debug(5, "PARAM_2: " . $csr["CSR"] . "\n");
             $this->loggerInstance->debug(5, "PARAM_3: ");
             $this->loggerInstance->debug(5, $altArray);
-            $this->loggerInstance->debug(5, "PARAM_4: " . SilverbulletCertificate::EDUPKI_CERT_PROFILE . "\n");
+            $this->loggerInstance->debug(5, "PARAM_4: " . CertificationAuthorityEduPki::EDUPKI_CERT_PROFILE . "\n");
             $this->loggerInstance->debug(5, "PARAM_5: " . sha1("notused") . "\n");
             $this->loggerInstance->debug(5, "PARAM_6: " . $csr["USERNAME"] . "\n");
             $this->loggerInstance->debug(5, "PARAM_7: " . $csr["USERNAME"] . "\n");
             $this->loggerInstance->debug(5, "PARAM_8: " . ProfileSilverbullet::PRODUCTNAME . "\n");
             $this->loggerInstance->debug(5, "PARAM_9: false\n");
             $soapNewRequest = $soapPub->newRequest(
-                    SilverbulletCertificate::EDUPKI_RA_ID, # RA-ID
+                    CertificationAuthorityEduPki::EDUPKI_RA_ID, # RA-ID
                     $csr["CSR"], # Request im PEM-Format
                     $altArray, # altNames
-                    SilverbulletCertificate::EDUPKI_CERT_PROFILE, # Zertifikatprofil
+                    CertificationAuthorityEduPki::EDUPKI_CERT_PROFILE, # Zertifikatprofil
                     sha1("notused"), # PIN
                     $csr["USERNAME"], # Name des Antragstellers
                     $csr["USERNAME"], # Kontakt-E-Mail
@@ -107,7 +89,7 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
             throw new Exception("Something odd happened while doing the SOAP request:" . $e->getMessage());
         }
         try {
-            $soap = SilverbulletCertificate::initEduPKISoapSession("RA");
+            $soap = $this->initEduPKISoapSession("RA");
             // tell the CA the desired expiry date of the new certificate
             $expiry = new \DateTime();
             $expiry->modify("+$expiryDays day");
@@ -385,4 +367,20 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
         ];
     }
 
+    public function generateCompatiblePrivateKey(): resource {
+        $key = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
+        if ($key === FALSE) {
+            throw new Exception("Unable to generate a private key.");
+        }
+        return $key;
+    }
+    
+    /**
+     * CAs don't have any local caching or other freshness issues
+     * 
+     * @return void
+     */
+    public function updateFreshness() {
+        // nothing to be done here.
+    }
 }

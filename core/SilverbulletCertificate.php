@@ -165,14 +165,12 @@ class SilverbulletCertificate extends EntityWithDBProperties {
     public static function getCaEngine($type) {
      switch ($type) {
             case \devices\Devices::SUPPORT_EMBEDDED_RSA:
-                $privateKey = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
                 $caEngine = new CertificationAuthorityEmbeddedRSA();
+                break;
             case \devices\Devices::SUPPORT_EDUPKI:
-                $privateKey = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
                 $caEngine = new CertificationAuthorityEduPki();
                 break;
             case \devices\Devices::SUPPORT_EMBEDDED_ECDSA:
-                $privateKey = openssl_pkey_new(['curve_name' => 'secp384r1', 'private_key_type' => OPENSSL_KEYTYPE_EC, 'encrypt_key' => FALSE]);
                 $caEngine = new CertificationAuthorityEmbeddedECDSA();
                 break;
             default:
@@ -222,6 +220,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         }
         $caEngine = SilverbulletCertificate::getCaEngine($certtype);
         $username = SilverbulletCertificate::findUniqueUsername($profile->getAttributes("internal:realm")[0]['value'], $certtype);
+        $privateKey = $caEngine->generateCompatiblePrivateKey();
         $csr = $caEngine->generateCompatibleCsr($privateKey, strtoupper($inst->federation), $username);
 
         $loggerInstance->debug(5, "generateCertificate: proceeding to sign cert.\n");
