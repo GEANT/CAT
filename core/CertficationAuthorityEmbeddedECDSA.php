@@ -11,12 +11,12 @@
 
 namespace core;
 
-class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implements CertificationAuthorityInterface {
+class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties implements CertificationAuthorityInterface {
 
-    private const LOCATION_ROOT_CA = ROOT . "/config/SilverbulletClientCerts/rootca-RSA.pem";
-    private const LOCATION_ISSUING_CA = ROOT . "/config/SilverbulletClientCerts/real-RSA.pem";
-    private const LOCATION_ISSUING_KEY = ROOT . "/config/SilverbulletClientCerts/real-RSA.key";
-    private const LOCATION_CONFIG = ROOT . "/config/SilverbulletClientCerts/openssl-RSA.cnf";
+    private const LOCATION_ROOT_CA = ROOT . "/config/SilverbulletClientCerts/rootca-ECDSA.pem";
+    private const LOCATION_ISSUING_CA = ROOT . "/config/SilverbulletClientCerts/real-ECDSA.pem";
+    private const LOCATION_ISSUING_KEY = ROOT . "/config/SilverbulletClientCerts/real-ECDSA.key";
+    private const LOCATION_CONFIG = ROOT . "/config/SilverbulletClientCerts/openssl-ECDSA.cnf";
 
     /**
      * string with the PEM variant of the root CA
@@ -55,30 +55,30 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
     public function __construct() {
         $this->databaseType = "INST";
         parent::__construct();
-        $this->rootPem = file_get_contents(CertificationAuthorityEmbeddedRSA::LOCATION_ROOT_CA);
+        $this->rootPem = file_get_contents(CertificationAuthorityEmbeddedECDSA::LOCATION_ROOT_CA);
         if ($this->rootPem === FALSE) {
-            throw new Exception("Root CA PEM file not found: " . CertificationAuthorityEmbeddedRSA::LOCATION_ROOT_CA);
+            throw new Exception("Root CA PEM file not found: " . CertificationAuthorityEmbeddedECDSA::LOCATION_ROOT_CA);
         }
-        $this->issuingCertRaw = file_get_contents(CertificationAuthorityEmbeddedRSA::LOCATION_ISSUING_CA);
+        $this->issuingCertRaw = file_get_contents(CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_CA);
         if ($this->issuingCertRaw === FALSE) {
-            throw new Exception("Issuing CA PEM file not found: " . CertificationAuthorityEmbeddedRSA::LOCATION_ISSUING_CA);
+            throw new Exception("Issuing CA PEM file not found: " . CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_CA);
         }
         $rootParsed = openssl_x509_read($this->rootPem);
         $this->issuingCert = openssl_x509_read($this->issuingCertRaw);
         if ($this->issuingCert === FALSE || $rootParsed === FALSE) {
             throw new Exception("At least one CA PEM file did not parse correctly!");
         }
-        if (stat(CertificationAuthorityEmbeddedRSA::LOCATION_ISSUING_KEY) === FALSE) {
-            throw new Exception("Private key not found: " . CertificationAuthorityEmbeddedRSA::LOCATION_ISSUING_KEY);
+        if (stat(CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_KEY) === FALSE) {
+            throw new Exception("Private key not found: " . CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_KEY);
         }
-        $this->issuingKey = openssl_pkey_get_private("file://" . CertificationAuthorityEmbeddedRSA::LOCATION_ISSUING_KEY);
+        $this->issuingKey = openssl_pkey_get_private("file://" . CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_KEY);
         if ($this->issuingKey === FALSE) {
             throw new Exception("The private key did not parse correctly!");
         }
-        if (stat(CertificationAuthorityEmbeddedRSA::LOCATION_CONFIG) === FALSE) {
-            throw new Exception("openssl configuration not found: " . CertificationAuthorityEmbeddedRSA::LOCATION_CONFIG);
+        if (stat(CertificationAuthorityEmbeddedECDSA::LOCATION_CONFIG) === FALSE) {
+            throw new Exception("openssl configuration not found: " . CertificationAuthorityEmbeddedECDSA::LOCATION_CONFIG);
         }
-        $this->conffile = CertificationAuthorityEmbeddedRSA::LOCATION_CONFIG;
+        $this->conffile = CertificationAuthorityEmbeddedECDSA::LOCATION_CONFIG;
     }
 
     public function triggerNewOCSPStatement(SilverbulletCertificate $cert): string {
@@ -128,7 +128,7 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
         // choice of signature algorithm for the response explicit
         // but it's only available from openssl-1.1.0 (which we do not
         // want to require just for that one thing).
-        $execCmd = CONFIG['PATHS']['openssl'] . " ocsp -issuer " . CertificationAuthorityEmbeddedRSA::LOCATION_ISSUING_CA . " -sha1 -ndays 10 -no_nonce -serial 0x$serialHex -CA " . CertificationAuthorityEmbeddedRSA::LOCATION_ISSUING_CA . " -rsigner " . CertificationAuthorityEmbeddedRSA::LOCATION_ISSUING_CA . " -rkey " . CertificationAuthorityEmbeddedRSA::LOCATION_ISSUING_KEY . " -index $tempdir/index.txt -no_cert_verify -respout $tempdir/$serialHex.response.der";
+        $execCmd = CONFIG['PATHS']['openssl'] . " ocsp -issuer " . CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_CA . " -sha1 -ndays 10 -no_nonce -serial 0x$serialHex -CA " . CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_CA . " -rsigner " . CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_CA . " -rkey " . CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_KEY . " -index $tempdir/index.txt -no_cert_verify -respout $tempdir/$serialHex.response.der";
         $this->loggerInstance->debug(2, "Calling openssl ocsp with following cmdline: $execCmd\n");
         $output = [];
         $return = 999;
@@ -150,14 +150,14 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
         $nonDupSerialFound = FALSE;
         do {
             $serial = random_int(1000000000, PHP_INT_MAX);
-            $dupeQuery = $this->databaseHandle->exec("SELECT serial_number FROM silverbullet_certificate WHERE serial_number = ? AND ca_type = ?", "is", $serial, \devices\Devices::SUPPORT_EMBEDDED_RSA);
+            $dupeQuery = $this->databaseHandle->exec("SELECT serial_number FROM silverbullet_certificate WHERE serial_number = ? AND ca_type = ?", "is", $serial, \devices\Devices::SUPPORT_EMBEDDED_ECDSA);
             // SELECT -> resource, not boolean
             if (mysqli_num_rows(/** @scrutinizer ignore-type */$dupeQuery) == 0) {
                 $nonDupSerialFound = TRUE;
             }
         } while (!$nonDupSerialFound);
-        $this->loggerInstance->debug(5, "generateCertificate: signing imminent with unique serial $serial, cert type RSA.\n");
-        $cert = openssl_csr_sign($csr, $this->issuingCert, $this->issuingCaKey, $expiryDays, ['digest_alg' => 'sha256', 'config' => $this->conffile], $serial);
+        $this->loggerInstance->debug(5, "generateCertificate: signing imminent with unique serial $serial, cert type ECDSA.\n");
+        $cert = openssl_csr_sign($csr, $this->issuingCert, $this->issuingCaKey, $expiryDays, ['digest_alg' => 'ecdsa-with-SHA1', 'config' => $this->conffile], $serial);
         if ($cert === FALSE) {
             throw new Exception("Unable to sign the request and generate the certificate!");
         }
@@ -183,7 +183,7 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
                     'CN' => $username,
                 // 'emailAddress' => $username,
                 ], $privateKey, [
-            'digest_alg' => "sha256",
+            'digest_alg' => "ecdsa-with-SHA1",
             'req_extensions' => 'v3_req',
                 ]
         );
