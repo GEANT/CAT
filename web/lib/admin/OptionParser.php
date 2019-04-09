@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -80,7 +81,7 @@ class OptionParser extends \core\common\Entity {
                 // we check logo_file with ImageMagick
                 return $this->validator->image($incomingBinary);
             case "eap:ca_file":
-                // fall-through intended: both CA types are treated the same
+            // fall-through intended: both CA types are treated the same
             case "fed:minted_ca_file":
                 // echo "Checking $optiontype with file $filename";
                 $func = new \core\common\X509;
@@ -142,14 +143,14 @@ class OptionParser extends \core\common\Entity {
                             $bad[] = $name;
                         }
                         break;
-                    case "eap:ca_file": 
+                    case "eap:ca_file":
                     case "fed:minted_ca_file":
                         // CA files get split (PEM files can contain more than one CA cert)
                         // the data being processed here is always "good": 
                         // if it was eap:ca_file initially then its sanity was checked in step 1;
                         // if it was eap:ca_url then it was checked after we downloaded it
                         if (empty($optionPayload['content'])) {
-                            break;    
+                            break;
                         }
                         if (preg_match('/^ROWID-/', $optionPayload['content'])) {
                             // accounted for, already in DB
@@ -285,7 +286,7 @@ class OptionParser extends \core\common\Entity {
                     case 'core\\Federation':
                     case 'core\\DeploymentManaged':
                         $object->addAttribute($name, $optionPayload['lang'], $optionPayload['content']);
-                        break;    
+                        break;
                     default:
                         throw new Exception("This type of object can't have options that are parsed by this file!");
                 }
@@ -364,59 +365,11 @@ class OptionParser extends \core\common\Entity {
                         }
                         continue 2;
                     case \core\Options::TYPECODE_STRING:
-                        if (!empty($listOfEntries["$objId-" . \core\Options::TYPECODE_STRING])) {
-                            switch ($objValue) {
-                                case "media:consortium_OI":
-                                    $content = $this->validator->consortiumOI($listOfEntries["$objId-" . \core\Options::TYPECODE_STRING]);
-                                    if ($content === FALSE) {
-                                        $bad[] = $objValue;
-                                        continue 3;
-                                    }
-                                    break;
-                                case "media:remove_SSID":
-                                    $content = $this->validator->string($listOfEntries["$objId-" . \core\Options::TYPECODE_STRING]);
-                                    if ($content == "eduroam") {
-                                        $bad[] = $objValue;
-                                        continue 3;
-                                    }
-                                    break;
-                                case "media:force_proxy":
-                                    $content = $this->validator->string($listOfEntries["$objId-" . \core\Options::TYPECODE_STRING]);
-                                    $serverAndPort = explode(':', strrev($content), 2);
-                                    if (count($serverAndPort) != 2) {
-                                        $bad[] = $objValue;
-                                        continue 3;
-                                    }
-                                    $port = strrev($serverAndPort[0]);
-                                    if (!is_numeric($port)) {
-                                        $bad[] = $objValue;
-                                        continue 3;
-                                    }
-                                    break;
-                                case "support:url":
-                                    $content = $this->validator->string($listOfEntries["$objId-" . \core\Options::TYPECODE_STRING]);
-                                    if (preg_match("/^http/",$content) != 1) {
-                                        $bad[] = $objValue;
-                                        continue 3;
-                                    }
-                                    break;
-                                case "support:email":
-                                    $content = $this->validator->email($listOfEntries["$objId-" . \core\Options::TYPECODE_STRING]);
-                                    if ($content === FALSE) {
-                                        $bad[] = $objValue;
-                                        continue 3;
-                                    }
-                                    break;
-                                case "managedsp:operatorname":
-                                    $content = $listOfEntries["$objId-" . \core\Options::TYPECODE_STRING];
-                                    if (!preg_match("/^1.*\..*/", $content)) {
-                                        $bad[] = $objValue;
-                                        continue 3;
-                                    }
-                                    break;
-                                default:
-                                    $content = $this->validator->string($listOfEntries["$objId-" . \core\Options::TYPECODE_STRING]);
-                                    break;
+                        $previsionalContent = $listOfEntries["$objId-" . \core\Options::TYPECODE_STRING];
+                        if (!empty($previsionalContent)) {
+                            $content = $this->furtherStringChecks($objValue, $previsionalContent, $bad);
+                            if ($content === FALSE) {
+                                continue 2;
                             }
                             break;
                         }
@@ -445,6 +398,71 @@ class OptionParser extends \core\common\Entity {
             }
         }
         return $retval;
+    }
+
+    /**
+     * 
+     * @param string $attribute          which attribute was sent?
+     * @param string $previsionalContent which content was sent?
+     * @param array  $bad                list of malformed attributes, by-reference
+     * @return string|false FALSE if value is not in expected format, else the content itself
+     */
+    private function furtherStringChecks($attribute, $previsionalContent, &$bad) {
+        $content = FALSE;
+        switch ($attribute) {
+            case "media:consortium_OI":
+                $content = $this->validator->consortiumOI($previsionalContent);
+                if ($content === FALSE) {
+                    $bad[] = $attribute;
+                    return FALSE;
+                }
+                break;
+            case "media:remove_SSID":
+                $content = $this->validator->string($previsionalContent);
+                if ($content == "eduroam") {
+                    $bad[] = $attribute;
+                    return FALSE;
+                }
+                break;
+            case "media:force_proxy":
+                $content = $this->validator->string($previsionalContent);
+                $serverAndPort = explode(':', strrev($content), 2);
+                if (count($serverAndPort) != 2) {
+                    $bad[] = $attribute;
+                    return FALSE;
+                }
+                $port = strrev($serverAndPort[0]);
+                if (!is_numeric($port)) {
+                    $bad[] = $attribute;
+                    return FALSE;
+                }
+                break;
+            case "support:url":
+                $content = $this->validator->string($previsionalContent);
+                if (preg_match("/^http/", $content) != 1) {
+                    $bad[] = $attribute;
+                    return FALSE;
+                }
+                break;
+            case "support:email":
+                $content = $this->validator->email($previsionalContent);
+                if ($content === FALSE) {
+                    $bad[] = $attribute;
+                    return FALSE;
+                }
+                break;
+            case "managedsp:operatorname":
+                $content = $previsionalContent;
+                if (!preg_match("/^1.*\..*/", $content)) {
+                    $bad[] = $attribute;
+                    return FALSE;
+                }
+                break;
+            default:
+                $content = $this->validator->string($previsionalContent);
+                break;
+        }
+        return $content;
     }
 
     /**
@@ -480,7 +498,7 @@ class OptionParser extends \core\common\Entity {
         // filename reference) into one array for later handling
 
         $iterator = $this->collateOptionArrays($postArray, $filesArray);
-        
+
         // Step 2: sieve out malformed input
         $cleanData = $this->sanitiseInputs($iterator, $multilangAttrsWithC, $bad);
         // Step 3: now we have clean input data. Some attributes need special care:
@@ -493,7 +511,7 @@ class OptionParser extends \core\common\Entity {
         // two values forming one attribute; extract those two as an extra step
 
         $options = array_merge($optionsStep2, $this->postProcessCoordinates($postArray, $good));
-        
+
         // Step 5: push all the received options to the database. Keep mind of 
         // the list of existing database entries that are to be deleted.
         // 5a: first deletion step: purge all old content except file-based attributes;
