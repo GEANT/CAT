@@ -244,7 +244,7 @@ build:
                       hJq0/cRNFwGunljrIwYwkbB4NIrl60GWi4l8Y9K3GKUkT6Zvc8IyBS6YR91BVFxh
                       HPDMtGU/bPQ12hAigmtchTB6VHVQpSNExpFkoBkwjUrWuqUK44rCTixrZIR8qeeo
                       le8=
-                      -----END CERTIFICATE-----" >/home/scrutinizer/build/config/SilverbulletClientCerts/real.pem
+                      -----END CERTIFICATE-----" >/home/scrutinizer/build/config/SilverbulletClientCerts/real-RSA.pem
                     - |
                       echo "
                       -----BEGIN RSA PRIVATE KEY-----
@@ -297,7 +297,7 @@ build:
                       SX+G3JlzB1nPWRNQhbbTOFnrLy93HVO2fkZMm6u/Eq8/XaPCetHbt++/WrEWa5NU
                       p4LPj3Y+A6YFB0ylMOKxM/aKn2A5jO9xlAQLlu9eMpx9ovWsAGMfQep3erhlyED7
                       1VBq/qKGOAu5jhFD85c459fasxhqNhxLlnAUJFNOA2skqNzhqg9lIbRo+Hg=
-                      -----END RSA PRIVATE KEY-----" >/home/scrutinizer/build/config/SilverbulletClientCerts/real.key
+                      -----END RSA PRIVATE KEY-----" >/home/scrutinizer/build/config/SilverbulletClientCerts/real-RSA.key
                     - |
                       echo "
                       -----BEGIN CERTIFICATE-----
@@ -434,51 +434,51 @@ build:
                     - cp /home/scrutinizer/build/signer/ms_windows_sign-template /home/scrutinizer/build/signer/ms_windows_sign
                     - sudo chown scrutinizer:scrutinizer /home/scrutinizer/.rnd
                     - sudo -H /home/scrutinizer/build/bin/python3.7 -m pip install pylint distro
-                override:
-                    - 
-                          command: wget http://ci.test/admin/API.php -O /home/scrutinizer/artifacts/inst.log --method=POST --no-verbose --body-file=tests/inst.json
-                          title: "Creating a new participant organisation via API call"
-                    - 
-                          command: wget http://ci.test/admin/API.php -O /home/scrutinizer/artifacts/profile.log --method=POST --no-verbose --body-file=tests/profile1.json
-                          title: "Creating a new RADIUS profile for this organisation via API call"
-                    - 
-                          command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=chromeos\&profile=3 -O /home/scrutinizer/artifacts/ChromeInstaller.onc --no-verbose
-                          title: "Generating a ChromeOS installer via API call"
-                    - 
-                          command: cat /home/scrutinizer/artifacts/ChromeInstaller.onc | jq -r .Type | grep UnencryptedConfiguration
-                          title: "Checking whether output parses as JSON with expected top-level parameter"
-                    - 
-                          command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=w10\&profile=3 -O /home/scrutinizer/artifacts/WinInstaller.exe --no-verbose
-                          title: "Generating Windows 10 installer via API call"
-                    - 
-                          command: file /home/scrutinizer/artifacts/WinInstaller.exe | egrep 'executable.*Intel.*Windows.*Nullsoft'
-                          title: "Checking whether output is a Windows executable and Nullsoft installer"
-                    - 
-                          command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=apple_hi_sierra\&profile=3 -O /home/scrutinizer/artifacts/AppleInstaller.mobileconfig --no-verbose
-                          title: "Generating a Apple High Sierra installer via API call"
-                    - 
-                          command: openssl smime -verify -in /home/scrutinizer/artifacts/AppleInstaller.mobileconfig -inform der -noverify 2>&1 | egrep '(Verification successful|plist)' | wc -l | grep 4
-                          title: "Checking whether output is a S/MIME signed Apple plist file"
-                    - 
-                          command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=linux\&profile=3 -O /home/scrutinizer/artifacts/LinuxInstaller.py --no-verbose
-                          title: "Generaring a Linux installer via API call"
-                    - 
-                          command: pylint -E /home/scrutinizer/artifacts/LinuxInstaller.py
-                          title: "Checking whether output is a error-free Python file"
-                    - 
-                          command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=eap-config\&profile=3 -O /home/scrutinizer/artifacts/GenericInstaller.xml --no-verbose
-                          title: "Generating an eap-config XML file via API call"
-                    - 
-                          command: xmlstarlet val -s "/home/scrutinizer/build/devices/xml/eap-metadata.xsd" "/home/scrutinizer/artifacts/GenericInstaller.xml"
-                          title: "Checking whether output is well-formed XML and validates against Schema"
-                    - 
-                          command: if [ "$TEST_LANGUAGE_VARIANTS" == "1" ]; then cd /home/scrutinizer/build/utils; /home/scrutinizer/.phpenv/versions/7.3.3/bin/php installTranslations.php; sudo apachectl restart; cd /home/scrutinizer/build/tests; /home/scrutinizer/.phpenv/versions/7.3.3/bin/php prepareMultiLangDownloads.php; /bin/bash ./langTestScript.sh; fi
+            tests:
+            - 
+              command: wget http://ci.test/admin/API.php -O /home/scrutinizer/artifacts/inst.log --method=POST --no-verbose --body-file=tests/inst.json
+              title: "Creating a new participant organisation via API call"
+            - 
+              command: wget http://ci.test/admin/API.php -O /home/scrutinizer/artifacts/profile.log --method=POST --no-verbose --body-file=tests/profile1.json
+              title: "Creating a new RADIUS profile for this organisation via API call"
+            - 
+              command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=chromeos\&profile=3 -O /home/scrutinizer/artifacts/ChromeInstaller.onc --no-verbose
+              title: "Generating a ChromeOS installer via API call"
+            - 
+              command: cat /home/scrutinizer/artifacts/ChromeInstaller.onc | jq -r .Type | grep UnencryptedConfiguration
+              title: "Checking whether output parses as JSON with expected top-level parameter"
+            - 
+              command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=w10\&profile=3 -O /home/scrutinizer/artifacts/WinInstaller.exe --no-verbose
+              title: "Generating Windows 10 installer via API call"
+            - 
+              command: file /home/scrutinizer/artifacts/WinInstaller.exe | egrep 'executable.*Intel.*Windows.*Nullsoft'
+              title: "Checking whether output is a Windows executable and Nullsoft installer"
+            - 
+              command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=apple_hi_sierra\&profile=3 -O /home/scrutinizer/artifacts/AppleInstaller.mobileconfig --no-verbose
+              title: "Generating a Apple High Sierra installer via API call"
+            - 
+              command: openssl smime -verify -in /home/scrutinizer/artifacts/AppleInstaller.mobileconfig -inform der -noverify 2>&1 | egrep '(Verification successful|plist)' | wc -l | grep 4
+              title: "Checking whether output is a S/MIME signed Apple plist file"
+            - 
+              command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=linux\&profile=3 -O /home/scrutinizer/artifacts/LinuxInstaller.py --no-verbose
+              title: "Generaring a Linux installer via API call"
+            - 
+              command: pylint -E /home/scrutinizer/artifacts/LinuxInstaller.py
+              title: "Checking whether output is a error-free Python file"
+            - 
+              command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=eap-config\&profile=3 -O /home/scrutinizer/artifacts/GenericInstaller.xml --no-verbose
+              title: "Generating an eap-config XML file via API call"
+            - 
+              command: xmlstarlet val -s "/home/scrutinizer/build/devices/xml/eap-metadata.xsd" "/home/scrutinizer/artifacts/GenericInstaller.xml"
+              title: "Checking whether output is well-formed XML and validates against Schema"
+            - 
+              command: if [ "$TEST_LANGUAGE_VARIANTS" == "1" ]; then cd /home/scrutinizer/build/utils; /home/scrutinizer/.phpenv/versions/7.3.3/bin/php installTranslations.php; sudo apachectl restart; cd /home/scrutinizer/build/tests; /home/scrutinizer/.phpenv/versions/7.3.3/bin/php prepareMultiLangDownloads.php; /bin/bash ./langTestScript.sh; fi
     environment:
         variables:
             MY_PATH: '/home/scrutinizer/vault/'
             TEST_LANGUAGE_VARIANTS: 0
         php:
-            version: 7.3.3
+            version: 7.3.4
         hosts:
             ci.test: 127.0.0.1
         apache2:
