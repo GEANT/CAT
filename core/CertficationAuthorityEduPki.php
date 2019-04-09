@@ -38,7 +38,7 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
         }
     }
 
-    public function triggerNewOCSPStatement(SilverbulletCertificate $cert): string {
+    public function triggerNewOCSPStatement($serial): string {
         // nothing to be done here - eduPKI have their own OCSP responder
         // and the certs point to it. So we are not in the loop.
         return "EXTERNAL";
@@ -195,10 +195,10 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
         ];
     }
 
-    public function revokeCertificate(SilverbulletCertificate $cert): void {
+    public function revokeCertificate($serial): void {
         try {
             $soap = $this->initEduPKISoapSession("RA");
-            $soapRevocationSerial = $soap->newRevocationRequest(["Serial", $cert->serial], "");
+            $soapRevocationSerial = $soap->newRevocationRequest(["Serial", $serial], "");
             if ($soapRevocationSerial == 0) {
                 throw new Exception("Unable to create revocation request, serial number was zero.");
             }

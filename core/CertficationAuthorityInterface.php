@@ -32,10 +32,10 @@ interface CertificationAuthorityInterface {
     /**
      * Creates an updated OCSP statement
      * 
-     * @param \core\SilverbulletCertificate $cert
+     * @param mixed $serial
      * @return array
      */
-    public function triggerNewOCSPStatement(SilverbulletCertificate $cert) : string;
+    public function triggerNewOCSPStatement($serial) : string;
     
     /**
      * signs a certificate request
@@ -49,8 +49,8 @@ interface CertificationAuthorityInterface {
     /**
      * revokes a certificate
      * 
-     * @param \core\SilverbulletCertificate $cert
+     * @param mixed $serial
      * @return void
      */
-    public function revokeCertificate(SilverbulletCertificate $cert) : void;
+    public function revokeCertificate($serial) : void;
 }

@@ -84,7 +84,8 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
         $this->conffile = CertificationAuthorityEmbeddedECDSA::LOCATION_CONFIG;
     }
 
-    public function triggerNewOCSPStatement(SilverbulletCertificate $cert): string {
+    public function triggerNewOCSPStatement($serial): string {
+        $cert = new SilverbulletCertificate($serial, \devices\Devices::SUPPORT_EMBEDDED_ECDSA);
         $certstatus = "";
         // get all relevant info from object properties
         if ($cert->serial >= 0) { // let's start with the assumption that the cert is valid
@@ -173,11 +174,11 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
         ];
     }
 
-    public function revokeCertificate(SilverbulletCertificate $cert): void {
+    public function revokeCertificate($serial): void {
         // the generic caller in SilverbulletCertificate::revokeCertificate
         // has already updated the DB. So all is done; we simply create a new
         // OCSP statement based on the updated DB content
-        $this->triggerNewOCSPStatement($cert);
+        $this->triggerNewOCSPStatement($serial);
     }
 
     public function generateCompatibleCsr($privateKey, $fed, $username) {
