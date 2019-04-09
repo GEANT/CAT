@@ -345,16 +345,16 @@ class OptionParser extends \core\common\Entity {
                     case \core\Options::TYPECODE_TEXT:
                     case \core\Options::TYPECODE_COORDINATES:
                     case \core\Options::TYPECODE_INTEGER:
-                        $varName = "$objId-" . $validators[$optioninfo['type']]['field'];
-                        if (!empty($listOfEntries[$varName])) {
-                            $content = call_user_func_array([$this->validator, $validators[$optioninfo['type']]['function']], array_merge([$listOfEntries[$varName]], $validators[$optioninfo['type']]['extraarg']));
+                        $varName = $listOfEntries["$objId-" . $validators[$optioninfo['type']]['field']];
+                        if (!empty($varName)) {
+                            $content = call_user_func_array([$this->validator, $validators[$optioninfo['type']]['function']], array_merge([$varName], $validators[$optioninfo['type']]['extraarg']));
                             break;
                         }
                         continue 2;
                     case \core\Options::TYPECODE_BOOLEAN:
-                        $varName = "$objId-" . \core\Options::TYPECODE_BOOLEAN;
-                        if (!empty($listOfEntries[$varName])) {
-                            $contentValid = $this->validator->boolean($listOfEntries[$varName]);
+                        $varName = $listOfEntries["$objId-" . \core\Options::TYPECODE_BOOLEAN];
+                        if (!empty($varName)) {
+                            $contentValid = $this->validator->boolean($varName);
                             if ($contentValid) {
                                 $content = "on";
                             } else {
@@ -375,12 +375,16 @@ class OptionParser extends \core\common\Entity {
                         }
                         continue 2;
                     case \core\Options::TYPECODE_FILE:
-                        if (!empty($listOfEntries["$objId-" . \core\Options::TYPECODE_STRING])) { // was already in, by ROWID reference, extract
+                        // this is either actually an uploaded file, or a reference to a DB entry of a previously uploaded file
+                        $reference = $listOfEntries["$objId-" . \core\Options::TYPECODE_STRING];
+                        if (!empty($reference)) { // was already in, by ROWID reference, extract
                             // ROWID means it's a multi-line string (simple strings are inline in the form; so allow whitespace)
-                            $content = $this->validator->string(urldecode($listOfEntries["$objId-" . \core\Options::TYPECODE_STRING]), TRUE);
+                            $content = $this->validator->string(urldecode($reference), TRUE);
                             break;
-                        } else if (isset($listOfEntries["$objId-" . \core\Options::TYPECODE_FILE]) && ($listOfEntries["$objId-" . \core\Options::TYPECODE_FILE] != "")) { // let's do the download
-                            $rawContent = \core\common\OutsideComm::downloadFile("file:///" . $listOfEntries["$objId-" . \core\Options::TYPECODE_FILE]);
+                        }
+                        $fileName = $listOfEntries["$objId-" . \core\Options::TYPECODE_FILE] ?? "";
+                        if ($fileName != "") { // let's do the download
+                            $rawContent = \core\common\OutsideComm::downloadFile("file:///" . $fileName);
 
                             if ($rawContent === FALSE || !$this->checkUploadSanity($objValue, $rawContent)) {
                                 $bad[] = $objValue;
