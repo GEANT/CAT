@@ -295,6 +295,21 @@ class OptionParser extends \core\common\Entity {
         return $pendingattributes;
     }
 
+            /** many of the content check cases in sanitiseInputs condense due to
+             *  identical treatment except which validator function to call and 
+             *  where in POST the content is.
+             * 
+             * This is a map between datatype and validation function.
+             * 
+             * @var array
+             */
+            private const VALIDATOR_FUNCTIONS = [
+                \core\Options::TYPECODE_TEXT => ["function" => "string", "field" => \core\Options::TYPECODE_TEXT, "extraarg" => [TRUE]],
+                \core\Options::TYPECODE_COORDINATES => ["function" => "coordJsonEncoded", "field" => \core\Options::TYPECODE_TEXT, "extraarg" => []],
+                \core\Options::TYPECODE_BOOLEAN => ["function" => "boolean", "field" => \core\Options::TYPECODE_BOOLEAN, "extraarg" => []],
+                \core\Options::TYPECODE_INTEGER => ["function" => "integer", "field" => \core\Options::TYPECODE_INTEGER, "extraarg" => []],
+            ];
+
     /**
      * filters the input to find syntactically correctly submitted attributes
      * 
@@ -308,98 +323,89 @@ class OptionParser extends \core\common\Entity {
         $retval = [];
         foreach ($listOfEntries as $objId => $objValueRaw) {
 // pick those without dash - they indicate a new value        
-            if (preg_match('/^S[0123456789]*$/', $objId)) {
-                $objValue = $this->validator->optionName(preg_replace('/#.*$/', '', $objValueRaw));
-                $optioninfo = $this->optioninfoObject->optionType($objValue);
-                $lang = NULL;
-                if ($optioninfo["flag"] == "ML") {
-                    if (isset($listOfEntries["$objId-lang"])) {
-                        if (!isset($multilangAttrsWithC[$objValue])) { // on first sight, initialise the attribute as "no C language set"
-                            $multilangAttrsWithC[$objValue] = FALSE;
-                        }
-                        $lang = $listOfEntries["$objId-lang"];
-                        if ($lang == "") { // user forgot to select a language
-                            $lang = "C";
-                        }
-                    } else {
-                        $bad[] = $objValue;
-                        continue;
-                    }
-                    // did we get a C language? set corresponding value to TRUE
-                    if ($lang == "C") {
-                        $multilangAttrsWithC[$objValue] = TRUE;
-                    }
-                }
-
-                // many of the cases below condense due to identical treatment
-                // except validator function to call and where in POST the
-                // content is
-                $validators = [
-                    \core\Options::TYPECODE_TEXT => ["function" => "string", "field" => \core\Options::TYPECODE_TEXT, "extraarg" => [TRUE]],
-                    \core\Options::TYPECODE_COORDINATES => ["function" => "coordJsonEncoded", "field" => \core\Options::TYPECODE_TEXT, "extraarg" => []],
-                    \core\Options::TYPECODE_BOOLEAN => ["function" => "boolean", "field" => \core\Options::TYPECODE_BOOLEAN, "extraarg" => []],
-                    \core\Options::TYPECODE_INTEGER => ["function" => "integer", "field" => \core\Options::TYPECODE_INTEGER, "extraarg" => []],
-                ];
-
-                switch ($optioninfo["type"]) {
-                    case \core\Options::TYPECODE_TEXT:
-                    case \core\Options::TYPECODE_COORDINATES:
-                    case \core\Options::TYPECODE_INTEGER:
-                        $varName = $listOfEntries["$objId-" . $validators[$optioninfo['type']]['field']];
-                        if (!empty($varName)) {
-                            $content = call_user_func_array([$this->validator, $validators[$optioninfo['type']]['function']], array_merge([$varName], $validators[$optioninfo['type']]['extraarg']));
-                            break;
-                        }
-                        continue 2;
-                    case \core\Options::TYPECODE_BOOLEAN:
-                        $varName = $listOfEntries["$objId-" . \core\Options::TYPECODE_BOOLEAN];
-                        if (!empty($varName)) {
-                            $contentValid = $this->validator->boolean($varName);
-                            if ($contentValid) {
-                                $content = "on";
-                            } else {
-                                $bad[] = $objValue;
-                                continue 2;
-                            }
-                            break;
-                        }
-                        continue 2;
-                    case \core\Options::TYPECODE_STRING:
-                        $previsionalContent = $listOfEntries["$objId-" . \core\Options::TYPECODE_STRING];
-                        if (!empty($previsionalContent)) {
-                            $content = $this->furtherStringChecks($objValue, $previsionalContent, $bad);
-                            if ($content === FALSE) {
-                                continue 2;
-                            }
-                            break;
-                        }
-                        continue 2;
-                    case \core\Options::TYPECODE_FILE:
-                        // this is either actually an uploaded file, or a reference to a DB entry of a previously uploaded file
-                        $reference = $listOfEntries["$objId-" . \core\Options::TYPECODE_STRING];
-                        if (!empty($reference)) { // was already in, by ROWID reference, extract
-                            // ROWID means it's a multi-line string (simple strings are inline in the form; so allow whitespace)
-                            $content = $this->validator->string(urldecode($reference), TRUE);
-                            break;
-                        }
-                        $fileName = $listOfEntries["$objId-" . \core\Options::TYPECODE_FILE] ?? "";
-                        if ($fileName != "") { // let's do the download
-                            $rawContent = \core\common\OutsideComm::downloadFile("file:///" . $fileName);
-
-                            if ($rawContent === FALSE || !$this->checkUploadSanity($objValue, $rawContent)) {
-                                $bad[] = $objValue;
-                                continue 2;
-                            }
-                            $content = base64_encode($rawContent);
-                            break;
-                        }
-                        continue 2;
-                    default:
-                        throw new Exception("Internal Error: Unknown option type " . $objValue . "!");
-                }
-                // lang can be NULL here, if it's not a multilang attribute, or a ROWID reference. Never mind that.
-                $retval[] = ["$objValue" => ["lang" => $lang, "content" => $content]];
+            if (preg_match('/^S[0123456789]*$/', $objId) != 1) { // no match
+                continue;
             }
+            $objValue = $this->validator->optionName(preg_replace('/#.*$/', '', $objValueRaw));
+            $optioninfo = $this->optioninfoObject->optionType($objValue);
+            $lang = NULL;
+            if ($optioninfo["flag"] == "ML") {
+                if (isset($listOfEntries["$objId-lang"])) {
+                    if (!isset($multilangAttrsWithC[$objValue])) { // on first sight, initialise the attribute as "no C language set"
+                        $multilangAttrsWithC[$objValue] = FALSE;
+                    }
+                    $lang = $listOfEntries["$objId-lang"];
+                    if ($lang == "") { // user forgot to select a language
+                        $lang = "C";
+                    }
+                } else {
+                    $bad[] = $objValue;
+                    continue;
+                }
+                // did we get a C language? set corresponding value to TRUE
+                if ($lang == "C") {
+                    $multilangAttrsWithC[$objValue] = TRUE;
+                }
+            }
+
+            switch ($optioninfo["type"]) {
+                case \core\Options::TYPECODE_TEXT:
+                case \core\Options::TYPECODE_COORDINATES:
+                case \core\Options::TYPECODE_INTEGER:
+                    $varName = $listOfEntries["$objId-" . self::VALIDATOR_FUNCTIONS[$optioninfo['type']]['field']];
+                    if (!empty($varName)) {
+                        $content = call_user_func_array([$this->validator, self::VALIDATOR_FUNCTIONS[$optioninfo['type']]['function']], array_merge([$varName], self::VALIDATOR_FUNCTIONS[$optioninfo['type']]['extraarg']));
+                        break;
+                    }
+                    continue 2;
+                case \core\Options::TYPECODE_BOOLEAN:
+                    $varName = $listOfEntries["$objId-" . \core\Options::TYPECODE_BOOLEAN];
+                    if (!empty($varName)) {
+                        $contentValid = $this->validator->boolean($varName);
+                        if ($contentValid) {
+                            $content = "on";
+                        } else {
+                            $bad[] = $objValue;
+                            continue 2;
+                        }
+                        break;
+                    }
+                    continue 2;
+                case \core\Options::TYPECODE_STRING:
+                    $previsionalContent = $listOfEntries["$objId-" . \core\Options::TYPECODE_STRING];
+                    if (!empty($previsionalContent)) {
+                        $content = $this->furtherStringChecks($objValue, $previsionalContent, $bad);
+                        if ($content === FALSE) {
+                            continue 2;
+                        }
+                        break;
+                    }
+                    continue 2;
+                case \core\Options::TYPECODE_FILE:
+                    // this is either actually an uploaded file, or a reference to a DB entry of a previously uploaded file
+                    $reference = $listOfEntries["$objId-" . \core\Options::TYPECODE_STRING];
+                    if (!empty($reference)) { // was already in, by ROWID reference, extract
+                        // ROWID means it's a multi-line string (simple strings are inline in the form; so allow whitespace)
+                        $content = $this->validator->string(urldecode($reference), TRUE);
+                        break;
+                    }
+                    $fileName = $listOfEntries["$objId-" . \core\Options::TYPECODE_FILE] ?? "";
+                    if ($fileName != "") { // let's do the download
+                        $rawContent = \core\common\OutsideComm::downloadFile("file:///" . $fileName);
+
+                        if ($rawContent === FALSE || !$this->checkUploadSanity($objValue, $rawContent)) {
+                            $bad[] = $objValue;
+                            continue 2;
+                        }
+                        $content = base64_encode($rawContent);
+                        break;
+                    }
+                    continue 2;
+                default:
+                    throw new Exception("Internal Error: Unknown option type " . $objValue . "!");
+            }
+            // lang can be NULL here, if it's not a multilang attribute, or a ROWID reference. Never mind that.
+            $retval[] = ["$objValue" => ["lang" => $lang, "content" => $content]];
         }
         return $retval;
     }
