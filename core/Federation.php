@@ -347,15 +347,9 @@ Best regards,
      * @return array
      */
     public function listExternalEntities($unmappedOnly) {
-        $returnarray = [];
-
-        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-            $usedarray = [];
-            $query = "SELECT id_institution AS id, country, inst_realm as realmlist, name AS collapsed_name, contact AS collapsed_contact FROM view_active_idp_institution WHERE country = ?";
-
-
-            $externalHandle = DBConnection::handle("EXTERNAL");
-            $externals = $externalHandle->exec($query, "s", $this->tld);
+        $allExternals = [];
+        $usedarray = [];
+        if ($unmappedOnly) { // find out which entities are already mapped
             $syncstate = IdP::EXTERNAL_DB_SYNCSTATE_SYNCED;
             $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution 
                                                                                                      WHERE external_db_id IS NOT NULL 
@@ -374,45 +368,16 @@ Best regards,
                     $usedarray[] = $pendingInviteQuery->external_db_uniquehandle;
                 }
             }
-            // was a SELECT query, so a resource and not a boolean
-            while ($externalQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $externals)) {
-                if (($unmappedOnly === TRUE) && (in_array($externalQuery->id, $usedarray))) {
-                    continue;
-                }
-                $names = explode('#', $externalQuery->collapsed_name);
-                // trim name list to current best language match
-                $availableLanguages = [];
-                foreach ($names as $name) {
-                    $thislang = explode(': ', $name, 2);
-                    $availableLanguages[$thislang[0]] = $thislang[1];
-                }
-                if (array_key_exists($this->languageInstance->getLang(), $availableLanguages)) {
-                    $thelangauge = $availableLanguages[$this->languageInstance->getLang()];
-                } else if (array_key_exists("en", $availableLanguages)) {
-                    $thelangauge = $availableLanguages["en"];
-                } else { // whatever. Pick one out of the list
-                    $thelangauge = array_pop($availableLanguages);
-                }
-                $contacts = explode('#', $externalQuery->collapsed_contact);
+        }
 
-
-                $mailnames = "";
-                foreach ($contacts as $contact) {
-                    $matches = [];
-                    preg_match("/^n: (.*), e: (.*), p: .*$/", $contact, $matches);
-                    if ($matches[2] != "") {
-                        if ($mailnames != "") {
-                            $mailnames .= ", ";
-                        }
-                        // extracting real names is nice, but the <> notation
-                        // really gets screwed up on POSTs and HTML safety
-                        // so better not do this; use only mail addresses
-                        $mailnames .= $matches[2];
-                    }
-                }
-                $returnarray[] = ["ID" => $externalQuery->id, "name" => $thelangauge, "contactlist" => $mailnames, "country" => $externalQuery->country, "realmlist" => $externalQuery->realmlist];
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+            $eduroamDb = new ExternalEduroamDBData();
+            $allExternals = $eduroamDb->listExternalEntities();
+        }
+        foreach ($allExternals as $oneExternal) {
+            if (!in_array($oneExternal["ID"], $usedarray)) {
+                $returnarray[] = $oneExternal;
             }
-            usort($returnarray, array($this, "usortInstitution"));
         }
         return $returnarray;
     }

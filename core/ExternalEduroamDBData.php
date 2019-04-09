@@ -109,4 +109,32 @@ class ExternalEduroamDBData extends EntityWithDBProperties {
         return $this->SPList;
     }
 
+    public function listExternalEntities() {
+        $query = "SELECT id_institution AS id, country, inst_realm as realmlist, name AS collapsed_name, contact AS collapsed_contact FROM view_active_idp_institution WHERE country = ?";
+        $externalHandle = DBConnection::handle("EXTERNAL");
+        $externals = $externalHandle->exec($query, "s", $this->tld);
+        // was a SELECT query, so a resource and not a boolean
+        while ($externalQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $externals)) {
+            $names = $this->splitNames($externalQuery->collapsed_name);
+            $thelanguage = $names[$this->languageInstance->getLang()] ?? $names["en"] ?? array_shift($names);
+            $contacts = explode('#', $externalQuery->collapsed_contact);
+            $mailnames = "";
+            foreach ($contacts as $contact) {
+                $matches = [];
+                preg_match("/^n: (.*), e: (.*), p: .*$/", $contact, $matches);
+                if ($matches[2] != "") {
+                    if ($mailnames != "") {
+                        $mailnames .= ", ";
+                    }
+                    // extracting real names is nice, but the <> notation
+                    // really gets screwed up on POSTs and HTML safety
+                    // so better not do this; use only mail addresses
+                    $mailnames .= $matches[2];
+                }
+            }
+            $returnarray[] = ["ID" => $externalQuery->id, "name" => $thelanguage, "contactlist" => $mailnames, "country" => $externalQuery->country, "realmlist" => $externalQuery->realmlist];
+        }
+        usort($returnarray, array($this, "usortInstitution"));
+    }
+
 }
