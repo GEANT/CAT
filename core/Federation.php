@@ -349,7 +349,7 @@ Best regards,
     public function listExternalEntities($unmappedOnly) {
         $allExternals = [];
         $usedarray = [];
-        $returnArray = [];
+        $returnarray = [];
         if ($unmappedOnly) { // find out which entities are already mapped
             $syncstate = IdP::EXTERNAL_DB_SYNCSTATE_SYNCED;
             $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution 
