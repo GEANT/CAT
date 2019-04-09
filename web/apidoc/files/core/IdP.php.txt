@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -51,6 +52,10 @@ class IdP extends EntityWithDBProperties {
     const EXTERNAL_DB_SYNCSTATE_SYNCED = 1;
     const EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING = 2;
 
+    const TYPE_IDP = 'IdP';
+    const TYPE_SP  = 'SP';
+    const TYPE_IDPSP = 'IdPSP';
+    
     /**
      *
      * @var int synchronisation state with external database, if any
@@ -64,6 +69,12 @@ class IdP extends EntityWithDBProperties {
     public $federation;
 
     /**
+     * The type of participant in DB enum notation
+     * @var string
+     */
+    public $type;
+    
+    /**
      * Constructs an IdP object based on its details in the database.
      * Cannot be used to define a new IdP in the database! This happens via Federation::newIdP()
      *
@@ -74,8 +85,8 @@ class IdP extends EntityWithDBProperties {
         parent::__construct(); // now databaseHandle and logging is available
         $this->entityOptionTable = "institution_option";
         $this->entityIdColumn = "institution_id";
-        
-        $this->identifier = (int) $instId;
+
+        $this->identifier = $instId;
 
         $idp = $this->databaseHandle->exec("SELECT inst_id, country,external_db_syncstate FROM institution WHERE inst_id = $this->identifier");
         // SELECT -> returns resource, not boolean
@@ -100,6 +111,14 @@ class IdP extends EntityWithDBProperties {
             "flag" => NULL];
 
         $this->name = $this->languageInstance->getLocalisedValue($this->getAttributes('general:instname'));
+        $eligibility = $this->eligibility();
+        if (in_array(IdP::ELIGIBILITY_IDP, $eligibility) && in_array(IdP::ELIGIBILITY_SP, $eligibility)) {
+            $this->type = IdP::TYPE_IDPSP;
+        } elseif (in_array(IdP::ELIGIBILITY_IDP, $eligibility)) {
+            $this->type = IdP::TYPE_IDP;
+        } else {
+            $this->type = IdP::TYPE_SP;
+        }
         $this->loggerInstance->debug(3, "--- END Constructing new IdP object ... ---\n");
     }
 
@@ -107,7 +126,7 @@ class IdP extends EntityWithDBProperties {
      * This function retrieves all registered profiles for this IdP from the database
      *
      * @param bool $activeOnly if and set to non-zero will cause listing of only those institutions which have some valid profiles defined.
-     * @return array list of Profiles of this IdP
+     * @return \core\AbstractProfile[] list of Profiles of this IdP
      */
     public function listProfiles(bool $activeOnly = FALSE) {
         $query = "SELECT profile_id FROM profile WHERE inst_id = $this->identifier" . ($activeOnly ? " AND showtime = 1" : "");
@@ -121,6 +140,25 @@ class IdP extends EntityWithDBProperties {
         }
 
         $this->loggerInstance->debug(4, "listProfiles: " . print_r($returnarray, true));
+        return $returnarray;
+    }
+    
+    /**
+     * This function retrieves all SP deployments for this organisation from the database
+     *
+     * @param bool $activeOnly if and set to non-zero will cause listing of only those institutions which have some valid profiles defined.
+     * @return \core\AbstractDeployment[] list of deployments of this IdP
+     */
+    public function listDeployments(bool $activeOnly = FALSE) {
+        $query = "SELECT deployment_id FROM deployment WHERE inst_id = $this->identifier" . ($activeOnly ? " AND status = " . AbstractDeployment::ACTIVE : "");
+        $allDeployments = $this->databaseHandle->exec($query);
+        $returnarray = [];
+        // SELECT -> resource, not boolean
+        while ($deploymentQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allDeployments)) {
+            $returnarray[] = new DeploymentManaged($this,$deploymentQuery->deployment_id);
+        }
+
+        $this->loggerInstance->debug(4, "listDeployments: " . print_r($returnarray, true));
         return $returnarray;
     }
 
@@ -187,11 +225,46 @@ class IdP extends EntityWithDBProperties {
     }
 
     /**
+     * This function gets the deployment count for a given IdP.
+     *
+     * @return int deployment count
+     */
+    public function deploymentCount() {
+        $result = $this->databaseHandle->exec("SELECT deployment_id FROM deployment
+             WHERE inst_id = $this->identifier");
+        // SELECT -> resource, not boolean
+        return(mysqli_num_rows(/** @scrutinizer ignore-type */ $result));
+    }
+
+    const ELIGIBILITY_IDP = "IdP";
+    const ELIGIBILITY_SP = "SP";
+    /**
+     * checks whether the participant is an IdP, an SP, or both.
+     * 
+     * @return array list of eligibilities
+     */
+    public function eligibility() {
+        $eligibilites = $this->databaseHandle->exec("SELECT type FROM institution WHERE inst_id = $this->identifier");
+        while ($iterator = mysqli_fetch_object(/** @scrutinizer ignore-type */ $eligibilites)) {
+            switch ($iterator->type) {
+                case "IdP":
+                    return [ IdP::ELIGIBILITY_IDP ];
+                case "SP":
+                    return [ IdP::ELIGIBILITY_SP ];
+                default:
+                    return [ IdP::ELIGIBILITY_IDP, IdP::ELIGIBILITY_SP ];
+            }
+        }
+    }
+    
+    /**
      * This function sets the timestamp of last modification of the child profiles to the current timestamp.
      * 
      * This is needed for installer caching: all installers which are on disk 
      * must be re-created if an attribute changes. This timestamp here
      * is used to determine if the installer on disk is still new enough.
+     * 
+     * @return void
      */
     public function updateFreshness() {
         // freshness is always defined for *Profiles*
@@ -227,9 +300,34 @@ class IdP extends EntityWithDBProperties {
     }
 
     /**
+     * Adds a new hotspot deployment to this IdP.
+     * 
+     * Only creates the DB entry for the deployment. If you want to add attributes later, see Profile::addAttribute().
+     *
+     * @param string $type exactly "RADIUS-SP" or "MANAGED-SP", all other values throw an Exception
+     * @return DeploymentManaged the newly created deployment
+     */
+    public function newDeployment(string $type) {
+            switch ($type) {
+                case AbstractDeployment::DEPLOYMENTTYPE_CLASSIC:
+                    // classic deployment exist in the eduroam DB. We don't do anything here.
+                    throw new Exception("This type of deployment is handled externally and requesting it here makes no sense.");
+                case AbstractDeployment::DEPLOYMENTTYPE_MANAGED:
+                    $this->databaseHandle->exec("INSERT INTO deployment (inst_id) VALUES($this->identifier)");
+                    $identifier = $this->databaseHandle->lastID();
+                    return new DeploymentManaged($this, $identifier);
+                default:
+                    throw new Exception("This type of deployment is unknown and can not be added.");
+            }
+    }
+
+    /**
      * deletes the IdP and all its profiles
+     * 
+     * @return void
      */
     public function destroy() {
+        common\Entity::intoThePotatoes();
         /* delete all profiles */
         foreach ($this->listProfiles() as $profile) {
             $profile->destroy();
@@ -252,15 +350,16 @@ class IdP extends EntityWithDBProperties {
             $user = new User($id);
             $message = sprintf(_("Hi,
 
-the Identity Provider %s in your %s federation %s has been deleted from %s.
+the %s %s in your %s federation %s has been deleted from %s.
 
 We thought you might want to know.
 
 Best regards,
 
-%s"), $this->name, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], strtoupper($fed->name), CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname_long']);
-            $user->sendMailToUser(_("IdP in your federation was deleted"), $message);
+%s"), common\Entity::$nomenclature_inst, $this->name, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], strtoupper($fed->name), CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname_long']);
+            $user->sendMailToUser(sprintf(_("%s in your federation was deleted"), common\Entity::$nomenclature_inst), $message);
         }
+        common\Entity::outOfThePotatoes();
     }
 
     /**
@@ -345,6 +444,7 @@ Best regards,
      * Associates the external DB id with a CAT id
      * 
      * @param string $identifier the external DB id, which can be alpha-numeric
+     * @return void
      */
     public function setExternalDBId(string $identifier) {
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
@@ -359,6 +459,8 @@ Best regards,
 
     /**
      * removes the link between a CAT institution and the external DB
+     * 
+     * @return void
      */
     public function removeExternalDBId() {
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED

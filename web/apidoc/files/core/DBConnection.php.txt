@@ -59,6 +59,7 @@ class DBConnection {
             case "USER":
             case "EXTERNAL":
             case "FRONTEND":
+            case "DIAGNOSTICS":
                 if (!isset(self::${"instance" . $theDb})) {
                     $class = __CLASS__;
                     self::${"instance" . $theDb} = new $class($database);
@@ -205,6 +206,13 @@ class DBConnection {
      * @var DBConnection 
      */
     private static $instanceFRONTEND;
+
+    /**
+     * Holds the singleton instance reference to DIAGNOSTICS database
+     * 
+     * @var DBConnection 
+     */
+    private static $instanceDIAGNOSTICS;
 
     /**
      * after instantiation, keep state of which DB *this one* talks to

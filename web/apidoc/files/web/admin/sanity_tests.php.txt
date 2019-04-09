@@ -22,32 +22,41 @@
 require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 
 $Tests = [
-    'cat_base_url',
-    'ssp',
-    'security',
-    'php',
-    'phpModules',
-    'openssl',
-    'zip',
-    'directories',
-    'locales',
-    'defaults',
-    'databases',
-    'device_cache',
-    'mailer',
+    'CatBaseUrl',
+    'Ssp',
+    'Security',
+    'Php',
+    'PhpModules',
+    'Openssl',
+    'Zip',
+    'Directories',
+    'Logdir',
+    'Locales',
+    'Defaults',
+    'Databases',
+    'DeviceCache',
+    'Mailer',
+    'Geoip',
 ];
 
 if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" || CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL" ) {
-    $Tests[] = 'makensis';
-    $Tests[] = 'makensis=>NSISmodules';
+    $Tests[] = 'Makensis';
+    $Tests[] = 'Makensis=>NSISmodules';
 }
 
 if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == "LOCAL") {
-    $Tests[] = 'eapol_test';
+    $Tests[] = 'Eapoltest';
 }
 
 ini_set('display_errors', '0');
 
+/**
+ * creates the HTML code displaying the result of a test that was run previously
+ * 
+ * @param \core\SanityTests $test the test that was run
+ * @return string
+ * @throws Exception
+ */
 function print_test_results($test) {
     $out = '';
     switch ($test->test_result['global']) {
@@ -85,7 +94,7 @@ if (!in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
     }
 }
 $test = new \core\SanityTests();
-$test->run_tests($Tests);
+$test->runTests($Tests);
 $format = empty($_REQUEST['format']) ? 'include' : $_REQUEST['format'];
 switch ($format) {
     case 'include':

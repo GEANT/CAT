@@ -26,7 +26,7 @@
  * @package UserGUI
  */
 error_reporting(E_ALL | E_STRICT);
-include(dirname(dirname(__FILE__)) . "/config/_config.php");
+require dirname(dirname(__FILE__)) . "/config/_config.php";
 $langObject = new \core\common\Language();
 $langObject->setTextDomain("web_user");
 

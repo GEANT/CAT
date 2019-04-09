@@ -73,7 +73,7 @@ class UserNetAPI extends UserAPI {
     /**
      * outputs the list of supported languages.
      */
-    public function JSON_listLanguages() {
+    public function jsonListLanguages() {
         $returnArray = [];
         foreach (CONFIG['LANGUAGES'] as $id => $val) {
             $returnArray[] = ['lang' => $id, 'display' => $val['display'], 'locale' => $val['locale']];
@@ -85,7 +85,7 @@ class UserNetAPI extends UserAPI {
      * outputs the list of countries with configured IdPs
      *
      */
-    public function JSON_listCountries() {
+    public function jsonListCountries() {
         $federations = $this->printCountryList(1);
         $returnArray = [];
         foreach ($federations as $id => $val) {
@@ -99,7 +99,7 @@ class UserNetAPI extends UserAPI {
      *
      * @param string $country the country we are interested in
      */
-    public function JSON_listIdentityProviders($country) {
+    public function jsonListIdentityProviders($country) {
         $idps = $this->listAllIdentityProviders(1, $country);
         $returnArray = [];
         foreach ($idps as $idp) {
@@ -113,7 +113,7 @@ class UserNetAPI extends UserAPI {
      *
      * The IdP list is formatted for DiscoJuice consumption
      */
-    public function JSON_listIdentityProvidersForDisco() {
+    public function jsonListIdentityProvidersForDisco() {
         $idps = $this->listAllIdentityProviders(1);
         $returnArray = [];
         foreach ($idps as $idp) {
@@ -131,7 +131,7 @@ class UserNetAPI extends UserAPI {
      * @param array $location the coordinates of the approximate user location
      *
      */
-    public function JSON_orderIdentityProviders($country, $location = NULL) {
+    public function jsonOrderIdentityProviders($country, $location) {
         $idps = $this->orderIdentityProviders($country, $location);
         $returnArray = [];
         foreach ($idps as $idp) {
@@ -146,8 +146,7 @@ class UserNetAPI extends UserAPI {
      * @param int $idpIdentifier the IdP identifier
      * @param int $sort          should the result set be sorted? 0 = no, 1 = yes
      */
-    public function JSON_listProfiles($idpIdentifier, $sort = 0) {
-        $this->languageInstance->setTextDomain("web_user");
+    public function jsonListProfiles($idpIdentifier, $sort = 0) {
         $returnArray = [];
         try {
             $idp = new IdP($idpIdentifier);
@@ -185,8 +184,7 @@ class UserNetAPI extends UserAPI {
      *
      * @param int $profileId the Profile identifier
      */
-    public function JSON_listDevices($profileId) {
-        $this->languageInstance->setTextDomain("web_user");
+    public function jsonListDevices($profileId) {
         $returnArray = [];
         $profileAttributes = $this->profileAttributes($profileId);
         $thedevices = $profileAttributes['devices'];
@@ -210,7 +208,7 @@ class UserNetAPI extends UserAPI {
      * @param string $device  identifier as in {@link devices.php}
      * @param int    $prof_id profile identifier
      */
-    public function JSON_generateInstaller($device, $prof_id) {
+    public function jsonGenerateInstaller($device, $prof_id) {
         $this->loggerInstance->debug(4, "JSON::generateInstaller arguments: $device,$prof_id\n");
         $output = $this->generateInstaller($device, $prof_id);
         $this->loggerInstance->debug(4, "output from GUI::generateInstaller:");
@@ -223,7 +221,7 @@ class UserNetAPI extends UserAPI {
     /**
      * outputs OS guess in JSON
      */
-    public function JSON_detectOS() {
+    public function jsonDetectOS() {
         $returnArray = $this->detectOS();
         $status = is_array($returnArray) ? 1 : 0;
         echo $this->returnJSON($returnArray, $status);
@@ -233,7 +231,7 @@ class UserNetAPI extends UserAPI {
      * outputs user certificates pertaining to a given token in JSON
      * @param string $token
      */
-    public function JSON_getUserCerts($token) {
+    public function jsonGetUserCerts($token) {
         $returnArrayE = $this->getUserCerts($token);
         $returnArray = [];
         $status = is_array($returnArrayE) ? 1 : 0;
@@ -248,7 +246,7 @@ class UserNetAPI extends UserAPI {
     /** outputs the user location as JSON
      * @throws Exception
      */
-    public function JSON_locateUser() {
+    public function jsonLocateUser() {
         header('Content-type: application/json; utf-8');
         echo json_encode($this->locateDevice());
     }
@@ -256,7 +254,7 @@ class UserNetAPI extends UserAPI {
     /**
      * outputs support data prepared within {@link GUI::profileAttributes()}
      */
-    public function JSON_profileAttributes($prof_id) {
+    public function jsonProfileAttributes($prof_id) {
 //    header('Content-type: application/json; utf-8');
         echo $this->returnJSON($this->profileAttributes($prof_id));
     }

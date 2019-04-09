@@ -50,9 +50,9 @@ if (isset($_REQUEST['token'])) {
     // tokens to go on
     $certname = $_SERVER['SSL_CLIENT_SAN_Email'] ?? $_SERVER['SSL_CLIENT_SAN_Email_0'];
     if (preg_match("R$", $_SERVER['SSL_CLIENT_I_DN'])) {
-        $certObject = new \core\SilverbulletCertificate($certname, devices\Devices::SUPPORT_RSA);
+        $certObject = new \core\SilverbulletCertificate($certname, devices\Devices::SUPPORT_EMBEDDED_RSA);
     } else if (preg_match("E$", $_SERVER['SSL_CLIENT_I_DN'])) {
-        $certObject = new \core\SilverbulletCertificate($certname, devices\Devices::SUPPORT_ECDSA);
+        $certObject = new \core\SilverbulletCertificate($certname, devices\Devices::SUPPORT_EMBEDDED_ECDSA);
     } else {
         throw new Exception("We got an accepted certificate authentication, but can't find the certificate in the database!");
     }
@@ -65,7 +65,7 @@ if (isset($_REQUEST['token'])) {
 if ($invitationObject->invitationTokenStatus != \core\SilverbulletInvitation::SB_TOKENSTATUS_INVALID) { // determine skin to use based on NROs preference
     $profile = new \core\ProfileSilverbullet($invitationObject->profile, NULL);
     $idp = new \core\IdP($profile->institution);
-    $fed = $validator->Federation(strtoupper($idp->federation));
+    $fed = $validator->existingFederation(strtoupper($idp->federation));
     $fedskin = $fed->getAttributes("fed:desired_skin");
 }
 // ... unless overwritten by direct GET/POST parameter in the request
@@ -131,5 +131,5 @@ switch ($errorcode) {
 $skinObject = new \web\lib\user\Skinjob($_REQUEST['skin'] ?? $_SESSION['skin'] ?? $fedskin[0] ?? CONFIG['APPEARANCE']['skins'][0]);
 
 // and now, serve actual data
-include("../skins/" . $skinObject->skin . "/accountstatus/accountstatus.php");
+require "../skins/" . $skinObject->skin . "/accountstatus/accountstatus.php";
 

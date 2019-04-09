@@ -31,8 +31,8 @@ $optionParser = new \web\lib\admin\OptionParser();
 $loggerInstance = new \core\common\Logging();
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_DELETE && isset($_GET['inst_id']) && isset($_GET['profile_id'])) {
     $auth->authenticate();
-    $my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
-    $my_profile = $validator->Profile($_GET['profile_id'], $my_inst->identifier);
+    $my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
+    $my_profile = $validator->existingProfile($_GET['profile_id'], $my_inst->identifier);
     $profile_id = $my_profile->identifier;
     $my_profile->destroy();
     $loggerInstance->writeAudit($_SESSION['user'], "DEL", "Profile $profile_id");
@@ -44,12 +44,12 @@ echo $deco->pageheader(sprintf(_("%s: Profile wizard (step 3 completed)"), CONFI
 
 // check if profile exists and belongs to IdP
 
-$my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
+$my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
 
 $my_profile = NULL;
 
 if (isset($_GET['profile_id'])) {
-    $my_profile = $validator->Profile($_GET['profile_id'], $my_inst->identifier);
+    $my_profile = $validator->existingProfile($_GET['profile_id'], $my_inst->identifier);
     if (!$my_profile instanceof \core\ProfileRADIUS) {
         throw new Exception("This page should only be called to submit RADIUS Profile information!");
     }

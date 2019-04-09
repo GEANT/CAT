@@ -126,7 +126,7 @@ class RFC7585Tests extends AbstractTest {
      */
     public function __construct(string $realm) {
         parent::__construct();
-
+        \core\common\Entity::intoThePotatoes();
         // return codes specific to NAPTR existence checks
         /**
          * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
@@ -150,6 +150,7 @@ class RFC7585Tests extends AbstractTest {
         $this->NAPTR_SRV_records = [];
         $this->NAPTR_hostname_records = [];
         $this->errorlist = [];
+        \core\common\Entity::outOfThePotatoes();
     }
 
     /**

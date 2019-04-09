@@ -32,9 +32,9 @@ $auth->authenticate();
 $languageInstance->setTextDomain("web_admin");
 
 header("Content-Type:text/html;charset=utf-8");
-$my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
+$my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
 
-$my_profile = $validator->Profile($_GET['profile_id'], $my_inst->identifier);
+$my_profile = $validator->existingProfile($_GET['profile_id'], $my_inst->identifier);
 
 if (!$my_profile instanceof \core\ProfileRADIUS) {
     throw new Exception("Redirect options can only be set for RADIUS profiles!");
@@ -44,7 +44,7 @@ $device = NULL;
 $device_key = NULL;
 $posted_device = $_POST['device'] ?? FALSE;
 if ($posted_device) {
-    $device_key = $validator->Device($posted_device);
+    $device_key = $validator->existingDevice($posted_device);
     $devices = \devices\Devices::listDevices();
     if (isset($devices[$device_key])) {
         // we now know that $device_key is valid as well

@@ -40,6 +40,12 @@ $invitationObject = new core\SilverbulletInvitation($validator->token(filter_inp
 header("Content-Type:text/html;charset=utf-8");
 ?>
 <h1 style='text-align:center;'><?php echo _("Invitation Token QR Code");?></h1>
-<img style='float:none' src='data:image/png;base64,<?php echo base64_encode($uiElements->pngInjectConsortiumLogo(\QRcode::png($invitationObject->link(), FALSE, QR_ECLEVEL_Q, 11), 11));?>'/>
-<p>(<a href='<?php echo $link;?>'><?php echo $link;?>)</a></p>
+<img style='float:none' src='data:image/png;base64,<?php 
+// this cannot be NULL since $filename is FALSE; but make Scrutinizer happy.
+$rawQr = \QRcode::png($invitationObject->link(), FALSE, QR_ECLEVEL_Q, 11);
+if ($rawQr === NULL) {
+    throw new Exception("Something went seriously wrong during QR code generation!");
+}
+echo base64_encode($uiElements->pngInjectConsortiumLogo($rawQr, 11));?>'/>
+<p>(<a href='<?php echo $invitationObject->link();?>'><?php echo $invitationObject->link();?>)</a></p>
 

@@ -24,7 +24,7 @@ require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 $loggerInstance = new \core\common\Logging();
 $validator = new \web\lib\common\InputValidation();
 $languageInstance = new \core\common\Language();
-$languageInstance->setTextDomain("web_admin");
+$languageInstance->setTextDomain("diagnostics");
 
 
 
@@ -35,6 +35,12 @@ $additional_message = [
     \core\common\Entity::L_ERROR => _("Some configuration errors were observed; the list is below."),
 ];
 
+/**
+ * returns the friendly name of an EAP type
+ * 
+ * @param array $eap array representation of the EAP type to be returned
+ * @return string the friendly name
+ */
 function disp_name($eap) {
     $displayName = \core\common\EAP::eapDisplayName($eap);
     return $displayName['OUTER'] . ( $displayName['INNER'] != '' ? '-' . $displayName['INNER'] : '');
@@ -53,7 +59,7 @@ if ($check_realm === FALSE) {
 }
 
 if (isset($_REQUEST['profile_id'])) {
-    $my_profile = $validator->Profile($_REQUEST['profile_id']);
+    $my_profile = $validator->existingProfile($_REQUEST['profile_id']);
     if (!$my_profile instanceof \core\ProfileRADIUS) {
         throw new Exception("RADIUS Tests can only be performed on RADIUS Profiles (d'oh!)");
     }
@@ -95,12 +101,12 @@ if (is_numeric($posted_host)) { // UDP tests, this is an index to the test host 
 $returnarray = [];
 $timeout = CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$hostindex]['timeout'];
 switch ($test_type) {
-    case 'udp_login' :
+    case 'udp_login':
         $i = 0;
         $returnarray['hostindex'] = $hostindex;
         $eaps = $my_profile->getEapMethodsinOrderOfPreference(1);
-        $user_name = $validator->User(isset($_REQUEST['username']) && $_REQUEST['username'] ? $_REQUEST['username'] : "");
-        $outer_user_name = $validator->User(isset($_REQUEST['outer_username']) && $_REQUEST['outer_username'] ? $_REQUEST['outer_username'] : $user_name);
+        $user_name = $validator->syntaxConformUser(isset($_REQUEST['username']) && $_REQUEST['username'] ? $_REQUEST['username'] : "");
+        $outer_user_name = $validator->syntaxConformUser(isset($_REQUEST['outer_username']) && $_REQUEST['outer_username'] ? $_REQUEST['outer_username'] : $user_name);
         $testsuite->setOuterIdentity($outer_user_name);
         $user_password = isset($_REQUEST['password']) && $_REQUEST['password'] ? $_REQUEST['password'] : ""; //!!
         $returnarray['result'] = [];
@@ -111,7 +117,7 @@ switch ($test_type) {
                     $clientcertdata = file_get_contents($_FILES['cert']['tmp_name']);
                     $privkey_pass = isset($_REQUEST['privkey_pass']) && $_REQUEST['privkey_pass'] ? $_REQUEST['privkey_pass'] : ""; //!!
                     if (isset($_REQUEST['tls_username']) && $_REQUEST['tls_username']) {
-                        $tls_username = $validator->User($_REQUEST['tls_username']);
+                        $tls_username = $validator->syntaxConformUser(filter_input(INPUT_POST, 'tls_username', FILTER_SANITIZE_STRING));
                     } else {
                         if (openssl_pkcs12_read($clientcertdata, $certs, $privkey_pass)) {
                             $mydetails = openssl_x509_parse($certs['cert']);
@@ -144,17 +150,17 @@ switch ($test_type) {
 
 
             switch ($testresult) {
-                case \core\diag\RADIUSTests::RETVAL_OK :
+                case \core\diag\RADIUSTests::RETVAL_OK:
                     $level = $returnarray['result'][$i]['level'];
                     switch ($level) {
-                        case \core\common\Entity::L_OK :
+                        case \core\common\Entity::L_OK:
                             $message = _("<strong>Test successful.</strong>");
                             break;
-                        case \core\common\Entity::L_REMARK :
-                        case \core\common\Entity::L_WARN :
+                        case \core\common\Entity::L_REMARK:
+                        case \core\common\Entity::L_WARN:
                             $message = _("<strong>Test partially successful</strong>: authentication succeded.") . ' ' . $additional_message[$level];
                             break;
-                        case \core\common\Entity::L_ERROR :
+                        case \core\common\Entity::L_ERROR:
                             $message = _("<strong>Test FAILED</strong>: authentication succeded.") . ' ' . $additional_message[$level];
                             break;
                     }
@@ -194,7 +200,7 @@ switch ($test_type) {
             $i++;
         }
         break;
-    case 'udp' :
+    case 'udp':
         $i = 0;
         $returnarray['hostindex'] = $hostindex;
         $testresult = $testsuite->udpReachability($hostindex);

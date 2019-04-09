@@ -61,7 +61,7 @@ const CONFIG = [
         'abuse-mail' => 'my-abuse-contact@your-cat-installation.example',
         'invitation-bcc-mail' => NULL,
         'defaultlocale' => 'en',
-        'MOTD' => "Release Candidate. All bugs to be shot on sight!",
+        'MOTD' => "If you can read this, then the administrator did not change the default MOTD in config-master.php",
         // # signs before the colour code
         'colour1' => '#FFFFFF',
         'colour2' => '#0A698E',
@@ -127,7 +127,7 @@ const CONFIG = [
       */
       
     'GEOIP' => [
-        'version' => 0,
+        'version' => 2,
         'geoip2-path-to-autoloader' => '/usr/share/GeoIP2/vendor/autoload.php',
         'geoip2-path-to-db' => '/usr/share/GeoIP2/DB/GeoLite2-City.mmdb',
     ],
@@ -180,14 +180,18 @@ const CONFIG = [
       'en' => ['display' => 'English(GB)', 'locale' => 'en_GB.utf8',    'latin_based' => TRUE],
       'es' => ['display' => 'Español',     'locale' => 'es_ES.utf8',    'latin_based' => TRUE],     
       'et' => ['display' => 'Eesti',       'locale' => 'et_EE.utf8',    'latin_based' => TRUE], 
+      'fr' => ['display' => 'Français',    'locale' => 'fr_FR.utf8',    'latin_based' => TRUE],
       'hr' => ['display' => 'Hrvatski',    'locale' => 'hr_HR.utf8',    'latin_based' => TRUE],
       'hu' => ['display' => 'Magyar',      'locale' => 'hu_HU.utf8',    'latin_based' => TRUE],
       'it' => ['display' => 'Italiano',    'locale' => 'it_IT.utf8',    'latin_based' => TRUE],
+      'nb' => ['display' => 'Norsk',       'locale' => 'nb_NO.utf8',    'latin_based' => TRUE],
       'pl' => ['display' => 'Polski',      'locale' => 'pl_PL.utf8',    'latin_based' => TRUE],
       'pt' => ['display' => 'Português',   'locale' => 'pt_PT.utf8',    'latin_based' => TRUE],
+      'sl' => ['display' => 'Slovenščina', 'locale' => 'sl_SI.utf8',    'latin_based' => TRUE],
       'sr' => ['display' => 'Srpski',      'locale' => 'sr_RS@latin',   'latin_based' => TRUE],
       'fi' => ['display' => 'Suomi',       'locale' => 'fi_FI.utf8',    'latin_based' => TRUE],
       'tr' => ['display' => 'Türkçe',      'locale' => 'tr_TR.utf8',    'latin_based' => TRUE],
+
 
 
 // For the following languages, partial translations exist in Transifex, but
@@ -198,11 +202,8 @@ const CONFIG = [
 //      'nl' => ['display' => 'Nederlands',  'locale' => 'nl_NL.utf8',    'latin_based' => TRUE],
 //      'sv' => ['display' => 'Svenska',     'locale' => 'sv_SE.utf8',    'latin_based' => TRUE],
 //      'cy' => ['display' => 'Cymraeg',     'locale' => 'cy_GB.utf8',    'latin_based' => TRUE],
-//      'fr' => ['display' => 'Français',    'locale' => 'fr_FR.utf8',    'latin_based' => TRUE],
 //      'gl' => ['display' => 'Galego',      'locale' => 'gl_ES.utf8',    'latin_based' => TRUE],
 //      'lt' => ['display' => 'lietuvių',    'locale' => 'lt_LT.utf8',    'latin_based' => TRUE],
-//      'nb' => ['display' => 'Norsk',       'locale' => 'nb_NO.utf8',    'latin_based' => TRUE],
-//      'sl' => ['display' => 'Slovenščina', 'locale' => 'sl_SI.utf8',    'latin_based' => TRUE],
 //      'sk' => ['display' => 'Slovenčina',  'locale' => 'sk_SK.utf8',    'latin_based' => TRUE],
     ],
 
@@ -225,6 +226,15 @@ const CONFIG = [
             'user' => 'someuser',
             'pass' => 'somepass',
             'readonly' => FALSE, ],
+        // this DB stores diagnostics data. The connection details can be
+        // identical to INST as there is no table overlap
+        'DIAGNOSTICS' => [
+            'host' => 'db.host.example',
+            'db' => 'cat',
+            'user' => 'someuser',
+            'pass' => 'somepass',
+            'readonly' => FALSE, ],
+
         // this slice of DB user is about the downloads table. The corresponding
         // DB user should have write access to update statistics and the cache
         // locations of installers. 

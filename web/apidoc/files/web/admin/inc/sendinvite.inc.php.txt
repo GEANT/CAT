@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -37,7 +38,7 @@ $new_idp_authorized_fedadmin = FALSE;
 /**
  * aborts code execution if a required mail address is invalid
  * 
- * @param mixed $newmailaddress input string, possibly one or more mail addresses
+ * @param mixed  $newmailaddress       input string, possibly one or more mail addresses
  * @param string $redirect_destination destination to send user to if validation failed
  * @return array mail address if validation passed
  */
@@ -100,7 +101,7 @@ if (isset($_POST['creation']) && ($_POST['creation'] == "existing") && isset($_P
 
 switch ($operationMode) {
     case OPERATION_MODE_EDIT:
-        $idp = $validator->IdP($_GET['inst_id']);
+        $idp = $validator->existingIdP($_GET['inst_id']);
         // editing IdPs is done from within the popup. When we're done, send the 
         // user back to the popup (append the result of the operation later)
         $redirect_destination = "manageAdmins.inc.php?inst_id=" . $idp->identifier . "&";
@@ -111,7 +112,7 @@ switch ($operationMode) {
         $fedadmin = $userObject->isFederationAdmin($idp->federation);
         // check if he is either one, if not, complain
         if (!$is_owner && !$fedadmin) {
-            echo "<p>" . sprintf(_("Something's wrong... you are a %s admin, but not for the %s the requested %s belongs to!"), $uiElements->nomenclature_fed, $uiElements->nomenclature_fed, $uiElements->nomenclature_inst) . "</p>";
+            echo "<p>" . sprintf(_("Something's wrong... you are a %s admin, but not for the %s the requested %s belongs to!"), $uiElements->nomenclatureFed, $uiElements->nomenclatureFed, $uiElements->nomenclatureInst) . "</p>";
             exit(1);
         }
 
@@ -119,6 +120,7 @@ switch ($operationMode) {
         $newtokens = $mgmt->createTokens($fedadmin, $mailaddress, $idp);
         $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $idp->identifier . " - Token created for " . implode(",", $mailaddress));
         $introtext = "CO-ADMIN";
+        $participant_type = $idp->type;
         break;
     case OPERATION_MODE_NEWUNLINKED:
         $redirect_destination = "../overview_federation.php?";
@@ -126,17 +128,18 @@ switch ($operationMode) {
         // run an input check and conversion of the raw inputs... just in case
         $newinstname = $validator->string($_POST['name']);
         $newcountry = $validator->string($_POST['country']);
+        $participant_type = $validator->partType($_POST['participant_type']);
         $new_idp_authorized_fedadmin = $userObject->isFederationAdmin($newcountry);
         if ($new_idp_authorized_fedadmin !== TRUE) {
-            throw new Exception("Something's wrong... you want to create a new " . $uiElements->nomenclature_inst . ", but are not a " . $uiElements->nomenclature_fed . " admin for the " . $uiElements->nomenclature_fed . " it should be in!");
+            throw new Exception("Something's wrong... you want to create a new " . $uiElements->nomenclatureInst . ", but are not a " . $uiElements->nomenclatureFed . " admin for the " . $uiElements->nomenclatureFed . " it should be in!");
         }
-        $federation = $validator->Federation($newcountry);
+        $federation = $validator->existingFederation($newcountry);
         $prettyprintname = $newinstname;
         $introtext = "NEW-FED";
         // send the user back to his federation overview page, append the result of the operation later
         // do the token creation magic
-        $newtokens = $mgmt->createTokens(TRUE, $mailaddress, $newinstname, 0, $newcountry);
-        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . implode(",", $mailaddress));
+        $newtokens = $mgmt->createTokens(TRUE, $mailaddress, $newinstname, 0, $newcountry, $participant_type);
+        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "ORG FUTURE  - Token created for $participant_type " . implode(",", $mailaddress));
         break;
     case OPERATION_MODE_NEWFROMDB:
         $redirect_destination = "../overview_federation.php?";
@@ -146,9 +149,9 @@ switch ($operationMode) {
         $extinfo = $catInstance->getExternalDBEntityDetails($newexternalid);
         $new_idp_authorized_fedadmin = $userObject->isFederationAdmin($extinfo['country']);
         if ($new_idp_authorized_fedadmin !== TRUE) {
-            throw new Exception("Something's wrong... you want to create a new " . $uiElements->nomenclature_inst . ", but are not a " . $uiElements->nomenclature_fed . " admin for the " . $uiElements->nomenclature_fed . " it should be in!");
+            throw new Exception("Something's wrong... you want to create a new " . $uiElements->nomenclatureInst . ", but are not a " . $uiElements->nomenclatureFed . " admin for the " . $uiElements->nomenclatureFed . " it should be in!");
         }
-        $federation = $validator->Federation($extinfo['country']);
+        $federation = $validator->existingFederation($extinfo['country']);
         $newcountry = $extinfo['country'];
         // see if the inst name is defined in the currently set language; if not, pick its English name; if N/A, pick the last in the list
         $prettyprintname = "";
@@ -165,6 +168,8 @@ switch ($operationMode) {
                 $prettyprintname = $name;
             }
         }
+        // TODO when we have access to the data
+        $participant_type = "IdPSP";
         // fill the rest of the text
         $introtext = "EXISTING-FED";
         // do the token creation magic
@@ -180,24 +185,23 @@ switch ($operationMode) {
 }
 
 // send, and invalidate the token immediately if the mail could not be sent!
-$languageInstance->setTextDomain("core");
+
 $status = [];
 $allEncrypted = TRUE;
 $allClear = TRUE;
 foreach ($newtokens as $onetoken => $oneDest) {
-    $sent = \core\common\OutsideComm::adminInvitationMail($oneDest, $introtext, $onetoken, $prettyprintname, $federation);
+    $sent = \core\common\OutsideComm::adminInvitationMail($oneDest, $introtext, $onetoken, $prettyprintname, $federation, $participant_type);
     if ($sent["SENT"] === FALSE) {
         $mgmt->invalidateToken($onetoken);
     } else {
         $status[$onetoken] = $sent["TRANSPORT"];
-        if (! $sent["TRANSPORT"]) {
+        if (!$sent["TRANSPORT"]) {
             $allEncrypted = FALSE;
         } else {
             $allClear = FALSE;
         }
     }
 }
-$languageInstance->setTextDomain("web_admin");
 
 if (count($status) == 0) {
     header("Location: $redirect_destination" . "invitation=FAILURE");
@@ -207,7 +211,7 @@ $finalDestParams = "invitation=SUCCESS";
 if (count($status) < count($totalSegments)) { // only a subset of mails was sent, update status
     $finalDestParams = "invitation=PARTIAL";
 }
-$finalDestParams .= "&successcount=".count($status);
+$finalDestParams .= "&successcount=" . count($status);
 if ($allEncrypted === TRUE) {
     $finalDestParams .= "&transportsecurity=ENCRYPTED";
 } elseif ($allClear === TRUE) {

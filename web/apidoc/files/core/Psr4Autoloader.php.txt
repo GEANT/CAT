@@ -161,9 +161,9 @@ class Psr4Autoloader
     /**
      * Load the mapped file for a namespace prefix and relative class.
      *
-     * @param string $prefix The namespace prefix.
+     * @param string $prefix         The namespace prefix.
      * @param string $relative_class The relative class name.
-     * @return mixed Boolean false if no mapped file can be loaded, or the
+     * @return boolean|string FALSE if no mapped file can be loaded, or the
      * name of the mapped file that was loaded.
      */
     protected function loadMappedFile($prefix, $relative_class)
@@ -203,7 +203,7 @@ class Psr4Autoloader
     protected function requireFile($file)
     {
         if (file_exists($file)) {
-            require $file;
+            include $file;
             return true;
         }
         return false;

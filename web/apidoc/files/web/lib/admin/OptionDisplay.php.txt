@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -32,7 +33,7 @@ require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
  * 
  * @author Stefan Winter <stefan.winter@restena.lu>
  */
-class OptionDisplay {
+class OptionDisplay extends \core\common\Entity {
 
     /**
      * stores all the options we are caring about
@@ -104,6 +105,7 @@ class OptionDisplay {
      * 
      * @param string $class       the class of options that is to be displayed
      * @param array  $prepopulate should an empty set of fillable options be displayed, or do we have existing data to prefill with
+     * @return string
      */
     private function addOption(string $class, array $prepopulate = []) { // no GET class ? we've been called directly:
         // this can mean either a new object (list all options with empty values)
@@ -113,10 +115,13 @@ class OptionDisplay {
         $retval = "";
 
         $optioninfo = \core\Options::instance();
-
-        if (is_array($prepopulate) && ( count($prepopulate) > 1 || $class == "device-specific" || $class == "eap-specific")) { // editing... fill with values
+        $blackListOnPrefill = "user:fedadmin";
+        if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
+            $blackListOnPrefill .= "|fed:silverbullet";
+        }
+        if (is_array($prepopulate) && ( count($prepopulate) > 0 || $class == "device-specific" || $class == "eap-specific" )) { // editing... fill with values
             foreach ($prepopulate as $option) {
-                if (preg_match("/$class:/", $option['name']) && !preg_match("/(user:fedadmin)/", $option['name'])) {
+                if (preg_match("/$class:/", $option['name']) && !preg_match("/($blackListOnPrefill)/", $option['name'])) {
                     $optiontypearray = $optioninfo->optionType($option['name']);
                     $loggerInstance = new \core\common\Logging();
                     $loggerInstance->debug(5, "About to execute optiontext with PREFILL!\n");
@@ -135,6 +140,15 @@ class OptionDisplay {
                 case "user":
                     $blacklistItem = array_search("user:fedadmin", $list);
                     break;
+                case "fed":
+                    //normally, we have nothing to hide on that level
+                    $blacklistItem = FALSE;
+                    // if we are a Managed IdP exclusive deployment, do not display or allow
+                    // to change the "Enable Managed IdP" boolean - it is simply always there
+                    if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
+                        $blacklistItem = array_search("fed:silverbullet", $list);
+                    }
+                    break;
                 default:
                     $blacklistItem = FALSE;
             }
@@ -152,19 +166,39 @@ class OptionDisplay {
         return $retval;
     }
 
+    /**
+     * produce code for a option-specific tooltip
+     * @param int     $rowid     the number (nonce during page build) of the option 
+     *                           that should get the tooltip
+     * @param string  $input     the option name. Tooltip for it will be displayed
+     *                           if we have one available.
+     * @param boolean $isVisible should the tooltip be visible with the option,
+     *                           or are they both currently hidden?
+     * @return string
+     */
     private function tooltip($rowid, $input, $isVisible) {
+        \core\common\Entity::intoThePotatoes();
         $descriptions = [];
         if (count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0) {
             $descriptions["media:SSID"] = sprintf(_("This attribute can be set if you want to configure an additional SSID besides the default SSIDs for %s. It is almost always a bad idea not to use the default SSIDs. The only exception is if you have premises with an overlap of the radio signal with another %s hotspot. Typical misconceptions about additional SSIDs include: I want to have a local SSID for my own users. It is much better to use the default SSID and separate user groups with VLANs. That approach has two advantages: 1) your users will configure %s properly because it is their everyday SSID; 2) if you use a custom name and advertise this one as extra secure, your users might at some point roam to another place which happens to have the same SSID name. They might then be misled to believe that they are connecting to an extra secure network while they are not."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         }
         $descriptions["media:force_proxy"] = sprintf(_("The format of this option is: IPv4|IPv6|hostname:port . Forcing your users through a content filter of your own is a significant invasion of user self-determination. It also has technical issues. Please throughly read the discussion at %s before specifying a proxy with this option."), "https://github.com/GEANT/CAT/issues/96");
-
+        $descriptions["managedsp:realmforvlan"] = sprintf(_("If you are also using %s, then your own realm is automatically tagged with the VLAN you choose, there is no need to add it here manually."), \core\ProfileSilverbullet::PRODUCTNAME);
+        \core\common\Entity::outOfThePotatoes();
         if (!isset($descriptions[$input])) {
             return "";
         }
         return "<span class='tooltip' id='S$rowid-tooltip-$input' style='display:" . ($isVisible ? "block" : "none") . "' onclick='alert(\"" . $descriptions[$input] . "\")'><img src='../resources/images/icons/question-mark-icon.png" . "'></span>";
     }
 
+    /**
+     * 
+     * @param int   $rowid the number (nonce during page build) of the option 
+     *                     that should get the tooltip
+     * @param array $list  elements of the drop-down list
+     * @return array HTML code and which option is active
+     * @throws Exception
+     */
     private function selectElement($rowid, $list) {
         $jsmagic = "onchange='
                                if (/#ML#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
@@ -228,7 +262,16 @@ FOO;
         return ["TEXT" => $retval, "ACTIVE" => $activelisttype];
     }
 
+    /**
+     * HTML code to display the language selector
+     * 
+     * @param int     $rowid       the number (nonce during page build) of the option 
+     *                             that should get the tooltip
+     * @param boolean $makeVisible is the language selector to be made visible?
+     * @return string
+     */
     private function selectLanguage($rowid, $makeVisible) {
+        \core\common\Entity::intoThePotatoes();
         $retval = "<select style='display:" . ($makeVisible ? "block" : "none") . "' name='value[S$rowid-lang]' id='S" . $rowid . "-input-langselect'>
             <option value='' name='select_language' selected>" . _("select language") . "</option>
             <option value='C' name='all_languages'>" . _("default/other languages") . "</option>";
@@ -237,6 +280,7 @@ FOO;
             $retval .= "<option value='$langindex' name='$langindex'>$thislang</option>";
         }
         $retval .= "</select>";
+        \core\common\Entity::outOfThePotatoes();
         return $retval;
     }
 
@@ -248,6 +292,13 @@ FOO;
         \core\Options::TYPECODE_TEXT => ["html" => "textarea cols='30' rows='3'", "tail" => '></textarea'],
     ];
 
+    /**
+     * HTML code for a given option. Marks the matching datatype as visible, all other datatypes hidden
+     * @param int   $rowid      the number (nonce during page build) of the option 
+     *                          that should get the tooltip
+     * @param array $activetype the active datatype that is to be visible
+     * @return string
+     */
     private function inputFields($rowid, $activetype) {
         $retval = "";
         foreach (OptionDisplay::HTML_DATATYPE_TEXTS as $key => $type) {
@@ -258,8 +309,8 @@ FOO;
 
     /**
      * HTML code to display a "fresh" option (including type selector and JavaScript to show/hide relevant input fields)
-     * @param int $rowid the HTML field base name of the option to be displayed
-     * @param array $list the list of option names to include in the type selector
+     * @param int   $rowid the HTML field base name of the option to be displayed
+     * @param array $list  the list of option names to include in the type selector
      * @return string HTML code
      * @throws Exception
      */
@@ -277,14 +328,15 @@ FOO;
     /**
      * generates HTML code that displays an already set option.
      * 
-     * @param int $rowid the HTML field base name of the option to be displayed
-     * @param string $optionName the name of the option to display
+     * @param int    $rowid       the HTML field base name of the option to be displayed
+     * @param string $optionName  the name of the option to display
      * @param string $optionValue the value of the option to display
-     * @param mixed $optionLang the language of the option to display
+     * @param mixed  $optionLang  the language of the option to display
      * @return string HTML code
      * @throws Exception
      */
     private function prefillText(int $rowid, string $optionName, string $optionValue, $optionLang) {
+        \core\common\Entity::intoThePotatoes();
         $retval = "";
         $optioninfo = \core\Options::instance();
         $loggerInstance = new \core\common\Logging();
@@ -315,7 +367,7 @@ FOO;
             case \core\Options::TYPECODE_COORDINATES:
                 $this->allLocationCount = $this->allLocationCount + 1;
                 // display of the locations varies by map provider
-                $classname = "\web\lib\admin\Map".CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER'];
+                $classname = "\web\lib\admin\Map" . CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER'];
                 $link = $classname::optionListDisplayCode($optionValue, $this->allLocationCount);
                 $retval .= "<input readonly style='display:none' type='text' name='value[S$rowid-" . \core\Options::TYPECODE_TEXT . "]' id='S$rowid-input-text' value='$optionValue'>$link";
                 break;
@@ -357,6 +409,7 @@ FOO;
                 throw new Exception("Internal Error: unknown attribute type $listtype!");
         }
         $retval .= "</td>";
+        \core\common\Entity::outOfThePotatoes();
         return $retval;
     }
 
@@ -393,11 +446,10 @@ FOO;
        <td>
           <button type='button' class='delete' onclick='";
         if ($prefillValue !== NULL && $item == "general:geo_coordinates") {
-            $funcname = "Map".CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER'].'DeleteCoord';
-                $retval .= 'if (typeof '.$funcname.' === "function") { '.$funcname.'('.$this->allLocationCount.'); } ';
-            
+            $funcname = "Map" . CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER'] . 'DeleteCoord';
+            $retval .= 'if (typeof ' . $funcname . ' === "function") { ' . $funcname . '(' . $this->allLocationCount . '); } ';
         }
-        $retval .= 'deleteOption("option-S'.$rowid.'")';
+        $retval .= 'deleteOption("option-S' . $rowid . '")';
         $retval .= "'>-</button>
        </td>
     </tr>";

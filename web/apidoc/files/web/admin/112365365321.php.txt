@@ -49,7 +49,7 @@ $dbHandle = \core\DBConnection::handle("FRONTEND");
         </legend>
         <?php
         if (isset($_POST['admin_action']) && ($_POST['admin_action'] == web\lib\common\FormElements::BUTTON_SANITY_TESTS)) {
-            include("sanity_tests.php");
+            include "sanity_tests.php";
         }
         ?>
         <button type="submit" name="admin_action" value="<?php echo web\lib\common\FormElements::BUTTON_SANITY_TESTS; ?>">Run configuration check</button>

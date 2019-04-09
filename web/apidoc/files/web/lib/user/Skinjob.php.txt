@@ -72,6 +72,7 @@ class Skinjob {
      * 
      * @param string $resourcetype which type of resource do we need a URL for?
      * @param string $filename     the name of the file being searched.
+     * @param string $submodule    an area (diag, admin, ...) where to look
      * @return string|boolean the URL to the resource, or FALSE if this file does not exist
      * @throws Exception if something went wrong during the URL construction
      */

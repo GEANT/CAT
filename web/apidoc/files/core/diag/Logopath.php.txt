@@ -92,6 +92,7 @@ class Logopath extends AbstractTest {
      */
     public function __construct() {
         parent::__construct();
+        \core\common\Entity::intoThePotatoes();
         $this->userEmail = FALSE;
         $this->additionalScreenshot = FALSE;
 
@@ -129,13 +130,15 @@ class Logopath extends AbstractTest {
                 . "Please stop the policy violation ASAP by listing the IdP which is associated to this realm.",
             ],
         ];
+        \core\common\Entity::outOfThePotatoes();
     }
 
     /**
      * if the system asked the user for his email and he's willing to give it to
      * us, store it with this function
      * 
-     * @param string $userEmail
+     * @param string $userEmail the end-users email to store
+     * @return void
      */
     public function addUserEmail($userEmail) {
 // returns FALSE if it was not given or bogus, otherwise stores this as mail target
@@ -146,7 +149,8 @@ class Logopath extends AbstractTest {
      * if the system asked the user for a screenshot and he's willing to give one
      * to us, store it with this function
      * 
-     * @param string $binaryData
+     * @param string $binaryData the submitted binary data, to be vetted
+     * @return void
      */
     public function addScreenshot($binaryData) {
         if ($this->validatorInstance->image($binaryData) === TRUE) {
@@ -162,6 +166,8 @@ class Logopath extends AbstractTest {
 
     /**
      * looks at probabilities and evidence, and decides which mail scenario(s) to send
+     * 
+     * @return void
      */
     public function determineMailsToSend() {
         $this->mailQueue = [];
@@ -257,6 +263,8 @@ class Logopath extends AbstractTest {
     /**
      * sends the mails. Only call this after either determineMailsToSend() or
      * isEndUserContactUseful(), otherwise it will do nothing.
+     * 
+     * @return void
      */
     public function weNeedToTalk() {
         foreach ($this->mailQueue as $oneMail) {
