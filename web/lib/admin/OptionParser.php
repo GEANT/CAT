@@ -295,32 +295,32 @@ class OptionParser extends \core\common\Entity {
         return $pendingattributes;
     }
 
-            /** many of the content check cases in sanitiseInputs condense due to
-             *  identical treatment except which validator function to call and 
-             *  where in POST the content is.
-             * 
-             * This is a map between datatype and validation function.
-             * 
-             * @var array
-             */
-            private const VALIDATOR_FUNCTIONS = [
-                \core\Options::TYPECODE_TEXT => ["function" => "string", "field" => \core\Options::TYPECODE_TEXT, "extraarg" => [TRUE]],
-                \core\Options::TYPECODE_COORDINATES => ["function" => "coordJsonEncoded", "field" => \core\Options::TYPECODE_TEXT, "extraarg" => []],
-                \core\Options::TYPECODE_BOOLEAN => ["function" => "boolean", "field" => \core\Options::TYPECODE_BOOLEAN, "extraarg" => []],
-                \core\Options::TYPECODE_INTEGER => ["function" => "integer", "field" => \core\Options::TYPECODE_INTEGER, "extraarg" => []],
-            ];
+    /** many of the content check cases in sanitiseInputs condense due to
+     *  identical treatment except which validator function to call and 
+     *  where in POST the content is.
+     * 
+     * This is a map between datatype and validation function.
+     * 
+     * @var array
+     */
+    private const VALIDATOR_FUNCTIONS = [
+        \core\Options::TYPECODE_TEXT => ["function" => "string", "field" => \core\Options::TYPECODE_TEXT, "extraarg" => [TRUE]],
+        \core\Options::TYPECODE_COORDINATES => ["function" => "coordJsonEncoded", "field" => \core\Options::TYPECODE_TEXT, "extraarg" => []],
+        \core\Options::TYPECODE_BOOLEAN => ["function" => "boolean", "field" => \core\Options::TYPECODE_BOOLEAN, "extraarg" => []],
+        \core\Options::TYPECODE_INTEGER => ["function" => "integer", "field" => \core\Options::TYPECODE_INTEGER, "extraarg" => []],
+    ];
 
     /**
      * filters the input to find syntactically correctly submitted attributes
      * 
      * @param array $listOfEntries       list of POST and FILES entries
-     * @param array $multilangAttrsWithC by-reference: future list of language-variant options and their "default lang" state
-     * @param array $bad                 by-reference: future list of submitted but rejected options
      * @return array sanitised list of options
      * @throws Exception
      */
-    private function sanitiseInputs(array $listOfEntries, array &$multilangAttrsWithC, array &$bad) {
+    private function sanitiseInputs(array $listOfEntries) {
         $retval = [];
+        $bad = [];
+        $multilangAttrsWithC = [];
         foreach ($listOfEntries as $objId => $objValueRaw) {
 // pick those without dash - they indicate a new value        
             if (preg_match('/^S[0123456789]*$/', $objId) != 1) { // no match
@@ -328,24 +328,13 @@ class OptionParser extends \core\common\Entity {
             }
             $objValue = $this->validator->optionName(preg_replace('/#.*$/', '', $objValueRaw));
             $optioninfo = $this->optioninfoObject->optionType($objValue);
-            $lang = NULL;
+            $languageFlag = NULL;
             if ($optioninfo["flag"] == "ML") {
-                if (isset($listOfEntries["$objId-lang"])) {
-                    if (!isset($multilangAttrsWithC[$objValue])) { // on first sight, initialise the attribute as "no C language set"
-                        $multilangAttrsWithC[$objValue] = FALSE;
-                    }
-                    $lang = $listOfEntries["$objId-lang"];
-                    if ($lang == "") { // user forgot to select a language
-                        $lang = "C";
-                    }
-                } else {
+                if (!isset($listOfEntries["$objId-lang"])) {
                     $bad[] = $objValue;
                     continue;
                 }
-                // did we get a C language? set corresponding value to TRUE
-                if ($lang == "C") {
-                    $multilangAttrsWithC[$objValue] = TRUE;
-                }
+                $this->determineLanguages($objValue, $listOfEntries["$objId-lang"], $multilangAttrsWithC);
             }
 
             switch ($optioninfo["type"]) {
@@ -405,9 +394,22 @@ class OptionParser extends \core\common\Entity {
                     throw new Exception("Internal Error: Unknown option type " . $objValue . "!");
             }
             // lang can be NULL here, if it's not a multilang attribute, or a ROWID reference. Never mind that.
-            $retval[] = ["$objValue" => ["lang" => $lang, "content" => $content]];
+            $retval[] = ["$objValue" => ["lang" => $languageFlag, "content" => $content]];
         }
-        return $retval;
+        return [$retval, $multilangAttrsWithC, $bad];
+    }
+
+    private function determineLanguages($attribute, $languageFlag, &$multilangAttrsWithC) {
+        if (!isset($multilangAttrsWithC[$attribute])) { // on first sight, initialise the attribute as "no C language set"
+            $multilangAttrsWithC[$attribute] = FALSE;
+        }
+        if ($languageFlag == "") { // user forgot to select a language
+            $languageFlag = "C";
+        }
+        // did we get a C language? set corresponding value to TRUE
+        if ($languageFlag == "C") {
+            $multilangAttrsWithC[$attribute] = TRUE;
+        }
     }
 
     /**
@@ -487,30 +489,23 @@ class OptionParser extends \core\common\Entity {
      * @throws Exception
      */
     public function processSubmittedFields($object, array $postArray, array $filesArray, int $eaptype = NULL, string $device = NULL) {
-
-        // construct new array with all non-empty options for later feeding into DB
-        // $multilangAttrsWithC is a helper array to keep track of multilang 
-        // options that were set in a specific language but are not 
-        // accompanied by a "default" language setting
-        // if there are some without C by the end of processing, we need to warn
-        // the admin that this attribute is "invisible" in certain languages
-        // attrib_name -> boolean
-
-        $multilangAttrsWithC = [];
-
-        // these two variables store which attributes were processed 
-        // successfully vs. which were discarded because in some way malformed
-
         $good = [];
-        $bad = [];
-
         // Step 1: collate option names, option values and uploaded files (by 
         // filename reference) into one array for later handling
 
         $iterator = $this->collateOptionArrays($postArray, $filesArray);
 
         // Step 2: sieve out malformed input
-        $cleanData = $this->sanitiseInputs($iterator, $multilangAttrsWithC, $bad);
+        // $multilangAttrsWithC is a helper array to keep track of multilang 
+        // options that were set in a specific language but are not 
+        // accompanied by a "default" language setting
+        // if there are some without C by the end of processing, we need to warn
+        // the admin that this attribute is "invisible" in certain languages
+        // attrib_name -> boolean
+        // $bad contains the attributes which failed input validation
+
+        list($cleanData, $multilangAttrsWithC, $bad) = $this->sanitiseInputs($iterator);
+
         // Step 3: now we have clean input data. Some attributes need special care:
         // URL-based attributes need to be downloaded to get their actual content
         // CA files may need to be split (PEM can contain multiple CAs 
