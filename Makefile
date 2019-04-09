@@ -7,7 +7,7 @@ all: translation documentation
 documentation:
 	rm -Rf web/apidoc build
 #	mv core/phpqrcode.php core/phpqrcode.xyz
-	phpDocumentor.phar run -d . -i core/phpqrcode.php -i core/PHPMailer/ -i tests/ -i core/simpleSAMLphp -i core/PHPUnit -i core/GeoIP2 -t web/apidoc/ --title "CAT - The IEEE 802.1X Configuration Assistant Tool" 
+	phpDocumentor.phar run -d . -i core/phpqrcode.php -i core/PHPMailer -i tests -i core/simpleSAMLphp -i core/PHPUnit -i core/GeoIP2 -i vendor -t web/apidoc/ --title "CAT - The IEEE 802.1X Configuration Assistant Tool" 
 #	mv core/phpqrcode.xyz core/phpqrcode.php
 
 pull_from_transifex:
