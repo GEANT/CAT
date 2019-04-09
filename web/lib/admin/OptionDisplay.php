@@ -95,19 +95,51 @@ class OptionDisplay extends \core\common\Entity {
                 $prepopulate[] = $existingAttribute;
             }
         }
-        $retval .= $this->addOption($attributePrefix, $prepopulate);
+        if (is_array($prepopulate) && ( count($prepopulate) > 0 || $attributePrefix == "device-specific" || $attributePrefix == "eap-specific" )) { // editing... fill with values
+            $retval .= $this->addOptionEdit($attributePrefix, $prepopulate);
+        } else {
+            $retval .= $this->addOptionNew($attributePrefix);
+        }
         $retval .= "</table>";
         return $retval;
     }
 
     /**
-     * Displays options for a given option class.
+     * Displays options for a given option class, in Edit mode.
      * 
      * @param string $class       the class of options that is to be displayed
      * @param array  $prepopulate should an empty set of fillable options be displayed, or do we have existing data to prefill with
      * @return string
      */
-    private function addOption(string $class, array $prepopulate = []) { // no GET class ? we've been called directly:
+    private function addOptionEdit(string $class, array $prepopulate = []) { // no GET class ? we've been called directly:
+        // this can mean either a new object (list all options with empty values)
+        // or that an object is to be edited. In that case, $prepopulated has to
+        // contain the array of existing variables
+        // we expect the variable $class to contain the class of options
+        $retval = "";
+        $optioninfo = \core\Options::instance();
+        $blackListOnPrefill = "user:fedadmin";
+        if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
+            $blackListOnPrefill .= "|fed:silverbullet";
+        }
+        foreach ($prepopulate as $option) {
+            if (preg_match("/$class:/", $option['name']) && !preg_match("/($blackListOnPrefill)/", $option['name'])) {
+                $optiontypearray = $optioninfo->optionType($option['name']);
+                $loggerInstance = new \core\common\Logging();
+                $loggerInstance->debug(5, "About to execute optiontext with PREFILL!\n");
+                $retval .= $this->optiontext([$option['name']], ($optiontypearray["type"] == "file" ? 'ROWID-' . $option['level'] . '-' . $option['row'] : $option['value']), $option['lang']);
+            }
+        }
+        return $retval;
+    }
+
+    /**
+     * Displays options for a given option class, in New mode.
+     * 
+     * @param string $class       the class of options that is to be displayed
+     * @return string
+     */
+    private function addOptionNew(string $class) { // no GET class ? we've been called directly:
         // this can mean either a new object (list all options with empty values)
         // or that an object is to be edited. In that case, $prepopulated has to
         // contain the array of existing variables
@@ -115,53 +147,39 @@ class OptionDisplay extends \core\common\Entity {
         $retval = "";
 
         $optioninfo = \core\Options::instance();
-        $blackListOnPrefill = "user:fedadmin";
-        if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
-            $blackListOnPrefill .= "|fed:silverbullet";
-        }
-        if (is_array($prepopulate) && ( count($prepopulate) > 0 || $class == "device-specific" || $class == "eap-specific" )) { // editing... fill with values
-            foreach ($prepopulate as $option) {
-                if (preg_match("/$class:/", $option['name']) && !preg_match("/($blackListOnPrefill)/", $option['name'])) {
-                    $optiontypearray = $optioninfo->optionType($option['name']);
-                    $loggerInstance = new \core\common\Logging();
-                    $loggerInstance->debug(5, "About to execute optiontext with PREFILL!\n");
-                    $retval .= $this->optiontext([$option['name']], ($optiontypearray["type"] == "file" ? 'ROWID-' . $option['level'] . '-' . $option['row'] : $option['value']), $option['lang']);
-                }
-            }
-        } else { // not editing exist, this in new: add empty list
-            $list = $optioninfo->availableOptions($class);
-            switch ($class) {
-                case "general":
-                    $blacklistItem = array_search("general:geo_coordinates", $list);
-                    break;
-                case "profile":
-                    $blacklistItem = array_search("profile:QR-user", $list);
-                    break;
-                case "user":
-                    $blacklistItem = array_search("user:fedadmin", $list);
-                    break;
-                case "fed":
-                    //normally, we have nothing to hide on that level
-                    $blacklistItem = FALSE;
-                    // if we are a Managed IdP exclusive deployment, do not display or allow
-                    // to change the "Enable Managed IdP" boolean - it is simply always there
-                    if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
-                        $blacklistItem = array_search("fed:silverbullet", $list);
-                    }
-                    break;
-                default:
-                    $blacklistItem = FALSE;
-            }
-            if ($blacklistItem !== FALSE) {
-                unset($list[$blacklistItem]);
-                $list = array_values($list);
-            }
 
-            // add as many options as there are different option types
-            $numberOfOptions = count($list);
-            for ($this->optionIterator = 0; $this->optionIterator < $numberOfOptions; $this->optionIterator++) {
-                $retval .= $this->optiontext($list);
-            }
+        $list = $optioninfo->availableOptions($class);
+        switch ($class) {
+            case "general":
+                $blacklistItem = array_search("general:geo_coordinates", $list);
+                break;
+            case "profile":
+                $blacklistItem = array_search("profile:QR-user", $list);
+                break;
+            case "user":
+                $blacklistItem = array_search("user:fedadmin", $list);
+                break;
+            case "fed":
+                //normally, we have nothing to hide on that level
+                $blacklistItem = FALSE;
+                // if we are a Managed IdP exclusive deployment, do not display or allow
+                // to change the "Enable Managed IdP" boolean - it is simply always there
+                if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
+                    $blacklistItem = array_search("fed:silverbullet", $list);
+                }
+                break;
+            default:
+                $blacklistItem = FALSE;
+        }
+        if ($blacklistItem !== FALSE) {
+            unset($list[$blacklistItem]);
+            $list = array_values($list);
+        }
+
+        // add as many options as there are different option types
+        $numberOfOptions = count($list);
+        for ($this->optionIterator = 0; $this->optionIterator < $numberOfOptions; $this->optionIterator++) {
+            $retval .= $this->optiontext($list);
         }
         return $retval;
     }
