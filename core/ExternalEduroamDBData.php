@@ -109,10 +109,10 @@ class ExternalEduroamDBData extends EntityWithDBProperties {
         return $this->SPList;
     }
 
-    public function listExternalEntities() {
+    public function listExternalEntities($tld) {
         $query = "SELECT id_institution AS id, country, inst_realm as realmlist, name AS collapsed_name, contact AS collapsed_contact FROM view_active_idp_institution WHERE country = ?";
         $externalHandle = DBConnection::handle("EXTERNAL");
-        $externals = $externalHandle->exec($query, "s", $this->tld);
+        $externals = $externalHandle->exec($query, "s", $tld);
         // was a SELECT query, so a resource and not a boolean
         while ($externalQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $externals)) {
             $names = $this->splitNames($externalQuery->collapsed_name);
@@ -135,6 +135,17 @@ class ExternalEduroamDBData extends EntityWithDBProperties {
             $returnarray[] = ["ID" => $externalQuery->id, "name" => $thelanguage, "contactlist" => $mailnames, "country" => $externalQuery->country, "realmlist" => $externalQuery->realmlist];
         }
         usort($returnarray, array($this, "usortInstitution"));
+        return $returnarray;
+    }
+
+    /**
+     * helper function to sort institutions by their name
+     * @param array $a an array with institution a's information
+     * @param array $b an array with institution b's information
+     * @return int the comparison result
+     */
+    private function usortInstitution($a, $b) {
+        return strcasecmp($a["name"], $b["name"]);
     }
 
 }

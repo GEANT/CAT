@@ -349,6 +349,7 @@ Best regards,
     public function listExternalEntities($unmappedOnly) {
         $allExternals = [];
         $usedarray = [];
+        $returnArray = [];
         if ($unmappedOnly) { // find out which entities are already mapped
             $syncstate = IdP::EXTERNAL_DB_SYNCSTATE_SYNCED;
             $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution 
@@ -372,7 +373,7 @@ Best regards,
 
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $eduroamDb = new ExternalEduroamDBData();
-            $allExternals = $eduroamDb->listExternalEntities();
+            $allExternals = $eduroamDb->listExternalEntities($this->tld);
         }
         foreach ($allExternals as $oneExternal) {
             if (!in_array($oneExternal["ID"], $usedarray)) {
@@ -438,16 +439,6 @@ Best regards,
         }
 
         return ["CAT" => $candidatesCat, "EXTERNAL" => $candidatesExternalDb, "FEDERATION" => $country];
-    }
-
-    /**
-     * helper function to sort institutions by their name
-     * @param array $a an array with institution a's information
-     * @param array $b an array with institution b's information
-     * @return int the comparison result
-     */
-    private function usortInstitution($a, $b) {
-        return strcasecmp($a["name"], $b["name"]);
     }
 
 }
