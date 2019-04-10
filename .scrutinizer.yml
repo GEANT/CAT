@@ -127,6 +127,7 @@ build:
                     - ./configure
                     - make
                     - sudo make install
+                    - sudo -H /home/scrutinizer/build/bin/python3.7 -m pip install pylint distro
             project_setup:
                 override:
                     - cd /home/scrutinizer/build
@@ -435,7 +436,6 @@ build:
                     - cp /home/scrutinizer/build/signer/mobileconfig_sign-template /home/scrutinizer/build/signer/mobileconfig_sign
                     - cp /home/scrutinizer/build/signer/ms_windows_sign-template /home/scrutinizer/build/signer/ms_windows_sign
                     - sudo chown scrutinizer:scrutinizer /home/scrutinizer/.rnd
-                    - sudo -H /home/scrutinizer/build/bin/python3.7 -m pip install pylint distro
             tests:
                 override:
                 - 
