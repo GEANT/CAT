@@ -25,37 +25,183 @@ use Exception;
 
 require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
 
+/**
+ * This class defines the various actions doable with the admin API, the
+ * parameters and return values.
+ */
 class API {
 
+    /**
+     * This error is returned if the API is globally disabled on a deployment.
+     */
     const ERROR_API_DISABLED = 1;
+    
+    /**
+     * This error is returned if the API request did not contain an API key.
+     */
     const ERROR_NO_APIKEY = 2;
+    
+    /**
+     * This error is returned if the API request contained an unknown API key.
+     */
     const ERROR_INVALID_APIKEY = 3;
+    
+    /**
+     * An action was requested, but one if its required parameters was missing.
+     */
     const ERROR_MISSING_PARAMETER = 4;
+    
+    /**
+     * An action was requested, but one if its required parameters was
+     *  malformed.
+     */
     const ERROR_INVALID_PARAMETER = 5;
+    
+    /**
+     * The API request did not contain a requested action.
+     */
     const ERROR_NO_ACTION = 6;
+    
+    /**
+     * The action that was requested is not recognised.
+     */
     const ERROR_INVALID_ACTION = 7;
+    
+    /**
+     * The API request as a whole did not parse correctly.
+     */
     const ERROR_MALFORMED_REQUEST = 8;
+    
+    /**
+     * An internal error occured and the requested action could not be
+     *  performed.
+     */
     const ERROR_INTERNAL_ERROR = 9;
+    
+    /**
+     * An action for a Silverbullet profile was requested, but the profile admin
+     * has not accepted the Terms of Use for Silverbullet yet.
+     * 
+     * Note: Silverbullet is currently marketed as "eduroam Managed IdP" on the
+     * eduroam deployment of the code base.
+     */
     const ERROR_NO_TOU = 10;
+    
+    /**
+     * This action creates a new institution. The institution is identified by
+     * a reference to the external DB.
+     */
     const ACTION_NEWINST_BY_REF = "NEWINST-BY-REF";
+    
+    /**
+     * This action creates a new institution. The institution is created in the
+     * system, all institution properties are set by including optional
+     * parameters.
+     */
     const ACTION_NEWINST = "NEWINST";
+    
+    /**
+     * This action deletes an existing institution.
+     */
     const ACTION_DELINST = "DELINST";
+    
+    /**
+     * This action lists all administrators of an institution.
+     */
     const ACTION_ADMIN_LIST = "ADMIN-LIST";
+    
+    /**
+     * This action creates a new invitation token for administering an existing
+     * institution. The invitation can be sent directly via mail, or the sign-up
+     * token can be returned in the API response for the caller to hand it out.
+     */
     const ACTION_ADMIN_ADD = "ADMIN-ADD";
+    
+    /**
+     * This action de-authorises an existing administrator from administering an
+     * institution. The institution is not deleted. If the administrator is also
+     * managing other institutions, that is not changed.
+     */
     const ACTION_ADMIN_DEL = "ADMIN-DEL";
+    
+    /**
+     * This action retrieves download statistics for a given institution.
+     */
     const ACTION_STATISTICS_INST = "STATISTICS-INST";
+    
+    /**
+     * This action retrieves cumulated statistics for the entire federation.
+     */
     const ACTION_STATISTICS_FED = "STATISTICS-FED";
+    
+    /**
+     * This action creates a new RADIUS profile (i.e. a classic profile for
+     * institutions with their own RADIUS server, delivering one installer for
+     * this profile).
+     */
     const ACTION_NEWPROF_RADIUS = "NEWPROF-RADIUS";
+    
+    /**
+     * This action creates a new Managed IdP profile (i.e. a profile where all
+     * RADIUS is handled by our system and the administrator merely needs to
+     * provision users via a web interface).
+     */
     const ACTION_NEWPROF_SB = "NEWPROF-MANAGED";
+    
+    /**
+     * This action creates a new end-user within a Managed IdP profile.
+     */
     const ACTION_ENDUSER_NEW = "ENDUSER-NEW";
+    
+    /**
+     * This action deactivates an existing end user in a Managed IdP profile.
+     */
     const ACTION_ENDUSER_DEACTIVATE = "ENDUSER-DEACTIVATE";
+    
+    /**
+     * This action lists all end users in a given Managed IdP profile.
+     */
     const ACTION_ENDUSER_LIST = "ENDUSER-LIST";
+    
+    /**
+     * This action identifies a user account from either his user ID, username
+     * or any of their certificate CNs.
+     */
     const ACTION_ENDUSER_IDENTIFY = "ENDUSER-IDENTIFY";
+    
+    /**
+     * This action creates a new end-user voucher for eduroam credential
+     * installation.
+     */
     const ACTION_TOKEN_NEW = "TOKEN-NEW";
+    
+    /**
+     * This action cancels a currently valid end-user voucher. Existing redeemed
+     * credentials based on that voucher remain valid.
+     */
     const ACTION_TOKEN_REVOKE = "TOKEN-REVOKE";
+    
+    /**
+     * This action lists all vouchers for a given end-user.
+     */
     const ACTION_TOKEN_LIST = "TOKEN-LIST";
+    
+    /**
+     * This action lists all client certificate credentials issued to a given
+     * end user.
+     */
     const ACTION_CERT_LIST = "CERT-LIST";
+    
+    /**
+     * This action revokes a specific client cert.
+     */
     const ACTION_CERT_REVOKE = "CERT-REVOKE";
+    
+    /**
+     * This action adds internal notes regarding this certificate. These notes
+     * are included when retrieving certificate information with 
+     * ACTION_CERT_LIST but are not actively used for anything.
+     */
     const ACTION_CERT_ANNOTATE = "CERT-ANNOTATE";
     const AUXATTRIB_ADMINID = "ATTRIB-ADMINID";
     const AUXATTRIB_TARGETMAIL = "ATTRIB-TARGETMAIL";
