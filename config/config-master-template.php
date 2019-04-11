@@ -281,7 +281,7 @@ const CONFIG = [
 
     /**
      * Maximum size of files to be uploaded. Clever people can circumvent this; in the end, the hard limit is configured in php.ini
-     * @var int
+     * @var integer
      */
     'MAX_UPLOAD_SIZE' => 10000000,
 
@@ -293,7 +293,7 @@ const CONFIG = [
      *   4 = annoyingly much debug output
      *   5 = way too much debug output (level 4 + SQL query dump)
      *
-     * @var int
+     * @var integer
      *
      */
     'DEBUG_LEVEL' => 5,

@@ -52,7 +52,7 @@ class OptionDisplay extends \core\common\Entity {
     /**
      * a counter storing how many locations are to be displayed
      * 
-     * @var int
+     * @var integer
      */
     private $allLocationCount;
 
@@ -65,7 +65,7 @@ class OptionDisplay extends \core\common\Entity {
      * 
      * Only used inside noPrefillText variant of the optiontext() call
      * 
-     * @var int
+     * @var integer
      */
     private $optionIterator;
 

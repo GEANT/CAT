@@ -60,7 +60,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     
     /**
      * DB identifier of the parent institution of this profile
-     * @var int
+     * @var integer
      */
     public $institution;
 
@@ -88,7 +88,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     /**
      * number of profiles of the IdP this profile is attached to
      * 
-     * @var int
+     * @var integer
      */
     protected $idpNumberOfProfiles;
 

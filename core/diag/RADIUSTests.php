@@ -52,7 +52,7 @@ class RADIUSTests extends AbstractTest {
     /**
      * Was the reachability check executed already?
      * 
-     * @var int
+     * @var integer
      */
     private $UDP_reachability_executed;
     
@@ -102,7 +102,7 @@ class RADIUSTests extends AbstractTest {
     /**
      * Do we run throrough or shallow checks?
      * 
-     * @var int
+     * @var integer
      */
     private $opMode;
     
