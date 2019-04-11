@@ -144,7 +144,7 @@ class EAP extends Entity {
 
     /**
      * The integer representation of the EAP type
-     * @var int
+     * @var integer
      */
     private $intRep;
 

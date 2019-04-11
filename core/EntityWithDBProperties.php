@@ -89,7 +89,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * refers to the integer row name in the DB -> int; Federation has no own
      * DB, so the identifier is of no use there -> use Fedearation->$tld
      * 
-     * @var int identifier of the entity instance
+     * @var integer identifier of the entity instance
      */
     public $identifier;
 

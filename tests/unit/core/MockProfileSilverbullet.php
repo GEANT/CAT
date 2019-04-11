@@ -28,7 +28,7 @@ class MockProfileSilverbullet extends \core\ProfileSilverbullet{
     
     /**
      * 
-     * @var int
+     * @var integer
      */
     private $instId;
     
