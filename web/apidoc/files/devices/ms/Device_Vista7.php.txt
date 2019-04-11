@@ -35,14 +35,25 @@ use \Exception;
 
 class Device_Vista7 extends WindowsCommon {
 
+    /**
+     * constructor; tells the world about supported EAP types and device anomalies
+     */
     final public function __construct() {
         parent::__construct();
+        \core\common\Entity::intoThePotatoes();
         $this->setSupportedEapMethods([\core\common\EAP::EAPTYPE_TLS, \core\common\EAP::EAPTYPE_PEAP_MSCHAP2, \core\common\EAP::EAPTYPE_TTLS_PAP, \core\common\EAP::EAPTYPE_TTLS_MSCHAP2, \core\common\EAP::EAPTYPE_SILVERBULLET]);
         $this->loggerInstance->debug(4, "This device supports the following EAP methods: ");
         $this->loggerInstance->debug(4, $this->supportedEapMethods);
         $this->specialities['internal:use_anon_outer'][serialize(\core\common\EAP::EAPTYPE_PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
+        \core\common\Entity::outOfThePotatoes();
     }
 
+    /**
+     * create the actual installer executable
+     * 
+     * @return string filename of the generated installer
+     *
+     */
     public function writeInstaller() {
         $dom = textdomain(NULL);
         textdomain("devices");
@@ -103,6 +114,12 @@ class Device_Vista7 extends WindowsCommon {
         return($installerPath);
     }
 
+    /**
+     * creates the XML snippet that describes the EAP configuration
+     * 
+     * @param array $attr the attributes for the profile
+     * @return array two XML snippets describing the EAP configuration, for Vista and 7 respectively
+     */
     private function prepareEapConfig($attr) {
         $outerUser = '';
         $vistaExt = '';
@@ -311,15 +328,16 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
     }
 
     /**
-     * produce PEAP, TLS and TTLS configuration files for Vista and Windows 7
+     * produce PEAP, TLS and TTLS configuration files for Vista and Windows 7.
+     * Writes XML snippet into file and returns some meta information
      * 
-     * @param string $wlanProfileName
-     * @param string $ssid
-     * @param string $auth can be one of "WPA", "WPA2"
-     * @param string $encryption can be one of: "TKIP", "AES"
-     * @param array $eapConfig XML configuration block with EAP config data (two entries, one for Vista, one for 7)
-     * @param int $profileNumber counter, which profile number is this
-     * @return string
+     * @param string $wlanProfileName name of the WLAN profile
+     * @param string $ssid            SSID that is being configured
+     * @param string $auth            can be one of "WPA", "WPA2"
+     * @param string $encryption      can be one of: "TKIP", "AES"
+     * @param array  $eapConfig       XML configuration block with EAP config data (two entries, one for Vista, one for 7)
+     * @param int    $profileNumber   counter, which profile number is this
+     * @return string meta info about generated XML snippet
      */
     private function writeWLANprofile($wlanProfileName, $ssid, $auth, $encryption, $eapConfig, $profileNumber) {
         $profileFileCont = '<?xml version="1.0"?>
@@ -376,6 +394,12 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
         return("\"$wlanProfileName\" \"$encryption\"");
     }
 
+    /**
+     * writes LAN configuration profile into file
+     * 
+     * @param array $eapConfig contains XML snippets for Vista and 7 with the EAP configuration
+     * @return void
+     */
     private function writeLANprofile($eapConfig) {
         $profileFileCont = '<?xml version="1.0"?>
 <LANProfile xmlns="http://www.microsoft.com/networking/LAN/profile/v1">
@@ -405,6 +429,13 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
         
     }
 
+    /**
+     * writes the main NSH file
+     * 
+     * @param array $eap  EAP type that is being configured in array representation
+     * @param array $attr list of attributes
+     * @return void
+     */
     private function writeMainNSH($eap, $attr) {
         $this->loggerInstance->debug(4, "writeMainNSH");
         $this->loggerInstance->debug(4, $attr);
@@ -445,6 +476,13 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
         file_put_contents('main.nsh', $fcontents);
     }
 
+    /**
+     * writes references to the individual WLAN profile files into master file
+     * @param array $wlanProfiles list of WLAN profiles
+     * @param array $caArray      list of CA certificates
+     * @return void
+     * @throws Exception
+     */
     private function writeProfilesNSH($wlanProfiles, $caArray) {
         $this->loggerInstance->debug(4, "writeProfilesNSH");
         $this->loggerInstance->debug(4, $wlanProfiles);
@@ -468,6 +506,13 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
         fclose($fileHandleCerts);
     }
 
+    /**
+     * copies various files into temp dir for inclusion into installer
+     * 
+     * @param array $eap EAP type being configured, in array notation
+     * @return boolean TRUE if things worked (and throws an Exception if not)
+     * @throws Exception
+     */
     private function copyFiles($eap) {
         $this->loggerInstance->debug(4, "copyFiles start\n");
         $this->loggerInstance->debug(4, "code_page=" . $this->codePage . "\n");

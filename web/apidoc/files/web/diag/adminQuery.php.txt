@@ -19,6 +19,9 @@
  * License: see the web/copyright.inc.php file in the file structure or
  *          <base_url>/copyright.php after deploying the software
  */
+require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
+$languageInstance = new \core\common\Language();
+$languageInstance->setTextDomain("diagnostics");
 
 $o = new stdClass();
 if (isset($_REQUEST['data'])) {
@@ -165,9 +168,7 @@ if ($queryType == 'idp') {
     $res = $res . $javascript;
 }
 if ($queryType == 'idp_send' || $queryType == 'sp_send') {
-    require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
-    $languageInstance = new \core\common\Language();
-    $languageInstance->setTextDomain("web_user");
+    include_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
     $cat = new \core\CAT();
     $returnArray = array();
     if (count((array) $o) > 0) {

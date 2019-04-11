@@ -27,6 +27,13 @@
  *
  * @package Developer
  */
+
+/**
+ * 
+ * @param string $nonce   the nonce that was sent to the page and is to be verified
+ * @param string $optSalt an optional salt value
+ * @return boolean
+ */
 function check_my_nonce($nonce, $optSalt='') {
     $remote = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
     $lasthour = date("G")-1<0 ? date('Ymd').'23' : date("YmdG")-1;

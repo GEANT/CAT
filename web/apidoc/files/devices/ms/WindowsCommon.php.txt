@@ -37,6 +37,12 @@ use \Exception;
  */
 abstract class WindowsCommon extends \core\DeviceConfig {
 
+    /**
+     * copies various common files into temp dir for inclusion into installers
+     * 
+     * @return void
+     * @throws Exception
+     */
     public function copyBasicFiles() {
         if (!($this->copyFile('wlan_test.exe') &&
                 $this->copyFile('check_wired.cmd') &&
@@ -48,8 +54,8 @@ abstract class WindowsCommon extends \core\DeviceConfig {
 
         if (!($this->copyFile('cat32.ico') &&
                 $this->copyFile('cat_150.bmp') &&
-                $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData32.exe', 'WLANSetEAPUserData32.exe') &&
-                $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData64.exe', 'WLANSetEAPUserData64.exe'))) {
+                $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData32.exe', 'WLANSetEAPUserDatax86.exe') &&
+                $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData64.exe', 'WLANSetEAPUserDatax64.exe'))) {
             throw new Exception("Copying needed files (part 2) failed for at least one file!");
         }
         if (!$this->translateFile('common.inc', 'common.nsh', $this->codePage)) {
@@ -58,6 +64,12 @@ abstract class WindowsCommon extends \core\DeviceConfig {
         return;
     }
 
+    /**
+     * copies files relevant for EAP-pwd into installer temp directory for later inclusion into installers
+     * 
+     * @return void
+     * @throws Exception
+     */
     public function copyPwdFiles() {
         if (!($this->copyFile('Aruba_Networks_EAP-pwd_x32.msi') &&
                 $this->copyFile('Aruba_Networks_EAP-pwd_x64.msi'))) {
@@ -68,9 +80,16 @@ abstract class WindowsCommon extends \core\DeviceConfig {
         }
     }
 
+    /**
+     * copies GEANTlink files into temp dir for later inclusion into installers
+     * 
+     * @return void
+     * @throws Exception
+     */
     public function copyGeantLinkFiles() {
-        if (!($this->copyFile('GEANTLink/GEANTLink32.msi', 'GEANTLink32.msi') &&
-                $this->copyFile('GEANTLink/GEANTLink64.msi', 'GEANTLink64.msi') &&
+        if (!($this->copyFile('GEANTLink/GEANTLink-x86.msi', 'GEANTLink-x86.msi') &&
+                $this->copyFile('GEANTLink/GEANTLink-x64.msi', 'GEANTLink-x64.msi') &&
+                $this->copyFile('GEANTLink/GEANTLink-ARM64.msi', 'GEANTLink-ARM64.msi') &&
                 $this->copyFile('GEANTLink/CredWrite.exe', 'CredWrite.exe') &&
                 $this->copyFile('GEANTLink/MsiUseFeature.exe', 'MsiUseFeature.exe'))) {
             throw new Exception("Copying needed files (GEANTLink) failed for at least one file!");
@@ -79,7 +98,6 @@ abstract class WindowsCommon extends \core\DeviceConfig {
             throw new Exception("Translating needed file geant_link.inc failed!");
         }
     }
-
 
     /**
      * function to escape double quotes in a special NSI-compatible way
@@ -99,11 +117,19 @@ abstract class WindowsCommon extends \core\DeviceConfig {
         return preg_replace('/"/', '$\"', $input);
     }
 
+    /**
+     * constructor. Figures out if GEANTlink is needed/wanted
+     */
     public function __construct() {
         parent::__construct();
         $this->useGeantLink = (isset($this->options['args']) && $this->options['args'] == 'gl') ? 1 : 0;
     }
 
+    /**
+     * determine Windows codepage and language settings based on requested installer language
+     * 
+     * @return void
+     */
     protected function prepareInstallerLang() {
         if (isset($this->LANGS[$this->languageInstance->getLang()])) {
             $language = $this->LANGS[$this->languageInstance->getLang()];
@@ -115,25 +141,28 @@ abstract class WindowsCommon extends \core\DeviceConfig {
         }
     }
 
+    /**
+     * creates HTML code which will be displayed when the "info" button is pressed
+     * 
+     * @return string the HTML code
+     */
     public function writeDeviceInfo() {
-        $ssids = $this->getAttribute('internal:SSID');
+        $ssids = $this->getAttribute('internal:SSID') ?? [];
         $ssidCount = count($ssids);
+        $configList = CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'] ?? [];
+        $configCount = count($configList);
         $out = "<p>";
         $out .= sprintf(_("%s installer will be in the form of an EXE file. It will configure %s on your device, by creating wireless network profiles.<p>When you click the download button, the installer will be saved by your browser. Copy it to the machine you want to configure and execute."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $out .= "<p>";
-        if ($ssidCount > 1) {
-            if ($ssidCount > 2) {
-                $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to the following networks:"), implode(', ', CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) . " ";
-            } else {
-                $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to:"), implode(', ', CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) . " ";
-            }
-            $out .= '<strong>' . join('</strong>, <strong>', array_diff(array_keys($ssids), CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) . '</strong>';
+        if ($ssidCount > $configCount) {
+            $out .= sprintf(ngettext("In addition to <strong>%s</strong> the installer will also configure access to:", "In addition to <strong>%s</strong> the installer will also configure access to the following networks:", $ssidCount - $configCount), implode(', ', $configList)) . " ";
+            $out .= '<strong>' . join('</strong>, <strong>', array_diff(array_keys($ssids), $configList)) . '</strong>';
             $out .= "<p>";
         }
 // TODO - change this below
         if ($this->selectedEapObject->isClientCertRequired()) {
             $out .= _("In order to connect to the network you will need an a personal certificate in the form of a p12 file. You should obtain this certificate from your organisation. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process.");
-            return($out);
+            return $out;
         }
         // not EAP-TLS
         $out .= _("In order to connect to the network you will need an account from your organisation. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated.");
@@ -147,9 +176,15 @@ abstract class WindowsCommon extends \core\DeviceConfig {
                 $out .= '<strong>' . join('</strong>, <strong>', array_keys($ssids)) . '</strong>';
             }
         }
-        return($out);
+        return $out;
     }    
     
+    /**
+     * scales a logo to the desired size
+     * @param string $imagePath path to the image
+     * @param int    $maxSize   maximum size of output image (larger axis counts)
+     * @return \IMagick IMagick image object
+     */
     private function scaleLogo($imagePath, $maxSize) {
         $imageObject = new \Imagick($imagePath);
         $imageSize = $imageObject->getImageGeometry();
@@ -170,6 +205,13 @@ abstract class WindowsCommon extends \core\DeviceConfig {
         return($imageObject);
     }
 
+    /**
+     * combines the inst and federation logo into one image and writes to file
+     * 
+     * @param array $logos   inst logo meta info
+     * @param array $fedLogo fed logo meta info
+     * @return void
+     */
     protected function combineLogo($logos = NULL, $fedLogo = NULL) {
         // maximum size to which we want to resize the logos
         
@@ -214,6 +256,11 @@ abstract class WindowsCommon extends \core\DeviceConfig {
         $bgImage->writeImage('BMP3:cat_bg.bmp');
     }
 
+    /**
+     * adds a digital signature to the installer, and returns path to file
+     * 
+     * @return string path to signed installer
+     */
     protected function signInstaller() {
         $fileName = $this->installerBasename . '.exe';
         if (!$this->sign) {
@@ -228,6 +275,11 @@ abstract class WindowsCommon extends \core\DeviceConfig {
         return $fileName;
     }
 
+    /**
+     * creates one single installer .exe out of the NSH inputs and other files
+     * 
+     * @return void
+     */
     protected function compileNSIS() {
         if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
             $makensis = CONFIG_CONFASSISTANT['PATHS']['makensis'] . " -INPUTCHARSET UTF8";
@@ -242,6 +294,13 @@ abstract class WindowsCommon extends \core\DeviceConfig {
         $this->loggerInstance->debug(4, "compileNSIS:$command\n");
     }
 
+    /**
+     * find out where the user can get support
+     * 
+     * @param array  $attr list of profile attributes
+     * @param string $type which type of support resource to we want
+     * @return string NSH line with the resulting !define
+     */
     private function getSupport($attr, $type) {
         $supportString = [
             'email' => 'SUPPORT',
@@ -250,10 +309,15 @@ abstract class WindowsCommon extends \core\DeviceConfig {
         $s = "support_" . $type . "_substitute";
         $substitute = $this->translateString($this->$s, $this->codePage);
         $returnValue = !empty($attr['support:' . $type][0]) ? $attr['support:' .  $type][0] : $substitute;
-        return('!define ' . $supportString[$type] . ' "' . $returnValue . '"' . "\n");
+        return '!define ' . $supportString[$type] . ' "' . $returnValue . '"' . "\n";
     }
     
-    
+    /**
+     * returns various NSH !define statements for later inclusion into master file
+     * 
+     * @param array $attr profile attributes
+     * @return string
+     */
     protected function writeNsisDefines($attr) {
         $fcontents = "\n" . '!define NSIS_MAJOR_VERSION ' . CONFIG_CONFASSISTANT['NSIS_VERSION'];
         if ($attr['internal:profile_count'][0] > 1) {
@@ -291,10 +355,17 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
 ';
         }
         $fcontents .= $this->msInfoFile($attr);
-        return($fcontents);
+        return $fcontents;
            
     }
     
+    /**
+     * includes NSH commands displaying terms of use file into installer, if any
+     * 
+     * @param array $attr profile attributes
+     * @return string NSH commands
+     * @throws Exception
+     */
     protected function msInfoFile($attr) {
         $out = '';
         if (isset($attr['support:info_file'])) {
@@ -326,6 +397,13 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
         return $out;
     }
 
+    /**
+     * writes commands to delete SSIDs, if any, into a file
+     * 
+     * @param array $profiles WLAN profiles to delete
+     * @return void
+     * @throws Exception
+     */
     protected function writeAdditionalDeletes($profiles) {
         if (count($profiles) == 0) {
             return;
@@ -341,6 +419,12 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
         fclose($fileHandle);
     }
 
+    /**
+     * writes client certificate into file
+     * 
+     * @return void
+     * @throws Exception
+     */
     protected function writeClientP12File() {
         if (!is_array($this->clientCert)) {
             throw new Exception("the client block was called but there is no client certificate!");
@@ -348,6 +432,11 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
         file_put_contents('SB_cert.p12', $this->clientCert["certdata"]);
     }
 
+    /**
+     * nothing special to be done here
+     * 
+     * @return void
+     */
     protected function writeTlsUserProfile() {
         
     }

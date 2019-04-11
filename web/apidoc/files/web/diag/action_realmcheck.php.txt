@@ -25,8 +25,10 @@ $loggerInstance = new \core\common\Logging();
 
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
-echo $deco->defaultPagePrelude(sprintf(_("Sanity check for dynamic discovery of realms"), CONFIG['APPEARANCE']['productname']));
 $gui = new \web\lib\user\Gui();
+$gui->langObject->setTextDomain("diagnostics");
+echo $deco->defaultPagePrelude(sprintf(_("Sanity check for dynamic discovery of realms"), CONFIG['APPEARANCE']['productname']));
+
 $ourlocale = $gui->langObject->getLang();
 
 $my_profile = NULL;
@@ -114,10 +116,10 @@ $errorstate = [];
     var refused_code = "<?php echo \core\diag\RADIUSTests::RETVAL_CONNECTION_REFUSED ?>";
     var refused_info = "<?php echo _("Connection refused") ?>";
     var global_info = new Array();
-    global_info[L_OK] = "<?php echo "All tests passed." ?>";
-    global_info[L_WARN] = "<?php echo "There were some warnings." ?>";
-    global_info[L_ERROR] = "<?php echo "There were some errors." ?>";
-    global_info[L_REMARK] = "<?php echo "There were some remarks." ?>";
+    global_info[L_OK] = "<?php echo _("All tests passed."); ?>";
+    global_info[L_WARN] = "<?php echo _("There were some warnings."); ?>";
+    global_info[L_ERROR] = "<?php echo _("There were some errors."); ?>";
+    global_info[L_REMARK] = "<?php echo _("There were some remarks."); ?>";
     var servercert = new Array();
     var arefailed = 0;
     var running_ajax_stat = 0;
@@ -141,6 +143,7 @@ $errorstate = [];
     server_cert.validTo = "<?php echo _("Valid to:") ?>";
     server_cert.serialNumber = "<?php echo _("Serial number:") ?>";
     server_cert.sha1 = "<?php echo _("SHA1 fingerprint:") ?>";
+    var not_known_server = "<?php echo _("Connected to undetermined server") ?>";
     $(document).ready(function () {
         $('.caresult, .eap_test_results, .udp_results').on('click', '.morelink', function () {
             if ($(this).hasClass('less')) {
@@ -329,17 +332,14 @@ $errorstate = [];
             $.each(server_cert, function (l, s) {
                 cert_data = cert_data + "<dt>" + s + "</dt><dd>" + v.server_cert[l] + "</dd>";
             });
-
             var ext = '';
             $.each(v.server_cert.extensions, function (l, s) {
                 if (ext !== '')
                     ext = ext + '<br>';
                 ext = ext + '<strong>' + l + ': </strong>' + s;
             });
-
             cert_data = cert_data + "<dt><?php echo _("Extensions") ?></dt><dd>" + ext + "</dd></dl>";
             cert_data = cert_data + "<a href='' class='morelink'><?php echo _("show server certificate details") ?>&raquo;</a></div></tr>";
-
             if (v.level > L_OK && v.cert_oddities !== undefined) {
                 $.each(v.cert_oddities, function (j, w) {
                     $("#src" + data.hostindex).append('<tr class="results_tr"><td>&nbsp;</td><td class="icon_td"><img src="' + icons[w.level] + '"></td><td>' + w.message + '</td></tr>');
@@ -347,7 +347,12 @@ $errorstate = [];
             }
             $("#src" + data.hostindex).append(cert_data);
         } else {
-            $("#src" + data.hostindex).html('<br/><?php printf(_("elapsed time: %sms."), "'+v.time_millisec+'&nbsp;") ?><p>' + v.message + '</p>');
+            $("#src" + data.hostindex).html('<strong>' + not_known_server + '</strong><br/><?php printf(_("elapsed time: %sms."), "'+v.time_millisec+'&nbsp;") ?><p>' + v.message + '</p>');
+            if (v.level > L_OK && v.cert_oddities !== undefined) {
+                $.each(v.cert_oddities, function (j, w) {
+                    $("#src" + data.hostindex).append('<tr class="results_tr"><td>&nbsp;</td><td class="icon_td"><img src="' + icons[w.level] + '"></td><td>' + w.message + '</td></tr>');
+                });
+            }
         }
         global_level_udp = Math.max(global_level_udp, v.level);
         $(".server_cert").show();
@@ -379,7 +384,7 @@ $errorstate = [];
                 o = o + '<strong>' + v.server + '</strong><p>';
                 cert_data = "<tr><td>&nbsp;</td><td><p><strong><?php echo _("Server certificate details:") ?></strong><dl class='udp_login'>";
                 $.each(server_cert, function (l, s) {
-                    console.log("l="+l);
+                    console.log("l=" + l);
                     cert_data = cert_data + "<dt>" + s + "</dt><dd>" + v.server_cert[l] + "</dd>";
                 });
 
@@ -471,110 +476,110 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
 </script>
 </head>
 <body>
-<?php
-echo $deco->productheader("ADMIN");
+    <?php
+    echo $deco->productheader("ADMIN");
 
-if ($check_realm === FALSE) {
-    print "<p>$error_message</p>";
-} else {
-    print "<h1>" . sprintf(_("Realm testing for: %s"), $check_realm) . "</h1>\n";
-    ?>
-    <div id="debug_out" style="display: none"></div>
-    <div id="tabs" style="min-width: 600px; max-width:800px">
-        <ul>
-            <li><a href="#tabs-1"><?php echo _("Overview") ?></a></li>
-            <li><a href="#tabs-2"><?php echo _("Static connectivity tests") ?></a></li>
-            <li id="tabs-d-li"><a href="#tabs-3"><?php echo _("Dynamic connectivity tests") ?></a></li>
-            <li id="tabs-through"><a href="#tabs-4"><?php echo _("Live login tests") ?></a></li>
-        </ul>
-        <div id="tabs-1">
-            <fieldset class='option_container'>
-                <legend>
-                    <strong><?php echo _("Overview") ?></strong>
-                </legend>
-                <?php
-                // NAPTR existence check
-                echo "<strong>" . _("DNS chekcs") . "</strong><div>";
-                $naptr = $rfc7585suite->relevantNAPTR();
-                if ($naptr != \core\diag\RADIUSTests::RETVAL_NOTCONFIGURED) {
-                    echo "<table>";
-                    // output in friendly words
-                    echo "<tr><td>" . _("Checking NAPTR existence:") . "</td><td>";
-                    switch ($naptr) {
-                        case \core\diag\RFC7585Tests::RETVAL_NONAPTR:
-                            echo _("This realm has no NAPTR records.");
-                            break;
-                        case \core\diag\RFC7585Tests::RETVAL_ONLYUNRELATEDNAPTR:
-                            echo _("This realm has NAPTR records, but none are related to this roaming consortium.");
-                            break;
-                        default: // if none of the possible negative retvals, then we have matching NAPTRs
-                            printf(_("This realm has %d NAPTR records relating to this roaming consortium."), $naptr);
-                    }
-                    echo "</td></tr>";
-
-                    // compliance checks for NAPTRs
-                    if ($naptr > 0) {
-                        echo "<tr><td>" . _("Checking NAPTR compliance (flag = S and regex = {empty}):") . "</td><td>";
-                        $naptr_valid = $rfc7585suite->relevantNAPTRcompliance();
-                        switch ($naptr_valid) {
-                            case \core\diag\RADIUSTests::RETVAL_OK:
-                                echo _("No issues found.");
+    if ($check_realm === FALSE) {
+        print "<p>$error_message</p>";
+    } else {
+        print "<h1>" . sprintf(_("Realm testing for: %s"), $check_realm) . "</h1>\n";
+        ?>
+        <div id="debug_out" style="display: none"></div>
+        <div id="tabs" style="min-width: 600px; max-width:800px">
+            <ul>
+                <li><a href="#tabs-1"><?php echo _("Overview") ?></a></li>
+                <li><a href="#tabs-2"><?php echo _("Static connectivity tests") ?></a></li>
+                <li id="tabs-d-li"><a href="#tabs-3"><?php echo _("Dynamic connectivity tests") ?></a></li>
+                <li id="tabs-through"><a href="#tabs-4"><?php echo _("Live login tests") ?></a></li>
+            </ul>
+            <div id="tabs-1">
+                <fieldset class='option_container'>
+                    <legend>
+                        <strong><?php echo _("Overview") ?></strong>
+                    </legend>
+                    <?php
+                    // NAPTR existence check
+                    echo "<strong>" . _("DNS chekcs") . "</strong><div>";
+                    $naptr = $rfc7585suite->relevantNAPTR();
+                    if ($naptr != \core\diag\RADIUSTests::RETVAL_NOTCONFIGURED) {
+                        echo "<table>";
+                        // output in friendly words
+                        echo "<tr><td>" . _("Checking NAPTR existence:") . "</td><td>";
+                        switch ($naptr) {
+                            case \core\diag\RFC7585Tests::RETVAL_NONAPTR:
+                                echo _("This realm has no NAPTR records.");
                                 break;
-                            case \core\diag\RADIUSTests::RETVAL_INVALID:
-                                printf(_("At least one NAPTR with invalid content found!"));
+                            case \core\diag\RFC7585Tests::RETVAL_ONLYUNRELATEDNAPTR:
+                                echo _("This realm has NAPTR records, but none are related to this roaming consortium.");
                                 break;
+                            default: // if none of the possible negative retvals, then we have matching NAPTRs
+                                printf(_("This realm has %d NAPTR records relating to this roaming consortium."), $naptr);
                         }
                         echo "</td></tr>";
-                    }
 
-                    // SRV resolution
-
-                    if ($naptr > 0 && $naptr_valid == \core\diag\RADIUSTests::RETVAL_OK) {
-                        $srv = $rfc7585suite->relevantNAPTRsrvResolution();
-                        echo "<tr><td>" . _("Checking SRVs:") . "</td><td>";
-                        switch ($srv) {
-                            case \core\diag\RADIUSTests::RETVAL_SKIPPED:
-                                echo _("This check was skipped.");
-                                break;
-                            case \core\diag\RADIUSTests::RETVAL_INVALID:
-                                printf(_("At least one NAPTR with invalid content found!"));
-                                break;
-                            default: // print number of successfully retrieved SRV targets
-                                printf(_("%d host names discovered."), $srv);
+                        // compliance checks for NAPTRs
+                        if ($naptr > 0) {
+                            echo "<tr><td>" . _("Checking NAPTR compliance (flag = S and regex = {empty}):") . "</td><td>";
+                            $naptr_valid = $rfc7585suite->relevantNAPTRcompliance();
+                            switch ($naptr_valid) {
+                                case \core\diag\RADIUSTests::RETVAL_OK:
+                                    echo _("No issues found.");
+                                    break;
+                                case \core\diag\RADIUSTests::RETVAL_INVALID:
+                                    printf(_("At least one NAPTR with invalid content found!"));
+                                    break;
+                            }
+                            echo "</td></tr>";
                         }
-                        echo "</td></tr>";
-                    }
-                    // IP addresses for the hosts
-                    if ($naptr > 0 && $naptr_valid == \core\diag\RADIUSTests::RETVAL_OK && $srv > 0) {
-                        $hosts = $rfc7585suite->relevantNAPTRhostnameResolution();
-                        echo "<tr><td>" . _("Checking IP address resolution:") . "</td><td>";
-                        switch ($srv) {
-                            case \core\diag\RADIUSTests::RETVAL_SKIPPED:
-                                echo _("This check was skipped.");
-                                break;
-                            case \core\diag\RADIUSTests::RETVAL_INVALID:
-                                printf(_("At least one hostname could not be resolved!"));
-                                break;
-                            default: // print number of successfully retrieved SRV targets
-                                printf(_("%d IP addresses resolved."), $hosts);
-                        }
-                        echo "</td></tr>";
-                    }
 
-                    echo "</table><br/><br/>";
-                    if (count($testsuite->listerrors()) == 0) {
-                        echo sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("with no DNS errors encountered. Congratulations!");
-                    } else {
-                        echo sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("but there were DNS errors! Check them!") . " " . _("You should re-run the tests after fixing the errors; more errors might be uncovered at that point. The exact error causes are listed below.");
-                        echo "<div class='notacceptable'><table>";
-                        foreach ($testsuite->listerrors() as $details) {
-                            echo "<tr><td>" . $details['TYPE'] . "</td><td>" . $details['TARGET'] . "</td></tr>";
-                        }
-                        echo "</table></div>";
-                    }
-                    echo '</div>';
+                        // SRV resolution
 
-                    echo '<script type="text/javascript">
+                        if ($naptr > 0 && $naptr_valid == \core\diag\RADIUSTests::RETVAL_OK) {
+                            $srv = $rfc7585suite->relevantNAPTRsrvResolution();
+                            echo "<tr><td>" . _("Checking SRVs:") . "</td><td>";
+                            switch ($srv) {
+                                case \core\diag\RADIUSTests::RETVAL_SKIPPED:
+                                    echo _("This check was skipped.");
+                                    break;
+                                case \core\diag\RADIUSTests::RETVAL_INVALID:
+                                    printf(_("At least one NAPTR with invalid content found!"));
+                                    break;
+                                default: // print number of successfully retrieved SRV targets
+                                    printf(_("%d host names discovered."), $srv);
+                            }
+                            echo "</td></tr>";
+                        }
+                        // IP addresses for the hosts
+                        if ($naptr > 0 && $naptr_valid == \core\diag\RADIUSTests::RETVAL_OK && $srv > 0) {
+                            $hosts = $rfc7585suite->relevantNAPTRhostnameResolution();
+                            echo "<tr><td>" . _("Checking IP address resolution:") . "</td><td>";
+                            switch ($srv) {
+                                case \core\diag\RADIUSTests::RETVAL_SKIPPED:
+                                    echo _("This check was skipped.");
+                                    break;
+                                case \core\diag\RADIUSTests::RETVAL_INVALID:
+                                    printf(_("At least one hostname could not be resolved!"));
+                                    break;
+                                default: // print number of successfully retrieved SRV targets
+                                    printf(_("%d IP addresses resolved."), $hosts);
+                            }
+                            echo "</td></tr>";
+                        }
+
+                        echo "</table><br/><br/>";
+                        if (count($testsuite->listerrors()) == 0) {
+                            echo sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("with no DNS errors encountered. Congratulations!");
+                        } else {
+                            echo sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("but there were DNS errors! Check them!") . " " . _("You should re-run the tests after fixing the errors; more errors might be uncovered at that point. The exact error causes are listed below.");
+                            echo "<div class='notacceptable'><table>";
+                            foreach ($testsuite->listerrors() as $details) {
+                                echo "<tr><td>" . $details['TYPE'] . "</td><td>" . $details['TARGET'] . "</td></tr>";
+                            }
+                            echo "</table></div>";
+                        }
+                        echo '</div>';
+
+                        echo '<script type="text/javascript">
               function run_dynamic() {
                  running_ajax_dyn = 0;
                  $("#main_dynamic_ico").attr("src",icon_loading);
@@ -583,47 +588,47 @@ if ($check_realm === FALSE) {
                  global_level_dyn = L_OK;
                  $("#dynamic_tests").show();
               ';
-                    foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
-                        $host = ($addr['family'] == "IPv6" ? "[" : "") . $addr['IP'] . ($addr['family'] == "IPv6" ? "]" : "") . ":" . $addr['port'];
-                        print "
+                        foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
+                            $host = ($addr['family'] == "IPv6" ? "[" : "") . $addr['IP'] . ($addr['family'] == "IPv6" ? "]" : "") . ":" . $addr['port'];
+                            print "
                             running_ajax_dyn++;
                             $.ajax({url:'radius_tests.php', data:{test_type: 'capath', realm: realm, src: '$host', lang: '" . $gui->langObject->getLang() . "', hostindex: '$hostindex' }, error: eee, success: capath, dataType: 'json'}); 
                             running_ajax_dyn++;
                             $.ajax({url:'radius_tests.php', data:{test_type: 'clients', realm: realm, src: '$host', lang: '" . $gui->langObject->getLang() . "', hostindex: '$hostindex' }, error: eee, success: clients, dataType: 'json'}); 
                        ";
-                    }
-                    echo "}
+                        }
+                        echo "}
               </script><hr>";
-                } else {
-                    echo "<tr><td>" . _("Dynamic discovery test is not configured") . "</td><td>";
-                }
-                echo "<strong>" . _("Static connectivity tests") . "</strong>
+                    } else {
+                        echo "<tr><td>" . _("Dynamic discovery test is not configured") . "</td><td>";
+                    }
+                    echo "<strong>" . _("Static connectivity tests") . "</strong>
          <table><tr>
          <td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='main_static_ico' class='icon'></td><td id='main_static_result' style='display:none'>&nbsp;</td>
          </tr></table>";
-                if ($naptr > 0) {
-                    echo "<hr><strong>" . _("Dynamic connectivity tests") . "</strong>
+                    if ($naptr > 0) {
+                        echo "<hr><strong>" . _("Dynamic connectivity tests") . "</strong>
          <table><tr>
          <td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='main_dynamic_ico' class='icon'></td><td id='main_dynamic_result' style='display:none'>&nbsp;</td>
          </tr></table>";
-                }
-                ?>
+                    }
+                    ?>
 
-            </fieldset>
+                </fieldset>
 
-        </div>
-        <div id="tabs-2">
-            <button id="run_s_tests" onclick="run_udp()"><?php echo _("Repeat static connectivity tests") ?></button>
-            <p>
-            <fieldset class="option_container" id="static_tests">
-                <legend><strong> <?php echo _("STATIC connectivity tests"); ?> </strong> </legend>
-                <?php
-                echo _("This check sends a request for the realm through various entry points of the roaming consortium infrastructure. The request will contain the 'Operator-Name' attribute, and will be larger than 1500 Bytes to catch two common configuration problems.<br/>Since we don't have actual credentials for the realm, we can't authenticate successfully - so the expected outcome is to get an Access-Reject after having gone through an EAP conversation.");
-                print "<p>";
-                foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
-                    print "<hr>";
-                    printf(_("Testing from: %s"), "<strong>" . CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$hostindex]['display_name'] . "</strong>");
-                    print "<table id='results$hostindex'  style='width:100%' class='udp_results'>
+            </div>
+            <div id="tabs-2">
+                <button id="run_s_tests" onclick="run_udp()"><?php echo _("Repeat static connectivity tests") ?></button>
+                <p>
+                <fieldset class="option_container" id="static_tests">
+                    <legend><strong> <?php echo _("STATIC connectivity tests"); ?> </strong> </legend>
+                    <?php
+                    echo _("This check sends a request for the realm through various entry points of the roaming consortium infrastructure. The request will contain the 'Operator-Name' attribute, and will be larger than 1500 Bytes to catch two common configuration problems.<br/>Since we don't have actual credentials for the realm, we can't authenticate successfully - so the expected outcome is to get an Access-Reject after having gone through an EAP conversation.");
+                    print "<p>";
+                    foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
+                        print "<hr>";
+                        printf(_("Testing from: %s"), "<strong>" . CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$hostindex]['display_name'] . "</strong>");
+                        print "<table id='results$hostindex'  style='width:100%' class='udp_results'>
 <tr>
 <td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='src" . $hostindex . "_img'></td>
 <td id='src$hostindex' colspan=2>
@@ -631,32 +636,32 @@ if ($check_realm === FALSE) {
 </td>
 </tr>
 </table>";
-                }
+                    }
+                    ?>
+                </fieldset>
+
+
+            </div>
+
+            <?php
+            if ($naptr > 0) {
                 ?>
-            </fieldset>
+                <div id="tabs-3">
+                    <button id="run_d_tests" onclick="run_dynamic()"><?php echo _("Repeat dynamic connectivity tests") ?></button>
 
-
-        </div>
-
-        <?php
-        if ($naptr > 0) {
-            ?>
-            <div id="tabs-3">
-                <button id="run_d_tests" onclick="run_dynamic()"><?php echo _("Repeat dynamic connectivity tests") ?></button>
-
-                <?php
-                echo "<div id='dynamic_tests'><fieldset class='option_container'>
+                    <?php
+                    echo "<div id='dynamic_tests'><fieldset class='option_container'>
                 <legend><strong>" . _("DYNAMIC connectivity tests") . "</strong></legend>";
 
-                $resultstoprint = [];
-                if (count($rfc7585suite->NAPTR_hostname_records) > 0) {
-                    $resultstoprint[] = '<table style="align:right; display: none;" id="dynamic_result_fail">' . _("Some errors were found during the tests, see below") . '</table><table style="align:right; display: none;" id="dynamic_result_pass">' . _("All tests passed, congratulations!") . '</table>';
-                    $resultstoprint[] = '<div style="align:right;"><a href="" class="moreall">' . _('Show detailed information for all tests') . '</a></div>' . '<p><strong>' . _("Checking server handshake...") . "</strong><p>";
-                    foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
-                        $bracketaddr = ($addr["family"] == "IPv6" ? "[" . $addr["IP"] . "]" : $addr["IP"]);
-                        $resultstoprint[] = '<p><strong>' . $bracketaddr . ' TCP/' . $addr['port'] . '</strong>';
-                        $resultstoprint[] = '<ul style="list-style-type: none;" class="caresult"><li>';
-                        $resultstoprint[] = "<table id='caresults$hostindex'  style='width:100%'>
+                    $resultstoprint = [];
+                    if (count($rfc7585suite->NAPTR_hostname_records) > 0) {
+                        $resultstoprint[] = '<table style="align:right; display: none;" id="dynamic_result_fail">' . _("Some errors were found during the tests, see below") . '</table><table style="align:right; display: none;" id="dynamic_result_pass">' . _("All tests passed, congratulations!") . '</table>';
+                        $resultstoprint[] = '<div style="align:right;"><a href="" class="moreall">' . _('Show detailed information for all tests') . '</a></div>' . '<p><strong>' . _("Checking server handshake...") . "</strong><p>";
+                        foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
+                            $bracketaddr = ($addr["family"] == "IPv6" ? "[" . $addr["IP"] . "]" : $addr["IP"]);
+                            $resultstoprint[] = '<p><strong>' . $bracketaddr . ' TCP/' . $addr['port'] . '</strong>';
+                            $resultstoprint[] = '<ul style="list-style-type: none;" class="caresult"><li>';
+                            $resultstoprint[] = "<table id='caresults$hostindex'  style='width:100%'>
 <tr>
 <td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='srcca" . $hostindex . "_img'></td>
 <td id='srcca$hostindex'>
@@ -664,12 +669,12 @@ if ($check_realm === FALSE) {
 </td>
 </tr>
 </table>";
-                        $resultstoprint[] = '</li></ul>';
-                    }
-                    $clientstest = [];
-                    foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
-                        $clientstest[] = '<p><strong>' . $addr['IP'] . ' TCP/' . $addr['port'] . '</strong></p><ol>';
-                        $clientstest[] = "<span id='clientresults$hostindex$clinx'><table style='width:100%'>
+                            $resultstoprint[] = '</li></ul>';
+                        }
+                        $clientstest = [];
+                        foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
+                            $clientstest[] = '<p><strong>' . $addr['IP'] . ' TCP/' . $addr['port'] . '</strong></p><ol>';
+                            $clientstest[] = "<span id='clientresults$hostindex$clinx'><table style='width:100%'>
 <tr>
 <td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='srcclient" . $hostindex . "_img'></td>
 <td id='srcclient$hostindex'>
@@ -677,38 +682,38 @@ if ($check_realm === FALSE) {
 </td>
 </tr>
 </table></span>";
-                        $clientstest[] = '</ol>';
+                            $clientstest[] = '</ol>';
+                        }
+                        echo '<div style="align:right;">';
+                        echo join('', $resultstoprint);
+                        echo '<span id="clientstest" style="display: none;"><p><hr><b>' . _('Checking if certificates from  CAs are accepted...') . '</b><p>' . _('A few client certificates will be tested to check if servers are resistant to some certificate problems.') . '<p>';
+                        print join('', $clientstest);
+                        echo '</span>';
+                        echo '</div>';
                     }
-                    echo '<div style="align:right;">';
-                    echo join('', $resultstoprint);
-                    echo '<span id="clientstest" style="display: none;"><p><hr><b>' . _('Checking if certificates from  CAs are accepted...') . '</b><p>' . _('A few client certificates will be tested to check if servers are resistant to some certificate problems.') . '<p>';
-                    print join('', $clientstest);
-                    echo '</span>';
-                    echo '</div>';
+                    echo "</fieldset></div></div>";
                 }
-                echo "</fieldset></div></div>";
-            }
-            // further checks TBD:
-            //     check if accepts certificates from all accredited CAs
-            //     check if doesn't accept revoked certificates
-            //     check if RADIUS request gets rejected timely
-            //     check if truncates/dies on Operator-Name
-            if ($my_profile !== NULL) {
-                echo "<div id='tabs-4'><fieldset class='option_container'>
+                // further checks TBD:
+                //     check if accepts certificates from all accredited CAs
+                //     check if doesn't accept revoked certificates
+                //     check if RADIUS request gets rejected timely
+                //     check if truncates/dies on Operator-Name
+                if ($my_profile !== NULL) {
+                    echo "<div id='tabs-4'><fieldset class='option_container'>
                 <legend><strong>" . _("Live login test") . "</strong></legend>";
-                $prof_compl = $my_profile->getEapMethodsinOrderOfPreference(1);
-                if (count($prof_compl) > 0) {
-                    $passwordReqired = FALSE;
-                    $clientCertRequired = FALSE;
-                    foreach ($prof_compl as $eap) {
-                        if ($eap->isPasswordRequired()) {
-                            $passwordReqired = TRUE;
+                    $prof_compl = $my_profile->getEapMethodsinOrderOfPreference(1);
+                    if (count($prof_compl) > 0) {
+                        $passwordReqired = FALSE;
+                        $clientCertRequired = FALSE;
+                        foreach ($prof_compl as $eap) {
+                            if ($eap->isPasswordRequired()) {
+                                $passwordReqired = TRUE;
+                            }
+                            if ($eap->isClientCertRequired()) {
+                                $clientCertRequired = TRUE;
+                            }
                         }
-                        if ($eap->isClientCertRequired()) {
-                            $clientCertRequired = TRUE;
-                        }
-                    }
-                    echo "<div id='disposable_credential_container'><p>" . _("If you enter an existing login credential here, you can test the actual authentication from various checkpoints all over the world.") . "</p>
+                        echo "<div id='disposable_credential_container'><p>" . _("If you enter an existing login credential here, you can test the actual authentication from various checkpoints all over the world.") . "</p>
                     <p>" . _("The test will use all EAP types you have set in your profile information to check whether the right CAs and server names are used, and of course whether the login with these credentials and the given EAP type actually worked. If you have set anonymous outer ID, the test will use that.") . "</p>
                     <p>" . _("Note: the tool purposefully does not offer you to save these credentials, and they will never be saved in any way on the server side. Please use only <strong>temporary test accounts</strong> here; permanently valid test accounts in the wild are considered harmful!") . "</p></div>
                     <form enctype='multipart/form-data' id='live_form' accept-charset='UTF-8'>
@@ -717,65 +722,62 @@ if ($check_realm === FALSE) {
                     <input type='hidden' name='profile_id' value='" . $my_profile->identifier . "'>
                     <table id='live_tests'>";
 // if any password based EAP methods are available enable this section
-                        if ($passwordReqired)    {
-                        echo "<tr><td colspan='2'><strong>" . _("Password-based EAP types") . "</strong></td></tr>
+                        if ($passwordReqired) {
+                            echo "<tr><td colspan='2'><strong>" . _("Password-based EAP types") . "</strong></td></tr>
                         <tr><td>" . _("Real (inner) username:") . "</td><td><input type='text' id='username' class='mandatory' name='username'/></td></tr>";
-                        echo "<tr><td>" . _("Anonymous outer ID (optional):") . "</td><td><input type='text' id='outer_username' name='outer_username'/></td></tr>";
-                        echo "<tr><td>" . _("Password:") . "</td><td><input type='text' id='password' class='mandatory' name='password'/></td></tr>";
-                    }
-                    // ask for cert + privkey if TLS-based method is active
-                    if ($clientCertRequired) {
-                        echo "<tr><td colspan='2'><strong>" . _("Certificate-based EAP types") . "</strong></td></tr>
+                            echo "<tr><td>" . _("Anonymous outer ID (optional):") . "</td><td><input type='text' id='outer_username' name='outer_username'/></td></tr>";
+                            echo "<tr><td>" . _("Password:") . "</td><td><input type='text' id='password' class='mandatory' name='password'/></td></tr>";
+                        }
+                        // ask for cert + privkey if TLS-based method is active
+                        if ($clientCertRequired) {
+                            echo "<tr><td colspan='2'><strong>" . _("Certificate-based EAP types") . "</strong></td></tr>
                         <tr><td>" . _("Certificate file (.p12 or .pfx):") . "</td><td><input type='file' id='cert' accept='application/x-pkcs12' name='cert'/></td></tr>
                         <tr><td>" . _("Certificate password, if any:") . "</td><td><input type='text' id='privkey' name='privkey_pass'/></td></tr>
                         <tr><td>" . _("Username, if different from certificate Subject:") . "</td><td><input type='text' id='tls_username' name='tls_username'/></td></tr>";
+                        }
+                        echo "<tr><td colspan='2'><button id='submit_credentials'>" . _("Submit credentials") . "</button></td></tr></table></form>";
+                        echo "<div id='live_login_results' style='display:none'>";
+                        foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
+                            print "<hr>";
+                            printf(_("Testing from: %s"), "<strong>" . CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$hostindex]['display_name'] . "</strong>");
+                            print "<span style='position:relative'><img src='../resources/images/icons/loading51.gif' id='live_src" . $hostindex . "_img' style='width:24px; position: absolute; left: 20px; bottom: 0px; '></span>";
+                            print "<div id='eap_test$hostindex' class='eap_test_results'></div>";
+                        }
+                        echo "</div>";
+                    } else {// no EAP methods fully defined
+                        echo "Live Login Checks require at least one fully configured EAP type.";
                     }
-                    echo "<tr><td colspan='2'><button id='submit_credentials'>" . _("Submit credentials") . "</button></td></tr></table></form>";
-                    echo "<div id='live_login_results' style='display:none'>";
-                    foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
-                        print "<hr>";
-                        printf(_("Testing from: %s"), "<strong>" . CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$hostindex]['display_name'] . "</strong>");
-                        print "<span style='position:relative'><img src='../resources/images/icons/loading51.gif' id='live_src" . $hostindex . "_img' style='width:24px; position: absolute; left: 20px; bottom: 0px; '></span>";
-                        print "<div id='eap_test$hostindex' class='eap_test_results'></div>";
-                    }
-                    echo "</div>";
-                } else {// no EAP methods fully defined
-                    echo "Live Login Checks require at least one fully configured EAP type.";
+                    echo "</fieldset></div>";
                 }
-                echo "</fieldset></div>";
-            }
-            echo "
+                echo "
 </div>
 ";
-        }
+            }
 
-        if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL") {
-            $returnUrl = "../admin/overview_idp.php?inst_id=" . $my_inst->identifier;
-        } else {
-            $returnUrl = CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] . "/admin/overview_idp.php?inst_id=" . $my_inst->identifier;
-        }
-        ?>
-        <form method='post' action='<?php echo $returnUrl; ?>' accept-charset='UTF-8'>
-            <button type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_CLOSE; ?>'><?php echo sprintf(_("Return to %s administrator area"), $gui->nomenclature_inst); ?></button>
-        </form>
-        <?php
-        if ($check_realm !== FALSE) {
-            echo "<script>
+            if (isset($_POST['comefrom'])) {
+                $return = htmlspecialchars_decode($_POST['comefrom'])."?inst_id=".$my_inst->identifier;
+                echo "<form method='post' action='$return' accept-charset='UTF-8'>
+                    <button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_CLOSE . "'>" . sprintf(_("Return to %s administrator area"), core\common\Entity::$nomenclature_inst) . "</button>"
+                . "</form>";
+            }
+            if ($check_realm !== FALSE) {
+                echo "<script>
 
 
             var realm = '$check_realm';
             run_udp();";
 
-            if ($naptr > 0) {
-                echo "run_dynamic();";
-            } else {
-                echo '$("#tabs-d-li").hide();';
+                if ($naptr > 0) {
+                    echo "run_dynamic();";
+                } else {
+                    echo '$("#tabs-d-li").hide();';
+                }
+                if ($my_profile === NULL) {
+                    echo '$("#tabs-through").hide();';
+                }
+                echo "</script>";
             }
-            if ($my_profile === NULL) {
-                echo '$("#tabs-through").hide();';
-            }
-            echo "</script>";
-        }
 
-    echo $deco->footer();
+            echo $deco->footer();
+            
 

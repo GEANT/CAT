@@ -32,12 +32,25 @@ class Device_RedirectDev extends \core\DeviceConfig {
       $this->setSupportedEapMethods([\core\common\EAP::EAPTYPE_NONE]);
       $this->loggerInstance->debug(4,"RedirectEx called");
     }
+    
+    /**
+     * Write to the user that we can't do anything here, except for redirecting.
+     * 
+     * @return string
+     */
     public function writeDeviceInfo() {
+        \core\common\Entity::intoThePotatoes();
         $out = "<p>";
         $out .= _("This device is not yet supported by CAT, but your local administrator created a redirect to local installation instructions.");
+        \core\common\Entity::outOfThePotatoes();
         return $out;
     }
 
+    /**
+     * Nothing to see here. Please move along.
+     * 
+     * @return void
+     */
     public function writeInstaller() {
         // we aren't actually doing anything, but have to implement the method
         // from abstract class DeviceConfig

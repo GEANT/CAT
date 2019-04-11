@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -85,7 +86,7 @@ class UserManagement extends \core\common\Entity {
      * FAIL-ALREADYCONSUMED the token exists, but has been used before
      * FAIL-EXPIRED the token exists, but has expired
      * 
-     * @param string $token
+     * @param string $token the invitation token
      * @return int
      */
     public function checkTokenValidity($token) {
@@ -122,6 +123,8 @@ class UserManagement extends \core\common\Entity {
      * @return IdP 
      */
     public function createIdPFromToken(string $token, string $owner) {
+        new CAT(); // be sure that Entity's static members are initialised
+        common\Entity::intoThePotatoes();
         // the token either has cat_institution_id set -> new admin for existing inst
         // or contains a number of parameters from external DB -> set up new inst
         $instinfo = $this->databaseHandle->exec("SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, external_db_uniquehandle 
@@ -144,35 +147,27 @@ class UserManagement extends \core\common\Entity {
                     $this->databaseHandle->exec("INSERT INTO ownership (user_id, institution_id, blesslevel, orig_mail) VALUES(?, ?, ?, ?)", "siss", $owner, $catId, $level, $destMail);
                 }
                 $this->loggerInstance->writeAudit((string) $owner, "OWN", "IdP " . $invitationDetails->cat_institution_id . " - added user as owner");
+                common\Entity::outOfThePotatoes();
                 return new IdP($invitationDetails->cat_institution_id);
             }
             // create new IdP
             $fed = new Federation($invitationDetails->country);
-            $idp = new IdP($fed->newIdP($owner, $invitationDetails->invite_issuer_level, $invitationDetails->invite_dest_mail));
-
+            // find the best name for the entity: C if specified, otherwise English, otherwise whatever
             if ($invitationDetails->external_db_uniquehandle != NULL) {
-                $idp->setExternalDBId($invitationDetails->external_db_uniquehandle);
+                // see if we had a C language, and if not, pick a good candidate 
                 $cat = new CAT();
                 $externalinfo = $cat->getExternalDBEntityDetails($invitationDetails->external_db_uniquehandle);
+                $bestnameguess = $externalinfo['names']['C'] ?? $externalinfo['names']['en'] ?? reset($externalinfo['names']);
+                $idp = new IdP($fed->newIdP($owner, $invitationDetails->invite_issuer_level, $invitationDetails->invite_dest_mail, $bestnameguess));
                 foreach ($externalinfo['names'] as $instlang => $instname) {
                     $idp->addAttribute("general:instname", $instlang, $instname);
                 }
-                // see if we had a C language, and if not, pick a good candidate
-                if (!array_key_exists('C', $externalinfo['names'])) {
-                    if (array_key_exists('en', $externalinfo['names'])) { // English is a good candidate
-                        $idp->addAttribute("general:instname", 'C', $externalinfo['names']['en']);
-                        $bestnameguess = $externalinfo['names']['en'];
-                    } else { // no idea, let's take the first language we found
-                        $idp->addAttribute("general:instname", 'C', reset($externalinfo['names']));
-                        $bestnameguess = reset($externalinfo['names']);
-                    }
-                } else {
-                    $bestnameguess = $externalinfo['names']['C'];
-                }
+                $idp->setExternalDBId($invitationDetails->external_db_uniquehandle);
             } else {
-                $idp->addAttribute("general:instname", 'C', $invitationDetails->name);
                 $bestnameguess = $invitationDetails->name;
+                $idp = new IdP($fed->newIdP($owner, $invitationDetails->invite_issuer_level, $invitationDetails->invite_dest_mail, $bestnameguess));
             }
+            $idp->addAttribute("general:instname", 'C', $bestnameguess);
             $this->loggerInstance->writeAudit($owner, "NEW", "IdP " . $idp->identifier . " - created from invitation");
 
             // in case we have more admins in the queue which were invited to 
@@ -181,7 +176,7 @@ class UserManagement extends \core\common\Entity {
             // newly created actual IdP rather than the placeholder entry in the
             // invitations table
             // which other pending invites do we have?
-            
+
             $otherPending = $this->databaseHandle->exec("SELECT id
                              FROM invitations 
                              WHERE invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0 AND name = ? AND country = ? AND ( cat_institution_id IS NULL OR external_db_uniquehandle IS NULL ) ", "ss", $invitationDetails->name, $invitationDetails->country);
@@ -189,33 +184,7 @@ class UserManagement extends \core\common\Entity {
             while ($pendingDetail = mysqli_fetch_object(/** @scrutinizer ignore-type */ $otherPending)) {
                 $this->databaseHandle->exec("UPDATE invitations SET cat_institution_id = " . $idp->identifier . " WHERE id = " . $pendingDetail->id);
             }
-
-            $admins = $fed->listFederationAdmins();
-
-            // notify the fed admins...
-
-            foreach ($admins as $id) {
-                $user = new User($id);
-                /// arguments are: 1. IdP name; 
-                ///                2. consortium name (e.g. eduroam); 
-                ///                3. federation shortname, e.g. "LU"; 
-                ///                4. product name (e.g. eduroam CAT); 
-                ///                5. product long name (e.g. eduroam Configuration Assistant Tool)
-                $message = sprintf(_("Hi,
-
-the invitation for the new Identity Provider %s in your %s federation %s has been used and the IdP was created in %s.
-
-We thought you might want to know.
-
-Best regards,
-
-%s"), $bestnameguess, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], strtoupper($fed->tld), CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname_long']);
-                $retval = $user->sendMailToUser(_("IdP in your federation was created"), $message);
-                if ($retval === FALSE) {
-                    $this->loggerInstance->debug(2, "Mail to federation admin was NOT sent!\n");
-                }
-            }
-
+            common\Entity::outOfThePotatoes();
             return $idp;
         }
     }
@@ -305,13 +274,13 @@ Best regards,
      */
     public function listPendingInvitations($idpIdentifier = 0) {
         $retval = [];
-        $invitations = $this->databaseHandle->exec("SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, invite_token 
+        $invitations = $this->databaseHandle->exec("SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, invite_token , TIMESTAMPADD(DAY, 1, invite_created) as expiry
                                         FROM invitations 
                                         WHERE cat_institution_id " . ( $idpIdentifier != 0 ? "= $idpIdentifier" : "IS NULL") . " AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0");
         // SELECT -> resource, not boolean
         $this->loggerInstance->debug(4, "Retrieving pending invitations for " . ($idpIdentifier != 0 ? "IdP $idpIdentifier" : "IdPs awaiting initial creation" ) . ".\n");
         while ($invitationQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $invitations)) {
-            $retval[] = ["country" => $invitationQuery->country, "name" => $invitationQuery->name, "mail" => $invitationQuery->invite_dest_mail, "token" => $invitationQuery->invite_token];
+            $retval[] = ["country" => $invitationQuery->country, "name" => $invitationQuery->name, "mail" => $invitationQuery->invite_dest_mail, "token" => $invitationQuery->invite_token, "expiry" => $invitationQuery->expiry];
         }
         return $retval;
     }

@@ -49,6 +49,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
     public $ocspTimestamp;
     public $status;
     public $ca_type;
+    public $annotation;
 
     const CERTSTATUS_VALID = 1;
     const CERTSTATUS_EXPIRED = 2;
@@ -61,7 +62,8 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * 
      * Use static issueCertificate() to generate a whole new cert.
      * 
-     * @param int|string $identifier
+     * @param int|string $identifier identify certificate either by CN or by serial
+     * @param string     $certtype   RSA or ECDSA?
      */
     public function __construct($identifier, $certtype) {
         $this->databaseType = "INST";
@@ -81,12 +83,13 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         $this->ocspTimestamp = "2000-01-01 00:00:00";
         $this->ca_type = $certtype;
         $this->status = SilverbulletCertificate::CERTSTATUS_INVALID;
+        $this->annotation = NULL;
 
         $incoming = FALSE;
         if (is_numeric($identifier)) {
-            $incoming = $this->databaseHandle->exec("SELECT `id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`, `issued`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp` FROM `silverbullet_certificate` WHERE serial_number = ? AND ca_type = ?", "is", $identifier, $certtype);
+            $incoming = $this->databaseHandle->exec("SELECT `id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`, `issued`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp`, `extrainfo` FROM `silverbullet_certificate` WHERE serial_number = ? AND ca_type = ?", "is", $identifier, $certtype);
         } else { // it's a string instead
-            $incoming = $this->databaseHandle->exec("SELECT `id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`, `issued`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp` FROM `silverbullet_certificate` WHERE cn = ? AND ca_type = ?", "ss", $identifier, $certtype);
+            $incoming = $this->databaseHandle->exec("SELECT `id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`, `issued`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp`, `extrainfo` FROM `silverbullet_certificate` WHERE cn = ? AND ca_type = ?", "ss", $identifier, $certtype);
         }
 
         // SELECT -> mysqli_resource, not boolean
@@ -104,6 +107,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
             $this->revocationTime = $oneResult->revocation_time;
             $this->ocsp = $oneResult->OCSP;
             $this->ocspTimestamp = $oneResult->OCSP_timestamp;
+            $this->annotation = $oneResult->extrainfo;
             // is the cert expired?
             $now = new \DateTime();
             $cert_expiry = new \DateTime($this->expiry);
@@ -117,17 +121,35 @@ class SilverbulletCertificate extends EntityWithDBProperties {
     }
 
     /**
+     * retrieve basic information about the certificate
      * 
      * @return array of basic certificate details
      */
     public function getBasicInfo() {
         $returnArray = []; // unnecessary because the iterator below is never empty, but Scrutinizer gets excited nontheless
-        foreach (['status', 'serial', 'username', 'device', 'issued', 'expiry', 'ca_type'] as $key) {
+        foreach (['status', 'serial', 'username', 'issued', 'expiry', 'ca_type', 'annotation'] as $key) {
             $returnArray[$key] = $this->$key;
         }
-        return($returnArray);
+        $returnArray['device'] = \devices\Devices::listDevices()[$this->device]['display'] ?? $this->device;
+        return $returnArray;
     }
 
+    /**
+     * adds extra information about the certificate to the DB
+     * 
+     * @param array $annotation information to be stored
+     * @return void
+     */
+    public function annotate($annotation) {
+        $encoded = json_encode($annotation);
+        $this->annotation = $encoded;
+        $this->databaseHandle->exec("UPDATE silverbullet_certificate SET annotation = '$annotation' WHERE serial_number = ?", "i", $this->serial);
+    }
+    /**
+     * we don't use caching in SB, so this function does nothing
+     * 
+     * @return void
+     */
     public function updateFreshness() {
         // nothing to be done here.
     }
@@ -177,7 +199,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                 $privateKey = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
                 break;
             case \devices\Devices::SUPPORT_ECDSA:
-                $privateKey = openssl_pkey_new(['curve_name' => 'secp521r1', 'private_key_type' => OPENSSL_KEYTYPE_EC, 'encrypt_key' => FALSE]);
+                $privateKey = openssl_pkey_new(['curve_name' => 'secp384r1', 'private_key_type' => OPENSSL_KEYTYPE_EC, 'encrypt_key' => FALSE]);
                 break;
             default:
                 throw new Exception("Unknown certificate type!");
@@ -203,6 +225,9 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         // with the cert, our private key and import password, make a PKCS#12 container out of it
         $exportedCertProt = "";
         openssl_pkcs12_export($cert, $exportedCertProt, $privateKey, $importPassword, ['extracerts' => [$issuingCaPem /* , $rootCaPem */]]);
+        // and without intermediate, to keep EAP conversation short where possible
+        $exportedNoInterm = "";
+        openssl_pkcs12_export($cert, $exportedNoInterm, $privateKey, $importPassword, []);
         $exportedCertClear = "";
         openssl_pkcs12_export($cert, $exportedCertClear, $privateKey, "", ['extracerts' => [$issuingCaPem, $rootCaPem]]);
         // store resulting cert CN and expiry date in separate columns into DB - do not store the cert data itself as it contains the private key!
@@ -223,6 +248,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         return [
             "certObject" => $certObject,
             "certdata" => $exportedCertProt,
+            "certdata_nointermediate" => $exportedNoInterm,
             "certdataclear" => $exportedCertClear,
             "sha1" => $sha1,
             'importPassword' => $importPassword,
@@ -275,7 +301,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                     $serialHex = "0" . $serialHex;
                 }
 
-                $indexStatement = "$certstatus\t$expiryIndexTxt\t" . ($certstatus == "R" ? "$nowIndexTxt,unspecified" : "") . "\t$serialHex\tunknown\t/O=" . CONFIG_CONFASSISTANT['CONSORTIUM']['name'] . "/OU=$federation/CN=$this->username/emailAddress=$this->username\n";
+                $indexStatement = "$certstatus\t$expiryIndexTxt\t" . ($certstatus == "R" ? "$nowIndexTxt,unspecified" : "") . "\t$serialHex\tunknown\t/O=" . CONFIG_CONFASSISTANT['CONSORTIUM']['name'] . "/OU=$federation/CN=$this->username\n";
                 $logHandle->debug(4, "index.txt contents-to-be: $indexStatement");
                 if (!file_put_contents($tempdir . "/index.txt", $indexStatement)) {
                     $logHandle->debug(1, "Unable to write openssl index.txt file for revocation handling!");
@@ -323,9 +349,6 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * @return array with revocation information
      */
     public function revokeCertificate() {
-
-
-// TODO for now, just mark as revoked in the certificates table (and use the stub OCSP updater)
         $nowSql = (new \DateTime())->format("Y-m-d H:i:s");
         if (CONFIG_CONFASSISTANT['SILVERBULLET']['CA']['type'] != "embedded") {
             // send revocation request to CA.
@@ -371,7 +394,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                 $alg = "sha256";
                 break;
             case \devices\Devices::SUPPORT_ECDSA:
-                $alg = "ecdsa-with-sha512";
+                $alg = "ecdsa-with-SHA1";
                 break;
             default:
                 throw new Exception("Unknown certificate type!");
@@ -380,7 +403,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                 ['O' => CONFIG_CONFASSISTANT['CONSORTIUM']['name'],
             'OU' => $fed,
             'CN' => $username,
-            'emailAddress' => $username,
+            // 'emailAddress' => $username,
                 ], $privateKey, [
             'digest_alg' => $alg,
             'req_extensions' => 'v3_req',
@@ -427,7 +450,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
                         $alg = "sha256";
                         break;
                     case \devices\Devices::SUPPORT_ECDSA:
-                        $alg = "ecdsa-with-SHA512";
+                        $alg = "ecdsa-with-SHA1";
                         break;
                     default:
                         throw new Exception("Unknown cert type!");

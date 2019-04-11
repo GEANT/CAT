@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
  * project that has received funding from the European Union’s Framework 
@@ -28,6 +28,11 @@ require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 /**
  * This class defines the various actions doable with the admin API, the
  * parameters and return values.
+ * 
+ * @author Stefan Winter <stefan.winter@restena.lu>
+ * @package AdminAPI
+ * @license https://github.com/GEANT/CAT/blob/master/web/copyright.inc.php
+ * @link API
  */
 class API {
 
@@ -230,7 +235,7 @@ class API {
      * 
      */
     const ACTIONS = [
-        # inst-level actions
+        // inst-level actions
         API::ACTION_NEWINST_BY_REF => [
             "REQ" => [API::AUXATTRIB_EXTERNALID,],
             "OPT" => [
@@ -266,7 +271,7 @@ class API {
                 'support:url'
             ],
             "RETVAL" => [
-                API::AUXATTRIB_CAT_INST_ID, // new inst ID
+                API::AUXATTRIB_CAT_INST_ID, // New inst ID.
             ],
         ],
         API::ACTION_DELINST => [
@@ -274,14 +279,14 @@ class API {
             "OPT" => [],
             "RETVAL" => [],
         ],
-        # inst administrator management
+        // inst administrator management
         API::ACTION_ADMIN_LIST => [
             "REQ" => [API::AUXATTRIB_CAT_INST_ID],
             "OPT" => [
                 
             ],
             "RETVAL" => [
-                ["ID", "MAIL", "LEVEL"] // array with all admins of inst
+                ["ID", "MAIL", "LEVEL"] // Array with all admins of inst.
             ]
         ],
         API::ACTION_ADMIN_ADD => [
@@ -292,8 +297,8 @@ class API {
             "OPT" => [API::AUXATTRIB_TARGETMAIL],
             "RETVAL" => [
                 ["TOKEN URL", 
-                 "EMAIL SENT",              // dependent on TARGETMAIL input
-                 "EMAIL TRANSPORT SECURE"], // dependent on TARGETMAIL input
+                 "EMAIL SENT",              // Dependent on TARGETMAIL input.
+                 "EMAIL TRANSPORT SECURE"], // Dependent on TARGETMAIL input.
             ]
         ],
         API::ACTION_ADMIN_DEL => [
@@ -304,7 +309,7 @@ class API {
             "OPT" => [],
             "RETVAL" => [],
         ],
-        # statistics
+        // statistics
         API::ACTION_STATISTICS_INST => [
             "REQ" => [API::AUXATTRIB_CAT_INST_ID],
             "OPT" => []
@@ -313,10 +318,10 @@ class API {
             "REQ" => [],
             "OPT" => [],
             "RETVAL" => [
-                ["device_id" => ["ADMIN", "SILVERBULLET", "USER"]] // plus "TOTAL"
+                ["device_id" => ["ADMIN", "SILVERBULLET", "USER"]] // Plus "TOTAL".
             ],
         ],
-        # RADIUS profile actions
+        // RADIUS profile actions
         API::ACTION_NEWPROF_RADIUS => [
             "REQ" => [API::AUXATTRIB_CAT_INST_ID],
             "OPT" => [
@@ -345,7 +350,7 @@ class API {
             ],
             "RETVAL" => API::AUXATTRIB_CAT_PROFILE_ID,
         ],
-        # Silverbullet profile actions
+        // Silverbullet profile actions
         API::ACTION_NEWPROF_SB => [
             "REQ" => [API::AUXATTRIB_CAT_INST_ID],
             "OPT" => [API::AUXATTRIB_SB_TOU],
@@ -382,9 +387,9 @@ class API {
             "RETVAL" => [
                 API::AUXATTRIB_TOKENURL, 
                 API::AUXATTRIB_TOKEN, 
-                "EMAIL SENT",             // dependent on TARGETMAIL input
-                "EMAIL TRANSPORT SECURE", // dependent on TARGETMAIL input
-                "SMS SENT",               // dependent on TARGETSMS input
+                "EMAIL SENT",             // Dependent on TARGETMAIL input.
+                "EMAIL TRANSPORT SECURE", // Dependent on TARGETMAIL input.
+                "SMS SENT",               // Dependent on TARGETSMS input.
             ]
         ],
         API::ACTION_TOKEN_REVOKE => [
@@ -521,6 +526,7 @@ class API {
      * 
      * @param array $parameters the parameters as provided by JSON input
      * @return array
+     * @throws Exception
      */
     public function uglify($parameters) {
         $coercedInline = [];
@@ -543,11 +549,11 @@ class API {
                     $coercedInline["value"][$basename . "-" . $extension] = $oneAttrib['VALUE'];
                     break;
                 case \core\Options::TYPECODE_TEXT:
-                // fall-through: they all get the same treatment
+                // Fall-through: they all get the same treatment.
                 case \core\Options::TYPECODE_BOOLEAN:
-                // fall-through: they all get the same treatment
+                // Fall-through: they all get the same treatment.
                 case \core\Options::TYPECODE_STRING:
-                // fall-through: they all get the same treatment
+                // Fall-through: they all get the same treatment.
                 case \core\Options::TYPECODE_INTEGER:
                     $extension = $optionInfo['type'];
                     $coercedInline["option"][$basename] = $oneAttrib['NAME'] . "#";
@@ -557,8 +563,7 @@ class API {
                     }
                     break;
                 case \core\Options::TYPECODE_FILE:
-                    // binary data is expected in base64 encoding. This is true
-                    // also for PEM files!
+                    // Binary data is expected in base64 encoding. This is true also for PEM files!
                     $extension = $optionInfo['type'];
                     $coercedInline["option"][$basename] = $oneAttrib['NAME'] . "#";
                     file_put_contents($dir['dir'] . "/" . $basename . "-" . $extension, base64_decode($oneAttrib['VALUE']));

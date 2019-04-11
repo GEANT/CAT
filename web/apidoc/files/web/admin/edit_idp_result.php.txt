@@ -79,7 +79,11 @@ echo "</table>";
 
 // delete cached logo, if present
 $dir = ROOT . '/web/downloads/logos/';
-array_map('unlink', glob($dir . $my_inst->identifier . "_*.png"));
+$globResult = glob($dir . $my_inst->identifier . "_*.png");
+if ($globResult === FALSE) { // we should catch the improbable error condition
+    $globResult = [];
+}
+array_map('unlink', $globResult);
 $loggerInstance->debug(4, "UNLINK from $dir\n");
 
 $loggerInstance->writeAudit($_SESSION['user'], "MOD", "IdP " . $my_inst->identifier . " - attributes changed");
@@ -141,7 +145,7 @@ if (count($my_inst->listProfiles()) == 0) {
             echo "<form method='post' action='edit_silverbullet.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . sprintf(_("Continue to %s properties"), \core\ProfileSilverbullet::PRODUCTNAME) . "</button></form>";
         } else {
             echo "<table>";
-            echo $uiElements->boxError(sprintf(_("You did not submit an e-mail address. This is required for %s. Please go to the %s dashboard and edit your helpdesk settings to include a helpdesk e-mail address."), core\ProfileSilverbullet::PRODUCTNAME, $ui->nomenclature_inst), _("No support e-mail!"));
+            echo $uiElements->boxError(sprintf(_("You did not submit an e-mail address. This is required for %s. Please go to the %s dashboard and edit your helpdesk settings to include a helpdesk e-mail address."), core\ProfileSilverbullet::PRODUCTNAME, $ui->nomenclatureInst), _("No support e-mail!"));
             echo "</table>";
         }
     }

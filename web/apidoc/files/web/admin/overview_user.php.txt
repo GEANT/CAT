@@ -68,7 +68,7 @@ require_once "inc/click_button_js.php";
         }
 
         if ($user->isFederationAdmin()) {
-            echo "<form action='overview_federation.php' method='GET' accept-charset='UTF-8'><button type='submit'>" . sprintf(_('Click here for %s management tasks'), $uiElements->nomenclature_fed) . "</button></form>";
+            echo "<form action='overview_federation.php' method='GET' accept-charset='UTF-8'><button type='submit'>" . sprintf(_('Click here for %s management tasks'), $uiElements->nomenclatureFed) . "</button></form>";
         }
         if ($user->isSuperadmin()) {
             echo "<form action='112365365321.php' method='GET' accept-charset='UTF-8'><button type='submit'>" . _('Click here to access the superadmin page') . "</button></form>";
@@ -79,7 +79,11 @@ require_once "inc/click_button_js.php";
     $hasInst = $instMgmt->listInstitutionsByAdmin($_SESSION['user']);
 
     if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == 'eduroam') {
-        $helptext = "&nbsp;<h3 style='display:inline;'>" . sprintf(_("(Need help? Refer to the <a href='%s'>IdP administrator manual</a>)"), "https://wiki.geant.org/x/SwB_AQ") . "</h3>";
+        $target = "https://wiki.geant.org/x/SwB_AQ"; // CAT manual, outdated
+        if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
+            $target = "https://wiki.geant.org/x/SSNwBg"; // Managed IdP manual
+        }
+        $helptext = "<h3 style='display:inline;'>" . sprintf(_("(Need help? Refer to the <a href='%s'>%s administrator manual</a>)"), $target, $uiElements->nomenclatureInst) . "</h3>";
     } else {
         $helptext = "";
     }
@@ -88,8 +92,7 @@ require_once "inc/click_button_js.php";
         // we need to run the Federation constructor
         $cat = new \core\CAT;
         /// first parameter: number of Identity Providers; second param is the literal configured term for 'Identity Provider' (you may or may not be able to add a plural suffix for your locale)
-        echo "<h2>" . sprintf(ngettext("You are managing the following <span style='display:none'>%d </span>%s:", "You are managing the following <strong>%d</strong> %s:", sizeof($hasInst)), sizeof($hasInst), $uiElements->nomenclature_inst) . "</h2>";
-        echo $helptext;
+        echo "<h2>" . sprintf(ngettext("You are managing the following <span style='display:none'>%d </span>%s:", "You are managing the following <strong>%d</strong> %s:", sizeof($hasInst)), sizeof($hasInst), $uiElements->nomenclatureInst) . "</h2>";
         $instlist = [];
         $my_idps = [];
         $myFeds = [];
@@ -111,10 +114,10 @@ require_once "inc/click_button_js.php";
             $country[$key] = $row['country'];
             $name[$key] = $row['name'];
         }
-        echo "<tr><th>" . sprintf(_("%s Name"), $uiElements->nomenclature_inst) . "</th><th>" . sprintf(_("Other admins of this %s"), $uiElements->nomenclature_inst) . "</th><th>" . ( CONFIG['DB']['INST']['readonly'] === FALSE ? _("Administrator Management") : "") . "</th></tr>";
+        echo "<tr><th>" . sprintf(_("%s Name"), $uiElements->nomenclatureInst) . "</th><th>" . sprintf(_("Other admins of this %s"), $uiElements->nomenclatureInst) . "</th><th>" . ( CONFIG['DB']['INST']['readonly'] === FALSE ? _("Administrator Management") : "") . "</th></tr>";
         foreach ($myFeds as $fed_id => $fed_name) {
             /// nomenclature 'fed', fed name, nomenclature 'inst'
-            echo "<tr><td colspan='3'><strong>" . sprintf(_("%s %s: %s list"), $uiElements->nomenclature_fed, $fed_name, $uiElements->nomenclature_inst) . "</strong></td></tr>";
+            echo "<tr><td colspan='3'><strong>" . sprintf(_("%s %s: %s list"), $uiElements->nomenclatureFed, $fed_name, $uiElements->nomenclatureInst) . "</strong></td></tr>";
 
             $fed_idps = $my_idps[$fed_id];
             asort($fed_idps);
@@ -154,15 +157,15 @@ require_once "inc/click_button_js.php";
         }
         echo "</table>";
     } else {
-        echo "<h2>" . sprintf(_("You are not managing any %s."), $uiElements->nomenclature_inst) . "</h2>";
+        echo "<h2>" . sprintf(_("You are not managing any %s."), $uiElements->nomenclatureInst) . "</h2>";
     }
     if (CONFIG['DB']['INST']['readonly'] === FALSE) {
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'] === NULL) {
-            echo "<p>" . sprintf(_("Please ask your %s administrator to invite you to become an %s administrator."), $uiElements->nomenclature_fed, $uiElements->nomenclature_inst) . "</p>";
+            echo "<p>" . sprintf(_("Please ask your %s administrator to invite you to become an %s administrator."), $uiElements->nomenclatureFed, $uiElements->nomenclatureInst) . "</p>";
             echo "<hr/>
              <div style='white-space: nowrap;'>
                 <form action='action_enrollment.php' method='get' accept-charset='UTF-8'>" .
-            sprintf(_("Did you receive an invitation token to manage an %s? Please paste it here:"), $uiElements->nomenclature_inst) .
+            sprintf(_("Did you receive an invitation token to manage an %s? Please paste it here:"), $uiElements->nomenclatureInst) .
             "        <input type='text' id='token' name='token'/>
                     <button type='submit'>" .
             _("Go!") . "
@@ -174,11 +177,12 @@ require_once "inc/click_button_js.php";
             <div style='white-space: nowrap;'>
         <form action='action_enrollment.php' method='get'><button type='submit' accept-charset='UTF-8'>
                 <input type='hidden' id='token' name='token' value='SELF-REGISTER'/>" .
-            sprintf(_("New %s Registration"), $uiElements->nomenclature_inst) . "
+            sprintf(_("New %s Registration"), $uiElements->nomenclatureInst) . "
             </button>
         </form>
         </div>";
         }
+        echo "<hr/>$helptext";
     }
     ?>
     <?php

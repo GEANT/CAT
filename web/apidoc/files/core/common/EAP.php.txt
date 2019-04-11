@@ -43,7 +43,7 @@ use \Exception;
  *
  * @package Developer
  */
-class EAP {
+class EAP extends Entity {
 
     /**
      * some EAP-related constants.
@@ -375,6 +375,7 @@ class EAP {
      * @return string
      */
     public function getPrintableRep() {
+        Entity::intoThePotatoes();
         $nameMapping = [
             _("PEAP-MSCHAPv2") => \core\common\EAP::EAPTYPE_PEAP_MSCHAP2,
             _("TLS") => \core\common\EAP::EAPTYPE_TLS,
@@ -386,6 +387,7 @@ class EAP {
             \core\ProfileSilverbullet::PRODUCTNAME => \core\common\EAP::EAPTYPE_SILVERBULLET,
         ];
         $find = array_keys($nameMapping, $this->arrayRep, TRUE);
+        Entity::outOfThePotatoes();
         return $find[0];
     }
 

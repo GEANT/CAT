@@ -55,6 +55,13 @@ const OUR_KEY_HASH = "BC8DDD42F7B3B458E8ECEE403D21D404CEB9F2D0";
  */
 const SLASHES_IN_URL_INCL_LEADING = 2;
 
+/**
+ * Die loudly, logging it everywhere.
+ * 
+ * @param string $message the error message to log
+ * @throws Exception
+ * @return void
+ */
 function instantDeath($message) {
     error_log($message);
     throw new Exception($message);

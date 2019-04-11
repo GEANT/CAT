@@ -35,13 +35,25 @@ use Exception;
  */
 class XMLElement {
 
+    /**
+     * attributes of this object instance
+     * 
+     * @var array
+     */
     private $attributes;
+    
     /**
      * The value of the element.
      * @var string
      */
     private $value;
 
+    /**
+     * return object variables for a given object
+     * 
+     * @param object $obj the object
+     * @return array
+     */
     protected function getObjectVars($obj) {
         return get_object_vars($obj);
     }
@@ -71,15 +83,28 @@ class XMLElement {
         ]
     ];
 
+    /**
+     * constructor, initialises empty set of attributes and value
+     */
     public function __construct() {
         $this->attributes = [];
         $this->value = '';
     }
 
+    /**
+     * sets a list of attributes in the current object instance
+     * 
+     * @param array $attributes the list of attributes
+     * @return void
+     */
     public function setAttributes($attributes) {
         $this->attributes = $attributes;
     }
 
+    /**
+     * retrieves list of attributes from object instance
+     * @return array
+     */
     public function getAttributes() {
         return $this->attributes;
     }
@@ -98,6 +123,7 @@ class XMLElement {
     }
 
     /**
+     * retrieves value of object instance
      * 
      * @return string
      */
@@ -105,14 +131,20 @@ class XMLElement {
         return $this->value;
     }
 
+    /**
+     * does this object have attributes?
+     * 
+     * @return int
+     */
     public function areAttributes() {
         return empty($this->attributes) ? 0 : 1;
     }
 
     /**
      * adds an attribute with the given value to the set of attributes
-     * @param string $attribute
-     * @param mixed $value
+     * @param string $attribute attribute to set
+     * @param mixed  $value     value to set
+     * @return void
      */
     public function setAttribute($attribute, $value) {
         if (!isset($this->attributes)) {
@@ -122,14 +154,21 @@ class XMLElement {
     }
 
     /**
+     * adds a property to the current object instance
      * 
-     * @param string $property
-     * @param mixed $value
+     * @param string $property property to set
+     * @param mixed  $value    value to set
+     * @return void
      */
     public function setProperty($property, $value) {
         $this->$property = $value;
     }
 
+    /**
+     * retrieve all properties of the object instance (attributes and value)
+     * 
+     * @return array
+     */
     public function getAll() {
         $elems = get_object_vars($this);
         $objvars = [];
@@ -202,6 +241,10 @@ class ServerSideCredential extends XMLElement {
     protected $ServerID; //multi
     protected $EAPType;
 
+    /**
+     * 
+     * @return array
+     */
     public function getAll() {
         if (isset(XMLElement::$authMethodElements['server'][$this->EAPType]) && XMLElement::$authMethodElements['server'][$this->EAPType]) {
             $element = XMLElement::$authMethodElements['server'][$this->EAPType];
@@ -212,7 +255,7 @@ class ServerSideCredential extends XMLElement {
                     $outArray[$o] = $v;
                 }
             }
-            return($outArray);
+            return $outArray;
         }
     }
 
@@ -237,6 +280,10 @@ class ClientSideCredential extends XMLElement {
     protected $EAPType;
 
 
+    /**
+     * 
+     * @return array
+     */
     public function getAll() {
         if (isset(XMLElement::$authMethodElements['client'][$this->EAPType]) && XMLElement::$authMethodElements['client'][$this->EAPType]) {
             $element = XMLElement::$authMethodElements['client'][$this->EAPType];
@@ -247,7 +294,7 @@ class ClientSideCredential extends XMLElement {
                     $outputArray[$name] = $value;
                 }
             }
-            return($outputArray);
+            return $outputArray;
         }
     }
 
@@ -361,6 +408,7 @@ class Phone extends XMLElement {
  * 
  * @param \SimpleXMLElement $key
  * @param \SimpleXMLElement $value
+ * @return void
  */
 function SimpleXMLElement_append($key, $value) {
     if (trim((string) $value) == '') {
@@ -378,7 +426,7 @@ function SimpleXMLElement_append($key, $value) {
 
 /**
  * 
- * @param \SimpleXMLElement $node
+ * @param \SimpleXMLElement   $node
  * @param EAPIdentityProvider $object
  * @return void
  */

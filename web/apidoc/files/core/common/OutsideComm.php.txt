@@ -28,7 +28,7 @@ namespace core\common;
  *
  * @package Developer
  */
-class OutsideComm {
+class OutsideComm extends Entity {
 
     /**
      * downloads a file from the internet
@@ -197,6 +197,10 @@ class OutsideComm {
                 );
 
                 $ch = curl_init($url);
+                if ($ch === FALSE) {
+                    $loggerInstance->debug(2, 'Problem with SMS invitation: unable to send API request with CURL!');
+                    return OutsideComm::SMS_NOTSENT;
+                }
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 $response = curl_exec($ch);
 
@@ -249,13 +253,14 @@ class OutsideComm {
         if ($introtext == OutsideComm::INVITE_CONTEXTS[1] && $federation === NULL) { // comes from fed admin, so federation must be set
             throw new \Exception("Invitation from a fed admin, but we do not know the corresponding federation!");
         }
+        Entity::intoThePotatoes();
         $mail = OutsideComm::mailHandle();
-        $cat = new \core\CAT();
+        new \core\CAT(); // makes sure Entity is initialised
         // we have a few stock intro texts on file
         $introTexts = [
-            OutsideComm::INVITE_CONTEXTS[0] => sprintf(_("a %s of the %s %s \"%s\" has invited you to manage the %s together with him."), $cat->nomenclature_fed, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $cat->nomenclature_inst, $idpPrettyName, $cat->nomenclature_inst),
-            OutsideComm::INVITE_CONTEXTS[1] => sprintf(_("a %s %s has invited you to manage the future %s  \"%s\" (%s)."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $cat->nomenclature_fed, $cat->nomenclature_inst, $idpPrettyName, strtoupper($federation->tld)),
-            OutsideComm::INVITE_CONTEXTS[2] => sprintf(_("a %s %s has invited you to manage the %s  \"%s\"."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $cat->nomenclature_fed, $cat->nomenclature_inst, $idpPrettyName),
+            OutsideComm::INVITE_CONTEXTS[0] => sprintf(_("a %s of the %s %s \"%s\" has invited you to manage the %s together with him."), Entity::$nomenclature_fed, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], Entity::$nomenclature_inst, $idpPrettyName, Entity::$nomenclature_inst),
+            OutsideComm::INVITE_CONTEXTS[1] => sprintf(_("a %s %s has invited you to manage the future %s  \"%s\" (%s)."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], Entity::$nomenclature_fed, Entity::$nomenclature_inst, $idpPrettyName, strtoupper($federation->tld)),
+            OutsideComm::INVITE_CONTEXTS[2] => sprintf(_("a %s %s has invited you to manage the %s  \"%s\"."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], Entity::$nomenclature_fed, Entity::$nomenclature_inst, $idpPrettyName),
         ];
         $validity = sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X %Z", time() + 86400));
         // need some nomenclature
@@ -273,7 +278,7 @@ class OutsideComm {
             // see if we are supposed to add a custom message
             $customtext = $federation->getAttributes('fed:custominvite');
             if (count($customtext) > 0) {
-                $message .= wordwrap(sprintf(_("Additional message from your %s administrator:"), $cat->nomenclature_fed), 72) . "\n---------------------------------" .
+                $message .= wordwrap(sprintf(_("Additional message from your %s administrator:"), Entity::$nomenclature_fed), 72) . "\n---------------------------------" .
                         wordwrap($customtext[0]['value'], 72) . "\n---------------------------------\n\n";
             }
             // and add Reply-To already now
@@ -281,15 +286,15 @@ class OutsideComm {
                 $fedadmin = new \core\User($fedadmin_id);
                 $mailaddrAttrib = $fedadmin->getAttributes("user:email");
                 $nameAttrib = $fedadmin->getAttributes("user:realname");
-                $name = $nameAttrib[0]['value'] ?? sprintf(_("%s administrator"), $cat->nomenclature_fed);
+                $name = $nameAttrib[0]['value'] ?? sprintf(_("%s administrator"), Entity::$nomenclature_fed);
                 if (count($mailaddrAttrib) > 0) {
                     $mail->addReplyTo($mailaddrAttrib[0]['value'], $name);
-                    $replyToMessage = wordwrap(sprintf(_("manually. If you reply to this mail, you will reach your %s administrators."), $cat->nomenclature_fed), 72);
+                    $replyToMessage = wordwrap(sprintf(_("manually. If you reply to this mail, you will reach your %s administrators."), Entity::$nomenclature_fed), 72);
                 }
             }
         }
 
-        $message .= wordwrap(sprintf(_("To enlist as an administrator for that %s, please click on the following link:"), $cat->nomenclature_inst), 72) . "\n\n" .
+        $message .= wordwrap(sprintf(_("To enlist as an administrator for that %s, please click on the following link:"), Entity::$nomenclature_inst), 72) . "\n\n" .
                 $proto . $_SERVER['SERVER_NAME'] . CONFIG['PATHS']['cat_base_url'] . "admin/action_enrollment.php?token=$newtoken\n\n" .
                 wordwrap(sprintf(_("If clicking the link doesn't work, you can also go to the %s Administrator Interface at"), CONFIG['APPEARANCE']['productname']), 72) . "\n\n" .
                 $proto . $_SERVER['SERVER_NAME'] . CONFIG['PATHS']['cat_base_url'] . "admin/\n\n" .
@@ -326,13 +331,15 @@ class OutsideComm {
                 $domainStatus = FALSE;
             }
         }
-
+        Entity::outOfThePotatoes();
         if (!$domainStatus) {
             return ["SENT" => FALSE, "TRANSPORT" => FALSE];
         }
 
 // what do we want to say?
-        $mail->Subject = sprintf(_("%s: you have been invited to manage an %s"), CONFIG['APPEARANCE']['productname'], $cat->nomenclature_inst);
+        Entity::intoThePotatoes();
+        $mail->Subject = sprintf(_("%s: you have been invited to manage an %s"), CONFIG['APPEARANCE']['productname'], Entity::$nomenclature_inst);
+        Entity::outOfThePotatoes();
         $mail->Body = $message;
         return ["SENT" => $mail->send(), "TRANSPORT" => $secStatus];
     }
@@ -346,7 +353,12 @@ class OutsideComm {
      * @throws \Exception
      */
     public static function postJson($url, $dataArray) {
+        $loggerInstance = new Logging();
         $ch = \curl_init($url);
+        if ($ch === FALSE) {
+            $loggerInstance->debug(2,"Unable to POST JSON request: CURL init failed!");
+            return json_decode(json_encode(FALSE), TRUE);
+        }
         \curl_setopt_array($ch, array(
             CURLOPT_POST => TRUE,
             CURLOPT_RETURNTRANSFER => TRUE,
@@ -354,7 +366,7 @@ class OutsideComm {
             CURLOPT_FRESH_CONNECT => TRUE,
         ));
         $response = \curl_exec($ch);
-        if ($response === FALSE || $response === NULL) {
+        if ($response === FALSE || $response === NULL || $response === TRUE) { // With RETURNTRANSFER, TRUE is not a valid return
             throw new \Exception("the POST didn't work!");
         }
         return json_decode($response, TRUE);

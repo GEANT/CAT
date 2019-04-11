@@ -112,17 +112,19 @@ if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == 'LOCAL' |
     include ROOT . "/config/config-confassistant.php";
 } else { // we want to define the constant itself anyway, to avoid some ugly warnings on the console
     // this is done with an inline include
-    include "data://text/plain;base64,".base64_encode("<?php const CONFIG_CONFASSISTANT = []; ?>");
+    define("CONFIG_CONFASSISTANT", []);
 }
 
 if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == 'LOCAL') {
     include ROOT . "/config/config-diagnostics.php";
 } else { // same here
-    include "data://text/plain;base64,".base64_encode("<?php const CONFIG_DIAGNOSTICS = []; ?>");
+    define("CONFIG_DIAGNOSTICS", []);
 }
 
 /**
  * takes care of starting our session
+ * 
+ * @return void
  */
 function CAT_session_start() {
     if (session_status() != PHP_SESSION_ACTIVE) {

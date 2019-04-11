@@ -40,8 +40,9 @@ class Sociopath extends AbstractTest {
      */
     public function __construct() {
         parent::__construct();
-        $this->languageInstance->setTextDomain("diagnostics");
+        \core\common\Entity::intoThePotatoes();
         $this->previousQuestions = $_SESSION['EVIDENCE']['QUESTIONSASKED'] ?? [];
+        $this->testId = $_SESSION['TESTID'];
         $noCanDo = _("There is nothing you can do to solve this problem yourself.");
         $noChange = _("Please be patient and try again at a later time. Do NOT change your device configuration.");
         $infraInformed = _("The infrastructure operators have automatically been informed and will investigate the issue as soon as possible.");
@@ -68,34 +69,46 @@ class Sociopath extends AbstractTest {
         $this->qaArray = [
             1 => ["AREA" => AbstractTest::INFRA_DEVICE,
                   "TXT" => _("Have you ever used the network succesfully, e.g. at your home institution without roaming?"),
-                  "FACTOR" => 0.5,
+                  "FACTOR_YES" => 0.8, // that's good, but it doesn't mean strikingly much
+                  "FACTOR_NO" => 2, // that's bad, and points strongly to a config on this end
                   "VERDICTLECTURE" => sprintf(_("If your device has never worked before with this setup, then very likely your device configuation is wrong. %s"), $confAssistantText)],
             2 => ["AREA" => AbstractTest::INFRA_DEVICE, 
                   "TXT" => _("Did the device previously work when roaming, i.e. at other hotspots away from your home institution?"), 
-                  "FACTOR" => 0.33,
+                  "FACTOR_YES" => 0.6, // that's good, and somewhat encouraging
+                  "FACTOR_NO" => 3, // that is almost a smoking gun
                   "VERDICTLECTURE" => sprintf(_("If roaming consistently does not work, then very likely your device configuration is wrong. Typical errors causing this symptom include: using a routing ('outer') username without the @realm.tld suffix - those potentially work at your home organisation, but can not be used when roaming. %s"),$confAssistantText)],
             3 => ["AREA" => AbstractTest::INFRA_DEVICE, 
                   "TXT" => _("Did you recently change the configuration on your device?"), 
-                  "FACTOR" => 3,
+                  "FACTOR_YES" => 3, // that is almost a smoking gun
+                  "FACTOR_NO" => 0.6, // encouraging
                   "VERDICTLECTURE" => _("Accounts only need to be configured once, and can then be used anywhere on the planet without any changes. If you recently changed the configuration, that change may very well be at fault. You should never change your network configuration unless explicitly instructed so by your Identity Provider; even in the case of temporary login issues.")],
             4 => ["AREA" => AbstractTest::INFRA_DEVICE, 
+                  "TXT" => _("Did you recently change your password?"), 
+                  "FACTOR_YES" => 1.5, // that doesn't mean it is the source of the problem, but it /might/ be that the user forgot to provide the new password
+                  "FACTOR_NO" => 0.6, // encouraging
+                  "VERDICTLECTURE" => _("When you change your password, you also need to supply the new password in the device configuration.")],
+            5 => ["AREA" => AbstractTest::INFRA_DEVICE, 
                   "TXT" => _("If you use more than one device: do your other devices still work?"),
-                  "VERDICTLECTURE" => _("If all devices stopped working simultaneously, there may be a problem with your account as such. Maybe your account expired, or you were forced to change the password? These questions are best answered by your Identity Provider [MGW: display contact info]"),
-                  "FACTOR" => 0.33],
-            5 => ["AREA" => AbstractTest::INFRA_SP_80211, 
-                  "TXT" => _("Is the place you are currently at heavily crowded, or is a network-intensive workload going on?"), 
-                  "FACTOR" => 3,
-                  "VERDICTLECTURE" => _("The network is likely overloaded at this location and point in time. You may have to wait until later before you get a better connectivity. If you think the network should be reinforced for more capacity at this place, you should inform the hotspot provider. [MGW: add contact info]")],            
+                  "FACTOR_YES" => 0.33, // seems that all is okay with the account as such
+                  "FACTOR_NO" => 3, // now that is suspicious indeed
+                  "VERDICTLECTURE" => _("If all devices stopped working simultaneously, there may be a problem with your account as such. Maybe your account expired, or you were forced to change the password? These questions are best answered by your Identity Provider [MGW: display contact info]"),],
             6 => ["AREA" => AbstractTest::INFRA_SP_80211, 
+                  "TXT" => _("Is the place you are currently at heavily crowded, or is a network-intensive workload going on?"), 
+                  "FACTOR_YES" => 3,
+                  "FACTOR_NO" => 0.33,
+                  "VERDICTLECTURE" => _("The network is likely overloaded at this location and point in time. You may have to wait until later before you get a better connectivity. If you think the network should be reinforced for more capacity at this place, you should inform the hotspot provider. [MGW: add contact info]")],            
+            7 => ["AREA" => AbstractTest::INFRA_SP_80211, 
                   "TXT" => _("Does the connection get better when you move around?"), 
-                  "FACTOR" => 3,
+                  "FACTOR_YES" => 3,
+                  "FACTOR_NO" => 0.33,
                   "VERDICTLECTURE" => _("You should move to a different location to achieve better network coverage and service. If you think the exact spot you are at deserves better coverage, you should inform the hotspot provider. [MGW: add contact info]")],
-            
-            7 => ["AREA" => AbstractTest::INFRA_SP_LAN, 
+            8 => ["AREA" => AbstractTest::INFRA_SP_LAN, 
                   "TXT" => _("Do you see errors stating something similar to 'Unable to get IP address'?"), 
-                  "FACTOR" => 3,
+                  "FACTOR_YES" => 5, // gotcha
+                  "FACTOR_YES" => 0.5, // the user saying no is not conclusive; maybe the device isn't that verbose or he's not looking at the right spot
                   "VERDICTLECTURE" => _("The evidence at hand suggests that there may be an infrastructure problem at this particular hotspot provider. There is nothing you can do to solve this problem locally. Please be patient and try again at a later time.")],
         ];
+        \core\common\Entity::outOfThePotatoes();
     }
 
     /**
@@ -103,6 +116,7 @@ class Sociopath extends AbstractTest {
      * 
      * @param int       $questionNumber number of the question that was answered
      * @param bool|NULL $answer         TRUE if the answer was "Yes", FALSE if "No", NULL is "Dont know / N/A"
+     * @return void
      */
     public function revaluate($questionNumber, $answer) {
         if ($questionNumber == "") {
@@ -110,18 +124,22 @@ class Sociopath extends AbstractTest {
         }
         $questionDetails = $this->qaArray[$questionNumber];
         if ($answer === TRUE) {
-            $this->possibleFailureReasons[$questionDetails['AREA']] = $this->possibleFailureReasons[$questionDetails['AREA']] * $questionDetails["FACTOR"];
-            $this->loggerInstance->debug(3,"Adjusting ".$questionDetails['AREA']." by ".$questionDetails["FACTOR"]."\n");
-            $factor = $questionDetails["FACTOR"];
+            $this->possibleFailureReasons[$questionDetails['AREA']] = $this->possibleFailureReasons[$questionDetails['AREA']] * $questionDetails["FACTOR_YES"];
+            $this->loggerInstance->debug(3,"Adjusting ".$questionDetails['AREA']." by ".$questionDetails["FACTOR_YES"]."\n");
+            $factor = $questionDetails["FACTOR_YES"];
         } elseif ($answer === FALSE) {
-            $this->possibleFailureReasons[$questionDetails['AREA']] = $this->possibleFailureReasons[$questionDetails['AREA']] / $questionDetails["FACTOR"];
-            $this->loggerInstance->debug(3,"Adjusting ".$questionDetails['AREA']." by 1/".$questionDetails["FACTOR"]."\n");
-            $factor = 1/$questionDetails["FACTOR"];
+            $this->possibleFailureReasons[$questionDetails['AREA']] = $this->possibleFailureReasons[$questionDetails['AREA']] * $questionDetails["FACTOR_NO"];
+            $this->loggerInstance->debug(3,"Adjusting ".$questionDetails['AREA']." by ".$questionDetails["FACTOR_NO"]."\n");
+            $factor = $questionDetails["FACTOR_NO"];
         } else {
             $factor = 1;
         }
         $this->previousQuestions[$questionNumber] = $factor;
         $this->normaliseResultSet();
+        $jsonQuestions = json_encode($this->previousQuestions, JSON_PRETTY_PRINT);
+        $jsonEvidence = json_encode($this->additionalFindings, JSON_PRETTY_PRINT);
+        $jsonSuspects = json_encode($this->possibleFailureReasons, JSON_PRETTY_PRINT);
+        $this->databaseHandle->exec("UPDATE diagnosticrun SET questionsasked = ?, suspects = ?, evidence = ? WHERE test_id = ?", "ssss", $jsonQuestions, $jsonSuspects, $jsonEvidence, $this->testId);
         $this->additionalFindings["QUESTIONSASKED"] = $this->previousQuestions;
         $_SESSION["SUSPECTS"] = $this->possibleFailureReasons;
         $_SESSION["EVIDENCE"] = $this->additionalFindings;
@@ -150,6 +168,7 @@ class Sociopath extends AbstractTest {
             }
         }
         // if we got here, we ran out of questions. Return that fact
+        $this->databaseHandle->exec("UPDATE diagnosticrun SET concluded = 1 WHERE test_id = ?", "s", $this->testId);
         return json_encode(["NEXTEXISTS" => FALSE]);
     }
     
@@ -163,7 +182,7 @@ class Sociopath extends AbstractTest {
     
     /**
      * constructs the final diagnosis result text to show to the user
-     * @param string $area
+     * @param string $area retrieve lecture texts for this area
      * @return string
      */
     public function verdictText($area) {

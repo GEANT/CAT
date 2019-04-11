@@ -38,7 +38,7 @@ class Telepath extends AbstractTest {
     private $visitedHotspot;
     private $catProfile;
     private $dbIdP;
-
+    
     /**
      *
      * @var string|null
@@ -104,7 +104,8 @@ class Telepath extends AbstractTest {
 
     /**
      * ask the monitoring API about the things it knows
-     * @param string $type which type of test to execute
+     * 
+     * @param string $type   which type of test to execute
      * @param string $param1 test-specific parameter number 1, if any
      * @param string $param2 test-specific parameter number 2, if any
      * @return array
@@ -223,7 +224,7 @@ class Telepath extends AbstractTest {
 
     /**
      * Is the uplink between an NRO server and the ETLRs in order?
-     * @param string $whichSide
+     * @param string $whichSide test towards the IdP or SP side?
      * @return array
      */
     private function checkFedEtlrUplink($whichSide) {
@@ -264,7 +265,7 @@ class Telepath extends AbstractTest {
 
     /**
      * Is the NRO server itself in order?
-     * @param string $whichSide
+     * @param string $whichSide test towards the IdP or SP side?
      * @return array
      */
     private function checkFlrServerStatus($whichSide) {
@@ -317,7 +318,7 @@ class Telepath extends AbstractTest {
         // If that's true, we can exclude two sources of problems (both proxy levels). Hooray!
         $allAreConversationReject = TRUE;
         $atLeastOneConversationReject = FALSE;
-
+        
         foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $probeindex => $probe) {
             $reachCheck = $this->testsuite->udpReachability($probeindex);
             if ($reachCheck != RADIUSTests::RETVAL_CONVERSATION_REJECT) {
@@ -325,12 +326,12 @@ class Telepath extends AbstractTest {
             } else {
                 $atLeastOneConversationReject = TRUE;
             }
-
+            
             $this->additionalFindings[AbstractTest::INFRA_ETLR][] = ["DETAIL" => $this->testsuite->consolidateUdpResult($probeindex)];
             $this->additionalFindings[AbstractTest::INFRA_NRO_IDP][] = ["DETAIL" => $this->testsuite->consolidateUdpResult($probeindex)];
             $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][] = ["DETAIL" => $this->testsuite->consolidateUdpResult($probeindex)];
         }
-
+        
         if ($allAreConversationReject) {
             $this->additionalFindings[AbstractTest::INFRA_ETLR][] = ["CONNCHECK" => RADIUSTests::RETVAL_CONVERSATION_REJECT];
             $this->additionalFindings[AbstractTest::INFRA_NRO_IDP][] = ["CONNCHECK" => RADIUSTests::RETVAL_CONVERSATION_REJECT];
@@ -352,7 +353,11 @@ class Telepath extends AbstractTest {
             // in combination with the device lead to a broken auth
             // if there is nothing beyond the "REMARK" level, then it's not an IdP problem
             // otherwise, add the corresponding warnings and errors to $additionalFindings
-            switch ($this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][0]['DETAIL']['level']) {
+            $highestObservedErrorLevel = 0;
+            foreach ($this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS] as $oneRun) {
+                $highestObservedErrorLevel = max($highestObservedErrorLevel, $oneRun['DETAIL']['level'] ?? 0);
+            }
+            switch ($highestObservedErrorLevel) {
                 case RADIUSTests::L_OK:
                 case RADIUSTests::L_REMARK:
                     // both are fine - the IdP is working and the user problem
@@ -371,6 +376,13 @@ class Telepath extends AbstractTest {
         }
     }
 
+    /**
+     * can we run thorough checks or not? Thorough can only be done if we can
+     * deterministically map the realm to be checked against a CAT Profile, and
+     * then only if the profile is complete.
+     * 
+     * @return void
+     */
     private function determineTestsuiteParameters() {
         if ($this->catProfile > 0) {
             $profileObject = \core\ProfileFactory::instantiate($this->catProfile);
@@ -399,7 +411,8 @@ class Telepath extends AbstractTest {
      * @return array the findings
      */
     public function magic() {
-
+        $this->testId = \core\CAT::uuid();
+        $this->databaseHandle->exec("INSERT INTO diagnosticrun (test_id, suspects, evidence) VALUES ('$this->testId', NULL, NULL)");
         // simple things first: do we know anything about the realm, either
         // because it's a CAT participant or because it's in the eduroam DB?
         // if so, we can exclude the INFRA_NONEXISTENTREALM cause
@@ -474,7 +487,10 @@ class Telepath extends AbstractTest {
         }
 
         $this->normaliseResultSet();
-
+        $jsonSuspects = json_encode($this->possibleFailureReasons, JSON_PRETTY_PRINT);
+        $jsonEvidence = json_encode($this->additionalFindings, JSON_PRETTY_PRINT);
+        $this->databaseHandle->exec("UPDATE diagnosticrun SET realm = ?, visited_flr = ?, visited_hotspot = ?, suspects = ?, evidence = ? WHERE test_id = ?", "ssssss", $this->realm, $this->visitedFlr, $this->visitedHotspot, $jsonSuspects, $jsonEvidence, $this->testId);
+        $_SESSION['TESTID'] = $this->testId;
         $_SESSION["SUSPECTS"] = $this->possibleFailureReasons;
         $_SESSION["EVIDENCE"] = $this->additionalFindings;
         return ["SUSPECTS" => $this->possibleFailureReasons, "EVIDENCE" => $this->additionalFindings];

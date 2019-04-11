@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -67,6 +68,26 @@ abstract class Entity {
     public $languageInstance;
 
     /**
+     * keep internal track of the gettext catalogue that was used outside the
+     * class call
+     * 
+     * @var array
+     */
+    protected static $gettextCatalogue;
+
+    /**
+     * the custom displayable variant of the term 'federation'
+     * @var string
+     */
+    public static $nomenclature_fed;
+
+    /**
+     * the custom displayable variant of the term 'institution'
+     * @var string
+     */
+    public static $nomenclature_inst;
+
+    /**
      * initialise the entity.
      * 
      * Logs the start of lifetime of the entity to the debug log on levels 3 and higher.
@@ -75,6 +96,23 @@ abstract class Entity {
         $this->loggerInstance = new Logging();
         $this->loggerInstance->debug(3, "--- BEGIN constructing class " . get_class($this) . " .\n");
         $this->languageInstance = new Language();
+        Entity::intoThePotatoes();
+        // some config elements are displayable. We need some dummies to 
+        // translate the common values for them. If a deployment chooses a 
+        // different wording, no translation, sorry
+
+        $dummy_NRO = _("National Roaming Operator");
+        $dummy_inst1 = _("identity provider");
+        $dummy_inst2 = _("organisation");
+        $dummy_inst3 = _("Identity Provider");
+        // and do something useless with the strings so that there's no "unused" complaint
+        if (strlen($dummy_NRO . $dummy_inst1 . $dummy_inst2 . $dummy_inst3) < 0) {
+            throw new \Exception("Strings are usually not shorter than 0 characters. We've encountered a string blackhole.");
+        }
+        Entity::$nomenclature_fed = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']);
+        Entity::$nomenclature_inst = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution']);
+
+        Entity::outOfThePotatoes();
     }
 
     /**
@@ -93,8 +131,8 @@ abstract class Entity {
      * if something on the way is not defined, NULL is returned
      * 
      * @param array      $attributeArray the array to search in
-     * @param string|int $index1 first-level index to check
-     * @param string|int $index2 second-level index to check
+     * @param string|int $index1         first-level index to check
+     * @param string|int $index2         second-level index to check
      * @return mixed
      */
     public static function getAttributeValue($attributeArray, $index1, $index2) {
@@ -183,8 +221,8 @@ abstract class Entity {
         $uuid .= /** @scrutinizer ignore-type */ substr($chars, 20, 12);
         return $prefix . $uuid;
     }
-    
-        /**
+
+    /**
      * produces a random string
      * @param int    $length   the length of the string to produce
      * @param string $keyspace the pool of characters to use for producing the string
@@ -192,7 +230,7 @@ abstract class Entity {
      * @throws Exception
      */
     public static function randomString(
-    $length, $keyspace = '23456789abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+            $length, $keyspace = '23456789abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
     ) {
         $str = '';
         $max = strlen($keyspace) - 1;
@@ -205,5 +243,89 @@ abstract class Entity {
         return $str;
     }
 
+    /**
+     * Finds out which gettext catalogue has the translations for the caller
+     * 
+     * @return string the catalogue
+     */
+    private static function determineOwnCatalogue() {
+        $loggerInstance = new Logging();
+        $trace = debug_backtrace();
+        $caller = [];
+        // find the first caller in the stack trace which is NOT "Entity" itself
+        // this means walking back from the end of the trace to the penultimate
+        // index before something with "Entity" comes in
+        for ($i = count($trace) - 1; $i--; $i > 0) {
+            if (preg_match('/Entity/', $trace[$i - 1]['class'])) {
+                $caller = $trace[$i];
+                break;
+            }
+        }
+        // if called from a class, guess based on the class name; 
+        // otherwise, on the filename relative to ROOT
+        $myName = $caller['class'] ?? substr($caller['file'], strlen(ROOT));
+        $loggerInstance->debug(1,$caller);
+        $loggerInstance->debug(1,"\nFOUND ".$myName."\n");
+        if (preg_match("/diag/", $myName) == 1) {
+            $ret = "diagnostics";
+        } elseif (preg_match("/core/", $myName) == 1) {
+            $ret = "core";
+        } elseif (preg_match("/common/", $myName) == 1) {
+            $ret = "core";
+        } elseif (preg_match("/devices/", $myName) == 1) {
+            $ret = "devices";
+        } elseif (preg_match("/admin/", $myName) == 1) {
+            $ret = "web_admin";
+        } else {
+            $ret = "web_user";
+        }
+        $loggerInstance->debug(1,"\nRETURNING ".$ret."\n");
+        return $ret;
+    }
+
+    /**
+     * sets the language catalogue to one matching the gettext segmentation of
+     * source files. Also memorises the previous catalogue so that it can be
+     * restored later on.
+     * 
+     * @param string $catalogue the catalogue to select, overrides detection
+     * @return void
+     */
+    public static function intoThePotatoes($catalogue = NULL) {
+        // array_push, without the function call overhead
+        Entity::$gettextCatalogue[] = textdomain(NULL);
+        if ($catalogue === NULL) {
+            $theCatalogue = Entity::determineOwnCatalogue();
+            textdomain($theCatalogue);
+            bindtextdomain($theCatalogue, ROOT . "/translation/");
+        } else {
+            textdomain($catalogue);
+            bindtextdomain($catalogue, ROOT . "/translation/");
+        }
+    }
+
+    /**
+     * restores the previous language catalogue.
+     * 
+     * @return void
+     */
+    public static function outOfThePotatoes() {
+        $restoreCatalogue = array_pop(Entity::$gettextCatalogue);
+        if ($restoreCatalogue === NULL) {
+            throw new Exception("Unable to restore previous catalogue - outOfThePotatoes called too often?!");
+        }
+        textdomain($restoreCatalogue);
+    }
+
+    /**
+     * for debugging only
+     * 
+     * @return array the stack of language contexts
+     */
+    public static function potatoStack() {
+        $debugArray = Entity::$gettextCatalogue;
+        array_push($debugArray, Entity::determineOwnCatalogue());
+        return $debugArray;
+    }
 }
 

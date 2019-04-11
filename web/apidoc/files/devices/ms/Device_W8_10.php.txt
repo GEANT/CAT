@@ -38,6 +38,7 @@ use \Exception;
  class Device_W8_10 extends WindowsCommon {
     final public function __construct() {
         parent::__construct();
+        \core\common\Entity::intoThePotatoes();
         $this->setSupportedEapMethods(
                 [
                     \core\common\EAP::EAPTYPE_TLS,
@@ -47,7 +48,15 @@ use \Exception;
                     \core\common\EAP::EAPTYPE_SILVERBULLET
                 ]);
         $this->specialities['internal:use_anon_outer'][serialize(\core\common\EAP::EAPTYPE_PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
+        \core\common\Entity::outOfThePotatoes();
     }
+    
+    /**
+     * create the actual installer executable
+     * 
+     * @return string filename of the generated installer
+     *
+     */    
     public function writeInstaller() {
         $dom = textdomain(NULL);
         textdomain("devices");
@@ -60,6 +69,7 @@ use \Exception;
         $allSSID = $this->attributes['internal:SSID'];
         $delSSIDs = $this->attributes['internal:remove_SSID'];
         $this->prepareInstallerLang();
+        $this->setGeantLink();
         $setWired = isset($this->attributes['media:wired'][0]) && $this->attributes['media:wired'][0] == 'on' ? 1 : 0;
 //   create a list of profiles to be deleted after installation
         $delProfiles = [];
@@ -371,16 +381,25 @@ use \Exception;
         return('<ConfigBlob></ConfigBlob>');
     }
 
+    private function setGeantLink() {
+        $this->useGeantLink = FALSE;
+        if (\core\common\Entity::getAttributeValue($this->attributes, 'device-specific:geantlink', 0) === 'on') {
+            $this->useGeantLink = TRUE;
+        }
+        if (isset($this->options['args']) && $this->options['args'] == 'gl') {
+            $this->useGeantLink = TRUE;
+        }
+        if (\core\common\Entity::getAttributeValue($this->attributes, 'device-specific:builtin_ttls', 0) === 'on') {
+            $this->useGeantLink = FALSE;
+        }
+    }
+
     private function prepareEapConfig() {
         if ($this->useAnon) {
             $this->outerUser = $this->attributes['internal:anon_local_value'][0];
             $this->outerId = $this->outerUser . '@' . $this->attributes['internal:realm'][0];
         }
-        if (isset($this->options['args']) && $this->options['args'] == 'gl') {
-            $this->useGeantLink = TRUE;
-        } else {
-            $this->useGeantLink = FALSE;
-        }
+
         $profileFileCont = $this->eapConfigHeader();
 
         switch ($this->selectedEap['OUTER']) {
@@ -536,7 +555,7 @@ use \Exception;
             \core\common\EAP::TTLS => ['str' => 'TTLS', 'exec' => 'user'],
             \core\common\EAP::PWD => ['str' => 'PWD', 'exec' => 'user'],
         ];
-        if (isset($this->options['args']) && $this->options['args'] == 'gl') {
+        if ($this->useGeantLink) {
             $eapOptions[\core\common\EAP::TTLS]['str'] = 'GEANTLink';
         }
 
@@ -569,7 +588,7 @@ use \Exception;
         $this->copyBasicFiles();
         switch ($eap["OUTER"]) {
             case \core\common\EAP::TTLS:
-                if (isset($this->options['args']) && $this->options['args'] == 'gl') {
+                if ($this->useGeantLink) {
                     $this->copyGeantLinkFiles();
                 } else {
                     $this->copyStandardNsi();

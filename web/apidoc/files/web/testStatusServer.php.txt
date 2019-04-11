@@ -1,0 +1,25 @@
+<?php
+
+/*
+ * ******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ * ******************************************************************************
+ */
+
+require_once "../config/_config.php";
+const TEST_SERVERS = [
+    ["IP" => "158.64.1.26", "port" => 1812, "secret" => "somesecret"],
+    ["IP" => "158.64.1.52", "port" => 1812, "secret" => "whatever"],
+];
+foreach (TEST_SERVERS as $oneServer) {
+    $testObject = new \core\diag\RFC5997Tests($oneServer["IP"], $oneServer["port"], $oneServer["secret"]);
+    $result = $testObject->statusServerCheck();
+    if ($result === core\diag\AbstractTest::RETVAL_OK) {
+        echo "Status-Server check got a response.\n";
+    } else {
+        echo "NO or unexpected response to Status-Server check ($result).\n";
+    }
+}

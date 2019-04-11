@@ -42,7 +42,7 @@ $fedPost = $_POST['fed_id'];
 $my_fed = $validator->Federation($fedPost, $_SESSION['user']);
 $fed_options = $my_fed->getAttributes();
 /// product name (eduroam CAT), then term used for "federation", then actual name of federation.
-echo $deco->defaultPagePrelude(sprintf(_("%s: Editing %s '%s'"), CONFIG['APPEARANCE']['productname'], $uiElements->nomenclature_fed, $my_fed->name));
+echo $deco->defaultPagePrelude(sprintf(_("%s: Editing %s '%s'"), CONFIG['APPEARANCE']['productname'], $uiElements->nomenclatureFed, $my_fed->name));
 $langObject = new \core\common\Language();
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>
@@ -57,11 +57,11 @@ $langObject = new \core\common\Language();
     <h1>
         <?php
         /// nomenclature for federation, then actual federation name
-        printf(_("Editing %s information for '%s'"), $uiElements->nomenclature_fed, $my_fed->name);
+        printf(_("Editing %s information for '%s'"), $uiElements->nomenclatureFed, $my_fed->name);
         ?>
     </h1>
     <div class='infobox'>
-        <h2><?php echo sprintf(_("%s Properties"),$uiElements->nomenclature_fed); ?></h2>
+        <h2><?php echo sprintf(_("%s Properties"),$uiElements->nomenclatureFed); ?></h2>
         <table>
             <tr>
                 <td><?php echo _("Country:"); ?></td>
@@ -76,7 +76,7 @@ $langObject = new \core\common\Language();
               <input type='hidden' name='MAX_FILE_SIZE' value='" . CONFIG['MAX_UPLOAD_SIZE'] . "'>";
     ?>
     <fieldset class="option_container">
-        <legend><strong><?php echo sprintf(_("%s Properties"),$uiElements->nomenclature_fed); ?></strong></legend>
+        <legend><strong><?php echo sprintf(_("%s Properties"),$uiElements->nomenclatureFed); ?></strong></legend>
         <?php
         $optionDisplay = new \web\lib\admin\OptionDisplay($fed_options, "FED");
         echo $optionDisplay->prefilledOptionTable("fed");

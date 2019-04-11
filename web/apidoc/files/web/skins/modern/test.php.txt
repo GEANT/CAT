@@ -74,7 +74,7 @@ include("user/js/cat_js.php");
 <body>
 <div id="wrap">
     <form id="cat_form" name="cat_form" method="POST"  accept-charset="UTF-8" action="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/'); ?>/">
-    <?php echo $divs->div_heading($visibility); ?>
+    <?php echo $divs->divHeading($visibility); ?>
     <div id="main_page">
         <div id="loading_ico">
           <?php echo _("Authenticating") . "..." ?><br><img src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES","icons/loading51.gif")?>" alt="Authenticating ..."/>
@@ -91,7 +91,7 @@ include("user/js/cat_js.php");
          <?php if (empty($_REQUEST['idp'])) { ?>
               <div id="front_page">
                   <?php
-                         echo $divs->div_top_welcome();
+                         echo $divs->divTopWelcome();
 //                         echo $divs->div_roller();
 //                         echo $divs->div_main_button(); ?>
               </div> <!-- id="front_page" -->
@@ -102,7 +102,7 @@ include("user/js/cat_js.php");
     </div>
    </form>
 </div>
-<?php echo $divs->div_footer(); ?>
+<?php echo $divs->divFooter(); ?>
 </body>
 </html>
 

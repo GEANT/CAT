@@ -54,7 +54,7 @@ $isFedAdmin = $user->isFederationAdmin($my_inst->federation);
 $is_admin_with_blessing = $my_inst->isPrimaryOwner($_SESSION['user']);
 // if none of the two, send the user away
 if (!$isFedAdmin && !$is_admin_with_blessing) {
-    echo sprintf(_("You do not have the necessary privileges to alter administrators of this %s. In fact, you shouldn't have come this far!"), $uiElements->nomenclature_inst);
+    echo sprintf(_("You do not have the necessary privileges to alter administrators of this %s. In fact, you shouldn't have come this far!"), $uiElements->nomenclatureInst);
     exit(1);
 }
 
@@ -151,13 +151,13 @@ if (isset($_GET['invitation'])) {
 
 if ($isFedAdmin) {
     echo "<div class='ca-summary' style='position:relative;'><table>";
-    echo $uiElements->boxRemark(sprintf(_("You are the %s administrator. You can invite new administrators, who can in turn appoint further administrators on their own."), $uiElements->nomenclature_fed), sprintf(_("%s Administrator"), $uiElements->nomenclature_fed));
+    echo $uiElements->boxRemark(sprintf(_("You are the %s administrator. You can invite new administrators, who can in turn appoint further administrators on their own."), $uiElements->nomenclatureFed), sprintf(_("%s Administrator"), $uiElements->nomenclatureFed));
     echo "</table></div>";
 }
 
 if (!$isFedAdmin && $is_admin_with_blessing) {
     echo "<div class='ca-summary' style='position:relative;'><table>";
-    echo $uiElements->boxRemark(sprintf(_("You are an administrator who was directly appointed by the %s administrator. You can appoint further administrators, but these can't in turn appoint any more administrators."), $uiElements->nomenclature_fed), _("Directly Appointed Administrator"));
+    echo $uiElements->boxRemark(sprintf(_("You are an administrator who was directly appointed by the %s administrator. You can appoint further administrators, but these can't in turn appoint any more administrators."), $uiElements->nomenclatureFed), _("Directly Appointed Administrator"));
     echo "</table></div>";
 }
 ?>
@@ -205,7 +205,7 @@ if (count($pending_invites) > 0) {
     echo "<strong>" . _("Pending invitations for this IdP") . "</strong>";
     echo "<table>";
     foreach ($pending_invites as $invitee) {
-        echo "<tr><td>" . $invitee['mail'] . "</td></tr>";
+        echo "<tr><td>" . $invitee['mail'] . "</td><td>".sprintf(_("(expires %s)"), $invitee['expiry'])."</td></tr>";
     }
     echo "</table>";
 }
@@ -227,7 +227,7 @@ if ($isFedAdmin) {
 
     if (!$is_admin_himself) {
         echo "<form action='inc/manageAdmins.inc.php?inst_id=$my_inst->identifier' method='post' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
-    <button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_TAKECONTROL . "'>" . sprintf(_("Take control of this %s"), $uiElements->nomenclature_inst) . "</button>
+    <button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_TAKECONTROL . "'>" . sprintf(_("Take control of this %s"), $uiElements->nomenclatureInst) . "</button>
 </form>";
     }
 }

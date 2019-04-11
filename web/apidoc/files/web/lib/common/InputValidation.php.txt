@@ -26,7 +26,7 @@ use \Exception;
 /**
  * performs validation of user inputs
  */
-class InputValidation {
+class InputValidation extends \core\common\Entity {
 
     /**
      * returns a simple HTML <p> element with basic explanations about what was
@@ -36,7 +36,10 @@ class InputValidation {
      * @return string
      */
     private function inputValidationError($customtext) {
-        return "<p>" . _("Input validation error: ") . $customtext . "</p>";
+        \core\common\Entity::intoThePotatoes();
+        $retval = "<p>" . _("Input validation error: ") . $customtext . "</p>";
+        \core\common\Entity::outOfThePotatoes();
+        return $retval;
     }
 
     /**
@@ -49,10 +52,10 @@ class InputValidation {
      */
     public function Federation($input, $owner = NULL) {
 
-        $cat = new \core\CAT();
+        $cat = new \core\CAT(); // initialises Entity static members
         $fedIdentifiers = array_keys($cat->knownFederations);
         if (!in_array(strtoupper($input), $fedIdentifiers)) {
-            throw new Exception($this->inputValidationError(sprintf("This %s does not exist!", $cat->nomenclature_fed)));
+            throw new Exception($this->inputValidationError(sprintf("This %s does not exist!", \core\common\Entity::$nomenclature_fed)));
         }
         // totally circular, but this hopefully *finally* make Scrutinizer happier
         $correctIndex = array_search(strtoupper($input), $fedIdentifiers);
@@ -68,7 +71,7 @@ class InputValidation {
                 return $temp;
             }
         }
-        throw new Exception($this->inputValidationError(sprintf("User is not %s administrator!", $cat->nomenclature_fed)));
+        throw new Exception($this->inputValidationError(sprintf("User is not %s administrator!", \core\common\Entity::$nomenclature_fed)));
     }
 
     /**
@@ -173,7 +176,7 @@ class InputValidation {
 /**
  * Is this an integer, or a string that represents an integer?
  * 
- * @param mixed $input
+ * @param mixed $input the raw input
  * @return boolean|int returns the input, or FALSE if it is not an integer-like value
  */
 public function integer($input) {
@@ -187,7 +190,7 @@ public function integer($input) {
  * Checks if the input is the hex representation of a Consortium OI (i.e. three
  * or five bytes)
  * 
- * @param mixed $input
+ * @param mixed $input the raw input
  * @return boolean|string returns the input, or FALSE on validation failure
  */
 public function consortiumOI($input) {
@@ -208,8 +211,10 @@ public function consortiumOI($input) {
  * @return boolean|string returns the realm, or FALSE if it was malformed
  */
 public function realm($input) {
+    \core\common\Entity::intoThePotatoes();
     if (strlen($input) == 0) {
         echo $this->inputValidationError(_("Realm is empty!"));
+        \core\common\Entity::outOfThePotatoes();
         return FALSE;
     }
 
@@ -227,12 +232,14 @@ public function realm($input) {
     foreach ($pregCheck as $search => $error) {
         if (preg_match($search, $check) == 1) {
             echo $this->inputValidationError($error);
+            \core\common\Entity::outOfThePotatoes();
             return FALSE;
         }
     }
 
     if (preg_match("/\./", $check) == 0) {
         echo $this->inputValidationError(_("Realm does not contain at least one . (dot)!"));
+        \core\common\Entity::outOfThePotatoes();
         return FALSE;
     }
 
@@ -240,6 +247,7 @@ public function realm($input) {
     // to mount a CSS attack by providing something that matches the realm constructs
     // below but has interesting stuff between, mangle the input so that these
     // characters do not do any harm.
+    \core\common\Entity::outOfThePotatoes();
     return htmlentities($check, ENT_QUOTES);
 }
 
@@ -248,7 +256,7 @@ public function realm($input) {
  * 
  * Only checks correct form, not if the user actually exists in the system.
  * 
- * @param mixed $input
+ * @param mixed $input the username
  * @return string echoes back the input string, or throws an Exception if bogus
  * @throws Exception
  */
@@ -271,7 +279,7 @@ public function User($input) {
  * could this be a valid token? 
  * 
  * Only checks correct form, not if the token actually exists in the system.
- * @param mixed $input
+ * @param mixed $input the raw input
  * @return string echoes back the input string, or throws an Exception if bogus
  * @throws Exception
  */
@@ -318,7 +326,7 @@ public function coordJsonEncoded($input) {
             return $input;
         }
     }
-    throw new Exception($this->inputValidationError(_("Wrong coordinate encoding (2.0 uses JSON, not serialize)!")));
+    throw new Exception($this->inputValidationError("Wrong coordinate encoding (2.0 uses JSON, not serialize)!"));
 }
 
 /**
@@ -348,21 +356,25 @@ const TABLEMAPPING = [
  * Is this a valid database reference? Has the form <tablename>-<rowID> and there
  * needs to be actual data at that place
  * 
- * @param mixed $input the reference to check
+ * @param string $input the reference to check
  * @return boolean|array the reference split up into "table" and "rowindex", or FALSE
  */
 public function databaseReference($input) {
     $pregMatches = [];
-    if (preg_match("/^ROWID-(IdP|Profile|FED)-([0-9]+)$/", $input, $pregMatches) === FALSE) {
+    if (preg_match("/^ROWID-(IdP|Profile|FED)-([0-9]+)$/", $input, $pregMatches) != 1) {
         return FALSE;
     }
-    return ["table" => self::TABLEMAPPING[$pregMatches[1]], "rowindex" => $pregMatches[2]];
+    $rownumber = $this->integer($pregMatches[2]);
+    if ($rownumber === FALSE) {
+        return FALSE;
+    }
+    return ["table" => self::TABLEMAPPING[$pregMatches[1]], "rowindex" => $rownumber];
 }
 
 /**
  * is this a valid hostname?
  * 
- * @param mixed $input
+ * @param mixed $input the raw input
  * @return boolean|string echoes the hostname, or FALSE if bogus
  */
 public function hostname($input) {
@@ -378,7 +390,7 @@ public function hostname($input) {
 /**
  * is this a valid email address?
  * 
- * @param mixed $input
+ * @param mixed $input the raw input
  * @return boolean|string echoes the mail address, or FALSE if bogus
  */
 public function email($input) {
@@ -390,6 +402,11 @@ public function email($input) {
     return FALSE;
 }
 
+/**
+ * is this a well-formed SMS number? Light massaging - leading + will be removed
+ * @param string $input the raw input
+ * @return boolean|string
+ */
 public function sms($input) {
     $number = str_replace(' ', '', str_replace(".", "", str_replace("+", "", $input)));
     if (!is_numeric($number)) {
@@ -421,7 +438,7 @@ public function supportedLanguage($input) {
  * Makes sure we are not receiving a bogus option name. The called function throws
  * an assertion if the name is not known.
  * 
- * @param mixed $input
+ * @param mixed $input the unvetted option name
  * @return string
  */
 public function optionName($input) {

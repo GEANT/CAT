@@ -25,7 +25,7 @@ require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 
 /**
  * retrieves a binary object from the database and pushes it out to the browser
- * @param string $id
+ * @param string $id TABLE-ROW identifier of the object to display
  * @return void in case of error - otherwise, sends the content directly to browser and never returns
  */
 function getObjectFromDB($id) {

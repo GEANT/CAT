@@ -131,7 +131,7 @@ class UserNetAPI extends UserAPI {
      * @param array $location the coordinates of the approximate user location
      *
      */
-    public function JSON_orderIdentityProviders($country, $location = NULL) {
+    public function JSON_orderIdentityProviders($country, $location) {
         $idps = $this->orderIdentityProviders($country, $location);
         $returnArray = [];
         foreach ($idps as $idp) {
@@ -147,7 +147,6 @@ class UserNetAPI extends UserAPI {
      * @param int $sort          should the result set be sorted? 0 = no, 1 = yes
      */
     public function JSON_listProfiles($idpIdentifier, $sort = 0) {
-        $this->languageInstance->setTextDomain("web_user");
         $returnArray = [];
         try {
             $idp = new IdP($idpIdentifier);
@@ -186,7 +185,6 @@ class UserNetAPI extends UserAPI {
      * @param int $profileId the Profile identifier
      */
     public function JSON_listDevices($profileId) {
-        $this->languageInstance->setTextDomain("web_user");
         $returnArray = [];
         $profileAttributes = $this->profileAttributes($profileId);
         $thedevices = $profileAttributes['devices'];

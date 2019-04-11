@@ -56,8 +56,8 @@ class CAT extends \core\common\Entity {
     const VERSION_MAJOR = 2;
     const VERSION_MINOR = 0;
     const VERSION_PATCH = 0;
-    const VERSION_EXTRA = "beta3";
-    const RELEASE_VERSION = FALSE;
+    const VERSION_EXTRA = "";
+    const RELEASE_VERSION = TRUE;
     const USER_API_VERSION = 2;
 
     /**
@@ -84,18 +84,6 @@ class CAT extends \core\common\Entity {
     public $CAT_COPYRIGHT;
 
     /**
-     * the custom displayable variant of the term 'federation'
-     * @var string
-     */
-    public $nomenclature_fed;
-
-    /**
-     * the custom displayable variant of the term 'institution'
-     * @var string
-     */
-    public $nomenclature_inst;
-
-    /**
      * all known federation, in an array with ISO short name as an index, and localised version of the pretty-print name as value.
      * The static value is only filled with meaningful content after the first object has been instantiated. That is because it is not
      * possible to define static properties with function calls like _().
@@ -115,8 +103,9 @@ class CAT extends \core\common\Entity {
      */
     public function __construct() {
         parent::__construct();
-        $olddomain = $this->languageInstance->setTextDomain("user");
-        $this->CAT_VERSION_STRING = _("Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git Revision</a>");
+        common\Entity::intoThePotatoes();
+        
+        $this->CAT_VERSION_STRING = sprintf(_("Unreleased %s Git Revision"),"<a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>")."</a>";
         if (CAT::RELEASE_VERSION) {
             $temp_version = "CAT-" . CAT::VERSION_MAJOR . "." . CAT::VERSION_MINOR;
             $branch = "release_" . CAT::VERSION_MAJOR . "_" . CAT::VERSION_MINOR;
@@ -129,27 +118,11 @@ class CAT extends \core\common\Entity {
             $this->CAT_VERSION_STRING = sprintf(_("Release <a href='%s'>%s</a>"), "https://github.com/GEANT/CAT/tree/" . $branch . "/Changes.md", $temp_version);
         }
         $this->CAT_COPYRIGHT = CONFIG['APPEARANCE']['productname'] . " - " . $this->CAT_VERSION_STRING . " &copy; " . CAT::COPYRIGHT_MIN_YEAR . "-" . CAT::COPYRIGHT_MAX_YEAR . " " . CAT::COPYRIGHT_HOLDER . "<br/>on behalf of " . CAT::COPYRIGHT_CONSORTIA . "; and others <a href='copyright.php'>Full Copyright and Licenses</a>";
-        $this->languageInstance->setTextDomain($olddomain);
+        
 
         /* Federations are created in DB with bootstrapFederation, and listed via listFederations
          */
-        $oldlocale = $this->languageInstance->setTextDomain('core');
 
-        // some config elements are displayable. We need some dummies to 
-        // translate the common values for them. If a deployment chooses a 
-        // different wording, no translation, sorry
-
-        $dummy_NRO = _("National Roaming Operator");
-        $dummy_inst1 = _("identity provider");
-        $dummy_inst2 = _("organisation");
-        $dummy_inst3 = _("Identity Provider");
-        // and do something useless with the strings so that there's no "unused" complaint
-        if (strlen($dummy_NRO . $dummy_inst1 . $dummy_inst2 . $dummy_inst3) < 0) {
-            throw new \Exception("Strings are usually not shorter than 0 characters. We've encountered a string blackhole.");
-        }
-
-        $this->nomenclature_fed = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']);
-        $this->nomenclature_inst = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution']);
         $this->knownFederations = [
             'AD' => _("Andorra"),
             'AT' => _("Austria"),
@@ -401,7 +374,7 @@ class CAT extends \core\common\Entity {
             'ZW' => 'Zimbabwe',
         ];
 
-        $this->languageInstance->setTextDomain($oldlocale);
+        common\Entity::outOfThePotatoes();
     }
 
     /**
@@ -440,6 +413,7 @@ class CAT extends \core\common\Entity {
      *
      */
     public function listAllIdentityProviders($activeOnly = 0, $country = "") {
+        common\Entity::intoThePotatoes();
         $handle = DBConnection::handle("INST");
         $handle->exec("SET SESSION group_concat_max_len=10000");
         $query = "SELECT distinct institution.inst_id AS inst_id, institution.country AS country,
@@ -500,6 +474,7 @@ class CAT extends \core\common\Entity {
             }
             $returnarray[] = $oneInstitutionResult;
         }
+        common\Entity::outOfThePotatoes();
         return $returnarray;
     }
 

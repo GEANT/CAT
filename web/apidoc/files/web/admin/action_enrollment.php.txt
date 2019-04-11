@@ -43,8 +43,9 @@ $auth->authenticate();
 /**
  * Something went wrong. We display the error cause and then throw an Exception.
  * 
- * @param string $uiDisplay error string to display
+ * @param string                        $uiDisplay  error string to display
  * @param \web\lib\admin\PageDecoration $decoObject the instance of PageDecoration, needed for footer display.
+ * @return void
  * @throws Exception
  */
 function bailout(string $uiDisplay, $decoObject) {
@@ -78,10 +79,10 @@ if ($checkval < 0) {
     echo "<h1>" . _("Error creating new IdP binding!") . "</h1>";
     switch ($checkval) {
         case \core\UserManagement::TOKENSTATUS_FAIL_ALREADYCONSUMED:
-            echo "<p>" . sprintf(_("Sorry... this token has already been used. The %s is already created. If you got the invitation from a mailing list, probably someone else used it before you."), $elements->nomenclature_inst) . "</p>";
+            echo "<p>" . sprintf(_("Sorry... this token has already been used. The %s is already created. If you got the invitation from a mailing list, probably someone else used it before you."), $elements->nomenclatureInst) . "</p>";
             break;
         case \core\UserManagement::TOKENSTATUS_FAIL_EXPIRED:
-            echo "<p>" . sprintf(_("Sorry... this token has expired. Invitation tokens are valid for 24 hours. The %s administrator can create a new one for you."), $elements->nomenclature_fed) . "</p>";
+            echo "<p>" . sprintf(_("Sorry... this token has expired. Invitation tokens are valid for 24 hours. The %s administrator can create a new one for you."), $elements->nomenclatureFed) . "</p>";
             break;
         default:
             echo "<p>" . _("Sorry... you have come to the enrollment page without a valid token. Are you a nasty person? If not, you should go to <a href='overview_user.php'>your profile page</a> instead.") . "</p>";
@@ -91,7 +92,6 @@ if ($checkval < 0) {
 }
 
 // token is valid. Get meta-info and create inst
-// TODO get invitation level and mail, store it as property
 $user = $validator->User($_SESSION['user']);
 
 $loggerInstance = new \core\common\Logging();

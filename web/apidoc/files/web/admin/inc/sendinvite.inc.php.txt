@@ -37,7 +37,7 @@ $new_idp_authorized_fedadmin = FALSE;
 /**
  * aborts code execution if a required mail address is invalid
  * 
- * @param mixed $newmailaddress input string, possibly one or more mail addresses
+ * @param mixed  $newmailaddress       input string, possibly one or more mail addresses
  * @param string $redirect_destination destination to send user to if validation failed
  * @return array mail address if validation passed
  */
@@ -111,7 +111,7 @@ switch ($operationMode) {
         $fedadmin = $userObject->isFederationAdmin($idp->federation);
         // check if he is either one, if not, complain
         if (!$is_owner && !$fedadmin) {
-            echo "<p>" . sprintf(_("Something's wrong... you are a %s admin, but not for the %s the requested %s belongs to!"), $uiElements->nomenclature_fed, $uiElements->nomenclature_fed, $uiElements->nomenclature_inst) . "</p>";
+            echo "<p>" . sprintf(_("Something's wrong... you are a %s admin, but not for the %s the requested %s belongs to!"), $uiElements->nomenclatureFed, $uiElements->nomenclatureFed, $uiElements->nomenclatureInst) . "</p>";
             exit(1);
         }
 
@@ -128,7 +128,7 @@ switch ($operationMode) {
         $newcountry = $validator->string($_POST['country']);
         $new_idp_authorized_fedadmin = $userObject->isFederationAdmin($newcountry);
         if ($new_idp_authorized_fedadmin !== TRUE) {
-            throw new Exception("Something's wrong... you want to create a new " . $uiElements->nomenclature_inst . ", but are not a " . $uiElements->nomenclature_fed . " admin for the " . $uiElements->nomenclature_fed . " it should be in!");
+            throw new Exception("Something's wrong... you want to create a new " . $uiElements->nomenclatureInst . ", but are not a " . $uiElements->nomenclatureFed . " admin for the " . $uiElements->nomenclatureFed . " it should be in!");
         }
         $federation = $validator->Federation($newcountry);
         $prettyprintname = $newinstname;
@@ -146,7 +146,7 @@ switch ($operationMode) {
         $extinfo = $catInstance->getExternalDBEntityDetails($newexternalid);
         $new_idp_authorized_fedadmin = $userObject->isFederationAdmin($extinfo['country']);
         if ($new_idp_authorized_fedadmin !== TRUE) {
-            throw new Exception("Something's wrong... you want to create a new " . $uiElements->nomenclature_inst . ", but are not a " . $uiElements->nomenclature_fed . " admin for the " . $uiElements->nomenclature_fed . " it should be in!");
+            throw new Exception("Something's wrong... you want to create a new " . $uiElements->nomenclatureInst . ", but are not a " . $uiElements->nomenclatureFed . " admin for the " . $uiElements->nomenclatureFed . " it should be in!");
         }
         $federation = $validator->Federation($extinfo['country']);
         $newcountry = $extinfo['country'];
@@ -180,7 +180,7 @@ switch ($operationMode) {
 }
 
 // send, and invalidate the token immediately if the mail could not be sent!
-$languageInstance->setTextDomain("core");
+
 $status = [];
 $allEncrypted = TRUE;
 $allClear = TRUE;
@@ -197,7 +197,6 @@ foreach ($newtokens as $onetoken => $oneDest) {
         }
     }
 }
-$languageInstance->setTextDomain("web_admin");
 
 if (count($status) == 0) {
     header("Location: $redirect_destination" . "invitation=FAILURE");

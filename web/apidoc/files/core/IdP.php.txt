@@ -75,7 +75,7 @@ class IdP extends EntityWithDBProperties {
         $this->entityOptionTable = "institution_option";
         $this->entityIdColumn = "institution_id";
         
-        $this->identifier = (int) $instId;
+        $this->identifier = $instId;
 
         $idp = $this->databaseHandle->exec("SELECT inst_id, country,external_db_syncstate FROM institution WHERE inst_id = $this->identifier");
         // SELECT -> returns resource, not boolean
@@ -192,6 +192,8 @@ class IdP extends EntityWithDBProperties {
      * This is needed for installer caching: all installers which are on disk 
      * must be re-created if an attribute changes. This timestamp here
      * is used to determine if the installer on disk is still new enough.
+     * 
+     * @return void
      */
     public function updateFreshness() {
         // freshness is always defined for *Profiles*
@@ -228,8 +230,11 @@ class IdP extends EntityWithDBProperties {
 
     /**
      * deletes the IdP and all its profiles
+     * 
+     * @return void
      */
     public function destroy() {
+        common\Entity::intoThePotatoes();
         /* delete all profiles */
         foreach ($this->listProfiles() as $profile) {
             $profile->destroy();
@@ -252,15 +257,16 @@ class IdP extends EntityWithDBProperties {
             $user = new User($id);
             $message = sprintf(_("Hi,
 
-the Identity Provider %s in your %s federation %s has been deleted from %s.
+the %s %s in your %s federation %s has been deleted from %s.
 
 We thought you might want to know.
 
 Best regards,
 
-%s"), $this->name, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], strtoupper($fed->name), CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname_long']);
-            $user->sendMailToUser(_("IdP in your federation was deleted"), $message);
+%s"), common\Entity::$nomenclature_inst, $this->name, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], strtoupper($fed->name), CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname_long']);
+            $user->sendMailToUser(sprintf(_("%s in your federation was deleted"), common\Entity::$nomenclature_inst), $message);
         }
+        common\Entity::outOfThePotatoes();
     }
 
     /**
@@ -345,6 +351,7 @@ Best regards,
      * Associates the external DB id with a CAT id
      * 
      * @param string $identifier the external DB id, which can be alpha-numeric
+     * @return void
      */
     public function setExternalDBId(string $identifier) {
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
@@ -359,6 +366,8 @@ Best regards,
 
     /**
      * removes the link between a CAT institution and the external DB
+     * 
+     * @return void
      */
     public function removeExternalDBId() {
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED

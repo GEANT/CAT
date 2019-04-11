@@ -19,7 +19,7 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
-include(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
+require dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
 $colour1 = CONFIG['APPEARANCE']['colour1'];
 $colour2 = CONFIG['APPEARANCE']['colour2'];
 header('Content-type: text/css; charset=utf-8');
@@ -227,10 +227,11 @@ div.pagecontent div.trick {
 }
 
 div.footer {
-    display: none;
     width: 100%;
-    padding-top:5px;
-    padding-bottom:10px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
     background: white;
     border-top: 1px solid #000;
 }
@@ -290,6 +291,20 @@ div.graybox {
     text-align: left;
     width: 850px;
     margin: 0px auto 10px;
+}
+
+div.qrbox {
+    position: absolute;
+    background-color: #fbfcfc;
+    border: 1px solid #e6e6e6;
+    clear: both;
+    display: block;
+    padding: 15px;
+    text-align: left;
+    width: 850px;
+    left: 100px;
+    top: 50px;
+    z-index: 100;
 }
 
 div#msgbox {

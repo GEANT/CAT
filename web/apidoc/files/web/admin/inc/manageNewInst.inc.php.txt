@@ -45,20 +45,20 @@ $isFedAdmin = $user->isFederationAdmin();
 
 // if not, send the user away
 if (!$isFedAdmin) {
-    echo sprintf(_("You do not have the necessary privileges to register new %ss."), $uiElements->nomenclature_inst);
+    echo sprintf(_("You do not have the necessary privileges to register new %ss."), $uiElements->nomenclatureInst);
     exit(1);
 }
 // okay... we are indeed entitled to "do stuff"
 $feds = $user->getAttributes("user:fedadmin");
 ?>
 <h1>
-    <?php printf(_("%s - Register new %s"), CONFIG['APPEARANCE']['productname'], $uiElements->nomenclature_inst); ?>
+    <?php printf(_("%s - Register new %s"), CONFIG['APPEARANCE']['productname'], $uiElements->nomenclatureInst); ?>
 </h1>
 <?php
-echo sprintf(_("On this page, you can add a new %s to your %s. Please fill out the form below to send out an email invitation to the new %s administrator."), $uiElements->nomenclature_inst, $uiElements->nomenclature_fed, $uiElements->nomenclature_inst);
+echo sprintf(_("On this page, you can add a new %s to your %s. Please fill out the form below to send out an email invitation to the new %s administrator."), $uiElements->nomenclatureInst, $uiElements->nomenclatureFed, $uiElements->nomenclatureInst);
 if (CONFIG['DB']['enforce-external-sync']) {
-    echo "<p>" . sprintf(_("You can either register a known %s (as defined in the %s database) or create a totally new %s."), $uiElements->nomenclature_inst, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $uiElements->nomenclature_inst) . "</p>";
-    echo "<p>" . sprintf(_("The latter one is typically for an %s which is yet in a testing phase and therefore doesn't appear in the %s database yet."), $uiElements->nomenclature_inst, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</p>";    
+    echo "<p>" . sprintf(_("You can either register a known %s (as defined in the %s database) or create a totally new %s."), $uiElements->nomenclatureInst, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $uiElements->nomenclatureInst) . "</p>";
+    echo "<p>" . sprintf(_("The latter one is typically for an %s which is yet in a testing phase and therefore doesn't appear in the %s database yet."), $uiElements->nomenclatureInst, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</p>";    
 }
 ?>
 <hr/>
@@ -96,7 +96,7 @@ if (CONFIG['DB']['enforce-external-sync']) {
             <td>
                 <?php echo _("Name"); ?><input type='text' size='40' id='name' name='name' onchange='document.sendinvite.creation[1].checked = true'/>
             </td>
-            <td><?php echo $uiElements->nomenclature_fed; ?>
+            <td><?php echo $uiElements->nomenclatureFed; ?>
                 <select id='country' name='country'>
                     <?php
                     $cat = new \core\CAT();

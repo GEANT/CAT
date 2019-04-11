@@ -90,8 +90,8 @@ class X509 {
     /**
      * parses openssl text output (there are some properties which aren't
      * available with the built-in openssl_x509_parse function)
-     * @param string $myca the CA to inspect
-     * @param array $out by-reference: properties to add to the CA properties array
+     * @param resource $myca the CA to inspect
+     * @param array    $out  by-reference: properties to add to the CA properties array
      * @return void
      */
     private function opensslTextParse($myca, &$out) {
@@ -117,12 +117,15 @@ class X509 {
     /**
      * Is this a root CA, an intermediate CA, or an end-entity certificate?
      * 
-     * @param string $myca the CA to inspect
-     * @param array $out by-reference: properties to add to the CA properties array
+     * @param resource $myca the CA to inspect
+     * @param array    $out  by-reference: properties to add to the CA properties array
      * @return array
      */
     private function typeOfCertificate($myca, &$out) {
-        $mydetails = openssl_x509_parse($myca);
+        // PHP docs deliberately don't document the return type of this function
+        // well thank you, this makes Scrutinizer nuts
+        // work around this my making some easily observable array operations
+        $mydetails = array_merge([], openssl_x509_parse($myca));
         $out['root'] = 0; // default not a root, unless concinved otherwise below
         if ($mydetails['issuer'] === $mydetails['subject']) {
             $out['root'] = 1;
@@ -166,9 +169,6 @@ class X509 {
      * @return array|boolean
      */
     public function processCertificate($cadata) {
-        if ($cadata === FALSE) { // we are expecting a string anyway
-            return FALSE;
-        }
         $pemBegin = strpos($cadata, "-----BEGIN CERTIFICATE-----");
         if ($pemBegin !== FALSE) {
             $pemEnd = strpos($cadata, "-----END CERTIFICATE-----") + 25;
@@ -187,7 +187,7 @@ class X509 {
 
         // check that the certificate is OK
         $myca = openssl_x509_read($authorityPem);
-        if ($myca == FALSE) {
+        if ($myca === FALSE) {
             return FALSE;
         }
         

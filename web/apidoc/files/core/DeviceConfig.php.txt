@@ -73,18 +73,6 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @var array EAP methods
      */
     public $supportedEapMethods;
-
-    /**
-     * the custom displayable variant of the term 'federation'
-     * @var string
-     */
-    public $nomenclature_fed;
-    
-    /**
-     * the custom displayable variant of the term 'institution'
-     * @var string
-     */
-    public $nomenclature_inst;
     
     /**
      * sets the supported EAP methods for a device
@@ -105,22 +93,6 @@ abstract class DeviceConfig extends \core\common\Entity {
      */
     public function __construct() {
         parent::__construct();
-        // some config elements are displayable. We need some dummies to 
-        // translate the common values for them. If a deployment chooses a 
-        // different wording, no translation, sorry
-
-        $dummy_NRO = _("National Roaming Operator");
-        $dummy_inst1 = _("identity provider");
-        $dummy_inst2 = _("organisation");
-        $dummy_inst3 = _("Identity Provider");
-        // and do something useless with the strings so that there's no "unused" complaint
-        // by Scrutinizer
-        if (strlen($dummy_NRO . $dummy_inst1 . $dummy_inst2 . $dummy_inst3) < 0) {
-            throw new \Exception("Strings are usually not shorter than 0 characters. We've encountered a string blackhole.");
-        }
-
-        $this->nomenclature_fed = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']);
-        $this->nomenclature_inst = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution']);
     }
 
     /**
@@ -146,6 +118,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      */
     final public function setup(AbstractProfile $profile, $token = NULL, $importPassword = NULL) {
         $this->loggerInstance->debug(4, "module setup start\n");
+        common\Entity::intoThePotatoes();
         $purpose = 'installer';
         $eaps = $profile->getEapMethodsinOrderOfPreference(1);
         $this->calculatePreferredEapType($eaps);
@@ -170,9 +143,8 @@ abstract class DeviceConfig extends \core\common\Entity {
             $purpose = 'silverbullet';
             // let's keep a record for which device type this token was consumed
             $dbInstance = DBConnection::handle("INST");
-            $devicename = \devices\Devices::listDevices()[$this->device_id]['display'];
             $certId = $this->clientCert['certObject']->dbId;
-            $dbInstance->exec("UPDATE `silverbullet_certificate` SET `device` = ? WHERE `id` = ?", "si", $devicename, $certId);    
+            $dbInstance->exec("UPDATE `silverbullet_certificate` SET `device` = ? WHERE `id` = ?", "si", $this->device_id, $certId);
         }
         $this->loggerInstance->debug(5, "DeviceConfig->setup() - silverbullet checks done.\n");
         // create temporary directory, its full path will be saved in $this->FPATH;
@@ -210,15 +182,15 @@ abstract class DeviceConfig extends \core\common\Entity {
         $this->attributes['internal:remove_SSID'] = $this->getSSIDs()['del'];
 
         $this->attributes['internal:consortia'] = $this->getConsortia();
-        $olddomain = $this->languageInstance->setTextDomain("core");
+        
         $this->support_email_substitute = sprintf(_("your local %s support"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $this->support_url_substitute = sprintf(_("your local %s support page"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
-        $this->languageInstance->setTextDomain($olddomain);
 
         if ($this->signer && $this->options['sign']) {
             $this->sign = ROOT . '/signer/' . $this->signer;
         }
         $this->installerBasename = $this->getInstallerBasename();
+        common\Entity::outOfThePotatoes();
     }
 
     /**
@@ -247,7 +219,10 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @return string HTML text to be displayed
      */
     public function writeDeviceInfo() {
-        return _("Sorry, this should not happen - no additional information is available");
+        common\Entity::intoThePotatoes();
+        $retval = _("Sorry, this should not happen - no additional information is available");
+        common\Entity::outOfThePotatoes();
+        return $retval;
     }
     
     /**
@@ -334,6 +309,10 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @final not to be redefined
      */
     final protected function translateFile($source_name, $output_name = NULL, $encoding = 0) {
+        // there is no explicit gettext() call in this function, but catalogues
+        // and translations occur in the varios ".inc" files - so make sure we
+        // operate in the correct catalogue
+        common\Entity::intoThePotatoes();
         if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
             $encoding = 0;
         }
@@ -359,11 +338,13 @@ abstract class DeviceConfig extends \core\common\Entity {
         $fileHandle = fopen("$output_name", "w");
         if ($fileHandle === FALSE) {
             $this->loggerInstance->debug(2, "translateFile($source, $output_name, $encoding) failed\n");
+            common\Entity::outOfThePotatoes();
             return FALSE;
         }
         fwrite($fileHandle, $output);
         fclose($fileHandle);
         $this->loggerInstance->debug(5, "translateFile($source, $output_name, $encoding) end\n");
+        common\Entity::outOfThePotatoes();
         return TRUE;
     }
 
@@ -455,6 +436,27 @@ abstract class DeviceConfig extends \core\common\Entity {
     }
 
     /**
+     * set of characters to remove from filename strings
+     */
+    private const TRANSLIT_SCRUB = '/[ ()\/\'"]+/';
+    
+    /**
+     * Does a transliteration from UTF-8 to ASCII to get a sane filename
+     * Takes special characters into account, and always uses English CTYPE
+     * to avoid introduction of funny characters due to "flying accents"
+     * 
+     * @param string $input the input string that is to be transliterated
+     * @return string the transliterated string
+     */
+    private function customTranslit($input) {
+        $oldlocale = setlocale(LC_CTYPE, 0);
+        setlocale(LC_CTYPE, "en_US.UTF-8");
+        $retval = preg_replace(DeviceConfig::TRANSLIT_SCRUB, '_', iconv("UTF-8", "US-ASCII//TRANSLIT", $input));
+        setlocale(LC_CTYPE, $oldlocale);
+        return $retval;
+    }
+    
+    /**
      * Generate installer filename base.
      * Device module should use this name adding an extension.
      * Normally the device identifier follows the Consortium name.
@@ -464,19 +466,19 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @return string
      */
     private function getInstallerBasename() {
-        $replace_pattern = '/[ ()\/\'"]+/';
-        $consortiumName = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', CONFIG_CONFASSISTANT['CONSORTIUM']['name']));
+        
+        $baseName = $this->customTranslit(CONFIG_CONFASSISTANT['CONSORTIUM']['name']) . "-" . $this->getDeviceId();
         if (isset($this->attributes['profile:customsuffix'][1])) { 
             // this string will end up as a filename on a filesystem, so always
             // take a latin-based language variant if available
             // and then scrub non-ASCII just in case
-            return $consortiumName . "-" . $this->getDeviceId() . iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['profile:customsuffix'][1]));
+            return $baseName . $this->customTranslit($this->attributes['profile:customsuffix'][1]);
         }
         // Okay, no custom suffix. 
         // Use the configured inst name and apply shortening heuristics
         $lang_pointer = CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['latin_based'] == TRUE ? 0 : 1;
         $this->loggerInstance->debug(5, "getInstallerBasename1:" . $this->attributes['general:instname'][$lang_pointer] . "\n");
-        $inst = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['general:instname'][$lang_pointer]));
+        $inst = $this->customTranslit($this->attributes['general:instname'][$lang_pointer]);
         $this->loggerInstance->debug(4, "getInstallerBasename2:$inst\n");
         $Inst_a = explode('_', $inst);
         if (count($Inst_a) > 2) {
@@ -488,12 +490,12 @@ abstract class DeviceConfig extends \core\common\Entity {
         // and if the inst has multiple profiles, add the profile name behin
         if ($this->attributes['internal:profile_count'][0] > 1) {
             if (!empty($this->attributes['profile:name']) && !empty($this->attributes['profile:name'][$lang_pointer])) {
-                $profTemp = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['profile:name'][$lang_pointer]));
+                $profTemp = $this->customTranslit($this->attributes['profile:name'][$lang_pointer]);
                 $prof = preg_replace('/_+$/', '', $profTemp);
-                return $consortiumName . '-' . $this->getDeviceId() . $inst . '-' . $prof;
+                return $baseName . $inst . '-' . $prof;
             }
         }
-        return $consortiumName . '-' . $this->getDeviceId() . $inst;
+        return $baseName . $inst;
     }
 
     /**

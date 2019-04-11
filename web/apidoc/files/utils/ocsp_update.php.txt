@@ -29,10 +29,10 @@
  * subdir for both ( temp_ocsp_RSA and temp_ocsp_ECDSA ).
  */
 require_once dirname(dirname(__FILE__)) . "/config/_config.php";
-if (file_exists("./semaphore")) {
+if (file_exists(__DIR__ . "/semaphore")) {
     exit(1); // another instance is still busy doing stuff. Don't interfere.
 }
-file_put_contents("./semaphore", "BUSY");
+file_put_contents(__DIR__ . "/semaphore", "BUSY");
 $dbLink = \core\DBConnection::handle("INST");
 $allSerials = $dbLink->exec("SELECT serial_number, ca_type FROM silverbullet_certificate WHERE serial_number IS NOT NULL AND expiry > NOW() AND OCSP_timestamp < DATE_SUB(NOW(), INTERVAL 1 WEEK)");
 // SELECT query -> always returns a mysql_result, not boolean
@@ -62,4 +62,4 @@ while ($statementRow = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allS
     }
     file_put_contents($tempdirBase."_".$statementRow->ca_type."/".$filename, $statementRow->OCSP);
 }
-unlink("./semaphore");
+unlink(__DIR__ . "/semaphore");
