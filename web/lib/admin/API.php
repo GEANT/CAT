@@ -17,6 +17,11 @@
  *
  * License: see the web/copyright.inc.php file in the file structure or
  *          <base_url>/copyright.php after deploying the software
+ * 
+ * @package AdminAPI
+ * @author Stefan Winter <stefan.winter@restena.lu>
+ * @license https://github.com/GEANT/CAT/blob/master/web/copyright.inc.php GEANT Standard Open Source Software Outward Licence
+ * @link API
  */
 
 namespace web\lib\admin;
@@ -29,10 +34,6 @@ require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
  * This class defines the various actions doable with the admin API, the
  * parameters and return values.
  * 
- * @author Stefan Winter <stefan.winter@restena.lu>
- * @package AdminAPI
- * @license https://github.com/GEANT/CAT/blob/master/web/copyright.inc.php
- * @link API
  */
 class API {
 
@@ -235,7 +236,7 @@ class API {
      * 
      */
     const ACTIONS = [
-        // inst-level actions
+        // Inst-level actions.
         API::ACTION_NEWINST_BY_REF => [
             "REQ" => [API::AUXATTRIB_EXTERNALID,],
             "OPT" => [
@@ -279,7 +280,7 @@ class API {
             "OPT" => [],
             "RETVAL" => [],
         ],
-        // inst administrator management
+        // Inst administrator management.
         API::ACTION_ADMIN_LIST => [
             "REQ" => [API::AUXATTRIB_CAT_INST_ID],
             "OPT" => [
@@ -309,7 +310,7 @@ class API {
             "OPT" => [],
             "RETVAL" => [],
         ],
-        // statistics
+        // Statistics.
         API::ACTION_STATISTICS_INST => [
             "REQ" => [API::AUXATTRIB_CAT_INST_ID],
             "OPT" => []
@@ -321,7 +322,7 @@ class API {
                 ["device_id" => ["ADMIN", "SILVERBULLET", "USER"]] // Plus "TOTAL".
             ],
         ],
-        // RADIUS profile actions
+        // RADIUS profile actions.
         API::ACTION_NEWPROF_RADIUS => [
             "REQ" => [API::AUXATTRIB_CAT_INST_ID],
             "OPT" => [
@@ -350,7 +351,7 @@ class API {
             ],
             "RETVAL" => API::AUXATTRIB_CAT_PROFILE_ID,
         ],
-        // Silverbullet profile actions
+        // Silverbullet profile actions.
         API::ACTION_NEWPROF_SB => [
             "REQ" => [API::AUXATTRIB_CAT_INST_ID],
             "OPT" => [API::AUXATTRIB_SB_TOU],
