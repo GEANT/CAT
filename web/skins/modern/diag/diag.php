@@ -747,6 +747,13 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                 },
                 error: function (error) {
                     inProgress(0);
+                    if ($('#select_sp_area').is(':hidden')) {
+                        $('#position_info').show();
+                    }
+                    if ($('#select_idp_area').is(':hidden')) {
+                        $('#realm_by_select').show();
+                    }
+                    $('#user_realm').val("");
                     reset_footer();
                     alert('magicTelepath error');
                 }
