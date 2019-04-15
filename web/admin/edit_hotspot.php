@@ -43,7 +43,7 @@ if (!isset($_GET['deployment_id'])) {
 // if we have come this far, we are editing an existing deployment
 
 $deployment = $validator->existingDeploymentManaged($_GET['deployment_id'], $my_inst);
-        
+
 if (isset($_POST['submitbutton'])) {
     if ($_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_DELETE) {
         $deployment->deactivate();
@@ -58,12 +58,25 @@ if (isset($_POST['submitbutton'])) {
     }
     if ($_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_SAVE) {
         $optionParser = new web\lib\admin\OptionParser();
-        $optionParser->processSubmittedFields($deployment, $_POST, $_FILES);
-        
+        $postArray = $_POST;
+        if (isset($_POST['vlan'])) {
+            $postArray['option']['S1234567890'] = "managedsp:vlan#int##";
+            $postArray['value']['S1234567890-integer'] = $_POST['vlan'];
+        }
+        if (isset($_POST['opname'])) {
+            $postArray['option']['S1234567891'] = "managedsp:operatorname#string##";
+            $postArray['value']['S1234567891-string'] = $_POST['opname'];
+        }
+        $optionParser->processSubmittedFields($deployment, $postArray, $_FILES);
+
         header("Location: overview_sp.php?inst_id=" . $my_inst->identifier);
         exit(0);
     }
 }
+
+$vlan = $deployment->getAttributes("managedsp:vlan")[0]['value'] ?? NULL;
+$opname = $deployment->getAttributes("managedsp:operatorname")[0]['value'] ?? "";
+
 echo $deco->defaultPagePrelude(sprintf(_("%s: Enrollment Wizard (Step 3)"), CONFIG['APPEARANCE']['productname']));
 require_once "inc/click_button_js.php";
 ?>
@@ -86,18 +99,45 @@ require_once "inc/click_button_js.php";
     echo "<form enctype='multipart/form-data' action='edit_hotspot.php?inst_id=$my_inst->identifier&amp;deployment_id=$deployment->identifier' method='post' accept-charset='UTF-8'>
                 <input type='hidden' name='MAX_FILE_SIZE' value='" . CONFIG['MAX_UPLOAD_SIZE'] . "'>";
     $optionDisplay = new \web\lib\admin\OptionDisplay($deploymentOptions, "Profile");
+    ?>
+    <?php
+    echo "<fieldset class='option_container' id='managedsp_override'>
+    <legend><strong>" . _("Options for this deployment") . "</strong></legend>";
+    ?>
+    <table>
+        <tr>
+            <!-- input for Operator-Name override-->
+            <td>
+                <span id='opname_label'>
+                    <?php echo _("Custom Operator-Name:"); ?>
+                </span>
+            </td>
+            <td>
+                <input type='text' width="20" name="opname" value="<?php echo $opname; ?>"/>
+            </td>
+        </tr>
+        <tr>
+            <!-- input for VLAN identifier for home users-->
+            <td>
+                <span id='vlan_label'>
+                    <?php echo sprintf(_("VLAN tag for own users%s:"), ($vlan === NULL ? "" : " " . _("(unset with '0')"))); ?>
+                </span>
+            </td>
+            <td>
+                <input type='number' width="4" name='vlan' <?php
+                    if ($vlan !== NULL) {
+                        echo "value='$vlan'";
+                    }
+                    ?>/>
+            </td>    
+        </tr>
+        <tr>
+    </table>
+    <?php
+    echo $optionDisplay->prefilledOptionTable("managedsp");
+    echo "<button type='button' class='newoption' onclick='getXML(\"managedsp\")'>" . _("Add new option") . "</button>";
+    echo "</fieldset>";
 
-    $fields = [
-        "managedsp" => _("Options for this deployment"),
-    ];
-
-    foreach ($fields as $name => $description) {
-        echo "<fieldset class='option_container' id='" . $name . "_override'>
-    <legend><strong>$description</strong></legend>";
-        echo $optionDisplay->prefilledOptionTable($name);
-        echo "<button type='button' class='newoption' onclick='getXML(\"$name\")'>" . _("Add new option") . "</button>";
-        echo "</fieldset>";
-    }
 
     echo "<p><button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button><button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_sp.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></p></form>";
     echo $deco->footer();

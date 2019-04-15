@@ -139,7 +139,7 @@ class UIElements extends \core\common\Entity {
             $ssidLegacyText => "media:SSID_with_legacy",
             $passpointOiText => "media:consortium_OI",
             _("VLAN for own users") => "managedsp:vlan",
-            _("Realm for VLAN tagging") => "managedsp:realmforvlan",
+            _("Realm to be considered own users") => "managedsp:realmforvlan",
             _("Custom Operator-Name attribute") => "managedsp:operatorname",
         ];
 

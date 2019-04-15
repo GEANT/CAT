@@ -118,7 +118,7 @@ class OptionDisplay extends \core\common\Entity {
         // we expect the variable $class to contain the class of options
         $retval = "";
         $optioninfo = \core\Options::instance();
-        $blackListOnPrefill = "user:fedadmin";
+        $blackListOnPrefill = "user:fedadmin|managedsp:vlan|managedsp:operatorname";
         if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
             $blackListOnPrefill .= "|fed:silverbullet";
         }
@@ -139,11 +139,7 @@ class OptionDisplay extends \core\common\Entity {
      * @param string $class       the class of options that is to be displayed
      * @return string
      */
-    private function addOptionNew(string $class) { // no GET class ? we've been called directly:
-        // this can mean either a new object (list all options with empty values)
-        // or that an object is to be edited. In that case, $prepopulated has to
-        // contain the array of existing variables
-        // we expect the variable $class to contain the class of options
+    private function addOptionNew(string $class) {
         $retval = "";
 
         $optioninfo = \core\Options::instance();
@@ -151,35 +147,32 @@ class OptionDisplay extends \core\common\Entity {
         $list = $optioninfo->availableOptions($class);
         switch ($class) {
             case "general":
-                $blacklistItem = array_search("general:geo_coordinates", $list);
-                break;
-            case "profile":
-                $blacklistItem = array_search("profile:QR-user", $list);
+                unset($list[array_search("general:geo_coordinates", $list)]);
                 break;
             case "user":
-                $blacklistItem = array_search("user:fedadmin", $list);
+                unset($list[array_search("user:fedadmin", $list)]);
+                break;
+            case "managedsp":
+                unset($list[array_search("managedsp:vlan", $list)]);
+                unset($list[array_search("managedsp:operatorname", $list)]);
                 break;
             case "fed":
                 //normally, we have nothing to hide on that level
-                $blacklistItem = FALSE;
                 // if we are a Managed IdP exclusive deployment, do not display or allow
                 // to change the "Enable Managed IdP" boolean - it is simply always there
                 if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
-                    $blacklistItem = array_search("fed:silverbullet", $list);
+                    unset($list[array_search("fed:silverbullet", $list)]);
                 }
                 break;
             default:
-                $blacklistItem = FALSE;
+                break;
         }
-        if ($blacklistItem !== FALSE) {
-            unset($list[$blacklistItem]);
-            $list = array_values($list);
-        }
+        $list2 = array_values($list);
 
         // add as many options as there are different option types
-        $numberOfOptions = count($list);
+        $numberOfOptions = count($list2);
         for ($this->optionIterator = 0; $this->optionIterator < $numberOfOptions; $this->optionIterator++) {
-            $retval .= $this->optiontext($list);
+            $retval .= $this->optiontext($list2);
         }
         return $retval;
     }
@@ -252,28 +245,40 @@ FOO;
 
         $optioninfo = \core\Options::instance();
         $retval = "<span style='display:flex';>";
-        $retval .= "<select id='option-S$rowid-select' name='option[S$rowid]' $jsmagic>";
         $iterator = 0;
         $tooltips = "";
         $uiElements = new UIElements();
         $activelisttype = [];
-        foreach ($list as $value) {
-            $listtype = $optioninfo->optionType($value);
-            $retval .= "<option id='option-S$rowid-v-$value' value='$value#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ";
-            if ($iterator == $this->optionIterator) {
-                $retval .= "selected='selected'";
+        switch (count($list)) {
+            case 1: // if there is only one option available, don't introduce an artificial drop-down for it
+                $value = array_shift($list);
+                $listtype = $optioninfo->optionType($value);
+                $retval .= $uiElements->displayName($value);
+                $retval .= "<input type='hidden' name='option[S$rowid]' value='$value#" . $listtype["type"] . "#" . $listtype["flag"] . "#'/>";
                 $activelisttype = $listtype;
-                $tooltips .= $this->tooltip($rowid, $value, TRUE);
-            } else {
-                $tooltips .= $this->tooltip($rowid, $value, FALSE);
-            }
-            $retval .= ">" . $uiElements->displayName($value) . "</option>";
-            $iterator++;
+                $tooltips = $this->tooltip($rowid, $value, TRUE);
+                break;
+            default:
+                $retval .= "<select id='option-S$rowid-select' name='option[S$rowid]' $jsmagic>";
+                foreach ($list as $value) {
+                    $listtype = $optioninfo->optionType($value);
+                    $retval .= "<option id='option-S$rowid-v-$value' value='$value#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ";
+                    if ($iterator == $this->optionIterator) {
+                        $retval .= "selected='selected'";
+                        $activelisttype = $listtype;
+                        $tooltips .= $this->tooltip($rowid, $value, TRUE);
+                    } else {
+                        $tooltips .= $this->tooltip($rowid, $value, FALSE);
+                    }
+                    $retval .= ">" . $uiElements->displayName($value) . "</option>";
+                    $iterator++;
+                }
+
+                if (count($activelisttype) == 0) {
+                    throw new \Exception("We should have found the active list type by now!");
+                }
+                $retval .= "</select>";
         }
-        if (count($activelisttype) == 0) {
-            throw new \Exception("We should have found the active list type by now!");
-        }
-        $retval .= "</select>";
         $retval .= $tooltips;
         $retval .= "</span>";
 

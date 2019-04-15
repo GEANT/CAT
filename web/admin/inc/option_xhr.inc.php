@@ -33,7 +33,7 @@ const DO_NOT_DISPLAY = [
     "fed" => [(CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL" ? "fed:silverbullet" : "")],
     "device-specific" => [],
     "eap-specific" => [],
-    "managedsp" => []
+    "managedsp" => ["managedsp:vlan", "managedsp:operatorname"]
 ];
 
 if (!isset($_GET["class"]) || !array_key_exists($_GET["class"], DO_NOT_DISPLAY)) {
