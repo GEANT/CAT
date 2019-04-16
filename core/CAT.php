@@ -552,7 +552,7 @@ class CAT extends \core\common\Entity {
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $handle = DBConnection::handle("EXTERNAL");    
             $timeStart = microtime(true);
-            $federations = $handle->exec("SELECT DISTINCT UPPER(country) AS country FROM view_active_idp_institution ORDER BY country");
+            $federations = $handle->exec("SELECT DISTINCT UPPER(country) AS country FROM view_country_eduroamdb ORDER BY country");
             $timeEnd = microtime(true);
             $timeElapsed = $timeEnd - $timeStart;
             // the query yielded a mysqli_result because it's a SELECT, this never gives back a boolean
