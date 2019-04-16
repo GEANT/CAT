@@ -86,7 +86,7 @@ class ExternalEduroamDBData extends EntityWithDBProperties {
             if ($oneVariant == NULL) {
                 return [];
             }
-            if (!preg_match('/^\[(.*)\]\ (.*)/', $oneVariant, $submatches) || !isset($submatches[2])) {
+            if (!preg_match('/^(..):\ (.*)/', $oneVariant, $submatches) || !isset($submatches[2])) {
                 throw new Exception("We expect '[CC] bla but found '$oneVariant'.");
             }
             $returnArray[$submatches[1]] = $submatches[2];
@@ -110,6 +110,7 @@ class ExternalEduroamDBData extends EntityWithDBProperties {
     }
 
     public function listExternalEntities($tld) {
+        $returnarray = [];
         $query = "SELECT id_institution AS id, country, inst_realm as realmlist, name AS collapsed_name, contact AS collapsed_contact FROM view_active_idp_institution WHERE country = ?";
         $externalHandle = DBConnection::handle("EXTERNAL");
         $externals = $externalHandle->exec($query, "s", $tld);
