@@ -465,7 +465,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
         countrySelection(t);
         return false;
     });
-    $(document).on('change', '#idp_country, #sp_country, #asp_country' , function() {
+    $(document).on('change', '#idp_country' , function() {
         var comment = <?php echo '"' . _("Fetching institutions list") . '..."'; ?>;  
         var id = $(this).attr('id');
         var k = id.indexOf('_');
@@ -476,6 +476,58 @@ $Gui->languageInstance->setTextDomain("diagnostics");
             $.ajax({
                 url: "findRealm.php",
                 data: {type: 'inst', co: co, lang: lang},
+                dataType: "json",
+                success:function(data) {
+                    if (data.status === 1) {
+                        inProgress(0);
+                        var institutions = data.institutions;
+                        var shtml = '';
+                        var select = '';
+                        if (type !== 'asp') {
+                            shtml = <?php echo '"<td>' . _("Select institution:") . '</td><td>"'; ?>;
+                        }
+                        select = '<select id="' + type + '_inst" name="' + type + '_inst" style="margin-left:0px; width:400px;"><option value=""></option>';
+                        for (var i in institutions) {
+                            select = select + '<option value="' + institutions[i].ID + '">' + institutions[i].name + '</option>';
+                        }
+                        select = select + '</select>';
+                        if (type !== 'asp') {
+                            shtml = shtml + select + '</td>';
+                            $('#row_' + type + '_institution').html('');
+                            $('#row_' + type + '_institution').append(shtml);
+                            $('#row_' + type + '_realm').html('');
+                            $('#row_' + type + '_institution').css('visibility', 'visible');
+                        } else {
+                            $('#inst_' + type + '_area').html(select);
+                            $('#' + type + '_desc').show();
+                        }    
+                        reset_footer();
+                    }
+                },
+                error:function() {
+                    inProgress(0);
+                    alert('error');
+                }
+            }); 
+        } else {
+            $('#' + type + '_inst').remove();
+            $('#row_' + type + '_institution').css('visibility', 'collapse');
+            $('#start_test_area').hide();
+            $('#row_idp_realm').html("");
+        }
+        return false;
+    });
+    $(document).on('change', '#sp_country, #asp_country' , function() {
+        var comment = <?php echo '"' . _("Fetching institutions list") . '..."'; ?>;  
+        var id = $(this).attr('id');
+        var k = id.indexOf('_');
+        var type = id.substr(0,k);
+        co=$('#'+type+'_country').val();
+        if (co !== "") {
+            inProgress(1, comment);
+            $.ajax({
+                url: "findRealm.php",
+                data: {type: 'hotspot', co: co, lang: lang},
                 dataType: "json",
                 success:function(data) {
                     if (data.status === 1) {

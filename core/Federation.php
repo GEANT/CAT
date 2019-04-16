@@ -339,22 +339,25 @@ Best regards,
         return $returnarray;
     }
 
+    public const EDUROAM_DB_TYPE_IDPSP = "1";
+    public const EDUROAM_DB_TYPE_SP = "2";
+    public const EDUROAM_DB_TYPE_IDP = "3";
+    
     /**
      * cross-checks in the EXTERNAL customer DB which institutions exist there for the federations
      * 
-     * @param bool $unmappedOnly if set to TRUE, only returns those which do not have a known mapping to our internally known institutions
+     * @param bool   $unmappedOnly if set to TRUE, only returns those which do not have a known mapping to our internally known institutions
+     * @param string $type         type of institution to search for, see constants above
      * @return array
      */
-    public function listExternalEntities($unmappedOnly) {
+    public function listExternalEntities($unmappedOnly, $type) {
         $returnarray = [];
 
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $usedarray = [];
-            $query = "SELECT id_institution AS id, country, inst_realm as realmlist, name AS collapsed_name, contact AS collapsed_contact FROM view_active_idp_institution WHERE country = ?";
-
-
             $externalHandle = DBConnection::handle("EXTERNAL");
-            $externals = $externalHandle->exec($query, "s", $this->tld);
+            $query = "SELECT id_institution AS id, country, inst_realm as realmlist, name AS collapsed_name, contact AS collapsed_contact FROM view_active_institution WHERE country = ? AND ( type = '".Federation::EDUROAM_DB_TYPE_IDPSP."' OR type = ? )";
+            $externals = $externalHandle->exec($query, "ss", $this->tld, $type);
             $syncstate = IdP::EXTERNAL_DB_SYNCSTATE_SYNCED;
             $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution 
                                                                                                      WHERE external_db_id IS NOT NULL 
