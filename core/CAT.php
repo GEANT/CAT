@@ -520,7 +520,7 @@ class CAT extends \core\common\Entity {
                 $scanforrealm = "OR inst_realm LIKE '%$realm%'";
             }
             $externalHandle = DBConnection::handle("EXTERNAL");
-            $infoList = $externalHandle->exec("SELECT name AS collapsed_name, inst_realm as realmlist, contact AS collapsed_contact, country FROM view_active_idp_institution WHERE id_institution = $externalId $scanforrealm");
+            $infoList = $externalHandle->exec("SELECT name AS collapsed_name, inst_realm as realmlist, contact AS collapsed_contact, country, type FROM view_active_institution WHERE id_institution = $externalId $scanforrealm");
             // split names and contacts into proper pairs
             // SELECT never returns a boolean, always a mysqli_object
             while ($externalEntityQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $infoList)) {
@@ -537,6 +537,7 @@ class CAT extends \core\common\Entity {
                 }
                 $list['country'] = strtoupper($externalEntityQuery->country);
                 $list['realmlist'] = $externalEntityQuery->realmlist;
+                $list['type'] = $externalEntityQuery->type;
             }
         }
         return $list;

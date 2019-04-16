@@ -96,7 +96,7 @@ $returnArray = [];
             if ($realmQueryType == "inst") {
                 if ($realmCountry) {
                     $fed = new \core\Federation(strtoupper($realmCountry));
-                    $details = $fed->listExternalEntities(FALSE);
+                    $details = $fed->listExternalEntities(FALSE, core\ExternalEduroamDBData::TYPE_IDP);
                     if (!empty($details)) {
                         $returnArray['status'] = 1;
                         $returnArray['institutions'] = $details;

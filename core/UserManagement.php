@@ -252,11 +252,11 @@ class UserManagement extends \core\common\Entity {
                 $tokenList[$token] = $oneDest;
             } else if (func_num_args() == 4) { // string name, but no country - new IdP with link to external DB
                 // what country are we talking about?
-                // TODO: find out participant type!
                 $cat = new CAT();
                 $extinfo = $cat->getExternalDBEntityDetails($externalId);
                 $extCountry = $extinfo['country'];
-                $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country, external_db_uniquehandle) VALUES(?, ?, ?, ?, ?, ?)", "ssssss", $level, $oneDest, $token, $instIdentifier, $extCountry, $externalId);
+                $extType = $extinfo['type'];
+                $this->databaseHandle->exec("INSERT INTO invitations (invite_fortype, invite_issuer_level, invite_dest_mail, invite_token,name,country, external_db_uniquehandle) VALUES(?, ?, ?, ?, ?, ?, ?)", "sssssss", $extType, $level, $oneDest, $token, $instIdentifier, $extCountry, $externalId);
                 $tokenList[$token] = $oneDest;
             } else if (func_num_args() == 6) { // string name, and country set - whole new IdP
                 $this->databaseHandle->exec("INSERT INTO invitations (invite_fortype, invite_issuer_level, invite_dest_mail, invite_token,name,country) VALUES(?, ?, ?, ?, ?, ?)", "ssssss", $partType, $level, $oneDest, $token, $instIdentifier, $country);

@@ -343,10 +343,11 @@ Best regards,
     /**
      * cross-checks in the EXTERNAL customer DB which institutions exist there for the federations
      * 
-     * @param bool $unmappedOnly if set to TRUE, only returns those which do not have a known mapping to our internally known institutions
+     * @param bool   $unmappedOnly if set to TRUE, only returns those which do not have a known mapping to our internally known institutions
+     * @param string $type         which type of entity to search for
      * @return array
      */
-    public function listExternalEntities($unmappedOnly) {
+    public function listExternalEntities($unmappedOnly, $type = NULL) {
         $allExternals = [];
         $usedarray = [];
         $returnarray = [];
@@ -373,7 +374,7 @@ Best regards,
 
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $eduroamDb = new ExternalEduroamDBData();
-            $allExternals = $eduroamDb->listExternalEntities($this->tld);
+            $allExternals = $eduroamDb->listExternalEntities($this->tld, $type);
         }
         foreach ($allExternals as $oneExternal) {
             if (!in_array($oneExternal["ID"], $usedarray)) {

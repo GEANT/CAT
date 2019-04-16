@@ -109,9 +109,22 @@ class ExternalEduroamDBData extends EntityWithDBProperties {
         return $this->SPList;
     }
 
-    public function listExternalEntities($tld) {
+    public const TYPE_IDPSP = "1";
+    public const TYPE_SP = "2";
+    public const TYPE_IDP = "3";
+    /**
+     * retrieves entity information from the eduroam database. Choose whether to get all entities with an SP role, an IdP role, or only those with both roles
+     * 
+     * @param string      $tld  the top-level domain from which to fetch the entities
+     * @param string|NULL $type type of entity to retrieve
+     * @return array list of entities
+     */
+    public function listExternalEntities($tld, $type) {
         $returnarray = [];
-        $query = "SELECT id_institution AS id, country, inst_realm as realmlist, name AS collapsed_name, contact AS collapsed_contact FROM view_active_idp_institution WHERE country = ?";
+        $query = "SELECT id_institution AS id, country, inst_realm as realmlist, name AS collapsed_name, contact AS collapsed_contact, type FROM view_active_institution WHERE country = ?";
+        if ($type !== NULL) {
+            $query .= " AND ( type = '".ExternalEduroamDBData::TYPE_IDPSP."' OR type = '".$type."')";
+        }
         $externalHandle = DBConnection::handle("EXTERNAL");
         $externals = $externalHandle->exec($query, "s", $tld);
         // was a SELECT query, so a resource and not a boolean
@@ -133,7 +146,7 @@ class ExternalEduroamDBData extends EntityWithDBProperties {
                     $mailnames .= $matches[2];
                 }
             }
-            $returnarray[] = ["ID" => $externalQuery->id, "name" => $thelanguage, "contactlist" => $mailnames, "country" => $externalQuery->country, "realmlist" => $externalQuery->realmlist];
+            $returnarray[] = ["ID" => $externalQuery->id, "name" => $thelanguage, "contactlist" => $mailnames, "country" => $externalQuery->country, "realmlist" => $externalQuery->realmlist, "type" => $externalQuery->type];
         }
         usort($returnarray, array($this, "usortInstitution"));
         return $returnarray;
