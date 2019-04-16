@@ -73,7 +73,7 @@ if (CONFIG['DB']['enforce-external-sync']) {
 
             echo "<td colspan='4'>
                 <select id='externals' name='externals' onchange='document.sendinvite.creation[0].checked=true; document.sendinvite.mailaddr.value=this.options[this.selectedIndex].id;'>
-                    <option value='FREETEXT'>" . _("--- select IdP here ---") . "</option>";
+                    <option value='FREETEXT'>" . sprintf(_("--- select %s here ---"),$uiElements->nomenclatureParticipant) . "</option>";
 
             foreach ($feds as $fed_value) {
                 $thefed = new \core\Federation(strtoupper($fed_value['value']));

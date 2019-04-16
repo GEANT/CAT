@@ -223,7 +223,7 @@ class Federation extends EntityWithDBProperties {
         $this->databaseHandle->exec("INSERT INTO institution (country, type) VALUES('$this->tld', '$type')");
         $identifier = $this->databaseHandle->lastID();
 
-        if ($identifier == 0 || !$this->loggerInstance->writeAudit($ownerId, "NEW", "IdP $identifier")) {
+        if ($identifier == 0 || !$this->loggerInstance->writeAudit($ownerId, "NEW", "Organisation $identifier")) {
             $text = "<p>Could not create a new " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_inst'] . "!</p>";
             echo $text;
             throw new Exception($text);
@@ -240,16 +240,29 @@ class Federation extends EntityWithDBProperties {
         }
         $admins = $this->listFederationAdmins();
 
+        switch ($type) {
+            case ExternalEduroamDBData::TYPE_IDP:
+                $prettyPrintType = common\Entity::$nomenclature_inst;
+                break;
+            case ExternalEduroamDBData::TYPE_SP:
+                $prettyPrintType = common\Entity::$nomenclature_hotspot;
+                break;
+            default:
+                /// IdP and SP
+                $prettyPrintType = sprintf(_("%s and %s"), common\Entity::$nomenclature_inst, common\Entity::$nomenclature_hotspot);
+        }
+
         // notify the fed admins...
 
         foreach ($admins as $id) {
             $user = new User($id);
-            /// arguments are: 1. nomenclature for "institution"
-            //                 2. IdP name; 
+            /// arguments are: 1. nomenclature for the type of organisation being created (IdP/SP/both)
+            ///                2. IdP name; 
             ///                3. consortium name (e.g. eduroam); 
             ///                4. federation shortname, e.g. "LU"; 
-            ///                5. product name (e.g. eduroam CAT); 
-            ///                6. product long name (e.g. eduroam Configuration Assistant Tool)
+            ///                5. nomenclature for "institution"
+            ///                6. product name (e.g. eduroam CAT); 
+            ///                7. product long name (e.g. eduroam Configuration Assistant Tool)
             $message = sprintf(_("Hi,
 
 the invitation for the new %s %s in your %s federation %s has been used and the IdP was created in %s.
@@ -258,8 +271,15 @@ We thought you might want to know.
 
 Best regards,
 
-%s"), common\Entity::$nomenclature_inst, $bestnameguess, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], strtoupper($this->tld), CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname_long']);
-            $retval = $user->sendMailToUser(sprintf(_("%s in your federation was created"), common\Entity::$nomenclature_inst), $message);
+%s"), 
+                    $prettyPrintType,
+                    $bestnameguess,
+                    CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'],
+                    strtoupper($this->tld),
+                    common\Entity::$nomenclature_participant,
+                    CONFIG['APPEARANCE']['productname'],
+                    CONFIG['APPEARANCE']['productname_long']);
+            $retval = $user->sendMailToUser(sprintf(_("%s in your federation was created"), common\Entity::$nomenclature_participant), $message);
             if ($retval === FALSE) {
                 $this->loggerInstance->debug(2, "Mail to federation admin was NOT sent!\n");
             }
