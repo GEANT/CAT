@@ -279,6 +279,7 @@ Best regards,
                     common\Entity::$nomenclature_participant,
                     CONFIG['APPEARANCE']['productname'],
                     CONFIG['APPEARANCE']['productname_long']);
+            /// organisation
             $retval = $user->sendMailToUser(sprintf(_("%s in your federation was created"), common\Entity::$nomenclature_participant), $message);
             if ($retval === FALSE) {
                 $this->loggerInstance->debug(2, "Mail to federation admin was NOT sent!\n");
