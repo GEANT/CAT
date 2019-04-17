@@ -241,6 +241,9 @@ $Gui->languageInstance->setTextDomain("diagnostics");
     }
     function isDomain(realm) {
         realm = trimRealm(realm);
+        if (realm.indexOf('.') == -1) {
+            return false;
+        }
         var re = new RegExp(/^((([0-9]{1,3}\.){3}[0-9]{1,3})|(([a-zA-Z0-9]+(([\-]?[a-zA-Z0-9]+)*\.)+)*[a-zA-Z]{2,}))$/);
         if (re.test(realm)) {
             return true;
