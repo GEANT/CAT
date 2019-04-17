@@ -136,6 +136,7 @@ class Devices extends \core\common\Entity {
                     'sign' => 1,
                     'device_id' => 'W10',
                     'args' => 'gl',
+                    'clientcert' => Devices::SUPPORT_ECDSA,
                     'mime' => 'application/x-dosexec',
                 ],
             ],
@@ -149,6 +150,7 @@ class Devices extends \core\common\Entity {
                 'options' => [
                     'sign' => 1,
                     'device_id' => 'W8',
+                    'clientcert' => Devices::SUPPORT_ECDSA,
                     'mime' => 'application/x-dosexec',
                 ],
             ],
@@ -361,6 +363,21 @@ class Devices extends \core\common\Entity {
                 'options' => [
                     'mime' => 'application/x-onc',
                     'message' => sprintf(_("After downloading the file, open the Chrome browser and browse to this URL: <a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</a>. Then, use the 'Import ONC file' button. The import is silent; the new network definitions will be added to the preferred networks.")),
+                ],
+            ],
+            'android_q' => [
+                'group' => "android",
+                'display' => _("Android 10.0 Q"),
+                'match' => 'Android 10',
+                'directory' => 'xml',
+                'module' => 'Lollipop',
+                'options' => [
+                    'mime' => 'application/eap-config',
+                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                            "eduroamCAT",
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
+                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
+                            "<a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
                 ],
             ],
             'android_pie' => [
