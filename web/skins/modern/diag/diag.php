@@ -58,7 +58,7 @@ require dirname(__DIR__) . '/user/js/cat_js.php';
 <link rel="stylesheet" media="screen" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("CSS", "diag.css", "diag"); ?>" />
 </head>
 <body>
-<div id='wrap'>
+<div id='wrap' style='background-image:url("<?php echo $Gui->skinObject->findResourceUrl("IMAGES", "beta.png"); ?>");'>
 <form id="cat_form" name="cat_form" accept-charset="UTF-8" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="POST">
 <?php
 echo $divs->divHeading($visibility);
@@ -78,7 +78,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
     </div>
     <div id="main_body">
         <div id="user_page">
-            <?php echo $divs->divPagetitle(_("Diagnostics site"), ""); ?>
+            <?php echo $divs->divPagetitle(_("Diagnostics site") . " (<span style='color:red'>beta</span>)", ""); ?>
             <div id="user_info" style='padding-top: 10px;'>
             <div id='diagnostic_choice'>
                 <?php echo _("The diagnostics system will do its best to identify and resolve your problems!") . ' ' . _("Please help the system by answering the questions as precisely as possible.") . "<br/>" . _("Are you a") . ' '; ?>
