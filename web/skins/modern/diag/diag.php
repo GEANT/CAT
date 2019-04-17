@@ -257,7 +257,6 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                 value: realm
             }).appendTo('form');
         }  
-        console.log('call processSociopath');
         $.ajax({
             url: "processSociopath.php",
             data: {answer: answer},
@@ -502,11 +501,22 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                             $('#' + type + '_desc').show();
                         }    
                         reset_footer();
+                    } else {
+                        if (data.status === 0) {
+                            inProgress(0);
+                            var msg = <?php echo '"' . _("The database does not contain the information needed to help you in realm selection for this country. You have to provide realm you are interested in.") . '"'; ?>;
+                            alert(msg);
+                            $('#select_idp_country').show();
+                            $('#select_idp_area').hide();
+                        }
                     }
                 },
                 error:function() {
                     inProgress(0);
-                    alert('error');
+                    var msg = <?php echo '"' . _("Can not search database. You have to provide realm you are interested in.") . '"'; ?>;
+                    alert(msg);
+                    $('#select_idp_country').show();
+                    $('#select_idp_area').hide();
                 }
             }); 
         } else {
@@ -532,15 +542,15 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                 success:function(data) {
                     if (data.status === 1) {
                         inProgress(0);
-                        var institutions = data.institutions;
+                        var hotspots = data.hotspots;
                         var shtml = '';
                         var select = '';
                         if (type !== 'asp') {
                             shtml = <?php echo '"<td>' . _("Select institution:") . '</td><td>"'; ?>;
                         }
                         select = '<select id="' + type + '_inst" name="' + type + '_inst" style="margin-left:0px; width:400px;"><option value=""></option>';
-                        for (var i in institutions) {
-                            select = select + '<option value="' + institutions[i].ID + '">' + institutions[i].name + '</option>';
+                        for (var i in hotspots) {
+                            select = select + '<option value="' + hotspots[i].ID + '">' + hotspots[i].name + '</option>';
                         }
                         select = select + '</select>';
                         if (type !== 'asp') {
@@ -554,11 +564,28 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                             $('#' + type + '_desc').show();
                         }    
                         reset_footer();
+                    } else {
+                        if (data.status === 0) {
+                            inProgress(0);
+                            var select = '<select id="' + type + '_inst" name="' + type + '_inst" style="margin-left:0px; width:400px;"><option value="">';
+                            var shtml = '<td></td><td>';
+                            select = select + <?php echo '"' . _("Other location") . '"'; ?> + '</option></select></td>';
+                            if (type !== 'asp') {
+                                $('#row_' + type + '_institution').html('');
+                                $('#row_' + type + '_institution').append(shtml + select);
+                                $('#row_' + type + '_realm').html('');
+                                $('#row_' + type + '_institution').css('visibility', 'visible');
+                            } else {
+                                $('#inst_' + type + '_area').html(select);
+                                $('#' + type + '_desc').show();
+                            }
+                            reset_footer();
+                        }
                     }
                 },
                 error:function() {
                     inProgress(0);
-                    alert('error');
+                    reset_footer();
                 }
             }); 
         } else {
