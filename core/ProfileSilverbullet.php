@@ -52,12 +52,16 @@ class ProfileSilverbullet extends AbstractProfile {
 
     const SB_ACKNOWLEDGEMENT_REQUIRED_DAYS = 365;
 
+    /**
+     * terms and conditions for use of this functionality
+     * 
+     * @var string
+     */
     public $termsAndConditions;
 
-    /*
-     * 
+    /**
+     * the displayed name of this feature
      */
-
     const PRODUCTNAME = "Managed IdP";
 
     /**
@@ -166,6 +170,7 @@ class ProfileSilverbullet extends AbstractProfile {
      * @param string $mime           the mime type of the new installer
      * @param int    $integerEapType the inter-representation of the EAP type that is configured in this installer
      * @return void
+     * @throws Exception
      */
     public function updateCache($device, $path, $mime, $integerEapType) {
         // caching is not supported in SB (private key in installers)
@@ -182,6 +187,7 @@ class ProfileSilverbullet extends AbstractProfile {
      * @param \core\common\EAP $type       The EAP Type, as defined in class EAP
      * @param int              $preference preference of this EAP Type. If a preference value is re-used, the order of EAP types of the same preference level is undefined.
      * @return void
+     * @throws Exception
      */
     public function addSupportedEapMethod(\core\common\EAP $type, $preference) {
         // the parameters really should only list SB and with prio 1 - otherwise,
@@ -298,6 +304,7 @@ class ProfileSilverbullet extends AbstractProfile {
      * revoke all active certificates and pending invitations of a user
      * @param int $userId the username
      * @return boolean was the user found and deactivated?
+     * @throws Exception
      */
     public function deactivateUser($userId) {
         // does the user exist and is active, anyway?

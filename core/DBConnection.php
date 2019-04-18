@@ -51,6 +51,7 @@ class DBConnection {
      * 
      * @param string $database the database type to open
      * @return DBConnection the (only) instance of this class
+     * @throws Exception
      */
     public static function handle($database) {
         $theDb = strtoupper($database);
@@ -243,6 +244,7 @@ class DBConnection {
      * Class constructor. Cannot be called directly; use handle()
      * 
      * @param string $database the database to open
+     * @throws Exception
      */
     private function __construct($database) {
         $this->loggerInstance = new \core\common\Logging();

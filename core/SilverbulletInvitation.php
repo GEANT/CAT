@@ -306,6 +306,7 @@ class SilverbulletInvitation extends common\Entity {
      * 
      * @param string $properEmail the email address
      * @return array status of the sending
+     * @throws Exception
      */
     public function sendByMail($properEmail) {
         common\Entity::intoThePotatoes();

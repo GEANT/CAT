@@ -35,26 +35,147 @@ use \SoapFault;
 
 class SilverbulletCertificate extends EntityWithDBProperties {
 
+    /**
+     * The username in the certificate (CN)
+     * 
+     * @var string
+     */
     public $username;
+    
+    /**
+     * expiry date and time of the certificate in mysql date notation
+     * 
+     * @var string
+     */
     public $expiry;
+    
+    /**
+     * serial number of the certificate. For CAs with serials beyond 64 bit 
+     * length, this is a string, otherwise an integer. Storage in SQL is always
+     * a BLOB so can handle both.
+     * 
+     * @var integer|string
+     */
     public $serial;
+    
+    /**
+     * row index of this certificate in the database table
+     * 
+     * @var integer
+     */
     public $dbId;
+    
+    /**
+     * the row index of the invitation which was consumed to generate this 
+     * certificate
+     * 
+     * @var integer
+     */
     public $invitationId;
+    
+    /**
+     * the user ID that belongs to this certificate
+     * 
+     * @var integer
+     */
     public $userId;
+    
+    /**
+     * the ID of the profile to which this certificate belongs
+     * 
+     * @var integer
+     */
     public $profileId;
+    
+    /**
+     * date and time of issuance of the certificate (start of validity) in MySQL
+     * timestamp notation
+     * 
+     * @var string
+     */
     public $issued;
+    
+    /**
+     * the device for which this certificate was generated
+     * 
+     * @var string
+     */
     public $device;
+    
+    /**
+     * whether or not this certificate is revoked. Can take values REVOKED or
+     * NOT_REVOKED
+     * 
+     * @var string
+     */
     public $revocationStatus;
+    
+    /**
+     * date and time of revocation of this certificate, if any. In MySQL 
+     * timestamp notation
+     * 
+     * @var string
+     */
     public $revocationTime;
+    
+    /**
+     * the most current OCSP statement for this certificate (binary data)
+     * 
+     * @var string
+     */
     public $ocsp;
+    
+    /**
+     * date and time of issuance of the current OCSP statement for this 
+     * certificate (mySQL timestamp notation)
+     * 
+     * @var string
+     */
     public $ocspTimestamp;
+    
+    /**
+     * overall status of the certificate. See constants below for possible 
+     * values.
+     * 
+     * @var integer
+     */
     public $status;
+    
+    /**
+     * which CA issued the certificate. Typical values are "RSA" or "ECDSA".
+     * 
+     * @var string
+     */
     public $ca_type;
+    
+    /**
+     * any additional info about the certificate. Expected to be a JSON string.
+     * 
+     * @var string
+     */
     public $annotation;
 
+    /**
+     * Certificate is valid at the current point in time.
+     */
     const CERTSTATUS_VALID = 1;
+    
+    /**
+     * Certificate has expired. This status is set regardless whether it has 
+     * also been revoked before; once the expiry date is over, it is just
+     * expired.
+     * 
+     */
     const CERTSTATUS_EXPIRED = 2;
+    
+    /**
+     * Certificate is within its validity time, but has been revoked.
+     */
     const CERTSTATUS_REVOKED = 3;
+    
+    /**
+     * This is not a certificate we know about.
+     */
     const CERTSTATUS_INVALID = 4;
 
     /**
@@ -161,6 +282,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * 
      * @param string $type which engine to use
      * @return CertificationAuthorityInterface engine to use
+     * @throws Exception
      */
     public static function getCaEngine($type) {
      switch ($type) {
@@ -185,6 +307,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * @param string $importPassword the PIN
      * @param string $certtype       is this for the RSA or ECDSA CA?
      * @return array
+     * @throws Exception
      */
     public static function issueCertificate($token, $importPassword, $certtype) {
         $loggerInstance = new common\Logging();

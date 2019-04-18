@@ -23,8 +23,25 @@ namespace web\lib\admin;
 
 class PageDecoration extends \core\common\Entity {
 
+    /**
+     * an instance of the InputValidation class
+     * 
+     * @var \web\lib\common\InputValidation
+     */
     private $validator;
+    
+    /**
+     * an instance of the UIElements class
+     * 
+     * @var \web\lib\admin\UIElements
+     */
     private $ui;
+    
+    /**
+     * an instance of the Language class
+     * 
+     * @var \core\common\Language
+     */
     private $langObject;
     
     /**

@@ -42,15 +42,96 @@ use \Exception;
  */
 abstract class MobileconfigSuperclass extends \core\DeviceConfig {
 
+    /**
+     * institution name in preferred language
+     * 
+     * @var string
+     */
     private $instName;
+    
+    /**
+     * profile name in preferred language
+     * 
+     * @var string
+     */
     private $profileName;
+    
+    /**
+     * institution name, massaged to make it fit into the XML payload descriptor
+     * 
+     * @var string
+     */
     private $massagedInst;
+    
+    /**
+     * profile name, massaged to make it fit into the XML payload descriptor
+     * 
+     * @var string
+     */
     private $massagedProfile;
+    
+    /**
+     * country name, massaged to make it fit into the XML payload descriptor
+     * 
+     * @var string
+     */
     private $massagedCountry;
+    
+    /**
+     * consortium name, massaged to make it fit into the XML payload descriptor
+     * 
+     * @var string
+     */
     private $massagedConsortium;
+    
+    /**
+     * current language, without any .CHARSET suffixes
+     * 
+     * @var string
+     */
     private $lang;
-    static private $iPhonePayloadPrefix = "org.1x-config";
+    
+    /**
+     * if we include a client certificate (silverbullet), the UUID of the certificate
+     * 
+     * @var string
+     */
     private $clientCertUUID;
+
+    /**
+     * iterator to uniquely identify every Wi-Fi payload with a suffix in the file
+     * 
+     * @var integer
+     */
+    private $serial;
+    
+    /**
+     * iterator to uniquely identify every removal payload with a suffix in the file
+     * @var integer
+     */
+    private $removeSerial;
+    
+    /**
+     * iterator to uniquely identify evera CA payload with a suffix in the file
+     * 
+     * @var integer
+     */
+    private $caSerial;
+    
+    /**
+     * we need to be cautious not to include a CA twice, even if the admin
+     * included it twice in the CAT config. This variable takes note of all
+     * CA certs we already added to the file.
+     * 
+     * @var array
+     */
+    private $CAsAccountedFor = [];
+    
+    /**
+     * we need a globally valid domain anchor, independent of the consortium
+     */
+    const IPHONE_PAYLOAD_PREFIX = "org.1x-config";
+    
 
     /**
      * construct with the standard set of EAP methods we support, and preload
@@ -95,13 +176,13 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
       <key>PayloadDisplayName</key>
          <string>" . CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'] . "</string>
       <key>PayloadIdentifier</key>
-         <string>" . self::$iPhonePayloadPrefix . ".$this->massagedConsortium.$this->massagedCountry.$this->massagedInst.$this->massagedProfile.$this->lang</string>
+         <string>" . self::IPHONE_PAYLOAD_PREFIX . ".$this->massagedConsortium.$this->massagedCountry.$this->massagedInst.$this->massagedProfile.$this->lang</string>
       <key>PayloadOrganization</key>
          <string>" . htmlspecialchars(iconv("UTF-8", "UTF-8//IGNORE", $this->attributes['general:instname'][0]), ENT_XML1, 'UTF-8') . ( $this->attributes['internal:profile_count'][0] > 1 ? " (" . htmlspecialchars(iconv("UTF-8", "UTF-8//IGNORE", $this->attributes['profile:name'][0]), ENT_XML1, 'UTF-8') . ")" : "") . "</string>
       <key>PayloadType</key>
          <string>Configuration</string>
       <key>PayloadUUID</key>
-         <string>" . \core\common\Entity::uuid('', self::$iPhonePayloadPrefix . $this->massagedConsortium . $this->massagedCountry . $this->massagedInst . $this->massagedProfile) . "</string>
+         <string>" . \core\common\Entity::uuid('', self::IPHONE_PAYLOAD_PREFIX . $this->massagedConsortium . $this->massagedCountry . $this->massagedInst . $this->massagedProfile) . "</string>
       <key>PayloadVersion</key>
          <integer>1</integer>";
         \core\common\Entity::outOfThePotatoes();
@@ -152,7 +233,6 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
      * create the actual installer XML file
      * 
      * @return string filename of the generated installer
-     *
      */
     public function writeInstaller() {
         \core\common\Entity::intoThePotatoes();
@@ -320,10 +400,6 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
         return $retval;
     }
 
-    private $serial;
-    private $removeSerial;
-    private $caSerial;
-
     /**
      * produces the EAP sub-block of a Network block
      * 
@@ -474,7 +550,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
                <key>PayloadDisplayName</key>
                   <string>$payloadShortName</string>
                <key>PayloadIdentifier</key>
-                  <string>" . self::$iPhonePayloadPrefix . ".$this->massagedConsortium.$this->massagedCountry.$this->massagedInst.$this->massagedProfile.$this->lang.$payloadIdentifier</string>
+                  <string>" . self::IPHONE_PAYLOAD_PREFIX . ".$this->massagedConsortium.$this->massagedCountry.$this->massagedInst.$this->massagedProfile.$this->lang.$payloadIdentifier</string>
                <key>PayloadOrganization</key>
                   <string>" . $this->massagedConsortium . ".1x-config.org</string>
                <key>PayloadType</key>
@@ -523,7 +599,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
 	<key>PayloadDisplayName</key>
 	<string>" . _("Disabled WiFi network") . "</string>
 	<key>PayloadIdentifier</key>
-	<string>" . self::$iPhonePayloadPrefix . ".$this->massagedConsortium.$this->massagedCountry.$this->massagedInst.$this->massagedProfile.$this->lang.wifi.disabled.$this->removeSerial</string>
+	<string>" . self::IPHONE_PAYLOAD_PREFIX . ".$this->massagedConsortium.$this->massagedCountry.$this->massagedInst.$this->massagedProfile.$this->lang.wifi.disabled.$this->removeSerial</string>
 	<key>PayloadType</key>
 	<string>com.apple.wifi.managed</string>
 	<key>PayloadUUID</key>
@@ -645,8 +721,6 @@ $mimeFormatted
         <date>" . $expiryTime->format("Y-m-d") . "T" . $expiryTime->format("H:i:s") . "Z</date>";
     }
 
-    private $CAsAccountedFor = [];
-
     /**
      * creates a block for one single CA
      * 
@@ -674,7 +748,7 @@ $mimeFormatted
                <key>PayloadDisplayName</key>
                <string>" . sprintf(_("%s CA"), \core\common\Entity::$nomenclature_inst) . "</string>
                <key>PayloadIdentifier</key>
-               <string>" . self::$iPhonePayloadPrefix . ".$this->massagedConsortium.$this->massagedCountry.$this->massagedInst.$this->massagedProfile.credential.$this->caSerial</string>
+               <string>" . self::IPHONE_PAYLOAD_PREFIX . ".$this->massagedConsortium.$this->massagedCountry.$this->massagedInst.$this->massagedProfile.credential.$this->caSerial</string>
                <key>PayloadOrganization</key>
                <string>" . $this->massagedConsortium . ".1x-config.org</string>
                <key>PayloadType</key>

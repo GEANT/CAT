@@ -79,6 +79,7 @@ class IdP extends EntityWithDBProperties {
      * Cannot be used to define a new IdP in the database! This happens via Federation::newIdP()
      *
      * @param int $instId the database row identifier
+     * @throws Exception
      */
     public function __construct(int $instId) {
         $this->databaseType = "INST";

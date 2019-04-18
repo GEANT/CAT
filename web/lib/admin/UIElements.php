@@ -78,7 +78,7 @@ class UIElements extends \core\common\Entity {
      * 
      * @param string $input raw text in need of a human-readable display variant
      * @return string the human-readable variant
-     * @throws Exception
+     * @throws \Exception
      */
     public function displayName($input) {
         \core\common\Entity::intoThePotatoes();

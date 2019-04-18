@@ -309,6 +309,8 @@ class MapOpenLayers extends AbstractMap {
      * @return string
      */
     public static function optionListDisplayCode($coords, $number) {
+        // we don't need this parameter in this subclass
+        unset($coords);
         \core\common\Entity::intoThePotatoes();
         $retval = "<button id='location_b_" . $number . "' class='location_button'>" . _("Click to see location") . " $number</button>";
         \core\common\Entity::outOfThePotatoes();

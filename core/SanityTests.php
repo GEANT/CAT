@@ -55,15 +55,26 @@ require_once dirname(dirname(__FILE__)) . "/core/PHPMailer/src/SMTP.php";
 class SanityTests extends CAT {
     /* in this section set current CAT requirements */
 
-    /* $php_needversion sets the minumum required php version */
-
-    // because of bug:
-    // Fixed bug #74005 (mail.add_x_header causes RFC-breaking lone line feed).
+    /** 
+     * the minumum required php version 
+     * 
+     * @var string
+     */
     private $php_needversion = '7.2.0';
+    
+    /**
+     * the minimum required simpleSAMLphp version
+     * 
+     * @var array
+     */
     private $ssp_needversion = ['major' => 1, 'minor' => 15];
 
 
-    /* List all required NSIS modules below */
+    /** 
+     * all required NSIS modules
+     * 
+     * @var array<string>
+     */
     private $NSIS_Modules = [
         "nsArray.nsh",
         "FileFunc.nsh",
@@ -73,13 +84,36 @@ class SanityTests extends CAT {
         "x64.nsh",
     ];
 
-    /* set $profile_option_ct to the number of rows returned by "SELECT * FROM profile_option_dict" */
+    /**
+     * set $profile_option_ct to the number of rows returned by 
+     * "SELECT * FROM profile_option_dict" 
+     * to compare actual vs. expected database structure
+     * 
+     * @var integer
+     */
     private $profile_option_ct;
-    /* set $view_admin_ct to the number of rows returned by "desc view_admin" */
+    
+    /**
+     * set $view_admin_ct to the number of rows returned by "desc view_admin" 
+     *
+     * @var integer
+     */
     private $view_admin_ct = 8;
 
     /* end of config */
+    
+    /**
+     * array holding the output of all tests that were executed
+     * 
+     * @var array
+     */
     public $out;
+    
+    /**
+     * temporary storage for the name of the test as it is being run
+     * 
+     * @var string
+     */
     public $name;
 
     /**

@@ -33,17 +33,54 @@ require_once dirname(dirname(__DIR__)) . "/config/_config.php";
  */
 class Telepath extends AbstractTest {
 
+    /**
+     * the realm we are testing
+     * 
+     * @var string
+     */
     private $realm;
+    
+    /**
+     * the federation where the user currently is
+     * 
+     * @var string|NULL
+     */
     private $visitedFlr;
+    
+    /**
+     * the identifier of the hotspot where the user currently is
+     * 
+     * @var string|NULL
+     */
     private $visitedHotspot;
+    
+    /**
+     * the CAT profile to which the realm belongs, if any
+     * 
+     * @var integer
+     */
     private $catProfile;
+    
+    /**
+     * the identifier of the associated IdP in the external DB, if any
+     * 
+     * @var string
+     */
     private $dbIdP;
     
     /**
-     *
-     * @var string|null
+     * the federation to which the realm belongs; can be NULL if we can't infer
+     * from domain ending nor find it in the DB
+     * 
+     * @var string|NULL
      */
     private $idPFederation;
+    
+    /**
+     * instance of the RADIUSTests suite we use to meditate with
+     * 
+     * @var \core\diag\RADIUSTests
+     */
     private $testsuite;
 
     /**
@@ -267,6 +304,7 @@ class Telepath extends AbstractTest {
      * Is the NRO server itself in order?
      * @param string $whichSide test towards the IdP or SP side?
      * @return array
+     * @throws Exception
      */
     private function checkFlrServerStatus($whichSide) {
         switch ($whichSide) {

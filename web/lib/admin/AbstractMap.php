@@ -30,8 +30,25 @@ require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
  */
 abstract class AbstractMap extends \core\common\Entity {
 
+    /**
+     * the institution name
+     * 
+     * @var string
+     */
     protected $instName;
+    
+    /**
+     * the federation name
+     * 
+     * @var string
+     */
     protected $fedName;
+    
+    /**
+     * are we editing, or merely displaying a map?
+     * 
+     * @var boolean
+     */
     protected $readOnly;
 
     /**
