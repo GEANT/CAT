@@ -117,7 +117,7 @@ if (!empty($realmByUser)) {
             case "hotspot":
                 if ($realmCountry) {
                     $fed = new \core\Federation(strtoupper($realmCountry));
-                    $details = $fed->listExternalEntities(FALSE, \core\Federation::EDUROAM_DB_TYPE_SP);
+                    $details = $fed->listExternalEntities(FALSE, core\IdP::TYPE_SP);
                     if (!empty($details)) {
                         $returnArray['status'] = 1;
                         $returnArray['hotspots'] = $details;

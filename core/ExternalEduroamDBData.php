@@ -75,19 +75,15 @@ class ExternalEduroamDBData extends EntityWithDBProperties {
      * @return array language/name pair
      */
     private function splitNames($nameRaw) {
-        // the delimiter used by eduroam DB is ; but that is ALSO an allowed
-        // character in payload, and in active use. We need to try and find out
-        // which semicolon should NOT be considered a language delimiter...
-        $cleanName = preg_replace('/;\[/', '##DBLIMIT##[', $nameRaw);
-        $variants = explode('##DBLIMIT##', $cleanName);
+        $variants = explode('#', $nameRaw);
         $submatches = [];
         $returnArray = [];
         foreach ($variants as $oneVariant) {
             if ($oneVariant == NULL) {
-                return [];
+                continue;
             }
             if (!preg_match('/^(..):\ (.*)/', $oneVariant, $submatches) || !isset($submatches[2])) {
-                throw new Exception("We expect '[CC] bla but found '$oneVariant'.");
+                throw new Exception("We expect 'xx: bla but found '$oneVariant'.");
             }
             $returnArray[$submatches[1]] = $submatches[2];
         }

@@ -79,7 +79,7 @@ if (CONFIG['DB']['enforce-external-sync']) {
                 $thefed = new \core\Federation(strtoupper($fed_value['value']));
                 $temparray = [];
                 $contacts = [];
-                $entities = $thefed->listExternalEntities(TRUE, \core\Federation::EDUROAM_DB_TYPE_IDP);
+                $entities = $thefed->listExternalEntities(TRUE, NULL);
 
                 foreach ($entities as $v) {
                     echo "<option id='" . $v['contactlist'] . "' value='" . $v['ID'] . "'>[" . $fed_value['value'] . "] " . $v['name'] . "</option>";

@@ -399,7 +399,21 @@ Best regards,
 
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $eduroamDb = new ExternalEduroamDBData();
-            $allExternals = $eduroamDb->listExternalEntities($this->tld, $type);
+            // need to convert our internal notion of participant types to those of eduroam DB
+            $eduroamDbType = NULL; // anything
+            switch ($type) {
+                case IdP::TYPE_IDP:
+                    $eduroamDbType = ExternalEduroamDBData::TYPE_IDP;
+                    break;
+                case IdP::TYPE_IDPSP:
+                    $eduroamDbType = ExternalEduroamDBData::TYPE_IDPSP;
+                    break;
+                case IdP::TYPE_SP:
+                    $eduroamDbType = ExternalEduroamDBData::TYPE_SP;
+                    break;
+                default:
+            }
+            $allExternals = $eduroamDb->listExternalEntities($this->tld, $eduroamDbType);
         }
         foreach ($allExternals as $oneExternal) {
             if (!in_array($oneExternal["ID"], $usedarray)) {
