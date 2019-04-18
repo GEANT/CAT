@@ -174,7 +174,7 @@ if (isset($_POST['submitbutton'])) {
             }
             // we might have been wrong in our guess...
             $fed = new \core\Federation(strtoupper($my_inst->federation));
-            $unmappedentities = $fed->listExternalEntities(TRUE, \core\Federation::EDUROAM_DB_TYPE_IDP);
+            $unmappedentities = $fed->listExternalEntities(TRUE, $my_inst->type);
             // only display the "other" options if there is at least one
             $buffer = "";
 
