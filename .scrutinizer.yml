@@ -494,8 +494,8 @@ build:
                   title: "Checking whether output is well-formed XML and validates against Schema"
                 - 
                   command: if [ "$TEST_LANGUAGE_VARIANTS" == "1" ]; then cd /home/scrutinizer/build/utils; /home/scrutinizer/.phpenv/versions/7.3.3/bin/php installTranslations.php; sudo apachectl restart; cd /home/scrutinizer/build/tests; /home/scrutinizer/.phpenv/versions/7.3.3/bin/php prepareMultiLangDownloads.php; /bin/bash ./langTestScript.sh; fi
-services:
-    mariadb: 10
+    services:
+        mariadb: 10
 tools:
     php_code_coverage:
         enabled: true
