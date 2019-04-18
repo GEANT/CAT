@@ -54,6 +54,11 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
      */
     private $issuingKey;
 
+    /**
+     * sets up the environment so that we can do certificate stuff
+     * 
+     * @throws Exception
+     */
     public function __construct() {
         $this->databaseType = "INST";
         parent::__construct();
@@ -84,6 +89,14 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
         $this->conffile = CertificationAuthorityEmbeddedECDSA::LOCATION_CONFIG;
     }
 
+    /**
+     * create new OCSP statement by making an ephemeral index.txt file for
+     * openssl and working with that on the cmdline
+     * 
+     * @param integer $serial serial number; integer because it is <=64 bit
+     * @return string the OCSP statement
+     * @throws Exception
+     */
     public function triggerNewOCSPStatement($serial): string {
         $cert = new SilverbulletCertificate($serial, \devices\Devices::SUPPORT_EMBEDDED_ECDSA);
         $certstatus = "";
@@ -151,6 +164,14 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
         return $ocsp;
     }
 
+    /**
+     * sign CSR
+     * 
+     * @param array $csr the request metadata. The member $csr['CSR'] must be a PHP *resource*
+     * @param integer $expiryDays how many days should the cert be valid?
+     * @return array the cert and some metadata
+     * @throws Exception
+     */
     public function signRequest($csr, $expiryDays) {
         $nonDupSerialFound = FALSE;
         do {
@@ -175,13 +196,27 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
         ];
     }
 
+    /**
+     * the generic caller in SilverbulletCertificate::revokeCertificate
+     * has already updated the DB. So all is done; we simply create a new
+     * OCSP statement based on the updated DB content
+     * 
+     * @param integer $serial the serial to revoke, integer because <=64 bit
+     * @return void
+     */
     public function revokeCertificate($serial): void {
-        // the generic caller in SilverbulletCertificate::revokeCertificate
-        // has already updated the DB. So all is done; we simply create a new
-        // OCSP statement based on the updated DB content
         $this->triggerNewOCSPStatement($serial);
     }
 
+    /**
+     * generates a CSR with parameters compatible with the CA.
+     * 
+     * @param \resource $privateKey the private key
+     * @param string    $fed        federation, for the C= field
+     * @param string    $username   the username, for the CN= field
+     * @return array
+     * @throws Exception
+     */
     public function generateCompatibleCsr($privateKey, $fed, $username) {
         $newCsr = openssl_csr_new(
                 ['O' => CONFIG_CONFASSISTANT['CONSORTIUM']['name'],
@@ -203,6 +238,12 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
         ];
     }
 
+    /**
+     * generates a private key compatible with the CA
+     * 
+     * @return \resource
+     * @throws Exception
+     */
     public function generateCompatiblePrivateKey(): \resource {
         $key = openssl_pkey_new(['curve_name' => 'secp384r1', 'private_key_type' => OPENSSL_KEYTYPE_EC, 'encrypt_key' => FALSE]);
         if ($key === FALSE) {

@@ -23,6 +23,11 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
     private const EDUPKI_CERT_PROFILE = "User SOAP";
     private const EDUPKI_RA_PKEY_PASSPHRASE = "...";
 
+    /**
+     * sets up the environment so that we can talk to eduPKI
+     * 
+     * @throws Exception
+     */
     public function __construct() {
         $this->databaseType = "INST";
         parent::__construct();
@@ -38,12 +43,26 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
         }
     }
 
+    /**
+     * Creates an updated OCSP statement. Nothing to be done here - eduPKI have
+     * their own OCSP responder and the certs point to it. So we are not in the 
+     * loop.
+     * 
+     * @param string $serial serial number of the certificate. Serials are 128 bit, so forcibly a string.
+     * @return array
+     */
     public function triggerNewOCSPStatement($serial): string {
-        // nothing to be done here - eduPKI have their own OCSP responder
-        // and the certs point to it. So we are not in the loop.
         return "EXTERNAL";
     }
 
+    /**
+     * signs a CSR
+     * 
+     * @param array   $csr        the request structure. The member $csr['CSR'] must contain the CSR in *PEM* format
+     * @param integer $expiryDays how many days should the certificate be valid
+     * @return array the certificate with some meta info
+     * @throws Exception
+     */
     public function signRequest($csr, $expiryDays): array {
         // initialise connection to eduPKI CA / eduroam RA and send the request to them
         try {
@@ -195,6 +214,13 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
         ];
     }
 
+    /**
+     * revokes a certificate
+     * 
+     * @param string $serial the serial, as a string because it is a 128 bit number
+     * @return void
+     * @throws Exception
+     */
     public function revokeCertificate($serial): void {
         try {
             $soap = $this->initEduPKISoapSession("RA");
@@ -336,6 +362,15 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
                 . '</' . $x[0] . '>';
     }
 
+    /**
+     * generates a CSR which eduPKI likes (DC components etc.)
+     * 
+     * @param \resource $privateKey a private key
+     * @param string    $fed        name of the federation, for C= field
+     * @param string    $username   username, for CN= field
+     * @return array the CSR along with some meta information
+     * @throws Exception
+     */
     public function generateCompatibleCsr($privateKey, $fed, $username): array {
         $tempdirArray = \core\common\Entity::createTemporaryDirectory("test");
         $tempdir = $tempdirArray['dir'];
@@ -367,6 +402,12 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
         ];
     }
 
+    /**
+     * generates a private key eduPKI can handle
+     * 
+     * @return \resource the key
+     * @throws Exception
+     */
     public function generateCompatiblePrivateKey(): \resource {
         $key = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
         if ($key === FALSE) {

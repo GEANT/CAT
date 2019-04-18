@@ -32,7 +32,7 @@ interface CertificationAuthorityInterface {
     /**
      * Creates an updated OCSP statement
      * 
-     * @param mixed $serial
+     * @param string|integer $serial serial number of the certificate. String if number is >64 bit long.
      * @return array
      */
     public function triggerNewOCSPStatement($serial) : string;
@@ -40,8 +40,8 @@ interface CertificationAuthorityInterface {
     /**
      * signs a certificate request
      * 
-     * @param array $csr the array with the CSR and meta info as generated in generateCompatibleCsr()
-     * @param int $expiryDays how many days should the cert be valid
+     * @param array $csr        the array with the CSR and meta info as generated in generateCompatibleCsr()
+     * @param int   $expiryDays how many days should the cert be valid
      * @return array information about the signed certificate
      */
     public function signRequest($csr, $expiryDays) : array;
@@ -49,7 +49,7 @@ interface CertificationAuthorityInterface {
     /**
      * revokes a certificate
      * 
-     * @param mixed $serial
+     * @param string|integer $serial serial number of the certificate. String if number is >64 bit long.
      * @return void
      */
     public function revokeCertificate($serial) : void;
