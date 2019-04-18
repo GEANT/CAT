@@ -218,7 +218,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         while ($oneResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $incoming)) { // there is only at most one
             $this->username = $oneResult->cn;
             $this->expiry = $oneResult->expiry;
-            $this->serial = $oneResult->sn;
+            $this->serial = $oneResult->serial_number;
             $this->dbId = $oneResult->id;
             $this->invitationId = $oneResult->silverbullet_invitation_id;
             $this->userId = $oneResult->silverbullet_user_id;
