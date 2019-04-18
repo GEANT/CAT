@@ -40,7 +40,7 @@ while ($serialRow = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allSeri
 #    echo "Updating OCSP statement for serial number $serialRow->serial_number\n";
     $certObject = new \core\SilverbulletCertificate($serialRow->serial_number, $serialRow->ca_type);
     $caEngine = \core\SilverbulletCertificate::getCaEngine($serialRow->ca_type);
-    $caEngine->triggerNewOCSPStatement($certObject);
+    $caEngine->triggerNewOCSPStatement($certObject->serial);
 }
 
  /* 

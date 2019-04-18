@@ -33,7 +33,7 @@ interface CertificationAuthorityInterface {
      * Creates an updated OCSP statement
      * 
      * @param string|integer $serial serial number of the certificate. String if number is >64 bit long.
-     * @return array
+     * @return string
      */
     public function triggerNewOCSPStatement($serial) : string;
     

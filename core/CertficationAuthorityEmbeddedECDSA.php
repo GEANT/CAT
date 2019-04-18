@@ -167,7 +167,7 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
     /**
      * sign CSR
      * 
-     * @param array $csr the request metadata. The member $csr['CSR'] must be a PHP *resource*
+     * @param array   $csr        the request metadata. The member $csr['CSR'] must be a PHP *resource*
      * @param integer $expiryDays how many days should the cert be valid?
      * @return array the cert and some metadata
      * @throws Exception

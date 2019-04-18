@@ -49,9 +49,10 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
      * loop.
      * 
      * @param string $serial serial number of the certificate. Serials are 128 bit, so forcibly a string.
-     * @return array
+     * @return string a dummy string instead of a real statement
      */
     public function triggerNewOCSPStatement($serial): string {
+        unset($serial); // not needed
         return "EXTERNAL";
     }
 
