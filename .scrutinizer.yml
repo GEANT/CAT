@@ -105,15 +105,13 @@ checks:
 build:
     nodes:
         analysis:
-            environment:
-                php:
-                    version: 7.2.17
             project_setup:
-                override:
-                    - sudo /home/scrutinizer/.phpenv/versions/7.3.4/bin/pear install PHP_CodeSniffer-3.4.2
+                override: true
             tests:
                 override:
-                    - phpcs-run
+                    - 
+                        command: phpcs-run
+                        use_website_config: true
                     - php-scrutinizer-run --enable-security-analysis
                     - js-scrutinizer-run
         tests:
