@@ -41,21 +41,21 @@ class SilverbulletInvitation extends common\Entity {
     /**
      * row ID in the database pertaining to this invitation. 0 on invalid invitations.
      * 
-     * @var int
+     * @var integer
      */
     public $identifier;
 
     /**
      * The profile this invitation belongs to. 0 on invalid invitations.
      * 
-     * @var int
+     * @var integer
      */
     public $profile;
 
     /**
      * The user this invitation was created for (integer DB ID). 0 on invalid invitations.
      * 
-     * @var int
+     * @var integer
      */
     public $userId;
 
@@ -67,7 +67,7 @@ class SilverbulletInvitation extends common\Entity {
 
     /**
      * 
-     * @var int
+     * @var integer
      */
     public $invitationTokenStatus;
 
@@ -81,14 +81,14 @@ class SilverbulletInvitation extends common\Entity {
     /**
      * How many devices were allowed to be activated in total? 0 on invalid invitations.
      * 
-     * @var int
+     * @var integer
      */
     public $activationsTotal;
 
     /**
      * How many devices have not yet been activated? 0 on invalid invitations.
      *
-     * @var int
+     * @var integer
      */
     public $activationsRemaining;
 

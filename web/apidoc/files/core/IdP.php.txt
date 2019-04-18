@@ -53,7 +53,7 @@ class IdP extends EntityWithDBProperties {
 
     /**
      *
-     * @var int synchronisation state with external database, if any
+     * @var integer synchronisation state with external database, if any
      */
     private $externalDbSyncstate;
 
