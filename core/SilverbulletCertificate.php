@@ -380,7 +380,8 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         $databaseHandle->exec("INSERT INTO `silverbullet_certificate` (`profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`, `ca_type`) VALUES (?, ?, ?, ?, ?, ?, ?)", "iiissss", $invitationObject->profile, $invitationObject->userId, $invitationObject->identifier, $serial, $csr["USERNAME"], $realExpiryDate, $certtype);
         // newborn cert immediately gets its "valid" OCSP response
         $certObject = new SilverbulletCertificate($serial, $certtype);
-        $caEngine->triggerNewOCSPStatement($certObject->serial);
+        // the engine knows the format of its own serial numbers, no reason to get excited
+        $caEngine->triggerNewOCSPStatement(/** @scrutinizer ignore-type */ $certObject->serial);
 // return PKCS#12 data stream
         return [
             "certObject" => $certObject,
@@ -411,7 +412,8 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         // embedded CA does "nothing special" for revocation: the DB change was the entire thing to do
         // but for external CAs, we need to notify explicitly that the cert is now revoked
         $caEngine = SilverbulletCertificate::getCaEngine($certObject->ca_type);
-        $caEngine->revokeCertificate($certObject->serial);
+        // the engine knows the format of its own serial numbers, no reason to get excited
+        $caEngine->revokeCertificate(/** @scrutinizer ignore-type */ $certObject->serial);
     }
 
     /**
