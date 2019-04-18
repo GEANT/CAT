@@ -106,7 +106,8 @@ build:
     nodes:
         analysis:
             project_setup:
-                override: true
+                override:
+                    - sudo /home/scrutinizer/.phpenv/versions/7.3.4/bin/pear install PHP_CodeSniffer-3.4.2
             tests:
                 override:
                     - 
