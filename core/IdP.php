@@ -51,11 +51,10 @@ class IdP extends EntityWithDBProperties {
     const EXTERNAL_DB_SYNCSTATE_NOT_SYNCED = 0;
     const EXTERNAL_DB_SYNCSTATE_SYNCED = 1;
     const EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING = 2;
-
     const TYPE_IDP = 'IdP';
-    const TYPE_SP  = 'SP';
+    const TYPE_SP = 'SP';
     const TYPE_IDPSP = 'IdPSP';
-    
+
     /**
      *
      * @var integer synchronisation state with external database, if any
@@ -73,7 +72,7 @@ class IdP extends EntityWithDBProperties {
      * @var string
      */
     public $type;
-    
+
     /**
      * Constructs an IdP object based on its details in the database.
      * Cannot be used to define a new IdP in the database! This happens via Federation::newIdP()
@@ -143,7 +142,7 @@ class IdP extends EntityWithDBProperties {
         $this->loggerInstance->debug(4, "listProfiles: " . print_r($returnarray, true));
         return $returnarray;
     }
-    
+
     /**
      * This function retrieves all SP deployments for this organisation from the database
      *
@@ -156,7 +155,7 @@ class IdP extends EntityWithDBProperties {
         $returnarray = [];
         // SELECT -> resource, not boolean
         while ($deploymentQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allDeployments)) {
-            $returnarray[] = new DeploymentManaged($this,$deploymentQuery->deployment_id);
+            $returnarray[] = new DeploymentManaged($this, $deploymentQuery->deployment_id);
         }
 
         $this->loggerInstance->debug(4, "listDeployments: " . print_r($returnarray, true));
@@ -239,6 +238,7 @@ class IdP extends EntityWithDBProperties {
 
     const ELIGIBILITY_IDP = "IdP";
     const ELIGIBILITY_SP = "SP";
+
     /**
      * checks whether the participant is an IdP, an SP, or both.
      * 
@@ -249,15 +249,15 @@ class IdP extends EntityWithDBProperties {
         while ($iterator = mysqli_fetch_object(/** @scrutinizer ignore-type */ $eligibilites)) {
             switch ($iterator->type) {
                 case "IdP":
-                    return [ IdP::ELIGIBILITY_IDP ];
+                    return [IdP::ELIGIBILITY_IDP];
                 case "SP":
-                    return [ IdP::ELIGIBILITY_SP ];
+                    return [IdP::ELIGIBILITY_SP];
                 default:
-                    return [ IdP::ELIGIBILITY_IDP, IdP::ELIGIBILITY_SP ];
+                    return [IdP::ELIGIBILITY_IDP, IdP::ELIGIBILITY_SP];
             }
         }
     }
-    
+
     /**
      * This function sets the timestamp of last modification of the child profiles to the current timestamp.
      * 
@@ -309,17 +309,17 @@ class IdP extends EntityWithDBProperties {
      * @return DeploymentManaged the newly created deployment
      */
     public function newDeployment(string $type) {
-            switch ($type) {
-                case AbstractDeployment::DEPLOYMENTTYPE_CLASSIC:
-                    // classic deployment exist in the eduroam DB. We don't do anything here.
-                    throw new Exception("This type of deployment is handled externally and requesting it here makes no sense.");
-                case AbstractDeployment::DEPLOYMENTTYPE_MANAGED:
-                    $this->databaseHandle->exec("INSERT INTO deployment (inst_id) VALUES($this->identifier)");
-                    $identifier = $this->databaseHandle->lastID();
-                    return new DeploymentManaged($this, $identifier);
-                default:
-                    throw new Exception("This type of deployment is unknown and can not be added.");
-            }
+        switch ($type) {
+            case AbstractDeployment::DEPLOYMENTTYPE_CLASSIC:
+                // classic deployment exist in the eduroam DB. We don't do anything here.
+                throw new Exception("This type of deployment is handled externally and requesting it here makes no sense.");
+            case AbstractDeployment::DEPLOYMENTTYPE_MANAGED:
+                $this->databaseHandle->exec("INSERT INTO deployment (inst_id) VALUES($this->identifier)");
+                $identifier = $this->databaseHandle->lastID();
+                return new DeploymentManaged($this, $identifier);
+            default:
+                throw new Exception("This type of deployment is unknown and can not be added.");
+        }
     }
 
     /**
@@ -370,38 +370,36 @@ Best regards,
      * 
      * @return mixed list of entities in external database that correspond to this IdP or FALSE if no consortium-specific matching function is defined
      */
-    public function getExternalDBSyncCandidates() {
+    public function getExternalDBSyncCandidates($type) {
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $list = [];
             $usedarray = [];
             // extract all institutions from the country
-            $externalHandle = DBConnection::handle("EXTERNAL");
-            $lowerFed = strtolower($this->federation);
-            $candidateList = $externalHandle->exec("SELECT id_institution AS id, name AS collapsed_name FROM view_active_idp_institution WHERE country = ?", "s", $lowerFed);
+
+
             $syncstate = self::EXTERNAL_DB_SYNCSTATE_SYNCED;
             $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id IS NOT NULL AND external_db_syncstate = ?", "i", $syncstate);
             // SELECT -> resource, not boolean
             while ($alreadyUsedQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $alreadyUsed)) {
                 $usedarray[] = $alreadyUsedQuery->external_db_id;
             }
-
+            $lowerFed = strtolower($this->federation);
+            $returnarray[] = ["ID" => $externalQuery->id, "name" => $thelanguage, "contactlist" => $mailnames, "country" => $externalQuery->country, "realmlist" => $externalQuery->realmlist, "type" => $externalQuery->type];
+            $eduroamDb = new ExternalEduroamDBData();
+            $candidateList = $eduroamDb->listExternalEntities($lowerFed, $type);
             // and split them into ID, LANG, NAME pairs (operating on a resource, not boolean)
-            while ($candidateListQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $candidateList)) {
-                if (in_array($candidateListQuery->id, $usedarray)) {
+            foreach ($candidateList as $oneCandidate) {
+                if (in_array($oneCandidate['ID'], $usedarray)) {
                     continue;
                 }
-                $names = explode('#', $candidateListQuery->collapsed_name);
-                foreach ($names as $name) {
-                    $perlang = explode(': ', $name, 2);
-                    $list[] = ["ID" => $candidateListQuery->id, "lang" => $perlang[0], "name" => $perlang[1]];
-                }
+                $list[] = $oneCandidate;
             }
-            // now see if any of the languages in CAT match any of those in the external DB
+            // now see if any of the languages in CAT match the best one we have gotten from DB
             $mynames = $this->getAttributes("general:instname");
             $matchingCandidates = [];
             foreach ($mynames as $onename) {
                 foreach ($list as $listentry) {
-                    if (($onename['lang'] == $listentry['lang'] || $onename['lang'] == "C") && $onename['value'] == $listentry['name'] && array_search($listentry['ID'], $matchingCandidates) === FALSE) {
+                    if ($onename['value'] == $listentry['name'] && array_search($listentry['ID'], $matchingCandidates) === FALSE) {
                         $matchingCandidates[] = $listentry['ID'];
                     }
                 }
