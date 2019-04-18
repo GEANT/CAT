@@ -168,8 +168,7 @@ switch ($operationMode) {
                 $prettyprintname = $name;
             }
         }
-        // TODO when we have access to the data
-        $participant_type = "IdPSP";
+        $participant_type = $extinfo['type'];
         // fill the rest of the text
         $introtext = "EXISTING-FED";
         // do the token creation magic

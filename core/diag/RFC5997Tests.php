@@ -58,7 +58,7 @@ class RFC5997Tests extends AbstractTest {
     /**
      * port of candidate hotspot
      * 
-     * @var int
+     * @var integer
      */
     private $port;
 

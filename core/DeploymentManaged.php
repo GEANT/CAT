@@ -61,14 +61,14 @@ class DeploymentManaged extends AbstractDeployment {
     /**
      * the primary RADIUS server port for this SP instance
      * 
-     * @var int
+     * @var integer
      */
     public $port1;
 
     /**
      * the backup RADIUS server port for this SP instance
      * 
-     * @var int
+     * @var integer
      */
     public $port2;
 

@@ -414,6 +414,14 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         $caEngine->revokeCertificate($certObject);
     }
 
+    /**
+     * we need a unique CN for every certificate. This function generates a
+     * random CN and verifies that it does not yet exist in the DB
+     * 
+     * @param string $realm    the realm for the username
+     * @param string $certtype typically RSA or ECDSA
+     * @return string the username, realm included
+     */
     private static function findUniqueUsername($realm, $certtype) {
         $databaseHandle = DBConnection::handle("INST");
         $usernameIsUnique = FALSE;
