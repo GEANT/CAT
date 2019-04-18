@@ -360,10 +360,6 @@ Best regards,
         }
         return $returnarray;
     }
-
-    public const EDUROAM_DB_TYPE_IDP = "1";
-    public const EDUROAM_DB_TYPE_SP = "2";
-    public const EDUROAM_DB_TYPE_IDPSP = "3";
     
     /**
      * cross-checks in the EXTERNAL customer DB which institutions exist there for the federations
