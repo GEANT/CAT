@@ -55,7 +55,7 @@ class CAT extends \core\common\Entity {
      */
     const VERSION_MAJOR = 2;
     const VERSION_MINOR = 0;
-    const VERSION_PATCH = 0;
+    const VERSION_PATCH = 1;
     const VERSION_EXTRA = "";
     const RELEASE_VERSION = TRUE;
     const USER_API_VERSION = 2;
@@ -67,7 +67,7 @@ class CAT extends \core\common\Entity {
     const COPYRIGHT_HOLDER = "G&Eacute;ANT Association";
     const COPYRIGHT_CONSORTIA = "the G&Eacute;ANT Projects funded by EU";
     const COPYRIGHT_MIN_YEAR = 2011;
-    const COPYRIGHT_MAX_YEAR = 2018;
+    const COPYRIGHT_MAX_YEAR = 2019;
 
     /**
      * This is the user-displayed string; controlled by the four options above

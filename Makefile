@@ -1,4 +1,4 @@
-VERSION = CAT-2.0.0
+VERSION = CAT-2.0.1
 VV = $(VERSION)/
 .PHONY: translation
 
