@@ -279,6 +279,11 @@ class SanityTests extends CAT {
         }
     }
 
+    /**
+     * check whether the configured RADIUS hosts actually exist
+     * 
+     * @return void
+     */
     private function testRADIUSProbes() {
         $probeReturns = [];
         foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $oneProbe) {
@@ -845,14 +850,4 @@ class SanityTests extends CAT {
             $this->storeTestResult(\core\common\Entity::L_ERROR, "mailer settings failed, check the Config::MAILSETTINGS");
         }
     }
-
-    /**
-     * TODO test if RADIUS connections work
-     * 
-     * @return void
-     */
-    private function testUDPhosts() {
-//        if(empty)
-    }
-
 }
