@@ -13,6 +13,7 @@
         <ignore>build/*</ignore>
         <ignore>var/*</ignore>
         <ignore>vendor/*</ignore>
+	<ignore>core/GeoIP2/*</ignore>
     </files>
     <plugins>
         <plugin path="Core" />

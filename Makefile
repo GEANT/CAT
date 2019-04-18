@@ -1,4 +1,4 @@
-VERSION = CAT-2.0.0
+VERSION = CAT-2.0.1
 VV = $(VERSION)/
 .PHONY: translation
 
@@ -6,9 +6,7 @@ all: translation documentation
 
 documentation:
 	rm -Rf web/apidoc build
-#	mv core/phpqrcode.php core/phpqrcode.xyz
 	phpDocumentor.phar run -d . -i core/phpqrcode.php -i core/PHPMailer -i tests -i core/simpleSAMLphp -i core/PHPUnit -i core/GeoIP2 -i vendor -t web/apidoc/ --title "CAT - The IEEE 802.1X Configuration Assistant Tool" 
-#	mv core/phpqrcode.xyz core/phpqrcode.php
 
 pull_from_transifex:
 	tx pull --all --force
@@ -48,5 +46,5 @@ distribution: all
 	git submodule update --init devices/ms/Files/GEANTLink
 	find . -name \*.po~ -exec rm {} \;
 	find . -name svn-commit.tmp -exec rm {} \;
-	rm -R -f vendor phpcs.xml NewFolder nbproject .tx config/config-master.php config/config-confassistant.php config/config-diagnostics.php devices/Devices.php .codeclimate.yml .git .github .scrutinizer.yml .gitignore .gitmodules core/simpleSAMLphp core/PHPMailer core/PHPUnit core/GeoIP2
+	rm -R -f build vendor phpcs.xml NewFolder nbproject .tx config/config-master.php config/config-confassistant.php config/config-diagnostics.php devices/Devices.php .codeclimate.yml .git .github .scrutinizer.yml .gitignore .gitmodules core/simpleSAMLphp core/PHPMailer core/PHPUnit core/GeoIP2
 	tar -cvjf ../$(VERSION).tar.bz2 --show-transformed-names --exclude-vcs --xform 's/^\.\(\/\)/$(VERSION)\1/' .

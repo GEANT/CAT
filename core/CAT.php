@@ -67,19 +67,20 @@ class CAT extends \core\common\Entity {
     const COPYRIGHT_HOLDER = "G&Eacute;ANT Association";
     const COPYRIGHT_CONSORTIA = "the G&Eacute;ANT Projects funded by EU";
     const COPYRIGHT_MIN_YEAR = 2011;
-    const COPYRIGHT_MAX_YEAR = 2018;
+    const COPYRIGHT_MAX_YEAR = 2019;
 
-    /*
+    /**
      * This is the user-displayed string; controlled by the four options above
      * It is generated in the constructor.
      * 
      * @var string
      */
-
     public $CAT_VERSION_STRING;
 
-    /*
+    /**
      * The entire copyright line, generated in constructor
+     * 
+     * @var string
      */
     public $CAT_COPYRIGHT;
 

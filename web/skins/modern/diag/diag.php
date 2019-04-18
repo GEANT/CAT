@@ -58,7 +58,7 @@ require dirname(__DIR__) . '/user/js/cat_js.php';
 <link rel="stylesheet" media="screen" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("CSS", "diag.css", "diag"); ?>" />
 </head>
 <body>
-<div id='wrap'>
+<div id='wrap' style='background-image:url("<?php echo $Gui->skinObject->findResourceUrl("IMAGES", "beta.png"); ?>");'>
 <form id="cat_form" name="cat_form" accept-charset="UTF-8" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="POST">
 <?php
 echo $divs->divHeading($visibility);
@@ -78,7 +78,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
     </div>
     <div id="main_body">
         <div id="user_page">
-            <?php echo $divs->divPagetitle(_("Diagnostics site"), ""); ?>
+            <?php echo $divs->divPagetitle(_("Diagnostics site") . " (<span style='color:red'>beta</span>)", ""); ?>
             <div id="user_info" style='padding-top: 10px;'>
             <div id='diagnostic_choice'>
                 <?php echo _("The diagnostics system will do its best to identify and resolve your problems!") . ' ' . _("Please help the system by answering the questions as precisely as possible.") . "<br/>" . _("Are you a") . ' '; ?>
@@ -241,6 +241,9 @@ $Gui->languageInstance->setTextDomain("diagnostics");
     }
     function isDomain(realm) {
         realm = trimRealm(realm);
+        if (realm.indexOf('.') == -1) {
+            return false;
+        }
         var re = new RegExp(/^((([0-9]{1,3}\.){3}[0-9]{1,3})|(([a-zA-Z0-9]+(([\-]?[a-zA-Z0-9]+)*\.)+)*[a-zA-Z]{2,}))$/);
         if (re.test(realm)) {
             return true;
@@ -257,7 +260,6 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                 value: realm
             }).appendTo('form');
         }  
-        console.log('call processSociopath');
         $.ajax({
             url: "processSociopath.php",
             data: {answer: answer},
@@ -465,7 +467,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
         countrySelection(t);
         return false;
     });
-    $(document).on('change', '#idp_country, #sp_country, #asp_country' , function() {
+    $(document).on('change', '#idp_country' , function() {
         var comment = <?php echo '"' . _("Fetching institutions list") . '..."'; ?>;  
         var id = $(this).attr('id');
         var k = id.indexOf('_');
@@ -502,11 +504,91 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                             $('#' + type + '_desc').show();
                         }    
                         reset_footer();
+                    } else {
+                        if (data.status === 0) {
+                            inProgress(0);
+                            var msg = <?php echo '"' . _("The database does not contain the information needed to help you in realm selection for this country. You have to provide realm you are interested in.") . '"'; ?>;
+                            alert(msg);
+                            $('#select_idp_country').show();
+                            $('#select_idp_area').hide();
+                        }
                     }
                 },
                 error:function() {
                     inProgress(0);
-                    alert('error');
+                    var msg = <?php echo '"' . _("Can not search database. You have to provide realm you are interested in.") . '"'; ?>;
+                    alert(msg);
+                    $('#select_idp_country').show();
+                    $('#select_idp_area').hide();
+                }
+            }); 
+        } else {
+            $('#' + type + '_inst').remove();
+            $('#row_' + type + '_institution').css('visibility', 'collapse');
+            $('#start_test_area').hide();
+            $('#row_idp_realm').html("");
+        }
+        return false;
+    });
+    $(document).on('change', '#sp_country, #asp_country' , function() {
+        var comment = <?php echo '"' . _("Fetching institutions list") . '..."'; ?>;  
+        var id = $(this).attr('id');
+        var k = id.indexOf('_');
+        var type = id.substr(0,k);
+        co=$('#'+type+'_country').val();
+        if (co !== "") {
+            inProgress(1, comment);
+            $.ajax({
+                url: "findRealm.php",
+                data: {type: 'hotspot', co: co, lang: lang},
+                dataType: "json",
+                success:function(data) {
+                    if (data.status === 1) {
+                        inProgress(0);
+                        var hotspots = data.hotspots;
+                        var shtml = '';
+                        var select = '';
+                        if (type !== 'asp') {
+                            shtml = <?php echo '"<td>' . _("Select institution:") . '</td><td>"'; ?>;
+                        }
+                        select = '<select id="' + type + '_inst" name="' + type + '_inst" style="margin-left:0px; width:400px;"><option value=""></option>';
+                        for (var i in hotspots) {
+                            select = select + '<option value="' + hotspots[i].ID + '">' + hotspots[i].name + '</option>';
+                        }
+                        select = select + '</select>';
+                        if (type !== 'asp') {
+                            shtml = shtml + select + '</td>';
+                            $('#row_' + type + '_institution').html('');
+                            $('#row_' + type + '_institution').append(shtml);
+                            $('#row_' + type + '_realm').html('');
+                            $('#row_' + type + '_institution').css('visibility', 'visible');
+                        } else {
+                            $('#inst_' + type + '_area').html(select);
+                            $('#' + type + '_desc').show();
+                        }    
+                        reset_footer();
+                    } else {
+                        if (data.status === 0) {
+                            inProgress(0);
+                            var select = '<select id="' + type + '_inst" name="' + type + '_inst" style="margin-left:0px; width:400px;"><option value="">';
+                            var shtml = '<td></td><td>';
+                            select = select + <?php echo '"' . _("Other location") . '"'; ?> + '</option></select></td>';
+                            if (type !== 'asp') {
+                                $('#row_' + type + '_institution').html('');
+                                $('#row_' + type + '_institution').append(shtml + select);
+                                $('#row_' + type + '_realm').html('');
+                                $('#row_' + type + '_institution').css('visibility', 'visible');
+                            } else {
+                                $('#inst_' + type + '_area').html(select);
+                                $('#' + type + '_desc').show();
+                            }
+                            reset_footer();
+                        }
+                    }
+                },
+                error:function() {
+                    inProgress(0);
+                    reset_footer();
                 }
             }); 
         } else {
@@ -747,6 +829,13 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                 },
                 error: function (error) {
                     inProgress(0);
+                    if ($('#select_sp_area').is(':hidden')) {
+                        $('#position_info').show();
+                    }
+                    if ($('#select_idp_area').is(':hidden')) {
+                        $('#realm_by_select').show();
+                    }
+                    $('#user_realm').val("");
                     reset_footer();
                     alert('magicTelepath error');
                 }
