@@ -115,7 +115,8 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
         $tempdir = $tempdirArray['dir'];
         $nowIndexTxt = (new \DateTime())->format("ymdHis") . "Z";
         $expiryIndexTxt = $originalExpiry->format("ymdHis") . "Z";
-        $serialHex = strtoupper(dechex($cert->serial));
+        // serials for our CA are always integers
+        $serialHex = strtoupper(dechex((int)$cert->serial));
         if (strlen($serialHex) % 2 == 1) {
             $serialHex = "0" . $serialHex;
         }
