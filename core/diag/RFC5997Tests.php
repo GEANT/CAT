@@ -83,6 +83,12 @@ class RFC5997Tests extends AbstractTest {
         $this->secret = $secret;
     }
 
+    /**
+     * execute Status-Server and note the result
+     * 
+     * @return integer the status code
+     * @throws Exception
+     */
     public function statusServerCheck() {
         // request authenticator and other variable content
         $reqAuthenticator = random_bytes(16);

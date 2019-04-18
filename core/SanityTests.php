@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -55,13 +56,13 @@ require_once dirname(dirname(__FILE__)) . "/core/PHPMailer/src/SMTP.php";
 class SanityTests extends CAT {
     /* in this section set current CAT requirements */
 
-    /** 
+    /**
      * the minumum required php version 
      * 
      * @var string
      */
     private $php_needversion = '7.2.0';
-    
+
     /**
      * the minimum required simpleSAMLphp version
      * 
@@ -69,8 +70,7 @@ class SanityTests extends CAT {
      */
     private $ssp_needversion = ['major' => 1, 'minor' => 15];
 
-
-    /** 
+    /**
      * all required NSIS modules
      * 
      * @var array<string>
@@ -92,7 +92,7 @@ class SanityTests extends CAT {
      * @var integer
      */
     private $profile_option_ct;
-    
+
     /**
      * set $view_admin_ct to the number of rows returned by "desc view_admin" 
      *
@@ -101,14 +101,14 @@ class SanityTests extends CAT {
     private $view_admin_ct = 8;
 
     /* end of config */
-    
+
     /**
      * array holding the output of all tests that were executed
      * 
      * @var array
      */
     public $out;
-    
+
     /**
      * temporary storage for the name of the test as it is being run
      * 
@@ -276,6 +276,21 @@ class SanityTests extends CAT {
         } else {
             $rootFromScript = $m[1] === '' ? '/' : $m[1];
             $this->storeTestResult(\core\common\Entity::L_ERROR, "<strong>cat_base_url</strong> is set to <strong>" . CONFIG['PATHS']['cat_base_url'] . "</strong> and should be <strong>$rootFromScript</strong>");
+        }
+    }
+
+    private function testRADIUSProbes() {
+        $probeReturns = [];
+        foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $oneProbe) {
+            $statusServer = new diag\RFC5997Tests($oneProbe['ip'], 1812, $oneProbe['secret']);
+            if ($statusServer->statusServerCheck() !== diag\AbstractTest::RETVAL_OK) {
+                $probeReturns[] = $oneProbe['display_name'];
+            }
+        }
+        if (count($probeReturns) == 0) {
+            $this->storeTestResult(common\Entity::L_OK, "All configured RADIUS/UDP probes are reachable.");
+        } else {
+            $this->storeTestResult(common\Entity::L_ERROR, "The following RADIUS probes are NOT reachable: ".implode(', ',$probeReturns));
         }
     }
 
