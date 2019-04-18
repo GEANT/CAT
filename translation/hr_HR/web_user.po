@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-04 08:35+0200\n"
-"PO-Revision-Date: 2019-03-25 09:19+0000\n"
+"POT-Creation-Date: 2019-04-18 08:14+0200\n"
+"PO-Revision-Date: 2019-04-04 09:27+0000\n"
 "Last-Translator: Dubravko Penezic <dpenezic@gmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/hr_HR/)\n"
@@ -588,6 +588,8 @@ msgid ""
 "%s provides access to thousands of Wi-Fi hotspots around the world, free of "
 "charge. <a href='%s'>Learn more</a>"
 msgstr ""
+" %s provides access to thousands of Wi-Fi hotspots around the world, free of "
+"charge. <a href='%s'>Learn more</a>"
 
 #: web/lib/user/TextTemplates.php:96
 msgid "Select the user group"
@@ -660,6 +662,32 @@ msgstr "Prilagođeno za Vas"
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Digitalno potpisano od organizacije koja koordinira %s: %s"
 
+#: web/skins/modern/div_user_welcome.php:33
+msgid ""
+"we would like to warmly welcome you among the several million users of "
+"eduroam®! From now on, you will be able to use internet access resources on "
+"thousands of universities, research centres and other places all over the "
+"globe. All of this completely free of charge!"
+msgstr ""
+"Želimo Vam srdačnu dobrodošlicu među nekoliko milijuna eduroam® korisnika!Od "
+"sada, u mogućnosti ste koristiti internet pristup na tisuće sveučilišta "
+"istraživačkih centara i drugih mjesta diljem svijeta, i to besplatno!"
+
+#: web/skins/modern/div_user_welcome.php:36
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an eduroam® hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Sada kada ste preuzeli i instalirali konfigurator klijenta, sve što "
+"trebateje pronaći eduroam hotspot u svojoj blizini te unijeti korisničke "
+"podatke(korisničko ime i lozinku ili osobni certifikat) i biti povezani."
+
+#: web/skins/modern/index.php:78 web/skins/modern/test.php:80
+msgid "Authenticating"
+msgstr "Autenticiranje"
+
 #: web/skins/modern/Menu.php:51
 msgid "About"
 msgstr "Informacije"
@@ -726,32 +754,6 @@ msgstr "Postani CAT razvijatelj"
 #: web/skins/modern/Menu.php:79
 msgid "Terms of use"
 msgstr "Uvjeti korištenja"
-
-#: web/skins/modern/div_user_welcome.php:33
-msgid ""
-"we would like to warmly welcome you among the several million users of "
-"eduroam®! From now on, you will be able to use internet access resources on "
-"thousands of universities, research centres and other places all over the "
-"globe. All of this completely free of charge!"
-msgstr ""
-"Želimo Vam srdačnu dobrodošlicu među nekoliko milijuna eduroam® korisnika!Od "
-"sada, u mogućnosti ste koristiti internet pristup na tisuće sveučilišta "
-"istraživačkih centara i drugih mjesta diljem svijeta, i to besplatno!"
-
-#: web/skins/modern/div_user_welcome.php:36
-msgid ""
-"Now that you have downloaded and installed a client configurator, all you "
-"need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal "
-"certificate') - and be online!"
-msgstr ""
-"Sada kada ste preuzeli i instalirali konfigurator klijenta, sve što "
-"trebateje pronaći eduroam hotspot u svojoj blizini te unijeti korisničke "
-"podatke(korisničko ime i lozinku ili osobni certifikat) i biti povezani."
-
-#: web/skins/modern/index.php:78 web/skins/modern/test.php:80
-msgid "Authenticating"
-msgstr "Autenticiranje"
 
 #: web/skins/modern/accountstatus/accountstatus.php:79
 msgid ""

@@ -7,14 +7,14 @@
 # dsafar <dsafar@srce.hr>, 2012-2013
 # dsafar <dsafar@srce.hr>, 2013
 # dsafar <dsafar@srce.hr>, 2012
-# Dubravko Penezic <dpenezic@gmail.com>, 2012,2015
+# Dubravko Penezic <dpenezic@gmail.com>, 2012,2015,2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-04 08:35+0200\n"
-"PO-Revision-Date: 2019-03-22 20:48+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2019-04-18 08:14+0200\n"
+"PO-Revision-Date: 2019-04-04 09:35+0000\n"
+"Last-Translator: Dubravko Penezic <dpenezic@gmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/hr_HR/)\n"
 "Language: hr_HR\n"
@@ -24,274 +24,273 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: core/CAT.php:108
-msgid ""
-"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git "
-"Revision</a>"
-msgstr "Revizija</a>"
+#: core/CAT.php:109
+#, php-format
+msgid "Unreleased %s Git Revision"
+msgstr ""
 
-#: core/CAT.php:118
+#: core/CAT.php:119
 #, php-format
 msgid "Release <a href='%s'>%s</a>"
 msgstr "Izdanje <a href='%s'>%s</a>"
 
-#: core/CAT.php:127
+#: core/CAT.php:128
 msgid "Andorra"
 msgstr "Andora"
 
-#: core/CAT.php:128
+#: core/CAT.php:129
 msgid "Austria"
 msgstr "Austrija"
 
-#: core/CAT.php:129
+#: core/CAT.php:130
 msgid "Belgium"
 msgstr "Belgija"
 
-#: core/CAT.php:130
+#: core/CAT.php:131
 msgid "Bulgaria"
 msgstr "Bugarska"
 
-#: core/CAT.php:131
+#: core/CAT.php:132
 msgid "Cyprus"
 msgstr "Cipar"
 
-#: core/CAT.php:132
+#: core/CAT.php:133
 msgid "Czech Republic"
 msgstr "Češka"
 
-#: core/CAT.php:133
+#: core/CAT.php:134
 msgid "Denmark"
 msgstr "Danska"
 
-#: core/CAT.php:134
+#: core/CAT.php:135
 msgid "Estonia"
 msgstr "Estonija"
 
-#: core/CAT.php:135
+#: core/CAT.php:136
 msgid "Finland"
 msgstr "Finska"
 
-#: core/CAT.php:136
+#: core/CAT.php:137
 msgid "France"
 msgstr "Francuska"
 
-#: core/CAT.php:137
+#: core/CAT.php:138
 msgid "Germany"
 msgstr "Njemačka"
 
-#: core/CAT.php:138
+#: core/CAT.php:139
 msgid "Greece"
 msgstr "Grčka"
 
-#: core/CAT.php:139
+#: core/CAT.php:140
 msgid "Croatia"
 msgstr "Hrvatska"
 
-#: core/CAT.php:140
+#: core/CAT.php:141
 msgid "Ireland"
 msgstr "Irska"
 
-#: core/CAT.php:141
+#: core/CAT.php:142
 msgid "Iceland"
 msgstr "Island"
 
-#: core/CAT.php:142
+#: core/CAT.php:143
 msgid "Italy"
 msgstr "Italija"
 
-#: core/CAT.php:143
+#: core/CAT.php:144
 msgid "Hungary"
 msgstr "Mađarska"
 
-#: core/CAT.php:144
+#: core/CAT.php:145
 msgid "Luxembourg"
 msgstr "Luksemburg"
 
-#: core/CAT.php:145
+#: core/CAT.php:146
 msgid "Latvia"
 msgstr "Latvija"
 
-#: core/CAT.php:146
+#: core/CAT.php:147
 msgid "Lithuania"
 msgstr "Litva"
 
-#: core/CAT.php:147
+#: core/CAT.php:148
 msgid "Macedonia"
 msgstr "Makedonija"
 
-#: core/CAT.php:148
+#: core/CAT.php:149
 msgid "Serbia"
 msgstr "Srbija"
 
-#: core/CAT.php:149
+#: core/CAT.php:150
 msgid "Netherlands"
 msgstr "Nizozemska"
 
-#: core/CAT.php:150
+#: core/CAT.php:151
 msgid "Norway"
 msgstr "Norveška"
 
-#: core/CAT.php:151
+#: core/CAT.php:152
 msgid "Poland"
 msgstr "Poljska"
 
-#: core/CAT.php:152
+#: core/CAT.php:153
 msgid "Portugal"
 msgstr "Portugal"
 
-#: core/CAT.php:153
+#: core/CAT.php:154
 msgid "Romania"
 msgstr "Rumunjska"
 
-#: core/CAT.php:154
+#: core/CAT.php:155
 msgid "Slovenia"
 msgstr "Slovenija"
 
-#: core/CAT.php:155
+#: core/CAT.php:156
 msgid "Spain"
 msgstr "Španjolska"
 
-#: core/CAT.php:156
+#: core/CAT.php:157
 msgid "Sweden"
 msgstr "Švedska"
 
-#: core/CAT.php:157
+#: core/CAT.php:158
 msgid "Slovakia"
 msgstr "Slovačka"
 
-#: core/CAT.php:158
+#: core/CAT.php:159
 msgid "Switzerland"
 msgstr "Švicarska"
 
-#: core/CAT.php:159
+#: core/CAT.php:160
 msgid "Turkey"
 msgstr "Turska"
 
-#: core/CAT.php:160
+#: core/CAT.php:161
 msgid "United Kingdom"
 msgstr "Ujedinjeno Kraljevstvo"
 
-#: core/CAT.php:162
+#: core/CAT.php:163
 msgid "Australia"
 msgstr "Australija"
 
-#: core/CAT.php:163
+#: core/CAT.php:164
 msgid "Canada"
 msgstr "Kanada"
 
-#: core/CAT.php:164
+#: core/CAT.php:165
 msgid "Israel"
 msgstr "Izrael"
 
-#: core/CAT.php:165
+#: core/CAT.php:166
 msgid "Japan"
 msgstr "Japan"
 
-#: core/CAT.php:166
+#: core/CAT.php:167
 msgid "New Zealand"
 msgstr "Novi Zeland"
 
-#: core/CAT.php:167
+#: core/CAT.php:168
 msgid "U.S.A."
 msgstr "S.A.D."
 
-#: core/CAT.php:168
+#: core/CAT.php:169
 msgid "Brazil"
 msgstr "Brazil"
 
-#: core/CAT.php:169
+#: core/CAT.php:170
 msgid "Chile"
 msgstr "Čile"
 
-#: core/CAT.php:170
+#: core/CAT.php:171
 msgid "Peru"
 msgstr "Peru"
 
-#: core/CAT.php:171
+#: core/CAT.php:172
 msgid "Venezuela"
 msgstr "Venezuela"
 
-#: core/CAT.php:172
+#: core/CAT.php:173
 msgid "Default"
 msgstr "Zadano"
 
-#: core/CAT.php:173
+#: core/CAT.php:174
 msgid "Armenia"
 msgstr "Armenija"
 
-#: core/CAT.php:174
+#: core/CAT.php:175
 msgid "Azerbaijan"
 msgstr "Azerbejdžan"
 
-#: core/CAT.php:175
+#: core/CAT.php:176
 msgid "Belarus"
 msgstr "Bjelorusija"
 
-#: core/CAT.php:176
+#: core/CAT.php:177
 msgid "Ecuador"
 msgstr "Ekvador"
 
-#: core/CAT.php:177
+#: core/CAT.php:178
 msgid "Hong Kong"
 msgstr "Hong Kong"
 
-#: core/CAT.php:178
+#: core/CAT.php:179
 msgid "Kenya"
 msgstr "Kenija"
 
-#: core/CAT.php:179
+#: core/CAT.php:180
 msgid "Kyrgyzstan"
 msgstr "Kirgistan"
 
-#: core/CAT.php:180
+#: core/CAT.php:181
 msgid "Korea"
 msgstr "Koreja"
 
-#: core/CAT.php:181
+#: core/CAT.php:182
 msgid "Kazakhstan"
 msgstr "Kazahstan"
 
-#: core/CAT.php:182
+#: core/CAT.php:183
 msgid "Morocco"
 msgstr "Maroko"
 
-#: core/CAT.php:183
+#: core/CAT.php:184
 msgid "Moldova"
 msgstr "Moldavija"
 
-#: core/CAT.php:184
+#: core/CAT.php:185
 msgid "Montenegro"
 msgstr "Crna Gora"
 
-#: core/CAT.php:185
+#: core/CAT.php:186
 msgid "Macau"
 msgstr "Makao"
 
-#: core/CAT.php:186
+#: core/CAT.php:187
 msgid "Malta"
 msgstr "Malta"
 
-#: core/CAT.php:187
+#: core/CAT.php:188
 msgid "Russia"
 msgstr "Rusija"
 
-#: core/CAT.php:188
+#: core/CAT.php:189
 msgid "Singapore"
 msgstr "Singapur"
 
-#: core/CAT.php:189
+#: core/CAT.php:190
 msgid "Thailand"
 msgstr "Tajland"
 
-#: core/CAT.php:190
+#: core/CAT.php:191
 msgid "Taiwan"
 msgstr "Tajvan"
 
-#: core/CAT.php:191
+#: core/CAT.php:192
 msgid "South Africa"
 msgstr "Južna Afrika"
 
-#: core/CAT.php:466 core/IdPlist.php:111
+#: core/CAT.php:467 core/IdPlist.php:111
 msgid "Unnamed Entity"
 msgstr "Neimenovani entitet"
 
@@ -313,7 +312,7 @@ msgstr "Pogreška, nema dodatnih informacija"
 #: core/Federation.php:90
 #, php-format
 msgid "(discontinued) %s"
-msgstr ""
+msgstr "(nepodržano) %s"
 
 #. / arguments are: 1. nomenclature for "institution"
 #. 2. IdP name;
@@ -335,11 +334,15 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Key\n"
+"Hi, the invitation for the new %s %s in your %s federation %s has been used "
+"and the IdP was created in %s. We thought you might want to know. Best "
+"regards, %s"
 
 #: core/Federation.php:261
 #, php-format
 msgid "%s in your federation was created"
-msgstr ""
+msgstr "%s kreiran u vašoj federaciji"
 
 #: core/IdP.php:258
 #, php-format
@@ -354,11 +357,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Hi, the %s %s in your %s federation %s has been deleted from %s. We thought "
+"you might want to know. Best regards, %s"
 
 #: core/IdP.php:267
 #, php-format
 msgid "%s in your federation was deleted"
-msgstr ""
+msgstr "%s obrisan u vašoj federaciji"
 
 #: core/SilverbulletInvitation.php:230
 #, php-format
@@ -600,3 +605,8 @@ msgstr "Realm sadrži prazninu!"
 #: web/lib/common/InputValidation.php:241
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Realm ne sadrži barem jednu . (točku)!"
+
+#~ msgid ""
+#~ "Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes."
+#~ "md'>Git Revision</a>"
+#~ msgstr "Revizija</a>"

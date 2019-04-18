@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-04 08:35+0200\n"
-"PO-Revision-Date: 2019-03-22 14:18+0000\n"
+"POT-Creation-Date: 2019-04-18 08:14+0200\n"
+"PO-Revision-Date: 2019-04-04 09:21+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/eduroam_devel/cat/"
 "language/de_DE/)\n"
@@ -609,6 +609,8 @@ msgid ""
 "%s provides access to thousands of Wi-Fi hotspots around the world, free of "
 "charge. <a href='%s'>Learn more</a>"
 msgstr ""
+"%s ermöglicht Zugang zu tausenden Wi-Fi Hotspots weltweit, und das "
+"kostenlos. <a href='%s'>Mehr erfahren</a>"
 
 #: web/lib/user/TextTemplates.php:96
 msgid "Select the user group"
@@ -680,6 +682,34 @@ msgstr "Maßgeschneidert für Sie"
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Digital signiert von der Organisation, die %s:%s koordiniert."
 
+#: web/skins/modern/div_user_welcome.php:33
+msgid ""
+"we would like to warmly welcome you among the several million users of "
+"eduroam®! From now on, you will be able to use internet access resources on "
+"thousands of universities, research centres and other places all over the "
+"globe. All of this completely free of charge!"
+msgstr ""
+"wir möchten Sie ganz herzlich in der Nutzergemeinde von eduroam® Willkommen "
+"heißen! Von nun an können Sie, wie viele Millionen anderer eduroamer auch, "
+"einen vollkommen kostenlosen Internetzugang bei tausenden von teilnehmenden "
+"Universitäten, Forschungszentren etc. genießen."
+
+#: web/skins/modern/div_user_welcome.php:36
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an eduroam® hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Nachdem Sie das Installationsprogramm heruntergeladen und installiert haben, "
+"müssen Sie sich nur noch in die Nähe eines eduroam® Hotspots begeben und "
+"Ihre Zugangsdaten eingeben (also zum Beispiel Ihren Benutzernamen/Passwort "
+"oder Ihr persönliches Nutzerzertifikat) - und schon sind Sie online!"
+
+#: web/skins/modern/index.php:78 web/skins/modern/test.php:80
+msgid "Authenticating"
+msgstr "Anmeldung läuft"
+
 #: web/skins/modern/Menu.php:51
 msgid "About"
 msgstr "Über"
@@ -746,34 +776,6 @@ msgstr "Werden Sie ein CAT Entwickler"
 #: web/skins/modern/Menu.php:79
 msgid "Terms of use"
 msgstr "Nutzungsbedingungen"
-
-#: web/skins/modern/div_user_welcome.php:33
-msgid ""
-"we would like to warmly welcome you among the several million users of "
-"eduroam®! From now on, you will be able to use internet access resources on "
-"thousands of universities, research centres and other places all over the "
-"globe. All of this completely free of charge!"
-msgstr ""
-"wir möchten Sie ganz herzlich in der Nutzergemeinde von eduroam® Willkommen "
-"heißen! Von nun an können Sie, wie viele Millionen anderer eduroamer auch, "
-"einen vollkommen kostenlosen Internetzugang bei tausenden von teilnehmenden "
-"Universitäten, Forschungszentren etc. genießen."
-
-#: web/skins/modern/div_user_welcome.php:36
-msgid ""
-"Now that you have downloaded and installed a client configurator, all you "
-"need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal "
-"certificate') - and be online!"
-msgstr ""
-"Nachdem Sie das Installationsprogramm heruntergeladen und installiert haben, "
-"müssen Sie sich nur noch in die Nähe eines eduroam® Hotspots begeben und "
-"Ihre Zugangsdaten eingeben (also zum Beispiel Ihren Benutzernamen/Passwort "
-"oder Ihr persönliches Nutzerzertifikat) - und schon sind Sie online!"
-
-#: web/skins/modern/index.php:78 web/skins/modern/test.php:80
-msgid "Authenticating"
-msgstr "Anmeldung läuft"
 
 #: web/skins/modern/accountstatus/accountstatus.php:79
 msgid ""

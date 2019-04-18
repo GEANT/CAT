@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-04 08:35+0200\n"
+"POT-Creation-Date: 2019-04-18 08:14+0200\n"
 "PO-Revision-Date: 2019-03-26 09:07+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/eduroam_devel/"
@@ -19,276 +19,273 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/CAT.php:108
-msgid ""
-"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git "
-"Revision</a>"
+#: core/CAT.php:109
+#, php-format
+msgid "Unreleased %s Git Revision"
 msgstr ""
-"Непубликувана версия <a href='https://github.com/GEANT/CAT/tree/master/"
-"Changes.md'>Git Revision </a>"
 
-#: core/CAT.php:118
+#: core/CAT.php:119
 #, php-format
 msgid "Release <a href='%s'>%s</a>"
 msgstr "Публикувана версия<a href='%s'> 1%s </a>"
 
-#: core/CAT.php:127
+#: core/CAT.php:128
 msgid "Andorra"
 msgstr "Андора"
 
-#: core/CAT.php:128
+#: core/CAT.php:129
 msgid "Austria"
 msgstr "Австрия"
 
-#: core/CAT.php:129
+#: core/CAT.php:130
 msgid "Belgium"
 msgstr "Белгия"
 
-#: core/CAT.php:130
+#: core/CAT.php:131
 msgid "Bulgaria"
 msgstr "България"
 
-#: core/CAT.php:131
+#: core/CAT.php:132
 msgid "Cyprus"
 msgstr "Кипър"
 
-#: core/CAT.php:132
+#: core/CAT.php:133
 msgid "Czech Republic"
 msgstr "Република Чехия"
 
-#: core/CAT.php:133
+#: core/CAT.php:134
 msgid "Denmark"
 msgstr "Дания"
 
-#: core/CAT.php:134
+#: core/CAT.php:135
 msgid "Estonia"
 msgstr "Естония"
 
-#: core/CAT.php:135
+#: core/CAT.php:136
 msgid "Finland"
 msgstr "Финландия"
 
-#: core/CAT.php:136
+#: core/CAT.php:137
 msgid "France"
 msgstr "Франция"
 
-#: core/CAT.php:137
+#: core/CAT.php:138
 msgid "Germany"
 msgstr "Германия"
 
-#: core/CAT.php:138
+#: core/CAT.php:139
 msgid "Greece"
 msgstr "Гърция"
 
-#: core/CAT.php:139
+#: core/CAT.php:140
 msgid "Croatia"
 msgstr "Хърватия"
 
-#: core/CAT.php:140
+#: core/CAT.php:141
 msgid "Ireland"
 msgstr "Ирландия"
 
-#: core/CAT.php:141
+#: core/CAT.php:142
 msgid "Iceland"
 msgstr "Исландия"
 
-#: core/CAT.php:142
+#: core/CAT.php:143
 msgid "Italy"
 msgstr "Италия"
 
-#: core/CAT.php:143
+#: core/CAT.php:144
 msgid "Hungary"
 msgstr "Унгария"
 
-#: core/CAT.php:144
+#: core/CAT.php:145
 msgid "Luxembourg"
 msgstr "Люксембург"
 
-#: core/CAT.php:145
+#: core/CAT.php:146
 msgid "Latvia"
 msgstr "Латвия"
 
-#: core/CAT.php:146
+#: core/CAT.php:147
 msgid "Lithuania"
 msgstr "Литва"
 
-#: core/CAT.php:147
+#: core/CAT.php:148
 msgid "Macedonia"
 msgstr "Македония"
 
-#: core/CAT.php:148
+#: core/CAT.php:149
 msgid "Serbia"
 msgstr "Сърбия"
 
-#: core/CAT.php:149
+#: core/CAT.php:150
 msgid "Netherlands"
 msgstr "Холандия"
 
-#: core/CAT.php:150
+#: core/CAT.php:151
 msgid "Norway"
 msgstr "Норвегия"
 
-#: core/CAT.php:151
+#: core/CAT.php:152
 msgid "Poland"
 msgstr "Полша"
 
-#: core/CAT.php:152
+#: core/CAT.php:153
 msgid "Portugal"
 msgstr "Португалия"
 
-#: core/CAT.php:153
+#: core/CAT.php:154
 msgid "Romania"
 msgstr "Румъния"
 
-#: core/CAT.php:154
+#: core/CAT.php:155
 msgid "Slovenia"
 msgstr "Словения"
 
-#: core/CAT.php:155
+#: core/CAT.php:156
 msgid "Spain"
 msgstr "Испания"
 
-#: core/CAT.php:156
+#: core/CAT.php:157
 msgid "Sweden"
 msgstr "Швеция"
 
-#: core/CAT.php:157
+#: core/CAT.php:158
 msgid "Slovakia"
 msgstr "Словакия"
 
-#: core/CAT.php:158
+#: core/CAT.php:159
 msgid "Switzerland"
 msgstr "Швейцария"
 
-#: core/CAT.php:159
+#: core/CAT.php:160
 msgid "Turkey"
 msgstr "Турция"
 
-#: core/CAT.php:160
+#: core/CAT.php:161
 msgid "United Kingdom"
 msgstr "Великобритания"
 
-#: core/CAT.php:162
+#: core/CAT.php:163
 msgid "Australia"
 msgstr "Австралия"
 
-#: core/CAT.php:163
+#: core/CAT.php:164
 msgid "Canada"
 msgstr "Канада"
 
-#: core/CAT.php:164
+#: core/CAT.php:165
 msgid "Israel"
 msgstr "Израел"
 
-#: core/CAT.php:165
+#: core/CAT.php:166
 msgid "Japan"
 msgstr "Япония"
 
-#: core/CAT.php:166
+#: core/CAT.php:167
 msgid "New Zealand"
 msgstr "Нова Зеландия"
 
-#: core/CAT.php:167
+#: core/CAT.php:168
 msgid "U.S.A."
 msgstr "САЩ"
 
-#: core/CAT.php:168
+#: core/CAT.php:169
 msgid "Brazil"
 msgstr "Бразилия"
 
-#: core/CAT.php:169
+#: core/CAT.php:170
 msgid "Chile"
 msgstr "Чили"
 
-#: core/CAT.php:170
+#: core/CAT.php:171
 msgid "Peru"
 msgstr "Перу"
 
-#: core/CAT.php:171
+#: core/CAT.php:172
 msgid "Venezuela"
 msgstr "Венецуела"
 
-#: core/CAT.php:172
+#: core/CAT.php:173
 msgid "Default"
 msgstr "По подразбиране"
 
-#: core/CAT.php:173
+#: core/CAT.php:174
 msgid "Armenia"
 msgstr "Армения"
 
-#: core/CAT.php:174
+#: core/CAT.php:175
 msgid "Azerbaijan"
 msgstr "Азербайджан"
 
-#: core/CAT.php:175
+#: core/CAT.php:176
 msgid "Belarus"
 msgstr "Беларус"
 
-#: core/CAT.php:176
+#: core/CAT.php:177
 msgid "Ecuador"
 msgstr "Еквадор"
 
-#: core/CAT.php:177
+#: core/CAT.php:178
 msgid "Hong Kong"
 msgstr "Хонконг"
 
-#: core/CAT.php:178
+#: core/CAT.php:179
 msgid "Kenya"
 msgstr "Кения"
 
-#: core/CAT.php:179
+#: core/CAT.php:180
 msgid "Kyrgyzstan"
 msgstr "Киргизстан"
 
-#: core/CAT.php:180
+#: core/CAT.php:181
 msgid "Korea"
 msgstr "Корея"
 
-#: core/CAT.php:181
+#: core/CAT.php:182
 msgid "Kazakhstan"
 msgstr "Казахстан"
 
-#: core/CAT.php:182
+#: core/CAT.php:183
 msgid "Morocco"
 msgstr "Мароко"
 
-#: core/CAT.php:183
+#: core/CAT.php:184
 msgid "Moldova"
 msgstr "Молдова"
 
-#: core/CAT.php:184
+#: core/CAT.php:185
 msgid "Montenegro"
 msgstr "Черна гора"
 
-#: core/CAT.php:185
+#: core/CAT.php:186
 msgid "Macau"
 msgstr "Макао"
 
-#: core/CAT.php:186
+#: core/CAT.php:187
 msgid "Malta"
 msgstr "Малта"
 
-#: core/CAT.php:187
+#: core/CAT.php:188
 msgid "Russia"
 msgstr "Русия"
 
-#: core/CAT.php:188
+#: core/CAT.php:189
 msgid "Singapore"
 msgstr "Сингапур"
 
-#: core/CAT.php:189
+#: core/CAT.php:190
 msgid "Thailand"
 msgstr "Тайланд"
 
-#: core/CAT.php:190
+#: core/CAT.php:191
 msgid "Taiwan"
 msgstr "Тайван"
 
-#: core/CAT.php:191
+#: core/CAT.php:192
 msgid "South Africa"
 msgstr "Южна Африка"
 
-#: core/CAT.php:466 core/IdPlist.php:111
+#: core/CAT.php:467 core/IdPlist.php:111
 msgid "Unnamed Entity"
 msgstr "Неименувана единица"
 
@@ -615,3 +612,10 @@ msgstr "Областта съдържа интервали!"
 #: web/lib/common/InputValidation.php:241
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Областта не съдържа дори една точка (.)!"
+
+#~ msgid ""
+#~ "Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes."
+#~ "md'>Git Revision</a>"
+#~ msgstr ""
+#~ "Непубликувана версия <a href='https://github.com/GEANT/CAT/tree/master/"
+#~ "Changes.md'>Git Revision </a>"

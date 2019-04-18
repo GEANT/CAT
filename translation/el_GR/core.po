@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-04 08:35+0200\n"
+"POT-Creation-Date: 2019-04-18 08:14+0200\n"
 "PO-Revision-Date: 2019-03-26 14:29+0000\n"
 "Last-Translator: Halil Adem <hadem@noc.grnet.gr>\n"
 "Language-Team: Greek (Greece) (http://www.transifex.com/eduroam_devel/cat/"
@@ -23,276 +23,273 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/CAT.php:108
-msgid ""
-"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git "
-"Revision</a>"
+#: core/CAT.php:109
+#, php-format
+msgid "Unreleased %s Git Revision"
 msgstr ""
-"Ακυκλοφόρητη <a href='https://github.com/GEANT/CAT/tree/master/Changes."
-"md'>αναθεώρηση Git</a>"
 
-#: core/CAT.php:118
+#: core/CAT.php:119
 #, php-format
 msgid "Release <a href='%s'>%s</a>"
 msgstr "Έκδοση <a href='%s'>%s</a>"
 
-#: core/CAT.php:127
+#: core/CAT.php:128
 msgid "Andorra"
 msgstr "Ανδόρα"
 
-#: core/CAT.php:128
+#: core/CAT.php:129
 msgid "Austria"
 msgstr "Αυστρία"
 
-#: core/CAT.php:129
+#: core/CAT.php:130
 msgid "Belgium"
 msgstr "Βέλγιο"
 
-#: core/CAT.php:130
+#: core/CAT.php:131
 msgid "Bulgaria"
 msgstr "Βουλγαρία"
 
-#: core/CAT.php:131
+#: core/CAT.php:132
 msgid "Cyprus"
 msgstr "Κύπρος"
 
-#: core/CAT.php:132
+#: core/CAT.php:133
 msgid "Czech Republic"
 msgstr "Τσεχία"
 
-#: core/CAT.php:133
+#: core/CAT.php:134
 msgid "Denmark"
 msgstr "Δανία"
 
-#: core/CAT.php:134
+#: core/CAT.php:135
 msgid "Estonia"
 msgstr "Εσθονία"
 
-#: core/CAT.php:135
+#: core/CAT.php:136
 msgid "Finland"
 msgstr "Φινλανδία"
 
-#: core/CAT.php:136
+#: core/CAT.php:137
 msgid "France"
 msgstr "Γαλλία"
 
-#: core/CAT.php:137
+#: core/CAT.php:138
 msgid "Germany"
 msgstr "Γερμανία"
 
-#: core/CAT.php:138
+#: core/CAT.php:139
 msgid "Greece"
 msgstr "Ελλάδα"
 
-#: core/CAT.php:139
+#: core/CAT.php:140
 msgid "Croatia"
 msgstr "Κροατία"
 
-#: core/CAT.php:140
+#: core/CAT.php:141
 msgid "Ireland"
 msgstr "Ιρλανδία"
 
-#: core/CAT.php:141
+#: core/CAT.php:142
 msgid "Iceland"
 msgstr "Ισλανδία"
 
-#: core/CAT.php:142
+#: core/CAT.php:143
 msgid "Italy"
 msgstr "Ιταλία"
 
-#: core/CAT.php:143
+#: core/CAT.php:144
 msgid "Hungary"
 msgstr "Ουγγαρία"
 
-#: core/CAT.php:144
+#: core/CAT.php:145
 msgid "Luxembourg"
 msgstr "Λουξεμβούργο"
 
-#: core/CAT.php:145
+#: core/CAT.php:146
 msgid "Latvia"
 msgstr "Λετονία"
 
-#: core/CAT.php:146
+#: core/CAT.php:147
 msgid "Lithuania"
 msgstr "Λιθουανία"
 
-#: core/CAT.php:147
+#: core/CAT.php:148
 msgid "Macedonia"
 msgstr "Πρώην Γιουγκοσλαβική Δημοκρατία της Μακεδονίας"
 
-#: core/CAT.php:148
+#: core/CAT.php:149
 msgid "Serbia"
 msgstr "Σερβία"
 
-#: core/CAT.php:149
+#: core/CAT.php:150
 msgid "Netherlands"
 msgstr "Ολλανδία"
 
-#: core/CAT.php:150
+#: core/CAT.php:151
 msgid "Norway"
 msgstr "Νορβηγία"
 
-#: core/CAT.php:151
+#: core/CAT.php:152
 msgid "Poland"
 msgstr "Πολωνία"
 
-#: core/CAT.php:152
+#: core/CAT.php:153
 msgid "Portugal"
 msgstr "Πορτογαλία"
 
-#: core/CAT.php:153
+#: core/CAT.php:154
 msgid "Romania"
 msgstr "Ρουμανία"
 
-#: core/CAT.php:154
+#: core/CAT.php:155
 msgid "Slovenia"
 msgstr "Σλοβενία"
 
-#: core/CAT.php:155
+#: core/CAT.php:156
 msgid "Spain"
 msgstr "Ισπανία"
 
-#: core/CAT.php:156
+#: core/CAT.php:157
 msgid "Sweden"
 msgstr "Σουηδία"
 
-#: core/CAT.php:157
+#: core/CAT.php:158
 msgid "Slovakia"
 msgstr "Σλοβακία"
 
-#: core/CAT.php:158
+#: core/CAT.php:159
 msgid "Switzerland"
 msgstr "Ελβετία"
 
-#: core/CAT.php:159
+#: core/CAT.php:160
 msgid "Turkey"
 msgstr "Τουρκία"
 
-#: core/CAT.php:160
+#: core/CAT.php:161
 msgid "United Kingdom"
 msgstr "Ηνωμένο Βασίλειο"
 
-#: core/CAT.php:162
+#: core/CAT.php:163
 msgid "Australia"
 msgstr "Αυστραλία"
 
-#: core/CAT.php:163
+#: core/CAT.php:164
 msgid "Canada"
 msgstr "Καναδάς"
 
-#: core/CAT.php:164
+#: core/CAT.php:165
 msgid "Israel"
 msgstr "Ισραήλ"
 
-#: core/CAT.php:165
+#: core/CAT.php:166
 msgid "Japan"
 msgstr "Ιαπωνία"
 
-#: core/CAT.php:166
+#: core/CAT.php:167
 msgid "New Zealand"
 msgstr "Νέα Ζηλανδία"
 
-#: core/CAT.php:167
+#: core/CAT.php:168
 msgid "U.S.A."
 msgstr "Η.Π.Α."
 
-#: core/CAT.php:168
+#: core/CAT.php:169
 msgid "Brazil"
 msgstr "Βραζιλία"
 
-#: core/CAT.php:169
+#: core/CAT.php:170
 msgid "Chile"
 msgstr "Χιλή"
 
-#: core/CAT.php:170
+#: core/CAT.php:171
 msgid "Peru"
 msgstr "Περού"
 
-#: core/CAT.php:171
+#: core/CAT.php:172
 msgid "Venezuela"
 msgstr "Βενεζουέλα"
 
-#: core/CAT.php:172
+#: core/CAT.php:173
 msgid "Default"
 msgstr "Προεπιλογή"
 
-#: core/CAT.php:173
+#: core/CAT.php:174
 msgid "Armenia"
 msgstr "Αρμενία"
 
-#: core/CAT.php:174
+#: core/CAT.php:175
 msgid "Azerbaijan"
 msgstr "Αζερμπαϊτζάν"
 
-#: core/CAT.php:175
+#: core/CAT.php:176
 msgid "Belarus"
 msgstr "Λευκορωσία"
 
-#: core/CAT.php:176
+#: core/CAT.php:177
 msgid "Ecuador"
 msgstr "Ισημερινός"
 
-#: core/CAT.php:177
+#: core/CAT.php:178
 msgid "Hong Kong"
 msgstr "Χονγκ Κονγκ"
 
-#: core/CAT.php:178
+#: core/CAT.php:179
 msgid "Kenya"
 msgstr "Κένυα"
 
-#: core/CAT.php:179
+#: core/CAT.php:180
 msgid "Kyrgyzstan"
 msgstr "Κιργιζία"
 
-#: core/CAT.php:180
+#: core/CAT.php:181
 msgid "Korea"
 msgstr "Κορέα"
 
-#: core/CAT.php:181
+#: core/CAT.php:182
 msgid "Kazakhstan"
 msgstr "Καζακστάν"
 
-#: core/CAT.php:182
+#: core/CAT.php:183
 msgid "Morocco"
 msgstr "Μαρόκο"
 
-#: core/CAT.php:183
+#: core/CAT.php:184
 msgid "Moldova"
 msgstr "Μολδαβία"
 
-#: core/CAT.php:184
+#: core/CAT.php:185
 msgid "Montenegro"
 msgstr "Μαυροβούνιο"
 
-#: core/CAT.php:185
+#: core/CAT.php:186
 msgid "Macau"
 msgstr "Μακάου"
 
-#: core/CAT.php:186
+#: core/CAT.php:187
 msgid "Malta"
 msgstr "Μάλτα"
 
-#: core/CAT.php:187
+#: core/CAT.php:188
 msgid "Russia"
 msgstr "Ρωσία"
 
-#: core/CAT.php:188
+#: core/CAT.php:189
 msgid "Singapore"
 msgstr "Σιγκαπούρη"
 
-#: core/CAT.php:189
+#: core/CAT.php:190
 msgid "Thailand"
 msgstr "Ταϊλάνδη"
 
-#: core/CAT.php:190
+#: core/CAT.php:191
 msgid "Taiwan"
 msgstr "Ταϊβάν"
 
-#: core/CAT.php:191
+#: core/CAT.php:192
 msgid "South Africa"
 msgstr "Νότια Αφρική"
 
-#: core/CAT.php:466 core/IdPlist.php:111
+#: core/CAT.php:467 core/IdPlist.php:111
 msgid "Unnamed Entity"
 msgstr "Ανώνυμη Οντότητα"
 
@@ -628,3 +625,10 @@ msgstr "Ο τομέας περιέχει κενά!"
 #: web/lib/common/InputValidation.php:241
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Ο τομέας δεν περιέχει τουλάχιστον μία . (τελεία)!"
+
+#~ msgid ""
+#~ "Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes."
+#~ "md'>Git Revision</a>"
+#~ msgstr ""
+#~ "Ακυκλοφόρητη <a href='https://github.com/GEANT/CAT/tree/master/Changes."
+#~ "md'>αναθεώρηση Git</a>"

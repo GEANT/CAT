@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-04 08:35+0200\n"
+"POT-Creation-Date: 2019-04-18 08:14+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: Dubravko Penezic <dpenezic@gmail.com>, 2019\n"
 "Language-Team: Croatian (Croatia) (https://www.transifex.com/eduroam_devel/"
@@ -117,15 +117,13 @@ msgstr ""
 "certifikat."
 
 #: core/diag/AbstractTest.php:407
-#, fuzzy
 msgid ""
 "At least one certificate in the chain had a public key of less than 2048 "
 "bits. Many recent operating systems consider this unacceptable and will fail "
 "to validate the server certificate."
 msgstr ""
-"Jedan od certifikata u lancu imao je javni ključ slabiji od 1024 bitova. "
-"Mnogi postojeći operativni sustavi smatraju to neprihvatljivim te neće "
-"validirati poslužiteljski certifikat."
+"Barem jedan certifikat u nizu ima javni kljuc s manje od 2048 bitova. Večina "
+"današnjih operativnih sustava to smatraju nesigurnim."
 
 #: core/diag/AbstractTest.php:414
 msgid ""
@@ -312,7 +310,7 @@ msgstr ""
 
 #: core/diag/AbstractTest.php:571
 msgid "No certificate at all was sent by the server."
-msgstr ""
+msgstr "Server ne koristi certifikat."
 
 #: core/diag/Logopath.php:107
 msgid "[eduroam Diagnostics]"
@@ -782,7 +780,7 @@ msgstr ""
 msgid "Click to select a location in which you have an eduroam problem"
 msgstr "Kliknite da izaberete lokaciju na kojoj imate eduroam problem"
 
-#: web/skins/modern/diag/diag.php:120 web/skins/modern/diag/diag.php:251
+#: web/skins/modern/diag/diag.php:120 web/skins/modern/diag/diag.php:254
 msgid "Testing realm"
 msgstr "Testiranje realm-a"
 
@@ -806,7 +804,7 @@ msgstr "Alati za aduroam administratore"
 msgid "Which problem are you reporting?"
 msgstr "Kakav problem prijavljujete?"
 
-#: web/skins/modern/diag/diag.php:148 web/skins/modern/diag/diag.php:865
+#: web/skins/modern/diag/diag.php:148 web/skins/modern/diag/diag.php:954
 msgid "SP contacting IdP due to technical problems or abuse"
 msgstr ""
 "Davatelj usluge kontaktira davatelja identiteta zbog tehničkih problema ili "
@@ -837,71 +835,71 @@ msgstr "Izaberite zemlju ili regiju"
 msgid "Fetching country/region list"
 msgstr "Dohvat liste regija/zemalja"
 
-#: web/skins/modern/diag/diag.php:276
+#: web/skins/modern/diag/diag.php:278
 msgid "Yes"
 msgstr "Da"
 
-#: web/skins/modern/diag/diag.php:277
+#: web/skins/modern/diag/diag.php:279
 msgid "No"
 msgstr "Ne"
 
-#: web/skins/modern/diag/diag.php:278
+#: web/skins/modern/diag/diag.php:280
 msgid "I don't know"
 msgstr "Ne znam"
 
-#: web/skins/modern/diag/diag.php:309
+#: web/skins/modern/diag/diag.php:311
 msgid "Diagnostic tests results for selected realm"
 msgstr "Rezultati testiranja za izabranu domenu"
 
-#: web/skins/modern/diag/diag.php:312
+#: web/skins/modern/diag/diag.php:314
 msgid "The result for tested realm:"
 msgstr "Rezultat za testirani realm:"
 
-#: web/skins/modern/diag/diag.php:314
+#: web/skins/modern/diag/diag.php:316
 msgid "The system identified"
 msgstr "Sustav identificiran"
 
-#: web/skins/modern/diag/diag.php:316
+#: web/skins/modern/diag/diag.php:318
 msgid "suspected areas which potentially can cause a problem."
 msgstr "sumnjivo područje koje potencijalno može uzrokavati problem."
 
-#: web/skins/modern/diag/diag.php:317
+#: web/skins/modern/diag/diag.php:319
 msgid ""
 "Next to the problem description we show a speculated probability of this "
 "event."
 msgstr "Uz opis problema prikazujemo vjerojatnost ovog događaja"
 
-#: web/skins/modern/diag/diag.php:324
+#: web/skins/modern/diag/diag.php:326
 msgid "Your device configuration is broken"
 msgstr "Vaš uređaj nije ispravno konfiguriran"
 
-#: web/skins/modern/diag/diag.php:327
+#: web/skins/modern/diag/diag.php:329
 msgid "The Wi-Fi network in your vicinity has quality issues"
 msgstr "Wi-Fi mreža u Vašoj blizini ima problema s kvalitetom"
 
-#: web/skins/modern/diag/diag.php:330
+#: web/skins/modern/diag/diag.php:332
 msgid "The network environment around you is broken"
 msgstr "Neispravna mrežna okolina"
 
-#: web/skins/modern/diag/diag.php:333
+#: web/skins/modern/diag/diag.php:335
 msgid "The RADIUS server of your service provider is the source of the problem"
 msgstr "Problem je u RADIUS poslužitelju davatelja usluge"
 
-#: web/skins/modern/diag/diag.php:336
+#: web/skins/modern/diag/diag.php:338
 msgid ""
 "The RADIUS server in your home institution is currently unable to "
 "authenticate you"
 msgstr ""
 "RADIUS poslužitelj Vaše matične ustanove ternutno Vas ne može autenticirati"
 
-#: web/skins/modern/diag/diag.php:339
+#: web/skins/modern/diag/diag.php:341
 msgid ""
 "The national server in the country/region you are visiting is not "
 "functioning correctly"
 msgstr ""
 "Nacionalni poslužitelj u zemlji/regiji u kojoj se nalazite ne radi ispravno"
 
-#: web/skins/modern/diag/diag.php:342
+#: web/skins/modern/diag/diag.php:344
 msgid ""
 "The link between the national server of the country/region you are visiting "
 "and the top-level server is broken"
@@ -909,7 +907,7 @@ msgstr ""
 "Veza između nacionalnog poslužitelja zemlje/regije koju posjećujete i vršnog "
 "servera ne radi."
 
-#: web/skins/modern/diag/diag.php:345
+#: web/skins/modern/diag/diag.php:347
 msgid ""
 "The link between the national server of your home country/region and the top-"
 "level server is broken"
@@ -917,135 +915,150 @@ msgstr ""
 "Veza između nacionalnog poslužitelja Vaše zemlje/regije i vršnog "
 "poslužitelja ne radi."
 
-#: web/skins/modern/diag/diag.php:348
+#: web/skins/modern/diag/diag.php:350
 msgid "The communication to the top-level server is down"
 msgstr "Komunikacija prema vršnom poslužitelju je prekinuta"
 
-#: web/skins/modern/diag/diag.php:351
+#: web/skins/modern/diag/diag.php:353
 msgid ""
 "The national server in your home country/region is not functioning properly."
 msgstr "Nacionalni poslužitelj u Vašoj zemlji/regiji ne radi ispravno."
 
-#: web/skins/modern/diag/diag.php:354
+#: web/skins/modern/diag/diag.php:356
 msgid "The RADIUS server of your home institution is the source of the problem"
 msgstr "Problem je u RADIUS poslužitelju Vaše matične ustanove."
 
-#: web/skins/modern/diag/diag.php:357
+#: web/skins/modern/diag/diag.php:359
 msgid "This realm does not exist"
 msgstr "Ovaj realm ne postoji"
 
-#: web/skins/modern/diag/diag.php:469
+#: web/skins/modern/diag/diag.php:471 web/skins/modern/diag/diag.php:534
 msgid "Fetching institutions list"
 msgstr "Preuzimanje liste ustanova"
 
-#: web/skins/modern/diag/diag.php:487
+#: web/skins/modern/diag/diag.php:489 web/skins/modern/diag/diag.php:552
 msgid "Select institution:"
 msgstr "Izaberite ustanovu:"
 
-#: web/skins/modern/diag/diag.php:527
+#: web/skins/modern/diag/diag.php:510
+msgid ""
+"The database does not contain the information needed to help you in realm "
+"selection for this country. You have to provide realm you are interested in."
+msgstr ""
+
+#: web/skins/modern/diag/diag.php:519
+msgid ""
+"Can not search database. You have to provide realm you are interested in."
+msgstr ""
+
+#: web/skins/modern/diag/diag.php:575
+msgid "Other location"
+msgstr ""
+
+#: web/skins/modern/diag/diag.php:609
 msgid "Fetching realms list"
 msgstr "Preuzimanje liste realm-ova"
 
-#: web/skins/modern/diag/diag.php:539
+#: web/skins/modern/diag/diag.php:621
 msgid "Check realm(s):"
 msgstr "Provjerite realm/ove"
 
-#: web/skins/modern/diag/diag.php:551
+#: web/skins/modern/diag/diag.php:633
 msgid "Realm:"
 msgstr "Realm:"
 
-#: web/skins/modern/diag/diag.php:606 web/skins/modern/diag/diag.php:674
-#: web/skins/modern/diag/diag.php:791
+#: web/skins/modern/diag/diag.php:688 web/skins/modern/diag/diag.php:756
+#: web/skins/modern/diag/diag.php:880
 msgid "Running realm tests"
 msgstr "Pokrenuti su testovi realm-ova"
 
-#: web/skins/modern/diag/diag.php:650
+#: web/skins/modern/diag/diag.php:732
 msgid "Realm is not registered with the eduroam database:"
 msgstr "Realm nije registriran u eduroam bazi podataka"
 
-#: web/skins/modern/diag/diag.php:722
+#: web/skins/modern/diag/diag.php:804
 msgid "Diagnostics results for selected realms"
 msgstr "Rezultati testova za izabrane realm-ove"
 
-#: web/skins/modern/diag/diag.php:723
+#: web/skins/modern/diag/diag.php:805
 msgid "An unknown problem occured"
 msgstr "Nepoznati problem"
 
-#: web/skins/modern/diag/diag.php:726
+#: web/skins/modern/diag/diag.php:808
 msgid "This test includes checking of the following realm"
 msgstr "Ovaj test uključuje provjeru sljedećeg realm-a"
 
-#: web/skins/modern/diag/diag.php:728
+#: web/skins/modern/diag/diag.php:810
 msgid "This test includes checking of the following realms"
 msgstr "Ovaj test uključuje provjeru sljedećih realm-ova"
 
-#: web/skins/modern/diag/diag.php:738
+#: web/skins/modern/diag/diag.php:820
 msgid "You should report this to"
 msgstr "Ovo bi trebali prijaviti"
 
-#: web/skins/modern/diag/diag.php:862
+#: web/skins/modern/diag/diag.php:951
 msgid "eduroam admin report submission"
 msgstr "podnošenje izvješća administracije"
 
-#: web/skins/modern/diag/diag.php:867 web/skins/modern/diag/diag.php:877
+#: web/skins/modern/diag/diag.php:956 web/skins/modern/diag/diag.php:966
 msgid "Reason"
 msgstr "Razlog"
 
-#: web/skins/modern/diag/diag.php:868
+#: web/skins/modern/diag/diag.php:957
 msgid "SP email"
 msgstr "E-mail adresa davatelja usluge"
 
-#: web/skins/modern/diag/diag.php:869
+#: web/skins/modern/diag/diag.php:958
 msgid "IdP email(s)"
 msgstr "E-mail adresa davatelja identiteta"
 
-#: web/skins/modern/diag/diag.php:870 web/skins/modern/diag/diag.php:881
+#: web/skins/modern/diag/diag.php:959 web/skins/modern/diag/diag.php:970
 msgid "Event's timestamp"
 msgstr "Timestamp događaja"
 
-#: web/skins/modern/diag/diag.php:871 web/skins/modern/diag/diag.php:882
+#: web/skins/modern/diag/diag.php:960 web/skins/modern/diag/diag.php:971
 msgid "Calling-Station-Id"
 msgstr "Calling-Station-Id"
 
-#: web/skins/modern/diag/diag.php:872 web/skins/modern/diag/diag.php:883
+#: web/skins/modern/diag/diag.php:961 web/skins/modern/diag/diag.php:972
 msgid "Additional description"
 msgstr "Dodatni opis"
 
-#: web/skins/modern/diag/diag.php:875
+#: web/skins/modern/diag/diag.php:964
 msgid "IdP contacting SP due to technical problems or abuse"
 msgstr ""
 "Davatelj identiteta kontaktira davatelja usluge zbog tehničkih problema ili "
 "zloupotrebe"
 
-#: web/skins/modern/diag/diag.php:878
+#: web/skins/modern/diag/diag.php:967
 msgid "SP's Operator-Name"
 msgstr "SP naziv"
 
-#: web/skins/modern/diag/diag.php:879
+#: web/skins/modern/diag/diag.php:968
 msgid "User's outer ID"
 msgstr "Korisnički vanjski ID"
 
-#: web/skins/modern/diag/diag.php:880
+#: web/skins/modern/diag/diag.php:969
 msgid "IdP email"
 msgstr "Idp email"
 
-#: web/skins/modern/diag/diag.php:884
+#: web/skins/modern/diag/diag.php:973
 msgid "How to contact the user"
 msgstr "Način kontaktiranja korinika"
 
-#: web/skins/modern/diag/diag.php:901
+#: web/skins/modern/diag/diag.php:990
 msgid "MAC address is incomplete"
 msgstr "MAC adresa je nepotpuna"
 
-#: web/skins/modern/diag/diag.php:910
+#: web/skins/modern/diag/diag.php:999
 msgid "Wrong format of email"
 msgstr "Pogrešan format e-mail adrese"
 
-#: web/skins/modern/diag/diag.php:919
+#: web/skins/modern/diag/diag.php:1008
 msgid "Wrong format of outer ID"
 msgstr "Pogrešan format vanjskog ID-a"
 
-#: web/skins/modern/diag/diag.php:928
+#: web/skins/modern/diag/diag.php:1017
 msgid "Wrong string given as OperatorName"
 msgstr "Pogrešan unos polja OperatorName"
 
@@ -1200,7 +1213,7 @@ msgstr "SHA1 otisak:"
 
 #: web/diag/action_realmcheck.php:146
 msgid "Connected to undetermined server"
-msgstr ""
+msgstr "Spajanje na nepoznati server"
 
 #: web/diag/action_realmcheck.php:198
 msgid "Some required input is missing!"

@@ -6,13 +6,14 @@
 # Alberto Martínez Setién, 2013,2015-2016,2018
 # Alberto Martínez Setién, 2018
 # José Manuel Macías, 2012-2013,2015
+# José Manuel Macías, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-04 08:35+0200\n"
-"PO-Revision-Date: 2019-03-22 21:59+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2019-04-18 08:14+0200\n"
+"PO-Revision-Date: 2019-04-04 12:47+0000\n"
+"Last-Translator: José Manuel Macías\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/es_ES/)\n"
 "Language: es_ES\n"
@@ -78,7 +79,7 @@ msgstr "%s: Editando el %s \"%s\""
 #: web/admin/edit_federation.php:60
 #, php-format
 msgid "Editing %s information for '%s'"
-msgstr "Editando información de %s para \"%s\""
+msgstr "Editando información de %s para '%s'"
 
 #: web/admin/edit_federation.php:64 web/admin/edit_federation.php:79
 #, php-format
@@ -117,7 +118,7 @@ msgstr "%s: personalización de %s  (envío completado)"
 #: web/admin/edit_federation_result.php:43
 #, php-format
 msgid "Submitted attributes for %s '%s'"
-msgstr "Atributos enviados para el %s \"%s\""
+msgstr "Atributos enviados para el %s '%s'"
 
 #: web/admin/edit_federation_result.php:55 web/admin/edit_idp_result.php:156
 #: web/admin/edit_profile_result.php:246
@@ -199,9 +200,9 @@ msgid ""
 "language the user requests a download in."
 msgstr ""
 "<strong>Nombre</strong>: La %s puede tener diferentes nombres en diferentes "
-"idiomas. Se recomienda rellenar siempre al menos el idioma \"por defecto/otro"
-"\", porque se usa como valor por defecto si no se dispone del nombre en el "
-"idioma con que el usuario accede a las descargas,"
+"idiomas. Se recomienda rellenar siempre al menos el idioma 'por defecto/"
+"otro', porque se usa como valor por defecto si no se dispone del nombre en "
+"el idioma con que el usuario accede a las descargas,"
 
 #: web/admin/edit_idp.php:125 web/lib/admin/UIElements.php:242
 msgid "Media Properties"
@@ -553,8 +554,8 @@ msgid ""
 "Some installers support a feature called 'Anonymous outer identity'. If you "
 "don't know what this is, please read <a href='%s'>this article</a>."
 msgstr ""
-"Algunos instaladores soportan una característica denominada \"identidad "
-"anónima externa\". Por favor, si no sabes qué es esto, lee <a href='%s'>este "
+"Algunos instaladores soportan una característica denominada 'identidad "
+"anónima externa'. Por favor, si no sabes qué es esto, lee <a href='%s'>este "
 "artículo</a>."
 
 #: web/admin/edit_profile.php:207
@@ -770,7 +771,7 @@ msgstr ""
 #: web/admin/edit_profile_result.php:169
 #, php-format
 msgid "and the input field will be prefilled with '<strong>@%s</strong>'."
-msgstr "y el campo de entrada se precompletará con \"<strong>@%s</strong>\"."
+msgstr "y el campo de entrada se precompletará con '<strong>@%s</strong>'."
 
 #: web/admin/edit_profile_result.php:173
 #, php-format
@@ -1127,7 +1128,7 @@ msgid ""
 "date 'yyyy-mm-dd', number of tokens (optional):"
 msgstr ""
 "El archivo CSV debería proporcionar valores separados por comas: nombre de "
-"usuario, fecha de expiración \"yyyy-mm-dd\", número de tokens (opcional):"
+"usuario, fecha de expiración 'yyyy-mm-dd', número de tokens (opcional):"
 
 #: web/admin/edit_silverbullet.php:618
 msgid "Import users"
@@ -1527,7 +1528,7 @@ msgstr "OK"
 
 #: web/admin/overview_idp.php:263
 msgid "Options on EAP Method/Device level are in effect."
-msgstr "Se están aplicando opciones a nivel de [método EAP / dispositivo]."
+msgstr "Se están aplicando opciones a nivel de método EAP / dispositivo."
 
 #: web/admin/overview_idp.php:268
 #, php-format
@@ -2221,11 +2222,11 @@ msgid ""
 "language you configured. For the sake of all other languages, you may want "
 "to edit the profile again and populate the 'default/other' language field."
 msgstr ""
-"No estableciste un valor de \"idioma por defecto\" para %s. Esto significa "
-"que sólo podemos mostrar instaladores que estén <strong>exactamente</strong> "
-"en el idioma configurado. Por el bien de los demás idiomas, deberías editar "
-"el perfil de nuevo y poner algún valor para 'por defecto/otros idiomas' en "
-"el campo idioma. "
+"No estableciste un valor de 'idioma por defecto' para %s. Esto significa que "
+"sólo podemos mostrar instaladores que estén <strong>exactamente</strong> en "
+"el idioma configurado. Por el bien de los demás idiomas, deberías editar el "
+"perfil de nuevo y poner algún valor para 'por defecto/otros idiomas' en el "
+"campo idioma. "
 
 #: web/lib/admin/PageDecoration.php:52
 msgid "You are:"
@@ -2431,7 +2432,7 @@ msgstr "Logo de %s"
 
 #: web/lib/admin/UIElements.php:114
 msgid "Preferred Skin for User Area"
-msgstr "\"Piel\" preferida para el área de usuario"
+msgstr "'Piel' preferida para el área de usuario"
 
 #: web/lib/admin/UIElements.php:115
 #, php-format

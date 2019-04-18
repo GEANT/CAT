@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-04 08:35+0200\n"
-"PO-Revision-Date: 2019-03-26 11:20+0000\n"
+"POT-Creation-Date: 2019-04-18 08:14+0200\n"
+"PO-Revision-Date: 2019-04-04 14:24+0000\n"
 "Last-Translator: Anne M <anne@eenet.ee>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/et_EE/)\n"
@@ -579,6 +579,8 @@ msgid ""
 "%s provides access to thousands of Wi-Fi hotspots around the world, free of "
 "charge. <a href='%s'>Learn more</a>"
 msgstr ""
+"%s annab tasuta juurdepääsu tuhandetele WiFi-punktidele kogu maailmas. <a "
+"href='%s'>Loe edasi</a>"
 
 #: web/lib/user/TextTemplates.php:96
 msgid "Select the user group"
@@ -653,6 +655,32 @@ msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr ""
 "Digitaalselt allkirjastatud organisatsiooni poolt, mis koordineerib %si: %s"
 
+#: web/skins/modern/div_user_welcome.php:33
+msgid ""
+"we would like to warmly welcome you among the several million users of "
+"eduroam®! From now on, you will be able to use internet access resources on "
+"thousands of universities, research centres and other places all over the "
+"globe. All of this completely free of charge!"
+msgstr ""
+"eduroam®is saad tasuta kasutada internetiühendust tuhandetes sellega "
+"liitunud ülikoolides, teadusasutustes jmt."
+
+#: web/skins/modern/div_user_welcome.php:36
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an eduroam® hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Nüüd on Sul alla laaditud ja paigaldatud kliendiseadistusprogramm. Edasi on "
+"vaja leida üles lähim eduroam®i juurdepääsupunkt ja sisestada oma "
+"kasutajakonto andmed (kasutajanimi ja parool või isikusertifikaat) ning "
+"saadki võrguühenduse."
+
+#: web/skins/modern/index.php:78 web/skins/modern/test.php:80
+msgid "Authenticating"
+msgstr "Autendime"
+
 #: web/skins/modern/Menu.php:51
 msgid "About"
 msgstr "Teave"
@@ -719,32 +747,6 @@ msgstr "Löö kaasa CATi arendamisel"
 #: web/skins/modern/Menu.php:79
 msgid "Terms of use"
 msgstr "Kasutustingimused"
-
-#: web/skins/modern/div_user_welcome.php:33
-msgid ""
-"we would like to warmly welcome you among the several million users of "
-"eduroam®! From now on, you will be able to use internet access resources on "
-"thousands of universities, research centres and other places all over the "
-"globe. All of this completely free of charge!"
-msgstr ""
-"eduroam®is saad tasuta kasutada internetiühendust tuhandetes sellega "
-"liitunud ülikoolides, teadusasutustes jmt."
-
-#: web/skins/modern/div_user_welcome.php:36
-msgid ""
-"Now that you have downloaded and installed a client configurator, all you "
-"need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal "
-"certificate') - and be online!"
-msgstr ""
-"Nüüd on Sul alla laaditud ja paigaldatud kliendiseadistusprogramm. Edasi on "
-"vaja leida üles lähim eduroam®i juurdepääsupunkt ja sisestada oma "
-"kasutajakonto andmed (kasutajanimi ja parool või isikusertifikaat) ning "
-"saadki võrguühenduse."
-
-#: web/skins/modern/index.php:78 web/skins/modern/test.php:80
-msgid "Authenticating"
-msgstr "Autendime"
 
 #: web/skins/modern/accountstatus/accountstatus.php:79
 msgid ""

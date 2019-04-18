@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-04 08:35+0200\n"
-"PO-Revision-Date: 2019-03-22 09:37+0000\n"
+"POT-Creation-Date: 2019-04-18 08:14+0200\n"
+"PO-Revision-Date: 2019-04-04 09:20+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/eduroam_devel/"
 "cat/language/pt_PT/)\n"
@@ -664,6 +664,34 @@ msgstr "Feito à medida para si"
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Assinado digitalmente pela organização que coordena %s: %s"
 
+#: web/skins/modern/div_user_welcome.php:33
+msgid ""
+"we would like to warmly welcome you among the several million users of "
+"eduroam®! From now on, you will be able to use internet access resources on "
+"thousands of universities, research centres and other places all over the "
+"globe. All of this completely free of charge!"
+msgstr ""
+"queremos dar-lhe um caloroso bem vindo para junto dos vários milhões de "
+"utilizadores eduroam®! De agora em diante, vai poder usar os recursos do "
+"acesso à Internet de Universidades, centros de pesquisa e outros locais por "
+"todo o globo. Tudo isto, de forma completamente gratuita!"
+
+#: web/skins/modern/div_user_welcome.php:36
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an eduroam® hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Agora que descarregou e instalou um cliente de configuração, tudo o que "
+"necessita é encontrar um hotspot eduroam® nas proximidades e fornecer as "
+"suas credenciais de utilizador (este é um nome pomposo para 'nome de "
+"utilizador e palavra-passe' ou 'certificado pessoal')  - e esteja ligado!"
+
+#: web/skins/modern/index.php:78 web/skins/modern/test.php:80
+msgid "Authenticating"
+msgstr "A autenticar"
+
 #: web/skins/modern/Menu.php:51
 msgid "About"
 msgstr "Sobre"
@@ -730,34 +758,6 @@ msgstr "Torne-se um CAT Developer"
 #: web/skins/modern/Menu.php:79
 msgid "Terms of use"
 msgstr "Termos de utilização"
-
-#: web/skins/modern/div_user_welcome.php:33
-msgid ""
-"we would like to warmly welcome you among the several million users of "
-"eduroam®! From now on, you will be able to use internet access resources on "
-"thousands of universities, research centres and other places all over the "
-"globe. All of this completely free of charge!"
-msgstr ""
-"queremos dar-lhe um caloroso bem vindo para junto dos vários milhões de "
-"utilizadores eduroam®! De agora em diante, vai poder usar os recursos do "
-"acesso à Internet de Universidades, centros de pesquisa e outros locais por "
-"todo o globo. Tudo isto, de forma completamente gratuita!"
-
-#: web/skins/modern/div_user_welcome.php:36
-msgid ""
-"Now that you have downloaded and installed a client configurator, all you "
-"need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal "
-"certificate') - and be online!"
-msgstr ""
-"Agora que descarregou e instalou um cliente de configuração, tudo o que "
-"necessita é encontrar um hotspot eduroam® nas proximidades e fornecer as "
-"suas credenciais de utilizador (este é um nome pomposo para 'nome de "
-"utilizador e palavra-passe' ou 'certificado pessoal')  - e esteja ligado!"
-
-#: web/skins/modern/index.php:78 web/skins/modern/test.php:80
-msgid "Authenticating"
-msgstr "A autenticar"
 
 #: web/skins/modern/accountstatus/accountstatus.php:79
 msgid ""

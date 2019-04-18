@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-04 08:35+0200\n"
-"PO-Revision-Date: 2019-03-27 07:39+0000\n"
-"Last-Translator: eduki <ecercos@xtec.cat>\n"
+"POT-Creation-Date: 2019-04-18 08:14+0200\n"
+"PO-Revision-Date: 2019-04-17 06:52+0000\n"
+"Last-Translator: jmontane\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/ca_ES/)\n"
 "Language: ca_ES\n"
@@ -27,71 +27,76 @@ msgstr ""
 msgid "MS Windows 10"
 msgstr "MS Windows 10"
 
-#: devices/Devices-template.php:144
+#: devices/Devices-template.php:145
 msgid "MS Windows 8, 8.1"
 msgstr "MS Windows 8, 8.1"
 
-#: devices/Devices-template.php:157
+#: devices/Devices-template.php:159
 msgid "MS Windows 7"
 msgstr "MS Windows 7"
 
-#: devices/Devices-template.php:170
+#: devices/Devices-template.php:172
 msgid "MS Windows Vista"
 msgstr "MS Windows Vista"
 
-#: devices/Devices-template.php:183
+#: devices/Devices-template.php:185
 msgid "Windows RT"
 msgstr "Windows RT"
 
-#: devices/Devices-template.php:193
-msgid "Apple macOS High Sierra"
-msgstr "Apple macOS High Sierra"
+#: devices/Devices-template.php:195
+#, fuzzy
+msgid "Apple macOS Mojave"
+msgstr "Apple macOS Sierra"
 
-#: devices/Devices-template.php:203 devices/Devices-template.php:217
-#: devices/Devices-template.php:231 devices/Devices-template.php:245
-#: devices/Devices-template.php:259 devices/Devices-template.php:273
-#: devices/Devices-template.php:287
+#: devices/Devices-template.php:205 devices/Devices-template.php:219
+#: devices/Devices-template.php:233 devices/Devices-template.php:247
+#: devices/Devices-template.php:261 devices/Devices-template.php:275
+#: devices/Devices-template.php:289 devices/Devices-template.php:303
 msgid ""
 "During the installation you will be first asked to enter settings for "
 "certificate and there you need to enter the import PIN shown on this page. "
 "Later you will be prompted to enter your password to allow making changes to "
 "the profile, this time it is your computer password."
 msgstr ""
-"Durant la instal·lació se us demanarà configurar el certificat i allí caldrà "
+"Durant la instal·lació se us demanarà configurar el certificat i allà caldrà "
 "que hi entreu el PIN d'importació que trobareu en aquesta pàgina. Més "
 "endavant se us demanarà introduir la vostra contrasenya per a permetre "
 "canvis en el perfil. En aquest cas es tracta de la contrasenya del vostre "
 "ordinador."
 
-#: devices/Devices-template.php:208
+#: devices/Devices-template.php:209
+msgid "Apple macOS High Sierra"
+msgstr "Apple macOS High Sierra"
+
+#: devices/Devices-template.php:224
 msgid "Apple macOS Sierra"
 msgstr "Apple macOS Sierra"
 
-#: devices/Devices-template.php:222
+#: devices/Devices-template.php:238
 msgid "Apple OS X El Capitan"
 msgstr "Apple OS X El Capitan"
 
-#: devices/Devices-template.php:236
+#: devices/Devices-template.php:252
 msgid "Apple OS X Yosemite"
 msgstr "Apple OS X Yosemite"
 
-#: devices/Devices-template.php:250
+#: devices/Devices-template.php:266
 msgid "Apple OS X Mavericks"
 msgstr "Apple OS X Mavericks"
 
-#: devices/Devices-template.php:264
+#: devices/Devices-template.php:280
 msgid "Apple OS X Mountain Lion"
 msgstr "Apple OS X Mountain Lion"
 
-#: devices/Devices-template.php:278
+#: devices/Devices-template.php:294
 msgid "Apple OS X Lion"
 msgstr "Apple OS X Lion"
 
-#: devices/Devices-template.php:292
+#: devices/Devices-template.php:308
 msgid "Apple iOS mobile devices"
-msgstr "Dispositius mòbils "
+msgstr "Dispositius mòbils amb Apple iOS"
 
-#: devices/Devices-template.php:301 devices/Devices-template.php:315
+#: devices/Devices-template.php:317 devices/Devices-template.php:331
 msgid ""
 "During the installation you will be first asked to enter your passcode - "
 "this is your device security code! Later on you will be prompted for the "
@@ -102,23 +107,23 @@ msgstr ""
 "un codi del vostre dispositiu! Després se us demanarà la contrasenya del "
 "certificat i aquí necessitareu introduir el PIN mostrat en aquesta pàgina."
 
-#: devices/Devices-template.php:306
+#: devices/Devices-template.php:322
 msgid "Apple iOS mobile devices (iOS 7-11)"
 msgstr "Dispositius mòbils Apple iOS (iOS 7-11)"
 
-#: devices/Devices-template.php:320
+#: devices/Devices-template.php:336
 msgid "Apple iOS mobile devices (iOS 5 and 6)"
 msgstr "Dispositius Apple (iOS 5 i 6)"
 
-#: devices/Devices-template.php:333
+#: devices/Devices-template.php:349
 msgid "Linux"
 msgstr "Linux"
 
-#: devices/Devices-template.php:343
+#: devices/Devices-template.php:359
 msgid "Chrome OS"
 msgstr "Chrome OS"
 
-#: devices/Devices-template.php:349
+#: devices/Devices-template.php:365
 #, php-format
 msgid ""
 "After downloading the file, open the Chrome browser and browse to this URL: "
@@ -126,19 +131,20 @@ msgid ""
 "a>. Then, use the 'Import ONC file' button. The import is silent; the new "
 "network definitions will be added to the preferred networks."
 msgstr ""
-"Un cop descarregat el fitxer, obriu el navegador Chrome i navegueu a: <a "
+"Un cop baixat el fitxer, obriu el navegador Chrome i navegueu a: <a "
 "href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</"
 "a>.  Després feu servir el botó 'Importeu el fitxer ONC'. La importació és "
 "immediata i les noves definicions de xarxa s'afegeixen a les xarxes desades."
 
-#: devices/Devices-template.php:354
-msgid "Android 9.0 Pie"
+#: devices/Devices-template.php:370
+#, fuzzy
+msgid "Android 10.0 Q"
 msgstr "Android 9.0 Pie"
 
-#: devices/Devices-template.php:360 devices/Devices-template.php:375
-#: devices/Devices-template.php:390 devices/Devices-template.php:405
-#: devices/Devices-template.php:420 devices/Devices-template.php:435
-#: devices/Devices-template.php:450
+#: devices/Devices-template.php:376 devices/Devices-template.php:391
+#: devices/Devices-template.php:406 devices/Devices-template.php:421
+#: devices/Devices-template.php:436 devices/Devices-template.php:451
+#: devices/Devices-template.php:466 devices/Devices-template.php:481
 #, php-format
 msgid ""
 "Before you proceed with installation on Android systems, please make sure "
@@ -147,50 +153,54 @@ msgid ""
 "to create all necessary settings."
 msgstr ""
 "Abans de seguir amb la instal·lació en sistemes Android, assegureu-vos "
-"d'haver instal·lat l'app %s. Aquesta app està disponible a %s, %s i a %s, i "
-"utilitzarà el fitxer de configuració descarregat des de CAT per a crear els "
-"ajustos necessaris."
+"d'haver instal·lat l'aplicació %s. Aquesta app és disponible a %s, %s i a "
+"%s, i utilitzarà el fitxer de configuració baixat des de CAT per a crear la "
+"configuració necessària."
 
-#: devices/Devices-template.php:364 devices/Devices-template.php:379
-#: devices/Devices-template.php:394 devices/Devices-template.php:409
-#: devices/Devices-template.php:424 devices/Devices-template.php:439
-#: devices/Devices-template.php:454
+#: devices/Devices-template.php:380 devices/Devices-template.php:395
+#: devices/Devices-template.php:410 devices/Devices-template.php:425
+#: devices/Devices-template.php:440 devices/Devices-template.php:455
+#: devices/Devices-template.php:470 devices/Devices-template.php:485
 msgid "as local download"
 msgstr "com a baixada local"
 
-#: devices/Devices-template.php:369
+#: devices/Devices-template.php:385
+msgid "Android 9.0 Pie"
+msgstr "Android 9.0 Pie"
+
+#: devices/Devices-template.php:400
 msgid "Android 8.0 Oreo"
 msgstr "Android 8.0 Oreo"
 
-#: devices/Devices-template.php:384
+#: devices/Devices-template.php:415
 msgid "Android 7.0 Nougat"
 msgstr "Android 7.0 Nougat"
 
-#: devices/Devices-template.php:399
+#: devices/Devices-template.php:430
 msgid "Android 6.0 Marshmallow"
 msgstr "Android 6.0 Marshmallow"
 
-#: devices/Devices-template.php:414
+#: devices/Devices-template.php:445
 msgid "Android 5.0 Lollipop"
 msgstr "Android 5.0 Lollipop"
 
-#: devices/Devices-template.php:429
+#: devices/Devices-template.php:460
 msgid "Android 4.4 KitKat"
 msgstr "Android 4.4 KitKat"
 
-#: devices/Devices-template.php:444
+#: devices/Devices-template.php:475
 msgid "Android 4.3"
 msgstr "Android 4.3"
 
-#: devices/Devices-template.php:459
+#: devices/Devices-template.php:490
 msgid "Android"
 msgstr "Android"
 
-#: devices/Devices-template.php:469
+#: devices/Devices-template.php:500
 msgid "EAP config"
 msgstr "Configuració EAP"
 
-#: devices/Devices-template.php:474
+#: devices/Devices-template.php:505
 #, php-format
 msgid ""
 "This option provides a generic EAP config XML file, which can be consumed by "
@@ -201,7 +211,7 @@ msgstr ""
 "pot utilitzar per aplicacions dedicades com eduroamCAT per a plataformes "
 "Android i Linux. Encara és una característica experimental."
 
-#: devices/Devices-template.php:479
+#: devices/Devices-template.php:510
 msgid "Test"
 msgstr "Prova"
 
@@ -241,8 +251,8 @@ msgid ""
 "to use there and enter the username in the correct format."
 msgstr ""
 "Avís important: el vostre identificador HA D'ESTAR en el format xxx@yyy on "
-"yy és el sufix que identifica el vostre proveïdor d'identitat. Si us plau "
-"esbrineu el que heu de fer servir i introduïu-lo en el format correcte."
+"yy és el sufix que identifica el vostre proveïdor d'identitat. Esbrineu el "
+"que heu de fer servir i introduïu-lo en el format correcte."
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:170
 msgid "Unnamed Organisation"
@@ -257,14 +267,16 @@ msgid ""
 "For best results, please use the built-in browser (Safari) to open the "
 "configuration file."
 msgstr ""
-"Per als millors resultats, feu servir el navegador preinstal.lat (Safari) "
+"Per als millors resultats, feu servir el navegador preinstal·lat (Safari) "
 "per a obrir el fitxer de configuració."
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:240
 msgid ""
 "The profile will install itself after you click (or tap) the button. You "
 "will be asked for confirmation/input at several points:"
-msgstr "El perfil s'instal·larà un cop cliqueu el botó"
+msgstr ""
+"El perfil s'instal·larà un cop cliqueu el botó. Se us demanarà confirmació "
+"en diferents punts:"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:242
 msgid "to install the profile"
@@ -314,7 +326,7 @@ msgstr "Configuració de %s per a una xarxa de cable"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:457
 msgid "Hotspot 2.0 Settings"
-msgstr "Ajustos Hotspot 2.0"
+msgstr "Configuració Hotspot 2.0"
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:458
 #, php-format
@@ -329,7 +341,7 @@ msgstr ""
 
 #: devices/apple_mobileconfig/MobileconfigSuperclass.php:524
 msgid "Disabled WiFi network"
-msgstr "Xarxa WiFi deshabilitada"
+msgstr "Xarxa WiFi inhabilitada"
 
 #. we don't include the import password. It's displayed on screen, and should be input by the user.
 #. <key>Password</key>
@@ -356,11 +368,11 @@ msgid ""
 "file' button. The import is silent; the new network definitions will be "
 "added to the preferred networks."
 msgstr ""
-"L'instal·lador és un fitxer amb l'extensió '.onc'. Descarregue-lo, obriu "
-"Chrome i navegueu a la URL <a href='chrome://net-internals/"
-"#chromeos'>chrome://net-internals/#chromeos</a>. Després utilitzeu el botó "
-"'Importar fitxer ONC'. La importació no genera avisos; les noves definicions "
-"s'afegiran a les xarxes preferides."
+"L'instal·lador és un fitxer amb l'extensió '.onc'. Baixeu-lo, obriu Chrome i "
+"navegueu a la URL <a href='chrome://net-internals/#chromeos'>chrome://net-"
+"internals/#chromeos</a>. Després utilitzeu el botó 'Importar fitxer ONC'. La "
+"importació no genera avisos; les noves definicions s'afegiran a les xarxes "
+"preferides."
 
 #: devices/linux/Device_Linux.php:82
 #, php-format
@@ -371,7 +383,7 @@ msgid ""
 "will be created instead."
 msgstr ""
 "L'instal·lador és un fitxer Python. Mirarà de configurar %s per al "
-"NetworkManager i, cas que no sigui apropiat per al vostre sistema o la "
+"NetworkManager i, en cas que no sigui apropiat per al vostre sistema o la "
 "vostra versió de NetworkManager sigui massa vella, es crearà un fitxer de "
 "configuració per a wpa_supplicant."
 
@@ -544,7 +556,7 @@ msgid ""
 "username in the correct format."
 msgstr ""
 "Error: el vostre identificador ha de ser de l'estil 'xxx@{}'. Introduïu-lo "
-"si us plau en el format correcte."
+"en el format correcte."
 
 #: devices/linux/Device_Linux.php:162
 msgid ""
@@ -552,7 +564,7 @@ msgid ""
 "'{}'. Please enter the username in the correct format."
 msgstr ""
 "Error: el vostre identificador ha de ser de l'estil 'xxx@IDinstitució' i "
-"finalitzar amb '{}'. Si us plau introduïu-lo en el format correcte."
+"finalitzar amb '{}'. Introduïu-lo en el format correcte."
 
 #: devices/linux/Device_Linux.php:163
 msgid "personal certificate file not found"
@@ -602,7 +614,7 @@ msgid ""
 msgstr ""
 "L'instal·lador de %s es troba en un fitxer EXE. Configurarà %s en el vostre "
 "dispositiu, creant els perfils de xarxa sense fils. <p>Quan cliqueu el botó "
-"de descàrrega, l'instal·lador es desarà en local. Copieu-lo a la màquina que "
+"de baixada, l'instal·lador es desarà en local. Copieu-lo a la màquina que "
 "vulgueu configurar i executeu-lo."
 
 #: devices/ms/WindowsCommon.php:164
@@ -697,7 +709,7 @@ msgstr "La instal·lació de xarxa ha donat errors."
 
 #: devices/ms/Files/common.inc:141 devices/ms/Files/common.inc:928
 msgid "Please contact ${SUPPORT}."
-msgstr "Sisplau contacteu a ${SUPPORT}."
+msgstr "Contacteu a ${SUPPORT}."
 
 #: devices/ms/Files/common.inc:149
 msgid "Accept"
@@ -757,8 +769,8 @@ msgid ""
 "10 and newer. Please download the correct installer and try again."
 msgstr ""
 "Esteu utilitzant Windows $WindowsName però aquest instal·lador només "
-"funciona amb Windows 10 o superior. Si us plau descarregueu l'instal·lador "
-"correcte i torneu-ho a provar."
+"funciona amb Windows 10 o superior. Baixeu l'instal·lador correcte i torneu-"
+"ho a provar."
 
 #: devices/ms/Files/common.inc:570 devices/ms/Files/common.inc:577
 msgid ""
@@ -766,8 +778,8 @@ msgid ""
 "8 and 8.1. Please download the correct installer and try again."
 msgstr ""
 "Esteu utilitzant Windows $WindowsName però aquest instal·lador només "
-"funciona amb Windows 8 i 8.1. Si us plau descarregueu l'instal·lador "
-"correcte i torneu-ho a provar."
+"funciona amb Windows 8 i 8.1. Baixeu l'instal·lador correcte i torneu-ho a "
+"provar."
 
 #: devices/ms/Files/common.inc:586
 msgid ""
@@ -775,8 +787,8 @@ msgid ""
 "Vista and Windows 7. Please download the correct installer and try again."
 msgstr ""
 "Esteu fent servir Windows $WindowsName però aquest instal·lador és només per "
-"a Windows Vista i Windows 7. Sis plau descarregueu l'instal·lador correcte i "
-"torneu-ho a provar."
+"a Windows Vista i Windows 7. Baixeu l'instal·lador correcte i torneu-ho a "
+"provar."
 
 #: devices/ms/Files/common.inc:622
 msgid ""
@@ -839,8 +851,8 @@ msgid ""
 "Please read the additional information from ${ORGANISATION} which will be "
 "displayed in a moment."
 msgstr ""
-"Llegiu si us plau la informació addicional de ${ORGANISATION} que se us "
-"mostrarà seguidament."
+"Llegiu la informació addicional de ${ORGANISATION} que se us mostrarà "
+"seguidament."
 
 #: devices/ms/Files/common.inc:812
 #, php-format
@@ -855,19 +867,19 @@ msgid ""
 "It will install the profiles. You will need to login to %s with your "
 "username and password."
 msgstr ""
-"Sisplau LLEGIU aquest missatge, és IMPORTANT.$\\r$\\nEls problemes "
-"d'instal·lació poden ser deguts a la presencia de Symantec Endpoint "
-"Protection a la vostra màquina. $\\r$\\nTot i que és un error ben conegut "
-"del producte de Symantec i amb el qual l'instal·lador no hi pot fer res, hi "
-"ha una solució.$\\r$\\n Quan tanqueu aquesta finestra l'instal·lador "
-"finalitzarà i s'obrirà una finestra de l'explorador (pot aparèixer sota "
-"d'altres finestres obertes!). En aquesta finestres hi veureu un fitxer "
-"anomenat inst_cat. Inicieu-lo fent doble clic i us instal·larà els perfils. "
-"Us haureu d'identificar a %s amb el vostre identificador i contrasenya."
+"LLEGIU aquest missatge, és IMPORTANT.$\\r$\\nEls problemes d'instal·lació "
+"poden ser deguts a la presencia de Symantec Endpoint Protection a la vostra "
+"màquina. $\\r$\\nTot i que és un error ben conegut del producte de Symantec "
+"i amb el qual l'instal·lador no hi pot fer res, hi ha una solució.$\\r$\\n "
+"Quan tanqueu aquesta finestra l'instal·lador finalitzarà i s'obrirà una "
+"finestra de l'explorador (pot aparèixer sota d'altres finestres obertes!). "
+"En aquesta finestres hi veureu un fitxer anomenat inst_cat. Inicieu-lo fent "
+"doble clic i us instal·larà els perfils. Us haureu d'identificar a %s amb el "
+"vostre identificador i contrasenya."
 
 #: devices/ms/Files/common.inc:822
 msgid "Please restart your system after installation finishes."
-msgstr "Sisplau reinicieu el sistema un cop finalitzi la instal·lació."
+msgstr "Reinicieu el sistema un cop finalitzi la instal·lació."
 
 #: devices/ms/Files/common.inc:846
 msgid "installing wired profile"
@@ -964,7 +976,7 @@ msgid ""
 "username in the correct format."
 msgstr ""
 "Error: el vostre identificador ha de ser de l'estil 'xxx@${REALM}'. "
-"Introduïu-lo si us plau en el format correcte."
+"Introduïu-lo en el format correcte."
 
 #: devices/ms/Files/common.inc:1273
 msgid ""
@@ -972,7 +984,7 @@ msgid ""
 "'${REALM}'. Please enter the username in the correct format."
 msgstr ""
 "Error: el vostre identificador ha de ser de l'estil 'xxx@IDinstitució' i "
-"acabar en '${REALM}'. Introduïu-lo si us plau en el format correcte."
+"acabar en '${REALM}'. Introduïu-lo en el format correcte."
 
 #: devices/ms/Files/common.inc:1374
 msgid "User credentials"

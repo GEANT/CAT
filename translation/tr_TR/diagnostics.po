@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-04 08:35+0200\n"
+"POT-Creation-Date: 2019-04-18 08:14+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>, 2018\n"
 "Language-Team: Turkish (Turkey) (https://www.transifex.com/eduroam_devel/"
@@ -114,15 +114,11 @@ msgstr ""
 "iOS dahil, birçok İşletim Sistemi bu sertifikayı doğrulamayacaktır."
 
 #: core/diag/AbstractTest.php:407
-#, fuzzy
 msgid ""
 "At least one certificate in the chain had a public key of less than 2048 "
 "bits. Many recent operating systems consider this unacceptable and will fail "
 "to validate the server certificate."
 msgstr ""
-"Sertifika zincirinde en azından bir adet 1024 bitden küçük açık anahtar "
-"barındıran sertifika bulunuyor. Çoğu işletim sistemi bunu kabul edilemez "
-"bulup, sunucu sertifikasını onaylamayacaklardır."
 
 #: core/diag/AbstractTest.php:414
 msgid ""
@@ -784,7 +780,7 @@ msgstr ""
 msgid "Click to select a location in which you have an eduroam problem"
 msgstr "eduroam sorunu yaşadığınız konumu seçmek için tıklayın"
 
-#: web/skins/modern/diag/diag.php:120 web/skins/modern/diag/diag.php:251
+#: web/skins/modern/diag/diag.php:120 web/skins/modern/diag/diag.php:254
 msgid "Testing realm"
 msgstr "Yetki alanı test ediliyor"
 
@@ -808,7 +804,7 @@ msgstr "eduroam yöneticileri için araçlar"
 msgid "Which problem are you reporting?"
 msgstr "Hangi problemi rapor ediyorsunuz?"
 
-#: web/skins/modern/diag/diag.php:148 web/skins/modern/diag/diag.php:865
+#: web/skins/modern/diag/diag.php:148 web/skins/modern/diag/diag.php:954
 msgid "SP contacting IdP due to technical problems or abuse"
 msgstr ""
 "Teknik sorunlar veya kötüye kullanım nedeniyle servis sağlayıcı, kimlik "
@@ -840,37 +836,37 @@ msgstr "Ülke veya bölge şeçin:"
 msgid "Fetching country/region list"
 msgstr "Ülke/bölge listesi alınıyor"
 
-#: web/skins/modern/diag/diag.php:276
+#: web/skins/modern/diag/diag.php:278
 msgid "Yes"
 msgstr "Evet"
 
-#: web/skins/modern/diag/diag.php:277
+#: web/skins/modern/diag/diag.php:279
 msgid "No"
 msgstr "Hayır"
 
-#: web/skins/modern/diag/diag.php:278
+#: web/skins/modern/diag/diag.php:280
 msgid "I don't know"
 msgstr "Bilmiyorum"
 
-#: web/skins/modern/diag/diag.php:309
+#: web/skins/modern/diag/diag.php:311
 msgid "Diagnostic tests results for selected realm"
 msgstr "Seçilen yetki alanı için teşhis testleri sonuçları"
 
-#: web/skins/modern/diag/diag.php:312
+#: web/skins/modern/diag/diag.php:314
 msgid "The result for tested realm:"
 msgstr "Test edilen yetki alanı için sonuç:"
 
-#: web/skins/modern/diag/diag.php:314
+#: web/skins/modern/diag/diag.php:316
 msgid "The system identified"
 msgstr "Sistem"
 
-#: web/skins/modern/diag/diag.php:316
+#: web/skins/modern/diag/diag.php:318
 msgid "suspected areas which potentially can cause a problem."
 msgstr ""
 "tane, potansiyel olarak bir soruna neden olabilecek, şüpheli alanı tespit "
 "etti."
 
-#: web/skins/modern/diag/diag.php:317
+#: web/skins/modern/diag/diag.php:319
 msgid ""
 "Next to the problem description we show a speculated probability of this "
 "event."
@@ -878,36 +874,36 @@ msgstr ""
 "Problem açıklamasının yanında, bu olayın olmasının tahmini olasılığı "
 "gösterilir."
 
-#: web/skins/modern/diag/diag.php:324
+#: web/skins/modern/diag/diag.php:326
 msgid "Your device configuration is broken"
 msgstr "Cihaz yapılandırmanız bozuk"
 
-#: web/skins/modern/diag/diag.php:327
+#: web/skins/modern/diag/diag.php:329
 msgid "The Wi-Fi network in your vicinity has quality issues"
 msgstr "Çevrenizdeki Wi-Fi ağının kalite sorunu var"
 
-#: web/skins/modern/diag/diag.php:330
+#: web/skins/modern/diag/diag.php:332
 msgid "The network environment around you is broken"
 msgstr "Çevrenizdeki ağ ortamı bozuk"
 
-#: web/skins/modern/diag/diag.php:333
+#: web/skins/modern/diag/diag.php:335
 msgid "The RADIUS server of your service provider is the source of the problem"
 msgstr " Sorunun kaynağı servis sağlayıcınızın RADIUS sunucusudur. "
 
-#: web/skins/modern/diag/diag.php:336
+#: web/skins/modern/diag/diag.php:338
 msgid ""
 "The RADIUS server in your home institution is currently unable to "
 "authenticate you"
 msgstr "Ev kurumunuzun RADIUS sunucusu şu anda sizi doğrulayamıyor"
 
-#: web/skins/modern/diag/diag.php:339
+#: web/skins/modern/diag/diag.php:341
 msgid ""
 "The national server in the country/region you are visiting is not "
 "functioning correctly"
 msgstr ""
 "Ziyaret ettiğiniz ülkede/bölgede bulunan ulusal sunucu doğru çalışmıyor"
 
-#: web/skins/modern/diag/diag.php:342
+#: web/skins/modern/diag/diag.php:344
 msgid ""
 "The link between the national server of the country/region you are visiting "
 "and the top-level server is broken"
@@ -915,7 +911,7 @@ msgstr ""
 "Ziyaret ettiğiniz ülkenin/bölgenin ulusal sunucusu ile üst düzey sunucu "
 "arasındaki bağlantı bozuk"
 
-#: web/skins/modern/diag/diag.php:345
+#: web/skins/modern/diag/diag.php:347
 msgid ""
 "The link between the national server of your home country/region and the top-"
 "level server is broken"
@@ -923,135 +919,150 @@ msgstr ""
 "Ülkenizin/bölgenizin ulusal sunucusu ve üst düzey sunucu arasındaki bağlantı "
 "bozuk"
 
-#: web/skins/modern/diag/diag.php:348
+#: web/skins/modern/diag/diag.php:350
 msgid "The communication to the top-level server is down"
 msgstr "Üst düzey sunucuyla iletişim kesik"
 
-#: web/skins/modern/diag/diag.php:351
+#: web/skins/modern/diag/diag.php:353
 msgid ""
 "The national server in your home country/region is not functioning properly."
 msgstr "Ülkenizdeki/bölgenizdeki ulusal sunucu düzgün çalışmıyor."
 
-#: web/skins/modern/diag/diag.php:354
+#: web/skins/modern/diag/diag.php:356
 msgid "The RADIUS server of your home institution is the source of the problem"
 msgstr "Sorunun kaynağı ev kurumunuzun RADIUS sunucusudur."
 
-#: web/skins/modern/diag/diag.php:357
+#: web/skins/modern/diag/diag.php:359
 msgid "This realm does not exist"
 msgstr "Yetki alanı mevcut değil"
 
-#: web/skins/modern/diag/diag.php:469
+#: web/skins/modern/diag/diag.php:471 web/skins/modern/diag/diag.php:534
 msgid "Fetching institutions list"
 msgstr "Kurum listesi alınıyor"
 
-#: web/skins/modern/diag/diag.php:487
+#: web/skins/modern/diag/diag.php:489 web/skins/modern/diag/diag.php:552
 msgid "Select institution:"
 msgstr "Kurum seçin:"
 
-#: web/skins/modern/diag/diag.php:527
+#: web/skins/modern/diag/diag.php:510
+msgid ""
+"The database does not contain the information needed to help you in realm "
+"selection for this country. You have to provide realm you are interested in."
+msgstr ""
+
+#: web/skins/modern/diag/diag.php:519
+msgid ""
+"Can not search database. You have to provide realm you are interested in."
+msgstr ""
+
+#: web/skins/modern/diag/diag.php:575
+msgid "Other location"
+msgstr ""
+
+#: web/skins/modern/diag/diag.php:609
 msgid "Fetching realms list"
 msgstr "Yetki alanları listesi alınıyor"
 
-#: web/skins/modern/diag/diag.php:539
+#: web/skins/modern/diag/diag.php:621
 msgid "Check realm(s):"
 msgstr "Kontrol edilecek yetki alan(lar)ı:"
 
-#: web/skins/modern/diag/diag.php:551
+#: web/skins/modern/diag/diag.php:633
 msgid "Realm:"
 msgstr "Yetki Alanı:"
 
-#: web/skins/modern/diag/diag.php:606 web/skins/modern/diag/diag.php:674
-#: web/skins/modern/diag/diag.php:791
+#: web/skins/modern/diag/diag.php:688 web/skins/modern/diag/diag.php:756
+#: web/skins/modern/diag/diag.php:880
 msgid "Running realm tests"
 msgstr "Yetki alanı testleri çalıştırılıyor"
 
-#: web/skins/modern/diag/diag.php:650
+#: web/skins/modern/diag/diag.php:732
 msgid "Realm is not registered with the eduroam database:"
 msgstr "Yetki alanı, eduroam veritabanına kayıtlı değil:"
 
-#: web/skins/modern/diag/diag.php:722
+#: web/skins/modern/diag/diag.php:804
 msgid "Diagnostics results for selected realms"
 msgstr "Seçilen yetki alanları için teşhis sonuçları"
 
-#: web/skins/modern/diag/diag.php:723
+#: web/skins/modern/diag/diag.php:805
 msgid "An unknown problem occured"
 msgstr "Bilinmeyen bir sorun oluştu"
 
-#: web/skins/modern/diag/diag.php:726
+#: web/skins/modern/diag/diag.php:808
 msgid "This test includes checking of the following realm"
 msgstr "Bu test, aşağıdaki yetki alanının kontrolünü içerir"
 
-#: web/skins/modern/diag/diag.php:728
+#: web/skins/modern/diag/diag.php:810
 msgid "This test includes checking of the following realms"
 msgstr "Bu test, aşağıdaki yetki alanlarının kontrolünü içerir"
 
-#: web/skins/modern/diag/diag.php:738
+#: web/skins/modern/diag/diag.php:820
 msgid "You should report this to"
 msgstr "Bunu şuraya bildirmelisiniz: "
 
-#: web/skins/modern/diag/diag.php:862
+#: web/skins/modern/diag/diag.php:951
 msgid "eduroam admin report submission"
 msgstr "eduroam yönetici raporu gönderimi"
 
-#: web/skins/modern/diag/diag.php:867 web/skins/modern/diag/diag.php:877
+#: web/skins/modern/diag/diag.php:956 web/skins/modern/diag/diag.php:966
 msgid "Reason"
 msgstr "Sebep"
 
-#: web/skins/modern/diag/diag.php:868
+#: web/skins/modern/diag/diag.php:957
 msgid "SP email"
 msgstr "Servis Sağlayıcı e-postası"
 
-#: web/skins/modern/diag/diag.php:869
+#: web/skins/modern/diag/diag.php:958
 msgid "IdP email(s)"
 msgstr "kimlik sağlayıcı e-postası/e-postaları"
 
-#: web/skins/modern/diag/diag.php:870 web/skins/modern/diag/diag.php:881
+#: web/skins/modern/diag/diag.php:959 web/skins/modern/diag/diag.php:970
 msgid "Event's timestamp"
 msgstr "Olayın zaman damgası"
 
-#: web/skins/modern/diag/diag.php:871 web/skins/modern/diag/diag.php:882
+#: web/skins/modern/diag/diag.php:960 web/skins/modern/diag/diag.php:971
 msgid "Calling-Station-Id"
 msgstr "Arayan-İstasyon-Kimliği"
 
-#: web/skins/modern/diag/diag.php:872 web/skins/modern/diag/diag.php:883
+#: web/skins/modern/diag/diag.php:961 web/skins/modern/diag/diag.php:972
 msgid "Additional description"
 msgstr "Ek açıklama"
 
-#: web/skins/modern/diag/diag.php:875
+#: web/skins/modern/diag/diag.php:964
 msgid "IdP contacting SP due to technical problems or abuse"
 msgstr ""
 "Teknik sorunlar veya kötüye kullanım nedeniyle kimlik sağlayıcı, servis "
 "sağlayıcıyla irtibata geçecek"
 
-#: web/skins/modern/diag/diag.php:878
+#: web/skins/modern/diag/diag.php:967
 msgid "SP's Operator-Name"
 msgstr "Servis Sağlayıcının Operatör-İsmi"
 
-#: web/skins/modern/diag/diag.php:879
+#: web/skins/modern/diag/diag.php:968
 msgid "User's outer ID"
 msgstr "Kullanıcının dış kimliği"
 
-#: web/skins/modern/diag/diag.php:880
+#: web/skins/modern/diag/diag.php:969
 msgid "IdP email"
 msgstr "kimlik sağlayıcı e-postası"
 
-#: web/skins/modern/diag/diag.php:884
+#: web/skins/modern/diag/diag.php:973
 msgid "How to contact the user"
 msgstr "Kullanıcıyla nasıl iletişim kurulacak"
 
-#: web/skins/modern/diag/diag.php:901
+#: web/skins/modern/diag/diag.php:990
 msgid "MAC address is incomplete"
 msgstr "MAC adresi eksik"
 
-#: web/skins/modern/diag/diag.php:910
+#: web/skins/modern/diag/diag.php:999
 msgid "Wrong format of email"
 msgstr "Yanlış e-posta biçimi"
 
-#: web/skins/modern/diag/diag.php:919
+#: web/skins/modern/diag/diag.php:1008
 msgid "Wrong format of outer ID"
 msgstr "Yanlış dış kimlik biçimi "
 
-#: web/skins/modern/diag/diag.php:928
+#: web/skins/modern/diag/diag.php:1017
 msgid "Wrong string given as OperatorName"
 msgstr "OperatorName yanlış verilmiş."
 

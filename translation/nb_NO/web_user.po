@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-04 08:35+0200\n"
-"PO-Revision-Date: 2019-03-27 07:45+0000\n"
+"POT-Creation-Date: 2019-04-18 08:14+0200\n"
+"PO-Revision-Date: 2019-04-04 10:42+0000\n"
 "Last-Translator: Tom Ivar Myren <tom.myren@uninett.no>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/"
 "eduroam_devel/cat/language/nb_NO/)\n"
@@ -582,6 +582,8 @@ msgid ""
 "%s provides access to thousands of Wi-Fi hotspots around the world, free of "
 "charge. <a href='%s'>Learn more</a>"
 msgstr ""
+"%s gir tilgang til tusenvis av Wi-Fi hotspots i hele verden, helt gratis. <a "
+"href='%s'> Finn ut mer </a>"
 
 #: web/lib/user/TextTemplates.php:96
 msgid "Select the user group"
@@ -653,6 +655,33 @@ msgstr "Spesielt bygget for deg"
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Digitalt signert av organisasjonen som koordinerer %s: %s"
 
+#: web/skins/modern/div_user_welcome.php:33
+msgid ""
+"we would like to warmly welcome you among the several million users of "
+"eduroam®! From now on, you will be able to use internet access resources on "
+"thousands of universities, research centres and other places all over the "
+"globe. All of this completely free of charge!"
+msgstr ""
+"vi ønsker deg velkommen blant flere millioner eduroam® brukere! Fra nå av "
+"har du internett aksess hos tusenvis av universiteter, forskningssentre og "
+"mange andre steder over hele verden. Alt dette helt uten kostnad!"
+
+#: web/skins/modern/div_user_welcome.php:36
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an eduroam® hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Når du nå har lastet ned og installert en klient konfigurator, trenger du "
+"bare å finne en %s hotspot i nærheten og oppgi dine credentials (et fancy "
+"ord for 'brukernavn og passord' eller 'personlig sertifikat') - og du er på "
+"nett!"
+
+#: web/skins/modern/index.php:78 web/skins/modern/test.php:80
+msgid "Authenticating"
+msgstr "Autentiserer"
+
 #: web/skins/modern/Menu.php:51
 msgid "About"
 msgstr "Om"
@@ -719,33 +748,6 @@ msgstr "Bli CAT utvikler"
 #: web/skins/modern/Menu.php:79
 msgid "Terms of use"
 msgstr "Brukervilkår"
-
-#: web/skins/modern/div_user_welcome.php:33
-msgid ""
-"we would like to warmly welcome you among the several million users of "
-"eduroam®! From now on, you will be able to use internet access resources on "
-"thousands of universities, research centres and other places all over the "
-"globe. All of this completely free of charge!"
-msgstr ""
-"vi ønsker deg velkommen blant flere millioner eduroam® brukere! Fra nå av "
-"har du internett aksess hos tusenvis av universiteter, forskningssentre og "
-"mange andre steder over hele verden. Alt dette helt uten kostnad!"
-
-#: web/skins/modern/div_user_welcome.php:36
-msgid ""
-"Now that you have downloaded and installed a client configurator, all you "
-"need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal "
-"certificate') - and be online!"
-msgstr ""
-"Når du nå har lastet ned og installert en klient konfigurator, trenger du "
-"bare å finne en %s hotspot i nærheten og oppgi dine credentials (et fancy "
-"ord for 'brukernavn og passord' eller 'personlig sertifikat') - og du er på "
-"nett!"
-
-#: web/skins/modern/index.php:78 web/skins/modern/test.php:80
-msgid "Authenticating"
-msgstr "Autentiserer"
 
 #: web/skins/modern/accountstatus/accountstatus.php:79
 msgid ""

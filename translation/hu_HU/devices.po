@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-04 08:35+0200\n"
+"POT-Creation-Date: 2019-04-18 08:14+0200\n"
 "PO-Revision-Date: 2019-03-26 21:18+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/eduroam_devel/"
@@ -27,30 +27,31 @@ msgstr ""
 msgid "MS Windows 10"
 msgstr "MS Windows 10"
 
-#: devices/Devices-template.php:144
+#: devices/Devices-template.php:145
 msgid "MS Windows 8, 8.1"
 msgstr "MS Windows 8, 8.1"
 
-#: devices/Devices-template.php:157
+#: devices/Devices-template.php:159
 msgid "MS Windows 7"
 msgstr "MS Windows 7"
 
-#: devices/Devices-template.php:170
+#: devices/Devices-template.php:172
 msgid "MS Windows Vista"
 msgstr "MS Windows Vista"
 
-#: devices/Devices-template.php:183
+#: devices/Devices-template.php:185
 msgid "Windows RT"
 msgstr "Windows RT"
 
-#: devices/Devices-template.php:193
-msgid "Apple macOS High Sierra"
-msgstr "Apple macOS High Sierra"
+#: devices/Devices-template.php:195
+#, fuzzy
+msgid "Apple macOS Mojave"
+msgstr "Apple macOS Sierra"
 
-#: devices/Devices-template.php:203 devices/Devices-template.php:217
-#: devices/Devices-template.php:231 devices/Devices-template.php:245
-#: devices/Devices-template.php:259 devices/Devices-template.php:273
-#: devices/Devices-template.php:287
+#: devices/Devices-template.php:205 devices/Devices-template.php:219
+#: devices/Devices-template.php:233 devices/Devices-template.php:247
+#: devices/Devices-template.php:261 devices/Devices-template.php:275
+#: devices/Devices-template.php:289 devices/Devices-template.php:303
 msgid ""
 "During the installation you will be first asked to enter settings for "
 "certificate and there you need to enter the import PIN shown on this page. "
@@ -58,35 +59,39 @@ msgid ""
 "the profile, this time it is your computer password."
 msgstr ""
 
-#: devices/Devices-template.php:208
+#: devices/Devices-template.php:209
+msgid "Apple macOS High Sierra"
+msgstr "Apple macOS High Sierra"
+
+#: devices/Devices-template.php:224
 msgid "Apple macOS Sierra"
 msgstr "Apple macOS Sierra"
 
-#: devices/Devices-template.php:222
+#: devices/Devices-template.php:238
 msgid "Apple OS X El Capitan"
 msgstr "Apple OS X El Capitan"
 
-#: devices/Devices-template.php:236
+#: devices/Devices-template.php:252
 msgid "Apple OS X Yosemite"
 msgstr "Apple OS X Yosemite"
 
-#: devices/Devices-template.php:250
+#: devices/Devices-template.php:266
 msgid "Apple OS X Mavericks"
 msgstr "Apple OS X Mavericks"
 
-#: devices/Devices-template.php:264
+#: devices/Devices-template.php:280
 msgid "Apple OS X Mountain Lion"
 msgstr "Apple OS X Mountain Lion"
 
-#: devices/Devices-template.php:278
+#: devices/Devices-template.php:294
 msgid "Apple OS X Lion"
 msgstr "Apple OS X Lion"
 
-#: devices/Devices-template.php:292
+#: devices/Devices-template.php:308
 msgid "Apple iOS mobile devices"
 msgstr "Apple iOS mobileszközök"
 
-#: devices/Devices-template.php:301 devices/Devices-template.php:315
+#: devices/Devices-template.php:317 devices/Devices-template.php:331
 msgid ""
 "During the installation you will be first asked to enter your passcode - "
 "this is your device security code! Later on you will be prompted for the "
@@ -94,23 +99,23 @@ msgid ""
 "on this page."
 msgstr ""
 
-#: devices/Devices-template.php:306
+#: devices/Devices-template.php:322
 msgid "Apple iOS mobile devices (iOS 7-11)"
 msgstr ""
 
-#: devices/Devices-template.php:320
+#: devices/Devices-template.php:336
 msgid "Apple iOS mobile devices (iOS 5 and 6)"
 msgstr "Apple iOS mobil eszköz (iOS 5 vagy 6)"
 
-#: devices/Devices-template.php:333
+#: devices/Devices-template.php:349
 msgid "Linux"
 msgstr "Linux"
 
-#: devices/Devices-template.php:343
+#: devices/Devices-template.php:359
 msgid "Chrome OS"
 msgstr "Chrome OS"
 
-#: devices/Devices-template.php:349
+#: devices/Devices-template.php:365
 #, php-format
 msgid ""
 "After downloading the file, open the Chrome browser and browse to this URL: "
@@ -124,14 +129,15 @@ msgstr ""
 "konfiguráció betöltés ennek hatására megtörténik; Az új hálózati definició a "
 "preferált hálózatokhoz kerül hozzáadásra."
 
-#: devices/Devices-template.php:354
-msgid "Android 9.0 Pie"
+#: devices/Devices-template.php:370
+#, fuzzy
+msgid "Android 10.0 Q"
 msgstr "Android 9.0 Pie"
 
-#: devices/Devices-template.php:360 devices/Devices-template.php:375
-#: devices/Devices-template.php:390 devices/Devices-template.php:405
-#: devices/Devices-template.php:420 devices/Devices-template.php:435
-#: devices/Devices-template.php:450
+#: devices/Devices-template.php:376 devices/Devices-template.php:391
+#: devices/Devices-template.php:406 devices/Devices-template.php:421
+#: devices/Devices-template.php:436 devices/Devices-template.php:451
+#: devices/Devices-template.php:466 devices/Devices-template.php:481
 #, php-format
 msgid ""
 "Before you proceed with installation on Android systems, please make sure "
@@ -143,46 +149,50 @@ msgstr ""
 "telepítve van-e. Ez az alkalmazás elérhető %s, %s  és %s címről és az CAT-"
 "ről letöltött konfigurációs fájlt fogja használni a beállítások elvégzéséhez."
 
-#: devices/Devices-template.php:364 devices/Devices-template.php:379
-#: devices/Devices-template.php:394 devices/Devices-template.php:409
-#: devices/Devices-template.php:424 devices/Devices-template.php:439
-#: devices/Devices-template.php:454
+#: devices/Devices-template.php:380 devices/Devices-template.php:395
+#: devices/Devices-template.php:410 devices/Devices-template.php:425
+#: devices/Devices-template.php:440 devices/Devices-template.php:455
+#: devices/Devices-template.php:470 devices/Devices-template.php:485
 msgid "as local download"
 msgstr "mint helyi letöltés"
 
-#: devices/Devices-template.php:369
+#: devices/Devices-template.php:385
+msgid "Android 9.0 Pie"
+msgstr "Android 9.0 Pie"
+
+#: devices/Devices-template.php:400
 msgid "Android 8.0 Oreo"
 msgstr "Android 8.0 Oreo"
 
-#: devices/Devices-template.php:384
+#: devices/Devices-template.php:415
 msgid "Android 7.0 Nougat"
 msgstr ""
 
-#: devices/Devices-template.php:399
+#: devices/Devices-template.php:430
 msgid "Android 6.0 Marshmallow"
 msgstr "Android 6.0 Marshmallow"
 
-#: devices/Devices-template.php:414
+#: devices/Devices-template.php:445
 msgid "Android 5.0 Lollipop"
 msgstr "Android 5.0 Lollipop"
 
-#: devices/Devices-template.php:429
+#: devices/Devices-template.php:460
 msgid "Android 4.4 KitKat"
 msgstr "Android 4.4 KitKat"
 
-#: devices/Devices-template.php:444
+#: devices/Devices-template.php:475
 msgid "Android 4.3"
 msgstr "Android 4.3"
 
-#: devices/Devices-template.php:459
+#: devices/Devices-template.php:490
 msgid "Android"
 msgstr "Android"
 
-#: devices/Devices-template.php:469
+#: devices/Devices-template.php:500
 msgid "EAP config"
 msgstr "EAP konfiguráció"
 
-#: devices/Devices-template.php:474
+#: devices/Devices-template.php:505
 #, php-format
 msgid ""
 "This option provides a generic EAP config XML file, which can be consumed by "
@@ -194,7 +204,7 @@ msgstr ""
 "alkalmazni, hogy be lehessen állítani a hozzáférést. Ez egyenlőre kísérleti "
 "jellegű lehetőség."
 
-#: devices/Devices-template.php:479
+#: devices/Devices-template.php:510
 msgid "Test"
 msgstr "Teszt"
 

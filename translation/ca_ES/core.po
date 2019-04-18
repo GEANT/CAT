@@ -5,13 +5,14 @@
 # Translators:
 # eduki <ecercos@xtec.cat>, 2013,2015,2018-2019
 # eduki <ecercos@xtec.cat>, 2012
+# jmontane, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-04 08:35+0200\n"
-"PO-Revision-Date: 2019-03-25 07:59+0000\n"
-"Last-Translator: eduki <ecercos@xtec.cat>\n"
+"POT-Creation-Date: 2019-04-18 08:14+0200\n"
+"PO-Revision-Date: 2019-04-17 06:44+0000\n"
+"Last-Translator: jmontane\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/ca_ES/)\n"
 "Language: ca_ES\n"
@@ -20,276 +21,273 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/CAT.php:108
-msgid ""
-"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git "
-"Revision</a>"
+#: core/CAT.php:109
+#, php-format
+msgid "Unreleased %s Git Revision"
 msgstr ""
-"<a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Revisió del "
-"Git</a>no publicada"
 
-#: core/CAT.php:118
+#: core/CAT.php:119
 #, php-format
 msgid "Release <a href='%s'>%s</a>"
 msgstr "Versió <a href='%s'>%s</a>"
 
-#: core/CAT.php:127
+#: core/CAT.php:128
 msgid "Andorra"
 msgstr "Andorra"
 
-#: core/CAT.php:128
-msgid "Austria"
-msgstr "Austria"
-
 #: core/CAT.php:129
+msgid "Austria"
+msgstr "Àustria"
+
+#: core/CAT.php:130
 msgid "Belgium"
 msgstr "Bèlgica"
 
-#: core/CAT.php:130
-msgid "Bulgaria"
-msgstr "Bulgaria"
-
 #: core/CAT.php:131
+msgid "Bulgaria"
+msgstr "Bulgària"
+
+#: core/CAT.php:132
 msgid "Cyprus"
 msgstr "Xipre"
 
-#: core/CAT.php:132
+#: core/CAT.php:133
 msgid "Czech Republic"
 msgstr "República Txeca"
 
-#: core/CAT.php:133
+#: core/CAT.php:134
 msgid "Denmark"
 msgstr "Dinamarca"
 
-#: core/CAT.php:134
-msgid "Estonia"
-msgstr "Estonia"
-
 #: core/CAT.php:135
+msgid "Estonia"
+msgstr "Estònia"
+
+#: core/CAT.php:136
 msgid "Finland"
 msgstr "Finlàndia"
 
-#: core/CAT.php:136
+#: core/CAT.php:137
 msgid "France"
 msgstr "França"
 
-#: core/CAT.php:137
+#: core/CAT.php:138
 msgid "Germany"
 msgstr "Alemanya"
 
-#: core/CAT.php:138
+#: core/CAT.php:139
 msgid "Greece"
 msgstr "Grècia"
 
-#: core/CAT.php:139
+#: core/CAT.php:140
 msgid "Croatia"
 msgstr "Croàcia"
 
-#: core/CAT.php:140
+#: core/CAT.php:141
 msgid "Ireland"
 msgstr "Irlanda"
 
-#: core/CAT.php:141
+#: core/CAT.php:142
 msgid "Iceland"
 msgstr "Islàndia"
 
-#: core/CAT.php:142
-msgid "Italy"
-msgstr "Italia"
-
 #: core/CAT.php:143
-msgid "Hungary"
-msgstr "Hungria"
+msgid "Italy"
+msgstr "Itàlia"
 
 #: core/CAT.php:144
+msgid "Hungary"
+msgstr "Hongria"
+
+#: core/CAT.php:145
 msgid "Luxembourg"
 msgstr "Luxemburg"
 
-#: core/CAT.php:145
+#: core/CAT.php:146
 msgid "Latvia"
 msgstr "Letònia"
 
-#: core/CAT.php:146
+#: core/CAT.php:147
 msgid "Lithuania"
 msgstr "Lituània"
 
-#: core/CAT.php:147
+#: core/CAT.php:148
 msgid "Macedonia"
 msgstr "Macedònia"
 
-#: core/CAT.php:148
-msgid "Serbia"
-msgstr "Serbia"
-
 #: core/CAT.php:149
+msgid "Serbia"
+msgstr "Sèrbia"
+
+#: core/CAT.php:150
 msgid "Netherlands"
 msgstr "Holanda"
 
-#: core/CAT.php:150
+#: core/CAT.php:151
 msgid "Norway"
 msgstr "Noruega"
 
-#: core/CAT.php:151
+#: core/CAT.php:152
 msgid "Poland"
 msgstr "Polònia"
 
-#: core/CAT.php:152
+#: core/CAT.php:153
 msgid "Portugal"
 msgstr "Portugal"
 
-#: core/CAT.php:153
+#: core/CAT.php:154
 msgid "Romania"
 msgstr "Romania"
 
-#: core/CAT.php:154
+#: core/CAT.php:155
 msgid "Slovenia"
 msgstr "Eslovènia"
 
-#: core/CAT.php:155
+#: core/CAT.php:156
 msgid "Spain"
 msgstr "Espanya"
 
-#: core/CAT.php:156
+#: core/CAT.php:157
 msgid "Sweden"
 msgstr "Suècia"
 
-#: core/CAT.php:157
+#: core/CAT.php:158
 msgid "Slovakia"
 msgstr "Eslovàquia"
 
-#: core/CAT.php:158
-msgid "Switzerland"
-msgstr "Suissa"
-
 #: core/CAT.php:159
+msgid "Switzerland"
+msgstr "Suïssa"
+
+#: core/CAT.php:160
 msgid "Turkey"
 msgstr "Turquia"
 
-#: core/CAT.php:160
+#: core/CAT.php:161
 msgid "United Kingdom"
 msgstr "Regne Unit"
 
-#: core/CAT.php:162
+#: core/CAT.php:163
 msgid "Australia"
 msgstr "Austràlia"
 
-#: core/CAT.php:163
+#: core/CAT.php:164
 msgid "Canada"
 msgstr "Canadà"
 
-#: core/CAT.php:164
+#: core/CAT.php:165
 msgid "Israel"
 msgstr "Israel"
 
-#: core/CAT.php:165
+#: core/CAT.php:166
 msgid "Japan"
 msgstr "Japó"
 
-#: core/CAT.php:166
+#: core/CAT.php:167
 msgid "New Zealand"
 msgstr "Nova Zelanda"
 
-#: core/CAT.php:167
-msgid "U.S.A."
-msgstr "U.S.A."
-
 #: core/CAT.php:168
+msgid "U.S.A."
+msgstr "EUA"
+
+#: core/CAT.php:169
 msgid "Brazil"
 msgstr "Brasil"
 
-#: core/CAT.php:169
+#: core/CAT.php:170
 msgid "Chile"
 msgstr "Xile"
 
-#: core/CAT.php:170
+#: core/CAT.php:171
 msgid "Peru"
 msgstr "Perú"
 
-#: core/CAT.php:171
-msgid "Venezuela"
-msgstr "Veneçola"
-
 #: core/CAT.php:172
+msgid "Venezuela"
+msgstr "Veneçuela"
+
+#: core/CAT.php:173
 msgid "Default"
 msgstr "Per defecte"
 
-#: core/CAT.php:173
+#: core/CAT.php:174
 msgid "Armenia"
 msgstr "Armènia"
 
-#: core/CAT.php:174
+#: core/CAT.php:175
 msgid "Azerbaijan"
 msgstr "Azerbaidjan"
 
-#: core/CAT.php:175
+#: core/CAT.php:176
 msgid "Belarus"
 msgstr "Bielorússia"
 
-#: core/CAT.php:176
+#: core/CAT.php:177
 msgid "Ecuador"
 msgstr "Equador"
 
-#: core/CAT.php:177
+#: core/CAT.php:178
 msgid "Hong Kong"
 msgstr "Hong Kong"
 
-#: core/CAT.php:178
+#: core/CAT.php:179
 msgid "Kenya"
 msgstr "Kenya"
 
-#: core/CAT.php:179
+#: core/CAT.php:180
 msgid "Kyrgyzstan"
 msgstr "Kirguizistan"
 
-#: core/CAT.php:180
+#: core/CAT.php:181
 msgid "Korea"
 msgstr "Corea"
 
-#: core/CAT.php:181
+#: core/CAT.php:182
 msgid "Kazakhstan"
 msgstr "Kazakhstan"
 
-#: core/CAT.php:182
+#: core/CAT.php:183
 msgid "Morocco"
 msgstr "Marroc"
 
-#: core/CAT.php:183
+#: core/CAT.php:184
 msgid "Moldova"
 msgstr "Moldàvia"
 
-#: core/CAT.php:184
+#: core/CAT.php:185
 msgid "Montenegro"
 msgstr "Montenegro"
 
-#: core/CAT.php:185
+#: core/CAT.php:186
 msgid "Macau"
 msgstr "Macau"
 
-#: core/CAT.php:186
+#: core/CAT.php:187
 msgid "Malta"
 msgstr "Malta"
 
-#: core/CAT.php:187
+#: core/CAT.php:188
 msgid "Russia"
 msgstr "Rússia"
 
-#: core/CAT.php:188
+#: core/CAT.php:189
 msgid "Singapore"
 msgstr "Singapur"
 
-#: core/CAT.php:189
+#: core/CAT.php:190
 msgid "Thailand"
 msgstr "Tailàndia"
 
-#: core/CAT.php:190
+#: core/CAT.php:191
 msgid "Taiwan"
 msgstr "Taiwan"
 
-#: core/CAT.php:191
+#: core/CAT.php:192
 msgid "South Africa"
 msgstr "Sudàfrica"
 
-#: core/CAT.php:466 core/IdPlist.php:111
+#: core/CAT.php:467 core/IdPlist.php:111
 msgid "Unnamed Entity"
 msgstr "Entitat sense nom"
 
@@ -392,9 +390,7 @@ msgstr "Hola!"
 msgid ""
 "A new %s access credential has been created for you by your network "
 "administrator."
-msgstr ""
-"Una nova credencial d'accés %s l'ha estat creada pel vostre administrador de "
-"xarxa."
+msgstr "L'administrador de xarxa ha creat una credencial d'accés %s nova."
 
 #: core/SilverbulletInvitation.php:246
 #, php-format
@@ -403,9 +399,9 @@ msgid ""
 "to get a custom %s installation program just for you. You can click on the "
 "link, copy and paste it into a browser or scan the attached QR code."
 msgstr ""
-"Si us plau seguiu el següent enllaç amb el dispositiu que voleu habilitat "
-"per a %s per a obtenir una instal·lació de %s personalitzada. Podeu clicar "
-"en l'enllaç, copiar i enganxar en un navegador o escanejar el codi QR adjunt."
+"Seguiu l'enllaç següent amb el dispositiu que voleu habilitar per a %s per a "
+"obtenir una instal·lació de %s personalitzada. Podeu fer clic en l'enllaç, "
+"copiar i enganxar en un navegador o escanejar el codi QR adjunt."
 
 #. gets replaced with the token value by getBody()
 #: core/SilverbulletInvitation.php:248
@@ -415,9 +411,9 @@ msgid ""
 "up your %s installation program, you can use the same link to get status "
 "information about your %s account."
 msgstr ""
-"Si us plau conserveu aquest email o enllaç per un ús futur. Després "
-"d'aconseguir el vostre programa d'instal·lació d'%s, podeu fer servir el "
-"mateix enllaç per a obtenir informació de l'estat del vostre compte %s."
+"Conserveu aquest correu o l'enllaç per un ús futur. Després d'aconseguir el "
+"programa d'instal·lació d'%s, podeu fer servir el mateix enllaç per a "
+"obtenir informació de l'estat del vostre compte %s."
 
 #: core/SilverbulletInvitation.php:250
 msgid "Regards,"
@@ -429,8 +425,8 @@ msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
 "'%s'!)"
 msgstr ""
-"El vostre accés %s està a punt! Cliqueu aquí: %s( a Android cal que abans "
-"instal·leu la app '%s'!)"
+"L'accés %s és a punt! Feu clic aquí: %s( a Android cal que abans instal·leu "
+"l'aplicació '%s'!)"
 
 #: core/SilverbulletInvitation.php:321
 #, php-format
@@ -474,7 +470,7 @@ msgstr "Contrasenya EAP"
 #. different wording, no translation, sorry
 #: core/common/Entity.php:104
 msgid "National Roaming Operator"
-msgstr "Operador de Roaming nacional"
+msgstr "Operador d'intinerància nacional"
 
 #: core/common/Entity.php:105
 msgid "identity provider"
@@ -522,8 +518,7 @@ msgstr "Hola,"
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
-"manualment. Si us plau no respongueu a aquest correu; és una adreça només "
-"per a enviar."
+"manualment. No respongueu a aquest correu; és una adreça només per a enviar."
 
 #: core/common/OutsideComm.php:281
 #, php-format
@@ -549,8 +544,7 @@ msgid ""
 "To enlist as an administrator for that %s, please click on the following "
 "link:"
 msgstr ""
-"Per a participar-hi com a administrador de %s, si us plau cliqueu al següent "
-"enllaç:"
+"Per a participar-hi com a administrador de %s, feu clic en l'enllaç següent:"
 
 #: core/common/OutsideComm.php:299
 #, php-format
@@ -592,7 +586,7 @@ msgstr ""
 #: core/common/OutsideComm.php:341
 #, php-format
 msgid "%s: you have been invited to manage an %s"
-msgstr "%s: heu estat invitat a gestionar %s"
+msgstr "%s: us han convidat a gestionar %s"
 
 #: web/lib/common/InputValidation.php:40
 msgid "Input validation error: "
@@ -600,7 +594,7 @@ msgstr "Error en la validació de l'entrada:"
 
 #: web/lib/common/InputValidation.php:216
 msgid "Realm is empty!"
-msgstr "Domini és buit!"
+msgstr "El domini és buit!"
 
 #: web/lib/common/InputValidation.php:225
 msgid "Realm contains an @ sign!"
@@ -621,3 +615,10 @@ msgstr "El domini conté espais!"
 #: web/lib/common/InputValidation.php:241
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "El domini no conté almenys un . (punt)!"
+
+#~ msgid ""
+#~ "Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes."
+#~ "md'>Git Revision</a>"
+#~ msgstr ""
+#~ "<a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Revisió del "
+#~ "Git</a>no publicada"

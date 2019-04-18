@@ -6,13 +6,14 @@
 # Alberto Martínez Setién, 2018
 # Alberto Martínez Setién, 2019
 # José Manuel Macías, 2012-2013,2015
+# José Manuel Macías, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-04 08:35+0200\n"
-"PO-Revision-Date: 2019-03-25 09:28+0000\n"
-"Last-Translator: Alberto Martínez Setién\n"
+"POT-Creation-Date: 2019-04-18 08:14+0200\n"
+"PO-Revision-Date: 2019-04-04 09:55+0000\n"
+"Last-Translator: José Manuel Macías\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/es_ES/)\n"
 "Language: es_ES\n"
@@ -313,7 +314,7 @@ msgstr ""
 "Al contrario de lo que el nombre sugiere, SmartScreen no es demasiado "
 "inteligente. Esta advertencia solamente significa que este fichero no ha "
 "sido aún descargado por suficientes usuarios para que Microsoft lo considere "
-"popular (lo cual extrañamente bastaría para considerarlo \"seguro\"). Ese "
+"popular (lo cual extrañamente bastaría para considerarlo 'seguro'). Ese "
 "mensaje por sí sólo no es un problema de seguridad."
 
 #: web/user/faq.inc.php:53 web/user/faq.php:58
@@ -602,6 +603,8 @@ msgid ""
 "%s provides access to thousands of Wi-Fi hotspots around the world, free of "
 "charge. <a href='%s'>Learn more</a>"
 msgstr ""
+"%s permite el acceso a miles de puntos Wi-Fi del mundo, sin cargo alguno. <a "
+"href='%s'>Aquí puedes saber más</a>"
 
 #: web/lib/user/TextTemplates.php:96
 msgid "Select the user group"
@@ -674,6 +677,35 @@ msgstr "Paquete construido para tí"
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Firmado digitalmente por la organización que coordina %s: %s"
 
+#: web/skins/modern/div_user_welcome.php:33
+msgid ""
+"we would like to warmly welcome you among the several million users of "
+"eduroam®! From now on, you will be able to use internet access resources on "
+"thousands of universities, research centres and other places all over the "
+"globe. All of this completely free of charge!"
+msgstr ""
+"quisiéramos darte una calurosa bienvenida a una comunidad de varios millones "
+"de usuarios de eduroam®. A partir de este momento, podrás acceder Internet "
+"desde miles de universidades, centros de investigación y otros lugares de "
+"todo el mundo. ¡Todo ello de manera gratuita!"
+
+#: web/skins/modern/div_user_welcome.php:36
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an eduroam® hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Ahora que has descargado y configurado el configurador, todo lo que tendrás "
+"que hacer es encontrar una ubicación en tu proximidad donde se ofrezca el "
+"servicio eduroam® e introducir tus credenciales de usuario (este es el "
+"nombre que damos a tu 'identificador de usuario y contraseña' o a tu "
+"'certificado personal'). ¡Y ya estarás conectado!"
+
+#: web/skins/modern/index.php:78 web/skins/modern/test.php:80
+msgid "Authenticating"
+msgstr "Autenticando"
+
 #: web/skins/modern/Menu.php:51
 msgid "About"
 msgstr "Acerca de"
@@ -740,35 +772,6 @@ msgstr "Conviértete en desarrollador de CAT"
 #: web/skins/modern/Menu.php:79
 msgid "Terms of use"
 msgstr "Términos de uso"
-
-#: web/skins/modern/div_user_welcome.php:33
-msgid ""
-"we would like to warmly welcome you among the several million users of "
-"eduroam®! From now on, you will be able to use internet access resources on "
-"thousands of universities, research centres and other places all over the "
-"globe. All of this completely free of charge!"
-msgstr ""
-"quisiéramos darte una calurosa bienvenida a una comunidad de varios millones "
-"de usuarios de eduroam®. A partir de este momento, podrás acceder Internet "
-"desde miles de universidades, centros de investigación y otros lugares de "
-"todo el mundo. ¡Todo ello de manera gratuita!"
-
-#: web/skins/modern/div_user_welcome.php:36
-msgid ""
-"Now that you have downloaded and installed a client configurator, all you "
-"need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal "
-"certificate') - and be online!"
-msgstr ""
-"Ahora que has descargado y configurado el configurador, todo lo que tendrás "
-"que hacer es encontrar una ubicación en tu proximidad donde se ofrezca el "
-"servicio eduroam® e introducir tus credenciales de usuario (este es el "
-"nombre que damos a tu 'identificador de usuario y contraseña' o a tu "
-"'certificado personal'). ¡Y ya estarás conectado!"
-
-#: web/skins/modern/index.php:78 web/skins/modern/test.php:80
-msgid "Authenticating"
-msgstr "Autenticando"
 
 #: web/skins/modern/accountstatus/accountstatus.php:79
 msgid ""

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-04 08:35+0200\n"
-"PO-Revision-Date: 2019-03-26 07:16+0000\n"
+"POT-Creation-Date: 2019-04-18 08:14+0200\n"
+"PO-Revision-Date: 2019-04-04 11:11+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/eduroam_devel/"
 "cat/language/bg_BG/)\n"
@@ -595,6 +595,8 @@ msgid ""
 "%s provides access to thousands of Wi-Fi hotspots around the world, free of "
 "charge. <a href='%s'>Learn more</a>"
 msgstr ""
+"%s предоставя безплатно достъп до хиляди Wi-Fi точки за достъп по света. <a "
+"href='%s'> Научете повече </a>"
 
 #: web/lib/user/TextTemplates.php:96
 msgid "Select the user group"
@@ -667,6 +669,35 @@ msgstr "Специално създаден за Вас"
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Цифрово подписан от организацията, която координира %s: %s"
 
+#: web/skins/modern/div_user_welcome.php:33
+msgid ""
+"we would like to warmly welcome you among the several million users of "
+"eduroam®! From now on, you will be able to use internet access resources on "
+"thousands of universities, research centres and other places all over the "
+"globe. All of this completely free of charge!"
+msgstr ""
+"бихме искали да Ви посрещнем сърдечно сред няколкото милиона потребители на "
+"eduroam®! От сега нататък Вие ще имате интернет достъп до ресурсите на "
+"хиляди университети, научно-изследователски центрове и други места по цялото "
+"земно кълбо. Всичко това напълно безплатно!"
+
+#: web/skins/modern/div_user_welcome.php:36
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an eduroam® hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Сега, след като сте изтеглили и инсталирали клиентския конфигуратор, всичко "
+"което трябва да направите е да намерите eduroam® точка за интернет достъп "
+"близо до Вас и да въведете удостоверението си за самоличност (това са Вашите "
+"\"потребителско име и парола\" или \"персонален сертификат\") - и да бъдете "
+"на линия!"
+
+#: web/skins/modern/index.php:78 web/skins/modern/test.php:80
+msgid "Authenticating"
+msgstr "Удостоверяване"
+
 #: web/skins/modern/Menu.php:51
 msgid "About"
 msgstr "Относно"
@@ -733,35 +764,6 @@ msgstr "Станете CAT разработчик"
 #: web/skins/modern/Menu.php:79
 msgid "Terms of use"
 msgstr "Условия за ползване"
-
-#: web/skins/modern/div_user_welcome.php:33
-msgid ""
-"we would like to warmly welcome you among the several million users of "
-"eduroam®! From now on, you will be able to use internet access resources on "
-"thousands of universities, research centres and other places all over the "
-"globe. All of this completely free of charge!"
-msgstr ""
-"бихме искали да Ви посрещнем сърдечно сред няколкото милиона потребители на "
-"eduroam®! От сега нататък Вие ще имате интернет достъп до ресурсите на "
-"хиляди университети, научно-изследователски центрове и други места по цялото "
-"земно кълбо. Всичко това напълно безплатно!"
-
-#: web/skins/modern/div_user_welcome.php:36
-msgid ""
-"Now that you have downloaded and installed a client configurator, all you "
-"need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal "
-"certificate') - and be online!"
-msgstr ""
-"Сега, след като сте изтеглили и инсталирали клиентския конфигуратор, всичко "
-"което трябва да направите е да намерите eduroam® точка за интернет достъп "
-"близо до Вас и да въведете удостоверението си за самоличност (това са Вашите "
-"\"потребителско име и парола\" или \"персонален сертификат\") - и да бъдете "
-"на линия!"
-
-#: web/skins/modern/index.php:78 web/skins/modern/test.php:80
-msgid "Authenticating"
-msgstr "Удостоверяване"
 
 #: web/skins/modern/accountstatus/accountstatus.php:79
 msgid ""

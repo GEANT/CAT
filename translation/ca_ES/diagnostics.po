@@ -5,15 +5,16 @@
 #
 # Translators:
 # eduki <ecercos@xtec.cat>, 2019
+# jmontane, 2019
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-04 08:35+0200\n"
+"POT-Creation-Date: 2019-04-18 08:14+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: eduki <ecercos@xtec.cat>, 2019\n"
+"Last-Translator: jmontane, 2019\n"
 "Language-Team: Catalan (Spain) (https://www.transifex.com/eduroam_devel/"
 "teams/11799/ca_ES/)\n"
 "Language: ca_ES\n"
@@ -118,13 +119,12 @@ msgstr ""
 "sistemes operatius, incloent Apple iOS, no validaran aquest certificat."
 
 #: core/diag/AbstractTest.php:407
-#, fuzzy
 msgid ""
 "At least one certificate in the chain had a public key of less than 2048 "
 "bits. Many recent operating systems consider this unacceptable and will fail "
 "to validate the server certificate."
 msgstr ""
-"Al menys un certificat de la cadena té una clau pública de menys de 1024 "
+"Al menys un certificat de la cadena té una clau pública de menys de 2048 "
 "bits. Alguns sistemes operatius moderns no ho accepten i no validaran el "
 "certificat del servidor."
 
@@ -320,11 +320,11 @@ msgid ""
 "the certificate as a sample to the developers."
 msgstr ""
 "L'algoritme de la clau pública del certificat no és reconegut pel sistema. "
-"Si us plau envieu-lo com a mostra als desenvolupadors."
+"Envieu-lo com a mostra als desenvolupadors."
 
 #: core/diag/AbstractTest.php:571
 msgid "No certificate at all was sent by the server."
-msgstr ""
+msgstr "El servidor no ha enviat cap certificat."
 
 #: core/diag/Logopath.php:107
 msgid "[eduroam Diagnostics]"
@@ -511,9 +511,7 @@ msgstr ""
 msgid ""
 "Please be patient and try again at a later time. Do NOT change your device "
 "configuration."
-msgstr ""
-"Si us plau, proveu-ho més tard. NO canvieu la configuració del vostre "
-"dispositiu."
+msgstr "Proveu-ho més tard. NO canvieu la configuració del vostre dispositiu."
 
 #: core/diag/Sociopath.php:48
 msgid ""
@@ -805,7 +803,7 @@ msgstr ""
 msgid "Click to select a location in which you have an eduroam problem"
 msgstr "Cliqueu per a triar la localització on hi ha el problema d'eduroam"
 
-#: web/skins/modern/diag/diag.php:120 web/skins/modern/diag/diag.php:251
+#: web/skins/modern/diag/diag.php:120 web/skins/modern/diag/diag.php:254
 msgid "Testing realm"
 msgstr "Provant domini"
 
@@ -815,8 +813,7 @@ msgstr "Primera etapa completa."
 
 #: web/skins/modern/diag/diag.php:126
 msgid "To narrow down the problem, please answer the following few questions."
-msgstr ""
-"Per a focalitzar el problema, respongueu si us plau les preguntes següents."
+msgstr "Per a focalitzar el problema, respongueu les preguntes següents."
 
 #: web/skins/modern/diag/diag.php:131
 msgid "Run tests"
@@ -830,7 +827,7 @@ msgstr "Eines per a administradors d'eduroam"
 msgid "Which problem are you reporting?"
 msgstr "Quins problemes esteu informant?"
 
-#: web/skins/modern/diag/diag.php:148 web/skins/modern/diag/diag.php:865
+#: web/skins/modern/diag/diag.php:148 web/skins/modern/diag/diag.php:954
 msgid "SP contacting IdP due to technical problems or abuse"
 msgstr "SP comunicant amb IdP per problemes tècnics o abús"
 
@@ -858,35 +855,35 @@ msgstr "Trieu país o regió:"
 msgid "Fetching country/region list"
 msgstr "Recuperant la llista de països/regions"
 
-#: web/skins/modern/diag/diag.php:276
+#: web/skins/modern/diag/diag.php:278
 msgid "Yes"
 msgstr "Sí"
 
-#: web/skins/modern/diag/diag.php:277
+#: web/skins/modern/diag/diag.php:279
 msgid "No"
 msgstr "No"
 
-#: web/skins/modern/diag/diag.php:278
+#: web/skins/modern/diag/diag.php:280
 msgid "I don't know"
 msgstr "No ho sabem"
 
-#: web/skins/modern/diag/diag.php:309
+#: web/skins/modern/diag/diag.php:311
 msgid "Diagnostic tests results for selected realm"
 msgstr "Resultats de les proves per al domini seleccionat"
 
-#: web/skins/modern/diag/diag.php:312
+#: web/skins/modern/diag/diag.php:314
 msgid "The result for tested realm:"
 msgstr "Resultats per al domini provat:"
 
-#: web/skins/modern/diag/diag.php:314
+#: web/skins/modern/diag/diag.php:316
 msgid "The system identified"
 msgstr "El sistema ha identificat"
 
-#: web/skins/modern/diag/diag.php:316
+#: web/skins/modern/diag/diag.php:318
 msgid "suspected areas which potentially can cause a problem."
 msgstr "àrees sospitoses que potencialment poden causar algun problema."
 
-#: web/skins/modern/diag/diag.php:317
+#: web/skins/modern/diag/diag.php:319
 msgid ""
 "Next to the problem description we show a speculated probability of this "
 "event."
@@ -894,30 +891,30 @@ msgstr ""
 "Al costat de la descripció del problema es mostra la probabilitat estimada "
 "de l'esdeveniment."
 
-#: web/skins/modern/diag/diag.php:324
+#: web/skins/modern/diag/diag.php:326
 msgid "Your device configuration is broken"
 msgstr "La configuració del vostre dispositiu és errònia"
 
-#: web/skins/modern/diag/diag.php:327
+#: web/skins/modern/diag/diag.php:329
 msgid "The Wi-Fi network in your vicinity has quality issues"
 msgstr "La xarxa Wi-Fi propera té problemes de qualitat"
 
-#: web/skins/modern/diag/diag.php:330
+#: web/skins/modern/diag/diag.php:332
 msgid "The network environment around you is broken"
 msgstr "L'entorn de xarxa proper està trencat"
 
-#: web/skins/modern/diag/diag.php:333
+#: web/skins/modern/diag/diag.php:335
 msgid "The RADIUS server of your service provider is the source of the problem"
 msgstr "El servidor RADIUS del vostre proveïdor és la causa del problema"
 
-#: web/skins/modern/diag/diag.php:336
+#: web/skins/modern/diag/diag.php:338
 msgid ""
 "The RADIUS server in your home institution is currently unable to "
 "authenticate you"
 msgstr ""
 "El servidor RADIUS de la vostra institució té un problema per autenticar-vos"
 
-#: web/skins/modern/diag/diag.php:339
+#: web/skins/modern/diag/diag.php:341
 msgid ""
 "The national server in the country/region you are visiting is not "
 "functioning correctly"
@@ -925,7 +922,7 @@ msgstr ""
 "El servidor nacional al país/regió on us trobeu no està funcionant "
 "correctament"
 
-#: web/skins/modern/diag/diag.php:342
+#: web/skins/modern/diag/diag.php:344
 msgid ""
 "The link between the national server of the country/region you are visiting "
 "and the top-level server is broken"
@@ -933,7 +930,7 @@ msgstr ""
 "L'enllaç entre el servidor nacional del país/regió on us trobeu i el "
 "servidor de màxim nivell està trencat"
 
-#: web/skins/modern/diag/diag.php:345
+#: web/skins/modern/diag/diag.php:347
 msgid ""
 "The link between the national server of your home country/region and the top-"
 "level server is broken"
@@ -941,135 +938,150 @@ msgstr ""
 "L'enllaç entre el servidor nacional del vostre país/regió d'origen i el "
 "servidor de màxim nivell està trencat"
 
-#: web/skins/modern/diag/diag.php:348
+#: web/skins/modern/diag/diag.php:350
 msgid "The communication to the top-level server is down"
 msgstr "La comunicació amb el servidor de màxim nivell està tallada"
 
-#: web/skins/modern/diag/diag.php:351
+#: web/skins/modern/diag/diag.php:353
 msgid ""
 "The national server in your home country/region is not functioning properly."
 msgstr ""
 "El servidor nacional del vostre país/regió d'origen no està funcionant "
 "correctament."
 
-#: web/skins/modern/diag/diag.php:354
+#: web/skins/modern/diag/diag.php:356
 msgid "The RADIUS server of your home institution is the source of the problem"
 msgstr "El servidor RADIUS de la vostra institució és el causant del problema"
 
-#: web/skins/modern/diag/diag.php:357
+#: web/skins/modern/diag/diag.php:359
 msgid "This realm does not exist"
 msgstr "Aquest domini no existeix"
 
-#: web/skins/modern/diag/diag.php:469
+#: web/skins/modern/diag/diag.php:471 web/skins/modern/diag/diag.php:534
 msgid "Fetching institutions list"
 msgstr "Recuperant la llista d'institucions"
 
-#: web/skins/modern/diag/diag.php:487
+#: web/skins/modern/diag/diag.php:489 web/skins/modern/diag/diag.php:552
 msgid "Select institution:"
 msgstr "Escolliu institució:"
 
-#: web/skins/modern/diag/diag.php:527
+#: web/skins/modern/diag/diag.php:510
+msgid ""
+"The database does not contain the information needed to help you in realm "
+"selection for this country. You have to provide realm you are interested in."
+msgstr ""
+
+#: web/skins/modern/diag/diag.php:519
+msgid ""
+"Can not search database. You have to provide realm you are interested in."
+msgstr ""
+
+#: web/skins/modern/diag/diag.php:575
+msgid "Other location"
+msgstr ""
+
+#: web/skins/modern/diag/diag.php:609
 msgid "Fetching realms list"
 msgstr "Recuperant la llista de dominis"
 
-#: web/skins/modern/diag/diag.php:539
+#: web/skins/modern/diag/diag.php:621
 msgid "Check realm(s):"
 msgstr "Comproveu el(s) domini(s):"
 
-#: web/skins/modern/diag/diag.php:551
+#: web/skins/modern/diag/diag.php:633
 msgid "Realm:"
 msgstr "Domini:"
 
-#: web/skins/modern/diag/diag.php:606 web/skins/modern/diag/diag.php:674
-#: web/skins/modern/diag/diag.php:791
+#: web/skins/modern/diag/diag.php:688 web/skins/modern/diag/diag.php:756
+#: web/skins/modern/diag/diag.php:880
 msgid "Running realm tests"
 msgstr "Executant proves de domini"
 
-#: web/skins/modern/diag/diag.php:650
+#: web/skins/modern/diag/diag.php:732
 msgid "Realm is not registered with the eduroam database:"
 msgstr "Aquest domini no es troba registrat a la base de dades d'eduroam:"
 
-#: web/skins/modern/diag/diag.php:722
+#: web/skins/modern/diag/diag.php:804
 msgid "Diagnostics results for selected realms"
 msgstr "Resultats de les proves per als dominis seleccionats"
 
-#: web/skins/modern/diag/diag.php:723
+#: web/skins/modern/diag/diag.php:805
 msgid "An unknown problem occured"
 msgstr "Hi ha hagut un problema indeterminat"
 
-#: web/skins/modern/diag/diag.php:726
+#: web/skins/modern/diag/diag.php:808
 msgid "This test includes checking of the following realm"
 msgstr "Aquesta prova inclou comprovacions del següent domini"
 
-#: web/skins/modern/diag/diag.php:728
+#: web/skins/modern/diag/diag.php:810
 msgid "This test includes checking of the following realms"
 msgstr "Aquesta prova inclou comprovacions dels següents dominis"
 
-#: web/skins/modern/diag/diag.php:738
+#: web/skins/modern/diag/diag.php:820
 msgid "You should report this to"
 msgstr "Hauríeu d'informar a"
 
-#: web/skins/modern/diag/diag.php:862
+#: web/skins/modern/diag/diag.php:951
 msgid "eduroam admin report submission"
 msgstr "enviament de l'informe d'administració d'eduroam"
 
-#: web/skins/modern/diag/diag.php:867 web/skins/modern/diag/diag.php:877
+#: web/skins/modern/diag/diag.php:956 web/skins/modern/diag/diag.php:966
 msgid "Reason"
 msgstr "Motiu"
 
-#: web/skins/modern/diag/diag.php:868
+#: web/skins/modern/diag/diag.php:957
 msgid "SP email"
 msgstr "Mail SP"
 
-#: web/skins/modern/diag/diag.php:869
+#: web/skins/modern/diag/diag.php:958
 msgid "IdP email(s)"
 msgstr "emails IdP(s)"
 
-#: web/skins/modern/diag/diag.php:870 web/skins/modern/diag/diag.php:881
+#: web/skins/modern/diag/diag.php:959 web/skins/modern/diag/diag.php:970
 msgid "Event's timestamp"
 msgstr "Marca de temps de l'esdeveniment"
 
-#: web/skins/modern/diag/diag.php:871 web/skins/modern/diag/diag.php:882
+#: web/skins/modern/diag/diag.php:960 web/skins/modern/diag/diag.php:971
 msgid "Calling-Station-Id"
 msgstr "Id de l'estació origen (Calling-Station-Id)"
 
-#: web/skins/modern/diag/diag.php:872 web/skins/modern/diag/diag.php:883
+#: web/skins/modern/diag/diag.php:961 web/skins/modern/diag/diag.php:972
 msgid "Additional description"
 msgstr "Descripció addicional"
 
-#: web/skins/modern/diag/diag.php:875
+#: web/skins/modern/diag/diag.php:964
 msgid "IdP contacting SP due to technical problems or abuse"
 msgstr "IdP comunicant amb SP per problemes tècnics o abús"
 
-#: web/skins/modern/diag/diag.php:878
+#: web/skins/modern/diag/diag.php:967
 msgid "SP's Operator-Name"
 msgstr "Nom de l'operador de l'SP"
 
-#: web/skins/modern/diag/diag.php:879
+#: web/skins/modern/diag/diag.php:968
 msgid "User's outer ID"
 msgstr "ID externa de l'usuari"
 
-#: web/skins/modern/diag/diag.php:880
+#: web/skins/modern/diag/diag.php:969
 msgid "IdP email"
 msgstr "IdP mail"
 
-#: web/skins/modern/diag/diag.php:884
+#: web/skins/modern/diag/diag.php:973
 msgid "How to contact the user"
 msgstr "Com contactar amb l'usuari"
 
-#: web/skins/modern/diag/diag.php:901
+#: web/skins/modern/diag/diag.php:990
 msgid "MAC address is incomplete"
 msgstr "Adreça MAC incompleta"
 
-#: web/skins/modern/diag/diag.php:910
+#: web/skins/modern/diag/diag.php:999
 msgid "Wrong format of email"
 msgstr "Format de mail erroni"
 
-#: web/skins/modern/diag/diag.php:919
+#: web/skins/modern/diag/diag.php:1008
 msgid "Wrong format of outer ID"
 msgstr "Format erroni de la ID externa"
 
-#: web/skins/modern/diag/diag.php:928
+#: web/skins/modern/diag/diag.php:1017
 msgid "Wrong string given as OperatorName"
 msgstr "Cadena errònia de l'OperatorName"
 
@@ -1225,7 +1237,7 @@ msgstr "Empremta SHA1: "
 
 #: web/diag/action_realmcheck.php:146
 msgid "Connected to undetermined server"
-msgstr ""
+msgstr "Connectat a un servidor indeterminat"
 
 #: web/diag/action_realmcheck.php:198
 msgid "Some required input is missing!"
@@ -1463,8 +1475,8 @@ msgid ""
 "accounts in the wild are considered harmful!"
 msgstr ""
 "Nota: l'eina no ofereix intencionalment desar aquestes credencials, i no "
-"seran desades en cap forma a la part de servidor. Sisplau aquí utilitzeu "
-"només <strong>comptes de prova temporals</strong>; comptes de prova vàlides "
+"seran desades en cap forma a la part de servidor. Aquí utilitzeu només "
+"<strong>comptes de prova temporals</strong>; comptes de prova vàlides "
 "permanentment es consideren perilloses!"
 
 #: web/diag/action_realmcheck.php:726
@@ -1564,8 +1576,7 @@ msgstr "Comentaris addicionals"
 #: web/diag/adminQuery.php:92
 msgid "Please specify an email address on which the IdP can contact you"
 msgstr ""
-"Indiqueu si us plau una adreça de correu on el vostre IdP pugui contactar "
-"amb vosaltres"
+"Indiqueu una adreça de correu on el vostre IdP pugui contactar amb vosaltres"
 
 #: web/diag/adminQuery.php:96 web/diag/adminQuery.php:164
 msgid "Now you can send your query"
@@ -1611,9 +1622,7 @@ msgstr "Teniu dades de contacte on l'usuari desitja ser contactat per l'SP?"
 
 #: web/diag/adminQuery.php:160
 msgid "Please specify an email address on which the SP can contact you"
-msgstr ""
-"Indiqueu si us plau una adreça de correu on l'SP pugui contactar amb "
-"vosaltres"
+msgstr "Indiqueu una adreça de correu on l'SP pugui contactar amb vosaltres"
 
 #: web/diag/radius_tests.php:33 web/diag/radius_tests.php:34
 msgid ""

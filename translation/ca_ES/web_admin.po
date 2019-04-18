@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-04 08:35+0200\n"
-"PO-Revision-Date: 2019-03-26 09:12+0000\n"
+"POT-Creation-Date: 2019-04-18 08:14+0200\n"
+"PO-Revision-Date: 2019-04-17 07:16+0000\n"
 "Last-Translator: jmontane\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/ca_ES/)\n"
@@ -435,9 +435,9 @@ msgid ""
 "the %s dashboard and edit your helpdesk settings to include a helpdesk e-"
 "mail address."
 msgstr ""
-"No heu facilitat una adreça de mail. Això és necessari per a %s. Si us plau "
-"aneu al panell de control de %s i editeu-ne els ajustos de per a incloure "
-"l'adreça electrònica del centre de suport."
+"No heu facilitat una adreça de mail. Això és necessari per a %s. Aneu al "
+"panell de control de %s i editeu-ne els ajustos de per a incloure l'adreça "
+"electrònica del centre de suport."
 
 #: web/admin/edit_idp_result.php:148
 msgid "No support e-mail!"
@@ -1069,8 +1069,8 @@ msgid ""
 "doing this."
 msgstr ""
 "Heu de saber que els comptes creats encara seran vàlids els propers %s dies. "
-"Si tots els comptes mostrats com a actius encara són vàlids, marqueu si us "
-"plau la caixa de sota i premeu \"Desa\". Si cap d'aquests està caducat o "
+"Si tots els comptes mostrats com a actius encara són vàlids, marqueu la "
+"caixa de sota i premeu \"Desa\". Si cap d'aquests està caducat o "
 "desactualitzat, desactiveu-lo primer prement el botó corresponent."
 
 #: web/admin/edit_silverbullet.php:578
@@ -1095,8 +1095,8 @@ msgid ""
 "Please enter a username of your choice and user expiry date to create a new "
 "user:"
 msgstr ""
-"Entreu si us plau un identificador de la vostra elecció i una data de "
-"caducitat per a crear un nou usuari:"
+"Entreu un identificador de la vostra elecció i una data de caducitat per a "
+"crear un nou usuari:"
 
 #: web/admin/edit_silverbullet.php:614
 msgid ""
@@ -1153,9 +1153,7 @@ msgstr "Atributs d'usuari - Resum de dades enviades"
 #: web/admin/edit_user_result.php:32
 msgid ""
 "The page was called with insufficient data. Please report this as an error."
-msgstr ""
-"La pàgina s'ha cridat amb dades insuficients. Sisplau informeu d'aquest "
-"error."
+msgstr "La pàgina s'ha cridat amb dades insuficients. Informeu d'aquest error."
 
 #: web/admin/edit_user_result.php:38
 msgid "Submitted attributes"
@@ -1693,15 +1691,14 @@ msgstr "No esteu gestionant cap %s."
 msgid ""
 "Please ask your %s administrator to invite you to become an %s administrator."
 msgstr ""
-"Demaneu si us plau una invitació al vostre administrador de %s per a "
-"convertir-vos en administrador de %s."
+"Demaneu una invitació al vostre administrador de %s per a convertir-vos en "
+"administrador de %s."
 
 #: web/admin/overview_user.php:168
 #, php-format
 msgid ""
 "Did you receive an invitation token to manage an %s? Please paste it here:"
-msgstr ""
-"Vau rebre una invitació per a gestionar %s? Si us plau copieu el codi aquí:"
+msgstr "Vau rebre una invitació per a gestionar %s? Copieu el codi aquí:"
 
 #: web/admin/overview_user.php:180
 #, php-format
@@ -1917,8 +1914,8 @@ msgid ""
 "On this page, you can add a new %s to your %s. Please fill out the form "
 "below to send out an email invitation to the new %s administrator."
 msgstr ""
-"En aquesta pàgina, podeu afegir nous %s a %s. Si us plau ompliu el formulari "
-"adjunt per a enviar un correu d'invitació al nou  administrador de %s."
+"En aquesta pàgina, podeu afegir nous %s a %s. Ompliu el formulari adjunt per "
+"a enviar un correu d'invitació al nou  administrador de %s."
 
 #: web/admin/inc/manageNewInst.inc.php:60
 #, php-format
