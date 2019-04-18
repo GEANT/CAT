@@ -513,6 +513,7 @@ class CAT extends \core\common\Entity {
      * @param string $externalId the ID of the institution in the external DB
      * @param string $realm      the function can also try to find an inst by its realm in the external DB
      * @return array a list of institutions, ideally with only one member
+     * @throws \Exception
      */
     public function getExternalDBEntityDetails($externalId, $realm = NULL) {
         $list = [];
@@ -550,7 +551,7 @@ class CAT extends \core\common\Entity {
                         $list['type'] = IdP::TYPE_IDPSP;
                         break;
                     default:
-                        throw new Exception("Eduroam DB returned a participant type we do not know.");
+                        throw new \Exception("Eduroam DB returned a participant type we do not know.");
                 }
             }
         }
