@@ -204,6 +204,7 @@ class Devices extends \core\common\Entity {
                     'clientcert' => Devices::SUPPORT_ECDSA,
                     'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page. Later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."),
                 ),
+            ),
             'apple_hi_sierra' => array(
                 'group' => "apple",
                 'display' => _("Apple macOS High Sierra"),
@@ -575,7 +576,7 @@ class Devices extends \core\common\Entity {
                   ),
                   ),
                  */
-        ];
+    ];
         \core\common\Entity::outOfThePotatoes();
         return $retArray;
     }
