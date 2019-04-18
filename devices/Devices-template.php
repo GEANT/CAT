@@ -196,7 +196,7 @@ class Devices extends \core\common\Entity {
                 'display' => _("Apple macOS Mojave"),
                 'match' => 'Mac OS X 10[._]14',
                 'directory' => 'apple_mobileconfig',
-                'module' => 'mobileconfig_os_x',
+                'module' => 'MobileconfigOsX',
                 'signer' => 'mobileconfig_sign',
                 'options' => array(
                     'sign' => 1,
