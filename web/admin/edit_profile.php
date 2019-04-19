@@ -308,58 +308,6 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     ?>
     <?php
 
-    /**
-     * creates HTML code which lists the EAP types in their desired property order.
-     * 
-     * @param string  $eapType   EAP type in string representation
-     * @param boolean $isenabled is this EAP type selected or not
-     * @param int     $priority  priority order for the EAP type
-     * @return void
-     */
-    function priority(string $eapType, bool $isenabled, int $priority) {
-        echo "<td><select id='$eapType-priority' name='$eapType-priority' " . (!$isenabled ? "disabled='disabled'" : "") . ">";
-        for ($a = 1; $a < 7; $a = $a + 1) {
-            echo "<option id='$eapType-$a' value='$a' " . ( $isenabled && $a == $priority ? "selected" : "" ) . ">$a</option>";
-        }
-        echo "</select></td>";
-    }
-
-    /**
-     * Displays HTML code which displays the EAP options inherited from IdP-wide config.
-     * 
-     * Since CAT-next does not allow to set EAP properties IdP-wide any more, this is probably useless and can be deleted at some point.
-     * 
-     * @param array  $idpwideoptions list of options on IdP level
-     * @param string $eapType        EAP type in string representation
-     * @param bool   $isVisible      should the HTML code be visible?
-     * @return void
-     */
-    function inherited_options($idpwideoptions, $eapType, $isVisible) {
-        echo "<td><div style='" . (!$isVisible ? "visibility:hidden" : "") . "' class='inheritedoptions' id='$eapType-inherited-global'>";
-
-        $eapoptions = [];
-
-        foreach ($idpwideoptions as $option) {
-            if ($option['level'] == "IdP" && preg_match('/^eap/', $option['name'])) {
-                $eapoptions[] = $option['name'];
-            }
-        }
-
-        $eapoptionsNames = array_count_values($eapoptions);
-
-        if (count($eapoptionsNames) > 0) {
-            echo "<strong>" . _("EAP options inherited from Global level:") . "</strong><br />";
-            foreach ($eapoptionsNames as $optionname => $count) {
-                /// option count and enumeration
-                /// Example: "(3x) Server Name"
-                $uiElements = new web\lib\admin\UIElements();
-                printf(_("(%dx) %s") . "<br />", $count, $uiElements->displayName($optionname));
-            }
-        }
-
-        echo "</div></td>";
-    }
-
     $methods = \core\common\EAP::listKnownEAPTypes();
     ?>
 

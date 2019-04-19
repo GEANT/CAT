@@ -44,7 +44,7 @@ class UIElements extends \core\common\Entity {
      * @var string
      */
     public $nomenclatureInst;
-    
+
     /**
      * the custom displayable variant of the term 'hotspot'
      * 
@@ -58,6 +58,7 @@ class UIElements extends \core\common\Entity {
      * @var string
      */
     public $nomenclatureParticipant;
+
     /**
      * Initialises the class.
      * 
@@ -536,8 +537,8 @@ class UIElements extends \core\common\Entity {
         $scale = sqrt($maxoccupy / $totallogopixels);
         $loggerInstance->debug(4, "Scaling info: $scale, $maxoccupy, $totallogopixels\n");
         // determine final pixel size - round to multitude of $symbolsize to match exact symbol boundary
-        $targetwidth = (int)($symbolsize * round($sizelogo[0] * $scale / $symbolsize));
-        $targetheight = (int)($symbolsize * round($sizelogo[1] * $scale / $symbolsize));
+        $targetwidth = (int) ($symbolsize * round($sizelogo[0] * $scale / $symbolsize));
+        $targetheight = (int) ($symbolsize * round($sizelogo[1] * $scale / $symbolsize));
         // paint white below the logo, in case it has transparencies (looks bad)
         // have one symbol in each direction extra white space
         $whiteimage = imagecreate($targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize);
@@ -546,13 +547,29 @@ class UIElements extends \core\common\Entity {
         }
         imagecolorallocate($whiteimage, 255, 255, 255);
         // also make sure the initial placement is a multitude of 12; otherwise "two half" symbols might be affected
-        $targetplacementx = (int)($symbolsize * round(($sizeinput[0] / 2 - ($targetwidth - $symbolsize) / 2) / $symbolsize));
-        $targetplacementy = (int)($symbolsize * round(($sizeinput[1] / 2 - ($targetheight - $symbolsize) / 2) / $symbolsize));
+        $targetplacementx = (int) ($symbolsize * round(($sizeinput[0] / 2 - ($targetwidth - $symbolsize) / 2) / $symbolsize));
+        $targetplacementy = (int) ($symbolsize * round(($sizeinput[1] / 2 - ($targetheight - $symbolsize) / 2) / $symbolsize));
         imagecopyresized($inputgd, $whiteimage, $targetplacementx - $symbolsize, $targetplacementy - $symbolsize, 0, 0, $targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize, $targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize);
         imagecopyresized($inputgd, $logogd, $targetplacementx, $targetplacementy, 0, 0, $targetwidth, $targetheight, $sizelogo[0], $sizelogo[1]);
         ob_start();
         imagepng($inputgd);
         return ob_get_clean();
+    }
+
+    /**
+     * Something went wrong. We display the error cause and then throw an Exception.
+     * 
+     * @param string $headerDisplay error to put in the page header
+     * @param string $uiDisplay     error string to display
+     * @return void direct output
+     * @throws Exception
+     */
+    function errorPage($headerDisplay, $uiDisplay) {
+        $decoObject = new PageDecoration();
+        echo $decoObject->pageheader($headerDisplay, "ADMIN-IDP");
+        echo "<h1>$uiDisplay</h1>";
+        echo $decoObject->footer();
+        throw new Exception("Error page raised: $headerDisplay - $uiDisplay.");
     }
 
 }

@@ -40,27 +40,12 @@ $usermgmt = new \core\UserManagement();
 
 $auth->authenticate();
 
-/**
- * Something went wrong. We display the error cause and then throw an Exception.
- * 
- * @param string                        $uiDisplay  error string to display
- * @param \web\lib\admin\PageDecoration $decoObject the instance of PageDecoration, needed for footer display.
- * @return void
- * @throws Exception
- */
-function bailout(string $uiDisplay, $decoObject) {
-    echo $decoObject->pageheader(_("Error creating new IdP binding!"), "ADMIN-IDP");
-    echo "<h1>$uiDisplay</h1>";
-    echo $decoObject->footer();
-    throw new Exception("action_enrollment: $uiDisplay.");
-}
-
 if (!isset($_GET['token'])) {
-    bailout(_("This page needs to be called with a valid invitation token!"), $deco);
+    $elements->errorPage(_("Error creating new IdP binding!"),_("This page needs to be called with a valid invitation token!"));
 }
 
 if (\config\ConfAssistant::CONFIG['CONSORTIUM']['selfservice_registration'] === NULL && $_GET['token'] == "SELF-REGISTER") {
-    bailout(_("You tried to register in self-service, but this deployment does not allow self-service!"), $deco);
+    $elements->errorPage(_("Error creating new IdP binding!"),_("You tried to register in self-service, but this deployment does not allow self-service!"));
 }
 
 switch ($_GET['token']) {
