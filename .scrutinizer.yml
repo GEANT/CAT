@@ -208,7 +208,7 @@ build:
                       echo "<?php 
                       namespace config;
                       class ConfAssistant {
-                      const CONFIG_CONFASSISTANT = 
+                      const CONFIG = 
                       [
                       'CONSORTIUM' => [
                       'name' => 'eduroam',
@@ -232,7 +232,7 @@ build:
                       echo "
                       namespace config;
                       class Diagnostics {
-                      <?php const CONFIG_DIAGNOSTICS = 
+                      <?php const CONFIG = 
                       [
                       'RADIUSTESTS' => [],
                       ];
