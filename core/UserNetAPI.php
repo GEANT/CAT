@@ -244,7 +244,7 @@ class UserNetAPI extends UserAPI {
     
     /**
      * outputs user certificates pertaining to a given token in JSON
-     * @param string $token
+     * @param string $token the token for which we want certs
      * @return void creates direct output
      */
     public function jsonGetUserCerts($token) {
@@ -288,11 +288,11 @@ class UserNetAPI extends UserAPI {
      * 
      * @param int|string $identifier identifier of the object whose logo is sought
      * @param string     $type       "federation" or "idp"
-     * @param int        $width      desired target width
-     * @param int        $height     desired target height
+     * @param integer    $width      desired target width
+     * @param integer    $height     desired target height
      * @return void creates direct output
      */
-    public function sendLogo($identifier, $type, $width = 0, $height = 0) {
+    public function sendLogo($identifier, $type, $width, $height) {
         $logo = $this->getLogo($identifier, $type, $width, $height);
         $blob = $logo === NULL ? file_get_contents(ROOT . '/web/resources/images/empty.png') : $logo['blob'];
         header("Content-type: " . $logo['filetype']);

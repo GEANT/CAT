@@ -86,7 +86,7 @@ class DeviceLocation {
         if (CONFIG['GEOIP']['version'] != 2) {
             return ['status' => 'error', 'error' => 'Function for GEOIPv2 called, but config says this is not the version to use!'];
         }
-        require_once CONFIG['GEOIP']['geoip2-path-to-autoloader'];
+        include_once CONFIG['GEOIP']['geoip2-path-to-autoloader'];
         $reader = new Reader(CONFIG['GEOIP']['geoip2-path-to-db']);
         $host = filter_input(INPUT_SERVER, 'REMOTE_ADDR', FILTER_VALIDATE_IP);
         try {

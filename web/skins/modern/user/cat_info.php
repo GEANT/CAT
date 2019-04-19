@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -39,33 +40,33 @@ $Gui->languageInstance->setTextDomain("web_user");
 $page = $_REQUEST['page'];
 $subpage = $_REQUEST['subpage'];
 switch ($page) {
-    case 'about' :
-        require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/user/about_cat.inc.php";
+    case 'about':
+        include_once dirname(dirname(dirname(dirname(__FILE__)))) . "/user/about_cat.inc.php";
         $out = "<div class='padding'>$out</div>";
         break;
     case 'tou':
-        require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/user/tou.inc.php";
+        include_once dirname(dirname(dirname(dirname(__FILE__)))) . "/user/tou.inc.php";
         $out = "no_title<div>
            <h1>
          " . $Tou['title'] . "
     </h1>
-<div id='tou_1'>" . $Tou['subtitle'] . 
-$Tou['short'] . "
+<div id='tou_1'>" . $Tou['subtitle'] .
+                $Tou['short'] . "
 </div>
 <div id='all_tou_link'><a href='javascript:showTOU()'>Click here to see the full terms</a></div>
 <div id='tou_2' style='display:none; padding-top:20px'>" .
-$Tou['full'] . "
+                $Tou['full'] . "
 </div>
 </div>
 ";
         break;
     case 'help':
-        require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/user/faq.inc.php";
+        include_once dirname(dirname(dirname(dirname(__FILE__)))) . "/user/faq.inc.php";
         switch ($subpage) {
-            case 'contact' :
-            case 'idp_not_listed' :
-            case 'device_not_listed' :
-            case 'what_is_eduroam' :
+            case 'contact':
+            case 'idp_not_listed':
+            case 'device_not_listed':
+            case 'what_is_eduroam':
                 $out = "no_title<div><h1>" . _("Help") . "</h1>";
                 foreach ($Faq as $faqItem) {
                     if (!empty($faqItem['id']) && $faqItem['id'] == $subpage) {
@@ -87,9 +88,9 @@ $Tou['full'] . "
                 break;
         }
         break;
-    case 'manage' :
+    case 'manage':
         switch ($subpage) {
-            case 'admin' :
+            case 'admin':
                 $out = "";
                 $auth = new \web\lib\admin\Authentication();
                 if ($auth->isAuthenticated()) {
@@ -108,11 +109,11 @@ $Tou['full'] . "
                     $out .= "<input id='remindIdP' type='text'/><button onclick='remindIdPF(); return false;'>" . _("Get IdP Reminder") . "</button>";
                     $out .= "<div id='remindIdPd'><span id='remindIdPh'></span><ul id='remindIdPl'></ul></div>";
                     $out = "<div  class='padding'>$out</div>";
-                    }
+                }
                 break;
-            case 'develop' :
-                        require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/user/devel.inc.php";
-                        $out = "<div class='padding'>$out</div>";
+            case 'develop':
+                include_once dirname(dirname(dirname(dirname(__FILE__)))) . "/user/devel.inc.php";
+                $out = "<div class='padding'>$out</div>";
                 break;
         }
         break;

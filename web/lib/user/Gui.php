@@ -48,6 +48,12 @@ class Gui extends \core\UserAPI {
         $this->loggerInstance->debug(4, $this->operatingSystem);
     }
 
+    /**
+     * header which is needed by most front-end files
+     * 
+     * @param string $pagetitle content for the <title> element
+     * @return void writes directly to output
+     */
     public function defaultPagePrelude($pagetitle = CONFIG['APPEARANCE']['productname_long']) {
         $ourlocale = $this->languageInstance->getLang();
         header("Content-Type:text/html;charset=utf-8");

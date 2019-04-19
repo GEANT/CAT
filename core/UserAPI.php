@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -93,7 +94,13 @@ class UserAPI extends CAT {
         }
         return $installerProperties;
     }
-    
+
+    /**
+     * checks whether the requested profile data is public, XOR was requested by
+     * its own admin.
+     * @param \core\AbstractProfile $profile
+     * @return boolean
+     */
     private function verifyDownloadAccess($profile) {
         $attribs = $profile->getCollapsedAttributes();
         if (\core\common\Entity::getAttributeValue($attribs, 'profile:production', 0) !== 'on') {
@@ -341,19 +348,19 @@ class UserAPI extends CAT {
      * If not then generate the file and save it in the cache
      * @param int|string $identifier IdP or Federation identifier
      * @param string     $type       either 'idp' or 'federation' is allowed 
-     * @param int        $widthIn    maximum width of the generated image - if 0 then it is treated as no upper bound
-     * @param int        $heightIn   maximum height of the generated image - if 0 then it is treated as no upper bound
+     * @param integer    $widthIn    maximum width of the generated image - if 0 then it is treated as no upper bound
+     * @param integer    $heightIn   maximum height of the generated image - if 0 then it is treated as no upper bound
      * @return array|null array with image information or NULL if there is no logo
      * @throws Exception
      */
-    protected function getLogo($identifier, $type, $widthIn = 0, $heightIn = 0) {
+    protected function getLogo($identifier, $type, $widthIn, $heightIn) {
         $expiresString = '';
         $attributeName = [
             'federation' => "fed:logo_file",
             'federation_from_idp' => "fed:logo_file",
             'idp' => "general:logo_file",
         ];
-        
+
         $logoFile = "";
         $validator = new \web\lib\common\InputValidation();
         switch ($type) {
@@ -383,7 +390,7 @@ class UserAPI extends CAT {
             if (count($logoAttribute) == 0) {
                 return NULL;
             }
-            $this->loggerInstance->debug(4,"RESIZE:$width:$height\n");
+            $this->loggerInstance->debug(4, "RESIZE:$width:$height\n");
             $meta = $this->processImage($logoAttribute[0]['value'], $logoFile, $width, $height, $resize);
             $filetype = $meta['filetype'];
             $expiresString = $meta['expires'];
@@ -391,22 +398,25 @@ class UserAPI extends CAT {
         }
         return ["filetype" => $filetype, "expires" => $expiresString, "blob" => $blob];
     }
-    
+
+    /**
+     * see if we have to resize an image
+     * 
+     * @param integer $width  the desired max width (0 = unbounded)
+     * @param integer $height the desired max height (0 = unbounded)
+     * @return array
+     */
     private function testForResize($width, $height) {
-        if (is_numeric($width) && is_numeric($height) && ($width > 0 || $height > 0)) {
+        if ($width > 0 || $height > 0) {
             if ($height == 0) {
                 $height = 10000;
             }
             if ($width == 0) {
                 $width = 10000;
             }
-            $resize = TRUE;
-        } else {
-            $width = 0;
-            $height = 0;
-            $resize = FALSE;
+            return [$width, $height, TRUE];
         }
-        return [$width, $height, $resize];
+        return [0, 0, FALSE];
     }
 
     /**
@@ -416,7 +426,7 @@ class UserAPI extends CAT {
     public function locateDevice() {
         return \core\DeviceLocation::locateDevice();
     }
-    
+
     /**
      * Lists all identity providers in the database
      * adding information required by DiscoJuice.
@@ -429,7 +439,7 @@ class UserAPI extends CAT {
     public function listAllIdentityProviders($activeOnly = 0, $country = "") {
         return IdPlist::listAllIdentityProviders($activeOnly, $country);
     }
-    
+
     /**
      * Order active identity providers according to their distance and name
      * @param string $country         NRO to work with
@@ -454,7 +464,7 @@ class UserAPI extends CAT {
             $ret = $this->returnDevice($devId, $Dev[$devId]);
             if ($ret !== FALSE) {
                 return $ret;
-            } 
+            }
         }
 // the device has not been specified or not specified correctly, try to detect if from the browser ID
         $browser = filter_input(INPUT_SERVER, 'HTTP_USER_AGENT', FILTER_SANITIZE_STRING);
@@ -470,7 +480,7 @@ class UserAPI extends CAT {
         $this->loggerInstance->debug(2, "Unrecognised system: $browser\n");
         return FALSE;
     }
-    
+
     /**
      * test if devise is defined and is not hidden. If all is fine return extracted information.
      * 
@@ -485,7 +495,7 @@ class UserAPI extends CAT {
         }
         return FALSE;
     }
-   
+
     /**
      * This methods cheks if the devide has been specified as the HTTP parameters
      * 
@@ -535,7 +545,7 @@ class UserAPI extends CAT {
      * @var string
      */
     public $device;
-    
+
     /**
      * path to installer
      * 

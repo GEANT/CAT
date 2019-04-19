@@ -129,8 +129,8 @@ class InputValidation extends \core\common\Entity {
      * IdP identifier and then checks if the Profile belongs to the refernced 
      * IdP
      * 
-     * @param mixed        $input         the numeric ID of the Deployment in the system
-     * @param \core\IdP    $idp the IdP
+     * @param mixed     $input the numeric ID of the Deployment in the system
+     * @param \core\IdP $idp   the IdP
      * @return \core\DeploymentManaged
      * @throws Exception
      */

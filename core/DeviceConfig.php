@@ -724,8 +724,9 @@ abstract class DeviceConfig extends \core\common\Entity {
      * - <b>media:SSID</b>       -  additional SSID to configure, WPA2/AES only (device modules should use internal:SSID)
      * - <b>media:SSID_with_legacy</b> -  additional SSID to configure, WPA2/AES and WPA/TKIP (device modules should use internal:SSID)
      *
-     * @see \core\common\X509::processCertificate()
      * @var array $attributes
+     * @see \core\common\X509::processCertificate()
+     * 
      */
     public $attributes;
 
