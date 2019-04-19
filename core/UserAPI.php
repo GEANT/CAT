@@ -98,7 +98,7 @@ class UserAPI extends CAT {
     /**
      * checks whether the requested profile data is public, XOR was requested by
      * its own admin.
-     * @param \core\AbstractProfile $profile
+     * @param \core\AbstractProfile $profile the profile in question
      * @return boolean
      */
     private function verifyDownloadAccess($profile) {

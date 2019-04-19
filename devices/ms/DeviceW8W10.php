@@ -133,9 +133,9 @@ class DeviceW8W10 extends WindowsCommon {
     private function setAuthorId() {
         if ($this->selectedEap['OUTER'] === \core\common\EAP::TTLS) {
             if ($this->useGeantLink) {
-                return "67532"; //Amebis
+                return 67532; //Amebis
             }
-            return "311";
+            return 311;
         }
         return 0;
     }
