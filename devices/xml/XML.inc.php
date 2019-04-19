@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -27,7 +28,9 @@
  *
  * @package ModuleWriting
  */
+
 namespace devices\xml;
+
 use Exception;
 
 /**
@@ -41,7 +44,7 @@ class XMLElement {
      * @var array
      */
     private $attributes;
-    
+
     /**
      * The value of the element.
      * 
@@ -114,6 +117,7 @@ class XMLElement {
      * 
      * @param scalar $value
      * @return void
+     * @throws Exception
      */
     public function setValue($value) {
         if (is_scalar($value)) {
@@ -191,40 +195,126 @@ class EAPIdentityProvider extends XMLElement {
      * @var XMLElement
      */
     protected $ValidUntil;
+
+    /**
+     * the AuthenticationMethods element
+     * 
+     * @var XMLElement
+     */
     protected $AuthenticationMethods;
+
+    /**
+     * the CredentialApplicability element
+     * 
+     * @var XMLElement
+     */
     protected $CredentialApplicability;
+
+    /**
+     * the ProviderInfo element
+     * 
+     * @var XMLElement
+     */
     protected $ProviderInfo;
+
+    /**
+     * the VendorSpecific element
+     * 
+     * @var XMLElement
+     */
     protected $VendorSpecific;
 
 }
 
 class AuthenticationMethods extends XMLElement {
 
+    /**
+     * the AuthenticationMethod element
+     * 
+     * @var XMLElement
+     */
     protected $AuthenticationMethod;
 
 }
 
 class AuthenticationMethod extends XMLElement {
 
+    /**
+     * the EAPMethod element
+     * 
+     * @var XMLElement
+     */
     protected $EAPMethod;
+
+    /**
+     * the ServerSideCredential element
+     * 
+     * @var XMLElement
+     */
     protected $ServerSideCredential;
+
+    /**
+     * the ClientSideCredential element
+     * 
+     * @var XMLElement
+     */
     protected $ClientSideCredential;
+
+    /**
+     * the InnerAuthenticationMethod element
+     * 
+     * @var XMLElement
+     */
     protected $InnerAuthenticationMethod;
 
 }
 
 class EAPMethod extends XMLElement {
 
+    /**
+     * the Type element
+     * 
+     * @var XMLElement
+     */
     protected $Type;
+
+    /**
+     * the TypeSpecific element
+     * 
+     * @var XMLElement
+     */
     protected $TypeSpecific;
+
+    /**
+     * the VendorSpecific element
+     * 
+     * @var XMLElement
+     */
     protected $VendorSpecific;
 
 }
 
 class NonEAPAuthMethod extends XMLElement {
 
+    /**
+     * the Type element
+     * 
+     * @var XMLElement
+     */
     protected $Type;
+
+    /**
+     * the TypeSpecific element
+     * 
+     * @var XMLElement
+     */
     protected $TypeSpecific;
+
+    /**
+     * the VendorSpecific element
+     * 
+     * @var XMLElement
+     */
     protected $VendorSpecific;
 
 }
@@ -243,8 +333,25 @@ class VendorSpecific extends XMLElement {
 
 class ServerSideCredential extends XMLElement {
 
-    protected $CA; // multi
-    protected $ServerID; //multi
+    /**
+     * the CA element (multuiple occurences allowed)
+     * 
+     * @var XMLElement
+     */
+    protected $CA;
+
+    /**
+     * the ServerID element (multiple occurences allowed)
+     * 
+     * @var XMLElement
+     */
+    protected $ServerID;
+
+    /**
+     * the EAPType element
+     * 
+     * @var XMLElement
+     */
     protected $EAPType;
 
     /**
@@ -273,18 +380,82 @@ class ServerID extends XMLElement {
 
 class ClientSideCredential extends XMLElement {
 
+    /**
+     * the OuterIdentity element
+     * 
+     * @var XMLElement
+     */
     protected $OuterIdentity;
-    protected $InnerIdentityPrefix;
-    protected $InnerIdentitySuffix;
-    protected $InnerIdentityHint;
-    protected $UserName;
-    protected $Password;
-    protected $ClientCertificate;
-    protected $Passphrase;
-    protected $PAC;
-    protected $ProvisionPAC;
-    protected $EAPType;
 
+    /**
+     * the InnerIdentityPrefix element
+     * 
+     * @var XMLElement
+     */
+    protected $InnerIdentityPrefix;
+
+    /**
+     * the InnerIdentitySuffix element
+     * 
+     * @var XMLElement
+     */
+    protected $InnerIdentitySuffix;
+
+    /**
+     * the InnerIdentityHint element
+     * 
+     * @var XMLElement
+     */
+    protected $InnerIdentityHint;
+
+    /**
+     * the UserName element
+     * 
+     * @var XMLElement
+     */
+    protected $UserName;
+
+    /**
+     * the Password element
+     * 
+     * @var XMLElement
+     */
+    protected $Password;
+
+    /**
+     * the ClientCertificate element
+     * 
+     * @var XMLElement
+     */
+    protected $ClientCertificate;
+
+    /**
+     * the Passphrase element
+     * 
+     * @var XMLElement
+     */
+    protected $Passphrase;
+
+    /**
+     * the PAC element
+     * 
+     * @var XMLElement
+     */
+    protected $PAC;
+
+    /**
+     * the ProvisionPAC element
+     * 
+     * @var XMLElement
+     */
+    protected $ProvisionPAC;
+
+    /**
+     * the EAPType element
+     * 
+     * @var XMLElement
+     */
+    protected $EAPType;
 
     /**
      * 
@@ -316,22 +487,77 @@ class CA extends XMLElement {
 
 class InnerAuthenticationMethod extends XMLElement {
 
+    /**
+     * the EAPMethod element
+     * 
+     * @var XMLElement
+     */
     protected $EAPMethod;
+
+    /**
+     * the NonEAPAuthMethod element
+     * 
+     * @var XMLElement
+     */
     protected $NonEAPAuthMethod;
+
+    /**
+     * the ServerSideCredential element
+     * 
+     * @var XMLElement
+     */
     protected $ServerSideCredential;
+
+    /**
+     * the ClientSideCredential element
+     * 
+     * @var XMLElement
+     */
     protected $ClientSideCredential;
 
 }
 
 class CredentialApplicability extends XMLElement {
+
+    /**
+     * the IEEE80211 element
+     * 
+     * @var XMLElement
+     */
     protected $IEEE80211;
+
+    /**
+     * the IEEE8023 element
+     * 
+     * @var XMLElement
+     */
     protected $IEEE8023;
+
 }
 
 class IEEE80211 extends XMLElement {
+
+    /**
+     * the SSID element
+     * 
+     * @var XMLElement
+     */
     protected $SSID;
+
+    /**
+     * the ConsortiumOID element
+     * 
+     * @var XMLElement
+     */
     protected $ConsortiumOID;
+
+    /**
+     * the MinRSNProto element
+     * 
+     * @var XMLElement
+     */
     protected $MinRSNProto;
+
 }
 
 class SSID extends XMLElement {
@@ -347,21 +573,56 @@ class MinRSNProto extends XMLElement {
 }
 
 class IEEE8023 extends XMLElement {
+
     protected $NetworkID;
+
 }
 
 class NetworkID extends XMLElement {
     
 }
 
-
 class ProviderInfo extends XMLElement {
-
+    /**
+     * the DisplayName element
+     * 
+     * @var XMLElement
+     */
     protected $DisplayName;
+    
+    /**
+     * the Description element
+     * 
+     * @var XMLElement
+     */
     protected $Description;
+    
+    /**
+     * the ProviderLocation element
+     * 
+     * @var XMLElement
+     */
     protected $ProviderLocation;
+    
+    /**
+     * the ProviderLogo element
+     * 
+     * @var XMLElement
+     */
     protected $ProviderLogo;
+    
+    /**
+     * the TermsOfUse element
+     * 
+     * @var XMLElement
+     */
     protected $TermsOfUse;
+    
+    /**
+     * the Helpdesk element
+     * 
+     * @var XMLElement
+     */
     protected $Helpdesk;
 
 }
@@ -375,8 +636,18 @@ class Description extends XMLElement {
 }
 
 class ProviderLocation extends XMLElement {
-
+    /**
+     * the Longitude element
+     * 
+     * @var XMLElement
+     */
     protected $Longitude;
+    
+    /**
+     * the Latitude element
+     * 
+     * @var XMLElement
+     */
     protected $Latitude;
 
 }
@@ -390,9 +661,25 @@ class TermsOfUse extends XMLElement {
 }
 
 class Helpdesk extends XMLElement {
-
+    /**
+     * the EmailAddress element
+     * 
+     * @var XMLElement
+     */
     protected $EmailAddress;
+    
+    /**
+     * the WebAddress element
+     * 
+     * @var XMLElement
+     */
     protected $WebAddress;
+    
+    /**
+     * the Phone element
+     * 
+     * @var XMLElement
+     */
     protected $Phone;
 
 }
@@ -408,7 +695,6 @@ class WebAddress extends XMLElement {
 class Phone extends XMLElement {
     
 }
-
 
 /**
  * 
@@ -440,7 +726,7 @@ function marshalObject($node, $object) {
     $qualClassName = get_class($object);
     // remove namespace qualifier
     $pos = strrpos($qualClassName, '\\');
-    $className =  substr($qualClassName, $pos + 1);
+    $className = substr($qualClassName, $pos + 1);
     $name = preg_replace("/_/", "-", $className);
     if ($object->getValue()) {
         $val = preg_replace('/&/', '&amp;', $object->getValue());
@@ -462,7 +748,7 @@ function marshalObject($node, $object) {
         if (is_scalar($value)) {
             $childNode->addChild($name, strval($value));
             continue;
-        } 
+        }
         if (gettype($value) == 'array') {
             foreach ($value as $insideValue) {
                 if (is_object($insideValue)) {
@@ -470,7 +756,7 @@ function marshalObject($node, $object) {
                 }
             }
             continue;
-        } 
+        }
         if (gettype($value) == 'object') {
             marshalObject($childNode, $value);
         }
