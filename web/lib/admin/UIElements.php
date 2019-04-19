@@ -564,7 +564,7 @@ class UIElements extends \core\common\Entity {
      * @return void direct output
      * @throws Exception
      */
-    function errorPage($headerDisplay, $uiDisplay) {
+    public function errorPage($headerDisplay, $uiDisplay) {
         $decoObject = new PageDecoration();
         echo $decoObject->pageheader($headerDisplay, "ADMIN-IDP");
         echo "<h1>$uiDisplay</h1>";
