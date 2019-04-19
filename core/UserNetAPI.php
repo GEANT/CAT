@@ -234,8 +234,11 @@ class UserNetAPI extends UserAPI {
      * @return void creates direct output
      */
     public function jsonDetectOS() {
+        $status = 1;
         $returnArray = $this->detectOS();
-        $status = is_bool($returnArray) ? 0 : 1;
+        if ($returnArray === FALSE) {
+            $status = 0;
+        }
         echo $this->returnJSON($returnArray, $status);
     }
     
@@ -245,9 +248,12 @@ class UserNetAPI extends UserAPI {
      * @return void creates direct output
      */
     public function jsonGetUserCerts($token) {
+        $status = 1;
         $returnArrayE = $this->getUserCerts($token);
         $returnArray = [];
-        $status = is_bool($returnArrayE) ? 0 : 1;
+        if ($returnArrayE === FALSE) {
+            $status = 0;
+        }
         if ($status === 1) {
             foreach ($returnArrayE as $element) {
                 $returnArray[] = $element->getBasicInfo();
