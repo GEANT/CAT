@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -373,7 +374,7 @@ class OutsideComm extends Entity {
         $loggerInstance = new Logging();
         $ch = \curl_init($url);
         if ($ch === FALSE) {
-            $loggerInstance->debug(2,"Unable to POST JSON request: CURL init failed!");
+            $loggerInstance->debug(2, "Unable to POST JSON request: CURL init failed!");
             return json_decode(json_encode(FALSE), TRUE);
         }
         \curl_setopt_array($ch, array(
@@ -387,6 +388,32 @@ class OutsideComm extends Entity {
             throw new \Exception("the POST didn't work!");
         }
         return json_decode($response, TRUE);
+    }
+
+    /**
+     * aborts code execution if a required mail address is invalid
+     * 
+     * @param mixed  $newmailaddress       input string, possibly one or more mail addresses
+     * @param string $redirect_destination destination to send user to if validation failed
+     * @return array mail address if validation passed
+     */
+    public static function exfiltrateValidAddresses($newmailaddress) {
+        $validator = new \web\lib\common\InputValidation();
+        $addressSegments = explode(",", $newmailaddress);
+        $confirmedMails = [];
+        if ($addressSegments === FALSE) {
+            return [];
+        }
+        foreach ($addressSegments as $oneAddressCandidate) {
+            $candidate = trim($oneAddressCandidate);
+            if ($validator->email($candidate) !== FALSE) {
+                $confirmedMails[] = $candidate;
+            }
+        }
+        if (count($confirmedMails) == 0) {
+            return [];
+        }
+        return $confirmedMails;
     }
 
     /**
