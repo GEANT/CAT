@@ -40,7 +40,7 @@ class Authentication extends \core\common\Entity {
      */
     public function isAuthenticated() {
         $authSimple = new \SimpleSAML\Auth\Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
-        $session = \SimpleSAML_Session::getSessionFromRequest();
+        $session = \SimpleSAML\Session::getSessionFromRequest();
         $status = $authSimple->isAuthenticated();
         $session->cleanup();
         return $status;
