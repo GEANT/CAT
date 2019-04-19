@@ -114,6 +114,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @param string          $token          the invitation token for silverbullet requests
      * @param string          $importPassword the PIN for the installer for silverbullet requests
      * @return void
+     * @throws Exception
      * @final not to be redefined
      */
     final public function setup(AbstractProfile $profile, $token = NULL, $importPassword = NULL) {
@@ -397,7 +398,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * 
      * @param string $format only "der" and "pem" are currently allowed
      * @return array an array of arrays or empty array on error
-     
+     * @throws Exception
      */
     final protected function saveCertificateFiles($format) {
         switch ($format) {
@@ -739,19 +740,27 @@ abstract class DeviceConfig extends \core\common\Entity {
      * by copyFile and translateFile
      * the only reason for it to be a public variable ies that it is set by the DeviceFactory class
      * module_path should not be used by module drivers.
+     * 
      * @var string 
      */
     public $module_path;
 
     /**
-     * * The optimal EAP type selected given profile and device
+     * The optimal EAP type selected given profile and device
+     * 
      * @var array
      */
     public $selectedEap;
+    
+    /**
+     * The optimal EAP type selected given profile and device, as object
+     * 
+     * @var \core\common\EAP
+     */
     public $selectedEapObject;
 
     /**
-     * the path to the profile signing program
+     * the full path to the profile signing program
      * device modules which require signing should use this property to exec the signer
      * the signer program must accept two arguments - input and output file names
      * the signer program mus operate in the local directory and filenames are relative to this
@@ -760,16 +769,24 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @var string
      */
     public $sign;
+    
+    /**
+     * the name of the signer program (without full path)
+     * 
+     * @var string
+     */
     public $signer;
 
     /**
      * The string identifier of the device (don't show this to users)
+     * 
      * @var string
      */
     public $device_id;
 
     /**
      * See devices-template.php for a list of available options
+     * 
      * @var array
      */
     public $options;
@@ -797,12 +814,17 @@ abstract class DeviceConfig extends \core\common\Entity {
     public $installerBasename;
 
     /**
-     * stores the PKCS#12 DER representation of a client certificate for SilverBullet
+     * stores the PKCS#12 DER representation of a client certificate for 
+     * SilverBullet along with some metadata in an array
+     * 
+     * @var array
      */
     protected $clientCert;
 
     /**
      * stores identifier used by GEANTLink profiles
+     * 
+     * @var string
      */
     public $deviceUUID;
 

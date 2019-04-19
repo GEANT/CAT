@@ -83,6 +83,8 @@ class Devices extends \core\common\Entity {
      * - 'mime' - used to set the MIME type of the installer file;
      *         if not set will default to the value provided by PHP finfo.
      *         The default is unset, so it is not listed in the Options array.
+     * 
+     * @var array
      */
     public static $Options = [
         'sign' => 0,

@@ -167,6 +167,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * 
      * @param int $profileIdRaw identifier of the profile in the DB
      * @param IdP $idpObject    optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
+     * @throws Exception
      */
     public function __construct($profileIdRaw, $idpObject = NULL) {
         $this->databaseType = "INST";

@@ -51,12 +51,27 @@ abstract class DeviceXML extends \core\DeviceConfig {
     }
 
     /**
-     * $lang_scope can be 'global' wheb all lang and all lang-specific information
+     * $langScope can be 'global' when all lang and all lang-specific information
      * is dumped or 'single' when only the selected lang (and defaults) are passed
      * NOTICE: 'global' is not yet supported
+     * 
+     * @var string
      */
     public $langScope;
+    
+    /**
+     * whether all EAP types should be included in the file or only the 
+     * preferred one
+     * 
+     * @var boolean
+     */
     public $allEaps = FALSE;
+    
+    /**
+     * vendor-specific additional information
+     * 
+     * @var array
+     */
     public $VendorSpecific;
 
     /**
@@ -76,6 +91,7 @@ abstract class DeviceXML extends \core\DeviceConfig {
      * create the actual XML file
      * 
      * @return string filename of the generated installer
+     * @throws Exception
      *
      */
     public function writeInstaller() {
@@ -139,7 +155,7 @@ abstract class DeviceXML extends \core\DeviceConfig {
         return($this->installerBasename . '.eap-config');
     }
 
-    private $AttributeNames = [
+    private const ATTRIBUTENAMES = [
         'support:email' => 'EmailAddress',
         'support:url' => 'WebAddress',
         'support:phone' => 'Phone',
@@ -158,11 +174,11 @@ abstract class DeviceXML extends \core\DeviceConfig {
             return([]);
         }
         $attributeList = $this->attributes[$attrName];
-        if (!isset($this->AttributeNames[$attrName])) {
+        if (!isset(self::ATTRIBUTENAMES[$attrName])) {
             $this->loggerInstance->debug(4, "Missing class definition for $attrName\n");
             return([]);
         }
-        $className = "\devices\xml\\" . $this->AttributeNames[$attrName];
+        $className = "\devices\xml\\" . self::ATTRIBUTENAMES[$attrName];
         $objs = [];
         if ($this->langScope === 'global') {
             foreach ($attributeList['langs'] as $language => $value) {

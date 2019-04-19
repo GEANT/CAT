@@ -50,6 +50,7 @@ class X509 {
      *
      *  @param string $pemData blob of data, which is hopefully a PEM certificate
      *  @return string the DER representation of the certificate
+     * @throws Exception
      *
      *  @author http://php.net/manual/en/ref.openssl.php (comment from 29-Mar-2007)
      */
@@ -168,6 +169,7 @@ class X509 {
      * </pre>
      * @param string $cadata certificate in either PEM or DER format
      * @return array|boolean
+     * @throws Exception
      */
     public function processCertificate($cadata) {
         $pemBegin = strpos($cadata, "-----BEGIN CERTIFICATE-----");
@@ -217,6 +219,7 @@ class X509 {
      *
      * @param string $cadata certificate in ether PEM or DER format
      * @return array
+     * @throws Exception
      */
     public function splitCertificate($cadata) {
         $returnarray = [];

@@ -179,7 +179,7 @@ class OutsideComm extends Entity {
      * @param string $number  the number to send to: with country prefix, but without the + sign ("352123456" for a Luxembourg example)
      * @param string $content the text to send
      * @return integer status of the sending process
-     * @throws Exception
+     * @throws \Exception
      */
     public static function sendSMS($number, $content) {
         $loggerInstance = new \core\common\Logging();
@@ -247,6 +247,7 @@ class OutsideComm extends Entity {
      * @param \core\Federation $federation    if not NULL, indicates that invitation comes from authorised fed admin of that federation
      * @param string           $type          the type of participant we're invited to
      * @return array
+     * @throws \Exception
      */
     public static function adminInvitationMail($targets, $introtext, $newtoken, $idpPrettyName, $federation, $type) {
         if (!in_array($introtext, OutsideComm::INVITE_CONTEXTS)) {

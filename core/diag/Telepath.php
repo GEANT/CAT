@@ -263,6 +263,7 @@ class Telepath extends AbstractTest {
      * Is the uplink between an NRO server and the ETLRs in order?
      * @param string $whichSide test towards the IdP or SP side?
      * @return array
+     * @throws Exception
      */
     private function checkFedEtlrUplink($whichSide) {
         // TODO: we always check the European TLRs even though the connection in question might go via others and/or this one

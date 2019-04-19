@@ -42,15 +42,14 @@ class Gui extends \core\UserAPI {
             $fedskin = $fed->getAttributes("fed:desired_skin");
         }
         $this->skinObject = new \web\lib\user\Skinjob($_REQUEST['skin'] ?? $_SESSION['skin'] ?? $fedskin[0] ?? CONFIG['APPEARANCE']['skins'][0]);
-        $this->langObject = new \core\common\Language();
-        $this->langObject->setTextDomain("web_user");
+        $this->languageInstance->setTextDomain("web_user");
         $this->textTemplates = new TextTemplates();
         $this->operatingSystem = $this->detectOS();
         $this->loggerInstance->debug(4, $this->operatingSystem);
     }
 
     public function defaultPagePrelude($pagetitle = CONFIG['APPEARANCE']['productname_long']) {
-        $ourlocale = $this->langObject->getLang();
+        $ourlocale = $this->languageInstance->getLang();
         header("Content-Type:text/html;charset=utf-8");
         echo "<!DOCTYPE html>
           <html xmlns='http://www.w3.org/1999/xhtml' lang='" . $ourlocale . "'>
@@ -76,9 +75,18 @@ class Gui extends \core\UserAPI {
 ';
     }
 
-    public $loggerInstance;
+    /**
+     * the instance of the skin factory to use
+     * 
+     * @var \web\lib\user\Skinjob
+     */
     public $skinObject;
-    public $langObject;
+    
+    /**
+     * the detected operating system
+     * 
+     * @var array|boolean
+     */
     public $operatingSystem;
 
 }

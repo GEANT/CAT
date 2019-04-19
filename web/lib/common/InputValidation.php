@@ -169,6 +169,7 @@ class InputValidation extends \core\common\Entity {
      * @param mixed   $input           a string to be made SQL-safe
      * @param boolean $allowWhitespace whether some whitespace (e.g. newlines should be preserved (true) or redacted (false)
      * @return string the massaged string
+     * @throws Exception
      */
     public function string($input, $allowWhitespace = FALSE) {
     // always chop out invalid characters, and surrounding whitespace
@@ -386,6 +387,7 @@ public function boolean($input) {
  * checks if we have the strings "IdP" "SP" or "IdPSP"
  * 
  * @param string $partTypeRaw the string to be validated as participant type
+ * @throws Exception
  */
 public function partType($partTypeRaw) {
     switch ($partTypeRaw) {
@@ -474,6 +476,7 @@ public function sms($input) {
  * 
  * @param mixed $input the candidate language identifier
  * @return string
+ * @throws Exception
  */
 public function supportedLanguage($input) {
     if (!array_key_exists($input, CONFIG['LANGUAGES'])) {

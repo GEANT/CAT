@@ -208,7 +208,7 @@ class OptionDisplay extends \core\common\Entity {
      *                     that should get the tooltip
      * @param array $list  elements of the drop-down list
      * @return array HTML code and which option is active
-     * @throws Exception
+     * @throws \Exception
      */
     private function selectElement($rowid, $list) {
         $jsmagic = "onchange='
@@ -444,6 +444,7 @@ FOO;
      * @param string $prefillValue for an existing option, it's value to be displayed
      * @param string $prefillLang  for an existing option, the language of the value to be displayed
      * @return string HTML code <tr>
+     * @throws Exception
      */
     public function optiontext(array $list, string $prefillValue = NULL, string $prefillLang = NULL) {
         $rowid = mt_rand();

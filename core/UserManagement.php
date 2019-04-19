@@ -241,6 +241,7 @@ class UserManagement extends \core\common\Entity {
      * @param string  $country        if the institution is new (i.e. $inst is a string) this parameter needs to specify the federation of the new inst
      * @param string  $partType       the type of participant
      * @return mixed The function returns either the token (as string) or FALSE if something went wrong
+     * @throws Exception
      */
     public function createTokens($isByFedadmin, $for, $instIdentifier, $externalId = 0, $country = 0, $partType = 0) {
         $level = ($isByFedadmin ? "FED" : "INST");

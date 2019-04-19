@@ -131,8 +131,8 @@ abstract class WindowsCommon extends \core\DeviceConfig {
      * @return void
      */
     protected function prepareInstallerLang() {
-        if (isset($this->LANGS[$this->languageInstance->getLang()])) {
-            $language = $this->LANGS[$this->languageInstance->getLang()];
+        if (isset(self::LANGS[$this->languageInstance->getLang()])) {
+            $language = self::LANGS[$this->languageInstance->getLang()];
             $this->lang = $language['nsis'];
             $this->codePage = 'cp' . $language['cp'];
         } else {
@@ -211,6 +211,7 @@ abstract class WindowsCommon extends \core\DeviceConfig {
      * @param array $logos   inst logo meta info
      * @param array $fedLogo fed logo meta info
      * @return void
+     * @throws Exception
      */
     protected function combineLogo($logos = NULL, $fedLogo = NULL) {
         // maximum size to which we want to resize the logos
@@ -448,7 +449,11 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprintNsis(_("%s inst
         
     }
 
-    public $LANGS = [
+    /**
+     * mapping of ISO language names to their Window CodePage equivalent
+     * 
+     */
+    const LANGS = [
         'fr' => ['nsis' => "French", 'cp' => '1252'],
         'de' => ['nsis' => "German", 'cp' => '1252'],
         'es' => ['nsis' => "SpanishInternational", 'cp' => '1252'],
@@ -494,9 +499,33 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprintNsis(_("%s inst
         'af' => ['nsis' => "Afrikaans", 'cp' => '1252'],
         'ast' => ['nsis' => "Asturian", 'cp' => '1252'],
     ];
+    
+    /**
+     * the codepage the installer should use
+     * 
+     * @var string
+     */
     public $codePage;
+    
+    /**
+     * the selected language for the installer
+     * 
+     * @var string
+     */
     public $lang;
+    
+    /**
+     * whether or not GEANTLink should be included in the installer
+     * 
+     * @var boolean
+     */
     public $useGeantLink;
+    
+    /**
+     * information about available space in the background image
+     * 
+     * @var array
+     */
     private $background;
 
 }

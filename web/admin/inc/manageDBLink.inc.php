@@ -152,25 +152,24 @@ if (isset($_POST['submitbutton'])) {
             $candidates = $my_inst->getExternalDBSyncCandidates($my_inst->type);
             echo "<br/><form name='form-link-inst' action='inc/manageDBLink.inc.php?inst_id=$my_inst->identifier' method='post' accept-charset='UTF-8'>";
             printf(_("Please select an entity from the %s DB which corresponds to this CAT %s."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $uiElements->nomenclatureInst) . " ";
-            if ($candidates !== FALSE && count($candidates) > 0) {
+            if (count($candidates) > 0) {
                 printf(_("Particularly promising entries (names in CAT and %s DB are a 100%% match) are on top of the list."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
             }
             echo "<table>";
             echo "<tr><th>" . _("Link to this entity?") . "</th><th>" . sprintf(_("%s Name"), $uiElements->nomenclatureInst) . "</th><th>" . _("Administrators") . "</th></tr>";
-            if ($candidates !== FALSE && count($candidates) > 0) {
-                foreach ($candidates as $candidate) {
-                    $info = $cat->getExternalDBEntityDetails($candidate);
-                    echo "<tr><td><input type='radio' name='inst_link' value='$candidate' onclick='document.getElementById(\"submit\").disabled = false;'>$candidate</input></td><td>";
-                    foreach ($info['names'] as $lang => $name) {
-                        echo "[$lang] $name<br/>";
-                    }
-                    echo "</td><td>";
-                    foreach ($info['admins'] as $number => $admin_details) {
-                        echo "[E-Mail] " . $admin_details['email'] . "<br/>";
-                    }
-                    echo "</td></tr>";
-                    $temparray[] = $candidate;
+
+            foreach ($candidates as $candidate) {
+                $info = $cat->getExternalDBEntityDetails($candidate);
+                echo "<tr><td><input type='radio' name='inst_link' value='$candidate' onclick='document.getElementById(\"submit\").disabled = false;'>$candidate</input></td><td>";
+                foreach ($info['names'] as $lang => $name) {
+                    echo "[$lang] $name<br/>";
                 }
+                echo "</td><td>";
+                foreach ($info['admins'] as $number => $admin_details) {
+                    echo "[E-Mail] " . $admin_details['email'] . "<br/>";
+                }
+                echo "</td></tr>";
+                $temparray[] = $candidate;
             }
             // we might have been wrong in our guess...
             $fed = new \core\Federation(strtoupper($my_inst->federation));

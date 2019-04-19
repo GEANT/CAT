@@ -227,7 +227,7 @@ class DeviceVista7 extends WindowsCommon {
 ';
             if (isset($attr['eap-specific:tls_use_other_id']) && $attr['eap-specific:tls_use_other_id'][0] == 'on') {
                 $profileFileCont .= '<eapTls:DifferentUsername>true</eapTls:DifferentUsername>';
-                $this->tlsOtherUsername = 1;
+                $this->tlsOtherUsername = TRUE;
             } else {
                 $profileFileCont .= '<eapTls:DifferentUsername>false</eapTls:DifferentUsername>';
             }
@@ -459,7 +459,7 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
 // $fcontents .= "!define ALLOW_XP\n";
 // Uncomment the line below if you want this module to produce debugging messages on the client
 // $fcontents .= "!define DEBUG_CAT\n";
-        if ($this->tlsOtherUsername == 1) {
+        if ($this->tlsOtherUsername === TRUE) {
             $fcontents .= "!define PFX_USERNAME\n";
         }
         $execLevel = $eapOptions[$eap["OUTER"]]['exec'];
@@ -534,6 +534,11 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
         return TRUE;
     }
 
-    private $tlsOtherUsername = 0;
+    /**
+     * should a different username be prompted for when using EAP-TLS?
+     * 
+     * @var boolean
+     */
+    private $tlsOtherUsername = FALSE;
 
 }

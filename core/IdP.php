@@ -280,6 +280,7 @@ class IdP extends EntityWithDBProperties {
      *
      * @param string $type exactly "RADIUS" or "SILVERBULLET", all other values throw an Exception
      * @return AbstractProfile|NULL new Profile object if successful, or NULL if an error occured
+     * @throws Exception
      */
     public function newProfile(string $type) {
         $this->databaseHandle->exec("INSERT INTO profile (inst_id) VALUES($this->identifier)");
@@ -307,6 +308,7 @@ class IdP extends EntityWithDBProperties {
      *
      * @param string $type exactly "RADIUS-SP" or "MANAGED-SP", all other values throw an Exception
      * @return DeploymentManaged the newly created deployment
+     * @throws Exception
      */
     public function newDeployment(string $type) {
         switch ($type) {
@@ -326,6 +328,7 @@ class IdP extends EntityWithDBProperties {
      * deletes the IdP and all its profiles
      * 
      * @return void
+     * @throws Exception
      */
     public function destroy() {
         common\Entity::intoThePotatoes();
@@ -369,7 +372,7 @@ Best regards,
      * The business logic of this function is roaming consortium specific; if no match algorithm is known for the consortium, FALSE is returned.
      * 
      * @param string $type which type of entity are you looking for?
-     * @return mixed list of entities in external database that correspond to this IdP or FALSE if no consortium-specific matching function is defined
+     * @return array list of entities in external database that correspond to this IdP
      */
     public function getExternalDBSyncCandidates($type) {
         $usedarray = [];

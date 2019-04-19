@@ -166,6 +166,7 @@ class Options {
      * 
      * @param string $optionname Name of the option whose properties are to be retrieved.
      * @return array properties of the attribute
+     * @throws Exception
      */
     public function optionType($optionname) {
         if (isset($this->typeDb[$optionname])) {
@@ -181,7 +182,7 @@ class Options {
      * 
      * @param string $unvettedName the input name
      * @return string the name echoed back, but from trusted source
-     * 
+     * @throws Exception
      */
     public function assertValidOptionName($unvettedName) {
         $listOfOptions = array_keys($this->typeDb);

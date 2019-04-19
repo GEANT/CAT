@@ -116,6 +116,7 @@ class Federation extends EntityWithDBProperties {
      * gets the download statistics for the federation
      * @param string $format either as an html *table* or *XML* or *JSON*
      * @return string|array
+     * @throws Exception
      */
     public function downloadStats($format) {
         $data = $this->downloadStatsCore();
@@ -158,6 +159,7 @@ class Federation extends EntityWithDBProperties {
      *
      * @param string $fedname textual representation of the Federation object
      *                        Example: "lu" (for Luxembourg)
+     * @throws Exception
      */
     public function __construct($fedname) {
 
@@ -217,7 +219,8 @@ class Federation extends EntityWithDBProperties {
      * @param string $level         Privilege level of the first administrator (was he blessed by a federation admin or a peer?)
      * @param string $mail          e-mail address with which the user was invited to administer (useful for later user identification if the user chooses a "funny" real name)
      * @param string $bestnameguess name of the IdP, if already known, in the best-match language
-     * @return int identifier of the new IdP
+     * @return integer identifier of the new IdP
+     * @throws Exception
      */
     public function newIdP($type, $ownerId, $level, $mail = NULL, $bestnameguess = NULL) {
         $this->databaseHandle->exec("INSERT INTO institution (country, type) VALUES('$this->tld', '$type')");
@@ -289,7 +292,20 @@ Best regards,
         return $identifier;
     }
 
+    /**
+     * list of all institutions. Fetched once from the DB and then stored in
+     * this variable
+     * 
+     * @var array
+     */
     private $idpListAll;
+    
+    /**
+     * list of all active institutions. Fetched once from the DB and then stored
+     * in this variable
+     * 
+     * @var array
+     */
     private $idpListActive;
 
     /**

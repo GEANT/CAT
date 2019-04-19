@@ -47,6 +47,12 @@ use \Exception;
  */
 class ExternalEduroamDBData extends EntityWithDBProperties {
 
+    /**
+     * List of all service providers. Fetched only once by allServiceProviders()
+     * and then stored in this property for efficiency
+     * 
+     * @var array
+     */
     private $SPList = [];
 
     /**
@@ -73,6 +79,7 @@ class ExternalEduroamDBData extends EntityWithDBProperties {
      * 
      * @param string $nameRaw the string with all name variants coerced into one
      * @return array language/name pair
+     * @throws Exception
      */
     private function splitNames($nameRaw) {
         $variants = explode('#', $nameRaw);

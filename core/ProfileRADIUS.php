@@ -69,6 +69,7 @@ class ProfileRADIUS extends AbstractProfile {
      * 
      * @param int $profileId identifier of the profile in the DB
      * @param IdP $idpObject optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
+     * @throws Exception
      */
     public function __construct($profileId, $idpObject = NULL) {
         parent::__construct($profileId, $idpObject);
@@ -272,6 +273,7 @@ class ProfileRADIUS extends AbstractProfile {
      * 
      * @param string $extracondition a condition to append to the deletion query. RADIUS Profiles have eap-level or device-level options which shouldn't be purged; this can be steered in the overriding function.
      * @return array list of row id's of file-based attributes which weren't deleted
+     * @throws Exception
      */
     public function beginFlushAttributes($extracondition = "") {
         // we don't take extraconditions
@@ -323,6 +325,7 @@ class ProfileRADIUS extends AbstractProfile {
      * @param int    $eapId    the numeric identifier of the EAP method
      * @param string $deviceId the name of the device
      * @return array list of row id's of file-based attributes which weren't deleted
+     * @throws Exception
      */
     public function beginFlushMethodLevelAttributes($eapId, $deviceId) {
         if ($eapId == 0 && $deviceId == "") {

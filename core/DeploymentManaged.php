@@ -132,6 +132,7 @@ class DeploymentManaged extends AbstractDeployment {
      * 
      * @param IdP        $idpObject       optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
      * @param string|int $deploymentIdRaw identifier of the deployment in the DB
+     * @throws Exception
      */
     public function __construct($idpObject, $deploymentIdRaw) {
         parent::__construct($idpObject, $deploymentIdRaw); // we now have access to our INST database handle and logging

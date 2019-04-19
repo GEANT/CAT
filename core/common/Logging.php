@@ -30,6 +30,8 @@ class Logging {
     /**
      * We don't have a lot to do here, but at least make sure that the logdir 
      * is specified and exists.
+     * 
+     * @throws Exception
      */
     public function __construct() {
         if (!isset(CONFIG['PATHS']['logdir'])) {
@@ -91,6 +93,7 @@ class Logging {
      * @param string $category type of modification, from the fixed vocabulary: "NEW", "OWN", "MOD", "DEL"
      * @param string $message  message to log into the audit log
      * @return boolean TRUE if successful. Will terminate script execution on failure. 
+     * @throws Exception
      */
     public function writeAudit($user, $category, $message) {
         switch ($category) {

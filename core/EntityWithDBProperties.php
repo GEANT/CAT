@@ -95,6 +95,8 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
 
     /**
      * the name of the entity in the current locale
+     * 
+     * @var string
      */
     public $name;
 
@@ -218,6 +220,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * @param string $query sub-classes set the query to execute to get to the options
      * @param string $level the retrieved options get flagged with this "level" identifier
      * @return array the attributes in one array
+     * @throws Exception
      */
     protected function retrieveOptionsFromDatabase($query, $level) {
         if (substr($query, 0, 6) != "SELECT") {

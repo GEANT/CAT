@@ -202,6 +202,7 @@ class ProfileSilverbullet extends AbstractProfile {
      * It's EAP-TLS and there is no point in anonymity
      * @param boolean $shallwe always FALSE
      * @return void
+     * @throws Exception
      */
     public function setAnonymousIDSupport($shallwe) {
         // we don't do anonymous outer IDs in SB

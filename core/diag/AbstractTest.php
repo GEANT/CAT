@@ -616,8 +616,19 @@ class AbstractTest extends \core\common\Entity {
     const STATUS_DOWN = -2;
     const STATUS_MONITORINGFAIL = -3;
 
-    
+    /**
+     * list of parts of the infrastructure which could be responsible for 
+     * the problem being diagnosed
+     * 
+     * @var array
+     */
     public $possibleFailureReasons;
+    
+    /**
+     * evidence we collected along the way
+     * 
+     * @var array
+     */
     public $additionalFindings;
 
 }

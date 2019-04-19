@@ -44,6 +44,7 @@ class XMLElement {
     
     /**
      * The value of the element.
+     * 
      * @var string
      */
     private $value;
@@ -52,6 +53,7 @@ class XMLElement {
      * return object variables for a given object
      * 
      * @param object $obj the object
+     * 
      * @return array
      */
     protected function getObjectVars($obj) {
@@ -59,14 +61,13 @@ class XMLElement {
     }
 
     /**
-     *  @var array $AuthMethodElements is used to limit
-     *  XML elements present within ServerSideCredentials and
-     *  ClientSideCredentials to ones which are relevant
-     *  for a given EAP method.
-     *  @var array of XLM element names which are allowed
-     *  EAP method names are defined in core/EAP.php
+     * array $AuthMethodElements is used to limit XML elements present within 
+     * ServerSideCredentials and ClientSideCredentials to ones which are 
+     * relevant for a given EAP method.
+     * array of XML element names which are allowed EAP method names are defined
+     * in core/EAP.php
      */
-    public static $authMethodElements = [
+    public const AUTHMETHODELEMENTS = [
         'server' => [
             \core\common\EAP::TLS => ['CA', 'ServerID'],
             \core\common\EAP::FAST => ['CA', 'ServerID'],
@@ -184,6 +185,11 @@ class XMLElement {
 
 class EAPIdentityProvider extends XMLElement {
 
+    /**
+     * the ValidUntil element
+     * 
+     * @var XMLElement
+     */
     protected $ValidUntil;
     protected $AuthenticationMethods;
     protected $CredentialApplicability;
@@ -246,8 +252,8 @@ class ServerSideCredential extends XMLElement {
      * @return array
      */
     public function getAll() {
-        if (isset(XMLElement::$authMethodElements['server'][$this->EAPType]) && XMLElement::$authMethodElements['server'][$this->EAPType]) {
-            $element = XMLElement::$authMethodElements['server'][$this->EAPType];
+        if (isset(XMLElement::AUTHMETHODELEMENTS['server'][$this->EAPType]) && XMLElement::AUTHMETHODELEMENTS['server'][$this->EAPType]) {
+            $element = XMLElement::AUTHMETHODELEMENTS['server'][$this->EAPType];
             $objectVariables = get_object_vars($this);
             $outArray = [];
             foreach ($objectVariables as $o => $v) {
@@ -285,8 +291,8 @@ class ClientSideCredential extends XMLElement {
      * @return array
      */
     public function getAll() {
-        if (isset(XMLElement::$authMethodElements['client'][$this->EAPType]) && XMLElement::$authMethodElements['client'][$this->EAPType]) {
-            $element = XMLElement::$authMethodElements['client'][$this->EAPType];
+        if (isset(XMLElement::AUTHMETHODELEMENTS['client'][$this->EAPType]) && XMLElement::AUTHMETHODELEMENTS['client'][$this->EAPType]) {
+            $element = XMLElement::AUTHMETHODELEMENTS['client'][$this->EAPType];
             $objectVars = get_object_vars($this);
             $outputArray = [];
             foreach ($objectVars as $name => $value) {

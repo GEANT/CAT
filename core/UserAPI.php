@@ -194,6 +194,7 @@ class UserAPI extends CAT {
      * 
      * @param int $showHidden whether or not hidden devices should be shown
      * @return array the list of devices
+     * @throws Exception
      */
     public function listDevices($showHidden = 0) {
         $returnList = [];
@@ -343,6 +344,7 @@ class UserAPI extends CAT {
      * @param int        $widthIn    maximum width of the generated image - if 0 then it is treated as no upper bound
      * @param int        $heightIn   maximum height of the generated image - if 0 then it is treated as no upper bound
      * @return array|null array with image information or NULL if there is no logo
+     * @throws Exception
      */
     protected function getLogo($identifier, $type, $widthIn = 0, $heightIn = 0) {
         $expiresString = '';
@@ -527,7 +529,18 @@ class UserAPI extends CAT {
         return $allcerts;
     }
 
+    /**
+     * device name
+     * 
+     * @var string
+     */
     public $device;
+    
+    /**
+     * path to installer
+     * 
+     * @var string
+     */
     private $installerPath;
 
     /**

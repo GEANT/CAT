@@ -51,6 +51,7 @@ class DeviceLinux extends \core\DeviceConfig {
      * create the actual installer script
      * 
      * @return string filename of the generated installer
+     * @throws Exception
      *
      */
     public function writeInstaller() {

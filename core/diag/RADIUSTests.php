@@ -125,6 +125,7 @@ class RADIUSTests extends AbstractTest {
      * @param array  $supportedEapTypes      array of integer representations of EAP types
      * @param array  $expectedServerNames    array of strings
      * @param array  $expectedCABundle       array of PEM blocks
+     * @throws Exception
      */
     public function __construct($realm, $outerUsernameForChecks, $supportedEapTypes = [], $expectedServerNames = [], $expectedCABundle = []) {
         parent::__construct();
@@ -151,7 +152,7 @@ class RADIUSTests extends AbstractTest {
         if ($caNeeded) {
             // we need to have info about at least one CA cert and server names
             if (count($this->expectedCABundle) == 0) {
-                Throw new Exception("Thorough checks for an EAP type needing CAs were requested, but the required parameters were not given.");
+                throw new Exception("Thorough checks for an EAP type needing CAs were requested, but the required parameters were not given.");
             } else {
                 $this->opMode = self::RADIUS_TEST_OPERATION_MODE_THOROUGH;
             }
@@ -159,7 +160,7 @@ class RADIUSTests extends AbstractTest {
 
         if ($serverNeeded) {
             if (count($this->expectedServerNames) == 0) {
-                Throw new Exception("Thorough checks for an EAP type needing server names were requested, but the required parameter was not given.");
+                throw new Exception("Thorough checks for an EAP type needing server names were requested, but the required parameter was not given.");
             } else {
                 $this->opMode = self::RADIUS_TEST_OPERATION_MODE_THOROUGH;
             }
@@ -319,7 +320,8 @@ class RADIUSTests extends AbstractTest {
      * @param int     $probeindex  refers to the specific UDP-host in the config that should be checked
      * @param boolean $opnameCheck should we check choking on Operator-Name?
      * @param boolean $frag        should we cause UDP fragmentation? (Warning: makes use of Operator-Name!)
-     * @return int returncode
+     * @return integer returncode
+     * @throws Exception
      */
     public function udpReachability($probeindex, $opnameCheck = TRUE, $frag = TRUE) {
         // for EAP-TLS to be a viable option, we need to pass a random client cert to make eapol_test happy
@@ -341,7 +343,8 @@ class RADIUSTests extends AbstractTest {
      * CRL and attach it to the cert structure so that we can later find out if
      * the cert was revoked
      * @param array $cert by-reference: the cert data we are writing into
-     * @return int result code whether we were successful in retrieving the CRL
+     * @return integer result code whether we were successful in retrieving the CRL
+     * @throws Exception
      */
     private function addCrltoCert(&$cert) {
         $crlUrl = [];
@@ -448,9 +451,10 @@ class RADIUSTests extends AbstractTest {
      * * was an EAP method ever acknowledged by both sides during the EAP
      *   conversation
      * 
-     * @param array $inputarray   array of strings (outputs of eapol_test command)
-     * @param int   $desiredCheck which test should be run (see constants above)
+     * @param array   $inputarray   array of strings (outputs of eapol_test command)
+     * @param integer $desiredCheck which test should be run (see constants above)
      * @return boolean returns TRUE if ETLR Reject logic was detected; FALSE if not
+     * @throws Exception
      */
     private function checkLineparse($inputarray, $desiredCheck) {
         foreach ($inputarray as $lineid => $line) {

@@ -246,7 +246,7 @@ use \Exception;
         $profileFileCont .= $this->tlsServerValidation();
         if (\core\common\Entity::getAttributeValue($this->attributes, 'eap-specific:tls_use_other_id', 0) === 'on') {
             $profileFileCont .= '<eapTls:DifferentUsername>true</eapTls:DifferentUsername>';
-            $this->tlsOtherUsername = 1;
+            $this->tlsOtherUsername = TRUE;
         } else {
             $profileFileCont .= '<eapTls:DifferentUsername>false</eapTls:DifferentUsername>';
         }
@@ -563,7 +563,7 @@ use \Exception;
 // $fcontents .= "!define ALLOW_XP\n";
 // Uncomment the line below if you want this module to produce debugging messages on the client
 // $fcontents .= "!define DEBUG_CAT\n";
-        if ($this->tlsOtherUsername == 1) {
+        if ($this->tlsOtherUsername === TRUE) {
             $fcontents .= "!define PFX_USERNAME\n";
         }
         $execLevel = $eapOptions[$eap["OUTER"]]['exec'];
@@ -604,11 +604,46 @@ use \Exception;
         return TRUE;
     }
 
-    private $tlsOtherUsername = 0;
+    /**
+     * should a different username be prompted for when using EAP-TLS?
+     * 
+     * @var boolean
+     */
+    private $tlsOtherUsername = FALSE;
+    
+    /**
+     * list of CAs to include in the installer
+     * 
+     * @var array
+     */
     private $caArray;
+    
+    /**
+     * should anonymous outer identities be used?
+     * 
+     * @var boolean
+     */
     private $useAnon;
+    
+    /**
+     * server names to configure, separated by semicolon
+     * 
+     * @var string
+     */
     private $servers;
+    
+    /**
+     * anonymous outer ID to use, for PEAP
+     * 
+     * @var string
+     */
     private $outerUser;
+    
+    /**
+     * anonymous outer ID to use, for TTLS
+     * 
+     * @var string
+     */
     private $outerId;
 
 }
