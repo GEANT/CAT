@@ -95,7 +95,7 @@ $errorstate = [];
     icons[L_REMARK] = '../resources/images/icons/Quetto/info-icon.png';
     var icon_loading = '../resources/images/icons/loading51.gif';
     var tmp_content;
-    var lang = '<?php echo $gui->langObject->getLang(); ?>'
+    var lang = '<?php echo $gui->languageInstance->getLang(); ?>'
     var states = new Array();
     states['PASS'] = "<?php echo _("PASS") ?>";
     states['FAIL'] = "<?php echo _("FAIL") ?>";
@@ -455,7 +455,7 @@ foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) 
 $(\"#src" . $hostindex . "_img\").attr('src',icon_loading);
 $(\"#src$hostindex\").html('');
 running_ajax_stat++;
-$.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostindex, lang: '" . $gui->langObject->getLang() . "', hostindex: '$hostindex'  }, udp, 'json');
+$.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostindex, lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex'  }, udp, 'json');
 
 ";
 }
@@ -592,9 +592,9 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
                             $host = ($addr['family'] == "IPv6" ? "[" : "") . $addr['IP'] . ($addr['family'] == "IPv6" ? "]" : "") . ":" . $addr['port'];
                             print "
                             running_ajax_dyn++;
-                            $.ajax({url:'radius_tests.php', data:{test_type: 'capath', realm: realm, src: '$host', lang: '" . $gui->langObject->getLang() . "', hostindex: '$hostindex' }, error: eee, success: capath, dataType: 'json'}); 
+                            $.ajax({url:'radius_tests.php', data:{test_type: 'capath', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex' }, error: eee, success: capath, dataType: 'json'}); 
                             running_ajax_dyn++;
-                            $.ajax({url:'radius_tests.php', data:{test_type: 'clients', realm: realm, src: '$host', lang: '" . $gui->langObject->getLang() . "', hostindex: '$hostindex' }, error: eee, success: clients, dataType: 'json'}); 
+                            $.ajax({url:'radius_tests.php', data:{test_type: 'clients', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex' }, error: eee, success: clients, dataType: 'json'}); 
                        ";
                         }
                         echo "}
@@ -718,7 +718,7 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
                     <p>" . _("Note: the tool purposefully does not offer you to save these credentials, and they will never be saved in any way on the server side. Please use only <strong>temporary test accounts</strong> here; permanently valid test accounts in the wild are considered harmful!") . "</p></div>
                     <form enctype='multipart/form-data' id='live_form' accept-charset='UTF-8'>
                     <input type='hidden' name='test_type' value='udp_login'>
-                    <input type='hidden' name='lang' value='" . $gui->langObject->getLang() . "'>
+                    <input type='hidden' name='lang' value='" . $gui->languageInstance->getLang() . "'>
                     <input type='hidden' name='profile_id' value='" . $my_profile->identifier . "'>
                     <table id='live_tests'>";
 // if any password based EAP methods are available enable this section
