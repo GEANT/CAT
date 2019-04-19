@@ -609,20 +609,20 @@ class API {
         try {
             $profile = $validator->existingProfile($id);
         } catch (Exception $e) {
-            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Profile identifier does not exist!");
+            $adminApi->returnError(self::ERROR_INVALID_PARAMETER, "Profile identifier does not exist!");
             return FALSE;
         }
         if (!$profile instanceof core\ProfileSilverbullet) {
-            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, sprintf("Profile identifier is not %s!", \core\ProfileSilverbullet::PRODUCTNAME));
+            $adminApi->returnError(self::ERROR_INVALID_PARAMETER, sprintf("Profile identifier is not %s!", \core\ProfileSilverbullet::PRODUCTNAME));
             return FALSE;
         }
         $idp = new \core\IdP($profile->institution);
         if (strtoupper($idp->federation) != strtoupper($fed->tld)) {
-            $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Profile is not in the federation for this APIKEY!");
+            $adminApi->returnError(self::ERROR_INVALID_PARAMETER, "Profile is not in the federation for this APIKEY!");
             return FALSE;
         }
         if (count($profile->getAttributes("hiddenprofile:tou_accepted")) < 1) {
-            $adminApi->returnError(web\lib\admin\API::ERROR_NO_TOU, "The terms of use have not yet been accepted for this profile!");
+            $adminApi->returnError(self::ERROR_NO_TOU, "The terms of use have not yet been accepted for this profile!");
             return FALSE;
         }
         return [$idp, $profile];
