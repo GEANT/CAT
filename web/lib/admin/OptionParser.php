@@ -398,9 +398,9 @@ class OptionParser extends \core\common\Entity {
 
     /**
      * find out which languages were submitted, and whether a default language was in the set
-     * @param string $attribute    the name of the attribute we are looking at
-     * @param string $languageFlag which language flag was submitted
-     * @param array $multilangAttrsWithC by-reference: add to this if we found a C language variant
+     * @param string $attribute           the name of the attribute we are looking at
+     * @param string $languageFlag        which language flag was submitted
+     * @param array  $multilangAttrsWithC by-reference: add to this if we found a C language variant
      * @return void
      */
     private function determineLanguages($attribute, $languageFlag, &$multilangAttrsWithC) {
