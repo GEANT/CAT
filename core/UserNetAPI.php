@@ -235,7 +235,7 @@ class UserNetAPI extends UserAPI {
      */
     public function jsonDetectOS() {
         $returnArray = $this->detectOS();
-        $status = is_array($returnArray) ? 1 : 0;
+        $status = is_bool($returnArray) ? 0 : 1;
         echo $this->returnJSON($returnArray, $status);
     }
     
@@ -247,7 +247,7 @@ class UserNetAPI extends UserAPI {
     public function jsonGetUserCerts($token) {
         $returnArrayE = $this->getUserCerts($token);
         $returnArray = [];
-        $status = is_array($returnArrayE) ? 1 : 0;
+        $status = is_bool($returnArrayE) ? 0 : 1;
         if ($status === 1) {
             foreach ($returnArrayE as $element) {
                 $returnArray[] = $element->getBasicInfo();

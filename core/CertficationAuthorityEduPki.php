@@ -182,9 +182,9 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
                 if (strlen($soapCert) > 10) {
                     $parsedCert = $x509->processCertificate($soapCert);
                 }
-            } while (!is_array($parsedCert) && $counter < 500);
-
-            if (!is_array($parsedCert)) {
+            } while ($parsedCert === FALSE && $counter < 500);
+            // we should now have an array
+            if ($parsedCert === FALSE) {
                 throw new Exception("We did not actually get a certificate after waiting for 5 minutes.");
             }
             // let's get the CA certificate chain
