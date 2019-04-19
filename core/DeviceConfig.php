@@ -305,11 +305,11 @@ abstract class DeviceConfig extends \core\common\Entity {
      *
      * @param string $source_name The source file name
      * @param string $output_name The destination file name
-     * @param int    $encoding    Set Windows charset if non-zero
+     * @param string $encoding    Set Windows charset if non-zero
      * @return boolean
      * @final not to be redefined
      */
-    final protected function translateFile($source_name, $output_name = NULL, $encoding = 0) {
+    final protected function translateFile($source_name, $output_name = NULL, $encoding) {
         // there is no explicit gettext() call in this function, but catalogues
         // and translations occur in the varios ".inc" files - so make sure we
         // operate in the correct catalogue
@@ -330,7 +330,7 @@ abstract class DeviceConfig extends \core\common\Entity {
             include $source;
         }
         $output = ob_get_clean();
-        if ($encoding) {
+        if ($encoding !== 0) {
             $outputClean = iconv('UTF-8', $encoding . '//TRANSLIT', $output);
             if ($outputClean) {
                 $output = $outputClean;
