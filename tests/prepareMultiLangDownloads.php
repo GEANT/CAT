@@ -11,7 +11,7 @@
 require_once "../config/config-master-template.php";
 const OSLIST = ["chromeos", "w10", "apple_hi_sierra", "linux", "eap-config"];
 $bashLines = "";
-foreach (CONFIG['LANGUAGES'] as $lang => $details) {
+foreach (\config\Master::CONFIG['LANGUAGES'] as $lang => $details) {
     if ($lang == "en") {
         continue;
     }

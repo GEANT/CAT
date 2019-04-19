@@ -77,7 +77,7 @@ if (!is_numeric($hostindex)) {
 
 $posted_host = $_REQUEST['src'];
 if (is_numeric($posted_host)) { // UDP tests, this is an index to the test host in config
-    $host = filter_var(CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$hostindex]['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE);
+    $host = filter_var(\config\Diagnostics::CONFIG['RADIUSTESTS']['UDP-hosts'][$hostindex]['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE);
 } else { // dynamic discovery host, potentially unvetted user input
     // contains port number; needs to be redacted for filter_var to work
     // in any case, it's a printable string, so filter it initially
@@ -99,7 +99,7 @@ if (is_numeric($posted_host)) { // UDP tests, this is an index to the test host 
 
 
 $returnarray = [];
-$timeout = CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$hostindex]['timeout'];
+$timeout = \config\Diagnostics::CONFIG['RADIUSTESTS']['UDP-hosts'][$hostindex]['timeout'];
 switch ($test_type) {
     case 'udp_login':
         $i = 0;

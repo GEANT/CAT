@@ -23,8 +23,6 @@ namespace core\common;
 
 use \Exception;
 
-require_once dirname(dirname(__DIR__)) . "/config/_config.php";
-
 class Logging {
 
     /**
@@ -34,7 +32,7 @@ class Logging {
      * @throws Exception
      */
     public function __construct() {
-        if (!isset(CONFIG['PATHS']['logdir'])) {
+        if (!isset(\config\Master::CONFIG['PATHS']['logdir'])) {
             throw new Exception("No logdir was specified in the configuration. We cannot continue without one!");
         }
     }
@@ -47,7 +45,7 @@ class Logging {
      * @return void
      */
     private function writeToFile($filename, $message) {
-        file_put_contents(CONFIG['PATHS']['logdir'] . "/$filename", sprintf("%-015s", microtime(TRUE)) . $message, FILE_APPEND);
+        file_put_contents(\config\Master::CONFIG['PATHS']['logdir'] . "/$filename", sprintf("%-015s", microtime(TRUE)) . $message, FILE_APPEND);
     }
 
     /**
@@ -60,7 +58,7 @@ class Logging {
      * @return void
      */
     public function debug($level, $stuff, $prefix = '', $suffix = '') {
-        if (CONFIG['DEBUG_LEVEL'] < $level) {
+        if (\config\Master::CONFIG['DEBUG_LEVEL'] < $level) {
             return;
         }
 

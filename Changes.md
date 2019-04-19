@@ -52,7 +52,7 @@ Changes in 2.0-beta2
 
 Configuration parameter changes
 -------------------------------
-- CONFIG['APPEARANCE']['privacy_notice_url'] link to the privacy notice
+- \config\Master::CONFIG['APPEARANCE']['privacy_notice_url'] link to the privacy notice
 
 Changes in 2.0-beta1
 ====================
@@ -81,7 +81,7 @@ Changes in 2.0-alpha2
 
 Configuration parameter changes
 -------------------------------
-- CONFIG['DB']['userdb-readonly'] is replaced by CONFIG['DB']['USER']['readonly']
+- \config\Master::CONFIG['DB']['userdb-readonly'] is replaced by \config\Master::CONFIG['DB']['USER']['readonly']
 
 Changes in 2.0-alpha1
 =====================

@@ -34,11 +34,9 @@ namespace core\diag;
 
 use \Exception;
 
-require_once dirname(dirname(__DIR__)) . "/config/_config.php";
-
 /**
  * Test suite to verify that an EAP setup is actually working as advertised in
- * the real world. Can only be used if CONFIG_DIAGNOSTICS['RADIUSTESTS'] is configured.
+ * the real world. Can only be used if \config\Diagnostics::CONFIG['RADIUSTESTS'] is configured.
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
@@ -371,7 +369,7 @@ class RADIUSTests extends AbstractTest {
         // $pem = chunk_split(base64_encode($crlcontent), 64, "\n");
         
         // inspired by https://stackoverflow.com/questions/2390604/how-to-pass-variables-as-stdin-into-command-line-from-php
-        $proc = CONFIG['PATHS']['openssl']." crl -inform der";
+        $proc = \config\Master::CONFIG['PATHS']['openssl']." crl -inform der";
         $descriptorspec = [
           0 => ["pipe", "r"],
           1 => ["pipe", "w"],
@@ -493,7 +491,7 @@ class RADIUSTests extends AbstractTest {
         $eapText = \core\common\EAP::eapDisplayName($eaptype);
         $config = '
 network={
-  ssid="' . CONFIG['APPEARANCE']['productname'] . ' testing"
+  ssid="' . \config\Master::CONFIG['APPEARANCE']['productname'] . ' testing"
   key_mgmt=WPA-EAP
   proto=WPA2
   pairwise=CCMP
@@ -586,13 +584,13 @@ network={
      * @return string the command-line for eapol_test
      */
     private function eapolTestConfig($probeindex, $opName, $frag) {
-        $cmdline = CONFIG_DIAGNOSTICS['PATHS']['eapol_test'] .
-                " -a " . CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$probeindex]['ip'] .
-                " -s " . CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$probeindex]['secret'] .
+        $cmdline = \config\Diagnostics::CONFIG['PATHS']['eapol_test'] .
+                " -a " . \config\Diagnostics::CONFIG['RADIUSTESTS']['UDP-hosts'][$probeindex]['ip'] .
+                " -s " . \config\Diagnostics::CONFIG['RADIUSTESTS']['UDP-hosts'][$probeindex]['secret'] .
                 " -o serverchain.pem" .
                 " -c ./udp_login_test.conf" .
                 " -M 22:44:66:CA:20:" . sprintf("%02d", $probeindex) . " " .
-                " -t " . CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$probeindex]['timeout'] . " ";
+                " -t " . \config\Diagnostics::CONFIG['RADIUSTESTS']['UDP-hosts'][$probeindex]['timeout'] . " ";
         if ($opName) {
             $cmdline .= '-N126:s:"1cat.eduroam.org" ';
         }
@@ -673,8 +671,8 @@ network={
 
 
 // now c_rehash the root CA directory ...
-        system(CONFIG_DIAGNOSTICS['PATHS']['c_rehash'] . " $tmpDir/root-ca-eaponly/ > /dev/null");
-        system(CONFIG_DIAGNOSTICS['PATHS']['c_rehash'] . " $tmpDir/root-ca-allcerts/ > /dev/null");
+        system(\config\Diagnostics::CONFIG['PATHS']['c_rehash'] . " $tmpDir/root-ca-eaponly/ > /dev/null");
+        system(\config\Diagnostics::CONFIG['PATHS']['c_rehash'] . " $tmpDir/root-ca-allcerts/ > /dev/null");
         return $checkstring;
     }
 
@@ -705,11 +703,11 @@ network={
 // the error log will complain if we run this test against an empty file of certs
 // so test if there's something PEMy in the file at all
         if (filesize("$tmpDir/serverchain.pem") > 10) {
-            exec(CONFIG['PATHS']['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem", $verifyResultEaponly);
-            $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/serverchain.pem\n");
+            exec(\config\Master::CONFIG['PATHS']['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem", $verifyResultEaponly);
+            $this->loggerInstance->debug(4, \config\Master::CONFIG['PATHS']['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/serverchain.pem\n");
             $this->loggerInstance->debug(4, "Chain verify pass 1: " . print_r($verifyResultEaponly, TRUE) . "\n");
-            exec(CONFIG['PATHS']['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem", $verifyResultAllcerts);
-            $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/serverchain.pem\n");
+            exec(\config\Master::CONFIG['PATHS']['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem", $verifyResultAllcerts);
+            $this->loggerInstance->debug(4, \config\Master::CONFIG['PATHS']['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/serverchain.pem\n");
             $this->loggerInstance->debug(4, "Chain verify pass 2: " . print_r($verifyResultAllcerts, TRUE) . "\n");
         }
 
@@ -1037,7 +1035,7 @@ network={
         /** preliminaries */
         $eapText = \core\common\EAP::eapDisplayName($eaptype);
         // no host to send probes to? Nothing to do then
-        if (!isset(CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$probeindex])) {
+        if (!isset(\config\Diagnostics::CONFIG['RADIUSTESTS']['UDP-hosts'][$probeindex])) {
             $this->UDP_reachability_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
             return RADIUSTests::RETVAL_NOTCONFIGURED;
         }

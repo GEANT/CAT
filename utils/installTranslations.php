@@ -10,7 +10,7 @@
  */
 require_once "../config/config-master-template.php";
 const AREAS = ["web_admin", "web_user", "devices", "core", "diagnostics"];
-foreach (CONFIG['LANGUAGES'] as $lang => $details) {
+foreach (\config\Master::CONFIG['LANGUAGES'] as $lang => $details) {
     if ($lang == "en") {
         continue;
     }

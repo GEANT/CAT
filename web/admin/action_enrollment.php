@@ -59,7 +59,7 @@ if (!isset($_GET['token'])) {
     bailout(_("This page needs to be called with a valid invitation token!"), $deco);
 }
 
-if (CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'] === NULL && $_GET['token'] == "SELF-REGISTER") {
+if (\config\ConfAssistant::CONFIG['CONSORTIUM']['selfservice_registration'] === NULL && $_GET['token'] == "SELF-REGISTER") {
     bailout(_("You tried to register in self-service, but this deployment does not allow self-service!"), $deco);
 }
 
@@ -67,7 +67,7 @@ switch ($_GET['token']) {
     case "SELF-REGISTER":
         $token = "SELF-REGISTER";
         $checkval = \core\UserManagement::TOKENSTATUS_OK_NEW;
-        $federation = CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'];
+        $federation = \config\ConfAssistant::CONFIG['CONSORTIUM']['selfservice_registration'];
         break;
     default:
         $token = $validator->token(filter_input(INPUT_GET,'token',FILTER_SANITIZE_STRING));

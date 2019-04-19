@@ -29,6 +29,8 @@ $loader = new Psr4Autoloader();
 $loader->register();
 
 // register the base directories for the namespace prefix
+// include configuration
+$loader->addNamespace('config', __DIR__ );
 // include CAT/core library
 $loader->addNamespace('core', __DIR__ . "/../core");
 // include CAT/devices library

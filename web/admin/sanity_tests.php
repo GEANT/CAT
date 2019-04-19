@@ -40,12 +40,12 @@ $Tests = [
     'RADIUSProbes',
 ];
 
-if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" || CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL" ) {
+if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" || \config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL" ) {
     $Tests[] = 'Makensis';
     $Tests[] = 'Makensis=>NSISmodules';
 }
 
-if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == "LOCAL") {
+if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == "LOCAL") {
     $Tests[] = 'Eapoltest';
 }
 
@@ -86,7 +86,7 @@ function print_test_results($test) {
     return($out);
 }
 
-if (!in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
+if (!in_array("I do not care about security!", \config\Master::CONFIG['SUPERADMINS'])) {
     $auth = new \web\lib\admin\Authentication();
     $auth->authenticate();
     $user = new \core\User($_SESSION['user']);

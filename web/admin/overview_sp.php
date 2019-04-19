@@ -45,7 +45,7 @@ $link = htmlspecialchars($link);
 
 const QRCODE_PIXELS_PER_SYMBOL = 12;
 
-echo $deco->defaultPagePrelude(sprintf(_("%s: %s Dashboard"), CONFIG['APPEARANCE']['productname'], $uiElements->nomenclatureHotspot));
+echo $deco->defaultPagePrelude(sprintf(_("%s: %s Dashboard"), \config\Master::CONFIG['APPEARANCE']['productname'], $uiElements->nomenclatureHotspot));
 require_once "inc/click_button_js.php";
 
 // let's check if the inst handle actually exists in the DB
@@ -85,12 +85,12 @@ echo $mapCode->htmlHeadCode();
         ?>
     </div>
     <?php
-    $readonly = CONFIG['DB']['INST']['readonly'];
+    $readonly = \config\Master::CONFIG['DB']['INST']['readonly'];
     ?>
     <hr><h2><?php echo _("Available Support actions"); ?></h2>
     <table>
         <?php
-        if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] !== NULL) {
+        if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] !== NULL) {
             echo "<tr>
                         <td>" . _("Check another realm's reachability") . "</td>
                         <td><form method='post' action='../diag/action_realmcheck.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'>
@@ -101,7 +101,7 @@ echo $mapCode->htmlHeadCode();
                         </td>
                     </tr>";
         }
-        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam") { // SW: APPROVED
+        if (\config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == "eduroam") { // SW: APPROVED
             echo "<tr>
                         <td>" . sprintf(_("Check %s server status"), $uiElements->nomenclatureFed) . "</td>
                         <td>
@@ -205,7 +205,7 @@ echo $mapCode->htmlHeadCode();
         // b) federation wants this to happen
 
         $myfed = new \core\Federation($my_inst->federation);
-        if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0 && $my_inst->deploymentCount() == 0) {
+        if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0 && $my_inst->deploymentCount() == 0) {
             // the button is grayed out if there's no support email address configured...
             $hasMail = count($my_inst->getAttributes("support:email"));
             ?>

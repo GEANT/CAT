@@ -53,10 +53,10 @@ class Skinjob {
      */
     public function __construct($selectedSkin = NULL) {
         // input may have been garbage. Sanity-check and fall back to default skin if needed
-        $actualSkin = CONFIG['APPEARANCE']['skins'][0];
-        if (in_array($selectedSkin, CONFIG['APPEARANCE']['skins'])) {
-            $correctIndex = array_search($selectedSkin, CONFIG['APPEARANCE']['skins']);
-            $actualSkin = CONFIG['APPEARANCE']['skins'][$correctIndex];
+        $actualSkin = \config\Master::CONFIG['APPEARANCE']['skins'][0];
+        if (in_array($selectedSkin, \config\Master::CONFIG['APPEARANCE']['skins'])) {
+            $correctIndex = array_search($selectedSkin, \config\Master::CONFIG['APPEARANCE']['skins']);
+            $actualSkin = \config\Master::CONFIG['APPEARANCE']['skins'][$correctIndex];
         }
 
         $this->skin = $actualSkin;

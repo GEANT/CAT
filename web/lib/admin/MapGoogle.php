@@ -47,7 +47,7 @@ class MapGoogle extends AbstractMap {
     public function htmlHeadCode() {
         $cat = new \core\CAT();
         \core\common\Entity::intoThePotatoes();
-        $retval = "<script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?key=" . CONFIG['APPEARANCE']['google_maps_api_key'] . "'></script>
+        $retval = "<script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?key=" . \config\Master::CONFIG['APPEARANCE']['google_maps_api_key'] . "'></script>
     <script type='text/javascript'>
         // some global variables;
         var center_lat=49.6114885608729;

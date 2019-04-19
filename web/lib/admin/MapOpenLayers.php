@@ -22,8 +22,6 @@
 
 namespace web\lib\admin;
 
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
-
 /**
  * This class provides map display functionality
  * 

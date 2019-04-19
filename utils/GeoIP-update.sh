@@ -36,7 +36,7 @@ cd $dir
 a=`php << EOF
 <?php
 require "../config/config-master.php";
-print(CONFIG["GEOIP"]["version"]);
+print(\config\Master::CONFIG["GEOIP"]["version"]);
 ?>
 EOF`
 
@@ -57,7 +57,7 @@ if [ $a -eq 2 ] ; then
 db=`php << EOFF
 <?php
 require "../config/config-master.php";
-print(CONFIG["GEOIP"]["geoip2-path-to-db"]);
+print(\config\Master::CONFIG["GEOIP"]["geoip2-path-to-db"]);
 ?>
 EOFF`
    cd /tmp/GeoIP

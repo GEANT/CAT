@@ -149,10 +149,10 @@ abstract class WindowsCommon extends \core\DeviceConfig {
     public function writeDeviceInfo() {
         $ssids = $this->getAttribute('internal:SSID') ?? [];
         $ssidCount = count($ssids);
-        $configList = CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'] ?? [];
+        $configList = \config\ConfAssistant::CONFIG['CONSORTIUM']['ssid'] ?? [];
         $configCount = count($configList);
         $out = "<p>";
-        $out .= sprintf(_("%s installer will be in the form of an EXE file. It will configure %s on your device, by creating wireless network profiles.<p>When you click the download button, the installer will be saved by your browser. Copy it to the machine you want to configure and execute."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        $out .= sprintf(_("%s installer will be in the form of an EXE file. It will configure %s on your device, by creating wireless network profiles.<p>When you click the download button, the installer will be saved by your browser. Copy it to the machine you want to configure and execute."), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
         $out .= "<p>";
         if ($ssidCount > $configCount) {
             $out .= sprintf(ngettext("In addition to <strong>%s</strong> the installer will also configure access to:", "In addition to <strong>%s</strong> the installer will also configure access to the following networks:", $ssidCount - $configCount), implode(', ', $configList)) . " ";
@@ -289,10 +289,10 @@ abstract class WindowsCommon extends \core\DeviceConfig {
      * @return void
      */
     protected function compileNSIS() {
-        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
-            $makensis = CONFIG_CONFASSISTANT['PATHS']['makensis'] . " -INPUTCHARSET UTF8";
+        if (\config\ConfAssistant::CONFIG['NSIS_VERSION'] >= 3) {
+            $makensis = \config\ConfAssistant::CONFIG['PATHS']['makensis'] . " -INPUTCHARSET UTF8";
         } else {
-            $makensis = CONFIG_CONFASSISTANT['PATHS']['makensis'];
+            $makensis = \config\ConfAssistant::CONFIG['PATHS']['makensis'];
         }
         $lcAll = getenv("LC_ALL");
         putenv("LC_ALL=en_US.UTF-8");
@@ -327,18 +327,18 @@ abstract class WindowsCommon extends \core\DeviceConfig {
      * @return string
      */
     protected function writeNsisDefines($attr) {
-        $fcontents = "\n" . '!define NSIS_MAJOR_VERSION ' . CONFIG_CONFASSISTANT['NSIS_VERSION'];
+        $fcontents = "\n" . '!define NSIS_MAJOR_VERSION ' . \config\ConfAssistant::CONFIG['NSIS_VERSION'];
         if ($attr['internal:profile_count'][0] > 1) {
             $fcontents .= "\n" . '!define USER_GROUP "' . $this->translateString(str_replace('"', '$\\"', $attr['profile:name'][0]), $this->codePage) . '"
 ';
         }
         $fcontents .=  '
-Caption "' . $this->translateString(sprintf(WindowsCommon::sprintNsis(_("%s installer for %s")), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $attr['general:instname'][0]), $this->codePage) . '"
-!define APPLICATION "' . $this->translateString(sprintf(WindowsCommon::sprintNsis(_("%s installer for %s")), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $attr['general:instname'][0]), $this->codePage) . '"
+Caption "' . $this->translateString(sprintf(WindowsCommon::sprintNsis(_("%s installer for %s")), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], $attr['general:instname'][0]), $this->codePage) . '"
+!define APPLICATION "' . $this->translateString(sprintf(WindowsCommon::sprintNsis(_("%s installer for %s")), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], $attr['general:instname'][0]), $this->codePage) . '"
 !define VERSION "' . \core\CAT::VERSION_MAJOR . '.' . \core\CAT::VERSION_MINOR . '"
 !define INSTALLER_NAME "installer.exe"
 !define LANG "' . $this->lang . '"
-!define LOCALE "' . preg_replace('/\..*$/', '', CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['locale']) . '"
+!define LOCALE "' . preg_replace('/\..*$/', '', \config\Master::CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['locale']) . '"
 ;--------------------------------
 !define ORGANISATION "' . $this->translateString($attr['general:instname'][0], $this->codePage) . '"
 ';
@@ -386,7 +386,7 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprintNsis(_("%s inst
                 if ($infoFile === FALSE) {
                     throw new Exception("We were told this file exists. Failing to read it is not really possible.");
                 }
-                if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
+                if (\config\ConfAssistant::CONFIG['NSIS_VERSION'] >= 3) {
                     $infoFileConverted = $infoFile;
                 } else {
                     $infoFileConverted = iconv('UTF-8', $this->codePage . '//TRANSLIT', $infoFile);

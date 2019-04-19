@@ -23,8 +23,6 @@ namespace core\diag;
 
 use \Exception;
 
-require_once dirname(dirname(__DIR__)) . "/config/_config.php";
-
 /**
  * This class talks to end users, asking them annoying questions to get to the
  * ground of where exactly the problem lies.

@@ -81,8 +81,8 @@ class ProfileSilverbullet extends AbstractProfile {
         $tempMaxUsers = 200; // abolutely last resort fallback if no per-fed and no config option
 // set to global config value
 
-        if (isset(CONFIG_CONFASSISTANT['SILVERBULLET']['default_maxusers'])) {
-            $tempMaxUsers = CONFIG_CONFASSISTANT['SILVERBULLET']['default_maxusers'];
+        if (isset(\config\ConfAssistant::CONFIG['SILVERBULLET']['default_maxusers'])) {
+            $tempMaxUsers = \config\ConfAssistant::CONFIG['SILVERBULLET']['default_maxusers'];
         }
         $myInst = new IdP($this->institution);
         $myFed = new Federation($myInst->federation);
@@ -93,7 +93,7 @@ class ProfileSilverbullet extends AbstractProfile {
 
 // realm is automatically calculated, then stored in DB
 
-        $this->realm = "opaquehash@$myInst->identifier-$this->identifier." . strtolower($myInst->federation) . CONFIG_CONFASSISTANT['SILVERBULLET']['realm_suffix'];
+        $this->realm = "opaquehash@$myInst->identifier-$this->identifier." . strtolower($myInst->federation) . \config\ConfAssistant::CONFIG['SILVERBULLET']['realm_suffix'];
         $localValueIfAny = "";
 
 // but there's some common internal attributes populated directly
@@ -110,7 +110,7 @@ class ProfileSilverbullet extends AbstractProfile {
 
 // and we need to populate eap:server_name and eap:ca_file with the NRO-specific EAP information
         $silverbulletAttributes = [
-            "eap:server_name" => "auth." . strtolower($myFed->tld) . CONFIG_CONFASSISTANT['SILVERBULLET']['server_suffix'],
+            "eap:server_name" => "auth." . strtolower($myFed->tld) . \config\ConfAssistant::CONFIG['SILVERBULLET']['server_suffix'],
         ];
         $x509 = new \core\common\X509();
         $caHandle = fopen(dirname(__FILE__) . "/../config/SilverbulletServerCerts/" . strtoupper($myFed->tld) . "/root.pem", "r");
@@ -133,23 +133,23 @@ class ProfileSilverbullet extends AbstractProfile {
         $this->loggerInstance->debug(3, "--- END Constructing new Profile object ... ---\n");
 
         $this->termsAndConditions = "<h2>Product Definition</h2>
-        <p>" . \core\ProfileSilverbullet::PRODUCTNAME . " outsources the technical setup of " . CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'] . " " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] . " functions to the " . CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'] . " Operations Team. The system includes</p>
+        <p>" . \core\ProfileSilverbullet::PRODUCTNAME . " outsources the technical setup of " . \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'] . " " . \config\ConfAssistant::CONFIG['CONSORTIUM']['nomenclature_institution'] . " functions to the " . \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'] . " Operations Team. The system includes</p>
             <ul>
                 <li>a web-based user management interface where user accounts and access credentials can be created and revoked (there is a limit to the number of active users)</li>
                 <li>a technical infrastructure ('CA') which issues and revokes credentials</li>
-                <li>a technical infrastructure ('RADIUS') which verifies access credentials and subsequently grants access to " . CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'] . "</li>           
+                <li>a technical infrastructure ('RADIUS') which verifies access credentials and subsequently grants access to " . \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'] . "</li>           
             </ul>
         <h2>User Account Liability</h2>
-        <p>As an " . CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'] . " " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] . " administrator using this system, you are authorized to create user accounts according to your local " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] . " policy. You are fully responsible for the accounts you issue and are the data controller for all user information you deposit in this system; the system is a data processor.</p>";
+        <p>As an " . \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'] . " " . \config\ConfAssistant::CONFIG['CONSORTIUM']['nomenclature_institution'] . " administrator using this system, you are authorized to create user accounts according to your local " . \config\ConfAssistant::CONFIG['CONSORTIUM']['nomenclature_institution'] . " policy. You are fully responsible for the accounts you issue and are the data controller for all user information you deposit in this system; the system is a data processor.</p>";
         $this->termsAndConditions .= "<p>Your responsibilities include that you</p>
         <ul>
-            <li>only issue accounts to members of your " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] . ", as defined by your local policy.</li>
+            <li>only issue accounts to members of your " . \config\ConfAssistant::CONFIG['CONSORTIUM']['nomenclature_institution'] . ", as defined by your local policy.</li>
             <li>must make sure that all accounts that you issue can be linked by you to actual human end users</li>
-            <li>have to immediately revoke accounts of users when they leave or otherwise stop being a member of your " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] . "</li>
+            <li>have to immediately revoke accounts of users when they leave or otherwise stop being a member of your " . \config\ConfAssistant::CONFIG['CONSORTIUM']['nomenclature_institution'] . "</li>
             <li>will act upon notifications about possible network abuse by your users and will appropriately sanction them</li>
         </ul>
         <p>";
-        $this->termsAndConditions .= "Failure to comply with these requirements may make your " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation'] . " act on your behalf, which you authorise, and will ultimately lead to the deletion of your " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] . " (and all the users you create inside) in this system.";
+        $this->termsAndConditions .= "Failure to comply with these requirements may make your " . \config\ConfAssistant::CONFIG['CONSORTIUM']['nomenclature_federation'] . " act on your behalf, which you authorise, and will ultimately lead to the deletion of your " . \config\ConfAssistant::CONFIG['CONSORTIUM']['nomenclature_institution'] . " (and all the users you create inside) in this system.";
         $this->termsAndConditions .= "</p>
         <h2>Privacy</h2>
         <p>With " . \core\ProfileSilverbullet::PRODUCTNAME . ", we are necessarily storing personally identifiable information about the end users you create. While the actual human is only identifiable with your help, we consider all the user data as relevant in terms of privacy jurisdiction. Please note that</p>

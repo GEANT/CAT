@@ -23,12 +23,10 @@ namespace core\diag;
 
 use \Exception;
 
-require_once dirname(dirname(__DIR__)) . "/config/_config.php";
-
 /**
  * Test suite to verify that a given NAI realm has NAPTR records according to
  * consortium-agreed criteria
- * Can only be used if CONFIG_DIAGNOSTICS['RADIUSTESTS'] is configured.
+ * Can only be used if \config\Diagnostics::CONFIG['RADIUSTESTS'] is configured.
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
@@ -129,13 +127,13 @@ class RFC6614Tests extends AbstractTest {
      */
     public function tlsClientSideCheck(string $host) {
         $res = RADIUSTests::RETVAL_OK;
-        if (!is_array(CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-clientcerts']) || count(CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-clientcerts']) == 0) {
+        if (!is_array(\config\Diagnostics::CONFIG['RADIUSTESTS']['TLS-clientcerts']) || count(\config\Diagnostics::CONFIG['RADIUSTESTS']['TLS-clientcerts']) == 0) {
             return RADIUSTests::RETVAL_SKIPPED;
         }
         if (preg_match("/\[/", $host)) {
             return RADIUSTests::RETVAL_INVALID;
         }
-        foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-clientcerts'] as $type => $tlsclient) {
+        foreach (\config\Diagnostics::CONFIG['RADIUSTESTS']['TLS-clientcerts'] as $type => $tlsclient) {
             $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['from'] = $type;
             $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['status'] = $tlsclient['status'];
             $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['message'] = $this->TLS_certkeys[$tlsclient['status']];
@@ -188,11 +186,11 @@ class RFC6614Tests extends AbstractTest {
 // but code analysers want this more explicit, so here is this extra
 // call to escapeshellarg()
         $escapedHost = escapeshellarg($host);
-        $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " s_client -connect " . $escapedHost . " -tls1 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1\n");
+        $this->loggerInstance->debug(4, \config\Master::CONFIG['PATHS']['openssl'] . " s_client -connect " . $escapedHost . " -tls1 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1\n");
         $time_start = microtime(true);
         $opensslbabble = [];
         $result = 999; // likely to become zero by openssl; don't want to initialise to zero, could cover up exec failures
-        exec(CONFIG['PATHS']['openssl'] . " s_client -connect " . $escapedHost . " -tls1 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1", $opensslbabble, $result);
+        exec(\config\Master::CONFIG['PATHS']['openssl'] . " s_client -connect " . $escapedHost . " -tls1 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1", $opensslbabble, $result);
         $time_stop = microtime(true);
         $testresults['time_millisec'] = floor(($time_stop - $time_start) * 1000);
         $testresults['returncode'] = $result;
@@ -293,7 +291,7 @@ class RFC6614Tests extends AbstractTest {
     private function propertyCheckPolicy($cert) {
         $oids = [];
         if ($cert['extensions']['certificatePolicies']) {
-            foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-acceptableOIDs'] as $key => $oid) {
+            foreach (\config\Diagnostics::CONFIG['RADIUSTESTS']['TLS-acceptableOIDs'] as $key => $oid) {
                 if (preg_match("/Policy: $oid/", $cert['extensions']['certificatePolicies'])) {
                     $oids[$key] = $oid;
                 }

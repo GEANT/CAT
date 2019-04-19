@@ -20,9 +20,9 @@
  */
 
 $out = "<h3>" . _("Access the sources") . "</h3>" .
-        sprintf(_("%s is an opensource project. If you are interested in the details of the implementation, please visit <a href='%s'>GitHub</a>."), CONFIG['APPEARANCE']['productname'], "https://github.com/GEANT/CAT" ) .
+        sprintf(_("%s is an opensource project. If you are interested in the details of the implementation, please visit <a href='%s'>GitHub</a>."), \config\Master::CONFIG['APPEARANCE']['productname'], "https://github.com/GEANT/CAT" ) .
         "<h3>" . _("Join the developers mailing list.") . "</h3>" .
-        sprintf(_("The list is available at: %s"), CONFIG['APPEARANCE']['support-contact']['display']) .
+        sprintf(_("The list is available at: %s"), \config\Master::CONFIG['APPEARANCE']['support-contact']['display']) .
         "<h3>" . _("Add a translation") . "</h3>" .
         _("If you would like to add a new language to CAT then please contact us ...") .
         "<h3><a href='" . \core\CAT::getRootUrlPath() . "/apidoc' target='_blank'>". _("Documentation") . "</a></h3>" ;

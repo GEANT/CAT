@@ -38,7 +38,7 @@ class DeviceLocation {
      * @throws Exception
      */
     public static function locateDevice() {
-        $geoipVersion = CONFIG['GEOIP']['version'] ?? 0;
+        $geoipVersion = \config\Master::CONFIG['GEOIP']['version'] ?? 0;
         switch ($geoipVersion) {
             case 0:
                 return(['status' => 'error', 'error' => 'Geolocation not supported']);
@@ -57,7 +57,7 @@ class DeviceLocation {
      * @return array
      */
     private static function locateDevice1() {
-        if (CONFIG['GEOIP']['version'] != 1) {
+        if (\config\Master::CONFIG['GEOIP']['version'] != 1) {
             return ['status' => 'error', 'error' => 'Function for GEOIPv1 called, but config says this is not the version to use!'];
         }
         //$host = $_SERVER['REMOTE_ADDR'];
@@ -83,11 +83,11 @@ class DeviceLocation {
      * @return array
      */
     private static function locateDevice2() {
-        if (CONFIG['GEOIP']['version'] != 2) {
+        if (\config\Master::CONFIG['GEOIP']['version'] != 2) {
             return ['status' => 'error', 'error' => 'Function for GEOIPv2 called, but config says this is not the version to use!'];
         }
-        include_once CONFIG['GEOIP']['geoip2-path-to-autoloader'];
-        $reader = new Reader(CONFIG['GEOIP']['geoip2-path-to-db']);
+        include_once \config\Master::CONFIG['GEOIP']['geoip2-path-to-autoloader'];
+        $reader = new Reader(\config\Master::CONFIG['GEOIP']['geoip2-path-to-db']);
         $host = filter_input(INPUT_SERVER, 'REMOTE_ADDR', FILTER_VALIDATE_IP);
         try {
             $record = $reader->city($host);

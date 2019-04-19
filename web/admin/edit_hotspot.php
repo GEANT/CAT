@@ -77,7 +77,7 @@ if (isset($_POST['submitbutton'])) {
 $vlan = $deployment->getAttributes("managedsp:vlan")[0]['value'] ?? NULL;
 $opname = $deployment->getAttributes("managedsp:operatorname")[0]['value'] ?? "";
 
-echo $deco->defaultPagePrelude(sprintf(_("%s: Enrollment Wizard (Step 3)"), CONFIG['APPEARANCE']['productname']));
+echo $deco->defaultPagePrelude(sprintf(_("%s: Enrollment Wizard (Step 3)"), \config\Master::CONFIG['APPEARANCE']['productname']));
 require_once "inc/click_button_js.php";
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>
@@ -97,7 +97,7 @@ require_once "inc/click_button_js.php";
     echo $uiElements->instLevelInfoBoxes($my_inst);
     $deploymentOptions = $deployment->getAttributes();
     echo "<form enctype='multipart/form-data' action='edit_hotspot.php?inst_id=$my_inst->identifier&amp;deployment_id=$deployment->identifier' method='post' accept-charset='UTF-8'>
-                <input type='hidden' name='MAX_FILE_SIZE' value='" . CONFIG['MAX_UPLOAD_SIZE'] . "'>";
+                <input type='hidden' name='MAX_FILE_SIZE' value='" . \config\Master::CONFIG['MAX_UPLOAD_SIZE'] . "'>";
     $optionDisplay = new \web\lib\admin\OptionDisplay($deploymentOptions, "Profile");
     ?>
     <?php

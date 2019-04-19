@@ -23,8 +23,6 @@ namespace core\diag;
 
 use \Exception;
 
-require_once dirname(dirname(__DIR__)) . "/config/_config.php";
-
 /**
  * The overall coordination class that runs all kinds of tests to find out where
  * and what is wrong. Operates on the realm of a user. Can do more magic if it
@@ -358,7 +356,7 @@ class Telepath extends AbstractTest {
         $allAreConversationReject = TRUE;
         $atLeastOneConversationReject = FALSE;
         
-        foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $probeindex => $probe) {
+        foreach (\config\Diagnostics::CONFIG['RADIUSTESTS']['UDP-hosts'] as $probeindex => $probe) {
             $reachCheck = $this->testsuite->udpReachability($probeindex);
             if ($reachCheck != RADIUSTests::RETVAL_CONVERSATION_REJECT) {
                 $allAreConversationReject = FALSE;

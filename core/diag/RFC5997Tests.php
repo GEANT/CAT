@@ -27,7 +27,7 @@ use \Exception;
 /**
  * Test suite to verify that a given NAI realm has NAPTR records according to
  * consortium-agreed criteria
- * Can only be used if CONFIG_DIAGNOSTICS['RADIUSTESTS'] is configured.
+ * Can only be used if \config\Diagnostics::CONFIG['RADIUSTESTS'] is configured.
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>

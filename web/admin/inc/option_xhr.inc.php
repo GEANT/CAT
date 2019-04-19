@@ -21,7 +21,7 @@
 
 require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
 
-CAT_session_start();
+\core\CAT::sessionStart();
 
 const DO_NOT_DISPLAY = [
     "general" => ["general:geo_coordinates"],
@@ -30,7 +30,7 @@ const DO_NOT_DISPLAY = [
     "support" => [],
     "profile" => [],
     "media" => [],
-    "fed" => [(CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL" ? "fed:silverbullet" : "")],
+    "fed" => [(\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && \config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL" ? "fed:silverbullet" : "")],
     "device-specific" => [],
     "eap-specific" => [],
     "managedsp" => ["managedsp:vlan", "managedsp:operatorname"]

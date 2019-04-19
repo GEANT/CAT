@@ -21,8 +21,6 @@
 
 namespace web\lib\admin;
 
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
-
 /**
  * This class provides map display functionality
  * 
@@ -73,7 +71,7 @@ abstract class AbstractMap extends \core\common\Entity {
      * @throws Exception
      */
     public static function instance($inst, $readonly) {
-        $classname = "\web\lib\admin\Map".CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER'];
+        $classname = "\web\lib\admin\Map".\config\ConfAssistant::CONFIG['MAPPROVIDER']['PROVIDER'];
         return new $classname($inst, $readonly);
     }
 

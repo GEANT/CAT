@@ -23,8 +23,7 @@ namespace web\lib\admin;
 
 use Exception;
 
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
-require_once CONFIG['AUTHENTICATION']['ssp-path-to-autoloader'];
+require_once \config\Master::CONFIG['AUTHENTICATION']['ssp-path-to-autoloader'];
 
 /**
  * This class handles admin user authentication.
@@ -39,7 +38,7 @@ class Authentication extends \core\common\Entity {
      * @return boolean auth state
      */
     public function isAuthenticated() {
-        $authSimple = new \SimpleSAML\Auth\Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
+        $authSimple = new \SimpleSAML\Auth\Simple(\config\Master::CONFIG['AUTHENTICATION']['ssp-authsource']);
         $session = \SimpleSAML\Session::getSessionFromRequest();
         $status = $authSimple->isAuthenticated();
         $session->cleanup();
@@ -55,22 +54,22 @@ class Authentication extends \core\common\Entity {
     public function authenticate() {
         \core\common\Entity::intoThePotatoes();
         $loggerInstance = new \core\common\Logging();
-        $authSimple = new \SimpleSAML\Auth\Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
+        $authSimple = new \SimpleSAML\Auth\Simple(\config\Master::CONFIG['AUTHENTICATION']['ssp-authsource']);
         $authSimple->requireAuth();
         $admininfo = $authSimple->getAttributes();
         $session = \SimpleSAML\Session::getSessionFromRequest();
         $session->cleanup();
 
-        if (!isset($admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-identifier']][0])) {
+        if (!isset($admininfo[\config\Master::CONFIG['AUTHENTICATION']['ssp-attrib-identifier']][0])) {
             $failtext = "FATAL ERROR: we did not receive a unique user identifier from the authentication source!";
             echo $failtext;
             throw new Exception($failtext);
         }
 
-        $user = $admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-identifier']][0];
+        $user = $admininfo[\config\Master::CONFIG['AUTHENTICATION']['ssp-attrib-identifier']][0];
 
         $_SESSION['user'] = $user;
-        $_SESSION['name'] = $admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-name']][0] ?? _("Unnamed User");
+        $_SESSION['name'] = $admininfo[\config\Master::CONFIG['AUTHENTICATION']['ssp-attrib-name']][0] ?? _("Unnamed User");
         /*
          * This is a nice pathological test case for a user ID.
          *
@@ -87,8 +86,8 @@ class Authentication extends \core\common\Entity {
             "ssp-attrib-email" => "user:email"];
 
         foreach ($attribMapping as $SSPside => $CATside) {
-            if (isset($admininfo[CONFIG['AUTHENTICATION'][$SSPside]][0]) && (count($userObject->getAttributes($CATside)) == 0) && CONFIG['DB']['USER']['readonly'] === FALSE) {
-                $name = $admininfo[CONFIG['AUTHENTICATION'][$SSPside]][0];
+            if (isset($admininfo[\config\Master::CONFIG['AUTHENTICATION'][$SSPside]][0]) && (count($userObject->getAttributes($CATside)) == 0) && \config\Master::CONFIG['DB']['USER']['readonly'] === FALSE) {
+                $name = $admininfo[\config\Master::CONFIG['AUTHENTICATION'][$SSPside]][0];
                 $userObject->addAttribute($CATside, NULL, $name);
                 $loggerInstance->writeAudit($_SESSION['user'], "NEW", "User - added $CATside from external auth source");
                 if ($CATside == "user:realname") {
@@ -114,7 +113,7 @@ class Authentication extends \core\common\Entity {
      */
     public function deauthenticate() {
 
-        $as = new \SimpleSAML\Auth\Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
+        $as = new \SimpleSAML\Auth\Simple(\config\Master::CONFIG['AUTHENTICATION']['ssp-authsource']);
         $servername = filter_input(INPUT_SERVER, 'SERVER_NAME', FILTER_SANITIZE_STRING);
         $scriptself = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_STRING);
         $url = "https://www.eduroam.org"; // fallback if something goes wrong during URL construction below

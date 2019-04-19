@@ -56,7 +56,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\Fo
 }
 
 
-echo $deco->pageheader(sprintf(_("%s: IdP enrollment wizard (step 2 completed)"), CONFIG['APPEARANCE']['productname']), "ADMIN-PARTICIPANT");
+echo $deco->pageheader(sprintf(_("%s: IdP enrollment wizard (step 2 completed)"), \config\Master::CONFIG['APPEARANCE']['productname']), "ADMIN-PARTICIPANT");
 $my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
 
 if ((!isset($_POST['submitbutton'])) || (!isset($_POST['option'])) || (!isset($_POST['value']))) {
@@ -96,9 +96,9 @@ $my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
 
 $ssids = [];
 
-if (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) && count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0) {
-    foreach (CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'] as $ssidname) {
-        $ssids[] = $ssidname . " " . (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['tkipsupport']) && CONFIG_CONFASSISTANT['CONSORTIUM']['tkipsupport'] === TRUE ? _("(WPA2/AES and WPA/TKIP)") : _("(WPA2/AES)") );
+if (isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['ssid']) && count(\config\ConfAssistant::CONFIG['CONSORTIUM']['ssid']) > 0) {
+    foreach (\config\ConfAssistant::CONFIG['CONSORTIUM']['ssid'] as $ssidname) {
+        $ssids[] = $ssidname . " " . (isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['tkipsupport']) && \config\ConfAssistant::CONFIG['CONSORTIUM']['tkipsupport'] === TRUE ? _("(WPA2/AES and WPA/TKIP)") : _("(WPA2/AES)") );
     }
 }
 
@@ -137,7 +137,7 @@ $allow_sb = $myfed->getAttributes("fed:silverbullet");
 // show the new profile jumpstart buttons only if we do not have any profile at all
 if (count($my_inst->listProfiles()) == 0) {
 
-    if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($allow_sb) > 0) {
+    if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($allow_sb) > 0) {
         echo "<br/>";
         // did we get an email address? then, show the silverbullet jumpstart button
         // otherwise, issue a smartass comment
@@ -149,7 +149,7 @@ if (count($my_inst->listProfiles()) == 0) {
             echo "</table>";
         }
     }
-    if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL") {
+    if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL") {
         echo "<br/><form method='post' action='edit_profile.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to RADIUS/EAP profile definition") . "</button></form>";
     }
 }

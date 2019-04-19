@@ -149,10 +149,10 @@ class Options {
         $returnArray = $tempArray;
         // remove silverbullet-specific options if this deployment is not SB
         foreach ($tempArray as $key => $val) {
-            if (( CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] != 'LOCAL') && (preg_match('/^fed:silverbullet/', $val) > 0)) {
+            if (( \config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] != 'LOCAL') && (preg_match('/^fed:silverbullet/', $val) > 0)) {
                 unset($returnArray[$key]);
             }
-            if (( CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != 'LOCAL') && (preg_match('/^fed:minted_ca_file/', $val) > 0)) {
+            if (( \config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != 'LOCAL') && (preg_match('/^fed:minted_ca_file/', $val) > 0)) {
                 unset($returnArray[$key]);
             }
         }

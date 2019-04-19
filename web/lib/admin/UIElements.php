@@ -86,11 +86,11 @@ class UIElements extends \core\common\Entity {
         $ssidLegacyText = _("SSID (with WPA/TKIP)");
         $passpointOiText = _("HS20 Consortium OI");
 
-        if (count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0) {
+        if (count(\config\ConfAssistant::CONFIG['CONSORTIUM']['ssid']) > 0) {
             $ssidText = _("Additional SSID");
             $ssidLegacyText = _("Additional SSID (with WPA/TKIP)");
         }
-        if (!empty(CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi']) && count(CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi']) > 0) {
+        if (!empty(\config\ConfAssistant::CONFIG['CONSORTIUM']['interworking-consortium-oi']) && count(\config\ConfAssistant::CONFIG['CONSORTIUM']['interworking-consortium-oi']) > 0) {
             $passpointOiText = _("Additional HS20 Consortium OI");
         }
 
@@ -175,7 +175,7 @@ class UIElements extends \core\common\Entity {
                 if ($type["flag"] == "ML") {
                     $language = _("default/other languages");
                     if ($option['lang'] != 'C') {
-                        $language = CONFIG['LANGUAGES'][$option['lang']]['display'] ?? "(unsupported language)";
+                        $language = \config\Master::CONFIG['LANGUAGES'][$option['lang']]['display'] ?? "(unsupported language)";
                     }
                 }
 
@@ -203,7 +203,7 @@ class UIElements extends \core\common\Entity {
                         }
                         break;
                     case "boolean":
-                        if ($option['name'] == "fed:silverbullet" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
+                        if ($option['name'] == "fed:silverbullet" && \config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && \config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
                             // do not display the option at all; it gets auto-set by the ProfileSilverbullet constructor and doesn't have to be seen
                             break;
                         }
@@ -314,7 +314,7 @@ class UIElements extends \core\common\Entity {
                 }
                 // we might be called without session context (filepreview) so get the
                 // context if needed
-                CAT_session_start();
+                \core\CAT::sessionStart();
 
                 foreach ($owners as $oneowner) {
                     $ownersCondensed[] = $oneowner['ID'];

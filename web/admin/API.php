@@ -61,7 +61,7 @@ $adminApi = new \web\lib\admin\API();
 $validator = new \web\lib\common\InputValidation();
 $optionParser = new \web\lib\admin\OptionParser();
 
-if (!isset(CONFIG_CONFASSISTANT['CONSORTIUM']['registration_API_keys']) || count(CONFIG_CONFASSISTANT['CONSORTIUM']['registration_API_keys']) == 0) {
+if (!isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['registration_API_keys']) || count(\config\ConfAssistant::CONFIG['CONSORTIUM']['registration_API_keys']) == 0) {
     $adminApi->returnError(web\lib\admin\API::ERROR_API_DISABLED, "API is disabled in this instance of CAT");
     exit(1);
 }
@@ -79,7 +79,7 @@ if (!isset($inputDecoded['APIKEY'])) {
 }
 
 $checkval = "FAIL";
-foreach (CONFIG_CONFASSISTANT['CONSORTIUM']['registration_API_keys'] as $key => $fed_name) {
+foreach (\config\ConfAssistant::CONFIG['CONSORTIUM']['registration_API_keys'] as $key => $fed_name) {
     if ($inputDecoded['APIKEY'] == $key) {
         $mode = "API";
         $federation = $fed_name;

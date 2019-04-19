@@ -24,8 +24,6 @@ namespace web\lib\admin;
 
 use Exception;
 
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
-
 /**
  * We need to display previously set options in various forms. This class covers
  * the ways to do that; the generated page content can then be parsed with 
@@ -119,7 +117,7 @@ class OptionDisplay extends \core\common\Entity {
         $retval = "";
         $optioninfo = \core\Options::instance();
         $blackListOnPrefill = "user:fedadmin|managedsp:vlan|managedsp:operatorname";
-        if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
+        if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && \config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
             $blackListOnPrefill .= "|fed:silverbullet";
         }
         foreach ($prepopulate as $option) {
@@ -160,7 +158,7 @@ class OptionDisplay extends \core\common\Entity {
                 //normally, we have nothing to hide on that level
                 // if we are a Managed IdP exclusive deployment, do not display or allow
                 // to change the "Enable Managed IdP" boolean - it is simply always there
-                if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
+                if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && \config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
                     unset($list[array_search("fed:silverbullet", $list)]);
                 }
                 break;
@@ -190,8 +188,8 @@ class OptionDisplay extends \core\common\Entity {
     private function tooltip($rowid, $input, $isVisible) {
         \core\common\Entity::intoThePotatoes();
         $descriptions = [];
-        if (count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0) {
-            $descriptions["media:SSID"] = sprintf(_("This attribute can be set if you want to configure an additional SSID besides the default SSIDs for %s. It is almost always a bad idea not to use the default SSIDs. The only exception is if you have premises with an overlap of the radio signal with another %s hotspot. Typical misconceptions about additional SSIDs include: I want to have a local SSID for my own users. It is much better to use the default SSID and separate user groups with VLANs. That approach has two advantages: 1) your users will configure %s properly because it is their everyday SSID; 2) if you use a custom name and advertise this one as extra secure, your users might at some point roam to another place which happens to have the same SSID name. They might then be misled to believe that they are connecting to an extra secure network while they are not."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        if (count(\config\ConfAssistant::CONFIG['CONSORTIUM']['ssid']) > 0) {
+            $descriptions["media:SSID"] = sprintf(_("This attribute can be set if you want to configure an additional SSID besides the default SSIDs for %s. It is almost always a bad idea not to use the default SSIDs. The only exception is if you have premises with an overlap of the radio signal with another %s hotspot. Typical misconceptions about additional SSIDs include: I want to have a local SSID for my own users. It is much better to use the default SSID and separate user groups with VLANs. That approach has two advantages: 1) your users will configure %s properly because it is their everyday SSID; 2) if you use a custom name and advertise this one as extra secure, your users might at some point roam to another place which happens to have the same SSID name. They might then be misled to believe that they are connecting to an extra secure network while they are not."), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
         }
         $descriptions["media:force_proxy"] = sprintf(_("The format of this option is: IPv4|IPv6|hostname:port . Forcing your users through a content filter of your own is a significant invasion of user self-determination. It also has technical issues. Please throughly read the discussion at %s before specifying a proxy with this option."), "https://github.com/GEANT/CAT/issues/96");
         $descriptions["managedsp:realmforvlan"] = sprintf(_("If you are also using %s, then your own realm is automatically tagged with the VLAN you choose, there is no need to add it here manually."), \core\ProfileSilverbullet::PRODUCTNAME);
@@ -298,7 +296,7 @@ FOO;
         $retval = "<select style='display:" . ($makeVisible ? "block" : "none") . "' name='value[S$rowid-lang]' id='S" . $rowid . "-input-langselect'>
             <option value='' name='select_language' selected>" . _("select language") . "</option>
             <option value='C' name='all_languages'>" . _("default/other languages") . "</option>";
-        foreach (CONFIG['LANGUAGES'] as $langindex => $possibleLang) {
+        foreach (\config\Master::CONFIG['LANGUAGES'] as $langindex => $possibleLang) {
             $thislang = $possibleLang['display'];
             $retval .= "<option value='$langindex' name='$langindex'>$thislang</option>";
         }
@@ -390,7 +388,7 @@ FOO;
             case \core\Options::TYPECODE_COORDINATES:
                 $this->allLocationCount = $this->allLocationCount + 1;
                 // display of the locations varies by map provider
-                $classname = "\web\lib\admin\Map" . CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER'];
+                $classname = "\web\lib\admin\Map" . \config\ConfAssistant::CONFIG['MAPPROVIDER']['PROVIDER'];
                 $link = $classname::optionListDisplayCode($optionValue, $this->allLocationCount);
                 $retval .= "<input readonly style='display:none' type='text' name='value[S$rowid-" . \core\Options::TYPECODE_TEXT . "]' id='S$rowid-input-text' value='$optionValue'>$link";
                 break;
@@ -470,7 +468,7 @@ FOO;
        <td>
           <button type='button' class='delete' onclick='";
         if ($prefillValue !== NULL && $item == "general:geo_coordinates") {
-            $funcname = "Map" . CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER'] . 'DeleteCoord';
+            $funcname = "Map" . \config\ConfAssistant::CONFIG['MAPPROVIDER']['PROVIDER'] . 'DeleteCoord';
             $retval .= 'if (typeof ' . $funcname . ' === "function") { ' . $funcname . '(' . $this->allLocationCount . '); } ';
         }
         $retval .= 'deleteOption("option-S' . $rowid . '")';

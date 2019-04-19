@@ -32,8 +32,6 @@ namespace core;
 
 use \Exception;
 
-require_once dirname(__DIR__) . "/config/_config.php";
-
 /**
  * This class is a singleton for establishing a connection to the database
  *
@@ -249,15 +247,15 @@ class DBConnection {
     private function __construct($database) {
         $this->loggerInstance = new \core\common\Logging();
         $databaseCapitalised = strtoupper($database);
-        $this->connection = new \mysqli(CONFIG['DB'][$databaseCapitalised]['host'], CONFIG['DB'][$databaseCapitalised]['user'], CONFIG['DB'][$databaseCapitalised]['pass'], CONFIG['DB'][$databaseCapitalised]['db']);
+        $this->connection = new \mysqli(\config\Master::CONFIG['DB'][$databaseCapitalised]['host'], \config\Master::CONFIG['DB'][$databaseCapitalised]['user'], \config\Master::CONFIG['DB'][$databaseCapitalised]['pass'], \config\Master::CONFIG['DB'][$databaseCapitalised]['db']);
         if ($this->connection->connect_error) {
             throw new Exception("ERROR: Unable to connect to $database database! This is a fatal error, giving up (error number " . $this->connection->connect_errno . ").");
         }
 
-        if ($databaseCapitalised == "EXTERNAL" && CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {
+        if ($databaseCapitalised == "EXTERNAL" && \config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo']) && \config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {
             $this->connection->query("SET NAMES 'latin1'");
         }
-        $this->readOnly = CONFIG['DB'][$databaseCapitalised]['readonly'];
+        $this->readOnly = \config\Master::CONFIG['DB'][$databaseCapitalised]['readonly'];
     }
 
 }

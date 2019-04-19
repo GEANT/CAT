@@ -55,7 +55,7 @@ foreach ($cat->knownFederations as $federation => $federation_name) {
     $admins = $this_fed->listFederationAdmins();
     $mailtext = "Hello,
 
-invitation tokens for the following new ". CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] ." have recently expired:
+invitation tokens for the following new ". \config\ConfAssistant::CONFIG['CONSORTIUM']['nomenclature_institution'] ." have recently expired:
 
 ";
     foreach ($listofinstnames as $instname) {
@@ -65,7 +65,7 @@ invitation tokens for the following new ". CONFIG_CONFASSISTANT['CONSORTIUM']['n
     if ($numberofexistingidps > 0) {
         $mailtext .= "
 
-Additionally, $numberofexistingidps invitations for an existing ". CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution']." have expired.
+Additionally, $numberofexistingidps invitations for an existing ". \config\ConfAssistant::CONFIG['CONSORTIUM']['nomenclature_institution']." have expired.
         ";
     }
     $mailtext .= "
@@ -73,7 +73,7 @@ We thought you might like to know.
 
 Greetings,
 
-A humble " . CONFIG['APPEARANCE']['productname'] . " cron job
+A humble " . \config\Master::CONFIG['APPEARANCE']['productname'] . " cron job
 ";
 
     foreach ($admins as $admin) {

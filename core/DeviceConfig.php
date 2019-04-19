@@ -184,8 +184,8 @@ abstract class DeviceConfig extends \core\common\Entity {
 
         $this->attributes['internal:consortia'] = $this->getConsortia();
         
-        $this->support_email_substitute = sprintf(_("your local %s support"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
-        $this->support_url_substitute = sprintf(_("your local %s support page"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        $this->support_email_substitute = sprintf(_("your local %s support"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
+        $this->support_url_substitute = sprintf(_("your local %s support page"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
 
         if ($this->signer && $this->options['sign']) {
             $this->sign = ROOT . '/signer/' . $this->signer;
@@ -292,7 +292,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * Transcoding is only required for Windows installers, and no Unicode support
      * in NSIS (NSIS version below 3)
      * Trancoding is only applied if the third optional parameter is set and nonzero
-     * If CONFIG['NSIS']_VERSION is set to 3 or more, no transcoding will be applied
+     * If \config\Master::CONFIG['NSIS']_VERSION is set to 3 or more, no transcoding will be applied
      * regardless of the third parameter value.
      * If the second argument is provided and is not equal to 0, then the file will be
      * saved under the name taken from this argument.
@@ -314,7 +314,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         // and translations occur in the varios ".inc" files - so make sure we
         // operate in the correct catalogue
         common\Entity::intoThePotatoes();
-        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
+        if (\config\ConfAssistant::CONFIG['NSIS_VERSION'] >= 3) {
             $encoding = 0;
         }
         
@@ -352,7 +352,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * Transcoding is only required for Windows installers, and no Unicode support
      * in NSIS (NSIS version below 3)
      * Trancoding is only applied if the third optional parameter is set and nonzero
-     * If CONFIG['NSIS']_VERSION is set to 3 or more, no transcoding will be applied
+     * If \config\Master::CONFIG['NSIS']_VERSION is set to 3 or more, no transcoding will be applied
      * regardless of the second parameter value.
      * The second optional parameter, if nonzero, should be the character set understood by iconv
      * This is required by the Windows installer and is expected to go away in the future.
@@ -367,7 +367,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         if (empty($sourceString)) {
             return $sourceString;
         }
-        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] < 3) {
+        if (\config\ConfAssistant::CONFIG['NSIS_VERSION'] < 3) {
             $output_c = iconv('UTF-8', $encoding . '//TRANSLIT', $sourceString);
         } else {
             $output_c = $sourceString;
@@ -462,7 +462,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      */
     private function getInstallerBasename() {
         
-        $baseName = $this->customTranslit(CONFIG_CONFASSISTANT['CONSORTIUM']['name']) . "-" . $this->getDeviceId();
+        $baseName = $this->customTranslit(\config\ConfAssistant::CONFIG['CONSORTIUM']['name']) . "-" . $this->getDeviceId();
         if (isset($this->attributes['profile:customsuffix'][1])) { 
             // this string will end up as a filename on a filesystem, so always
             // take a latin-based language variant if available
@@ -471,7 +471,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         }
         // Okay, no custom suffix. 
         // Use the configured inst name and apply shortening heuristics
-        $lang_pointer = CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['latin_based'] == TRUE ? 0 : 1;
+        $lang_pointer = \config\Master::CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['latin_based'] == TRUE ? 0 : 1;
         $this->loggerInstance->debug(5, "getInstallerBasename1:" . $this->attributes['general:instname'][$lang_pointer] . "\n");
         $inst = $this->customTranslit($this->attributes['general:instname'][$lang_pointer]);
         $this->loggerInstance->debug(4, "getInstallerBasename2:$inst\n");
@@ -520,8 +520,8 @@ abstract class DeviceConfig extends \core\common\Entity {
         $ssidList = [];
         $ssidList['add'] = [];
         $ssidList['del'] = [];
-        if (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) {
-            foreach (CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'] as $ssid) {
+        if (isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['ssid'])) {
+            foreach (\config\ConfAssistant::CONFIG['CONSORTIUM']['ssid'] as $ssid) {
                 if (\core\common\Entity::getAttributeValue(CONFIG_CONFASSISTANT, 'CONSORTIUM', 'tkipsupport') == TRUE) {
                     $ssidList['add'][$ssid] = 'TKIP';
                 } else {
@@ -558,10 +558,10 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @return array
      */
     private function getConsortia() {
-        if(!isset(CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi'])) {
+        if(!isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['interworking-consortium-oi'])) {
             return ([]);
         }
-        $consortia = CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi'];
+        $consortia = \config\ConfAssistant::CONFIG['CONSORTIUM']['interworking-consortium-oi'];
         if (isset($this->attributes['media:consortium_OI'])) {
             foreach ($this->attributes['media:consortium_OI'] as $new_oi) {
                 if(!in_array($new_oi, $consortia)) {

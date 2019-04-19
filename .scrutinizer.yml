@@ -151,7 +151,10 @@ build:
                     - mysql -h 127.0.0.1 -u root cat < schema/schema.sql
                     - mysql -h 127.0.0.1 -u root cat < tests/cat_integration_scrutinizer.sql
                     - | 
-                      echo "<?php const CONFIG = 
+                      echo "<?php 
+                      namespace config;
+                      class Master {
+                      const CONFIG = 
                       [
                       'APPEARANCE' => [ 
                       'productname' => 'CAT', 
@@ -199,9 +202,13 @@ build:
                       'MAX_UPLOAD_SIZE' => [], 
                       'DEBUG_LEVEL' => 5, 
                       'NSIS_VERSION' => 2, 
-                      'SUPERADMINS' => [], ];" >/home/scrutinizer/build/config/config-master.php
+                      'SUPERADMINS' => [], ];
+                      }" >/home/scrutinizer/build/config/config-master.php
                     - |
-                      echo "<?php const CONFIG_CONFASSISTANT = 
+                      echo "<?php 
+                      namespace config;
+                      class ConfAssistant {
+                      const CONFIG_CONFASSISTANT = 
                       [
                       'CONSORTIUM' => [
                       'name' => 'eduroam',
@@ -219,12 +226,17 @@ build:
                       ],
                       'PATHS' => [ 'makensis' => '/home/scrutinizer/build/tests/nsis3/bin/makensis' ],
                       'NSIS_VERSION' => 3,
-                      ];" >/home/scrutinizer/build/config/config-confassistant.php
+                      ];
+                      }" >/home/scrutinizer/build/config/config-confassistant.php
                     - |
-                      echo "<?php const CONFIG_DIAGNOSTICS = 
+                      echo "
+                      namespace config;
+                      class Diagnostics {
+                      <?php const CONFIG_DIAGNOSTICS = 
                       [
                       'RADIUSTESTS' => [],
-                      ];" >/home/scrutinizer/build/config/config-diagnostics.php
+                      ];
+                      }" >/home/scrutinizer/build/config/config-diagnostics.php
                     - |
                       echo "
                       -----BEGIN CERTIFICATE-----

@@ -19,7 +19,6 @@
  *          <base_url>/copyright.php after deploying the software
  */
 namespace web\skins\modern;
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
 
 /**
  * Menu class helps to define the menu on the main page
@@ -37,7 +36,7 @@ class Menu {
      */
     public function __construct($visibility = 'all', $selectedLang = '') {
         $langsArray = [];
-        foreach (CONFIG['LANGUAGES'] as $lang => $value) {
+        foreach (\config\Master::CONFIG['LANGUAGES'] as $lang => $value) {
             if ($lang == $selectedLang) {
                 $langsArray[] = ['text'=>$value['display'], 'link'=>'javascript:changeLang("' . $lang . '")', 'class'=>'selected-lang'];
             } else {
@@ -49,10 +48,10 @@ class Menu {
         'visibility' => 'index'],
             ['id' => 'about',
                 'text' => _("About"), 'link' => '', 'submenu' => [
-                    ['text' => sprintf(_("About %s"), CONFIG['APPEARANCE']['productname']),
-                        'catInfo' => ['about_cat', sprintf(_("About %s"), CONFIG['APPEARANCE']['productname'])]],
-                    ['text' => sprintf(_("About %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']),
-                        'link' => CONFIG_CONFASSISTANT['CONSORTIUM']['homepage']],
+                    ['text' => sprintf(_("About %s"), \config\Master::CONFIG['APPEARANCE']['productname']),
+                        'catInfo' => ['about_cat', sprintf(_("About %s"), \config\Master::CONFIG['APPEARANCE']['productname'])]],
+                    ['text' => sprintf(_("About %s"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']),
+                        'link' => \config\ConfAssistant::CONFIG['CONSORTIUM']['homepage']],
                 ]],
             ['id' => 'lang',
                 'text' => _("Language"), 'submenu' => $langsArray, ],
@@ -60,7 +59,7 @@ class Menu {
                 'text' => _("Help"), 'submenu' => [
                     ['text' => _("My institution is not listed"), 'catInfo' => ['idp_not_listed', _("FAQ")], 'visibility' => 'index'],
                     ['text' => _("My device is not listed"), 'catInfo' => ['device_not_listed', _("FAQ")], 'visibility' => 'index'],
-                    ['text' => \core\ProfileSilverbullet::PRODUCTNAME._("Help"), 'visibility' => 'sb', 'link'=> CONFIG_CONFASSISTANT['SILVERBULLET']['documentation']],
+                    ['text' => \core\ProfileSilverbullet::PRODUCTNAME._("Help"), 'visibility' => 'sb', 'link'=> \config\ConfAssistant::CONFIG['SILVERBULLET']['documentation']],
                     ['text' => _("What is eduroam"), 'catInfo' => ['what_is_eduroam', _("FAQ")]],
                     ['text' => _("FAQ"), 'catInfo' => ['faq', _("FAQ")]],
                     ['text' => _("Contact"), 'catInfo' => ['contact', _("FAQ")]],
@@ -69,8 +68,8 @@ class Menu {
                 ]],
             ['id' => 'manage',
                 'text' => _("Manage"), 'submenu' => [
-                    ['text' => sprintf(_("%s admin access"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']),
-                        'catInfo' => ['admin', sprintf(_("%s admin:<br>manage your IdP"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'])]],
+                    ['text' => sprintf(_("%s admin access"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']),
+                        'catInfo' => ['admin', sprintf(_("%s admin:<br>manage your IdP"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'])]],
                     ['text' => _("Become a CAT developer"),
                         'catInfo' => ['develop', _("Become a CAT developer")]],
                 ],

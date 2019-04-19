@@ -33,10 +33,6 @@
 
 namespace core;
 
-require_once dirname(__DIR__) . "/config/_config.php";
-
-CAT_session_start();
-
 /**
  * Define some variables which need to be globally accessible
  * and some general purpose methods
@@ -119,7 +115,7 @@ class CAT extends \core\common\Entity {
             }
             $this->CAT_VERSION_STRING = sprintf(_("Release <a href='%s'>%s</a>"), "https://github.com/GEANT/CAT/tree/" . $branch . "/Changes.md", $temp_version);
         }
-        $this->CAT_COPYRIGHT = CONFIG['APPEARANCE']['productname'] . " - " . $this->CAT_VERSION_STRING . " &copy; " . CAT::COPYRIGHT_MIN_YEAR . "-" . CAT::COPYRIGHT_MAX_YEAR . " " . CAT::COPYRIGHT_HOLDER . "<br/>on behalf of " . CAT::COPYRIGHT_CONSORTIA . "; and others <a href='copyright.php'>Full Copyright and Licenses</a>";
+        $this->CAT_COPYRIGHT = \config\Master::CONFIG['APPEARANCE']['productname'] . " - " . $this->CAT_VERSION_STRING . " &copy; " . CAT::COPYRIGHT_MIN_YEAR . "-" . CAT::COPYRIGHT_MAX_YEAR . " " . CAT::COPYRIGHT_HOLDER . "<br/>on behalf of " . CAT::COPYRIGHT_CONSORTIA . "; and others <a href='copyright.php'>Full Copyright and Licenses</a>";
 
 
         /* Federations are created in DB with bootstrapFederation, and listed via listFederations
@@ -517,7 +513,7 @@ class CAT extends \core\common\Entity {
      */
     public function getExternalDBEntityDetails($externalId, $realm = NULL) {
         $list = [];
-        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (\config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo']) && \config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $scanforrealm = "";
             if ($realm !== NULL) {
                 $scanforrealm = "OR inst_realm LIKE '%$realm%'";
@@ -565,7 +561,7 @@ class CAT extends \core\common\Entity {
     public function getExternalCountriesList() {
         $olddomain = $this->languageInstance->setTextDomain("core");
         $returnArray = []; // in if -> the while might never be executed, so initialise
-        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (\config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo']) && \config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $handle = DBConnection::handle("EXTERNAL");
             $timeStart = microtime(true);
             $federations = $handle->exec("SELECT DISTINCT UPPER(country) AS country FROM view_country_eduroamdb ORDER BY country");
@@ -589,7 +585,20 @@ class CAT extends \core\common\Entity {
      * @return string
      */
     public static function getRootUrlPath() {
-        return substr(CONFIG['PATHS']['cat_base_url'], -1) === '/' ? substr(CONFIG['PATHS']['cat_base_url'], 0, -1) : CONFIG['PATHS']['cat_base_url'];
+        return substr(\config\Master::CONFIG['PATHS']['cat_base_url'], -1) === '/' ? substr(\config\Master::CONFIG['PATHS']['cat_base_url'], 0, -1) : \config\Master::CONFIG['PATHS']['cat_base_url'];
+    }
+
+    /**
+     * takes care of starting our session
+     * 
+     * @return void
+     */
+    public static function sessionStart() {
+        if (session_status() != PHP_SESSION_ACTIVE) {
+            session_name("CAT");
+            session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], (isset($_SERVER['HTTPS']) ? TRUE : FALSE));
+            session_start();
+        }
     }
 
 }

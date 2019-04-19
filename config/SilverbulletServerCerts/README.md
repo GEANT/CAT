@@ -11,7 +11,7 @@ For each federation, the structure is as follows:
 (e.g. directory "LU" with the single file "server.pem" inside)
 
 The server names follow a schema: the suffix is defined in 
-CONFIG_CONFASSISTANT['SILVERBULLET']['server_suffix']. The full name will be
+\config\ConfAssistant::CONFIG['SILVERBULLET']['server_suffix']. The full name will be
 auth.<federation><suffix>
 
 Naturally, the RADIUS server needs to have the actual server certificate with

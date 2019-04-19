@@ -118,7 +118,7 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
                     $soapReqnum, [
                 "RaID" => CertificationAuthorityEduPki::EDUPKI_RA_ID,
                 "Role" => CertificationAuthorityEduPki::EDUPKI_CERT_PROFILE,
-                "Subject" => "DC=eduroam,DC=test,DC=test,C=" . $csr["FED"] . ",O=" . CONFIG_CONFASSISTANT['CONSORTIUM']['name'] . ",OU=" . $csr["FED"] . ",CN=" . $csr['USERNAME'] . ",emailAddress=" . $csr['USERNAME'],
+                "Subject" => "DC=eduroam,DC=test,DC=test,C=" . $csr["FED"] . ",O=" . \config\ConfAssistant::CONFIG['CONSORTIUM']['name'] . ",OU=" . $csr["FED"] . ",CN=" . $csr['USERNAME'] . ",emailAddress=" . $csr['USERNAME'],
                 "SubjectAltNames" => ["email:" . $csr["USERNAME"]],
                 "NotBefore" => (new \DateTime())->format('c'),
                 "NotAfter" => $expiry->format('c'),
@@ -150,7 +150,7 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
             // sign the data, using cmdline because openssl_pkcs7_sign produces strange results
             // -binary didn't help, nor switch -md to sha1 sha256 or sha512
             $this->loggerInstance->debug(5, "Actual content to be signed is this:\n  $soapCleartext\n");
-            $execCmd = CONFIG['PATHS']['openssl'] . " smime -sign -binary -in " . $tempdir['dir'] . "/content.txt -out " . $tempdir['dir'] . "/signature.txt -outform pem -inkey " . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey -signer " . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem";
+            $execCmd = \config\Master::CONFIG['PATHS']['openssl'] . " smime -sign -binary -in " . $tempdir['dir'] . "/content.txt -out " . $tempdir['dir'] . "/signature.txt -outform pem -inkey " . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey -signer " . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem";
             $this->loggerInstance->debug(2, "Calling openssl smime with following cmdline:   $execCmd\n");
             $output = [];
             $return = 999;
@@ -242,7 +242,7 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
             // sign the data, using cmdline because openssl_pkcs7_sign produces strange results
             // -binary didn't help, nor switch -md to sha1 sha256 or sha512
             $this->loggerInstance->debug(5, "Actual content to be signed is this:\n$soapRawRevRequest\n");
-            $execCmd = CONFIG['PATHS']['openssl'] . " smime -sign -binary -in " . $tempdir['dir'] . "/content.txt -out " . $tempdir['dir'] . "/signature.txt -outform pem -inkey " . CertificationAuthorityEduPki::LOCATION_RA_KEY . " -signer " . CertificationAuthorityEduPki::LOCATION_RA_CERT;
+            $execCmd = \config\Master::CONFIG['PATHS']['openssl'] . " smime -sign -binary -in " . $tempdir['dir'] . "/content.txt -out " . $tempdir['dir'] . "/signature.txt -outform pem -inkey " . CertificationAuthorityEduPki::LOCATION_RA_KEY . " -signer " . CertificationAuthorityEduPki::LOCATION_RA_CERT;
             $this->loggerInstance->debug(2, "Calling openssl smime with following cmdline: $execCmd\n");
             $output = [];
             $return = 999;
@@ -380,7 +380,7 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
         openssl_pkey_export($privateKey, $outstring);
         file_put_contents($tempdir . "/pkey.pem", $outstring);
         // PHP can only do one DC in the Subject. But we need three.
-        $execCmd = CONFIG['PATHS']['openssl'] . " req -new -sha256 -key $tempdir/pkey.pem -out $tempdir/request.csr -subj /DC=test/DC=test/DC=eduroam/C=$fed/O=" . CONFIG_CONFASSISTANT['CONSORTIUM']['name'] . "/OU=$fed/CN=$username/emailAddress=$username";
+        $execCmd = \config\Master::CONFIG['PATHS']['openssl'] . " req -new -sha256 -key $tempdir/pkey.pem -out $tempdir/request.csr -subj /DC=test/DC=test/DC=eduroam/C=$fed/O=" . \config\ConfAssistant::CONFIG['CONSORTIUM']['name'] . "/OU=$fed/CN=$username/emailAddress=$username";
         $this->loggerInstance->debug(2, "Calling openssl req with following cmdline: $execCmd\n");
         $output = [];
         $return = 999;

@@ -195,7 +195,7 @@ class Federation extends EntityWithDBProperties {
             "row" => 0,
             "flag" => NULL);
 
-        if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != 'LOCAL' && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == 'LOCAL') {
+        if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != 'LOCAL' && \config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == 'LOCAL') {
             // this instance exclusively does SB, so it is not necessary to ask
             // fed ops whether they want to enable it or not. So always add it
             // to the list of fed attributes
@@ -227,7 +227,7 @@ class Federation extends EntityWithDBProperties {
         $identifier = $this->databaseHandle->lastID();
 
         if ($identifier == 0 || !$this->loggerInstance->writeAudit($ownerId, "NEW", "Organisation $identifier")) {
-            $text = "<p>Could not create a new " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_inst'] . "!</p>";
+            $text = "<p>Could not create a new " . \config\ConfAssistant::CONFIG['CONSORTIUM']['nomenclature_inst'] . "!</p>";
             echo $text;
             throw new Exception($text);
         }
@@ -277,11 +277,11 @@ Best regards,
 %s"), 
                     $prettyPrintType,
                     $bestnameguess,
-                    CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'],
+                    \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'],
                     strtoupper($this->tld),
                     common\Entity::$nomenclature_participant,
-                    CONFIG['APPEARANCE']['productname'],
-                    CONFIG['APPEARANCE']['productname_long']);
+                    \config\Master::CONFIG['APPEARANCE']['productname'],
+                    \config\Master::CONFIG['APPEARANCE']['productname_long']);
             /// organisation
             $retval = $user->sendMailToUser(sprintf(_("%s in your federation was created"), common\Entity::$nomenclature_participant), $message);
             if ($retval === FALSE) {
@@ -363,7 +363,7 @@ Best regards,
     public function listFederationAdmins() {
         $returnarray = [];
         $query = "SELECT user_id FROM user_options WHERE option_name = 'user:fedadmin' AND option_value = ?";
-        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (\config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo']) && \config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $query = "SELECT eptid as user_id FROM view_admin WHERE role = 'fedadmin' AND realm = ?";
         }
         $userHandle = DBConnection::handle("USER"); // we need something from the USER database for a change
@@ -409,7 +409,7 @@ Best regards,
             }
         }
 
-        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (\config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo']) && \config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $eduroamDb = new ExternalEduroamDBData();
             // need to convert our internal notion of participant types to those of eduroam DB
             $eduroamDbType = NULL; // anything
@@ -479,7 +479,7 @@ Best regards,
         // this is a SELECT returning a resource, not a boolean
         $candidatesCat = Federation::findCandidates(/** @scrutinizer ignore-type */ $candidateCatQuery, $country);
 
-        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED        
+        if (\config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo']) && \config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED        
             $externalHandle = DBConnection::handle("EXTERNAL");
             $realmSearchStringDb1 = "$realm";
             $realmSearchStringDb2 = "%,$realm";

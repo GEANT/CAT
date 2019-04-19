@@ -331,7 +331,7 @@ class DeploymentManaged extends AbstractDeployment {
     public function getOperatorName() {
         $customAttrib = $this->getAttributes("managedsp:operatorname");
         if (count($customAttrib) == 0) {
-            return "1sp.".$this->identifier."-".$this->institution.CONFIG_CONFASSISTANT['SILVERBULLET']['realm_suffix'];
+            return "1sp.".$this->identifier."-".$this->institution.\config\ConfAssistant::CONFIG['SILVERBULLET']['realm_suffix'];
         }
         return $customAttrib[0]["value"];
     }

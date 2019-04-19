@@ -183,7 +183,7 @@ class UserAPI extends CAT {
                 rename($iPath, $this->installerPath);
                 $integerEap = (new \core\common\EAP($dev->selectedEap))->getIntegerRep();
                 $profile->updateCache($device, $this->installerPath, $out['mime'], $integerEap);
-                if (CONFIG['DEBUG_LEVEL'] < 4) {
+                if (\config\Master::CONFIG['DEBUG_LEVEL'] < 4) {
                     \core\common\Entity::rrmdir($dev->FPATH . '/tmp');
                 }
                 $this->loggerInstance->debug(4, "Generated installer: " . $this->installerPath . ": for: $device, EAP:" . $integerEap . "\n");

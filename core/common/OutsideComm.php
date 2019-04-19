@@ -65,23 +65,23 @@ class OutsideComm extends Entity {
         $mail->isSMTP();
         $mail->Port = 587;
         $mail->SMTPSecure = 'tls';
-        $mail->Host = CONFIG['MAILSETTINGS']['host'];
-        if (CONFIG['MAILSETTINGS']['user'] === NULL && CONFIG['MAILSETTINGS']['pass'] === NULL) {
+        $mail->Host = \config\Master::CONFIG['MAILSETTINGS']['host'];
+        if (\config\Master::CONFIG['MAILSETTINGS']['user'] === NULL && \config\Master::CONFIG['MAILSETTINGS']['pass'] === NULL) {
             $mail->SMTPAuth = false;
         } else {
             $mail->SMTPAuth = true;
-            $mail->Username = CONFIG['MAILSETTINGS']['user'];
-            $mail->Password = CONFIG['MAILSETTINGS']['pass'];
+            $mail->Username = \config\Master::CONFIG['MAILSETTINGS']['user'];
+            $mail->Password = \config\Master::CONFIG['MAILSETTINGS']['pass'];
         }
-        $mail->SMTPOptions = CONFIG['MAILSETTINGS']['options'];
+        $mail->SMTPOptions = \config\Master::CONFIG['MAILSETTINGS']['options'];
 // formatting nitty-gritty
         $mail->WordWrap = 72;
         $mail->isHTML(FALSE);
         $mail->CharSet = 'UTF-8';
-        $mail->From = CONFIG['APPEARANCE']['from-mail'];
+        $mail->From = \config\Master::CONFIG['APPEARANCE']['from-mail'];
 // are we fancy? i.e. S/MIME signing?
-        if (isset(CONFIG['MAILSETTINGS']['certfilename'], CONFIG['MAILSETTINGS']['keyfilename'], CONFIG['MAILSETTINGS']['keypass'])) {
-            $mail->sign(CONFIG['MAILSETTINGS']['certfilename'], CONFIG['MAILSETTINGS']['keyfilename'], CONFIG['MAILSETTINGS']['keypass']);
+        if (isset(\config\Master::CONFIG['MAILSETTINGS']['certfilename'], \config\Master::CONFIG['MAILSETTINGS']['keyfilename'], \config\Master::CONFIG['MAILSETTINGS']['keypass'])) {
+            $mail->sign(\config\Master::CONFIG['MAILSETTINGS']['certfilename'], \config\Master::CONFIG['MAILSETTINGS']['keyfilename'], \config\Master::CONFIG['MAILSETTINGS']['keypass']);
         }
         return $mail;
     }
@@ -183,15 +183,15 @@ class OutsideComm extends Entity {
      */
     public static function sendSMS($number, $content) {
         $loggerInstance = new \core\common\Logging();
-        switch (CONFIG_CONFASSISTANT['SMSSETTINGS']['provider']) {
+        switch (\config\ConfAssistant::CONFIG['SMSSETTINGS']['provider']) {
             case 'Nexmo':
                 // taken from https://docs.nexmo.com/messaging/sms-api
                 $url = 'https://rest.nexmo.com/sms/json?' . http_build_query(
                                 [
-                                    'api_key' => CONFIG_CONFASSISTANT['SMSSETTINGS']['username'],
-                                    'api_secret' => CONFIG_CONFASSISTANT['SMSSETTINGS']['password'],
+                                    'api_key' => \config\ConfAssistant::CONFIG['SMSSETTINGS']['username'],
+                                    'api_secret' => \config\ConfAssistant::CONFIG['SMSSETTINGS']['password'],
                                     'to' => $number,
-                                    'from' => CONFIG_CONFASSISTANT['CONSORTIUM']['name'],
+                                    'from' => \config\ConfAssistant::CONFIG['CONSORTIUM']['name'],
                                     'text' => $content,
                                     'type' => 'unicode',
                                 ]
@@ -275,9 +275,9 @@ class OutsideComm extends Entity {
         new \core\CAT(); // makes sure Entity is initialised
         // we have a few stock intro texts on file
         $introTexts = [
-            OutsideComm::INVITE_CONTEXTS[0] => sprintf(_("a %s of the %s %s \"%s\" has invited you to manage the %s together with him."), Entity::$nomenclature_fed, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], Entity::$nomenclature_participant, $idpPrettyName, Entity::$nomenclature_participant),
-            OutsideComm::INVITE_CONTEXTS[1] => sprintf(_("a %s %s has invited you to manage the future %s  \"%s\" (%s). The organisation will be a %s."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], Entity::$nomenclature_fed, Entity::$nomenclature_participant, $idpPrettyName, strtoupper($federation->tld), $prettyPrintType),
-            OutsideComm::INVITE_CONTEXTS[2] => sprintf(_("a %s %s has invited you to manage the %s  \"%s\". This is a %s."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], Entity::$nomenclature_fed, Entity::$nomenclature_participant, $idpPrettyName, $prettyPrintType),
+            OutsideComm::INVITE_CONTEXTS[0] => sprintf(_("a %s of the %s %s \"%s\" has invited you to manage the %s together with him."), Entity::$nomenclature_fed, \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], Entity::$nomenclature_participant, $idpPrettyName, Entity::$nomenclature_participant),
+            OutsideComm::INVITE_CONTEXTS[1] => sprintf(_("a %s %s has invited you to manage the future %s  \"%s\" (%s). The organisation will be a %s."), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], Entity::$nomenclature_fed, Entity::$nomenclature_participant, $idpPrettyName, strtoupper($federation->tld), $prettyPrintType),
+            OutsideComm::INVITE_CONTEXTS[2] => sprintf(_("a %s %s has invited you to manage the %s  \"%s\". This is a %s."), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], Entity::$nomenclature_fed, Entity::$nomenclature_participant, $idpPrettyName, $prettyPrintType),
         ];
         $validity = sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X %Z", time() + 86400));
         // need some nomenclature
@@ -312,21 +312,21 @@ class OutsideComm extends Entity {
         }
 
         $message .= wordwrap(sprintf(_("To enlist as an administrator for that %s, please click on the following link:"), Entity::$nomenclature_participant), 72) . "\n\n" .
-                $proto . $_SERVER['SERVER_NAME'] . CONFIG['PATHS']['cat_base_url'] . "admin/action_enrollment.php?token=$newtoken\n\n" .
-                wordwrap(sprintf(_("If clicking the link doesn't work, you can also go to the %s Administrator Interface at"), CONFIG['APPEARANCE']['productname']), 72) . "\n\n" .
-                $proto . $_SERVER['SERVER_NAME'] . CONFIG['PATHS']['cat_base_url'] . "admin/\n\n" .
+                $proto . $_SERVER['SERVER_NAME'] . \config\Master::CONFIG['PATHS']['cat_base_url'] . "admin/action_enrollment.php?token=$newtoken\n\n" .
+                wordwrap(sprintf(_("If clicking the link doesn't work, you can also go to the %s Administrator Interface at"), \config\Master::CONFIG['APPEARANCE']['productname']), 72) . "\n\n" .
+                $proto . $_SERVER['SERVER_NAME'] . \config\Master::CONFIG['PATHS']['cat_base_url'] . "admin/\n\n" .
                 _("and enter the invitation token") . "\n\n" .
                 $newtoken . "\n\n$replyToMessage\n\n" .
                 wordwrap(_("Do NOT forward the mail before the token has expired - or the recipients may be able to consume the token on your behalf!"), 72) . "\n\n" .
-                wordwrap(sprintf(_("We wish you a lot of fun with the %s."), CONFIG['APPEARANCE']['productname']), 72) . "\n\n" .
-                sprintf(_("Sincerely,\n\nYour friendly folks from %s Operations"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+                wordwrap(sprintf(_("We wish you a lot of fun with the %s."), \config\Master::CONFIG['APPEARANCE']['productname']), 72) . "\n\n" .
+                sprintf(_("Sincerely,\n\nYour friendly folks from %s Operations"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
 
 
 // who to whom?
-        $mail->FromName = CONFIG['APPEARANCE']['productname'] . " Invitation System";
+        $mail->FromName = \config\Master::CONFIG['APPEARANCE']['productname'] . " Invitation System";
 
-        if (isset(CONFIG['APPEARANCE']['invitation-bcc-mail']) && CONFIG['APPEARANCE']['invitation-bcc-mail'] !== NULL) {
-            $mail->addBCC(CONFIG['APPEARANCE']['invitation-bcc-mail']);
+        if (isset(\config\Master::CONFIG['APPEARANCE']['invitation-bcc-mail']) && \config\Master::CONFIG['APPEARANCE']['invitation-bcc-mail'] !== NULL) {
+            $mail->addBCC(\config\Master::CONFIG['APPEARANCE']['invitation-bcc-mail']);
         }
 
 // all addresses are wrapped in a string, but PHPMailer needs a structured list of addressees
@@ -355,7 +355,7 @@ class OutsideComm extends Entity {
 
 // what do we want to say?
         Entity::intoThePotatoes();
-        $mail->Subject = sprintf(_("%s: you have been invited to manage an %s"), CONFIG['APPEARANCE']['productname'], Entity::$nomenclature_participant);
+        $mail->Subject = sprintf(_("%s: you have been invited to manage an %s"), \config\Master::CONFIG['APPEARANCE']['productname'], Entity::$nomenclature_participant);
         Entity::outOfThePotatoes();
         $mail->Body = $message;
         return ["SENT" => $mail->send(), "TRANSPORT" => $secStatus];

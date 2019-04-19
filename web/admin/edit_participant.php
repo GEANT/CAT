@@ -39,9 +39,9 @@ $idpoptions = $my_inst->getAttributes();
 $inst_name = $my_inst->name;
 
 if ($wizardStyle) {
-    echo $deco->defaultPagePrelude(sprintf(_("%s: %s enrollment wizard (step 2)"), CONFIG['APPEARANCE']['productname'],  $uiElements->nomenclatureParticipant));
+    echo $deco->defaultPagePrelude(sprintf(_("%s: %s enrollment wizard (step 2)"), \config\Master::CONFIG['APPEARANCE']['productname'],  $uiElements->nomenclatureParticipant));
 } else {
-    echo $deco->defaultPagePrelude(sprintf(_("%s: Editing %s '%s'"), CONFIG['APPEARANCE']['productname'], $uiElements->nomenclatureParticipant, $inst_name));
+    echo $deco->defaultPagePrelude(sprintf(_("%s: Editing %s '%s'"), \config\Master::CONFIG['APPEARANCE']['productname'], $uiElements->nomenclatureParticipant, $inst_name));
 }
 require_once "inc/click_button_js.php";
 // let's check if the inst handle actually exists in the DB and user is authorised
@@ -95,7 +95,7 @@ echo $mapCode->htmlHeadCode();
     </div>
     <?php
     echo "<form enctype='multipart/form-data' action='edit_participant_result.php?inst_id=$my_inst->identifier" . ($wizardStyle ? "&wizard=true" : "") . "' method='post' accept-charset='UTF-8'>
-              <input type='hidden' name='MAX_FILE_SIZE' value='" . CONFIG['MAX_UPLOAD_SIZE'] . "'>";
+              <input type='hidden' name='MAX_FILE_SIZE' value='" . \config\Master::CONFIG['MAX_UPLOAD_SIZE'] . "'>";
 
     if ($wizardStyle) {
         echo "<p>" .
@@ -126,18 +126,18 @@ echo $mapCode->htmlHeadCode();
         <?php
         if ($wizardStyle) {
             echo "<p>" .
-            sprintf(_("In this section, you define on which media %s should be configured on user devices."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</p>
+            sprintf(_("In this section, you define on which media %s should be configured on user devices."), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']) . "</p>
           <ul>";
             echo "<li>";
-            echo "<strong>" . ( count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0 ? _("Additional SSIDs:") : _("SSIDs:")) . " </strong>";
-            if (count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0) {
+            echo "<strong>" . ( count(\config\ConfAssistant::CONFIG['CONSORTIUM']['ssid']) > 0 ? _("Additional SSIDs:") : _("SSIDs:")) . " </strong>";
+            if (count(\config\ConfAssistant::CONFIG['CONSORTIUM']['ssid']) > 0) {
                 $ssidlist = "";
-                foreach (CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'] as $ssid) {
+                foreach (\config\ConfAssistant::CONFIG['CONSORTIUM']['ssid'] as $ssid) {
                     $ssidlist .= ", '<strong>" . $ssid . "</strong>'";
                 }
                 $ssidlist = substr($ssidlist, 2);
-                echo sprintf(ngettext("We will always configure this SSID for WPA2/AES: %s.", "We will always configure these SSIDs for WPA2/AES: %s.", count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])), $ssidlist);
-                if (CONFIG_CONFASSISTANT['CONSORTIUM']['tkipsupport']) {
+                echo sprintf(ngettext("We will always configure this SSID for WPA2/AES: %s.", "We will always configure these SSIDs for WPA2/AES: %s.", count(\config\ConfAssistant::CONFIG['CONSORTIUM']['ssid'])), $ssidlist);
+                if (\config\ConfAssistant::CONFIG['CONSORTIUM']['tkipsupport']) {
                     echo " " . _("They will also be configured for WPA/TKIP if the device supports multiple encryption types.");
                 }
                 echo "<br/>" . sprintf(_("It is also possible to define custom additional SSIDs with the options '%s' and '%s' below."), $uiElements->displayName("media:SSID"), $uiElements->displayName("media:SSID_with_legacy"));
@@ -148,14 +148,14 @@ echo $mapCode->htmlHeadCode();
             echo "</li>";
 
             echo "<li>";
-            echo "<strong>" . ( count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0 ? _("Additional Hotspot 2.0 / Passpoint Consortia:") : _("Hotspot 2.0 / Passpoint Consortia:")) . " </strong>";
-            if (count(CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi']) > 0) {
+            echo "<strong>" . ( count(\config\ConfAssistant::CONFIG['CONSORTIUM']['ssid']) > 0 ? _("Additional Hotspot 2.0 / Passpoint Consortia:") : _("Hotspot 2.0 / Passpoint Consortia:")) . " </strong>";
+            if (count(\config\ConfAssistant::CONFIG['CONSORTIUM']['interworking-consortium-oi']) > 0) {
                 $consortiumlist = "";
-                foreach (CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi'] as $oi) {
+                foreach (\config\ConfAssistant::CONFIG['CONSORTIUM']['interworking-consortium-oi'] as $oi) {
                     $consortiumlist .= ", '<strong>" . $oi . "</strong>'";
                 }
                 $consortiumlist = substr($consortiumlist, 2);
-                echo sprintf(ngettext("We will always configure this Consortium OI: %s.", "We will always configure these Consortium OIs: %s.", count(CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi'])), $consortiumlist);
+                echo sprintf(ngettext("We will always configure this Consortium OI: %s.", "We will always configure these Consortium OIs: %s.", count(\config\ConfAssistant::CONFIG['CONSORTIUM']['interworking-consortium-oi'])), $consortiumlist);
 
                 echo "<br/>" . sprintf(_("It is also possible to define custom additional OIs with the option '%s' below."), $uiElements->displayName("media:consortium_OI"));
             } else {
@@ -180,16 +180,16 @@ echo $mapCode->htmlHeadCode();
         if ($wizardStyle) {
             echo "<p>"._("This section can be used to upload specific Terms of Use for your users and to display details of how your users can reach your local helpdesk.")."</p>";
             
-            if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL") {
+            if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL") {
                 echo "<p>" .
                         
                 sprintf(_("Do you provide helpdesk services for your users? If so, it would be nice if you would tell us the pointers to this helpdesk."),$uiElements->nomenclatureParticipant)  . "</p>" .
                 "<p>" .
                 _("If you enter a value here, it will be added to the installers for all your users, and will be displayed on the download page. If you operate separate helpdesks for different user groups (we call this 'profiles') specify per-profile helpdesk information later in this wizard. If you operate no help desk at all, just leave these fields empty.") . "</p>";
-                if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
+                if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
                 echo "<p>" . sprintf(_("For %s deployments, providing at least a local e-mail contact is required."), core\ProfileSilverbullet::PRODUCTNAME) ." " . _("This is the contact point for your end users' level 1 support.") . "</p>";
                 }
-            } elseif (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
+            } elseif (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
                 echo "<p>". _("Providing at least a local support e-mail contact is required.")." "._("This is the contact point for your end users' level 1 support.")."</p>";
             }
             

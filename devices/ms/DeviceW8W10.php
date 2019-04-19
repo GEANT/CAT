@@ -152,7 +152,7 @@ class DeviceW8W10 extends WindowsCommon {
         $retval = '<Hotspot2>';
         $retval .= '<DomainName>';
         if (empty($this->attributes['internal:realm'][0])) {
-            $retval .= CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-domainname-fallback'];
+            $retval .= \config\ConfAssistant::CONFIG['CONSORTIUM']['interworking-domainname-fallback'];
         } else {
             $retval .= $this->attributes['internal:realm'][0];
         }
@@ -643,7 +643,7 @@ class DeviceW8W10 extends WindowsCommon {
         if ($this->device_id == 'w10') {
             $fcontents .= "!define W10\n";
         }
-        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
+        if (\config\ConfAssistant::CONFIG['NSIS_VERSION'] >= 3) {
             $fcontents .= "Unicode true\n";
         }
         $eapOptions = [

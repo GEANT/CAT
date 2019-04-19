@@ -45,7 +45,7 @@ $link = htmlspecialchars($link);
 
 const QRCODE_PIXELS_PER_SYMBOL = 12;
 
-echo $deco->defaultPagePrelude(sprintf(_("%s: %s Dashboard"), CONFIG['APPEARANCE']['productname'], $uiElements->nomenclatureInst));
+echo $deco->defaultPagePrelude(sprintf(_("%s: %s Dashboard"), \config\Master::CONFIG['APPEARANCE']['productname'], $uiElements->nomenclatureInst));
 require_once "inc/click_button_js.php";
 
 // let's check if the inst handle actually exists in the DB
@@ -85,7 +85,7 @@ echo $mapCode->htmlHeadCode();
         ?>
     </div>
     <?php
-    $readonly = CONFIG['DB']['INST']['readonly'];
+    $readonly = \config\Master::CONFIG['DB']['INST']['readonly'];
     $profiles_for_this_idp = $my_inst->listProfiles();
     if (count($profiles_for_this_idp) == 0) { // no profiles yet.
         echo "<h2>" . sprintf(_("There are not yet any profiles for your %s."), $uiElements->nomenclatureInst) . "</h2>";
@@ -222,11 +222,11 @@ echo $mapCode->htmlHeadCode();
                 $hasRealmArray = $profile_list->getAttributes("internal:realm");
                 $has_realm = $hasRealmArray[0]['value'];
                 echo "<div class='profilemodulebuttons' style='float:right;'>";
-                if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] !== NULL) {
-                    if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == "LOCAL") {
+                if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] !== NULL) {
+                    if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == "LOCAL") {
                         $diagUrl = "../diag/";
                     } else {
-                        $diagUrl = CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] . "/diag/";
+                        $diagUrl = \config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] . "/diag/";
                     }
                     echo "<form action='" . $diagUrl . "action_realmcheck.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post' accept-charset='UTF-8'>
                               <input type='hidden' name='comefrom' id='comefrom-$profilecount' value='$link'/>
@@ -299,7 +299,7 @@ echo $mapCode->htmlHeadCode();
         // b) federation wants this to happen
 
         $myfed = new \core\Federation($my_inst->federation);
-        if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0 && $sbProfileExists === FALSE) {
+        if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0 && $sbProfileExists === FALSE) {
             // the button is grayed out if there's no support email address configured...
             $hasMail = count($my_inst->getAttributes("support:email"));
             ?>
@@ -314,7 +314,7 @@ echo $mapCode->htmlHeadCode();
         }
 
         // adding a normal profile is always possible if we're configured for it
-        if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL") {
+        if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL") {
             ?>
             <form action='edit_profile.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
                 <div>

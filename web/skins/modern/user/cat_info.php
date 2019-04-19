@@ -96,8 +96,8 @@ switch ($page) {
                 if ($auth->isAuthenticated()) {
                     $out .= '<script type="text/javascript">goAdmin()</script>';
                 } else {
-                    if (CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'] === NULL) {
-                        $out .= sprintf(_("You must have received an invitation from your %s %s before being able to manage your %s. If that is the case, please continue and log in."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], core\common\Entity::$nomenclature_fed, core\common\Entity::$nomenclature_inst);
+                    if (\config\ConfAssistant::CONFIG['CONSORTIUM']['selfservice_registration'] === NULL) {
+                        $out .= sprintf(_("You must have received an invitation from your %s %s before being able to manage your %s. If that is the case, please continue and log in."), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], core\common\Entity::$nomenclature_fed, core\common\Entity::$nomenclature_inst);
                     } else {
                         $out .= _("Please authenticate yourself and login");
                     }

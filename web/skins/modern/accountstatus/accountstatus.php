@@ -87,13 +87,13 @@ require dirname(__DIR__) . '/user/js/cat_js.php';
                             $profile = new \core\ProfileSilverbullet($statusInfo['profile']->identifier, NULL);
                             $allcerts = $Gui->getUserCerts($statusInfo['token']);
                             if (count($allcerts) == 0) {
-                                echo sprintf(_("You are a new user without a history of %s credentials."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+                                echo sprintf(_("You are a new user without a history of %s credentials."), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
                             } else {
                                 $stats = array_count_values(array_column($allcerts, 'status'));
                                 $numValid = $stats[\core\SilverbulletCertificate::CERTSTATUS_VALID] ?? 0;
                                 $numExpired = $stats[\core\SilverbulletCertificate::CERTSTATUS_EXPIRED] ?? 0;
                                 $numRevoked = $stats[\core\SilverbulletCertificate::CERTSTATUS_REVOKED] ?? 0;
-                                echo sprintf(ngettext("You have <strong>%d</strong> currently valid %s credential.", "You have <strong>%d</strong> currently valid %s credentials.", $numValid), $numValid, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+                                echo sprintf(ngettext("You have <strong>%d</strong> currently valid %s credential.", "You have <strong>%d</strong> currently valid %s credentials.", $numValid), $numValid, \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
                                 $noGoodCerts = $numRevoked + $numExpired;
                                 if ($noGoodCerts > 0) {
                                     echo " ";
@@ -130,10 +130,10 @@ require dirname(__DIR__) . '/user/js/cat_js.php';
                                     $message = $message . $sbMessage;
                                 }
                          
-                                echo "<div id='sb_download_message'><p>" . sprintf(_("You can now download a personalised  %s installation program."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+                                echo "<div id='sb_download_message'><p>" . sprintf(_("You can now download a personalised  %s installation program."), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
 //                       echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
                                 echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
-                                echo "<p style='color:red;'>" . sprintf(_("When the system detects abuse such as sharing login data with others, all access rights for you will be revoked and you may be sanctioned by your local %s administrator."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</p>";
+                                echo "<p style='color:red;'>" . sprintf(_("When the system detects abuse such as sharing login data with others, all access rights for you will be revoked and you may be sanctioned by your local %s administrator."), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']) . "</p>";
                                 echo "<p>" . _("During the installation process, you will be asked for the following import PIN. This only happens once during the installation. You do not have to write down this PIN.") . "</p></div>";
 
                                 $importPassword = \core\common\Entity::randomString(4, "0123456789");
@@ -144,12 +144,12 @@ require dirname(__DIR__) . '/user/js/cat_js.php';
                                 $_SESSION['importpassword'] = $importPassword;
                                 echo "<input type='hidden' name='device' value='" . $statusInfo['OS']['device'] . "'/>";
                                 echo "<input type='hidden' name='generatedfor' value='silverbullet'/>";
-                                echo "<button class='large_button' id='user_button_sb' style='height:80px;'><span id='user_buttonnnn'>" . sprintf(_("Click here to download your %s installer!"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</span></button>";
+                                echo "<button class='large_button' id='user_button_sb' style='height:80px;'><span id='user_buttonnnn'>" . sprintf(_("Click here to download your %s installer!"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']) . "</span></button>";
                                 echo "<div class='device_info' id='info_g_sb'></div>";
                                 break;
                             case \core\SilverbulletInvitation::SB_TOKENSTATUS_EXPIRED:
                                 echo "<h2>Invitation link expired</h2>";
-                                echo "<p>" . sprintf(_("Unfortunately, the invitation link you just used is too old. The %s sign-up invitation was valid until %s. You cannot use this link any more. Please ask your administrator to issue you a new invitation link."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $statusInfo['invitation_object']->expiry) . "</p>";
+                                echo "<p>" . sprintf(_("Unfortunately, the invitation link you just used is too old. The %s sign-up invitation was valid until %s. You cannot use this link any more. Please ask your administrator to issue you a new invitation link."), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], $statusInfo['invitation_object']->expiry) . "</p>";
                                 echo "<p>Below is all the information about your account's other login details, if any.</p>";
 // do NOT break, display full account info instead (this was a previously valid token after all)
                             case \core\SilverbulletInvitation::SB_TOKENSTATUS_REDEEMED:
@@ -157,7 +157,7 @@ require dirname(__DIR__) . '/user/js/cat_js.php';
                                 break;
                             case \core\SilverbulletInvitation::SB_TOKENSTATUS_INVALID:
                                 echo "<h2>" . _("Account information not found") . "</h2>";
-                                echo "<p>" . sprintf(_("The invitation link you followed does not map to any invititation we have on file.") . "</p><p>" . _("You should use the exact link you got during sign-up to come here. Alternatively, if you have a valid %s credential already, you can visit this page and Accept the question about logging in with a client certificate (select a certificate with a name ending in '…%s')."),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['SILVERBULLET']['realm_suffix']);
+                                echo "<p>" . sprintf(_("The invitation link you followed does not map to any invititation we have on file.") . "</p><p>" . _("You should use the exact link you got during sign-up to come here. Alternatively, if you have a valid %s credential already, you can visit this page and Accept the question about logging in with a client certificate (select a certificate with a name ending in '…%s')."),\config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], \config\ConfAssistant::CONFIG['SILVERBULLET']['realm_suffix']);
                         }
                         if (isset($statusInfo['profile_id']) && isset($statusInfo['idp_id'])) {
                             echo "<input type='hidden' name='profile' id='profile_id' value='" . $statusInfo['profile_id'] . "'/>";
@@ -208,7 +208,7 @@ require dirname(__DIR__) . '/user/js/cat_js.php';
             $("#inst_name").val(idpName);
             $("#inst_name_span").html(idpName);
             $(".inst_name").text(idpName);
-            $("#inst_extra_text").html("<?php escaped_echo(sprintf(_("Your personal %s account status page"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'])); ?>");
+            $("#inst_extra_text").html("<?php escaped_echo(sprintf(_("Your personal %s account status page"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'])); ?>");
             if (logo) {
                 $("#idp_logo").attr("src", "<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendLogo&api_version=2&idp=" + idpId);
                 $("#idp_logo").show();

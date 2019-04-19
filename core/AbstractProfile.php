@@ -128,8 +128,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @throws Exception
      */
     protected function saveDownloadDetails($idpIdentifier, $profileId, $deviceId, $area, $lang, $eapType) {
-        if (CONFIG['PATHS']['logdir']) {
-            $file = fopen(CONFIG['PATHS']['logdir'] . "/download_details.log", "a");
+        if (\config\Master::CONFIG['PATHS']['logdir']) {
+            $file = fopen(\config\Master::CONFIG['PATHS']['logdir'] . "/download_details.log", "a");
             if ($file === FALSE) {
                 throw new Exception("Unable to open file for append: $file");
             }
@@ -683,7 +683,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         // do we know at least one SSID to configure, or work with wired? If not, it's not ready...
         if (!isset($attribs['media:SSID']) &&
                 !isset($attribs['media:SSID_with_legacy']) &&
-                (!isset(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) || count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) == 0) &&
+                (!isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['ssid']) || count(\config\ConfAssistant::CONFIG['CONSORTIUM']['ssid']) == 0) &&
                 !isset($attribs['media:wired'])) {
             $properConfig = FALSE;
         }

@@ -28,8 +28,6 @@ namespace web\lib\admin;
 
 use Exception;
 
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
-
 /**
  * This class defines the various actions doable with the admin API, the
  * parameters and return values.
