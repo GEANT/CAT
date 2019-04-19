@@ -203,7 +203,7 @@ build:
                       'DEBUG_LEVEL' => 5, 
                       'NSIS_VERSION' => 2, 
                       'SUPERADMINS' => [], ];
-                      }" >/home/scrutinizer/build/config/config-master.php
+                      }" >/home/scrutinizer/build/config/Master.php
                     - |
                       echo "<?php 
                       namespace config;
@@ -227,7 +227,7 @@ build:
                       'PATHS' => [ 'makensis' => '/home/scrutinizer/build/tests/nsis3/bin/makensis' ],
                       'NSIS_VERSION' => 3,
                       ];
-                      }" >/home/scrutinizer/build/config/config-confassistant.php
+                      }" >/home/scrutinizer/build/config/ConfAssistant.php
                     - |
                       echo "
                       namespace config;
@@ -236,7 +236,7 @@ build:
                       [
                       'RADIUSTESTS' => [],
                       ];
-                      }" >/home/scrutinizer/build/config/config-diagnostics.php
+                      }" >/home/scrutinizer/build/config/Diagnostics.php
                     - |
                       echo "
                       -----BEGIN CERTIFICATE-----
