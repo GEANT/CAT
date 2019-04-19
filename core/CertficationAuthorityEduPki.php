@@ -173,7 +173,7 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
             // now, get the actual cert from the CA
             sleep(55);
             $counter = 55;
-            $parsedCert = NULL;
+            $parsedCert = FALSE;
             do {
                 $counter += 5;
                 sleep(5); // always start with a wait. Signature round-trip on the server side is at least one minute.
