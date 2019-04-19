@@ -124,6 +124,17 @@ class Menu {
         return($out);
     }
 
+    /**
+     * list of menu entries
+     * 
+     * @var array
+     */
     private $menu;
+    
+    /**
+     * visibility status of menu
+     * 
+     * @var string
+     */
     private $visibility;
 }

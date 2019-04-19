@@ -573,7 +573,11 @@ class MinRSNProto extends XMLElement {
 }
 
 class IEEE8023 extends XMLElement {
-
+    /**
+     * the NetworkID element
+     * 
+     * @var XMLElement
+     */
     protected $NetworkID;
 
 }
