@@ -26,10 +26,10 @@ $loggerInstance = new \core\common\Logging();
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $gui = new \web\lib\user\Gui();
-$gui->langObject->setTextDomain("diagnostics");
+$gui->languageInstance->setTextDomain("diagnostics");
 echo $deco->defaultPagePrelude(sprintf(_("Sanity check for dynamic discovery of realms"), CONFIG['APPEARANCE']['productname']));
 
-$ourlocale = $gui->langObject->getLang();
+$ourlocale = $gui->languageInstance->getLang();
 
 $my_profile = NULL;
 $check_realm = FALSE; // we will need to populate this with a real realm below, or have to die horribly.

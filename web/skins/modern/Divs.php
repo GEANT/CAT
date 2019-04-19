@@ -44,7 +44,7 @@ class Divs {
     }
 
     public function divHeading($visibility = 'all') {
-        $selectedLang = $this->Gui->langObject->getLang();
+        $selectedLang = $this->Gui->languageInstance->getLang();
         $menu = new Menu($visibility, $selectedLang);
         $retval = "<div id='heading'>";
         $location = $this->Gui->skinObject->findResourceUrl("IMAGES", "consortium_logo.png");

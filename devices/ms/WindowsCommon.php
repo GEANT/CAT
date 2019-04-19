@@ -122,7 +122,7 @@ abstract class WindowsCommon extends \core\DeviceConfig {
      */
     public function __construct() {
         parent::__construct();
-        $this->useGeantLink = (isset($this->options['args']) && $this->options['args'] == 'gl') ? 1 : 0;
+        $this->useGeantLink = (isset($this->options['args']) && $this->options['args'] == 'gl') ? TRUE : FALSE;
     }
 
     /**

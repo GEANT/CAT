@@ -360,30 +360,27 @@ abstract class DeviceConfig extends \core\common\Entity {
      * The second optional parameter, if nonzero, should be the character set understood by iconv
      * This is required by the Windows installer and is expected to go away in the future.
      *
-     * @param string $source_string The source string
-     * @param int    $encoding      Set Windows charset if non-zero
+     * @param string $sourceString the source string
+     * @param string $encoding     the character encoding to use
      * @return string
      * @final not to be redefined
      */
-    final protected function translateString($source_string, $encoding = 0) {
-        $this->loggerInstance->debug(5, "translateString input: \"$source_string\"\n");
-        if (empty($source_string)) {
-            return $source_string;
+    final protected function translateString($sourceString, $encoding) {
+        $this->loggerInstance->debug(5, "translateString input: \"$sourceString\"\n");
+        if (empty($sourceString)) {
+            return $sourceString;
         }
-        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
-            $encoding = 0;
-        }
-        if ($encoding) {
-            $output_c = iconv('UTF-8', $encoding . '//TRANSLIT', $source_string);
+        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] < 3) {
+            $output_c = iconv('UTF-8', $encoding . '//TRANSLIT', $sourceString);
         } else {
-            $output_c = $source_string;
+            $output_c = $sourceString;
         }
         if ($output_c) {
-            $source_string = str_replace('"', '$\\"', $output_c);
+            $sourceString = str_replace('"', '$\\"', $output_c);
         } else {
-            $this->loggerInstance->debug(2, "Failed to convert string \"$source_string\"\n");
+            $this->loggerInstance->debug(2, "Failed to convert string \"$sourceString\"\n");
         }
-        return $source_string;
+        return $sourceString;
     }
 
     /**

@@ -34,7 +34,7 @@ require_once dirname(dirname(dirname((dirname(dirname(__FILE__)))))) . "/config/
 
 $Gui = new \web\lib\user\Gui();
 
-$Gui->langObject->setTextDomain("web_user");
+$Gui->languageInstance->setTextDomain("web_user");
 
 $page = $_REQUEST['page'];
 $subpage = $_REQUEST['subpage'];

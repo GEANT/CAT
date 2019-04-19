@@ -387,6 +387,7 @@ public function boolean($input) {
  * checks if we have the strings "IdP" "SP" or "IdPSP"
  * 
  * @param string $partTypeRaw the string to be validated as participant type
+ * @return string validated result
  * @throws Exception
  */
 public function partType($partTypeRaw) {

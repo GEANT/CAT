@@ -88,5 +88,11 @@ class Gui extends \core\UserAPI {
      * @var array|boolean
      */
     public $operatingSystem;
-
+            
+    /**
+     *redeclaring as public so that web front-end can access it
+     * 
+     * @var \core\common\Logging
+     */
+    public $loggerInstance;
 }
