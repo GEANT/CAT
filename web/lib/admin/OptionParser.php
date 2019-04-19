@@ -310,7 +310,7 @@ class OptionParser extends \core\common\Entity {
     /**
      * filters the input to find syntactically correctly submitted attributes
      * 
-     * @param array $listOfEntries       list of POST and FILES entries
+     * @param array $listOfEntries list of POST and FILES entries
      * @return array sanitised list of options
      * @throws Exception
      */
@@ -396,6 +396,13 @@ class OptionParser extends \core\common\Entity {
         return [$retval, $multilangAttrsWithC, $bad];
     }
 
+    /**
+     * find out which languages were submitted, and whether a default language was in the set
+     * @param string $attribute    the name of the attribute we are looking at
+     * @param string $languageFlag which language flag was submitted
+     * @param array $multilangAttrsWithC by-reference: add to this if we found a C language variant
+     * @return void
+     */
     private function determineLanguages($attribute, $languageFlag, &$multilangAttrsWithC) {
         if (!isset($multilangAttrsWithC[$attribute])) { // on first sight, initialise the attribute as "no C language set"
             $multilangAttrsWithC[$attribute] = FALSE;

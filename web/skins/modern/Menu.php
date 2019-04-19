@@ -31,8 +31,10 @@ class Menu {
      * the values of the array can be either a simple string which is passed to user/cat_info.php
      * as the title argument or an two element array - the first element of this array will be
      * the title and the second is a style specification applied to the given menu item
-     * @param string $visibility
-     * @param string $selectedLang
+     * 
+     * @param string $visibility   which parts of the menu should be visible
+     * @param string $selectedLang language to display menu in
+     * @return void
      */
     public function __construct($visibility = 'all', $selectedLang = '') {
         $langsArray = [];
@@ -79,6 +81,14 @@ class Menu {
         ];
         $this->visibility = $visibility;
     }
+    
+    /**
+     * prints the menu
+     * 
+     * @param array  $menu the menu content (only once, cached)
+     * @param string $id   element to be displayed
+     * @return string the HTML code for the menu
+     */
     public function printMenu($menu = NULL, $id = NULL) {
         $menu = $menu ?? $this->menu;
         if (count($menu) == 0) {
@@ -105,9 +115,17 @@ class Menu {
             }
         }
         $out .= '</ul>';
-        return($out);
+        return $out;
     }
 
+    /**
+     * generates HTML code for one specific menu item
+     * 
+     * @param string $itemText  text to display
+     * @param string $itemLink  link to embed
+     * @param string $itemClass class of the entry
+     * @return string HTML code
+     */
     private function printMenuItem($itemText, $itemLink = '', $itemClass = '') {
         
         if ($itemLink === '') {
@@ -116,11 +134,16 @@ class Menu {
         return "<li><a href='" . $itemLink . "'" . $itemClass . '>' . $itemText . "</a>";
     }
     
+    /**
+     * prints the menu skeleton, just Start Page
+     * 
+     * @return string
+     */
     public function printMinimalMenu() {
         $out = "\n<ul>\n";
         $out .= $this->printMenuItem(_("Start page"), \core\CAT::getRootUrlPath());
         $out .= '</ul>';
-        return($out);
+        return $out;
     }
 
     /**

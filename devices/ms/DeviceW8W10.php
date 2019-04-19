@@ -503,12 +503,13 @@ class DeviceW8W10 extends WindowsCommon {
     /**
      * produce PEAP, TLS and TTLS configuration files for Windows 8
      *
-     * @param string $wlanProfileName
-     * @param string $ssid
-     * @param string $auth can be one of "WPA", "WPA2"
-     * @param string $encryption can be one of: "TKIP", "AES"
-     * @param array $eapConfig XML configuration block with EAP config data
-     * @param int $profileNumber counter, which profile number is this
+     * @param string  $wlanProfileName name for the WLAN profile (not necessarily equal to SSID)
+     * @param string  $ssid            name of SSID to configure
+     * @param string  $auth            can be one of "WPA", "WPA2"
+     * @param string  $encryption      can be one of: "TKIP", "AES"
+     * @param array   $eapConfig XML   configuration block with EAP config data
+     * @param integer $profileNumber   counter, which profile number is this
+     * @param boolean $hs20            should Hotspot 2.0 / Passpoint be configured?
      * @return string
      */
     private function writeWLANprofile($wlanProfileName, $ssid, $auth, $encryption, $eapConfig, $profileNumber, $hs20 = FALSE) {

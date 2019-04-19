@@ -134,7 +134,7 @@ class OptionDisplay extends \core\common\Entity {
     /**
      * Displays options for a given option class, in New mode.
      * 
-     * @param string $class       the class of options that is to be displayed
+     * @param string $class the class of options that is to be displayed
      * @return string
      */
     private function addOptionNew(string $class) {
