@@ -35,7 +35,7 @@ $_SESSION['current_page'] = $_SERVER['SCRIPT_NAME'];
     var downloadMessage;
     var noDisco = 1;
     var sbPage = 1;
-    var lang = "<?php echo($Gui->langObject->getLang()) ?>";
+    var lang = "<?php echo($Gui->languageInstance->getLang()) ?>";
     var dir = "<?php echo dirname(__DIR__); ?>";
 
 <?php

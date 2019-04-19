@@ -60,12 +60,12 @@ include("user/js/cat_js.php");
     var loading_ico = new Image();
     loading_ico.src = "<?php echo $Gui->skinObject->findResourceUrl("IMAGES","icons/loading51.gif")?>";
 </script>
-<?php $Gui->langObject->setTextDomain("web_user"); ?>
+<?php $Gui->languageInstance->setTextDomain("web_user"); ?>
 <!-- DiscoJuice -->
 <script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "discojuice/discojuice.js")?>"></script>
 <script type="text/javascript">
     front_page = 0;
-    var lang = "<?php echo($Gui->langObject->getLang()) ?>";
+    var lang = "<?php echo($Gui->languageInstance->getLang()) ?>";
 </script>
 <link rel="stylesheet" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","discojuice/css/discojuice.css")?>" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">

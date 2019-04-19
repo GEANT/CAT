@@ -48,7 +48,7 @@ if ($operatingSystem) {
 }
 require dirname(__DIR__) . '/user/js/cat_js.php';
 ?>
-    var lang = "<?php echo($Gui->langObject->getLang()) ?>";
+    var lang = "<?php echo($Gui->languageInstance->getLang()) ?>";
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
 <link rel="stylesheet" media="screen" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("CSS", "cat-user.css"); ?>" />
