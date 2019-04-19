@@ -813,7 +813,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * 
      * @var array
      */
-    protected $clientCert;
+    protected $clientCert = [];
 
     /**
      * stores identifier used by GEANTLink profiles

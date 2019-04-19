@@ -670,7 +670,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
      */
     private function clientP12Block() {
         \core\common\Entity::intoThePotatoes();
-        if (!is_array($this->clientCert)) {
+        if (count($this->clientCert) == 0) {
             throw new Exception("the client block was called but there is no client certificate!");
         }
         $binaryBlob = $this->clientCert["certdata_nointermediate"];
@@ -713,7 +713,7 @@ $mimeFormatted
      * @throws Exception
      */
     private function expiryBlock() {
-        if (!is_array($this->clientCert)) {
+        if (count($this->clientCert) == 0) {
             throw new Exception("the expiry block was called but there is no client certificate!");
         }
         $expiryTime = new \DateTime($this->clientCert['certObject']->expiry);

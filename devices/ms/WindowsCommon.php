@@ -434,7 +434,7 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprintNsis(_("%s inst
      * @throws Exception
      */
     protected function writeClientP12File() {
-        if (!is_array($this->clientCert)) {
+        if (count($this->clientCert) == 0) {
             throw new Exception("the client block was called but there is no client certificate!");
         }
         file_put_contents('SB_cert.p12', $this->clientCert["certdata"]);
