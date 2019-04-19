@@ -368,23 +368,22 @@ Best regards,
      * 
      * The business logic of this function is roaming consortium specific; if no match algorithm is known for the consortium, FALSE is returned.
      * 
+     * @param string $type which type of entity are you looking for?
      * @return mixed list of entities in external database that correspond to this IdP or FALSE if no consortium-specific matching function is defined
      */
     public function getExternalDBSyncCandidates($type) {
+        $usedarray = [];
+        $matchingCandidates = [];
+        $syncstate = self::EXTERNAL_DB_SYNCSTATE_SYNCED;
+        $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id IS NOT NULL AND external_db_syncstate = ?", "i", $syncstate);
+        // SELECT -> resource, not boolean
+        while ($alreadyUsedQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $alreadyUsed)) {
+            $usedarray[] = $alreadyUsedQuery->external_db_id;
+        }
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-            $list = [];
-            $usedarray = [];
             // extract all institutions from the country
-
-
-            $syncstate = self::EXTERNAL_DB_SYNCSTATE_SYNCED;
-            $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id IS NOT NULL AND external_db_syncstate = ?", "i", $syncstate);
-            // SELECT -> resource, not boolean
-            while ($alreadyUsedQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $alreadyUsed)) {
-                $usedarray[] = $alreadyUsedQuery->external_db_id;
-            }
+            $list = [];
             $lowerFed = strtolower($this->federation);
-            $returnarray[] = ["ID" => $externalQuery->id, "name" => $thelanguage, "contactlist" => $mailnames, "country" => $externalQuery->country, "realmlist" => $externalQuery->realmlist, "type" => $externalQuery->type];
             $eduroamDb = new ExternalEduroamDBData();
             $candidateList = $eduroamDb->listExternalEntities($lowerFed, $type);
             // and split them into ID, LANG, NAME pairs (operating on a resource, not boolean)
@@ -396,7 +395,6 @@ Best regards,
             }
             // now see if any of the languages in CAT match the best one we have gotten from DB
             $mynames = $this->getAttributes("general:instname");
-            $matchingCandidates = [];
             foreach ($mynames as $onename) {
                 foreach ($list as $listentry) {
                     if ($onename['value'] == $listentry['name'] && array_search($listentry['ID'], $matchingCandidates) === FALSE) {
@@ -404,9 +402,8 @@ Best regards,
                     }
                 }
             }
-            return $matchingCandidates;
         }
-        return FALSE;
+        return $matchingCandidates;
     }
 
     /**

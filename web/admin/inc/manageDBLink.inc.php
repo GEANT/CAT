@@ -149,7 +149,7 @@ if (isset($_POST['submitbutton'])) {
             printf(_("This %s is not yet linked to the %s database."), $uiElements->nomenclatureInst, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . " ";
             echo "<strong>" . _("This means that its profiles are not made available on the user download page.") . "</strong> ";
             printf(_("You can link it to the %s database below."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
-            $candidates = $my_inst->getExternalDBSyncCandidates();
+            $candidates = $my_inst->getExternalDBSyncCandidates($my_inst->type);
             echo "<br/><form name='form-link-inst' action='inc/manageDBLink.inc.php?inst_id=$my_inst->identifier' method='post' accept-charset='UTF-8'>";
             printf(_("Please select an entity from the %s DB which corresponds to this CAT %s."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $uiElements->nomenclatureInst) . " ";
             if ($candidates !== FALSE && count($candidates) > 0) {
