@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -23,18 +24,12 @@
 
 require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
 
-/**
- * retrieves a binary object from the database and pushes it out to the browser
- * @param string $id TABLE-ROW identifier of the object to display
- * @return void in case of error - otherwise, sends the content directly to browser and never returns
- */
-function getObjectFromDB($id) {
-
+$validator = new \web\lib\common\InputValidation();
+if (isset($_GET["id"]) && $validator->databaseReference($_GET["id"])) {
     // check if data is public for this blob call
-    
     $blob = \web\lib\admin\UIElements::getBlobFromDB($id, TRUE);
     if (is_bool($blob)) {
-        return;
+        echo "No valid ID";
     }
     $finalBlob = base64_decode($blob);
     // Set data type and caching for 30 days
@@ -51,23 +46,16 @@ function getObjectFromDB($id) {
             header("Content-Disposition: attachment; filename='download.txt'");
             break;
         default:
-            // do nothing special with the Content-Disposition header
+        // do nothing special with the Content-Disposition header
     }
 
     header("Cache-Control: must-revalidate");
     $offset = 60 * 60 * 24 * 30;
     // gmdate can't possibly fail, because it operates on time() and an integer offset
-    
     $ExpStr = "Expires: " . /** @scrutinizer ignore-type */ gmdate("D, d M Y H:i:s", time() + $offset) . " GMT";
     header($ExpStr);
-
     //  Print out the image
     echo $finalBlob;
-}
-
-$validator = new \web\lib\common\InputValidation();
-if (isset($_GET["id"]) && $validator->databaseReference($_GET["id"])) {
-    getObjectFromDB($_GET["id"]);
 } else {
     echo "No valid ID";
 }
