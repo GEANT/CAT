@@ -612,7 +612,7 @@ class API {
             $adminApi->returnError(self::ERROR_INVALID_PARAMETER, "Profile identifier does not exist!");
             return FALSE;
         }
-        if (!$profile instanceof core\ProfileSilverbullet) {
+        if (!$profile instanceof \core\ProfileSilverbullet) {
             $adminApi->returnError(self::ERROR_INVALID_PARAMETER, sprintf("Profile identifier is not %s!", \core\ProfileSilverbullet::PRODUCTNAME));
             return FALSE;
         }
