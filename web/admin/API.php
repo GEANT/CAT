@@ -22,37 +22,6 @@
 
 require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 
-/**
- * Checks if the profile is a valid SB profile belonging to the federation
- * @param \core\Federation $fed federation identifier
- * @param int              $id  profile identifier
- * @return boolean|array
- */
-function commonSbProfileChecks($fed, $id) {
-    $validator = new \web\lib\common\InputValidation();
-    $adminApi = new \web\lib\admin\API();
-    try {
-        $profile = $validator->existingProfile($id);
-    } catch (Exception $e) {
-        $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Profile identifier does not exist!");
-        return FALSE;
-    }
-    if (!$profile instanceof core\ProfileSilverbullet) {
-        $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, sprintf("Profile identifier is not %s!", \core\ProfileSilverbullet::PRODUCTNAME));
-        return FALSE;
-    }
-    $idp = new \core\IdP($profile->institution);
-    if (strtoupper($idp->federation) != strtoupper($fed->tld)) {
-        $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Profile is not in the federation for this APIKEY!");
-        return FALSE;
-    }
-    if (count($profile->getAttributes("hiddenprofile:tou_accepted")) < 1) {
-        $adminApi->returnError(web\lib\admin\API::ERROR_NO_TOU, "The terms of use have not yet been accepted for this profile!");
-        return FALSE;
-    }
-    return [$idp, $profile];
-}
-
 // no SAML auth on this page. The API key authenticates the entity
 
 $mode = "API";
@@ -283,7 +252,7 @@ switch ($inputDecoded['ACTION']) {
         if ($prof_id === FALSE) {
             exit(1);
         }
-        $evaluation = commonSbProfileChecks($fed, $prof_id);
+        $evaluation = $adminApi->commonSbProfileChecks($fed, $prof_id);
         if ($evaluation === FALSE) {
             exit(1);
         }
@@ -314,7 +283,7 @@ switch ($inputDecoded['ACTION']) {
         if ($profile_id === FALSE) {
             exit(1);
         }
-        $evaluation = commonSbProfileChecks($fed, $profile_id);
+        $evaluation = $adminApi->commonSbProfileChecks($fed, $profile_id);
         if ($evaluation === FALSE) {
             exit(1);
         }
@@ -371,7 +340,7 @@ switch ($inputDecoded['ACTION']) {
         if ($profile_id === FALSE) {
             exit(1);
         }
-        $evaluation = commonSbProfileChecks($fed, $profile_id);
+        $evaluation = $adminApi->commonSbProfileChecks($fed, $profile_id);
         if ($evaluation === FALSE) {
             exit(1);
         }
@@ -417,7 +386,7 @@ switch ($inputDecoded['ACTION']) {
         if ($profile_id === FALSE) {
             exit(1);
         }
-        $evaluation = commonSbProfileChecks($fed, $profile_id);
+        $evaluation = $adminApi->commonSbProfileChecks($fed, $profile_id);
         if ($evaluation === FALSE) {
             exit(1);
         }
@@ -464,7 +433,7 @@ switch ($inputDecoded['ACTION']) {
         if ($prof_id === FALSE || !is_int($user_id)) {
             exit(1);
         }
-        $evaluation = commonSbProfileChecks($fed, $prof_id);
+        $evaluation = $adminApi->commonSbProfileChecks($fed, $prof_id);
         if ($evaluation === FALSE) {
             exit(1);
         }
@@ -487,7 +456,7 @@ switch ($inputDecoded['ACTION']) {
         if ($prof_id === FALSE) {
             exit(1);
         }
-        $evaluation = commonSbProfileChecks($fed, $prof_id);
+        $evaluation = $adminApi->commonSbProfileChecks($fed, $prof_id);
         if ($evaluation === FALSE) {
             exit(1);
         }
@@ -513,7 +482,7 @@ switch ($inputDecoded['ACTION']) {
         if ($prof_id === FALSE) {
             exit(1);
         }
-        $evaluation = commonSbProfileChecks($fed, $prof_id);
+        $evaluation = $adminApi->commonSbProfileChecks($fed, $prof_id);
         if ($evaluation === FALSE) {
             exit(1);
         }
