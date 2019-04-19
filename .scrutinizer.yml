@@ -455,7 +455,7 @@ build:
             tests:
                 override:
                 - 
-                  command: wget http://ci.test/admin/API.php -O /home/scrutinizer/artifacts/frontpage.html --no-verbose
+                  command: wget http://ci.test/index.php -O /home/scrutinizer/artifacts/frontpage.html --no-verbose
                   title: "Checking if front page loads without errors"
                 - 
                   command: wget http://ci.test/admin/API.php -O /home/scrutinizer/artifacts/inst.log --method=POST --no-verbose --body-file=tests/inst.json
