@@ -35,35 +35,6 @@ $languageInstance->setTextDomain("web_admin");
 $mgmt = new \core\UserManagement;
 $new_idp_authorized_fedadmin = FALSE;
 
-/**
- * aborts code execution if a required mail address is invalid
- * 
- * @param mixed  $newmailaddress       input string, possibly one or more mail addresses
- * @param string $redirect_destination destination to send user to if validation failed
- * @return array mail address if validation passed
- */
-function abortOnBogusMail($newmailaddress, $redirect_destination) {
-    $validator = new \web\lib\common\InputValidation();
-    $addressSegments = explode(",", $newmailaddress);
-    $confirmedMails = [];
-    if ($addressSegments === FALSE) {
-        header("Location: $redirect_destination" . "invitation=INVALIDSYNTAX");
-        exit;
-    }
-    foreach ($addressSegments as $oneAddressCandidate) {
-        $candidate = trim($oneAddressCandidate);
-        if ($validator->email($candidate) !== FALSE) {
-            $confirmedMails[] = $candidate;
-        }
-    }
-    if (count($confirmedMails) == 0) {
-        header("Location: $redirect_destination" . "invitation=INVALIDSYNTAX");
-        exit;
-    } else {
-        return $confirmedMails;
-    }
-}
-
 // check if the user is authenticated, and we have a valid mail address
 if (!isset($_SESSION['user']) || !isset($_POST['mailaddr'])) {
     throw new Exception("sendinvite: called either without authentication or without target mail address!");
@@ -71,6 +42,7 @@ if (!isset($_SESSION['user']) || !isset($_POST['mailaddr'])) {
 
 $newmailaddress = filter_input(INPUT_POST, 'mailaddr', FILTER_SANITIZE_STRING);
 $totalSegments = explode(",", $newmailaddress);
+$validAddresses = core\common\OutsideComm::exfiltrateValidAddresses($newmailaddress);
 $newcountry = "";
 
 // fed admin stuff
@@ -104,8 +76,11 @@ switch ($operationMode) {
         $idp = $validator->existingIdP($_GET['inst_id']);
         // editing IdPs is done from within the popup. When we're done, send the 
         // user back to the popup (append the result of the operation later)
-        $redirect_destination = "manageAdmins.inc.php?inst_id=" . $idp->identifier . "&";
-        $mailaddress = abortOnBogusMail($newmailaddress, $redirect_destination);
+        $redirectDestination = "manageAdmins.inc.php?inst_id=" . $idp->identifier . "&";
+        if (count($validAddresses) == 0) {
+            header("Location: $redirectDestination" . "invitation=INVALIDSYNTAX");
+            exit(1);
+        }
         // is the user primary admin of this IdP?
         $is_owner = $idp->isPrimaryOwner($_SESSION['user']);
         // check if he is (also) federation admin for the federation this IdP is in. His invitations have more blessing then.
@@ -117,14 +92,17 @@ switch ($operationMode) {
         }
 
         $prettyprintname = $idp->name;
-        $newtokens = $mgmt->createTokens($fedadmin, $mailaddress, $idp);
-        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $idp->identifier . " - Token created for " . implode(",", $mailaddress));
+        $newtokens = $mgmt->createTokens($fedadmin, $validAddresses, $idp);
+        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $idp->identifier . " - Token created for " . implode(",", $validAddresses));
         $introtext = "CO-ADMIN";
         $participant_type = $idp->type;
         break;
     case OPERATION_MODE_NEWUNLINKED:
-        $redirect_destination = "../overview_federation.php?";
-        $mailaddress = abortOnBogusMail($newmailaddress, $redirect_destination);
+        $redirectDestination = "../overview_federation.php?";
+        if (count($validAddresses) == 0) {
+            header("Location: $redirectDestination"."invitation=INVALIDSYNTAX");
+            exit(1);
+        }
         // run an input check and conversion of the raw inputs... just in case
         $newinstname = $validator->string($_POST['name']);
         $newcountry = $validator->string($_POST['country']);
@@ -138,12 +116,15 @@ switch ($operationMode) {
         $introtext = "NEW-FED";
         // send the user back to his federation overview page, append the result of the operation later
         // do the token creation magic
-        $newtokens = $mgmt->createTokens(TRUE, $mailaddress, $newinstname, 0, $newcountry, $participant_type);
-        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "ORG FUTURE  - Token created for $participant_type " . implode(",", $mailaddress));
+        $newtokens = $mgmt->createTokens(TRUE, $validAddresses, $newinstname, 0, $newcountry, $participant_type);
+        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "ORG FUTURE  - Token created for $participant_type " . implode(",", $validAddresses));
         break;
     case OPERATION_MODE_NEWFROMDB:
-        $redirect_destination = "../overview_federation.php?";
-        $mailaddress = abortOnBogusMail($newmailaddress, $redirect_destination);
+        $redirectDestination = "../overview_federation.php?";
+        if (count($validAddresses) == 0) {
+            header("Location: $redirectDestination"."invitation=INVALIDSYNTAX");
+            exit(1);
+        }
         // a real external DB entry was submitted and all the required parameters are there
         $newexternalid = $validator->string($_POST['externals']);
         $extinfo = $catInstance->getExternalDBEntityDetails($newexternalid);
@@ -172,8 +153,8 @@ switch ($operationMode) {
         // fill the rest of the text
         $introtext = "EXISTING-FED";
         // do the token creation magic
-        $newtokens = $mgmt->createTokens(TRUE, $mailaddress, $prettyprintname, $newexternalid);
-        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . implode(",", $mailaddress));
+        $newtokens = $mgmt->createTokens(TRUE, $validAddresses, $prettyprintname, $newexternalid);
+        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . implode(",", $validAddresses));
         break;
     default: // includes OPERATION_MODE_INVALID
         $wrongcontent = print_r($_POST, TRUE);
@@ -203,7 +184,7 @@ foreach ($newtokens as $onetoken => $oneDest) {
 }
 
 if (count($status) == 0) {
-    header("Location: $redirect_destination" . "invitation=FAILURE");
+    header("Location: $redirectDestination" . "invitation=FAILURE");
     exit;
 }
 $finalDestParams = "invitation=SUCCESS";
@@ -219,4 +200,4 @@ if ($allEncrypted === TRUE) {
     $finalDestParams .= "&transportsecurity=PARTIAL";
 }
 
-header("Location: $redirect_destination" . $finalDestParams);
+header("Location: $redirectDestination" . $finalDestParams);
