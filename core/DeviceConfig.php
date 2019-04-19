@@ -309,7 +309,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @return boolean
      * @final not to be redefined
      */
-    final protected function translateFile($source_name, $output_name = NULL, $encoding) {
+    final protected function translateFile($source_name, $output_name, $encoding) {
         // there is no explicit gettext() call in this function, but catalogues
         // and translations occur in the varios ".inc" files - so make sure we
         // operate in the correct catalogue
@@ -317,10 +317,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
             $encoding = 0;
         }
-        if ($output_name === NULL) {
-            $output_name = $source_name;
-        }
-
+        
         $this->loggerInstance->debug(5, "translateFile($source_name, $output_name, $encoding)\n");
         ob_start();
         $this->loggerInstance->debug(5, $this->module_path . '/Files/' . $this->device_id . '/' . $source_name . "\n");
