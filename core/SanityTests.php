@@ -232,7 +232,7 @@ class SanityTests extends CAT {
     private function getExecPath($pathToCheck) {
         $the_path = "";
         $exec_is = "UNDEFINED";
-        foreach ([CONFIG, CONFIG_CONFASSISTANT, CONFIG_DIAGNOSTICS] as $config) {
+        foreach ([\config\Master::CONFIG, \config\ConfAssistant::CONFIG, \config\Diagnostics::CONFIG] as $config) {
             if (!empty($config['PATHS'][$pathToCheck])) {
                 $matchArray = [];
                 preg_match('/([^ ]+) ?/', $config['PATHS'][$pathToCheck], $matchArray);
