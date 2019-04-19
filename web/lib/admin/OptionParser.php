@@ -84,9 +84,8 @@ class OptionParser extends \core\common\Entity {
             // fall-through intended: both CA types are treated the same
             case "fed:minted_ca_file":
                 // echo "Checking $optiontype with file $filename";
-                $func = new \core\common\X509;
-                $cert = $func->processCertificate($incomingBinary);
-                if (is_array($cert)) { // could also be FALSE if it was incorrect incoming data
+                $cert = (new \core\common\X509)->processCertificate($incomingBinary);
+                if ($cert !== FALSE) { // could also be FALSE if it was incorrect incoming data
                     return TRUE;
                 }
                 // the certificate seems broken
