@@ -359,7 +359,7 @@ abstract class DeviceXML extends \core\DeviceConfig {
     /**
      * sets the server-side credentials for a given EAP type
      * 
-     * @param \core\common\EAP $eaptype the EAP type
+     * @param \devices\XML\Type $eaptype the EAP type
      * @return \devices\XML\ServerSideCredential
      */
     private function setServerSideCredentials($eaptype) {
@@ -390,7 +390,7 @@ abstract class DeviceXML extends \core\DeviceConfig {
     /**
      * sets the realm information for the client-side credential
      * 
-     * @param \devices\XML\ClientSideCredential $clientsidecredential
+     * @param \devices\XML\ClientSideCredential $clientsidecredential the ClientSideCredential to which the realm info is to be added
      * @return void
      */
     private function setClientSideRealm ($clientsidecredential) {
@@ -445,7 +445,7 @@ abstract class DeviceXML extends \core\DeviceConfig {
     /**
      * sets the EAP method
      * 
-     * @param \core\common\EAP $eaptype
+     * @param \devices\XML\Type $eaptype the EAP type XMLObject
      * @return \devices\XML\EAPMethod
      */
     private function setEapMethod($eaptype) {
@@ -468,7 +468,7 @@ abstract class DeviceXML extends \core\DeviceConfig {
     /**
      * determines the authentication method to use
      * 
-     * @param \core\common\EAP $eap the EAP method
+     * @param array $eap the EAP methods, in array representation
      * @return \devices\xml\AuthenticationMethod
      */
     private function getAuthMethod($eap) {
