@@ -280,8 +280,8 @@ Best regards,
                     \config\ConfAssistant::CONSORTIUM['display_name'],
                     strtoupper($this->tld),
                     common\Entity::$nomenclature_participant,
-                    \config\Master::CONFIG['APPEARANCE']['productname'],
-                    \config\Master::CONFIG['APPEARANCE']['productname_long']);
+                    \config\Master::APPEARANCE['productname'],
+                    \config\Master::APPEARANCE['productname_long']);
             /// organisation
             $retval = $user->sendMailToUser(sprintf(_("%s in your federation was created"), common\Entity::$nomenclature_participant), $message);
             if ($retval === FALSE) {

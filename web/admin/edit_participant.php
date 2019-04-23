@@ -39,9 +39,9 @@ $idpoptions = $my_inst->getAttributes();
 $inst_name = $my_inst->name;
 
 if ($wizardStyle) {
-    echo $deco->defaultPagePrelude(sprintf(_("%s: %s enrollment wizard (step 2)"), \config\Master::CONFIG['APPEARANCE']['productname'],  $uiElements->nomenclatureParticipant));
+    echo $deco->defaultPagePrelude(sprintf(_("%s: %s enrollment wizard (step 2)"), \config\Master::APPEARANCE['productname'],  $uiElements->nomenclatureParticipant));
 } else {
-    echo $deco->defaultPagePrelude(sprintf(_("%s: Editing %s '%s'"), \config\Master::CONFIG['APPEARANCE']['productname'], $uiElements->nomenclatureParticipant, $inst_name));
+    echo $deco->defaultPagePrelude(sprintf(_("%s: Editing %s '%s'"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureParticipant, $inst_name));
 }
 require_once "inc/click_button_js.php";
 // let's check if the inst handle actually exists in the DB and user is authorised

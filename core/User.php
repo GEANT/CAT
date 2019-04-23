@@ -119,7 +119,7 @@ class User extends EntityWithDBProperties {
      * @return boolean TRUE if the user is a superadmin, FALSE if not 
      */
     public function isSuperadmin() {
-        return in_array($this->userName, \config\Master::CONFIG['SUPERADMINS']);
+        return in_array($this->userName, \config\Master::SUPERADMINS);
     }
 
     /**
@@ -154,8 +154,8 @@ class User extends EntityWithDBProperties {
         common\Entity::intoThePotatoes();
         $mail = \core\common\OutsideComm::mailHandle();
 // who to whom?
-        $mail->FromName = \config\Master::CONFIG['APPEARANCE']['productname'] . " Notification System";
-        $mail->addReplyTo(\config\Master::CONFIG['APPEARANCE']['support-contact']['developer-mail'], \config\Master::CONFIG['APPEARANCE']['productname'] . " " . _("Feedback"));
+        $mail->FromName = \config\Master::APPEARANCE['productname'] . " Notification System";
+        $mail->addReplyTo(\config\Master::APPEARANCE['support-contact']['developer-mail'], \config\Master::APPEARANCE['productname'] . " " . _("Feedback"));
         $mail->addAddress($mailaddr[0]["value"]);
 // what do we want to say?
         $mail->Subject = $subject;
@@ -236,14 +236,14 @@ class User extends EntityWithDBProperties {
                         $matchedProviders[] = $idp;
                         $name = $idp;
                         if ($skipCurl == 0) {
-                            $url = \config\Diagnostics::CONFIG['eduGainResolver']['url'] . "?action=get_entity_name&type=idp&e_id=$idp&lang=$lang";
+                            $url = \config\Diagnostics::EDUGAINRESOLVER['url'] . "?action=get_entity_name&type=idp&e_id=$idp&lang=$lang";
                             $ch = curl_init($url);
                             if ($ch === FALSE) {
                                 $loggerInstance->debug(2, "Unable ask eduGAIN about IdP - CURL init failed!");
                                 break;
                             }
                             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                            curl_setopt($ch, CURLOPT_TIMEOUT, \config\Diagnostics::CONFIG['eduGainResolver']['timeout']);
+                            curl_setopt($ch, CURLOPT_TIMEOUT, \config\Diagnostics::EDUGAINRESOLVER['timeout']);
                             $response = curl_exec($ch);
                             if (is_bool($response)) { // catch both FALSE and TRUE because we use CURLOPT_RETURNTRANSFER
                                 $skipCurl = 1;

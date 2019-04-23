@@ -99,7 +99,7 @@ class PageDecoration extends \core\common\Entity {
                     <form action='$place' method='GET' accept-charset='UTF-8'>" . _("View this page in") . "&nbsp;
                         <select id='lang' name='lang' onchange='this.form.submit()'>";
 
-        foreach (\config\Master::CONFIG['LANGUAGES'] as $lang => $value) {
+        foreach (\config\Master::LANGUAGES as $lang => $value) {
             $retval .= "<option value='$lang' " . (strtoupper($language) == strtoupper($lang) ? "selected" : "" ) . " >" . $value['display'] . "</option> ";
         }
         $retval .= "</select>";
@@ -153,7 +153,7 @@ class PageDecoration extends \core\common\Entity {
         // highlighting to work
         $retval = "<div class='maincontent'>";
         // default values which match almost every case; override where needed
-        $cap1 = \config\Master::CONFIG['APPEARANCE']['productname_long'];
+        $cap1 = \config\Master::APPEARANCE['productname_long'];
         $advancedControls = TRUE;
         switch ($area) {
             case "ADMIN-PARTICIPANT":
@@ -178,8 +178,8 @@ class PageDecoration extends \core\common\Entity {
                 $cap2 = sprintf(_("Administrator Interface - %s Management"), $this->ui->nomenclatureFed);
                 break;
             case "USER":
-                $cap1 = sprintf(_("Welcome to %s"), \config\Master::CONFIG['APPEARANCE']['productname']);
-                $cap2 = \config\Master::CONFIG['APPEARANCE']['productname_long'];
+                $cap1 = sprintf(_("Welcome to %s"), \config\Master::APPEARANCE['productname']);
+                $cap2 = \config\Master::APPEARANCE['productname_long'];
                 $advancedControls = FALSE;
                 break;
             case "SUPERADMIN":
@@ -202,9 +202,9 @@ class PageDecoration extends \core\common\Entity {
                 <h2 style='padding-left:10px;'>$cap2</h2>
             </div><!--secondarycaptions-->";
 
-        if (isset(\config\Master::CONFIG['APPEARANCE']['MOTD']) && \config\Master::CONFIG['APPEARANCE']['MOTD'] != "") {
+        if (isset(\config\Master::APPEARANCE['MOTD']) && \config\Master::APPEARANCE['MOTD'] != "") {
             $retval .= "<div id='header_MOTD' style='display:inline-block; padding-left:20px;vertical-align:top;'>
-              <p class='MOTD'>" . \config\Master::CONFIG['APPEARANCE']['MOTD'] . "</p>
+              <p class='MOTD'>" . \config\Master::APPEARANCE['MOTD'] . "</p>
               </div><!--header_MOTD-->";
         }
         $retval .= $this->sidebar($advancedControls);
@@ -269,8 +269,8 @@ class PageDecoration extends \core\common\Entity {
                 <tr>
                     <td style='padding-left:20px; padding-right:20px; text-align:left; vertical-align:top;'>
                         " . $cat->CAT_COPYRIGHT . "</td>";
-        if (!empty(\config\Master::CONFIG['APPEARANCE']['privacy_notice_url'])) {
-            $retval .= "<td><a href='".\config\Master::CONFIG['APPEARANCE']['privacy_notice_url']."'>" . sprintf(_("%s Privacy Notice"),\config\ConfAssistant::CONSORTIUM['display_name']) . "</a></td>";
+        if (!empty(\config\Master::APPEARANCE['privacy_notice_url'])) {
+            $retval .= "<td><a href='".\config\Master::APPEARANCE['privacy_notice_url']."'>" . sprintf(_("%s Privacy Notice"),\config\ConfAssistant::CONSORTIUM['display_name']) . "</a></td>";
         }
         $retval .= "            <td style='padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;'>";
 

@@ -574,7 +574,7 @@ $(".signin").DiscoJuice({
    "title":"<?php escaped_echo(_("Organisation")) ?>",
    "subtitle":"<?php escaped_echo(_("Select your organisation")) ?>",
    "textHelp": "<?php escaped_echo(_("Help, my organisation is not on the list")) ?>",
-   "textHelpMore": "<?php escaped_echo(sprintf(_("This system relies on information supplied by local %s administrators. If your organisation is not on the list, then nag them to add information to the %s database."), \config\ConfAssistant::CONSORTIUM['display_name'], \config\Master::CONFIG['APPEARANCE']['productname'])); ?>",
+   "textHelpMore": "<?php escaped_echo(sprintf(_("This system relies on information supplied by local %s administrators. If your organisation is not on the list, then nag them to add information to the %s database."), \config\ConfAssistant::CONSORTIUM['display_name'], \config\Master::APPEARANCE['productname'])); ?>",
    "textLocateMe": "<?php escaped_echo(_("Locate me more accurately using HTML5 Geo-Location")) ?>",
    "textShowProviders": "<?php escaped_echo(_("Show organisations in")) ?>",
    "textAllCountries": "<?php escaped_echo(_("all countries")) ?>",

@@ -128,8 +128,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @throws Exception
      */
     protected function saveDownloadDetails($idpIdentifier, $profileId, $deviceId, $area, $lang, $eapType) {
-        if (\config\Master::CONFIG['PATHS']['logdir']) {
-            $file = fopen(\config\Master::CONFIG['PATHS']['logdir'] . "/download_details.log", "a");
+        if (\config\Master::PATHS['logdir']) {
+            $file = fopen(\config\Master::PATHS['logdir'] . "/download_details.log", "a");
             if ($file === FALSE) {
                 throw new Exception("Unable to open file for append: $file");
             }

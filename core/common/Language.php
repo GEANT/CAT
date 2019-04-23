@@ -109,8 +109,8 @@ class Language {
                 $langConverted[] = (empty($result[1]) ? $lang : $result[1]);
             }
         }
-        $langIndex = \config\Master::CONFIG['APPEARANCE']['defaultlocale'];
-        $theLocale = \config\Master::CONFIG['LANGUAGES'][$langIndex]['locale'];
+        $langIndex = \config\Master::APPEARANCE['defaultlocale'];
+        $theLocale = \config\Master::LANGUAGES[$langIndex]['locale'];
         // always add configured default language as the last resort
         $langConverted[] = $langIndex;
         setlocale(LC_ALL, 0);
@@ -121,7 +121,7 @@ class Language {
             $localeTmp = FALSE;
 
             // check if this language is supported by the CAT config
-            foreach (\config\Master::CONFIG['LANGUAGES'] as $language => $value) {
+            foreach (\config\Master::LANGUAGES as $language => $value) {
                 if (preg_match("/^" . $language . ".*/", $tryLang)) {
                     $localeTmp = $value['locale'];
                     $langIndex = $language; // ???

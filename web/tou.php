@@ -36,7 +36,7 @@ $loggerInstance->debug(4, "\n----------------------------------TOU.PHP----------
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo $langObject->getLang() ?>">
     <head lang="<?php echo $langObject->getLang() ?>"> 
-        <title><?php echo \config\Master::CONFIG['APPEARANCE']['productname_long']; ?></title>
+        <title><?php echo \config\Master::APPEARANCE['productname_long']; ?></title>
         <link href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') ?>/resources/css/cat.css.php" type= "text/css" rel="stylesheet" />
         <meta charset="utf-8" /> 
         <script type="text/javascript">
@@ -51,9 +51,9 @@ $loggerInstance->debug(4, "\n----------------------------------TOU.PHP----------
     <body style='background: #fff url(resources/images/bg_grey_tile.png) repeat-x;'>
         <img src="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') ?>/resources/images/consortium_logo.png" style="padding-right:20px; padding-top:20px; float:right" alt="logo" />
 
-        <div id="motd"><?php print ( isset(\config\Master::CONFIG['APPEARANCE']['MOTD']) ? \config\Master::CONFIG['APPEARANCE']['MOTD'] : '&nbsp'); ?></div>
+        <div id="motd"><?php print ( isset(\config\Master::APPEARANCE['MOTD']) ? \config\Master::APPEARANCE['MOTD'] : '&nbsp'); ?></div>
 
-        <h1><a href="<?php echo dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . $langObject->getLang(); ?>"><?php echo \config\Master::CONFIG['APPEARANCE']['productname']; ?></a></h1>
+        <h1><a href="<?php echo dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . $langObject->getLang(); ?>"><?php echo \config\Master::APPEARANCE['productname']; ?></a></h1>
         <div id="tou">
             <?php
             require "user/tou.php";
@@ -66,8 +66,8 @@ $loggerInstance->debug(4, "\n----------------------------------TOU.PHP----------
                         <?php echo $cat->CAT_COPYRIGHT; ?>
                     </td>
                     <?php
-                    if (!empty(\config\Master::CONFIG['APPEARANCE']['privacy_notice_url'])) {
-                        $retval .= "<td><a href='".\config\Master::CONFIG['APPEARANCE']['privacy_notice_url']."'>" . sprintf(_("%s Privacy Notice"),\config\ConfAssistant::CONSORTIUM['name']) . "</a></td>";
+                    if (!empty(\config\Master::APPEARANCE['privacy_notice_url'])) {
+                        $retval .= "<td><a href='".\config\Master::APPEARANCE['privacy_notice_url']."'>" . sprintf(_("%s Privacy Notice"),\config\ConfAssistant::CONSORTIUM['name']) . "</a></td>";
                     }
                     ?>
                     <td style='padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;'>

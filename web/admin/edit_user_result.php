@@ -52,7 +52,7 @@ if (isset($_POST['option'])) {
     }
 }
 $salvageFedPrivs = [];
-if (\config\Master::CONFIG['DB']['USER']['readonly'] === FALSE) { // we are actually writing user properties ourselves
+if (\config\Master::DB['USER']['readonly'] === FALSE) { // we are actually writing user properties ourselves
     $federations = $user->getAttributes("user:fedadmin");
     foreach ($federations as $federation) {
         $salvageFedPrivs[] = $federation['value'];

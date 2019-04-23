@@ -53,7 +53,7 @@ if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == "LOCAL")
 
 ini_set('display_errors', '0');
 
-if (!in_array("I do not care about security!", \config\Master::CONFIG['SUPERADMINS'])) {
+if (!in_array("I do not care about security!", \config\Master::SUPERADMINS)) {
     $auth = new \web\lib\admin\Authentication();
     $auth->authenticate();
     $user = new \core\User($_SESSION['user']);

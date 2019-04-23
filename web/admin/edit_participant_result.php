@@ -56,7 +56,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\Fo
 }
 
 
-echo $deco->pageheader(sprintf(_("%s: IdP enrollment wizard (step 2 completed)"), \config\Master::CONFIG['APPEARANCE']['productname']), "ADMIN-PARTICIPANT");
+echo $deco->pageheader(sprintf(_("%s: IdP enrollment wizard (step 2 completed)"), \config\Master::APPEARANCE['productname']), "ADMIN-PARTICIPANT");
 $my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
 
 if ((!isset($_POST['submitbutton'])) || (!isset($_POST['option'])) || (!isset($_POST['value']))) {

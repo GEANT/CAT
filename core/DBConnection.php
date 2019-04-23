@@ -247,7 +247,7 @@ class DBConnection {
     private function __construct($database) {
         $this->loggerInstance = new \core\common\Logging();
         $databaseCapitalised = strtoupper($database);
-        $this->connection = new \mysqli(\config\Master::CONFIG['DB'][$databaseCapitalised]['host'], \config\Master::CONFIG['DB'][$databaseCapitalised]['user'], \config\Master::CONFIG['DB'][$databaseCapitalised]['pass'], \config\Master::CONFIG['DB'][$databaseCapitalised]['db']);
+        $this->connection = new \mysqli(\config\Master::DB[$databaseCapitalised]['host'], \config\Master::DB[$databaseCapitalised]['user'], \config\Master::DB[$databaseCapitalised]['pass'], \config\Master::DB[$databaseCapitalised]['db']);
         if ($this->connection->connect_error) {
             throw new Exception("ERROR: Unable to connect to $database database! This is a fatal error, giving up (error number " . $this->connection->connect_errno . ").");
         }
@@ -255,7 +255,7 @@ class DBConnection {
         if ($databaseCapitalised == "EXTERNAL" && \config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") {
             $this->connection->query("SET NAMES 'latin1'");
         }
-        $this->readOnly = \config\Master::CONFIG['DB'][$databaseCapitalised]['readonly'];
+        $this->readOnly = \config\Master::DB[$databaseCapitalised]['readonly'];
     }
 
 }

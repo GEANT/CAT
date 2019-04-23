@@ -356,7 +356,7 @@ class Telepath extends AbstractTest {
         $allAreConversationReject = TRUE;
         $atLeastOneConversationReject = FALSE;
         
-        foreach (\config\Diagnostics::CONFIG['RADIUSTESTS']['UDP-hosts'] as $probeindex => $probe) {
+        foreach (\config\Diagnostics::RADIUSTESTS['UDP-hosts'] as $probeindex => $probe) {
             $reachCheck = $this->testsuite->udpReachability($probeindex);
             if ($reachCheck != RADIUSTests::RETVAL_CONVERSATION_REJECT) {
                 $allAreConversationReject = FALSE;

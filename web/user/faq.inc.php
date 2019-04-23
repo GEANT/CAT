@@ -44,8 +44,8 @@
         'text'=>sprintf(_("When you are connecting from an unconfigured device your security is at risk. The very point of preconfiguration is to set up security, when this is done, your device will first confirm that it talks to the correct authentication server and will never send your password to an untrusted one."))
 ],
       [
-        'title'=>sprintf(_("Is it safe to use %s installers?"),\config\Master::CONFIG['APPEARANCE']['productname']),
-        'text'=>sprintf(_("%s installers configure security settings on your device, therefore you should be sure that you are using genuine ones."),\config\Master::CONFIG['APPEARANCE']['productname']).' '.( isset(\config\ConfAssistant::CONSORTIUM['signer_name']) && \config\ConfAssistant::CONSORTIUM['signer_name'] != "" ? sprintf(_("This is why %s installers are digitally signed by %s. Watch out for a system message confirming this."),\config\Master::CONFIG['APPEARANCE']['productname'],\config\ConfAssistant::CONSORTIUM['signer_name']):""),
+        'title'=>sprintf(_("Is it safe to use %s installers?"),\config\Master::APPEARANCE['productname']),
+        'text'=>sprintf(_("%s installers configure security settings on your device, therefore you should be sure that you are using genuine ones."),\config\Master::APPEARANCE['productname']).' '.( isset(\config\ConfAssistant::CONSORTIUM['signer_name']) && \config\ConfAssistant::CONSORTIUM['signer_name'] != "" ? sprintf(_("This is why %s installers are digitally signed by %s. Watch out for a system message confirming this."),\config\Master::APPEARANCE['productname'],\config\ConfAssistant::CONSORTIUM['signer_name']):""),
         
 ],
       [
@@ -60,7 +60,7 @@
       [
         'id'=>'contact',
         'title'=>sprintf(_("I have a question about this web site. Whom should I contact?")),
-        'text'=>sprintf(_("You should send a mail to %s."),\config\Master::CONFIG['APPEARANCE']['support-contact']['display'])
+        'text'=>sprintf(_("You should send a mail to %s."),\config\Master::APPEARANCE['support-contact']['display'])
       ],
 ];
 

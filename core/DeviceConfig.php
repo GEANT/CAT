@@ -292,7 +292,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * Transcoding is only required for Windows installers, and no Unicode support
      * in NSIS (NSIS version below 3)
      * Trancoding is only applied if the third optional parameter is set and nonzero
-     * If \config\Master::CONFIG['NSIS']_VERSION is set to 3 or more, no transcoding will be applied
+     * If \config\Master::NSIS_VERSION is set to 3 or more, no transcoding will be applied
      * regardless of the third parameter value.
      * If the second argument is provided and is not equal to 0, then the file will be
      * saved under the name taken from this argument.
@@ -352,7 +352,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * Transcoding is only required for Windows installers, and no Unicode support
      * in NSIS (NSIS version below 3)
      * Trancoding is only applied if the third optional parameter is set and nonzero
-     * If \config\Master::CONFIG['NSIS']_VERSION is set to 3 or more, no transcoding will be applied
+     * If \config\Master::NSIS_VERSION is set to 3 or more, no transcoding will be applied
      * regardless of the second parameter value.
      * The second optional parameter, if nonzero, should be the character set understood by iconv
      * This is required by the Windows installer and is expected to go away in the future.
@@ -471,7 +471,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         }
         // Okay, no custom suffix. 
         // Use the configured inst name and apply shortening heuristics
-        $lang_pointer = \config\Master::CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['latin_based'] == TRUE ? 0 : 1;
+        $lang_pointer = \config\Master::LANGUAGES[$this->languageInstance->getLang()]['latin_based'] == TRUE ? 0 : 1;
         $this->loggerInstance->debug(5, "getInstallerBasename1:" . $this->attributes['general:instname'][$lang_pointer] . "\n");
         $inst = $this->customTranslit($this->attributes['general:instname'][$lang_pointer]);
         $this->loggerInstance->debug(4, "getInstallerBasename2:$inst\n");

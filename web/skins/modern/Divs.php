@@ -54,7 +54,7 @@ class Divs {
             <span>Configuration Assistant Tool</span>
             </div>";
         }
-        $retval .= "<div id='motd'>" . (isset(\config\Master::CONFIG['APPEARANCE']['MOTD']) ? \config\Master::CONFIG['APPEARANCE']['MOTD'] : '&nbsp') . "</div>";
+        $retval .= "<div id='motd'>" . (isset(\config\Master::APPEARANCE['MOTD']) ? \config\Master::APPEARANCE['MOTD'] : '&nbsp') . "</div>";
         $loc2 = $this->Gui->skinObject->findResourceUrl("IMAGES", "icons/menu.png");
         if ($loc2 !== FALSE) {
             $retval .= "<img id='hamburger' src='$loc2' alt='Menu'/>";
@@ -288,8 +288,8 @@ class Divs {
                 . "
             </td>";
 
-        if (!empty(\config\Master::CONFIG['APPEARANCE']['privacy_notice_url'])) {
-            $retval .= "<td><a href='" . \config\Master::CONFIG['APPEARANCE']['privacy_notice_url'] . "'>" . sprintf(_("%s Privacy Notice"), \config\ConfAssistant::CONSORTIUM['display_name']) . "</a></td>";
+        if (!empty(\config\Master::APPEARANCE['privacy_notice_url'])) {
+            $retval .= "<td><a href='" . \config\Master::APPEARANCE['privacy_notice_url'] . "'>" . sprintf(_("%s Privacy Notice"), \config\ConfAssistant::CONSORTIUM['display_name']) . "</a></td>";
         }
         $retval .= "<td>";
         if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") {

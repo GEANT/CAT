@@ -41,7 +41,7 @@ if (isset($_SERVER['HTTPS'])) {
 $link .= $_SERVER['SERVER_NAME'] . $_SERVER['SCRIPT_NAME'];
 $link = htmlspecialchars($link);
 
-echo $deco->defaultPagePrelude(sprintf(_("%s: %s Dashboard"), \config\Master::CONFIG['APPEARANCE']['productname'], $uiElements->nomenclatureHotspot));
+echo $deco->defaultPagePrelude(sprintf(_("%s: %s Dashboard"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureHotspot));
 require_once "inc/click_button_js.php";
 
 // let's check if the inst handle actually exists in the DB
@@ -81,7 +81,7 @@ echo $mapCode->htmlHeadCode();
         ?>
     </div>
     <?php
-    $readonly = \config\Master::CONFIG['DB']['INST']['readonly'];
+    $readonly = \config\Master::DB['INST']['readonly'];
     ?>
     <hr><h2><?php echo _("Available Support actions"); ?></h2>
     <table>

@@ -27,7 +27,7 @@ $instMgmt = new \core\UserManagement();
 $deco = new \web\lib\admin\PageDecoration();
 $uiElements = new \web\lib\admin\UIElements();
 
-echo $deco->defaultPagePrelude(sprintf(_("%s: User Management"), \config\Master::CONFIG['APPEARANCE']['productname']));
+echo $deco->defaultPagePrelude(sprintf(_("%s: User Management"), \config\Master::APPEARANCE['productname']));
 $user = new \core\User($_SESSION['user']);
 require_once "inc/click_button_js.php";
 ?>
@@ -63,7 +63,7 @@ require_once "inc/click_button_js.php";
     </div>
     <div>
         <?php
-        if (\config\Master::CONFIG['DB']['USER']['readonly'] === FALSE) {
+        if (\config\Master::DB['USER']['readonly'] === FALSE) {
             echo "<a href='edit_user.php'><button>" . _("Edit User Details") . "</button></a>";
         }
 
@@ -121,14 +121,14 @@ require_once "inc/click_button_js.php";
         <th><?php echo sprintf(_("Other admins of this %s"), $uiElements->nomenclatureParticipant); ?>
         </th>
         <th><?php
-            if (\config\Master::CONFIG['DB']['INST']['readonly'] === FALSE) {
+            if (\config\Master::DB['INST']['readonly'] === FALSE) {
                 echo _("Management");
             };
             ?>
         </th>
         <th style='background-color:red;'>
             <?php
-            if (\config\Master::CONFIG['DB']['INST']['readonly'] === FALSE) {
+            if (\config\Master::DB['INST']['readonly'] === FALSE) {
                 echo _("Danger Zone");
             }
             ?>
@@ -169,7 +169,7 @@ require_once "inc/click_button_js.php";
                 echo ngettext("other user", "other users", $otherAdminCount);
             }
             echo "</td><td>";
-            if ($blessedUser && \config\Master::CONFIG['DB']['INST']['readonly'] === FALSE) {
+            if ($blessedUser && \config\Master::DB['INST']['readonly'] === FALSE) {
                 ?>
                 <div style='white-space: nowrap;'>
                     <form action='edit_participant.php?inst_id=<?php echo $the_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
@@ -213,7 +213,7 @@ require_once "inc/click_button_js.php";
 } else {
     echo "<h2>" . sprintf(_("You are not managing any %s."), $uiElements->nomenclatureInst) . "</h2>";
 }
-if (\config\Master::CONFIG['DB']['INST']['readonly'] === FALSE) {
+if (\config\Master::DB['INST']['readonly'] === FALSE) {
     if (\config\ConfAssistant::CONSORTIUM['selfservice_registration'] === NULL) {
         echo "<p>" . sprintf(_("Please ask your %s administrator to invite you to become an %s administrator."), $uiElements->nomenclatureFed, $uiElements->nomenclatureParticipant) . "</p>";
         echo "<hr/>

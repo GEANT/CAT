@@ -41,7 +41,7 @@ class Gui extends \core\UserAPI {
             $fed = $validator->existingFederation($idp->federation);
             $fedskin = $fed->getAttributes("fed:desired_skin");
         }
-        $this->skinObject = new \web\lib\user\Skinjob($_REQUEST['skin'] ?? $_SESSION['skin'] ?? $fedskin[0] ?? \config\Master::CONFIG['APPEARANCE']['skins'][0]);
+        $this->skinObject = new \web\lib\user\Skinjob($_REQUEST['skin'] ?? $_SESSION['skin'] ?? $fedskin[0] ?? \config\Master::APPEARANCE['skins'][0]);
         $this->languageInstance->setTextDomain("web_user");
         $this->textTemplates = new TextTemplates();
         $this->operatingSystem = $this->detectOS();
@@ -54,7 +54,7 @@ class Gui extends \core\UserAPI {
      * @param string $pagetitle content for the <title> element
      * @return void writes directly to output
      */
-    public function defaultPagePrelude($pagetitle = \config\Master::CONFIG['APPEARANCE']['productname_long']) {
+    public function defaultPagePrelude($pagetitle = \config\Master::APPEARANCE['productname_long']) {
         $ourlocale = $this->languageInstance->getLang();
         header("Content-Type:text/html;charset=utf-8");
         echo "<!DOCTYPE html>

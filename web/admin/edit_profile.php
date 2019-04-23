@@ -33,7 +33,7 @@ $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
 
-echo $deco->defaultPagePrelude(sprintf(_("%s: IdP Enrollment Wizard (Step 3)"), \config\Master::CONFIG['APPEARANCE']['productname']));
+echo $deco->defaultPagePrelude(sprintf(_("%s: IdP Enrollment Wizard (Step 3)"), \config\Master::APPEARANCE['productname']));
 require_once "inc/click_button_js.php";
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>

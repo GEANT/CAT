@@ -296,7 +296,7 @@ FOO;
         $retval = "<select style='display:" . ($makeVisible ? "block" : "none") . "' name='value[S$rowid-lang]' id='S" . $rowid . "-input-langselect'>
             <option value='' name='select_language' selected>" . _("select language") . "</option>
             <option value='C' name='all_languages'>" . _("default/other languages") . "</option>";
-        foreach (\config\Master::CONFIG['LANGUAGES'] as $langindex => $possibleLang) {
+        foreach (\config\Master::LANGUAGES as $langindex => $possibleLang) {
             $thislang = $possibleLang['display'];
             $retval .= "<option value='$langindex' name='$langindex'>$thislang</option>";
         }

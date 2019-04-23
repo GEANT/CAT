@@ -34,7 +34,6 @@ namespace config;
  */
 class Diagnostics {
 
-    const CONFIG = [
         /**
          * Defines various general parameters of the roaming consortium.
          * name: the display name of the consortium
@@ -80,10 +79,10 @@ class Diagnostics {
          *   See also NSIS_VERSION further down
          * @var array
          */
-        'PATHS' => [
+        const PATHS = [
             'c_rehash' => 'c_rehash',
             'eapol_test' => 'eapol_test',
-        ],
+        ];
         /**
          * Configures the reachability tests, both for plain RADIUS/UDP and RADIUS/TLS.
          * UDP-hosts: an array of RADIUS servers to which login probes will be sent
@@ -97,7 +96,7 @@ class Diagnostics {
          * 
          * @var array
          */
-        'RADIUSTESTS' => [
+        const RADIUSTESTS = [
             'UDP-hosts' => [
                 ['display_name' => 'Recon Viper 1',
                     'ip' => '192.0.2.1',
@@ -153,11 +152,10 @@ class Diagnostics {
                 ]
             ],
             'accreditedCAsURL' => '',
-        ],
-        'eduGainResolver' => [
+        ];
+        const EDUGAINRESOLVER = [
             'url' => 'https://technical.edugain.org/api.php',
             'timeout' => 2,
-        ],
-    ];
+        ];
 
 }

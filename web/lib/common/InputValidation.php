@@ -480,12 +480,12 @@ public function sms($input) {
  * @throws Exception
  */
 public function supportedLanguage($input) {
-    if (!array_key_exists($input, \config\Master::CONFIG['LANGUAGES'])) {
-        return \config\Master::CONFIG['APPEARANCE']['defaultlocale'];
+    if (!array_key_exists($input, \config\Master::LANGUAGES)) {
+        return \config\Master::APPEARANCE['defaultlocale'];
     }
     // otherwise, use the inversion trick to convince Scrutinizer that this is
     // a vetted value
-    $retval = array_search(\config\Master::CONFIG['LANGUAGES'][$input], \config\Master::CONFIG['LANGUAGES']);
+    $retval = array_search(\config\Master::LANGUAGES[$input], \config\Master::LANGUAGES);
     if ($retval === FALSE) {
         throw new Exception("Impossible: the value we are searching for does exist, because we reference it directly.");
     }

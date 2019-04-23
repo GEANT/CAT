@@ -176,7 +176,7 @@ class UIElements extends \core\common\Entity {
                 if ($type["flag"] == "ML") {
                     $language = _("default/other languages");
                     if ($option['lang'] != 'C') {
-                        $language = \config\Master::CONFIG['LANGUAGES'][$option['lang']]['display'] ?? "(unsupported language)";
+                        $language = \config\Master::LANGUAGES[$option['lang']]['display'] ?? "(unsupported language)";
                     }
                 }
 

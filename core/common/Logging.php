@@ -32,7 +32,7 @@ class Logging {
      * @throws Exception
      */
     public function __construct() {
-        if (!isset(\config\Master::CONFIG['PATHS']['logdir'])) {
+        if (!isset(\config\Master::PATHS['logdir'])) {
             throw new Exception("No logdir was specified in the configuration. We cannot continue without one!");
         }
     }
@@ -45,7 +45,7 @@ class Logging {
      * @return void
      */
     private function writeToFile($filename, $message) {
-        file_put_contents(\config\Master::CONFIG['PATHS']['logdir'] . "/$filename", sprintf("%-015s", microtime(TRUE)) . $message, FILE_APPEND);
+        file_put_contents(\config\Master::PATHS['logdir'] . "/$filename", sprintf("%-015s", microtime(TRUE)) . $message, FILE_APPEND);
     }
 
     /**

@@ -38,7 +38,7 @@ class Menu {
      */
     public function __construct($visibility = 'all', $selectedLang = '') {
         $langsArray = [];
-        foreach (\config\Master::CONFIG['LANGUAGES'] as $lang => $value) {
+        foreach (\config\Master::LANGUAGES as $lang => $value) {
             if ($lang == $selectedLang) {
                 $langsArray[] = ['text'=>$value['display'], 'link'=>'javascript:changeLang("' . $lang . '")', 'class'=>'selected-lang'];
             } else {
@@ -50,8 +50,8 @@ class Menu {
         'visibility' => 'index'],
             ['id' => 'about',
                 'text' => _("About"), 'link' => '', 'submenu' => [
-                    ['text' => sprintf(_("About %s"), \config\Master::CONFIG['APPEARANCE']['productname']),
-                        'catInfo' => ['about_cat', sprintf(_("About %s"), \config\Master::CONFIG['APPEARANCE']['productname'])]],
+                    ['text' => sprintf(_("About %s"), \config\Master::APPEARANCE['productname']),
+                        'catInfo' => ['about_cat', sprintf(_("About %s"), \config\Master::APPEARANCE['productname'])]],
                     ['text' => sprintf(_("About %s"), \config\ConfAssistant::CONSORTIUM['display_name']),
                         'link' => \config\ConfAssistant::CONSORTIUM['homepage']],
                 ]],

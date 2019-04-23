@@ -42,7 +42,7 @@ $fedPost = $_POST['fed_id'];
 $my_fed = $validator->existingFederation($fedPost, $_SESSION['user']);
 $fed_options = $my_fed->getAttributes();
 /// product name (eduroam CAT), then term used for "federation", then actual name of federation.
-echo $deco->defaultPagePrelude(sprintf(_("%s: Editing %s '%s'"), \config\Master::CONFIG['APPEARANCE']['productname'], $uiElements->nomenclatureFed, $my_fed->name));
+echo $deco->defaultPagePrelude(sprintf(_("%s: Editing %s '%s'"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureFed, $my_fed->name));
 $langObject = new \core\common\Language();
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>

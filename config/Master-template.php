@@ -40,7 +40,6 @@ namespace config;
 
 class Master {
 
-    const CONFIG = [
         /**
          * Defines parameters how this tool will present itself to users
          * productname: short display name of the tool
@@ -51,9 +50,8 @@ class Master {
          * support-contact/developer-mail: email address where development questions should be addressed to
          * abuse-mail: email address where copyright holders can complain. Should be read by a human.
          * defaultlocale: language to use if user has no preferences in his browser, nor explicitly selects a language
-         * @var array 
          */
-        'APPEARANCE' => [
+        const APPEARANCE = [
             'productname' => 'eduroam CAT',
             'productname_long' => 'eduroam Configuration Assistant Tool',
             'from-mail' => 'cat-invite@your-cat-installation.example',
@@ -78,8 +76,8 @@ class Master {
             // get your key here: https://developers.google.com/maps/documentation/javascript/get-api-key?refresh=1
             'google_maps_api_key' => '',
             'privacy_notice_url' => 'https://www.eduroam.org/privacy/',
-        ],
-        'FUNCTIONALITY_LOCATIONS' => [
+        ];
+        const FUNCTIONALITY_LOCATIONS = [
             /** these can be either 
              *  - the string "LOCAL" (component is running in this installation
              *  - NULL (component does not live anywhere, trim functionality from display)
@@ -88,7 +86,7 @@ class Master {
             'CONFASSISTANT_SILVERBULLET' => 'LOCAL',
             'CONFASSISTANT_RADIUS' => 'LOCAL',
             'DIAGNOSTICS' => 'LOCAL',
-        ],
+        ];
         /**
          * Various paths.
          * logdir: directory where all logs will be written to (debug and audit logs)
@@ -96,11 +94,11 @@ class Master {
          * cat_base_url: this the relative URL path of the CAT installation, i.e. the part after 'https://<server>'. E.g. if your DocumentRoot is already the web/ subdir, this is "/"
          * @var array
          */
-        'PATHS' => [
+        const PATHS = [
             'logdir' => '/var/log/CAT/',
             'openssl' => 'openssl',
             'cat_base_url' => '/',
-        ],
+        ];
         /**
          * Configuration for the simpleSAMLphp instance which authenticates CAT administrative users.
          * ssp-path-to-autoloader: points to the simpleSAMLphp autoloader location
@@ -110,13 +108,13 @@ class Master {
          * attribute in which authsource transmits user's real name. Receiving this attribute is optional.
          * @var array
          */
-        'AUTHENTICATION' => [
+        const AUTHENTICATION = [
             'ssp-path-to-autoloader' => '/srv/www/simplesamlphp/lib/_autoload.php',
             'ssp-authsource' => 'default-sp',
             'ssp-attrib-identifier' => 'eptid',
             'ssp-attrib-email' => 'mail',
             'ssp-attrib-name' => 'cn',
-        ],
+        ];
         /**
          * Configuration for GeoIP2 
          * Beware, the legacy version does not really work with IPv6 addresses
@@ -125,11 +123,11 @@ class Master {
          * geoip2-path-to-db: points to the GeoIP2 city database
          * @var array
          */
-        'GEOIP' => [
+        const GEOIP = [
             'version' => 2,
             'geoip2-path-to-autoloader' => '/usr/share/GeoIP2/vendor/autoload.php',
             'geoip2-path-to-db' => '/usr/share/GeoIP2/DB/GeoLite2-City.mmdb',
-        ],
+        ];
         /**
          * Configures the host to use to send emails to the outside world. We assume
          * the host is able to listen on the new Submission port (TCP/587). 
@@ -153,7 +151,7 @@ class Master {
 
          * @var array
          */
-        'MAILSETTINGS' => [// we always use Submission
+        const MAILSETTINGS = [// we always use Submission
             'host' => 'submission.capable.mta',
             'user' => 'mailuser',
             'pass' => 'mailpass',
@@ -162,12 +160,12 @@ class Master {
             'certfilename' => NULL,
             'keyfilename' => NULL,
             'keypass' => NULL,
-        ],
+        ];
         /**
          * List of all supported languages in CAT. Comment some if you want to disable them
          * @var array
          */
-        'LANGUAGES' => [
+        const LANGUAGES = [
             'bg' => ['display' => 'Български', 'locale' => 'bg_BG.utf8', 'latin_based' => FALSE],
             'ca' => ['display' => 'Català', 'locale' => 'ca_ES.utf8', 'latin_based' => TRUE],
             'cs' => ['display' => 'Čeština', 'locale' => 'cs_CZ.utf8', 'latin_based' => TRUE],
@@ -198,14 +196,14 @@ class Master {
 //      'gl' => ['display' => 'Galego',      'locale' => 'gl_ES.utf8',    'latin_based' => TRUE],
 //      'lt' => ['display' => 'lietuvių',    'locale' => 'lt_LT.utf8',    'latin_based' => TRUE],
 //      'sk' => ['display' => 'Slovenčina',  'locale' => 'sk_SK.utf8',    'latin_based' => TRUE],
-        ],
+        ];
         /**
          * Set of database connection details. The third entry is only needed if you set $ENFORCE_EXTERNAL_DB_SYNC to TRUE.
          * See the extra notes on external sync enforcement below.
          * 
          * @var array
          */
-        'DB' => [
+        const DB = [
             // this slice of DB use will deal with all tables in the schema except
             // downloads and user_options. If you give the user below exclusively
             // read-only access, all data manipulation will fail; only existing state
@@ -267,12 +265,12 @@ class Master {
                 'pass' => '2lame4u',
                 'readonly' => TRUE,],
             'enforce-external-sync' => TRUE,
-        ],
+        ];
         /**
          * Maximum size of files to be uploaded. Clever people can circumvent this; in the end, the hard limit is configured in php.ini
          * @var integer
          */
-        'MAX_UPLOAD_SIZE' => 10000000,
+        const MAX_UPLOAD_SIZE = 10000000;
         /**
          * Verbosity of some of the core code. The following debug levels are supported:
          *   1 = production (silence)
@@ -284,12 +282,11 @@ class Master {
          * @var integer
          *
          */
-        'DEBUG_LEVEL' => 5,
-        'SUPERADMINS' => [
+        const DEBUG_LEVEL = 5;
+        const SUPERADMINS = [
             'eptid:someuser',
             'http://sommeopenid.example/anotheruser',
             'I do not care about security!',
-        ],
-    ];
+        ];
 
 }

@@ -52,11 +52,11 @@ if (!$isFedAdmin) {
 $feds = $user->getAttributes("user:fedadmin");
 ?>
 <h1>
-    <?php printf(_("%s - Register new %s"), \config\Master::CONFIG['APPEARANCE']['productname'], $uiElements->nomenclatureInst); ?>
+    <?php printf(_("%s - Register new %s"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureInst); ?>
 </h1>
 <?php
 echo sprintf(_("On this page, you can add a new %s to your %s. Please fill out the form below to send out an email invitation to the new %s administrator."), $uiElements->nomenclatureInst, $uiElements->nomenclatureFed, $uiElements->nomenclatureInst);
-if (\config\Master::CONFIG['DB']['enforce-external-sync']) {
+if (\config\Master::DB['enforce-external-sync']) {
     echo "<p>" . sprintf(_("You can either register a known %s (as defined in the %s database) or create a totally new %s."), $uiElements->nomenclatureInst, \config\ConfAssistant::CONSORTIUM['display_name'], $uiElements->nomenclatureInst) . "</p>";
     echo "<p>" . sprintf(_("The latter one is typically for an %s which is yet in a testing phase and therefore doesn't appear in the %s database yet."), $uiElements->nomenclatureInst, \config\ConfAssistant::CONSORTIUM['display_name']) . "</p>";    
 }
@@ -66,7 +66,7 @@ if (\config\Master::CONFIG['DB']['enforce-external-sync']) {
 <form name='sendinvite' action='inc/sendinvite.inc.php' method='post' accept-charset='UTF-8'>
     <table>
         <?php
-        if (\config\Master::CONFIG['DB']['enforce-external-sync']) {
+        if (\config\Master::DB['enforce-external-sync']) {
             echo "<tr><td>
                 <input type='radio' name='creation' value='existing'>" . sprintf(_("Existing %s:"), $uiElements->nomenclatureParticipant) . "</input>
                      </td>";
