@@ -4,6 +4,7 @@
     },
     "require": {
         "geoip2/geoip2": "^2.9",
-        "phpmailer/phpmailer": "^6.0"
+        "phpmailer/phpmailer": "^6.0",
+        "simplesamlphp/simplesamlphp": "^1.17"
     }
 }

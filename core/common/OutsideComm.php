@@ -393,7 +393,7 @@ class OutsideComm extends Entity {
     /**
      * aborts code execution if a required mail address is invalid
      * 
-     * @param mixed  $newmailaddress       input string, possibly one or more mail addresses
+     * @param mixed $newmailaddress input string, possibly one or more mail addresses
      * @return array mail addresses that passed validation
      */
     public static function exfiltrateValidAddresses($newmailaddress) {

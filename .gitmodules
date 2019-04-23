@@ -7,9 +7,6 @@
 [submodule "core/PHPUnit"]
 	path = core/PHPUnit
 	url = https://github.com/sebastianbergmann/phpunit.git
-[submodule "core/simpleSAMLphp"]
-	path = core/simpleSAMLphp
-	url = https://github.com/simplesamlphp/simplesamlphp.git
 [submodule "devices/ms/Files/GEANTLink"]
 	path = devices/ms/Files/GEANTLink
 	url = https://github.com/Amebis/GEANTLink-dist.git
