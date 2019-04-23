@@ -219,13 +219,12 @@ build:
                       'ssid' => [ 'eduroam' ],
                       'registration_API_keys' => [ 'iabcd' => 'LU' ],
                       ];
-                      const CONFIG = [
-                      'SILVERBULLET' => [
+                      const SILVERBULLET => [
                       'documentation' => 'https://wiki.geant.org/pages/viewpage.action?pageId=66650390',
-                      ],
-                      'PATHS' => [ 'makensis' => '/home/scrutinizer/build/tests/nsis3/bin/makensis' ],
-                      'NSIS_VERSION' => 3,
                       ];
+                      const PATHS = [ 'makensis' => '/home/scrutinizer/build/tests/nsis3/bin/makensis' ];
+                      const NSIS_VERSION = 3;
+                      
                       }" >/home/scrutinizer/build/config/ConfAssistant.php
                     - |
                       echo "

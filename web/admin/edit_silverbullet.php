@@ -570,7 +570,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
                 if (count($allUsers) > 0 && false) { // false because this restriction is currently not in effect and thus no UI is needed for it.
                     $acknowledgeText = sprintf(_('You need to acknowledge that the created accounts are still valid within the next %s days.'
                                     . ' If all accounts shown as active above are indeed still valid, please check the box below and push "Save".'
-                                    . ' If any of the accounts are stale, please deactivate them by pushing the corresponding button before doing this.'), \config\ConfAssistant::CONFIG['SILVERBULLET']['gracetime'] ?? core\ProfileSilverbullet::SB_ACKNOWLEDGEMENT_REQUIRED_DAYS);
+                                    . ' If any of the accounts are stale, please deactivate them by pushing the corresponding button before doing this.'), \config\ConfAssistant::SILVERBULLET['gracetime'] ?? core\ProfileSilverbullet::SB_ACKNOWLEDGEMENT_REQUIRED_DAYS);
 
                     echo $formtext . "<div style='padding-bottom: 20px;'>"
                     . "

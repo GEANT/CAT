@@ -644,7 +644,7 @@ class DeviceW8W10 extends WindowsCommon {
         if ($this->device_id == 'w10') {
             $fcontents .= "!define W10\n";
         }
-        if (\config\ConfAssistant::CONFIG['NSIS_VERSION'] >= 3) {
+        if (\config\ConfAssistant::NSIS_VERSION >= 3) {
             $fcontents .= "Unicode true\n";
         }
         $eapOptions = [

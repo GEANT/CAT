@@ -451,7 +451,7 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
             \core\common\EAP::PWD => ['str' => 'PWD', 'exec' => 'user'],
         ];
         $fcontents = '';
-        if (\config\ConfAssistant::CONFIG['NSIS_VERSION'] >= 3) {
+        if (\config\ConfAssistant::NSIS_VERSION >= 3) {
             $fcontents .= "Unicode true\n";
         }
 

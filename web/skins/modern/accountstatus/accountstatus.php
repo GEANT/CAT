@@ -157,7 +157,7 @@ require dirname(__DIR__) . '/user/js/cat_js.php';
                                 break;
                             case \core\SilverbulletInvitation::SB_TOKENSTATUS_INVALID:
                                 echo "<h2>" . _("Account information not found") . "</h2>";
-                                echo "<p>" . sprintf(_("The invitation link you followed does not map to any invititation we have on file.") . "</p><p>" . _("You should use the exact link you got during sign-up to come here. Alternatively, if you have a valid %s credential already, you can visit this page and Accept the question about logging in with a client certificate (select a certificate with a name ending in '…%s')."),\config\ConfAssistant::CONSORTIUM['display_name'], \config\ConfAssistant::CONFIG['SILVERBULLET']['realm_suffix']);
+                                echo "<p>" . sprintf(_("The invitation link you followed does not map to any invititation we have on file.") . "</p><p>" . _("You should use the exact link you got during sign-up to come here. Alternatively, if you have a valid %s credential already, you can visit this page and Accept the question about logging in with a client certificate (select a certificate with a name ending in '…%s')."),\config\ConfAssistant::CONSORTIUM['display_name'], \config\ConfAssistant::SILVERBULLET['realm_suffix']);
                         }
                         if (isset($statusInfo['profile_id']) && isset($statusInfo['idp_id'])) {
                             echo "<input type='hidden' name='profile' id='profile_id' value='" . $statusInfo['profile_id'] . "'/>";

@@ -100,56 +100,59 @@ class ConfAssistant {
         'nomenclature_hotspot' => 'Service Provider',
         'nomenclature_participant' => 'Organisation',
     ];
-    const CONFIG = [
-        /* silverbullet options:
-         *         default_maxusers: an institution is not allowed to create more than that amount of users
-         *             the value can be overriden as a per-federation option in fed-operator UI
-         *         realm_suffix: user credentials have a realm which always includes the inst ID and profile ID and the name
-         *             of the federation; for routing aggregation purposes /all/ realms should end with a common suffix though
-         *             if left empty, realms would end in the federation name only
-         *         server_suffix: the suffix of the auth server's name. It will be auth.<fedname> followed by this suffix
-         *         gracetime: admins need to re-login and verify that accounts are still valid. This prevents lazy admins
-         *             who forget deletion of people who have lost their eligibility. The number is an integer value in days
-         *         CA: the code can either act as its own CA ("embedded") or use API calls to an external CA. This config
-         *             value steers where to get certificates from 
-         */
-        'SILVERBULLET' => [
-            'documentation' => 'https://wiki.geant.org/pages/viewpage.action?pageId=66650390',
-            'default_maxusers' => 200,
-            'realm_suffix' => '.hosted.eduroam.org',
-            'server_suffix' => '.hosted.eduroam.org',
-            'gracetime' => 90,
-            'CA' => ["type" => "embedded"], # OCSP URL needs to be configured in openssl.cnf
-        # 'CA' => ["type" => "DFN", "SOAP_API_ENDPOINT" => "http://no.idea.where/"],
-        ],
-        /**
-         * Various paths.
-         * makensis: absolute path to the makensis executable. If you just fill in "makensis" the one from the system $PATH will be taken.
-         *   See also NSIS_VERSION further down
-         * @var array
-         */
-        'PATHS' => [
-            'makensis' => 'makensis',
-        ],
-        /**
-         * NSIS version - with version 3 UTF installers will be created
-         * see also $PATHS['makensis']
-         * 
-         * @var integer
-         */
-        'NSIS_VERSION' => 3,
-        'MAPPROVIDER' => [
-            'PROVIDER' => 'Google', // recognised values: Google, Bing, OpenLayers, None
-            'USERNAME' => '' // or equivalent; for Google, this is the APIKEY
-        ],
-        /**
-         * Configures SMS gateway settings
-         */
-        'SMSSETTINGS' => [
-            'provider' => 'Nexmo',
-            'username' => '...',
-            'password' => '...',
-        ],
+
+    /** silverbullet options:
+     *         default_maxusers: an institution is not allowed to create more than that amount of users
+     *             the value can be overriden as a per-federation option in fed-operator UI
+     *         realm_suffix: user credentials have a realm which always includes the inst ID and profile ID and the name
+     *             of the federation; for routing aggregation purposes /all/ realms should end with a common suffix though
+     *             if left empty, realms would end in the federation name only
+     *         server_suffix: the suffix of the auth server's name. It will be auth.<fedname> followed by this suffix
+     *         gracetime: admins need to re-login and verify that accounts are still valid. This prevents lazy admins
+     *             who forget deletion of people who have lost their eligibility. The number is an integer value in days
+     *         CA: the code can either act as its own CA ("embedded") or use API calls to an external CA. This config
+     *             value steers where to get certificates from 
+     * 
+     */
+    const SILVERBULLET = [
+        'documentation' => 'https://wiki.geant.org/pages/viewpage.action?pageId=66650390',
+        'default_maxusers' => 200,
+        'realm_suffix' => '.hosted.eduroam.org',
+        'server_suffix' => '.hosted.eduroam.org',
+        'gracetime' => 90,
+        'CA' => ["type" => "embedded"], # OCSP URL needs to be configured in openssl.cnf
+            # 'CA' => ["type" => "DFN", "SOAP_API_ENDPOINT" => "http://no.idea.where/"],
+    ];
+
+    /**
+     * Various paths.
+     * makensis: absolute path to the makensis executable. If you just fill in "makensis" the one from the system $PATH will be taken.
+     *   See also NSIS_VERSION further down
+     * @var array
+     */
+    const PATHS = [
+        'makensis' => 'makensis',
+    ];
+
+    /**
+     * NSIS version - with version 3 UTF installers will be created
+     * see also $PATHS['makensis']
+     * 
+     * @var integer
+     */
+    const NSIS_VERSION = 3;
+    const MAPPROVIDER = [
+        'PROVIDER' => 'Google', // recognised values: Google, Bing, OpenLayers, None
+        'USERNAME' => '' // or equivalent; for Google, this is the APIKEY
+    ];
+
+    /**
+     * Configures SMS gateway settings
+     */
+    const SMSSETTINGS = [
+        'provider' => 'Nexmo',
+        'username' => '...',
+        'password' => '...',
     ];
 
 }

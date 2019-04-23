@@ -71,7 +71,7 @@ abstract class AbstractMap extends \core\common\Entity {
      * @throws Exception
      */
     public static function instance($inst, $readonly) {
-        $classname = "\web\lib\admin\Map".\config\ConfAssistant::CONFIG['MAPPROVIDER']['PROVIDER'];
+        $classname = "\web\lib\admin\Map".\config\ConfAssistant::MAPPROVIDER['PROVIDER'];
         return new $classname($inst, $readonly);
     }
 

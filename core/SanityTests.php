@@ -506,11 +506,11 @@ class SanityTests extends CAT {
      * @return void
      */
     private function testMakensis() {
-        if (!is_numeric(\config\ConfAssistant::CONFIG['NSIS_VERSION'])) {
+        if (!is_numeric(\config\ConfAssistant::NSIS_VERSION)) {
             $this->storeTestResult(\core\common\Entity::L_ERROR, "NSIS_VERSION needs to be numeric!");
             return;
         }
-        if (\config\ConfAssistant::CONFIG['NSIS_VERSION'] < 2) {
+        if (\config\ConfAssistant::NSIS_VERSION < 2) {
             $this->storeTestResult(\core\common\Entity::L_ERROR, "NSIS_VERSION needs to be at least 2!");
             return;
         }
@@ -525,10 +525,10 @@ class SanityTests extends CAT {
             $outputArray = [];
             exec($A['exec'] . ' -HELP', $outputArray);
             $t1 = count(preg_grep('/INPUTCHARSET/', $outputArray));
-            if ($t1 == 1 && \config\ConfAssistant::CONFIG['NSIS_VERSION'] == 2) {
+            if ($t1 == 1 && \config\ConfAssistant::NSIS_VERSION == 2) {
                 $this->storeTestResult(\core\common\Entity::L_ERROR, "Declared NSIS_VERSION does not seem to match the file pointed to by PATHS['makensis']!");
             }
-            if ($t1 == 0 && \config\ConfAssistant::CONFIG['NSIS_VERSION'] >= 3) {
+            if ($t1 == 0 && \config\ConfAssistant::NSIS_VERSION >= 3) {
                 $this->storeTestResult(\core\common\Entity::L_ERROR, "Declared NSIS_VERSION does not seem to match the file pointed to by PATHS['makensis']!");
             }
         } else {
@@ -552,7 +552,7 @@ class SanityTests extends CAT {
         $NSIS_Module_status = [];
         foreach ($this->NSISModules as $module) {
             unset($out);
-            exec(\config\ConfAssistant::CONFIG['PATHS']['makensis'] . " -V1 '-X!include $module' '-XOutFile $exe' '-XSection X' '-XSectionEnd'", $out, $retval);
+            exec(\config\ConfAssistant::PATHS['makensis'] . " -V1 '-X!include $module' '-XOutFile $exe' '-XSection X' '-XSectionEnd'", $out, $retval);
             if ($retval > 0) {
                 $NSIS_Module_status[$module] = 0;
             } else {

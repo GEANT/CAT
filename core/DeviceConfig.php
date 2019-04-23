@@ -314,7 +314,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         // and translations occur in the varios ".inc" files - so make sure we
         // operate in the correct catalogue
         common\Entity::intoThePotatoes();
-        if (\config\ConfAssistant::CONFIG['NSIS_VERSION'] >= 3) {
+        if (\config\ConfAssistant::NSIS_VERSION >= 3) {
             $encoding = 0;
         }
         
@@ -367,7 +367,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         if (empty($sourceString)) {
             return $sourceString;
         }
-        if (\config\ConfAssistant::CONFIG['NSIS_VERSION'] < 3) {
+        if (\config\ConfAssistant::NSIS_VERSION < 3) {
             $output_c = iconv('UTF-8', $encoding . '//TRANSLIT', $sourceString);
         } else {
             $output_c = $sourceString;

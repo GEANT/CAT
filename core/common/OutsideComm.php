@@ -184,13 +184,13 @@ class OutsideComm extends Entity {
      */
     public static function sendSMS($number, $content) {
         $loggerInstance = new \core\common\Logging();
-        switch (\config\ConfAssistant::CONFIG['SMSSETTINGS']['provider']) {
+        switch (\config\ConfAssistant::SMSSETTINGS['provider']) {
             case 'Nexmo':
                 // taken from https://docs.nexmo.com/messaging/sms-api
                 $url = 'https://rest.nexmo.com/sms/json?' . http_build_query(
                                 [
-                                    'api_key' => \config\ConfAssistant::CONFIG['SMSSETTINGS']['username'],
-                                    'api_secret' => \config\ConfAssistant::CONFIG['SMSSETTINGS']['password'],
+                                    'api_key' => \config\ConfAssistant::SMSSETTINGS['username'],
+                                    'api_secret' => \config\ConfAssistant::SMSSETTINGS['password'],
                                     'to' => $number,
                                     'from' => \config\ConfAssistant::CONSORTIUM['name'],
                                     'text' => $content,

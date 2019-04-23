@@ -292,7 +292,7 @@ class IdP extends EntityWithDBProperties {
                 case AbstractProfile::PROFILETYPE_SILVERBULLET:
                     $theProfile = new ProfileSilverbullet($identifier, $this);
                     $theProfile->addSupportedEapMethod(new \core\common\EAP(\core\common\EAP::EAPTYPE_SILVERBULLET), 1);
-                    $theProfile->setRealm($this->identifier . "-" . $theProfile->identifier . "." . strtolower($this->federation) . strtolower(\config\ConfAssistant::CONFIG['SILVERBULLET']['realm_suffix']));
+                    $theProfile->setRealm($this->identifier . "-" . $theProfile->identifier . "." . strtolower($this->federation) . strtolower(\config\ConfAssistant::SILVERBULLET['realm_suffix']));
                     return $theProfile;
                 default:
                     throw new Exception("This type of profile is unknown and can not be added.");

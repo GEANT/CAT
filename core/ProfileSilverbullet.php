@@ -81,8 +81,8 @@ class ProfileSilverbullet extends AbstractProfile {
         $tempMaxUsers = 200; // abolutely last resort fallback if no per-fed and no config option
 // set to global config value
 
-        if (isset(\config\ConfAssistant::CONFIG['SILVERBULLET']['default_maxusers'])) {
-            $tempMaxUsers = \config\ConfAssistant::CONFIG['SILVERBULLET']['default_maxusers'];
+        if (isset(\config\ConfAssistant::SILVERBULLET['default_maxusers'])) {
+            $tempMaxUsers = \config\ConfAssistant::SILVERBULLET['default_maxusers'];
         }
         $myInst = new IdP($this->institution);
         $myFed = new Federation($myInst->federation);
@@ -93,7 +93,7 @@ class ProfileSilverbullet extends AbstractProfile {
 
 // realm is automatically calculated, then stored in DB
 
-        $this->realm = "opaquehash@$myInst->identifier-$this->identifier." . strtolower($myInst->federation) . \config\ConfAssistant::CONFIG['SILVERBULLET']['realm_suffix'];
+        $this->realm = "opaquehash@$myInst->identifier-$this->identifier." . strtolower($myInst->federation) . \config\ConfAssistant::SILVERBULLET['realm_suffix'];
         $localValueIfAny = "";
 
 // but there's some common internal attributes populated directly
@@ -110,7 +110,7 @@ class ProfileSilverbullet extends AbstractProfile {
 
 // and we need to populate eap:server_name and eap:ca_file with the NRO-specific EAP information
         $silverbulletAttributes = [
-            "eap:server_name" => "auth." . strtolower($myFed->tld) . \config\ConfAssistant::CONFIG['SILVERBULLET']['server_suffix'],
+            "eap:server_name" => "auth." . strtolower($myFed->tld) . \config\ConfAssistant::SILVERBULLET['server_suffix'],
         ];
         $x509 = new \core\common\X509();
         $caHandle = fopen(dirname(__FILE__) . "/../config/SilverbulletServerCerts/" . strtoupper($myFed->tld) . "/root.pem", "r");

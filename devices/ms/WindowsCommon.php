@@ -289,10 +289,10 @@ abstract class WindowsCommon extends \core\DeviceConfig {
      * @return void
      */
     protected function compileNSIS() {
-        if (\config\ConfAssistant::CONFIG['NSIS_VERSION'] >= 3) {
-            $makensis = \config\ConfAssistant::CONFIG['PATHS']['makensis'] . " -INPUTCHARSET UTF8";
+        if (\config\ConfAssistant::NSIS_VERSION >= 3) {
+            $makensis = \config\ConfAssistant::PATHS['makensis'] . " -INPUTCHARSET UTF8";
         } else {
-            $makensis = \config\ConfAssistant::CONFIG['PATHS']['makensis'];
+            $makensis = \config\ConfAssistant::PATHS['makensis'];
         }
         $lcAll = getenv("LC_ALL");
         putenv("LC_ALL=en_US.UTF-8");
@@ -327,7 +327,7 @@ abstract class WindowsCommon extends \core\DeviceConfig {
      * @return string
      */
     protected function writeNsisDefines($attr) {
-        $fcontents = "\n" . '!define NSIS_MAJOR_VERSION ' . \config\ConfAssistant::CONFIG['NSIS_VERSION'];
+        $fcontents = "\n" . '!define NSIS_MAJOR_VERSION ' . \config\ConfAssistant::NSIS_VERSION;
         if ($attr['internal:profile_count'][0] > 1) {
             $fcontents .= "\n" . '!define USER_GROUP "' . $this->translateString(str_replace('"', '$\\"', $attr['profile:name'][0]), $this->codePage) . '"
 ';
@@ -386,7 +386,7 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprintNsis(_("%s inst
                 if ($infoFile === FALSE) {
                     throw new Exception("We were told this file exists. Failing to read it is not really possible.");
                 }
-                if (\config\ConfAssistant::CONFIG['NSIS_VERSION'] >= 3) {
+                if (\config\ConfAssistant::NSIS_VERSION >= 3) {
                     $infoFileConverted = $infoFile;
                 } else {
                     $infoFileConverted = iconv('UTF-8', $this->codePage . '//TRANSLIT', $infoFile);

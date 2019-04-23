@@ -388,7 +388,7 @@ FOO;
             case \core\Options::TYPECODE_COORDINATES:
                 $this->allLocationCount = $this->allLocationCount + 1;
                 // display of the locations varies by map provider
-                $classname = "\web\lib\admin\Map" . \config\ConfAssistant::CONFIG['MAPPROVIDER']['PROVIDER'];
+                $classname = "\web\lib\admin\Map" . \config\ConfAssistant::MAPPROVIDER['PROVIDER'];
                 $link = $classname::optionListDisplayCode($optionValue, $this->allLocationCount);
                 $retval .= "<input readonly style='display:none' type='text' name='value[S$rowid-" . \core\Options::TYPECODE_TEXT . "]' id='S$rowid-input-text' value='$optionValue'>$link";
                 break;
@@ -468,7 +468,7 @@ FOO;
        <td>
           <button type='button' class='delete' onclick='";
         if ($prefillValue !== NULL && $item == "general:geo_coordinates") {
-            $funcname = "Map" . \config\ConfAssistant::CONFIG['MAPPROVIDER']['PROVIDER'] . 'DeleteCoord';
+            $funcname = "Map" . \config\ConfAssistant::MAPPROVIDER['PROVIDER'] . 'DeleteCoord';
             $retval .= 'if (typeof ' . $funcname . ' === "function") { ' . $funcname . '(' . $this->allLocationCount . '); } ';
         }
         $retval .= 'deleteOption("option-S' . $rowid . '")';

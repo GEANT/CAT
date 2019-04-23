@@ -61,7 +61,7 @@ class Menu {
                 'text' => _("Help"), 'submenu' => [
                     ['text' => _("My institution is not listed"), 'catInfo' => ['idp_not_listed', _("FAQ")], 'visibility' => 'index'],
                     ['text' => _("My device is not listed"), 'catInfo' => ['device_not_listed', _("FAQ")], 'visibility' => 'index'],
-                    ['text' => \core\ProfileSilverbullet::PRODUCTNAME._("Help"), 'visibility' => 'sb', 'link'=> \config\ConfAssistant::CONFIG['SILVERBULLET']['documentation']],
+                    ['text' => \core\ProfileSilverbullet::PRODUCTNAME._("Help"), 'visibility' => 'sb', 'link'=> \config\ConfAssistant::SILVERBULLET['documentation']],
                     ['text' => _("What is eduroam"), 'catInfo' => ['what_is_eduroam', _("FAQ")]],
                     ['text' => _("FAQ"), 'catInfo' => ['faq', _("FAQ")]],
                     ['text' => _("Contact"), 'catInfo' => ['contact', _("FAQ")]],
