@@ -130,10 +130,14 @@ abstract class Entity {
         if (strlen($dummy_NRO . $dummy_inst1 . $dummy_inst2 . $dummy_inst3 . $dummy_hotspot1 . $dummy_hotspot2 . $dummy_hotspot3 . $dummy_organisation1 . $dummy_organisation2 . $dummy_organisation2a . $dummy_organisation3) < 0) {
             throw new Exception("Strings are usually not shorter than 0 characters. We've encountered a string blackhole.");
         }
-        Entity::$nomenclature_fed = _(\config\ConfAssistant::CONSORTIUM['nomenclature_federation']);
-        Entity::$nomenclature_inst = _(\config\ConfAssistant::CONSORTIUM['nomenclature_institution']);
-        Entity::$nomenclature_hotspot = _(\config\ConfAssistant::CONSORTIUM['nomenclature_hotspot']);
-        Entity::$nomenclature_participant = _(\config\ConfAssistant::CONSORTIUM['nomenclature_participant']);
+        $variableFed = \config\ConfAssistant::CONSORTIUM['nomenclature_federation'] . "";
+        $variableInst = \config\ConfAssistant::CONSORTIUM['nomenclature_institution'] . "";
+        $variableHotspot = \config\ConfAssistant::CONSORTIUM['nomenclature_hotspot'] . "";
+        $variableParticipant = \config\ConfAssistant::CONSORTIUM['nomenclature_participant'] . "";
+        Entity::$nomenclature_fed = _($variableFed);
+        Entity::$nomenclature_inst = _($variableInst);
+        Entity::$nomenclature_hotspot = _($variableHotspot);
+        Entity::$nomenclature_participant = _($variableParticipant);
 
         Entity::outOfThePotatoes();
     }
