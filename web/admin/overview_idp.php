@@ -27,8 +27,6 @@
 ?>
 <?php
 require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
-require_once dirname(dirname(dirname(__FILE__))) . "/core/phpqrcode.php";
-
 
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
@@ -261,8 +259,14 @@ echo $mapCode->htmlHeadCode();
                     echo "<div style='display: table-cell; text-align:center;'><p><strong>" . _("User Download Link") . "</strong></p>";
                     $displayurl = $idpLevelUrl . "&amp;profile=" . $profile_list->identifier;
                     $QRurl = $idpLevelUrl . "&profile=" . $profile_list->identifier;
+                    $qrCode = new \chillerlan\QRCode\QRCode(new \chillerlan\QRCode\QROptions([
+                                'outputType' => \chillerlan\QRCode\QRCode::OUTPUT_IMAGE_PNG,
+                                'eccLevel' => \chillerlan\QRCode\QRCode::ECC_H,
+                                'scale' => web\lib\admin\UIElements::QRCODE_PIXELS_PER_SYMBOL,
+                                'imageBase64' => false,
+                    ]));
                     echo "<a href='$displayurl' style='white-space: nowrap; text-align: center;'>";
-                    $rawQr = QRcode::png($QRurl, FALSE, QR_ECLEVEL_Q, web\lib\admin\UIElements::QRCODE_PIXELS_PER_SYMBOL);
+                    $rawQr = $qrCode->render($QRurl);
                     if ($rawQr === NULL) {
                         throw new Exception("Something went seriously wrong during QR code generation!");
                     }

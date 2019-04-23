@@ -23,6 +23,9 @@
 require_once "autoloader.php";
 require_once __DIR__ . "/../packageRoot.php";
 
+// enable Composer autoloader, if exists
+include_once __DIR__ . "/../vendor/autoload.php";
+
 if (!file_exists(ROOT . "/config/Master.php")) {
     echo "Master configuration file not found. You need to configure the product! At least config/Master.php is required!";
     throw new Exception("Master config file not found!");

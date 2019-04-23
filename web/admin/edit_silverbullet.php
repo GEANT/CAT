@@ -21,7 +21,6 @@
  * Class autoloader invocation, should be included prior to any other code at the entry points to the application
  */
 require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
-require_once dirname(dirname(dirname(__FILE__))) . "/core/phpqrcode.php";
 
 $auth = new \web\lib\admin\Authentication();
 $auth->authenticate();

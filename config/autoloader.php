@@ -37,6 +37,3 @@ $loader->addNamespace('core', __DIR__ . "/../core");
 $loader->addNamespace('devices', __DIR__ . "/../devices");
 // include CAT/web library
 $loader->addNamespace('web', __DIR__ . "/../web");
-
-// include PHPMailer library
-$loader->addNamespace('PHPMailer\PHPMailer', __DIR__ . "/../core/PHPMailer/src");

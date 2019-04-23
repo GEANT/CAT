@@ -32,10 +32,6 @@ namespace core;
 
 use \Exception;
 
-require_once "phpqrcode.php";
-
-const QRCODE_PIXELS_PER_SYMBOL = 12;
-
 class SilverbulletInvitation extends common\Entity {
 
     /**
@@ -310,15 +306,23 @@ class SilverbulletInvitation extends common\Entity {
      */
     public function sendByMail($properEmail) {
         common\Entity::intoThePotatoes();
+        $pixelsPerCode = 12;
         $mail = \core\common\OutsideComm::mailHandle();
         $uiElements = new \web\lib\admin\UIElements();
         // the following never returns NULL because $filename is FALSE; but
         // make sure it really is so for Scrutinizer
-        $rawQr = \QRcode::png($this->link(), FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL);
+        $qrCode = new \chillerlan\QRCode\QRCode(new \chillerlan\QRCode\QROptions([
+                    'outputType' => \chillerlan\QRCode\QRCode::OUTPUT_IMAGE_PNG,
+                    'eccLevel' => \chillerlan\QRCode\QRCode::ECC_H,
+                    'scale' => $pixelsPerCode,
+                    'imageBase64' => FALSE,
+        ]));
+
+        $rawQr = $qrCode->render($this->link());
         if ($rawQr === NULL) {
             throw new Exception("Something went seriously wrong with the QR code generation!");
         }
-        $bytestream = $uiElements->pngInjectConsortiumLogo($rawQr, QRCODE_PIXELS_PER_SYMBOL);
+        $bytestream = $uiElements->pngInjectConsortiumLogo($rawQr, $pixelsPerCode);
         $mail->FromName = sprintf(_("%s Invitation System"), \config\Master::CONFIG['APPEARANCE']['productname']);
         $mail->Subject = $this->invitationMailSubject();
         $mail->Body = $this->invitationMailBody();

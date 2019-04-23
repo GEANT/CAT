@@ -21,7 +21,6 @@
 ?>
 <?php
 require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/core/phpqrcode.php";
 
 $auth = new \web\lib\admin\Authentication();
 $languageInstance = new \core\common\Language();
@@ -41,10 +40,16 @@ header("Content-Type:text/html;charset=utf-8");
 ?>
 <h1 style='text-align:center;'><?php echo _("Invitation Token QR Code");?></h1>
 <img style='float:none' src='data:image/png;base64,<?php 
-// this cannot be NULL since $filename is FALSE; but make Scrutinizer happy.
-$rawQr = \QRcode::png($invitationObject->link(), FALSE, QR_ECLEVEL_Q, 11);
+$size = 10;
+$qrCode = new \chillerlan\QRCode\QRCode(new \chillerlan\QRCode\QROptions([
+                    'outputType' => \chillerlan\QRCode\QRCode::OUTPUT_IMAGE_PNG,
+                    'eccLevel' => \chillerlan\QRCode\QRCode::ECC_H,
+                    'scale' => $size,
+                    'imageBase64' => FALSE,
+        ]));
+$rawQr = $qrCode->render($invitationObject->link());
 if ($rawQr === NULL) {
     throw new Exception("Something went seriously wrong during QR code generation!");
 }
-echo base64_encode($uiElements->pngInjectConsortiumLogo($rawQr, 11));?>'/>
+echo base64_encode($uiElements->pngInjectConsortiumLogo($rawQr, $size));?>'/>
 <p>(<a href='<?php echo $invitationObject->link();?>'><?php echo $invitationObject->link();?>)</a></p>

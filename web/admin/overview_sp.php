@@ -27,8 +27,6 @@
 ?>
 <?php
 require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
-require_once dirname(dirname(dirname(__FILE__))) . "/core/phpqrcode.php";
-
 
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
