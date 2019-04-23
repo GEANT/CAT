@@ -55,18 +55,6 @@ const OUR_KEY_HASH = "BC8DDD42F7B3B458E8ECEE403D21D404CEB9F2D0";
  */
 const SLASHES_IN_URL_INCL_LEADING = 2;
 
-/**
- * Die loudly, logging it everywhere.
- * 
- * @param string $message the error message to log
- * @throws Exception
- * @return void
- */
-function instantDeath($message) {
-    error_log($message);
-    throw new Exception($message);
-}
-
 $ocspRequestDer = "";
 
 switch ($_SERVER['REQUEST_METHOD']) {
@@ -79,23 +67,23 @@ switch ($_SERVER['REQUEST_METHOD']) {
         for ($iterator = 0; $iterator < SLASHES_IN_URL_INCL_LEADING; $iterator++) {
             $nextSlash = strpos($rawStream, '/');
             if ($nextSlash === FALSE) {
-                instantDeath("We were supposed to find and strip a slash in the base URL, but it doesn't exist!");
+                throw new Exception("We were supposed to find and strip a slash in the base URL, but it doesn't exist!");
             }
             $rawStream = substr($rawStream, $nextSlash + 1);
         }
         $ocspRequestDer = base64_decode(urldecode($rawStream), TRUE);
         if ($ocspRequestDer === FALSE) {
-            instantDeath("The input data was not cleanly base64-encoded data!");
+            throw new Exception("The input data was not cleanly base64-encoded data!");
         }
         break;
     case 'POST':
         if ($_SERVER['CONTENT_TYPE'] != 'application/ocsp-request') {
-            instantDeath("For request method POST, the Content-Type must be application/ocsp-request.");
+            throw new Exception("For request method POST, the Content-Type must be application/ocsp-request.");
         }
         $ocspRequestDer = file_get_contents("php://input");
         break;
     default:
-        instantDeath("Request method is not suitable for OCSP, see RFC6960 Appendix A.");
+        throw new Exception("Request method is not suitable for OCSP, see RFC6960 Appendix A.");
 }
 
 /* here it is. Now we need to get issuer hash, key hash and requested serial out of it.
@@ -109,7 +97,7 @@ file_put_contents($derFilePath, $ocspRequestDer);
 exec("openssl ocsp -reqin $derFilePath -req_text", $output, $retval);
 
 if ($retval !== 0) {
-    instantDeath("openssl ocsp returned a non-zero return code. The DER data is probably bogus. B64 representation of DER data is: " . base64_encode($ocspRequestDer));
+    throw new Exception("openssl ocsp returned a non-zero return code. The DER data is probably bogus. B64 representation of DER data is: " . base64_encode($ocspRequestDer));
 }
 if ($output === NULL) { // this can't really happen, but makes Scrutinizer happier
     $output = [];
@@ -131,7 +119,7 @@ foreach ($output as $oneLine) {
     }
 }
 if (strlen($serialHex) == 0 || strlen($keyHash) == 0 || strlen($serialHex) == 0) {
-    instantDeath("Unable to extract all of issuer hash, key hash, serial number from the request.");
+    throw new Exception("Unable to extract all of issuer hash, key hash, serial number from the request.");
 }
 /*
  * We respond only if this is about our own CA of course. Once that is checked,
@@ -139,7 +127,7 @@ if (strlen($serialHex) == 0 || strlen($keyHash) == 0 || strlen($serialHex) == 0)
  * back (if we have it).
  */
 if (strcasecmp($nameHash, OUR_NAME_HASH) != 0 || strcasecmp($keyHash, OUR_KEY_HASH) != 0) {
-    instantDeath("The request is about a different Issuer name / public key. Expected vs. actual name hash: " . OUR_NAME_HASH . " / $nameHash, " . OUR_KEY_HASH . " / $keyHash");
+    throw new Exception("The request is about a different Issuer name / public key. Expected vs. actual name hash: " . OUR_NAME_HASH . " / $nameHash, " . OUR_KEY_HASH . " / $keyHash");
 }
 error_log("base64-encoded request: " . base64_encode($ocspRequestDer));
 
@@ -148,7 +136,7 @@ if ($response === FALSE) { // not found
     // first lets load the unauthorised response, which is the default reply
     $unauthResponse = fopen(__DIR__ . "/statements/UNAUTHORIZED.der", "r");
     if ($unauthResponse === FALSE) {
-        instantDeath("Unable to open our canned UNAUTHORIZED response!");
+        throw new Exception("Unable to open our canned UNAUTHORIZED response!");
     }
     // this might be a very young certificate, just issued, OCSP statement is 
     // not on the server yet. Apply some amount of grace for a while...
