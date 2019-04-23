@@ -49,9 +49,6 @@ namespace core;
 use GeoIp2\Database\Reader;
 use \Exception;
 
-require_once dirname(dirname(__FILE__)) . "/core/PHPMailer/src/PHPMailer.php";
-require_once dirname(dirname(__FILE__)) . "/core/PHPMailer/src/SMTP.php";
-
 class SanityTests extends CAT {
     /* in this section set current CAT requirements */
 
@@ -60,21 +57,21 @@ class SanityTests extends CAT {
      * 
      * @var string
      */
-    private $php_needversion = '7.2.0';
+    private $needversionPHP = '7.2.0';
 
     /**
      * the minimum required simpleSAMLphp version
      * 
      * @var array
      */
-    private $ssp_needversion = ['major' => 1, 'minor' => 15];
+    private $needversionSSP = ['major' => 1, 'minor' => 15];
 
     /**
      * all required NSIS modules
      * 
      * @var array<string>
      */
-    private $NSIS_Modules = [
+    private $NSISModules = [
         "nsArray.nsh",
         "FileFunc.nsh",
         "LogicLib.nsh",
@@ -90,14 +87,14 @@ class SanityTests extends CAT {
      * 
      * @var integer
      */
-    private $profile_option_ct;
+    private $profileOptionCount;
 
     /**
      * set $view_admin_ct to the number of rows returned by "desc view_admin" 
      *
      * @var integer
      */
-    private $view_admin_ct = 8;
+    private $viewAdminCount = 8;
 
     /* end of config */
 
@@ -124,7 +121,7 @@ class SanityTests extends CAT {
         $this->test_result['global'] = 0;
         // parse the schema file to find out the number of expected rows...
         $schema = file(dirname(dirname(__FILE__)) . "/schema/schema.sql");
-        $this->profile_option_ct = 0;
+        $this->profileOptionCount = 0;
         $passedTheWindmill = FALSE;
         foreach ($schema as $schemaLine) {
             if (preg_match("/^INSERT INTO \`profile_option_dict\` VALUES/", $schemaLine)) {
@@ -133,7 +130,7 @@ class SanityTests extends CAT {
             }
             if ($passedTheWindmill) {
                 if (substr($schemaLine, 0, 1) == '(') { // a relevant line in schema
-                    $this->profile_option_ct = $this->profile_option_ct + 1;
+                    $this->profileOptionCount = $this->profileOptionCount + 1;
                 } else { // anything else, quit parsing
                     break;
                 }
@@ -255,10 +252,10 @@ class SanityTests extends CAT {
      * @return void
      */
     private function testPhp() {
-        if (version_compare(phpversion(), $this->php_needversion, '>=')) {
+        if (version_compare(phpversion(), $this->needversionPHP, '>=')) {
             $this->storeTestResult(\core\common\Entity::L_OK, "<strong>PHP</strong> is sufficiently recent. You are running " . phpversion() . ".");
         } else {
-            $this->storeTestResult(\core\common\Entity::L_ERROR, "<strong>PHP</strong> is too old. We need at least $this->php_needversion, but you only have " . phpversion() . ".");
+            $this->storeTestResult(\core\common\Entity::L_ERROR, "<strong>PHP</strong> is too old. We need at least $this->needversionPHP, but you only have " . phpversion() . ".");
         }
     }
 
@@ -310,10 +307,10 @@ class SanityTests extends CAT {
             include_once \config\Master::CONFIG['AUTHENTICATION']['ssp-path-to-autoloader'];
             $SSPconfig = \SimpleSAML\Configuration::getInstance();
             $sspVersion = explode('.', $SSPconfig->getVersion());
-            if ((int) $sspVersion[0] >= $this->ssp_needversion['major'] && (int) $sspVersion[1] >= $this->ssp_needversion['minor']) {
+            if ((int) $sspVersion[0] >= $this->needversionSSP['major'] && (int) $sspVersion[1] >= $this->needversionSSP['minor']) {
                 $this->storeTestResult(\core\common\Entity::L_OK, "<strong>simpleSAMLphp</strong> is sufficently recent. You are running " . implode('.', $sspVersion));
             } else {
-                $this->storeTestResult(\core\common\Entity::L_ERROR, "<strong>simpleSAMLphp</strong> is too old. We need at least " . implode('.', $this->ssp_needversion));
+                $this->storeTestResult(\core\common\Entity::L_ERROR, "<strong>simpleSAMLphp</strong> is too old. We need at least " . implode('.', $this->needversionSSP));
             }
         }
     }
@@ -553,7 +550,7 @@ class SanityTests extends CAT {
         }
         $exe = 'tt.exe';
         $NSIS_Module_status = [];
-        foreach ($this->NSIS_Modules as $module) {
+        foreach ($this->NSISModules as $module) {
             unset($out);
             exec(\config\ConfAssistant::CONFIG['PATHS']['makensis'] . " -V1 '-X!include $module' '-XOutFile $exe' '-XSection X' '-XSectionEnd'", $out, $retval);
             if ($retval > 0) {
@@ -725,7 +722,7 @@ class SanityTests extends CAT {
         try {
             $db1 = DBConnection::handle($databaseName1);
             $res1 = $db1->exec('SELECT * FROM profile_option_dict');
-            if ($res1->num_rows == $this->profile_option_ct) {
+            if ($res1->num_rows == $this->profileOptionCount) {
                 $this->storeTestResult(\core\common\Entity::L_OK, "The $databaseName1 database appears to be OK.");
             } else {
                 $this->storeTestResult(\core\common\Entity::L_ERROR, "The $databaseName1 database is reacheable but probably not updated to this version of CAT.");
@@ -739,7 +736,7 @@ class SanityTests extends CAT {
             $db2 = DBConnection::handle($databaseName2);
             if (\config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo']) && \config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
                 $res2 = $db2->exec('desc view_admin');
-                if ($res2->num_rows == $this->view_admin_ct) {
+                if ($res2->num_rows == $this->viewAdminCount) {
                     $this->storeTestResult(\core\common\Entity::L_OK, "The $databaseName2 database appears to be OK.");
                 } else {
                     $this->storeTestResult(\core\common\Entity::L_ERROR, "The $databaseName2 is reacheable but there is something wrong with the schema");
@@ -757,7 +754,7 @@ class SanityTests extends CAT {
                 $db3 = DBConnection::handle($databaseName3);
                 if (\config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo']) && \config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
                     $res3 = $db3->exec('desc view_admin');
-                    if ($res3->num_rows == $this->view_admin_ct) {
+                    if ($res3->num_rows == $this->viewAdminCount) {
                         $this->storeTestResult(\core\common\Entity::L_OK, "The $databaseName3 database appears to be OK.");
                     } else {
                         $this->storeTestResult(\core\common\Entity::L_ERROR, "The $databaseName3 is reacheable but there is something wrong with the schema");

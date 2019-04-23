@@ -3,6 +3,7 @@
         "squizlabs/php_codesniffer": "3.4"
     },
     "require": {
-        "geoip2/geoip2": "^2.9"
+        "geoip2/geoip2": "^2.9",
+        "phpmailer/phpmailer": "^6.0"
     }
 }
