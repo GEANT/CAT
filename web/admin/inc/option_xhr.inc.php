@@ -30,7 +30,7 @@ const DO_NOT_DISPLAY = [
     "support" => [],
     "profile" => [],
     "media" => [],
-    "fed" => [(\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && \config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL" ? "fed:silverbullet" : "")],
+    "fed" => [(\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && \config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] != "LOCAL" ? "fed:silverbullet" : "")],
     "device-specific" => [],
     "eap-specific" => [],
     "managedsp" => ["managedsp:vlan", "managedsp:operatorname"]

@@ -97,7 +97,7 @@ require_once "inc/click_button_js.php";
     echo $uiElements->instLevelInfoBoxes($my_inst);
     $deploymentOptions = $deployment->getAttributes();
     echo "<form enctype='multipart/form-data' action='edit_hotspot.php?inst_id=$my_inst->identifier&amp;deployment_id=$deployment->identifier' method='post' accept-charset='UTF-8'>
-                <input type='hidden' name='MAX_FILE_SIZE' value='" . \config\Master::CONFIG['MAX_UPLOAD_SIZE'] . "'>";
+                <input type='hidden' name='MAX_FILE_SIZE' value='" . \config\Master::MAX_UPLOAD_SIZE . "'>";
     $optionDisplay = new \web\lib\admin\OptionDisplay($deploymentOptions, "Profile");
     ?>
     <?php

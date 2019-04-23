@@ -73,7 +73,7 @@ $langObject = new \core\common\Language();
     </div>
     <?php
     echo "<form enctype='multipart/form-data' action='edit_federation_result.php?fed_id=$my_fed->tld" . "' method='post' accept-charset='UTF-8'>
-              <input type='hidden' name='MAX_FILE_SIZE' value='" . \config\Master::CONFIG['MAX_UPLOAD_SIZE'] . "'>";
+              <input type='hidden' name='MAX_FILE_SIZE' value='" . \config\Master::MAX_UPLOAD_SIZE . "'>";
     ?>
     <fieldset class="option_container">
         <legend><strong><?php echo sprintf(_("%s Properties"),$uiElements->nomenclatureFed); ?></strong></legend>

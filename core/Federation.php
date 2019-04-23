@@ -195,7 +195,7 @@ class Federation extends EntityWithDBProperties {
             "row" => 0,
             "flag" => NULL);
 
-        if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != 'LOCAL' && \config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == 'LOCAL') {
+        if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] != 'LOCAL' && \config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == 'LOCAL') {
             // this instance exclusively does SB, so it is not necessary to ask
             // fed ops whether they want to enable it or not. So always add it
             // to the list of fed attributes

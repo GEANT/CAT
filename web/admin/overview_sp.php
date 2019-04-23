@@ -86,7 +86,7 @@ echo $mapCode->htmlHeadCode();
     <hr><h2><?php echo _("Available Support actions"); ?></h2>
     <table>
         <?php
-        if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] !== NULL) {
+        if (\config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] !== NULL) {
             echo "<tr>
                         <td>" . _("Check another realm's reachability") . "</td>
                         <td><form method='post' action='../diag/action_realmcheck.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'>
@@ -201,7 +201,7 @@ echo $mapCode->htmlHeadCode();
         // b) federation wants this to happen
 
         $myfed = new \core\Federation($my_inst->federation);
-        if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0 && $my_inst->deploymentCount() == 0) {
+        if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0 && $my_inst->deploymentCount() == 0) {
             // the button is grayed out if there's no support email address configured...
             $hasMail = count($my_inst->getAttributes("support:email"));
             ?>

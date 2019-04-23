@@ -80,7 +80,7 @@ require_once "inc/click_button_js.php";
 
     if (\config\ConfAssistant::CONSORTIUM['name'] == 'eduroam') {
         $target = "https://wiki.geant.org/x/SwB_AQ"; // CAT manual, outdated
-        if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
+        if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
             $target = "https://wiki.geant.org/x/SSNwBg"; // Managed IdP manual
         }
         $helptext = "<h3 style='display:inline;'>" . sprintf(_("(Need help? Refer to the <a href='%s'>%s administrator manual</a>)"), $target, $uiElements->nomenclatureInst) . "</h3>";

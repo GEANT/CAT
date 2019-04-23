@@ -218,11 +218,11 @@ echo $mapCode->htmlHeadCode();
                 $hasRealmArray = $profile_list->getAttributes("internal:realm");
                 $has_realm = $hasRealmArray[0]['value'];
                 echo "<div class='profilemodulebuttons' style='float:right;'>";
-                if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] !== NULL) {
-                    if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == "LOCAL") {
+                if (\config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] !== NULL) {
+                    if (\config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] == "LOCAL") {
                         $diagUrl = "../diag/";
                     } else {
-                        $diagUrl = \config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] . "/diag/";
+                        $diagUrl = \config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] . "/diag/";
                     }
                     echo "<form action='" . $diagUrl . "action_realmcheck.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post' accept-charset='UTF-8'>
                               <input type='hidden' name='comefrom' id='comefrom-$profilecount' value='$link'/>
@@ -301,7 +301,7 @@ echo $mapCode->htmlHeadCode();
         // b) federation wants this to happen
 
         $myfed = new \core\Federation($my_inst->federation);
-        if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0 && $sbProfileExists === FALSE) {
+        if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0 && $sbProfileExists === FALSE) {
             // the button is grayed out if there's no support email address configured...
             $hasMail = count($my_inst->getAttributes("support:email"));
             ?>
@@ -316,7 +316,7 @@ echo $mapCode->htmlHeadCode();
         }
 
         // adding a normal profile is always possible if we're configured for it
-        if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL") {
+        if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == "LOCAL") {
             ?>
             <form action='edit_profile.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
                 <div>

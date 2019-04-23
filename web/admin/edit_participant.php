@@ -95,7 +95,7 @@ echo $mapCode->htmlHeadCode();
     </div>
     <?php
     echo "<form enctype='multipart/form-data' action='edit_participant_result.php?inst_id=$my_inst->identifier" . ($wizardStyle ? "&wizard=true" : "") . "' method='post' accept-charset='UTF-8'>
-              <input type='hidden' name='MAX_FILE_SIZE' value='" . \config\Master::CONFIG['MAX_UPLOAD_SIZE'] . "'>";
+              <input type='hidden' name='MAX_FILE_SIZE' value='" . \config\Master::MAX_UPLOAD_SIZE . "'>";
 
     if ($wizardStyle) {
         echo "<p>" .
@@ -180,16 +180,16 @@ echo $mapCode->htmlHeadCode();
         if ($wizardStyle) {
             echo "<p>"._("This section can be used to upload specific Terms of Use for your users and to display details of how your users can reach your local helpdesk.")."</p>";
             
-            if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL") {
+            if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == "LOCAL") {
                 echo "<p>" .
                         
                 sprintf(_("Do you provide helpdesk services for your users? If so, it would be nice if you would tell us the pointers to this helpdesk."),$uiElements->nomenclatureParticipant)  . "</p>" .
                 "<p>" .
                 _("If you enter a value here, it will be added to the installers for all your users, and will be displayed on the download page. If you operate separate helpdesks for different user groups (we call this 'profiles') specify per-profile helpdesk information later in this wizard. If you operate no help desk at all, just leave these fields empty.") . "</p>";
-                if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
+                if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
                 echo "<p>" . sprintf(_("For %s deployments, providing at least a local e-mail contact is required."), core\ProfileSilverbullet::PRODUCTNAME) ." " . _("This is the contact point for your end users' level 1 support.") . "</p>";
                 }
-            } elseif (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
+            } elseif (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
                 echo "<p>". _("Providing at least a local support e-mail contact is required.")." "._("This is the contact point for your end users' level 1 support.")."</p>";
             }
             

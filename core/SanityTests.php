@@ -476,7 +476,7 @@ class SanityTests extends CAT {
                 $this->storeTestResult(\core\common\Entity::L_OK, "PHP extension <strong>GeoIP2</strong> is installed and working. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
                 break;
             default:
-                $this->storeTestResult(\core\common\Entity::L_ERROR, 'Check \config\Master::CONFIG[\'GEOIP\'][\'version\'], it must be set to either 1 or 2');
+                $this->storeTestResult(\core\common\Entity::L_ERROR, 'Check \config\Master::GEOIP[\'version\'], it must be set to either 1 or 2');
                 break;
         }
     }

@@ -42,12 +42,12 @@ $Tests = [
 
 $uiElements = new \web\lib\admin\UIElements();
 
-if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" || \config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL" ) {
+if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" || \config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == "LOCAL" ) {
     $Tests[] = 'Makensis';
     $Tests[] = 'Makensis=>NSISmodules';
 }
 
-if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == "LOCAL") {
+if (\config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] == "LOCAL") {
     $Tests[] = 'Eapoltest';
 }
 

@@ -204,7 +204,7 @@ class UIElements extends \core\common\Entity {
                         }
                         break;
                     case "boolean":
-                        if ($option['name'] == "fed:silverbullet" && \config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && \config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
+                        if ($option['name'] == "fed:silverbullet" && \config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && \config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] != "LOCAL") {
                             // do not display the option at all; it gets auto-set by the ProfileSilverbullet constructor and doesn't have to be seen
                             break;
                         }

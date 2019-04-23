@@ -131,9 +131,9 @@ class Divs {
         <span id='line3'></span>
         <span id='line4'>";
 
-        if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL") {
+        if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == "LOCAL") {
             $retval .= $this->Gui->textTemplates->templates[user\FRONTPAGE_ROLLER_CUSTOMBUILT];
-        } elseif (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
+        } elseif (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
             $retval .= $this->Gui->textTemplates->templates[user\SB_FRONTPAGE_ROLLER_CUSTOMBUILT];
         }
 
@@ -160,9 +160,9 @@ class Divs {
         $retval .= "<span id='signin'>
      <button class='large_button signin signin_large' id='user_button1'>
         <span id='user_button'>";
-        if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL") {
+        if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == "LOCAL") {
             $retval .= $this->Gui->textTemplates->templates[user\FRONTPAGE_BIGDOWNLOADBUTTON];
-        } elseif (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
+        } elseif (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
             $retval .= $this->Gui->textTemplates->templates[user\SB_FRONTPAGE_BIGDOWNLOADBUTTON];
         }
 

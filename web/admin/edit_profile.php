@@ -128,7 +128,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     echo $uiElements->instLevelInfoBoxes($my_inst);
 
     echo "<form enctype='multipart/form-data' action='edit_profile_result.php?inst_id=$my_inst->identifier" . ($my_profile !== NULL ? "&amp;profile_id=" . $my_profile->identifier : "") . "' method='post' accept-charset='UTF-8'>
-                <input type='hidden' name='MAX_FILE_SIZE' value='" . \config\Master::CONFIG['MAX_UPLOAD_SIZE'] . "'>";
+                <input type='hidden' name='MAX_FILE_SIZE' value='" . \config\Master::MAX_UPLOAD_SIZE . "'>";
     $optionDisplay = new \web\lib\admin\OptionDisplay($profile_options, "Profile");
     ?>
     <fieldset class="option_container">
@@ -146,7 +146,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
             echo "<p>" . _("First of all we need a name for the profile. This will be displayed to end users, so you may want to choose a descriptive name like 'Professors', 'Students of the Faculty of Bioscience', etc.") . "</p>";
             echo "<p>" . _("Optionally, you can provide a longer descriptive text about who this profile is for. If you specify it, it will be displayed on the download page after the user has selected the profile name in the list.") . "</p>";
             echo "<p>" . _("You can also tell us your RADIUS realm. ");
-            if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] !== NULL) {
+            if (\config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] !== NULL) {
                 printf(_("This is useful if you want to use the sanity check module later, which tests reachability of your realm in the %s infrastructure. "), \config\ConfAssistant::CONSORTIUM['display_name']);
             }
             echo _("It is required to enter the realm name if you want to support anonymous outer identities (see below).") . "</p>";

@@ -33,14 +33,14 @@ if (!file_exists(ROOT . "/config/Master.php")) {
 
 /* load sub-configs if we are dealing with those in this installation */
 
-if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == 'LOCAL' || \config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == 'LOCAL') {
+if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == 'LOCAL' || \config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == 'LOCAL') {
     if (!file_exists(ROOT . "/config/ConfAssistant.php")) {
         echo "ConfAssistant configuration file not found. You need to configure the product!";
         throw new Exception("ConfAssistant config file not found!");
     }
 }
 
-if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == 'LOCAL') {
+if (\config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] == 'LOCAL') {
     if (!file_exists(ROOT . "/config/Diagnostics.php")) {
         echo "Diagnostics configuration file not found. You need to configure the product!";
         throw new Exception("Diagnostics config file not found!");

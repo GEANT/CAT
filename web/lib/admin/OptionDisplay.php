@@ -117,7 +117,7 @@ class OptionDisplay extends \core\common\Entity {
         $retval = "";
         $optioninfo = \core\Options::instance();
         $blackListOnPrefill = "user:fedadmin|managedsp:vlan|managedsp:operatorname";
-        if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && \config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
+        if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && \config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] != "LOCAL") {
             $blackListOnPrefill .= "|fed:silverbullet";
         }
         foreach ($prepopulate as $option) {
@@ -158,7 +158,7 @@ class OptionDisplay extends \core\common\Entity {
                 //normally, we have nothing to hide on that level
                 // if we are a Managed IdP exclusive deployment, do not display or allow
                 // to change the "Enable Managed IdP" boolean - it is simply always there
-                if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && \config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
+                if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && \config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] != "LOCAL") {
                     unset($list[array_search("fed:silverbullet", $list)]);
                 }
                 break;

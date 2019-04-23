@@ -58,7 +58,7 @@ class Logging {
      * @return void
      */
     public function debug($level, $stuff, $prefix = '', $suffix = '') {
-        if (\config\Master::CONFIG['DEBUG_LEVEL'] < $level) {
+        if (\config\Master::DEBUG_LEVEL < $level) {
             return;
         }
 

@@ -137,7 +137,7 @@ $allow_sb = $myfed->getAttributes("fed:silverbullet");
 // show the new profile jumpstart buttons only if we do not have any profile at all
 if (count($my_inst->listProfiles()) == 0) {
 
-    if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($allow_sb) > 0) {
+    if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($allow_sb) > 0) {
         echo "<br/>";
         // did we get an email address? then, show the silverbullet jumpstart button
         // otherwise, issue a smartass comment
@@ -149,7 +149,7 @@ if (count($my_inst->listProfiles()) == 0) {
             echo "</table>";
         }
     }
-    if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL") {
+    if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == "LOCAL") {
         echo "<br/><form method='post' action='edit_profile.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to RADIUS/EAP profile definition") . "</button></form>";
     }
 }
