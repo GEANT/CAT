@@ -99,14 +99,14 @@ class PageDecoration extends \core\common\Entity {
                     <form action='$place' method='GET' accept-charset='UTF-8'>" . _("View this page in") . "&nbsp;
                         <select id='lang' name='lang' onchange='this.form.submit()'>";
 
-        foreach (\config\Master::LANGUAGES as $lang => $value) {
-            $retval .= "<option value='$lang' " . (strtoupper($language) == strtoupper($lang) ? "selected" : "" ) . " >" . $value['display'] . "</option> ";
+        foreach (\config\Master::LANGUAGES as $lang => $getValue) {
+            $retval .= "<option value='$lang' " . (strtoupper($language) == strtoupper($lang) ? "selected" : "" ) . " >" . $getValue['display'] . "</option> ";
         }
         $retval .= "</select>";
 
-        foreach ($_GET as $var => $value) {
-            if ($var != "lang" && $value != "") {
-                $retval .= "<input type='hidden' name='" . htmlspecialchars($var) . "' value='" . htmlspecialchars($value) . "'>";
+        foreach ($_GET as $getVar => $getValue) {
+            if ($getVar != "lang" && $getValue != "") {
+                $retval .= "<input type='hidden' name='" . htmlspecialchars($getVar) . "' value='" . htmlspecialchars($getValue) . "'>";
             }
         }
         $retval .= "</form>
