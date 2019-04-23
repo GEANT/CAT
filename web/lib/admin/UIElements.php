@@ -294,7 +294,6 @@ class UIElements extends \core\common\Entity {
      * @return string|boolean the requested data, or FALSE if something went wrong
      */
     public static function getBlobFromDB($table, $rowindex, $checkpublic) {
-        $validator = new \web\lib\common\InputValidation();
         // the data is either public (just give it away) or not; in this case, only
         // release if the data belongs to admin himself
         if ($checkpublic) {
