@@ -507,7 +507,7 @@ class DeviceW8W10 extends WindowsCommon {
      * @param string  $ssid            name of SSID to configure
      * @param string  $auth            can be one of "WPA", "WPA2"
      * @param string  $encryption      can be one of: "TKIP", "AES"
-     * @param array   $eapConfig XML   configuration block with EAP config data
+     * @param array   $eapConfig       XML configuration block with EAP config data
      * @param integer $profileNumber   counter, which profile number is this
      * @param boolean $hs20            should Hotspot 2.0 / Passpoint be configured?
      * @return string
