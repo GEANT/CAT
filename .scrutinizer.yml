@@ -215,7 +215,7 @@ build:
                       'ssid' => [ 'eduroam' ],
                       'registration_API_keys' => [ 'iabcd' => 'LU' ],
                       ];
-                      const SILVERBULLET => [
+                      const SILVERBULLET = [
                       'documentation' => 'https://wiki.geant.org/pages/viewpage.action?pageId=66650390',
                       ];
                       const PATHS = [ 'makensis' => '/home/scrutinizer/build/tests/nsis3/bin/makensis' ];
