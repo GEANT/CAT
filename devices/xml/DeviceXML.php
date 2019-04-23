@@ -104,10 +104,6 @@ abstract class DeviceXML extends \core\DeviceConfig {
 // ProviderInfo->
         $eapIdp->setProperty('ProviderInfo', $this->getProviderInfo());
 // TODO    $eap_idp->setProperty('VendorSpecific',$this->getVendorSpecific());
-//AuthenticationMethods
-// TODO
-//ID attribute
-//lang attribute
         $methodList = [];
         if ($this->allEaps) {
             $eapmethods = [];
@@ -310,6 +306,11 @@ abstract class DeviceXML extends \core\DeviceConfig {
         return $helpdesk;
     }
 
+    /**
+     * determine where this credential should be applicable
+     * 
+     * @return \devices\xml\CredentialApplicability
+     */
    private function getCredentialApplicability() {
         $ssids = $this->attributes['internal:SSID'];
         $oids = $this->attributes['internal:consortia'];
@@ -327,7 +328,7 @@ abstract class DeviceXML extends \core\DeviceConfig {
             $ieee80211s[] = $ieee80211;
         }
         $credentialapplicability->setProperty('IEEE80211', $ieee80211s);
-        return($credentialapplicability);
+        return $credentialapplicability;
     }
 
     /**
@@ -355,6 +356,12 @@ abstract class DeviceXML extends \core\DeviceConfig {
         }
     }
 
+    /**
+     * sets the server-side credentials for a given EAP type
+     * 
+     * @param \core\common\EAP $eaptype the EAP type
+     * @return \devices\XML\ServerSideCredential
+     */
     private function setServerSideCredentials($eaptype) {
         $attr = $this->attributes;
         $serversidecredential = new ServerSideCredential();
@@ -377,9 +384,15 @@ abstract class DeviceXML extends \core\DeviceConfig {
         $serversidecredential->setProperty('EAPType', $eaptype->getValue());
         $serversidecredential->setProperty('CA', $cAlist);
         $serversidecredential->setProperty('ServerID', $serverids);
-        return($serversidecredential);
+        return $serversidecredential;
     }
     
+    /**
+     * sets the realm information for the client-side credential
+     * 
+     * @param \devices\XML\ClientSideCredential $clientsidecredential
+     * @return void
+     */
     private function setClientSideRealm ($clientsidecredential) {
         $attr = $this->attributes;
         $realm = \core\common\Entity::getAttributeValue($attr, 'internal:realm', 0);
@@ -395,13 +408,24 @@ abstract class DeviceXML extends \core\DeviceConfig {
         }
     }
     
-    private function setClientCetificate() {
+    /**
+     * sets the client certificate
+     * 
+     * @return \devices\XML\ClientCertificate
+     */
+    private function setClientCertificate() {
         $clientCertificateObject = new ClientCertificate();
         $clientCertificateObject->setValue(base64_encode($this->clientCert["certdata"]));
         $clientCertificateObject->setAttributes(['format' => 'PKCS12', 'encoding' => 'base64']);
-        return($clientCertificateObject);
+        return $clientCertificateObject;
     }
 
+    /**
+     * sets the client-side credentials for the given EAP type
+     * 
+     * @param array $eapParams the EAP parameters
+     * @return \devices\XML\ClientSideCredential
+     */
     private function setClientSideCredentials($eapParams) {
         $clientsidecredential = new ClientSideCredential();
         $outerId = $this->determineOuterIdString();
@@ -413,11 +437,17 @@ abstract class DeviceXML extends \core\DeviceConfig {
                 
         // Client Certificate
         if ($this->selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
-            $clientsidecredential->setProperty('ClientCertificate', $this->setClientCetificate());
+            $clientsidecredential->setProperty('ClientCertificate', $this->setClientCertificate());
         }
-        return($clientsidecredential);
+        return $clientsidecredential;
     }
     
+    /**
+     * sets the EAP method
+     * 
+     * @param \core\common\EAP $eaptype
+     * @return \devices\XML\EAPMethod
+     */
     private function setEapMethod($eaptype) {
         $eapmethod = new EAPMethod();
         $eapmethod->setProperty('Type', $eaptype);
@@ -435,6 +465,12 @@ abstract class DeviceXML extends \core\DeviceConfig {
         return($eapmethod);
     }
     
+    /**
+     * determines the authentication method to use
+     * 
+     * @param \core\common\EAP $eap the EAP method
+     * @return \devices\xml\AuthenticationMethod
+     */
     private function getAuthMethod($eap) {
  //       $attr = $this->attributes;
         $authmethod = new AuthenticationMethod();

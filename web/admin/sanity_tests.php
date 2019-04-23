@@ -40,6 +40,8 @@ $Tests = [
     'RADIUSProbes',
 ];
 
+$uiElements = new \web\lib\admin\UIElements();
+
 if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" || \config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL" ) {
     $Tests[] = 'Makensis';
     $Tests[] = 'Makensis=>NSISmodules';
@@ -50,41 +52,6 @@ if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == "LOCAL")
 }
 
 ini_set('display_errors', '0');
-
-/**
- * creates the HTML code displaying the result of a test that was run previously
- * 
- * @param \core\SanityTests $test the test that was run
- * @return string
- * @throws Exception
- */
-function print_test_results($test) {
-    $out = '';
-    switch ($test->test_result['global']) {
-        case \core\common\Entity::L_OK:
-            $message = "Your configuration appears to be fine.";
-            break;
-        case \core\common\Entity::L_WARN:
-            $message = "There were some warnings, but your configuration should work.";
-            break;
-        case \core\common\Entity::L_ERROR:
-            $message = "Your configuration appears to be broken, please fix the errors.";
-            break;
-        case \core\common\Entity::L_REMARK:
-            $message = "Your configuration appears to be fine.";
-            break;
-        default:
-            throw new Exception("The result code level " . $test->test_result['global'] . " is not defined!");
-    }
-    $uiElements = new web\lib\admin\UIElements();
-    $out .= $uiElements->boxFlexible($test->test_result['global'], "<br><strong>Test Summary</strong><br>" . $message . "<br>See below for details<br><hr>");
-    foreach ($test->out as $testValue) {
-        foreach ($testValue as $o) {
-            $out .= $uiElements->boxFlexible($o['level'], $o['message']);
-        }
-    }
-    return($out);
-}
 
 if (!in_array("I do not care about security!", \config\Master::CONFIG['SUPERADMINS'])) {
     $auth = new \web\lib\admin\Authentication();
@@ -99,7 +66,7 @@ $test->runTests($Tests);
 $format = empty($_REQUEST['format']) ? 'include' : $_REQUEST['format'];
 switch ($format) {
     case 'include':
-        $o = print_test_results($test);
+        $o = $uiElements->sanityTestResultHTML($test);
         print "<table>$o</table>";
         break;
     case 'html':
@@ -109,7 +76,7 @@ switch ($format) {
           <head lang='$ourlocale'>
           <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'></head>";
 
-        $o = print_test_results($test);
+        $o = $uiElements->sanityTestResultHTML($test);
         print "<body><table>$o</table></body></html>";
         break;
     case 'json':

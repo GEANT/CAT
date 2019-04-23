@@ -486,6 +486,7 @@ class UIElements extends \core\common\Entity {
     }
 
     const QRCODE_PIXELS_PER_SYMBOL = 12;
+
     /**
      * Injects the consortium logo in the middle of a given PNG.
      * 
@@ -553,6 +554,40 @@ class UIElements extends \core\common\Entity {
         echo "<h1>$uiDisplay</h1>";
         echo $decoObject->footer();
         throw new Exception("Error page raised: $headerDisplay - $uiDisplay.");
+    }
+
+    /**
+     * creates the HTML code displaying the result of a test that was run previously
+     * 
+     * @param \core\SanityTests $test the test that was run
+     * @return string
+     * @throws Exception
+     */
+    public function sanityTestResultHTML($test) {
+        $out = '';
+        switch ($test->test_result['global']) {
+            case \core\common\Entity::L_OK:
+                $message = "Your configuration appears to be fine.";
+                break;
+            case \core\common\Entity::L_WARN:
+                $message = "There were some warnings, but your configuration should work.";
+                break;
+            case \core\common\Entity::L_ERROR:
+                $message = "Your configuration appears to be broken, please fix the errors.";
+                break;
+            case \core\common\Entity::L_REMARK:
+                $message = "Your configuration appears to be fine.";
+                break;
+            default:
+                throw new Exception("The result code level " . $test->test_result['global'] . " is not defined!");
+        }
+        $out .= $this->boxFlexible($test->test_result['global'], "<br><strong>Test Summary</strong><br>" . $message . "<br>See below for details<br><hr>");
+        foreach ($test->out as $testValue) {
+            foreach ($testValue as $o) {
+                $out .= $this->boxFlexible($o['level'], $o['message']);
+            }
+        }
+        return($out);
     }
 
 }

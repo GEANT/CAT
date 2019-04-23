@@ -114,8 +114,9 @@ class XMLElement {
     }
 
     /**
+     * sets a value in the XML object
      * 
-     * @param scalar $value
+     * @param scalar $value the value to set
      * @return void
      * @throws Exception
      */
