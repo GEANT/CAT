@@ -43,8 +43,6 @@ if (isset($_SERVER['HTTPS'])) {
 $link .= $_SERVER['SERVER_NAME'] . $_SERVER['SCRIPT_NAME'];
 $link = htmlspecialchars($link);
 
-const QRCODE_PIXELS_PER_SYMBOL = 12;
-
 echo $deco->defaultPagePrelude(sprintf(_("%s: %s Dashboard"), \config\Master::CONFIG['APPEARANCE']['productname'], $uiElements->nomenclatureHotspot));
 require_once "inc/click_button_js.php";
 

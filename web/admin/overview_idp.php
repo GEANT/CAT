@@ -43,8 +43,6 @@ if (isset($_SERVER['HTTPS'])) {
 $link .= $_SERVER['SERVER_NAME'] . $_SERVER['SCRIPT_NAME'];
 $link = htmlspecialchars($link);
 
-const QRCODE_PIXELS_PER_SYMBOL = 12;
-
 echo $deco->defaultPagePrelude(sprintf(_("%s: %s Dashboard"), \config\Master::CONFIG['APPEARANCE']['productname'], $uiElements->nomenclatureInst));
 require_once "inc/click_button_js.php";
 
@@ -264,11 +262,11 @@ echo $mapCode->htmlHeadCode();
                     $displayurl = $idpLevelUrl . "&amp;profile=" . $profile_list->identifier;
                     $QRurl = $idpLevelUrl . "&profile=" . $profile_list->identifier;
                     echo "<a href='$displayurl' style='white-space: nowrap; text-align: center;'>";
-                    $rawQr = QRcode::png($QRurl, FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL);
+                    $rawQr = QRcode::png($QRurl, FALSE, QR_ECLEVEL_Q, web\lib\admin\UIElements::QRCODE_PIXELS_PER_SYMBOL);
                     if ($rawQr === NULL) {
                         throw new Exception("Something went seriously wrong during QR code generation!");
                     }
-                    $uri = "data:image/png;base64," . base64_encode($uiElements->pngInjectConsortiumLogo($rawQr, QRCODE_PIXELS_PER_SYMBOL));
+                    $uri = "data:image/png;base64," . base64_encode($uiElements->pngInjectConsortiumLogo($rawQr, web\lib\admin\UIElements::QRCODE_PIXELS_PER_SYMBOL));
                     $size = getimagesize($uri);
                     echo "<img width='" . ($size[0] / 4) . "' height='" . ($size[1] / 4) . "' src='$uri' alt='QR-code'/>";
 

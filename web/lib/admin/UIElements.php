@@ -503,6 +503,7 @@ class UIElements extends \core\common\Entity {
         return $this->boxFlexible(\core\common\Entity::L_ERROR, $text, $caption, $omittabletags);
     }
 
+    const QRCODE_PIXELS_PER_SYMBOL = 12;
     /**
      * Injects the consortium logo in the middle of a given PNG.
      * 
