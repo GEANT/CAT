@@ -1,12 +1,6 @@
 [submodule "devices/ms/Files/GEANTLink"]
 	path = devices/ms/Files/GEANTLink
 	url = https://github.com/Amebis/GEANTLink-dist.git
-[submodule "core/GeoIP2"]
-	path = core/GeoIP2
-	url = https://github.com/maxmind/GeoIP2-php.git
-[submodule "core/PHPUnit"]
-	path = core/PHPUnit
-	url = https://github.com/sebastianbergmann/phpunit.git
 [submodule "devices/ms/Files/GEANTLink"]
 	path = devices/ms/Files/GEANTLink
 	url = https://github.com/Amebis/GEANTLink-dist.git
