@@ -46,7 +46,7 @@ if (!isset($_POST['submitbutton']) || $_POST['submitbutton'] != web\lib\common\F
 if (isset($_POST['option'])) {
     foreach ($_POST['option'] as $opt_id => $optname) {
         if ($optname == "user:fedadmin") {
-            echo "Security violation: user tried to make himself " . \config\ConfAssistant::CONFIG['CONSORTIUM']['nomenclature_federation'] . " administrator!";
+            echo "Security violation: user tried to make himself " . \config\ConfAssistant::CONSORTIUM['nomenclature_federation'] . " administrator!";
             exit(1);
         }
     }

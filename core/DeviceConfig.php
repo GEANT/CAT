@@ -184,8 +184,8 @@ abstract class DeviceConfig extends \core\common\Entity {
 
         $this->attributes['internal:consortia'] = $this->getConsortia();
         
-        $this->support_email_substitute = sprintf(_("your local %s support"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
-        $this->support_url_substitute = sprintf(_("your local %s support page"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
+        $this->support_email_substitute = sprintf(_("your local %s support"), \config\ConfAssistant::CONSORTIUM['display_name']);
+        $this->support_url_substitute = sprintf(_("your local %s support page"), \config\ConfAssistant::CONSORTIUM['display_name']);
 
         if ($this->signer && $this->options['sign']) {
             $this->sign = ROOT . '/signer/' . $this->signer;
@@ -462,7 +462,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      */
     private function getInstallerBasename() {
         
-        $baseName = $this->customTranslit(\config\ConfAssistant::CONFIG['CONSORTIUM']['name']) . "-" . $this->getDeviceId();
+        $baseName = $this->customTranslit(\config\ConfAssistant::CONSORTIUM['name']) . "-" . $this->getDeviceId();
         if (isset($this->attributes['profile:customsuffix'][1])) { 
             // this string will end up as a filename on a filesystem, so always
             // take a latin-based language variant if available
@@ -520,8 +520,8 @@ abstract class DeviceConfig extends \core\common\Entity {
         $ssidList = [];
         $ssidList['add'] = [];
         $ssidList['del'] = [];
-        if (isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['ssid'])) {
-            foreach (\config\ConfAssistant::CONFIG['CONSORTIUM']['ssid'] as $ssid) {
+        if (isset(\config\ConfAssistant::CONSORTIUM['ssid'])) {
+            foreach (\config\ConfAssistant::CONSORTIUM['ssid'] as $ssid) {
                 if (\core\common\Entity::getAttributeValue(\config\ConfAssistant::CONFIG, 'CONSORTIUM', 'tkipsupport') == TRUE) {
                     $ssidList['add'][$ssid] = 'TKIP';
                 } else {
@@ -558,10 +558,10 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @return array
      */
     private function getConsortia() {
-        if(!isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['interworking-consortium-oi'])) {
+        if(!isset(\config\ConfAssistant::CONSORTIUM['interworking-consortium-oi'])) {
             return ([]);
         }
-        $consortia = \config\ConfAssistant::CONFIG['CONSORTIUM']['interworking-consortium-oi'];
+        $consortia = \config\ConfAssistant::CONSORTIUM['interworking-consortium-oi'];
         if (isset($this->attributes['media:consortium_OI'])) {
             foreach ($this->attributes['media:consortium_OI'] as $new_oi) {
                 if(!in_array($new_oi, $consortia)) {

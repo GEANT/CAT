@@ -138,7 +138,7 @@ class DevicePPOSUXML extends \core\DeviceConfig {
         <NodeName>HomeSP</NodeName>
         <Node>
           <NodeName>FriendlyName</NodeName>
-          <Value>'.sprintf(_("%s via Passpoint"),\config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']).'</Value>
+          <Value>'.sprintf(_("%s via Passpoint"),\config\ConfAssistant::CONSORTIUM['display_name']).'</Value>
         </Node>
         <Node>
           <NodeName>FQDN</NodeName>
@@ -148,8 +148,8 @@ class DevicePPOSUXML extends \core\DeviceConfig {
           <NodeName>RoamingConsortiumOI</NodeName>
           <Value>';
         $oiList = "";
-        $numberOfOi = count(\config\ConfAssistant::CONFIG['CONSORTIUM']['interworking-consortium-oi']);
-        foreach (\config\ConfAssistant::CONFIG['CONSORTIUM']['interworking-consortium-oi'] as $index => $oneOi) {
+        $numberOfOi = count(\config\ConfAssistant::CONSORTIUM['interworking-consortium-oi']);
+        foreach (\config\ConfAssistant::CONSORTIUM['interworking-consortium-oi'] as $index => $oneOi) {
             // according to spec, must be lowercase ASCII without dashes
             $oiList .= str_replace("-","",trim(strtolower($oneOi)));
             if ($index < $numberOfOi - 1) {

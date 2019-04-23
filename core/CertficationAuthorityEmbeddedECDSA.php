@@ -134,7 +134,7 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
             $serialHex = "0" . $serialHex;
         }
 
-        $indexStatement = "$certstatus\t$expiryIndexTxt\t" . ($certstatus == "R" ? "$nowIndexTxt,unspecified" : "") . "\t$serialHex\tunknown\t/O=" . \config\ConfAssistant::CONFIG['CONSORTIUM']['name'] . "/OU=$federation/CN=$cert->username\n";
+        $indexStatement = "$certstatus\t$expiryIndexTxt\t" . ($certstatus == "R" ? "$nowIndexTxt,unspecified" : "") . "\t$serialHex\tunknown\t/O=" . \config\ConfAssistant::CONSORTIUM['name'] . "/OU=$federation/CN=$cert->username\n";
         $this->loggerInstance->debug(4, "index.txt contents-to-be: $indexStatement");
         if (!file_put_contents($tempdir . "/index.txt", $indexStatement)) {
             $this->loggerInstance->debug(1, "Unable to write openssl index.txt file for revocation handling!");
@@ -219,7 +219,7 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
      */
     public function generateCompatibleCsr($privateKey, $fed, $username) {
         $newCsr = openssl_csr_new(
-                ['O' => \config\ConfAssistant::CONFIG['CONSORTIUM']['name'],
+                ['O' => \config\ConfAssistant::CONSORTIUM['name'],
                     'OU' => $fed,
                     'CN' => $username,
                 // 'emailAddress' => $username,

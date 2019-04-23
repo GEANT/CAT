@@ -513,7 +513,7 @@ class CAT extends \core\common\Entity {
      */
     public function getExternalDBEntityDetails($externalId, $realm = NULL) {
         $list = [];
-        if (\config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo']) && \config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $scanforrealm = "";
             if ($realm !== NULL) {
                 $scanforrealm = "OR inst_realm LIKE '%$realm%'";
@@ -561,7 +561,7 @@ class CAT extends \core\common\Entity {
     public function getExternalCountriesList() {
         $olddomain = $this->languageInstance->setTextDomain("core");
         $returnArray = []; // in if -> the while might never be executed, so initialise
-        if (\config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo']) && \config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $handle = DBConnection::handle("EXTERNAL");
             $timeStart = microtime(true);
             $federations = $handle->exec("SELECT DISTINCT UPPER(country) AS country FROM view_country_eduroamdb ORDER BY country");

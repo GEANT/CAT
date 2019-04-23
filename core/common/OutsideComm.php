@@ -192,7 +192,7 @@ class OutsideComm extends Entity {
                                     'api_key' => \config\ConfAssistant::CONFIG['SMSSETTINGS']['username'],
                                     'api_secret' => \config\ConfAssistant::CONFIG['SMSSETTINGS']['password'],
                                     'to' => $number,
-                                    'from' => \config\ConfAssistant::CONFIG['CONSORTIUM']['name'],
+                                    'from' => \config\ConfAssistant::CONSORTIUM['name'],
                                     'text' => $content,
                                     'type' => 'unicode',
                                 ]
@@ -276,9 +276,9 @@ class OutsideComm extends Entity {
         new \core\CAT(); // makes sure Entity is initialised
         // we have a few stock intro texts on file
         $introTexts = [
-            OutsideComm::INVITE_CONTEXTS[0] => sprintf(_("a %s of the %s %s \"%s\" has invited you to manage the %s together with him."), Entity::$nomenclature_fed, \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], Entity::$nomenclature_participant, $idpPrettyName, Entity::$nomenclature_participant),
-            OutsideComm::INVITE_CONTEXTS[1] => sprintf(_("a %s %s has invited you to manage the future %s  \"%s\" (%s). The organisation will be a %s."), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], Entity::$nomenclature_fed, Entity::$nomenclature_participant, $idpPrettyName, strtoupper($federation->tld), $prettyPrintType),
-            OutsideComm::INVITE_CONTEXTS[2] => sprintf(_("a %s %s has invited you to manage the %s  \"%s\". This is a %s."), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], Entity::$nomenclature_fed, Entity::$nomenclature_participant, $idpPrettyName, $prettyPrintType),
+            OutsideComm::INVITE_CONTEXTS[0] => sprintf(_("a %s of the %s %s \"%s\" has invited you to manage the %s together with him."), Entity::$nomenclature_fed, \config\ConfAssistant::CONSORTIUM['display_name'], Entity::$nomenclature_participant, $idpPrettyName, Entity::$nomenclature_participant),
+            OutsideComm::INVITE_CONTEXTS[1] => sprintf(_("a %s %s has invited you to manage the future %s  \"%s\" (%s). The organisation will be a %s."), \config\ConfAssistant::CONSORTIUM['display_name'], Entity::$nomenclature_fed, Entity::$nomenclature_participant, $idpPrettyName, strtoupper($federation->tld), $prettyPrintType),
+            OutsideComm::INVITE_CONTEXTS[2] => sprintf(_("a %s %s has invited you to manage the %s  \"%s\". This is a %s."), \config\ConfAssistant::CONSORTIUM['display_name'], Entity::$nomenclature_fed, Entity::$nomenclature_participant, $idpPrettyName, $prettyPrintType),
         ];
         $validity = sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X %Z", time() + 86400));
         // need some nomenclature
@@ -320,7 +320,7 @@ class OutsideComm extends Entity {
                 $newtoken . "\n\n$replyToMessage\n\n" .
                 wordwrap(_("Do NOT forward the mail before the token has expired - or the recipients may be able to consume the token on your behalf!"), 72) . "\n\n" .
                 wordwrap(sprintf(_("We wish you a lot of fun with the %s."), \config\Master::CONFIG['APPEARANCE']['productname']), 72) . "\n\n" .
-                sprintf(_("Sincerely,\n\nYour friendly folks from %s Operations"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
+                sprintf(_("Sincerely,\n\nYour friendly folks from %s Operations"), \config\ConfAssistant::CONSORTIUM['display_name']);
 
 
 // who to whom?

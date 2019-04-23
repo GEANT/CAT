@@ -147,7 +147,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
             echo "<p>" . _("Optionally, you can provide a longer descriptive text about who this profile is for. If you specify it, it will be displayed on the download page after the user has selected the profile name in the list.") . "</p>";
             echo "<p>" . _("You can also tell us your RADIUS realm. ");
             if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] !== NULL) {
-                printf(_("This is useful if you want to use the sanity check module later, which tests reachability of your realm in the %s infrastructure. "), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
+                printf(_("This is useful if you want to use the sanity check module later, which tests reachability of your realm in the %s infrastructure. "), \config\ConfAssistant::CONSORTIUM['display_name']);
             }
             echo _("It is required to enter the realm name if you want to support anonymous outer identities (see below).") . "</p>";
         }

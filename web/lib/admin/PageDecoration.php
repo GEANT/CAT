@@ -242,7 +242,7 @@ class PageDecoration extends \core\common\Entity {
      * @return string HTML code with GEANT Org and EU attribution as required for FP7 / H2020 projects
      */
     public function attributionEurope() {
-        if (\config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo']) && \config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {// SW: APPROVED
+        if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") {// SW: APPROVED
             // we may need to jump up one dir if we are either in admin/ or accountstatus/
             // (accountstatus courtesy of my good mood. It's userspace not admin space so
             // it shouldn't be using this function any more.)
@@ -270,11 +270,11 @@ class PageDecoration extends \core\common\Entity {
                     <td style='padding-left:20px; padding-right:20px; text-align:left; vertical-align:top;'>
                         " . $cat->CAT_COPYRIGHT . "</td>";
         if (!empty(\config\Master::CONFIG['APPEARANCE']['privacy_notice_url'])) {
-            $retval .= "<td><a href='".\config\Master::CONFIG['APPEARANCE']['privacy_notice_url']."'>" . sprintf(_("%s Privacy Notice"),\config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']) . "</a></td>";
+            $retval .= "<td><a href='".\config\Master::CONFIG['APPEARANCE']['privacy_notice_url']."'>" . sprintf(_("%s Privacy Notice"),\config\ConfAssistant::CONSORTIUM['display_name']) . "</a></td>";
         }
         $retval .= "            <td style='padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;'>";
 
-        if (\config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo']) && \config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $retval .= $this->attributionEurope();
         } else {
             $retval .= "&nbsp;";

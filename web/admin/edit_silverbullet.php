@@ -53,7 +53,7 @@ if (!isset($_REQUEST['profile_id'])) {
     $fed = new \core\Federation($inst->federation);
     $allowSb = $fed->getAttributes("fed:silverbullet");
     if (count($allowSb) == 0) {
-        throw new Exception("We were told to create a new SB profile, but this " . \config\ConfAssistant::CONFIG['CONSORTIUM']['nomenclature_federation'] . " does not allow SB at all!");
+        throw new Exception("We were told to create a new SB profile, but this " . \config\ConfAssistant::CONSORTIUM['nomenclature_federation'] . " does not allow SB at all!");
     }
     // okay, new SB profiles are allowed. 
     // but is there a support:email attribute on inst level?
@@ -440,7 +440,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
                                                     . "name='command' "
                                                     . "value='" . \web\lib\common\FormElements::BUTTON_REVOKECREDENTIAL . "' "
                                                     . "class='delete' "
-                                                    . "onclick='return confirm(\"" . sprintf(_("The device in question will stop functioning with %s. The revocation cannot be undone. Are you sure you want to do this?"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']) . "\")'>"
+                                                    . "onclick='return confirm(\"" . sprintf(_("The device in question will stop functioning with %s. The revocation cannot be undone. Are you sure you want to do this?"), \config\ConfAssistant::CONSORTIUM['display_name']) . "\")'>"
                                                     . _("Revoke") 
                                                     . "</button>"
                                             . "</form>";
@@ -526,7 +526,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
                             <div class="sb-user-buttons">
                                 <?php
                                 if ($hasOnePendingInvite || count($validCerts) > 0) {
-                                    $deletionText = sprintf(_("All of the currently active devices will stop functioning with %s. This cannot be undone. While the user can be re-activated later, they will then need to be re-provisioned with new invitation tokens. Are you sure you want to do this?"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
+                                    $deletionText = sprintf(_("All of the currently active devices will stop functioning with %s. This cannot be undone. While the user can be re-activated later, they will then need to be re-provisioned with new invitation tokens. Are you sure you want to do this?"), \config\ConfAssistant::CONSORTIUM['display_name']);
                                     echo $formtext . "
                                     <input type='hidden' name='userid' value='$oneUserId'/>
                                     <button type='submit' "
@@ -576,7 +576,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
                     . "
                     <p>$acknowledgeText</p>
                     <input type='checkbox' name='acknowledge' value='true'>
-                    <label>" . sprintf(_("I have verified that all configured users are still eligible for %s."),\config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']) . "</label>
+                    <label>" . sprintf(_("I have verified that all configured users are still eligible for %s."),\config\ConfAssistant::CONSORTIUM['display_name']) . "</label>
                 </div>
                 <button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_ACKUSERELIGIBILITY . "'>"._("Save")."</button></form>";
                 }

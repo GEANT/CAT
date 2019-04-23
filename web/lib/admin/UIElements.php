@@ -87,11 +87,11 @@ class UIElements extends \core\common\Entity {
         $ssidLegacyText = _("SSID (with WPA/TKIP)");
         $passpointOiText = _("HS20 Consortium OI");
 
-        if (count(\config\ConfAssistant::CONFIG['CONSORTIUM']['ssid']) > 0) {
+        if (count(\config\ConfAssistant::CONSORTIUM['ssid']) > 0) {
             $ssidText = _("Additional SSID");
             $ssidLegacyText = _("Additional SSID (with WPA/TKIP)");
         }
-        if (!empty(\config\ConfAssistant::CONFIG['CONSORTIUM']['interworking-consortium-oi']) && count(\config\ConfAssistant::CONFIG['CONSORTIUM']['interworking-consortium-oi']) > 0) {
+        if (!empty(\config\ConfAssistant::CONSORTIUM['interworking-consortium-oi']) && count(\config\ConfAssistant::CONSORTIUM['interworking-consortium-oi']) > 0) {
             $passpointOiText = _("Additional HS20 Consortium OI");
         }
 

@@ -61,7 +61,7 @@ class User extends EntityWithDBProperties {
         $this->userName = $userId;
         $optioninstance = Options::instance();
 
-        if (\config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo']) && \config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
 // e d u r o a m DB doesn't follow the usual approach
 // we could get multiple rows below (if administering multiple
 // federations), so consolidate all into the usual options

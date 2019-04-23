@@ -252,7 +252,7 @@ class DBConnection {
             throw new Exception("ERROR: Unable to connect to $database database! This is a fatal error, giving up (error number " . $this->connection->connect_errno . ").");
         }
 
-        if ($databaseCapitalised == "EXTERNAL" && \config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo']) && \config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {
+        if ($databaseCapitalised == "EXTERNAL" && \config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") {
             $this->connection->query("SET NAMES 'latin1'");
         }
         $this->readOnly = \config\Master::CONFIG['DB'][$databaseCapitalised]['readonly'];

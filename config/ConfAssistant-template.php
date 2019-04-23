@@ -40,67 +40,67 @@ namespace config;
  */
 class ConfAssistant {
 
-    const CONFIG = [
-        /**
-         * Defines various general parameters of the roaming consortium.
-         * name: the display name of the consortium
-         * ssid: an array of default SSIDs for this consortium; they are automatically added to all installers.
-         * interworking-consortium-oi: Organisation Identifier of the roaming consortium for Interworking/Hotspot 2.0; 
-         *                             a profile with these OIs will be added to all installers
-         * interworking-domainname-fallback: This will be used in Windows installers for the DomainName setting if
-         *                             the IdP configuration does not suppy its own realm
-         * tkipsupport: whether the default SSIDs should be configured for WPA/TKIP and WPA2/AES (TRUE) or only for WPA2/AES (FALSE)
-         * homepage: URL of the consortium's general homepage.
-         * signer_name: if installers are configured for digital signature, this parameter should contain the "O" name
-         *           in the certificate. If left empty, signatures are not advertised even if configured and working
-         * allow_self_service_registration: if set to NULL, federation admins need to invite new inst admins manually
-         *                                  if set to a federation ID string, e.g. "DE" for Germany, new admins can
-         *                                  self-register and will be put into that federation.
-         * registration_API_keys: allows select federations to make bulk registrations for new IdPs (e.g. if they have
-         *                        an own, opaque, customer management system. The API will be documented at a later stage
-         * LOGOS: there are several variants of the consortium logo scattered in the
-         *        source. Please change them at the appropriate places:
-         *        - web/resources/images/consortium_logo.png
-         *        - web/favicon.ico
-         *        - devices/ms/Files/eduroam_150.bmp
-         *        - devices/ms/Files/eduroam32.ico
-         * 
-         * @var array
-         */
-        'CONSORTIUM' => [
-            // for technical usages inside the product and things in installers not 
-            // reaching the human eye. Please keep this ASCII only. There are some
-            // code paths in the product which are only taken when the value is "eduroam"
-            'name' => 'eduroam',
-            // pretty-print version of the consortium name, for places where this is
-            // presented to actual humans.
-            'display_name' => 'eduroam®',
-            'ssid' => ['eduroam'],
-            'tkipsupport' => FALSE,
-            'homepage' => 'https://www.eduroam.org',
-            'signer_name' => 'GÉANT Association',
-            'selfservice_registration' => NULL,
+    /**
+     * Defines various general parameters of the roaming consortium.
+     * name: the display name of the consortium
+     * ssid: an array of default SSIDs for this consortium; they are automatically added to all installers.
+     * interworking-consortium-oi: Organisation Identifier of the roaming consortium for Interworking/Hotspot 2.0; 
+     *                             a profile with these OIs will be added to all installers
+     * interworking-domainname-fallback: This will be used in Windows installers for the DomainName setting if
+     *                             the IdP configuration does not suppy its own realm
+     * tkipsupport: whether the default SSIDs should be configured for WPA/TKIP and WPA2/AES (TRUE) or only for WPA2/AES (FALSE)
+     * homepage: URL of the consortium's general homepage.
+     * signer_name: if installers are configured for digital signature, this parameter should contain the "O" name
+     *           in the certificate. If left empty, signatures are not advertised even if configured and working
+     * allow_self_service_registration: if set to NULL, federation admins need to invite new inst admins manually
+     *                                  if set to a federation ID string, e.g. "DE" for Germany, new admins can
+     *                                  self-register and will be put into that federation.
+     * registration_API_keys: allows select federations to make bulk registrations for new IdPs (e.g. if they have
+     *                        an own, opaque, customer management system. The API will be documented at a later stage
+     * LOGOS: there are several variants of the consortium logo scattered in the
+     *        source. Please change them at the appropriate places:
+     *        - web/resources/images/consortium_logo.png
+     *        - web/favicon.ico
+     *        - devices/ms/Files/eduroam_150.bmp
+     *        - devices/ms/Files/eduroam32.ico
+     * 
+     * @var array
+     */
+    const CONSORTIUM = [
+        // for technical usages inside the product and things in installers not 
+        // reaching the human eye. Please keep this ASCII only. There are some
+        // code paths in the product which are only taken when the value is "eduroam"
+        'name' => 'eduroam',
+        // pretty-print version of the consortium name, for places where this is
+        // presented to actual humans.
+        'display_name' => 'eduroam®',
+        'ssid' => ['eduroam'],
+        'tkipsupport' => FALSE,
+        'homepage' => 'https://www.eduroam.org',
+        'signer_name' => 'GÉANT Association',
+        'selfservice_registration' => NULL,
 #        'deployment-voodoo'         => "Operations Team",
-            'ssid' => ['eduroam'],
-            'interworking-consortium-oi' => ['001bc50460'],
-            'interworking-domainname-fallback' => 'eduroam.org',
-            'registration_API_keys' => [
-            // 'secretvalue' => 'UK',
-            // 'othervalue' => 'DE',
-            ],
-            /*  Please note that many languages that CAT is translated to distinguish
-              grammatical gender and if you change this phrase it might get a wrong
-              article in some translated strings or look odd. This only affects the
-              administrative interface and not end users.
-              Since this product has a flagship use for the eduroam consortium
-              (which uses the term "Identity Provider"), at least the German
-              translation is geared towards *male* declination to match that term.
-             */
-            'nomenclature_federation' => 'National Roaming Operator',
-            'nomenclature_institution' => 'Identity Provider',
-            'nomenclature_hotspot' => 'Service Provider',
-            'nomenclature_participant' => 'Organisation',
+        'ssid' => ['eduroam'],
+        'interworking-consortium-oi' => ['001bc50460'],
+        'interworking-domainname-fallback' => 'eduroam.org',
+        'registration_API_keys' => [
+        // 'secretvalue' => 'UK',
+        // 'othervalue' => 'DE',
         ],
+        /*  Please note that many languages that CAT is translated to distinguish
+          grammatical gender and if you change this phrase it might get a wrong
+          article in some translated strings or look odd. This only affects the
+          administrative interface and not end users.
+          Since this product has a flagship use for the eduroam consortium
+          (which uses the term "Identity Provider"), at least the German
+          translation is geared towards *male* declination to match that term.
+         */
+        'nomenclature_federation' => 'National Roaming Operator',
+        'nomenclature_institution' => 'Identity Provider',
+        'nomenclature_hotspot' => 'Service Provider',
+        'nomenclature_participant' => 'Organisation',
+    ];
+    const CONFIG = [
         /* silverbullet options:
          *         default_maxusers: an institution is not allowed to create more than that amount of users
          *             the value can be overriden as a per-federation option in fed-operator UI

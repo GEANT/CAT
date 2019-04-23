@@ -97,7 +97,7 @@ echo $mapCode->htmlHeadCode();
                         </td>
                     </tr>";
         }
-        if (\config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == "eduroam") { // SW: APPROVED
+        if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam") { // SW: APPROVED
             echo "<tr>
                         <td>" . sprintf(_("Check %s server status"), $uiElements->nomenclatureFed) . "</td>
                         <td>

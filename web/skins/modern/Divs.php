@@ -50,7 +50,7 @@ class Divs {
         $location = $this->Gui->skinObject->findResourceUrl("IMAGES", "consortium_logo.png");
         if ($location !== FALSE) {
             $retval .= "<div id='cat_logo'>
-            <a href='" . \config\ConfAssistant::CONFIG['CONSORTIUM']['homepage'] . "'><img id='logo_img' src='$location' alt='Consortium Logo'/></a>
+            <a href='" . \config\ConfAssistant::CONSORTIUM['homepage'] . "'><img id='logo_img' src='$location' alt='Consortium Logo'/></a>
             <span>Configuration Assistant Tool</span>
             </div>";
         }
@@ -81,7 +81,7 @@ class Divs {
     <p>" . $this->Gui->textTemplates->templates[user\WELCOME_ABOARD_HEADING] . "
     <br/>
     <br/>";
-        switch (\config\ConfAssistant::CONFIG['CONSORTIUM']['name']) {
+        switch (\config\ConfAssistant::CONSORTIUM['name']) {
             case "eduroam": $retval .= $this->Gui->textTemplates->templates[user\EDUROAM_WELCOME_ADVERTISING];
                 break;
             default:
@@ -110,7 +110,7 @@ class Divs {
 
     public function divTopWelcome() {
         $retval = '';
-        if (\config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo']) && \config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $retval = "<br><div id='top_invite_ad'>".$this->Gui->textTemplates->templates[user\FRONTPAGE_EDUROAM_AD]."</div>";
         }
         return "
@@ -139,7 +139,7 @@ class Divs {
 
         $retval .= "</span>
         <span id='line5'>";
-        if (!empty(\config\ConfAssistant::CONFIG['CONSORTIUM']['signer_name'])) {
+        if (!empty(\config\ConfAssistant::CONSORTIUM['signer_name'])) {
             $retval .= $this->Gui->textTemplates->templates[user\FRONTPAGE_ROLLER_SIGNEDBY];
         }
         $retval .= "
@@ -289,10 +289,10 @@ class Divs {
             </td>";
 
         if (!empty(\config\Master::CONFIG['APPEARANCE']['privacy_notice_url'])) {
-            $retval .= "<td><a href='" . \config\Master::CONFIG['APPEARANCE']['privacy_notice_url'] . "'>" . sprintf(_("%s Privacy Notice"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']) . "</a></td>";
+            $retval .= "<td><a href='" . \config\Master::CONFIG['APPEARANCE']['privacy_notice_url'] . "'>" . sprintf(_("%s Privacy Notice"), \config\ConfAssistant::CONSORTIUM['display_name']) . "</a></td>";
         }
         $retval .= "<td>";
-        if (\config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo']) && \config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {
+        if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") {
             $geant = $this->Gui->skinObject->findResourceUrl("IMAGES", "dante.png");
             $eu = $this->Gui->skinObject->findResourceUrl("IMAGES", "eu.png");
             if ($geant !== FALSE && $eu !== FALSE) {

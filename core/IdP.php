@@ -360,7 +360,7 @@ We thought you might want to know.
 
 Best regards,
 
-%s"), common\Entity::$nomenclature_inst, $this->name, \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], strtoupper($fed->name), \config\Master::CONFIG['APPEARANCE']['productname'], \config\Master::CONFIG['APPEARANCE']['productname_long']);
+%s"), common\Entity::$nomenclature_inst, $this->name, \config\ConfAssistant::CONSORTIUM['display_name'], strtoupper($fed->name), \config\Master::CONFIG['APPEARANCE']['productname'], \config\Master::CONFIG['APPEARANCE']['productname_long']);
             $user->sendMailToUser(sprintf(_("%s in your federation was deleted"), common\Entity::$nomenclature_inst), $message);
         }
         common\Entity::outOfThePotatoes();
@@ -383,7 +383,7 @@ Best regards,
         while ($alreadyUsedQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $alreadyUsed)) {
             $usedarray[] = $alreadyUsedQuery->external_db_id;
         }
-        if (\config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo']) && \config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             // extract all institutions from the country
             $list = [];
             $lowerFed = strtolower($this->federation);
@@ -415,7 +415,7 @@ Best regards,
      * @return int
      */
     public function getExternalDBSyncState() {
-        if (\config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo']) && \config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             return $this->externalDbSyncstate;
         }
         return self::EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING;
@@ -427,7 +427,7 @@ Best regards,
      * @return string|boolean the external identifier; or FALSE if no external ID is known
      */
     public function getExternalDBId() {
-        if (\config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo']) && \config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $idQuery = $this->databaseHandle->exec("SELECT external_db_id FROM institution WHERE inst_id = $this->identifier AND external_db_syncstate = " . self::EXTERNAL_DB_SYNCSTATE_SYNCED);
             // SELECT -> it's a resource, not a boolean
             if (mysqli_num_rows(/** @scrutinizer ignore-type */ $idQuery) == 0) {
@@ -446,7 +446,7 @@ Best regards,
      * @return void
      */
     public function setExternalDBId(string $identifier) {
-        if (\config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo']) && \config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $syncState = self::EXTERNAL_DB_SYNCSTATE_SYNCED;
             $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id = ? AND external_db_syncstate = ?", "si", $identifier, $syncState);
             // SELECT -> resource, not boolean
@@ -462,7 +462,7 @@ Best regards,
      * @return void
      */
     public function removeExternalDBId() {
-        if (\config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo']) && \config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             if ($this->getExternalDBId() !== FALSE) {
                 $syncState = self::EXTERNAL_DB_SYNCSTATE_NOT_SYNCED;
                 $this->databaseHandle->exec("UPDATE institution SET external_db_id = NULL, external_db_syncstate = ? WHERE inst_id = ?", "ii", $syncState, $this->identifier);

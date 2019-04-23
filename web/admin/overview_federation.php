@@ -190,7 +190,7 @@ require_once "inc/click_button_js.php";
         }
         echo "</table></div>";
     }
-    if (\config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == 'eduroam') {
+    if (\config\ConfAssistant::CONSORTIUM['name'] == 'eduroam') {
         $helptext = "<h3>" . sprintf(_("Need help? Refer to the <a href='%s'>%s manual</a>"), "https://wiki.geant.org/x/fgBwBg", $uiElements->nomenclatureFed) . "</h3>";
     } else {
         $helptext = "";
@@ -205,7 +205,7 @@ require_once "inc/click_button_js.php";
             $pending_invites = $mgmt->listPendingInvitations();
 
             if (\config\Master::CONFIG['DB']['enforce-external-sync']) {
-                echo "<th>" . sprintf(_("%s Database Sync Status"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']) . "</th>";
+                echo "<th>" . sprintf(_("%s Database Sync Status"), \config\ConfAssistant::CONSORTIUM['display_name']) . "</th>";
             }
             ?>
             <th>

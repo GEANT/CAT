@@ -51,7 +51,7 @@ $isFedAdmin = $user->isFederationAdmin($my_inst->federation);
 // if not, send the user away
 
 if (!$isFedAdmin) {
-    echo sprintf(_("You do not have the necessary privileges to manage the %s DB link state of this %s."), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], $uiElements->nomenclatureInst);
+    echo sprintf(_("You do not have the necessary privileges to manage the %s DB link state of this %s."), \config\ConfAssistant::CONSORTIUM['display_name'], $uiElements->nomenclatureInst);
     exit(1);
 }
 
@@ -84,7 +84,7 @@ if (isset($_POST['submitbutton'])) {
 }
 ?>
 <h1>
-    <?php printf(_("%s Database Link Status for IdP '%s'"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], $my_inst->name); ?>
+    <?php printf(_("%s Database Link Status for IdP '%s'"), \config\ConfAssistant::CONSORTIUM['display_name'], $my_inst->name); ?>
 </h1>
 <hr/>
 <p>
@@ -92,9 +92,9 @@ if (isset($_POST['submitbutton'])) {
     $cat = new \core\CAT();
     switch ($my_inst->getExternalDBSyncState()) {
         case \core\IdP::EXTERNAL_DB_SYNCSTATE_SYNCED:
-            printf(_("This %s is linked to the %s database."), $uiElements->nomenclatureInst, \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']) . "</p>";
-            echo "<p>" . sprintf(_("The following information about the IdP is stored in the %s DB and %s DB:"), \config\Master::CONFIG['APPEARANCE']['productname'], \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']) . "</p>";
-            echo "<table><tr><td>" . sprintf(_("Information in <strong>%s Database</strong>"), \config\Master::CONFIG['APPEARANCE']['productname']) . "</td><td>" . sprintf(_("Information in <strong>%s Database</strong>"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']) . "</td></tr>";
+            printf(_("This %s is linked to the %s database."), $uiElements->nomenclatureInst, \config\ConfAssistant::CONSORTIUM['display_name']) . "</p>";
+            echo "<p>" . sprintf(_("The following information about the IdP is stored in the %s DB and %s DB:"), \config\Master::CONFIG['APPEARANCE']['productname'], \config\ConfAssistant::CONSORTIUM['display_name']) . "</p>";
+            echo "<table><tr><td>" . sprintf(_("Information in <strong>%s Database</strong>"), \config\Master::CONFIG['APPEARANCE']['productname']) . "</td><td>" . sprintf(_("Information in <strong>%s Database</strong>"), \config\ConfAssistant::CONSORTIUM['display_name']) . "</td></tr>";
             echo "<tr><td>";
             // left-hand side: CAT DB
             echo "<table>";
@@ -125,7 +125,7 @@ if (isset($_POST['submitbutton'])) {
             // right-hand side: external DB
             $externalid = $my_inst->getExternalDBId();
             if (is_bool($externalid)) { // we are in SYNCED state so this cannot happen
-                throw new Exception("We are in SYNCSTATE_SYNCED but still there is no external DB Id available for the " . \config\ConfAssistant::CONFIG['CONSORTIUM']['nomenclature_institution'] . "!");
+                throw new Exception("We are in SYNCSTATE_SYNCED but still there is no external DB Id available for the " . \config\ConfAssistant::CONSORTIUM['nomenclature_institution'] . "!");
             }
 
             $extinfo = $cat->getExternalDBEntityDetails($externalid);
@@ -146,14 +146,14 @@ if (isset($_POST['submitbutton'])) {
             break;
         case \core\IdP::EXTERNAL_DB_SYNCSTATE_NOT_SYNCED:
             $temparray = [];
-            printf(_("This %s is not yet linked to the %s database."), $uiElements->nomenclatureInst, \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']) . " ";
+            printf(_("This %s is not yet linked to the %s database."), $uiElements->nomenclatureInst, \config\ConfAssistant::CONSORTIUM['display_name']) . " ";
             echo "<strong>" . _("This means that its profiles are not made available on the user download page.") . "</strong> ";
-            printf(_("You can link it to the %s database below."), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
+            printf(_("You can link it to the %s database below."), \config\ConfAssistant::CONSORTIUM['display_name']);
             $candidates = $my_inst->getExternalDBSyncCandidates($my_inst->type);
             echo "<br/><form name='form-link-inst' action='inc/manageDBLink.inc.php?inst_id=$my_inst->identifier' method='post' accept-charset='UTF-8'>";
-            printf(_("Please select an entity from the %s DB which corresponds to this CAT %s."), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], $uiElements->nomenclatureInst) . " ";
+            printf(_("Please select an entity from the %s DB which corresponds to this CAT %s."), \config\ConfAssistant::CONSORTIUM['display_name'], $uiElements->nomenclatureInst) . " ";
             if (count($candidates) > 0) {
-                printf(_("Particularly promising entries (names in CAT and %s DB are a 100%% match) are on top of the list."), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
+                printf(_("Particularly promising entries (names in CAT and %s DB are a 100%% match) are on top of the list."), \config\ConfAssistant::CONSORTIUM['display_name']);
             }
             echo "<table>";
             echo "<tr><th>" . _("Link to this entity?") . "</th><th>" . sprintf(_("%s Name"), $uiElements->nomenclatureInst) . "</th><th>" . _("Administrators") . "</th></tr>";

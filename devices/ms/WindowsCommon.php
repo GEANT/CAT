@@ -149,10 +149,10 @@ abstract class WindowsCommon extends \core\DeviceConfig {
     public function writeDeviceInfo() {
         $ssids = $this->getAttribute('internal:SSID') ?? [];
         $ssidCount = count($ssids);
-        $configList = \config\ConfAssistant::CONFIG['CONSORTIUM']['ssid'] ?? [];
+        $configList = \config\ConfAssistant::CONSORTIUM['ssid'] ?? [];
         $configCount = count($configList);
         $out = "<p>";
-        $out .= sprintf(_("%s installer will be in the form of an EXE file. It will configure %s on your device, by creating wireless network profiles.<p>When you click the download button, the installer will be saved by your browser. Copy it to the machine you want to configure and execute."), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
+        $out .= sprintf(_("%s installer will be in the form of an EXE file. It will configure %s on your device, by creating wireless network profiles.<p>When you click the download button, the installer will be saved by your browser. Copy it to the machine you want to configure and execute."), \config\ConfAssistant::CONSORTIUM['display_name'], \config\ConfAssistant::CONSORTIUM['display_name']);
         $out .= "<p>";
         if ($ssidCount > $configCount) {
             $out .= sprintf(ngettext("In addition to <strong>%s</strong> the installer will also configure access to:", "In addition to <strong>%s</strong> the installer will also configure access to the following networks:", $ssidCount - $configCount), implode(', ', $configList)) . " ";
@@ -333,8 +333,8 @@ abstract class WindowsCommon extends \core\DeviceConfig {
 ';
         }
         $fcontents .=  '
-Caption "' . $this->translateString(sprintf(WindowsCommon::sprintNsis(_("%s installer for %s")), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], $attr['general:instname'][0]), $this->codePage) . '"
-!define APPLICATION "' . $this->translateString(sprintf(WindowsCommon::sprintNsis(_("%s installer for %s")), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], $attr['general:instname'][0]), $this->codePage) . '"
+Caption "' . $this->translateString(sprintf(WindowsCommon::sprintNsis(_("%s installer for %s")), \config\ConfAssistant::CONSORTIUM['display_name'], $attr['general:instname'][0]), $this->codePage) . '"
+!define APPLICATION "' . $this->translateString(sprintf(WindowsCommon::sprintNsis(_("%s installer for %s")), \config\ConfAssistant::CONSORTIUM['display_name'], $attr['general:instname'][0]), $this->codePage) . '"
 !define VERSION "' . \core\CAT::VERSION_MAJOR . '.' . \core\CAT::VERSION_MINOR . '"
 !define INSTALLER_NAME "installer.exe"
 !define LANG "' . $this->lang . '"

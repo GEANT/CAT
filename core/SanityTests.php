@@ -734,7 +734,7 @@ class SanityTests extends CAT {
         $databaseName2 = 'USER';
         try {
             $db2 = DBConnection::handle($databaseName2);
-            if (\config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo']) && \config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+            if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
                 $res2 = $db2->exec('desc view_admin');
                 if ($res2->num_rows == $this->viewAdminCount) {
                     $this->storeTestResult(\core\common\Entity::L_OK, "The $databaseName2 database appears to be OK.");
@@ -752,7 +752,7 @@ class SanityTests extends CAT {
         if (!empty(\config\Master::CONFIG['DB'][$databaseName3])) {
             try {
                 $db3 = DBConnection::handle($databaseName3);
-                if (\config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo']) && \config\ConfAssistant::CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+                if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
                     $res3 = $db3->exec('desc view_admin');
                     if ($res3->num_rows == $this->viewAdminCount) {
                         $this->storeTestResult(\core\common\Entity::L_OK, "The $databaseName3 database appears to be OK.");

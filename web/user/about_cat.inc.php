@@ -38,8 +38,8 @@ $out = sprintf(_("<span class='edu_cat'>%s</span> is built as a cooperation plat
                  "An installer prepared for one organisation will not work for users of another one, therefore if your organisation is not on the list, you cannot use this system. ".
                  "Please contact your local administrators and try to influence them to add your %s configuration to <span class='edu_cat'>%s</span>."), 
         \config\Master::CONFIG['APPEARANCE']['productname'], 
-        \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], 
-        \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], 
+        \config\ConfAssistant::CONSORTIUM['display_name'], 
+        \config\ConfAssistant::CONSORTIUM['display_name'], 
         \config\Master::CONFIG['APPEARANCE']['productname'], 
         \config\Master::CONFIG['APPEARANCE']['productname']);
 $out .= "<p>" . sprintf(_("<span class='edu_cat'>%s</span> currently supports the following devices and EAP type combinations:"), \config\Master::CONFIG['APPEARANCE']['productname']) . "</p>";

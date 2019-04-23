@@ -52,8 +52,8 @@ class Menu {
                 'text' => _("About"), 'link' => '', 'submenu' => [
                     ['text' => sprintf(_("About %s"), \config\Master::CONFIG['APPEARANCE']['productname']),
                         'catInfo' => ['about_cat', sprintf(_("About %s"), \config\Master::CONFIG['APPEARANCE']['productname'])]],
-                    ['text' => sprintf(_("About %s"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']),
-                        'link' => \config\ConfAssistant::CONFIG['CONSORTIUM']['homepage']],
+                    ['text' => sprintf(_("About %s"), \config\ConfAssistant::CONSORTIUM['display_name']),
+                        'link' => \config\ConfAssistant::CONSORTIUM['homepage']],
                 ]],
             ['id' => 'lang',
                 'text' => _("Language"), 'submenu' => $langsArray, ],
@@ -70,8 +70,8 @@ class Menu {
                 ]],
             ['id' => 'manage',
                 'text' => _("Manage"), 'submenu' => [
-                    ['text' => sprintf(_("%s admin access"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']),
-                        'catInfo' => ['admin', sprintf(_("%s admin:<br>manage your IdP"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'])]],
+                    ['text' => sprintf(_("%s admin access"), \config\ConfAssistant::CONSORTIUM['display_name']),
+                        'catInfo' => ['admin', sprintf(_("%s admin:<br>manage your IdP"), \config\ConfAssistant::CONSORTIUM['display_name'])]],
                     ['text' => _("Become a CAT developer"),
                         'catInfo' => ['develop', _("Become a CAT developer")]],
                 ],

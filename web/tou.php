@@ -67,7 +67,7 @@ $loggerInstance->debug(4, "\n----------------------------------TOU.PHP----------
                     </td>
                     <?php
                     if (!empty(\config\Master::CONFIG['APPEARANCE']['privacy_notice_url'])) {
-                        $retval .= "<td><a href='".\config\Master::CONFIG['APPEARANCE']['privacy_notice_url']."'>" . sprintf(_("%s Privacy Notice"),\config\ConfAssistant::CONFIG['CONSORTIUM']['name']) . "</a></td>";
+                        $retval .= "<td><a href='".\config\Master::CONFIG['APPEARANCE']['privacy_notice_url']."'>" . sprintf(_("%s Privacy Notice"),\config\ConfAssistant::CONSORTIUM['name']) . "</a></td>";
                     }
                     ?>
                     <td style='padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;'>

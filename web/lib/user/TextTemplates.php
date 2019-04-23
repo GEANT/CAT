@@ -79,32 +79,32 @@ class TextTemplates extends \core\common\Entity {
      */
     public function __construct() {
         \core\common\Entity::intoThePotatoes();
-        $this->templates[WELCOME_ABOARD_PAGEHEADING] = sprintf(_("Welcome aboard the %s user community!"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
+        $this->templates[WELCOME_ABOARD_PAGEHEADING] = sprintf(_("Welcome aboard the %s user community!"), \config\ConfAssistant::CONSORTIUM['display_name']);
         $this->templates[WELCOME_ABOARD_DOWNLOAD] = _("Your download will start shortly. In case of problems with the automatic download please use this direct <a href=''>link</a>.");
         $this->templates[WELCOME_ABOARD_HEADING] = sprintf(_("Dear user from %s,"), "<span class='inst_name'></span>");
-        $this->templates[WELCOME_ABOARD_USAGE] = sprintf(_("Now that you have downloaded and installed a client configurator, all you need to do is find an %s hotspot in your vicinity and enter your user credentials (this is our fancy name for 'username and password' or 'personal certificate') - and be online!"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
+        $this->templates[WELCOME_ABOARD_USAGE] = sprintf(_("Now that you have downloaded and installed a client configurator, all you need to do is find an %s hotspot in your vicinity and enter your user credentials (this is our fancy name for 'username and password' or 'personal certificate') - and be online!"), \config\ConfAssistant::CONSORTIUM['display_name']);
         $this->templates[WELCOME_ABOARD_PROBLEMS] = sprintf(_("Should you have any problems using this service, please always contact the helpdesk of %s. They will diagnose the problem and help you out. You can reach them via the means shown above."), "<span class='inst_name'></span>");
         $this->templates[WELCOME_ABOARD_BACKTODOWNLOADS] = _("Back to downloads");
-        $this->templates[EDUROAM_WELCOME_ADVERTISING] = sprintf(_("we would like to warmly welcome you among the several million users of %s! From now on, you will be able to use internet access resources on thousands of universities, research centres and other places all over the globe. All of this completely free of charge!"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
+        $this->templates[EDUROAM_WELCOME_ADVERTISING] = sprintf(_("we would like to warmly welcome you among the several million users of %s! From now on, you will be able to use internet access resources on thousands of universities, research centres and other places all over the globe. All of this completely free of charge!"), \config\ConfAssistant::CONSORTIUM['display_name']);
         $this->templates[HEADING_TOPLEVEL_GREET] = sprintf(_("Welcome to %s"), \config\Master::CONFIG['APPEARANCE']['productname']);
-        $this->templates[HEADING_TOPLEVEL_PURPOSE] = sprintf(_("Connect your device to %s"),\config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
-        $this->templates[FRONTPAGE_ROLLER_EASY] = sprintf(_("%s installation made easy:"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
+        $this->templates[HEADING_TOPLEVEL_PURPOSE] = sprintf(_("Connect your device to %s"),\config\ConfAssistant::CONSORTIUM['display_name']);
+        $this->templates[FRONTPAGE_ROLLER_EASY] = sprintf(_("%s installation made easy:"), \config\ConfAssistant::CONSORTIUM['display_name']);
         $this->templates[FRONTPAGE_ROLLER_CUSTOMBUILT] = _("Custom built for your organisation");
-        $this->templates[FRONTPAGE_BIGDOWNLOADBUTTON] = sprintf(_("Click here to download your %s installer"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
-        $this->templates[FRONTPAGE_EDUROAM_AD] = sprintf(_("%s provides access to thousands of Wi-Fi hotspots around the world, free of charge. <a href='%s'>Learn more</a>"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], \config\ConfAssistant::CONFIG['CONSORTIUM']['homepage']);
+        $this->templates[FRONTPAGE_BIGDOWNLOADBUTTON] = sprintf(_("Click here to download your %s installer"), \config\ConfAssistant::CONSORTIUM['display_name'], \config\ConfAssistant::CONSORTIUM['display_name']);
+        $this->templates[FRONTPAGE_EDUROAM_AD] = sprintf(_("%s provides access to thousands of Wi-Fi hotspots around the world, free of charge. <a href='%s'>Learn more</a>"), \config\ConfAssistant::CONSORTIUM['display_name'], \config\ConfAssistant::CONSORTIUM['homepage']);
         $this->templates[PROFILE_SELECTION] = _("Select the user group");
         $this->templates[INSTITUTION_SELECTION] = _("select another");
         $this->templates[DOWNLOAD_CHOOSE] = _("Choose another installer to download");
         $this->templates[DOWNLOAD_ALLPLATFORMS] = _("All platforms");
-        $this->templates[DOWNLOAD_MESSAGE] = sprintf(_("Download your %s installer"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
+        $this->templates[DOWNLOAD_MESSAGE] = sprintf(_("Download your %s installer"), \config\ConfAssistant::CONSORTIUM['display_name']);
         $this->templates[DOWNLOAD_REDIRECT] = _("Your local administrator has specified a redirect to a local support page.<br>When you click <b>Continue</b> this support page will be opened in a new window/tab.");
         $this->templates[DOWNLOAD_REDIRECT_CONTINUE] = _("Continue");
-        $this->templates[FRONTPAGE_ROLLER_SIGNEDBY] = sprintf(_("Digitally signed by the organisation that coordinates %s"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
-        $this->templates[SB_GO_AWAY] = sprintf(_("You can download your %s installer via a personalised invitation link sent from your IT support. Please talk to the IT department to get this link."), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
-        $this->templates[SB_FRONTPAGE_BIGDOWNLOADBUTTON] = sprintf(_("This site provides %s installers for many organisations, click here to see if yours is on the list."), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
+        $this->templates[FRONTPAGE_ROLLER_SIGNEDBY] = sprintf(_("Digitally signed by the organisation that coordinates %s"), \config\ConfAssistant::CONSORTIUM['display_name']);
+        $this->templates[SB_GO_AWAY] = sprintf(_("You can download your %s installer via a personalised invitation link sent from your IT support. Please talk to the IT department to get this link."), \config\ConfAssistant::CONSORTIUM['display_name']);
+        $this->templates[SB_FRONTPAGE_BIGDOWNLOADBUTTON] = sprintf(_("This site provides %s installers for many organisations, click here to see if yours is on the list."), \config\ConfAssistant::CONSORTIUM['display_name']);
         $this->templates[SB_FRONTPAGE_ROLLER_CUSTOMBUILT] = _("Custom built for you");
-        if (isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['signer_name'])) {
-            $this->templates[FRONTPAGE_ROLLER_SIGNEDBY] = sprintf(_("Digitally signed by the organisation that coordinates %s: %s"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], \config\ConfAssistant::CONFIG['CONSORTIUM']['signer_name']);
+        if (isset(\config\ConfAssistant::CONSORTIUM['signer_name'])) {
+            $this->templates[FRONTPAGE_ROLLER_SIGNEDBY] = sprintf(_("Digitally signed by the organisation that coordinates %s: %s"), \config\ConfAssistant::CONSORTIUM['display_name'], \config\ConfAssistant::CONSORTIUM['signer_name']);
         }
         \core\common\Entity::outOfThePotatoes();
     }

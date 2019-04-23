@@ -223,7 +223,7 @@ class SilverbulletInvitation extends common\Entity {
      */
     public function invitationMailSubject() {
         common\Entity::intoThePotatoes();
-        $retval = sprintf(_("Your %s access is ready"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
+        $retval = sprintf(_("Your %s access is ready"), \config\ConfAssistant::CONSORTIUM['display_name']);
         common\Entity::outOfThePotatoes();
         return $retval;
     }
@@ -237,11 +237,11 @@ class SilverbulletInvitation extends common\Entity {
         common\Entity::intoThePotatoes();
         $text = _("Hello!");
         $text .= "\n\n";
-        $text .= sprintf(_("A new %s access credential has been created for you by your network administrator."), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
+        $text .= sprintf(_("A new %s access credential has been created for you by your network administrator."), \config\ConfAssistant::CONSORTIUM['display_name']);
         $text .= " ";
-        $text .= sprintf(_("Please follow the following link with the device you want to enable for %s to get a custom %s installation program just for you. You can click on the link, copy and paste it into a browser or scan the attached QR code."), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
+        $text .= sprintf(_("Please follow the following link with the device you want to enable for %s to get a custom %s installation program just for you. You can click on the link, copy and paste it into a browser or scan the attached QR code."), \config\ConfAssistant::CONSORTIUM['display_name'], \config\ConfAssistant::CONSORTIUM['display_name']);
         $text .= "\n\n" . $this->link() . "\n\n"; // gets replaced with the token value by getBody()
-        $text .= sprintf(_("Please keep this email or bookmark this link for future use. After picking up your %s installation program, you can use the same link to get status information about your %s account."), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
+        $text .= sprintf(_("Please keep this email or bookmark this link for future use. After picking up your %s installation program, you can use the same link to get status information about your %s account."), \config\ConfAssistant::CONSORTIUM['display_name'], \config\ConfAssistant::CONSORTIUM['display_name']);
         $text .= "\n\n";
         $text .= _("Regards,");
         $text .= "\n\n";
@@ -292,7 +292,7 @@ class SilverbulletInvitation extends common\Entity {
      */
     public function sendBySms($number) {
         common\Entity::intoThePotatoes();
-        $text = sprintf(_("Your %s access is ready! Click here: %s (on Android, first install the app '%s'!)"), \config\ConfAssistant::CONFIG['CONSORTIUM']['name'], $this->link(), "eduroam CAT");
+        $text = sprintf(_("Your %s access is ready! Click here: %s (on Android, first install the app '%s'!)"), \config\ConfAssistant::CONSORTIUM['name'], $this->link(), "eduroam CAT");
         common\Entity::outOfThePotatoes();
         return \core\common\OutsideComm::sendSMS($number, $text);
     }

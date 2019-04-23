@@ -96,9 +96,9 @@ $my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
 
 $ssids = [];
 
-if (isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['ssid']) && count(\config\ConfAssistant::CONFIG['CONSORTIUM']['ssid']) > 0) {
-    foreach (\config\ConfAssistant::CONFIG['CONSORTIUM']['ssid'] as $ssidname) {
-        $ssids[] = $ssidname . " " . (isset(\config\ConfAssistant::CONFIG['CONSORTIUM']['tkipsupport']) && \config\ConfAssistant::CONFIG['CONSORTIUM']['tkipsupport'] === TRUE ? _("(WPA2/AES and WPA/TKIP)") : _("(WPA2/AES)") );
+if (isset(\config\ConfAssistant::CONSORTIUM['ssid']) && count(\config\ConfAssistant::CONSORTIUM['ssid']) > 0) {
+    foreach (\config\ConfAssistant::CONSORTIUM['ssid'] as $ssidname) {
+        $ssids[] = $ssidname . " " . (isset(\config\ConfAssistant::CONSORTIUM['tkipsupport']) && \config\ConfAssistant::CONSORTIUM['tkipsupport'] === TRUE ? _("(WPA2/AES and WPA/TKIP)") : _("(WPA2/AES)") );
     }
 }
 

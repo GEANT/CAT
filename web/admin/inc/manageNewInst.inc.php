@@ -57,8 +57,8 @@ $feds = $user->getAttributes("user:fedadmin");
 <?php
 echo sprintf(_("On this page, you can add a new %s to your %s. Please fill out the form below to send out an email invitation to the new %s administrator."), $uiElements->nomenclatureInst, $uiElements->nomenclatureFed, $uiElements->nomenclatureInst);
 if (\config\Master::CONFIG['DB']['enforce-external-sync']) {
-    echo "<p>" . sprintf(_("You can either register a known %s (as defined in the %s database) or create a totally new %s."), $uiElements->nomenclatureInst, \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], $uiElements->nomenclatureInst) . "</p>";
-    echo "<p>" . sprintf(_("The latter one is typically for an %s which is yet in a testing phase and therefore doesn't appear in the %s database yet."), $uiElements->nomenclatureInst, \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']) . "</p>";    
+    echo "<p>" . sprintf(_("You can either register a known %s (as defined in the %s database) or create a totally new %s."), $uiElements->nomenclatureInst, \config\ConfAssistant::CONSORTIUM['display_name'], $uiElements->nomenclatureInst) . "</p>";
+    echo "<p>" . sprintf(_("The latter one is typically for an %s which is yet in a testing phase and therefore doesn't appear in the %s database yet."), $uiElements->nomenclatureInst, \config\ConfAssistant::CONSORTIUM['display_name']) . "</p>";    
 }
 ?>
 <hr/>

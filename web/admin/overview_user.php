@@ -78,7 +78,7 @@ require_once "inc/click_button_js.php";
     <?php
     $hasInst = $instMgmt->listInstitutionsByAdmin($_SESSION['user']);
 
-    if (\config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == 'eduroam') {
+    if (\config\ConfAssistant::CONSORTIUM['name'] == 'eduroam') {
         $target = "https://wiki.geant.org/x/SwB_AQ"; // CAT manual, outdated
         if (\config\Master::CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
             $target = "https://wiki.geant.org/x/SSNwBg"; // Managed IdP manual
@@ -200,7 +200,7 @@ require_once "inc/click_button_js.php";
             echo "</td><td>"; // danger zone 
             ?>
             <form action='edit_participant_result.php?inst_id=<?php echo $the_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                <button class='delete' type='submit' name='submitbutton' value='<?php echo \web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( \config\ConfAssistant::CONFIG['CONSORTIUM']['selfservice_registration'] === NULL ? sprintf(_("After deleting the %s, you can not recreate it yourself - you need a new invitation token from the %s administrator!"), $uiElements->nomenclatureInst, $uiElements->nomenclatureFed) . " " : "" ) . sprintf(_("Do you really want to delete your %s %s?"), $uiElements->nomenclatureParticipant, $my_inst->name); ?>')"><?php echo sprintf(_("Delete %s"), $uiElements->nomenclatureParticipant); ?></button>
+                <button class='delete' type='submit' name='submitbutton' value='<?php echo \web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( \config\ConfAssistant::CONSORTIUM['selfservice_registration'] === NULL ? sprintf(_("After deleting the %s, you can not recreate it yourself - you need a new invitation token from the %s administrator!"), $uiElements->nomenclatureInst, $uiElements->nomenclatureFed) . " " : "" ) . sprintf(_("Do you really want to delete your %s %s?"), $uiElements->nomenclatureParticipant, $my_inst->name); ?>')"><?php echo sprintf(_("Delete %s"), $uiElements->nomenclatureParticipant); ?></button>
             </form>
             <form action='edit_participant_result.php?inst_id=<?php echo $the_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
                 <button class='delete' type='submit' name='submitbutton' value='<?php echo \web\lib\common\FormElements::BUTTON_FLUSH_AND_RESTART; ?>' onclick="return confirm('<?php echo sprintf(_("This action will delete all properties of the %s and start over the configuration from scratch. Do you really want to reset all settings of the %s %s?"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureParticipant, $my_inst->name); ?>')"><?php echo sprintf(_("Reset all %s settings"), $uiElements->nomenclatureParticipant); ?></button>
@@ -214,7 +214,7 @@ require_once "inc/click_button_js.php";
     echo "<h2>" . sprintf(_("You are not managing any %s."), $uiElements->nomenclatureInst) . "</h2>";
 }
 if (\config\Master::CONFIG['DB']['INST']['readonly'] === FALSE) {
-    if (\config\ConfAssistant::CONFIG['CONSORTIUM']['selfservice_registration'] === NULL) {
+    if (\config\ConfAssistant::CONSORTIUM['selfservice_registration'] === NULL) {
         echo "<p>" . sprintf(_("Please ask your %s administrator to invite you to become an %s administrator."), $uiElements->nomenclatureFed, $uiElements->nomenclatureParticipant) . "</p>";
         echo "<hr/>
              <div style='white-space: nowrap;'>

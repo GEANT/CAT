@@ -152,7 +152,7 @@ class DeviceW8W10 extends WindowsCommon {
         $retval = '<Hotspot2>';
         $retval .= '<DomainName>';
         if (empty($this->attributes['internal:realm'][0])) {
-            $retval .= \config\ConfAssistant::CONFIG['CONSORTIUM']['interworking-domainname-fallback'];
+            $retval .= \config\ConfAssistant::CONSORTIUM['interworking-domainname-fallback'];
         } else {
             $retval .= $this->attributes['internal:realm'][0];
         }

@@ -162,19 +162,19 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
      */
     private function generalPayload() {
         \core\common\Entity::intoThePotatoes();
-        $tagline = sprintf(_("Network configuration profile '%s' of '%s' - provided by %s"), htmlspecialchars($this->profileName, ENT_XML1, 'UTF-8'), htmlspecialchars($this->instName, ENT_XML1, 'UTF-8'), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
+        $tagline = sprintf(_("Network configuration profile '%s' of '%s' - provided by %s"), htmlspecialchars($this->profileName, ENT_XML1, 'UTF-8'), htmlspecialchars($this->instName, ENT_XML1, 'UTF-8'), \config\ConfAssistant::CONSORTIUM['display_name']);
 
         $eapType = $this->selectedEap;
         // simpler message for silverbullet
         if ($eapType['INNER'] == \core\common\EAP::NE_SILVERBULLET) {
-            $tagline = sprintf(_("%s configuration for IdP '%s' - provided by %s"), \core\ProfileSilverbullet::PRODUCTNAME, htmlspecialchars($this->instName, ENT_XML1, 'UTF-8'), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
+            $tagline = sprintf(_("%s configuration for IdP '%s' - provided by %s"), \core\ProfileSilverbullet::PRODUCTNAME, htmlspecialchars($this->instName, ENT_XML1, 'UTF-8'), \config\ConfAssistant::CONSORTIUM['display_name']);
         }
 
         $retval = "
       <key>PayloadDescription</key>
          <string>$tagline</string>
       <key>PayloadDisplayName</key>
-         <string>" . \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'] . "</string>
+         <string>" . \config\ConfAssistant::CONSORTIUM['display_name'] . "</string>
       <key>PayloadIdentifier</key>
          <string>" . self::IPHONE_PAYLOAD_PREFIX . ".$this->massagedConsortium.$this->massagedCountry.$this->massagedInst.$this->massagedProfile.$this->lang</string>
       <key>PayloadOrganization</key>
@@ -253,7 +253,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
         $this->massagedInst = $this->massageName($this->instName);
         $this->massagedProfile = $this->massageName($this->profileName);
         $this->massagedCountry = $this->massageName($this->attributes['internal:country'][0]);
-        $this->massagedConsortium = $this->massageName(\config\ConfAssistant::CONFIG['CONSORTIUM']['name']);
+        $this->massagedConsortium = $this->massageName(\config\ConfAssistant::CONSORTIUM['name']);
         $this->lang = preg_replace('/\..+/', '', setlocale(LC_ALL, "0"));
 
         $eapType = $this->selectedEap;
@@ -327,7 +327,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
         $out .= "</li>";
         $out .= "<li>" . _("to enter the username and password you have been given by your organisation");
         if ($ssidCount > 1) {
-            $out .= " " . sprintf(_("(%d times each, because %s is installed for %d SSIDs)"), $ssidCount, \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], $ssidCount);
+            $out .= " " . sprintf(_("(%d times each, because %s is installed for %d SSIDs)"), $ssidCount, \config\ConfAssistant::CONSORTIUM['display_name'], $ssidCount);
         }
         $out .= "</li>";
         $out .= "</ul>";
@@ -364,7 +364,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
                <key>ServiceProviderRoamingEnabled</key>
                <true/>
                <key>DisplayedOperatorName</key>
-               <string>" . \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'] . " via Passpoint</string>";
+               <string>" . \config\ConfAssistant::CONSORTIUM['display_name'] . " via Passpoint</string>";
         // if we don't know the realm, omit the entire DomainName key
         if (isset($this->attributes['internal:realm'])) {
             $retval .= "<key>DomainName</key>
@@ -391,7 +391,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
         // tests from Hideaki suggest it's better not to set it; if Roaming
         // consortium OI and NAIRealmNames are both set, connecting to a hotspot
         // with just RCOI does not work
-        /* if (\config\ConfAssistant::CONFIG['CONSORTIUM']['name'] == "eduroam") {
+        /* if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam") {
             $retval .= "<key>NAIRealmNames</key>
                 <array>
                     <string>eduroam.org</string>
@@ -504,7 +504,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
                 $escapedSSID = htmlspecialchars($toBeConfigured, ENT_XML1, 'UTF-8');
                 $payloadIdentifier = "wifi." . $this->serial;
                 $payloadShortName = sprintf(_("SSID %s"), $escapedSSID);
-                $payloadName = sprintf(_("%s configuration for network name %s"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name'], $escapedSSID);
+                $payloadName = sprintf(_("%s configuration for network name %s"), \config\ConfAssistant::CONSORTIUM['display_name'], $escapedSSID);
                 $encryptionTypeString = "WPA";
                 $setupModesString = "";
                 $wifiNetworkIdentification = "<key>SSID_STR</key>
@@ -516,7 +516,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
                 }
                 $payloadIdentifier = "firstactiveethernet";
                 $payloadShortName = _("Wired Network");
-                $payloadName = sprintf(_("%s configuration for wired network"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
+                $payloadName = sprintf(_("%s configuration for wired network"), \config\ConfAssistant::CONSORTIUM['display_name']);
                 $encryptionTypeString = "any";
                 $setupModesString = "
                <key>SetupModes</key>
@@ -531,7 +531,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
                 }
                 $payloadIdentifier = "hs20";
                 $payloadShortName = _("Hotspot 2.0 Settings");
-                $payloadName = sprintf(_("%s Hotspot 2.0 configuration"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']);
+                $payloadName = sprintf(_("%s Hotspot 2.0 configuration"), \config\ConfAssistant::CONSORTIUM['display_name']);
                 $encryptionTypeString = "WPA";
                 $setupModesString = "";
                 $wifiNetworkIdentification = $this->passPointBlock($toBeConfigured);
@@ -595,7 +595,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
 	<key>IsHotspot</key>
 	<false/>
 	<key>PayloadDescription</key>
-	<string>" . sprintf(_("This SSID should not be used after bootstrapping %s"), \config\ConfAssistant::CONFIG['CONSORTIUM']['display_name']) . "</string>
+	<string>" . sprintf(_("This SSID should not be used after bootstrapping %s"), \config\ConfAssistant::CONSORTIUM['display_name']) . "</string>
 	<key>PayloadDisplayName</key>
 	<string>" . _("Disabled WiFi network") . "</string>
 	<key>PayloadIdentifier</key>

@@ -118,7 +118,7 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
                     $soapReqnum, [
                 "RaID" => CertificationAuthorityEduPki::EDUPKI_RA_ID,
                 "Role" => CertificationAuthorityEduPki::EDUPKI_CERT_PROFILE,
-                "Subject" => "DC=eduroam,DC=test,DC=test,C=" . $csr["FED"] . ",O=" . \config\ConfAssistant::CONFIG['CONSORTIUM']['name'] . ",OU=" . $csr["FED"] . ",CN=" . $csr['USERNAME'] . ",emailAddress=" . $csr['USERNAME'],
+                "Subject" => "DC=eduroam,DC=test,DC=test,C=" . $csr["FED"] . ",O=" . \config\ConfAssistant::CONSORTIUM['name'] . ",OU=" . $csr["FED"] . ",CN=" . $csr['USERNAME'] . ",emailAddress=" . $csr['USERNAME'],
                 "SubjectAltNames" => ["email:" . $csr["USERNAME"]],
                 "NotBefore" => (new \DateTime())->format('c'),
                 "NotAfter" => $expiry->format('c'),
@@ -380,7 +380,7 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
         openssl_pkey_export($privateKey, $outstring);
         file_put_contents($tempdir . "/pkey.pem", $outstring);
         // PHP can only do one DC in the Subject. But we need three.
-        $execCmd = \config\Master::CONFIG['PATHS']['openssl'] . " req -new -sha256 -key $tempdir/pkey.pem -out $tempdir/request.csr -subj /DC=test/DC=test/DC=eduroam/C=$fed/O=" . \config\ConfAssistant::CONFIG['CONSORTIUM']['name'] . "/OU=$fed/CN=$username/emailAddress=$username";
+        $execCmd = \config\Master::CONFIG['PATHS']['openssl'] . " req -new -sha256 -key $tempdir/pkey.pem -out $tempdir/request.csr -subj /DC=test/DC=test/DC=eduroam/C=$fed/O=" . \config\ConfAssistant::CONSORTIUM['name'] . "/OU=$fed/CN=$username/emailAddress=$username";
         $this->loggerInstance->debug(2, "Calling openssl req with following cmdline: $execCmd\n");
         $output = [];
         $return = 999;

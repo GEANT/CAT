@@ -44,7 +44,7 @@ if (!isset($_GET['token'])) {
     $elements->errorPage(_("Error creating new IdP binding!"),_("This page needs to be called with a valid invitation token!"));
 }
 
-if (\config\ConfAssistant::CONFIG['CONSORTIUM']['selfservice_registration'] === NULL && $_GET['token'] == "SELF-REGISTER") {
+if (\config\ConfAssistant::CONSORTIUM['selfservice_registration'] === NULL && $_GET['token'] == "SELF-REGISTER") {
     $elements->errorPage(_("Error creating new IdP binding!"),_("You tried to register in self-service, but this deployment does not allow self-service!"));
 }
 
@@ -52,7 +52,7 @@ switch ($_GET['token']) {
     case "SELF-REGISTER":
         $token = "SELF-REGISTER";
         $checkval = \core\UserManagement::TOKENSTATUS_OK_NEW;
-        $federation = \config\ConfAssistant::CONFIG['CONSORTIUM']['selfservice_registration'];
+        $federation = \config\ConfAssistant::CONSORTIUM['selfservice_registration'];
         break;
     default:
         $token = $validator->token(filter_input(INPUT_GET,'token',FILTER_SANITIZE_STRING));
