@@ -208,9 +208,7 @@ build:
                       echo "<?php 
                       namespace config;
                       class ConfAssistant {
-                      const CONFIG = 
-                      [
-                      'CONSORTIUM' => [
+                      const CONSORTIUM = [
                       'name' => 'eduroam',
                       'display_name' => 'eduroam®',
                       'nomenclature_federation' => 'National Roaming Operator',
@@ -220,7 +218,8 @@ build:
                       'nomenclature_participant' => 'Customer',
                       'ssid' => [ 'eduroam' ],
                       'registration_API_keys' => [ 'iabcd' => 'LU' ],
-                      ],
+                      ];
+                      const CONFIG = [
                       'SILVERBULLET' => [
                       'documentation' => 'https://wiki.geant.org/pages/viewpage.action?pageId=66650390',
                       ],
