@@ -89,7 +89,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     $blacklistEntries = $my_profile->getAttributes("device-specific:redirect");
     $blacklisted = FALSE;
     foreach ($blacklistEntries as $oneEntry) {
-        if ($oneEntry['device'] === NULL) { // don't act on device-level redirects
+        if (!isset($oneEntry['device']) || $oneEntry['device'] === NULL) { // don't act on device-level redirects
             $blacklisted = $oneEntry['value'];
         }
     }
@@ -399,7 +399,7 @@ foreach ($optionsAlreadySet as $optionNames) {
         $support_text .= "<li><strong>" . $uiElements->displayName($optionNames) . "</strong></li>";
     }
     if (preg_match("/^media:/", $optionNames)) {
-        $has_media_options[$$optionNames] = "SET";
+        $has_media_options[$optionNames] = "SET";
         $media_text .= "<li><strong>" . $uiElements->displayName($optionNames) . "</strong></li>";
     }
 }
