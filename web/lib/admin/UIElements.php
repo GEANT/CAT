@@ -288,23 +288,18 @@ class UIElements extends \core\common\Entity {
 
     /**
      * 
-     * @param string  $ref         the database reference string
+     * @param string  $table       the database table
+     * @param integer $rowindex    the database row
      * @param boolean $checkpublic should we check if the requested piece of data is public?
      * @return string|boolean the requested data, or FALSE if something went wrong
      */
-    public static function getBlobFromDB($ref, $checkpublic) {
+    public static function getBlobFromDB($table, $rowindex, $checkpublic) {
         $validator = new \web\lib\common\InputValidation();
-        $reference = $validator->databaseReference($ref);
-
-        if ($reference === FALSE) {
-            return FALSE;
-        }
-
         // the data is either public (just give it away) or not; in this case, only
         // release if the data belongs to admin himself
         if ($checkpublic) {
 
-            $owners = \core\EntityWithDBProperties::isDataRestricted($reference["table"], $reference["rowindex"]);
+            $owners = \core\EntityWithDBProperties::isDataRestricted($table, $rowindex);
 
             $ownersCondensed = [];
 
@@ -327,21 +322,8 @@ class UIElements extends \core\common\Entity {
             }
         }
 
-        $blob = \core\EntityWithDBProperties::fetchRawDataByIndex($reference["table"], $reference["rowindex"]);
+        $blob = \core\EntityWithDBProperties::fetchRawDataByIndex($table, $rowindex);
         return $blob; // this means we might return FALSE here if something was wrong with the original requested reference
-    }
-
-    /**
-     * 
-     * @param string $reference a reference pointer to a database entry
-     * @return void
-     * @throws Exception
-     */
-    private function checkROWIDpresence($reference) {
-        $found = preg_match("/^ROWID-.*/", $reference);
-        if ($found != 1) { // get excited on not-found AND on execution error
-            throw new Exception("Error, ROWID expected.");
-        }
     }
 
     /**
@@ -352,8 +334,9 @@ class UIElements extends \core\common\Entity {
      */
     public function previewCAinHTML($cAReference) {
         \core\common\Entity::intoThePotatoes();
-        $this->checkROWIDpresence($cAReference);
-        $rawResult = UIElements::getBlobFromDB($cAReference, FALSE);
+        $validator = new \web\lib\common\InputValidation();
+        $ref = $validator->databaseReference($cAReference);
+        $rawResult = UIElements::getBlobFromDB($ref['table'], $ref['rowindex'], FALSE);
         if (is_bool($rawResult)) { // we didn't actually get a CA!
             $retval = "<div class='ca-summary'>" . _("There was an error while retrieving the certificate from the database!") . "</div>";
             \core\common\Entity::outOfThePotatoes();
@@ -390,7 +373,6 @@ class UIElements extends \core\common\Entity {
      */
     public function previewImageinHTML($imageReference) {
         \core\common\Entity::intoThePotatoes();
-        $this->checkROWIDpresence($imageReference);
         $retval = "<img style='max-width:150px' src='inc/filepreview.php?id=" . $imageReference . "' alt='" . _("Preview of logo file") . "'/>";
         \core\common\Entity::outOfThePotatoes();
         return $retval;
@@ -404,8 +386,9 @@ class UIElements extends \core\common\Entity {
      */
     public function previewInfoFileinHTML($fileReference) {
         \core\common\Entity::intoThePotatoes();
-        $this->checkROWIDpresence($fileReference);
-        $fileBlob = UIElements::getBlobFromDB($fileReference, FALSE);
+        $validator = new \web\lib\common\InputValidation();
+        $ref = $validator->databaseReference($fileReference);
+        $fileBlob = UIElements::getBlobFromDB($ref['table'], $ref['rowindex'], FALSE);
         if (is_bool($fileBlob)) { // we didn't actually get a file!
             $retval = "<div class='ca-summary'>" . _("There was an error while retrieving the file from the database!") . "</div>";
             \core\common\Entity::outOfThePotatoes();

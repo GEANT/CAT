@@ -25,9 +25,11 @@
 require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
 
 $validator = new \web\lib\common\InputValidation();
-if (isset($_GET["id"]) && $validator->databaseReference($_GET["id"])) {
+$idRaw = $_GET["id"] ?? "";
+$id = $validator->databaseReference($idRaw);
+if ($id !== FALSE) {
     // check if data is public for this blob call
-    $blob = \web\lib\admin\UIElements::getBlobFromDB($id, TRUE);
+    $blob = \web\lib\admin\UIElements::getBlobFromDB($id['table'], $id['rowindex'], TRUE);
     if (is_bool($blob)) {
         echo "No valid ID";
     }
