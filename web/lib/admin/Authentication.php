@@ -30,6 +30,9 @@ use Exception;
  */
 class Authentication extends \core\common\Entity {
 
+    /**
+     * initialise ourselves, and simpleSAMLphp
+     */
     public function __construct() {
         parent::__construct();
         include_once \config\Master::AUTHENTICATION['ssp-path-to-autoloader'];
