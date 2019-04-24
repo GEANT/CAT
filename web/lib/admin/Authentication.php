@@ -23,8 +23,6 @@ namespace web\lib\admin;
 
 use Exception;
 
-require_once \config\Master::AUTHENTICATION['ssp-path-to-autoloader'];
-
 /**
  * This class handles admin user authentication.
  * 
@@ -32,6 +30,10 @@ require_once \config\Master::AUTHENTICATION['ssp-path-to-autoloader'];
  */
 class Authentication extends \core\common\Entity {
 
+    public function __construct() {
+        parent::__construct();
+        include_once \config\Master::AUTHENTICATION['ssp-path-to-autoloader'];
+    }
     /**
      * finds out whether the user is already authenticated. Does not trigger an authentication if not.
      *
