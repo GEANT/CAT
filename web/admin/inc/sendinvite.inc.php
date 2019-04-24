@@ -58,16 +58,42 @@ const OPERATION_MODE_NEWUNLINKED = 3;
 
 $operationMode = OPERATION_MODE_INVALID;
 
+// filter all input to make Scrutinizer unnecessarily happy
+
 // what did we actually get?
 if (isset($_GET['inst_id'])) {
     $operationMode = OPERATION_MODE_EDIT;
 }
 
-if (isset($_POST['creation']) && $_POST['creation'] == "new" && isset($_POST['name']) && isset($_POST['country'])) {
+if (isset($_POST['creation'])) {
+    $filteredCreation = filter_input(INPUT_POST, 'creation', FILTER_SANITIZE_STRING);
+} else {
+    $filteredCreation = NULL;
+}
+
+if (isset($_POST['name'])) {
+    $filteredName = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+} else {
+    $filteredName = NULL;
+}
+
+if (isset($_POST['country'])) {
+    $filteredCountry = filter_input(INPUT_POST, 'country', FILTER_SANITIZE_STRING);
+} else {
+    $filteredCountry = NULL;
+}
+
+if (isset($_POST['externals'])) {
+    $filteredExternals = filter_input(INPUT_POST, 'externals', FILTER_SANITIZE_STRING);
+} else {
+    $filteredExternals = NULL;
+}
+
+if ($filteredCreation == "new" && $filteredName !== NULL && $filteredCountry !== NULL) {
     $operationMode = OPERATION_MODE_NEWUNLINKED;
 }
 
-if (isset($_POST['creation']) && ($_POST['creation'] == "existing") && isset($_POST['externals']) && ($_POST['externals'] != "FREETEXT")) {
+if ($filteredCreation == "existing" && $filteredExternals !== NULL && $filteredExternals != "FREETEXT") {
     $operationMode = OPERATION_MODE_NEWFROMDB;
 }
 
