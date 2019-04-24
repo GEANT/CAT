@@ -410,22 +410,9 @@ Best regards,
         }
 
         if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-            $eduroamDb = new ExternalEduroamDBData();
+            $externalDB = CAT::determineExternalConnection();
             // need to convert our internal notion of participant types to those of eduroam DB
-            $eduroamDbType = NULL; // anything
-            switch ($type) {
-                case IdP::TYPE_IDP:
-                    $eduroamDbType = ExternalEduroamDBData::TYPE_IDP;
-                    break;
-                case IdP::TYPE_IDPSP:
-                    $eduroamDbType = ExternalEduroamDBData::TYPE_IDPSP;
-                    break;
-                case IdP::TYPE_SP:
-                    $eduroamDbType = ExternalEduroamDBData::TYPE_SP;
-                    break;
-                default:
-            }
-            $allExternals = $eduroamDb->listExternalEntities($this->tld, $eduroamDbType);
+            $allExternals = $externalDB->listExternalEntities($this->tld, $type);
         }
         foreach ($allExternals as $oneExternal) {
             if (!in_array($oneExternal["ID"], $usedarray)) {

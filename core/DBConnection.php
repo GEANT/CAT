@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -98,7 +99,7 @@ class DBConnection {
     public function exec($querystring, $types = NULL, &...$arguments) {
         // log exact query to audit log, if it's not a SELECT
         $isMoreThanSelect = FALSE;
-        if (preg_match("/^SELECT/i", $querystring) == 0 && preg_match("/^DESC/i", $querystring) == 0) {
+        if (preg_match("/^(SELECT\ |SET\ )/i", $querystring) == 0 && preg_match("/^DESC/i", $querystring) == 0) {
             $isMoreThanSelect = TRUE;
             if ($this->readOnly) { // let's not do this.
                 throw new Exception("This is a read-only DB connection, but this is statement is not a SELECT!");
@@ -250,10 +251,6 @@ class DBConnection {
         $this->connection = new \mysqli(\config\Master::DB[$databaseCapitalised]['host'], \config\Master::DB[$databaseCapitalised]['user'], \config\Master::DB[$databaseCapitalised]['pass'], \config\Master::DB[$databaseCapitalised]['db']);
         if ($this->connection->connect_error) {
             throw new Exception("ERROR: Unable to connect to $database database! This is a fatal error, giving up (error number " . $this->connection->connect_errno . ").");
-        }
-
-        if ($databaseCapitalised == "EXTERNAL" && \config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") {
-            $this->connection->query("SET NAMES 'latin1'");
         }
         $this->readOnly = \config\Master::DB[$databaseCapitalised]['readonly'];
     }

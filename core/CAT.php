@@ -600,5 +600,17 @@ class CAT extends \core\common\Entity {
             session_start();
         }
     }
+    
+    /**
+     * determines which external DB to use, and returns an object instance
+     * 
+     * @return \core\ExternalEduroamDBData|\core\ExternalNothing
+     */
+    public static function determineExternalConnection() {
+        if(\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") {
+            return new ExternalEduroamDBData();
+        }
+        return new ExternalNothing();
+    }
 
 }

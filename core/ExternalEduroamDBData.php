@@ -21,11 +21,10 @@
  */
 
 /**
- * This file contains the AbstractProfile class. It contains common methods for
- * both RADIUS/EAP profiles and SilverBullet profiles
+ * This file contains the ExternalEduroamDBData class. It contains methods for
+ * querying the external database.
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
- * @author Tomasz Wolniewicz <twoln@umk.pl>
  *
  * @package Developer
  *
@@ -45,7 +44,7 @@ use \Exception;
  *
  * @package Developer
  */
-class ExternalEduroamDBData extends EntityWithDBProperties {
+class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterface {
 
     /**
      * List of all service providers. Fetched only once by allServiceProviders()
@@ -56,21 +55,19 @@ class ExternalEduroamDBData extends EntityWithDBProperties {
     private $SPList = [];
 
     /**
+     * our handle to the DB
+     * 
+     * @var DBConnection
+     */
+    private $db;
+
+    /**
      * constructor, gives us access to the DB handle we need for queries
      */
     public function __construct() {
-        $this->databaseType = "EXTERNAL";
         parent::__construct();
-    }
-
-    /**
-     * we don't write anything to the external DB, so no need to track update
-     * timestamps
-     * 
-     * @return void
-     */
-    public function updateFreshness() {
-        
+        $this->db = DBConnection::handle("EXTERNAL");
+        $this->db->exec("SET NAMES 'latin1'");
     }
 
     /**
@@ -90,7 +87,8 @@ class ExternalEduroamDBData extends EntityWithDBProperties {
                 continue;
             }
             if (!preg_match('/^(..):\ (.*)/', $oneVariant, $submatches) || !isset($submatches[2])) {
-                throw new Exception("We expect 'xx: bla but found '$oneVariant'.");
+                $this->loggerInstance->debug(2, "[$nameRaw] We expect 'xx: bla but found '$oneVariant'.");
+                continue;
             }
             $returnArray[$submatches[1]] = $submatches[2];
         }
@@ -104,7 +102,7 @@ class ExternalEduroamDBData extends EntityWithDBProperties {
      */
     public function allServiceProviders() {
         if (count($this->SPList) == 0) {
-            $query = $this->databaseHandle->exec("SELECT country, inst_name, sp_location FROM view_active_SP_location_eduroamdb");
+            $query = $this->db->exec("SELECT country, inst_name, sp_location FROM view_active_SP_location_eduroamdb");
             while ($iterator = mysqli_fetch_object(/** @scrutinizer ignore-type */ $query)) {
                 $this->SPList[] = ["country" => $iterator->country, "instnames" => $this->splitNames($iterator->inst_name), "locnames" => $this->splitNames($iterator->sp_location)];
             }
@@ -115,6 +113,12 @@ class ExternalEduroamDBData extends EntityWithDBProperties {
     public const TYPE_IDPSP = "1";
     public const TYPE_SP = "2";
     public const TYPE_IDP = "3";
+    private const TYPE_MAPPING = [
+        IdP::TYPE_IDP => ExternalEduroamDBData::TYPE_IDP,
+        IdP::TYPE_IDPSP => ExternalEduroamDBData::TYPE_IDPSP,
+        IdP::TYPE_SP => ExternalEduroamDBData::TYPE_SP,
+    ];
+
     /**
      * retrieves entity information from the eduroam database. Choose whether to get all entities with an SP role, an IdP role, or only those with both roles
      * 
@@ -123,13 +127,17 @@ class ExternalEduroamDBData extends EntityWithDBProperties {
      * @return array list of entities
      */
     public function listExternalEntities($tld, $type) {
+        if ($type === NULL) {
+            $eduroamDbType = NULL;
+        } else {
+            $eduroamDbType = self::TYPE_MAPPING[$type]; // anything
+        }
         $returnarray = [];
         $query = "SELECT id_institution AS id, country, inst_realm as realmlist, name AS collapsed_name, contact AS collapsed_contact, type FROM view_active_institution WHERE country = ?";
-        if ($type !== NULL) {
-            $query .= " AND ( type = '".ExternalEduroamDBData::TYPE_IDPSP."' OR type = '".$type."')";
+        if ($eduroamDbType !== NULL) {
+            $query .= " AND ( type = '" . ExternalEduroamDBData::TYPE_IDPSP . "' OR type = '" . $eduroamDbType . "')";
         }
-        $externalHandle = DBConnection::handle("EXTERNAL");
-        $externals = $externalHandle->exec($query, "s", $tld);
+        $externals = $this->db->exec($query, "s", $tld);
         // was a SELECT query, so a resource and not a boolean
         while ($externalQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $externals)) {
             $names = $this->splitNames($externalQuery->collapsed_name);
@@ -149,7 +157,8 @@ class ExternalEduroamDBData extends EntityWithDBProperties {
                     $mailnames .= $matches[2];
                 }
             }
-            $returnarray[] = ["ID" => $externalQuery->id, "name" => $thelanguage, "contactlist" => $mailnames, "country" => $externalQuery->country, "realmlist" => $externalQuery->realmlist, "type" => $externalQuery->type];
+            $convertedType = array_search($externalQuery->type, self::TYPE_MAPPING);
+            $returnarray[] = ["ID" => $externalQuery->id, "name" => $thelanguage, "contactlist" => $mailnames, "country" => $externalQuery->country, "realmlist" => $externalQuery->realmlist, "type" => $convertedType];
         }
         usort($returnarray, array($this, "usortInstitution"));
         return $returnarray;
@@ -157,6 +166,7 @@ class ExternalEduroamDBData extends EntityWithDBProperties {
 
     /**
      * helper function to sort institutions by their name
+     * 
      * @param array $a an array with institution a's information
      * @param array $b an array with institution b's information
      * @return int the comparison result
