@@ -113,12 +113,14 @@ class IdP extends EntityWithDBProperties {
         $this->name = $this->languageInstance->getLocalisedValue($this->getAttributes('general:instname'));
         $eligibility = $this->eligibility();
         if (in_array(IdP::ELIGIBILITY_IDP, $eligibility) && in_array(IdP::ELIGIBILITY_SP, $eligibility)) {
-            $this->type = IdP::TYPE_IDPSP;
+            $eligType = IdP::TYPE_IDPSP . "";
+            $this->type = $eligType;
         } elseif (in_array(IdP::ELIGIBILITY_IDP, $eligibility)) {
-            $this->type = IdP::TYPE_IDP;
+            $eligType = IdP::TYPE_IDP . "";
         } else {
-            $this->type = IdP::TYPE_SP;
+            $eligType = IdP::TYPE_SP . "";
         }
+        $this->type = $eligType;
         $this->loggerInstance->debug(3, "--- END Constructing new IdP object ... ---\n");
     }
 
