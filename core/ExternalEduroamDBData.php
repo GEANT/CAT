@@ -78,16 +78,16 @@ class ExternalEduroamDBData extends EntityWithDBProperties {
         // the delimiter used by eduroam DB is ; but that is ALSO an allowed
         // character in payload, and in active use. We need to try and find out
         // which semicolon should NOT be considered a language delimiter...
-        $cleanName = preg_replace('/;\[/', '##DBLIMIT##[', $nameRaw);
-        $variants = explode('##DBLIMIT##', $cleanName);
+        $variants = explode('#', $nameRaw);
         $submatches = [];
         $returnArray = [];
         foreach ($variants as $oneVariant) {
             if ($oneVariant == NULL) {
                 return [];
             }
-            if (!preg_match('/^\[(.*)\]\ (.*)/', $oneVariant, $submatches) || !isset($submatches[2])) {
-                throw new Exception("We expect '[CC] bla but found '$oneVariant'.");
+            if (!preg_match('/^(..)\:\ (.*)/', $oneVariant, $submatches) || !isset($submatches[2])) {
+                $this->loggerInstance->debug(2,"[$nameRaw] We expect 'en: bla but found '$oneVariant'.");
+                continue;
             }
             $returnArray[$submatches[1]] = $submatches[2];
         }
