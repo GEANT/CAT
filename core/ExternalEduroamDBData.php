@@ -47,7 +47,7 @@ use \Exception;
  */
 class ExternalEduroamDBData extends EntityWithDBProperties {
 
-    private $counter = -1;
+    private $SPList = [];
 
     /**
      * constructor, gives us access to the DB handle we need for queries
@@ -100,13 +100,13 @@ class ExternalEduroamDBData extends EntityWithDBProperties {
      * @return array list of providers
      */
     public function allServiceProviders() {
-        if ($this->counter == -1) {
-            $query = $this->databaseHandle->exec("SELECT count(*) AS total FROM view_active_SP_location_eduroamdb");
+        if (count($this->SPList) == 0) {
+            $query = $this->databaseHandle->exec("SELECT country, inst_name, sp_location FROM view_active_SP_location_eduroamdb");
             while ($iterator = mysqli_fetch_object(/** @scrutinizer ignore-type */ $query)) {
-                $this->counter = $iterator->total;
+                $this->SPList[] = ["country" => $iterator->country, "instnames" => $this->splitNames($iterator->inst_name), "locnames" => $this->splitNames($iterator->sp_location)];
             }
         }
-        return $this->counter;
+        return $this->SPList;
     }
 
 }
