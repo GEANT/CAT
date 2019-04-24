@@ -51,8 +51,6 @@ class ExternalNothing implements ExternalLinkInterface {
      * constructor, gives us access to the DB handle we need for queries
      */
     public function __construct() {
-        $this->databaseType = "EXTERNAL";
-        parent::__construct();
     }
 
     /**
@@ -72,6 +70,8 @@ class ExternalNothing implements ExternalLinkInterface {
      * @return array list of entities
      */
     public function listExternalEntities($tld, $type) {
+        unset($tld); // not needed
+        unset($type); // not needed
         return [];
     }
 

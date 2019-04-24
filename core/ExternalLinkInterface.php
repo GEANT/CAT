@@ -51,7 +51,7 @@ interface ExternalLinkInterface {
     /**
      * enumerates all participating entities in the external DB
      * 
-     * @param string $tld the country to list
+     * @param string $tld  the country to list
      * @param string $type the type to list (see IdP TYPE_ constants)
      * 
      * @return array
