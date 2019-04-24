@@ -105,8 +105,9 @@ class PageDecoration extends \core\common\Entity {
         $retval .= "</select>";
 
         foreach ($_GET as $getVar => $getValue) {
+            $filterValue = filter_input(INPUT_GET, $getVar, FILTER_SANITIZE_STRING);
             if ($getVar != "lang" && $getValue != "") {
-                $retval .= "<input type='hidden' name='" . htmlspecialchars($getVar) . "' value='" . htmlspecialchars($getValue) . "'>";
+                $retval .= "<input type='hidden' name='" . htmlspecialchars($getVar) . "' value='" . htmlspecialchars($filterValue) . "'>";
             }
         }
         $retval .= "</form>
