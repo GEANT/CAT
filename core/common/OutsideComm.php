@@ -311,16 +311,17 @@ class OutsideComm extends Entity {
                 }
             }
         }
-
+        $productname = \config\Master::APPEARANCE['productname'];
+        $consortium = \config\ConfAssistant::CONSORTIUM['display_name'];
         $message .= wordwrap(sprintf(_("To enlist as an administrator for that %s, please click on the following link:"), Entity::$nomenclature_participant), 72) . "\n\n" .
                 $proto . $_SERVER['SERVER_NAME'] . \config\Master::PATHS['cat_base_url'] . "admin/action_enrollment.php?token=$newtoken\n\n" .
-                wordwrap(sprintf(_("If clicking the link doesn't work, you can also go to the %s Administrator Interface at"), \config\Master::APPEARANCE['productname']), 72) . "\n\n" .
+                wordwrap(sprintf(_("If clicking the link doesn't work, you can also go to the %s Administrator Interface at"), $productname), 72) . "\n\n" .
                 $proto . $_SERVER['SERVER_NAME'] . \config\Master::PATHS['cat_base_url'] . "admin/\n\n" .
                 _("and enter the invitation token") . "\n\n" .
                 $newtoken . "\n\n$replyToMessage\n\n" .
                 wordwrap(_("Do NOT forward the mail before the token has expired - or the recipients may be able to consume the token on your behalf!"), 72) . "\n\n" .
-                wordwrap(sprintf(_("We wish you a lot of fun with the %s."), \config\Master::APPEARANCE['productname']), 72) . "\n\n" .
-                sprintf(_("Sincerely,\n\nYour friendly folks from %s Operations"), \config\ConfAssistant::CONSORTIUM['display_name']);
+                wordwrap(sprintf(_("We wish you a lot of fun with the %s."), $productname), 72) . "\n\n" .
+                sprintf(_("Sincerely,\n\nYour friendly folks from %s Operations"), $consortium);
 
 
 // who to whom?
