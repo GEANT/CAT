@@ -274,7 +274,8 @@ class RADIUSTests extends AbstractTest {
             $returnarray[] = RADIUSTests::CERTPROB_MD5_SIGNATURE;
         }
         if (preg_match("/sha1/i", $intermediateCa['full_details']['signatureTypeSN'])) {
-            $returnarray[] = RADIUSTests::CERTPROB_SHA1_SIGNATURE;
+            $probValue = RADIUSTests::CERTPROB_SHA1_SIGNATURE;
+            $returnarray[] = $probValue;
         }
         $this->loggerInstance->debug(4, "CERT IS: " . print_r($intermediateCa, TRUE));
         if ($intermediateCa['basicconstraints_set'] == 0) {
