@@ -255,6 +255,9 @@ class Federation extends EntityWithDBProperties {
                 $prettyPrintType = sprintf(_("%s and %s"), common\Entity::$nomenclature_inst, common\Entity::$nomenclature_hotspot);
         }
 
+        $consortium = \config\ConfAssistant::CONSORTIUM['display_name'];
+        $productShort = \config\Master::APPEARANCE['productname'];
+        $productLong = \config\Master::APPEARANCE['productname_long'];
         // notify the fed admins...
 
         foreach ($admins as $id) {
@@ -277,11 +280,11 @@ Best regards,
 %s"), 
                     $prettyPrintType,
                     $bestnameguess,
-                    \config\ConfAssistant::CONSORTIUM['display_name'],
+                    $consortium,
                     strtoupper($this->tld),
                     common\Entity::$nomenclature_participant,
-                    \config\Master::APPEARANCE['productname'],
-                    \config\Master::APPEARANCE['productname_long']);
+                    $productShort,
+                    $productLong);
             /// organisation
             $retval = $user->sendMailToUser(sprintf(_("%s in your federation was created"), common\Entity::$nomenclature_participant), $message);
             if ($retval === FALSE) {
