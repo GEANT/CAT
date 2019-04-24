@@ -24,7 +24,7 @@ require_once "autoloader.php";
 require_once __DIR__ . "/../packageRoot.php";
 
 // enable Composer autoloader, if exists
-if (stat(__DIR__ . "/../vendor/autoload.php") !== FALSE) {
+if (file_exists(__DIR__ . "/../vendor/autoload.php") !== FALSE) {
     include_once __DIR__ . "/../vendor/autoload.php";
 }
 
