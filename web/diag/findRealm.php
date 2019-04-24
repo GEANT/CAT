@@ -35,16 +35,6 @@
  * @param string $optSalt an optional salt value
  * @return boolean
  */
-function check_my_nonce($nonce, $optSalt = '') {
-    $remote = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
-    $lasthour = date("G") - 1 < 0 ? date('Ymd') . '23' : date("YmdG") - 1;
-    if (hash_hmac('sha256', session_id() . $optSalt, date("YmdG") . '1qaz2wsx3edc!QAZ@WSX#EDC' . $remote) == $nonce ||
-            hash_hmac('sha256', session_id() . $optSalt, $lasthour . '1qaz2wsx3edc!QAZ@WSX#EDC' . $remote) == $nonce) {
-        return true;
-    } else {
-        return false;
-    }
-}
 
 require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 
@@ -53,12 +43,7 @@ CAT_session_start();
 
 $loggerInstance = new \core\common\Logging();
 $returnArray = [];
-//$headers = apache_request_headers();
-//$is_ajax = (isset($headers['X-Requested-With']) && $headers['X-Requested-With'] == 'XMLHttpRequest');
-//$nonce = filter_input(INPUT_GET, 'myNonce', FILTER_SANITIZE_STRING);
-//if (!$is_ajax || check_my_nonce($nonce, $_SESSION['current_page'])) {
-//    $loggerInstance->debug(4, 'A hostile AJAX call');
-//} else {
+
 $languageInstance = new \core\common\Language();
 $languageInstance->setTextDomain("web_user");
 $cat = new \core\CAT();
@@ -132,6 +117,7 @@ if (!empty($realmByUser)) {
 if (empty($returnArray)) {
     $returnArray['status'] = 0;
 }
-//}
+$loggerInstance->debug(2, $returnArray);
+
 echo(json_encode($returnArray));
 
