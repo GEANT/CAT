@@ -97,7 +97,7 @@ class ExternalEduroamDBData extends EntityWithDBProperties {
     /**
      * retrieves the list of all service providers from the eduroam database
      * 
-     * @return array list of providers
+     * @return integer number of providers
      */
     public function allServiceProviders() {
         if ($this->counter == -1) {
