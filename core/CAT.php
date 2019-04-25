@@ -105,21 +105,26 @@ class CAT extends \core\common\Entity {
 
         $this->catVersionString = sprintf(_("Unreleased %s Git Revision"), "<a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>") . "</a>";
         if (CAT::RELEASE_VERSION) {
-            $temp_version = "CAT-" . CAT::VERSION_MAJOR . "." . CAT::VERSION_MINOR;
-            $branch = "release_" . CAT::VERSION_MAJOR . "_" . CAT::VERSION_MINOR;
+            $major = CAT::VERSION_MAJOR;
+            $minor = CAT::VERSION_MINOR;
+            $patch = CAT::VERSION_PATCH;
+            $extra = CAT::VERSION_EXTRA;
+            $temp_version = "CAT-$major.$minor";
+            $branch = "release_$major"."_$minor";
             if (CAT::VERSION_PATCH != 0) {
-                $temp_version .= "." . CAT::VERSION_PATCH;
+                $temp_version .= ".$patch";
             }
             if (CAT::VERSION_EXTRA != "") {
-                $temp_version .= "-" . CAT::VERSION_EXTRA;
+                $temp_version .= "-$extra";
             }
             $this->catVersionString = sprintf(_("Release <a href='%s'>%s</a>"), "https://github.com/GEANT/CAT/tree/" . $branch . "/Changes.md", $temp_version);
         }
+        $product = \config\Master::APPEARANCE['productname'];
         $minYear = self::COPYRIGHT_MIN_YEAR;
         $maxYear = self::COPYRIGHT_MAX_YEAR;
         $holder = self::COPYRIGHT_HOLDER;
         $consortia = self::COPYRIGHT_CONSORTIA;
-        $this->catCopyright = \config\Master::APPEARANCE['productname'] . " - " . $this->catVersionString . " &copy; $minYear-$maxYear $holder<br/>on behalf of $consortia; and others <a href='copyright.php'>Full Copyright and Licenses</a>";
+        $this->catCopyright = "$product - " . $this->catVersionString . " &copy; $minYear-$maxYear $holder<br/>on behalf of $consortia; and others <a href='copyright.php'>Full Copyright and Licenses</a>";
 
 
         /* Federations are created in DB with bootstrapFederation, and listed via listFederations

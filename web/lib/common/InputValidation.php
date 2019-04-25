@@ -528,8 +528,8 @@ class InputValidation extends \core\common\Entity {
      * which kind of data is expected
      * 
      * @param string $varName name of the variable in GET/POST
-     * @param string $filter which type of filter to apply (safe_text / int)
-     * @return NULL|false|string the returned value
+     * @param string $filter  which type of filter to apply (safe_text / int)
+     * @return NULL|string the returned value
      */
     public function simpleInputFilter($varName, $filter) {
         $safeText = ["options" => ["regexp" => "/^[\w\d-]+$/"]];
@@ -543,6 +543,9 @@ class InputValidation extends \core\common\Entity {
             default:
                 $out = NULL;
                 break;
+        }
+        if ($out === false) { // an error occured during the filter_input runs; make this NULL instead then
+            $out = NULL;
         }
         return $out;
     }
