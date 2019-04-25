@@ -17,6 +17,10 @@
  *          <base_url>/copyright.php after deploying the software
  */
 error_reporting(E_ALL | E_STRICT);
+
+/**
+ * @var \web\lib\user\Gui
+ */
 $Gui->defaultPagePrelude();
 $Gui->languageInstance->setTextDomain("web_user");
 ?>
@@ -208,12 +212,12 @@ require dirname(__DIR__) . '/user/js/cat_js.php';
             $("#inst_name").val(idpName);
             $("#inst_name_span").html(idpName);
             $(".inst_name").text(idpName);
-            $("#inst_extra_text").html("<?php escaped_echo(sprintf(_("Your personal %s account status page"), \config\ConfAssistant::CONSORTIUM['display_name'])); ?>");
+            $("#inst_extra_text").html("<?php $Gui->javaScriptEscapedEcho(sprintf(_("Your personal %s account status page"), \config\ConfAssistant::CONSORTIUM['display_name'])); ?>");
             if (logo) {
                 $("#idp_logo").attr("src", "<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendLogo&api_version=2&idp=" + idpId);
                 $("#idp_logo").show();
             }
-            $("#user_info").html("<?php escaped_echo($supportInfo); ?>");
+            $("#user_info").html("<?php $Gui->javaScriptEscapedEcho($supportInfo); ?>");
             $("#user_info").show();
             //$("#user_page").show();
             //$("#institution_name").show();
@@ -223,7 +227,7 @@ require dirname(__DIR__) . '/user/js/cat_js.php';
             event.preventDefault();
             $("#cat_form").attr('action', '<?php echo $Gui->skinObject->findResourceUrl("BASE", "user/sb_download.php"); ?>');
             if(message != '0') {
-                var continue_text = "<?php escaped_echo(_("Continue")); ?>";
+                var continue_text = "<?php $Gui->javaScriptEscapedEcho(_("Continue")); ?>";
                 var t = message + "<br><span class='redirect_link'>"+continue_text+"</span>";
                 $("#info_g_sb").html(t);
                 $(".redirect_link").click(function(event) {
@@ -244,10 +248,10 @@ require dirname(__DIR__) . '/user/js/cat_js.php';
                 var allArray = new Array();
                 var statusCount = new Array();
 
-                allArray[<?php echo \core\SilverbulletCertificate::CERTSTATUS_VALID; ?>] = {color: "#000000", categoryText: "<?php escaped_echo(_("Current login tokens")) ?>", rows: validCerts};
-                allArray[<?php echo \core\SilverbulletCertificate::CERTSTATUS_EXPIRED; ?>] = {color: "#999999", categoryText: "<?php escaped_echo(_("Previous login tokens")) ?>", rows: expiredCerts};
-                allArray[<?php echo \core\SilverbulletCertificate::CERTSTATUS_REVOKED; ?>] = {color: "#ff0000", categoryText: "<?php escaped_echo(_("Revoked login tokens")) ?>", rows: revokedCerts};
-                var headerLine = "<tr><th><?php escaped_echo(_("Serial Number")); ?></th><th><?php escaped_echo(_("Pseudonym")); ?></th><th><?php escaped_echo(_("Device Type")); ?></th><th><?php escaped_echo(_("Issue Date")); ?></th><th><?php escaped_echo(_("Expiry Date")); ?></th></tr>";
+                allArray[<?php echo \core\SilverbulletCertificate::CERTSTATUS_VALID; ?>] = {color: "#000000", categoryText: "<?php $Gui->javaScriptEscapedEcho(_("Current login tokens")) ?>", rows: validCerts};
+                allArray[<?php echo \core\SilverbulletCertificate::CERTSTATUS_EXPIRED; ?>] = {color: "#999999", categoryText: "<?php $Gui->javaScriptEscapedEcho(_("Previous login tokens")) ?>", rows: expiredCerts};
+                allArray[<?php echo \core\SilverbulletCertificate::CERTSTATUS_REVOKED; ?>] = {color: "#ff0000", categoryText: "<?php $Gui->javaScriptEscapedEcho(_("Revoked login tokens")) ?>", rows: revokedCerts};
+                var headerLine = "<tr><th><?php $Gui->javaScriptEscapedEcho(_("Serial Number")); ?></th><th><?php $Gui->javaScriptEscapedEcho(_("Pseudonym")); ?></th><th><?php $Gui->javaScriptEscapedEcho(_("Device Type")); ?></th><th><?php $Gui->javaScriptEscapedEcho(_("Issue Date")); ?></th><th><?php $Gui->javaScriptEscapedEcho(_("Expiry Date")); ?></th></tr>";
                 $.each(allArray, function (index, value) {
                     if (value !== undefined) {
                         value.rows.push('<tr style="color:' + value.color + ';"><th class="th1" colspan="5">' + value.categoryText + '</th></tr>');
@@ -257,7 +261,7 @@ require dirname(__DIR__) . '/user/js/cat_js.php';
                 });
                 j = $.parseJSON(data);
                 if (!j.status) {
-                    alert("<?php escaped_echo(_("invalid token")); ?>");
+                    alert("<?php $Gui->javaScriptEscapedEcho(_("invalid token")); ?>");
                 }
                 j = j.data;
                 $.each(j, function (index, value) {
@@ -283,13 +287,13 @@ require dirname(__DIR__) . '/user/js/cat_js.php';
             $("#cert_details").show();
             $(this).css("cursor", "default");
             $(this).off("click");
-            $(this).html("<?php escaped_echo(_("The details are displayed below.")); ?>");
+            $(this).html("<?php $Gui->javaScriptEscapedEcho(_("The details are displayed below.")); ?>");
         });
 
         $("#cert_details").on("click", "td.revoke>a", function (event) {
             event.preventDefault();
             serial = $(this).parent().siblings().first().html();    
-            if (confirm("<?php escaped_echo(_("Really revoke this access credential?")); ?>" + serial)) {
+            if (confirm("<?php $Gui->javaScriptEscapedEcho(_("Really revoke this access credential?")); ?>" + serial)) {
                 link = "accountstatus.php?serial=" + serial + "&action=2" + "&token=" + "<?php echo $statusInfo['token']; ?>";
                 document.location = link;
             }
