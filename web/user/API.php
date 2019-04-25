@@ -48,45 +48,29 @@ const LISTOFACTIONS = [
     'getUserCerts',
 ];
 
-function getRequest($varName, $filter) {
-    $safeText = ["options"=>["regexp"=>"/^[\w\d-]+$/"]];
-    switch ($filter) {
-        case 'safe_text':
-            $out = filter_input(INPUT_GET, $varName, FILTER_VALIDATE_REGEXP, $safeText) ?? filter_input(INPUT_POST, $varName, FILTER_VALIDATE_REGEXP, $safeText);
-            break;
-        case 'int':
-            $out = filter_input(INPUT_GET, $varName, FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, $varName, FILTER_VALIDATE_INT);
-            break;
-        default:
-            $out = NULL;
-            break;
-    }
-    return $out;
-}
-
 // make sure this is a known action
-$action = getRequest('action', 'safe_text');
+$action = $validator->simpleInputFilter('action', 'safe_text');
 if (!in_array($action, LISTOFACTIONS)) {
     throw new Exception("Unknown action used.");
 }
 
-$langR = getRequest('lang', 'safe_text');
+$langR = $validator->simpleInputFilter('lang', 'safe_text');
 $lang = $langR ? $validator->supportedLanguage($langR) : FALSE;
-$deviceR = getRequest('device', 'safe_text');
+$deviceR = $validator->simpleInputFilter('device', 'safe_text');
 $device = $deviceR ? $validator->existingDevice($deviceR) : FALSE;
-$idpR = getRequest('idp', 'int');
+$idpR = $validator->simpleInputFilter('idp', 'int');
 $idp = $idpR ? $validator->existingIdP($idpR)->identifier : FALSE;
-$profileR = getRequest('profile', 'int');
+$profileR = $validator->simpleInputFilter('profile', 'int');
 $profile = $profileR ? $validator->existingProfile($profileR)->identifier : FALSE;
-$federationR = getRequest('federation', 'safe_text');
+$federationR = $validator->simpleInputFilter('federation', 'safe_text');
 $federation = $federationR ? $validator->existingFederation($federationR)->tld : FALSE;
-$disco = getRequest('disco', 'int');
-$width = getRequest('width', 'int') ?? 0;
-$height = getRequest('height', 'int') ?? 0;
-$sort = getRequest('sort', 'int') ?? 0;
-$generatedfor = getRequest('generatedfor', 'safe_text') ?? 'user';
-$token = getRequest('token', 'safe_text');
-$idR = getRequest('id', 'safe_text');
+$disco = $validator->simpleInputFilter('disco', 'int');
+$width = $validator->simpleInputFilter('width', 'int') ?? 0;
+$height = $validator->simpleInputFilter('height', 'int') ?? 0;
+$sort = $validator->simpleInputFilter('sort', 'int') ?? 0;
+$generatedfor = $validator->simpleInputFilter('generatedfor', 'safe_text') ?? 'user';
+$token = $validator->simpleInputFilter('token', 'safe_text');
+$idR = $validator->simpleInputFilter('id', 'safe_text');
 $id = $idR ? $idR : FALSE;
 
 switch ($action) {
