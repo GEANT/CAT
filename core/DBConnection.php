@@ -156,8 +156,6 @@ class DBConnection {
             if ($selectResult !== FALSE) {
                 $result = $selectResult;
             }
-
-            $statementObject->close();
         }
 
         // all cases where $result could be FALSE have been caught earlier
@@ -259,6 +257,12 @@ class DBConnection {
         $this->readOnly = \config\Master::DB[$databaseCapitalised]['readonly'];
     }
 
+    /**
+     * keeps all previously prepared statements in memory so we can reuse them
+     * later
+     * 
+     * @var array
+     */
     private $preparedStatements = [];
 
 }
