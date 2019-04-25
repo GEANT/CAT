@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -82,7 +83,7 @@ switch ($action) {
         break;
     case 'listIdentityProviders':
         if ($federation === FALSE) {
-           $federation = $id ? $validator->existingFederation($id)->tld : FALSE;
+            $federation = $id ? $validator->existingFederation($id)->tld : FALSE;
         }
         if ($federation === FALSE) { // federation is a mandatory parameter!
             exit;
@@ -94,17 +95,17 @@ switch ($action) {
         break;
     case 'listProfiles': // needs $idp set - abort if not
         if ($idp === FALSE) {
-           $idp = $id ? $validator->existingIdP($id)->identifier : FALSE;
+            $idp = $id ? $validator->existingIdP($id)->identifier : FALSE;
         }
         if ($idp === FALSE) {
             exit;
         }
         // this was int-validated, so we can be sure it is an integer
-        $API->jsonListProfiles($idp, (int)$sort);
+        $API->jsonListProfiles($idp, (int) $sort);
         break;
     case 'listDevices':
         if ($profile === FALSE) {
-           $profile = $id ? $validator->existingProfile($id)->identifier : FALSE;
+            $profile = $id ? $validator->existingProfile($id)->identifier : FALSE;
         }
         if ($profile === FALSE) {
             exit;
@@ -131,7 +132,7 @@ switch ($action) {
         break;
     case 'profileAttributes': // needs $profile set
         if ($profile === FALSE) {
-           $profile = $id ? $validator->existingProfile($id)->identifier : FALSE;
+            $profile = $id ? $validator->existingProfile($id)->identifier : FALSE;
         }
         if ($profile === FALSE) {
             exit;
@@ -140,7 +141,7 @@ switch ($action) {
         break;
     case 'sendLogo': // needs $idp and $disco set
         if ($idp === FALSE) {
-           $idp = $id ? $validator->existingIdP($id)->identifier : FALSE;
+            $idp = $id ? $validator->existingIdP($id)->identifier : FALSE;
         }
         if ($idp === FALSE) {
             exit;
@@ -150,18 +151,18 @@ switch ($action) {
             $height = 40;
         }
         // those two were int-validated, cast to let SC know
-        $API->sendLogo($idp, "idp", (int)$width, (int)$height);
+        $API->sendLogo($idp, "idp", (int) $width, (int) $height);
         break;
     case 'sendFedLogo': // needs $federation
         if ($federation === FALSE) {
             if ($idp === FALSE) {
-            exit;
-        }
-            $API->sendLogo($idp, "federation_from_idp", $width, $height);
+                exit;
+            }
+            $API->sendLogo($idp, "federation_from_idp", (int) $width, (int) $height);
         } else {
-            $API->sendLogo($federation, "federation", $width, $height);
+            $API->sendLogo($federation, "federation", (int) $width, (int) $height);
         }
-        break;        
+        break;
     case 'deviceInfo': // needsdevice and profile set
         if ($device === FALSE) {
             $device = $id;
