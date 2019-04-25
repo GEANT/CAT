@@ -23,8 +23,6 @@
 namespace web\skins\modern;
 use web\lib\user;
 
-require_once "Menu.php";
-
 /**
  * This class delivers various <div> elements for the front page.
  * 
