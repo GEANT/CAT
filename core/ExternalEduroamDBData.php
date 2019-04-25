@@ -86,7 +86,7 @@ class ExternalEduroamDBData extends EntityWithDBProperties {
                 return [];
             }
             if (!preg_match('/^(..)\:\ (.*)/', $oneVariant, $submatches) || !isset($submatches[2])) {
-                $this->loggerInstance->debug(2,"[$nameRaw] We expect 'en: bla but found '$oneVariant'.");
+                $this->loggerInstance->debug(2, "[$nameRaw] We expect 'en: bla but found '$oneVariant'.");
                 continue;
             }
             $returnArray[$submatches[1]] = $submatches[2];
@@ -100,13 +100,27 @@ class ExternalEduroamDBData extends EntityWithDBProperties {
      * @return integer number of providers
      */
     public function allServiceProviders() {
-        if ($this->counter == -1) {
+        if ($this->counter > -1) {
+            return $this->counter;
+        }
+
+        $cachedNumber = @file_get_contents(ROOT . "/var/tmp/cachedSPNumber.serialised");
+        if ($cachedNumber !== FALSE) {
+            $numberData = unserialize($cachedNumber);
+            $now = new \DateTime();
+            $cacheDate = $numberData["timestamp"]; // this is a DateTime object
+            $diff = $now->diff($cacheDate);
+            if ($diff->y == 0 && $diff->m == 0 && $diff->d == 0) {
+                $this->counter = $numberData["number"];
+                return $this->counter;
+            }
+        } else { // data in cache is too old or doesn't exist. We really need to ask the database
             $query = $this->databaseHandle->exec("SELECT count(*) AS total FROM view_active_SP_location_eduroamdb");
             while ($iterator = mysqli_fetch_object(/** @scrutinizer ignore-type */ $query)) {
                 $this->counter = $iterator->total;
             }
+            file_put_contents(ROOT . "/var/tmp/cachedSPNumber.serialised", serialize(["number" => $this->counter, "timestamp" => new \DateTime()]));
         }
-        return $this->counter;
     }
 
 }
