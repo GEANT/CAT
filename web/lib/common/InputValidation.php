@@ -523,6 +523,14 @@ class InputValidation extends \core\common\Entity {
         return TRUE;
     }
 
+    /**
+     * searches for values in GET and POST, and filters the value according to
+     * which kind of data is expected
+     * 
+     * @param string $varName name of the variable in GET/POST
+     * @param string $filter which type of filter to apply (safe_text / int)
+     * @return NULL|false|string the returned value
+     */
     public function simpleInputFilter($varName, $filter) {
         $safeText = ["options" => ["regexp" => "/^[\w\d-]+$/"]];
         switch ($filter) {
