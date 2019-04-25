@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -82,23 +83,35 @@ class Gui extends \core\UserAPI {
     }
 
     /**
+     * outputs a string, replacing unsafe JavaScript quotation marks with HTML
+     * entity
+     * 
+     * @param string $s the string to escape
+     * @return void
+     */
+    public function javaScriptEscapedEcho($s) {
+        echo preg_replace('/"/', '&quot;', $s);
+    }
+
+    /**
      * the instance of the skin factory to use
      * 
      * @var \web\lib\user\Skinjob
      */
     public $skinObject;
-    
+
     /**
      * the detected operating system
      * 
      * @var array|boolean
      */
     public $operatingSystem;
-            
+
     /**
-     *redeclaring as public so that web front-end can access it
+     * redeclaring as public so that web front-end can access it
      * 
      * @var \core\common\Logging
      */
     public $loggerInstance;
+
 }
