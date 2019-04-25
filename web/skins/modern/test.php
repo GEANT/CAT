@@ -38,7 +38,7 @@
     var downloadMessage;
     front_page=0;
 <?php
-include_once 'Divs.php';
+
 $divs = new \web\skins\modern\Divs($Gui);
 $visibility = 'sb';
 $operatingSystem = $Gui->detectOS();
@@ -55,7 +55,7 @@ if (preg_match('/Android/', $_SERVER['HTTP_USER_AGENT'])) {
     $profile_list_size = 4;
 }
 //include("user/js/roll.php");
-include("user/js/cat_js.php");
+require "user/js/cat_js.php";
 ?>
     var loading_ico = new Image();
     loading_ico.src = "<?php echo $Gui->skinObject->findResourceUrl("IMAGES","icons/loading51.gif")?>";
