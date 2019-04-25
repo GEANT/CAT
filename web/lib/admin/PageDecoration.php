@@ -269,7 +269,7 @@ class PageDecoration extends \core\common\Entity {
             <table style='width:100%'>
                 <tr>
                     <td style='padding-left:20px; padding-right:20px; text-align:left; vertical-align:top;'>
-                        " . $cat->CAT_COPYRIGHT . "</td>";
+                        " . $cat->catCopyright . "</td>";
         if (!empty(\config\Master::APPEARANCE['privacy_notice_url'])) {
             $retval .= "<td><a href='".\config\Master::APPEARANCE['privacy_notice_url']."'>" . sprintf(_("%s Privacy Notice"),\config\ConfAssistant::CONSORTIUM['display_name']) . "</a></td>";
         }

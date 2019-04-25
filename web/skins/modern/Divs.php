@@ -284,7 +284,7 @@ class Divs {
     <table>
         <tr>
             <td>" .
-                $this->Gui->CAT_COPYRIGHT
+                $this->Gui->catCopyright
                 . "
             </td>";
 

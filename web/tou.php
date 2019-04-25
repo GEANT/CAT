@@ -63,7 +63,7 @@ $loggerInstance->debug(4, "\n----------------------------------TOU.PHP----------
             <table style='width:100%'>
                 <tr>
                     <td style='padding-left:20px; padding-right:20px; text-align:left; vertical-align:top;'>
-                        <?php echo $cat->CAT_COPYRIGHT; ?>
+                        <?php echo $cat->catCopyright; ?>
                     </td>
                     <?php
                     if (!empty(\config\Master::APPEARANCE['privacy_notice_url'])) {
