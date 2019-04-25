@@ -124,15 +124,19 @@ class DBConnection {
             if (strlen($types) != count($arguments)) {
                 throw new Exception("DB: Prepared Statement: Number of arguments and the type list length differ!");
             }
-            $statementObject = $this->connection->stmt_init();
-            if ($statementObject === FALSE) {
-                throw new Exception("DB: Unable to initialise prepared Statement!");
+            if (isset($this->preparedStatements[$querystring])) {
+                $statementObject = $this->preparedStatements[$querystring];
+            } else {
+                $statementObject = $this->connection->stmt_init();
+                if ($statementObject === FALSE) {
+                    throw new Exception("DB: Unable to initialise prepared Statement!");
+                }
+                $prepResult = $statementObject->prepare($querystring);
+                if ($prepResult === FALSE) {
+                    throw new Exception("DB: Unable to prepare statement! Statement was --> $querystring <--, error was --> " . $statementObject->error . " <--.");
+                }
+                $this->preparedStatements[$querystring] = $statementObject;
             }
-            $prepResult = $statementObject->prepare($querystring);
-            if ($prepResult === FALSE) {
-                throw new Exception("DB: Unable to prepare statement! Statement was --> $querystring <--, error was --> " . $statementObject->error . " <--.");
-            }
-
             // we have a variable number of arguments packed into the ... array
             // but the function needs to be called exactly once, with a series of
             // individual arguments, not an array. The voodoo solution is to call
@@ -254,5 +258,7 @@ class DBConnection {
         }
         $this->readOnly = \config\Master::DB[$databaseCapitalised]['readonly'];
     }
+
+    private $preparedStatements = [];
 
 }
