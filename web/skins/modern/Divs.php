@@ -41,7 +41,7 @@ class Divs {
     /**
      * initialises the Divs class
      * 
-     * @param \web\lib\user\Gui $Gui
+     * @param \web\lib\user\Gui $Gui the Gui object to work with
      */
     public function __construct(user\Gui $Gui) {
         $this->Gui = $Gui;
