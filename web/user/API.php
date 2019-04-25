@@ -99,7 +99,8 @@ switch ($action) {
         if ($idp === FALSE) {
             exit;
         }
-        $API->jsonListProfiles($idp, $sort);
+        // this was int-validated, so we can be sure it is an integer
+        $API->jsonListProfiles($idp, (int)$sort);
         break;
     case 'listDevices':
         if ($profile === FALSE) {
@@ -148,7 +149,8 @@ switch ($action) {
             $width = 120;
             $height = 40;
         }
-        $API->sendLogo($idp, "idp", $width, $height);
+        // those two were int-validated, cast to let SC know
+        $API->sendLogo($idp, "idp", (int)$width, (int)$height);
         break;
     case 'sendFedLogo': // needs $federation
         if ($federation === FALSE) {
