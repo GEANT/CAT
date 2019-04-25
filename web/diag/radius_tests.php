@@ -35,17 +35,6 @@ $additional_message = [
     \core\common\Entity::L_ERROR => _("Some configuration errors were observed; the list is below."),
 ];
 
-/**
- * returns the friendly name of an EAP type
- * 
- * @param array $eap array representation of the EAP type to be returned
- * @return string the friendly name
- */
-function disp_name($eap) {
-    $displayName = \core\common\EAP::eapDisplayName($eap);
-    return $displayName['OUTER'] . ( $displayName['INNER'] != '' ? '-' . $displayName['INNER'] : '');
-}
-
 if (!isset($_REQUEST['test_type']) || !$_REQUEST['test_type']) {
     throw new Exception("No test type specified!");
 }
