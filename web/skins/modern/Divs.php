@@ -21,6 +21,7 @@
  */
 
 namespace web\skins\modern;
+
 use web\lib\user;
 
 /**
@@ -37,10 +38,21 @@ class Divs {
      */
     private $Gui;
 
+    /**
+     * initialises the Divs class
+     * 
+     * @param \web\lib\user\Gui $Gui
+     */
     public function __construct(user\Gui $Gui) {
         $this->Gui = $Gui;
     }
 
+    /**
+     * generates the heading div
+     * 
+     * @param string $visibility controls whether the full or minimal menu should be shown
+     * @return string the HTML code
+     */
     public function divHeading($visibility = 'all') {
         $selectedLang = $this->Gui->languageInstance->getLang();
         $menu = new Menu($visibility, $selectedLang);
@@ -67,6 +79,11 @@ class Divs {
         return $retval;
     }
 
+    /**
+     * generates the userWelcome div (shown after downloading an installer)
+     * 
+     * @return string the HTML code
+     */
     public function divUserWelcome() {
         $retval = "
 <div id='user_welcome'> <!-- this information is shown just before the download -->
@@ -80,7 +97,8 @@ class Divs {
     <br/>
     <br/>";
         switch (\config\ConfAssistant::CONSORTIUM['name']) {
-            case "eduroam": $retval .= $this->Gui->textTemplates->templates[user\EDUROAM_WELCOME_ADVERTISING];
+            case "eduroam":
+                $retval .= $this->Gui->textTemplates->templates[user\EDUROAM_WELCOME_ADVERTISING];
                 break;
             default:
         }
@@ -97,6 +115,11 @@ class Divs {
         return $retval;
     }
 
+    /**
+     * generates the "go away" div when selecting a silverbullet institution
+     * 
+     * @return string the HTML code
+     */
     public function divSilverbullet() {
         $retval = "
 <div id='silverbullet'>"
@@ -106,10 +129,15 @@ class Divs {
         return $retval;
     }
 
+    /**
+     * generates the main front page area div
+     * 
+     * @return string the HTML code
+     */
     public function divTopWelcome() {
         $retval = '';
         if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-            $retval = "<br><div id='top_invite_ad'>".$this->Gui->textTemplates->templates[user\FRONTPAGE_EDUROAM_AD]."</div>";
+            $retval = "<br><div id='top_invite_ad'>" . $this->Gui->textTemplates->templates[user\FRONTPAGE_EDUROAM_AD] . "</div>";
         }
         return "
 <div id='welcome_top1'>
@@ -120,6 +148,11 @@ class Divs {
 </div>";
     }
 
+    /**
+     * generates the rolling device slideshow div
+     * 
+     * @return string the HTML code
+     */
     public function divRoller() {
         $retval = "
 <div id='roller'>
@@ -153,6 +186,11 @@ class Divs {
         return $retval;
     }
 
+    /**
+     * generates the div with the big download button
+     * 
+     * @return string the HTML code
+     */
     public function divMainButton() {
         $retval = "<div id='user_button_td'>";
         $retval .= "<span id='signin'>
@@ -173,6 +211,11 @@ class Divs {
         return $retval;
     }
 
+    /**
+     * generates the profile selector menu div
+     * 
+     * @return string the HTML code
+     */
     public function divProfiles() {
         return "
 <div id='profiles'> <!-- this is the profile selection filled during run time -->
@@ -182,6 +225,14 @@ class Divs {
                 "</div>";
     }
 
+    /**
+     * generates the head of the download page div
+     * 
+     * @param string $mainText  main text to show
+     * @param string $extraText extra text to show
+     * 
+     * @return string
+     */
     public function divPagetitle($mainText, $extraText = '') {
         return "
 <div id='institution_name'>
@@ -189,6 +240,12 @@ class Divs {
 </div>";
     }
 
+    /**
+     * generates the div for institution selection
+     * 
+     * @param boolean $selectButton should the "select another" be shown?
+     * @return string
+     */
     public function divInstitution($selectButton = TRUE) {
         $retval = "<div id='institution_name'>
     <span id='inst_name_span'></span> <div id='inst_extra_text'></div><!-- this will be filled with the IdP name -->" .
@@ -198,11 +255,21 @@ class Divs {
         return $retval;
     }
 
+    /**
+     * generates the div for the federation logo display
+     * 
+     * @return string
+     */
     public function divFederation() {
         $retval = $this->emptyImage('fed_logo', 'Federation Logo');
         return $retval;
     }
 
+    /**
+     * generates the div that lists all installer platforms
+     * 
+     * @return string
+     */
     public function divOtherinstallers() {
         $retval = "
 <div class='sub_h'>
@@ -238,6 +305,12 @@ class Divs {
         return $retval;
     }
 
+    /**
+     * generates the div with the big download button for the guessed OS
+     * 
+     * @param array $operatingSystem the guessed operating system
+     * @return string
+     */
     public function divGuessOs($operatingSystem) {
         $vendorlogo = $this->Gui->skinObject->findResourceUrl("IMAGES", "vendorlogo/" . $operatingSystem['group'] . ".png");
         $vendorstyle = "";
@@ -276,6 +349,11 @@ class Divs {
 </div> <!-- id='guess_os' -->";
     }
 
+    /**
+     * generates the footer div
+     * 
+     * @return string
+     */
     public function divFooter() {
         $retval = "
 <div class='footer' id='footer'>
@@ -310,6 +388,13 @@ class Divs {
         return $retval;
     }
 
+    /**
+     * generates a div containing an empty image
+     * 
+     * @param string $id  id attribute for the div
+     * @param string $alt alternative text for the div
+     * @return string
+     */
     private function emptyImage($id, $alt) {
         $empty = $this->Gui->skinObject->findResourceUrl("IMAGES", "empty.png");
         $retval = '';
