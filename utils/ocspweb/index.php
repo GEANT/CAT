@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -70,6 +71,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 throw new Exception("We were supposed to find and strip a slash in the base URL, but it doesn't exist!");
             }
             $rawStream = substr($rawStream, $nextSlash + 1);
+            if (strlen($rawStream) >= 255) {
+                throw new Exception("As per RFC6960, GET is only allowed for requests up to 254 bytes");
+            }
         }
         $ocspRequestDer = base64_decode(urldecode($rawStream), TRUE);
         if ($ocspRequestDer === FALSE) {
