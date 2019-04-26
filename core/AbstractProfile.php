@@ -199,30 +199,6 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     }
 
     /**
-     * join new attributes to existing ones, but only if not already defined on
-     * a different level in the existing set
-     * 
-     * @param array  $existing the already existing attributes
-     * @param array  $new      the new set of attributes
-     * @param string $newlevel the level of the new attributes
-     * @return array the new set of attributes
-     */
-    protected function levelPrecedenceAttributeJoin($existing, $new, $newlevel) {
-        foreach ($new as $attrib) {
-            $ignore = "";
-            foreach ($existing as $approvedAttrib) {
-                if (($attrib["name"] == $approvedAttrib["name"] && $approvedAttrib["level"] != $newlevel) && ($approvedAttrib["name"] != "device-specific:redirect") ){
-                    $ignore = "YES";
-                }
-            }
-            if ($ignore != "YES") {
-                $existing[] = $attrib;
-            }
-        }
-        return $existing;
-    }
-
-    /**
      * find a profile, given its realm
      * 
      * @param string $realm the realm for which we are trying to find a profile

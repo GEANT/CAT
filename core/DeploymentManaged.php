@@ -177,10 +177,12 @@ class DeploymentManaged extends AbstractDeployment {
             $this->host2_v4 = $iterator3->radius_ip4;
             $this->host2_v6 = $iterator3->radius_ip6;
         }
-        $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row 
+        $thisLevelAttributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row 
                                             FROM $this->entityOptionTable
                                             WHERE $this->entityIdColumn = ?  
                                             ORDER BY option_name", "Profile");
+        $tempAttribMergedIdP = $this->levelPrecedenceAttributeJoin($thisLevelAttributes, $this->idpAttributes, "IdP");
+        $this->attributes = $this->levelPrecedenceAttributeJoin($tempAttribMergedIdP, $this->fedAttributes, "FED");
     }
 
     /**
