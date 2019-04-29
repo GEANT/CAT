@@ -299,7 +299,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
             $retval .= "<string>".strtoupper($oiValue)."</string>";
         }
         $retval .= "</array>";
-        // this is an undocmented value found on the net. Does it do something useful?
+        // this is an undocumented value found on the net. Does it do something useful?
         $retval .= "<key>_UsingHotspot20</key>
                 <true/>
                 ";
