@@ -296,7 +296,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
         $retval .= "                <key>RoamingConsortiumOIs</key>
                 <array>";
         foreach ($consortiumOi as $oiValue) {
-            $retval .= "<string>$oiValue</string>";
+            $retval .= "<string>".strtoupper($oiValue)."</string>";
         }
         $retval .= "</array>";
         // this is an undocmented value found on the net. Does it do something useful?
