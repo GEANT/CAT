@@ -357,6 +357,7 @@ class DeploymentManaged extends AbstractDeployment {
     /**
      * sends request to add/modify RADIUS settings for given deployment
      *
+     * @param int $remove - the flag indicating remove request
      * @return string
      */
     public function setRADIUSconfig($remove = 0) {
@@ -392,14 +393,21 @@ class DeploymentManaged extends AbstractDeployment {
         $toPost1 = $toPost1 . 'port=' . $this->port1;
         $toPost2 = $toPost2 . 'port=' . $this->port2;
         $ch = curl_init( "http://" . $this->radius_hostname_1 );
-        curl_setopt( $ch, CURLOPT_POST, 1);
-        curl_setopt( $ch, CURLOPT_POSTFIELDS, $toPost1);
-        $this->loggerInstance->debug(1, "Posting to http://" . $this->radius_hostname_1 . ": $toPost1\n");
-        curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt( $ch, CURLOPT_HEADER, 0);
-        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
-        $response = curl_exec( $ch );
-        $this->loggerInstance->debug(1, "Response from FR configurator: $response\n");
+        if ($ch) {
+            curl_setopt( $ch, CURLOPT_POST, 1);
+            curl_setopt( $ch, CURLOPT_POSTFIELDS, $toPost1);
+            $this->loggerInstance->debug(1, "Posting to http://" . $this->radius_hostname_1 . ": $toPost1\n");
+            curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
+            curl_setopt( $ch, CURLOPT_HEADER, 0);
+            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
+            $response = curl_exec( $ch );
+            if ($response === FALSE) {
+                $response = 'FAILURE';
+            }
+            $this->loggerInstance->debug(1, "Response from FR configurator: $response\n");
+        } else {
+            $response = 'FAILURE';
+        }
         return $response;
     }
 }
