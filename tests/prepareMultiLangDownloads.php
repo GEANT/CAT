@@ -8,7 +8,8 @@
  * License: see the web/copyright.php file in the file structure
  * ******************************************************************************
  */
-require_once "../config/config-master-template.php";
+require_once dirname(dirname(__FILE__)) . "/config/_config.php";
+
 const OSLIST = ["chromeos", "w10", "apple_hi_sierra", "linux", "eap-config"];
 $bashLines = "";
 foreach (\config\Master::LANGUAGES as $lang => $details) {
