@@ -19,7 +19,6 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
-require_once 'Divs.php';
 $divs = new \web\skins\modern\Divs($Gui);
 ?>
 <head>

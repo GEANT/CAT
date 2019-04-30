@@ -38,7 +38,7 @@
     var downloadMessage;
 <?php
 $visibility = 'index';
-require_once 'Divs.php';
+
 $divs = new \web\skins\modern\Divs($Gui);
 $operatingSystem = $Gui->detectOS();
 $Gui->loggerInstance->debug(4, $operatingSystem);

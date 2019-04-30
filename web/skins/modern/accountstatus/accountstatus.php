@@ -37,7 +37,6 @@ $Gui->languageInstance->setTextDomain("web_user");
     var sbPage = 1;
 <?php
 $profile_list_size = 1;
-require_once dirname(__DIR__) . '/Divs.php';
 $divs = new \web\skins\modern\Divs($Gui);
 
 $visibility = 'sb';
