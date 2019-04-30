@@ -183,6 +183,9 @@ echo $mapCode->htmlHeadCode();
                             <button class='delete' style='background-color: green;' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_ACTIVATE; ?>'>
                                 <?php echo _("Activate"); ?>
                             </button>
+                            <?php if (isset($_GET['res']) && $_GET['res'] != 'OK') {
+                                echo ' <span style="color: red;">' . _("Activation failure") . '</span>';
+                            } ?>
                         </form>
                     <?php
                     }
