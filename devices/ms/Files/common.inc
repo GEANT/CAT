@@ -1427,7 +1427,9 @@ FunctionEnd
 ;=============================
 !ifdef CRED
 Function InstallUserCredentials
-  Call EncodeXmlChars
+  !ifdef PASSWORD_BASED_CRED
+     Call EncodeXmlChars
+  !endif
   Call InstallWirelessUserCredentials
   Call InstallWiredUserCredentials
 FunctionEnd
