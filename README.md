@@ -20,6 +20,7 @@ There is no documentation for end users, simply because it's so easy to use on t
 The source code is [thoroughly documented](https://geant.github.io/CAT/web/apidoc/) using PhpDocumentor 3.
 
 Large parts of the code can be remote-controlled using the [UserAPI](tutorials/UserAPI.md) and AdminAPI.
+
 Known deployments
 -----------------
 There are three known production deployments of CAT (please let us know if you are deploying the software and want to be on this list!).
