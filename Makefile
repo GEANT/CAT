@@ -6,7 +6,7 @@ all: translation documentation
 
 documentation:
 	rm -Rf web/apidoc build 
-	phpDocumentor.phar run --force -d . -i core/phpqrcode.php -i core/PHPMailer -i tests -i core/simpleSAMLphp -i core/PHPUnit -i core/GeoIP2 -i vendor -i .git -t web/apidoc/ --title "CAT - The IEEE 802.1X Configuration Assistant Tool" 
+	phpDocumentor.phar run --force -d . -i core/phpqrcode.php -i core/PHPMailer -i tests -i core/simpleSAMLphp -i core/PHPUnit -i core/GeoIP2 -i vendor -i .git --template=clean --visibility=public --visibility=protected --visibility=private -t web/apidoc/ --title "CAT - The IEEE 802.1X Configuration Assistant Tool" 
 
 pull_from_transifex:
 	tx pull --all --force
