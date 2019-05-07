@@ -392,8 +392,9 @@ class DeploymentManaged extends AbstractDeployment {
         $toPost2 = $toPost1;
         $toPost1 = $toPost1 . 'port=' . $this->port1;
         $toPost2 = $toPost2 . 'port=' . $this->port2;
+        // TODO this should be secured with HTTPS after the prototype phase
         $ch = curl_init( "http://" . $this->radius_hostname_1 );
-        if ($ch) {
+        if ($ch !== FALSE) {
             curl_setopt( $ch, CURLOPT_POST, 1);
             curl_setopt( $ch, CURLOPT_POSTFIELDS, $toPost1);
             $this->loggerInstance->debug(1, "Posting to http://" . $this->radius_hostname_1 . ": $toPost1\n");
