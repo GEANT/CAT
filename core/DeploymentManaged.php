@@ -124,6 +124,20 @@ class DeploymentManaged extends AbstractDeployment {
      * @var string
      */
     public $radius_instance_2;
+    
+    /**
+     * the primary RADIUS server hostname - for sending configuration requests
+     * 
+     * @var string
+     */
+    public $radius_hostname_1;
+
+    /**
+     * the backup RADIUS server hostname - for sending configuration requests
+     * 
+     * @var string
+     */
+    public $radius_hostname_2;
 
     /**
      * Class constructor for existing deployments (use 
@@ -167,15 +181,17 @@ class DeploymentManaged extends AbstractDeployment {
                 $this->status = $iterator->status;
             }
         }
-        $server1details = $this->databaseHandle->exec("SELECT radius_ip4, radius_ip6 FROM managed_sp_servers WHERE server_id = '$this->radius_instance_1'");
+        $server1details = $this->databaseHandle->exec("SELECT mgmt_hostname, radius_ip4, radius_ip6 FROM managed_sp_servers WHERE server_id = '$this->radius_instance_1'");
         while ($iterator2 = mysqli_fetch_object(/** @scrutinizer ignore-type */ $server1details)) {
             $this->host1_v4 = $iterator2->radius_ip4;
             $this->host1_v6 = $iterator2->radius_ip6;
+            $this->radius_hostname_1 = $iterator2->mgmt_hostname;
         }
-        $server2details = $this->databaseHandle->exec("SELECT radius_ip4, radius_ip6 FROM managed_sp_servers WHERE server_id = '$this->radius_instance_2'");
+        $server2details = $this->databaseHandle->exec("SELECT mgmt_hostname, radius_ip4, radius_ip6 FROM managed_sp_servers WHERE server_id = '$this->radius_instance_2'");
         while ($iterator3 = mysqli_fetch_object(/** @scrutinizer ignore-type */ $server2details)) {
             $this->host2_v4 = $iterator3->radius_ip4;
             $this->host2_v6 = $iterator3->radius_ip6;
+            $this->radius_hostname_2 = $iterator3->mgmt_hostname;
         }
         $thisLevelAttributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row 
                                             FROM $this->entityOptionTable
@@ -336,5 +352,62 @@ class DeploymentManaged extends AbstractDeployment {
             return "1sp.".$this->identifier."-".$this->institution.\config\ConfAssistant::SILVERBULLET['realm_suffix'];
         }
         return $customAttrib[0]["value"];
+    }
+    
+    /**
+     * sends request to add/modify RADIUS settings for given deployment
+     *
+     * @param int $remove - the flag indicating remove request
+     * @return string
+     */
+    public function setRADIUSconfig($remove = 0) {
+        $toPost1 = 'instid=' . $this->institution . '&deploymentid=' . $this->identifier . '&secret=' . $this->secret . '&country=' . $this->getAttributes("internal:country")[0]['value'] . '&';
+        if ($remove) {
+            $toPost1 = $toPost1 . 'remove=1&';
+        } else {
+            if ($this->getAttributes("managedsp:operatorname")[0]['value'] ?? NULL) {
+                $toPost1 = $toPost1 . 'operatorname=' . $this->getAttributes("managedsp:operatorname")[0]['value'] . '&';
+            }
+            if ($this->getAttributes("managedsp:vlan")[0]['value'] ?? NULL) {
+                $idp = new IdP($this->institution);
+                $allProfiles = $idp->listProfiles(TRUE);
+                $allRealms = [];
+                if ($realmforvlan = ($this->getAttributes("managedsp:realmforvlan") ?? NULL)) {
+                    $allRealms = array_values(array_unique(array_column($this->getAttributes("managedsp:realmforvlan"), "value")));
+                }
+                foreach ($allProfiles as $profile) {
+                    if ($realm = ($profile->getAttributes("internal:realm")[0]['value'] ?? NULL)) {
+                        if (!in_array($realm, $allRealms)) {
+                            $allRealms[] = $realm;
+                        }
+                    }
+                }
+                if (!empty($allRealms)) {
+                    $this->loggerInstance->debug(1, $allRealms);
+                    $toPost1 = $toPost1 . 'vlan=' . $this->getAttributes("managedsp:vlan")[0]['value'] . '&';
+                    $toPost1 = $toPost1 . 'realmforvlan[]=' . implode('&realmforvlan[]=', $allRealms) . '&';
+                }
+            }
+        }
+        $toPost2 = $toPost1;
+        $toPost1 = $toPost1 . 'port=' . $this->port1;
+        $toPost2 = $toPost2 . 'port=' . $this->port2;
+        $ch = curl_init( "http://" . $this->radius_hostname_1 );
+        if ($ch) {
+            curl_setopt( $ch, CURLOPT_POST, 1);
+            curl_setopt( $ch, CURLOPT_POSTFIELDS, $toPost1);
+            $this->loggerInstance->debug(1, "Posting to http://" . $this->radius_hostname_1 . ": $toPost1\n");
+            curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
+            curl_setopt( $ch, CURLOPT_HEADER, 0);
+            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
+            $response = curl_exec( $ch );
+            if ($response === FALSE) {
+                $response = 'FAILURE';
+            }
+            $this->loggerInstance->debug(1, "Response from FR configurator: $response\n");
+        } else {
+            $response = 'FAILURE';
+        }
+        return $response;
     }
 }

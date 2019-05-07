@@ -46,14 +46,20 @@ $deployment = $validator->existingDeploymentManaged($_GET['deployment_id'], $my_
 
 if (isset($_POST['submitbutton'])) {
     if ($_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_DELETE) {
-        $deployment->deactivate();
-        header("Location: overview_sp.php?inst_id=" . $my_inst->identifier);
+        $res = $deployment->setRADIUSconfig(1);
+        if ($res == 'OK') {
+            $deployment->deactivate();
+        }
+        header("Location: overview_sp.php?inst_id=" . $my_inst->identifier . "&res=$res");
         exit(0);
     }
 
     if ($_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_ACTIVATE) {
-        $deployment->activate();
-        header("Location: overview_sp.php?inst_id=" . $my_inst->identifier);
+        $res = $deployment->setRADIUSconfig();
+        if ($res == 'OK') {
+            $deployment->activate();
+        }
+        header("Location: overview_sp.php?inst_id=" . $my_inst->identifier . "&res=$res");
         exit(0);
     }
     if ($_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_SAVE) {
@@ -68,8 +74,13 @@ if (isset($_POST['submitbutton'])) {
             $postArray['value']['S1234567891-string'] = $_POST['opname'];
         }
         $optionParser->processSubmittedFields($deployment, $postArray, $_FILES);
-
-        header("Location: overview_sp.php?inst_id=" . $my_inst->identifier);
+        $deployment = $validator->existingDeploymentManaged($_GET['deployment_id'], $my_inst);
+        $addParam = '';
+        if ($deployment->status == core\DeploymentManaged::ACTIVE) {
+            $res = $deployment->setRADIUSconfig();
+            $addParam = "&res=$res";
+        }
+        header("Location: overview_sp.php?inst_id=" . $my_inst->identifier . $addParam);
         exit(0);
     }
 }
