@@ -23,8 +23,25 @@ namespace web\lib\admin;
 
 class PageDecoration extends \core\common\Entity {
 
+    /**
+     * an instance of the InputValidation class
+     * 
+     * @var \web\lib\common\InputValidation
+     */
     private $validator;
+    
+    /**
+     * an instance of the UIElements class
+     * 
+     * @var \web\lib\admin\UIElements
+     */
     private $ui;
+    
+    /**
+     * an instance of the Language class
+     * 
+     * @var \core\common\Language
+     */
     private $langObject;
     
     /**
@@ -82,14 +99,15 @@ class PageDecoration extends \core\common\Entity {
                     <form action='$place' method='GET' accept-charset='UTF-8'>" . _("View this page in") . "&nbsp;
                         <select id='lang' name='lang' onchange='this.form.submit()'>";
 
-        foreach (CONFIG['LANGUAGES'] as $lang => $value) {
-            $retval .= "<option value='$lang' " . (strtoupper($language) == strtoupper($lang) ? "selected" : "" ) . " >" . $value['display'] . "</option> ";
+        foreach (\config\Master::LANGUAGES as $lang => $getValue) {
+            $retval .= "<option value='$lang' " . (strtoupper($language) == strtoupper($lang) ? "selected" : "" ) . " >" . $getValue['display'] . "</option> ";
         }
         $retval .= "</select>";
 
-        foreach ($_GET as $var => $value) {
-            if ($var != "lang" && $value != "") {
-                $retval .= "<input type='hidden' name='" . htmlspecialchars($var) . "' value='" . htmlspecialchars($value) . "'>";
+        foreach ($_GET as $getVar => $getValue) {
+            $filterValue = filter_input(INPUT_GET, $getVar, FILTER_SANITIZE_STRING);
+            if ($getVar != "lang" && $getValue != "") {
+                $retval .= "<input type='hidden' name='" . htmlspecialchars($getVar) . "' value='" . htmlspecialchars($filterValue) . "'>";
             }
         }
         $retval .= "</form>
@@ -136,7 +154,7 @@ class PageDecoration extends \core\common\Entity {
         // highlighting to work
         $retval = "<div class='maincontent'>";
         // default values which match almost every case; override where needed
-        $cap1 = CONFIG['APPEARANCE']['productname_long'];
+        $cap1 = \config\Master::APPEARANCE['productname_long'];
         $advancedControls = TRUE;
         switch ($area) {
             case "ADMIN-PARTICIPANT":
@@ -161,8 +179,8 @@ class PageDecoration extends \core\common\Entity {
                 $cap2 = sprintf(_("Administrator Interface - %s Management"), $this->ui->nomenclatureFed);
                 break;
             case "USER":
-                $cap1 = sprintf(_("Welcome to %s"), CONFIG['APPEARANCE']['productname']);
-                $cap2 = CONFIG['APPEARANCE']['productname_long'];
+                $cap1 = sprintf(_("Welcome to %s"), \config\Master::APPEARANCE['productname']);
+                $cap2 = \config\Master::APPEARANCE['productname_long'];
                 $advancedControls = FALSE;
                 break;
             case "SUPERADMIN":
@@ -185,9 +203,9 @@ class PageDecoration extends \core\common\Entity {
                 <h2 style='padding-left:10px;'>$cap2</h2>
             </div><!--secondarycaptions-->";
 
-        if (isset(CONFIG['APPEARANCE']['MOTD']) && CONFIG['APPEARANCE']['MOTD'] != "") {
+        if (isset(\config\Master::APPEARANCE['MOTD']) && \config\Master::APPEARANCE['MOTD'] != "") {
             $retval .= "<div id='header_MOTD' style='display:inline-block; padding-left:20px;vertical-align:top;'>
-              <p class='MOTD'>" . CONFIG['APPEARANCE']['MOTD'] . "</p>
+              <p class='MOTD'>" . \config\Master::APPEARANCE['MOTD'] . "</p>
               </div><!--header_MOTD-->";
         }
         $retval .= $this->sidebar($advancedControls);
@@ -225,7 +243,7 @@ class PageDecoration extends \core\common\Entity {
      * @return string HTML code with GEANT Org and EU attribution as required for FP7 / H2020 projects
      */
     public function attributionEurope() {
-        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {// SW: APPROVED
+        if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") {// SW: APPROVED
             // we may need to jump up one dir if we are either in admin/ or accountstatus/
             // (accountstatus courtesy of my good mood. It's userspace not admin space so
             // it shouldn't be using this function any more.)
@@ -251,13 +269,13 @@ class PageDecoration extends \core\common\Entity {
             <table style='width:100%'>
                 <tr>
                     <td style='padding-left:20px; padding-right:20px; text-align:left; vertical-align:top;'>
-                        " . $cat->CAT_COPYRIGHT . "</td>";
-        if (!empty(CONFIG['APPEARANCE']['privacy_notice_url'])) {
-            $retval .= "<td><a href='".CONFIG['APPEARANCE']['privacy_notice_url']."'>" . sprintf(_("%s Privacy Notice"),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</a></td>";
+                        " . $cat->catCopyright . "</td>";
+        if (!empty(\config\Master::APPEARANCE['privacy_notice_url'])) {
+            $retval .= "<td><a href='".\config\Master::APPEARANCE['privacy_notice_url']."'>" . sprintf(_("%s Privacy Notice"),\config\ConfAssistant::CONSORTIUM['display_name']) . "</a></td>";
         }
         $retval .= "            <td style='padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;'>";
 
-        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $retval .= $this->attributionEurope();
         } else {
             $retval .= "&nbsp;";

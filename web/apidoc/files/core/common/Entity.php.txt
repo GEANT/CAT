@@ -100,9 +100,11 @@ abstract class Entity {
     public static $nomenclature_participant;
     
     /**
-     * initialise the entity.
+     * initialise the entity. 
      * 
      * Logs the start of lifetime of the entity to the debug log on levels 3 and higher.
+     * 
+     * @throws Exception
      */
     public function __construct() {
         $this->loggerInstance = new Logging();
@@ -126,12 +128,16 @@ abstract class Entity {
         $dummy_organisation3 = _("entity");
         // and do something useless with the strings so that there's no "unused" complaint
         if (strlen($dummy_NRO . $dummy_inst1 . $dummy_inst2 . $dummy_inst3 . $dummy_hotspot1 . $dummy_hotspot2 . $dummy_hotspot3 . $dummy_organisation1 . $dummy_organisation2 . $dummy_organisation2a . $dummy_organisation3) < 0) {
-            throw new \Exception("Strings are usually not shorter than 0 characters. We've encountered a string blackhole.");
+            throw new Exception("Strings are usually not shorter than 0 characters. We've encountered a string blackhole.");
         }
-        Entity::$nomenclature_fed = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']);
-        Entity::$nomenclature_inst = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution']);
-        Entity::$nomenclature_hotspot = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_hotspot']);
-        Entity::$nomenclature_participant = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_participant']);
+        $xyzVariableFed = \config\ConfAssistant::CONSORTIUM['nomenclature_federation'] . "";
+        $xyzVariableInst = \config\ConfAssistant::CONSORTIUM['nomenclature_institution'] . "";
+        $xyzVariableHotspot = \config\ConfAssistant::CONSORTIUM['nomenclature_hotspot'] . "";
+        $xyzVariableParticipant = \config\ConfAssistant::CONSORTIUM['nomenclature_participant'] . "";
+        Entity::$nomenclature_fed = _($xyzVariableFed);
+        Entity::$nomenclature_inst = _($xyzVariableInst);
+        Entity::$nomenclature_hotspot = _($xyzVariableHotspot);
+        Entity::$nomenclature_participant = _($xyzVariableParticipant);
 
         Entity::outOfThePotatoes();
     }
@@ -169,6 +175,7 @@ abstract class Entity {
      * @param string  $purpose     one of 'installer', 'logo', 'test' defined the purpose of the directory
      * @param boolean $failIsFatal decides if a creation failure should cause an error; defaults to true
      * @return array the tuple of: base path, absolute path for directory, directory name
+     * @throws Exception
      */
     public static function createTemporaryDirectory($purpose = 'installer', $failIsFatal = 1) {
         $loggerInstance = new Logging();
@@ -329,6 +336,7 @@ abstract class Entity {
      * restores the previous language catalogue.
      * 
      * @return void
+     * @throws Exception
      */
     public static function outOfThePotatoes() {
         $restoreCatalogue = array_pop(Entity::$gettextCatalogue);

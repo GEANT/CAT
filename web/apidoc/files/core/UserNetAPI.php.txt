@@ -50,9 +50,11 @@ class UserNetAPI extends UserAPI {
     /**
      *  wrapper JSON function
      * 
-     * @param array|bool|null $data the core data to be converted to JSON
-     * @param int $status extra status information, defaults to 1
+     * @param array|bool|null $data      the core data to be converted to JSON
+     * @param int             $status    extra status information, defaults to 1
+     * @param array           $otherData additional data to include
      * @return string JSON encoded data
+     * @throws \Exception
      */
     public function returnJSON($data, $status = 1, $otherData = []) {
         $validator = new \web\lib\common\InputValidation();
@@ -72,10 +74,12 @@ class UserNetAPI extends UserAPI {
 
     /**
      * outputs the list of supported languages.
+     * 
+     * @return void creates direct output
      */
     public function jsonListLanguages() {
         $returnArray = [];
-        foreach (CONFIG['LANGUAGES'] as $id => $val) {
+        foreach (\config\Master::LANGUAGES as $id => $val) {
             $returnArray[] = ['lang' => $id, 'display' => $val['display'], 'locale' => $val['locale']];
         }
         echo $this->returnJSON($returnArray);
@@ -84,6 +88,7 @@ class UserNetAPI extends UserAPI {
     /**
      * outputs the list of countries with configured IdPs
      *
+     * @return void creates direct output
      */
     public function jsonListCountries() {
         $federations = $this->printCountryList(1);
@@ -98,6 +103,7 @@ class UserNetAPI extends UserAPI {
      * outputs the list of IdPs in a given country
      *
      * @param string $country the country we are interested in
+     * @return void creates direct output
      */
     public function jsonListIdentityProviders($country) {
         $idps = $this->listAllIdentityProviders(1, $country);
@@ -110,8 +116,9 @@ class UserNetAPI extends UserAPI {
 
     /**
      * outputs the list of all active IdPs
-     *
      * The IdP list is formatted for DiscoJuice consumption
+     * 
+     * @return void creates direct output
      */
     public function jsonListIdentityProvidersForDisco() {
         $idps = $this->listAllIdentityProviders(1);
@@ -127,9 +134,9 @@ class UserNetAPI extends UserAPI {
     /**
      * outputs the list of IdPs in a given country ordered with respect to their distance to the user's location
      * 
-     * @param string $country the country in question
-     * @param array $location the coordinates of the approximate user location
-     *
+     * @param string $country  the country in question
+     * @param array  $location the coordinates of the approximate user location
+     * @return void creates direct output
      */
     public function jsonOrderIdentityProviders($country, $location) {
         $idps = $this->orderIdentityProviders($country, $location);
@@ -145,6 +152,7 @@ class UserNetAPI extends UserAPI {
      *
      * @param int $idpIdentifier the IdP identifier
      * @param int $sort          should the result set be sorted? 0 = no, 1 = yes
+     * @return void creates direct output
      */
     public function jsonListProfiles($idpIdentifier, $sort = 0) {
         $returnArray = [];
@@ -183,6 +191,7 @@ class UserNetAPI extends UserAPI {
      * outputs the list of devices available for the given profile
      *
      * @param int $profileId the Profile identifier
+     * @return void creates direct output
      */
     public function jsonListDevices($profileId) {
         $returnArray = [];
@@ -207,6 +216,7 @@ class UserNetAPI extends UserAPI {
      *
      * @param string $device  identifier as in {@link devices.php}
      * @param int    $prof_id profile identifier
+     * @return void creates direct output
      */
     public function jsonGenerateInstaller($device, $prof_id) {
         $this->loggerInstance->debug(4, "JSON::generateInstaller arguments: $device,$prof_id\n");
@@ -220,21 +230,30 @@ class UserNetAPI extends UserAPI {
 
     /**
      * outputs OS guess in JSON
+     * 
+     * @return void creates direct output
      */
     public function jsonDetectOS() {
+        $status = 1;
         $returnArray = $this->detectOS();
-        $status = is_array($returnArray) ? 1 : 0;
+        if ($returnArray === FALSE) {
+            $status = 0;
+        }
         echo $this->returnJSON($returnArray, $status);
     }
     
     /**
      * outputs user certificates pertaining to a given token in JSON
-     * @param string $token
+     * @param string $token the token for which we want certs
+     * @return void creates direct output
      */
     public function jsonGetUserCerts($token) {
+        $status = 1;
         $returnArrayE = $this->getUserCerts($token);
         $returnArray = [];
-        $status = is_array($returnArrayE) ? 1 : 0;
+        if ($returnArrayE === FALSE) {
+            $status = 0;
+        }
         if ($status === 1) {
             foreach ($returnArrayE as $element) {
                 $returnArray[] = $element->getBasicInfo();
@@ -243,8 +262,10 @@ class UserNetAPI extends UserAPI {
         echo $this->returnJSON($returnArray, $status);
     }
     
-    /** outputs the user location as JSON
-     * @throws Exception
+    /** 
+     * outputs the user location as JSON
+     * 
+     * @return void creates direct output
      */
     public function jsonLocateUser() {
         header('Content-type: application/json; utf-8');
@@ -253,21 +274,25 @@ class UserNetAPI extends UserAPI {
 
     /**
      * outputs support data prepared within {@link GUI::profileAttributes()}
+     * 
+     * @param integer $profileId the profile ID
+     * @return void creates direct output
      */
-    public function jsonProfileAttributes($prof_id) {
+    public function jsonProfileAttributes($profileId) {
 //    header('Content-type: application/json; utf-8');
-        echo $this->returnJSON($this->profileAttributes($prof_id));
+        echo $this->returnJSON($this->profileAttributes($profileId));
     }
 
     /**
      * outputs a logo
      * 
-     * @param int|string $identifier
-     * @param string $type "federation" or "idp"
-     * @param int $width
-     * @param int $height
+     * @param int|string $identifier identifier of the object whose logo is sought
+     * @param string     $type       "federation" or "idp"
+     * @param integer    $width      desired target width
+     * @param integer    $height     desired target height
+     * @return void creates direct output
      */
-    public function sendLogo($identifier, $type, $width = 0, $height = 0) {
+    public function sendLogo($identifier, $type, $width, $height) {
         $logo = $this->getLogo($identifier, $type, $width, $height);
         $blob = $logo === NULL ? file_get_contents(ROOT . '/web/resources/images/empty.png') : $logo['blob'];
         header("Content-type: " . $logo['filetype']);

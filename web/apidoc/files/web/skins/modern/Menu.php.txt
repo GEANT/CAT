@@ -19,7 +19,6 @@
  *          <base_url>/copyright.php after deploying the software
  */
 namespace web\skins\modern;
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
 
 /**
  * Menu class helps to define the menu on the main page
@@ -32,12 +31,14 @@ class Menu {
      * the values of the array can be either a simple string which is passed to user/cat_info.php
      * as the title argument or an two element array - the first element of this array will be
      * the title and the second is a style specification applied to the given menu item
-     * @param string $visibility
-     * @param string $selectedLang
+     * 
+     * @param string $visibility   which parts of the menu should be visible
+     * @param string $selectedLang language to display menu in
+     * @return void
      */
     public function __construct($visibility = 'all', $selectedLang = '') {
         $langsArray = [];
-        foreach (CONFIG['LANGUAGES'] as $lang => $value) {
+        foreach (\config\Master::LANGUAGES as $lang => $value) {
             if ($lang == $selectedLang) {
                 $langsArray[] = ['text'=>$value['display'], 'link'=>'javascript:changeLang("' . $lang . '")', 'class'=>'selected-lang'];
             } else {
@@ -49,10 +50,10 @@ class Menu {
         'visibility' => 'index'],
             ['id' => 'about',
                 'text' => _("About"), 'link' => '', 'submenu' => [
-                    ['text' => sprintf(_("About %s"), CONFIG['APPEARANCE']['productname']),
-                        'catInfo' => ['about_cat', sprintf(_("About %s"), CONFIG['APPEARANCE']['productname'])]],
-                    ['text' => sprintf(_("About %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']),
-                        'link' => CONFIG_CONFASSISTANT['CONSORTIUM']['homepage']],
+                    ['text' => sprintf(_("About %s"), \config\Master::APPEARANCE['productname']),
+                        'catInfo' => ['about_cat', sprintf(_("About %s"), \config\Master::APPEARANCE['productname'])]],
+                    ['text' => sprintf(_("About %s"), \config\ConfAssistant::CONSORTIUM['display_name']),
+                        'link' => \config\ConfAssistant::CONSORTIUM['homepage']],
                 ]],
             ['id' => 'lang',
                 'text' => _("Language"), 'submenu' => $langsArray, ],
@@ -60,7 +61,7 @@ class Menu {
                 'text' => _("Help"), 'submenu' => [
                     ['text' => _("My institution is not listed"), 'catInfo' => ['idp_not_listed', _("FAQ")], 'visibility' => 'index'],
                     ['text' => _("My device is not listed"), 'catInfo' => ['device_not_listed', _("FAQ")], 'visibility' => 'index'],
-                    ['text' => \core\ProfileSilverbullet::PRODUCTNAME._("Help"), 'visibility' => 'sb', 'link'=> CONFIG_CONFASSISTANT['SILVERBULLET']['documentation']],
+                    ['text' => \core\ProfileSilverbullet::PRODUCTNAME._("Help"), 'visibility' => 'sb', 'link'=> \config\ConfAssistant::SILVERBULLET['documentation']],
                     ['text' => _("What is eduroam"), 'catInfo' => ['what_is_eduroam', _("FAQ")]],
                     ['text' => _("FAQ"), 'catInfo' => ['faq', _("FAQ")]],
                     ['text' => _("Contact"), 'catInfo' => ['contact', _("FAQ")]],
@@ -69,8 +70,8 @@ class Menu {
                 ]],
             ['id' => 'manage',
                 'text' => _("Manage"), 'submenu' => [
-                    ['text' => sprintf(_("%s admin access"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']),
-                        'catInfo' => ['admin', sprintf(_("%s admin:<br>manage your IdP"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'])]],
+                    ['text' => sprintf(_("%s admin access"), \config\ConfAssistant::CONSORTIUM['display_name']),
+                        'catInfo' => ['admin', sprintf(_("%s admin:<br>manage your IdP"), \config\ConfAssistant::CONSORTIUM['display_name'])]],
                     ['text' => _("Become a CAT developer"),
                         'catInfo' => ['develop', _("Become a CAT developer")]],
                 ],
@@ -80,6 +81,14 @@ class Menu {
         ];
         $this->visibility = $visibility;
     }
+    
+    /**
+     * prints the menu
+     * 
+     * @param array  $menu the menu content (only once, cached)
+     * @param string $id   element to be displayed
+     * @return string the HTML code for the menu
+     */
     public function printMenu($menu = NULL, $id = NULL) {
         $menu = $menu ?? $this->menu;
         if (count($menu) == 0) {
@@ -106,9 +115,17 @@ class Menu {
             }
         }
         $out .= '</ul>';
-        return($out);
+        return $out;
     }
 
+    /**
+     * generates HTML code for one specific menu item
+     * 
+     * @param string $itemText  text to display
+     * @param string $itemLink  link to embed
+     * @param string $itemClass class of the entry
+     * @return string HTML code
+     */
     private function printMenuItem($itemText, $itemLink = '', $itemClass = '') {
         
         if ($itemLink === '') {
@@ -117,14 +134,30 @@ class Menu {
         return "<li><a href='" . $itemLink . "'" . $itemClass . '>' . $itemText . "</a>";
     }
     
+    /**
+     * prints the menu skeleton, just Start Page
+     * 
+     * @return string
+     */
     public function printMinimalMenu() {
         $out = "\n<ul>\n";
         $out .= $this->printMenuItem(_("Start page"), \core\CAT::getRootUrlPath());
         $out .= '</ul>';
-        return($out);
+        return $out;
     }
 
+    /**
+     * list of menu entries
+     * 
+     * @var array
+     */
     private $menu;
+    
+    /**
+     * visibility status of menu
+     * 
+     * @var string
+     */
     private $visibility;
 }
 

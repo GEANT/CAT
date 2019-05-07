@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -32,10 +33,6 @@
 
 namespace core;
 
-require_once dirname(__DIR__) . "/config/_config.php";
-
-CAT_session_start();
-
 /**
  * Define some variables which need to be globally accessible
  * and some general purpose methods
@@ -67,21 +64,22 @@ class CAT extends \core\common\Entity {
     const COPYRIGHT_HOLDER = "G&Eacute;ANT Association";
     const COPYRIGHT_CONSORTIA = "the G&Eacute;ANT Projects funded by EU";
     const COPYRIGHT_MIN_YEAR = 2011;
-    const COPYRIGHT_MAX_YEAR = 2018;
+    const COPYRIGHT_MAX_YEAR = 2019;
 
-    /*
+    /**
      * This is the user-displayed string; controlled by the four options above
      * It is generated in the constructor.
      * 
      * @var string
      */
+    public $catVersionString;
 
-    public $CAT_VERSION_STRING;
-
-    /*
+    /**
      * The entire copyright line, generated in constructor
+     * 
+     * @var string
      */
-    public $CAT_COPYRIGHT;
+    public $catCopyright;
 
     /**
      * all known federation, in an array with ISO short name as an index, and localised version of the pretty-print name as value.
@@ -96,7 +94,7 @@ class CAT extends \core\common\Entity {
      * the default database to query in this class.
      */
     const DB_TYPE = "INST";
-    
+
     /**
      *  Constructor sets the language by calling set_lang 
      *  and stores language settings in object properties
@@ -104,21 +102,30 @@ class CAT extends \core\common\Entity {
     public function __construct() {
         parent::__construct();
         common\Entity::intoThePotatoes();
-        
-        $this->CAT_VERSION_STRING = sprintf(_("Unreleased %s Git Revision"),"<a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>")."</a>";
+
+        $this->catVersionString = sprintf(_("Unreleased %s Git Revision"), "<a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>") . "</a>";
         if (CAT::RELEASE_VERSION) {
-            $temp_version = "CAT-" . CAT::VERSION_MAJOR . "." . CAT::VERSION_MINOR;
-            $branch = "release_" . CAT::VERSION_MAJOR . "_" . CAT::VERSION_MINOR;
+            $major = CAT::VERSION_MAJOR;
+            $minor = CAT::VERSION_MINOR;
+            $patch = CAT::VERSION_PATCH;
+            $extra = CAT::VERSION_EXTRA;
+            $temp_version = "CAT-$major.$minor";
+            $branch = "release_$major"."_$minor";
             if (CAT::VERSION_PATCH != 0) {
-                $temp_version .= "." . CAT::VERSION_PATCH;
+                $temp_version .= ".$patch";
             }
             if (CAT::VERSION_EXTRA != "") {
-                $temp_version .= "-" . CAT::VERSION_EXTRA;
+                $temp_version .= "-$extra";
             }
-            $this->CAT_VERSION_STRING = sprintf(_("Release <a href='%s'>%s</a>"), "https://github.com/GEANT/CAT/tree/" . $branch . "/Changes.md", $temp_version);
+            $this->catVersionString = sprintf(_("Release <a href='%s'>%s</a>"), "https://github.com/GEANT/CAT/tree/" . $branch . "/Changes.md", $temp_version);
         }
-        $this->CAT_COPYRIGHT = CONFIG['APPEARANCE']['productname'] . " - " . $this->CAT_VERSION_STRING . " &copy; " . CAT::COPYRIGHT_MIN_YEAR . "-" . CAT::COPYRIGHT_MAX_YEAR . " " . CAT::COPYRIGHT_HOLDER . "<br/>on behalf of " . CAT::COPYRIGHT_CONSORTIA . "; and others <a href='copyright.php'>Full Copyright and Licenses</a>";
-        
+        $product = \config\Master::APPEARANCE['productname'];
+        $minYear = self::COPYRIGHT_MIN_YEAR;
+        $maxYear = self::COPYRIGHT_MAX_YEAR;
+        $holder = self::COPYRIGHT_HOLDER;
+        $consortia = self::COPYRIGHT_CONSORTIA;
+        $this->catCopyright = "$product - " . $this->catVersionString . " &copy; $minYear-$maxYear $holder<br/>on behalf of $consortia; and others <a href='copyright.php'>Full Copyright and Licenses</a>";
+
 
         /* Federations are created in DB with bootstrapFederation, and listed via listFederations
          */
@@ -511,16 +518,17 @@ class CAT extends \core\common\Entity {
      * @param string $externalId the ID of the institution in the external DB
      * @param string $realm      the function can also try to find an inst by its realm in the external DB
      * @return array a list of institutions, ideally with only one member
+     * @throws \Exception
      */
     public function getExternalDBEntityDetails($externalId, $realm = NULL) {
         $list = [];
-        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $scanforrealm = "";
             if ($realm !== NULL) {
                 $scanforrealm = "OR inst_realm LIKE '%$realm%'";
             }
             $externalHandle = DBConnection::handle("EXTERNAL");
-            $infoList = $externalHandle->exec("SELECT name AS collapsed_name, inst_realm as realmlist, contact AS collapsed_contact, country FROM view_active_idp_institution WHERE id_institution = $externalId $scanforrealm");
+            $infoList = $externalHandle->exec("SELECT name AS collapsed_name, inst_realm as realmlist, contact AS collapsed_contact, country, type FROM view_active_institution WHERE id_institution = $externalId $scanforrealm");
             // split names and contacts into proper pairs
             // SELECT never returns a boolean, always a mysqli_object
             while ($externalEntityQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $infoList)) {
@@ -537,6 +545,19 @@ class CAT extends \core\common\Entity {
                 }
                 $list['country'] = strtoupper($externalEntityQuery->country);
                 $list['realmlist'] = $externalEntityQuery->realmlist;
+                switch ($externalEntityQuery->type) {
+                    case ExternalEduroamDBData::TYPE_IDP:
+                        $list['type'] = IdP::TYPE_IDP;
+                        break;
+                    case ExternalEduroamDBData::TYPE_SP:
+                        $list['type'] = IdP::TYPE_SP;
+                        break;
+                    case ExternalEduroamDBData::TYPE_IDPSP:
+                        $list['type'] = IdP::TYPE_IDPSP;
+                        break;
+                    default:
+                        throw new \Exception("Eduroam DB returned a participant type we do not know.");
+                }
             }
         }
         return $list;
@@ -549,10 +570,10 @@ class CAT extends \core\common\Entity {
     public function getExternalCountriesList() {
         $olddomain = $this->languageInstance->setTextDomain("core");
         $returnArray = []; // in if -> the while might never be executed, so initialise
-        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-            $handle = DBConnection::handle("EXTERNAL");    
+        if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+            $handle = DBConnection::handle("EXTERNAL");
             $timeStart = microtime(true);
-            $federations = $handle->exec("SELECT DISTINCT UPPER(country) AS country FROM view_active_idp_institution ORDER BY country");
+            $federations = $handle->exec("SELECT DISTINCT UPPER(country) AS country FROM view_country_eduroamdb ORDER BY country");
             $timeEnd = microtime(true);
             $timeElapsed = $timeEnd - $timeStart;
             // the query yielded a mysqli_result because it's a SELECT, this never gives back a boolean
@@ -566,14 +587,39 @@ class CAT extends \core\common\Entity {
         $this->languageInstance->setTextDomain($olddomain);
         return($returnArray);
     }
-    
+
     /**
      * the (HTML) root path of the CAT deployment
      * 
      * @return string
      */
     public static function getRootUrlPath() {
-        return substr(CONFIG['PATHS']['cat_base_url'], -1) === '/' ? substr(CONFIG['PATHS']['cat_base_url'], 0, -1) : CONFIG['PATHS']['cat_base_url'];
+        return substr(\config\Master::PATHS['cat_base_url'], -1) === '/' ? substr(\config\Master::PATHS['cat_base_url'], 0, -1) : \config\Master::PATHS['cat_base_url'];
+    }
+
+    /**
+     * takes care of starting our session
+     * 
+     * @return void
+     */
+    public static function sessionStart() {
+        if (session_status() != PHP_SESSION_ACTIVE) {
+            session_name("CAT");
+            session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], (isset($_SERVER['HTTPS']) ? TRUE : FALSE));
+            session_start();
+        }
+    }
+    
+    /**
+     * determines which external DB to use, and returns an object instance
+     * 
+     * @return \core\ExternalEduroamDBData|\core\ExternalNothing
+     */
+    public static function determineExternalConnection() {
+        if(\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") {
+            return new ExternalEduroamDBData();
+        }
+        return new ExternalNothing();
     }
 
 }

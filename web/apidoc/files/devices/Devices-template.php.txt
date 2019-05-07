@@ -83,6 +83,8 @@ class Devices extends \core\common\Entity {
      * - 'mime' - used to set the MIME type of the installer file;
      *         if not set will default to the value provided by PHP finfo.
      *         The default is unset, so it is not listed in the Options array.
+     * 
+     * @var array
      */
     public static $Options = [
         'sign' => 0,
@@ -137,6 +139,7 @@ class Devices extends \core\common\Entity {
                     'sign' => 1,
                     'device_id' => 'W10',
                     'args' => 'gl',
+                    'clientcert' => Devices::SUPPORT_EMBEDDED_ECDSA,
                     'mime' => 'application/x-dosexec',
                 ],
             ],
@@ -150,6 +153,7 @@ class Devices extends \core\common\Entity {
                 'options' => [
                     'sign' => 1,
                     'device_id' => 'W8',
+                    'clientcert' => Devices::SUPPORT_EMBEDDED_ECDSA,
                     'mime' => 'application/x-dosexec',
                 ],
             ],
@@ -189,6 +193,21 @@ class Devices extends \core\common\Entity {
                     'redirect' => 1,
                 ],
             ],
+            'apple_mojave' => array(
+                'group' => "apple",
+                'display' => _("Apple macOS Mojave"),
+                'match' => 'Mac OS X 10[._]14',
+                'directory' => 'apple_mobileconfig',
+                'module' => 'MobileconfigOsX',
+                'signer' => 'mobileconfig_sign',
+                'options' => array(
+                    'sign' => 1,
+                    'device_id' => 'OS_X',
+                    'mime' => 'application/x-apple-aspen-config',
+                    'clientcert' => Devices::SUPPORT_EMBEDDED_ECDSA,
+                    'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page. Later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."),
+                ),
+            ),
             'apple_hi_sierra' => array(
                 'group' => "apple",
                 'display' => _("Apple macOS High Sierra"),
@@ -348,6 +367,21 @@ class Devices extends \core\common\Entity {
                 'options' => [
                     'mime' => 'application/x-onc',
                     'message' => sprintf(_("After downloading the file, open the Chrome browser and browse to this URL: <a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</a>. Then, use the 'Import ONC file' button. The import is silent; the new network definitions will be added to the preferred networks.")),
+                ],
+            ],
+            'android_q' => [
+                'group' => "android",
+                'display' => _("Android 10.0 Q"),
+                'match' => 'Android 10',
+                'directory' => 'xml',
+                'module' => 'Lollipop',
+                'options' => [
+                    'mime' => 'application/eap-config',
+                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                            "eduroamCAT",
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
+                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
+                            "<a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
                 ],
             ],
             'android_pie' => [
@@ -545,7 +579,7 @@ class Devices extends \core\common\Entity {
                   ),
                   ),
                  */
-        ];
+    ];
         \core\common\Entity::outOfThePotatoes();
         return $retArray;
     }

@@ -19,11 +19,7 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
-function escaped_echo($s) {
-    echo preg_replace('/"/', '&quot;', $s);
-}
-
-$cat = new core\CAT();
+$cat = new \web\lib\user\Gui();
 $idpId = filter_input(INPUT_GET, 'idp', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'idp', FILTER_VALIDATE_INT)?? 0;
 $profileId = filter_input(INPUT_GET, 'profile', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'profile', FILTER_VALIDATE_INT) ?? 0;
 $skinObject = $Gui->skinObject;
@@ -39,7 +35,7 @@ var hide_images = 0;
 var front_page = 1;
 var download_link;
 var profile_list_size = <?php echo $profile_list_size ?>;
-var generation_error = "<?php escaped_echo(_("This is embarrassing. Generation of your installer failed. System admins have been notified. We will try to take care of the problem as soon as possible.")) ?>";
+var generation_error = "<?php $cat->javaScriptEscapedEcho(_("This is embarrassing. Generation of your installer failed. System admins have been notified. We will try to take care of the problem as soon as possible.")) ?>";
 
 var roller;
 if (roller === undefined)
@@ -86,7 +82,7 @@ $.fn.redraw = function(){
     if (j.otherdata !== undefined)
         otherdata = j.otherdata;
     if(! result) {
-      alert("<?php escaped_echo(_("no matching data found"))?>");
+      alert("<?php $cat->javaScriptEscapedEcho(_("no matching data found"))?>");
       document.location.href='<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/' ?>';
     }
     j = j.data;
@@ -100,7 +96,7 @@ $.fn.redraw = function(){
     $("#user_page").show();
     $("#institution_name").show();
     if(n > profile_list_size)
-    $("#profile_list").append('<option value="0" selected style="color:red"> --<?php escaped_echo(_("select"))?> --</option>');
+    $("#profile_list").append('<option value="0" selected style="color:red"> --<?php $cat->javaScriptEscapedEcho(_("select"))?> --</option>');
     $.each(j,printP);
     if(n <= profile_list_size)
     $("#profile_list").append('<option value="0" selected style="display:none"> </option>');
@@ -223,7 +219,7 @@ function resetDevices() {
        j1 = $.parseJSON(data);
        result = j1.status;
        if(! result) {
-            alert("<?php escaped_echo(_("no matching data found")) ?>");
+            alert("<?php $cat->javaScriptEscapedEcho(_("no matching data found")) ?>");
             document.location.href='<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/' ?>';
        }
        j = j1.data;
@@ -236,15 +232,15 @@ function resetDevices() {
          $("#profile_desc").text('');
        }
        if(j.local_url !== undefined && j.local_url) 
-       txt = txt+'<span class="user_info"><?php escaped_echo(_("WWW:")); ?> <a href="'+j.local_url+'" target="_blank">'+j.local_url+'</a></span><br/>';
+       txt = txt+'<span class="user_info"><?php $cat->javaScriptEscapedEcho(_("WWW:")); ?> <a href="'+j.local_url+'" target="_blank">'+j.local_url+'</a></span><br/>';
        if(j.local_email !== undefined && j.local_email) 
-       txt = txt+'<span class="user_info"><?php escaped_echo(_("email:")); ?> <a href=mailto:"'+j.local_email+'">'+j.local_email+'</a></span><br/>';
+       txt = txt+'<span class="user_info"><?php $cat->javaScriptEscapedEcho(_("email:")); ?> <a href=mailto:"'+j.local_email+'">'+j.local_email+'</a></span><br/>';
        if(j.local_phone !== undefined && j.local_phone) 
-       txt = txt+'<span class="user_info"><?php escaped_echo(_("tel:")); ?> '+j.local_phone+'</span><br/>';
+       txt = txt+'<span class="user_info"><?php $cat->javaScriptEscapedEcho(_("tel:")); ?> '+j.local_phone+'</span><br/>';
        if(txt) 
-       txt = "<span class='user_info_header'><?php escaped_echo(_("If you encounter problems, then you can obtain direct assistance from your organisation at:")); ?></span><br/>"+txt;
+       txt = "<span class='user_info_header'><?php $cat->javaScriptEscapedEcho(_("If you encounter problems, then you can obtain direct assistance from your organisation at:")); ?></span><br/>"+txt;
         else
-        txt = "<span class='user_info_header'><?php escaped_echo(_("If you encounter problems you should ask those who gave you your account for help.")); ?>" + '</span><br/>';
+        txt = "<span class='user_info_header'><?php $cat->javaScriptEscapedEcho(_("If you encounter problems you should ask those who gave you your account for help.")); ?>" + '</span><br/>';
       $("#user_info").html(txt);
       $("#user_info").show();
       if(j.silverbullet) {
@@ -262,7 +258,7 @@ function resetDevices() {
           $("#g_"+v.id).addClass('alertButton');
           $("#cross_icon_"+v.id).show();
           $("#"+v.id).addClass('disabledDevice');
-          $("#download_button_header_"+v.id).html("<?php escaped_echo(_("This device cannot be configured with the settings used in your organisation."))?>");
+          $("#download_button_header_"+v.id).html("<?php $cat->javaScriptEscapedEcho(_("This device cannot be configured with the settings used in your organisation."))?>");
           $("#info_b_"+v.id+",#g_info_b_"+v.id).hide();
         } else  {
           if(v.status == -1)
@@ -275,7 +271,7 @@ function resetDevices() {
           $("#"+v.id+",#g_"+v.id).addClass('additionalInfo');
           $("#"+v.id+",#g_"+v.id).click(function(event){
             i_div = $("#info_"+$(this).attr('id'));
-            t = "<?php escaped_echo(_("Your site administrator has specified that this device should be configured with resources located on a local page. When you click <b>Continue</b> this page will be opened in a new window/tab."))?>"+"<br><span class='redirect_link'><a href='"+v.redirect+"' target='_blank'><?php escaped_echo(_("Continue")); ?></a></span>";
+            t = "<?php $cat->javaScriptEscapedEcho(_("Your site administrator has specified that this device should be configured with resources located on a local page. When you click <b>Continue</b> this page will be opened in a new window/tab."))?>"+"<br><span class='redirect_link'><a href='"+v.redirect+"' target='_blank'><?php $cat->javaScriptEscapedEcho(_("Continue")); ?></a></span>";
             i_div.html(t);
             $(".redirect_link").click(function(event) {
                i_div.hide();
@@ -283,13 +279,13 @@ function resetDevices() {
                
           });
         } else if(v.device_customtext != '0' || v.eap_customtext != '0' || v.message != '0' || v.status > 0) {
-          var continue_text = "<?php escaped_echo(_("Continue")); ?>";
+          var continue_text = "<?php $cat->javaScriptEscapedEcho(_("Continue")); ?>";
           $("#"+v.id+",#g_"+v.id).addClass('additionalInfo');
           $("#"+v.id+",#g_"+v.id).click(function(event){
             i_div = $("#info_"+$(this).attr('id'));
             if(v.status > 0) {
-              t = "<?php escaped_echo(_("This device cannot be configured with the settings used in your organisation."))?>";
-              continue_text = "<?php escaped_echo(_("Close")); ?>";
+              t = "<?php $cat->javaScriptEscapedEcho(_("This device cannot be configured with the settings used in your organisation."))?>";
+              continue_text = "<?php $cat->javaScriptEscapedEcho(_("Close")); ?>";
             } else {
             t = i_div.html();
             if(v.message != '0') {
@@ -571,25 +567,25 @@ $(".signin").DiscoJuice({
    "iconPath":"<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendLogo&api_version=2&disco=1&lang=" + lang + "&idp=",
    "overlay":true,"cookie":true,"type":false,
    "country":true,"location":true,
-   "title":"<?php escaped_echo(_("Organisation")) ?>",
-   "subtitle":"<?php escaped_echo(_("Select your organisation")) ?>",
-   "textHelp": "<?php escaped_echo(_("Help, my organisation is not on the list")) ?>",
-   "textHelpMore": "<?php escaped_echo(sprintf(_("This system relies on information supplied by local %s administrators. If your organisation is not on the list, then nag them to add information to the %s database."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG['APPEARANCE']['productname'])); ?>",
-   "textLocateMe": "<?php escaped_echo(_("Locate me more accurately using HTML5 Geo-Location")) ?>",
-   "textShowProviders": "<?php escaped_echo(_("Show organisations in")) ?>",
-   "textAllCountries": "<?php escaped_echo(_("all countries")) ?>",
-   "textSearch" : "<?php escaped_echo(_("or search for an organisation, for example University of Oslo")) ?>",
-   "textShowAllCountries": "<?php escaped_echo(_("show all countries")) ?>",
-   "textLimited1" : "<?php escaped_echo(_("Results limited to"))?>",
-   "textLimited2" : "<?php escaped_echo(_("entries - show more"))?>",
-   "textNearby" : "<?php escaped_echo(_("Nearby"))?>",
-   "geoLoc_timeout" : "<?php escaped_echo(_("Location timeout"))?>",
-   "geoLoc_posUnavailable" : "<?php escaped_echo(_("Could not get your position"))?>",
-   "geoLoc_permDenied" : "<?php escaped_echo(_("Your browser has denied access to your location"))?>",
-   "geoLoc_unknownError" : "<?php escaped_echo(_("Unknown location error"))?>",
-   "geoLoc_here" : "<?php escaped_echo(_("You are here:"))?>",
-   "geoLoc_getting" : "<?php escaped_echo(_("Getting your location..."))?>",
-   "geoLoc_nearby" : "<?php escaped_echo(_("Nearby providers shown on top."))?>",
+   "title":"<?php $cat->javaScriptEscapedEcho(_("Organisation")) ?>",
+   "subtitle":"<?php $cat->javaScriptEscapedEcho(_("Select your organisation")) ?>",
+   "textHelp": "<?php $cat->javaScriptEscapedEcho(_("Help, my organisation is not on the list")) ?>",
+   "textHelpMore": "<?php $cat->javaScriptEscapedEcho(sprintf(_("This system relies on information supplied by local %s administrators. If your organisation is not on the list, then nag them to add information to the %s database."), \config\ConfAssistant::CONSORTIUM['display_name'], \config\Master::APPEARANCE['productname'])); ?>",
+   "textLocateMe": "<?php $cat->javaScriptEscapedEcho(_("Locate me more accurately using HTML5 Geo-Location")) ?>",
+   "textShowProviders": "<?php $cat->javaScriptEscapedEcho(_("Show organisations in")) ?>",
+   "textAllCountries": "<?php $cat->javaScriptEscapedEcho(_("all countries")) ?>",
+   "textSearch" : "<?php $cat->javaScriptEscapedEcho(_("or search for an organisation, for example University of Oslo")) ?>",
+   "textShowAllCountries": "<?php $cat->javaScriptEscapedEcho(_("show all countries")) ?>",
+   "textLimited1" : "<?php $cat->javaScriptEscapedEcho(_("Results limited to"))?>",
+   "textLimited2" : "<?php $cat->javaScriptEscapedEcho(_("entries - show more"))?>",
+   "textNearby" : "<?php $cat->javaScriptEscapedEcho(_("Nearby"))?>",
+   "geoLoc_timeout" : "<?php $cat->javaScriptEscapedEcho(_("Location timeout"))?>",
+   "geoLoc_posUnavailable" : "<?php $cat->javaScriptEscapedEcho(_("Could not get your position"))?>",
+   "geoLoc_permDenied" : "<?php $cat->javaScriptEscapedEcho(_("Your browser has denied access to your location"))?>",
+   "geoLoc_unknownError" : "<?php $cat->javaScriptEscapedEcho(_("Unknown location error"))?>",
+   "geoLoc_here" : "<?php $cat->javaScriptEscapedEcho(_("You are here:"))?>",
+   "geoLoc_getting" : "<?php $cat->javaScriptEscapedEcho(_("Getting your location..."))?>",
+   "geoLoc_nearby" : "<?php $cat->javaScriptEscapedEcho(_("Nearby providers shown on top."))?>",
    "countryAPI":"<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=locateUser&api_version=2",
    "metadata":"<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=listAllIdentityProviders&api_version=2&lang="+lang,
    "callback": function(e) {

@@ -253,6 +253,7 @@ class DeviceChromebook extends \core\DeviceConfig {
      * prepare a ONC file
      *
      * @return string installer path name
+     * @throws Exception
      */
     public function writeInstaller() {
         $this->loggerInstance->debug(4, "Chromebook Installer start\n");

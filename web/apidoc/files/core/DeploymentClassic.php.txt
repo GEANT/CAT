@@ -61,8 +61,7 @@ class DeploymentClassic extends AbstractDeployment {
     public function __construct($idpObject, $deploymentIdRaw = NULL) {
         parent::__construct($idpObject, $deploymentIdRaw); // we now have access to our INST database handle and logging
         $this->type = AbstractDeployment::DEPLOYMENTTYPE_MANAGED;
-        // we need to extract the SP's relevant information from the eduroam DB
-        // TODO
+        // TODO we need to extract the SP's relevant information from the eduroam DB
         $propertyQuery = "SELECT ... FROM ... WHERE ...";
         $queryExec = $this->databaseHandle->exec($propertyQuery);
         while ($iterator = mysqli_fetch_object(/** @scrutinizer ignore-type */ $queryExec)) {

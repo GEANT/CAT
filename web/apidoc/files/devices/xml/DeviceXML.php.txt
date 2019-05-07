@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -29,9 +30,10 @@
  *
  * @package ModuleWriting
  */
+
 namespace devices\xml;
+
 use Exception;
-require_once dirname(__FILE__) . '/XML.inc.php';
 
 /**
  * This class implements full functionality of the generic XML device
@@ -51,12 +53,27 @@ abstract class DeviceXML extends \core\DeviceConfig {
     }
 
     /**
-     * $lang_scope can be 'global' wheb all lang and all lang-specific information
+     * $langScope can be 'global' when all lang and all lang-specific information
      * is dumped or 'single' when only the selected lang (and defaults) are passed
      * NOTICE: 'global' is not yet supported
+     * 
+     * @var string
      */
     public $langScope;
+
+    /**
+     * whether all EAP types should be included in the file or only the 
+     * preferred one
+     * 
+     * @var boolean
+     */
     public $allEaps = FALSE;
+
+    /**
+     * vendor-specific additional information
+     * 
+     * @var array
+     */
     public $VendorSpecific;
 
     /**
@@ -76,6 +93,7 @@ abstract class DeviceXML extends \core\DeviceConfig {
      * create the actual XML file
      * 
      * @return string filename of the generated installer
+     * @throws Exception
      *
      */
     public function writeInstaller() {
@@ -88,10 +106,6 @@ abstract class DeviceXML extends \core\DeviceConfig {
 // ProviderInfo->
         $eapIdp->setProperty('ProviderInfo', $this->getProviderInfo());
 // TODO    $eap_idp->setProperty('VendorSpecific',$this->getVendorSpecific());
-//AuthenticationMethods
-// TODO
-//ID attribute
-//lang attribute
         $methodList = [];
         if ($this->allEaps) {
             $eapmethods = [];
@@ -129,7 +143,7 @@ abstract class DeviceXML extends \core\DeviceConfig {
         $rootname = 'EAPIdentityProviderList';
         $root = new \SimpleXMLElement("<?xml version=\"1.0\" encoding=\"utf-8\" ?><{$rootname} xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"eap-metadata.xsd\"></{$rootname}>");
 
-        marshalObject($root, $eapIdp);
+        $this->marshalObject($root, $eapIdp);
         $dom = dom_import_simplexml($root)->ownerDocument;
         //TODO schema validation makes sense so probably should be used
         if ($dom->schemaValidate(ROOT . '/devices/xml/eap-metadata.xsd') === FALSE) {
@@ -139,7 +153,7 @@ abstract class DeviceXML extends \core\DeviceConfig {
         return($this->installerBasename . '.eap-config');
     }
 
-    private $AttributeNames = [
+    private const ATTRIBUTENAMES = [
         'support:email' => 'EmailAddress',
         'support:url' => 'WebAddress',
         'support:phone' => 'Phone',
@@ -158,11 +172,11 @@ abstract class DeviceXML extends \core\DeviceConfig {
             return([]);
         }
         $attributeList = $this->attributes[$attrName];
-        if (!isset($this->AttributeNames[$attrName])) {
+        if (!isset(self::ATTRIBUTENAMES[$attrName])) {
             $this->loggerInstance->debug(4, "Missing class definition for $attrName\n");
             return([]);
         }
-        $className = "\devices\xml\\" . $this->AttributeNames[$attrName];
+        $className = "\devices\xml\\" . self::ATTRIBUTENAMES[$attrName];
         $objs = [];
         if ($this->langScope === 'global') {
             foreach ($attributeList['langs'] as $language => $value) {
@@ -294,7 +308,12 @@ abstract class DeviceXML extends \core\DeviceConfig {
         return $helpdesk;
     }
 
-   private function getCredentialApplicability() {
+    /**
+     * determine where this credential should be applicable
+     * 
+     * @return \devices\xml\CredentialApplicability
+     */
+    private function getCredentialApplicability() {
         $ssids = $this->attributes['internal:SSID'];
         $oids = $this->attributes['internal:consortia'];
         $credentialapplicability = new CredentialApplicability();
@@ -311,7 +330,7 @@ abstract class DeviceXML extends \core\DeviceConfig {
             $ieee80211s[] = $ieee80211;
         }
         $credentialapplicability->setProperty('IEEE80211', $ieee80211s);
-        return($credentialapplicability);
+        return $credentialapplicability;
     }
 
     /**
@@ -339,6 +358,12 @@ abstract class DeviceXML extends \core\DeviceConfig {
         }
     }
 
+    /**
+     * sets the server-side credentials for a given EAP type
+     * 
+     * @param \devices\XML\Type $eaptype the EAP type
+     * @return \devices\XML\ServerSideCredential
+     */
     private function setServerSideCredentials($eaptype) {
         $attr = $this->attributes;
         $serversidecredential = new ServerSideCredential();
@@ -361,10 +386,16 @@ abstract class DeviceXML extends \core\DeviceConfig {
         $serversidecredential->setProperty('EAPType', $eaptype->getValue());
         $serversidecredential->setProperty('CA', $cAlist);
         $serversidecredential->setProperty('ServerID', $serverids);
-        return($serversidecredential);
+        return $serversidecredential;
     }
-    
-    private function setClientSideRealm ($clientsidecredential) {
+
+    /**
+     * sets the realm information for the client-side credential
+     * 
+     * @param \devices\XML\ClientSideCredential $clientsidecredential the ClientSideCredential to which the realm info is to be added
+     * @return void
+     */
+    private function setClientSideRealm($clientsidecredential) {
         $attr = $this->attributes;
         $realm = \core\common\Entity::getAttributeValue($attr, 'internal:realm', 0);
         if ($realm === NULL) {
@@ -378,14 +409,25 @@ abstract class DeviceXML extends \core\DeviceConfig {
             $clientsidecredential->setProperty('InnerIdentityHint', 'true');
         }
     }
-    
-    private function setClientCetificate() {
+
+    /**
+     * sets the client certificate
+     * 
+     * @return \devices\XML\ClientCertificate
+     */
+    private function setClientCertificate() {
         $clientCertificateObject = new ClientCertificate();
         $clientCertificateObject->setValue(base64_encode($this->clientCert["certdata"]));
         $clientCertificateObject->setAttributes(['format' => 'PKCS12', 'encoding' => 'base64']);
-        return($clientCertificateObject);
+        return $clientCertificateObject;
     }
 
+    /**
+     * sets the client-side credentials for the given EAP type
+     * 
+     * @param array $eapParams the EAP parameters
+     * @return \devices\XML\ClientSideCredential
+     */
     private function setClientSideCredentials($eapParams) {
         $clientsidecredential = new ClientSideCredential();
         $outerId = $this->determineOuterIdString();
@@ -394,14 +436,20 @@ abstract class DeviceXML extends \core\DeviceConfig {
         }
         $this->setClientSideRealm($clientsidecredential);
         $clientsidecredential->setProperty('EAPType', $eapParams['inner_methodID'] ? $eapParams['inner_methodID'] : $eapParams['methodID']);
-                
+
         // Client Certificate
         if ($this->selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
-            $clientsidecredential->setProperty('ClientCertificate', $this->setClientCetificate());
+            $clientsidecredential->setProperty('ClientCertificate', $this->setClientCertificate());
         }
-        return($clientsidecredential);
+        return $clientsidecredential;
     }
-    
+
+    /**
+     * sets the EAP method
+     * 
+     * @param \devices\XML\Type $eaptype the EAP type XMLObject
+     * @return \devices\XML\EAPMethod
+     */
     private function setEapMethod($eaptype) {
         $eapmethod = new EAPMethod();
         $eapmethod->setProperty('Type', $eaptype);
@@ -418,9 +466,15 @@ abstract class DeviceXML extends \core\DeviceConfig {
         }
         return($eapmethod);
     }
-    
+
+    /**
+     * determines the authentication method to use
+     * 
+     * @param array $eap the EAP methods, in array representation
+     * @return \devices\xml\AuthenticationMethod
+     */
     private function getAuthMethod($eap) {
- //       $attr = $this->attributes;
+        //       $attr = $this->attributes;
         $authmethod = new AuthenticationMethod();
         $eapParams = $this->getAuthenticationMethodParams($eap);
         $eaptype = new Type();
@@ -433,16 +487,59 @@ abstract class DeviceXML extends \core\DeviceConfig {
 
 // ClientSideCredentials
         $authmethod->setProperty('ClientSideCredential', $this->setClientSideCredentials($eapParams));
-        
+
         if ($eapParams['inner_method']) {
             $authmethod->setProperty('InnerAuthenticationMethod', $eapParams['inner_method']);
         }
         return $authmethod;
-
-
     }
-    
 
+    /**
+     * 
+     * @param \SimpleXMLElement   $node   the XML node to marshal
+     * @param EAPIdentityProvider $object the Object
+     * @return void
+     */
+    private function marshalObject($node, $object) {
+        $qualClassName = get_class($object);
+        // remove namespace qualifier
+        $pos = strrpos($qualClassName, '\\');
+        $className = substr($qualClassName, $pos + 1);
+        $name = preg_replace("/_/", "-", $className);
+        if ($object->getValue()) {
+            $val = preg_replace('/&/', '&amp;', $object->getValue());
+            $childNode = $node->addChild($name, $val);
+        } else {
+            $childNode = $node->addChild($name);
+        }
+        if ($object->areAttributes()) {
+            $attrs = $object->getAttributes();
+            foreach ($attrs as $attrt => $attrv) {
+                $childNode->addAttribute($attrt, $attrv);
+            }
+        }
+        $fields = $object->getAll();
+        if (empty($fields)) {
+            return;
+        }
+        foreach ($fields as $name => $value) {
+            if (is_scalar($value)) {
+                $childNode->addChild($name, strval($value));
+                continue;
+            }
+            if (gettype($value) == 'array') {
+                foreach ($value as $insideValue) {
+                    if (is_object($insideValue)) {
+                        $this->marshalObject($childNode, $insideValue);
+                    }
+                }
+                continue;
+            }
+            if (gettype($value) == 'object') {
+                $this->marshalObject($childNode, $value);
+            }
+        }
+    }
 
 }
 

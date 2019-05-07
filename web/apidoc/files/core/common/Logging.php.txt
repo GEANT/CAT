@@ -23,16 +23,16 @@ namespace core\common;
 
 use \Exception;
 
-require_once dirname(dirname(__DIR__)) . "/config/_config.php";
-
 class Logging {
 
     /**
      * We don't have a lot to do here, but at least make sure that the logdir 
      * is specified and exists.
+     * 
+     * @throws Exception
      */
     public function __construct() {
-        if (!isset(CONFIG['PATHS']['logdir'])) {
+        if (!isset(\config\Master::PATHS['logdir'])) {
             throw new Exception("No logdir was specified in the configuration. We cannot continue without one!");
         }
     }
@@ -45,7 +45,7 @@ class Logging {
      * @return void
      */
     private function writeToFile($filename, $message) {
-        file_put_contents(CONFIG['PATHS']['logdir'] . "/$filename", sprintf("%-015s", microtime(TRUE)) . $message, FILE_APPEND);
+        file_put_contents(\config\Master::PATHS['logdir'] . "/$filename", sprintf("%-015s", microtime(TRUE)) . $message, FILE_APPEND);
     }
 
     /**
@@ -58,7 +58,7 @@ class Logging {
      * @return void
      */
     public function debug($level, $stuff, $prefix = '', $suffix = '') {
-        if (CONFIG['DEBUG_LEVEL'] < $level) {
+        if (\config\Master::DEBUG_LEVEL < $level) {
             return;
         }
 
@@ -91,6 +91,7 @@ class Logging {
      * @param string $category type of modification, from the fixed vocabulary: "NEW", "OWN", "MOD", "DEL"
      * @param string $message  message to log into the audit log
      * @return boolean TRUE if successful. Will terminate script execution on failure. 
+     * @throws Exception
      */
     public function writeAudit($user, $category, $message) {
         switch ($category) {

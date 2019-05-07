@@ -21,7 +21,7 @@
 
 require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 
-CAT_session_start();
+\core\CAT::sessionStart();
 
 $safeText = ["options"=>["regexp"=>"/^[\w\d-]+$/"]];
 $key1 = filter_input(INPUT_GET, 'key', FILTER_VALIDATE_REGEXP, $safeText);

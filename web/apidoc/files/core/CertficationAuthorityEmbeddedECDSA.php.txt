@@ -54,6 +54,11 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
      */
     private $issuingKey;
 
+    /**
+     * sets up the environment so that we can do certificate stuff
+     * 
+     * @throws Exception
+     */
     public function __construct() {
         $this->databaseType = "INST";
         parent::__construct();
@@ -84,7 +89,16 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
         $this->conffile = CertificationAuthorityEmbeddedECDSA::LOCATION_CONFIG;
     }
 
-    public function triggerNewOCSPStatement(SilverbulletCertificate $cert): string {
+    /**
+     * create new OCSP statement by making an ephemeral index.txt file for
+     * openssl and working with that on the cmdline
+     * 
+     * @param integer $serial serial number; integer because it is <=64 bit
+     * @return string the OCSP statement
+     * @throws Exception
+     */
+    public function triggerNewOCSPStatement($serial): string {
+        $cert = new SilverbulletCertificate($serial, \devices\Devices::SUPPORT_EMBEDDED_ECDSA);
         $certstatus = "";
         // get all relevant info from object properties
         if ($cert->serial >= 0) { // let's start with the assumption that the cert is valid
@@ -114,12 +128,13 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
         $tempdir = $tempdirArray['dir'];
         $nowIndexTxt = (new \DateTime())->format("ymdHis") . "Z";
         $expiryIndexTxt = $originalExpiry->format("ymdHis") . "Z";
-        $serialHex = strtoupper(dechex($cert->serial));
+        // serials for our CA are always integers
+        $serialHex = strtoupper(dechex((int)$cert->serial));
         if (strlen($serialHex) % 2 == 1) {
             $serialHex = "0" . $serialHex;
         }
 
-        $indexStatement = "$certstatus\t$expiryIndexTxt\t" . ($certstatus == "R" ? "$nowIndexTxt,unspecified" : "") . "\t$serialHex\tunknown\t/O=" . CONFIG_CONFASSISTANT['CONSORTIUM']['name'] . "/OU=$federation/CN=$cert->username\n";
+        $indexStatement = "$certstatus\t$expiryIndexTxt\t" . ($certstatus == "R" ? "$nowIndexTxt,unspecified" : "") . "\t$serialHex\tunknown\t/O=" . \config\ConfAssistant::CONSORTIUM['name'] . "/OU=$federation/CN=$cert->username\n";
         $this->loggerInstance->debug(4, "index.txt contents-to-be: $indexStatement");
         if (!file_put_contents($tempdir . "/index.txt", $indexStatement)) {
             $this->loggerInstance->debug(1, "Unable to write openssl index.txt file for revocation handling!");
@@ -131,7 +146,7 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
         // choice of signature algorithm for the response explicit
         // but it's only available from openssl-1.1.0 (which we do not
         // want to require just for that one thing).
-        $execCmd = CONFIG['PATHS']['openssl'] . " ocsp -issuer " . CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_CA . " -sha1 -ndays 10 -no_nonce -serial 0x$serialHex -CA " . CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_CA . " -rsigner " . CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_CA . " -rkey " . CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_KEY . " -index $tempdir/index.txt -no_cert_verify -respout $tempdir/$serialHex.response.der";
+        $execCmd = \config\Master::PATHS['openssl'] . " ocsp -issuer " . CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_CA . " -sha1 -ndays 10 -no_nonce -serial 0x$serialHex -CA " . CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_CA . " -rsigner " . CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_CA . " -rkey " . CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_KEY . " -index $tempdir/index.txt -no_cert_verify -respout $tempdir/$serialHex.response.der";
         $this->loggerInstance->debug(2, "Calling openssl ocsp with following cmdline: $execCmd\n");
         $output = [];
         $return = 999;
@@ -149,6 +164,14 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
         return $ocsp;
     }
 
+    /**
+     * sign CSR
+     * 
+     * @param array   $csr        the request metadata. The member $csr['CSR'] must be a PHP *resource*
+     * @param integer $expiryDays how many days should the cert be valid?
+     * @return array the cert and some metadata
+     * @throws Exception
+     */
     public function signRequest($csr, $expiryDays) {
         $nonDupSerialFound = FALSE;
         do {
@@ -161,7 +184,7 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
             }
         } while (!$nonDupSerialFound);
         $this->loggerInstance->debug(5, "generateCertificate: signing imminent with unique serial $serial, cert type ECDSA.\n");
-        $cert = openssl_csr_sign($csr, $this->issuingCert, $this->issuingCaKey, $expiryDays, ['digest_alg' => 'ecdsa-with-SHA1', 'config' => $this->conffile], $serial);
+        $cert = openssl_csr_sign($csr, $this->issuingCert, $this->issuingKey, $expiryDays, ['digest_alg' => 'ecdsa-with-SHA1', 'config' => $this->conffile], $serial);
         if ($cert === FALSE) {
             throw new Exception("Unable to sign the request and generate the certificate!");
         }
@@ -173,16 +196,30 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
         ];
     }
 
-    public function revokeCertificate(SilverbulletCertificate $cert): void {
-        // the generic caller in SilverbulletCertificate::revokeCertificate
-        // has already updated the DB. So all is done; we simply create a new
-        // OCSP statement based on the updated DB content
-        $this->triggerNewOCSPStatement($cert);
+    /**
+     * the generic caller in SilverbulletCertificate::revokeCertificate
+     * has already updated the DB. So all is done; we simply create a new
+     * OCSP statement based on the updated DB content
+     * 
+     * @param integer $serial the serial to revoke, integer because <=64 bit
+     * @return void
+     */
+    public function revokeCertificate($serial): void {
+        $this->triggerNewOCSPStatement($serial);
     }
 
+    /**
+     * generates a CSR with parameters compatible with the CA.
+     * 
+     * @param \resource $privateKey the private key
+     * @param string    $fed        federation, for the C= field
+     * @param string    $username   the username, for the CN= field
+     * @return array
+     * @throws Exception
+     */
     public function generateCompatibleCsr($privateKey, $fed, $username) {
         $newCsr = openssl_csr_new(
-                ['O' => CONFIG_CONFASSISTANT['CONSORTIUM']['name'],
+                ['O' => \config\ConfAssistant::CONSORTIUM['name'],
                     'OU' => $fed,
                     'CN' => $username,
                 // 'emailAddress' => $username,
@@ -201,6 +238,12 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
         ];
     }
 
+    /**
+     * generates a private key compatible with the CA
+     * 
+     * @return \resource
+     * @throws Exception
+     */
     public function generateCompatiblePrivateKey(): \resource {
         $key = openssl_pkey_new(['curve_name' => 'secp384r1', 'private_key_type' => OPENSSL_KEYTYPE_EC, 'encrypt_key' => FALSE]);
         if ($key === FALSE) {

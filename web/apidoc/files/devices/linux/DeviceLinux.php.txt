@@ -51,6 +51,7 @@ class DeviceLinux extends \core\DeviceConfig {
      * create the actual installer script
      * 
      * @return string filename of the generated installer
+     * @throws Exception
      *
      */
     public function writeInstaller() {
@@ -79,17 +80,17 @@ class DeviceLinux extends \core\DeviceConfig {
         $ssidCount = count($this->attributes['internal:SSID']);
         $out = '';
 
-        $out .= sprintf(_("The installer is in the form of a Python script. It will try to configure %s under NetworkManager and if this is either not appropriate for your system or your version of NetworkManager is too old, a wpa_supplicant config file will be created instead."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        $out .= sprintf(_("The installer is in the form of a Python script. It will try to configure %s under NetworkManager and if this is either not appropriate for your system or your version of NetworkManager is too old, a wpa_supplicant config file will be created instead."), \config\ConfAssistant::CONSORTIUM['display_name']);
         $out .= "<p>";
         if ($ssidCount > 1) {
             if ($ssidCount > 2) {
-                $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to the following networks:"), implode(', ', CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) . " ";
+                $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to the following networks:"), implode(', ', \config\ConfAssistant::CONSORTIUM['ssid'])) . " ";
             } else {
-                $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to:"), implode(', ', CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) . " ";
+                $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to:"), implode(', ', \config\ConfAssistant::CONSORTIUM['ssid'])) . " ";
             }
             $iterator = 0;
             foreach ($this->attributes['internal:SSID'] as $ssid => $v) {
-                if (!in_array($ssid, CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) {
+                if (!in_array($ssid, \config\ConfAssistant::CONSORTIUM['ssid'])) {
                     if ($iterator > 0) {
                         $out .= ", ";
                     }

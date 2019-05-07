@@ -27,7 +27,7 @@ use \Exception;
 /**
  * Test suite to verify that a given NAI realm has NAPTR records according to
  * consortium-agreed criteria
- * Can only be used if CONFIG_DIAGNOSTICS['RADIUSTESTS'] is configured.
+ * Can only be used if \config\Diagnostics::RADIUSTESTS is configured.
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
@@ -58,7 +58,7 @@ class RFC5997Tests extends AbstractTest {
     /**
      * port of candidate hotspot
      * 
-     * @var int
+     * @var integer
      */
     private $port;
 
@@ -83,6 +83,12 @@ class RFC5997Tests extends AbstractTest {
         $this->secret = $secret;
     }
 
+    /**
+     * execute Status-Server and note the result
+     * 
+     * @return integer the status code
+     * @throws Exception
+     */
     public function statusServerCheck() {
         // request authenticator and other variable content
         $reqAuthenticator = random_bytes(16);

@@ -58,7 +58,7 @@ abstract class AbstractDeployment extends EntityWithDBProperties {
     /**
      * status of this deployment. Defaults to INACTIVE.
      * 
-     * @var int
+     * @var integer
      */
     public $status = AbstractDeployment::INACTIVE;
 
@@ -71,7 +71,7 @@ abstract class AbstractDeployment extends EntityWithDBProperties {
 
     /**
      * DB identifier of the parent institution of this profile
-     * @var int
+     * @var integer
      */
     public $institution;
 
@@ -84,7 +84,7 @@ abstract class AbstractDeployment extends EntityWithDBProperties {
     /**
      * number of deployments the IdP this profile is attached to has
      * 
-     * @var int
+     * @var integer
      */
     protected $idpNumberOfDeployments;
 

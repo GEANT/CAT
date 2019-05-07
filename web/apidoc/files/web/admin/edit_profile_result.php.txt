@@ -40,7 +40,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\Fo
     exit;
 }
 
-echo $deco->pageheader(sprintf(_("%s: Profile wizard (step 3 completed)"), CONFIG['APPEARANCE']['productname']), "ADMIN-IDP");
+echo $deco->pageheader(sprintf(_("%s: Profile wizard (step 3 completed)"), \config\Master::APPEARANCE['productname']), "ADMIN-IDP");
 
 // check if profile exists and belongs to IdP
 

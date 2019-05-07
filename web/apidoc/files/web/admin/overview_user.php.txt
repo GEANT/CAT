@@ -27,7 +27,7 @@ $instMgmt = new \core\UserManagement();
 $deco = new \web\lib\admin\PageDecoration();
 $uiElements = new \web\lib\admin\UIElements();
 
-echo $deco->defaultPagePrelude(sprintf(_("%s: User Management"), CONFIG['APPEARANCE']['productname']));
+echo $deco->defaultPagePrelude(sprintf(_("%s: User Management"), \config\Master::APPEARANCE['productname']));
 $user = new \core\User($_SESSION['user']);
 require_once "inc/click_button_js.php";
 ?>
@@ -63,7 +63,7 @@ require_once "inc/click_button_js.php";
     </div>
     <div>
         <?php
-        if (CONFIG['DB']['USER']['readonly'] === FALSE) {
+        if (\config\Master::DB['USER']['readonly'] === FALSE) {
             echo "<a href='edit_user.php'><button>" . _("Edit User Details") . "</button></a>";
         }
 
@@ -78,9 +78,9 @@ require_once "inc/click_button_js.php";
     <?php
     $hasInst = $instMgmt->listInstitutionsByAdmin($_SESSION['user']);
 
-    if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == 'eduroam') {
+    if (\config\ConfAssistant::CONSORTIUM['name'] == 'eduroam') {
         $target = "https://wiki.geant.org/x/SwB_AQ"; // CAT manual, outdated
-        if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
+        if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
             $target = "https://wiki.geant.org/x/SSNwBg"; // Managed IdP manual
         }
         $helptext = "<h3 style='display:inline;'>" . sprintf(_("(Need help? Refer to the <a href='%s'>%s administrator manual</a>)"), $target, $uiElements->nomenclatureInst) . "</h3>";
@@ -121,14 +121,14 @@ require_once "inc/click_button_js.php";
         <th><?php echo sprintf(_("Other admins of this %s"), $uiElements->nomenclatureParticipant); ?>
         </th>
         <th><?php
-            if (CONFIG['DB']['INST']['readonly'] === FALSE) {
+            if (\config\Master::DB['INST']['readonly'] === FALSE) {
                 echo _("Management");
             };
             ?>
         </th>
         <th style='background-color:red;'>
             <?php
-            if (CONFIG['DB']['INST']['readonly'] === FALSE) {
+            if (\config\Master::DB['INST']['readonly'] === FALSE) {
                 echo _("Danger Zone");
             }
             ?>
@@ -169,7 +169,7 @@ require_once "inc/click_button_js.php";
                 echo ngettext("other user", "other users", $otherAdminCount);
             }
             echo "</td><td>";
-            if ($blessedUser && CONFIG['DB']['INST']['readonly'] === FALSE) {
+            if ($blessedUser && \config\Master::DB['INST']['readonly'] === FALSE) {
                 ?>
                 <div style='white-space: nowrap;'>
                     <form action='edit_participant.php?inst_id=<?php echo $the_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
@@ -200,7 +200,7 @@ require_once "inc/click_button_js.php";
             echo "</td><td>"; // danger zone 
             ?>
             <form action='edit_participant_result.php?inst_id=<?php echo $the_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                <button class='delete' type='submit' name='submitbutton' value='<?php echo \web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'] === NULL ? sprintf(_("After deleting the %s, you can not recreate it yourself - you need a new invitation token from the %s administrator!"), $uiElements->nomenclatureInst, $uiElements->nomenclatureFed) . " " : "" ) . sprintf(_("Do you really want to delete your %s %s?"), $uiElements->nomenclatureParticipant, $my_inst->name); ?>')"><?php echo sprintf(_("Delete %s"), $uiElements->nomenclatureParticipant); ?></button>
+                <button class='delete' type='submit' name='submitbutton' value='<?php echo \web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( \config\ConfAssistant::CONSORTIUM['selfservice_registration'] === NULL ? sprintf(_("After deleting the %s, you can not recreate it yourself - you need a new invitation token from the %s administrator!"), $uiElements->nomenclatureInst, $uiElements->nomenclatureFed) . " " : "" ) . sprintf(_("Do you really want to delete your %s %s?"), $uiElements->nomenclatureParticipant, $my_inst->name); ?>')"><?php echo sprintf(_("Delete %s"), $uiElements->nomenclatureParticipant); ?></button>
             </form>
             <form action='edit_participant_result.php?inst_id=<?php echo $the_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
                 <button class='delete' type='submit' name='submitbutton' value='<?php echo \web\lib\common\FormElements::BUTTON_FLUSH_AND_RESTART; ?>' onclick="return confirm('<?php echo sprintf(_("This action will delete all properties of the %s and start over the configuration from scratch. Do you really want to reset all settings of the %s %s?"), $uiElements->nomenclatureParticipant, $uiElements->nomenclatureParticipant, $my_inst->name); ?>')"><?php echo sprintf(_("Reset all %s settings"), $uiElements->nomenclatureParticipant); ?></button>
@@ -213,8 +213,8 @@ require_once "inc/click_button_js.php";
 } else {
     echo "<h2>" . sprintf(_("You are not managing any %s."), $uiElements->nomenclatureInst) . "</h2>";
 }
-if (CONFIG['DB']['INST']['readonly'] === FALSE) {
-    if (CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'] === NULL) {
+if (\config\Master::DB['INST']['readonly'] === FALSE) {
+    if (\config\ConfAssistant::CONSORTIUM['selfservice_registration'] === NULL) {
         echo "<p>" . sprintf(_("Please ask your %s administrator to invite you to become an %s administrator."), $uiElements->nomenclatureFed, $uiElements->nomenclatureParticipant) . "</p>";
         echo "<hr/>
              <div style='white-space: nowrap;'>

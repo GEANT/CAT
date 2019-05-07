@@ -114,6 +114,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @param string          $token          the invitation token for silverbullet requests
      * @param string          $importPassword the PIN for the installer for silverbullet requests
      * @return void
+     * @throws Exception
      * @final not to be redefined
      */
     final public function setup(AbstractProfile $profile, $token = NULL, $importPassword = NULL) {
@@ -183,8 +184,8 @@ abstract class DeviceConfig extends \core\common\Entity {
 
         $this->attributes['internal:consortia'] = $this->getConsortia();
         
-        $this->support_email_substitute = sprintf(_("your local %s support"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
-        $this->support_url_substitute = sprintf(_("your local %s support page"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        $this->support_email_substitute = sprintf(_("your local %s support"), \config\ConfAssistant::CONSORTIUM['display_name']);
+        $this->support_url_substitute = sprintf(_("your local %s support page"), \config\ConfAssistant::CONSORTIUM['display_name']);
 
         if ($this->signer && $this->options['sign']) {
             $this->sign = ROOT . '/signer/' . $this->signer;
@@ -291,7 +292,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * Transcoding is only required for Windows installers, and no Unicode support
      * in NSIS (NSIS version below 3)
      * Trancoding is only applied if the third optional parameter is set and nonzero
-     * If CONFIG['NSIS']_VERSION is set to 3 or more, no transcoding will be applied
+     * If \config\Master::NSIS_VERSION is set to 3 or more, no transcoding will be applied
      * regardless of the third parameter value.
      * If the second argument is provided and is not equal to 0, then the file will be
      * saved under the name taken from this argument.
@@ -304,22 +305,19 @@ abstract class DeviceConfig extends \core\common\Entity {
      *
      * @param string $source_name The source file name
      * @param string $output_name The destination file name
-     * @param int    $encoding    Set Windows charset if non-zero
+     * @param string $encoding    Set Windows charset if non-zero
      * @return boolean
      * @final not to be redefined
      */
-    final protected function translateFile($source_name, $output_name = NULL, $encoding = 0) {
+    final protected function translateFile($source_name, $output_name, $encoding) {
         // there is no explicit gettext() call in this function, but catalogues
         // and translations occur in the varios ".inc" files - so make sure we
         // operate in the correct catalogue
         common\Entity::intoThePotatoes();
-        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
+        if (\config\ConfAssistant::NSIS_VERSION >= 3) {
             $encoding = 0;
         }
-        if ($output_name === NULL) {
-            $output_name = $source_name;
-        }
-
+        
         $this->loggerInstance->debug(5, "translateFile($source_name, $output_name, $encoding)\n");
         ob_start();
         $this->loggerInstance->debug(5, $this->module_path . '/Files/' . $this->device_id . '/' . $source_name . "\n");
@@ -329,7 +327,7 @@ abstract class DeviceConfig extends \core\common\Entity {
             include $source;
         }
         $output = ob_get_clean();
-        if ($encoding) {
+        if ($encoding !== 0) {
             $outputClean = iconv('UTF-8', $encoding . '//TRANSLIT', $output);
             if ($outputClean) {
                 $output = $outputClean;
@@ -354,35 +352,32 @@ abstract class DeviceConfig extends \core\common\Entity {
      * Transcoding is only required for Windows installers, and no Unicode support
      * in NSIS (NSIS version below 3)
      * Trancoding is only applied if the third optional parameter is set and nonzero
-     * If CONFIG['NSIS']_VERSION is set to 3 or more, no transcoding will be applied
+     * If \config\Master::NSIS_VERSION is set to 3 or more, no transcoding will be applied
      * regardless of the second parameter value.
      * The second optional parameter, if nonzero, should be the character set understood by iconv
      * This is required by the Windows installer and is expected to go away in the future.
      *
-     * @param string $source_string The source string
-     * @param int    $encoding      Set Windows charset if non-zero
+     * @param string $sourceString the source string
+     * @param string $encoding     the character encoding to use
      * @return string
      * @final not to be redefined
      */
-    final protected function translateString($source_string, $encoding = 0) {
-        $this->loggerInstance->debug(5, "translateString input: \"$source_string\"\n");
-        if (empty($source_string)) {
-            return $source_string;
+    final protected function translateString($sourceString, $encoding) {
+        $this->loggerInstance->debug(5, "translateString input: \"$sourceString\"\n");
+        if (empty($sourceString)) {
+            return $sourceString;
         }
-        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
-            $encoding = 0;
-        }
-        if ($encoding) {
-            $output_c = iconv('UTF-8', $encoding . '//TRANSLIT', $source_string);
+        if (\config\ConfAssistant::NSIS_VERSION < 3) {
+            $output_c = iconv('UTF-8', $encoding . '//TRANSLIT', $sourceString);
         } else {
-            $output_c = $source_string;
+            $output_c = $sourceString;
         }
         if ($output_c) {
-            $source_string = str_replace('"', '$\\"', $output_c);
+            $sourceString = str_replace('"', '$\\"', $output_c);
         } else {
-            $this->loggerInstance->debug(2, "Failed to convert string \"$source_string\"\n");
+            $this->loggerInstance->debug(2, "Failed to convert string \"$sourceString\"\n");
         }
-        return $source_string;
+        return $sourceString;
     }
 
     /**
@@ -397,7 +392,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * 
      * @param string $format only "der" and "pem" are currently allowed
      * @return array an array of arrays or empty array on error
-     
+     * @throws Exception
      */
     final protected function saveCertificateFiles($format) {
         switch ($format) {
@@ -467,7 +462,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      */
     private function getInstallerBasename() {
         
-        $baseName = $this->customTranslit(CONFIG_CONFASSISTANT['CONSORTIUM']['name']) . "-" . $this->getDeviceId();
+        $baseName = $this->customTranslit(\config\ConfAssistant::CONSORTIUM['name']) . "-" . $this->getDeviceId();
         if (isset($this->attributes['profile:customsuffix'][1])) { 
             // this string will end up as a filename on a filesystem, so always
             // take a latin-based language variant if available
@@ -476,7 +471,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         }
         // Okay, no custom suffix. 
         // Use the configured inst name and apply shortening heuristics
-        $lang_pointer = CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['latin_based'] == TRUE ? 0 : 1;
+        $lang_pointer = \config\Master::LANGUAGES[$this->languageInstance->getLang()]['latin_based'] == TRUE ? 0 : 1;
         $this->loggerInstance->debug(5, "getInstallerBasename1:" . $this->attributes['general:instname'][$lang_pointer] . "\n");
         $inst = $this->customTranslit($this->attributes['general:instname'][$lang_pointer]);
         $this->loggerInstance->debug(4, "getInstallerBasename2:$inst\n");
@@ -525,9 +520,9 @@ abstract class DeviceConfig extends \core\common\Entity {
         $ssidList = [];
         $ssidList['add'] = [];
         $ssidList['del'] = [];
-        if (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) {
-            foreach (CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'] as $ssid) {
-                if (\core\common\Entity::getAttributeValue(CONFIG_CONFASSISTANT, 'CONSORTIUM', 'tkipsupport') == TRUE) {
+        if (isset(\config\ConfAssistant::CONSORTIUM['ssid'])) {
+            foreach (\config\ConfAssistant::CONSORTIUM['ssid'] as $ssid) {
+                if (\config\ConfAssistant::CONSORTIUM['tkipsupport'] == TRUE) {
                     $ssidList['add'][$ssid] = 'TKIP';
                 } else {
                     $ssidList['add'][$ssid] = 'AES';
@@ -563,10 +558,10 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @return array
      */
     private function getConsortia() {
-        if(!isset(CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi'])) {
+        if(!isset(\config\ConfAssistant::CONSORTIUM['interworking-consortium-oi'])) {
             return ([]);
         }
-        $consortia = CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi'];
+        $consortia = \config\ConfAssistant::CONSORTIUM['interworking-consortium-oi'];
         if (isset($this->attributes['media:consortium_OI'])) {
             foreach ($this->attributes['media:consortium_OI'] as $new_oi) {
                 if(!in_array($new_oi, $consortia)) {
@@ -729,8 +724,9 @@ abstract class DeviceConfig extends \core\common\Entity {
      * - <b>media:SSID</b>       -  additional SSID to configure, WPA2/AES only (device modules should use internal:SSID)
      * - <b>media:SSID_with_legacy</b> -  additional SSID to configure, WPA2/AES and WPA/TKIP (device modules should use internal:SSID)
      *
-     * @see \core\common\X509::processCertificate()
      * @var array $attributes
+     * @see \core\common\X509::processCertificate()
+     * 
      */
     public $attributes;
 
@@ -739,19 +735,27 @@ abstract class DeviceConfig extends \core\common\Entity {
      * by copyFile and translateFile
      * the only reason for it to be a public variable ies that it is set by the DeviceFactory class
      * module_path should not be used by module drivers.
+     * 
      * @var string 
      */
     public $module_path;
 
     /**
-     * * The optimal EAP type selected given profile and device
+     * The optimal EAP type selected given profile and device
+     * 
      * @var array
      */
     public $selectedEap;
+    
+    /**
+     * The optimal EAP type selected given profile and device, as object
+     * 
+     * @var \core\common\EAP
+     */
     public $selectedEapObject;
 
     /**
-     * the path to the profile signing program
+     * the full path to the profile signing program
      * device modules which require signing should use this property to exec the signer
      * the signer program must accept two arguments - input and output file names
      * the signer program mus operate in the local directory and filenames are relative to this
@@ -760,16 +764,24 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @var string
      */
     public $sign;
+    
+    /**
+     * the name of the signer program (without full path)
+     * 
+     * @var string
+     */
     public $signer;
 
     /**
      * The string identifier of the device (don't show this to users)
+     * 
      * @var string
      */
     public $device_id;
 
     /**
      * See devices-template.php for a list of available options
+     * 
      * @var array
      */
     public $options;
@@ -797,12 +809,17 @@ abstract class DeviceConfig extends \core\common\Entity {
     public $installerBasename;
 
     /**
-     * stores the PKCS#12 DER representation of a client certificate for SilverBullet
+     * stores the PKCS#12 DER representation of a client certificate for 
+     * SilverBullet along with some metadata in an array
+     * 
+     * @var array
      */
-    protected $clientCert;
+    protected $clientCert = [];
 
     /**
      * stores identifier used by GEANTLink profiles
+     * 
+     * @var string
      */
     public $deviceUUID;
 

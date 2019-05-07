@@ -24,8 +24,6 @@ namespace web\lib\admin;
 
 use Exception;
 
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php";
-
 /**
  * We need to display previously set options in various forms. This class covers
  * the ways to do that; the generated page content can then be parsed with 
@@ -52,7 +50,7 @@ class OptionDisplay extends \core\common\Entity {
     /**
      * a counter storing how many locations are to be displayed
      * 
-     * @var int
+     * @var integer
      */
     private $allLocationCount;
 
@@ -65,7 +63,7 @@ class OptionDisplay extends \core\common\Entity {
      * 
      * Only used inside noPrefillText variant of the optiontext() call
      * 
-     * @var int
+     * @var integer
      */
     private $optionIterator;
 
@@ -95,73 +93,84 @@ class OptionDisplay extends \core\common\Entity {
                 $prepopulate[] = $existingAttribute;
             }
         }
-        $retval .= $this->addOption($attributePrefix, $prepopulate);
+        if (is_array($prepopulate) && ( count($prepopulate) > 0 || $attributePrefix == "device-specific" || $attributePrefix == "eap-specific" )) { // editing... fill with values
+            $retval .= $this->addOptionEdit($attributePrefix, $prepopulate);
+        } else {
+            $retval .= $this->addOptionNew($attributePrefix);
+        }
         $retval .= "</table>";
         return $retval;
     }
 
     /**
-     * Displays options for a given option class.
+     * Displays options for a given option class, in Edit mode.
      * 
      * @param string $class       the class of options that is to be displayed
      * @param array  $prepopulate should an empty set of fillable options be displayed, or do we have existing data to prefill with
      * @return string
      */
-    private function addOption(string $class, array $prepopulate = []) { // no GET class ? we've been called directly:
+    private function addOptionEdit(string $class, array $prepopulate = []) { // no GET class ? we've been called directly:
         // this can mean either a new object (list all options with empty values)
         // or that an object is to be edited. In that case, $prepopulated has to
         // contain the array of existing variables
         // we expect the variable $class to contain the class of options
         $retval = "";
-
         $optioninfo = \core\Options::instance();
-        $blackListOnPrefill = "user:fedadmin";
-        if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
+        $blackListOnPrefill = "user:fedadmin|managedsp:vlan|managedsp:operatorname";
+        if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && \config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] != "LOCAL") {
             $blackListOnPrefill .= "|fed:silverbullet";
         }
-        if (is_array($prepopulate) && ( count($prepopulate) > 0 || $class == "device-specific" || $class == "eap-specific" )) { // editing... fill with values
-            foreach ($prepopulate as $option) {
-                if (preg_match("/$class:/", $option['name']) && !preg_match("/($blackListOnPrefill)/", $option['name'])) {
-                    $optiontypearray = $optioninfo->optionType($option['name']);
-                    $loggerInstance = new \core\common\Logging();
-                    $loggerInstance->debug(5, "About to execute optiontext with PREFILL!\n");
-                    $retval .= $this->optiontext([$option['name']], ($optiontypearray["type"] == "file" ? 'ROWID-' . $option['level'] . '-' . $option['row'] : $option['value']), $option['lang']);
-                }
+        foreach ($prepopulate as $option) {
+            if (preg_match("/$class:/", $option['name']) && !preg_match("/($blackListOnPrefill)/", $option['name'])) {
+                $optiontypearray = $optioninfo->optionType($option['name']);
+                $loggerInstance = new \core\common\Logging();
+                $loggerInstance->debug(5, "About to execute optiontext with PREFILL!\n");
+                $retval .= $this->optiontext([$option['name']], ($optiontypearray["type"] == "file" ? 'ROWID-' . $option['level'] . '-' . $option['row'] : $option['value']), $option['lang']);
             }
-        } else { // not editing exist, this in new: add empty list
-            $list = $optioninfo->availableOptions($class);
-            switch ($class) {
-                case "general":
-                    $blacklistItem = array_search("general:geo_coordinates", $list);
-                    break;
-                case "profile":
-                    $blacklistItem = array_search("profile:QR-user", $list);
-                    break;
-                case "user":
-                    $blacklistItem = array_search("user:fedadmin", $list);
-                    break;
-                case "fed":
-                    //normally, we have nothing to hide on that level
-                    $blacklistItem = FALSE;
-                    // if we are a Managed IdP exclusive deployment, do not display or allow
-                    // to change the "Enable Managed IdP" boolean - it is simply always there
-                    if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
-                        $blacklistItem = array_search("fed:silverbullet", $list);
-                    }
-                    break;
-                default:
-                    $blacklistItem = FALSE;
-            }
-            if ($blacklistItem !== FALSE) {
-                unset($list[$blacklistItem]);
-                $list = array_values($list);
-            }
+        }
+        return $retval;
+    }
 
-            // add as many options as there are different option types
-            $numberOfOptions = count($list);
-            for ($this->optionIterator = 0; $this->optionIterator < $numberOfOptions; $this->optionIterator++) {
-                $retval .= $this->optiontext($list);
-            }
+    /**
+     * Displays options for a given option class, in New mode.
+     * 
+     * @param string $class the class of options that is to be displayed
+     * @return string
+     */
+    private function addOptionNew(string $class) {
+        $retval = "";
+
+        $optioninfo = \core\Options::instance();
+
+        $list = $optioninfo->availableOptions($class);
+        switch ($class) {
+            case "general":
+                unset($list[array_search("general:geo_coordinates", $list)]);
+                break;
+            case "user":
+                unset($list[array_search("user:fedadmin", $list)]);
+                break;
+            case "managedsp":
+                unset($list[array_search("managedsp:vlan", $list)]);
+                unset($list[array_search("managedsp:operatorname", $list)]);
+                break;
+            case "fed":
+                //normally, we have nothing to hide on that level
+                // if we are a Managed IdP exclusive deployment, do not display or allow
+                // to change the "Enable Managed IdP" boolean - it is simply always there
+                if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && \config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] != "LOCAL") {
+                    unset($list[array_search("fed:silverbullet", $list)]);
+                }
+                break;
+            default:
+                break;
+        }
+        $list2 = array_values($list);
+
+        // add as many options as there are different option types
+        $numberOfOptions = count($list2);
+        for ($this->optionIterator = 0; $this->optionIterator < $numberOfOptions; $this->optionIterator++) {
+            $retval .= $this->optiontext($list2);
         }
         return $retval;
     }
@@ -179,8 +188,8 @@ class OptionDisplay extends \core\common\Entity {
     private function tooltip($rowid, $input, $isVisible) {
         \core\common\Entity::intoThePotatoes();
         $descriptions = [];
-        if (count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0) {
-            $descriptions["media:SSID"] = sprintf(_("This attribute can be set if you want to configure an additional SSID besides the default SSIDs for %s. It is almost always a bad idea not to use the default SSIDs. The only exception is if you have premises with an overlap of the radio signal with another %s hotspot. Typical misconceptions about additional SSIDs include: I want to have a local SSID for my own users. It is much better to use the default SSID and separate user groups with VLANs. That approach has two advantages: 1) your users will configure %s properly because it is their everyday SSID; 2) if you use a custom name and advertise this one as extra secure, your users might at some point roam to another place which happens to have the same SSID name. They might then be misled to believe that they are connecting to an extra secure network while they are not."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        if (count(\config\ConfAssistant::CONSORTIUM['ssid']) > 0) {
+            $descriptions["media:SSID"] = sprintf(_("This attribute can be set if you want to configure an additional SSID besides the default SSIDs for %s. It is almost always a bad idea not to use the default SSIDs. The only exception is if you have premises with an overlap of the radio signal with another %s hotspot. Typical misconceptions about additional SSIDs include: I want to have a local SSID for my own users. It is much better to use the default SSID and separate user groups with VLANs. That approach has two advantages: 1) your users will configure %s properly because it is their everyday SSID; 2) if you use a custom name and advertise this one as extra secure, your users might at some point roam to another place which happens to have the same SSID name. They might then be misled to believe that they are connecting to an extra secure network while they are not."), \config\ConfAssistant::CONSORTIUM['display_name'], \config\ConfAssistant::CONSORTIUM['display_name'], \config\ConfAssistant::CONSORTIUM['display_name']);
         }
         $descriptions["media:force_proxy"] = sprintf(_("The format of this option is: IPv4|IPv6|hostname:port . Forcing your users through a content filter of your own is a significant invasion of user self-determination. It also has technical issues. Please throughly read the discussion at %s before specifying a proxy with this option."), "https://github.com/GEANT/CAT/issues/96");
         $descriptions["managedsp:realmforvlan"] = sprintf(_("If you are also using %s, then your own realm is automatically tagged with the VLAN you choose, there is no need to add it here manually."), \core\ProfileSilverbullet::PRODUCTNAME);
@@ -197,7 +206,7 @@ class OptionDisplay extends \core\common\Entity {
      *                     that should get the tooltip
      * @param array $list  elements of the drop-down list
      * @return array HTML code and which option is active
-     * @throws Exception
+     * @throws \Exception
      */
     private function selectElement($rowid, $list) {
         $jsmagic = "onchange='
@@ -234,28 +243,40 @@ FOO;
 
         $optioninfo = \core\Options::instance();
         $retval = "<span style='display:flex';>";
-        $retval .= "<select id='option-S$rowid-select' name='option[S$rowid]' $jsmagic>";
         $iterator = 0;
         $tooltips = "";
         $uiElements = new UIElements();
         $activelisttype = [];
-        foreach ($list as $value) {
-            $listtype = $optioninfo->optionType($value);
-            $retval .= "<option id='option-S$rowid-v-$value' value='$value#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ";
-            if ($iterator == $this->optionIterator) {
-                $retval .= "selected='selected'";
+        switch (count($list)) {
+            case 1: // if there is only one option available, don't introduce an artificial drop-down for it
+                $value = array_shift($list);
+                $listtype = $optioninfo->optionType($value);
+                $retval .= $uiElements->displayName($value);
+                $retval .= "<input type='hidden' name='option[S$rowid]' value='$value#" . $listtype["type"] . "#" . $listtype["flag"] . "#'/>";
                 $activelisttype = $listtype;
-                $tooltips .= $this->tooltip($rowid, $value, TRUE);
-            } else {
-                $tooltips .= $this->tooltip($rowid, $value, FALSE);
-            }
-            $retval .= ">" . $uiElements->displayName($value) . "</option>";
-            $iterator++;
+                $tooltips = $this->tooltip($rowid, $value, TRUE);
+                break;
+            default:
+                $retval .= "<select id='option-S$rowid-select' name='option[S$rowid]' $jsmagic>";
+                foreach ($list as $value) {
+                    $listtype = $optioninfo->optionType($value);
+                    $retval .= "<option id='option-S$rowid-v-$value' value='$value#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ";
+                    if ($iterator == $this->optionIterator) {
+                        $retval .= "selected='selected'";
+                        $activelisttype = $listtype;
+                        $tooltips .= $this->tooltip($rowid, $value, TRUE);
+                    } else {
+                        $tooltips .= $this->tooltip($rowid, $value, FALSE);
+                    }
+                    $retval .= ">" . $uiElements->displayName($value) . "</option>";
+                    $iterator++;
+                }
+
+                if (count($activelisttype) == 0) {
+                    throw new \Exception("We should have found the active list type by now!");
+                }
+                $retval .= "</select>";
         }
-        if (count($activelisttype) == 0) {
-            throw new \Exception("We should have found the active list type by now!");
-        }
-        $retval .= "</select>";
         $retval .= $tooltips;
         $retval .= "</span>";
 
@@ -275,7 +296,7 @@ FOO;
         $retval = "<select style='display:" . ($makeVisible ? "block" : "none") . "' name='value[S$rowid-lang]' id='S" . $rowid . "-input-langselect'>
             <option value='' name='select_language' selected>" . _("select language") . "</option>
             <option value='C' name='all_languages'>" . _("default/other languages") . "</option>";
-        foreach (CONFIG['LANGUAGES'] as $langindex => $possibleLang) {
+        foreach (\config\Master::LANGUAGES as $langindex => $possibleLang) {
             $thislang = $possibleLang['display'];
             $retval .= "<option value='$langindex' name='$langindex'>$thislang</option>";
         }
@@ -367,7 +388,7 @@ FOO;
             case \core\Options::TYPECODE_COORDINATES:
                 $this->allLocationCount = $this->allLocationCount + 1;
                 // display of the locations varies by map provider
-                $classname = "\web\lib\admin\Map" . CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER'];
+                $classname = "\web\lib\admin\Map" . \config\ConfAssistant::MAPPROVIDER['PROVIDER'];
                 $link = $classname::optionListDisplayCode($optionValue, $this->allLocationCount);
                 $retval .= "<input readonly style='display:none' type='text' name='value[S$rowid-" . \core\Options::TYPECODE_TEXT . "]' id='S$rowid-input-text' value='$optionValue'>$link";
                 break;
@@ -421,6 +442,7 @@ FOO;
      * @param string $prefillValue for an existing option, it's value to be displayed
      * @param string $prefillLang  for an existing option, the language of the value to be displayed
      * @return string HTML code <tr>
+     * @throws Exception
      */
     public function optiontext(array $list, string $prefillValue = NULL, string $prefillLang = NULL) {
         $rowid = mt_rand();
@@ -446,7 +468,7 @@ FOO;
        <td>
           <button type='button' class='delete' onclick='";
         if ($prefillValue !== NULL && $item == "general:geo_coordinates") {
-            $funcname = "Map" . CONFIG_CONFASSISTANT['MAPPROVIDER']['PROVIDER'] . 'DeleteCoord';
+            $funcname = "Map" . \config\ConfAssistant::MAPPROVIDER['PROVIDER'] . 'DeleteCoord';
             $retval .= 'if (typeof ' . $funcname . ' === "function") { ' . $funcname . '(' . $this->allLocationCount . '); } ';
         }
         $retval .= 'deleteOption("option-S' . $rowid . '")';

@@ -32,21 +32,21 @@ $langObject->setTextDomain("web_user");
 
 $deco = new \web\lib\admin\PageDecoration();
 
-echo $deco->defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
+echo $deco->defaultPagePrelude(\config\Master::APPEARANCE['productname_long'], FALSE);
 ?>
 </head>
 <body style='background: #fff url(resources/images/bg_grey_tile.png) repeat-x;'>
     <div id="heading">
         <?php
         print '<img src="'. dirname($_SERVER['SCRIPT_NAME']) .'/resources/images/consortium_logo.png" alt="Consortium Logo" style="float:right; padding-right:20px; padding-top:20px"/>';
-        print '<div id="motd">' . ( isset(CONFIG['APPEARANCE']['MOTD']) ? CONFIG['APPEARANCE']['MOTD'] : '&nbsp' ) . '</div>';
-        print '<h1 style="padding-bottom:0px; height:1em;">' . sprintf(_("Welcome to %s"), CONFIG['APPEARANCE']['productname']) . '</h1>
-<h2 style="padding-bottom:0px; height:0px; vertical-align:bottom;">' . CONFIG['APPEARANCE']['productname_long'] . '</h2>';
+        print '<div id="motd">' . ( isset(\config\Master::APPEARANCE['MOTD']) ? \config\Master::APPEARANCE['MOTD'] : '&nbsp' ) . '</div>';
+        print '<h1 style="padding-bottom:0px; height:1em;">' . sprintf(_("Welcome to %s"), \config\Master::APPEARANCE['productname']) . '</h1>
+<h2 style="padding-bottom:0px; height:0px; vertical-align:bottom;">' . \config\Master::APPEARANCE['productname_long'] . '</h2>';
         echo '<table id="lang_select"><tr><td>';
         echo _("View this page in");
         ?>
         <?php
-        foreach (CONFIG['LANGUAGES'] as $lang => $value) {
+        foreach (\config\Master::LANGUAGES as $lang => $value) {
             echo "<a href='javascript:changeLang(\"$lang\")'>" . $value['display'] . "</a> ";
         }
         echo '</td><td style="text-align:right;padding-right:20px"><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . $langObject->getLang() . '">' . _("Start page") . '</a></td></tr></table>';

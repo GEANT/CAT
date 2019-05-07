@@ -26,10 +26,10 @@ $loggerInstance = new \core\common\Logging();
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $gui = new \web\lib\user\Gui();
-$gui->langObject->setTextDomain("diagnostics");
-echo $deco->defaultPagePrelude(sprintf(_("Sanity check for dynamic discovery of realms"), CONFIG['APPEARANCE']['productname']));
+$gui->languageInstance->setTextDomain("diagnostics");
+echo $deco->defaultPagePrelude(sprintf(_("Sanity check for dynamic discovery of realms"), \config\Master::APPEARANCE['productname']));
 
-$ourlocale = $gui->langObject->getLang();
+$ourlocale = $gui->languageInstance->getLang();
 
 $my_profile = NULL;
 $check_realm = FALSE; // we will need to populate this with a real realm below, or have to die horribly.
@@ -95,7 +95,7 @@ $errorstate = [];
     icons[L_REMARK] = '../resources/images/icons/Quetto/info-icon.png';
     var icon_loading = '../resources/images/icons/loading51.gif';
     var tmp_content;
-    var lang = '<?php echo $gui->langObject->getLang(); ?>'
+    var lang = '<?php echo $gui->languageInstance->getLang(); ?>'
     var states = new Array();
     states['PASS'] = "<?php echo _("PASS") ?>";
     states['FAIL'] = "<?php echo _("FAIL") ?>";
@@ -108,7 +108,7 @@ $errorstate = [];
     var restskipped = "<?php echo _("Rest of tests for this CA skipped") ?>";
     var listofcas = "<?php echo _("You should update your list of accredited CAs") ?>";
     var getitfrom = "<?php echo _("Get it from here.") ?>";
-    var listsource = "<?php echo CONFIG_DIAGNOSTICS['RADIUSTESTS']['accreditedCAsURL'] ?>";
+    var listsource = "<?php echo \config\Diagnostics::RADIUSTESTS['accreditedCAsURL'] ?>";
     var moretext = "<?php echo _("more") . "&raquo;" ?>";
     var lesstext = "<?php echo "&laquo" ?>";
     var morealltext = "<?php echo _("Show detailed information for all tests") ?>";
@@ -414,7 +414,7 @@ $errorstate = [];
         $(".eap_test_results").empty();
         var formData = new FormData($('#live_form')[0]);
 <?php
-foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
+foreach (\config\Diagnostics::RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
     print "
 $(\"#live_src" . $hostindex . "_img\").attr('src',icon_loading);
 $(\"#live_src" . $hostindex . "_img\").show();
@@ -445,7 +445,7 @@ $(\"#live_src" . $hostindex . "_img\").show();
         $(".results_tr").remove();
         $(".server_cert").hide();
 <?php
-foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
+foreach (\config\Diagnostics::RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
     if ($my_profile !== NULL) {
         $extraarg = "profile_id: " . $my_profile->identifier . ", ";
     } else {
@@ -455,7 +455,7 @@ foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) 
 $(\"#src" . $hostindex . "_img\").attr('src',icon_loading);
 $(\"#src$hostindex\").html('');
 running_ajax_stat++;
-$.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostindex, lang: '" . $gui->langObject->getLang() . "', hostindex: '$hostindex'  }, udp, 'json');
+$.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostindex, lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex'  }, udp, 'json');
 
 ";
 }
@@ -592,9 +592,9 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
                             $host = ($addr['family'] == "IPv6" ? "[" : "") . $addr['IP'] . ($addr['family'] == "IPv6" ? "]" : "") . ":" . $addr['port'];
                             print "
                             running_ajax_dyn++;
-                            $.ajax({url:'radius_tests.php', data:{test_type: 'capath', realm: realm, src: '$host', lang: '" . $gui->langObject->getLang() . "', hostindex: '$hostindex' }, error: eee, success: capath, dataType: 'json'}); 
+                            $.ajax({url:'radius_tests.php', data:{test_type: 'capath', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex' }, error: eee, success: capath, dataType: 'json'}); 
                             running_ajax_dyn++;
-                            $.ajax({url:'radius_tests.php', data:{test_type: 'clients', realm: realm, src: '$host', lang: '" . $gui->langObject->getLang() . "', hostindex: '$hostindex' }, error: eee, success: clients, dataType: 'json'}); 
+                            $.ajax({url:'radius_tests.php', data:{test_type: 'clients', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex' }, error: eee, success: clients, dataType: 'json'}); 
                        ";
                         }
                         echo "}
@@ -625,9 +625,9 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
                     <?php
                     echo _("This check sends a request for the realm through various entry points of the roaming consortium infrastructure. The request will contain the 'Operator-Name' attribute, and will be larger than 1500 Bytes to catch two common configuration problems.<br/>Since we don't have actual credentials for the realm, we can't authenticate successfully - so the expected outcome is to get an Access-Reject after having gone through an EAP conversation.");
                     print "<p>";
-                    foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
+                    foreach (\config\Diagnostics::RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
                         print "<hr>";
-                        printf(_("Testing from: %s"), "<strong>" . CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$hostindex]['display_name'] . "</strong>");
+                        printf(_("Testing from: %s"), "<strong>" . \config\Diagnostics::RADIUSTESTS['UDP-hosts'][$hostindex]['display_name'] . "</strong>");
                         print "<table id='results$hostindex'  style='width:100%' class='udp_results'>
 <tr>
 <td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='src" . $hostindex . "_img'></td>
@@ -718,7 +718,7 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
                     <p>" . _("Note: the tool purposefully does not offer you to save these credentials, and they will never be saved in any way on the server side. Please use only <strong>temporary test accounts</strong> here; permanently valid test accounts in the wild are considered harmful!") . "</p></div>
                     <form enctype='multipart/form-data' id='live_form' accept-charset='UTF-8'>
                     <input type='hidden' name='test_type' value='udp_login'>
-                    <input type='hidden' name='lang' value='" . $gui->langObject->getLang() . "'>
+                    <input type='hidden' name='lang' value='" . $gui->languageInstance->getLang() . "'>
                     <input type='hidden' name='profile_id' value='" . $my_profile->identifier . "'>
                     <table id='live_tests'>";
 // if any password based EAP methods are available enable this section
@@ -737,9 +737,9 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
                         }
                         echo "<tr><td colspan='2'><button id='submit_credentials'>" . _("Submit credentials") . "</button></td></tr></table></form>";
                         echo "<div id='live_login_results' style='display:none'>";
-                        foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
+                        foreach (\config\Diagnostics::RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
                             print "<hr>";
-                            printf(_("Testing from: %s"), "<strong>" . CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$hostindex]['display_name'] . "</strong>");
+                            printf(_("Testing from: %s"), "<strong>" . \config\Diagnostics::RADIUSTESTS['UDP-hosts'][$hostindex]['display_name'] . "</strong>");
                             print "<span style='position:relative'><img src='../resources/images/icons/loading51.gif' id='live_src" . $hostindex . "_img' style='width:24px; position: absolute; left: 20px; bottom: 0px; '></span>";
                             print "<div id='eap_test$hostindex' class='eap_test_results'></div>";
                         }

@@ -20,7 +20,7 @@
  */
 
 require_once dirname(dirname(__DIR__)) . "/config/_config.php";
-CAT_session_start();
+\core\CAT::sessionStart();
 $loggerInstance = new \core\common\Logging();
 $loggerInstance->debug(4, "Sociopath test\n");
 

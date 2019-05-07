@@ -53,6 +53,7 @@ class DeviceFactory extends \core\common\Entity {
      * Needs to be fed with the correct blueprint to produce a device
      *
      * @param string $blueprint The name of the module to instantiate
+     * @throws Exception
      */
     public function __construct($blueprint) {
         parent::__construct();

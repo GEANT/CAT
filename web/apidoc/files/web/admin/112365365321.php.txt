@@ -24,12 +24,12 @@ require_once dirname(dirname(__DIR__)) . '/config/_config.php';
 $uiElements = new web\lib\admin\UIElements();
 
 $security = 0;
-if (!in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
+if (!in_array("I do not care about security!", \config\Master::SUPERADMINS)) {
     $auth = new \web\lib\admin\Authentication();
     $auth->authenticate();
     $security = 1;
     $user = new \core\User($_SESSION['user']);
-    if (!in_array($user->userName, CONFIG['SUPERADMINS'])) {
+    if (!in_array($user->userName, \config\Master::SUPERADMINS)) {
         header("Location: overview_user.php");
         exit;
     }

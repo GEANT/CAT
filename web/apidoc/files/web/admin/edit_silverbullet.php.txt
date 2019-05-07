@@ -21,8 +21,6 @@
  * Class autoloader invocation, should be included prior to any other code at the entry points to the application
  */
 require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
-require_once dirname(dirname(dirname(__FILE__))) . "/core/phpqrcode.php";
-const QRCODE_PIXELS_PER_SYMBOL = 12;
 
 $auth = new \web\lib\admin\Authentication();
 $auth->authenticate();
@@ -39,7 +37,7 @@ if (!isset($_REQUEST['profile_id'])) {
     // someone might want to trick himself into this page by sending an inst_id but
     // not having permission for silverbullet. Sanity check that the fed in question
     // does allow SB and that the IdP doesn't have any non-SB profiles
-    if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] != "LOCAL") {
+    if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] != "LOCAL") {
         throw new Exception("We were told to create a new SB profile, but this deployment is not configured for SB!");
     }
 
@@ -55,7 +53,7 @@ if (!isset($_REQUEST['profile_id'])) {
     $fed = new \core\Federation($inst->federation);
     $allowSb = $fed->getAttributes("fed:silverbullet");
     if (count($allowSb) == 0) {
-        throw new Exception("We were told to create a new SB profile, but this " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation'] . " does not allow SB at all!");
+        throw new Exception("We were told to create a new SB profile, but this " . \config\ConfAssistant::CONSORTIUM['nomenclature_federation'] . " does not allow SB at all!");
     }
     // okay, new SB profiles are allowed. 
     // but is there a support:email attribute on inst level?
@@ -442,7 +440,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
                                                     . "name='command' "
                                                     . "value='" . \web\lib\common\FormElements::BUTTON_REVOKECREDENTIAL . "' "
                                                     . "class='delete' "
-                                                    . "onclick='return confirm(\"" . sprintf(_("The device in question will stop functioning with %s. The revocation cannot be undone. Are you sure you want to do this?"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "\")'>"
+                                                    . "onclick='return confirm(\"" . sprintf(_("The device in question will stop functioning with %s. The revocation cannot be undone. Are you sure you want to do this?"), \config\ConfAssistant::CONSORTIUM['display_name']) . "\")'>"
                                                     . _("Revoke") 
                                                     . "</button>"
                                             . "</form>";
@@ -528,7 +526,7 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
                             <div class="sb-user-buttons">
                                 <?php
                                 if ($hasOnePendingInvite || count($validCerts) > 0) {
-                                    $deletionText = sprintf(_("All of the currently active devices will stop functioning with %s. This cannot be undone. While the user can be re-activated later, they will then need to be re-provisioned with new invitation tokens. Are you sure you want to do this?"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+                                    $deletionText = sprintf(_("All of the currently active devices will stop functioning with %s. This cannot be undone. While the user can be re-activated later, they will then need to be re-provisioned with new invitation tokens. Are you sure you want to do this?"), \config\ConfAssistant::CONSORTIUM['display_name']);
                                     echo $formtext . "
                                     <input type='hidden' name='userid' value='$oneUserId'/>
                                     <button type='submit' "
@@ -572,13 +570,13 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
                 if (count($allUsers) > 0 && false) { // false because this restriction is currently not in effect and thus no UI is needed for it.
                     $acknowledgeText = sprintf(_('You need to acknowledge that the created accounts are still valid within the next %s days.'
                                     . ' If all accounts shown as active above are indeed still valid, please check the box below and push "Save".'
-                                    . ' If any of the accounts are stale, please deactivate them by pushing the corresponding button before doing this.'), CONFIG_CONFASSISTANT['SILVERBULLET']['gracetime'] ?? core\ProfileSilverbullet::SB_ACKNOWLEDGEMENT_REQUIRED_DAYS);
+                                    . ' If any of the accounts are stale, please deactivate them by pushing the corresponding button before doing this.'), \config\ConfAssistant::SILVERBULLET['gracetime'] ?? core\ProfileSilverbullet::SB_ACKNOWLEDGEMENT_REQUIRED_DAYS);
 
                     echo $formtext . "<div style='padding-bottom: 20px;'>"
                     . "
                     <p>$acknowledgeText</p>
                     <input type='checkbox' name='acknowledge' value='true'>
-                    <label>" . sprintf(_("I have verified that all configured users are still eligible for %s."),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</label>
+                    <label>" . sprintf(_("I have verified that all configured users are still eligible for %s."),\config\ConfAssistant::CONSORTIUM['display_name']) . "</label>
                 </div>
                 <button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_ACKUSERELIGIBILITY . "'>"._("Save")."</button></form>";
                 }

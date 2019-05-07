@@ -31,7 +31,7 @@ $Gui = new \web\lib\user\Gui();
 // ... unless overwritten by direct GET/POST parameter in the request or a SESSION setting
 // ... with last resort being the default skin (first one in the configured skin list is the default)
 error_reporting(E_ALL | E_STRICT);
-$Gui->langObject->setTextDomain("web_user");
+$Gui->languageInstance->setTextDomain("web_user");
 $Gui->loggerInstance->debug(4, "\n---------------------- index.php START --------------------------\n");
 $Gui->defaultPagePrelude();
 

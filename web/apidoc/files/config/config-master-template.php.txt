@@ -127,7 +127,7 @@ const CONFIG = [
       */
       
     'GEOIP' => [
-        'version' => 2,
+        'version' => 0,
         'geoip2-path-to-autoloader' => '/usr/share/GeoIP2/vendor/autoload.php',
         'geoip2-path-to-db' => '/usr/share/GeoIP2/DB/GeoLite2-City.mmdb',
     ],
@@ -281,7 +281,7 @@ const CONFIG = [
 
     /**
      * Maximum size of files to be uploaded. Clever people can circumvent this; in the end, the hard limit is configured in php.ini
-     * @var int
+     * @var integer
      */
     'MAX_UPLOAD_SIZE' => 10000000,
 
@@ -293,7 +293,7 @@ const CONFIG = [
      *   4 = annoyingly much debug output
      *   5 = way too much debug output (level 4 + SQL query dump)
      *
-     * @var int
+     * @var integer
      *
      */
     'DEBUG_LEVEL' => 5,

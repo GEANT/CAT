@@ -23,16 +23,30 @@ namespace core\diag;
 
 use \Exception;
 
-require_once dirname(dirname(__DIR__)) . "/config/_config.php";
-
 /**
  * This class talks to end users, asking them annoying questions to get to the
  * ground of where exactly the problem lies.
  */
 class Sociopath extends AbstractTest {
 
+    /**
+     * list of questions to ask and the answer weights
+     * 
+     * @var array
+     */
     private $qaArray;
+    
+    /**
+     * list of questions that were already asked, along with the answers we got
+     * @var array
+     */
     private $previousQuestions;
+    
+    /**
+     * things to say once we have enough certainty that this is the root cause
+     * 
+     * @var array
+     */
     private $genericVerdictTexts;
 
     /**
@@ -117,6 +131,7 @@ class Sociopath extends AbstractTest {
      * @param int       $questionNumber number of the question that was answered
      * @param bool|NULL $answer         TRUE if the answer was "Yes", FALSE if "No", NULL is "Dont know / N/A"
      * @return void
+     * @throws Exception
      */
     public function revaluate($questionNumber, $answer) {
         if ($questionNumber == "") {

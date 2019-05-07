@@ -23,6 +23,11 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
     private const EDUPKI_CERT_PROFILE = "User SOAP";
     private const EDUPKI_RA_PKEY_PASSPHRASE = "...";
 
+    /**
+     * sets up the environment so that we can talk to eduPKI
+     * 
+     * @throws Exception
+     */
     public function __construct() {
         $this->databaseType = "INST";
         parent::__construct();
@@ -38,12 +43,27 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
         }
     }
 
-    public function triggerNewOCSPStatement(SilverbulletCertificate $cert): string {
-        // nothing to be done here - eduPKI have their own OCSP responder
-        // and the certs point to it. So we are not in the loop.
+    /**
+     * Creates an updated OCSP statement. Nothing to be done here - eduPKI have
+     * their own OCSP responder and the certs point to it. So we are not in the 
+     * loop.
+     * 
+     * @param string $serial serial number of the certificate. Serials are 128 bit, so forcibly a string.
+     * @return string a dummy string instead of a real statement
+     */
+    public function triggerNewOCSPStatement($serial): string {
+        unset($serial); // not needed
         return "EXTERNAL";
     }
 
+    /**
+     * signs a CSR
+     * 
+     * @param array   $csr        the request structure. The member $csr['CSR'] must contain the CSR in *PEM* format
+     * @param integer $expiryDays how many days should the certificate be valid
+     * @return array the certificate with some meta info
+     * @throws Exception
+     */
     public function signRequest($csr, $expiryDays): array {
         // initialise connection to eduPKI CA / eduroam RA and send the request to them
         try {
@@ -98,7 +118,7 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
                     $soapReqnum, [
                 "RaID" => CertificationAuthorityEduPki::EDUPKI_RA_ID,
                 "Role" => CertificationAuthorityEduPki::EDUPKI_CERT_PROFILE,
-                "Subject" => "DC=eduroam,DC=test,DC=test,C=" . $csr["FED"] . ",O=" . CONFIG_CONFASSISTANT['CONSORTIUM']['name'] . ",OU=" . $csr["FED"] . ",CN=" . $csr['USERNAME'] . ",emailAddress=" . $csr['USERNAME'],
+                "Subject" => "DC=eduroam,DC=test,DC=test,C=" . $csr["FED"] . ",O=" . \config\ConfAssistant::CONSORTIUM['name'] . ",OU=" . $csr["FED"] . ",CN=" . $csr['USERNAME'] . ",emailAddress=" . $csr['USERNAME'],
                 "SubjectAltNames" => ["email:" . $csr["USERNAME"]],
                 "NotBefore" => (new \DateTime())->format('c'),
                 "NotAfter" => $expiry->format('c'),
@@ -130,7 +150,7 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
             // sign the data, using cmdline because openssl_pkcs7_sign produces strange results
             // -binary didn't help, nor switch -md to sha1 sha256 or sha512
             $this->loggerInstance->debug(5, "Actual content to be signed is this:\n  $soapCleartext\n");
-            $execCmd = CONFIG['PATHS']['openssl'] . " smime -sign -binary -in " . $tempdir['dir'] . "/content.txt -out " . $tempdir['dir'] . "/signature.txt -outform pem -inkey " . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey -signer " . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem";
+            $execCmd = \config\Master::PATHS['openssl'] . " smime -sign -binary -in " . $tempdir['dir'] . "/content.txt -out " . $tempdir['dir'] . "/signature.txt -outform pem -inkey " . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey -signer " . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem";
             $this->loggerInstance->debug(2, "Calling openssl smime with following cmdline:   $execCmd\n");
             $output = [];
             $return = 999;
@@ -153,7 +173,7 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
             // now, get the actual cert from the CA
             sleep(55);
             $counter = 55;
-            $parsedCert = NULL;
+            $parsedCert = FALSE;
             do {
                 $counter += 5;
                 sleep(5); // always start with a wait. Signature round-trip on the server side is at least one minute.
@@ -162,9 +182,9 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
                 if (strlen($soapCert) > 10) {
                     $parsedCert = $x509->processCertificate($soapCert);
                 }
-            } while (!is_array($parsedCert) && $counter < 500);
-
-            if (!is_array($parsedCert)) {
+            } while ($parsedCert === FALSE && $counter < 500);
+            // we should now have an array
+            if ($parsedCert === FALSE) {
                 throw new Exception("We did not actually get a certificate after waiting for 5 minutes.");
             }
             // let's get the CA certificate chain
@@ -195,10 +215,17 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
         ];
     }
 
-    public function revokeCertificate(SilverbulletCertificate $cert): void {
+    /**
+     * revokes a certificate
+     * 
+     * @param string $serial the serial, as a string because it is a 128 bit number
+     * @return void
+     * @throws Exception
+     */
+    public function revokeCertificate($serial): void {
         try {
             $soap = $this->initEduPKISoapSession("RA");
-            $soapRevocationSerial = $soap->newRevocationRequest(["Serial", $cert->serial], "");
+            $soapRevocationSerial = $soap->newRevocationRequest(["Serial", $serial], "");
             if ($soapRevocationSerial == 0) {
                 throw new Exception("Unable to create revocation request, serial number was zero.");
             }
@@ -215,7 +242,7 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
             // sign the data, using cmdline because openssl_pkcs7_sign produces strange results
             // -binary didn't help, nor switch -md to sha1 sha256 or sha512
             $this->loggerInstance->debug(5, "Actual content to be signed is this:\n$soapRawRevRequest\n");
-            $execCmd = CONFIG['PATHS']['openssl'] . " smime -sign -binary -in " . $tempdir['dir'] . "/content.txt -out " . $tempdir['dir'] . "/signature.txt -outform pem -inkey " . CertificationAuthorityEduPki::LOCATION_RA_KEY . " -signer " . CertificationAuthorityEduPki::LOCATION_RA_CERT;
+            $execCmd = \config\Master::PATHS['openssl'] . " smime -sign -binary -in " . $tempdir['dir'] . "/content.txt -out " . $tempdir['dir'] . "/signature.txt -outform pem -inkey " . CertificationAuthorityEduPki::LOCATION_RA_KEY . " -signer " . CertificationAuthorityEduPki::LOCATION_RA_CERT;
             $this->loggerInstance->debug(2, "Calling openssl smime with following cmdline: $execCmd\n");
             $output = [];
             $return = 999;
@@ -336,6 +363,15 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
                 . '</' . $x[0] . '>';
     }
 
+    /**
+     * generates a CSR which eduPKI likes (DC components etc.)
+     * 
+     * @param \resource $privateKey a private key
+     * @param string    $fed        name of the federation, for C= field
+     * @param string    $username   username, for CN= field
+     * @return array the CSR along with some meta information
+     * @throws Exception
+     */
     public function generateCompatibleCsr($privateKey, $fed, $username): array {
         $tempdirArray = \core\common\Entity::createTemporaryDirectory("test");
         $tempdir = $tempdirArray['dir'];
@@ -344,7 +380,7 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
         openssl_pkey_export($privateKey, $outstring);
         file_put_contents($tempdir . "/pkey.pem", $outstring);
         // PHP can only do one DC in the Subject. But we need three.
-        $execCmd = CONFIG['PATHS']['openssl'] . " req -new -sha256 -key $tempdir/pkey.pem -out $tempdir/request.csr -subj /DC=test/DC=test/DC=eduroam/C=$fed/O=" . CONFIG_CONFASSISTANT['CONSORTIUM']['name'] . "/OU=$fed/CN=$username/emailAddress=$username";
+        $execCmd = \config\Master::PATHS['openssl'] . " req -new -sha256 -key $tempdir/pkey.pem -out $tempdir/request.csr -subj /DC=test/DC=test/DC=eduroam/C=$fed/O=" . \config\ConfAssistant::CONSORTIUM['name'] . "/OU=$fed/CN=$username/emailAddress=$username";
         $this->loggerInstance->debug(2, "Calling openssl req with following cmdline: $execCmd\n");
         $output = [];
         $return = 999;
@@ -367,6 +403,12 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
         ];
     }
 
+    /**
+     * generates a private key eduPKI can handle
+     * 
+     * @return \resource the key
+     * @throws Exception
+     */
     public function generateCompatiblePrivateKey(): \resource {
         $key = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
         if ($key === FALSE) {

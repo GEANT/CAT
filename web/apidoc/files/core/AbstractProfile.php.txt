@@ -60,7 +60,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     
     /**
      * DB identifier of the parent institution of this profile
-     * @var int
+     * @var integer
      */
     public $institution;
 
@@ -88,7 +88,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     /**
      * number of profiles of the IdP this profile is attached to
      * 
-     * @var int
+     * @var integer
      */
     protected $idpNumberOfProfiles;
 
@@ -128,8 +128,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @throws Exception
      */
     protected function saveDownloadDetails($idpIdentifier, $profileId, $deviceId, $area, $lang, $eapType) {
-        if (CONFIG['PATHS']['logdir']) {
-            $file = fopen(CONFIG['PATHS']['logdir'] . "/download_details.log", "a");
+        if (\config\Master::PATHS['logdir']) {
+            $file = fopen(\config\Master::PATHS['logdir'] . "/download_details.log", "a");
             if ($file === FALSE) {
                 throw new Exception("Unable to open file for append: $file");
             }
@@ -167,6 +167,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * 
      * @param int $profileIdRaw identifier of the profile in the DB
      * @param IdP $idpObject    optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
+     * @throws Exception
      */
     public function __construct($profileIdRaw, $idpObject = NULL) {
         $this->databaseType = "INST";
@@ -195,30 +196,6 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         $fedObject = new Federation($idp->federation);
         $this->fedAttributes = $fedObject->getAttributes();
         $this->loggerInstance->debug(3, "--- END Constructing new AbstractProfile object ... ---\n");
-    }
-
-    /**
-     * join new attributes to existing ones, but only if not already defined on
-     * a different level in the existing set
-     * 
-     * @param array  $existing the already existing attributes
-     * @param array  $new      the new set of attributes
-     * @param string $newlevel the level of the new attributes
-     * @return array the new set of attributes
-     */
-    protected function levelPrecedenceAttributeJoin($existing, $new, $newlevel) {
-        foreach ($new as $attrib) {
-            $ignore = "";
-            foreach ($existing as $approvedAttrib) {
-                if (($attrib["name"] == $approvedAttrib["name"] && $approvedAttrib["level"] != $newlevel) && ($approvedAttrib["name"] != "device-specific:redirect") ){
-                    $ignore = "YES";
-                }
-            }
-            if ($ignore != "YES") {
-                $existing[] = $attrib;
-            }
-        }
-        return $existing;
     }
 
     /**
@@ -682,7 +659,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         // do we know at least one SSID to configure, or work with wired? If not, it's not ready...
         if (!isset($attribs['media:SSID']) &&
                 !isset($attribs['media:SSID_with_legacy']) &&
-                (!isset(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) || count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) == 0) &&
+                (!isset(\config\ConfAssistant::CONSORTIUM['ssid']) || count(\config\ConfAssistant::CONSORTIUM['ssid']) == 0) &&
                 !isset($attribs['media:wired'])) {
             $properConfig = FALSE;
         }

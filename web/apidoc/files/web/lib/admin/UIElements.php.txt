@@ -44,7 +44,7 @@ class UIElements extends \core\common\Entity {
      * @var string
      */
     public $nomenclatureInst;
-    
+
     /**
      * the custom displayable variant of the term 'hotspot'
      * 
@@ -58,6 +58,7 @@ class UIElements extends \core\common\Entity {
      * @var string
      */
     public $nomenclatureParticipant;
+
     /**
      * Initialises the class.
      * 
@@ -78,7 +79,7 @@ class UIElements extends \core\common\Entity {
      * 
      * @param string $input raw text in need of a human-readable display variant
      * @return string the human-readable variant
-     * @throws Exception
+     * @throws \Exception
      */
     public function displayName($input) {
         \core\common\Entity::intoThePotatoes();
@@ -86,11 +87,11 @@ class UIElements extends \core\common\Entity {
         $ssidLegacyText = _("SSID (with WPA/TKIP)");
         $passpointOiText = _("HS20 Consortium OI");
 
-        if (count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0) {
+        if (count(\config\ConfAssistant::CONSORTIUM['ssid']) > 0) {
             $ssidText = _("Additional SSID");
             $ssidLegacyText = _("Additional SSID (with WPA/TKIP)");
         }
-        if (!empty(CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi']) && count(CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi']) > 0) {
+        if (!empty(\config\ConfAssistant::CONSORTIUM['interworking-consortium-oi']) && count(\config\ConfAssistant::CONSORTIUM['interworking-consortium-oi']) > 0) {
             $passpointOiText = _("Additional HS20 Consortium OI");
         }
 
@@ -139,7 +140,7 @@ class UIElements extends \core\common\Entity {
             $ssidLegacyText => "media:SSID_with_legacy",
             $passpointOiText => "media:consortium_OI",
             _("VLAN for own users") => "managedsp:vlan",
-            _("Realm for VLAN tagging") => "managedsp:realmforvlan",
+            _("Realm to be considered own users") => "managedsp:realmforvlan",
             _("Custom Operator-Name attribute") => "managedsp:operatorname",
         ];
 
@@ -175,7 +176,7 @@ class UIElements extends \core\common\Entity {
                 if ($type["flag"] == "ML") {
                     $language = _("default/other languages");
                     if ($option['lang'] != 'C') {
-                        $language = CONFIG['LANGUAGES'][$option['lang']]['display'] ?? "(unsupported language)";
+                        $language = \config\Master::LANGUAGES[$option['lang']]['display'] ?? "(unsupported language)";
                     }
                 }
 
@@ -203,7 +204,7 @@ class UIElements extends \core\common\Entity {
                         }
                         break;
                     case "boolean":
-                        if ($option['name'] == "fed:silverbullet" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != "LOCAL") {
+                        if ($option['name'] == "fed:silverbullet" && \config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && \config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] != "LOCAL") {
                             // do not display the option at all; it gets auto-set by the ProfileSilverbullet constructor and doesn't have to be seen
                             break;
                         }
@@ -287,23 +288,17 @@ class UIElements extends \core\common\Entity {
 
     /**
      * 
-     * @param string  $ref         the database reference string
+     * @param string  $table       the database table
+     * @param integer $rowindex    the database row
      * @param boolean $checkpublic should we check if the requested piece of data is public?
      * @return string|boolean the requested data, or FALSE if something went wrong
      */
-    public static function getBlobFromDB($ref, $checkpublic) {
-        $validator = new \web\lib\common\InputValidation();
-        $reference = $validator->databaseReference($ref);
-
-        if ($reference === FALSE) {
-            return FALSE;
-        }
-
+    public static function getBlobFromDB($table, $rowindex, $checkpublic) {
         // the data is either public (just give it away) or not; in this case, only
         // release if the data belongs to admin himself
         if ($checkpublic) {
 
-            $owners = \core\EntityWithDBProperties::isDataRestricted($reference["table"], $reference["rowindex"]);
+            $owners = \core\EntityWithDBProperties::isDataRestricted($table, $rowindex);
 
             $ownersCondensed = [];
 
@@ -314,7 +309,7 @@ class UIElements extends \core\common\Entity {
                 }
                 // we might be called without session context (filepreview) so get the
                 // context if needed
-                CAT_session_start();
+                \core\CAT::sessionStart();
 
                 foreach ($owners as $oneowner) {
                     $ownersCondensed[] = $oneowner['ID'];
@@ -326,21 +321,8 @@ class UIElements extends \core\common\Entity {
             }
         }
 
-        $blob = \core\EntityWithDBProperties::fetchRawDataByIndex($reference["table"], $reference["rowindex"]);
+        $blob = \core\EntityWithDBProperties::fetchRawDataByIndex($table, $rowindex);
         return $blob; // this means we might return FALSE here if something was wrong with the original requested reference
-    }
-
-    /**
-     * 
-     * @param string $reference a reference pointer to a database entry
-     * @return void
-     * @throws Exception
-     */
-    private function checkROWIDpresence($reference) {
-        $found = preg_match("/^ROWID-.*/", $reference);
-        if ($found != 1) { // get excited on not-found AND on execution error
-            throw new Exception("Error, ROWID expected.");
-        }
     }
 
     /**
@@ -351,8 +333,9 @@ class UIElements extends \core\common\Entity {
      */
     public function previewCAinHTML($cAReference) {
         \core\common\Entity::intoThePotatoes();
-        $this->checkROWIDpresence($cAReference);
-        $rawResult = UIElements::getBlobFromDB($cAReference, FALSE);
+        $validator = new \web\lib\common\InputValidation();
+        $ref = $validator->databaseReference($cAReference);
+        $rawResult = UIElements::getBlobFromDB($ref['table'], $ref['rowindex'], FALSE);
         if (is_bool($rawResult)) { // we didn't actually get a CA!
             $retval = "<div class='ca-summary'>" . _("There was an error while retrieving the certificate from the database!") . "</div>";
             \core\common\Entity::outOfThePotatoes();
@@ -389,7 +372,6 @@ class UIElements extends \core\common\Entity {
      */
     public function previewImageinHTML($imageReference) {
         \core\common\Entity::intoThePotatoes();
-        $this->checkROWIDpresence($imageReference);
         $retval = "<img style='max-width:150px' src='inc/filepreview.php?id=" . $imageReference . "' alt='" . _("Preview of logo file") . "'/>";
         \core\common\Entity::outOfThePotatoes();
         return $retval;
@@ -403,8 +385,9 @@ class UIElements extends \core\common\Entity {
      */
     public function previewInfoFileinHTML($fileReference) {
         \core\common\Entity::intoThePotatoes();
-        $this->checkROWIDpresence($fileReference);
-        $fileBlob = UIElements::getBlobFromDB($fileReference, FALSE);
+        $validator = new \web\lib\common\InputValidation();
+        $ref = $validator->databaseReference($fileReference);
+        $fileBlob = UIElements::getBlobFromDB($ref['table'], $ref['rowindex'], FALSE);
         if (is_bool($fileBlob)) { // we didn't actually get a file!
             $retval = "<div class='ca-summary'>" . _("There was an error while retrieving the file from the database!") . "</div>";
             \core\common\Entity::outOfThePotatoes();
@@ -502,6 +485,8 @@ class UIElements extends \core\common\Entity {
         return $this->boxFlexible(\core\common\Entity::L_ERROR, $text, $caption, $omittabletags);
     }
 
+    const QRCODE_PIXELS_PER_SYMBOL = 12;
+
     /**
      * Injects the consortium logo in the middle of a given PNG.
      * 
@@ -536,8 +521,8 @@ class UIElements extends \core\common\Entity {
         $scale = sqrt($maxoccupy / $totallogopixels);
         $loggerInstance->debug(4, "Scaling info: $scale, $maxoccupy, $totallogopixels\n");
         // determine final pixel size - round to multitude of $symbolsize to match exact symbol boundary
-        $targetwidth = (int)($symbolsize * round($sizelogo[0] * $scale / $symbolsize));
-        $targetheight = (int)($symbolsize * round($sizelogo[1] * $scale / $symbolsize));
+        $targetwidth = (int) ($symbolsize * round($sizelogo[0] * $scale / $symbolsize));
+        $targetheight = (int) ($symbolsize * round($sizelogo[1] * $scale / $symbolsize));
         // paint white below the logo, in case it has transparencies (looks bad)
         // have one symbol in each direction extra white space
         $whiteimage = imagecreate($targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize);
@@ -546,13 +531,63 @@ class UIElements extends \core\common\Entity {
         }
         imagecolorallocate($whiteimage, 255, 255, 255);
         // also make sure the initial placement is a multitude of 12; otherwise "two half" symbols might be affected
-        $targetplacementx = (int)($symbolsize * round(($sizeinput[0] / 2 - ($targetwidth - $symbolsize) / 2) / $symbolsize));
-        $targetplacementy = (int)($symbolsize * round(($sizeinput[1] / 2 - ($targetheight - $symbolsize) / 2) / $symbolsize));
+        $targetplacementx = (int) ($symbolsize * round(($sizeinput[0] / 2 - ($targetwidth - $symbolsize + 1) / 2) / $symbolsize));
+        $targetplacementy = (int) ($symbolsize * round(($sizeinput[1] / 2 - ($targetheight - $symbolsize + 1 ) / 2) / $symbolsize));
         imagecopyresized($inputgd, $whiteimage, $targetplacementx - $symbolsize, $targetplacementy - $symbolsize, 0, 0, $targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize, $targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize);
         imagecopyresized($inputgd, $logogd, $targetplacementx, $targetplacementy, 0, 0, $targetwidth, $targetheight, $sizelogo[0], $sizelogo[1]);
         ob_start();
         imagepng($inputgd);
         return ob_get_clean();
+    }
+
+    /**
+     * Something went wrong. We display the error cause and then throw an Exception.
+     * 
+     * @param string $headerDisplay error to put in the page header
+     * @param string $uiDisplay     error string to display
+     * @return void direct output
+     * @throws Exception
+     */
+    public function errorPage($headerDisplay, $uiDisplay) {
+        $decoObject = new PageDecoration();
+        echo $decoObject->pageheader($headerDisplay, "ADMIN-IDP");
+        echo "<h1>$uiDisplay</h1>";
+        echo $decoObject->footer();
+        throw new Exception("Error page raised: $headerDisplay - $uiDisplay.");
+    }
+
+    /**
+     * creates the HTML code displaying the result of a test that was run previously
+     * 
+     * @param \core\SanityTests $test the test that was run
+     * @return string
+     * @throws Exception
+     */
+    public function sanityTestResultHTML($test) {
+        $out = '';
+        switch ($test->test_result['global']) {
+            case \core\common\Entity::L_OK:
+                $message = "Your configuration appears to be fine.";
+                break;
+            case \core\common\Entity::L_WARN:
+                $message = "There were some warnings, but your configuration should work.";
+                break;
+            case \core\common\Entity::L_ERROR:
+                $message = "Your configuration appears to be broken, please fix the errors.";
+                break;
+            case \core\common\Entity::L_REMARK:
+                $message = "Your configuration appears to be fine.";
+                break;
+            default:
+                throw new Exception("The result code level " . $test->test_result['global'] . " is not defined!");
+        }
+        $out .= $this->boxFlexible($test->test_result['global'], "<br><strong>Test Summary</strong><br>" . $message . "<br>See below for details<br><hr>");
+        foreach ($test->out as $testValue) {
+            foreach ($testValue as $o) {
+                $out .= $this->boxFlexible($o['level'], $o['message']);
+            }
+        }
+        return($out);
     }
 
 }

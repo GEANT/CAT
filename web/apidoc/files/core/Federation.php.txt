@@ -116,6 +116,7 @@ class Federation extends EntityWithDBProperties {
      * gets the download statistics for the federation
      * @param string $format either as an html *table* or *XML* or *JSON*
      * @return string|array
+     * @throws Exception
      */
     public function downloadStats($format) {
         $data = $this->downloadStatsCore();
@@ -158,6 +159,7 @@ class Federation extends EntityWithDBProperties {
      *
      * @param string $fedname textual representation of the Federation object
      *                        Example: "lu" (for Luxembourg)
+     * @throws Exception
      */
     public function __construct($fedname) {
 
@@ -193,7 +195,7 @@ class Federation extends EntityWithDBProperties {
             "row" => 0,
             "flag" => NULL);
 
-        if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] != 'LOCAL' && CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == 'LOCAL') {
+        if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] != 'LOCAL' && \config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == 'LOCAL') {
             // this instance exclusively does SB, so it is not necessary to ask
             // fed ops whether they want to enable it or not. So always add it
             // to the list of fed attributes
@@ -217,14 +219,15 @@ class Federation extends EntityWithDBProperties {
      * @param string $level         Privilege level of the first administrator (was he blessed by a federation admin or a peer?)
      * @param string $mail          e-mail address with which the user was invited to administer (useful for later user identification if the user chooses a "funny" real name)
      * @param string $bestnameguess name of the IdP, if already known, in the best-match language
-     * @return int identifier of the new IdP
+     * @return integer identifier of the new IdP
+     * @throws Exception
      */
     public function newIdP($type, $ownerId, $level, $mail = NULL, $bestnameguess = NULL) {
         $this->databaseHandle->exec("INSERT INTO institution (country, type) VALUES('$this->tld', '$type')");
         $identifier = $this->databaseHandle->lastID();
 
-        if ($identifier == 0 || !$this->loggerInstance->writeAudit($ownerId, "NEW", "IdP $identifier")) {
-            $text = "<p>Could not create a new " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_inst'] . "!</p>";
+        if ($identifier == 0 || !$this->loggerInstance->writeAudit($ownerId, "NEW", "Organisation $identifier")) {
+            $text = "<p>Could not create a new " . \config\ConfAssistant::CONSORTIUM['nomenclature_inst'] . "!</p>";
             echo $text;
             throw new Exception($text);
         }
@@ -240,16 +243,32 @@ class Federation extends EntityWithDBProperties {
         }
         $admins = $this->listFederationAdmins();
 
+        switch ($type) {
+            case ExternalEduroamDBData::TYPE_IDP:
+                $prettyPrintType = common\Entity::$nomenclature_inst;
+                break;
+            case ExternalEduroamDBData::TYPE_SP:
+                $prettyPrintType = common\Entity::$nomenclature_hotspot;
+                break;
+            default:
+                /// IdP and SP
+                $prettyPrintType = sprintf(_("%s and %s"), common\Entity::$nomenclature_inst, common\Entity::$nomenclature_hotspot);
+        }
+
+        $consortium = \config\ConfAssistant::CONSORTIUM['display_name'];
+        $productShort = \config\Master::APPEARANCE['productname'];
+        $productLong = \config\Master::APPEARANCE['productname_long'];
         // notify the fed admins...
 
         foreach ($admins as $id) {
             $user = new User($id);
-            /// arguments are: 1. nomenclature for "institution"
-            //                 2. IdP name; 
+            /// arguments are: 1. nomenclature for the type of organisation being created (IdP/SP/both)
+            ///                2. IdP name; 
             ///                3. consortium name (e.g. eduroam); 
             ///                4. federation shortname, e.g. "LU"; 
-            ///                5. product name (e.g. eduroam CAT); 
-            ///                6. product long name (e.g. eduroam Configuration Assistant Tool)
+            ///                5. nomenclature for "institution"
+            ///                6. product name (e.g. eduroam CAT); 
+            ///                7. product long name (e.g. eduroam Configuration Assistant Tool)
             $message = sprintf(_("Hi,
 
 the invitation for the new %s %s in your %s federation %s has been used and the IdP was created in %s.
@@ -258,8 +277,16 @@ We thought you might want to know.
 
 Best regards,
 
-%s"), common\Entity::$nomenclature_inst, $bestnameguess, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], strtoupper($this->tld), CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname_long']);
-            $retval = $user->sendMailToUser(sprintf(_("%s in your federation was created"), common\Entity::$nomenclature_inst), $message);
+%s"), 
+                    $prettyPrintType,
+                    $bestnameguess,
+                    $consortium,
+                    strtoupper($this->tld),
+                    common\Entity::$nomenclature_participant,
+                    $productShort,
+                    $productLong);
+            /// organisation
+            $retval = $user->sendMailToUser(sprintf(_("%s in your federation was created"), common\Entity::$nomenclature_participant), $message);
             if ($retval === FALSE) {
                 $this->loggerInstance->debug(2, "Mail to federation admin was NOT sent!\n");
             }
@@ -268,7 +295,20 @@ Best regards,
         return $identifier;
     }
 
+    /**
+     * list of all institutions. Fetched once from the DB and then stored in
+     * this variable
+     * 
+     * @var array
+     */
     private $idpListAll;
+    
+    /**
+     * list of all active institutions. Fetched once from the DB and then stored
+     * in this variable
+     * 
+     * @var array
+     */
     private $idpListActive;
 
     /**
@@ -326,7 +366,7 @@ Best regards,
     public function listFederationAdmins() {
         $returnarray = [];
         $query = "SELECT user_id FROM user_options WHERE option_name = 'user:fedadmin' AND option_value = ?";
-        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $query = "SELECT eptid as user_id FROM view_admin WHERE role = 'fedadmin' AND realm = ?";
         }
         $userHandle = DBConnection::handle("USER"); // we need something from the USER database for a change
@@ -339,23 +379,19 @@ Best regards,
         }
         return $returnarray;
     }
-
+    
     /**
      * cross-checks in the EXTERNAL customer DB which institutions exist there for the federations
      * 
-     * @param bool $unmappedOnly if set to TRUE, only returns those which do not have a known mapping to our internally known institutions
+     * @param bool   $unmappedOnly if set to TRUE, only returns those which do not have a known mapping to our internally known institutions
+     * @param string $type         which type of entity to search for
      * @return array
      */
-    public function listExternalEntities($unmappedOnly) {
+    public function listExternalEntities($unmappedOnly, $type = NULL) {
+        $allExternals = [];
+        $usedarray = [];
         $returnarray = [];
-
-        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-            $usedarray = [];
-            $query = "SELECT id_institution AS id, country, inst_realm as realmlist, name AS collapsed_name, contact AS collapsed_contact FROM view_active_idp_institution WHERE country = ?";
-
-
-            $externalHandle = DBConnection::handle("EXTERNAL");
-            $externals = $externalHandle->exec($query, "s", $this->tld);
+        if ($unmappedOnly) { // find out which entities are already mapped
             $syncstate = IdP::EXTERNAL_DB_SYNCSTATE_SYNCED;
             $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution 
                                                                                                      WHERE external_db_id IS NOT NULL 
@@ -374,45 +410,17 @@ Best regards,
                     $usedarray[] = $pendingInviteQuery->external_db_uniquehandle;
                 }
             }
-            // was a SELECT query, so a resource and not a boolean
-            while ($externalQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $externals)) {
-                if (($unmappedOnly === TRUE) && (in_array($externalQuery->id, $usedarray))) {
-                    continue;
-                }
-                $names = explode('#', $externalQuery->collapsed_name);
-                // trim name list to current best language match
-                $availableLanguages = [];
-                foreach ($names as $name) {
-                    $thislang = explode(': ', $name, 2);
-                    $availableLanguages[$thislang[0]] = $thislang[1];
-                }
-                if (array_key_exists($this->languageInstance->getLang(), $availableLanguages)) {
-                    $thelangauge = $availableLanguages[$this->languageInstance->getLang()];
-                } else if (array_key_exists("en", $availableLanguages)) {
-                    $thelangauge = $availableLanguages["en"];
-                } else { // whatever. Pick one out of the list
-                    $thelangauge = array_pop($availableLanguages);
-                }
-                $contacts = explode('#', $externalQuery->collapsed_contact);
+        }
 
-
-                $mailnames = "";
-                foreach ($contacts as $contact) {
-                    $matches = [];
-                    preg_match("/^n: (.*), e: (.*), p: .*$/", $contact, $matches);
-                    if ($matches[2] != "") {
-                        if ($mailnames != "") {
-                            $mailnames .= ", ";
-                        }
-                        // extracting real names is nice, but the <> notation
-                        // really gets screwed up on POSTs and HTML safety
-                        // so better not do this; use only mail addresses
-                        $mailnames .= $matches[2];
-                    }
-                }
-                $returnarray[] = ["ID" => $externalQuery->id, "name" => $thelangauge, "contactlist" => $mailnames, "country" => $externalQuery->country, "realmlist" => $externalQuery->realmlist];
+        if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+            $externalDB = CAT::determineExternalConnection();
+            // need to convert our internal notion of participant types to those of eduroam DB
+            $allExternals = $externalDB->listExternalEntities($this->tld, $type);
+        }
+        foreach ($allExternals as $oneExternal) {
+            if (!in_array($oneExternal["ID"], $usedarray)) {
+                $returnarray[] = $oneExternal;
             }
-            usort($returnarray, array($this, "usortInstitution"));
         }
         return $returnarray;
     }
@@ -461,7 +469,7 @@ Best regards,
         // this is a SELECT returning a resource, not a boolean
         $candidatesCat = Federation::findCandidates(/** @scrutinizer ignore-type */ $candidateCatQuery, $country);
 
-        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED        
+        if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED        
             $externalHandle = DBConnection::handle("EXTERNAL");
             $realmSearchStringDb1 = "$realm";
             $realmSearchStringDb2 = "%,$realm";
@@ -473,16 +481,6 @@ Best regards,
         }
 
         return ["CAT" => $candidatesCat, "EXTERNAL" => $candidatesExternalDb, "FEDERATION" => $country];
-    }
-
-    /**
-     * helper function to sort institutions by their name
-     * @param array $a an array with institution a's information
-     * @param array $b an array with institution b's information
-     * @return int the comparison result
-     */
-    private function usortInstitution($a, $b) {
-        return strcasecmp($a["name"], $b["name"]);
     }
 
 }

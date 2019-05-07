@@ -144,7 +144,7 @@ class EAP extends Entity {
 
     /**
      * The integer representation of the EAP type
-     * @var int
+     * @var integer
      */
     private $intRep;
 
@@ -153,6 +153,7 @@ class EAP extends Entity {
      * instantiate *real* EAP types, i.e. not EAPTYPE::ANY or EAPTYPE::NONE
      * 
      * @param mixed $eapType the EAP type, either in its integer or array representation
+     * @throws Exception
      */
     public function __construct($eapType) {
         if (is_numeric($eapType) && array_key_exists($eapType, EAP::EAPTYPES_CONVERSION)) {

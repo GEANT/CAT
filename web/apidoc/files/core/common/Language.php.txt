@@ -30,8 +30,6 @@
  */
 namespace core\common;
 
-require_once dirname(dirname(__DIR__)) . "/config/_config.php";
-
 /**
  * This class maintains state of the selected language and can set the language.
  */
@@ -99,7 +97,7 @@ class Language {
             $recoverLang = filter_input(INPUT_GET,'lang', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'lang', FILTER_SANITIZE_STRING);
             $langConverted[] = $recoverLang;
         }
-        CAT_session_start();
+        \core\CAT::sessionStart();
         if (!empty($_SESSION['language'])) {
             $langConverted[] = $_SESSION['language'];
         }
@@ -111,8 +109,8 @@ class Language {
                 $langConverted[] = (empty($result[1]) ? $lang : $result[1]);
             }
         }
-        $langIndex = CONFIG['APPEARANCE']['defaultlocale'];
-        $theLocale = CONFIG['LANGUAGES'][$langIndex]['locale'];
+        $langIndex = \config\Master::APPEARANCE['defaultlocale'];
+        $theLocale = \config\Master::LANGUAGES[$langIndex]['locale'];
         // always add configured default language as the last resort
         $langConverted[] = $langIndex;
         setlocale(LC_ALL, 0);
@@ -123,7 +121,7 @@ class Language {
             $localeTmp = FALSE;
 
             // check if this language is supported by the CAT config
-            foreach (CONFIG['LANGUAGES'] as $language => $value) {
+            foreach (\config\Master::LANGUAGES as $language => $value) {
                 if (preg_match("/^" . $language . ".*/", $tryLang)) {
                     $localeTmp = $value['locale'];
                     $langIndex = $language; // ???
