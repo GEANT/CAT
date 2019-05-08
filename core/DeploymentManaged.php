@@ -402,7 +402,7 @@ class DeploymentManaged extends AbstractDeployment {
             curl_setopt( $ch, CURLOPT_HEADER, 0);
             curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
             $response = curl_exec( $ch );
-            if ($response === FALSE) {
+            if (is_bool($response)) { // we want to get an "OK" back, not a TRUE or FALSE
                 $response = 'FAILURE';
             }
             $this->loggerInstance->debug(1, "Response from FR configurator: $response\n");
