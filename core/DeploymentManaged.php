@@ -372,7 +372,37 @@ class DeploymentManaged extends AbstractDeployment {
     }
     
     /**
-     * sends request to add/modify RADIUS settings for given deployment
+     * send request to RADIUS configuration daemom
+     *
+     * @param integer $idx
+     * @param string $post 
+     * @return string - response
+     */
+    public function sendToRADIUS($idx, $post) {
+            
+        $hostname = "radius_hostname_$idx";
+        $ch = curl_init( "http://" . $this->$hostname );
+        if ($ch) {
+            curl_setopt( $ch, CURLOPT_POST, 1);
+            curl_setopt( $ch, CURLOPT_POSTFIELDS, $post);
+            $this->loggerInstance->debug(1, "Posting to http://" . $this->$hostname . ": $post\n");
+            curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
+            curl_setopt( $ch, CURLOPT_HEADER, 0);
+            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
+            $res = curl_exec( $ch );
+            if ($res === FALSE) {
+                $res = 'FAILURE';
+            }
+            $this->loggerInstance->debug(1, "Response from FR configurator: $res\n");
+        } else {
+            $res = 'FAILURE';
+        }
+        $this->databaseHandle->exec("UPDATE deployment SET radius_status_$idx = " . ($res == 'OK'? \core\AbstractDeployment::RADIUS_OK : \core\AbstractDeployment::RADIUS_FAILURE) . " WHERE deployment_id = $this->identifier");
+        return $res;
+    }
+    
+    /**
+     * prepare request to add/modify RADIUS settings for given deployment
      *
      * @param int $remove - the flag indicating remove request
      * @return array - index 1 indicate primary RADIUS status, index 2 backup RADIUS status
@@ -411,24 +441,7 @@ class DeploymentManaged extends AbstractDeployment {
         $toPost[2] = $toPost[2] . 'port=' . $this->port2;
         $response = array();
         for ($idx=1; $idx<=2; $idx++) {
-            $hostname = "radius_hostname_$idx";
-            $ch = curl_init( "http://" . $this->$hostname );
-            if ($ch) {
-                curl_setopt( $ch, CURLOPT_POST, 1);
-                curl_setopt( $ch, CURLOPT_POSTFIELDS, $toPost[$idx]);
-                $this->loggerInstance->debug(1, "Posting to http://" . $this->$hostname . ": $toPost[$idx]\n");
-                curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
-                curl_setopt( $ch, CURLOPT_HEADER, 0);
-                curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
-                $response[$idx] = curl_exec( $ch );
-                if ($response[$idx] === FALSE) {
-                    $response[$idx] = 'FAILURE';
-                }
-                $this->loggerInstance->debug(1, "Response from FR configurator: $response[$idx]\n");
-            } else {
-                $response[$idx] = 'FAILURE';
-            }
-            $this->databaseHandle->exec("UPDATE deployment SET radius_status_$idx = " . ($response[$idx] == 'OK'? \core\AbstractDeployment::RADIUS_OK : \core\AbstractDeployment::RADIUS_FAILURE) . " WHERE deployment_id = $this->identifier");
+            $response[$idx] = $this->sendToRADIUS($idx, $toPost[$idx]);
         }
         return $response;
     }
