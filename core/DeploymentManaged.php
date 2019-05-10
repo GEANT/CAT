@@ -390,7 +390,7 @@ class DeploymentManaged extends AbstractDeployment {
                 $idp = new IdP($this->institution);
                 $allProfiles = $idp->listProfiles(TRUE);
                 $allRealms = [];
-                if ($realmforvlan = ($this->getAttributes("managedsp:realmforvlan") ?? NULL)) {
+                if (($this->getAttributes("managedsp:realmforvlan") ?? NULL)) {
                     $allRealms = array_values(array_unique(array_column($this->getAttributes("managedsp:realmforvlan"), "value")));
                 }
                 foreach ($allProfiles as $profile) {
@@ -401,7 +401,6 @@ class DeploymentManaged extends AbstractDeployment {
                     }
                 }
                 if (!empty($allRealms)) {
-                    $this->loggerInstance->debug(1, $allRealms);
                     $toPost[1] = $toPost[1] . 'vlan=' . $this->getAttributes("managedsp:vlan")[0]['value'] . '&';
                     $toPost[1] = $toPost[1] . 'realmforvlan[]=' . implode('&realmforvlan[]=', $allRealms) . '&';
                 }
