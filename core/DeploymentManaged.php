@@ -140,6 +140,19 @@ class DeploymentManaged extends AbstractDeployment {
     public $radius_hostname_2;
 
     /**
+     * the primary RADIUS server status - last configuration request result
+     * 
+     * @var string
+     */
+    public $radius_status_1;
+
+    /**
+     * the backup RADIUS server status - last configuration request result
+     * 
+     * @var string
+     */
+    public $radius_status_2;
+    /**
      * Class constructor for existing deployments (use 
      * IdP::newDeployment() to actually create one). Retrieves all 
      * attributes from the DB and stores them in the priv_ arrays.
@@ -156,7 +169,7 @@ class DeploymentManaged extends AbstractDeployment {
         if (!is_numeric($deploymentIdRaw)) {
             throw new Exception("Managed SP instances have to have a numeric identifier");
         }
-        $propertyQuery = "SELECT status,port_instance_1,port_instance_2,secret,radius_instance_1,radius_instance_2 FROM deployment WHERE deployment_id = ?";
+        $propertyQuery = "SELECT status,port_instance_1,port_instance_2,secret,radius_instance_1,radius_instance_2,radius_status_1,radius_status_2 FROM deployment WHERE deployment_id = ?";
         $queryExec = $this->databaseHandle->exec($propertyQuery, "i", $deploymentIdRaw);
         if (mysqli_num_rows(/** @scrutinizer ignore-type */ $queryExec) == 0) {
             throw new Exception("Attempt to construct an unknown DeploymentManaged!");
@@ -171,6 +184,8 @@ class DeploymentManaged extends AbstractDeployment {
                 $this->secret = $details["secret"];
                 $this->radius_instance_1 = $details["radius_instance_1"];
                 $this->radius_instance_2 = $details["radius_instance_2"];
+                $this->radius_status_1 = 1;
+                $this->radius_status_2 = 1;
                 $this->status = AbstractDeployment::INACTIVE;
             } else {
                 $this->port1 = $iterator->port_instance_1;
@@ -178,6 +193,8 @@ class DeploymentManaged extends AbstractDeployment {
                 $this->secret = $iterator->secret;
                 $this->radius_instance_1 = $iterator->radius_instance_1;
                 $this->radius_instance_2 = $iterator->radius_instance_2;
+                $this->radius_status_1 = $iterator->radius_status_1;
+                $this->radius_status_2 = $iterator->radius_status_2;
                 $this->status = $iterator->status;
             }
         }
@@ -358,15 +375,16 @@ class DeploymentManaged extends AbstractDeployment {
      * sends request to add/modify RADIUS settings for given deployment
      *
      * @param int $remove - the flag indicating remove request
-     * @return string
+     * @return array - index 1 indicate primary RADIUS status, index 2 backup RADIUS status
      */
     public function setRADIUSconfig($remove = 0) {
-        $toPost1 = 'instid=' . $this->institution . '&deploymentid=' . $this->identifier . '&secret=' . $this->secret . '&country=' . $this->getAttributes("internal:country")[0]['value'] . '&';
+        $toPost = array(1 => '', 2 => '');
+        $toPost[1] = 'instid=' . $this->institution . '&deploymentid=' . $this->identifier . '&secret=' . $this->secret . '&country=' . $this->getAttributes("internal:country")[0]['value'] . '&';
         if ($remove) {
-            $toPost1 = $toPost1 . 'remove=1&';
+            $toPost[1] = $toPost[1] . 'remove=1&';
         } else {
             if ($this->getAttributes("managedsp:operatorname")[0]['value'] ?? NULL) {
-                $toPost1 = $toPost1 . 'operatorname=' . $this->getAttributes("managedsp:operatorname")[0]['value'] . '&';
+                $toPost[1] = $toPost[1] . 'operatorname=' . $this->getAttributes("managedsp:operatorname")[0]['value'] . '&';
             }
             if ($this->getAttributes("managedsp:vlan")[0]['value'] ?? NULL) {
                 $idp = new IdP($this->institution);
@@ -384,30 +402,34 @@ class DeploymentManaged extends AbstractDeployment {
                 }
                 if (!empty($allRealms)) {
                     $this->loggerInstance->debug(1, $allRealms);
-                    $toPost1 = $toPost1 . 'vlan=' . $this->getAttributes("managedsp:vlan")[0]['value'] . '&';
-                    $toPost1 = $toPost1 . 'realmforvlan[]=' . implode('&realmforvlan[]=', $allRealms) . '&';
+                    $toPost[1] = $toPost[1] . 'vlan=' . $this->getAttributes("managedsp:vlan")[0]['value'] . '&';
+                    $toPost[1] = $toPost[1] . 'realmforvlan[]=' . implode('&realmforvlan[]=', $allRealms) . '&';
                 }
             }
         }
-        $toPost2 = $toPost1;
-        $toPost1 = $toPost1 . 'port=' . $this->port1;
-        $toPost2 = $toPost2 . 'port=' . $this->port2;
-        // TODO this should be secured with HTTPS after the prototype phase
-        $ch = curl_init( "http://" . $this->radius_hostname_1 );
-        if ($ch !== FALSE) {
-            curl_setopt( $ch, CURLOPT_POST, 1);
-            curl_setopt( $ch, CURLOPT_POSTFIELDS, $toPost1);
-            $this->loggerInstance->debug(1, "Posting to http://" . $this->radius_hostname_1 . ": $toPost1\n");
-            curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
-            curl_setopt( $ch, CURLOPT_HEADER, 0);
-            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
-            $response = curl_exec( $ch );
-            if (is_bool($response)) { // we want to get an "OK" back, not a TRUE or FALSE
-                $response = 'FAILURE';
+        $toPost[2] = $toPost[1];
+        $toPost[1] = $toPost[1] . 'port=' . $this->port1;
+        $toPost[2] = $toPost[2] . 'port=' . $this->port2;
+        $response = array();
+        for ($idx=1; $idx<=2; $idx++) {
+            $hostname = "radius_hostname_$idx";
+            $ch = curl_init( "http://" . $this->$hostname );
+            if ($ch) {
+                curl_setopt( $ch, CURLOPT_POST, 1);
+                curl_setopt( $ch, CURLOPT_POSTFIELDS, $toPost[$idx]);
+                $this->loggerInstance->debug(1, "Posting to http://" . $this->$hostname . ": $toPost[$idx]\n");
+                curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
+                curl_setopt( $ch, CURLOPT_HEADER, 0);
+                curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
+                $response[$idx] = curl_exec( $ch );
+                if ($response[$idx] === FALSE) {
+                    $response[$idx] = 'FAILURE';
+                }
+                $this->loggerInstance->debug(1, "Response from FR configurator: $response[$idx]\n");
+            } else {
+                $response[$idx] = 'FAILURE';
             }
-            $this->loggerInstance->debug(1, "Response from FR configurator: $response\n");
-        } else {
-            $response = 'FAILURE';
+            $this->databaseHandle->exec("UPDATE deployment SET radius_status_$idx = " . ($response[$idx] == 'OK'? \core\AbstractDeployment::RADIUS_OK : \core\AbstractDeployment::RADIUS_FAILURE) . " WHERE deployment_id = $this->identifier");
         }
         return $response;
     }

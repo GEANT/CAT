@@ -46,11 +46,15 @@ $deployment = $validator->existingDeploymentManaged($_GET['deployment_id'], $my_
 
 if (isset($_POST['submitbutton'])) {
     if ($_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_DELETE) {
-        $res = $deployment->setRADIUSconfig(1);
-        if ($res == 'OK') {
+        $response = $deployment->setRADIUSconfig(1);
+        if (in_array('OK', $response)) {
             $deployment->deactivate();
         }
-        header("Location: overview_sp.php?inst_id=" . $my_inst->identifier . "&res=$res");
+        $addParam = '';
+        foreach ($response as $idx=>$val) {
+            $addParam = $addParam . "&res[$idx]=$val";
+        }
+        header("Location: overview_sp.php?inst_id=" . $my_inst->identifier . $addParam);
         exit(0);
     }
 
@@ -62,6 +66,7 @@ if (isset($_POST['submitbutton'])) {
         header("Location: overview_sp.php?inst_id=" . $my_inst->identifier . "&res=$res");
         exit(0);
     }
+    
     if ($_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_SAVE) {
         $optionParser = new web\lib\admin\OptionParser();
         $postArray = $_POST;

@@ -44,6 +44,11 @@ $link = htmlspecialchars($link);
 echo $deco->defaultPagePrelude(sprintf(_("%s: %s Dashboard"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureHotspot));
 require_once "inc/click_button_js.php";
 
+// RADIUS status icons
+$radiusMessages = [
+    \core\AbstractDeployment::RADIUS_OK => ['icon' => '../resources/images/icons/Quetto/check-icon.png', 'text' => _("Successfully set profile")],
+    \core\AbstractDeployment::RADIUS_FAILURE => ['icon' => '../resources/images/icons/Quetto/no-icon.png', 'text' => _("Some problem occured during profile update")],
+    ];
 // let's check if the inst handle actually exists in the DB
 $my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
 
@@ -59,7 +64,7 @@ echo $mapCode->htmlHeadCode();
 <body <?php echo $mapCode->bodyTagCode(); ?>>
     <?php
     echo $deco->productheader("ADMIN-SP");
-
+    
     // Sanity check complete. Show what we know about this IdP.
     $idpoptions = $my_inst->getAttributes();
     ?>
@@ -142,6 +147,11 @@ echo $mapCode->htmlHeadCode();
                         </td>
                         <td><?php echo _("RADIUS port number: ") ?></td>
                         <td><?php echo $deploymentObject->port1; ?></td>
+                        <td>
+                            <?php
+                                echo "<img src='" . $radiusMessages[$deploymentObject->radius_status_1]['icon'] . "' alt='" . $radiusMessages[$deploymentObject->radius_status_1]['text'] . "' title='" . $radiusMessages[$deploymentObject->radius_status_1]['text'] . "'>";
+                            ?>
+                        </td>
                     </tr>
                     <tr>
                         <td><strong><?php echo _("Your backup RADIUS server") ?><br/></strong>
@@ -158,12 +168,42 @@ echo $mapCode->htmlHeadCode();
                             ?></td>
                         <td><?php echo _("RADIUS port number: ") ?></td>
                         <td><?php echo $deploymentObject->port2; ?></td>
+                        <td>
+                            <?php
+                                echo "<img src='" . $radiusMessages[$deploymentObject->radius_status_2]['icon'] . "' alt='" . $radiusMessages[$deploymentObject->radius_status_2]['text'] . "' title='" . $radiusMessages[$deploymentObject->radius_status_1]['text'] . "'>";
+                            ?>
+                        </td>
                     </tr>
                     
                     <tr>
                         <td><strong><?php echo _("RADIUS shared secret"); ?></strong></td>
                         <td><?php echo $deploymentObject->secret; ?></td>
                     </tr>
+                    
+                    <?php if ($opname = $deploymentObject->getAttributes("managedsp:operatorname")[0]['value'] ?? NULL) { ?>
+                    <tr>
+                        <td><strong><?php echo _("Custom Operator-Name"); ?></strong></td>
+                        <td><?php echo $opname; ?></td>
+                    </tr>
+                    <?php
+                    }
+                        if ($vlan = $deploymentObject->getAttributes("managedsp:vlan")[0]['value'] ?? NULL) { ?>
+                    <tr>
+                        <td><strong><?php echo _("VLAN tag for own users"); ?></strong></td>
+                        <td><?php echo $vlan; ?></td>
+                    </tr>
+                        <?php } ?>
+                    <?php
+                    $allRealms = array_values(array_unique(array_column($deploymentObject->getAttributes("managedsp:realmforvlan"), "value")));
+                    if (!empty($allRealms)) {
+                    ?>
+                    <tr>
+                        <td><strong><?php echo _("Realm to be considered own users"); ?></strong></td>
+                        <td><?php echo implode(', ', $allRealms); ?></td>
+                    </tr>
+                    <?php
+                    }
+                    ?>
                 </table>
                 <div class='buttongroupprofilebox' style='clear:both;'>
                     <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
@@ -175,6 +215,23 @@ echo $mapCode->htmlHeadCode();
                             <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php printf(_("Do you really want to deactivate the %s deployment?"), core\DeploymentManaged::PRODUCTNAME); ?>')">
                                 <?php echo _("Deactivate"); ?>
                             </button>
+                            <?php 
+                                if (isset($_GET['res']) && is_array($_GET['res'])) {
+                                    $res = array_count_values($_GET['res']);
+                                    if ($res['FAILURE'] > 0) {
+                                        echo '<br>';
+                                        if ($res['FAILURE'] == 2) {
+                                            echo ' <span style="color: red;">' . _("Activation failure, your request is queued for handling.") . '</span>';
+                                        } else {
+                                            if (isset($_GET['res'][1]) && $_GET['res']['1'] == 'FAILURE') {
+                                                echo ' <span style="color: red;">' . _("Activation failure for your primary RADIUS server, your request is queued.") . '</span>';
+                                            } else {
+                                                echo ' <span style="color: red;">' . _("Activation failure for your backup RADIUS server, your request is queued.") . '</span>';
+                                            }
+                                        }
+                                    }
+                                }
+                            ?>
                         </form>
                         <?php
                     } else {
@@ -183,9 +240,23 @@ echo $mapCode->htmlHeadCode();
                             <button class='delete' style='background-color: green;' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_ACTIVATE; ?>'>
                                 <?php echo _("Activate"); ?>
                             </button>
-                            <?php if (isset($_GET['res']) && $_GET['res'] != 'OK') {
-                                echo ' <span style="color: red;">' . _("Activation failure") . '</span>';
-                            } ?>
+                            <?php 
+                                if (isset($_GET['res']) && is_array($_GET['res'])) {
+                                    $res = array_count_values($_GET['res']);
+                                    if ($res['FAILURE'] > 0) {
+                                        echo '<br>';
+                                        if ($res['FAILURE'] == 2) {
+                                            echo ' <span style="color: red;">' . _("Failure during deactivation, your request is queued for handling") . '</span>';
+                                        } else {
+                                            if (isset($_GET['res'][1]) && $_GET['res']['1'] == 'FAILURE') {
+                                                echo ' <span style="color: red;">' . _("Deactivation failure for your primary RADIUS server, your request is queued.") . '</span>';
+                                            } else {
+                                                echo ' <span style="color: red;">' . _("Deactivation failure for your backup RADIUS server, your request is queued.") . '</span>';
+                                            }
+                                        }
+                                    }
+                                }
+                            ?>
                         </form>
                     <?php
                     }

@@ -34,6 +34,8 @@ CREATE TABLE `deployment` (
   `secret` varchar(16) DEFAULT NULL,
   `radius_instance_1` varchar(32) DEFAULT NULL,
   `radius_instance_2` varchar(32) DEFAULT NULL,
+  `radius_status_1` tinyint(1) DEFAULT '0',
+  `radius_status_2` tinyint(1) DEFAULT '0',
   `last_change` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`deployment_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

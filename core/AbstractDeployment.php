@@ -54,6 +54,8 @@ abstract class AbstractDeployment extends EntityWithDBProperties {
     const ACTIVE = 1;
     const DEPLOYMENTTYPE_CLASSIC = "RADIUS-SP";
     const DEPLOYMENTTYPE_MANAGED = "MANAGED-SP";
+    const RADIUS_OK = 1;
+    const RADIUS_FAILURE = 2;
 
     /**
      * status of this deployment. Defaults to INACTIVE.
