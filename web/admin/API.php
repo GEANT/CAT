@@ -200,6 +200,34 @@ switch ($inputDecoded['ACTION']) {
     case web\lib\admin\API::ACTION_STATISTICS_FED:
         $adminApi->returnSuccess($fed->downloadStats("array"));
         break;
+    case \web\lib\admin\API::ACTION_FEDERATION_LISTIDP:
+        $retArray = [];
+        $idpIdentifier = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID);
+        if ($idpIdentifier === FALSE) {
+            $allIdPs = $fed->listIdentityProviders(0);
+            foreach ($allIdPs as $instanceId => $oneIdP) {
+                $theIdP = $oneIdP["instance"];
+                $retArray[$instanceId] = $theIdP->getAttributes();
+            }
+        } else {
+            try {
+                $thisIdP = $validator->IdP($idpIdentifier);
+            } catch (Exception $e) {
+                $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
+                exit(1);
+            }
+            $retArray[$idpIdentifier] = $thisIdP->getAttributes();
+        }
+        foreach ($retArray as $instNumber => $oneInstData) {
+            foreach ($oneInstData as $attribNumber => $oneAttrib) {
+                if ($oneAttrib['name'] == "general:logo_file") {
+                    // JSON doesn't cope well with raw binary data, so b64 it
+                    $retArray[$instNumber][$attribNumber]['value'] = base64_encode($oneAttrib['value']);
+                }
+            }
+        }
+        $adminApi->returnSuccess($retArray);
+        break;
     case \web\lib\admin\API::ACTION_NEWPROF_RADIUS:
     // fall-through intended: both get mostly identical treatment
     case web\lib\admin\API::ACTION_NEWPROF_SB:
@@ -534,9 +562,9 @@ switch ($inputDecoded['ACTION']) {
         $annotation = json_decode($annotationRaw, TRUE);
         $cert->annotate($annotation);
         $adminApi->returnSuccess([]);
-        
+
         break;
-        
+
     default:
         $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_ACTION, "Not implemented yet.");
 }
