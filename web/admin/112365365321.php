@@ -67,9 +67,12 @@ $dbHandle = \core\DBConnection::handle("FRONTEND");
             if (isset($_POST['admin_action'])) {
                 switch ($_POST['admin_action']) {
                     case web\lib\common\FormElements::BUTTON_PURGECACHE:
+                        // delete all rows which were already marked as obsolete in a previous run
+                        $deleteStale = $dbHandle->exec("DELETE FROM downloads WHERE download_path = NULL");
+                        // and now obsolete those which were previously possibly still valid
                         $result = $dbHandle->exec("UPDATE downloads SET download_path = NULL");
-                    // we do NOT break here - after the DB deletion comes the normal
-                    // filesystem cleanup
+                        // we do NOT break here - after the DB deletion comes the normal
+                        // filesystem cleanup
                     case web\lib\common\FormElements::BUTTON_DELETE:
                         $i = web\lib\admin\Maintenance::deleteObsoleteTempDirs();
                         echo "<div class='ca-summary'><table>" . $uiElements->boxRemark(sprintf("Deleted %d cache directories.", $i), "Cache deleted") . "</table></div>";
