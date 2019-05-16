@@ -264,8 +264,6 @@ abstract class Entity {
         // if called from a class, guess based on the class name; 
         // otherwise, on the filename relative to ROOT
         $myName = $caller['class'] ?? substr($caller['file'], strlen(ROOT));
-        $loggerInstance->debug(1,$caller);
-        $loggerInstance->debug(1,"\nFOUND ".$myName."\n");
         if (preg_match("/diag/", $myName) == 1) {
             $ret = "diagnostics";
         } elseif (preg_match("/core/", $myName) == 1) {
@@ -279,7 +277,6 @@ abstract class Entity {
         } else {
             $ret = "web_user";
         }
-        $loggerInstance->debug(1,"\nRETURNING ".$ret."\n");
         return $ret;
     }
 
