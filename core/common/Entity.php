@@ -249,7 +249,6 @@ abstract class Entity {
      * @return string the catalogue
      */
     private static function determineOwnCatalogue() {
-        $loggerInstance = new Logging();
         $trace = debug_backtrace();
         $caller = [];
         // find the first caller in the stack trace which is NOT "Entity" itself
