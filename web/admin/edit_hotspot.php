@@ -59,11 +59,15 @@ if (isset($_POST['submitbutton'])) {
     }
 
     if ($_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_ACTIVATE) {
-        $res = $deployment->setRADIUSconfig();
-        if ($res == 'OK') {
+        $response = $deployment->setRADIUSconfig();
+        if (in_array('OK', $response)) {
             $deployment->activate();
         }
-        header("Location: overview_sp.php?inst_id=" . $my_inst->identifier . "&res=$res");
+        $addParam = '';
+        foreach ($response as $idx=>$val) {
+            $addParam = $addParam . "&res[$idx]=$val";
+        }
+        header("Location: overview_sp.php?inst_id=" . $my_inst->identifier . $addParam);
         exit(0);
     }
     
