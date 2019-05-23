@@ -50,11 +50,7 @@ if (isset($_POST['submitbutton'])) {
         if (in_array('OK', $response)) {
             $deployment->deactivate();
         }
-        $addParam = '';
-        foreach ($response as $idx=>$val) {
-            $addParam = $addParam . "&res[$idx]=$val";
-        }
-        header("Location: overview_sp.php?inst_id=" . $my_inst->identifier . $addParam);
+        header("Location: overview_sp.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)));
         exit(0);
     }
 
@@ -63,11 +59,7 @@ if (isset($_POST['submitbutton'])) {
         if (in_array('OK', $response)) {
             $deployment->activate();
         }
-        $addParam = '';
-        foreach ($response as $idx=>$val) {
-            $addParam = $addParam . "&res[$idx]=$val";
-        }
-        header("Location: overview_sp.php?inst_id=" . $my_inst->identifier . $addParam);
+        header("Location: overview_sp.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)));
         exit(0);
     }
     

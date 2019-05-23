@@ -149,7 +149,9 @@ echo $mapCode->htmlHeadCode();
                         <td><?php echo $deploymentObject->port1; ?></td>
                         <td>
                             <?php
-                                echo "<img src='" . $radiusMessages[$deploymentObject->radius_status_1]['icon'] . "' alt='" . $radiusMessages[$deploymentObject->radius_status_1]['text'] . "' title='" . $radiusMessages[$deploymentObject->radius_status_1]['text'] . "'>";
+                                echo "<img src='" . $radiusMessages[$deploymentObject->radius_status_1]['icon'] . 
+                                     "' alt='" . $radiusMessages[$deploymentObject->radius_status_1]['text'] . 
+                                     "' title='" . $radiusMessages[$deploymentObject->radius_status_1]['text'] . "'>";
                             ?>
                         </td>
                     </tr>
@@ -170,7 +172,9 @@ echo $mapCode->htmlHeadCode();
                         <td><?php echo $deploymentObject->port2; ?></td>
                         <td>
                             <?php
-                                echo "<img src='" . $radiusMessages[$deploymentObject->radius_status_2]['icon'] . "' alt='" . $radiusMessages[$deploymentObject->radius_status_2]['text'] . "' title='" . $radiusMessages[$deploymentObject->radius_status_1]['text'] . "'>";
+                                echo "<img src='" . $radiusMessages[$deploymentObject->radius_status_2]['icon'] .
+                                     "' alt='" . $radiusMessages[$deploymentObject->radius_status_2]['text'] . 
+                                     "' title='" . $radiusMessages[$deploymentObject->radius_status_2]['text'] . "'>";
                             ?>
                         </td>
                     </tr>

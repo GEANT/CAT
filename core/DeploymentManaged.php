@@ -394,6 +394,7 @@ class DeploymentManaged extends AbstractDeployment {
                 $res = 'FAILURE';
             }
             $this->loggerInstance->debug(1, "Response from FR configurator: $res\n");
+            $this->loggerInstance->debug(1, $this);           
         } else {
             $res = 'FAILURE';
         }
@@ -401,6 +402,32 @@ class DeploymentManaged extends AbstractDeployment {
         return $res;
     }
     
+    private function sendMailtoAdmin($remove, $response) {
+        $txt = '';
+        if ($remove) {
+            $txt = _('Profile dectivation failed' . ' ');
+        } else {
+            $txt = _('Profile activation/modification failed' . ' ');
+        }
+        if (array_count_values($response)['FAILURE'] == 2) {
+            $txt = $txt . _('on both RADIUS servers: primary and backup') . '.';
+        } else {
+            if ($response['res[1]'] == 'FAILURE') {
+                $txt = $txt . _('on primary RADIUS server') . '.';
+            } else {
+                $txt = $txt . _('on backup RADIUS server') . '.';
+            }
+        }
+        $mail = \core\common\OutsideComm::mailHandle();
+        $email = $this->getAttributes("support:email")[0]['value'];
+        $mail->FromName = \config\Master::APPEARANCE['productname'] . " Notification System";
+        $mail->addAddress($email);
+        $mail->Subject = _('RADIUS profile update problem');
+        $mail->Body = $txt;
+
+        $sent = $mail->send();
+        $this->loggerInstance->debug(1, 'TO SEND: ' . $email . ' ' . $txt);
+    }
     /**
      * prepare request to add/modify RADIUS settings for given deployment
      *
@@ -441,7 +468,10 @@ class DeploymentManaged extends AbstractDeployment {
         $toPost[2] = $toPost[2] . 'port=' . $this->port2;
         $response = array();
         for ($idx=1; $idx<=2; $idx++) {
-            $response[$idx] = $this->sendToRADIUS($idx, $toPost[$idx]);
+            $response['res['.$idx.']'] = $this->sendToRADIUS($idx, $toPost[$idx]);
+        }
+        if (in_array('FAILURE', $response)) {
+            $this->sendMailtoAdmin($remove, $response);
         }
         return $response;
     }
