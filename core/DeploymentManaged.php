@@ -401,7 +401,13 @@ class DeploymentManaged extends AbstractDeployment {
         $this->databaseHandle->exec("UPDATE deployment SET radius_status_$idx = " . ($res == 'OK'? \core\AbstractDeployment::RADIUS_OK : \core\AbstractDeployment::RADIUS_FAILURE) . " WHERE deployment_id = $this->identifier");
         return $res;
     }
-    
+    /**
+     * prepare sent email message to support mail
+     *
+     * @param int $remove - the flag indicating remove request
+     * @param array $response - setRADIUSconfig result
+     * 
+     */
     private function sendMailtoAdmin($remove, $response) {
         $txt = '';
         if ($remove) {
@@ -426,7 +432,8 @@ class DeploymentManaged extends AbstractDeployment {
         $mail->Body = $txt;
 
         $sent = $mail->send();
-        $this->loggerInstance->debug(1, 'TO SEND: ' . $email . ' ' . $txt);
+        if ( $sent === FALSE)
+        $this->loggerInstance->debug(1, 'Mailing on RADIUS problem failed');
     }
     /**
      * prepare request to add/modify RADIUS settings for given deployment
