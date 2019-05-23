@@ -374,9 +374,9 @@ class DeploymentManaged extends AbstractDeployment {
     /**
      * send request to RADIUS configuration daemom
      *
-     * @param integer $idx
-     * @param string $post 
-     * @return string - response
+     * @param  integer   $idx
+     * @param  string    $post 
+     * @return string
      */
     public function sendToRADIUS($idx, $post) {
             
@@ -404,8 +404,9 @@ class DeploymentManaged extends AbstractDeployment {
     /**
      * prepare sent email message to support mail
      *
-     * @param int $remove - the flag indicating remove request
-     * @param array $response - setRADIUSconfig result
+     * @param  int   $remove     the flag indicating remove request
+     * @param  array $response   setRADIUSconfig result
+     * @return void
      * 
      */
     private function sendMailtoAdmin($remove, $response) {
@@ -438,8 +439,8 @@ class DeploymentManaged extends AbstractDeployment {
     /**
      * prepare request to add/modify RADIUS settings for given deployment
      *
-     * @param int $remove - the flag indicating remove request
-     * @return array - index 1 indicate primary RADIUS status, index 2 backup RADIUS status
+     * @param int   $remove   the flag indicating remove request
+     * @return array          index res[1] indicate primary RADIUS status, index res[2] backup RADIUS status
      */
     public function setRADIUSconfig($remove = 0) {
         $toPost = array(1 => '', 2 => '');
