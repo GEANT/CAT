@@ -60,11 +60,49 @@ if (isset($_SESSION['check_realm'])) {
 $mapCode = web\lib\admin\AbstractMap::instance($my_inst, TRUE);
 echo $mapCode->htmlHeadCode();
 ?>
+<script>
+    /*var ajax_call = function() {
+  //your jQuery ajax code
+    };*/
+
+    var interval = 1000 * 60 * X; // where X is your every X minutes
+
+    /* setInterval(ajax_call, interval); */
+    /* setInterval(function(){ alert("Hello"); }, 10000); */
+</script>
 </head>
-<body <?php echo $mapCode->bodyTagCode(); ?>>
+<body 
+    <?php echo $mapCode->bodyTagCode(); ?>>
     <?php
     echo $deco->productheader("ADMIN-SP");
-    
+    function check_url ($host) {
+        $ch = curl_init();
+        $timeout = 10;
+        if ($ch === FALSE) {
+            return NULL;
+        }
+        curl_setopt ( $ch, CURLOPT_URL, 'http://'.$host );
+        curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
+        curl_setopt ( $ch, CURLOPT_TIMEOUT, $timeout );
+        $http_respond = curl_exec($ch);
+        $http_respond = trim( strip_tags( $http_respond ) );
+        $http_code = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
+        if ($http_code == 200) {
+            return 1;
+        }
+        return 0;
+    }
+    function radius_config_site($dobject) {
+        $timeout = 10;
+        $res = array();
+        if ($dobject->radius_status_1 == \core\AbstractDeployment::RADIUS_FAILURE) {
+            $res[1] = check_url($dobject->radius_hostname_1);
+        }
+        if ($dobject->radius_status_2 == \core\AbstractDeployment::RADIUS_FAILURE) {
+            $res[2] = check_url($dobject->radius_hostname_2);
+        }
+        return $res;
+    }
     // Sanity check complete. Show what we know about this IdP.
     $idpoptions = $my_inst->getAttributes();
     ?>
@@ -124,8 +162,12 @@ echo $mapCode->htmlHeadCode();
         echo "<h2>" . sprintf(_("Deployments for this %s"), $uiElements->nomenclatureHotspot) . "</h2>";
         // display an info box with the connection data
     }
-
+   
     foreach ($hotspotProfiles as $counter => $deploymentObject) {
+        $radius_status = array();
+        $radius_status[0] = $deploymentObject->radius_status_1;
+        $radius_status[1] = $deploymentObject->radius_status_2;
+        $retry = radius_config_site($deploymentObject);
         ?>
         <div style='display: table-row; margin-bottom: 20px;'>
             <div class='profilebox' style='display: table-cell;'>
@@ -225,12 +267,12 @@ echo $mapCode->htmlHeadCode();
                                     if ($res['FAILURE'] > 0) {
                                         echo '<br>';
                                         if ($res['FAILURE'] == 2) {
-                                            echo ' <span style="color: red;">' . _("Activation failure, your request is queued for handling.") . '</span>';
+                                            echo ' <span style="color: red;">' . _("Activation failure.") . '</span>';
                                         } else {
                                             if (isset($_GET['res'][1]) && $_GET['res']['1'] == 'FAILURE') {
-                                                echo ' <span style="color: red;">' . _("Activation failure for your primary RADIUS server, your request is queued.") . '</span>';
+                                                echo ' <span style="color: red;">' . _("Activation failure for your primary RADIUS server.") . '</span>';
                                             } else {
-                                                echo ' <span style="color: red;">' . _("Activation failure for your backup RADIUS server, your request is queued.") . '</span>';
+                                                echo ' <span style="color: red;">' . _("Activation failure for your backup RADIUS server.") . '</span>';
                                             }
                                         }
                                     }
@@ -262,6 +304,24 @@ echo $mapCode->htmlHeadCode();
                                 }
                             ?>
                         </form>
+                    <?php
+                    }
+                    if (in_array(1, $retry)) {
+                    ?>
+                         <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
+                            <button class='delete' style='background-color: green;' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_RETRY; ?>'>
+                                <?php echo _("Push missing configuration update"); ?>
+                            </button>
+                            <?php
+                                foreach ($retry as $key => $value) {
+                                    if ($value == 1) {
+                                    ?>
+                                    <input type="hidden" name='update[]' value='<?php echo $key;?>'>
+                                    <?php
+                                    }
+                                }
+                            ?>
+                         </form>
                     <?php
                     }
                     ?>

@@ -442,14 +442,20 @@ class DeploymentManaged extends AbstractDeployment {
      * @param int   $remove   the flag indicating remove request
      * @return array          index res[1] indicate primary RADIUS status, index res[2] backup RADIUS status
      */
-    public function setRADIUSconfig($remove = 0) {
-        $toPost = array(1 => '', 2 => '');
-        $toPost[1] = 'instid=' . $this->institution . '&deploymentid=' . $this->identifier . '&secret=' . $this->secret . '&country=' . $this->getAttributes("internal:country")[0]['value'] . '&';
+    public function setRADIUSconfig($remove = 0, $onlyone = 0) {
+        $toPost = array();
+        if ($onlyone) {
+            $toPost[$onlyone]  = '';
+        } else {
+          $toPost[1] = '';
+          $toPost[2] = '';
+        }
+        $toPostTemplate = 'instid=' . $this->institution . '&deploymentid=' . $this->identifier . '&secret=' . $this->secret . '&country=' . $this->getAttributes("internal:country")[0]['value'] . '&';
         if ($remove) {
-            $toPost[1] = $toPost[1] . 'remove=1&';
+            $toPostTemplate = $toPostTemplate . 'remove=1&';
         } else {
             if ($this->getAttributes("managedsp:operatorname")[0]['value'] ?? NULL) {
-                $toPost[1] = $toPost[1] . 'operatorname=' . $this->getAttributes("managedsp:operatorname")[0]['value'] . '&';
+                $toPostTemplate = $toPostTemplate . 'operatorname=' . $this->getAttributes("managedsp:operatorname")[0]['value'] . '&';
             }
             if ($this->getAttributes("managedsp:vlan")[0]['value'] ?? NULL) {
                 $idp = new IdP($this->institution);
@@ -466,17 +472,25 @@ class DeploymentManaged extends AbstractDeployment {
                     }
                 }
                 if (!empty($allRealms)) {
-                    $toPost[1] = $toPost[1] . 'vlan=' . $this->getAttributes("managedsp:vlan")[0]['value'] . '&';
-                    $toPost[1] = $toPost[1] . 'realmforvlan[]=' . implode('&realmforvlan[]=', $allRealms) . '&';
+                    $toPostTemplate = $toPostTemplate . 'vlan=' . $this->getAttributes("managedsp:vlan")[0]['value'] . '&';
+                    $toPostTemplate = $toPostTemplate . 'realmforvlan[]=' . implode('&realmforvlan[]=', $allRealms) . '&';
                 }
             }
         }
-        $toPost[2] = $toPost[1];
-        $toPost[1] = $toPost[1] . 'port=' . $this->port1;
-        $toPost[2] = $toPost[2] . 'port=' . $this->port2;
+        foreach (array_keys($toPost) as $key) {
+            if ($key == 1) {
+                $toPost[$key] = $toPostTemplate . 'port=' . $this->port1;
+            } else {
+                $toPost[$key] = $toPostTemplate . 'port=' . $this->port2;
+            }      
+        }
         $response = array();
-        for ($idx=1; $idx<=2; $idx++) {
-            $response['res['.$idx.']'] = $this->sendToRADIUS($idx, $toPost[$idx]);
+        foreach ($toPost as $key => $value) {
+            $this->loggerInstance->debug(1, 'toPost ' . $toPost[$key] ."\n");
+            $response['res['.$key.']'] = $this->sendToRADIUS($key, $toPost[$key]);
+        }
+        if ($onlyone) {
+            $response['res['.($onlyone==1)? 2 : 1 . ']'] = \core\AbstractDeployment::RADIUS_OK;
         }
         if (in_array('FAILURE', $response)) {
             $this->sendMailtoAdmin($remove, $response);

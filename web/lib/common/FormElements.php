@@ -54,5 +54,6 @@ class FormElements {
     const BUTTON_SENDINVITATIONMAILBYCAT = 18;
     const BUTTON_SENDINVITATIONSMS = 19;
     const BUTTON_ACTIVATE = 20;
+    const BUTTON_RETRY = 21;
     
 }

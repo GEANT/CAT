@@ -63,6 +63,25 @@ if (isset($_POST['submitbutton'])) {
         exit(0);
     }
     
+    if ($_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_RETRY) {
+        error_log('MGW MGW');
+        error_log(print_r($_POST, TRUE));
+        if (isset($_POST['update']) && is_array($_POST['update'])) {
+            $which = 0;
+            if (in_array(1, $_POST['update']) && !in_array(2, $_POST['update'])) {
+                $which = 1;
+            }
+            if (in_array(2, $_POST['update']) && !in_array(1, $_POST['update'])) {
+                $which = 2;
+            }
+            $response = $deployment->setRADIUSconfig(($deployment->status == 0)? 1 : 0, $which);
+        } else {
+            $response = array();
+        }
+        header("Location: overview_sp.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)));
+        exit(0);
+    }
+    
     if ($_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_SAVE) {
         $optionParser = new web\lib\admin\OptionParser();
         $postArray = $_POST;
@@ -76,12 +95,10 @@ if (isset($_POST['submitbutton'])) {
         }
         $optionParser->processSubmittedFields($deployment, $postArray, $_FILES);
         $deployment = $validator->existingDeploymentManaged($_GET['deployment_id'], $my_inst);
-        $addParam = '';
         if ($deployment->status == core\DeploymentManaged::ACTIVE) {
-            $res = $deployment->setRADIUSconfig();
-            $addParam = "&res=$res";
+            $response = $deployment->setRADIUSconfig();
         }
-        header("Location: overview_sp.php?inst_id=" . $my_inst->identifier . $addParam);
+        header("Location: overview_sp.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)));
         exit(0);
     }
 }
