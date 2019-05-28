@@ -65,7 +65,7 @@ echo $mapCode->htmlHeadCode();
   //your jQuery ajax code
     };*/
 
-    var interval = 1000 * 60 * X; // where X is your every X minutes
+    /*var interval = 1000 * 60 * X; // where X is your every X minutes*/
 
     /* setInterval(ajax_call, interval); */
     /* setInterval(function(){ alert("Hello"); }, 10000); */
@@ -264,9 +264,9 @@ echo $mapCode->htmlHeadCode();
                             <?php 
                                 if (isset($_GET['res']) && is_array($_GET['res'])) {
                                     $res = array_count_values($_GET['res']);
-                                    if ($res['FAILURE'] > 0) {
+                                    if (isset($res['FAILURE']) && $res[] > 0) {
                                         echo '<br>';
-                                        if ($res['FAILURE'] == 2) {
+                                        if ($res['FAILURE'] == 2) 
                                             echo ' <span style="color: red;">' . _("Activation failure.") . '</span>';
                                         } else {
                                             if (isset($_GET['res'][1]) && $_GET['res']['1'] == 'FAILURE') {
