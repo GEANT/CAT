@@ -439,9 +439,9 @@ class DeploymentManaged extends AbstractDeployment {
     /**
      * prepare request to add/modify RADIUS settings for given deployment
      *
-     * @param int  $remove   the flag indicating remove request
-     * @param int  $onlyone  the flag indicating on which server to conduct modifications
-     * @return array  index res[1] indicate primary RADIUS status, index res[2] backup RADIUS status
+     * @param int $remove  the flag indicating remove request
+     * @param int $onlyone the flag indicating on which server to conduct modifications
+     * @return array index res[1] indicate primary RADIUS status, index res[2] backup RADIUS status
      */
     public function setRADIUSconfig($remove = 0, $onlyone = 0) {
         $toPost = array();
