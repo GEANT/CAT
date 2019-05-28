@@ -266,7 +266,7 @@ echo $mapCode->htmlHeadCode();
                                     $res = array_count_values($_GET['res']);
                                     if (isset($res['FAILURE']) && $res[] > 0) {
                                         echo '<br>';
-                                        if ($res['FAILURE'] == 2) 
+                                        if ($res['FAILURE'] == 2) {
                                             echo ' <span style="color: red;">' . _("Activation failure.") . '</span>';
                                         } else {
                                             if (isset($_GET['res'][1]) && $_GET['res']['1'] == 'FAILURE') {
@@ -280,7 +280,7 @@ echo $mapCode->htmlHeadCode();
                             ?>
                         </form>
                         <?php
-                    } else {
+                        } else {
                         ?>
                         <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
                             <button class='delete' style='background-color: green;' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_ACTIVATE; ?>'>

@@ -374,15 +374,17 @@ class DeploymentManaged extends AbstractDeployment {
     /**
      * send request to RADIUS configuration daemom
      *
-     * @param  integer   $idx
-     * @param  string    $post 
-     * @return string
+     * @param  integer $idx  server index 1 (primary) or 2 (backup)
+     * @param  string  $post string to POST 
+     * @return string  OK or FAILURE
      */
     public function sendToRADIUS($idx, $post) {
             
         $hostname = "radius_hostname_$idx";
         $ch = curl_init( "http://" . $this->$hostname );
-        if ($ch) {
+        if ($ch === false) {
+            $res = 'FAILURE';
+        } else {
             curl_setopt( $ch, CURLOPT_POST, 1);
             curl_setopt( $ch, CURLOPT_POSTFIELDS, $post);
             $this->loggerInstance->debug(1, "Posting to http://" . $this->$hostname . ": $post\n");
@@ -395,8 +397,6 @@ class DeploymentManaged extends AbstractDeployment {
             }
             $this->loggerInstance->debug(1, "Response from FR configurator: $res\n");
             $this->loggerInstance->debug(1, $this);           
-        } else {
-            $res = 'FAILURE';
         }
         $this->databaseHandle->exec("UPDATE deployment SET radius_status_$idx = " . ($res == 'OK'? \core\AbstractDeployment::RADIUS_OK : \core\AbstractDeployment::RADIUS_FAILURE) . " WHERE deployment_id = $this->identifier");
         return $res;
@@ -404,8 +404,8 @@ class DeploymentManaged extends AbstractDeployment {
     /**
      * prepare sent email message to support mail
      *
-     * @param  int   $remove     the flag indicating remove request
-     * @param  array $response   setRADIUSconfig result
+     * @param  int   $remove   the flag indicating remove request
+     * @param  array $response setRADIUSconfig result
      * @return void
      * 
      */
@@ -439,7 +439,7 @@ class DeploymentManaged extends AbstractDeployment {
     /**
      * prepare request to add/modify RADIUS settings for given deployment
      *
-     * @param int $remove  the flag indicating remove request
+     * @param int $remove  the flag indicating that it is remove request
      * @param int $onlyone the flag indicating on which server to conduct modifications
      * @return array index res[1] indicate primary RADIUS status, index res[2] backup RADIUS status
      */
