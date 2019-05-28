@@ -382,7 +382,7 @@ class DeploymentManaged extends AbstractDeployment {
             
         $hostname = "radius_hostname_$idx";
         $ch = curl_init( "http://" . $this->$hostname );
-        if ($ch === false) {
+        if ($ch === FALSE) {
             $res = 'FAILURE';
         } else {
             curl_setopt( $ch, CURLOPT_POST, 1);
@@ -391,9 +391,11 @@ class DeploymentManaged extends AbstractDeployment {
             curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
             curl_setopt( $ch, CURLOPT_HEADER, 0);
             curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
-            $res = curl_exec( $ch );
-            if ($res === FALSE) {
+            $exec = curl_exec( $ch );
+            if ($exec === FALSE) {
                 $res = 'FAILURE';
+            } else {
+                $res = $exec;
             }
             $this->loggerInstance->debug(1, "Response from FR configurator: $res\n");
             $this->loggerInstance->debug(1, $this);           
