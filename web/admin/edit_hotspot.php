@@ -64,8 +64,6 @@ if (isset($_POST['submitbutton'])) {
     }
     
     if ($_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_RETRY) {
-        error_log('MGW MGW');
-        error_log(print_r($_POST, TRUE));
         if (isset($_POST['update']) && is_array($_POST['update'])) {
             $which = 0;
             if (in_array(1, $_POST['update']) && !in_array(2, $_POST['update'])) {

@@ -157,5 +157,9 @@ class Diagnostics {
             'url' => 'https://technical.edugain.org/api.php',
             'timeout' => 2,
         ];
+        const RADIUSSPTEST = [
+            'port' => '1999',
+            'secret' => '1q2w3e4r5t0O9I8U7Y6TaZ',
+        ];
 
 }

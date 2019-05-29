@@ -470,10 +470,10 @@ class DeploymentManaged extends AbstractDeployment {
         /**
      * check whether the configured RADIUS hosts actually exist
      * 
-     * @param  integer $idx server index 1 (primary) or 2 (backup)
-     * @return boolean or NULL
+     * @param integer $idx server index 1 (primary) or 2 (backup)
+     * @return integer or NULL
      */
-    public function checkRADIUSHost($idx) {
+    private function testRADIUSHost($idx) {
         if ($idx == 1) {
             $host = $this->radius_hostname_1;
         } elseif ($idx == 2) {
@@ -481,27 +481,31 @@ class DeploymentManaged extends AbstractDeployment {
         } else {
             return NULL;
         }
-        $statusServer = new diag\RFC5997Tests($host, 1999, $this->secret);
+        $statusServer = new diag\RFC5997Tests($host, \config\Diagnostics::RADIUSSPTEST['port'], \config\Diagnostics::RADIUSSPTEST['secret']);
         $this->loggerInstance->debug(1, $statusServer);
         if ($statusServer->statusServerCheck() === diag\AbstractTest::RETVAL_OK) {
-            $this->loggerInstance->debug(1, "YESSSSS");
-            return TRUE;
+            return 1;
         }
-        $this->loggerInstance->debug(1, "NOOOOO");
-        return FALSE;
+        return 0;
     }
     /**
      * check if RADIUS configuration deamon is listening for requests
      *
      * @return array index res[1] indicate primary RADIUS status, index res[2] backup RADIUS status
      */
-    public function checkRADIUSconfigDaemon() {
+    public function checkRADIUSHostandConfigDaemon() {
         $res = array();
         if ($this->radius_status_1 == \core\AbstractDeployment::RADIUS_FAILURE) {
             $res[1] = $this->checkURL(1);
+            if ($res[1]) {
+                $res[1] = $this->testRADIUSHost(1);
+            }
         }
         if ($this->radius_status_2 == \core\AbstractDeployment::RADIUS_FAILURE) {
             $res[2] = $this->checkURL(2);
+            if ($res[2]) {
+                $res[2] = $this->testRADIUSHost(2);
+            }
         }
         return $res;
     }

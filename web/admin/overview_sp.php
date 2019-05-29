@@ -129,8 +129,7 @@ echo $mapCode->htmlHeadCode();
         $radius_status = array();
         $radius_status[0] = $deploymentObject->radius_status_1;
         $radius_status[1] = $deploymentObject->radius_status_2;
-        $retry = $deploymentObject->checkRADIUSconfigDaemon();
-        $deploymentObject->checkRADIUSHost(1);
+        $retry = $deploymentObject->checkRADIUSHostandConfigDaemon();
         ?>
         <div style='display: table-row; margin-bottom: 20px;'>
             <div class='profilebox' style='display: table-cell;'>
