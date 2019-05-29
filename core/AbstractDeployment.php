@@ -172,4 +172,28 @@ abstract class AbstractDeployment extends EntityWithDBProperties {
      * @return void
      */
     abstract public function activate();
+    
+    /**
+     * check whether the configured RADIUS hosts actually exist
+     * 
+     * @param  integer $idx server index 1 (primary) or 2 (backup)
+     * @return boolean or NULL
+     */
+    abstract public function checkRADIUSHost($idx);
+
+    /**
+     * check if RADIUS configuration deamon is listening for requests
+     *
+     * @return array index res[1] indicate primary RADIUS status, index res[2] backup RADIUS status
+     */
+    abstract public function checkRADIUSconfigDaemon();
+    
+    /**
+     * prepare request to add/modify RADIUS settings for given deployment
+     *
+     * @param int $remove  the flag indicating that it is remove request
+     * @param int $onlyone the flag indicating on which server to conduct modifications
+     * @return array index res[1] indicate primary RADIUS status, index res[2] backup RADIUS status
+     */
+    abstract public function setRADIUSconfig($remove = 0, $onlyone = 0);
 }

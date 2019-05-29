@@ -370,29 +370,6 @@ class DeploymentManaged extends AbstractDeployment {
         }
         return $customAttrib[0]["value"];
     }
-    /**
-     * check whether the configured RADIUS hosts actually exist
-     * 
-     * @param  integer $idx  server index 1 (primary) or 2 (backup)
-     * @return boolean or NULL
-     */
-    public function checkRADIUSHost($idx) {
-        if ($idx == 1) {
-            $host = $this->radius_hostname_1;
-        } elseif ($idx == 2) {
-            $host = $this->radius_hostname_2;
-        } else {
-            return NULL;
-        }
-        $statusServer = new diag\RFC5997Tests($host, 1999, $this->secret);
-        $this->loggerInstance->debug(1, $statusServer);
-        if ($statusServer->statusServerCheck() === diag\AbstractTest::RETVAL_OK) {
-            $this->loggerInstance->debug(1, "YESSSSS");
-            return TRUE;
-        }
-        $this->loggerInstance->debug(1, "NOOOOO");
-        return FALSE;
-    }
     
     /**
      * send request to RADIUS configuration daemom
@@ -401,7 +378,7 @@ class DeploymentManaged extends AbstractDeployment {
      * @param  string  $post string to POST 
      * @return string  OK or FAILURE
      */
-    public function sendToRADIUS($idx, $post) {
+    private function sendToRADIUS($idx, $post) {
             
         $hostname = "radius_hostname_$idx";
         $ch = curl_init( "http://" . $this->$hostname );
@@ -427,7 +404,7 @@ class DeploymentManaged extends AbstractDeployment {
         return $res;
     }
     /**
-     * prepare sent email message to support mail
+     * prepare and send email message to support mail
      *
      * @param  int   $remove   the flag indicating remove request
      * @param  array $response setRADIUSconfig result
@@ -490,13 +467,35 @@ class DeploymentManaged extends AbstractDeployment {
         }
         return 0;
     }
+        /**
+     * check whether the configured RADIUS hosts actually exist
+     * 
+     * @param  integer $idx server index 1 (primary) or 2 (backup)
+     * @return boolean or NULL
+     */
+    public function checkRADIUSHost($idx) {
+        if ($idx == 1) {
+            $host = $this->radius_hostname_1;
+        } elseif ($idx == 2) {
+            $host = $this->radius_hostname_2;
+        } else {
+            return NULL;
+        }
+        $statusServer = new diag\RFC5997Tests($host, 1999, $this->secret);
+        $this->loggerInstance->debug(1, $statusServer);
+        if ($statusServer->statusServerCheck() === diag\AbstractTest::RETVAL_OK) {
+            $this->loggerInstance->debug(1, "YESSSSS");
+            return TRUE;
+        }
+        $this->loggerInstance->debug(1, "NOOOOO");
+        return FALSE;
+    }
     /**
      * check if RADIUS configuration deamon is listening for requests
      *
      * @return array index res[1] indicate primary RADIUS status, index res[2] backup RADIUS status
      */
     public function checkRADIUSconfigDaemon() {
-        $timeout = 10;
         $res = array();
         if ($this->radius_status_1 == \core\AbstractDeployment::RADIUS_FAILURE) {
             $res[1] = $this->checkURL(1);
