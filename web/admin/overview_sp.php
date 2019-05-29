@@ -60,48 +60,11 @@ if (isset($_SESSION['check_realm'])) {
 $mapCode = web\lib\admin\AbstractMap::instance($my_inst, TRUE);
 echo $mapCode->htmlHeadCode();
 ?>
-<script>
-    /*var ajax_call = function() {
-  //your jQuery ajax code
-    };*/
-
-    /*var interval = 1000 * 60 * X; // where X is your every X minutes*/
-
-    /* setInterval(ajax_call, interval); */
-    /* setInterval(function(){ alert("Hello"); }, 10000); */
-</script>
 </head>
 <body 
     <?php echo $mapCode->bodyTagCode(); ?>>
     <?php
     echo $deco->productheader("ADMIN-SP");
-    function check_url ($host) {
-        $ch = curl_init();
-        $timeout = 10;
-        if ($ch === FALSE) {
-            return NULL;
-        }
-        curl_setopt ( $ch, CURLOPT_URL, 'http://'.$host );
-        curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
-        curl_setopt ( $ch, CURLOPT_TIMEOUT, $timeout );
-        curl_exec($ch);
-        $http_code = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
-        if ($http_code == 200) {
-            return 1;
-        }
-        return 0;
-    }
-    function radius_config_site($dobject) {
-        $timeout = 10;
-        $res = array();
-        if ($dobject->radius_status_1 == \core\AbstractDeployment::RADIUS_FAILURE) {
-            $res[1] = check_url($dobject->radius_hostname_1);
-        }
-        if ($dobject->radius_status_2 == \core\AbstractDeployment::RADIUS_FAILURE) {
-            $res[2] = check_url($dobject->radius_hostname_2);
-        }
-        return $res;
-    }
     // Sanity check complete. Show what we know about this IdP.
     $idpoptions = $my_inst->getAttributes();
     ?>
@@ -166,7 +129,8 @@ echo $mapCode->htmlHeadCode();
         $radius_status = array();
         $radius_status[0] = $deploymentObject->radius_status_1;
         $radius_status[1] = $deploymentObject->radius_status_2;
-        $retry = radius_config_site($deploymentObject);
+        $retry = $deploymentObject->checkRADIUSconfigDaemon();
+        $deploymentObject->checkRADIUSHost(1);
         ?>
         <div style='display: table-row; margin-bottom: 20px;'>
             <div class='profilebox' style='display: table-cell;'>
@@ -263,7 +227,7 @@ echo $mapCode->htmlHeadCode();
                             <?php 
                                 if (isset($_GET['res']) && is_array($_GET['res'])) {
                                     $res = array_count_values($_GET['res']);
-                                    if (isset($res['FAILURE']) && $res[] > 0) {
+                                    if (isset($res['FAILURE']) && $res['FAILURE'] > 0) {
                                         echo '<br>';
                                         if ($res['FAILURE'] == 2) {
                                             echo ' <span style="color: red;">' . _("Activation failure.") . '</span>';
