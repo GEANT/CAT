@@ -467,7 +467,7 @@ class DeploymentManaged extends AbstractDeployment {
         }
         return 0;
     }
-        /**
+    /**
      * check whether the configured RADIUS hosts actually exist
      * 
      * @param integer $idx server index 1 (primary) or 2 (backup)
@@ -487,6 +487,27 @@ class DeploymentManaged extends AbstractDeployment {
             return 1;
         }
         return 0;
+    }
+    /**
+     * get institution realms
+     * 
+     * @return array of strings
+     */
+    private function getAllRealms() {
+        $idp = new IdP($this->institution);
+        $allProfiles = $idp->listProfiles(TRUE);
+        $allRealms = [];
+        if (($this->getAttributes("managedsp:realmforvlan") ?? NULL)) {
+            $allRealms = array_values(array_unique(array_column($this->getAttributes("managedsp:realmforvlan"), "value")));
+        }
+        foreach ($allProfiles as $profile) {
+            if ($realm = ($profile->getAttributes("internal:realm")[0]['value'] ?? NULL)) {
+                if (!in_array($realm, $allRealms)) {
+                    $allRealms[] = $realm;
+                }
+            }
+        }
+        return $allRealms;
     }
     /**
      * check if RADIUS configuration deamon is listening for requests
@@ -517,14 +538,7 @@ class DeploymentManaged extends AbstractDeployment {
      * @return array index res[1] indicate primary RADIUS status, index res[2] backup RADIUS status
      */
     public function setRADIUSconfig($remove = 0, $onlyone = 0) {
-        $toPost = array();
-        if ($onlyone) {
-            $toPost[$onlyone]  = '';
-        } else {
-            // run on both servers
-            $toPost[1] = '';
-            $toPost[2] = '';
-        }
+        $toPost = ($onlyone ? array($onlyone => '') : array(1 => '', 2 => ''));
         $toPostTemplate = 'instid=' . $this->institution . '&deploymentid=' . $this->identifier . '&secret=' . $this->secret . '&country=' . $this->getAttributes("internal:country")[0]['value'] . '&';
         if ($remove) {
             $toPostTemplate = $toPostTemplate . 'remove=1&';
@@ -533,19 +547,7 @@ class DeploymentManaged extends AbstractDeployment {
                 $toPostTemplate = $toPostTemplate . 'operatorname=' . $this->getAttributes("managedsp:operatorname")[0]['value'] . '&';
             }
             if ($this->getAttributes("managedsp:vlan")[0]['value'] ?? NULL) {
-                $idp = new IdP($this->institution);
-                $allProfiles = $idp->listProfiles(TRUE);
-                $allRealms = [];
-                if (($this->getAttributes("managedsp:realmforvlan") ?? NULL)) {
-                    $allRealms = array_values(array_unique(array_column($this->getAttributes("managedsp:realmforvlan"), "value")));
-                }
-                foreach ($allProfiles as $profile) {
-                    if ($realm = ($profile->getAttributes("internal:realm")[0]['value'] ?? NULL)) {
-                        if (!in_array($realm, $allRealms)) {
-                            $allRealms[] = $realm;
-                        }
-                    }
-                }
+                $allRealms = $this->getAllRealms();
                 if (!empty($allRealms)) {
                     $toPostTemplate = $toPostTemplate . 'vlan=' . $this->getAttributes("managedsp:vlan")[0]['value'] . '&';
                     $toPostTemplate = $toPostTemplate . 'realmforvlan[]=' . implode('&realmforvlan[]=', $allRealms) . '&';
@@ -553,11 +555,8 @@ class DeploymentManaged extends AbstractDeployment {
             }
         }
         foreach (array_keys($toPost) as $key) {
-            if ($key == 1) {
-                $toPost[$key] = $toPostTemplate . 'port=' . $this->port1;
-            } else {
-                $toPost[$key] = $toPostTemplate . 'port=' . $this->port2;
-            }      
+            $elem = 'port' . $key;
+            $toPost[$key] = $toPostTemplate . 'port=' . $this->$elem;     
         }
         $response = array();
         foreach ($toPost as $key => $value) {
