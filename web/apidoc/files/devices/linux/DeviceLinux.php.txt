@@ -143,7 +143,7 @@ class DeviceLinux extends \core\DeviceConfig {
         'enter_import_password' => _("enter your import password"),
         'incorrect_password' => _("incorrect password"),
         'repeat_password' => _("repeat your password"),
-        'passwords_difffer'=> _("passwords do not match"),
+        'passwords_differ'=> _("passwords do not match"),
         'installation_finished' => _("Installation successful"),
         'cat_dir_exisits' => _("Directory {} exists; some of its files may be overwritten."),
         'cont' => _("Continue?"),
