@@ -187,7 +187,7 @@ echo $mapCode->htmlHeadCode();
                         <td><strong><?php echo _("RADIUS shared secret"); ?></strong></td>
                         <td><?php echo $deploymentObject->secret; ?></td>
                     </tr>
-                    
+                    <tr><td colspan="4"><hr></td></tr>
                     <?php if ($opname = $deploymentObject->getAttributes("managedsp:operatorname")[0]['value'] ?? NULL) { ?>
                     <tr>
                         <td><strong><?php echo _("Custom Operator-Name"); ?></strong></td>
@@ -215,7 +215,7 @@ echo $mapCode->htmlHeadCode();
                 </table>
                 <div class='buttongroupprofilebox' style='clear:both;'>
                     <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
-                        <hr/>
+                        <br/>
                         <button type='submit' name='profile_action' value='edit'><?php echo _("Advanced Configuration"); ?></button>
                     </form>
                     <?php if ($deploymentObject->status == \core\AbstractDeployment::ACTIVE) { ?>

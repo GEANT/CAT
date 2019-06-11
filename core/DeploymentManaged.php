@@ -393,6 +393,7 @@ class DeploymentManaged extends AbstractDeployment {
             curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
             $exec = curl_exec( $ch );
             if ($exec === FALSE) {
+                $this->loggerInstance->debug(1, "curl_exec failure");
                 $res = 'FAILURE';
             } else {
                 $res = $exec;
@@ -400,28 +401,31 @@ class DeploymentManaged extends AbstractDeployment {
             $this->loggerInstance->debug(1, "Response from FR configurator: $res\n");
             $this->loggerInstance->debug(1, $this);           
         }
+        $this->loggerInstance->debug(1, "Database update");
         $this->databaseHandle->exec("UPDATE deployment SET radius_status_$idx = " . ($res == 'OK'? \core\AbstractDeployment::RADIUS_OK : \core\AbstractDeployment::RADIUS_FAILURE) . " WHERE deployment_id = $this->identifier");
         return $res;
     }
     /**
      * prepare and send email message to support mail
      *
-     * @param  int   $remove   the flag indicating remove request
-     * @param  array $response setRADIUSconfig result
+     * @param  int    $remove   the flag indicating remove request
+     * @param  array  $response setRADIUSconfig result
+     * @param  string $status   the flag indicating status (FAILURE or OK)
      * @return void
      * 
      */
-    private function sendMailtoAdmin($remove, $response) {
+    private function sendMailtoAdmin($remove, $response, $status) {
         $txt = '';
-        if ($remove) {
-            $txt = _('Profile dectivation failed' . ' ');
+        if ($status == 'OK') {
+            $txt = $remove? _('Profile dectivation succeeded') : _('Profile activation/modification succeeded');
         } else {
-            $txt = _('Profile activation/modification failed' . ' ');
+            $txt = $remove? _('Profile dectivation failed') : _('Profile activation/modification failed');
         }
-        if (array_count_values($response)['FAILURE'] == 2) {
+        $txt = $txt . ' ';
+        if (array_count_values($response)[$status] == 2) {
             $txt = $txt . _('on both RADIUS servers: primary and backup') . '.';
         } else {
-            if ($response['res[1]'] == 'FAILURE') {
+            if ($response['res[1]'] == $status) {
                 $txt = $txt . _('on primary RADIUS server') . '.';
             } else {
                 $txt = $txt . _('on backup RADIUS server') . '.';
@@ -430,10 +434,13 @@ class DeploymentManaged extends AbstractDeployment {
         $mail = \core\common\OutsideComm::mailHandle();
         $email = $this->getAttributes("support:email")[0]['value'];
         $mail->FromName = \config\Master::APPEARANCE['productname'] . " Notification System";
-        $mail->addAddress($email);
-        $mail->Subject = _('RADIUS profile update problem');
+        $mail->addAddress($email);     
+        if ($status == 'OK') {
+            $mail->Subject = _('RADIUS profile update problem fixed');
+        } else {
+            $mail->Subject = _('RADIUS profile update problem');
+        }
         $mail->Body = $txt;
-
         $sent = $mail->send();
         if ( $sent === FALSE)
         $this->loggerInstance->debug(1, 'Mailing on RADIUS problem failed');
@@ -535,9 +542,10 @@ class DeploymentManaged extends AbstractDeployment {
      *
      * @param int $remove  the flag indicating that it is remove request
      * @param int $onlyone the flag indicating on which server to conduct modifications
+     * @param int $notify  the flag indicating that emai notification should be sent
      * @return array index res[1] indicate primary RADIUS status, index res[2] backup RADIUS status
      */
-    public function setRADIUSconfig($remove = 0, $onlyone = 0) {
+    public function setRADIUSconfig($remove = 0, $onlyone = 0, $notify = 0) {
         $toPost = ($onlyone ? array($onlyone => '') : array(1 => '', 2 => ''));
         $toPostTemplate = 'instid=' . $this->institution . '&deploymentid=' . $this->identifier . '&secret=' . $this->secret . '&country=' . $this->getAttributes("internal:country")[0]['value'] . '&';
         if ($remove) {
@@ -567,7 +575,10 @@ class DeploymentManaged extends AbstractDeployment {
             $response['res['.($onlyone==1)? 2 : 1 . ']'] = \core\AbstractDeployment::RADIUS_OK;
         }
         if (in_array('FAILURE', $response)) {
-            $this->sendMailtoAdmin($remove, $response);
+            $this->sendMailtoAdmin($remove, $response, 'FAILURE');
+        }
+        if ($notify && in_array('OK', $response)) {
+            $this->sendMailtoAdmin($remove, $response, 'OK');
         }
         return $response;
     }
