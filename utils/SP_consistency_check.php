@@ -3,10 +3,10 @@ require_once dirname(dirname(__FILE__)) . "/config/_config.php";
 /**
     * check if URL responds with 200
     *
-    * @param string server name
+    * @param string $srv server name
     * @return integer or NULL
 */
-function checkURL ($srv) {
+function checkConfigRADIUSDaemon ($srv) {
     $ch = curl_init();
     if ($ch === FALSE) {
         return NULL;
@@ -25,8 +25,11 @@ function checkURL ($srv) {
 
 $dbLink = \core\DBConnection::handle("INST");
 $allProblems = $dbLink->exec("SELECT deployment_id, inst_id, status, radius_status_1, radius_status_2, radius_instance_1, radius_instance_2 from deployment where radius_status_1=2 or radius_status_2=2");
+if (!$allProblems) {
+    exit;
+}
 $brokenDeployments = array();
-while ($problemRow = mysqli_fetch_object($allProblems)) {
+while ($problemRow = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allProblems)) {
     foreach (array(1, 2) as $id) {
         $fld_s = "radius_status_$id";
         $fld_i = "radius_instance_$id";
@@ -50,7 +53,7 @@ while ($siteRow = mysqli_fetch_object($allServers)) {
 $siteStatus = array();
 foreach (array_keys($brokenDeployments) as $server_id) {
     print "check $server_id " . $radiusSite[$server_id] . "\n";
-    $siteStatus[$server_id]  = checkUrl('http://' . $radiusSite[$server_id]);
+    $siteStatus[$server_id]  = checkConfigRADIUSDaemon('http://' . $radiusSite[$server_id]);
     if ($siteStatus[$server_id]) {
         echo "\ncheck radius\n";
         echo \config\Diagnostics::RADIUSSPTEST['port']."\n";
@@ -76,10 +79,10 @@ foreach (array_keys($brokenDeployments) as $server_id) {
                 $idx = 2;
             }
             echo "\nfix $deployment_id of $inst_id on server $server_id index $idx\n";
+            /** @scrutinizer ignore-call */
             $response = $deployment->setRADIUSconfig(($deployment->status == \core\AbstractDeployment::INACTIVE)? 1 : 0, $idx, 1);
             if (isset($response["res[$idx]"]) && $response["res[$idx]"] = 'OK') {
                 echo "FIXED\n";
-                print_r($response);
             }
         }
     }

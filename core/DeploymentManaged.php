@@ -442,8 +442,9 @@ class DeploymentManaged extends AbstractDeployment {
         }
         $mail->Body = $txt;
         $sent = $mail->send();
-        if ( $sent === FALSE)
-        $this->loggerInstance->debug(1, 'Mailing on RADIUS problem failed');
+        if ( $sent === FALSE) {
+            $this->loggerInstance->debug(1, 'Mailing on RADIUS problem failed');
+        }
     }
     /**
      * check if URL responds with 200
@@ -564,7 +565,7 @@ class DeploymentManaged extends AbstractDeployment {
         }
         foreach (array_keys($toPost) as $key) {
             $elem = 'port' . $key;
-            $toPost[$key] = $toPostTemplate . 'port=' . $this->$elem;     
+            $toPost[$key] = $toPostTemplate . 'port=' . $elem;     
         }
         $response = array();
         foreach ($toPost as $key => $value) {
@@ -574,11 +575,10 @@ class DeploymentManaged extends AbstractDeployment {
         if ($onlyone) {
             $response['res['.($onlyone==1)? 2 : 1 . ']'] = \core\AbstractDeployment::RADIUS_OK;
         }
-        if (in_array('FAILURE', $response)) {
-            $this->sendMailtoAdmin($remove, $response, 'FAILURE');
-        }
-        if ($notify && in_array('OK', $response)) {
-            $this->sendMailtoAdmin($remove, $response, 'OK');
+        foreach (array('OK', 'FAILURE') as $status) { 
+            if ((($status == 'OK' && $notify) || $status == 'FAILURE') &&  in_array($status, $response)) {
+                $this->sendMailtoAdmin($remove, $response, $status);
+            }
         }
         return $response;
     }
