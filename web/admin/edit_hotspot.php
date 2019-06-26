@@ -46,7 +46,7 @@ $deployment = $validator->existingDeploymentManaged($_GET['deployment_id'], $my_
 
 if (isset($_POST['submitbutton'])) {
     if ($_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_DELETE) {
-        $response = $deployment->setRADIUSconfig(1);
+        $response = $deployment->setRADIUSconfig();
         if (in_array('OK', $response)) {
             $deployment->deactivate();
         }
@@ -58,23 +58,6 @@ if (isset($_POST['submitbutton'])) {
         $response = $deployment->setRADIUSconfig();
         if (in_array('OK', $response)) {
             $deployment->activate();
-        }
-        header("Location: overview_sp.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)));
-        exit(0);
-    }
-    
-    if ($_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_RETRY) {
-        if (isset($_POST['update']) && is_array($_POST['update'])) {
-            $which = 0;
-            if (in_array(1, $_POST['update']) && !in_array(2, $_POST['update'])) {
-                $which = 1;
-            }
-            if (in_array(2, $_POST['update']) && !in_array(1, $_POST['update'])) {
-                $which = 2;
-            }
-            $response = $deployment->setRADIUSconfig(($deployment->status == 0)? 1 : 0, $which);
-        } else {
-            $response = array();
         }
         header("Location: overview_sp.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)));
         exit(0);

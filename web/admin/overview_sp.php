@@ -130,6 +130,14 @@ echo $mapCode->htmlHeadCode();
         $radius_status[0] = $deploymentObject->radius_status_1;
         $radius_status[1] = $deploymentObject->radius_status_2;
         $retry = $deploymentObject->checkRADIUSHostandConfigDaemon();
+print_r($retry);
+        if (is_array($retry)) {
+            foreach ($retry as $id => $stat) { 
+                if ($stat) {
+                    $response = $deploymentObject->setRADIUSconfig($id, 1);
+                }
+            }
+        } 
         ?>
         <div style='display: table-row; margin-bottom: 20px;'>
             <div class='profilebox' style='display: table-cell;'>
@@ -266,24 +274,6 @@ echo $mapCode->htmlHeadCode();
                                 }
                             ?>
                         </form>
-                    <?php
-                    }
-                    if (in_array(1, $retry)) {
-                    ?>
-                         <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
-                            <button class='delete' style='background-color: green;' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_RETRY; ?>'>
-                                <?php echo _("Push missing configuration update"); ?>
-                            </button>
-                            <?php
-                                foreach ($retry as $key => $value) {
-                                    if ($value == 1) {
-                                    ?>
-                                    <input type="hidden" name='update[]' value='<?php echo $key;?>'>
-                                    <?php
-                                    }
-                                }
-                            ?>
-                         </form>
                     <?php
                     }
                     ?>

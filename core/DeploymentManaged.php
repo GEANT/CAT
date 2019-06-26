@@ -541,12 +541,12 @@ class DeploymentManaged extends AbstractDeployment {
     /**
      * prepare request to add/modify RADIUS settings for given deployment
      *
-     * @param int $remove  the flag indicating that it is remove request
      * @param int $onlyone the flag indicating on which server to conduct modifications
-     * @param int $notify  the flag indicating that emai notification should be sent
+     * @param int $notify  the flag indicating that an email notification should be sent
      * @return array index res[1] indicate primary RADIUS status, index res[2] backup RADIUS status
      */
-    public function setRADIUSconfig($remove = 0, $onlyone = 0, $notify = 0) {
+    public function setRADIUSconfig($onlyone = 0, $notify = 0) {
+        $remove = ($this->status == \core\AbstractDeployment::INACTIVE)? 1 : 0;
         $toPost = ($onlyone ? array($onlyone => '') : array(1 => '', 2 => ''));
         $toPostTemplate = 'instid=' . $this->institution . '&deploymentid=' . $this->identifier . '&secret=' . $this->secret . '&country=' . $this->getAttributes("internal:country")[0]['value'] . '&';
         if ($remove) {
@@ -565,7 +565,7 @@ class DeploymentManaged extends AbstractDeployment {
         }
         foreach (array_keys($toPost) as $key) {
             $elem = 'port' . $key;
-            $toPost[$key] = $toPostTemplate . 'port=' . $elem;     
+            $toPost[$key] = $toPostTemplate . 'port=' . $this->$elem;     
         }
         $response = array();
         foreach ($toPost as $key => $value) {

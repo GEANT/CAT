@@ -80,7 +80,7 @@ foreach (array_keys($brokenDeployments) as $server_id) {
             }
             echo "\nfix $deployment_id of $inst_id on server $server_id index $idx\n";
             /** @scrutinizer ignore-call */
-            $response = $deployment->setRADIUSconfig(($deployment->status == \core\AbstractDeployment::INACTIVE)? 1 : 0, $idx, 1);
+            $response = $deployment->setRADIUSconfig($idx, 1);
             if (isset($response["res[$idx]"]) && $response["res[$idx]"] = 'OK') {
                 echo "FIXED\n";
             }
