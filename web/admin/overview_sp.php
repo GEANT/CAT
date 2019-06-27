@@ -130,7 +130,6 @@ echo $mapCode->htmlHeadCode();
         $radius_status[0] = $deploymentObject->radius_status_1;
         $radius_status[1] = $deploymentObject->radius_status_2;
         $retry = $deploymentObject->checkRADIUSHostandConfigDaemon();
-print_r($retry);
         if (is_array($retry)) {
             foreach ($retry as $id => $stat) { 
                 if ($stat) {
