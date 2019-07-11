@@ -156,8 +156,6 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
      */
     public function writeInstaller() {
         \core\common\Entity::intoThePotatoes();
-        $dom = textdomain(NULL);
-        textdomain("devices");
 
         $this->loggerInstance->debug(4, "mobileconfig Module Installer start\n");
 
@@ -206,8 +204,6 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
         $outputXml .= self::FILE_END;
 
         file_put_contents('installer_profile', $outputXml);
-
-        textdomain($dom);
 
         $fileName = $this->installerBasename . '.mobileconfig';
 
