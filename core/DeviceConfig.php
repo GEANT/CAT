@@ -242,7 +242,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @param  string $file the filename to search for (without path)
      * @return string|boolean the filename as found, with path, or FALSE if it does not exist
      */
-    private function findSourceFile($file) {
+    protected function findSourceFile($file) {
         if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $file)) {
             return $this->module_path . '/Files/' . $this->device_id . '/' . $file;
         } elseif (is_file($this->module_path . '/Files/' . $file)) {
@@ -283,106 +283,6 @@ abstract class DeviceConfig extends \core\common\Entity {
             $this->loggerInstance->debug(2, "fileCopy($source_name, $output_name) failed\n");
         }
         return($result);
-    }
-
-    /**
-     *  Copy a file from the module location to the temporary directory aplying transcoding.
-     *
-     * Transcoding is only required for Windows installers, and no Unicode support
-     * in NSIS (NSIS version below 3)
-     * Trancoding is only applied if the third optional parameter is set and nonzero
-     * If CONFIG['NSIS']_VERSION is set to 3 or more, no transcoding will be applied
-     * regardless of the third parameter value.
-     * If the second argument is provided and is not equal to 0, then the file will be
-     * saved under the name taken from this argument.
-     * If only one parameter is given or the second is equal to 0, source and destination
-     * filenames are the same.
-     * The third optional parameter, if nonzero, should be the character set understood by iconv
-     * This is required by the Windows installer and is expected to go away in the future.
-     * Source file can be located either in the Files subdirectory or in the sibdirectory of Files
-     * named the same as device_id. The second option takes precedence.
-     *
-     * @param string $source_name The source file name
-     * @param string $output_name The destination file name
-     * @param int    $encoding    Set Windows charset if non-zero
-     * @return boolean
-     * @final not to be redefined
-     */
-    final protected function translateFile($source_name, $output_name = NULL, $encoding = 0) {
-        // there is no explicit gettext() call in this function, but catalogues
-        // and translations occur in the varios ".inc" files - so make sure we
-        // operate in the correct catalogue
-        common\Entity::intoThePotatoes();
-        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
-            $encoding = 0;
-        }
-        if ($output_name === NULL) {
-            $output_name = $source_name;
-        }
-
-        $this->loggerInstance->debug(5, "translateFile($source_name, $output_name, $encoding)\n");
-        ob_start();
-        $this->loggerInstance->debug(5, $this->module_path . '/Files/' . $this->device_id . '/' . $source_name . "\n");
-        $source = $this->findSourceFile($source_name);
-        
-        if ($source !== FALSE) { // if there is no file found, don't attempt to include an uninitialised variable
-            include $source;
-        }
-        $output = ob_get_clean();
-        if ($encoding) {
-            $outputClean = iconv('UTF-8', $encoding . '//TRANSLIT', $output);
-            if ($outputClean) {
-                $output = $outputClean;
-            }
-        }
-        $fileHandle = fopen("$output_name", "w");
-        if ($fileHandle === FALSE) {
-            $this->loggerInstance->debug(2, "translateFile($source, $output_name, $encoding) failed\n");
-            common\Entity::outOfThePotatoes();
-            return FALSE;
-        }
-        fwrite($fileHandle, $output);
-        fclose($fileHandle);
-        $this->loggerInstance->debug(5, "translateFile($source, $output_name, $encoding) end\n");
-        common\Entity::outOfThePotatoes();
-        return TRUE;
-    }
-
-    /**
-     * Transcode a string adding double quotes escaping
-     *
-     * Transcoding is only required for Windows installers, and no Unicode support
-     * in NSIS (NSIS version below 3)
-     * Trancoding is only applied if the third optional parameter is set and nonzero
-     * If CONFIG['NSIS']_VERSION is set to 3 or more, no transcoding will be applied
-     * regardless of the second parameter value.
-     * The second optional parameter, if nonzero, should be the character set understood by iconv
-     * This is required by the Windows installer and is expected to go away in the future.
-     *
-     * @param string $source_string The source string
-     * @param int    $encoding      Set Windows charset if non-zero
-     * @return string
-     * @final not to be redefined
-     */
-    final protected function translateString($source_string, $encoding = 0) {
-        $this->loggerInstance->debug(5, "translateString input: \"$source_string\"\n");
-        if (empty($source_string)) {
-            return $source_string;
-        }
-        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
-            $encoding = 0;
-        }
-        if ($encoding) {
-            $output_c = iconv('UTF-8', $encoding . '//TRANSLIT', $source_string);
-        } else {
-            $output_c = $source_string;
-        }
-        if ($output_c) {
-            $source_string = str_replace('"', '$\\"', $output_c);
-        } else {
-            $this->loggerInstance->debug(2, "Failed to convert string \"$source_string\"\n");
-        }
-        return $source_string;
     }
 
     /**
