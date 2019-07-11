@@ -55,8 +55,7 @@ class Device_Vista7 extends WindowsCommon {
      *
      */
     public function writeInstaller() {
-        $dom = textdomain(NULL);
-        textdomain("devices");
+        \core\common\Entity::intoThePotatoes();
         // create certificate files and save their names in $caFiles arrary
         $caFiles = $this->saveCertificateFiles('der');
 
@@ -92,6 +91,7 @@ class Device_Vista7 extends WindowsCommon {
             }
         } else {
             print("  this EAP type is not handled yet.\n");
+            \core\common\Entity::outOfThePotatoes();
             return;
         }
         $this->loggerInstance->debug(4, "windowsProfile");
@@ -110,8 +110,8 @@ class Device_Vista7 extends WindowsCommon {
         $this->compileNSIS();
         $installerPath = $this->signInstaller();
 
-        textdomain($dom);
-        return($installerPath);
+        \core\common\Entity::outOfThePotatoes();
+        return $installerPath;
     }
 
     /**

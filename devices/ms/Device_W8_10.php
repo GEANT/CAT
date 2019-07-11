@@ -58,8 +58,7 @@ use \Exception;
      *
      */    
     public function writeInstaller() {
-        $dom = textdomain(NULL);
-        textdomain("devices");
+        \core\common\Entity::intoThePotatoes();
         // create certificate files and save their names in $caFiles arrary
         $caFiles = $this->saveCertificateFiles('der');
         $this->caArray = $this->getAttribute('internal:CAs')[0];
@@ -115,8 +114,8 @@ use \Exception;
         $this->writeMainNSH($this->selectedEap, $this->attributes);
         $this->compileNSIS();
         $installerPath = $this->signInstaller();
-        textdomain($dom);
-        return($installerPath);
+        \core\common\Entity::outOfThePotatoes();
+        return $installerPath;
     }
 
     private function setAuthorId() {

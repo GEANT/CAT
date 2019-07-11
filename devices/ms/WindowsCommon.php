@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -27,6 +28,7 @@
  */
 
 namespace devices\ms;
+
 use \Exception;
 
 /**
@@ -62,6 +64,106 @@ abstract class WindowsCommon extends \core\DeviceConfig {
             throw new Exception("Translating needed file common.inc failed!");
         }
         return;
+    }
+
+    /**
+     *  Copy a file from the module location to the temporary directory aplying transcoding.
+     *
+     * Transcoding is only required for Windows installers, and no Unicode support
+     * in NSIS (NSIS version below 3)
+     * Trancoding is only applied if the third optional parameter is set and nonzero
+     * If CONFIG['NSIS']_VERSION is set to 3 or more, no transcoding will be applied
+     * regardless of the third parameter value.
+     * If the second argument is provided and is not equal to 0, then the file will be
+     * saved under the name taken from this argument.
+     * If only one parameter is given or the second is equal to 0, source and destination
+     * filenames are the same.
+     * The third optional parameter, if nonzero, should be the character set understood by iconv
+     * This is required by the Windows installer and is expected to go away in the future.
+     * Source file can be located either in the Files subdirectory or in the sibdirectory of Files
+     * named the same as device_id. The second option takes precedence.
+     *
+     * @param string $source_name The source file name
+     * @param string $output_name The destination file name
+     * @param int    $encoding    Set Windows charset if non-zero
+     * @return boolean
+     * @final not to be redefined
+     */
+    final protected function translateFile($source_name, $output_name = NULL, $encoding = 0) {
+        // there is no explicit gettext() call in this function, but catalogues
+        // and translations occur in the varios ".inc" files - so make sure we
+        // operate in the correct catalogue
+        \core\common\Entity::intoThePotatoes();
+        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
+            $encoding = 0;
+        }
+        if ($output_name === NULL) {
+            $output_name = $source_name;
+        }
+
+        $this->loggerInstance->debug(5, "translateFile($source_name, $output_name, $encoding)\n");
+        ob_start();
+        $this->loggerInstance->debug(5, $this->module_path . '/Files/' . $this->device_id . '/' . $source_name . "\n");
+        $source = $this->findSourceFile($source_name);
+
+        if ($source !== FALSE) { // if there is no file found, don't attempt to include an uninitialised variable
+            include $source;
+        }
+        $output = ob_get_clean();
+        if ($encoding) {
+            $outputClean = iconv('UTF-8', $encoding . '//TRANSLIT', $output);
+            if ($outputClean) {
+                $output = $outputClean;
+            }
+        }
+        $fileHandle = fopen("$output_name", "w");
+        if ($fileHandle === FALSE) {
+            $this->loggerInstance->debug(2, "translateFile($source, $output_name, $encoding) failed\n");
+            \core\common\Entity::outOfThePotatoes();
+            return FALSE;
+        }
+        fwrite($fileHandle, $output);
+        fclose($fileHandle);
+        $this->loggerInstance->debug(5, "translateFile($source, $output_name, $encoding) end\n");
+        \core\common\Entity::outOfThePotatoes();
+        return TRUE;
+    }
+
+        /**
+     * Transcode a string adding double quotes escaping
+     *
+     * Transcoding is only required for Windows installers, and no Unicode support
+     * in NSIS (NSIS version below 3)
+     * Trancoding is only applied if the third optional parameter is set and nonzero
+     * If CONFIG['NSIS']_VERSION is set to 3 or more, no transcoding will be applied
+     * regardless of the second parameter value.
+     * The second optional parameter, if nonzero, should be the character set understood by iconv
+     * This is required by the Windows installer and is expected to go away in the future.
+     *
+     * @param string $source_string The source string
+     * @param int    $encoding      Set Windows charset if non-zero
+     * @return string
+     * @final not to be redefined
+     */
+    final protected function translateString($source_string, $encoding = 0) {
+        $this->loggerInstance->debug(5, "translateString input: \"$source_string\"\n");
+        if (empty($source_string)) {
+            return $source_string;
+        }
+        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
+            $encoding = 0;
+        }
+        if ($encoding) {
+            $output_c = iconv('UTF-8', $encoding . '//TRANSLIT', $source_string);
+        } else {
+            $output_c = $source_string;
+        }
+        if ($output_c) {
+            $source_string = str_replace('"', '$\\"', $output_c);
+        } else {
+            $this->loggerInstance->debug(2, "Failed to convert string \"$source_string\"\n");
+        }
+        return $source_string;
     }
 
     /**
@@ -177,8 +279,8 @@ abstract class WindowsCommon extends \core\DeviceConfig {
             }
         }
         return $out;
-    }    
-    
+    }
+
     /**
      * scales a logo to the desired size
      * @param string $imagePath path to the image
@@ -214,7 +316,7 @@ abstract class WindowsCommon extends \core\DeviceConfig {
      */
     protected function combineLogo($logos = NULL, $fedLogo = NULL) {
         // maximum size to which we want to resize the logos
-        
+
         $maxSize = 120;
         // $freeTop is set to how much vertical space we need to leave at the top
         // this will depend on the design of the background
@@ -222,7 +324,7 @@ abstract class WindowsCommon extends \core\DeviceConfig {
         // $freeBottom is set to how much vertical space we need to leave at the bottom
         // this will depend on the design of the background
         $freeBottom = 30;
-        
+
         $bgImage = new \Imagick('cat_bg.bmp');
         $bgImage->setFormat('BMP3');
         $bgImageSize = $bgImage->getImageGeometry();
@@ -243,14 +345,14 @@ abstract class WindowsCommon extends \core\DeviceConfig {
         $logoCount = count($logosToPlace);
         if ($logoCount > 0) {
             $voffset = $freeTop;
-            $freeSpace = (int)round($this->background['freeHeight'] / ($logoCount + 1));
+            $freeSpace = (int) round($this->background['freeHeight'] / ($logoCount + 1));
             foreach ($logosToPlace as $logo) {
                 $voffset += $freeSpace;
                 $logoSize = $logo->getImageGeometry();
-                $hoffset = (int)round(($bgImageSize['width'] - $logoSize['width']) / 2);
+                $hoffset = (int) round(($bgImageSize['width'] - $logoSize['width']) / 2);
                 $bgImage->compositeImage($logo, $logo->getImageCompose(), $hoffset, $voffset);
                 $voffset += $logoSize['height'];
-                }
+            }
         }
 //new image is saved as the background
         $bgImage->writeImage('BMP3:cat_bg.bmp');
@@ -308,10 +410,10 @@ abstract class WindowsCommon extends \core\DeviceConfig {
         ];
         $s = "support_" . $type . "_substitute";
         $substitute = $this->translateString($this->$s, $this->codePage);
-        $returnValue = !empty($attr['support:' . $type][0]) ? $attr['support:' .  $type][0] : $substitute;
+        $returnValue = !empty($attr['support:' . $type][0]) ? $attr['support:' . $type][0] : $substitute;
         return '!define ' . $supportString[$type] . ' "' . $returnValue . '"' . "\n";
     }
-    
+
     /**
      * returns various NSH !define statements for later inclusion into master file
      * 
@@ -324,7 +426,7 @@ abstract class WindowsCommon extends \core\DeviceConfig {
             $fcontents .= "\n" . '!define USER_GROUP "' . $this->translateString(str_replace('"', '$\\"', $attr['profile:name'][0]), $this->codePage) . '"
 ';
         }
-        $fcontents .=  '
+        $fcontents .= '
 Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s installer for %s")), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $attr['general:instname'][0]), $this->codePage) . '"
 !define APPLICATION "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s installer for %s")), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $attr['general:instname'][0]), $this->codePage) . '"
 !define VERSION "' . \core\CAT::VERSION_MAJOR . '.' . \core\CAT::VERSION_MINOR . '"
@@ -335,7 +437,7 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
 !define ORGANISATION "' . $this->translateString($attr['general:instname'][0], $this->codePage) . '"
 ';
         $fcontents .= $this->getSupport($attr, 'email');
-        $fcontents .= $this->getSupport($attr, 'url');                
+        $fcontents .= $this->getSupport($attr, 'url');
         if (\core\common\Entity::getAttributeValue($attr, 'media:wired', 0) == 'on') {
             $fcontents .= '!define WIRED
         ';
@@ -346,19 +448,18 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
             $fcontents .= '!define REALM "' . $attr['internal:realm'][0] . '"
 ';
         }
-        if(!empty($attr['internal:hint_userinput_suffix'][0]) && $attr['internal:hint_userinput_suffix'][0] == 1) {
+        if (!empty($attr['internal:hint_userinput_suffix'][0]) && $attr['internal:hint_userinput_suffix'][0] == 1) {
             $fcontents .= '!define HINT_USER_INPUT "' . $attr['internal:hint_userinput_suffix'][0] . '"
 ';
         }
-        if(!empty($attr['internal:verify_userinput_suffix'][0]) && $attr['internal:verify_userinput_suffix'][0] == 1) {
+        if (!empty($attr['internal:verify_userinput_suffix'][0]) && $attr['internal:verify_userinput_suffix'][0] == 1) {
             $fcontents .= '!define VERIFY_USER_REALM_INPUT "' . $attr['internal:verify_userinput_suffix'][0] . '"
 ';
         }
         $fcontents .= $this->msInfoFile($attr);
         return $fcontents;
-           
     }
-    
+
     /**
      * includes NSH commands displaying terms of use file into installer, if any
      * 
