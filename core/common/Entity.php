@@ -246,6 +246,7 @@ abstract class Entity {
     /**
      * Finds out which gettext catalogue has the translations for the caller
      * 
+     * @param boolean $showTrace print a full backtrace of how we got here, only for debugging auto-detect problems
      * @return string the catalogue
      */
     private static function determineOwnCatalogue($showTrace = FALSE) {
@@ -291,7 +292,8 @@ abstract class Entity {
      * source files. Also memorises the previous catalogue so that it can be
      * restored later on.
      * 
-     * @param string $catalogue the catalogue to select, overrides detection
+     * @param string  $catalogue the catalogue to select, overrides detection
+     * @param boolean $trace     if we need to debug the automatic detection heuristics, turn this on: it prints a debug of the stack trace
      * @return void
      */
     public static function intoThePotatoes($catalogue = NULL, $trace = FALSE) {
