@@ -5,6 +5,9 @@ Changes in 2.0.2
 - [FEATURE #2]  add button to show auth logs for a given user in silverbullet
 - [BUGFIX  #1]  language was not correctly applied in parts of the admin area
                 and Windows installers
+- [BUGFIX  #2]  provide Roaming Consortium OI in uppercase hex letters for the
+                Apple installer, only then do they actually work
+
 Configuration parameter changes
 -------------------------------
 - CONFIG_CONFASSISTANT['DB'] list with DB access details to silverbullet RADIUS
