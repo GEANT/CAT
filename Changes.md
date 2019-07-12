@@ -1,3 +1,15 @@
+Changes in 2.0.2
+================
+- [FEATURE #1]  hide expired and revoked silverbullet client certs behind a
+                click to unclutter view
+- [FEATURE #2]  add button to show auth logs for a given user in silverbullet
+- [BUGFIX  #1]  language was not correctly applied in parts of the admin area
+                and Windows installers
+Configuration parameter changes
+-------------------------------
+- CONFIG_CONFASSISTANT['DB'] list with DB access details to silverbullet RADIUS
+                servers (to retrieve their auth logs)
+
 Changes in 2.0-beta3
 ====================
 - [FEATURE #1]  allow to invite more than one admin for a new institution.
