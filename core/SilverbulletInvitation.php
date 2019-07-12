@@ -119,7 +119,12 @@ class SilverbulletInvitation extends common\Entity {
     public function __construct($invitationId) {
         parent::__construct();
         $this->invitationTokenString = $invitationId;
-        $this->databaseHandle = DBConnection::handle("INST");
+        $handle = DBConnection::handle("INST");
+        if ($handle instanceof DBConnection) {
+            $this->databaseHandle = $handle;
+        } else {
+            throw new Exception("This database type is never an array!");
+        }
         /*
          * Finds invitation by its token attribute and loads all certificates generated using the token.
          * Certificate details will always be empty, since code still needs to be adapted to return multiple certificates information.

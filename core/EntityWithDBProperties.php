@@ -105,8 +105,13 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
     public function __construct() {
         parent::__construct();
         // we are called after the sub-classes have declared their default
-        // databse instance in $databaseType
-        $this->databaseHandle = DBConnection::handle($this->databaseType);
+        // database instance in $databaseType
+        $handle = DBConnection::handle($this->$databaseType);
+        if ($handle instanceof DBConnection) {
+            $this->databaseHandle = $handle;
+        } else {
+            throw new Exception("This database type is never an array!");
+        }
         $this->attributes = [];
     }
 

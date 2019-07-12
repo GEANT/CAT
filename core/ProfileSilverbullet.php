@@ -238,7 +238,7 @@ class ProfileSilverbullet extends AbstractProfile {
      * retrieves the authentication records from the RADIUS servers 
      * 
      * @param int $userId the numerical user ID of the user in question
-     * @return string
+     * @return array
      */
     public function getUserAuthRecords($userId) {
         // find out all certificate CNs belonging to the user, including expired and revoked ones

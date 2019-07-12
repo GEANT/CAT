@@ -259,7 +259,12 @@ class AbstractTest extends \core\common\Entity {
     public function __construct() {
         parent::__construct();
         // initialise the DB
-        $this->databaseHandle = \core\DBConnection::handle("DIAGNOSTICS");
+        $handle = DBConnection::handle("DIAGNOSTICS");
+        if ($handle instanceof DBConnection) {
+            $this->databaseHandle = $handle;
+        } else {
+            throw new Exception("This database type is never an array!");
+        }
 
         \core\common\Entity::intoThePotatoes();
         // the numbers are NOT constant - in the course of checks, we may find a "smoking gun" and elevate the probability

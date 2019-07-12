@@ -177,8 +177,12 @@ class Federation extends EntityWithDBProperties {
 
         parent::__construct(); // we now have access to our database handle
 
-        $this->frontendHandle = DBConnection::handle("FRONTEND");
-
+        $handle = DBConnection::handle("FRONTEND");
+        if ($handle instanceof DBConnection) {
+            $this->frontendHandle = $handle;
+        } else {
+            throw new Exception("This database type is never an array!");
+        }
         // fetch attributes from DB; populates $this->attributes array
         $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row 
                                             FROM $this->entityOptionTable

@@ -51,6 +51,7 @@ class DBConnection {
      * 
      * @param string $database the database type to open
      * @return DBConnection|array the (only) instance of this class; or all instances of a DB cluster (only for RADIUS auth servers right now)
+     * @throws Exception
      */
     public static function handle($database) {
         $theDb = strtoupper($database);
@@ -226,6 +227,8 @@ class DBConnection {
 
     /**
      * Holds an ARRAY of all RADIUS server instances for Silverbullet
+     * 
+     * @var array<DBConnection>
      */
     private static $instanceRADIUS;
     

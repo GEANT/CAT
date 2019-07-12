@@ -171,8 +171,12 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     public function __construct($profileIdRaw, $idpObject = NULL) {
         $this->databaseType = "INST";
         parent::__construct(); // we now have access to our INST database handle and logging
-        $this->frontendHandle = DBConnection::handle("FRONTEND");
-        
+        $handle = DBConnection::handle("FRONTEND");
+        if ($handle instanceof DBConnection) {
+            $this->frontendHandle = $handle;
+        } else {
+            throw new Exception("This database type is never an array!");
+        }
         $profile = $this->databaseHandle->exec("SELECT inst_id FROM profile WHERE profile_id = ?", "i", $profileIdRaw);
         // SELECT always yields a resource, never a boolean
         if ($profile->num_rows == 0) {
