@@ -101,6 +101,8 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
     /**
      * The constructor initialises the entity. Since it has DB properties,
      * this means the DB connection is set up for it.
+     * 
+     * @throws Exception
      */
     public function __construct() {
         parent::__construct();

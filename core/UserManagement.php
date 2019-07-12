@@ -57,6 +57,8 @@ class UserManagement extends \core\common\Entity {
 
     /**
      * Class constructor. Nothing special to be done when constructing.
+     * 
+     * @throws Exception
      */
     public function __construct() {
         parent::__construct();

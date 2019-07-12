@@ -20,6 +20,7 @@
  */
 
 namespace core\diag;
+use \Exception;
 
 /**
  * base class of the various test classes.
@@ -255,12 +256,14 @@ class AbstractTest extends \core\common\Entity {
     const CERTPROB_NO_CERTIFICATE_IN_CONVERSATION = -230;
     /**
      * initialises the error messages.
+     * 
+     * @throws Exception
      */
     public function __construct() {
         parent::__construct();
         // initialise the DB
-        $handle = DBConnection::handle("DIAGNOSTICS");
-        if ($handle instanceof DBConnection) {
+        $handle = \core\DBConnection::handle("DIAGNOSTICS");
+    if ($handle instanceof \core\DBConnection) {
             $this->databaseHandle = $handle;
         } else {
             throw new Exception("This database type is never an array!");

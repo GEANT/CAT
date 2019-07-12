@@ -115,6 +115,7 @@ class SilverbulletInvitation extends common\Entity {
      * instantiates an invitation identified by the token
      * 
      * @param string $invitationId token
+     * @throws Exception
      */
     public function __construct($invitationId) {
         parent::__construct();
