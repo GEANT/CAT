@@ -106,7 +106,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
         parent::__construct();
         // we are called after the sub-classes have declared their default
         // database instance in $databaseType
-        $handle = DBConnection::handle($this->$databaseType);
+        $handle = DBConnection::handle($this->databaseType);
         if ($handle instanceof DBConnection) {
             $this->databaseHandle = $handle;
         } else {
