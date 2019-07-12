@@ -50,7 +50,7 @@ class DBConnection {
      * This is the actual constructor for the singleton. It creates a database connection if it is not up yet, and returns a handle to the database connection on every call.
      * 
      * @param string $database the database type to open
-     * @return DBConnection the (only) instance of this class
+     * @return DBConnection|array the (only) instance of this class; or all instances of a DB cluster (only for RADIUS auth servers right now)
      */
     public static function handle($database) {
         $theDb = strtoupper($database);
@@ -64,6 +64,16 @@ class DBConnection {
                     $class = __CLASS__;
                     self::${"instance" . $theDb} = new $class($database);
                     DBConnection::${"instance" . $theDb}->databaseInstance = $theDb;
+                }
+                return self::${"instance" . $theDb};
+            case "RADIUS":
+                if (!isset(self::${"instance" . $theDb})) {
+                    $class = __CLASS__;
+                    foreach (CONFIG_CONFASSISTANT['DB'] as $name => $oneRadiusAuthDb) {
+                        $theInstance = new $class($name);
+                        self::${"instance" . $theDb}[] = $theInstance;
+                        $theInstance->databaseInstance = $theDb;
+                    }
                 }
                 return self::${"instance" . $theDb};
             default:
@@ -215,6 +225,11 @@ class DBConnection {
     private static $instanceDIAGNOSTICS;
 
     /**
+     * Holds an ARRAY of all RADIUS server instances for Silverbullet
+     */
+    private static $instanceRADIUS;
+    
+    /**
      * after instantiation, keep state of which DB *this one* talks to
      * 
      * @var string which database does this instance talk to
@@ -247,7 +262,13 @@ class DBConnection {
     private function __construct($database) {
         $this->loggerInstance = new \core\common\Logging();
         $databaseCapitalised = strtoupper($database);
-        $this->connection = new \mysqli(CONFIG['DB'][$databaseCapitalised]['host'], CONFIG['DB'][$databaseCapitalised]['user'], CONFIG['DB'][$databaseCapitalised]['pass'], CONFIG['DB'][$databaseCapitalised]['db']);
+        if (isset(CONFIG['DB'][$databaseCapitalised])) {
+            $this->connection = new \mysqli(CONFIG['DB'][$databaseCapitalised]['host'], CONFIG['DB'][$databaseCapitalised]['user'], CONFIG['DB'][$databaseCapitalised]['pass'], CONFIG['DB'][$databaseCapitalised]['db']);
+            $this->readOnly = CONFIG['DB'][$databaseCapitalised]['readonly'];
+        } else { // one of the RADIUS DBs
+            $this->connection = new \mysqli(CONFIG_CONFASSISTANT['DB'][$databaseCapitalised]['host'], CONFIG_CONFASSISTANT['DB'][$databaseCapitalised]['user'], CONFIG_CONFASSISTANT['DB'][$databaseCapitalised]['pass'], CONFIG_CONFASSISTANT['DB'][$databaseCapitalised]['db']);
+            $this->readOnly = CONFIG_CONFASSISTANT['DB'][$databaseCapitalised]['readonly'];
+        }
         if ($this->connection->connect_error) {
             throw new Exception("ERROR: Unable to connect to $database database! This is a fatal error, giving up (error number " . $this->connection->connect_errno . ").");
         }
@@ -255,7 +276,7 @@ class DBConnection {
         if ($databaseCapitalised == "EXTERNAL" && CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {
             $this->connection->query("SET NAMES 'latin1'");
         }
-        $this->readOnly = CONFIG['DB'][$databaseCapitalised]['readonly'];
+        
     }
 
 }

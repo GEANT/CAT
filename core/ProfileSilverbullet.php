@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Contributions to this work were made on behalf of the GÉANT project, a 
  * project that has received funding from the European Union’s Horizon 2020 
@@ -156,7 +157,7 @@ class ProfileSilverbullet extends AbstractProfile {
             <li>If you choose to deposit users' email addresses in the system, you authorise the system to send emails on your behalf regarding operationally relevant events to the users in question (e.g. notification of nearing expiry dates of credentials, notification of access revocation).
         </ul>";
     }
-    
+
     /**
      * Updates database with new installer location; NOOP because we do not
      * cache anything in Silverbullet
@@ -232,7 +233,45 @@ class ProfileSilverbullet extends AbstractProfile {
             return $returnedData->expiry;
         }
     }
-    
+
+    /**
+     * retrieves the authentication records from the RADIUS servers 
+     * 
+     * @param int $userId the numerical user ID of the user in question
+     * @return string
+     */
+    public function getUserAuthRecords($userId) {
+        // find out all certificate CNs belonging to the user, including expired and revoked ones
+        $userData = $this->userStatus($userId);
+        $certNames = [];
+        foreach ($userData as $oneSlice) {
+            foreach ($oneSlice->associatedCertificates as $oneCert) {
+                $certNames[] = $oneCert->username;
+            }
+        }
+        // for testing only: some names which are in the prod database
+        // $certNames[] = "wje6ai8d23uiqk27b2wxhle25rwadmxijr6p@10-10.lu.hosted.eduroam.org";
+        // $certNames[] = "gnvuknrh5h33bxu4mj2rpwihfi3slfy8gfuz@10-10.lu.hosted.eduroam.org";
+        if (empty($certNames)) {
+            return [];
+        }
+        $namesCondensed = "'" . implode("' OR username = '", $certNames) . "'";
+        $serverHandles = DBConnection::handle("RADIUS");
+        $returnarray = [];
+        foreach ($serverHandles as $oneDbServer) {
+            $query = $oneDbServer->exec("SELECT username, authdate, reply, callingid FROM eduroamauth WHERE $namesCondensed ORDER BY authdate DESC");
+            // SELECT -> resource, not boolean
+            while ($returnedData = mysqli_fetch_object(/** @scrutinizer ignore-type */ $query)) {
+                $returnarray[] = ["CN" => $returnedData->username, "TIMESTAMP" => $returnedData->authdate, "RESULT" => $returnedData->reply, "MAC" => $returnedData->callingid, "OPERATOR" => "1defineme!"];
+            }
+        }
+        usort($returnarray, function($one, $another) {
+            return $one['TIMESTAMP'] < $another['TIMESTAMP'];
+        });
+
+        return $returnarray;
+    }
+
     /**
      * sets the expiry date of a user to a new date of choice
      * @param int       $userId the username
@@ -328,12 +367,12 @@ class ProfileSilverbullet extends AbstractProfile {
         $ret = $this->databaseHandle->exec($query3, "i", $userId);
         // this is an UPDATE, and always returns TRUE. Need to tell Scrutinizer all about it.
         if ($ret === TRUE) {
-        return TRUE;
+            return TRUE;
         } else {
             throw new Exception("The UPDATE statement could not be executed successfully.");
         }
     }
-    
+
     /**
      * updates the last_ack for all users (invoked when the admin claims to have re-verified continued eligibility of all users)
      * 
@@ -343,4 +382,5 @@ class ProfileSilverbullet extends AbstractProfile {
         $query = "UPDATE silverbullet_user SET last_ack = NOW() WHERE profile_id = ?";
         $this->databaseHandle->exec($query, "i", $this->identifier);
     }
+
 }

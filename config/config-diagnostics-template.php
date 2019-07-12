@@ -68,8 +68,8 @@ const CONFIG_DIAGNOSTICS = [
      *             value steers where to get certificates from
      * @var array
      */
-
-        /**
+    
+    /**
      * Various paths.
      * eapol_test: absolute path to the eapol_test executable. If you just fill in "eapol_test" the one from the system $PATH will be taken.
      * c_rehash: absolute path to the c_rehash executable. If you just fill in "c_rehash" the one from the system $PATH will be taken.
@@ -80,7 +80,7 @@ const CONFIG_DIAGNOSTICS = [
         'c_rehash' => 'c_rehash',
         'eapol_test' => 'eapol_test',
     ],
-
+    
     /**
      * Configures the reachability tests, both for plain RADIUS/UDP and RADIUS/TLS.
      * UDP-hosts: an array of RADIUS servers to which login probes will be sent
@@ -110,50 +110,50 @@ const CONFIG_DIAGNOSTICS = [
             'client' => '1.3.6.1.4.1.25178.3.1.1',
             'server' => '1.3.6.1.4.1.25178.3.1.2',
         ],
-
+        
         'TLS-clientcerts' => [
-          'CA1' => [
-            'status' => 'ACCREDITED',
-            'issuerCA' => '/DC=org/DC=pki1/CN=PKI 1',
-            'certificates' => [
-              [
-                'status' => 'CORRECT',
-                'public' => 'ca1-client-cert.pem',
-                'private' => 'ca1-client-key.pem',
-                'expected' => 'PASS'],
-              [
-                'status' => 'WRONGPOLICY',
-                'public' => 'ca1-nopolicy-cert.pem',
-                'private' => 'ca1-nopolicy-key.key',
-                'expected' => 'FAIL'],
-              [
-                'status' => 'EXPIRED',
-                'public' => 'ca1-exp.pem',
-                'private' => 'ca1-exp.key',
-                'expected' => 'FAIL'],
-              [
-                'status' => 'REVOKED',
-                'public' => 'ca1-revoked.pem',
-                'private' => 'ca1-revoked.key',
-                'expected' => 'FAIL'],
+            'CA1' => [
+                'status' => 'ACCREDITED',
+                'issuerCA' => '/DC=org/DC=pki1/CN=PKI 1',
+                'certificates' => [
+                    [
+                        'status' => 'CORRECT',
+                        'public' => 'ca1-client-cert.pem',
+                        'private' => 'ca1-client-key.pem',
+                        'expected' => 'PASS'],
+                    [
+                        'status' => 'WRONGPOLICY',
+                        'public' => 'ca1-nopolicy-cert.pem',
+                        'private' => 'ca1-nopolicy-key.key',
+                        'expected' => 'FAIL'],
+                    [
+                        'status' => 'EXPIRED',
+                        'public' => 'ca1-exp.pem',
+                        'private' => 'ca1-exp.key',
+                        'expected' => 'FAIL'],
+                    [
+                        'status' => 'REVOKED',
+                        'public' => 'ca1-revoked.pem',
+                        'private' => 'ca1-revoked.key',
+                        'expected' => 'FAIL'],
+                ]
+            ],
+            'CA-N' => [
+                'status' => 'NONACCREDITED',
+                'issuerCA' => '/DC=org/DC=pkiN/CN=PKI N',
+                'certificates' => [
+                    [
+                        'status' => 'CORRECT',
+                        'public' => 'caN-client-cert.pem',
+                        'private' => 'caN-client-cert.key',
+                        'expected' => 'FAIL'],
+                ]
             ]
-          ],
-          'CA-N' => [
-            'status' => 'NONACCREDITED',
-            'issuerCA' => '/DC=org/DC=pkiN/CN=PKI N',
-            'certificates' => [
-               [
-                'status' => 'CORRECT',
-                'public' => 'caN-client-cert.pem',
-                'private' => 'caN-client-cert.key',
-                'expected' => 'FAIL'],
-               ]
-          ]
-      ],
-      'accreditedCAsURL' => '',
+        ],
+        'accreditedCAsURL' => '',
     ],
     'eduGainResolver' => [
         'url' => 'https://technical.edugain.org/api.php',
         'timeout' => 2,
-        ],
+    ],
 ];

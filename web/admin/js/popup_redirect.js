@@ -149,6 +149,10 @@ function popupRedirectWindow(form) {
     postXML(createWindow, form);
 }
 
+function popupStatsWindow(form) {
+    postXML(createWindow, form);
+}
+
 function popupQRWindow(form) {
     postXML(createQRWindow, form);
 }

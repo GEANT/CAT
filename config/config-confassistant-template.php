@@ -119,6 +119,30 @@ const CONFIG_CONFASSISTANT = [
       # 'CA' => ["type" => "DFN", "SOAP_API_ENDPOINT" => "http://no.idea.where/"],
 
     ],
+    
+        /**
+     * Lists the RADIUS servers. They have a built-in DB to log auth requests.
+     * We need to query those to get auth stats for silverbullet admins
+     *
+     * @var array
+     */
+    'DB' => [
+        // names don't matter - the source code will iterate through
+        // all entries
+        'RADIUS_1' => [
+            'host' => 'auth-1.hosted.eduroam.org',
+            'db' => 'radacct',
+            'user' => 'someuser',
+            'pass' => 'somepass',
+            'readonly' => TRUE,],
+        'RADIUS_2' => [
+            'host' => 'auth-2.hosted.eduroam.org',
+            'db' => 'radacct',
+            'user' => 'someuser',
+            'pass' => 'somepass',
+            'readonly' => TRUE,],
+    ],
+
     /**
      * Various paths.
      * makensis: absolute path to the makensis executable. If you just fill in "makensis" the one from the system $PATH will be taken.

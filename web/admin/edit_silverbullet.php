@@ -564,6 +564,14 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                                 </form>";
                                 }
                                 $expiryDate = $profile->getUserExpiryDate($oneUserId);
+                                
+                                ?>
+                                <form method='post' action='inc/userStats.inc.php?inst_id=<?php echo $profile->institution;?>&profile_id=<?php echo $profile->identifier;?>&user_id=<?php echo $oneUserId ?>' onsubmit='popupStatsWindow(this); return false;' accept-charset='UTF-8'>
+                                      <button type='submit'>
+                    <?php echo _("Show Authentication Records");?>
+                                      </button>
+                                  </form>
+                                <?php
                                 if (new DateTime() < new DateTime($expiryDate)) {
                                     echo $formtext;
                                     ?>
