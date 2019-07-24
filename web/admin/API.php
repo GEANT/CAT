@@ -409,16 +409,20 @@ switch ($inputDecoded['ACTION']) {
         $userlist = $profile->listAllUsers();
         if ($userName === FALSE && $certSerial === FALSE) { // we got a user ID
             if (!isset($userlist[$userId])) {
-                return $adminApi->returnError(\web\lib\admin\API::ERROR_INVALID_PARAMETER, "This user ID does not exist in this profile.");
+                $adminApi->returnError(\web\lib\admin\API::ERROR_INVALID_PARAMETER, "This user ID does not exist in this profile.");
+                break;
             }
             $adminApi->returnSuccess([$userId => $userlist[$userId]]);
+            break;
         }
         if ($userId === FALSE && $certSerial === FALSE) { // we got a username
             $key = array_search($userName, $userlist);
             if ($key === FALSE) {
-                return $adminApi->returnError(\web\lib\admin\API::ERROR_INVALID_PARAMETER, "This username does not exist in this profile.");
+                $adminApi->returnError(\web\lib\admin\API::ERROR_INVALID_PARAMETER, "This username does not exist in this profile.");
+                break;
             }
             $adminApi->returnSuccess([$key => $userlist[$key]]);
+            break;
         }
         if ($userId === FALSE && $userName === FALSE) { // we got a cert serial
             $serial = explode(":", $certSerial);
@@ -430,6 +434,7 @@ switch ($inputDecoded['ACTION']) {
                 $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Serial does not belong to this profile.");
             }
             $adminApi->returnSuccess([$cert->userId => $userlist[$cert->userId]]);
+            break;
         }
         $adminApi->returnError(\web\lib\admin\API::ERROR_INVALID_PARAMETER, "Only exactly one of User ID, username or cert serial can be specified.");
         break;
