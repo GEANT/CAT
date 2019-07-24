@@ -8,6 +8,8 @@ Changes in 2.0.2
                 and Windows installers
 - [BUGFIX  #2]  provide Roaming Consortium OI in uppercase hex letters for the
                 Apple installer, only then do they actually work
+- [BUGFIX  #3]  the admin API action ENDUSER-IDENTIFY now only returns the 
+                correct result set, not additional garbage afterwards
 
 Configuration parameter changes
 -------------------------------
