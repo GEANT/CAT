@@ -326,8 +326,13 @@ switch ($inputDecoded['ACTION']) {
                     $retval = $profile->addUser($user, $expiry);
                     break;
                 case web\lib\admin\API::ACTION_ENDUSER_CHANGEEXPIRY:
-                    $profile->setUserExpiryDate($user, $expiry);
-                    $retval = 1; // function doesn't have any failure vectors not raising an Exception and doesn't return a value
+                    $retval = 0;
+                    $userlist = $profile->listAllUsers();
+                    $userId = array_keys($userlist, $user);
+                    if (isset($userId[0])) {
+                        $profile->setUserExpiryDate($userId[0], $expiry);
+                        $retval = 1; // function doesn't have any failure vectors not raising an Exception and doesn't return a value
+                    }
                     break;
             }
         } catch (Exception $e) {
