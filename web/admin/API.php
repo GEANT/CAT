@@ -302,6 +302,8 @@ switch ($inputDecoded['ACTION']) {
         $adminApi->returnSuccess([\web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID => $profileFresh->identifier]);
         break;
     case web\lib\admin\API::ACTION_ENDUSER_NEW:
+    // fall-through intentional, those two actions are doing nearly identical things
+    case web\lib\admin\API::ACTION_ENDUSER_CHANGEEXPIRY:
         $prof_id = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID);
         if ($prof_id === FALSE) {
             exit(1);
@@ -315,18 +317,26 @@ switch ($inputDecoded['ACTION']) {
         $expiryRaw = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_EXPIRY);
         if ($expiryRaw === FALSE) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "The expiry date wasn't found in the request.");
-            exit(1);
+            break;
         }
         $expiry = new DateTime($expiryRaw);
         try {
-            $retval = $profile->addUser($user, $expiry);
+            switch ($inputDecoded['ACTION']) {
+                case web\lib\admin\API::ACTION_ENDUSER_NEW:
+                    $retval = $profile->addUser($user, $expiry);
+                    break;
+                case web\lib\admin\API::ACTION_ENDUSER_CHANGEEXPIRY:
+                    $profile->setUserExpiryDate($user, $expiry);
+                    $retval = 1; // function doesn't have any failure vectors not raising an Exception and doesn't return a value
+                    break;
+            }
         } catch (Exception $e) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INTERNAL_ERROR, "The operation failed. Maybe a duplicate username, or malformed expiry date?");
             exit(1);
         }
         if ($retval == 0) {// that didn't work, it seems
             $adminApi->returnError(web\lib\admin\API::ERROR_INTERNAL_ERROR, "The operation failed subtly. Contact the administrators.");
-            exit(1);
+            break;
         }
         $adminApi->returnSuccess([web\lib\admin\API::AUXATTRIB_SB_USERNAME => $user, \web\lib\admin\API::AUXATTRIB_SB_USERID => $retval]);
         break;

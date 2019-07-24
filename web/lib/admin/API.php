@@ -164,6 +164,11 @@ class API {
      * This action creates a new end-user within a Managed IdP profile.
      */
     const ACTION_ENDUSER_NEW = "ENDUSER-NEW";
+    
+    /**
+     * This action changes the end user expiry date
+     */
+    const ACTION_ENDUSER_CHANGEEXPIRY = "ENDUSER-CHANGEEXPIRY";
 
     /**
      * This action deactivates an existing end user in a Managed IdP profile.
@@ -371,6 +376,11 @@ class API {
             "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_USERNAME, API::AUXATTRIB_SB_EXPIRY],
             "OPT" => [],
             "RETVAL" => [API::AUXATTRIB_SB_USERNAME, API::AUXATTRIB_SB_USERID],
+        ],
+        API::ACTION_ENDUSER_CHANGEEXPIRY => [
+            "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_USERNAME, API::AUXATTRIB_SB_EXPIRY],
+            "OPT" => [],
+            "RETVAL" => [],
         ],
         API::ACTION_ENDUSER_DEACTIVATE => [
             "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_USERID],
