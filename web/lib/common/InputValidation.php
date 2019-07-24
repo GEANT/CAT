@@ -379,7 +379,7 @@ public function databaseReference($input) {
  */
 public function hostname($input) {
     // is it a valid IP address (IPv4 or IPv6), or a hostname?
-    if (filter_var($input, FILTER_VALIDATE_IP) || filter_var($input, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME) !== FALSE) {
+    if (filter_var($input, FILTER_VALIDATE_IP) || filter_var($input, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME)) {
         // if it's a verified IP address or hostname then it does not contain
         // rubbish of course. But just to be sure, run htmlspecialchars around it
         return htmlspecialchars($input, ENT_QUOTES);
