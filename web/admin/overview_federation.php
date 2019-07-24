@@ -247,9 +247,19 @@ require_once "inc/click_button_js.php";
                 echo "<td>";
                 echo ($idp_instance->maxProfileStatus() >= \core\IdP::PROFILES_CONFIGURED ? "C" : "" ) . " " . ($idp_instance->maxProfileStatus() >= \core\IdP::PROFILES_SHOWTIME ? "V" : "" );
                 echo "</td>";
-                // name
-                echo "<td>
-                         <input type='hidden' name='inst' value='" . $index . "'>" . $idp_instance->name . "
+                // name; and realm of silverbullet profiles if any
+                // instantiating all profiles is costly, so we only do this if
+                // the deployment at hand has silverbullet enabled
+                $listOfSilverbulletRealms = [];
+                if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
+                    foreach ($idp_instance->listProfiles() as $oneProfile) {
+                        if ($oneProfile instanceof core\ProfileSilverbullet) {
+                            $listOfSilverbulletRealms[] = $oneProfile->realm;
+                        }
+                    }
+                }
+                echo "<td style='vertical-align:top;'>
+                         <input type='hidden' name='inst' value='" . $index . "'>" . $idp_instance->name . (empty($listOfSilverbulletRealms) ? "" : "<ul><li>" ) . implode("</li><li>",$listOfSilverbulletRealms) . (empty($listOfSilverbulletRealms) ? "" : "</li><ul>" ) . "
                       </td>";
                 // external DB sync, if configured as being necessary
                 if (CONFIG['DB']['enforce-external-sync']) {
@@ -275,7 +285,7 @@ require_once "inc/click_button_js.php";
                 }
 
                 // admin management
-                echo "<td>";
+                echo "<td style='vertical-align: top;'>";
                 if ($readonly === FALSE) {
                     echo "<div style='white-space: nowrap;'>
                                   <form method='post' action='inc/manageAdmins.inc.php?inst_id=" . $index . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
