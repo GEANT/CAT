@@ -107,7 +107,7 @@ class IdP extends EntityWithDBProperties {
      * This function retrieves all registered profiles for this IdP from the database
      *
      * @param bool $activeOnly if and set to non-zero will cause listing of only those institutions which have some valid profiles defined.
-     * @return array list of Profiles of this IdP
+     * @return array<AbstractProfile> list of Profiles of this IdP
      */
     public function listProfiles(bool $activeOnly = FALSE) {
         $query = "SELECT profile_id FROM profile WHERE inst_id = $this->identifier" . ($activeOnly ? " AND showtime = 1" : "");
