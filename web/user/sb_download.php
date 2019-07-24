@@ -20,8 +20,7 @@
 <?php
 
 /**
- * Download for 
- * This file is obsolete and left for backwards compatibility reasons only
+ * Download silverbullet installers
  *
  * @author Tomasz Wolniewicz <twoln@umk.pl>
  * @author Stefan Winter <stefan.winter@restena.lu>
