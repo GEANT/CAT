@@ -180,7 +180,7 @@ Content-Transfer-Encoding: base64
 Content-Type: application/x-x509-ca-cert
 Content-Transfer-Encoding: base64
 
-'.chunk_split(base64_encode($oneCert['der']), 76, "\n").
+'.chunk_split(base64_encode($oneCert['pem']), 76, "\n").
 '--{boundary}';
             
         }
@@ -189,7 +189,7 @@ Content-Transfer-Encoding: base64
 Content-Type: application/x-pkcs12
 Content-Transfer-Encoding: base64
 
-'.chunk_split(base64_encode($this->clientCert['certdataclear']), 76, "\n"). // is PKCS#12, with encrypted key
+'.chunk_split(base64_encode($this->clientCert['certdataclear']), 76, "\n"). // is PKCS#12, with cleartext key
 '--{boundary}';
 
         // trail this with a double slash and a newline
