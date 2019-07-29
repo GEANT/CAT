@@ -303,7 +303,11 @@ class UserAPI extends CAT {
         $filetype = $output['mime'];
         $this->loggerInstance->debug(4, "installer MIME type:$filetype\n");
         header("Content-type: " . $filetype);
-        header('Content-Disposition: inline; filename="' . basename($file) . '"');
+        if ($filetype !== "application/x-wifi-config") { // for those installers to work on Android, Content-Disposition MUST NOT be set
+            header('Content-Disposition: inline; filename="' . basename($file) . '"');
+        } else {
+            header('Content-Transfer-Encoding: base64');
+        }
         header('Content-Length: ' . filesize($file));
         ob_clean();
         flush();
