@@ -172,7 +172,7 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
      * @return array the cert and some metadata
      * @throws Exception
      */
-    public function signRequest($csr, $expiryDays) {
+    public function signRequest($csr, $expiryDays) : array {
         $nonDupSerialFound = FALSE;
         do {
             $serial = random_int(1000000000, PHP_INT_MAX);
@@ -217,7 +217,7 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
      * @return array
      * @throws Exception
      */
-    public function generateCompatibleCsr($privateKey, $fed, $username) {
+    public function generateCompatibleCsr($privateKey, $fed, $username) : array {
         $newCsr = openssl_csr_new(
                 ['O' => \config\ConfAssistant::CONSORTIUM['name'],
                     'OU' => $fed,
@@ -244,7 +244,7 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
      * @return \resource
      * @throws Exception
      */
-    public function generateCompatiblePrivateKey(): \resource {
+    public function generateCompatiblePrivateKey() {
         $key = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
         if ($key === FALSE) {
             throw new Exception("Unable to generate a private key.");
