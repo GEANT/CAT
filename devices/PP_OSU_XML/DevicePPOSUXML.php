@@ -248,7 +248,7 @@ Content-Transfer-Encoding: base64
         // only leaves me to wonder what the "URL" for those is...
         // TODO: more than one CA is currently untested
         foreach ($this->attributes['internal:CAs'][0] as $oneCert) {
-            $retval .= chunk_split(base64_encode($oneCert['pem']), 76, "\n");
+            $retval .= chunk_split(base64_encode($oneCert['pem']), 64, "\n");
         }
         return $retval;
     }
