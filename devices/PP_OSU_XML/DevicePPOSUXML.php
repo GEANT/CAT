@@ -80,29 +80,12 @@ class DevicePPOSUXML extends \core\DeviceConfig {
         $this->setSupportedEapMethods([\core\common\EAP::EAPTYPE_SILVERBULLET]);
     }
     
-    /**
-     * prepare a ONC file
-     *
-     * @return string installer path name
-     */
-    public function writeInstaller() {
-        $this->loggerInstance->debug(4, "HS20 PerProviderSubscription Managed Object Installer start\n");
-        $now = new \DateTime();
-        $content = '<MgmtTree xmlns="syncml:dmddf1.2">
-  <VerDTD>1.2</VerDTD>
-  <Node>
-    <NodeName>PerProviderSubscription</NodeName>
-    <RTProperties>
-      <Type>
-        <DDFName>urn:wfa:mo:hotspot2dot0-perprovidersubscription:1.0</DDFName>
-      </Type>
-    </RTProperties>
-    <Node>
-      <NodeName>CATPasspointSetting</NodeName>
-      <Node>
+    private function aaaServerTrustRoot() {
+        
+      $retval = '<Node>
         <NodeName>AAAServerTrustRoot</NodeName>';
       foreach ($this->attributes['internal:CAs'][0] as $oneCert) {
-          $content .= '<Node>
+          $retval .= '<Node>
                          <NodeName>'.$oneCert['uuid'].'</NodeName>
                              <Node>
                                <NodeName>CertSHA256Fingerprint</NodeName>
@@ -111,30 +94,20 @@ class DevicePPOSUXML extends \core\DeviceConfig {
                        </Node>
                   ';
       }
-      $content .= '</Node>
-      <Node>
-        <NodeName>Credential</NodeName>
-        <Node>
+      $retval .= '</Node>';
+      return $retval;
+    }
+    
+    private function credentialCreationDate() {
+        $now = new \DateTime();
+        return '<Node>
           <NodeName>CreationDate</NodeName>
           <Value>'.$now->format("Y-m-d") . "T" . $now->format("H:i:s") . "Z".'</Value>
-        </Node>
-        <Node>
-          <NodeName>DigitalCertificate</NodeName>
-          <Node>
-            <NodeName>CertificateType</NodeName>
-            <Value>x509v3</Value>
-          </Node>
-          <Node>
-            <NodeName>CertSHA256Fingerprint</NodeName>
-            <Value>'.$this->clientCert["sha256"] /* the actual cert has to go... where? */.'</Value>
-          </Node>
-        </Node>
-        <Node>
-          <NodeName>Realm</NodeName>
-          <Value>'.$this->attributes['internal:realm'][0].'</Value>
-        </Node>
-      </Node>
-      <Node>
+        </Node>';
+    }
+    
+    private function homeSP() {
+        $retval = '<Node>
         <NodeName>HomeSP</NodeName>
         <Node>
           <NodeName>FriendlyName</NodeName>
@@ -151,19 +124,80 @@ class DevicePPOSUXML extends \core\DeviceConfig {
         $numberOfOi = count(\config\ConfAssistant::CONSORTIUM['interworking-consortium-oi']);
         foreach (\config\ConfAssistant::CONSORTIUM['interworking-consortium-oi'] as $index => $oneOi) {
             // according to spec, must be lowercase ASCII without dashes
-            $oiList .= str_replace("-","",trim(strtolower($oneOi)));
+            // but sample I got was all uppercase, so let's try with that
+            $oiList .= str_replace("-","",trim(strtoupper($oneOi)));
             if ($index < $numberOfOi - 1) {
                 // according to spec, comma-separated
                 $oiList .= ",";
             }
         }
-        $content .= $oiList.'</Value>
+        $retval .= $oiList.'</Value>
         </Node>
-      </Node>
-    </Node>
+      </Node>';
+        return $retval;
+    }
+    
+    private function credential() {
+        $retval = '<Node>
+        <NodeName>Credential</NodeName>';
+        /* the example file I got did not include CreationDate, so omit it
+         * 
+         * $content .= $this->credentialCreationDate();
+         */
+        $retval .= '
+          <Node>
+            <NodeName>DigitalCertificate</NodeName>
+            <Node>
+              <NodeName>Realm</NodeName>
+              <Value>'.$this->attributes['internal:realm'][0].'</Value>
+            </Node>
+            <Node>
+              <NodeName>CertificateType</NodeName>
+              <Value>x509v3</Value>
+            </Node>
+            <Node>
+              <NodeName>CertSHA256Fingerprint</NodeName>
+              <Value>'.strtoupper($this->clientCert["sha256"]) /* the actual cert has to go... where? */.'</Value>
+            </Node>
+          </Node>
+      </Node>';
+        return $retval;
+    }
+    
+    private function perProviderSubscription() {
+        $retval = '<MgmtTree xmlns="syncml:dmddf1.2">
+  <VerDTD>1.2</VerDTD>
+  <Node>
+    <NodeName>PerProviderSubscription</NodeName>
+    <RTProperties>
+      <Type>
+        <DDFName>urn:wfa:mo:hotspot2dot0-perprovidersubscription:1.0</DDFName>
+      </Type>
+    </RTProperties>
+    <Node>
+      <NodeName>CATPasspointSetting</NodeName>';
+        /* it seems that Android does NOT want the AAAServerTrustRoot section
+           and instead always validates against the MIME cert attached
+
+      $content .= $this->aaaServerTrustRoot();
+         */
+      $retval .= $this->homeSP();
+      $retval .= $this->credential();
+      
+    $retval .= '</Node>
   </Node>
 </MgmtTree>';
-        $content_encoded = chunk_split(base64_encode($content), 76, "\n");
+    return $retval;
+    }
+    /**
+     * prepare the PPS-MO file with cert MIME attachments
+     *
+     * @return string installer path name
+     */
+    public function writeInstaller() {
+        $this->loggerInstance->debug(4, "HS20 PerProviderSubscription Managed Object Installer start\n");
+        
+        $content_encoded = chunk_split(base64_encode($this->perProviderSubscription()), 76, "\n");
         // sigh... we need to construct a MIME envelope for the payload and the cert data
         $content_encoded = 'Content-Type: multipart/mixed; boundary={boundary}
 Content-Transfer-Encoding: base64
@@ -205,8 +239,8 @@ Content-Transfer-Encoding: base64
             return $fileName;
         }
 
-        // still here? We are signing. That actually can't be - ONC does not
-        // have the notion of signing
+        // still here? We are signing. That actually can't be - the spec doesn't
+        // foresee signing.
         // but if they ever change their mind, we are prepared
 
         $outputFromSigning = system($this->sign . " installer_profile '$fileName' > /dev/null");
