@@ -79,43 +79,60 @@ class DevicePPOSUXML extends \core\DeviceConfig {
         parent::__construct();
         $this->setSupportedEapMethods([\core\common\EAP::EAPTYPE_SILVERBULLET]);
     }
-    
+
+    /**
+     * creates a AAAServerTrustRoot XML fragment. Currently unused, not clear
+     * if Android supports this.
+     * 
+     * @return string
+     */
     private function aaaServerTrustRoot() {
-        
-      $retval = '<Node>
+
+        $retval = '<Node>
         <NodeName>AAAServerTrustRoot</NodeName>';
-      foreach ($this->attributes['internal:CAs'][0] as $oneCert) {
-          $retval .= '<Node>
-                         <NodeName>'.$oneCert['uuid'].'</NodeName>
+        foreach ($this->attributes['internal:CAs'][0] as $oneCert) {
+            $retval .= '<Node>
+                         <NodeName>' . $oneCert['uuid'] . '</NodeName>
                              <Node>
                                <NodeName>CertSHA256Fingerprint</NodeName>
-                               <Value>'.$oneCert['sha256'].'</Value>
+                               <Value>' . $oneCert['sha256'] . '</Value>
                              </Node>
                        </Node>
                   ';
-      }
-      $retval .= '</Node>';
-      return $retval;
+        }
+        $retval .= '</Node>';
+        return $retval;
     }
-    
+
+    /**
+     * creates a CreationDate XML fragment for use in Credential. Currently
+     * unused, not clear if Android supports this.
+     * 
+     * @return string
+     */
     private function credentialCreationDate() {
         $now = new \DateTime();
         return '<Node>
           <NodeName>CreationDate</NodeName>
-          <Value>'.$now->format("Y-m-d") . "T" . $now->format("H:i:s") . "Z".'</Value>
+          <Value>' . $now->format("Y-m-d") . "T" . $now->format("H:i:s") . "Z" . '</Value>
         </Node>';
     }
-    
+
+    /**
+     * creates a HomeSP XML fragment for consortium identification.
+     * 
+     * @return string
+     */
     private function homeSP() {
         $retval = '<Node>
         <NodeName>HomeSP</NodeName>
         <Node>
           <NodeName>FriendlyName</NodeName>
-          <Value>'.sprintf(_("%s via Passpoint"),\config\ConfAssistant::CONSORTIUM['display_name']).'</Value>
+          <Value>' . sprintf(_("%s via Passpoint"), \config\ConfAssistant::CONSORTIUM['display_name']) . '</Value>
         </Node>
         <Node>
           <NodeName>FQDN</NodeName>
-          <Value>'.$this->attributes['eap:server_name'][0] /* what, only one FQDN allowed? */.'</Value>
+          <Value>' . $this->attributes['eap:server_name'][0] /* what, only one FQDN allowed? */ . '</Value>
         </Node>
         <Node>
           <NodeName>RoamingConsortiumOI</NodeName>
@@ -125,18 +142,23 @@ class DevicePPOSUXML extends \core\DeviceConfig {
         foreach (\config\ConfAssistant::CONSORTIUM['interworking-consortium-oi'] as $index => $oneOi) {
             // according to spec, must be lowercase ASCII without dashes
             // but sample I got was all uppercase, so let's try with that
-            $oiList .= str_replace("-","",trim(strtoupper($oneOi)));
+            $oiList .= str_replace("-", "", trim(strtoupper($oneOi)));
             if ($index < $numberOfOi - 1) {
                 // according to spec, comma-separated
                 $oiList .= ",";
             }
         }
-        $retval .= $oiList.'</Value>
+        $retval .= $oiList . '</Value>
         </Node>
       </Node>';
         return $retval;
     }
-    
+
+    /**
+     * creates a Credential XML fragment for client identification
+     * 
+     * @return string
+     */
     private function credential() {
         $retval = '<Node>
         <NodeName>Credential</NodeName>';
@@ -149,7 +171,7 @@ class DevicePPOSUXML extends \core\DeviceConfig {
             <NodeName>DigitalCertificate</NodeName>
             <Node>
               <NodeName>Realm</NodeName>
-              <Value>'.$this->attributes['internal:realm'][0].'</Value>
+              <Value>' . $this->attributes['internal:realm'][0] . '</Value>
             </Node>
             <Node>
               <NodeName>CertificateType</NodeName>
@@ -157,13 +179,18 @@ class DevicePPOSUXML extends \core\DeviceConfig {
             </Node>
             <Node>
               <NodeName>CertSHA256Fingerprint</NodeName>
-              <Value>'.strtoupper($this->clientCert["sha256"]) /* the actual cert has to go... where? */.'</Value>
+              <Value>' . strtoupper($this->clientCert["sha256"]) /* the actual cert has to go... where? */ . '</Value>
             </Node>
           </Node>
       </Node>';
         return $retval;
     }
-    
+
+    /**
+     * creates the overall perProviderSubscription XML
+     * 
+     * @return string
+     */
     private function perProviderSubscription() {
         $retval = '<MgmtTree xmlns="syncml:dmddf1.2">
   <VerDTD>1.2</VerDTD>
@@ -177,17 +204,63 @@ class DevicePPOSUXML extends \core\DeviceConfig {
     <Node>
       <NodeName>CATPasspointSetting</NodeName>';
         /* it seems that Android does NOT want the AAAServerTrustRoot section
-           and instead always validates against the MIME cert attached
+          and instead always validates against the MIME cert attached
 
-      $content .= $this->aaaServerTrustRoot();
+          $content .= $this->aaaServerTrustRoot();
          */
-      $retval .= $this->homeSP();
-      $retval .= $this->credential();
-      
-    $retval .= '</Node>
+        $retval .= $this->homeSP();
+        $retval .= $this->credential();
+
+        $retval .= '</Node>
   </Node>
 </MgmtTree>';
-    return $retval;
+        return $retval;
+    }
+
+    /**
+     * creates a MIME part containing the base64-encoded PPS-MO
+     * 
+     * @return string
+     */
+    private function mimeChunkPpsMo() {
+        return '--{boundary}
+Content-Type: application/x-passpoint-profile
+Content-Transfer-Encoding: base64
+
+' . chunk_split(base64_encode($this->perProviderSubscription()), 76, "\n");
+    }
+
+    /**
+     * creates a MIME part containing the base64-encoded CA certs (PEM)
+     * 
+     * @return string
+     */
+    private function mimeChunkCaCerts() {
+        $retval = '--{boundary}
+Content-Type: application/x-x509-ca-cert
+Content-Transfer-Encoding: base64
+';
+        // then, another PEM chunk for each CA certificate we referenced earlier
+        // only leaves me to wonder what the "URL" for those is...
+        // TODO: more than one CA is currently untested
+        foreach ($this->attributes['internal:CAs'][0] as $oneCert) {
+            $retval .= chunk_split(base64_encode($oneCert['pem']), 76, "\n");
+        }
+        return $retval;
+    }
+
+    /**
+     * creates a MIME part containing the base64-encoded client cert PKCS#12
+     * structure - no password.
+     * 
+     * @return string
+     */
+    private function mimeChunkClientCert() {
+        return '--{boundary}
+Content-Type: application/x-pkcs12
+Content-Transfer-Encoding: base64
+
+' . chunk_split(base64_encode($this->clientCert['certdataclear']), 76, "\n"); // is PKCS#12, with cleartext key
     }
     /**
      * prepare the PPS-MO file with cert MIME attachments
@@ -196,38 +269,16 @@ class DevicePPOSUXML extends \core\DeviceConfig {
      */
     public function writeInstaller() {
         $this->loggerInstance->debug(4, "HS20 PerProviderSubscription Managed Object Installer start\n");
-        
-        $content_encoded = chunk_split(base64_encode($this->perProviderSubscription()), 76, "\n");
         // sigh... we need to construct a MIME envelope for the payload and the cert data
         $content_encoded = 'Content-Type: multipart/mixed; boundary={boundary}
 Content-Transfer-Encoding: base64
 
---{boundary}
-Content-Type: application/x-passpoint-profile
-Content-Transfer-Encoding: base64
-
-'.$content_encoded.'--{boundary}';
-        // then, another MIME body for each CA certificate we referenced earlier
-        // only leaves me to wonder what the "URL" for those is...
-        foreach ($this->attributes['internal:CAs'][0] as $oneCert) {
-            $content_encoded .= '
-Content-Type: application/x-x509-ca-cert
-Content-Transfer-Encoding: base64
-
-'.chunk_split(base64_encode($oneCert['pem']), 76, "\n").
-'--{boundary}';
-            
-        }
-        // and our own client cert - what about intermediates?
-        $content_encoded .= '
-Content-Type: application/x-pkcs12
-Content-Transfer-Encoding: base64
-
-'.chunk_split(base64_encode($this->clientCert['certdataclear']), 76, "\n"). // is PKCS#12, with cleartext key
-'--{boundary}';
-
-        // trail this with a double slash and a newline
-        $content_encoded .= "--\n";
+';
+        $content_encoded .= $this->mimeChunkPpsMo();
+        $content_encoded .= $this->mimeChunkCaCerts();
+        $content_encoded .= $this->mimeChunkClientCert();
+        // this was the last MIME chunk; end the file orderly
+        $content_encoded .= "--{boundary}--\n";
         // strangely enough, now encode ALL OF THIS in base64 again. Whatever.
         file_put_contents('installer_profile', chunk_split(base64_encode($content_encoded), 76, "\n"));
 
