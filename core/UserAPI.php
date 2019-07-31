@@ -246,6 +246,7 @@ class UserAPI extends CAT {
      * - local_url
      * - description
      * - devices - an array of device names and their statuses (for a given profile)
+     * - last_changed
      */
     public function profileAttributes($profId) {
         $validator = new \web\lib\common\InputValidation();
@@ -266,6 +267,7 @@ class UserAPI extends CAT {
             $returnArray['description'] = $attribs['profile:description'][0];
         }
         $returnArray['devices'] = $profile->listDevices();
+        $returnArray['last_changed'] = $profile->getFreshness();
         return $returnArray;
     }
 

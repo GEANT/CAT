@@ -235,6 +235,7 @@ function resetDevices() {
          $("#profile_desc").hide();
          $("#profile_desc").text('');
        }
+       updateTxt = '<span class="user_info"><?php escaped_echo(_("This entry was last updated at:"));?>'+' '+j.last_changed+'</span><br/>';
        if(j.local_url !== undefined && j.local_url) 
        txt = txt+'<span class="user_info"><?php escaped_echo(_("WWW:")); ?> <a href="'+j.local_url+'" target="_blank">'+j.local_url+'</a></span><br/>';
        if(j.local_email !== undefined && j.local_email) 
@@ -242,9 +243,9 @@ function resetDevices() {
        if(j.local_phone !== undefined && j.local_phone) 
        txt = txt+'<span class="user_info"><?php escaped_echo(_("tel:")); ?> '+j.local_phone+'</span><br/>';
        if(txt) 
-       txt = "<span class='user_info_header'><?php escaped_echo(_("If you encounter problems, then you can obtain direct assistance from your organisation at:")); ?></span><br/>"+txt;
+       txt = "<span class='user_info_header'><?php escaped_echo(_("If you encounter problems, then you can obtain direct assistance from your organisation at:")); ?></span><br/>"+txt+updateTxt;
         else
-        txt = "<span class='user_info_header'><?php escaped_echo(_("If you encounter problems you should ask those who gave you your account for help.")); ?>" + '</span><br/>';
+        txt = "<span class='user_info_header'><?php escaped_echo(_("If you encounter problems you should ask those who gave you your account for help.")); ?>" + '</span><br/>'+updateTxt;
       $("#user_info").html(txt);
       $("#user_info").show();
       if(j.silverbullet) {
