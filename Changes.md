@@ -5,6 +5,8 @@ Changes in 2.0.2
 - [FEATURE #2]  add button to show auth logs for a given user in silverbullet
 - [FEATURE #3]  show the realm of silverbullet profiles in the NRO overview
 - [FEATURE #4]  add API action: change silverbullet end user expiry date
+- [FEATURE #5]  show timestamp of last change of profile information on main
+                download page
 - [BUGFIX  #1]  language was not correctly applied in parts of the admin area
                 and Windows installers
 - [BUGFIX  #2]  provide Roaming Consortium OI in uppercase hex letters for the
