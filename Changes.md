@@ -13,6 +13,7 @@ Changes in 2.0.2
                 Apple installer, only then do they actually work
 - [BUGFIX  #3]  the admin API action ENDUSER-IDENTIFY now only returns the 
                 correct result set, not additional garbage afterwards
+- [BUGFIX  #4]  mailto: links are now created correctly on main download page
 
 Configuration parameter changes
 -------------------------------
