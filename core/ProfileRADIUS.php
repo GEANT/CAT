@@ -270,7 +270,9 @@ class ProfileRADIUS extends AbstractProfile {
      * to delete the supported EAP types list in addition to just flushing the
      * normal DB-based attributes
      * 
+     * @param string $extracondition unused in this sub-class, added for compatibility with function declaration in parent
      * @return array list of row id's of file-based attributes which weren't deleted
+     * @throws Exception
      */
     public function beginFlushAttributes($extracondition = '') {
         if ($extracondition !== '') {
