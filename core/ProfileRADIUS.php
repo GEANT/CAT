@@ -272,7 +272,10 @@ class ProfileRADIUS extends AbstractProfile {
      * 
      * @return array list of row id's of file-based attributes which weren't deleted
      */
-    public function beginFlushAttributes() {
+    public function beginFlushAttributes($extracondition = '') {
+        if ($extracondition !== '') {
+            throw new Exception("We don't accept extra conditions here.");
+        }
         $this->databaseHandle->exec("DELETE FROM supported_eap WHERE profile_id = $this->identifier");
         // parent operates on profile_options and we need the following to exclude eap-specific and device-specific
         return parent::beginFlushAttributes("AND eap_method_id = 0 AND device_id IS NULL");
