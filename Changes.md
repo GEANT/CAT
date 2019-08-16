@@ -7,6 +7,8 @@ Changes in 2.0.2
 - [FEATURE #4]  add API action: change silverbullet end user expiry date
 - [FEATURE #5]  show timestamp of last change of profile information on main
                 download page
+- [FEATURE #6]  separate silverbullet users into "current" and "previous" ones;
+                hide the latter behind a non-default tab to reduce clutter
 - [BUGFIX  #1]  language was not correctly applied in parts of the admin area
                 and Windows installers
 - [BUGFIX  #2]  provide Roaming Consortium OI in uppercase hex letters for the
