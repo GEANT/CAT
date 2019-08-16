@@ -290,14 +290,14 @@ $activeUsers = $profile->listActiveUsers();
 
 echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSilverbullet::PRODUCTNAME)));
 ?>
-<script src='js/option_expand.js' type='text/javascript'></script>
-<script src='../external/jquery/jquery.js' type='text/javascript'></script>
-<script src='../external/jquery/jquery-ui.js' type='text/javascript'></script>
-<script src='../external/jquery/jquery-migrate.js' type='text/javascript'></script>
-<script src="js/XHR.js" type="text/javascript"></script>
-<script src="js/popup_redirect.js" type="text/javascript"></script>
+<script src='js/option_expand.js'></script>
+<script src='../external/jquery/jquery.js'></script>
+<script src='../external/jquery/jquery-ui.js'></script>
+<script src='../external/jquery/jquery-migrate.js'></script>
+<script src="js/XHR.js"></script>
+<script src="js/popup_redirect.js"></script>
 <?php // https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript ?>
-<script type='text/javascript'>
+<script>
     function clipboardCopy(user) {
     var copyTextArea = document.querySelector('.identifiedtokenarea-' + user);
     copyTextArea.select();
@@ -311,7 +311,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
     }
     $(document).ready(function () {
     $(function () {
-    $("#tabs").tabs();
+    $(".tabbed").tabs();
     });
     });
 </script>
@@ -567,7 +567,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                             . "</button>
                                 </form>";
                 }
-                ${$outputBuffer} .= "<form method='post' action='inc/userStats.inc.php?inst_id=" . $profile->institution . "&profile_id=" . $profile->identifier . "&user_id=$oneUserId' onsubmit='popupStatsWindow(this); return false;' accept-charset='UTF-8'>
+                ${$outputBuffer} .= "<form method='post' action='inc/userStats.inc.php?inst_id=" . $profile->institution . "&amp;profile_id=" . $profile->identifier . "&amp;user_id=$oneUserId' onsubmit='popupStatsWindow(this); return false;' accept-charset='UTF-8'>
                     <button type='submit'>" . _("Show Authentication Records") . "</button>
                 </form>";
                 if (new DateTime() < new DateTime($expiryDate)) {
@@ -589,11 +589,18 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
             $bufferPreviousUsers .= "</table>";
             ?>
             <!-- ... ends here -->
-            <h2><?php echo _("Current Users");?></h2>
-            <?php echo $bufferCurrentUsers;?>
-            <h2><?php echo _("Previous Users");?></h2>
-            <?php echo $bufferPreviousUsers;?>
-            
+            <div class="tabbed" id="listusers">
+                <ul>
+                    <li>
+                        <a href="#tabs-1"><?php echo _("Current Users");?></a>
+                    </li>
+                    <li>
+                        <a href="#tabs-2"><?php echo _("Previous Users");?></a>
+                    </li>
+                </ul>
+                <div id="tabs-1"><?php echo $bufferCurrentUsers;?></div>
+                <div id="tabs-2"><?php echo $bufferPreviousUsers;?></div>
+            </div>
             <div style="padding: 20px;">
                 <?php
                 if (count($allUsers) > 0 && false) { // false because this restriction is currently not in effect and thus no UI is needed for it.
@@ -614,17 +621,17 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
         </fieldset>
     </div>
     <!--Add new user and user import forms -->
-    <div id="tabs" active="0">
+    <div class="tabbed" id="tabs">
         <ul>
             <li>	
-                <a href="#tabs-1"><?php echo _("Add new user"); ?></a>
+                <a href="#tabs-3"><?php echo _("Add new user"); ?></a>
             </li>
             <li>
-                <a href="#tabs-2"><?php echo _("Import users from CSV file"); ?></a>
+                <a href="#tabs-4"><?php echo _("Import users from CSV file"); ?></a>
             </li>            
         </ul>
         <!--adding manual -->
-        <div id="tabs-1">
+        <div id="tabs-3">
             <?php echo $formtext; ?>
             <div class="sb-add-new-user">
                 <label for="username"><?php echo _("Please enter a username of your choice and user expiry date to create a new user:"); ?></label>
@@ -637,7 +644,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
             </form>
         </div>
         <!--CSV -->
-        <div id="tabs-2">
+        <div id="tabs-4">
             <div>
                 <?php echo $formtext; ?>
                 <div class="sb-add-new-user">
