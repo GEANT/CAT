@@ -371,6 +371,27 @@ class ProfileSilverbullet extends AbstractProfile {
     }
 
     /**
+     * delete the user in question, including all expired and revoked certificates
+     * @param int $userId the username
+     * @return boolean was the user deleted?
+     */
+    public function deleteUser($userId) {
+        // do we really not have any auth records that may need to be tied to this user?
+        if (count($this->getUserAuthRecords($userId)) > 0) {
+            return false;
+        }
+        // find and delete all certificates
+        $certQuery = "DELETE FROM silverbullet_certificate WHERE profile_id = $this->identifier AND silverbullet_user_id = ?";
+        $this->databaseHandle->exec($certQuery, "i", $userId);
+        // find and delete obsolete invitation token track record
+        $tokenQuery = "DELETE FROM silverbullet_invitation WHERE profile_id = $this->identifier AND silverbullet_user_id = ?";
+        $this->databaseHandle->exec($tokenQuery, "i", $userId);
+        // delete user record itself
+        $userQuery = "DELETE FROM silverbullet_user WHERE profile_id = $this->identifier AND id = ?";
+        $this->databaseHandle->exec($userQuery, "i", $userId);
+        
+    }
+    /**
      * updates the last_ack for all users (invoked when the admin claims to have re-verified continued eligibility of all users)
      * 
      * @return void

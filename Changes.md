@@ -9,6 +9,8 @@ Changes in 2.0.2
                 download page
 - [FEATURE #6]  separate silverbullet users into "current" and "previous" ones;
                 hide the latter behind a non-default tab to reduce clutter
+- [FEATURE #7]  allow actual *deletion* of a silverbullet user if he has expired
+                and we do not have any authentication records of him (any more)
 - [BUGFIX  #1]  language was not correctly applied in parts of the admin area
                 and Windows installers
 - [BUGFIX  #2]  provide Roaming Consortium OI in uppercase hex letters for the

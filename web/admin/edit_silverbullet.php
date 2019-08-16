@@ -195,6 +195,16 @@ if (isset($_POST['command'])) {
                 sleep(1); // make sure the expiry timestamps of invitations and certs are at least one second in the past
             }
             break;
+        case \web\lib\common\FormElements::BUTTON_DELETE:
+            if (isset($_POST['userid'])) {
+                $properId = $validator->integer(filter_input(INPUT_POST, 'userid'));
+                if ($properId === FALSE) { // bogus user ID, ignore
+                    continue;
+                }
+                $profile->deleteUser($properId);
+                sleep(1); // make sure the expiry timestamps of invitations and certs are at least one second in the past
+            }
+            break;    
         case \web\lib\common\FormElements::BUTTON_NEWINVITATION:
             if (isset($_POST['userid']) && isset($_POST['invitationsquantity'])) {
                 $properId = $validator->integer($_POST['userid']);
@@ -390,7 +400,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
             $internalUserCount = 0;
             foreach ($allUsers as $oneUserId => $oneUserName) {
                 $expiryDate = $profile->getUserExpiryDate($oneUserId);
-                if (isset($activeUsers[$oneUserId]) || (new DateTime() < new DateTime($expiryDate)) ) {
+                if (isset($activeUsers[$oneUserId]) || (new DateTime() < new DateTime($expiryDate))) {
                     $outputBuffer = "bufferCurrentUsers";
                 } else {
                     $outputBuffer = "bufferPreviousUsers";
@@ -570,13 +580,18 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                 ${$outputBuffer} .= "<form method='post' action='inc/userStats.inc.php?inst_id=" . $profile->institution . "&amp;profile_id=" . $profile->identifier . "&amp;user_id=$oneUserId' onsubmit='popupStatsWindow(this); return false;' accept-charset='UTF-8'>
                     <button type='submit'>" . _("Show Authentication Records") . "</button>
                 </form>";
-                if (new DateTime() < new DateTime($expiryDate)) {
+                if (new DateTime() < new DateTime($expiryDate)) { // current user, allow sending new token
                     ${$outputBuffer} .= $formtext . "
                     <input type='hidden' name='userid' value='$oneUserId'/>
                     <button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_NEWINVITATION . "'>" . _("New Invitation") . "</button>
                     <label>" . _("Activations:") . "
                         <input type='text' name='invitationsquantity' value='5' maxlength='3' style='width: 30px;'/>
                     </label>
+                    </form>";
+                } elseif (count($profile->getUserAuthRecords($oneUserId)) == 0) { // previous user; if there are NO authentication records, allow full deletion - otherwise, need to keep user trace for abuse handling
+                    ${$outputBuffer} .= $formtext . "
+                    <input type='hidden' name='userid' value='$oneUserId'/>
+                    <button type='submit' class='delete' name='command' value='" . \web\lib\common\FormElements::BUTTON_DELETE . "'>" . _("Delete User") . "</button>
                     </form>";
                 }
                 ${$outputBuffer} .= "</div>
@@ -592,14 +607,14 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
             <div class="tabbed" id="listusers">
                 <ul>
                     <li>
-                        <a href="#tabs-1"><?php echo _("Current Users");?></a>
+                        <a href="#tabs-1"><?php echo _("Current Users"); ?></a>
                     </li>
                     <li>
-                        <a href="#tabs-2"><?php echo _("Previous Users");?></a>
+                        <a href="#tabs-2"><?php echo _("Previous Users"); ?></a>
                     </li>
                 </ul>
-                <div id="tabs-1"><?php echo $bufferCurrentUsers;?></div>
-                <div id="tabs-2"><?php echo $bufferPreviousUsers;?></div>
+                <div id="tabs-1"><?php echo $bufferCurrentUsers; ?></div>
+                <div id="tabs-2"><?php echo $bufferPreviousUsers; ?></div>
             </div>
             <div style="padding: 20px;">
                 <?php
