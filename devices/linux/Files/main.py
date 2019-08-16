@@ -805,7 +805,7 @@ class CatNMConfigTool(object):
             props = dbus.Interface(proxy, "org.freedesktop.DBus.Properties")
             version = props.Get("org.freedesktop.NetworkManager", "Version")
         except dbus.exceptions.DBusException:
-            version = "0.8"
+            version = ""
         if re.match(r'^1\.', version):
             self.nm_version = "1.0"
             return
