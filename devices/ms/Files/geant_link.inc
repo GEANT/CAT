@@ -35,8 +35,16 @@ File "CredWrite.exe"
 nsArray::Set Delete_files "CredWrite.exe"
 File "MsiUseFeature.exe"
 nsArray::Set Delete_files "MsiUseFeature.exe"
-Call InstallGEANTLink
+
+!if "${NSIS_PACKEDVERSION}" > 0x3003000
+  ${If} ${AtMostWaaS} "Fall Creators Update"
+    Call InstallGEANTLink
+  ${EndIf}
+!else
+  Call InstallGEANTLink
+!endif
 SectionEnd
+
 ;TRANSLATION
 Section "<?php echo _("Installation of network profiles")?>" "<?php echo _("profiles")?>"
 SectionIn RO
