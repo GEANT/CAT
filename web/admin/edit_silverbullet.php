@@ -370,128 +370,135 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                 <strong><?php echo sprintf(_('Manage %s users'), \core\ProfileSilverbullet::PRODUCTNAME); ?></strong>
             </legend>
             <!-- table with actual user details ... -->
-            <table class='sb-user-table' style="max-width:1920px;">
-                <tr class="sb-title-row">
-                    <td><?php echo _("User"); ?></td>
-                    <td><?php echo _("Token/Certificate details"); ?></td>
-                    <td><?php echo _("User/Token Expiry"); ?></td>
-                    <td><?php echo _("Actions"); ?></td>
-                </tr>
-                <?php
-                natsort($allUsers);
-                $internalUserCount = 0;
-                foreach ($allUsers as $oneUserId => $oneUserName) {
-                    $userStatus = $profile->userStatus($oneUserId);
-                    $allCerts = [];
-                    $validCerts = [];
-                    $tokensWithoutCerts = [];
-                    foreach ($userStatus as $oneInvitationObject) {
-                        if (count($oneInvitationObject->associatedCertificates) == 0 || $oneInvitationObject->invitationTokenStatus == core\SilverbulletInvitation::SB_TOKENSTATUS_PARTIALLY_REDEEMED) {
-                            $tokensWithoutCerts[] = $oneInvitationObject;
-                        }
-                        $allCerts = array_merge($allCerts, $oneInvitationObject->associatedCertificates);
+            <?php
+            $bufferCurrentUsers = "<table class='sb-user-table' style='max-width:1920px;'>
+                <tr class='sb-title-row'>
+                    <td>" . _("User") . "</td>
+                    <td>" . _("Token/Certificate details") . "</td>
+                    <td>" . _("User/Token Expiry") . "</td>
+                    <td>" . _("Actions") . "</td>
+                </tr>";
+            $bufferPreviousUsers = "<table class='sb-user-table' style='max-width:1920px;'>
+                <tr class='sb-title-row'>
+                    <td>" . _("User") . "</td>
+                    <td>" . _("Certificate details") . "</td>
+                    <td>" . _("User Expiry") . "</td>
+                    <td>" . _("Actions") . "</td>
+                </tr>";
+
+            natsort($allUsers);
+            $internalUserCount = 0;
+            foreach ($allUsers as $oneUserId => $oneUserName) {
+                $expiryDate = $profile->getUserExpiryDate($oneUserId);
+                if (isset($activeUsers[$oneUserId]) || (new DateTime() < new DateTime($expiryDate)) ) {
+                    $outputBuffer = "bufferCurrentUsers";
+                } else {
+                    $outputBuffer = "bufferPreviousUsers";
+                }
+                $userStatus = $profile->userStatus($oneUserId);
+                $allCerts = [];
+                $validCerts = [];
+                $tokensWithoutCerts = [];
+                foreach ($userStatus as $oneInvitationObject) {
+                    if (count($oneInvitationObject->associatedCertificates) == 0 || $oneInvitationObject->invitationTokenStatus == core\SilverbulletInvitation::SB_TOKENSTATUS_PARTIALLY_REDEEMED) {
+                        $tokensWithoutCerts[] = $oneInvitationObject;
                     }
+                    $allCerts = array_merge($allCerts, $oneInvitationObject->associatedCertificates);
+                }
 
-                    // show all info about the user
-                    ?>
-                    <tr class='sb-user-row'>
-                        <td><?php echo $oneUserName; ?></td>
-                        <td>
-                            <!-- list of certificates for the user-->
-                            <?php
-                            // we need to translate the device id to readable device name
+                // show all info about the user
+                ${$outputBuffer} .= "<tr class='sb-user-row'>
+                    <td>$oneUserName</td>
+                    <td>";
+                // list of certificates for the user
+                // we need to translate the device id to readable device name
+                $textActiveCerts = "";
+                $textRevokedCerts = "";
+                $textExpiredCerts = "";
+                $countRevoked = 0;
+                $countExpired = 0;
 
-                            $textActiveCerts = "";
-                            $textRevokedCerts = "";
-                            $textExpiredCerts = "";
-                            $countRevoked = 0;
-                            $countExpired = 0;
+                foreach ($allCerts as $oneCert) {
+                    switch ($oneCert->status) {
+                        case core\SilverbulletCertificate::CERTSTATUS_REVOKED:
+                            $style = "style='background-color:#F0C0C0;' ";
+                            $buttonStyle = "height:22px; margin-top:7px; text-align:center;";
+                            $buttonText = _("REVOKED");
+                            break;
+                        case core\SilverbulletCertificate::CERTSTATUS_EXPIRED:
+                            $style = "style='background-color:lightgrey;'";
+                            $buttonStyle = "height:22px; margin-top:7px; text-align:center;";
+                            $buttonText = _("EXPIRED");
+                            break;
+                        default:
+                            $validCerts[] = $oneCert;
+                            $style = "";
+                            $buttonStyle = "";
+                            $buttonText = "";
+                    }
+                    $display = empty(devices\Devices::listDevices()[$oneCert->device]['display']) ? $oneCert->device : devices\Devices::listDevices()[$oneCert->device]['display'];
 
-                            foreach ($allCerts as $oneCert) {
-                                switch ($oneCert->status) {
-                                    case core\SilverbulletCertificate::CERTSTATUS_REVOKED:
-                                        $style = "style='background-color:#F0C0C0;' ";
-                                        $buttonStyle = "height:22px; margin-top:7px; text-align:center;";
-                                        $buttonText = _("REVOKED");
-                                        break;
-                                    case core\SilverbulletCertificate::CERTSTATUS_EXPIRED:
-                                        $style = "style='background-color:lightgrey;'";
-                                        $buttonStyle = "height:22px; margin-top:7px; text-align:center;";
-                                        $buttonText = _("EXPIRED");
-                                        break;
-                                    default:
-                                        $validCerts[] = $oneCert;
-                                        $style = "";
-                                        $buttonStyle = "";
-                                        $buttonText = "";
-                                }
-                                $display = empty(devices\Devices::listDevices()[$oneCert->device]['display']) ? $oneCert->device : devices\Devices::listDevices()[$oneCert->device]['display'];
-
-                                $bufferText = "<div class='sb-certificate-summary ca-summary' $style>
+                    $bufferText = "<div class='sb-certificate-summary ca-summary' $style>
                                     <div class='sb-certificate-details'>" . _("Device:") . " " . $display .
-                                        "<br>" . _("Serial Number:") . "&nbsp;" . dechex($oneCert->serial) .
-                                        "<br>" . _("CN:") . "&nbsp;" . explode('@', $oneCert->username)[0] . "@…" .
-                                        "<br>" . _("Expiry:") . "&nbsp;" . $oneCert->expiry .
-                                        "<br>" . _("Issued:") . "&nbsp;" . $oneCert->issued .
-                                        "</div>" .
-                                        "<div style='text-align:right;padding-top: 5px; $buttonStyle'>";
+                            "<br>" . _("Serial Number:") . "&nbsp;" . dechex($oneCert->serial) .
+                            "<br>" . _("CN:") . "&nbsp;" . explode('@', $oneCert->username)[0] . "@…" .
+                            "<br>" . _("Expiry:") . "&nbsp;" . $oneCert->expiry .
+                            "<br>" . _("Issued:") . "&nbsp;" . $oneCert->issued .
+                            "</div>" .
+                            "<div style='text-align:right;padding-top: 5px; $buttonStyle'>";
 
-                                if ($buttonText == "") {
-                                    $bufferText .= $formtext
-                                            . "<input type='hidden' name='certSerial' value='" . $oneCert->serial . "'/>"
-                                            . "<input type='hidden' name='certAlgo' value='" . $oneCert->ca_type . "'/>"
-                                            . "<button type='submit' "
-                                            . "name='command' "
-                                            . "value='" . \web\lib\common\FormElements::BUTTON_REVOKECREDENTIAL . "' "
-                                            . "class='delete' "
-                                            . "onclick='return confirm(\"" . sprintf(_("The device in question will stop functioning with %s. The revocation cannot be undone. Are you sure you want to do this?"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "\")'>"
-                                            . _("Revoke")
-                                            . "</button>"
-                                            . "</form>";
-                                } else {
-                                    $bufferText .= $buttonText;
-                                }
-                                $bufferText .= "</div></div>";
+                    if ($buttonText == "") {
+                        $bufferText .= $formtext
+                                . "<input type='hidden' name='certSerial' value='" . $oneCert->serial . "'/>"
+                                . "<input type='hidden' name='certAlgo' value='" . $oneCert->ca_type . "'/>"
+                                . "<button type='submit' "
+                                . "name='command' "
+                                . "value='" . \web\lib\common\FormElements::BUTTON_REVOKECREDENTIAL . "' "
+                                . "class='delete' "
+                                . "onclick='return confirm(\"" . sprintf(_("The device in question will stop functioning with %s. The revocation cannot be undone. Are you sure you want to do this?"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "\")'>"
+                                . _("Revoke")
+                                . "</button>"
+                                . "</form>";
+                    } else {
+                        $bufferText .= $buttonText;
+                    }
+                    $bufferText .= "</div></div>";
 
-                                // add to the respective category
-                                switch ($oneCert->status) {
-                                    case core\SilverbulletCertificate::CERTSTATUS_REVOKED:
-                                        $textRevokedCerts .= $bufferText;
-                                        $countRevoked += 1;
-                                        break;
-                                    case core\SilverbulletCertificate::CERTSTATUS_EXPIRED:
-                                        $textExpiredCerts .= $bufferText;
-                                        $countExpired += 1;
-                                        break;
-                                    default:
-                                        $textActiveCerts .= $bufferText;
-                                }
-                            }
-                            // wrap the revoked and expired certs in a div that is hidden by default
-                            if ($textRevokedCerts !== "") {
-                                $textRevokedCerts = "<span style='text-decoration: underline;' id='$oneUserId-revoked-heading' onclick='document.getElementById(\"$oneUserId-revoked-certs\").style.display = \"block\"; document.getElementById(\"$oneUserId-revoked-heading\").style.display = \"none\";'>" . sprintf(ngettext("(show %d revoked certificate)", "(show %d revoked certificates)", $countRevoked), $countRevoked) . "</span><div id='$oneUserId-revoked-certs' style='display:none;'>" . $textRevokedCerts . "</div>";
-                            }
-                            if ($textExpiredCerts !== "") {
-                                $textExpiredCerts = "<span style='text-decoration: underline;' id='$oneUserId-expired-heading' onclick='document.getElementById(\"$oneUserId-expired-certs\").style.display = \"block\"; document.getElementById(\"$oneUserId-expired-heading\").style.display = \"none\";'>" . sprintf(ngettext("(show %d expired certificate)", "(show %d expired certificates)", $countExpired), $countExpired) . "</span><div id='$oneUserId-expired-certs' style='display:none;'>" . $textExpiredCerts . "</div>";
-                            }
-                            // and push out the HTML
-                            echo $textActiveCerts . "<br/>" . $textExpiredCerts . " " . $textRevokedCerts;
-                            ?>
-                        </td>
-
-                        <?php
-                        $tokenHtmlBuffer = "";
-                        $hasOnePendingInvite = FALSE;
-                        foreach ($tokensWithoutCerts as $invitationObject) {
-                            switch ($invitationObject->invitationTokenStatus) {
-                                case core\SilverbulletInvitation::SB_TOKENSTATUS_VALID:
-                                case core\SilverbulletInvitation::SB_TOKENSTATUS_PARTIALLY_REDEEMED:
-                                    $hasOnePendingInvite = TRUE;
-                                    $tokenHtmlBuffer .= "<tr class='sb-certificate-row'><td></td>";
-                                    $jsEncodedBody = str_replace('\n', '%0D%0A', str_replace('"', '', json_encode($invitationObject->invitationMailBody())));
-                                    $tokenHtmlBuffer .= "<td>";
-                                    $tokenHtmlBuffer .= sprintf(_("The invitation token %s is ready for sending! Choose how to send it:"), "<input type='text' readonly='readonly' style='background-color:lightgrey;' size='60' value='" . $invitationObject->link() . "' name='token' class='identifiedtokenarea-" . $invitationObject->identifier . "'>(…)<br/>");
-                                    $tokenHtmlBuffer .= "<table>
+                    // add to the respective category
+                    switch ($oneCert->status) {
+                        case core\SilverbulletCertificate::CERTSTATUS_REVOKED:
+                            $textRevokedCerts .= $bufferText;
+                            $countRevoked += 1;
+                            break;
+                        case core\SilverbulletCertificate::CERTSTATUS_EXPIRED:
+                            $textExpiredCerts .= $bufferText;
+                            $countExpired += 1;
+                            break;
+                        default:
+                            $textActiveCerts .= $bufferText;
+                    }
+                }
+                // wrap the revoked and expired certs in a div that is hidden by default
+                if ($textRevokedCerts !== "") {
+                    $textRevokedCerts = "<span style='text-decoration: underline;' id='$oneUserId-revoked-heading' onclick='document.getElementById(\"$oneUserId-revoked-certs\").style.display = \"block\"; document.getElementById(\"$oneUserId-revoked-heading\").style.display = \"none\";'>" . sprintf(ngettext("(show %d revoked certificate)", "(show %d revoked certificates)", $countRevoked), $countRevoked) . "</span><div id='$oneUserId-revoked-certs' style='display:none;'>" . $textRevokedCerts . "</div>";
+                }
+                if ($textExpiredCerts !== "") {
+                    $textExpiredCerts = "<span style='text-decoration: underline;' id='$oneUserId-expired-heading' onclick='document.getElementById(\"$oneUserId-expired-certs\").style.display = \"block\"; document.getElementById(\"$oneUserId-expired-heading\").style.display = \"none\";'>" . sprintf(ngettext("(show %d expired certificate)", "(show %d expired certificates)", $countExpired), $countExpired) . "</span><div id='$oneUserId-expired-certs' style='display:none;'>" . $textExpiredCerts . "</div>";
+                }
+                // and push out the HTML
+                ${$outputBuffer} .= $textActiveCerts . "<br/>" . $textExpiredCerts . " " . $textRevokedCerts . "</td>";
+                $tokenHtmlBuffer = "";
+                $hasOnePendingInvite = FALSE;
+                foreach ($tokensWithoutCerts as $invitationObject) {
+                    switch ($invitationObject->invitationTokenStatus) {
+                        case core\SilverbulletInvitation::SB_TOKENSTATUS_VALID:
+                        case core\SilverbulletInvitation::SB_TOKENSTATUS_PARTIALLY_REDEEMED:
+                            $hasOnePendingInvite = TRUE;
+                            $tokenHtmlBuffer .= "<tr class='sb-certificate-row'><td></td>";
+                            $jsEncodedBody = str_replace('\n', '%0D%0A', str_replace('"', '', json_encode($invitationObject->invitationMailBody())));
+                            $tokenHtmlBuffer .= "<td>";
+                            $tokenHtmlBuffer .= sprintf(_("The invitation token %s is ready for sending! Choose how to send it:"), "<input type='text' readonly='readonly' style='background-color:lightgrey;' size='60' value='" . $invitationObject->link() . "' name='token' class='identifiedtokenarea-" . $invitationObject->identifier . "'>(…)<br/>");
+                            $tokenHtmlBuffer .= "<table>
                                     <tr><td style='vertical-align:bottom;'>" . _("E-Mail:") . "</td><td>
                                     $formtext
                                 <input type='hidden' value='" . $invitationObject->invitationTokenString . "' name='token'><br/>
@@ -517,86 +524,76 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                                         
                                 </table>
                                 </td>";
-                                    $tokenHtmlBuffer .= "<td>" . _("Expiry Date:") . " " . $invitationObject->expiry . " UTC<br>" . _("Activations remaining:") . " " . sprintf(_("%d of %d"), $invitationObject->activationsRemaining, $invitationObject->activationsTotal) . "</td>";
-                                    $tokenHtmlBuffer .= "<td>"
-                                            . $formtext
-                                            . "<input type='hidden' name='invitationtoken' value='" . $invitationObject->invitationTokenString . "'/>"
-                                            . "<button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_REVOKEINVITATION . "' class='delete'>" . _("Revoke") . "</button></form>"
-                                            . "</td></tr>";
-                                    break;
-                                case core\SilverbulletInvitation::SB_TOKENSTATUS_EXPIRED:
-                                case core\SilverbulletInvitation::SB_TOKENSTATUS_REDEEMED:
-                                    break;
-                                default: // ??? INVALID - not possible
-                                    $tokenHtmlBuffer .= "<td>INTERNAL ERROR - token state is INVALID?</td>";
-                                    $tokenHtmlBuffer .= "<td></td>";
-                                    $tokenHtmlBuffer .= "<td></td>";
-                            }
+                            $tokenHtmlBuffer .= "<td>" . _("Expiry Date:") . " " . $invitationObject->expiry . " UTC<br>" . _("Activations remaining:") . " " . sprintf(_("%d of %d"), $invitationObject->activationsRemaining, $invitationObject->activationsTotal) . "</td>";
+                            $tokenHtmlBuffer .= "<td>"
+                                    . $formtext
+                                    . "<input type='hidden' name='invitationtoken' value='" . $invitationObject->invitationTokenString . "'/>"
+                                    . "<button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_REVOKEINVITATION . "' class='delete'>" . _("Revoke") . "</button></form>"
+                                    . "</td></tr>";
+                            break;
+                        case core\SilverbulletInvitation::SB_TOKENSTATUS_EXPIRED:
+                        case core\SilverbulletInvitation::SB_TOKENSTATUS_REDEEMED:
+                            break;
+                        default: // ??? INVALID - not possible
+                            $tokenHtmlBuffer .= "<td>INTERNAL ERROR - token state is INVALID?</td>";
+                            $tokenHtmlBuffer .= "<td></td>";
+                            $tokenHtmlBuffer .= "<td></td>";
+                    }
 
-                            $internalUserCount++;
-                        }
-                        ?>
+                    $internalUserCount++;
+                }
+                ${$outputBuffer} .= "<td>$formtext
+                    <div class='sb-date-container' style='min-width: 200px;'>
+                        <span><input type='text' maxlength='19' class='sb-date-picker' name='userexpiry' value='" . $profile->getUserExpiryDate($oneUserId) . "'>&nbsp;(UTC)</span>
+                    </div>
+                    <input type='hidden' name='userid' value='$oneUserId'/>
+                    <button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_CHANGEUSEREXPIRY . "'>" . _("Update") . "</button>
+                    </form>
+                </td>
+                <td>
+                    <div class='sb-user-buttons'>";
 
-                        <td>
-                            <?php echo $formtext; ?>
-                            <div class="sb-date-container" style='min-width: 200px;'>
-                                <span><input type="text" maxlength="19" class="sb-date-picker" name="userexpiry" value="<?php echo $profile->getUserExpiryDate($oneUserId); ?>">&nbsp;(UTC)</span>
-                            </div>
-                            <input type="hidden" name="userid" value="<?php echo $oneUserId; ?>"/>
-                            <button type="submit" name="command" value="<?php echo \web\lib\common\FormElements::BUTTON_CHANGEUSEREXPIRY ?>"><?php echo _("Update"); ?></button>
-                            </form>
-                        </td>
-                        <td>
-                            <div class="sb-user-buttons">
-                                <?php
-                                if ($hasOnePendingInvite || count($validCerts) > 0) {
-                                    $deletionText = sprintf(_("All of the currently active devices will stop functioning with %s. This cannot be undone. While the user can be re-activated later, they will then need to be re-provisioned with new invitation tokens. Are you sure you want to do this?"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
-                                    echo $formtext . "
+                if ($hasOnePendingInvite || count($validCerts) > 0) {
+                    $deletionText = sprintf(_("All of the currently active devices will stop functioning with %s. This cannot be undone. While the user can be re-activated later, they will then need to be re-provisioned with new invitation tokens. Are you sure you want to do this?"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+                    ${$outputBuffer} .= $formtext . "
                                     <input type='hidden' name='userid' value='$oneUserId'/>
                                     <button type='submit' "
-                                    . "name='command' "
-                                    . "value='" . \web\lib\common\FormElements::BUTTON_DEACTIVATEUSER . "' "
-                                    . "class='delete' "
-                                    . ( count($validCerts) > 0 ? "onclick='return confirm(\"" . $deletionText . "\")' " : "" )
-                                    . ">"
-                                    . _("Deactivate User")
-                                    . "</button>
+                            . "name='command' "
+                            . "value='" . \web\lib\common\FormElements::BUTTON_DEACTIVATEUSER . "' "
+                            . "class='delete' "
+                            . ( count($validCerts) > 0 ? "onclick='return confirm(\"" . $deletionText . "\")' " : "" )
+                            . ">"
+                            . _("Deactivate User")
+                            . "</button>
                                 </form>";
-                                }
-                                $expiryDate = $profile->getUserExpiryDate($oneUserId);
-                                
-                                ?>
-                                <form method='post' action='inc/userStats.inc.php?inst_id=<?php echo $profile->institution;?>&profile_id=<?php echo $profile->identifier;?>&user_id=<?php echo $oneUserId ?>' onsubmit='popupStatsWindow(this); return false;' accept-charset='UTF-8'>
-                                      <button type='submit'>
-                    <?php echo _("Show Authentication Records");?>
-                                      </button>
-                                  </form>
-                                <?php
-                                if (new DateTime() < new DateTime($expiryDate)) {
-                                    echo $formtext;
-                                    ?>
-                                    <input type='hidden' name='userid' value='<?php echo $oneUserId ?>'/>
-                                    <button type='submit' name='command' value='<?php echo \web\lib\common\FormElements::BUTTON_NEWINVITATION ?>'><?php echo _("New Invitation"); ?></button>
-
-                                    <label>
-                                        <?php echo _("Activations:"); ?>
-                                        <input type="text" name="invitationsquantity" value="1" maxlength="3" style="width: 30px;"/>
-                                    </label>
-                                    </form>
-                                    <?php
-                                }
-                                ?>
-                            </div>
-                        </td>
-                    </tr>
-                    <!-- one tr for each invitation -->
-                    <?php
-                    echo $tokenHtmlBuffer;
                 }
-                ?>
-
-            </table>
+                ${$outputBuffer} .= "<form method='post' action='inc/userStats.inc.php?inst_id=" . $profile->institution . "&profile_id=" . $profile->identifier . "&user_id=$oneUserId' onsubmit='popupStatsWindow(this); return false;' accept-charset='UTF-8'>
+                    <button type='submit'>" . _("Show Authentication Records") . "</button>
+                </form>";
+                if (new DateTime() < new DateTime($expiryDate)) {
+                    ${$outputBuffer} .= $formtext . "
+                    <input type='hidden' name='userid' value='$oneUserId'/>
+                    <button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_NEWINVITATION . "'>" . _("New Invitation") . "</button>
+                    <label>" . _("Activations:") . "
+                        <input type='text' name='invitationsquantity' value='5' maxlength='3' style='width: 30px;'/>
+                    </label>
+                    </form>";
+                }
+                ${$outputBuffer} .= "</div>
+    </td>
+    </tr>
+    <!-- one tr for each invitation -->
+    $tokenHtmlBuffer";
+            }
+            $bufferCurrentUsers .= "</table>";
+            $bufferPreviousUsers .= "</table>";
+            ?>
             <!-- ... ends here -->
+            <h2><?php echo _("Current Users");?></h2>
+            <?php echo $bufferCurrentUsers;?>
+            <h2><?php echo _("Previous Users");?></h2>
+            <?php echo $bufferPreviousUsers;?>
+            
             <div style="padding: 20px;">
                 <?php
                 if (count($allUsers) > 0 && false) { // false because this restriction is currently not in effect and thus no UI is needed for it.
