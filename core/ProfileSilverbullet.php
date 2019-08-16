@@ -249,9 +249,6 @@ class ProfileSilverbullet extends AbstractProfile {
                 $certNames[] = $oneCert->username;
             }
         }
-        // for testing only: some names which are in the prod database
-        // $certNames[] = "wje6ai8d23uiqk27b2wxhle25rwadmxijr6p@10-10.lu.hosted.eduroam.org";
-        // $certNames[] = "gnvuknrh5h33bxu4mj2rpwihfi3slfy8gfuz@10-10.lu.hosted.eduroam.org";
         if (empty($certNames)) {
             return [];
         }
@@ -314,7 +311,7 @@ class ProfileSilverbullet extends AbstractProfile {
                 . ")", "i", $this->identifier);
         // SELECT -> resource, not boolean
         while ($res = mysqli_fetch_object(/** @scrutinizer ignore-type */ $users)) {
-            $userCount[] = $res->usercount;
+            $userCount[$res->usercount] = "ACTIVE";
         }
         return $userCount;
     }
