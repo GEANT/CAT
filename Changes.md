@@ -19,6 +19,13 @@ Changes in 2.0.2
                 correct result set, not additional garbage afterwards
 - [BUGFIX  #4]  mailto: links are now created correctly on main download page
 
+- BEHAVIOUR CHANGE: GEANTlink becomes the non-default on every platform (except
+                    W7 where it is required for TTLS support). Those who have
+                    explicitly enabled GEANTLink in W8 will also get it enabled 
+                    on W10 during release DB conversion. It is still possible to
+                    steer the inclusion per-platform with the fine-tuning 
+                    settings later on.
+
 Configuration parameter changes
 -------------------------------
 - CONFIG_CONFASSISTANT['DB'] list with DB access details to silverbullet RADIUS
