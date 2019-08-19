@@ -221,7 +221,7 @@ class Messages(object):
     enter_import_password = "enter your import password"
     incorrect_password = "incorrect password"
     repeat_password = "repeat your password"
-    passwords_difffer = "passwords do not match"
+    passwords_differ = "passwords do not match"
     installation_finished = "Installation successful"
     cat_dir_exists = "Directory {} exists; some of its files may be " \
         "overwritten."
@@ -480,7 +480,7 @@ class InstallerData(object):
             password1 = self.prompt_nonempty_string(
                 0, Messages.repeat_password)
             if password != password1:
-                self.alert(Messages.passwords_difffer)
+                self.alert(Messages.passwords_differ)
         self.password = password
 
     def __get_graphics_support(self):
@@ -805,7 +805,7 @@ class CatNMConfigTool(object):
             props = dbus.Interface(proxy, "org.freedesktop.DBus.Properties")
             version = props.Get("org.freedesktop.NetworkManager", "Version")
         except dbus.exceptions.DBusException:
-            version = "0.8"
+            version = ""
         if re.match(r'^1\.', version):
             self.nm_version = "1.0"
             return
