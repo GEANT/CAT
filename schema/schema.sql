@@ -172,7 +172,6 @@ INSERT INTO `profile_option_dict` VALUES
 ('device-specific:redirect','URL to redirect the user to when he selects this device','string','ML'),
 ('eap-specific:customtext','extra text to be displayed to the user when downloading an installer for this EAP type','text','ML'),
 ('device-specific:geantlink','Use GEANTlink TTLS supplicant for W8', 'boolean',NULL),
-('device-specific:builtin_ttls','Use builtin TTLS supplicant for Windows 10', 'boolean',NULL),
 ('eap-specific:tls_use_other_id','use different user name','boolean',NULL),
 ('eap:ca_file','certificate of the CA signing the RADIUS server key','file',NULL),
 ('eap:server_name','name of authorized RADIUS server','string',NULL),
