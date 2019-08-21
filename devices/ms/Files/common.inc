@@ -74,6 +74,7 @@ Var W7
 Var WindowsVer
 Var WindowsName
 Var WindowsBuild
+Var NoFCupdate
 Var Symantec_installed
 Var wireless_result
 Var wired
@@ -545,6 +546,16 @@ Function wVersionCheck
   Pop $WindowsVer
   ${WinVerGetBuild} $WindowsBuild
   !insertmacro debug_cat 3 "Detected $WindowsName:$WindowsVer"
+  Push 1
+  Pop $NoFCupdate
+  ${If} ${AtLeastWin10}
+    !if "${NSIS_PACKEDVERSION}" > 0x3003000
+        ${If} ${AtMostWaaS} "Fall Creators Update"
+           Push 1
+           Pop $NoFCupdate
+        ${EndIf}
+    !endif
+  ${EndIf}
   ${If} ${IsWinVista}
      ${If} ${AtLeastServicePack} 1
         Push 0
@@ -557,6 +568,16 @@ Function wVersionCheck
   Pop $VistaNoSP
 
 !ifdef W10
+; for native TTLS only - if the system has not been updated to have the working native supplicant - warn the user
+; This will only work correctly for NSIS 3.04 and newer.
+    !ifdef TTLS
+        ${If} $NoFCupdate == 1
+            IfSilent +3
+            MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION  "<?php WindowsCommon::echo_nsi(_("Your Windows 10 has not been updated which means that you are likely to have problems accessing network. We suggest that you quit this installation, update your Windows and try again"))?>" IDOK cont1
+            Call Cleanup
+            ${EndIf}
+            cont1:
+    !endif
   ${If} ${AtMostWin8.1}
     IfSilent +2
     MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php WindowsCommon::echo_nsi(_("You are running Windows \$WindowsName but this installer is only for Windows 10 and newer. Please download the correct installer and try again."))?>"

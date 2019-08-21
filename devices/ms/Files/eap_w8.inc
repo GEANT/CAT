@@ -17,6 +17,7 @@
 ; * License: see the web/copyright.inc.php file in the file structure or
 ; *          <base_url>/copyright.php after deploying the software
 ; */
+; Used for W8 and newer and EAP methods - TLS, PEAP and native Windows TTLS 
 
 !include "common.nsh"
 ;===========================
