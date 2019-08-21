@@ -35,14 +35,7 @@ File "CredWrite.exe"
 nsArray::Set Delete_files "CredWrite.exe"
 File "MsiUseFeature.exe"
 nsArray::Set Delete_files "MsiUseFeature.exe"
-
-!if "${NSIS_PACKEDVERSION}" > 0x3003000
-  ${If} ${AtMostWaaS} "Fall Creators Update"
-    Call InstallGEANTLink
-  ${EndIf}
-!else
-  Call InstallGEANTLink
-!endif
+Call InstallGEANTLink
 SectionEnd
 
 ;TRANSLATION
