@@ -380,6 +380,9 @@ use \Exception;
         return('<ConfigBlob></ConfigBlob>');
     }
 
+    /**
+     * Set the GEANTLink usage flag based on device settings
+     */
     private function setGeantLink() {
         if (\core\common\Entity::getAttributeValue($this->attributes, 'device-specific:geantlink', 0) === 'on') {
             $this->useGeantLink = TRUE;
