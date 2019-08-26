@@ -220,14 +220,6 @@ abstract class WindowsCommon extends \core\DeviceConfig {
     }
 
     /**
-     * constructor. Figures out if GEANTlink is needed/wanted
-     */
-    public function __construct() {
-        parent::__construct();
-        $this->useGeantLink = (isset($this->options['args']) && $this->options['args'] == 'gl') ? 1 : 0;
-    }
-
-    /**
      * determine Windows codepage and language settings based on requested installer language
      * 
      * @return void
@@ -590,7 +582,7 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
     ];
     public $codePage;
     public $lang;
-    public $useGeantLink;
+    public $useGeantLink = FALSE;
     private $background;
 
 }

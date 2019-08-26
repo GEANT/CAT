@@ -36,7 +36,7 @@ $dbInstance = \core\DBConnection::handle('INST');
 $affectedPayloads = $dbInstance->exec("SELECT profile_id,option_value FROM profile_option WHERE option_name = 'device-specific:geantlink'");
 // SELECT -> returns resource, not a boolean
 while ($oneAffectedPayload = mysqli_fetch_object(/** @scrutinizer ignore-type */ $affectedPayloads)) {
-    $rewrittenPayload = $dbInstance->exec("INSERT IGNORE INTO profile_option (profile_id, option_name, option_value, device_id) VALUES ($oneAffectedPayload->profile_id, 'device-specific:geantlink', '$oneAffectedPayload->option_value', 'w10' ");
+    $rewrittenPayload = $dbInstance->exec("INSERT IGNORE INTO profile_option (profile_id, option_name, option_value, device_id) VALUES ($oneAffectedPayload->profile_id, 'device-specific:geantlink', '$oneAffectedPayload->option_value', 'w10')");
     if ($rewrittenPayload !== FALSE) {
         echo "[ OK ] Added GeantLink for W10 in profile $oneAffectedPayload->profile_id.";
         continue;
