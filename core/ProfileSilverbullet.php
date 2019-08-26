@@ -105,18 +105,20 @@ class ProfileSilverbullet extends AbstractProfile {
             "profile:production" => "on",
         ];
 
-// and we need to populate eap:server_name and eap:ca_file with the NRO-specific EAP information
+        // and we need to populate eap:server_name and eap:ca_file with the NRO-specific EAP information
         $silverbulletAttributes = [
             "eap:server_name" => "auth." . strtolower($myFed->tld) . CONFIG_CONFASSISTANT['SILVERBULLET']['server_suffix'],
         ];
+        $temp = array_merge($this->addInternalAttributes($internalAttributes), $this->addInternalAttributes($silverbulletAttributes));
         $x509 = new \core\common\X509();
         $caHandle = fopen(dirname(__FILE__) . "/../config/SilverbulletServerCerts/" . strtoupper($myFed->tld) . "/root.pem", "r");
         if ($caHandle !== FALSE) {
             $cAFile = fread($caHandle, 16000000);
-            $silverbulletAttributes["eap:ca_file"] = $x509->der2pem(($x509->pem2der($cAFile)));
+            foreach ($x509->splitCertificate($cAFile) as $oneCa) {
+                $temp = array_merge($temp, $this->addInternalAttributes(['eap:ca_file' => $oneCa]));
+            }
         }
 
-        $temp = array_merge($this->addInternalAttributes($internalAttributes), $this->addInternalAttributes($silverbulletAttributes));
         $tempArrayProfLevel = array_merge($this->addDatabaseAttributes(), $temp);
 
 // now, fetch and merge IdP-wide attributes
@@ -389,8 +391,8 @@ class ProfileSilverbullet extends AbstractProfile {
         // delete user record itself
         $userQuery = "DELETE FROM silverbullet_user WHERE profile_id = $this->identifier AND id = ?";
         $this->databaseHandle->exec($userQuery, "i", $userId);
-        
     }
+
     /**
      * updates the last_ack for all users (invoked when the admin claims to have re-verified continued eligibility of all users)
      * 
