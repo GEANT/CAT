@@ -96,6 +96,19 @@ abstract class DeviceConfig extends \core\common\Entity {
         parent::__construct();
     }
 
+    /**
+     * given one or more server name strings, calculate the suffix that is common
+     * to all of them
+     * 
+     * Examples:
+     * 
+     * ["host.somewhere.com", "gost.somewhere.com"] => "ost.somewhere.com"
+     * ["my.server.name"] => "my.server.name"
+     * ["foo.bar.de", "baz.bar.ge"] => "e"
+     * ["server1.example.com", "server2.example.com", "serverN.example.com"] => ".example.com"
+
+     * @return string
+     */
     public function longestNameSuffix() {
         // for all configured server names, find the string that is the longest
         // suffix to all of them
@@ -107,7 +120,6 @@ abstract class DeviceConfig extends \core\common\Entity {
         // position, too
         while ($mismatchFound === FALSE) {
             if ($longestSuffix == $this->attributes["eap:server_name"][0]) {
-                $mismatchFound = TRUE;
                 break;
             }
             $candidate = substr($this->attributes["eap:server_name"][0], -(strlen($longestSuffix) + 1), 1);
