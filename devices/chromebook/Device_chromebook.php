@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -239,6 +240,10 @@ class Device_Chromebook extends \core\DeviceConfig {
         $eaparray["SaveCredentials"] = true;
         $eaparray["ServerCARefs"] = $caRefs; // maybe takes just one CA?
         $eaparray["UseSystemCAs"] = false;
+        // we can only set one single string, which has to be "contained" in the
+        // actual incoming server name. This is less secure than wpa_supplicant's
+        // altSubjectMatch but it is all we have.
+        $eaparray["SubjectMatch"] = $this->longestNameSuffix();
 
         if ($outerId !== NULL) {
             $eaparray["AnonymousIdentity"] = $outerId;

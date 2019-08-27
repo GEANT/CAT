@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -73,7 +74,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @var array EAP methods
      */
     public $supportedEapMethods;
-    
+
     /**
      * sets the supported EAP methods for a device
      * 
@@ -93,6 +94,32 @@ abstract class DeviceConfig extends \core\common\Entity {
      */
     public function __construct() {
         parent::__construct();
+    }
+
+    public function longestNameSuffix() {
+        // for all configured server names, find the string that is the longest
+        // suffix to all of them
+        $longestSuffix = "";
+        $numStrings = count($this->attributes["eap:server_name"]);
+        $mismatchFound = FALSE;
+        // always take the candidate character from the first array element, and
+        // verify whether the other elements have that character in the same 
+        // position, too
+        while ($mismatchFound === FALSE) {
+            if ($longestSuffix == $this->attributes["eap:server_name"][0]) {
+                $mismatchFound = TRUE;
+                break;
+            }
+            $candidate = substr($this->attributes["eap:server_name"][0], -(strlen($longestSuffix) + 1), 1);
+            for ($iterator = 1; $iterator < $numStrings; $iterator++) {
+                if (substr($this->attributes["eap:server_name"][$iterator], -(strlen($longestSuffix) + 1), 1) != $candidate) {
+                    $mismatchFound = TRUE;
+                    continue 2;
+                }
+            }
+            $longestSuffix = $candidate . $longestSuffix;
+        }
+        return $longestSuffix;
     }
 
     /**
@@ -165,13 +192,13 @@ abstract class DeviceConfig extends \core\common\Entity {
             }
             $this->attributes['internal:CAs'][0] = $caList;
         }
-        
+
         if (isset($this->attributes['support:info_file'])) {
             $this->attributes['internal:info_file'][0] = $this->saveInfoFile($this->attributes['support:info_file'][0]);
         }
         if (isset($this->attributes['general:logo_file'])) {
             $this->loggerInstance->debug(5, "saving IDP logo\n");
-            $this->attributes['internal:logo_file'] = $this->saveLogoFile($this->attributes['general:logo_file'],'idp');
+            $this->attributes['internal:logo_file'] = $this->saveLogoFile($this->attributes['general:logo_file'], 'idp');
         }
         if (isset($this->attributes['fed:logo_file'])) {
             $this->loggerInstance->debug(5, "saving FED logo\n");
@@ -182,7 +209,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         $this->attributes['internal:remove_SSID'] = $this->getSSIDs()['del'];
 
         $this->attributes['internal:consortia'] = $this->getConsortia();
-        
+
         $this->support_email_substitute = sprintf(_("your local %s support"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $this->support_url_substitute = sprintf(_("your local %s support page"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
 
@@ -224,7 +251,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         common\Entity::outOfThePotatoes();
         return $retval;
     }
-    
+
     /**
      * function to return exactly one attribute type
      * 
@@ -297,7 +324,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * 
      * @param string $format only "der" and "pem" are currently allowed
      * @return array an array of arrays or empty array on error
-     
+
      */
     final protected function saveCertificateFiles($format) {
         switch ($format) {
@@ -339,7 +366,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * set of characters to remove from filename strings
      */
     private const TRANSLIT_SCRUB = '/[ ()\/\'"]+/';
-    
+
     /**
      * Does a transliteration from UTF-8 to ASCII to get a sane filename
      * Takes special characters into account, and always uses English CTYPE
@@ -355,7 +382,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         setlocale(LC_CTYPE, $oldlocale);
         return $retval;
     }
-    
+
     /**
      * Generate installer filename base.
      * Device module should use this name adding an extension.
@@ -366,9 +393,9 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @return string
      */
     private function getInstallerBasename() {
-        
+
         $baseName = $this->customTranslit(CONFIG_CONFASSISTANT['CONSORTIUM']['name']) . "-" . $this->getDeviceId();
-        if (isset($this->attributes['profile:customsuffix'][1])) { 
+        if (isset($this->attributes['profile:customsuffix'][1])) {
             // this string will end up as a filename on a filesystem, so always
             // take a latin-based language variant if available
             // and then scrub non-ASCII just in case
@@ -463,13 +490,13 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @return array
      */
     private function getConsortia() {
-        if(!isset(CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi'])) {
+        if (!isset(CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi'])) {
             return ([]);
         }
         $consortia = CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi'];
         if (isset($this->attributes['media:consortium_OI'])) {
             foreach ($this->attributes['media:consortium_OI'] as $new_oi) {
-                if(!in_array($new_oi, $consortia)) {
+                if (!in_array($new_oi, $consortia)) {
                     $consortia[] = $new_oi;
                 }
             }
@@ -495,7 +522,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @return array list of filenames and the mime types
      * @throws Exception
      */
-    private function saveLogoFile($logos,$type) {
+    private function saveLogoFile($logos, $type) {
         $iterator = 0;
         $returnarray = [];
         foreach ($logos as $blob) {
