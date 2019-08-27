@@ -243,7 +243,9 @@ class Device_Chromebook extends \core\DeviceConfig {
         // we can only set one single string, which has to be "contained" in the
         // actual incoming server name. This is less secure than wpa_supplicant's
         // altSubjectMatch but it is all we have.
-        $eaparray["SubjectMatch"] = $this->longestNameSuffix();
+        if ($this->longestNameSuffix() !== "") {
+            $eaparray["SubjectMatch"] = $this->longestNameSuffix();
+        }
 
         if ($outerId !== NULL) {
             $eaparray["AnonymousIdentity"] = $outerId;
