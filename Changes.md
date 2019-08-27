@@ -11,6 +11,9 @@ Changes in 2.0.2
                 hide the latter behind a non-default tab to reduce clutter
 - [FEATURE #7]  allow actual *deletion* of a silverbullet user if he has expired
                 and we do not have any authentication records of him (any more)
+- [FEATURE #8]  ChromeOS installers can now also pin the server name, not just
+                the CA (one string only though, not a list of names; lists will
+                be condensed into a common suffix)
 - [BUGFIX  #1]  language was not correctly applied in parts of the admin area
                 and Windows installers
 - [BUGFIX  #2]  provide Roaming Consortium OI in uppercase hex letters for the
