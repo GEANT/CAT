@@ -114,19 +114,17 @@ abstract class DeviceConfig extends \core\common\Entity {
         // suffix to all of them
         $longestSuffix = "";
         $numStrings = count($this->attributes["eap:server_name"]);
-        $mismatchFound = FALSE;
         // always take the candidate character from the first array element, and
         // verify whether the other elements have that character in the same 
         // position, too
-        while ($mismatchFound === FALSE) {
+        while (TRUE) {
             if ($longestSuffix == $this->attributes["eap:server_name"][0]) {
                 break;
             }
             $candidate = substr($this->attributes["eap:server_name"][0], -(strlen($longestSuffix) + 1), 1);
             for ($iterator = 1; $iterator < $numStrings; $iterator++) {
                 if (substr($this->attributes["eap:server_name"][$iterator], -(strlen($longestSuffix) + 1), 1) != $candidate) {
-                    $mismatchFound = TRUE;
-                    continue 2;
+                    break 2;
                 }
             }
             $longestSuffix = $candidate . $longestSuffix;
