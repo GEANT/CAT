@@ -113,7 +113,13 @@ abstract class DeviceConfig extends \core\common\Entity {
         // for all configured server names, find the string that is the longest
         // suffix to all of them
         $longestSuffix = "";
+        if (!isset($this->attributes["eap:server_name"])) {
+            return "";
+        }
         $numStrings = count($this->attributes["eap:server_name"]);
+        if ($numStrings == 0) {
+            return "";
+        }
         // always take the candidate character from the first array element, and
         // verify whether the other elements have that character in the same 
         // position, too
