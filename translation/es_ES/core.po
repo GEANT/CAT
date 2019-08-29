@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-18 08:14+0200\n"
-"PO-Revision-Date: 2019-04-04 09:56+0000\n"
-"Last-Translator: José Manuel Macías\n"
+"POT-Creation-Date: 2019-08-29 15:07+0200\n"
+"PO-Revision-Date: 2019-04-29 13:33+0000\n"
+"Last-Translator: Alberto Martínez Setién\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/es_ES/)\n"
 "Language: es_ES\n"
@@ -24,7 +24,7 @@ msgstr ""
 #: core/CAT.php:109
 #, php-format
 msgid "Unreleased %s Git Revision"
-msgstr ""
+msgstr "Revisión Git %s sin publicar"
 
 #: core/CAT.php:119
 #, php-format
@@ -291,17 +291,17 @@ msgstr "Sudáfrica"
 msgid "Unnamed Entity"
 msgstr "Entidad sin nombre"
 
-#: core/DeviceConfig.php:186
+#: core/DeviceConfig.php:229
 #, php-format
 msgid "your local %s support"
 msgstr "tu soporte local %s"
 
-#: core/DeviceConfig.php:187
+#: core/DeviceConfig.php:230
 #, php-format
 msgid "your local %s support page"
 msgstr "la página de soporte local de %s"
 
-#: core/DeviceConfig.php:223
+#: core/DeviceConfig.php:266
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 "Lo siento, ésto no debería ocurrir. No hay información adicional disponible"
@@ -318,7 +318,7 @@ msgstr "%s (descontinuado)"
 #. /                4. federation shortname, e.g. "LU";
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:252
+#: core/Federation.php:256
 #, php-format
 msgid ""
 "Hi,\n"
@@ -343,7 +343,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/Federation.php:261
+#: core/Federation.php:265
 #, php-format
 msgid "%s in your federation was created"
 msgstr "El %s de tu federación fue creado"
@@ -376,16 +376,16 @@ msgstr ""
 msgid "%s in your federation was deleted"
 msgstr "El %s de tu federación fue eliminado"
 
-#: core/SilverbulletInvitation.php:230
+#: core/SilverbulletInvitation.php:236
 #, php-format
 msgid "Your %s access is ready"
 msgstr "Tu acceso a %s está listo"
 
-#: core/SilverbulletInvitation.php:242
+#: core/SilverbulletInvitation.php:248
 msgid "Hello!"
 msgstr "¡Hola!"
 
-#: core/SilverbulletInvitation.php:244
+#: core/SilverbulletInvitation.php:250
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
@@ -394,7 +394,7 @@ msgstr ""
 "Tu administrador de red ha creado una nueva credencial de acceso a %s para "
 "tí. "
 
-#: core/SilverbulletInvitation.php:246
+#: core/SilverbulletInvitation.php:252
 #, php-format
 msgid ""
 "Please follow the following link with the device you want to enable for %s "
@@ -407,7 +407,7 @@ msgstr ""
 "un navegador o escanear el código QR adjunto."
 
 #. gets replaced with the token value by getBody()
-#: core/SilverbulletInvitation.php:248
+#: core/SilverbulletInvitation.php:254
 #, php-format
 msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
@@ -418,11 +418,11 @@ msgstr ""
 "el futuro. Después de descargar tu programa de instalación de %s puedes usar "
 "el mismo enlace para obtener información del estado de tu cuenta de %s."
 
-#: core/SilverbulletInvitation.php:250
+#: core/SilverbulletInvitation.php:256
 msgid "Regards,"
 msgstr "Saludos,"
 
-#: core/SilverbulletInvitation.php:299
+#: core/SilverbulletInvitation.php:305
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
@@ -431,7 +431,7 @@ msgstr ""
 "Tu acceso a %s está preparado. Haz clic aquí: %s (en Android instala la "
 "aplicación \"%s\" antes de esto)"
 
-#: core/SilverbulletInvitation.php:321
+#: core/SilverbulletInvitation.php:327
 #, php-format
 msgid "%s Invitation System"
 msgstr "Sistema de invitación de %s"
@@ -617,10 +617,3 @@ msgstr "¡El dominio contiene espacios!"
 #: web/lib/common/InputValidation.php:241
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "¡El dominio no contiene al menos un . (punto)!"
-
-#~ msgid ""
-#~ "Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes."
-#~ "md'>Git Revision</a>"
-#~ msgstr ""
-#~ "<a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Revisión "
-#~ "Git</a> sin publicar"

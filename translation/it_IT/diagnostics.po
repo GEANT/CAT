@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-18 08:14+0200\n"
+"POT-Creation-Date: 2019-08-29 15:07+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: Daniele Albrizio <daniele@albrizio.it>, 2019\n"
 "Language-Team: Italian (Italy) (https://www.transifex.com/eduroam_devel/"
@@ -26,28 +26,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/diag/AbstractTest.php:294
+#: core/diag/AbstractTest.php:302
 msgid "Completed"
 msgstr "Completato"
 
-#: core/diag/AbstractTest.php:301
+#: core/diag/AbstractTest.php:309
 msgid "Product is not configured to run this check."
 msgstr "Il prodotto non è configurato per eseguire questo controllo."
 
-#: core/diag/AbstractTest.php:307 web/diag/action_realmcheck.php:542
+#: core/diag/AbstractTest.php:315 web/diag/action_realmcheck.php:542
 #: web/diag/action_realmcheck.php:558
 msgid "This check was skipped."
 msgstr "Questo controllo è stato saltato."
 
-#: core/diag/AbstractTest.php:314
+#: core/diag/AbstractTest.php:322
 msgid "There were errors during the test."
 msgstr "Si è verificato un errore durante il controllo."
 
-#: core/diag/AbstractTest.php:322
+#: core/diag/AbstractTest.php:330
 msgid "There was no reply at all from the RADIUS server."
 msgstr "Non c'è stata alcuna risposta dal server RADIUS."
 
-#: core/diag/AbstractTest.php:329
+#: core/diag/AbstractTest.php:337
 msgid ""
 "There was a bidirectional communication with the RADIUS server, but it ended "
 "halfway through."
@@ -55,7 +55,7 @@ msgstr ""
 "E' avvenuta una comunicazione bidirezionale con il server RADIUS, ma è "
 "terminata a metà."
 
-#: core/diag/AbstractTest.php:336
+#: core/diag/AbstractTest.php:344
 msgid ""
 "The RADIUS server immediately rejected the authentication request in its "
 "first reply."
@@ -63,7 +63,7 @@ msgstr ""
 "Il server Radius ha rifiutato la richiesta di autenticazione immediatamente "
 "nella sua prima risposta."
 
-#: core/diag/AbstractTest.php:343
+#: core/diag/AbstractTest.php:351
 msgid ""
 "The RADIUS server rejected the authentication request after an EAP "
 "conversation."
@@ -71,23 +71,23 @@ msgstr ""
 "Il server Radius ha  rifiutato la richiesta di autenticazione dopo una "
 "conversazione EAP."
 
-#: core/diag/AbstractTest.php:350 web/diag/action_realmcheck.php:117
+#: core/diag/AbstractTest.php:358 web/diag/action_realmcheck.php:117
 msgid "Connection refused"
 msgstr "Connessione rifiutata"
 
-#: core/diag/AbstractTest.php:357
+#: core/diag/AbstractTest.php:365
 msgid "Not enough data provided to perform an authentication"
 msgstr ""
 "Non sono stati forniti i dati sufficienti per eseguire una autenticazione"
 
-#: core/diag/AbstractTest.php:364
+#: core/diag/AbstractTest.php:372
 msgid ""
 "The certificate password you provided does not match the certificate file."
 msgstr ""
 "La password del certicifato inserita non corrisponde a quella del file del "
 "certificato."
 
-#: core/diag/AbstractTest.php:372
+#: core/diag/AbstractTest.php:380
 msgid ""
 "The certificate chain includes the root CA certificate. This does not serve "
 "any useful purpose but inflates the packet exchange, possibly leading to "
@@ -97,15 +97,15 @@ msgstr ""
 "ha nessuno scopo utile, ma aumenta lo scambio di pacchetti con probabili "
 "tempi di round-trip maggiori e quindi autenticazioni più lente."
 
-#: core/diag/AbstractTest.php:379
+#: core/diag/AbstractTest.php:387
 msgid "There is more than one server certificate in the chain."
 msgstr "C'è più di un certificato server nella catena dei certificati."
 
-#: core/diag/AbstractTest.php:386
+#: core/diag/AbstractTest.php:394
 msgid "There is no server certificate in the chain."
 msgstr "NON c'è alcun certificato server nella catena dei certificati."
 
-#: core/diag/AbstractTest.php:393
+#: core/diag/AbstractTest.php:401
 msgid ""
 "At least one certificate in the chain is signed with the MD5 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
@@ -115,7 +115,7 @@ msgstr ""
 "Molti sistemi operativi, incluso iOS di Apple, falliranno la validazione di "
 "questo certificato."
 
-#: core/diag/AbstractTest.php:400
+#: core/diag/AbstractTest.php:408
 msgid ""
 "At least one certificate in the chain is signed with the SHA-1 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
@@ -125,14 +125,17 @@ msgstr ""
 "Molti sistemi operativi, incluso Apple iOS, non riusciranno a validare "
 "questo certificato."
 
-#: core/diag/AbstractTest.php:407
+#: core/diag/AbstractTest.php:415
 msgid ""
 "At least one certificate in the chain had a public key of less than 2048 "
 "bits. Many recent operating systems consider this unacceptable and will fail "
 "to validate the server certificate."
 msgstr ""
+"Almeno un certificato nella catena ha una chiave pubblica con meno di 2048 "
+"bit. Molti sistemi operativi recenti lo considerano inaccettabile e "
+"falliranno la validazione del certificato server,"
 
-#: core/diag/AbstractTest.php:414
+#: core/diag/AbstractTest.php:422
 msgid ""
 "The server certificate does not have the extension 'extendedKeyUsage: TLS "
 "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
@@ -142,7 +145,7 @@ msgstr ""
 "Authentication'. La maggior parte dei sistemi operativi Microsoft falliranno "
 "la validazione del certificato."
 
-#: core/diag/AbstractTest.php:421
+#: core/diag/AbstractTest.php:429
 msgid ""
 "The server certificate did not include a CRL Distribution Point, creating "
 "compatibility problems with Windows Phone 8."
@@ -150,7 +153,7 @@ msgstr ""
 "Il certificato server non include un punto di distribuzione della CRL e crea "
 "quindi problemi di compatibilità con Windows Phone 8."
 
-#: core/diag/AbstractTest.php:428
+#: core/diag/AbstractTest.php:436
 msgid ""
 "The server certificate's 'CRL Distribution Point' extension does not point "
 "to an HTTP/HTTPS URL. Some Operating Systems may fail to validate this "
@@ -162,7 +165,7 @@ msgstr ""
 "Il controllo della validità del certificato server con una CRL non sarà "
 "possibile."
 
-#: core/diag/AbstractTest.php:435
+#: core/diag/AbstractTest.php:443
 msgid ""
 "The extension 'CRL Distribution Point' in the server certificate points to a "
 "location where no DER-encoded CRL can be found. Some Operating Systems check "
@@ -176,11 +179,11 @@ msgstr ""
 "la CRL e non riusciranno a convalidare il certificato. La verifica della "
 "validità del certificato del server rispetto a una CRL non sarà possibile."
 
-#: core/diag/AbstractTest.php:442
+#: core/diag/AbstractTest.php:450
 msgid "The server certificate was revoked by the CA!"
 msgstr "Il certificato del server è stato revocato dalla CA!"
 
-#: core/diag/AbstractTest.php:449
+#: core/diag/AbstractTest.php:457
 msgid ""
 "The certificate contained a CN or subjectAltName:DNS which does not parse as "
 "a hostname. This can be problematic on some supplicants. If the certificate "
@@ -193,7 +196,7 @@ msgstr ""
 "questi per la configurazione del supplicant, allora puoi ignorare questo "
 "avviso."
 
-#: core/diag/AbstractTest.php:456
+#: core/diag/AbstractTest.php:464
 msgid ""
 "The certificate contained a CN or subjectAltName:DNS which contains a "
 "wildcard ('*'). This can be problematic on some supplicants. If the "
@@ -206,7 +209,7 @@ msgstr ""
 "certificato contiene anche nomi senza wildcard e usi solo questi nella "
 "configurazione del supplicant, puoi ignorare questo avviso."
 
-#: core/diag/AbstractTest.php:463
+#: core/diag/AbstractTest.php:471
 msgid ""
 "At least one certificate is outside its validity period (not yet valid, or "
 "already expired)!"
@@ -214,7 +217,7 @@ msgstr ""
 "Almeno un certificato è fuori dal periodo di validità (non ancora valido o "
 "già scaduto)!"
 
-#: core/diag/AbstractTest.php:470
+#: core/diag/AbstractTest.php:478
 #, php-format
 msgid ""
 "At least one intermediate certificate in your CAT profile is outside its "
@@ -227,7 +230,7 @@ msgstr ""
 "usato per la validazione del server. Considerane la rimozione dalla tua "
 "configurazione %s."
 
-#: core/diag/AbstractTest.php:477
+#: core/diag/AbstractTest.php:485
 msgid ""
 "The server certificate could not be verified to the root CA you configured "
 "in your profile!"
@@ -235,7 +238,7 @@ msgstr ""
 "Il certificato server non può essere validato verso la root CA che hai "
 "configurato nel tuo profilo!"
 
-#: core/diag/AbstractTest.php:481
+#: core/diag/AbstractTest.php:489
 msgid ""
 "The certificate chain as received in EAP was not sufficient to verify the "
 "certificate to the root CA in your profile. It was verified using the "
@@ -247,7 +250,7 @@ msgstr ""
 "verificato usando le CA intermedie del tuo profilo. Dovresti considerare "
 "l'invio delle CA intermedie richieste nella conversazione EAP."
 
-#: core/diag/AbstractTest.php:487
+#: core/diag/AbstractTest.php:495
 msgid ""
 "The EAP server name does not match any of the configured names in your "
 "profile!"
@@ -255,7 +258,7 @@ msgstr ""
 "Il nome del server EAP non corrisponde ad alcun nome configurato nel tuo "
 "profilo!"
 
-#: core/diag/AbstractTest.php:494
+#: core/diag/AbstractTest.php:502
 msgid ""
 "The configured EAP server name matches either the CN or a subjectAltName:DNS "
 "of the incoming certificate; best current practice is that the certificate "
@@ -265,7 +268,7 @@ msgstr ""
 "del certificato entrante; la migliore pratica corrente è che il certificato "
 "contenga il nome in ENTRAMBE le posizioni."
 
-#: core/diag/AbstractTest.php:501
+#: core/diag/AbstractTest.php:509
 msgid ""
 "At least one certificate did not contain any BasicConstraints extension; "
 "which makes it unclear if it's a CA certificate or end-entity certificate. "
@@ -277,32 +280,32 @@ msgstr ""
 "entity. Almeno Mac OS X 10.8 (Mountain Lion) non validerà questo certificato "
 "per l'uso con EAP!"
 
-#: core/diag/AbstractTest.php:508
+#: core/diag/AbstractTest.php:516
 msgid "The server presented a certificate from an unknown authority."
 msgstr ""
 "Il server ha presentato un certificato firmato da una autorità sconosciuta"
 
-#: core/diag/AbstractTest.php:515
+#: core/diag/AbstractTest.php:523
 msgid "The server accepted the INVALID client certificate."
 msgstr "Il server ha accettato il certificato INVALIDO del client."
 
-#: core/diag/AbstractTest.php:522
+#: core/diag/AbstractTest.php:530
 msgid "The server rejected the client certificate, even though it was valid."
 msgstr "Il server ha rifiutato il certificato del client, anche se era valido."
 
-#: core/diag/AbstractTest.php:529
+#: core/diag/AbstractTest.php:537
 msgid "The server rejected the client certificate as expected."
 msgstr "Il server ha rifiutato il certificato come previsto."
 
-#: core/diag/AbstractTest.php:536
+#: core/diag/AbstractTest.php:544
 msgid "The CRL of a certificate could not be found."
 msgstr "La CRL del certificato non può essere trovata."
 
-#: core/diag/AbstractTest.php:543
+#: core/diag/AbstractTest.php:551
 msgid "EAP method negotiation failed!"
 msgstr "Negoziazione del metodo EAP, fallita!"
 
-#: core/diag/AbstractTest.php:550
+#: core/diag/AbstractTest.php:558
 msgid ""
 "The server offers Diffie-Hellman (DH) ciphers with a DH group smaller than "
 "1024 bit. Mac OS X 10.11 'El Capitan' is known to refuse TLS connections "
@@ -312,7 +315,7 @@ msgstr ""
 "1024 bit. Mac OS X 10.11 'El Capitan' non accetta connessioni TLS con questa "
 "cifratura!"
 
-#: core/diag/AbstractTest.php:557
+#: core/diag/AbstractTest.php:565
 msgid ""
 "The certificate contains more than one CommonName (CN) field. This is "
 "reportedly problematic on many supplicants."
@@ -320,7 +323,7 @@ msgstr ""
 "Il certificato contiene più di un campo CommonName (CN). Questo è stato "
 "segnalato come problematico con molti supplicant."
 
-#: core/diag/AbstractTest.php:564
+#: core/diag/AbstractTest.php:572
 msgid ""
 "The certificate public key algorithm is unknown to the system. Please submit "
 "the certificate as a sample to the developers."
@@ -328,9 +331,9 @@ msgstr ""
 "L'algoritmo della chiave pubblica del certificato è sconosciuto al sistema. "
 "Si prega di inviare il certificato come campione per gli sviluppatori."
 
-#: core/diag/AbstractTest.php:571
+#: core/diag/AbstractTest.php:579
 msgid "No certificate at all was sent by the server."
-msgstr ""
+msgstr "Il server non ha proprio mandato il certificato."
 
 #: core/diag/Logopath.php:107
 msgid "[eduroam Diagnostics]"
@@ -992,15 +995,20 @@ msgid ""
 "The database does not contain the information needed to help you in realm "
 "selection for this country. You have to provide realm you are interested in."
 msgstr ""
+"Il database non contiene le informazioni necessarie per aiutarvi nella "
+"selezione del realm per questo paese. Devi fornire il realm a cui sei "
+"interessato."
 
 #: web/skins/modern/diag/diag.php:519
 msgid ""
 "Can not search database. You have to provide realm you are interested in."
 msgstr ""
+"Impossibile cercare nel database. Devi fornire il realm a cui sei "
+"interessato."
 
 #: web/skins/modern/diag/diag.php:575
 msgid "Other location"
-msgstr ""
+msgstr "Altra posizione"
 
 #: web/skins/modern/diag/diag.php:609
 msgid "Fetching realms list"
@@ -1259,7 +1267,7 @@ msgstr "Impronta SHA1: "
 
 #: web/diag/action_realmcheck.php:146
 msgid "Connected to undetermined server"
-msgstr ""
+msgstr "Connesso a un server non determinato"
 
 #: web/diag/action_realmcheck.php:198
 msgid "Some required input is missing!"

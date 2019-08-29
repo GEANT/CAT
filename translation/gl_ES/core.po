@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-18 08:14+0200\n"
-"PO-Revision-Date: 2019-03-22 20:48+0000\n"
+"POT-Creation-Date: 2019-08-29 15:07+0200\n"
+"PO-Revision-Date: 2019-04-18 09:31+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Galician (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/gl_ES/)\n"
@@ -291,17 +291,17 @@ msgstr "Suráfrica"
 msgid "Unnamed Entity"
 msgstr ""
 
-#: core/DeviceConfig.php:186
+#: core/DeviceConfig.php:229
 #, php-format
 msgid "your local %s support"
 msgstr "A dispoñibilidade local de %s"
 
-#: core/DeviceConfig.php:187
+#: core/DeviceConfig.php:230
 #, php-format
 msgid "your local %s support page"
 msgstr "A páxina de dispoñibilidade local de %s"
 
-#: core/DeviceConfig.php:223
+#: core/DeviceConfig.php:266
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr "Desculpe, isto non debería pasar - non hai máis información dispoñible"
 
@@ -317,7 +317,7 @@ msgstr ""
 #. /                4. federation shortname, e.g. "LU";
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:252
+#: core/Federation.php:256
 #, php-format
 msgid ""
 "Hi,\n"
@@ -332,7 +332,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: core/Federation.php:261
+#: core/Federation.php:265
 #, php-format
 msgid "%s in your federation was created"
 msgstr ""
@@ -356,23 +356,23 @@ msgstr ""
 msgid "%s in your federation was deleted"
 msgstr ""
 
-#: core/SilverbulletInvitation.php:230
+#: core/SilverbulletInvitation.php:236
 #, php-format
 msgid "Your %s access is ready"
 msgstr ""
 
-#: core/SilverbulletInvitation.php:242
+#: core/SilverbulletInvitation.php:248
 msgid "Hello!"
 msgstr ""
 
-#: core/SilverbulletInvitation.php:244
+#: core/SilverbulletInvitation.php:250
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
 "administrator."
 msgstr ""
 
-#: core/SilverbulletInvitation.php:246
+#: core/SilverbulletInvitation.php:252
 #, php-format
 msgid ""
 "Please follow the following link with the device you want to enable for %s "
@@ -381,7 +381,7 @@ msgid ""
 msgstr ""
 
 #. gets replaced with the token value by getBody()
-#: core/SilverbulletInvitation.php:248
+#: core/SilverbulletInvitation.php:254
 #, php-format
 msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
@@ -389,18 +389,18 @@ msgid ""
 "information about your %s account."
 msgstr ""
 
-#: core/SilverbulletInvitation.php:250
+#: core/SilverbulletInvitation.php:256
 msgid "Regards,"
 msgstr ""
 
-#: core/SilverbulletInvitation.php:299
+#: core/SilverbulletInvitation.php:305
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
 "'%s'!)"
 msgstr ""
 
-#: core/SilverbulletInvitation.php:321
+#: core/SilverbulletInvitation.php:327
 #, php-format
 msgid "%s Invitation System"
 msgstr ""
