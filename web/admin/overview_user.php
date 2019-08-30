@@ -146,7 +146,7 @@ require_once "inc/click_button_js.php";
                 }
                 $otherAdminCount = count($admins); // only the unnamed remain
                 if ($otherAdminCount > 0) {
-                    echo ngettext("other user", "other users", $otherAdminCount);
+                    echo sprintf(ngettext("%d other user", "%d other users", $otherAdminCount),$otherAdminCount);
                 }
                 echo "</td><td>";
                 if ($blessedUser && CONFIG['DB']['INST']['readonly'] === FALSE) {
