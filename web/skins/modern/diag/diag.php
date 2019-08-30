@@ -507,7 +507,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                     } else {
                         if (data.status === 0) {
                             inProgress(0);
-                            var msg = <?php echo '"' . _("The database does not contain the information needed to help you in realm selection for this country. You have to provide realm you are interested in.") . '"'; ?>;
+                            var msg = <?php echo '"' . _("The database does not contain the information needed to help you in realm selection for this country. You have to provide the realm you are interested in.") . '"'; ?>;
                             alert(msg);
                             $('#select_idp_country').show();
                             $('#select_idp_area').hide();
@@ -516,7 +516,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                 },
                 error:function() {
                     inProgress(0);
-                    var msg = <?php echo '"' . _("Can not search database. You have to provide realm you are interested in.") . '"'; ?>;
+                    var msg = <?php echo '"' . _("Can not search in database. You have to provide the realm you are interested in.") . '"'; ?>;
                     alert(msg);
                     $('#select_idp_country').show();
                     $('#select_idp_area').hide();
