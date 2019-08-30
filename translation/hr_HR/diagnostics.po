@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-30 15:13+0200\n"
+"POT-Creation-Date: 2019-08-30 15:22+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: Dubravko Penezic <dpenezic@gmail.com>, 2019\n"
 "Language-Team: Croatian (Croatia) (https://www.transifex.com/eduroam_devel/"
@@ -943,12 +943,14 @@ msgstr "Izaberite ustanovu:"
 #: web/skins/modern/diag/diag.php:510
 msgid ""
 "The database does not contain the information needed to help you in realm "
-"selection for this country. You have to provide realm you are interested in."
+"selection for this country. You have to provide the realm you are interested "
+"in."
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:519
 msgid ""
-"Can not search database. You have to provide realm you are interested in."
+"Can not search in database. You have to provide the realm you are interested "
+"in."
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:575

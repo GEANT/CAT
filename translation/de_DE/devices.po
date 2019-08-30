@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-30 15:13+0200\n"
-"PO-Revision-Date: 2019-04-18 09:12+0000\n"
+"POT-Creation-Date: 2019-08-30 15:22+0200\n"
+"PO-Revision-Date: 2019-08-30 13:17+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/eduroam_devel/cat/"
 "language/de_DE/)\n"
@@ -44,7 +44,7 @@ msgstr "Windows RT"
 
 #: devices/Devices-template.php:189
 msgid "Apple macOS Mojave"
-msgstr ""
+msgstr "Apple macOS Mojave"
 
 #: devices/Devices-template.php:199 devices/Devices-template.php:214
 #: devices/Devices-template.php:228 devices/Devices-template.php:242
@@ -140,7 +140,7 @@ msgstr ""
 
 #: devices/Devices-template.php:365
 msgid "Android 10.0 Q"
-msgstr ""
+msgstr "Android 10.0 Q"
 
 #: devices/Devices-template.php:371 devices/Devices-template.php:386
 #: devices/Devices-template.php:401 devices/Devices-template.php:416
