@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-29 15:07+0200\n"
+"POT-Creation-Date: 2019-08-30 15:13+0200\n"
 "PO-Revision-Date: 2019-04-17 07:16+0000\n"
 "Last-Translator: jmontane\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/eduroam_devel/cat/"
@@ -1722,8 +1722,9 @@ msgid "%s %s: %s list"
 msgstr "%s %s: llista %s"
 
 #: web/admin/overview_user.php:149
-msgid "other user"
-msgid_plural "other users"
+#, fuzzy, php-format
+msgid "%d other user"
+msgid_plural "%d other users"
 msgstr[0] "un altre usuari"
 msgstr[1] "altres usuaris"
 
