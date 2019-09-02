@@ -21,6 +21,7 @@ Changes in 2.0.2
 - [BUGFIX  #3]  the admin API action ENDUSER-IDENTIFY now only returns the 
                 correct result set, not additional garbage afterwards
 - [BUGFIX  #4]  mailto: links are now created correctly on main download page
+- [BUGFIX  #5]  importing silverbullet users with CSV now operational again
 
 - BEHAVIOUR CHANGE: GEANTlink becomes the non-default on every platform (except
                     W7 where it is required for TTLS support). Those who have
