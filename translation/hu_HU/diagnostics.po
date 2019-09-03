@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-18 08:14+0200\n"
+"POT-Creation-Date: 2019-08-30 15:22+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>, 2018\n"
 "Language-Team: Hungarian (Hungary) (https://www.transifex.com/eduroam_devel/"
@@ -22,35 +22,35 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/diag/AbstractTest.php:294
+#: core/diag/AbstractTest.php:302
 msgid "Completed"
 msgstr "Befejezett"
 
-#: core/diag/AbstractTest.php:301
+#: core/diag/AbstractTest.php:309
 msgid "Product is not configured to run this check."
 msgstr "A termék nincs konfigurálva ennek az ellenőrzésnek a futtatásához."
 
-#: core/diag/AbstractTest.php:307 web/diag/action_realmcheck.php:542
+#: core/diag/AbstractTest.php:315 web/diag/action_realmcheck.php:542
 #: web/diag/action_realmcheck.php:558
 msgid "This check was skipped."
 msgstr "Ezt az ellenőrzést kihagytuk"
 
-#: core/diag/AbstractTest.php:314
+#: core/diag/AbstractTest.php:322
 msgid "There were errors during the test."
 msgstr "Hiba történt az ellenőrzés során"
 
-#: core/diag/AbstractTest.php:322
+#: core/diag/AbstractTest.php:330
 msgid "There was no reply at all from the RADIUS server."
 msgstr "Nem érkezett válasz a RADIUS szervertől."
 
-#: core/diag/AbstractTest.php:329
+#: core/diag/AbstractTest.php:337
 msgid ""
 "There was a bidirectional communication with the RADIUS server, but it ended "
 "halfway through."
 msgstr ""
 "Két irányú kommunikáció elindult a RADIUS szerverrel, de nem fejeződött be."
 
-#: core/diag/AbstractTest.php:336
+#: core/diag/AbstractTest.php:344
 msgid ""
 "The RADIUS server immediately rejected the authentication request in its "
 "first reply."
@@ -58,28 +58,28 @@ msgstr ""
 "A RADIUS szerver rögtön visszautasította az azonosítási kérést az első "
 "válaszban."
 
-#: core/diag/AbstractTest.php:343
+#: core/diag/AbstractTest.php:351
 msgid ""
 "The RADIUS server rejected the authentication request after an EAP "
 "conversation."
 msgstr ""
 "RADIUS visszautasította az azonosítási kérést az EAP csomagváltás után."
 
-#: core/diag/AbstractTest.php:350 web/diag/action_realmcheck.php:117
+#: core/diag/AbstractTest.php:358 web/diag/action_realmcheck.php:117
 msgid "Connection refused"
 msgstr "Kapcsolódás elutasítva"
 
-#: core/diag/AbstractTest.php:357
+#: core/diag/AbstractTest.php:365
 msgid "Not enough data provided to perform an authentication"
 msgstr "Nem adtál meg elég adatot az azonosítás elvégzéséhez."
 
-#: core/diag/AbstractTest.php:364
+#: core/diag/AbstractTest.php:372
 msgid ""
 "The certificate password you provided does not match the certificate file."
 msgstr ""
 "A megadott tanusítvány jelszó nem tanusítvány fájlban lévőhöz tartozik. "
 
-#: core/diag/AbstractTest.php:372
+#: core/diag/AbstractTest.php:380
 msgid ""
 "The certificate chain includes the root CA certificate. This does not serve "
 "any useful purpose but inflates the packet exchange, possibly leading to "
@@ -88,15 +88,15 @@ msgstr ""
 "A tanusítvány lány tartalmazza a gyökér CA tanusítványt. Ez szükségtelen, "
 "növelheti a csomagváltások számát ezáltal lassítva az azonosítást."
 
-#: core/diag/AbstractTest.php:379
+#: core/diag/AbstractTest.php:387
 msgid "There is more than one server certificate in the chain."
 msgstr "Több mint 1 szervertanusítvány található a tanusítvány láncban."
 
-#: core/diag/AbstractTest.php:386
+#: core/diag/AbstractTest.php:394
 msgid "There is no server certificate in the chain."
 msgstr "Nincsen szerver tanusítvány a tanusítvány láncban."
 
-#: core/diag/AbstractTest.php:393
+#: core/diag/AbstractTest.php:401
 msgid ""
 "At least one certificate in the chain is signed with the MD5 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
@@ -106,7 +106,7 @@ msgstr ""
 "operációs rendszer, sok operációs rendszer (pl. Apple iOS, Windows 8.x) nem "
 "fogja elfogadni a tanusítványláncot. "
 
-#: core/diag/AbstractTest.php:400
+#: core/diag/AbstractTest.php:408
 msgid ""
 "At least one certificate in the chain is signed with the SHA-1 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
@@ -116,14 +116,14 @@ msgstr ""
 "aláírással írtak alá. Számos operációs rendszer, beleértve az Apple iOS-t "
 "is, nem tudja hitelesíteni ezt a tanúsítványt."
 
-#: core/diag/AbstractTest.php:407
+#: core/diag/AbstractTest.php:415
 msgid ""
 "At least one certificate in the chain had a public key of less than 2048 "
 "bits. Many recent operating systems consider this unacceptable and will fail "
 "to validate the server certificate."
 msgstr ""
 
-#: core/diag/AbstractTest.php:414
+#: core/diag/AbstractTest.php:422
 msgid ""
 "The server certificate does not have the extension 'extendedKeyUsage: TLS "
 "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
@@ -133,7 +133,7 @@ msgstr ""
 "Authentication' kiegészítést. A legtőbb Microsoft operációs rendszer nem "
 "fogadja el ezt a tanusítványt."
 
-#: core/diag/AbstractTest.php:421
+#: core/diag/AbstractTest.php:429
 msgid ""
 "The server certificate did not include a CRL Distribution Point, creating "
 "compatibility problems with Windows Phone 8."
@@ -141,7 +141,7 @@ msgstr ""
 "A szerver tanusítvány nem tartalmaz CRL Distribution Point attributumot. Ez "
 "kompatbilitási problémát jelent a Windows Phone 8 esetén."
 
-#: core/diag/AbstractTest.php:428
+#: core/diag/AbstractTest.php:436
 msgid ""
 "The server certificate's 'CRL Distribution Point' extension does not point "
 "to an HTTP/HTTPS URL. Some Operating Systems may fail to validate this "
@@ -153,7 +153,7 @@ msgstr ""
 "ellenőrizni a tanusítványt. A szerver tanusítvány ellenőrzése a CRL alapján "
 "nem lesz lehetséges. "
 
-#: core/diag/AbstractTest.php:435
+#: core/diag/AbstractTest.php:443
 msgid ""
 "The extension 'CRL Distribution Point' in the server certificate points to a "
 "location where no DER-encoded CRL can be found. Some Operating Systems check "
@@ -167,11 +167,11 @@ msgstr ""
 "hitelesíteni a tanúsítványt. A szerver tanúsítvány érvényességének "
 "ellenőrzése a CRL-el nem lehetséges."
 
-#: core/diag/AbstractTest.php:442
+#: core/diag/AbstractTest.php:450
 msgid "The server certificate was revoked by the CA!"
 msgstr "A szerver tanusítványt visszavonta a tanusítványhatóság!"
 
-#: core/diag/AbstractTest.php:449
+#: core/diag/AbstractTest.php:457
 msgid ""
 "The certificate contained a CN or subjectAltName:DNS which does not parse as "
 "a hostname. This can be problematic on some supplicants. If the certificate "
@@ -184,7 +184,7 @@ msgstr ""
 "konfigurációhoz van használva, akkor ezt a megjegyzést figyelmen kívül "
 "hagyhatod."
 
-#: core/diag/AbstractTest.php:456
+#: core/diag/AbstractTest.php:464
 msgid ""
 "The certificate contained a CN or subjectAltName:DNS which contains a "
 "wildcard ('*'). This can be problematic on some supplicants. If the "
@@ -198,7 +198,7 @@ msgstr ""
 "csak a supplicant konfigurációhoz van használva, akkor ezt a megjegyzést "
 "figyelmen kívül hagyhatod."
 
-#: core/diag/AbstractTest.php:463
+#: core/diag/AbstractTest.php:471
 msgid ""
 "At least one certificate is outside its validity period (not yet valid, or "
 "already expired)!"
@@ -206,7 +206,7 @@ msgstr ""
 "Legalább 1 tanusítvány az érvényességi idején kivüli (még nem érvenyes, vagy "
 "már nem érvényes)."
 
-#: core/diag/AbstractTest.php:470
+#: core/diag/AbstractTest.php:478
 #, php-format
 msgid ""
 "At least one intermediate certificate in your CAT profile is outside its "
@@ -218,7 +218,7 @@ msgstr ""
 "érvenyes, vagy már nem érvényes), de ez a tanusítvány nem használt a szerver "
 "azonosításához. Érdemes volna kivenni a %s konfigurációból."
 
-#: core/diag/AbstractTest.php:477
+#: core/diag/AbstractTest.php:485
 msgid ""
 "The server certificate could not be verified to the root CA you configured "
 "in your profile!"
@@ -226,7 +226,7 @@ msgstr ""
 "A szerver tanusítvány nem ellenőrizhető azzal a root CA-val, amely a profile-"
 "hoz konfigurálva lett."
 
-#: core/diag/AbstractTest.php:481
+#: core/diag/AbstractTest.php:489
 msgid ""
 "The certificate chain as received in EAP was not sufficient to verify the "
 "certificate to the root CA in your profile. It was verified using the "
@@ -238,7 +238,7 @@ msgstr ""
 "azonban ellenőrizheő volt. Javasolt a szükséges köztes CA-k küldése az EAP "
 "üzenetváltásban.   "
 
-#: core/diag/AbstractTest.php:487
+#: core/diag/AbstractTest.php:495
 msgid ""
 "The EAP server name does not match any of the configured names in your "
 "profile!"
@@ -246,7 +246,7 @@ msgstr ""
 "Az EAP szerver neve nem illeszkedik a profile-ban semmilyen konfigurált "
 "névvel. "
 
-#: core/diag/AbstractTest.php:494
+#: core/diag/AbstractTest.php:502
 msgid ""
 "The configured EAP server name matches either the CN or a subjectAltName:DNS "
 "of the incoming certificate; best current practice is that the certificate "
@@ -256,7 +256,7 @@ msgstr ""
 "vagy subjectAltName:DNS mezejével . A legjobb megoldás az, ha tanusítvány "
 "MINDKÉT helyen tartalmazza ezt a nevet."
 
-#: core/diag/AbstractTest.php:501
+#: core/diag/AbstractTest.php:509
 msgid ""
 "At least one certificate did not contain any BasicConstraints extension; "
 "which makes it unclear if it's a CA certificate or end-entity certificate. "
@@ -268,34 +268,34 @@ msgstr ""
 "vagy végponti tanusítvány. Legalább a Mac OS X 10.8 (Mountain Lion) nem "
 "fogadja el ezt a tanusítványt EAP célokra. "
 
-#: core/diag/AbstractTest.php:508
+#: core/diag/AbstractTest.php:516
 msgid "The server presented a certificate from an unknown authority."
 msgstr ""
 "A szerver egy ismeretlen tanusítvány hatóság által aláírt tanusítványt "
 "mutatott be. "
 
-#: core/diag/AbstractTest.php:515
+#: core/diag/AbstractTest.php:523
 msgid "The server accepted the INVALID client certificate."
 msgstr "A szerver egy érvénytelen kliens tanusítványt fogadott el."
 
-#: core/diag/AbstractTest.php:522
+#: core/diag/AbstractTest.php:530
 msgid "The server rejected the client certificate, even though it was valid."
 msgstr ""
 "A szerver visszautasított egy kliens tanusítványt, habár az érvényes volt."
 
-#: core/diag/AbstractTest.php:529
+#: core/diag/AbstractTest.php:537
 msgid "The server rejected the client certificate as expected."
 msgstr "A szerver visszautasította kliens tanusítványt, ahogy az várható volt."
 
-#: core/diag/AbstractTest.php:536
+#: core/diag/AbstractTest.php:544
 msgid "The CRL of a certificate could not be found."
 msgstr "A tanusítvány CRL-je nem található."
 
-#: core/diag/AbstractTest.php:543
+#: core/diag/AbstractTest.php:551
 msgid "EAP method negotiation failed!"
 msgstr "EAP metódus megbeszélése meghiúsult."
 
-#: core/diag/AbstractTest.php:550
+#: core/diag/AbstractTest.php:558
 msgid ""
 "The server offers Diffie-Hellman (DH) ciphers with a DH group smaller than "
 "1024 bit. Mac OS X 10.11 'El Capitan' is known to refuse TLS connections "
@@ -305,7 +305,7 @@ msgstr ""
 "csak. Mac OS X 10.11 'El Capitan' ismeretes, hogy megtagadja a TLS kapcsolat "
 "kiépítését, ha ez fenn áll!"
 
-#: core/diag/AbstractTest.php:557
+#: core/diag/AbstractTest.php:565
 msgid ""
 "The certificate contains more than one CommonName (CN) field. This is "
 "reportedly problematic on many supplicants."
@@ -313,7 +313,7 @@ msgstr ""
 "A tanúsítvány több CommonName (CN) mezőt tartalmaz. Ez problémás, sok "
 "supplicant esetében."
 
-#: core/diag/AbstractTest.php:564
+#: core/diag/AbstractTest.php:572
 msgid ""
 "The certificate public key algorithm is unknown to the system. Please submit "
 "the certificate as a sample to the developers."
@@ -321,7 +321,7 @@ msgstr ""
 "A tanúsítvány nyilvános kulcs algoritmusa ismeretlen a rendszer számára. "
 "Kérjük, küldje el a tanúsítvány mintát a fejlesztőknek."
 
-#: core/diag/AbstractTest.php:571
+#: core/diag/AbstractTest.php:579
 msgid "No certificate at all was sent by the server."
 msgstr ""
 
@@ -966,12 +966,14 @@ msgstr "Válasszon intézményt:"
 #: web/skins/modern/diag/diag.php:510
 msgid ""
 "The database does not contain the information needed to help you in realm "
-"selection for this country. You have to provide realm you are interested in."
+"selection for this country. You have to provide the realm you are interested "
+"in."
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:519
 msgid ""
-"Can not search database. You have to provide realm you are interested in."
+"Can not search in database. You have to provide the realm you are interested "
+"in."
 msgstr ""
 
 #: web/skins/modern/diag/diag.php:575

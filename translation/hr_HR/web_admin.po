@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-18 08:14+0200\n"
+"POT-Creation-Date: 2019-08-30 15:22+0200\n"
 "PO-Revision-Date: 2019-03-22 21:59+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/eduroam_devel/"
@@ -92,7 +92,7 @@ msgid "%s Properties"
 msgstr "%s Svojstva"
 
 #: web/admin/edit_federation.php:67 web/admin/edit_idp.php:86
-#: web/lib/admin/UIElements.php:228
+#: web/lib/admin/UIElements.php:227
 msgid "Country:"
 msgstr "Zemlja:"
 
@@ -203,7 +203,7 @@ msgstr ""
 "uvijek ispuniti barem 'zadani/drugi' jezik, koji će biti korišten kao "
 "rezervni ako sustav nema naziv u jeziku koji koristi korisnik."
 
-#: web/admin/edit_idp.php:125 web/lib/admin/UIElements.php:242
+#: web/admin/edit_idp.php:125 web/lib/admin/UIElements.php:241
 msgid "Media Properties"
 msgstr "Podaci o mediju"
 
@@ -818,11 +818,11 @@ msgstr ""
 msgid "Continue to Installer Fine-Tuning and Download"
 msgstr "Nastavi na fino ugađanje installera i preuzimanje"
 
-#: web/admin/edit_silverbullet.php:229
+#: web/admin/edit_silverbullet.php:239
 msgid "Insecure mail domain!"
 msgstr "Nesigurna e-mail domena!"
 
-#: web/admin/edit_silverbullet.php:230
+#: web/admin/edit_silverbullet.php:240
 #, php-format
 msgid ""
 "The mail domain of the mail address <strong>%s</strong> is not secure: some "
@@ -833,7 +833,7 @@ msgstr ""
 "mail poslužiteljine prihvaćaju enkriptirane konekcije (nema dosljedne "
 "podrške za STARTTLS)"
 
-#: web/admin/edit_silverbullet.php:231
+#: web/admin/edit_silverbullet.php:241
 msgid ""
 "The invitation would need to be sent in cleartext across the internet, and "
 "can possibly be read and abused by anyone in transit."
@@ -841,134 +841,145 @@ msgstr ""
 "Pozivnica terba biti poslana u običnom tekstu preko interneta, i može biti "
 "pročitana i zloupotrijebljena od bilo koga u procesu slanja."
 
-#: web/admin/edit_silverbullet.php:232
+#: web/admin/edit_silverbullet.php:242
 msgid "Do you want the system to send this mail anyway?"
 msgstr "Želite li da sustav svejedno pošalje email?"
 
-#: web/admin/edit_silverbullet.php:234
+#: web/admin/edit_silverbullet.php:244
 msgid "DO NOT SEND"
 msgstr "NE ŠALJI"
 
-#: web/admin/edit_silverbullet.php:241
+#: web/admin/edit_silverbullet.php:251
 msgid "Send anyway."
 msgstr "Pošalji."
 
-#: web/admin/edit_silverbullet.php:291
+#: web/admin/edit_silverbullet.php:301
 #, php-format
 msgid "Managing %s users"
 msgstr "Upravljanje %s korinicima"
 
-#: web/admin/edit_silverbullet.php:328
+#: web/admin/edit_silverbullet.php:338
 #, php-format
 msgid "Current %s users"
 msgstr "Trenutni %s korisnik"
 
-#: web/admin/edit_silverbullet.php:331
+#: web/admin/edit_silverbullet.php:341
 msgid "Assigned Realm"
 msgstr "Pridruženi realm"
 
-#: web/admin/edit_silverbullet.php:334
+#: web/admin/edit_silverbullet.php:344
 msgid "Total number of active users allowed"
 msgstr "Konačni broj dopuštenih aktivnih korisnika"
 
-#: web/admin/edit_silverbullet.php:337
+#: web/admin/edit_silverbullet.php:347
 msgid "Number of active users"
 msgstr "Broj aktivnih korisnika"
 
-#: web/admin/edit_silverbullet.php:340
+#: web/admin/edit_silverbullet.php:350
 msgid "Number of inactive users"
 msgstr "Broj neaktivnih korisnika"
 
-#: web/admin/edit_silverbullet.php:351
+#: web/admin/edit_silverbullet.php:361
 msgid "The e-mail was sent successfully."
 msgstr "Email uspješno poslan."
 
-#: web/admin/edit_silverbullet.php:351
+#: web/admin/edit_silverbullet.php:361
 msgid "E-mail OK."
 msgstr "E-mail OK."
 
-#: web/admin/edit_silverbullet.php:354
+#: web/admin/edit_silverbullet.php:364
 msgid "The e-mail was NOT sent."
 msgstr "E-mail nije poslan."
 
-#: web/admin/edit_silverbullet.php:354
+#: web/admin/edit_silverbullet.php:364
 msgid "E-mail not OK."
 msgstr "E-mail nije OK."
 
-#: web/admin/edit_silverbullet.php:357
+#: web/admin/edit_silverbullet.php:367
 msgid "The SMS was sent successfully."
 msgstr "SMS uspješno poslan."
 
-#: web/admin/edit_silverbullet.php:357
+#: web/admin/edit_silverbullet.php:367
 msgid "SMS OK."
 msgstr "SMS OK."
 
-#: web/admin/edit_silverbullet.php:360
+#: web/admin/edit_silverbullet.php:370
 msgid "The SMS was NOT sent."
 msgstr "SMS nije poslan."
 
-#: web/admin/edit_silverbullet.php:360
+#: web/admin/edit_silverbullet.php:370
 msgid "SMS not OK."
 msgstr "SMS nije OK."
 
-#: web/admin/edit_silverbullet.php:363
+#: web/admin/edit_silverbullet.php:373
 msgid "Only a fragment of the SMS was sent. You should re-send it."
 msgstr "Poslan je samo dio SMS-a. Pošaljite ponovo."
 
-#: web/admin/edit_silverbullet.php:363
+#: web/admin/edit_silverbullet.php:373
 msgid "SMS Fragment."
 msgstr "SMS dio."
 
-#: web/admin/edit_silverbullet.php:370
+#: web/admin/edit_silverbullet.php:380
 #, php-format
 msgid "Manage %s users"
 msgstr "Upravljan %s korisnicima"
 
-#: web/admin/edit_silverbullet.php:375 web/admin/overview_federation.php:127
+#: web/admin/edit_silverbullet.php:386 web/admin/edit_silverbullet.php:393
+#: web/admin/overview_federation.php:127
 msgid "User"
 msgstr "Korisnik"
 
-#: web/admin/edit_silverbullet.php:376
+#: web/admin/edit_silverbullet.php:387
 msgid "Token/Certificate details"
 msgstr "Detalji Token/Certifikata"
 
-#: web/admin/edit_silverbullet.php:377
+#: web/admin/edit_silverbullet.php:388
 msgid "User/Token Expiry"
 msgstr "Istek Korinika/Tokena"
 
-#: web/admin/edit_silverbullet.php:378
+#: web/admin/edit_silverbullet.php:389 web/admin/edit_silverbullet.php:396
 msgid "Actions"
 msgstr "Akcije"
 
-#: web/admin/edit_silverbullet.php:409
+#: web/admin/edit_silverbullet.php:394
+#, fuzzy
+msgid "Certificate details"
+msgstr "Detalji Token/Certifikata"
+
+#: web/admin/edit_silverbullet.php:395
+#, fuzzy
+msgid "User Expiry"
+msgstr "Istek Korinika/Tokena"
+
+#: web/admin/edit_silverbullet.php:436
 msgid "REVOKED"
 msgstr "OPOZVANO"
 
-#: web/admin/edit_silverbullet.php:414
+#: web/admin/edit_silverbullet.php:441
 msgid "EXPIRED"
 msgstr "ISTEKLO"
 
-#: web/admin/edit_silverbullet.php:426
+#: web/admin/edit_silverbullet.php:452
 msgid "Device:"
 msgstr "Uređaj:"
 
-#: web/admin/edit_silverbullet.php:427
+#: web/admin/edit_silverbullet.php:453
 msgid "Serial Number:"
 msgstr "Serijski broj:"
 
-#: web/admin/edit_silverbullet.php:428
+#: web/admin/edit_silverbullet.php:454
 msgid "CN:"
 msgstr "CN:"
 
-#: web/admin/edit_silverbullet.php:429
+#: web/admin/edit_silverbullet.php:455
 msgid "Expiry:"
 msgstr "Istek:"
 
-#: web/admin/edit_silverbullet.php:430
+#: web/admin/edit_silverbullet.php:456
 msgid "Issued:"
 msgstr "Izdano:"
 
-#: web/admin/edit_silverbullet.php:442
+#: web/admin/edit_silverbullet.php:468
 #, php-format
 msgid ""
 "The device in question will stop functioning with %s. The revocation cannot "
@@ -977,65 +988,81 @@ msgstr ""
 "Uređaj iz upita prestati će raditi sa %s. Opoziv se ne može napraviti. Jeste "
 "li sigurni da želite to učiniti?"
 
-#: web/admin/edit_silverbullet.php:443 web/admin/edit_silverbullet.php:499
+#: web/admin/edit_silverbullet.php:469 web/admin/edit_silverbullet.php:541
 msgid "Revoke"
 msgstr "Opozovi"
 
-#: web/admin/edit_silverbullet.php:468
+#: web/admin/edit_silverbullet.php:493
+#, php-format
+msgid "(show %d revoked certificate)"
+msgid_plural "(show %d revoked certificates)"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: web/admin/edit_silverbullet.php:496
+#, php-format
+msgid "(show %d expired certificate)"
+msgid_plural "(show %d expired certificates)"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: web/admin/edit_silverbullet.php:510
 #, php-format
 msgid "The invitation token %s is ready for sending! Choose how to send it:"
 msgstr "Pozivnica/token %s"
 
-#: web/admin/edit_silverbullet.php:470
+#: web/admin/edit_silverbullet.php:512
 msgid "E-Mail:"
 msgstr "E-Mail:"
 
-#: web/admin/edit_silverbullet.php:474
+#: web/admin/edit_silverbullet.php:516
 msgid "Local mail client"
 msgstr "Lokalni e-mail klijent"
 
-#: web/admin/edit_silverbullet.php:475
+#: web/admin/edit_silverbullet.php:517
 msgid "Send with CAT"
 msgstr "Pošalji sa CAT-om"
 
-#: web/admin/edit_silverbullet.php:478
+#: web/admin/edit_silverbullet.php:520
 msgid "SMS:"
 msgstr "SMS"
 
-#: web/admin/edit_silverbullet.php:482
+#: web/admin/edit_silverbullet.php:524
 msgid "Send in SMS..."
 msgstr "Pošalji u SMS-u..."
 
-#: web/admin/edit_silverbullet.php:485
+#: web/admin/edit_silverbullet.php:527
 msgid "Manual:"
 msgstr "Ručno"
 
-#: web/admin/edit_silverbullet.php:486
+#: web/admin/edit_silverbullet.php:528
 msgid "Copy to Clipboard"
 msgstr "Kopiraj u međuspremnik"
 
-#: web/admin/edit_silverbullet.php:489
+#: web/admin/edit_silverbullet.php:531
 msgid "Display QR code"
 msgstr "Prikaži QR kod"
 
-#: web/admin/edit_silverbullet.php:495
+#: web/admin/edit_silverbullet.php:537
 msgid "Expiry Date:"
 msgstr "Datum isteka:"
 
-#: web/admin/edit_silverbullet.php:495
+#: web/admin/edit_silverbullet.php:537
 msgid "Activations remaining:"
 msgstr "Preostalo aktivacija:"
 
-#: web/admin/edit_silverbullet.php:495
+#: web/admin/edit_silverbullet.php:537
 #, php-format
 msgid "%d of %d"
 msgstr "%d od %d"
 
-#: web/admin/edit_silverbullet.php:521
+#: web/admin/edit_silverbullet.php:560
 msgid "Update"
 msgstr "Ažuriranje"
 
-#: web/admin/edit_silverbullet.php:528
+#: web/admin/edit_silverbullet.php:567
 #, php-format
 msgid ""
 "All of the currently active devices will stop functioning with %s. This "
@@ -1047,20 +1074,41 @@ msgstr ""
 "poništiti, dok se korisnik može ponovo aktivirati kasnije, ali sa novim "
 "pozivnicama/tokenima.Jeste li sigurni da želite uraditi ovo?"
 
-#: web/admin/edit_silverbullet.php:537
+#: web/admin/edit_silverbullet.php:576
 msgid "Deactivate User"
 msgstr "Deaktiviraj korisnika"
 
-#: web/admin/edit_silverbullet.php:546
+#: web/admin/edit_silverbullet.php:581
+#, fuzzy
+msgid "Show Authentication Records"
+msgstr "Naziv (CN) of Autentikacijskog Servera"
+
+#. current user, allow sending new token
+#: web/admin/edit_silverbullet.php:586
 msgid "New Invitation"
 msgstr "Nova pozivnica"
 
-#: web/admin/edit_silverbullet.php:549
+#: web/admin/edit_silverbullet.php:587
 msgid "Activations:"
 msgstr "Aktivacije:"
 
+#. previous user; if there are NO authentication records, allow full deletion - otherwise, need to keep user trace for abuse handling
+#: web/admin/edit_silverbullet.php:594
+#, fuzzy
+msgid "Delete User"
+msgstr "Izbriši %s"
+
+#: web/admin/edit_silverbullet.php:610
+#, fuzzy
+msgid "Current Users"
+msgstr "Trenutni %s korisnik"
+
+#: web/admin/edit_silverbullet.php:613
+msgid "Previous Users"
+msgstr ""
+
 #. false because this restriction is currently not in effect and thus no UI is needed for it.
-#: web/admin/edit_silverbullet.php:570
+#: web/admin/edit_silverbullet.php:622
 #, php-format
 msgid ""
 "You need to acknowledge that the created accounts are still valid within the "
@@ -1075,24 +1123,24 @@ msgstr ""
 "bilo koji od računa istekao, deaktivirajte ga pritisnuvši odgovarajući gumb "
 "prije nego napravite to. "
 
-#: web/admin/edit_silverbullet.php:578
+#: web/admin/edit_silverbullet.php:630
 #, php-format
 msgid "I have verified that all configured users are still eligible for %s."
 msgstr "Provjerio sam da svi konfigurirani korisnici ispunjavaju uvjete za %s."
 
-#: web/admin/edit_silverbullet.php:580
+#: web/admin/edit_silverbullet.php:632
 msgid "Save"
 msgstr "Spremi"
 
-#: web/admin/edit_silverbullet.php:590 web/admin/edit_silverbullet.php:605
+#: web/admin/edit_silverbullet.php:642 web/admin/edit_silverbullet.php:657
 msgid "Add new user"
 msgstr "Dodaj novog korisnika"
 
-#: web/admin/edit_silverbullet.php:593
+#: web/admin/edit_silverbullet.php:645
 msgid "Import users from CSV file"
 msgstr "Uvezi korisnike iz CSV datoteke"
 
-#: web/admin/edit_silverbullet.php:600
+#: web/admin/edit_silverbullet.php:652
 msgid ""
 "Please enter a username of your choice and user expiry date to create a new "
 "user:"
@@ -1100,7 +1148,7 @@ msgstr ""
 "Molimo unesite korisničko ime po želji i datum isteka korisnika da kreirate "
 "novog korisnika:"
 
-#: web/admin/edit_silverbullet.php:614
+#: web/admin/edit_silverbullet.php:666
 msgid ""
 "Comma separated values should be provided in CSV file: username, expiration "
 "date 'yyyy-mm-dd', number of tokens (optional):"
@@ -1108,29 +1156,29 @@ msgstr ""
 "Vrijednosti odvojene zarezima trebaju biti navedene u CSV datoteci: "
 "korisničko ime, datum isteka'yyyy-mm-dd' , broj tokena (opcionalno): "
 
-#: web/admin/edit_silverbullet.php:618
+#: web/admin/edit_silverbullet.php:670
 msgid "Import users"
 msgstr "Uvezi korisnike"
 
 #. Appending terms of use popup
-#: web/admin/edit_silverbullet.php:634
+#: web/admin/edit_silverbullet.php:686
 #, php-format
 msgid "%s - Terms of Use"
 msgstr "%s - Uvjeti korištenja"
 
-#: web/admin/edit_silverbullet.php:641
+#: web/admin/edit_silverbullet.php:693
 msgid "I have read and agree to the terms."
 msgstr "Pročitao sam i slažem se s uvjetima korištenja."
 
-#: web/admin/edit_silverbullet.php:643
+#: web/admin/edit_silverbullet.php:695
 msgid "Continue"
 msgstr "Nastavi"
 
-#: web/admin/edit_silverbullet.php:644
+#: web/admin/edit_silverbullet.php:696
 msgid "Abort"
 msgstr "Prekinuti"
 
-#: web/admin/edit_silverbullet.php:657
+#: web/admin/edit_silverbullet.php:709
 #, php-format
 msgid "Back to %s page"
 msgstr "Nazad na %s"
@@ -1336,7 +1384,7 @@ msgstr "Status izvedbe"
 
 #: web/admin/overview_federation.php:202 web/admin/overview_user.php:117
 #: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:86
-#: web/lib/admin/UIElements.php:116
+#: web/lib/admin/UIElements.php:115
 #, php-format
 msgid "%s Name"
 msgstr "%s Naziv"
@@ -1356,37 +1404,37 @@ msgstr "Upravljanje administratorima"
 msgid "The following %s are in your %s %s:"
 msgstr "Sljedeće %s su u Vašem %s %s:"
 
-#: web/admin/overview_federation.php:259
+#: web/admin/overview_federation.php:269
 msgid "Manage DB Link"
 msgstr "Administracija DB linka"
 
-#: web/admin/overview_federation.php:265
+#: web/admin/overview_federation.php:275
 msgid "Linked"
 msgstr "Povezano"
 
-#: web/admin/overview_federation.php:268
+#: web/admin/overview_federation.php:278
 msgid "NOT linked"
 msgstr "Nije povezano"
 
-#: web/admin/overview_federation.php:283 web/admin/overview_user.php:153
+#: web/admin/overview_federation.php:293 web/admin/overview_user.php:153
 msgid "Add/Remove Administrators"
 msgstr "Dodaj/obriši administratora"
 
-#: web/admin/overview_federation.php:296
+#: web/admin/overview_federation.php:306
 #, php-format
 msgid "Pending invitations in the %s:"
 msgstr "Pozivnice čekaju u %s:"
 
-#: web/admin/overview_federation.php:313
+#: web/admin/overview_federation.php:323
 msgid "Revoke Invitation"
 msgstr "Povlačenje pozivnice"
 
-#: web/admin/overview_federation.php:314 web/admin/inc/manageAdmins.inc.php:208
+#: web/admin/overview_federation.php:324 web/admin/inc/manageAdmins.inc.php:208
 #, php-format
 msgid "(expires %s)"
 msgstr "(istječe %s)"
 
-#: web/admin/overview_federation.php:333
+#: web/admin/overview_federation.php:343
 #, php-format
 msgid "Register a new %s!"
 msgstr "Registrirajte novi %s!"
@@ -1501,7 +1549,7 @@ msgstr "Prezimanja za krajnje korisnike"
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr "<strong>EAP tipovi</strong> (redosljed po važnosti):"
 
-#: web/admin/overview_idp.php:244 web/lib/admin/UIElements.php:414
+#: web/admin/overview_idp.php:244 web/lib/admin/UIElements.php:413
 msgid "OK"
 msgstr "OK"
 
@@ -1685,8 +1733,9 @@ msgid "%s %s: %s list"
 msgstr "%s %s: %s popis"
 
 #: web/admin/overview_user.php:149
-msgid "other user"
-msgid_plural "other users"
+#, fuzzy, php-format
+msgid "%d other user"
+msgid_plural "%d other users"
 msgstr[0] "drugi korisnik"
 msgstr[1] "drugi korisnici"
 msgstr[2] "drugi korisnici"
@@ -1744,7 +1793,7 @@ msgstr ""
 "Vi ste administrator %s. Možete pozvati nove administratore koji mogu dalje "
 "sami postavljati administratore."
 
-#: web/admin/inc/manageAdmins.inc.php:154 web/lib/admin/UIElements.php:107
+#: web/admin/inc/manageAdmins.inc.php:154 web/lib/admin/UIElements.php:106
 #, php-format
 msgid "%s Administrator"
 msgstr "%s administrator"
@@ -2026,6 +2075,60 @@ msgstr "EAP tip <strong>%s</strong>"
 msgid "Fine-tuning options for "
 msgstr "FIno ugađanje opcija za"
 
+#: web/admin/inc/userStats.inc.php:31
+#, fuzzy
+msgid "User Authentication Records"
+msgstr "Naziv (CN) of Autentikacijskog Servera"
+
+#: web/admin/inc/userStats.inc.php:32
+msgid "Note that:"
+msgstr ""
+
+#: web/admin/inc/userStats.inc.php:34
+msgid "Authentication records are deleted after six months retention time"
+msgstr ""
+
+#: web/admin/inc/userStats.inc.php:35
+msgid ""
+"Operator Domain is based on the RADIUS attribute 'Operator-Name' and not "
+"sent by all hotspots"
+msgstr ""
+
+#: web/admin/inc/userStats.inc.php:36
+msgid ""
+"Different MAC addresses per credential may be due to MAC Address "
+"randomisation in recent operating systems"
+msgstr ""
+
+#: web/admin/inc/userStats.inc.php:40
+msgid "Timestamp"
+msgstr ""
+
+#: web/admin/inc/userStats.inc.php:41
+msgid "Credential"
+msgstr ""
+
+#: web/admin/inc/userStats.inc.php:42
+#, fuzzy
+msgid "MAC Address"
+msgstr "Adresa:"
+
+#: web/admin/inc/userStats.inc.php:43
+msgid "Result"
+msgstr ""
+
+#: web/admin/inc/userStats.inc.php:44
+msgid "Operator Domain"
+msgstr ""
+
+#: web/admin/inc/userStats.inc.php:53
+msgid "Success"
+msgstr ""
+
+#: web/admin/inc/userStats.inc.php:53
+msgid "Failure"
+msgstr ""
+
 #: web/lib/admin/AbstractMap.php:124 web/lib/admin/UIElements.php:87
 msgid "Location"
 msgstr "Lokacija"
@@ -2149,7 +2252,7 @@ msgstr ""
 msgid "select language"
 msgstr "odabir jezika"
 
-#: web/lib/admin/OptionDisplay.php:276 web/lib/admin/UIElements.php:158
+#: web/lib/admin/OptionDisplay.php:276 web/lib/admin/UIElements.php:157
 msgid "default/other languages"
 msgstr "predodređen/ostali jezici"
 
@@ -2162,11 +2265,11 @@ msgid "file content"
 msgstr "sadržaj datoteke"
 
 #. only modify in this one case
-#: web/lib/admin/OptionDisplay.php:402 web/lib/admin/UIElements.php:192
+#: web/lib/admin/OptionDisplay.php:402 web/lib/admin/UIElements.php:191
 msgid "on"
 msgstr "uključeno"
 
-#: web/lib/admin/OptionDisplay.php:402 web/lib/admin/UIElements.php:192
+#: web/lib/admin/OptionDisplay.php:402 web/lib/admin/UIElements.php:191
 msgid "off"
 msgstr "isključeno"
 
@@ -2352,132 +2455,132 @@ msgid "Turn on selection of EAP-TLS User-Name"
 msgstr "Isključi dio  EAP-TLS User-Name"
 
 #: web/lib/admin/UIElements.php:103
-msgid "Use GEANTlink TTLS supplicant for W8"
+#, fuzzy
+msgid "Use GEANTlink for TTLS (Windows 8 and 10)"
 msgstr "Koristi GEANTlink TTLS supplicant za W8"
 
 #: web/lib/admin/UIElements.php:104
-msgid "Use builtin TTLS supplicant for Windows 10"
-msgstr "Koristi ugrađeni TTLS supplicant za WIN 10"
-
-#: web/lib/admin/UIElements.php:105
 msgid "Profile Description"
 msgstr "Opis profila"
 
-#: web/lib/admin/UIElements.php:106
+#: web/lib/admin/UIElements.php:105
 msgid "Custom Installer Name Suffix"
 msgstr "Sufiks naziva installera"
 
-#: web/lib/admin/UIElements.php:108
+#: web/lib/admin/UIElements.php:107
 msgid "Real Name"
 msgstr "Stvarno ime"
 
-#: web/lib/admin/UIElements.php:109
+#: web/lib/admin/UIElements.php:108
 msgid "E-Mail Address"
 msgstr "E-Mail adresa"
 
-#: web/lib/admin/UIElements.php:110
+#: web/lib/admin/UIElements.php:109
 msgid "Remove/Disable SSID"
 msgstr "Makni/onemogući SSID"
 
-#: web/lib/admin/UIElements.php:111
+#: web/lib/admin/UIElements.php:110
 msgid "Mandatory Content Filtering Proxy"
 msgstr "Obavezan proxy filtriranja sadržaja"
 
-#: web/lib/admin/UIElements.php:112
+#: web/lib/admin/UIElements.php:111
 msgid "Custom CSS file for User Area"
 msgstr "Prilagođeni CSS za korisnika"
 
-#: web/lib/admin/UIElements.php:113
+#: web/lib/admin/UIElements.php:112
 #, php-format
 msgid "%s Logo"
 msgstr "%s logo"
 
-#: web/lib/admin/UIElements.php:114
+#: web/lib/admin/UIElements.php:113
 msgid "Preferred Skin for User Area"
 msgstr "Poželjan izgled korisničkog sučelja"
 
-#: web/lib/admin/UIElements.php:115
+#: web/lib/admin/UIElements.php:114
 #, php-format
 msgid "Include %s branding in installers"
 msgstr "Uključi %s branding u installere"
 
-#: web/lib/admin/UIElements.php:117
+#: web/lib/admin/UIElements.php:116
 #, php-format
 msgid "%s Homepage"
 msgstr "%s Početna stranica"
 
-#: web/lib/admin/UIElements.php:118
+#: web/lib/admin/UIElements.php:117
 #, php-format
 msgid "Custom text in %s Invitations"
 msgstr "Prilagođeni tekst u %s pozivnici"
 
-#: web/lib/admin/UIElements.php:119
+#: web/lib/admin/UIElements.php:118
 #, php-format
 msgid "Enable %s"
 msgstr "Omogući %s"
 
-#: web/lib/admin/UIElements.php:120
+#: web/lib/admin/UIElements.php:119
 #, php-format
 msgid "%s: Do not terminate EAP"
 msgstr "%s: Ne prekidajte EAP"
 
-#: web/lib/admin/UIElements.php:121
+#: web/lib/admin/UIElements.php:120
 #, php-format
 msgid "%s: max users per profile"
 msgstr "%s: maksimalno korisnika po profilu"
 
-#: web/lib/admin/UIElements.php:122
+#: web/lib/admin/UIElements.php:121
 #, php-format
 msgid "Mint %s with CA on creation"
 msgstr "Mint %s sa CA kod stvaranja"
 
-#: web/lib/admin/UIElements.php:224
+#: web/lib/admin/UIElements.php:223
 #, php-format
 msgid "General %s details"
 msgstr "Općeniti %s detalji"
 
-#: web/lib/admin/UIElements.php:242
+#: web/lib/admin/UIElements.php:241
 msgid "Global Helpdesk Details"
 msgstr "Glavni podaci za helpdesk"
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:339
+#: web/lib/admin/UIElements.php:338
 msgid "There was an error while retrieving the certificate from the database!"
 msgstr "Došlo je do pogreške kod preuzimanja certifikata iz baze podataka!"
 
-#: web/lib/admin/UIElements.php:348
+#: web/lib/admin/UIElements.php:347
 msgid "There was an error processing the certificate!"
 msgstr "Došlo je do pogreške u obradi certifikata!"
 
-#: web/lib/admin/UIElements.php:357
+#: web/lib/admin/UIElements.php:356
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr "Ovo je <strong>SERVER</strong> certifikat!"
 
-#: web/lib/admin/UIElements.php:375
+#: web/lib/admin/UIElements.php:374
 msgid "Preview of logo file"
 msgstr "Pogled na log datoteku"
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:391
+#: web/lib/admin/UIElements.php:390
 msgid "There was an error while retrieving the file from the database!"
 msgstr "Došto je do pogreške kod preuzimanja file-a iz baze!"
 
-#: web/lib/admin/UIElements.php:397
+#: web/lib/admin/UIElements.php:396
 msgid "File exists"
 msgstr "Datoteka postoji"
 
-#: web/lib/admin/UIElements.php:397
+#: web/lib/admin/UIElements.php:396
 msgid "Preview"
 msgstr "Pogled"
 
-#: web/lib/admin/UIElements.php:415
+#: web/lib/admin/UIElements.php:414
 msgid "Remark"
 msgstr "Zabiljeska"
 
-#: web/lib/admin/UIElements.php:416
+#: web/lib/admin/UIElements.php:415
 msgid "Warning!"
 msgstr "Upozorenje!"
 
-#: web/lib/admin/UIElements.php:417
+#: web/lib/admin/UIElements.php:416
 msgid "Error!"
 msgstr "Pogreška!"
+
+#~ msgid "Use builtin TTLS supplicant for Windows 10"
+#~ msgstr "Koristi ugrađeni TTLS supplicant za WIN 10"

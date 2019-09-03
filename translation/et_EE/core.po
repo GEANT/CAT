@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-18 08:14+0200\n"
-"PO-Revision-Date: 2019-03-26 11:54+0000\n"
+"POT-Creation-Date: 2019-08-30 15:22+0200\n"
+"PO-Revision-Date: 2019-06-03 06:56+0000\n"
 "Last-Translator: Anne M <anne@eenet.ee>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/et_EE/)\n"
@@ -24,7 +24,7 @@ msgstr ""
 #: core/CAT.php:109
 #, php-format
 msgid "Unreleased %s Git Revision"
-msgstr ""
+msgstr "Väljastamata %si Giti-redaktsioon"
 
 #: core/CAT.php:119
 #, php-format
@@ -291,17 +291,17 @@ msgstr "Lõuna-Aafrika"
 msgid "Unnamed Entity"
 msgstr "Riik määramata"
 
-#: core/DeviceConfig.php:186
+#: core/DeviceConfig.php:229
 #, php-format
 msgid "your local %s support"
 msgstr "kohalik %si kasutajatugi"
 
-#: core/DeviceConfig.php:187
+#: core/DeviceConfig.php:230
 #, php-format
 msgid "your local %s support page"
 msgstr "kohalik %si kasutajatoe leht"
 
-#: core/DeviceConfig.php:223
+#: core/DeviceConfig.php:266
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 "Vabandust, seda ei peaks juhtuma - täpsemat infot kahjuks ei ole saadaval"
@@ -318,7 +318,7 @@ msgstr "(lõpetatud) %s"
 #. /                4. federation shortname, e.g. "LU";
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:252
+#: core/Federation.php:256
 #, php-format
 msgid ""
 "Hi,\n"
@@ -332,13 +332,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Automaatteade\n"
-"Kutse uuele liitujale - %s %s - Su %si föderatsiooni %s on ära kasutatud  ja "
-"loodud IdP %sis.\n"
-"Lugupidamisega\n"
+"Automaatteade:\n"
+" %s %s \n"
+"%s IdP on loodud (föderatsioon: %s %s)\n"
+"\n"
 "%s"
 
-#: core/Federation.php:261
+#: core/Federation.php:265
 #, php-format
 msgid "%s in your federation was created"
 msgstr " Sinu föderatsiooni loodi %s"
@@ -366,16 +366,16 @@ msgstr ""
 msgid "%s in your federation was deleted"
 msgstr "Sinu föderatsioonist kustutati %s"
 
-#: core/SilverbulletInvitation.php:230
+#: core/SilverbulletInvitation.php:236
 #, php-format
 msgid "Your %s access is ready"
 msgstr "Ligipääs %si on valmis"
 
-#: core/SilverbulletInvitation.php:242
+#: core/SilverbulletInvitation.php:248
 msgid "Hello!"
 msgstr "Tere!"
 
-#: core/SilverbulletInvitation.php:244
+#: core/SilverbulletInvitation.php:250
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
@@ -385,7 +385,7 @@ msgstr ""
 "\n"
 "Võrguadministraator andis Sulle juurdepääsuõiguse %sile."
 
-#: core/SilverbulletInvitation.php:246
+#: core/SilverbulletInvitation.php:252
 #, php-format
 msgid ""
 "Please follow the following link with the device you want to enable for %s "
@@ -398,7 +398,7 @@ msgstr ""
 "või skaneerida lisatud QR-koodi. "
 
 #. gets replaced with the token value by getBody()
-#: core/SilverbulletInvitation.php:248
+#: core/SilverbulletInvitation.php:254
 #, php-format
 msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
@@ -409,11 +409,11 @@ msgstr ""
 "Pärast %si paigaldusprogrammi allalaadimist saad sama lingi kaudu vaadata "
 "teavet oma %si konto seisundi kohta."
 
-#: core/SilverbulletInvitation.php:250
+#: core/SilverbulletInvitation.php:256
 msgid "Regards,"
 msgstr "Lugupidamisega"
 
-#: core/SilverbulletInvitation.php:299
+#: core/SilverbulletInvitation.php:305
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
@@ -423,7 +423,7 @@ msgstr ""
 "Klõpsa %s\n"
 "(Kui kasutad Androidi, paigalda esmalt äpp/rakendus '%s'.)"
 
-#: core/SilverbulletInvitation.php:321
+#: core/SilverbulletInvitation.php:327
 #, php-format
 msgid "%s Invitation System"
 msgstr "%si kutsete süsteem"
@@ -606,10 +606,3 @@ msgstr "Domeen sisaldab tühikuid!"
 #: web/lib/common/InputValidation.php:241
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Domeen peab sisaldama vähemalt ühte . (punkti)!"
-
-#~ msgid ""
-#~ "Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes."
-#~ "md'>Git Revision</a>"
-#~ msgstr ""
-#~ "Avaldamata <a href='https://github.com/GEANT/CAT/tree/master/Changes."
-#~ "md'>Git'i versioon</a>"

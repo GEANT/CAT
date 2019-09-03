@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-18 08:14+0200\n"
+"POT-Creation-Date: 2019-08-30 15:22+0200\n"
 "PO-Revision-Date: 2019-03-22 21:59+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/eduroam_devel/"
@@ -74,7 +74,7 @@ msgid "%s Properties"
 msgstr ""
 
 #: web/admin/edit_federation.php:67 web/admin/edit_idp.php:86
-#: web/lib/admin/UIElements.php:228
+#: web/lib/admin/UIElements.php:227
 msgid "Country:"
 msgstr ""
 
@@ -173,7 +173,7 @@ msgid ""
 "language the user requests a download in."
 msgstr ""
 
-#: web/admin/edit_idp.php:125 web/lib/admin/UIElements.php:242
+#: web/admin/edit_idp.php:125 web/lib/admin/UIElements.php:241
 msgid "Media Properties"
 msgstr ""
 
@@ -693,11 +693,11 @@ msgstr ""
 msgid "Continue to Installer Fine-Tuning and Download"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:229
+#: web/admin/edit_silverbullet.php:239
 msgid "Insecure mail domain!"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:230
+#: web/admin/edit_silverbullet.php:240
 #, php-format
 msgid ""
 "The mail domain of the mail address <strong>%s</strong> is not secure: some "
@@ -705,205 +705,230 @@ msgid ""
 "consistent support for STARTTLS)."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:231
+#: web/admin/edit_silverbullet.php:241
 msgid ""
 "The invitation would need to be sent in cleartext across the internet, and "
 "can possibly be read and abused by anyone in transit."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:232
+#: web/admin/edit_silverbullet.php:242
 msgid "Do you want the system to send this mail anyway?"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:234
+#: web/admin/edit_silverbullet.php:244
 msgid "DO NOT SEND"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:241
+#: web/admin/edit_silverbullet.php:251
 msgid "Send anyway."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:291
+#: web/admin/edit_silverbullet.php:301
 #, php-format
 msgid "Managing %s users"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:328
+#: web/admin/edit_silverbullet.php:338
 #, php-format
 msgid "Current %s users"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:331
+#: web/admin/edit_silverbullet.php:341
 msgid "Assigned Realm"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:334
+#: web/admin/edit_silverbullet.php:344
 msgid "Total number of active users allowed"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:337
+#: web/admin/edit_silverbullet.php:347
 msgid "Number of active users"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:340
+#: web/admin/edit_silverbullet.php:350
 msgid "Number of inactive users"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:351
+#: web/admin/edit_silverbullet.php:361
 msgid "The e-mail was sent successfully."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:351
+#: web/admin/edit_silverbullet.php:361
 msgid "E-mail OK."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:354
+#: web/admin/edit_silverbullet.php:364
 msgid "The e-mail was NOT sent."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:354
+#: web/admin/edit_silverbullet.php:364
 msgid "E-mail not OK."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:357
+#: web/admin/edit_silverbullet.php:367
 msgid "The SMS was sent successfully."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:357
+#: web/admin/edit_silverbullet.php:367
 msgid "SMS OK."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:360
+#: web/admin/edit_silverbullet.php:370
 msgid "The SMS was NOT sent."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:360
+#: web/admin/edit_silverbullet.php:370
 msgid "SMS not OK."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:363
+#: web/admin/edit_silverbullet.php:373
 msgid "Only a fragment of the SMS was sent. You should re-send it."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:363
+#: web/admin/edit_silverbullet.php:373
 msgid "SMS Fragment."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:370
+#: web/admin/edit_silverbullet.php:380
 #, php-format
 msgid "Manage %s users"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:375 web/admin/overview_federation.php:127
+#: web/admin/edit_silverbullet.php:386 web/admin/edit_silverbullet.php:393
+#: web/admin/overview_federation.php:127
 msgid "User"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:376
+#: web/admin/edit_silverbullet.php:387
 msgid "Token/Certificate details"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:377
+#: web/admin/edit_silverbullet.php:388
 msgid "User/Token Expiry"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:378
+#: web/admin/edit_silverbullet.php:389 web/admin/edit_silverbullet.php:396
 msgid "Actions"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:409
+#: web/admin/edit_silverbullet.php:394
+msgid "Certificate details"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:395
+msgid "User Expiry"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:436
 msgid "REVOKED"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:414
+#: web/admin/edit_silverbullet.php:441
 msgid "EXPIRED"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:426
+#: web/admin/edit_silverbullet.php:452
 msgid "Device:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:427
+#: web/admin/edit_silverbullet.php:453
 msgid "Serial Number:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:428
+#: web/admin/edit_silverbullet.php:454
 msgid "CN:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:429
+#: web/admin/edit_silverbullet.php:455
 msgid "Expiry:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:430
+#: web/admin/edit_silverbullet.php:456
 msgid "Issued:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:442
+#: web/admin/edit_silverbullet.php:468
 #, php-format
 msgid ""
 "The device in question will stop functioning with %s. The revocation cannot "
 "be undone. Are you sure you want to do this?"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:443 web/admin/edit_silverbullet.php:499
+#: web/admin/edit_silverbullet.php:469 web/admin/edit_silverbullet.php:541
 msgid "Revoke"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:468
+#: web/admin/edit_silverbullet.php:493
+#, php-format
+msgid "(show %d revoked certificate)"
+msgid_plural "(show %d revoked certificates)"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: web/admin/edit_silverbullet.php:496
+#, php-format
+msgid "(show %d expired certificate)"
+msgid_plural "(show %d expired certificates)"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: web/admin/edit_silverbullet.php:510
 #, php-format
 msgid "The invitation token %s is ready for sending! Choose how to send it:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:470
+#: web/admin/edit_silverbullet.php:512
 msgid "E-Mail:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:474
+#: web/admin/edit_silverbullet.php:516
 msgid "Local mail client"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:475
+#: web/admin/edit_silverbullet.php:517
 msgid "Send with CAT"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:478
+#: web/admin/edit_silverbullet.php:520
 msgid "SMS:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:482
+#: web/admin/edit_silverbullet.php:524
 msgid "Send in SMS..."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:485
+#: web/admin/edit_silverbullet.php:527
 msgid "Manual:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:486
+#: web/admin/edit_silverbullet.php:528
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:489
+#: web/admin/edit_silverbullet.php:531
 msgid "Display QR code"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:495
+#: web/admin/edit_silverbullet.php:537
 msgid "Expiry Date:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:495
+#: web/admin/edit_silverbullet.php:537
 msgid "Activations remaining:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:495
+#: web/admin/edit_silverbullet.php:537
 #, php-format
 msgid "%d of %d"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:521
+#: web/admin/edit_silverbullet.php:560
 msgid "Update"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:528
+#: web/admin/edit_silverbullet.php:567
 #, php-format
 msgid ""
 "All of the currently active devices will stop functioning with %s. This "
@@ -912,20 +937,38 @@ msgid ""
 "to do this?"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:537
+#: web/admin/edit_silverbullet.php:576
 msgid "Deactivate User"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:546
+#: web/admin/edit_silverbullet.php:581
+msgid "Show Authentication Records"
+msgstr ""
+
+#. current user, allow sending new token
+#: web/admin/edit_silverbullet.php:586
 msgid "New Invitation"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:549
+#: web/admin/edit_silverbullet.php:587
 msgid "Activations:"
 msgstr ""
 
+#. previous user; if there are NO authentication records, allow full deletion - otherwise, need to keep user trace for abuse handling
+#: web/admin/edit_silverbullet.php:594
+msgid "Delete User"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:610
+msgid "Current Users"
+msgstr ""
+
+#: web/admin/edit_silverbullet.php:613
+msgid "Previous Users"
+msgstr ""
+
 #. false because this restriction is currently not in effect and thus no UI is needed for it.
-#: web/admin/edit_silverbullet.php:570
+#: web/admin/edit_silverbullet.php:622
 #, php-format
 msgid ""
 "You need to acknowledge that the created accounts are still valid within the "
@@ -935,58 +978,58 @@ msgid ""
 "doing this."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:578
+#: web/admin/edit_silverbullet.php:630
 #, php-format
 msgid "I have verified that all configured users are still eligible for %s."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:580
+#: web/admin/edit_silverbullet.php:632
 msgid "Save"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:590 web/admin/edit_silverbullet.php:605
+#: web/admin/edit_silverbullet.php:642 web/admin/edit_silverbullet.php:657
 msgid "Add new user"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:593
+#: web/admin/edit_silverbullet.php:645
 msgid "Import users from CSV file"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:600
+#: web/admin/edit_silverbullet.php:652
 msgid ""
 "Please enter a username of your choice and user expiry date to create a new "
 "user:"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:614
+#: web/admin/edit_silverbullet.php:666
 msgid ""
 "Comma separated values should be provided in CSV file: username, expiration "
 "date 'yyyy-mm-dd', number of tokens (optional):"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:618
+#: web/admin/edit_silverbullet.php:670
 msgid "Import users"
 msgstr ""
 
 #. Appending terms of use popup
-#: web/admin/edit_silverbullet.php:634
+#: web/admin/edit_silverbullet.php:686
 #, php-format
 msgid "%s - Terms of Use"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:641
+#: web/admin/edit_silverbullet.php:693
 msgid "I have read and agree to the terms."
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:643
+#: web/admin/edit_silverbullet.php:695
 msgid "Continue"
 msgstr "Continuare"
 
-#: web/admin/edit_silverbullet.php:644
+#: web/admin/edit_silverbullet.php:696
 msgid "Abort"
 msgstr ""
 
-#: web/admin/edit_silverbullet.php:657
+#: web/admin/edit_silverbullet.php:709
 #, php-format
 msgid "Back to %s page"
 msgstr ""
@@ -1183,7 +1226,7 @@ msgstr ""
 
 #: web/admin/overview_federation.php:202 web/admin/overview_user.php:117
 #: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:86
-#: web/lib/admin/UIElements.php:116
+#: web/lib/admin/UIElements.php:115
 #, php-format
 msgid "%s Name"
 msgstr ""
@@ -1203,37 +1246,37 @@ msgstr ""
 msgid "The following %s are in your %s %s:"
 msgstr ""
 
-#: web/admin/overview_federation.php:259
+#: web/admin/overview_federation.php:269
 msgid "Manage DB Link"
 msgstr ""
 
-#: web/admin/overview_federation.php:265
+#: web/admin/overview_federation.php:275
 msgid "Linked"
 msgstr ""
 
-#: web/admin/overview_federation.php:268
+#: web/admin/overview_federation.php:278
 msgid "NOT linked"
 msgstr ""
 
-#: web/admin/overview_federation.php:283 web/admin/overview_user.php:153
+#: web/admin/overview_federation.php:293 web/admin/overview_user.php:153
 msgid "Add/Remove Administrators"
 msgstr ""
 
-#: web/admin/overview_federation.php:296
+#: web/admin/overview_federation.php:306
 #, php-format
 msgid "Pending invitations in the %s:"
 msgstr ""
 
-#: web/admin/overview_federation.php:313
+#: web/admin/overview_federation.php:323
 msgid "Revoke Invitation"
 msgstr ""
 
-#: web/admin/overview_federation.php:314 web/admin/inc/manageAdmins.inc.php:208
+#: web/admin/overview_federation.php:324 web/admin/inc/manageAdmins.inc.php:208
 #, php-format
 msgid "(expires %s)"
 msgstr ""
 
-#: web/admin/overview_federation.php:333
+#: web/admin/overview_federation.php:343
 #, php-format
 msgid "Register a new %s!"
 msgstr ""
@@ -1342,7 +1385,7 @@ msgstr ""
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr ""
 
-#: web/admin/overview_idp.php:244 web/lib/admin/UIElements.php:414
+#: web/admin/overview_idp.php:244 web/lib/admin/UIElements.php:413
 msgid "OK"
 msgstr "De acord"
 
@@ -1522,8 +1565,9 @@ msgid "%s %s: %s list"
 msgstr ""
 
 #: web/admin/overview_user.php:149
-msgid "other user"
-msgid_plural "other users"
+#, php-format
+msgid "%d other user"
+msgid_plural "%d other users"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
@@ -1573,7 +1617,7 @@ msgid ""
 "turn appoint further administrators on their own."
 msgstr ""
 
-#: web/admin/inc/manageAdmins.inc.php:154 web/lib/admin/UIElements.php:107
+#: web/admin/inc/manageAdmins.inc.php:154 web/lib/admin/UIElements.php:106
 #, php-format
 msgid "%s Administrator"
 msgstr ""
@@ -1841,6 +1885,58 @@ msgstr ""
 msgid "Fine-tuning options for "
 msgstr ""
 
+#: web/admin/inc/userStats.inc.php:31
+msgid "User Authentication Records"
+msgstr ""
+
+#: web/admin/inc/userStats.inc.php:32
+msgid "Note that:"
+msgstr ""
+
+#: web/admin/inc/userStats.inc.php:34
+msgid "Authentication records are deleted after six months retention time"
+msgstr ""
+
+#: web/admin/inc/userStats.inc.php:35
+msgid ""
+"Operator Domain is based on the RADIUS attribute 'Operator-Name' and not "
+"sent by all hotspots"
+msgstr ""
+
+#: web/admin/inc/userStats.inc.php:36
+msgid ""
+"Different MAC addresses per credential may be due to MAC Address "
+"randomisation in recent operating systems"
+msgstr ""
+
+#: web/admin/inc/userStats.inc.php:40
+msgid "Timestamp"
+msgstr ""
+
+#: web/admin/inc/userStats.inc.php:41
+msgid "Credential"
+msgstr ""
+
+#: web/admin/inc/userStats.inc.php:42
+msgid "MAC Address"
+msgstr ""
+
+#: web/admin/inc/userStats.inc.php:43
+msgid "Result"
+msgstr ""
+
+#: web/admin/inc/userStats.inc.php:44
+msgid "Operator Domain"
+msgstr ""
+
+#: web/admin/inc/userStats.inc.php:53
+msgid "Success"
+msgstr ""
+
+#: web/admin/inc/userStats.inc.php:53
+msgid "Failure"
+msgstr ""
+
 #: web/lib/admin/AbstractMap.php:124 web/lib/admin/UIElements.php:87
 msgid "Location"
 msgstr ""
@@ -1942,7 +2038,7 @@ msgstr ""
 msgid "select language"
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:276 web/lib/admin/UIElements.php:158
+#: web/lib/admin/OptionDisplay.php:276 web/lib/admin/UIElements.php:157
 msgid "default/other languages"
 msgstr ""
 
@@ -1955,11 +2051,11 @@ msgid "file content"
 msgstr ""
 
 #. only modify in this one case
-#: web/lib/admin/OptionDisplay.php:402 web/lib/admin/UIElements.php:192
+#: web/lib/admin/OptionDisplay.php:402 web/lib/admin/UIElements.php:191
 msgid "on"
 msgstr ""
 
-#: web/lib/admin/OptionDisplay.php:402 web/lib/admin/UIElements.php:192
+#: web/lib/admin/OptionDisplay.php:402 web/lib/admin/UIElements.php:191
 msgid "off"
 msgstr ""
 
@@ -2141,132 +2237,128 @@ msgid "Turn on selection of EAP-TLS User-Name"
 msgstr ""
 
 #: web/lib/admin/UIElements.php:103
-msgid "Use GEANTlink TTLS supplicant for W8"
+msgid "Use GEANTlink for TTLS (Windows 8 and 10)"
 msgstr ""
 
 #: web/lib/admin/UIElements.php:104
-msgid "Use builtin TTLS supplicant for Windows 10"
-msgstr ""
-
-#: web/lib/admin/UIElements.php:105
 msgid "Profile Description"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:106
+#: web/lib/admin/UIElements.php:105
 msgid "Custom Installer Name Suffix"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:108
+#: web/lib/admin/UIElements.php:107
 msgid "Real Name"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:109
+#: web/lib/admin/UIElements.php:108
 msgid "E-Mail Address"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:110
+#: web/lib/admin/UIElements.php:109
 msgid "Remove/Disable SSID"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:111
+#: web/lib/admin/UIElements.php:110
 msgid "Mandatory Content Filtering Proxy"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:112
+#: web/lib/admin/UIElements.php:111
 msgid "Custom CSS file for User Area"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:113
+#: web/lib/admin/UIElements.php:112
 #, php-format
 msgid "%s Logo"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:114
+#: web/lib/admin/UIElements.php:113
 msgid "Preferred Skin for User Area"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:115
+#: web/lib/admin/UIElements.php:114
 #, php-format
 msgid "Include %s branding in installers"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:117
+#: web/lib/admin/UIElements.php:116
 #, php-format
 msgid "%s Homepage"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:118
+#: web/lib/admin/UIElements.php:117
 #, php-format
 msgid "Custom text in %s Invitations"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:119
+#: web/lib/admin/UIElements.php:118
 #, php-format
 msgid "Enable %s"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:120
+#: web/lib/admin/UIElements.php:119
 #, php-format
 msgid "%s: Do not terminate EAP"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:121
+#: web/lib/admin/UIElements.php:120
 #, php-format
 msgid "%s: max users per profile"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:122
+#: web/lib/admin/UIElements.php:121
 #, php-format
 msgid "Mint %s with CA on creation"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:224
+#: web/lib/admin/UIElements.php:223
 #, php-format
 msgid "General %s details"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:242
+#: web/lib/admin/UIElements.php:241
 msgid "Global Helpdesk Details"
 msgstr ""
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:339
+#: web/lib/admin/UIElements.php:338
 msgid "There was an error while retrieving the certificate from the database!"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:348
+#: web/lib/admin/UIElements.php:347
 msgid "There was an error processing the certificate!"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:357
+#: web/lib/admin/UIElements.php:356
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:375
+#: web/lib/admin/UIElements.php:374
 msgid "Preview of logo file"
 msgstr ""
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:391
+#: web/lib/admin/UIElements.php:390
 msgid "There was an error while retrieving the file from the database!"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:397
+#: web/lib/admin/UIElements.php:396
 msgid "File exists"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:397
+#: web/lib/admin/UIElements.php:396
 msgid "Preview"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:415
+#: web/lib/admin/UIElements.php:414
 msgid "Remark"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:416
+#: web/lib/admin/UIElements.php:415
 msgid "Warning!"
 msgstr ""
 
-#: web/lib/admin/UIElements.php:417
+#: web/lib/admin/UIElements.php:416
 msgid "Error!"
 msgstr ""

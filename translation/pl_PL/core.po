@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-18 08:14+0200\n"
-"PO-Revision-Date: 2019-04-01 10:57+0000\n"
-"Last-Translator: Maja Wolniewicz <maja.wolniewicz@gmail.com>\n"
+"POT-Creation-Date: 2019-08-30 15:22+0200\n"
+"PO-Revision-Date: 2019-07-09 19:13+0000\n"
+"Last-Translator: Tomasz Wolniewicz <tw2529@gmail.com>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/eduroam_devel/cat/"
 "language/pl_PL/)\n"
 "Language: pl_PL\n"
@@ -27,7 +27,7 @@ msgstr ""
 #: core/CAT.php:109
 #, php-format
 msgid "Unreleased %s Git Revision"
-msgstr ""
+msgstr "Nieopublikowana wersja Git %s"
 
 #: core/CAT.php:119
 #, php-format
@@ -294,17 +294,17 @@ msgstr "RPA"
 msgid "Unnamed Entity"
 msgstr "Nienazwana jednostka"
 
-#: core/DeviceConfig.php:186
+#: core/DeviceConfig.php:229
 #, php-format
 msgid "your local %s support"
 msgstr "Twoje lokalne wparcie %s"
 
-#: core/DeviceConfig.php:187
+#: core/DeviceConfig.php:230
 #, php-format
 msgid "your local %s support page"
 msgstr "strona Twojego lokalnego wparcia %s"
 
-#: core/DeviceConfig.php:223
+#: core/DeviceConfig.php:266
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 "Przepraszamy, to nie powinno się wydarzyć - nie ma dodatkowych informacji"
@@ -321,7 +321,7 @@ msgstr "(wycofane) %s"
 #. /                4. federation shortname, e.g. "LU";
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:252
+#: core/Federation.php:256
 #, php-format
 msgid ""
 "Hi,\n"
@@ -344,7 +344,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/Federation.php:261
+#: core/Federation.php:265
 #, php-format
 msgid "%s in your federation was created"
 msgstr "W Twojej federacji utworzono %s"
@@ -375,16 +375,16 @@ msgstr ""
 msgid "%s in your federation was deleted"
 msgstr "Z Twojej federacji usunięto %s"
 
-#: core/SilverbulletInvitation.php:230
+#: core/SilverbulletInvitation.php:236
 #, php-format
 msgid "Your %s access is ready"
 msgstr "Twój dostęp %s jest gotowy do użycia"
 
-#: core/SilverbulletInvitation.php:242
+#: core/SilverbulletInvitation.php:248
 msgid "Hello!"
 msgstr "Witaj!"
 
-#: core/SilverbulletInvitation.php:244
+#: core/SilverbulletInvitation.php:250
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
@@ -392,7 +392,7 @@ msgid ""
 msgstr ""
 "Administrator Twojej sieci przygotował dla Ciebie nowe dane dostępowe %s. "
 
-#: core/SilverbulletInvitation.php:246
+#: core/SilverbulletInvitation.php:252
 #, php-format
 msgid ""
 "Please follow the following link with the device you want to enable for %s "
@@ -404,7 +404,7 @@ msgstr ""
 "i wkleić go do przeglądarki  lub zeskanować kod QR."
 
 #. gets replaced with the token value by getBody()
-#: core/SilverbulletInvitation.php:248
+#: core/SilverbulletInvitation.php:254
 #, php-format
 msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
@@ -415,11 +415,11 @@ msgstr ""
 "instalacyjnego %s, będzie możliwe ponowne skorzystanie z tego samego linku w "
 "celu pobrania informacji o statusie Twojego konta %s. "
 
-#: core/SilverbulletInvitation.php:250
+#: core/SilverbulletInvitation.php:256
 msgid "Regards,"
 msgstr "Z poważaniem,"
 
-#: core/SilverbulletInvitation.php:299
+#: core/SilverbulletInvitation.php:305
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
@@ -428,7 +428,7 @@ msgstr ""
 "Twój dostęp do %s został przygotowany! Kliknij tutaj: %s (na Adnroidzie "
 "zainstaluj najpierw aplikację '%s'!)"
 
-#: core/SilverbulletInvitation.php:321
+#: core/SilverbulletInvitation.php:327
 #, php-format
 msgid "%s Invitation System"
 msgstr "System zaproszeń %s"
@@ -612,10 +612,3 @@ msgstr "Realm zawiera spacje!"
 #: web/lib/common/InputValidation.php:241
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Realm nie zawiera ani jednego znaku . (kropki)."
-
-#~ msgid ""
-#~ "Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes."
-#~ "md'>Git Revision</a>"
-#~ msgstr ""
-#~ "Nieopublikowana <a href='https://github.com/GEANT/CAT/tree/master/Changes."
-#~ "md'> Wersja Git </a>"

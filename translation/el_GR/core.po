@@ -7,14 +7,14 @@
 # HELPDESK <npapalouka@admin.grnet.gr>, 2015
 # Panos Bouklis <panos@echidna-band.com>, 2012
 # Wasilis <m.wasilis@yahoo.de>, 2013
-# Zenon Mousmoulas <zenon@mousmoulas.gr>, 2015,2018
+# Zenon Mousmoulas <zenon@mousmoulas.gr>, 2015,2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-18 08:14+0200\n"
-"PO-Revision-Date: 2019-03-26 14:29+0000\n"
-"Last-Translator: Halil Adem <hadem@noc.grnet.gr>\n"
+"POT-Creation-Date: 2019-08-30 15:22+0200\n"
+"PO-Revision-Date: 2019-07-22 08:50+0000\n"
+"Last-Translator: Zenon Mousmoulas <zenon@mousmoulas.gr>\n"
 "Language-Team: Greek (Greece) (http://www.transifex.com/eduroam_devel/cat/"
 "language/el_GR/)\n"
 "Language: el_GR\n"
@@ -26,7 +26,7 @@ msgstr ""
 #: core/CAT.php:109
 #, php-format
 msgid "Unreleased %s Git Revision"
-msgstr ""
+msgstr "Ακυκλοφόρητη Αναθεώρηση Git %s"
 
 #: core/CAT.php:119
 #, php-format
@@ -293,17 +293,17 @@ msgstr "Νότια Αφρική"
 msgid "Unnamed Entity"
 msgstr "Ανώνυμη Οντότητα"
 
-#: core/DeviceConfig.php:186
+#: core/DeviceConfig.php:229
 #, php-format
 msgid "your local %s support"
 msgstr "η τοπική σας υποστήριξη για %s"
 
-#: core/DeviceConfig.php:187
+#: core/DeviceConfig.php:230
 #, php-format
 msgid "your local %s support page"
 msgstr "η τοπική σας σελίδα υποστήριξης για %s"
 
-#: core/DeviceConfig.php:223
+#: core/DeviceConfig.php:266
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 "Λυπούμαστε, αυτό δεν έπρεπε να συμβεί - δεν είναι διαθέσιμες επιπρόσθετες "
@@ -321,7 +321,7 @@ msgstr "(καταργημένος) %s"
 #. /                4. federation shortname, e.g. "LU";
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:252
+#: core/Federation.php:256
 #, php-format
 msgid ""
 "Hi,\n"
@@ -346,7 +346,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/Federation.php:261
+#: core/Federation.php:265
 #, php-format
 msgid "%s in your federation was created"
 msgstr "Δημιουργήθηκε ένας %s στην ομοσπονδία σας"
@@ -379,16 +379,16 @@ msgstr ""
 msgid "%s in your federation was deleted"
 msgstr "Διαγράφηκε ένας %s στην ομοσπονδία σας"
 
-#: core/SilverbulletInvitation.php:230
+#: core/SilverbulletInvitation.php:236
 #, php-format
 msgid "Your %s access is ready"
 msgstr "Η πρόσβαση %s σας είναι έτοιμη"
 
-#: core/SilverbulletInvitation.php:242
+#: core/SilverbulletInvitation.php:248
 msgid "Hello!"
 msgstr "Χαίρετε!"
 
-#: core/SilverbulletInvitation.php:244
+#: core/SilverbulletInvitation.php:250
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
@@ -397,7 +397,7 @@ msgstr ""
 "Ένα νέο %s διαπιστευτήριο πρόσβασης έχει δημιουργηθεί για λογαριασμό σας από "
 "τον διαχειριστή του δικτύου σας."
 
-#: core/SilverbulletInvitation.php:246
+#: core/SilverbulletInvitation.php:252
 #, php-format
 msgid ""
 "Please follow the following link with the device you want to enable for %s "
@@ -411,7 +411,7 @@ msgstr ""
 "συνημμένο QR code."
 
 #. gets replaced with the token value by getBody()
-#: core/SilverbulletInvitation.php:248
+#: core/SilverbulletInvitation.php:254
 #, php-format
 msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
@@ -423,11 +423,11 @@ msgstr ""
 "σας, μπορείτε να χρησιμοποιήσετε τον ίδιο σύνδεσμο για να δείτε πληροφορίες "
 "σχετικά με την κατάσταση του λογαριασμού %s σας."
 
-#: core/SilverbulletInvitation.php:250
+#: core/SilverbulletInvitation.php:256
 msgid "Regards,"
 msgstr "Χαιρετισμοί, "
 
-#: core/SilverbulletInvitation.php:299
+#: core/SilverbulletInvitation.php:305
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
@@ -436,7 +436,7 @@ msgstr ""
 "Η πρόσβαση %s σας είναι έτοιμη! Κάντε κλικ εδώ: %s (για Android, "
 "εγκαταστήστε πρώτα την εφαρμογή '%s'!)"
 
-#: core/SilverbulletInvitation.php:321
+#: core/SilverbulletInvitation.php:327
 #, php-format
 msgid "%s Invitation System"
 msgstr "Σύστημα Προσκλήσεων %s"
@@ -625,10 +625,3 @@ msgstr "Ο τομέας περιέχει κενά!"
 #: web/lib/common/InputValidation.php:241
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Ο τομέας δεν περιέχει τουλάχιστον μία . (τελεία)!"
-
-#~ msgid ""
-#~ "Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes."
-#~ "md'>Git Revision</a>"
-#~ msgstr ""
-#~ "Ακυκλοφόρητη <a href='https://github.com/GEANT/CAT/tree/master/Changes."
-#~ "md'>αναθεώρηση Git</a>"
