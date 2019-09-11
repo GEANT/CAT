@@ -250,7 +250,7 @@ class Devices extends \core\common\Entity {
                 'directory' => 'apple_mobileconfig',
                 'module' => 'mobileconfig_os_x',
                 'signer' => 'mobileconfig_sign',
-                'options' => []
+                'options' => [
                     'sign' => 1,
                     'device_id' => 'OS_X',
                     'mime' => 'application/x-apple-aspen-config',
