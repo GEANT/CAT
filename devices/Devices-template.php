@@ -186,7 +186,7 @@ class Devices extends \core\common\Entity {
             ],
             'apple_catalina' => [
                 'group' => "apple",
-                'display' => _("Apple macOS Catalina / iPadOS 13"),
+                'display' => _("Apple macOS Catalina"),
                 'match' => 'Mac OS X 10[._]15',
                 'directory' => 'apple_mobileconfig',
                 'module' => 'mobileconfig_os_x',
