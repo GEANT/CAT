@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-30 15:22+0200\n"
-"PO-Revision-Date: 2019-04-04 09:55+0000\n"
-"Last-Translator: José Manuel Macías\n"
+"POT-Creation-Date: 2019-09-13 14:56+0200\n"
+"PO-Revision-Date: 2019-09-02 07:18+0000\n"
+"Last-Translator: Alberto Martínez Setién\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/es_ES/)\n"
 "Language: es_ES\n"
@@ -1059,7 +1059,7 @@ msgstr "seleccionar"
 
 #: web/skins/modern/user/js/cat_js.php:238
 msgid "This entry was last updated at:"
-msgstr ""
+msgstr "Esta entrada fue actualizada por última vez el:"
 
 #: web/skins/modern/user/js/cat_js.php:240
 msgid "WWW:"

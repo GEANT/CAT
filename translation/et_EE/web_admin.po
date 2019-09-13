@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-30 15:22+0200\n"
-"PO-Revision-Date: 2019-06-04 13:59+0000\n"
-"Last-Translator: Indrek Rokk <indrek.rokk@eenet.ee>\n"
+"POT-Creation-Date: 2019-09-13 14:56+0200\n"
+"PO-Revision-Date: 2019-09-06 07:49+0000\n"
+"Last-Translator: Anne M <anne@eenet.ee>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/et_EE/)\n"
 "Language: et_EE\n"
@@ -842,7 +842,7 @@ msgstr "Kasutajate haldamine - %s"
 #: web/admin/edit_silverbullet.php:338
 #, php-format
 msgid "Current %s users"
-msgstr "Praegusi %s kasutajaid"
+msgstr "%s - praegused kasutajad"
 
 #: web/admin/edit_silverbullet.php:341
 msgid "Assigned Realm"
@@ -923,14 +923,12 @@ msgid "Actions"
 msgstr "Tegevused"
 
 #: web/admin/edit_silverbullet.php:394
-#, fuzzy
 msgid "Certificate details"
-msgstr "Koodi/Sertifikaadi üksikasjad"
+msgstr "Sertifikaadi üksikasjad"
 
 #: web/admin/edit_silverbullet.php:395
-#, fuzzy
 msgid "User Expiry"
-msgstr "Kasutaja/Koodi aegumine"
+msgstr "Kasutaja aegumine"
 
 #: web/admin/edit_silverbullet.php:436
 msgid "REVOKED"
@@ -977,15 +975,15 @@ msgstr "Tühista"
 #, php-format
 msgid "(show %d revoked certificate)"
 msgid_plural "(show %d revoked certificates)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "(%d - näita tühistatud sertifikaati)"
+msgstr[1] "(%d - näita tühistatud sertifikaate)"
 
 #: web/admin/edit_silverbullet.php:496
 #, php-format
 msgid "(show %d expired certificate)"
 msgid_plural "(show %d expired certificates)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "(%d - näita aegunud sertifikaati)"
+msgstr[1] "(%d - näita aegunud sertifikaate)"
 
 #: web/admin/edit_silverbullet.php:510
 #, php-format
@@ -1058,9 +1056,8 @@ msgid "Deactivate User"
 msgstr "Deaktiveeri kasutaja"
 
 #: web/admin/edit_silverbullet.php:581
-#, fuzzy
 msgid "Show Authentication Records"
-msgstr "Autentimisserveri nimi (CN)"
+msgstr "Näita autentimislogi"
 
 #. current user, allow sending new token
 #: web/admin/edit_silverbullet.php:586
@@ -1073,18 +1070,16 @@ msgstr "Aktiveerimisi:"
 
 #. previous user; if there are NO authentication records, allow full deletion - otherwise, need to keep user trace for abuse handling
 #: web/admin/edit_silverbullet.php:594
-#, fuzzy
 msgid "Delete User"
-msgstr "Kustuta %s"
+msgstr "Kustuta kasutaja"
 
 #: web/admin/edit_silverbullet.php:610
-#, fuzzy
 msgid "Current Users"
-msgstr "Praegusi %s kasutajaid"
+msgstr "Praegused kasutajad"
 
 #: web/admin/edit_silverbullet.php:613
 msgid "Previous Users"
-msgstr ""
+msgstr "Varasemad kasutajad"
 
 #. false because this restriction is currently not in effect and thus no UI is needed for it.
 #: web/admin/edit_silverbullet.php:622
@@ -1699,11 +1694,11 @@ msgid "%s %s: %s list"
 msgstr "%s %s: %s nimekiri"
 
 #: web/admin/overview_user.php:149
-#, fuzzy, php-format
+#, php-format
 msgid "%d other user"
 msgid_plural "%d other users"
-msgstr[0] "teine kasutaja"
-msgstr[1] "teised kasutajad"
+msgstr[0] "%di teine kasutaja"
+msgstr[1] "%di teised kasutajad"
 
 #: web/admin/overview_user.php:160
 #, php-format
@@ -2041,58 +2036,60 @@ msgid "Fine-tuning options for "
 msgstr "Peenhäälestuse võimalused"
 
 #: web/admin/inc/userStats.inc.php:31
-#, fuzzy
 msgid "User Authentication Records"
-msgstr "Autentimisserveri nimi (CN)"
+msgstr "Kasutaja autentimislogi"
 
 #: web/admin/inc/userStats.inc.php:32
 msgid "Note that:"
-msgstr ""
+msgstr "Pane tähele:"
 
 #: web/admin/inc/userStats.inc.php:34
 msgid "Authentication records are deleted after six months retention time"
-msgstr ""
+msgstr "Autentimislogi kustutatakse kuue kuu pärast"
 
 #: web/admin/inc/userStats.inc.php:35
 msgid ""
 "Operator Domain is based on the RADIUS attribute 'Operator-Name' and not "
 "sent by all hotspots"
 msgstr ""
+"Operaatori domeen põhineb RADIUSe atribuudil 'Operator-Name' ja seda kõik "
+"hotspotid ei saada"
 
 #: web/admin/inc/userStats.inc.php:36
 msgid ""
 "Different MAC addresses per credential may be due to MAC Address "
 "randomisation in recent operating systems"
 msgstr ""
+"Kontoandmetel võivad olla erinevad MAC-aadressid viimastes "
+"operatsioonisüsteemides juhuslikult antavate MAC-aadresside tõttu"
 
 #: web/admin/inc/userStats.inc.php:40
 msgid "Timestamp"
-msgstr ""
+msgstr "Ajatempel"
 
 #: web/admin/inc/userStats.inc.php:41
 msgid "Credential"
-msgstr ""
+msgstr "Kontoandmed"
 
 #: web/admin/inc/userStats.inc.php:42
-#, fuzzy
 msgid "MAC Address"
-msgstr "Aadress:"
+msgstr "MAC-aadress"
 
 #: web/admin/inc/userStats.inc.php:43
 msgid "Result"
-msgstr ""
+msgstr "Tulemus"
 
 #: web/admin/inc/userStats.inc.php:44
 msgid "Operator Domain"
-msgstr ""
+msgstr "Operaatori domeen"
 
 #: web/admin/inc/userStats.inc.php:53
 msgid "Success"
-msgstr ""
+msgstr "Õnnestumine"
 
 #: web/admin/inc/userStats.inc.php:53
 msgid "Failure"
-msgstr ""
+msgstr "Viga"
 
 #: web/lib/admin/AbstractMap.php:124 web/lib/admin/UIElements.php:87
 msgid "Location"
@@ -2423,9 +2420,8 @@ msgid "Turn on selection of EAP-TLS User-Name"
 msgstr "Luba EAP-TLS User-Name valik"
 
 #: web/lib/admin/UIElements.php:103
-#, fuzzy
 msgid "Use GEANTlink for TTLS (Windows 8 and 10)"
-msgstr "Kasuta GEANTlinki TTLS programmi W8 jaoks"
+msgstr "Kasuta GEANTlinki TTLS jaoks (Windows 8 ja 10)"
 
 #: web/lib/admin/UIElements.php:104
 msgid "Profile Description"
@@ -2549,6 +2545,3 @@ msgstr "Hoiatus!"
 #: web/lib/admin/UIElements.php:416
 msgid "Error!"
 msgstr "Viga!"
-
-#~ msgid "Use builtin TTLS supplicant for Windows 10"
-#~ msgstr "Kasuta sisseehitatud TTLS programmi Windows 10 jaoks"

@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-30 15:22+0200\n"
-"PO-Revision-Date: 2019-07-09 19:15+0000\n"
-"Last-Translator: Tomasz Wolniewicz <tw2529@gmail.com>\n"
+"POT-Creation-Date: 2019-09-13 14:56+0200\n"
+"PO-Revision-Date: 2019-09-03 19:50+0000\n"
+"Last-Translator: Maja Wolniewicz <maja.wolniewicz@gmail.com>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/eduroam_devel/cat/"
 "language/pl_PL/)\n"
 "Language: pl_PL\n"
@@ -1063,7 +1063,7 @@ msgstr "wybierz"
 
 #: web/skins/modern/user/js/cat_js.php:238
 msgid "This entry was last updated at:"
-msgstr ""
+msgstr "Ostatnia aktualizacja:"
 
 #: web/skins/modern/user/js/cat_js.php:240
 msgid "WWW:"

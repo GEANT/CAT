@@ -8,16 +8,16 @@
 # dsafar <dsafar@srce.hr>, 2012-2013,2018
 # dsafar <dsafar@srce.hr>, 2013
 # dsafar <dsafar@srce.hr>, 2012
-# Dubravko Penezic <dpenezic@gmail.com>, 2012-2013,2015-2016,2018
-# eduroam_devel <stefan.winter@restena.lu>, 2018
+# Dubravko Penezic <dpenezic@gmail.com>, 2012-2013,2015-2016,2018-2019
+# eduroam_devel <stefan.winter@restena.lu>, 2018-2019
 # eduroam_devel <stefan.winter@restena.lu>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-30 15:22+0200\n"
-"PO-Revision-Date: 2019-03-22 21:59+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2019-09-13 14:56+0200\n"
+"PO-Revision-Date: 2019-09-12 12:33+0000\n"
+"Last-Translator: Dubravko Penezic <dpenezic@gmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/eduroam_devel/"
 "cat/language/hr_HR/)\n"
 "Language: hr_HR\n"
@@ -942,14 +942,12 @@ msgid "Actions"
 msgstr "Akcije"
 
 #: web/admin/edit_silverbullet.php:394
-#, fuzzy
 msgid "Certificate details"
-msgstr "Detalji Token/Certifikata"
+msgstr "Detalji o certifikatu"
 
 #: web/admin/edit_silverbullet.php:395
-#, fuzzy
 msgid "User Expiry"
-msgstr "Istek Korinika/Tokena"
+msgstr "Istek korisničkog računa"
 
 #: web/admin/edit_silverbullet.php:436
 msgid "REVOKED"
@@ -996,17 +994,17 @@ msgstr "Opozovi"
 #, php-format
 msgid "(show %d revoked certificate)"
 msgid_plural "(show %d revoked certificates)"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "(prikaz 1%d revokanog certifikata)"
+msgstr[1] "(prikaz 1%d revokanog certifikata)"
+msgstr[2] "(prikaz %d revokanog certifikata)"
 
 #: web/admin/edit_silverbullet.php:496
 #, php-format
 msgid "(show %d expired certificate)"
 msgid_plural "(show %d expired certificates)"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "(prikaz 1%d isteklih certifikata)"
+msgstr[1] "(prikaz 1%d isteklih certifikata)"
+msgstr[2] "(prikaz 1%d isteklih certifikata)"
 
 #: web/admin/edit_silverbullet.php:510
 #, php-format
@@ -1079,9 +1077,8 @@ msgid "Deactivate User"
 msgstr "Deaktiviraj korisnika"
 
 #: web/admin/edit_silverbullet.php:581
-#, fuzzy
 msgid "Show Authentication Records"
-msgstr "Naziv (CN) of Autentikacijskog Servera"
+msgstr "Prikaži autentikacijske zapise"
 
 #. current user, allow sending new token
 #: web/admin/edit_silverbullet.php:586
@@ -1094,18 +1091,16 @@ msgstr "Aktivacije:"
 
 #. previous user; if there are NO authentication records, allow full deletion - otherwise, need to keep user trace for abuse handling
 #: web/admin/edit_silverbullet.php:594
-#, fuzzy
 msgid "Delete User"
-msgstr "Izbriši %s"
+msgstr "Briši korisnika"
 
 #: web/admin/edit_silverbullet.php:610
-#, fuzzy
 msgid "Current Users"
-msgstr "Trenutni %s korisnik"
+msgstr "Trenutni korisnik"
 
 #: web/admin/edit_silverbullet.php:613
 msgid "Previous Users"
-msgstr ""
+msgstr "Prethodni korisnik"
 
 #. false because this restriction is currently not in effect and thus no UI is needed for it.
 #: web/admin/edit_silverbullet.php:622
@@ -1733,12 +1728,12 @@ msgid "%s %s: %s list"
 msgstr "%s %s: %s popis"
 
 #: web/admin/overview_user.php:149
-#, fuzzy, php-format
+#, php-format
 msgid "%d other user"
 msgid_plural "%d other users"
-msgstr[0] "drugi korisnik"
-msgstr[1] "drugi korisnici"
-msgstr[2] "drugi korisnici"
+msgstr[0] "1%d drugi korisnici"
+msgstr[1] "1%d drugi korisnici"
+msgstr[2] "1%d drugi korisnici"
 
 #: web/admin/overview_user.php:160
 #, php-format
@@ -2076,58 +2071,60 @@ msgid "Fine-tuning options for "
 msgstr "FIno ugađanje opcija za"
 
 #: web/admin/inc/userStats.inc.php:31
-#, fuzzy
 msgid "User Authentication Records"
-msgstr "Naziv (CN) of Autentikacijskog Servera"
+msgstr "Zapisi o autentikacijama korisnika"
 
 #: web/admin/inc/userStats.inc.php:32
 msgid "Note that:"
-msgstr ""
+msgstr "Primite na znanje:"
 
 #: web/admin/inc/userStats.inc.php:34
 msgid "Authentication records are deleted after six months retention time"
-msgstr ""
+msgstr "Autentikacijski zapisi brišu se nakon šest mjeseci"
 
 #: web/admin/inc/userStats.inc.php:35
 msgid ""
 "Operator Domain is based on the RADIUS attribute 'Operator-Name' and not "
 "sent by all hotspots"
 msgstr ""
+"Domena operatera temelji se na RADIUS atributu 'Operator-Name' i ne šalje se "
+"sa svih pristupnih točaka"
 
 #: web/admin/inc/userStats.inc.php:36
 msgid ""
 "Different MAC addresses per credential may be due to MAC Address "
 "randomisation in recent operating systems"
 msgstr ""
+"Različite MAC adrese po korisničkim podacima moguće su zbog 'randomizacije "
+"MAC adresa' u novijim operativnim sustavima"
 
 #: web/admin/inc/userStats.inc.php:40
 msgid "Timestamp"
-msgstr ""
+msgstr "Timestamp"
 
 #: web/admin/inc/userStats.inc.php:41
 msgid "Credential"
-msgstr ""
+msgstr "Vjerodajnice"
 
 #: web/admin/inc/userStats.inc.php:42
-#, fuzzy
 msgid "MAC Address"
-msgstr "Adresa:"
+msgstr "MAC adresa"
 
 #: web/admin/inc/userStats.inc.php:43
 msgid "Result"
-msgstr ""
+msgstr "Rezultat"
 
 #: web/admin/inc/userStats.inc.php:44
 msgid "Operator Domain"
-msgstr ""
+msgstr "Domena operatera"
 
 #: web/admin/inc/userStats.inc.php:53
 msgid "Success"
-msgstr ""
+msgstr "Uspješno"
 
 #: web/admin/inc/userStats.inc.php:53
 msgid "Failure"
-msgstr ""
+msgstr "Neuspješno"
 
 #: web/lib/admin/AbstractMap.php:124 web/lib/admin/UIElements.php:87
 msgid "Location"
@@ -2455,9 +2452,8 @@ msgid "Turn on selection of EAP-TLS User-Name"
 msgstr "Isključi dio  EAP-TLS User-Name"
 
 #: web/lib/admin/UIElements.php:103
-#, fuzzy
 msgid "Use GEANTlink for TTLS (Windows 8 and 10)"
-msgstr "Koristi GEANTlink TTLS supplicant za W8"
+msgstr "Koristi GEANTlink za TTLS (Windows 8 and 10)"
 
 #: web/lib/admin/UIElements.php:104
 msgid "Profile Description"
@@ -2581,6 +2577,3 @@ msgstr "Upozorenje!"
 #: web/lib/admin/UIElements.php:416
 msgid "Error!"
 msgstr "Pogreška!"
-
-#~ msgid "Use builtin TTLS supplicant for Windows 10"
-#~ msgstr "Koristi ugrađeni TTLS supplicant za WIN 10"

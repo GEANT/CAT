@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-30 15:22+0200\n"
+"POT-Creation-Date: 2019-09-13 14:56+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>, 2019\n"
 "Language-Team: Bulgarian (Bulgaria) (https://www.transifex.com/eduroam_devel/"
@@ -963,23 +963,19 @@ msgid "Select institution:"
 msgstr "Изберете институция:"
 
 #: web/skins/modern/diag/diag.php:510
-#, fuzzy
 msgid ""
 "The database does not contain the information needed to help you in realm "
 "selection for this country. You have to provide the realm you are interested "
 "in."
 msgstr ""
-"Базата данни  не съдържа информацията, която Ви е необходима за областта, "
-"избрана за тази страна. Трябва да посочите областта, която Ви интересува."
+"Базата данни не съдържа информация, която да Ви помогне за избраната за тази "
+"държава област . Трябва да посочите областта, която Ви интересува."
 
 #: web/skins/modern/diag/diag.php:519
-#, fuzzy
 msgid ""
 "Can not search in database. You have to provide the realm you are interested "
 "in."
-msgstr ""
-"Не може да търси в базата данни. Трябва да посочите областта, която Ви "
-"интересува."
+msgstr "Не може да търси в базата данни. Не може да търси в базата данни. "
 
 #: web/skins/modern/diag/diag.php:575
 msgid "Other location"

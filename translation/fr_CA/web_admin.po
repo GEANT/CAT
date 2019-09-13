@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-30 15:22+0200\n"
-"PO-Revision-Date: 2019-03-22 21:59+0000\n"
+"POT-Creation-Date: 2019-09-13 14:56+0200\n"
+"PO-Revision-Date: 2019-08-30 20:31+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: French (Canada) (http://www.transifex.com/eduroam_devel/cat/"
 "language/fr_CA/)\n"
@@ -894,9 +894,8 @@ msgid "Actions"
 msgstr ""
 
 #: web/admin/edit_silverbullet.php:394
-#, fuzzy
 msgid "Certificate details"
-msgstr "Fichier de certificat CA"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:395
 msgid "User Expiry"
@@ -1023,9 +1022,8 @@ msgid "Deactivate User"
 msgstr ""
 
 #: web/admin/edit_silverbullet.php:581
-#, fuzzy
 msgid "Show Authentication Records"
-msgstr "Nom du serveur d'Authentification (CN)"
+msgstr ""
 
 #. current user, allow sending new token
 #: web/admin/edit_silverbullet.php:586
@@ -1038,14 +1036,12 @@ msgstr ""
 
 #. previous user; if there are NO authentication records, allow full deletion - otherwise, need to keep user trace for abuse handling
 #: web/admin/edit_silverbullet.php:594
-#, fuzzy
 msgid "Delete User"
-msgstr "Supprimer"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:610
-#, fuzzy
 msgid "Current Users"
-msgstr "Caractéristiques de l'utilisateur"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:613
 msgid "Previous Users"
@@ -1653,11 +1649,11 @@ msgid "%s %s: %s list"
 msgstr ""
 
 #: web/admin/overview_user.php:149
-#, fuzzy, php-format
+#, php-format
 msgid "%d other user"
 msgid_plural "%d other users"
-msgstr[0] "autre utilisateur"
-msgstr[1] "autres utilisateurs"
+msgstr[0] ""
+msgstr[1] ""
 
 #: web/admin/overview_user.php:160
 #, php-format
@@ -1981,9 +1977,8 @@ msgid "Fine-tuning options for "
 msgstr "Paramètres avancés pour"
 
 #: web/admin/inc/userStats.inc.php:31
-#, fuzzy
 msgid "User Authentication Records"
-msgstr "Nom du serveur d'Authentification (CN)"
+msgstr ""
 
 #: web/admin/inc/userStats.inc.php:32
 msgid "Note that:"
@@ -2014,9 +2009,8 @@ msgid "Credential"
 msgstr ""
 
 #: web/admin/inc/userStats.inc.php:42
-#, fuzzy
 msgid "MAC Address"
-msgstr "Adresse:"
+msgstr ""
 
 #: web/admin/inc/userStats.inc.php:43
 msgid "Result"

@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-30 15:22+0200\n"
-"PO-Revision-Date: 2019-07-22 09:00+0000\n"
-"Last-Translator: Zenon Mousmoulas <zenon@mousmoulas.gr>\n"
+"POT-Creation-Date: 2019-09-13 14:56+0200\n"
+"PO-Revision-Date: 2019-09-05 13:45+0000\n"
+"Last-Translator: Halil Adem <hadem@noc.grnet.gr>\n"
 "Language-Team: Greek (Greece) (http://www.transifex.com/eduroam_devel/cat/"
 "language/el_GR/)\n"
 "Language: el_GR\n"
@@ -1076,7 +1076,7 @@ msgstr "επιλογή"
 
 #: web/skins/modern/user/js/cat_js.php:238
 msgid "This entry was last updated at:"
-msgstr ""
+msgstr "Η καταχώρηση ενημερώθηκε στις:"
 
 #: web/skins/modern/user/js/cat_js.php:240
 msgid "WWW:"

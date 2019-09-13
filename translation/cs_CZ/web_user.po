@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-30 15:22+0200\n"
-"PO-Revision-Date: 2019-05-14 19:09+0000\n"
+"POT-Creation-Date: 2019-09-13 14:56+0200\n"
+"PO-Revision-Date: 2019-09-03 12:29+0000\n"
 "Last-Translator: Petr Adamec <p.b.adamec@gmail.com>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/"
 "eduroam_devel/cat/language/cs_CZ/)\n"
@@ -1051,7 +1051,7 @@ msgstr "označit"
 
 #: web/skins/modern/user/js/cat_js.php:238
 msgid "This entry was last updated at:"
-msgstr ""
+msgstr "Tento záznam byl naposledy aktualizován:"
 
 #: web/skins/modern/user/js/cat_js.php:240
 msgid "WWW:"

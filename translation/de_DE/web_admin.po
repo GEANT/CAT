@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# eduroam_devel <stefan.winter@restena.lu>, 2018
+# eduroam_devel <stefan.winter@restena.lu>, 2018-2019
 # stefanwinter <stefan.winter@gmail.com>, 2012
 # Steffen Klemer <klemer@dfn.de>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-30 15:22+0200\n"
-"PO-Revision-Date: 2019-03-22 21:59+0000\n"
+"POT-Creation-Date: 2019-09-13 14:56+0200\n"
+"PO-Revision-Date: 2019-09-03 12:20+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/eduroam_devel/cat/"
 "language/de_DE/)\n"
@@ -965,14 +965,12 @@ msgid "Actions"
 msgstr "Aktionen"
 
 #: web/admin/edit_silverbullet.php:394
-#, fuzzy
 msgid "Certificate details"
-msgstr "Details der Einladung / des Zertifkats"
+msgstr "Details des Zertifikats"
 
 #: web/admin/edit_silverbullet.php:395
-#, fuzzy
 msgid "User Expiry"
-msgstr "Ablaufdatum Nutzer bzw. Einladungslink"
+msgstr "Ende der Zugangsberechtigung"
 
 #: web/admin/edit_silverbullet.php:436
 msgid "REVOKED"
@@ -1020,15 +1018,15 @@ msgstr "Widerrufen"
 #, php-format
 msgid "(show %d revoked certificate)"
 msgid_plural "(show %d revoked certificates)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "(zeige %d zurückgezogenes Zertifikat)"
+msgstr[1] "(zeige %d zurückgezogene Zertifikate)"
 
 #: web/admin/edit_silverbullet.php:496
 #, php-format
 msgid "(show %d expired certificate)"
 msgid_plural "(show %d expired certificates)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "(zeige %d abgelaufenes Zertifikat)"
+msgstr[1] "(zeige %dabgelaufene Zertifikate)"
 
 #: web/admin/edit_silverbullet.php:510
 #, php-format
@@ -1105,9 +1103,8 @@ msgid "Deactivate User"
 msgstr "Nutzer deaktivieren"
 
 #: web/admin/edit_silverbullet.php:581
-#, fuzzy
 msgid "Show Authentication Records"
-msgstr "Name (CN) des Servers"
+msgstr "Zugangsprotokoll anzeigen"
 
 #. current user, allow sending new token
 #: web/admin/edit_silverbullet.php:586
@@ -1120,18 +1117,16 @@ msgstr "Aktivierungen:"
 
 #. previous user; if there are NO authentication records, allow full deletion - otherwise, need to keep user trace for abuse handling
 #: web/admin/edit_silverbullet.php:594
-#, fuzzy
 msgid "Delete User"
-msgstr "%s löschen"
+msgstr "Nutzer löschen"
 
 #: web/admin/edit_silverbullet.php:610
-#, fuzzy
 msgid "Current Users"
-msgstr "Aktuelle %s Nutzer"
+msgstr "Momentane Nutzer"
 
 #: web/admin/edit_silverbullet.php:613
 msgid "Previous Users"
-msgstr ""
+msgstr "Frühere Nutzer"
 
 #. false because this restriction is currently not in effect and thus no UI is needed for it.
 #: web/admin/edit_silverbullet.php:622
@@ -1767,11 +1762,11 @@ msgid "%s %s: %s list"
 msgstr "%s%s: %s Liste"
 
 #: web/admin/overview_user.php:149
-#, fuzzy, php-format
+#, php-format
 msgid "%d other user"
 msgid_plural "%d other users"
-msgstr[0] "weiterer Benutzer"
-msgstr[1] "weitere Benutzer"
+msgstr[0] "%d weiterer Nutzer"
+msgstr[1] "%d weitere Nutzer"
 
 #: web/admin/overview_user.php:160
 #, php-format
@@ -2120,58 +2115,61 @@ msgid "Fine-tuning options for "
 msgstr "Feineinstellungen für "
 
 #: web/admin/inc/userStats.inc.php:31
-#, fuzzy
 msgid "User Authentication Records"
-msgstr "Name (CN) des Servers"
+msgstr "Zugangsprotokolle für den Nutzer"
 
 #: web/admin/inc/userStats.inc.php:32
 msgid "Note that:"
-msgstr ""
+msgstr "Hinweis:"
 
 #: web/admin/inc/userStats.inc.php:34
 msgid "Authentication records are deleted after six months retention time"
 msgstr ""
+"Zugangsprotokolle werden nach Ablauf von sechs Monaten Haltezeit gelöscht"
 
 #: web/admin/inc/userStats.inc.php:35
 msgid ""
 "Operator Domain is based on the RADIUS attribute 'Operator-Name' and not "
 "sent by all hotspots"
 msgstr ""
+"'Netzbetreiber' basiert auf dem RADIUS Attribute 'Operator-Name' und wird "
+"nicht von allen Netzbetreibern gesendet"
 
 #: web/admin/inc/userStats.inc.php:36
 msgid ""
 "Different MAC addresses per credential may be due to MAC Address "
 "randomisation in recent operating systems"
 msgstr ""
+"Unterschiedliche MAC Adressen pro Zugangscode können durch zufällig "
+"wechselnde MAC Adressen verursacht werden (in neueren Betriebssystemen)"
 
 #: web/admin/inc/userStats.inc.php:40
 msgid "Timestamp"
-msgstr ""
+msgstr "Zeitpunkt"
 
 #: web/admin/inc/userStats.inc.php:41
 msgid "Credential"
-msgstr ""
+msgstr "Zugangscode"
 
 #: web/admin/inc/userStats.inc.php:42
-#, fuzzy
 msgid "MAC Address"
-msgstr "Adresse:"
+msgstr "MAC Adresse"
 
 #: web/admin/inc/userStats.inc.php:43
 msgid "Result"
-msgstr ""
+msgstr "Ergebnis"
 
 #: web/admin/inc/userStats.inc.php:44
 msgid "Operator Domain"
-msgstr ""
+msgstr "Netzbetreiber"
 
 #: web/admin/inc/userStats.inc.php:53
 msgid "Success"
-msgstr ""
+msgstr "Erfolg"
 
 #: web/admin/inc/userStats.inc.php:53
 msgid "Failure"
-msgstr ""
+msgstr "Fehlschlag"
 
 #: web/lib/admin/AbstractMap.php:124 web/lib/admin/UIElements.php:87
 msgid "Location"
@@ -2510,9 +2508,8 @@ msgid "Turn on selection of EAP-TLS User-Name"
 msgstr "Eingabe eines abweichenden EAP-TLS Benutzernamens erlauben"
 
 #: web/lib/admin/UIElements.php:103
-#, fuzzy
 msgid "Use GEANTlink for TTLS (Windows 8 and 10)"
-msgstr "Unter Win8 GEANTLink Supplikant nutzen"
+msgstr "GEANTlink für TTLS nutzen (Windows 8 und 10)"
 
 #: web/lib/admin/UIElements.php:104
 msgid "Profile Description"
@@ -2637,6 +2634,3 @@ msgstr "Warnung!"
 #: web/lib/admin/UIElements.php:416
 msgid "Error!"
 msgstr "Fehler!"
-
-#~ msgid "Use builtin TTLS supplicant for Windows 10"
-#~ msgstr "Unter Win10 eingebauten Supplikant benutzen"

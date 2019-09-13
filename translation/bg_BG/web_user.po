@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-30 15:22+0200\n"
-"PO-Revision-Date: 2019-04-04 11:11+0000\n"
+"POT-Creation-Date: 2019-09-13 14:56+0200\n"
+"PO-Revision-Date: 2019-09-02 07:54+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/eduroam_devel/"
 "cat/language/bg_BG/)\n"
@@ -1056,7 +1056,7 @@ msgstr "изберете"
 
 #: web/skins/modern/user/js/cat_js.php:238
 msgid "This entry was last updated at:"
-msgstr ""
+msgstr "Това влизане е последно на:"
 
 #: web/skins/modern/user/js/cat_js.php:240
 msgid "WWW:"

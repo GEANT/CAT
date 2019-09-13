@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-30 15:22+0200\n"
+"POT-Creation-Date: 2019-09-13 14:56+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: Alberto Martínez Setién, 2019\n"
 "Language-Team: Spanish (Spain) (https://www.transifex.com/eduroam_devel/"
@@ -988,18 +988,16 @@ msgid "Select institution:"
 msgstr "Selecciona la institución:"
 
 #: web/skins/modern/diag/diag.php:510
-#, fuzzy
 msgid ""
 "The database does not contain the information needed to help you in realm "
 "selection for this country. You have to provide the realm you are interested "
 "in."
 msgstr ""
 "La base de datos no contiene la información necesaria para ayudarte en la "
-"selección del dominio para este país. Debes indicar el dominio en el que "
+"selección de un dominio para este país. Debes indicar el dominio en el que "
 "estás interesado."
 
 #: web/skins/modern/diag/diag.php:519
-#, fuzzy
 msgid ""
 "Can not search in database. You have to provide the realm you are interested "
 "in."

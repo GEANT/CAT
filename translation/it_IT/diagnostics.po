@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-30 15:22+0200\n"
+"POT-Creation-Date: 2019-09-13 14:56+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: Daniele Albrizio <daniele@albrizio.it>, 2019\n"
 "Language-Team: Italian (Italy) (https://www.transifex.com/eduroam_devel/"
@@ -991,24 +991,17 @@ msgid "Select institution:"
 msgstr "Seleziona l'organizzazione:"
 
 #: web/skins/modern/diag/diag.php:510
-#, fuzzy
 msgid ""
 "The database does not contain the information needed to help you in realm "
 "selection for this country. You have to provide the realm you are interested "
 "in."
 msgstr ""
-"Il database non contiene le informazioni necessarie per aiutarvi nella "
-"selezione del realm per questo paese. Devi fornire il realm a cui sei "
-"interessato."
 
 #: web/skins/modern/diag/diag.php:519
-#, fuzzy
 msgid ""
 "Can not search in database. You have to provide the realm you are interested "
 "in."
 msgstr ""
-"Impossibile cercare nel database. Devi fornire il realm a cui sei "
-"interessato."
 
 #: web/skins/modern/diag/diag.php:575
 msgid "Other location"

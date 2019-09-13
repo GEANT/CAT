@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Jasper Metselaar <jasper@formmailer.net>, 2018
+# db4f584f34544d4d00e97c57004f2263, 2018
 # pauldekkers <paul.dekkers@surfnet.nl>, 2012
 # TheoHoeks <thoeks@onderwijsgroeptilburg.nl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-30 15:22+0200\n"
+"POT-Creation-Date: 2019-09-13 14:56+0200\n"
 "PO-Revision-Date: 2019-04-18 09:31+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/eduroam_devel/"

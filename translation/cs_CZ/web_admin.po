@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-30 15:22+0200\n"
-"PO-Revision-Date: 2019-03-27 08:24+0000\n"
+"POT-Creation-Date: 2019-09-13 14:56+0200\n"
+"PO-Revision-Date: 2019-09-05 11:21+0000\n"
 "Last-Translator: Petr Adamec <p.b.adamec@gmail.com>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/"
 "eduroam_devel/cat/language/cs_CZ/)\n"
@@ -945,14 +945,12 @@ msgid "Actions"
 msgstr "Akce"
 
 #: web/admin/edit_silverbullet.php:394
-#, fuzzy
 msgid "Certificate details"
-msgstr "Detail tokenu/certifikátu"
+msgstr "Detail certifikátu"
 
 #: web/admin/edit_silverbullet.php:395
-#, fuzzy
 msgid "User Expiry"
-msgstr "Ukončení platnosti uživatelského jména/tokenu"
+msgstr "Ukončení platnosti uživatelského jména"
 
 #: web/admin/edit_silverbullet.php:436
 msgid "REVOKED"
@@ -999,19 +997,19 @@ msgstr "Revokován"
 #, php-format
 msgid "(show %d revoked certificate)"
 msgid_plural "(show %d revoked certificates)"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "(ukázat %d zrušený certifikát)"
+msgstr[1] "(ukázat %d zrušené certifikáty)"
+msgstr[2] "(ukázat %d zrušené/ých certifikáty/ů)"
+msgstr[3] "(ukázat %d zrušené/ých certifikáty/ů)"
 
 #: web/admin/edit_silverbullet.php:496
 #, php-format
 msgid "(show %d expired certificate)"
 msgid_plural "(show %d expired certificates)"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "(ukázat %d vypršelý certifikát)"
+msgstr[1] "(ukázat %d vypršelý/ých certifikáty/ů)"
+msgstr[2] "(ukázat %d vypršelý/ých certifikáty/ů)"
+msgstr[3] "(ukázat %d vypršelý/ých certifikáty/ů)"
 
 #: web/admin/edit_silverbullet.php:510
 #, php-format
@@ -1083,9 +1081,8 @@ msgid "Deactivate User"
 msgstr "Deaktivovat uživatele"
 
 #: web/admin/edit_silverbullet.php:581
-#, fuzzy
 msgid "Show Authentication Records"
-msgstr "Jméno (CN) autentizačního serveru"
+msgstr "Ukázat autentizační záznamy"
 
 #. current user, allow sending new token
 #: web/admin/edit_silverbullet.php:586
@@ -1098,18 +1095,16 @@ msgstr "Aktivace:"
 
 #. previous user; if there are NO authentication records, allow full deletion - otherwise, need to keep user trace for abuse handling
 #: web/admin/edit_silverbullet.php:594
-#, fuzzy
 msgid "Delete User"
-msgstr "Smazat %s"
+msgstr "Smazat uživatele"
 
 #: web/admin/edit_silverbullet.php:610
-#, fuzzy
 msgid "Current Users"
-msgstr "Aktuální %s uživatel"
+msgstr "Aktuální uživatelé"
 
 #: web/admin/edit_silverbullet.php:613
 msgid "Previous Users"
-msgstr ""
+msgstr "Předchozí uživatelé"
 
 #. false because this restriction is currently not in effect and thus no UI is needed for it.
 #: web/admin/edit_silverbullet.php:622
@@ -1739,13 +1734,13 @@ msgid "%s %s: %s list"
 msgstr "%s %s: Seznam %s"
 
 #: web/admin/overview_user.php:149
-#, fuzzy, php-format
+#, php-format
 msgid "%d other user"
 msgid_plural "%d other users"
-msgstr[0] "ostatní uživatel"
-msgstr[1] "ostatní uživatelé"
-msgstr[2] "ostatní uživatelé"
-msgstr[3] "ostatní uživatelé"
+msgstr[0] "%d předchozí uživatel"
+msgstr[1] "%d předchozí uživatelé"
+msgstr[2] "%d předchozí/ch uživatelů"
+msgstr[3] "%d předchozí uživatelé"
 
 #: web/admin/overview_user.php:160
 #, php-format
@@ -2080,58 +2075,60 @@ msgid "Fine-tuning options for "
 msgstr "Podrobné nastavení pro"
 
 #: web/admin/inc/userStats.inc.php:31
-#, fuzzy
 msgid "User Authentication Records"
-msgstr "Jméno (CN) autentizačního serveru"
+msgstr "Uživatelské autentizační záznamy"
 
 #: web/admin/inc/userStats.inc.php:32
 msgid "Note that:"
-msgstr ""
+msgstr "Všimněte si, že:"
 
 #: web/admin/inc/userStats.inc.php:34
 msgid "Authentication records are deleted after six months retention time"
-msgstr ""
+msgstr "Záznamy o autentizaci jsou smazány po šesti měsících"
 
 #: web/admin/inc/userStats.inc.php:35
 msgid ""
 "Operator Domain is based on the RADIUS attribute 'Operator-Name' and not "
 "sent by all hotspots"
 msgstr ""
+"Doména operátora vychází z atributu RADIUS 'Operator-Name' a není odeslílána "
+"všemi hotspoty"
 
 #: web/admin/inc/userStats.inc.php:36
 msgid ""
 "Different MAC addresses per credential may be due to MAC Address "
 "randomisation in recent operating systems"
 msgstr ""
+"Rozdílné MAC adresy u jednoho účtu mohou být způsobeny randomizací MAC adres "
+"v posledních verzích některých OS"
 
 #: web/admin/inc/userStats.inc.php:40
 msgid "Timestamp"
-msgstr ""
+msgstr "Časové razítko"
 
 #: web/admin/inc/userStats.inc.php:41
 msgid "Credential"
-msgstr ""
+msgstr "Přihlašovací údaje"
 
 #: web/admin/inc/userStats.inc.php:42
-#, fuzzy
 msgid "MAC Address"
-msgstr "Adresa:"
+msgstr "MAC adresa"
 
 #: web/admin/inc/userStats.inc.php:43
 msgid "Result"
-msgstr ""
+msgstr "Výsledek"
 
 #: web/admin/inc/userStats.inc.php:44
 msgid "Operator Domain"
-msgstr ""
+msgstr "Doména operátora"
 
 #: web/admin/inc/userStats.inc.php:53
 msgid "Success"
-msgstr ""
+msgstr "Úspěch"
 
 #: web/admin/inc/userStats.inc.php:53
 msgid "Failure"
-msgstr ""
+msgstr "Selhání"
 
 #: web/lib/admin/AbstractMap.php:124 web/lib/admin/UIElements.php:87
 msgid "Location"
@@ -2462,9 +2459,8 @@ msgid "Turn on selection of EAP-TLS User-Name"
 msgstr "Zapněte volbu User-Name pro EAP-TLS"
 
 #: web/lib/admin/UIElements.php:103
-#, fuzzy
 msgid "Use GEANTlink for TTLS (Windows 8 and 10)"
-msgstr "Pro W8 použijte GEANTlink TTLS supplicant"
+msgstr "Pro TTLS ve Windows 8 a 10 použijte GEANTlink"
 
 #: web/lib/admin/UIElements.php:104
 msgid "Profile Description"
@@ -2588,6 +2584,3 @@ msgstr "Upozornění!"
 #: web/lib/admin/UIElements.php:416
 msgid "Error!"
 msgstr "Chyba!"
-
-#~ msgid "Use builtin TTLS supplicant for Windows 10"
-#~ msgstr "Pro Windows 10 použijte vestavěné TTLS."

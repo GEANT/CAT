@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-30 15:22+0200\n"
-"PO-Revision-Date: 2019-03-22 21:59+0000\n"
+"POT-Creation-Date: 2019-09-13 14:56+0200\n"
+"PO-Revision-Date: 2019-08-30 20:31+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/eduroam_devel/"
 "cat/language/hu_HU/)\n"
@@ -812,9 +812,8 @@ msgid "Actions"
 msgstr ""
 
 #: web/admin/edit_silverbullet.php:394
-#, fuzzy
 msgid "Certificate details"
-msgstr "CA tanúsítvány fájl"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:395
 msgid "User Expiry"
@@ -941,9 +940,8 @@ msgid "Deactivate User"
 msgstr ""
 
 #: web/admin/edit_silverbullet.php:581
-#, fuzzy
 msgid "Show Authentication Records"
-msgstr "Az autentikáló szerver neve (CN)"
+msgstr ""
 
 #. current user, allow sending new token
 #: web/admin/edit_silverbullet.php:586
@@ -1879,9 +1877,8 @@ msgid "Fine-tuning options for "
 msgstr ""
 
 #: web/admin/inc/userStats.inc.php:31
-#, fuzzy
 msgid "User Authentication Records"
-msgstr "Az autentikáló szerver neve (CN)"
+msgstr ""
 
 #: web/admin/inc/userStats.inc.php:32
 msgid "Note that:"
@@ -1912,9 +1909,8 @@ msgid "Credential"
 msgstr ""
 
 #: web/admin/inc/userStats.inc.php:42
-#, fuzzy
 msgid "MAC Address"
-msgstr "Cím:"
+msgstr ""
 
 #: web/admin/inc/userStats.inc.php:43
 msgid "Result"

@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-30 15:22+0200\n"
-"PO-Revision-Date: 2019-03-22 21:59+0000\n"
+"POT-Creation-Date: 2019-09-13 14:56+0200\n"
+"PO-Revision-Date: 2019-08-30 20:31+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/eduroam_devel/cat/"
 "language/tr_TR/)\n"
@@ -939,14 +939,12 @@ msgid "Actions"
 msgstr "Eylemler"
 
 #: web/admin/edit_silverbullet.php:394
-#, fuzzy
 msgid "Certificate details"
-msgstr "Belirteç/Sertifika detayları"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:395
-#, fuzzy
 msgid "User Expiry"
-msgstr "Kullanıcı/Belirteç Vadesi"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:436
 msgid "REVOKED"
@@ -1069,9 +1067,8 @@ msgid "Deactivate User"
 msgstr "Kullanıcıyı Devre Dışı Bırak"
 
 #: web/admin/edit_silverbullet.php:581
-#, fuzzy
 msgid "Show Authentication Records"
-msgstr "Doğrulama Sunucusu Adı(CN)"
+msgstr ""
 
 #. current user, allow sending new token
 #: web/admin/edit_silverbullet.php:586
@@ -1084,14 +1081,12 @@ msgstr "Etkinleştirmeler:"
 
 #. previous user; if there are NO authentication records, allow full deletion - otherwise, need to keep user trace for abuse handling
 #: web/admin/edit_silverbullet.php:594
-#, fuzzy
 msgid "Delete User"
-msgstr "%s'i sil"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:610
-#, fuzzy
 msgid "Current Users"
-msgstr "Geçerli %s kullanıcıları"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:613
 msgid "Previous Users"
@@ -1713,11 +1708,11 @@ msgid "%s %s: %s list"
 msgstr "%s %s: %s listesi"
 
 #: web/admin/overview_user.php:149
-#, fuzzy, php-format
+#, php-format
 msgid "%d other user"
 msgid_plural "%d other users"
-msgstr[0] "diğer kullanıcı"
-msgstr[1] "diğer kullanıcılar"
+msgstr[0] ""
+msgstr[1] ""
 
 #: web/admin/overview_user.php:160
 #, php-format
@@ -2055,9 +2050,8 @@ msgid "Fine-tuning options for "
 msgstr "için ince ayar seçenekleri"
 
 #: web/admin/inc/userStats.inc.php:31
-#, fuzzy
 msgid "User Authentication Records"
-msgstr "Doğrulama Sunucusu Adı(CN)"
+msgstr ""
 
 #: web/admin/inc/userStats.inc.php:32
 msgid "Note that:"
@@ -2088,9 +2082,8 @@ msgid "Credential"
 msgstr ""
 
 #: web/admin/inc/userStats.inc.php:42
-#, fuzzy
 msgid "MAC Address"
-msgstr "Adres:"
+msgstr ""
 
 #: web/admin/inc/userStats.inc.php:43
 msgid "Result"

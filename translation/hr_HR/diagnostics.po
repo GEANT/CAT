@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-30 15:22+0200\n"
+"POT-Creation-Date: 2019-09-13 14:56+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: Dubravko Penezic <dpenezic@gmail.com>, 2019\n"
 "Language-Team: Croatian (Croatia) (https://www.transifex.com/eduroam_devel/"
@@ -946,16 +946,18 @@ msgid ""
 "selection for this country. You have to provide the realm you are interested "
 "in."
 msgstr ""
+"Baza ne sadrži  informacije potrebne kako bi se ralm dohvatio s popisa "
+"odabrane države. Molim specificirajte realm."
 
 #: web/skins/modern/diag/diag.php:519
 msgid ""
 "Can not search in database. You have to provide the realm you are interested "
 "in."
-msgstr ""
+msgstr "Nemoguće je koristiti pretraživanje baze. Molim specificirajte realm."
 
 #: web/skins/modern/diag/diag.php:575
 msgid "Other location"
-msgstr ""
+msgstr "Druga lokacija"
 
 #: web/skins/modern/diag/diag.php:609
 msgid "Fetching realms list"

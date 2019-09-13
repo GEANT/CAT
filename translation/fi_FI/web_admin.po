@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-30 15:22+0200\n"
-"PO-Revision-Date: 2019-03-22 21:59+0000\n"
+"POT-Creation-Date: 2019-09-13 14:56+0200\n"
+"PO-Revision-Date: 2019-08-30 20:31+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Finnish (Finland) (http://www.transifex.com/eduroam_devel/cat/"
 "language/fi_FI/)\n"
@@ -925,14 +925,12 @@ msgid "Actions"
 msgstr "Toiminnot"
 
 #: web/admin/edit_silverbullet.php:394
-#, fuzzy
 msgid "Certificate details"
-msgstr "Token / Varmenteen tiedot"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:395
-#, fuzzy
 msgid "User Expiry"
-msgstr "Tiedot vanhenevat"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:436
 msgid "REVOKED"
@@ -1060,9 +1058,8 @@ msgid "Deactivate User"
 msgstr "Poista käyttäjän käyttöoikeus"
 
 #: web/admin/edit_silverbullet.php:581
-#, fuzzy
 msgid "Show Authentication Records"
-msgstr "Autentikointipalvelimen nimi (CN)"
+msgstr ""
 
 #. current user, allow sending new token
 #: web/admin/edit_silverbullet.php:586
@@ -1075,14 +1072,12 @@ msgstr "Aktivoinnit:"
 
 #. previous user; if there are NO authentication records, allow full deletion - otherwise, need to keep user trace for abuse handling
 #: web/admin/edit_silverbullet.php:594
-#, fuzzy
 msgid "Delete User"
-msgstr "Poista %s"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:610
-#, fuzzy
 msgid "Current Users"
-msgstr "Tällä hetkellä %skäyttäjää"
+msgstr ""
 
 #: web/admin/edit_silverbullet.php:613
 msgid "Previous Users"
@@ -1710,11 +1705,11 @@ msgid "%s %s: %s list"
 msgstr "%s %s: %s lista"
 
 #: web/admin/overview_user.php:149
-#, fuzzy, php-format
+#, php-format
 msgid "%d other user"
 msgid_plural "%d other users"
-msgstr[0] "toinen käyttäjä"
-msgstr[1] "toiset käyttäjät"
+msgstr[0] ""
+msgstr[1] ""
 
 #: web/admin/overview_user.php:160
 #, php-format
@@ -2051,9 +2046,8 @@ msgid "Fine-tuning options for "
 msgstr "Asetusten hienosäätö"
 
 #: web/admin/inc/userStats.inc.php:31
-#, fuzzy
 msgid "User Authentication Records"
-msgstr "Autentikointipalvelimen nimi (CN)"
+msgstr ""
 
 #: web/admin/inc/userStats.inc.php:32
 msgid "Note that:"
@@ -2084,9 +2078,8 @@ msgid "Credential"
 msgstr ""
 
 #: web/admin/inc/userStats.inc.php:42
-#, fuzzy
 msgid "MAC Address"
-msgstr "Osoite:"
+msgstr ""
 
 #: web/admin/inc/userStats.inc.php:43
 msgid "Result"
@@ -2431,9 +2424,8 @@ msgid "Turn on selection of EAP-TLS User-Name"
 msgstr "Ota käyttöön EAP-TLS-käyttäjätunnuksen valinta"
 
 #: web/lib/admin/UIElements.php:103
-#, fuzzy
 msgid "Use GEANTlink for TTLS (Windows 8 and 10)"
-msgstr "Käytä GEANTlink TTLS -supplikanttia W8:lle"
+msgstr ""
 
 #: web/lib/admin/UIElements.php:104
 msgid "Profile Description"
@@ -2557,6 +2549,3 @@ msgstr "Varoitus!"
 #: web/lib/admin/UIElements.php:416
 msgid "Error!"
 msgstr "Virhe!"
-
-#~ msgid "Use builtin TTLS supplicant for Windows 10"
-#~ msgstr "Käytä sisäänrakennettua TTLS-supplikanttia Windows 10:ssä"

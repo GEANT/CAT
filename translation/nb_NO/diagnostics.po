@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-30 15:22+0200\n"
+"POT-Creation-Date: 2019-09-13 14:56+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: Tom Ivar Myren <tom.myren@uninett.no>, 2019\n"
 "Language-Team: Norwegian Bokmål (Norway) (https://www.transifex.com/"
@@ -944,16 +944,18 @@ msgid ""
 "selection for this country. You have to provide the realm you are interested "
 "in."
 msgstr ""
+"Databasen inneholder ikke informasjonen som trengs for realm valg for dette "
+"landet. Du må oppgi et realm du er interessert i."
 
 #: web/skins/modern/diag/diag.php:519
 msgid ""
 "Can not search in database. You have to provide the realm you are interested "
 "in."
-msgstr ""
+msgstr "Kan ikke søke i databasen. Du må oppgi et realm."
 
 #: web/skins/modern/diag/diag.php:575
 msgid "Other location"
-msgstr ""
+msgstr "Annen lokasjon"
 
 #: web/skins/modern/diag/diag.php:609
 msgid "Fetching realms list"
