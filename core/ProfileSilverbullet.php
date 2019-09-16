@@ -298,6 +298,32 @@ class ProfileSilverbullet extends AbstractProfile {
     }
 
     /**
+     * get the user of this SB profile identified by ID
+     * @return array
+     */
+    public function getUserById($userId) {
+        $users = $this->databaseHandle->exec("SELECT `id`, `username` FROM `silverbullet_user` WHERE `profile_id` = ? AND `id` = ? ", "ii", $this->identifier, $userId);
+        // SELECT -> resource, not boolean
+        while ($res = mysqli_fetch_object(/** @scrutinizer ignore-type */ $users)) {
+            return [$res->id => $res->username];
+        }
+        return [];
+    }
+
+    /**
+     * get the user of this SB profile identified by Username
+     * @return array
+     */
+    public function getUserByName($userName) {
+        $users = $this->databaseHandle->exec("SELECT `id`, `username` FROM `silverbullet_user` WHERE `profile_id` = ? AND `username` = ? ", "is", $this->identifier, $userName);
+        // SELECT -> resource, not boolean
+        while ($res = mysqli_fetch_object(/** @scrutinizer ignore-type */ $users)) {
+            return [$res->id => $res->username];
+        }
+        return [];
+    }
+
+    /**
      * lists all users which are currently active (i.e. have pending invitations and/or valid certs)
      * @return array
      */

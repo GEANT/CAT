@@ -417,41 +417,41 @@ switch ($inputDecoded['ACTION']) {
         $userId = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_USERID);
         $userName = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_USERNAME);
         $certSerial = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_CERTSERIAL);
-        if ($userId === FALSE && $userName === FALSE && $certSerial === FALSE) {
+		$certCN = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_CERTCN);
+        if ($userId === FALSE && $userName === FALSE && $certSerial === FALSE && $certCN === FALSE) {
             // we need at least one of those
-            $adminApi->returnError(\web\lib\admin\API::ERROR_MISSING_PARAMETER, "At least one of User ID, Username, or certificate serial is required.");
-        }
-        $userlist = $profile->listAllUsers();
-        if ($userName === FALSE && $certSerial === FALSE) { // we got a user ID
-            if (!isset($userlist[$userId])) {
-                $adminApi->returnError(\web\lib\admin\API::ERROR_INVALID_PARAMETER, "This user ID does not exist in this profile.");
-                break;
-            }
-            $adminApi->returnSuccess([$userId => $userlist[$userId]]);
+            $adminApi->returnError(\web\lib\admin\API::ERROR_MISSING_PARAMETER, "At least one of User ID, Username, certificate serial, or certificate CN is required.");
             break;
         }
-        if ($userId === FALSE && $certSerial === FALSE) { // we got a username
-            $key = array_search($userName, $userlist);
-            if ($key === FALSE) {
-                $adminApi->returnError(\web\lib\admin\API::ERROR_INVALID_PARAMETER, "This username does not exist in this profile.");
-                break;
-            }
-            $adminApi->returnSuccess([$key => $userlist[$key]]);
-            break;
-        }
-        if ($userId === FALSE && $userName === FALSE) { // we got a cert serial
+        if ($certSerial !== FALSE) { // we got a cert serial
             $serial = explode(":", $certSerial);
             $cert = new \core\SilverbulletCertificate($serial[1], $serial[0]);
+            }
+        if ($certCN !== FALSE) { // we got a cert CN
+            $cert = new \core\SilverbulletCertificate($certCN, "");
+        }
+        if ($cert !== FALSE) { // we found a cert; verify it and extract userId
+            $cert = new \core\SilverbulletCertificate($serial[1], $serial[0]);
             if ($cert->status == \core\SilverbulletCertificate::CERTSTATUS_INVALID) {
-                $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Serial not found.");
+                return $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Certificate not found.");
             }
             if ($cert->profileId != $profile->identifier) {
-                $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Serial does not belong to this profile.");
+                return $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Certificate does not belong to this profile.");
             }
-            $adminApi->returnSuccess([$cert->userId => $userlist[$cert->userId]]);
-            break;
+            $userId = $cert->userId;
         }
-        $adminApi->returnError(\web\lib\admin\API::ERROR_INVALID_PARAMETER, "Only exactly one of User ID, username or cert serial can be specified.");
+        if ($userId !== FALSE) {
+            $userList = $profile->getUserById($userId);
+        }
+        if ($userName !== FALSE) {
+            $userList = $profile->getUserByName($userName);
+        }
+        if (count($userList) === 1) {
+            foreach ($userList as $oneUserId => $oneUserName) {
+                return $adminApi->returnSuccess([web\lib\admin\API::AUXATTRIB_SB_USERNAME => $oneUserName, \web\lib\admin\API::AUXATTRIB_SB_USERID => $oneUserId]);
+            }
+        }
+        $adminApi->returnError(\web\lib\admin\API::ERROR_INVALID_PARAMETER, "No matching user found in this profile.");
         break;
     case \web\lib\admin\API::ACTION_ENDUSER_LIST:
     // fall-through: those two are similar
