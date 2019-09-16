@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-18 08:14+0200\n"
-"PO-Revision-Date: 2019-04-16 05:49+0000\n"
-"Last-Translator: Iñigo Zendegi Urzelai <izendegi@mondragon.edu>\n"
+"POT-Creation-Date: 2019-09-13 14:56+0200\n"
+"PO-Revision-Date: 2019-04-18 09:31+0000\n"
+"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Basque (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/eu_ES/)\n"
 "Language: eu_ES\n"
@@ -291,17 +291,17 @@ msgstr "Hegoafrika"
 msgid "Unnamed Entity"
 msgstr "Izenik gabeko entitatea"
 
-#: core/DeviceConfig.php:186
+#: core/DeviceConfig.php:229
 #, php-format
 msgid "your local %s support"
 msgstr "zure erakundeko %s laguntza"
 
-#: core/DeviceConfig.php:187
+#: core/DeviceConfig.php:230
 #, php-format
 msgid "your local %s support page"
 msgstr "zure tokiko %s laguntza-orria"
 
-#: core/DeviceConfig.php:223
+#: core/DeviceConfig.php:266
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 "Sentitzen dut, ez zen horrelakorik gertatu beharko - ez dago informazio "
@@ -319,7 +319,7 @@ msgstr "(alde batera utzitakoa) %s"
 #. /                4. federation shortname, e.g. "LU";
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:252
+#: core/Federation.php:256
 #, php-format
 msgid ""
 "Hi,\n"
@@ -344,7 +344,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/Federation.php:261
+#: core/Federation.php:265
 #, php-format
 msgid "%s in your federation was created"
 msgstr "%szure federazioan sortu zen"
@@ -377,16 +377,16 @@ msgstr ""
 msgid "%s in your federation was deleted"
 msgstr "%szure federazioan ezabatua izan zen"
 
-#: core/SilverbulletInvitation.php:230
+#: core/SilverbulletInvitation.php:236
 #, php-format
 msgid "Your %s access is ready"
 msgstr "Zure %s sarbidea prest dago"
 
-#: core/SilverbulletInvitation.php:242
+#: core/SilverbulletInvitation.php:248
 msgid "Hello!"
 msgstr "Kaixo!"
 
-#: core/SilverbulletInvitation.php:244
+#: core/SilverbulletInvitation.php:250
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
@@ -394,7 +394,7 @@ msgid ""
 msgstr ""
 "Zure sareko kudeatzaileak %s sarbide kredentzial berria sortu du zuretzako."
 
-#: core/SilverbulletInvitation.php:246
+#: core/SilverbulletInvitation.php:252
 #, php-format
 msgid ""
 "Please follow the following link with the device you want to enable for %s "
@@ -406,7 +406,7 @@ msgstr ""
 "egin, kopiatu eta nabigatzailean itsasi edo QR kodea eskaneatu dezakezu."
 
 #. gets replaced with the token value by getBody()
-#: core/SilverbulletInvitation.php:248
+#: core/SilverbulletInvitation.php:254
 #, php-format
 msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
@@ -418,11 +418,11 @@ msgstr ""
 "esteka bera erabili dezakezu zure %s kontuaren egoeraren inguruko "
 "informazioa lortzeko."
 
-#: core/SilverbulletInvitation.php:250
+#: core/SilverbulletInvitation.php:256
 msgid "Regards,"
 msgstr "Ongi izan."
 
-#: core/SilverbulletInvitation.php:299
+#: core/SilverbulletInvitation.php:305
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
@@ -431,7 +431,7 @@ msgstr ""
 "Zure %s sarbidea prest dago!Klik egin hemen: %s (Android-en, aurretik '%s' "
 "app-a instalatu behar duzu!)"
 
-#: core/SilverbulletInvitation.php:321
+#: core/SilverbulletInvitation.php:327
 #, php-format
 msgid "%s Invitation System"
 msgstr "%s Gonbidapen Sistema"
@@ -617,10 +617,3 @@ msgstr "Domeinuak espazioak ditu! "
 #: web/lib/common/InputValidation.php:241
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Domeinuak ez dauka ezta . (puntu) bakar bat ere! "
-
-#~ msgid ""
-#~ "Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes."
-#~ "md'>Git Revision</a>"
-#~ msgstr ""
-#~ "Publikatu gabeko <a href='https://github.com/GEANT/CAT/tree/master/"
-#~ "Changes.md'>Git Revision</a>"

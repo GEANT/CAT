@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-18 08:14+0200\n"
-"PO-Revision-Date: 2019-03-22 20:48+0000\n"
+"POT-Creation-Date: 2019-09-13 14:56+0200\n"
+"PO-Revision-Date: 2019-04-18 09:31+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Armenian (http://www.transifex.com/eduroam_devel/cat/language/"
 "hy/)\n"
@@ -289,17 +289,17 @@ msgstr "Հարավային Աֆրիկա"
 msgid "Unnamed Entity"
 msgstr "Անանուն"
 
-#: core/DeviceConfig.php:186
+#: core/DeviceConfig.php:229
 #, php-format
 msgid "your local %s support"
 msgstr "ձեր տեղի %s սպասարկող թիմ"
 
-#: core/DeviceConfig.php:187
+#: core/DeviceConfig.php:230
 #, php-format
 msgid "your local %s support page"
 msgstr "ձեր տեղի %s սպասարկման էջը"
 
-#: core/DeviceConfig.php:223
+#: core/DeviceConfig.php:266
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr "Ներեցեք, սա չպետք է տեղի ունենար, ոչ մի լրացուցիչ տեղեկություն չկա"
 
@@ -315,7 +315,7 @@ msgstr ""
 #. /                4. federation shortname, e.g. "LU";
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:252
+#: core/Federation.php:256
 #, php-format
 msgid ""
 "Hi,\n"
@@ -330,7 +330,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: core/Federation.php:261
+#: core/Federation.php:265
 #, php-format
 msgid "%s in your federation was created"
 msgstr ""
@@ -354,23 +354,23 @@ msgstr ""
 msgid "%s in your federation was deleted"
 msgstr ""
 
-#: core/SilverbulletInvitation.php:230
+#: core/SilverbulletInvitation.php:236
 #, php-format
 msgid "Your %s access is ready"
 msgstr " Ձեր%sմուտքը պատրաստ է"
 
-#: core/SilverbulletInvitation.php:242
+#: core/SilverbulletInvitation.php:248
 msgid "Hello!"
 msgstr "Ողջու՛յն"
 
-#: core/SilverbulletInvitation.php:244
+#: core/SilverbulletInvitation.php:250
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
 "administrator."
 msgstr "Նոր %s մուտքի տվյալ է ստեղծվել ձեր ցանցային ադմինիստրատորի կողմից:"
 
-#: core/SilverbulletInvitation.php:246
+#: core/SilverbulletInvitation.php:252
 #, php-format
 msgid ""
 "Please follow the following link with the device you want to enable for %s "
@@ -384,7 +384,7 @@ msgstr ""
 "կոդը:"
 
 #. gets replaced with the token value by getBody()
-#: core/SilverbulletInvitation.php:248
+#: core/SilverbulletInvitation.php:254
 #, php-format
 msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
@@ -395,11 +395,11 @@ msgstr ""
 "համար: Ձեր %s տեղադրող ծրագիրը ստանալուց հետո,  այդ նույն հղումը կարող եք "
 "օգտագործել ձեր %s հաշվեհամարի կարգավիճակի մասին տեղեկանալու համար։"
 
-#: core/SilverbulletInvitation.php:250
+#: core/SilverbulletInvitation.php:256
 msgid "Regards,"
 msgstr "Հարգանքներով,"
 
-#: core/SilverbulletInvitation.php:299
+#: core/SilverbulletInvitation.php:305
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
@@ -408,7 +408,7 @@ msgstr ""
 "Ձեր%s մուտքի տվյալները պատրաստ են: Սեղմեք այստեղ՝ %s (Android համակարգում, "
 "նախ պետք է տեղադրեք հավելվածը '%s')"
 
-#: core/SilverbulletInvitation.php:321
+#: core/SilverbulletInvitation.php:327
 #, php-format
 msgid "%s Invitation System"
 msgstr "%s Հրավերի համակարգ"
@@ -594,10 +594,3 @@ msgstr "Realm պարունակում է բացատ:"
 #: web/lib/common/InputValidation.php:241
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Realm-ը չի պարունակում առնվազն մեկ . (կետ)"
-
-#~ msgid ""
-#~ "Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes."
-#~ "md'>Git Revision</a>"
-#~ msgstr ""
-#~ "Չթողարկված <a href='https://github.com/GEANT/CAT/tree/master/Changes."
-#~ "md'>Git Revision</a>"

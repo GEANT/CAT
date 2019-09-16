@@ -135,10 +135,10 @@ if (isset($_POST['command'])) {
                     }
                     $properName = $validator->User($elements[0]);
                     $properDate = new DateTime($elements[1] . " 00:00:00");
-                    $numberOfActivations = $elements[2] ?? 1;
+                    $numberOfActivations = $elements[2] ?? 5;
                     $number = $validator->integer($numberOfActivations);
                     if ($number === FALSE) { // invalid input received, default to sane
-                        $number = 1;
+                        $number = 5;
                     }
 
                     $newId = $profile->addUser($properName, $properDate);
@@ -667,7 +667,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), \core\ProfileSi
                     <div style="margin: 5px 0px 10px 0px;">
                         <input type="file" name="newusers">
                     </div>
-                    <button type="submit" name="command" value="newusers" ><?php echo _("Import users"); ?></button>
+                    <button type="submit" name="command" value="<?php echo \web\lib\common\FormElements::BUTTON_ADDUSER ?>"><?php echo _("Import users"); ?></button>
                 </div>
                 </form>
             </div>

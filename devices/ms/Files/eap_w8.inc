@@ -37,15 +37,17 @@ ${If} $wireless_result == 0
 Call CheckWirelessProfiles
 Call CreateWirelessProfiles 
 ${EndIf}
-
 ${If} $wired == 1
   Call CreateLanProfile
 ${EndIf}
 !ifdef CRED
+  IfSilent +2
   Call InstallUserCredentials
 !endif
 ;Sleep 2000
+IfSilent +2
 SendMessage $HWNDPARENT "0x408" "1" ""
+IfSilent +2
 Sleep 2000
 SectionEnd
 ;==========================

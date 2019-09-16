@@ -184,50 +184,65 @@ class Devices extends \core\common\Entity {
                     'redirect' => 1,
                 ],
             ],
-            'apple_mojave' => array(
+            'apple_catalina' => [
+                'group' => "apple",
+                'display' => _("Apple macOS Catalina"),
+                'match' => 'Mac OS X 10[._]15',
+                'directory' => 'apple_mobileconfig',
+                'module' => 'mobileconfig_os_x',
+                'signer' => 'mobileconfig_sign',
+                'options' => [
+                    'sign' => 1,
+                    'device_id' => 'OS_X',
+                    'mime' => 'application/x-apple-aspen-config',
+                    'clientcert' => Devices::SUPPORT_ECDSA,
+                    'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page. Later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."),
+                ],
+            ],
+            'apple_mojave' => [
                 'group' => "apple",
                 'display' => _("Apple macOS Mojave"),
                 'match' => 'Mac OS X 10[._]14',
                 'directory' => 'apple_mobileconfig',
                 'module' => 'mobileconfig_os_x',
                 'signer' => 'mobileconfig_sign',
-                'options' => array(
+                'options' => [
                     'sign' => 1,
                     'device_id' => 'OS_X',
                     'mime' => 'application/x-apple-aspen-config',
                     'clientcert' => Devices::SUPPORT_ECDSA,
                     'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page. Later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."),
-                ),
-            ),
-            'apple_hi_sierra' => array(
+                ],
+            ],
+            'apple_hi_sierra' => [
                 'group' => "apple",
                 'display' => _("Apple macOS High Sierra"),
                 'match' => 'Mac OS X 10[._]13',
                 'directory' => 'apple_mobileconfig',
                 'module' => 'mobileconfig_os_x',
                 'signer' => 'mobileconfig_sign',
-                'options' => array(
+                'options' => [
                     'sign' => 1,
                     'device_id' => 'OS_X',
                     'mime' => 'application/x-apple-aspen-config',
                     'clientcert' => Devices::SUPPORT_ECDSA,
                     'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page. Later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."),
-                ),
-            ),
-            'apple_sierra' => array(
+                ],
+            ],
+            'apple_sierra' => [
                 'group' => "apple",
                 'display' => _("Apple macOS Sierra"),
                 'match' => 'Mac OS X 10[._]12',
                 'directory' => 'apple_mobileconfig',
                 'module' => 'mobileconfig_os_x',
                 'signer' => 'mobileconfig_sign',
-                'options' => array(
+                'options' => [
                     'sign' => 1,
                     'device_id' => 'OS_X',
                     'mime' => 'application/x-apple-aspen-config',
                     'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page. Later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."),
-                ),
-            ),
+                ],
+            ],
             'apple_el_cap' => [
                 'group' => "apple",
                 'display' => _("Apple OS X El Capitan"),
@@ -235,12 +250,12 @@ class Devices extends \core\common\Entity {
                 'directory' => 'apple_mobileconfig',
                 'module' => 'mobileconfig_os_x',
                 'signer' => 'mobileconfig_sign',
-                'options' => array(
+                'options' => [
                     'sign' => 1,
                     'device_id' => 'OS_X',
                     'mime' => 'application/x-apple-aspen-config',
                     'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page. Later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."),
-                ),
+                ],
             ],
             'apple_yos' => [
                 'group' => "apple",
@@ -509,70 +524,69 @@ class Devices extends \core\common\Entity {
                     'hidden' => 1,
                 ],
             ],
-                /*
+        /*
 
-                  'xml-ttls-pap'=>array(
-                  'group' => "generic",
-                  'display'=>_("Generic profile TTLS-PAP"),
-                  'directory'=>'xml',
-                  'module'=>'XML_TTLS_PAP',
-                  'options'=>array(
-                  'mime'=>'application/eap-config',
-                  ),
-                  ),
+            'xml-ttls-pap'=> [
+                'group' => "generic",
+                'display'=>_("Generic profile TTLS-PAP"),
+                'directory'=>'xml',
+                'module'=>'XML_TTLS_PAP',
+                'options'=>[
+                    'mime'=>'application/eap-config',
+                ],
+            ],
 
-                  'xml-ttls-mschap2'=>array(
-                  'group' => "generic",
-                  'display'=>_("Generic profile TTLS-MSCHAPv2"),
-                  'directory'=>'xml',
-                  'module'=>'XML_TTLS_MSCHAP2',
-                  'options'=>array(
-                  'mime'=>'application/eap-config',
-                  ),
-                  ),
+            'xml-ttls-mschap2'=> [
+                'group' => "generic",
+                'display'=>_("Generic profile TTLS-MSCHAPv2"),
+                'directory'=>'xml',
+                'module'=>'XML_TTLS_MSCHAP2',
+                'options'=> [
+                    'mime'=>'application/eap-config',
+                ],
+            ],
 
-                  'xml-peap'=>array(
-                  'group' => "generic",
-                  'display'=>_("Generic profile PEAP"),
-                  'directory'=>'xml',
-                  'module'=>'XML_PEAP',
-                  'options'=>array(
-                  'mime'=>'application/eap-config',
-                  ),
-                  ),
+            'xml-peap'=> [
+                'group' => "generic",
+                'display'=>_("Generic profile PEAP"),
+                'directory'=>'xml',
+                'module'=>'XML_PEAP',
+                    'options'=> [
+                    'mime'=>'application/eap-config',
+                ],
+            ],
 
-                  'xml-tls'=>array(
-                  'group' => "generic",
-                  'display'=>_("Generic profile TLS"),
-                  'directory'=>'xml',
-                  'module'=>'XML_TLS',
-                  'options'=>array(
-                  'mime'=>'application/eap-config',
-                  ),
-                  ),
+            'xml-tls'=> [
+                'group' => "generic",
+                'display'=>_("Generic profile TLS"),
+                'directory'=>'xml',
+                'module'=>'XML_TLS',
+                'options'=> [
+                    'mime'=>'application/eap-config',
+                ],
+            ],
 
-                  'xml-pwd'=>array(
-                  'group' => "generic",
-                  'display'=>_("Generic profile PWD"),
-                  'directory'=>'xml',
-                  'module'=>'XML_PWD',
-                  'options'=>array(
-                  'mime'=>'application/eap-config',
-                  ),
-                  ),
-                  'xml-all'=>array(
-                  'group' => "generic",
-                  'display'=>_("Generic profile ALL EAPs"),
-                  'directory'=>'xml',
-                  'module'=>'XML_ALL',
-                  'options'=>array(
-                  'mime'=>'application/eap-config',
-                  ),
-                  ),
-                 */
-    ];
+            'xml-pwd'=> [
+                'group' => "generic",
+                'display'=>_("Generic profile PWD"),
+                'directory'=>'xml',
+                'module'=>'XML_PWD',
+                'options'=> [
+                    'mime'=>'application/eap-config',
+                ],
+            ],
+                'xml-all'=> [
+                'group' => "generic",
+                'display'=>_("Generic profile ALL EAPs"),
+                'directory'=>'xml',
+                'module'=>'XML_ALL',
+                'options'=> [
+                    'mime'=>'application/eap-config',
+                ],
+            ],
+        */
+        ];
         \core\common\Entity::outOfThePotatoes();
         return $retArray;
     }
-
 }
