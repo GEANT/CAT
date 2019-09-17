@@ -299,6 +299,7 @@ class ProfileSilverbullet extends AbstractProfile {
 
     /**
      * get the user of this SB profile identified by ID
+     * @param int $userId the user id
      * @return array
      */
     public function getUserById($userId) {
@@ -312,6 +313,7 @@ class ProfileSilverbullet extends AbstractProfile {
 
     /**
      * get the user of this SB profile identified by Username
+     * @param string $userName the username
      * @return array
      */
     public function getUserByName($userName) {
