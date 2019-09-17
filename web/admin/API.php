@@ -428,10 +428,9 @@ switch ($inputDecoded['ACTION']) {
             $cert = new \core\SilverbulletCertificate($serial[1], $serial[0]);
             }
         if ($certCN !== FALSE) { // we got a cert CN
-            $cert = new \core\SilverbulletCertificate($certCN, "");
+            $cert = new \core\SilverbulletCertificate($certCN);
         }
-        if ($cert !== FALSE) { // we found a cert; verify it and extract userId
-            $cert = new \core\SilverbulletCertificate($serial[1], $serial[0]);
+        if ($cert !== NULL) { // we found a cert; verify it and extract userId
             if ($cert->status == \core\SilverbulletCertificate::CERTSTATUS_INVALID) {
                 return $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Certificate not found.");
             }
