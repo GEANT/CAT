@@ -49,11 +49,8 @@ if (isset($_REQUEST['token'])) {
     // maybe the user authenticated with his client cert? Then pick any of his
     // tokens to go on
     $certname = $_SERVER['SSL_CLIENT_SAN_Email'] ?? $_SERVER['SSL_CLIENT_SAN_Email_0'];
-    if (preg_match("R$", $_SERVER['SSL_CLIENT_I_DN'])) {
-        $certObject = new \core\SilverbulletCertificate($certname, devices\Devices::SUPPORT_RSA);
-    } else if (preg_match("E$", $_SERVER['SSL_CLIENT_I_DN'])) {
-        $certObject = new \core\SilverbulletCertificate($certname, devices\Devices::SUPPORT_ECDSA);
-    } else {
+    $certObject = new \core\SilverbulletCertificate($certname);
+    if ($certObject->status == SilverbulletCertificate::CERTSTATUS_INVALID)
         throw new Exception("We got an accepted certificate authentication, but can't find the certificate in the database!");
     }
     $profile = new \core\ProfileSilverbullet($certObject->profileId);
