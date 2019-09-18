@@ -12,3 +12,5 @@
 
 DELETE FROM profile_option WHERE option_name = "device-specific:builtin_ttls";
 DELETE FROM profile_option_dict WHERE name = "device-specific:builtin_ttls";
+
+ALTER TABLE silverbullet_certificate ADD COLUMN `extrainfo` longblob DEFAULT NULL;
