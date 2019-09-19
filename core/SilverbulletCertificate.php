@@ -144,7 +144,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
     public function annotate($annotation) {
         $encoded = json_encode($annotation);
         $this->annotation = $encoded;
-        $this->databaseHandle->exec("UPDATE silverbullet_certificate SET extrainfo = ? WHERE serial_number = ?", "is", $this->serial, $annotation);
+        $this->databaseHandle->exec("UPDATE silverbullet_certificate SET extrainfo = ? WHERE serial_number = ?", "si", json_encode($annotation), $this->serial );
     }
     /**
      * we don't use caching in SB, so this function does nothing
