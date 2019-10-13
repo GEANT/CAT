@@ -545,13 +545,13 @@ Function wVersionCheck
   Pop $WindowsName
   Pop $WindowsVer
   ${WinVerGetBuild} $WindowsBuild
-  !insertmacro debug_cat 3 "Detected $WindowsName:$WindowsVer"
+  !insertmacro debug_cat 3 "Detected $WindowsName:$WindowsVer:$WindowsBuild"
   Push 1
   Pop $NoFCupdate
   ${If} ${AtLeastWin10}
     !if "${NSIS_PACKEDVERSION}" > 0x3003000
-        ${If} ${AtMostWaaS} "Fall Creators Update"
-           Push 1
+        ${If} ${AtLeastWaaS} "Fall Creators Update"
+           Push 0
            Pop $NoFCupdate
         ${EndIf}
     !endif
@@ -868,7 +868,7 @@ Function CreateLanProfile
   !insertmacro debug_cat 3 "execute: $Netsh lan add profile $TEMP\lan_prof.xml"
   nsArray::Set Commands "netsh lan add profile $TEMP\lan_prof.xml" 
   nsArray::Set Commands "del $TEMP\lan_prof.xml"
-  nsExec::Exec '"$Netsh" lan add profile $TEMP\lan_prof.xml'
+  nsExec::Exec '"$Netsh" lan add profile "$TEMP\lan_prof.xml"'
   Pop $0
   !insertmacro debug_cat 4 "netsh returned $0"
      !insertmacro debug_cat 1 "Wired profile created"
@@ -937,7 +937,7 @@ Function InstallProfile
   !insertmacro debug_cat 3 "Execute: $Netsh wlan add profile $TEMP\wlan_prof-$R0.xml"
   nsArray::Set Commands "netsh wlan add profile $TEMP\wlan_prof-$R0.xml" 
   nsArray::Set Commands "del $TEMP\wlan_prof-$R0.xml"
-  nsExec::Exec '"$Netsh" wlan add profile $TEMP\wlan_prof-$R0.xml'
+  nsExec::Exec '"$Netsh" wlan add profile "$TEMP\wlan_prof-$R0.xml"'
   Pop $0
   !insertmacro debug_cat 4 "netsh returned $0"
   ${If} $0 <> 0
@@ -1100,8 +1100,8 @@ Function InstallWirelessCred
     !ifdef PEAP
       Call writePeapUserProfle
     !endif
-    !insertmacro debug_cat 3 "Execute: $TEMP\WLANSetEAPUserData$Platform.exe $\"$R1$\" 0 $TEMP\user_cred.xml"
-    nsExec::Exec "$TEMP\WLANSetEAPUserData$Platform.exe $\"$R1$\" 0 $TEMP\user_cred.xml"
+    !insertmacro debug_cat 3 'Execute: "$TEMP\WLANSetEAPUserData$Platform.exe" "$R1" 0 "$TEMP\user_cred.xml"'
+    nsExec::Exec '"$TEMP\WLANSetEAPUserData$Platform.exe" "$R1" 0 "$TEMP\user_cred.xml"'
     Pop $0
     ${If} $Debug_cat == 0
        Delete "$TEMP\user_cred.xml"
