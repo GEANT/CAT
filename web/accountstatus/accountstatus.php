@@ -50,7 +50,7 @@ if (isset($_REQUEST['token'])) {
     // tokens to go on
     $certname = $_SERVER['SSL_CLIENT_SAN_Email'] ?? $_SERVER['SSL_CLIENT_SAN_Email_0'];
     $certObject = new \core\SilverbulletCertificate($certname);
-    if ($certObject->status == SilverbulletCertificate::CERTSTATUS_INVALID) {
+if ($certObject->status == \core\SilverbulletCertificate::CERTSTATUS_INVALID) {
         throw new Exception("We got an accepted certificate authentication, but can't find the certificate in the database!");
     }
     $profile = new \core\ProfileSilverbullet($certObject->profileId);
