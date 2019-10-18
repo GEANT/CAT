@@ -345,12 +345,18 @@ class SanityTests extends CAT {
             $this->testReturn(\core\common\Entity::L_ERROR, "PHP extension <strong>OpenSSL</strong> not found!");
         }
 
-        if (class_exists('\Imagick')) {
-            $this->testReturn(\core\common\Entity::L_OK, "PHP extension <strong>Imagick</strong> is installed.");
+        // on CentOS and RHEL 8, look for Gmagick, else Imagick
+        if (strpos(php_uname("r"),"el8") !== FALSE) {
+            $classname = 'Gmagick';
         } else {
-            $this->testReturn(\core\common\Entity::L_ERROR, "PHP extension <strong>Imagick</strong> not found! Get it from your distribution or <a href='http://pecl.php.net/package/imagick'>here</a>.");
+            $classname = 'Imagick';
         }
-
+        if (class_exists('\\'.$classname)) {
+            $this->testReturn(\core\common\Entity::L_OK, "PHP extension <strong>$classname</strong> is installed.");
+        } else {
+            $this->testReturn(\core\common\Entity::L_ERROR, "PHP extension <strong>$classname</strong> not found! Get it from your distribution or <a href='http://pecl.php.net/get/".strtolower($classname)."'>here</a>.");
+        }
+        
         if (function_exists('ImageCreate')) {
             $this->testReturn(\core\common\Entity::L_OK, "PHP extension <strong>GD</strong> is installed.");
         } else {

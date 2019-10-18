@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -39,12 +40,14 @@ use \Exception;
  * @package UserAPI
  *
  */
-class UserAPI extends CAT {
+class UserAPI extends CAT
+{
 
     /**
      * nothing special to be done here.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -67,7 +70,8 @@ class UserAPI extends CAT {
      *  link - the path name of the resulting installer
      *  mime - the mimetype of the installer
      */
-    public function generateInstaller($device, $profileId, $generatedFor = "user", $token = NULL, $password = NULL) {
+    public function generateInstaller($device, $profileId, $generatedFor = "user", $token = NULL, $password = NULL)
+    {
         $this->loggerInstance->debug(4, "installer:$device:$profileId\n");
         $validator = new \web\lib\common\InputValidation();
         $profile = $validator->Profile($profileId);
@@ -93,8 +97,9 @@ class UserAPI extends CAT {
         }
         return $installerProperties;
     }
-    
-    private function verifyDownloadAccess($profile) {
+
+    private function verifyDownloadAccess($profile)
+    {
         $attribs = $profile->getCollapsedAttributes();
         if (\core\common\Entity::getAttributeValue($attribs, 'profile:production', 0) !== 'on') {
             $this->loggerInstance->debug(4, "Attempt to download a non-production ready installer for profile: $profile->identifier\n");
@@ -124,7 +129,8 @@ class UserAPI extends CAT {
      * @param AbstractProfile $profile the profile for which the installer is searched in cache
      * @return array containing path to the installer and mime type of the file, the path is set to NULL if no cache can be returned
      */
-    private function getCache($device, $profile) {
+    private function getCache($device, $profile)
+    {
         $deviceConfig = \devices\Devices::listDevices()[$device];
         $noCache = (isset(\devices\Devices::$Options['no_cache']) && \devices\Devices::$Options['no_cache']) ? 1 : 0;
         if (isset($deviceConfig['options']['no_cache'])) {
@@ -153,7 +159,8 @@ class UserAPI extends CAT {
      * @param string          $password     in case of silverbullet, the import PIN for the future client certificate
      * @return array info about the new installer (mime and link)
      */
-    private function generateNewInstaller($device, $profile, $generatedFor, $token, $password) {
+    private function generateNewInstaller($device, $profile, $generatedFor, $token, $password)
+    {
         $this->loggerInstance->debug(5, "generateNewInstaller() - Enter");
         $factory = new DeviceFactory($device);
         $this->loggerInstance->debug(5, "generateNewInstaller() - created Device");
@@ -195,7 +202,8 @@ class UserAPI extends CAT {
      * @param int $showHidden whether or not hidden devices should be shown
      * @return array the list of devices
      */
-    public function listDevices($showHidden = 0) {
+    public function listDevices($showHidden = 0)
+    {
         $returnList = [];
         $count = 0;
         if ($showHidden !== 0 && $showHidden != 1) {
@@ -222,7 +230,8 @@ class UserAPI extends CAT {
      * @param int    $profileId identifier of the profile
      * @return void
      */
-    public function deviceInfo($device, $profileId) {
+    public function deviceInfo($device, $profileId)
+    {
         $validator = new \web\lib\common\InputValidation();
         $out = 0;
         $profile = $validator->Profile($profileId);
@@ -248,7 +257,8 @@ class UserAPI extends CAT {
      * - devices - an array of device names and their statuses (for a given profile)
      * - last_changed
      */
-    public function profileAttributes($profId) {
+    public function profileAttributes($profId)
+    {
         $validator = new \web\lib\common\InputValidation();
         $profile = $validator->Profile($profId);
         $attribs = $profile->getCollapsedAttributes();
@@ -281,7 +291,8 @@ class UserAPI extends CAT {
      * @param string $password      for silverbull: import PIN for the future certificate
      * @return string binary stream: installerFile
      */
-    public function downloadInstaller($device, $prof_id, $generated_for = 'user', $token = NULL, $password = NULL) {
+    public function downloadInstaller($device, $prof_id, $generated_for = 'user', $token = NULL, $password = NULL)
+    {
         $this->loggerInstance->debug(4, "downloadInstaller arguments: $device,$prof_id,$generated_for\n");
         $output = $this->generateInstaller($device, $prof_id, $generated_for, $token, $password);
         $this->loggerInstance->debug(4, "output from GUI::generateInstaller:");
@@ -314,7 +325,8 @@ class UserAPI extends CAT {
      * @param bool   $resize     shall we do resizing? width and height are ignored otherwise
      * @return array
      */
-    private function processImage($inputImage, $destFile, $width, $height, $resize) {
+    private function processImage($inputImage, $destFile, $width, $height, $resize)
+    {
         $info = new \finfo();
         $filetype = $info->buffer($inputImage, FILEINFO_MIME_TYPE);
         $offset = 60 * 60 * 24 * 30;
@@ -323,7 +335,12 @@ class UserAPI extends CAT {
         $blob = $inputImage;
 
         if ($resize === TRUE) {
-            $image = new \Imagick();
+            // on CentOS and RHEL 8, look for Gmagick, else Imagick
+            if (strpos(php_uname("r"), "el8") !== FALSE) {
+                $image = new \Gmagick();
+            } else {
+                $image = new \Imagick();
+            }
             $image->readImageBlob($inputImage);
             $image->setImageFormat('PNG');
             $image->thumbnailImage($width, $height, 1);
@@ -346,14 +363,15 @@ class UserAPI extends CAT {
      * @param int        $heightIn   maximum height of the generated image - if 0 then it is treated as no upper bound
      * @return array|null array with image information or NULL if there is no logo
      */
-    protected function getLogo($identifier, $type, $widthIn = 0, $heightIn = 0) {
+    protected function getLogo($identifier, $type, $widthIn = 0, $heightIn = 0)
+    {
         $expiresString = '';
         $attributeName = [
             'federation' => "fed:logo_file",
             'federation_from_idp' => "fed:logo_file",
             'idp' => "general:logo_file",
         ];
-        
+
         $logoFile = "";
         $validator = new \web\lib\common\InputValidation();
         switch ($type) {
@@ -383,7 +401,7 @@ class UserAPI extends CAT {
             if (count($logoAttribute) == 0) {
                 return NULL;
             }
-            $this->loggerInstance->debug(4,"RESIZE:$width:$height\n");
+            $this->loggerInstance->debug(4, "RESIZE:$width:$height\n");
             $meta = $this->processImage($logoAttribute[0]['value'], $logoFile, $width, $height, $resize);
             $filetype = $meta['filetype'];
             $expiresString = $meta['expires'];
@@ -391,8 +409,9 @@ class UserAPI extends CAT {
         }
         return ["filetype" => $filetype, "expires" => $expiresString, "blob" => $blob];
     }
-    
-    private function testForResize($width, $height) {
+
+    private function testForResize($width, $height)
+    {
         if (is_numeric($width) && is_numeric($height) && ($width > 0 || $height > 0)) {
             if ($height == 0) {
                 $height = 10000;
@@ -413,10 +432,11 @@ class UserAPI extends CAT {
      * find out where the device is currently located
      * @return array
      */
-    public function locateDevice() {
+    public function locateDevice()
+    {
         return \core\DeviceLocation::locateDevice();
     }
-    
+
     /**
      * Lists all identity providers in the database
      * adding information required by DiscoJuice.
@@ -426,10 +446,11 @@ class UserAPI extends CAT {
      * @return array the list of identity providers
      *
      */
-    public function listAllIdentityProviders($activeOnly = 0, $country = "") {
+    public function listAllIdentityProviders($activeOnly = 0, $country = "")
+    {
         return IdPlist::listAllIdentityProviders($activeOnly, $country);
     }
-    
+
     /**
      * Order active identity providers according to their distance and name
      * @param string $country         NRO to work with
@@ -437,7 +458,8 @@ class UserAPI extends CAT {
      *
      * @return array $IdPs -  list of arrays ('id', 'name');
      */
-    public function orderIdentityProviders($country, $currentLocation) {
+    public function orderIdentityProviders($country, $currentLocation)
+    {
         return IdPlist::orderIdentityProviders($country, $currentLocation);
     }
 
@@ -447,14 +469,15 @@ class UserAPI extends CAT {
      * display name and group membership (as in devices.php)
      * @return array|boolean OS information, indexed by 'id', 'display', 'group'
      */
-    public function detectOS() {
+    public function detectOS()
+    {
         $Dev = \devices\Devices::listDevices();
         $devId = $this->deviceFromRequest();
         if ($devId !== NULL) {
             $ret = $this->returnDevice($devId, $Dev[$devId]);
             if ($ret !== FALSE) {
                 return $ret;
-            } 
+            }
         }
 // the device has not been specified or not specified correctly, try to detect if from the browser ID
         $browser = filter_input(INPUT_SERVER, 'HTTP_USER_AGENT', FILTER_SANITIZE_STRING);
@@ -470,7 +493,7 @@ class UserAPI extends CAT {
         $this->loggerInstance->debug(2, "Unrecognised system: $browser\n");
         return FALSE;
     }
-    
+
     /**
      * test if devise is defined and is not hidden. If all is fine return extracted information.
      * 
@@ -478,20 +501,22 @@ class UserAPI extends CAT {
      * @param array  $device device info as defined in Devices.php
      * @return array|FALSE if the device has not been correctly specified
      */
-    private function returnDevice($devId, $device) {
+    private function returnDevice($devId, $device)
+    {
         if (\core\common\Entity::getAttributeValue($device, 'options', 'hidden') !== 1) {
             $this->loggerInstance->debug(4, "Browser_id: $devId\n");
             return ['device' => $devId, 'display' => $device['display'], 'group' => $device['group']];
         }
         return FALSE;
     }
-   
+
     /**
      * This methods cheks if the devide has been specified as the HTTP parameters
      * 
      * @return device id|NULL if correcty specified or FALSE otherwise
      */
-    private function deviceFromRequest() {
+    private function deviceFromRequest()
+    {
         $devId = filter_input(INPUT_GET, 'device', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'device', FILTER_SANITIZE_STRING);
         if ($devId === NULL || $devId === FALSE) {
             $this->loggerInstance->debug(2, "Invalid device id provided\n");
@@ -510,7 +535,8 @@ class UserAPI extends CAT {
      * @param string $token the token for which we are fetching all associated user certs
      * @return array|boolean returns FALSE if a token is invalid, otherwise array of certs
      */
-    public function getUserCerts($token) {
+    public function getUserCerts($token)
+    {
         $validator = new \web\lib\common\InputValidation();
         $cleanToken = $validator->token($token);
         if ($cleanToken) {
@@ -538,7 +564,8 @@ class UserAPI extends CAT {
      * @param \core\AbstractProfile $profile2 the second profile's information
      * @return int
      */
-    private static function profileSort($profile1, $profile2) {
+    private static function profileSort($profile1, $profile2)
+    {
         return strcasecmp($profile1->name, $profile2->name);
     }
 
