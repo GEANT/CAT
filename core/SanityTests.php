@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -52,7 +53,8 @@ require_once dirname(dirname(__FILE__)) . "/config/_config.php";
 require_once dirname(dirname(__FILE__)) . "/core/PHPMailer/src/PHPMailer.php";
 require_once dirname(dirname(__FILE__)) . "/core/PHPMailer/src/SMTP.php";
 
-class SanityTests extends CAT {
+class SanityTests extends CAT
+{
     /* in this section set current CAT requirements */
 
     /* $php_needversion sets the minumum required php version */
@@ -85,7 +87,8 @@ class SanityTests extends CAT {
     /**
      * initialise the tests. Includes counting the number of expected rows in the profile_option_dict table.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->test_result = [];
         $this->test_result['global'] = 0;
@@ -113,7 +116,8 @@ class SanityTests extends CAT {
      * @param string $test the test name
      * @return void
      */
-    public function test($test) {
+    public function test($test)
+    {
         $this->out[$test] = [];
         $this->name = $test;
         $m_name = $test . '_test';
@@ -134,7 +138,8 @@ class SanityTests extends CAT {
      *                     was run earlier and returned a success.
      * @return void
      */
-    public function run_tests($Tests) {
+    public function run_tests($Tests)
+    {
         foreach ($Tests as $testName) {
             $matchArray = [];
             if (preg_match('/(.+)=>(.+)/', $testName, $matchArray)) {
@@ -154,7 +159,8 @@ class SanityTests extends CAT {
      * 
      * @return array
      */
-    public function get_test_names() {
+    public function get_test_names()
+    {
         $T = get_class_methods($this);
         $out = [];
         foreach ($T as $t) {
@@ -185,7 +191,8 @@ class SanityTests extends CAT {
      * @param string $message verbal description of the result
      * @return void
      */
-    private function testReturn($level, $message) {
+    private function testReturn($level, $message)
+    {
         $this->out[$this->name][] = ['level' => $level, 'message' => $message];
         $this->test_result[$this->name] = max($this->test_result[$this->name], $level);
         $this->test_result['global'] = max($this->test_result['global'], $level);
@@ -196,16 +203,14 @@ class SanityTests extends CAT {
      * @param string $pathToCheck the path to check
      * @return array
      */
-    private function getExecPath($pathToCheck) {
+    private function getExecPath($pathToCheck)
+    {
         $the_path = "";
         $exec_is = "UNDEFINED";
         foreach ([CONFIG, CONFIG_CONFASSISTANT, CONFIG_DIAGNOSTICS] as $config) {
             if (!empty($config['PATHS'][$pathToCheck])) {
-                $matchArray = [];
-                preg_match('/([^ ]+) ?/', $config['PATHS'][$pathToCheck], $matchArray);
-                $exe = $matchArray[1];
-                $the_path = exec("which " . $config['PATHS'][$pathToCheck]);
-                if ($the_path == $exe) {
+                $the_path = $config['PATHS'][$pathToCheck];
+                if (substr($the_path, 0, 1) == "/") {
                     $exec_is = "EXPLICIT";
                 } else {
                     $exec_is = "IMPLICIT";
@@ -221,7 +226,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function php_test() {
+    private function php_test()
+    {
         if (version_compare(phpversion(), $this->php_needversion, '>=')) {
             $this->testReturn(\core\common\Entity::L_OK, "<strong>PHP</strong> is sufficiently recent. You are running " . phpversion() . ".");
         } else {
@@ -234,7 +240,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function cat_base_url_test() {
+    private function cat_base_url_test()
+    {
         $rootUrl = substr(CONFIG['PATHS']['cat_base_url'], -1) === '/' ? substr(CONFIG['PATHS']['cat_base_url'], 0, -1) : CONFIG['PATHS']['cat_base_url'];
         preg_match('/(^.*)\/admin\/112365365321.php/', $_SERVER['SCRIPT_NAME'], $m);
         if ($rootUrl === $m[1]) {
@@ -250,7 +257,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function ssp_test() {
+    private function ssp_test()
+    {
         if (!is_file(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader'])) {
             $this->testReturn(\core\common\Entity::L_ERROR, "<strong>simpleSAMLphp</strong> not found!");
         } else {
@@ -270,7 +278,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function security_test() {
+    private function security_test()
+    {
         if (in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
             $this->testReturn(\core\common\Entity::L_WARN, "You do not care about security. This page should be made accessible to the CAT admin only! See config-master.php: 'SUPERADMINS'!");
         }
@@ -281,8 +290,12 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function zip_test() {
-        if (exec("which zip") != "") {
+    private function zip_test()
+    {
+        $output = [];
+        $retval = -100;
+        exec("zip", $output, $retval);
+        if (count($output) > 0 && $retval == 0) {
             $this->testReturn(\core\common\Entity::L_OK, "<strong>zip</strong> binary found.");
         } else {
             $this->testReturn(\core\common\Entity::L_ERROR, "<strong>zip</strong> not found in your \$PATH!");
@@ -294,7 +307,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function eapol_test_test() {
+    private function eapol_test_test()
+    {
         exec(CONFIG_DIAGNOSTICS['PATHS']['eapol_test'], $out, $retval);
         if ($retval == 255) {
             $o = preg_grep('/-o<server cert/', $out);
@@ -313,7 +327,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function logdir_test() {
+    private function logdir_test()
+    {
         if (fopen(CONFIG['PATHS']['logdir'] . "/debug.log", "a") == FALSE) {
             $this->testReturn(\core\common\Entity::L_WARN, "Log files in <strong>" . CONFIG['PATHS']['logdir'] . "</strong> are not writable!");
         } else {
@@ -326,7 +341,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function phpModules_test() {
+    private function phpModules_test()
+    {
         if (function_exists('idn_to_ascii')) {
             $this->testReturn(\core\common\Entity::L_OK, "PHP can handle internationalisation.");
         } else {
@@ -346,17 +362,17 @@ class SanityTests extends CAT {
         }
 
         // on CentOS and RHEL 8, look for Gmagick, else Imagick
-        if (strpos(php_uname("r"),"el8") !== FALSE) {
+        if (strpos(php_uname("r"), "el8") !== FALSE) {
             $classname = 'Gmagick';
         } else {
             $classname = 'Imagick';
         }
-        if (class_exists('\\'.$classname)) {
+        if (class_exists('\\' . $classname)) {
             $this->testReturn(\core\common\Entity::L_OK, "PHP extension <strong>$classname</strong> is installed.");
         } else {
-            $this->testReturn(\core\common\Entity::L_ERROR, "PHP extension <strong>$classname</strong> not found! Get it from your distribution or <a href='http://pecl.php.net/get/".strtolower($classname)."'>here</a>.");
+            $this->testReturn(\core\common\Entity::L_ERROR, "PHP extension <strong>$classname</strong> not found! Get it from your distribution or <a href='http://pecl.php.net/get/" . strtolower($classname) . "'>here</a>.");
         }
-        
+
         if (function_exists('ImageCreate')) {
             $this->testReturn(\core\common\Entity::L_OK, "PHP extension <strong>GD</strong> is installed.");
         } else {
@@ -375,7 +391,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function geoip_test() {
+    private function geoip_test()
+    {
         $host_4 = '145.0.2.50';
         $host_6 = '2001:610:188:444::50';
         switch (CONFIG['GEOIP']['version']) {
@@ -442,17 +459,24 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function openssl_test() {
+    private function openssl_test()
+    {
         $A = $this->getExecPath('openssl');
-        if ($A['exec'] != "") {
-            $t = exec($A['exec'] . ' version');
-            if ($A['exec_is'] == "EXPLICIT") {
-                $this->testReturn(\core\common\Entity::L_OK, "<strong>$t</strong> was found and is configured explicitly in your config.");
-            } else {
-                $this->testReturn(\core\common\Entity::L_WARN, "<strong>$t</strong> was found, but is not configured with an absolute path in your config.");
-            }
-        } else {
+        if ($A['exec'] == "") {
             $this->testReturn(\core\common\Entity::L_ERROR, "<strong>openssl</strong> was not found on your system!");
+            return;
+        }
+        $output = [];
+        $retval = -100;
+        $t = exec($A['exec'] . ' version', $output, $retval);
+        if ($retval != 0 || count($output) != 1) {
+            $this->testReturn(\core\common\Entity::L_ERROR, "<strong>openssl</strong> was not found on your system despite being configured!");
+            return;
+        }
+        if ($A['exec_is'] == "EXPLICIT") {
+            $this->testReturn(\core\common\Entity::L_OK, "<strong>" . $output[0] . "</strong> was found and is configured explicitly in your config.");
+        } else {
+            $this->testReturn(\core\common\Entity::L_WARN, "<strong>" . $output[0] . "</strong> was found, but is not configured with an absolute path in your config.");
         }
     }
 
@@ -461,7 +485,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function makensis_test() {
+    private function makensis_test()
+    {
         if (!is_numeric(CONFIG_CONFASSISTANT['NSIS_VERSION'])) {
             $this->testReturn(\core\common\Entity::L_ERROR, "NSIS_VERSION needs to be numeric!");
             return;
@@ -471,24 +496,30 @@ class SanityTests extends CAT {
             return;
         }
         $A = $this->getExecPath('makensis');
-        if ($A['exec'] != "") {
-            $t = exec($A['exec'] . ' -VERSION');
-            if ($A['exec_is'] == "EXPLICIT") {
-                $this->testReturn(\core\common\Entity::L_OK, "<strong>makensis $t</strong> was found and is configured explicitly in your config.");
-            } else {
-                $this->testReturn(\core\common\Entity::L_WARN, "<strong>makensis $t</strong> was found, but is not configured with an absolute path in your config.");
-            }
-            $outputArray = [];
-            exec($A['exec'] . ' -HELP', $outputArray);
-            $t1 = count(preg_grep('/INPUTCHARSET/', $outputArray));
-            if ($t1 == 1 && CONFIG_CONFASSISTANT['NSIS_VERSION'] == 2) {
-                $this->testReturn(\core\common\Entity::L_ERROR, "Declared NSIS_VERSION does not seem to match the file pointed to by PATHS['makensis']!");
-            }
-            if ($t1 == 0 && CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
-                $this->testReturn(\core\common\Entity::L_ERROR, "Declared NSIS_VERSION does not seem to match the file pointed to by PATHS['makensis']!");
-            }
-        } else {
+        if ($A['exec'] == "") {
             $this->testReturn(\core\common\Entity::L_ERROR, "<strong>makensis</strong> was not found on your system!");
+            return;
+        }
+        $output = [];
+        $retval = -100;
+        $t = exec($A['exec'] . ' -VERSION', $output, $retval);
+        if ($retval != 0 || count($output) != 1) {
+            $this->testReturn(\core\common\Entity::L_ERROR, "<strong>makensis</strong> was not found on your system despite being configured!");
+            return;
+        }
+        if ($A['exec_is'] == "EXPLICIT") {
+            $this->testReturn(\core\common\Entity::L_OK, "<strong>makensis $t</strong> was found and is configured explicitly in your config.");
+        } else {
+            $this->testReturn(\core\common\Entity::L_WARN, "<strong>makensis $t</strong> was found, but is not configured with an absolute path in your config.");
+        }
+        $outputArray = [];
+        exec($A['exec'] . ' -HELP', $outputArray);
+        $t1 = count(preg_grep('/INPUTCHARSET/', $outputArray));
+        if ($t1 == 1 && CONFIG_CONFASSISTANT['NSIS_VERSION'] == 2) {
+            $this->testReturn(\core\common\Entity::L_ERROR, "Declared NSIS_VERSION does not seem to match the file pointed to by PATHS['makensis']!");
+        }
+        if ($t1 == 0 && CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
+            $this->testReturn(\core\common\Entity::L_ERROR, "Declared NSIS_VERSION does not seem to match the file pointed to by PATHS['makensis']!");
         }
     }
 
@@ -497,7 +528,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function NSISmodules_test() {
+    private function NSISmodules_test()
+    {
         $tmp_dir = $this->createTemporaryDirectory('installer', 0)['dir'];
         if (!chdir($tmp_dir)) {
             $this->loggerInstance->debug(2, "Cannot chdir to $tmp_dir\n");
@@ -532,7 +564,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function directories_test() {
+    private function directories_test()
+    {
         $Dir1 = $this->createTemporaryDirectory('installer', 0);
         $dir1 = $Dir1['dir'];
         $base1 = $Dir1['base'];
@@ -567,7 +600,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function locales_test() {
+    private function locales_test()
+    {
         $locales = shell_exec("locale -a");
         $allthere = "";
         foreach (CONFIG['LANGUAGES'] as $onelanguage) {
@@ -634,7 +668,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function defaults_test() {
+    private function defaults_test()
+    {
         $defaultvalues = "";
         $missingvalues = "";
         // all the checks for equality with a shipped default value
@@ -673,7 +708,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function databases_test() {
+    private function databases_test()
+    {
         $databaseName1 = 'INST';
         try {
             $db1 = DBConnection::handle($databaseName1);
@@ -730,7 +766,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function device_cache_test() {
+    private function device_cache_test()
+    {
         if ((!empty(\devices\Devices::$Options['no_cache'])) && \devices\Devices::$Options['no_cache']) {
             $global_no_cache = 1;
         } else {
@@ -773,7 +810,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function mailer_test() {
+    private function mailer_test()
+    {
         if (empty(CONFIG['APPEARANCE']['abuse-mail']) || CONFIG['APPEARANCE']['abuse-mail'] == "my-abuse-contact@your-cat-installation.example") {
             $this->testReturn(\core\common\Entity::L_ERROR, "Your abuse-mail has not been set, cannot continue with mailer tests.");
             return;
@@ -808,7 +846,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function UDPhosts_test() {
+    private function UDPhosts_test()
+    {
 //        if(empty)
     }
 
