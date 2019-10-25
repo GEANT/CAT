@@ -5,6 +5,9 @@ Changes in 2.0.3
 - [FEATURE #2]  make it less dangerous to configure Passpoint settings by
                 excluding known-problematic combinations (namely Apple products
                 and username/password based EAP types)
+- [FEATURE #3]  config now allows to set display names for Passpoint RCOIs 
+                for RCOIs added manually by the IdP admin, use a fixed string
+                not related to the consortium instead ("<IdP> Roaming Partner")
 - [BUGFIX  #1]  using "which" is not yielding expected results to find 
                 executables under php-fpm, so use a more direct method to find
                 out whether configured executables exist and are executable
