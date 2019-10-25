@@ -2,9 +2,13 @@ Changes in 2.0.3
 ================
 - [FEATURE #1]  Be compatible with RHEL/CentOS 8 (use GMagick instead of IMagick
                 as this is what these distributions are moving towards)
+- [FEATURE #2]  make it less dangerous to configure Passpoint settings by
+                excluding known-problematic combinations (namely Apple products
+                and username/password based EAP types)
 - [BUGFIX  #1]  using "which" is not yielding expected results to find 
                 executables under php-fpm, so use a more direct method to find
                 out whether configured executables exist and are executable
+- [BUGFIX  #2]  some compatibility fixes for CentOS 8
                 
 Changes in 2.0.2
 ================
