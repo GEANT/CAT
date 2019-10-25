@@ -12,6 +12,13 @@ Changes in 2.0.3
                 executables under php-fpm, so use a more direct method to find
                 out whether configured executables exist and are executable
 - [BUGFIX  #2]  some compatibility fixes for CentOS 8
+
+Configuration parameter changes
+-------------------------------
+- CONFIG_CONFASSISTANT['CONSORTIUM']['interworking_consorium_oi'] now uses the
+                array indexes as names for the consortium DisplayName (string)
+                
+
                 
 Changes in 2.0.2
 ================
