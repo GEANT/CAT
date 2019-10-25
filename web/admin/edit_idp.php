@@ -151,11 +151,11 @@ echo $mapCode->htmlHeadCode();
             echo "<strong>" . ( count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0 ? _("Additional Hotspot 2.0 / Passpoint Consortia:") : _("Hotspot 2.0 / Passpoint Consortia:")) . " </strong>";
             if (count(CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi']) > 0) {
                 $consortiumlist = "";
-                foreach (CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi'] as $oi) {
-                    $consortiumlist .= ", '<strong>" . $oi . "</strong>'";
+                foreach (CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi'] as $displayName => $oi) {
+                    $consortiumlist .= ", '<strong>$displayName ($oi)</strong>'";
                 }
-                $consortiumlist = substr($consortiumlist, 2);
-                echo sprintf(ngettext("We will always configure this Consortium OI: %s.", "We will always configure these Consortium OIs: %s.", count(CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi'])), $consortiumlist);
+                $consortiumlistFinal = substr($consortiumlist, 2);
+                echo sprintf(ngettext("We will always configure this Consortium OI: %s.", "We will always configure these Consortium OIs: %s.", count(CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi'])), $consortiumlistFinal);
 
                 echo "<br/>" . sprintf(_("It is also possible to define custom additional OIs with the option '%s' below."), $uiElements->displayName("media:consortium_OI"));
             } else {

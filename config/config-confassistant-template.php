@@ -78,7 +78,10 @@ const CONFIG_CONFASSISTANT = [
         'selfservice_registration'   => NULL,
 #        'deployment-voodoo'         => "Operations Team",
         'ssid'                       => ['eduroam'],
-        'interworking-consortium-oi' => ['001bc50460'],
+        'interworking-consortium-oi' => [
+            'eduroam® via Passpoint' => '001bc50460',
+            'eduroam®'               => '001bc5046f',
+            ],
         'interworking-domainname-fallback' => 'eduroam.org',
         'registration_API_keys'      =>  [
             // 'secretvalue' => 'UK',
