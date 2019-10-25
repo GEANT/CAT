@@ -467,9 +467,9 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
                 if (!is_string($toBeConfigured)) {
                     throw new Exception("ConsortiumOI must be a string!");
                 }
-                $payloadIdentifier = "hs20";
-                $payloadShortName = _("Hotspot 2.0 Settings");
-                $payloadName = sprintf(_("%s Hotspot 2.0 configuration"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+                $payloadIdentifier = "hs20.$toBeConfigured";
+                $payloadShortName = _("Roaming Settings");
+                $payloadName = _("Passpoint roaming configuration");
                 $encryptionTypeString = "WPA";
                 $setupModesString = "";
                 $wifiNetworkIdentification = $this->passPointBlock($toBeConfigured);
