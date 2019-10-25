@@ -555,7 +555,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
         if (isset($this->attributes['media:wired']) && get_class($this) == "devices\apple_mobileconfig\Device_mobileconfig_os_x") {
             $retval .= $this->networkBlock(MobileconfigSuperclass::NETWORK_BLOCK_TYPE_WIRED, TRUE);
         }
-        if (count($this->attributes['internal:consortia']) > 0) {
+        if (count($this->attributes['internal:consortia']) > 0 && $this->selectedEapObject->isPasswordRequired() === FALSE) {
             $retval .= $this->networkBlock(MobileconfigSuperclass::NETWORK_BLOCK_TYPE_CONSORTIUMOIS, $this->attributes['internal:consortia']);
         }
         if (isset($this->attributes['media:remove_SSID'])) {
