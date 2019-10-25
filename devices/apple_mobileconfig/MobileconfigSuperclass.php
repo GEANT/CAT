@@ -279,7 +279,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
      * This is the XML structure subtree of a Network block which contains the
      * settings specific to Passpoint
      * 
-     * @param array $consortiumOi list of consortiumOi to put into structure
+     * @param string $consortiumOi list of consortiumOi to put into structure
      * @return string
      */
     private function passPointBlock($consortiumOi)
@@ -306,9 +306,9 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
         }
         $retval .= "                <key>RoamingConsortiumOIs</key>
                 <array>";
-        foreach ($consortiumOi as $oiValue) {
-            $retval .= "<string>" . strtoupper($oiValue) . "</string>";
-        }
+        
+        $retval .= "<string>" . strtoupper($consortiumOi) . "</string>";
+        
         $retval .= "</array>";
         // this is an undocumented value found on the net. Does it do something useful?
         $retval .= "<key>_UsingHotspot20</key>
