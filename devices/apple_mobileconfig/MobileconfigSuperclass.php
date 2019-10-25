@@ -280,7 +280,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
      * settings specific to Passpoint
      * 
      * @param string $consortiumOi list of consortiumOi to put into structure
-     * @param string $oiName the pretty-print name of the RCOI
+     * @param string $oiName       the pretty-print name of the RCOI
      * @return string
      */
     private function passPointBlock($consortiumOi, $oiName)
