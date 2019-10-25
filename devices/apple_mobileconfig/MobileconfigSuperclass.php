@@ -280,9 +280,10 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
      * settings specific to Passpoint
      * 
      * @param string $consortiumOi list of consortiumOi to put into structure
+     * @param string $oiName the pretty-print name of the RCOI
      * @return string
      */
-    private function passPointBlock($consortiumOi)
+    private function passPointBlock($consortiumOi, $oiName)
     {
         $retval = "
                <key>IsHotspot</key>
@@ -291,11 +292,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
                <true/>
                <key>DisplayedOperatorName</key>
                <string>";
-        $knownOiName = array_search($consortiumOi, CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi']);
-        if ($knownOiName === FALSE) { // a custom RCOI as set by the IdP admin; do not use the term "eduroam" in that one!
-            $knownOiName = $this->instName . " Roaming Partner";
-        }
-        $retval .= "$knownOiName</string>";
+        $retval .= "$oiName</string>";
         // if we don't know the realm, omit the entire DomainName key
         if (isset($this->attributes['internal:realm'])) {
             $retval .= "<key>DomainName</key>
@@ -306,9 +303,9 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
         }
         $retval .= "                <key>RoamingConsortiumOIs</key>
                 <array>";
-        
+
         $retval .= "<string>" . strtoupper($consortiumOi) . "</string>";
-        
+
         $retval .= "</array>";
         // this is an undocumented value found on the net. Does it do something useful?
         $retval .= "<key>_UsingHotspot20</key>
@@ -468,11 +465,15 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
                     throw new Exception("ConsortiumOI must be a string!");
                 }
                 $payloadIdentifier = "hs20.$toBeConfigured";
-                $payloadShortName = _("Roaming Settings");
-                $payloadName = _("Passpoint roaming configuration");
+                $knownOiName = array_search($toBeConfigured, CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi']);
+                if ($knownOiName === FALSE) { // a custom RCOI as set by the IdP admin; do not use the term "eduroam" in that one!
+                    $knownOiName = $this->instName . " "._("Roaming Partner");
+                }
+                $payloadShortName = $knownOiName;
+                $payloadName = _("Passpoint roaming configuration ($knownOiName)");
                 $encryptionTypeString = "WPA";
                 $setupModesString = "";
-                $wifiNetworkIdentification = $this->passPointBlock($toBeConfigured);
+                $wifiNetworkIdentification = $this->passPointBlock($toBeConfigured, $knownOiName);
                 break;
             default:
                 throw new Exception("This type of network block is unknown!");
