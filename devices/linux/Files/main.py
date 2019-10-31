@@ -151,6 +151,19 @@ def get_system():
     return [system[0], system[1], desktop]
 
 
+def get_config_path():
+    """
+    Return XDG_CONFIG_HOME path if exists otherwise $HOME/.config
+    """
+
+    xdg_config_home_path = os.environ.get('XDG_CONFIG_HOME')
+    if not xdg_config_home_path:
+        home_path = os.environ.get('HOME')
+        return '{}/.config'.format(home_path)
+    else:
+        return xdg_config_home_path
+
+
 def run_installer():
     """
     This is the main installer part. It tests for MN availability
@@ -305,20 +318,20 @@ class InstallerData(object):
         if Config.tou != '':
             if self.ask(Config.tou, Messages.cont, 1):
                 sys.exit(1)
-        if os.path.exists(os.environ.get('HOME') + '/.cat_installer'):
+        if os.path.exists(get_config_path() + '/.cat_installer'):
             if self.ask(Messages.cat_dir_exists.format(
-                    os.environ.get('HOME') + '/.cat_installer'),
+                            get_config_path() + '/.cat_installer'),
                         Messages.cont, 1):
                 sys.exit(1)
         else:
-            os.mkdir(os.environ.get('HOME') + '/.cat_installer', 0o700)
+            os.mkdir(get_config_path() + '/.cat_installer', 0o700)
 
     def save_ca(self):
         """
         Save CA certificate to .cat_installer directory
         (create directory if needed)
         """
-        certfile = os.environ.get('HOME') + '/.cat_installer/ca.pem'
+        certfile = get_config_path() + '/.cat_installer/ca.pem'
         debug("saving cert")
         with open(certfile, 'w') as cert:
             cert.write(Config.CA + "\n")
@@ -506,7 +519,7 @@ class InstallerData(object):
 
     def __process_p12(self):
         debug('process_p12')
-        pfx_file = os.environ['HOME'] + '/.cat_installer/user.p12'
+        pfx_file = get_config_path() + '/.cat_installer/user.p12'
         if CRYPTO_AVAILABLE:
             debug("using crypto")
             try:
@@ -609,7 +622,7 @@ class InstallerData(object):
 
     def __save_sb_pfx(self):
         """write the user PFX file"""
-        certfile = os.environ.get('HOME') + '/.cat_installer/user.p12'
+        certfile = get_config_path() + '/.cat_installer/user.p12'
         with open(certfile, 'wb') as cert:
             cert.write(base64.b64decode(Config.sb_user_file))
 
@@ -623,7 +636,7 @@ class InstallerData(object):
             else:
                 pfx_file = self.__select_p12_file()
                 try:
-                    copyfile(pfx_file, os.environ['HOME'] +
+                    copyfile(pfx_file, get_config_path() +
                              '/.cat_installer/user.p12')
                 except (OSError, RuntimeError):
                     print(Messages.user_cert_missing)
@@ -708,7 +721,7 @@ class WpaConf(object):
         pairwise=CCMP
         group=CCMP TKIP
         eap=""" + Config.eap_outer + """
-        ca_cert=\"""" + os.environ.get('HOME') + """/.cat_installer/ca.pem\"
+        ca_cert=\"""" + get_config_path() + """/.cat_installer/ca.pem\"
         identity=\"""" + user_data.username + """\"
         altsubject_match=\"""" + ";".join(Config.servers) + """\"
         phase2=\"auth=""" + Config.eap_inner + """\"
@@ -720,7 +733,7 @@ class WpaConf(object):
 
     def create_wpa_conf(self, ssids, user_data):
         """Create and save the wpa_supplicant config file"""
-        wpa_conf = os.environ.get('HOME') + \
+        wpa_conf = get_config_path() + \
             '/.cat_installer/cat_installer.conf'
         with open(wpa_conf, 'w') as conf:
             for ssid in ssids:
@@ -789,8 +802,8 @@ class CatNMConfigTool(object):
         """
         set certificate files paths and test for existence of the CA cert
         """
-        self.cacert_file = os.environ['HOME'] + '/.cat_installer/ca.pem'
-        self.pfx_file = os.environ['HOME'] + '/.cat_installer/user.p12'
+        self.cacert_file = get_config_path() + '/.cat_installer/ca.pem'
+        self.pfx_file = get_config_path() + '/.cat_installer/user.p12'
         if not os.path.isfile(self.cacert_file):
             print(Messages.cert_error)
             sys.exit(2)
