@@ -391,7 +391,8 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
         file_put_contents($sevenFileName, $profileFileCont . $eapConfig['w7'] . $closing);
         $this->loggerInstance->debug(2, "Installer has been written into directory $this->FPATH\n");
         $this->loggerInstance->debug(4, "WLAN_Profile:$wlanProfileName:$encryption\n");
-        return("\"$wlanProfileName\" \"$encryption\"");
+        // the last 0 argument means that we are not using any HS20 features
+        return("\"$wlanProfileName\" \"$encryption\" 0");
     }
 
     /**
