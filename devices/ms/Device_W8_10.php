@@ -64,7 +64,7 @@ use \Exception;
         $this->caArray = $this->getAttribute('internal:CAs')[0];
         $outerId = $this->determineOuterIdString();
         $this->useAnon = $outerId === NULL ? FALSE : TRUE;
-        $this->servers = empty($this->attributes['eap:server_name']) ? '' :  implode(';', $this->attributes['eap:server_name']);
+        $this->servers = empty($this->attributes['eap:server_name']) ? '' : implode(';', $this->attributes['eap:server_name']);
         $allSSID = $this->attributes['internal:SSID'];
         $delSSIDs = $this->attributes['internal:remove_SSID'];
         $this->prepareInstallerLang();
@@ -77,7 +77,7 @@ use \Exception;
                 $delProfiles[] = $ssid;
             }
             if ($cipher == 'TKIP') {
-                $delProfiles[] = $ssid . ' (TKIP)';
+                $delProfiles[] = $ssid.' (TKIP)';
             }
         }
         $windowsProfile = [];
@@ -85,7 +85,7 @@ use \Exception;
         $iterator = 0;
         foreach ($allSSID as $ssid => $cipher) {
             if ($cipher == 'TKIP') {
-                $windowsProfile[$iterator] = $this->writeWLANprofile($ssid . ' (TKIP)', $ssid, 'WPA', 'TKIP', $eapConfig, $iterator);
+                $windowsProfile[$iterator] = $this->writeWLANprofile($ssid.' (TKIP)', $ssid, 'WPA', 'TKIP', $eapConfig, $iterator);
                 $iterator++;
             }
             $windowsProfile[$iterator] = $this->writeWLANprofile($ssid, $ssid, 'WPA2', 'AES', $eapConfig, $iterator);
@@ -93,15 +93,12 @@ use \Exception;
         }
         if ($this->device_id !== 'w8') {
             $roamingPartner = 1;
-            $this->loggerInstance->debug(4,$this->attributes['internal:consortia'],"CNNN:\n","\n");
             foreach ($this->attributes['internal:consortia'] as $oneCons) {
-                $this->loggerInstance->debug(4,$oneCons, "CONS0:", "\n");
                 $knownOiName = array_search($oneCons, CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi']);
                 if ($knownOiName === FALSE) { // a custom RCOI as set by the IdP admin; do not use the term "eduroam" in that one!
                     $knownOiName = $this->attributes['general:instname'][0] . " "._("Roaming Partner") . " $roamingPartner";
                     $roamingPartner++;
                 }
-                $this->loggerInstance->debug(4,$knownOiName, "CONS1:", "\n");
                 $ssid = 'cat-passpoint-profile';
                 $windowsProfile[$iterator] = $this->writeWLANprofile($knownOiName, $ssid, 'WPA2', 'AES', $eapConfig, $iterator, $oneCons);
                 $iterator++;
@@ -439,6 +436,7 @@ use \Exception;
      * @param string $encryption can be one of: "TKIP", "AES"
      * @param array $eapConfig XML configuration block with EAP config data
      * @param int $profileNumber counter, which profile number is this
+     * @param string $oi nonempty value indicates that this is a Passpoint profile or a given OI value
      * @return string
      */
     private function writeWLANprofile($wlanProfileName, $ssid, $auth, $encryption, $eapConfig, $profileNumber, $oi = '') {
