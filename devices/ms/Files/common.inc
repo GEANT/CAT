@@ -173,9 +173,9 @@ MiscButtonText "" "" "" "<?php WindowsCommon::echo_nsi( _("Finish"))?>"
 !macroend
 
 
-!macro define_wlan_profile prof enc
+!macro define_wlan_profile prof enc hs20
   nsArray::Set Profile_names /key=$profile_count "${prof}"
-  
+  nsArray::Set Profile_hs20 /key=$profile_count ${hs20}  
   IntOp $profile_count $profile_count + 1
   ${If} ${enc} == "TKIP"
     IntOp $tkip_count $tkip_count + 1
@@ -942,7 +942,9 @@ Function InstallProfile
   !insertmacro debug_cat 4 "netsh returned $0"
   ${If} $0 <> 0
     !insertmacro debug_cat 1 'Profile installation error for "$R1"'
-    ${If} $R1 == "cat-passpoint-profile"
+    nsArray::Get Profile_hs20 $R0
+    Pop $R3
+    ${If} $R3 == 1
         GoTo FailedProfile
     ${EndIf}
     IfSilent +2
