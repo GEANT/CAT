@@ -418,7 +418,12 @@ $Gui->languageInstance->setTextDomain("diagnostics");
         }
         return r;
     }
-    
+    $(document).keypress(
+        function(event){
+            if (event.which == '13') {
+                event.preventDefault();
+            }
+    });
     $('input[name="diagnostic_usertype"]').click(function() {   
         var t = $('input[name=diagnostic_usertype]:checked').val();
         if (t > 0) {
