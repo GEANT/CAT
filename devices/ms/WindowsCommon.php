@@ -333,12 +333,14 @@ abstract class WindowsCommon extends \core\DeviceConfig
         $freeTop = 70;
         // $freeBottom is set to how much vertical space we need to leave at the bottom
         // this will depend on the design of the background
+        // we are prefixig the paths with getcwd() wich migh appear unnecessary
+        // but under some conditions appeared to be required
         $freeBottom = 30;
 // on CentOS and RHEL 8, look for Gmagick, else Imagick
         if (strpos(php_uname("r"), "el8") !== FALSE) {
-            $bgImage = new \Gmagick('cat_bg.bmp');
+            $bgImage = new \Gmagick(getcwd().'/cat_bg.bmp');
         } else {
-            $bgImage = new \Imagick('cat_bg.bmp');
+            $bgImage = new \Imagick(getcwd().'/cat_bg.bmp');
         }
         $bgImage->setFormat('BMP3');
         $bgImageSize = $bgImage->getImageGeometry();
@@ -350,10 +352,10 @@ abstract class WindowsCommon extends \core\DeviceConfig
             $fedLogo = NULL;
         }
         if ($fedLogo != NULL) {
-            $logosToPlace[] = $this->scaleLogo($fedLogo[0]['name'], $maxSize);
+            $logosToPlace[] = $this->scaleLogo(getcwd()."/".$fedLogo[0]['name'], $maxSize);
         }
         if ($logos != NULL) {
-            $logosToPlace[] = $this->scaleLogo($logos[0]['name'], $maxSize);
+            $logosToPlace[] = $this->scaleLogo(getcwd()."/".$logos[0]['name'], $maxSize);
         }
 
         $logoCount = count($logosToPlace);
@@ -369,7 +371,7 @@ abstract class WindowsCommon extends \core\DeviceConfig
             }
         }
 //new image is saved as the background
-        $bgImage->writeImage('BMP3:cat_bg.bmp');
+        $bgImage->writeImage('BMP3:'.getcwd().'/cat_bg.bmp');
     }
 
     /**
