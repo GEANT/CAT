@@ -45,6 +45,7 @@ import base64
 import getpass
 import os
 import re
+import shlex
 import subprocess
 import sys
 import uuid
@@ -204,6 +205,14 @@ def run_installer():
     installer_data = InstallerData(silent=silent, username=username,
                                    password=password, pfx_file=pfx_file)
 
+    installer_data.get_user_cred()
+    installer_data.save_ca()
+
+    nm_cli = NetworkManagerCli()
+    nmcli_connection = nm_cli.add_connection()
+    if nmcli_connection:
+        sys.exit(0)
+
     # test dbus connection
     if NM_AVAILABLE:
         config_tool = CatNMConfigTool()
@@ -213,8 +222,6 @@ def run_installer():
         # no dbus so ask if the user will want wpa_supplicant config
         if installer_data.ask(Messages.save_wpa_conf, Messages.cont, 1):
             sys.exit(1)
-    installer_data.get_user_cred()
-    installer_data.save_ca()
     if NM_AVAILABLE:
         config_tool.add_connections(installer_data)
     else:
@@ -924,3 +931,63 @@ class CatNMConfigTool(object):
             self.__add_connection(ssid)
         for ssid in Config.del_ssids:
             self.__delete_existing_connection(ssid)
+
+
+class NetworkManagerCli:
+
+    def __init__(self):
+        self.ssid = Config.ssids
+        self.eap_outer = (Config.eap_outer).lower()
+        self.eap_inner = (Config.eap_inner).lower()
+        self.altsubject_matches = ''.join(Config.servers)
+        self.anonymous_identity = Config.anonymous_identity
+        self.ca_cert_path = '{}/.cat_installer/ca.pem'.format(get_config_path())
+        self.identity = Config.user_realm
+
+    def add_connection(self):
+        success = False
+
+        for ssid in self.ssid:
+            wlan_device = self.get_wlan_interface()
+            if wlan_device:
+                command = 'nmcli connection add type wifi con-name "{0}" ' \
+                          'ifname {1} connection.permissions cms ssid "{0}" ' \
+                          'wifi-sec.key-mgmt wpa-eap ' \
+                          '802-1x.eap {2} 802-1x.phase2-auth {3} ' \
+                          '802-1x.altsubject-matches \"{4}\" ' \
+                          '802-1x.anonymous-identity {5} ' \
+                          '802-1x.ca-cert {6} 802-1x.identity \"{7}\"' \
+                          ''.format(ssid, wlan_device, self.eap_outer, self.eap_inner,
+                                    self.altsubject_matches, self.anonymous_identity,
+                                    self.ca_cert_path, self.identity)
+
+                new_connection = self._shell(command)
+                if new_connection.returncode == 0:
+                    success = True
+            else:
+                debug("[nmcli]: WLAN device not found.")
+                return False
+        if success:
+            debug("[nmcli]: Add connection successfully.")
+            return True
+        else:
+            debug("[nmcli]: Add connection failed")
+            return False
+
+    def get_wlan_interface(self):
+        process = subprocess.run('echo /sys/class/net/*/wireless | awk -F"/" "{ print \$5 }"',
+                                 shell=True, stdout=subprocess.PIPE)
+        wlan_device = process.stdout.decode("utf8").rstrip("\n")
+        return wlan_device
+
+    def _check_nmcli(self):
+        process = self._shell('which nmcli')
+        if not process.returncode:
+            return True
+        else:
+            return False
+
+    def _shell(self, args):
+        args = shlex.split(args)
+        process = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        return process
