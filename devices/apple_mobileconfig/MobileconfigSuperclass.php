@@ -695,7 +695,13 @@ $mimeFormatted
                <key>PayloadDescription</key>
                <string>" . sprintf(_("The %s Certification Authority"), \core\common\Entity::$nomenclature_inst) . "</string>
                <key>PayloadDisplayName</key>
-               <string>" . sprintf(_("%s CA"), \core\common\Entity::$nomenclature_inst) . "</string>
+               <string>" . 
+                    /// example: "Identity Provider CA #1 (Root)"
+                    sprintf(_("%s CA #%d (%s)" ), 
+                            \core\common\Entity::$nomenclature_inst, 
+                            count($this->CAsAccountedFor)+1, 
+                            ($ca['root'] ? _("Root") : _("Intermediate"))) . 
+              "</string>
                <key>PayloadIdentifier</key>
                <string>" . self::$iPhonePayloadPrefix . ".$this->massagedConsortium.$this->massagedCountry.$this->massagedInst.$this->massagedProfile.credential.$this->caSerial</string>
                <key>PayloadOrganization</key>
