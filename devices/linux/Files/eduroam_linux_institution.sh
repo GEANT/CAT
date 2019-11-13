@@ -10,8 +10,8 @@ file_name=$0
 
 main() {
   setup_environment
-  show_info "Dieses Installationsprogramm wurde für ${ORGANISATION} hergestellt.\n\nMehr Informationen und Kommentare:\n\nEMAIL: ${SUPPORT}\nWWW: ${URL}\n\nDas Installationsprogramm wurde mit Software vom GEANT Projekt erstellt."
-  if ! ask "Dieses Installationsprogramm funktioniert nur für Anwender von ${bf}${ORGANISATION}.${n}" "$CONTINUE" 1 ; then exit; fi
+  show_info "$INIT_INFO"
+  if ! ask "$INIT_CONFIRMATION" "$CONTINUE" 1 ; then exit; fi
 
   if [ -z "$XDG_CONFIG_HOME" ] ; then
     CAT_PATH="$HOME/.config"
@@ -19,8 +19,10 @@ main() {
     CAT_PATH="$XDG_CONFIG_HOME"
   fi
 
+  printf -v CAT_DIR_EXISTS "$CAT_DIR_EXISTS" "$CAT_PATH"
+
   if [ -d "$CAT_PATH/cat_installer" ] ; then
-    if ! ask "Das Verzeichnis $CAT_PATH/cat_installer existiert bereits; einige Dateien darin könnten überschrieben werden." "$CONTINUE" 1 ; then exit; fi
+    if ! ask "$CAT_DIR_EXISTS" "$CONTINUE" 1 ; then exit; fi
   else
     mkdir "$CAT_PATH/cat_installer"
   fi
@@ -33,15 +35,16 @@ main() {
     show_info "$INSTALLATION_FINISHED"
   else
     show_info "$SAVE_WPA_CONF"
-    if ! ask "Network Manager configuration failed, but we may generate a wpa_supplicant configuration file if you wish. Be warned that your connection password will be saved in this file as clear text." "Datei schreiben" 1 ; then exit ; fi
+    if ! ask "$SAVE_WPA_CONF" 1 ; then exit ; fi
 
   if [ -f "$CAT_PATH/cat_installer/cat_installer.conf" ] ; then
-    if ! ask "Datei $CAT_PATH/cat_installer/cat_installer.conf existiert bereits, sie wird überschrieben." "$CONTINUE" 1 ; then confirm_exit; fi
+    printf -v CONF_FILE_EXITS "$CONF_FILE_EXITS" "$CAT_PATH"
+    if ! ask "$CONF_FILE_EXITS" "$CONTINUE" 1 ; then confirm_exit; fi
     rm "$CAT_PATH/cat_installer/cat_installer.conf"
   fi
     user_cred_pass
     create_wpa_conf
-    show_info "Ausgabe nach $CAT_PATH/cat_installer/cat_installer.conf geschrieben"
+    show_info "$INSTALLATION_FINISHED"
   fi
 }
 
@@ -273,7 +276,7 @@ EOFW
 }
 
 
-ORGANISATION=""
+ORGANISATION="Institution"
 URL="https://cat.eduroam.org/"
 SUPPORT="it-helpdesk@eduroam.org"
 TITLE="DFN eduroam CAT"
@@ -313,5 +316,14 @@ INSTALLATION_FINISHED="Installation erfolgreich."
 SAVE_WPA_CONF="Konfiguration von NetworkManager fehlgeschlagen, erzeuge nun wpa_supplicant.conf Datei."
 QUIT="Wirklich beenden?"
 CONTINUE="Weiter"
+
+INIT_INFO_TMP="Dieses Installationsprogramm wurde für %s hergestellt.\n\nMehr Informationen und Kommentare:\n\nEMAIL: %s\nWWW: %s\n\nDas Installationsprogramm wurde mit Software vom GEANT Projekt erstellt."
+printf -v INIT_INFO "$INIT_INFO_TMP" "$ORGANISATION" "$SUPPORT" "$URL"
+INIT_CONFIRMATION_TMP="Dieses Installationsprogramm funktioniert nur für Anwender von %s."
+printf -v INIT_CONFIRMATION "$INIT_CONFIRMATION_TMP" "$ORGANISATION"
+CAT_DIR_EXISTS="Das Verzeichnis %s/cat_installer existiert bereits; einige Dateien darin könnten überschrieben werden."
+CONF_FILE_EXITS="Datei %s/cat_installer/cat_installer.conf existiert bereits, sie wird überschrieben."
+SAVE_WPA_CONF="Die Konfiguration des Network-Manager ist fehlgeschlagen, aber es könnte stattdessen eine Konfigurationsdatei für das Programm wpa_supplicant erstellt werden. Beachten Sie bitte, dass Ihr Passwort im Klartext in dieser Datei steht."
+
 
 main "$@"; exit
