@@ -1,0 +1,317 @@
+#!/usr/bin/env bash
+
+if [ -z "$BASH" ] ; then
+   bash  "$0"
+   exit
+fi
+
+file_name=$0
+
+
+main() {
+  setup_environment
+  show_info "Dieses Installationsprogramm wurde für ${ORGANISATION} hergestellt.\n\nMehr Informationen und Kommentare:\n\nEMAIL: ${SUPPORT}\nWWW: ${URL}\n\nDas Installationsprogramm wurde mit Software vom GEANT Projekt erstellt."
+  if ! ask "Dieses Installationsprogramm funktioniert nur für Anwender von ${bf}${ORGANISATION}.${n}" "$CONTINUE" 1 ; then exit; fi
+
+  if [ -z "$XDG_CONFIG_HOME" ] ; then
+    CAT_PATH="$HOME/.config"
+  else
+    CAT_PATH="$XDG_CONFIG_HOME"
+  fi
+
+  if [ -d "$CAT_PATH/cat_installer" ] ; then
+    if ! ask "Das Verzeichnis $CAT_PATH/cat_installer existiert bereits; einige Dateien darin könnten überschrieben werden." "$CONTINUE" 1 ; then exit; fi
+  else
+    mkdir "$CAT_PATH/cat_installer"
+  fi
+
+  echo "$CERTIFICATE" > "$CAT_PATH/cat_installer/ca.pem"
+
+  user_cred
+  if nmcli_add_connection ; then
+    nmcli connection up eduroam --ask
+    show_info "$INSTALLATION_FINISHED"
+  else
+    show_info "$SAVE_WPA_CONF"
+    if ! ask "Network Manager configuration failed, but we may generate a wpa_supplicant configuration file if you wish. Be warned that your connection password will be saved in this file as clear text." "Datei schreiben" 1 ; then exit ; fi
+
+  if [ -f "$CAT_PATH/cat_installer/cat_installer.conf" ] ; then
+    if ! ask "Datei $CAT_PATH/cat_installer/cat_installer.conf existiert bereits, sie wird überschrieben." "$CONTINUE" 1 ; then confirm_exit; fi
+    rm "$CAT_PATH/cat_installer/cat_installer.conf"
+  fi
+    user_cred_pass
+    create_wpa_conf
+    show_info "Ausgabe nach $CAT_PATH/cat_installer/cat_installer.conf geschrieben"
+  fi
+}
+
+function setup_environment {
+  bf=""
+  n=""
+  if [ ! -z "$DISPLAY" ] ; then
+    if which zenity 1>/dev/null 2>&1 ; then
+      ZENITY=$(which zenity)
+    elif which kdialog 1>/dev/null 2>&1 ; then
+      KDIALOG=$(which kdialog)
+    else
+      if tty > /dev/null 2>&1 ; then
+        if  echo "$TERM" | grep -E -q "xterm|gnome-terminal|lxterminal"  ; then
+          bf=" [1m";
+          n=" [0m";
+        fi
+      else
+        find_xterm
+        if [ -n "$XT" ] ; then
+          $XT -e "$file_name"
+        fi
+      fi
+    fi
+  fi
+}
+
+function split_line {
+  echo "$1" | awk  -F '\\\\n' 'END {  for(i=1; i <= NF; i++) print $i }'
+}
+
+function find_xterm {
+  terms="xterm aterm wterm lxterminal rxvt gnome-terminal konsole"
+  for terminal in $terms
+  do
+    if which "$terminal" > /dev/null 2>&1 ; then
+    XT="$terminal"
+    break
+    fi
+  done
+}
+
+function ask {
+  if [ ! -z "$KDIALOG" ] ; then
+     if "$KDIALOG" --yesno "${1}\n${2}?" --title "$TITLE" ; then
+       return 0
+     else
+       return 1
+     fi
+  fi
+  if [ ! -z "$ZENITY" ] ; then
+     text=$(echo "${1}" | fmt -w60)
+     if "$ZENITY" --no-wrap --question --text="${text}\n${2}?" --title="$TITLE" 2>/dev/null ; then
+       return 0
+     else
+       return 1
+     fi
+  fi
+
+  yes=J
+  no=N
+  yes1=$(echo $yes | awk '{ print toupper($0) }')
+  no1=$(echo $no | awk '{ print toupper($0) }')
+
+  if [ "$3" == "0" ]; then
+    def="$yes"
+  else
+    def="$no"
+  fi
+
+  echo "";
+  while true
+  do
+  split_line "$1"
+  read -p -r "${bf}$2 ${yes}/${no}? [${def}]:$n " answer
+  if [ -z "$answer" ] ; then
+    answer=${def}
+  fi
+  answer=$(echo $answer | awk '{ print toupper($0) }')
+  case "$answer" in
+    ${yes1})
+       return 0
+       ;;
+    ${no1})
+       return 1
+       ;;
+  esac
+  done
+}
+
+function alert {
+  if [ ! -z "$KDIALOG" ] ; then
+     "$KDIALOG" --sorry "${1}"
+     return
+  fi
+  if [ ! -z "$ZENITY" ] ; then
+     "$ZENITY" --warning --text="$1" 2>/dev/null
+     return
+  fi
+  echo "$1"
+
+}
+
+function show_info {
+  if [ ! -z "$KDIALOG" ] ; then
+     "$KDIALOG" --msgbox "${1}"
+     return
+  fi
+  if [ ! -z "$ZENITY" ] ; then
+     "$ZENITY" --info --width=500 --text="$1" 2>/dev/null
+     return
+  fi
+  split_line "$1"
+}
+
+function confirm_exit {
+  if [ ! -z "$KDIALOG" ] ; then
+     if "$KDIALOG" --yesno "$QUIT"  ; then
+     exit 1
+     fi
+  fi
+  if [ ! -z "$ZENITY" ] ; then
+     if "$ZENITY" --question --text="$QUIT" 2>/dev/null ; then
+        exit 1
+     fi
+  fi
+}
+
+function prompt_nonempty_string {
+  prompt=$2
+  if [ ! -z "$ZENITY" ] ; then
+    if [ "$1" -eq 0 ] ; then
+     H="--hide-text "
+    fi
+    if ! [ -z "$3" ] ; then
+     D="--entry-text=$3"
+    fi
+  elif [ ! -z "$KDIALOG" ] ; then
+    if [ "$1" -eq 0 ] ; then
+     H="--password"
+    else
+     H="--inputbox"
+    fi
+  fi
+
+  out_s="";
+  if [ ! -z "$ZENITY" ] ; then
+    while [ ! "$out_s" ] ; do
+      out_s=$($ZENITY --entry --width=300 $H "$D" --text "$prompt" 2>/dev/null)
+      if [ $? -ne 0 ] ; then
+        confirm_exit
+      fi
+    done
+  elif [ ! -z "$KDIALOG" ] ; then
+    while [ ! "$out_s" ] ; do
+      out_s=$($KDIALOG $H "$prompt" "$3")
+      if [ $? -ne 0 ] ; then
+        confirm_exit
+      fi
+    done
+  else
+    while [ ! "$out_s" ] ; do
+      read -p "${prompt}: " out_s
+    done
+  fi
+  echo "$out_s";
+}
+
+function user_cred {
+  if ! USER_NAME=$(prompt_nonempty_string 1 "$USERNAME_PROMPT") ; then
+    exit 1
+  fi
+}
+
+function user_cred_pass {
+  PASSWORD="a"
+  PASSWORD1="b"
+
+  while [ "$PASSWORD" != "$PASSWORD1" ]
+  do
+    if ! PASSWORD=$(prompt_nonempty_string 0 "$ENTER_PASSWORD") ; then
+      exit 1
+    fi
+    if ! PASSWORD1=$(prompt_nonempty_string 0 "$ENTER_PASSWORD") ; then
+      exit 1
+    fi
+    if [ "$PASSWORD" != "$PASSWORD1" ] ; then
+      alert "$PASSWORD_DIFFER"
+    fi
+  done
+}
+
+function nmcli_add_connection {
+  interface=$(get_wlan_interface)
+
+  for ssid in "${SSIDS[@]}"; do
+    nmcli connection add type wifi con-name "$ssid" ifname "$interface" ssid "$ssid" -- \
+    wifi-sec.key-mgmt wpa-eap 802-1x.eap "$EAP_OUTER" 802-1x.phase2-auth "$EAP_INNER" \
+    802-1x.altsubject-matches "$ALTSUBJECT_MATCHES" 802-1x.anonymous-identity "$ANONYMOUS_IDENTITY" \
+    802-1x.ca-cert "$CAT_PATH/cat_installer/ca.pem" 802-1x.identity "$USER_NAME"
+  done
+}
+
+function get_wlan_interface {
+  device=$(echo /sys/class/net/*/wireless | awk -F"/" "{ print \$5 }")
+  echo "$device"
+  return 0
+}
+
+function create_wpa_conf {
+  cat << EOFW >> $HOME/.config/cat_installer/cat_installer.conf
+
+network={
+  ssid="eduroam"
+  key_mgmt=WPA-EAP
+  pairwise=CCMP
+  group=CCMP TKIP
+  eap=TTLS
+  ca_cert="$CAT_PATH/cat_installer/ca.pem"
+  identity="${USER_NAME}"
+  domain_suffix_match="x.asfh-berlin.de"
+  phase2="auth=PAP"
+  password="${PASSWORD}"
+  anonymous_identity="anonymous@ash-berlin.eu"
+}
+EOFW
+
+  chmod 600 "$CAT_PATH/cat_installer/cat_installer.conf"
+}
+
+
+ORGANISATION=""
+URL="https://cat.eduroam.org/"
+SUPPORT="it-helpdesk@eduroam.org"
+TITLE="DFN eduroam CAT"
+SSIDS=("eduroam")
+ALTSUBJECT_MATCHES="'DNS:radius.eduroam.org'"
+EAP_OUTER="TTLS"
+EAP_INNER="PAP"
+ANONYMOUS_IDENTITY="anonymous@weduroam.org"
+CERTIFICATE="-----BEGIN CERTIFICATE-----
+MIIDwzCCAqugAwIBAgIBATANBgkqhkiG9w0BAQsFADCBgjELMAkGA1UEBhMCREUx
+KzApBgNVBAoMIlQtU3lzdGVtcyBFbnRlcnByaXNlIFNlcnZpY2VzIEdtYkgxHzAd
+BgNVBAsMFlQtU3lzdGVtcyBUcnVzdCBDZW50ZXIxJTAjBgNVBAMMHFQtVGVsZVNl
+YyBHbG9iYWxSb290IENsYXNzIDIwHhcNMDgxMDAxMTA0MDE0WhcNMzMxMDAxMjM1
+OTU5WjCBgjELMAkGA1UEBhMCREUxKzApBgNVBAoMIlQtU3lzdGVtcyBFbnRlcnBy
+aXNlIFNlcnZpY2VzIEdtYkgxHzAdBgNVBAsMFlQtU3lzdGVtcyBUcnVzdCBDZW50
+ZXIxJTAjBgNVBAMMHFQtVGVsZVNlYyBHbG9iYWxSb290IENsYXNzIDIwggEiMA0G
+CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCqX9obX+hzkeXaXPSi5kfl82hVYAUd
+AqSzm1nzHoqvNK38DcLZSBnuaY/JIPwhqgcZ7bBcrGXHX+0CfHt8LRvWurmAwhiC
+FoT6ZrAIxlQjgeTNuUk/9k9uN0goOA/FvudocP05l03Sx5iRUKrERLMjfTlH6VJi
+1hKTXrcxlkIF+3anHqP1wvzpesVsqXFP6st4vGCvx9702cu+fjOlbpSD8DT6Iavq
+jnKgP6TeMFvvhk1qlVtDRKgQFRzlAVfFmPHmBiiRqiDFt1MmUUOyCxGVWOHAD3bZ
+wI18gfNycJ5v/hqO2V81xrJvNHy+SE/iWjnX2J14np+GPgNeGYtEotXHAgMBAAGj
+QjBAMA8GA1UdEwEB/wQFMAMBAf8wDgYDVR0PAQH/BAQDAgEGMB0GA1UdDgQWBBS/
+WSA2AHmgoCJrjNXyYdK4LMuCSjANBgkqhkiG9w0BAQsFAAOCAQEAMQOiYQsfdOhy
+NsZt+U2e+iKo4YFWz827n+qrkRk4r6p8FU3ztqONpfSO9kSpp+ghla0+AGIWiPAC
+uvxhI+YzmzB6azZie60EI4RYZeLbK4rnJVM3YlNfvNoBYimipidx5joifsFvHZVw
+IEoHNN/q/xWA5brXethbdXwFeilHfkCoMRN3zUA7tFFHei4R40cR3p1m0IvVVGb6
+g1XqfMIpiRvpb7PO4gWEyS8+eIVibslfwXhjdFjASBgMmTnrpMwatXlajRWc2BQN
+9noHV8cigwUtPJslJj0Ys6lDfMjIq2SPDqO/nBudMNva0Bkuqjzx+zOAduTNrRlP
+BSeOE6Fuwg==
+-----END CERTIFICATE-----
+"
+USERNAME_PROMPT="Geben Sie ihre Benutzerkennung ein."
+ENTER_PASSWORD="Geben Sie Ihr Passwort ein."
+PASSWORD_DIFFER="Die Passwörter stimmen nicht Überein."
+INSTALLATION_FINISHED="Installation erfolgreich."
+SAVE_WPA_CONF="Konfiguration von NetworkManager fehlgeschlagen, erzeuge nun wpa_supplicant.conf Datei."
+QUIT="Wirklich beenden?"
+CONTINUE="Weiter"
+
+main "$@"; exit
