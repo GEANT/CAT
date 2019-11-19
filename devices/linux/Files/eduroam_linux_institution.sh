@@ -25,9 +25,11 @@ main() {
     if ! ask "$CAT_DIR_EXISTS" "$CONTINUE" 1 ; then exit; fi
   else
     mkdir "$CAT_PATH/cat_installer"
+    log "Directory $CAT_PATH/cat_installer created."
   fi
 
   echo "$CERTIFICATE" > "$CAT_PATH/cat_installer/ca.pem"
+  log "Write $CAT_PATH/cat_installer/ca.pem"
 
   user_cred
   if nmcli_add_connection ; then
@@ -41,10 +43,12 @@ main() {
     printf -v CONF_FILE_EXITS "$CONF_FILE_EXITS" "$CAT_PATH"
     if ! ask "$CONF_FILE_EXITS" "$CONTINUE" 1 ; then confirm_exit; fi
     rm "$CAT_PATH/cat_installer/cat_installer.conf"
+    log "$CAT_PATH/cat_installer/cat_installer.conf removed."
   fi
     user_cred_pass
     create_wpa_conf
     show_info "$INSTALLATION_FINISHED"
+    log "Installation successful."
   fi
 }
 
@@ -54,8 +58,10 @@ function setup_environment {
   if [ ! -z "$DISPLAY" ] ; then
     if which zenity 1>/dev/null 2>&1 ; then
       ZENITY=$(which zenity)
+      log "$ZENITY detected."
     elif which kdialog 1>/dev/null 2>&1 ; then
       KDIALOG=$(which kdialog)
+      log "$KDIALOG detected."
     else
       if tty > /dev/null 2>&1 ; then
         if  echo "$TERM" | grep -E -q "xterm|gnome-terminal|lxterminal"  ; then
@@ -78,11 +84,11 @@ function split_line {
 
 function find_xterm {
   terms="xterm aterm wterm lxterminal rxvt gnome-terminal konsole"
-  for terminal in $terms
-  do
+  for terminal in $terms; do
     if which "$terminal" > /dev/null 2>&1 ; then
-    XT="$terminal"
-    break
+      XT="$terminal"
+      log "$XT detected."
+      break
     fi
   done
 }
@@ -216,6 +222,8 @@ function prompt_nonempty_string {
 function user_cred {
   if ! USER_NAME=$(prompt_nonempty_string 1 "$USERNAME_PROMPT") ; then
     exit 1
+  else
+    log "Username entered."
   fi
 }
 
@@ -223,8 +231,7 @@ function user_cred_pass {
   PASSWORD="a"
   PASSWORD1="b"
 
-  while [ "$PASSWORD" != "$PASSWORD1" ]
-  do
+  while [ "$PASSWORD" != "$PASSWORD1" ] ; do
     if ! PASSWORD=$(prompt_nonempty_string 0 "$ENTER_PASSWORD") ; then
       exit 1
     fi
@@ -235,16 +242,20 @@ function user_cred_pass {
       alert "$PASSWORD_DIFFER"
     fi
   done
+  log "Password entered."
 }
 
 function nmcli_add_connection {
   interface=$(get_wlan_interface)
+  log "WLAN device $interface found."
 
   for ssid in "${SSIDS[@]}"; do
+    log "Try to add connection for $ssid."
     nmcli connection add type wifi con-name "$ssid" ifname "$interface" ssid "$ssid" -- \
     wifi-sec.key-mgmt wpa-eap 802-1x.eap "$EAP_OUTER" 802-1x.phase2-auth "$EAP_INNER" \
     802-1x.altsubject-matches "$ALTSUBJECT_MATCHES" 802-1x.anonymous-identity "$ANONYMOUS_IDENTITY" \
     802-1x.ca-cert "$CAT_PATH/cat_installer/ca.pem" 802-1x.identity "$USER_NAME"
+    log "Add $ssid connection with nmcli successful."
   done
 }
 
@@ -271,10 +282,20 @@ network={
   anonymous_identity="anonymous@ash-berlin.eu"
 }
 EOFW
-
+  log "Write $HOME/.config/cat_installer/cat_installer.conf."
   chmod 600 "$CAT_PATH/cat_installer/cat_installer.conf"
 }
 
+
+function log {
+  if ! [ -z $debug ] ; then
+    echo "[${USER}][`date`] - ${*}"
+  fi
+}
+
+usage() {
+    echo "usage: eduroam_linux installer [[[--debug]] | [--help]]"
+}
 
 ORGANISATION="Institution"
 URL="https://cat.eduroam.org/"
@@ -324,6 +345,21 @@ printf -v INIT_CONFIRMATION "$INIT_CONFIRMATION_TMP" "$ORGANISATION"
 CAT_DIR_EXISTS="Das Verzeichnis %s/cat_installer existiert bereits; einige Dateien darin könnten überschrieben werden."
 CONF_FILE_EXITS="Datei %s/cat_installer/cat_installer.conf existiert bereits, sie wird überschrieben."
 SAVE_WPA_CONF="Die Konfiguration des Network-Manager ist fehlgeschlagen, aber es könnte stattdessen eine Konfigurationsdatei für das Programm wpa_supplicant erstellt werden. Beachten Sie bitte, dass Ihr Passwort im Klartext in dieser Datei steht."
+
+debug=
+help=
+while [ "$1" != "" ]; do
+    case $1 in
+        -d | --debug )          debug=1
+                                ;;
+        -h | --help )           usage
+                                exit
+                                ;;
+        * )                     usage
+                                exit 1
+    esac
+    shift
+done
 
 
 main "$@"; exit
