@@ -251,7 +251,7 @@ function nmcli_add_connection {
 
   for ssid in "${SSIDS[@]}"; do
     log "Try to add connection for $ssid."
-    nmcli connection add type wifi con-name "$ssid" ifname "$interface" ssid "$ssid" -- \
+    sudo nmcli connection add type wifi con-name "$ssid" ifname "$interface" ssid "$ssid" -- \
     wifi-sec.key-mgmt wpa-eap 802-1x.eap "$EAP_OUTER" 802-1x.phase2-auth "$EAP_INNER" \
     802-1x.altsubject-matches "$ALTSUBJECT_MATCHES" 802-1x.anonymous-identity "$ANONYMOUS_IDENTITY" \
     802-1x.ca-cert "$CAT_PATH/cat_installer/ca.pem" 802-1x.identity "$USER_NAME"
@@ -280,13 +280,13 @@ network={
   key_mgmt=WPA-EAP
   pairwise=CCMP
   group=CCMP TKIP
-  eap=TTLS
+  eap="${EAP_OUTER}"
   ca_cert="$CAT_PATH/cat_installer/ca.pem"
   identity="${USER_NAME}"
-  domain_suffix_match="x.asfh-berlin.de"
-  phase2="auth=PAP"
+  domain_suffix_match="${ALTSUBJECT_MATCHES}"
+  phase2="auth=${EAP_INNER}"
   password="${PASSWORD}"
-  anonymous_identity="anonymous@ash-berlin.eu"
+  anonymous_identity="${ANONYMOUS_IDENTITY}"
 }
 EOFW
   log "Write $HOME/.config/cat_installer/cat_installer.conf."
@@ -312,7 +312,7 @@ SSIDS=("eduroam")
 ALTSUBJECT_MATCHES="'DNS:radius.eduroam.org'"
 EAP_OUTER="TTLS"
 EAP_INNER="PAP"
-ANONYMOUS_IDENTITY="anonymous@weduroam.org"
+ANONYMOUS_IDENTITY="anonymous@eduroam.org"
 CERTIFICATE="-----BEGIN CERTIFICATE-----
 MIIDwzCCAqugAwIBAgIBATANBgkqhkiG9w0BAQsFADCBgjELMAkGA1UEBhMCREUx
 KzApBgNVBAoMIlQtU3lzdGVtcyBFbnRlcnByaXNlIFNlcnZpY2VzIEdtYkgxHzAd
