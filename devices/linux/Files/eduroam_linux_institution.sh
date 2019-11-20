@@ -266,6 +266,14 @@ function get_wlan_interface {
 }
 
 function create_wpa_conf {
+  MSCHAP=false # TODO
+  if [ "$MSCHAP" = true ] ; then
+    if which openssl 1>/dev/null 2>&1 ; then
+      PASSWORD=$(echo -n $PASSWORD | iconv -t utf16le | openssl md4)
+      PASSWORD=hash:${PASSWORD#*= }
+    fi
+  fi
+
   cat << EOFW >> $HOME/.config/cat_installer/cat_installer.conf
 
 network={
