@@ -301,7 +301,7 @@ function log {
   fi
 }
 
-usage() {
+function usage() {
     echo "usage: eduroam_linux installer [[[--debug]] | [--help]]"
 }
 
