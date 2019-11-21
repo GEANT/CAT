@@ -254,8 +254,12 @@ function nmcli_add_connection {
     nmcli connection add type wifi con-name "$ssid" ifname "$interface" ssid "$ssid" -- \
     wifi-sec.key-mgmt wpa-eap 802-1x.eap "$EAP_OUTER" 802-1x.phase2-auth "$EAP_INNER" \
     802-1x.altsubject-matches "$ALTSUBJECT_MATCHES" 802-1x.anonymous-identity "$ANONYMOUS_IDENTITY" \
-    802-1x.ca-cert "$CAT_PATH/cat_installer/ca.pem" 802-1x.identity "$USER_NAME" connection.permissions "$USER"
+    802-1x.ca-cert "$CAT_PATH/cat_installer/ca.pem" 802-1x.identity "$USER_NAME" connection.permissions "$USER" \
+    802-11-wireless-security.proto rsn 802-11-wireless-security.group ccmp 802-11-wireless-security.pairwise ccmp
     log "Add $ssid connection with nmcli successful."
+    # # nmcli con modify WIFI_AP 802-11-wireless-security.proto rsn
+    # nmcli con modify WIFI_AP 802-11-wireless-security.group ccmp
+    # nmcli con modify WIFI_AP 802-11-wireless-security.pairwise ccmp
   done
 }
 
