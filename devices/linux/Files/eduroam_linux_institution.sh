@@ -33,7 +33,7 @@ main() {
 
   user_cred
   if nmcli_add_connection ; then
-    nmcli connection up eduroam --ask
+    nmcli --ask connection up eduroam
     show_info "$INSTALLATION_FINISHED"
   else
     show_info "$SAVE_WPA_CONF"
@@ -251,10 +251,10 @@ function nmcli_add_connection {
 
   for ssid in "${SSIDS[@]}"; do
     log "Try to add connection for $ssid."
-    sudo nmcli connection add type wifi con-name "$ssid" ifname "$interface" ssid "$ssid" -- \
+    nmcli connection add type wifi con-name "$ssid" ifname "$interface" ssid "$ssid" -- \
     wifi-sec.key-mgmt wpa-eap 802-1x.eap "$EAP_OUTER" 802-1x.phase2-auth "$EAP_INNER" \
     802-1x.altsubject-matches "$ALTSUBJECT_MATCHES" 802-1x.anonymous-identity "$ANONYMOUS_IDENTITY" \
-    802-1x.ca-cert "$CAT_PATH/cat_installer/ca.pem" 802-1x.identity "$USER_NAME"
+    802-1x.ca-cert "$CAT_PATH/cat_installer/ca.pem" 802-1x.identity "$USER_NAME" connection.permissions "$USER"
     log "Add $ssid connection with nmcli successful."
   done
 }
@@ -268,7 +268,7 @@ function get_wlan_interface {
 function create_wpa_conf {
   if [ "$EAP_INNER" == "MSCHAPV2" ] ; then
     if which openssl 1>/dev/null 2>&1 ; then
-      PASSWORD=$(echo -n $PASSWORD | iconv -t utf16le | openssl md4)
+      PASSWORD=$(echo -n "$PASSWORD" | iconv -t utf16le | openssl md4)
       PASSWORD=hash:${PASSWORD#*= }
     fi
   fi
@@ -295,8 +295,8 @@ EOFW
 
 
 function log {
-  if ! [ -z $debug ] ; then
-    echo "[${USER}][`date`] - ${*}"
+  if ! [ -z "$debug" ] ; then
+    echo "[${USER}][$(date)] - ${*}"
   fi
 }
 
@@ -354,7 +354,6 @@ CONF_FILE_EXITS="Datei %s/cat_installer/cat_installer.conf existiert bereits, si
 SAVE_WPA_CONF="Die Konfiguration des Network-Manager ist fehlgeschlagen, aber es könnte stattdessen eine Konfigurationsdatei für das Programm wpa_supplicant erstellt werden. Beachten Sie bitte, dass Ihr Passwort im Klartext in dieser Datei steht."
 
 debug=
-help=
 while [ "$1" != "" ]; do
     case $1 in
         -d | --debug )          debug=1
