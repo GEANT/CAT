@@ -31,9 +31,11 @@ main() {
   echo "$CERTIFICATE" > "$CAT_PATH/cat_installer/ca.pem"
   log "Write $CAT_PATH/cat_installer/ca.pem"
 
-  user_cred
+  if [ -z "$USERNAME" ] ; then
+    user_cred
+  fi
   if nmcli_add_connection ; then
-    nmcli --ask connection up eduroam
+    # nmcli --ask connection up eduroam
     show_info "$INSTALLATION_FINISHED"
   else
     show_info "$SAVE_WPA_CONF"
@@ -45,7 +47,9 @@ main() {
     rm "$CAT_PATH/cat_installer/cat_installer.conf"
     log "$CAT_PATH/cat_installer/cat_installer.conf removed."
   fi
-    user_cred_pass
+    if [ -z "$PASSWORD" ] ; then
+      user_cred_pass
+    fi
     create_wpa_conf
     show_info "$INSTALLATION_FINISHED"
     log "Installation successful."
@@ -94,6 +98,9 @@ function find_xterm {
 }
 
 function ask {
+  if [ ! -z "$silent" ] ; then
+    return 0
+  fi
   if [ ! -z "$KDIALOG" ] ; then
      if "$KDIALOG" --yesno "${1}\n${2}?" --title "$TITLE" ; then
        return 0
@@ -142,6 +149,10 @@ function ask {
 }
 
 function alert {
+  if [ ! -z "$silent" ] ; then
+    echo "$1"
+    return
+  fi
   if [ ! -z "$KDIALOG" ] ; then
      "$KDIALOG" --sorry "${1}"
      return
@@ -155,6 +166,10 @@ function alert {
 }
 
 function show_info {
+  if [ ! -z "$silent" ] ; then
+    echo "$1"
+    return
+  fi
   if [ ! -z "$KDIALOG" ] ; then
      "$KDIALOG" --msgbox "${1}"
      return
@@ -167,6 +182,10 @@ function show_info {
 }
 
 function confirm_exit {
+  if [ ! -z "$silent" ] ; then
+    echo "$QUIT"
+    exit 1
+  fi
   if [ ! -z "$KDIALOG" ] ; then
      if "$KDIALOG" --yesno "$QUIT"  ; then
      exit 1
@@ -197,6 +216,15 @@ function prompt_nonempty_string {
   fi
 
   out_s="";
+  if [ ! -z "$silent" ] ; then
+    if [ "$1" -eq 0 ] ; then
+      out_s="$USERNAME"
+    elif [ "$1" -eq 1 ] ; then
+      out_s="$PASSWORD"
+    fi
+    confirm_exit
+  fi
+
   if [ ! -z "$ZENITY" ] ; then
     while [ ! "$out_s" ] ; do
       out_s=$($ZENITY --entry --width=300 $H "$D" --text "$prompt" 2>/dev/null)
@@ -355,9 +383,20 @@ CONF_FILE_EXITS="Datei %s/cat_installer/cat_installer.conf existiert bereits, si
 SAVE_WPA_CONF="Die Konfiguration des Network-Manager ist fehlgeschlagen, aber es könnte stattdessen eine Konfigurationsdatei für das Programm wpa_supplicant erstellt werden. Beachten Sie bitte, dass Ihr Passwort im Klartext in dieser Datei steht."
 
 debug=
+silent=
+username=
+password=
 while [ "$1" != "" ]; do
     case $1 in
         -d | --debug )          debug=1
+                                ;;
+        -s | --silent )         silent=1
+                                ;;
+        -u | --username )       shift
+                                USERNAME=$1
+                                ;;
+        -p | --password )       shift
+                                PASSWORD=$1
                                 ;;
         -h | --help )           usage
                                 exit
@@ -368,5 +407,20 @@ while [ "$1" != "" ]; do
     shift
 done
 
+
+if [ ! -z "$silent" ] ; then
+  missing_parameter=false
+  if [ -z ${USERNAME+x} ] ; then
+    echo "Parameter --username is missing."
+    missing_parameter=true
+  fi
+  if [ -z ${PASSWORD+x} ] ; then
+    echo "Parameter --password is missing."
+    missing_parameter=true
+  fi
+  if [ "$missing_parameter" = true ] ; then
+    exit 1
+  fi
+fi
 
 main "$@"; exit
