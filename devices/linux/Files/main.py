@@ -818,17 +818,17 @@ class CatNMConfigTool(object):
             props = dbus.Interface(proxy, "org.freedesktop.DBus.Properties")
             version = props.Get("org.freedesktop.NetworkManager", "Version")
         except dbus.exceptions.DBusException:
-            version = "0.8"
-        if re.match(r'^1\.', version):
-            self.nm_version = "1.0"
-            return
-        if re.match(r'^0\.9', version):
-            self.nm_version = "0.9"
-            return
-        if re.match(r'^0\.8', version):
-            self.nm_version = "0.8"
-            return
-        self.nm_version = Messages.unknown_version
+            self.nm_version = Messages.unknown_version
+        else:
+            if re.match(r'^1\.', version):
+                self.nm_version = "1.0"
+                return
+            if re.match(r'^0\.9', version):
+                self.nm_version = "0.9"
+                return
+            if re.match(r'^0\.8', version):
+                self.nm_version = "0.8"
+                return
 
     def __delete_existing_connection(self, ssid):
         """
