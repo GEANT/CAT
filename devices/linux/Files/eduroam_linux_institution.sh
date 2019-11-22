@@ -322,7 +322,6 @@ EOFW
   chmod 600 "$CAT_PATH/cat_installer/cat_installer.conf"
 }
 
-
 function log {
   if ! [ -z "$debug" ] ; then
     echo "[${USER}][$(date)] - ${*}"
@@ -407,14 +406,13 @@ while [ "$1" != "" ]; do
     shift
 done
 
-
 if [ ! -z "$silent" ] ; then
   missing_parameter=false
-  if [ -z ${USERNAME+x} ] ; then
+  if [ -z "${USERNAME+x}" ] ; then
     echo "Parameter --username is missing."
     missing_parameter=true
   fi
-  if [ -z ${PASSWORD+x} ] ; then
+  if [ -z "${PASSWORD+x}" ] ; then
     echo "Parameter --password is missing."
     missing_parameter=true
   fi
