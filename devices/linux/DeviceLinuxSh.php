@@ -67,7 +67,7 @@ fi
 
      $out_string .= $this->printNMScript($SSIDs,$delSSIDs);
      $out_string .= $this->writeWpaConf($SSIDs);
-     if($this->selected_eap == \core\common\EAP::EAPTYPE_TLS) 
+     if($this->selectedEap == \core\common\EAP::EAPTYPE_TLS) 
        $out_string .= $this->printP12Dialog();
      else
        $out_string .= $this->printPasswordDialog();
@@ -100,7 +100,7 @@ fi
     $out .= "<p>";
     }
    $out .= _("The installer will create .cat_installer sub-directory in your home directory and will copy your server certificates there.");
-if($this->eap == \core\common\EAP::EAPTYPE_TLS)
+if($this->selectedEap == \core\common\EAP::EAPTYPE_TLS)
    $out .= _("In order to connect to the network you will need a personal certificate in the form of a p12 file. You should obtain this certificate from your home institution. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process. Your p12 file will also be copied to the .cat_installer directory.");
 else {
    $out .= _("In order to connect to the network you will need an account from your home institution. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated.");
@@ -391,7 +391,7 @@ return $out;
 
 
   private function writeWpaConf($SSIDs) {
-     $e = \core\common\EAP::eapDisplayName($this->selected_eap);
+     $e = \core\common\EAP::eapDisplayName($this->selectedEap);
 $out = 'function create_wpa_conf {
 cat << EOFW >> '.$this->conf_file."\n";
      foreach (array_keys($SSIDs) as $ssid) {
@@ -407,7 +407,7 @@ network={
   if($this->server_name)
     $out .= '
   domain_suffix_match="'.$this->server_name.'"';
-  if($this->selected_eap == \core\common\EAP::EAPTYPE_TLS) {
+  if($this->selectedEap == \core\common\EAP::EAPTYPE_TLS) {
     $out .= '
   private_key="${HOME}/'.$this->local_dir.'/user.p12"
   private_key_passwd="${PASSWORD}"';
@@ -682,7 +682,7 @@ class EduroamNMConfigTool:
              $out .= '
              match_key: match_value,';
     }
-    if($this->selected_eap == \core\common\EAP::EAPTYPE_TLS) {
+    if($this->selectedEap == \core\common\EAP::EAPTYPE_TLS) {
        $out .= '
             \'client-cert\':  dbus.ByteArray("file://{0}\0".format(self.pfx_file).encode(\'utf8\')),
             \'private-key\':  dbus.ByteArray("file://{0}\0".format(self.pfx_file).encode(\'utf8\')),
