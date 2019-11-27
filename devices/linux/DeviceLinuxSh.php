@@ -54,7 +54,7 @@ class DeviceLinuxSh extends \core\DeviceConfig {
             throw new Exception("Unable to open installer file for writing!");
         }
         fwrite($installer, "\n\n");
-        $this->seek(400);
+        $this->fseek($installer, 0, SEEK_END);
         $this->writeMessages($installer);
         $this->writeConfigVars($installer);
         fwrite($installer, "printf -v INIT_INFO \"$INIT_INFO_TMP\" \"$ORGANISATION\" \"$E_MAIL\" \"$URL\"\n");
