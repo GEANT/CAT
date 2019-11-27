@@ -397,6 +397,8 @@ while [ "$1" != "" ]; do
         -p | --password )       shift
                                 PASSWORD=$1
                                 ;;
+        -v | --verbose )        verbose=1
+                                ;;
         -h | --help )           usage
                                 exit
                                 ;;
@@ -419,6 +421,10 @@ if [ ! -z "$silent" ] ; then
   if [ "$missing_parameter" = true ] ; then
     exit 1
   fi
+fi
+
+if ! [ -z "$verbose" ] ; then
+  set -x
 fi
 
 main "$@"; exit
