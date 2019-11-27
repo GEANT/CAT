@@ -18,7 +18,6 @@
   * License: see the web/copyright.inc.php file in the file structure or
   *          <base_url>/copyright.php after deploying the software
   */
-
 /**
  * This file creates Linux installers
  *
@@ -30,7 +29,6 @@
 namespace devices\linux;
 use Exception;
 class DeviceLinuxSh extends \core\DeviceConfig {
-
     /**
      * constructor. Sets supported EAP methods.
      */

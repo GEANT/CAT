@@ -48,7 +48,7 @@ $qrCode = new \chillerlan\QRCode\QRCode(new \chillerlan\QRCode\QROptions([
                     'imageBase64' => FALSE,
         ]));
 $rawQr = $qrCode->render($invitationObject->link());
-if ($rawQr === NULL) {
+if (empty($rawQr)) {
     throw new Exception("Something went seriously wrong during QR code generation!");
 }
 echo base64_encode($uiElements->pngInjectConsortiumLogo($rawQr, $size));?>'/>

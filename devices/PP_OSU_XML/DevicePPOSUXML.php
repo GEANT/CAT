@@ -150,7 +150,8 @@ class DevicePPOSUXML extends \core\DeviceConfig {
         }
         $retval .= $oiList . '</Value>
         </Node>
-      </Node>';
+      </Node>
+';
         return $retval;
     }
 
@@ -160,8 +161,12 @@ class DevicePPOSUXML extends \core\DeviceConfig {
      * @return string
      */
     private function credential() {
-        $retval = '<Node>
-        <NodeName>Credential</NodeName>';
+        $retval = '      <Node>
+        <NodeName>Credential</NodeName>
+        <Node>
+              <NodeName>Realm</NodeName>
+              <Value>' . $this->attributes['internal:realm'][0] . '</Value>
+            </Node>';
         /* the example file I got did not include CreationDate, so omit it
          * 
          * $content .= $this->credentialCreationDate();
@@ -169,10 +174,6 @@ class DevicePPOSUXML extends \core\DeviceConfig {
         $retval .= '
           <Node>
             <NodeName>DigitalCertificate</NodeName>
-            <Node>
-              <NodeName>Realm</NodeName>
-              <Value>' . $this->attributes['internal:realm'][0] . '</Value>
-            </Node>
             <Node>
               <NodeName>CertificateType</NodeName>
               <Value>x509v3</Value>
@@ -182,7 +183,8 @@ class DevicePPOSUXML extends \core\DeviceConfig {
               <Value>' . strtoupper($this->clientCert["sha256"]) /* the actual cert has to go... where? */ . '</Value>
             </Node>
           </Node>
-      </Node>';
+      </Node>
+';
         return $retval;
     }
 
@@ -202,7 +204,8 @@ class DevicePPOSUXML extends \core\DeviceConfig {
       </Type>
     </RTProperties>
     <Node>
-      <NodeName>CATPasspointSetting</NodeName>';
+      <NodeName>CATPasspointSetting</NodeName>
+';
         /* it seems that Android does NOT want the AAAServerTrustRoot section
           and instead always validates against the MIME cert attached
 
@@ -239,12 +242,13 @@ Content-Transfer-Encoding: base64
         $retval = '--{boundary}
 Content-Type: application/x-x509-ca-cert
 Content-Transfer-Encoding: base64
+
 ';
         // then, another PEM chunk for each CA certificate we referenced earlier
         // only leaves me to wonder what the "URL" for those is...
         // TODO: more than one CA is currently untested
         foreach ($this->attributes['internal:CAs'][0] as $oneCert) {
-            $retval .= chunk_split(base64_encode($oneCert['pem']), 76, "\n");
+            $retval .= chunk_split(base64_encode($oneCert['pem']), 64, "\n");
         }
         return $retval;
     }

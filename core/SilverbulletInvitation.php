@@ -319,7 +319,7 @@ class SilverbulletInvitation extends common\Entity {
         ]));
 
         $rawQr = $qrCode->render($this->link());
-        if ($rawQr === NULL) {
+        if (empty($rawQr)) {
             throw new Exception("Something went seriously wrong with the QR code generation!");
         }
         $bytestream = $uiElements->pngInjectConsortiumLogo($rawQr, $pixelsPerCode);

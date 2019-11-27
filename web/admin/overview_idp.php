@@ -267,7 +267,7 @@ echo $mapCode->htmlHeadCode();
                     ]));
                     echo "<a href='$displayurl' style='white-space: nowrap; text-align: center;'>";
                     $rawQr = $qrCode->render($QRurl);
-                    if ($rawQr === NULL) {
+                    if (empty($rawQr)) {
                         throw new Exception("Something went seriously wrong during QR code generation!");
                     }
                     $uri = "data:image/png;base64," . base64_encode($uiElements->pngInjectConsortiumLogo($rawQr, web\lib\admin\UIElements::QRCODE_PIXELS_PER_SYMBOL));
