@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eu
+
 if [ -z "$BASH" ] ; then
    bash  "$0"
    exit
@@ -13,7 +15,7 @@ main() {
   show_info "$INIT_INFO"
   if ! ask "$INIT_CONFIRMATION" "$CONTINUE" 1 ; then exit; fi
 
-  if [ -z "$XDG_CONFIG_HOME" ] ; then
+  if [ -z "${XDG_CONFIG_HOME:-}" ] ; then
     CAT_PATH="$HOME/.config"
   else
     CAT_PATH="$XDG_CONFIG_HOME"
@@ -30,6 +32,7 @@ main() {
 
   echo "$CERTIFICATE" > "$CAT_PATH/cat_installer/ca.pem"
   log "Write $CAT_PATH/cat_installer/ca.pem"
+
 
   if [ -z "$USERNAME" ] ; then
     user_cred
@@ -59,7 +62,9 @@ main() {
 function setup_environment {
   bf=""
   n=""
-  if [ ! -z "$DISPLAY" ] ; then
+  ZENITY=""
+  KDIALOG=""
+  if [ ! -z "${DISPLAY:-}" ] ; then
     if which zenity 1>/dev/null 2>&1 ; then
       ZENITY=$(which zenity)
       log "$ZENITY detected."
@@ -200,11 +205,13 @@ function confirm_exit {
 
 function prompt_nonempty_string {
   prompt=$2
+  H=""
+  D=""
   if [ ! -z "$ZENITY" ] ; then
     if [ "$1" -eq 0 ] ; then
      H="--hide-text "
     fi
-    if ! [ -z "$3" ] ; then
+    if ! [ -z "${3:-}" ] ; then
      D="--entry-text=$3"
     fi
   elif [ ! -z "$KDIALOG" ] ; then
@@ -248,7 +255,7 @@ function prompt_nonempty_string {
 }
 
 function user_cred {
-  if ! USER_NAME=$(prompt_nonempty_string 1 "$USERNAME_PROMPT") ; then
+  if ! USERNAME=$(prompt_nonempty_string 1 "$USERNAME_PROMPT") ; then
     exit 1
   else
     log "Username entered."
@@ -282,7 +289,7 @@ function nmcli_add_connection {
     nmcli connection add type wifi con-name "$ssid" ifname "$interface" ssid "$ssid" -- \
     wifi-sec.key-mgmt wpa-eap 802-1x.eap "$EAP_OUTER" 802-1x.phase2-auth "$EAP_INNER" \
     802-1x.altsubject-matches "$ALTSUBJECT_MATCHES" 802-1x.anonymous-identity "$ANONYMOUS_IDENTITY" \
-    802-1x.ca-cert "$CAT_PATH/cat_installer/ca.pem" 802-1x.identity "$USER_NAME" connection.permissions "$USER" \
+    802-1x.ca-cert "$CAT_PATH/cat_installer/ca.pem" 802-1x.identity "$USERNAME" connection.permissions "$USER" \
     802-11-wireless-security.proto rsn 802-11-wireless-security.group "ccmp,tkip" 802-11-wireless-security.pairwise ccmp
     log "Add $ssid connection with nmcli successful."
   done
@@ -311,7 +318,7 @@ network={
   group=CCMP TKIP
   eap="${EAP_OUTER}"
   ca_cert="$CAT_PATH/cat_installer/ca.pem"
-  identity="${USER_NAME}"
+  identity="${USERNAME}"
   domain_suffix_match="${ALTSUBJECT_MATCHES}"
   phase2="auth=${EAP_INNER}"
   password="${PASSWORD}"
@@ -385,7 +392,10 @@ debug=
 silent=
 username=
 password=
-while [ "$1" != "" ]; do
+verbose=
+USERNAME=""
+PASSWORD=""
+while (( "$#" )); do
     case $1 in
         -d | --debug )          debug=1
                                 ;;
