@@ -117,7 +117,7 @@ class DeviceLinuxSh extends \core\DeviceConfig {
      */
     private function writeConfigLine($file, $name, $text) {
         $out = $name . '="' . $text . '"\n';
-        fwrite($file, wordwrap($out, 70, "\n");
+        fwrite($file, wordwrap($out, 70, "\n"));
     }
 
     /**
