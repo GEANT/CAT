@@ -105,6 +105,9 @@ checks:
 build:
     nodes:
         analysis:
+            environment:
+                php:
+                    version: 7.4.0
             project_setup:
                 override: true
             tests:
@@ -122,7 +125,7 @@ build:
                     MY_PATH: '/home/scrutinizer/vault/'
                     TEST_LANGUAGE_VARIANTS: 0
                 php:
-                    version: 7.3.5
+                    version: 7.4.0
                 hosts:
                     ci.test: 127.0.0.1
                 apache2:
