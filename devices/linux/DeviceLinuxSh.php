@@ -73,7 +73,7 @@ class DeviceLinuxSh extends \core\DeviceConfig {
         $ssidCount = count($this->attributes['internal:SSID']);
         $out = '';
 
-        $out .= sprintf(_("The installer is in the form of a Python script. It will try to configure %s under NetworkManager and if this is either not appropriate for your system or your version of NetworkManager is too old, a wpa_supplicant config file will be created instead."), \config\ConfAssistant::CONSORTIUM['display_name']);
+        $out .= sprintf(_("The installer is in the form of a shell script. It will try to configure %s under NetworkManager and if this is either not appropriate for your system or your version of NetworkManager is too old, a wpa_supplicant config file will be created instead."), \config\ConfAssistant::CONSORTIUM['display_name']);
         $out .= "<p>";
         if ($ssidCount > 1) {
             if ($ssidCount > 2) {
@@ -139,7 +139,7 @@ class DeviceLinuxSh extends \core\DeviceConfig {
         'REPEAT_PASSWORD' => _("repeat your password"),
         'PASSWORD_DIFFER'=> _("passwords do not match"),
         'INSTALLATION_FINISHED' => _("Installation successful"),
-        'CAT_DIR_EXISTS' => _("Directory {} exists; some of its files may be overwritten."),
+        'CAT_DIR_EXISTS' => _("Directory %s exists; some of its files may be overwritten."),
         'CONTINUE' => _("Continue?"),
         'NM_NOT_SUPPORTED' => _("This NetworkManager version is not supported"),
         'CERT_ERROR' => _("Certificate file not found, looks like a CAT error"),
@@ -150,8 +150,8 @@ class DeviceLinuxSh extends \core\DeviceConfig {
         'SAVE_WPA_CONF' => _("NetworkManager configuration failed, but we may generate a wpa_supplicant configuration file if you wish. Be warned that your connection password will be saved in this file as clear text."),
         'SAVE_WPA_CONFIRM' => _("Write the file"),
         'WRONG_USERNAME_FORMAT' =>_("Error: Your username must be of the form 'xxx@institutionID' e.g. 'john@example.net'!"),
-        'WRONG_REALM' => _("Error: your username must be in the form of 'xxx@{}'. Please enter the username in the correct format."),
-        'WRONG_REALM_SUFFIX' => _("Error: your username must be in the form of 'xxx@institutionID' and end with '{}'. Please enter the username in the correct format."),
+        'WRONG_REALM' => _("Error: your username must be in the form of 'xxx@%s'. Please enter the username in the correct format."),
+        'WRONG_REALM_SUFFIX' => _("Error: your username must be in the form of 'xxx@institutionID' and end with '%s'. Please enter the username in the correct format."),
         'USER_CERT_MISSING' => _("personal certificate file not found"),
         ];
         foreach ($messages as $name => $value) {
@@ -228,7 +228,7 @@ class DeviceLinuxSh extends \core\DeviceConfig {
             fwrite($file, "TOU=\"" . $tou . "\"\n");
         }
 
-        fwrite($file, "CA=\"" . $this->mkCAfile() . "\"\n");
+        fwrite($file, "CA_CERTIFICATE=\"" . $this->mkCAfile() . "\"\n");
         $sbUserFile = $this->mkSbUserFile();
         if ($sbUserFile !== '') {
             fwrite($file, "SB_USER_FILE=\"" . $sbUserFile . "\"\n");
@@ -297,7 +297,7 @@ class DeviceLinuxSh extends \core\DeviceConfig {
         foreach ($ssids as $ssid => $cipher) {
             $outArray[] = "'$ssid'";
         }
-        return '[' . implode(', ', $outArray) . ']';
+        return '(' . implode(' ', $outArray) . ')';
     }
 
     /**
@@ -337,7 +337,7 @@ class DeviceLinuxSh extends \core\DeviceConfig {
      */
     private function mkIntro() {
         \core\common\Entity::intoThePotatoes();
-        $out = _("This installer has been prepared for {0}") . '\n\n' . _("More information and comments:") . '\n\nE-Mail: {1}\nWWW: {2}\n\n' .
+        $out = _("This installer has been prepared for %s") . '\n\n' . _("More information and comments:") . '\n\nE-Mail: %s\nWWW: %s\n\n' .
             _("Installer created with software from the GEANT project.");
         \core\common\Entity::outOfThePotatoes();
         return $out;
@@ -366,9 +366,9 @@ class DeviceLinuxSh extends \core\DeviceConfig {
     private function mkProfileConfirmation() {
         \core\common\Entity::intoThePotatoes();
         if ($this->attributes['internal:profile_count'][0] > 1) {
-            $out = _("This installer will only work properly if you are a member of {0} and the user group: {1}.");
+            $out = _("This installer will only work properly if you are a member of %s and the user group: %s.");
         } else {
-            $out = _("This installer will only work properly if you are a member of {0}.");
+            $out = _("This installer will only work properly if you are a member of %s.");
         }
         \core\common\Entity::outOfThePotatoes();
         return $out;

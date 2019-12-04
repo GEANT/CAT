@@ -30,7 +30,7 @@ main() {
     log "Directory $CAT_PATH/cat_installer created."
   fi
 
-  echo "$CERTIFICATE" > "$CAT_PATH/cat_installer/ca.pem"
+  echo "$CA_CERTIFICATE" > "$CAT_PATH/cat_installer/ca.pem"
   log "Write $CAT_PATH/cat_installer/ca.pem"
 
 
@@ -398,7 +398,7 @@ ALTSUBJECT_MATCHES="'DNS:radius.eduroam.org'"
 EAP_OUTER="TTLS"
 EAP_INNER="PAP"
 ANONYMOUS_IDENTITY="anonymous@eduroam.org"
-CERTIFICATE="-----BEGIN CERTIFICATE-----
+CA_CERTIFICATE="-----BEGIN CERTIFICATE-----
 MIIDwzCCAqugAwIBAgIBATANBgkqhkiG9w0BAQsFADCBgjELMAkGA1UEBhMCREUx
 KzApBgNVBAoMIlQtU3lzdGVtcyBFbnRlcnByaXNlIFNlcnZpY2VzIEdtYkgxHzAd
 BgNVBAsMFlQtU3lzdGVtcyBUcnVzdCBDZW50ZXIxJTAjBgNVBAMMHFQtVGVsZVNl
