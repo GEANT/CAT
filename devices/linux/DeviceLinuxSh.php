@@ -55,9 +55,9 @@ class DeviceLinuxSh extends \core\DeviceConfig {
         fseek($installer, 0, SEEK_END);
         $this->writeMessages($installer);
         $this->writeConfigVars($installer);
-        fwrite($installer, "printf -v INIT_INFO \"$INIT_INFO_TMP\" \"$ORGANISATION\" \"$EMAIL\" \"$URL\"\n");
-        fwrite($installer, "printf -v INIT_CONFIRMATION \"$INIT_CONFIRMATION_TMP\" \"$ORGANISATION\"\n\n");
-        fwrite($installer, "main \"$@\"; exit\n");
+        fwrite($installer, 'printf -v INIT_INFO "$INIT_INFO_TMP" "$ORGANISATION" "$EMAIL" "$URL"' . "\n");
+        fwrite($installer, 'printf -v INIT_CONFIRMATION "$INIT_CONFIRMATION_TMP" "$ORGANISATION"' . "\n\n");
+        fwrite($installer, 'main "$@"; exit' . "\n");
         fclose($installer);
         return($installerPath);
     }
