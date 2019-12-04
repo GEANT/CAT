@@ -180,8 +180,8 @@ class DeviceLinuxSh extends \core\DeviceConfig {
             'SERVER_MATCH' => $this->glueServerNames(),
             'EAP_OUTER' => $eapMethod['OUTER'],
             'EAP_INNER' => $eapMethod['INNER'],
-            'INIT_INFO' => $this->mkIntro(),
-            'INIT_CONFIRMATION' => $this->mkProfileConfirmation(),
+            'INIT_INFO_TMP' => $this->mkIntro(),
+            'INIT_CONFIRMATION_TMP' => $this->mkProfileConfirmation(),
             // 'sb_user_file' => $this->mkSbUserFile(),
         ];
 
