@@ -295,7 +295,7 @@ class DeviceLinuxSh extends \core\DeviceConfig {
         foreach ($ssids as $ssid => $cipher) {
             $outArray[] = "'$ssid'";
         }
-        return '[' . implode(', ', $outArray) . ']';
+        return '(' . implode(' ', $outArray) . ')';
     }
 
     /**
