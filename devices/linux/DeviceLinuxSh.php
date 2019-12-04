@@ -45,14 +45,14 @@ class DeviceLinuxSh extends \core\DeviceConfig {
      *
      */
     public function writeInstaller() {
-        $installerPath = $this->installerBasename . ".py";
+        $installerPath = $this->installerBasename . ".sh";
         $this->copyFile("eduroam_linux_main.sh", $installerPath);
         $installer = fopen($installerPath, "a");
         if ($installer === FALSE) {
             throw new Exception("Unable to open installer file for writing!");
         }
         fwrite($installer, "\n\n");
-        $this->fseek($installer, 0, SEEK_END);
+        fseek($installer, 0, SEEK_END);
         $this->writeMessages($installer);
         $this->writeConfigVars($installer);
         fwrite($installer, "printf -v INIT_INFO \"$INIT_INFO_TMP\" \"$ORGANISATION\" \"$E_MAIL\" \"$URL\"\n");
@@ -116,8 +116,10 @@ class DeviceLinuxSh extends \core\DeviceConfig {
      * @return void
      */
     private function writeConfigLine($file, $name, $text) {
-        $out = $name . '="' . $text . '"\n';
-        fwrite($file, wordwrap($out, 70, "\n");
+        $out = $name . '="' . $text . '"' . "\n";
+//        fwrite($file, wordwrap($out, 70, "\n"));
+        fwrite($file, $out);
+
     }
 
     /**
