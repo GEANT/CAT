@@ -226,7 +226,7 @@ class DeviceLinuxSh extends \core\DeviceConfig {
             fwrite($file, "TOU=\"" . $tou . "\"\n");
         }
 
-        fwrite($file, "CA=\"" . $this->mkCAfile() . "\"\n");
+        fwrite($file, "CA_CERTIFICATE=\"" . $this->mkCAfile() . "\"\n");
         $sbUserFile = $this->mkSbUserFile();
         if ($sbUserFile !== '') {
             fwrite($file, "SB_USER_FILE=\"" . $sbUserFile . "\"\n");

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+cd#!/usr/bin/env bash
 
 set -eu
 
@@ -15,7 +15,7 @@ main() {
   show_info "$INIT_INFO"
   if ! ask "$INIT_CONFIRMATION" "$CONTINUE" 1 ; then exit; fi
 
-  if [ -z "${XDG_CONFIG_HOME:-}" ] ; then
+  if [ -z "$XDG_CONFIG_HOME" ] ; then
     CAT_PATH="$HOME/.config"
   else
     CAT_PATH="$XDG_CONFIG_HOME"
@@ -30,9 +30,8 @@ main() {
     log "Directory $CAT_PATH/cat_installer created."
   fi
 
-  echo "$CA_CERTIFICATE" > "$CAT_PATH/cat_installer/ca.pem"
+  echo "$CERTIFICATE" > "$CAT_PATH/cat_installer/ca.pem"
   log "Write $CAT_PATH/cat_installer/ca.pem"
-
 
   if [ -z "$USERNAME" ] ; then
     user_cred
@@ -62,9 +61,7 @@ main() {
 function setup_environment {
   bf=""
   n=""
-  ZENITY=""
-  KDIALOG=""
-  if [ ! -z "${DISPLAY:-}" ] ; then
+  if [ ! -z "$DISPLAY" ] ; then
     if which zenity 1>/dev/null 2>&1 ; then
       ZENITY=$(which zenity)
       log "$ZENITY detected."
@@ -205,13 +202,11 @@ function confirm_exit {
 
 function prompt_nonempty_string {
   prompt=$2
-  H=""
-  D=""
   if [ ! -z "$ZENITY" ] ; then
     if [ "$1" -eq 0 ] ; then
      H="--hide-text "
     fi
-    if ! [ -z "${3:-}" ] ; then
+    if ! [ -z "$3" ] ; then
      D="--entry-text=$3"
     fi
   elif [ ! -z "$KDIALOG" ] ; then
@@ -255,7 +250,7 @@ function prompt_nonempty_string {
 }
 
 function user_cred {
-  if ! USERNAME=$(prompt_nonempty_string 1 "$USERNAME_PROMPT") ; then
+  if ! USER_NAME=$(prompt_nonempty_string 1 "$USERNAME_PROMPT") ; then
     exit 1
   else
     log "Username entered."
@@ -289,7 +284,7 @@ function nmcli_add_connection {
     nmcli connection add type wifi con-name "$ssid" ifname "$interface" ssid "$ssid" -- \
     wifi-sec.key-mgmt wpa-eap 802-1x.eap "$EAP_OUTER" 802-1x.phase2-auth "$EAP_INNER" \
     802-1x.altsubject-matches "$ALTSUBJECT_MATCHES" 802-1x.anonymous-identity "$ANONYMOUS_IDENTITY" \
-    802-1x.ca-cert "$CAT_PATH/cat_installer/ca.pem" 802-1x.identity "$USERNAME" connection.permissions "$USER" \
+    802-1x.ca-cert "$CAT_PATH/cat_installer/ca.pem" 802-1x.identity "$USER_NAME" connection.permissions "$USER" \
     802-11-wireless-security.proto rsn 802-11-wireless-security.group "ccmp,tkip" 802-11-wireless-security.pairwise ccmp
     log "Add $ssid connection with nmcli successful."
   done
@@ -318,7 +313,7 @@ network={
   group=CCMP TKIP
   eap="${EAP_OUTER}"
   ca_cert="$CAT_PATH/cat_installer/ca.pem"
-  identity="${USERNAME}"
+  identity="${USER_NAME}"
   domain_suffix_match="${ALTSUBJECT_MATCHES}"
   phase2="auth=${EAP_INNER}"
   password="${PASSWORD}"
@@ -339,66 +334,16 @@ function usage() {
     echo "usage: eduroam_linux installer [[[--debug]] | [--help]]"
 }
 
-debug=
-silent=
-username=
-password=
-verbose=
-USERNAME=""
-PASSWORD=""
-while (( "$#" )); do
-    case $1 in
-        -d | --debug )          debug=1
-                                ;;
-        -s | --silent )         silent=1
-                                ;;
-        -u | --username )       shift
-                                USERNAME=$1
-                                ;;
-        -p | --password )       shift
-                                PASSWORD=$1
-                                ;;
-        -v | --verbose )        verbose=1
-                                ;;
-        -h | --help )           usage
-                                exit
-                                ;;
-        * )                     usage
-                                exit 1
-    esac
-    shift
-done
-
-if [ ! -z "$silent" ] ; then
-  missing_parameter=false
-  if [ -z "${USERNAME+x}" ] ; then
-    echo "Parameter --username is missing."
-    missing_parameter=true
-  fi
-  if [ -z "${PASSWORD+x}" ] ; then
-    echo "Parameter --password is missing."
-    missing_parameter=true
-  fi
-  if [ "$missing_parameter" = true ] ; then
-    exit 1
-  fi
-fi
-
-if ! [ -z "$verbose" ] ; then
-  set -x
-fi
-
 ORGANISATION="Institution"
-#PROFILE_NAME="eduroam"
 URL="https://cat.eduroam.org/"
-E_MAIL="it-helpdesk@eduroam.org"
+SUPPORT="it-helpdesk@eduroam.org"
 TITLE="DFN eduroam CAT"
 SSIDS=("eduroam")
 ALTSUBJECT_MATCHES="'DNS:radius.eduroam.org'"
 EAP_OUTER="TTLS"
 EAP_INNER="PAP"
 ANONYMOUS_IDENTITY="anonymous@eduroam.org"
-CA_CERTIFICATE="-----BEGIN CERTIFICATE-----
+CERTIFICATE="-----BEGIN CERTIFICATE-----
 MIIDwzCCAqugAwIBAgIBATANBgkqhkiG9w0BAQsFADCBgjELMAkGA1UEBhMCREUx
 KzApBgNVBAoMIlQtU3lzdGVtcyBFbnRlcnByaXNlIFNlcnZpY2VzIEdtYkgxHzAd
 BgNVBAsMFlQtU3lzdGVtcyBUcnVzdCBDZW50ZXIxJTAjBgNVBAMMHFQtVGVsZVNl
@@ -431,12 +376,51 @@ QUIT="Wirklich beenden?"
 CONTINUE="Weiter"
 
 INIT_INFO_TMP="Dieses Installationsprogramm wurde für %s hergestellt.\n\nMehr Informationen und Kommentare:\n\nEMAIL: %s\nWWW: %s\n\nDas Installationsprogramm wurde mit Software vom GEANT Projekt erstellt."
+printf -v INIT_INFO "$INIT_INFO_TMP" "$ORGANISATION" "$SUPPORT" "$URL"
 INIT_CONFIRMATION_TMP="Dieses Installationsprogramm funktioniert nur für Anwender von %s."
+printf -v INIT_CONFIRMATION "$INIT_CONFIRMATION_TMP" "$ORGANISATION"
 CAT_DIR_EXISTS="Das Verzeichnis %s/cat_installer existiert bereits; einige Dateien darin könnten überschrieben werden."
 CONF_FILE_EXITS="Datei %s/cat_installer/cat_installer.conf existiert bereits, sie wird überschrieben."
 SAVE_WPA_CONF="Die Konfiguration des Network-Manager ist fehlgeschlagen, aber es könnte stattdessen eine Konfigurationsdatei für das Programm wpa_supplicant erstellt werden. Beachten Sie bitte, dass Ihr Passwort im Klartext in dieser Datei steht."
 
-printf -v INIT_INFO "$INIT_INFO_TMP" "$ORGANISATION" "$E_MAIL" "$URL"
-printf -v INIT_CONFIRMATION "$INIT_CONFIRMATION_TMP" "$ORGANISATION"
+debug=
+silent=
+username=
+password=
+while [ "$1" != "" ]; do
+    case $1 in
+        -d | --debug )          debug=1
+                                ;;
+        -s | --silent )         silent=1
+                                ;;
+        -u | --username )       shift
+                                USERNAME=$1
+                                ;;
+        -p | --password )       shift
+                                PASSWORD=$1
+                                ;;
+        -h | --help )           usage
+                                exit
+                                ;;
+        * )                     usage
+                                exit 1
+    esac
+    shift
+done
+
+if [ ! -z "$silent" ] ; then
+  missing_parameter=false
+  if [ -z "${USERNAME+x}" ] ; then
+    echo "Parameter --username is missing."
+    missing_parameter=true
+  fi
+  if [ -z "${PASSWORD+x}" ] ; then
+    echo "Parameter --password is missing."
+    missing_parameter=true
+  fi
+  if [ "$missing_parameter" = true ] ; then
+    exit 1
+  fi
+fi
 
 main "$@"; exit
