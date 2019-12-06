@@ -219,7 +219,7 @@ class DeviceLinuxSh extends \core\DeviceConfig {
         }
 
         foreach ($configRaw as $name => $value) {
-            fwrite($file, $name, $value);
+            fwrite($file, $name ."=". $value . "\n");
         }
 
         if ($tou === '') {
