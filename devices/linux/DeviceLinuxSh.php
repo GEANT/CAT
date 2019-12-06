@@ -283,7 +283,7 @@ class DeviceLinuxSh extends \core\DeviceConfig {
             }
             $out .= "'DNS:$oneServer'";
         }
-        return "[" . $out. "]";
+        return "(" . $out. ")";
     }
 
     /**
@@ -313,7 +313,7 @@ class DeviceLinuxSh extends \core\DeviceConfig {
                 $outArray[] = "'$ssid'";
             }
         }
-        return '[' . implode(', ', $outArray) . ']';
+        return '(' . implode(', ', $outArray) . ')';
     }
 
     /**
