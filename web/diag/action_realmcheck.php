@@ -32,6 +32,7 @@ echo $deco->defaultPagePrelude(sprintf(_("Sanity check for dynamic discovery of 
 $ourlocale = $gui->langObject->getLang();
 
 $my_profile = NULL;
+$testedProfile = NULL;
 $check_realm = FALSE; // we will need to populate this with a real realm below, or have to die horribly.
 
 $error_message = '';
@@ -48,16 +49,25 @@ if ($profile_id) {
     if (!$my_profile instanceof \core\ProfileRADIUS) {
         throw new Exception("realm checks are only supported for RADIUS Profiles!");
     }
-    $checkrealm = $my_profile->getAttributes("internal:realm");
+    $testedProfile = $my_profile;
+} else {
+    $testCandidate = \core\AbstractProfile::profileFromRealm($realm);
+    if ($testCandidate !== FALSE) {
+        $testedProfile = core\ProfileFactory::instantiate($testCandidate);
+    }
+}
+
+if ($testedProfile !== NULL) {
+    $checkrealm = $testedProfile->getAttributes("internal:realm");
     if (count($checkrealm) > 0) {
         // checking our own stuff. Enable thorough checks
         $check_realm = $checkrealm[0]['value'];
-        $testsuite = new \core\diag\RADIUSTests($check_realm, $my_profile->getRealmCheckOuterUsername(), $my_profile->getEapMethodsinOrderOfPreference(1), $my_profile->getCollapsedAttributes()['eap:server_name'], $my_profile->getCollapsedAttributes()["eap:ca_file"]);
+        $testsuite = new \core\diag\RADIUSTests($check_realm, $testedProfile->getRealmCheckOuterUsername(), $testedProfile->getEapMethodsinOrderOfPreference(1), $testedProfile->getCollapsedAttributes()['eap:server_name'], $testedProfile->getCollapsedAttributes()["eap:ca_file"]);
         $rfc7585suite = new \core\diag\RFC7585Tests($check_realm);
     } else {
         $error_message = _("You asked for a realm check, but we don't know the realm for this profile!") . "</p>";
     }
-} else { // someone else's realm... only shallow checks
+} else { // someone else's realm, and we don't know anything about it... only shallow checks
     $check_realm = $validator->realm($realm ?? $_SESSION['check_realm'] ?? "");
     if ($check_realm !== FALSE) {
         $_SESSION['check_realm'] = $check_realm;
@@ -418,17 +428,17 @@ foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) 
     print "
 $(\"#live_src" . $hostindex . "_img\").attr('src',icon_loading);
 $(\"#live_src" . $hostindex . "_img\").show();
-    $.ajax({
-        url: 'radius_tests.php?src=0&hostindex=$hostindex&realm='+realm,
-        type: 'POST',
-        success: udp_login,
-        error: udp_login,
-        data: formData,
-        cache: false,
-        contentType: false,
-        processData: false,
-        dataType: 'json'
-    });
+$.ajax({
+    url: 'radius_tests.php?src=0&hostindex=$hostindex&realm='+realm,
+    type: 'POST',
+    success: udp_login,
+    error: udp_login,
+    data: formData,
+    cache: false,
+    contentType: false,
+    processData: false,
+    dataType: 'json'
+});
 ";
 }
 ?>
@@ -446,8 +456,8 @@ $(\"#live_src" . $hostindex . "_img\").show();
         $(".server_cert").hide();
 <?php
 foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
-    if ($my_profile !== NULL) {
-        $extraarg = "profile_id: " . $my_profile->identifier . ", ";
+    if ($testedProfile !== NULL) {
+        $extraarg = "profile_id: " . $testedProfile->identifier . ", ";
     } else {
         $extraarg = "";
     }
@@ -755,7 +765,7 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
             }
 
             if (isset($_POST['comefrom'])) {
-                $return = htmlspecialchars_decode($_POST['comefrom'])."?inst_id=".$my_inst->identifier;
+                $return = htmlspecialchars_decode($_POST['comefrom']) . "?inst_id=" . $my_inst->identifier;
                 echo "<form method='post' action='$return' accept-charset='UTF-8'>
                     <button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_CLOSE . "'>" . sprintf(_("Return to %s administrator area"), core\common\Entity::$nomenclature_inst) . "</button>"
                 . "</form>";
@@ -779,4 +789,5 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
             }
 
             echo $deco->footer();
+
             
