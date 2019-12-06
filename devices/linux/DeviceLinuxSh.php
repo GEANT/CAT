@@ -47,19 +47,29 @@ class DeviceLinuxSh extends \core\DeviceConfig {
     public function writeInstaller() {
         $installerPath = $this->installerBasename . ".sh";
         $this->copyFile("eduroam_linux_main.sh", $installerPath);
-        $installer = fopen($installerPath, "a");
-        if ($installer === FALSE) {
+
+        if ( !file_exists($installerPath) ) {
+            throw new Exception('File not found.');
+        }
+
+        if (!$installer = fopen($installerPath, "a")) {
             throw new Exception("Unable to open installer file for writing!");
         }
-        fwrite($installer, "\n\n");
-        fseek($installer, 0, SEEK_END);
-        $this->writeMessages($installer);
-        $this->writeConfigVars($installer);
-        fwrite($installer, 'printf -v INIT_INFO "$INIT_INFO_TMP" "$ORGANISATION" "$EMAIL" "$URL"' . "\n");
-        fwrite($installer, 'printf -v INIT_CONFIRMATION "$INIT_CONFIRMATION_TMP" "$ORGANISATION"' . "\n\n");
-        fwrite($installer, 'main "$@"; exit' . "\n");
-        fclose($installer);
-        return($installerPath);
+
+        try {
+            fwrite($installer, "\n\n");
+            fseek($installer, 0, SEEK_END);
+            $this->writeMessages($installer);
+            $this->writeConfigVars($installer);
+            fwrite($installer, 'printf -v INIT_INFO "$INIT_INFO_TMP" "$ORGANISATION" "$EMAIL" "$URL"' . "\n");
+            fwrite($installer, 'printf -v INIT_CONFIRMATION "$INIT_CONFIRMATION_TMP" "$ORGANISATION"' . "\n\n");
+            fwrite($installer, 'main "$@"; exit' . "\n");
+        } catch (Exception $e) {
+            echo 'Error message: ' .$e->getMessage();
+        } finally {
+            fclose($installer);
+            return($installerPath);
+        }
     }
 
     /**
