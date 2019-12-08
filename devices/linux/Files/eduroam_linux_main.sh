@@ -30,7 +30,7 @@ main() {
     log "Directory $CAT_PATH/cat_installer created."
   fi
 
-  echo "$CERTIFICATE" > "$CAT_PATH/cat_installer/ca.pem"
+  echo "$CA_CERTIFICATE" > "$CAT_PATH/cat_installer/ca.pem"
   log "Write $CAT_PATH/cat_installer/ca.pem"
 
 

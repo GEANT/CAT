@@ -107,7 +107,7 @@ build:
         analysis:
             environment:
                 php:
-                    version: 7.4.0
+                    version: 7.2.25
             project_setup:
                 override: true
             tests:
@@ -137,8 +137,8 @@ build:
             dependencies:
                 before:
                     - sudo apt-get -y install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev jq xmlstarlet
-                    - sudo /home/scrutinizer/.phpenv/versions/7.3.5/bin/pecl channel-update pecl.php.net
-                    - sudo /home/scrutinizer/.phpenv/versions/7.3.5/bin/pecl install imagick
+                    - sudo /home/scrutinizer/.phpenv/versions/7.4.0/bin/pecl channel-update pecl.php.net
+                    - sudo /home/scrutinizer/.phpenv/versions/7.4.0/bin/pecl install imagick
                     - sudo apachectl restart
                     - git submodule update --init
                     - sudo cp -r /home/scrutinizer/build/tests/nsis3 /usr/local/share
@@ -502,7 +502,7 @@ build:
                   command: xmlstarlet val -s "/home/scrutinizer/build/devices/xml/eap-metadata.xsd" "/home/scrutinizer/artifacts/GenericInstaller.xml"
                   title: "Checking whether output is well-formed XML and validates against Schema"
                 - 
-                  command: if [ "$TEST_LANGUAGE_VARIANTS" == "1" ]; then cd /home/scrutinizer/build/utils; /home/scrutinizer/.phpenv/versions/7.3.5/bin/php installTranslations.php; sudo apachectl restart; cd /home/scrutinizer/build/tests; /home/scrutinizer/.phpenv/versions/7.3.5/bin/php prepareMultiLangDownloads.php; /bin/bash ./langTestScript.sh; fi
+                  command: if [ "$TEST_LANGUAGE_VARIANTS" == "1" ]; then cd /home/scrutinizer/build/utils; /home/scrutinizer/.phpenv/versions/7.4.0/bin/php installTranslations.php; sudo apachectl restart; cd /home/scrutinizer/build/tests; /home/scrutinizer/.phpenv/versions/7.4.0/bin/php prepareMultiLangDownloads.php; /bin/bash ./langTestScript.sh; fi
     services:
         mariadb: 10
 tools:
