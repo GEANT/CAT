@@ -168,7 +168,7 @@ $langObject = new \core\common\Language();
             $allIdPs = [];
             foreach ($feds as $oneFed) {
                 $fedObject = new \core\Federation($oneFed['value']);
-                foreach ($fedObject->listIdentityProviders(FALSE) as $oneIdP) {
+                foreach ($fedObject->listIdentityProviders(0) as $oneIdP) {
                     $allIdPs[$oneIdP['entityID']] = $oneIdP["title"];
                 }
             }
