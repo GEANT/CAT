@@ -116,7 +116,6 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
             //$expiry->modify("+$expiryDays day");
             $expiry->modify("+365 day");
             $expiry->setTimezone(new \DateTimeZone("UTC"));
-            echo $csr['SUBJECT'];
             $soapExpiryChange = $soap->setRequestParameters(
                     $soapReqnum, [
                 "RaID" => CertificationAuthorityEduPkiServer::EDUPKI_RA_ID,
