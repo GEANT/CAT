@@ -299,6 +299,12 @@ Best regards,
         return$retArray;
     }
     
+    /**
+     * requests a new certificate
+     * 
+     * @param array $csr        the CSR with some metainfo in an array
+     * @param int   $expiryDays how long should the cert be valid, in days
+     */
     public function requestCertificate($csr, $expiryDays) {
         $revocationPin = common\Entity::randomString(10, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
         $newReq = new CertificationAuthorityEduPkiServer();
@@ -309,6 +315,12 @@ Best regards,
         $this->databaseHandle->exec($reqQuery, "siss", $this->tld, $reqserial, $csr['SUBJECT'], $revocationPin);
     }
     
+    /**
+     * fetches new cert info from the CA
+     * 
+     * @param int $reqSerial the request serial number that is to be updated
+     * @return void
+     */
     public function updateCertificateStatus($reqSerial) {
         $ca = new CertificationAuthorityEduPkiServer();
         $entryInQuestion = $ca->pickupFinalCert($reqSerial, FALSE);
@@ -322,11 +334,17 @@ Best regards,
         $this->databaseHandle->exec($updateQuery, "ssi", $pem, $certDetails['full_details']['NotAfter'], $reqSerial);
     }
     
+    /**
+     * revokes a certificate.
+     * 
+     * @param int $reqSerial the request serial whose associated cert is to be revoked
+     */
     public function triggerRevocation($reqSerial) {
         // revocation at the CA side works with the serial of the certificate, not the request
         // so find that out first
+        // This is a select, so tell Scrutinizer about the type-safety of the result
         $certInfoResource = $this->databaseHandle->exec("SELECT certificate FROM federation_servercerts WHERE ca_name = 'eduPKI' AND request_serial = ?", "i", $reqSerial);
-        $certInfo = mysqli_fetch_row($certInfoResource);
+        $certInfo = mysqli_fetch_row(/** @scrutinizer ignore-type */ $certInfoResource);
         $certData = openssl_x509_parse($certInfo);
         $serial = $certData['full_details']['serialNumber'];
         $eduPki = new CertificationAuthorityEduPkiServer();
