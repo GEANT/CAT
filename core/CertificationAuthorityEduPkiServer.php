@@ -14,7 +14,8 @@ namespace core;
 use \Exception;
 use \SoapFault;
 
-class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implements CertificationAuthorityInterface {
+class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implements CertificationAuthorityInterface
+{
 
     private const LOCATION_RA_CERT = ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem";
     private const LOCATION_RA_KEY = ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey";
@@ -28,7 +29,8 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
      * 
      * @throws Exception
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->databaseType = "INST";
         parent::__construct();
 
@@ -51,13 +53,14 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
      * @param string $serial serial number of the certificate. Serials are 128 bit, so forcibly a string.
      * @return string a dummy string instead of a real statement
      */
-    public function triggerNewOCSPStatement($serial): string {
+    public function triggerNewOCSPStatement($serial): string
+    {
         unset($serial); // not needed
         return "EXTERNAL";
     }
 
     /**
-     * signs a CSR
+     * signs a CSR and returns the certificate (blocking wait)
      * 
      * @param array   $csr        the request structure. The member $csr['CSR'] must contain the CSR in *PEM* format
      * @param integer $expiryDays how many days should the certificate be valid
@@ -65,10 +68,28 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
      * @throws Exception
      */
     public function signRequest($csr, $expiryDays): array {
+        $soapReqnum = $this->sendRequestToCa($csr, $expiryDays);
+        sleep(55);
+        // now, get the actual cert from the CA
+        return $this->pickupFinalCert($soapReqnum);
+    }
+    
+    /**
+     * sends the request to the CA and asks for the certificate. Does not block
+     * until the certificate is issued, it needs to be picked up seperately
+     * using its request number.
+     * 
+     * @param array $csr        the CSR to sign. The member $csr['CSR'] must contain the CSR in *PEM* format
+     * @param int   $expiryDays how many days should the certificate be valid
+     * @return int the request serial number
+     * @throws Exception
+     */
+    private function sendRequestToCa($csr, $expiryDays): int
+    {
         // initialise connection to eduPKI CA / eduroam RA and send the request to them
         try {
             $altArray = [# Array mit den Subject Alternative Names
-                 "email:" . $csr["USERMAIL"]
+                "email:" . $csr["USERMAIL"]
             ];
             $soapPub = $this->initEduPKISoapSession("PUBLIC");
             $this->loggerInstance->debug(5, "FIRST ACTUAL SOAP REQUEST (Public, newRequest)!\n");
@@ -172,9 +193,26 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
             if ($soapIssueCert === FALSE) {
                 throw new Exception("The locally approved request was NOT processed by the CA.");
             }
-            // now, get the actual cert from the CA
-            sleep(55);
-            $counter = 55;
+        } catch (SoapFault $e) {
+            throw new Exception("SoapFault: Error when sending or receiving SOAP message: " . "{$e->faultcode}: {$e->faultname}: {$e->faultstring}: {$e->faultactor}: {$e->detail}: {$e->headerfault}\n");
+        } catch (Exception $e) {
+            throw new Exception("Exception: Something odd happened between the SOAP requests:" . $e->getMessage());
+        }
+        return $soapReqnum;
+    }
+
+    /**
+     * Polls the CA regularly until it gets the certificate for the request at hand. Gives up after 5 minutes.
+     * 
+     * @param int $soapReqnum the certificate request for which the cert should be picked up
+     * @return array the certificate along with some meta info
+     * @throws Exception
+     */
+    public function pickupFinalCert($soapReqnum)
+    {
+        try {
+            $soap = $this->initEduPKISoapSession("RA");
+            $counter = 0;
             $parsedCert = FALSE;
             do {
                 $counter += 5;
@@ -184,7 +222,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
                 if (strlen($soapCert) > 10) {
                     $parsedCert = $x509->processCertificate($soapCert);
                 }
-            } while ($parsedCert === FALSE && $counter < 500);
+            } while ($parsedCert === FALSE && $counter < 300);
             // we should now have an array
             if ($parsedCert === FALSE) {
                 throw new Exception("We did not actually get a certificate after waiting for 5 minutes.");
@@ -224,7 +262,8 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
      * @return void
      * @throws Exception
      */
-    public function revokeCertificate($serial): void {
+    public function revokeCertificate($serial): void
+    {
         try {
             $soap = $this->initEduPKISoapSession("RA");
             $soapRevocationSerial = $soap->newRevocationRequest(["Serial", $serial], "");
@@ -276,7 +315,8 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
      * @return \SoapClient the connection object
      * @throws Exception
      */
-    private function initEduPKISoapSession($type) {
+    private function initEduPKISoapSession($type)
+    {
         // set context parameters common to both endpoints
         $context_params = [
             'http' => [
@@ -344,7 +384,8 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
      * @param string $x the integer as an XML fragment
      * @return array the integer in array notation
      */
-    public function soapFromXmlInteger($x) {
+    public function soapFromXmlInteger($x)
+    {
         $y = simplexml_load_string($x);
         return array(
             $y->getName(),
@@ -359,7 +400,8 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
      * @param array $x the integer in array notation
      * @return string the integer as string in an XML fragment
      */
-    public function soapToXmlInteger($x) {
+    public function soapToXmlInteger($x)
+    {
         return '<' . $x[0] . '>'
                 . htmlentities($x[1], ENT_NOQUOTES | ENT_XML1)
                 . '</' . $x[0] . '>';
@@ -374,7 +416,8 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
      * @return array the CSR along with some meta information
      * @throws Exception
      */
-    public function generateCompatibleCsr($privateKey, $fed, $username): array {
+    public function generateCompatibleCsr($privateKey, $fed, $username): array
+    {
         $tempdirArray = \core\common\Entity::createTemporaryDirectory("test");
         $tempdir = $tempdirArray['dir'];
         // dump private key into directory
@@ -411,20 +454,23 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
      * @return \resource the key
      * @throws Exception
      */
-    public function generateCompatiblePrivateKey() {
+    public function generateCompatiblePrivateKey()
+    {
         $key = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
         if ($key === FALSE) {
             throw new Exception("Unable to generate a private key.");
         }
         return $key;
     }
-    
+
     /**
      * CAs don't have any local caching or other freshness issues
      * 
      * @return void
      */
-    public function updateFreshness() {
+    public function updateFreshness()
+    {
         // nothing to be done here.
     }
+
 }
