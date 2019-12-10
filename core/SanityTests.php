@@ -685,13 +685,15 @@ class SanityTests extends CAT
             $defaultvalues .= "RADIUSTESTS/UDP-hosts ";
         }
 
-        foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-clientcerts'] as $cadata) {
-            foreach ($cadata['certificates'] as $cert_files) {
-                if (file_get_contents(ROOT . "/config/cli-certs/" . $cert_files['public']) === FALSE) {
-                    $defaultvalues .= "CERTIFICATE/" . $cert_files['public'] . " ";
-                }
-                if (file_get_contents(ROOT . "/config/cli-certs/" . $cert_files['private']) === FALSE) {
-                    $defaultvalues .= "CERTIFICATE/" . $cert_files['private'] . " ";
+        if (isset(CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-clientcerts'])) {
+            foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-clientcerts'] as $cadata) {
+                foreach ($cadata['certificates'] as $cert_files) {
+                    if (file_get_contents(ROOT . "/config/cli-certs/" . $cert_files['public']) === FALSE) {
+                        $defaultvalues .= "CERTIFICATE/" . $cert_files['public'] . " ";
+                    }
+                    if (file_get_contents(ROOT . "/config/cli-certs/" . $cert_files['private']) === FALSE) {
+                        $defaultvalues .= "CERTIFICATE/" . $cert_files['private'] . " ";
+                    }
                 }
             }
         }
