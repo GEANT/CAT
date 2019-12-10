@@ -107,7 +107,7 @@ function ask {
     return 0
   fi
   if [ ! -z "$KDIALOG" ] ; then
-     if "$KDIALOG" --yesno "${1}\n${2}?" --title "$TITLE" ; then
+     if "$KDIALOG" --yesno "${1}\n${2}" --title "$TITLE" ; then
        return 0
      else
        return 1
@@ -115,7 +115,7 @@ function ask {
   fi
   if [ ! -z "$ZENITY" ] ; then
      text=$(echo "${1}" | fmt -w60)
-     if "$ZENITY" --no-wrap --question --text="${text}\n${2}?" --title="$TITLE" 2>/dev/null ; then
+     if "$ZENITY" --no-wrap --question --text="${text}\n${2}" --title="$TITLE" 2>/dev/null ; then
        return 0
      else
        return 1
