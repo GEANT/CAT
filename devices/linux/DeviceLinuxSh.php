@@ -198,7 +198,7 @@ class DeviceLinuxSh extends \core\DeviceConfig {
         $configRaw = [
             'SSIDS' => $this->mkSsidList(),
             'DEL_SSIDS' => $this->mkDelSsidList(),
-            'SERVERS' => $this->mkSubjectAltNameList(),
+            'ALTSUBJECT_MATCHES' => $this->mkSubjectAltNameList(),
         ];
 
         if ($this->selectedEap == \core\common\EAP::EAPTYPE_TLS && isset($this->attributes['eap-specific:tls_use_other_id']) && $this->attributes['eap-specific:tls_use_other_id'][0] == 'on') {
