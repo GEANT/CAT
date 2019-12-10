@@ -25,7 +25,7 @@ require_once CONFIG['AUTHENTICATION']['ssp-path-to-autoloader'];
 $deco = new \web\lib\admin\PageDecoration();
 
 try {
-    $state = SimpleSAML_Auth_State::loadState((string) $_REQUEST['LogoutState'], 'MyLogoutState');
+    $state = SimpleSAML\Auth\State::loadState((string) $_REQUEST['LogoutState'], 'MyLogoutState');
     $ls = $state['saml:sp:LogoutStatus']; /* Only works for SAML SP */
 } catch (Exception $except) {
     $ls = ['Code' => 'NOSTATE'];
