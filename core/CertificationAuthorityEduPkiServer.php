@@ -68,10 +68,11 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
      * @throws Exception
      */
     public function signRequest($csr, $expiryDays): array {
-        $soapReqnum = $this->sendRequestToCa($csr, $expiryDays);
+        $revocationPin = common\Entity::randomString(10, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
+        $soapReqnum = $this->sendRequestToCa($csr, $revocationPin, $expiryDays);
         sleep(55);
         // now, get the actual cert from the CA
-        return $this->pickupFinalCert($soapReqnum);
+        return $this->pickupFinalCert($soapReqnum, TRUE);
     }
     
     /**
@@ -79,12 +80,13 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
      * until the certificate is issued, it needs to be picked up seperately
      * using its request number.
      * 
-     * @param array $csr        the CSR to sign. The member $csr['CSR'] must contain the CSR in *PEM* format
-     * @param int   $expiryDays how many days should the certificate be valid
+     * @param array  $csr           the CSR to sign. The member $csr['CSR'] must contain the CSR in *PEM* format
+     * @param string $revocationPin a PIN to be able to revoke the cert later on
+     * @param int    $expiryDays    how many days should the certificate be valid
      * @return int the request serial number
      * @throws Exception
      */
-    public function sendRequestToCa($csr, $expiryDays): int
+    public function sendRequestToCa($csr, $revocationPin, $expiryDays): int
     {
         // initialise connection to eduPKI CA / eduroam RA and send the request to them
         try {
@@ -108,7 +110,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
                     $csr["CSR"], # Request im PEM-Format
                     $altArray, # altNames
                     CertificationAuthorityEduPkiServer::EDUPKI_CERT_PROFILE, # Zertifikatprofil
-                    sha1("notused"), # PIN
+                    $revocationPin, # PIN
                     $csr["USERNAME"], # Name des Antragstellers
                     $csr["USERMAIL"], # Kontakt-E-Mail
                     ProfileSilverbullet::PRODUCTNAME, # Organisationseinheit des Antragstellers
@@ -208,21 +210,24 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
      * @return array the certificate along with some meta info
      * @throws Exception
      */
-    public function pickupFinalCert($soapReqnum)
+    public function pickupFinalCert($soapReqnum, $wait)
     {
         try {
             $soap = $this->initEduPKISoapSession("RA");
             $counter = 0;
             $parsedCert = FALSE;
-            do {
-                $counter += 5;
-                sleep(5); // always start with a wait. Signature round-trip on the server side is at least one minute.
+            while ($parsedCert === FALSE && $counter < 300) {
                 $soapCert = $soap->getCertificateByRequestSerial($soapReqnum);
                 $x509 = new common\X509();
-                if (strlen($soapCert) > 10) {
+                if (strlen($soapCert) > 10) { // we got the cert
                     $parsedCert = $x509->processCertificate($soapCert);
+                } elseif ($wait) { // let's wait five seconds and try again
+                    $counter += 5;
+                    sleep(5);
+                } else {
+                    return FALSE; // don't wait, abort without result
                 }
-            } while ($parsedCert === FALSE && $counter < 300);
+            }
             // we should now have an array
             if ($parsedCert === FALSE) {
                 throw new Exception("We did not actually get a certificate after waiting for 5 minutes.");
