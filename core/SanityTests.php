@@ -263,7 +263,7 @@ class SanityTests extends CAT
             $this->testReturn(\core\common\Entity::L_ERROR, "<strong>simpleSAMLphp</strong> not found!");
         } else {
             include_once CONFIG['AUTHENTICATION']['ssp-path-to-autoloader'];
-            $SSPconfig = \SimpleSAML_Configuration::getInstance();
+            $SSPconfig = \SimpleSAML\Configuration::getInstance();
             $sspVersion = explode('.', $SSPconfig->getVersion());
             if ((int) $sspVersion[0] >= $this->ssp_needversion['major'] && (int) $sspVersion[1] >= $this->ssp_needversion['minor']) {
                 $this->testReturn(\core\common\Entity::L_OK, "<strong>simpleSAMLphp</strong> is sufficently recent. You are running " . implode('.', $sspVersion));
