@@ -71,7 +71,9 @@ $langObject = new \core\common\Language();
     // got a SAVE button? Mangle CSR, request certificate at CA and store info in DB
     // also send user back to the overview page
     if (isset($_POST['requestcert']) && $_POST['requestcert'] == \web\lib\common\FormElements::BUTTON_SAVE) {
-        if (openssl_csr_get_public_key($_POST['CSR'] ?? "") === FALSE) {
+        // basic sanity checks before we hand this over to openssl
+        $sanitisedCsr = $validator->string($_POST['CSR'] ?? "" , TRUE);
+        if (openssl_csr_get_public_key($sanitisedCsr) === FALSE) {
             throw new Exception("Sorry: Unable to parse the submitted public key - no public key inside?");
         }
         $DN = ["DC=eduroam", "DC=test", "DC=test"];
