@@ -103,7 +103,7 @@ except ImportError:
     CRYPTO_AVAILABLE = False
 
 
-if sys.version_info.major == 3 and sys.version_info.minor >= 8:
+if sys.version_info.major == 3 and sys.version_info.minor >= 7:
     import distro
 else:
     import platform
@@ -143,7 +143,7 @@ def get_system():
     It is meant to enable password encryption in distros
     that can handle this well.
     """
-    if sys.version_info.major == 3 and sys.version_info.minor >= 8:
+    if sys.version_info.major == 3 and sys.version_info.minor >= 7:
         system = distro.linux_distribution()
     else:
         system = platform.linux_distribution()
