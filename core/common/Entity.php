@@ -256,7 +256,7 @@ abstract class Entity {
         // this means walking back from the end of the trace to the penultimate
         // index before something with "Entity" comes in
         for ($i = count($trace); $i--; $i > 0) {
-            if (preg_match('/Entity/', $trace[$i - 1]['class'])) {
+            if (isset($trace[$i - 1]['class']) && preg_match('/Entity/', $trace[$i - 1]['class'])) {
                 if ($showTrace) {
                     echo "FOUND caller: ".print_r($trace[$i],true). " - class is ".$trace[$i]['class'];
                 }
