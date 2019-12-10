@@ -177,8 +177,8 @@ $langObject = new \core\common\Language();
         </select>
         <br/>
         <h2><?php echo _("2. CSR generation");?></h2>
-        <p><?php echo sprintf(_("The CSR needs to have a Distinguished Name Prefix with three specific DC components. One way to generate it is by using a <a href='%s'> special openssl.cnf file</a> and generating the request with the following command-line:"), CONFIG['PATHS']['cat_base_url']."/resources/openssl.cnf");?></p>
-        <p># openssl req -config ./openssl.cnf -new -keyout example.key -out example.csr</p>
+        <p><?php echo _("One way to generate an acceptable certificate request is via this openssl one-liner:");?></p>
+        <p>openssl req -new -newkey rsa:4096 -out test.csr -keyout test.key -subj /DC=test/DC=test/DC=eduroam/C=XY/O=WillBeReplaced/CN=will.be.replaced</p>
         <h2><?php echo _("3. Submission");?></h2>
         <?php echo _("Please paste your CSR here:"); ?><br/><textarea name="CSR" id="CSR" rows="20" cols="85"/></textarea><br/>
     <button type="submit" name="requestcert" id="requestcert" value="<?php echo \web\lib\common\FormElements::BUTTON_SAVE ?>"><?php echo _("Send request"); ?></button>
