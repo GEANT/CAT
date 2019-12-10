@@ -121,7 +121,7 @@ $langObject = new \core\common\Language();
             throw new Exception("Calling openssl in a fancy way did not work.");
         }
         echo "<p>"._("This is the new CSR (return code was $retval)")."<pre>$newCsr</pre></p>"; */
-        $newCsrWithMeta = ["CSR" => /* $newCsr */ $_POST['CSR'], "CN" => "comes@from.eduroam.db" , "USERNAME" => "Someone", "USERMAIL" => "someone@somewhere.xy", "SUBJECT" => implode(",", $DN) ,"FED" => $country];
+        $newCsrWithMeta = ["CSR" => /* $newCsr */ $_POST['CSR'], "USERNAME" => "Someone", "USERMAIL" => "someone@somewhere.xy", "SUBJECT" => implode(",", $DN) ,"FED" => $country];
         // our certs can be good for max 5 years
         $fed->requestCertificate($newCsrWithMeta, 1825);
         echo "<p>"._("The certificate was requested.")."</p>";
@@ -136,6 +136,7 @@ $langObject = new \core\common\Language();
 
     // if we did not get a SAVE button, display UI for a fresh request instead
     ?>
+    <h2><?php echo _("1. Certificate Holder Details");?></h2>
     <form action="action_req_certificate.php" method="POST">
         <input type="radio" name="LEVEL" id="NRO" value="NRO" checked><?php printf(_("Certificate for %s role"), $uiElements->nomenclatureFed); ?></input>
         <?php
@@ -175,6 +176,10 @@ $langObject = new \core\common\Language();
             ?>
         </select>
         <br/>
+        <h2><?php echo _("2. CSR generation");?></h2>
+        <p><?php echo sprintf(_("The CSR needs to have a Distinguished Name Prefix with three specific DC components. One way to generate it is by using a <a href='%s'> special openssl.cnf file</a> and generating the request with the following command-line:"), CONFIG['PATHS']['cat_base_url']."/resources/openssl.cnf");?></p>
+        <p># openssl req -config ./openssl.cnf -new -keyout example.key -out example.csr</p>
+        <h2><?php echo _("3. Submission");?></h2>
         <?php echo _("Please paste your CSR here:"); ?><br/><textarea name="CSR" id="CSR" rows="20" cols="85"/></textarea><br/>
     <button type="submit" name="requestcert" id="requestcert" value="<?php echo \web\lib\common\FormElements::BUTTON_SAVE ?>"><?php echo _("Send request"); ?></button>
 </form>

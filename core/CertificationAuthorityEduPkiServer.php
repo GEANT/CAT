@@ -110,7 +110,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
                     $csr["CSR"], # Request im PEM-Format
                     $altArray, # altNames
                     CertificationAuthorityEduPkiServer::EDUPKI_CERT_PROFILE, # Zertifikatprofil
-                    $revocationPin, # PIN
+                    sha1($revocationPin), # PIN
                     $csr["USERNAME"], # Name des Antragstellers
                     $csr["USERMAIL"], # Kontakt-E-Mail
                     ProfileSilverbullet::PRODUCTNAME, # Organisationseinheit des Antragstellers

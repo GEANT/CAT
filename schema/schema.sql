@@ -67,6 +67,18 @@ CREATE TABLE `federation_option` (
   CONSTRAINT `federation_option_ibfk_1` FOREIGN KEY (`option_name`) REFERENCES `profile_option_dict` (`name`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `federation_servercerts` (
+  `federation_id` varchar(16) NOT NULL DEFAULT 'DEFAULT',
+  `ca_name` varchar(16),
+  `request_serial` int(11) NOT NULL,
+  `distinguished_name` varchar(255) NOT NULL,
+  `status` enum('REQUESTED','ISSUED','REVOKED'),
+  `expiry` date,
+  `certificate` longblob,
+  `revocation_pin` varchar(16),
+  UNIQUE KEY `cert_id` (`ca_name`,`request_serial`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE `institution_option` (
   `institution_id` int(11) NOT NULL DEFAULT '0',
   `option_name` varchar(32) DEFAULT NULL,

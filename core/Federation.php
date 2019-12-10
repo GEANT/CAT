@@ -275,6 +275,66 @@ Best regards,
     private $idpListActive;
 
     /**
+     * fetches all known certificate information for RADIUS/TLS certs from the DB
+     * 
+     * @return array
+     */
+    public function listTlsCertificates() {
+        $certQuery = "SELECT ca_name, request_serial, distinguished_name, status, expiry, certificate, revocation_pin FROM federation_servercerts WHERE federation_id = ?";
+        $upperTld = strtoupper($this->tld);
+        $certList = $this->databaseHandle->exec($certQuery, "s", $upperTld);
+        $retArray = [];
+        // SELECT -> resource, not boolean
+        while ($certListResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $certList)) {
+            $retArray[] = [
+                'CA' => $certListResult->ca_name,
+                'REQSERIAL' => $certListResult->request_serial,
+                'DN' => $certListResult->distinguished_name,
+                'STATUS' => $certListResult->status,
+                'EXPIRY' => $certListResult->expiry,
+                'CERT' => $certListResult->certificate,
+                'REVPIN' => $certListResult->revocation_pin,
+                ];
+        }
+        return$retArray;
+    }
+    
+    public function requestCertificate($csr, $expiryDays) {
+        $revocationPin = common\Entity::randomString(10, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
+        $newReq = new CertificationAuthorityEduPkiServer();
+        $reqserial = $newReq->sendRequestToCa($csr, $revocationPin, $expiryDays);
+        $reqQuery = "INSERT INTO federation_servercerts "
+                . "(federation_id, ca_name, request_serial, distinguished_name, status, revocation_pin) "
+                . "VALUES (?, 'eduPKI', ?, ?, 'REQUESTED', ?)";
+        $this->databaseHandle->exec($reqQuery, "siss", $this->tld, $reqserial, $csr['SUBJECT'], $revocationPin);
+    }
+    
+    public function updateCertificateStatus($reqSerial) {
+        $ca = new CertificationAuthorityEduPkiServer();
+        $entryInQuestion = $ca->pickupFinalCert($reqSerial, FALSE);
+        if ($entryInQuestion === FALSE) {
+            return; // no update to fetch
+        }
+        $certDetails = openssl_x509_parse($entryInQuestion['CERT']);
+        echo $certDetails['full_details'];
+        openssl_x509_export($entryInQuestion['CERT'], $pem);
+        $updateQuery = "UPDATE federation_servercerts SET status = 'ISSUED', certificate = ?, expiry = ? WHERE ca_name = 'eduPKI' AND request_serial = ?";
+        $this->databaseHandle->exec($updateQuery, "ssi", $pem, $certDetails['full_details']['NotAfter'], $reqSerial);
+    }
+    
+    public function triggerRevocation($reqSerial) {
+        // revocation at the CA side works with the serial of the certificate, not the request
+        // so find that out first
+        $certInfoResource = $this->databaseHandle->exec("SELECT certificate FROM federation_servercerts WHERE ca_name = 'eduPKI' AND request_serial = ?", "i", $reqSerial);
+        $certInfo = mysqli_fetch_row($certInfoResource);
+        $certData = openssl_x509_parse($certInfo);
+        $serial = $certData['full_details']['serialNumber'];
+        $eduPki = new CertificationAuthorityEduPkiServer();
+        $eduPki->revokeCertificate($serial);
+        $this->databaseHandle->exec("UPDATE federation_servercerts SET status = 'REVOKED' WHERE ca_name = 'eduPKI' AND request_serial = ?", "i", $reqSerial);
+    }
+    
+    /**
      * Lists all Identity Providers in this federation
      *
      * @param int $activeOnly if set to non-zero will list only those institutions which have some valid profiles defined.
