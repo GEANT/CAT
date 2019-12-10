@@ -163,7 +163,7 @@ $langObject = new \core\common\Language();
         }
         ?>
         <br/>
-        <input type="radio" name="LEVEL" id="INST" value="NRO"><?php printf(_("Certificate for %s role"), $uiElements->nomenclatureInst); ?></input>
+        <input type="radio" name="LEVEL" id="INST" value="INST"><?php printf(_("Certificate for %s role"), $uiElements->nomenclatureInst); ?></input>
         <select name="INST-list" id="INST-list">
             <option value="notset"><?php echo _("---PLEASE CHOOSE---"); ?></option>
             <?php
