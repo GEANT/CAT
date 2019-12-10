@@ -72,7 +72,11 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
         $soapReqnum = $this->sendRequestToCa($csr, $revocationPin, $expiryDays);
         sleep(55);
         // now, get the actual cert from the CA
-        return $this->pickupFinalCert($soapReqnum, TRUE);
+        $returnValue = $this->pickupFinalCert($soapReqnum, TRUE);
+        if ($returnValue === FALSE) {
+            throw new Exception("We wanted to wait, but still got no cert!");
+        }
+        return $returnValue;
     }
     
     /**

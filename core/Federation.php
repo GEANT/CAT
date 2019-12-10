@@ -304,6 +304,7 @@ Best regards,
      * 
      * @param array $csr        the CSR with some metainfo in an array
      * @param int   $expiryDays how long should the cert be valid, in days
+     * @return void
      */
     public function requestCertificate($csr, $expiryDays) {
         $revocationPin = common\Entity::randomString(10, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
@@ -328,16 +329,17 @@ Best regards,
             return; // no update to fetch
         }
         $certDetails = openssl_x509_parse($entryInQuestion['CERT']);
-        echo $certDetails['full_details'];
+        $expiry = "20".$certDetails['validTo'][0].$certDetails['validTo'][1]."-".$certDetails['validTo'][2].$certDetails['validTo'][3]."-".$certDetails['validTo'][4].$certDetails['validTo'][5];
         openssl_x509_export($entryInQuestion['CERT'], $pem);
         $updateQuery = "UPDATE federation_servercerts SET status = 'ISSUED', certificate = ?, expiry = ? WHERE ca_name = 'eduPKI' AND request_serial = ?";
-        $this->databaseHandle->exec($updateQuery, "ssi", $pem, $certDetails['full_details']['NotAfter'], $reqSerial);
+        $this->databaseHandle->exec($updateQuery, "ssi", $pem, $expiry, $reqSerial);
     }
     
     /**
      * revokes a certificate.
      * 
      * @param int $reqSerial the request serial whose associated cert is to be revoked
+     * @return void
      */
     public function triggerRevocation($reqSerial) {
         // revocation at the CA side works with the serial of the certificate, not the request
