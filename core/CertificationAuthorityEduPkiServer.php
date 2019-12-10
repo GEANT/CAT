@@ -84,7 +84,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
      * @return int the request serial number
      * @throws Exception
      */
-    private function sendRequestToCa($csr, $expiryDays): int
+    public function sendRequestToCa($csr, $expiryDays): int
     {
         // initialise connection to eduPKI CA / eduroam RA and send the request to them
         try {
