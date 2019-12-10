@@ -93,10 +93,8 @@ $langObject = new \core\common\Language();
                 break;
             case "INST":
                 $desiredInst = $validator->IdP($_POST['INST-list']);
-                if ($user->isFederationAdmin($desiredInst->federation) === FALSE) {
-                    throw new Exception(sprintf("Sorry: you are not %s admin for the %s requested in the form.", $uiElements->nomenclatureFed, $uiElements->nomenclatureInst));
-                }
-                $country = strtoupper($desiredInst->federation);
+                $fed = $validator->Federation($desiredInst->federation, $_SESSION['user']);                
+                $country = strtoupper($fed->tld);
                 $DN[] = "C=$country";
                 $DN[] = "O=".$desiredInst->name;
                 $DN[] = "CN=comes.from.eduroam.db";
@@ -125,11 +123,9 @@ $langObject = new \core\common\Language();
         echo "<p>"._("This is the new CSR (return code was $retval)")."<pre>$newCsr</pre></p>";
         echo "<p>"._("Please WAIT. This can take several MINUTES!")."</p>";
         $newCsrWithMeta = ["CSR" => /* $newCsr */ $_POST['CSR'], "CN" => "comes@from.eduroam.db" , "USERNAME" => "Someone", "USERMAIL" => "someone@somewhere.xy", "SUBJECT" => implode(",", $DN) ,"FED" => $country];
-        $eduPki = new core\CertificationAuthorityEduPkiServer();
         // our certs can be good for max 5 years
-        $cert = $eduPki->signRequest($newCsrWithMeta, 1825);
-        openssl_x509_export($cert['CERT'], $certPem);
-        echo "<p>"._("Here is your certificate:")."<pre>$certPem</pre></p>";
+        $fed->requestCertificate($newCsrWithMeta, 1825);
+        echo "<p>"._("The certificate was requested.")."</p>";
         ?>
         <form action="overview_certificates.php" method="GET">
             <button type="submit"><?php echo _("Back to Certificate Overview");?></button>
