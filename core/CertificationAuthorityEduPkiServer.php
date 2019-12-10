@@ -206,8 +206,9 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
     /**
      * Polls the CA regularly until it gets the certificate for the request at hand. Gives up after 5 minutes.
      * 
-     * @param int $soapReqnum the certificate request for which the cert should be picked up
-     * @return array the certificate along with some meta info
+     * @param int  $soapReqnum the certificate request for which the cert should be picked up
+     * @param bool $wait       whether to wait until the cert is issued or return immediately
+     * @return array|false the certificate along with some meta info, or false if we did not want to wait or got a timeout
      * @throws Exception
      */
     public function pickupFinalCert($soapReqnum, $wait)
@@ -216,9 +217,10 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
             $soap = $this->initEduPKISoapSession("RA");
             $counter = 0;
             $parsedCert = FALSE;
+            $x509 = new common\X509();
             while ($parsedCert === FALSE && $counter < 300) {
                 $soapCert = $soap->getCertificateByRequestSerial($soapReqnum);
-                $x509 = new common\X509();
+                
                 if (strlen($soapCert) > 10) { // we got the cert
                     $parsedCert = $x509->processCertificate($soapCert);
                 } elseif ($wait) { // let's wait five seconds and try again
