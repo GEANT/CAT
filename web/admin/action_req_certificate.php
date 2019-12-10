@@ -110,7 +110,7 @@ $langObject = new \core\common\Language();
         echo "<li>" . _("Distinguished Name: ") . implode(", ", $DN) . "</li>";
         echo "<li>" . _("Requester Contact Details: will come from eduroam DB (using stub 'Someone, &lt;someone@somewhere.xy&gt;').") . "</li>";
         echo "</ul></p>";
-        $ossl = proc_open("openssl req -subj '/".implode("/", $DN)."'", [ 0 => ["pipe", "r"], 1 => ["pipe", "w"], 2 => [ "file", "/tmp/voodoo-error", "a"] ], $pipes);
+        /* $ossl = proc_open("openssl req -subj '/".implode("/", $DN)."'", [ 0 => ["pipe", "r"], 1 => ["pipe", "w"], 2 => [ "file", "/tmp/voodoo-error", "a"] ], $pipes);
         if (is_resource($ossl)) {
             fwrite($pipes[0], $_POST['CSR']);
             fclose($pipes[0]);
@@ -120,7 +120,7 @@ $langObject = new \core\common\Language();
         } else {
             throw new Exception("Calling openssl in a fancy way did not work.");
         }
-        echo "<p>"._("This is the new CSR (return code was $retval)")."<pre>$newCsr</pre></p>";
+        echo "<p>"._("This is the new CSR (return code was $retval)")."<pre>$newCsr</pre></p>"; */
         $newCsrWithMeta = ["CSR" => /* $newCsr */ $_POST['CSR'], "CN" => "comes@from.eduroam.db" , "USERNAME" => "Someone", "USERMAIL" => "someone@somewhere.xy", "SUBJECT" => implode(",", $DN) ,"FED" => $country];
         // our certs can be good for max 5 years
         $fed->requestCertificate($newCsrWithMeta, 1825);
