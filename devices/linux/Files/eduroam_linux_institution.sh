@@ -34,7 +34,7 @@ main() {
   log "Write $CAT_PATH/cat_installer/ca.pem"
 
 
-  if [ -z "$USERNAME" ] ; then
+  if [ -z "$USERNAME" -a -z "$PASSWORD" ] ; then
     user_cred
   fi
   if nmcli_add_connection ; then
@@ -50,9 +50,6 @@ main() {
     rm "$CAT_PATH/cat_installer/cat_installer.conf"
     log "$CAT_PATH/cat_installer/cat_installer.conf removed."
   fi
-    if [ -z "$PASSWORD" ] ; then
-      user_cred_pass
-    fi
     create_wpa_conf
     show_info "$INSTALLATION_FINISHED"
     log "Installation successful."
@@ -255,16 +252,14 @@ function prompt_nonempty_string {
 }
 
 function user_cred {
+  PASSWORD="a"
+  PASSWORD1="b"
+
   if ! USERNAME=$(prompt_nonempty_string 1 "$USERNAME_PROMPT") ; then
     exit 1
   else
     log "Username entered."
   fi
-}
-
-function user_cred_pass {
-  PASSWORD="a"
-  PASSWORD1="b"
 
   while [ "$PASSWORD" != "$PASSWORD1" ] ; do
     if ! PASSWORD=$(prompt_nonempty_string 0 "$ENTER_PASSWORD") ; then
@@ -279,6 +274,7 @@ function user_cred_pass {
   done
   log "Password entered."
 }
+
 
 function nmcli_add_connection {
   interface=$(get_wlan_interface)
