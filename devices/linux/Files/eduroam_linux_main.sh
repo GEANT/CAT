@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eu
+set -euo pipefail
 
 if [ -z "$BASH" ] ; then
    bash  "$0"
@@ -34,7 +34,7 @@ main() {
   log "Write $CAT_PATH/cat_installer/ca.pem"
 
 
-  if [ -z "$USERNAME" ] ; then
+  if [ -z "$USERNAME" -a -z "$PASSWORD" ] ; then
     user_cred
   fi
   if nmcli_add_connection ; then
@@ -50,9 +50,6 @@ main() {
     rm "$CAT_PATH/cat_installer/cat_installer.conf"
     log "$CAT_PATH/cat_installer/cat_installer.conf removed."
   fi
-    if [ -z "$PASSWORD" ] ; then
-      user_cred_pass
-    fi
     create_wpa_conf
     show_info "$INSTALLATION_FINISHED"
     log "Installation successful."
@@ -255,16 +252,17 @@ function prompt_nonempty_string {
 }
 
 function user_cred {
+  PASSWORD="a"
+  PASSWORD1="b"
+
   if ! USERNAME=$(prompt_nonempty_string 1 "$USERNAME_PROMPT") ; then
     exit 1
   else
+    while validate_username ; do
+      USERNAME=$(prompt_nonempty_string 1 "$USERNAME_PROMPT")
+    done
     log "Username entered."
   fi
-}
-
-function user_cred_pass {
-  PASSWORD="a"
-  PASSWORD1="b"
 
   while [ "$PASSWORD" != "$PASSWORD1" ] ; do
     if ! PASSWORD=$(prompt_nonempty_string 0 "$ENTER_PASSWORD") ; then
@@ -278,6 +276,64 @@ function user_cred_pass {
     fi
   done
   log "Password entered."
+}
+
+function validate_user_name {
+  log "\$USERNAME: $USERNAME"
+  if [[ "$USERNAME" =~ "@" ]] ; then
+    log "\$USERNAME contains one @"
+  fi
+}
+
+function validate_username {
+  log "validate username"
+  if [[ "$USERNAME" =~ "@" ]] ; then
+    log "\$USERNAME contains character '@' ($USERNAME)."
+    username_length="${#USERNAME}"
+    t="${USERNAME%%@*}"
+    t="${#t}"
+    at_position="$((t + 1))"
+    if [ "$at_position" -le "$username_length" ] ; then
+      log "Username length: $username_length, @ position: $at_position ($USERNAME)"
+      EMAIL_REGEX="([0-9a-zA-Z]+)@([0-9a-zA-Z]+)"
+      if [[ "$USERNAME" =~ $EMAIL_REGEX ]] ; then
+        log "\$USERNAME match regex ($USERNAME)."
+        realm="${BASH_REMATCH[2]}"
+        if [ "$VERIFY_USER_REALM_INPUT" = true ] ; then
+          if [ "$realm" = "$USER_REALM" ] ; then
+            log "User realm input is equal to \$USER_REALM ($USERNAME)."
+            return 1
+          else
+            log "User realm input is uneqal to \$USER_REALM ($USERNAME)."
+            alert "$WRONG_REALM_SUFFIX"
+            return 0
+          fi
+        else
+          log "\$VERIFY_USER_REAM_INPUT is false. Realm possibly correct."
+        fi
+      else
+        log "Username not valid ($USERNAME)."
+        alert "$WRONG_REALM_SUFFIX"
+        return 0
+      fi
+    else
+      if [ "$VERIFY_USER_REALM_INPUT" = true ] ; then
+        log "No realm exists, but $USER_REALM expected."
+        alert "$WRONG_REALM"
+        return 0
+      fi
+    fi
+  else
+    if [ "$VERIFY_USER_REALM_INPUT" = true ] ; then
+      log "The realm is missing ($USERNAME)."
+      alert "$WRONG_USERNAME_FORMAT"
+      return 0
+    else
+      log "No realm exists, but possibly correct."
+      return 1
+    fi
+  fi
+  return 1
 }
 
 function nmcli_add_connection {

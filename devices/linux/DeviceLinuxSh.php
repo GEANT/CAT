@@ -202,10 +202,10 @@ class DeviceLinuxSh extends \core\DeviceConfig {
         ];
 
         if ($this->selectedEap == \core\common\EAP::EAPTYPE_TLS && isset($this->attributes['eap-specific:tls_use_other_id']) && $this->attributes['eap-specific:tls_use_other_id'][0] == 'on') {
-            $configRaw['USE_OTHER_TLS_ID'] = "True";
+            $configRaw['USE_OTHER_TLS_ID'] = true;
         }
         else {
-            $configRaw['USE_OTHER_TLS_ID'] = "False";
+            $configRaw['USE_OTHER_TLS_ID'] = false;
         }
 
         if ($outerId !== NULL) {
@@ -217,11 +217,11 @@ class DeviceLinuxSh extends \core\DeviceConfig {
         }
 
         if(!empty($this->attributes['internal:hint_userinput_suffix'][0]) && $this->attributes['internal:hint_userinput_suffix'][0] == 1) {
-            $configRaw['HINT_USER_INPUT'] = "True";
+            $configRaw['HINT_USER_INPUT'] = true;
         }
 
         if(!empty($this->attributes['internal:verify_userinput_suffix'][0]) && $this->attributes['internal:verify_userinput_suffix'][0] == 1) {
-            $configRaw['VERIFY_USER_REALM_INPUT'] = "True";
+            $configRaw['VERIFY_USER_REALM_INPUT'] = true;
         }
 
         foreach ($config as $name => $value) {
