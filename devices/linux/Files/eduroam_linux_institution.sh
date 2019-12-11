@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eu
+set -euo pipefail
 
 if [ -z "$BASH" ] ; then
    bash  "$0"
