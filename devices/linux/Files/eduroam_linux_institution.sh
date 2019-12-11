@@ -258,6 +258,9 @@ function user_cred {
   if ! USERNAME=$(prompt_nonempty_string 1 "$USERNAME_PROMPT") ; then
     exit 1
   else
+    while validate_username ; do
+      USERNAME=$(prompt_nonempty_string 1 "$USERNAME_PROMPT")
+    done
     log "Username entered."
   fi
 
@@ -275,6 +278,56 @@ function user_cred {
   log "Password entered."
 }
 
+function validate_username {
+  log "validate username"
+  if [[ "$USERNAME" =~ "@" ]] ; then
+    log "\$USERNAME contains character '@' ($USERNAME)."
+    username_length="${#USERNAME}"
+    t="${USERNAME%%@*}"
+    t="${#t}"
+    at_position="$((t + 1))"
+    if [ "$at_position" -le "$username_length" ] ; then
+      log "Username length: $username_length, @ position: $at_position ($USERNAME)"
+      EMAIL_REGEX="([0-9a-zA-Z]+)@([0-9a-zA-Z]+)"
+      if [[ "$USERNAME" =~ $EMAIL_REGEX ]] ; then
+        log "\$USERNAME match regex ($USERNAME)."
+        realm="${BASH_REMATCH[2]}"
+        if [ "$VERIFY_USER_REALM_INPUT" = true ] ; then
+          if [ "$realm" = "$USER_REALM" ] ; then
+            log "User realm input is equal to \$USER_REALM ($USERNAME)."
+            return 1
+          else
+            log "User realm input is uneqal to \$USER_REALM ($USERNAME)."
+            alert "$WRONG_REALM_SUFFIX"
+            return 0
+          fi
+        else
+          log "\$VERIFY_USER_REAM_INPUT is false. Realm possibly correct."
+        fi
+      else
+        log "Username not valid ($USERNAME)."
+        alert "$WRONG_REALM_SUFFIX"
+        return 0
+      fi
+    else
+      if [ "$VERIFY_USER_REALM_INPUT" = true ] ; then
+        log "No realm exists, but $USER_REALM expected."
+        alert "$WRONG_REALM"
+        return 0
+      fi
+    fi
+  else
+    if [ "$VERIFY_USER_REALM_INPUT" = true ] ; then
+      log "The realm is missing ($USERNAME)."
+      alert "$WRONG_USERNAME_FORMAT"
+      return 0
+    else
+      log "No realm exists, but possibly correct."
+      return 1
+    fi
+  fi
+  return 1
+}
 
 function nmcli_add_connection {
   interface=$(get_wlan_interface)
@@ -394,6 +447,9 @@ ALTSUBJECT_MATCHES="'DNS:radius.eduroam.org'"
 EAP_OUTER="TTLS"
 EAP_INNER="PAP"
 ANONYMOUS_IDENTITY="anonymous@eduroam.org"
+VERIFY_USER_REALM_INPUT=true
+USER_REALM="eduroam"
+TOU=""
 CA_CERTIFICATE="-----BEGIN CERTIFICATE-----
 MIIDwzCCAqugAwIBAgIBATANBgkqhkiG9w0BAQsFADCBgjELMAkGA1UEBhMCREUx
 KzApBgNVBAoMIlQtU3lzdGVtcyBFbnRlcnByaXNlIFNlcnZpY2VzIEdtYkgxHzAd
@@ -425,6 +481,9 @@ INSTALLATION_FINISHED="Installation erfolgreich."
 SAVE_WPA_CONF="Konfiguration von NetworkManager fehlgeschlagen, erzeuge nun wpa_supplicant.conf Datei."
 QUIT="Wirklich beenden?"
 CONTINUE="Weiter"
+WRONG_USERNAME_FORMAT="Error: Your username must be of the form 'xxx@institutionID' e.g. 'john@example.net'!"
+WRONG_REALM="Error: your username must be in the form of 'xxx@%s'. Please enter the username in the correct format."
+WRONG_REALM_SUFFIX="Error: your username must be in the form of 'xxx@institutionID' and end with '%s'. Please enter the username in the correct format."
 
 INIT_INFO_TMP="Dieses Installationsprogramm wurde für %s hergestellt.\n\nMehr Informationen und Kommentare:\n\nEMAIL: %s\nWWW: %s\n\nDas Installationsprogramm wurde mit Software vom GEANT Projekt erstellt."
 INIT_CONFIRMATION_TMP="Dieses Installationsprogramm funktioniert nur für Anwender von %s."
