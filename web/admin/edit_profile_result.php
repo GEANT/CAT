@@ -48,8 +48,6 @@ switch ($_POST['submitbutton']) {
         header("Location: overview_idp.php?inst_id=$my_inst->identifier");
         exit;
     case web\lib\common\FormElements::BUTTON_SAVE:
-
-
         echo $deco->pageheader(sprintf(_("%s: Profile wizard (step 3 completed)"), CONFIG['APPEARANCE']['productname']), "ADMIN-IDP");
 
 // check if profile exists and belongs to IdP
