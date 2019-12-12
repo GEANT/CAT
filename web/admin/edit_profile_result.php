@@ -53,16 +53,15 @@ switch ($_POST['submitbutton']) {
         echo $deco->pageheader(sprintf(_("%s: Profile wizard (step 3 completed)"), CONFIG['APPEARANCE']['productname']), "ADMIN-IDP");
 
 // check if profile exists and belongs to IdP
-        $my_profile = NULL;
         if (isset($_GET['profile_id'])) {
-            $my_profile = $validator->Profile($_GET['profile_id'], $my_inst->identifier);
-            if (!$my_profile instanceof \core\ProfileRADIUS) {
-                throw new Exception("This page should only be called to submit RADIUS Profile information!");
-            }
-            $profile = $my_profile;
+            $profile = $validator->Profile($_GET['profile_id'], $my_inst->identifier);
         } else {
             $profile = $my_inst->newProfile(core\AbstractProfile::PROFILETYPE_RADIUS);
             $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $my_inst->identifier . " - Profile created");
+        }
+        
+        if (!$profile instanceof \core\ProfileRADIUS) {
+            throw new Exception("This page should only be called to submit RADIUS Profile information!");
         }
 
 // extended input checks
@@ -79,8 +78,8 @@ switch ($_POST['submitbutton']) {
         $anonLocal = "anonymous";
         if (isset($_POST['anon_local'])) {
             $anonLocal = $validator->string(filter_input(INPUT_POST, 'anon_local', FILTER_SANITIZE_STRING));
-        } elseif ($my_profile !== NULL) { // get the old anon outer id from DB. People don't appreciate "forgetting" it when unchecking anon id
-            $local = $my_profile->getAttributes("internal:anon_local_value");
+        } else { // get the old anon outer id from DB. People don't appreciate "forgetting" it when unchecking anon id
+            $local = $profile->getAttributes("internal:anon_local_value");
             if (isset($local[0])) {
                 $anonLocal = $local[0]['value'];
             }
@@ -94,8 +93,8 @@ switch ($_POST['submitbutton']) {
         $checkuser_name1 = "anonymous";
         if (isset($_POST['checkuser_local'])) {
             $checkuser_name1 = $validator->string($_POST['checkuser_local']);
-        } elseif ($my_profile !== NULL) { // get the old value from profile settings. People don't appreciate "forgetting" it when unchecking
-            $checkuser_name1 = $my_profile->getAttributes("internal:checkuser_value")[0]['value'];
+        } else { // get the old value from profile settings. People don't appreciate "forgetting" it when unchecking
+            $checkuser_name1 = $profile->getAttributes("internal:checkuser_value")[0]['value'];
         }
 // it's a RADIUS username; and it's displayed later on. Be sure it contains no
 // "interesting" HTML characters before further processing
@@ -112,14 +111,6 @@ switch ($_POST['submitbutton']) {
         }
         if (isset($_POST['redirect'])) {
             $redirect = $validator->boolean($_POST['redirect']);
-        }
-
-// did the user submit info? If so, submit to DB and go on to the 'dashboard' or 'next profile' page.
-// if not, what is he doing on this page anyway!
-
-        if (!$profile instanceof \core\ProfileRADIUS) {
-            echo _("Darn! Could not get a proper profile handle!");
-            exit(1);
         }
         ?>
         <h1><?php echo _("Submitted attributes for this profile"); ?></h1>
@@ -204,12 +195,6 @@ switch ($_POST['submitbutton']) {
             $loggerInstance->writeAudit($_SESSION['user'], "MOD", "Profile " . $profile->identifier . " - attributes changed");
 
             // re-instantiate $profile, we need to do completion checks and need fresh data for isEapTypeDefinitionComplete()
-
-            $profile = \core\ProfileFactory::instantiate($profile->identifier);
-            if (!$profile instanceof \core\ProfileRADIUS) {
-                throw new Exception("This page handles RADIUS Profiles only. For some reason, a different type of Profile was requested.");
-            }
-
             foreach (\core\common\EAP::listKnownEAPTypes() as $a) {
                 if ($a->getIntegerRep() == \core\common\EAP::INTEGER_SILVERBULLET) { // do not allow adding silverbullet via the backdoor
                     continue;
