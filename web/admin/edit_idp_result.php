@@ -35,21 +35,21 @@ if (!isset($_GET['inst_id']) || !isset($_POST['submitbutton'])) {
 
 
 $auth->authenticate();
-$my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
-$instId = $my_inst->identifier;
+$myInstOriginal = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
+$instId = $myInstOriginal->identifier;
 switch ($_POST['submitbutton']) {
     case web\lib\common\FormElements::BUTTON_DELETE:
-        $my_inst->destroy();
+        $myInstOriginal->destroy();
         $loggerInstance->writeAudit($_SESSION['user'], "DEL", "IdP " . $instId);
         header("Location: overview_user.php");
         exit;
     case web\lib\common\FormElements::BUTTON_FLUSH_AND_RESTART:
-        $profiles = $my_inst->listProfiles();
+        $profiles = $myInstOriginal->listProfiles();
         foreach ($profiles as $profile) {
             $profile->destroy();
         }
         // flush all IdP attributes and send user to creation wizard
-        $my_inst->flushAttributes();
+        $myInstOriginal->flushAttributes();
         $loggerInstance->writeAudit($_SESSION['user'], "DEL", "IdP starting over" . $instId);
         header("Location: edit_idp.php?inst_id=$instId&wizard=true");
         exit;
@@ -62,20 +62,20 @@ switch ($_POST['submitbutton']) {
             echo $deco->footer();
             exit(0);
         }
-        $inst_name = $my_inst->name;
+        $inst_name = $myInstOriginal->name;
         echo "<h1>" . sprintf(_("Submitted attributes for IdP '%s'"), $inst_name) . "</h1>";
         echo "<table>";
-        echo $optionParser->processSubmittedFields($my_inst, $_POST, $_FILES);
+        echo $optionParser->processSubmittedFields($myInstOriginal, $_POST, $_FILES);
         echo "</table>";
 // delete cached logo, if present
         $dir = ROOT . '/web/downloads/logos/';
-        $globResult = glob($dir . $my_inst->identifier . "_*.png");
+        $globResult = glob($dir . $myInstOriginal->identifier . "_*.png");
         if ($globResult === FALSE) { // we should catch the improbable error condition
             $globResult = [];
         }
         array_map('unlink', $globResult);
         $loggerInstance->debug(4, "UNLINK from $dir\n");
-        $loggerInstance->writeAudit($_SESSION['user'], "MOD", "IdP " . $my_inst->identifier . " - attributes changed");
+        $loggerInstance->writeAudit($_SESSION['user'], "MOD", "IdP " . $myInstOriginal->identifier . " - attributes changed");
 
 // re-instantiate ourselves... profiles need fresh data
 
