@@ -258,7 +258,7 @@ class ProfileSilverbullet extends AbstractProfile {
         $serverHandles = DBConnection::handle("RADIUS");
         $returnarray = [];
         foreach ($serverHandles as $oneDbServer) {
-            $query = $oneDbServer->exec("SELECT username, authdate, reply, callingid, operatorname FROM eduroamauth WHERE $namesCondensed ORDER BY authdate DESC");
+            $query = $oneDbServer->exec("SELECT username, authdate, reply, callingid, operatorname FROM eduroamauth WHERE username = $namesCondensed ORDER BY authdate DESC");
             // SELECT -> resource, not boolean
             while ($returnedData = mysqli_fetch_object(/** @scrutinizer ignore-type */ $query)) {
                 $returnarray[] = ["CN" => $returnedData->username, "TIMESTAMP" => $returnedData->authdate, "RESULT" => $returnedData->reply, "MAC" => $returnedData->callingid, "OPERATOR" => $returnedData->operatorname];
