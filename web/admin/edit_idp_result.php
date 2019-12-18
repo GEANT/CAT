@@ -37,6 +37,12 @@ if (!isset($_GET['inst_id']) || !isset($_POST['submitbutton'])) {
 $auth->authenticate();
 $myInstOriginal = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
 $instId = $myInstOriginal->identifier;
+
+$hello = _("To whom it may concern,") . "\n\n";
+$bye = _("This mail is merely a cross-check because these changes can be security-relevant. If the change was expected, you do not need to take any action.") . "\n\n" .
+        _("Greetings, ") . "\n\n" .
+        CONFIG['APPEARANCE']['productname_long'];
+
 switch ($_POST['submitbutton']) {
     case web\lib\common\FormElements::BUTTON_DELETE:
         $myInstOriginal->destroy();
@@ -51,6 +57,14 @@ switch ($_POST['submitbutton']) {
         // flush all IdP attributes and send user to creation wizard
         $myInstOriginal->flushAttributes();
         $loggerInstance->writeAudit($_SESSION['user'], "DEL", "IdP starting over" . $instId);
+        $text = $hello .
+                sprintf(_("the %s %s / %s / (previously known as) '%s' has deleted all properties and is starting over freshly. This means that its not recognisable by its name any more, and it may assume a different name in the future. You will get another mail if and when the name change happens."), $ui->nomenclatureInst, strtoupper($myInstOriginal->federation), $myInstOriginal->identifier, $myInstOriginal->name) . "\n\n" .
+                $bye;
+        $fed = new core\Federation($myInstOriginal->federation);
+        foreach ($fed->listFederationAdmins() as $id) {
+            $user = new core\User($id);
+            $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), CONFIG['APPEARANCE']['productname'], $ui->nomenclatureInst), $text);
+        }
         header("Location: edit_idp.php?inst_id=$instId&wizard=true");
         exit;
     case web\lib\common\FormElements::BUTTON_SAVE:
@@ -83,20 +97,18 @@ switch ($_POST['submitbutton']) {
         $significantChanges = \core\IdP::significantChanges($myInstOriginal, $myInstReinstantiated);
         if (count($significantChanges) > 0) {
             // send a notification/alert mail to someone we know is in charge
-            $text = _("To whom it may concern,") . "\n\n";
             /// were made to the *Identity Provider* *LU* / integer number of IdP / (previously known as) Name
-            $text .= sprintf(_("significant changes were made to the %s %s / %s / (previously known as) '%s'."), $ui->nomenclatureInst, strtoupper($myInstOriginal->federation), $myInstOriginal->identifier, $myInstOriginal->name) . "\n\n";
+            $text = $hello . sprintf(_("significant changes were made to the %s %s / %s / (previously known as) '%s'."), $ui->nomenclatureInst, strtoupper($myInstOriginal->federation), $myInstOriginal->identifier, $myInstOriginal->name) . "\n\n";
             if (isset($significantChanges[\core\IdP::INSTNAME_CHANGED])) {
                 $text .= sprintf(_("The %s has changed its name. The details are below:"), $ui->nomenclatureInst) . "\n\n";
                 $text .= $significantChanges[\core\IdP::INSTNAME_CHANGED] . "\n\n";
             }
-            $text .= _("This mail is merely a cross-check because these changes can be security-relevant. If the change was expected, you do not need to take any action.") . "\n\n";
-            $text .= _("Greetings, ") . "\n\n" . CONFIG['APPEARANCE']['productname_long'];
+            $text .= $bye;
             // (currently, send hard-wired to NRO - future: for linked insts, check eduroam DBv2 and send to registered admins directly)
             $fed = new core\Federation($myInstOriginal->federation);
             foreach ($fed->listFederationAdmins() as $id) {
                 $user = new core\User($id);
-                $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"),CONFIG['APPEARANCE']['productname'], $ui->nomenclatureInst), $text);
+                $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), CONFIG['APPEARANCE']['productname'], $ui->nomenclatureInst), $text);
             }
         }
 
