@@ -57,7 +57,7 @@ switch ($_POST['submitbutton']) {
             $profile = $my_inst->newProfile(core\AbstractProfile::PROFILETYPE_RADIUS);
             $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $my_inst->identifier . " - Profile created");
         }
-        
+
         if (!$profile instanceof \core\ProfileRADIUS) {
             throw new Exception("This page should only be called to submit RADIUS Profile information!");
         }
@@ -192,7 +192,6 @@ switch ($_POST['submitbutton']) {
 
             $loggerInstance->writeAudit($_SESSION['user'], "MOD", "Profile " . $profile->identifier . " - attributes changed");
 
-            // re-instantiate $profile, we need to do completion checks and need fresh data for isEapTypeDefinitionComplete()
             foreach (\core\common\EAP::listKnownEAPTypes() as $a) {
                 if ($a->getIntegerRep() == \core\common\EAP::INTEGER_SILVERBULLET) { // do not allow adding silverbullet via the backdoor
                     continue;
@@ -219,6 +218,35 @@ switch ($_POST['submitbutton']) {
             }
             // re-instantiate $profile, we need to do completion checks and need fresh data for isEapTypeDefinitionComplete()
             $reloadedProfile = \core\ProfileFactory::instantiate($profile->identifier);
+            $significantChanges = \core\AbstractProfile::significantChanges($profile, $reloadedProfile);
+            if (count($significantChanges) > 0) {
+                $myInstOriginal = new IdP($profile->institution);
+                // send a notification/alert mail to someone we know is in charge
+                $text = _("To whom it may concern,") . "\n\n";
+                /// were made to the *Identity Provider* *LU* / integer number of IdP / (previously known as) Name
+                $text .= sprintf(_("significant changes were made to a RADIUS deployment profile of the %s %s / %s / '%s'."), $ui->nomenclatureInst, strtoupper($myInstOriginal->federation), $myInstOriginal->identifier, $myInstOriginal->name) . "\n\n";
+                if (isset($significantChanges[\core\AbstractProfile::CA_CLASH_ADDED])) {
+                    $text .= _("WARNING! A new trusted root CA was added, and it has the exact same name as a previously existing root CA. This may (but does not necessarily) mean that this is an attempt to insert an unauthorised trust root by disguising as the genuine one. The details are below:") . "\n";
+                    $text .= $significantChanges[\core\AbstractProfile::CA_CLASH_ADDED] . "\n\n";
+                }
+                if (isset($significantChanges[\core\AbstractProfile::CA_ADDED])) {
+                    $text .= _("A new trusted root CA was added. The details are below:\n\n");
+                    $text .= $significantChanges[\core\AbstractProfile::CA_ADDED] . "\n\n";
+                }
+                if (isset($significantChanges[\core\AbstractProfile::SERVERNAME_ADDED])) {
+                    $text .= _("A new acceptable server name for the authentication server was added. The details are below:") . "\n\n";
+                    $text .= $significantChanges[\core\AbstractProfile::SERVERNAME_ADDED] . "\n\n";
+                }
+                $text .= _("This mail is merely a cross-check because these changes can be security-relevant. If the change was expected, you do not need to take any action.") . "\n\n";
+                $text .= _("Greetings, ") . "\n\n" . CONFIG['APPEARANCE']['productname_long'];
+                // (currently, send hard-wired to NRO - future: for linked insts, check eduroam DBv2 and send to registered admins directly)
+                $fed = new core\Federation($myInstOriginal->federation);
+                foreach ($fed->listFederationAdmins() as $id) {
+                    $user = new core\User($id);
+                    $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), CONFIG['APPEARANCE']['productname'], $ui->nomenclatureInst), $text);
+                }
+            }
+
             $reloadedProfile->prepShowtime();
             ?>
         </table>

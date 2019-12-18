@@ -430,5 +430,4 @@ class ProfileSilverbullet extends AbstractProfile {
         $query = "UPDATE silverbullet_user SET last_ack = NOW() WHERE profile_id = ?";
         $this->databaseHandle->exec($query, "i", $this->identifier);
     }
-
 }

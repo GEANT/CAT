@@ -58,6 +58,10 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     const PROFILETYPE_RADIUS = "RADIUS";
     const PROFILETYPE_SILVERBULLET = "SILVERBULLET";
     
+    public const SERVERNAME_ADDED = 2;
+    public const CA_ADDED = 3;
+    public const CA_CLASH_ADDED = 4;
+
     /**
      * DB identifier of the parent institution of this profile
      * @var integer
@@ -138,6 +142,50 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         }
     }
 
+    /**
+     * checks if security-relevant parameters have changed
+     * 
+     * @param AbstractProfile $old old instantiation of a profile to compare against
+     * @param AbstractProfile $new new instantiation of a profile 
+     * @return array there are never any user-induced changes in SB
+     */
+    public static function significantChanges($old, $new) {
+        $retval = [];
+        // check if a CA was added
+        $x509 = new common\X509();
+        $baselineCA = [];
+        foreach ($old->getAttributes("eap:ca_file") as $oldCA) {
+            $ca = $x509->processCertificate($oldCA['value']);
+            $baselineCA[$ca['sha1']] = $ca['subject'];
+        }
+        // remove the new ones that are identical to the baseline
+        foreach ($new->getAttributes("eap:ca_file") as $newCA) {
+            $ca = $x509->processCertificate($newCA['value']);
+            if (array_key_exists($ca['sha1'], $baselineCA)) {
+                // do nothing; we assume here that SHA1 doesn't clash
+                continue;
+            }
+            // check if a CA with identical DN was added - alert NRO if so
+            if (array_search($ca['subject'], $baselineCA) !== FALSE) {
+                $retval[AbstractProfile::CA_CLASH_ADDED] .= "#SHA1 for CA with DN '".print_r($ca['subject'], TRUE)."' has SHA1 fingerprints (pre-existing) "./** @scrutinizer ignore-type */ array_search($ca['subject'], $baselineCA)." and (added) ".$ca['sha1'];
+            } else {
+                $retval[AbstractProfile::CA_ADDED] .= "#CA with DN '".print_r($ca['subject'], TRUE)."' and SHA1 fingerprint ".$ca['sha1']." was added as trust anchor";
+            }
+            
+        }
+        // check if a servername was added
+        $baselineNames = [];
+        foreach ($old->getAttributes("eap:server_name") as $oldName) {
+            $baselineNames[] = $oldName['value'];
+        }
+        foreach ($new->getAttributes("eap:server_name") as $newName) {
+            if (!in_array($newName['value'], $baselineNames)) {
+                $retval[AbstractProfile::SERVERNAME_ADDED] .= "#New server name '".$newName['value']."' added";
+            }
+        }
+        return $retval;
+    }
+    
     /**
      * each profile has supported EAP methods, so get this from DB, Silver Bullet has one
      * static EAP method.

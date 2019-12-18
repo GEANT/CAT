@@ -395,9 +395,6 @@ Best regards,
     }
 
     public const INSTNAME_CHANGED = 1;
-    public const SERVERNAME_ADDED = 2;
-    public const CA_ADDED = 3;
-    public const CA_CLASH_ADDED = 4;
 
     /**
      * 
@@ -419,48 +416,16 @@ Best regards,
         }
         foreach ($baseline as $lang => $value) {
             if (!key_exists($lang, $newvalues)) {
-                $retval[IdP::INSTNAME_CHANGED] .= "#[$lang] DELETED";
+                $retval[IdP::INSTNAME_CHANGED] .= "#[Language ".strtoupper($lang)."] DELETED";
             } else {
                 if ($value != $newvalues[$lang]) {
-                    $retval[IdP::INSTNAME_CHANGED] .= "#[$lang] CHANGED to '".$newvalues[$lang]."'";
+                    $retval[IdP::INSTNAME_CHANGED] .= "#[Language ".strtoupper($lang)."] CHANGED from '".$baseline[$lang]."' to '".$newvalues[$lang]."'";
                 }
             }
         }
         foreach ($newvalues as $lang => $value) {
             if (!key_exists($lang, $baseline)) {
-                $retval[IdP::INSTNAME_CHANGED] .= "#[$lang] ADDED as '".$value."'";
-            }
-        }
-        // check if a CA was added
-        $x509 = new common\X509();
-        $baselineCA = [];
-        foreach ($old->getAttributes("eap:ca_file") as $oldCA) {
-            $ca = $x509->processCertificate($oldCA['value']);
-            $baselineCA[$ca['sha1']] = $ca['subject'];
-        }
-        // remove the new ones that are identical to the baseline
-        foreach ($new->getAttributes("eap:ca_file") as $newCA) {
-            $ca = $x509->processCertificate($newCA['value']);
-            if (array_key_exists($ca['sha1'], $baselineCA)) {
-                // do nothing; we assume here that SHA1 doesn't clash
-                continue;
-            }
-            // check if a CA with identical DN was added - alert NRO if so
-            if (array_search($ca['subject'], $baselineCA) !== FALSE) {
-                $retval[IdP::CA_CLASH_ADDED] .= "#SHA1 for CA with DN '".print_r($ca['subject'], TRUE)."' has SHA1 fingerprints (pre-existing) "./** @scrutinizer ignore-type */ array_search($ca['subject'], $baselineCA)." and (added) ".$ca['sha1'];
-            } else {
-                $retval[IdP::CA_ADDED] .= "#CA with DN '".print_r($ca['subject'], TRUE)."' and SHA1 fingerprint ".$ca['sha1']." was added as trust anchor";
-            }
-            
-        }
-        // check if a servername was added
-        $baselineNames = [];
-        foreach ($old->getAttributes("eap:server_name") as $oldName) {
-            $baselineNames[] = $oldName['value'];
-        }
-        foreach ($new->getAttributes("eap:server_name") as $newName) {
-            if (!in_array($newName['value'], $baselineNames)) {
-                $retval[IdP::SERVERNAME_ADDED] .= "#New server name '".$newName['value']."' added";
+                $retval[IdP::INSTNAME_CHANGED] .= "#[Language ".strtoupper($lang)."] ADDED as '".$value."'";
             }
         }
         return $retval;
