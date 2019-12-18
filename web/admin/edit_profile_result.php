@@ -25,6 +25,7 @@ $auth = new \web\lib\admin\Authentication();
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $optionParser = new \web\lib\admin\OptionParser();
+$ui = new \web\lib\admin\UIElements();
 
 if (!isset($_GET['inst_id']) || !isset($_POST['submitbutton'])) {
     throw new Exception("A required parameter was not included in the request.");
@@ -220,13 +221,13 @@ switch ($_POST['submitbutton']) {
             $reloadedProfile = \core\ProfileFactory::instantiate($profile->identifier);
             $significantChanges = \core\AbstractProfile::significantChanges($profile, $reloadedProfile);
             if (count($significantChanges) > 0) {
-                $myInstOriginal = new IdP($profile->institution);
+                $myInstOriginal = new \core\IdP($profile->institution);
                 // send a notification/alert mail to someone we know is in charge
                 $text = _("To whom it may concern,") . "\n\n";
                 /// were made to the *Identity Provider* *LU* / integer number of IdP / (previously known as) Name
                 $text .= sprintf(_("significant changes were made to a RADIUS deployment profile of the %s %s / %s / '%s'."), $ui->nomenclatureInst, strtoupper($myInstOriginal->federation), $myInstOriginal->identifier, $myInstOriginal->name) . "\n\n";
                 if (isset($significantChanges[\core\AbstractProfile::CA_CLASH_ADDED])) {
-                    $text .= _("WARNING! A new trusted root CA was added, and it has the exact same name as a previously existing root CA. This may (but does not necessarily) mean that this is an attempt to insert an unauthorised trust root by disguising as the genuine one. The details are below:") . "\n";
+                    $text .= _("WARNING! A new trusted root CA was added, and it has the exact same name as a previously existing root CA. This may (but does not necessarily) mean that this is an attempt to insert an unauthorised trust root by disguising as the genuine one. The details are below:") . "\n\n";
                     $text .= $significantChanges[\core\AbstractProfile::CA_CLASH_ADDED] . "\n\n";
                 }
                 if (isset($significantChanges[\core\AbstractProfile::CA_ADDED])) {
