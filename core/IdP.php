@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -45,7 +46,8 @@ use \Exception;
  *
  * @package Developer
  */
-class IdP extends EntityWithDBProperties {
+class IdP extends EntityWithDBProperties
+{
 
     const EXTERNAL_DB_SYNCSTATE_NOT_SYNCED = 0;
     const EXTERNAL_DB_SYNCSTATE_SYNCED = 1;
@@ -69,12 +71,13 @@ class IdP extends EntityWithDBProperties {
      *
      * @param int $instId the database row identifier
      */
-    public function __construct(int $instId) {
+    public function __construct(int $instId)
+    {
         $this->databaseType = "INST";
         parent::__construct(); // now databaseHandle and logging is available
         $this->entityOptionTable = "institution_option";
         $this->entityIdColumn = "institution_id";
-        
+
         $this->identifier = $instId;
 
         $idp = $this->databaseHandle->exec("SELECT inst_id, country,external_db_syncstate FROM institution WHERE inst_id = $this->identifier");
@@ -109,7 +112,8 @@ class IdP extends EntityWithDBProperties {
      * @param bool $activeOnly if and set to non-zero will cause listing of only those institutions which have some valid profiles defined.
      * @return array<AbstractProfile> list of Profiles of this IdP
      */
-    public function listProfiles(bool $activeOnly = FALSE) {
+    public function listProfiles(bool $activeOnly = FALSE)
+    {
         $query = "SELECT profile_id FROM profile WHERE inst_id = $this->identifier" . ($activeOnly ? " AND showtime = 1" : "");
         $allProfiles = $this->databaseHandle->exec($query);
         $returnarray = [];
@@ -132,7 +136,8 @@ class IdP extends EntityWithDBProperties {
      * looks through all the profiles of the inst and determines the highest prod-ready level among the profiles
      * @return int highest level of completeness of all the profiles of the inst
      */
-    public function maxProfileStatus() {
+    public function maxProfileStatus()
+    {
         $allProfiles = $this->databaseHandle->exec("SELECT sufficient_config + showtime AS maxlevel FROM profile WHERE inst_id = $this->identifier ORDER BY maxlevel DESC LIMIT 1");
         // SELECT yields a resource, not a boolean
         while ($res = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allProfiles)) {
@@ -146,7 +151,8 @@ class IdP extends EntityWithDBProperties {
      * 
      * @return array owners of the institution; numbered array with members ID, MAIL and LEVEL
      */
-    public function listOwners() {
+    public function listOwners()
+    {
         $returnarray = [];
         $admins = $this->databaseHandle->exec("SELECT user_id, orig_mail, blesslevel FROM ownership WHERE institution_id = $this->identifier ORDER BY user_id");
         // SELECT -> resource, not boolean
@@ -162,7 +168,8 @@ class IdP extends EntityWithDBProperties {
      * @param string $user ID of a logged-in user
      * @return boolean TRUE if this user is an admin with FED-level blessing
      */
-    public function isPrimaryOwner($user) {
+    public function isPrimaryOwner($user)
+    {
         foreach ($this->listOwners() as $oneOwner) {
             if ($oneOwner['ID'] == $user && $oneOwner['LEVEL'] == "FED") {
                 return TRUE;
@@ -179,7 +186,8 @@ class IdP extends EntityWithDBProperties {
      *
      * @return int profile count
      */
-    public function profileCount() {
+    public function profileCount()
+    {
         $result = $this->databaseHandle->exec("SELECT profile_id FROM profile 
              WHERE inst_id = $this->identifier");
         // SELECT -> resource, not boolean
@@ -195,7 +203,8 @@ class IdP extends EntityWithDBProperties {
      * 
      * @return void
      */
-    public function updateFreshness() {
+    public function updateFreshness()
+    {
         // freshness is always defined for *Profiles*
         // IdP needs to update timestamp of all its profiles if an IdP-wide attribute changed
         $this->databaseHandle->exec("UPDATE profile SET last_change = CURRENT_TIMESTAMP WHERE inst_id = '$this->identifier'");
@@ -209,7 +218,8 @@ class IdP extends EntityWithDBProperties {
      * @param string $type exactly "RADIUS" or "SILVERBULLET", all other values throw an Exception
      * @return AbstractProfile|NULL new Profile object if successful, or NULL if an error occured
      */
-    public function newProfile(string $type) {
+    public function newProfile(string $type)
+    {
         $this->databaseHandle->exec("INSERT INTO profile (inst_id) VALUES($this->identifier)");
         $identifier = $this->databaseHandle->lastID();
         if ($identifier > 0) {
@@ -233,7 +243,8 @@ class IdP extends EntityWithDBProperties {
      * 
      * @return void
      */
-    public function destroy() {
+    public function destroy()
+    {
         common\Entity::intoThePotatoes();
         /* delete all profiles */
         foreach ($this->listProfiles() as $profile) {
@@ -276,7 +287,8 @@ Best regards,
      * 
      * @return mixed list of entities in external database that correspond to this IdP or FALSE if no consortium-specific matching function is defined
      */
-    public function getExternalDBSyncCandidates() {
+    public function getExternalDBSyncCandidates()
+    {
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $list = [];
             $usedarray = [];
@@ -322,7 +334,8 @@ Best regards,
      * 
      * @return int
      */
-    public function getExternalDBSyncState() {
+    public function getExternalDBSyncState()
+    {
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             return $this->externalDbSyncstate;
         }
@@ -334,7 +347,8 @@ Best regards,
      * 
      * @return string|boolean the external identifier; or FALSE if no external ID is known
      */
-    public function getExternalDBId() {
+    public function getExternalDBId()
+    {
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $idQuery = $this->databaseHandle->exec("SELECT external_db_id FROM institution WHERE inst_id = $this->identifier AND external_db_syncstate = " . self::EXTERNAL_DB_SYNCSTATE_SYNCED);
             // SELECT -> it's a resource, not a boolean
@@ -353,7 +367,8 @@ Best regards,
      * @param string $identifier the external DB id, which can be alpha-numeric
      * @return void
      */
-    public function setExternalDBId(string $identifier) {
+    public function setExternalDBId(string $identifier)
+    {
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $syncState = self::EXTERNAL_DB_SYNCSTATE_SYNCED;
             $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id = ? AND external_db_syncstate = ?", "si", $identifier, $syncState);
@@ -369,13 +384,86 @@ Best regards,
      * 
      * @return void
      */
-    public function removeExternalDBId() {
+    public function removeExternalDBId()
+    {
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             if ($this->getExternalDBId() !== FALSE) {
                 $syncState = self::EXTERNAL_DB_SYNCSTATE_NOT_SYNCED;
                 $this->databaseHandle->exec("UPDATE institution SET external_db_id = NULL, external_db_syncstate = ? WHERE inst_id = ?", "ii", $syncState, $this->identifier);
             }
         }
+    }
+
+    public const INSTNAME_CHANGED = 1;
+    public const SERVERNAME_ADDED = 2;
+    public const CA_ADDED = 3;
+    public const CA_CLASH_ADDED = 4;
+
+    /**
+     * 
+     * @param IdP $old the IdP instance with the old state
+     * @param IdP $new the IdP instance with the new state
+     * @return array list of changed things, and details about the change
+     */
+    public static function significantChanges($old, $new)
+    {
+        // check if the name of the inst was changed (in any language)
+        $retval = [];
+        $baseline = [];
+        $newvalues = [];
+        foreach ($old->getAttributes("general:instname") as $oldname) {
+            $baseline[$oldname['LANG']] = $oldname['VALUE'];
+        }
+        foreach ($new->getAttributes("general:instname") as $newname) {
+            $newvalues[$newname['LANG']] = $newname['VALUE'];
+        }
+        foreach ($baseline as $lang => $value) {
+            if (!key_exists($lang, $newvalues)) {
+                $retval[IdP::INSTNAME_CHANGED] .= "#[$lang] DELETED";
+            } else {
+                if ($value != $newvalues[$lang]) {
+                    $retval[IdP::INSTNAME_CHANGED] .= "#[$lang] CHANGED to '".$newvalues[$lang]."'";
+                }
+            }
+        }
+        foreach ($newvalues as $lang => $value) {
+            if (!key_exists($lang, $baseline)) {
+                $retval[IdP::INSTNAME_CHANGED] .= "#[$lang] ADDED as '".$value."'";
+            }
+        }
+        // check if a CA was added
+        $x509 = new common\X509();
+        $baselineCA = [];
+        foreach ($old->getAttributes("eap:ca_file") as $oldCA) {
+            $ca = $x509->processCertificate($oldCA['VALUE']);
+            $baselineCA[$ca['sha1']] = $ca['subject'];
+        }
+        // remove the new ones that are identical to the baseline
+        foreach ($new->getAttributes("eap:ca_file") as $newCA) {
+            $ca = $x509->processCertificate($newCA['VALUE']);
+            if (array_key_exists($ca['sha1'], $baselineCA)) {
+                // do nothing; we assume here that SHA1 doesn't clash
+                continue;
+            }
+            // check if a CA with identical DN was added - alert NRO if so
+            if (array_search($ca['subject'], $baselineCA) !== FALSE) {
+                $retval[IdP::CA_CLASH_ADDED] .= "#SHA1 for CA with DN '".print_r($ca['subject'], TRUE)."' has SHA1 fingerprints (pre-existing) ".array_search($ca['subject'], $baselineCA)." and (added) ".$ca['sha1'];
+            } else {
+                $retval[IdP::CA_ADDED] .= "#CA with DN '".print_r($ca['subject'], TRUE)."' and SHA1 fingerprint ".$ca['sha1']." was added as trust anchor";
+            }
+            
+        }
+        // check if a servername was added
+        $baselineNames = [];
+        foreach ($old->getAttributes("eap:server_name") as $oldName) {
+            $baselineNames[] = $oldName['VALUE'];
+        }
+        foreach ($new->getAttributes("eap:server_name") as $newName) {
+            if (!in_array($newName['VALUE'], $baselineNames)) {
+                $retval[IdP::SERVERNAME_ADDED] .= "#New server name '".$newName['VALUE']."' added";
+            }
+        }
+        return $retval;
     }
 
 }

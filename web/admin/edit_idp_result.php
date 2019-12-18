@@ -78,8 +78,42 @@ switch ($_POST['submitbutton']) {
         $loggerInstance->writeAudit($_SESSION['user'], "MOD", "IdP " . $myInstOriginal->identifier . " - attributes changed");
 
 // re-instantiate ourselves... profiles need fresh data
-
         $myInstReinstantiated = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
+
+        $significantChanges = \core\IdP::significantChanges($myInstOriginal, $myInstReinstantiated);
+        if (count($significantChanges) > 0) {
+            // send a notification/alert mail to someone we know is in charge
+            $text = _("To whom it may concern,") . "\n\n";
+            /// were made to the *Identity Provider* *LU* / integer number of IdP / (previously known as) Name
+            $text .= sprintf(_("significant changes were made to the %s %s / %s / (previously known as) %s."), $uiElements->nomenclatureInst, strtoupper($myInstOriginal->federation), $myInstOriginal->identifier, $myInstOriginal->name) . "\n\n";
+            if (isset($significantChanges[\core\IdP::CA_CLASH_ADDED])) {
+                $text .= _("WARNING! A new trusted root CA was added, and it has the exact same name as a previously existing root CA. This may (but does not necessarily) mean that this is an attempt to insert an unauthorised trust root by disguising as the genuine one. The details are below:") . "\n";
+                $text .= $significantChanges[\core\IdP::CA_CLASH_ADDED] . "\n\n";
+            }
+            if (isset($significantChanges[\core\IdP::INSTNAME_CHANGED])) {
+                $text .= sprintf(_("The %s has changed its name. The details are below:"), $uiElements->nomenclatureInst) . "\n\n";
+                $text .= $significantChanges[\core\IdP::INSTNAME_CHANGED] . "\n\n";
+            }
+            if (isset($significantChanges[\core\IdP::CA_ADDED])) {
+                $text .= _("A new trusted root CA was added. The details are below:\n\n");
+                $text .= $significantChanges[\core\IdP::CA_ADDED] . "\n\n";
+            }
+            if (isset($significantChanges[\core\IdP::SERVERNAME_ADDED])) {
+                $text .= _("A new acceptable server name for the authentication server was added. The details are below:") . "\n\n";
+                $text .= $significantChanges[\core\IdP::SERVERNAME_ADDED] . "\n\n";
+            }
+            $text .= _("This mail is merely a cross-check because these changes can be security-relevant. If the change was expected, you do not need to take any action.") . "\n\n";
+            $text .= _("Greetings, ") . "\n\n" . CONFIG['APPEARANCE']['productname_long'];
+            // (currently, send hard-wired to NRO - future: for linked insts, check eduroam DBv2 and send to registered admins directly)
+            $fed = new Federation($$myInstOriginal->federation);
+            foreach ($fed->listFederationAdmins() as $id) {
+                $user = new core\User($id);
+                $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"),CONFIG['APPEARANCE']['productname'], $uiElements->nomenclatureInst), $text);
+            }
+        }
+
+
+
 // check if we have any SSID at all.
         $ssids = [];
 
