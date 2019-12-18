@@ -105,7 +105,7 @@ switch ($_POST['submitbutton']) {
             $text .= _("This mail is merely a cross-check because these changes can be security-relevant. If the change was expected, you do not need to take any action.") . "\n\n";
             $text .= _("Greetings, ") . "\n\n" . CONFIG['APPEARANCE']['productname_long'];
             // (currently, send hard-wired to NRO - future: for linked insts, check eduroam DBv2 and send to registered admins directly)
-            $fed = new Federation($$myInstOriginal->federation);
+            $fed = new core\Federation($$myInstOriginal->federation);
             foreach ($fed->listFederationAdmins() as $id) {
                 $user = new core\User($id);
                 $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"),CONFIG['APPEARANCE']['productname'], $uiElements->nomenclatureInst), $text);

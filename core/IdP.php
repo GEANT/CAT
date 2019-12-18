@@ -447,7 +447,7 @@ Best regards,
             }
             // check if a CA with identical DN was added - alert NRO if so
             if (array_search($ca['subject'], $baselineCA) !== FALSE) {
-                $retval[IdP::CA_CLASH_ADDED] .= "#SHA1 for CA with DN '".print_r($ca['subject'], TRUE)."' has SHA1 fingerprints (pre-existing) ".array_search($ca['subject'], $baselineCA)." and (added) ".$ca['sha1'];
+                $retval[IdP::CA_CLASH_ADDED] .= "#SHA1 for CA with DN '".print_r($ca['subject'], TRUE)."' has SHA1 fingerprints (pre-existing) "./** @scrutinizer ignore-type */ array_search($ca['subject'], $baselineCA)." and (added) ".$ca['sha1'];
             } else {
                 $retval[IdP::CA_ADDED] .= "#CA with DN '".print_r($ca['subject'], TRUE)."' and SHA1 fingerprint ".$ca['sha1']." was added as trust anchor";
             }
