@@ -412,10 +412,10 @@ Best regards,
         $baseline = [];
         $newvalues = [];
         foreach ($old->getAttributes("general:instname") as $oldname) {
-            $baseline[$oldname['LANG']] = $oldname['VALUE'];
+            $baseline[$oldname['lang']] = $oldname['value'];
         }
         foreach ($new->getAttributes("general:instname") as $newname) {
-            $newvalues[$newname['LANG']] = $newname['VALUE'];
+            $newvalues[$newname['lang']] = $newname['value'];
         }
         foreach ($baseline as $lang => $value) {
             if (!key_exists($lang, $newvalues)) {
@@ -435,12 +435,12 @@ Best regards,
         $x509 = new common\X509();
         $baselineCA = [];
         foreach ($old->getAttributes("eap:ca_file") as $oldCA) {
-            $ca = $x509->processCertificate($oldCA['VALUE']);
+            $ca = $x509->processCertificate($oldCA['value']);
             $baselineCA[$ca['sha1']] = $ca['subject'];
         }
         // remove the new ones that are identical to the baseline
         foreach ($new->getAttributes("eap:ca_file") as $newCA) {
-            $ca = $x509->processCertificate($newCA['VALUE']);
+            $ca = $x509->processCertificate($newCA['value']);
             if (array_key_exists($ca['sha1'], $baselineCA)) {
                 // do nothing; we assume here that SHA1 doesn't clash
                 continue;
@@ -456,11 +456,11 @@ Best regards,
         // check if a servername was added
         $baselineNames = [];
         foreach ($old->getAttributes("eap:server_name") as $oldName) {
-            $baselineNames[] = $oldName['VALUE'];
+            $baselineNames[] = $oldName['value'];
         }
         foreach ($new->getAttributes("eap:server_name") as $newName) {
-            if (!in_array($newName['VALUE'], $baselineNames)) {
-                $retval[IdP::SERVERNAME_ADDED] .= "#New server name '".$newName['VALUE']."' added";
+            if (!in_array($newName['value'], $baselineNames)) {
+                $retval[IdP::SERVERNAME_ADDED] .= "#New server name '".$newName['value']."' added";
             }
         }
         return $retval;
