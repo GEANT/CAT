@@ -222,6 +222,8 @@ class DeviceLinuxSh extends \core\DeviceConfig {
 
         if(!empty($this->attributes['internal:verify_userinput_suffix'][0]) && $this->attributes['internal:verify_userinput_suffix'][0] == 1) {
             $configRaw['VERIFY_USER_REALM_INPUT'] = true;
+        } else {
+            $configRaw['VERIFY_USER_REALM_INPUT'] = false;
         }
 
         foreach ($config as $name => $value) {
