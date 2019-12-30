@@ -916,16 +916,17 @@ Function InstallProfile
   !insertmacro debug_cat 3 "Execute: $Netsh wlan add profile $TEMP\wlan_prof-$R0.xml"
   nsArray::Set Commands "netsh wlan add profile $TEMP\wlan_prof-$R0.xml" 
   nsArray::Set Commands "del $TEMP\wlan_prof-$R0.xml"
-  nsExec::Exec '"$Netsh" wlan add profile $TEMP\wlan_prof-$R0.xml'
+  nsExec::ExecToStack '"$Netsh" wlan add profile $TEMP\wlan_prof-$R0.xml'
   Pop $0
+  Pop $1
   !insertmacro debug_cat 4 "netsh returned $0"
   ${If} $0 <> 0
-    !insertmacro debug_cat 1 'Profile installation error for "$R1"'
+    !insertmacro debug_cat 1 'Profile installation error for "$R1" (Error code: $1).'
     ${If} $R1 == "cat-passpoint-profile"
         GoTo FailedProfile
     ${EndIf}
     IfSilent +2
-    MessageBox MB_OK "<?php WindowsCommon::echoNsis(_("Profile installation error for \$R1."))?>$\r$\n<?php WindowsCommon::echoNsis(_("Please contact \${SUPPORT}."))?>"
+    MessageBox MB_OK "<?php WindowsCommon::echoNsis(_("Profile installation error for \$R1 (Error code: \$1)."))?>$\r$\n<?php WindowsCommon::echoNsis(_("Please contact \${SUPPORT}."))?>"
     FailedProfile:
     nsArray::Set Profile_states /key=$R0 ${PROFILE_STATE_FAIL}
     Push 1

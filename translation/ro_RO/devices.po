@@ -838,8 +838,8 @@ msgid "installing profile $R1"
 msgstr "se instalează profilul $R1"
 
 #: devices/ms/Files/common.inc:928
-msgid "Profile installation error for $R1."
-msgstr "Eroare la instalarea profilului $R1."
+msgid "Profile installation error for $R1 (Error code: $1)."
+msgstr "Eroare la instalarea profilului $R1 (Error code: $1)."
 
 #: devices/ms/Files/common.inc:953
 msgid "installing credentials for wired"

@@ -872,8 +872,8 @@ msgid "installing profile $R1"
 msgstr "$R1 profil telepítése"
 
 #: devices/ms/Files/common.inc:928
-msgid "Profile installation error for $R1."
-msgstr "$R1 profile telepítése során hiba keletkezett"
+msgid "Profile installation error for $R1 (Error code: $1)."
+msgstr "$R1 profile telepítése során hiba keletkezett (Error code: $1)."
 
 #: devices/ms/Files/common.inc:953
 msgid "installing credentials for wired"
