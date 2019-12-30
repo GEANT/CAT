@@ -891,8 +891,8 @@ msgid "installing profile $R1"
 msgstr "installerer profil $R1"
 
 #: devices/ms/Files/common.inc:928
-msgid "Profile installation error for $R1."
-msgstr "Profil installasjonsfeil for $R1"
+msgid "Profile installation error for $R1 (Error code: $1)."
+msgstr "Profil installasjonsfeil for $R1 (Error code: $1)."
 
 #: devices/ms/Files/common.inc:953
 msgid "installing credentials for wired"
