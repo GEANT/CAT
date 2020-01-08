@@ -949,10 +949,10 @@ Function InstallProfile
     ${EndIf}
     IfSilent +2
     MessageBox MB_OK "<?php WindowsCommon::echo_nsi(_("Profile installation error for \$R1."))?>$\r$\n<?php WindowsCommon::echo_nsi(_("Please contact \${SUPPORT}."))?>"
-    FailedProfile:
-    nsArray::Set Profile_states /key=$R0 ${PROFILE_STATE_FAIL}
     Push 1
     Pop $profile_fail
+    FailedProfile:
+    nsArray::Set Profile_states /key=$R0 ${PROFILE_STATE_FAIL}
   ${Else}
      !insertmacro debug_cat 1 "Profile $R1 created"
     Push 1
