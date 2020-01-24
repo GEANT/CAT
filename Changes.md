@@ -1,3 +1,15 @@
+Changes in 2.0.4
+================
+- [FEATURE #1]  The system now sends out notification/alert mails if a
+                significantly security relevant parameter was changed. The mails
+                go to the NRO admin. Significant changes are:
+                - change of institution name
+                - addition of a new root CA (with more prominent WARNING if the
+                  new CA has the same DN as an existing one)
+                - addition of a new acceptable server name
+- [FEATURE #2]  support negotiation of TLS versions higher than 1.0 while still
+                rejecting SSL2 and SSL3
+
 Changes in 2.0.3
 ================
 - [FEATURE #1]  Be compatible with RHEL/CentOS 8 (use GMagick instead of IMagick
