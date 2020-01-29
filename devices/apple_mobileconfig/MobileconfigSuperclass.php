@@ -142,7 +142,8 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
         }
         if ($this->attributes['internal:verify_userinput_suffix'][0] != 0) {
             if (strlen($this->attributes['internal:realm'][0]) > 0) {
-                $retval = MobileconfigSuperclass::BUFFER_CONSENT_PRE . sprintf(_("Important Notice: your username must end with @%s!"), $this->attributes['internal:realm'][0]) . MobileconfigSuperclass::BUFFER_CONSENT_POST;
+                /// note space between variable and exclamation mark - makes sure users don't mistakenly think the exclamation mark is part of the required username!
+                $retval = MobileconfigSuperclass::BUFFER_CONSENT_PRE . sprintf(_("Important Notice: your username must end with @%s !"), $this->attributes['internal:realm'][0]) . MobileconfigSuperclass::BUFFER_CONSENT_POST;
                 \core\common\Entity::outOfThePotatoes();
                 return $retval;
             }
