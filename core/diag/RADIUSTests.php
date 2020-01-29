@@ -941,6 +941,7 @@ network={
      *                               something is noteworthy
      * @param array $packetflow_orig the array of text output from eapol_test
      * @return bool
+     * @throws Exception
      */
     private function wasEapTypeNegotiated(&$testresults, $packetflow_orig)
     {
