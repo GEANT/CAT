@@ -517,11 +517,11 @@ class RADIUSTests extends AbstractTest
                     }
                     break;
                 case self::LINEPARSE_CHECK_691: 
-                    /** fall-through intentional * */
+                    /* fall-through intentional */
                 case self::LINEPARSE_CHECK_REJECTIGNORE: 
-                    /** fall-through intentional * */
+                    /* fall-through intentional */
                 case self::LINEPARSE_EAPACK: 
-                    /** fall-through intentional * */
+                    /* fall-through intentional */
                     break;
                 default:
                     throw new Exception("This lineparse test does not exist.");
@@ -945,6 +945,9 @@ network={
     private function wasEapTypeNegotiated(&$testresults, $packetflow_orig)
     {
         $negotiatedEapType = $this->checkLineparse($packetflow_orig, self::LINEPARSE_EAPACK);
+        if (!is_bool($negotiatedEapType)) {
+            throw new Exception("checkLineparse should only ever return a boolean in this case!");
+        }
         if (!$negotiatedEapType) {
             $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_NO_COMMON_EAP_METHOD;
         }
