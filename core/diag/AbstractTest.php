@@ -254,6 +254,17 @@ class AbstractTest extends \core\common\Entity {
      * An EAP conversation took place, but for some reason there is not a single certificate inside
      */
     const CERTPROB_NO_CERTIFICATE_IN_CONVERSATION = -230;
+    
+    /**
+     * The version of TLS being used in the EAP conversation could not be determined
+     */
+    const TLSPROB_UNKNOWN_TLS_VERSION = -231;
+    
+    /**
+     * The version of TLS being used is too old, endangering client compatibility
+     */
+    const TLSPROB_DEPRECATED_TLS_VERSION = -232;
+    
     /**
      * initialises the error messages.
      * 
@@ -578,6 +589,21 @@ class AbstractTest extends \core\common\Entity {
         $code42 = RADIUSTests::CERTPROB_NO_CERTIFICATE_IN_CONVERSATION;
         $this->returnCodes[$code42]["message"] = _("No certificate at all was sent by the server.");
         $this->returnCodes[$code42]["severity"] = \core\common\Entity::L_ERROR;
+        
+        /**
+         * TLS version problem: version not found
+         */
+        $code43 = RADIUSTests::TLSPROB_UNKNOWN_TLS_VERSION;
+        $this->returnCodes[$code43]["message"] = _("It was not possible to determine the TLS version that was used in the EAP exchange.");
+        $this->returnCodes[$code42]["severity"] = \core\common\Entity::L_REMARK;
+        
+        /**
+         * TLS version problem: old version
+         */
+        $code44 = RADIUSTests::TLSPROB_DEPRECATED_TLS_VERSION;
+        $this->returnCodes[$code44]["message"] = _("The server does not support the contemporary TLS versions TLSv1.2 or TLSv1.3. Modern client operating systems may refuse to authenticate against the server!");
+        $this->returnCodes[$code44]["severity"] = \core\common\Entity::L_WARN;
+        
         \core\common\Entity::outOfThePotatoes();
     }
 

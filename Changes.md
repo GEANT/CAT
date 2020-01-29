@@ -9,6 +9,8 @@ Changes in 2.0.4
                 - addition of a new acceptable server name
 - [FEATURE #2]  support negotiation of TLS versions higher than 1.0 while still
                 rejecting SSL2 and SSL3
+- [FEATURE #3]  realm reachability checks now produce a WARNING level message if
+                the EAP server does not support TLS1.2 or higher
 
 Changes in 2.0.3
 ================
