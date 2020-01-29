@@ -467,7 +467,7 @@ class RADIUSTests extends AbstractTest
      * 
      * @param array $inputarray   array of strings (outputs of eapol_test command)
      * @param int   $desiredCheck which test should be run (see constants above)
-     * @return boolean returns TRUE if ETLR Reject logic was detected; FALSE if not
+     * @return boolean|string returns TRUE if ETLR Reject logic was detected; FALSE if not; strings are returned for TLS versions
      */
     private function checkLineparse($inputarray, $desiredCheck)
     {
@@ -516,9 +516,12 @@ class RADIUSTests extends AbstractTest
                         }
                     }
                     break;
-                case self::LINEPARSE_CHECK_691: /** fall-through intentional * */
-                case self::LINEPARSE_CHECK_REJECTIGNORE: /** fall-through intentional * */
-                case self::LINEPARSE_EAPACK: /** fall-through intentional * */
+                case self::LINEPARSE_CHECK_691: 
+                    /** fall-through intentional * */
+                case self::LINEPARSE_CHECK_REJECTIGNORE: 
+                    /** fall-through intentional * */
+                case self::LINEPARSE_EAPACK: 
+                    /** fall-through intentional * */
                     break;
                 default:
                     throw new Exception("This lineparse test does not exist.");
@@ -949,11 +952,18 @@ network={
         return $negotiatedEapType;
     }
 
+    /**
+     * parses eapol_test to find the TLS version used during the EAP conversation
+     * @param array $testresults     by-reference, we add our findings if 
+     *                               something is noteworthy
+     * @param array $packetflow_orig the array of text output from eapol_test
+     * @return string|bool the version as a string or FALSE if TLS version could not be determined
+     */
     private function wasModernTlsNegotiated(&$testresults, $packetflow_orig)
     {
         $negotiatedTlsVersion = $this->checkLineparse($packetflow_orig, self::LINEPARSE_TLSVERSION);
         $this->loggerInstance->debug(4,"TLS version found is: $negotiatedTlsVersion"."\n");
-        if ($negotiatedTlsVersion == FALSE) {
+        if ($negotiatedTlsVersion === FALSE) {
             $testresults['cert_oddities'][] = RADIUSTests::TLSPROB_UNKNOWN_TLS_VERSION;
         } elseif ($negotiatedTlsVersion != self::TLS_VERSION_1_2 && $negotiatedTlsVersion != self::TLS_VERSION_1_3) {
             $testresults['cert_oddities'][] = RADIUSTests::TLSPROB_DEPRECATED_TLS_VERSION;
