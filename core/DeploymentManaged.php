@@ -546,7 +546,7 @@ class DeploymentManaged extends AbstractDeployment {
      * @return array index res[1] indicate primary RADIUS status, index res[2] backup RADIUS status
      */
     public function setRADIUSconfig($onlyone = 0, $notify = 0) {
-        $remove = ($this->status == \core\AbstractDeployment::INACTIVE)? 1 : 0;
+        $remove = ($this->status == \core\AbstractDeployment::INACTIVE)? 0 : 1;
         $toPost = ($onlyone ? array($onlyone => '') : array(1 => '', 2 => ''));
         $toPostTemplate = 'instid=' . $this->institution . '&deploymentid=' . $this->identifier . '&secret=' . $this->secret . '&country=' . $this->getAttributes("internal:country")[0]['value'] . '&';
         if ($remove) {

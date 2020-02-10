@@ -39,11 +39,9 @@ if (!isset($_GET['deployment_id'])) {
     header("Location: overview_sp.php?inst_id=" . $my_inst->identifier);
     exit(0);
 }
-
 // if we have come this far, we are editing an existing deployment
 
 $deployment = $validator->existingDeploymentManaged($_GET['deployment_id'], $my_inst);
-
 if (isset($_POST['submitbutton'])) {
     if ($_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_DELETE) {
         $response = $deployment->setRADIUSconfig();
@@ -77,6 +75,7 @@ if (isset($_POST['submitbutton'])) {
         $optionParser->processSubmittedFields($deployment, $postArray, $_FILES);
         $deployment = $validator->existingDeploymentManaged($_GET['deployment_id'], $my_inst);
         if ($deployment->status == core\DeploymentManaged::ACTIVE) {
+            $deployment->status = core\DeploymentManaged::INACTIVE;
             $response = $deployment->setRADIUSconfig();
         }
         header("Location: overview_sp.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)));
