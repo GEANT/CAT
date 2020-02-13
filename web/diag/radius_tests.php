@@ -285,7 +285,7 @@ switch ($test_type) {
         $returnarray['result'] = $testresult;
         break;
     case 'clients':
-        $rfc6614suite = new \core\diag\RFC6614Tests([$host]);
+        $rfc6614suite = new \core\diag\RFC6614Tests([$host], $expectedName);
         $testresult = $rfc6614suite->tlsClientSideCheck($host);
         $returnarray['IP'] = $host;
         $returnarray['hostindex'] = $hostindex;

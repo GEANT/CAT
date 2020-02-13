@@ -11,6 +11,8 @@ Changes in 2.0.4
                 rejecting SSL2 and SSL3
 - [FEATURE #3]  realm reachability checks now produce a WARNING level message if
                 the EAP server does not support TLS1.2 or higher
+- [FEATURE #4]  check whether SRV-discovered hostname and certificate hostname
+                match
 
 Changes in 2.0.3
 ================

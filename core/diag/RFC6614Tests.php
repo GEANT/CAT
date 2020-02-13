@@ -138,6 +138,7 @@ class RFC6614Tests extends AbstractTest {
     /**
      * checks whether the received servername matches the expected server name
      * 
+     * @param string $host IP:port
      * @return bool yes or no
      */
     private function checkServerName($host) {
