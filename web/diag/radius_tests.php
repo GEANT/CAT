@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -41,7 +42,8 @@ $additional_message = [
  * @param array $eap array representation of the EAP type to be returned
  * @return string the friendly name
  */
-function disp_name($eap) {
+function disp_name($eap)
+{
     $displayName = \core\common\EAP::eapDisplayName($eap);
     return $displayName['OUTER'] . ( $displayName['INNER'] != '' ? '-' . $displayName['INNER'] : '');
 }
@@ -66,7 +68,7 @@ if (isset($_REQUEST['profile_id'])) {
     $testsuite = new \core\diag\RADIUSTests($check_realm, $my_profile->getRealmCheckOuterUsername(), $my_profile->getEapMethodsinOrderOfPreference(1), $my_profile->getCollapsedAttributes()['eap:server_name'], $my_profile->getCollapsedAttributes()['eap:ca_file']);
 } else {
     $my_profile = NULL;
-    $testsuite = new \core\diag\RADIUSTests($check_realm, "@".$check_realm);
+    $testsuite = new \core\diag\RADIUSTests($check_realm, "@" . $check_realm);
 }
 
 
@@ -82,8 +84,7 @@ if (is_numeric($posted_host)) { // UDP tests, this is an index to the test host 
 } else { // dynamic discovery host, potentially unvetted user input
     // contains port number; needs to be redacted for filter_var to work
     // in any case, it's a printable string, so filter it initially
-    
-    $filteredHost = filter_input(INPUT_GET,'src', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST,'src', FILTER_SANITIZE_STRING);
+    $filteredHost = filter_input(INPUT_GET, 'src', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'src', FILTER_SANITIZE_STRING);
     $hostonly1 = preg_replace('/:[0-9]*$/', "", $filteredHost);
     $hostonly2 = preg_replace('/^\[/', "", $hostonly1);
     $hostonly3 = preg_replace('/\]$/', "", $hostonly2);
@@ -94,7 +95,7 @@ if (is_numeric($posted_host)) { // UDP tests, this is an index to the test host 
     }
     // host IP address testing passed. So let's take our port number back
     $host = $filteredHost;
-    $expectedName = filter_input(INPUT_GET,'expectedname', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST,'expectedname', FILTER_SANITIZE_STRING);
+    $expectedName = filter_input(INPUT_GET, 'expectedname', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'expectedname', FILTER_SANITIZE_STRING);
 }
 
 $returnarray = [];
@@ -250,12 +251,15 @@ switch ($test_type) {
             if (isset($rfc6614suite->TLS_CA_checks_result[$host]['cert_oddity']) && ($rfc6614suite->TLS_CA_checks_result[$host]['cert_oddity'] == \core\diag\RADIUSTests::CERTPROB_UNKNOWN_CA)) {
                 $returnarray['message'] = _("<strong>ERROR</strong>: the server presented a certificate which is from an unknown authority!") . ' (' . sprintf(_("elapsed time: %d"), $rfc6614suite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
                 $returnarray['level'] = \core\common\Entity::L_ERROR;
-            } elseif (isset($rfc6614suite->TLS_CA_checks_result[$host]['cert_oddity']) && ($rfc6614suite->TLS_CA_checks_result[$host]['cert_oddity'] == \core\diag\RADIUSTests::CERTPROB_DYN_SERVER_NAME_MISMATCH)){
-                $returnarray['message'] = _("<strong>WARNING</strong>: the server name as discovered in the SRV record does not match any name in the server certificate!") . ' (' . sprintf(_("elapsed time: %d"), $rfc6614suite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
-                $returnarray['level'] = \core\common\Entity::L_WARN;                
             } else {
+                // probably all is well, but we override this default later if need be
                 $returnarray['message'] = $rfc6614suite->returnCodes[$rfc6614suite->TLS_CA_checks_result[$host]['status']]["message"];
                 $returnarray['level'] = \core\common\Entity::L_OK;
+                // override if the connection was with a mismatching server name
+                if (isset($rfc6614suite->TLS_CA_checks_result[$host]['cert_oddity']) && ($rfc6614suite->TLS_CA_checks_result[$host]['cert_oddity'] == \core\diag\RADIUSTests::CERTPROB_DYN_SERVER_NAME_MISMATCH)) {
+                    $returnarray['message'] = _("<strong>WARNING</strong>: the server name as discovered in the SRV record does not match any name in the server certificate!") . ' (' . sprintf(_("elapsed time: %d"), $rfc6614suite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
+                    $returnarray['level'] = \core\common\Entity::L_WARN;
+                }
                 if ($rfc6614suite->TLS_CA_checks_result[$host]['status'] != \core\diag\RADIUSTests::RETVAL_CONNECTION_REFUSED) {
                     $returnarray['message'] .= ' (' . sprintf(_("elapsed time: %d"), $rfc6614suite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
                 } else {
