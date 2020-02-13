@@ -267,12 +267,11 @@ switch ($test_type) {
             $returnarray['message'] = _("<strong>WARNING</strong>: the server name as discovered in the SRV record does not match any name in the server certificate!") . $timeDisplay;
             $returnarray['level'] = \core\common\Entity::L_WARN;
         }
-        if ($rfc6614suite->TLS_CA_checks_result[$host]['status'] != \core\diag\RADIUSTests::RETVAL_CONNECTION_REFUSED) {
-            $returnarray['message'] .= $timeDisplay;
-        } else {
-            $returnarray['level'] = \core\common\Entity::L_ERROR;
-        }
-        if ($rfc6614suite->TLS_CA_checks_result[$host]['status'] == \core\diag\RADIUSTests::RETVAL_OK) {
+        switch ($rfc6614suite->TLS_CA_checks_result[$host]['status']) {
+            case \core\diag\RADIUSTests::RETVAL_CONNECTION_REFUSED:
+                $returnarray['level'] = \core\common\Entity::L_ERROR;
+                break;
+            case \core\diag\RADIUSTests::RETVAL_OK:
             $returnarray['certdata'] = [];
             $returnarray['certdata']['subject'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['subject'];
             $returnarray['certdata']['issuer'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['issuer'];
@@ -289,9 +288,12 @@ switch ($test_type) {
             if (isset($rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['authorityInfoAccess'])) {
                 $returnarray['certdata']['extensions']['authorityinfoaccess'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['authorityInfoAccess'];
             }
+            // fall-through intentional, add the elapsed time in all cases except connection refused
+            default:
+                $returnarray['message'] .= $timeDisplay;
         }
+        
         $returnarray['cert_oddities'] = [];
-
         $returnarray['result'] = $testresult;
         break;
     case 'clients':
