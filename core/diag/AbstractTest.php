@@ -266,6 +266,11 @@ class AbstractTest extends \core\common\Entity {
     const TLSPROB_DEPRECATED_TLS_VERSION = -232;
     
     /**
+     * The DNS SRV server name does not match the actual server name in a RADIUS/TLS connection
+     */
+    const CERTPROB_DYN_SERVER_NAME_MISMATCH = -233;
+    
+    /**
      * initialises the error messages.
      * 
      * @throws Exception
@@ -604,6 +609,9 @@ class AbstractTest extends \core\common\Entity {
         $this->returnCodes[$code44]["message"] = _("The server does not support the contemporary TLS versions TLSv1.2 or TLSv1.3. Modern client operating systems may refuse to authenticate against the server!");
         $this->returnCodes[$code44]["severity"] = \core\common\Entity::L_WARN;
         
+        $code45 = RADIUSTests::CERTPROB_DYN_SERVER_NAME_MISMATCH;
+        $this->returnCodes[$code45]["message"] = _("The expected server name as per SRV record does not match any server name in the certificate of the server that was reached!");
+        $this->returnCodes[$code45]["severity"] = \core\common\Entity::L_WARN;
         \core\common\Entity::outOfThePotatoes();
     }
 

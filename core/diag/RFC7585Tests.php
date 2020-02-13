@@ -317,9 +317,9 @@ class RFC7585Tests extends AbstractTest {
             } else {
                 foreach ($hostResolution as $address) {
                     if (isset($address["ip"])) {
-                        $ipAddrs[] = ["family" => "IPv4", "IP" => $address["ip"], "port" => $server["port"], "status" => ""];
+                        $ipAddrs[] = ["hostname" => $server["hostname"], "family" => "IPv4", "IP" => $address["ip"], "port" => $server["port"], "status" => ""];
                     } else {
-                        $ipAddrs[] = ["family" => "IPv6", "IP" => $address["ipv6"], "port" => $server["port"], "status" => ""];
+                        $ipAddrs[] = ["hostname" => $server["hostname"], "family" => "IPv6", "IP" => $address["ipv6"], "port" => $server["port"], "status" => ""];
                     }
                 }
             }

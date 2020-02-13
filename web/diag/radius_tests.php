@@ -78,6 +78,7 @@ if (!is_numeric($hostindex)) {
 $posted_host = $_REQUEST['src'];
 if (is_numeric($posted_host)) { // UDP tests, this is an index to the test host in config
     $host = filter_var(CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$hostindex]['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE);
+    $expectedName = "IRRELEVANT-UDP";
 } else { // dynamic discovery host, potentially unvetted user input
     // contains port number; needs to be redacted for filter_var to work
     // in any case, it's a printable string, so filter it initially
@@ -93,10 +94,8 @@ if (is_numeric($posted_host)) { // UDP tests, this is an index to the test host 
     }
     // host IP address testing passed. So let's take our port number back
     $host = $filteredHost;
-    
+    $expectedName = filter_input(INPUT_GET,'expectedname', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST,'expectedname', FILTER_SANITIZE_STRING);
 }
-
-
 
 $returnarray = [];
 $timeout = CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$hostindex]['timeout'];
@@ -240,7 +239,7 @@ switch ($test_type) {
         $returnarray['result'][$i]['message'] = $message;
         break;
     case 'capath':
-        $rfc6614suite = new \core\diag\RFC6614Tests([$host]);
+        $rfc6614suite = new \core\diag\RFC6614Tests([$host], $expectedName);
         $testresult = $rfc6614suite->cApathCheck($host);
         $returnarray['IP'] = $host;
         $returnarray['hostindex'] = $hostindex;
@@ -251,6 +250,9 @@ switch ($test_type) {
             if (isset($rfc6614suite->TLS_CA_checks_result[$host]['cert_oddity']) && ($rfc6614suite->TLS_CA_checks_result[$host]['cert_oddity'] == \core\diag\RADIUSTests::CERTPROB_UNKNOWN_CA)) {
                 $returnarray['message'] = _("<strong>ERROR</strong>: the server presented a certificate which is from an unknown authority!") . ' (' . sprintf(_("elapsed time: %d"), $rfc6614suite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
                 $returnarray['level'] = \core\common\Entity::L_ERROR;
+            } elseif (isset($rfc6614suite->TLS_CA_checks_result[$host]['cert_oddity']) && ($rfc6614suite->TLS_CA_checks_result[$host]['cert_oddity'] == \core\diag\RADIUSTests::CERTPROB_DYN_SERVER_NAME_MISMATCH)){
+                $returnarray['message'] = _("<strong>WARNING</strong>: the server name as discovered in the SRV record does not match any name in the server certificate!") . ' (' . sprintf(_("elapsed time: %d"), $rfc6614suite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
+                $returnarray['level'] = \core\common\Entity::L_WARN;                
             } else {
                 $returnarray['message'] = $rfc6614suite->returnCodes[$rfc6614suite->TLS_CA_checks_result[$host]['status']]["message"];
                 $returnarray['level'] = \core\common\Entity::L_OK;
