@@ -143,16 +143,17 @@ class RFC6614Tests extends AbstractTest {
      */
     private function checkServerName($host) {
         // it could match CN or sAN:DNS, we don't care which
-        if (isset($this->TLS_CA_checks_result[$host]['certdata']['subject']['CN'])) {
-            $testNames = $this->TLS_CA_checks_result[$host]['certdata']['subject']['CN'];
-            if (!is_array($testNames)) {
-                $testNames = [$testNames];
-            }
-            if (array_search($this->expectedName, $testNames) !== FALSE) {
+        if (isset($this->TLS_CA_checks_result[$host]['certdata']['subject'])) {
+            $this->loggerInstance->debug(4,"Checking expected server name ".$this->expectedName." against Subject: ");
+            $this->loggerInstance->debug(4, $this->TLS_CA_checks_result[$host]['certdata']['subject']);
+            // we are checking against accidental misconfig, not attacks, so loosely checking against end of string is appropriate
+            if (preg_match("/CN=".$this->expectedName."/", $this->TLS_CA_checks_result[$host]['certdata']['subject']) === 1) {
                 return TRUE;
             }
         }
         if (isset($this->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname'])) {
+            $this->loggerInstance->debug(4,"Checking expected server name ".$this->expectedName." against sANs: ");
+            $this->loggerInstance->debug(4, $this->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname']);
             $testNames = $this->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname'];
             if (!is_array($testNames)) {
                 $testNames = [$testNames];
@@ -163,6 +164,8 @@ class RFC6614Tests extends AbstractTest {
                 }
             }
         }
+        $this->loggerInstance->debug(3,"Tried to check expected server name ".$this->expectedName." but neither CN nor sANs matched.");
+        
         $this->TLS_CA_checks_result[$host]['cert_oddity'] = RADIUSTests::CERTPROB_DYN_SERVER_NAME_MISMATCH;
         return FALSE;
         
@@ -239,7 +242,7 @@ class RFC6614Tests extends AbstractTest {
         $time_start = microtime(true);
         $opensslbabble = [];
         $result = 999; // likely to become zero by openssl; don't want to initialise to zero, could cover up exec failures
-        exec(CONFIG['PATHS']['openssl'] . " s_client -connect " . $escapedHost . " -no_ssl2 -no_ssl3 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1", $opensslbabble, $result);
+        exec(CONFIG['PATHS']['openssl'] . " s_client -connect " . $escapedHost . " -no_ssl3 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1", $opensslbabble, $result);
         $time_stop = microtime(true);
         $testresults['time_millisec'] = floor(($time_stop - $time_start) * 1000);
         $testresults['returncode'] = $result;
