@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eu
+set -euo pipefail
 
 if [ -z "$BASH" ] ; then
    bash  "$0"
@@ -34,8 +34,8 @@ main() {
   log "Write $CAT_PATH/cat_installer/ca.pem"
 
 
-  if [ -z "$USERNAME" ] ; then
-    user_cred
+  if [ -z "$USERNAME" -a -z "$PASSWORD" ] ; then
+    get_user_credentials
   fi
   if nmcli_add_connection ; then
     # nmcli --ask connection up eduroam
@@ -50,9 +50,6 @@ main() {
     rm "$CAT_PATH/cat_installer/cat_installer.conf"
     log "$CAT_PATH/cat_installer/cat_installer.conf removed."
   fi
-    if [ -z "$PASSWORD" ] ; then
-      user_cred_pass
-    fi
     create_wpa_conf
     show_info "$INSTALLATION_FINISHED"
     log "Installation successful."
@@ -107,7 +104,7 @@ function ask {
     return 0
   fi
   if [ ! -z "$KDIALOG" ] ; then
-     if "$KDIALOG" --yesno "${1}\n${2}?" --title "$TITLE" ; then
+     if "$KDIALOG" --yesno "${1}\n${2}" --title "$TITLE" ; then
        return 0
      else
        return 1
@@ -115,7 +112,7 @@ function ask {
   fi
   if [ ! -z "$ZENITY" ] ; then
      text=$(echo "${1}" | fmt -w60)
-     if "$ZENITY" --no-wrap --question --text="${text}\n${2}?" --title="$TITLE" 2>/dev/null ; then
+     if "$ZENITY" --no-wrap --question --text="${text}\n${2}" --title="$TITLE" 2>/dev/null ; then
        return 0
      else
        return 1
@@ -254,17 +251,27 @@ function prompt_nonempty_string {
   echo "$out_s";
 }
 
-function user_cred {
-  if ! USERNAME=$(prompt_nonempty_string 1 "$USERNAME_PROMPT") ; then
-    exit 1
-  else
-    log "Username entered."
+function get_user_credentials {
+  if [ "$EAP_OUTER" = "PEAP" -o "$EAP_OUTER" = "TTLS" ] ; then
+    get_username_password
+  fi
+  if [ "$EAP_OUTER" = "TLS" ] ; then
+    get_p12_credentials
   fi
 }
 
-function user_cred_pass {
+function get_username_password {
   PASSWORD="a"
   PASSWORD1="b"
+
+  if ! USERNAME=$(prompt_nonempty_string 1 "$USERNAME_PROMPT") ; then
+    exit 1
+  else
+    while validate_username ; do
+      USERNAME=$(prompt_nonempty_string 1 "$USERNAME_PROMPT")
+    done
+    log "Username entered."
+  fi
 
   while [ "$PASSWORD" != "$PASSWORD1" ] ; do
     if ! PASSWORD=$(prompt_nonempty_string 0 "$ENTER_PASSWORD") ; then
@@ -278,6 +285,170 @@ function user_cred_pass {
     fi
   done
   log "Password entered."
+}
+
+function validate_username {
+  log "validate username"
+  if [[ "$USERNAME" =~ "@" ]] ; then
+    log "\$USERNAME contains character '@' ($USERNAME)."
+    username_length="${#USERNAME}"
+    t="${USERNAME%%@*}"
+    t="${#t}"
+    at_position="$((t + 1))"
+    if [ "$at_position" -le "$username_length" ] ; then
+      log "Username length: $username_length, @ position: $at_position ($USERNAME)"
+      EMAIL_REGEX="([0-9a-zA-Z]+)@([0-9a-zA-Z]+)"
+      if [[ "$USERNAME" =~ $EMAIL_REGEX ]] ; then
+        log "\$USERNAME match regex ($USERNAME)."
+        realm="${BASH_REMATCH[2]}"
+        if [ "$VERIFY_USER_REALM_INPUT" = true ] ; then
+          if [ "$realm" = "$USER_REALM" ] ; then
+            log "User realm input is equal to \$USER_REALM ($USERNAME)."
+            return 1
+          else
+            log "User realm input is uneqal to \$USER_REALM ($USERNAME)."
+            alert "$WRONG_REALM_SUFFIX"
+            return 0
+          fi
+        else
+          log "\$VERIFY_USER_REAM_INPUT is false. Realm possibly correct."
+        fi
+      else
+        log "Username not valid ($USERNAME)."
+        alert "$WRONG_REALM_SUFFIX"
+        return 0
+      fi
+    else
+      if [ "$VERIFY_USER_REALM_INPUT" = true ] ; then
+        log "No realm exists, but $USER_REALM expected."
+        alert "$WRONG_REALM"
+        return 0
+      fi
+    fi
+  else
+    if [ "$VERIFY_USER_REALM_INPUT" = true ] ; then
+      log "The realm is missing ($USERNAME)."
+      alert "$WRONG_USERNAME_FORMAT"
+      return 0
+    else
+      log "No realm exists, but possibly correct."
+      return 1
+    fi
+  fi
+  return 1
+}
+
+function get_p12_credentials {
+  if [ "$EAP_INNER" = "SILVERBULLET" ] ; then
+    save_sb_pfx
+  else
+    if [ ! -z "$silent" ] ; then
+      if [ ! -z "PFX_FILE" ] ; then
+        alert "PFX is missning." # TODO
+        exit 1
+      fi
+    else
+      PFX_FILE_PATH=select_p12_file
+      if cp "$PFX_FILE_PATH" "$CAT_PATH/cat_installer/user.p12" ; then
+        log "File user.p12 is written."
+      else
+        log "Couldn't write p12 file."
+        exit 1
+      fi
+    fi
+  fi
+
+  if [ ! -z "$silent" ] ; then
+    if process_p12 ; then
+      exit 1
+    fi
+  else
+    while [ ! -z "$PASSWORD" -o ! -z "$USERNAME" ] ; do
+    if ! USERNAME=$(prompt_nonempty_string 0 "$USERNAME_PROMPT") ; then
+        alert "$ENTER_IMPORT_PASSWORD"
+      fi
+      if ! PASSWORD=$(prompt_nonempty_string 0 "$ENTER_PASSWORD") ; then
+        alert "$ENTER_IMPORT_PASSWORD"
+      fi
+      if process_p12 ; then
+        alert "$INCORRECT_PASSWORD"
+      fi
+    done
+  fi
+}
+
+function process_p12 {
+  if [ -z "$USE_OUTER_TLS_ID" ] ; then
+    exit 0
+  fi
+
+  if which libressl 1>/dev/null 2>&1 ; then
+      SSL_LIBRARY=libressl
+  elif which openssl 1>/dev/null 2>&1 ; then
+      SSL_LIBRARY=openssl
+  else
+    log "No ssl library found."
+  fi
+  log "Found $SSL_LIBRARY."
+  output="$($SSL_LIBRARY pkcs12 -in "$PFX_FILE" -passin pass:$PASSWORD -nokeys -clcerts)"
+  if [ "$?" != 0 ] ; then
+    log "SSL library command failed (Error code $?)."
+    exit 1
+  fi
+  certificate_property=()
+  readarray -t lines <<< "$output"
+  for line in "${lines[@]}" ; do
+    if [ "$line" =~ "subject=*" ] ; then
+      IFS="="
+      read -ra subject <<< "$line"
+      key=echo "${subject[0],,}"
+      value=echo "${subject[1],,}"
+      certificate_property["$key"]="$value"
+    fi
+  done
+
+  if [ -z "$certificate_property['cn']" -a "$certificate_property['cn']" =~ "*@*" ] ; then
+    USERNAME="$certificate_property['cn']"
+    log "Using cn: $certificate_property['cn']"
+  elif [ -z "$certificate_property['emailaddress']" -a "$certificate_property['emailaddress']" =~ "*@*" ] ; then
+    log "Using emailaddress: $certificate_property['emailaddress']"
+    USERNAME="$certificate_property['emailaddress']"
+  else
+    USERNAME=""
+    alert "Unable to extract username from the certificate." # TODO
+  fi
+  return 0
+}
+
+function select_p12_file {
+  if [ ! -z "$ZENITY" ] ; then
+    certificate_output="$($ZENITY --file-selection --file-filter=$P12_FILTER | *.p12 *.P12 *.pfx *.PFX --file-filter=$ALL_FILTER --title=$P12_TITLE)"
+    if [ "$?" != 0 ] ; then
+      log " Choose pfx file failed (Error code: $?)."
+      exit 1
+    fi
+  elif [ ! -z "$KDIALOG" ] ; then
+    certificate_output="$($KDIALOG --getopenfilename . *.p12 *.P12 *.pfx *.PFX | $P12_FILTER --title=$P12_TITLE)"
+    if [ "$?" != 0 ] ; then
+      log " Choose pfx file failed (Error code: $?)."
+      exit 1
+    fi
+  else
+    certificate_output="$(find . -type f \( -name '*.p12' -or -name '*.P12' -or -name '*.pfx' -or -name '*.PFX' \))"
+    if [ "$?" != 0 ] ; then
+      log " Choose pfx file failed (Error code: $?)."
+      exit 1
+    fi
+    PFX_FILE="$certificate_output"
+    # TODO
+  fi
+
+  return "$(echo $certificate_output | xargs | iconv -t utf8)"
+}
+
+function save_sb_fx {
+  CERTIFICATE_FILE="CAT_PATH/cat_installer/user.p12"
+  echo "$SB_USER_FILE" > "$CERTIFICATE_FILE"
 }
 
 function nmcli_add_connection {
@@ -346,6 +517,7 @@ password=
 verbose=
 USERNAME=""
 PASSWORD=""
+PFX_FILE=""
 while (( "$#" )); do
     case $1 in
         -d | --debug )          debug=1
@@ -357,6 +529,9 @@ while (( "$#" )); do
                                 ;;
         -p | --password )       shift
                                 PASSWORD=$1
+                                ;;
+        -f | --pfxfile )        shift
+                                PFX_FILE=$1
                                 ;;
         -v | --verbose )        verbose=1
                                 ;;
@@ -398,6 +573,9 @@ ALTSUBJECT_MATCHES="'DNS:radius.eduroam.org'"
 EAP_OUTER="TTLS"
 EAP_INNER="PAP"
 ANONYMOUS_IDENTITY="anonymous@eduroam.org"
+VERIFY_USER_REALM_INPUT=true
+USER_REALM="eduroam"
+TOU=""
 CA_CERTIFICATE="-----BEGIN CERTIFICATE-----
 MIIDwzCCAqugAwIBAgIBATANBgkqhkiG9w0BAQsFADCBgjELMAkGA1UEBhMCREUx
 KzApBgNVBAoMIlQtU3lzdGVtcyBFbnRlcnByaXNlIFNlcnZpY2VzIEdtYkgxHzAd
@@ -429,6 +607,10 @@ INSTALLATION_FINISHED="Installation erfolgreich."
 SAVE_WPA_CONF="Konfiguration von NetworkManager fehlgeschlagen, erzeuge nun wpa_supplicant.conf Datei."
 QUIT="Wirklich beenden?"
 CONTINUE="Weiter"
+WRONG_USERNAME_FORMAT="Error: Your username must be of the form 'xxx@institutionID' e.g. 'john@example.net'!"
+WRONG_REALM="Error: your username must be in the form of 'xxx@%s'. Please enter the username in the correct format."
+WRONG_REALM_SUFFIX="Error: your username must be in the form of 'xxx@institutionID' and end with '%s'. Please enter the username in the correct format."
+ENTER_IMPORT_PASSWORD="Enter your import password."
 
 INIT_INFO_TMP="Dieses Installationsprogramm wurde für %s hergestellt.\n\nMehr Informationen und Kommentare:\n\nEMAIL: %s\nWWW: %s\n\nDas Installationsprogramm wurde mit Software vom GEANT Projekt erstellt."
 INIT_CONFIRMATION_TMP="Dieses Installationsprogramm funktioniert nur für Anwender von %s."

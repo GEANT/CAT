@@ -47,19 +47,29 @@ class DeviceLinuxSh extends \core\DeviceConfig {
     public function writeInstaller() {
         $installerPath = $this->installerBasename . ".sh";
         $this->copyFile("eduroam_linux_main.sh", $installerPath);
-        $installer = fopen($installerPath, "a");
-        if ($installer === FALSE) {
+
+        if ( !file_exists($installerPath) ) {
+            throw new Exception('File not found.');
+        }
+
+        if (!$installer = fopen($installerPath, "a")) {
             throw new Exception("Unable to open installer file for writing!");
         }
-        fwrite($installer, "\n\n");
-        fseek($installer, 0, SEEK_END);
-        $this->writeMessages($installer);
-        $this->writeConfigVars($installer);
-        fwrite($installer, 'printf -v INIT_INFO "$INIT_INFO_TMP" "$ORGANISATION" "$EMAIL" "$URL"' . "\n");
-        fwrite($installer, 'printf -v INIT_CONFIRMATION "$INIT_CONFIRMATION_TMP" "$ORGANISATION"' . "\n\n");
-        fwrite($installer, 'main "$@"; exit' . "\n");
-        fclose($installer);
-        return($installerPath);
+
+        try {
+            fwrite($installer, "\n\n");
+            fseek($installer, 0, SEEK_END);
+            $this->writeMessages($installer);
+            $this->writeConfigVars($installer);
+            fwrite($installer, 'printf -v INIT_INFO "$INIT_INFO_TMP" "$ORGANISATION" "$EMAIL" "$URL"' . "\n");
+            fwrite($installer, 'printf -v INIT_CONFIRMATION "$INIT_CONFIRMATION_TMP" "$ORGANISATION"' . "\n\n");
+            fwrite($installer, 'main "$@"; exit' . "\n");
+        } catch (Exception $e) {
+            echo 'Error message: ' .$e->getMessage();
+        } finally {
+            fclose($installer);
+            return($installerPath);
+        }
     }
 
     /**
@@ -188,14 +198,14 @@ class DeviceLinuxSh extends \core\DeviceConfig {
         $configRaw = [
             'SSIDS' => $this->mkSsidList(),
             'DEL_SSIDS' => $this->mkDelSsidList(),
-            'SERVERS' => $this->mkSubjectAltNameList(),
+            'ALTSUBJECT_MATCHES' => $this->mkSubjectAltNameList(),
         ];
 
         if ($this->selectedEap == \core\common\EAP::EAPTYPE_TLS && isset($this->attributes['eap-specific:tls_use_other_id']) && $this->attributes['eap-specific:tls_use_other_id'][0] == 'on') {
-            $configRaw['USE_OTHER_TLS_ID'] = "True";
+            $configRaw['USE_OTHER_TLS_ID'] = true;
         }
         else {
-            $configRaw['USE_OTHER_TLS_ID'] = "False";
+            $configRaw['USE_OTHER_TLS_ID'] = false;
         }
 
         if ($outerId !== NULL) {
@@ -207,11 +217,13 @@ class DeviceLinuxSh extends \core\DeviceConfig {
         }
 
         if(!empty($this->attributes['internal:hint_userinput_suffix'][0]) && $this->attributes['internal:hint_userinput_suffix'][0] == 1) {
-            $configRaw['HINT_USER_INPUT'] = "True";
+            $configRaw['HINT_USER_INPUT'] = true;
         }
 
         if(!empty($this->attributes['internal:verify_userinput_suffix'][0]) && $this->attributes['internal:verify_userinput_suffix'][0] == 1) {
-            $configRaw['VERIFY_USER_REALM_INPUT'] = "True";
+            $configRaw['VERIFY_USER_REALM_INPUT'] = true;
+        } else {
+            $configRaw['VERIFY_USER_REALM_INPUT'] = false;
         }
 
         foreach ($config as $name => $value) {
@@ -219,7 +231,7 @@ class DeviceLinuxSh extends \core\DeviceConfig {
         }
 
         foreach ($configRaw as $name => $value) {
-            fwrite($file, $name, $value);
+            fwrite($file, $name ."=". $value . "\n");
         }
 
         if ($tou === '') {
@@ -283,7 +295,7 @@ class DeviceLinuxSh extends \core\DeviceConfig {
             }
             $out .= "'DNS:$oneServer'";
         }
-        return "[" . $out. "]";
+        return "(" . $out. ")";
     }
 
     /**
@@ -313,7 +325,7 @@ class DeviceLinuxSh extends \core\DeviceConfig {
                 $outArray[] = "'$ssid'";
             }
         }
-        return '[' . implode(', ', $outArray) . ']';
+        return '(' . implode(', ', $outArray) . ')';
     }
 
     /**

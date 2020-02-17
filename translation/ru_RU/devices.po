@@ -769,7 +769,7 @@ msgid "installing profile $R1"
 msgstr ""
 
 #: devices/ms/Files/common.inc:928
-msgid "Profile installation error for $R1."
+msgid "Profile installation error for $R1 (Error code: $1)."
 msgstr ""
 
 #: devices/ms/Files/common.inc:953
