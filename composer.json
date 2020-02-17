@@ -1,6 +1,6 @@
 {
 
-    "name": "GEANT/CAT",
+    "name": "geant/cat",
     "description": "IEEE 802.1X Configuration Assistant Tool",
 
     "require-dev": {
