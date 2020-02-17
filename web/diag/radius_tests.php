@@ -288,7 +288,7 @@ switch ($test_type) {
             if (isset($rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['authorityInfoAccess'])) {
                 $returnarray['certdata']['extensions']['authorityinfoaccess'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['authorityInfoAccess'];
             }
-            // fall-through intentional, add the elapsed time in all cases except connection refused
+            break;
             default:
                 $returnarray['message'] .= $timeDisplay;
         }
