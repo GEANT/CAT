@@ -231,7 +231,7 @@ function resetDevices() {
          $("#profile_desc").hide();
          $("#profile_desc").text('');
        }
-       updateTxt = '<span class="user_info"><?php escaped_echo(_("This entry was last updated at:"));?>'+' '+j.last_changed+'</span><br/>';
+       updateTxt = '<span class="user_info"><?php $cat->javaScriptEscapedEcho(_("This entry was last updated at:"));?>'+' '+j.last_changed+'</span><br/>';
        if(j.local_url !== undefined && j.local_url) 
        txt = txt+'<span class="user_info"><?php $cat->javaScriptEscapedEcho(_("WWW:")); ?> <a href="'+j.local_url+'" target="_blank">'+j.local_url+'</a></span><br/>';
        if(j.local_email !== undefined && j.local_email) 
