@@ -573,7 +573,7 @@ Function wVersionCheck
     !ifdef TTLS
         ${If} $NoFCupdate == 1
             IfSilent +3
-            MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION  "<?php WindowsCommon::echo_nsi(_("Your Windows 10 has not been updated which means that you are likely to have problems accessing network. We suggest that you quit this installation, update your Windows and try again"))?>" IDOK cont1
+            MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION  "<?php WindowsCommon::echoNsis(_("Your Windows 10 has not been updated which means that you are likely to have problems accessing network. We suggest that you quit this installation, update your Windows and try again"))?>" IDOK cont1
             Call Cleanup
             ${EndIf}
             cont1:
@@ -950,7 +950,7 @@ Function InstallProfile
         GoTo FailedProfile
     ${EndIf}
     IfSilent +2
-    MessageBox MB_OK "<?php WindowsCommon::echo_nsi(_("Profile installation error for \$R1."))?>$\r$\n<?php WindowsCommon::echo_nsi(_("Please contact \${SUPPORT}."))?>"
+    MessageBox MB_OK "<?php WindowsCommon::echoNsis(_("Profile installation error for \$R1."))?>$\r$\n<?php WindowsCommon::echoNsis(_("Please contact \${SUPPORT}."))?>"
     Push 1
     Pop $profile_fail
     FailedProfile:
