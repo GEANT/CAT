@@ -60,7 +60,7 @@ switch ($_POST['submitbutton']) {
         header("Location: overview_idp.php?inst_id=$my_inst->identifier");
         exit;
     case web\lib\common\FormElements::BUTTON_SAVE:
-        echo $deco->pageheader(sprintf(_("%s: Profile wizard (step 3 completed)"), CONFIG['APPEARANCE']['productname']), "ADMIN-IDP");
+        echo $deco->pageheader(sprintf(_("%s: Profile wizard (step 3 completed)"), \config\Master::APPEARANCE['productname']), "ADMIN-IDP");
 
 
 if (isset($_GET['profile_id'])) {
@@ -246,12 +246,12 @@ if (isset($_GET['profile_id'])) {
                     $text .= $significantChanges[\core\AbstractProfile::SERVERNAME_ADDED] . "\n\n";
                 }
                 $text .= _("This mail is merely a cross-check because these changes can be security-relevant. If the change was expected, you do not need to take any action.") . "\n\n";
-                $text .= _("Greetings, ") . "\n\n" . CONFIG['APPEARANCE']['productname_long'];
+                $text .= _("Greetings, ") . "\n\n" . \config\Master::APPEARANCE['productname_long'];
                 // (currently, send hard-wired to NRO - future: for linked insts, check eduroam DBv2 and send to registered admins directly)
                 $fed = new core\Federation($myInstOriginal->federation);
                 foreach ($fed->listFederationAdmins() as $id) {
                     $user = new core\User($id);
-                    $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), CONFIG['APPEARANCE']['productname'], $ui->nomenclatureInst), $text);
+                    $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), \config\Master::APPEARANCE['productname'], $ui->nomenclatureInst), $text);
                 }
             }
 

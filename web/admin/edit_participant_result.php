@@ -80,7 +80,7 @@ $instId = $myInstOriginal->identifier;
 $hello = _("To whom it may concern,") . "\n\n";
 $bye = _("This mail is merely a cross-check because these changes can be security-relevant. If the change was expected, you do not need to take any action.") . "\n\n" .
         _("Greetings, ") . "\n\n" .
-        CONFIG['APPEARANCE']['productname_long'];
+        \config\Master::APPEARANCE['productname_long'];
 
 switch ($_POST['submitbutton']) {
     case web\lib\common\FormElements::BUTTON_DELETE:
@@ -102,14 +102,14 @@ switch ($_POST['submitbutton']) {
         $fed = new core\Federation($myInstOriginal->federation);
         foreach ($fed->listFederationAdmins() as $id) {
             $user = new core\User($id);
-            $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), CONFIG['APPEARANCE']['productname'], $ui->nomenclatureInst), $text);
+            $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), \config\Master::APPEARANCE['productname'], $ui->nomenclatureInst), $text);
         }
         header("Location: edit_idp.php?inst_id=$instId&wizard=true");
         exit;
     case web\lib\common\FormElements::BUTTON_SAVE:
     // fall-through intended, both buttons get same treatment
     case web\lib\common\FormElements::BUTTON_CONTINUE:
-        echo $deco->pageheader(sprintf(_("%s: IdP enrollment wizard (step 2 completed)"), CONFIG['APPEARANCE']['productname']), "ADMIN-IDP");
+        echo $deco->pageheader(sprintf(_("%s: IdP enrollment wizard (step 2 completed)"), \config\Master::APPEARANCE['productname']), "ADMIN-IDP");
         if (!isset($_POST['option']) || !isset($_POST['value'])) {
             // this page doesn't make sense without POST values
             echo $deco->footer();
@@ -147,7 +147,7 @@ switch ($_POST['submitbutton']) {
             $fed = new core\Federation($myInstOriginal->federation);
             foreach ($fed->listFederationAdmins() as $id) {
                 $user = new core\User($id);
-                $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), CONFIG['APPEARANCE']['productname'], $ui->nomenclatureInst), $text);
+                $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), \config\Master::APPEARANCE['productname'], $ui->nomenclatureInst), $text);
             }
         }
 

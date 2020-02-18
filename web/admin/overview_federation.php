@@ -252,7 +252,7 @@ require_once "inc/click_button_js.php";
                 // instantiating all profiles is costly, so we only do this if
                 // the deployment at hand has silverbullet enabled
                 $listOfSilverbulletRealms = [];
-                if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
+                if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
                     foreach ($idp_instance->listProfiles() as $oneProfile) {
                         if ($oneProfile instanceof core\ProfileSilverbullet) {
                             $listOfSilverbulletRealms[] = $oneProfile->realm;

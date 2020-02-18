@@ -180,7 +180,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
             // sign the data, using cmdline because openssl_pkcs7_sign produces strange results
             // -binary didn't help, nor switch -md to sha1 sha256 or sha512
             $this->loggerInstance->debug(5, "Actual content to be signed is this:\n  $soapCleartext\n");
-            $execCmd = CONFIG['PATHS']['openssl'] . " smime -sign -binary -in " . $tempdir['dir'] . "/content.txt -out " . $tempdir['dir'] . "/signature.txt -outform pem -inkey " . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey -signer " . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem";
+        $execCmd = \config\Master::PATHS['openssl'] . " smime -sign -binary -in " . $tempdir['dir'] . "/content.txt -out " . $tempdir['dir'] . "/signature.txt -outform pem -inkey " . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey -signer " . ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem";
             $this->loggerInstance->debug(2, "Calling openssl smime with following cmdline:   $execCmd\n");
             $output = [];
             $return = 999;
@@ -295,7 +295,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
             // sign the data, using cmdline because openssl_pkcs7_sign produces strange results
             // -binary didn't help, nor switch -md to sha1 sha256 or sha512
             $this->loggerInstance->debug(5, "Actual content to be signed is this:\n$soapRawRevRequest\n");
-            $execCmd = CONFIG['PATHS']['openssl'] . " smime -sign -binary -in " . $tempdir['dir'] . "/content.txt -out " . $tempdir['dir'] . "/signature.txt -outform pem -inkey " . CertificationAuthorityEduPkiServer::LOCATION_RA_KEY . " -signer " . CertificationAuthorityEduPkiServer::LOCATION_RA_CERT;
+        $execCmd = \config\Master::PATHS['openssl'] . " smime -sign -binary -in " . $tempdir['dir'] . "/content.txt -out " . $tempdir['dir'] . "/signature.txt -outform pem -inkey " . CertificationAuthorityEduPkiServer::LOCATION_RA_KEY . " -signer " . CertificationAuthorityEduPkiServer::LOCATION_RA_CERT;
             $this->loggerInstance->debug(2, "Calling openssl smime with following cmdline: $execCmd\n");
             $output = [];
             $return = 999;
@@ -437,7 +437,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
         openssl_pkey_export($privateKey, $outstring);
         file_put_contents($tempdir . "/pkey.pem", $outstring);
         // PHP can only do one DC in the Subject. But we need three.
-        $execCmd = CONFIG['PATHS']['openssl'] . " req -new -sha256 -key $tempdir/pkey.pem -out $tempdir/request.csr -subj /DC=test/DC=test/DC=eduroam/C=$fed/O=" . \config\ConfAssistant::CONSORTIUM['name'] . "/OU=$fed/CN=$username/emailAddress=$username";
+        $execCmd = \config\Master::PATHS['openssl'] . " req -new -sha256 -key $tempdir/pkey.pem -out $tempdir/request.csr -subj /DC=test/DC=test/DC=eduroam/C=$fed/O=" . \config\ConfAssistant::CONSORTIUM['name'] . "/OU=$fed/CN=$username/emailAddress=$username";
         $this->loggerInstance->debug(2, "Calling openssl req with following cmdline: $execCmd\n");
         $output = [];
         $return = 999;
