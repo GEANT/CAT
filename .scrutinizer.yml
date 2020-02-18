@@ -117,8 +117,6 @@ build:
                         use_website_config: true
                     - php-scrutinizer-run --enable-security-analysis
                     - js-scrutinizer-run
-                    - cd devices/linux/Files
-                    - shellcheck-run
         tests:
             environment:
                 variables:
