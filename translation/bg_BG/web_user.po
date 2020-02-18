@@ -505,7 +505,7 @@ msgstr ""
 "което се е втренчило във Вас. Ваша грешка? Наша грешка? Кой знае! Може би "
 "трябва да се върнете към <a href='%s'>Началната страница</a>."
 
-#: web/tou.php:70 web/skins/modern/Divs.php:292
+#: web/tou.php:70 web/skins/modern/Divs.php:291
 #, php-format
 msgid "%s Privacy Notice"
 msgstr "%s Поверително"

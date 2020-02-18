@@ -217,7 +217,7 @@ msgstr ""
 msgid "Test"
 msgstr "Тест"
 
-#: devices/apple_mobileconfig/DeviceMobileconfigIos5plus.php:52
+#: devices/apple_mobileconfig/Device_mobileconfig_ios5plus.php:52
 msgid "This device does not support forcing setting an HTTPS proxy."
 msgstr "Устройството не поддържа принудително настройване на HTTPS прокси."
 
@@ -376,7 +376,7 @@ msgstr ""
 "Импортирането е невидимо; новите мрежови определения ще бъдат добавени към "
 "предпочитаните мрежи."
 
-#: devices/linux/DeviceLinux.php:82
+#: devices/linux/Device_Linux.php:82
 #, php-format
 msgid ""
 "The installer is in the form of a Python script. It will try to configure %s "
@@ -389,7 +389,7 @@ msgstr ""
 "на Вашия Network Manager е твърде стара, вместо това ще бъде създаден "
 "конфигурационен файл wpa_supplicant. "
 
-#: devices/linux/DeviceLinux.php:86
+#: devices/linux/Device_Linux.php:86
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
@@ -412,7 +412,7 @@ msgstr[1] ""
 "В допълнение към <strong>%s</strong> инсталаторът ще конфигурира и достъпа "
 "до следните мрежи:"
 
-#: devices/linux/DeviceLinux.php:102
+#: devices/linux/Device_Linux.php:102
 msgid ""
 "The installer will create .cat_installer sub-directory in your home "
 "directory and will copy your server certificates there."
@@ -420,7 +420,7 @@ msgstr ""
 "Инсталаторът ще създаде поддиректория .cat_installer във Вашата лична "
 "директория и ще копира сертификатите на сървъра там."
 
-#: devices/linux/DeviceLinux.php:104
+#: devices/linux/Device_Linux.php:104
 msgid ""
 "In order to connect to the network you will need a personal certificate in "
 "the form of a p12 file. You should obtain this certificate from your "
@@ -449,7 +449,7 @@ msgstr ""
 "Трябва да проверите на страницата за поддръжка как се получава акаунт. Много "
 "е вероятно Вашият акаунт вече да е активиран. "
 
-#: devices/linux/DeviceLinux.php:108
+#: devices/linux/Device_Linux.php:108
 msgid ""
 "You will be requested to enter your account credentials during the "
 "installation. This information will be saved so that you will reconnect to "
@@ -459,72 +459,72 @@ msgstr ""
 "парола. Тази информация ще бъде запазена, така че ще се свързвате с мрежата "
 "отново автоматично всеки път, когато сте в обхват."
 
-#: devices/linux/DeviceLinux.php:139
+#: devices/linux/Device_Linux.php:139
 msgid "Really quit?"
 msgstr "Наистина ли се отказвате?"
 
-#: devices/linux/DeviceLinux.php:140
+#: devices/linux/Device_Linux.php:140
 msgid "enter your userid"
 msgstr "въведете Вашето userid"
 
-#: devices/linux/DeviceLinux.php:141
+#: devices/linux/Device_Linux.php:141
 msgid "enter password"
 msgstr "въведете парола"
 
-#: devices/linux/DeviceLinux.php:142
+#: devices/linux/Device_Linux.php:142
 msgid "enter your import password"
 msgstr "въведете Вашата входяща парола"
 
-#: devices/linux/DeviceLinux.php:143
+#: devices/linux/Device_Linux.php:143
 msgid "incorrect password"
 msgstr "некоректна парола"
 
-#: devices/linux/DeviceLinux.php:144
+#: devices/linux/Device_Linux.php:144
 msgid "repeat your password"
 msgstr "повторете Вашата парола"
 
-#: devices/linux/DeviceLinux.php:145
+#: devices/linux/Device_Linux.php:145
 msgid "passwords do not match"
 msgstr "паролите не съвпадат"
 
-#: devices/linux/DeviceLinux.php:146
+#: devices/linux/Device_Linux.php:146
 msgid "Installation successful"
 msgstr "Инсталацията е успешна"
 
-#: devices/linux/DeviceLinux.php:147
+#: devices/linux/Device_Linux.php:147
 msgid "Directory {} exists; some of its files may be overwritten."
 msgstr ""
 "Директория {} съществува; някои от нейните файлове може да бъдат презаписани."
 
-#: devices/linux/DeviceLinux.php:148
+#: devices/linux/Device_Linux.php:148
 msgid "Continue?"
 msgstr "Да продължи ли?"
 
-#: devices/linux/DeviceLinux.php:149
+#: devices/linux/Device_Linux.php:149
 msgid "This NetworkManager version is not supported"
 msgstr "Тази версия на Network Manager не се поддържа"
 
-#: devices/linux/DeviceLinux.php:150
+#: devices/linux/Device_Linux.php:150
 msgid "Certificate file not found, looks like a CAT error"
 msgstr "Файловият сертификат не е намерен, прилича на CAT грешка"
 
-#: devices/linux/DeviceLinux.php:151
+#: devices/linux/Device_Linux.php:151
 msgid "Unknown version"
 msgstr "Неизвестна версия"
 
-#: devices/linux/DeviceLinux.php:152
+#: devices/linux/Device_Linux.php:152
 msgid "DBus connection problem, a sudo might help"
 msgstr "Проблем на DBus със свързването, sudo може да помогне"
 
-#: devices/linux/DeviceLinux.php:153
+#: devices/linux/Device_Linux.php:153
 msgid "Y"
 msgstr "Да"
 
-#: devices/linux/DeviceLinux.php:154
+#: devices/linux/Device_Linux.php:154
 msgid "N"
 msgstr "Не"
 
-#: devices/linux/DeviceLinux.php:155 devices/linux/DeviceLinux.php:157
+#: devices/linux/Device_Linux.php:155 devices/linux/Device_Linux.php:157
 msgid "personal certificate file (p12 or pfx)"
 msgstr "файл (p12 или pfx) на персонален сертификат"
 
@@ -532,7 +532,7 @@ msgstr "файл (p12 или pfx) на персонален сертификат
 msgid "All files"
 msgstr "Всички файлове"
 
-#: devices/linux/DeviceLinux.php:158
+#: devices/linux/Device_Linux.php:158
 msgid ""
 "NetworkManager configuration failed, but we may generate a wpa_supplicant "
 "configuration file if you wish. Be warned that your connection password will "
@@ -542,7 +542,7 @@ msgstr ""
 "генерираме wpa_supplicant конфигурационен файл. Предупреждаваме Ви, че "
 "паролата Ви за връзка ще бъде запазена в този файл като чист текст."
 
-#: devices/linux/DeviceLinux.php:159
+#: devices/linux/Device_Linux.php:159
 msgid "Write the file"
 msgstr "Запишете файла"
 
@@ -555,7 +555,7 @@ msgstr ""
 "Грешка: Вашето потребителско име трябва да бъде във вида 'xxx@institutionID' "
 "например 'john@example.net'!"
 
-#: devices/linux/DeviceLinux.php:161
+#: devices/linux/Device_Linux.php:161
 msgid ""
 "Error: your username must be in the form of 'xxx@{}'. Please enter the "
 "username in the correct format."
@@ -563,7 +563,7 @@ msgstr ""
 "Грешка: Вашето потребителско име трябва да бъде във вида 'xxx@{}'. Моля "
 "въведете потребителското име в коректния формат."
 
-#: devices/linux/DeviceLinux.php:162
+#: devices/linux/Device_Linux.php:162
 msgid ""
 "Error: your username must be in the form of 'xxx@institutionID' and end with "
 "'{}'. Please enter the username in the correct format."
@@ -571,11 +571,11 @@ msgstr ""
 "Грешка: Вашето потребителско има трябва да бъде във вида 'xxx@institutionID' "
 "и да завършва с '{}'. Моля въведете потребителското име в коректния формат."
 
-#: devices/linux/DeviceLinux.php:163
+#: devices/linux/Device_Linux.php:163
 msgid "personal certificate file not found"
 msgstr "не е намерен персонален сертификат"
 
-#: devices/linux/DeviceLinux.php:348
+#: devices/linux/Device_Linux.php:348
 msgid "This installer has been prepared for {0}"
 msgstr "Този инсталатор е подготвен за {0}"
 
@@ -588,7 +588,7 @@ msgstr "Още информация и бележки:"
 msgid "Installer created with software from the GEANT project."
 msgstr "Инсталаторът е създаден със софтуер от проекта GEANT."
 
-#: devices/linux/DeviceLinux.php:377
+#: devices/linux/Device_Linux.php:377
 msgid ""
 "This installer will only work properly if you are a member of {0} and the "
 "user group: {1}."
@@ -596,11 +596,11 @@ msgstr ""
 "Този инсталатор ще работи правилно само ако сте член на {0} и потребителска "
 "група: {1}."
 
-#: devices/linux/DeviceLinux.php:379
+#: devices/linux/Device_Linux.php:379
 msgid "This installer will only work properly if you are a member of {0}."
 msgstr "Този инсталатор ще работи правилно само ако сте член на {0}."
 
-#: devices/ms/DeviceVista7.php:47 devices/ms/DeviceW8W10.php:50
+#: devices/ms/Device_Vista7.php:47 devices/ms/Device_W8_10.php:50
 msgid ""
 "Anonymous identities do not use the realm as specified in the profile - it "
 "is derived from the suffix of the user's username input instead."
@@ -660,25 +660,7 @@ msgstr ""
 msgid "%s installer for %s"
 msgstr "%s инсталатор за %s"
 
-#. the actual cert has to go... where?
-#: devices/PP_OSU_XML/DevicePPOSUXML.php:141
-#, php-format
-msgid "%s via Passpoint"
-msgstr ""
-
-#: devices/PP_OSU_XML/DevicePPOSUXML.php:227
-#, fuzzy
-msgid ""
-"This installer is an example only. It produces a zip file containig the IdP "
-"certificates, info and logo files (if such have been defined by the IdP "
-"administrator) and a dump of all available attributes."
-msgstr ""
-"Инсталаторът е само примерен. Той генерира zip файл, съдържащ сертификати на "
-"IdP, информационни и лого файлове (ако такива са били дефинирани от "
-"администратора на IdP) и всички налични атрибути. Инсталаторът се извиква с "
-"%d  SSID-ове за конфигуриране."
-
-#: devices/redirect_dev/DeviceRedirectDev.php:44
+#: devices/redirect_dev/Device_RedirectDev.php:44
 msgid ""
 "This device is not yet supported by CAT, but your local administrator "
 "created a redirect to local installation instructions."
@@ -687,7 +669,7 @@ msgstr ""
 "администратор е направил пренасочване към локалните инструкции за "
 "инсталиране."
 
-#: devices/test_module/DeviceTestModule.php:129
+#: devices/test_module/Device_TestModule.php:129
 #, php-format
 msgid ""
 "This installer is an example only. It produces a zip file containig the IdP "
@@ -700,7 +682,7 @@ msgstr ""
 "администратора на IdP) и всички налични атрибути. Инсталаторът се извиква с "
 "%d  SSID-ове за конфигуриране."
 
-#: devices/xml/DeviceXML.php:70
+#: devices/xml/Device_XML.php:70
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
