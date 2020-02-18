@@ -35,7 +35,7 @@ use \Exception;
  * @author Tomasz Wolniewicz <twoln@umk.pl>
  * @package ModuleWriting
  */
- class Device_W8_10 extends WindowsCommon {
+ class DeviceW8W10 extends WindowsCommon {
     final public function __construct() {
         parent::__construct();
         \core\common\Entity::intoThePotatoes();
@@ -94,7 +94,7 @@ use \Exception;
         if ($this->device_id !== 'w8') {
             $roamingPartner = 1;
             foreach ($this->attributes['internal:consortia'] as $oneCons) {
-                $knownOiName = array_search($oneCons, CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi']);
+                $knownOiName = array_search($oneCons, \config\ConfAssistant::CONSORTIUM['interworking-consortium-oi']);
                 if ($knownOiName === FALSE) { // a custom RCOI as set by the IdP admin; do not use the term "eduroam" in that one!
                     $knownOiName = $this->attributes['general:instname'][0] . " "._("Roaming Partner") . " $roamingPartner";
                     $roamingPartner++;
@@ -146,7 +146,7 @@ use \Exception;
         $retval = '<Hotspot2>';
         $retval .= '<DomainName>';
         if (empty($this->attributes['internal:realm'][0])) {
-            $retval .= CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-domainname-fallback'];
+            $retval .= \config\ConfAssistant::CONSORTIUM['interworking-domainname-fallback'];
         } else {
             $retval .=  $this->attributes['internal:realm'][0];
         }
@@ -548,7 +548,7 @@ use \Exception;
         if ($this->device_id == 'w10') {
             $fcontents .= "!define W10\n";
         }
-        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
+        if (\config\ConfAssistant::NSIS_VERSION >= 3) {
             $fcontents .= "Unicode true\n";
         }
         $eapOptions = [

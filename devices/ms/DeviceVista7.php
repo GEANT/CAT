@@ -33,7 +33,7 @@
 namespace devices\ms;
 use \Exception;
 
-class Device_Vista7 extends WindowsCommon {
+class DeviceVista7 extends WindowsCommon {
 
     /**
      * constructor; tells the world about supported EAP types and device anomalies
@@ -452,7 +452,7 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
             \core\common\EAP::PWD => ['str' => 'PWD', 'exec' => 'user'],
         ];
         $fcontents = '';
-        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
+        if (\config\ConfAssistant::NSIS_VERSION >= 3) {
             $fcontents .= "Unicode true\n";
         }
 
