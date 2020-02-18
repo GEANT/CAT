@@ -408,7 +408,7 @@ class DeploymentManaged extends AbstractDeployment
                 $this->loggerInstance->debug(1, "curl_exec failure");
                 $res = 'FAILURE';
             } else {
-                $res = $exec;
+                $res = (string)$exec; // it is always a string due to RETURNTRANSFER but let's make Scrutinizer which thinks this could be TRUE as well
             }
             $this->loggerInstance->debug(1, "Response from FR configurator: $res\n");
             $this->loggerInstance->debug(1, $this);

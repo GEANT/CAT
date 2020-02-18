@@ -101,17 +101,17 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
     /**
      * retrieves the list of all service providers from the eduroam database
      * 
-     * @return integer number of providers
+     * @return array list of providers
      */
     public function allServiceProviders()
     {
         if (count($this->SPList) == 0) {
             $query = $this->db->exec("SELECT country, inst_name, sp_location FROM view_active_SP_location_eduroamdb");
             while ($iterator = mysqli_fetch_object(/** @scrutinizer ignore-type */ $query)) {
-                $this->counter = $iterator->total;
+                $this->SPList[] = ["country" => $iterator->country, "instnames" => $this->splitNames($iterator->inst_name), "locnames" => $this->splitNames($iterator->sp_location)];
             }
-            file_put_contents(ROOT . "/var/tmp/cachedSPNumber.serialised", serialize(["number" => $this->counter, "timestamp" => new \DateTime()]));
         }
+        return $this->SPList;
     }
 
     public const TYPE_IDPSP = "1";
