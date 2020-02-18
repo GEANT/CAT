@@ -97,7 +97,7 @@ abstract class WindowsCommon extends \core\DeviceConfig
         // and translations occur in the varios ".inc" files - so make sure we
         // operate in the correct catalogue
         \core\common\Entity::intoThePotatoes();
-        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
+        if (\config\ConfAssistant::NSIS_VERSION >= 3) {
             $encoding = 0;
         }
         if ($output_name === NULL) {
@@ -154,7 +154,7 @@ abstract class WindowsCommon extends \core\DeviceConfig
         if (empty($source_string)) {
             return $source_string;
         }
-        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
+        if (\config\ConfAssistant::NSIS_VERSION >= 3) {
             $encoding = 0;
         }
         if ($encoding) {

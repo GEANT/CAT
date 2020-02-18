@@ -75,7 +75,7 @@ class DBConnection
             case "RADIUS":
                 if (!isset(self::${"instance" . $theDb})) {
                     $class = __CLASS__;
-                    foreach (CONFIG_CONFASSISTANT['DB'] as $name => $oneRadiusAuthDb) {
+                    foreach (\config\ConfAssistant::DB as $name => $oneRadiusAuthDb) {
                         $theInstance = new $class($name);
                         self::${"instance" . $theDb}[] = $theInstance;
                         $theInstance->databaseInstance = $theDb;

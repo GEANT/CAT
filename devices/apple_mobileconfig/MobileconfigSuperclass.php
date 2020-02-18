@@ -541,7 +541,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
                     throw new Exception("ConsortiumOI must be a string!");
                 }
                 $payloadIdentifier = "hs20.$toBeConfigured";
-                $knownOiName = array_search($toBeConfigured, CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi']);
+                $knownOiName = array_search($toBeConfigured, \config\ConfAssistant::CONSORTIUM['interworking-consortium-oi']);
                 if ($knownOiName === FALSE) { // a custom RCOI as set by the IdP admin; do not use the term "eduroam" in that one!
                     $knownOiName = $this->instName . " "._("Roaming Partner");
                 }
