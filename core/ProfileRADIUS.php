@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -47,7 +48,8 @@ use \Exception;
  *
  * @package Developer
  */
-class ProfileRADIUS extends AbstractProfile {
+class ProfileRADIUS extends AbstractProfile
+{
 
     /**
      * This array holds all attributes which are defined on device level only
@@ -71,7 +73,8 @@ class ProfileRADIUS extends AbstractProfile {
      * @param IdP $idpObject optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
      * @throws Exception
      */
-    public function __construct($profileId, $idpObject = NULL) {
+    public function __construct($profileId, $idpObject = NULL)
+    {
         parent::__construct($profileId, $idpObject);
 
         $this->entityOptionTable = "profile_option";
@@ -155,7 +158,8 @@ class ProfileRADIUS extends AbstractProfile {
      * @return array the list attributes in an array
      * @throws Exception
      */
-    private function fetchDeviceOrEAPLevelAttributes($devicesOrEAPMethods) {
+    private function fetchDeviceOrEAPLevelAttributes($devicesOrEAPMethods)
+    {
         // only one of the two is allowed to be set
         $temparray = [];
         $optioninstance = Options::instance();
@@ -203,7 +207,8 @@ class ProfileRADIUS extends AbstractProfile {
      * @param int    $integerEapType the numeric representation of the EAP type for which this installer was generated
      * @return void
      */
-    public function updateCache($device, $path, $mime, $integerEapType) {
+    public function updateCache($device, $path, $mime, $integerEapType)
+    {
         $lang = $this->languageInstance->getLang();
         $this->frontendHandle->exec("INSERT INTO downloads (profile_id,device_id,download_path,mime,lang,installer_time,eap_type) 
                                         VALUES (?,?,?,?,?,CURRENT_TIMESTAMP,?) 
@@ -221,7 +226,8 @@ class ProfileRADIUS extends AbstractProfile {
      * @param string $device    identifier of the device in the databse. Omit the argument if attribute is valid for all devices.
      * @return void
      */
-    private function addAttributeAllLevels($attrName, $attrLang, $attrValue, $eapType, $device) {
+    private function addAttributeAllLevels($attrName, $attrLang, $attrValue, $eapType, $device)
+    {
         $prepQuery = "INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_lang, option_value, eap_method_id, device_id) 
                           VALUES(?, ?, ?, ?, ?, ?)";
         $this->databaseHandle->exec($prepQuery, "isssis", $this->identifier, $attrName, $attrLang, $attrValue, $eapType, $device);
@@ -237,7 +243,8 @@ class ProfileRADIUS extends AbstractProfile {
      * @param int    $eapType   identifier of the EAP type in the database. 0 if the attribute is valid for all EAP types.
      * @return void
      */
-    public function addAttributeEAPSpecific($attrName, $attrLang, $attrValue, $eapType) {
+    public function addAttributeEAPSpecific($attrName, $attrLang, $attrValue, $eapType)
+    {
         $this->addAttributeAllLevels($attrName, $attrLang, $attrValue, $eapType, NULL);
     }
 
@@ -250,7 +257,8 @@ class ProfileRADIUS extends AbstractProfile {
      * @param string $device    identifier of the device in the databse. Omit the argument if attribute is valid for all devices.
      * @return void
      */
-    public function addAttributeDeviceSpecific($attrName, $attrLang, $attrValue, $device) {
+    public function addAttributeDeviceSpecific($attrName, $attrLang, $attrValue, $device)
+    {
         $this->addAttributeAllLevels($attrName, $attrLang, $attrValue, 0, $device);
     }
 
@@ -262,7 +270,8 @@ class ProfileRADIUS extends AbstractProfile {
      * @param string $attrValue value of the attribute to set
      * @return void
      */
-    public function addAttribute($attrName, $attrLang, $attrValue) {
+    public function addAttribute($attrName, $attrLang, $attrValue)
+    {
         $this->addAttributeAllLevels($attrName, $attrLang, $attrValue, 0, NULL);
     }
 
@@ -275,7 +284,8 @@ class ProfileRADIUS extends AbstractProfile {
      * @return array list of row id's of file-based attributes which weren't deleted
      * @throws Exception
      */
-    public function beginFlushAttributes($extracondition = "") {
+    public function beginFlushAttributes($extracondition = "")
+    {
         // we don't take extraconditions
         if ($extracondition != "") {
             throw new Exception("Parameter only provided for consistent function override. You are not expected to use it.");
@@ -290,7 +300,8 @@ class ProfileRADIUS extends AbstractProfile {
      * @param boolean $shallwe TRUE to enable outer identities (needs valid $realm), FALSE to disable
      * @return void
      */
-    public function setAnonymousIDSupport($shallwe) {
+    public function setAnonymousIDSupport($shallwe)
+    {
         $this->databaseHandle->exec("UPDATE profile SET use_anon_outer = " . ($shallwe === true ? "1" : "0") . " WHERE profile_id = $this->identifier");
     }
 
@@ -300,20 +311,22 @@ class ProfileRADIUS extends AbstractProfile {
      * @param string  $localpart the username
      * @return void
      */
-    public function setRealmCheckUser($shallwe, $localpart = NULL) {
+    public function setRealmCheckUser($shallwe, $localpart = NULL)
+    {
         $this->databaseHandle->exec("UPDATE profile SET checkuser_outer = " . ($shallwe === true ? "1" : "0") .
                 ( $localpart !== NULL ? ", checkuser_value = '$localpart' " : "") .
                 " WHERE profile_id = $this->identifier");
     }
 
-    /** 
+    /**
      * should username be verified or even prefilled?
      * 
      * @param bool $verify should the user input be verified by the installer?
      * @param bool $hint   should the user be shown username formatting hints?
      * @return void
      */
-    public function setInputVerificationPreference($verify, $hint) {
+    public function setInputVerificationPreference($verify, $hint)
+    {
         $this->databaseHandle->exec("UPDATE profile SET verify_userinput_suffix = " . ($verify === true ? "1" : "0") .
                 ", hint_userinput_suffix = " . ($hint === true ? "1" : "0") .
                 " WHERE profile_id = $this->identifier");
@@ -327,7 +340,8 @@ class ProfileRADIUS extends AbstractProfile {
      * @return array list of row id's of file-based attributes which weren't deleted
      * @throws Exception
      */
-    public function beginFlushMethodLevelAttributes($eapId, $deviceId) {
+    public function beginFlushMethodLevelAttributes($eapId, $deviceId)
+    {
         if ($eapId == 0 && $deviceId == "") {
             throw new Exception("MethodLevel attributes pertain either to an EAP method or a device - none was specified in the parameters.");
         }
@@ -352,5 +366,4 @@ class ProfileRADIUS extends AbstractProfile {
         }
         return $returnArray;
     }
-    
 }

@@ -32,7 +32,8 @@ namespace config;
  *
  * @package Configuration
  */
-class Diagnostics {
+class Diagnostics 
+{
 
         /**
          * Defines various general parameters of the roaming consortium.
@@ -161,5 +162,4 @@ class Diagnostics {
             'port' => '1999',
             'secret' => '1q2w3e4r5t0O9I8U7Y6TaZ',
         ];
-
 }

@@ -380,7 +380,7 @@ class RADIUSTests extends AbstractTest
         // $pem = chunk_split(base64_encode($crlcontent), 64, "\n");
         // inspired by https://stackoverflow.com/questions/2390604/how-to-pass-variables-as-stdin-into-command-line-from-php
 
-        $proc = \config\Master::PATHS['openssl']." crl -inform der";
+        $proc = \config\Master::PATHS['openssl'] . " crl -inform der";
         $descriptorspec = [
             0 => ["pipe", "r"],
             1 => ["pipe", "w"],
@@ -520,11 +520,11 @@ class RADIUSTests extends AbstractTest
                         }
                     }
                     break;
-                case self::LINEPARSE_CHECK_691: 
-                    /* fall-through intentional */
-                case self::LINEPARSE_CHECK_REJECTIGNORE: 
-                    /* fall-through intentional */
-                case self::LINEPARSE_EAPACK: 
+                case self::LINEPARSE_CHECK_691:
+                /* fall-through intentional */
+                case self::LINEPARSE_CHECK_REJECTIGNORE:
+                /* fall-through intentional */
+                case self::LINEPARSE_EAPACK:
                     /* fall-through intentional */
                     break;
                 default:
@@ -640,7 +640,8 @@ network={
      * @param boolean $frag       make request so large that fragmentation is needed?
      * @return string the command-line for eapol_test
      */
-    private function eapolTestConfig($probeindex, $opName, $frag) {
+    private function eapolTestConfig($probeindex, $opName, $frag)
+    {
         $cmdline = \config\Diagnostics::PATHS['eapol_test'] .
                 " -a " . \config\Diagnostics::RADIUSTESTS['UDP-hosts'][$probeindex]['ip'] .
                 " -s " . \config\Diagnostics::RADIUSTESTS['UDP-hosts'][$probeindex]['secret'] .
@@ -969,7 +970,7 @@ network={
     private function wasModernTlsNegotiated(&$testresults, $packetflow_orig)
     {
         $negotiatedTlsVersion = $this->checkLineparse($packetflow_orig, self::LINEPARSE_TLSVERSION);
-        $this->loggerInstance->debug(4,"TLS version found is: $negotiatedTlsVersion"."\n");
+        $this->loggerInstance->debug(4, "TLS version found is: $negotiatedTlsVersion" . "\n");
         if ($negotiatedTlsVersion === FALSE) {
             $testresults['cert_oddities'][] = RADIUSTests::TLSPROB_UNKNOWN_TLS_VERSION;
         } elseif ($negotiatedTlsVersion != self::TLS_VERSION_1_2 && $negotiatedTlsVersion != self::TLS_VERSION_1_3) {
@@ -1276,5 +1277,4 @@ network={
         \core\common\Entity::outOfThePotatoes();
         return $ret;
     }
-
 }

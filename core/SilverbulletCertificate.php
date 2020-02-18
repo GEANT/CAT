@@ -33,7 +33,8 @@ namespace core;
 use \Exception;
 use \SoapFault;
 
-class SilverbulletCertificate extends EntityWithDBProperties {
+class SilverbulletCertificate extends EntityWithDBProperties
+{
 
     /**
      * The username in the certificate (CN)
@@ -41,14 +42,14 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * @var string
      */
     public $username;
-    
+
     /**
      * expiry date and time of the certificate in mysql date notation
      * 
      * @var string
      */
     public $expiry;
-    
+
     /**
      * serial number of the certificate. For CAs with serials beyond 64 bit 
      * length, this is a string, otherwise an integer. Storage in SQL is always
@@ -57,14 +58,14 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * @var integer|string
      */
     public $serial;
-    
+
     /**
      * row index of this certificate in the database table
      * 
      * @var integer
      */
     public $dbId;
-    
+
     /**
      * the row index of the invitation which was consumed to generate this 
      * certificate
@@ -72,21 +73,21 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * @var integer
      */
     public $invitationId;
-    
+
     /**
      * the user ID that belongs to this certificate
      * 
      * @var integer
      */
     public $userId;
-    
+
     /**
      * the ID of the profile to which this certificate belongs
      * 
      * @var integer
      */
     public $profileId;
-    
+
     /**
      * date and time of issuance of the certificate (start of validity) in MySQL
      * timestamp notation
@@ -94,14 +95,14 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * @var string
      */
     public $issued;
-    
+
     /**
      * the device for which this certificate was generated
      * 
      * @var string
      */
     public $device;
-    
+
     /**
      * whether or not this certificate is revoked. Can take values REVOKED or
      * NOT_REVOKED
@@ -109,7 +110,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * @var string
      */
     public $revocationStatus;
-    
+
     /**
      * date and time of revocation of this certificate, if any. In MySQL 
      * timestamp notation
@@ -117,14 +118,14 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * @var string
      */
     public $revocationTime;
-    
+
     /**
      * the most current OCSP statement for this certificate (binary data)
      * 
      * @var string
      */
     public $ocsp;
-    
+
     /**
      * date and time of issuance of the current OCSP statement for this 
      * certificate (mySQL timestamp notation)
@@ -132,7 +133,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * @var string
      */
     public $ocspTimestamp;
-    
+
     /**
      * overall status of the certificate. See constants below for possible 
      * values.
@@ -140,14 +141,14 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * @var integer
      */
     public $status;
-    
+
     /**
      * which CA issued the certificate. Typical values are "RSA" or "ECDSA".
      * 
      * @var string
      */
     public $ca_type;
-    
+
     /**
      * any additional info about the certificate. Expected to be a JSON string.
      * 
@@ -159,7 +160,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * Certificate is valid at the current point in time.
      */
     const CERTSTATUS_VALID = 1;
-    
+
     /**
      * Certificate has expired. This status is set regardless whether it has 
      * also been revoked before; once the expiry date is over, it is just
@@ -167,12 +168,12 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * 
      */
     const CERTSTATUS_EXPIRED = 2;
-    
+
     /**
      * Certificate is within its validity time, but has been revoked.
      */
     const CERTSTATUS_REVOKED = 3;
-    
+
     /**
      * This is not a certificate we know about.
      */
@@ -187,7 +188,8 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * @param int|string $identifier identify certificate either by CN or by serial
      * @param string     $certtype   RSA or ECDSA?
      */
-    public function __construct($identifier, $certtype = NULL) {
+    public function __construct($identifier, $certtype = NULL)
+    {
         $this->databaseType = "INST";
         parent::__construct();
         $this->username = "";
@@ -248,7 +250,8 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * 
      * @return array of basic certificate details
      */
-    public function getBasicInfo() {
+    public function getBasicInfo()
+    {
         $returnArray = []; // unnecessary because the iterator below is never empty, but Scrutinizer gets excited nontheless
         foreach (['status', 'serial', 'username', 'issued', 'expiry', 'ca_type', 'annotation'] as $key) {
             $returnArray[$key] = $this->$key;
@@ -263,10 +266,11 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * @param array $annotation information to be stored
      * @return void
      */
-    public function annotate($annotation) {
+    public function annotate($annotation)
+    {
         $encoded = json_encode($annotation);
         $this->annotation = $encoded;
-        $this->databaseHandle->exec("UPDATE silverbullet_certificate SET extrainfo = ? WHERE serial_number = ?", "si", $encoded, $this->serial );
+        $this->databaseHandle->exec("UPDATE silverbullet_certificate SET extrainfo = ? WHERE serial_number = ?", "si", $encoded, $this->serial);
     }
 
     /**
@@ -274,7 +278,8 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * 
      * @return void
      */
-    public function updateFreshness() {
+    public function updateFreshness()
+    {
         // nothing to be done here.
     }
 
@@ -285,8 +290,9 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * @return CertificationAuthorityInterface engine to use
      * @throws Exception
      */
-    public static function getCaEngine($type) {
-     switch ($type) {
+    public static function getCaEngine($type)
+    {
+        switch ($type) {
             case \devices\Devices::SUPPORT_EMBEDDED_RSA:
                 $caEngine = new CertificationAuthorityEmbeddedRSA();
                 break;
@@ -301,6 +307,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         }
         return $caEngine;
     }
+
     /**
      * issue a certificate based on a token
      *
@@ -310,7 +317,8 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * @return array
      * @throws Exception
      */
-    public static function issueCertificate($token, $importPassword, $certtype) {
+    public static function issueCertificate($token, $importPassword, $certtype)
+    {
         $loggerInstance = new common\Logging();
         $databaseHandle = DBConnection::handle("INST");
         $loggerInstance->debug(5, "generateCertificate() - starting.\n");
@@ -403,7 +411,8 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * @return void
      * @throws Exception
      */
-    public function revokeCertificate() {
+    public function revokeCertificate()
+    {
         $nowSql = (new \DateTime())->format("Y-m-d H:i:s");
         // regardless if embedded or not, always keep local state in our own DB
         $this->databaseHandle->exec("UPDATE silverbullet_certificate SET revocation_status = 'REVOKED', revocation_time = ? WHERE serial_number = ? AND ca_type = ?", "sis", $nowSql, $this->serial, $this->ca_type);
@@ -425,7 +434,8 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * @param string $certtype typically RSA or ECDSA
      * @return string the username, realm included
      */
-    private static function findUniqueUsername($realm, $certtype) {
+    private static function findUniqueUsername($realm, $certtype)
+    {
         $databaseHandle = DBConnection::handle("INST");
         $usernameIsUnique = FALSE;
         $username = "";
@@ -440,5 +450,4 @@ class SilverbulletCertificate extends EntityWithDBProperties {
         }
         return $username;
     }
-    
 }

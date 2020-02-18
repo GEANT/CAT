@@ -33,7 +33,8 @@
 namespace devices\ms;
 use \Exception;
 
-class DeviceVista7 extends WindowsCommon {
+class DeviceVista7 extends WindowsCommon 
+{
 
     /**
      * constructor; tells the world about supported EAP types and device anomalies
@@ -536,5 +537,4 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
     }
 
     private $tlsOtherUsername = 0;
-
 }

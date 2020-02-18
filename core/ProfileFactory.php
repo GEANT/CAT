@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -26,7 +27,8 @@ namespace core;
  * as needed. Indication which to choose is by supported EAP types in the
  * profile in question
  */
-class ProfileFactory {
+class ProfileFactory
+{
 
     /** is this profile a RADIUS profile or SILVERBULLET?
      * find out, and return an instance of the instantiated sub-class as appropriate
@@ -36,7 +38,8 @@ class ProfileFactory {
      * 
      * @return AbstractProfile a sub-class of AbstractProfile matching the type
      */
-    public static function instantiate($profileId, $idpObject = NULL) {
+    public static function instantiate($profileId, $idpObject = NULL)
+    {
         // we either need a ProfileRADIUS or ProfileSilverbullet. Try one, and
         // switch to the other if our guess was wrong
         $attempt = new ProfileRADIUS($profileId, $idpObject);
@@ -46,5 +49,4 @@ class ProfileFactory {
         }
         return $attempt;
     }
-
 }

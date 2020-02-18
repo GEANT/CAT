@@ -48,7 +48,8 @@ use \Exception;
  *
  * @package Developer
  */
-abstract class AbstractDeployment extends EntityWithDBProperties {
+abstract class AbstractDeployment extends EntityWithDBProperties
+{
 
     const INACTIVE = 0;
     const ACTIVE = 1;
@@ -121,7 +122,8 @@ abstract class AbstractDeployment extends EntityWithDBProperties {
      * @param IdP        $idpObject       optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
      * @param string|int $deploymentIdRaw identifier of the deployment in the DB, or 
      */
-    public function __construct($idpObject, $deploymentIdRaw = NULL) {
+    public function __construct($idpObject, $deploymentIdRaw = NULL)
+    {
         $this->databaseType = "INST";
         parent::__construct(); // we now have access to our INST database handle and logging
         $this->frontendHandle = DBConnection::handle("FRONTEND");
@@ -158,20 +160,20 @@ abstract class AbstractDeployment extends EntityWithDBProperties {
      * @return void
      */
     abstract public function destroy();
-    
+
     /**
      * Deactivates the deployment
      * 
      * @return void
      */
     abstract public function deactivate();
-    
+
     /**
      * activates the deployment
      * 
      * @return void
      */
-    abstract public function activate();   
+    abstract public function activate();
 
     /**
      * check if RADIUS configuration deamon is listening for requests
@@ -179,7 +181,7 @@ abstract class AbstractDeployment extends EntityWithDBProperties {
      * @return array index res[1] indicate primary RADIUS status, index res[2] backup RADIUS status
      */
     abstract public function checkRADIUSHostandConfigDaemon();
-    
+
     /**
      * prepare request to add/modify RADIUS settings for given deployment
      *

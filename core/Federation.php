@@ -52,7 +52,8 @@ use \Exception;
  *
  * @package Developer
  */
-class Federation extends EntityWithDBProperties {
+class Federation extends EntityWithDBProperties
+{
 
     /**
      * the handle to the FRONTEND database (only needed for some stats access)
@@ -73,7 +74,8 @@ class Federation extends EntityWithDBProperties {
      * 
      * @return array
      */
-    private function downloadStatsCore() {
+    private function downloadStatsCore()
+    {
         $grossAdmin = 0;
         $grossUser = 0;
         $grossSilverbullet = 0;
@@ -105,7 +107,8 @@ class Federation extends EntityWithDBProperties {
      * 
      * @return void
      */
-    public function updateFreshness() {
+    public function updateFreshness()
+    {
         $idplist = $this->listIdentityProviders();
         foreach ($idplist as $idpDetail) {
             $idpDetail['instance']->updateFreshness();
@@ -118,7 +121,8 @@ class Federation extends EntityWithDBProperties {
      * @return string|array
      * @throws Exception
      */
-    public function downloadStats($format) {
+    public function downloadStats($format)
+    {
         $data = $this->downloadStatsCore();
         $retstring = "";
 
@@ -161,7 +165,8 @@ class Federation extends EntityWithDBProperties {
      *                        Example: "lu" (for Luxembourg)
      * @throws Exception
      */
-    public function __construct($fedname) {
+    public function __construct($fedname)
+    {
 
         // initialise the superclass variables
 
@@ -226,7 +231,8 @@ class Federation extends EntityWithDBProperties {
      * @return integer identifier of the new IdP
      * @throws Exception
      */
-    public function newIdP($type, $ownerId, $level, $mail = NULL, $bestnameguess = NULL) {
+    public function newIdP($type, $ownerId, $level, $mail = NULL, $bestnameguess = NULL)
+    {
         $this->databaseHandle->exec("INSERT INTO institution (country, type) VALUES('$this->tld', '$type')");
         $identifier = $this->databaseHandle->lastID();
 
@@ -281,7 +287,7 @@ We thought you might want to know.
 
 Best regards,
 
-%s"), 
+%s"),
                     $prettyPrintType,
                     $bestnameguess,
                     $consortium,
@@ -306,7 +312,7 @@ Best regards,
      * @var array
      */
     private $idpListAll;
-    
+
     /**
      * list of all active institutions. Fetched once from the DB and then stored
      * in this variable
@@ -320,7 +326,8 @@ Best regards,
      * 
      * @return array
      */
-    public function listTlsCertificates() {
+    public function listTlsCertificates()
+    {
         $certQuery = "SELECT ca_name, request_serial, distinguished_name, status, expiry, certificate, revocation_pin FROM federation_servercerts WHERE federation_id = ?";
         $upperTld = strtoupper($this->tld);
         $certList = $this->databaseHandle->exec($certQuery, "s", $upperTld);
@@ -335,11 +342,11 @@ Best regards,
                 'EXPIRY' => $certListResult->expiry,
                 'CERT' => $certListResult->certificate,
                 'REVPIN' => $certListResult->revocation_pin,
-                ];
+            ];
         }
         return$retArray;
     }
-    
+
     /**
      * requests a new certificate
      * 
@@ -347,7 +354,8 @@ Best regards,
      * @param int   $expiryDays how long should the cert be valid, in days
      * @return void
      */
-    public function requestCertificate($csr, $expiryDays) {
+    public function requestCertificate($csr, $expiryDays)
+    {
         $revocationPin = common\Entity::randomString(10, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
         $newReq = new CertificationAuthorityEduPkiServer();
         $reqserial = $newReq->sendRequestToCa($csr, $revocationPin, $expiryDays);
@@ -356,33 +364,35 @@ Best regards,
                 . "VALUES (?, 'eduPKI', ?, ?, 'REQUESTED', ?)";
         $this->databaseHandle->exec($reqQuery, "siss", $this->tld, $reqserial, $csr['SUBJECT'], $revocationPin);
     }
-    
+
     /**
      * fetches new cert info from the CA
      * 
      * @param int $reqSerial the request serial number that is to be updated
      * @return void
      */
-    public function updateCertificateStatus($reqSerial) {
+    public function updateCertificateStatus($reqSerial)
+    {
         $ca = new CertificationAuthorityEduPkiServer();
         $entryInQuestion = $ca->pickupFinalCert($reqSerial, FALSE);
         if ($entryInQuestion === FALSE) {
             return; // no update to fetch
         }
         $certDetails = openssl_x509_parse($entryInQuestion['CERT']);
-        $expiry = "20".$certDetails['validTo'][0].$certDetails['validTo'][1]."-".$certDetails['validTo'][2].$certDetails['validTo'][3]."-".$certDetails['validTo'][4].$certDetails['validTo'][5];
+        $expiry = "20" . $certDetails['validTo'][0] . $certDetails['validTo'][1] . "-" . $certDetails['validTo'][2] . $certDetails['validTo'][3] . "-" . $certDetails['validTo'][4] . $certDetails['validTo'][5];
         openssl_x509_export($entryInQuestion['CERT'], $pem);
         $updateQuery = "UPDATE federation_servercerts SET status = 'ISSUED', certificate = ?, expiry = ? WHERE ca_name = 'eduPKI' AND request_serial = ?";
         $this->databaseHandle->exec($updateQuery, "ssi", $pem, $expiry, $reqSerial);
     }
-    
+
     /**
      * revokes a certificate.
      * 
      * @param int $reqSerial the request serial whose associated cert is to be revoked
      * @return void
      */
-    public function triggerRevocation($reqSerial) {
+    public function triggerRevocation($reqSerial)
+    {
         // revocation at the CA side works with the serial of the certificate, not the request
         // so find that out first
         // This is a select, so tell Scrutinizer about the type-safety of the result
@@ -394,7 +404,7 @@ Best regards,
         $eduPki->revokeCertificate($serial);
         $this->databaseHandle->exec("UPDATE federation_servercerts SET status = 'REVOKED' WHERE ca_name = 'eduPKI' AND request_serial = ?", "i", $reqSerial);
     }
-    
+
     /**
      * Lists all Identity Providers in this federation
      *
@@ -402,7 +412,8 @@ Best regards,
      * @return array (Array of IdP instances)
      *
      */
-    public function listIdentityProviders($activeOnly = 0) {
+    public function listIdentityProviders($activeOnly = 0)
+    {
         // maybe we did this exercise before?
         if ($activeOnly != 0 && count($this->idpListActive) > 0) {
             return $this->idpListActive;
@@ -447,7 +458,8 @@ Best regards,
      * 
      * @return array list of the admins of this federation
      */
-    public function listFederationAdmins() {
+    public function listFederationAdmins()
+    {
         $returnarray = [];
         $query = "SELECT user_id FROM user_options WHERE option_name = 'user:fedadmin' AND option_value = ?";
         if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
@@ -463,7 +475,7 @@ Best regards,
         }
         return $returnarray;
     }
-    
+
     /**
      * cross-checks in the EXTERNAL customer DB which institutions exist there for the federations
      * 
@@ -471,7 +483,8 @@ Best regards,
      * @param string $type         which type of entity to search for
      * @return array
      */
-    public function listExternalEntities($unmappedOnly, $type = NULL) {
+    public function listExternalEntities($unmappedOnly, $type = NULL)
+    {
         $allExternals = [];
         $usedarray = [];
         $returnarray = [];
@@ -520,7 +533,8 @@ Best regards,
      * @param string         $country  used to return the country of the inst, if can be found out
      * @return int the identifier of the inst, or one of the special return values if unsuccessful
      */
-    private static function findCandidates(\mysqli_result $dbResult, &$country) {
+    private static function findCandidates(\mysqli_result $dbResult, &$country)
+    {
         $retArray = [];
         while ($row = mysqli_fetch_object($dbResult)) {
             if (!in_array($row->id, $retArray)) {
@@ -544,7 +558,8 @@ Best regards,
      * @param string $realm the realm to search for
      * @return array an array with two entries, CAT ID and DB ID, with either the respective ID of the IdP in the system, or UNKNOWN_IDP or AMBIGUOUS_IDP
      */
-    public static function determineIdPIdByRealm($realm) {
+    public static function determineIdPIdByRealm($realm)
+    {
         $country = NULL;
         $candidatesExternalDb = Federation::UNKNOWN_IDP;
         $dbHandle = DBConnection::handle("INST");
@@ -566,5 +581,4 @@ Best regards,
 
         return ["CAT" => $candidatesCat, "EXTERNAL" => $candidatesExternalDb, "FEDERATION" => $country];
     }
-
 }

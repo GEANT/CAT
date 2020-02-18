@@ -29,14 +29,16 @@ namespace core\common;
  *
  * @package Developer
  */
-class OutsideComm extends Entity {
+class OutsideComm extends Entity
+{
 
     /**
      * downloads a file from the internet
      * @param string $url the URL to download
      * @return string|boolean the data we got back, or FALSE on failure
      */
-    public static function downloadFile($url) {
+    public static function downloadFile($url)
+    {
         $loggerInstance = new \core\common\Logging();
         if (!preg_match("/:\/\//", $url)) {
             $loggerInstance->debug(3, "The specified string does not seem to be a URL!");
@@ -60,7 +62,8 @@ class OutsideComm extends Entity {
      * create an email handle from PHPMailer for later customisation and sending
      * @return \PHPMailer\PHPMailer\PHPMailer
      */
-    public static function mailHandle() {
+    public static function mailHandle()
+    {
 // use PHPMailer to send the mail
         $mail = new \PHPMailer\PHPMailer\PHPMailer();
         $mail->isSMTP();
@@ -101,7 +104,8 @@ class OutsideComm extends Entity {
      * @param string $address the mail address to check
      * @return int status of the mail domain
      */
-    public static function mailAddressValidSecure($address) {
+    public static function mailAddressValidSecure($address)
+    {
         $loggerInstance = new \core\common\Logging();
         if (!filter_var($address, FILTER_VALIDATE_EMAIL)) {
             $loggerInstance->debug(4, "OutsideComm::mailAddressValidSecure: invalid mail address.");
@@ -183,7 +187,8 @@ class OutsideComm extends Entity {
      * @return integer status of the sending process
      * @throws \Exception
      */
-    public static function sendSMS($number, $content) {
+    public static function sendSMS($number, $content)
+    {
         $loggerInstance = new \core\common\Logging();
         switch (\config\ConfAssistant::SMSSETTINGS['provider']) {
             case 'Nexmo':
@@ -251,7 +256,8 @@ class OutsideComm extends Entity {
      * @return array
      * @throws \Exception
      */
-    public static function adminInvitationMail($targets, $introtext, $newtoken, $idpPrettyName, $federation, $type) {
+    public static function adminInvitationMail($targets, $introtext, $newtoken, $idpPrettyName, $federation, $type)
+    {
         if (!in_array($introtext, OutsideComm::INVITE_CONTEXTS)) {
             throw new \Exception("Unknown invite mode!");
         }
@@ -372,7 +378,8 @@ class OutsideComm extends Entity {
      * @return array the JSON response, decoded into PHP associative array
      * @throws \Exception
      */
-    public static function postJson($url, $dataArray) {
+    public static function postJson($url, $dataArray)
+    {
         $loggerInstance = new Logging();
         $ch = \curl_init($url);
         if ($ch === FALSE) {
@@ -398,7 +405,8 @@ class OutsideComm extends Entity {
      * @param mixed $newmailaddress input string, possibly one or more mail addresses
      * @return array mail addresses that passed validation
      */
-    public static function exfiltrateValidAddresses($newmailaddress) {
+    public static function exfiltrateValidAddresses($newmailaddress)
+    {
         $validator = new \web\lib\common\InputValidation();
         $addressSegments = explode(",", $newmailaddress);
         $confirmedMails = [];
@@ -416,7 +424,6 @@ class OutsideComm extends Entity {
         }
         return $confirmedMails;
     }
-
     /**
      * performs an HTTP request. Currently unused, will be for external CA API calls.
      * 

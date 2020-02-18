@@ -104,7 +104,8 @@ class UserAPI extends CAT
      * @param \core\AbstractProfile $profile the profile in question
      * @return boolean
      */
-    private function verifyDownloadAccess($profile) {
+    private function verifyDownloadAccess($profile)
+    {
         $attribs = $profile->getCollapsedAttributes();
         if (\core\common\Entity::getAttributeValue($attribs, 'profile:production', 0) !== 'on') {
             $this->loggerInstance->debug(4, "Attempt to download a non-production ready installer for profile: $profile->identifier\n");
@@ -374,7 +375,8 @@ class UserAPI extends CAT
      * @return array|null array with image information or NULL if there is no logo
      * @throws Exception
      */
-    protected function getLogo($identifier, $type, $widthIn, $heightIn) {
+    protected function getLogo($identifier, $type, $widthIn, $heightIn)
+    {
         $expiresString = '';
         $attributeName = [
             'federation' => "fed:logo_file",
@@ -420,7 +422,6 @@ class UserAPI extends CAT
         return ["filetype" => $filetype, "expires" => $expiresString, "blob" => $blob];
     }
 
-
     /**
      * see if we have to resize an image
      * 
@@ -428,7 +429,8 @@ class UserAPI extends CAT
      * @param integer $height the desired max height (0 = unbounded)
      * @return array
      */
-    private function testForResize($width, $height) {
+    private function testForResize($width, $height)
+    {
         if (is_numeric($width) && is_numeric($height) && ($width > 0 || $height > 0)) {
             if ($height == 0) {
                 $height = 10000;
@@ -592,5 +594,4 @@ class UserAPI extends CAT
     {
         return strcasecmp($profile1->name, $profile2->name);
     }
-
 }

@@ -45,12 +45,15 @@ use \Exception;
  *
  * @package Developer
  */
-class ExternalNothing implements ExternalLinkInterface {
+class ExternalNothing implements ExternalLinkInterface
+{
 
     /**
      * constructor, gives us access to the DB handle we need for queries
      */
-    public function __construct() {
+    public function __construct()
+    {
+        
     }
 
     /**
@@ -58,7 +61,8 @@ class ExternalNothing implements ExternalLinkInterface {
      * 
      * @return array list of providers
      */
-    public function allServiceProviders() {
+    public function allServiceProviders()
+    {
         return [];
     }
 
@@ -69,10 +73,10 @@ class ExternalNothing implements ExternalLinkInterface {
      * @param string|NULL $type type of entity to retrieve
      * @return array list of entities
      */
-    public function listExternalEntities($tld, $type) {
+    public function listExternalEntities($tld, $type)
+    {
         unset($tld); // not needed
         unset($type); // not needed
         return [];
     }
-
 }

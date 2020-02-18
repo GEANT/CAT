@@ -49,7 +49,8 @@ namespace core;
 use GeoIp2\Database\Reader;
 use \Exception;
 
-class SanityTests extends CAT {
+class SanityTests extends CAT
+{
     /* in this section set current CAT requirements */
 
     /**
@@ -144,7 +145,8 @@ class SanityTests extends CAT {
      * @param string $test the test name
      * @return void
      */
-    public function runTest($test) {
+    public function runTest($test)
+    {
         $this->out[$test] = [];
         $this->name = $test;
         $m_name = 'test' . $test;
@@ -165,8 +167,8 @@ class SanityTests extends CAT {
      *                     was run earlier and returned a success.
      * @return void
      */
-
-    public function runTests($Tests) {
+    public function runTests($Tests)
+    {
         foreach ($Tests as $testName) {
             $matchArray = [];
             if (preg_match('/(.+)=>(.+)/', $testName, $matchArray)) {
@@ -186,7 +188,8 @@ class SanityTests extends CAT {
      * 
      * @return array
      */
-    public function getTestNames() {
+    public function getTestNames()
+    {
         $T = get_class_methods($this);
         $out = [];
         foreach ($T as $t) {
@@ -217,8 +220,8 @@ class SanityTests extends CAT {
      * @param string $message verbal description of the result
      * @return void
      */
-
-    private function storeTestResult($level, $message) {
+    private function storeTestResult($level, $message)
+    {
         $this->out[$this->name][] = ['level' => $level, 'message' => $message];
         $this->test_result[$this->name] = max($this->test_result[$this->name], $level);
         $this->test_result['global'] = max($this->test_result['global'], $level);
@@ -256,8 +259,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-
-    private function testPhp() {
+    private function testPhp()
+    {
         if (version_compare(phpversion(), $this->needversionPHP, '>=')) {
             $this->storeTestResult(\core\common\Entity::L_OK, "<strong>PHP</strong> is sufficiently recent. You are running " . phpversion() . ".");
         } else {
@@ -270,7 +273,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function testCatBaseUrl() {
+    private function testCatBaseUrl()
+    {
         $rootUrl = substr(\config\Master::PATHS['cat_base_url'], -1) === '/' ? substr(\config\Master::PATHS['cat_base_url'], 0, -1) : \config\Master::PATHS['cat_base_url'];
         preg_match('/(^.*)\/admin\/112365365321.php/', $_SERVER['SCRIPT_NAME'], $m);
         if ($rootUrl === $m[1]) {
@@ -286,7 +290,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function testRADIUSProbes() {
+    private function testRADIUSProbes()
+    {
         $probeReturns = [];
         foreach (\config\Diagnostics::RADIUSTESTS['UDP-hosts'] as $oneProbe) {
             $statusServer = new diag\RFC5997Tests($oneProbe['ip'], 1812, $oneProbe['secret']);
@@ -297,7 +302,7 @@ class SanityTests extends CAT {
         if (count($probeReturns) == 0) {
             $this->storeTestResult(common\Entity::L_OK, "All configured RADIUS/UDP probes are reachable.");
         } else {
-            $this->storeTestResult(common\Entity::L_ERROR, "The following RADIUS probes are NOT reachable: ".implode(', ',$probeReturns));
+            $this->storeTestResult(common\Entity::L_ERROR, "The following RADIUS probes are NOT reachable: " . implode(', ', $probeReturns));
         }
     }
 
@@ -306,7 +311,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function testSsp() {
+    private function testSsp()
+    {
         if (!is_file(\config\Master::AUTHENTICATION['ssp-path-to-autoloader'])) {
             $this->storeTestResult(\core\common\Entity::L_ERROR, "<strong>simpleSAMLphp</strong> not found!");
         } else {
@@ -326,7 +332,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function testSecurity() {
+    private function testSecurity()
+    {
         if (in_array("I do not care about security!", \config\Master::SUPERADMINS)) {
             $this->storeTestResult(\core\common\Entity::L_WARN, "You do not care about security. This page should be made accessible to the CAT admin only! See config-master.php: 'SUPERADMINS'!");
         }
@@ -337,7 +344,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function testZip() {
+    private function testZip()
+    {
         if (exec("which zip") != "") {
             $this->storeTestResult(\core\common\Entity::L_OK, "<strong>zip</strong> binary found.");
         } else {
@@ -350,7 +358,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function testEapoltest() {
+    private function testEapoltest()
+    {
         exec(\config\Diagnostics::PATHS['eapol_test'], $out, $retval);
         if ($retval == 255) {
             $o = preg_grep('/-o<server cert/', $out);
@@ -369,7 +378,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function testLogdir() {
+    private function testLogdir()
+    {
         if (fopen(\config\Master::PATHS['logdir'] . "/debug.log", "a") == FALSE) {
             $this->storeTestResult(\core\common\Entity::L_WARN, "Log files in <strong>" . \config\Master::PATHS['logdir'] . "</strong> are not writable!");
         } else {
@@ -382,7 +392,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function testPhpModules() {
+    private function testPhpModules()
+    {
         if (function_exists('idn_to_ascii')) {
             $this->storeTestResult(\core\common\Entity::L_OK, "PHP can handle internationalisation.");
         } else {
@@ -433,7 +444,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function testGeoip() {
+    private function testGeoip()
+    {
         $host_4 = '145.0.2.50';
         $host_6 = '2001:610:188:444::50';
         switch (\config\Master::GEOIP['version']) {
@@ -500,7 +512,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function testOpenssl() {
+    private function testOpenssl()
+    {
         $A = $this->getExecPath('openssl');
         if ($A['exec'] != "") {
             $t = exec($A['exec'] . ' version');
@@ -519,7 +532,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function testMakensis() {
+    private function testMakensis()
+    {
         if (!is_numeric(\config\ConfAssistant::NSIS_VERSION)) {
             $this->storeTestResult(\core\common\Entity::L_ERROR, "NSIS_VERSION needs to be numeric!");
             return;
@@ -555,7 +569,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function testNSISmodules() {
+    private function testNSISmodules()
+    {
         $tmp_dir = \core\common\Entity::createTemporaryDirectory('installer', 0)['dir'];
         if (!chdir($tmp_dir)) {
             $this->loggerInstance->debug(2, "Cannot chdir to $tmp_dir\n");
@@ -590,7 +605,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function testDirectories() {
+    private function testDirectories()
+    {
         $Dir1 = \core\common\Entity::createTemporaryDirectory('installer', 0);
         $dir1 = $Dir1['dir'];
         $base1 = $Dir1['base'];
@@ -625,7 +641,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function testLocales() {
+    private function testLocales()
+    {
         $locales = shell_exec("locale -a");
         $allthere = "";
         foreach (\config\Master::LANGUAGES as $onelanguage) {
@@ -692,7 +709,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function testDefaults() {
+    private function testDefaults()
+    {
         $defaultvalues = "";
         $missingvalues = "";
         // all the checks for equality with a shipped default value
@@ -710,16 +728,16 @@ class SanityTests extends CAT {
 
 
         if (isset(\config\Diagnostics::RADIUSTESTS['TLS-clientcerts'])) {
-        foreach (\config\Diagnostics::RADIUSTESTS['TLS-clientcerts'] as $cadata) {
-            foreach ($cadata['certificates'] as $cert_files) {
-                if (file_get_contents(ROOT . "/config/cli-certs/" . $cert_files['public']) === FALSE) {
-                    $defaultvalues .= "CERTIFICATE/" . $cert_files['public'] . " ";
-                }
-                if (file_get_contents(ROOT . "/config/cli-certs/" . $cert_files['private']) === FALSE) {
-                    $defaultvalues .= "CERTIFICATE/" . $cert_files['private'] . " ";
+            foreach (\config\Diagnostics::RADIUSTESTS['TLS-clientcerts'] as $cadata) {
+                foreach ($cadata['certificates'] as $cert_files) {
+                    if (file_get_contents(ROOT . "/config/cli-certs/" . $cert_files['public']) === FALSE) {
+                        $defaultvalues .= "CERTIFICATE/" . $cert_files['public'] . " ";
+                    }
+                    if (file_get_contents(ROOT . "/config/cli-certs/" . $cert_files['private']) === FALSE) {
+                        $defaultvalues .= "CERTIFICATE/" . $cert_files['private'] . " ";
+                    }
                 }
             }
-        }
         }
 
         if ($defaultvalues != "") {
@@ -734,7 +752,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function testDatabases() {
+    private function testDatabases()
+    {
         $databaseName1 = 'INST';
         try {
             $db1 = DBConnection::handle($databaseName1);
@@ -791,7 +810,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function testDeviceCache() {
+    private function testDeviceCache()
+    {
         if ((!empty(\devices\Devices::$Options['no_cache'])) && \devices\Devices::$Options['no_cache']) {
             $global_no_cache = 1;
         } else {
@@ -834,7 +854,8 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
-    private function testMailer() {
+    private function testMailer()
+    {
         if (empty(\config\Master::APPEARANCE['abuse-mail']) || \config\Master::APPEARANCE['abuse-mail'] == "my-abuse-contact@your-cat-installation.example") {
             $this->storeTestResult(\core\common\Entity::L_ERROR, "Your abuse-mail has not been set, cannot continue with mailer tests.");
             return;
@@ -873,5 +894,4 @@ class SanityTests extends CAT {
     {
 //        if(empty)
     }
-
 }

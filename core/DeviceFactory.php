@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -28,8 +29,11 @@
  * @package Developer
  *
  */
+
 namespace core;
+
 use Exception;
+
 /**
  * This factory instantiates a device module and makes it available in its member $device.
  *
@@ -39,7 +43,8 @@ use Exception;
  * @package Developer
  *
  */
-class DeviceFactory extends \core\common\Entity {
+class DeviceFactory extends \core\common\Entity
+{
 
     /**
      * Contains the produced device instance
@@ -55,12 +60,13 @@ class DeviceFactory extends \core\common\Entity {
      * @param string $blueprint The name of the module to instantiate
      * @throws Exception
      */
-    public function __construct($blueprint) {
+    public function __construct($blueprint)
+    {
         parent::__construct();
         $Dev = \devices\Devices::listDevices();
         if (isset($Dev[$blueprint])) {
             $this->loggerInstance->debug(4, "loaded: devices/" . $Dev[$blueprint]['directory'] . "/" . $Dev[$blueprint]['module'] . ".php\n");
-            $class_name = "\devices\\".$Dev[$blueprint]['directory']."\Device" . $Dev[$blueprint]['module'];
+            $class_name = "\devices\\" . $Dev[$blueprint]['directory'] . "\Device" . $Dev[$blueprint]['module'];
             $this->device = new $class_name();
             if (!$this->device) {
                 $this->loggerInstance->debug(2, "module loading failed");
@@ -81,5 +87,4 @@ class DeviceFactory extends \core\common\Entity {
         }
         $this->device->options = $options;
     }
-
 }

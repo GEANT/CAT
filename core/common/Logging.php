@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -23,7 +24,8 @@ namespace core\common;
 
 use \Exception;
 
-class Logging {
+class Logging
+{
 
     /**
      * We don't have a lot to do here, but at least make sure that the logdir 
@@ -31,7 +33,8 @@ class Logging {
      * 
      * @throws Exception
      */
-    public function __construct() {
+    public function __construct()
+    {
         if (!isset(\config\Master::PATHS['logdir'])) {
             throw new Exception("No logdir was specified in the configuration. We cannot continue without one!");
         }
@@ -44,7 +47,8 @@ class Logging {
      * @param string $message  what to write into the file
      * @return void
      */
-    private function writeToFile($filename, $message) {
+    private function writeToFile($filename, $message)
+    {
         file_put_contents(\config\Master::PATHS['logdir'] . "/$filename", sprintf("%-015s", microtime(TRUE)) . $message, FILE_APPEND);
     }
 
@@ -57,7 +61,8 @@ class Logging {
      * @param string $suffix suffix to the message, optional
      * @return void
      */
-    public function debug($level, $stuff, $prefix = '', $suffix = '') {
+    public function debug($level, $stuff, $prefix = '', $suffix = '')
+    {
         if (\config\Master::DEBUG_LEVEL < $level) {
             return;
         }
@@ -93,7 +98,8 @@ class Logging {
      * @return boolean TRUE if successful. Will terminate script execution on failure. 
      * @throws Exception
      */
-    public function writeAudit($user, $category, $message) {
+    public function writeAudit($user, $category, $message)
+    {
         switch ($category) {
             case "NEW": // created a new object
             case "OWN": // ownership changes
@@ -116,7 +122,8 @@ class Logging {
      * @param string $query the SQL query to be logged
      * @return void
      */
-    public function writeSQLAudit($query) {
+    public function writeSQLAudit($query)
+    {
         // clean up text to be in one line, with no extra spaces
         // also clean up non UTF-8 to sanitise possibly malicious inputs
         $logTextStep1 = preg_replace("/[\n\r]/", "", $query);
@@ -124,5 +131,4 @@ class Logging {
         $logTextStep3 = iconv("UTF-8", "UTF-8//IGNORE", $logTextStep2);
         $this->writeToFile("audit-SQL.log", " " . $logTextStep3 . "\n");
     }
-
 }

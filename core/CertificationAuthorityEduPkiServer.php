@@ -67,7 +67,8 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
      * @return array the certificate with some meta info
      * @throws Exception
      */
-    public function signRequest($csr, $expiryDays): array {
+    public function signRequest($csr, $expiryDays): array
+    {
         $revocationPin = common\Entity::randomString(10, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
         $soapReqnum = $this->sendRequestToCa($csr, $revocationPin, $expiryDays);
         sleep(55);
@@ -78,7 +79,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
         }
         return $returnValue;
     }
-    
+
     /**
      * sends the request to the CA and asks for the certificate. Does not block
      * until the certificate is issued, it needs to be picked up seperately
@@ -224,7 +225,7 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
             $x509 = new common\X509();
             while ($parsedCert === FALSE && $counter < 300) {
                 $soapCert = $soap->getCertificateByRequestSerial($soapReqnum);
-                
+
                 if (strlen($soapCert) > 10) { // we got the cert
                     $parsedCert = $x509->processCertificate($soapCert);
                 } elseif ($wait) { // let's wait five seconds and try again
@@ -483,5 +484,4 @@ class CertificationAuthorityEduPkiServer extends EntityWithDBProperties implemen
     {
         // nothing to be done here.
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -29,7 +30,9 @@ namespace core;
 use GeoIp2\Database\Reader;
 use \Exception;
 
-class DeviceLocation {
+class DeviceLocation
+{
+
     /**
      * find out where the user is currently located
      * set $location with the discovered value
@@ -37,7 +40,8 @@ class DeviceLocation {
      * @return array
      * @throws Exception
      */
-    public static function locateDevice() {
+    public static function locateDevice()
+    {
         $geoipVersion = \config\Master::GEOIP['version'] ?? 0;
         switch ($geoipVersion) {
             case 0:
@@ -50,13 +54,14 @@ class DeviceLocation {
                 throw new Exception("This version of GeoIP is not known!");
         }
     }
-    
+
     /**
      * locate end-user with GeoIP version 1
      * 
      * @return array
      */
-    private static function locateDevice1() {
+    private static function locateDevice1()
+    {
         if (\config\Master::GEOIP['version'] != 1) {
             return ['status' => 'error', 'error' => 'Function for GEOIPv1 called, but config says this is not the version to use!'];
         }
@@ -76,13 +81,14 @@ class DeviceLocation {
         $result['geo'] = ['lat' => (float) $record['latitude'], 'lon' => (float) $record['longitude']];
         return($result);
     }
-    
+
     /**
      * find out where the user is currently located, using GeoIP2
      * 
      * @return array
      */
-    private static function locateDevice2() {
+    private static function locateDevice2()
+    {
         if (\config\Master::GEOIP['version'] != 2) {
             return ['status' => 'error', 'error' => 'Function for GEOIPv2 called, but config says this is not the version to use!'];
         }
@@ -106,5 +112,4 @@ class DeviceLocation {
         $result['geo'] = ['lat' => (float) $record->location->latitude, 'lon' => (float) $record->location->longitude];
         return($result);
     }
-    
 }

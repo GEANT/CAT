@@ -38,7 +38,8 @@
 
 namespace config;
 
-class Master {
+class Master 
+{
 
         /**
          * Defines parameters how this tool will present itself to users
@@ -288,5 +289,4 @@ class Master {
             'http://sommeopenid.example/anotheruser',
             'I do not care about security!',
         ];
-
 }

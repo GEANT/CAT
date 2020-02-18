@@ -44,7 +44,8 @@ use \Exception;
  *
  * @package Developer
  */
-class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterface {
+class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterface
+{
 
     /**
      * List of all service providers. Fetched only once by allServiceProviders()
@@ -64,7 +65,8 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
     /**
      * constructor, gives us access to the DB handle we need for queries
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->db = DBConnection::handle("EXTERNAL");
         $this->db->exec("SET NAMES 'latin1'");
@@ -78,7 +80,8 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
      * @return array language/name pair
      * @throws Exception
      */
-    private function splitNames($nameRaw) {
+    private function splitNames($nameRaw)
+    {
         $variants = explode('#', $nameRaw);
         $submatches = [];
         $returnArray = [];
@@ -100,7 +103,8 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
      * 
      * @return integer number of providers
      */
-    public function allServiceProviders() {
+    public function allServiceProviders()
+    {
         if (count($this->SPList) == 0) {
             $query = $this->db->exec("SELECT country, inst_name, sp_location FROM view_active_SP_location_eduroamdb");
             while ($iterator = mysqli_fetch_object(/** @scrutinizer ignore-type */ $query)) {
@@ -126,7 +130,8 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
      * @param string|NULL $type type of entity to retrieve
      * @return array list of entities
      */
-    public function listExternalEntities($tld, $type) {
+    public function listExternalEntities($tld, $type)
+    {
         if ($type === NULL) {
             $eduroamDbType = NULL;
         } else {
@@ -171,8 +176,8 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
      * @param array $b an array with institution b's information
      * @return int the comparison result
      */
-    private function usortInstitution($a, $b) {
+    private function usortInstitution($a, $b)
+    {
         return strcasecmp($a["name"], $b["name"]);
     }
-
 }

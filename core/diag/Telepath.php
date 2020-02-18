@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -29,7 +30,8 @@ use \Exception;
  * also knows which federation the user is currently positioned in, or even 
  * which exact hotspot to analyse.
  */
-class Telepath extends AbstractTest {
+class Telepath extends AbstractTest
+{
 
     /**
      * the realm we are testing
@@ -37,35 +39,35 @@ class Telepath extends AbstractTest {
      * @var string
      */
     private $realm;
-    
+
     /**
      * the federation where the user currently is
      * 
      * @var string|NULL
      */
     private $visitedFlr;
-    
+
     /**
      * the identifier of the hotspot where the user currently is
      * 
      * @var string|NULL
      */
     private $visitedHotspot;
-    
+
     /**
      * the CAT profile to which the realm belongs, if any
      * 
      * @var integer
      */
     private $catProfile;
-    
+
     /**
      * the identifier of the associated IdP in the external DB, if any
      * 
      * @var string
      */
     private $dbIdP;
-    
+
     /**
      * the federation to which the realm belongs; can be NULL if we can't infer
      * from domain ending nor find it in the DB
@@ -73,7 +75,7 @@ class Telepath extends AbstractTest {
      * @var string|NULL
      */
     private $idPFederation;
-    
+
     /**
      * instance of the RADIUSTests suite we use to meditate with
      * 
@@ -87,7 +89,8 @@ class Telepath extends AbstractTest {
      * @param string|null $visitedFlr     which NRO is the user visiting
      * @param string|null $visitedHotspot external DB ID of the hotspot he visited
      */
-    public function __construct(string $realm, $visitedFlr = NULL, $visitedHotspot = NULL) {
+    public function __construct(string $realm, $visitedFlr = NULL, $visitedHotspot = NULL)
+    {
         // Telepath is the first one in a chain, no previous inputs allowed
         if (isset($_SESSION) && isset($_SESSION["SUSPECTS"])) {
             unset($_SESSION["SUSPECTS"]);
@@ -112,7 +115,6 @@ class Telepath extends AbstractTest {
         }
         $this->loggerInstance->debug(4, "XYZ: IdP-side NRO is " . $this->idPFederation . "\n");
     }
-
     /* The eduroam OT monitoring has the following return codes:
      * 
 
@@ -145,7 +147,8 @@ class Telepath extends AbstractTest {
      * @param string $param2 test-specific parameter number 2, if any
      * @return array
      */
-    private function genericAPIStatus($type, $param1 = NULL, $param2 = NULL) {
+    private function genericAPIStatus($type, $param1 = NULL, $param2 = NULL)
+    {
         $endpoints = [
             'tlr_test' => "https://monitor.eduroam.org/mapi/index.php?type=tlr_test&tlr=$param1",
             'federation_via_tlr' => "https://monitor.eduroam.org/mapi/index.php?type=federation_via_tlr&federation=$param1",
@@ -230,7 +233,8 @@ class Telepath extends AbstractTest {
      * Are the ETLR servers in order?
      * @return array
      */
-    private function checkEtlrStatus() {
+    private function checkEtlrStatus()
+    {
         // TODO: we always check the European TLRs even though the connection in question might go via others and/or this one
         // needs a table to determine what goes where :-(
         $ret = $this->genericAPIStatus("tlr_test", "TLR_EU");
@@ -263,7 +267,8 @@ class Telepath extends AbstractTest {
      * @return array
      * @throws Exception
      */
-    private function checkFedEtlrUplink($whichSide) {
+    private function checkFedEtlrUplink($whichSide)
+    {
         // TODO: we always check the European TLRs even though the connection in question might go via others and/or this one
         // needs a table to determine what goes where :-(
         switch ($whichSide) {
@@ -305,7 +310,8 @@ class Telepath extends AbstractTest {
      * @return array
      * @throws Exception
      */
-    private function checkFlrServerStatus($whichSide) {
+    private function checkFlrServerStatus($whichSide)
+    {
         switch ($whichSide) {
             case AbstractTest::INFRA_NRO_IDP:
                 $fed = $this->idPFederation;
@@ -337,7 +343,8 @@ class Telepath extends AbstractTest {
      * Does authentication traffic flow between a given source and destination NRO?
      * @return array
      */
-    private function checkNROFlow() {
+    private function checkNROFlow()
+    {
         return $this->genericAPIStatus("flr_by_federation", $this->idPFederation, $this->visitedFlr);
     }
 
@@ -348,14 +355,15 @@ class Telepath extends AbstractTest {
      * or not
      * @return boolean TRUE if external tests have to be run
      */
-    private function CATInternalTests() {
+    private function CATInternalTests()
+    {
         // we are expecting to get a REJECT from all runs, because that means the packet got through to the IdP.
         // (the ETLR sometimes does a "Reject instead of Ignore" but that is filtered out and changed into a timeout
         // by the test suite automatically, so it does not disturb the measurement)
         // If that's true, we can exclude two sources of problems (both proxy levels). Hooray!
         $allAreConversationReject = TRUE;
         $atLeastOneConversationReject = FALSE;
-        
+
         foreach (\config\Diagnostics::RADIUSTESTS['UDP-hosts'] as $probeindex => $probe) {
             $reachCheck = $this->testsuite->udpReachability($probeindex);
             if ($reachCheck != RADIUSTests::RETVAL_CONVERSATION_REJECT) {
@@ -363,12 +371,12 @@ class Telepath extends AbstractTest {
             } else {
                 $atLeastOneConversationReject = TRUE;
             }
-            
+
             $this->additionalFindings[AbstractTest::INFRA_ETLR][] = ["DETAIL" => $this->testsuite->consolidateUdpResult($probeindex)];
             $this->additionalFindings[AbstractTest::INFRA_NRO_IDP][] = ["DETAIL" => $this->testsuite->consolidateUdpResult($probeindex)];
             $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][] = ["DETAIL" => $this->testsuite->consolidateUdpResult($probeindex)];
         }
-        
+
         if ($allAreConversationReject) {
             $this->additionalFindings[AbstractTest::INFRA_ETLR][] = ["CONNCHECK" => RADIUSTests::RETVAL_CONVERSATION_REJECT];
             $this->additionalFindings[AbstractTest::INFRA_NRO_IDP][] = ["CONNCHECK" => RADIUSTests::RETVAL_CONVERSATION_REJECT];
@@ -420,14 +428,15 @@ class Telepath extends AbstractTest {
      * 
      * @return void
      */
-    private function determineTestsuiteParameters() {
+    private function determineTestsuiteParameters()
+    {
         if ($this->catProfile > 0) {
             $profileObject = \core\ProfileFactory::instantiate($this->catProfile);
             $readinessLevel = $profileObject->readinessLevel();
 
             switch ($readinessLevel) {
-                case \core\AbstractProfile::READINESS_LEVEL_SHOWTIME: 
-                    // fall-througuh intended: use the data even if non-public but complete
+                case \core\AbstractProfile::READINESS_LEVEL_SHOWTIME:
+                // fall-througuh intended: use the data even if non-public but complete
                 case \core\AbstractProfile::READINESS_LEVEL_SUFFICIENTCONFIG:
                     $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][] = ["Profile" => $profileObject->identifier];
                     $this->testsuite = new RADIUSTests($this->realm, $profileObject->getRealmCheckOuterUsername(), $profileObject->getEapMethodsinOrderOfPreference(1), $profileObject->getCollapsedAttributes()['eap:server_name'], $profileObject->getCollapsedAttributes()["eap:ca_file"]);
@@ -447,7 +456,8 @@ class Telepath extends AbstractTest {
      * Does the main meditation job
      * @return array the findings
      */
-    public function magic() {
+    public function magic()
+    {
         $this->testId = \core\CAT::uuid();
         $this->databaseHandle->exec("INSERT INTO diagnosticrun (test_id, suspects, evidence) VALUES ('$this->testId', NULL, NULL)");
         // simple things first: do we know anything about the realm, either
@@ -532,5 +542,4 @@ class Telepath extends AbstractTest {
         $_SESSION["EVIDENCE"] = $this->additionalFindings;
         return ["SUSPECTS" => $this->possibleFailureReasons, "EVIDENCE" => $this->additionalFindings];
     }
-
 }

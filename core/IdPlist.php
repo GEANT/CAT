@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -19,17 +20,19 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
-
 namespace core;
 
-class IdPlist extends common\Entity {
+class IdPlist extends common\Entity
+{
+
     /**
      * Order active identity providers according to their distance and name
      * @param string $country         the country from which to list IdPs
      * @param array  $currentLocation current location
      * @return array $IdPs -  list of arrays ('id', 'name');
      */
-    public static function orderIdentityProviders($country, $currentLocation) {
+    public static function orderIdentityProviders($country, $currentLocation)
+    {
         $idps = self::listAllIdentityProviders(1, $country);
         $here = self::setCurrentLocation($currentLocation);
         $idpTitle = [];
@@ -46,8 +49,7 @@ class IdPlist extends common\Entity {
         }
         return($outarray);
     }
-    
-    
+
     /**
      * Lists all identity providers in the database
      * adding information required by DiscoJuice.
@@ -57,7 +59,8 @@ class IdPlist extends common\Entity {
      * @return array the list of identity providers
      *
      */
-    public static function listAllIdentityProviders($activeOnly = 0, $country = "") {
+    public static function listAllIdentityProviders($activeOnly = 0, $country = "")
+    {
         common\Entity::intoThePotatoes();
         $handle = DBConnection::handle("INST");
         $handle->exec("SET SESSION group_concat_max_len=10000");
@@ -123,14 +126,14 @@ class IdPlist extends common\Entity {
         return $returnarray;
     }
 
-
     /**
      * sets the current location
      * 
      * @param array $currentLocation the location to set
      * @return array
      */
-    private static function setCurrentLocation($currentLocation) {
+    private static function setCurrentLocation($currentLocation)
+    {
         if (is_null($currentLocation)) {
             $currentLocation = ['lat' => "90", 'lon' => "0"];
             $userLocation = DeviceLocation::locateDevice();
@@ -140,14 +143,15 @@ class IdPlist extends common\Entity {
         }
         return $currentLocation;
     }
-    
+
     /**
      * calculate surface distance from user location to IdP location
      * @param array $idp      the IdP in question
      * @param array $location user location
      * @return string
      */
-    private static function getIdpDistance($idp, $location) {
+    private static function getIdpDistance($idp, $location)
+    {
         $dist = 10000;
         if (isset($idp['geo'])) {
             $G = $idp['geo'];
@@ -170,7 +174,7 @@ class IdPlist extends common\Entity {
         }
         return(sprintf("%06d", $dist));
     }
-    
+
     /**
      * Calculate the distance in km between two points given their
      * geo coordinates.
@@ -178,12 +182,12 @@ class IdPlist extends common\Entity {
      * @param array $profile1 second point as an 'lat', 'lon' array 
      * @return float distance in km
      */
-    public static function geoDistance($point1, $profile1) {
+    public static function geoDistance($point1, $profile1)
+    {
 
         $distIntermediate = sin(deg2rad($point1['lat'])) * sin(deg2rad($profile1['lat'])) +
                 cos(deg2rad($point1['lat'])) * cos(deg2rad($profile1['lat'])) * cos(deg2rad($point1['lon'] - $profile1['lon']));
         $dist = rad2deg(acos($distIntermediate)) * 60 * 1.1852;
         return(round($dist));
     }
-    
 }

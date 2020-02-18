@@ -42,7 +42,8 @@ namespace core;
  *
  * @package Developer
  */
-class CAT extends \core\common\Entity {
+class CAT extends \core\common\Entity 
+{
 
     /**
      * which version is this?
@@ -621,5 +622,4 @@ class CAT extends \core\common\Entity {
         }
         return new ExternalNothing();
     }
-
 }

@@ -32,7 +32,8 @@ namespace core;
 
 use \Exception;
 
-class SilverbulletInvitation extends common\Entity {
+class SilverbulletInvitation extends common\Entity
+{
 
     /**
      * row ID in the database pertaining to this invitation. 0 on invalid invitations.
@@ -113,7 +114,8 @@ class SilverbulletInvitation extends common\Entity {
      * @param string $invitationId token
      * @throws Exception
      */
-    public function __construct($invitationId) {
+    public function __construct($invitationId)
+    {
         parent::__construct();
         $this->invitationTokenString = $invitationId;
         $handle = DBConnection::handle("INST");
@@ -196,7 +198,8 @@ class SilverbulletInvitation extends common\Entity {
      * @return string
      * @throws Exception
      */
-    public function link() {
+    public function link()
+    {
         if (isset($_SERVER['HTTPS'])) {
             $link = 'https://';
         } else {
@@ -227,7 +230,8 @@ class SilverbulletInvitation extends common\Entity {
      * 
      * @return string
      */
-    public function invitationMailSubject() {
+    public function invitationMailSubject()
+    {
         common\Entity::intoThePotatoes();
         $retval = sprintf(_("Your %s access is ready"), \config\ConfAssistant::CONSORTIUM['display_name']);
         common\Entity::outOfThePotatoes();
@@ -239,7 +243,8 @@ class SilverbulletInvitation extends common\Entity {
      * 
      * @return string
      */
-    public function invitationMailBody() {
+    public function invitationMailBody()
+    {
         common\Entity::intoThePotatoes();
         $text = _("Hello!");
         $text .= "\n\n";
@@ -261,7 +266,8 @@ class SilverbulletInvitation extends common\Entity {
      * 
      * @return string
      */
-    private static function generateInvitation() {
+    private static function generateInvitation()
+    {
         return hash("sha512", openssl_random_pseudo_bytes(100));
     }
 
@@ -272,7 +278,8 @@ class SilverbulletInvitation extends common\Entity {
      * @param int $activationCount number of activations for this invitation
      * @return SilverbulletInvitation the generated invitation
      */
-    public static function createInvitation($profileId, $userId, $activationCount) {
+    public static function createInvitation($profileId, $userId, $activationCount)
+    {
         $handle = DBConnection::handle("INST");
         $query = "INSERT INTO silverbullet_invitation (profile_id, silverbullet_user_id, token, quantity, expiry) VALUES (?, ?, ?, ?, DATE_ADD(NOW(), INTERVAL 7 DAY))";
         $newToken = SilverbulletInvitation::generateInvitation();
@@ -285,7 +292,8 @@ class SilverbulletInvitation extends common\Entity {
      * 
      * @return void
      */
-    public function revokeInvitation() {
+    public function revokeInvitation()
+    {
         $query = "UPDATE silverbullet_invitation SET expiry = CURRENT_TIMESTAMP WHERE id = ? AND profile_id = ?";
         $this->databaseHandle->exec($query, "ii", $this->identifier, $this->profile);
     }
@@ -296,7 +304,8 @@ class SilverbulletInvitation extends common\Entity {
      * @param string $number the number to send to
      * @return int an OutsideComm constant indicating how the sending went
      */
-    public function sendBySms($number) {
+    public function sendBySms($number)
+    {
         common\Entity::intoThePotatoes();
         $text = sprintf(_("Your %s access is ready! Click here: %s (on Android, first install the app '%s'!)"), \config\ConfAssistant::CONSORTIUM['name'], $this->link(), "eduroam CAT");
         common\Entity::outOfThePotatoes();
@@ -310,7 +319,8 @@ class SilverbulletInvitation extends common\Entity {
      * @return array status of the sending
      * @throws Exception
      */
-    public function sendByMail($properEmail) {
+    public function sendByMail($properEmail)
+    {
         common\Entity::intoThePotatoes();
         $pixelsPerCode = 12;
         $mail = \core\common\OutsideComm::mailHandle();
@@ -338,5 +348,4 @@ class SilverbulletInvitation extends common\Entity {
         common\Entity::outOfThePotatoes();
         return ["SENT" => $mail->send(), "TRANSPORT" => $domainStatus == common\OutsideComm::MAILDOMAIN_STARTTLS ? TRUE : FALSE];
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -35,7 +36,8 @@ use \Exception;
  *
  * @package Developer
  */
-class RFC6614Tests extends AbstractTest {
+class RFC6614Tests extends AbstractTest
+{
 
     /**
      * dictionary of translatable texts around the certificates we check
@@ -43,14 +45,14 @@ class RFC6614Tests extends AbstractTest {
      * @var array
      */
     private $TLS_certkeys = [];
-    
+
     /**
      * list of IP addresses which are candidates for dynamic discovery targets
      * 
      * @var array
      */
     private $candidateIPs;
-    
+
     /**
      * the hostname which should show up in the certificate when establishing
      * a connection to the RADIUS/TLS server (hostname is an intermediary result
@@ -59,14 +61,14 @@ class RFC6614Tests extends AbstractTest {
      * @var string
      */
     private $expectedName;
-    
+
     /**
      * associative array holding the server-side cert test results for a given IP (IP is the key)
      * 
      * @var array
      */
     public $TLS_CA_checks_result;
-    
+
     /**
      * associative array holding the client-side cert test results for a given IP (IP is the key)
      * 
@@ -79,7 +81,8 @@ class RFC6614Tests extends AbstractTest {
      * 
      * @param array $listOfIPs candidates to test
      */
-    public function __construct($listOfIPs, $expectedName) {
+    public function __construct($listOfIPs, $expectedName)
+    {
         parent::__construct();
         \core\common\Entity::intoThePotatoes();
         $this->TLS_certkeys = [
@@ -97,7 +100,7 @@ class RFC6614Tests extends AbstractTest {
         ];
         $this->TLS_CA_checks_result = [];
         $this->TLS_clients_checks_result = [];
-        
+
         $this->candidateIPs = $listOfIPs;
         $this->expectedName = $expectedName;
         \core\common\Entity::outOfThePotatoes();
@@ -108,20 +111,22 @@ class RFC6614Tests extends AbstractTest {
      * 
      * @return void
      */
-    public function allChecks() {
+    public function allChecks()
+    {
         foreach ($this->candidateIPs as $oneIP) {
             $this->cApathCheck($oneIP);
             $this->tlsClientSideCheck($oneIP);
         }
     }
-    
+
     /**
      * This function executes openssl s_clientends command to check if a server accepts a CA
      * 
      * @param string $host IP:port
      * @return int returncode
      */
-    public function cApathCheck(string $host) {
+    public function cApathCheck(string $host)
+    {
         if (!isset($this->TLS_CA_checks_result[$host])) {
             $this->TLS_CA_checks_result[$host] = [];
         }
@@ -139,43 +144,44 @@ class RFC6614Tests extends AbstractTest {
      * @param string $host IP:port
      * @return bool yes or no
      */
-    private function checkServerName($host) {
+    private function checkServerName($host)
+    {
         // it could match CN or sAN:DNS, we don't care which
         if (isset($this->TLS_CA_checks_result[$host]['certdata']['subject'])) {
-            $this->loggerInstance->debug(4,"Checking expected server name ".$this->expectedName." against Subject: ");
+            $this->loggerInstance->debug(4, "Checking expected server name " . $this->expectedName . " against Subject: ");
             $this->loggerInstance->debug(4, $this->TLS_CA_checks_result[$host]['certdata']['subject']);
             // we are checking against accidental misconfig, not attacks, so loosely checking against end of string is appropriate
-            if (preg_match("/CN=".$this->expectedName."/", $this->TLS_CA_checks_result[$host]['certdata']['subject']) === 1) {
+            if (preg_match("/CN=" . $this->expectedName . "/", $this->TLS_CA_checks_result[$host]['certdata']['subject']) === 1) {
                 return TRUE;
             }
         }
         if (isset($this->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname'])) {
-            $this->loggerInstance->debug(4,"Checking expected server name ".$this->expectedName." against sANs: ");
+            $this->loggerInstance->debug(4, "Checking expected server name " . $this->expectedName . " against sANs: ");
             $this->loggerInstance->debug(4, $this->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname']);
             $testNames = $this->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname'];
             if (!is_array($testNames)) {
                 $testNames = [$testNames];
             }
             foreach ($testNames as $oneName) {
-                if (preg_match("/".$this->expectedName."/", $oneName) === 1) {
+                if (preg_match("/" . $this->expectedName . "/", $oneName) === 1) {
                     return TRUE;
                 }
             }
         }
-        $this->loggerInstance->debug(3,"Tried to check expected server name ".$this->expectedName." but neither CN nor sANs matched.");
-        
+        $this->loggerInstance->debug(3, "Tried to check expected server name " . $this->expectedName . " but neither CN nor sANs matched.");
+
         $this->TLS_CA_checks_result[$host]['cert_oddity'] = RADIUSTests::CERTPROB_DYN_SERVER_NAME_MISMATCH;
         return FALSE;
-        
     }
-    
+
     /**
      * This function executes openssl s_client command to check if a server accepts a client certificate
      * 
      * @param string $host IP:port
      * @return int returncode
      */
-    public function tlsClientSideCheck(string $host) {
+    public function tlsClientSideCheck(string $host)
+    {
         $res = RADIUSTests::RETVAL_OK;
         if (!is_array(\config\Diagnostics::RADIUSTESTS['TLS-clientcerts']) || count(\config\Diagnostics::RADIUSTESTS['TLS-clientcerts']) == 0) {
             return RADIUSTests::RETVAL_SKIPPED;
@@ -230,7 +236,8 @@ class RFC6614Tests extends AbstractTest {
      * @param array  $testresults by-reference: the testresults array we are writing into
      * @return array result of openssl s_client ...
      */
-    private function execOpensslClient($host, $arg, &$testresults) {
+    private function execOpensslClient($host, $arg, &$testresults)
+    {
 // we got the IP address either from DNS (guaranteeing well-formedness)
 // or from filter_var'ed user input. So it is always safe as an argument
 // but code analysers want this more explicit, so here is this extra
@@ -254,7 +261,8 @@ class RFC6614Tests extends AbstractTest {
      * @param array  $opensslbabble openssl command output
      * @return int return code
      */
-    private function opensslCAResult($host, $opensslbabble) {
+    private function opensslCAResult($host, $opensslbabble)
+    {
         $res = RADIUSTests::RETVAL_OK;
         if (preg_match('/connect: Connection refused/', implode($opensslbabble))) {
             $this->TLS_CA_checks_result[$host]['status'] = RADIUSTests::RETVAL_CONNECTION_REFUSED;
@@ -275,7 +283,7 @@ class RFC6614Tests extends AbstractTest {
             if (($altname = $this->getCertificatePropertyField($data, 'subjectAltName'))) {
                 $this->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname'] = $altname;
             }
-            
+
             $oids = $this->propertyCheckPolicy($data);
             if (!empty($oids)) {
                 foreach ($oids as $resultArrayKey => $o) {
@@ -302,7 +310,8 @@ class RFC6614Tests extends AbstractTest {
      * @param int    $resultArrayKey results array key
      * @return int return code
      */
-    private function opensslClientsResult($host, $opensslbabble, &$testresults, $type = '', $resultArrayKey = 0) {
+    private function opensslClientsResult($host, $opensslbabble, &$testresults, $type = '', $resultArrayKey = 0)
+    {
         \core\common\Entity::intoThePotatoes();
         $res = RADIUSTests::RETVAL_OK;
         $ret = $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['returncode'];
@@ -332,13 +341,14 @@ class RFC6614Tests extends AbstractTest {
         return $res;
     }
 
-        /**
+    /**
      * This function parses a X.509 cert and returns all certificatePolicies OIDs
      * 
      * @param array $cert (returned from openssl_x509_parse) 
      * @return array of OIDs
      */
-    private function propertyCheckPolicy($cert) {
+    private function propertyCheckPolicy($cert)
+    {
         $oids = [];
         if ($cert['extensions']['certificatePolicies']) {
             foreach (\config\Diagnostics::RADIUSTESTS['TLS-acceptableOIDs'] as $key => $oid) {
@@ -349,13 +359,15 @@ class RFC6614Tests extends AbstractTest {
         }
         return $oids;
     }
-        /**
+
+    /**
      * This function parses a X.509 cert and returns the value of $field
      * 
      * @param array $cert (returned from openssl_x509_parse) 
      * @return string value of the issuer field or ''
      */
-    private function getCertificateIssuer($cert) {
+    private function getCertificateIssuer($cert)
+    {
         $issuer = '';
         foreach ($cert['issuer'] as $key => $val) {
             if (is_array($val)) {
@@ -368,6 +380,7 @@ class RFC6614Tests extends AbstractTest {
         }
         return $issuer;
     }
+
     /**
      * This function parses a X.509 cert and returns the value of $field
      * 
@@ -375,11 +388,11 @@ class RFC6614Tests extends AbstractTest {
      * @param string $field the field to search for
      * @return string value of the extention named $field or ''
      */
-    private function getCertificatePropertyField($cert, $field) {
+    private function getCertificatePropertyField($cert, $field)
+    {
         if ($cert['extensions'][$field]) {
             return $cert['extensions'][$field];
         }
         return '';
     }
-
 }

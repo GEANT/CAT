@@ -303,5 +303,4 @@ class DBConnection
      * @var array
      */
     private $preparedStatements = [];
-
 }

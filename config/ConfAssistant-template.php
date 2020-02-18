@@ -38,7 +38,8 @@ namespace config;
  *
  * @package Configuration
  */
-class ConfAssistant {
+class ConfAssistant 
+{
 
     /**
      * Defines various general parameters of the roaming consortium.
@@ -154,5 +155,4 @@ class ConfAssistant {
         'username' => '...',
         'password' => '...',
     ];
-
 }
