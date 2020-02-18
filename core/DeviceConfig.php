@@ -621,7 +621,7 @@ abstract class DeviceConfig extends \core\common\Entity
             $a['all_eaps'] = $profile->getEapMethodsinOrderOfPreference(1);
             return($a);
         }
-        print("No supported eap types found for this profile.\n");
+        echo("No supported eap types found for this profile.\n");
         return [];
     }
 

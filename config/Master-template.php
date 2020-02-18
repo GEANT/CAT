@@ -38,7 +38,7 @@
 
 namespace config;
 
-class Master 
+class Master
 {
 
         /**

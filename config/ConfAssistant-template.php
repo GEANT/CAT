@@ -38,7 +38,7 @@ namespace config;
  *
  * @package Configuration
  */
-class ConfAssistant 
+class ConfAssistant
 {
 
     /**

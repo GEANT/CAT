@@ -91,7 +91,7 @@ class DeviceVista7 extends WindowsCommon
                 $this->writeLANprofile($eapConfig);
             }
         } else {
-            print("  this EAP type is not handled yet.\n");
+            echo("  this EAP type is not handled yet.\n");
             \core\common\Entity::outOfThePotatoes();
             return;
         }

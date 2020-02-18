@@ -32,7 +32,7 @@ namespace config;
  *
  * @package Configuration
  */
-class Diagnostics 
+class Diagnostics
 {
 
         /**
