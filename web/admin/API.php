@@ -174,6 +174,34 @@ switch ($inputDecoded['ACTION']) {
     case web\lib\admin\API::ACTION_STATISTICS_FED:
         $adminApi->returnSuccess($fed->downloadStats("array"));
         break;
+    case \web\lib\admin\API::ACTION_FEDERATION_LISTIDP:
+        $retArray = [];
+        $idpIdentifier = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_INST_ID);
+        if ($idpIdentifier === FALSE) {
+            $allIdPs = $fed->listIdentityProviders(0);
+            foreach ($allIdPs as $instanceId => $oneIdP) {
+                $theIdP = $oneIdP["instance"];
+                $retArray[$instanceId] = $theIdP->getAttributes();
+            }
+        } else {
+            try {
+                $thisIdP = $validator->IdP($idpIdentifier);
+            } catch (Exception $e) {
+                $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
+                exit(1);
+            }
+            $retArray[$idpIdentifier] = $thisIdP->getAttributes();
+        }
+        foreach ($retArray as $instNumber => $oneInstData) {
+            foreach ($oneInstData as $attribNumber => $oneAttrib) {
+                if ($oneAttrib['name'] == "general:logo_file") {
+                    // JSON doesn't cope well with raw binary data, so b64 it
+                    $retArray[$instNumber][$attribNumber]['value'] = base64_encode($oneAttrib['value']);
+                }
+            }
+        }
+        $adminApi->returnSuccess($retArray);
+        break;
     case \web\lib\admin\API::ACTION_NEWPROF_RADIUS:
     // fall-through intended: both get mostly identical treatment
     case web\lib\admin\API::ACTION_NEWPROF_SB:
@@ -248,6 +276,8 @@ switch ($inputDecoded['ACTION']) {
         $adminApi->returnSuccess([\web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID => $profileFresh->identifier]);
         break;
     case web\lib\admin\API::ACTION_ENDUSER_NEW:
+    // fall-through intentional, those two actions are doing nearly identical things
+    case web\lib\admin\API::ACTION_ENDUSER_CHANGEEXPIRY:
         $prof_id = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_CAT_PROFILE_ID);
         if ($prof_id === FALSE) {
             exit(1);
@@ -261,18 +291,31 @@ switch ($inputDecoded['ACTION']) {
         $expiryRaw = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_EXPIRY);
         if ($expiryRaw === FALSE) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "The expiry date wasn't found in the request.");
-            exit(1);
+            break;
         }
         $expiry = new DateTime($expiryRaw);
         try {
-            $retval = $profile->addUser($user, $expiry);
+            switch ($inputDecoded['ACTION']) {
+                case web\lib\admin\API::ACTION_ENDUSER_NEW:
+                    $retval = $profile->addUser($user, $expiry);
+                    break;
+                case web\lib\admin\API::ACTION_ENDUSER_CHANGEEXPIRY:
+                    $retval = 0;
+                    $userlist = $profile->listAllUsers();
+                    $userId = array_keys($userlist, $user);
+                    if (isset($userId[0])) {
+                        $profile->setUserExpiryDate($userId[0], $expiry);
+                        $retval = 1; // function doesn't have any failure vectors not raising an Exception and doesn't return a value
+                    }
+                    break;
+            }
         } catch (Exception $e) {
             $adminApi->returnError(web\lib\admin\API::ERROR_INTERNAL_ERROR, "The operation failed. Maybe a duplicate username, or malformed expiry date?");
             exit(1);
         }
         if ($retval == 0) {// that didn't work, it seems
             $adminApi->returnError(web\lib\admin\API::ERROR_INTERNAL_ERROR, "The operation failed subtly. Contact the administrators.");
-            exit(1);
+            break;
         }
         $adminApi->returnSuccess([web\lib\admin\API::AUXATTRIB_SB_USERNAME => $user, \web\lib\admin\API::AUXATTRIB_SB_USERID => $retval]);
         break;
@@ -348,36 +391,40 @@ switch ($inputDecoded['ACTION']) {
         $userId = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_USERID);
         $userName = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_USERNAME);
         $certSerial = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_CERTSERIAL);
-        if ($userId === FALSE && $userName === FALSE && $certSerial === FALSE) {
+		$certCN = $adminApi->firstParameterInstance($scrubbedParameters, web\lib\admin\API::AUXATTRIB_SB_CERTCN);
+        if ($userId === FALSE && $userName === FALSE && $certSerial === FALSE && $certCN === FALSE) {
             // we need at least one of those
-            $adminApi->returnError(\web\lib\admin\API::ERROR_MISSING_PARAMETER, "At least one of User ID, Username, or certificate serial is required.");
+            $adminApi->returnError(\web\lib\admin\API::ERROR_MISSING_PARAMETER, "At least one of User ID, Username, certificate serial, or certificate CN is required.");
+            break;
         }
-        $userlist = $profile->listAllUsers();
-        if ($userName === FALSE && $certSerial === FALSE) { // we got a user ID
-            if (!isset($userlist[$userId])) {
-                return $adminApi->returnError(\web\lib\admin\API::ERROR_INVALID_PARAMETER, "This user ID does not exist in this profile.");
-            }
-            $adminApi->returnSuccess([$userId => $userlist[$userId]]);
-        }
-        if ($userId === FALSE && $certSerial === FALSE) { // we got a username
-            $key = array_search($userName, $userlist);
-            if ($key === FALSE) {
-                return $adminApi->returnError(\web\lib\admin\API::ERROR_INVALID_PARAMETER, "This username does not exist in this profile.");
-            }
-            $adminApi->returnSuccess([$key => $userlist[$key]]);
-        }
-        if ($userId === FALSE && $userName === FALSE) { // we got a cert serial
+        if ($certSerial !== FALSE) { // we got a cert serial
             $serial = explode(":", $certSerial);
             $cert = new \core\SilverbulletCertificate($serial[1], $serial[0]);
+            }
+        if ($certCN !== FALSE) { // we got a cert CN
+            $cert = new \core\SilverbulletCertificate($certCN);
+        }
+        if ($cert !== NULL) { // we found a cert; verify it and extract userId
             if ($cert->status == \core\SilverbulletCertificate::CERTSTATUS_INVALID) {
-                $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Serial not found.");
+                return $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Certificate not found.");
             }
             if ($cert->profileId != $profile->identifier) {
-                $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Serial does not belong to this profile.");
+                return $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "Certificate does not belong to this profile.");
             }
-            $adminApi->returnSuccess([$cert->userId => $userlist[$cert->userId]]);
+            $userId = $cert->userId;
         }
-        $adminApi->returnError(\web\lib\admin\API::ERROR_INVALID_PARAMETER, "Only exactly one of User ID, username or cert serial can be specified.");
+        if ($userId !== FALSE) {
+            $userList = $profile->getUserById($userId);
+        }
+        if ($userName !== FALSE) {
+            $userList = $profile->getUserByName($userName);
+        }
+        if (count($userList) === 1) {
+            foreach ($userList as $oneUserId => $oneUserName) {
+                return $adminApi->returnSuccess([web\lib\admin\API::AUXATTRIB_SB_USERNAME => $oneUserName, \web\lib\admin\API::AUXATTRIB_SB_USERID => $oneUserId]);
+            }
+        }
+        $adminApi->returnError(\web\lib\admin\API::ERROR_INVALID_PARAMETER, "No matching user found in this profile.");
         break;
     case \web\lib\admin\API::ACTION_ENDUSER_LIST:
     // fall-through: those two are similar
@@ -508,9 +555,9 @@ switch ($inputDecoded['ACTION']) {
         $annotation = json_decode($annotationRaw, TRUE);
         $cert->annotate($annotation);
         $adminApi->returnSuccess([]);
-        
+
         break;
-        
+
     default:
         $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_ACTION, "Not implemented yet.");
 }

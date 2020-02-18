@@ -1,5 +1,4 @@
 <?php
-
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -29,7 +28,6 @@
  */
 
 namespace devices\ms;
-
 use \Exception;
 
 /**
@@ -37,11 +35,7 @@ use \Exception;
  * @author Tomasz Wolniewicz <twoln@umk.pl>
  * @package ModuleWriting
  */
-class DeviceW8W10 extends WindowsCommon {
-
-    /**
-     * constructor; tells the world about supported EAP types and device anomalies
-     */
+ class Device_W8_10 extends WindowsCommon {
     final public function __construct() {
         parent::__construct();
         \core\common\Entity::intoThePotatoes();
@@ -52,20 +46,19 @@ class DeviceW8W10 extends WindowsCommon {
                     \core\common\EAP::EAPTYPE_TTLS_PAP,
                     \core\common\EAP::EAPTYPE_TTLS_MSCHAP2,
                     \core\common\EAP::EAPTYPE_SILVERBULLET
-        ]);
+                ]);
         $this->specialities['internal:use_anon_outer'][serialize(\core\common\EAP::EAPTYPE_PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
         \core\common\Entity::outOfThePotatoes();
     }
-
+    
     /**
      * create the actual installer executable
      * 
      * @return string filename of the generated installer
      *
-     */
+     */    
     public function writeInstaller() {
-        $dom = textdomain(NULL);
-        textdomain("devices");
+        \core\common\Entity::intoThePotatoes();
         // create certificate files and save their names in $caFiles arrary
         $caFiles = $this->saveCertificateFiles('der');
         $this->caArray = $this->getAttribute('internal:CAs')[0];
@@ -84,7 +77,7 @@ class DeviceW8W10 extends WindowsCommon {
                 $delProfiles[] = $ssid;
             }
             if ($cipher == 'TKIP') {
-                $delProfiles[] = $ssid . ' (TKIP)';
+                $delProfiles[] = $ssid.' (TKIP)';
             }
         }
         $windowsProfile = [];
@@ -92,16 +85,24 @@ class DeviceW8W10 extends WindowsCommon {
         $iterator = 0;
         foreach ($allSSID as $ssid => $cipher) {
             if ($cipher == 'TKIP') {
-                $windowsProfile[$iterator] = $this->writeWLANprofile($ssid . ' (TKIP)', $ssid, 'WPA', 'TKIP', $eapConfig, $iterator);
+                $windowsProfile[$iterator] = $this->writeWLANprofile($ssid.' (TKIP)', $ssid, 'WPA', 'TKIP', $eapConfig, $iterator);
                 $iterator++;
             }
             $windowsProfile[$iterator] = $this->writeWLANprofile($ssid, $ssid, 'WPA2', 'AES', $eapConfig, $iterator);
             $iterator++;
         }
-        if (($this->device_id !== 'w8') && (count($this->attributes['internal:consortia']) > 0 )) {
-            // this SSID name is later used in common.inc so if you decide to chage it here change it there as well
-            $ssid = 'cat-passpoint-profile';
-            $windowsProfile[$iterator] = $this->writeWLANprofile($ssid, $ssid, 'WPA2', 'AES', $eapConfig, $iterator, TRUE);
+        if ($this->device_id !== 'w8') {
+            $roamingPartner = 1;
+            foreach ($this->attributes['internal:consortia'] as $oneCons) {
+                $knownOiName = array_search($oneCons, CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi']);
+                if ($knownOiName === FALSE) { // a custom RCOI as set by the IdP admin; do not use the term "eduroam" in that one!
+                    $knownOiName = $this->attributes['general:instname'][0] . " "._("Roaming Partner") . " $roamingPartner";
+                    $roamingPartner++;
+                }
+                $ssid = 'cat-passpoint-profile';
+                $windowsProfile[$iterator] = $this->writeWLANprofile($knownOiName, $ssid, 'WPA2', 'AES', $eapConfig, $iterator, $oneCons);
+                $iterator++;
+            }
         }
         if ($setWired) {
             $this->writeLANprofile($eapConfig);
@@ -121,54 +122,41 @@ class DeviceW8W10 extends WindowsCommon {
         $this->writeMainNSH($this->selectedEap, $this->attributes);
         $this->compileNSIS();
         $installerPath = $this->signInstaller();
-        textdomain($dom);
-        return($installerPath);
+        \core\common\Entity::outOfThePotatoes();
+        return $installerPath;
     }
 
-    /**
-     * determines which EAP author ID to set
-     * 
-     * @return integer
-     */
     private function setAuthorId() {
         if ($this->selectedEap['OUTER'] === \core\common\EAP::TTLS) {
             if ($this->useGeantLink) {
-                return 67532; //Amebis
+                $authorId = "67532";
+            } else {
+                $authorId = "311";
             }
-            return 311;
+        } else {
+            $authorId = 0;
         }
-        return 0;
+        return($authorId);
     }
 
-    /**
-     * add Hotspot 2.0 roaming consortia elements, if applicable
-     * 
-     * @return string
-     */
-    private function addConsortia() {
-        if ($this->device_id == 'w8') {
+    private function addConsortia($oi) {
+        if ($this->device_id == 'w8' || $oi == '') {
             return('');
         }
         $retval = '<Hotspot2>';
         $retval .= '<DomainName>';
         if (empty($this->attributes['internal:realm'][0])) {
-            $retval .= \config\ConfAssistant::CONSORTIUM['interworking-domainname-fallback'];
+            $retval .= CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-domainname-fallback'];
         } else {
-            $retval .= $this->attributes['internal:realm'][0];
+            $retval .=  $this->attributes['internal:realm'][0];
         }
         $retval .= '</DomainName>';
-        $retval .= '<RoamingConsortium><OUI>' .
-                implode('</OUI><OUI>', $this->attributes['internal:consortia']) .
-                '</OUI></RoamingConsortium>';
-        $retval .= '</Hotspot2>';
-        return $retval;
+        $retval .= '<RoamingConsortium><OUI>' . $oi .
+            '</OUI></RoamingConsortium>';
+        $retval .=  '</Hotspot2>';
+        return($retval);
     }
-
-    /**
-     * header of the XML output
-     * 
-     * @return string
-     */
+    
     private function eapConfigHeader() {
         $authorId = $this->setAuthorId();
         $profileFileCont = '<EAPConfig><EapHostConfig xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
@@ -181,14 +169,9 @@ class DeviceW8W10 extends WindowsCommon {
 <AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">' . $authorId . '</AuthorId>
 </EapMethod>
 ';
-        return $profileFileCont;
+        return($profileFileCont);
     }
 
-    /**
-     * part of the XML output defining server names and CA roots for EAP-TLS
-     * 
-     * @return string
-     */
     private function tlsServerValidation() {
         $profileFileCont = '
 <eapTls:ServerValidation>
@@ -204,13 +187,7 @@ class DeviceW8W10 extends WindowsCommon {
 ';
         return($profileFileCont);
     }
-
-    /**
-     * part of the XML output defining server names and CA roots for built-in 
-     * TTLS
-     * 
-     * @return string
-     */    
+    
     private function msTtlsServerValidation() {
         $profileFileCont = '
         <ServerValidation>
@@ -226,13 +203,7 @@ class DeviceW8W10 extends WindowsCommon {
 ';
         return($profileFileCont);
     }
-
-    /**
-     * part of the XML output defining server names and CA roots for GEANTlink 
-     * TTLS
-     * 
-     * @return string
-     */    
+    
     private function glTtlsServerValidation() {
         $servers = implode('</ServerName><ServerName>', $this->attributes['eap:server_name']);
         $profileFileCont = '
@@ -251,12 +222,7 @@ class DeviceW8W10 extends WindowsCommon {
 ';
         return($profileFileCont);
     }
-
-    /**
-     * part of the XML output defining server names and CA roots for built-in PEAP
-     * 
-     * @return string
-     */    
+    
     private function peapServerValidation() {
         $profileFileCont = '
         <ServerValidation>
@@ -271,12 +237,7 @@ class DeviceW8W10 extends WindowsCommon {
 ';
         return($profileFileCont);
     }
-
-    /**
-     * part of the XML output defining client auth parameters for EAP-TLS
-     * 
-     * @return string
-     */    
+    
     private function tlsConfig() {
         $profileFileCont = '
 <Config xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionPropertiesV1"
@@ -287,11 +248,11 @@ class DeviceW8W10 extends WindowsCommon {
 <eapTls:CredentialsSource>
 <eapTls:CertificateStore />
 </eapTls:CredentialsSource>
-';
+';    
         $profileFileCont .= $this->tlsServerValidation();
         if (\core\common\Entity::getAttributeValue($this->attributes, 'eap-specific:tls_use_other_id', 0) === 'on') {
             $profileFileCont .= '<eapTls:DifferentUsername>true</eapTls:DifferentUsername>';
-            $this->tlsOtherUsername = TRUE;
+            $this->tlsOtherUsername = 1;
         } else {
             $profileFileCont .= '<eapTls:DifferentUsername>false</eapTls:DifferentUsername>';
         }
@@ -303,12 +264,7 @@ class DeviceW8W10 extends WindowsCommon {
         return($profileFileCont);
     }
 
-    /**
-     * part of the XML output defining built-in TTLS
-     * 
-     * @return string
-     */    
-    private function msTtlsConfig() {
+    private function msTtlsConfig() {        
         $profileFileCont = '<Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
 <EapTtls xmlns="http://www.microsoft.com/provisioning/EapTtlsConnectionPropertiesV1">
 ';
@@ -342,13 +298,8 @@ class DeviceW8W10 extends WindowsCommon {
 ';
         return($profileFileCont);
     }
-
-    /**
-     * part of the XML output defining GEANTlink TTLS
-     * 
-     * @return string
-     */    
-    private function glTtlsConfig() {
+    
+    private function glTtlsConfig() {        
         $profileFileCont = '
 <Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
 <EAPIdentityProviderList xmlns="urn:ietf:params:xml:ns:yang:ietf-eap-metadata">
@@ -389,11 +340,6 @@ class DeviceW8W10 extends WindowsCommon {
         return($profileFileCont);
     }
 
-    /**
-     * part of the XML output defining built-in PEAP
-     * 
-     * @return string
-     */    
     private function peapConfig() {
         $nea = (\core\common\Entity::getAttributeValue($this->attributes, 'media:wired', 0) == 'on') ? 'true' : 'false';
         $profileFileCont = '<Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
@@ -436,39 +382,20 @@ class DeviceW8W10 extends WindowsCommon {
 ';
         return($profileFileCont);
     }
-
-    /**
-     * part of the XML output defining EAP-pwd configuration (i.e. none)
-     * 
-     * @return string
-     */    
+    
     private function pwdConfig() {
         return('<ConfigBlob></ConfigBlob>');
     }
 
     /**
-     * determine whether GEANTlink should be used
-     * 
-     * @return void
+     * Set the GEANTLink usage flag based on device settings
      */
     private function setGeantLink() {
-        $this->useGeantLink = FALSE;
         if (\core\common\Entity::getAttributeValue($this->attributes, 'device-specific:geantlink', 0) === 'on') {
             $this->useGeantLink = TRUE;
         }
-        if (isset($this->options['args']) && $this->options['args'] == 'gl') {
-            $this->useGeantLink = TRUE;
-        }
-        if (\core\common\Entity::getAttributeValue($this->attributes, 'device-specific:builtin_ttls', 0) === 'on') {
-            $this->useGeantLink = FALSE;
-        }
     }
 
-    /**
-     * generate the EAP-related part of the XML
-     * 
-     * @return array
-     */
     private function prepareEapConfig() {
         if ($this->useAnon) {
             $this->outerUser = $this->attributes['internal:anon_local_value'][0];
@@ -497,22 +424,22 @@ class DeviceW8W10 extends WindowsCommon {
             default:
                 break;
         }
-        return ['win' => $profileFileCont . '</EapHostConfig></EAPConfig>'];
+        return(['win' => $profileFileCont . '</EapHostConfig></EAPConfig>']);
     }
 
     /**
      * produce PEAP, TLS and TTLS configuration files for Windows 8
      *
-     * @param string  $wlanProfileName name for the WLAN profile (not necessarily equal to SSID)
-     * @param string  $ssid            name of SSID to configure
-     * @param string  $auth            can be one of "WPA", "WPA2"
-     * @param string  $encryption      can be one of: "TKIP", "AES"
-     * @param array   $eapConfig       XML configuration block with EAP config data
-     * @param integer $profileNumber   counter, which profile number is this
-     * @param boolean $hs20            should Hotspot 2.0 / Passpoint be configured?
+     * @param string $wlanProfileName
+     * @param string $ssid
+     * @param string $auth can be one of "WPA", "WPA2"
+     * @param string $encryption can be one of: "TKIP", "AES"
+     * @param array $eapConfig XML configuration block with EAP config data
+     * @param int $profileNumber counter, which profile number is this
+     * @param string $oi nonempty value indicates that this is a Passpoint profile or a given OI value
      * @return string
      */
-    private function writeWLANprofile($wlanProfileName, $ssid, $auth, $encryption, $eapConfig, $profileNumber, $hs20 = FALSE) {
+    private function writeWLANprofile($wlanProfileName, $ssid, $auth, $encryption, $eapConfig, $profileNumber, $oi = '') {
         $profileFileCont = '<?xml version="1.0"?>
 <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
 <name>' . $wlanProfileName . '</name>
@@ -522,9 +449,7 @@ class DeviceW8W10 extends WindowsCommon {
 </SSID>
 <nonBroadcast>true</nonBroadcast>
 </SSIDConfig>';
-        if ($hs20) {
-            $profileFileCont .= $this->addConsortia();
-        }
+        $profileFileCont .= $this->addConsortia($oi);
         $profileFileCont .= '
 <connectionType>ESS</connectionType>
 <connectionMode>auto</connectionMode>
@@ -562,15 +487,10 @@ class DeviceW8W10 extends WindowsCommon {
         $xmlFname = "w8/wlan_prof-$profileNumber.xml";
         file_put_contents($xmlFname, $profileFileCont . $eapConfig['win'] . $closing);
         $this->loggerInstance->debug(2, "Installer has been written into directory $this->FPATH\n");
-        return("\"$wlanProfileName\" \"$encryption\"");
+        $hs20 = $oi == '' ? 0 : 1;
+        return("\"$wlanProfileName\" \"$encryption\" $hs20");
     }
 
-    /**
-     * generate XML snippet pertaining to wired LAN configuration
-     * 
-     * @param array $eapConfig the EAP-specific XML parts as created by prepareEapConfig()
-     * @return void writes output to filesystem
-     */
     private function writeLANprofile($eapConfig) {
         $profileFileCont = '<?xml version="1.0"?>
 <LANProfile xmlns="http://www.microsoft.com/networking/LAN/profile/v1">
@@ -597,14 +517,6 @@ class DeviceW8W10 extends WindowsCommon {
         $this->loggerInstance->debug(2, "Installer has been written into directory $this->FPATH\n");
     }
 
-    /**
-     * creates NSIS snippets to include WLAN profiles and CAs in main installer
-     * 
-     * @param array $wlanProfiles list of WLAN profiles to include
-     * @param array $caArray      list of CAs to include
-     * @return void writes directly to file system
-     * @throws Exception
-     */
     private function writeProfilesNSH($wlanProfiles, $caArray) {
         $this->loggerInstance->debug(4, "writeProfilesNSH");
         $this->loggerInstance->debug(4, $wlanProfiles);
@@ -628,14 +540,6 @@ class DeviceW8W10 extends WindowsCommon {
         fclose($fileHandleCerts);
     }
 
-    /**
-     * creates main NSIS file
-     * 
-     * @param array $eap  EAP type to write out
-     * @param array $attr profile attributes to write into NSIS !define statements
-     * @return void writes directly to file system
-     * @throws Exception
-     */
     private function writeMainNSH($eap, $attr) {
         $this->loggerInstance->debug(4, "writeMainNSH");
         $this->loggerInstance->debug(4, $attr);
@@ -644,7 +548,7 @@ class DeviceW8W10 extends WindowsCommon {
         if ($this->device_id == 'w10') {
             $fcontents .= "!define W10\n";
         }
-        if (\config\ConfAssistant::NSIS_VERSION >= 3) {
+        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
             $fcontents .= "Unicode true\n";
         }
         $eapOptions = [
@@ -661,7 +565,7 @@ class DeviceW8W10 extends WindowsCommon {
 // $fcontents .= "!define ALLOW_XP\n";
 // Uncomment the line below if you want this module to produce debugging messages on the client
 // $fcontents .= "!define DEBUG_CAT\n";
-        if ($this->tlsOtherUsername === TRUE) {
+        if ($this->tlsOtherUsername == 1) {
             $fcontents .= "!define PFX_USERNAME\n";
         }
         $execLevel = $eapOptions[$eap["OUTER"]]['exec'];
@@ -675,24 +579,12 @@ class DeviceW8W10 extends WindowsCommon {
         file_put_contents('main.nsh', $fcontents);
     }
 
-    /**
-     * copies base file into output directory
-     * 
-     * @return void triggers write to file system
-     * @throws Exception
-     */
     private function copyStandardNsi() {
         if (!$this->translateFile('eap_w8.inc', 'cat.NSI', $this->codePage)) {
             throw new Exception("Translating needed file eap_w8.inc failed!");
         }
     }
 
-    /**
-     * copies various needed files into output directory
-     * 
-     * @param array $eap the EAP type to work with, determines which files are needed
-     * @return void triggers writes to file system
-     */
     private function copyFiles($eap) {
         $this->loggerInstance->debug(4, "copyFiles start\n");
         $this->copyBasicFiles();
@@ -711,48 +603,15 @@ class DeviceW8W10 extends WindowsCommon {
                 $this->copyStandardNsi();
         }
         $this->loggerInstance->debug(4, "copyFiles end\n");
+        return TRUE;
     }
 
-    /**
-     * should a different username be prompted for when using EAP-TLS?
-     * 
-     * @var boolean
-     */
-    private $tlsOtherUsername = FALSE;
-
-    /**
-     * list of CAs to include in the installer
-     * 
-     * @var array
-     */
+    private $tlsOtherUsername = 0;
     private $caArray;
-
-    /**
-     * should anonymous outer identities be used?
-     * 
-     * @var boolean
-     */
     private $useAnon;
-
-    /**
-     * server names to configure, separated by semicolon
-     * 
-     * @var string
-     */
     private $servers;
-
-    /**
-     * anonymous outer ID to use, for PEAP
-     * 
-     * @var string
-     */
     private $outerUser;
-
-    /**
-     * anonymous outer ID to use, for TTLS
-     * 
-     * @var string
-     */
     private $outerId;
 
 }
+

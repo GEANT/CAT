@@ -108,7 +108,7 @@ class X509 {
             $out['full_details']['public_key_algorithm'] = "UNKNOWN";
         }
 
-        if ((preg_match('/^\s+Public-Key:\s*\((.*) bit\)\s*$/m', $output, $keyLengthMatch)) && is_numeric($keyLengthMatch[1])) {
+        if ((preg_match('/^\s+.*\sPublic-Key:\s*\((.*) bit\)\s*$/m', $output, $keyLengthMatch)) && is_numeric($keyLengthMatch[1])) {
             $out['full_details']['public_key_length'] = $keyLengthMatch[1];
         } else {
             $out['full_details']['public_key_length'] = 0; // if we don't know, assume an unsafe key length -> will trigger warning

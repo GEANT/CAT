@@ -78,10 +78,11 @@ require_once "inc/click_button_js.php";
     <?php
     $hasInst = $instMgmt->listInstitutionsByAdmin($_SESSION['user']);
 
+
     if (\config\ConfAssistant::CONSORTIUM['name'] == 'eduroam') {
         $target = "https://wiki.geant.org/x/SwB_AQ"; // CAT manual, outdated
         if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
-            $target = "https://wiki.geant.org/x/SSNwBg"; // Managed IdP manual
+            $target = "https://wiki.geant.org/x/6Zg7Bw"; // Managed IdP manual
         }
         $helptext = "<h3 style='display:inline;'>" . sprintf(_("(Need help? Refer to the <a href='%s'>%s administrator manual</a>)"), $target, $uiElements->nomenclatureInst) . "</h3>";
     } else {
@@ -163,6 +164,15 @@ require_once "inc/click_button_js.php";
                         $blessedUser = TRUE;
                     }
                 }
+                $otherAdminCount = count($admins); // only the unnamed remain
+                if ($otherAdminCount > 0) {
+                    echo sprintf(ngettext("%d other user", "%d other users", $otherAdminCount),$otherAdminCount);
+                }
+                echo "</td><td>";
+                if ($blessedUser && CONFIG['DB']['INST']['readonly'] === FALSE) {
+                    echo "<div style='white-space: nowrap;'><form method='post' action='inc/manageAdmins.inc.php?inst_id=" . $the_inst->identifier . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'><button type='submit'>" . _("Add/Remove Administrators") . "</button></form></div>";
+                }
+                echo "</td></tr>";
             }
             $otherAdminCount = count($admins); // only the unnamed remain
             if ($otherAdminCount > 0) {

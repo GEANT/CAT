@@ -57,10 +57,17 @@ class UserManagement extends \core\common\Entity {
 
     /**
      * Class constructor. Nothing special to be done when constructing.
+     * 
+     * @throws Exception
      */
     public function __construct() {
         parent::__construct();
-        $this->databaseHandle = DBConnection::handle(self::$databaseType);
+        $handle = DBConnection::handle(self::$databaseType);
+        if ($handle instanceof DBConnection) {
+            $this->databaseHandle = $handle;
+        } else {
+            throw new Exception("This database type is never an array!");
+        }
     }
 
     /**

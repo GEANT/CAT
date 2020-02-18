@@ -43,16 +43,22 @@ use \Exception;
  *
  * @package Developer
  */
-class DBConnection {
+class DBConnection
+{
 
     /**
      * This is the actual constructor for the singleton. It creates a database connection if it is not up yet, and returns a handle to the database connection on every call.
      * 
      * @param string $database the database type to open
+      <<<<<<< HEAD
      * @return DBConnection the (only) instance of this class
+      =======
+     * @return DBConnection|array the (only) instance of this class; or all instances of a DB cluster (only for RADIUS auth servers right now)
+      >>>>>>> origin/release_2_0
      * @throws Exception
      */
-    public static function handle($database) {
+    public static function handle($database)
+    {
         $theDb = strtoupper($database);
         switch ($theDb) {
             case "INST":
@@ -66,6 +72,16 @@ class DBConnection {
                     DBConnection::${"instance" . $theDb}->databaseInstance = $theDb;
                 }
                 return self::${"instance" . $theDb};
+            case "RADIUS":
+                if (!isset(self::${"instance" . $theDb})) {
+                    $class = __CLASS__;
+                    foreach (CONFIG_CONFASSISTANT['DB'] as $name => $oneRadiusAuthDb) {
+                        $theInstance = new $class($name);
+                        self::${"instance" . $theDb}[] = $theInstance;
+                        $theInstance->databaseInstance = $theDb;
+                    }
+                }
+                return self::${"instance" . $theDb};
             default:
                 throw new Exception("This type of database (" . strtoupper($database) . ") is not known!");
         }
@@ -76,7 +92,8 @@ class DBConnection {
      *
      * @return void
      */
-    public function __clone() {
+    public function __clone()
+    {
         trigger_error('Clone is not allowed.', E_USER_ERROR);
     }
 
@@ -84,7 +101,8 @@ class DBConnection {
      * tells the caller if the database is to be accessed read-only
      * @return bool
      */
-    public function isReadOnly() {
+    public function isReadOnly()
+    {
         return $this->readOnly;
     }
 
@@ -96,7 +114,8 @@ class DBConnection {
      * @return mixed the query result as mysqli_result object; or TRUE on non-return-value statements
      * @throws Exception
      */
-    public function exec($querystring, $types = NULL, &...$arguments) {
+    public function exec($querystring, $types = NULL, &...$arguments)
+    {
         // log exact query to audit log, if it's not a SELECT
         $isMoreThanSelect = FALSE;
         if (preg_match("/^(SELECT\ |SET\ )/i", $querystring) == 0 && preg_match("/^DESC/i", $querystring) == 0) {
@@ -177,7 +196,8 @@ class DBConnection {
      * Retrieves the last auto-id of an INSERT. Needs to be called immediately after the corresponding exec() call
      * @return int the last autoincrement-ID
      */
-    public function lastID() {
+    public function lastID()
+    {
         return $this->connection->insert_id;
     }
 
@@ -217,6 +237,13 @@ class DBConnection {
     private static $instanceDIAGNOSTICS;
 
     /**
+     * Holds an ARRAY of all RADIUS server instances for Silverbullet
+     * 
+     * @var array<DBConnection>
+     */
+    private static $instanceRADIUS;
+
+    /**
      * after instantiation, keep state of which DB *this one* talks to
      * 
      * @var string which database does this instance talk to
@@ -247,14 +274,26 @@ class DBConnection {
      * @param string $database the database to open
      * @throws Exception
      */
-    private function __construct($database) {
+    private function __construct($database)
+    {
         $this->loggerInstance = new \core\common\Logging();
         $databaseCapitalised = strtoupper($database);
-        $this->connection = new \mysqli(\config\Master::DB[$databaseCapitalised]['host'], \config\Master::DB[$databaseCapitalised]['user'], \config\Master::DB[$databaseCapitalised]['pass'], \config\Master::DB[$databaseCapitalised]['db']);
-        if ($this->connection->connect_error) {
-            throw new Exception("ERROR: Unable to connect to $database database! This is a fatal error, giving up (error number " . $this->connection->connect_errno . ").");
+        if (isset(\config\Master::DB[$databaseCapitalised])) {
+            $this->connection = new \mysqli(\config\Master::DB[$databaseCapitalised]['host'], \config\Master::DB[$databaseCapitalised]['user'], \config\Master::DB[$databaseCapitalised]['pass'], \config\Master::DB[$databaseCapitalised]['db']);
+            if ($this->connection->connect_error) {
+                throw new Exception("ERROR: Unable to connect to $database database! This is a fatal error, giving up (error number " . $this->connection->connect_errno . ").");
+            }
+            $this->readOnly = \config\Master::DB[$databaseCapitalised]['readonly'];
+        } else { // one of the RADIUS DBs
+            $this->connection = new \mysqli(\config\ConfAssistant::DB[$databaseCapitalised]['host'], \config\ConfAssistant::DB[$databaseCapitalised]['user'], \config\ConfAssistant::DB[$databaseCapitalised]['pass'], \config\ConfAssistant::DB[$databaseCapitalised]['db']);
+            if ($this->connection->connect_error) {
+                throw new Exception("ERROR: Unable to connect to $database database! This is a fatal error, giving up (error number " . $this->connection->connect_errno . ").");
+            }
+            $this->readOnly = \config\ConfAssistant::DB[$databaseCapitalised]['readonly'];
         }
-        $this->readOnly = \config\Master::DB[$databaseCapitalised]['readonly'];
+        if ($databaseCapitalised == "EXTERNAL" && \config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") {
+            $this->connection->query("SET NAMES 'latin1'");
+        }
     }
 
     /**

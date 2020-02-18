@@ -115,7 +115,8 @@ class SanityTests extends CAT {
     /**
      * initialise the tests. Includes counting the number of expected rows in the profile_option_dict table.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->test_result = [];
         $this->test_result['global'] = 0;
@@ -164,6 +165,7 @@ class SanityTests extends CAT {
      *                     was run earlier and returned a success.
      * @return void
      */
+
     public function runTests($Tests) {
         foreach ($Tests as $testName) {
             $matchArray = [];
@@ -215,6 +217,7 @@ class SanityTests extends CAT {
      * @param string $message verbal description of the result
      * @return void
      */
+
     private function storeTestResult($level, $message) {
         $this->out[$this->name][] = ['level' => $level, 'message' => $message];
         $this->test_result[$this->name] = max($this->test_result[$this->name], $level);
@@ -226,9 +229,11 @@ class SanityTests extends CAT {
      * @param string $pathToCheck the path to check
      * @return array
      */
-    private function getExecPath($pathToCheck) {
+    private function getExecPath($pathToCheck)
+    {
         $the_path = "";
         $exec_is = "UNDEFINED";
+
         foreach ([\config\Master::PATHS, \config\ConfAssistant::PATHS, \config\Diagnostics::PATHS] as $config) {
             if (!empty($config[$pathToCheck])) {
                 $matchArray = [];
@@ -251,6 +256,7 @@ class SanityTests extends CAT {
      * 
      * @return void
      */
+
     private function testPhp() {
         if (version_compare(phpversion(), $this->needversionPHP, '>=')) {
             $this->storeTestResult(\core\common\Entity::L_OK, "<strong>PHP</strong> is sufficiently recent. You are running " . phpversion() . ".");
@@ -395,7 +401,15 @@ class SanityTests extends CAT {
             $this->storeTestResult(\core\common\Entity::L_ERROR, "PHP extension <strong>OpenSSL</strong> not found!");
         }
 
-        if (class_exists('\Imagick')) {
+
+        // on CentOS and RHEL 8, look for Gmagick, else Imagick
+        if (strpos(php_uname("r"), "el8") !== FALSE) {
+            $classname = 'Gmagick';
+        } else {
+            $classname = 'Imagick';
+        }
+
+        if (class_exists('\\' . $classname)) {
             $this->storeTestResult(\core\common\Entity::L_OK, "PHP extension <strong>Imagick</strong> is installed.");
         } else {
             $this->storeTestResult(\core\common\Entity::L_ERROR, "PHP extension <strong>Imagick</strong> not found! Get it from your distribution or <a href='http://pecl.php.net/package/imagick'>here</a>.");
@@ -694,6 +708,8 @@ class SanityTests extends CAT {
             $defaultvalues .= "RADIUSTESTS/UDP-hosts ";
         }
 
+
+        if (isset(\config\Diagnostics::RADIUSTESTS['TLS-clientcerts'])) {
         foreach (\config\Diagnostics::RADIUSTESTS['TLS-clientcerts'] as $cadata) {
             foreach ($cadata['certificates'] as $cert_files) {
                 if (file_get_contents(ROOT . "/config/cli-certs/" . $cert_files['public']) === FALSE) {
@@ -703,6 +719,7 @@ class SanityTests extends CAT {
                     $defaultvalues .= "CERTIFICATE/" . $cert_files['private'] . " ";
                 }
             }
+        }
         }
 
         if ($defaultvalues != "") {
@@ -846,4 +863,15 @@ class SanityTests extends CAT {
             $this->storeTestResult(\core\common\Entity::L_ERROR, "mailer settings failed, check the Config::MAILSETTINGS");
         }
     }
+
+    /**
+     * TODO test if RADIUS connections work
+     * 
+     * @return void
+     */
+    private function testUDPhosts()
+    {
+//        if(empty)
+    }
+
 }

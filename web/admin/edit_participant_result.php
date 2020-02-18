@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -71,88 +72,149 @@ if ($_POST['submitbutton'] != web\lib\common\FormElements::BUTTON_SAVE && $_POST
     exit(0);
 }
 
-$inst_name = $my_inst->name;
-echo "<h1>" . sprintf(_("Submitted attributes for IdP '%s'"), $inst_name) . "</h1>";
-echo "<table>";
-echo $optionParser->processSubmittedFields($my_inst, $_POST, $_FILES);
-echo "</table>";
 
+$auth->authenticate();
+$myInstOriginal = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
+$instId = $myInstOriginal->identifier;
+
+$hello = _("To whom it may concern,") . "\n\n";
+$bye = _("This mail is merely a cross-check because these changes can be security-relevant. If the change was expected, you do not need to take any action.") . "\n\n" .
+        _("Greetings, ") . "\n\n" .
+        CONFIG['APPEARANCE']['productname_long'];
+
+switch ($_POST['submitbutton']) {
+    case web\lib\common\FormElements::BUTTON_DELETE:
+        $myInstOriginal->destroy();
+        $loggerInstance->writeAudit($_SESSION['user'], "DEL", "IdP " . $instId);
+        header("Location: overview_user.php");
+        exit;
+    case web\lib\common\FormElements::BUTTON_FLUSH_AND_RESTART:
+        $profiles = $myInstOriginal->listProfiles();
+        foreach ($profiles as $profile) {
+            $profile->destroy();
+        }
+        // flush all IdP attributes and send user to creation wizard
+        $myInstOriginal->flushAttributes();
+        $loggerInstance->writeAudit($_SESSION['user'], "DEL", "IdP starting over" . $instId);
+        $text = $hello .
+                sprintf(_("the %s %s / %s / (previously known as) '%s' has deleted all properties and is starting over freshly. This means that its not recognisable by its name any more, and it may assume a different name in the future. You will get another mail if and when the name change happens."), $ui->nomenclatureInst, strtoupper($myInstOriginal->federation), $myInstOriginal->identifier, $myInstOriginal->name) . "\n\n" .
+                $bye;
+        $fed = new core\Federation($myInstOriginal->federation);
+        foreach ($fed->listFederationAdmins() as $id) {
+            $user = new core\User($id);
+            $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), CONFIG['APPEARANCE']['productname'], $ui->nomenclatureInst), $text);
+        }
+        header("Location: edit_idp.php?inst_id=$instId&wizard=true");
+        exit;
+    case web\lib\common\FormElements::BUTTON_SAVE:
+    // fall-through intended, both buttons get same treatment
+    case web\lib\common\FormElements::BUTTON_CONTINUE:
+        echo $deco->pageheader(sprintf(_("%s: IdP enrollment wizard (step 2 completed)"), CONFIG['APPEARANCE']['productname']), "ADMIN-IDP");
+        if (!isset($_POST['option']) || !isset($_POST['value'])) {
+            // this page doesn't make sense without POST values
+            echo $deco->footer();
+            exit(0);
+        }
+        $inst_name = $myInstOriginal->name;
+        echo "<h1>" . sprintf(_("Submitted attributes for IdP '%s'"), $inst_name) . "</h1>";
+        echo "<table>";
+        echo $optionParser->processSubmittedFields($myInstOriginal, $_POST, $_FILES);
+        echo "</table>";
 // delete cached logo, if present
-$dir = ROOT . '/web/downloads/logos/';
-$globResult = glob($dir . $my_inst->identifier . "_*.png");
-if ($globResult === FALSE) { // we should catch the improbable error condition
-    $globResult = [];
-}
-array_map('unlink', $globResult);
-$loggerInstance->debug(4, "UNLINK from $dir\n");
-
-$loggerInstance->writeAudit($_SESSION['user'], "MOD", "IdP " . $my_inst->identifier . " - attributes changed");
+        $dir = ROOT . '/web/downloads/logos/';
+        $globResult = glob($dir . $myInstOriginal->identifier . "_*.png");
+        if ($globResult === FALSE) { // we should catch the improbable error condition
+            $globResult = [];
+        }
+        array_map('unlink', $globResult);
+        $loggerInstance->debug(4, "UNLINK from $dir\n");
+        $loggerInstance->writeAudit($_SESSION['user'], "MOD", "IdP " . $myInstOriginal->identifier . " - attributes changed");
 
 // re-instantiate ourselves... profiles need fresh data
+        $myInstReinstantiated = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
 
-$my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
+        $significantChanges = \core\IdP::significantChanges($myInstOriginal, $myInstReinstantiated);
+        if (count($significantChanges) > 0) {
+            // send a notification/alert mail to someone we know is in charge
+            /// were made to the *Identity Provider* *LU* / integer number of IdP / (previously known as) Name
+            $text = $hello . sprintf(_("significant changes were made to the %s %s / %s / (previously known as) '%s'."), $ui->nomenclatureInst, strtoupper($myInstOriginal->federation), $myInstOriginal->identifier, $myInstOriginal->name) . "\n\n";
+            if (isset($significantChanges[\core\IdP::INSTNAME_CHANGED])) {
+                $text .= sprintf(_("The %s has changed its name. The details are below:"), $ui->nomenclatureInst) . "\n\n";
+                $text .= $significantChanges[\core\IdP::INSTNAME_CHANGED] . "\n\n";
+            }
+            $text .= $bye;
+            // (currently, send hard-wired to NRO - future: for linked insts, check eduroam DBv2 and send to registered admins directly)
+            $fed = new core\Federation($myInstOriginal->federation);
+            foreach ($fed->listFederationAdmins() as $id) {
+                $user = new core\User($id);
+                $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), CONFIG['APPEARANCE']['productname'], $ui->nomenclatureInst), $text);
+            }
+        }
 
 // check if we have any SSID at all.
+        $ssids = [];
 
-$ssids = [];
+        if (isset(\config\ConfAssistant::CONSORTIUM['ssid']) && count(\config\ConfAssistant::CONSORTIUM['ssid']) > 0) {
+            foreach (\config\ConfAssistant::CONSORTIUM['ssid'] as $ssidname) {
+                $ssids[] = $ssidname . " " . (isset(\config\ConfAssistant::CONSORTIUM['tkipsupport']) && \config\ConfAssistant::CONSORTIUM['tkipsupport'] === TRUE ? _("(WPA2/AES and WPA/TKIP)") : _("(WPA2/AES)") );
+            }
+        }
 
-if (isset(\config\ConfAssistant::CONSORTIUM['ssid']) && count(\config\ConfAssistant::CONSORTIUM['ssid']) > 0) {
-    foreach (\config\ConfAssistant::CONSORTIUM['ssid'] as $ssidname) {
-        $ssids[] = $ssidname . " " . (isset(\config\ConfAssistant::CONSORTIUM['tkipsupport']) && \config\ConfAssistant::CONSORTIUM['tkipsupport'] === TRUE ? _("(WPA2/AES and WPA/TKIP)") : _("(WPA2/AES)") );
-    }
-}
+        foreach ($myInstReinstantiated->getAttributes("media:SSID_with_legacy") as $ssidname) {
+            $ssids[] = $ssidname['value'] . " " . _("(WPA2/AES and WPA/TKIP)");
+        }
+        foreach ($myInstReinstantiated->getAttributes("media:SSID") as $ssidname) {
+            $ssids[] = $ssidname['value'] . " " . _("(WPA2/AES)");
+        }
 
-foreach ($my_inst->getAttributes("media:SSID_with_legacy") as $ssidname) {
-    $ssids[] = $ssidname['value'] . " " . _("(WPA2/AES and WPA/TKIP)");
-}
-foreach ($my_inst->getAttributes("media:SSID") as $ssidname) {
-    $ssids[] = $ssidname['value'] . " " . _("(WPA2/AES)");
-}
+        echo "<table>";
+        $uiElements = new web\lib\admin\UIElements();
+        if (count($ssids) > 0) {
+            $printedlist = "";
+            foreach ($ssids as $names) {
+                $printedlist = $printedlist . "$names ";
+            }
+            echo $uiElements->boxOkay(sprintf(_("Your installers will configure the following SSIDs: <strong>%s</strong>"), $printedlist), _("SSIDs configured"));
+        }
+        $wired_support = $myInstReinstantiated->getAttributes("media:wired");
+        if (count($wired_support) > 0) {
+            echo $uiElements->boxOkay(sprintf(_("Your installers will configure wired interfaces."), $printedlist), _("Wired configured"));
+        }
+        if (count($ssids) == 0 && count($wired_support) == 0) {
+            echo $uiElements->boxWarning(_("We cannot generate installers because neither wireless SSIDs nor wired interfaces have been selected as a target!"));
+        }
+        echo "</table>";
 
-echo "<table>";
-$uiElements = new web\lib\admin\UIElements();
-if (count($ssids) > 0) {
-    $printedlist = "";
-    foreach ($ssids as $names) {
-        $printedlist = $printedlist . "$names ";
-    }
-    echo $uiElements->boxOkay(sprintf(_("Your installers will configure the following SSIDs: <strong>%s</strong>"), $printedlist), _("SSIDs configured"));
-}
-$wired_support = $my_inst->getAttributes("media:wired");
-if (count($wired_support) > 0) {
-    echo $uiElements->boxOkay(sprintf(_("Your installers will configure wired interfaces."), $printedlist), _("Wired configured"));
-}
-if (count($ssids) == 0 && count($wired_support) == 0) {
-    echo $uiElements->boxWarning(_("We cannot generate installers because neither wireless SSIDs nor wired interfaces have been selected as a target!"));
-}
-echo "</table>";
-
-foreach ($my_inst->listProfiles() as $index => $profile) {
-    $profile->prepShowtime();
-}
+        foreach ($myInstReinstantiated->listProfiles() as $index => $profile) {
+            $profile->prepShowtime();
+        }
 // does federation want us to offer Silver Bullet?
 // if so, show both buttons; if not, just the normal EAP profile button
-$myfed = new \core\Federation($my_inst->federation);
-$allow_sb = $myfed->getAttributes("fed:silverbullet");
+        $myfed = new \core\Federation($myInstReinstantiated->federation);
+        $allow_sb = $myfed->getAttributes("fed:silverbullet");
 // show the new profile jumpstart buttons only if we do not have any profile at all
-if (count($my_inst->listProfiles()) == 0) {
+        if (count($my_inst->listProfiles()) == 0) {
 
-    if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($allow_sb) > 0) {
-        echo "<br/>";
-        // did we get an email address? then, show the silverbullet jumpstart button
-        // otherwise, issue a smartass comment
-        if (count($my_inst->getAttributes("support:email")) > 0) {
-            echo "<form method='post' action='edit_silverbullet.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . sprintf(_("Continue to %s properties"), \core\ProfileSilverbullet::PRODUCTNAME) . "</button></form>";
-        } else {
-            echo "<table>";
-            echo $uiElements->boxError(sprintf(_("You did not submit an e-mail address. This is required for %s. Please go to the %s dashboard and edit your helpdesk settings to include a helpdesk e-mail address."), core\ProfileSilverbullet::PRODUCTNAME, $ui->nomenclatureInst), _("No support e-mail!"));
-            echo "</table>";
+            if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($allow_sb) > 0) {
+                echo "<br/>";
+                // did we get an email address? then, show the silverbullet jumpstart button
+                // otherwise, issue a smartass comment
+                if (count($my_inst->getAttributes("support:email")) > 0) {
+                    echo "<form method='post' action='edit_silverbullet.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . sprintf(_("Continue to %s properties"), \core\ProfileSilverbullet::PRODUCTNAME) . "</button></form>";
+                } else {
+                    echo "<table>";
+                    echo $uiElements->boxError(sprintf(_("You did not submit an e-mail address. This is required for %s. Please go to the %s dashboard and edit your helpdesk settings to include a helpdesk e-mail address."), core\ProfileSilverbullet::PRODUCTNAME, $ui->nomenclatureInst), _("No support e-mail!"));
+                    echo "</table>";
+                }
+            }
+            if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == "LOCAL") {
+                echo "<br/><form method='post' action='edit_profile.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to RADIUS/EAP profile definition") . "</button></form>";
+            }
         }
-    }
-    if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == "LOCAL") {
-        echo "<br/><form method='post' action='edit_profile.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to RADIUS/EAP profile definition") . "</button></form>";
-    }
-}
-echo "<br/><form method='post' action='overview_user.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to dashboard") . "</button></form>";
+        echo "<br/><form method='post' action='overview_user.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to dashboard") . "</button></form>";
 
-echo $deco->footer();
+        break;
+    default:
+        throw new Exception("Unknown action requested!");
+}
+

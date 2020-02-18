@@ -179,8 +179,12 @@ class Federation extends EntityWithDBProperties {
 
         parent::__construct(); // we now have access to our database handle
 
-        $this->frontendHandle = DBConnection::handle("FRONTEND");
-
+        $handle = DBConnection::handle("FRONTEND");
+        if ($handle instanceof DBConnection) {
+            $this->frontendHandle = $handle;
+        } else {
+            throw new Exception("This database type is never an array!");
+        }
         // fetch attributes from DB; populates $this->attributes array
         $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row 
                                             FROM $this->entityOptionTable
@@ -311,6 +315,86 @@ Best regards,
      */
     private $idpListActive;
 
+    /**
+     * fetches all known certificate information for RADIUS/TLS certs from the DB
+     * 
+     * @return array
+     */
+    public function listTlsCertificates() {
+        $certQuery = "SELECT ca_name, request_serial, distinguished_name, status, expiry, certificate, revocation_pin FROM federation_servercerts WHERE federation_id = ?";
+        $upperTld = strtoupper($this->tld);
+        $certList = $this->databaseHandle->exec($certQuery, "s", $upperTld);
+        $retArray = [];
+        // SELECT -> resource, not boolean
+        while ($certListResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $certList)) {
+            $retArray[] = [
+                'CA' => $certListResult->ca_name,
+                'REQSERIAL' => $certListResult->request_serial,
+                'DN' => $certListResult->distinguished_name,
+                'STATUS' => $certListResult->status,
+                'EXPIRY' => $certListResult->expiry,
+                'CERT' => $certListResult->certificate,
+                'REVPIN' => $certListResult->revocation_pin,
+                ];
+        }
+        return$retArray;
+    }
+    
+    /**
+     * requests a new certificate
+     * 
+     * @param array $csr        the CSR with some metainfo in an array
+     * @param int   $expiryDays how long should the cert be valid, in days
+     * @return void
+     */
+    public function requestCertificate($csr, $expiryDays) {
+        $revocationPin = common\Entity::randomString(10, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
+        $newReq = new CertificationAuthorityEduPkiServer();
+        $reqserial = $newReq->sendRequestToCa($csr, $revocationPin, $expiryDays);
+        $reqQuery = "INSERT INTO federation_servercerts "
+                . "(federation_id, ca_name, request_serial, distinguished_name, status, revocation_pin) "
+                . "VALUES (?, 'eduPKI', ?, ?, 'REQUESTED', ?)";
+        $this->databaseHandle->exec($reqQuery, "siss", $this->tld, $reqserial, $csr['SUBJECT'], $revocationPin);
+    }
+    
+    /**
+     * fetches new cert info from the CA
+     * 
+     * @param int $reqSerial the request serial number that is to be updated
+     * @return void
+     */
+    public function updateCertificateStatus($reqSerial) {
+        $ca = new CertificationAuthorityEduPkiServer();
+        $entryInQuestion = $ca->pickupFinalCert($reqSerial, FALSE);
+        if ($entryInQuestion === FALSE) {
+            return; // no update to fetch
+        }
+        $certDetails = openssl_x509_parse($entryInQuestion['CERT']);
+        $expiry = "20".$certDetails['validTo'][0].$certDetails['validTo'][1]."-".$certDetails['validTo'][2].$certDetails['validTo'][3]."-".$certDetails['validTo'][4].$certDetails['validTo'][5];
+        openssl_x509_export($entryInQuestion['CERT'], $pem);
+        $updateQuery = "UPDATE federation_servercerts SET status = 'ISSUED', certificate = ?, expiry = ? WHERE ca_name = 'eduPKI' AND request_serial = ?";
+        $this->databaseHandle->exec($updateQuery, "ssi", $pem, $expiry, $reqSerial);
+    }
+    
+    /**
+     * revokes a certificate.
+     * 
+     * @param int $reqSerial the request serial whose associated cert is to be revoked
+     * @return void
+     */
+    public function triggerRevocation($reqSerial) {
+        // revocation at the CA side works with the serial of the certificate, not the request
+        // so find that out first
+        // This is a select, so tell Scrutinizer about the type-safety of the result
+        $certInfoResource = $this->databaseHandle->exec("SELECT certificate FROM federation_servercerts WHERE ca_name = 'eduPKI' AND request_serial = ?", "i", $reqSerial);
+        $certInfo = mysqli_fetch_row(/** @scrutinizer ignore-type */ $certInfoResource);
+        $certData = openssl_x509_parse($certInfo);
+        $serial = $certData['full_details']['serialNumber'];
+        $eduPki = new CertificationAuthorityEduPkiServer();
+        $eduPki->revokeCertificate($serial);
+        $this->databaseHandle->exec("UPDATE federation_servercerts SET status = 'REVOKED' WHERE ca_name = 'eduPKI' AND request_serial = ?", "i", $reqSerial);
+    }
+    
     /**
      * Lists all Identity Providers in this federation
      *

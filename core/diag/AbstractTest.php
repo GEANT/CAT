@@ -20,6 +20,7 @@
  */
 
 namespace core\diag;
+use \Exception;
 
 /**
  * base class of the various test classes.
@@ -253,13 +254,36 @@ class AbstractTest extends \core\common\Entity {
      * An EAP conversation took place, but for some reason there is not a single certificate inside
      */
     const CERTPROB_NO_CERTIFICATE_IN_CONVERSATION = -230;
+    
+    /**
+     * The version of TLS being used in the EAP conversation could not be determined
+     */
+    const TLSPROB_UNKNOWN_TLS_VERSION = -231;
+    
+    /**
+     * The version of TLS being used is too old, endangering client compatibility
+     */
+    const TLSPROB_DEPRECATED_TLS_VERSION = -232;
+    
+    /**
+     * The DNS SRV server name does not match the actual server name in a RADIUS/TLS connection
+     */
+    const CERTPROB_DYN_SERVER_NAME_MISMATCH = -233;
+    
     /**
      * initialises the error messages.
+     * 
+     * @throws Exception
      */
     public function __construct() {
         parent::__construct();
         // initialise the DB
-        $this->databaseHandle = \core\DBConnection::handle("DIAGNOSTICS");
+        $handle = \core\DBConnection::handle("DIAGNOSTICS");
+    if ($handle instanceof \core\DBConnection) {
+            $this->databaseHandle = $handle;
+        } else {
+            throw new Exception("This database type is never an array!");
+        }
 
         \core\common\Entity::intoThePotatoes();
         // the numbers are NOT constant - in the course of checks, we may find a "smoking gun" and elevate the probability
@@ -570,6 +594,24 @@ class AbstractTest extends \core\common\Entity {
         $code42 = RADIUSTests::CERTPROB_NO_CERTIFICATE_IN_CONVERSATION;
         $this->returnCodes[$code42]["message"] = _("No certificate at all was sent by the server.");
         $this->returnCodes[$code42]["severity"] = \core\common\Entity::L_ERROR;
+        
+        /**
+         * TLS version problem: version not found
+         */
+        $code43 = RADIUSTests::TLSPROB_UNKNOWN_TLS_VERSION;
+        $this->returnCodes[$code43]["message"] = _("It was not possible to determine the TLS version that was used in the EAP exchange.");
+        $this->returnCodes[$code42]["severity"] = \core\common\Entity::L_REMARK;
+        
+        /**
+         * TLS version problem: old version
+         */
+        $code44 = RADIUSTests::TLSPROB_DEPRECATED_TLS_VERSION;
+        $this->returnCodes[$code44]["message"] = _("The server does not support the contemporary TLS versions TLSv1.2 or TLSv1.3. Modern client operating systems may refuse to authenticate against the server!");
+        $this->returnCodes[$code44]["severity"] = \core\common\Entity::L_WARN;
+        
+        $code45 = RADIUSTests::CERTPROB_DYN_SERVER_NAME_MISMATCH;
+        $this->returnCodes[$code45]["message"] = _("The expected server name as per SRV record does not match any server name in the certificate of the server that was reached!");
+        $this->returnCodes[$code45]["severity"] = \core\common\Entity::L_WARN;
         \core\common\Entity::outOfThePotatoes();
     }
 

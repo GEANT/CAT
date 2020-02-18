@@ -352,5 +352,5 @@ class ProfileRADIUS extends AbstractProfile {
         }
         return $returnArray;
     }
-
+    
 }

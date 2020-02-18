@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -73,7 +74,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @var array EAP methods
      */
     public $supportedEapMethods;
-    
+
     /**
      * sets the supported EAP methods for a device
      * 
@@ -93,6 +94,48 @@ abstract class DeviceConfig extends \core\common\Entity {
      */
     public function __construct() {
         parent::__construct();
+    }
+
+    /**
+     * given one or more server name strings, calculate the suffix that is common
+     * to all of them
+     * 
+     * Examples:
+     * 
+     * ["host.somewhere.com", "gost.somewhere.com"] => "ost.somewhere.com"
+     * ["my.server.name"] => "my.server.name"
+     * ["foo.bar.de", "baz.bar.ge"] => "e"
+     * ["server1.example.com", "server2.example.com", "serverN.example.com"] => ".example.com"
+
+     * @return string
+     */
+    public function longestNameSuffix() {
+        // for all configured server names, find the string that is the longest
+        // suffix to all of them
+        $longestSuffix = "";
+        if (!isset($this->attributes["eap:server_name"])) {
+            return "";
+        }
+        $numStrings = count($this->attributes["eap:server_name"]);
+        if ($numStrings == 0) {
+            return "";
+        }
+        // always take the candidate character from the first array element, and
+        // verify whether the other elements have that character in the same 
+        // position, too
+        while (TRUE) {
+            if ($longestSuffix == $this->attributes["eap:server_name"][0]) {
+                break;
+            }
+            $candidate = substr($this->attributes["eap:server_name"][0], -(strlen($longestSuffix) + 1), 1);
+            for ($iterator = 1; $iterator < $numStrings; $iterator++) {
+                if (substr($this->attributes["eap:server_name"][$iterator], -(strlen($longestSuffix) + 1), 1) != $candidate) {
+                    break 2;
+                }
+            }
+            $longestSuffix = $candidate . $longestSuffix;
+        }
+        return $longestSuffix;
     }
 
     /**
@@ -166,13 +209,13 @@ abstract class DeviceConfig extends \core\common\Entity {
             }
             $this->attributes['internal:CAs'][0] = $caList;
         }
-        
+
         if (isset($this->attributes['support:info_file'])) {
             $this->attributes['internal:info_file'][0] = $this->saveInfoFile($this->attributes['support:info_file'][0]);
         }
         if (isset($this->attributes['general:logo_file'])) {
             $this->loggerInstance->debug(5, "saving IDP logo\n");
-            $this->attributes['internal:logo_file'] = $this->saveLogoFile($this->attributes['general:logo_file'],'idp');
+            $this->attributes['internal:logo_file'] = $this->saveLogoFile($this->attributes['general:logo_file'], 'idp');
         }
         if (isset($this->attributes['fed:logo_file'])) {
             $this->loggerInstance->debug(5, "saving FED logo\n");
@@ -225,7 +268,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         common\Entity::outOfThePotatoes();
         return $retval;
     }
-    
+
     /**
      * function to return exactly one attribute type
      * 
@@ -243,7 +286,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @param  string $file the filename to search for (without path)
      * @return string|boolean the filename as found, with path, or FALSE if it does not exist
      */
-    private function findSourceFile($file) {
+    protected function findSourceFile($file) {
         if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $file)) {
             return $this->module_path . '/Files/' . $this->device_id . '/' . $file;
         } elseif (is_file($this->module_path . '/Files/' . $file)) {
@@ -434,7 +477,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * set of characters to remove from filename strings
      */
     private const TRANSLIT_SCRUB = '/[ ()\/\'"]+/';
-    
+
     /**
      * Does a transliteration from UTF-8 to ASCII to get a sane filename
      * Takes special characters into account, and always uses English CTYPE
@@ -450,7 +493,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         setlocale(LC_CTYPE, $oldlocale);
         return $retval;
     }
-    
+
     /**
      * Generate installer filename base.
      * Device module should use this name adding an extension.
@@ -461,7 +504,6 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @return string
      */
     private function getInstallerBasename() {
-        
         $baseName = $this->customTranslit(\config\ConfAssistant::CONSORTIUM['name']) . "-" . $this->getDeviceId();
         if (isset($this->attributes['profile:customsuffix'][1])) { 
             // this string will end up as a filename on a filesystem, so always
@@ -558,13 +600,14 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @return array
      */
     private function getConsortia() {
+
         if(!isset(\config\ConfAssistant::CONSORTIUM['interworking-consortium-oi'])) {
             return ([]);
         }
         $consortia = \config\ConfAssistant::CONSORTIUM['interworking-consortium-oi'];
         if (isset($this->attributes['media:consortium_OI'])) {
             foreach ($this->attributes['media:consortium_OI'] as $new_oi) {
-                if(!in_array($new_oi, $consortia)) {
+                if (!in_array($new_oi, $consortia)) {
                     $consortia[] = $new_oi;
                 }
             }
@@ -590,7 +633,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @return array list of filenames and the mime types
      * @throws Exception
      */
-    private function saveLogoFile($logos,$type) {
+    private function saveLogoFile($logos, $type) {
         $iterator = 0;
         $returnarray = [];
         foreach ($logos as $blob) {

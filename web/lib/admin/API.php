@@ -140,6 +140,11 @@ class API {
     const ACTION_STATISTICS_FED = "STATISTICS-FED";
 
     /**
+     * Dumps all configured information about IdPs in the federation
+     */
+    const ACTION_FEDERATION_LISTIDP = "DATADUMP-FED";
+
+    /**
      * This action creates a new RADIUS profile (i.e. a classic profile for
      * institutions with their own RADIUS server, delivering one installer for
      * this profile).
@@ -157,6 +162,11 @@ class API {
      * This action creates a new end-user within a Managed IdP profile.
      */
     const ACTION_ENDUSER_NEW = "ENDUSER-NEW";
+
+    /**
+     * This action changes the end user expiry date
+     */
+    const ACTION_ENDUSER_CHANGEEXPIRY = "ENDUSER-CHANGEEXPIRY";
 
     /**
      * This action deactivates an existing end user in a Managed IdP profile.
@@ -224,6 +234,7 @@ class API {
     const AUXATTRIB_SB_USERNAME = "ATTRIB-MANAGED-USERNAME";
     const AUXATTRIB_SB_USERID = "ATTRIB-MANAGED-USERID";
     const AUXATTRIB_SB_CERTSERIAL = "ATTRIB-MANAGED-CERTSERIAL";
+	const AUXATTRIB_SB_CERTCN = "ATTRIB-MANAGED-CERTCN";
     const AUXATTRIB_SB_CERTANNOTATION = "ATTRIB-MANAGED-CERTANNOTATION";
     const AUXATTRIB_SB_EXPIRY = "ATTRIB-MANAGED-EXPIRY"; /* MySQL timestamp format */
     const AUXATTRIB_TOKEN = "ATTRIB-TOKEN";
@@ -321,6 +332,11 @@ class API {
                 ["device_id" => ["ADMIN", "SILVERBULLET", "USER"]] // Plus "TOTAL".
             ],
         ],
+        API::ACTION_FEDERATION_LISTIDP => [
+            "REQ" => [],
+            "OPT" => [API::AUXATTRIB_CAT_INST_ID],
+            "RETVAL" => [API::AUXATTRIB_CAT_INST_ID => "JSON_DATA"],
+        ],
         // RADIUS profile actions.
         API::ACTION_NEWPROF_RADIUS => [
             "REQ" => [API::AUXATTRIB_CAT_INST_ID],
@@ -361,6 +377,11 @@ class API {
             "OPT" => [],
             "RETVAL" => [API::AUXATTRIB_SB_USERNAME, API::AUXATTRIB_SB_USERID],
         ],
+        API::ACTION_ENDUSER_CHANGEEXPIRY => [
+            "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_USERNAME, API::AUXATTRIB_SB_EXPIRY],
+            "OPT" => [],
+            "RETVAL" => [],
+        ],
         API::ACTION_ENDUSER_DEACTIVATE => [
             "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_USERID],
             "OPT" => [],
@@ -375,10 +396,8 @@ class API {
         ],
         API::ACTION_ENDUSER_IDENTIFY => [
             "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID],
-            "OPT" => [API::AUXATTRIB_SB_USERID, API::AUXATTRIB_SB_USERNAME, API::AUXATTRIB_SB_CERTSERIAL],
-            "RETVAL" => [
-                [API::AUXATTRIB_SB_USERID => API::AUXATTRIB_SB_USERNAME],
-            ],
+            "OPT" => [API::AUXATTRIB_SB_USERID, API::AUXATTRIB_SB_USERNAME, API::AUXATTRIB_SB_CERTSERIAL, API::AUXATTRIB_SB_CERTCN],
+            "RETVAL" => [API::AUXATTRIB_SB_USERNAME, API::AUXATTRIB_SB_USERID],
         ],
         API::ACTION_TOKEN_NEW => [
             "REQ" => [API::AUXATTRIB_CAT_PROFILE_ID, API::AUXATTRIB_SB_USERID],
@@ -592,7 +611,13 @@ class API {
      * @return string
      */
     public function returnSuccess($details) {
-        echo json_encode(["result" => "SUCCESS", "details" => $details], JSON_PRETTY_PRINT);
+        $output = json_encode(["result" => "SUCCESS", "details" => $details], JSON_PRETTY_PRINT);
+        if ($output === FALSE) {
+            $this->returnError(API::ERROR_INTERNAL_ERROR, "Unable to JSON encode return data: ". json_last_error(). " - ". json_last_error_msg());
+        }
+        else {
+            echo $output;
+        }
     }
 
     /**

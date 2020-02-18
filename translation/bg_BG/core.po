@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-05 11:11+0200\n"
-"PO-Revision-Date: 2019-03-26 09:07+0000\n"
+"POT-Creation-Date: 2019-09-13 14:56+0200\n"
+"PO-Revision-Date: 2019-04-19 05:30+0000\n"
 "Last-Translator: University of Ruse <support@uni-ruse.bg>\n"
 "Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/eduroam_devel/"
 "cat/language/bg_BG/)\n"
@@ -19,13 +19,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/CAT.php:108
-msgid ""
-"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git "
-"Revision</a>"
-msgstr ""
-"Непубликувана версия <a href='https://github.com/GEANT/CAT/tree/master/"
-"Changes.md'>Git Revision </a>"
+#: core/CAT.php:109
+#, php-format
+msgid "Unreleased %s Git Revision"
+msgstr "Неофициална %s Git ревизия"
 
 #: core/CAT.php:118
 #, php-format
@@ -292,17 +289,17 @@ msgstr "Южна Африка"
 msgid "Unnamed Entity"
 msgstr "Неименувана единица"
 
-#: core/DeviceConfig.php:186
+#: core/DeviceConfig.php:229
 #, php-format
 msgid "your local %s support"
 msgstr "Вашата локална %s поддръжка"
 
-#: core/DeviceConfig.php:187
+#: core/DeviceConfig.php:230
 #, php-format
 msgid "your local %s support page"
 msgstr "Вашата локална %s страница за поддръжка"
 
-#: core/DeviceConfig.php:223
+#: core/DeviceConfig.php:266
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 "Съжаляваме, това не трябваше да се случва - не е налична допълнителна "
@@ -320,7 +317,7 @@ msgstr "(преустановен) %s"
 #. /                4. federation shortname, e.g. "LU";
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:253
+#: core/Federation.php:256
 #, php-format
 msgid ""
 "Hi,\n"
@@ -345,7 +342,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/Federation.php:262
+#: core/Federation.php:265
 #, php-format
 msgid "%s in your federation was created"
 msgstr "%s във Вашата федерация беше създаден"
@@ -378,16 +375,16 @@ msgstr ""
 msgid "%s in your federation was deleted"
 msgstr "%s във Вашата федерация беше премахнат. "
 
-#: core/SilverbulletInvitation.php:230
+#: core/SilverbulletInvitation.php:236
 #, php-format
 msgid "Your %s access is ready"
 msgstr "Вашият %s достъп е готов"
 
-#: core/SilverbulletInvitation.php:242
+#: core/SilverbulletInvitation.php:248
 msgid "Hello!"
 msgstr "Здравейте!"
 
-#: core/SilverbulletInvitation.php:244
+#: core/SilverbulletInvitation.php:250
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
@@ -395,7 +392,7 @@ msgid ""
 msgstr ""
 "Системният Ви администратор Ви е създал нови %s удостоверения за достъп."
 
-#: core/SilverbulletInvitation.php:246
+#: core/SilverbulletInvitation.php:252
 #, php-format
 msgid ""
 "Please follow the following link with the device you want to enable for %s "
@@ -406,7 +403,7 @@ msgstr ""
 "%s, за да вземете клиентска %s инсталационна програма само за Вас."
 
 #. gets replaced with the token value by getBody()
-#: core/SilverbulletInvitation.php:248
+#: core/SilverbulletInvitation.php:254
 #, php-format
 msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
@@ -418,11 +415,11 @@ msgstr ""
 "използвате същия линк, за да получавате информация за състоянието на Вашия "
 "%s акаунт."
 
-#: core/SilverbulletInvitation.php:250
+#: core/SilverbulletInvitation.php:256
 msgid "Regards,"
 msgstr "Поздрави,"
 
-#: core/SilverbulletInvitation.php:299
+#: core/SilverbulletInvitation.php:305
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
@@ -431,7 +428,7 @@ msgstr ""
 "Вашият %s достъп е готов! Кликнете тук: %s (за Андроид първо инсталирайте "
 "приложението '%s'!)"
 
-#: core/SilverbulletInvitation.php:321
+#: core/SilverbulletInvitation.php:327
 #, php-format
 msgid "%s Invitation System"
 msgstr "%s Поканваща система"

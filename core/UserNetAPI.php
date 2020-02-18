@@ -201,7 +201,7 @@ class UserNetAPI extends UserAPI {
             if (\core\common\Entity::getAttributeValue($D, 'options', 'hidden') === 1) {
                 continue;
             }
-            if ($D['device'] === '0') {
+            if ($D['id'] === '0') { // This is a global profile level redirect therefore no device name is available
                 $disp = '';
             } else {
                 $disp = $D['display'];

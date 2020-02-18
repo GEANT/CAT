@@ -33,7 +33,7 @@
 namespace devices\ms;
 use \Exception;
 
-class DeviceVista7 extends WindowsCommon {
+class Device_Vista7 extends WindowsCommon {
 
     /**
      * constructor; tells the world about supported EAP types and device anomalies
@@ -55,8 +55,7 @@ class DeviceVista7 extends WindowsCommon {
      *
      */
     public function writeInstaller() {
-        $dom = textdomain(NULL);
-        textdomain("devices");
+        \core\common\Entity::intoThePotatoes();
         // create certificate files and save their names in $caFiles arrary
         $caFiles = $this->saveCertificateFiles('der');
 
@@ -71,7 +70,7 @@ class DeviceVista7 extends WindowsCommon {
                 $delProfiles[] = $ssid;
             }
             if ($cipher == 'TKIP') {
-                $delProfiles[] = $ssid . ' (TKIP)';
+                $delProfiles[] = $ssid.' (TKIP)';
             }
         }
 
@@ -81,7 +80,7 @@ class DeviceVista7 extends WindowsCommon {
             $iterator = 0;
             foreach ($allSSID as $ssid => $cipher) {
                 if ($cipher == 'TKIP') {
-                    $windowsProfile[$iterator] = $this->writeWLANprofile($ssid . ' (TKIP)', $ssid, 'WPA', 'TKIP', $eapConfig, $iterator);
+                    $windowsProfile[$iterator] = $this->writeWLANprofile($ssid.' (TKIP)', $ssid, 'WPA', 'TKIP', $eapConfig, $iterator);
                     $iterator++;
                 }
                 $windowsProfile[$iterator] = $this->writeWLANprofile($ssid, $ssid, 'WPA2', 'AES', $eapConfig, $iterator);
@@ -92,6 +91,7 @@ class DeviceVista7 extends WindowsCommon {
             }
         } else {
             print("  this EAP type is not handled yet.\n");
+            \core\common\Entity::outOfThePotatoes();
             return;
         }
         $this->loggerInstance->debug(4, "windowsProfile");
@@ -110,8 +110,8 @@ class DeviceVista7 extends WindowsCommon {
         $this->compileNSIS();
         $installerPath = $this->signInstaller();
 
-        textdomain($dom);
-        return($installerPath);
+        \core\common\Entity::outOfThePotatoes();
+        return $installerPath;
     }
 
     /**
@@ -142,10 +142,10 @@ class DeviceVista7 extends WindowsCommon {
         $profileFileCont = '<EAPConfig><EapHostConfig xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
 <EapMethod>
 <Type xmlns="http://www.microsoft.com/provisioning/EapCommon">' .
-                $this->selectedEap["OUTER"] . '</Type>
+                $this->selectedEap["OUTER"].'</Type>
 <VendorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorId>
 <VendorType xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorType>
-<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">' . $authorId . '</AuthorId>
+<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">'.$authorId.'</AuthorId>
 </EapMethod>
 ';
 
@@ -158,9 +158,9 @@ class DeviceVista7 extends WindowsCommon {
             $profileFileCont .= '
 <Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
 <EAPIdentityProviderList xmlns="urn:ietf:params:xml:ns:yang:ietf-eap-metadata">
-<EAPIdentityProvider ID="' . $this->deviceUUID . '" namespace="urn:UUID">
+<EAPIdentityProvider ID="'.$this->deviceUUID.'" namespace="urn:UUID">
 <ProviderInfo>
-<DisplayName>' . $this->translateString($attr['general:instname'][0], $this->codePage) . '</DisplayName>
+<DisplayName>'.$this->translateString($attr['general:instname'][0], $this->codePage).'</DisplayName>
 </ProviderInfo>
 <AuthenticationMethods>
 <AuthenticationMethod>
@@ -172,7 +172,7 @@ class DeviceVista7 extends WindowsCommon {
                 if ($outerUser == '') {
                     $profileFileCont .= '<AnonymousIdentity>@</AnonymousIdentity>';
                 } else {
-                    $profileFileCont .= '<AnonymousIdentity>' . $outerUser . '@' . $realm . '</AnonymousIdentity>';
+                    $profileFileCont .= '<AnonymousIdentity>'.$outerUser.'@'.$realm.'</AnonymousIdentity>';
                 }
             }
             $profileFileCont .= '</ClientSideCredential>
@@ -190,7 +190,7 @@ class DeviceVista7 extends WindowsCommon {
             $profileFileCont .= '
 </ServerSideCredential>
 <InnerAuthenticationMethod>
-<NonEAPAuthMethod>' .$innerMethod. '</NonEAPAuthMethod>
+<NonEAPAuthMethod>'.$innerMethod.'</NonEAPAuthMethod>
 </InnerAuthenticationMethod>
 <VendorSpecific>
 <SessionResumption>false</SessionResumption>
@@ -215,11 +215,11 @@ class DeviceVista7 extends WindowsCommon {
 </eapTls:CredentialsSource>
 <eapTls:ServerValidation>
 <eapTls:DisableUserPromptForServerValidation>true</eapTls:DisableUserPromptForServerValidation>
-<eapTls:ServerNames>' . $servers . '</eapTls:ServerNames>';
+<eapTls:ServerNames>'.$servers.'</eapTls:ServerNames>';
             if ($caArray) {
                 foreach ($caArray as $certAuthority) {
                     if ($certAuthority['root']) {
-                        $profileFileCont .= "<eapTls:TrustedRootCA>" . $certAuthority['sha1'] . "</eapTls:TrustedRootCA>\n";
+                        $profileFileCont .= "<eapTls:TrustedRootCA>".$certAuthority['sha1']."</eapTls:TrustedRootCA>\n";
                     }
                 }
             }
@@ -227,7 +227,7 @@ class DeviceVista7 extends WindowsCommon {
 ';
             if (isset($attr['eap-specific:tls_use_other_id']) && $attr['eap-specific:tls_use_other_id'][0] == 'on') {
                 $profileFileCont .= '<eapTls:DifferentUsername>true</eapTls:DifferentUsername>';
-                $this->tlsOtherUsername = TRUE;
+                $this->tlsOtherUsername = 1;
             } else {
                 $profileFileCont .= '<eapTls:DifferentUsername>false</eapTls:DifferentUsername>';
             }
@@ -251,11 +251,11 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
 <msPeap:EapType>
 <msPeap:ServerValidation>
 <msPeap:DisableUserPromptForServerValidation>true</msPeap:DisableUserPromptForServerValidation> 
-<msPeap:ServerNames>' . $servers . '</msPeap:ServerNames>';
+<msPeap:ServerNames>'.$servers.'</msPeap:ServerNames>';
             if ($caArray) {
                 foreach ($caArray as $certAuthority) {
                     if ($certAuthority['root']) {
-                        $vistaExt .= "<msPeap:TrustedRootCA>" . $certAuthority['sha1'] . "</msPeap:TrustedRootCA>\n";
+                        $vistaExt .= "<msPeap:TrustedRootCA>".$certAuthority['sha1']."</msPeap:TrustedRootCA>\n";
                     }
                 }
             }
@@ -268,7 +268,7 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
 <msChapV2:UseWinLogonCredentials>false</msChapV2:UseWinLogonCredentials> 
 </msChapV2:EapType>
 </baseEap:Eap>
-<msPeap:EnableQuarantineChecks>' . $nea . '</msPeap:EnableQuarantineChecks>
+<msPeap:EnableQuarantineChecks>'.$nea.'</msPeap:EnableQuarantineChecks>
 <msPeap:RequireCryptoBinding>false</msPeap:RequireCryptoBinding>
 </msPeap:EapType>
 </baseEap:Eap>
@@ -280,11 +280,11 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
 <EapType xmlns="http://www.microsoft.com/provisioning/MsPeapConnectionPropertiesV1">
 <ServerValidation>
 <DisableUserPromptForServerValidation>true</DisableUserPromptForServerValidation>
-<ServerNames>' . $servers . '</ServerNames>';
+<ServerNames>'.$servers.'</ServerNames>';
             if ($caArray) {
                 foreach ($caArray as $certAuthority) {
                     if ($certAuthority['root']) {
-                        $w7Ext .= "<TrustedRootCA>" . $certAuthority['sha1'] . "</TrustedRootCA>\n";
+                        $w7Ext .= "<TrustedRootCA>".$certAuthority['sha1']."</TrustedRootCA>\n";
                     }
                 }
             }
@@ -297,14 +297,14 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
 <UseWinLogonCredentials>false</UseWinLogonCredentials> 
 </EapType>
 </Eap>
-<EnableQuarantineChecks>' . $nea . '</EnableQuarantineChecks>
+<EnableQuarantineChecks>'.$nea.'</EnableQuarantineChecks>
 <RequireCryptoBinding>false</RequireCryptoBinding>
 ';
             if ($useAnon) {
                 $w7Ext .= '<PeapExtensions>
 <IdentityPrivacy xmlns="http://www.microsoft.com/provisioning/MsPeapConnectionPropertiesV2">
 <EnableIdentityPrivacy>true</EnableIdentityPrivacy>
-<AnonymousUserName>' . $outerUser . '</AnonymousUserName>
+<AnonymousUserName>'.$outerUser.'</AnonymousUserName>
 </IdentityPrivacy>
 </PeapExtensions>
             ';
@@ -322,8 +322,8 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
         $profileFileContEnd = '</EapHostConfig></EAPConfig>
 ';
         $returnArray = [];
-        $returnArray['vista'] = $profileFileCont . $vistaExt . $profileFileContEnd;
-        $returnArray['w7'] = $profileFileCont . $w7Ext . $profileFileContEnd;
+        $returnArray['vista'] = $profileFileCont.$vistaExt.$profileFileContEnd;
+        $returnArray['w7'] = $profileFileCont.$w7Ext.$profileFileContEnd;
         return $returnArray;
     }
 
@@ -342,10 +342,10 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
     private function writeWLANprofile($wlanProfileName, $ssid, $auth, $encryption, $eapConfig, $profileNumber) {
         $profileFileCont = '<?xml version="1.0"?>
 <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
-<name>' . $wlanProfileName . '</name>
+<name>'.$wlanProfileName.'</name>
 <SSIDConfig>
 <SSID>
-<name>' . $ssid . '</name>
+<name>'.$ssid.'</name>
 </SSID>
 <nonBroadcast>true</nonBroadcast>
 </SSIDConfig>
@@ -355,8 +355,8 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
 <MSM>
 <security>
 <authEncryption>
-<authentication>' . $auth . '</authentication>
-<encryption>' . $encryption . '</encryption>
+<authentication>'.$auth.'</authentication>
+<encryption>'.$encryption.'</encryption>
 <useOneX>true</useOneX>
 </authEncryption>
 ';
@@ -386,12 +386,13 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
             mkdir('vista');
         }
         $vistaFileName = "vista/wlan_prof-$profileNumber.xml";
-        file_put_contents($vistaFileName, $profileFileCont . $eapConfig['vista'] . $closing);
+        file_put_contents($vistaFileName, $profileFileCont.$eapConfig['vista'].$closing);
         $sevenFileName = "w7/wlan_prof-$profileNumber.xml";
-        file_put_contents($sevenFileName, $profileFileCont . $eapConfig['w7'] . $closing);
+        file_put_contents($sevenFileName, $profileFileCont.$eapConfig['w7'].$closing);
         $this->loggerInstance->debug(2, "Installer has been written into directory $this->FPATH\n");
         $this->loggerInstance->debug(4, "WLAN_Profile:$wlanProfileName:$encryption\n");
-        return("\"$wlanProfileName\" \"$encryption\"");
+        // the last 0 argument means that we are not using any HS20 features
+        return("\"$wlanProfileName\" \"$encryption\" 0");
     }
 
     /**
@@ -424,8 +425,8 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
             mkdir('vista');
         }
         
-        file_put_contents("vista/lan_prof.xml", $profileFileCont . $eapConfig['vista'] . $closing);
-        file_put_contents("w7/lan_prof.xml", $profileFileCont . $eapConfig['w7'] . $closing);
+        file_put_contents("vista/lan_prof.xml", $profileFileCont.$eapConfig['vista'].$closing);
+        file_put_contents("w7/lan_prof.xml", $profileFileCont.$eapConfig['w7'].$closing);
         
     }
 
@@ -439,7 +440,7 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
     private function writeMainNSH($eap, $attr) {
         $this->loggerInstance->debug(4, "writeMainNSH");
         $this->loggerInstance->debug(4, $attr);
-        $this->loggerInstance->debug(4, "MYLANG=" . $this->lang . "\n");
+        $this->loggerInstance->debug(4, "MYLANG=".$this->lang."\n");
 
         $eapOptions = [
             \core\common\EAP::PEAP => ['str' => 'PEAP', 'exec' => 'user'],
@@ -451,7 +452,7 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
             \core\common\EAP::PWD => ['str' => 'PWD', 'exec' => 'user'],
         ];
         $fcontents = '';
-        if (\config\ConfAssistant::NSIS_VERSION >= 3) {
+        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
             $fcontents .= "Unicode true\n";
         }
 
@@ -459,7 +460,7 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
 // $fcontents .= "!define ALLOW_XP\n";
 // Uncomment the line below if you want this module to produce debugging messages on the client
 // $fcontents .= "!define DEBUG_CAT\n";
-        if ($this->tlsOtherUsername === TRUE) {
+        if ($this->tlsOtherUsername == 1) {
             $fcontents .= "!define PFX_USERNAME\n";
         }
         $execLevel = $eapOptions[$eap["OUTER"]]['exec'];
@@ -470,8 +471,8 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
         $this->loggerInstance->debug(4, "EAP_STR=$eapStr\n");
         $this->loggerInstance->debug(4, $eap);
 
-        $fcontents .= '!define ' . $eapStr;
-        $fcontents .= "\n" . '!define EXECLEVEL "' . $execLevel . '"';
+        $fcontents .= '!define '.$eapStr;
+        $fcontents .= "\n".'!define EXECLEVEL "'.$execLevel.'"';
         $fcontents .= $this->writeNsisDefines($attr);
         file_put_contents('main.nsh', $fcontents);
     }
@@ -500,7 +501,7 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
         }
         foreach ($caArray as $certAuthority) {
             $store = $certAuthority['root'] ? "root" : "ca";
-            $contentCerts .= '!insertmacro install_ca_cert "' . $certAuthority['file'] . '" "' . $certAuthority['sha1'] . '" "' . $store . "\"\n";
+            $contentCerts .= '!insertmacro install_ca_cert "'.$certAuthority['file'].'" "'.$certAuthority['sha1'].'" "'.$store."\"\n";
         }
         fwrite($fileHandleCerts, $contentCerts);
         fclose($fileHandleCerts);
@@ -515,7 +516,7 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
      */
     private function copyFiles($eap) {
         $this->loggerInstance->debug(4, "copyFiles start\n");
-        $this->loggerInstance->debug(4, "code_page=" . $this->codePage . "\n");
+        $this->loggerInstance->debug(4, "code_page=".$this->codePage."\n");
         $this->copyBasicFiles();
 
         switch ($eap["OUTER"]) {
@@ -534,11 +535,6 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
         return TRUE;
     }
 
-    /**
-     * should a different username be prompted for when using EAP-TLS?
-     * 
-     * @var boolean
-     */
-    private $tlsOtherUsername = FALSE;
+    private $tlsOtherUsername = 0;
 
 }

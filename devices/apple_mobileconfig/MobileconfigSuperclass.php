@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -40,7 +41,8 @@ use \Exception;
  *
  * @package Developer
  */
-abstract class MobileconfigSuperclass extends \core\DeviceConfig {
+abstract class MobileconfigSuperclass extends \core\DeviceConfig
+{
 
     /**
      * institution name in preferred language
@@ -137,7 +139,8 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
      * construct with the standard set of EAP methods we support, and preload
      * specialities
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         \core\common\Entity::intoThePotatoes();
         // that's what all variants support. Sub-classes can change it.
@@ -152,7 +155,8 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
      * @param string $input the literal name
      * @return string
      */
-    private function massageName($input) {
+    private function massageName($input)
+    {
         return htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(['/ /', '/\//'], '_', $input))), ENT_XML1, 'UTF-8');
     }
 
@@ -160,7 +164,8 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
      * the general part of a mobileconfig file in plist format
      * @return string
      */
-    private function generalPayload() {
+    private function generalPayload()
+    {
         \core\common\Entity::intoThePotatoes();
         $tagline = sprintf(_("Network configuration profile '%s' of '%s' - provided by %s"), htmlspecialchars($this->profileName, ENT_XML1, 'UTF-8'), htmlspecialchars($this->instName, ENT_XML1, 'UTF-8'), \config\ConfAssistant::CONSORTIUM['display_name']);
 
@@ -210,14 +215,16 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
      * 
      * @return string
      */
-    protected function consentBlock() {
+    protected function consentBlock()
+    {
         \core\common\Entity::intoThePotatoes();
         if (isset($this->attributes['support:info_file'])) {
             return MobileconfigSuperclass::BUFFER_CONSENT_PRE . htmlspecialchars(iconv("UTF-8", "UTF-8//TRANSLIT", $this->attributes['support:info_file'][0]), ENT_XML1, 'UTF-8') . MobileconfigSuperclass::BUFFER_CONSENT_POST;
         }
         if ($this->attributes['internal:verify_userinput_suffix'][0] != 0) {
             if (strlen($this->attributes['internal:realm'][0]) > 0) {
-                $retval =MobileconfigSuperclass::BUFFER_CONSENT_PRE . sprintf(_("Important Notice: your username must end with @%s!"), $this->attributes['internal:realm'][0]) . MobileconfigSuperclass::BUFFER_CONSENT_POST;
+                /// note space between variable and exclamation mark - makes sure users don't mistakenly think the exclamation mark is part of the required username!
+                $retval = MobileconfigSuperclass::BUFFER_CONSENT_PRE . sprintf(_("Important Notice: your username must end with @%s !"), $this->attributes['internal:realm'][0]) . MobileconfigSuperclass::BUFFER_CONSENT_POST;
                 \core\common\Entity::outOfThePotatoes();
                 return $retval;
             }
@@ -234,10 +241,9 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
      * 
      * @return string filename of the generated installer
      */
-    public function writeInstaller() {
+    public function writeInstaller()
+    {
         \core\common\Entity::intoThePotatoes();
-        $dom = textdomain(NULL);
-        textdomain("devices");
 
         $this->loggerInstance->debug(4, "mobileconfig Module Installer start\n");
 
@@ -287,8 +293,6 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
 
         file_put_contents('installer_profile', $outputXml);
 
-        textdomain($dom);
-
         $fileName = $this->installerBasename . '.mobileconfig';
 
         if (!$this->sign) {
@@ -311,7 +315,8 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
      * 
      * @return string
      */
-    public function writeDeviceInfo() {
+    public function writeDeviceInfo()
+    {
         \core\common\Entity::intoThePotatoes();
         $ssidCount = count($this->attributes['internal:SSID']);
         $certCount = count($this->attributes['internal:CAs'][0]);
@@ -342,7 +347,8 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
      * 
      * @return array
      */
-    private function listCAUuids() {
+    private function listCAUuids()
+    {
         $retval = [];
         foreach ($this->attributes['internal:CAs'][0] as $ca) {
             $retval[] = $ca['uuid'];
@@ -354,10 +360,12 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
      * This is the XML structure subtree of a Network block which contains the
      * settings specific to Passpoint
      * 
-     * @param array $consortiumOi list of consortiumOi to put into structure
+     * @param string $consortiumOi list of consortiumOi to put into structure
+     * @param string $oiName       the pretty-print name of the RCOI
      * @return string
      */
-    private function passPointBlock($consortiumOi) {
+    private function passPointBlock($consortiumOi, $oiName)
+    {
         $retval = "
                <key>IsHotspot</key>
                <true/>
@@ -375,11 +383,11 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
         }
         $retval .= "                <key>RoamingConsortiumOIs</key>
                 <array>";
-        foreach ($consortiumOi as $oiValue) {
-            $retval .= "<string>$oiValue</string>";
-        }
+
+        $retval .= "<string>" . strtoupper($consortiumOi) . "</string>";
+
         $retval .= "</array>";
-        // this is an undocmented value found on the net. Does it do something useful?
+        // this is an undocumented value found on the net. Does it do something useful?
         $retval .= "<key>_UsingHotspot20</key>
                 <true/>
                 ";
@@ -406,7 +414,8 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
      * @param array $eapType EAP type in array notation
      * @return string
      */
-    private function eapBlock($eapType) {
+    private function eapBlock($eapType)
+    {
         $realm = $this->determineOuterIdString();
         $retval = "<key>EAPClientConfiguration</key>
                   <dict>
@@ -463,7 +472,8 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
      * 
      * @return string
      */
-    protected function proxySettings() {
+    protected function proxySettings()
+    {
         $buffer = "<key>ProxyType</key>";
         if (isset($this->attributes['media:force_proxy'])) {
             // find the port delimiter. In case of IPv6, there are multiple ':' 
@@ -493,7 +503,8 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
      * @return string
      * @throws Exception
      */
-    private function networkBlock($blocktype, $toBeConfigured) {
+    private function networkBlock($blocktype, $toBeConfigured)
+    {
         \core\common\Entity::intoThePotatoes();
         $eapType = $this->selectedEap;
         switch ($blocktype) {
@@ -526,15 +537,19 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
                 $wifiNetworkIdentification = "";
                 break;
             case MobileconfigSuperclass::NETWORK_BLOCK_TYPE_CONSORTIUMOIS:
-                if (!is_array($toBeConfigured)) {
-                    throw new Exception("ConsortiumOI list must be an array!");
+                if (!is_string($toBeConfigured)) {
+                    throw new Exception("ConsortiumOI must be a string!");
                 }
-                $payloadIdentifier = "hs20";
-                $payloadShortName = _("Hotspot 2.0 Settings");
-                $payloadName = sprintf(_("%s Hotspot 2.0 configuration"), \config\ConfAssistant::CONSORTIUM['display_name']);
+                $payloadIdentifier = "hs20.$toBeConfigured";
+                $knownOiName = array_search($toBeConfigured, CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi']);
+                if ($knownOiName === FALSE) { // a custom RCOI as set by the IdP admin; do not use the term "eduroam" in that one!
+                    $knownOiName = $this->instName . " "._("Roaming Partner");
+                }
+                $payloadShortName = $knownOiName;
+                $payloadName = _("Passpoint roaming configuration ($knownOiName)");
                 $encryptionTypeString = "WPA";
                 $setupModesString = "";
-                $wifiNetworkIdentification = $this->passPointBlock($toBeConfigured);
+                $wifiNetworkIdentification = $this->passPointBlock($toBeConfigured, $knownOiName);
                 break;
             default:
                 throw new Exception("This type of network block is unknown!");
@@ -582,7 +597,8 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
      * @param string $ssid the SSID to set to manual join only
      * @return string
      */
-    private function removenetworkBlock($ssid) {
+    private function removenetworkBlock($ssid)
+    {
         \core\common\Entity::intoThePotatoes();
         $retval = "
 <dict>
@@ -625,7 +641,8 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
      * 
      * @return string
      */
-    private function allNetworkBlocks() {
+    private function allNetworkBlocks()
+    {
         $retval = "";
         $this->serial = 0;
 
@@ -635,8 +652,10 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
         if (isset($this->attributes['media:wired']) && get_class($this) == "devices\apple_mobileconfig\DeviceMobileconfigOsX") {
             $retval .= $this->networkBlock(MobileconfigSuperclass::NETWORK_BLOCK_TYPE_WIRED, TRUE);
         }
-        if (count($this->attributes['internal:consortia']) > 0) {
-            $retval .= $this->networkBlock(MobileconfigSuperclass::NETWORK_BLOCK_TYPE_CONSORTIUMOIS, $this->attributes['internal:consortia']);
+        if (count($this->attributes['internal:consortia']) > 0 && $this->selectedEapObject->isPasswordRequired() === FALSE) {
+            foreach ($this->attributes['internal:consortia'] as $oneCons) {
+                $retval .= $this->networkBlock(MobileconfigSuperclass::NETWORK_BLOCK_TYPE_CONSORTIUMOIS, $oneCons);
+            }
         }
         if (isset($this->attributes['media:remove_SSID'])) {
             $this->removeSerial = 0;
@@ -653,7 +672,8 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
      * 
      * @return string
      */
-    private function allCA() {
+    private function allCA()
+    {
         $retval = "";
         $this->caSerial = 0;
         foreach ($this->attributes['internal:CAs'][0] as $ca) {
@@ -668,7 +688,8 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
      * @return array the block itself, and the UUID of the certificate
      * @throws Exception
      */
-    private function clientP12Block() {
+    private function clientP12Block()
+    {
         \core\common\Entity::intoThePotatoes();
         if (count($this->clientCert) == 0) {
             throw new Exception("the client block was called but there is no client certificate!");
@@ -682,7 +703,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig {
             // <key>Password</key>
             //   <string>" . $this->clientCert['password'] . "</string>
             "<key>PayloadCertificateFileName</key>
-                     <string>".$this->massagedConsortium.".pfx</string>
+                     <string>" . $this->massagedConsortium . ".pfx</string>
                   <key>PayloadContent</key>
                      <data>
 $mimeFormatted
@@ -727,7 +748,8 @@ $mimeFormatted
      * @param array $ca the CA for which to generate the XML block
      * @return string
      */
-    private function caBlob($ca) {
+    private function caBlob($ca)
+    {
         \core\common\Entity::intoThePotatoes();
         $stream = "";
         if (!in_array($ca['uuid'], $this->CAsAccountedFor)) { // skip if this is a duplicate
@@ -746,7 +768,13 @@ $mimeFormatted
                <key>PayloadDescription</key>
                <string>" . sprintf(_("The %s Certification Authority"), \core\common\Entity::$nomenclature_inst) . "</string>
                <key>PayloadDisplayName</key>
-               <string>" . sprintf(_("%s CA"), \core\common\Entity::$nomenclature_inst) . "</string>
+               <string>" . 
+                    /// example: "Identity Provider CA #1 (Root)"
+                    sprintf(_("%s CA #%d (%s)" ), 
+                            \core\common\Entity::$nomenclature_inst, 
+                            count($this->CAsAccountedFor)+1, 
+                            ($ca['root'] ? _("Root") : _("Intermediate"))) . 
+              "</string>
                <key>PayloadIdentifier</key>
                <string>" . self::IPHONE_PAYLOAD_PREFIX . ".$this->massagedConsortium.$this->massagedCountry.$this->massagedInst.$this->massagedProfile.credential.$this->caSerial</string>
                <key>PayloadOrganization</key>

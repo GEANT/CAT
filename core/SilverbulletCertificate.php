@@ -187,7 +187,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
      * @param int|string $identifier identify certificate either by CN or by serial
      * @param string     $certtype   RSA or ECDSA?
      */
-    public function __construct($identifier, $certtype) {
+    public function __construct($identifier, $certtype = NULL) {
         $this->databaseType = "INST";
         parent::__construct();
         $this->username = "";
@@ -209,9 +209,9 @@ class SilverbulletCertificate extends EntityWithDBProperties {
 
         $incoming = FALSE;
         if (is_numeric($identifier)) {
-            $incoming = $this->databaseHandle->exec("SELECT `id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`, `issued`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp`, `extrainfo` FROM `silverbullet_certificate` WHERE serial_number = ? AND ca_type = ?", "is", $identifier, $certtype);
+            $incoming = $this->databaseHandle->exec("SELECT `id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`, `issued`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp`, `ca_type`, `extrainfo` FROM `silverbullet_certificate` WHERE serial_number = ? AND ca_type = ?", "is", $identifier, $certtype);
         } else { // it's a string instead
-            $incoming = $this->databaseHandle->exec("SELECT `id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`, `issued`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp`, `extrainfo` FROM `silverbullet_certificate` WHERE cn = ? AND ca_type = ?", "ss", $identifier, $certtype);
+            $incoming = $this->databaseHandle->exec("SELECT `id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`, `issued`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp`, `ca_type`, `extrainfo` FROM `silverbullet_certificate` WHERE cn = ?", "s", $identifier);
         }
 
         // SELECT -> mysqli_resource, not boolean
@@ -229,6 +229,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
             $this->revocationTime = $oneResult->revocation_time;
             $this->ocsp = $oneResult->OCSP;
             $this->ocspTimestamp = $oneResult->OCSP_timestamp;
+            $this->ca_type = $oneResult->ca_type;
             $this->annotation = $oneResult->extrainfo;
             // is the cert expired?
             $now = new \DateTime();
@@ -265,7 +266,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
     public function annotate($annotation) {
         $encoded = json_encode($annotation);
         $this->annotation = $encoded;
-        $this->databaseHandle->exec("UPDATE silverbullet_certificate SET annotation = '$annotation' WHERE serial_number = ?", "i", $this->serial);
+        $this->databaseHandle->exec("UPDATE silverbullet_certificate SET extrainfo = ? WHERE serial_number = ?", "si", $encoded, $this->serial );
     }
 
     /**

@@ -68,6 +68,18 @@ CREATE TABLE `federation_option` (
   CONSTRAINT `federation_option_ibfk_1` FOREIGN KEY (`option_name`) REFERENCES `profile_option_dict` (`name`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `federation_servercerts` (
+  `federation_id` varchar(16) NOT NULL DEFAULT 'DEFAULT',
+  `ca_name` varchar(16),
+  `request_serial` int(11) NOT NULL,
+  `distinguished_name` varchar(255) NOT NULL,
+  `status` enum('REQUESTED','ISSUED','REVOKED'),
+  `expiry` date,
+  `certificate` longblob,
+  `revocation_pin` varchar(16),
+  UNIQUE KEY `cert_id` (`ca_name`,`request_serial`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE `institution_option` (
   `institution_id` int(11) NOT NULL DEFAULT '0',
   `option_name` varchar(32) DEFAULT NULL,
@@ -211,7 +223,6 @@ INSERT INTO `profile_option_dict` VALUES
 ('device-specific:redirect','URL to redirect the user to when he selects this device','string','ML'),
 ('eap-specific:customtext','extra text to be displayed to the user when downloading an installer for this EAP type','text','ML'),
 ('device-specific:geantlink','Use GEANTlink TTLS supplicant for W8', 'boolean',NULL),
-('device-specific:builtin_ttls','Use builtin TTLS supplicant for Windows 10', 'boolean',NULL),
 ('eap-specific:tls_use_other_id','use different user name','boolean',NULL),
 ('eap:ca_file','certificate of the CA signing the RADIUS server key','file',NULL),
 ('eap:server_name','name of authorized RADIUS server','string',NULL),
