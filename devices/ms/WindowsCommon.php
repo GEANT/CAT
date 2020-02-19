@@ -87,18 +87,18 @@ abstract class WindowsCommon extends \core\DeviceConfig
      *
      * @param string $source_name The source file name
      * @param string $output_name The destination file name
-     * @param int    $encoding    Set Windows charset if non-zero
+     * @param string $encoding    Set Windows charset if non-zero
      * @return boolean
      * @final not to be redefined
      */
-    final protected function translateFile($source_name, $output_name = NULL, $encoding = 0)
+    final protected function translateFile($source_name, $output_name = NULL, $encoding = "NONE")
     {
         // there is no explicit gettext() call in this function, but catalogues
         // and translations occur in the varios ".inc" files - so make sure we
         // operate in the correct catalogue
         \core\common\Entity::intoThePotatoes();
         if (\config\ConfAssistant::NSIS_VERSION >= 3) {
-            $encoding = 0;
+            $encoding = "NONE";
         }
         if ($output_name === NULL) {
             $output_name = $source_name;
@@ -113,7 +113,7 @@ abstract class WindowsCommon extends \core\DeviceConfig
             include $source;
         }
         $output = ob_get_clean();
-        if ($encoding) {
+        if ($encoding != "NONE") {
             $outputClean = iconv('UTF-8', $encoding . '//TRANSLIT', $output);
             if ($outputClean) {
                 $output = $outputClean;
@@ -144,20 +144,20 @@ abstract class WindowsCommon extends \core\DeviceConfig
      * This is required by the Windows installer and is expected to go away in the future.
      *
      * @param string $source_string The source string
-     * @param int    $encoding      Set Windows charset if non-zero
+     * @param string $encoding      Set Windows charset if non-zero
      * @return string
      * @final not to be redefined
      */
-    final protected function translateString($source_string, $encoding = 0)
+    final protected function translateString($source_string, $encoding = "NONE")
     {
         $this->loggerInstance->debug(5, "translateString input: \"$source_string\"\n");
         if (empty($source_string)) {
             return $source_string;
         }
         if (\config\ConfAssistant::NSIS_VERSION >= 3) {
-            $encoding = 0;
+            $encoding = "NONE";
         }
-        if ($encoding) {
+        if ($encoding != "NONE") {
             $output_c = iconv('UTF-8', $encoding . '//TRANSLIT', $source_string);
         } else {
             $output_c = $source_string;
