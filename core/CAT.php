@@ -51,21 +51,21 @@ class CAT extends \core\common\Entity
      * developers need to set this in code. The user-displayed string
      * is generated into $CAT_VERSION_STRING and $CAT_COPYRIGHT below
      */
-    const VERSION_MAJOR = 2;
-    const VERSION_MINOR = 1;
-    const VERSION_PATCH = 0;
-    const VERSION_EXTRA = "alpha1";
-    const RELEASE_VERSION = FALSE;
-    const USER_API_VERSION = 2;
+    public const VERSION_MAJOR = 2;
+    public const VERSION_MINOR = 1;
+    public const VERSION_PATCH = 0;
+    public const VERSION_EXTRA = "alpha1";
+    private const RELEASE_VERSION = FALSE;
+    private const USER_API_VERSION = 2;
 
     /**
      * trying to keep up with the name changes of copyright holder and consortia
      * updating those on *one* place should change display everywhere!
      */
-    const COPYRIGHT_HOLDER = "G&Eacute;ANT Association";
-    const COPYRIGHT_CONSORTIA = "the G&Eacute;ANT Projects funded by EU";
-    const COPYRIGHT_MIN_YEAR = 2011;
-    const COPYRIGHT_MAX_YEAR = 2019;
+    private const COPYRIGHT_HOLDER = "G&Eacute;ANT Association";
+    private const COPYRIGHT_CONSORTIA = "the G&Eacute;ANT Projects funded by EU";
+    private const COPYRIGHT_MIN_YEAR = 2011;
+    private const COPYRIGHT_MAX_YEAR = 2020;
 
     /**
      * This is the user-displayed string; controlled by the four options above
