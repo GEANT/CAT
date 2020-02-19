@@ -126,7 +126,11 @@ abstract class AbstractDeployment extends EntityWithDBProperties
     {
         $this->databaseType = "INST";
         parent::__construct(); // we now have access to our INST database handle and logging
-        $this->frontendHandle = DBConnection::handle("FRONTEND");
+        $connHandle = DBConnection::handle("FRONTEND");
+        if (!$connHandle instanceof DBConnection) {
+            throw new Exception("Frontend DB is never an array, always a single DB object.");
+        }
+        $this->frontendHandle = $connHandle;
         $idp = $idpObject;
         $this->institution = $idp->identifier;
         if ($deploymentIdRaw !== NULL && is_int($deploymentIdRaw)) {

@@ -68,7 +68,11 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
     public function __construct()
     {
         parent::__construct();
-        $this->db = DBConnection::handle("EXTERNAL");
+        $connHandle = DBConnection::handle("EXTERNAL");
+        if (!$connHandle instanceof DBConnection) {
+            throw new Exception("Frontend DB is never an array, always a single DB object.");
+        }
+        $this->db = $connHandle;
         $this->db->exec("SET NAMES 'latin1'");
     }
 
