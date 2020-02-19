@@ -74,7 +74,7 @@ if ($_POST['submitbutton'] != web\lib\common\FormElements::BUTTON_SAVE && $_POST
 
 
 $auth->authenticate();
-$myInstOriginal = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
+$myInstOriginal = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
 $instId = $myInstOriginal->identifier;
 
 $hello = _("To whom it may concern,") . "\n\n";
@@ -131,7 +131,7 @@ switch ($_POST['submitbutton']) {
         $loggerInstance->writeAudit($_SESSION['user'], "MOD", "IdP " . $myInstOriginal->identifier . " - attributes changed");
 
 // re-instantiate ourselves... profiles need fresh data
-        $myInstReinstantiated = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
+        $myInstReinstantiated = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
 
         $significantChanges = \core\IdP::significantChanges($myInstOriginal, $myInstReinstantiated);
         if (count($significantChanges) > 0) {

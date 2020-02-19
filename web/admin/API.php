@@ -185,7 +185,7 @@ switch ($inputDecoded['ACTION']) {
             }
         } else {
             try {
-                $thisIdP = $validator->IdP($idpIdentifier);
+                $thisIdP = $validator->existingIdP($idpIdentifier);
             } catch (Exception $e) {
                 $adminApi->returnError(web\lib\admin\API::ERROR_INVALID_PARAMETER, "IdP identifier does not exist!");
                 exit(1);

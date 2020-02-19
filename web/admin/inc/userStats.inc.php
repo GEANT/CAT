@@ -16,8 +16,8 @@ $auth->authenticate();
 $languageInstance = new \core\common\Language();
 $languageInstance->setTextDomain("web_admin");
 $validator = new web\lib\common\InputValidation();
-$inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
-$profile = $validator->Profile($_GET['profile_id'], $inst->identifier);
+$inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
+$profile = $validator->existingProfile($_GET['profile_id'], $inst->identifier);
 if (!$profile instanceof core\ProfileSilverbullet) {
     throw new Exception("This is not a Silverbullet profile!");
 }

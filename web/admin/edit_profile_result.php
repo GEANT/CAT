@@ -53,7 +53,7 @@ switch ($_POST['submitbutton']) {
         if (!isset($_GET['profile_id'])) {
             throw new Exception("Can only delete a profile that exists and is named!");
         }
-        $my_profile = $validator->Profile($_GET['profile_id'], $my_inst->identifier);
+        $my_profile = $validator->existingProfile($_GET['profile_id'], $my_inst->identifier);
         $profile_id = $my_profile->identifier;
         $my_profile->destroy();
         $loggerInstance->writeAudit($_SESSION['user'], "DEL", "Profile $profile_id");

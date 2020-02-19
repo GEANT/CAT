@@ -92,7 +92,7 @@ $langObject = new \core\common\Language();
                 $policies[] = "eduroam SP";
                 break;
             case "INST":
-                $desiredInst = $validator->IdP($_POST['INST-list']);
+                $desiredInst = $validator->existingIdP($_POST['INST-list']);
                 $fed = $validator->Federation($desiredInst->federation, $_SESSION['user']);                
                 $country = strtoupper($fed->tld);
                 $DN[] = "C=$country";
