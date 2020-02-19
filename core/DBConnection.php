@@ -50,11 +50,7 @@ class DBConnection
      * This is the actual constructor for the singleton. It creates a database connection if it is not up yet, and returns a handle to the database connection on every call.
      * 
      * @param string $database the database type to open
-      <<<<<<< HEAD
-     * @return DBConnection the (only) instance of this class
-      =======
      * @return DBConnection|array the (only) instance of this class; or all instances of a DB cluster (only for RADIUS auth servers right now)
-      >>>>>>> origin/release_2_0
      * @throws Exception
      */
     public static function handle($database)
