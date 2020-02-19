@@ -232,8 +232,8 @@ abstract class WindowsCommon extends \core\DeviceConfig
      */
 
     protected function prepareInstallerLang() {
-        if (isset($this->LANGS[$this->languageInstance->getLang()])) {
-            $language = $this->LANGS[$this->languageInstance->getLang()];
+        if (isset(WindowsCommon::LANGS[$this->languageInstance->getLang()])) {
+            $language = WindowsCommon::LANGS[$this->languageInstance->getLang()];
             $this->lang = $language['nsis'];
             $this->codePage = 'cp' . $language['cp'];
         } else {
