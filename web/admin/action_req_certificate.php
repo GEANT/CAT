@@ -83,7 +83,7 @@ $langObject = new \core\common\Language();
                 if ($user->isFederationAdmin($_POST['NRO-list']) === FALSE) {
                     throw new Exception(sprintf("Sorry: you are not %s admin for the %s requested in the form.", $uiElements->nomenclatureFed, $uiElements->nomenclatureFed));
                 }
-                $fed = $validator->Federation($_POST['NRO-list']);
+                $fed = $validator->existingFederation($_POST['NRO-list']);
                 $country = strtoupper($fed->tld);
                 $DN[] = "C=$country";
                 $DN[] = "O=NRO of " . $cat->knownFederations[strtoupper($fed->tld)];
@@ -93,7 +93,7 @@ $langObject = new \core\common\Language();
                 break;
             case "INST":
                 $desiredInst = $validator->existingIdP($_POST['INST-list']);
-                $fed = $validator->Federation($desiredInst->federation, $_SESSION['user']);                
+                $fed = $validator->existingFederation($desiredInst->federation, $_SESSION['user']);                
                 $country = strtoupper($fed->tld);
                 $DN[] = "C=$country";
                 $DN[] = "O=".$desiredInst->name;
