@@ -54,6 +54,13 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
      * @var array
      */
     private $SPList = [];
+    
+    /**
+     * total number of hotspots, cached here for efficiency
+     * 
+     * @var int
+     */
+    private $counter = -1;
 
     /**
      * our handle to the DB
@@ -107,7 +114,7 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
      * 
      * @return array list of providers
      */
-    public function allServiceProviders()
+    public function listAllServiceProviders()
     {
         if (count($this->SPList) == 0) {
             $query = $this->db->exec("SELECT country, inst_name, sp_location FROM view_active_SP_location_eduroamdb");
@@ -116,6 +123,30 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
             }
         }
         return $this->SPList;
+    }
+    
+    public function countAllServiceProviders()
+    {
+                if ($this->counter > -1) {
+            return $this->counter;
+        }
+
+        $cachedNumber = @file_get_contents(ROOT . "/var/tmp/cachedSPNumber.serialised");
+        if ($cachedNumber !== FALSE) {
+            $numberData = unserialize($cachedNumber);
+            $now = new \DateTime();
+            $cacheDate = $numberData["timestamp"]; // this is a DateTime object
+            $diff = $now->diff($cacheDate);
+            if ($diff->y == 0 && $diff->m == 0 && $diff->d == 0) {
+                $this->counter = $numberData["number"];
+                return $this->counter;
+            }
+        } else { // data in cache is too old or doesn't exist. We really need to ask the database
+            $list = $this->listAllServiceProviders();
+            $this->counter = count($list);
+            file_put_contents(ROOT . "/var/tmp/cachedSPNumber.serialised", serialize(["number" => $this->counter, "timestamp" => new \DateTime()]));
+            return $this->counter;
+        }
     }
 
     public const TYPE_IDPSP = "1";
