@@ -84,6 +84,10 @@ class ConfAssistant
         'ssid' => ['eduroam'],
         'interworking-consortium-oi' => ['001bc50460'],
         'interworking-domainname-fallback' => 'eduroam.org',
+        'networks' => [
+            'eduroam®' => ['ssid' => ['eduroam'], 'oi' => ['001bc5046f']],
+            'eduroam® via Passpoint' => ['ssid' => [], 'oi' => ['001bc50460']],
+        ],
         'registration_API_keys' => [
         // 'secretvalue' => 'UK',
         // 'othervalue' => 'DE',
