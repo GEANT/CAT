@@ -536,6 +536,19 @@ abstract class DeviceConfig extends \core\common\Entity
         }
         return $consortia;
     }
+    
+    /**
+     * returns the list of parameters for predefined networks to be configured
+     * 
+     * @return array
+     */
+    private function getNetworks()
+    {
+        if (!isset(\config\ConfAssistant::CONSORTIUM['networks'])) {
+            return ([]);
+        }
+        return(\config\ConfAssistant::CONSORTIUM['networks']);
+    }
 
     /**
      * An array with shorthand definitions for MIME types
