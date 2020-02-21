@@ -15,7 +15,7 @@
   tasks:
       - name: "install needed packages"
         yum: 
-          name: "{{ ['httpd', 'php', 'php-mysql', 'git', 'php-gettext', 'php-openssl', 'php-pecl-imagick', 'zip', 'openssl', 'composer', 'haveged', 'python2-PyMySQL', 'wpa_supplicant'] }}"
+          name: "{{ ['httpd', 'php', 'php-mysql', 'git', 'php-gettext', 'php-openssl', 'php-pecl-imagick', 'php-bcmath', 'php-gd', 'zip', 'openssl', 'composer', 'haveged', 'python2-PyMySQL', 'wpa_supplicant'] }}"
           state: latest
       - name: Start httpd
         service:
