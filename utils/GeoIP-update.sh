@@ -56,7 +56,7 @@ if [ $a -eq 2 ] ; then
 
 db=`php << EOFF
 <?php
-require "../config/config-master.php";
+require "../config/Master.php";
 print(\config\Master::GEOIP["geoip2-path-to-db"]);
 ?>
 EOFF`
