@@ -35,7 +35,7 @@ cd $dir
 # first test for the GeoIP version set in the config.php
 a=`php << EOF
 <?php
-require "../config/config-master.php";
+require "../config/Master.php";
 print(\config\Master::GEOIP["version"]);
 ?>
 EOF`
