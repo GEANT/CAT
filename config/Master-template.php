@@ -285,6 +285,7 @@ class Master
          */
         const DEBUG_LEVEL = 5;
         const SUPERADMINS = [
+            'admin',
             'eptid:someuser',
             'http://sommeopenid.example/anotheruser',
             'I do not care about security!',
