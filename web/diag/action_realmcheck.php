@@ -323,6 +323,7 @@ $errorstate = [];
             certdesc = certdesc + '</ul>';
             more = more + '<span class="morecontent"><span>' + certdesc + '</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a></span></td></tr>';
         }
+        global_level_dyn = Math.max(global_level_dyn, data.level);
         $("#srcca" + data.hostindex).html('<div>' + data.message + '</div>' + more);
         $("#srcca" + data.hostindex + "_img").attr('src', icons[data.level]);
         if ((addresses[data.ip] === 0) && $('#clientstest').is(':hidden')) {
