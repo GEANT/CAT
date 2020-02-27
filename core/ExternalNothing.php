@@ -61,11 +61,21 @@ class ExternalNothing implements ExternalLinkInterface
      * 
      * @return array list of providers
      */
-    public function allServiceProviders()
+    public function listAllServiceProviders()
     {
         return [];
     }
 
+    /**
+     * nothing to count here, please move along
+     * 
+     * @return int
+     */
+    public function countAllServiceProviders(): int
+    {
+        return 0;
+    }
+    
     /**
      * retrieves entity information from the eduroam database. Choose whether to get all entities with an SP role, an IdP role, or only those with both roles
      * 

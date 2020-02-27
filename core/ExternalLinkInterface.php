@@ -47,7 +47,14 @@ interface ExternalLinkInterface
      * 
      * @return array
      */
-    public function allServiceProviders();
+    public function listAllServiceProviders();
+
+    /**
+     * counts the SPs
+     * 
+     * @return int
+     */
+    public function countAllServiceProviders();
 
     /**
      * enumerates all participating entities in the external DB
