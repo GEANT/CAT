@@ -30,16 +30,6 @@ $ui = new \web\lib\admin\UIElements();
 // deletion sets its own header-location  - treat with priority before calling default auth
 
 $loggerInstance = new \core\common\Logging();
-if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_DELETE && isset($_GET['inst_id']) && isset($_GET['profile_id'])) {
-    $auth->authenticate();
-    $my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
-    $my_profile = $validator->existingProfile($_GET['profile_id'], $my_inst->identifier);
-    $profile_id = $my_profile->identifier;
-    $my_profile->destroy();
-    $loggerInstance->writeAudit($_SESSION['user'], "DEL", "Profile $profile_id");
-    header("Location: overview_idp.php?inst_id=$my_inst->identifier");
-    exit;
-}
 
 echo $deco->pageheader(sprintf(_("%s: Profile wizard (step 3 completed)"), \config\Master::APPEARANCE['productname']), "ADMIN-IDP");
 
@@ -53,21 +43,22 @@ switch ($_POST['submitbutton']) {
         if (!isset($_GET['profile_id'])) {
             throw new Exception("Can only delete a profile that exists and is named!");
         }
-        $my_profile = $validator->existingProfile($_GET['profile_id'], $my_inst->identifier);
-        $profile_id = $my_profile->identifier;
-        $my_profile->destroy();
-        $loggerInstance->writeAudit($_SESSION['user'], "DEL", "Profile $profile_id");
+        $profileToBeDel = $validator->existingProfile($_GET['profile_id'], $my_inst->identifier);
+        $profileToBeDel->destroy();
+        $loggerInstance->writeAudit($_SESSION['user'], "DEL", "Profile ".$profileToBeDel->identifier);
         header("Location: overview_idp.php?inst_id=$my_inst->identifier");
         exit;
     case web\lib\common\FormElements::BUTTON_SAVE:
         echo $deco->pageheader(sprintf(_("%s: Profile wizard (step 3 completed)"), \config\Master::APPEARANCE['productname']), "ADMIN-IDP");
 
-
         if (isset($_GET['profile_id'])) {
-            $my_profile = $validator->existingProfile($_GET['profile_id'], $my_inst->identifier);
-            if (!$my_profile instanceof \core\ProfileRADIUS) {
+            $profile = $validator->existingProfile($_GET['profile_id'], $my_inst->identifier);
+            if (!$profile instanceof \core\ProfileRADIUS) {
                 throw new Exception("This page should only be called to submit RADIUS Profile information!");
             }
+        } else {
+            $profile = $my_inst->newProfile(core\AbstractProfile::PROFILETYPE_RADIUS);
+            $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $my_inst->identifier . " - Profile created");
         }
 
 // extended input checks
