@@ -63,12 +63,12 @@ switch ($_POST['submitbutton']) {
         echo $deco->pageheader(sprintf(_("%s: Profile wizard (step 3 completed)"), \config\Master::APPEARANCE['productname']), "ADMIN-IDP");
 
 
-if (isset($_GET['profile_id'])) {
-    $my_profile = $validator->existingProfile($_GET['profile_id'], $my_inst->identifier);
-    if (!$my_profile instanceof \core\ProfileRADIUS) {
-        throw new Exception("This page should only be called to submit RADIUS Profile information!");
-    }
-}
+        if (isset($_GET['profile_id'])) {
+            $my_profile = $validator->existingProfile($_GET['profile_id'], $my_inst->identifier);
+            if (!$my_profile instanceof \core\ProfileRADIUS) {
+                throw new Exception("This page should only be called to submit RADIUS Profile information!");
+            }
+        }
 
 // extended input checks
         $realm = FALSE;
