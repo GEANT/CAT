@@ -49,16 +49,15 @@ switch ($_POST['submitbutton']) {
     case web\lib\common\FormElements::BUTTON_SAVE:
         if (isset($_GET['profile_id'])) {
             $profile = $validator->existingProfile($_GET['profile_id'], $my_inst->identifier);
-            if (!$profile instanceof \core\ProfileRADIUS) {
-                throw new Exception("This page should only be called to submit RADIUS Profile information!");
-            }
             echo $deco->pageheader(sprintf(_("%s: Edit Profile - Result"), \config\Master::APPEARANCE['productname']), "ADMIN-IDP");
         } else {
             $profile = $my_inst->newProfile(core\AbstractProfile::PROFILETYPE_RADIUS);
             $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $my_inst->identifier . " - Profile created");
             echo $deco->pageheader(sprintf(_("%s: Profile wizard (step 3 completed)"), \config\Master::APPEARANCE['productname']), "ADMIN-IDP");
         }
-
+        if (!$profile instanceof \core\ProfileRADIUS) {
+                throw new Exception("This page should only be called to submit RADIUS Profile information!");
+        }
 // extended input checks
         $realm = FALSE;
         if (isset($_POST['realm']) && $_POST['realm'] != "") {
