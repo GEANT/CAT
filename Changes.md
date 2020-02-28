@@ -5,6 +5,9 @@ Changes in 2.1-alpha1
                 corresponding info from the external DB; API creations now have
                 to specify the type of inst in AUXATTRIB_INSTTYPE for the API
                 action ACTION_NEWINST
+- [FEATURE #2]  WPA/TKIP is dead. It cannot be configured as a "legacy" SSID any
+                more. Existing configurations will be converted into a normal
+                additional-SSID as a normal WPA2/AES network
 
 Changes in 2.0.4
 ================

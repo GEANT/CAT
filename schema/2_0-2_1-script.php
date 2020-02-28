@@ -1,3 +1,5 @@
+<?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -18,11 +20,21 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
-When upgrading from the newest CAT 2.0 database structure:
+/*
+ * Run this script after the DB schema update is complete. It converts multilang
+ * attributes from "serialize()" to proper DB columns and moves IdP-wide EAP
+ * options to profile level.
+ */
 
-- run 2_0-2_1.sql to convert the schema
-- run 2_0-2_1-script.php to clean data structures
+// treating serialize()
 
-When deploying CAT 2.1 from scratch:
+require_once "../config/_config.php";
 
-- use schema.sql to create a new schema
+$dbInstance = \core\DBConnection::handle('INST');
+
+foreach (['profile', 'institution'] as $tablePrefix) {
+    foreach (config\ConfAssistant::CONSORTIUM['ssid'] as $oneSsid) {
+        $removalPayload = $dbInstance->exec("DELETE FROM ".$tablePrefix."_option WHERE option_name = 'media:SSID' AND option_value = '".$oneSsid."'");
+    }
+}
+

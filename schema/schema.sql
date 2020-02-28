@@ -230,7 +230,6 @@ INSERT INTO `profile_option_dict` VALUES
 ('general:instname','name of the institution in multiple languages','string','ML'),
 ('general:logo_file','file data containing institution logo','file',NULL),
 ('media:SSID','additional SSID to configure, WPA2/AES only','string',NULL),
-('media:SSID_with_legacy','additional SSID to configure, WPA2/AES and WPA/TKIP','string',NULL),
 ('media:wired','should wired interfaces be configured','boolean',NULL),
 ('media:remove_SSID','SSIDs to remove during installation','string',NULL),
 ('media:consortium_OI','Hotspot 2.0 consortium OIs to configure','string',NULL),

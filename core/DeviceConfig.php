@@ -502,12 +502,6 @@ abstract class DeviceConfig extends \core\common\Entity
                 $ssidList['add'][$ssid] = 'AES';
             }
         }
-        if (isset($this->attributes['media:SSID_with_legacy'])) {
-            $ssidTkip = $this->attributes['media:SSID_with_legacy'];
-            foreach ($ssidTkip as $ssid) {
-                $ssidList['add'][$ssid] = 'TKIP';
-            }
-        }
         if (isset($this->attributes['media:remove_SSID'])) {
             $ssidRemove = $this->attributes['media:remove_SSID'];
             foreach ($ssidRemove as $ssid) {
@@ -708,7 +702,6 @@ abstract class DeviceConfig extends \core\common\Entity
      * these attributes are available and can be used, but the "internal" attributes are better suited for modules
      * -  eap:ca_file    -      certificate of the CA signing the RADIUS server key                                         
      * - <b>media:SSID</b>       -  additional SSID to configure, WPA2/AES only (device modules should use internal:SSID)
-     * - <b>media:SSID_with_legacy</b> -  additional SSID to configure, WPA2/AES and WPA/TKIP (device modules should use internal:SSID)
      *
      * @var array $attributes
      * @see \core\common\X509::processCertificate()

@@ -160,9 +160,6 @@ switch ($_POST['submitbutton']) {
             }
         }
 
-        foreach ($myInstReinstantiated->getAttributes("media:SSID_with_legacy") as $ssidname) {
-            $ssids[] = $ssidname['value'] . " " . _("(WPA2/AES and WPA/TKIP)");
-        }
         foreach ($myInstReinstantiated->getAttributes("media:SSID") as $ssidname) {
             $ssids[] = $ssidname['value'] . " " . _("(WPA2/AES)");
         }
