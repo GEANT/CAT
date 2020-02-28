@@ -125,6 +125,11 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
         return $this->SPList;
     }
     
+    /**
+     * counts the SPs
+     * 
+     * @return int
+     */
     public function countAllServiceProviders()
     {
                 if ($this->counter > -1) {
