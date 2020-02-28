@@ -263,15 +263,18 @@ class RFC6614Tests extends AbstractTest
      */
     private function opensslCAResult($host, $opensslbabble)
     {
-        $res = RADIUSTests::RETVAL_OK;
         if (preg_match('/connect: Connection refused/', implode($opensslbabble))) {
             $this->TLS_CA_checks_result[$host]['status'] = RADIUSTests::RETVAL_CONNECTION_REFUSED;
-            $res = RADIUSTests::RETVAL_INVALID;
+            return RADIUSTests::RETVAL_INVALID;
+        }
+        if (preg_match('/no peer certificate available/', implode($opensslbabble))) {
+            $this->TLS_CA_checks_result[$host]['status'] = RADIUSTests::RETVAL_SERVER_UNFINISHED_COMM;
+            return RADIUSTests::RETVAL_INVALID;
         }
         if (preg_match('/verify error:num=19/', implode($opensslbabble))) {
             $this->TLS_CA_checks_result[$host]['cert_oddity'] = RADIUSTests::CERTPROB_UNKNOWN_CA;
             $this->TLS_CA_checks_result[$host]['status'] = RADIUSTests::RETVAL_INVALID;
-            $res = RADIUSTests::RETVAL_INVALID;
+            return RADIUSTests::RETVAL_INVALID;
         }
         if (preg_match('/verify return:1/', implode($opensslbabble))) {
             $this->TLS_CA_checks_result[$host]['status'] = RADIUSTests::RETVAL_OK;
@@ -296,8 +299,11 @@ class RFC6614Tests extends AbstractTest
             if (($ocsp = $this->getCertificatePropertyField($data, 'authorityInfoAccess'))) {
                 $this->TLS_CA_checks_result[$host]['certdata']['extensions']['authorityInfoAccess'] = $ocsp;
             }
+            return RADIUSTests::RETVAL_OK;
         }
-        return $res;
+        // we should have been caught somewhere along the way. If we got here,
+        // something seriously unexpected happened. Let's talk about it.
+        return RADIUSTests::RETVAL_INVALID;
     }
 
     /**
