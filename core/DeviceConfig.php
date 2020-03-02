@@ -540,10 +540,16 @@ abstract class DeviceConfig extends \core\common\Entity
      */
     private function getNetworks()
     {
-        if (!isset(\config\ConfAssistant::CONSORTIUM['networks'])) {
-            return ([]);
+        $networks = [];
+        if (isset(\config\ConfAssistant::CONSORTIUM['networks'])) {
+            $networks = \config\ConfAssistant::CONSORTIUM['networks'];
         }
-        return(\config\ConfAssistant::CONSORTIUM['networks']);
+        if (isset($this->attributes['media:SSID'])) {
+            foreach ($this->attributes['media:SSID'] as $ssid) {
+                $networks[$ssid] = ['ssid' => $ssid, 'oi' => []];
+            }
+        }
+        return $networks;
     }
 
     /**
