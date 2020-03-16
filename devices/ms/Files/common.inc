@@ -23,6 +23,14 @@ namespace devices\ms;
 ; Used by Vista/W7/W8/W10 module
 ;---------------------------------------
 
+; Start
+
+SetCompress auto
+SetCompressor bzip2
+CRCCheck on
+ManifestDPIAware true
+
+
 !define DEBUG_CAT 5
 Var HEADLINE
 Var TEXT
@@ -45,15 +53,12 @@ Var HEADLINE_FONT
         !include "FileFunc.nsh"
         !include "x64.nsh"
         !include "WinVer.nsh"
-SetCompressor bzip2
 !ifdef WIRED
    !ifdef EXECLEVEL
       !undef EXECLEVEL
    !endif
       !define EXECLEVEL "admin"
 !endif
-
-XPStyle on
 
 !define PROFILE_STATE_DELETE 1
  
