@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -40,7 +41,8 @@ use \Exception;
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
  */
-class Options {
+class Options
+{
 
     /**
      * database which this class queries by default
@@ -82,7 +84,8 @@ class Options {
      * 
      * @return Options
      */
-    public static function instance() {
+    public static function instance()
+    {
         if (!isset(self::$instance)) {
             $className = __CLASS__;
             self::$instance = new $className;
@@ -95,14 +98,16 @@ class Options {
      * 
      * @return void
      */
-    public function __clone() {
+    public function __clone()
+    {
         trigger_error('Cloning not allowed for singleton classes.', E_USER_ERROR);
     }
 
     /**
      *  Option class constructor; retrieves information about the known options from the database.
      */
-    private function __construct() {
+    private function __construct()
+    {
         $this->typeDb = [];
         $this->loggerInstance = new \core\common\Logging();
         $this->loggerInstance->debug(3, "--- BEGIN constructing Options instance ---\n");
@@ -122,7 +127,7 @@ class Options {
         $this->typeDb["internal:hint_userinput_suffix"] = ["type" => "boolean", "flag" => NULL];
         $this->typeDb["internal:realm"] = ["type" => "string", "flag" => NULL];
         $this->typeDb["internal:use_anon_outer"] = ["type" => "boolean", "flag" => NULL];
-        $this->typeDb["internal:anon_local_value"] = ["type" => "string", "flag" => NULL];        
+        $this->typeDb["internal:anon_local_value"] = ["type" => "string", "flag" => NULL];
         $this->loggerInstance->debug(3, "--- END constructing Options instance ---\n");
     }
 
@@ -135,7 +140,8 @@ class Options {
      * @param string $className optionally specifies the class of options to be listed (class is the part of the option name before the : sign)
      * @return array of options
      */
-    public function availableOptions($className = 0) {
+    public function availableOptions($className = 0)
+    {
         $tempArray = [];
         $this->loggerInstance->debug(3, "CLASSNAME IS $className\n");
 
@@ -168,7 +174,8 @@ class Options {
      * @return array properties of the attribute
      * @throws Exception
      */
-    public function optionType($optionname) {
+    public function optionType($optionname)
+    {
         if (isset($this->typeDb[$optionname])) {
             return $this->typeDb[$optionname];
         }
@@ -184,7 +191,8 @@ class Options {
      * @return string the name echoed back, but from trusted source
      * @throws Exception
      */
-    public function assertValidOptionName($unvettedName) {
+    public function assertValidOptionName($unvettedName)
+    {
         $listOfOptions = array_keys($this->typeDb);
         foreach ($listOfOptions as $name) {
             if ($name == $unvettedName) {
@@ -193,5 +201,4 @@ class Options {
         }
         throw new Exception("Unknown option name encountered.");
     }
-
 }

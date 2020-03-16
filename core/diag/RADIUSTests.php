@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -45,7 +46,8 @@ use \Exception;
  *
  * @package Developer
  */
-class RADIUSTests extends AbstractTest {
+class RADIUSTests extends AbstractTest
+{
 
     /**
      * Was the reachability check executed already?
@@ -53,7 +55,7 @@ class RADIUSTests extends AbstractTest {
      * @var integer
      */
     private $UDP_reachability_executed;
-    
+
     /**
      * the issues we found
      * 
@@ -68,21 +70,21 @@ class RADIUSTests extends AbstractTest {
      * @var string
      */
     private $realm;
-    
+
     /**
      * which username to use as outer identity
      * 
      * @var string
      */
     private $outerUsernameForChecks;
-    
+
     /**
      * list of CAs we expect incoming server certs to be from
      * 
      * @var array
      */
     private $expectedCABundle;
-    
+
     /**
      * list of expected server names
      * 
@@ -96,14 +98,14 @@ class RADIUSTests extends AbstractTest {
      * @var array
      */
     private $supportedEapTypes;
-    
+
     /**
      * Do we run throrough or shallow checks?
      * 
      * @var integer
      */
     private $opMode;
-    
+
     /**
      * result of the reachability tests
      * 
@@ -125,7 +127,8 @@ class RADIUSTests extends AbstractTest {
      * @param array  $expectedCABundle       array of PEM blocks
      * @throws Exception
      */
-    public function __construct($realm, $outerUsernameForChecks, $supportedEapTypes = [], $expectedServerNames = [], $expectedCABundle = []) {
+    public function __construct($realm, $outerUsernameForChecks, $supportedEapTypes = [], $expectedServerNames = [], $expectedCABundle = [])
+    {
         parent::__construct();
 
         $this->realm = $realm;
@@ -178,7 +181,8 @@ class RADIUSTests extends AbstractTest {
      * @param array $distinguishedName the components of the DN
      * @return string
      */
-    private function printDN($distinguishedName) {
+    private function printDN($distinguishedName)
+    {
         $out = '';
         foreach (array_reverse($distinguishedName) as $nameType => $nameValue) { // to give an example: "CN" => "some.host.example" 
             if (!is_array($nameValue)) { // single-valued: just a string
@@ -200,7 +204,8 @@ class RADIUSTests extends AbstractTest {
      * @param int $time time in UNIX timestamp
      * @return string
      */
-    private function printTm($time) {
+    private function printTm($time)
+    {
         return(gmdate(\DateTime::COOKIE, $time));
     }
 
@@ -214,7 +219,8 @@ class RADIUSTests extends AbstractTest {
      *                          array values are also defined
      * @return array of oddities; the array is empty if everything is fine
      */
-    private function propertyCheckServercert(&$servercert) {
+    private function propertyCheckServercert(&$servercert)
+    {
 // we share the same checks as for CAs when it comes to signature algorithm and basicconstraints
 // so call that function and memorise the outcome
         $returnarray = $this->propertyCheckIntermediate($servercert, TRUE);
@@ -268,7 +274,8 @@ class RADIUSTests extends AbstractTest {
      * @param boolean $serverCert     treat as servercert?
      * @return array of oddities; the array is empty if everything is fine
      */
-    private function propertyCheckIntermediate(&$intermediateCa, $serverCert = FALSE) {
+    private function propertyCheckIntermediate(&$intermediateCa, $serverCert = FALSE)
+    {
         $returnarray = [];
         if (preg_match("/md5/i", $intermediateCa['full_details']['signatureTypeSN'])) {
             $returnarray[] = RADIUSTests::CERTPROB_MD5_SIGNATURE;
@@ -306,7 +313,8 @@ class RADIUSTests extends AbstractTest {
      * 
      * @return array all the errors
      */
-    public function listerrors() {
+    public function listerrors()
+    {
         return $this->errorlist;
     }
 
@@ -322,7 +330,8 @@ class RADIUSTests extends AbstractTest {
      * @return integer returncode
      * @throws Exception
      */
-    public function udpReachability($probeindex, $opnameCheck = TRUE, $frag = TRUE) {
+    public function udpReachability($probeindex, $opnameCheck = TRUE, $frag = TRUE)
+    {
         // for EAP-TLS to be a viable option, we need to pass a random client cert to make eapol_test happy
         // the following PEM data is one of the SENSE EAPLab client certs (not secret at all)
         $clientcert = file_get_contents(dirname(__FILE__) . "/clientcert.p12");
@@ -345,7 +354,8 @@ class RADIUSTests extends AbstractTest {
      * @return integer result code whether we were successful in retrieving the CRL
      * @throws Exception
      */
-    private function addCrltoCert(&$cert) {
+    private function addCrltoCert(&$cert)
+    {
         $crlUrl = [];
         $returnresult = 0;
         if (!isset($cert['full_details']['extensions']['crlDistributionPoints'])) {
@@ -366,15 +376,15 @@ class RADIUSTests extends AbstractTest {
          * Unfortunately, that freaks out Scrutinizer because we write unvetted
          * data to the filesystem. Let's see if we can make things better.
          */
-        
+
         // $pem = chunk_split(base64_encode($crlcontent), 64, "\n");
-        
         // inspired by https://stackoverflow.com/questions/2390604/how-to-pass-variables-as-stdin-into-command-line-from-php
-        $proc = \config\Master::PATHS['openssl']." crl -inform der";
+
+        $proc = \config\Master::PATHS['openssl'] . " crl -inform der";
         $descriptorspec = [
-          0 => ["pipe", "r"],
-          1 => ["pipe", "w"],
-          2 => ["pipe", "w"],
+            0 => ["pipe", "r"],
+            1 => ["pipe", "w"],
+            2 => ["pipe", "w"],
         ];
         $process = proc_open($proc, $descriptorspec, $pipes);
         if (!is_resource($process)) {
@@ -386,7 +396,7 @@ class RADIUSTests extends AbstractTest {
         fclose($pipes[1]);
         fclose($pipes[2]);
         $retval = proc_close($process);
-        if ($retval != 0 || !preg_match("/BEGIN X509 CRL/",$pem)) {
+        if ($retval != 0 || !preg_match("/BEGIN X509 CRL/", $pem)) {
             // this was not a real CRL
             return RADIUSTests::CERTPROB_NO_CRL_AT_CDP_URL;
         }
@@ -401,7 +411,8 @@ class RADIUSTests extends AbstractTest {
      * @param array  $inputarray     array of strings (outputs of eapol_test command)
      * @return string[] the output of eapol_test with the password redacted
      */
-    private function redact($stringToRedact, $inputarray) {
+    private function redact($stringToRedact, $inputarray)
+    {
         $temparray = preg_replace("/^.*$stringToRedact.*$/", "LINE CONTAINING PASSWORD REDACTED", $inputarray);
         $hex = bin2hex($stringToRedact);
         $spaced = "";
@@ -422,7 +433,8 @@ class RADIUSTests extends AbstractTest {
      * @param array $inputarray array of strings (outputs of eapol_test command)
      * @return array the packet codes which were exchanged, in sequence
      */
-    private function filterPackettype($inputarray) {
+    private function filterPackettype($inputarray)
+    {
         $retarray = [];
         foreach ($inputarray as $line) {
             if (preg_match("/RADIUS message:/", $line)) {
@@ -438,6 +450,12 @@ class RADIUSTests extends AbstractTest {
     const LINEPARSE_CHECK_REJECTIGNORE = 1;
     const LINEPARSE_CHECK_691 = 2;
     const LINEPARSE_EAPACK = 3;
+    const LINEPARSE_TLSVERSION = 4;
+    const TLS_VERSION_ANCIENT = "OTHER";
+    const TLS_VERSION_1_0 = "TLSv1";
+    const TLS_VERSION_1_1 = "TLSv1.1";
+    const TLS_VERSION_1_2 = "TLSv1.2";
+    const TLS_VERSION_1_3 = "TLSv1.3";
 
     /**
      * this function checks for various special conditions which can be found 
@@ -452,10 +470,11 @@ class RADIUSTests extends AbstractTest {
      * 
      * @param array   $inputarray   array of strings (outputs of eapol_test command)
      * @param integer $desiredCheck which test should be run (see constants above)
-     * @return boolean returns TRUE if ETLR Reject logic was detected; FALSE if not
+     * @return boolean|string returns TRUE if ETLR Reject logic was detected; FALSE if not; strings are returned for TLS versions
      * @throws Exception
      */
-    private function checkLineparse($inputarray, $desiredCheck) {
+    private function checkLineparse($inputarray, $desiredCheck)
+    {
         foreach ($inputarray as $lineid => $line) {
             switch ($desiredCheck) {
                 case self::LINEPARSE_CHECK_REJECTIGNORE:
@@ -473,6 +492,41 @@ class RADIUSTests extends AbstractTest {
                         return TRUE;
                     }
                     break;
+                case self::LINEPARSE_TLSVERSION:
+                    break;
+                default:
+                    throw new Exception("This lineparse test does not exist.");
+            }
+        }
+        // for TLS version checks, we need to search from bottom to top 
+        // eapol_test will always try its highest version first, and can be
+        // pursuaded later on to do less. So look at the end result.
+        for ($counter = count($inputarray); $counter > 0; $counter--) {
+            switch ($desiredCheck) {
+                case self::LINEPARSE_TLSVERSION:
+                    $version = [];
+                    if (preg_match("/Using TLS version (.*)$/", $inputarray[$counter], $version)) {
+                        switch (trim($version[1])) {
+                            case self::TLS_VERSION_1_3:
+                                return self::TLS_VERSION_1_3;
+                            case self::TLS_VERSION_1_2:
+                                return self::TLS_VERSION_1_2;
+                            case self::TLS_VERSION_1_1:
+                                return self::TLS_VERSION_1_1;
+                            case self::TLS_VERSION_1_0:
+                                return self::TLS_VERSION_1_0;
+                            default:
+                                return self::TLS_VERSION_ANCIENT;
+                        }
+                    }
+                    break;
+                case self::LINEPARSE_CHECK_691:
+                /* fall-through intentional */
+                case self::LINEPARSE_CHECK_REJECTIGNORE:
+                /* fall-through intentional */
+                case self::LINEPARSE_EAPACK:
+                    /* fall-through intentional */
+                    break;
                 default:
                     throw new Exception("This lineparse test does not exist.");
             }
@@ -488,7 +542,8 @@ class RADIUSTests extends AbstractTest {
      * @param string $password the password
      * @return string[] [0] is the actual config for wpa_supplicant, [1] is a redacted version for logs
      */
-    private function wpaSupplicantConfig(array $eaptype, string $inner, string $outer, string $password) {
+    private function wpaSupplicantConfig(array $eaptype, string $inner, string $outer, string $password)
+    {
         $eapText = \core\common\EAP::eapDisplayName($eaptype);
         $config = '
 network={
@@ -540,7 +595,8 @@ network={
      * @param array $packetcount the count of incoming packets
      * @return int
      */
-    private function packetCountEvaluation(&$testresults, $packetcount) {
+    private function packetCountEvaluation(&$testresults, $packetcount)
+    {
         $reqs = $packetcount[1] ?? 0;
         $accepts = $packetcount[2] ?? 0;
         $rejects = $packetcount[3] ?? 0;
@@ -584,7 +640,8 @@ network={
      * @param boolean $frag       make request so large that fragmentation is needed?
      * @return string the command-line for eapol_test
      */
-    private function eapolTestConfig($probeindex, $opName, $frag) {
+    private function eapolTestConfig($probeindex, $opName, $frag)
+    {
         $cmdline = \config\Diagnostics::PATHS['eapol_test'] .
                 " -a " . \config\Diagnostics::RADIUSTESTS['UDP-hosts'][$probeindex]['ip'] .
                 " -s " . \config\Diagnostics::RADIUSTESTS['UDP-hosts'][$probeindex]['secret'] .
@@ -619,7 +676,8 @@ network={
      * @return string
      * @throws Exception
      */
-    private function createCArepository($tmpDir, &$intermOdditiesCAT, $servercert, $eapIntermediates, $eapIntermediateCRLs) {
+    private function createCArepository($tmpDir, &$intermOdditiesCAT, $servercert, $eapIntermediates, $eapIntermediateCRLs)
+    {
         if (!mkdir($tmpDir . "/root-ca-allcerts/", 0700, true)) {
             throw new Exception("unable to create root CA directory (RADIUS Tests): $tmpDir/root-ca-allcerts/\n");
         }
@@ -694,7 +752,8 @@ network={
      * @return int
      * @throws Exception
      */
-    private function thoroughChainChecks(&$testresults, &$intermOdditiesCAT, $tmpDir, $servercert, $eapIntermediates, $eapIntermediateCRLs) {
+    private function thoroughChainChecks(&$testresults, &$intermOdditiesCAT, $tmpDir, $servercert, $eapIntermediates, $eapIntermediateCRLs)
+    {
 
         $crlCheckString = $this->createCArepository($tmpDir, $intermOdditiesCAT, $servercert, $eapIntermediates, $eapIntermediateCRLs);
 
@@ -766,7 +825,8 @@ network={
      *                           adds its own findings.
      * @return void
      */
-    private function thoroughNameChecks($servercert, &$testresults) {
+    private function thoroughNameChecks($servercert, &$testresults)
+    {
         // Strategy for checks: we are TOTALLY happy if any one of the
         // configured names shows up in both the CN and a sAN
         // This is the primary check.
@@ -812,7 +872,8 @@ network={
      * @return array timing information of the executed eapol_test run
      * @throws Exception
      */
-    private function executeEapolTest($tmpDir, $probeindex, $eaptype, $innerUser, $password, $opnameCheck, $frag) {
+    private function executeEapolTest($tmpDir, $probeindex, $eaptype, $innerUser, $password, $opnameCheck, $frag)
+    {
         $finalInner = $innerUser;
         $finalOuter = $this->outerUsernameForChecks;
 
@@ -847,7 +908,8 @@ network={
      * @param array $packetflow_orig original flow of packets
      * @return int
      */
-    private function checkRadiusPacketFlow(&$testresults, $packetflow_orig) {
+    private function checkRadiusPacketFlow(&$testresults, $packetflow_orig)
+    {
 
         $packetflow = $this->filterPackettype($packetflow_orig);
 
@@ -883,16 +945,39 @@ network={
      *                               something is noteworthy
      * @param array $packetflow_orig the array of text output from eapol_test
      * @return bool
+     * @throws Exception
      */
-    private function wasEapTypeNegotiated(&$testresults, $packetflow_orig) {
-        $testresults['cert_oddities'] = [];
-
+    private function wasEapTypeNegotiated(&$testresults, $packetflow_orig)
+    {
         $negotiatedEapType = $this->checkLineparse($packetflow_orig, self::LINEPARSE_EAPACK);
+        if (!is_bool($negotiatedEapType)) {
+            throw new Exception("checkLineparse should only ever return a boolean in this case!");
+        }
         if (!$negotiatedEapType) {
             $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_NO_COMMON_EAP_METHOD;
         }
 
         return $negotiatedEapType;
+    }
+
+    /**
+     * parses eapol_test to find the TLS version used during the EAP conversation
+     * @param array $testresults     by-reference, we add our findings if 
+     *                               something is noteworthy
+     * @param array $packetflow_orig the array of text output from eapol_test
+     * @return string|bool the version as a string or FALSE if TLS version could not be determined
+     */
+    private function wasModernTlsNegotiated(&$testresults, $packetflow_orig)
+    {
+        $negotiatedTlsVersion = $this->checkLineparse($packetflow_orig, self::LINEPARSE_TLSVERSION);
+        $this->loggerInstance->debug(4, "TLS version found is: $negotiatedTlsVersion" . "\n");
+        if ($negotiatedTlsVersion === FALSE) {
+            $testresults['cert_oddities'][] = RADIUSTests::TLSPROB_UNKNOWN_TLS_VERSION;
+        } elseif ($negotiatedTlsVersion != self::TLS_VERSION_1_2 && $negotiatedTlsVersion != self::TLS_VERSION_1_3) {
+            $testresults['cert_oddities'][] = RADIUSTests::TLSPROB_DEPRECATED_TLS_VERSION;
+        }
+
+        return $negotiatedTlsVersion;
     }
 
     const SERVER_NO_CA_EXTENSION = 1;
@@ -906,7 +991,8 @@ network={
      * @param int   $totalCertCount number of certs in total in chain
      * @return int
      */
-    private function determineCertificateType(&$cert, $totalCertCount) {
+    private function determineCertificateType(&$cert, $totalCertCount)
+    {
         if ($cert['ca'] == 0 && $cert['root'] == 0) {
             return RADIUSTests::SERVER_NO_CA_EXTENSION;
         }
@@ -929,7 +1015,8 @@ network={
      * @return array|FALSE an array with all the certs, CRLs and oddities, or FALSE if the EAP conversation did not yield a certificate at all
      * @throws Exception
      */
-    private function extractIncomingCertsfromEAP(&$testresults, $tmpDir) {
+    private function extractIncomingCertsfromEAP(&$testresults, $tmpDir)
+    {
 
         /*
          *  EAP's house rules:
@@ -940,7 +1027,7 @@ network={
          * 4) CDP URL (Windows Phone 8 barks if not present)
          * 5) there should be exactly one server cert in the chain
          */
-        
+
         $x509 = new \core\common\X509();
 // $eap_certarray holds all certs received in EAP conversation
         $incomingData = file_get_contents($tmpDir . "/serverchain.pem");
@@ -1004,7 +1091,7 @@ network={
         }
         switch (count($servercert)) {
             case 0:
-                    $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_NO_SERVER_CERT;
+                $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_NO_SERVER_CERT;
                 break;
             default:
 // check (first) server cert's properties
@@ -1032,7 +1119,8 @@ network={
      * @return int overall return code of the login test
      * @throws Exception
      */
-    public function udpLogin($probeindex, $eaptype, $innerUser, $password, $opnameCheck = TRUE, $frag = TRUE, $clientcertdata = NULL) {
+    public function udpLogin($probeindex, $eaptype, $innerUser, $password, $opnameCheck = TRUE, $frag = TRUE, $clientcertdata = NULL)
+    {
         /** preliminaries */
         $eapText = \core\common\EAP::eapDisplayName($eaptype);
         // no host to send probes to? Nothing to do then
@@ -1067,6 +1155,9 @@ network={
         $packetflow_orig = $runtime_results['output'];
         $radiusResult = $this->checkRadiusPacketFlow($testresults, $packetflow_orig);
         $negotiatedEapType = $this->wasEapTypeNegotiated($testresults, $packetflow_orig);
+        $testresults['negotiated_eaptype'] = $negotiatedEapType;
+        $negotiatedTlsVersion = $this->wasModernTlsNegotiated($testresults, $packetflow_orig);
+        $testresults['tls_version_eap'] = $negotiatedTlsVersion;
         // now let's look at the server cert+chain, if we got a cert at all
         // that's not the case if we do EAP-pwd or could not negotiate an EAP method at
         // all
@@ -1123,7 +1214,8 @@ network={
      * @param string $id the outer ID to use
      * @return void
      */
-    public function setOuterIdentity($id) {
+    public function setOuterIdentity($id)
+    {
         $this->outerUsernameForChecks = $id;
     }
 
@@ -1132,7 +1224,8 @@ network={
      * @param int $host index of the probe for which the results are collated
      * @return array
      */
-    public function consolidateUdpResult($host) {
+    public function consolidateUdpResult($host)
+    {
         \core\common\Entity::intoThePotatoes();
         $ret = [];
         $serverCert = [];
@@ -1184,5 +1277,4 @@ network={
         \core\common\Entity::outOfThePotatoes();
         return $ret;
     }
-
 }

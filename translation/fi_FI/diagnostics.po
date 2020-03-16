@@ -6,17 +6,17 @@
 # Translators:
 # Jari Miettinen <Jari.Miettinen@csc.fi>, 2018
 # tuukka, 2018
-# Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, 2018
 # Tomi Salmi, 2018
+# Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, 2019
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-05 11:11+0200\n"
+"POT-Creation-Date: 2019-09-13 14:56+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
-"Last-Translator: Tomi Salmi, 2018\n"
+"Last-Translator: Wenche Backman-Kamila <wenche.backman-kamila@csc.fi>, 2019\n"
 "Language-Team: Finnish (Finland) (https://www.transifex.com/eduroam_devel/"
 "teams/11799/fi_FI/)\n"
 "Language: fi_FI\n"
@@ -25,60 +25,60 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/diag/AbstractTest.php:294
+#: core/diag/AbstractTest.php:302
 msgid "Completed"
 msgstr "Valmis"
 
-#: core/diag/AbstractTest.php:301
+#: core/diag/AbstractTest.php:309
 msgid "Product is not configured to run this check."
 msgstr "Tämän tarkistuksen ajamista ei ole valmisteltu."
 
-#: core/diag/AbstractTest.php:307 web/diag/action_realmcheck.php:542
+#: core/diag/AbstractTest.php:315 web/diag/action_realmcheck.php:542
 #: web/diag/action_realmcheck.php:558
 msgid "This check was skipped."
 msgstr "Ohitettu."
 
-#: core/diag/AbstractTest.php:314
+#: core/diag/AbstractTest.php:322
 msgid "There were errors during the test."
 msgstr "Testissä havaittiin virheitä."
 
-#: core/diag/AbstractTest.php:322
+#: core/diag/AbstractTest.php:330
 msgid "There was no reply at all from the RADIUS server."
 msgstr "RADIUS-palvelin ei vastannut."
 
-#: core/diag/AbstractTest.php:329
+#: core/diag/AbstractTest.php:337
 msgid ""
 "There was a bidirectional communication with the RADIUS server, but it ended "
 "halfway through."
 msgstr ""
 "RADIUS-palvelimen kanssa oli kaksisuuntaista neuvottelua, mutta se keskeytyi."
 
-#: core/diag/AbstractTest.php:336
+#: core/diag/AbstractTest.php:344
 msgid ""
 "The RADIUS server immediately rejected the authentication request in its "
 "first reply."
 msgstr "RADIUS-palvelin hylkäsi autentikointiyrityksen."
 
-#: core/diag/AbstractTest.php:343
+#: core/diag/AbstractTest.php:351
 msgid ""
 "The RADIUS server rejected the authentication request after an EAP "
 "conversation."
 msgstr "RADIUS-palvelin hylkäsi autentikointiyrityksen EAP-vaiheessa."
 
-#: core/diag/AbstractTest.php:350 web/diag/action_realmcheck.php:117
+#: core/diag/AbstractTest.php:358 web/diag/action_realmcheck.php:117
 msgid "Connection refused"
 msgstr "Yhteydenotto hylättiin"
 
-#: core/diag/AbstractTest.php:357
+#: core/diag/AbstractTest.php:365
 msgid "Not enough data provided to perform an authentication"
 msgstr "Ei riittävästi tietoa autentikoinnin suorittamiseksi."
 
-#: core/diag/AbstractTest.php:364
+#: core/diag/AbstractTest.php:372
 msgid ""
 "The certificate password you provided does not match the certificate file."
 msgstr "Antamasi varmennesalasana ei täsmää varmennetiedoston kanssa."
 
-#: core/diag/AbstractTest.php:372
+#: core/diag/AbstractTest.php:380
 msgid ""
 "The certificate chain includes the root CA certificate. This does not serve "
 "any useful purpose but inflates the packet exchange, possibly leading to "
@@ -88,15 +88,15 @@ msgstr ""
 "hyötyä, mutta se voi hidastaa autentikointia lisääntyneen tiedonsiirron "
 "johdosta."
 
-#: core/diag/AbstractTest.php:379
+#: core/diag/AbstractTest.php:387
 msgid "There is more than one server certificate in the chain."
 msgstr "Varmenneketjussa on useampia kuin yksi palvelinvarmenne."
 
-#: core/diag/AbstractTest.php:386
+#: core/diag/AbstractTest.php:394
 msgid "There is no server certificate in the chain."
 msgstr "Varmenneketjussa ei ole palvelinvarmennetta."
 
-#: core/diag/AbstractTest.php:393
+#: core/diag/AbstractTest.php:401
 msgid ""
 "At least one certificate in the chain is signed with the MD5 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
@@ -106,7 +106,7 @@ msgstr ""
 "tiivistefunktiolla. Monet käyttöjärjestelmät, kuten Apple iOS, eivät salli "
 "MD5:n käyttöä."
 
-#: core/diag/AbstractTest.php:400
+#: core/diag/AbstractTest.php:408
 msgid ""
 "At least one certificate in the chain is signed with the SHA-1 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
@@ -116,14 +116,14 @@ msgstr ""
 "algoritmilla. Jotkut käyttöjärjestelmät, kuten Apple iOS, eivät salli "
 "tällaista varmennetta."
 
-#: core/diag/AbstractTest.php:407
+#: core/diag/AbstractTest.php:415
 msgid ""
 "At least one certificate in the chain had a public key of less than 2048 "
 "bits. Many recent operating systems consider this unacceptable and will fail "
 "to validate the server certificate."
 msgstr ""
 
-#: core/diag/AbstractTest.php:414
+#: core/diag/AbstractTest.php:422
 msgid ""
 "The server certificate does not have the extension 'extendedKeyUsage: TLS "
 "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
@@ -133,7 +133,7 @@ msgstr ""
 "Authentication' -laajennusta. Useimmat Microsoftin käyttöjärjestelmät eivät "
 "kelpuuta tätä varmennetta."
 
-#: core/diag/AbstractTest.php:421
+#: core/diag/AbstractTest.php:429
 msgid ""
 "The server certificate did not include a CRL Distribution Point, creating "
 "compatibility problems with Windows Phone 8."
@@ -141,7 +141,7 @@ msgstr ""
 "Palvelinvarmenne ei sisällä sulkulistan jakelupistettä 'CRL Distribution "
 "Point', josta voi aiheutua yhteensopivuusongelmia Windows Phone 8:n kanssa."
 
-#: core/diag/AbstractTest.php:428
+#: core/diag/AbstractTest.php:436
 msgid ""
 "The server certificate's 'CRL Distribution Point' extension does not point "
 "to an HTTP/HTTPS URL. Some Operating Systems may fail to validate this "
@@ -152,7 +152,7 @@ msgstr ""
 "ei sisällä HTTP/HTTPS-osoitetta. Jotkin käyttöjärjestelmät eivät välttämättä "
 "kykene tarkistamaan varmennetta, koska ne eivät tue muita vaihtoehtoja."
 
-#: core/diag/AbstractTest.php:435
+#: core/diag/AbstractTest.php:443
 msgid ""
 "The extension 'CRL Distribution Point' in the server certificate points to a "
 "location where no DER-encoded CRL can be found. Some Operating Systems check "
@@ -164,11 +164,11 @@ msgstr ""
 "olemattomaan osoitteeseen. Jotkin käyttöjärjestelmät eivät välttämättä "
 "kelpuuta varmennetta, koska sulkulistan tarkistaminen ei onnistu."
 
-#: core/diag/AbstractTest.php:442
+#: core/diag/AbstractTest.php:450
 msgid "The server certificate was revoked by the CA!"
 msgstr "Palvelinvarmenne on sen myöntäneen tahon peruuttama!"
 
-#: core/diag/AbstractTest.php:449
+#: core/diag/AbstractTest.php:457
 msgid ""
 "The certificate contained a CN or subjectAltName:DNS which does not parse as "
 "a hostname. This can be problematic on some supplicants. If the certificate "
@@ -180,7 +180,7 @@ msgstr ""
 "tämän varoituksen huomiotta mikäli varmenne sisältää myös kelpoja nimiä ja "
 "käytät vain niitä päätelaitteiden asetuksissa."
 
-#: core/diag/AbstractTest.php:456
+#: core/diag/AbstractTest.php:464
 msgid ""
 "The certificate contained a CN or subjectAltName:DNS which contains a "
 "wildcard ('*'). This can be problematic on some supplicants. If the "
@@ -193,7 +193,7 @@ msgstr ""
 "jättää tämän varoituksen huomiotta mikäli varmenne sisältää myös "
 "jokerittomia nimiä ja käytät vain niitä päätelaitteiden asetuksissa."
 
-#: core/diag/AbstractTest.php:463
+#: core/diag/AbstractTest.php:471
 msgid ""
 "At least one certificate is outside its validity period (not yet valid, or "
 "already expired)!"
@@ -201,7 +201,7 @@ msgstr ""
 "Ainakaan yksi varmenteista ei ole voimassa (ei ole tullut vielä voimaan tai "
 "on jo vanhentunut)!"
 
-#: core/diag/AbstractTest.php:470
+#: core/diag/AbstractTest.php:478
 #, php-format
 msgid ""
 "At least one intermediate certificate in your CAT profile is outside its "
@@ -214,7 +214,7 @@ msgstr ""
 "käytetty palvelimen autentikoinnissa. Harkitse varmenteen poistamista "
 "profiilista %s."
 
-#: core/diag/AbstractTest.php:477
+#: core/diag/AbstractTest.php:485
 msgid ""
 "The server certificate could not be verified to the root CA you configured "
 "in your profile!"
@@ -222,7 +222,7 @@ msgstr ""
 "Palvelinvarmenteen tarkistaminen profiiliin määriteltyä juurivarmennetta "
 "vasten ei onnistunut!"
 
-#: core/diag/AbstractTest.php:481
+#: core/diag/AbstractTest.php:489
 msgid ""
 "The certificate chain as received in EAP was not sufficient to verify the "
 "certificate to the root CA in your profile. It was verified using the "
@@ -235,14 +235,14 @@ msgstr ""
 "välivarmenteita vastaan. Harkitse tarvittavien välivarmenteiden lisäämistä "
 "palvelimen lähettämään varmenneketjuun."
 
-#: core/diag/AbstractTest.php:487
+#: core/diag/AbstractTest.php:495
 msgid ""
 "The EAP server name does not match any of the configured names in your "
 "profile!"
 msgstr ""
 "EAP-palvelimen nimi ei täsmää minkään profiilin määritellyn nimen kanssa!"
 
-#: core/diag/AbstractTest.php:494
+#: core/diag/AbstractTest.php:502
 msgid ""
 "The configured EAP server name matches either the CN or a subjectAltName:DNS "
 "of the incoming certificate; best current practice is that the certificate "
@@ -252,7 +252,7 @@ msgstr ""
 "subjectAltName:DNS-tietueesta – parhaan nykyisen käytännön mukaan nimen "
 "pitäisi löytyä varmenteessa molemmista tietueista."
 
-#: core/diag/AbstractTest.php:501
+#: core/diag/AbstractTest.php:509
 msgid ""
 "At least one certificate did not contain any BasicConstraints extension; "
 "which makes it unclear if it's a CA certificate or end-entity certificate. "
@@ -264,31 +264,31 @@ msgstr ""
 "asiakasvarmenne. Ainakaan OS X 10.8 (Mountain Lion) ei kelpuuta varmennetta "
 "EAP-käyttöön!"
 
-#: core/diag/AbstractTest.php:508
+#: core/diag/AbstractTest.php:516
 msgid "The server presented a certificate from an unknown authority."
 msgstr "Palvelin tarjosi tuntemattoman varmentajan myöntämän varmenteen."
 
-#: core/diag/AbstractTest.php:515
+#: core/diag/AbstractTest.php:523
 msgid "The server accepted the INVALID client certificate."
 msgstr "Palvelin kelpuutti EPÄKELVON asiakasvarmenteen."
 
-#: core/diag/AbstractTest.php:522
+#: core/diag/AbstractTest.php:530
 msgid "The server rejected the client certificate, even though it was valid."
 msgstr "Palvelin hylkäsi asiakasvarmenteen kelvollisuudesta huolimatta."
 
-#: core/diag/AbstractTest.php:529
+#: core/diag/AbstractTest.php:537
 msgid "The server rejected the client certificate as expected."
 msgstr "Palvelin hylkäsi asiakasvarmenteen odotetusti."
 
-#: core/diag/AbstractTest.php:536
+#: core/diag/AbstractTest.php:544
 msgid "The CRL of a certificate could not be found."
 msgstr "Varmenteen sulkulistaa ei löytynyt."
 
-#: core/diag/AbstractTest.php:543
+#: core/diag/AbstractTest.php:551
 msgid "EAP method negotiation failed!"
 msgstr "Käytettävän EAP-mekanismin neuvottelu epäonnistui!"
 
-#: core/diag/AbstractTest.php:550
+#: core/diag/AbstractTest.php:558
 msgid ""
 "The server offers Diffie-Hellman (DH) ciphers with a DH group smaller than "
 "1024 bit. Mac OS X 10.11 'El Capitan' is known to refuse TLS connections "
@@ -297,7 +297,7 @@ msgstr ""
 "Palvelimen Diffie-Hellman-ryhmän (DH) koko on alle 1024 bittiä. Huomaa, että "
 "Mac OS X 10.11 'El Capitan' ei tue alle 1024-bittisiä TLS-yhteyksiä!"
 
-#: core/diag/AbstractTest.php:557
+#: core/diag/AbstractTest.php:565
 msgid ""
 "The certificate contains more than one CommonName (CN) field. This is "
 "reportedly problematic on many supplicants."
@@ -305,7 +305,7 @@ msgstr ""
 "Varmenne sisältää enemmän kuin yhden CommonName-kentän (CN). Tämä saattaa "
 "aiheuttaa ongelmia joissain päätelaitteissa."
 
-#: core/diag/AbstractTest.php:564
+#: core/diag/AbstractTest.php:572
 msgid ""
 "The certificate public key algorithm is unknown to the system. Please submit "
 "the certificate as a sample to the developers."
@@ -313,7 +313,7 @@ msgstr ""
 "Varmenteen julkisen avaimen algoritmi on tuntematon. Ole hyvä ja lähetä "
 "varmenne kehittäjille."
 
-#: core/diag/AbstractTest.php:571
+#: core/diag/AbstractTest.php:579
 msgid "No certificate at all was sent by the server."
 msgstr ""
 
@@ -618,7 +618,7 @@ msgstr ""
 
 #: core/diag/Sociopath.php:86
 msgid "Did you recently change your password?"
-msgstr ""
+msgstr "Oletko hiljattain vaihtanut salasanasi?"
 
 #. that doesn't mean it is the source of the problem, but it /might/ be that the user forgot to provide the new password
 #. encouraging
@@ -782,7 +782,7 @@ msgstr ""
 msgid "Click to select a location in which you have an eduroam problem"
 msgstr "Valitse klikkaamalla sijainti, jossa sinulla on eduroam-ongelma"
 
-#: web/skins/modern/diag/diag.php:120 web/skins/modern/diag/diag.php:251
+#: web/skins/modern/diag/diag.php:120 web/skins/modern/diag/diag.php:254
 msgid "Testing realm"
 msgstr "Testataan toimialue"
 
@@ -806,7 +806,7 @@ msgstr "eduroam-ylläpitäjien työkalut"
 msgid "Which problem are you reporting?"
 msgstr "Millaisesta ongelmasta tahdot raportoida?"
 
-#: web/skins/modern/diag/diag.php:148 web/skins/modern/diag/diag.php:865
+#: web/skins/modern/diag/diag.php:148 web/skins/modern/diag/diag.php:954
 msgid "SP contacting IdP due to technical problems or abuse"
 msgstr "SP on yhteydessä IdP:hen teknisten ongelmien tai väärinkäytön takia."
 
@@ -834,35 +834,35 @@ msgstr "Valitse maa tai alue:"
 msgid "Fetching country/region list"
 msgstr "Haetaan maa/alue luettelo"
 
-#: web/skins/modern/diag/diag.php:276
+#: web/skins/modern/diag/diag.php:278
 msgid "Yes"
 msgstr "Kyllä"
 
-#: web/skins/modern/diag/diag.php:277
+#: web/skins/modern/diag/diag.php:279
 msgid "No"
 msgstr "Ei"
 
-#: web/skins/modern/diag/diag.php:278
+#: web/skins/modern/diag/diag.php:280
 msgid "I don't know"
 msgstr "En tiedä."
 
-#: web/skins/modern/diag/diag.php:309
+#: web/skins/modern/diag/diag.php:311
 msgid "Diagnostic tests results for selected realm"
 msgstr "Diagnostiikan tulokset valitulle toimialueelle"
 
-#: web/skins/modern/diag/diag.php:312
+#: web/skins/modern/diag/diag.php:314
 msgid "The result for tested realm:"
 msgstr "Tulos testatulle toimialueelle:"
 
-#: web/skins/modern/diag/diag.php:314
+#: web/skins/modern/diag/diag.php:316
 msgid "The system identified"
 msgstr "Tunnistettu järjestelmä"
 
-#: web/skins/modern/diag/diag.php:316
+#: web/skins/modern/diag/diag.php:318
 msgid "suspected areas which potentially can cause a problem."
 msgstr "epäillyt alueet, jotka voivat aiheuttaa ongelmia."
 
-#: web/skins/modern/diag/diag.php:317
+#: web/skins/modern/diag/diag.php:319
 msgid ""
 "Next to the problem description we show a speculated probability of this "
 "event."
@@ -870,23 +870,23 @@ msgstr ""
 "Ongelman kuvauksen vieressä näytämme tämän tapauksen pohdiskeltu "
 "todennäköisyys."
 
-#: web/skins/modern/diag/diag.php:324
+#: web/skins/modern/diag/diag.php:326
 msgid "Your device configuration is broken"
 msgstr "Laitteesi konfigurointi on virheellinen"
 
-#: web/skins/modern/diag/diag.php:327
+#: web/skins/modern/diag/diag.php:329
 msgid "The Wi-Fi network in your vicinity has quality issues"
 msgstr "Lähistöllä olevalla Wi-Fi-verkolla on laatuongelmia"
 
-#: web/skins/modern/diag/diag.php:330
+#: web/skins/modern/diag/diag.php:332
 msgid "The network environment around you is broken"
 msgstr "Lähistöllä oleva verkkoympäristö on rikki"
 
-#: web/skins/modern/diag/diag.php:333
+#: web/skins/modern/diag/diag.php:335
 msgid "The RADIUS server of your service provider is the source of the problem"
 msgstr "Palveluntarjoajan RADIUS-palvelin on ongelman lähde"
 
-#: web/skins/modern/diag/diag.php:336
+#: web/skins/modern/diag/diag.php:338
 msgid ""
 "The RADIUS server in your home institution is currently unable to "
 "authenticate you"
@@ -894,13 +894,13 @@ msgstr ""
 "Kotiorganisaatiosi RADIUS-palvelin ei tällä hetkellä pysty autentikoimaan "
 "sinua"
 
-#: web/skins/modern/diag/diag.php:339
+#: web/skins/modern/diag/diag.php:341
 msgid ""
 "The national server in the country/region you are visiting is not "
 "functioning correctly"
 msgstr "Kansallinen palvelin maassa/alueella, jota vierailet, ei toimi oikein"
 
-#: web/skins/modern/diag/diag.php:342
+#: web/skins/modern/diag/diag.php:344
 msgid ""
 "The link between the national server of the country/region you are visiting "
 "and the top-level server is broken"
@@ -908,7 +908,7 @@ msgstr ""
 "Vieraillun maan / alueen kansallisen palvelimen ja ylätason palvelimen "
 "välinen yhteys on rikki"
 
-#: web/skins/modern/diag/diag.php:345
+#: web/skins/modern/diag/diag.php:347
 msgid ""
 "The link between the national server of your home country/region and the top-"
 "level server is broken"
@@ -916,133 +916,150 @@ msgstr ""
 "Kotimaasi / alueesi kansallisen palvelimen ja ylätason palvelimen välinen "
 "yhteys on rikki"
 
-#: web/skins/modern/diag/diag.php:348
+#: web/skins/modern/diag/diag.php:350
 msgid "The communication to the top-level server is down"
 msgstr "Viestintä ylätason palvelimelle on alhaalla"
 
-#: web/skins/modern/diag/diag.php:351
+#: web/skins/modern/diag/diag.php:353
 msgid ""
 "The national server in your home country/region is not functioning properly."
 msgstr "Kansallinen palvelin kotimaassasi / alueellasi ei toimi oikein."
 
-#: web/skins/modern/diag/diag.php:354
+#: web/skins/modern/diag/diag.php:356
 msgid "The RADIUS server of your home institution is the source of the problem"
 msgstr "Kotiorganisaatiosi RADIUS-palvelin on ongelman lähde"
 
-#: web/skins/modern/diag/diag.php:357
+#: web/skins/modern/diag/diag.php:359
 msgid "This realm does not exist"
 msgstr "Toimialue ei ole olemassa"
 
-#: web/skins/modern/diag/diag.php:469
+#: web/skins/modern/diag/diag.php:471 web/skins/modern/diag/diag.php:534
 msgid "Fetching institutions list"
 msgstr "Haetaan organisaatioluettelo"
 
-#: web/skins/modern/diag/diag.php:487
+#: web/skins/modern/diag/diag.php:489 web/skins/modern/diag/diag.php:552
 msgid "Select institution:"
 msgstr "Valitse organisaatio:"
 
-#: web/skins/modern/diag/diag.php:527
+#: web/skins/modern/diag/diag.php:510
+msgid ""
+"The database does not contain the information needed to help you in realm "
+"selection for this country. You have to provide the realm you are interested "
+"in."
+msgstr ""
+
+#: web/skins/modern/diag/diag.php:519
+msgid ""
+"Can not search in database. You have to provide the realm you are interested "
+"in."
+msgstr ""
+
+#: web/skins/modern/diag/diag.php:575
+msgid "Other location"
+msgstr ""
+
+#: web/skins/modern/diag/diag.php:609
 msgid "Fetching realms list"
 msgstr "Haetaan toimialueluettelo "
 
-#: web/skins/modern/diag/diag.php:539
+#: web/skins/modern/diag/diag.php:621
 msgid "Check realm(s):"
 msgstr "Tarkista toimialue(t):"
 
-#: web/skins/modern/diag/diag.php:551
+#: web/skins/modern/diag/diag.php:633
 msgid "Realm:"
 msgstr "Toimialue:"
 
-#: web/skins/modern/diag/diag.php:606 web/skins/modern/diag/diag.php:674
-#: web/skins/modern/diag/diag.php:791
+#: web/skins/modern/diag/diag.php:688 web/skins/modern/diag/diag.php:756
+#: web/skins/modern/diag/diag.php:880
 msgid "Running realm tests"
 msgstr "Ajetaan toimialueen testit"
 
-#: web/skins/modern/diag/diag.php:650
+#: web/skins/modern/diag/diag.php:732
 msgid "Realm is not registered with the eduroam database:"
 msgstr "Toimialuetta ei ole määritelty eduroam tietokantaan:"
 
-#: web/skins/modern/diag/diag.php:722
+#: web/skins/modern/diag/diag.php:804
 msgid "Diagnostics results for selected realms"
 msgstr "Diagnostiikan tulokset valituille toimialueille"
 
-#: web/skins/modern/diag/diag.php:723
+#: web/skins/modern/diag/diag.php:805
 msgid "An unknown problem occured"
 msgstr "Tuntematon ongelma ilmeni"
 
-#: web/skins/modern/diag/diag.php:726
+#: web/skins/modern/diag/diag.php:808
 msgid "This test includes checking of the following realm"
 msgstr "Testi sisältää seuraavan toimialueen testaamisen"
 
-#: web/skins/modern/diag/diag.php:728
+#: web/skins/modern/diag/diag.php:810
 msgid "This test includes checking of the following realms"
 msgstr "Testi sisältää seuraavan toimialueen testaamisen"
 
-#: web/skins/modern/diag/diag.php:738
+#: web/skins/modern/diag/diag.php:820
 msgid "You should report this to"
 msgstr "Sinun pitäisi ilmoittaa asiasta"
 
-#: web/skins/modern/diag/diag.php:862
+#: web/skins/modern/diag/diag.php:951
 msgid "eduroam admin report submission"
 msgstr "raportin lähettäminen eduroam ylläpitäjälle"
 
-#: web/skins/modern/diag/diag.php:867 web/skins/modern/diag/diag.php:877
+#: web/skins/modern/diag/diag.php:956 web/skins/modern/diag/diag.php:966
 msgid "Reason"
 msgstr "Syy"
 
-#: web/skins/modern/diag/diag.php:868
+#: web/skins/modern/diag/diag.php:957
 msgid "SP email"
 msgstr "SP sähköposti"
 
-#: web/skins/modern/diag/diag.php:869
+#: web/skins/modern/diag/diag.php:958
 msgid "IdP email(s)"
 msgstr "IdP:n sähköpostiosoite(et)"
 
-#: web/skins/modern/diag/diag.php:870 web/skins/modern/diag/diag.php:881
+#: web/skins/modern/diag/diag.php:959 web/skins/modern/diag/diag.php:970
 msgid "Event's timestamp"
 msgstr "Tapahtuman aikaleima"
 
-#: web/skins/modern/diag/diag.php:871 web/skins/modern/diag/diag.php:882
+#: web/skins/modern/diag/diag.php:960 web/skins/modern/diag/diag.php:971
 msgid "Calling-Station-Id"
 msgstr "Laitteen tunniste"
 
-#: web/skins/modern/diag/diag.php:872 web/skins/modern/diag/diag.php:883
+#: web/skins/modern/diag/diag.php:961 web/skins/modern/diag/diag.php:972
 msgid "Additional description"
 msgstr "Lisäkuvaus"
 
-#: web/skins/modern/diag/diag.php:875
+#: web/skins/modern/diag/diag.php:964
 msgid "IdP contacting SP due to technical problems or abuse"
 msgstr "IdP on yhteydessä SP:hen teknisten ongelmien tai väärinkäytön takia."
 
-#: web/skins/modern/diag/diag.php:878
+#: web/skins/modern/diag/diag.php:967
 msgid "SP's Operator-Name"
 msgstr "SP:n tunniste"
 
-#: web/skins/modern/diag/diag.php:879
+#: web/skins/modern/diag/diag.php:968
 msgid "User's outer ID"
 msgstr "Käyttäjän ulkoinen identiteetti"
 
-#: web/skins/modern/diag/diag.php:880
+#: web/skins/modern/diag/diag.php:969
 msgid "IdP email"
 msgstr "IdP:n sähköpostiosoite"
 
-#: web/skins/modern/diag/diag.php:884
+#: web/skins/modern/diag/diag.php:973
 msgid "How to contact the user"
 msgstr "Yhteydenotto käyttäjään"
 
-#: web/skins/modern/diag/diag.php:901
+#: web/skins/modern/diag/diag.php:990
 msgid "MAC address is incomplete"
 msgstr "MAC-osoite on epätäydellinen"
 
-#: web/skins/modern/diag/diag.php:910
+#: web/skins/modern/diag/diag.php:999
 msgid "Wrong format of email"
 msgstr "Sähköpostiosoite on väärässä muodossa"
 
-#: web/skins/modern/diag/diag.php:919
+#: web/skins/modern/diag/diag.php:1008
 msgid "Wrong format of outer ID"
 msgstr "Ulkoinen identiteetti on väärässä muodossa"
 
-#: web/skins/modern/diag/diag.php:928
+#: web/skins/modern/diag/diag.php:1017
 msgid "Wrong string given as OperatorName"
 msgstr "Tunniste (Operator-Name) on väärin"
 

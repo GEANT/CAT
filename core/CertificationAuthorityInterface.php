@@ -11,7 +11,9 @@
 
 namespace core;
 
-interface CertificationAuthorityInterface {
+interface CertificationAuthorityInterface
+{
+
     /**
      * create a CSR
      * 
@@ -20,23 +22,23 @@ interface CertificationAuthorityInterface {
      * @param string   $username   the future username
      * @return array with the CSR and some meta info
      */
-    public function generateCompatibleCsr($privateKey, $fed, $username) : array;
-    
+    public function generateCompatibleCsr($privateKey, $fed, $username): array;
+
     /**
      * generates a private key that can be processed by this CA
      * 
      * @return \resource
      */
     public function generateCompatiblePrivateKey();
-    
+
     /**
      * Creates an updated OCSP statement
      * 
      * @param string|integer $serial serial number of the certificate. String if number is >64 bit long.
      * @return string
      */
-    public function triggerNewOCSPStatement($serial) : string;
-    
+    public function triggerNewOCSPStatement($serial): string;
+
     /**
      * signs a certificate request
      * 
@@ -44,13 +46,13 @@ interface CertificationAuthorityInterface {
      * @param int   $expiryDays how many days should the cert be valid
      * @return array information about the signed certificate
      */
-    public function signRequest($csr, $expiryDays) : array;
-    
+    public function signRequest($csr, $expiryDays): array;
+
     /**
      * revokes a certificate
      * 
      * @param string|integer $serial serial number of the certificate. String if number is >64 bit long.
      * @return void
      */
-    public function revokeCertificate($serial) : void;
+    public function revokeCertificate($serial): void;
 }

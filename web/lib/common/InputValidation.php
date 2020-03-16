@@ -27,7 +27,8 @@ use \Exception;
 /**
  * performs validation of user inputs
  */
-class InputValidation extends \core\common\Entity {
+class InputValidation extends \core\common\Entity
+{
 
     /**
      * returns a simple HTML <p> element with basic explanations about what was
@@ -36,7 +37,8 @@ class InputValidation extends \core\common\Entity {
      * @param string $customtext explanation provided by the validator function
      * @return string
      */
-    private function inputValidationError($customtext) {
+    private function inputValidationError($customtext)
+    {
         \core\common\Entity::intoThePotatoes();
         $retval = "<p>" . _("Input validation error: ") . $customtext . "</p>";
         \core\common\Entity::outOfThePotatoes();
@@ -51,7 +53,8 @@ class InputValidation extends \core\common\Entity {
      * @return \core\Federation
      * @throws Exception
      */
-    public function existingFederation($input, $owner = NULL) {
+    public function existingFederation($input, $owner = NULL)
+    {
 
         $cat = new \core\CAT(); // initialises Entity static members
         $fedIdentifiers = array_keys($cat->knownFederations);
@@ -83,7 +86,8 @@ class InputValidation extends \core\common\Entity {
      * @return \core\IdP
      * @throws Exception
      */
-    public function existingIdP($input, $owner = NULL) {
+    public function existingIdP($input, $owner = NULL)
+    {
         $clean = $this->integer($input);
         if ($clean === FALSE) {
             throw new Exception($this->inputValidationError("Value for IdP is not an integer!"));
@@ -112,7 +116,8 @@ class InputValidation extends \core\common\Entity {
      * @return \core\AbstractProfile
      * @throws Exception
      */
-    public function existingProfile($input, $idpIdentifier = NULL) {
+    public function existingProfile($input, $idpIdentifier = NULL)
+    {
         $clean = $this->integer($input);
         if ($clean === FALSE) {
             throw new Exception("Non-integer was passed to Profile validator!");
@@ -135,7 +140,8 @@ class InputValidation extends \core\common\Entity {
      * @return \core\DeploymentManaged
      * @throws Exception
      */
-    public function existingDeploymentManaged($input, $idp) {
+    public function existingDeploymentManaged($input, $idp)
+    {
         $clean = $this->integer($input);
         if ($clean === FALSE) {
             throw new Exception("Non-integer was passed to Profile validator!");
@@ -154,7 +160,8 @@ class InputValidation extends \core\common\Entity {
      * @return string returns the same string on success, throws an Exception on failure
      * @throws Exception
      */
-    public function existingDevice($input) {
+    public function existingDevice($input)
+    {
         $devicelist = \devices\Devices::listDevices();
         $keyArray = array_keys($devicelist);
         if (!isset($devicelist[$input])) {
@@ -172,7 +179,8 @@ class InputValidation extends \core\common\Entity {
      * @return string the massaged string
      * @throws Exception
      */
-    public function string($input, $allowWhitespace = FALSE) {
+    public function string($input, $allowWhitespace = FALSE)
+    {
         // always chop out invalid characters, and surrounding whitespace
         $retvalStep0 = iconv("UTF-8", "UTF-8//TRANSLIT", $input);
         if ($retvalStep0 === FALSE) {
@@ -204,7 +212,8 @@ class InputValidation extends \core\common\Entity {
      * @param mixed $input the raw input
      * @return boolean|int returns the input, or FALSE if it is not an integer-like value
      */
-    public function integer($input) {
+    public function integer($input)
+    {
         if (is_numeric($input)) {
             return (int) $input;
         }
@@ -217,7 +226,8 @@ class InputValidation extends \core\common\Entity {
      * @param string $input the input data which is possibly a really large integer
      * @return boolean|string returns the input, or FALSE if it is not an integer-like string
      */
-    public function hugeInteger($input) {
+    public function hugeInteger($input)
+    {
         if (is_numeric($input)) {
             return $input;
         }
@@ -231,7 +241,8 @@ class InputValidation extends \core\common\Entity {
      * @param mixed $input the raw input
      * @return boolean|string returns the input, or FALSE on validation failure
      */
-    public function consortiumOI($input) {
+    public function consortiumOI($input)
+    {
         $shallow = $this->string($input);
         if (strlen($shallow) != 6 && strlen($shallow) != 10) {
             return FALSE;
@@ -248,7 +259,8 @@ class InputValidation extends \core\common\Entity {
      * @param mixed $input the input to check
      * @return boolean|string returns the realm, or FALSE if it was malformed
      */
-    public function realm($input) {
+    public function realm($input)
+    {
         \core\common\Entity::intoThePotatoes();
         if (strlen($input) == 0) {
             echo $this->inputValidationError(_("Realm is empty!"));
@@ -298,7 +310,8 @@ class InputValidation extends \core\common\Entity {
      * @return string echoes back the input string, or throws an Exception if bogus
      * @throws Exception
      */
-    public function syntaxConformUser($input) {
+    public function syntaxConformUser($input)
+    {
         $retvalStep0 = iconv("UTF-8", "UTF-8//TRANSLIT", $input);
         if ($retvalStep0 === FALSE) {
             throw new Exception("iconv failure for string sanitisation. With TRANSLIT, this should never happen!");
@@ -321,7 +334,8 @@ class InputValidation extends \core\common\Entity {
      * @return string echoes back the input string, or throws an Exception if bogus
      * @throws Exception
      */
-    public function token($input) {
+    public function token($input)
+    {
         $retval = $input;
         if ($input != "" && preg_match('/[^0-9a-fA-F]/', $input) != 0) {
             throw new Exception($this->inputValidationError("Token is not a hexadecimal string!"));
@@ -336,7 +350,8 @@ class InputValidation extends \core\common\Entity {
      * @return string returns back the input if all is good; throws an Exception if out of bounds or not numeric
      * @throws Exception
      */
-    public function coordinate($input) {
+    public function coordinate($input)
+    {
         $oldlocale = setlocale(LC_NUMERIC, 0);
         setlocale(LC_NUMERIC, "en_GB");
         if (!is_numeric($input)) {
@@ -357,7 +372,8 @@ class InputValidation extends \core\common\Entity {
      * @return string returns $input if checks have passed; throws an Exception if something's wrong
      * @throws Exception
      */
-    public function coordJsonEncoded($input) {
+    public function coordJsonEncoded($input)
+    {
         $tentative = json_decode($input, true);
         if (is_array($tentative)) {
             if (isset($tentative['lon']) && isset($tentative['lat']) && $this->coordinate($tentative['lon']) && $this->coordinate($tentative['lat'])) {
@@ -377,7 +393,8 @@ class InputValidation extends \core\common\Entity {
      * @return boolean TRUE if the input was "on". It is not possible in HTML to signal "off"
      * @throws Exception
      */
-    public function boolean($input) {
+    public function boolean($input)
+    {
         if ($input != "on") {
             throw new Exception($this->inputValidationError("Unknown state of boolean option!"));
         }
@@ -391,7 +408,8 @@ class InputValidation extends \core\common\Entity {
      * @return string validated result
      * @throws Exception
      */
-    public function partType($partTypeRaw) {
+    public function partType($partTypeRaw)
+    {
         switch ($partTypeRaw) {
             case \core\IdP::TYPE_IDP:
                 return \core\IdP::TYPE_IDP;
@@ -417,7 +435,8 @@ class InputValidation extends \core\common\Entity {
      * @param string $input the reference to check
      * @return boolean|array the reference split up into "table" and "rowindex", or FALSE
      */
-    public function databaseReference($input) {
+    public function databaseReference($input)
+    {
         $pregMatches = [];
         if (preg_match("/^ROWID-(IdP|Profile|FED)-([0-9]+)$/", $input, $pregMatches) != 1) {
             return FALSE;
@@ -435,9 +454,10 @@ class InputValidation extends \core\common\Entity {
      * @param mixed $input the raw input
      * @return boolean|string echoes the hostname, or FALSE if bogus
      */
-    public function hostname($input) {
+    public function hostname($input)
+    {
         // is it a valid IP address (IPv4 or IPv6), or a hostname?
-        if (filter_var($input, FILTER_VALIDATE_IP) || $this->email("stefan@" . $input) !== FALSE) {
+        if (filter_var($input, FILTER_VALIDATE_IP) || filter_var($input, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME)) {
             // if it's a verified IP address or hostname then it does not contain
             // rubbish of course. But just to be sure, run htmlspecialchars around it
             return htmlspecialchars($input, ENT_QUOTES);
@@ -451,7 +471,8 @@ class InputValidation extends \core\common\Entity {
      * @param mixed $input the raw input
      * @return boolean|string echoes the mail address, or FALSE if bogus
      */
-    public function email($input) {
+    public function email($input)
+    {
 
         if (filter_var($this->string($input), FILTER_VALIDATE_EMAIL)) {
             return $input;
@@ -465,7 +486,8 @@ class InputValidation extends \core\common\Entity {
      * @param string $input the raw input
      * @return boolean|string
      */
-    public function sms($input) {
+    public function sms($input)
+    {
         $number = str_replace(' ', '', str_replace(".", "", str_replace("+", "", $input)));
         if (!is_numeric($number)) {
             return FALSE;
@@ -480,7 +502,8 @@ class InputValidation extends \core\common\Entity {
      * @return string
      * @throws Exception
      */
-    public function supportedLanguage($input) {
+    public function supportedLanguage($input)
+    {
         if (!array_key_exists($input, \config\Master::LANGUAGES)) {
             return \config\Master::APPEARANCE['defaultlocale'];
         }
@@ -500,7 +523,8 @@ class InputValidation extends \core\common\Entity {
      * @param mixed $input the unvetted option name
      * @return string
      */
-    public function optionName($input) {
+    public function optionName($input)
+    {
         $object = \core\Options::instance();
         return $object->assertValidOptionName($input);
     }
@@ -511,7 +535,8 @@ class InputValidation extends \core\common\Entity {
      * @param mixed $binary blob that may or may not be a parseable image
      * @return boolean
      */
-    public function image($binary) {
+    public function image($binary)
+    {
         $image = new \Imagick();
         try {
             $image->readImageBlob($binary);
@@ -531,7 +556,8 @@ class InputValidation extends \core\common\Entity {
      * @param string $filter  which type of filter to apply (safe_text / int)
      * @return NULL|string|integer the returned value
      */
-    public function simpleInputFilter($varName, $filter) {
+    public function simpleInputFilter($varName, $filter)
+    {
         $safeText = ["options" => ["regexp" => "/^[\w\d-]+$/"]];
         switch ($filter) {
             case 'safe_text':

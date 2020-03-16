@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -33,7 +34,8 @@ namespace core\diag;
  *
  * @package Developer
  */
-class RFC7585Tests extends AbstractTest {
+class RFC7585Tests extends AbstractTest
+{
 
     /**
      * maintains state for the question: has the NAPTR existence check already been executed? Holds the number of NAPTR records found if so.
@@ -41,49 +43,49 @@ class RFC7585Tests extends AbstractTest {
      * @var integer
      */
     private $NAPTR_executed;
-    
+
     /**
      * maintains state for the question: has the NAPTR compliance check already been executed?
      * 
      * @var integer
      */
     private $NAPTR_compliance_executed;
-    
+
     /**
      * maintains state for the question: has the NAPTR SRV check already been executed? Holds the number of SRV records if so.
      * 
      * @var integer
      */
     private $NAPTR_SRV_executed;
-    
+
     /**
      * maintains state for the question: has the existrence of hostnames been checked already? Holds the number of IP:port pairs if so.
      * 
      * @var integer
      */
     private $NAPTR_hostname_executed;
-    
+
     /**
      * holds the list of NAPTR records found
      * 
      * @var array
      */
     private $NAPTR_records;
-    
+
     /**
      * holds the list of SRV records found
      * 
      * @var array
      */
     private $NAPTR_SRV_records;
-    
+
     /**
      * stores the various errors encountered during the checks
      * 
      * @var array
      */
     private $errorlist;
-    
+
     /**
      * stores the IP address / port pairs (strings) which were ultimately found
      * as candidate RADIUS/TLS servers
@@ -91,14 +93,13 @@ class RFC7585Tests extends AbstractTest {
      * @var array
      */
     public $NAPTR_hostname_records;
-
     // return codes specific to NAPTR existence checks
-    
+
     /**
      * test hasn't been run yet
      */
     const RETVAL_NOTRUNYET = -1;
-    
+
     /**
      * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
      */
@@ -122,7 +123,8 @@ class RFC7585Tests extends AbstractTest {
      * 
      * @param string $realm the realm to be tested
      */
-    public function __construct(string $realm) {
+    public function __construct(string $realm)
+    {
         parent::__construct();
         \core\common\Entity::intoThePotatoes();
         // return codes specific to NAPTR existence checks
@@ -162,7 +164,8 @@ class RFC7585Tests extends AbstractTest {
      * 
      * @return int Either a RETVAL constant or a positive number (count of relevant NAPTR records)
      */
-    public function relevantNAPTR() {
+    public function relevantNAPTR()
+    {
         if (\config\Diagnostics::RADIUSTESTS['TLS-discoverytag'] == "") {
             $this->NAPTR_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
             return RADIUSTests::RETVAL_NOTCONFIGURED;
@@ -197,7 +200,8 @@ class RFC7585Tests extends AbstractTest {
 
      * @return int one of two RETVALs above
      */
-    public function relevantNAPTRcompliance() {
+    public function relevantNAPTRcompliance()
+    {
 // did we query DNS for the NAPTRs yet? If not, do so now.
         if ($this->NAPTR_executed == RFC7585Tests::RETVAL_NOTRUNYET) {
             $this->relevantNAPTR();
@@ -246,7 +250,8 @@ class RFC7585Tests extends AbstractTest {
      * 
      * @return int one of the RETVALs above or the number of SRV records which were resolved
      */
-    public function relevantNAPTRsrvResolution() {
+    public function relevantNAPTRsrvResolution()
+    {
 // see if preceding checks have been run, and run them if not
 // compliance check will cascade NAPTR check on its own
         if ($this->NAPTR_compliance_executed == RFC7585Tests::RETVAL_NOTRUNYET) {
@@ -288,7 +293,8 @@ class RFC7585Tests extends AbstractTest {
      * 
      * @return int count of IP / port pairs for all the hostnames
      */
-    public function relevantNAPTRhostnameResolution() {
+    public function relevantNAPTRhostnameResolution()
+    {
 // make sure the previous tests have been run before we go on
 // preceeding tests will cascade automatically if needed
         if ($this->NAPTR_SRV_executed == RFC7585Tests::RETVAL_NOTRUNYET) {
@@ -315,9 +321,9 @@ class RFC7585Tests extends AbstractTest {
             } else {
                 foreach ($hostResolution as $address) {
                     if (isset($address["ip"])) {
-                        $ipAddrs[] = ["family" => "IPv4", "IP" => $address["ip"], "port" => $server["port"], "status" => ""];
+                        $ipAddrs[] = ["hostname" => $server["hostname"], "family" => "IPv4", "IP" => $address["ip"], "port" => $server["port"], "status" => ""];
                     } else {
-                        $ipAddrs[] = ["family" => "IPv6", "IP" => $address["ipv6"], "port" => $server["port"], "status" => ""];
+                        $ipAddrs[] = ["hostname" => $server["hostname"], "family" => "IPv6", "IP" => $address["ipv6"], "port" => $server["port"], "status" => ""];
                     }
                 }
             }
@@ -333,5 +339,4 @@ class RFC7585Tests extends AbstractTest {
         $this->NAPTR_hostname_executed = count($this->NAPTR_hostname_records);
         return count($this->NAPTR_hostname_records);
     }
-
 }

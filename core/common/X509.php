@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -41,7 +42,8 @@ use Exception;
  *
  * @package Developer
  */
-class X509 {
+class X509
+{
 
     const KNOWN_PUBLIC_KEY_ALGORITHMS = [0 => "rsaEncryption", 1 => "id-ecPublicKey"];
 
@@ -54,7 +56,8 @@ class X509 {
      *
      *  @author http://php.net/manual/en/ref.openssl.php (comment from 29-Mar-2007)
      */
-    public function pem2der(string $pemData) {
+    public function pem2der(string $pemData)
+    {
         $begin = "CERTIFICATE-----";
         $end = "-----END";
         $pemDataTemp = substr($pemData, strpos($pemData, $begin) + strlen($begin));
@@ -82,7 +85,8 @@ class X509 {
      * @param string $derData blob of DER data
      * @return string the PEM representation of the certificate
      */
-    public function der2pem($derData) {
+    public function der2pem($derData)
+    {
         $pem = chunk_split(base64_encode($derData), 64, "\n");
         $pem = "-----BEGIN CERTIFICATE-----\n" . $pem . "-----END CERTIFICATE-----\n";
         return $pem;
@@ -95,7 +99,8 @@ class X509 {
      * @param array    $out  by-reference: properties to add to the CA properties array
      * @return void
      */
-    private function opensslTextParse($myca, &$out) {
+    private function opensslTextParse($myca, &$out)
+    {
         $algoMatch = [];
         $keyLengthMatch = [];
         $output = "";
@@ -108,7 +113,7 @@ class X509 {
             $out['full_details']['public_key_algorithm'] = "UNKNOWN";
         }
 
-        if ((preg_match('/^\s+Public-Key:\s*\((.*) bit\)\s*$/m', $output, $keyLengthMatch)) && is_numeric($keyLengthMatch[1])) {
+        if ((preg_match('/^\s+.*\sPublic-Key:\s*\((.*) bit\)\s*$/m', $output, $keyLengthMatch)) && is_numeric($keyLengthMatch[1])) {
             $out['full_details']['public_key_length'] = $keyLengthMatch[1];
         } else {
             $out['full_details']['public_key_length'] = 0; // if we don't know, assume an unsafe key length -> will trigger warning
@@ -122,7 +127,8 @@ class X509 {
      * @param array    $out  by-reference: properties to add to the CA properties array
      * @return array
      */
-    private function typeOfCertificate($myca, &$out) {
+    private function typeOfCertificate($myca, &$out)
+    {
         // PHP docs deliberately don't document the return type of this function
         // well thank you, this makes Scrutinizer nuts
         // work around this my making some easily observable array operations
@@ -171,7 +177,8 @@ class X509 {
      * @return array|boolean
      * @throws Exception
      */
-    public function processCertificate($cadata) {
+    public function processCertificate($cadata)
+    {
         $pemBegin = strpos($cadata, "-----BEGIN CERTIFICATE-----");
         if ($pemBegin !== FALSE) {
             $pemEnd = strpos($cadata, "-----END CERTIFICATE-----") + 25;
@@ -193,7 +200,7 @@ class X509 {
         if ($myca === FALSE) {
             return FALSE;
         }
-        
+
         $out = [];
         $mydetails = $this->typeOfCertificate($myca, $out);
         if (!isset($mydetails['subject'])) {
@@ -221,7 +228,8 @@ class X509 {
      * @return array
      * @throws Exception
      */
-    public function splitCertificate($cadata) {
+    public function splitCertificate($cadata)
+    {
         $returnarray = [];
         // maybe we got no real cert data at all? The code is hardened, but will
         // produce ugly WARNING level output in the logfiles, so let's avoid at least
@@ -251,5 +259,4 @@ class X509 {
         }
         return array_unique($returnarray);
     }
-
 }

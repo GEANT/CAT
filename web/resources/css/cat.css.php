@@ -445,6 +445,18 @@ table.compatmatrix td.compat_redirected {
     white-space:nowrap;
 }
 
+table.authrecord tr.auth-success {
+    color: green;
+}
+
+table.authrecord tr.auth-fail {
+    color: maroon;
+}
+
+table.authrecord td {
+    padding-right: 10px;
+}
+
 p.MOTD {
     color: white;
     background-color: red;

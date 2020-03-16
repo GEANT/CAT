@@ -21,6 +21,7 @@
 When upgrading from the newest CAT 2.0 database structure:
 
 - run 2_0-2_1.sql to convert the schema
+- run 2_0-2_1-script.php to clean data structures
 
 When deploying CAT 2.1 from scratch:
 

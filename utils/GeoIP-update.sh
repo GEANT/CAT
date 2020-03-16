@@ -35,7 +35,7 @@ cd $dir
 # first test for the GeoIP version set in the config.php
 a=`php << EOF
 <?php
-require "../config/config-master.php";
+require "../config/Master.php";
 print(\config\Master::GEOIP["version"]);
 ?>
 EOF`
@@ -56,13 +56,20 @@ if [ $a -eq 2 ] ; then
 
 db=`php << EOFF
 <?php
-require "../config/config-master.php";
+require "../config/Master.php";
 print(\config\Master::GEOIP["geoip2-path-to-db"]);
 ?>
+
+lkey=`php << EOFF
+<?php
+require "../config/Master.php";
+print(\config\Master::GEOIP["geoip2-license-key"]);
+?>
+
 EOFF`
    cd /tmp/GeoIP
    rm -f GeoLite2-City.mmdb.gz
-   wget --quiet -O GeoLite2-City.mmdb.gz http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz
+   wget --quiet -O GeoLite2-City.mmdb.gz https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=$lkey&suffix=tar.gz
    gunzip -f GeoLite2-City.mmdb.gz
    cp GeoLite2-City.mmdb $db
 fi

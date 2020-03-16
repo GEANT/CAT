@@ -4,6 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
+# jmontane, 2019
 # eduki <ecercos@xtec.cat>, 2019
 #
 #, fuzzy
@@ -11,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-05 11:11+0200\n"
+"POT-Creation-Date: 2019-09-13 14:56+0200\n"
 "PO-Revision-Date: 2016-07-15 08:52+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>, 2019\n"
 "Language-Team: Catalan (Spain) (https://www.transifex.com/eduroam_devel/"
@@ -22,28 +23,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/diag/AbstractTest.php:294
+#: core/diag/AbstractTest.php:302
 msgid "Completed"
 msgstr "Completat"
 
-#: core/diag/AbstractTest.php:301
+#: core/diag/AbstractTest.php:309
 msgid "Product is not configured to run this check."
 msgstr "El producte no està configurat per fer aquesta comprovació."
 
-#: core/diag/AbstractTest.php:307 web/diag/action_realmcheck.php:542
+#: core/diag/AbstractTest.php:315 web/diag/action_realmcheck.php:542
 #: web/diag/action_realmcheck.php:558
 msgid "This check was skipped."
 msgstr "Aquesta comprovació s'ha omès."
 
-#: core/diag/AbstractTest.php:314
+#: core/diag/AbstractTest.php:322
 msgid "There were errors during the test."
 msgstr "S'han produit errors durant la prova."
 
-#: core/diag/AbstractTest.php:322
+#: core/diag/AbstractTest.php:330
 msgid "There was no reply at all from the RADIUS server."
 msgstr "No s'ha rebut cap resposta del servidor RADIUS."
 
-#: core/diag/AbstractTest.php:329
+#: core/diag/AbstractTest.php:337
 msgid ""
 "There was a bidirectional communication with the RADIUS server, but it ended "
 "halfway through."
@@ -51,7 +52,7 @@ msgstr ""
 "Hi ha hagut comunicació bidireccional amb el servidor RADIUS, però s'ha "
 "interromput a la meitat."
 
-#: core/diag/AbstractTest.php:336
+#: core/diag/AbstractTest.php:344
 msgid ""
 "The RADIUS server immediately rejected the authentication request in its "
 "first reply."
@@ -59,7 +60,7 @@ msgstr ""
 "El servidor RADIUS ha rebutjat immediatament la petició d'autenticació en la "
 "primera resposta."
 
-#: core/diag/AbstractTest.php:343
+#: core/diag/AbstractTest.php:351
 msgid ""
 "The RADIUS server rejected the authentication request after an EAP "
 "conversation."
@@ -67,20 +68,20 @@ msgstr ""
 "El servidor RADIUS ha rebutjat la petició d'autenticació després d'una "
 "conversa EAP."
 
-#: core/diag/AbstractTest.php:350 web/diag/action_realmcheck.php:117
+#: core/diag/AbstractTest.php:358 web/diag/action_realmcheck.php:117
 msgid "Connection refused"
 msgstr "S'ha negat la connexió"
 
-#: core/diag/AbstractTest.php:357
+#: core/diag/AbstractTest.php:365
 msgid "Not enough data provided to perform an authentication"
 msgstr "No s'ha subministrat prou dades per a realitzar una autenticació"
 
-#: core/diag/AbstractTest.php:364
+#: core/diag/AbstractTest.php:372
 msgid ""
 "The certificate password you provided does not match the certificate file."
 msgstr "La contrasenya subministrada no correspon a l'arxiu del certificat."
 
-#: core/diag/AbstractTest.php:372
+#: core/diag/AbstractTest.php:380
 msgid ""
 "The certificate chain includes the root CA certificate. This does not serve "
 "any useful purpose but inflates the packet exchange, possibly leading to "
@@ -90,15 +91,15 @@ msgstr ""
 "cap benefici excepte augmentar l'intercanvi de paquets, produint "
 "probablement un major retard en l'autenticació."
 
-#: core/diag/AbstractTest.php:379
+#: core/diag/AbstractTest.php:387
 msgid "There is more than one server certificate in the chain."
 msgstr "Hi ha més d'un certificat de servidor en la cadena."
 
-#: core/diag/AbstractTest.php:386
+#: core/diag/AbstractTest.php:394
 msgid "There is no server certificate in the chain."
 msgstr "No hi ha cap certificat de servidor en la cadena."
 
-#: core/diag/AbstractTest.php:393
+#: core/diag/AbstractTest.php:401
 msgid ""
 "At least one certificate in the chain is signed with the MD5 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
@@ -108,7 +109,7 @@ msgstr ""
 "Diversos Sistemes Operatius, incloent l'Apple iOS, no podran validar aquest "
 "certificat."
 
-#: core/diag/AbstractTest.php:400
+#: core/diag/AbstractTest.php:408
 msgid ""
 "At least one certificate in the chain is signed with the SHA-1 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
@@ -117,7 +118,7 @@ msgstr ""
 "Al menys un certificat de la cadena està signat amb l'algorisme SHA-1. Molts "
 "sistemes operatius, incloent Apple iOS, no validaran aquest certificat."
 
-#: core/diag/AbstractTest.php:407
+#: core/diag/AbstractTest.php:415
 msgid ""
 "At least one certificate in the chain had a public key of less than 2048 "
 "bits. Many recent operating systems consider this unacceptable and will fail "
@@ -127,7 +128,7 @@ msgstr ""
 "bits. Alguns sistemes operatius moderns no ho accepten i no validaran el "
 "certificat del servidor."
 
-#: core/diag/AbstractTest.php:414
+#: core/diag/AbstractTest.php:422
 msgid ""
 "The server certificate does not have the extension 'extendedKeyUsage: TLS "
 "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
@@ -137,7 +138,7 @@ msgstr ""
 "Web Server Authentication'. La majoria del sistemes operatius Microsoft no "
 "podran validar-lo."
 
-#: core/diag/AbstractTest.php:421
+#: core/diag/AbstractTest.php:429
 msgid ""
 "The server certificate did not include a CRL Distribution Point, creating "
 "compatibility problems with Windows Phone 8."
@@ -145,7 +146,7 @@ msgstr ""
 "El certificat del servidor no inclous un punt de distribució CRL (CRL "
 "Distribution Point). Això crea problemes de compatibilitat amb "
 
-#: core/diag/AbstractTest.php:428
+#: core/diag/AbstractTest.php:436
 msgid ""
 "The server certificate's 'CRL Distribution Point' extension does not point "
 "to an HTTP/HTTPS URL. Some Operating Systems may fail to validate this "
@@ -156,7 +157,7 @@ msgstr ""
 "cap a una URL HTTP/HTTPS. Alguns sistemes operatius no podran validar aquest "
 "certificat. La comprovació de la seva validesa no serà possible."
 
-#: core/diag/AbstractTest.php:435
+#: core/diag/AbstractTest.php:443
 msgid ""
 "The extension 'CRL Distribution Point' in the server certificate points to a "
 "location where no DER-encoded CRL can be found. Some Operating Systems check "
@@ -170,11 +171,11 @@ msgstr ""
 "certificat. No serà possible comprovar la validesa del certificat contra una "
 "CRL."
 
-#: core/diag/AbstractTest.php:442
+#: core/diag/AbstractTest.php:450
 msgid "The server certificate was revoked by the CA!"
 msgstr "Aquest certificat de servidor va ser revocat per la CA!"
 
-#: core/diag/AbstractTest.php:449
+#: core/diag/AbstractTest.php:457
 msgid ""
 "The certificate contained a CN or subjectAltName:DNS which does not parse as "
 "a hostname. This can be problematic on some supplicants. If the certificate "
@@ -187,7 +188,7 @@ msgstr ""
 "servir aquests per a la vostra configuració de client, aleshores podeu "
 "ignorar aquest avís."
 
-#: core/diag/AbstractTest.php:456
+#: core/diag/AbstractTest.php:464
 msgid ""
 "The certificate contained a CN or subjectAltName:DNS which contains a "
 "wildcard ('*'). This can be problematic on some supplicants. If the "
@@ -200,7 +201,7 @@ msgstr ""
 "conté noms sense comodins, i només feu servir aquests en la vostra "
 "configuració de client, aleshores podeu ignorar aquest avís."
 
-#: core/diag/AbstractTest.php:463
+#: core/diag/AbstractTest.php:471
 msgid ""
 "At least one certificate is outside its validity period (not yet valid, or "
 "already expired)!"
@@ -208,7 +209,7 @@ msgstr ""
 "Al menys un certificat és fora del seu període de validesa (encara no és "
 "vàlid o ha expirat)!"
 
-#: core/diag/AbstractTest.php:470
+#: core/diag/AbstractTest.php:478
 #, php-format
 msgid ""
 "At least one intermediate certificate in your CAT profile is outside its "
@@ -221,7 +222,7 @@ msgstr ""
 "certificat no es va fer servir per a la validació del servidor. Considereu "
 "si cal esborrar-lo de la vostra configuració %s."
 
-#: core/diag/AbstractTest.php:477
+#: core/diag/AbstractTest.php:485
 msgid ""
 "The server certificate could not be verified to the root CA you configured "
 "in your profile!"
@@ -229,7 +230,7 @@ msgstr ""
 "El certificat de servidor no s'ha pogut verificar amb la CA arrel "
 "configurada en el vostre pefil!"
 
-#: core/diag/AbstractTest.php:481
+#: core/diag/AbstractTest.php:489
 msgid ""
 "The certificate chain as received in EAP was not sufficient to verify the "
 "certificate to the root CA in your profile. It was verified using the "
@@ -241,7 +242,7 @@ msgstr ""
 "verificat utilitzant les CA intermitges. Considereu enviar les CA "
 "intermitges dins de la conversa EAP."
 
-#: core/diag/AbstractTest.php:487
+#: core/diag/AbstractTest.php:495
 msgid ""
 "The EAP server name does not match any of the configured names in your "
 "profile!"
@@ -249,7 +250,7 @@ msgstr ""
 "El nom del servidor EAP no es correspon amb cap dels noms configurats en el "
 "vostre perfil!"
 
-#: core/diag/AbstractTest.php:494
+#: core/diag/AbstractTest.php:502
 msgid ""
 "The configured EAP server name matches either the CN or a subjectAltName:DNS "
 "of the incoming certificate; best current practice is that the certificate "
@@ -259,7 +260,7 @@ msgstr ""
 "subjectAltName:DNS del certificat rebut; la millor pràctica actual és que el "
 "certificat contingui el nom a tots dos llocs."
 
-#: core/diag/AbstractTest.php:501
+#: core/diag/AbstractTest.php:509
 msgid ""
 "At least one certificate did not contain any BasicConstraints extension; "
 "which makes it unclear if it's a CA certificate or end-entity certificate. "
@@ -271,31 +272,31 @@ msgstr ""
 "d'entitat final. Al menys el Mac OS X 10.8 (Mountain Lion) no validarà "
 "aquest certificat en el protocol EAP!"
 
-#: core/diag/AbstractTest.php:508
+#: core/diag/AbstractTest.php:516
 msgid "The server presented a certificate from an unknown authority."
 msgstr "El servidor utilitza un certificat d'una autoritat desconeguda."
 
-#: core/diag/AbstractTest.php:515
+#: core/diag/AbstractTest.php:523
 msgid "The server accepted the INVALID client certificate."
 msgstr "El servidor ha acceptat el certificat de client NO VALID."
 
-#: core/diag/AbstractTest.php:522
+#: core/diag/AbstractTest.php:530
 msgid "The server rejected the client certificate, even though it was valid."
 msgstr "El servidor ha rebutjat el certificat de client, encara que era vàlid."
 
-#: core/diag/AbstractTest.php:529
+#: core/diag/AbstractTest.php:537
 msgid "The server rejected the client certificate as expected."
 msgstr "El servidor ha rebutjat el certificat de client, com era d'esperar."
 
-#: core/diag/AbstractTest.php:536
+#: core/diag/AbstractTest.php:544
 msgid "The CRL of a certificate could not be found."
 msgstr "No s'ha pogut trobar la CRL d'un certificat."
 
-#: core/diag/AbstractTest.php:543
+#: core/diag/AbstractTest.php:551
 msgid "EAP method negotiation failed!"
 msgstr "Ha fallat el mètode de negociació EAP!"
 
-#: core/diag/AbstractTest.php:550
+#: core/diag/AbstractTest.php:558
 msgid ""
 "The server offers Diffie-Hellman (DH) ciphers with a DH group smaller than "
 "1024 bit. Mac OS X 10.11 'El Capitan' is known to refuse TLS connections "
@@ -305,7 +306,7 @@ msgstr ""
 "1024 bit. El sistema operatiu Mac OS X 10.11 'El Capitan' no realitza "
 "connexions TLS en aquestes condicions!"
 
-#: core/diag/AbstractTest.php:557
+#: core/diag/AbstractTest.php:565
 msgid ""
 "The certificate contains more than one CommonName (CN) field. This is "
 "reportedly problematic on many supplicants."
@@ -313,15 +314,15 @@ msgstr ""
 "El certificat conté més d'un camp CN. S'han notificat problemes en diversos "
 "clients."
 
-#: core/diag/AbstractTest.php:564
+#: core/diag/AbstractTest.php:572
 msgid ""
 "The certificate public key algorithm is unknown to the system. Please submit "
 "the certificate as a sample to the developers."
 msgstr ""
 "L'algoritme de la clau pública del certificat no és reconegut pel sistema. "
-"Si us plau envieu-lo com a mostra als desenvolupadors."
+"Envieu-lo com a mostra als desenvolupadors."
 
-#: core/diag/AbstractTest.php:571
+#: core/diag/AbstractTest.php:579
 msgid "No certificate at all was sent by the server."
 msgstr "El servidor no ha enviat cap certificat."
 
@@ -510,9 +511,7 @@ msgstr ""
 msgid ""
 "Please be patient and try again at a later time. Do NOT change your device "
 "configuration."
-msgstr ""
-"Si us plau, proveu-ho més tard. NO canvieu la configuració del vostre "
-"dispositiu."
+msgstr "Proveu-ho més tard. NO canvieu la configuració del vostre dispositiu."
 
 #: core/diag/Sociopath.php:48
 msgid ""
@@ -804,7 +803,7 @@ msgstr ""
 msgid "Click to select a location in which you have an eduroam problem"
 msgstr "Cliqueu per a triar la localització on hi ha el problema d'eduroam"
 
-#: web/skins/modern/diag/diag.php:120 web/skins/modern/diag/diag.php:251
+#: web/skins/modern/diag/diag.php:120 web/skins/modern/diag/diag.php:254
 msgid "Testing realm"
 msgstr "Provant domini"
 
@@ -814,8 +813,7 @@ msgstr "Primera etapa completa."
 
 #: web/skins/modern/diag/diag.php:126
 msgid "To narrow down the problem, please answer the following few questions."
-msgstr ""
-"Per a focalitzar el problema, respongueu si us plau les preguntes següents."
+msgstr "Per a focalitzar el problema, respongueu les preguntes següents."
 
 #: web/skins/modern/diag/diag.php:131
 msgid "Run tests"
@@ -829,7 +827,7 @@ msgstr "Eines per a administradors d'eduroam"
 msgid "Which problem are you reporting?"
 msgstr "Quins problemes esteu informant?"
 
-#: web/skins/modern/diag/diag.php:148 web/skins/modern/diag/diag.php:865
+#: web/skins/modern/diag/diag.php:148 web/skins/modern/diag/diag.php:954
 msgid "SP contacting IdP due to technical problems or abuse"
 msgstr "SP comunicant amb IdP per problemes tècnics o abús"
 
@@ -857,35 +855,35 @@ msgstr "Trieu país o regió:"
 msgid "Fetching country/region list"
 msgstr "Recuperant la llista de països/regions"
 
-#: web/skins/modern/diag/diag.php:276
+#: web/skins/modern/diag/diag.php:278
 msgid "Yes"
 msgstr "Sí"
 
-#: web/skins/modern/diag/diag.php:277
+#: web/skins/modern/diag/diag.php:279
 msgid "No"
 msgstr "No"
 
-#: web/skins/modern/diag/diag.php:278
+#: web/skins/modern/diag/diag.php:280
 msgid "I don't know"
 msgstr "No ho sabem"
 
-#: web/skins/modern/diag/diag.php:309
+#: web/skins/modern/diag/diag.php:311
 msgid "Diagnostic tests results for selected realm"
 msgstr "Resultats de les proves per al domini seleccionat"
 
-#: web/skins/modern/diag/diag.php:312
+#: web/skins/modern/diag/diag.php:314
 msgid "The result for tested realm:"
 msgstr "Resultats per al domini provat:"
 
-#: web/skins/modern/diag/diag.php:314
+#: web/skins/modern/diag/diag.php:316
 msgid "The system identified"
 msgstr "El sistema ha identificat"
 
-#: web/skins/modern/diag/diag.php:316
+#: web/skins/modern/diag/diag.php:318
 msgid "suspected areas which potentially can cause a problem."
 msgstr "àrees sospitoses que potencialment poden causar algun problema."
 
-#: web/skins/modern/diag/diag.php:317
+#: web/skins/modern/diag/diag.php:319
 msgid ""
 "Next to the problem description we show a speculated probability of this "
 "event."
@@ -893,30 +891,30 @@ msgstr ""
 "Al costat de la descripció del problema es mostra la probabilitat estimada "
 "de l'esdeveniment."
 
-#: web/skins/modern/diag/diag.php:324
+#: web/skins/modern/diag/diag.php:326
 msgid "Your device configuration is broken"
 msgstr "La configuració del vostre dispositiu és errònia"
 
-#: web/skins/modern/diag/diag.php:327
+#: web/skins/modern/diag/diag.php:329
 msgid "The Wi-Fi network in your vicinity has quality issues"
 msgstr "La xarxa Wi-Fi propera té problemes de qualitat"
 
-#: web/skins/modern/diag/diag.php:330
+#: web/skins/modern/diag/diag.php:332
 msgid "The network environment around you is broken"
 msgstr "L'entorn de xarxa proper està trencat"
 
-#: web/skins/modern/diag/diag.php:333
+#: web/skins/modern/diag/diag.php:335
 msgid "The RADIUS server of your service provider is the source of the problem"
 msgstr "El servidor RADIUS del vostre proveïdor és la causa del problema"
 
-#: web/skins/modern/diag/diag.php:336
+#: web/skins/modern/diag/diag.php:338
 msgid ""
 "The RADIUS server in your home institution is currently unable to "
 "authenticate you"
 msgstr ""
 "El servidor RADIUS de la vostra institució té un problema per autenticar-vos"
 
-#: web/skins/modern/diag/diag.php:339
+#: web/skins/modern/diag/diag.php:341
 msgid ""
 "The national server in the country/region you are visiting is not "
 "functioning correctly"
@@ -924,7 +922,7 @@ msgstr ""
 "El servidor nacional al país/regió on us trobeu no està funcionant "
 "correctament"
 
-#: web/skins/modern/diag/diag.php:342
+#: web/skins/modern/diag/diag.php:344
 msgid ""
 "The link between the national server of the country/region you are visiting "
 "and the top-level server is broken"
@@ -932,7 +930,7 @@ msgstr ""
 "L'enllaç entre el servidor nacional del país/regió on us trobeu i el "
 "servidor de màxim nivell està trencat"
 
-#: web/skins/modern/diag/diag.php:345
+#: web/skins/modern/diag/diag.php:347
 msgid ""
 "The link between the national server of your home country/region and the top-"
 "level server is broken"
@@ -940,135 +938,156 @@ msgstr ""
 "L'enllaç entre el servidor nacional del vostre país/regió d'origen i el "
 "servidor de màxim nivell està trencat"
 
-#: web/skins/modern/diag/diag.php:348
+#: web/skins/modern/diag/diag.php:350
 msgid "The communication to the top-level server is down"
 msgstr "La comunicació amb el servidor de màxim nivell està tallada"
 
-#: web/skins/modern/diag/diag.php:351
+#: web/skins/modern/diag/diag.php:353
 msgid ""
 "The national server in your home country/region is not functioning properly."
 msgstr ""
 "El servidor nacional del vostre país/regió d'origen no està funcionant "
 "correctament."
 
-#: web/skins/modern/diag/diag.php:354
+#: web/skins/modern/diag/diag.php:356
 msgid "The RADIUS server of your home institution is the source of the problem"
 msgstr "El servidor RADIUS de la vostra institució és el causant del problema"
 
-#: web/skins/modern/diag/diag.php:357
+#: web/skins/modern/diag/diag.php:359
 msgid "This realm does not exist"
 msgstr "Aquest domini no existeix"
 
-#: web/skins/modern/diag/diag.php:469
+#: web/skins/modern/diag/diag.php:471 web/skins/modern/diag/diag.php:534
 msgid "Fetching institutions list"
 msgstr "Recuperant la llista d'institucions"
 
-#: web/skins/modern/diag/diag.php:487
+#: web/skins/modern/diag/diag.php:489 web/skins/modern/diag/diag.php:552
 msgid "Select institution:"
 msgstr "Escolliu institució:"
 
-#: web/skins/modern/diag/diag.php:527
+#: web/skins/modern/diag/diag.php:510
+msgid ""
+"The database does not contain the information needed to help you in realm "
+"selection for this country. You have to provide the realm you are interested "
+"in."
+msgstr ""
+"La base de dades no conté la informació necessària per ajudar-vos a escollir "
+"el domini per a aquest país. Heu de facilitar el domini que us interessa."
+
+#: web/skins/modern/diag/diag.php:519
+msgid ""
+"Can not search in database. You have to provide the realm you are interested "
+"in."
+msgstr ""
+"No es pot buscar a la base de dades. Heu de facilitar el domini que us "
+"interessa."
+
+#: web/skins/modern/diag/diag.php:575
+msgid "Other location"
+msgstr "Una altra localització"
+
+#: web/skins/modern/diag/diag.php:609
 msgid "Fetching realms list"
 msgstr "Recuperant la llista de dominis"
 
-#: web/skins/modern/diag/diag.php:539
+#: web/skins/modern/diag/diag.php:621
 msgid "Check realm(s):"
 msgstr "Comproveu el(s) domini(s):"
 
-#: web/skins/modern/diag/diag.php:551
+#: web/skins/modern/diag/diag.php:633
 msgid "Realm:"
 msgstr "Domini:"
 
-#: web/skins/modern/diag/diag.php:606 web/skins/modern/diag/diag.php:674
-#: web/skins/modern/diag/diag.php:791
+#: web/skins/modern/diag/diag.php:688 web/skins/modern/diag/diag.php:756
+#: web/skins/modern/diag/diag.php:880
 msgid "Running realm tests"
 msgstr "Executant proves de domini"
 
-#: web/skins/modern/diag/diag.php:650
+#: web/skins/modern/diag/diag.php:732
 msgid "Realm is not registered with the eduroam database:"
 msgstr "Aquest domini no es troba registrat a la base de dades d'eduroam:"
 
-#: web/skins/modern/diag/diag.php:722
+#: web/skins/modern/diag/diag.php:804
 msgid "Diagnostics results for selected realms"
 msgstr "Resultats de les proves per als dominis seleccionats"
 
-#: web/skins/modern/diag/diag.php:723
+#: web/skins/modern/diag/diag.php:805
 msgid "An unknown problem occured"
 msgstr "Hi ha hagut un problema indeterminat"
 
-#: web/skins/modern/diag/diag.php:726
+#: web/skins/modern/diag/diag.php:808
 msgid "This test includes checking of the following realm"
 msgstr "Aquesta prova inclou comprovacions del següent domini"
 
-#: web/skins/modern/diag/diag.php:728
+#: web/skins/modern/diag/diag.php:810
 msgid "This test includes checking of the following realms"
 msgstr "Aquesta prova inclou comprovacions dels següents dominis"
 
-#: web/skins/modern/diag/diag.php:738
+#: web/skins/modern/diag/diag.php:820
 msgid "You should report this to"
 msgstr "Hauríeu d'informar a"
 
-#: web/skins/modern/diag/diag.php:862
+#: web/skins/modern/diag/diag.php:951
 msgid "eduroam admin report submission"
 msgstr "enviament de l'informe d'administració d'eduroam"
 
-#: web/skins/modern/diag/diag.php:867 web/skins/modern/diag/diag.php:877
+#: web/skins/modern/diag/diag.php:956 web/skins/modern/diag/diag.php:966
 msgid "Reason"
 msgstr "Motiu"
 
-#: web/skins/modern/diag/diag.php:868
+#: web/skins/modern/diag/diag.php:957
 msgid "SP email"
 msgstr "Mail SP"
 
-#: web/skins/modern/diag/diag.php:869
+#: web/skins/modern/diag/diag.php:958
 msgid "IdP email(s)"
 msgstr "emails IdP(s)"
 
-#: web/skins/modern/diag/diag.php:870 web/skins/modern/diag/diag.php:881
+#: web/skins/modern/diag/diag.php:959 web/skins/modern/diag/diag.php:970
 msgid "Event's timestamp"
 msgstr "Marca de temps de l'esdeveniment"
 
-#: web/skins/modern/diag/diag.php:871 web/skins/modern/diag/diag.php:882
+#: web/skins/modern/diag/diag.php:960 web/skins/modern/diag/diag.php:971
 msgid "Calling-Station-Id"
 msgstr "Id de l'estació origen (Calling-Station-Id)"
 
-#: web/skins/modern/diag/diag.php:872 web/skins/modern/diag/diag.php:883
+#: web/skins/modern/diag/diag.php:961 web/skins/modern/diag/diag.php:972
 msgid "Additional description"
 msgstr "Descripció addicional"
 
-#: web/skins/modern/diag/diag.php:875
+#: web/skins/modern/diag/diag.php:964
 msgid "IdP contacting SP due to technical problems or abuse"
 msgstr "IdP comunicant amb SP per problemes tècnics o abús"
 
-#: web/skins/modern/diag/diag.php:878
+#: web/skins/modern/diag/diag.php:967
 msgid "SP's Operator-Name"
 msgstr "Nom de l'operador de l'SP"
 
-#: web/skins/modern/diag/diag.php:879
+#: web/skins/modern/diag/diag.php:968
 msgid "User's outer ID"
 msgstr "ID externa de l'usuari"
 
-#: web/skins/modern/diag/diag.php:880
+#: web/skins/modern/diag/diag.php:969
 msgid "IdP email"
 msgstr "IdP mail"
 
-#: web/skins/modern/diag/diag.php:884
+#: web/skins/modern/diag/diag.php:973
 msgid "How to contact the user"
 msgstr "Com contactar amb l'usuari"
 
-#: web/skins/modern/diag/diag.php:901
+#: web/skins/modern/diag/diag.php:990
 msgid "MAC address is incomplete"
 msgstr "Adreça MAC incompleta"
 
-#: web/skins/modern/diag/diag.php:910
+#: web/skins/modern/diag/diag.php:999
 msgid "Wrong format of email"
 msgstr "Format de mail erroni"
 
-#: web/skins/modern/diag/diag.php:919
+#: web/skins/modern/diag/diag.php:1008
 msgid "Wrong format of outer ID"
 msgstr "Format erroni de la ID externa"
 
-#: web/skins/modern/diag/diag.php:928
+#: web/skins/modern/diag/diag.php:1017
 msgid "Wrong string given as OperatorName"
 msgstr "Cadena errònia de l'OperatorName"
 
@@ -1462,8 +1481,8 @@ msgid ""
 "accounts in the wild are considered harmful!"
 msgstr ""
 "Nota: l'eina no ofereix intencionalment desar aquestes credencials, i no "
-"seran desades en cap forma a la part de servidor. Sisplau aquí utilitzeu "
-"només <strong>comptes de prova temporals</strong>; comptes de prova vàlides "
+"seran desades en cap forma a la part de servidor. Aquí utilitzeu només "
+"<strong>comptes de prova temporals</strong>; comptes de prova vàlides "
 "permanentment es consideren perilloses!"
 
 #: web/diag/action_realmcheck.php:726
@@ -1563,8 +1582,7 @@ msgstr "Comentaris addicionals"
 #: web/diag/adminQuery.php:92
 msgid "Please specify an email address on which the IdP can contact you"
 msgstr ""
-"Indiqueu si us plau una adreça de correu on el vostre IdP pugui contactar "
-"amb vosaltres"
+"Indiqueu una adreça de correu on el vostre IdP pugui contactar amb vosaltres"
 
 #: web/diag/adminQuery.php:96 web/diag/adminQuery.php:164
 msgid "Now you can send your query"
@@ -1610,9 +1628,7 @@ msgstr "Teniu dades de contacte on l'usuari desitja ser contactat per l'SP?"
 
 #: web/diag/adminQuery.php:160
 msgid "Please specify an email address on which the SP can contact you"
-msgstr ""
-"Indiqueu si us plau una adreça de correu on l'SP pugui contactar amb "
-"vosaltres"
+msgstr "Indiqueu una adreça de correu on l'SP pugui contactar amb vosaltres"
 
 #: web/diag/radius_tests.php:33 web/diag/radius_tests.php:34
 msgid ""

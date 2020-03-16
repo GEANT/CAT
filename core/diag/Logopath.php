@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -26,7 +27,8 @@ namespace core\diag;
  * and figures out whom to send emails to, and with that content. It then sends
  * these emails.
  */
-class Logopath extends AbstractTest {
+class Logopath extends AbstractTest
+{
 
     /**
      * storing the end user's email, if he has given it to us
@@ -90,7 +92,8 @@ class Logopath extends AbstractTest {
     /**
      * initialise the class: maintain state of existing evidence, and get translated versions of email texts etc.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         \core\common\Entity::intoThePotatoes();
         $this->userEmail = FALSE;
@@ -140,7 +143,8 @@ class Logopath extends AbstractTest {
      * @param string $userEmail the end-users email to store
      * @return void
      */
-    public function addUserEmail($userEmail) {
+    public function addUserEmail($userEmail)
+    {
 // returns FALSE if it was not given or bogus, otherwise stores this as mail target
         $this->userEmail = $this->validatorInstance->email($userEmail);
     }
@@ -152,12 +156,18 @@ class Logopath extends AbstractTest {
      * @param string $binaryData the submitted binary data, to be vetted
      * @return void
      */
-    public function addScreenshot($binaryData) {
+    public function addScreenshot($binaryData)
+    {
         if ($this->validatorInstance->image($binaryData) === TRUE) {
-            $imagick = new \Imagick();
-            $imagick->readimageblob($binaryData);
-            $imagick->setimageformat("png");
-            $this->additionalScreenshot = $imagick->getimageblob();
+            // on CentOS and RHEL 8, look for Gmagick, else Imagick
+            if (strpos(php_uname("r"), "el8") !== FALSE) {
+                $magick = new \Gmagick();
+            } else {
+                $magick = new \Imagick();
+            }
+            $magick->readimageblob($binaryData);
+            $magick->setimageformat("png");
+            $this->additionalScreenshot = $magick->getimageblob();
         } else {
             // whatever we got, it didn't parse as an image
             $this->additionalScreenshot = FALSE;
@@ -169,7 +179,8 @@ class Logopath extends AbstractTest {
      * 
      * @return void
      */
-    public function determineMailsToSend() {
+    public function determineMailsToSend()
+    {
         $this->mailQueue = [];
 // check for IDP_EXISTS_BUT_NO_DATABASE
         if (!in_array(AbstractTest::INFRA_NONEXISTENTREALM, $this->possibleFailureReasons) && $this->additionalFindings[AbstractTest::INFRA_NONEXISTENTREALM]['DATABASE_STATUS']['ID2'] < 0) {
@@ -244,7 +255,8 @@ class Logopath extends AbstractTest {
      * sees if it is useful to ask the user for his contact details or screenshots
      * @return boolean
      */
-    public function isEndUserContactUseful() {
+    public function isEndUserContactUseful()
+    {
         $contactUseful = FALSE;
         $this->determineMailsToSend();
         foreach ($this->mailQueue as $oneMail) {
@@ -266,7 +278,8 @@ class Logopath extends AbstractTest {
      * 
      * @return void
      */
-    public function weNeedToTalk() {
+    public function weNeedToTalk()
+    {
         foreach ($this->mailQueue as $oneMail) {
             $theMail = $this->mailStack[$oneMail];
             // if user interaction would have been good, but the user didn't 
@@ -297,5 +310,4 @@ class Logopath extends AbstractTest {
             $handle->send();
         }
     }
-
 }

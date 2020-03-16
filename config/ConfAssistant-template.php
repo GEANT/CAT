@@ -38,7 +38,8 @@ namespace config;
  *
  * @package Configuration
  */
-class ConfAssistant {
+class ConfAssistant
+{
 
     /**
      * Defines various general parameters of the roaming consortium.
@@ -66,7 +67,7 @@ class ConfAssistant {
      * 
      * @var array
      */
-    const CONSORTIUM = [
+    public const CONSORTIUM = [
         // for technical usages inside the product and things in installers not 
         // reaching the human eye. Please keep this ASCII only. There are some
         // code paths in the product which are only taken when the value is "eduroam"
@@ -83,6 +84,10 @@ class ConfAssistant {
         'ssid' => ['eduroam'],
         'interworking-consortium-oi' => ['001bc50460'],
         'interworking-domainname-fallback' => 'eduroam.org',
+        'networks' => [
+            'eduroam®' => ['ssid' => ['eduroam'], 'oi' => ['001bc5046f']],
+            'eduroam® via Passpoint' => ['ssid' => [], 'oi' => ['001bc50460']],
+        ],
         'registration_API_keys' => [
         // 'secretvalue' => 'UK',
         // 'othervalue' => 'DE',
@@ -154,5 +159,27 @@ class ConfAssistant {
         'username' => '...',
         'password' => '...',
     ];
-
+    
+            /**
+     * Lists the RADIUS servers. They have a built-in DB to log auth requests.
+     * We need to query those to get auth stats for silverbullet admins
+     *
+     * @var array
+     */
+    const DB = [
+        // names don't matter - the source code will iterate through
+        // all entries
+        'RADIUS_1' => [
+            'host' => 'auth-1.hosted.eduroam.org',
+            'db' => 'radacct',
+            'user' => 'someuser',
+            'pass' => 'somepass',
+            'readonly' => TRUE,],
+        'RADIUS_2' => [
+            'host' => 'auth-2.hosted.eduroam.org',
+            'db' => 'radacct',
+            'user' => 'someuser',
+            'pass' => 'somepass',
+            'readonly' => TRUE,],
+    ];
 }

@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-05 11:11+0200\n"
-"PO-Revision-Date: 2019-04-04 09:56+0000\n"
-"Last-Translator: José Manuel Macías\n"
+"POT-Creation-Date: 2019-09-13 14:56+0200\n"
+"PO-Revision-Date: 2019-04-29 13:33+0000\n"
+"Last-Translator: Alberto Martínez Setién\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/eduroam_devel/cat/"
 "language/es_ES/)\n"
 "Language: es_ES\n"
@@ -21,290 +21,287 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/CAT.php:108
-msgid ""
-"Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git "
-"Revision</a>"
-msgstr ""
-"<a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Revisión Git</"
-"a> sin publicar"
+#: core/CAT.php:109
+#, php-format
+msgid "Unreleased %s Git Revision"
+msgstr "Revisión Git %s sin publicar"
 
-#: core/CAT.php:118
+#: core/CAT.php:119
 #, php-format
 msgid "Release <a href='%s'>%s</a>"
 msgstr "Versión <a href='%s'>%s</a>"
 
-#: core/CAT.php:127
+#: core/CAT.php:128
 msgid "Andorra"
 msgstr "Andorra"
 
-#: core/CAT.php:128
+#: core/CAT.php:129
 msgid "Austria"
 msgstr "Austria"
 
-#: core/CAT.php:129
+#: core/CAT.php:130
 msgid "Belgium"
 msgstr "Bélgica"
 
-#: core/CAT.php:130
+#: core/CAT.php:131
 msgid "Bulgaria"
 msgstr "Bulgaria"
 
-#: core/CAT.php:131
+#: core/CAT.php:132
 msgid "Cyprus"
 msgstr "Chipre"
 
-#: core/CAT.php:132
+#: core/CAT.php:133
 msgid "Czech Republic"
 msgstr "República Checa"
 
-#: core/CAT.php:133
+#: core/CAT.php:134
 msgid "Denmark"
 msgstr "Dinamarca"
 
-#: core/CAT.php:134
+#: core/CAT.php:135
 msgid "Estonia"
 msgstr "Estonia"
 
-#: core/CAT.php:135
+#: core/CAT.php:136
 msgid "Finland"
 msgstr "Finlandia"
 
-#: core/CAT.php:136
+#: core/CAT.php:137
 msgid "France"
 msgstr "Francia"
 
-#: core/CAT.php:137
+#: core/CAT.php:138
 msgid "Germany"
 msgstr "Alemania"
 
-#: core/CAT.php:138
+#: core/CAT.php:139
 msgid "Greece"
 msgstr "Grecia"
 
-#: core/CAT.php:139
+#: core/CAT.php:140
 msgid "Croatia"
 msgstr "Croacia"
 
-#: core/CAT.php:140
+#: core/CAT.php:141
 msgid "Ireland"
 msgstr "Irlanda"
 
-#: core/CAT.php:141
+#: core/CAT.php:142
 msgid "Iceland"
 msgstr "Islandia"
 
-#: core/CAT.php:142
+#: core/CAT.php:143
 msgid "Italy"
 msgstr "Italia"
 
-#: core/CAT.php:143
+#: core/CAT.php:144
 msgid "Hungary"
 msgstr "Hungría"
 
-#: core/CAT.php:144
+#: core/CAT.php:145
 msgid "Luxembourg"
 msgstr "Luxemburgo"
 
-#: core/CAT.php:145
+#: core/CAT.php:146
 msgid "Latvia"
 msgstr "Letonia"
 
-#: core/CAT.php:146
+#: core/CAT.php:147
 msgid "Lithuania"
 msgstr "Lituania"
 
-#: core/CAT.php:147
+#: core/CAT.php:148
 msgid "Macedonia"
 msgstr "Macedonia"
 
-#: core/CAT.php:148
+#: core/CAT.php:149
 msgid "Serbia"
 msgstr "Serbia"
 
-#: core/CAT.php:149
+#: core/CAT.php:150
 msgid "Netherlands"
 msgstr "Países Bajos"
 
-#: core/CAT.php:150
+#: core/CAT.php:151
 msgid "Norway"
 msgstr "Noruega"
 
-#: core/CAT.php:151
+#: core/CAT.php:152
 msgid "Poland"
 msgstr "Polonia"
 
-#: core/CAT.php:152
+#: core/CAT.php:153
 msgid "Portugal"
 msgstr "Portugal"
 
-#: core/CAT.php:153
+#: core/CAT.php:154
 msgid "Romania"
 msgstr "Rumanía"
 
-#: core/CAT.php:154
+#: core/CAT.php:155
 msgid "Slovenia"
 msgstr "Eslovenia"
 
-#: core/CAT.php:155
+#: core/CAT.php:156
 msgid "Spain"
 msgstr "España"
 
-#: core/CAT.php:156
+#: core/CAT.php:157
 msgid "Sweden"
 msgstr "Suecia"
 
-#: core/CAT.php:157
+#: core/CAT.php:158
 msgid "Slovakia"
 msgstr "Eslovaquia"
 
-#: core/CAT.php:158
+#: core/CAT.php:159
 msgid "Switzerland"
 msgstr "Suiza"
 
-#: core/CAT.php:159
+#: core/CAT.php:160
 msgid "Turkey"
 msgstr "Turquía"
 
-#: core/CAT.php:160
+#: core/CAT.php:161
 msgid "United Kingdom"
 msgstr "Reino Unido"
 
-#: core/CAT.php:162
+#: core/CAT.php:163
 msgid "Australia"
 msgstr "Australia"
 
-#: core/CAT.php:163
+#: core/CAT.php:164
 msgid "Canada"
 msgstr "Canadá"
 
-#: core/CAT.php:164
+#: core/CAT.php:165
 msgid "Israel"
 msgstr "Israel"
 
-#: core/CAT.php:165
+#: core/CAT.php:166
 msgid "Japan"
 msgstr "Japón"
 
-#: core/CAT.php:166
+#: core/CAT.php:167
 msgid "New Zealand"
 msgstr "Nueva Zelanda"
 
-#: core/CAT.php:167
+#: core/CAT.php:168
 msgid "U.S.A."
 msgstr "Estados Unidos"
 
-#: core/CAT.php:168
+#: core/CAT.php:169
 msgid "Brazil"
 msgstr "Brasil"
 
-#: core/CAT.php:169
+#: core/CAT.php:170
 msgid "Chile"
 msgstr "Chile"
 
-#: core/CAT.php:170
+#: core/CAT.php:171
 msgid "Peru"
 msgstr "Perú"
 
-#: core/CAT.php:171
+#: core/CAT.php:172
 msgid "Venezuela"
 msgstr "Venezuela"
 
-#: core/CAT.php:172
+#: core/CAT.php:173
 msgid "Default"
 msgstr "Por defecto"
 
-#: core/CAT.php:173
+#: core/CAT.php:174
 msgid "Armenia"
 msgstr "Armenia"
 
-#: core/CAT.php:174
+#: core/CAT.php:175
 msgid "Azerbaijan"
 msgstr "Azerbaiyán"
 
-#: core/CAT.php:175
+#: core/CAT.php:176
 msgid "Belarus"
 msgstr "Bielorrusia"
 
-#: core/CAT.php:176
+#: core/CAT.php:177
 msgid "Ecuador"
 msgstr "Ecuador"
 
-#: core/CAT.php:177
+#: core/CAT.php:178
 msgid "Hong Kong"
 msgstr "Hong Kong"
 
-#: core/CAT.php:178
+#: core/CAT.php:179
 msgid "Kenya"
 msgstr "Kenia"
 
-#: core/CAT.php:179
+#: core/CAT.php:180
 msgid "Kyrgyzstan"
 msgstr "Kirguistán"
 
-#: core/CAT.php:180
+#: core/CAT.php:181
 msgid "Korea"
 msgstr "Corea"
 
-#: core/CAT.php:181
+#: core/CAT.php:182
 msgid "Kazakhstan"
 msgstr "Kazajistán"
 
-#: core/CAT.php:182
+#: core/CAT.php:183
 msgid "Morocco"
 msgstr "Marruecos"
 
-#: core/CAT.php:183
+#: core/CAT.php:184
 msgid "Moldova"
 msgstr "Moldavia"
 
-#: core/CAT.php:184
+#: core/CAT.php:185
 msgid "Montenegro"
 msgstr "Montenegro"
 
-#: core/CAT.php:185
+#: core/CAT.php:186
 msgid "Macau"
 msgstr "Macao"
 
-#: core/CAT.php:186
+#: core/CAT.php:187
 msgid "Malta"
 msgstr "Malta"
 
-#: core/CAT.php:187
+#: core/CAT.php:188
 msgid "Russia"
 msgstr "Rusia"
 
-#: core/CAT.php:188
+#: core/CAT.php:189
 msgid "Singapore"
 msgstr "Singapur"
 
-#: core/CAT.php:189
+#: core/CAT.php:190
 msgid "Thailand"
 msgstr "Tailandia"
 
-#: core/CAT.php:190
+#: core/CAT.php:191
 msgid "Taiwan"
 msgstr "Taiwan"
 
-#: core/CAT.php:191
+#: core/CAT.php:192
 msgid "South Africa"
 msgstr "Sudáfrica"
 
-#: core/CAT.php:466 core/IdPlist.php:111
+#: core/CAT.php:467 core/IdPlist.php:111
 msgid "Unnamed Entity"
 msgstr "Entidad sin nombre"
 
-#: core/DeviceConfig.php:186
+#: core/DeviceConfig.php:229
 #, php-format
 msgid "your local %s support"
 msgstr "tu soporte local %s"
 
-#: core/DeviceConfig.php:187
+#: core/DeviceConfig.php:230
 #, php-format
 msgid "your local %s support page"
 msgstr "la página de soporte local de %s"
 
-#: core/DeviceConfig.php:223
+#: core/DeviceConfig.php:266
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 "Lo siento, ésto no debería ocurrir. No hay información adicional disponible"
@@ -321,7 +318,7 @@ msgstr "%s (descontinuado)"
 #. /                4. federation shortname, e.g. "LU";
 #. /                5. product name (e.g. eduroam CAT);
 #. /                6. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/Federation.php:253
+#: core/Federation.php:256
 #, php-format
 msgid ""
 "Hi,\n"
@@ -346,12 +343,12 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/Federation.php:262
+#: core/Federation.php:265
 #, php-format
 msgid "%s in your federation was created"
 msgstr "El %s de tu federación fue creado"
 
-#: core/IdP.php:351
+#: core/IdP.php:258
 #, php-format
 msgid ""
 "Hi,\n"
@@ -374,21 +371,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/IdP.php:360
+#: core/IdP.php:267
 #, php-format
 msgid "%s in your federation was deleted"
 msgstr "El %s de tu federación fue eliminado"
 
-#: core/SilverbulletInvitation.php:230
+#: core/SilverbulletInvitation.php:236
 #, php-format
 msgid "Your %s access is ready"
 msgstr "Tu acceso a %s está listo"
 
-#: core/SilverbulletInvitation.php:242
+#: core/SilverbulletInvitation.php:248
 msgid "Hello!"
 msgstr "¡Hola!"
 
-#: core/SilverbulletInvitation.php:244
+#: core/SilverbulletInvitation.php:250
 #, php-format
 msgid ""
 "A new %s access credential has been created for you by your network "
@@ -397,7 +394,7 @@ msgstr ""
 "Tu administrador de red ha creado una nueva credencial de acceso a %s para "
 "tí. "
 
-#: core/SilverbulletInvitation.php:246
+#: core/SilverbulletInvitation.php:252
 #, php-format
 msgid ""
 "Please follow the following link with the device you want to enable for %s "
@@ -410,7 +407,7 @@ msgstr ""
 "un navegador o escanear el código QR adjunto."
 
 #. gets replaced with the token value by getBody()
-#: core/SilverbulletInvitation.php:248
+#: core/SilverbulletInvitation.php:254
 #, php-format
 msgid ""
 "Please keep this email or bookmark this link for future use. After picking "
@@ -421,11 +418,11 @@ msgstr ""
 "el futuro. Después de descargar tu programa de instalación de %s puedes usar "
 "el mismo enlace para obtener información del estado de tu cuenta de %s."
 
-#: core/SilverbulletInvitation.php:250
+#: core/SilverbulletInvitation.php:256
 msgid "Regards,"
 msgstr "Saludos,"
 
-#: core/SilverbulletInvitation.php:299
+#: core/SilverbulletInvitation.php:305
 #, php-format
 msgid ""
 "Your %s access is ready! Click here: %s (on Android, first install the app "
@@ -434,7 +431,7 @@ msgstr ""
 "Tu acceso a %s está preparado. Haz clic aquí: %s (en Android instala la "
 "aplicación \"%s\" antes de esto)"
 
-#: core/SilverbulletInvitation.php:321
+#: core/SilverbulletInvitation.php:327
 #, php-format
 msgid "%s Invitation System"
 msgstr "Sistema de invitación de %s"
@@ -474,74 +471,40 @@ msgstr "EAP-pwd"
 #. some config elements are displayable. We need some dummies to
 #. translate the common values for them. If a deployment chooses a
 #. different wording, no translation, sorry
-#: core/common/Entity.php:116
+#: core/common/Entity.php:104
 msgid "National Roaming Operator"
 msgstr "Operador Nacional de Itinerancia"
 
-#: core/common/Entity.php:117
+#: core/common/Entity.php:105
 msgid "identity provider"
 msgstr "proveedor de identidad"
 
-#: core/common/Entity.php:118 core/common/Entity.php:124
+#: core/common/Entity.php:106
 msgid "organisation"
 msgstr "organización"
 
-#: core/common/Entity.php:119
+#: core/common/Entity.php:107
 msgid "Identity Provider"
 msgstr "Proveedor de Identidad"
 
-#: core/common/Entity.php:120
-msgid "Wi-Fi Hotspot"
-msgstr ""
-
-#: core/common/Entity.php:121
-msgid "Hotspot"
-msgstr ""
-
-#: core/common/Entity.php:122
-#, fuzzy
-msgid "Service Provider"
-msgstr "Proveedor de Identidad"
-
-#: core/common/Entity.php:123
-msgid "participant"
-msgstr ""
-
-#: core/common/Entity.php:125
-#, fuzzy
-msgid "organization"
-msgstr "organización"
-
-#: core/common/Entity.php:126
-#, fuzzy
-msgid "entity"
-msgstr "Entidad sin nombre"
-
-#: core/common/OutsideComm.php:267
-#, php-format
-msgid "%s and %s"
-msgstr ""
-
-#: core/common/OutsideComm.php:277
+#: core/common/OutsideComm.php:261
 #, php-format
 msgid ""
 "a %s of the %s %s \"%s\" has invited you to manage the %s together with him."
 msgstr ""
 "un %s del %s de %s \"%s\" te ha invitado a administrar el %s junto a él."
 
-#: core/common/OutsideComm.php:278
-#, fuzzy, php-format
-msgid ""
-"a %s %s has invited you to manage the future %s  \"%s\" (%s). The "
-"organisation will be a %s."
+#: core/common/OutsideComm.php:262
+#, php-format
+msgid "a %s %s has invited you to manage the future %s  \"%s\" (%s)."
 msgstr "un %s de %s te ha invitado a administrar el futuro %s \"%s\" (%s)."
 
-#: core/common/OutsideComm.php:279
-#, fuzzy, php-format
-msgid "a %s %s has invited you to manage the %s  \"%s\". This is a %s."
+#: core/common/OutsideComm.php:263
+#, php-format
+msgid "a %s %s has invited you to manage the %s  \"%s\"."
 msgstr "un %s de %s te ha invitado a administrar el %s \"%s\"."
 
-#: core/common/OutsideComm.php:281
+#: core/common/OutsideComm.php:265
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr ""
@@ -549,29 +512,29 @@ msgstr ""
 "hasta %s."
 
 #. then, send out the mail
-#: core/common/OutsideComm.php:289
+#: core/common/OutsideComm.php:273
 msgid "Hello,"
 msgstr "Hola,"
 
 #. default means we don't have a Reply-To.
-#: core/common/OutsideComm.php:291
+#: core/common/OutsideComm.php:275
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
 "de forma manual. Por favor, no respondas a este mensaje. La dirección "
 "remitente no existe."
 
-#: core/common/OutsideComm.php:297
+#: core/common/OutsideComm.php:281
 #, php-format
 msgid "Additional message from your %s administrator:"
 msgstr "Mensaje adicional del administrador de tu %s:"
 
-#: core/common/OutsideComm.php:305
+#: core/common/OutsideComm.php:289
 #, php-format
 msgid "%s administrator"
 msgstr "Administrador de %s"
 
-#: core/common/OutsideComm.php:308
+#: core/common/OutsideComm.php:292
 #, php-format
 msgid ""
 "manually. If you reply to this mail, you will reach your %s administrators."
@@ -579,7 +542,7 @@ msgstr ""
 "de forma manual. Si respondes a este correo electrónico, el mensaje llegará "
 "a los administradores de tu %s."
 
-#: core/common/OutsideComm.php:313
+#: core/common/OutsideComm.php:297
 #, php-format
 msgid ""
 "To enlist as an administrator for that %s, please click on the following "
@@ -588,7 +551,7 @@ msgstr ""
 "Para inscribirte como administrador para este %s sigue por favor el "
 "siguiente enlace:"
 
-#: core/common/OutsideComm.php:315
+#: core/common/OutsideComm.php:299
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
@@ -597,11 +560,11 @@ msgstr ""
 "Si no puede seguir el enlace o no le funciona, puede ir también a la "
 "interfaz de administrador de %s en"
 
-#: core/common/OutsideComm.php:317
+#: core/common/OutsideComm.php:301
 msgid "and enter the invitation token"
 msgstr "e introduce el token de invitación"
 
-#: core/common/OutsideComm.php:319
+#: core/common/OutsideComm.php:303
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
@@ -609,12 +572,12 @@ msgstr ""
 "¡NO REENVÍE EL CORREO antes de que el token haya expirado, o los "
 "destinatarios podrán utilizar el token en tu nombre!"
 
-#: core/common/OutsideComm.php:320
+#: core/common/OutsideComm.php:304
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr "Te deseamos un montón de diversión usando %s."
 
-#: core/common/OutsideComm.php:321
+#: core/common/OutsideComm.php:305
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -622,7 +585,7 @@ msgid ""
 "Your friendly folks from %s Operations"
 msgstr "Saludos,⏎ ⏎ tus amigos del equipo de operaciones de %s"
 
-#: core/common/OutsideComm.php:357
+#: core/common/OutsideComm.php:341
 #, php-format
 msgid "%s: you have been invited to manage an %s"
 msgstr "%s: te han invitado a administrar un %s"
@@ -631,26 +594,26 @@ msgstr "%s: te han invitado a administrar un %s"
 msgid "Input validation error: "
 msgstr "Error de validación de entrada: "
 
-#: web/lib/common/InputValidation.php:252
+#: web/lib/common/InputValidation.php:216
 msgid "Realm is empty!"
 msgstr "¡El dominio está vacío!"
 
-#: web/lib/common/InputValidation.php:261
+#: web/lib/common/InputValidation.php:225
 msgid "Realm contains an @ sign!"
 msgstr "¡El dominio contiene el símbolo '@'!"
 
-#: web/lib/common/InputValidation.php:262
+#: web/lib/common/InputValidation.php:226
 msgid "Realm begins with a . (dot)!"
 msgstr "¡El dominio comienza con un . (punto)!"
 
-#: web/lib/common/InputValidation.php:263
+#: web/lib/common/InputValidation.php:227
 msgid "Realm ends with a . (dot)!"
 msgstr "¡El dominio acaba en un . (punto)!"
 
-#: web/lib/common/InputValidation.php:264
+#: web/lib/common/InputValidation.php:228
 msgid "Realm contains spaces!"
 msgstr "¡El dominio contiene espacios!"
 
-#: web/lib/common/InputValidation.php:277
+#: web/lib/common/InputValidation.php:241
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "¡El dominio no contiene al menos un . (punto)!"

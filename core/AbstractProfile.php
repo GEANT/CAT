@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -47,17 +48,20 @@ use \Exception;
  *
  * @package Developer
  */
-abstract class AbstractProfile extends EntityWithDBProperties {
+abstract class AbstractProfile extends EntityWithDBProperties
+{
 
     const HIDDEN = -1;
     const AVAILABLE = 0;
     const UNAVAILABLE = 1;
     const INCOMPLETE = 2;
     const NOTCONFIGURED = 3;
-
     const PROFILETYPE_RADIUS = "RADIUS";
     const PROFILETYPE_SILVERBULLET = "SILVERBULLET";
-    
+    public const SERVERNAME_ADDED = 2;
+    public const CA_ADDED = 3;
+    public const CA_CLASH_ADDED = 4;
+
     /**
      * DB identifier of the parent institution of this profile
      * @var integer
@@ -127,7 +131,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @return void
      * @throws Exception
      */
-    protected function saveDownloadDetails($idpIdentifier, $profileId, $deviceId, $area, $lang, $eapType) {
+    protected function saveDownloadDetails($idpIdentifier, $profileId, $deviceId, $area, $lang, $eapType)
+    {
         if (\config\Master::PATHS['logdir']) {
             $file = fopen(\config\Master::PATHS['logdir'] . "/download_details.log", "a");
             if ($file === FALSE) {
@@ -139,12 +144,57 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     }
 
     /**
+     * checks if security-relevant parameters have changed
+     * 
+     * @param AbstractProfile $old old instantiation of a profile to compare against
+     * @param AbstractProfile $new new instantiation of a profile 
+     * @return array there are never any user-induced changes in SB
+     */
+    public static function significantChanges($old, $new)
+    {
+        $retval = [];
+        // check if a CA was added
+        $x509 = new common\X509();
+        $baselineCA = [];
+        foreach ($old->getAttributes("eap:ca_file") as $oldCA) {
+            $ca = $x509->processCertificate($oldCA['value']);
+            $baselineCA[$ca['sha1']] = $ca['subject'];
+        }
+        // remove the new ones that are identical to the baseline
+        foreach ($new->getAttributes("eap:ca_file") as $newCA) {
+            $ca = $x509->processCertificate($newCA['value']);
+            if (array_key_exists($ca['sha1'], $baselineCA)) {
+                // do nothing; we assume here that SHA1 doesn't clash
+                continue;
+            }
+            // check if a CA with identical DN was added - alert NRO if so
+            if (array_search($ca['subject'], $baselineCA) !== FALSE) {
+                $retval[AbstractProfile::CA_CLASH_ADDED] .= "#SHA1 for CA with DN '" . print_r($ca['subject'], TRUE) . "' has SHA1 fingerprints (pre-existing) " . /** @scrutinizer ignore-type */ array_search($ca['subject'], $baselineCA) . " and (added) " . $ca['sha1'];
+            } else {
+                $retval[AbstractProfile::CA_ADDED] .= "#CA with DN '" . print_r($ca['subject'], TRUE) . "' and SHA1 fingerprint " . $ca['sha1'] . " was added as trust anchor";
+            }
+        }
+        // check if a servername was added
+        $baselineNames = [];
+        foreach ($old->getAttributes("eap:server_name") as $oldName) {
+            $baselineNames[] = $oldName['value'];
+        }
+        foreach ($new->getAttributes("eap:server_name") as $newName) {
+            if (!in_array($newName['value'], $baselineNames)) {
+                $retval[AbstractProfile::SERVERNAME_ADDED] .= "#New server name '" . $newName['value'] . "' added";
+            }
+        }
+        return $retval;
+    }
+
+    /**
      * each profile has supported EAP methods, so get this from DB, Silver Bullet has one
      * static EAP method.
      * 
      * @return array list of supported EAP methods
      */
-    protected function fetchEAPMethods() {
+    protected function fetchEAPMethods()
+    {
         $eapMethod = $this->databaseHandle->exec("SELECT eap_method_id 
                                                         FROM supported_eap supp 
                                                         WHERE supp.profile_id = $this->identifier 
@@ -169,11 +219,16 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @param IdP $idpObject    optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
      * @throws Exception
      */
-    public function __construct($profileIdRaw, $idpObject = NULL) {
+    public function __construct($profileIdRaw, $idpObject = NULL)
+    {
         $this->databaseType = "INST";
         parent::__construct(); // we now have access to our INST database handle and logging
-        $this->frontendHandle = DBConnection::handle("FRONTEND");
-        
+        $handle = DBConnection::handle("FRONTEND");
+        if ($handle instanceof DBConnection) {
+            $this->frontendHandle = $handle;
+        } else {
+            throw new Exception("This database type is never an array!");
+        }
         $profile = $this->databaseHandle->exec("SELECT inst_id FROM profile WHERE profile_id = ?", "i", $profileIdRaw);
         // SELECT always yields a resource, never a boolean
         if ($profile->num_rows == 0) {
@@ -204,7 +259,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @param string $realm the realm for which we are trying to find a profile
      * @return int|false the profile identifier, if any
      */
-    public static function profileFromRealm($realm) {
+    public static function profileFromRealm($realm)
+    {
         // static, need to create our own handle
         $handle = DBConnection::handle("INST");
         $execQuery = $handle->exec("SELECT profile_id FROM profile WHERE realm LIKE '%@$realm'");
@@ -222,7 +278,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @return string the outer ID to use for realm check operations
      * @throws Exception
      */
-    public function getRealmCheckOuterUsername() {
+    public function getRealmCheckOuterUsername()
+    {
         $realm = $this->getAttributes("internal:realm")[0]['value'] ?? FALSE;
         if ($realm == FALSE) { // we can't really return anything useful here
             throw new Exception("Unable to construct a realmcheck username if the admin did not tell us the realm. You shouldn't have called this function in this context.");
@@ -247,7 +304,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * 
      * @return void
      */
-    public function updateFreshness() {
+    public function updateFreshness()
+    {
         $this->databaseHandle->exec("UPDATE profile SET last_change = CURRENT_TIMESTAMP WHERE profile_id = $this->identifier");
     }
 
@@ -256,14 +314,14 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * 
      * @return string the date in string form, as returned by SQL
      */
-    public function getFreshness() {
+    public function getFreshness()
+    {
         $execLastChange = $this->databaseHandle->exec("SELECT last_change FROM profile WHERE profile_id = $this->identifier");
         // SELECT always returns a resource, never a boolean
         if ($freshnessQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $execLastChange)) {
             return $freshnessQuery->last_change;
         }
     }
-
     /**
      * tests if the configurator needs to be regenerated
      * returns the configurator path or NULL if regeneration is required
@@ -284,7 +342,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @param string $device device ID to check
      * @return mixed a string with the path to the configurator download, or NULL if it needs to be regenerated
      */
-    public function testCache($device) {
+    public function testCache($device)
+    {
         $returnValue = NULL;
         $lang = $this->languageInstance->getLang();
         $result = $this->frontendHandle->exec("SELECT download_path, mime, UNIX_TIMESTAMP(installer_time) AS tm FROM downloads WHERE profile_id = ? AND device_id = ? AND lang = ?", "iss", $this->identifier, $device, $lang);
@@ -319,8 +378,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @param boolean $shallwe TRUE to enable outer identities (needs valid $realm), FALSE to disable
      * @return void
      */
-    abstract public function setAnonymousIDSupport($shallwe) ;
-    
+    abstract public function setAnonymousIDSupport($shallwe);
+
     /**
      * Log a new download for our stats
      * 
@@ -328,7 +387,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @param string $area   either admin or user
      * @return boolean TRUE if incrementing worked, FALSE if not
      */
-    public function incrementDownloadStats($device, $area) {
+    public function incrementDownloadStats($device, $area)
+    {
         if ($area == "admin" || $area == "user" || $area == "silverbullet") {
             $lang = $this->languageInstance->getLang();
             $this->frontendHandle->exec("INSERT INTO downloads (profile_id, device_id, lang, downloads_$area) VALUES (? ,?, ?, 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1", "iss", $this->identifier, $device, $lang);
@@ -355,7 +415,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @param string $device the device id string
      * @return mixed user downloads of this profile; if device is given, returns the counter as int, otherwise an array with devicename => counter
      */
-    public function getUserDownloadStats($device = NULL) {
+    public function getUserDownloadStats($device = NULL)
+    {
         $columnName = "downloads_user";
         if ($this instanceof \core\ProfileSilverbullet) {
             $columnName = "downloads_silverbullet";
@@ -390,7 +451,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * 
      * @return void
      */
-    public function destroy() {
+    public function destroy()
+    {
         $this->databaseHandle->exec("DELETE FROM profile_option WHERE profile_id = $this->identifier");
         $this->databaseHandle->exec("DELETE FROM supported_eap WHERE profile_id = $this->identifier");
         $this->databaseHandle->exec("DELETE FROM profile WHERE profile_id = $this->identifier");
@@ -407,7 +469,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @param string $realm the realm (potentially with the local@ part that should be used for anonymous identities)
      * @return void
      */
-    public function setRealm(string $realm) {
+    public function setRealm(string $realm)
+    {
         $this->databaseHandle->exec("UPDATE profile SET realm = ? WHERE profile_id = ?", "si", $realm, $this->identifier);
         $this->realm = $realm;
     }
@@ -419,7 +482,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @param int              $preference preference of this EAP Type. If a preference value is re-used, the order of EAP types of the same preference level is undefined.
      * @return void
      */
-    public function addSupportedEapMethod(\core\common\EAP $type, $preference) {
+    public function addSupportedEapMethod(\core\common\EAP $type, $preference)
+    {
         $eapInt = $type->getIntegerRep();
         $this->databaseHandle->exec("INSERT INTO supported_eap (profile_id, eap_method_id, preference) VALUES (?, ?, ?)", "iii", $this->identifier, $eapInt, $preference);
         $this->updateFreshness();
@@ -431,7 +495,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @param int $completeOnly if set and non-zero limits the output to methods with complete information
      * @return array list of EAP methods, (in object representation)
      */
-    public function getEapMethodsinOrderOfPreference($completeOnly = 0) {
+    public function getEapMethodsinOrderOfPreference($completeOnly = 0)
+    {
         $temparray = [];
 
         if ($completeOnly == 0) {
@@ -451,7 +516,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @param common\EAP $eaptype the EAP type
      * @return mixed TRUE if the EAP type is complete; an array of missing attribues if it's incomplete; FALSE if it's incomplete for other reasons
      */
-    public function isEapTypeDefinitionComplete($eaptype) {
+    public function isEapTypeDefinitionComplete($eaptype)
+    {
         if ($eaptype->needsServerCACert() && $eaptype->needsServerName()) {
             $missing = [];
             // silverbullet needs a support email address configured
@@ -490,7 +556,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      *
      * @return array of device ids display names and their status
      */
-    public function listDevices() {
+    public function listDevices()
+    {
         $returnarray = [];
         $redirect = $this->getAttributes("device-specific:redirect"); // this might return per-device ones or the general one
         // if it was a general one, we are done. Find out if there is one such
@@ -579,7 +646,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @param array $eap if specified, retrieves all attributes except those not pertaining to the given EAP type
      * @return array list of attributes in collapsed style (index is the attrib name, value is an array of different values)
      */
-    public function getCollapsedAttributes($eap = []) {
+    public function getCollapsedAttributes($eap = [])
+    {
         $collapsedList = [];
         foreach ($this->getAttributes() as $attribute) {
             // filter out eap-level attributes not pertaining to EAP type $eap
@@ -620,7 +688,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * 
      * @return int one of the constants above which tell if enough info is set to enable installers
      */
-    public function readinessLevel() {
+    public function readinessLevel()
+    {
         $result = $this->databaseHandle->exec("SELECT sufficient_config, showtime FROM profile WHERE profile_id = ?", "i", $this->identifier);
         // SELECT queries always return a resource, not a boolean
         $configQuery = mysqli_fetch_row(/** @scrutinizer ignore-type */ $result);
@@ -640,7 +709,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * 
      * @return boolean TRUE if enough information for showtime is set; FALSE if not
      */
-    private function readyForShowtime() {
+    private function readyForShowtime()
+    {
         $properConfig = FALSE;
         $attribs = $this->getCollapsedAttributes();
         // do we have enough to go live? Check if any of the configured EAP methods is completely configured ...
@@ -671,7 +741,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * 
      * @return void
      */
-    public function prepShowtime() {
+    public function prepShowtime()
+    {
         $properConfig = $this->readyForShowtime();
         $this->databaseHandle->exec("UPDATE profile SET sufficient_config = " . ($properConfig ? "TRUE" : "FALSE") . " WHERE profile_id = " . $this->identifier);
 
@@ -694,7 +765,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @param array $internalAttributes - only names and value
      * @return array full attributes with all properties set
      */
-    protected function addInternalAttributes($internalAttributes) {
+    protected function addInternalAttributes($internalAttributes)
+    {
         // internal attributes share many attribute properties, so condense the generation
         $retArray = [];
         foreach ($internalAttributes as $attName => $attValue) {
@@ -714,7 +786,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * 
      * @return array The attributes in one array
      */
-    protected function addDatabaseAttributes() {
+    protected function addDatabaseAttributes()
+    {
         $databaseAttributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row
                 FROM $this->entityOptionTable
                 WHERE $this->entityIdColumn = ?
@@ -722,5 +795,4 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                 ORDER BY option_name", "Profile");
         return $databaseAttributes;
     }
-
 }

@@ -112,13 +112,9 @@ build:
                 override: true
             tests:
                 override:
-                    - 
-                        command: phpcs-run
-                        use_website_config: true
+                    - phpcs-run
                     - php-scrutinizer-run --enable-security-analysis
                     - js-scrutinizer-run
-                    - cd devices/linux/Files
-                    - shellcheck-run
         tests:
             environment:
                 variables:

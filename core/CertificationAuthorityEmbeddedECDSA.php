@@ -13,7 +13,8 @@ namespace core;
 
 use \Exception;
 
-class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties implements CertificationAuthorityInterface {
+class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties implements CertificationAuthorityInterface
+{
 
     private const LOCATION_ROOT_CA = ROOT . "/config/SilverbulletClientCerts/rootca-ECDSA.pem";
     private const LOCATION_ISSUING_CA = ROOT . "/config/SilverbulletClientCerts/real-ECDSA.pem";
@@ -59,7 +60,8 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
      * 
      * @throws Exception
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->databaseType = "INST";
         parent::__construct();
         $this->rootPem = file_get_contents(CertificationAuthorityEmbeddedECDSA::LOCATION_ROOT_CA);
@@ -97,7 +99,8 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
      * @return string the OCSP statement
      * @throws Exception
      */
-    public function triggerNewOCSPStatement($serial): string {
+    public function triggerNewOCSPStatement($serial): string
+    {
         $cert = new SilverbulletCertificate($serial, \devices\Devices::SUPPORT_EMBEDDED_ECDSA);
         $certstatus = "";
         // get all relevant info from object properties
@@ -129,7 +132,7 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
         $nowIndexTxt = (new \DateTime())->format("ymdHis") . "Z";
         $expiryIndexTxt = $originalExpiry->format("ymdHis") . "Z";
         // serials for our CA are always integers
-        $serialHex = strtoupper(dechex((int)$cert->serial));
+        $serialHex = strtoupper(dechex((int) $cert->serial));
         if (strlen($serialHex) % 2 == 1) {
             $serialHex = "0" . $serialHex;
         }
@@ -172,7 +175,8 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
      * @return array the cert and some metadata
      * @throws Exception
      */
-    public function signRequest($csr, $expiryDays) : array {
+    public function signRequest($csr, $expiryDays): array
+    {
         $nonDupSerialFound = FALSE;
         do {
             $serial = random_int(1000000000, PHP_INT_MAX);
@@ -204,7 +208,8 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
      * @param integer $serial the serial to revoke, integer because <=64 bit
      * @return void
      */
-    public function revokeCertificate($serial): void {
+    public function revokeCertificate($serial): void
+    {
         $this->triggerNewOCSPStatement($serial);
     }
 
@@ -217,7 +222,8 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
      * @return array
      * @throws Exception
      */
-    public function generateCompatibleCsr($privateKey, $fed, $username) : array {
+    public function generateCompatibleCsr($privateKey, $fed, $username): array
+    {
         $newCsr = openssl_csr_new(
                 ['O' => \config\ConfAssistant::CONSORTIUM['name'],
                     'OU' => $fed,
@@ -244,7 +250,8 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
      * @return \resource
      * @throws Exception
      */
-    public function generateCompatiblePrivateKey() {
+    public function generateCompatiblePrivateKey()
+    {
         $key = openssl_pkey_new(['curve_name' => 'secp384r1', 'private_key_type' => OPENSSL_KEYTYPE_EC, 'encrypt_key' => FALSE]);
         if ($key === FALSE) {
             throw new Exception("Unable to generate a private key.");
@@ -257,8 +264,8 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
      * 
      * @return void
      */
-    public function updateFreshness() {
+    public function updateFreshness()
+    {
         // nothing to be done here.
     }
-
 }

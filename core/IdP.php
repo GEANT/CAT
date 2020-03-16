@@ -46,7 +46,8 @@ use \Exception;
  *
  * @package Developer
  */
-class IdP extends EntityWithDBProperties {
+class IdP extends EntityWithDBProperties
+{
 
     const EXTERNAL_DB_SYNCSTATE_NOT_SYNCED = 0;
     const EXTERNAL_DB_SYNCSTATE_SYNCED = 1;
@@ -80,7 +81,8 @@ class IdP extends EntityWithDBProperties {
      * @param int $instId the database row identifier
      * @throws Exception
      */
-    public function __construct(int $instId) {
+    public function __construct(int $instId)
+    {
         $this->databaseType = "INST";
         parent::__construct(); // now databaseHandle and logging is available
         $this->entityOptionTable = "institution_option";
@@ -130,7 +132,8 @@ class IdP extends EntityWithDBProperties {
      * @param bool $activeOnly if and set to non-zero will cause listing of only those institutions which have some valid profiles defined.
      * @return \core\AbstractProfile[] list of Profiles of this IdP
      */
-    public function listProfiles(bool $activeOnly = FALSE) {
+    public function listProfiles(bool $activeOnly = FALSE)
+    {
         $query = "SELECT profile_id FROM profile WHERE inst_id = $this->identifier" . ($activeOnly ? " AND showtime = 1" : "");
         $allProfiles = $this->databaseHandle->exec($query);
         $returnarray = [];
@@ -151,7 +154,8 @@ class IdP extends EntityWithDBProperties {
      * @param bool $activeOnly if and set to non-zero will cause listing of only those institutions which have some valid profiles defined.
      * @return \core\AbstractDeployment[] list of deployments of this IdP
      */
-    public function listDeployments(bool $activeOnly = FALSE) {
+    public function listDeployments(bool $activeOnly = FALSE)
+    {
         $query = "SELECT deployment_id FROM deployment WHERE inst_id = $this->identifier" . ($activeOnly ? " AND status = " . AbstractDeployment::ACTIVE : "");
         $allDeployments = $this->databaseHandle->exec($query);
         $returnarray = [];
@@ -172,7 +176,8 @@ class IdP extends EntityWithDBProperties {
      * looks through all the profiles of the inst and determines the highest prod-ready level among the profiles
      * @return int highest level of completeness of all the profiles of the inst
      */
-    public function maxProfileStatus() {
+    public function maxProfileStatus()
+    {
         $allProfiles = $this->databaseHandle->exec("SELECT sufficient_config + showtime AS maxlevel FROM profile WHERE inst_id = $this->identifier ORDER BY maxlevel DESC LIMIT 1");
         // SELECT yields a resource, not a boolean
         while ($res = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allProfiles)) {
@@ -186,7 +191,8 @@ class IdP extends EntityWithDBProperties {
      * 
      * @return array owners of the institution; numbered array with members ID, MAIL and LEVEL
      */
-    public function listOwners() {
+    public function listOwners()
+    {
         $returnarray = [];
         $admins = $this->databaseHandle->exec("SELECT user_id, orig_mail, blesslevel FROM ownership WHERE institution_id = $this->identifier ORDER BY user_id");
         // SELECT -> resource, not boolean
@@ -202,7 +208,8 @@ class IdP extends EntityWithDBProperties {
      * @param string $user ID of a logged-in user
      * @return boolean TRUE if this user is an admin with FED-level blessing
      */
-    public function isPrimaryOwner($user) {
+    public function isPrimaryOwner($user)
+    {
         foreach ($this->listOwners() as $oneOwner) {
             if ($oneOwner['ID'] == $user && $oneOwner['LEVEL'] == "FED") {
                 return TRUE;
@@ -219,7 +226,8 @@ class IdP extends EntityWithDBProperties {
      *
      * @return int profile count
      */
-    public function profileCount() {
+    public function profileCount()
+    {
         $result = $this->databaseHandle->exec("SELECT profile_id FROM profile 
              WHERE inst_id = $this->identifier");
         // SELECT -> resource, not boolean
@@ -231,7 +239,8 @@ class IdP extends EntityWithDBProperties {
      *
      * @return int deployment count
      */
-    public function deploymentCount() {
+    public function deploymentCount()
+    {
         $result = $this->databaseHandle->exec("SELECT deployment_id FROM deployment
              WHERE inst_id = $this->identifier");
         // SELECT -> resource, not boolean
@@ -246,7 +255,8 @@ class IdP extends EntityWithDBProperties {
      * 
      * @return array list of eligibilities
      */
-    public function eligibility() {
+    public function eligibility()
+    {
         $eligibilites = $this->databaseHandle->exec("SELECT type FROM institution WHERE inst_id = $this->identifier");
         while ($iterator = mysqli_fetch_object(/** @scrutinizer ignore-type */ $eligibilites)) {
             switch ($iterator->type) {
@@ -269,7 +279,8 @@ class IdP extends EntityWithDBProperties {
      * 
      * @return void
      */
-    public function updateFreshness() {
+    public function updateFreshness()
+    {
         // freshness is always defined for *Profiles*
         // IdP needs to update timestamp of all its profiles if an IdP-wide attribute changed
         $this->databaseHandle->exec("UPDATE profile SET last_change = CURRENT_TIMESTAMP WHERE inst_id = '$this->identifier'");
@@ -284,7 +295,8 @@ class IdP extends EntityWithDBProperties {
      * @return AbstractProfile|NULL new Profile object if successful, or NULL if an error occured
      * @throws Exception
      */
-    public function newProfile(string $type) {
+    public function newProfile(string $type)
+    {
         $this->databaseHandle->exec("INSERT INTO profile (inst_id) VALUES($this->identifier)");
         $identifier = $this->databaseHandle->lastID();
         if ($identifier > 0) {
@@ -312,7 +324,8 @@ class IdP extends EntityWithDBProperties {
      * @return DeploymentManaged the newly created deployment
      * @throws Exception
      */
-    public function newDeployment(string $type) {
+    public function newDeployment(string $type)
+    {
         switch ($type) {
             case AbstractDeployment::DEPLOYMENTTYPE_CLASSIC:
                 // classic deployment exist in the eduroam DB. We don't do anything here.
@@ -332,7 +345,8 @@ class IdP extends EntityWithDBProperties {
      * @return void
      * @throws Exception
      */
-    public function destroy() {
+    public function destroy()
+    {
         common\Entity::intoThePotatoes();
         /* delete all profiles */
         foreach ($this->listProfiles() as $profile) {
@@ -376,7 +390,8 @@ Best regards,
      * @param string $type which type of entity are you looking for?
      * @return array list of entities in external database that correspond to this IdP
      */
-    public function getExternalDBSyncCandidates($type) {
+    public function getExternalDBSyncCandidates($type)
+    {
         $usedarray = [];
         $matchingCandidates = [];
         $syncstate = self::EXTERNAL_DB_SYNCSTATE_SYNCED;
@@ -416,7 +431,8 @@ Best regards,
      * 
      * @return int
      */
-    public function getExternalDBSyncState() {
+    public function getExternalDBSyncState()
+    {
         if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             return $this->externalDbSyncstate;
         }
@@ -428,7 +444,8 @@ Best regards,
      * 
      * @return string|boolean the external identifier; or FALSE if no external ID is known
      */
-    public function getExternalDBId() {
+    public function getExternalDBId()
+    {
         if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $idQuery = $this->databaseHandle->exec("SELECT external_db_id FROM institution WHERE inst_id = $this->identifier AND external_db_syncstate = " . self::EXTERNAL_DB_SYNCSTATE_SYNCED);
             // SELECT -> it's a resource, not a boolean
@@ -447,7 +464,8 @@ Best regards,
      * @param string $identifier the external DB id, which can be alpha-numeric
      * @return void
      */
-    public function setExternalDBId(string $identifier) {
+    public function setExternalDBId(string $identifier)
+    {
         if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $syncState = self::EXTERNAL_DB_SYNCSTATE_SYNCED;
             $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id = ? AND external_db_syncstate = ?", "si", $identifier, $syncState);
@@ -463,7 +481,8 @@ Best regards,
      * 
      * @return void
      */
-    public function removeExternalDBId() {
+    public function removeExternalDBId()
+    {
         if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             if ($this->getExternalDBId() !== FALSE) {
                 $syncState = self::EXTERNAL_DB_SYNCSTATE_NOT_SYNCED;
@@ -472,4 +491,40 @@ Best regards,
         }
     }
 
+    public const INSTNAME_CHANGED = 1;
+
+    /**
+     * 
+     * @param IdP $old the IdP instance with the old state
+     * @param IdP $new the IdP instance with the new state
+     * @return array list of changed things, and details about the change
+     */
+    public static function significantChanges($old, $new)
+    {
+        // check if the name of the inst was changed (in any language)
+        $retval = [];
+        $baseline = [];
+        $newvalues = [];
+        foreach ($old->getAttributes("general:instname") as $oldname) {
+            $baseline[$oldname['lang']] = $oldname['value'];
+        }
+        foreach ($new->getAttributes("general:instname") as $newname) {
+            $newvalues[$newname['lang']] = $newname['value'];
+        }
+        foreach ($baseline as $lang => $value) {
+            if (!key_exists($lang, $newvalues)) {
+                $retval[IdP::INSTNAME_CHANGED] .= "#[Language " . strtoupper($lang) . "] DELETED";
+            } else {
+                if ($value != $newvalues[$lang]) {
+                    $retval[IdP::INSTNAME_CHANGED] .= "#[Language " . strtoupper($lang) . "] CHANGED from '" . $baseline[$lang] . "' to '" . $newvalues[$lang] . "'";
+                }
+            }
+        }
+        foreach ($newvalues as $lang => $value) {
+            if (!key_exists($lang, $baseline)) {
+                $retval[IdP::INSTNAME_CHANGED] .= "#[Language " . strtoupper($lang) . "] ADDED as '" . $value . "'";
+            }
+        }
+        return $retval;
+    }
 }

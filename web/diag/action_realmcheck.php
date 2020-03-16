@@ -32,6 +32,7 @@ echo $deco->defaultPagePrelude(sprintf(_("Sanity check for dynamic discovery of 
 $ourlocale = $gui->languageInstance->getLang();
 
 $my_profile = NULL;
+$testedProfile = NULL;
 $check_realm = FALSE; // we will need to populate this with a real realm below, or have to die horribly.
 
 $error_message = '';
@@ -48,16 +49,25 @@ if ($profile_id) {
     if (!$my_profile instanceof \core\ProfileRADIUS) {
         throw new Exception("realm checks are only supported for RADIUS Profiles!");
     }
-    $checkrealm = $my_profile->getAttributes("internal:realm");
+    $testedProfile = $my_profile;
+} else {
+    $testCandidate = \core\AbstractProfile::profileFromRealm($realm);
+    if ($testCandidate !== FALSE) {
+        $testedProfile = core\ProfileFactory::instantiate($testCandidate);
+    }
+}
+
+if ($testedProfile !== NULL) {
+    $checkrealm = $testedProfile->getAttributes("internal:realm");
     if (count($checkrealm) > 0) {
         // checking our own stuff. Enable thorough checks
         $check_realm = $checkrealm[0]['value'];
-        $testsuite = new \core\diag\RADIUSTests($check_realm, $my_profile->getRealmCheckOuterUsername(), $my_profile->getEapMethodsinOrderOfPreference(1), $my_profile->getCollapsedAttributes()['eap:server_name'], $my_profile->getCollapsedAttributes()["eap:ca_file"]);
+        $testsuite = new \core\diag\RADIUSTests($check_realm, $testedProfile->getRealmCheckOuterUsername(), $testedProfile->getEapMethodsinOrderOfPreference(1), $testedProfile->getCollapsedAttributes()['eap:server_name'], $testedProfile->getCollapsedAttributes()["eap:ca_file"]);
         $rfc7585suite = new \core\diag\RFC7585Tests($check_realm);
     } else {
         $error_message = _("You asked for a realm check, but we don't know the realm for this profile!") . "</p>";
     }
-} else { // someone else's realm... only shallow checks
+} else { // someone else's realm, and we don't know anything about it... only shallow checks
     $check_realm = $validator->realm($realm ?? $_SESSION['check_realm'] ?? "");
     if ($check_realm !== FALSE) {
         $_SESSION['check_realm'] = $check_realm;
@@ -313,6 +323,7 @@ $errorstate = [];
             certdesc = certdesc + '</ul>';
             more = more + '<span class="morecontent"><span>' + certdesc + '</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a></span></td></tr>';
         }
+        global_level_dyn = Math.max(global_level_dyn, data.level);
         $("#srcca" + data.hostindex).html('<div>' + data.message + '</div>' + more);
         $("#srcca" + data.hostindex + "_img").attr('src', icons[data.level]);
         if ((addresses[data.ip] === 0) && $('#clientstest').is(':hidden')) {
@@ -418,17 +429,17 @@ foreach (\config\Diagnostics::RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
     print "
 $(\"#live_src" . $hostindex . "_img\").attr('src',icon_loading);
 $(\"#live_src" . $hostindex . "_img\").show();
-    $.ajax({
-        url: 'radius_tests.php?src=0&hostindex=$hostindex&realm='+realm,
-        type: 'POST',
-        success: udp_login,
-        error: udp_login,
-        data: formData,
-        cache: false,
-        contentType: false,
-        processData: false,
-        dataType: 'json'
-    });
+$.ajax({
+    url: 'radius_tests.php?src=0&hostindex=$hostindex&realm='+realm,
+    type: 'POST',
+    success: udp_login,
+    error: udp_login,
+    data: formData,
+    cache: false,
+    contentType: false,
+    processData: false,
+    dataType: 'json'
+});
 ";
 }
 ?>
@@ -446,8 +457,8 @@ $(\"#live_src" . $hostindex . "_img\").show();
         $(".server_cert").hide();
 <?php
 foreach (\config\Diagnostics::RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
-    if ($my_profile !== NULL) {
-        $extraarg = "profile_id: " . $my_profile->identifier . ", ";
+    if ($testedProfile !== NULL) {
+        $extraarg = "profile_id: " . $testedProfile->identifier . ", ";
     } else {
         $extraarg = "";
     }
@@ -590,9 +601,10 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
               ';
                         foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
                             $host = ($addr['family'] == "IPv6" ? "[" : "") . $addr['IP'] . ($addr['family'] == "IPv6" ? "]" : "") . ":" . $addr['port'];
+                            $expectedName = $addr['hostname'];
                             print "
                             running_ajax_dyn++;
-                            $.ajax({url:'radius_tests.php', data:{test_type: 'capath', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex' }, error: eee, success: capath, dataType: 'json'}); 
+                            $.ajax({url:'radius_tests.php', data:{test_type: 'capath', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex', expectedname: '$expectedName' }, error: eee, success: capath, dataType: 'json'}); 
                             running_ajax_dyn++;
                             $.ajax({url:'radius_tests.php', data:{test_type: 'clients', realm: realm, src: '$host', lang: '" . $gui->languageInstance->getLang() . "', hostindex: '$hostindex' }, error: eee, success: clients, dataType: 'json'}); 
                        ";
@@ -655,7 +667,7 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
 
                     $resultstoprint = [];
                     if (count($rfc7585suite->NAPTR_hostname_records) > 0) {
-                        $resultstoprint[] = '<table style="align:right; display: none;" id="dynamic_result_fail">' . _("Some errors were found during the tests, see below") . '</table><table style="align:right; display: none;" id="dynamic_result_pass">' . _("All tests passed, congratulations!") . '</table>';
+                        $resultstoprint[] = '<div style="align:right; display: none;" id="dynamic_result_fail">' . _("Some errors were found during the tests, see below") . '</div><div style="align:right; display: none;" id="dynamic_result_pass">' . _("All tests passed, congratulations!") . '</div>';
                         $resultstoprint[] = '<div style="align:right;"><a href="" class="moreall">' . _('Show detailed information for all tests') . '</a></div>' . '<p><strong>' . _("Checking server handshake...") . "</strong><p>";
                         foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
                             $bracketaddr = ($addr["family"] == "IPv6" ? "[" . $addr["IP"] . "]" : $addr["IP"]);
@@ -755,7 +767,7 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
             }
 
             if (isset($_POST['comefrom'])) {
-                $return = htmlspecialchars_decode($_POST['comefrom'])."?inst_id=".$my_inst->identifier;
+                $return = htmlspecialchars_decode($_POST['comefrom']) . "?inst_id=" . $my_inst->identifier;
                 echo "<form method='post' action='$return' accept-charset='UTF-8'>
                     <button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_CLOSE . "'>" . sprintf(_("Return to %s administrator area"), core\common\Entity::$nomenclature_inst) . "</button>"
                 . "</form>";
@@ -779,4 +791,5 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
             }
 
             echo $deco->footer();
+
             

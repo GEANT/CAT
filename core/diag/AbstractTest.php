@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -21,6 +22,8 @@
 
 namespace core\diag;
 
+use \Exception;
+
 /**
  * base class of the various test classes.
  * 
@@ -28,7 +31,8 @@ namespace core\diag;
  * 
  * @author Stefan Winter <stefan.winter@restena.lu>
  */
-class AbstractTest extends \core\common\Entity {
+class AbstractTest extends \core\common\Entity
+{
 
     /**
      * to keep track of diagnostics runs
@@ -36,12 +40,14 @@ class AbstractTest extends \core\common\Entity {
      * @var \core\DBConnection
      */
     protected $databaseHandle;
+
     /**
      * unique identifier for test
      * 
      * @var string
      */
     protected $testId;
+
     /**
      * generic return codes
      * 
@@ -69,6 +75,7 @@ class AbstractTest extends \core\common\Entity {
      */
     const RETVAL_INVALID = -103;
 // return codes specific to authentication checks
+
     /**
      * no reply at all from remote RADIUS server
      */
@@ -104,6 +111,7 @@ class AbstractTest extends \core\common\Entity {
      */
     const RETVAL_WRONG_PKCS12_PASSWORD = -112;
 // certificate property errors
+
     /**
      * The root CA certificate was sent by the EAP server.
      */
@@ -243,7 +251,7 @@ class AbstractTest extends \core\common\Entity {
      * cert has a public key algorithm which is rather unusual
      */
     const CERTPROB_UNKNOWN_PUBLIC_KEY_ALGORITHM = -229;
-    
+
     /**
      * There is more than one CN in the certificate
      */
@@ -253,23 +261,46 @@ class AbstractTest extends \core\common\Entity {
      * An EAP conversation took place, but for some reason there is not a single certificate inside
      */
     const CERTPROB_NO_CERTIFICATE_IN_CONVERSATION = -230;
+
+    /**
+     * The version of TLS being used in the EAP conversation could not be determined
+     */
+    const TLSPROB_UNKNOWN_TLS_VERSION = -231;
+
+    /**
+     * The version of TLS being used is too old, endangering client compatibility
+     */
+    const TLSPROB_DEPRECATED_TLS_VERSION = -232;
+
+    /**
+     * The DNS SRV server name does not match the actual server name in a RADIUS/TLS connection
+     */
+    const CERTPROB_DYN_SERVER_NAME_MISMATCH = -233;
+
     /**
      * initialises the error messages.
+     * 
+     * @throws Exception
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         // initialise the DB
-        $this->databaseHandle = \core\DBConnection::handle("DIAGNOSTICS");
+        $handle = \core\DBConnection::handle("DIAGNOSTICS");
+        if ($handle instanceof \core\DBConnection) {
+            $this->databaseHandle = $handle;
+        } else {
+            throw new Exception("This database type is never an array!");
+        }
 
         \core\common\Entity::intoThePotatoes();
         // the numbers are NOT constant - in the course of checks, we may find a "smoking gun" and elevate the probability
         // in the end, use the numbers of those elements which were not deterministically excluded and normalise to 1
         // to get a percentage to report on.
-
         // we could be in a live session with existing data, so get things from 
         // $_SESSION if appropriate
-        
-    $this->possibleFailureReasons = $_SESSION["SUSPECTS"] ?? [
+
+        $this->possibleFailureReasons = $_SESSION["SUSPECTS"] ?? [
             Telepath::INFRA_ETLR => 0.01,
             Telepath::INFRA_LINK_ETLR_NRO_IDP => 0.01,
             Telepath::INFRA_LINK_ETLR_NRO_SP => 0.01,
@@ -283,9 +314,9 @@ class AbstractTest extends \core\common\Entity {
             Telepath::INFRA_DEVICE => 0.3,
             Telepath::INFRA_NONEXISTENTREALM => 0.7,
         ];
-        
+
         $this->additionalFindings = $_SESSION["EVIDENCE"] ?? [];
-        
+
         $this->returnCodes = [];
         /**
          * Test was executed and the result was as expected.
@@ -556,7 +587,7 @@ class AbstractTest extends \core\common\Entity {
         $code40 = RADIUSTests::CERTPROB_MULTIPLE_CN;
         $this->returnCodes[$code40]["message"] = _("The certificate contains more than one CommonName (CN) field. This is reportedly problematic on many supplicants.");
         $this->returnCodes[$code40]["severity"] = \core\common\Entity::L_WARN;
-        
+
         /**
          * The server certificate algorithm is nothing we know.
          */
@@ -570,6 +601,24 @@ class AbstractTest extends \core\common\Entity {
         $code42 = RADIUSTests::CERTPROB_NO_CERTIFICATE_IN_CONVERSATION;
         $this->returnCodes[$code42]["message"] = _("No certificate at all was sent by the server.");
         $this->returnCodes[$code42]["severity"] = \core\common\Entity::L_ERROR;
+
+        /**
+         * TLS version problem: version not found
+         */
+        $code43 = RADIUSTests::TLSPROB_UNKNOWN_TLS_VERSION;
+        $this->returnCodes[$code43]["message"] = _("It was not possible to determine the TLS version that was used in the EAP exchange.");
+        $this->returnCodes[$code42]["severity"] = \core\common\Entity::L_REMARK;
+
+        /**
+         * TLS version problem: old version
+         */
+        $code44 = RADIUSTests::TLSPROB_DEPRECATED_TLS_VERSION;
+        $this->returnCodes[$code44]["message"] = _("The server does not support the contemporary TLS versions TLSv1.2 or TLSv1.3. Modern client operating systems may refuse to authenticate against the server!");
+        $this->returnCodes[$code44]["severity"] = \core\common\Entity::L_WARN;
+
+        $code45 = RADIUSTests::CERTPROB_DYN_SERVER_NAME_MISMATCH;
+        $this->returnCodes[$code45]["message"] = _("The expected server name as per SRV record does not match any server name in the certificate of the server that was reached!");
+        $this->returnCodes[$code45]["severity"] = \core\common\Entity::L_WARN;
         \core\common\Entity::outOfThePotatoes();
     }
 
@@ -580,7 +629,8 @@ class AbstractTest extends \core\common\Entity {
      * 
      * @return void
      */
-    protected function normaliseResultSet() {
+    protected function normaliseResultSet()
+    {
         // done. return both the list of possible problem sources with their occurence rating, and the additional findings we collected along the way.
         $totalScores = 0.;
         foreach ($this->possibleFailureReasons as $oneReason => $oneOccurence) {
@@ -608,9 +658,8 @@ class AbstractTest extends \core\common\Entity {
     const INFRA_SP_LAN = "INFRA_SP_LAN";
     const INFRA_DEVICE = "INFRA_DEVICE";
     const INFRA_NONEXISTENTREALM = "INFRA_NONEXISTENTREALM";
-
     // statuses derived from Monitoring API
-    
+
     const STATUS_GOOD = 0;
     const STATUS_PARTIAL = -1;
     const STATUS_DOWN = -2;
@@ -623,12 +672,11 @@ class AbstractTest extends \core\common\Entity {
      * @var array
      */
     public $possibleFailureReasons;
-    
+
     /**
      * evidence we collected along the way
      * 
      * @var array
      */
     public $additionalFindings;
-
 }

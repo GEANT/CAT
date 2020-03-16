@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -28,12 +29,14 @@
  *
  * @package Developer
  */
+
 namespace core\common;
 
 /**
  * This class maintains state of the selected language and can set the language.
  */
-class Language {
+class Language
+{
 
     /**
      * the current language
@@ -54,7 +57,8 @@ class Language {
      *  and stores language settings in object properties
      *  additionally it also sets static variables $laing_index and $root
      */
-    public function __construct() {
+    public function __construct()
+    {
         $language = $this->setLang();
         $this->LANG = $language[0];
         $this->locale = $language[1];
@@ -66,7 +70,8 @@ class Language {
      * @param string $domain the text domain
      * @return string previous seting so that you can restore it later
      */
-    public function setTextDomain($domain) {
+    public function setTextDomain($domain)
+    {
         $loggerInstance = new \core\common\Logging();
         $olddomain = textdomain(NULL);
         $loggerInstance->debug(4, "set_locale($domain)\n");
@@ -86,7 +91,8 @@ class Language {
      * @param int $hardSetLang - this is currently not used but will allow to force lang setting if this was ever required
      * @return array the language that was set
      */
-    private function setLang($hardSetLang = 0) {
+    private function setLang($hardSetLang = 0)
+    {
         // $langConverted will contain candidates for the language setting in the order
         // of prefference
         $langConverted = [];
@@ -94,7 +100,7 @@ class Language {
             $langConverted[] = $hardSetLang;
         }
         if (!empty($_REQUEST['lang'])) {
-            $recoverLang = filter_input(INPUT_GET,'lang', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'lang', FILTER_SANITIZE_STRING);
+            $recoverLang = filter_input(INPUT_GET, 'lang', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'lang', FILTER_SANITIZE_STRING);
             $langConverted[] = $recoverLang;
         }
         \core\CAT::sessionStart();
@@ -102,7 +108,7 @@ class Language {
             $langConverted[] = $_SESSION['language'];
         }
         if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-            $langs = explode(",", filter_input(INPUT_SERVER,"HTTP_ACCEPT_LANGUAGE", FILTER_SANITIZE_STRING));
+            $langs = explode(",", filter_input(INPUT_SERVER, "HTTP_ACCEPT_LANGUAGE", FILTER_SANITIZE_STRING));
             foreach ($langs as $lang) {
                 $result = [];
                 preg_match("/(.*);+.*/", $lang, $result);
@@ -150,7 +156,8 @@ class Language {
      * 
      * @return string
      */
-    public function getLang() {
+    public function getLang()
+    {
         return $this->LANG;
     }
 
@@ -160,7 +167,8 @@ class Language {
      * @return string localised value corresponding to the chosen
      * locale or to the defalut locale C if a better mach was not available
      */
-    public function getLocalisedValue($valueArray) {
+    public function getLocalisedValue($valueArray)
+    {
         $loggerInstance = new \core\common\Logging();
         $out = 0;
         if (count($valueArray) > 0) {

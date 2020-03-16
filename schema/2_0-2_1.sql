@@ -67,4 +67,9 @@ INSERT INTO profile_option_dict (name, description,type,flag) VALUES
 ('managedsp:realmforvlan','a realm which should get this VLAN tag, in addition to the Managed IdP ones (those are handled ex officio','string',NULL),
 ('managedsp:operatorname','Operator-Name attribute to be added to requests','string',NULL);
 
+UPDATE institution_option SET option_name = 'media:SSID' WHERE option_name = 'media:SSID_with_legacy';
+UPDATE profile_option SET option_name = 'media:SSID' WHERE option_name = 'media:SSID_with_legacy';
+
+DELETE FROM profile_option_dict WHERE name = 'media:SSID_with_legacy';
+
 ALTER TABLE invitations ADD COLUMN `invite_fortype` enum('IdP','SP','IdPSP') NOT NULL DEFAULT 'IdPSP';

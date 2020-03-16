@@ -36,7 +36,8 @@ use \Exception;
  *
  * @package Developer
  */
-class RFC5997Tests extends AbstractTest {
+class RFC5997Tests extends AbstractTest
+{
 
     const PACKET_TYPE_STATUS_SERVER = "\xc";
     const PACKET_TYPE_ACCESS_ACCEPT = "\x2";
@@ -76,7 +77,8 @@ class RFC5997Tests extends AbstractTest {
      * @param int    $port   port of candidate hotspot
      * @param string $secret shared secret of candidate hotspot
      */
-    public function __construct($ipAddr, $port, $secret) {
+    public function __construct($ipAddr, $port, $secret)
+    {
         parent::__construct();
         $this->ipAddr = $ipAddr;
         $this->port = $port;
@@ -89,7 +91,8 @@ class RFC5997Tests extends AbstractTest {
      * @return integer the status code
      * @throws Exception
      */
-    public function statusServerCheck() {
+    public function statusServerCheck()
+    {
         // request authenticator and other variable content
         $reqAuthenticator = random_bytes(16);
         $packetIdentifier = random_bytes(1);
@@ -143,5 +146,4 @@ class RFC5997Tests extends AbstractTest {
         // and we have checked Response-Authenticaor.
         return AbstractTest::RETVAL_OK;
     }
-
 }

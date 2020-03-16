@@ -45,7 +45,8 @@ use Exception;
  *
  * @package Developer
  */
-abstract class Entity {
+abstract class Entity
+{
 
     const L_OK = 0;
     const L_REMARK = 4;
@@ -92,13 +93,13 @@ abstract class Entity {
      * @var string
      */
     public static $nomenclature_hotspot;
-    
+
     /**
      * the custom displayable variant of the term "participating organisation"
      * @var string
      */
     public static $nomenclature_participant;
-    
+
     /**
      * initialise the entity. 
      * 
@@ -106,11 +107,12 @@ abstract class Entity {
      * 
      * @throws Exception
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->loggerInstance = new Logging();
         $this->loggerInstance->debug(3, "--- BEGIN constructing class " . get_class($this) . " .\n");
         $this->languageInstance = new Language();
-        Entity::intoThePotatoes();
+        Entity::intoThePotatoes("core");
         // some config elements are displayable. We need some dummies to 
         // translate the common values for them. If a deployment chooses a 
         // different wording, no translation, sorry
@@ -147,7 +149,8 @@ abstract class Entity {
      * 
      * Logs the end of lifetime of the entity to the debug log on level 5.
      */
-    public function __destruct() {
+    public function __destruct()
+    {
         (new Logging())->debug(5, "--- KILL Destructing class " . get_class($this) . " .\n");
     }
 
@@ -162,7 +165,8 @@ abstract class Entity {
      * @param string|int $index2         second-level index to check
      * @return mixed
      */
-    public static function getAttributeValue($attributeArray, $index1, $index2) {
+    public static function getAttributeValue($attributeArray, $index1, $index2)
+    {
         if (isset($attributeArray[$index1]) && isset($attributeArray[$index1][$index2])) {
             return($attributeArray[$index1][$index2]);
         } else {
@@ -177,7 +181,8 @@ abstract class Entity {
      * @return array the tuple of: base path, absolute path for directory, directory name
      * @throws Exception
      */
-    public static function createTemporaryDirectory($purpose = 'installer', $failIsFatal = 1) {
+    public static function createTemporaryDirectory($purpose = 'installer', $failIsFatal = 1)
+    {
         $loggerInstance = new Logging();
         $name = md5(time() . rand());
         $path = ROOT;
@@ -216,7 +221,8 @@ abstract class Entity {
      * @param string $dir name of the directory to delete
      * @return void
      */
-    public static function rrmdir($dir) {
+    public static function rrmdir($dir)
+    {
         foreach (glob($dir . '/*') as $file) {
             if (is_dir($file)) {
                 Entity::rrmdir($file);
@@ -234,7 +240,8 @@ abstract class Entity {
      * @param mixed  $deterministicSource don't generate a random UUID, base it deterministically on the provided input
      * @return string UUID (possibly prefixed)
      */
-    public static function uuid($prefix = '', $deterministicSource = NULL) {
+    public static function uuid($prefix = '', $deterministicSource = NULL)
+    {
         if ($deterministicSource === NULL) {
             $chars = md5(uniqid(mt_rand(), true));
         } else {
@@ -259,7 +266,8 @@ abstract class Entity {
      */
     public static function randomString(
             $length, $keyspace = '23456789abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    ) {
+    )
+    {
         $str = '';
         $max = strlen($keyspace) - 1;
         if ($max < 1) {
@@ -274,17 +282,21 @@ abstract class Entity {
     /**
      * Finds out which gettext catalogue has the translations for the caller
      * 
+     * @param boolean $showTrace print a full backtrace of how we got here, only for debugging auto-detect problems
      * @return string the catalogue
      */
-    private static function determineOwnCatalogue() {
-        $loggerInstance = new Logging();
+    private static function determineOwnCatalogue($showTrace = FALSE)
+    {
         $trace = debug_backtrace();
         $caller = [];
         // find the first caller in the stack trace which is NOT "Entity" itself
         // this means walking back from the end of the trace to the penultimate
         // index before something with "Entity" comes in
-        for ($i = count($trace) - 1; $i--; $i > 0) {
-            if (preg_match('/Entity/', $trace[$i - 1]['class'])) {
+        for ($i = count($trace); $i--; $i > 0) {
+            if (isset($trace[$i - 1]['class']) && preg_match('/Entity/', $trace[$i - 1]['class'])) {
+                if ($showTrace) {
+                    echo "FOUND caller: " . print_r($trace[$i], true) . " - class is " . $trace[$i]['class'];
+                }
                 $caller = $trace[$i];
                 break;
             }
@@ -292,8 +304,10 @@ abstract class Entity {
         // if called from a class, guess based on the class name; 
         // otherwise, on the filename relative to ROOT
         $myName = $caller['class'] ?? substr($caller['file'], strlen(ROOT));
-        $loggerInstance->debug(1,$caller);
-        $loggerInstance->debug(1,"\nFOUND ".$myName."\n");
+        if ($showTrace === TRUE) {
+            echo "<pre>" . print_r($trace, true) . "</pre>";
+            echo "CLASS = " . $myName . "<br/>";
+        }
         if (preg_match("/diag/", $myName) == 1) {
             $ret = "diagnostics";
         } elseif (preg_match("/core/", $myName) == 1) {
@@ -307,7 +321,6 @@ abstract class Entity {
         } else {
             $ret = "web_user";
         }
-        $loggerInstance->debug(1,"\nRETURNING ".$ret."\n");
         return $ret;
     }
 
@@ -316,14 +329,16 @@ abstract class Entity {
      * source files. Also memorises the previous catalogue so that it can be
      * restored later on.
      * 
-     * @param string $catalogue the catalogue to select, overrides detection
+     * @param string  $catalogue the catalogue to select, overrides detection
+     * @param boolean $trace     if we need to debug the automatic detection heuristics, turn this on: it prints a debug of the stack trace
      * @return void
      */
-    public static function intoThePotatoes($catalogue = NULL) {
+    public static function intoThePotatoes($catalogue = NULL, $trace = FALSE)
+    {
         // array_push, without the function call overhead
         Entity::$gettextCatalogue[] = textdomain(NULL);
         if ($catalogue === NULL) {
-            $theCatalogue = Entity::determineOwnCatalogue();
+            $theCatalogue = Entity::determineOwnCatalogue($trace);
             textdomain($theCatalogue);
             bindtextdomain($theCatalogue, ROOT . "/translation/");
         } else {
@@ -338,7 +353,8 @@ abstract class Entity {
      * @return void
      * @throws Exception
      */
-    public static function outOfThePotatoes() {
+    public static function outOfThePotatoes()
+    {
         $restoreCatalogue = array_pop(Entity::$gettextCatalogue);
         if ($restoreCatalogue === NULL) {
             throw new Exception("Unable to restore previous catalogue - outOfThePotatoes called too often?!");
@@ -351,7 +367,8 @@ abstract class Entity {
      * 
      * @return array the stack of language contexts
      */
-    public static function potatoStack() {
+    public static function potatoStack()
+    {
         $debugArray = Entity::$gettextCatalogue;
         array_push($debugArray, Entity::determineOwnCatalogue());
         return $debugArray;

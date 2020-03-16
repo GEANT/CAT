@@ -46,7 +46,8 @@ use \Exception;
  * 
  * @package Developer
  */
-class UserManagement extends \core\common\Entity {
+class UserManagement extends \core\common\Entity
+{
 
     /**
      * our handle to the INST database
@@ -57,10 +58,18 @@ class UserManagement extends \core\common\Entity {
 
     /**
      * Class constructor. Nothing special to be done when constructing.
+     * 
+     * @throws Exception
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
-        $this->databaseHandle = DBConnection::handle(self::$databaseType);
+        $handle = DBConnection::handle(self::$databaseType);
+        if ($handle instanceof DBConnection) {
+            $this->databaseHandle = $handle;
+        } else {
+            throw new Exception("This database type is never an array!");
+        }
     }
 
     /**
@@ -89,7 +98,8 @@ class UserManagement extends \core\common\Entity {
      * @param string $token the invitation token
      * @return int
      */
-    public function checkTokenValidity($token) {
+    public function checkTokenValidity($token)
+    {
         $check = $this->databaseHandle->exec("SELECT invite_token, cat_institution_id 
                            FROM invitations 
                            WHERE invite_token = ? AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0", "s", $token);
@@ -122,7 +132,8 @@ class UserManagement extends \core\common\Entity {
      * @param string $owner Persistent User ID who becomes the administrator of the institution
      * @return IdP 
      */
-    public function createIdPFromToken(string $token, string $owner) {
+    public function createIdPFromToken(string $token, string $owner)
+    {
         new CAT(); // be sure that Entity's static members are initialised
         common\Entity::intoThePotatoes();
         // the token either has cat_institution_id set -> new admin for existing inst
@@ -184,7 +195,7 @@ class UserManagement extends \core\common\Entity {
             while ($pendingDetail = mysqli_fetch_object(/** @scrutinizer ignore-type */ $otherPending)) {
                 $this->databaseHandle->exec("UPDATE invitations SET cat_institution_id = " . $idp->identifier . " WHERE id = " . $pendingDetail->id);
             }
-        
+
             common\Entity::outOfThePotatoes();
             return $idp;
         }
@@ -196,7 +207,8 @@ class UserManagement extends \core\common\Entity {
      * @param string $user persistent user ID that is to be added as an admin.
      * @return boolean This function always returns TRUE.
      */
-    public function addAdminToIdp($idp, $user) {
+    public function addAdminToIdp($idp, $user)
+    {
         $existing = $this->databaseHandle->exec("SELECT user_id FROM ownership WHERE user_id = ? AND institution_id = ?", "si", $user, $idp->identifier);
         // SELECT -> resource, not boolean
         if (mysqli_num_rows(/** @scrutinizer ignore-type */ $existing) == 0) {
@@ -211,7 +223,8 @@ class UserManagement extends \core\common\Entity {
      * @param string $user persistent user ID that is to be deleted as an admin.
      * @return boolean This function always returns TRUE.
      */
-    public function removeAdminFromIdP($idp, $user) {
+    public function removeAdminFromIdP($idp, $user)
+    {
         $this->databaseHandle->exec("DELETE from ownership WHERE institution_id = $idp->identifier AND user_id = ?", "s", $user);
         return TRUE;
     }
@@ -224,7 +237,8 @@ class UserManagement extends \core\common\Entity {
      * @param string $token the token to invalidate
      * @return boolean This function always returns TRUE.
      */
-    public function invalidateToken($token) {
+    public function invalidateToken($token)
+    {
         $this->databaseHandle->exec("UPDATE invitations SET used = 1 WHERE invite_token = ?", "s", $token);
         return TRUE;
     }
@@ -243,7 +257,8 @@ class UserManagement extends \core\common\Entity {
      * @return mixed The function returns either the token (as string) or FALSE if something went wrong
      * @throws Exception
      */
-    public function createTokens($isByFedadmin, $for, $instIdentifier, $externalId = 0, $country = 0, $partType = 0) {
+    public function createTokens($isByFedadmin, $for, $instIdentifier, $externalId = 0, $country = 0, $partType = 0)
+    {
         $level = ($isByFedadmin ? "FED" : "INST");
         $tokenList = [];
         foreach ($for as $oneDest) {
@@ -278,7 +293,8 @@ class UserManagement extends \core\common\Entity {
      * @param int $idpIdentifier the identifier of the institution. If not set, returns invitations for not-yet-created insts
      * @return array if idp_identifier is set: an array of strings (mail addresses); otherwise an array of tuples (country;name;mail)
      */
-    public function listPendingInvitations($idpIdentifier = 0) {
+    public function listPendingInvitations($idpIdentifier = 0)
+    {
         $retval = [];
         $invitations = $this->databaseHandle->exec("SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, invite_token , TIMESTAMPADD(DAY, 1, invite_created) as expiry
                                         FROM invitations 
@@ -295,7 +311,8 @@ class UserManagement extends \core\common\Entity {
      * 
      * @return array of expired invitations
      */
-    public function listRecentlyExpiredInvitations() {
+    public function listRecentlyExpiredInvitations()
+    {
         $retval = [];
         $invitations = $this->databaseHandle->exec("SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, invite_token 
                                         FROM invitations 
@@ -319,7 +336,8 @@ class UserManagement extends \core\common\Entity {
      * @param string $userid persistent user identifier
      * @return array array of institution IDs
      */
-    public function listInstitutionsByAdmin($userid) {
+    public function listInstitutionsByAdmin($userid)
+    {
         $returnarray = [];
         $institutions = $this->databaseHandle->exec("SELECT institution_id FROM ownership WHERE user_id = ? ORDER BY institution_id", "s", $userid);
         // SELECT -> resource, not boolean
@@ -328,5 +346,4 @@ class UserManagement extends \core\common\Entity {
         }
         return $returnarray;
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -35,6 +36,18 @@ $additional_message = [
     \core\common\Entity::L_ERROR => _("Some configuration errors were observed; the list is below."),
 ];
 
+/**
+ * returns the friendly name of an EAP type
+ * 
+ * @param array $eap array representation of the EAP type to be returned
+ * @return string the friendly name
+ */
+function disp_name($eap)
+{
+    $displayName = \core\common\EAP::eapDisplayName($eap);
+    return $displayName['OUTER'] . ( $displayName['INNER'] != '' ? '-' . $displayName['INNER'] : '');
+}
+
 if (!isset($_REQUEST['test_type']) || !$_REQUEST['test_type']) {
     throw new Exception("No test type specified!");
 }
@@ -55,7 +68,7 @@ if (isset($_REQUEST['profile_id'])) {
     $testsuite = new \core\diag\RADIUSTests($check_realm, $my_profile->getRealmCheckOuterUsername(), $my_profile->getEapMethodsinOrderOfPreference(1), $my_profile->getCollapsedAttributes()['eap:server_name'], $my_profile->getCollapsedAttributes()['eap:ca_file']);
 } else {
     $my_profile = NULL;
-    $testsuite = new \core\diag\RADIUSTests($check_realm, "@".$check_realm);
+    $testsuite = new \core\diag\RADIUSTests($check_realm, "@" . $check_realm);
 }
 
 
@@ -67,11 +80,11 @@ if (!is_numeric($hostindex)) {
 $posted_host = $_REQUEST['src'];
 if (is_numeric($posted_host)) { // UDP tests, this is an index to the test host in config
     $host = filter_var(\config\Diagnostics::RADIUSTESTS['UDP-hosts'][$hostindex]['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE);
+    $expectedName = "IRRELEVANT-UDP";
 } else { // dynamic discovery host, potentially unvetted user input
     // contains port number; needs to be redacted for filter_var to work
     // in any case, it's a printable string, so filter it initially
-    
-    $filteredHost = filter_input(INPUT_GET,'src', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST,'src', FILTER_SANITIZE_STRING);
+    $filteredHost = filter_input(INPUT_GET, 'src', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'src', FILTER_SANITIZE_STRING);
     $hostonly1 = preg_replace('/:[0-9]*$/', "", $filteredHost);
     $hostonly2 = preg_replace('/^\[/', "", $hostonly1);
     $hostonly3 = preg_replace('/\]$/', "", $hostonly2);
@@ -82,10 +95,8 @@ if (is_numeric($posted_host)) { // UDP tests, this is an index to the test host 
     }
     // host IP address testing passed. So let's take our port number back
     $host = $filteredHost;
-    
+    $expectedName = filter_input(INPUT_GET, 'expectedname', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'expectedname', FILTER_SANITIZE_STRING);
 }
-
-
 
 $returnarray = [];
 $timeout = \config\Diagnostics::RADIUSTESTS['UDP-hosts'][$hostindex]['timeout'];
@@ -229,50 +240,64 @@ switch ($test_type) {
         $returnarray['result'][$i]['message'] = $message;
         break;
     case 'capath':
-        $rfc6614suite = new \core\diag\RFC6614Tests([$host]);
+        $rfc6614suite = new \core\diag\RFC6614Tests([$host], $expectedName);
         $testresult = $rfc6614suite->cApathCheck($host);
         $returnarray['IP'] = $host;
         $returnarray['hostindex'] = $hostindex;
         // the host member of the array may not be set if RETVAL_SKIPPED was
         // returned (e.g. IPv6 host), be prepared for that
-        if (isset($rfc6614suite->TLS_CA_checks_result[$host])) {
-            $returnarray['time_millisec'] = sprintf("%d", $rfc6614suite->TLS_CA_checks_result[$host]['time_millisec']);
-            if (isset($rfc6614suite->TLS_CA_checks_result[$host]['cert_oddity']) && ($rfc6614suite->TLS_CA_checks_result[$host]['cert_oddity'] == \core\diag\RADIUSTests::CERTPROB_UNKNOWN_CA)) {
-                $returnarray['message'] = _("<strong>ERROR</strong>: the server presented a certificate which is from an unknown authority!") . ' (' . sprintf(_("elapsed time: %d"), $rfc6614suite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
-                $returnarray['level'] = \core\common\Entity::L_ERROR;
-            } else {
-                $returnarray['message'] = $rfc6614suite->returnCodes[$rfc6614suite->TLS_CA_checks_result[$host]['status']]["message"];
-                $returnarray['level'] = \core\common\Entity::L_OK;
-                if ($rfc6614suite->TLS_CA_checks_result[$host]['status'] != \core\diag\RADIUSTests::RETVAL_CONNECTION_REFUSED) {
-                    $returnarray['message'] .= ' (' . sprintf(_("elapsed time: %d"), $rfc6614suite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
-                } else {
-                    $returnarray['level'] = \core\common\Entity::L_ERROR;
-                }
-                if ($rfc6614suite->TLS_CA_checks_result[$host]['status'] == \core\diag\RADIUSTests::RETVAL_OK) {
-                    $returnarray['certdata'] = [];
-                    $returnarray['certdata']['subject'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['subject'];
-                    $returnarray['certdata']['issuer'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['issuer'];
-                    $returnarray['certdata']['extensions'] = [];
-                    if (isset($rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname'])) {
-                        $returnarray['certdata']['extensions']['subjectaltname'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname'];
-                    }
-                    if (isset($rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['policyoid'])) {
-                        $returnarray['certdata']['extensions']['policies'] = join(' ', $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['policyoid']);
-                    }
-                    if (isset($rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['crlDistributionPoint'])) {
-                        $returnarray['certdata']['extensions']['crldistributionpoints'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['crlDistributionPoint'];
-                    }
-                    if (isset($rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['authorityInfoAccess'])) {
-                        $returnarray['certdata']['extensions']['authorityinfoaccess'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['authorityInfoAccess'];
-                    }
-                }
-                $returnarray['cert_oddities'] = [];
-            }
+        if (!isset($rfc6614suite->TLS_CA_checks_result[$host])) {
+            $returnarray['result'] = $testresult;
+            break;
         }
+        // we tried to contact someone, and know how long that took
+        $returnarray['time_millisec'] = sprintf("%d", $rfc6614suite->TLS_CA_checks_result[$host]['time_millisec']);
+        $timeDisplay = ' (' . sprintf(_("elapsed time: %d"), $rfc6614suite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
+        if (isset($rfc6614suite->TLS_CA_checks_result[$host]['cert_oddity']) && ($rfc6614suite->TLS_CA_checks_result[$host]['cert_oddity'] == \core\diag\RADIUSTests::CERTPROB_UNKNOWN_CA)) {
+            $returnarray['message'] = _("<strong>ERROR</strong>: the server presented a certificate which is from an unknown authority!") . $timeDisplay;
+            $returnarray['level'] = \core\common\Entity::L_ERROR;
+            $returnarray['result'] = $testresult;
+            break;
+        }
+        // probably all is well, but we override this default later if need be
+        $returnarray['message'] = $rfc6614suite->returnCodes[$rfc6614suite->TLS_CA_checks_result[$host]['status']]["message"];
+        $returnarray['level'] = \core\common\Entity::L_OK;
+        // override if the connection was with a mismatching server name
+        if (isset($rfc6614suite->TLS_CA_checks_result[$host]['cert_oddity']) && ($rfc6614suite->TLS_CA_checks_result[$host]['cert_oddity'] == \core\diag\RADIUSTests::CERTPROB_DYN_SERVER_NAME_MISMATCH)) {
+            $returnarray['message'] = _("<strong>WARNING</strong>: the server name as discovered in the SRV record does not match any name in the server certificate!") . $timeDisplay;
+            $returnarray['level'] = \core\common\Entity::L_WARN;
+        }
+        switch ($rfc6614suite->TLS_CA_checks_result[$host]['status']) {
+            case \core\diag\RADIUSTests::RETVAL_CONNECTION_REFUSED:
+                $returnarray['level'] = \core\common\Entity::L_ERROR;
+                break;
+            case \core\diag\RADIUSTests::RETVAL_OK:
+            $returnarray['certdata'] = [];
+            $returnarray['certdata']['subject'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['subject'];
+            $returnarray['certdata']['issuer'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['issuer'];
+            $returnarray['certdata']['extensions'] = [];
+            if (isset($rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname'])) {
+                $returnarray['certdata']['extensions']['subjectaltname'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname'];
+            }
+            if (isset($rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['policyoid'])) {
+                $returnarray['certdata']['extensions']['policies'] = join(' ', $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['policyoid']);
+            }
+            if (isset($rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['crlDistributionPoint'])) {
+                $returnarray['certdata']['extensions']['crldistributionpoints'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['crlDistributionPoint'];
+            }
+            if (isset($rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['authorityInfoAccess'])) {
+                $returnarray['certdata']['extensions']['authorityinfoaccess'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['authorityInfoAccess'];
+            }
+            break;
+            default:
+                $returnarray['message'] .= $timeDisplay;
+        }
+        
+        $returnarray['cert_oddities'] = [];
         $returnarray['result'] = $testresult;
         break;
     case 'clients':
-        $rfc6614suite = new \core\diag\RFC6614Tests([$host]);
+        $rfc6614suite = new \core\diag\RFC6614Tests([$host], $expectedName);
         $testresult = $rfc6614suite->tlsClientSideCheck($host);
         $returnarray['IP'] = $host;
         $returnarray['hostindex'] = $hostindex;
