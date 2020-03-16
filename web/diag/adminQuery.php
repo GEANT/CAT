@@ -22,9 +22,10 @@
 require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 $languageInstance = new \core\common\Language();
 $languageInstance->setTextDomain("diagnostics");
-
+$loggerInstance = new \core\common\Logging();
+$loggerInstance->debug(4, $_REQUEST);
 $o = new stdClass();
-if (isset($_REQUEST['data'])) {
+if (isset($_REQUEST['data'])) {    
     $o = json_decode($_REQUEST['data']);
 }
 $sp_problem = array(
@@ -37,6 +38,10 @@ $idp_problem = array(
     'abuse-copyright' => _("User claims that mandatory open port is not open")
 );
 $queryType = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING);
+$realmFromURL = filter_input(INPUT_GET, 'realm', FILTER_SANITIZE_STRING);
+if (!$realmFromURL) {
+    $realmFromURL = '';
+}
 $res = '';
 $javascript = "<script>
     var mac = $('#mac');
@@ -60,6 +65,8 @@ if ($queryType == 'sp') {
     }
     $select = $select . "</select></div>";
     $res = "
+<input type='hidden' name='token' id='token' value=''>
+<input type='hidden' name='tests_result' id='tests_result' value=''>
 <table id='sp_questions'>
     <tr>
         <td>" . _("Select your problem") . "</td>
@@ -68,10 +75,11 @@ if ($queryType == 'sp') {
     <tr>
         <td>" . _("What is the realm of the IdP in question?") . "</td>
         <td>
-                <input type='text' name='admin_realm' id='admin_realm' value=''>
-                <button id='realm_in_db_admin' accesskey='R' type='button'>" .
-            _("Check if this value is registered") .
-            "</button>
+                <input type='text' name='admin_realm' id='admin_realm' value='$realmFromURL'>
+                <button class='diag_button' id='realm_in_db_admin' style='display: none;' accesskey='R' type='button'>" .
+                _("Check this realm") .
+                "</button>
+                <div id='tests_info_area'></div>
         </td>
     </tr>
     <tr class='hidden_row'>
@@ -92,9 +100,13 @@ if ($queryType == 'sp') {
         <td>" . _("Please specify an email address on which the IdP can contact you") . "</td>
         <td><input type='text' id='email' name='email'></td>
     </tr>
+    <tr>
+        <td id='external_db_info'></td>
+        <td></td>
+    </tr>
     <tr class='hidden_row' id='send_query_to_idp'>
         <td>" . _("Now you can send your query") . "</td>
-        <td><button type='submit' id='submit_idp_query' name='go'>" . _("Send") . "</button></td>
+        <td><button type='submit' class='diag_button' id='submit_idp_query' name='go'>" . _("Send") . "</button></td>
     </tr>
  </table>";
     $res = $res . $javascript;
@@ -162,7 +174,7 @@ if ($queryType == 'idp') {
     </tr>
     <tr class='hidden_row' id='send_query_to_sp'>
         <td>" . _("Now you can send your query") . "</td>
-        <td><button type='submit' id='submit_sp_query' name='go'>" . _("Send") . "</button></td>
+        <td><button type='submit' class='diag_button' id='submit_sp_query' name='go'>" . _("Send") . "</button></td>
     </tr>
 </table>";
     $res = $res . $javascript;
@@ -176,6 +188,10 @@ if ($queryType == 'idp_send' || $queryType == 'sp_send') {
             $value = trim($value);
             switch ($key) {
                 case 'realm':
+                    $pos = strpos($value, '@');
+                    if ($pos !== FALSE ) {
+                        $value = substr($value, $pos+1);
+                    }
                 case 'email':
                 case 'mac':
                 case 'freetext':
@@ -183,10 +199,16 @@ if ($queryType == 'idp_send' || $queryType == 'sp_send') {
                 case 'opname':
                 case 'outerid':
                 case 'cdetails':
+                case 'token':
+                case 'tests_result':
                     $returnArray[$key] = $value;
                     break;
                 case 'idpcontact':
-                    $returnArray[$key] = base64_decode($value);
+                    if ($value == '') {
+                        $returnArray[$key] = 'mgw@umk.pl';
+                    } else {
+                        $returnArray[$key] = base64_decode($value);
+                    }
                     break;
                 case 'reason':
                     if ($queryType == 'idp_send') {
@@ -198,6 +220,51 @@ if ($queryType == 'idp_send' || $queryType == 'sp_send') {
                 default:
                     break;
             }
+        }
+    }
+    if ($queryType == 'idp_send') {
+        $mail = \core\common\OutsideComm::mailHandle();
+        $emails = ['mgw@umk.pl'];
+        //$emails = explode(',', $returnArray['idpcontact']);
+        $mail->FromName = \config\Master::APPEARANCE['productname'] . " Notification System";
+        foreach ($emails as $email) {
+            $mail->addAddress($email);
+        }
+        $link = '';
+        if (isset($_SERVER['HTTPS'])) {
+            $link = 'https://';
+        } else {
+            $link = 'http://';
+        }
+        $link .= $_SERVER['SERVER_NAME'] . \core\CAT::getRootUrlPath() . '/diag/show_realmcheck.php?token=' . $returnArray['token'];
+        $returnArray['testurl'] = $link;
+        $mail->Subject = _('Suspected a technical problem with the IdP');
+        $txt = _("We suspect a technical problem with the IdP handling the realm") . ' ' . 
+                $returnArray['realm'] . ".\n";
+        $txt .= _("The CAT diagnostic test was run for this realm during reporting.\n");
+        $txt .= _("The overall result was ");
+        if ($returnArray['tests_result'] == 0) {
+            $txt .= _("success");
+        } else {
+            $txt .= _("failure");
+        }
+        $txt .= ".\n" . _("To see details go to ");
+        $txt .= "$link\n\n";
+        $txt .= _("The reported problem details are as follows") . "\n";
+        $txt .= _("timestamp") . ": " . $returnArray['timestamp'] . "\n";
+        $txt .= _("client MAC address") . ": " . $returnArray['mac'] . "\n";
+        if ($returnArray['freetext']) {
+            $txt .= _("additional comments") . ': ' . $returnArray['freetext'] . "\n";
+        }
+        $txt .= "\n" . _("You can contact the incident reporter at") . ' ' . $returnArray['email'];
+        
+        $mail->Body = $txt;
+        $sent = $mail->send();
+        if ($sent === FALSE) {
+            $returnArray['emailsent'] = 0;
+            $loggerInstance->debug(1, 'Mailing  failed');
+        } else {
+            $returnArray['emailsent'] = 1;
         }
     }
     $returnArray['status'] = 1;

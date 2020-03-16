@@ -125,11 +125,6 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
         return $this->SPList;
     }
     
-    /**
-     * counts the SPs
-     * 
-     * @return int
-     */
     public function countAllServiceProviders()
     {
                 if ($this->counter > -1) {
@@ -208,7 +203,38 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
         usort($returnarray, array($this, "usortInstitution"));
         return $returnarray;
     }
-
+    
+    /**
+     * retrieves entity information from the eduroam database having the given realm in the inst_realm field
+     * Choose which fields to get or get default
+     * 
+     * @param string      $realm  the realm
+     * @param array       $fields list of fields
+     * @return array list of entities
+     */
+    public function listExternalEntitiesByRealm($realm, $fields = [])
+    {
+        $returnArray = [];
+        $defaultFields = ['id_institution', 'country', 'inst_realm', 'name', 'contact', 'type'];
+        if (empty($fields)) {
+            $fields = $defaultFields;
+        }
+        $forSelect = join(', ', $fields);
+        //$query = "SELECT $forSelect FROM view_active_institution WHERE inst_realm like ?'";
+        $query = "SELECT $forSelect FROM view_active_institution WHERE inst_realm like '%$realm%'";
+        //$externals = $this->db->exec($query, "s", $realm);
+        $externals = $this->db->exec($query);
+        // was a SELECT query, so a resource and not a boolean
+        while ($externalQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $externals)) {
+            $record = [];
+            foreach ($fields as $field) {
+                $record[$field] = $externalQuery->$field;
+            }
+            $returnArray[] = $record;
+        }
+        return $returnArray;
+    }
+    
     /**
      * helper function to sort institutions by their name
      * 

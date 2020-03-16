@@ -60,6 +60,12 @@ if (isset($_SESSION['check_realm'])) {
 $mapCode = web\lib\admin\AbstractMap::instance($my_inst, TRUE);
 echo $mapCode->htmlHeadCode();
 ?>
+<script>
+$(document).on('click', '#realmcheck' , function() {
+   event.preventDefault();
+   location.href = '../diag/diag.php?admin=1&sp=1&realm=';
+});
+</script>
 </head>
 <body 
     <?php echo $mapCode->bodyTagCode(); ?>>
@@ -95,9 +101,9 @@ echo $mapCode->htmlHeadCode();
             echo "<tr>
                         <td>" . _("Check another realm's reachability") . "</td>
                         <td><form method='post' action='../diag/action_realmcheck.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'>
-                              <input type='text' name='realm' id='realm'>
+                              <!--<input type='text' name='realm' id='realm'>-->
                               <input type='hidden' name='comefrom' id='comefrom' value='$link'/>
-                              <button type='submit'>" . _("Go!") . "</button>
+                              <button id='realmcheck' type='submit'>" . _("Go!") . "</button>
                             </form>
                         </td>
                     </tr>";

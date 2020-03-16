@@ -388,14 +388,12 @@ $errorstate = [];
         show_debug(data);
         $("#live_src" + data.hostindex + "_img").hide();
         $.each(data.result, function (i, v) {
-            console.log('udp_login');
             var o = '<table><tr><td colspan=2>';
             var cert_data = '';
             if (v.server !== 0) {
                 o = o + '<strong>' + v.server + '</strong><p>';
                 cert_data = "<tr><td>&nbsp;</td><td><p><strong><?php echo _("Server certificate details:") ?></strong><dl class='udp_login'>";
                 $.each(server_cert, function (l, s) {
-                    console.log("l=" + l);
                     cert_data = cert_data + "<dt>" + s + "</dt><dd>" + v.server_cert[l] + "</dd>";
                 });
 

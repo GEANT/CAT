@@ -219,7 +219,6 @@ class RFC6614Tests extends AbstractTest
 
                     if (($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['reason'] == RADIUSTests::CERTPROB_UNKNOWN_CA) && ($tlsclient['status'] == 'ACCREDITED') && ($cert['status'] == 'CORRECT')) {
                         $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['finalerror'] = 1;
-                        echo "koniec zabawy2<br>";
                         break;
                     }
                 }
@@ -274,6 +273,10 @@ class RFC6614Tests extends AbstractTest
         if (preg_match('/verify error:num=19/', implode($opensslbabble))) {
             $this->TLS_CA_checks_result[$host]['cert_oddity'] = RADIUSTests::CERTPROB_UNKNOWN_CA;
             $this->TLS_CA_checks_result[$host]['status'] = RADIUSTests::RETVAL_INVALID;
+            return RADIUSTests::RETVAL_INVALID;
+        }
+        if (preg_match('/Cipher is (NONE)', implode($opensslbabble))) {
+            $this->TLS_CA_checks_result[$host]['status'] = RADIUSTests::RETVAL_SERVER_UNFINISHED_COMM;
             return RADIUSTests::RETVAL_INVALID;
         }
         if (preg_match('/verify return:1/', implode($opensslbabble))) {

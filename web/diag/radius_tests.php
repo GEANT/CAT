@@ -27,7 +27,7 @@ $validator = new \web\lib\common\InputValidation();
 $languageInstance = new \core\common\Language();
 $languageInstance->setTextDomain("diagnostics");
 
-
+$jsonDir = dirname(dirname(dirname(dirname(__FILE__)))) . "/CAT/var/json_cache";
 
 $additional_message = [
     \core\common\Entity::L_OK => '',
@@ -75,6 +75,11 @@ if (isset($_REQUEST['profile_id'])) {
 $hostindex = $_REQUEST['hostindex'];
 if (!is_numeric($hostindex)) {
     throw new Exception("The requested host index is not numeric!");
+}
+
+$token = '';
+if (isset($_REQUEST['token'])) {
+    $token = filter_input(INPUT_GET, 'token', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING);
 }
 
 $posted_host = $_REQUEST['src'];
@@ -271,6 +276,9 @@ switch ($test_type) {
             case \core\diag\RADIUSTests::RETVAL_CONNECTION_REFUSED:
                 $returnarray['level'] = \core\common\Entity::L_ERROR;
                 break;
+            case \core\diag\RADIUSTests::RETVAL_SERVER_UNFINISHED_COMM:
+                $returnarray['level'] = \core\common\Entity::L_ERROR;
+                break;
             case \core\diag\RADIUSTests::RETVAL_OK:
             $returnarray['certdata'] = [];
             $returnarray['certdata']['subject'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['subject'];
@@ -318,6 +326,14 @@ switch ($test_type) {
     default:
         throw new Exception("Unknown test requested: default case reached!");
 }
-
-echo(json_encode($returnarray));
+$returnarray['datetime'] = date("Y-m-d H:i:s");
+if (!is_dir($jsonDir . '/' . $token)) {
+    mkdir($jsonDir . '/' . $token, 0777, true);
+}
+$json_data = json_encode($returnarray);
+if ($token != '') {
+    $loggerInstance->debug(4, $jsonDir . '/' . $returnarray['token']);
+    file_put_contents($jsonDir . '/' . $token . '/' . $test_type . '_' . $hostindex, $json_data);
+}
+echo($json_data);
 

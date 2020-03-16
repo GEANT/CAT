@@ -1,7 +1,7 @@
 <?php
 /*
  * *****************************************************************************
- * Contributions to this work were made on behalf of the GÉANT project, a 
+ * Contributions to is this work were made on behalf of the GÉANT project, a 
  * project that has received funding from the European Union’s Framework 
  * Programme 7 under Grant Agreements No. 238875 (GN3) and No. 605243 (GN3plus),
  * Horizon 2020 research and innovation programme under Grant Agreements No. 
@@ -21,6 +21,8 @@
 
 require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 $admin = filter_input(INPUT_GET, 'admin', FILTER_VALIDATE_INT);
+$sp = filter_input(INPUT_GET, 'sp', FILTER_VALIDATE_INT);
+$givenRealm = filter_input(INPUT_GET, 'realm', FILTER_VALIDATE_STRING);
 $auth = new \web\lib\admin\Authentication();
 $isauth = 0;
 if ($auth->isAuthenticated()) {
