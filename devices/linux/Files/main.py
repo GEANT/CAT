@@ -44,6 +44,7 @@ import argparse
 import base64
 import getpass
 import os
+import platform
 import re
 import subprocess
 import sys
@@ -103,12 +104,6 @@ except ImportError:
     CRYPTO_AVAILABLE = False
 
 
-if sys.version_info.major == 3 and sys.version_info.minor >= 8:
-    import distro
-else:
-    import platform
-
-
 # the function below was partially copied
 # from https://ubuntuforums.org/showthread.php?t=1139057
 def detect_desktop_environment():
@@ -143,12 +138,12 @@ def get_system():
     It is meant to enable password encryption in distros
     that can handle this well.
     """
-    if sys.version_info.major == 3 and sys.version_info.minor >= 8:
-        system = distro.linux_distribution()
-    else:
-        system = platform.linux_distribution()
-    desktop = detect_desktop_environment()
-    return [system[0], system[1], desktop]
+    system = platform.system_alias(
+        platform.system(),
+        platform.release(),
+        platform.version()
+    )
+    return [system, detect_desktop_environment()]
 
 
 def get_config_path():
