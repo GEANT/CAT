@@ -187,6 +187,7 @@ abstract class DeviceConfig extends \core\common\Entity {
             // let's keep a record for which device type this token was consumed
             $dbInstance = DBConnection::handle("INST");
             $certId = $this->clientCert['certObject']->dbId;
+            $this->attributes['internal:username'] = [$this->clientCert['CN']];
             $dbInstance->exec("UPDATE `silverbullet_certificate` SET `device` = ? WHERE `id` = ?", "si", $this->device_id, $certId);
         }
         $this->loggerInstance->debug(5, "DeviceConfig->setup() - silverbullet checks done.\n");

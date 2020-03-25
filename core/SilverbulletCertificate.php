@@ -254,6 +254,7 @@ class SilverbulletCertificate extends EntityWithDBProperties {
             "sha1" => $sha1,
             'importPassword' => $importPassword,
             'GUID' => common\Entity::uuid("", $exportedCertProt),
+            'CN' => $csr["USERNAME"],
         ];
     }
 
