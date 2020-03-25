@@ -362,6 +362,9 @@ abstract class Device_XML extends \core\DeviceConfig {
                 
         // Client Certificate
         if ($this->selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
+            $attr = $this->attributes;
+            $outerId = \core\common\Entity::getAttributeValue($attr, 'internal:username', 0);
+            $clientsidecredential->setProperty('OuterIdentity', $outerId);
             $clientsidecredential->setProperty('ClientCertificate', $this->setClientCetificate());
         }
         return($clientsidecredential);

@@ -79,7 +79,7 @@ class XMLElement {
             \core\common\EAP::MSCHAP2 => ['UserName', 'Password', 'OuterIdentity', 'InnerIdentitySuffix', 'InnerIdentityHint'],
             \core\common\EAP::GTC => ['UserName', 'OneTimeToken'],
             \core\common\EAP::NE_PAP => ['UserName', 'Password', 'OuterIdentity', 'InnerIdentitySuffix', 'InnerIdentityHint'],
-            \core\common\EAP::NE_SILVERBULLET => ['UserName', 'ClientCertificate'],
+            \core\common\EAP::NE_SILVERBULLET => ['UserName', 'OuterIdentity', 'ClientCertificate'],
         ]
     ];
 
