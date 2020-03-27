@@ -758,7 +758,8 @@ network={
         $verifyResultAllcerts = [];
 // the error log will complain if we run this test against an empty file of certs
 // so test if there's something PEMy in the file at all
-        if (filesize("$tmpDir/serverchain.pem") > 10) {
+// serverchain.pem is the output from eapol_test; incomingserver.pem is written by extractIncomingCertsfromEAP() if there was at least one server cert.
+        if (filesize("$tmpDir/serverchain.pem") > 10 && filesize("$tmpDir/incomingserver.pem") > 10) {
             exec(CONFIG['PATHS']['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem", $verifyResultEaponly);
             $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/serverchain.pem\n");
             $this->loggerInstance->debug(4, "Chain verify pass 1: " . print_r($verifyResultEaponly, TRUE) . "\n");
