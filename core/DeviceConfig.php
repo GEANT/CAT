@@ -193,6 +193,7 @@ abstract class DeviceConfig extends \core\common\Entity
             // let's keep a record for which device type this token was consumed
             $dbInstance = DBConnection::handle("INST");
             $certId = $this->clientCert['certObject']->dbId;
+            $this->attributes['internal:username'] = [$this->clientCert['CN']];
             $dbInstance->exec("UPDATE `silverbullet_certificate` SET `device` = ? WHERE `id` = ?", "si", $this->device_id, $certId);
         }
         $this->loggerInstance->debug(5, "DeviceConfig->setup() - silverbullet checks done.\n");
@@ -541,14 +542,42 @@ abstract class DeviceConfig extends \core\common\Entity
     private function getNetworks()
     {
         $networks = [];
+        $ssids = [];
+        $ois = [];
+        $consortia = [];
         if (isset(\config\ConfAssistant::CONSORTIUM['networks'])) {
             $networks = \config\ConfAssistant::CONSORTIUM['networks'];
-        }
-        if (isset($this->attributes['media:SSID'])) {
-            foreach ($this->attributes['media:SSID'] as $ssid) {
-                $networks[$ssid] = ['ssid' => $ssid, 'oi' => []];
+        
+            foreach ($networks as $oneNetwork) {
+                if (!empty($oneNetwork['ssid'])) {
+                    $ssids = array_merge($ssids, $oneNetwork['ssid']);
+                }
+                if (!empty($oneNetwork['oi'])) {
+                    $ois = array_merge($ois, $oneNetwork['oi']);
+                }
             }
         }
+        
+        if (isset($this->attributes['media:SSID'])) {
+            foreach ($this->attributes['media:SSID'] as $ssid) {
+                if (!in_array($ssid, $ssids)) {
+                    $networks[$ssid] = ['ssid' => [$ssid], 'oi' => []];
+                }
+            }
+        }
+        
+        if (isset($this->attributes['media:consortium_OI'])) {
+            foreach ($this->attributes['media:consortium_OI'] as $new_oi) {
+                if (!in_array($new_oi, $ois)) {
+                    $consortia[] = $new_oi;
+                }
+            }
+        }
+        
+        if (!empty($consortia)) {
+            $networks['local passpoint network'] = ['ssid' => [], 'oi' => $consortia];
+        }
+        $this->loggerInstance->debug(4, $networks, "\nNETS:\n", "\n");
         return $networks;
     }
 
