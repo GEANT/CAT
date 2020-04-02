@@ -441,8 +441,6 @@ class RADIUSTestsUI extends AbstractTest
                                 $srefused = 1;
                             }
                         }
-                        $clients_level = \core\common\Entity::L_OK;
-                        $level = \core\common\Entity::L_OK;
                         if ($srefused == 0) {
                             foreach ($ca->certificate as $certificate) { 
                                 $cliinfo .= '<li><i>' . $certificate->message .  
@@ -494,7 +492,6 @@ class RADIUSTestsUI extends AbstractTest
                     }
                     
                 } else {
-                    $clients_level = \core\common\Entity::L_WARN;
                     $cliinfo = _('Test failed') ;
                     $clientstest[] = "<table><tr><td class='icon_td' id='srcclient" . $hostindex . "_img'><img src='" .
                                     $this->stateIcons[\core\common\Entity::L_WARN] . "'></td>" .
