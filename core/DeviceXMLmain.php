@@ -69,31 +69,6 @@ class DeviceXMLmain
     private $value;
 
     /**
-     *  @var array $AuthMethodElements is used to limit
-     *  XML elements present within ServerSideCredentials and
-     *  ClientSideCredentials to ones which are relevant
-     *  for a given EAP method.
-     *  @var array of XLM element names which are allowed
-     *  EAP method names are defined in core/EAP.php
-     */
-    public static $authMethodElements = [
-        'server' => [
-            \core\common\EAP::TLS => ['CA', 'ServerID'],
-            \core\common\EAP::FAST => ['CA', 'ServerID'],
-            \core\common\EAP::PEAP => ['CA', 'ServerID'],
-            \core\common\EAP::TTLS => ['CA', 'ServerID'],
-            \core\common\EAP::PWD => ['ServerID'],
-        ],
-        'client' => [
-            \core\common\EAP::TLS => ['UserName', 'Password', 'ClientCertificate'],
-            \core\common\EAP::MSCHAP2 => ['UserName', 'Password', 'OuterIdentity', 'InnerIdentitySuffix', 'InnerIdentityHint'],
-            \core\common\EAP::GTC => ['UserName', 'OneTimeToken'],
-            \core\common\EAP::NE_PAP => ['UserName', 'Password', 'OuterIdentity', 'InnerIdentitySuffix', 'InnerIdentityHint'],
-            \core\common\EAP::NE_SILVERBULLET => ['UserName', 'ClientCertificate', 'OuterIdentity'],
-        ]
-    ];
-
-    /**
      * constructor, initialises empty set of attributes and value
      */
     public function __construct()
