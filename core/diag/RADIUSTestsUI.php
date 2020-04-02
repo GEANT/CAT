@@ -126,12 +126,12 @@ class RADIUSTestsUI extends AbstractTest
             if ($this->allReachabilityResults['realm'][0]->realm) {
                 $this->realm = $this->allReachabilityResults['realm'][0]->realm;
                 foreach ($this->allReachabilityResults['realm'][0]->totest as $totest) {
-                  $this->hostMap[$totest->host] = $totest->bracketaddr;
+                    $this->hostMap[$totest->host] = $totest->bracketaddr;
                 }
                 $this->rfc7585suite = unserialize($this->allReachabilityResults['realm'][0]->rfc7585suite);
                 $this->srv = $this->allReachabilityResults['realm'][0]->srv;
                 $this->naptr = $this->allReachabilityResults['realm'][0]->naptr;
-                $this->naptrValid= $this->allReachabilityResults['realm'][0]->naptr_valid;
+                $this->naptrValid = $this->allReachabilityResults['realm'][0]->naptr_valid;
                 $this->hosts = $this->allReachabilityResults['realm'][0]->hosts;
                 $this->testSuite = unserialize($this->allReachabilityResults['realm'][0]->testsuite);
             }
@@ -191,9 +191,9 @@ class RADIUSTestsUI extends AbstractTest
         }
     }           
 
-    public function isDynamic ()
+    public function isDynamic()
     {
-        if ($this->naptr> 0) {
+        if ($this->naptr > 0) {
             return TRUE;
         }
         return FALSE;
@@ -203,7 +203,7 @@ class RADIUSTestsUI extends AbstractTest
      * 
      * 
      */
-    public function printOverview ()
+    public function printOverview()
     {
         $out = [];
         $out[] = "<fieldset class='option_container'>
@@ -289,13 +289,13 @@ class RADIUSTestsUI extends AbstractTest
         $out[] = "<hr><strong>"._("Static connectivity tests")."</strong>
          <table><tr>
          <td class='icon_td'>";
-        $out[] = "<img src='".$this->stateIcons[$this->globalLevelStatic]."' id='main_static_ico' class='icon'></td><td id='main_static_result'>" .
+        $out[] = "<img src='".$this->stateIcons[$this->globalLevelStatic]."' id='main_static_ico' class='icon'></td><td id='main_static_result'>".
                             $this->globalInfo[$this->globalLevelStatic].' '. _("See the appropriate tab for details.").'</td>
          </tr></table>';
         if ($this->naptr > 0) {
             $out[] = "<hr><strong>"._("Dynamic connectivity tests")."</strong>
             <table><tr>
-            <td class='icon_td'><img src='".$this->stateIcons[$this->globalLevelDynamic]."' id='main_dynamic_ico' class='icon'></td><td id='main_dynamic_result'>" .
+            <td class='icon_td'><img src='".$this->stateIcons[$this->globalLevelDynamic]."' id='main_dynamic_ico' class='icon'></td><td id='main_dynamic_result'>".
             $this->globalInfo[$this->globalLevelDynamic].' '._("See the appropriate tab for details.").'</td></tr></table>';
         }
         $out[] = '</fieldset>';
@@ -323,7 +323,7 @@ class RADIUSTestsUI extends AbstractTest
 <td class='icon_td'><img src='".$this->stateIcons[$result->level]."' id='src".$hostindex."_img'></td>
 <td id='src$hostindex' colspan=2>
 ";
-            $out[] = '<strong>'.($result->server? $result->server : _("Connected to undetermined server")).'</strong><br/>'.sprintf (_("elapsed time: %sms."), $result->time_millisec).'<p>'.$result->message.'</p>';
+            $out[] = '<strong>'.($result->server ? $result->server : _("Connected to undetermined server")).'</strong><br/>'.sprintf (_("elapsed time: %sms."), $result->time_millisec).'<p>'.$result->message.'</p>';
                     
             if ($result->level > \core\common\Entity::L_OK && property_exists($result, 'cert_oddities')) {
                 foreach ($result->cert_oddities as $oddities) {
@@ -337,7 +337,7 @@ class RADIUSTestsUI extends AbstractTest
                 }
             }
             $out[] = "<tr class='server_cert' style='display: ";
-            $out[] = ($result->server_cert? 'table-row' : 'none').";'><td>&nbsp;</td><td colspan=2><div><dl class='server_cert_list' style='display: none;'>";
+            $out[] = ($result->server_cert ? 'table-row' : 'none').";'><td>&nbsp;</td><td colspan=2><div><dl class='server_cert_list' style='display: none;'>";
             $out[] = $cert_data;
                         
             $ext = '';
@@ -403,12 +403,12 @@ class RADIUSTestsUI extends AbstractTest
                 }
                             
                 $certdesc .= '</ul>';
-                $more .= '<span class="morecontent"><span>'.$certdesc .
+                $more .= '<span class="morecontent"><span>'.$certdesc.
                         '</span>&nbsp;&nbsp;<a href="" class="morelink">'._("more").'&raquo;</a></span></td></tr>';
             } else {
                 $certdesc = '<br>';
             }
-            $capathtest[] = '<div>'.($capath->message!=''? $capath->message : _('Test failed')).'</div>'.$more;
+            $capathtest[] = '<div>'.($capath->message!='' ? $capath->message : _('Test failed')).'</div>'.$more;
             $capathtest[] = '</td>
 </tr>
 </table>';
@@ -433,7 +433,7 @@ class RADIUSTestsUI extends AbstractTest
                         //print '<pre>'; print_r($ca); print '</pre>';
                         $srefused = 0;
                         $cliinfo = '';
-                        $cliinfo .= '<li>'._('Client certificate').' <b>'.$ca->clientcertinfo->from .
+                        $cliinfo .= '<li>'._('Client certificate').' <b>'.$ca->clientcertinfo->from.
                                     '</b>'.', '.$ca->clientcertinfo->message .
                                     '<br> (CA: '.$ca->clientcertinfo->issuer.')<ul>';
                         foreach ($ca->certificate as $certificate) {
@@ -456,11 +456,11 @@ class RADIUSTestsUI extends AbstractTest
                                         $state = _("Server accepted this client certificate");
                                     } else {
                                         if (property_exists($certificate, 'reason') && $certificate->reason == \core\diag\RADIUSTests::CERTPROB_UNKNOWN_CA) {
-                                            $add = '<br>'._('You should update your list of accredited CAs') .
-                                                           ' <a href=\"'.\config\Diagnostics::RADIUSTESTS['accreditedCAsURL'].'\">' .
+                                            $add = '<br>'._('You should update your list of accredited CAs').
+                                                            ' <a href=\"'.\config\Diagnostics::RADIUSTESTS['accreditedCAsURL'].'\">'.
                                                             _('Get it from here.').'</a>';
                                         }
-                                        $state = _('Server did not accept this client certificate - reason').': ' .
+                                        $state = _('Server did not accept this client certificate - reason').': '.
                                                     $certificate->resultcomment;
                                     }
                                 } else {
@@ -468,8 +468,8 @@ class RADIUSTestsUI extends AbstractTest
                                         $level = \core\common\Entity::L_WARN;
                                         $state = _('Server accepted this client certificate, but should not have');
                                     } else {
-                                       $level = \core\common\Entity::L_OK;
-                                       $state = _('Server did not accept this client certificate').': '.$certificate->resultcomment;
+                                        $level = \core\common\Entity::L_OK;
+                                        $state = _('Server did not accept this client certificate').': '.$certificate->resultcomment;
                                     }
                                 }
                                 $cliinfo .= '<li><table><tbody><tr><td class="icon_td"><img class="icon" src="'.$this->stateIcons[$level].'" style="width: 24px;"></td><td>'.$state;
@@ -484,16 +484,16 @@ class RADIUSTestsUI extends AbstractTest
                                     
                         if ($srefused > 0) {
                             $cliinfo = _('Connection refused');
-                            $clientstest[] = "<table><tr><td class='icon_td' id='srcclient".$hostindex."_img'><img src='".$this->stateIcons[\core\common\Entity::L_ERROR]."'></td>" .
-                                     "<td id='srcclient$hostindex'><p>$cliinfo</p></td></tr></table>";
+                            $clientstest[] = "<table><tr><td class='icon_td' id='srcclient".$hostindex."_img'><img src='".$this->stateIcons[\core\common\Entity::L_ERROR]."'></td>".
+                                        "<td id='srcclient$hostindex'><p>$cliinfo</p></td></tr></table>";
                         } else {
                             $clientstest[] = "<p>$cliinfo</p>";
                         }
                     }
                     
                 } else {
-                    $cliinfo = _('Test failed') ;
-                    $clientstest[] = "<table><tr><td class='icon_td' id='srcclient".$hostindex."_img'><img src='" .
+                    $cliinfo = _('Test failed');
+                    $clientstest[] = "<table><tr><td class='icon_td' id='srcclient".$hostindex."_img'><img src='".
                                     $this->stateIcons[\core\common\Entity::L_WARN]."'></td>" .
                                     "<td id='srcclient$hostindex'>$cliinfo</td></tr></table>";
                 }
@@ -504,7 +504,7 @@ class RADIUSTestsUI extends AbstractTest
 <td class='icon_td'><img src='";
                 $clientstest[] = $this->stateIcons[\core\common\Entity::L_ERROR]."' id='srcclients".$hostindex."_img'></td>
 <td id='srcclient$hostindex'>";
-                $clientstest[] =  _("These tests were skipped because of previous errors.").'</td></tr></table></ul>';
+                $clientstest[] = _("These tests were skipped because of previous errors.").'</td></tr></table></ul>';
             }
             $clientstest[] = '</ol><p></p>';
         }
@@ -531,8 +531,8 @@ class RADIUSTestsUI extends AbstractTest
             if ($this->globalLevelDynamic != \core\common\Entity::L_OK || $this->areFailed) {
                 $out[] = 'none';
             }
-            $out[] = '" id="dynamic_result_pass"><b>' .
-                                _("All tests passed, congratulations!").'</b></div>' .
+            $out[] = '" id="dynamic_result_pass"><b>'.
+                                _("All tests passed, congratulations!").'</b></div>'.
                                 '<div style="align:left;"><a href="" class="moreall"><i>'._('Show detailed information for all tests').'&raquo;</i></a></div>';
             //print '<pre>'; print_r($clientstest); print '</pre>';
             $out[] = join('', $capathtest);
