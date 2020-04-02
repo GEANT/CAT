@@ -402,6 +402,7 @@ class SilverbulletCertificate extends EntityWithDBProperties
             "sha256" => openssl_x509_fingerprint(/** @scrutinizer ignore-type */$cert, "sha256"),
             'importPassword' => $importPassword,
             'GUID' => common\Entity::uuid("", $exportedCertProt),
+            'CN' => $csr["USERNAME"],
         ];
     }
 

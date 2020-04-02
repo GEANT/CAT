@@ -193,6 +193,7 @@ abstract class DeviceConfig extends \core\common\Entity
             // let's keep a record for which device type this token was consumed
             $dbInstance = DBConnection::handle("INST");
             $certId = $this->clientCert['certObject']->dbId;
+            $this->attributes['internal:username'] = [$this->clientCert['CN']];
             $dbInstance->exec("UPDATE `silverbullet_certificate` SET `device` = ? WHERE `id` = ?", "si", $this->device_id, $certId);
         }
         $this->loggerInstance->debug(5, "DeviceConfig->setup() - silverbullet checks done.\n");
@@ -534,20 +535,73 @@ abstract class DeviceConfig extends \core\common\Entity
     }
     
     /**
+     * return a list of SSIDs definded in the Config networks block
+     * 
+     * @return array $ssids
+     */
+    private function getConfigSSIDs()
+    {
+        $ssids = [];
+        if (!isset(\config\ConfAssistant::CONSORTIUM['networks'])) {
+            return [];
+        }
+        foreach (\config\ConfAssistant::CONSORTIUM['networks'] as $oneNetwork) {
+            if (!empty($oneNetwork['ssid'])) {
+                $ssids = array_merge($ssids, $oneNetwork['ssid']);
+            }
+        }
+        return $ssids;
+    }
+    
+    /**
+     * return a list of OIs definded in the Config networks block
+     * 
+     * @return array $ois
+     */
+    private function getConfigOIs()
+    {
+        $ois = [];
+        if (!isset(\config\ConfAssistant::CONSORTIUM['networks'])) {
+            return [];
+        }
+        foreach (\config\ConfAssistant::CONSORTIUM['networks'] as $oneNetwork) {
+            if (!empty($oneNetwork['oi'])) {
+                $ois = array_merge($ois, $oneNetwork['oi']);
+            }
+        }
+        return $ois;
+    }
+
+    /**
      * returns the list of parameters for predefined networks to be configured
      * 
      * @return array
      */
     private function getNetworks()
     {
-        $networks = [];
-        if (isset(\config\ConfAssistant::CONSORTIUM['networks'])) {
-            $networks = \config\ConfAssistant::CONSORTIUM['networks'];
-        }
+        $consortia = [];
+        $ssids = $this->getConfigSSIDs();
+        $ois = $this->getConfigOIs();
+        $networks = isset(\config\ConfAssistant::CONSORTIUM['networks']) ? 
+            \config\ConfAssistant::CONSORTIUM['networks'] : [];
+        // add locally defined SSIDs
         if (isset($this->attributes['media:SSID'])) {
             foreach ($this->attributes['media:SSID'] as $ssid) {
-                $networks[$ssid] = ['ssid' => $ssid, 'oi' => []];
+                if (!in_array($ssid, $ssids)) {
+                    $networks[$ssid] = ['ssid' => [$ssid], 'oi' => []];
+                }
             }
+        }
+        // add locally defined OIs
+        if (isset($this->attributes['media:consortium_OI'])) {
+            foreach ($this->attributes['media:consortium_OI'] as $new_oi) {
+                if (!in_array($new_oi, $ois)) {
+                    $consortia[] = $new_oi;
+                }
+            }
+        }
+        if (!empty($consortia)) {
+            $networks['local passpoint network'] = ['ssid' => [], 'oi' => $consortia];
         }
         return $networks;
     }

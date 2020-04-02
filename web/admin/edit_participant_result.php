@@ -29,50 +29,6 @@ $validator = new \web\lib\common\InputValidation();
 $optionParser = new \web\lib\admin\OptionParser();
 $ui = new \web\lib\admin\UIElements();
 
-if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_DELETE && isset($_GET['inst_id'])) {
-    $auth->authenticate();
-    $my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
-    $instId = $my_inst->identifier;
-    // delete the IdP and send user to enrollment
-    $my_inst->destroy();
-    $loggerInstance->writeAudit($_SESSION['user'], "DEL", "IdP " . $instId);
-    header("Location: overview_user.php");
-    exit;
-}
-
-if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_FLUSH_AND_RESTART && isset($_GET['inst_id'])) {
-    $auth->authenticate();
-    $my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
-    $instId = $my_inst->identifier;
-    //
-    $profiles = $my_inst->listProfiles();
-    foreach ($profiles as $profile) {
-        $profile->destroy();
-    }
-    // flush all IdP attributes and send user to creation wizard
-    $my_inst->flushAttributes();
-    $loggerInstance->writeAudit($_SESSION['user'], "DEL", "IdP starting over" . $instId);
-    header("Location: edit_participant.php?inst_id=$instId&wizard=true");
-    exit;
-}
-
-
-echo $deco->pageheader(sprintf(_("%s: IdP enrollment wizard (step 2 completed)"), \config\Master::APPEARANCE['productname']), "ADMIN-PARTICIPANT");
-$my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
-
-if ((!isset($_POST['submitbutton'])) || (!isset($_POST['option'])) || (!isset($_POST['value']))) {
-    // this page doesn't make sense without POST values
-    echo $deco->footer();
-    exit(0);
-}
-
-if ($_POST['submitbutton'] != web\lib\common\FormElements::BUTTON_SAVE && $_POST['submitbutton'] != web\lib\common\FormElements::BUTTON_CONTINUE) {
-    // unexpected button value
-    echo $deco->footer();
-    exit(0);
-}
-
-
 $auth->authenticate();
 $myInstOriginal = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
 $instId = $myInstOriginal->identifier;
@@ -190,13 +146,13 @@ switch ($_POST['submitbutton']) {
         $myfed = new \core\Federation($myInstReinstantiated->federation);
         $allow_sb = $myfed->getAttributes("fed:silverbullet");
 // show the new profile jumpstart buttons only if we do not have any profile at all
-        if (count($my_inst->listProfiles()) == 0) {
+        if (count($myInstReinstantiated->listProfiles()) == 0) {
 
             if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($allow_sb) > 0) {
                 echo "<br/>";
                 // did we get an email address? then, show the silverbullet jumpstart button
                 // otherwise, issue a smartass comment
-                if (count($my_inst->getAttributes("support:email")) > 0) {
+                if (count($myInstReinstantiated->getAttributes("support:email")) > 0) {
                     echo "<form method='post' action='edit_silverbullet.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . sprintf(_("Continue to %s properties"), \core\ProfileSilverbullet::PRODUCTNAME) . "</button></form>";
                 } else {
                     echo "<table>";

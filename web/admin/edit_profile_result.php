@@ -197,19 +197,6 @@ switch ($_POST['submitbutton']) {
                     // add EAP type to profile as requested, but ...
                     $profile->addSupportedEapMethod($a, $priority);
                     $loggerInstance->writeAudit($_SESSION['user'], "MOD", "Profile " . $profile->identifier . " - supported EAP types changed");
-                    // see if we can enable the EAP type, or if info is missing
-                    $eapcompleteness = $profile->isEapTypeDefinitionComplete($a);
-                    if ($eapcompleteness === true) {
-                        echo $uiElements->boxOkay(_("Supported EAP Type: ") . "<strong>" . $a->getPrintableRep() . "</strong>");
-                    } else {
-                        $warntext = "";
-                        if (is_array($eapcompleteness)) {
-                            foreach ($eapcompleteness as $item) {
-                                $warntext .= "<strong>" . $uiElements->displayName($item) . "</strong> ";
-                            }
-                        }
-                        echo $uiElements->boxWarning(sprintf(_("Supported EAP Type: <strong>%s</strong> is missing required information %s !"), $a->getPrintableRep(), $warntext) . "<br/>" . _("The EAP type was added to the profile, but you need to complete the missing information before we can produce installers for you."));
-                    }
                 }
             }
             // re-instantiate $profile, we need to do completion checks and need fresh data for isEapTypeDefinitionComplete()
@@ -242,7 +229,26 @@ switch ($_POST['submitbutton']) {
                     $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), \config\Master::APPEARANCE['productname'], $ui->nomenclatureInst), $text);
                 }
             }
-
+            foreach ($reloadedProfile->getEapMethodsinOrderOfPreference() as $oneEap) {
+                // see if we can enable the EAP type, or if info is missing
+                    $eapcompleteness = $reloadedProfile->isEapTypeDefinitionComplete($oneEap);
+                    if ($eapcompleteness === true) {
+                        echo $uiElements->boxOkay(_("Supported EAP Type: ") . "<strong>" . $oneEap->getPrintableRep() . "</strong>");
+                    } else {
+                        
+                        if (is_array($eapcompleteness)) {
+                            $number = count($eapcompleteness);
+                            $iterator = 0;
+                            $warntext = "<strong>";
+                            foreach ($eapcompleteness as $item) {
+                                $iterator = $iterator + 1;
+                                $warntext .= $uiElements->displayName($item) . "</strong>".($iterator < $number ? ", " : "")."<strong>";
+                            }
+                            $warntext .= "</strong>";
+                        }
+                        echo $uiElements->boxWarning(sprintf(_("Supported EAP Type <strong>%s</strong> is missing required information: %s !"), $oneEap->getPrintableRep(), $warntext) . "<br/>" . _("The EAP type was added to the profile, but you need to complete the missing information before we can produce installers for you."));
+                    }
+            }
             $reloadedProfile->prepShowtime();
             ?>
         </table>
