@@ -29,50 +29,6 @@ $validator = new \web\lib\common\InputValidation();
 $optionParser = new \web\lib\admin\OptionParser();
 $ui = new \web\lib\admin\UIElements();
 
-if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_DELETE && isset($_GET['inst_id'])) {
-    $auth->authenticate();
-    $my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
-    $instId = $my_inst->identifier;
-    // delete the IdP and send user to enrollment
-    $my_inst->destroy();
-    $loggerInstance->writeAudit($_SESSION['user'], "DEL", "IdP " . $instId);
-    header("Location: overview_user.php");
-    exit;
-}
-
-if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_FLUSH_AND_RESTART && isset($_GET['inst_id'])) {
-    $auth->authenticate();
-    $my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
-    $instId = $my_inst->identifier;
-    //
-    $profiles = $my_inst->listProfiles();
-    foreach ($profiles as $profile) {
-        $profile->destroy();
-    }
-    // flush all IdP attributes and send user to creation wizard
-    $my_inst->flushAttributes();
-    $loggerInstance->writeAudit($_SESSION['user'], "DEL", "IdP starting over" . $instId);
-    header("Location: edit_participant.php?inst_id=$instId&wizard=true");
-    exit;
-}
-
-
-echo $deco->pageheader(sprintf(_("%s: IdP enrollment wizard (step 2 completed)"), \config\Master::APPEARANCE['productname']), "ADMIN-PARTICIPANT");
-$my_inst = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
-
-if ((!isset($_POST['submitbutton'])) || (!isset($_POST['option'])) || (!isset($_POST['value']))) {
-    // this page doesn't make sense without POST values
-    echo $deco->footer();
-    exit(0);
-}
-
-if ($_POST['submitbutton'] != web\lib\common\FormElements::BUTTON_SAVE && $_POST['submitbutton'] != web\lib\common\FormElements::BUTTON_CONTINUE) {
-    // unexpected button value
-    echo $deco->footer();
-    exit(0);
-}
-
-
 $auth->authenticate();
 $myInstOriginal = $validator->existingIdP($_GET['inst_id'], $_SESSION['user']);
 $instId = $myInstOriginal->identifier;
