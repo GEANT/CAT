@@ -192,7 +192,7 @@ class DeviceXMLmain
      * marchalObject attaches all children transforming the DeviceXMLmain structure
      * to the root
      */
-    public static function marshalObject($node, $name, $object, $namespace=NULL, $root = false)
+    public static function marshalObject($node, $name, $object, $namespace = NULL, $root = false)
     {
         if (is_null($object)) {
             return;
