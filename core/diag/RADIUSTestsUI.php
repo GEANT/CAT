@@ -64,6 +64,7 @@ class RADIUSTestsUI extends AbstractTest
     private $globalInfo = [];
     private $stateIcons = [];
     private $states;
+    private $certFields;
     private $timestamp;
     const RADIUS_TEST_OPERATION_MODE_SHALLOW = 1;
     const RADIUS_TEST_OPERATION_MODE_THOROUGH = 2;
@@ -166,9 +167,10 @@ class RADIUSTestsUI extends AbstractTest
                         $srefused = $this->areFailed = TRUE;
                     }
                 }
+                $level = \core\common\Entity::L_OK;
                 if (!$srefused) {
-                    foreach ($clients->ca as $ca) {
-                        foreach ($ca->certificate as $certificate) {
+                    foreach ($clients->ca as $cca) {
+                        foreach ($cca->certificate as $certificate) {
                             $level = $certificate->returncode;
                             if ($level < 0) {
                                 $level = \core\common\Entity::L_ERROR;
@@ -281,11 +283,6 @@ class RADIUSTestsUI extends AbstractTest
                 $out[] = "</table></div>";
             }
             $out[] = '</div>';
-
-            foreach ($this->rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
-                $host = ($addr['family'] == "IPv6" ? "[" : "") . $addr['IP'] . ($addr['family'] == "IPv6" ? "]" : "") . ":" . $addr['port'];
-                $expectedName = $addr['hostname'];
-            }
         } else {
             $out[] = "<tr><td>" . _("Dynamic discovery test is not configured") . "</td><td>";
         }
@@ -330,7 +327,7 @@ class RADIUSTestsUI extends AbstractTest
                     
             if ($result->level > \core\common\Entity::L_OK && property_exists($result, 'cert_oddities')) {
                 foreach ($result->cert_oddities as $oddities) {
-                    $out[] = '<tr class="results_tr"><td>&nbsp;</td><td class="icon_td"><img src="' . $icons[$oddities->level] . '"></td><td>' . $oddities->message . '</td></tr>';
+                    $out[] = '<tr class="results_tr"><td>&nbsp;</td><td class="icon_td"><img src="' . $this->stateIcons[$oddities->level] . '"></td><td>' . $oddities->message . '</td></tr>';
                 }
             }
             $cert_data = '';
@@ -444,6 +441,8 @@ class RADIUSTestsUI extends AbstractTest
                                 $srefused = 1;
                             }
                         }
+                        $clients_level = \core\common\Entity::L_OK;
+                        $level = \core\common\Entity::L_OK;
                         if ($srefused == 0) {
                             foreach ($ca->certificate as $certificate) { 
                                 $cliinfo .= '<li><i>' . $certificate->message .  
@@ -488,13 +487,13 @@ class RADIUSTestsUI extends AbstractTest
                                     
                         if ($srefused > 0) {
                             $cliinfo = _('Connection refused');
-                            $clientstest[] = "<table><tr><td class='icon_td' id='srcclient$hostindex_img'><img src='" . $this->stateIcons[\core\common\Entity::L_ERROR] . "'></td>" .
-                                     "<td id='srcclient$hostname'><p>$cliinfo</p></td></tr></table>";
+                            $clientstest[] = "<table><tr><td class='icon_td' id='srcclient" . $hostindex . "_img'><img src='" . $this->stateIcons[\core\common\Entity::L_ERROR] . "'></td>" .
+                                     "<td id='srcclient$hostindex'><p>$cliinfo</p></td></tr></table>";
                         } else {
                             $clientstest[] = "<p>$cliinfo</p>";
                         }
                     }
-                    $cliinfo .= '</ol>';
+                    
                 } else {
                     $clients_level = \core\common\Entity::L_WARN;
                     $cliinfo = _('Test failed') ;
