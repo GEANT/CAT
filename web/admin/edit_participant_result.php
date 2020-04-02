@@ -146,13 +146,13 @@ switch ($_POST['submitbutton']) {
         $myfed = new \core\Federation($myInstReinstantiated->federation);
         $allow_sb = $myfed->getAttributes("fed:silverbullet");
 // show the new profile jumpstart buttons only if we do not have any profile at all
-        if (count($my_inst->listProfiles()) == 0) {
+        if (count($myInstReinstantiated->listProfiles()) == 0) {
 
             if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($allow_sb) > 0) {
                 echo "<br/>";
                 // did we get an email address? then, show the silverbullet jumpstart button
                 // otherwise, issue a smartass comment
-                if (count($my_inst->getAttributes("support:email")) > 0) {
+                if (count($myInstReinstantiated->getAttributes("support:email")) > 0) {
                     echo "<form method='post' action='edit_silverbullet.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . sprintf(_("Continue to %s properties"), \core\ProfileSilverbullet::PRODUCTNAME) . "</button></form>";
                 } else {
                     echo "<table>";
