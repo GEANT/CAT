@@ -161,13 +161,13 @@ class RADIUSTestsUI extends AbstractTest
         }
         foreach ($this->allReachabilityResults['clients'] as $clients) {
             $srefused = FALSE;
+            $level = \core\common\Entity::L_OK;
             foreach ($clients->ca as $ca) {
                 foreach ($ca->certificate as $certificate) {
                     if ($certificate->returncode == \core\diag\RADIUSTests::RETVAL_CONNECTION_REFUSED) {
                         $srefused = $this->areFailed = TRUE;
                     }
                 }
-                $level = \core\common\Entity::L_OK;
                 if (!$srefused) {
                     foreach ($clients->ca as $cca) {
                         foreach ($cca->certificate as $certificate) {
@@ -481,7 +481,6 @@ class RADIUSTestsUI extends AbstractTest
                                     $cliinfo = '<li>' . _('Rest of tests for this CA skipped') . '</li>';
                                 }
                             }
-                            $clients_level = max($clients_level, $level);
                             $cliinfo .= '</ul>';
                         }
                                     
@@ -497,9 +496,9 @@ class RADIUSTestsUI extends AbstractTest
                 } else {
                     $clients_level = \core\common\Entity::L_WARN;
                     $cliinfo = _('Test failed') ;
-                    $clientstest[] = "<table><tr><td class='icon_td' id='srcclient$hostindex_img'><img src='" .
+                    $clientstest[] = "<table><tr><td class='icon_td' id='srcclient" . $hostindex . "_img'><img src='" .
                                     $this->stateIcons[\core\common\Entity::L_WARN] . "'></td>" .
-                                    "<td id='srcclient$hostname'>$cliinfo</td></tr></table>";
+                                    "<td id='srcclient$hostindex'>$cliinfo</td></tr></table>";
                 }
             } else {
                 $clientstest[] = '<ul style="list-style-type: none;" class="clientsresult"><li>';
