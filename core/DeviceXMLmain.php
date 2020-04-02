@@ -134,7 +134,7 @@ class DeviceXMLmain
         if (is_scalar($value)) {
             $this->value = strval($value);
         } else {
-            throw new Exception("unexpected value type passed" . gettype($value));
+            throw new Exception("unexpected value type passed".gettype($value));
         }
     }
 
@@ -192,7 +192,7 @@ class DeviceXMLmain
      * marchalObject attaches all children transforming the DeviceXMLmain structure
      * to the root
      */
-    public function marshalObject($node, $name, $object, $namespace=NULL, $root=false)
+    public static function marshalObject($node, $name, $object, $namespace=NULL, $root = false)
     {
         if (is_null($object)) {
             return;
