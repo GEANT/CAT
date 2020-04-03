@@ -103,7 +103,7 @@ $(document).on('click', '#realmcheck' , function() {
                         <td><form method='post' action='../diag/action_realmcheck.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'>
                               <!--<input type='text' name='realm' id='realm'>-->
                               <input type='hidden' name='comefrom' id='comefrom' value='$link'/>
-                              <button id='realmcheck' type='submit'>" . _("Go!") . "</button>
+                              <button id='realmcheck' style='cursor:pointer;' type='submit'>" . _("Go!") . "</button>
                             </form>
                         </td>
                     </tr>";
@@ -113,7 +113,7 @@ $(document).on('click', '#realmcheck' , function() {
                         <td>" . sprintf(_("Check %s server status"), $uiElements->nomenclatureFed) . "</td>
                         <td>
                            <form action='https://monitor.eduroam.org/mon_direct.php' accept-charset='UTF-8'>
-                              <button type='submit'>" . _("Go!") . "</button>
+                              <button style='cursor:pointer;' type='submit'>" . _("Go!") . "</button>
                            </form>
                         </td>
                     </tr>";
@@ -229,11 +229,11 @@ $(document).on('click', '#realmcheck' , function() {
                 <div class='buttongroupprofilebox' style='clear:both;'>
                     <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
                         <br/>
-                        <button type='submit' name='profile_action' value='edit'><?php echo _("Advanced Configuration"); ?></button>
+                        <button type='submit' name='profile_action' style='cursor:pointer;' value='edit'><?php echo _("Advanced Configuration"); ?></button>
                     </form>
                     <?php if ($deploymentObject->status == \core\AbstractDeployment::ACTIVE) { ?>
                         <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
-                            <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php printf(_("Do you really want to deactivate the %s deployment?"), core\DeploymentManaged::PRODUCTNAME); ?>')">
+                            <button class='delete' type='submit' style='cursor:pointer;' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php printf(_("Do you really want to deactivate the %s deployment?"), core\DeploymentManaged::PRODUCTNAME); ?>')">
                                 <?php echo _("Deactivate"); ?>
                             </button>
                             <?php 
