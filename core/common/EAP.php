@@ -58,10 +58,10 @@ class EAP extends Entity
     const GTC = 6;
     const FAST = 43;
     const PWD = 52;
-    const NE_PAP = 1;
-    const NE_MSCHAP = 2;
-    const NE_MSCHAP2 = 3;
-    const NE_SILVERBULLET = 999;
+    const NE_PAP = -1;
+    const NE_MSCHAP = -2;
+    const NE_MSCHAP2 = -3;
+    const NE_SILVERBULLET = -999;
     const INTEGER_TTLS_PAP = 1;
     const INTEGER_PEAP_MSCHAP2 = 2;
     const INTEGER_TLS = 3;
@@ -92,12 +92,12 @@ class EAP extends Entity
     /**
      * TTLS-PAP: Outer EAP type = 21, no inner EAP, inner non-EAP = 1
      */
-    const EAPTYPE_TTLS_PAP = ["OUTER" => EAP::TTLS, "INNER" => EAP::NONE];
+    const EAPTYPE_TTLS_PAP = ["OUTER" => EAP::TTLS, "INNER" => EAP::NE_PAP];
 
     /**
      * TTLS-MSCHAP-v2: Outer EAP type = 21, no inner EAP, inner non-EAP = 3
      */
-    const EAPTYPE_TTLS_MSCHAP2 = ["OUTER" => EAP::TTLS, "INNER" => EAP::MSCHAP2];
+    const EAPTYPE_TTLS_MSCHAP2 = ["OUTER" => EAP::TTLS, "INNER" => EAP::NE_MSCHAP2];
 
     /**
      * TTLS-GTC: Outer EAP type = 21, Inner EAP Type = 6
@@ -353,19 +353,11 @@ class EAP extends Entity
     public static function innerAuth($eap)
     {
         $out = [];
-        if ($eap["INNER"]) { // there is an inner EAP method
-            $out['EAP'] = 1;
-            $out['METHOD'] = $eap["INNER"];
-            return $out;
-        }
-        // there is none
+        $out['METHOD'] = $eap["INNER"];
         $out['EAP'] = 0;
-        switch ($eap) {
-            case EAP::EAPTYPE_TTLS_PAP:
-                $out['METHOD'] = EAP::NE_PAP;
-                break;
-            case EAP::EAPTYPE_TTLS_MSCHAP2:
-                $out['METHOD'] = EAP::NE_MSCHAP2;
+        // override if there is an inner EAP
+        if ($eap["INNER"] > 0) { // there is an inner EAP method
+            $out['EAP'] = 1;
         }
         return $out;
     }

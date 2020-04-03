@@ -462,7 +462,7 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
         }
         $retval .= "
                       <key>TTLSInnerAuthentication</key>
-                         <string>" . ($eapType['INNER'] == \core\common\EAP::NONE ? "PAP" : "MSCHAPv2") . "</string>
+                         <string>" . ($eapType['INNER'] == \core\common\EAP::NE_PAP ? "PAP" : "MSCHAPv2") . "</string>
                    </dict>";
         return $retval;
     }
