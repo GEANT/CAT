@@ -136,7 +136,6 @@ class RADIUSTestsUI extends AbstractTest
                 $this->testSuite = unserialize($this->allReachabilityResults['realm'][0]->testsuite);
             }
             $this->timestamp = $this->allReachabilityResults['realm'][0]->datetime;
-            //print '<pre>'; print_r($this->allReachabilityResults['realm'][0]); print '</pre>'; exit;
         }
     }
     
@@ -225,8 +224,7 @@ class RADIUSTestsUI extends AbstractTest
                     $out[] = sprintf(_("This realm has %d NAPTR records relating to this roaming consortium."), $this->naptr);
             }
             $out[] = "</td></tr>";
-            //print '<pre>'; print_r($out); print '</pre>'; exit;
-            // compliance checks for NAPTRs
+          
             if ($this->naptr > 0) {
                 $out[] = "<tr><td>"._("Checking NAPTR compliance (flag = S and regex = {empty}):")."</td><td>";
                 switch ($this->naptrValid) {
