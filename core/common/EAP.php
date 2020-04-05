@@ -346,23 +346,6 @@ class EAP extends Entity
     }
 
     /**
-     * determines the inner authentication. Is it EAP, and which mechanism is used to convey actual auth data
-     * @param array $eap the EAP type for which we want to get the inner auth
-     * @return array
-     */
-    public static function innerAuth($eap)
-    {
-        $out = [];
-        $out['METHOD'] = $eap["INNER"];
-        $out['EAP'] = 0;
-        // override if there is an inner EAP
-        if ($eap["INNER"] > 0) { // there is an inner EAP method
-            $out['EAP'] = 1;
-        }
-        return $out;
-    }
-
-    /**
      * This function enumerates all known EAP types and returns them as array
      * 
      * @return array of all EAP types the CAT knows about, as objects
