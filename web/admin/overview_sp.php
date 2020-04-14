@@ -77,6 +77,9 @@ $(document).on('click', '#realmcheck' , function() {
     <h1><?php echo sprintf(_("%s Overview"), $uiElements->nomenclatureHotspot); ?></h1>
     <div>
         <h2><?php echo sprintf(_("%s general settings"), $uiElements->nomenclatureHotspot); ?></h2>
+         <form action='edit_participant.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
+            <button type='submit' name='submitbutton' value='<?php echo \web\lib\common\FormElements::BUTTON_EDIT; ?>'><?php echo sprintf(_("Edit general %s details"), $uiElements->nomenclatureParticipant); ?></button>
+        </form>
         <?php
         echo $uiElements->instLevelInfoBoxes($my_inst);
         ?>
