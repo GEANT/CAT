@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:complexType name="VendorSpecificExtension">
+        <xs:sequence>
+            <xs:any namespace="##other"/>
+        </xs:sequence>
+        <xs:attribute name="vendor" type="xs:int" use="required"/>
+    </xs:complexType>                                                 
+
+    <xs:complexType name="TypeSpecificExtension">
+        <xs:sequence>
+            <xs:any namespace="##other"/>
+        </xs:sequence>
+    </xs:complexType>                                                 
+
+    <xs:complexType name="EAPMethod">
+        <xs:sequence>
+            <xs:element name="Type" type="xs:int" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="TypeSpecific" type="TypeSpecificExtension" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="VendorSpecific" type="VendorSpecificExtension" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="NonEAPAuthNumbers">
+        <xs:restriction base="xs:int">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>PAP</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>MSCHAP</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>MSCHAPv2</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="IEEE80211-RSN-Protocols">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="TKIP">
+                <xs:annotation>
+                    <xs:documentation>
+                        Temporal Key Integrity Protocol (if used, crypto settings
+                        "WPA/TKIP", "WPA2/TKIP" and "WPA2/AES" and possible future
+                        protos are acceptable).
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CCMP">
+                <xs:annotation>
+                    <xs:documentation>
+                        CTR with CBC-MAC Protocol (if used, only crypto setting
+                        "WPA2/AES" and possible future protos are acceptable).
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="NonEAPAuthMethod">
+        <xs:sequence>
+            <xs:element name="Type" type="NonEAPAuthNumbers" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="TypeSpecific" type="TypeSpecificExtension" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="VendorSpecific" type="VendorSpecificExtension" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CertData">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="format" type="xs:string" use="required"/>
+                <xs:attribute name="encoding" type="xs:string" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="LogoData">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="mime" type="xs:string" use="required"/>
+                <xs:attribute name="encoding" type="xs:string" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>                                                 
+
+    <xs:complexType name="ClientCredentialVariants">
+        <xs:annotation>
+            <xs:documentation>
+                Not all EAP types and non-EAP authentication methods need or 
+                support all types of credentials in the list below. While the 
+                Schema allows to put all kinds of credential information inside 
+                every AuthenticationMethod, even where the information is not 
+                applicable, tags which are not applicable for an authentication
+                EAP or non-EAP type
+                   SHOULD NOT be included in the corresponding instance of
+                     AuthenticationMethod or InnerAuthenticationMethod when
+                     producing the XML file, and
+                   MUST be ignored by the entity consuming the XML file if
+                     present in the XML file.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence minOccurs="1" maxOccurs="1">
+            <xs:element name="OuterIdentity" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="InnerIdentityPrefix" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="InnerIdentitySuffix" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="InnerIdentityHint" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="UserName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Password" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="ClientCertificate" type="CertData" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="IntermediateCACertificate" type="CertData" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="Passphrase" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="PAC" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="ProvisionPAC" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute name="allow_save" type="xs:boolean" use="optional"/>
+    </xs:complexType>
+
+    <xs:complexType name="ServerCredentialVariants">
+        <xs:annotation>
+            <xs:documentation>
+                Not all EAP types and non-EAP authentication methods need or 
+                support all types of credentials in the list below. While the 
+                Schema allows to put all kinds of credential information inside 
+                every AuthenticationMethod, even where the information is not 
+                applicable, tags which are not applicable for an authentication
+                EAP or non-EAP type
+                   SHOULD NOT be included in the corresponding instance of
+                     AuthenticationMethod or InnerAuthenticationMethod when
+                     producing the XML file, and
+                   MUST be ignored by the entity consuming the XML file if
+                     present in the XML file.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence minOccurs="1" maxOccurs="1">
+            <xs:element name="CA" type="CertData" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="ServerID" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="HelpdeskDetailElements">
+        <xs:sequence minOccurs="1" maxOccurs="1">
+             <xs:element name="EmailAddress" type="LocalizedInteractive" minOccurs="0" maxOccurs="unbounded"/>
+             <xs:element name="WebAddress"  type="LocalizedNonInteractive" minOccurs="0" maxOccurs="unbounded"/>
+             <xs:element name="Phone"  type="LocalizedInteractive" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="LocationElements">
+        <xs:sequence minOccurs="1" maxOccurs="1">
+             <xs:element name="Longitude" type="xs:string" minOccurs="1" maxOccurs="1"/>
+             <xs:element name="Latitude"  type="xs:string" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="ProviderInfoElements">
+        <xs:sequence minOccurs="1" maxOccurs="1">
+             <xs:element name="DisplayName" type="LocalizedNonInteractive" minOccurs="0" maxOccurs="unbounded"/>
+             <xs:element name="Description" type="LocalizedNonInteractive" minOccurs="0" maxOccurs="unbounded"/>
+             <xs:element name="ProviderLocation" type="LocationElements" minOccurs="0" maxOccurs="unbounded"/>
+             <xs:element name="ProviderLogo" type="LogoData" minOccurs="0" maxOccurs="1"/>
+             <xs:element name="TermsOfUse" type="LocalizedNonInteractive" minOccurs="0" maxOccurs="unbounded"/>
+             <xs:element name="Helpdesk" type="HelpdeskDetailElements" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="IEEE80211-Properties">
+        <xs:annotation>
+            <xs:documentation>
+                The conditions inside this element are considered AND conditions.
+                It does e.g. not make sense to have multiple SSIDs in one 
+                IEEE80211-Properties field because the condition would never 
+                match. To specify multiple ORed network properties, use multiple
+                IEEE80211-Properties instances.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence minOccurs="1" maxOccurs="1">
+            <xs:element name="SSID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="ConsortiumOID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="MinRSNProto" type="IEEE80211-RSN-Protocols" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+
+    <xs:complexType name="IEEE8023-Properties">
+        <xs:sequence minOccurs="1" maxOccurs="1">
+            <xs:element name="NetworkID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+
+    <xs:complexType name="CredentialApplicabilityType">
+        <xs:sequence minOccurs="1" maxOccurs="1">
+            <xs:element name="IEEE80211" type="IEEE80211-Properties" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="IEEE8023" type="IEEE8023-Properties" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="LocalizedInteractive">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="lang" type="xs:string" use="optional"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>                                                 
+
+    <xs:complexType name="LocalizedNonInteractive">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="lang" type="xs:string" use="optional"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>                                                                                            
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+    <xs:element name="EAPIdentityProviderList">
+        <xs:complexType>
+            <xs:sequence minOccurs="1" maxOccurs="unbounded">
+                <xs:element name="EAPIdentityProvider">
+                    <xs:complexType>
+                        <xs:sequence minOccurs="1" maxOccurs="1">
+                            <xs:element name="ValidUntil" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="AuthenticationMethods" minOccurs="1" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:sequence minOccurs="1" maxOccurs="unbounded">
+                                        <xs:element name="AuthenticationMethod">
+                                            <xs:complexType>
+                                                <xs:sequence minOccurs="1" maxOccurs="unbounded">
+                                                    <xs:element name="EAPMethod" type="EAPMethod"/>
+                                                    <xs:element name="ServerSideCredential" type="ServerCredentialVariants" minOccurs="0" maxOccurs="1"/>
+                                                    <xs:element name="ClientSideCredential" type="ClientCredentialVariants" minOccurs="0" maxOccurs="1"/>
+                                                    <xs:element name="InnerAuthenticationMethod" minOccurs="0" maxOccurs="unbounded">
+                                                        <xs:complexType>
+                                                            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                                                                <xs:element name="EAPMethod" type="EAPMethod" minOccurs="0" maxOccurs="1"/>
+                                                                <xs:element name="NonEAPAuthMethod" type="NonEAPAuthMethod" minOccurs="0" maxOccurs="1"/>
+                                                                <xs:element name="ServerSideCredential" type="ServerCredentialVariants" minOccurs="0" maxOccurs="1"/>
+                                                                <xs:element name="ClientSideCredential" type="ClientCredentialVariants" minOccurs="0" maxOccurs="1"/>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="CredentialApplicability" type="CredentialApplicabilityType" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="ProviderInfo" type="ProviderInfoElements" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="VendorSpecific" type="VendorSpecificExtension" minOccurs="0"/>
+                        </xs:sequence>
+                        <xs:attribute name="ID" type="xs:string" use="required"/>
+                        <xs:attribute name="namespace" type="xs:string" use="required"/>
+                        <xs:attribute name="version" type="xs:int" use="optional"/>
+                        <xs:attribute name="lang" type="xs:string" use="optional"/>
+                        <!-- 
+                        If the optional attribute "lang" for the EAPIdentityProvider 
+                        tag is specified, then all user-displayable strings inside 
+                        this tag are to be considered suitable for use in user 
+                        interfaces in that language. Individual lang tags for the 
+                        sub-tags inside EAPIdentityProvider then SHOULD NOT be used.
+
+                        If the optional attribute "lang" for the EAPIdentityProvider 
+                        tag is not set, individual sub-tags which contain user-
+                        displayable strings SHOULD be marked with the language they
+                        are written/available in.
+                        -->
+                    </xs:complexType>
+                </xs:element>  
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
