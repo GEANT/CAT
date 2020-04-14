@@ -107,6 +107,7 @@ if ($token) {
     $realmTests = new \core\diag\RADIUSTestsUI($token);
     if ($realmTests->realm) {
         $check_realm = $realmTests->realm;
+        $outer_user = $realmTests->outerUser;
     }
 }
 if ($check_realm !== FALSE) {
@@ -132,7 +133,7 @@ if ($check_realm !== FALSE) {
             ?>
         </ul>
             <div id="tabs-1">
-                <button id="run_tests" onclick="runRealmCheck('<?php echo $check_realm; ?>','<?php echo $ourlocale; ?>')"><?php echo _("Repeat connectivity tests") ?></button>
+                <button id="run_tests" onclick="runRealmCheck('<?php echo $check_realm; ?>','<?php echo $outer_user; ?>','<?php echo $ourlocale; ?>')"><?php echo _("Repeat connectivity tests") ?></button>
                 <div id="test_area"></div>
                 <?php print $realmTests->printOverview();?>
 

@@ -289,7 +289,7 @@
         window.crypto.getRandomValues(arr)
         return Array.from(arr, dec2hex).join('')
     }
-    function runConnectionTests(data, realm, token, wherefrom) {
+    function runConnectionTests(data, realm, user, token, wherefrom) {
         dynamic_req = null;
         udp_req = null;
         var running = <?php echo '"<img style=\'vertical-align:middle\' src=' . "'../resources/images/icons/loading51.gif' width='24' height='24'/><i>" . _('Running connectivity tests for this realm') . '...</i>"'; ?>;
@@ -303,7 +303,7 @@
             $('#test_area').html(running);
         }
         console.log(wherefrom);
-        udp_req = run_udp(realm, token);
+        udp_req = run_udp(realm, user, token);
         if (data.totest && data.totest.length > 0) {
             dynamic_req = run_dynamic(realm, data.totest, token);
         }
@@ -377,11 +377,11 @@
             });
         }
     }
-    function runRealmCheck(realm, lang) {
+    function runRealmCheck(realm, user, lang) {
         var token = generateId();
         $.ajax({
             url: "findRealm.php",
-            data: {realm: realm, lang: lang, addtest: 1, token: token},
+            data: {realm: realm, outeruser: user, lang: lang, addtest: 1, token: token},
             dataType: "json",
             success:function(data) {
                 var realmFound = 0;
@@ -389,7 +389,7 @@
                     realmFound = 1;
                 }
                 console.log("now run connection tests");
-                runConnectionTests(data, realm, token, 'show');
+                runConnectionTests(data, realm, user, token, 'show');
             },
             error: function (error) {
                 alert('Error');
@@ -398,13 +398,13 @@
            
     }
     
-    function run_udp(realm, token) {
+    function run_udp(realm, user, token) {
         var requests = Array();
     <?php
     foreach (\config\Diagnostics::RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {;
         print "
         requests[$hostindex] = $.ajax({
-                url: 'radius_tests.php', data: {test_type: 'udp', realm: realm, src: $hostindex, lang: 'en', hostindex: '$hostindex', token: token}, dataType: 'json'});
+                url: 'radius_tests.php', data: {test_type: 'udp', realm: realm, outer_user: user, src: $hostindex, lang: 'en', hostindex: '$hostindex', token: token}, dataType: 'json'});
         ";
     }
     ?>

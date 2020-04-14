@@ -44,6 +44,7 @@ $languageInstance = new \core\common\Language();
 $languageInstance->setTextDomain("web_user");
 $cat = new \core\CAT();
 $givenRealm = filter_input(INPUT_GET, 'realm', FILTER_SANITIZE_STRING);
+$outerUser = filter_input(INPUT_GET, 'outeruser', FILTER_SANITIZE_STRING);
 $realmQueryType = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING);
 $realmCountry = filter_input(INPUT_GET, 'co', FILTER_SANITIZE_STRING);
 $realmOu = filter_input(INPUT_GET, 'ou', FILTER_SANITIZE_STRING);
@@ -51,6 +52,9 @@ $forTests = filter_input(INPUT_GET, 'addtest', FILTER_SANITIZE_STRING);
 $token = filter_input(INPUT_GET, 'token', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING);
 if ($token && !is_dir($jsonDir . '/' . $token)) {
     mkdir($jsonDir . '/' . $token, 0777, true);
+}
+if (is_null($outerUser)) {
+    $outerUser = '';
 }
 if (!is_null($givenRealm)) {
     $realmElems = explode('.', $givenRealm);
@@ -116,7 +120,6 @@ if (!is_null($givenRealm)) {
                 }
             }
         }
-        $loggerInstance->debug(4, "findRealm rfc7585suite end\n");
         $toTest = array();
         foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
             $host = ($addr['family'] == "IPv6" ? "[" : "") . $addr['IP'] . ($addr['family'] == "IPv6" ? "]" : "") . ":" . $addr['port'];
@@ -161,8 +164,6 @@ if (!is_null($givenRealm)) {
                 }
                 break;
             case "realm":
-                $loggerInstance->debug(4, "domena $givenRealm");
-                $loggerInstance->debug(4, "realmOu $realmOu");
                 if ($realmOu) {
                     $details = $cat->getExternalDBEntityDetails($realmOu);
                     if (!empty($details)) {
@@ -189,11 +190,9 @@ if (!is_null($givenRealm)) {
         }
     }
 }
-
+$returnArray['outeruser'] = $outerUser;
 $returnArray['datetime'] = date("Y-m-d H:i:s");
-$loggerInstance->debug(4, "findRealm return start\n");
 $loggerInstance->debug(4, $returnArray);
-$loggerInstance->debug(4, "findRealm return end\n");
 $json_data = json_encode($returnArray);
 if ($token) {
     $loggerInstance->debug(4, $jsonDir . '/' . $token);

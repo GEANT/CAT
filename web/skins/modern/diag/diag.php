@@ -432,6 +432,8 @@ $Gui->languageInstance->setTextDomain("diagnostics");
         var id = $(this).attr('id');
         var addtest = 0;
         var token = '';
+        var user = '';
+        var realm = '';
         if (id === 'realm_in_db') {
             $('#select_idp_area').hide();
             $('#select_idp_area').html('');
@@ -448,8 +450,6 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                 user = '';
                 realm = realmfield;
             }
-            
-            
             if ($('#select_sp_problem').val() == 'technical') {
                 token = generateId();
                 addtest = 1;
@@ -464,7 +464,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
         /*waiting(comment);*/
         $.ajax({
             url: "findRealm.php",
-            data: {realm: realm, lang: lang, addtest: addtest, token: token},
+            data: {realm: realm, outeruser: user, lang: lang, addtest: addtest, token: token},
             dataType: "json",
             success:function(data) {
                 inProgress(0);
@@ -492,7 +492,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                     }
                 }
                 if (addtest) {
-                    runConnectionTests(data, realm, token, 'diag');
+                    runConnectionTests(data, realm, user, token, 'diag');
                 }   
                 if (realmFound == 0) {
                     $('#external_db_info').html('This realm is not registered with eduroam database, the report will be sent to eduroam OT group.');
