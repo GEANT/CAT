@@ -144,7 +144,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                         }
                         echo ";'>";
                         echo '<h3>' . _("What is the nature of the problem?") . '</h3>';
-                        echo '<input type="radio" name="problem_type" value="0"' . (($sp==1)? ' checked' : '') . '>';
+                        echo '<input type="radio" name="problem_type" value="1"' . (($sp==1)? ' checked' : '') . '>';
                         echo _("I suspect a technical problem at a particular IdP") . '<br>';
                         echo '<input type="radio" name="problem_type" value="1">';
                         echo _("I want to report abuse of network resources by a roaming user") . '<br>';
