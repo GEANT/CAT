@@ -24,7 +24,7 @@
  * 
  * @author Maja Górecka-Wolniewicz <mgw@umk.pl>
  */
-require_once dirname(dirname(__DIR__)) . "/config/_config.php";
+require_once dirname(dirname(__DIR__))."/config/_config.php";
 
 $loggerInstance = new \core\common\Logging();
 
@@ -53,9 +53,9 @@ if (isset($_SESSION['user'])) {
 <script type="text/javascript" src="../external/jquery/jquery.js"></script>
 <script type="text/javascript" src="../external/jquery/jquery-ui.js"></script>
 <script type="text/javascript">
-var morealltext = "<?php echo '<i>' . _("Show detailed information for all tests") . '&raquo;</i>' ?>";
-var lessalltext = "<?php echo '<i>' . _("Hide detailed information for all tests") . '&raquo;</i>' ?>";
-var moretext = "<?php echo _("more") . "&raquo;" ?>";
+var morealltext = "<?php echo '<i>'._("Show detailed information for all tests").'&raquo;</i>' ?>";
+var lessalltext = "<?php echo '<i>'._("Hide detailed information for all tests").'&raquo;</i>' ?>";
+var moretext = "<?php echo _("more")."&raquo;" ?>";
 var lesstext = "<?php echo "&laquo" ?>";
     $(document).ready(function () {
         $('.caresult, .eap_test_results, .udp_results').on('click', '.morelink', function () {
@@ -99,7 +99,7 @@ var lesstext = "<?php echo "&laquo" ?>";
 </head>
 <body>
 <?php
-require dirname(__DIR__) . '/skins/modern/diag/js/diag_js.php';
+require dirname(__DIR__).'/skins/modern/diag/js/diag_js.php';
 echo $deco->productheader("ADMIN");
 $check_realm = FALSE;
 $token = filter_input(INPUT_GET, 'token', FILTER_SANITIZE_STRING);
@@ -118,7 +118,7 @@ if ($check_realm !== FALSE) {
     </h1>
     <div id="debug_out" style="display: none"></div>
     <div id="timestamp" style="min-width: 600px; max-width:800px" align="right">
-        <?php echo _("Tests timestamp: ") . $realmTests->getTimeStamp() . ' UTC'; ?>
+        <?php echo _("Tests timestamp: ").$realmTests->getTimeStamp().' UTC'; ?>
     </div>
     <div id="tabs" style="min-width: 600px; max-width:800px">
         <ul>
@@ -158,9 +158,9 @@ if ($check_realm !== FALSE) {
             }
 } else {
         if (is_null($token)) {
-            echo '<p><h1>' . _("Token missing, no data can be presented") . '</h1>';
+            echo '<p><h1>'._("Token missing, no data can be presented").'</h1>';
         } else {
-            echo '<p><h1>' . _("The token given in the request does not exists, no data can be presented") . '</h1>';
+            echo '<p><h1>'._("The token given in the request does not exists, no data can be presented").'</h1>';
         }
 }
 echo $deco->footer();

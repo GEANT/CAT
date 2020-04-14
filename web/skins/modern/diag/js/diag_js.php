@@ -38,7 +38,7 @@
         if (type === 'idp' || type === 'sp') {
             shtml = '<table><tbody><tr id="row_'+type+'_country"></tr>';
             shtml = shtml + '<tr id="row_'+type+'_institution" style="visibility: collapse;">';
-            shtml = shtml + '<td>' + <?php echo '"' . _("Select institiution:") . '"'; ?> + '</td><td></td></tr>';
+            shtml = shtml + '<td>' + <?php echo '"'._("Select institiution:").'"'; ?> + '</td><td></td></tr>';
             if (type === 'idp') {
                 shtml = shtml + '<tr id="row_idp_realm"></tr>';
             }
@@ -64,7 +64,7 @@
         var options = '';
         var selecthead = '';
         if (type1 === 'sp' || type1 === 'idp') {
-            selecthead = <?php echo '"<td>' . _("Select country or region:") . ' </td>"'; ?>;
+            selecthead = <?php echo '"<td>'._("Select country or region:").' </td>"'; ?>;
             selecthead = selecthead + '<td>\n';
         }
         var select = '<select id="' + type1 + '_country" name="' + type1 + '_country" style="margin-left:0px; width:400px;">';
@@ -72,7 +72,7 @@
             options = ($('#'+type2+'_country').html());
             countryAddSelect(selecthead, select + options + '</select>', type1);
         } else {
-            var comment = <?php echo '"<br><br>' . _("Fetching country/region list") . '..."'; ?>;
+            var comment = <?php echo '"<br><br>'._("Fetching country/region list").'..."'; ?>;
             inProgress(1, comment);
             $.ajax({
                 url: "findRealm.php",
@@ -109,7 +109,7 @@
         return false;
     }
     function testSociopath(realm, answer) {
-        var comment = <?php echo '"' . _("Testing realm") . '..."'; ?>; 
+        var comment = <?php echo '"'._("Testing realm").'..."'; ?>; 
         inProgress(1, comment);
         if ($('#tested_realm').length == 0) {
             $('<input>').attr({
@@ -133,9 +133,9 @@
                                 query = '<input type="hidden" id="tested_realm" value="' + realm + '">';
                             }    
                             query = query + '<div id="current_query">'+data['TEXT']+'</div>';
-                            query = query + '<div><button class="diag_button" id="answer_yes">' + <?php echo '"' . _("Yes") . '"'; ?> + '</button>';
-                            query = query + '<button style="margin-left:20px;" class="diag_button" id="answer_no">' + <?php echo '"' . _("No") . '"'; ?> + '</button>';
-                            query = query + '<button style="margin-left:20px;" class="diag_button" id="answer_noidea">' + <?php echo '"' . _("I don't know") . '"'; ?> + '</button></div>';
+                            query = query + '<div><button class="diag_button" id="answer_yes">' + <?php echo '"'._("Yes").'"'; ?> + '</button>';
+                            query = query + '<button style="margin-left:20px;" class="diag_button" id="answer_no">' + <?php echo '"'._("No").'"'; ?> + '</button>';
+                            query = query + '<button style="margin-left:20px;" class="diag_button" id="answer_noidea">' + <?php echo '"'._("I don't know").'"'; ?> + '</button></div>';
                             $('#sociopath_queries').html(query);
                             $('#sociopath_query_area').show();
                         }
@@ -166,55 +166,55 @@
        }); 
     }
     function finalVerdict(realm, verdict) {
-        var title = <?php echo '"' . _("Diagnostic tests results for selected realm") . '"'; ?>;
+        var title = <?php echo '"'._("Diagnostic tests results for selected realm").'"'; ?>;
         result = '<div class="padding">';
         result = result + '<div><h3>';
-        result = result + <?php echo '"' . _("The result for tested realm:") . ' "'; ?> + realm;
+        result = result + <?php echo '"'._("The result for tested realm:").' "'; ?> + realm;
         result = result + '</h3></p><div style="padding: 5px;"><div style="padding: 0px;">';
-        result = result + <?php echo '"' . _("The system identified") . '" '; ?>  + ' ';
+        result = result + <?php echo '"'._("The system identified").'" '; ?>  + ' ';
         result = result + Object.keys(verdict).length + ' ';
-        result = result + <?php echo '"' . _("suspected areas which potentially can cause a problem.") . '"'; ?> + '<br>';
-        result = result + <?php echo '"' . _("Next to the problem description we show a speculated probability of this event.") . '"'; ?>;
+        result = result + <?php echo '"'._("suspected areas which potentially can cause a problem.").'"'; ?> + '<br>';
+        result = result + <?php echo '"'._("Next to the problem description we show a speculated probability of this event.").'"'; ?>;
         result = result + '</div><div style="padding: 5px;"><table>';
         k = 1;
         for (key in verdict) {
             result = result + '<tr><td>' + k + '.</td>';
             k = k + 1;
             if (key === 'INFRA_DEVICE') {
-                result = result + '<td>' + <?php echo '"' . _("Your device configuration is broken") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"'._("Your device configuration is broken").'"'; ?> + '</td>';
             }
             if (key === 'INFRA_SP_80211') {
-                result = result + '<td>' + <?php echo '"' . _("The Wi-Fi network in your vicinity has quality issues") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"'._("The Wi-Fi network in your vicinity has quality issues").'"'; ?> + '</td>';
             }
             if (key === 'INFRA_SP_LAN') {
-                result = result + '<td>' + <?php echo '"' . _("The network environment around you is broken") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"'._("The network environment around you is broken").'"'; ?> + '</td>';
             }
             if (key === 'INFRA_SP_RADIUS') {
-                result = result + '<td>' + <?php echo '"' . _("The RADIUS server of your service provider is the source of the problem") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"'._("The RADIUS server of your service provider is the source of the problem").'"'; ?> + '</td>';
             }
             if (key === 'INFRA_IDP_AUTHBACKEND') {
-                result = result + '<td>' + <?php echo '"' . _("The RADIUS server in your home institution is currently unable to authenticate you") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"'._("The RADIUS server in your home institution is currently unable to authenticate you").'"'; ?> + '</td>';
             }
             if (key === 'INFRA_NRO_SP') {
-                result = result + '<td>' + <?php echo '"' . _("The national server in the country/region you are visiting is not functioning correctly") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"'._("The national server in the country/region you are visiting is not functioning correctly").'"'; ?> + '</td>';
             }
             if (key === 'INFRA_LINK_ETLR_NRO_SP') {
-                result = result + '<td>' + <?php echo '"' . _("The link between the national server of the country/region you are visiting and the top-level server is broken") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"'._("The link between the national server of the country/region you are visiting and the top-level server is broken").'"'; ?> + '</td>';
             }
             if (key === 'INFRA_LINK_ETLR_NRO_IdP') {
-                result = result + '<td>' + <?php echo '"' . _("The link between the national server of your home country/region and the top-level server is broken") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"'._("The link between the national server of your home country/region and the top-level server is broken").'"'; ?> + '</td>';
             }
             if (key === 'INFRA_ETLR') {
-                result = result + '<td>' + <?php echo '"' . _("The communication to the top-level server is down") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"'._("The communication to the top-level server is down").'"'; ?> + '</td>';
             }
             if (key === 'INFRA_NRO_IdP') {
-                result = result + '<td>' + <?php echo '"' . _("The national server in your home country/region is not functioning properly.") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"'._("The national server in your home country/region is not functioning properly.").'"'; ?> + '</td>';
             }
             if (key === 'INFRA_IdP_RADIUS') {
-                result = result + '<td>' + <?php echo '"' . _("The RADIUS server of your home institution is the source of the problem") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"'._("The RADIUS server of your home institution is the source of the problem").'"'; ?> + '</td>';
             }
             if (key === 'INFRA_NONEXISTENTREALM') {
-                result = result + '<td>' + <?php echo '"' . _("This realm does not exist") . '"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"'._("This realm does not exist").'"'; ?> + '</td>';
             }
             result = result + '<td style="padding-left: 5px;">' + (verdict[key] * 100).toFixed(2) + "%</td></tr>";
         }
@@ -292,8 +292,8 @@
     function runConnectionTests(data, realm, user, token, wherefrom) {
         dynamic_req = null;
         udp_req = null;
-        var running = <?php echo '"<img style=\'vertical-align:middle\' src=' . "'../resources/images/icons/loading51.gif' width='24' height='24'/><i>" . _('Running connectivity tests for this realm') . '...</i>"'; ?>;
-        var testresult = "<a target='_blank' href='show_realmcheck.php?token=" + token + "'>" + <?php echo '"' . _("New tests results are available, click to see") . '"'; ?> + '</a>';
+        var running = <?php echo '"<img style=\'vertical-align:middle\' src='."'../resources/images/icons/loading51.gif' width='24' height='24'/><i>"._('Running connectivity tests for this realm').'...</i>"'; ?>;
+        var testresult = "<a target='_blank' href='show_realmcheck.php?token=" + token + "'>" + <?php echo '"'._("New tests results are available, click to see").'"'; ?> + '</a>';
         if (wherefrom == 'diag') {
             $('#tests_info_area').css('color', 'black');
             $('#tests_info_area').html(running);
@@ -420,7 +420,7 @@
         return requests;
     }
     function show_tests_result(token, level) {
-        $('#tests_info_area').html(global_info[level] + ': ' + "<a target='_blank' href='show_realmcheck.php?token=" + token + "'>" + <?php echo '"' . _("See details") . '"'; ?> + '</a>');
+        $('#tests_info_area').html(global_info[level] + ': ' + "<a target='_blank' href='show_realmcheck.php?token=" + token + "'>" + <?php echo '"'._("See details").'"'; ?> + '</a>');
         if (level > 0) {
             $('#tests_info_area').css('color', 'red');
             $('#tests_result').val('1');
@@ -428,9 +428,9 @@
             $('#tests_info_area').css('color', 'black');
             $('#tests_result').val('0');
         }
-        var info = global_info[level] + ': ' + "<a target='_blank' href='show_realmcheck.php?token=" + token + "'>" + <?php echo '"' . _("See details") . '"'; ?> + '</a>';
+        var info = global_info[level] + ': ' + "<a target='_blank' href='show_realmcheck.php?token=" + token + "'>" + <?php echo '"'._("See details").'"'; ?> + '</a>';
         if (level == 0) {
-            info = info + '<br>' + <?php echo "'" . _("If you want to report your problem, fill fields bellow.") . "'";?>;
+            info = info + '<br>' + <?php echo "'"._("If you want to report your problem, fill fields bellow.")."'";?>;
         }
         $('#tests_info_area').html(info);
         

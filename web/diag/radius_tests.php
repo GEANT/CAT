@@ -20,14 +20,14 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
-require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
+require_once dirname(dirname(dirname(__FILE__)))."/config/_config.php";
 
 $loggerInstance = new \core\common\Logging();
 $validator = new \web\lib\common\InputValidation();
 $languageInstance = new \core\common\Language();
 $languageInstance->setTextDomain("diagnostics");
 
-$jsonDir = dirname(dirname(dirname(dirname(__FILE__)))) . "/CAT/var/json_cache";
+$jsonDir = dirname(dirname(dirname(dirname(__FILE__))))."/CAT/var/json_cache";
 
 $additional_message = [
     \core\common\Entity::L_OK => '',
@@ -45,7 +45,7 @@ $additional_message = [
 function disp_name($eap)
 {
     $displayName = \core\common\EAP::eapDisplayName($eap);
-    return $displayName['OUTER'] . ( $displayName['INNER'] != '' ? '-' . $displayName['INNER'] : '');
+    return $displayName['OUTER'].( $displayName['INNER'] != '' ? '-'.$displayName['INNER'] : '');
 }
 
 if (!isset($_REQUEST['test_type']) || !$_REQUEST['test_type']) {
@@ -69,9 +69,9 @@ if (isset($_REQUEST['profile_id'])) {
 } else {
     $my_profile = NULL;
     if (isset($_REQUEST['outer_user'])) {
-        $testsuite = new \core\diag\RADIUSTests($check_realm, $_REQUEST['outer_user'] . "@" . $check_realm);
+        $testsuite = new \core\diag\RADIUSTests($check_realm, $_REQUEST['outer_user'].'@'.$check_realm);
     } else {
-        $testsuite = new \core\diag\RADIUSTests($check_realm, "@" . $check_realm);
+        $testsuite = new \core\diag\RADIUSTests($check_realm, '@'.$check_realm);
     }
 }
 
@@ -167,10 +167,10 @@ switch ($test_type) {
                             break;
                         case \core\common\Entity::L_REMARK:
                         case \core\common\Entity::L_WARN:
-                            $message = _("<strong>Test partially successful</strong>: authentication succeded.") . ' ' . $additional_message[$level];
+                            $message = _("<strong>Test partially successful</strong>: authentication succeded.").' '.$additional_message[$level];
                             break;
                         case \core\common\Entity::L_ERROR:
-                            $message = _("<strong>Test FAILED</strong>: authentication succeded.") . ' ' . $additional_message[$level];
+                            $message = _("<strong>Test FAILED</strong>: authentication succeded.").' '.$additional_message[$level];
                             break;
                     }
                     break;
@@ -221,7 +221,7 @@ switch ($test_type) {
             case \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT:
                 $level = $returnarray['result'][$i]['level'];
                 if ($level > \core\common\Entity::L_OK) {
-                    $message = _("<strong>Test partially successful</strong>: a bidirectional RADIUS conversation with multiple round-trips was carried out, and ended in an Access-Reject as planned.") . ' ' . $additional_message[$level];
+                    $message = _("<strong>Test partially successful</strong>: a bidirectional RADIUS conversation with multiple round-trips was carried out, and ended in an Access-Reject as planned.").' '.$additional_message[$level];
                 } else {
                     $message = _("<strong>Test successful</strong>: a bidirectional RADIUS conversation with multiple round-trips was carried out, and ended in an Access-Reject as planned.");
                 }
@@ -244,7 +244,7 @@ switch ($test_type) {
                 $level = \core\common\Entity::L_ERROR;
                 break;
         }
-        $loggerInstance->debug(4, "SERVER=" . $returnarray['result'][$i]['server'] . "\n");
+        $loggerInstance->debug(4, "SERVER=".$returnarray['result'][$i]['server']."\n");
         $returnarray['result'][$i]['level'] = $level;
         $returnarray['result'][$i]['message'] = $message;
         break;
@@ -261,9 +261,9 @@ switch ($test_type) {
         }
         // we tried to contact someone, and know how long that took
         $returnarray['time_millisec'] = sprintf("%d", $rfc6614suite->TLS_CA_checks_result[$host]['time_millisec']);
-        $timeDisplay = ' (' . sprintf(_("elapsed time: %d"), $rfc6614suite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
+        $timeDisplay = ' ('.sprintf(_("elapsed time: %d"), $rfc6614suite->TLS_CA_checks_result[$host]['time_millisec']).'&nbsp;ms)';
         if (isset($rfc6614suite->TLS_CA_checks_result[$host]['cert_oddity']) && ($rfc6614suite->TLS_CA_checks_result[$host]['cert_oddity'] == \core\diag\RADIUSTests::CERTPROB_UNKNOWN_CA)) {
-            $returnarray['message'] = _("<strong>ERROR</strong>: the server presented a certificate which is from an unknown authority!") . $timeDisplay;
+            $returnarray['message'] = _("<strong>ERROR</strong>: the server presented a certificate which is from an unknown authority!").$timeDisplay;
             $returnarray['level'] = \core\common\Entity::L_ERROR;
             $returnarray['result'] = $testresult;
             break;
@@ -273,7 +273,7 @@ switch ($test_type) {
         $returnarray['level'] = \core\common\Entity::L_OK;
         // override if the connection was with a mismatching server name
         if (isset($rfc6614suite->TLS_CA_checks_result[$host]['cert_oddity']) && ($rfc6614suite->TLS_CA_checks_result[$host]['cert_oddity'] == \core\diag\RADIUSTests::CERTPROB_DYN_SERVER_NAME_MISMATCH)) {
-            $returnarray['message'] = _("<strong>WARNING</strong>: the server name as discovered in the SRV record does not match any name in the server certificate!") . $timeDisplay;
+            $returnarray['message'] = _("<strong>WARNING</strong>: the server name as discovered in the SRV record does not match any name in the server certificate!").$timeDisplay;
             $returnarray['level'] = \core\common\Entity::L_WARN;
         }
         switch ($rfc6614suite->TLS_CA_checks_result[$host]['status']) {
@@ -331,13 +331,13 @@ switch ($test_type) {
         throw new Exception("Unknown test requested: default case reached!");
 }
 $returnarray['datetime'] = date("Y-m-d H:i:s");
-if (!is_dir($jsonDir . '/' . $token)) {
-    mkdir($jsonDir . '/' . $token, 0777, true);
+if (!is_dir($jsonDir.'/'.$token)) {
+    mkdir($jsonDir.'/'.$token, 0777, true);
 }
 $json_data = json_encode($returnarray);
 if ($token != '') {
-    $loggerInstance->debug(4, $jsonDir . '/' . $returnarray['token']);
-    file_put_contents($jsonDir . '/' . $token . '/' . $test_type . '_' . $hostindex, $json_data);
+    $loggerInstance->debug(4, $jsonDir.'/'.$returnarray['token']);
+    file_put_contents($jsonDir.'/'.$token.'/'.$test_type.'_'.$hostindex, $json_data);
 }
 echo($json_data);
 

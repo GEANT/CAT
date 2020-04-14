@@ -30,12 +30,12 @@
  */
 
 
-require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
+require_once dirname(dirname(dirname(__FILE__)))."/config/_config.php";
 
 // we are referring to $_SESSION later in the file
 \core\CAT::sessionStart();
 
-$jsonDir = dirname(dirname(dirname(dirname(__FILE__)))) . "/CAT/var/json_cache";
+$jsonDir = dirname(dirname(dirname(dirname(__FILE__))))."/CAT/var/json_cache";
 
 $loggerInstance = new \core\common\Logging();
 $returnArray = [];
@@ -50,8 +50,8 @@ $realmCountry = filter_input(INPUT_GET, 'co', FILTER_SANITIZE_STRING);
 $realmOu = filter_input(INPUT_GET, 'ou', FILTER_SANITIZE_STRING);
 $forTests = filter_input(INPUT_GET, 'addtest', FILTER_SANITIZE_STRING);
 $token = filter_input(INPUT_GET, 'token', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING);
-if ($token && !is_dir($jsonDir . '/' . $token)) {
-    mkdir($jsonDir . '/' . $token, 0777, true);
+if ($token && !is_dir($jsonDir.'/'.$token)) {
+    mkdir($jsonDir.'/'.$token, 0777, true);
 }
 if (is_null($outerUser)) {
     $outerUser = '';
@@ -86,7 +86,7 @@ if (!is_null($givenRealm)) {
         }
         $admins = array();
         if ($allRealms[$found]['contact']) {
-            $elems =  explode(', ', $allRealms[$found]['contact']);
+            $elems = explode(', ', $allRealms[$found]['contact']);
             foreach ($elems as $admin) {
                 if (substr($admin, 0, 2) == 'e:') {
                     $admins[] = substr($admin, 3);
@@ -109,7 +109,7 @@ if (!is_null($givenRealm)) {
     }
     if ($forTests) {
         $rfc7585suite = new \core\diag\RFC7585Tests($givenRealm);
-        $testsuite = new \core\diag\RADIUSTests($givenRealm, "@" . $givenRealm);
+        $testsuite = new \core\diag\RADIUSTests($givenRealm, '@'.$givenRealm);
         $naptr = $rfc7585suite->relevantNAPTR();
         if ($naptr != \core\diag\RADIUSTests::RETVAL_NOTCONFIGURED && $naptr > 0) {
             $naptr_valid = $rfc7585suite->relevantNAPTRcompliance();
@@ -122,12 +122,12 @@ if (!is_null($givenRealm)) {
         }
         $toTest = array();
         foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
-            $host = ($addr['family'] == "IPv6" ? "[" : "") . $addr['IP'] . ($addr['family'] == "IPv6" ? "]" : "") . ":" . $addr['port'];
+            $host = ($addr['family'] == "IPv6" ? "[" : "").$addr['IP'].($addr['family'] == "IPv6" ? "]" : "").":".$addr['port'];
             $expectedName = $addr['hostname'];
             $toTest[$hostindex] = array(
                                         'host' => $host,
                                         'name' => $expectedName,
-                                        'bracketaddr' => ($addr["family"] == "IPv6" ? "[" . $addr["IP"] . "]" : $addr["IP"]) . ' TCP/' . $addr['port']
+                                        'bracketaddr' => ($addr["family"] == "IPv6" ? "[".$addr["IP"]."]" : $addr["IP"]).' TCP/'.$addr['port']
             );
         }
         $details['totest'] = $toTest;
@@ -195,8 +195,8 @@ $returnArray['datetime'] = date("Y-m-d H:i:s");
 $loggerInstance->debug(4, $returnArray);
 $json_data = json_encode($returnArray);
 if ($token) {
-    $loggerInstance->debug(4, $jsonDir . '/' . $token);
-    file_put_contents($jsonDir . '/' . $token . '/realm' , $json_data);
+    $loggerInstance->debug(4, $jsonDir.'/'.$token);
+    file_put_contents($jsonDir.'/'.$token.'/realm', $json_data);
 }
 echo($json_data);
 
