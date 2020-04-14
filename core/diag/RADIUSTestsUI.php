@@ -43,6 +43,7 @@ class RADIUSTestsUI extends AbstractTest
      * @var string
      */
     public $realm = NULL;
+    public $outerUser = NULL;
 
     /**
      * result of the reachability tests
@@ -125,6 +126,7 @@ class RADIUSTestsUI extends AbstractTest
             }
             if ($this->allReachabilityResults['realm'][0]->realm) {
                 $this->realm = $this->allReachabilityResults['realm'][0]->realm;
+                $this->outerUser = $this->allReachabilityResults['realm'][0]->outeruser;
                 foreach ($this->allReachabilityResults['realm'][0]->totest as $totest) {
                     $this->hostMap[$totest->host] = $totest->bracketaddr;
                 }

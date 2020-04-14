@@ -68,7 +68,11 @@ if (isset($_REQUEST['profile_id'])) {
     $testsuite = new \core\diag\RADIUSTests($check_realm, $my_profile->getRealmCheckOuterUsername(), $my_profile->getEapMethodsinOrderOfPreference(1), $my_profile->getCollapsedAttributes()['eap:server_name'], $my_profile->getCollapsedAttributes()['eap:ca_file']);
 } else {
     $my_profile = NULL;
-    $testsuite = new \core\diag\RADIUSTests($check_realm, "@" . $check_realm);
+    if (isset($_REQUEST['outer_user'])) {
+        $testsuite = new \core\diag\RADIUSTests($check_realm, $_REQUEST['outer_user'] . "@" . $check_realm);
+    } else {
+        $testsuite = new \core\diag\RADIUSTests($check_realm, "@" . $check_realm);
+    }
 }
 
 
