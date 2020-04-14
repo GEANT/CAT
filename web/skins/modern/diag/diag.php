@@ -143,11 +143,13 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                             echo 'none';
                         }
                         echo ";'>";
-                        echo '<h3>' . _("Which problem are you reporting?") . '</h3>';
+                        echo '<h3>' . _("What is the nature of the problem?") . '</h3>';
                         echo '<input type="radio" name="problem_type" value="1"' . (($sp==1)? ' checked' : '') . '>';
-                        echo _("SP contacting IdP due to technical problems or abuse") . '<br>';
+                        echo _("I suspect a technical problem at a particular IdP") . '<br>';
+                        echo '<input type="radio" name="problem_type" value="1"' . (($sp==1)? ' checked' : '') . '>';
+                        echo _("I want to report abuse of network resources by a roaming user") . '<br>';
                         echo '<input type="radio" name="problem_type" value="2">';
-                        echo _("IdP contacting SP due to technical problems");
+                        echo _("I suspect a technical problem for one of my users at a particular SP");
                         echo "<div id='idp_contact_area'></div>";
                         echo "<div id='sp_abuse'></div>";
                         echo "<div id='idp_problem'></div>";

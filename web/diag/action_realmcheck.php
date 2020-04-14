@@ -41,10 +41,10 @@ if (isset($_SESSION['user'])) {
     $user = $_SESSION['user'];
 }
 $inst_id = filter_input(INPUT_GET, 'inst_id', FILTER_VALIDATE_INT);
-$my_inst = $validator->existingIdP($inst_id, $user);
 $profile_id = filter_input(INPUT_GET, 'profile_id', FILTER_VALIDATE_INT);
 $realm = filter_input(INPUT_GET, 'realm', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'realm', FILTER_SANITIZE_STRING);
-if ($profile_id) {
+if ($inst_id && $profile_id) {
+    $my_inst = $validator->existingIdP($inst_id, $user);
     $my_profile = $validator->existingProfile($profile_id, $my_inst->identifier);
     if (!$my_profile instanceof \core\ProfileRADIUS) {
         throw new Exception("realm checks are only supported for RADIUS Profiles!");
@@ -765,7 +765,7 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
             }
 
             if (isset($_POST['comefrom'])) {
-                $return = htmlspecialchars_decode($_POST['comefrom']) . "?inst_id=" . $my_inst->identifier;
+                $return = htmlspecialchars_decode($_POST['comefrom']) . ( $inst_id ? "?inst_id=" . $inst_id : "" );
                 echo "<form method='post' action='$return' accept-charset='UTF-8'>
                     <button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_CLOSE . "'>" . sprintf(_("Return to %s administrator area"), core\common\Entity::$nomenclature_inst) . "</button>"
                 . "</form>";

@@ -99,7 +99,7 @@ $(document).on('click', '#realmcheck' , function() {
         <?php
         if (\config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] !== NULL) {
             echo "<tr>
-                        <td>" . _("Check another realm's reachability") . "</td>
+                        <td>" . sprintf(_("Diagnose reachability and connection parameters of %ss"),$uiElements->nomenclatureInst) . "</td>
                         <td><form method='post' action='../diag/action_realmcheck.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'>
                               <!--<input type='text' name='realm' id='realm'>-->
                               <input type='hidden' name='comefrom' id='comefrom' value='$link'/>

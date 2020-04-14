@@ -31,6 +31,12 @@ require_once "inc/click_button_js.php";
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/popup_redirect.js" type="text/javascript"></script>
+<script>
+$(document).on('click', '#realmcheck' , function() {
+   event.preventDefault();
+   location.href = '../diag/diag.php?admin=1&sp=1&realm=';
+});
+</script>
 </head>
 <body>
     <?php
@@ -190,7 +196,25 @@ require_once "inc/click_button_js.php";
         }
         echo "</table></div>";
     }
-
+    // our own location, to give to diag URLs
+    if (isset($_SERVER['HTTPS'])) {
+        $link = 'https://';
+    } else {
+        $link = 'http://';
+    }
+    $link .= $_SERVER['SERVER_NAME'] . $_SERVER['SCRIPT_NAME'];
+    $link = htmlspecialchars($link);
+    if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == 'LOCAL' && \config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] == 'LOCAL') {
+        echo "<table><tr>
+                        <td>" . sprintf(_("Diagnose reachability and connection parameters of any %s %s"), \config\ConfAssistant::CONSORTIUM['display_name'], $uiElements->nomenclatureInst) . "</td>
+                        <td><form method='post' action='../diag/action_realmcheck.php' accept-charset='UTF-8'>
+                              <input type='hidden' name='comefrom' id='comefrom' value='$link'/>
+                              <button id='realmcheck' style='cursor:pointer;' type='submit'>" . _("Go!") . "</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </table>";
+    }
     if (\config\ConfAssistant::CONSORTIUM['name'] == 'eduroam') {
         $helptext = "<h3>" . sprintf(_("Need help? Refer to the <a href='%s'>%s manual</a>"), "https://wiki.geant.org/x/qJg7Bw", $uiElements->nomenclatureFed) . "</h3>";
     } else {
@@ -260,7 +284,7 @@ require_once "inc/click_button_js.php";
                     }
                 }
                 echo "<td style='vertical-align:top;'>
-                         <input type='hidden' name='inst' value='" . $index . "'>" . $idp_instance->name . (empty($listOfSilverbulletRealms) ? "" : "<ul><li>" ) . implode("</li><li>",$listOfSilverbulletRealms) . (empty($listOfSilverbulletRealms) ? "" : "</li><ul>" ) . "
+                         <input type='hidden' name='inst' value='" . $index . "'>" . $idp_instance->name . (empty($listOfSilverbulletRealms) ? "" : "<ul><li>" ) . implode("</li><li>", $listOfSilverbulletRealms) . (empty($listOfSilverbulletRealms) ? "" : "</li><ul>" ) . "
                       </td>";
                 // external DB sync, if configured as being necessary
                 if (\config\Master::DB['enforce-external-sync']) {
@@ -322,8 +346,8 @@ require_once "inc/click_button_js.php";
                             echo "<form method='post' action='overview_federation.php' accept-charset='UTF-8'>
                                 <input type='hidden' name='invitation_id' value='" . $oneinvite['token'] . "'/>
                                 <button class='delete' type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_DELETE . "'>" . _("Revoke Invitation") . "</button> "
-                              . sprintf(_("(expires %s)"),$oneinvite['expiry'])
-                              .     "</form>";
+                            . sprintf(_("(expires %s)"), $oneinvite['expiry'])
+                            . "</form>";
                         }
                         echo "      </td>
                                  </tr>";
@@ -339,7 +363,7 @@ require_once "inc/click_button_js.php";
         <hr/>
         <br/>
         <form method='post' action='inc/manageNewInst.inc.php' onsubmit='popupRedirectWindow(this);
-                return false;' accept-charset='UTF-8'>
+                    return false;' accept-charset='UTF-8'>
             <button type='submit' class='download'>
                 <?php echo sprintf(_("Register a new %s!"), $uiElements->nomenclatureParticipant); ?>
             </button>
