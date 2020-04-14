@@ -68,7 +68,7 @@ if ($queryType == 'sp') {
 <input type='hidden' name='token' id='token' value=''>
 <input type='hidden' name='tests_result' id='tests_result' value=''>
 <table id='sp_questions'>
-    <tr>
+    <tr id='sp_problem_selector'>
         <td>" . _("Select your problem") . "</td>
         <td>$select</td>
     </tr>
@@ -267,7 +267,6 @@ if ($queryType == 'idp_send' || $queryType == 'sp_send') {
             $returnArray['emailsent'] = 1;
         }
     }
-    $returnArray['status'] = 1;
     $res = json_encode($returnArray);
 }
 echo $res;

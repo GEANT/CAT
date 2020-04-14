@@ -430,7 +430,7 @@
         }
         var info = global_info[level] + ': ' + "<a target='_blank' href='show_realmcheck.php?token=" + token + "'>" + <?php echo '"' . _("See details") . '"'; ?> + '</a>';
         if (level == 0) {
-            info = info + '<br>' + <?php echo "'" . _("If you still want to report a problem, fill fields bellow.") . "'";?>;
+            info = info + '<br>' + <?php echo "'" . _("If you want to report your problem, fill fields bellow.") . "'";?>;
         }
         $('#tests_info_area').html(info);
         
@@ -458,14 +458,26 @@
         }
     }
     function show_sp_block() {
+        var t = $('input[name=problem_type]:checked').val();
         var par = '';
         if ($('#sp_abuse').html() === '') {
             $.get("adminQuery.php?type=sp&lang="+lang, function(data, status) {
                 $('#sp_abuse').html(data);
                 $('#sp_abuse').show();         
+                if (t == 0) {
+                    $('#sp_problem_selector').hide();
+                } else {
+                    $('#sp_problem_selector').show();
+                }
                 $('#idp_problem').html('');
                 reset_footer();
             });   
+        } else {
+            if (t == 0) {
+                $('#sp_problem_selector').hide();
+            } else {
+                $('#sp_problem_selector').show();
+            }
         }
     }
     function clear_sp_question() {
