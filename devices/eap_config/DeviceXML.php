@@ -177,13 +177,13 @@ abstract class DeviceXML extends \core\DeviceConfig
         \core\DeviceXMLmain::marshalObject($root, 'EAPIdentityProvider', $eapIdp);
         $dom = dom_import_simplexml($root)->ownerDocument;
         //TODO schema validation makes sense so probably should be used
-        if ($dom->schemaValidate(ROOT . '/devices/eap_config/eap-metadata.xsd') === FALSE) {
+        if ($dom->schemaValidate(ROOT.'/devices/eap_config/eap-metadata.xsd') === FALSE) {
             throw new Exception("Schema validation failed for eap-metadata");
         }
         $dom->formatOutput = true;
-        file_put_contents($this->installerBasename . '.xml', $dom->saveXML());
+        file_put_contents($this->installerBasename.'.eap-config', $dom->saveXML());
         \core\common\Entity::outOfThePotatoes();
-        return($this->installerBasename . '.xml');
+        return($this->installerBasename.'.eap-config');
     }
 
 
@@ -248,7 +248,7 @@ abstract class DeviceXML extends \core\DeviceConfig
      * consists of the best-language-match inst name, and if the inst has more 
      * than one profile also the best-language-match profile name
      * 
-     * @return \devices\xml\DisplayName[]
+     * @return \core\DeviceXMLmain[]
      */
     private function getDisplayName()
     {
@@ -264,7 +264,7 @@ abstract class DeviceXML extends \core\DeviceConfig
                 $displayname = new \core\DeviceXMLmain();
                 if (isset($profileNameLangs)) {
                     $langOrC = isset($profileNameLangs[$language]) ? $profileNameLangs[$language] : $profileNameLangs['C'];
-                    $value .= ' - ' . $langOrC;
+                    $value .= ' - '.$langOrC;
                 }
                 $displayname->setValue($value);
                 $displayname->setAttributes(['lang' => $language]);
@@ -274,7 +274,7 @@ abstract class DeviceXML extends \core\DeviceConfig
             $displayname = new \core\DeviceXMLmain();
             $value = $attr['general:instname'][0];
             if ($attr['internal:profile_count'][0] > 1) {
-                $value .= ' - ' . $attr['profile:name'][0];
+                $value .= ' - '.$attr['profile:name'][0];
             }
             $displayname->setValue($value);
             $objs[] = $displayname;
@@ -285,14 +285,14 @@ abstract class DeviceXML extends \core\DeviceConfig
     /**
      * retrieves the provider logo and puts it into the XML structure
      * 
-     * @return \devices\xml\ProviderLogo
+     * @return \core\DeviceXMLmain
      */
     private function getProviderLogo()
     {
         $attr = $this->attributes;
         if (isset($attr['general:logo_file'][0])) {
             $logoString = base64_encode($attr['general:logo_file'][0]);
-            $logoMime = 'image/' . $attr['internal:logo_file'][0]['mime'];
+            $logoMime = 'image/'.$attr['internal:logo_file'][0]['mime'];
             $providerlogo = new \core\DeviceXMLmain();
             $providerlogo->setAttributes(['mime' => $logoMime, 'encoding' => 'base64']);
             $providerlogo->setValue($logoString);
@@ -304,7 +304,7 @@ abstract class DeviceXML extends \core\DeviceConfig
      * retrieves provider information and puts it into the XML structure.
      * contains the profile description and the ToU file, if any
      * 
-     * @return \devices\xml\ProviderInfo
+     * @return \core\DeviceXMLmain
      */
     private function getProviderInfo()
     {
@@ -321,7 +321,7 @@ abstract class DeviceXML extends \core\DeviceConfig
     /**
      * retrieves the location information and puts it into the XML structure
      * 
-     * @return \devices\xml\ProviderLocation|\devices\xml\ProviderLocation[]
+     * @return \core\DeviceXMLmain[]
      */
     private function getProviderLocation()
     {
@@ -343,7 +343,7 @@ abstract class DeviceXML extends \core\DeviceConfig
     /**
      * retrieves helpdesk contact information and puts it into the XML structure
      * 
-     * @return \devices\xml\Helpdesk
+     * @return \core\DeviceXMLmain
      */
     private function getHelpdesk()
     {
@@ -357,7 +357,7 @@ abstract class DeviceXML extends \core\DeviceConfig
     /**
      * determine where this credential should be applicable
      * 
-     * @return \devices\xml\CredentialApplicability
+     * @return \core\DeviceXMLmain
      */
     private function getCredentialApplicability()
     {
@@ -408,7 +408,7 @@ abstract class DeviceXML extends \core\DeviceConfig
      * sets the server-side credentials for a given EAP type
      * 
      * @param \devices\XML\Type $eaptype the EAP type
-     * @return \devices\XML\ServerSideCredential
+     * @return \core\DeviceXMLmain
      */
     private function getServerSideCredentials($eap)
     {
@@ -465,7 +465,7 @@ abstract class DeviceXML extends \core\DeviceConfig
     /**
      * sets the client certificate
      * 
-     * @return \devices\XML\ClientCertificate
+     * @return \core\DeviceXMLmain
      */
     private function getClientCertificate()
     {
@@ -479,7 +479,7 @@ abstract class DeviceXML extends \core\DeviceConfig
      * sets the client-side credentials for the given EAP type
      * 
      * @param array $eapParams the EAP parameters
-     * @return \devices\XML\ClientSideCredential
+     * @return \core\DeviceXMLmain
      */
     private function getClientSideCredentials($eap)
     {
@@ -509,7 +509,7 @@ abstract class DeviceXML extends \core\DeviceConfig
      * sets the EAP method
      * 
      * @param \devices\XML\Type $eaptype the EAP type XMLObject
-     * @return \devices\XML\EAPMethod
+     * @return \core\DeviceXMLmain
      */
     private function getEapMethod($eaptype)
     {
@@ -533,7 +533,7 @@ abstract class DeviceXML extends \core\DeviceConfig
      * determines the authentication method to use
      * 
      * @param array $eap the EAP methods, in array representation
-     * @return \devices\xml\AuthenticationMethod
+     * @return \core\DeviceXMLmain
      */
     private function getAuthMethod($eap)
     {
