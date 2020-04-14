@@ -45,7 +45,7 @@ $additional_message = [
 function disp_name($eap)
 {
     $displayName = \core\common\EAP::eapDisplayName($eap);
-    return $displayName['OUTER'].( $displayName['INNER'] != '' ? '-'.$displayName['INNER'] : '');
+    return $displayName['OUTER'].($displayName['INNER'] != '' ? '-'.$displayName['INNER'] : '');
 }
 
 if (!isset($_REQUEST['test_type']) || !$_REQUEST['test_type']) {

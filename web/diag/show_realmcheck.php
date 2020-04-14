@@ -135,7 +135,7 @@ if ($check_realm !== FALSE) {
             <div id="tabs-1">
                 <button id="run_tests" onclick="runRealmCheck('<?php echo $check_realm; ?>','<?php echo $outer_user; ?>','<?php echo $ourlocale; ?>')"><?php echo _("Repeat connectivity tests") ?></button>
                 <div id="test_area"></div>
-                <?php print $realmTests->printOverview();?>
+                <?php print $realmTests->printOverview(); ?>
 
             </div>
             <div id="tabs-2">
