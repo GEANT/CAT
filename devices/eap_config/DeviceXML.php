@@ -423,7 +423,7 @@ abstract class DeviceXML extends \core\DeviceConfig
     /**
      * sets the realm information for the client-side credential
      * 
-     * @param \devices\XML\ClientSideCredential $clientsidecredential the ClientSideCredential to which the realm info is to be added
+     * @param \core\DeviceXMLmain $clientsidecredential the ClientSideCredential to which the realm info is to be added
      * @return void
      */
     private function setClientSideRealm($clientsidecredential)
