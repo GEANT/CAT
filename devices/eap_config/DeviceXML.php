@@ -98,7 +98,8 @@ abstract class DeviceXML extends \core\DeviceConfig
     public $allEaps = FALSE;
 
     /**
-     * vendor-specific additional information
+     * vendor-specific additional information, this is nit yest fully
+     * implemented due to lack of use cases.
      * 
      * @var array
      */
@@ -128,55 +129,32 @@ abstract class DeviceXML extends \core\DeviceConfig
     public function writeInstaller()
     {
         \core\common\Entity::intoThePotatoes();
-        $attr = $this->attributes;
-        $NAMESPACE = 'urn:RFC4282:realm';
         $eapIdp = new \core\DeviceXMLmain();
         $eapIdp->setAttribute('version', '1');
         if ($this->langScope === 'single') {
             $eapIdp->setAttribute('lang', $this->languageInstance->getLang());
         }
-        if (empty($attr['internal:realm'][0])) {
+        if (empty($this->attributes['internal:realm'][0])) {
             $eapIdp->setAttribute('ID', 'undefined');
             $namespace = 'urn:undefined';
         } else {
-            $eapIdp->setAttribute('ID', $attr['internal:realm'][0]);
-            $namespace = $NAMESPACE;
+            $eapIdp->setAttribute('ID', $this->attributes['internal:realm'][0]);
+            $namespace = 'urn:RFC4282:realm';
         }
         $eapIdp->setAttribute('namespace', $namespace);
-        $methodList = [];
-        if ($this->allEaps) {
-            $eapmethods = [];
-            foreach ($attr['all_eaps'] as $eap) {
-                $eapRep = $eap->getArrayRep();
-                if (in_array($eapRep, $this->supportedEapMethods)) {
-                    $eapmethods[] = $eapRep;
-                }
-            }
-        } else {
-            $eapmethods = [$this->selectedEap];
-        }
-        foreach ($eapmethods as $eap) {
-            $methodList[] = $this->getAuthMethod($eap);
-        }
         $authMethods = new \core\DeviceXMLmain();
-        $authMethods->setChild('AuthenticationMethod', $methodList);
+        $authMethods->setChild('AuthenticationMethod', $this->getAuthMethodsList());
         $eapIdp->setChild('AuthenticationMethods', $authMethods);       
-        
         $eapIdp->setChild('CredentialApplicability', $this->getCredentialApplicability());
-//    $eap_idp->setChild('ValidUntil',$this->getValidUntil());
-// ProviderInfo->
+// TODO   $eap_idp->setChild('ValidUntil',$this->getValidUntil());
         $eapIdp->setChild('ProviderInfo', $this->getProviderInfo());
-// TODO    $eap_idp->setChild('VendorSpecific',$this->getVendorSpecific());
+// TODO   $eap_idp->setChild('VendorSpecific',$this->getVendorSpecific());
 
-// EAPIdentityProvider end
 // Generate XML
-
         $rootname = 'EAPIdentityProviderList';
         $root = new \SimpleXMLElement("<?xml version=\"1.0\" encoding=\"utf-8\" ?><{$rootname} xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"eap-metadata.xsd\"></{$rootname}>");
-
         \core\DeviceXMLmain::marshalObject($root, 'EAPIdentityProvider', $eapIdp);
         $dom = dom_import_simplexml($root)->ownerDocument;
-        //TODO schema validation makes sense so probably should be used
         if ($dom->schemaValidate(ROOT.'/devices/eap_config/eap-metadata.xsd') === FALSE) {
             throw new Exception("Schema validation failed for eap-metadata");
         }
@@ -554,6 +532,25 @@ abstract class DeviceXML extends \core\DeviceConfig
             $authmethod->setChild('InnerAuthenticationMethod', $eapParams['inner_method']);
         }
         return $authmethod;
+    }
+    
+    private function getAuthMethodsList() {
+        $methodList = [];
+        if ($this->allEaps) {
+            $eapmethods = [];
+            foreach ($this->attributes['all_eaps'] as $eap) {
+                $eapRep = $eap->getArrayRep();
+                if (in_array($eapRep, $this->supportedEapMethods)) {
+                    $eapmethods[] = $eapRep;
+                }
+            }
+        } else {
+            $eapmethods = [$this->selectedEap];
+        }
+        foreach ($eapmethods as $eap) {
+            $methodList[] = $this->getAuthMethod($eap);
+        }
+        return $methodList;
     }
 
 
