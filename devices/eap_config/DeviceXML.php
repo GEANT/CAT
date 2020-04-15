@@ -276,6 +276,7 @@ abstract class DeviceXML extends \core\DeviceConfig
             $providerlogo->setValue($logoString);
             return $providerlogo;
         }
+        return NULL;
     }
 
     /**
@@ -316,6 +317,7 @@ abstract class DeviceXML extends \core\DeviceConfig
             }           
             return $location;
         }
+        return NULL;
     }
 
     /**
@@ -424,7 +426,7 @@ abstract class DeviceXML extends \core\DeviceConfig
      * @param \devices\XML\ClientSideCredential $clientsidecredential the ClientSideCredential to which the realm info is to be added
      * @return void
      */
-    private function getClientSideRealm($clientsidecredential)
+    private function setClientSideRealm($clientsidecredential)
     {
         $attr = $this->attributes;
         $realm = \core\common\Entity::getAttributeValue($attr, 'internal:realm', 0);
@@ -470,7 +472,7 @@ abstract class DeviceXML extends \core\DeviceConfig
                 $clientsidecredential->setChild('OuterIdentity', $outerId);
             }
         }
-        $this->getClientSideRealm($clientsidecredential);
+        $this->setClientSideRealm($clientsidecredential);
 //        $clientsidecredential->setChild('EAPType', $eapParams['inner_methodID'] ? $eapParams['inner_methodID'] : $eapParams['methodID']);
 
         // Client Certificate
