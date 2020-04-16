@@ -48,13 +48,15 @@ class Logopath extends AbstractTest
      */
     private $mailStack;
 
-    const EDUROAM_OT = 0;
-    const NRO_IDP = 1;
-    const NRO_SP = 2;
-    const IDP_PUBLIC = 3;
-    const IDP_PRIVATE = 4;
-    const SP = 5;
-    const ENDUSER = 6;
+    /*
+     * categories of people to contact
+     */
+    const TARGET_EDUROAM_OT = 0;
+    const TARGET_NRO_IDP = 1;
+    const TARGET_NRO_SP = 2;
+    const TARGET_IDP = 3;
+    const TARGET_SP = 4;
+    const TARGET_ENDUSER = 5;
 
     /** we start all our mails with a common prefix, internationalised
      *
@@ -86,9 +88,18 @@ class Logopath extends AbstractTest
      */
     private $concreteRecipients;
 
-// cases to consider
+    /*
+     *  cases to consider
+     */
     const IDP_EXISTS_BUT_NO_DATABASE = 100;
+    const IDP_SUSPECTED_PROBLEM_INTERACTIVE_FORCED = 101;
+    const IDP_SUSPECTED_PROBLEM_INTERACTION_EVIDENCED = 102;
 
+    /*
+     * types of supplemental string data to send 
+     */
+    
+    
     /**
      * initialise the class: maintain state of existing evidence, and get translated versions of email texts etc.
      */
@@ -124,16 +135,58 @@ class Logopath extends AbstractTest
                 "subject" => _("[POLICYVIOLATION NATIONAL] IdP with no entry in eduroam database"),
                 "body" => _("Dear NRO administrator,") . "\n"
                 . "\n"
-                . wordwrap(sprintf(_("an end-user requested diagnostics for realm %s. Real-time connectivity checks determined that the realm exists, but we were unable to find an IdP with that realm in the eduroam database."), "foo.bar")) . "\n"
+                . wordwrap(sprintf(_("an end-user requested diagnostics for realm %s. Real-time connectivity checks determined that the realm exists, but we were unable to find an IdP with that realm in the eduroam database."), $this->additionalFindings['REALM'])) . "\n"
                 . "\n"
                 . _("By not listing IdPs in the eduroam database, you are violating the eduroam policy.") . "\n"
                 . "\n"
                 . _("Additionally, this creates operational issues. In particular, we are unable to direct end users to their IdP for further diagnosis/instructions because there are no contact points for that IdP in the database.") . "\n"
                 . "\n"
-                . "Please stop the policy violation ASAP by listing the IdP which is associated to this realm.",
+                . _("Please stop the policy violation ASAP by listing the IdP which is associated to this realm.")
+                . "\n",
+            ],
+            Logopath::IDP_SUSPECTED_PROBLEM_INTERACTIVE_FORCED => [
+                "to" => [Logopath::TARGET_IDP],
+                "cc" => [],
+                "bcc" => [],
+                "reply-to" => [Logopath::TARGET_ENDUSER],
+                "subject" => _("[TECHNICAL PROBLEM] Administrator suspects technical problem with your IdP"),
+                "body" => _("Dear IdP administrator,") . "\n"
+                . "\n"
+                . sprintf(_("an organisation administrator requested diagnostics for realm %s. "), $this->additionalFindings['REALM']) 
+                . "\n"
+                . _("Real-time connectivity checks determined that the realm appears to be working in acceptable parameters, but the administrator insisted to contact you with the supplemental information below.") . "\n"
+                . "\n",
+            ],
+            Logopath::IDP_SUSPECTED_PROBLEM_INTERACTION_EVIDENCED => [
+                "to" => [Logopath::TARGET_IDP],
+                "cc" => [],
+                "bcc" => [],
+                "reply-to" => [Logopath::TARGET_ENDUSER],
+                "subject" => _("[TECHNICAL PROBLEM] Administrator suspects technical problem with your IdP"),
+                "body" => _("Dear IdP administrator,") . "\n"
+                . "\n"
+                . sprintf(_("an organisation administrator requested diagnostics for realm %s. "), $this->additionalFindings['REALM']) 
+                . "\n"
+                . _("Real-time connectivity checks determined that the realm indeed has an operational problem at this point in time. Please see the supplemental information below.") . "\n"
+                . "\n",
             ],
         ];
+        
+        // add exalted human-readable information to main mail body
+        foreach ($this->mailStack as $oneEntry)
+        if (isset($this->additionalFindings['INTERACTIVE_ENDUSER_AUTH_TIMESTAMP'])) {
+            $oneEntry .= _("Authentication/Attempt Timestamp of user session:") ." ".$this->additionalFindings['INTERACTIVE_ENDUSER_AUTH_TIMESTAMP']."\n";
+        }
+        if (isset($this->additionalFindings['INTERACTIVE_ENDUSER_MAC'])) {
+            $oneEntry .= _("MAC address of end user in question:") ." ".$this->additionalFindings['INTERACTIVE_ENDUSER_MAC']."\n";
+        }
+        if (isset($this->additionalFindings['INTERACTIVE_ADDITIONAL_COMMENTS'])) {
+            $oneEntry .= _("Additional Comments:") ." ".$this->additionalFindings['INTERACTIVE_ADDITIONAL_COMMENTS']."\n";
+        }
+        
+        
         \core\common\Entity::outOfThePotatoes();
+        
     }
 
     /**
@@ -179,7 +232,7 @@ class Logopath extends AbstractTest
      * 
      * @return void
      */
-    public function determineMailsToSend()
+    private function determineMailsToSend()
     {
         $this->mailQueue = [];
 // check for IDP_EXISTS_BUT_NO_DATABASE
@@ -187,6 +240,13 @@ class Logopath extends AbstractTest
             $this->mailQueue[] = Logopath::IDP_EXISTS_BUT_NO_DATABASE;
         }
 
+        if (in_array(AbstractTest::INFRA_IDP_ADMIN_DETERMINED_EVIDENCED, $this->possibleFailureReasons)) {
+            $this->mailQueue[] = Logopath::IDP_SUSPECTED_PROBLEM_INTERACTIVE_EVIDENCED;
+        }
+        if (in_array(AbstractTest::INFRA_IDP_ADMIN_DETERMINED_FORCED, $this->possibleFailureReasons)) {
+            $this->mailQueue[] = Logopath::IDP_SUSPECTED_PROBLEM_INTERACTIVE_FORCED;
+        }
+        if(in_array($needle, $haystack))
 // after collecting all the conditions, find the target entities in all
 // the mails, and check if they resolve to a known mail address. If they
 // do not, this triggers more mails about missing contact info.
@@ -199,15 +259,14 @@ class Logopath extends AbstractTest
         $this->concreteRecipients = [];
         foreach ($abstractRecipients as $oneRecipient) {
             switch ($oneRecipient) {
-                case Logopath::EDUROAM_OT:
-                    $this->concreteRecipients[Logopath::EDUROAM_OT] = ["eduroam-ot@lists.geant.org"];
+                case Logopath::TARGET_EDUROAM_OT:
+                    $this->concreteRecipients[Logopath::TARGET_EDUROAM_OT] = ["eduroam-ot@lists.geant.org"];
                     break;
-                case Logopath::ENDUSER:
+                case Logopath::TARGET_ENDUSER:
 // will be filled when sending, from $this->userEmail
 // hence the +1 below
                     break;
-                case Logopath::IDP_PUBLIC: // intentional fall-through, we populate both in one go
-                case Logopath::IDP_PRIVATE:
+                case Logopath::TARGET_IDP:
                     // CAT contacts, if existing
                     if ($this->additionalFindings['INFRA_NONEXISTENT_REALM']['DATABASE_STATUS']['ID1'] > 0) {
                         $profile = \core\ProfileFactory::instantiate($this->additionalFindings['INFRA_NONEXISTENT_REALM']['DATABASE_STATUS']['ID1']);
@@ -229,15 +288,15 @@ class Logopath extends AbstractTest
                         }
                     }
                     break;
-                case Logopath::NRO_IDP: // same code for both, fall through
-                case Logopath::NRO_SP:
-                    $target = ($oneRecipient == Logopath::NRO_IDP ? $this->additionalFindings['INFRA_NRO_IdP'] : $this->additionalFindings['INFRA_NRO_SP']);
+                case Logopath::TARGET_NRO_IDP: // same code for both, fall through
+                case Logopath::TARGET_NRO_SP:
+                    $target = ($oneRecipient == Logopath::TARGET_NRO_IDP ? $this->additionalFindings['INFRA_NRO_IdP'] : $this->additionalFindings['INFRA_NRO_SP']);
                     $fed = new \core\Federation($target);
                     $adminList = $fed->listFederationAdmins();
                     // TODO: we only have those who are signed up for CAT currently, and by their ePTID.
                     // in touch with OT to get all, so that we can get a list of emails
                     break;
-                case Logopath::SP:
+                case Logopath::TARGET_SP:
                     // TODO: needs a DB view on SPs in eduroam DB, in touch with OT
                     break;
             }
@@ -260,10 +319,10 @@ class Logopath extends AbstractTest
         $contactUseful = FALSE;
         $this->determineMailsToSend();
         foreach ($this->mailQueue as $oneMail) {
-            if (in_array(Logopath::ENDUSER, $this->mailStack[$oneMail]['to']) ||
-                    in_array(Logopath::ENDUSER, $this->mailStack[$oneMail]['cc']) ||
-                    in_array(Logopath::ENDUSER, $this->mailStack[$oneMail]['bcc']) ||
-                    in_array(Logopath::ENDUSER, $this->mailStack[$oneMail]['reply-to'])) {
+            if (in_array(Logopath::TARGET_ENDUSER, $this->mailStack[$oneMail]['to']) ||
+                    in_array(Logopath::TARGET_ENDUSER, $this->mailStack[$oneMail]['cc']) ||
+                    in_array(Logopath::TARGET_ENDUSER, $this->mailStack[$oneMail]['bcc']) ||
+                    in_array(Logopath::TARGET_ENDUSER, $this->mailStack[$oneMail]['reply-to'])) {
                 $contactUseful = TRUE;
             }
         }
@@ -280,13 +339,14 @@ class Logopath extends AbstractTest
      */
     public function weNeedToTalk()
     {
+        $this->determineMailsToSend();
         foreach ($this->mailQueue as $oneMail) {
             $theMail = $this->mailStack[$oneMail];
             // if user interaction would have been good, but the user didn't 
             // leave his mail address, remove him/her from the list of recipients
             foreach (Logopath::CATEGORYBINDING as $index => $functionName) {
-                if (in_array(Logopath::ENDUSER, $theMail[$index]) && $this->userEmail === FALSE) {
-                    $theMail[$index] = array_diff($theMail[$index], [Logopath::ENDUSER]);
+                if (in_array(Logopath::TARGET_ENDUSER, $theMail[$index]) && $this->userEmail === FALSE) {
+                    $theMail[$index] = array_diff($theMail[$index], [Logopath::TARGET_ENDUSER]);
                 }
             }
 

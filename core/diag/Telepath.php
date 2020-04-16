@@ -101,6 +101,7 @@ class Telepath extends AbstractTest
         // now fill with default values
         parent::__construct();
         $this->realm = $realm;
+        $this->additionalFindings['REALM'] = $this->realm;
         $this->visitedFlr = $visitedFlr;
         $this->visitedHotspot = $visitedHotspot;
         $links = \core\Federation::determineIdPIdByRealm($realm);

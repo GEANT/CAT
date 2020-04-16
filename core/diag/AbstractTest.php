@@ -665,6 +665,10 @@ class AbstractTest extends \core\common\Entity
     const STATUS_DOWN = -2;
     const STATUS_MONITORINGFAIL = -3;
 
+    // result codes for manual admin tests/reports
+    const INFRA_IDP_ADMIN_DETERMINED_FORCED = "INFRA_IDP_ADMIN_DETERMINED_FORCED";
+    const INFRA_IDP_ADMIN_DETERMINED_EVIDENCED = "INFRA_IDP_ADMIN_DETERMINED_EVIDENCED";
+    
     /**
      * list of parts of the infrastructure which could be responsible for 
      * the problem being diagnosed
