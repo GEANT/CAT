@@ -93,7 +93,7 @@ class Logopath extends AbstractTest
      */
     const IDP_EXISTS_BUT_NO_DATABASE = 100;
     const IDP_SUSPECTED_PROBLEM_INTERACTIVE_FORCED = 101;
-    const IDP_SUSPECTED_PROBLEM_INTERACTION_EVIDENCED = 102;
+    const IDP_SUSPECTED_PROBLEM_INTERACTIVE_EVIDENCED = 102;
 
     /*
      * types of supplemental string data to send 
@@ -128,10 +128,10 @@ class Logopath extends AbstractTest
 
         $this->mailStack = [
             Logopath::IDP_EXISTS_BUT_NO_DATABASE => [
-                "to" => [Logopath::NRO_IDP],
-                "cc" => [Logopath::EDUROAM_OT],
+                "to" => [Logopath::TARGET_NRO_IDP],
+                "cc" => [Logopath::TARGET_EDUROAM_OT],
                 "bcc" => [],
-                "reply-to" => [Logopath::EDUROAM_OT],
+                "reply-to" => [Logopath::TARGET_EDUROAM_OT],
                 "subject" => _("[POLICYVIOLATION NATIONAL] IdP with no entry in eduroam database"),
                 "body" => _("Dear NRO administrator,") . "\n"
                 . "\n"
@@ -157,7 +157,7 @@ class Logopath extends AbstractTest
                 . _("Real-time connectivity checks determined that the realm appears to be working in acceptable parameters, but the administrator insisted to contact you with the supplemental information below.") . "\n"
                 . "\n",
             ],
-            Logopath::IDP_SUSPECTED_PROBLEM_INTERACTION_EVIDENCED => [
+            Logopath::IDP_SUSPECTED_PROBLEM_INTERACTIVE_EVIDENCED => [
                 "to" => [Logopath::TARGET_IDP],
                 "cc" => [],
                 "bcc" => [],
@@ -175,13 +175,13 @@ class Logopath extends AbstractTest
         // add exalted human-readable information to main mail body
         foreach ($this->mailStack as $oneEntry)
         if (isset($this->additionalFindings['INTERACTIVE_ENDUSER_AUTH_TIMESTAMP'])) {
-            $oneEntry .= _("Authentication/Attempt Timestamp of user session:") ." ".$this->additionalFindings['INTERACTIVE_ENDUSER_AUTH_TIMESTAMP']."\n";
+            $oneEntry["body"] .= _("Authentication/Attempt Timestamp of user session:") ." ".$this->additionalFindings['INTERACTIVE_ENDUSER_AUTH_TIMESTAMP']."\n";
         }
         if (isset($this->additionalFindings['INTERACTIVE_ENDUSER_MAC'])) {
-            $oneEntry .= _("MAC address of end user in question:") ." ".$this->additionalFindings['INTERACTIVE_ENDUSER_MAC']."\n";
+            $oneEntry["body"] .= _("MAC address of end user in question:") ." ".$this->additionalFindings['INTERACTIVE_ENDUSER_MAC']."\n";
         }
         if (isset($this->additionalFindings['INTERACTIVE_ADDITIONAL_COMMENTS'])) {
-            $oneEntry .= _("Additional Comments:") ." ".$this->additionalFindings['INTERACTIVE_ADDITIONAL_COMMENTS']."\n";
+            $oneEntry["body"] .= _("Additional Comments:") ." ".$this->additionalFindings['INTERACTIVE_ADDITIONAL_COMMENTS']."\n";
         }
         
         
@@ -246,7 +246,7 @@ class Logopath extends AbstractTest
         if (in_array(AbstractTest::INFRA_IDP_ADMIN_DETERMINED_FORCED, $this->possibleFailureReasons)) {
             $this->mailQueue[] = Logopath::IDP_SUSPECTED_PROBLEM_INTERACTIVE_FORCED;
         }
-        if(in_array($needle, $haystack))
+
 // after collecting all the conditions, find the target entities in all
 // the mails, and check if they resolve to a known mail address. If they
 // do not, this triggers more mails about missing contact info.
@@ -273,7 +273,7 @@ class Logopath extends AbstractTest
 
                         foreach ($profile->getAttributes("support:email") as $oneMailAddress) {
                             // CAT contacts are always public
-                            $this->concreteRecipients[Logopath::IDP_PUBLIC][] = $oneMailAddress;
+                            $this->concreteRecipients[Logopath::TARGET_IDP][] = $oneMailAddress;
                         }
                     }
                     // DB contacts, if existing
@@ -283,7 +283,7 @@ class Logopath extends AbstractTest
                         foreach ($info['admins'] as $infoElement) {
                             if (isset($infoElement['email'])) {
                                 // until DB Spec 2.0 is out and used, consider all DB contacts as private
-                                $this->concreteRecipients[Logopath::IDP_PRIVATE][] = $infoElement['email'];
+                                $this->concreteRecipients[Logopath::TARGET_IDP][] = $infoElement['email'];
                             }
                         }
                     }
