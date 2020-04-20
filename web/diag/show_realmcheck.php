@@ -101,7 +101,12 @@ var lesstext = "<?php echo "&laquo" ?>";
 <?php
 require dirname(__DIR__).'/skins/modern/diag/js/diag_js.php';
 echo $deco->productheader("ADMIN");
-$check_realm = FALSE;
+$norefresh = NULL;
+$norefresh = filter_input(INPUT_GET, 'norefresh', FILTER_SANITIZE_STRING); 
+if ($norefresh) {
+    $norefresh = true;
+}
+$check_realm = false;
 $token = filter_input(INPUT_GET, 'token', FILTER_SANITIZE_STRING);
 if ($token) {
     $realmTests = new \core\diag\RADIUSTestsUI($token);
@@ -164,3 +169,13 @@ if ($check_realm !== FALSE) {
         }
 }
 echo $deco->footer();
+if (!$norefresh) {
+?>
+<script type="text/javascript">
+   $(function() {
+    $('#run_tests').click();
+   });
+</script>
+<?php
+}
+

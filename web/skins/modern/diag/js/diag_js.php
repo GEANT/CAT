@@ -293,7 +293,7 @@
         dynamic_req = null;
         udp_req = null;
         var running = <?php echo '"<img style=\'vertical-align:middle\' src='."'../resources/images/icons/loading51.gif' width='24' height='24'/><i>"._('Running connectivity tests for this realm').'...</i>"'; ?>;
-        var testresult = "<a target='_blank' href='show_realmcheck.php?token=" + token + "'>" + <?php echo '"'._("New tests results are available, click to see").'"'; ?> + '</a>';
+        var testresult = "<a target='_blank' href='show_realmcheck.php?norefresh=1&token=" + token + "'>" + <?php echo '"'._("New tests results are available, click to see").'"'; ?> + '</a>';
         if (wherefrom == 'diag') {
             $('#tests_info_area').css('color', 'black');
             $('#tests_info_area').html(running);
@@ -420,7 +420,7 @@
         return requests;
     }
     function show_tests_result(token, level) {
-        $('#tests_info_area').html(global_info[level] + ': ' + "<a target='_blank' href='show_realmcheck.php?token=" + token + "'>" + <?php echo '"'._("See details").'"'; ?> + '</a>');
+        $('#tests_info_area').html(global_info[level] + ': ' + "<a target='_blank' href='show_realmcheck.php?norefresh=1&token=" + token + "'>" + <?php echo '"'._("See details").'"'; ?> + '</a>');
         if (level > 0) {
             $('#tests_info_area').css('color', 'red');
             $('#tests_result').val('1');
@@ -428,7 +428,7 @@
             $('#tests_info_area').css('color', 'black');
             $('#tests_result').val('0');
         }
-        var info = global_info[level] + ': ' + "<a target='_blank' href='show_realmcheck.php?token=" + token + "'>" + <?php echo '"'._("See details").'"'; ?> + '</a>';
+        var info = global_info[level] + ': ' + "<a target='_blank' href='show_realmcheck.php?norefresh=1&token=" + token + "'>" + <?php echo '"'._("See details").'"'; ?> + '</a>';
         if (level == 0) {
             info = info + '<br>' + <?php echo "'"._("If you want to report your problem, fill fields bellow.")."'"; ?>;
         }
