@@ -4,8 +4,8 @@ $remove = 0;
 $opn = $vlans = '';
 # MUST provide: port, secret, deployment_id, inst_id
 # MAY provide: operatorname, vlanno, vlanrealms[], remove
-error_log('MGW '.print_r($_REQUEST, true));
-if (isset($_REQUEST['port']) && isset($_REQUEST['secret']) &&
+if ($_SERVER['REMOTE_ADDR'] == "{{ cat_ip }}" && 
+    isset($_REQUEST['port']) && isset($_REQUEST['secret']) &&
     isset($_REQUEST['country']) &&
     isset($_REQUEST['instid']) && isset($_REQUEST['deploymentid'])) {
   if (isset($_REQUEST['remove'])) {

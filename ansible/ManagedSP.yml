@@ -101,10 +101,13 @@
         - /var/www/html/sp
         - /opt/Socket
         - /opt/Socket/CAT_requests
+    - name: Create web index.php
+      template:
+        src: "ManagedSP/templates/web/index.php.j2"
+        dest: "/var/www/html/sp/index.php"
     - name: Copy web files
-      copy: src=ManagedSP/templates/web//{{ item }} dest=/var/www/html/sp/
+      copy: src=ManagedSP/templates/web/{{ item }} dest=/var/www/html/sp/
       with_items:
-        - index.php
         - lib.inc
     - name: enable sysv httpd service
       service: name=httpd.service enabled=yes daemon_reload=yes
