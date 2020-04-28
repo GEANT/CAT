@@ -1,0 +1,46 @@
+ListenUDP       localhost:1812
+ListenTLS       {{ radius_sp_ip }}:2083
+SourceUDP       localhost
+SourceTCP       {{ radius_sp_ip }}
+LogLevel        5
+LogDestination  x-syslog:///LOG_LOCAL0
+loopprevention on
+
+tls edupkiclient {
+CACertificateFile    /opt/radsecproxy/etc/radsecproxy.conf.d/eduPKI/edupki-root-ca-cert.pem
+CertificateFile /opt/radsecproxy/etc/radsecproxy.conf.d/eduPKI/test-sp-1.hosted.eduroam.org-cert.pem
+CertificateKeyFile      /opt/radsecproxy/etc/radsecproxy.conf.d/eduPKI/test-sp-1.hosted.eduroam.org-key.pem
+policyOID 1.3.6.1.4.1.25178.3.1.1
+#CRLCheck On
+}
+tls edupkiserver {
+CACertificateFile    /opt/radsecproxy/etc/radsecproxy.conf.d/eduPKI/edupki-root-ca-cert.pem
+CertificateFile /opt/radsecproxy/etc/radsecproxy.conf.d/eduPKI/test-sp-1.hosted.eduroam.org-cert.pem
+CertificateKeyFile      /opt/radsecproxy/etc/radsecproxy.conf.d/eduPKI/test-sp-1.hosted.eduroam.org-key.pem
+policyOID 1.3.6.1.4.1.25178.3.1.2
+#CRLCheck On
+}
+
+# Clients
+Client FR {
+type udp
+host 83.212.102.35
+secret 1qazxsw2
+}
+Client FR-local {
+type udp
+host 127.0.0.1
+secret 1qazxsw2
+}
+
+Client incoming-tls {
+type tls
+tls edupkiclient
+host 0.0.0.0/0
+secret radsec
+certificateNameCheck off
+}
+
+include /opt/radsecproxy/etc/radsecproxy.conf.d/servers.conf
+# realmy, ktore obslugujemy
+include /opt/radsecproxy/etc/radsecproxy.conf.d/realms.conf
