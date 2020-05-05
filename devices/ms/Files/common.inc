@@ -667,7 +667,7 @@ Function WiredConfirm
     ${If} $wired == 1
       ${If} $force_wired == 0
         IfSilent wired
-        MessageBox MB_YESNO "<?php WindowsCommon::echoNsis( _("Do you want to enable access on wired interfaces?"))?>" IDYES wired
+        MessageBox MB_YESNO "<?php WindowsCommon::echo_nsi( _("Do you want to enable access on wired interfaces?"))?>" IDYES wired
         Push 0
         Pop $wired
         wired:
