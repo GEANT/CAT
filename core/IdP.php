@@ -108,7 +108,7 @@ class IdP extends EntityWithDBProperties
         $this->attributes[] = ["name" => "internal:country",
             "lang" => NULL,
             "value" => $this->federation,
-            "level" => "IdP",
+            "level" => Options::LEVEL_IDP,
             "row" => 0,
             "flag" => NULL];
 

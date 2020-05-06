@@ -172,7 +172,7 @@ switch ($_POST['submitbutton']) {
                     $redirects = $profile->getAttributes("device-specific:redirect");
                     $deviceSpecificFound = FALSE;
                     foreach ($redirects as $oneRedirect) {
-                        if ($oneRedirect["level"] == "Method") {
+                        if ($oneRedirect["level"] == \core\Options::LEVEL_METHOD) {
                             $deviceSpecificFound = TRUE;
                         }
                     }

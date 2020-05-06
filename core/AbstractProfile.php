@@ -564,7 +564,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
         // which has device = NULL
         $generalRedirect = NULL;
         foreach ($redirect as $index => $oneRedirect) {
-            if ($oneRedirect["level"] == "Profile") {
+            if ($oneRedirect["level"] == Options::LEVEL_PROFILE) {
                 $generalRedirect = $index;
             }
         }
@@ -773,7 +773,7 @@ abstract class AbstractProfile extends EntityWithDBProperties
             $retArray[] = ["name" => $attName,
                 "lang" => NULL,
                 "value" => $attValue,
-                "level" => "Profile",
+                "level" => Options::LEVEL_PROFILE,
                 "row" => 0,
                 "flag" => NULL,
             ];

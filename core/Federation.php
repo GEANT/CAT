@@ -200,7 +200,7 @@ class Federation extends EntityWithDBProperties
         $this->attributes[] = array("name" => "internal:country",
             "lang" => NULL,
             "value" => $this->tld,
-            "level" => "FED",
+            "level" => Options::LEVEL_FED,
             "row" => 0,
             "flag" => NULL);
 
@@ -211,7 +211,7 @@ class Federation extends EntityWithDBProperties
             $this->attributes[] = array("name" => "fed:silverbullet",
                 "lang" => NULL,
                 "value" => "on",
-                "level" => "FED",
+                "level" => Options::LEVEL_FED,
                 "row" => 0,
                 "flag" => NULL);
         }

@@ -189,7 +189,7 @@ class ProfileRADIUS extends AbstractProfile
                 "name" => $attributeQuery->option_name,
                 "lang" => $attributeQuery->option_lang,
                 "value" => $attributeQuery->option_value,
-                "level" => "Method",
+                "level" => Options::LEVEL_METHOD,
                 "row" => $attributeQuery->row,
                 "flag" => $optinfo['flag'],
                 "device" => ($devicesOrEAPMethods == "DEVICES" ? $attributeQuery->deviceormethod : NULL),

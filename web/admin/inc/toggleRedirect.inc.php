@@ -123,11 +123,11 @@ if ($device !== NULL) {
     $interesting_attribs = [];
 
     foreach ($attribs as $attrib) {
-        if ($attrib['level'] == "Method" && preg_match('/^' . $keyword . ':/', $attrib['name'])) {
+        if ($attrib['level'] == \core\Options::LEVEL_METHOD && preg_match('/^' . $keyword . ':/', $attrib['name'])) {
             $interesting_attribs[] = $attrib;
         }
     }
-    $optionDisplay = new \web\lib\admin\OptionDisplay($interesting_attribs, "Method");
+    $optionDisplay = new \web\lib\admin\OptionDisplay($interesting_attribs, \core\Options::LEVEL_METHOD);
     echo $optionDisplay->prefilledOptionTable($keyword);
     if (\config\Master::DB['INST']['readonly'] === FALSE) {
         ?>
