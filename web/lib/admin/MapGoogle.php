@@ -358,7 +358,9 @@ class MapGoogle extends AbstractMap {
      */
     public static function optionListDisplayCode($coords, $number) {
         // quiesce warnings about unused variable
-        sprintf("%s", $coords);
+        if (strlen(sprintf("%s", $coords)) <0) {
+            throw new Exception("A miracle! A string with negative length!");
+        };
         \core\common\Entity::intoThePotatoes();
         $retval = "<button id='location_b_" . $number . "' class='location_button'>" . _("Click to see location") . " $number</button>";
         \core\common\Entity::outOfThePotatoes();
