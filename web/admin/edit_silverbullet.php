@@ -337,8 +337,14 @@ echo $deco->defaultPagePrelude(sprintf(_('Managing %s users'), \core\ProfileSilv
     <img src='../resources/images/icons/loading51.gif' id='spin' alt='loading...' style='position:absolute;left: 50%; top: 50%; transform: translate(-100px, -50px); display:none; z-index: 100;'>
     <?php echo $uiElements->instLevelInfoBoxes($inst); ?>
     <div class='infobox'>
-        <h2><?php echo sprintf(_('Current %s users'), \core\ProfileSilverbullet::PRODUCTNAME); ?></h2>
+        <h2><?php $tablecaption = sprintf(_('Current %s users'), \core\ProfileSilverbullet::PRODUCTNAME); echo $tablecaption;?></h2>
         <table>
+            <caption><?php echo $tablecaption;?></caption>
+            <tr>
+                <th class="wai-invisible" scope="col"><?php echo _("Property Type");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Property Value");?></th>
+            </tr>
+
             <tr>
                 <td><strong><?php echo _("Assigned Realm"); ?></strong></td><td><?php echo $profile->realm; ?></td>
             </tr>

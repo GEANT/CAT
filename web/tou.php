@@ -61,6 +61,12 @@ $loggerInstance->debug(4, "\n----------------------------------TOU.PHP----------
         </div>
         <div>
             <table style='width:100%'>
+                <caption><?php echo "Legalese";?></caption>
+                <tr>
+                    <th class='wai-invisible' scope='col'><?php echo "Copyright";?></th>
+                    <th class='wai-invisible' scope='col'><?php echo "Privacy Notice";?></th>
+                    <th class='wai-invisible' scope='col'><?php echo "Attribution";?></th>
+                </tr>
                 <tr>
                     <td style='padding-left:20px; padding-right:20px; text-align:left; vertical-align:top;'>
                         <?php echo $cat->catCopyright; ?>

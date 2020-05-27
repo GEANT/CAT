@@ -44,16 +44,17 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
 
     $preflist = $my_profile->getEapMethodsinOrderOfPreference();
     ?>
-    <h1><?php printf(_("Device compatiblity matrix for %s of %s "), $profile_name, $inst_name); ?></h1>
+    <h1><?php $tablecaption = sprintf(_("Device compatiblity matrix for %s of %s "), $profile_name, $inst_name); echo $tablecaption;?></h1>
     <table class="compatmatrix">
+        <caption><?php echo $tablecaption;?></caption>
         <tr>
-            <th></th>
-            <th><?php echo _("Device"); ?></th>
+            <th scope='col'></th>
+            <th scope='col'><?php echo _("Device"); ?></th>
 
             <?php
             foreach ($preflist as $method) {
                 $escapedMethod = $method->getIntegerRep();
-                echo "<th style='min-width:200px'>" . $method->getPrintableRep() . "<br/>
+                echo "<th  scope='col' style='min-width:200px'>" . $method->getPrintableRep() . "<br/>
                         <form method='post' action='inc/toggleRedirect.inc.php?inst_id=$my_inst->identifier&amp;profile_id=$my_profile->identifier' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
                         <input type='hidden' name='eaptype' value='$escapedMethod'>
                         <button class='redirect' type='submit'>" . _("EAP-Type-specific options...") . "</button>
@@ -148,8 +149,10 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
         }
         ?>
     </table>
-    <p><strong><?php echo _("Legend:"); ?></strong></p>
+    <p><strong><?php $tablecaption2 = _("Legend:"); echo $tablecaption2; ?></strong></p>
     <table class="compatmatrix">
+        <caption><?php echo $tablecaption2;?></caption>
+        <tr><th scope="col"><?php echo _("Colour");?></th><th scope='col'><?php echo _("Meaning");?></th></tr>
         <tr><td class="compat_redirected">&nbsp;&nbsp;&nbsp;</td> <td><?php echo _("redirection is set"); ?></td></tr>
         <tr><td class="compat_default">&nbsp;&nbsp;&nbsp;</td>    <td><?php echo _("will be offered on download site"); ?></td></tr>
         <tr><td class="compat_secondary">&nbsp;&nbsp;&nbsp;</td>  <td><?php echo _("configured, but not preferred EAP type"); ?></td></tr>

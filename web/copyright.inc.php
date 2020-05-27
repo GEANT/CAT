@@ -113,23 +113,23 @@ CAT is distributed under the terms of the G&Eacute;ANT Standard Open Source Soft
 The software contains components from the following third parties:
 <ul>
     <li>
-        <b>WLANSetEAPUserData</b> - &copy; Simon Rozman<br/>
+        <strong>WLANSetEAPUserData</strong> - &copy; Simon Rozman<br/>
         (included in distribution under devices/ms/Files/WLANSetEAPUserData )<br/>
         License: GNU GPL version 3
     </li>
     <li>
-        <b>base64.nsh</b> - &copy; 1999-2015 Contributors<br/>
+        <strong>base64.nsh</strong> - &copy; 1999-2015 Contributors<br/>
         (included in distribution under devices/ms/Files/base64.nsh )<br/>
         base64.nsh include file has been created from http://nsis.sourceforge.net/Base64 and http://nsis.sourceforge.net/CharToASCII
         License: zlib/libpng License (see http://nsis.sourceforge.net/License )
     </li>
     <li>
-        <b>jQuery</b> and <b>jQuery UI</b> - &copy; jQuery Foundation</br>
+        <strong>jQuery</strong> and <strong>jQuery UI</strong> - &copy; jQuery Foundation</br>
         (included in distribution under web/external/jquery )
         License: MIT (see https://github.com/jquery/jquery/blob/master/LICENSE.txt and https://github.com/jquery/jquery-ui/blob/master/LICENSE.txt)
     </li>
     <li>
-        <b>DiscoJuice</b> - &copy; UNINETT<br/>
+        <strong>DiscoJuice</strong> - &copy; UNINETT<br/>
         (included in source distribution under web/external/discojuice/ )<br/>
         License: Verbatim licensing email:<pre>
 > Hi Andreas,
@@ -147,20 +147,20 @@ Andreas
         </pre>
     </li>
     <li>
-        <b>Icons</b> - &copy; Supratim Nayak<br/>
+        <strong>Icons</strong> - &copy; Supratim Nayak<br/>
         License: "Free for non-commercial use, Commercial Usage not allowed"
     </li>
     <li>
-        <b>button_cancel.png</b> - &copy; RESTENA Foundation<br/>
+        <strong>button_cancel.png</strong> - &copy; RESTENA Foundation<br/>
         RESTENA stock image, used with permission from author
     </li>
     <li>
-        <b>GeoLite and GeoLite2</b> - &copy; MaxMind, Inc.<br/>
+        <strong>GeoLite and GeoLite2</strong> - &copy; MaxMind, Inc.<br/>
         (API reference code included in distribution) <br/>
         This deployment of the CAT product may include GeoLite and/or GeoLite2 data created by MaxMind, available from <a href="http://www.maxmind.com">http://www.maxmind.com</a>
     </li>
     <li>
-        <b>OpenLayers</b> - &copy; 2005-present OpenLayers Contributors. All rights reserved.<br/>
+        <strong>OpenLayers</strong> - &copy; 2005-present OpenLayers Contributors. All rights reserved.<br/>
         (included in source distribution under web/external/OpenLayers and web/lib/admin/ol_drag.js)<br/>
         License: Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
         Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
@@ -169,7 +169,7 @@ Andreas
         The views and conclusions contained in the software and documentation are those of the authors and should not be interpreted as representing official policies, either expressed or implied, of OpenLayers Contributors.
     </li>
     <li>
-        <b>PHP QR Code encoder</b> - (C) 2010 Dominik Dzienia &lt;deltalab at poczta dot fm&gt;<br/>
+        <strong>PHP QR Code encoder</strong> - (C) 2010 Dominik Dzienia &lt;deltalab at poczta dot fm&gt;<br/>
         (included in source distribution under core/phpqrcode.php )<br/>
         License: LGPL v3
     </li>

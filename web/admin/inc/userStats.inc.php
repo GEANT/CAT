@@ -28,7 +28,7 @@ if ($userInt === FALSE) {
 
 ?>
 
-<h1><?php echo _("User Authentication Records");?></h1>
+<h1><?php $tablecaption = _("User Authentication Records"); echo $tablecaption; ?></h1>
 <p><?php echo _("Note that:");?></p>
 <ul>
     <li><?php echo _("Authentication records are deleted after six months retention time");?></li>
@@ -36,12 +36,13 @@ if ($userInt === FALSE) {
     <li><?php echo _("Different MAC addresses per credential may be due to MAC Address randomisation in recent operating systems");?></li>
 </ul>
 <table class='authrecord'>
+    <caption><?php echo $tablecaption;?></caption>
     <tr>
-        <td><strong><?php echo _("Timestamp");?></strong></td>
-        <td><strong><?php echo _("Credential");?></strong></td>
-        <td><strong><?php echo _("MAC Address");?></strong></td>
-        <td><strong><?php echo _("Result");?></strong></td>
-        <td><strong><?php echo _("Operator Domain");?></strong></td>
+        <th scope="col"><strong><?php echo _("Timestamp");?></strong></th>
+        <th scope="col"><strong><?php echo _("Credential");?></strong></th>
+        <th scope="col"><strong><?php echo _("MAC Address");?></strong></th>
+        <th scope="col"><strong><?php echo _("Result");?></strong></th>
+        <th scope="col"><strong><?php echo _("Operator Domain");?></strong></th>
     </tr>
     <?php
     $userAuthData = $profile->getUserAuthRecords($userInt);

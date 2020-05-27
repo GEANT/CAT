@@ -107,8 +107,13 @@ switch ($_POST['submitbutton']) {
             $redirect = $validator->boolean($_POST['redirect']);
         }
         ?>
-        <h1><?php echo _("Submitted attributes for this profile"); ?></h1>
+        <h1><?php $tablecaption = _("Submitted attributes for this profile"); echo $tablecaption; ?></h1>
         <table>
+            <caption><?php echo $tablecaption;?></caption>
+            <tr>
+                <th class="wai-invisible" scope="col"><?php echo _("Overall Result");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Details");?></th>
+            </tr>
             <?php
             $uiElements = new web\lib\admin\UIElements();
             // set realm info, if submitted

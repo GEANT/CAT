@@ -80,8 +80,15 @@ echo $mapCode->htmlHeadCode();
         ?>
     </h1>
     <div class='infobox'>
-        <h2><?php echo sprintf(_("%s general properties"), $uiElements->nomenclatureParticipant); ?></h2>
+        <h2><?php $tablecaption = sprintf(_("%s general properties"), $uiElements->nomenclatureParticipant); echo $tablecaption;?></h2>
         <table>
+            <caption><?php echo $tablecaption;?></caption>
+            <tr>
+                <th class="wai-invisible" scope="col"><?php echo _("Property Type");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Language if applicable");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Property Value");?></th>
+            </tr>
+
             <tr>
                 <td><?php echo _("Country:"); ?></td>
                 <td></td>

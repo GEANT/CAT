@@ -48,8 +48,14 @@ $(document).on('click', '#realmcheck' , function() {
     </h1>
 
     <div class="infobox">
-        <h2><?php echo _("Your Personal Information"); ?></h2>
+        <h2><?php $tablecaption = _("Your Personal Information"); echo $tablecaption; ?></h2>
         <table>
+            <caption><?php echo $tablecaption;?></caption>
+            <tr>
+                <th class="wai-invisible" scope="col"><?php echo _("Property Type");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Language if applicable");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Property Value");?></th>
+            </tr>            
             <?php echo $uiElements->infoblock($user->getAttributes(), "user", "User"); ?>
             <tr>
                 <td>
@@ -79,9 +85,15 @@ $(document).on('click', '#realmcheck' , function() {
         ?>
 
         <div class='infobox'><h2>
-                <?php echo sprintf(_("%s Properties: %s"), $uiElements->nomenclatureFed, $thefed->name); ?>
+                <?php $tablecaption2 = sprintf(_("%s Properties: %s"), $uiElements->nomenclatureFed, $thefed->name); echo $tablecaption2; ?>
             </h2>
             <table>
+            <caption><?php echo $tablecaption2;?></caption>
+            <tr>
+                <th class="wai-invisible" scope="col"><?php echo _("Property Type");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Language if applicable");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Property Value");?></th>
+            </tr>
                 <!-- fed properties -->
                 <tr>
                     <td>
@@ -109,13 +121,13 @@ $(document).on('click', '#realmcheck' , function() {
         </div>
         <div class='infobox'>
             <h2>
-                <?php echo sprintf(_("%s Statistics: %s"), $uiElements->nomenclatureFed, $thefed->name); ?>
+                <?php $tablecaption3 = sprintf(_("%s Statistics: %s"), $uiElements->nomenclatureFed, $thefed->name); echo $tablecaption3; ?>
             </h2>
             <table>
                 <!-- idp stats -->
                 <tr>
-                    <th style='text-align:left;'> <?php echo _("IdPs Total"); ?></th>
-                    <th colspan='3'> <?php echo _("Public Download") ?></th>
+                    <th scope='col' style='text-align:left;'> <?php echo _("IdPs Total"); ?></th>
+                    <th scope='col' colspan='3'> <?php echo _("Public Download") ?></th>
                 </tr>
                 <tr>
                     <td> <?php echo count($thefed->listIdentityProviders(0)); ?></td>
@@ -127,10 +139,10 @@ $(document).on('click', '#realmcheck' , function() {
                 </tr>    
                 <!-- download stats -->
                 <tr>
-                    <th style='text-align:left;'> <?php echo _("Downloads"); ?></th>
-                    <th style='text-align:left;'> <?php echo _("Admin"); ?></th>
-                    <th style='text-align:left;'> <?php echo \core\ProfileSilverbullet::PRODUCTNAME ?></th>
-                    <th style='text-align:left;'> <?php echo _("User"); ?></th>
+                    <th scope='col' style='text-align:left;'> <?php echo _("Downloads"); ?></th>
+                    <th scope='col' style='text-align:left;'> <?php echo _("Admin"); ?></th>
+                    <th scope='col' style='text-align:left;'> <?php echo \core\ProfileSilverbullet::PRODUCTNAME ?></th>
+                    <th scope='col' style='text-align:left;'> <?php echo _("User"); ?></th>
                 </tr>
                 <?php echo $thefed->downloadStats("table"); ?>
             </table>
@@ -222,18 +234,19 @@ $(document).on('click', '#realmcheck' , function() {
     }
     ?>
     <table class='user_overview' style='border:0px;'>
+        <caption><?php echo _("Participant Details");?></caption>
         <tr>
-            <th><?php echo _("Deployment Status"); ?></th>
-            <th><?php echo sprintf(_("%s Name"), $uiElements->nomenclatureInst); ?></th>
+            <th scope='col'><?php echo _("Deployment Status"); ?></th>
+            <th scope='col'><?php echo sprintf(_("%s Name"), $uiElements->nomenclatureInst); ?></th>
 
             <?php
             $pending_invites = $mgmt->listPendingInvitations();
 
             if (\config\Master::DB['enforce-external-sync']) {
-                echo "<th>" . sprintf(_("%s Database Sync Status"), \config\ConfAssistant::CONSORTIUM['display_name']) . "</th>";
+                echo "<th scope='col'>" . sprintf(_("%s Database Sync Status"), \config\ConfAssistant::CONSORTIUM['display_name']) . "</th>";
             }
             ?>
-            <th>
+            <th scope='col'>
                 <?php
                 if ($readonly === FALSE) {
                     echo _("Administrator Management");

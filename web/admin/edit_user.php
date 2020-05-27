@@ -37,9 +37,15 @@ $user = new \core\User($_SESSION['user']);
     </h1>
     <div class='infobox'>
         <h2>
-            <?php echo _("Current User Attributes"); ?>
+            <?php $tablecaption = _("Current User Attributes"); echo $tablecaption;?>
         </h2>
         <table>
+            <caption><?php echo $tablecaption;?></caption>
+            <tr>
+                <th class="wai-invisible" scope="col"><?php echo _("Property Type");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Language if applicable");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Property Value");?></th>
+            </tr>
             <?php echo $uiElements->infoblock($user->getAttributes(), "user", "User"); ?>
         </table>
     </div>

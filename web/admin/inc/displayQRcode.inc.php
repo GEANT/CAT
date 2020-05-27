@@ -39,7 +39,7 @@ $invitationObject = new core\SilverbulletInvitation($validator->token(filter_inp
 header("Content-Type:text/html;charset=utf-8");
 ?>
 <h1 style='text-align:center;'><?php echo _("Invitation Token QR Code");?></h1>
-<img style='float:none' src='data:image/png;base64,<?php 
+<img alt='<?php echo _("Invitation Token QR Code");?>' style='float:none' src='data:image/png;base64,<?php 
 $size = 10;
 $qrCode = new \chillerlan\QRCode\QRCode(new \chillerlan\QRCode\QROptions([
                     'outputType' => \chillerlan\QRCode\QRCode::OUTPUT_IMAGE_PNG,

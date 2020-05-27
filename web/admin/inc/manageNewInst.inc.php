@@ -62,16 +62,23 @@ if (\config\Master::DB['enforce-external-sync']) {
 }
 ?>
 <hr/>
-<img src='../resources/images/icons/loading51.gif' id='spin' style='position:absolute;left: 50%; top: 50%; transform: translate(-100px, -50px); display:none;'>
+<img alt='Loading ...' src='../resources/images/icons/loading51.gif' id='spin' style='position:absolute;left: 50%; top: 50%; transform: translate(-100px, -50px); display:none;'>
 <form name='sendinvite' action='inc/sendinvite.inc.php' method='post' accept-charset='UTF-8'>
     <table>
+            <caption><?php echo _("Invitation Details");?></caption>
+            <tr>
+                <th class="wai-invisible" scope="col"><?php echo _("From database or ad-hoc?");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Name");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Type");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Country");?></th>
+            </tr>
         <?php
         if (\config\Master::DB['enforce-external-sync']) {
             echo "<tr><td>
                 <input type='radio' name='creation' value='existing'>" . sprintf(_("Existing %s:"), $uiElements->nomenclatureParticipant) . "</input>
                      </td>";
 
-            echo "<td colspan='4'>
+            echo "<td colspan='3'>
                 <select id='externals' name='externals' onchange='document.sendinvite.creation[0].checked=true; document.sendinvite.mailaddr.value=this.options[this.selectedIndex].id;'>
                     <option value='FREETEXT'>" . sprintf(_("--- select %s here ---"),$uiElements->nomenclatureParticipant) . "</option>";
 
@@ -120,7 +127,12 @@ if (\config\Master::DB['enforce-external-sync']) {
         </tr>
     </table>
     <hr/>
-    <table>    
+    <table>
+        <caption><?php echo _("Administrator's E-Mail:"); ?></caption>
+        <tr>
+            <th scope='col'><?php echo _("E-Mail label:"); ?></th>
+            <th scope='col'><?php echo _("E-Mail input field:"); ?></th>
+        </tr>
         <tr>
             <td><?php echo _("Administrator's E-Mail:"); ?></td>
             <td><input type='text' size='40' id='mailaddr' name='mailaddr'/></td>

@@ -93,10 +93,11 @@ $dbHandle = \core\DBConnection::handle("FRONTEND");
                 <strong>Registered Identity Providers</strong>
             </legend>
             <table>
+                <caption>Global IdP Statistics</caption>
                 <tr>
-                    <th>Total</th>
-                    <th>Configured</th>
-                    <th>Public Download</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Configured</th>
+                    <th scope="col">Public Download</th>
                 </tr>
                 <?php
                 $cat = new \core\CAT();
@@ -125,12 +126,13 @@ $dbHandle = \core\DBConnection::handle("FRONTEND");
                 <strong>Total Downloads</strong>
             </legend>
             <table>
+                <caption>Global Download Statistics</caption>
                 <tr>
-                    <th>Device</th>
-                    <th>Admin Downloads</th>
-                    <th>User Downloads (classic)</th>
-                    <th>User Downloads (<?php echo \core\ProfileSilverbullet::PRODUCTNAME; ?>)</th>
-                    <th>User Downloads (total)</th>
+                    <th scope="col">Device</th>
+                    <th scope="col">Admin Downloads</th>
+                    <th scope="col">User Downloads (classic)</th>
+                    <th scope="col">User Downloads (<?php echo \core\ProfileSilverbullet::PRODUCTNAME; ?>)</th>
+                    <th scope="col">User Downloads (total)</th>
                 </tr>
                 <?php
                 $gross_admin = 0;

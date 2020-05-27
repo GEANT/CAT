@@ -24,6 +24,7 @@ $divs = new \web\skins\modern\Divs($Gui);
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
 <link rel="stylesheet" media="screen" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("CSS", "cat-user.css"); ?>" />
+<title><?php echo config\Master::APPEARANCE['productname'];?> Copyright and Licensing</title>
 </head>
 <body>
 <div id="wrap">
@@ -32,7 +33,7 @@ $divs = new \web\skins\modern\Divs($Gui);
     <div id="main_page">
         <div id="main_body">
             <div id="user_page" style="display:block">
-                <?php echo $divs->divPagetitle("eduroam CAT Copyright and Licensing", ""); ?>
+                <?php echo $divs->divPagetitle(config\Master::APPEARANCE['productname']." Copyright and Licensing", ""); ?>
                 <div style="padding:20px">
             <?php require dirname(dirname(__DIR__)) . "/copyright.inc.php"; ?>
                 </div>

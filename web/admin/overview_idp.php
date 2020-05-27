@@ -138,7 +138,14 @@ echo $mapCode->htmlHeadCode();
                     </div>
 
                     <div style='width:20px;'></div>
-                    <div style='display: table-cell; min-width:200px;'><p><strong><?php echo _("User Downloads"); ?></strong></p><table>
+                    <div style='display: table-cell; min-width:200px;'>
+                        <p><strong><?php $tablecaption = _("User Downloads"); echo $tablecaption;?></strong></p>
+                        <table>
+                            <caption><?php echo $tablecaption;?></caption>
+                            <tr>
+                                <th scope='col'><?php echo _("Device");?></th>
+                                <th scope='col'><?php echo _("Count");?></th>
+                            </tr>
                                 <?php
                                 $stats = $profile_list->getUserDownloadStats();
                                 foreach ($stats as $dev => $count) {

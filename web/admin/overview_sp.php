@@ -97,9 +97,14 @@ $(document).on('click', '#realmcheck' , function() {
     <?php
     $readonly = \config\Master::DB['INST']['readonly'];
     ?>
-    <hr><h2><?php echo _("Available Support actions"); ?></h2>
+    <hr><h2><?php $tablecaption = _("Available Support actions"); echo $tablecaption; ?></h2>
     <table>
-        <?php
+        <caption><?php echo $tablecaption;?></caption>
+        <tr>
+        <th class='wai-invisible' scope='col'><?php echo _("Action");?></th>
+        <th class='wai-invisible' scope='col'><?php echo _("Trigger");?></th>
+        </tr>
+            <?php
         if (\config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] !== NULL) {
             echo "<tr>
                         <td>" . sprintf(_("Diagnose reachability and connection parameters of %ss"),$uiElements->nomenclatureInst) . "</td>
@@ -151,6 +156,13 @@ $(document).on('click', '#realmcheck' , function() {
             <div class='profilebox' style='display: table-cell;'>
                 <h2><?php echo core\DeploymentManaged::PRODUCTNAME . " (<span style='color:" . ( $deploymentObject->status == \core\AbstractDeployment::INACTIVE ? "red;'>" . _("inactive") : "green;'>" . _("active") ) . "</span>)"; ?></h2>
                 <table>
+                    <caption><?php echo _("Deployment Details");?></caption>
+                    <tr>
+                        <th class='wai-invisible' scope='col'><?php echo("Server IP addresses");?></th>
+                        <th class='wai-invisible' scope='col'><?php echo("Server Port label");?></th>
+                        <th class='wai-invisible' scope='col'><?php echo("Server Port value");?></th>
+                        <th class='wai-invisible' scope='col'><?php echo("Deployment Status");?></th>
+                    </tr>
                     <tr>
                         <td><strong><?php echo _("Your primary RADIUS server") ?></strong><br/>
                         <?php

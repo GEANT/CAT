@@ -156,10 +156,14 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         ?>
         <button type='button' class='newoption' onclick='getXML("profile")'><?php echo _("Add new option"); ?></button>
         <table>
+            <caption><?php echo _("Basic Realm Information");?></caption>
+            <tr>
+                <th class="wai-invisible" scope="col"><?php echo _("Realm:");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Realm input field");?></th>
+            </tr>
             <?php
             ?>
             <tr>
-
                 <td>
                     <label for="realm">
                         <?php echo _("Realm:"); ?>
@@ -193,11 +197,8 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
                                         
                                         document.getElementById(\"hint_label\").setAttribute(\"style\", \"color:#999999\");
                                       };'/>"; ?>
-
                 </td>
-
             </tr>
-
         </table>
         <h3><?php echo _("Realm Options"); ?></h3>
 
@@ -213,6 +214,12 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
 
             <!-- UI table to align elements-->
         <table>
+            <caption><?php echo _("Username Handling Options");?></caption>
+            <tr>
+                <th class="wai-invisible" scope="col"><?php echo _("Option name");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Option checkbox");?></th>
+            </tr>
+
             <tr>
                 <!-- checkbox for "verify-->
                 <td>
@@ -327,8 +334,9 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     ?>
     <div>
         <table style="border:none">
+            <caption><?php echo _("EAP type support");?></caption>
             <tr>
-                <th style="vertical-align:top; padding:1em">
+                <th scope="row" style="vertical-align:top; padding:1em">
                     <?php echo _('Supported EAP types for this profile'); ?>
                 </th>
                 <td id="supported_eap">
@@ -350,7 +358,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
                 <td colspan="2"> </td>
             </tr>
             <tr>
-                <th style="vertical-align:top; padding:1em">
+                <th scope="row" style="vertical-align:top; padding:1em">
                     <?php echo _('Unsupported EAP types'); ?>
                 </th>
                 <td style="vertical-align:top" id="unsupported_eap">

@@ -109,11 +109,19 @@ require_once "inc/click_button_js.php";
                 <input type='hidden' name='MAX_FILE_SIZE' value='" . \config\Master::MAX_UPLOAD_SIZE . "'>";
     $optionDisplay = new \web\lib\admin\OptionDisplay($deploymentOptions, "Profile");
     ?>
-    <?php
-    echo "<fieldset class='option_container' id='managedsp_override'>
-    <legend><strong>" . _("Options for this deployment") . "</strong></legend>";
-    ?>
+    <fieldset class='option_container' id='managedsp_override'>
+    <legend>
+        <strong>
+    <?php $tablecaption = _("Options for this deployment"); echo $tablecaption;?>
+        </strong>
+    </legend>
     <table>
+            <caption><?php echo $tablecaption;?></caption>
+            <tr>
+                <th class="wai-invisible" scope="col"><?php echo _("Property Type");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Language if applicable");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Property Value");?></th>
+            </tr>
         <tr>
             <!-- input for Operator-Name override-->
             <td>
@@ -144,10 +152,11 @@ require_once "inc/click_button_js.php";
     </table>
     <?php
     echo $optionDisplay->prefilledOptionTable("managedsp");
-    echo "<button type='button' class='newoption' onclick='getXML(\"managedsp\")'>" . _("Add new option") . "</button>";
-    echo "</fieldset>";
+    ?>
+    <button type='button' class='newoption' onclick='getXML("managedsp")'><?php echo _("Add new option");?></button>
+    </fieldset>
 
-
+<?php
     echo "<p><button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button><button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_sp.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></p></form>";
     echo $deco->footer();
     

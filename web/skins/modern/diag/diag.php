@@ -94,7 +94,7 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                 </p>
                 <?php
                     echo '<div id="before_stage_1"><h3>' . _("The system needs some information on your home institution - issuer of your account") . '</h3>';
-                    echo _("What is the realm part of your user account (the part behind the @ of 'your.username@<b>realm.tld</b>):");
+                    echo _("What is the realm part of your user account (the part behind the @ of 'your.username@<strong>realm.tld</strong>):");
                 ?>
                 <input type='text' name='user_realm' id='user_realm' value=''>
                 <?php
@@ -122,9 +122,9 @@ $Gui->languageInstance->setTextDomain("diagnostics");
                     <br>
                 </div>
                 <div id="sociopath_query_area" style="margin-top:20px; display:none;">
-                    <b>
+                    <strong>
                         <?php echo _("To narrow down the problem, please answer the following few questions."); ?>
-                    </b>
+                    </strong>
                     <div id="sociopath_queries"></div>
                 </div>
                 <div id="start_test_area" style="padding-top: 10px; padding-bottom: 5px; display:none; text-align:center;">

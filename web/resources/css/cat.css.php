@@ -43,6 +43,14 @@ body {
 
 }
 
+caption {
+    display: none;
+}
+
+th.wai-invisible {
+    display: none;
+}
+
 button {
     background: <?php echo $colour2;?>; 
     color: #FFFFFF; 
