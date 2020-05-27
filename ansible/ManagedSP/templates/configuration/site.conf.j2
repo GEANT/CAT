@@ -1,0 +1,8 @@
+<VirtualHost *:80>
+ServerName {{ radius_sp_name }}
+DocumentRoot /var/www/html/sp/
+LogLevel warn
+LogFormat "%h %l %u %t \"%r\" %>s %b %P" combined
+CustomLog /var/log/httpd/managedsp-access.log combined
+ErrorLog /var/log/httpd/managedsp-error.log
+</VirtualHost>

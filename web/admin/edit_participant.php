@@ -108,7 +108,7 @@ echo $mapCode->htmlHeadCode();
         echo "<p>" .
         sprintf(_("Hello, newcomer. The %s is new to us. This wizard will ask you several questions about it, so that we can generate beautiful profiles for you in the end. All of the information below is optional, but it is important to fill out as many fields as possible for the benefit of your end users."), $uiElements->nomenclatureParticipant) . "</p>";
     }
-    $optionDisplay = new web\lib\admin\OptionDisplay($idpoptions, "IdP");
+    $optionDisplay = new web\lib\admin\OptionDisplay($idpoptions, \core\Options::LEVEL_IDP);
     ?>
     <fieldset class="option_container">
         <legend><strong><?php echo _("General Information"); ?></strong></legend>

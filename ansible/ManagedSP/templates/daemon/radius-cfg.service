@@ -1,0 +1,10 @@
+[Unit]
+Description=FreeRADIUS configuration service.
+After=network.target mariadb.service radsecproxy.service radiusd.service
+
+[Service]
+Type=forking
+ExecStart=/opt/FR/scripts/fr_tools.sh
+
+[Install]
+WantedBy=multi-user.target

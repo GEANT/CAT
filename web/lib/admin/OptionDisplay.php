@@ -32,7 +32,7 @@ use Exception;
  * @author Stefan Winter <stefan.winter@restena.lu>
  */
 class OptionDisplay extends \core\common\Entity {
-
+    
     /**
      * stores all the options we are caring about
      * 
@@ -74,7 +74,28 @@ class OptionDisplay extends \core\common\Entity {
      */
     public function __construct(array $options, string $level) {
         $this->listOfOptions = $options;
-        $this->level = $level;
+        switch ($level) { 
+            // do this instead of a direct assignment to prevent that tainted 
+            // user input makes it into the class member, even if that is 
+            // without consequences
+            case \core\Options::LEVEL_METHOD:
+                $this->level = \core\Options::LEVEL_METHOD;
+                break;
+            case \core\Options::LEVEL_PROFILE:
+                $this->level = \core\Options::LEVEL_PROFILE;
+                break;
+            case \core\Options::LEVEL_IDP:
+                $this->level = \core\Options::LEVEL_IDP;
+                break;
+            case \core\Options::LEVEL_FED:
+                $this->level = \core\Options::LEVEL_FED;
+                break;
+            case \core\Options::LEVEL_USER:
+                $this->level = \core\Options::LEVEL_USER;
+                break;
+            default:
+                throw new Exception("This level does not exist.");
+        }
         $this->allLocationCount = 0;
     }
 

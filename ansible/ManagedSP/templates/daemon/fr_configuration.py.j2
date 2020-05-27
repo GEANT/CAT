@@ -1,0 +1,237 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+# pylint: disable=invalid-name
+"""
+CAT requests listener
+"""
+import socket
+import os
+import sys
+import time
+import base64
+from shutil import chown, move
+import logging
+import posix_ipc
+
+# set server IP
+HOSTIP = '{{ radius_sp_ip }}'
+HOSTIPv6 = '{{ radius_sp_ipv6 }}'
+
+SOCKET_C = '/opt/Socket/CAT_requests/queue'
+SEM_RR = '/FR_RESTART'
+SEM_JUST_SLEEPING = '/FR_SLEEPING'
+TEMPLATE_DIR = '/opt/FR/templates/'
+TEMPLATE_SITE = 'site_xxx'
+TEMPLATE_DETAIL = 'detail_xxx'
+TEMP_DIR = '/opt/FR/scripts/tmp/'
+FR_SITES_A = '/opt/FR/HostedSP/etc/raddb/sites-available/'
+FR_SITES_E = '/opt/FR/HostedSP/etc/raddb/sites-enabled/'
+FR_SITES_A_REL = '../sites-available/'
+FR_MODS_A = '/opt/FR/HostedSP/etc/raddb/mods-available/'
+FR_MODS_E = '/opt/FR/HostedSP/etc/raddb/mods-enabled/'
+FR_MODS_A_REL = '../mods-available/'
+TIME_F = "%Y%m%d%H%M%S"
+DATE_F = "%Y%m%d"
+NL = "\n"
+REPLY_USER_NAME = "%{reply:User-Name}"
+OPERATOR_NAME = "        Operator-Name = "
+UNLANG_VLAN = "        %s ( Stripped-User-Domain == '%s' ) {" + NL + \
+              "            update reply {" + NL + \
+              "                Tunnel-Private-Group-Id=%s" + NL + \
+              "                Tunnel-Medium-Type:=6" + NL + \
+              "                Tunnel-Type:=VLAN" + NL + \
+              "            }" + NL + \
+              "        }"
+CAT_LOG = '/opt/FR/scripts/logs/fr_configuration.log'
+MAX_RESTART_REQUESTS = 10
+SOCKET_TIMEOUT = 5.0
+
+
+def init_log():
+    """
+    Initialise logging
+    """
+    sys.getfilesystemencoding = lambda: 'UTF-8'
+    _logger = logging.getLogger(__name__)
+    _logger.setLevel(logging.INFO)
+    _handler = logging.FileHandler(CAT_LOG, encoding='UTF-8')
+    _handler.setLevel(logging.INFO)
+    _handler.setFormatter(logging.Formatter(
+        '%(asctime)s - %(levelname)s - %(message)s'))
+    _logger.addHandler(_handler)
+    return _logger
+
+
+def make_conf(data):
+    """
+    Make FR configuration for new site or update configuration
+    or remove a site configuration
+    """
+    _start = time.time()
+    _country = data[0]
+    _instid = data[1]
+    _deploymentid = data[2]
+    _port = data[3]
+    _secret = base64.b64decode(data[4]).decode('utf-8')
+    _toremove = data[7]
+    _operatorname = ''
+    if int(_toremove) == 0:
+        if data[5] != '':
+            _operatorname = base64.b64decode(data[5]).decode('utf-8')
+        _vlans = []
+        _realm_vlan = ''
+        if data[6] != '':
+            _el = base64.b64decode(data[6]).decode('utf-8').split('#')
+            _idx = 1
+            while _idx < len(_el):
+                _if = 'if'
+                if _idx > 1:
+                    _if = 'els' + _if
+                _vlans.append(UNLANG_VLAN % (_if, _el[_idx], _el[0]))
+                _idx += 1
+            _realm_vlan = NL + '\n'.join(_vlans)
+        logger.info('Create/update port: %s, secret: %s, operatorname: %s',
+                    _port, _secret, _operatorname)
+    else:
+        logger.info('Remove port: %s',
+                    _port)
+        _res = remove_site(_port)
+        if _res == 0:
+            logger.info('Nothing to remove')
+            return 1
+        return _res
+    _site = []
+    _detail = []
+    for _line in site_template:
+        _site.append(_line % {'hostip': HOSTIP,
+                              'hostipv6': HOSTIPv6,
+                              'country': _country,
+                              'instid': _instid,
+                              'deploymentid': _deploymentid,
+                              'port': _port,
+                              'secret': _secret,
+                              'operatorname': _operatorname,
+                              'vlans': _realm_vlan,
+                              'reply_username': REPLY_USER_NAME})
+    with open(TEMP_DIR + 'site_' + str(_port), 'w') as _out:
+        _out.write(''.join(_site))
+    if not os.path.isfile(TEMP_DIR + 'site_' + str(_port)):
+        logger.error('No ' + TEMP_DIR + 'site_' + str(_port) + ' file')
+        return False
+    if not os.path.isfile(FR_MODS_A + 'detail_' + str(_port)):
+        for _line in detail_template:
+            _detail.append(_line % {'port': _port,
+                                    'format': DATE_F})
+        with open(TEMP_DIR + 'detail_' + str(_port), 'w') as _out:
+            _out.write(''.join(_detail))
+        if not os.path.isfile(TEMP_DIR + 'detail_' + str(_port)):
+            logger.error('No ' + TEMP_DIR + 'detail_' + str(_port) +
+                         ' file')
+            return False
+    move(TEMP_DIR + 'site_' + str(_port),
+         FR_SITES_A + 'site_' + str(_port))
+    _pwd = os.getcwd()
+    try:
+        if not os.path.islink(FR_SITES_E + 'site_' + str(_port)):
+            os.chdir(FR_SITES_E)
+            os.symlink(FR_SITES_A_REL + 'site_' + str(_port),
+                       'site_' + str(_port))
+        if os.path.isfile(TEMP_DIR + 'detail_' + str(_port)):
+            move(TEMP_DIR + 'detail_' + str(_port),
+                 FR_MODS_A + 'detail_' + str(_port))
+        if not os.path.islink(FR_MODS_E + 'detail_' + str(_port)):
+            os.chdir(FR_MODS_E)
+            os.symlink(FR_MODS_A_REL + 'detail_' + str(_port),
+                       'detail_' + str(_port))
+    except:
+        return False
+    _end = time.time()
+    logger.info('New configuration ready, took ' +
+                str(_end-_start))
+    return True
+
+
+def remove_site(site_port):
+    """
+    Remove site given by site_port 
+    if exists
+    """
+    _del = 0
+    if os.path.islink(FR_SITES_E + 'site_' + site_port):
+        logger.info('Remove link', FR_SITES_E + 'site_' + site_port)
+        os.unlink(FR_SITES_E + 'site_' + site_port)
+        _del += 1
+    if os.path.isfile(FR_SITES_A + 'site_' + site_port):
+        logger.info('Remove file', FR_SITES_A + 'site_' + site_port)
+        os.remove(FR_SITES_A + 'site_' + site_port)
+        _del += 1
+    if os.path.islink(FR_MODS_E + 'detail_' + site_port):
+        logger.info('Remove link', FR_MODS_E + 'detail_' + site_port)
+        os.unlink(FR_MODS_E + 'detail_' + site_port)
+        _del += 1
+    if os.path.isfile(FR_MODS_A + 'detail_' + site_port):
+        logger.info('Remove file', FR_MODS_A + 'detail_' + site_port)
+        os.remove(FR_MODS_A + 'detail_' + site_port)
+        _del += 1
+    logger.info('Files removed: ' + str(_del))
+    if _del == 4:
+        return True
+    else:
+        return False
+
+logger = init_log()
+if os.path.exists(SOCKET_C):
+    os.remove(SOCKET_C)
+
+server_c = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+server_c.settimeout(SOCKET_TIMEOUT)
+server_c.bind(SOCKET_C)
+chown(SOCKET_C, 'apache', 'apache')
+sem_restart_req = posix_ipc.Semaphore(SEM_RR)
+sem_restart_suspended = posix_ipc.Semaphore(SEM_JUST_SLEEPING)
+
+site_template = []
+templ = open(TEMPLATE_DIR + TEMPLATE_SITE, 'r')
+for _line in templ:
+    site_template.append(_line)
+templ.close()
+detail_template = []
+templ = open(TEMPLATE_DIR + TEMPLATE_DETAIL, 'r')
+for _line in templ:
+    detail_template.append(_line)
+templ.close()
+logger.info('Listening on socket ' + SOCKET_C)
+server_c.listen(1)
+req_cnt = 0
+waited = 0
+while True:
+    try:
+        conn, addr = server_c.accept()
+        waited = 0
+        if sem_restart_suspended.value == 0 and req_cnt > MAX_RESTART_REQUESTS:
+            logger.info('Semaphore released for fr_restart, request count: ' +
+                        str(req_cnt))
+            waited = req_cnt = 0
+            sem_restart_req.release()
+    except socket.error as err:
+        if req_cnt > 0:
+            if sem_restart_suspended.value > 0:
+                logger.info('Postpone, fr_restart process just sleeping ' + str(sem_restart_suspended.value))
+                continue
+            logger.info('Semaphore released for fr_restart, request count: ' +
+                        str(req_cnt))
+            waited = req_cnt = 0
+            sem_restart_req.release()
+        continue
+    buff = conn.recv(1024).decode('utf-8')
+    elems = buff.split(':')
+    logger.info('Received ' + str(len(elems)) + ' elements')
+    if len(elems) == 8:
+        if make_conf(elems):
+            conn.send("OK".encode('utf-8'))
+            req_cnt = req_cnt + 1
+            logger.info("requests count is " + str(req_cnt))
+        else:
+            conn.send("FAILURE".encode('utf-8'))
+    else:
+        conn.send("FAILURE".encode('utf-8'))

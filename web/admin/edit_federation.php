@@ -84,7 +84,7 @@ $langObject = new \core\common\Language();
     <fieldset class="option_container">
         <legend><strong><?php echo sprintf(_("%s Properties"),$uiElements->nomenclatureFed); ?></strong></legend>
         <?php
-        $optionDisplay = new \web\lib\admin\OptionDisplay($fed_options, "FED");
+        $optionDisplay = new \web\lib\admin\OptionDisplay($fed_options, \core\Options::LEVEL_FED);
         echo $optionDisplay->prefilledOptionTable("fed");
         ?>
         <button type='button' class='newoption' onclick='getXML("fed")'><?php echo _("Add new option"); ?></button>

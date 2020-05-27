@@ -773,7 +773,8 @@ $Gui->languageInstance->setTextDomain("diagnostics");
     });
     $('input[name="problem_type"]').click(function() {  
         var t = $('input[name=problem_type]:checked').val();
-        if (t <= 1) { 
+        if (t <= 1) {
+            $('#sp_abuse').html('');
             /* show SP problem block */
             show_sp_block();
         } else {

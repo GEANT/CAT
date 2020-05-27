@@ -1,0 +1,16 @@
+[Unit]
+Description=FreeRADIUS high performance RADIUS server.
+After=network.target mariadb.service radsecproxy.service
+
+[Service]
+Type=forking
+PIDFile=/opt/FR/HostedSP/var/run/radiusd/radiusd.pid
+ExecStartPre=-/bin/chown -R radius.radius /opt/FR/HostedSP/var/run/radiusd
+ExecStartPre=/opt/FR/HostedSP/sbin/radiusd -C
+ExecStart=/opt/FR/HostedSP/sbin/radiusd -d /opt/FR/HostedSP/etc/raddb
+ExecReload=/opt/FR/HostedSP/sbin/radiusd -C
+ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target
+

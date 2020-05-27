@@ -129,7 +129,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
 
     echo "<form enctype='multipart/form-data' action='edit_profile_result.php?inst_id=$my_inst->identifier" . ($my_profile !== NULL ? "&amp;profile_id=" . $my_profile->identifier : "") . "' method='post' accept-charset='UTF-8'>
                 <input type='hidden' name='MAX_FILE_SIZE' value='" . \config\Master::MAX_UPLOAD_SIZE . "'>";
-    $optionDisplay = new \web\lib\admin\OptionDisplay($profile_options, "Profile");
+    $optionDisplay = new \web\lib\admin\OptionDisplay($profile_options, \core\Options::LEVEL_PROFILE);
     ?>
     <fieldset class="option_container">
         <legend>

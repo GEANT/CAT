@@ -267,6 +267,7 @@ if ($queryType == 'idp_send' || $queryType == 'sp_send') {
             $returnArray['emailsent'] = 1;
         }
     }
+    $returnArray['status'] = 1;
     $res = json_encode($returnArray);
 }
 echo $res;

@@ -79,6 +79,12 @@ class Options
     const TYPECODE_FILE = "file";
     const TYPECODE_COORDINATES = "coordinates";
 
+    public const LEVEL_METHOD = "Method";
+    public const LEVEL_PROFILE = "Profile";
+    public const LEVEL_IDP = "IdP";
+    public const LEVEL_FED = "FED";
+    public const LEVEL_USER = "User";
+
     /**
      * Returns the handle to the (only) instance of this class.
      * 

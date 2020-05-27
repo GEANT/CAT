@@ -55,7 +55,7 @@ $user = new \core\User($_SESSION['user']);
                 <strong><?php echo _("Your attributes"); ?></strong>
             </legend>
             <?php 
-            $optionDisplay = new \web\lib\admin\OptionDisplay($user->getAttributes(), "User");
+            $optionDisplay = new \web\lib\admin\OptionDisplay($user->getAttributes(), \core\Options::LEVEL_USER);
             echo $optionDisplay->prefilledOptionTable("user"); 
             ?>
             <button type='button' class='newoption' onclick='getXML("user")'>

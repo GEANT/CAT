@@ -165,7 +165,7 @@ echo $mapCode->htmlHeadCode();
                 // readiness - but want to display it before!
                 $has_overrides = FALSE;
                 foreach ($attribs as $attrib) {
-                    if ($attrib['level'] == "Profile" && !preg_match("/^(internal:|profile:name|profile:description|eap:)/", $attrib['name'])) {
+                    if ($attrib['level'] == \core\Options::LEVEL_PROFILE && !preg_match("/^(internal:|profile:name|profile:description|eap:)/", $attrib['name'])) {
                         $has_overrides = TRUE;
                     }
                 }
@@ -193,7 +193,7 @@ echo $mapCode->htmlHeadCode();
                     $attribs = $profile_list->getAttributes();
                     $justOnce = FALSE;
                     foreach ($attribs as $attrib) {
-                        if ($attrib['level'] == "Method" && !preg_match("/^internal:/", $attrib['name']) && !$justOnce) {
+                        if ($attrib['level'] == \core\Options::LEVEL_METHOD && !preg_match("/^internal:/", $attrib['name']) && !$justOnce) {
                             $justOnce = TRUE;
                             $buffer_eaptypediv .= "<img src='../resources/images/icons/Letter-E-blue-icon.png' alt='" . _("Options on EAP Method/Device level are in effect.") . "'>";
                         }
