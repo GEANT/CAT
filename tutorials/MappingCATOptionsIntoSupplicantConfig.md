@@ -90,4 +90,4 @@ Embodiments of this option in CAT device modules:
     any hooks after the user input of the username, so this option has no effect
     in this module.
   - Windows: the installer implements the option as described above
-  - Linux: the istaller implements the option as described above
+  - Linux: the installer implements the option as described above
