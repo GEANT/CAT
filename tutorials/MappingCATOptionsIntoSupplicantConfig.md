@@ -62,7 +62,8 @@ Embodiments of this option in CAT device modules:
   - chromebook (ChromeOS): the ONC configuration file format does not provide 
     any hooks after the user input of the username, so this option has no effect
     in this module.
-  - ...
+  - Windows: the installer implements the option as described above
+  - Linux: the istaller implements the option as described above
 
 Prefill user input with realm suffix
 ------------------------------------
@@ -70,6 +71,9 @@ Setting this option should fill the username input field with the Realm as
 indicated in the Realm option before the user starts typing the username. For
 maximum helpfulness, the cursor should be placed at the start of the input field
 to allow the user to start typing right away.
+
+This option should also limit the user input, so that the realm cannot be
+changed even if the inteface allows editing.
  
 It is only possible to select this checkbox if Realm has been populated by the
 IdP administrator.
@@ -85,4 +89,5 @@ Embodiments of this option in CAT device modules:
   - chromebook (ChromeOS): the ONC configuration file format does not provide 
     any hooks after the user input of the username, so this option has no effect
     in this module.
-  - ...
+  - Windows: the installer implements the option as described above
+  - Linux: the installer implements the option as described above
