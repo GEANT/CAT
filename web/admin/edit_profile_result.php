@@ -151,7 +151,7 @@ switch ($_POST['submitbutton']) {
             if ($verify !== FALSE) {
                 $profile->setInputVerificationPreference($verify, $hint);
                 $extratext = "";
-                if ($realm != "") {
+                if (!empty($realm)) {
                     if ($hint !== FALSE) {
                         $extratext = " " . sprintf(_("The realm portion MUST be exactly '...@%s'."), $realm);
                     } else {
