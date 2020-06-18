@@ -149,17 +149,16 @@ switch ($_POST['submitbutton']) {
             }
 
             if ($verify !== FALSE) {
-                if ($realm === FALSE) {
-                    echo $uiElements->boxError(_("Realm check username cannot be configured: realm is missing!"));
-                } else {
-                    $profile->setInputVerificationPreference($verify, $hint);
+                $profile->setInputVerificationPreference($verify, $hint);
+                $extratext = "";
+                if ($realm != "") {
                     if ($hint !== FALSE) {
-                        $extratext = " " . sprintf(_("and the input field will be prefilled with '<strong>@%s</strong>'."), $realm);
+                        $extratext = " " . sprintf(_("The realm portion MUST be exactly '...@%s'."), $realm);
                     } else {
-                        $extratext = ".";
+                        $extratext = " " . sprintf(_("The realm portion MUST end with '%s' but sub-realms of it are allowed (i.e. 'user@%s' and 'user@<...>.%s' are both acceptable)."), $realm, $realm, $realm);
                     }
-                    echo $uiElements->boxOkay(sprintf(_("Where possible, username inputs will be <strong>verified to end with @%s</strong>%s"), $realm, $extratext));
                 }
+                echo $uiElements->boxOkay(_("Where possible, supplicants will verify that username inputs contain a syntactically correct realm.") . $extratext);
             } else {
                 $profile->setInputVerificationPreference(false, false);
             }
