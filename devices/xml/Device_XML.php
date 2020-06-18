@@ -267,6 +267,8 @@ abstract class Device_XML extends \core\DeviceConfig {
     }
 
    private function getCredentialApplicability() {
+        $setWired = isset($this->attributes['media:wired'][0]) && 
+            $this->attributes['media:wired'][0] == 'on' ? 1 : 0;  
         $ssids = $this->attributes['internal:SSID'];
         $oids = $this->attributes['internal:consortia'];
         $credentialapplicability = new CredentialApplicability();
@@ -283,6 +285,9 @@ abstract class Device_XML extends \core\DeviceConfig {
             $ieee80211s[] = $ieee80211;
         }
         $credentialapplicability->setProperty('IEEE80211', $ieee80211s);
+        if ($setWired) {
+            $credentialapplicability->setProperty('IEEE8023', '');
+        }
         return($credentialapplicability);
     }
 
