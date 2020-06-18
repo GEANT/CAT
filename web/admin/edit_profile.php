@@ -212,12 +212,32 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
 
 
             <!-- UI table to align elements-->
-        <table>
+        <table style="margin-left: 15px;">
             <tr>
+                <th colspan="2" style="border-right: 1px solid; text-align: left;"><?php echo _("Outer Identity Handling");?></th>
+                <th colspan="2"><?php echo _("Inner Identity (Username) Handling");?></th>
+            </tr>
+            <tr>
+                <!-- checkbox and input field for anonymity support, available only when realm is known-->
+                <td>
+                    <span id='anon_support_label' style='<?php echo ($realm == "" ? "color:#999999" : "" ); ?>'>
+                        <?php echo _("Enable Anonymous Outer Identity:"); ?>
+                    </span>
+                </td>
+                <td style="border-right: 1px solid">
+                    <input type='checkbox' <?php echo ($useAnon != FALSE ? "checked" : "" ) . ($realm == "" ? " disabled" : "" ); ?> name='anon_support' onclick='
+                            if (this.form.elements["anon_support"].checked !== true) {
+                                this.form.elements["anon_local"].setAttribute("disabled", "disabled");
+                            } else {
+                                this.form.elements["anon_local"].removeAttribute("disabled");
+                            }
+                            ;'/>
+                    <input type='text' <?php echo ($useAnon == FALSE ? "disabled" : "" ); ?> name='anon_local' value='<?php echo $anonLocal; ?>'/>
+                </td>    
                 <!-- checkbox for "verify-->
                 <td>
                     <span id='verify_label'>
-                        <?php echo _("Verify user input to contain realm suffix:"); ?>
+                        <?php echo _("Enforce realm suffix in username"); ?>
                     </span>
                 </td>
                 <td>
@@ -230,40 +250,15 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
                                 this.form.elements["hint_support"].removeAttribute("disabled");
                             }
                             ;'/>
-                    <span id='hint_label' style='<?php echo ($realm == "" ? "color:#999999" : "" ); ?>'>
-                        <?php echo _("Prefill user input with realm suffix:"); ?>
-                    </span>
-                    <input type='checkbox' <?php echo ($verify == FALSE ? "disabled" : "" ); ?> name='hint_support' <?php echo ( $hint != FALSE ? "checked" : "" ); ?> />
                 </td>
-            </tr>
-            <tr>
-
-                <!-- checkbox and input field for anonymity support, available only when realm is known-->
-                <td>
-                    <span id='anon_support_label' style='<?php echo ($realm == "" ? "color:#999999" : "" ); ?>'>
-                        <?php echo _("Enable Anonymous Outer Identity:"); ?>
-                    </span>
-                </td>
-                <td>
-                    <input type='checkbox' <?php echo ($useAnon != FALSE ? "checked" : "" ) . ($realm == "" ? " disabled" : "" ); ?> name='anon_support' onclick='
-                            if (this.form.elements["anon_support"].checked !== true) {
-                                this.form.elements["anon_local"].setAttribute("disabled", "disabled");
-                            } else {
-                                this.form.elements["anon_local"].removeAttribute("disabled");
-                            }
-                            ;'/>
-                    <input type='text' <?php echo ($useAnon == FALSE ? "disabled" : "" ); ?> name='anon_local' value='<?php echo $anonLocal; ?>'/>
-                </td>    
-            </tr>
-            <tr>
-
+            <tr></tr>
                 <!-- checkbox and input field for check realm outer id, available only when realm is known-->
                 <td>
                     <span id='checkuser_label' style='<?php echo ($realm == "" ? "color:#999999" : "" ); ?>'>
                         <?php echo _("Use special Outer Identity for realm checks:"); ?>
                     </span>
                 </td>
-                <td>
+                <td style="border-right: 1px solid">
                     <input type='checkbox' <?php echo ($checkuserOuter != FALSE ? "checked" : "" ) . ($realm == "" ? " disabled" : "" ); ?> name='checkuser_support' onclick='
                             if (this.form.elements["checkuser_support"].checked !== true) {
                                 this.form.elements["checkuser_local"].setAttribute("disabled", "disabled");
@@ -272,6 +267,14 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
                             }
                             ;'/>
                     <input type='text' <?php echo ($checkuserOuter == FALSE ? "disabled" : "" ); ?> name='checkuser_local' value='<?php echo $checkuserValue; ?>'/>
+                </td>
+                <td>
+                    <span id='hint_label' style='<?php echo ($realm == "" ? "color:#999999" : "" ); ?>'>
+                        <?php echo _("Enforce exact realm in username"); ?>
+                    </span>
+                </td>
+                <td>
+                    <input type='checkbox' <?php echo ($verify == FALSE ? "disabled" : "" ); ?> name='hint_support' <?php echo ( $hint != FALSE ? "checked" : "" ); ?> />
                 </td>
             </tr>
         </table>
