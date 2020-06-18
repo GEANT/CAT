@@ -252,7 +252,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
                                 this.form.elements["anon_local"].removeAttribute("disabled");
                             }
                             ;'/>
-                    <input type='text' <?php echo ($checkuserOuter == FALSE ? "disabled" : "" ); ?> name='anon_local' value='<?php echo $anonLocal; ?>'/>
+                    <input type='text' <?php echo ($useAnon == FALSE ? "disabled" : "" ); ?> name='anon_local' value='<?php echo $anonLocal; ?>'/>
                 </td>    
             </tr>
             <tr>
