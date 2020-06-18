@@ -144,7 +144,7 @@ build:
                     - ./configure
                     - make
                     - sudo make install
-                    - sudo -H python3.7 -m pip install pylint distro
+                    - sudo -H /home/scrutinizer/.pyenv/shims/python3.7 -m pip install pylint distro
             project_setup:
                 override:
                     - cd /home/scrutinizer/build
