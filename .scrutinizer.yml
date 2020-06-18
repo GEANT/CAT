@@ -489,7 +489,7 @@ build:
                   command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=linux\&profile=3 -O /home/scrutinizer/artifacts/LinuxInstaller.py --no-verbose
                   title: "Generating a Linux installer via API call"
                 - 
-                  command: pylint -E /home/scrutinizer/artifacts/LinuxInstaller.py
+                  command: /home/scrutinizer/.pyenv/versions/3.7.2/bin/pylint -E /home/scrutinizer/artifacts/LinuxInstaller.py
                   title: "Checking whether output is a error-free Python file"
                 - 
                   command: wget http://ci.test/user/API.php?action=downloadInstaller\&api_version=2\&lang=en\&device=eap-config\&profile=3 -O /home/scrutinizer/artifacts/GenericInstaller.xml --no-verbose
