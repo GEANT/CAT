@@ -70,32 +70,11 @@ class OptionDisplay extends \core\common\Entity {
     /**
      * Which attributes are we talking about?
      * @param array  $options the options of interest
-     * @param string $level   the level on which these options were defined by the user
+     * @param string $level   the level on which these options were defined by the user (not applicable for XHR UI, then it is NULL)
      */
-    public function __construct(array $options, string $level) {
+    public function __construct(array $options, string $level = NULL) {
         $this->listOfOptions = $options;
-        switch ($level) { 
-            // do this instead of a direct assignment to prevent that tainted 
-            // user input makes it into the class member, even if that is 
-            // without consequences
-            case \core\Options::LEVEL_METHOD:
-                $this->level = \core\Options::LEVEL_METHOD;
-                break;
-            case \core\Options::LEVEL_PROFILE:
-                $this->level = \core\Options::LEVEL_PROFILE;
-                break;
-            case \core\Options::LEVEL_IDP:
-                $this->level = \core\Options::LEVEL_IDP;
-                break;
-            case \core\Options::LEVEL_FED:
-                $this->level = \core\Options::LEVEL_FED;
-                break;
-            case \core\Options::LEVEL_USER:
-                $this->level = \core\Options::LEVEL_USER;
-                break;
-            default:
-                throw new Exception("This level does not exist.");
-        }
+        $this->level = $level;
         $this->allLocationCount = 0;
     }
 
