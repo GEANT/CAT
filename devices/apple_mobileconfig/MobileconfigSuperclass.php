@@ -141,15 +141,21 @@ abstract class MobileconfigSuperclass extends \core\DeviceConfig
             return MobileconfigSuperclass::BUFFER_CONSENT_PRE . htmlspecialchars(iconv("UTF-8", "UTF-8//TRANSLIT", $this->attributes['support:info_file'][0]), ENT_XML1, 'UTF-8') . MobileconfigSuperclass::BUFFER_CONSENT_POST;
         }
         if ($this->attributes['internal:verify_userinput_suffix'][0] != 0) {
+            if ($this->attributes['internal:hint_userinput_suffix'][0] != 0) {
+                $retval = MobileconfigSuperclass::BUFFER_CONSENT_PRE . sprintf(_("Important Notice: your username MUST end exactly with '...@%s' !"), $this->attributes['internal:realm'][0]) . MobileconfigSuperclass::BUFFER_CONSENT_POST;
+                \core\common\Entity::outOfThePotatoes();
+                return $retval;
+            } else { 
             if (strlen($this->attributes['internal:realm'][0]) > 0) {
                 /// note space between variable and exclamation mark - makes sure users don't mistakenly think the exclamation mark is part of the required username!
-                $retval = MobileconfigSuperclass::BUFFER_CONSENT_PRE . sprintf(_("Important Notice: your username must end with @%s !"), $this->attributes['internal:realm'][0]) . MobileconfigSuperclass::BUFFER_CONSENT_POST;
+                $retval = MobileconfigSuperclass::BUFFER_CONSENT_PRE . sprintf(_("Important Notice: your username MUST contain an '@' and end with ...%s !"), $this->attributes['internal:realm'][0]) . MobileconfigSuperclass::BUFFER_CONSENT_POST;
                 \core\common\Entity::outOfThePotatoes();
                 return $retval;
             }
             $retval = MobileconfigSuperclass::BUFFER_CONSENT_PRE . _("Important Notice: your username MUST be in the form of xxx@yyy where the yyy is a common suffix identifying your Identity Provider. Please find out what to use there and enter the username in the correct format.") . MobileconfigSuperclass::BUFFER_CONSENT_POST;
             \core\common\Entity::outOfThePotatoes();
             return $retval;
+            }
         }
         \core\common\Entity::outOfThePotatoes();
         return "";
