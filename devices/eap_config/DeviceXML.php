@@ -360,8 +360,6 @@ abstract class DeviceXML extends \core\DeviceConfig
         }
         $credentialapplicability->setChild('IEEE80211', $ieee80211s);
         if ($setWired) {
-//            $ieee8023 = new \core\DeviceXMLmain();
-//            $ieee8023->setChild('NetworkID', "1");
             $credentialapplicability->setChild('IEEE8023', '');
         }
         return $credentialapplicability;
