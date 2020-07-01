@@ -104,6 +104,11 @@ abstract class DeviceXML extends \core\DeviceConfig
      * @var array
      */
     public $VendorSpecific;
+    
+    /**
+     * A flag to preserve backwards compatibility for eduroamCAT application
+     */
+    public $eduroamCATcompatibility = FALSE; 
 
     /**
      * create HTML code explaining the installer
@@ -174,12 +179,14 @@ abstract class DeviceXML extends \core\DeviceConfig
     {
         $out = [];
         $out['EAP'] = 0;
-        // this is a hack - eduroamCAT does not handle NE_MSCHAP2 however
-        // treats the inner NE_MSCHAP2 correctly wheb set to the EAP type
         switch ($eap["INNER"]) {
             case \core\common\EAP::NE_MSCHAP2:
-                $out['METHOD'] = \core\common\EAP::MSCHAP2;
-                $out['EAP'] = 1;
+                if ($this->eduroamCATcompatibility === TRUE) {
+                    $out['METHOD'] = \core\common\EAP::MSCHAP2;
+                    $out['EAP'] = 1;
+                } else {
+                    $out['METHOD'] = $eap["INNER"];
+                }
                 break;
             case \core\common\EAP::NE_SILVERBULLET:
                 $out['METHOD'] = \core\common\EAP::NONE;
