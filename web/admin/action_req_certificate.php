@@ -38,7 +38,7 @@ $auth->authenticate();
 
 
 /// product name (eduroam CAT), then term used for "federation", then actual name of federation.
-echo $deco->defaultPagePrelude(sprintf(_("%s: RADIUS/TLS certificate management for %s"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureFed));
+echo $deco->defaultPagePrelude(sprintf(_("%s: RADIUS/TLS certificate management for %s"), \config\Main::APPEARANCE['productname'], $uiElements->nomenclatureFed));
 $langObject = new \core\common\Language();
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>

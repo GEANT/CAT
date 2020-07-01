@@ -66,24 +66,24 @@ class OutsideComm extends Entity {
         $mail->isSMTP();
         $mail->Port = 587;
         $mail->SMTPSecure = 'tls';
-        $mail->Host = \config\Master::MAILSETTINGS['host'];
-        if (\config\Master::MAILSETTINGS['user'] === NULL && \config\Master::MAILSETTINGS['pass'] === NULL) {
+        $mail->Host = \config\Main::MAILSETTINGS['host'];
+        if (\config\Main::MAILSETTINGS['user'] === NULL && \config\Main::MAILSETTINGS['pass'] === NULL) {
             $mail->SMTPAuth = false;
         } else {
             $mail->SMTPAuth = true;
-            $mail->Username = \config\Master::MAILSETTINGS['user'];
-            $mail->Password = \config\Master::MAILSETTINGS['pass'];
+            $mail->Username = \config\Main::MAILSETTINGS['user'];
+            $mail->Password = \config\Main::MAILSETTINGS['pass'];
         }
-        $mail->SMTPOptions = \config\Master::MAILSETTINGS['options'];
+        $mail->SMTPOptions = \config\Main::MAILSETTINGS['options'];
 // formatting nitty-gritty
         $mail->WordWrap = 72;
         $mail->isHTML(FALSE);
         $mail->CharSet = 'UTF-8';
-        $configuredFrom = \config\Master::APPEARANCE['from-mail'] . "";
+        $configuredFrom = \config\Main::APPEARANCE['from-mail'] . "";
         $mail->From = $configuredFrom;
 // are we fancy? i.e. S/MIME signing?
-        if (isset(\config\Master::MAILSETTINGS['certfilename'], \config\Master::MAILSETTINGS['keyfilename'], \config\Master::MAILSETTINGS['keypass'])) {
-            $mail->sign(\config\Master::MAILSETTINGS['certfilename'], \config\Master::MAILSETTINGS['keyfilename'], \config\Master::MAILSETTINGS['keypass']);
+        if (isset(\config\Main::MAILSETTINGS['certfilename'], \config\Main::MAILSETTINGS['keyfilename'], \config\Main::MAILSETTINGS['keypass'])) {
+            $mail->sign(\config\Main::MAILSETTINGS['certfilename'], \config\Main::MAILSETTINGS['keyfilename'], \config\Main::MAILSETTINGS['keypass']);
         }
         return $mail;
     }
@@ -312,12 +312,12 @@ class OutsideComm extends Entity {
                 }
             }
         }
-        $productname = \config\Master::APPEARANCE['productname'];
+        $productname = \config\Main::APPEARANCE['productname'];
         $consortium = \config\ConfAssistant::CONSORTIUM['display_name'];
         $message .= wordwrap(sprintf(_("To enlist as an administrator for that %s, please click on the following link:"), Entity::$nomenclature_participant), 72) . "\n\n" .
-                $proto . $_SERVER['SERVER_NAME'] . \config\Master::PATHS['cat_base_url'] . "admin/action_enrollment.php?token=$newtoken\n\n" .
+                $proto . $_SERVER['SERVER_NAME'] . \config\Main::PATHS['cat_base_url'] . "admin/action_enrollment.php?token=$newtoken\n\n" .
                 wordwrap(sprintf(_("If clicking the link doesn't work, you can also go to the %s Administrator Interface at"), $productname), 72) . "\n\n" .
-                $proto . $_SERVER['SERVER_NAME'] . \config\Master::PATHS['cat_base_url'] . "admin/\n\n" .
+                $proto . $_SERVER['SERVER_NAME'] . \config\Main::PATHS['cat_base_url'] . "admin/\n\n" .
                 _("and enter the invitation token") . "\n\n" .
                 $newtoken . "\n\n$replyToMessage\n\n" .
                 wordwrap(_("Do NOT forward the mail before the token has expired - or the recipients may be able to consume the token on your behalf!"), 72) . "\n\n" .
@@ -326,10 +326,10 @@ class OutsideComm extends Entity {
 
 
 // who to whom?
-        $mail->FromName = \config\Master::APPEARANCE['productname'] . " Invitation System";
+        $mail->FromName = \config\Main::APPEARANCE['productname'] . " Invitation System";
 
-        if (isset(\config\Master::APPEARANCE['invitation-bcc-mail']) && \config\Master::APPEARANCE['invitation-bcc-mail'] !== NULL) {
-            $mail->addBCC(\config\Master::APPEARANCE['invitation-bcc-mail']);
+        if (isset(\config\Main::APPEARANCE['invitation-bcc-mail']) && \config\Main::APPEARANCE['invitation-bcc-mail'] !== NULL) {
+            $mail->addBCC(\config\Main::APPEARANCE['invitation-bcc-mail']);
         }
 
 // all addresses are wrapped in a string, but PHPMailer needs a structured list of addressees
@@ -358,7 +358,7 @@ class OutsideComm extends Entity {
 
 // what do we want to say?
         Entity::intoThePotatoes();
-        $mail->Subject = sprintf(_("%s: you have been invited to manage an %s"), \config\Master::APPEARANCE['productname'], Entity::$nomenclature_participant);
+        $mail->Subject = sprintf(_("%s: you have been invited to manage an %s"), \config\Main::APPEARANCE['productname'], Entity::$nomenclature_participant);
         Entity::outOfThePotatoes();
         $mail->Body = $message;
         return ["SENT" => $mail->send(), "TRANSPORT" => $secStatus];

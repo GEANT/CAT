@@ -46,7 +46,7 @@ if (isset($_SESSION['admin_diag_auth'])) {
    unset($_SESSION['admin_diag_auth']);
 }
 $Gui = new \web\lib\user\Gui();
-$skinObject = new \web\lib\user\Skinjob($_REQUEST['skin'] ?? $_SESSION['skin'] ?? $fedskin[0] ?? \config\Master::APPEARANCE['skins'][0]);
+$skinObject = new \web\lib\user\Skinjob($_REQUEST['skin'] ?? $_SESSION['skin'] ?? $fedskin[0] ?? \config\Main::APPEARANCE['skins'][0]);
 require "../skins/" . $skinObject->skin . "/diag/diag.php";
 
 

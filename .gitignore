@@ -4,7 +4,7 @@
 /phpdoc/
 /translation/*/*.po~
 /config/config-confassistant.php
-/config/config-master.php
+/config/config-main.php
 /config/config-diagnostics.php
 /web/certprops.php
 /utils/stresstest/generator

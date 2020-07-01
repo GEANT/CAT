@@ -35,8 +35,8 @@ cd $dir
 # first test for the GeoIP version set in the config.php
 a=`php << EOF
 <?php
-require "../config/Master.php";
-print(\config\Master::GEOIP["version"]);
+require "../config/Main.php";
+print(\config\Main::GEOIP["version"]);
 ?>
 EOF`
 
@@ -56,14 +56,14 @@ if [ $a -eq 2 ] ; then
 
 db=`php << EOFF
 <?php
-require "../config/Master.php";
-print(\config\Master::GEOIP["geoip2-path-to-db"]);
+require "../config/Main.php";
+print(\config\Main::GEOIP["geoip2-path-to-db"]);
 ?>
 
 lkey=`php << EOFF
 <?php
-require "../config/Master.php";
-print(\config\Master::GEOIP["geoip2-license-key"]);
+require "../config/Main.php";
+print(\config\Main::GEOIP["geoip2-license-key"]);
 ?>
 
 EOFF`

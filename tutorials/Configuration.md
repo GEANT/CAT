@@ -89,7 +89,7 @@ Installing CAT
 --------------
 1.  unpack the distribution
 1A. if you use a clone of the Git repo instead, remember to "git submodule --init --recursive" at least for the GEANTlink repo in devices/ms/Files/ (there are more submodules referenced in core/ which you may already have on your system, you should double-check)
-2.  create the config/config-master.php file from the supplied template config-master-template.php
+2.  create the config/config-main.php file from the supplied template config-master-template.php
 3.  create the config/config-diagnostics.php and/or config/config-confassistant.php files as needed in the same manner
 4.  create the devices/Devices.php file from the supplied template
 5.  on a MySQL/MariaDB server, create the databases as per the schema definition in schema/schema.sql
@@ -104,7 +104,7 @@ Configuring CAT
 ---------------
 After creating config-*.php as above, adapt it to your needs and the realities on your server. In particular, pay attention to the following:
 
-* reference the autoloader of your simpleSAMLphp installation correctly in config-master.php
+* reference the autoloader of your simpleSAMLphp installation correctly in config-main.php
 * enter the connection details to the database(s)
 
 The device configuration file is in devices/Devices.php. There is a template file devices-template.php - you can simply copy it to have a Devices.php. Unless you want to disable specific device modules, or have custom ways to digitally sign installers, it is not necessary to change this file.

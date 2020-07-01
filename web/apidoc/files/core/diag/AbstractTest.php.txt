@@ -467,7 +467,7 @@ class AbstractTest extends \core\common\Entity {
          * cert is not yet, or not any more, valid but is not taking part in server validation
          */
         $code27 = RADIUSTests::CERTPROB_OUTSIDE_VALIDITY_PERIOD_WARN;
-        $this->returnCodes[$code27]["message"] = sprintf(_("At least one intermediate certificate in your CAT profile is outside its validity period (not yet valid, or already expired), but this certificate was not used for server validation. Consider removing it from your %s configuration."), \config\Master::APPEARANCE['productname']);
+        $this->returnCodes[$code27]["message"] = sprintf(_("At least one intermediate certificate in your CAT profile is outside its validity period (not yet valid, or already expired), but this certificate was not used for server validation. Consider removing it from your %s configuration."), \config\Main::APPEARANCE['productname']);
         $this->returnCodes[$code27]["severity"] = \core\common\Entity::L_REMARK;
 
         /**

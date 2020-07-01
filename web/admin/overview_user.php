@@ -27,7 +27,7 @@ $instMgmt = new \core\UserManagement();
 $deco = new \web\lib\admin\PageDecoration();
 $uiElements = new \web\lib\admin\UIElements();
 
-echo $deco->defaultPagePrelude(sprintf(_("%s: User Management"), \config\Master::APPEARANCE['productname']));
+echo $deco->defaultPagePrelude(sprintf(_("%s: User Management"), \config\Main::APPEARANCE['productname']));
 $user = new \core\User($_SESSION['user']);
 require_once "inc/click_button_js.php";
 ?>
@@ -71,7 +71,7 @@ require_once "inc/click_button_js.php";
     </div>
     <div>
         <?php
-        if (\config\Master::DB['USER']['readonly'] === FALSE) {
+        if (\config\Main::DB['USER']['readonly'] === FALSE) {
             echo "<a href='edit_user.php'><button>" . _("Edit User Details") . "</button></a>";
         }
 
@@ -89,7 +89,7 @@ require_once "inc/click_button_js.php";
 
     if (\config\ConfAssistant::CONSORTIUM['name'] == 'eduroam') {
         $target = "https://wiki.geant.org/x/SwB_AQ"; // CAT manual, outdated
-        if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
+        if (\config\Main::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
             $target = "https://wiki.geant.org/x/6Zg7Bw"; // Managed IdP manual
         }
         $helptext = "<h3 style='display:inline;'>" . sprintf(_("(Need help? Refer to the <a href='%s'>%s administrator manual</a>)"), $target, $uiElements->nomenclatureInst) . "</h3>";
@@ -129,14 +129,14 @@ require_once "inc/click_button_js.php";
                 <th scope='col'><?php echo sprintf(_("%s Name"), $uiElements->nomenclatureParticipant); ?></th>
                 <th scope="col"><?php echo sprintf(_("Other admins of this %s"), $uiElements->nomenclatureParticipant); ?></th>
                 <th scope='col'><?php
-                    if (\config\Master::DB['INST']['readonly'] === FALSE) {
+                    if (\config\Main::DB['INST']['readonly'] === FALSE) {
                         echo _("Management");
                     };
                     ?>
                 </th>
                 <th scope='col' style='background-color:red;'>
                     <?php
-                    if (\config\Master::DB['INST']['readonly'] === FALSE) {
+                    if (\config\Main::DB['INST']['readonly'] === FALSE) {
                         echo _("Danger Zone");
                     }
                     ?>
@@ -176,7 +176,7 @@ require_once "inc/click_button_js.php";
                             echo sprintf(ngettext("%d other user", "%d other users", $otherAdminCount), $otherAdminCount);
                         }
                         echo "</td><td>";
-                        if ($blessedUser && \config\Master::DB['INST']['readonly'] === FALSE) {
+                        if ($blessedUser && \config\Main::DB['INST']['readonly'] === FALSE) {
                             echo "<div style='white-space: nowrap;'><form method='post' action='inc/manageAdmins.inc.php?inst_id=" . $the_inst->identifier . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'><button type='submit'>" . _("Add/Remove Administrators") . "</button></form></div>";
                         }
                         echo "</td></tr>";
@@ -186,7 +186,7 @@ require_once "inc/click_button_js.php";
                         echo ngettext("other user", "other users", $otherAdminCount);
                     }
                     echo "</td><td>";
-                    if ($blessedUser && \config\Master::DB['INST']['readonly'] === FALSE) {
+                    if ($blessedUser && \config\Main::DB['INST']['readonly'] === FALSE) {
                         ?>
                         <div style='white-space: nowrap;'>
                             <form action='edit_participant.php?inst_id=<?php echo $the_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
@@ -232,7 +232,7 @@ require_once "inc/click_button_js.php";
     } else {
         echo "<h2>" . sprintf(_("You are not managing any %s."), $uiElements->nomenclatureInst) . "</h2>";
     }
-    if (\config\Master::DB['INST']['readonly'] === FALSE) {
+    if (\config\Main::DB['INST']['readonly'] === FALSE) {
         if (\config\ConfAssistant::CONSORTIUM['selfservice_registration'] === NULL) {
             echo "<p>" . sprintf(_("Please ask your %s administrator to invite you to become an %s administrator."), $uiElements->nomenclatureFed, $uiElements->nomenclatureParticipant) . "</p>";
             echo "<hr/>
