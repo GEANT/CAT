@@ -58,7 +58,10 @@ abstract class Device_XML extends \core\DeviceConfig {
     public $langScope;
     public $allEaps = FALSE;
     public $VendorSpecific;
-
+    /**
+     * A flag to penable correct handling if TTLS-MSCHAP
+     */
+    public $eduroamCATcompatibility = TRUE; 
     /**
      * create HTML code explaining the installer
      * 
@@ -290,9 +293,43 @@ abstract class Device_XML extends \core\DeviceConfig {
         }
         return($credentialapplicability);
     }
+    
+    /**
+     * determines the inner authentication. Is it EAP, and which mechanism is used to convey actual auth data
+     * @param array $eap the EAP type for which we want to get the inner auth
+     * @return array
+     */
+    private function innerAuth($eap)
+    {
+        $out = [];
+        $out['EAP'] = 0;
+        
+        if ($eap == \core\common\EAP::EAPTYPE_TTLS_MSCHAP2) {
+            if ($this->eduroamCATcompatibility === TRUE) {
+                $out['METHOD'] = \core\common\EAP::MSCHAP2;
+                $out['EAP'] = 1;
+            } else {
+                $out['METHOD'] = \core\common\EAP::NE_MSCHAP2;
+            }
+            return $out;
+        }
+        
+        if ($eap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
+            $out['METHOD'] = \core\common\EAP::NONE;
+            return $out;           
+        }
+        
+        $out['METHOD'] = $eap["INNER"];
+
+        // override if there is an inner EAP
+        if ($eap["INNER"] != 0) { // there is an inner EAP method
+            $out['EAP'] = 1;
+        }
+        return $out;
+    }
 
     private function getAuthenticationMethodParams($eap) {
-        $inner = \core\common\EAP::innerAuth($eap);
+        $inner = $this->innerAuth($eap);
         $outerMethod = $eap["OUTER"];
 
         if (isset($inner["METHOD"]) && $inner["METHOD"]) {

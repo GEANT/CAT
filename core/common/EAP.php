@@ -332,29 +332,6 @@ class EAP extends Entity {
         return($eapDisplayName[serialize($eap)]);
     }
 
-    /**
-     * determines the inner authentication. Is it EAP, and which mechanism is used to convey actual auth data
-     * @param array $eap the EAP type for which we want to get the inner auth
-     * @return array
-     */
-    public static function innerAuth($eap) {
-        $out = [];
-        if ($eap["INNER"]) { // there is an inner EAP method
-            $out['EAP'] = 1;
-            $out['METHOD'] = $eap["INNER"];
-            return $out;
-        }
-        // there is none
-        $out['EAP'] = 0;
-        switch ($eap) {
-            case EAP::EAPTYPE_TTLS_PAP:
-                $out['METHOD'] = EAP::NE_PAP;
-                break;
-            case EAP::EAPTYPE_TTLS_MSCHAP2:
-                $out['METHOD'] = EAP::NE_MSCHAP2;
-        }
-        return $out;
-    }
 
     /**
      * This function enumerates all known EAP types and returns them as array
