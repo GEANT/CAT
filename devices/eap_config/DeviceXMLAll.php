@@ -38,6 +38,7 @@ class DeviceXMLAll extends DeviceXML {
         ]);
         $this->langScope = 'single';
         $this->allEaps = TRUE;
+        $this->eduroamCATcompatibility = FALSE;
     }
 
 }
