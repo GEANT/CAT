@@ -20,6 +20,8 @@
  *          <base_url>/copyright.php after deploying the software
  */
 
+namespace config;
+
 require_once "autoloader.php";
 require_once __DIR__ . "/../packageRoot.php";
 
@@ -29,22 +31,28 @@ if (file_exists(__DIR__ . "/../vendor/autoload.php") !== FALSE) {
 }
 
 if (!file_exists(ROOT . "/config/Main.php")) {
-    echo "Main configuration file not found. You need to configure the product! At least config/Main.php is required!";
-    throw new Exception("Main config file not found!");
+    // Keep old configurations working
+    if (file_exists(ROOT . "/config/Master.php")) {
+        // Autoloader loads Master and we define Main inline
+        class Main extends Master {}
+    } else {
+        echo "Main configuration file not found. You need to configure the product! At least config/Main.php is required!";
+        throw new \Exception("Main config file not found!");
+    }
 }
 
 /* load sub-configs if we are dealing with those in this installation */
 
-if (\config\Main::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == 'LOCAL' || \config\Main::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == 'LOCAL') {
+if (Main::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == 'LOCAL' || Main::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == 'LOCAL') {
     if (!file_exists(ROOT . "/config/ConfAssistant.php")) {
         echo "ConfAssistant configuration file not found. You need to configure the product!";
-        throw new Exception("ConfAssistant config file not found!");
+        throw new \Exception("ConfAssistant config file not found!");
     }
 }
 
-if (\config\Main::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] == 'LOCAL') {
+if (Main::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] == 'LOCAL') {
     if (!file_exists(ROOT . "/config/Diagnostics.php")) {
         echo "Diagnostics configuration file not found. You need to configure the product!";
-        throw new Exception("Diagnostics config file not found!");
+        throw new \Exception("Diagnostics config file not found!");
     }
 }

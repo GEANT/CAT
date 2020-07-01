@@ -3,9 +3,10 @@
 /phpdoc.log
 /phpdoc/
 /translation/*/*.po~
-/config/config-confassistant.php
-/config/config-main.php
-/config/config-diagnostics.php
+/config/ConfAssistant.php
+/config/Main.php
+/config/Master.php
+/config/Diagnostics.php
 /web/certprops.php
 /utils/stresstest/generator
 /utils/stresstest/Doctor_Who_Planets_Wikipedia.html
