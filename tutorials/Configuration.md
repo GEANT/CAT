@@ -89,7 +89,7 @@ Installing CAT
 --------------
 1.  unpack the distribution
 1A. if you use a clone of the Git repo instead, remember to "git submodule --init --recursive" at least for the GEANTlink repo in devices/ms/Files/ (there are more submodules referenced in core/ which you may already have on your system, you should double-check)
-2.  create the config/config-main.php file from the supplied template config-master-template.php
+2.  create the config/config-main.php file from the supplied template config-main-template.php
 3.  create the config/config-diagnostics.php and/or config/config-confassistant.php files as needed in the same manner
 4.  create the devices/Devices.php file from the supplied template
 5.  on a MySQL/MariaDB server, create the databases as per the schema definition in schema/schema.sql
@@ -109,7 +109,7 @@ After creating config-*.php as above, adapt it to your needs and the realities o
 
 The device configuration file is in devices/Devices.php. There is a template file devices-template.php - you can simply copy it to have a Devices.php. Unless you want to disable specific device modules, or have custom ways to digitally sign installers, it is not necessary to change this file.
 
-After logging in with simpleSAMLphp, you should enable protection of the superadmin page. This can be done by editing the config-master "SUPERADMINS" array - remove everything and instead add only the unique identifiers that are supposed to have access to that page.
+After logging in with simpleSAMLphp, you should enable protection of the superadmin page. This can be done by editing the config-main "SUPERADMINS" array - remove everything and instead add only the unique identifiers that are supposed to have access to that page.
 
 Similarly, you may want to make yourself the federation administrator for at least one federation. You can do so by adding that privilege to your unique identifier with the following SQL statement in the USER database (in this example, for "LU" -> Luxembourg):
 
