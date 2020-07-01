@@ -321,7 +321,7 @@ abstract class WindowsCommon extends \core\DeviceConfig {
     }
     
     /**
-     * returns various NSH !define statements for later inclusion into master file
+     * returns various NSH !define statements for later inclusion into main file
      * 
      * @param array $attr profile attributes
      * @return string

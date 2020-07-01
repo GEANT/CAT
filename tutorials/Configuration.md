@@ -98,7 +98,7 @@ Installing CAT
 8.  make sure that simpleSAMLphp is installed
 9.  make sure that simpleSAMLphp openid module is enabled and google (or any IdP of your choice) is uncommented in authsources
 10. using your browser, check if the main interface is running (web subdirectory)
-11. if so, go to the master management page to have your system prerequisites checked (web/admin/112365365321.php)
+11. if so, go to the main management page to have your system prerequisites checked (web/admin/112365365321.php)
 
 Configuring CAT
 ---------------

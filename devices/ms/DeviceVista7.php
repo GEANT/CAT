@@ -479,7 +479,7 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
     }
 
     /**
-     * writes references to the individual WLAN profile files into master file
+     * writes references to the individual WLAN profile files into main file
      * @param array $wlanProfiles list of WLAN profiles
      * @param array $caArray      list of CA certificates
      * @return void
