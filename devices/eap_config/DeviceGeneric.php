@@ -21,7 +21,7 @@
 
 namespace devices\eap_config;
 
-class DeviceXMLAll extends DeviceXML {
+class DeviceGeneric extends DeviceXML {
 
     /**
      * construct the device
@@ -38,7 +38,7 @@ class DeviceXMLAll extends DeviceXML {
         ]);
         $this->langScope = 'single';
         $this->allEaps = TRUE;
-        $this->eduroamCATcompatibility = TRUE;
+        $this->eduroamCATcompatibility = FALSE;
     }
 
 }
