@@ -21,7 +21,7 @@
 
 namespace devices\xml;
 
-class Device_XML_ALL extends Device_XML {
+class Device_Generic extends Device_XML {
 
     /**
      * construct the device
