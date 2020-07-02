@@ -512,7 +512,18 @@ class Devices extends \core\common\Entity {
                 'module' => 'XML_ALL',
                 'options' => [
                     'mime' => 'application/eap-config',
-                    'message' => sprintf(_("This option provides a generic EAP config XML file, which can be consumed by dedicated applications like eduroamCAT for Android and Linux platforms. This is still an experimental feature.")),
+                    'message' => sprintf(_("This option provides an EAP config XML file, which can be consumed by the eduroamCAT app for Android.")),
+                ],
+            ],
+            'eap-generic' => [
+                'group' => "eap-config",
+                'display' => _("EAP generic"),
+                'directory' => 'xml',
+                'module' => 'Generic',
+                'options' => [
+                    'mime' => 'application/eap-config',
+                    'message' => sprintf(_("This option provides a generic EAP config XML file, which can be consumed by the GetEduroam applications.")),
+                    'hidden' => 1,
                 ],
             ],
             'test' => [
