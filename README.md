@@ -35,4 +35,4 @@ With the production deployments as listed above, there are probably few use case
 
 Previous Versions of CAT
 ------------------------
-The 1.0.x and 1.1.x versions of CAT were developed on a SVN server of the GEANT project. The code is meanwhile available on a Bitbucket Git instance of the GEANT project: https://code.geant.net/stash/projects/CAT/repos/cat/browse
+The 1.0.x and 1.1.x versions of CAT were developed on a SVN server of the GEANT project. The code is meanwhile available on a Bitbucket Git instance of the GEANT project: https://bitbucket.software.geant.org/projects/CAT/repos/cat/browse
