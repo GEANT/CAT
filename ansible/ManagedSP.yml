@@ -18,6 +18,10 @@
       yum:
         name: dhcp-libs
         state: absent
+    - name: all packages are up to date
+      yum:
+        name: '*'
+        state: latest
     - name: Install required packages
       yum:
         name:
@@ -26,8 +30,8 @@
                 - net-tools
                 - nettle-devel
                 - lsof
-                - http://rpms.remirepo.net/enterprise/remi-release-7.rpm
                 - epel-release
+                - http://rpms.remirepo.net/enterprise/remi-release-7.rpm
                 - yum-utils
                 - libtalloc-devel
                 - mariadb
@@ -43,10 +47,6 @@
         name:
                 - php
         state: present
-    - name: all packages are up to date
-      yum:
-        name: '*'
-        state: latest
     - name: Adds Python MySQL support on RedHat/CentOS
       yum: name=MySQL-python state=present
       when: ansible_os_family == 'RedHat'
