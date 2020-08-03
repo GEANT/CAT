@@ -38,7 +38,6 @@
                 - mariadb-devel
                 - mariadb-server
                 - python3
-                - python3-dbus
                 - policycoreutils-python
                 - iptables
                 - iptables-services
@@ -54,7 +53,8 @@
         state: present
     - name: Adds Python MySQL support on RedHat/CentOS
       yum: name=MySQL-python state=present
-      when: ansible_os_family == 'RedHat'
+    - name: Adds Python dbus
+      yum: name=python3-dbus state=present
     - name: enable sysv mariadb.service service
       service: 
         name: mariadb.service
