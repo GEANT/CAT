@@ -37,6 +37,11 @@
                 - mariadb
                 - mariadb-devel
                 - mariadb-server
+                - python3
+                - python3-dbus
+                - policycoreutils-python
+                - iptables
+                - iptables-services
         state: present
     - name: disable remi-php54
       shell: yum-config-manager --disable remi-php54
@@ -51,14 +56,33 @@
       yum: name=MySQL-python state=present
       when: ansible_os_family == 'RedHat'
     - name: enable sysv mariadb.service service
-      service: name=mariadb.service enabled=yes daemon_reload=yes
-    - name: Start mariadb service
-      service: name=mariadb state=started
-    - name: Set root user password
+      service: 
+        name: mariadb.service
+        enabled: yes
+        daemon_reload: yes
+        state: started
+    - name: Check that the .my.cnf exists
+      stat:
+        path: /root/.my.cnf
+      register: my_result
+    - name: Check mysql login using .my.cnf
+      shell: mysql -e "quit"
+      changed_when: false
+      ignore_errors: true
+      register: root_pwd_check
+      tags: mariadb
+      when: my_result.stat.exists
+    - name: Remove file /root/.my.cnf
+      file:
+        path: /root/.my.cnf
+        state: absent
+      when: my_result.stat.exists and root_pwd_check.rc != 0    
+    - name: Set mysql root user password
       mysql_user:
         name: root
         password: "{{ mysql_pass }}"
         check_implicit_admin: true
+      when: root_pwd_check.rc is not defined or root_pwd_check.rc != 0    
     - name: Create .my.cnf
       template:
         src: "ManagedSP/templates/configuration/client.my.cnf.j2"
@@ -66,22 +90,40 @@
         owner: root
         group: root
         mode: 0600
+      when: not my_result.stat.exists or root_pwd_check.rc != 0
     - name: Removes the test database
-      mysql_db: login_user=root login_password="{{ mysql_pass }}" db=test state=absent
+      mysql_db: 
+        login_user: root
+        login_password: "{{ mysql_pass }}"
+        db: test
+        state: absent
     - name: Deletes anonymous server user
-      mysql_user: login_user=root login_password="{{ mysql_pass }}" user="" host_all=yes state=absent
-
+      mysql_user: 
+        login_user: root
+        login_password: "{{ mysql_pass }}"
+        user: ""
+        host_all: yes
+        state: absent
     - name: Secures the MySQL root user for IPV6 localhost (::1)
-      mysql_user: user="root" password="{{ mysql_pass }}" host="::1"
-
+      mysql_user:
+        user: "root"
+        password: "{{ mysql_pass }}" 
+        host: "::1"
     - name: Secures the MySQL root user for IPV4 localhost (127.0.0.1)
-      mysql_user: user="root" password="{{ mysql_pass }}" host="127.0.0.1"
-
+      mysql_user:
+        user: "root"
+        password: "{{ mysql_pass }}" 
+        host: "127.0.0.1"
     - name: Secures the MySQL root user for localhost domain (localhost)
-      mysql_user: user="root" password="{{ mysql_pass }}" host="localhost"
-
+      mysql_user:
+        user: "root"
+        password: "{{ mysql_pass }}" 
+        host: "localhost"
     - name: Secures the MySQL root user for server_hostname domain
-      mysql_user: user="root" password="{{ mysql_pass }}" host="{{ access_host }}"
+      mysql_user:
+        user: "root"
+        password: "{{ mysql_pass }}" 
+        host: "{{ access_host }}"
     - name: Create Apache site.conf
       template:
         src: "ManagedSP/templates/configuration/site.conf.j2"
@@ -161,7 +203,7 @@
         shell: /bin/nologin
     - name: Extract FreeRADIUS archive
       unarchive:
-        src: ManagedSP/templates/FreeRADIUS/HostedSP.tar.gz
+        src: ManagedSP/templates/CentOS7/FreeRADIUS/HostedSP.tar.gz
         dest: /opt/FR/
         owner: "radius"
     - name: Copy and set up site_1999
@@ -185,7 +227,7 @@
       when: dbstatus.rc == 1
     - name: Extract radsecproxy archive
       unarchive:
-        src: ManagedSP/templates/radsecproxy/radsecproxy.tar.gz
+        src: ManagedSP/templates/CentOS7/radsecproxy/radsecproxy.tar.gz
         dest: /opt/
         owner: "root"
     - name: Copy and set up radsecproxy.conf
@@ -193,12 +235,16 @@
         src: "ManagedSP/templates/radsecproxy/radsecproxy.conf.j2"
         dest: "/opt/radsecproxy/etc/radsecproxy.conf"
         mode: '0644'
+    - name: disable firewalld.service 
+      service: name=firewalld.service enabled=no daemon_reload=yes state=stopped
+    - name: enable iptables.service 
+      service: name=iptables.service enabled=no daemon_reload=yes state=started
     - name: Apache | get iptables rules
       shell: iptables -L
       register: iptablesrulesa
     - name: Apache | add apache iptable rule
-      command: /sbin/iptables -I INPUT 1 -p tcp -s {{ cat_ip }} --dport http -j ACCEPT -m comment --comment "Apache"
-      when: iptablesrulesa.stdout.find("Apache") == -1
+      command: /sbin/iptables -I INPUT 1 -p tcp -s {{ cat_ip }} --dport http -j ACCEPT -m comment --comment 'Apache'
+      when: iptablesrulesa.stdout.find('Apache') == -1
     - name: FreeRADIUS ports | get iptables rules
       shell: iptables -L
       register: iptablesrulesf
@@ -217,14 +263,15 @@
       lineinfile: dest=/etc/rsyslog.conf insertbefore="begin forwarding rule" line='{{ newline2 }}' state=present backup=yes
     - name: restart-rsyslog
       service: name=rsyslog state=restarted
-    - name: stop-avahi-daemon
-      service: name=avahi-daemon.service state=stopped
-    - name: disable avahi-daemon.service service
-      service: name=avahi-daemon.service enabled=no daemon_reload=yes
+    - name: check if avahi package is installed
+      package_facts:
+        manager: "auto"
+    - name: stop and disable avahi-daemon
+      service: name=avahi-daemon.service state=stopped enabled=no daemon_reload=yes
+      when: "'avahi' in ansible_facts.packages"
     - name: stop-avahi-daemon.socket
-      service: name=avahi-daemon.socket state=stopped
-    - name: disable avahi-daemon.socket service
-      service: name=avahi-daemon.socket enabled=no daemon_reload=yes
+      service: name=avahi-daemon.socket state=stopped enabled=no daemon_reload=yes
+      when: "'avahi' in ansible_facts.packages"
     - name: install rhel sysv radiusd
       copy: src=ManagedSP/templates/FreeRADIUS/radiusd.service dest=/usr/lib/systemd/system/radiusd.service owner=root group=root mode=0644
     - name: enable sysv radiusd.service service
@@ -237,10 +284,9 @@
       service: name=radsecproxy.service enabled=yes daemon_reload=yes
     - name: start radsecproxy
       service: name=radsecproxy.service state=started
-    - name: install rhel sysv radius-cfg 
+    - name: install rhel sysv radius-cfg
       copy: src=ManagedSP/templates/daemon/radius-cfg.service dest=/usr/lib/systemd/system/radius-cfg.service owner=root group=root mode=0644
     - name: enable sysv radius-cfg.service service
       service: name=radius-cfg.service enabled=yes daemon_reload=yes
     - name: start radius-cfg
       service: name=radius-cfg.service state=started
-
