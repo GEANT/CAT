@@ -299,9 +299,10 @@ class ProfileRADIUS extends AbstractProfile {
      * @return void
      */
     public function setRealmCheckUser($shallwe, $localpart = NULL) {
-        $this->databaseHandle->exec("UPDATE profile SET checkuser_outer = " . ($shallwe === true ? "1" : "0") .
-                ( $localpart !== NULL ? ", checkuser_value = '$localpart' " : "") .
-                " WHERE profile_id = $this->identifier");
+        $this->databaseHandle->exec("UPDATE profile SET checkuser_outer = " . ($shallwe === true ? "1" : "0") . " WHERE profile_id = $this->identifier");
+        if ($localpart !== NULL) {
+            $this->databaseHandle->exec("UPDATE profile SET checkuser_value = ? WHERE profile_id = $this->identifier", "s", $localpart);
+        }
     }
 
     /** 
