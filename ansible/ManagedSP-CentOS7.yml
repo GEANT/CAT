@@ -206,7 +206,7 @@
         shell: /bin/nologin
     - name: Extract FreeRADIUS archive
       unarchive:
-        src: ManagedSP/templates/CentOS7/FreeRADIUS/HostedSP.tar.gz
+        src: ManagedSP/CentOS7/templates/FreeRADIUS/HostedSP.tar.gz
         dest: /opt/FR/
         owner: "radius"
     - name: Copy and set up site_1999
@@ -240,7 +240,7 @@
       when: dbstatus.rc == 1
     - name: Extract radsecproxy archive
       unarchive:
-        src: ManagedSP/templates/CentOS7/radsecproxy/radsecproxy.tar.gz
+        src: ManagedSP/CentOS7/templates/radsecproxy/radsecproxy.tar.gz
         dest: /opt/
         owner: "root"
     - name: Copy and set up radsecproxy.conf
