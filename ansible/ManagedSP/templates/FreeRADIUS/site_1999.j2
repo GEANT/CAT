@@ -10,16 +10,16 @@ listen {
         }
 }
 
-listen {
-        type = auth
-        ipv6addr = {{ radius_sp_ipv6 }}
-        port = 1999
-        limit {
-              max_connections = 16
-              lifetime = 0
-              idle_timeout = 30
-        }
-}
+#listen {
+#        type = auth
+#        ipv6addr = {{ radius_sp_ipv6 }}
+#        port = 1999
+#        limit {
+#              max_connections = 16
+#              lifetime = 0
+#              idle_timeout = 30
+#        }
+#}
 
 client {{ cat_ip }} {
         secret  = 123456789
