@@ -5,6 +5,9 @@
       radius_sp_name: "deploying-radius-sp-fqdn"
       access_host: "playbook-running-site-fqdn"
       mysql_pass: "mysql-root-password"
+      eduroam_db: "eduroam-db-name"
+      eduroam_user: "eduroam-db-user"
+      eduroam_pass: "eduroam-db-password"
       cat_ip: "CAT-server-ip"
       fr_ports: "1999:65535"
       newline1: "local0.*                       /var/log/radsecproxy/rp.log"
@@ -195,7 +198,7 @@
       shell: /opt/FR/scripts/posix_ipc.sh
     - name: Extract FreeRADIUS templates archive
       unarchive:
-        src: ManagedSP/templates/daemon/fr_templates.tar.gz
+        src: ManagedSP/templates/FreeRADIUS/fr_templates.tar.gz
         dest: /opt/FR/
     - name: Add the user 'radius' with a nologin shell
       user:
@@ -208,8 +211,18 @@
         owner: "radius"
     - name: Copy and set up site_1999
       template:
-        src: "ManagedSP/templates/daemon/site_1999.j2"
+        src: "ManagedSP/templates/FreeRADIUS/site_1999.j2"
         dest: "/opt/FR/HostedSP/etc/raddb/sites-available/site_1999"
+        mode: '0644'
+    - name: Copy and set up cui module
+      template:
+        src: "ManagedSP/templates/FreeRADIUS/cui.j2"
+        dest: "/opt/FR/HostedSP/etc/raddb/mods-available/cui"
+        mode: '0644'
+    - name: Copy and set up cui.sql
+      template:
+        src: "ManagedSP/templates/FreeRADIUS/cui.sql.j2"
+        dest: "/opt/FR/templates/cui.sql"
         mode: '0644'
     - name: create eduroam DB
       mysql_db:
