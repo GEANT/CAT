@@ -252,24 +252,55 @@
       service: name=firewalld.service enabled=no daemon_reload=yes state=stopped
     - name: enable iptables.service 
       service: name=iptables.service enabled=no daemon_reload=yes state=started
-    - name: Apache | get iptables rules
-      shell: iptables -L
-      register: iptablesrulesa
+    - name: Get iptables rules
+      shell: iptables --line-number -L -n
+      register: iptablesrules
+    - name: Pick up the stdout line maching Apache-Managed_SP or FreeRADIUS-ports
+      set_fact:
+       spec_lines: "{{ spec_lines|default([]) +  [item] }}"
+      when: item|trim is search('Apache-Managed_SP') or item|trim is search('FreeRADIUS-ports')
+      with_items:
+        - "{{ iptablesrules.stdout_lines }}"
+    - name: Pick up the stdout line maching Apache-Managed_SP
+      set_fact:
+        apache_lines: "{{ apache_lines|default([]) +  [item] }}"
+      when: spec_lines is defined and item|trim is search('Apache-Managed_SP')
+      with_items:
+        - "{{ spec_lines }}"
+    - name: get Apache line
+      set_fact:
+        apache_line: "{{ apache_lines[0] | regex_replace('\\s{2,}', ' ') }}"
+      when: spec_lines is defined and apache_lines is defined and apache_lines|length == 1
+    - name: remove iptables rule if cat_ip does not match
+      command: /sbin/iptables -D INPUT {{ apache_line.split(' ')[0] }}
+      when: spec_lines is defined and apache_lines is defined and apache_lines|length == 1 and apache_line.split(' ')[4] != cat_ip|string
     - name: Apache | add apache iptable rule
-      command: /sbin/iptables -I INPUT 1 -p tcp -s {{ cat_ip }} --dport http -j ACCEPT -m comment --comment 'Apache'
-      when: iptablesrulesa.stdout.find('Apache') == -1
-    - name: FreeRADIUS ports | get iptables rules
-      shell: iptables -L
-      register: iptablesrulesf
+      command: /sbin/iptables -I INPUT 1 -p tcp -s {{ cat_ip }} --dport http -j ACCEPT -m comment --comment 'Apache-Managed_SP'
+      register: apache_set
+      when: spec_lines is not defined or apache_line is not defined or apache_line.split(' ')[4] != cat_ip|string
+    - name: Pick up the stdout line maching FreeRADIUS-ports
+      set_fact:
+        fr_lines: "{{ fr_lines|default([]) +  [item] }}"
+      when: spec_lines is defined and item|trim is search('FreeRADIUS-ports')
+      with_items:
+        - "{{ spec_lines }}"
+    - name: get FreeRADIUS-ports line
+      set_fact:
+        fr_line: "{{ fr_lines[0] | regex_replace('\\s{2,}', ' ') }}"
+      when: spec_lines is defined and fr_lines is defined and fr_lines|length == 1
+    - name: remove iptables rule if fr_ports does not match
+      command: /sbin/iptables -D INPUT {{ fr_line.split(' ')[0] }}
+      when: spec_lines is defined and fr_line is defined and not fr_line.split(' ')[7].find(fr_ports|string)
     - name: FreeRADIUS ports | add FreeRADIUS ports iptable rule
       command: /sbin/iptables -I INPUT 1 -p udp --dport {{ fr_ports }} -j ACCEPT -m comment --comment "FreeRADIUS-ports"
-      when: iptablesrulesf.stdout.find("FreeRADIUS-ports") == -1
+      register: fr_set
+      when: spec_lines is defined or fr_line is not defined or not fr_line.split(' ')[7].find(fr_ports|string)
     - name: save iptables
       shell: "iptables-save > /etc/sysconfig/iptables"
-      when: iptablesrulesa.stdout.find("Apache") == -1 or iptablesrulesf.stdout.find("FreeRADIUS-ports") == -1
+      when: apache_set.rc is defined or fr_set.rc is defined
     - name: restart iptables
       service: name=iptables state=restarted
-      when: iptablesrulesa.stdout.find("Apache") == -1 or iptablesrulesf.stdout.find("FreeRADIUS-ports") == -1
+      when: apache_set.rc is defined or fr_set.rc is defined
     - name: add local0
       lineinfile: dest=/etc/rsyslog.conf insertbefore="begin forwarding rule" line='{{ newline1 }}' state=present backup=yes
     - name: add local2
