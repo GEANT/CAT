@@ -8,7 +8,7 @@
       eduroam_db: "eduroam-db-name"
       eduroam_user: "eduroam-db-user"
       eduroam_pass: "eduroam-db-password"
-      cat_ip: "CAT-server-ip"
+      cat_ip: "{{ groups['main_web'][0] }}"
       fr_ports: "1999:65535"
       newline1: "local0.*                       /var/log/radsecproxy/rp.log"
       newline2: "local2.*                       /var/log/radsecproxy/fticks.log"
@@ -46,6 +46,7 @@
                 - iptables-services
                 - apr
                 - apr-util
+                - rsyslog
         state: present
     - name: disable remi-php54
       shell: yum-config-manager --disable remi-php54
