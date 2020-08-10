@@ -5,7 +5,7 @@
       radius_sp_name: "{{ ansible_facts['nodename'] }}"
       access_host: "playbook-running-site-fqdn"
       mysql_pass: "mysql-root-password"
-      eduroam_db: "eduroam-managed-sp"
+      eduroam_db: "eduroam_managed_sp"
       eduroam_user: "eduroam-db-user"
       eduroam_pass: "eduroam-db-password"
       cat_ip: "{{ groups['main_web'][0] }}"
