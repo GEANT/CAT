@@ -253,6 +253,7 @@
         mode: '0644'
     - name: disable firewalld.service 
       service: name=firewalld.service enabled=no daemon_reload=yes state=stopped
+      ignore_errors: yes
     - name: enable iptables.service 
       service: name=iptables.service enabled=no daemon_reload=yes state=started
     - name: Get iptables rules
