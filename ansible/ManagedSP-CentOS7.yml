@@ -5,7 +5,7 @@
       radius_sp_name: "{{ ansible_facts['nodename'] }}"
       access_host: "playbook-running-site-fqdn"
       mysql_pass: "mysql-root-password"
-      eduroam_db: "eduroam-db-name"
+      eduroam_db: "eduroam-managed-sp"
       eduroam_user: "eduroam-db-user"
       eduroam_pass: "eduroam-db-password"
       cat_ip: "{{ groups['main_web'][0] }}"
@@ -230,15 +230,15 @@
         mode: '0644'
     - name: create eduroam DB
       mysql_db:
-        name: "eduroam"
+        name: "{{ eduroam_db }}"
         state: present
     - name: check if DB table exists
-      shell: mysql -e 'SHOW TABLES;' eduroam | grep cui
+      shell: mysql -e 'SHOW TABLES;' {{ eduroam_db }} | grep cui
       register: dbstatus
       failed_when: dbstatus.rc == 2
     - name: import eduroam DB
       mysql_db:
-        name: "eduroam"
+        name: "{{ eduroam_db }}"
         target: "/opt/FR/templates/cui.sql"
         state: import
       when: dbstatus.rc == 1
