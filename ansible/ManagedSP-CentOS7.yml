@@ -44,6 +44,8 @@
                 - policycoreutils-python
                 - iptables
                 - iptables-services
+                - apr
+                - apr-util
         state: present
     - name: disable remi-php54
       shell: yum-config-manager --disable remi-php54
@@ -172,11 +174,12 @@
         - /opt/FR/scripts/logs
         - /opt/FR/scripts/tmp
         - /opt/install
-    - name: Allow apache to modify files in /opt/Socket
+    - name: Allow apache to modify files in /opt/Socket (only when SELinux is enabled, otherwise allowed to fail)
       sefcontext:
         target: '/opt/Socket(/.*)?'
         setype: httpd_sys_rw_content_t
         state: present
+      ignore_errors: yes
     - name: Apply new SELinux file context to filesystem
       command: restorecon -irv /opt/Socket
     - name: Copy daemon scripts
