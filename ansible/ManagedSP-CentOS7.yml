@@ -1,8 +1,8 @@
 - hosts: radius_sp
   vars:
-      radius_sp_ip: "deploying-radius-sp-ip"
-      radius_sp_ipv6: "deploying-radius-sp-ipv6"
-      radius_sp_name: "deploying-radius-sp-fqdn"
+      radius_sp_ip: "{{ ansible_facts['default_ipv4']['address'] }}"
+      radius_sp_ipv6: "{{ ansible_facts['default_ipv6']['address'] }}"
+      radius_sp_name: "{{ ansible_facts['nodename'] }}"
       access_host: "playbook-running-site-fqdn"
       mysql_pass: "mysql-root-password"
       eduroam_db: "eduroam-db-name"
