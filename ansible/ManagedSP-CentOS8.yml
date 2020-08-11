@@ -13,6 +13,11 @@
       newline1: "local0.*                       /var/log/radsecproxy/rp.log"
       newline2: "local2.*                       /var/log/radsecproxy/fticks.log"
   tasks:
+    - name: Populate service facts
+      service_facts:
+    - name: To check SELinux status
+      shell: getenforce
+      register: selinux
     - name: remove dhclient
       dnf:
         name: dhclient
@@ -164,6 +169,7 @@
         target: '/opt/Socket(/.*)?'
         setype: httpd_sys_rw_content_t
         state: present
+      when: selinux.stdout == "Enforcing"
     - name: Apply new SELinux file context to filesystem
       command: restorecon -irv /opt/Socket
     - name: Copy daemon scripts
@@ -249,6 +255,7 @@
         mode: '0644'
     - name: disable firewalld.service
       service: name=firewalld.service enabled=no daemon_reload=yes state=stopped
+      when: "'firewalld.service' in ansible_facts.services"
     - name: enable iptables.service
       service: name=iptables.service enabled=no daemon_reload=yes state=started
     - name: Get iptables rules
