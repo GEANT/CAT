@@ -79,12 +79,11 @@ def byte_to_string(barray):
 
 def get_input(prompt):
     if sys.version_info.major < 3:
-        return raw_input(prompt) # pylint: disable=undefined-variable
+        return raw_input(prompt)  # pylint: disable=undefined-variable
     return input(prompt)
 
 
 debug(sys.version_info.major)
-
 
 try:
     import dbus
@@ -102,6 +101,7 @@ try:
     from OpenSSL import crypto
 except ImportError:
     CRYPTO_AVAILABLE = False
+
 
 # the function below was partially copied
 # from https://ubuntuforums.org/showthread.php?t=1139057
@@ -231,7 +231,7 @@ class Messages(object):
     passwords_differ = "passwords do not match"
     installation_finished = "Installation successful"
     cat_dir_exists = "Directory {} exists; some of its files may be " \
-        "overwritten."
+                     "overwritten."
     cont = "Continue?"
     nm_not_supported = "This NetworkManager version is not supported"
     cert_error = "Certificate file not found, looks like a CAT error"
@@ -243,17 +243,17 @@ class Messages(object):
     all_filter = "All files"
     p12_title = "personal certificate file (p12 or pfx)"
     save_wpa_conf = "NetworkManager configuration failed, " \
-        "but we may generate a wpa_supplicant configuration file " \
-        "if you wish. Be warned that your connection password will be saved " \
-        "in this file as clear text."
+                    "but we may generate a wpa_supplicant configuration file " \
+                    "if you wish. Be warned that your connection password will be saved " \
+                    "in this file as clear text."
     save_wpa_confirm = "Write the file"
     wrongUsernameFormat = "Error: Your username must be of the form " \
-        "'xxx@institutionID' e.g. 'john@example.net'!"
+                          "'xxx@institutionID' e.g. 'john@example.net'!"
     wrong_realm = "Error: your username must be in the form of 'xxx@{}'. " \
-        "Please enter the username in the correct format."
+                  "Please enter the username in the correct format."
     wrong_realm_suffix = "Error: your username must be in the form of " \
-        "'xxx@institutionID' and end with '{}'. Please enter the username " \
-        "in the correct format."
+                         "'xxx@institutionID' and end with '{}'. Please enter the username " \
+                         "in the correct format."
     user_cert_missing = "personal certificate file not found"
     # "File %s exists; it will be overwritten."
     # "Output written to %s"
@@ -314,8 +314,8 @@ class InstallerData(object):
                 sys.exit(1)
         if os.path.exists(get_config_path() + '/cat_installer'):
             if self.ask(Messages.cat_dir_exists.format(
-                            get_config_path() + '/cat_installer'),
-                        Messages.cont, 1):
+                    get_config_path() + '/cat_installer'),
+                    Messages.cont, 1):
                 sys.exit(1)
         else:
             os.mkdir(get_config_path() + '/cat_installer', 0o700)
@@ -526,10 +526,10 @@ class InstallerData(object):
                 if Config.use_other_tls_id:
                     return True
                 try:
-                    self.username = p12.get_certificate().\
+                    self.username = p12.get_certificate(). \
                         get_subject().commonName
                 except:
-                    self.username = p12.get_certificate().\
+                    self.username = p12.get_certificate(). \
                         get_subject().emailAddress
                 return True
         else:
@@ -625,16 +625,14 @@ class InstallerData(object):
         if Config.eap_inner == 'SILVERBULLET':
             self.__save_sb_pfx()
         else:
-            if self.silent:
-                pfx_file = self.pfx_file
-            else:
-                pfx_file = self.__select_p12_file()
-                try:
-                    copyfile(pfx_file, get_config_path() +
-                             '/cat_installer/user.p12')
-                except (OSError, RuntimeError):
-                    print(Messages.user_cert_missing)
-                    sys.exit(1)
+            if not self.silent:
+                self.pfx_file = self.__select_p12_file()
+            try:
+                copyfile(self.pfx_file, get_config_path() +
+                         '/cat_installer/user.p12')
+            except (OSError, RuntimeError):
+                print(Messages.user_cert_missing)
+                sys.exit(1)
         if self.silent:
             username = self.username
             if not self.__process_p12():
@@ -677,7 +675,7 @@ class InstallerData(object):
         pos += 1
         if Config.verify_user_realm_input:
             if Config.hint_user_input:
-                if self.username.endswith('@' + Config.user_realm, pos-1):
+                if self.username.endswith('@' + Config.user_realm, pos - 1):
                     debug("realm equal to the expected value")
                     return True
                 debug("incorrect realm; expected:" + Config.user_realm)
@@ -708,8 +706,10 @@ class WpaConf(object):
     """
     Prepare and save wpa_supplicant config file
     """
+
     def __prepare_network_block(self, ssid, user_data):
-        out = """network={
+
+        interface = """network={
         ssid=\"""" + ssid + """\"
         key_mgmt=WPA-EAP
         pairwise=CCMP
@@ -719,16 +719,28 @@ class WpaConf(object):
         identity=\"""" + user_data.username + """\"
         altsubject_match=\"""" + ";".join(Config.servers) + """\"
         phase2=\"auth=""" + Config.eap_inner + """\"
-        password=\"""" + user_data.password + """\"
+        """
+
+        if Config.eap_outer == "TLS" and user_data.pfx_file:
+            interface += """
+            private_key=\"""" + user_data.pfx_file + """\"
+            private_key_passwd=\"""" + user_data.password + """\"
+            """
+        else:
+            interface += """
+            password=\"""" + user_data.password + """\"
+            """
+
+        interface += """
         anonymous_identity=\"""" + Config.anonymous_identity + """\"
-}
-    """
-        return out
+        }
+        """
+        return interface
 
     def create_wpa_conf(self, ssids, user_data):
         """Create and save the wpa_supplicant config file"""
         wpa_conf = get_config_path() + \
-            '/cat_installer/cat_installer.conf'
+                   '/cat_installer/cat_installer.conf'
         with open(wpa_conf, 'w') as conf:
             for ssid in ssids:
                 net = self.__prepare_network_block(ssid, user_data)
@@ -739,6 +751,7 @@ class CatNMConfigTool(object):
     """
     Prepare and save NetworkManager configuration
     """
+
     def __init__(self):
         self.cacert_file = None
         self.settings_service_name = None
@@ -774,7 +787,7 @@ class CatNMConfigTool(object):
                 "/org/freedesktop/NetworkManager/Settings")
             # settings interface
             self.settings = dbus.Interface(sysproxy, "org.freedesktop."
-                                           "NetworkManager.Settings")
+                                                     "NetworkManager.Settings")
         elif self.nm_version == "0.8":
             self.settings_service_name = "org.freedesktop.NetworkManager"
             self.connection_interface_name = "org.freedesktop.NetworkMana" \
@@ -885,17 +898,17 @@ class CatNMConfigTool(object):
             'permissions': ['user:' +
                             os.environ.get('USER')],
             'id': ssid
-            })
+        })
         s_wifi = dbus.Dictionary({
             'ssid': dbus.ByteArray(ssid.encode('utf8')),
             'security': '802-11-wireless-security'
-            })
+        })
         s_wsec = dbus.Dictionary({
             'key-mgmt': 'wpa-eap',
             'proto': ['rsn'],
             'pairwise': ['ccmp'],
             'group': ['ccmp', 'tkip']
-            })
+        })
         s_8021x = dbus.Dictionary(s_8021x_data)
         s_ip4 = dbus.Dictionary({'method': 'auto'})
         s_ip6 = dbus.Dictionary({'method': 'auto'})
@@ -906,7 +919,7 @@ class CatNMConfigTool(object):
             '802-1x': s_8021x,
             'ipv4': s_ip4,
             'ipv6': s_ip6
-            })
+        })
         self.settings.AddConnection(con)
 
     def add_connections(self, user_data):
