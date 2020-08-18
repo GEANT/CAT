@@ -84,12 +84,10 @@ class UIElements extends \core\common\Entity {
     public function displayName($input) {
         \core\common\Entity::intoThePotatoes();
         $ssidText = _("SSID");
-        $ssidLegacyText = _("SSID (with WPA/TKIP)");
         $passpointOiText = _("HS20 Consortium OI");
 
         if (count(\config\ConfAssistant::CONSORTIUM['ssid']) > 0) {
             $ssidText = _("Additional SSID");
-            $ssidLegacyText = _("Additional SSID (with WPA/TKIP)");
         }
         if (!empty(\config\ConfAssistant::CONSORTIUM['interworking-consortium-oi']) && count(\config\ConfAssistant::CONSORTIUM['interworking-consortium-oi']) > 0) {
             $passpointOiText = _("Additional HS20 Consortium OI");
@@ -116,8 +114,7 @@ class UIElements extends \core\common\Entity {
             _("Redirection Target") => "device-specific:redirect",
             _("Extra text on downloadpage for EAP method") => "eap-specific:customtext",
             _("Turn on selection of EAP-TLS User-Name") => "eap-specific:tls_use_other_id",
-            _("Use GEANTlink TTLS supplicant for W8") => "device-specific:geantlink",
-            _("Use builtin TTLS supplicant for Windows 10") => "device-specific:builtin_ttls",
+            _("Use GEANTlink for TTLS (Windows 8 and 10)") => "device-specific:geantlink",
             _("Profile Description") => "profile:description",
             _("Custom Installer Name Suffix") => "profile:customsuffix",
             sprintf(_("%s Administrator"), $this->nomenclatureFed) => "user:fedadmin",
@@ -137,7 +134,6 @@ class UIElements extends \core\common\Entity {
             sprintf(_("%s: max users per profile"), \core\ProfileSilverbullet::PRODUCTNAME) => "fed:silverbullet-maxusers",
             sprintf(_("Mint %s with CA on creation"), $this->nomenclatureInst) => "fed:minted_ca_file",
             $ssidText => "media:SSID",
-            $ssidLegacyText => "media:SSID_with_legacy",
             $passpointOiText => "media:consortium_OI",
             _("VLAN for own users") => "managedsp:vlan",
             _("Realm to be considered own users") => "managedsp:realmforvlan",

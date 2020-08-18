@@ -149,6 +149,7 @@ abstract class DeviceXML extends \core\DeviceConfig {
         if ($dom->schemaValidate(ROOT . '/devices/xml/eap-metadata.xsd') === FALSE) {
             throw new Exception("Schema validation failed for eap-metadata");
         }
+        $dom->formatOutput = true;
         file_put_contents($this->installerBasename . '.eap-config', $dom->saveXML());
         return($this->installerBasename . '.eap-config');
     }
@@ -161,6 +162,23 @@ abstract class DeviceXML extends \core\DeviceConfig {
         'support:info_file' => 'TermsOfUse',
         'general:logo_file' => 'ProviderLogo',
     ];
+    
+    /**
+     * determines the inner authentication. Is it EAP, and which mechanism is used to convey actual auth data
+     * @param array $eap the EAP type for which we want to get the inner auth
+     * @return array
+     */
+    private function innerAuth($eap)
+    {
+        $out = [];
+        $out['METHOD'] = $eap["INNER"];
+        $out['EAP'] = 0;
+        // override if there is an inner EAP
+        if ($eap["INNER"] > 0) { // there is an inner EAP method
+            $out['EAP'] = 1;
+        }
+        return $out;
+    }
 
     /**
      * 
@@ -341,7 +359,7 @@ abstract class DeviceXML extends \core\DeviceConfig {
      * @return array a recap of the findings
      */
     private function getAuthenticationMethodParams($eap) {
-        $inner = \core\common\EAP::innerAuth($eap);
+        $inner = $this->innerAuth($eap);
         $outerMethod = $eap["OUTER"];
 
         if (isset($inner["METHOD"]) && $inner["METHOD"]) {
@@ -349,7 +367,7 @@ abstract class DeviceXML extends \core\DeviceConfig {
             $typeOfInner = "\devices\xml\\" . ($inner["EAP"] ? 'EAPMethod' : 'NonEAPAuthMethod');
             $eapmethod = new $typeOfInner();
             $eaptype = new Type();
-            $eaptype->setValue($inner['METHOD']);
+            $eaptype->setValue(abs($inner['METHOD']));
             $eapmethod->setProperty('Type', $eaptype);
             $innerauthmethod->setProperty($typeOfInner, $eapmethod);
             return ['inner_method' => $innerauthmethod, 'methodID' => $outerMethod, 'inner_methodID' => $inner['METHOD']];

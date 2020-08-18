@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -54,7 +55,8 @@ use \Exception;
  * @package ModuleWriting
  * @abstract
  */
-abstract class DeviceConfig extends \core\common\Entity {
+abstract class DeviceConfig extends \core\common\Entity
+{
 
     /**
      * stores the path to the temporary working directory for a module instance
@@ -73,14 +75,15 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @var array EAP methods
      */
     public $supportedEapMethods;
-    
+
     /**
      * sets the supported EAP methods for a device
      * 
      * @param array $eapArray the list of EAP methods the device supports
      * @return void
      */
-    protected function setSupportedEapMethods($eapArray) {
+    protected function setSupportedEapMethods($eapArray)
+    {
         $this->supportedEapMethods = $eapArray;
         $this->loggerInstance->debug(4, "This device (" . __CLASS__ . ") supports the following EAP methods: ");
         $this->loggerInstance->debug(4, $this->supportedEapMethods);
@@ -91,8 +94,52 @@ abstract class DeviceConfig extends \core\common\Entity {
      * The one important thing to do is to call setSupportedEapMethods with an 
      * array of EAP methods the device supports
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
+    }
+
+    /**
+     * given one or more server name strings, calculate the suffix that is common
+     * to all of them
+     * 
+     * Examples:
+     * 
+     * ["host.somewhere.com", "gost.somewhere.com"] => "ost.somewhere.com"
+     * ["my.server.name"] => "my.server.name"
+     * ["foo.bar.de", "baz.bar.ge"] => "e"
+     * ["server1.example.com", "server2.example.com", "serverN.example.com"] => ".example.com"
+
+     * @return string
+     */
+    public function longestNameSuffix()
+    {
+        // for all configured server names, find the string that is the longest
+        // suffix to all of them
+        $longestSuffix = "";
+        if (!isset($this->attributes["eap:server_name"])) {
+            return "";
+        }
+        $numStrings = count($this->attributes["eap:server_name"]);
+        if ($numStrings == 0) {
+            return "";
+        }
+        // always take the candidate character from the first array element, and
+        // verify whether the other elements have that character in the same 
+        // position, too
+        while (TRUE) {
+            if ($longestSuffix == $this->attributes["eap:server_name"][0]) {
+                break;
+            }
+            $candidate = substr($this->attributes["eap:server_name"][0], -(strlen($longestSuffix) + 1), 1);
+            for ($iterator = 1; $iterator < $numStrings; $iterator++) {
+                if (substr($this->attributes["eap:server_name"][$iterator], -(strlen($longestSuffix) + 1), 1) != $candidate) {
+                    break 2;
+                }
+            }
+            $longestSuffix = $candidate . $longestSuffix;
+        }
+        return $longestSuffix;
     }
 
     /**
@@ -117,7 +164,8 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @throws Exception
      * @final not to be redefined
      */
-    final public function setup(AbstractProfile $profile, $token = NULL, $importPassword = NULL) {
+    final public function setup(AbstractProfile $profile, $token = NULL, $importPassword = NULL)
+    {
         $this->loggerInstance->debug(4, "module setup start\n");
         common\Entity::intoThePotatoes();
         $purpose = 'installer';
@@ -145,6 +193,7 @@ abstract class DeviceConfig extends \core\common\Entity {
             // let's keep a record for which device type this token was consumed
             $dbInstance = DBConnection::handle("INST");
             $certId = $this->clientCert['certObject']->dbId;
+            $this->attributes['internal:username'] = [$this->clientCert['CN']];
             $dbInstance->exec("UPDATE `silverbullet_certificate` SET `device` = ? WHERE `id` = ?", "si", $this->device_id, $certId);
         }
         $this->loggerInstance->debug(5, "DeviceConfig->setup() - silverbullet checks done.\n");
@@ -166,13 +215,13 @@ abstract class DeviceConfig extends \core\common\Entity {
             }
             $this->attributes['internal:CAs'][0] = $caList;
         }
-        
+
         if (isset($this->attributes['support:info_file'])) {
             $this->attributes['internal:info_file'][0] = $this->saveInfoFile($this->attributes['support:info_file'][0]);
         }
         if (isset($this->attributes['general:logo_file'])) {
             $this->loggerInstance->debug(5, "saving IDP logo\n");
-            $this->attributes['internal:logo_file'] = $this->saveLogoFile($this->attributes['general:logo_file'],'idp');
+            $this->attributes['internal:logo_file'] = $this->saveLogoFile($this->attributes['general:logo_file'], 'idp');
         }
         if (isset($this->attributes['fed:logo_file'])) {
             $this->loggerInstance->debug(5, "saving FED logo\n");
@@ -184,6 +233,8 @@ abstract class DeviceConfig extends \core\common\Entity {
 
         $this->attributes['internal:consortia'] = $this->getConsortia();
         
+        $this->attributes['internal:networks'] = $this->getNetworks();
+
         $this->support_email_substitute = sprintf(_("your local %s support"), \config\ConfAssistant::CONSORTIUM['display_name']);
         $this->support_url_substitute = sprintf(_("your local %s support page"), \config\ConfAssistant::CONSORTIUM['display_name']);
 
@@ -200,7 +251,8 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @param array $eapArrayofObjects an array of eap methods supported by a given device
      * @return void
      */
-    public function calculatePreferredEapType($eapArrayofObjects) {
+    public function calculatePreferredEapType($eapArrayofObjects)
+    {
         $this->selectedEap = [];
         foreach ($eapArrayofObjects as $eap) {
             if (in_array($eap->getArrayRep(), $this->supportedEapMethods)) {
@@ -219,20 +271,22 @@ abstract class DeviceConfig extends \core\common\Entity {
      *
      * @return string HTML text to be displayed
      */
-    public function writeDeviceInfo() {
+    public function writeDeviceInfo()
+    {
         common\Entity::intoThePotatoes();
         $retval = _("Sorry, this should not happen - no additional information is available");
         common\Entity::outOfThePotatoes();
         return $retval;
     }
-    
+
     /**
      * function to return exactly one attribute type
      * 
      * @param string $attrName the attribute to retrieve
      * @return array|NULL the attributes
      */
-    public function getAttribute($attrName) {
+    public function getAttribute($attrName)
+    {
         return empty($this->attributes[$attrName]) ? NULL : $this->attributes[$attrName];
     }
 
@@ -243,7 +297,8 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @param  string $file the filename to search for (without path)
      * @return string|boolean the filename as found, with path, or FALSE if it does not exist
      */
-    private function findSourceFile($file) {
+    protected function findSourceFile($file)
+    {
         if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $file)) {
             return $this->module_path . '/Files/' . $this->device_id . '/' . $file;
         } elseif (is_file($this->module_path . '/Files/' . $file)) {
@@ -269,7 +324,8 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @return boolean result of the copy operation
      * @final not to be redefined
      */
-    final protected function copyFile($source_name, $output_name = NULL) {
+    final protected function copyFile($source_name, $output_name = NULL)
+    {
         if ($output_name === NULL) {
             $output_name = $source_name;
         }
@@ -287,100 +343,6 @@ abstract class DeviceConfig extends \core\common\Entity {
     }
 
     /**
-     *  Copy a file from the module location to the temporary directory aplying transcoding.
-     *
-     * Transcoding is only required for Windows installers, and no Unicode support
-     * in NSIS (NSIS version below 3)
-     * Trancoding is only applied if the third optional parameter is set and nonzero
-     * If \config\Master::NSIS_VERSION is set to 3 or more, no transcoding will be applied
-     * regardless of the third parameter value.
-     * If the second argument is provided and is not equal to 0, then the file will be
-     * saved under the name taken from this argument.
-     * If only one parameter is given or the second is equal to 0, source and destination
-     * filenames are the same.
-     * The third optional parameter, if nonzero, should be the character set understood by iconv
-     * This is required by the Windows installer and is expected to go away in the future.
-     * Source file can be located either in the Files subdirectory or in the sibdirectory of Files
-     * named the same as device_id. The second option takes precedence.
-     *
-     * @param string $source_name The source file name
-     * @param string $output_name The destination file name
-     * @param string $encoding    Set Windows charset if non-zero
-     * @return boolean
-     * @final not to be redefined
-     */
-    final protected function translateFile($source_name, $output_name, $encoding) {
-        // there is no explicit gettext() call in this function, but catalogues
-        // and translations occur in the varios ".inc" files - so make sure we
-        // operate in the correct catalogue
-        common\Entity::intoThePotatoes();
-        if (\config\ConfAssistant::NSIS_VERSION >= 3) {
-            $encoding = 0;
-        }
-        
-        $this->loggerInstance->debug(5, "translateFile($source_name, $output_name, $encoding)\n");
-        ob_start();
-        $this->loggerInstance->debug(5, $this->module_path . '/Files/' . $this->device_id . '/' . $source_name . "\n");
-        $source = $this->findSourceFile($source_name);
-        
-        if ($source !== FALSE) { // if there is no file found, don't attempt to include an uninitialised variable
-            include $source;
-        }
-        $output = ob_get_clean();
-        if ($encoding !== 0) {
-            $outputClean = iconv('UTF-8', $encoding . '//TRANSLIT', $output);
-            if ($outputClean) {
-                $output = $outputClean;
-            }
-        }
-        $fileHandle = fopen("$output_name", "w");
-        if ($fileHandle === FALSE) {
-            $this->loggerInstance->debug(2, "translateFile($source, $output_name, $encoding) failed\n");
-            common\Entity::outOfThePotatoes();
-            return FALSE;
-        }
-        fwrite($fileHandle, $output);
-        fclose($fileHandle);
-        $this->loggerInstance->debug(5, "translateFile($source, $output_name, $encoding) end\n");
-        common\Entity::outOfThePotatoes();
-        return TRUE;
-    }
-
-    /**
-     * Transcode a string adding double quotes escaping
-     *
-     * Transcoding is only required for Windows installers, and no Unicode support
-     * in NSIS (NSIS version below 3)
-     * Trancoding is only applied if the third optional parameter is set and nonzero
-     * If \config\Master::NSIS_VERSION is set to 3 or more, no transcoding will be applied
-     * regardless of the second parameter value.
-     * The second optional parameter, if nonzero, should be the character set understood by iconv
-     * This is required by the Windows installer and is expected to go away in the future.
-     *
-     * @param string $sourceString the source string
-     * @param string $encoding     the character encoding to use
-     * @return string
-     * @final not to be redefined
-     */
-    final protected function translateString($sourceString, $encoding) {
-        $this->loggerInstance->debug(5, "translateString input: \"$sourceString\"\n");
-        if (empty($sourceString)) {
-            return $sourceString;
-        }
-        if (\config\ConfAssistant::NSIS_VERSION < 3) {
-            $output_c = iconv('UTF-8', $encoding . '//TRANSLIT', $sourceString);
-        } else {
-            $output_c = $sourceString;
-        }
-        if ($output_c) {
-            $sourceString = str_replace('"', '$\\"', $output_c);
-        } else {
-            $this->loggerInstance->debug(2, "Failed to convert string \"$sourceString\"\n");
-        }
-        return $sourceString;
-    }
-
-    /**
      * Save certificate files in either DER or PEM format
      *
      * Certificate files will be saved in the module working directory.
@@ -394,7 +356,8 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @return array an array of arrays or empty array on error
      * @throws Exception
      */
-    final protected function saveCertificateFiles($format) {
+    final protected function saveCertificateFiles($format)
+    {
         switch ($format) {
             case "der": // fall-thorugh, same treatment
             case "pem":
@@ -434,7 +397,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * set of characters to remove from filename strings
      */
     private const TRANSLIT_SCRUB = '/[ ()\/\'"]+/';
-    
+
     /**
      * Does a transliteration from UTF-8 to ASCII to get a sane filename
      * Takes special characters into account, and always uses English CTYPE
@@ -443,14 +406,15 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @param string $input the input string that is to be transliterated
      * @return string the transliterated string
      */
-    private function customTranslit($input) {
+    private function customTranslit($input)
+    {
         $oldlocale = setlocale(LC_CTYPE, 0);
         setlocale(LC_CTYPE, "en_US.UTF-8");
         $retval = preg_replace(DeviceConfig::TRANSLIT_SCRUB, '_', iconv("UTF-8", "US-ASCII//TRANSLIT", $input));
         setlocale(LC_CTYPE, $oldlocale);
         return $retval;
     }
-    
+
     /**
      * Generate installer filename base.
      * Device module should use this name adding an extension.
@@ -460,10 +424,10 @@ abstract class DeviceConfig extends \core\common\Entity {
      * 
      * @return string
      */
-    private function getInstallerBasename() {
-        
+    private function getInstallerBasename()
+    {
         $baseName = $this->customTranslit(\config\ConfAssistant::CONSORTIUM['name']) . "-" . $this->getDeviceId();
-        if (isset($this->attributes['profile:customsuffix'][1])) { 
+        if (isset($this->attributes['profile:customsuffix'][1])) {
             // this string will end up as a filename on a filesystem, so always
             // take a latin-based language variant if available
             // and then scrub non-ASCII just in case
@@ -498,7 +462,8 @@ abstract class DeviceConfig extends \core\common\Entity {
      * 
      * @return string
      */
-    private function getDeviceId() {
+    private function getDeviceId()
+    {
         $deviceId = $this->device_id;
         if (isset($this->options['device_id'])) {
             $deviceId = $this->options['device_id'];
@@ -516,7 +481,8 @@ abstract class DeviceConfig extends \core\common\Entity {
      * 
      * @return array
      */
-    private function getSSIDs() {
+    private function getSSIDs()
+    {
         $ssidList = [];
         $ssidList['add'] = [];
         $ssidList['del'] = [];
@@ -537,12 +503,6 @@ abstract class DeviceConfig extends \core\common\Entity {
                 $ssidList['add'][$ssid] = 'AES';
             }
         }
-        if (isset($this->attributes['media:SSID_with_legacy'])) {
-            $ssidTkip = $this->attributes['media:SSID_with_legacy'];
-            foreach ($ssidTkip as $ssid) {
-                $ssidList['add'][$ssid] = 'TKIP';
-            }
-        }
         if (isset($this->attributes['media:remove_SSID'])) {
             $ssidRemove = $this->attributes['media:remove_SSID'];
             foreach ($ssidRemove as $ssid) {
@@ -557,19 +517,93 @@ abstract class DeviceConfig extends \core\common\Entity {
      * 
      * @return array
      */
-    private function getConsortia() {
-        if(!isset(\config\ConfAssistant::CONSORTIUM['interworking-consortium-oi'])) {
+    private function getConsortia()
+    {
+
+        if (!isset(\config\ConfAssistant::CONSORTIUM['interworking-consortium-oi'])) {
             return ([]);
         }
         $consortia = \config\ConfAssistant::CONSORTIUM['interworking-consortium-oi'];
         if (isset($this->attributes['media:consortium_OI'])) {
             foreach ($this->attributes['media:consortium_OI'] as $new_oi) {
-                if(!in_array($new_oi, $consortia)) {
+                if (!in_array($new_oi, $consortia)) {
                     $consortia[] = $new_oi;
                 }
             }
         }
         return $consortia;
+    }
+    
+    /**
+     * return a list of SSIDs definded in the Config networks block
+     * 
+     * @return array $ssids
+     */
+    private function getConfigSSIDs()
+    {
+        $ssids = [];
+        if (!isset(\config\ConfAssistant::CONSORTIUM['networks'])) {
+            return [];
+        }
+        foreach (\config\ConfAssistant::CONSORTIUM['networks'] as $oneNetwork) {
+            if (!empty($oneNetwork['ssid'])) {
+                $ssids = array_merge($ssids, $oneNetwork['ssid']);
+            }
+        }
+        return $ssids;
+    }
+    
+    /**
+     * return a list of OIs definded in the Config networks block
+     * 
+     * @return array $ois
+     */
+    private function getConfigOIs()
+    {
+        $ois = [];
+        if (!isset(\config\ConfAssistant::CONSORTIUM['networks'])) {
+            return [];
+        }
+        foreach (\config\ConfAssistant::CONSORTIUM['networks'] as $oneNetwork) {
+            if (!empty($oneNetwork['oi'])) {
+                $ois = array_merge($ois, $oneNetwork['oi']);
+            }
+        }
+        return $ois;
+    }
+
+    /**
+     * returns the list of parameters for predefined networks to be configured
+     * 
+     * @return array
+     */
+    private function getNetworks()
+    {
+        $consortia = [];
+        $ssids = $this->getConfigSSIDs();
+        $ois = $this->getConfigOIs();
+        $networks = isset(\config\ConfAssistant::CONSORTIUM['networks']) ? 
+            \config\ConfAssistant::CONSORTIUM['networks'] : [];
+        // add locally defined SSIDs
+        if (isset($this->attributes['media:SSID'])) {
+            foreach ($this->attributes['media:SSID'] as $ssid) {
+                if (!in_array($ssid, $ssids)) {
+                    $networks[$ssid] = ['ssid' => [$ssid], 'oi' => []];
+                }
+            }
+        }
+        // add locally defined OIs
+        if (isset($this->attributes['media:consortium_OI'])) {
+            foreach ($this->attributes['media:consortium_OI'] as $new_oi) {
+                if (!in_array($new_oi, $ois)) {
+                    $consortia[] = $new_oi;
+                }
+            }
+        }
+        if (!empty($consortia)) {
+            $networks['local passpoint network'] = ['ssid' => [], 'oi' => $consortia];
+        }
+        return $networks;
     }
 
     /**
@@ -590,7 +624,8 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @return array list of filenames and the mime types
      * @throws Exception
      */
-    private function saveLogoFile($logos,$type) {
+    private function saveLogoFile($logos, $type)
+    {
         $iterator = 0;
         $returnarray = [];
         foreach ($logos as $blob) {
@@ -624,7 +659,8 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @return array with one entry, containging the filename and mime type
      * @throws Exception
      */
-    private function saveInfoFile($blob) {
+    private function saveInfoFile($blob)
+    {
         $finfo = new \finfo(FILEINFO_MIME_TYPE);
         $mime = $finfo->buffer($blob);
         $ext = isset($this->mime_extensions[$mime]) ? $this->mime_extensions[$mime] : 'usupported';
@@ -645,7 +681,8 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @param \core\AbstractProfile $profile the Profile in question
      * @return array
      */
-    private function getProfileAttributes(AbstractProfile $profile) {
+    private function getProfileAttributes(AbstractProfile $profile)
+    {
         $bestMatchEap = $this->selectedEap;
         if (count($bestMatchEap) > 0) {
             $a = $profile->getCollapsedAttributes($bestMatchEap);
@@ -653,7 +690,7 @@ abstract class DeviceConfig extends \core\common\Entity {
             $a['all_eaps'] = $profile->getEapMethodsinOrderOfPreference(1);
             return($a);
         }
-        print("No supported eap types found for this profile.\n");
+        echo("No supported eap types found for this profile.\n");
         return [];
     }
 
@@ -665,7 +702,8 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @param string $file the output file name
      * @return void
      */
-    protected function dumpAttibutes($file) {
+    protected function dumpAttibutes($file)
+    {
         ob_start();
         print_r($this->attributes);
         $output = ob_get_clean();
@@ -683,7 +721,8 @@ abstract class DeviceConfig extends \core\common\Entity {
      * 
      * @return string|NULL
      */
-    protected function determineOuterIdString() {
+    protected function determineOuterIdString()
+    {
         $outerId = NULL;
         if (isset($this->attributes['internal:use_anon_outer']) && $this->attributes['internal:use_anon_outer'][0] == "1" && isset($this->attributes['internal:realm'])) {
             $outerId = "@" . $this->attributes['internal:realm'][0];
@@ -715,14 +754,14 @@ abstract class DeviceConfig extends \core\common\Entity {
      * - <b>internal:logo_file</b>  -  array of pathnames of logo_files saved in the working directory
      * - <b>internal:CAs</b> - the value is an array produced by X509::processCertificate() with the following filds
      * - <b>internal:SSID</b> - an array indexed by SSID strings with values either TKIP or AES; if TKIP is set the both WPA/TKIP and WPA2/AES should be set if AES is set the this is a WPA2/AES only SSID; the consortium's defined SSIDs are always set as the first array elements.
-     * - <b>internal:consortia</b> an array of consortion IO as declared in the config-confassistant
+     * - <b>internal:consortia</b> an array of consortion IO as declared in the Confassistant config
+     * - <b>internal:networks</b> - an array of network parameters  as declared in the Confassistant config
      * - <b>internal:profile_count</b> - the number of profiles for the associated IdP
      *
      *
      * these attributes are available and can be used, but the "internal" attributes are better suited for modules
      * -  eap:ca_file    -      certificate of the CA signing the RADIUS server key                                         
      * - <b>media:SSID</b>       -  additional SSID to configure, WPA2/AES only (device modules should use internal:SSID)
-     * - <b>media:SSID_with_legacy</b> -  additional SSID to configure, WPA2/AES and WPA/TKIP (device modules should use internal:SSID)
      *
      * @var array $attributes
      * @see \core\common\X509::processCertificate()
@@ -746,7 +785,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @var array
      */
     public $selectedEap;
-    
+
     /**
      * The optimal EAP type selected given profile and device, as object
      * 
@@ -764,7 +803,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @var string
      */
     public $sign;
-    
+
     /**
      * the name of the signer program (without full path)
      * 
@@ -822,5 +861,4 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @var string
      */
     public $deviceUUID;
-
 }

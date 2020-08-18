@@ -14,7 +14,8 @@ namespace core;
 use \Exception;
 use \SoapFault;
 
-class CertificationAuthorityEduPki extends EntityWithDBProperties implements CertificationAuthorityInterface {
+class CertificationAuthorityEduPki extends EntityWithDBProperties implements CertificationAuthorityInterface
+{
 
     private const LOCATION_RA_CERT = ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.pem";
     private const LOCATION_RA_KEY = ROOT . "/config/SilverbulletClientCerts/edupki-test-ra.clearkey";
@@ -28,7 +29,8 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
      * 
      * @throws Exception
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->databaseType = "INST";
         parent::__construct();
 
@@ -51,7 +53,8 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
      * @param string $serial serial number of the certificate. Serials are 128 bit, so forcibly a string.
      * @return string a dummy string instead of a real statement
      */
-    public function triggerNewOCSPStatement($serial): string {
+    public function triggerNewOCSPStatement($serial): string
+    {
         unset($serial); // not needed
         return "EXTERNAL";
     }
@@ -64,7 +67,8 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
      * @return array the certificate with some meta info
      * @throws Exception
      */
-    public function signRequest($csr, $expiryDays): array {
+    public function signRequest($csr, $expiryDays): array
+    {
         // initialise connection to eduPKI CA / eduroam RA and send the request to them
         try {
             $altArray = [# Array mit den Subject Alternative Names
@@ -222,7 +226,8 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
      * @return void
      * @throws Exception
      */
-    public function revokeCertificate($serial): void {
+    public function revokeCertificate($serial): void
+    {
         try {
             $soap = $this->initEduPKISoapSession("RA");
             $soapRevocationSerial = $soap->newRevocationRequest(["Serial", $serial], "");
@@ -274,7 +279,8 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
      * @return \SoapClient the connection object
      * @throws Exception
      */
-    private function initEduPKISoapSession($type) {
+    private function initEduPKISoapSession($type)
+    {
         // set context parameters common to both endpoints
         $context_params = [
             'http' => [
@@ -342,7 +348,8 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
      * @param string $x the integer as an XML fragment
      * @return array the integer in array notation
      */
-    public function soapFromXmlInteger($x) {
+    public function soapFromXmlInteger($x)
+    {
         $y = simplexml_load_string($x);
         return array(
             $y->getName(),
@@ -357,7 +364,8 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
      * @param array $x the integer in array notation
      * @return string the integer as string in an XML fragment
      */
-    public function soapToXmlInteger($x) {
+    public function soapToXmlInteger($x)
+    {
         return '<' . $x[0] . '>'
                 . htmlentities($x[1], ENT_NOQUOTES | ENT_XML1)
                 . '</' . $x[0] . '>';
@@ -372,7 +380,8 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
      * @return array the CSR along with some meta information
      * @throws Exception
      */
-    public function generateCompatibleCsr($privateKey, $fed, $username): array {
+    public function generateCompatibleCsr($privateKey, $fed, $username): array
+    {
         $tempdirArray = \core\common\Entity::createTemporaryDirectory("test");
         $tempdir = $tempdirArray['dir'];
         // dump private key into directory
@@ -409,20 +418,22 @@ class CertificationAuthorityEduPki extends EntityWithDBProperties implements Cer
      * @return \resource the key
      * @throws Exception
      */
-    public function generateCompatiblePrivateKey() {
+    public function generateCompatiblePrivateKey()
+    {
         $key = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
         if ($key === FALSE) {
             throw new Exception("Unable to generate a private key.");
         }
         return $key;
     }
-    
+
     /**
      * CAs don't have any local caching or other freshness issues
      * 
      * @return void
      */
-    public function updateFreshness() {
+    public function updateFreshness()
+    {
         // nothing to be done here.
     }
 }

@@ -13,7 +13,8 @@ namespace core;
 
 use \Exception;
 
-class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implements CertificationAuthorityInterface {
+class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implements CertificationAuthorityInterface
+{
 
     private const LOCATION_ROOT_CA = ROOT . "/config/SilverbulletClientCerts/rootca-RSA.pem";
     private const LOCATION_ISSUING_CA = ROOT . "/config/SilverbulletClientCerts/real-RSA.pem";
@@ -59,7 +60,8 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
      * 
      * @throws Exception
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->databaseType = "INST";
         parent::__construct();
         $this->rootPem = file_get_contents(CertificationAuthorityEmbeddedRSA::LOCATION_ROOT_CA);
@@ -88,7 +90,7 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
         }
         $this->conffile = CertificationAuthorityEmbeddedRSA::LOCATION_CONFIG;
     }
-    
+
     /**
      * create new OCSP statement by making an ephemeral index.txt file for
      * openssl and working with that on the cmdline
@@ -97,7 +99,8 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
      * @return string the OCSP statement
      * @throws Exception
      */
-    public function triggerNewOCSPStatement($serial): string {
+    public function triggerNewOCSPStatement($serial): string
+    {
         $cert = new SilverbulletCertificate($serial, \devices\Devices::SUPPORT_EMBEDDED_RSA);
         $certstatus = "";
         // get all relevant info from object properties
@@ -129,7 +132,7 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
         $nowIndexTxt = (new \DateTime())->format("ymdHis") . "Z";
         $expiryIndexTxt = $originalExpiry->format("ymdHis") . "Z";
         // serials for our CA are always integers
-        $serialHex = strtoupper(dechex((int)$cert->serial));
+        $serialHex = strtoupper(dechex((int) $cert->serial));
         if (strlen($serialHex) % 2 == 1) {
             $serialHex = "0" . $serialHex;
         }
@@ -163,7 +166,7 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
         $this->databaseHandle->exec("UPDATE silverbullet_certificate SET OCSP = ?, OCSP_timestamp = NOW() WHERE serial_number = ?", "si", $ocsp, $cert->serial);
         return $ocsp;
     }
-    
+
     /**
      * sign CSR
      * 
@@ -172,7 +175,8 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
      * @return array the cert and some metadata
      * @throws Exception
      */
-    public function signRequest($csr, $expiryDays) : array {
+    public function signRequest($csr, $expiryDays): array
+    {
         $nonDupSerialFound = FALSE;
         do {
             $serial = random_int(1000000000, PHP_INT_MAX);
@@ -195,7 +199,7 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
             "ROOT" => $this->rootPem,
         ];
     }
-    
+
     /**
      * the generic caller in SilverbulletCertificate::revokeCertificate
      * has already updated the DB. So all is done; we simply create a new
@@ -204,7 +208,8 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
      * @param integer $serial the serial to revoke, integer because <=64 bit
      * @return void
      */
-    public function revokeCertificate($serial): void {
+    public function revokeCertificate($serial): void
+    {
         $this->triggerNewOCSPStatement($serial);
     }
 
@@ -217,7 +222,8 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
      * @return array
      * @throws Exception
      */
-    public function generateCompatibleCsr($privateKey, $fed, $username) : array {
+    public function generateCompatibleCsr($privateKey, $fed, $username): array
+    {
         $newCsr = openssl_csr_new(
                 ['O' => \config\ConfAssistant::CONSORTIUM['name'],
                     'OU' => $fed,
@@ -244,7 +250,8 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
      * @return \resource
      * @throws Exception
      */
-    public function generateCompatiblePrivateKey() {
+    public function generateCompatiblePrivateKey()
+    {
         $key = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
         if ($key === FALSE) {
             throw new Exception("Unable to generate a private key.");
@@ -257,8 +264,8 @@ class CertificationAuthorityEmbeddedRSA extends EntityWithDBProperties implement
      * 
      * @return void
      */
-    public function updateFreshness() {
+    public function updateFreshness()
+    {
         // nothing to be done here.
     }
-
 }

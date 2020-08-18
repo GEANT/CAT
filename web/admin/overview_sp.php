@@ -60,6 +60,12 @@ if (isset($_SESSION['check_realm'])) {
 $mapCode = web\lib\admin\AbstractMap::instance($my_inst, TRUE);
 echo $mapCode->htmlHeadCode();
 ?>
+<script>
+$(document).on('click', '#realmcheck' , function() {
+   event.preventDefault();
+   location.href = '../diag/diag.php?admin=1&sp=1&realm=';
+});
+</script>
 </head>
 <body 
     <?php echo $mapCode->bodyTagCode(); ?>>
@@ -71,6 +77,9 @@ echo $mapCode->htmlHeadCode();
     <h1><?php echo sprintf(_("%s Overview"), $uiElements->nomenclatureHotspot); ?></h1>
     <div>
         <h2><?php echo sprintf(_("%s general settings"), $uiElements->nomenclatureHotspot); ?></h2>
+         <form action='edit_participant.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
+            <button type='submit' name='submitbutton' value='<?php echo \web\lib\common\FormElements::BUTTON_EDIT; ?>'><?php echo sprintf(_("Edit general %s details"), $uiElements->nomenclatureParticipant); ?></button>
+        </form>
         <?php
         echo $uiElements->instLevelInfoBoxes($my_inst);
         ?>
@@ -88,16 +97,21 @@ echo $mapCode->htmlHeadCode();
     <?php
     $readonly = \config\Master::DB['INST']['readonly'];
     ?>
-    <hr><h2><?php echo _("Available Support actions"); ?></h2>
+    <hr><h2><?php $tablecaption = _("Available Support actions"); echo $tablecaption; ?></h2>
     <table>
-        <?php
+        <caption><?php echo $tablecaption;?></caption>
+        <tr>
+        <th class='wai-invisible' scope='col'><?php echo _("Action");?></th>
+        <th class='wai-invisible' scope='col'><?php echo _("Trigger");?></th>
+        </tr>
+            <?php
         if (\config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] !== NULL) {
             echo "<tr>
-                        <td>" . _("Check another realm's reachability") . "</td>
+                        <td>" . sprintf(_("Diagnose reachability and connection parameters of %ss"),$uiElements->nomenclatureInst) . "</td>
                         <td><form method='post' action='../diag/action_realmcheck.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'>
-                              <input type='text' name='realm' id='realm'>
+                              <!--<input type='text' name='realm' id='realm'>-->
                               <input type='hidden' name='comefrom' id='comefrom' value='$link'/>
-                              <button type='submit'>" . _("Go!") . "</button>
+                              <button id='realmcheck' style='cursor:pointer;' type='submit'>" . _("Go!") . "</button>
                             </form>
                         </td>
                     </tr>";
@@ -107,7 +121,7 @@ echo $mapCode->htmlHeadCode();
                         <td>" . sprintf(_("Check %s server status"), $uiElements->nomenclatureFed) . "</td>
                         <td>
                            <form action='https://monitor.eduroam.org/mon_direct.php' accept-charset='UTF-8'>
-                              <button type='submit'>" . _("Go!") . "</button>
+                              <button style='cursor:pointer;' type='submit'>" . _("Go!") . "</button>
                            </form>
                         </td>
                     </tr>";
@@ -142,6 +156,13 @@ echo $mapCode->htmlHeadCode();
             <div class='profilebox' style='display: table-cell;'>
                 <h2><?php echo core\DeploymentManaged::PRODUCTNAME . " (<span style='color:" . ( $deploymentObject->status == \core\AbstractDeployment::INACTIVE ? "red;'>" . _("inactive") : "green;'>" . _("active") ) . "</span>)"; ?></h2>
                 <table>
+                    <caption><?php echo _("Deployment Details");?></caption>
+                    <tr>
+                        <th class='wai-invisible' scope='col'><?php echo("Server IP addresses");?></th>
+                        <th class='wai-invisible' scope='col'><?php echo("Server Port label");?></th>
+                        <th class='wai-invisible' scope='col'><?php echo("Server Port value");?></th>
+                        <th class='wai-invisible' scope='col'><?php echo("Deployment Status");?></th>
+                    </tr>
                     <tr>
                         <td><strong><?php echo _("Your primary RADIUS server") ?></strong><br/>
                         <?php
@@ -223,11 +244,11 @@ echo $mapCode->htmlHeadCode();
                 <div class='buttongroupprofilebox' style='clear:both;'>
                     <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
                         <br/>
-                        <button type='submit' name='profile_action' value='edit'><?php echo _("Advanced Configuration"); ?></button>
+                        <button type='submit' name='profile_action' style='cursor:pointer;' value='edit'><?php echo _("Advanced Configuration"); ?></button>
                     </form>
                     <?php if ($deploymentObject->status == \core\AbstractDeployment::ACTIVE) { ?>
                         <form action='edit_hotspot.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;deployment_id=<?php echo $deploymentObject->identifier; ?>' method='post' accept-charset='UTF-8'>
-                            <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php printf(_("Do you really want to deactivate the %s deployment?"), core\DeploymentManaged::PRODUCTNAME); ?>')">
+                            <button class='delete' type='submit' style='cursor:pointer;' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php printf(_("Do you really want to deactivate the %s deployment?"), core\DeploymentManaged::PRODUCTNAME); ?>')">
                                 <?php echo _("Deactivate"); ?>
                             </button>
                             <?php 

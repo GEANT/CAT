@@ -39,14 +39,22 @@ use \Exception;
  * When used with an external DB such as the official eduroam DB, this interface
  * must be implemented by the corresponding class
  */
-interface ExternalLinkInterface {
+interface ExternalLinkInterface
+{
 
     /**
      * gets a list of all hotspots from the external DB
      * 
      * @return array
      */
-    public function allServiceProviders();
+    public function listAllServiceProviders();
+
+    /**
+     * counts the SPs
+     * 
+     * @return int
+     */
+    public function countAllServiceProviders();
 
     /**
      * enumerates all participating entities in the external DB
@@ -56,5 +64,5 @@ interface ExternalLinkInterface {
      * 
      * @return array
      */
-    public function listExternalEntities($tld, $type);    
+    public function listExternalEntities($tld, $type);
 }

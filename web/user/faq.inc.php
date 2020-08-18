@@ -64,11 +64,11 @@ $Faq = [
 
 $externalDb = core\CAT::determineExternalConnection();
 
-$SPs = $externalDb->allServiceProviders();
+$SPs = $externalDb->countAllServiceProviders();
 $consortium = \config\ConfAssistant::CONSORTIUM['display_name'];
 array_push($Faq,
         [
             'id' => 'what_is_' . \config\ConfAssistant::CONSORTIUM['name'],
             'title' => sprintf(_("What is this %s thing anyway?"), $consortium),
-            'text' => sprintf(_("%s is a global WiFi roaming consortium which gives members of education and research access to the internet <i>for free</i> on all %s hotspots on the planet. There are several million %s users already, enjoying free internet access on more than %d hotspots! Visit <a href='http://www.eduroam.org'>the %s homepage</a> or <a href='http://monitor.eduroam.org/map_service_loc.php'>the %s location map</a> for more details."), $consortium, $consortium, $consortium, count($SPs), $consortium, $consortium)
+            'text' => sprintf(_("%s is a global WiFi roaming consortium which gives members of education and research access to the internet <i>for free</i> on all %s hotspots on the planet. There are several million %s users already, enjoying free internet access on more than %d hotspots! Visit <a href='http://www.eduroam.org'>the %s homepage</a> or <a href='http://monitor.eduroam.org/map_service_loc.php'>the %s location map</a> for more details."), $consortium, $consortium, $consortium, $SPs, $consortium, $consortium)
 ]);

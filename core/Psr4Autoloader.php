@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Contributions to this work were made on behalf of the GÉANT project, a 
  * project that has received funding from the European Union’s Horizon 2020 
@@ -18,6 +19,7 @@
  */
 
 namespace core\autoloader;
+
 use Exception;
 
 /**
@@ -66,6 +68,7 @@ use Exception;
  */
 class Psr4Autoloader
 {
+
     /**
      * An associative array where the key is a namespace prefix and the value
      * is an array of base directories for classes in that namespace.
@@ -181,8 +184,8 @@ class Psr4Autoloader
             // replace namespace separators with directory separators
             // in the relative class name, append with .php
             $file = $base_dir
-                  . str_replace('\\', '/', $relative_class)
-                  . '.php';
+                    . str_replace('\\', '/', $relative_class)
+                    . '.php';
 
             // if the mapped file exists, require it
             if ($this->requireFile($file)) {

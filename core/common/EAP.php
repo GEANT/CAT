@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -43,7 +44,8 @@ use \Exception;
  *
  * @package Developer
  */
-class EAP extends Entity {
+class EAP extends Entity
+{
 
     /**
      * some EAP-related constants.
@@ -56,10 +58,10 @@ class EAP extends Entity {
     const GTC = 6;
     const FAST = 43;
     const PWD = 52;
-    const NE_PAP = 1;
-    const NE_MSCHAP = 2;
-    const NE_MSCHAP2 = 3;
-    const NE_SILVERBULLET = 999;
+    const NE_PAP = -1;
+    const NE_MSCHAP = -2;
+    const NE_MSCHAP2 = -3;
+    const NE_SILVERBULLET = -999;
     const INTEGER_TTLS_PAP = 1;
     const INTEGER_PEAP_MSCHAP2 = 2;
     const INTEGER_TLS = 3;
@@ -90,12 +92,12 @@ class EAP extends Entity {
     /**
      * TTLS-PAP: Outer EAP type = 21, no inner EAP, inner non-EAP = 1
      */
-    const EAPTYPE_TTLS_PAP = ["OUTER" => EAP::TTLS, "INNER" => EAP::NONE];
+    const EAPTYPE_TTLS_PAP = ["OUTER" => EAP::TTLS, "INNER" => EAP::NE_PAP];
 
     /**
      * TTLS-MSCHAP-v2: Outer EAP type = 21, no inner EAP, inner non-EAP = 3
      */
-    const EAPTYPE_TTLS_MSCHAP2 = ["OUTER" => EAP::TTLS, "INNER" => EAP::MSCHAP2];
+    const EAPTYPE_TTLS_MSCHAP2 = ["OUTER" => EAP::TTLS, "INNER" => EAP::NE_MSCHAP2];
 
     /**
      * TTLS-GTC: Outer EAP type = 21, Inner EAP Type = 6
@@ -155,7 +157,8 @@ class EAP extends Entity {
      * @param mixed $eapType the EAP type, either in its integer or array representation
      * @throws Exception
      */
-    public function __construct($eapType) {
+    public function __construct($eapType)
+    {
         if (is_numeric($eapType) && array_key_exists($eapType, EAP::EAPTYPES_CONVERSION)) {
             $key = array_keys(EAP::EAPTYPES_CONVERSION, EAP::EAPTYPES_CONVERSION[$eapType]);
             $this->intRep = $key[0];
@@ -166,8 +169,8 @@ class EAP extends Entity {
             $key = array_search($eapType, EAP::EAPTYPES_CONVERSION);
             if ($key !== FALSE) {
                 // add a type cast to int to make Scrutinizer realise that the key found is always an integer
-                $this->intRep = (int)$key; // array index is always an integer
-                $this->arrayRep = EAP::EAPTYPES_CONVERSION[(int)$key];
+                $this->intRep = (int) $key; // array index is always an integer
+                $this->arrayRep = EAP::EAPTYPES_CONVERSION[(int) $key];
                 return;
             }
         }
@@ -179,7 +182,8 @@ class EAP extends Entity {
      * @return boolean
      * @throws Exception
      */
-    public function isPasswordRequired() {
+    public function isPasswordRequired()
+    {
         switch ($this->intRep) {
             case EAP::INTEGER_EAP_PWD:
             case EAP::INTEGER_FAST_GTC:
@@ -201,7 +205,8 @@ class EAP extends Entity {
      * Not aware of any, so this is a simple function :-)
      * @return boolean
      */
-    public function isPasswordOptional() {
+    public function isPasswordOptional()
+    {
         return FALSE;
     }
 
@@ -210,7 +215,8 @@ class EAP extends Entity {
      * @return boolean
      * @throws Exception
      */
-    public function isClientCertRequired() {
+    public function isClientCertRequired()
+    {
         switch ($this->intRep) {
             case EAP::INTEGER_EAP_PWD:
             case EAP::INTEGER_FAST_GTC:
@@ -232,7 +238,8 @@ class EAP extends Entity {
      * @return boolean
      * @throws Exception
      */
-    public function isClientCertOptional() {
+    public function isClientCertOptional()
+    {
         switch ($this->intRep) {
             case EAP::INTEGER_EAP_PWD:
             case EAP::INTEGER_TLS:
@@ -254,7 +261,8 @@ class EAP extends Entity {
      * @return boolean
      * @throws Exception
      */
-    public function needsServerCACert() {
+    public function needsServerCACert()
+    {
         switch ($this->intRep) {
             case EAP::INTEGER_EAP_PWD:
                 return FALSE;
@@ -277,7 +285,8 @@ class EAP extends Entity {
      * @return boolean
      * @throws Exception
      */
-    public function needsServerName() {
+    public function needsServerName()
+    {
         switch ($this->intRep) {
             case EAP::INTEGER_FAST_GTC:
             case EAP::INTEGER_PEAP_MSCHAP2:
@@ -299,7 +308,8 @@ class EAP extends Entity {
      * 
      * @return array
      */
-    public function getArrayRep() {
+    public function getArrayRep()
+    {
         return $this->arrayRep;
     }
 
@@ -308,7 +318,8 @@ class EAP extends Entity {
      * 
      * @return int
      */
-    public function getIntegerRep() {
+    public function getIntegerRep()
+    {
         return $this->intRep;
     }
 
@@ -318,7 +329,8 @@ class EAP extends Entity {
      * @param array $eap EAP method in array representation (OUTER/INNER)
      * @return array EAP method in array representation (OUTER as string/INNER as string)
      */
-    public static function eapDisplayName($eap) {
+    public static function eapDisplayName($eap)
+    {
         $eapDisplayName = [];
         $eapDisplayName[serialize(EAP::EAPTYPE_PEAP_MSCHAP2)] = ["OUTER" => 'PEAP', "INNER" => 'MSCHAPV2'];
         $eapDisplayName[serialize(EAP::EAPTYPE_TLS)] = ["OUTER" => 'TLS', "INNER" => ''];
@@ -334,35 +346,12 @@ class EAP extends Entity {
     }
 
     /**
-     * determines the inner authentication. Is it EAP, and which mechanism is used to convey actual auth data
-     * @param array $eap the EAP type for which we want to get the inner auth
-     * @return array
-     */
-    public static function innerAuth($eap) {
-        $out = [];
-        if ($eap["INNER"]) { // there is an inner EAP method
-            $out['EAP'] = 1;
-            $out['METHOD'] = $eap["INNER"];
-            return $out;
-        }
-        // there is none
-        $out['EAP'] = 0;
-        switch ($eap) {
-            case EAP::EAPTYPE_TTLS_PAP:
-                $out['METHOD'] = EAP::NE_PAP;
-                break;
-            case EAP::EAPTYPE_TTLS_MSCHAP2:
-                $out['METHOD'] = EAP::NE_MSCHAP2;
-        }
-        return $out;
-    }
-
-    /**
      * This function enumerates all known EAP types and returns them as array
      * 
      * @return array of all EAP types the CAT knows about, as objects
      */
-    public static function listKnownEAPTypes() {
+    public static function listKnownEAPTypes()
+    {
         $retval = [];
 
         foreach (array_values(EAP::EAPTYPES_CONVERSION) as $oneArrayRep) {
@@ -375,7 +364,8 @@ class EAP extends Entity {
      * returns a printable ("pretty-print") version of the EAP type
      * @return string
      */
-    public function getPrintableRep() {
+    public function getPrintableRep()
+    {
         Entity::intoThePotatoes();
         $nameMapping = [
             _("PEAP-MSCHAPv2") => \core\common\EAP::EAPTYPE_PEAP_MSCHAP2,
@@ -391,5 +381,4 @@ class EAP extends Entity {
         Entity::outOfThePotatoes();
         return $find[0];
     }
-
 }

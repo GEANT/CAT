@@ -17,6 +17,7 @@
 ; * License: see the web/copyright.inc.php file in the file structure or
 ; *          <base_url>/copyright.php after deploying the software
 ; */
+; Used for W8 and newer and EAP methods - TLS, PEAP and native Windows TTLS 
 
 !include "common.nsh"
 ;===========================
@@ -36,15 +37,17 @@ ${If} $wireless_result == 0
 Call CheckWirelessProfiles
 Call CreateWirelessProfiles 
 ${EndIf}
-
 ${If} $wired == 1
   Call CreateLanProfile
 ${EndIf}
 !ifdef CRED
+  IfSilent +2
   Call InstallUserCredentials
 !endif
 ;Sleep 2000
+IfSilent +2
 SendMessage $HWNDPARENT "0x408" "1" ""
+IfSilent +2
 Sleep 2000
 SectionEnd
 ;==========================

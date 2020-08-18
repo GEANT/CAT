@@ -1,0 +1,81 @@
+server site_1999 {
+listen {
+        type = auth
+        ipv4addr = {{ radius_sp_ip }}
+        port = 1999
+        limit {
+              max_connections = 16
+              lifetime = 0
+              idle_timeout = 30
+        }
+}
+
+#listen {
+#        type = auth
+#        ipv6addr = {{ radius_sp_ipv6 }}
+#        port = 1999
+#        limit {
+#              max_connections = 16
+#              lifetime = 0
+#              idle_timeout = 30
+#        }
+#}
+
+client {{ cat_ip }} {
+        secret  = 123456789
+        shortname = CLIENTS_1999
+        ipaddr = {{ cat_ip }}
+        add_cui = yes
+        Operator-Name = hosted.eduroam.org
+}
+
+authorize {
+        filter_username
+        preprocess
+        operator-name
+        cui
+        chap
+        mschap
+        digest
+        suffix
+        update control {
+          Proxy-To-Realm := any
+        }
+        auth_log_1999
+}
+
+
+session {
+}
+
+post-auth {
+        if (session-state:User-Name && reply:User-Name && request:User-Name && (reply:User-Name == request:User-Name)) {
+                update reply {
+                        &User-Name !* ANY
+                }
+        }
+        update {
+                &reply: += &session-state:
+        }
+        cui
+        exec
+        remove_reply_message_if_eap
+        Post-Auth-Type REJECT {
+                attr_filter.access_reject
+                remove_reply_message_if_eap
+        }
+
+        Post-Auth-Type Challenge {
+        }
+        reply_log_1999
+}
+
+pre-proxy {
+       operator-name
+       cui
+}
+
+post-proxy {
+#       post_proxy_log
+}
+}

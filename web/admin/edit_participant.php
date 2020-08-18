@@ -80,8 +80,15 @@ echo $mapCode->htmlHeadCode();
         ?>
     </h1>
     <div class='infobox'>
-        <h2><?php echo sprintf(_("%s general properties"), $uiElements->nomenclatureParticipant); ?></h2>
+        <h2><?php $tablecaption = sprintf(_("%s general properties"), $uiElements->nomenclatureParticipant); echo $tablecaption;?></h2>
         <table>
+            <caption><?php echo $tablecaption;?></caption>
+            <tr>
+                <th class="wai-invisible" scope="col"><?php echo _("Property Type");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Language if applicable");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Property Value");?></th>
+            </tr>
+
             <tr>
                 <td><?php echo _("Country:"); ?></td>
                 <td></td>
@@ -101,7 +108,7 @@ echo $mapCode->htmlHeadCode();
         echo "<p>" .
         sprintf(_("Hello, newcomer. The %s is new to us. This wizard will ask you several questions about it, so that we can generate beautiful profiles for you in the end. All of the information below is optional, but it is important to fill out as many fields as possible for the benefit of your end users."), $uiElements->nomenclatureParticipant) . "</p>";
     }
-    $optionDisplay = new web\lib\admin\OptionDisplay($idpoptions, "IdP");
+    $optionDisplay = new web\lib\admin\OptionDisplay($idpoptions, \core\Options::LEVEL_IDP);
     ?>
     <fieldset class="option_container">
         <legend><strong><?php echo _("General Information"); ?></strong></legend>
@@ -140,7 +147,7 @@ echo $mapCode->htmlHeadCode();
                 if (\config\ConfAssistant::CONSORTIUM['tkipsupport']) {
                     echo " " . _("They will also be configured for WPA/TKIP if the device supports multiple encryption types.");
                 }
-                echo "<br/>" . sprintf(_("It is also possible to define custom additional SSIDs with the options '%s' and '%s' below."), $uiElements->displayName("media:SSID"), $uiElements->displayName("media:SSID_with_legacy"));
+                echo "<br/>" . sprintf(_("It is also possible to define custom additional SSIDs with the option '%s' below."), $uiElements->displayName("media:SSID"));
             } else {
                 echo _("Please configure which SSIDs should be configured in the installers.");
             }

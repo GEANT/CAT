@@ -1,0 +1,342 @@
+ hosts: radius_sp
+  vars:
+      radius_sp_ip: "deploying-radius-sp-ip"
+      radius_sp_ipv6: "deploying-radius-sp-ipv6"
+      radius_sp_name: "deploying-radius-sp-fqdn"
+      access_host: "playbook-running-site-fqdn"
+      mysql_pass: "mysql-root-password"
+      eduroam_db: "eduroam-db-name"
+      eduroam_user: "eduroam-db-user"
+      eduroam_pass: "eduroam-db-password"
+      cat_ip: "CAT-server-ip"
+      fr_ports: "1999:65535"
+      newline1: "local0.*                       /var/log/radsecproxy/rp.log"
+      newline2: "local2.*                       /var/log/radsecproxy/fticks.log"
+  tasks:
+    - name: Populate service facts
+      service_facts:
+    - name: To check SELinux status
+      shell: getenforce
+      register: selinux
+    - name: remove dhclient
+      dnf:
+        name: dhclient
+        state: absent
+    - name: remove dhcp-libs
+      dnf:
+        name: dhcp-libs
+        state: absent
+    - name: all packages are up to date
+      dnf:
+        name: '*'
+        state: latest
+    - name: Install required packages
+      dnf:
+        name:
+                - telnet
+                - bind-utils
+                - net-tools
+                - nettle-devel
+                - lsof
+                - yum-utils
+                - libtalloc-devel
+                - mariadb
+                - mariadb-devel
+                - mariadb-server
+                - python3
+                - python3-dbus
+                - php
+                - iptables-services
+        state: present
+    - name: Adds Python MySQL support on RedHat/CentOS
+      dnf: name=python3-PyMySQL state=present
+    - name: enable sysv mariadb.service service
+      service: 
+        name: mariadb.service
+        enabled: yes
+        daemon_reload: yes
+        state: started
+    - name: Check if the .my.cnf exists
+      stat:
+        path: /root/.my.cnf
+      register: my_result
+    - name: Check mysql login using .my.cnf
+      shell: mysql -e "quit"
+      changed_when: false
+      ignore_errors: true
+      register: root_pwd_check
+      tags: mariadb
+      when: my_result.stat.exists
+    - name: Remove file /root/.my.cnf
+      file:
+        path: /root/.my.cnf
+        state: absent
+      when: my_result.stat.exists and (root_pwd_check.skipped is defined or root_pwd_check.rc != 0)
+    - name: Set mysql root user password
+      mysql_user:
+        name: root
+        password: "{{ mysql_pass }}"
+        check_implicit_admin: true
+      when: root_pwd_check.skipped is defined or root_pwd_check.rc != 0    
+    - name: Create .my.cnf
+      template:
+        src: "ManagedSP/templates/configuration/client.my.cnf.j2"
+        dest: "/root/.my.cnf"
+        owner: root
+        group: root
+        mode: 0600
+      when: not my_result.stat.exists and (root_pwd_check.skipped is defined or root_pwd_check.rc != 0)    
+    - name: Removes the test database
+      mysql_db: 
+        login_user: root
+        login_password: "{{ mysql_pass }}"
+        db: test
+        state: absent
+    - name: Deletes anonymous server user
+      mysql_user: 
+        login_user: root
+        login_password: "{{ mysql_pass }}"
+        user: ""
+        host_all: yes
+        state: absent
+    - name: Secures the MySQL root user for IPV6 localhost (::1)
+      mysql_user:
+        user: "root"
+        password: "{{ mysql_pass }}" 
+        host: "::1"
+    - name: Secures the MySQL root user for IPV4 localhost (127.0.0.1)
+      mysql_user:
+        user: "root"
+        password: "{{ mysql_pass }}" 
+        host: "127.0.0.1"
+    - name: Secures the MySQL root user for localhost domain (localhost)
+      mysql_user:
+        user: "root"
+        password: "{{ mysql_pass }}" 
+        host: "localhost"
+    - name: Secures the MySQL root user for server_hostname domain
+      mysql_user:
+        user: "root"
+        password: "{{ mysql_pass }}" 
+        host: "{{ access_host }}"
+    - name: Create Apache site.conf
+      template:
+        src: "ManagedSP/templates/configuration/site.conf.j2"
+        dest: "/etc/httpd/conf.d/site.conf"
+        owner: root
+        group: root
+        mode: 0600
+    - name: Create directories if they don't exist
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: apache
+        group: apache
+        mode: 0775
+        recurse: yes
+      with_items:
+        - /var/www/html/sp
+        - /opt/Socket
+        - /opt/Socket/CAT_requests
+    - name: Create web index.php
+      template:
+        src: "ManagedSP/templates/web/index.php.j2"
+        dest: "/var/www/html/sp/index.php"
+    - name: Copy web files
+      copy: src=ManagedSP/templates/web/{{ item }} dest=/var/www/html/sp/
+      with_items:
+        - lib.inc
+    - name: enable sysv httpd service
+      service: name=httpd.service enabled=yes daemon_reload=yes
+    - name: Start httpd service
+      service: name=httpd state=started
+    - name: Create directories if they don't exist
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: root
+        group: root
+        mode: 0775
+        recurse: yes
+      with_items:
+        - /opt/FR
+        - /opt/FR/scripts
+        - /opt/FR/scripts/logs
+        - /opt/FR/scripts/tmp
+        - /opt/install
+    - name: Allow apache to modify files in /opt/Socket
+      sefcontext:
+        target: '/opt/Socket(/.*)?'
+        setype: httpd_sys_rw_content_t
+        state: present
+      when: selinux.stdout == "Enforcing"
+    - name: Apply new SELinux file context to filesystem
+      command: restorecon -irv /opt/Socket
+    - name: Copy daemon scripts
+      copy: src=ManagedSP/templates/daemon/{{ item }} dest=/opt/FR/scripts mode=0755
+      with_items:
+        - fr_restart.py
+        - fr_tools.sh
+        - posix_ipc.sh
+    - name: Copy and set up fr_configuration daemon
+      template:
+        src: "ManagedSP/templates/daemon/fr_configuration.py.j2"
+        dest: "/opt/FR/scripts/fr_configuration.py"
+        mode: '0755'
+    - name: Extract posix_ipc archive
+      unarchive:
+        src: ManagedSP/templates/daemon/posix_ipc-1.0.4.tar.gz
+        dest: /opt/install
+    - name: check if /usr/local/lib64/python3.6/site-packages/ exists
+      stat:
+        path: /usr/local/lib64/python3.6/site-packages/
+      register: site_folder
+    - name: create /usr/local/lib64/python3.6/site-packages/ if needed
+      file:
+        path: /usr/local/lib64/python3.6/site-packages/
+        state: directory
+        mode: 0755
+        group: root
+        owner: root
+      when: not site_folder.stat.exists
+    - name: add python module posix_ipc
+      shell: /opt/FR/scripts/posix_ipc.sh
+    - name: Extract FreeRADIUS templates archive
+      unarchive:
+        src: ManagedSP/templates/daemon/fr_templates.tar.gz
+        dest: /opt/FR/
+    - name: Add the user 'radius' with a nologin shell
+      user:
+        name: radius
+        shell: /bin/nologin
+    - name: Extract FreeRADIUS archive
+      unarchive:
+        src: ManagedSP/templates/FreeRADIUS/CentOS8/HostedSP.tar.gz
+        dest: /opt/FR/
+        owner: "radius"
+    - name: Copy and set up site_1999
+      template:
+        src: "ManagedSP/templates/FreeRADIUS/site_1999.j2"
+        dest: "/opt/FR/HostedSP/etc/raddb/sites-available/site_1999"
+        mode: '0644'
+    - name: Copy and set up cui module
+      template:
+        src: "ManagedSP/templates/FreeRADIUS/cui.j2"
+        dest: "/opt/FR/HostedSP/etc/raddb/mods-available/cui"
+        mode: '0644'
+    - name: Copy and set up cui.sql
+      template:
+        src: "ManagedSP/templates/FreeRADIUS/cui.sql.j2"
+        dest: "/opt/FR/templates/cui.sql"
+        mode: '0644'
+    - name: create eduroam DB
+      mysql_db:
+        name: "eduroam"
+        state: present
+    - name: check if DB table exists
+      shell: mysql -e 'SHOW TABLES;' eduroam | grep cui
+      register: dbstatus
+      failed_when: dbstatus.rc == 2
+    - name: import eduroam DB
+      mysql_db:
+        name: "eduroam"
+        target: "/opt/FR/templates/cui.sql"
+        state: import
+      when: dbstatus.rc == 1
+    - name: Extract radsecproxy archive
+      unarchive:
+        src: ManagedSP/templates/radsecproxy/CentOS8/radsecproxy.tar.gz
+        dest: /opt/
+        owner: "root"
+    - name: Copy and set up radsecproxy.conf
+      template:
+        src: "ManagedSP/templates/radsecproxy/radsecproxy.conf.j2"
+        dest: "/opt/radsecproxy/etc/radsecproxy.conf"
+        mode: '0644'
+    - name: disable firewalld.service
+      service: name=firewalld.service enabled=no daemon_reload=yes state=stopped
+      when: "'firewalld.service' in ansible_facts.services"
+    - name: enable iptables.service
+      service: name=iptables.service enabled=no daemon_reload=yes state=started
+    - name: Get iptables rules
+      shell: iptables --line-number -L -n
+      register: iptablesrules
+    - name: Pick up the stdout line maching Apache-Managed_SP or FreeRADIUS-ports
+      set_fact:
+       spec_lines: "{{ spec_lines|default([]) +  [item] }}"
+      when: item|trim is search('Apache-Managed_SP') or item|trim is search('FreeRADIUS-ports')
+      with_items:
+        - "{{ iptablesrules.stdout_lines }}"
+    - name: Pick up the stdout line maching Apache-Managed_SP
+      set_fact:
+        apache_lines: "{{ apache_lines|default([]) +  [item] }}"
+      when: spec_lines is defined and item|trim is search('Apache-Managed_SP')
+      with_items:
+        - "{{ spec_lines }}"
+    - name: get Apache line
+      set_fact:
+        apache_line: "{{ apache_lines[0] | regex_replace('\\s{2,}', ' ') }}"
+      when: spec_lines is defined and apache_lines is defined and apache_lines|length == 1
+    - name: remove iptables rule if cat_ip does not match
+      command: /sbin/iptables -D INPUT {{ apache_line.split(' ')[0] }}
+      when: spec_lines is defined and apache_lines is defined and apache_lines|length == 1 and apache_line.split(' ')[4] != cat_ip|string
+    - name: Apache | add apache iptable rule
+      command: /sbin/iptables -I INPUT 1 -p tcp -s {{ cat_ip }} --dport http -j ACCEPT -m comment --comment 'Apache-Managed_SP'
+      register: apache_set
+      when: spec_lines is not defined or apache_line is not defined or apache_line.split(' ')[4] != cat_ip|string
+    - name: Pick up the stdout line maching FreeRADIUS-ports
+      set_fact:
+        fr_lines: "{{ fr_lines|default([]) +  [item] }}"
+      when: spec_lines is defined and item|trim is search('FreeRADIUS-ports')
+      with_items:
+        - "{{ spec_lines }}"
+    - name: get FreeRADIUS-ports line
+      set_fact:
+        fr_line: "{{ fr_lines[0] | regex_replace('\\s{2,}', ' ') }}"
+      when: spec_lines is defined and fr_lines is defined and fr_lines|length == 1
+    - name: remove iptables rule if fr_ports does not match
+      command: /sbin/iptables -D INPUT {{ fr_line.split(' ')[0] }}
+      when: spec_lines is defined and fr_line is defined and not fr_line.split(' ')[7].find(fr_ports|string)
+    - name: FreeRADIUS ports | add FreeRADIUS ports iptable rule
+      command: /sbin/iptables -I INPUT 1 -p udp --dport {{ fr_ports }} -j ACCEPT -m comment --comment "FreeRADIUS-ports"
+      register: fr_set
+      when: spec_lines is defined or fr_line is not defined or not fr_line.split(' ')[7].find(fr_ports|string)
+    - name: save iptables
+      shell: "iptables-save > /etc/sysconfig/iptables"
+      when: apache_set.rc is defined or fr_set.rc is defined
+    - name: restart iptables
+      service: name=iptables state=restarted
+      when: apache_set.rc is defined or fr_set.rc is defined
+    - name: add local0
+      lineinfile: dest=/etc/rsyslog.conf insertbefore="begin forwarding rule" line='{{ newline1 }}' state=present backup=yes
+    - name: add local2
+      lineinfile: dest=/etc/rsyslog.conf insertbefore="begin forwarding rule" line='{{ newline2 }}' state=present backup=yes
+    - name: restart-rsyslog
+      service: name=rsyslog state=restarted
+    - name: check if avahi package is installed
+      package_facts:
+        manager: "auto"
+    - name: stop and disable avahi-daemon
+      service: name=avahi-daemon.service state=stopped enabled=no daemon_reload=yes
+      when: "'avahi' in ansible_facts.packages"
+    - name: stop-avahi-daemon.socket
+      service: name=avahi-daemon.socket state=stopped enabled=no daemon_reload=yes
+      when: "'avahi' in ansible_facts.packages"
+    - name: install rhel sysv radiusd
+      copy: src=ManagedSP/templates/FreeRADIUS/radiusd.service dest=/usr/lib/systemd/system/radiusd.service owner=root group=root mode=0644
+    - name: enable sysv radiusd.service service
+      service: name=radiusd.service enabled=yes daemon_reload=yes
+    - name: start radiusd
+      service: name=radiusd.service state=started
+    - name: install rhel sysv radsecproxy.service
+      copy: src=ManagedSP/templates/radsecproxy/radsecproxy.service dest=/usr/lib/systemd/system/radsecproxy.service owner=root group=root mode=0644
+    - name: enable sysv radsecproxy.service service
+      service: name=radsecproxy.service enabled=yes daemon_reload=yes
+    - name: start radsecproxy
+      service: name=radsecproxy.service state=started
+    - name: install rhel sysv radius-cfg
+      copy: src=ManagedSP/templates/daemon/radius-cfg.service dest=/usr/lib/systemd/system/radius-cfg.service owner=root group=root mode=0644
+    - name: enable sysv radius-cfg.service service
+      service: name=radius-cfg.service enabled=yes daemon_reload=yes
+    - name: start radius-cfg
+      service: name=radius-cfg.service state=started

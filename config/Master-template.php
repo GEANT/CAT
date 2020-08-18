@@ -38,7 +38,8 @@
 
 namespace config;
 
-class Master {
+class Master
+{
 
         /**
          * Defines parameters how this tool will present itself to users
@@ -109,7 +110,7 @@ class Master {
          * @var array
          */
         const AUTHENTICATION = [
-            'ssp-path-to-autoloader' => '/srv/www/simplesamlphp/lib/_autoload.php',
+            'ssp-path-to-autoloader' => '/var/www/simplesamlphp/lib/_autoload.php',
             'ssp-authsource' => 'default-sp',
             'ssp-attrib-identifier' => 'eptid',
             'ssp-attrib-email' => 'mail',
@@ -127,6 +128,7 @@ class Master {
             'version' => 2,
             'geoip2-path-to-autoloader' => '/usr/share/GeoIP2/vendor/autoload.php',
             'geoip2-path-to-db' => '/usr/share/GeoIP2/DB/GeoLite2-City.mmdb',
+            'geoip2-license-key' => '',
         ];
         /**
          * Configures the host to use to send emails to the outside world. We assume
@@ -210,17 +212,17 @@ class Master {
             // can be worked with.
             // if set to readonly, all edit and delete buttons are removed
             'INST' => [
-                'host' => 'db.host.example',
+                'host' => 'localhost',
                 'db' => 'cat',
-                'user' => 'someuser',
+                'user' => 'kitty',
                 'pass' => 'somepass',
                 'readonly' => FALSE,],
             // this DB stores diagnostics data. The connection details can be
             // identical to INST as there is no table overlap
             'DIAGNOSTICS' => [
-                'host' => 'db.host.example',
+                'host' => 'localhost',
                 'db' => 'cat',
-                'user' => 'someuser',
+                'user' => 'kitty',
                 'pass' => 'somepass',
                 'readonly' => FALSE,],
             // this slice of DB user is about the downloads table. The corresponding
@@ -228,9 +230,9 @@ class Master {
             // locations of installers. 
             // Marking this as READONLY does not make sense!
             'FRONTEND' => [
-                'host' => 'db.host.example',
+                'host' => 'localhost',
                 'db' => 'cat',
-                'user' => 'someuser',
+                'user' => 'kitty',
                 'pass' => 'somepass',
                 'readonly' => FALSE,],
             // this slice of DB use is about user management in the user_options
@@ -239,9 +241,9 @@ class Master {
             // means (custom queries are also possible of course).
             // Marking this as readonly replaced the obsolete config parameter "userdb-readonly"
             'USER' => [
-                'host' => 'db.host.example',
+                'host' => 'localhost',
                 'db' => 'cat',
-                'user' => 'someuser',
+                'user' => 'kitty',
                 'pass' => 'somepass',
                 'readonly' => FALSE,],
             /*   If you use this tool in conjunction with an external customer management database, you can configure that every 
@@ -284,9 +286,9 @@ class Master {
          */
         const DEBUG_LEVEL = 5;
         const SUPERADMINS = [
+            'admin',
             'eptid:someuser',
             'http://sommeopenid.example/anotheruser',
             'I do not care about security!',
         ];
-
 }

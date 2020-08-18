@@ -69,7 +69,14 @@ foreach ($salvageFedPrivs as $oneFed) {
     $i++;
 }
 ?>
+<h1><?php $tablecaption = _("Submitted attributes for this user"); echo $tablecaption; ?></h1>
 <table>
+            <caption><?php echo $tablecaption;?></caption>
+            <tr>
+                            <tr>
+                <th class="wai-invisible" scope="col"><?php echo _("Overall Result");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Details");?></th>
+            </tr>
     <?php
     echo $optionParser->processSubmittedFields($user, $_POST, $_FILES);
     $loggerInstance->writeAudit($_SESSION['user'], "MOD", "User attributes changed");

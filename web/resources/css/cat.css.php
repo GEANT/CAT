@@ -43,6 +43,14 @@ body {
 
 }
 
+caption {
+    display: none;
+}
+
+th.wai-invisible {
+    display: none;
+}
+
 button {
     background: <?php echo $colour2;?>; 
     color: #FFFFFF; 
@@ -443,6 +451,18 @@ table.compatmatrix td.compat_redirected {
     background-color: khaki;
     text-align: left;
     white-space:nowrap;
+}
+
+table.authrecord tr.auth-success {
+    color: green;
+}
+
+table.authrecord tr.auth-fail {
+    color: maroon;
+}
+
+table.authrecord td {
+    padding-right: 10px;
 }
 
 p.MOTD {

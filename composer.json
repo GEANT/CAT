@@ -1,4 +1,8 @@
 {
+
+    "name": "geant/cat",
+    "description": "IEEE 802.1X Configuration Assistant Tool",
+
     "require-dev": {
         "squizlabs/php_codesniffer": "3.4",
         "phpunit/phpunit": "^8.1"
@@ -6,7 +10,7 @@
     "require": {
         "geoip2/geoip2": "^2.9",
         "phpmailer/phpmailer": "^6.0",
-        "simplesamlphp/simplesamlphp": "^1.17",
+        "simplesamlphp/simplesamlphp": "^1.18",
         "chillerlan/php-qrcode": "^3.1"
     }
 }

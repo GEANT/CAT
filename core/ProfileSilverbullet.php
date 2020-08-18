@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Contributions to this work were made on behalf of the GÉANT project, a 
  * project that has received funding from the European Union’s Horizon 2020 
@@ -48,7 +49,8 @@ use \Exception;
  *
  * @package Developer
  */
-class ProfileSilverbullet extends AbstractProfile {
+class ProfileSilverbullet extends AbstractProfile
+{
 
     const SB_ACKNOWLEDGEMENT_REQUIRED_DAYS = 365;
 
@@ -71,7 +73,8 @@ class ProfileSilverbullet extends AbstractProfile {
      * @param int $profileId identifier of the profile in the DB
      * @param IdP $idpObject optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
      */
-    public function __construct($profileId, $idpObject = NULL) {
+    public function __construct($profileId, $idpObject = NULL)
+    {
         parent::__construct($profileId, $idpObject);
 
         $this->entityOptionTable = "profile_option";
@@ -108,18 +111,20 @@ class ProfileSilverbullet extends AbstractProfile {
             "profile:production" => "on",
         ];
 
-// and we need to populate eap:server_name and eap:ca_file with the NRO-specific EAP information
+        // and we need to populate eap:server_name and eap:ca_file with the NRO-specific EAP information
         $silverbulletAttributes = [
             "eap:server_name" => "auth." . strtolower($myFed->tld) . \config\ConfAssistant::SILVERBULLET['server_suffix'],
         ];
+        $temp = array_merge($this->addInternalAttributes($internalAttributes), $this->addInternalAttributes($silverbulletAttributes));
         $x509 = new \core\common\X509();
         $caHandle = fopen(dirname(__FILE__) . "/../config/SilverbulletServerCerts/" . strtoupper($myFed->tld) . "/root.pem", "r");
         if ($caHandle !== FALSE) {
             $cAFile = fread($caHandle, 16000000);
-            $silverbulletAttributes["eap:ca_file"] = $x509->der2pem(($x509->pem2der($cAFile)));
+            foreach ($x509->splitCertificate($cAFile) as $oneCa) {
+                $temp = array_merge($temp, $this->addInternalAttributes(['eap:ca_file' => $oneCa]));
+            }
         }
 
-        $temp = array_merge($this->addInternalAttributes($internalAttributes), $this->addInternalAttributes($silverbulletAttributes));
         $tempArrayProfLevel = array_merge($this->addDatabaseAttributes(), $temp);
 
 // now, fetch and merge IdP-wide attributes
@@ -164,7 +169,7 @@ class ProfileSilverbullet extends AbstractProfile {
             <li>If you choose to deposit users' email addresses in the system, you authorise the system to send emails on your behalf regarding operationally relevant events to the users in question (e.g. notification of nearing expiry dates of credentials, notification of access revocation).
         </ul>";
     }
-    
+
     /**
      * Updates database with new installer location; NOOP because we do not
      * cache anything in Silverbullet
@@ -176,7 +181,8 @@ class ProfileSilverbullet extends AbstractProfile {
      * @return void
      * @throws Exception
      */
-    public function updateCache($device, $path, $mime, $integerEapType) {
+    public function updateCache($device, $path, $mime, $integerEapType)
+    {
         // caching is not supported in SB (private key in installers)
         // the following merely makes the "unused parameter" warnings go away
         // the FALSE in condition one makes sure it never gets executed
@@ -193,7 +199,8 @@ class ProfileSilverbullet extends AbstractProfile {
      * @return void
      * @throws Exception
      */
-    public function addSupportedEapMethod(\core\common\EAP $type, $preference) {
+    public function addSupportedEapMethod(\core\common\EAP $type, $preference)
+    {
         // the parameters really should only list SB and with prio 1 - otherwise,
         // something fishy is going on
         if ($type->getIntegerRep() != \core\common\EAP::INTEGER_SILVERBULLET || $preference != 1) {
@@ -208,7 +215,8 @@ class ProfileSilverbullet extends AbstractProfile {
      * @return void
      * @throws Exception
      */
-    public function setAnonymousIDSupport($shallwe) {
+    public function setAnonymousIDSupport($shallwe)
+    {
         // we don't do anonymous outer IDs in SB
         if ($shallwe === TRUE) {
             throw new Exception("Silverbullet: attempt to add anonymous outer ID support to a SB profile!");
@@ -221,7 +229,8 @@ class ProfileSilverbullet extends AbstractProfile {
      * @param int $userId the userid
      * @return array of invitationObjects
      */
-    public function userStatus($userId) {
+    public function userStatus($userId)
+    {
         $retval = [];
         $userrows = $this->databaseHandle->exec("SELECT `token` FROM `silverbullet_invitation` WHERE `silverbullet_user_id` = ? AND `profile_id` = ? ", "ii", $userId, $this->identifier);
         // SELECT -> resource, not boolean
@@ -236,21 +245,59 @@ class ProfileSilverbullet extends AbstractProfile {
      * @param int $userId the numerical user ID of the user in question
      * @return string
      */
-    public function getUserExpiryDate($userId) {
+    public function getUserExpiryDate($userId)
+    {
         $query = $this->databaseHandle->exec("SELECT expiry FROM silverbullet_user WHERE id = ? AND profile_id = ? ", "ii", $userId, $this->identifier);
         // SELECT -> resource, not boolean
         while ($returnedData = mysqli_fetch_object(/** @scrutinizer ignore-type */ $query)) {
             return $returnedData->expiry;
         }
     }
-    
+
+    /**
+     * retrieves the authentication records from the RADIUS servers 
+     * 
+     * @param int $userId the numerical user ID of the user in question
+     * @return array
+     */
+    public function getUserAuthRecords($userId)
+    {
+        // find out all certificate CNs belonging to the user, including expired and revoked ones
+        $userData = $this->userStatus($userId);
+        $certNames = [];
+        foreach ($userData as $oneSlice) {
+            foreach ($oneSlice->associatedCertificates as $oneCert) {
+                $certNames[] = $oneCert->username;
+            }
+        }
+        if (empty($certNames)) {
+            return [];
+        }
+        $namesCondensed = "'" . implode("' OR username = '", $certNames) . "'";
+        $serverHandles = DBConnection::handle("RADIUS");
+        $returnarray = [];
+        foreach ($serverHandles as $oneDbServer) {
+            $query = $oneDbServer->exec("SELECT username, authdate, reply, callingid, operatorname FROM eduroamauth WHERE username = $namesCondensed ORDER BY authdate DESC");
+            // SELECT -> resource, not boolean
+            while ($returnedData = mysqli_fetch_object(/** @scrutinizer ignore-type */ $query)) {
+                $returnarray[] = ["CN" => $returnedData->username, "TIMESTAMP" => $returnedData->authdate, "RESULT" => $returnedData->reply, "MAC" => $returnedData->callingid, "OPERATOR" => $returnedData->operatorname];
+            }
+        }
+        usort($returnarray, function($one, $another) {
+            return $one['TIMESTAMP'] < $another['TIMESTAMP'];
+        });
+
+        return $returnarray;
+    }
+
     /**
      * sets the expiry date of a user to a new date of choice
      * @param int       $userId the username
      * @param \DateTime $date   the expiry date
      * @return void
      */
-    public function setUserExpiryDate($userId, $date) {
+    public function setUserExpiryDate($userId, $date)
+    {
         $query = "UPDATE silverbullet_user SET expiry = ? WHERE profile_id = ? AND id = ?";
         $theDate = $date->format("Y-m-d H:i:s");
         $this->databaseHandle->exec($query, "sii", $theDate, $this->identifier, $userId);
@@ -260,7 +307,8 @@ class ProfileSilverbullet extends AbstractProfile {
      * lists all users of this SB profile
      * @return array
      */
-    public function listAllUsers() {
+    public function listAllUsers()
+    {
         $userArray = [];
         $users = $this->databaseHandle->exec("SELECT `id`, `username` FROM `silverbullet_user` WHERE `profile_id` = ? ", "i", $this->identifier);
         // SELECT -> resource, not boolean
@@ -271,10 +319,41 @@ class ProfileSilverbullet extends AbstractProfile {
     }
 
     /**
+     * get the user of this SB profile identified by ID
+     * @param int $userId the user id
+     * @return array
+     */
+    public function getUserById($userId)
+    {
+        $users = $this->databaseHandle->exec("SELECT `id`, `username` FROM `silverbullet_user` WHERE `profile_id` = ? AND `id` = ? ", "ii", $this->identifier, $userId);
+        // SELECT -> resource, not boolean
+        while ($res = mysqli_fetch_object(/** @scrutinizer ignore-type */ $users)) {
+            return [$res->id => $res->username];
+        }
+        return [];
+    }
+
+    /**
+     * get the user of this SB profile identified by Username
+     * @param string $userName the username
+     * @return array
+     */
+    public function getUserByName($userName)
+    {
+        $users = $this->databaseHandle->exec("SELECT `id`, `username` FROM `silverbullet_user` WHERE `profile_id` = ? AND `username` = ? ", "is", $this->identifier, $userName);
+        // SELECT -> resource, not boolean
+        while ($res = mysqli_fetch_object(/** @scrutinizer ignore-type */ $users)) {
+            return [$res->id => $res->username];
+        }
+        return [];
+    }
+
+    /**
      * lists all users which are currently active (i.e. have pending invitations and/or valid certs)
      * @return array
      */
-    public function listActiveUsers() {
+    public function listActiveUsers()
+    {
         // users are active if they have a non-expired invitation OR a non-expired, non-revoked certificate
         $userCount = [];
         $users = $this->databaseHandle->exec("SELECT DISTINCT u.id AS usercount FROM silverbullet_user u, silverbullet_invitation i, silverbullet_certificate c "
@@ -286,7 +365,7 @@ class ProfileSilverbullet extends AbstractProfile {
                 . ")", "i", $this->identifier);
         // SELECT -> resource, not boolean
         while ($res = mysqli_fetch_object(/** @scrutinizer ignore-type */ $users)) {
-            $userCount[] = $res->usercount;
+            $userCount[$res->usercount] = "ACTIVE";
         }
         return $userCount;
     }
@@ -298,7 +377,8 @@ class ProfileSilverbullet extends AbstractProfile {
      * @param \DateTime $expiry   the expiry date
      * @return int row ID of the new user in the database
      */
-    public function addUser($username, \DateTime $expiry) {
+    public function addUser($username, \DateTime $expiry)
+    {
         $query = "INSERT INTO silverbullet_user (profile_id, username, expiry) VALUES(?,?,?)";
         $date = $expiry->format("Y-m-d H:i:s");
         $this->databaseHandle->exec($query, "iss", $this->identifier, $username, $date);
@@ -311,7 +391,8 @@ class ProfileSilverbullet extends AbstractProfile {
      * @return boolean was the user found and deactivated?
      * @throws Exception
      */
-    public function deactivateUser($userId) {
+    public function deactivateUser($userId)
+    {
         // does the user exist and is active, anyway?
         $queryExisting = "SELECT id FROM silverbullet_user WHERE profile_id = $this->identifier AND id = ? AND expiry >= NOW()";
         $execExisting = $this->databaseHandle->exec($queryExisting, "i", $userId);
@@ -340,18 +421,41 @@ class ProfileSilverbullet extends AbstractProfile {
         $ret = $this->databaseHandle->exec($query3, "i", $userId);
         // this is an UPDATE, and always returns TRUE. Need to tell Scrutinizer all about it.
         if ($ret === TRUE) {
-        return TRUE;
+            return TRUE;
         } else {
             throw new Exception("The UPDATE statement could not be executed successfully.");
         }
     }
-    
+
+    /**
+     * delete the user in question, including all expired and revoked certificates
+     * @param int $userId the username
+     * @return boolean was the user deleted?
+     */
+    public function deleteUser($userId)
+    {
+        // do we really not have any auth records that may need to be tied to this user?
+        if (count($this->getUserAuthRecords($userId)) > 0) {
+            return false;
+        }
+        // find and delete all certificates
+        $certQuery = "DELETE FROM silverbullet_certificate WHERE profile_id = $this->identifier AND silverbullet_user_id = ?";
+        $this->databaseHandle->exec($certQuery, "i", $userId);
+        // find and delete obsolete invitation token track record
+        $tokenQuery = "DELETE FROM silverbullet_invitation WHERE profile_id = $this->identifier AND silverbullet_user_id = ?";
+        $this->databaseHandle->exec($tokenQuery, "i", $userId);
+        // delete user record itself
+        $userQuery = "DELETE FROM silverbullet_user WHERE profile_id = $this->identifier AND id = ?";
+        $this->databaseHandle->exec($userQuery, "i", $userId);
+    }
+
     /**
      * updates the last_ack for all users (invoked when the admin claims to have re-verified continued eligibility of all users)
      * 
      * @return void
      */
-    public function refreshEligibility() {
+    public function refreshEligibility()
+    {
         $query = "UPDATE silverbullet_user SET last_ack = NOW() WHERE profile_id = ?";
         $this->databaseHandle->exec($query, "i", $this->identifier);
     }

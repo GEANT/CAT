@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -31,22 +32,24 @@
  */
 
 namespace core;
+
 use \Exception;
 
 /**
  * This class collect methods used for comminication via network UserAPI
  * The methods are generally wrappers around more general UserAPI ones
  */
-
-class UserNetAPI extends UserAPI {
+class UserNetAPI extends UserAPI
+{
 
     /**
      * nothing special to be done here.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
-    
+
     /**
      *  wrapper JSON function
      * 
@@ -56,7 +59,8 @@ class UserNetAPI extends UserAPI {
      * @return string JSON encoded data
      * @throws \Exception
      */
-    public function returnJSON($data, $status = 1, $otherData = []) {
+    public function returnJSON($data, $status = 1, $otherData = [])
+    {
         $validator = new \web\lib\common\InputValidation();
         $host = $validator->hostname($_SERVER['SERVER_NAME']);
         if ($host === FALSE) {
@@ -77,7 +81,8 @@ class UserNetAPI extends UserAPI {
      * 
      * @return void creates direct output
      */
-    public function jsonListLanguages() {
+    public function jsonListLanguages()
+    {
         $returnArray = [];
         foreach (\config\Master::LANGUAGES as $id => $val) {
             $returnArray[] = ['lang' => $id, 'display' => $val['display'], 'locale' => $val['locale']];
@@ -90,7 +95,8 @@ class UserNetAPI extends UserAPI {
      *
      * @return void creates direct output
      */
-    public function jsonListCountries() {
+    public function jsonListCountries()
+    {
         $federations = $this->printCountryList(1);
         $returnArray = [];
         foreach ($federations as $id => $val) {
@@ -105,7 +111,8 @@ class UserNetAPI extends UserAPI {
      * @param string $country the country we are interested in
      * @return void creates direct output
      */
-    public function jsonListIdentityProviders($country) {
+    public function jsonListIdentityProviders($country)
+    {
         $idps = $this->listAllIdentityProviders(1, $country);
         $returnArray = [];
         foreach ($idps as $idp) {
@@ -120,7 +127,8 @@ class UserNetAPI extends UserAPI {
      * 
      * @return void creates direct output
      */
-    public function jsonListIdentityProvidersForDisco() {
+    public function jsonListIdentityProvidersForDisco()
+    {
         $idps = $this->listAllIdentityProviders(1);
         $returnArray = [];
         foreach ($idps as $idp) {
@@ -138,7 +146,8 @@ class UserNetAPI extends UserAPI {
      * @param array  $location the coordinates of the approximate user location
      * @return void creates direct output
      */
-    public function jsonOrderIdentityProviders($country, $location) {
+    public function jsonOrderIdentityProviders($country, $location)
+    {
         $idps = $this->orderIdentityProviders($country, $location);
         $returnArray = [];
         foreach ($idps as $idp) {
@@ -154,7 +163,8 @@ class UserNetAPI extends UserAPI {
      * @param int $sort          should the result set be sorted? 0 = no, 1 = yes
      * @return void creates direct output
      */
-    public function jsonListProfiles($idpIdentifier, $sort = 0) {
+    public function jsonListProfiles($idpIdentifier, $sort = 0)
+    {
         $returnArray = [];
         try {
             $idp = new IdP($idpIdentifier);
@@ -182,7 +192,7 @@ class UserNetAPI extends UserAPI {
             usort($profiles, ["UserAPI", "profileSort"]);
         }
         foreach ($profiles as $profile) {
-            $returnArray[] = ['profile' => $profile->identifier, 'id'=>$profile->identifier, 'display' => $profile->name, 'idp_name' => $profile->instName, 'logo' => $hasLogo];
+            $returnArray[] = ['profile' => $profile->identifier, 'id' => $profile->identifier, 'display' => $profile->name, 'idp_name' => $profile->instName, 'logo' => $hasLogo];
         }
         echo $this->returnJSON($returnArray, 1, $otherData);
     }
@@ -193,7 +203,8 @@ class UserNetAPI extends UserAPI {
      * @param int $profileId the Profile identifier
      * @return void creates direct output
      */
-    public function jsonListDevices($profileId) {
+    public function jsonListDevices($profileId)
+    {
         $returnArray = [];
         $profileAttributes = $this->profileAttributes($profileId);
         $thedevices = $profileAttributes['devices'];
@@ -201,7 +212,7 @@ class UserNetAPI extends UserAPI {
             if (\core\common\Entity::getAttributeValue($D, 'options', 'hidden') === 1) {
                 continue;
             }
-            if ($D['device'] === '0') {
+            if ($D['id'] === '0') { // This is a global profile level redirect therefore no device name is available
                 $disp = '';
             } else {
                 $disp = $D['display'];
@@ -218,7 +229,8 @@ class UserNetAPI extends UserAPI {
      * @param int    $prof_id profile identifier
      * @return void creates direct output
      */
-    public function jsonGenerateInstaller($device, $prof_id) {
+    public function jsonGenerateInstaller($device, $prof_id)
+    {
         $this->loggerInstance->debug(4, "JSON::generateInstaller arguments: $device,$prof_id\n");
         $output = $this->generateInstaller($device, $prof_id);
         $this->loggerInstance->debug(4, "output from GUI::generateInstaller:");
@@ -233,7 +245,8 @@ class UserNetAPI extends UserAPI {
      * 
      * @return void creates direct output
      */
-    public function jsonDetectOS() {
+    public function jsonDetectOS()
+    {
         $status = 1;
         $returnArray = $this->detectOS();
         if ($returnArray === FALSE) {
@@ -241,13 +254,14 @@ class UserNetAPI extends UserAPI {
         }
         echo $this->returnJSON($returnArray, $status);
     }
-    
+
     /**
      * outputs user certificates pertaining to a given token in JSON
      * @param string $token the token for which we want certs
      * @return void creates direct output
      */
-    public function jsonGetUserCerts($token) {
+    public function jsonGetUserCerts($token)
+    {
         $status = 1;
         $returnArrayE = $this->getUserCerts($token);
         $returnArray = [];
@@ -261,13 +275,14 @@ class UserNetAPI extends UserAPI {
         }
         echo $this->returnJSON($returnArray, $status);
     }
-    
-    /** 
+
+    /**
      * outputs the user location as JSON
      * 
      * @return void creates direct output
      */
-    public function jsonLocateUser() {
+    public function jsonLocateUser()
+    {
         header('Content-type: application/json; utf-8');
         echo json_encode($this->locateDevice());
     }
@@ -278,7 +293,8 @@ class UserNetAPI extends UserAPI {
      * @param integer $profileId the profile ID
      * @return void creates direct output
      */
-    public function jsonProfileAttributes($profileId) {
+    public function jsonProfileAttributes($profileId)
+    {
 //    header('Content-type: application/json; utf-8');
         echo $this->returnJSON($this->profileAttributes($profileId));
     }
@@ -292,7 +308,8 @@ class UserNetAPI extends UserAPI {
      * @param integer    $height     desired target height
      * @return void creates direct output
      */
-    public function sendLogo($identifier, $type, $width, $height) {
+    public function sendLogo($identifier, $type, $width, $height)
+    {
         $logo = $this->getLogo($identifier, $type, $width, $height);
         $blob = $logo === NULL ? file_get_contents(ROOT . '/web/resources/images/empty.png') : $logo['blob'];
         header("Content-type: " . $logo['filetype']);
@@ -300,5 +317,4 @@ class UserNetAPI extends UserAPI {
         header($logo['expires']);
         echo $blob;
     }
-    
 }

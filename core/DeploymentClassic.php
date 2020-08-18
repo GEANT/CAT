@@ -48,7 +48,8 @@ use \Exception;
  *
  * @package Developer
  */
-class DeploymentClassic extends AbstractDeployment {
+class DeploymentClassic extends AbstractDeployment
+{
 
     /**
      * Class constructor for existing deployments (use 
@@ -58,7 +59,8 @@ class DeploymentClassic extends AbstractDeployment {
      * @param IdP        $idpObject       optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
      * @param string|int $deploymentIdRaw identifier of the deployment in the DB, or 
      */
-    public function __construct($idpObject, $deploymentIdRaw = NULL) {
+    public function __construct($idpObject, $deploymentIdRaw = NULL)
+    {
         parent::__construct($idpObject, $deploymentIdRaw); // we now have access to our INST database handle and logging
         $this->type = AbstractDeployment::DEPLOYMENTTYPE_MANAGED;
         // TODO we need to extract the SP's relevant information from the eduroam DB
@@ -74,7 +76,8 @@ class DeploymentClassic extends AbstractDeployment {
      * 
      * @return void
      */
-    public function updateFreshness() {
+    public function updateFreshness()
+    {
         // we are always fresh - data comes from eduroam DB
     }
 
@@ -83,7 +86,8 @@ class DeploymentClassic extends AbstractDeployment {
      * 
      * @return string the date in string form, as returned by SQL
      */
-    public function getFreshness() {
+    public function getFreshness()
+    {
         // we are always fresh - data comes from eduroam DB
         $execLastChange = $this->databaseHandle->exec("SELECT NOW() as last_change");
         // SELECT always returns a resource, never a boolean
@@ -97,7 +101,8 @@ class DeploymentClassic extends AbstractDeployment {
      * 
      * @return void
      */
-    public function destroy() {
+    public function destroy()
+    {
         // we can't delete data from the eduroam DB
     }
 
@@ -106,16 +111,18 @@ class DeploymentClassic extends AbstractDeployment {
      * 
      * @return void
      */
-    public function activate() {
+    public function activate()
+    {
         // nothing to be done, this is managed externally
     }
-    
+
     /**
      * deactivates a deployment, but that is not how classic works
      * 
      * @return void
      */
-    public function deactivate() {
+    public function deactivate()
+    {
         // nothing to be done, this is managed externally
     }
 }

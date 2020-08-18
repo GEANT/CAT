@@ -23,6 +23,14 @@ namespace devices\ms;
 ; Used by Vista/W7/W8/W10 module
 ;---------------------------------------
 
+; Start
+
+SetCompress auto
+SetCompressor bzip2
+CRCCheck on
+ManifestDPIAware true
+
+
 !define DEBUG_CAT 5
 Var HEADLINE
 Var TEXT
@@ -45,15 +53,12 @@ Var HEADLINE_FONT
         !include "FileFunc.nsh"
         !include "x64.nsh"
         !include "WinVer.nsh"
-SetCompressor bzip2
 !ifdef WIRED
    !ifdef EXECLEVEL
       !undef EXECLEVEL
    !endif
       !define EXECLEVEL "admin"
 !endif
-
-XPStyle on
 
 !define PROFILE_STATE_DELETE 1
  
@@ -74,6 +79,7 @@ Var W7
 Var WindowsVer
 Var WindowsName
 Var WindowsBuild
+Var NoFCupdate
 Var Symantec_installed
 Var wireless_result
 Var wired
@@ -172,9 +178,9 @@ MiscButtonText "" "" "" "<?php WindowsCommon::echoNsis( _("Finish"))?>"
 !macroend
 
 
-!macro define_wlan_profile prof enc
+!macro define_wlan_profile prof enc hs20
   nsArray::Set Profile_names /key=$profile_count "${prof}"
-  
+  nsArray::Set Profile_hs20 /key=$profile_count ${hs20}  
   IntOp $profile_count $profile_count + 1
   ${If} ${enc} == "TKIP"
     IntOp $tkip_count $tkip_count + 1
@@ -544,7 +550,17 @@ Function wVersionCheck
   Pop $WindowsName
   Pop $WindowsVer
   ${WinVerGetBuild} $WindowsBuild
-  !insertmacro debug_cat 3 "Detected $WindowsName:$WindowsVer"
+  !insertmacro debug_cat 3 "Detected $WindowsName:$WindowsVer:$WindowsBuild"
+  Push 1
+  Pop $NoFCupdate
+  ${If} ${AtLeastWin10}
+    !if "${NSIS_PACKEDVERSION}" > 0x3003000
+        ${If} ${AtLeastWaaS} "Fall Creators Update"
+           Push 0
+           Pop $NoFCupdate
+        ${EndIf}
+    !endif
+  ${EndIf}
   ${If} ${IsWinVista}
      ${If} ${AtLeastServicePack} 1
         Push 0
@@ -557,6 +573,16 @@ Function wVersionCheck
   Pop $VistaNoSP
 
 !ifdef W10
+; for native TTLS only - if the system has not been updated to have the working native supplicant - warn the user
+; This will only work correctly for NSIS 3.04 and newer.
+    !ifdef TTLS
+        ${If} $NoFCupdate == 1
+            IfSilent +3
+            MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION  "<?php WindowsCommon::echoNsis(_("Your Windows 10 has not been updated which means that you are likely to have problems accessing network. We suggest that you quit this installation, update your Windows and try again"))?>" IDOK cont1
+            Call Cleanup
+            ${EndIf}
+            cont1:
+    !endif
   ${If} ${AtMostWin8.1}
     IfSilent +2
     MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php WindowsCommon::echoNsis(_("You are running Windows \$WindowsName but this installer is only for Windows 10 and newer. Please download the correct installer and try again."))?>"
@@ -847,7 +873,7 @@ Function CreateLanProfile
   !insertmacro debug_cat 3 "execute: $Netsh lan add profile $TEMP\lan_prof.xml"
   nsArray::Set Commands "netsh lan add profile $TEMP\lan_prof.xml" 
   nsArray::Set Commands "del $TEMP\lan_prof.xml"
-  nsExec::Exec '"$Netsh" lan add profile $TEMP\lan_prof.xml'
+  nsExec::Exec '"$Netsh" lan add profile "$TEMP\lan_prof.xml"'
   Pop $0
   !insertmacro debug_cat 4 "netsh returned $0"
      !insertmacro debug_cat 1 "Wired profile created"
@@ -916,20 +942,24 @@ Function InstallProfile
   !insertmacro debug_cat 3 "Execute: $Netsh wlan add profile $TEMP\wlan_prof-$R0.xml"
   nsArray::Set Commands "netsh wlan add profile $TEMP\wlan_prof-$R0.xml" 
   nsArray::Set Commands "del $TEMP\wlan_prof-$R0.xml"
-  nsExec::Exec '"$Netsh" wlan add profile $TEMP\wlan_prof-$R0.xml'
+
+  nsExec::ExecToStack '"$Netsh" wlan add profile $TEMP\wlan_prof-$R0.xml'
   Pop $0
+  Pop $1
   !insertmacro debug_cat 4 "netsh returned $0"
   ${If} $0 <> 0
     !insertmacro debug_cat 1 'Profile installation error for "$R1"'
-    ${If} $R1 == "cat-passpoint-profile"
+    nsArray::Get Profile_hs20 $R0
+    Pop $R3
+    ${If} $R3 == 1
         GoTo FailedProfile
     ${EndIf}
     IfSilent +2
     MessageBox MB_OK "<?php WindowsCommon::echoNsis(_("Profile installation error for \$R1."))?>$\r$\n<?php WindowsCommon::echoNsis(_("Please contact \${SUPPORT}."))?>"
-    FailedProfile:
-    nsArray::Set Profile_states /key=$R0 ${PROFILE_STATE_FAIL}
     Push 1
     Pop $profile_fail
+    FailedProfile:
+    nsArray::Set Profile_states /key=$R0 ${PROFILE_STATE_FAIL}
   ${Else}
      !insertmacro debug_cat 1 "Profile $R1 created"
     Push 1
@@ -1079,8 +1109,8 @@ Function InstallWirelessCred
     !ifdef PEAP
       Call writePeapUserProfle
     !endif
-    !insertmacro debug_cat 3 "Execute: $TEMP\WLANSetEAPUserData$Platform.exe $\"$R1$\" 0 $TEMP\user_cred.xml"
-    nsExec::Exec "$TEMP\WLANSetEAPUserData$Platform.exe $\"$R1$\" 0 $TEMP\user_cred.xml"
+    !insertmacro debug_cat 3 'Execute: "$TEMP\WLANSetEAPUserData$Platform.exe" "$R1" 0 "$TEMP\user_cred.xml"'
+    nsExec::Exec '"$TEMP\WLANSetEAPUserData$Platform.exe" "$R1" 0 "$TEMP\user_cred.xml"'
     Pop $0
     ${If} $Debug_cat == 0
        Delete "$TEMP\user_cred.xml"
@@ -1427,7 +1457,9 @@ FunctionEnd
 ;=============================
 !ifdef CRED
 Function InstallUserCredentials
-  Call EncodeXmlChars
+  !ifdef PASSWORD_BASED_CRED
+     Call EncodeXmlChars
+  !endif
   Call InstallWirelessUserCredentials
   Call InstallWiredUserCredentials
 FunctionEnd

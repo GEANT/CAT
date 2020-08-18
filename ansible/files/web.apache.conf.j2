@@ -1,0 +1,26 @@
+<VirtualHost *:80>
+   ServerAdmin webmaster@localhost
+   ServerName {{ http_host }}
+   DocumentRoot /var/www/{{ http_host }}
+   ErrorLog {{ http_logdir }}/error.log
+   CustomLog {{ http_logdir }}/access.log combined
+
+   Alias /simplesaml/ /var/www/{{ http_host }}/cat/vendor/simplesamlphp/simplesamlphp/www/
+   Alias / /var/www/{{ http_host }}/cat/web/
+
+        <Directory "/var/www/{{ http_host }}/cat/web/">
+                Options Indexes FollowSymLinks
+                AllowOverride None
+                Require all granted
+        </Directory>
+
+        <Directory "/var/www/{{ http_host }}/cat/vendor/simplesamlphp/simplesamlphp/www/">
+                Options Indexes FollowSymLinks
+                AllowOverride None
+                Require all granted
+        </Directory>
+
+        <Directory "/var/www/{{ http_host }}/cat/web/accountstatus/">
+                AllowOverride AuthConfig
+        </Directory>
+</VirtualHost>

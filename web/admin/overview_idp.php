@@ -66,6 +66,9 @@ echo $mapCode->htmlHeadCode();
     <h1><?php echo sprintf(_("%s Overview"), $uiElements->nomenclatureInst); ?></h1>
     <div>
         <h2><?php echo sprintf(_("%s general settings"), $uiElements->nomenclatureInst); ?></h2>
+        <form action='edit_participant.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
+            <button type='submit' name='submitbutton' value='<?php echo \web\lib\common\FormElements::BUTTON_EDIT; ?>'><?php echo sprintf(_("Edit general %s details"), $uiElements->nomenclatureParticipant); ?></button>
+        </form>
         <?php
         echo $uiElements->instLevelInfoBoxes($my_inst);
         ?>
@@ -135,7 +138,14 @@ echo $mapCode->htmlHeadCode();
                     </div>
 
                     <div style='width:20px;'></div>
-                    <div style='display: table-cell; min-width:200px;'><p><strong><?php echo _("User Downloads"); ?></strong></p><table>
+                    <div style='display: table-cell; min-width:200px;'>
+                        <p><strong><?php $tablecaption = _("User Downloads"); echo $tablecaption;?></strong></p>
+                        <table>
+                            <caption><?php echo $tablecaption;?></caption>
+                            <tr>
+                                <th scope='col'><?php echo _("Device");?></th>
+                                <th scope='col'><?php echo _("Count");?></th>
+                            </tr>
                                 <?php
                                 $stats = $profile_list->getUserDownloadStats();
                                 foreach ($stats as $dev => $count) {
@@ -155,7 +165,7 @@ echo $mapCode->htmlHeadCode();
                 // readiness - but want to display it before!
                 $has_overrides = FALSE;
                 foreach ($attribs as $attrib) {
-                    if ($attrib['level'] == "Profile" && !preg_match("/^(internal:|profile:name|profile:description|eap:)/", $attrib['name'])) {
+                    if ($attrib['level'] == \core\Options::LEVEL_PROFILE && !preg_match("/^(internal:|profile:name|profile:description|eap:)/", $attrib['name'])) {
                         $has_overrides = TRUE;
                     }
                 }
@@ -183,7 +193,7 @@ echo $mapCode->htmlHeadCode();
                     $attribs = $profile_list->getAttributes();
                     $justOnce = FALSE;
                     foreach ($attribs as $attrib) {
-                        if ($attrib['level'] == "Method" && !preg_match("/^internal:/", $attrib['name']) && !$justOnce) {
+                        if ($attrib['level'] == \core\Options::LEVEL_METHOD && !preg_match("/^internal:/", $attrib['name']) && !$justOnce) {
                             $justOnce = TRUE;
                             $buffer_eaptypediv .= "<img src='../resources/images/icons/Letter-E-blue-icon.png' alt='" . _("Options on EAP Method/Device level are in effect.") . "'>";
                         }

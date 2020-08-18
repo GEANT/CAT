@@ -44,6 +44,7 @@ import argparse
 import base64
 import getpass
 import os
+import platform
 import re
 import subprocess
 import sys
@@ -102,13 +103,6 @@ try:
 except ImportError:
     CRYPTO_AVAILABLE = False
 
-
-if sys.version_info.major == 3 and sys.version_info.minor >= 8:
-    import distro
-else:
-    import platform
-
-
 # the function below was partially copied
 # from https://ubuntuforums.org/showthread.php?t=1139057
 def detect_desktop_environment():
@@ -143,12 +137,12 @@ def get_system():
     It is meant to enable password encryption in distros
     that can handle this well.
     """
-    if sys.version_info.major == 3 and sys.version_info.minor >= 8:
-        system = distro.linux_distribution()
-    else:
-        system = platform.linux_distribution()
-    desktop = detect_desktop_environment()
-    return [system[0], system[1], desktop]
+    system = platform.system_alias(
+        platform.system(),
+        platform.release(),
+        platform.version()
+    )
+    return [system, detect_desktop_environment()]
 
 
 def get_config_path():
@@ -234,7 +228,7 @@ class Messages(object):
     enter_import_password = "enter your import password"
     incorrect_password = "incorrect password"
     repeat_password = "repeat your password"
-    passwords_difffer = "passwords do not match"
+    passwords_differ = "passwords do not match"
     installation_finished = "Installation successful"
     cat_dir_exists = "Directory {} exists; some of its files may be " \
         "overwritten."
@@ -493,7 +487,7 @@ class InstallerData(object):
             password1 = self.prompt_nonempty_string(
                 0, Messages.repeat_password)
             if password != password1:
-                self.alert(Messages.passwords_difffer)
+                self.alert(Messages.passwords_differ)
         self.password = password
 
     def __get_graphics_support(self):
@@ -818,7 +812,7 @@ class CatNMConfigTool(object):
             props = dbus.Interface(proxy, "org.freedesktop.DBus.Properties")
             version = props.Get("org.freedesktop.NetworkManager", "Version")
         except dbus.exceptions.DBusException:
-            version = "0.8"
+            version = ""
         if re.match(r'^1\.', version):
             self.nm_version = "1.0"
             return

@@ -40,5 +40,20 @@ td.icon_td img {
 .error_input {
     border:1px solid red;
 }
+#tests_info_area {
+    font-size:12px;
+    color: black;
+}
+#test_area a {
+    text-transform: uppercase;
+    text-decoration: none;
+}
+.diag_button {
+  transition-duration: 0.4s;
+  border-radius: 4px;
+}
 
-
+.diag_button:hover {
+  background-color: #0e68ed;
+  color: white;
+}

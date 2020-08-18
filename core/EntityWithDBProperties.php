@@ -44,7 +44,8 @@ use Exception;
  *
  * @license see LICENSE file in root directory
  */
-abstract class EntityWithDBProperties extends \core\common\Entity {
+abstract class EntityWithDBProperties extends \core\common\Entity
+{
 
     /**
      * This variable gets initialised with the known IdP attributes in the constructor. It never gets updated until the object
@@ -103,12 +104,20 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
     /**
      * The constructor initialises the entity. Since it has DB properties,
      * this means the DB connection is set up for it.
+     * 
+     * @throws Exception
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         // we are called after the sub-classes have declared their default
-        // databse instance in $databaseType
-        $this->databaseHandle = DBConnection::handle($this->databaseType);
+        // database instance in $databaseType
+        $handle = DBConnection::handle($this->databaseType);
+        if ($handle instanceof DBConnection) {
+            $this->databaseHandle = $handle;
+        } else {
+            throw new Exception("This database type is never an array!");
+        }
         $this->attributes = [];
     }
 
@@ -117,7 +126,8 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * @return string|int
      * @throws Exception
      */
-    private function getRelevantIdentifier() {
+    private function getRelevantIdentifier()
+    {
         switch (get_class($this)) {
             case "core\ProfileRADIUS":
             case "core\ProfileSilverbullet":
@@ -145,7 +155,8 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * @param string $optionName optionally, the name of the attribute that is to be retrieved
      * @return array of arrays of attributes which were set for this IdP
      */
-    public function getAttributes(string $optionName = NULL) {
+    public function getAttributes(string $optionName = NULL)
+    {
         if ($optionName !== NULL) {
             $returnarray = [];
             foreach ($this->attributes as $theAttr) {
@@ -164,7 +175,8 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * @param string $extracondition a condition to append to the deletion query. RADIUS Profiles have eap-level or device-level options which shouldn't be purged; this can be steered in the overriding function.
      * @return array list of row id's of file-based attributes which weren't deleted
      */
-    public function beginFlushAttributes($extracondition = "") {
+    public function beginFlushAttributes($extracondition = "")
+    {
         $quotedIdentifier = (!is_int($this->getRelevantIdentifier()) ? "\"" : "") . $this->getRelevantIdentifier() . (!is_int($this->getRelevantIdentifier()) ? "\"" : "");
         $this->databaseHandle->exec("DELETE FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier AND option_name NOT LIKE '%_file' $extracondition");
         $this->updateFreshness();
@@ -183,7 +195,8 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * @param array $tobedeleted array of database rows which are to be deleted
      * @return void
      */
-    public function commitFlushAttributes(array $tobedeleted) {
+    public function commitFlushAttributes(array $tobedeleted)
+    {
         $quotedIdentifier = (!is_int($this->getRelevantIdentifier()) ? "\"" : "") . $this->getRelevantIdentifier() . (!is_int($this->getRelevantIdentifier()) ? "\"" : "");
         foreach (array_keys($tobedeleted) as $row) {
             $this->databaseHandle->exec("DELETE FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier AND row = $row");
@@ -196,7 +209,8 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * 
      * @return void
      */
-    public function flushAttributes() {
+    public function flushAttributes()
+    {
         $this->commitFlushAttributes($this->beginFlushAttributes());
     }
 
@@ -208,7 +222,8 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * @param mixed  $attrValue Value of the attribute. Can be anything; will be stored in the DB as-is.
      * @return void
      */
-    public function addAttribute($attrName, $attrLang, $attrValue) {
+    public function addAttribute($attrName, $attrLang, $attrValue)
+    {
         $relevantId = $this->getRelevantIdentifier();
         $identifierType = (is_int($relevantId) ? "i" : "s");
         $this->databaseHandle->exec("INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_lang, option_value) VALUES(?,?,?,?)", $identifierType . "sss", $relevantId, $attrName, $attrLang, $attrValue);
@@ -222,7 +237,8 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * @return array the attributes in one array
      * @throws Exception
      */
-    protected function retrieveOptionsFromDatabase($query, $level) {
+    protected function retrieveOptionsFromDatabase($query, $level)
+    {
         if (substr($query, 0, 6) != "SELECT") {
             throw new Exception("This function only operates with SELECT queries!");
         }
@@ -254,7 +270,8 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * @param int    $row   rowindex
      * @return string|boolean the data, or FALSE if something went wrong
      */
-    public static function fetchRawDataByIndex($table, $row) {
+    public static function fetchRawDataByIndex($table, $row)
+    {
         // only for select tables!
         switch ($table) {
             case "institution_option":
@@ -281,7 +298,8 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * @param int    $row   row index of the table
      * @return mixed FALSE if the data is public, an array of owners of the data if it is NOT public
      */
-    public static function isDataRestricted($table, $row) {
+    public static function isDataRestricted($table, $row)
+    {
         if ($table != "institution_option" && $table != "profile_option" && $table != "federation_option" && $table != "user_options") {
             return []; // better safe than sorry: that's an error, so assume nobody is authorised to act on that data
         }
@@ -330,7 +348,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
         }
     }
 
-        /**
+    /**
      * join new attributes to existing ones, but only if not already defined on
      * a different level in the existing set
      * 
@@ -339,11 +357,12 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * @param string $newlevel the level of the new attributes
      * @return array the new set of attributes
      */
-    protected function levelPrecedenceAttributeJoin($existing, $new, $newlevel) {
+    protected function levelPrecedenceAttributeJoin($existing, $new, $newlevel)
+    {
         foreach ($new as $attrib) {
             $ignore = "";
             foreach ($existing as $approvedAttrib) {
-                if (($attrib["name"] == $approvedAttrib["name"] && $approvedAttrib["level"] != $newlevel) && ($approvedAttrib["name"] != "device-specific:redirect") ){
+                if (($attrib["name"] == $approvedAttrib["name"] && $approvedAttrib["level"] != $newlevel) && ($approvedAttrib["name"] != "device-specific:redirect")) {
                     $ignore = "YES";
                 }
             }

@@ -1,6 +1,3 @@
 [submodule "devices/ms/Files/GEANTLink"]
 	path = devices/ms/Files/GEANTLink
 	url = https://github.com/Amebis/GEANTLink-dist.git
-[submodule "devices/ms/Files/GEANTLink"]
-	path = devices/ms/Files/GEANTLink
-	url = https://github.com/Amebis/GEANTLink-dist.git

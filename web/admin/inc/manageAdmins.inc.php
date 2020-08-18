@@ -162,6 +162,11 @@ if (!$isFedAdmin && $is_admin_with_blessing) {
 }
 ?>
 <table>
+    <caption></caption>
+    <tr>
+        <th class="wai-invisible" scope="col"><?php echo _("User"); ?></th>
+        <th class="wai-invisible" scope="col"><?php echo _("Actions"); ?></th>
+    </tr>
     <?php
     $owners = $my_inst->listOwners();
     foreach ($owners as $oneowner) {
@@ -172,26 +177,26 @@ if (!$isFedAdmin && $is_admin_with_blessing) {
         } else {
             $prettyprint = _("User without name");
         }
-        echo "
-            <tr>
-              <td>
-                 <strong>$prettyprint</strong>
-                 <br/>";
-
         if ($oneowner['MAIL'] != "SELF-APPOINTED") {
-            printf(_("(originally invited as %s)"), $oneowner['MAIL']);
+            $invite = sprintf(_("(originally invited as %s)"), $oneowner['MAIL']);
         } else {
-            echo _("(self-appointed)");
+            $invite = _("(self-appointed)");
         }
-
-        echo "</td>
-              <td>
-                <form action='inc/manageAdmins.inc.php?inst_id=" . $my_inst->identifier . "' method='post' " . ( $oneowner['ID'] != $_SESSION['user'] ? "onsubmit='popupRedirectWindow(this); return false;'" : "" ) . " accept-charset='UTF-8'>
-                <input type='hidden' name='admin_id' value='" . $oneowner['ID'] . "'></input>
-                <button type='submit' name='submitbutton' class='delete' value='" . web\lib\common\FormElements::BUTTON_DELETE . "'>" . _("Delete Administrator") . "</button>
+        ?>
+        <tr>
+            <td>
+                <strong><?php echo $prettyprint ?></strong>
+                <br/>
+                <?php echo $invite; ?>
+            </td>
+            <td>
+                <form action='inc/manageAdmins.inc.php?inst_id=<?php echo $my_inst->identifier ?>' method='post' <?php echo ( $oneowner['ID'] != $_SESSION['user'] ? "onsubmit='popupRedirectWindow(this); return false;'" : "" ); ?> accept-charset='UTF-8'>
+                    <input type='hidden' name='admin_id' value='<?php echo $oneowner['ID']; ?>'></input>
+                    <button type='submit' name='submitbutton' class='delete' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>'><?php echo _("Delete Administrator") ?></button>
                 </form>
-              </td>
-            </tr>";
+            </td>
+        </tr>
+        <?php
     }
     ?>
 </table>
@@ -205,13 +210,13 @@ if (count($pending_invites) > 0) {
     echo "<strong>" . _("Pending invitations for this IdP") . "</strong>";
     echo "<table>";
     foreach ($pending_invites as $invitee) {
-        echo "<tr><td>" . $invitee['mail'] . "</td><td>".sprintf(_("(expires %s)"), $invitee['expiry'])."</td></tr>";
+        echo "<tr><td>" . $invitee['mail'] . "</td><td>" . sprintf(_("(expires %s)"), $invitee['expiry']) . "</td></tr>";
     }
     echo "</table>";
 }
 ?>
 <br/>
-<img src='../resources/images/icons/loading51.gif' id='spin' style='position:absolute;left: 50%; top: 50%; transform: translate(-100px, -50px); display:none;'>
+<img alt='Loading ...' src='../resources/images/icons/loading51.gif' id='spin' style='position:absolute;left: 50%; top: 50%; transform: translate(-100px, -50px); display:none;'>
 <form action='inc/sendinvite.inc.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
     <?php echo _("New administrator's email address(es) (comma-separated):"); ?><input type="text" name="mailaddr"/><button type='submit' name='submitbutton' onclick='document.getElementById("spin").style.display = "block"' value='<?php echo web\lib\common\FormElements::BUTTON_SAVE; ?>'><?php echo _("Invite new administrator"); ?></button>
 </form>

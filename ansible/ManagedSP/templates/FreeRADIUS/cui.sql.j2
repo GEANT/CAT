@@ -1,0 +1,11 @@
+CREATE TABLE `cui` (
+  `clientipaddress` varchar(46) NOT NULL DEFAULT '',
+  `callingstationid` varchar(50) NOT NULL DEFAULT '',
+  `username` varchar(64) NOT NULL DEFAULT '',
+  `cui` varchar(32) NOT NULL DEFAULT '',
+  `creationdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `lastaccounting` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`username`,`clientipaddress`,`callingstationid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+grant all on {{ eduroam_db }}.cui to '{{ eduroam_user }}'@'localhost' identified by '{{ eduroam_pass }}';
+flush privileges;

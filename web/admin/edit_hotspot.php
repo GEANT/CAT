@@ -39,11 +39,9 @@ if (!isset($_GET['deployment_id'])) {
     header("Location: overview_sp.php?inst_id=" . $my_inst->identifier);
     exit(0);
 }
-
 // if we have come this far, we are editing an existing deployment
 
 $deployment = $validator->existingDeploymentManaged($_GET['deployment_id'], $my_inst);
-
 if (isset($_POST['submitbutton'])) {
     if ($_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_DELETE) {
         $response = $deployment->setRADIUSconfig();
@@ -77,6 +75,7 @@ if (isset($_POST['submitbutton'])) {
         $optionParser->processSubmittedFields($deployment, $postArray, $_FILES);
         $deployment = $validator->existingDeploymentManaged($_GET['deployment_id'], $my_inst);
         if ($deployment->status == core\DeploymentManaged::ACTIVE) {
+            $deployment->status = core\DeploymentManaged::INACTIVE;
             $response = $deployment->setRADIUSconfig();
         }
         header("Location: overview_sp.php?inst_id=" . $my_inst->identifier . '&' . urldecode(http_build_query($response)));
@@ -108,13 +107,21 @@ require_once "inc/click_button_js.php";
     $deploymentOptions = $deployment->getAttributes();
     echo "<form enctype='multipart/form-data' action='edit_hotspot.php?inst_id=$my_inst->identifier&amp;deployment_id=$deployment->identifier' method='post' accept-charset='UTF-8'>
                 <input type='hidden' name='MAX_FILE_SIZE' value='" . \config\Master::MAX_UPLOAD_SIZE . "'>";
-    $optionDisplay = new \web\lib\admin\OptionDisplay($deploymentOptions, "Profile");
+    $optionDisplay = new \web\lib\admin\OptionDisplay($deploymentOptions, \core\Options::LEVEL_PROFILE);
     ?>
-    <?php
-    echo "<fieldset class='option_container' id='managedsp_override'>
-    <legend><strong>" . _("Options for this deployment") . "</strong></legend>";
-    ?>
+    <fieldset class='option_container' id='managedsp_override'>
+    <legend>
+        <strong>
+    <?php $tablecaption = _("Options for this deployment"); echo $tablecaption;?>
+        </strong>
+    </legend>
     <table>
+            <caption><?php echo $tablecaption;?></caption>
+            <tr>
+                <th class="wai-invisible" scope="col"><?php echo _("Property Type");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Language if applicable");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Property Value");?></th>
+            </tr>
         <tr>
             <!-- input for Operator-Name override-->
             <td>
@@ -145,10 +152,11 @@ require_once "inc/click_button_js.php";
     </table>
     <?php
     echo $optionDisplay->prefilledOptionTable("managedsp");
-    echo "<button type='button' class='newoption' onclick='getXML(\"managedsp\")'>" . _("Add new option") . "</button>";
-    echo "</fieldset>";
+    ?>
+    <button type='button' class='newoption' onclick='getXML("managedsp")'><?php echo _("Add new option");?></button>
+    </fieldset>
 
-
+<?php
     echo "<p><button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button><button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_sp.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></p></form>";
     echo $deco->footer();
     

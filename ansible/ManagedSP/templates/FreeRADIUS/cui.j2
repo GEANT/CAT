@@ -1,0 +1,28 @@
+sql cuisql {
+	dialect = "mysql"
+	driver = "rlm_sql_${dialect}"
+
+        sqlite {
+                filename = ${radacctdir}/cui.sqlite
+                bootstrap = ${modconfdir}/${..:name}/cui/sqlite/schema.sql
+        }
+        server = "localhost"
+        port = 3306
+        login = "{{ eduroam_user}}"
+        password = "{{ eduroam_pass }}"
+        radius_db = "{{ eduroam_db }}"
+	pool {
+                start = 5
+                min = 4
+                max = 10
+                spare = 3
+                uses = 0
+                lifetime = 0
+                idle_timeout = 60
+        }
+
+        cui_table = "cui"
+        sql_user_name = "%{User-Name}"
+
+        $INCLUDE ${modconfdir}/${.:name}/cui/${dialect}/queries.conf
+}

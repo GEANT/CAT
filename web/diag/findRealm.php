@@ -29,17 +29,13 @@
  * @package Developer
  */
 
-/**
- * 
- * @param string $nonce   the nonce that was sent to the page and is to be verified
- * @param string $optSalt an optional salt value
- * @return boolean
- */
 
-require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
+require_once dirname(dirname(dirname(__FILE__)))."/config/_config.php";
 
 // we are referring to $_SESSION later in the file
 \core\CAT::sessionStart();
+
+$jsonDir = dirname(dirname(dirname(dirname(__FILE__))))."/CAT/var/json_cache";
 
 $loggerInstance = new \core\common\Logging();
 $returnArray = [];
@@ -47,26 +43,103 @@ $returnArray = [];
 $languageInstance = new \core\common\Language();
 $languageInstance->setTextDomain("web_user");
 $cat = new \core\CAT();
-$realmByUser = filter_input(INPUT_GET, 'realm', FILTER_SANITIZE_STRING);
+$givenRealm = filter_input(INPUT_GET, 'realm', FILTER_SANITIZE_STRING);
+$outerUser = filter_input(INPUT_GET, 'outeruser', FILTER_SANITIZE_STRING);
 $realmQueryType = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING);
 $realmCountry = filter_input(INPUT_GET, 'co', FILTER_SANITIZE_STRING);
 $realmOu = filter_input(INPUT_GET, 'ou', FILTER_SANITIZE_STRING);
-if (!empty($realmByUser)) {
+$forTests = filter_input(INPUT_GET, 'addtest', FILTER_SANITIZE_STRING);
+$token = filter_input(INPUT_GET, 'token', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING);
+if ($token && !is_dir($jsonDir.'/'.$token)) {
+    mkdir($jsonDir.'/'.$token, 0777, true);
+}
+if (is_null($outerUser)) {
+    $outerUser = '';
+}
+if (!is_null($givenRealm)) {
+    $realmElems = explode('.', $givenRealm);
+    $lap = count($realmElems);
+    $i = 0;
     /* select the record matching the realm */
-    $details = $cat->getExternalDBEntityDetails(0, $realmByUser);
-    if (!empty($details)) {
+    while (($lap - $i) > 1) {
+        $realmToCheck = implode('.', array_slice($realmElems, $i, $lap));
+        $externalDB = \core\CAT::determineExternalConnection();
+        
+        $allRealms = $externalDB->listExternalEntitiesByRealm($realmToCheck, ['inst_realm', 'contact']);
+        if (count($allRealms) == 0) {
+            $i += 1;
+            continue;
+        }
+        foreach ($allRealms as $key => $realmRecord) {
+            $realmList = explode(',', $realmRecord['inst_realm']);
+            $found = FALSE;
+            foreach ($realmList as $realm) {
+                if ($realm == $realmToCheck) {
+                    $found = $key;
+                    break;
+                }
+            }
+        }
+        $details = [];
+        if ($found === false) {
+            break;
+        }
         $admins = array();
-        if (!empty($details['admins'])) {
-            foreach ($details['admins'] as $admin) {
-                $admins[] = $admin['email'];
+        if ($allRealms[$found]['contact']) {
+            $elems = explode(', ', $allRealms[$found]['contact']);
+            foreach ($elems as $admin) {
+                if (substr($admin, 0, 2) == 'e:') {
+                    $admins[] = substr($admin, 3);
+                }
             }
             $details['admins'] = base64_encode(join(',', $admins));
         } else {
             $details['admins'] = '';
         }
+        
         $details['status'] = 1;
-        $returnArray = $details;
+        $details['realm'] = $givenRealm;
+        
+        break;
     }
+    if ($found === false) {
+        $details['realm'] = $givenRealm;
+        $details['admins'] = '';
+        $details['status'] = 0;
+    }
+    if ($forTests) {
+        $rfc7585suite = new \core\diag\RFC7585Tests($givenRealm);
+        $testsuite = new \core\diag\RADIUSTests($givenRealm, '@'.$givenRealm);
+        $naptr = $rfc7585suite->relevantNAPTR();
+        if ($naptr != \core\diag\RADIUSTests::RETVAL_NOTCONFIGURED && $naptr > 0) {
+            $naptr_valid = $rfc7585suite->relevantNAPTRcompliance();
+            if ($naptr_valid == \core\diag\RADIUSTests::RETVAL_OK) {
+                $srv = $rfc7585suite->relevantNAPTRsrvResolution();
+                if ($srv > 0) {
+                    $hosts = $rfc7585suite->relevantNAPTRhostnameResolution();
+                }
+            }
+        }
+        $toTest = array();
+        foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
+            $host = ($addr['family'] == "IPv6" ? "[" : "").$addr['IP'].($addr['family'] == "IPv6" ? "]" : "").":".$addr['port'];
+            $expectedName = $addr['hostname'];
+            $toTest[$hostindex] = array(
+                                        'host' => $host,
+                                        'name' => $expectedName,
+                                        'bracketaddr' => ($addr["family"] == "IPv6" ? "[".$addr["IP"]."]" : $addr["IP"]).' TCP/'.$addr['port']
+            );
+        }
+        $details['totest'] = $toTest;
+        $details['rfc7585suite'] = serialize($rfc7585suite);
+        $details['testsuite'] = serialize($testsuite);
+        $details['naptr'] = $naptr;
+        $details['naptr_valid'] = $naptr_valid;
+        $details['srv'] = $srv;
+        $details['hosts'] = $hosts;
+    } 
+    $returnArray = $details;
+    
 } else {
     if ($realmQueryType) {
         switch ($realmQueryType) {
@@ -98,6 +171,9 @@ if (!empty($realmByUser)) {
                         $returnArray['realms'] = explode(',', $details['realmlist']);
                     }
                 }
+                if ($forTests) {
+                    $details['diag'] = 2;
+                }
                 break;
             case "hotspot":
                 if ($realmCountry) {
@@ -114,10 +190,13 @@ if (!empty($realmByUser)) {
         }
     }
 }
-if (empty($returnArray)) {
-    $returnArray['status'] = 0;
+$returnArray['outeruser'] = $outerUser;
+$returnArray['datetime'] = date("Y-m-d H:i:s");
+$loggerInstance->debug(4, $returnArray);
+$json_data = json_encode($returnArray);
+if ($token) {
+    $loggerInstance->debug(4, $jsonDir.'/'.$token);
+    file_put_contents($jsonDir.'/'.$token.'/realm', $json_data);
 }
-$loggerInstance->debug(2, $returnArray);
-
-echo(json_encode($returnArray));
+echo($json_data);
 

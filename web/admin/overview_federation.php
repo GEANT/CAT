@@ -31,6 +31,12 @@ require_once "inc/click_button_js.php";
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/popup_redirect.js" type="text/javascript"></script>
+<script>
+$(document).on('click', '#realmcheck' , function() {
+   event.preventDefault();
+   location.href = '../diag/diag.php?admin=1&sp=1&realm=';
+});
+</script>
 </head>
 <body>
     <?php
@@ -42,8 +48,14 @@ require_once "inc/click_button_js.php";
     </h1>
 
     <div class="infobox">
-        <h2><?php echo _("Your Personal Information"); ?></h2>
+        <h2><?php $tablecaption = _("Your Personal Information"); echo $tablecaption; ?></h2>
         <table>
+            <caption><?php echo $tablecaption;?></caption>
+            <tr>
+                <th class="wai-invisible" scope="col"><?php echo _("Property Type");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Language if applicable");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Property Value");?></th>
+            </tr>            
             <?php echo $uiElements->infoblock($user->getAttributes(), "user", "User"); ?>
             <tr>
                 <td>
@@ -73,9 +85,15 @@ require_once "inc/click_button_js.php";
         ?>
 
         <div class='infobox'><h2>
-                <?php echo sprintf(_("%s Properties: %s"), $uiElements->nomenclatureFed, $thefed->name); ?>
+                <?php $tablecaption2 = sprintf(_("%s Properties: %s"), $uiElements->nomenclatureFed, $thefed->name); echo $tablecaption2; ?>
             </h2>
             <table>
+            <caption><?php echo $tablecaption2;?></caption>
+            <tr>
+                <th class="wai-invisible" scope="col"><?php echo _("Property Type");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Language if applicable");?></th>
+                <th class="wai-invisible" scope="col"><?php echo _("Property Value");?></th>
+            </tr>
                 <!-- fed properties -->
                 <tr>
                     <td>
@@ -103,13 +121,13 @@ require_once "inc/click_button_js.php";
         </div>
         <div class='infobox'>
             <h2>
-                <?php echo sprintf(_("%s Statistics: %s"), $uiElements->nomenclatureFed, $thefed->name); ?>
+                <?php $tablecaption3 = sprintf(_("%s Statistics: %s"), $uiElements->nomenclatureFed, $thefed->name); echo $tablecaption3; ?>
             </h2>
             <table>
                 <!-- idp stats -->
                 <tr>
-                    <th style='text-align:left;'> <?php echo _("IdPs Total"); ?></th>
-                    <th colspan='3'> <?php echo _("Public Download") ?></th>
+                    <th scope='col' style='text-align:left;'> <?php echo _("IdPs Total"); ?></th>
+                    <th scope='col' colspan='3'> <?php echo _("Public Download") ?></th>
                 </tr>
                 <tr>
                     <td> <?php echo count($thefed->listIdentityProviders(0)); ?></td>
@@ -121,10 +139,10 @@ require_once "inc/click_button_js.php";
                 </tr>    
                 <!-- download stats -->
                 <tr>
-                    <th style='text-align:left;'> <?php echo _("Downloads"); ?></th>
-                    <th style='text-align:left;'> <?php echo _("Admin"); ?></th>
-                    <th style='text-align:left;'> <?php echo \core\ProfileSilverbullet::PRODUCTNAME ?></th>
-                    <th style='text-align:left;'> <?php echo _("User"); ?></th>
+                    <th scope='col' style='text-align:left;'> <?php echo _("Downloads"); ?></th>
+                    <th scope='col' style='text-align:left;'> <?php echo _("Admin"); ?></th>
+                    <th scope='col' style='text-align:left;'> <?php echo \core\ProfileSilverbullet::PRODUCTNAME ?></th>
+                    <th scope='col' style='text-align:left;'> <?php echo _("User"); ?></th>
                 </tr>
                 <?php echo $thefed->downloadStats("table"); ?>
             </table>
@@ -190,25 +208,45 @@ require_once "inc/click_button_js.php";
         }
         echo "</table></div>";
     }
+    // our own location, to give to diag URLs
+    if (isset($_SERVER['HTTPS'])) {
+        $link = 'https://';
+    } else {
+        $link = 'http://';
+    }
+    $link .= $_SERVER['SERVER_NAME'] . $_SERVER['SCRIPT_NAME'];
+    $link = htmlspecialchars($link);
+    if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == 'LOCAL' && \config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] == 'LOCAL') {
+        echo "<table><tr>
+                        <td>" . sprintf(_("Diagnose reachability and connection parameters of any %s %s"), \config\ConfAssistant::CONSORTIUM['display_name'], $uiElements->nomenclatureInst) . "</td>
+                        <td><form method='post' action='../diag/action_realmcheck.php' accept-charset='UTF-8'>
+                              <input type='hidden' name='comefrom' id='comefrom' value='$link'/>
+                              <button id='realmcheck' style='cursor:pointer;' type='submit'>" . _("Go!") . "</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </table>";
+    }
     if (\config\ConfAssistant::CONSORTIUM['name'] == 'eduroam') {
-        $helptext = "<h3>" . sprintf(_("Need help? Refer to the <a href='%s'>%s manual</a>"), "https://wiki.geant.org/x/fgBwBg", $uiElements->nomenclatureFed) . "</h3>";
+        $helptext = "<h3>" . sprintf(_("Need help? Refer to the <a href='%s'>%s manual</a>"), "https://wiki.geant.org/x/qJg7Bw", $uiElements->nomenclatureFed) . "</h3>";
     } else {
         $helptext = "";
     }
     ?>
     <table class='user_overview' style='border:0px;'>
+        <caption><?php echo _("Participant Details");?></caption>
         <tr>
-            <th><?php echo _("Deployment Status"); ?></th>
-            <th><?php echo sprintf(_("%s Name"), $uiElements->nomenclatureInst); ?></th>
+            <th scope='col'><?php echo _("Deployment Status"); ?></th>
+            <th scope='col'><?php echo sprintf(_("%s Name"), $uiElements->nomenclatureInst); ?></th>
 
             <?php
             $pending_invites = $mgmt->listPendingInvitations();
 
             if (\config\Master::DB['enforce-external-sync']) {
-                echo "<th>" . sprintf(_("%s Database Sync Status"), \config\ConfAssistant::CONSORTIUM['display_name']) . "</th>";
+                echo "<th scope='col'>" . sprintf(_("%s Database Sync Status"), \config\ConfAssistant::CONSORTIUM['display_name']) . "</th>";
             }
             ?>
-            <th>
+            <th scope='col'>
                 <?php
                 if ($readonly === FALSE) {
                     echo _("Administrator Management");
@@ -247,9 +285,19 @@ require_once "inc/click_button_js.php";
                 echo "<td>";
                 echo ($idp_instance->maxProfileStatus() >= \core\IdP::PROFILES_CONFIGURED ? "C" : "" ) . " " . ($idp_instance->maxProfileStatus() >= \core\IdP::PROFILES_SHOWTIME ? "V" : "" );
                 echo "</td>";
-                // name
-                echo "<td>
-                         <input type='hidden' name='inst' value='" . $index . "'>" . $idp_instance->name . "
+                // name; and realm of silverbullet profiles if any
+                // instantiating all profiles is costly, so we only do this if
+                // the deployment at hand has silverbullet enabled
+                $listOfSilverbulletRealms = [];
+                if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
+                    foreach ($idp_instance->listProfiles() as $oneProfile) {
+                        if ($oneProfile instanceof core\ProfileSilverbullet) {
+                            $listOfSilverbulletRealms[] = $oneProfile->realm;
+                        }
+                    }
+                }
+                echo "<td style='vertical-align:top;'>
+                         <input type='hidden' name='inst' value='" . $index . "'>" . $idp_instance->name . (empty($listOfSilverbulletRealms) ? "" : "<ul><li>" ) . implode("</li><li>", $listOfSilverbulletRealms) . (empty($listOfSilverbulletRealms) ? "" : "</li><ul>" ) . "
                       </td>";
                 // external DB sync, if configured as being necessary
                 if (\config\Master::DB['enforce-external-sync']) {
@@ -275,7 +323,7 @@ require_once "inc/click_button_js.php";
                 }
 
                 // admin management
-                echo "<td>";
+                echo "<td style='vertical-align: top;'>";
                 if ($readonly === FALSE) {
                     echo "<div style='white-space: nowrap;'>
                                   <form method='post' action='inc/manageAdmins.inc.php?inst_id=" . $index . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
@@ -311,8 +359,8 @@ require_once "inc/click_button_js.php";
                             echo "<form method='post' action='overview_federation.php' accept-charset='UTF-8'>
                                 <input type='hidden' name='invitation_id' value='" . $oneinvite['token'] . "'/>
                                 <button class='delete' type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_DELETE . "'>" . _("Revoke Invitation") . "</button> "
-                              . sprintf(_("(expires %s)"),$oneinvite['expiry'])
-                              .     "</form>";
+                            . sprintf(_("(expires %s)"), $oneinvite['expiry'])
+                            . "</form>";
                         }
                         echo "      </td>
                                  </tr>";
@@ -328,7 +376,7 @@ require_once "inc/click_button_js.php";
         <hr/>
         <br/>
         <form method='post' action='inc/manageNewInst.inc.php' onsubmit='popupRedirectWindow(this);
-                return false;' accept-charset='UTF-8'>
+                    return false;' accept-charset='UTF-8'>
             <button type='submit' class='download'>
                 <?php echo sprintf(_("Register a new %s!"), $uiElements->nomenclatureParticipant); ?>
             </button>

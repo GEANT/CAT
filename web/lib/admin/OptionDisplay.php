@@ -32,7 +32,7 @@ use Exception;
  * @author Stefan Winter <stefan.winter@restena.lu>
  */
 class OptionDisplay extends \core\common\Entity {
-
+    
     /**
      * stores all the options we are caring about
      * 
@@ -70,9 +70,9 @@ class OptionDisplay extends \core\common\Entity {
     /**
      * Which attributes are we talking about?
      * @param array  $options the options of interest
-     * @param string $level   the level on which these options were defined by the user
+     * @param string $level   the level on which these options were defined by the user (not applicable for XHR UI, then it is NULL)
      */
-    public function __construct(array $options, string $level) {
+    public function __construct(array $options, string $level = NULL) {
         $this->listOfOptions = $options;
         $this->level = $level;
         $this->allLocationCount = 0;

@@ -104,7 +104,9 @@ class MapNone extends AbstractMap {
      */
     public static function optionListDisplayCode($coords, $number) {
         // quiesce warnings about unused parameter
-        sprintf("%d", $number);
+        if (strlen(sprintf("%d", $number)) <0) {
+            throw new \Exception("A miracle! A string with negative length!");
+        };
         $pair = json_decode($coords, true);
         return "<table><tr><td>Latitude</td><td><strong>" . $pair['lat'] . "</strong></td></tr><tr><td>Longitude</td><td><strong>" . $pair['lon'] . "</strong></td></tr></table>";
     }

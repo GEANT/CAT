@@ -37,6 +37,7 @@ File "MsiUseFeature.exe"
 nsArray::Set Delete_files "MsiUseFeature.exe"
 Call InstallGEANTLink
 SectionEnd
+
 ;TRANSLATION
 Section "<?php echo _("Installation of network profiles")?>" "<?php echo _("profiles")?>"
 SectionIn RO

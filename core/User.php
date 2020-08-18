@@ -1,4 +1,5 @@
 <?php
+
 /*
  * *****************************************************************************
  * Contributions to this work were made on behalf of the GÉANT project, a 
@@ -39,19 +40,22 @@ namespace core;
  * 
  * @package Developer
  */
-class User extends EntityWithDBProperties {
+class User extends EntityWithDBProperties
+{
 
     /**
      *
      * @var string
      */
     public $userName;
+
     /**
      * Class constructor. The required argument is a user's persistent identifier as was returned by the authentication source.
      * 
      * @param string $userId User Identifier as per authentication source
      */
-    public function __construct($userId) {
+    public function __construct($userId)
+    {
         $this->databaseType = "USER";
         parent::__construct(); // database handle is now available
         $this->attributes = [];
@@ -71,14 +75,14 @@ class User extends EntityWithDBProperties {
             while ($userDetailQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $info)) {
                 if (!$visited) {
                     $mailOptinfo = $optioninstance->optionType("user:email");
-                    $this->attributes[] = ["name" => "user:email", "lang" => NULL, "value" => $userDetailQuery->email, "level" => "User", "row" => 0, "flag" => $mailOptinfo['flag']];
+                    $this->attributes[] = ["name" => "user:email", "lang" => NULL, "value" => $userDetailQuery->email, "level" => Options::LEVEL_USER, "row" => 0, "flag" => $mailOptinfo['flag']];
                     $realnameOptinfo = $optioninstance->optionType("user:realname");
-                    $this->attributes[] = ["name" => "user:realname", "lang" => NULL, "value" => $userDetailQuery->common_name, "level" => "User", "row" => 0, "flag" => $realnameOptinfo['flag']];
+                    $this->attributes[] = ["name" => "user:realname", "lang" => NULL, "value" => $userDetailQuery->common_name, "level" => Options::LEVEL_USER, "row" => 0, "flag" => $realnameOptinfo['flag']];
                     $visited = TRUE;
                 }
                 if ($userDetailQuery->role == "fedadmin") {
                     $optinfo = $optioninstance->optionType("user:fedadmin");
-                    $this->attributes[] = ["name" => "user:fedadmin", "lang" => NULL, "value" => strtoupper($userDetailQuery->realm), "level" => "User", "row" => 0, "flag" => $optinfo['flag']];
+                    $this->attributes[] = ["name" => "user:fedadmin", "lang" => NULL, "value" => strtoupper($userDetailQuery->realm), "level" => Options::LEVEL_USER, "row" => 0, "flag" => $optinfo['flag']];
                 }
             }
         } else {
@@ -96,7 +100,8 @@ class User extends EntityWithDBProperties {
      * @param string $federation optional: federation to be checked
      * @return boolean TRUE if the user is federation admin, FALSE if not 
      */
-    public function isFederationAdmin($federation = 0) {
+    public function isFederationAdmin($federation = 0)
+    {
         $feds = $this->getAttributes("user:fedadmin");
         if (count($feds) == 0) { // not a fedadmin at all
             return FALSE;
@@ -118,7 +123,8 @@ class User extends EntityWithDBProperties {
      *
      * @return boolean TRUE if the user is a superadmin, FALSE if not 
      */
-    public function isSuperadmin() {
+    public function isSuperadmin()
+    {
         return in_array($this->userName, \config\Master::SUPERADMINS);
     }
 
@@ -128,7 +134,8 @@ class User extends EntityWithDBProperties {
      * @param int $idp integer identifier of the IdP
      * @return boolean TRUE if the user is an owner, FALSE if not 
      */
-    public function isIdPOwner($idp) {
+    public function isIdPOwner($idp)
+    {
         $temp = new IdP($idp);
         foreach ($temp->listOwners() as $oneowner) {
             if ($oneowner['ID'] == $this->userName) {
@@ -145,8 +152,9 @@ class User extends EntityWithDBProperties {
      * @param string $content content of the mail
      * @return boolean did it work?
      */
-    public function sendMailToUser($subject, $content) {
-        
+    public function sendMailToUser($subject, $content)
+    {
+
         $mailaddr = $this->getAttributes("user:email");
         if (count($mailaddr) == 0) { // we don't know user's mail address
             return FALSE;
@@ -171,7 +179,8 @@ class User extends EntityWithDBProperties {
      * 
      * @return void
      */
-    public function updateFreshness() {
+    public function updateFreshness()
+    {
         // User is always fresh
     }
 
@@ -196,7 +205,8 @@ class User extends EntityWithDBProperties {
      * @param string $lang language for the eduGAIN request
      * @return boolean|array the list of auth source IdPs we found for the mail, or FALSE if none found or invalid input
      */
-    public static function findLoginIdPByEmail($mail, $lang) {
+    public static function findLoginIdPByEmail($mail, $lang)
+    {
         $loggerInstance = new common\Logging();
         $listOfProviders = [];
         $matchedProviders = [];
@@ -270,5 +280,4 @@ class User extends EntityWithDBProperties {
         }
         return $listOfProviders;
     }
-
 }

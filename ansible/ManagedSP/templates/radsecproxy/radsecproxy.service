@@ -1,0 +1,12 @@
+[Unit]
+Description=Radsecproxy server.
+Requires=network-online.target
+After=syslog.target network-online.target
+
+[Service]
+Type=forking
+PIDFile=/var/run/radsecproxy.pid
+ExecStart=/opt/radsecproxy/sbin/radsecproxy -c /opt/radsecproxy/etc/radsecproxy.conf -i /var/run/radsecproxy.pid
+
+[Install]
+WantedBy=multi-user.target
