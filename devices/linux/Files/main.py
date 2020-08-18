@@ -36,9 +36,8 @@ In the generation process configuration settings are added
 as well as messages which are getting translated into the language
 selected by the user.
 
-The script is meant to run both under python 2.7 and python3. It tests
-for the crucial dbus module and if it does not find it and if it is not
-running python3 it will try rerunning iself again with python3.
+The script runs under python3.
+
 """
 import argparse
 import base64
@@ -65,22 +64,9 @@ def debug(msg):
     print("DEBUG:" + str(msg))
 
 
-def missing_dbus():
-    """Handle missing dbus module"""
-    global NM_AVAILABLE
-    debug("Cannot import the dbus module")
-    NM_AVAILABLE = False
-
-
 def byte_to_string(barray):
     """conversion utility"""
     return "".join([chr(x) for x in barray])
-
-
-def get_input(prompt):
-    if sys.version_info.major < 3:
-        return raw_input(prompt) # pylint: disable=undefined-variable
-    return input(prompt)
 
 
 debug(sys.version_info.major)
@@ -89,14 +75,10 @@ debug(sys.version_info.major)
 try:
     import dbus
 except ImportError:
-    if sys.version_info.major == 3:
-        missing_dbus()
-    if sys.version_info.major < 3:
-        try:
-            subprocess.call(['python3'] + sys.argv)
-        except:
-            missing_dbus()
-        sys.exit(0)
+    global NM_AVAILABLE
+    debug("Cannot import the dbus module")
+    NM_AVAILABLE = False
+
 
 try:
     from OpenSSL import crypto
@@ -346,7 +328,7 @@ class InstallerData(object):
                     tmp += "[" + yes + "]"
                 elif default == 0:
                     tmp += "[" + nay + "]"
-                inp = get_input(tmp)
+                inp = input(tmp)
                 if inp == '':
                     if default == 1:
                         return 0
@@ -418,7 +400,7 @@ class InstallerData(object):
                     if output != '':
                         return output
             while True:
-                inp = str(get_input(prompt + ": "))
+                inp = input(prompt + ": ")
                 output = inp.strip()
                 if output != '':
                     return output
@@ -586,7 +568,7 @@ class InstallerData(object):
                 default = '[' + pfx_file + ']'
 
             while True:
-                inp = get_input(prompt + default + ": ")
+                inp = input(prompt + default + ": ")
                 output = inp.strip()
 
                 if default != '' and output == '':
