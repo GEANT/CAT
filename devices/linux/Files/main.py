@@ -13,7 +13,7 @@
  * GÉANT Vereniging (Association) is registered with the Chamber of
  * Commerce in Amsterdam with registration number 40535155 and operates
  * in the UK as a branch of GÉANT Vereniging.
- * 
+ *
  * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands.
  * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
@@ -314,7 +314,7 @@ class InstallerData(object):
                 sys.exit(1)
         if os.path.exists(get_config_path() + '/cat_installer'):
             if self.ask(Messages.cat_dir_exists.format(
-                            get_config_path() + '/cat_installer'),
+                    get_config_path() + '/cat_installer'),
                         Messages.cont, 1):
                 sys.exit(1)
         else:
@@ -711,7 +711,7 @@ class WpaConf(object):
     Prepare and save wpa_supplicant config file
     """
     def __prepare_network_block(self, ssid, user_data):
-        out = """network={
+        interface = """network={
         ssid=\"""" + ssid + """\"
         key_mgmt=WPA-EAP
         pairwise=CCMP
@@ -723,9 +723,9 @@ class WpaConf(object):
         phase2=\"auth=""" + Config.eap_inner + """\"
         password=\"""" + user_data.password + """\"
         anonymous_identity=\"""" + Config.anonymous_identity + """\"
-}
-    """
-        return out
+        }
+        """
+        return interface
 
     def create_wpa_conf(self, ssids, user_data):
         """Create and save the wpa_supplicant config file"""
@@ -882,8 +882,7 @@ class CatNMConfigTool(object):
         s_con = dbus.Dictionary({
             'type': '802-11-wireless',
             'uuid': str(uuid.uuid4()),
-            'permissions': ['user:' +
-                            os.environ.get('USER')],
+            'permissions': ['user:' + os.environ.get('USER')],
             'id': ssid
             })
         s_wifi = dbus.Dictionary({
