@@ -288,7 +288,7 @@ class Config(object):
 
 class InstallerData(object):
     """
-    General user interaction handling, supports zenity, kdialog and
+    General user interaction handling, supports zenity, KDialog and
     standard command-line interface
     """
 
@@ -332,7 +332,7 @@ class InstallerData(object):
 
     def ask(self, question, prompt='', default=None):
         """
-        Propmpt user for a Y/N reply, possibly supplying a default answer
+        Prompt user for a Y/N reply, possibly supplying a default answer
         """
         if self.silent:
             return 0
@@ -357,14 +357,15 @@ class InstallerData(object):
                     return 0
                 if i == nay:
                     return 1
+        command = []
         if self.graphics == "zenity":
             command = ['zenity', '--title=' + Config.title, '--width=500',
                        '--question', '--text=' + question + "\n\n" + prompt]
         elif self.graphics == 'kdialog':
             command = ['kdialog', '--yesno', question + "\n\n" + prompt,
                        '--title=', Config.title]
-        returncode = subprocess.call(command, stderr=STDERR_REDIR)
-        return returncode
+        return_code = subprocess.call(command, stderr=STDERR_REDIR)
+        return return_code
 
     def show_info(self, data):
         """
@@ -422,7 +423,7 @@ class InstallerData(object):
                 output = inp.strip()
                 if output != '':
                     return output
-
+        command = []
         if self.graphics == 'zenity':
             if val == '':
                 default_val = ''
@@ -596,6 +597,7 @@ class InstallerData(object):
                     return output
                 print("file not found")
 
+        cert = ""
         if self.graphics == 'zenity':
             command = ['zenity', '--file-selection',
                        '--file-filter=' + Messages.p12_filter +
@@ -616,8 +618,8 @@ class InstallerData(object):
 
     def __save_sb_pfx(self):
         """write the user PFX file"""
-        certfile = get_config_path() + '/cat_installer/user.p12'
-        with open(certfile, 'wb') as cert:
+        cert_file = get_config_path() + '/cat_installer/user.p12'
+        with open(cert_file, 'wb') as cert:
             cert.write(base64.b64decode(Config.sb_user_file))
 
     def __get_p12_cred(self):
@@ -743,7 +745,7 @@ class CatNMConfigTool(object):
         self.cacert_file = None
         self.settings_service_name = None
         self.connection_interface_name = None
-        self.system_service_name = None
+        self.system_service_name = "org.freedesktop.NetworkManager"
         self.nm_version = None
         self.pfx_file = None
         self.settings = None
@@ -759,8 +761,6 @@ class CatNMConfigTool(object):
         except dbus.exceptions.DBusException:
             print("Can't connect to DBus")
             return None
-        # main service name
-        self.system_service_name = "org.freedesktop.NetworkManager"
         # check NM version
         self.__check_nm_version()
         debug("NM version: " + self.nm_version)
@@ -783,7 +783,7 @@ class CatNMConfigTool(object):
             sysproxy = self.bus.get_object(
                 self.settings_service_name,
                 "/org/freedesktop/NetworkManagerSettings")
-            # settings intrface
+            # settings interface
             self.settings = dbus.Interface(
                 sysproxy, "org.freedesktop.NetworkManagerSettings")
         else:
