@@ -50,6 +50,7 @@ import subprocess
 import sys
 import uuid
 from shutil import copyfile
+from typing import List, Type, Union
 
 NM_AVAILABLE = True
 CRYPTO_AVAILABLE = True
@@ -58,28 +59,28 @@ DEV_NULL = open("/dev/null", "w")
 STDERR_REDIR = DEV_NULL
 
 
-def debug(msg):
+def debug(msg) -> None:
     """Print debugging messages to stdout"""
     if not DEBUG_ON:
         return
     print("DEBUG:" + str(msg))
 
 
-def missing_dbus():
+def missing_dbus() -> None:
     """Handle missing dbus module"""
     global NM_AVAILABLE
     debug("Cannot import the dbus module")
     NM_AVAILABLE = False
 
 
-def byte_to_string(barray):
+def byte_to_string(barray: List) -> str:
     """conversion utility"""
     return "".join([chr(x) for x in barray])
 
 
-def get_input(prompt):
+def get_input(prompt: str) -> str:
     if sys.version_info.major < 3:
-        return raw_input(prompt) # pylint: disable=undefined-variable
+        return raw_input(prompt)  # pylint: disable=undefined-variable
     return input(prompt)
 
 
@@ -105,7 +106,7 @@ except ImportError:
 
 # the function below was partially copied
 # from https://ubuntuforums.org/showthread.php?t=1139057
-def detect_desktop_environment():
+def detect_desktop_environment() -> str:
     """
     Detect what desktop type is used. This method is prepared for
     possible future use with password encryption on supported distros
@@ -131,7 +132,7 @@ def detect_desktop_environment():
     return desktop_environment
 
 
-def get_system():
+def get_system() -> List:
     """
     Detect Linux platform. Not used at this stage.
     It is meant to enable password encryption in distros
@@ -145,7 +146,7 @@ def get_system():
     return [system, detect_desktop_environment()]
 
 
-def get_config_path():
+def get_config_path() -> str:
     """
     Return XDG_CONFIG_HOME path if exists otherwise $HOME/.config
     """
@@ -158,7 +159,7 @@ def get_config_path():
         return xdg_config_home_path
 
 
-def run_installer():
+def run_installer() -> None:
     """
     This is the main installer part. It tests for MN availability
     gets user credentials and starts a proper installer.
@@ -292,7 +293,8 @@ class InstallerData(object):
     standard command-line interface
     """
 
-    def __init__(self, silent=False, username='', password='', pfx_file=''):
+    def __init__(self, silent: bool = False, username: str = '',
+                 password: str = '', pfx_file: str = '') -> None:
         self.graphics = ''
         self.username = username
         self.password = password
@@ -320,7 +322,7 @@ class InstallerData(object):
         else:
             os.mkdir(get_config_path() + '/cat_installer', 0o700)
 
-    def save_ca(self):
+    def save_ca(self) -> None:
         """
         Save CA certificate to cat_installer directory
         (create directory if needed)
@@ -330,7 +332,7 @@ class InstallerData(object):
         with open(certfile, 'w') as cert:
             cert.write(Config.CA + "\n")
 
-    def ask(self, question, prompt='', default=None):
+    def ask(self, question: str, prompt: str = '', default: bool = None) -> int:
         """
         Propmpt user for a Y/N reply, possibly supplying a default answer
         """
@@ -366,7 +368,7 @@ class InstallerData(object):
         returncode = subprocess.call(command, stderr=STDERR_REDIR)
         return returncode
 
-    def show_info(self, data):
+    def show_info(self, data: str) -> None:
         """
         Show a piece of information
         """
@@ -383,7 +385,7 @@ class InstallerData(object):
             sys.exit(1)
         subprocess.call(command, stderr=STDERR_REDIR)
 
-    def confirm_exit(self):
+    def confirm_exit(self) -> None:
         """
         Confirm exit from installer
         """
@@ -391,7 +393,7 @@ class InstallerData(object):
         if ret == 0:
             sys.exit(1)
 
-    def alert(self, text):
+    def alert(self, text: str) -> None:
         """Generate alert message"""
         if self.silent:
             return
@@ -406,7 +408,7 @@ class InstallerData(object):
             sys.exit(1)
         subprocess.call(command, stderr=STDERR_REDIR)
 
-    def prompt_nonempty_string(self, show, prompt, val=''):
+    def prompt_nonempty_string(self, show: int, prompt: str, val: str = '') -> str:
         """
         Prompt user for input
         """
@@ -451,7 +453,7 @@ class InstallerData(object):
                 self.confirm_exit()
         return output
 
-    def get_user_cred(self):
+    def get_user_cred(self) -> None:
         """
         Get user credentials both username/password and personal certificate
         based
@@ -461,7 +463,7 @@ class InstallerData(object):
         if Config.eap_outer == 'TLS':
             self.__get_p12_cred()
 
-    def __get_username_password(self):
+    def __get_username_password(self) -> None:
         """
         read user password and set the password property
         do nothing if silent mode is set
@@ -490,7 +492,7 @@ class InstallerData(object):
                 self.alert(Messages.passwords_differ)
         self.password = password
 
-    def __get_graphics_support(self):
+    def __get_graphics_support(self) -> None:
         if os.environ.get('DISPLAY') is not None:
             shell_command = subprocess.Popen(['which', 'zenity'],
                                              stdout=subprocess.PIPE,
@@ -511,7 +513,7 @@ class InstallerData(object):
         else:
             self.graphics = 'tty'
 
-    def __process_p12(self):
+    def __process_p12(self) -> bool:
         debug('process_p12')
         pfx_file = get_config_path() + '/cat_installer/user.p12'
         if CRYPTO_AVAILABLE:
@@ -565,7 +567,7 @@ class InstallerData(object):
                            "from the certificate")
             return True
 
-    def __select_p12_file(self):
+    def __select_p12_file(self) -> str:
         """
         prompt user for the PFX file selection
         this method is not being called in the silent mode
@@ -614,7 +616,7 @@ class InstallerData(object):
             cert, err = shell_command.communicate()
         return cert.decode('utf-8').strip()
 
-    def __save_sb_pfx(self):
+    def __save_sb_pfx(self) -> None:
         """write the user PFX file"""
         certfile = get_config_path() + '/cat_installer/user.p12'
         with open(certfile, 'wb') as cert:
@@ -652,7 +654,7 @@ class InstallerData(object):
                 self.username = self.prompt_nonempty_string(
                     1, Messages.username_prompt)
 
-    def __validate_user_name(self):
+    def __validate_user_name(self) -> bool:
         # locate the @ character in username
         pos = self.username.find('@')
         debug("@ position: " + str(pos))
@@ -708,7 +710,7 @@ class WpaConf(object):
     """
     Prepare and save wpa_supplicant config file
     """
-    def __prepare_network_block(self, ssid, user_data):
+    def __prepare_network_block(self, ssid: str, user_data: Type[InstallerData]) -> str:
         out = """network={
         ssid=\"""" + ssid + """\"
         key_mgmt=WPA-EAP
@@ -725,7 +727,7 @@ class WpaConf(object):
     """
         return out
 
-    def create_wpa_conf(self, ssids, user_data):
+    def create_wpa_conf(self, ssids, user_data: Type[InstallerData]) -> None:
         """Create and save the wpa_supplicant config file"""
         wpa_conf = get_config_path() + \
             '/cat_installer/cat_installer.conf'
@@ -750,7 +752,7 @@ class CatNMConfigTool(object):
         self.user_data = None
         self.bus = None
 
-    def connect_to_nm(self):
+    def connect_to_nm(self) -> Union[bool, None]:
         """
         connect to DBus
         """
@@ -792,7 +794,7 @@ class CatNMConfigTool(object):
         debug("NM connection worked")
         return True
 
-    def __check_opts(self):
+    def __check_opts(self) -> None:
         """
         set certificate files paths and test for existence of the CA cert
         """
@@ -802,7 +804,7 @@ class CatNMConfigTool(object):
             print(Messages.cert_error)
             sys.exit(2)
 
-    def __check_nm_version(self):
+    def __check_nm_version(self) -> None:
         """
         Get the NetworkManager version
         """
@@ -824,7 +826,7 @@ class CatNMConfigTool(object):
             return
         self.nm_version = Messages.unknown_version
 
-    def __delete_existing_connection(self, ssid):
+    def __delete_existing_connection(self, ssid: str) -> None:
         """
         checks and deletes earlier connection
         """
@@ -850,7 +852,7 @@ class CatNMConfigTool(object):
             except dbus.exceptions.DBusException:
                 pass
 
-    def __add_connection(self, ssid):
+    def __add_connection(self, ssid: str) -> None:
         debug("Adding connection: " + ssid)
         server_alt_subject_name_list = dbus.Array(Config.servers)
         server_name = Config.server_match
@@ -909,7 +911,7 @@ class CatNMConfigTool(object):
             })
         self.settings.AddConnection(con)
 
-    def add_connections(self, user_data):
+    def add_connections(self, user_data: Type[InstallerData]):
         """Delete and then add connections to the system"""
         self.__check_opts()
         self.user_data = user_data
