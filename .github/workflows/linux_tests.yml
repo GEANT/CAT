@@ -23,4 +23,4 @@ jobs:
           pip install flake8
           flake8 devices/linux/Files/main.py --count --exit-zero
           pip install pylint
-          pylint devices/linux/Files/main.py
+          pylint devices/linux/Files/main.py --exit-zero
