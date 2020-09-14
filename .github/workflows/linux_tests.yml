@@ -36,6 +36,7 @@ jobs:
           Messages.username_prompt = "enter your userid"
           Messages.enter_password = "enter password"
           EOF
+          mkdir -p artifacts/
       - name: Create config file
         uses: actions/upload-artifact@v2
         with:
@@ -64,11 +65,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: configuration
-          path: configuration/create_test_data_ttls.txt
       - shell: bash
         run: |
+          cat create_test_data_ttls.txt >> devices/linux/Files/main.py
+          echo "run_installer()" >> devices/linux/Files/main.py
           cd devices/linux/Files/
-          cat configuration/create_test_data_ttls.txt >> main.py
-          echo "run_installer()" >> main.py
           python main.py -d -s --username eduroam_user --password eduroam_password
 
