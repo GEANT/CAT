@@ -43,8 +43,3 @@ jobs:
           path: create_test_data_ttls.txt
 
 
-  test_installer:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: []
