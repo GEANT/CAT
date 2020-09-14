@@ -37,7 +37,7 @@ jobs:
           Messages.enter_password = "enter password"
           EOF
       - name: Create config file
-        uses: actions/upload-artifact@2
+        uses: actions/upload-artifact@v2
         with:
           name: configuration
           path: create_test_data_ttls.txt
