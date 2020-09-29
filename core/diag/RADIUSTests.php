@@ -380,7 +380,7 @@ class RADIUSTests extends AbstractTest
         // $pem = chunk_split(base64_encode($crlcontent), 64, "\n");
         // inspired by https://stackoverflow.com/questions/2390604/how-to-pass-variables-as-stdin-into-command-line-from-php
 
-        $proc = \config\Master::PATHS['openssl'] . " crl -inform der";
+        $proc = \config\Main::PATHS['openssl'] . " crl -inform der";
         $descriptorspec = [
             0 => ["pipe", "r"],
             1 => ["pipe", "w"],
@@ -547,7 +547,7 @@ class RADIUSTests extends AbstractTest
         $eapText = \core\common\EAP::eapDisplayName($eaptype);
         $config = '
 network={
-  ssid="' . \config\Master::APPEARANCE['productname'] . ' testing"
+  ssid="' . \config\Main::APPEARANCE['productname'] . ' testing"
   key_mgmt=WPA-EAP
   proto=WPA2
   pairwise=CCMP
@@ -763,11 +763,11 @@ network={
 // the error log will complain if we run this test against an empty file of certs
 // so test if there's something PEMy in the file at all
         if (filesize("$tmpDir/serverchain.pem") > 10) {
-            exec(\config\Master::PATHS['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem", $verifyResultEaponly);
-            $this->loggerInstance->debug(4, \config\Master::PATHS['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/serverchain.pem\n");
+            exec(\config\Main::PATHS['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem", $verifyResultEaponly);
+            $this->loggerInstance->debug(4, \config\Main::PATHS['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/serverchain.pem\n");
             $this->loggerInstance->debug(4, "Chain verify pass 1: " . print_r($verifyResultEaponly, TRUE) . "\n");
-            exec(\config\Master::PATHS['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem", $verifyResultAllcerts);
-            $this->loggerInstance->debug(4, \config\Master::PATHS['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/serverchain.pem\n");
+            exec(\config\Main::PATHS['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem", $verifyResultAllcerts);
+            $this->loggerInstance->debug(4, \config\Main::PATHS['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/serverchain.pem\n");
             $this->loggerInstance->debug(4, "Chain verify pass 2: " . print_r($verifyResultAllcerts, TRUE) . "\n");
         }
 

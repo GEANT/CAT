@@ -49,8 +49,8 @@ if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam") {
 }
 
 array_push($FAQ, [
-    'title' => sprintf(_("Is it safe to use %s installers?"), \config\Master::APPEARANCE['productname']),
-    'text' => sprintf(_("%s installers configure security settings on your device, therefore you should be sure that you are using genuine ones."), \config\Master::APPEARANCE['productname']) . ' ' . ( isset(\config\ConfAssistant::CONSORTIUM['signer_name']) && \config\ConfAssistant::CONSORTIUM['signer_name'] != "" ? sprintf(_("This is why %s installers are digitally signed by %s. Watch out for a system message confirming this."), \config\Master::APPEARANCE['productname'], \config\ConfAssistant::CONSORTIUM['signer_name']) : ""),
+    'title' => sprintf(_("Is it safe to use %s installers?"), \config\Main::APPEARANCE['productname']),
+    'text' => sprintf(_("%s installers configure security settings on your device, therefore you should be sure that you are using genuine ones."), \config\Main::APPEARANCE['productname']) . ' ' . ( isset(\config\ConfAssistant::CONSORTIUM['signer_name']) && \config\ConfAssistant::CONSORTIUM['signer_name'] != "" ? sprintf(_("This is why %s installers are digitally signed by %s. Watch out for a system message confirming this."), \config\Main::APPEARANCE['productname'], \config\ConfAssistant::CONSORTIUM['signer_name']) : ""),
 ]);
 
 array_push($FAQ, [
@@ -58,13 +58,13 @@ array_push($FAQ, [
     'text' => _("Contrary to what the name suggests, 'SmartScreen' isn't actually very smart. The warning merely means that the file has not yet been downloaded by enough users to make Microsoft consider it popular (which would strangely enough make it be considered 'safe'). This message alone is not a security problem.") . " " . (isset(\config\ConfAssistant::CONSORTIUM['signer_name']) && \config\ConfAssistant::CONSORTIUM['signer_name'] != "" ? sprintf(_("So long as the file is carrying a valid signature from %s, the download is safe."), \config\ConfAssistant::CONSORTIUM['signer_name']) . " " : "") . sprintf(_("Please see also Microsoft's FAQ regarding SmartScreen at %s."), "<a href='http://windows.microsoft.com/en-US/windows7/SmartScreen-Filter-frequently-asked-questions-IE9?SignedIn=1'>Microsoft FAQ</a>")
 ]);
 
-if (\config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] == NULL) {
+if (\config\Main::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] == NULL) {
     $text = sprintf(_("There can be a number of different reasons. The network you see may not be a genuine %s one and your device silently drops the connection attempt; there may be something wrong with the configuration of the network; your account may have expired; there may be a connection problem with your home authentication server; you may have broken the regulations of the network you are using and have been refused access as a consequence. You should contact your organisation and report the problem, the administrators should be able to trace your connections."), \config\ConfAssistant::CONSORTIUM['display_name']);
 } else {
-    if (\config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] == 'LOCAL') {
-        $diagUrl = \config\Master::PATHS['cat_base_url'] . "diag/";
+    if (\config\Main::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] == 'LOCAL') {
+        $diagUrl = \config\Main::PATHS['cat_base_url'] . "diag/";
     } else {
-        $diagUrl = \config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'];
+        $diagUrl = \config\Main::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'];
     }
     $text = sprintf(_("There can be a number of different reasons. The network you see may not be a genuine %s one and your device silently drops the connection attempt; your account may have expired; you may have broken the regulations of the network you are using and have been refused access as a consequence; or maybe there is an actual technical problem. To exclude the latter, you should first visit the %s Diagnostics tool <a href=''>here</a>, which can find many reasons for failure. It also allows you to contact your organisation and report the problem to them."), \config\ConfAssistant::CONSORTIUM['display_name'], $diagUrl);
 }
@@ -75,7 +75,7 @@ array_push($FAQ, [
 
 array_push($FAQ, [
     'title' => sprintf(_("I have a question about this web site. Whom should I contact?")),
-    'text' => sprintf(_("You should send a mail to %s."), \config\Master::APPEARANCE['support-contact']['display'])
+    'text' => sprintf(_("You should send a mail to %s."), \config\Main::APPEARANCE['support-contact']['display'])
 ]);
 
 /**

@@ -35,7 +35,7 @@ $uiElements = new \web\lib\admin\UIElements();
 
 // if we have a pushed close button, submit attributes and send user back to the overview page
 // if external DB sync is disabled globally, the user never gets to this page. If he came here *anyway* -> send him back immediately.
-if ((isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_CLOSE ) || \config\Master::DB['enforce-external-sync'] == FALSE) {
+if ((isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_CLOSE ) || \config\Main::DB['enforce-external-sync'] == FALSE) {
     header("Location: ../overview_federation.php");
     exit;
 }
@@ -93,8 +93,8 @@ if (isset($_POST['submitbutton'])) {
     switch ($my_inst->getExternalDBSyncState()) {
         case \core\IdP::EXTERNAL_DB_SYNCSTATE_SYNCED:
             printf(_("This %s is linked to the %s database."), $uiElements->nomenclatureInst, \config\ConfAssistant::CONSORTIUM['display_name']) . "</p>";
-            echo "<p>" . sprintf(_("The following information about the IdP is stored in the %s DB and %s DB:"), \config\Master::APPEARANCE['productname'], \config\ConfAssistant::CONSORTIUM['display_name']) . "</p>";
-            echo "<table><tr><td>" . sprintf(_("Information in <strong>%s Database</strong>"), \config\Master::APPEARANCE['productname']) . "</td><td>" . sprintf(_("Information in <strong>%s Database</strong>"), \config\ConfAssistant::CONSORTIUM['display_name']) . "</td></tr>";
+            echo "<p>" . sprintf(_("The following information about the IdP is stored in the %s DB and %s DB:"), \config\Main::APPEARANCE['productname'], \config\ConfAssistant::CONSORTIUM['display_name']) . "</p>";
+            echo "<table><tr><td>" . sprintf(_("Information in <strong>%s Database</strong>"), \config\Main::APPEARANCE['productname']) . "</td><td>" . sprintf(_("Information in <strong>%s Database</strong>"), \config\ConfAssistant::CONSORTIUM['display_name']) . "</td></tr>";
             echo "<tr><td>";
             // left-hand side: CAT DB
             echo "<table>";
@@ -104,7 +104,7 @@ if (isset($_POST['submitbutton'])) {
                 if ($name['lang'] == "C") {
                     $language = "default/other";
                 } else {
-                    $language = \config\Master::LANGUAGES[$name['lang']]['display'] ?? "(unsupported language)";
+                    $language = \config\Main::LANGUAGES[$name['lang']]['display'] ?? "(unsupported language)";
                 }
                 echo "<tr><td>" . sprintf(_("%s Name (%s)"), $uiElements->nomenclatureInst, $language) . "</td><td>" . $name['value'] . "</td></tr>";
             }

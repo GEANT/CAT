@@ -504,12 +504,12 @@ class InputValidation extends \core\common\Entity
      */
     public function supportedLanguage($input)
     {
-        if (!array_key_exists($input, \config\Master::LANGUAGES)) {
-            return \config\Master::APPEARANCE['defaultlocale'];
+        if (!array_key_exists($input, \config\Main::LANGUAGES)) {
+            return \config\Main::APPEARANCE['defaultlocale'];
         }
         // otherwise, use the inversion trick to convince Scrutinizer that this is
         // a vetted value
-        $retval = array_search(\config\Master::LANGUAGES[$input], \config\Master::LANGUAGES);
+        $retval = array_search(\config\Main::LANGUAGES[$input], \config\Main::LANGUAGES);
         if ($retval === FALSE) {
             throw new Exception("Impossible: the value we are searching for does exist, because we reference it directly.");
         }

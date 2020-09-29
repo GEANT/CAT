@@ -226,7 +226,7 @@ if ($queryType == 'idp_send' || $queryType == 'sp_send') {
         $mail = \core\common\OutsideComm::mailHandle();
         $emails = ['mgw@umk.pl'];
         //$emails = explode(',', $returnArray['idpcontact']);
-        $mail->FromName = \config\Master::APPEARANCE['productname'] . " Notification System";
+        $mail->FromName = \config\Main::APPEARANCE['productname'] . " Notification System";
         foreach ($emails as $email) {
             $mail->addAddress($email);
         }

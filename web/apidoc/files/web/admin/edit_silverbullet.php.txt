@@ -37,7 +37,7 @@ if (!isset($_REQUEST['profile_id'])) {
     // someone might want to trick himself into this page by sending an inst_id but
     // not having permission for silverbullet. Sanity check that the fed in question
     // does allow SB and that the IdP doesn't have any non-SB profiles
-    if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] != "LOCAL") {
+    if (\config\Main::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] != "LOCAL") {
         throw new Exception("We were told to create a new SB profile, but this deployment is not configured for SB!");
     }
 

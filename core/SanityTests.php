@@ -237,7 +237,7 @@ class SanityTests extends CAT
         $the_path = "";
         $exec_is = "UNDEFINED";
 
-        foreach ([\config\Master::PATHS, \config\ConfAssistant::PATHS, \config\Diagnostics::PATHS] as $config) {
+        foreach ([\config\Main::PATHS, \config\ConfAssistant::PATHS, \config\Diagnostics::PATHS] as $config) {
             if (!empty($config[$pathToCheck])) {
                 $matchArray = [];
                 preg_match('/([^ ]+) ?/', $config[$pathToCheck], $matchArray);
@@ -275,13 +275,13 @@ class SanityTests extends CAT
      */
     private function testCatBaseUrl()
     {
-        $rootUrl = substr(\config\Master::PATHS['cat_base_url'], -1) === '/' ? substr(\config\Master::PATHS['cat_base_url'], 0, -1) : \config\Master::PATHS['cat_base_url'];
+        $rootUrl = substr(\config\Main::PATHS['cat_base_url'], -1) === '/' ? substr(\config\Main::PATHS['cat_base_url'], 0, -1) : \config\Main::PATHS['cat_base_url'];
         preg_match('/(^.*)\/admin\/112365365321.php/', $_SERVER['SCRIPT_NAME'], $m);
         if ($rootUrl === $m[1]) {
             $this->storeTestResult(\core\common\Entity::L_OK, "<strong>cat_base_url</strong> set correctly");
         } else {
             $rootFromScript = $m[1] === '' ? '/' : $m[1];
-            $this->storeTestResult(\core\common\Entity::L_ERROR, "<strong>cat_base_url</strong> is set to <strong>" . \config\Master::PATHS['cat_base_url'] . "</strong> and should be <strong>$rootFromScript</strong>");
+            $this->storeTestResult(\core\common\Entity::L_ERROR, "<strong>cat_base_url</strong> is set to <strong>" . \config\Main::PATHS['cat_base_url'] . "</strong> and should be <strong>$rootFromScript</strong>");
         }
     }
 
@@ -313,10 +313,10 @@ class SanityTests extends CAT
      */
     private function testSsp()
     {
-        if (!is_file(\config\Master::AUTHENTICATION['ssp-path-to-autoloader'])) {
+        if (!is_file(\config\Main::AUTHENTICATION['ssp-path-to-autoloader'])) {
             $this->storeTestResult(\core\common\Entity::L_ERROR, "<strong>simpleSAMLphp</strong> not found!");
         } else {
-            include_once \config\Master::AUTHENTICATION['ssp-path-to-autoloader'];
+            include_once \config\Main::AUTHENTICATION['ssp-path-to-autoloader'];
             $SSPconfig = \SimpleSAML\Configuration::getInstance();
             $sspVersion = explode('.', $SSPconfig->getVersion());
             if ((int) $sspVersion[0] >= $this->needversionSSP['major'] && (int) $sspVersion[1] >= $this->needversionSSP['minor']) {
@@ -334,8 +334,8 @@ class SanityTests extends CAT
      */
     private function testSecurity()
     {
-        if (in_array("I do not care about security!", \config\Master::SUPERADMINS)) {
-            $this->storeTestResult(\core\common\Entity::L_WARN, "You do not care about security. This page should be made accessible to the CAT admin only! See config-master.php: 'SUPERADMINS'!");
+        if (in_array("I do not care about security!", \config\Main::SUPERADMINS)) {
+            $this->storeTestResult(\core\common\Entity::L_WARN, "You do not care about security. This page should be made accessible to the CAT admin only! See config-main.php: 'SUPERADMINS'!");
         }
     }
 
@@ -380,8 +380,8 @@ class SanityTests extends CAT
      */
     private function testLogdir()
     {
-        if (fopen(\config\Master::PATHS['logdir'] . "/debug.log", "a") == FALSE) {
-            $this->storeTestResult(\core\common\Entity::L_WARN, "Log files in <strong>" . \config\Master::PATHS['logdir'] . "</strong> are not writable!");
+        if (fopen(\config\Main::PATHS['logdir'] . "/debug.log", "a") == FALSE) {
+            $this->storeTestResult(\core\common\Entity::L_WARN, "Log files in <strong>" . \config\Main::PATHS['logdir'] . "</strong> are not writable!");
         } else {
             $this->storeTestResult(\core\common\Entity::L_OK, "Log directory is writable.");
         }
@@ -448,7 +448,7 @@ class SanityTests extends CAT
     {
         $host_4 = '145.0.2.50';
         $host_6 = '2001:610:188:444::50';
-        switch (\config\Master::GEOIP['version']) {
+        switch (\config\Main::GEOIP['version']) {
             case 0:
                 $this->storeTestResult(\core\common\Entity::L_REMARK, "As set in the config, no geolocation service will be used");
                 break;
@@ -469,16 +469,16 @@ class SanityTests extends CAT
                 $this->storeTestResult(\core\common\Entity::L_REMARK, "PHP extension <strong>GeoIP</strong> (legacy) is installed and working. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly. We stronly advise to replace the legacy GeoIP with GeoIP2 from <a href='https://github.com/maxmind/GeoIP2-php'>here</a>.");
                 break;
             case 2:
-                if (!is_file(\config\Master::GEOIP['geoip2-path-to-autoloader'])) {
+                if (!is_file(\config\Main::GEOIP['geoip2-path-to-autoloader'])) {
                     $this->storeTestResult(\core\common\Entity::L_ERROR, "PHP extension <strong>GeoIP2</strong> not found! Get it from <a href='https://github.com/maxmind/GeoIP2-php'>here</a>.");
                     return;
                 }
-                if (!is_file(\config\Master::GEOIP['geoip2-path-to-db'])) {
+                if (!is_file(\config\Main::GEOIP['geoip2-path-to-db'])) {
                     $this->storeTestResult(\core\common\Entity::L_ERROR, "<strong>GeoIP2 database</strong> not found! See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
                     return;
                 }
-                include_once \config\Master::GEOIP['geoip2-path-to-autoloader'];
-                $reader = new Reader(\config\Master::GEOIP['geoip2-path-to-db']);
+                include_once \config\Main::GEOIP['geoip2-path-to-autoloader'];
+                $reader = new Reader(\config\Main::GEOIP['geoip2-path-to-db']);
                 try {
                     $record = $reader->city($host_4);
                 } catch (Exception $e) {
@@ -502,7 +502,7 @@ class SanityTests extends CAT
                 $this->storeTestResult(\core\common\Entity::L_OK, "PHP extension <strong>GeoIP2</strong> is installed and working. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
                 break;
             default:
-                $this->storeTestResult(\core\common\Entity::L_ERROR, 'Check \config\Master::GEOIP[\'version\'], it must be set to either 1 or 2');
+                $this->storeTestResult(\core\common\Entity::L_ERROR, 'Check \config\Main::GEOIP[\'version\'], it must be set to either 1 or 2');
                 break;
         }
     }
@@ -645,7 +645,7 @@ class SanityTests extends CAT
     {
         $locales = shell_exec("locale -a");
         $allthere = "";
-        foreach (\config\Master::LANGUAGES as $onelanguage) {
+        foreach (\config\Main::LANGUAGES as $onelanguage) {
             if (preg_match("/" . $onelanguage['locale'] . "/", $locales) == 0) {
                 $allthere .= $onelanguage['locale'] . " ";
             }
@@ -658,47 +658,47 @@ class SanityTests extends CAT
     }
 
     const DEFAULTS = [
-        ["SETTING" => \config\Master::APPEARANCE['from-mail'],
+        ["SETTING" => \config\Main::APPEARANCE['from-mail'],
             "DEFVALUE" => "cat-invite@your-cat-installation.example",
             "COMPLAINTSTRING" => "APPEARANCE/from-mail ",
             "REQUIRED" => FALSE,],
-        ["SETTING" => \config\Master::APPEARANCE['support-contact']['url'],
+        ["SETTING" => \config\Main::APPEARANCE['support-contact']['url'],
             "DEFVALUE" => "cat-support@our-cat-installation.example?body=Only%20English%20language%20please!",
             "COMPLAINTSTRING" => "APPEARANCE/support-contact/url ",
             "REQUIRED" => FALSE,],
-        ["SETTING" => \config\Master::APPEARANCE['support-contact']['display'],
+        ["SETTING" => \config\Main::APPEARANCE['support-contact']['display'],
             "DEFVALUE" => "cat-support@our-cat-installation.example",
             "COMPLAINTSTRING" => "APPEARANCE/support-contact/display ",
             "REQUIRED" => FALSE,],
-        ["SETTING" => \config\Master::APPEARANCE['support-contact']['developer-mail'],
+        ["SETTING" => \config\Main::APPEARANCE['support-contact']['developer-mail'],
             "DEFVALUE" => "cat-develop@our-cat-installation.example",
             "COMPLAINTSTRING" => "APPEARANCE/support-contact/mail ",
             "REQUIRED" => FALSE,],
-        ["SETTING" => \config\Master::APPEARANCE['abuse-mail'],
+        ["SETTING" => \config\Main::APPEARANCE['abuse-mail'],
             "DEFVALUE" => "my-abuse-contact@your-cat-installation.example",
             "COMPLAINTSTRING" => "APPEARANCE/abuse-mail ",
             "REQUIRED" => FALSE,],
-        ["SETTING" => \config\Master::APPEARANCE['MOTD'],
+        ["SETTING" => \config\Main::APPEARANCE['MOTD'],
             "DEFVALUE" => "Release Candidate. All bugs to be shot on sight!",
             "COMPLAINTSTRING" => "APPEARANCE/MOTD ",
             "REQUIRED" => FALSE,],
-        ["SETTING" => \config\Master::APPEARANCE['webcert_CRLDP'],
+        ["SETTING" => \config\Main::APPEARANCE['webcert_CRLDP'],
             "DEFVALUE" => ['list', 'of', 'CRL', 'pointers'],
             "COMPLAINTSTRING" => "APPEARANCE/webcert_CRLDP ",
             "REQUIRED" => TRUE,],
-        ["SETTING" => \config\Master::APPEARANCE['webcert_OCSP'],
+        ["SETTING" => \config\Main::APPEARANCE['webcert_OCSP'],
             "DEFVALUE" => ['list', 'of', 'OCSP', 'pointers'],
             "COMPLAINTSTRING" => "APPEARANCE/webcert_OCSP ",
             "REQUIRED" => TRUE,],
-        ["SETTING" => \config\Master::DB['INST']['host'],
+        ["SETTING" => \config\Main::DB['INST']['host'],
             "DEFVALUE" => "db.host.example",
             "COMPLAINTSTRING" => "DB/INST ",
             "REQUIRED" => TRUE,],
-        ["SETTING" => \config\Master::DB['INST']['host'],
+        ["SETTING" => \config\Main::DB['INST']['host'],
             "DEFVALUE" => "db.host.example",
             "COMPLAINTSTRING" => "DB/USER ",
             "REQUIRED" => TRUE,],
-        ["SETTING" => \config\Master::DB['EXTERNAL']['host'],
+        ["SETTING" => \config\Main::DB['EXTERNAL']['host'],
             "DEFVALUE" => "customerdb.otherhost.example",
             "COMPLAINTSTRING" => "DB/EXTERNAL ",
             "REQUIRED" => FALSE,],
@@ -785,7 +785,7 @@ class SanityTests extends CAT
         }
 
         $databaseName3 = 'EXTERNAL';
-        if (!empty(\config\Master::DB[$databaseName3])) {
+        if (!empty(\config\Main::DB[$databaseName3])) {
             try {
                 $db3 = DBConnection::handle($databaseName3);
                 if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
@@ -856,7 +856,7 @@ class SanityTests extends CAT
      */
     private function testMailer()
     {
-        if (empty(\config\Master::APPEARANCE['abuse-mail']) || \config\Master::APPEARANCE['abuse-mail'] == "my-abuse-contact@your-cat-installation.example") {
+        if (empty(\config\Main::APPEARANCE['abuse-mail']) || \config\Main::APPEARANCE['abuse-mail'] == "my-abuse-contact@your-cat-installation.example") {
             $this->storeTestResult(\core\common\Entity::L_ERROR, "Your abuse-mail has not been set, cannot continue with mailer tests.");
             return;
         }
@@ -865,21 +865,21 @@ class SanityTests extends CAT
         $mail->Port = 587;
         $mail->SMTPAuth = true;
         $mail->SMTPSecure = 'tls';
-        $mail->Host = \config\Master::MAILSETTINGS['host'];
-        $mail->Username = \config\Master::MAILSETTINGS['user'];
-        $mail->Password = \config\Master::MAILSETTINGS['pass'];
-        $mail->SMTPOptions = \config\Master::MAILSETTINGS['options'];
+        $mail->Host = \config\Main::MAILSETTINGS['host'];
+        $mail->Username = \config\Main::MAILSETTINGS['user'];
+        $mail->Password = \config\Main::MAILSETTINGS['pass'];
+        $mail->SMTPOptions = \config\Main::MAILSETTINGS['options'];
         $mail->WordWrap = 72;
         $mail->isHTML(FALSE);
         $mail->CharSet = 'UTF-8';
-        $mail->From = \config\Master::APPEARANCE['from-mail'];
-        $mail->FromName = \config\Master::APPEARANCE['productname'] . " Invitation System";
-        $mail->addAddress(\config\Master::APPEARANCE['abuse-mail']);
+        $mail->From = \config\Main::APPEARANCE['from-mail'];
+        $mail->FromName = \config\Main::APPEARANCE['productname'] . " Invitation System";
+        $mail->addAddress(\config\Main::APPEARANCE['abuse-mail']);
         $mail->Subject = "testing CAT configuration mail";
         $mail->Body = "Testing CAT mailing\n";
         $sent = $mail->send();
         if ($sent) {
-            $this->storeTestResult(\core\common\Entity::L_OK, "mailer settings appear to be working, check " . \config\Master::APPEARANCE['abuse-mail'] . " mailbox if the message was receiced.");
+            $this->storeTestResult(\core\common\Entity::L_OK, "mailer settings appear to be working, check " . \config\Main::APPEARANCE['abuse-mail'] . " mailbox if the message was receiced.");
         } else {
             $this->storeTestResult(\core\common\Entity::L_ERROR, "mailer settings failed, check the Config::MAILSETTINGS");
         }

@@ -154,7 +154,7 @@ build:
                     - | 
                       echo "<?php 
                       namespace config;
-                      class Master {
+                      class Main {
                       const APPEARANCE = [ 
                       'productname' => 'CAT', 
                       'productname_long' => 'Configuration Assistant Tool',
@@ -200,7 +200,7 @@ build:
                       const MAX_UPLOAD_SIZE = 100000000;
                       const DEBUG_LEVEL = 5;
                       const SUPERADMINS = [];
-                      }" >/home/scrutinizer/build/config/Master.php
+                      }" >/home/scrutinizer/build/config/Main.php
                     - |
                       echo "<?php 
                       namespace config;

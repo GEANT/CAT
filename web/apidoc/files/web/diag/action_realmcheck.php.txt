@@ -27,7 +27,7 @@ $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $gui = new \web\lib\user\Gui();
 $gui->languageInstance->setTextDomain("diagnostics");
-echo $deco->defaultPagePrelude(sprintf(_("Sanity check for dynamic discovery of realms"), \config\Master::APPEARANCE['productname']));
+echo $deco->defaultPagePrelude(sprintf(_("Sanity check for dynamic discovery of realms"), \config\Main::APPEARANCE['productname']));
 
 $ourlocale = $gui->languageInstance->getLang();
 

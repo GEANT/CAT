@@ -12,7 +12,7 @@ require_once dirname(dirname(__FILE__)) . "/config/_config.php";
 
 const OSLIST = ["chromeos", "w10", "apple_hi_sierra", "linux", "eap-config"];
 $bashLines = "";
-foreach (\config\Master::LANGUAGES as $lang => $details) {
+foreach (\config\Main::LANGUAGES as $lang => $details) {
     if ($lang == "en") {
         continue;
     }

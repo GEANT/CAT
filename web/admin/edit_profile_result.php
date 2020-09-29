@@ -49,11 +49,11 @@ switch ($_POST['submitbutton']) {
     case web\lib\common\FormElements::BUTTON_SAVE:
         if (isset($_GET['profile_id'])) {
             $profile = $validator->existingProfile($_GET['profile_id'], $my_inst->identifier);
-            echo $deco->pageheader(sprintf(_("%s: Edit Profile - Result"), \config\Master::APPEARANCE['productname']), "ADMIN-IDP");
+            echo $deco->pageheader(sprintf(_("%s: Edit Profile - Result"), \config\Main::APPEARANCE['productname']), "ADMIN-IDP");
         } else {
             $profile = $my_inst->newProfile(core\AbstractProfile::PROFILETYPE_RADIUS);
             $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $my_inst->identifier . " - Profile created");
-            echo $deco->pageheader(sprintf(_("%s: Profile wizard (step 3 completed)"), \config\Master::APPEARANCE['productname']), "ADMIN-IDP");
+            echo $deco->pageheader(sprintf(_("%s: Profile wizard (step 3 completed)"), \config\Main::APPEARANCE['productname']), "ADMIN-IDP");
         }
         if (!$profile instanceof \core\ProfileRADIUS) {
                 throw new Exception("This page should only be called to submit RADIUS Profile information!");
@@ -226,12 +226,12 @@ switch ($_POST['submitbutton']) {
                     $text .= $significantChanges[\core\AbstractProfile::SERVERNAME_ADDED] . "\n\n";
                 }
                 $text .= _("This mail is merely a cross-check because these changes can be security-relevant. If the change was expected, you do not need to take any action.") . "\n\n";
-                $text .= _("Greetings, ") . "\n\n" . \config\Master::APPEARANCE['productname_long'];
+                $text .= _("Greetings, ") . "\n\n" . \config\Main::APPEARANCE['productname_long'];
                 // (currently, send hard-wired to NRO - future: for linked insts, check eduroam DBv2 and send to registered admins directly)
                 $fed = new core\Federation($myInstOriginal->federation);
                 foreach ($fed->listFederationAdmins() as $id) {
                     $user = new core\User($id);
-                    $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), \config\Master::APPEARANCE['productname'], $ui->nomenclatureInst), $text);
+                    $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), \config\Main::APPEARANCE['productname'], $ui->nomenclatureInst), $text);
                 }
             }
             foreach ($reloadedProfile->getEapMethodsinOrderOfPreference() as $oneEap) {

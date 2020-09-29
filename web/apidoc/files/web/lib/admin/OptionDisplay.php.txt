@@ -117,7 +117,7 @@ class OptionDisplay extends \core\common\Entity {
         $retval = "";
         $optioninfo = \core\Options::instance();
         $blackListOnPrefill = "user:fedadmin|managedsp:vlan|managedsp:operatorname";
-        if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && \config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] != "LOCAL") {
+        if (\config\Main::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && \config\Main::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] != "LOCAL") {
             $blackListOnPrefill .= "|fed:silverbullet";
         }
         foreach ($prepopulate as $option) {
@@ -158,7 +158,7 @@ class OptionDisplay extends \core\common\Entity {
                 //normally, we have nothing to hide on that level
                 // if we are a Managed IdP exclusive deployment, do not display or allow
                 // to change the "Enable Managed IdP" boolean - it is simply always there
-                if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && \config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] != "LOCAL") {
+                if (\config\Main::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && \config\Main::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] != "LOCAL") {
                     unset($list[array_search("fed:silverbullet", $list)]);
                 }
                 break;
@@ -296,7 +296,7 @@ FOO;
         $retval = "<select style='display:" . ($makeVisible ? "block" : "none") . "' name='value[S$rowid-lang]' id='S" . $rowid . "-input-langselect'>
             <option value='' name='select_language' selected>" . _("select language") . "</option>
             <option value='C' name='all_languages'>" . _("default/other languages") . "</option>";
-        foreach (\config\Master::LANGUAGES as $langindex => $possibleLang) {
+        foreach (\config\Main::LANGUAGES as $langindex => $possibleLang) {
             $thislang = $possibleLang['display'];
             $retval .= "<option value='$langindex' name='$langindex'>$thislang</option>";
         }

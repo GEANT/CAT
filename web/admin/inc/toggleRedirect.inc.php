@@ -129,7 +129,7 @@ if ($device !== NULL) {
     }
     $optionDisplay = new \web\lib\admin\OptionDisplay($interesting_attribs, \core\Options::LEVEL_METHOD);
     echo $optionDisplay->prefilledOptionTable($keyword);
-    if (\config\Master::DB['INST']['readonly'] === FALSE) {
+    if (\config\Main::DB['INST']['readonly'] === FALSE) {
         ?>
         <button type='button' class='newoption' onclick='<?php echo "getXML(\"$keyword\")"; ?>'><?php echo _("Add new option"); ?></button>
         <br/>
