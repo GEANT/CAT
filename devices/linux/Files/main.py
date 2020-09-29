@@ -13,7 +13,7 @@
  * GÉANT Vereniging (Association) is registered with the Chamber of
  * Commerce in Amsterdam with registration number 40535155 and operates
  * in the UK as a branch of GÉANT Vereniging.
- * 
+ *
  * Registered office: Hoekenrode 3, 1102BR Amsterdam, The Netherlands.
  * UK branch address: City House, 126-130 Hills Road, Cambridge CB2 1PQ, UK
  *
@@ -289,7 +289,7 @@ class Config(object):
 
 class InstallerData(object):
     """
-    General user interaction handling, supports zenity, kdialog and
+    General user interaction handling, supports zenity, KDialog and
     standard command-line interface
     """
 
@@ -316,7 +316,7 @@ class InstallerData(object):
                 sys.exit(1)
         if os.path.exists(get_config_path() + '/cat_installer'):
             if self.ask(Messages.cat_dir_exists.format(
-                            get_config_path() + '/cat_installer'),
+                    get_config_path() + '/cat_installer'),
                         Messages.cont, 1):
                 sys.exit(1)
         else:
@@ -334,7 +334,7 @@ class InstallerData(object):
 
     def ask(self, question: str, prompt: str = '', default: bool = None) -> int:
         """
-        Propmpt user for a Y/N reply, possibly supplying a default answer
+        Prompt user for a Y/N reply, possibly supplying a default answer
         """
         if self.silent:
             return 0
@@ -359,14 +359,15 @@ class InstallerData(object):
                     return 0
                 if i == nay:
                     return 1
+        command = []
         if self.graphics == "zenity":
             command = ['zenity', '--title=' + Config.title, '--width=500',
                        '--question', '--text=' + question + "\n\n" + prompt]
         elif self.graphics == 'kdialog':
             command = ['kdialog', '--yesno', question + "\n\n" + prompt,
                        '--title=', Config.title]
-        returncode = subprocess.call(command, stderr=STDERR_REDIR)
-        return returncode
+        return_code = subprocess.call(command, stderr=STDERR_REDIR)
+        return return_code
 
     def show_info(self, data: str) -> None:
         """
@@ -424,7 +425,7 @@ class InstallerData(object):
                 output = inp.strip()
                 if output != '':
                     return output
-
+        command = []
         if self.graphics == 'zenity':
             if val == '':
                 default_val = ''
@@ -598,6 +599,7 @@ class InstallerData(object):
                     return output
                 print("file not found")
 
+        cert = ""
         if self.graphics == 'zenity':
             command = ['zenity', '--file-selection',
                        '--file-filter=' + Messages.p12_filter +
@@ -618,8 +620,8 @@ class InstallerData(object):
 
     def __save_sb_pfx(self) -> None:
         """write the user PFX file"""
-        certfile = get_config_path() + '/cat_installer/user.p12'
-        with open(certfile, 'wb') as cert:
+        cert_file = get_config_path() + '/cat_installer/user.p12'
+        with open(cert_file, 'wb') as cert:
             cert.write(base64.b64decode(Config.sb_user_file))
 
     def __get_p12_cred(self):
@@ -711,7 +713,7 @@ class WpaConf(object):
     Prepare and save wpa_supplicant config file
     """
     def __prepare_network_block(self, ssid: str, user_data: Type[InstallerData]) -> str:
-        out = """network={
+        interface = """network={
         ssid=\"""" + ssid + """\"
         key_mgmt=WPA-EAP
         pairwise=CCMP
@@ -723,9 +725,9 @@ class WpaConf(object):
         phase2=\"auth=""" + Config.eap_inner + """\"
         password=\"""" + user_data.password + """\"
         anonymous_identity=\"""" + Config.anonymous_identity + """\"
-}
-    """
-        return out
+        }
+        """
+        return interface
 
     def create_wpa_conf(self, ssids, user_data: Type[InstallerData]) -> None:
         """Create and save the wpa_supplicant config file"""
@@ -745,7 +747,7 @@ class CatNMConfigTool(object):
         self.cacert_file = None
         self.settings_service_name = None
         self.connection_interface_name = None
-        self.system_service_name = None
+        self.system_service_name = "org.freedesktop.NetworkManager"
         self.nm_version = None
         self.pfx_file = None
         self.settings = None
@@ -761,8 +763,6 @@ class CatNMConfigTool(object):
         except dbus.exceptions.DBusException:
             print("Can't connect to DBus")
             return None
-        # main service name
-        self.system_service_name = "org.freedesktop.NetworkManager"
         # check NM version
         self.__check_nm_version()
         debug("NM version: " + self.nm_version)
@@ -785,7 +785,7 @@ class CatNMConfigTool(object):
             sysproxy = self.bus.get_object(
                 self.settings_service_name,
                 "/org/freedesktop/NetworkManagerSettings")
-            # settings intrface
+            # settings interface
             self.settings = dbus.Interface(
                 sysproxy, "org.freedesktop.NetworkManagerSettings")
         else:
@@ -884,8 +884,7 @@ class CatNMConfigTool(object):
         s_con = dbus.Dictionary({
             'type': '802-11-wireless',
             'uuid': str(uuid.uuid4()),
-            'permissions': ['user:' +
-                            os.environ.get('USER')],
+            'permissions': ['user:' + os.environ.get('USER')],
             'id': ssid
             })
         s_wifi = dbus.Dictionary({
