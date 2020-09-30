@@ -11,9 +11,10 @@ eduroam CAT User Manuals
 ------------------------
 The flagship of CAT, the eduroam CAT (https://cat.eduroam.org), has extensive documentation (with screenshots!) of CAT. You may want to read those for an overview of the features.
 
-[eduroam CAT federation administrator documentation](https://wiki.geant.org/display/H2eduroam/A+guide+to+eduroam+CAT+for+federation+administrators)
+[eduroam CAT/Managed IdP National Roaming Operator documentation](https://wiki.geant.org/display/H2eduroam/A+guide+to+eduroam+CAT+2.0+and+eduroam+Managed+IdP+for+National+Roaming+Operator+administrators)
 
-[eduroam CAT institution administrator documentation](https://wiki.geant.org/display/H2eduroam/A+guide+to+eduroam+CAT+for+institution+administrators)
+[eduroam CAT institution administrator documentation](https://wiki.geant.org/display/H2eduroam/A+guide+to+eduroam+CAT+for+IdP+administrators)
+[eduroam Managed IdP institution administrator documentation](https://wiki.geant.org/display/H2eduroam/A+guide+to+eduroam+Managed+IdP+for+IdP+administrators)
 
 There is no documentation for end users, simply because it's so easy to use on the end-user side that no documentation is required! :-)
 
