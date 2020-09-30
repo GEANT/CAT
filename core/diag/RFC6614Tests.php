@@ -242,11 +242,11 @@ class RFC6614Tests extends AbstractTest
 // but code analysers want this more explicit, so here is this extra
 // call to escapeshellarg()
         $escapedHost = escapeshellarg($host);
-        $this->loggerInstance->debug(4, \config\Main::PATHS['openssl'] . " s_client -connect " . $escapedHost . " -tls1 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1\n");
+        $this->loggerInstance->debug(4, \config\Master::PATHS['openssl'] . " s_client -connect " . $escapedHost . " -tls1 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1\n");
         $time_start = microtime(true);
         $opensslbabble = [];
         $result = 999; // likely to become zero by openssl; don't want to initialise to zero, could cover up exec failures
-        exec(\config\Main::PATHS['openssl'] . " s_client -connect " . $escapedHost . " -no_ssl3 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1", $opensslbabble, $result);
+        exec(\config\Master::PATHS['openssl'] . " s_client -connect " . $escapedHost . " -no_ssl3 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1", $opensslbabble, $result);
         $time_stop = microtime(true);
         $testresults['time_millisec'] = floor(($time_stop - $time_start) * 1000);
         $testresults['returncode'] = $result;

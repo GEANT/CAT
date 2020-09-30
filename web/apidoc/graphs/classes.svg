@@ -131,11 +131,11 @@
 <polygon fill="none" stroke="#000000" points="1022,-5544 931,-5544 931,-5508 1022,-5508 1022,-5544"/>
 <text text-anchor="middle" x="976.5" y="-5523.2" font-family="Courier,monospace" font-size="11.00" fill="#000000">Diagnostics</text>
 </g>
-<!-- \\config\\Main -->
+<!-- \\config\\Master -->
 <g id="node3" class="node">
-<title>\\config\\Main</title>
+<title>\\config\\Master</title>
 <polygon fill="none" stroke="#000000" points="1005,-5490 948,-5490 948,-5454 1005,-5454 1005,-5490"/>
-<text text-anchor="middle" x="976.5" y="-5469.2" font-family="Courier,monospace" font-size="11.00" fill="#000000">Main</text>
+<text text-anchor="middle" x="976.5" y="-5469.2" font-family="Courier,monospace" font-size="11.00" fill="#000000">Master</text>
 </g>
 <!-- \\core\\common\\EAP -->
 <g id="node4" class="node">

@@ -36,7 +36,7 @@ $uiElements = new \web\lib\admin\UIElements();
 $auth->authenticate();
 
 /// first productname (eduroam CAT), then nomenclature for 'federation'
-echo $deco->pageheader(sprintf(_("%s: %s Customisation (submission completed)"), \config\Main::APPEARANCE['productname'], $uiElements->nomenclatureFed), "FEDERATION");
+echo $deco->pageheader(sprintf(_("%s: %s Customisation (submission completed)"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureFed), "FEDERATION");
 $my_fed = $validator->existingFederation($_GET['fed_id'], $_SESSION['user']);
 if (isset($_POST['submitbutton'])) {
     $submitGiven = filter_input(INPUT_POST, 'submitbutton', FILTER_SANITIZE_STRING);

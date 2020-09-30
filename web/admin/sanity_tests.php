@@ -42,18 +42,18 @@ $Tests = [
 
 $uiElements = new \web\lib\admin\UIElements();
 
-if (\config\Main::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" || \config\Main::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == "LOCAL" ) {
+if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" || \config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == "LOCAL" ) {
     $Tests[] = 'Makensis';
     $Tests[] = 'Makensis=>NSISmodules';
 }
 
-if (\config\Main::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] == "LOCAL") {
+if (\config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] == "LOCAL") {
     $Tests[] = 'Eapoltest';
 }
 
 ini_set('display_errors', '0');
 
-if (!in_array("I do not care about security!", \config\Main::SUPERADMINS)) {
+if (!in_array("I do not care about security!", \config\Master::SUPERADMINS)) {
     $auth = new \web\lib\admin\Authentication();
     $auth->authenticate();
     $user = new \core\User($_SESSION['user']);

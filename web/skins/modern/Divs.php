@@ -64,7 +64,7 @@ class Divs {
             <span>Configuration Assistant Tool</span>
             </div>";
         }
-        $retval .= "<div id='motd'>" . (isset(\config\Main::APPEARANCE['MOTD']) ? \config\Main::APPEARANCE['MOTD'] : '&nbsp') . "</div>";
+        $retval .= "<div id='motd'>" . (isset(\config\Master::APPEARANCE['MOTD']) ? \config\Master::APPEARANCE['MOTD'] : '&nbsp') . "</div>";
         $loc2 = $this->Gui->skinObject->findResourceUrl("IMAGES", "icons/menu.png");
         if ($loc2 !== FALSE) {
             $retval .= "<img id='hamburger' src='$loc2' alt='Menu'/>";
@@ -162,9 +162,9 @@ class Divs {
         <span id='line3'></span>
         <span id='line4'>";
 
-        if (\config\Main::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == "LOCAL") {
+        if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == "LOCAL") {
             $retval .= $this->Gui->textTemplates->templates[user\FRONTPAGE_ROLLER_CUSTOMBUILT];
-        } elseif (\config\Main::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
+        } elseif (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
             $retval .= $this->Gui->textTemplates->templates[user\SB_FRONTPAGE_ROLLER_CUSTOMBUILT];
         }
 
@@ -196,9 +196,9 @@ class Divs {
         $retval .= "<span id='signin'>
      <button class='large_button signin signin_large' id='user_button1'>
         <span id='user_button'>";
-        if (\config\Main::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == "LOCAL") {
+        if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == "LOCAL") {
             $retval .= $this->Gui->textTemplates->templates[user\FRONTPAGE_BIGDOWNLOADBUTTON];
-        } elseif (\config\Main::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
+        } elseif (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
             $retval .= $this->Gui->textTemplates->templates[user\SB_FRONTPAGE_BIGDOWNLOADBUTTON];
         }
 
@@ -364,8 +364,8 @@ class Divs {
                 . "
             </td>";
 
-        if (!empty(\config\Main::APPEARANCE['privacy_notice_url'])) {
-            $retval .= "<td><a href='" . \config\Main::APPEARANCE['privacy_notice_url'] . "'>" . sprintf(_("%s Privacy Notice"), \config\ConfAssistant::CONSORTIUM['display_name']) . "</a></td>";
+        if (!empty(\config\Master::APPEARANCE['privacy_notice_url'])) {
+            $retval .= "<td><a href='" . \config\Master::APPEARANCE['privacy_notice_url'] . "'>" . sprintf(_("%s Privacy Notice"), \config\ConfAssistant::CONSORTIUM['display_name']) . "</a></td>";
         }
         $retval .= "<td>";
         if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") {

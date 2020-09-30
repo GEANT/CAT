@@ -112,8 +112,8 @@
         become_user: apache
       - name: create default config files (1/4)
         command: 
-          cmd: "cp /var/www/{{ http_host }}/cat/config/Main-template.php /var/www/{{ http_host }}/cat/config/Main.php"
-          creates: "/var/www/{{ http_host }}/cat/config/Main.php"
+          cmd: "cp /var/www/{{ http_host }}/cat/config/Master-template.php /var/www/{{ http_host }}/cat/config/Master.php"
+          creates: "/var/www/{{ http_host }}/cat/config/Master.php"
         become: yes
         become_user: apache
       - name: create default config files (2/4)
@@ -136,7 +136,7 @@
         become_user: apache
       - name: brand product with desired consortium name (1/3)
         replace:
-          path: "/var/www/{{ http_host }}/cat/config/Main.php"
+          path: "/var/www/{{ http_host }}/cat/config/Master.php"
           regexp: "eduroam"
           replace: "{{ consortium }}"
       - name: brand product with desired consortium name (2/3)
@@ -168,22 +168,22 @@
           line: "'auth.adminpassword' => 'testing123',"
       - name: CAT authenticate against the static 'admin' password. Something to fine-tune obviously.
         lineinfile:
-          path: /var/www/{{ http_host }}/cat/config/Main.php
+          path: /var/www/{{ http_host }}/cat/config/Master.php
           regexp: "'ssp-authsource'"
           line: "'ssp-authsource' => 'admin',"
       - name: set correct pointer to SSP web root
         lineinfile:
-          path: /var/www/{{ http_host }}/cat/config/Main.php
+          path: /var/www/{{ http_host }}/cat/config/Master.php
           regexp: "'ssp-path-to-autoloader' => '"
           line: "'ssp-path-to-autoloader' => '/var/www/{{ http_host }}/cat/vendor/simplesamlphp/simplesamlphp/www/_include.php',"
       - name: use 'user' for the eptid so that the admin module can work
         lineinfile:
-          path: /var/www/{{ http_host }}/cat/config/Main.php
+          path: /var/www/{{ http_host }}/cat/config/Master.php
           regexp: "'ssp-attrib-identifier' => '"
           line: "'ssp-attrib-identifier' => 'user',"
       - name: set correct pointer to GeoIP2
         lineinfile:
-          path: /var/www/{{ http_host }}/cat/config/Main.php
+          path: /var/www/{{ http_host }}/cat/config/Master.php
           regexp: "'geoip2-path-to-autoloader' => '"
           line: "'geoip2-path-to-autoloader' => '/var/www/{{ http_host }}/cat/vendor/autoload.php',"
       - name: copy nsis3 to fixed path on system
@@ -212,7 +212,7 @@
           state: present
       - name: adapt CAT config - database name
         replace:
-          path: "/var/www/{{ http_host }}/cat/config/Main.php"
+          path: "/var/www/{{ http_host }}/cat/config/Master.php"
           regexp: "'db' => 'cat',"
           replace: "'db' => 'cat_ansible',"
       - name: copy client cert root CA to its config location (RSA)

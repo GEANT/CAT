@@ -20,7 +20,7 @@
  */
 
 require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
-require_once \config\Main::AUTHENTICATION['ssp-path-to-autoloader'];
+require_once \config\Master::AUTHENTICATION['ssp-path-to-autoloader'];
 
 $deco = new \web\lib\admin\PageDecoration();
 

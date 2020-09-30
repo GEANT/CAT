@@ -84,7 +84,7 @@ class UserNetAPI extends UserAPI
     public function jsonListLanguages()
     {
         $returnArray = [];
-        foreach (\config\Main::LANGUAGES as $id => $val) {
+        foreach (\config\Master::LANGUAGES as $id => $val) {
             $returnArray[] = ['lang' => $id, 'display' => $val['display'], 'locale' => $val['locale']];
         }
         echo $this->returnJSON($returnArray);
