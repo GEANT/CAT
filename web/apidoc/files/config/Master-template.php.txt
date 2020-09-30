@@ -38,7 +38,7 @@
 
 namespace config;
 
-class Main {
+class Master {
 
         /**
          * Defines parameters how this tool will present itself to users
@@ -63,7 +63,7 @@ class Main {
             'abuse-mail' => 'my-abuse-contact@your-cat-installation.example',
             'invitation-bcc-mail' => NULL,
             'defaultlocale' => 'en',
-            'MOTD' => "If you can read this, then the administrator did not change the default MOTD in config-main.php",
+            'MOTD' => "If you can read this, then the administrator did not change the default MOTD in config-master.php",
             // # signs before the colour code
             'colour1' => '#FFFFFF',
             'colour2' => '#0A698E',

@@ -86,7 +86,7 @@ class TextTemplates extends \core\common\Entity {
         $this->templates[WELCOME_ABOARD_PROBLEMS] = sprintf(_("Should you have any problems using this service, please always contact the helpdesk of %s. They will diagnose the problem and help you out. You can reach them via the means shown above."), "<span class='inst_name'></span>");
         $this->templates[WELCOME_ABOARD_BACKTODOWNLOADS] = _("Back to downloads");
         $this->templates[EDUROAM_WELCOME_ADVERTISING] = sprintf(_("we would like to warmly welcome you among the several million users of %s! From now on, you will be able to use internet access resources on thousands of universities, research centres and other places all over the globe. All of this completely free of charge!"), \config\ConfAssistant::CONSORTIUM['display_name']);
-        $this->templates[HEADING_TOPLEVEL_GREET] = sprintf(_("Welcome to %s"), \config\Main::APPEARANCE['productname']);
+        $this->templates[HEADING_TOPLEVEL_GREET] = sprintf(_("Welcome to %s"), \config\Master::APPEARANCE['productname']);
         $this->templates[HEADING_TOPLEVEL_PURPOSE] = sprintf(_("Connect your device to %s"),\config\ConfAssistant::CONSORTIUM['display_name']);
         $this->templates[FRONTPAGE_ROLLER_EASY] = sprintf(_("%s installation made easy:"), \config\ConfAssistant::CONSORTIUM['display_name']);
         $this->templates[FRONTPAGE_ROLLER_CUSTOMBUILT] = _("Custom built for your organisation");

@@ -149,7 +149,7 @@ class CertificationAuthorityEmbeddedECDSA extends EntityWithDBProperties impleme
         // choice of signature algorithm for the response explicit
         // but it's only available from openssl-1.1.0 (which we do not
         // want to require just for that one thing).
-        $execCmd = \config\Main::PATHS['openssl'] . " ocsp -issuer " . CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_CA . " -sha1 -ndays 10 -no_nonce -serial 0x$serialHex -CA " . CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_CA . " -rsigner " . CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_CA . " -rkey " . CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_KEY . " -index $tempdir/index.txt -no_cert_verify -respout $tempdir/$serialHex.response.der";
+        $execCmd = \config\Master::PATHS['openssl'] . " ocsp -issuer " . CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_CA . " -sha1 -ndays 10 -no_nonce -serial 0x$serialHex -CA " . CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_CA . " -rsigner " . CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_CA . " -rkey " . CertificationAuthorityEmbeddedECDSA::LOCATION_ISSUING_KEY . " -index $tempdir/index.txt -no_cert_verify -respout $tempdir/$serialHex.response.der";
         $this->loggerInstance->debug(2, "Calling openssl ocsp with following cmdline: $execCmd\n");
         $output = [];
         $return = 999;

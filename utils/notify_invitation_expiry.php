@@ -73,7 +73,7 @@ We thought you might like to know.
 
 Greetings,
 
-A humble " . \config\Main::APPEARANCE['productname'] . " cron job
+A humble " . \config\Master::APPEARANCE['productname'] . " cron job
 ";
 
     foreach ($admins as $admin) {

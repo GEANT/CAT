@@ -432,7 +432,7 @@ abstract class WindowsCommon extends \core\DeviceConfig
     }
 
     /**
-     * returns various NSH !define statements for later inclusion into main file
+     * returns various NSH !define statements for later inclusion into master file
      * 
      * @param array $attr profile attributes
      * @return string
@@ -449,7 +449,7 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprintNsis(_("%s inst
 !define VERSION "' . \core\CAT::VERSION_MAJOR . '.' . \core\CAT::VERSION_MINOR . '"
 !define INSTALLER_NAME "installer.exe"
 !define LANG "' . $this->lang . '"
-!define LOCALE "' . preg_replace('/\..*$/', '', \config\Main::LANGUAGES[$this->languageInstance->getLang()]['locale']) . '"
+!define LOCALE "' . preg_replace('/\..*$/', '', \config\Master::LANGUAGES[$this->languageInstance->getLang()]['locale']) . '"
 ;--------------------------------
 !define ORGANISATION "' . $this->translateString($attr['general:instname'][0], $this->codePage) . '"
 ';

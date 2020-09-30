@@ -274,12 +274,12 @@ class DBConnection
     {
         $this->loggerInstance = new \core\common\Logging();
         $databaseCapitalised = strtoupper($database);
-        if (isset(\config\Main::DB[$databaseCapitalised])) {
-            $this->connection = new \mysqli(\config\Main::DB[$databaseCapitalised]['host'], \config\Main::DB[$databaseCapitalised]['user'], \config\Main::DB[$databaseCapitalised]['pass'], \config\Main::DB[$databaseCapitalised]['db']);
+        if (isset(\config\Master::DB[$databaseCapitalised])) {
+            $this->connection = new \mysqli(\config\Master::DB[$databaseCapitalised]['host'], \config\Master::DB[$databaseCapitalised]['user'], \config\Master::DB[$databaseCapitalised]['pass'], \config\Master::DB[$databaseCapitalised]['db']);
             if ($this->connection->connect_error) {
                 throw new Exception("ERROR: Unable to connect to $database database! This is a fatal error, giving up (error number " . $this->connection->connect_errno . ").");
             }
-            $this->readOnly = \config\Main::DB[$databaseCapitalised]['readonly'];
+            $this->readOnly = \config\Master::DB[$databaseCapitalised]['readonly'];
         } else { // one of the RADIUS DBs
             $this->connection = new \mysqli(\config\ConfAssistant::DB[$databaseCapitalised]['host'], \config\ConfAssistant::DB[$databaseCapitalised]['user'], \config\ConfAssistant::DB[$databaseCapitalised]['pass'], \config\ConfAssistant::DB[$databaseCapitalised]['db']);
             if ($this->connection->connect_error) {

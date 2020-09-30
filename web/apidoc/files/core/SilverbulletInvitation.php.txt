@@ -245,7 +245,7 @@ class SilverbulletInvitation extends common\Entity {
         $text .= "\n\n";
         $text .= _("Regards,");
         $text .= "\n\n";
-        $text .= sprintf("%s", \config\Main::APPEARANCE['productname_long']);
+        $text .= sprintf("%s", \config\Master::APPEARANCE['productname_long']);
         common\Entity::outOfThePotatoes();
         return $text;
     }
@@ -323,7 +323,7 @@ class SilverbulletInvitation extends common\Entity {
             throw new Exception("Something went seriously wrong with the QR code generation!");
         }
         $bytestream = $uiElements->pngInjectConsortiumLogo($rawQr, $pixelsPerCode);
-        $mail->FromName = sprintf(_("%s Invitation System"), \config\Main::APPEARANCE['productname']);
+        $mail->FromName = sprintf(_("%s Invitation System"), \config\Master::APPEARANCE['productname']);
         $mail->Subject = $this->invitationMailSubject();
         $mail->Body = $this->invitationMailBody();
         $mail->addStringAttachment($bytestream, "qr-code-invitation.png", "base64", "image/png");

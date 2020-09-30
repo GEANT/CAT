@@ -447,7 +447,7 @@ class DeploymentManaged extends AbstractDeployment
         }
         $mail = \core\common\OutsideComm::mailHandle();
         $email = $this->getAttributes("support:email")[0]['value'];
-        $mail->FromName = \config\Main::APPEARANCE['productname'] . " Notification System";
+        $mail->FromName = \config\Master::APPEARANCE['productname'] . " Notification System";
         $mail->addAddress($email);
         if ($status == 'OK') {
             $mail->Subject = _('RADIUS profile update problem fixed');

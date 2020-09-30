@@ -41,7 +41,7 @@ if (isset($_SERVER['HTTPS'])) {
 $link .= $_SERVER['SERVER_NAME'] . $_SERVER['SCRIPT_NAME'];
 $link = htmlspecialchars($link);
 
-echo $deco->defaultPagePrelude(sprintf(_("%s: %s Dashboard"), \config\Main::APPEARANCE['productname'], $uiElements->nomenclatureHotspot));
+echo $deco->defaultPagePrelude(sprintf(_("%s: %s Dashboard"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureHotspot));
 require_once "inc/click_button_js.php";
 
 // RADIUS status icons
@@ -95,7 +95,7 @@ $(document).on('click', '#realmcheck' , function() {
         ?>
     </div>
     <?php
-    $readonly = \config\Main::DB['INST']['readonly'];
+    $readonly = \config\Master::DB['INST']['readonly'];
     ?>
     <hr><h2><?php $tablecaption = _("Available Support actions"); echo $tablecaption; ?></h2>
     <table>
@@ -105,7 +105,7 @@ $(document).on('click', '#realmcheck' , function() {
         <th class='wai-invisible' scope='col'><?php echo _("Trigger");?></th>
         </tr>
             <?php
-        if (\config\Main::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] !== NULL) {
+        if (\config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] !== NULL) {
             echo "<tr>
                         <td>" . sprintf(_("Diagnose reachability and connection parameters of %ss"),$uiElements->nomenclatureInst) . "</td>
                         <td><form method='post' action='../diag/action_realmcheck.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'>
@@ -311,7 +311,7 @@ $(document).on('click', '#realmcheck' , function() {
         // b) federation wants this to happen
 
         $myfed = new \core\Federation($my_inst->federation);
-        if (\config\Main::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0 && $my_inst->deploymentCount() == 0) {
+        if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0 && $my_inst->deploymentCount() == 0) {
             // the button is grayed out if there's no support email address configured...
             $hasMail = count($my_inst->getAttributes("support:email"));
             ?>

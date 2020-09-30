@@ -119,7 +119,7 @@ class User extends EntityWithDBProperties {
      * @return boolean TRUE if the user is a superadmin, FALSE if not 
      */
     public function isSuperadmin() {
-        return in_array($this->userName, \config\Main::SUPERADMINS);
+        return in_array($this->userName, \config\Master::SUPERADMINS);
     }
 
     /**
@@ -154,8 +154,8 @@ class User extends EntityWithDBProperties {
         common\Entity::intoThePotatoes();
         $mail = \core\common\OutsideComm::mailHandle();
 // who to whom?
-        $mail->FromName = \config\Main::APPEARANCE['productname'] . " Notification System";
-        $mail->addReplyTo(\config\Main::APPEARANCE['support-contact']['developer-mail'], \config\Main::APPEARANCE['productname'] . " " . _("Feedback"));
+        $mail->FromName = \config\Master::APPEARANCE['productname'] . " Notification System";
+        $mail->addReplyTo(\config\Master::APPEARANCE['support-contact']['developer-mail'], \config\Master::APPEARANCE['productname'] . " " . _("Feedback"));
         $mail->addAddress($mailaddr[0]["value"]);
 // what do we want to say?
         $mail->Subject = $subject;

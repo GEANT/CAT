@@ -25,7 +25,7 @@ $deco = new \web\lib\admin\PageDecoration();
 $uiElements = new web\lib\admin\UIElements();
 $validator = new \web\lib\common\InputValidation();
 
-echo $deco->defaultPagePrelude(sprintf(_("%s: %s Management"), \config\Main::APPEARANCE['productname'], $uiElements->nomenclatureFed));
+echo $deco->defaultPagePrelude(sprintf(_("%s: %s Management"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureFed));
 $user = new \core\User($_SESSION['user']);
 require_once "inc/click_button_js.php";
 ?>
@@ -41,7 +41,7 @@ $(document).on('click', '#realmcheck' , function() {
 <body>
     <?php
     echo $deco->productheader("FEDERATION");
-    $readonly = \config\Main::DB['INST']['readonly'];
+    $readonly = \config\Master::DB['INST']['readonly'];
     ?>
     <h1>
         <?php echo sprintf(_("%s Overview"), $uiElements->nomenclatureFed); ?>
@@ -216,7 +216,7 @@ $(document).on('click', '#realmcheck' , function() {
     }
     $link .= $_SERVER['SERVER_NAME'] . $_SERVER['SCRIPT_NAME'];
     $link = htmlspecialchars($link);
-    if (\config\Main::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == 'LOCAL' && \config\Main::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] == 'LOCAL') {
+    if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == 'LOCAL' && \config\Master::FUNCTIONALITY_LOCATIONS['DIAGNOSTICS'] == 'LOCAL') {
         echo "<table><tr>
                         <td>" . sprintf(_("Diagnose reachability and connection parameters of any %s %s"), \config\ConfAssistant::CONSORTIUM['display_name'], $uiElements->nomenclatureInst) . "</td>
                         <td><form method='post' action='../diag/action_realmcheck.php' accept-charset='UTF-8'>
@@ -242,7 +242,7 @@ $(document).on('click', '#realmcheck' , function() {
             <?php
             $pending_invites = $mgmt->listPendingInvitations();
 
-            if (\config\Main::DB['enforce-external-sync']) {
+            if (\config\Master::DB['enforce-external-sync']) {
                 echo "<th scope='col'>" . sprintf(_("%s Database Sync Status"), \config\ConfAssistant::CONSORTIUM['display_name']) . "</th>";
             }
             ?>
@@ -289,7 +289,7 @@ $(document).on('click', '#realmcheck' , function() {
                 // instantiating all profiles is costly, so we only do this if
                 // the deployment at hand has silverbullet enabled
                 $listOfSilverbulletRealms = [];
-                if (\config\Main::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
+                if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
                     foreach ($idp_instance->listProfiles() as $oneProfile) {
                         if ($oneProfile instanceof core\ProfileSilverbullet) {
                             $listOfSilverbulletRealms[] = $oneProfile->realm;
@@ -300,7 +300,7 @@ $(document).on('click', '#realmcheck' , function() {
                          <input type='hidden' name='inst' value='" . $index . "'>" . $idp_instance->name . (empty($listOfSilverbulletRealms) ? "" : "<ul><li>" ) . implode("</li><li>", $listOfSilverbulletRealms) . (empty($listOfSilverbulletRealms) ? "" : "</li><ul>" ) . "
                       </td>";
                 // external DB sync, if configured as being necessary
-                if (\config\Main::DB['enforce-external-sync']) {
+                if (\config\Master::DB['enforce-external-sync']) {
                     echo "<td style='display: ruby;'>";
                     if ($readonly === FALSE) {
                         echo "<form method='post' action='inc/manageDBLink.inc.php?inst_id=" . $idp_instance->identifier . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>

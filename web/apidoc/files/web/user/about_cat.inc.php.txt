@@ -36,13 +36,13 @@ $skinObject = new \web\lib\user\Skinjob("classic");
 $out = sprintf(_("<span class='edu_cat'>%s</span> is built as a cooperation platform."))."<p>".
        sprintf(_("Local %s administrators enter their %s configuration details and based on them, <span class='edu_cat'>%s</span> builds customised installers for a number of popular platforms. ".
                  "An installer prepared for one organisation will not work for users of another one, therefore if your organisation is not on the list, you cannot use this system. ".
-                 "Please contact your local administrators and try to influence them to add your %s configuration to <span class='edu_cat'>%s</span>."),
-        \config\Main::APPEARANCE['productname'],
-        \config\ConfAssistant::CONSORTIUM['display_name'],
-        \config\ConfAssistant::CONSORTIUM['display_name'],
-        \config\Main::APPEARANCE['productname'],
-        \config\Main::APPEARANCE['productname']);
-$out .= "<p>" . sprintf(_("<span class='edu_cat'>%s</span> currently supports the following devices and EAP type combinations:"), \config\Main::APPEARANCE['productname']) . "</p>";
+                 "Please contact your local administrators and try to influence them to add your %s configuration to <span class='edu_cat'>%s</span>."), 
+        \config\Master::APPEARANCE['productname'], 
+        \config\ConfAssistant::CONSORTIUM['display_name'], 
+        \config\ConfAssistant::CONSORTIUM['display_name'], 
+        \config\Master::APPEARANCE['productname'], 
+        \config\Master::APPEARANCE['productname']);
+$out .= "<p>" . sprintf(_("<span class='edu_cat'>%s</span> currently supports the following devices and EAP type combinations:"), \config\Master::APPEARANCE['productname']) . "</p>";
 $out .= "<table><tr><th>" . _("Device Group") . "</th><th>" . _("Device") . "</th>";
 foreach (\core\common\EAP::listKnownEAPTypes() as $oneeap) {
     $out .= "<th style='min-width: 80px;'>" . $oneeap->getPrintableRep() . "</th>";
@@ -88,12 +88,12 @@ if ($host === FALSE) {
 $out .= sprintf(_("<p><span class='edu_cat'>%s</span> is publicly accessible. To enable its use behind captive portals (e.g. on a 'setup' SSID which only allows access to CAT for device configuration), the following hostnames need to be allowed for port TCP/443 in the portal:</p>"
                 . "<b><u>REQUIRED</u></b>"
                 . "<ul>"
-                . "<li><b>%s</b> (the service itself)</li>"), \config\Main::APPEARANCE['productname'], $host);
-if (!empty(\config\Main::APPEARANCE['webcert_CRLDP'])) {
-    $out .= sprintf(ngettext("<li><b>%s</b> (the CRL Distribution Point for the site certificate), also TCP/80</li>", "<li><b>%s</b> (the CRL Distribution Points for the site certificate), also TCP/80</li>", count(\config\Main::APPEARANCE['webcert_CRLDP'])), implode(", ", \config\Main::APPEARANCE['webcert_CRLDP']));
+                . "<li><b>%s</b> (the service itself)</li>"), \config\Master::APPEARANCE['productname'], $host);
+if (!empty(\config\Master::APPEARANCE['webcert_CRLDP'])) {
+    $out .= sprintf(ngettext("<li><b>%s</b> (the CRL Distribution Point for the site certificate), also TCP/80</li>", "<li><b>%s</b> (the CRL Distribution Points for the site certificate), also TCP/80</li>", count(\config\Master::APPEARANCE['webcert_CRLDP'])), implode(", ", \config\Master::APPEARANCE['webcert_CRLDP']));
 }
-if (!empty(\config\Main::APPEARANCE['webcert_OCSP'])) {
-    $out .= sprintf(ngettext("<li><b>%s</b> (the OCSP Responder for the site certificate), also TCP/80</li>", "<li><b>%s</b> (the OCSP Responder for the site certificate), also TCP/80</li>", count(\config\Main::APPEARANCE['webcert_OCSP'])), implode(", ", \config\Main::APPEARANCE['webcert_OCSP']));
+if (!empty(\config\Master::APPEARANCE['webcert_OCSP'])) {
+    $out .= sprintf(ngettext("<li><b>%s</b> (the OCSP Responder for the site certificate), also TCP/80</li>", "<li><b>%s</b> (the OCSP Responder for the site certificate), also TCP/80</li>", count(\config\Master::APPEARANCE['webcert_OCSP'])), implode(", ", \config\Master::APPEARANCE['webcert_OCSP']));
 }
 $out .= sprintf(_("<li><b>android.l.google.com</b> (Google Play access for Android App)</li>"
                 . "<li><b>android.clients.google.com</b> (Google Play access for Android App)</li>"

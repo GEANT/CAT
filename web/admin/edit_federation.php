@@ -42,7 +42,7 @@ $fedPost = $_POST['fed_id'];
 $my_fed = $validator->existingFederation($fedPost, $_SESSION['user']);
 $fed_options = $my_fed->getAttributes();
 /// product name (eduroam CAT), then term used for "federation", then actual name of federation.
-echo $deco->defaultPagePrelude(sprintf(_("%s: Editing %s '%s'"), \config\Main::APPEARANCE['productname'], $uiElements->nomenclatureFed, $my_fed->name));
+echo $deco->defaultPagePrelude(sprintf(_("%s: Editing %s '%s'"), \config\Master::APPEARANCE['productname'], $uiElements->nomenclatureFed, $my_fed->name));
 $langObject = new \core\common\Language();
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>
@@ -79,7 +79,7 @@ $langObject = new \core\common\Language();
     </div>
     <?php
     echo "<form enctype='multipart/form-data' action='edit_federation_result.php?fed_id=$my_fed->tld" . "' method='post' accept-charset='UTF-8'>
-              <input type='hidden' name='MAX_FILE_SIZE' value='" . \config\Main::MAX_UPLOAD_SIZE . "'>";
+              <input type='hidden' name='MAX_FILE_SIZE' value='" . \config\Master::MAX_UPLOAD_SIZE . "'>";
     ?>
     <fieldset class="option_container">
         <legend><strong><?php echo sprintf(_("%s Properties"),$uiElements->nomenclatureFed); ?></strong></legend>

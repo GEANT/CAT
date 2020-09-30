@@ -24,12 +24,12 @@ require_once dirname(dirname(__DIR__)) . '/config/_config.php';
 $uiElements = new web\lib\admin\UIElements();
 
 $security = 0;
-if (!in_array("I do not care about security!", \config\Main::SUPERADMINS)) {
+if (!in_array("I do not care about security!", \config\Master::SUPERADMINS)) {
     $auth = new \web\lib\admin\Authentication();
     $auth->authenticate();
     $security = 1;
     $user = new \core\User($_SESSION['user']);
-    if (!in_array($user->userName, \config\Main::SUPERADMINS)) {
+    if (!in_array($user->userName, \config\Master::SUPERADMINS)) {
         header("Location: overview_user.php");
         exit;
     }
@@ -56,7 +56,7 @@ $dbHandle = \core\DBConnection::handle("FRONTEND");
     </fieldset>
     <?php
     if ($security == 0) {
-        print "<h2 style='color: red'>In order to do more you need to configure the SUPERADMIN section  in config/config-main.php and login as one.</h2>";
+        print "<h2 style='color: red'>In order to do more you need to configure the SUPERADMIN section  in config/config-master.php and login as one.</h2>";
     } else {
         ?>
         <fieldset class="option_container">

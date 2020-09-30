@@ -36,7 +36,7 @@ $instId = $myInstOriginal->identifier;
 $hello = _("To whom it may concern,") . "\n\n";
 $bye = _("This mail is merely a cross-check because these changes can be security-relevant. If the change was expected, you do not need to take any action.") . "\n\n" .
         _("Greetings, ") . "\n\n" .
-        \config\Main::APPEARANCE['productname_long'];
+        \config\Master::APPEARANCE['productname_long'];
 
 switch ($_POST['submitbutton']) {
     case web\lib\common\FormElements::BUTTON_DELETE:
@@ -58,14 +58,14 @@ switch ($_POST['submitbutton']) {
         $fed = new core\Federation($myInstOriginal->federation);
         foreach ($fed->listFederationAdmins() as $id) {
             $user = new core\User($id);
-            $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), \config\Main::APPEARANCE['productname'], $ui->nomenclatureInst), $text);
+            $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), \config\Master::APPEARANCE['productname'], $ui->nomenclatureInst), $text);
         }
         header("Location: edit_idp.php?inst_id=$instId&wizard=true");
         exit;
     case web\lib\common\FormElements::BUTTON_SAVE:
     // fall-through intended, both buttons get same treatment
     case web\lib\common\FormElements::BUTTON_CONTINUE:
-        echo $deco->pageheader(sprintf(_("%s: IdP enrollment wizard (step 2 completed)"), \config\Main::APPEARANCE['productname']), "ADMIN-IDP");
+        echo $deco->pageheader(sprintf(_("%s: IdP enrollment wizard (step 2 completed)"), \config\Master::APPEARANCE['productname']), "ADMIN-IDP");
         if (!isset($_POST['option']) || !isset($_POST['value'])) {
             // this page doesn't make sense without POST values
             echo $deco->footer();
@@ -103,7 +103,7 @@ switch ($_POST['submitbutton']) {
             $fed = new core\Federation($myInstOriginal->federation);
             foreach ($fed->listFederationAdmins() as $id) {
                 $user = new core\User($id);
-                $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), \config\Main::APPEARANCE['productname'], $ui->nomenclatureInst), $text);
+                $user->sendMailToUser(sprintf(_("%s: Significant Changes made to %s"), \config\Master::APPEARANCE['productname'], $ui->nomenclatureInst), $text);
             }
         }
 
@@ -148,7 +148,7 @@ switch ($_POST['submitbutton']) {
 // show the new profile jumpstart buttons only if we do not have any profile at all
         if (count($myInstReinstantiated->listProfiles()) == 0) {
 
-            if (\config\Main::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($allow_sb) > 0) {
+            if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($allow_sb) > 0) {
                 echo "<br/>";
                 // did we get an email address? then, show the silverbullet jumpstart button
                 // otherwise, issue a smartass comment
@@ -160,7 +160,7 @@ switch ($_POST['submitbutton']) {
                     echo "</table>";
                 }
             }
-            if (\config\Main::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == "LOCAL") {
+            if (\config\Master::FUNCTIONALITY_LOCATIONS['CONFASSISTANT_RADIUS'] == "LOCAL") {
                 echo "<br/><form method='post' action='edit_profile.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to RADIUS/EAP profile definition") . "</button></form>";
             }
         }
