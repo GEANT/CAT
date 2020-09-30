@@ -55,8 +55,6 @@ from typing import List, Type, Union
 NM_AVAILABLE = True
 CRYPTO_AVAILABLE = True
 DEBUG_ON = False
-DEV_NULL = open("/dev/null", "w")
-STDERR_REDIR = DEV_NULL
 
 
 def debug(msg) -> None:
@@ -366,8 +364,8 @@ class InstallerData(object):
         elif self.graphics == 'kdialog':
             command = ['kdialog', '--yesno', question + "\n\n" + prompt,
                        '--title=', Config.title]
-        return_code = subprocess.call(command, stderr=STDERR_REDIR)
-        return return_code
+        returncode = subprocess.call(command, stderr=subprocess.DEVNULL)
+        return returncode
 
     def show_info(self, data: str) -> None:
         """
@@ -384,7 +382,7 @@ class InstallerData(object):
             command = ['kdialog', '--msgbox', data]
         else:
             sys.exit(1)
-        subprocess.call(command, stderr=STDERR_REDIR)
+        subprocess.call(command, stderr=subprocess.DEVNULL)
 
     def confirm_exit(self) -> None:
         """
@@ -407,7 +405,7 @@ class InstallerData(object):
             command = ['kdialog', '--sorry', text]
         else:
             sys.exit(1)
-        subprocess.call(command, stderr=STDERR_REDIR)
+        subprocess.call(command, stderr=subprocess.DEVNULL)
 
     def prompt_nonempty_string(self, show: int, prompt: str, val: str = '') -> str:
         """
@@ -614,7 +612,7 @@ class InstallerData(object):
                        '.', '*.p12 *.P12 *.pfx *.PFX | ' +
                        Messages.p12_filter, '--title', Messages.p12_title]
             shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
-                                             stderr=STDERR_REDIR)
+                                             stderr=subprocess.DEVNULL)
             cert, err = shell_command.communicate()
         return cert.decode('utf-8').strip()
 
