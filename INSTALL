@@ -21,9 +21,8 @@
 INSTALL
 =======
 
-Installation instructions are maintained in HTML format in the doc/ subfolder.
+Installation instructions are maintained in MarkDown format in the tutorials/ subfolder.
 Please see
 
-doc/index.html
+tutorials/Configuration.md
 
-with your favourite browser (text-mode browsers will do just fine).
