@@ -726,8 +726,9 @@ class IwdConfiguration:
 
     @staticmethod
     def write_config(self) -> None:
-        with open("/var/lib/iwd/eduroam.8021x", "w") as cf:
-            cf.write(self.config)
+        for ssid in Config.ssids:
+            with open(f"/var/lib/iwd/{ssid}.8021x", "w") as cf:
+                cf.write(self.config)
 
     def _create_eap_pwd_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
         """ create EAP-PWD configuration """
