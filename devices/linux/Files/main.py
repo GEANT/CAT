@@ -68,6 +68,7 @@ def byte_to_string(barray: List) -> str:
     """conversion utility"""
     return "".join([chr(x) for x in barray])
 
+
 debug(sys.version_info.major)
 
 
@@ -84,12 +85,14 @@ try:
 except ImportError:
     CRYPTO_AVAILABLE = False
 
-# the function below was partially copied
-# from https://ubuntuforums.org/showthread.php?t=1139057
+
 def detect_desktop_environment() -> str:
     """
     Detect what desktop type is used. This method is prepared for
     possible future use with password encryption on supported distros
+
+    the function below was partially copied from
+    https://ubuntuforums.org/showthread.php?t=1139057
     """
     desktop_environment = 'generic'
     if os.environ.get('KDE_FULL_SESSION') == 'true':
@@ -502,8 +505,8 @@ class InstallerData(object):
             try:
                 p12 = crypto.load_pkcs12(open(pfx_file, 'rb').read(),
                                          self.password)
-            except:
-                debug("incorrect password")
+            except crypto.Error as error:
+                debug(f"Incorrect password ({error}).")
                 return False
             else:
                 if Config.use_other_tls_id:
@@ -511,7 +514,7 @@ class InstallerData(object):
                 try:
                     self.username = p12.get_certificate().\
                         get_subject().commonName
-                except:
+                except crypto.Error:
                     self.username = p12.get_certificate().\
                         get_subject().emailAddress
                 return True
