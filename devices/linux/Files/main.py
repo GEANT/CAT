@@ -60,7 +60,8 @@ def debug(msg) -> None:
     """Print debugging messages to stdout"""
     if not DEBUG_ON:
         return
-    print("DEBUG:" + str(msg))
+    else:
+        print("DEBUG:" + str(msg))
 
 
 def byte_to_string(barray: List) -> str:
@@ -134,8 +135,7 @@ def get_config_path() -> str:
     if not xdg_config_home_path:
         home_path = os.environ.get('HOME')
         return '{}/.config'.format(home_path)
-    else:
-        return xdg_config_home_path
+    return xdg_config_home_path
 
 
 def run_installer() -> None:
@@ -301,7 +301,8 @@ class InstallerData(object):
         else:
             os.mkdir(get_config_path() + '/cat_installer', 0o700)
 
-    def save_ca(self) -> None:
+    @staticmethod
+    def save_ca() -> None:
         """
         Save CA certificate to cat_installer directory
         (create directory if needed)
@@ -597,7 +598,8 @@ class InstallerData(object):
             cert, err = shell_command.communicate()
         return cert.decode('utf-8').strip()
 
-    def __save_sb_pfx(self) -> None:
+    @staticmethod
+    def __save_sb_pfx() -> None:
         """write the user PFX file"""
         cert_file = get_config_path() + '/cat_installer/user.p12'
         with open(cert_file, 'wb') as cert:
@@ -691,7 +693,8 @@ class WpaConf(object):
     """
     Prepare and save wpa_supplicant config file
     """
-    def __prepare_network_block(self, ssid: str, user_data: Type[InstallerData]) -> str:
+    @staticmethod
+    def __prepare_network_block(ssid: str, user_data: Type[InstallerData]) -> str:
         interface = """network={
         ssid=\"""" + ssid + """\"
         key_mgmt=WPA-EAP
