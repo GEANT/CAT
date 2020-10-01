@@ -43,6 +43,7 @@ import argparse
 import base64
 import getpass
 import os
+import pathlib
 import platform
 import re
 import subprocess
@@ -716,6 +717,62 @@ class WpaConf(object):
             for ssid in ssids:
                 net = self.__prepare_network_block(ssid, user_data)
                 conf.write(net)
+
+
+class IwdConfiguration:
+    """ support the iNet wireless daemon by Intel """
+    def __init__(self):
+        self.config = ""
+
+    @staticmethod
+    def write_config(self) -> None:
+        for ssid in Config.ssids:
+            with open(f"/var/lib/iwd/{ssid}.8021x", "w") as cf:
+                cf.write(self.config)
+
+    def _create_eap_pwd_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
+        """ create EAP-PWD configuration """
+        self.conf = f"""
+        [Security]
+        EAP-Method=PWD
+        EAP-Identity={user_data.username}
+        EAP-Password={user_data.password}
+
+        [Settings]
+        AutoConnect=True
+        """
+
+    def _create_eap_peap_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
+        """ create EAP-PEAP configuration """
+        self.conf = f"""
+        [Security]
+        EAP-Method=PEAP
+        EAP-Identity={Config.anonymous_identity}
+        EAP-PEAP-CACert={Config.CA}
+        EAP-PEAP-ServerDomainMask={Config.servers}
+        EAP-PEAP-Phase2-Method=MSCHAPV2
+        EAP-PEAP-Phase2-Identity={user_data.username}@{Config.user_realm}
+        EAP-PEAP-Phase2-Password={user_data.password}
+        
+        [Settings]
+        AutoConnect=true
+        """
+
+    def _create_ttls_pap_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
+        """ create TTLS-PAP configuration"""
+        self.conf = f"""
+        [Security]
+        EAP-Method=TTLS
+        EAP-Identity={Config.anonymous_identity}
+        EAP-TTLS-CACert={Config.CA}
+        EAP-TTLS-ServerDomainMask={Config.servers}
+        EAP-TTLS-Phase2-Method=Tunneled-PAP
+        EAP-TTLS-Phase2-Identity={user_data.username}@{Config.user_realm}
+        EAP-TTLS-Phase2-Password={user_data.password}
+        
+        [Settings]
+        AutoConnect=true
+        """
 
 
 class CatNMConfigTool(object):
