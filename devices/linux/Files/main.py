@@ -105,7 +105,7 @@ def detect_desktop_environment() -> str:
                                               '_DT_SAVE_MODE'],
                                              stdout=subprocess.PIPE,
                                              stderr=subprocess.PIPE)
-            out, err = shell_command.communicate()
+            out, _ = shell_command.communicate()
             info = out.decode('utf-8').strip()
         except (OSError, RuntimeError):
             pass
@@ -431,7 +431,7 @@ class InstallerData(object):
         while not output:
             shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
                                              stderr=subprocess.PIPE)
-            out, err = shell_command.communicate()
+            out, _ = shell_command.communicate()
             output = out.decode('utf-8').strip()
             if shell_command.returncode == 1:
                 self.confirm_exit()
@@ -524,7 +524,7 @@ class InstallerData(object):
                        'pass:' + self.password, '-nokeys', '-clcerts']
             shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
                                              stderr=subprocess.PIPE)
-            out, err = shell_command.communicate()
+            out, _ = shell_command.communicate()
             if shell_command.returncode != 0:
                 return False
             if Config.use_other_tls_id:
@@ -591,14 +591,14 @@ class InstallerData(object):
                        '--title=' + Messages.p12_title]
             shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
                                              stderr=subprocess.PIPE)
-            cert, err = shell_command.communicate()
+            cert, _ = shell_command.communicate()
         if self.graphics == 'kdialog':
             command = ['kdialog', '--getopenfilename',
                        '.', '*.p12 *.P12 *.pfx *.PFX | ' +
                        Messages.p12_filter, '--title', Messages.p12_title]
             shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
                                              stderr=subprocess.DEVNULL)
-            cert, err = shell_command.communicate()
+            cert, _ = shell_command.communicate()
         return cert.decode('utf-8').strip()
 
     @staticmethod
