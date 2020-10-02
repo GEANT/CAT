@@ -235,6 +235,10 @@ class ExternalEduroamDBData extends common\Entity implements ExternalLinkInterfa
         return $returnArray;
     }
     
+    public function listExternalRealms() {
+        return $this->listExternalEntitiesByRealm(""); // leaing realm empty gets *all*
+    }
+    
     /**
      * helper function to sort institutions by their name
      * 
