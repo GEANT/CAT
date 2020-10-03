@@ -727,52 +727,61 @@ class IwdConfiguration:
     @staticmethod
     def write_config(self) -> None:
         for ssid in Config.ssids:
-            with open(f"/var/lib/iwd/{ssid}.8021x", "w") as cf:
+            with open('/var/lib/iwd/{}.8021x'.format(ssid), 'w') as cf:
                 cf.write(self.config)
 
     def _create_eap_pwd_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
         """ create EAP-PWD configuration """
-        self.conf = f"""
+        self.conf = """
         [Security]
         EAP-Method=PWD
-        EAP-Identity={user_data.username}
-        EAP-Password={user_data.password}
+        EAP-Identity={username}
+        EAP-Password={password}
 
         [Settings]
         AutoConnect=True
-        """
+        """.format(username=user_data.username,
+                   password=user_data.password)
 
     def _create_eap_peap_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
         """ create EAP-PEAP configuration """
-        self.conf = f"""
+        self.conf = """
         [Security]
         EAP-Method=PEAP
-        EAP-Identity={Config.anonymous_identity}
-        EAP-PEAP-CACert={Config.CA}
-        EAP-PEAP-ServerDomainMask={Config.servers}
+        EAP-Identity={anonymous_identity}
+        EAP-PEAP-CACert={ca_cert}
+        EAP-PEAP-ServerDomainMask={servers}
         EAP-PEAP-Phase2-Method=MSCHAPV2
-        EAP-PEAP-Phase2-Identity={user_data.username}@{Config.user_realm}
-        EAP-PEAP-Phase2-Password={user_data.password}
+        EAP-PEAP-Phase2-Identity={username}@{realm}
+        EAP-PEAP-Phase2-Password={password}
         
         [Settings]
         AutoConnect=true
-        """
+        """.format(anonymous_identity=Config.anonymous_identity,
+                   ca_cert=Config.CA, servers=Config.servers,
+                   username=user_data.username,
+                   realm=Config.user_realm,
+                   password=user_data.password)
 
     def _create_ttls_pap_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
         """ create TTLS-PAP configuration"""
-        self.conf = f"""
+        self.conf = """
         [Security]
         EAP-Method=TTLS
-        EAP-Identity={Config.anonymous_identity}
-        EAP-TTLS-CACert={Config.CA}
-        EAP-TTLS-ServerDomainMask={Config.servers}
+        EAP-Identity={anonymous_identity}
+        EAP-TTLS-CACert={ca_cert}
+        EAP-TTLS-ServerDomainMask={servers}
         EAP-TTLS-Phase2-Method=Tunneled-PAP
-        EAP-TTLS-Phase2-Identity={user_data.username}@{Config.user_realm}
-        EAP-TTLS-Phase2-Password={user_data.password}
+        EAP-TTLS-Phase2-Identity={username}@{realm}
+        EAP-TTLS-Phase2-Password={password}
         
         [Settings]
         AutoConnect=true
-        """
+        """.format(anonymous_identity=Config.anonymous_identity,
+                   ca_cert=Config.CA, servers=Config.servers,
+                   username=user_data.username,
+                   realm=Config.user_realm,
+                   password=user_data.password)
 
 
 class CatNMConfigTool(object):
