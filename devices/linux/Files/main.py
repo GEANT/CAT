@@ -74,7 +74,6 @@ debug(sys.version_info.major)
 try:
     import dbus
 except ImportError:
-    global NM_AVAILABLE
     debug("Cannot import the dbus module")
     NM_AVAILABLE = False
 
