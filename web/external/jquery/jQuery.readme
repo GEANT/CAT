@@ -7,7 +7,7 @@ Redmond Theme is used.
 After configuration download the zip file and uncompress it in this directory, then create links,
 substituting 1.11.2 for your downloaded version:
 
-ln -s jquery-ui-1.11.2.custom/external/jquery/jquery.js .
-ln -s jquery-ui-1.11.2.custom/jquery-ui.css .
-ln -s jquery-ui-1.11.2.custom/jquery-ui.js .
+ln -s jquery-ui-1.12.1.custom/external/jquery/jquery.js .
+ln -s jquery-ui-1.12.1.custom/jquery-ui.css .
+ln -s jquery-ui-1.12.1.custom/jquery-ui.js .
 
