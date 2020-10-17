@@ -76,6 +76,10 @@ class ExternalNothing implements ExternalLinkInterface
         return 0;
     }
     
+    public function listExternalEntitiesByRealm($realm, $fields = []): array
+    {
+        return [];
+    }
     /**
      * retrieves entity information from the eduroam database. Choose whether to get all entities with an SP role, an IdP role, or only those with both roles
      * 
@@ -88,5 +92,15 @@ class ExternalNothing implements ExternalLinkInterface
         unset($tld); // not needed
         unset($type); // not needed
         return [];
+    }
+ 
+    /**
+     * get all the realms from the external DB
+     * 
+     * @return array
+     */
+    public function listExternalRealms()
+    {
+        return $this->listExternalExternalEntitiesByRealm("");
     }
 }

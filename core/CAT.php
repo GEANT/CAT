@@ -42,7 +42,7 @@ namespace core;
  *
  * @package Developer
  */
-class CAT extends \core\common\Entity 
+class CAT extends \core\common\Entity
 {
 
     /**
@@ -100,7 +100,8 @@ class CAT extends \core\common\Entity
      *  Constructor sets the language by calling set_lang 
      *  and stores language settings in object properties
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         common\Entity::intoThePotatoes();
 
@@ -111,7 +112,7 @@ class CAT extends \core\common\Entity
             $patch = CAT::VERSION_PATCH;
             $extra = CAT::VERSION_EXTRA;
             $temp_version = "CAT-$major.$minor";
-            $branch = "release_$major"."_$minor";
+            $branch = "release_$major" . "_$minor";
             if (CAT::VERSION_PATCH != 0) {
                 $temp_version .= ".$patch";
             }
@@ -391,7 +392,8 @@ class CAT extends \core\common\Entity
      * @param string $level completeness level of IdPs that are to be taken into consideration for counting
      * @return int
      */
-    public function totalIdPs($level) {
+    public function totalIdPs($level)
+    {
         $handle = DBConnection::handle(CAT::DB_TYPE);
         switch ($level) {
             case "ALL":
@@ -420,7 +422,8 @@ class CAT extends \core\common\Entity
      * @return array the list of identity providers
      *
      */
-    public function listAllIdentityProviders($activeOnly = 0, $country = "") {
+    public function listAllIdentityProviders($activeOnly = 0, $country = "")
+    {
         common\Entity::intoThePotatoes();
         $handle = DBConnection::handle("INST");
         $handle->exec("SET SESSION group_concat_max_len=10000");
@@ -492,7 +495,8 @@ class CAT extends \core\common\Entity
      * @param int $activeOnly is set and nonzero will cause that only countries with some institutions underneath will be listed
      * @return array Array indexed by (uppercase) lang codes and sorted according to the current locale
      */
-    public function printCountryList($activeOnly = 0) {
+    public function printCountryList($activeOnly = 0)
+    {
         $olddomain = $this->languageInstance->setTextDomain("core");
         $handle = DBConnection::handle(CAT::DB_TYPE);
         $returnArray = []; // in if -> the while might never be executed, so initialise
@@ -521,7 +525,8 @@ class CAT extends \core\common\Entity
      * @return array a list of institutions, ideally with only one member
      * @throws \Exception
      */
-    public function getExternalDBEntityDetails($externalId, $realm = NULL) {
+    public function getExternalDBEntityDetails($externalId, $realm = NULL)
+    {
         $list = [];
         if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $scanforrealm = "";
@@ -568,7 +573,8 @@ class CAT extends \core\common\Entity
      * the list of countries as per external DB
      * @return array the list
      */
-    public function getExternalCountriesList() {
+    public function getExternalCountriesList()
+    {
         $olddomain = $this->languageInstance->setTextDomain("core");
         $returnArray = []; // in if -> the while might never be executed, so initialise
         if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
@@ -594,7 +600,8 @@ class CAT extends \core\common\Entity
      * 
      * @return string
      */
-    public static function getRootUrlPath() {
+    public static function getRootUrlPath()
+    {
         return substr(\config\Master::PATHS['cat_base_url'], -1) === '/' ? substr(\config\Master::PATHS['cat_base_url'], 0, -1) : \config\Master::PATHS['cat_base_url'];
     }
 
@@ -603,23 +610,31 @@ class CAT extends \core\common\Entity
      * 
      * @return void
      */
-    public static function sessionStart() {
+    public static function sessionStart()
+    {
         if (session_status() != PHP_SESSION_ACTIVE) {
             session_name("CAT");
             session_set_cookie_params(0, "/", $_SERVER['SERVER_NAME'], (isset($_SERVER['HTTPS']) ? TRUE : FALSE));
             session_start();
         }
     }
-    
+
     /**
      * determines which external DB to use, and returns an object instance
      * 
      * @return \core\ExternalEduroamDBData|\core\ExternalNothing
      */
-    public static function determineExternalConnection() {
-        if(\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") {
+    public static function determineExternalConnection()
+    {
+        if (\config\ConfAssistant::CONSORTIUM['name'] == "eduroam" && isset(\config\ConfAssistant::CONSORTIUM['deployment-voodoo']) && \config\ConfAssistant::CONSORTIUM['deployment-voodoo'] == "Operations Team") {
             return new ExternalEduroamDBData();
         }
         return new ExternalNothing();
+    }
+
+    public function getSuperglueZone()
+    {
+        $externalDB = CAT::determineExternalConnection();
+        return $externalDB->listExternalRealms();
     }
 }

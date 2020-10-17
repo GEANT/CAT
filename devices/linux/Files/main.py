@@ -43,6 +43,7 @@ import argparse
 import base64
 import getpass
 import os
+import pathlib
 import platform
 import re
 import subprocess
@@ -75,7 +76,6 @@ debug(sys.version_info.major)
 try:
     import dbus
 except ImportError:
-    global NM_AVAILABLE
     debug("Cannot import the dbus module")
     NM_AVAILABLE = False
 
@@ -722,6 +722,71 @@ class WpaConf(object):
             for ssid in ssids:
                 net = self.__prepare_network_block(ssid, user_data)
                 conf.write(net)
+
+
+class IwdConfiguration:
+    """ support the iNet wireless daemon by Intel """
+    def __init__(self):
+        self.config = ""
+
+    @staticmethod
+    def write_config(self) -> None:
+        for ssid in Config.ssids:
+            with open('/var/lib/iwd/{}.8021x'.format(ssid), 'w') as cf:
+                cf.write(self.config)
+
+    def _create_eap_pwd_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
+        """ create EAP-PWD configuration """
+        self.conf = """
+        [Security]
+        EAP-Method=PWD
+        EAP-Identity={username}
+        EAP-Password={password}
+
+        [Settings]
+        AutoConnect=True
+        """.format(username=user_data.username,
+                   password=user_data.password)
+
+    def _create_eap_peap_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
+        """ create EAP-PEAP configuration """
+        self.conf = """
+        [Security]
+        EAP-Method=PEAP
+        EAP-Identity={anonymous_identity}
+        EAP-PEAP-CACert={ca_cert}
+        EAP-PEAP-ServerDomainMask={servers}
+        EAP-PEAP-Phase2-Method=MSCHAPV2
+        EAP-PEAP-Phase2-Identity={username}@{realm}
+        EAP-PEAP-Phase2-Password={password}
+        
+        [Settings]
+        AutoConnect=true
+        """.format(anonymous_identity=Config.anonymous_identity,
+                   ca_cert=Config.CA, servers=Config.servers,
+                   username=user_data.username,
+                   realm=Config.user_realm,
+                   password=user_data.password)
+
+    def _create_ttls_pap_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
+        """ create TTLS-PAP configuration"""
+        self.conf = """
+        [Security]
+        EAP-Method=TTLS
+        EAP-Identity={anonymous_identity}
+        EAP-TTLS-CACert={ca_cert}
+        EAP-TTLS-ServerDomainMask={servers}
+        EAP-TTLS-Phase2-Method=Tunneled-PAP
+        EAP-TTLS-Phase2-Identity={username}@{realm}
+        EAP-TTLS-Phase2-Password={password}
+        
+        [Settings]
+        AutoConnect=true
+        """.format(anonymous_identity=Config.anonymous_identity,
+                   ca_cert=Config.CA, servers=Config.servers,
+                   username=user_data.username,
+                   realm=Config.user_realm,
+                   password=user_data.password)
 
 
 class CatNMConfigTool(object):
