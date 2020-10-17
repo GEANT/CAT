@@ -43,7 +43,6 @@ import argparse
 import base64
 import getpass
 import os
-import pathlib
 import platform
 import re
 import subprocess
@@ -696,6 +695,9 @@ class WpaConf(object):
     """
     Prepare and save wpa_supplicant config file
     """
+
+
+
     @staticmethod
     def __prepare_network_block(ssid: str, user_data: Type[InstallerData]) -> str:
         interface = """network={
@@ -729,11 +731,10 @@ class IwdConfiguration:
     def __init__(self):
         self.config = ""
 
-    @staticmethod
     def write_config(self) -> None:
         for ssid in Config.ssids:
-            with open('/var/lib/iwd/{}.8021x'.format(ssid), 'w') as cf:
-                cf.write(self.config)
+            with open('/var/lib/iwd/{}.8021x'.format(ssid), 'w') as config_file:
+                config_file.write(self.config)
 
     def _create_eap_pwd_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
         """ create EAP-PWD configuration """
