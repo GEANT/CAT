@@ -64,7 +64,9 @@ class DeviceLinux extends \core\DeviceConfig {
         fwrite($installer, "\n\n");
         $this->writeMessages($installer);
         $this->writeConfigVars($installer);
-        fwrite($installer, "run_installer()\n");
+        fwrite($installer, "\n\n");
+        fwrite($installer, "if __name__ == '__main__':\n");
+        fwrite($installer, "    run_installer()\n");
         fclose($installer);
         return($installerPath);
     }
