@@ -505,7 +505,7 @@ class InstallerData(object):
                 p12 = crypto.load_pkcs12(open(pfx_file, 'rb').read(),
                                          self.password)
             except crypto.Error as error:
-                debug(f"Incorrect password ({error}).")
+                debug("Incorrect password ({}).".format(error))
                 return False
             else:
                 if Config.use_other_tls_id:
