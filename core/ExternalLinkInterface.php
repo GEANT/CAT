@@ -65,4 +65,20 @@ interface ExternalLinkInterface
      * @return array
      */
     public function listExternalEntities($tld, $type);
+
+    /**
+     * find an institution by its realm
+     * 
+     * @param string      $realm  the realm
+     * @param array       $fields list of fields
+     * @return array list of entities
+     */    
+    public function listExternalEntitiesByRealm($realm, $fields = []);
+                
+    /**
+     * get all the realms we know about
+     * 
+     * @return array
+     */
+    public function listExternalRealms();
 }

@@ -60,7 +60,8 @@ def debug(msg) -> None:
     """Print debugging messages to stdout"""
     if not DEBUG_ON:
         return
-    print("DEBUG:" + str(msg))
+    else:
+        print("DEBUG:" + str(msg))
 
 
 def byte_to_string(barray: List) -> str:
@@ -73,7 +74,6 @@ debug(sys.version_info.major)
 try:
     import dbus
 except ImportError:
-    global NM_AVAILABLE
     debug("Cannot import the dbus module")
     NM_AVAILABLE = False
 
@@ -84,12 +84,14 @@ except ImportError:
     CRYPTO_AVAILABLE = False
 
 
-# the function below was partially copied
-# from https://ubuntuforums.org/showthread.php?t=1139057
+
 def detect_desktop_environment() -> str:
     """
     Detect what desktop type is used. This method is prepared for
     possible future use with password encryption on supported distros
+
+    the function below was partially copied from
+    https://ubuntuforums.org/showthread.php?t=1139057
     """
     desktop_environment = 'generic'
     if os.environ.get('KDE_FULL_SESSION') == 'true':
@@ -102,7 +104,7 @@ def detect_desktop_environment() -> str:
                                               '_DT_SAVE_MODE'],
                                              stdout=subprocess.PIPE,
                                              stderr=subprocess.PIPE)
-            out, err = shell_command.communicate()
+            out, _ = shell_command.communicate()
             info = out.decode('utf-8').strip()
         except (OSError, RuntimeError):
             pass
@@ -135,8 +137,7 @@ def get_config_path() -> str:
     if not xdg_config_home_path:
         home_path = os.environ.get('HOME')
         return '{}/.config'.format(home_path)
-    else:
-        return xdg_config_home_path
+    return xdg_config_home_path
 
 
 def run_installer() -> None:
@@ -302,7 +303,8 @@ class InstallerData(object):
         else:
             os.mkdir(get_config_path() + '/cat_installer', 0o700)
 
-    def save_ca(self) -> None:
+    @staticmethod
+    def save_ca() -> None:
         """
         Save CA certificate to cat_installer directory
         (create directory if needed)
@@ -428,7 +430,7 @@ class InstallerData(object):
         while not output:
             shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
                                              stderr=subprocess.PIPE)
-            out, err = shell_command.communicate()
+            out, _ = shell_command.communicate()
             output = out.decode('utf-8').strip()
             if shell_command.returncode == 1:
                 self.confirm_exit()
@@ -502,8 +504,8 @@ class InstallerData(object):
             try:
                 p12 = crypto.load_pkcs12(open(pfx_file, 'rb').read(),
                                          self.password)
-            except:
-                debug("incorrect password")
+            except crypto.Error as error:
+                debug(f"Incorrect password ({error}).")
                 return False
             else:
                 if Config.use_other_tls_id:
@@ -511,8 +513,8 @@ class InstallerData(object):
                 try:
                     self.username = p12.get_certificate(). \
                         get_subject().commonName
-                except:
-                    self.username = p12.get_certificate(). \
+                except crypto.Error:
+                    self.username = p12.get_certificate().\
                         get_subject().emailAddress
                 return True
         else:
@@ -521,7 +523,7 @@ class InstallerData(object):
                        'pass:' + self.password, '-nokeys', '-clcerts']
             shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
                                              stderr=subprocess.PIPE)
-            out, err = shell_command.communicate()
+            out, _ = shell_command.communicate()
             if shell_command.returncode != 0:
                 return False
             if Config.use_other_tls_id:
@@ -588,17 +590,18 @@ class InstallerData(object):
                        '--title=' + Messages.p12_title]
             shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
                                              stderr=subprocess.PIPE)
-            cert, err = shell_command.communicate()
+            cert, _ = shell_command.communicate()
         if self.graphics == 'kdialog':
             command = ['kdialog', '--getopenfilename',
                        '.', '*.p12 *.P12 *.pfx *.PFX | ' +
                        Messages.p12_filter, '--title', Messages.p12_title]
             shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
                                              stderr=subprocess.DEVNULL)
-            cert, err = shell_command.communicate()
+            cert, _ = shell_command.communicate()
         return cert.decode('utf-8').strip()
 
-    def __save_sb_pfx(self) -> None:
+    @staticmethod
+    def __save_sb_pfx() -> None:
         """write the user PFX file"""
         cert_file = get_config_path() + '/cat_installer/user.p12'
         with open(cert_file, 'wb') as cert:
@@ -691,7 +694,10 @@ class WpaConf(object):
     Prepare and save wpa_supplicant config file
     """
 
-    def __prepare_network_block(self, ssid: str, user_data: Type[InstallerData]) -> str:
+
+    
+    @staticmethod
+    def __prepare_network_block(ssid: str, user_data: Type[InstallerData]) -> str:
         interface = """network={
         ssid=\"""" + ssid + """\"
         key_mgmt=WPA-EAP
@@ -730,6 +736,70 @@ class WpaConf(object):
                 conf.write(net)
 
 
+class IwdConfiguration:
+    """ support the iNet wireless daemon by Intel """
+    def __init__(self):
+        self.config = ""
+
+    def write_config(self) -> None:
+        for ssid in Config.ssids:
+            with open('/var/lib/iwd/{}.8021x'.format(ssid), 'w') as config_file:
+                config_file.write(self.config)
+
+    def _create_eap_pwd_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
+        """ create EAP-PWD configuration """
+        self.conf = """
+        [Security]
+        EAP-Method=PWD
+        EAP-Identity={username}
+        EAP-Password={password}
+
+        [Settings]
+        AutoConnect=True
+        """.format(username=user_data.username,
+                   password=user_data.password)
+
+    def _create_eap_peap_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
+        """ create EAP-PEAP configuration """
+        self.conf = """
+        [Security]
+        EAP-Method=PEAP
+        EAP-Identity={anonymous_identity}
+        EAP-PEAP-CACert={ca_cert}
+        EAP-PEAP-ServerDomainMask={servers}
+        EAP-PEAP-Phase2-Method=MSCHAPV2
+        EAP-PEAP-Phase2-Identity={username}@{realm}
+        EAP-PEAP-Phase2-Password={password}
+        
+        [Settings]
+        AutoConnect=true
+        """.format(anonymous_identity=Config.anonymous_identity,
+                   ca_cert=Config.CA, servers=Config.servers,
+                   username=user_data.username,
+                   realm=Config.user_realm,
+                   password=user_data.password)
+
+    def _create_ttls_pap_config(self, ssid: str, user_data: Type[InstallerData]) -> None:
+        """ create TTLS-PAP configuration"""
+        self.conf = """
+        [Security]
+        EAP-Method=TTLS
+        EAP-Identity={anonymous_identity}
+        EAP-TTLS-CACert={ca_cert}
+        EAP-TTLS-ServerDomainMask={servers}
+        EAP-TTLS-Phase2-Method=Tunneled-PAP
+        EAP-TTLS-Phase2-Identity={username}@{realm}
+        EAP-TTLS-Phase2-Password={password}
+        
+        [Settings]
+        AutoConnect=true
+        """.format(anonymous_identity=Config.anonymous_identity,
+                   ca_cert=Config.CA, servers=Config.servers,
+                   username=user_data.username,
+                   realm=Config.user_realm,
+                   password=user_data.password)
+
+
 class CatNMConfigTool(object):
     """
     Prepare and save NetworkManager configuration
@@ -752,6 +822,11 @@ class CatNMConfigTool(object):
         """
         try:
             self.bus = dbus.SystemBus()
+        except AttributeError:
+            # since dbus existed but is empty we have an empty package
+            # this gets shipped by pyqt5
+            print("DBus not properly installed")
+            return None
         except dbus.exceptions.DBusException:
             print("Can't connect to DBus")
             return None

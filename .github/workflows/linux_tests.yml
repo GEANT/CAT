@@ -1,0 +1,74 @@
+name: Test the eduroam linux installer
+
+# Trigger the workflow on push or pull request
+on: [push, pull_request]
+
+jobs:
+  python_linting:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        python-version: [3.8]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+      - name: Lint with flake8 and pylint
+        run: |
+          pip install flake8
+          flake8 devices/linux/Files/main.py --count --exit-zero
+          pip install pylint
+          pylint devices/linux/Files/main.py --exit-zero
+
+  create_test_data_ttls:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - shell: bash
+        run: |
+          cat << EOF > create_test_data_ttls.txt
+          Messages.quit = "Really quit?"
+          Messages.username_prompt = "enter your userid"
+          Messages.enter_password = "enter password"
+          EOF
+          mkdir -p artifacts/
+      - name: Create config file
+        uses: actions/upload-artifact@v2
+        with:
+          name: configuration
+          path: create_test_data_ttls.txt
+
+  test_ubuntu:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      max-parallel: 5
+      matrix:
+        os: [ubuntu-16.04, ubuntu-18.04, ubuntu-20.04]
+        python-version: [3.5, 3.6, 3.7, 3.8, 3.9]
+    needs: [create_test_data_ttls]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r devices/linux/Files/requirements.txt
+      - name: Test installer
+        uses: actions/download-artifact@v2
+        with:
+          name: configuration
+      - shell: bash
+        run: |
+          cat create_test_data_ttls.txt >> devices/linux/Files/main.py
+          echo "run_installer()" >> devices/linux/Files/main.py
+          cd devices/linux/Files/
+          python main.py -d -s --username eduroam_user --password eduroam_password
+
