@@ -711,9 +711,14 @@ class WpaConf(object):
         ca_cert=\"""" + os.environ.get('HOME') + """/.cat_installer/ca.pem\"
         identity=\"""" + user_data.username + """\"
         altsubject_match=\"""" + ";".join(Config.servers) + """\"
-        phase2=\"auth=""" + Config.eap_inner + """\"
-        password=\"""" + user_data.password + """\"
-        anonymous_identity=\"""" + Config.anonymous_identity + """\"
+        if Config.eap_outer == 'PEAP' or Config.eap_outer == 'TTLS':
+            phase2=\"auth=""" + Config.eap_inner + """\"
+            password=\"""" + user_data.password + """\"
+            if Config.anonymous_identity != '':
+                anonymous_identity=\"""" + Config.anonymous_identity + """\"
+        if Config.eap_outer == 'TLS':
+            private_key_passwd=\"""" + user_data.password + """\"
+            private_key=\"""" + os.environ.get('HOME') + """/.cat_installer/user.p12\"
 }
     """
         return out
