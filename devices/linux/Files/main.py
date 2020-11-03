@@ -811,6 +811,11 @@ class CatNMConfigTool(object):
         """
         try:
             self.bus = dbus.SystemBus()
+        except AttributeError:
+            # since dbus existed but is empty we have an empty package
+            # this gets shipped by pyqt5
+            print("DBus not properly installed")
+            return None
         except dbus.exceptions.DBusException:
             print("Can't connect to DBus")
             return None
