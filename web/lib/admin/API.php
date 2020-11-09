@@ -358,6 +358,7 @@ class API {
                 'support:info_file',
                 'support:phone',
                 'support:url',
+                'device-specific:redirect',
                 API::AUXATTRIB_PROFILE_INPUT_HINT,
                 API::AUXATTRIB_PROFILE_INPUT_VERIFY,
                 API::AUXATTRIB_PROFILE_OUTERVALUE,
