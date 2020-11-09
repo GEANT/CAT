@@ -275,7 +275,13 @@ class DBConnection {
         if ($this->connection->connect_error) {
             throw new Exception("ERROR: Unable to connect to $database database! This is a fatal error, giving up (error number " . $this->connection->connect_errno . ").");
         }
-
+        // it does not matter for internal time calculations with TIMESTAMPs but
+        // sometimes we operate on date/time strings. Since MySQL returns those
+        // in "local timezone" but doesn't tell what timezone that is, the result
+        // is ambiguous. Resolve the ambiguity by telling MySQL to always operate
+        // in UTC time.
+        $this->connection->query("SET SESSION time_zone='+00:00'");
+        
         if ($databaseCapitalised == "EXTERNAL" && CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {
             $this->connection->query("SET NAMES 'latin1'");
         }
