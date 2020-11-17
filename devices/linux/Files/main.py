@@ -270,7 +270,7 @@ class Config(object):
 
 class InstallerData(object):
     """
-    General user interaction handling, supports zenity, KDialog and
+    General user interaction handling, supports zenity, KDialog, yad and
     standard command-line interface
     """
 
@@ -348,6 +348,14 @@ class InstallerData(object):
         elif self.graphics == 'kdialog':
             command = ['kdialog', '--yesno', question + "\n\n" + prompt,
                        '--title=', Config.title]
+        elif self.graphics == 'yad':
+            command = ['yad', '--image="dialog-question"',
+                       '--button=gtk-yes:0',
+                       '--button=gtk-no:1',
+                       '--width=500',
+                       '--wrap',
+                       '--text=' + question + "\n\n" + prompt,
+                       '--title=' + Config.title]
         returncode = subprocess.call(command, stderr=subprocess.DEVNULL)
         return returncode
 
@@ -364,6 +372,8 @@ class InstallerData(object):
             command = ['zenity', '--info', '--width=500', '--text=' + data]
         elif self.graphics == "kdialog":
             command = ['kdialog', '--msgbox', data]
+        elif self.graphics == "yad":
+            command = ['yad', '--button=OK', '--width=500', '--text=' + data]
         else:
             sys.exit(1)
         subprocess.call(command, stderr=subprocess.DEVNULL)
@@ -387,6 +397,8 @@ class InstallerData(object):
             command = ['zenity', '--warning', '--text=' + text]
         elif self.graphics == "kdialog":
             command = ['kdialog', '--sorry', text]
+        elif self.graphics == "yad":
+            command = ['yad', '--text=' + text]
         else:
             sys.exit(1)
         subprocess.call(command, stderr=subprocess.DEVNULL)
@@ -425,13 +437,23 @@ class InstallerData(object):
             else:
                 hide_text = '--inputbox'
             command = ['kdialog', hide_text, prompt]
+        elif self.graphics == 'yad':
+            if show == 0:
+                hide_text = ':H'
+            else:
+                hide_text = ''
+            command = ['yad', '--form', '--field=' + hide_text,
+                       '--text=' + prompt, val]
 
         output = ''
         while not output:
             shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
                                              stderr=subprocess.PIPE)
             out, _ = shell_command.communicate()
-            output = out.decode('utf-8').strip()
+            output = out.decode('utf-8')
+            if self.graphics == 'yad':
+                output = output[:-2]
+            output = output.strip()
             if shell_command.returncode == 1:
                 self.confirm_exit()
         return output
@@ -475,26 +497,23 @@ class InstallerData(object):
                 self.alert(Messages.passwords_differ)
         self.password = password
 
+    def __check_graphics(self, command) -> bool:
+        shell_command = subprocess.Popen(['which', command],
+                                         stdout=subprocess.PIPE,
+                                         stderr=subprocess.PIPE)
+        shell_command.wait()
+        if shell_command.returncode == 0:
+            self.graphics = command
+            return True
+        else:
+            return False
+
     def __get_graphics_support(self) -> None:
         if os.environ.get('DISPLAY') is not None:
-            shell_command = subprocess.Popen(['which', 'zenity'],
-                                             stdout=subprocess.PIPE,
-                                             stderr=subprocess.PIPE)
-            shell_command.wait()
-            if shell_command.returncode == 0:
-                self.graphics = 'zenity'
-            else:
-                shell_command = subprocess.Popen(['which', 'kdialog'],
-                                                 stdout=subprocess.PIPE,
-                                                 stderr=subprocess.PIPE)
-                shell_command.wait()
-                # out, err = shell_command.communicate()
-                if shell_command.returncode == 0:
-                    self.graphics = 'kdialog'
-                else:
-                    self.graphics = 'tty'
-        else:
-            self.graphics = 'tty'
+            for cmd in ['zenity', 'kdialog', 'yad']:
+                if self.__check_graphics(cmd) == True:
+                    return
+        self.graphics = 'tty'
 
     def __process_p12(self) -> bool:
         debug('process_p12')
@@ -595,6 +614,13 @@ class InstallerData(object):
             command = ['kdialog', '--getopenfilename',
                        '.', '*.p12 *.P12 *.pfx *.PFX | ' +
                        Messages.p12_filter, '--title', Messages.p12_title]
+            shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
+                                             stderr=subprocess.DEVNULL)
+            cert, _ = shell_command.communicate()
+        if self.graphics == 'yad':
+            command = ['yad', '--file',
+                       '--file-filter=*.p12 *.P12 *.pfx *.PFX',
+                       '-file-filter=*', '--title=' + Messages.p12_title]
             shell_command = subprocess.Popen(command, stdout=subprocess.PIPE,
                                              stderr=subprocess.DEVNULL)
             cert, _ = shell_command.communicate()
