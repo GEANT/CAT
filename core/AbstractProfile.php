@@ -156,22 +156,21 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         $baselineCA = [];
         foreach ($old->getAttributes("eap:ca_file") as $oldCA) {
             $ca = $x509->processCertificate($oldCA['value']);
-            $baselineCA[$ca['sha1']] = $ca['subject'];
+            $baselineCA[$ca['sha1']] = $ca['name'];
         }
         // remove the new ones that are identical to the baseline
         foreach ($new->getAttributes("eap:ca_file") as $newCA) {
             $ca = $x509->processCertificate($newCA['value']);
-            if (array_key_exists($ca['sha1'], $baselineCA)) {
+            if (array_key_exists($ca['sha1'], $baselineCA) || $ca['root'] != 1) {
                 // do nothing; we assume here that SHA1 doesn't clash
                 continue;
             }
             // check if a CA with identical DN was added - alert NRO if so
-            if (array_search($ca['subject'], $baselineCA) !== FALSE) {
-                $retval[AbstractProfile::CA_CLASH_ADDED] .= "#SHA1 for CA with DN '".print_r($ca['subject'], TRUE)."' has SHA1 fingerprints (pre-existing) "./** @scrutinizer ignore-type */ array_search($ca['subject'], $baselineCA)." and (added) ".$ca['sha1'];
+            if (array_search($ca['name'], $baselineCA) !== FALSE) {
+                $retval[AbstractProfile::CA_CLASH_ADDED] .= "#SHA1 for CA with DN '".$ca['name']."' has SHA1 fingerprints (pre-existing) "./** @scrutinizer ignore-type */ array_search($ca['name'], $baselineCA)." and (added) ".$ca['sha1'];
             } else {
-                $retval[AbstractProfile::CA_ADDED] .= "#CA with DN '".print_r($ca['subject'], TRUE)."' and SHA1 fingerprint ".$ca['sha1']." was added as trust anchor";
+                $retval[AbstractProfile::CA_ADDED] .= "#CA with DN '".print_r($ca['name'], TRUE)."' and SHA1 fingerprint ".$ca['sha1']." was added as trust anchor";
             }
-            
         }
         // check if a servername was added
         $baselineNames = [];
