@@ -289,6 +289,9 @@ function get_username_password {
 
 function validate_username {
   log "validate username"
+  if [ -z "$USERNAME" ] ; then
+    log "Empty username"
+    return 0
   if [[ "$USERNAME" =~ "@" ]] ; then
     log "\$USERNAME contains character '@' ($USERNAME)."
     username_length="${#USERNAME}"
