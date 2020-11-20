@@ -292,6 +292,7 @@ function validate_username {
   if [ -z "$USERNAME" ] ; then
     log "Empty username"
     return 0
+  fi
   if [[ "$USERNAME" =~ "@" ]] ; then
     log "\$USERNAME contains character '@' ($USERNAME)."
     username_length="${#USERNAME}"
