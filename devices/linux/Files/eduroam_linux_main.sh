@@ -352,8 +352,8 @@ function get_p12_credentials {
         exit 1
       fi
     else
-      PFX_FILE_PATH=select_p12_file
-      if cp "$PFX_FILE_PATH" "$CAT_PATH/cat_installer/user.p12" ; then
+      select_p12_file
+      if cp "$PFX_FILE" "$CAT_PATH/cat_installer/user.p12" ; then
         log "File user.p12 is written."
       else
         log "Couldn't write p12 file."
@@ -367,22 +367,25 @@ function get_p12_credentials {
       exit 1
     fi
   else
-    while [ ! -z "$PASSWORD" -o ! -z "$USERNAME" ] ; do
-    if ! USERNAME=$(prompt_nonempty_string 0 "$USERNAME_PROMPT") ; then
-        alert "$ENTER_IMPORT_PASSWORD"
-      fi
+    while [ -z "$PASSWORD" ] ; do
       if ! PASSWORD=$(prompt_nonempty_string 0 "$ENTER_PASSWORD") ; then
         alert "$ENTER_IMPORT_PASSWORD"
       fi
-      if process_p12 ; then
+      if ! process_p12 ; then
         alert "$INCORRECT_PASSWORD"
+        continue
+      fi
+      if [ -z "${USERNAME}" ] ; then
+         while validate_username ; do
+            USERNAME=$(prompt_nonempty_string 1 "$USERNAME_PROMPT")
+         done
       fi
     done
   fi
 }
 
 function process_p12 {
-  if [ -z "$USE_OUTER_TLS_ID" ] ; then
+  if [ -n "$USE_OTHER_TLS_ID" ] ; then
     exit 0
   fi
 
@@ -394,60 +397,71 @@ function process_p12 {
     log "No ssl library found."
   fi
   log "Found $SSL_LIBRARY."
-  output="$($SSL_LIBRARY pkcs12 -in "$PFX_FILE" -passin pass:$PASSWORD -nokeys -clcerts)"
+  output="$($SSL_LIBRARY pkcs12 -in "$PFX_FILE" -passin pass:$PASSWORD -nokeys -clcerts 2>/dev/null)"
   if [ "$?" != 0 ] ; then
     log "SSL library command failed (Error code $?)."
-    exit 1
+    PASSWORD=""
+    return 1
   fi
-  certificate_property=()
+  declare -A certificate_property
   readarray -t lines <<< "$output"
   for line in "${lines[@]}" ; do
-    if [ "$line" =~ "subject=*" ] ; then
-      IFS="="
-      read -ra subject <<< "$line"
-      key=echo "${subject[0],,}"
-      value=echo "${subject[1],,}"
-      certificate_property["$key"]="$value"
-    fi
+     if [[ "$line" =~ subject=* ]] ; then
+        ln=${line/subject=/}
+        IFS=','
+        for rdn in ${ln// /}; do
+           IFS='='
+           read -ra rn <<< "$rdn"
+           key=${rn[0],,}
+           value=${rn[1],,}
+           certificate_property["$key"]="$value"
+        done
+     fi
   done
-
-  if [ -z "$certificate_property['cn']" -a "$certificate_property['cn']" =~ "*@*" ] ; then
-    USERNAME="$certificate_property['cn']"
-    log "Using cn: $certificate_property['cn']"
-  elif [ -z "$certificate_property['emailaddress']" -a "$certificate_property['emailaddress']" =~ "*@*" ] ; then
-    log "Using emailaddress: $certificate_property['emailaddress']"
-    USERNAME="$certificate_property['emailaddress']"
-  else
-    USERNAME=""
-    alert "Unable to extract username from the certificate." # TODO
+  if [ ! -z "${certificate_property['cn']+x}" ] ; then
+     if [[ "${certificate_property['cn']}" =~ @ ]] ; then
+        USERNAME="${certificate_property['cn']}"
+        log "Using cn: ${certificate_property['cn']}"
+        return 0
+     fi 
+  fi 
+  if [ ! -z "${certificate_property['emailaddress']+x}" ] ; then
+     if [[ "${certificate_property['emailaddress']}" =~ @ ]] ; then
+        log "Using emailaddress: $certificate_property['emailaddress']"
+        USERNAME="${certificate_property['emailaddress']}"
+        return 0
+     fi 
   fi
+
+  USERNAME=""
+  alert "Unable to extract username from the certificate." # TODO
   return 0
 }
 
 function select_p12_file {
   if [ ! -z "$ZENITY" ] ; then
-    certificate_output="$($ZENITY --file-selection --file-filter=$P12_FILTER | *.p12 *.P12 *.pfx *.PFX --file-filter=$ALL_FILTER --title=$P12_TITLE)"
+    certificate_output=$($ZENITY --file-selection --file-filter="$P12_FILTER | *.p12 *.P12 *.pfx *.PFX" --file-filter="$ALL_FILTER | *" --title=$P12_TITLE)
     if [ "$?" != 0 ] ; then
       log " Choose pfx file failed (Error code: $?)."
       exit 1
     fi
   elif [ ! -z "$KDIALOG" ] ; then
-    certificate_output="$($KDIALOG --getopenfilename . *.p12 *.P12 *.pfx *.PFX | $P12_FILTER --title=$P12_TITLE)"
+    certificate_output=$($KDIALOG --getopenfilename . "*.p12 *.P12 *.pfx *.PFX | $P12_FILTER" --title=$P12_TITLE)
     if [ "$?" != 0 ] ; then
       log " Choose pfx file failed (Error code: $?)."
       exit 1
     fi
+
   else
     certificate_output="$(find . -type f \( -name '*.p12' -or -name '*.P12' -or -name '*.pfx' -or -name '*.PFX' \))"
     if [ "$?" != 0 ] ; then
       log " Choose pfx file failed (Error code: $?)."
       exit 1
     fi
-    PFX_FILE="$certificate_output"
     # TODO
   fi
 
-  return "$(echo $certificate_output | xargs | iconv -t utf8)"
+  PFX_FILE="$(echo $certificate_output | xargs | iconv -t utf8)"
 }
 
 function save_sb_fx {
@@ -461,11 +475,23 @@ function nmcli_add_connection {
 
   for ssid in "${SSIDS[@]}"; do
     log "Try to add connection for $ssid."
-    nmcli connection add type wifi con-name "$ssid" ifname "$interface" ssid "$ssid" -- \
-    wifi-sec.key-mgmt wpa-eap 802-1x.eap "$EAP_OUTER" 802-1x.phase2-auth "$EAP_INNER" \
-    802-1x.altsubject-matches "$ALTSUBJECT_MATCHES" 802-1x.anonymous-identity "$ANONYMOUS_IDENTITY" \
-    802-1x.ca-cert "$CAT_PATH/cat_installer/ca.pem" 802-1x.identity "$USERNAME" connection.permissions "$USER" \
-    802-11-wireless-security.proto rsn 802-11-wireless-security.group "ccmp,tkip" 802-11-wireless-security.pairwise ccmp
+       log "Adding $EAP_OUTER configuration"
+    if [ "$EAP_OUTER" = "TLS" ] ; then
+       nmcli connection add type wifi con-name "$ssid" ifname "$interface" ssid "$ssid" -- \
+       wifi-sec.key-mgmt wpa-eap 802-1x.eap "$EAP_OUTER" \
+       802-1x.altsubject-matches "$ALTSUBJECT_MATCHES" \
+       802-1x.ca-cert "$CAT_PATH/cat_installer/ca.pem" 802-1x.identity "$USERNAME" connection.permissions "$USER" \
+       802-1x.private-key "$CAT_PATH/cat_installer/user.p12" \
+       802-1x.private-key-password "$PASSWORD" \
+       802-11-wireless-security.proto rsn 802-11-wireless-security.group "ccmp,tkip" 802-11-wireless-security.pairwise ccmp
+    else
+       nmcli connection add type wifi con-name "$ssid" ifname "$interface" ssid "$ssid" -- \
+       wifi-sec.key-mgmt wpa-eap 802-1x.eap "$EAP_OUTER" 802-1x.phase2-auth "$EAP_INNER" \
+       802-1x.altsubject-matches "$ALTSUBJECT_MATCHES" 802-1x.anonymous-identity "$ANONYMOUS_IDENTITY" \
+       802-1x.ca-cert "$CAT_PATH/cat_installer/ca.pem" 802-1x.identity "$USERNAME" connection.permissions "$USER" \
+       802-1x.password "$PASSWORD" \
+       802-11-wireless-security.proto rsn 802-11-wireless-security.group "ccmp,tkip" 802-11-wireless-security.pairwise ccmp
+    fi
     log "Add $ssid connection with nmcli successful."
   done
 }
