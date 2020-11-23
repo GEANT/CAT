@@ -61,6 +61,7 @@ function setup_environment {
   n=""
   ZENITY=""
   KDIALOG=""
+  YAD=""
   TTY=""
   if [ ! -z "${DISPLAY:-}" ] ; then
     if which zenity 1>/dev/null 2>&1 ; then
@@ -69,6 +70,9 @@ function setup_environment {
     elif which kdialog 1>/dev/null 2>&1 ; then
       KDIALOG=$(which kdialog)
       log "$KDIALOG detected."
+    elif which yad 1>/dev/null 2>&1 ; then
+      YAD=$(which yad)
+      log "$YAD detected."
     else
       if tty > /dev/null 2>&1 ; then
         if  echo "$TERM" | grep -E -q "xterm|gnome-terminal|lxterminal"  ; then
@@ -121,6 +125,14 @@ function ask {
        return 1
      fi
   fi
+  if [ ! -z "$YAD" ] ; then
+     text=$(echo "${1}" | fmt -w60)
+     if "$YAD" --image="dialog-question" --button=gtk-yes:0 --button=gtk-no:1 --width=500 --wrap --text="${text}\n\n${2}" --title="$TITLE" 2>/dev/null ; then
+       return 0
+     else
+       return 1
+     fi
+  fi
 
   yes1=${YES^^}
   no1=${NO^^}
@@ -164,6 +176,10 @@ function alert {
      "$ZENITY" --warning --text="$1" 2>/dev/null
      return
   fi
+  if [ ! -z "$YAD" ] ; then
+     "$YAD" --text="$1" 2>/dev/null
+     return
+  fi
   echo "$1"
 
 }
@@ -181,6 +197,10 @@ function show_info {
      "$ZENITY" --info --width=500 --text="$1" 2>/dev/null
      return
   fi
+  if [ ! -z "$YAD" ] ; then
+     "$YAD" --button=OK --width=500 --wrap --text="$1" 2>/dev/null
+     return
+  fi
   split_line "$1"
 }
 
@@ -189,16 +209,8 @@ function confirm_exit {
     echo "$QUIT"
     exit 1
   fi
-  if [ ! -z "$KDIALOG" ] ; then
-     if "$KDIALOG" --yesno "$QUIT"  ; then
-     exit 1
-     fi
-  fi
-  if [ ! -z "$ZENITY" ] ; then
-     if "$ZENITY" --question --text="$QUIT" 2>/dev/null ; then
-        exit 1
-     fi
-  fi
+  if ! ask "$QUIT" 1 ; then exit ; fi
+  ask "$QUIT"
 }
 
 function prompt_nonempty_string {
@@ -217,6 +229,13 @@ function prompt_nonempty_string {
      H="--password"
     else
      H="--inputbox"
+    fi
+  elif [ ! -z "$YAD" ] ; then
+    if [ "$1" -eq 0 ] ; then
+     H=":H"
+    fi
+    if ! [ -z "${3:-}" ] ; then
+     D="--entry-text=$3"
     fi
   else
    if [ "$1" -eq 0 ] ; then
@@ -249,6 +268,14 @@ function prompt_nonempty_string {
       if [ $? -ne 0 ] ; then
         confirm_exit
       fi
+    done
+  elif [ ! -z "$YAD" ] ; then
+    while [ ! "$out_s" ] ; do
+      out_s=$($YAD --form --width=300 --field=$H --text "$prompt" "$D" 2>/dev/null)
+      if [ $? -ne 0 ] ; then
+        confirm_exit
+      fi
+      out_s=${out_s%|}
     done
   else
     while [ -z "$out_s" ] ; do
@@ -494,7 +521,7 @@ function nmcli_add_connection {
     readarray -t AAA <<< $cons
     for uuid in "${AAA[@]}" ; do
        if [ ! -z "$uuid" ] ; then
-          nmcli connection delete $uuid
+          nmcli connection delete $uuid >/dev/null 2>&1
           log "Removing $uuid"
        fi
     done
@@ -506,14 +533,16 @@ function nmcli_add_connection {
        802-1x.ca-cert "$CAT_PATH/cat_installer/ca.pem" 802-1x.identity "$USERNAME" connection.permissions "$USER" \
        802-1x.private-key "$CAT_PATH/cat_installer/user.p12" \
        802-1x.private-key-password "$PASSWORD" \
-       802-11-wireless-security.proto rsn 802-11-wireless-security.group "ccmp,tkip" 802-11-wireless-security.pairwise ccmp
+       802-11-wireless-security.proto rsn 802-11-wireless-security.group "ccmp,tkip" \
+       802-11-wireless-security.pairwise ccmp >/dev/null 2>&1
     else
        nmcli connection add type wifi con-name "$ssid" ifname "$interface" ssid "$ssid" -- \
        wifi-sec.key-mgmt wpa-eap 802-1x.eap "$EAP_OUTER" 802-1x.phase2-auth "$EAP_INNER" \
        802-1x.altsubject-matches "$ALTSUBJECT_MATCHES" 802-1x.anonymous-identity "$ANONYMOUS_IDENTITY" \
        802-1x.ca-cert "$CAT_PATH/cat_installer/ca.pem" 802-1x.identity "$USERNAME" connection.permissions "$USER" \
        802-1x.password "$PASSWORD" \
-       802-11-wireless-security.proto rsn 802-11-wireless-security.group "ccmp,tkip" 802-11-wireless-security.pairwise ccmp
+       802-11-wireless-security.proto rsn 802-11-wireless-security.group "ccmp,tkip" \
+       802-11-wireless-security.pairwise ccmp >/dev/null 2>&1
     fi
     log "Add $ssid connection with nmcli successful."
   done
@@ -555,7 +584,7 @@ EOFW
 
 function log {
   if ! [ -z "$debug" ] ; then
-    echo "[${USER}][$(date)] - ${*}"
+    echo "[${USER}][$(date)] - ${*}" >&2
   fi
 }
 
