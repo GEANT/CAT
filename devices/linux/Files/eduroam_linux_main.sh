@@ -488,7 +488,17 @@ function nmcli_add_connection {
 
   for ssid in "${SSIDS[@]}"; do
     log "Try to add connection for $ssid."
-       log "Adding $EAP_OUTER configuration"
+    log "Adding $EAP_OUTER configuration"
+    log "Testing for existing connections"
+    cons=$(nmcli -t  -f UUID,NAME con show | egrep ":${ssid}$" | awk -F ':' '{print $1}')
+    readarray -t AAA <<< $cons
+    for uuid in "${AAA[@]}" ; do
+       if [ ! -z "$uuid" ] ; then
+          nmcli connection delete $uuid
+          log "Removing $uuid"
+       fi
+    done
+
     if [ "$EAP_OUTER" = "TLS" ] ; then
        nmcli connection add type wifi con-name "$ssid" ifname "$interface" ssid "$ssid" -- \
        wifi-sec.key-mgmt wpa-eap 802-1x.eap "$EAP_OUTER" \
