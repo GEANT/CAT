@@ -61,6 +61,7 @@ function setup_environment {
   n=""
   ZENITY=""
   KDIALOG=""
+  TTY=""
   if [ ! -z "${DISPLAY:-}" ] ; then
     if which zenity 1>/dev/null 2>&1 ; then
       ZENITY=$(which zenity)
@@ -81,6 +82,8 @@ function setup_environment {
         fi
       fi
     fi
+  else
+    TTY=1
   fi
 }
 
@@ -119,26 +122,24 @@ function ask {
      fi
   fi
 
-  yes=J
-  no=N
-  yes1=$(echo $yes | awk '{ print toupper($0) }')
-  no1=$(echo $no | awk '{ print toupper($0) }')
+  yes1=${YES^^}
+  no1=${NO^^}
 
   if [ "$3" == "0" ]; then
-    def="$yes"
+    def="$YES"
   else
-    def="$no"
+    def="$NO"
   fi
 
   echo "";
   while true
   do
   split_line "$1"
-  read -p -r "${bf}$2 ${yes}/${no}? [${def}]:$n " answer
+  read -r -p "${bf}$2 ${YES}/${NO}? [${def}]:$n " answer
   if [ -z "$answer" ] ; then
-    answer=${def}
+    answer=${def^^}
   fi
-  answer=$(echo $answer | awk '{ print toupper($0) }')
+  answer=${answer^^}
   case "$answer" in
     ${yes1})
        return 0
@@ -217,6 +218,12 @@ function prompt_nonempty_string {
     else
      H="--inputbox"
     fi
+  else
+   if [ "$1" -eq 0 ] ; then
+     H="-s"
+    else
+     H=""
+    fi
   fi
 
   out_s="";
@@ -244,8 +251,8 @@ function prompt_nonempty_string {
       fi
     done
   else
-    while [ ! "$out_s" ] ; do
-      read -p "${prompt}: " out_s
+    while [ -z "$out_s" ] ; do
+      read $H -p "${prompt}: " out_s
     done
   fi
   echo "$out_s";
@@ -277,8 +284,14 @@ function get_username_password {
     if ! PASSWORD=$(prompt_nonempty_string 0 "$ENTER_PASSWORD") ; then
       exit 1
     fi
+    if [ ! -z "$TTY" ] ; then
+       echo ""
+    fi
     if ! PASSWORD1=$(prompt_nonempty_string 0 "$ENTER_PASSWORD") ; then
       exit 1
+    fi
+    if [ ! -z "$TTY" ] ; then
+       echo ""
     fi
     if [ "$PASSWORD" != "$PASSWORD1" ] ; then
       alert "$PASSWORD_DIFFER"
