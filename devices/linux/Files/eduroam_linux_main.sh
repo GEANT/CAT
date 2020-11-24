@@ -76,8 +76,8 @@ function setup_environment {
     else
       if tty > /dev/null 2>&1 ; then
         if  echo "$TERM" | grep -E -q "xterm|gnome-terminal|lxterminal"  ; then
-#          bf=" [1m";
-#          n=" [0m";
+          bf=" [1m";
+          n=" [0m";
         fi
       else
         find_xterm
