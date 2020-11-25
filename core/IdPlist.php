@@ -79,7 +79,9 @@ class IdPlist extends common\Entity {
         $allIDPs = ($country != "" ? $handle->exec($query, "s", $country) : $handle->exec($query));
         $returnarray = [];
         // SELECTs never return a booleans, always an object
+        $i=0;
         while ($queryResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allIDPs)) {
+            $i++;
             $institutionOptions = explode('---', $queryResult->options);
             $oneInstitutionResult = [];
             $geo = [];
@@ -114,6 +116,24 @@ class IdPlist extends common\Entity {
                 $name = $langObject->getLocalisedValue($names);
             }
             $oneInstitutionResult['title'] = $name;
+            $keywords = [];
+            foreach ($names as $keyword) {
+                $value = $keyword['value'];
+                $keywords[$keyword['lang']] = $keyword['value'];
+                $keywords[$keyword['lang'].'_7'] =
+                        iconv('UTF-8', 'ASCII//TRANSLIT', $value);
+            }
+            
+            if (isset(CONFIG_CONFASSISTANT['USE_KEYWORDS']) && CONFIG_CONFASSISTANT['USE_KEYWORDS']) {
+                $keywords_final = array_unique($keywords);
+
+                if (!empty($keywords_final)) {
+                    $oneInstitutionResult['keywords'] = [];
+                    foreach (array_keys($keywords_final) as $key) {
+                    $oneInstitutionResult['keywords'][] = [$keywords_final[$key]];
+                    }
+                }
+            }
             if (count($geo) > 0) {
                 $oneInstitutionResult['geo'] = $geo;
             }

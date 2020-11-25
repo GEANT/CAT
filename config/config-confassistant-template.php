@@ -176,4 +176,11 @@ const CONFIG_CONFASSISTANT = [
         'username' => '...',
         'password' => '...',
     ],
+    /**
+     * Determins if DiscoJuice keywords should be used in the discovery service
+     * The keywords contain other language variants of the IdP name making it
+     * easier to kollow keyboard serach. Turning this oprion on will add
+     * about 40% size to the IdP list
+     */
+    'USE_KEYWORDS' => true,
 ];
