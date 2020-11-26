@@ -27,7 +27,13 @@ $cat = new core\CAT();
 $idpId = filter_input(INPUT_GET, 'idp', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'idp', FILTER_VALIDATE_INT)?? 0;
 $profileId = filter_input(INPUT_GET, 'profile', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'profile', FILTER_VALIDATE_INT) ?? 0;
 $skinObject = $Gui->skinObject;
+if (isset(CONFIG_CONFASSISTANT['PRELOAD_IDPS']) && CONFIG_CONFASSISTANT['PRELOAD_IDPS']) {
+    print "var preloadIdPs = true;\n";
+} else {
+    print "var preloadIdPs = false;\n";
+}
     ?>
+
 var n;
 var profile;
 // var device_button_bg ="#0a698e";
@@ -40,6 +46,39 @@ var front_page = 1;
 var download_link;
 var profile_list_size = <?php echo $profile_list_size ?>;
 var generation_error = "<?php escaped_echo(_("This is embarrassing. Generation of your installer failed. System admins have been notified. We will try to take care of the problem as soon as possible.")) ?>";
+const discoCountries = {
+<?php 
+    $C = $Gui->printCountryList(1);
+    $ret = '';
+    foreach ($C as $key => $val) {
+        $ret .= "'$key': \"$val\",";
+    }
+    echo substr($ret, 0, -1);
+?>
+  };
+var idpsLoaded = false;
+
+var discoTextStrings = {
+   "title":"<?php escaped_echo(_("Organisation")) ?>",
+   "subtitle":"<?php escaped_echo(_("Select your organisation")) ?>",
+   "textHelp": "<?php escaped_echo(_("Help, my organisation is not on the list")) ?>",
+   "textHelpMore": "<?php escaped_echo(sprintf(_("This system relies on information supplied by local %s administrators. If your organisation is not on the list, then nag them to add information to the %s database."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG['APPEARANCE']['productname'])); ?>",
+   "textLocateMe": "<?php escaped_echo(_("Locate me more accurately using HTML5 Geo-Location")) ?>",
+   "textShowProviders": "<?php escaped_echo(_("Show organisations in")) ?>",
+   "textAllCountries": "<?php escaped_echo(_("all countries")) ?>",
+   "textSearch" : "<?php escaped_echo(_("or search for an organisation, for example University of Oslo")) ?>",
+   "textShowAllCountries": "<?php escaped_echo(_("show all countries")) ?>",
+   "textLimited1" : "<?php escaped_echo(_("Results limited to"))?>",
+   "textLimited2" : "<?php escaped_echo(_("entries - show more"))?>",
+   "textNearby" : "<?php escaped_echo(_("Nearby"))?>",
+   "geoLoc_timeout" : "<?php escaped_echo(_("Location timeout"))?>",
+   "geoLoc_posUnavailable" : "<?php escaped_echo(_("Could not get your position"))?>",
+   "geoLoc_permDenied" : "<?php escaped_echo(_("Your browser has denied access to your location"))?>",
+   "geoLoc_unknownError" : "<?php escaped_echo(_("Unknown location error"))?>",
+   "geoLoc_here" : "<?php escaped_echo(_("You are here:"))?>",
+   "geoLoc_getting" : "<?php escaped_echo(_("Getting your location..."))?>",
+   "geoLoc_nearby" : "<?php escaped_echo(_("Nearby providers shown on top."))?>",
+};
 
 var roller;
 if (roller === undefined)
@@ -496,6 +535,49 @@ function processDownload(data) {
   }
 }
 
+function discoJuiceCallback(e) {
+    $("#profile_desc").hide();
+    $("#profile_desc").text('');
+    $("#welcome_top1").hide();
+    $("#top_invite").hide();
+    $("#institution_name").hide();
+    $("#front_page").hide();
+    if (roller)
+        Program.stop_program = 1;
+    $(this).addClass('pressed');
+    $('#welcome').hide();
+    $("#inst_name_span").html("");
+    $("#user_info").hide();
+    $("#devices").hide();
+    $("#profile_redirect").hide();
+    $("#profiles").hide();
+    $("#institutions").hide();
+    listProfiles(e.idp,0);
+}
+
+function loadDiscoJuice() {
+    var metadata;
+    if (preloadIdPs)
+       metadata = allIdPs;
+    else
+       metadata = "<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=listAllIdentityProviders&api_version=2&lang="+lang;
+       
+    discoTextStrings.discoPath = "external/discojuice/";
+    discoTextStrings.iconPath = "<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendLogo&api_version=2&disco=1&lang=" + lang + "&idp=";
+    discoTextStrings.overlay = true;
+    discoTextStrings.cookie = true;
+    discoTextStrings.type = false;
+    discoTextStrings.country = true;
+    discoTextStrings.location = true;
+    discoTextStrings.countryAPI = "<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=locateUser&api_version=2";
+    discoTextStrings.metadata = metadata;
+    discoTextStrings.metadataPreloaded = preloadIdPs;
+    discoTextStrings.callback = discoJuiceCallback;
+    $(".signin").DiscoJuice(discoTextStrings);
+    DiscoJuice.Constants.Countries = discoCountries;
+    idpsLoaded = true;
+}
+
 $(document).ready(function(){
    var j ;
 
@@ -536,6 +618,16 @@ $(document).ready(function(){
 
 $(".signin").click(function(event){
      event.preventDefault();
+     if (idpsLoaded)
+         return;
+     waiting('start');
+     const tmInt = setInterval(function() {
+         if (!idpsLoaded)
+            return;
+         clearInterval(tmInt);
+         waiting('stop');
+         DiscoJuice.UI.show();
+         }, 100);
 });
 
 $("#main_menu_close").click(function(event){
@@ -565,64 +657,16 @@ $("#menu_top > ul >li").click(function(event){
 
 
 catWelcome = $("#main_menu_content").html();
-  
+
 if (noDisco === 0) {
-$(".signin").DiscoJuice({
-   "discoPath":"external/discojuice/",
-   "iconPath":"<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendLogo&api_version=2&disco=1&lang=" + lang + "&idp=",
-   "overlay":true,"cookie":true,"type":false,
-   "country":true,"location":true,
-   "title":"<?php escaped_echo(_("Organisation")) ?>",
-   "subtitle":"<?php escaped_echo(_("Select your organisation")) ?>",
-   "textHelp": "<?php escaped_echo(_("Help, my organisation is not on the list")) ?>",
-   "textHelpMore": "<?php escaped_echo(sprintf(_("This system relies on information supplied by local %s administrators. If your organisation is not on the list, then nag them to add information to the %s database."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG['APPEARANCE']['productname'])); ?>",
-   "textLocateMe": "<?php escaped_echo(_("Locate me more accurately using HTML5 Geo-Location")) ?>",
-   "textShowProviders": "<?php escaped_echo(_("Show organisations in")) ?>",
-   "textAllCountries": "<?php escaped_echo(_("all countries")) ?>",
-   "textSearch" : "<?php escaped_echo(_("or search for an organisation, for example University of Oslo")) ?>",
-   "textShowAllCountries": "<?php escaped_echo(_("show all countries")) ?>",
-   "textLimited1" : "<?php escaped_echo(_("Results limited to"))?>",
-   "textLimited2" : "<?php escaped_echo(_("entries - show more"))?>",
-   "textNearby" : "<?php escaped_echo(_("Nearby"))?>",
-   "geoLoc_timeout" : "<?php escaped_echo(_("Location timeout"))?>",
-   "geoLoc_posUnavailable" : "<?php escaped_echo(_("Could not get your position"))?>",
-   "geoLoc_permDenied" : "<?php escaped_echo(_("Your browser has denied access to your location"))?>",
-   "geoLoc_unknownError" : "<?php escaped_echo(_("Unknown location error"))?>",
-   "geoLoc_here" : "<?php escaped_echo(_("You are here:"))?>",
-   "geoLoc_getting" : "<?php escaped_echo(_("Getting your location..."))?>",
-   "geoLoc_nearby" : "<?php escaped_echo(_("Nearby providers shown on top."))?>",
-   "countryAPI":"<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=locateUser&api_version=2",
-   "metadata":"<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=listAllIdentityProviders&api_version=2&lang="+lang,
-   "callback": function(e) {
-     $("#profile_desc").hide();
-     $("#profile_desc").text('');
-     $("#welcome_top1").hide();
-     $("#top_invite").hide();
-     $("#institution_name").hide();
-     $("#front_page").hide();
-     if (roller)
-         Program.stop_program = 1;
-     $(this).addClass('pressed');
-     $('#welcome').hide();
-     $("#inst_name_span").html("");
-     $("#user_info").hide();
-     $("#devices").hide();
-     $("#profile_redirect").hide();
-     $("#profiles").hide();
-     $("#institutions").hide();
-     listProfiles(e.idp,0);
-     }
-        });
-DiscoJuice.Constants.Countries = {
-<?php 
-    $C = $Gui->printCountryList(1);
-    $ret = '';
-    foreach ($C as $key => $val) {
-        $ret .= "'$key': \"$val\",";
+    if (preloadIdPs) {
+        $.get("<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=listAllIdentityProviders&api_version=2&lang="+lang,function(data) {
+            allIdPs = data;
+            loadDiscoJuice();
+        }, "json");
+    } else {
+        loadDiscoJuice();
     }
-    echo substr($ret, 0, -1);
-?>
-        };
 }
 
 
