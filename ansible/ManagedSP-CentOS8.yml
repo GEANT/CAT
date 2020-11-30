@@ -172,6 +172,7 @@
       when: selinux.stdout == "Enforcing"
     - name: Apply new SELinux file context to filesystem
       command: restorecon -irv /opt/Socket
+      when: selinux.stdout == "Enforcing"
     - name: Copy daemon scripts
       copy: src=ManagedSP/templates/daemon/{{ item }} dest=/opt/FR/scripts mode=0755
       with_items:
