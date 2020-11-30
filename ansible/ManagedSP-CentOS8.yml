@@ -204,7 +204,7 @@
       shell: /opt/FR/scripts/posix_ipc.sh
     - name: Extract FreeRADIUS templates archive
       unarchive:
-        src: ManagedSP/templates/daemon/fr_templates.tar.gz
+        src: ManagedSP/templates/FreeRADIUS/fr_templates.tar.gz
         dest: /opt/FR/
     - name: Add the user 'radius' with a nologin shell
       user:
