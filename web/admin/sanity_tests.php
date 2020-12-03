@@ -22,6 +22,8 @@
 require_once dirname(dirname(dirname(__FILE__))) . "/config/_config.php";
 
 $Tests = [
+    'Directories',
+    'ConfigConstants',
     'CatBaseUrl',
     'Ssp',
     'Security',
@@ -29,7 +31,6 @@ $Tests = [
     'PhpModules',
     'Openssl',
     'Zip',
-    'Directories',
     'Logdir',
     'Locales',
     'Defaults',

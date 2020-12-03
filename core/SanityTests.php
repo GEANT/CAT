@@ -112,6 +112,13 @@ class SanityTests extends CAT
      * @var string
      */
     public $name;
+    
+    /**
+     * variable used to signal that no more tests are to be performed
+     * 
+     * @var boolean
+     */
+    public $fatalError = false;
 
     /**
      * initialise the tests. Includes counting the number of expected rows in the profile_option_dict table.
@@ -179,6 +186,9 @@ class SanityTests extends CAT
                 }
             } else {
                 $this->runTest($testName);
+            }
+            if ($this->fatalError) {
+                return;
             }
         }
     }
@@ -267,7 +277,60 @@ class SanityTests extends CAT
             $this->storeTestResult(\core\common\Entity::L_ERROR, "<strong>PHP</strong> is too old. We need at least $this->needversionPHP, but you only have " . phpversion() . ".");
         }
     }
+    
+    /**
+     * Check if configuration constants from the template are set
+     * in the correcponding config file
+     * 
+     * @param string $config file basename
+     * @return array $failResults
+     */
+    private function runConstantsTest($config)
+    {
+        $templateConfig = file_get_contents(ROOT . "/config/$config-template.php");
+        $newTemplateConfig = preg_replace("/class *$config/", "class $config" . "_template", $templateConfig);
+        file_put_contents(ROOT . "/var/tmp/$config-template.php", $newTemplateConfig);
+        include(ROOT . "/var/tmp/$config-template.php");
+        unlink(ROOT . "/var/tmp/$config-template.php");
+        $rft = new \ReflectionClass("\config\\$config" . "_template");
+        $templateConstants = $rft->getConstants();
+        $failResults = [];
+        foreach ($templateConstants as $constant => $value) {
+            try {
+                $m = constant("\config\\$config::$constant");
+            } catch (Exception $e) {
+                $failResults[] = "\config\\$config::$constant";
+            }
+        }
+        return $failResults;
+    }
 
+    /**
+     * Check if all required constants are set
+     */
+    private function testConfigConstants() {
+        set_error_handler(function ($severity, $message, $file, $line) {
+            throw new \ErrorException($message, $severity, $severity, $file, $line);
+        });
+        
+        $failCount = 0;
+        
+        foreach (["Master", "ConfAssistant", "Diagnostics"] as $conf) {
+            $failResults = $this->runConstantsTest($conf);
+            $failCount = $failCount + count($failResults);
+            if (count($failResults) > 0) {
+            $this->storeTestResult(\core\common\Entity::L_ERROR, 
+                    "<strong>The following constants are not set:</strong>" . implode(', ', $failResults));
+            }
+        }
+        
+        restore_error_handler();
+        if ($failCount == 0) {
+            $this->storeTestResult(\core\common\Entity::L_OK, "<strong>All config constants set</strong>");
+        } else {
+            $this->fatalError = true;
+        }
+    }
     /**
      * set for cat_base_url setting
      * 
@@ -615,6 +678,7 @@ class SanityTests extends CAT
             \core\common\Entity::rrmdir($dir1);
         } else {
             $this->storeTestResult(\core\common\Entity::L_ERROR, "Installer cache directory $base1 does not exist or is not writable!");
+            $this->fatalError = true;
         }
         $Dir2 = \core\common\Entity::createTemporaryDirectory('test', 0);
         $dir2 = $Dir2['dir'];
@@ -624,6 +688,7 @@ class SanityTests extends CAT
             \core\common\Entity::rrmdir($dir2);
         } else {
             $this->storeTestResult(\core\common\Entity::L_ERROR, "Test directory $base2 does not exist or is not writable!");
+            $this->fatalError = true;
         }
         $Dir3 = \core\common\Entity::createTemporaryDirectory('logo', 0);
         $dir3 = $Dir3['dir'];
