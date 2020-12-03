@@ -187,6 +187,14 @@ class OptionDisplay extends \core\common\Entity {
         if (!isset($descriptions[$input])) {
             return "";
         }
+        $descriptions["profile:openroaming"] = 
+                sprintf(_("By opting in to OpenRoaming, you agree to be bound by the '%s'."),"eduroam Ecosystem Broker OpenRoaming Identity Provider Policy").
+                " ".
+                sprintf(_("Note that your requirement to inform users about the OpenRoaming End User Terms & Conditions is fulfilled when directing your end users to the %s download portal for installer download. Any other means of providing the installers needs to present this information via its own channel."),CONFIG['APPEARANCE']['product_name']).
+                " ".
+                _("You are also aware that for best technical interoperability, you need to add a DNS entry into your realm's DNS zone.").
+                " ".
+                sprintf(_("Read <a href='%s'>these instructions</a>."),"https://wiki.geant.org/display/H2eduroam/Roaming+with+third+parties+based+on+Passpoint");
         return "<span class='tooltip' id='S$rowid-tooltip-$input' style='display:" . ($isVisible ? "block" : "none") . "' onclick='alert(\"" . $descriptions[$input] . "\")'><img src='../resources/images/icons/question-mark-icon.png" . "'></span>";
     }
 
