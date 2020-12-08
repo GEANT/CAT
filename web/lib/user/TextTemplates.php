@@ -32,6 +32,7 @@ const WELCOME_ABOARD_DOWNLOAD = 1001;
 const WELCOME_ABOARD_HEADING = 1002;  
 const WELCOME_ABOARD_USAGE = 1003;
 const WELCOME_ABOARD_PROBLEMS = 1004;
+const WELCOME_ABOARD_TERMS = 1006;
 const WELCOME_ABOARD_BACKTODOWNLOADS = 1005;
 const HEADING_TOPLEVEL_GREET = 1010;
 const HEADING_TOPLEVEL_PURPOSE = 1011;
@@ -85,6 +86,21 @@ class TextTemplates extends \core\common\Entity {
         $this->templates[WELCOME_ABOARD_HEADING] = sprintf(_("Dear user from %s,"), "<span class='inst_name'></span>");
         $this->templates[WELCOME_ABOARD_USAGE] = sprintf(_("Now that you have downloaded and installed a client configurator, all you need to do is find an %s hotspot in your vicinity and enter your user credentials (this is our fancy name for 'username and password' or 'personal certificate') - and be online!"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $this->templates[WELCOME_ABOARD_PROBLEMS] = sprintf(_("Should you have any problems using this service, please always contact the helpdesk of %s. They will diagnose the problem and help you out. You can reach them via the means shown above."), "<span class='inst_name'></span>");
+        $this->templates[WELCOME_ABOARD_TERMS] = "";
+        foreach ([
+                "eduroam" => [ 
+                      "TOU"  => "https://wiki.geant.org/display/H2eduroam/Terms+and+Conditions",
+                      "PRIV" => "https://www.eduroam.org/privacy/",
+                    ], 
+                "OpenRoaming" => [ 
+                      "TOU"  => "https://wballiance.com/openroaming/toc-2020/",
+                      "PRIV" => "https://wballiance.com/openroaming/privacy-policy-2020/",
+                    ]
+            ] as $consortium => $terms) {
+            $this->templates[WELCOME_ABOARD_TERMS] .= sprintf("<p>" . _("When connecting to %s hotspots, the following <a href='%s'>Terms and Conditions</a> and <a href='%s'>Privacy Notice</a> apply." . "</p>"), $consortium, $terms['TOU'], $terms['PRIV']);
+        }
+        // this would actually be a checkbox which grays out the actual download button until ACKed
+        $this->templates[WELCOME_ABOARD_TERMS] .= "<p>"._("I agree to be bound by these Terms and Conditions.")."</p>";
         $this->templates[WELCOME_ABOARD_BACKTODOWNLOADS] = _("Back to downloads");
         $this->templates[EDUROAM_WELCOME_ADVERTISING] = sprintf(_("we would like to warmly welcome you among the several million users of %s! From now on, you will be able to use internet access resources on thousands of universities, research centres and other places all over the globe. All of this completely free of charge!"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $this->templates[HEADING_TOPLEVEL_GREET] = sprintf(_("Welcome to %s"), CONFIG['APPEARANCE']['productname']);

@@ -37,25 +37,6 @@
     <p>
         <?php printf(_("Should you have any problems using this service, please always contact the helpdesk of %s. They will diagnose the problem and help you out. You can reach them via the means shown above."), "<span class='inst_name'></span>") ?>
     </p>
-
-    <?php
-    if (false /* display only if IdP has opted in to OpenRoaming - or maybe always, and only display pertinent ones from the set of consortia? */) {
-        foreach ([
-                "eduroam" => [ 
-                      "TOU"  => "https://wiki.geant.org/display/H2eduroam/Terms+and+Conditions",
-                      "PRIV" => "https://www.eduroam.org/privacy/",
-                    ], 
-                "OpenRoaming" => [ 
-                      "TOU"  => "https://wballiance.com/openroaming/toc-2020/",
-                      "PRIV" => "https://wballiance.com/openroaming/privacy-policy-2020/",
-                    ]
-            ] as $consortium => $terms) {
-            printf("<p>" . _("When connecting to %s hotspots, the following <a href='%s'>Terms and Conditions</a> and <a href='%s'>Privacy Notice</a> apply." . "</p>"), $consortium, $terms['TOU'], $terms['PRIV']);
-        }
-        // this would actually be a checkbox which grays out the actual download button until ACKed
-        echo "<p>"._("I agree to be bound by these Terms and Conditions.")."</p>";
-    }
-    ?>
     <p>
         <a href="javascript:back_to_downloads()"><strong><?php echo _("Back to downloads") ?></strong></a>
     </p>
