@@ -233,7 +233,7 @@ switch ($_POST['submitbutton']) {
                     $text .= $significantChanges[\core\AbstractProfile::CA_CLASH_ADDED] . "\n\n";
                 }
                 if (isset($significantChanges[\core\AbstractProfile::CA_ADDED])) {
-                    $text .= _("A new trusted root CA was added. The details are below:\n\n");
+                    $text .= _("A new trusted root CA was added. The details are below:")."\n\n";
                     $text .= $significantChanges[\core\AbstractProfile::CA_ADDED] . "\n\n";
                 }
                 if (isset($significantChanges[\core\AbstractProfile::SERVERNAME_ADDED])) {
