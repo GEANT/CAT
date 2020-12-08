@@ -184,10 +184,7 @@ class OptionDisplay extends \core\common\Entity {
         }
         $descriptions["media:force_proxy"] = sprintf(_("The format of this option is: IPv4|IPv6|hostname:port . Forcing your users through a content filter of your own is a significant invasion of user self-determination. It also has technical issues. Please throughly read the discussion at %s before specifying a proxy with this option. This feature is currently experimental and only has an effect in Apple installers."), "https://github.com/GEANT/CAT/issues/96");
         \core\common\Entity::outOfThePotatoes();
-        if (!isset($descriptions[$input])) {
-            return "";
-        }
-        $descriptions["profile:openroaming"] = 
+        $descriptions["media:openroaming"] = 
                 sprintf(_("By opting in to OpenRoaming, you agree to be bound by the '%s'."),"eduroam Ecosystem Broker OpenRoaming Identity Provider Policy").
                 " ".
                 sprintf(_("Note that your requirement to inform users about the OpenRoaming End User Terms & Conditions is fulfilled when directing your end users to the %s download portal for installer download. Any other means of providing the installers needs to present this information via its own channel."),CONFIG['APPEARANCE']['product_name']).
@@ -195,6 +192,9 @@ class OptionDisplay extends \core\common\Entity {
                 _("You are also aware that for best technical interoperability, you need to add a DNS entry into your realm's DNS zone.").
                 " ".
                 sprintf(_("Read <a href='%s'>these instructions</a>."),"https://wiki.geant.org/display/H2eduroam/Roaming+with+third+parties+based+on+Passpoint");
+        if (!isset($descriptions[$input])) {
+            return "";
+        }
         return "<span class='tooltip' id='S$rowid-tooltip-$input' style='display:" . ($isVisible ? "block" : "none") . "' onclick='alert(\"" . $descriptions[$input] . "\")'><img src='../resources/images/icons/question-mark-icon.png" . "'></span>";
     }
 

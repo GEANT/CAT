@@ -103,7 +103,7 @@ class UIElements extends \core\common\Entity {
             _("Use GEANTlink for TTLS (Windows 8 and 10)") => "device-specific:geantlink",
             _("Profile Description") => "profile:description",
             _("Custom Installer Name Suffix") => "profile:customsuffix",
-            _("Opt-In to OpenRoaming") => "profile:openroaming",
+            _("Opt-In to OpenRoaming") => "media:openroaming",
             sprintf(_("%s Administrator"), $this->nomenclatureFed) => "user:fedadmin",
             _("Real Name") => "user:realname",
             _("E-Mail Address") => "user:email",
