@@ -1,25 +1,24 @@
-# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# eduroam_devel <stefan.winter@restena.lu>, 2018-2019
-# stefanwinter <stefan.winter@gmail.com>, 2012
-# Steffen Klemer <klemer@dfn.de>, 2018
+# eduroam_devel <stefan.winter@restena.lu>, 2018-2020.
+# stefanwinter <stefan.winter@gmail.com>, 2012.
+# Steffen Klemer <klemer@dfn.de>, 2018.
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-13 14:56+0200\n"
-"PO-Revision-Date: 2019-09-03 12:20+0000\n"
-"Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
-"Language-Team: German (Germany) (http://www.transifex.com/eduroam_devel/cat/"
-"language/de_DE/)\n"
+"POT-Creation-Date: 2020-12-08 10:51+0100\n"
+"PO-Revision-Date: 2020-12-08 11:52+0100\n"
+"Last-Translator: Stefan Winter <stefan.winter@restena.lu>\n"
+"Language-Team: German <cat-devel@lists.geant.org>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 20.04.2\n"
 
 #: web/admin/action_enrollment.php:52 web/admin/action_enrollment.php:78
 #: web/admin/action_enrollment.php:79
@@ -71,6 +70,100 @@ msgstr ""
 "href='overview_user.php'>ihrer Profilseite</a> zurück."
 
 #. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
+#: web/admin/action_req_certificate.php:41
+#: web/admin/overview_certificates.php:41
+#, php-format
+msgid "%s: RADIUS/TLS certificate management for %s"
+msgstr "%s: RADIUS/TLS Zertifikatsmanagement für %s"
+
+#. / nomenclature for federation, then actual federation name
+#: web/admin/action_req_certificate.php:56
+#: web/admin/overview_certificates.php:56
+#, php-format
+msgid "RADIUS/TLS certificate management for %s"
+msgstr "RADIUS/TLS Zertifikatsmanagement für %s"
+
+#: web/admin/action_req_certificate.php:66
+#: web/admin/overview_certificates.php:66
+msgid ""
+"You do not have the necessary privileges to request server certificates."
+msgstr ""
+"Sie haben nicht die erforderliche Berechtigung um RADIUS/TLS Zertifikate zu"
+" beantragen."
+
+#: web/admin/action_req_certificate.php:107
+msgid "Requesting a certificate with the following properties"
+msgstr "Beantragen eines Zertifikats mit den folgenden Eigenschaften"
+
+#: web/admin/action_req_certificate.php:109
+msgid "Policy OIDs: "
+msgstr "Policy OIDs:"
+
+#: web/admin/action_req_certificate.php:110
+msgid "Distinguished Name: "
+msgstr "Name (DN):"
+
+#: web/admin/action_req_certificate.php:111
+msgid ""
+"Requester Contact Details: will come from eduroam DB (using stub 'Someone, "
+"&lt;someone@somewhere.xy&gt;')."
+msgstr ""
+"Kontaktdetails des Beantragenden: kommen aus der eduroam DB (momentan wird"
+" 'Someone, &lt;someone@somewhere.xy&gt;' benutzt)."
+
+#: web/admin/action_req_certificate.php:127
+msgid "The certificate was requested."
+msgstr "Das Zertifikat wurde beantragt."
+
+#: web/admin/action_req_certificate.php:130
+msgid "Back to Certificate Overview"
+msgstr "Zurück zum Überblick über die RADIUS/TLS Zertifkate"
+
+#. if we did not get a SAVE button, display UI for a fresh request instead
+#: web/admin/action_req_certificate.php:139
+msgid "1. Certificate Holder Details"
+msgstr "1. Details zum Inhaber"
+
+#: web/admin/action_req_certificate.php:141
+#: web/admin/action_req_certificate.php:162
+#, php-format
+msgid "Certificate for %s role"
+msgstr "Zertifikate für die %s Rolle"
+
+#: web/admin/action_req_certificate.php:150
+#: web/admin/action_req_certificate.php:164
+msgid "---PLEASE CHOOSE---"
+msgstr "---BITTE WÄHLEN---"
+
+#: web/admin/action_req_certificate.php:179
+msgid "2. CSR generation"
+msgstr "2. Erzeugen des CSR"
+
+#: web/admin/action_req_certificate.php:180
+msgid ""
+"One way to generate an acceptable certificate request is via this openssl "
+"one-liner:"
+msgstr ""
+"Eine Möglichkeit, einen akzeptablen Zertifikatsantrag zu erzeugen ist diese"
+" openssl-Kommandozeile:"
+
+#: web/admin/action_req_certificate.php:182
+msgid "3. Submission"
+msgstr "3. Absenden"
+
+#: web/admin/action_req_certificate.php:183
+msgid "Please paste your CSR here:"
+msgstr "Bitte übertragen Sie Ihren Zertifkatsantrag (CSR) in dieses Feld:"
+
+#: web/admin/action_req_certificate.php:184
+msgid "Send request"
+msgstr "Anfrage absenden"
+
+#: web/admin/action_req_certificate.php:187
+msgid "Back to Overview Page"
+msgstr "Zurück zur Übersichtsseite"
+
+#. / product name (eduroam CAT), then term used for "federation", then actual name of federation.
 #: web/admin/edit_federation.php:45
 #, php-format
 msgid "%s: Editing %s '%s'"
@@ -88,25 +181,25 @@ msgid "%s Properties"
 msgstr "%s Eigenschaften"
 
 #: web/admin/edit_federation.php:67 web/admin/edit_idp.php:86
-#: web/lib/admin/UIElements.php:227
+#: web/lib/admin/UIElements.php:228
 msgid "Country:"
 msgstr "Land:"
 
 #: web/admin/edit_federation.php:84 web/admin/edit_idp.php:119
 #: web/admin/edit_idp.php:175 web/admin/edit_idp.php:200
-#: web/admin/edit_profile.php:157 web/admin/edit_profile.php:474
+#: web/admin/edit_profile.php:157 web/admin/edit_profile.php:484
 #: web/admin/edit_user.php:56 web/admin/inc/toggleRedirect.inc.php:134
 msgid "Add new option"
 msgstr "Neue Option hinzufügen"
 
 #: web/admin/edit_federation.php:87 web/admin/edit_idp.php:205
-#: web/admin/edit_profile.php:481 web/admin/edit_user.php:61
+#: web/admin/edit_profile.php:491 web/admin/edit_user.php:61
 #: web/admin/inc/toggleRedirect.inc.php:137
 msgid "Save data"
 msgstr "Daten speichern"
 
 #: web/admin/edit_federation.php:87 web/admin/edit_idp.php:205
-#: web/admin/edit_profile.php:481 web/admin/edit_user.php:64
+#: web/admin/edit_profile.php:491 web/admin/edit_user.php:64
 msgid "Discard changes"
 msgstr "Änderungen verwerfen"
 
@@ -121,8 +214,8 @@ msgstr "%s: %s Eigenschaften (Senden abgeschlossen)"
 msgid "Submitted attributes for %s '%s'"
 msgstr "Übermittelte Eigenschaften für %s '%s'"
 
-#: web/admin/edit_federation_result.php:55 web/admin/edit_idp_result.php:156
-#: web/admin/edit_profile_result.php:246
+#: web/admin/edit_federation_result.php:55 web/admin/edit_idp_result.php:175
+#: web/admin/edit_profile_result.php:258
 msgid "Continue to dashboard"
 msgstr "Weiter zur IdP Übersichtsseite"
 
@@ -205,7 +298,7 @@ msgstr ""
 "anzugeben, da dies verwendet wird wenn die genaue angefragte Sprachvariante "
 "nicht vorliegt."
 
-#: web/admin/edit_idp.php:125 web/lib/admin/UIElements.php:241
+#: web/admin/edit_idp.php:125 web/lib/admin/UIElements.php:242
 msgid "Media Properties"
 msgstr "Netzzugangsmedien"
 
@@ -393,46 +486,98 @@ msgstr ""
 "Wenn Sie sicher sind, dass alle Angaben stimmen, dann drücken Sie bitte auf "
 "%sWeiter...%s"
 
-#: web/admin/edit_idp_result.php:59
+#. send a notification/alert mail to someone we know is in charge
+#: web/admin/edit_idp_result.php:41 web/admin/edit_profile_result.php:228
+msgid "To whom it may concern,"
+msgstr "An die zuständige Stelle,"
+
+#: web/admin/edit_idp_result.php:42 web/admin/edit_profile_result.php:243
+msgid ""
+"This mail is merely a cross-check because these changes can be security-"
+"relevant. If the change was expected, you do not need to take any action."
+msgstr ""
+"Diese Mail ist lediglich informativer Natur denn diese Änderungen können"
+" sicherheitsrelevant sein. Wenn diese Änderung erwartet war, brauchen Sie"
+" keine weiteren Schritte zu unternehmen."
+
+#: web/admin/edit_idp_result.php:43 web/admin/edit_profile_result.php:244
+msgid "Greetings, "
+msgstr "Grüße,"
+
+#: web/admin/edit_idp_result.php:61
+#, php-format
+msgid ""
+"the %s %s / %s / (previously known as) '%s' has deleted all properties and "
+"is starting over freshly. This means that its not recognisable by its name "
+"any more, and it may assume a different name in the future. You will get "
+"another mail if and when the name change happens."
+msgstr ""
+"the %s %s / %s / (vorher bekannt als) '%s' hat alle Eigenschaften gelöscht "
+"und fängt von Null an. Das bedeutet, dass der ursprüngliche Name weg ist "
+"und nun ein neuer, gänzlich anderer, Name vergeben werden könnte. Im "
+"Falle einer tatsächlichen Namensänderung bekommen Sie eine weitere Mail."
+
+#: web/admin/edit_idp_result.php:66 web/admin/edit_idp_result.php:111
+#: web/admin/edit_profile_result.php:249
+#, php-format
+msgid "%s: Significant Changes made to %s"
+msgstr "%s: Erhebliche Änderungen wurden am %s vorgenommen"
+
+#: web/admin/edit_idp_result.php:73
 #, php-format
 msgid "%s: IdP enrollment wizard (step 2 completed)"
 msgstr "%s: Erzeugen eines neuen Identitätsproviders (Schritt 2 abgeschlossen)"
 
-#: web/admin/edit_idp_result.php:75
+#: web/admin/edit_idp_result.php:80
 #, php-format
 msgid "Submitted attributes for IdP '%s'"
 msgstr "Übermittelte Attribute für Identitätsprovider '%s'"
 
-#: web/admin/edit_idp_result.php:101 web/admin/edit_idp_result.php:106
+#. send a notification/alert mail to someone we know is in charge
+#. / were made to the *Identity Provider* *LU* / integer number of IdP / (previously known as) Name
+#: web/admin/edit_idp_result.php:101
+#, php-format
+msgid ""
+"significant changes were made to the %s %s / %s / (previously known as) '%s'."
+msgstr ""
+"An dem %s %s / %s / (bisher bezeichnet als %s) wurden erhebliche Änderungen"
+" vorgenommen."
+
+#: web/admin/edit_idp_result.php:103
+#, php-format
+msgid "The %s has changed its name. The details are below:"
+msgstr "Der %s hat seinen Namen geändert. Die Details folgen:"
+
+#: web/admin/edit_idp_result.php:120 web/admin/edit_idp_result.php:125
 msgid "(WPA2/AES and WPA/TKIP)"
 msgstr "(WPA2/AES und WPA/TKIP)"
 
-#: web/admin/edit_idp_result.php:101 web/admin/edit_idp_result.php:109
+#: web/admin/edit_idp_result.php:120 web/admin/edit_idp_result.php:128
 msgid "(WPA2/AES)"
 msgstr "(WPA2/AES)"
 
-#: web/admin/edit_idp_result.php:119
+#: web/admin/edit_idp_result.php:138
 #, php-format
 msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
 msgstr ""
 "Ihre Installationsprogramme werden die folgenden SSIDs einrichten: <strong>"
 "%s</strong>"
 
-#: web/admin/edit_idp_result.php:119
+#: web/admin/edit_idp_result.php:138
 msgid "SSIDs configured"
 msgstr "SSIDs eingerichtet"
 
-#: web/admin/edit_idp_result.php:123
+#: web/admin/edit_idp_result.php:142
 #, php-format
 msgid "Your installers will configure wired interfaces."
 msgstr ""
 "Ihre Installationsprogramme werden kabelgebundene Netzwerke konfigurieren."
 
-#: web/admin/edit_idp_result.php:123
+#: web/admin/edit_idp_result.php:142
 msgid "Wired configured"
 msgstr "Kabelnetzwerke konfiguriert"
 
-#: web/admin/edit_idp_result.php:126
+#: web/admin/edit_idp_result.php:145
 msgid ""
 "We cannot generate installers because neither wireless SSIDs nor wired "
 "interfaces have been selected as a target!"
@@ -440,12 +585,12 @@ msgstr ""
 "Es können keine Installationsprogramme erzeugt werden, da weder WLAN-"
 "Netzwerke noch Unterstützung für kabelgebundene Netzwerke ausgewählt wurden."
 
-#: web/admin/edit_idp_result.php:145
+#: web/admin/edit_idp_result.php:164
 #, php-format
 msgid "Continue to %s properties"
 msgstr "Weiter zu den %s Eigenschaften"
 
-#: web/admin/edit_idp_result.php:148
+#: web/admin/edit_idp_result.php:167
 #, php-format
 msgid ""
 "You did not submit an e-mail address. This is required for %s. Please go to "
@@ -456,11 +601,11 @@ msgstr ""
 "Bitte gehen Sie zur %s Übersichtsseite und bearbeiten Sie die Angaben zum "
 "Helpdesk. Fügen Sie mindestens eine E-Mail-Adresse hinzu."
 
-#: web/admin/edit_idp_result.php:148
+#: web/admin/edit_idp_result.php:167
 msgid "No support e-mail!"
 msgstr "Keine Kontakt E-Mail Adresse!"
 
-#: web/admin/edit_idp_result.php:153
+#: web/admin/edit_idp_result.php:172
 msgid "Continue to RADIUS/EAP profile definition"
 msgstr "Weiter zur Definition eines RADIUS/EAP Profils"
 
@@ -578,27 +723,35 @@ msgstr ""
 "äußere Nutzernamen zulässt, sollten Sie einen solchen Nutzernamen hier "
 "eintragen damit das Diagnostikmodul diese Information nutzen kann. "
 
-#: web/admin/edit_profile.php:220
-msgid "Verify user input to contain realm suffix:"
-msgstr "Realm Suffix bei Nutzereingabe validieren:"
+#: web/admin/edit_profile.php:217
+msgid "Outer Identity Handling"
+msgstr "Umgang mit äußeren Identitäten"
 
-#: web/admin/edit_profile.php:234
-msgid "Prefill user input with realm suffix:"
-msgstr "Realm Suffix bei Nutzereingabe vorausfüllen:"
-
-#: web/admin/edit_profile.php:244
+#: web/admin/edit_profile.php:223
 msgid "Enable Anonymous Outer Identity:"
 msgstr "Anonyme Identitäten aktivieren:"
 
-#: web/admin/edit_profile.php:263
+#: web/admin/edit_profile.php:241
 msgid "Use special Outer Identity for realm checks:"
 msgstr "Dedizierte äußere Identität für Diagnostik:"
 
+#: web/admin/edit_profile.php:256
+msgid "Inner Identity (Username) Handling"
+msgstr "Umgang mit inneren Identitäten (Benutzernamen)"
+
+#: web/admin/edit_profile.php:262
+msgid "Enforce realm suffix in username"
+msgstr "Suffix mit RADIUS Realm im Benutzernamen forcieren"
+
 #: web/admin/edit_profile.php:280
+msgid "Enforce exact realm in username"
+msgstr "Exakten RADIUS Realm im Benutzernamen forcieren"
+
+#: web/admin/edit_profile.php:290
 msgid "Installer Download Location"
 msgstr "Herunterladen der Installationsprogramme"
 
-#: web/admin/edit_profile.php:284
+#: web/admin/edit_profile.php:294
 msgid ""
 "The CAT has a download area for end users. There, they will, for example, "
 "learn about the support pointers you entered earlier. The CAT can also "
@@ -617,15 +770,15 @@ msgstr ""
 "auf alle Installationsprogramme für Ihr Profil zugreifen. Hierfür gibt es "
 "den Bereich 'Kompatibilitätsmatrix' auf der Übersichtsseite."
 
-#: web/admin/edit_profile.php:290
+#: web/admin/edit_profile.php:300
 msgid "Redirect end users to own web page:"
 msgstr "Endbenutzer auf eigene Seite weiterleiten:"
 
-#: web/admin/edit_profile.php:303
+#: web/admin/edit_profile.php:313
 msgid "Supported EAP types"
 msgstr "Unterstützte EAP Typen"
 
-#: web/admin/edit_profile.php:306
+#: web/admin/edit_profile.php:316
 msgid ""
 "Now, we need to know which EAP types your IdP supports. If you support "
 "multiple EAP types, you can assign every type a priority (1=highest). This "
@@ -640,20 +793,20 @@ msgstr ""
 "entsprechende Gerät diesen Typ unterstützt. Wenn nicht, wird einer der EAP "
 "Typen weiter unten in der Liste benutzt."
 
-#: web/admin/edit_profile.php:351
+#: web/admin/edit_profile.php:361
 msgid "EAP options inherited from Global level:"
 msgstr "Vererbte EAP Optionen aus den globalen Einstellungen:"
 
-#: web/admin/edit_profile.php:356
+#: web/admin/edit_profile.php:366
 #, php-format
 msgid "(%dx) %s"
 msgstr "(%dx) %s"
 
-#: web/admin/edit_profile.php:384
+#: web/admin/edit_profile.php:394
 msgid "Supported EAP types for this profile"
 msgstr "Unterstützte EAP-Typen für dieses Profil"
 
-#: web/admin/edit_profile.php:398
+#: web/admin/edit_profile.php:408
 msgid ""
 "Use \"drag &amp; drop\" to mark an EAP method and move it to the supported "
 "(green) area. Prioritisation is done automatically, depending on where you "
@@ -664,23 +817,23 @@ msgstr ""
 "automatisch gesetzt, je nachdem in welche Reihenfolge Sie die EAP-Typen "
 "schieben."
 
-#: web/admin/edit_profile.php:406
+#: web/admin/edit_profile.php:416
 msgid "Unsupported EAP types"
 msgstr "Unterstützte EAP Typen"
 
-#: web/admin/edit_profile.php:459
+#: web/admin/edit_profile.php:469
 msgid "Helpdesk Details for this profile"
 msgstr "Helpdesk  Angaben für dieses Profil"
 
-#: web/admin/edit_profile.php:460
+#: web/admin/edit_profile.php:470
 msgid "EAP Details for this profile"
 msgstr "Angaben zu EAP für dieses Profil"
 
-#: web/admin/edit_profile.php:461
+#: web/admin/edit_profile.php:471
 msgid "Media Properties for this profile"
 msgstr "Unterstützte Medien für dieses Profil"
 
-#: web/admin/edit_profile.php:469
+#: web/admin/edit_profile.php:479
 #, php-format
 msgid ""
 "The option %s is already defined IdP-wide. If you set it here on profile "
@@ -697,7 +850,7 @@ msgstr[1] ""
 "Profilebene diese Optionen eingeben, werden damit die IdP-weiten "
 "Einstellungen überschrieben."
 
-#: web/admin/edit_profile.php:479
+#: web/admin/edit_profile.php:489
 msgid ""
 "When you are sure that everything is correct, please click on 'Save data' "
 "and you will be taken to your IdP Dashboard page."
@@ -705,31 +858,27 @@ msgstr ""
 "Wenn Sie sicher sind, dass alle Angaben stimmen, dann drücken Sie bitte auf "
 "'Daten speichern' und Sie werden zur Übersichtsseite weitergeleitet."
 
-#: web/admin/edit_profile_result.php:43
+#: web/admin/edit_profile_result.php:52
 #, php-format
 msgid "%s: Profile wizard (step 3 completed)"
 msgstr "%s: Profilerzeugung (Schritt 3 abgeschlossen)"
 
-#: web/admin/edit_profile_result.php:123
-msgid "Darn! Could not get a proper profile handle!"
-msgstr "Mist! Konnte keinen gültigen Handler auf ein Profil bekommen!"
-
-#: web/admin/edit_profile_result.php:127
+#: web/admin/edit_profile_result.php:115
 msgid "Submitted attributes for this profile"
 msgstr "Übermittelte Attribute für dieses Profil"
 
-#: web/admin/edit_profile_result.php:134
+#: web/admin/edit_profile_result.php:122
 #, php-format
 msgid "Realm: <strong>%s</strong>"
 msgstr "Realm: <strong>%s</strong> "
 
-#: web/admin/edit_profile_result.php:141
+#: web/admin/edit_profile_result.php:129
 msgid "Anonymous Outer Identities cannot be turned on: realm is missing!"
 msgstr ""
 "Anonyme Identitäten können nicht aktiviert werden: der Realm ist nicht "
 "bekannt!"
 
-#: web/admin/edit_profile_result.php:144
+#: web/admin/edit_profile_result.php:132
 #, php-format
 msgid ""
 "Anonymous Identity support is <strong>%s</strong>, the anonymous outer "
@@ -738,26 +887,48 @@ msgstr ""
 "Anonyme Identitäten sind <strong>%s</strong>, die verwendete anonyme "
 "Identität ist <strong>%s</strong>"
 
-#: web/admin/edit_profile_result.php:144 web/admin/edit_profile_result.php:156
+#: web/admin/edit_profile_result.php:132 web/admin/edit_profile_result.php:147
 msgid "ON"
 msgstr "EIN"
 
-#: web/admin/edit_profile_result.php:148
+#: web/admin/edit_profile_result.php:136
 #, php-format
 msgid "Anonymous Identity support is <strong>%s</strong>"
 msgstr "Anonyme Identiten sind <strong>%s</strong>"
 
-#: web/admin/edit_profile_result.php:148
+#: web/admin/edit_profile_result.php:136
 msgid "OFF"
 msgstr "AUS"
 
-#: web/admin/edit_profile_result.php:153 web/admin/edit_profile_result.php:165
+#. no anon outer ID, and no realm suffix verification? Bad idea!
+#: web/admin/edit_profile_result.php:138
+msgid ""
+"Without Anoymous Identity, the actual username will be used as outer "
+"identity and be the basis for request routing. For that to work, the "
+"username must have a correct realm suffix. Yet, realm suffix verification "
+"has been turned OFF. Supplicants will not verify that usernames contain a "
+"realm, and errors such as username 'johndoe' which will not work in roaming "
+"scenarios will not be prohibited. Consider checking the box 'Enforce realm "
+"suffix in username'!"
+msgstr ""
+"Ohne äußere ('anonyme') Identitäten wird der tatsächliche Benutzername als "
+"äußere Identität und damit für das Routen der Anfrage benutzt. Damit dies "
+"funktioniert, muss der Benutzername den RADIUS Realm korrekt enthalten. "
+"Trotzdem wurde die zugehörige Suffix-Validierung des Benutzernamens "
+"AUSgeschaltet. Die Installationsprogramme werden nicht überprüfen dass "
+"der eingegebene Benutzername den RADIUS Realm enthält, und Fehleingaben "
+"des Nutzers wie 'maxmustermann' werden dazu führen, dass die Nutzung im "
+"Roaming nicht funktioniert. Sie sollten in Erwägung ziehen, die Option"
+" 'Suffix mit RADIUS Realm im Benutzernamen forcieren' "
+"einzuschalten."
+
+#: web/admin/edit_profile_result.php:144
 msgid "Realm check username cannot be configured: realm is missing!"
 msgstr ""
 "Dedizierte äußere Identität für Diagnostik kann nicht gespeichert werden: "
 "Realm fehlt!"
 
-#: web/admin/edit_profile_result.php:156
+#: web/admin/edit_profile_result.php:147
 #, php-format
 msgid ""
 "Special username for realm check is <strong>%s</strong>, the value is "
@@ -766,31 +937,39 @@ msgstr ""
 "Die dedizierte äußere Identität ist <strong>%s</strong>, der Wert ist "
 "<strong>%s</strong>"
 
-#: web/admin/edit_profile_result.php:160
+#: web/admin/edit_profile_result.php:151
 msgid "No special username for realm checks is configured."
 msgstr "Keine dedizierte äußere Identität für Diagnostik konfiguriert."
 
-#: web/admin/edit_profile_result.php:169
+#: web/admin/edit_profile_result.php:159
 #, php-format
-msgid "and the input field will be prefilled with '<strong>@%s</strong>'."
-msgstr "und das Eingabefeld wird vorausgefüllt mit '<strong>@%s</strong>'."
+msgid "The realm portion MUST be exactly '...@%s'."
+msgstr "Der Realm Teil des Benutzernamens MUSS genau '...@%s' sein."
 
-#: web/admin/edit_profile_result.php:173
+#: web/admin/edit_profile_result.php:161
 #, php-format
 msgid ""
-"Where possible, username inputs will be <strong>verified to end with @%s</"
-"strong>%s"
+"The realm portion MUST end with '%s' but sub-realms of it are allowed (i.e. "
+"'user@%s' and 'user@<...>.%s' are both acceptable)."
 msgstr ""
-"Wo möglich, wird bei Nutzereingaben <strong> validiert dass sie mit @%s</"
-"strong>%s enden"
+"Der Realm Teil des Benutzernamens MUSS auf  '%s' enden, aber Sub-Realms "
+"sind akzeptabel (erlaubt sind also 'user@%s' ebenso wie 'user@<...>.%s')."
 
-#: web/admin/edit_profile_result.php:183
+#: web/admin/edit_profile_result.php:164
+msgid ""
+"Where possible, supplicants will verify that username inputs contain a "
+"syntactically correct realm."
+msgstr ""
+"Wo immer möglich, werden Installationsprogramme sicherstellen dass "
+"eingegebene Benutzernamen syntaktisch korrekt sind."
+
+#: web/admin/edit_profile_result.php:173
 msgid "Redirection can't be activated - you did not specify a target location!"
 msgstr ""
 "Die Umleitung konnte nicht eingerichtet werden - Sie haben kein Ziel "
 "angegeben!"
 
-#: web/admin/edit_profile_result.php:185
+#: web/admin/edit_profile_result.php:175
 msgid ""
 "Redirection can't be activated - the target needs to be a complete URL "
 "starting with http:// or https:// !"
@@ -798,7 +977,7 @@ msgstr ""
 "Umleitung kann nicht eingerichtet werden - das Ziel muss eine vollständige "
 "URL sein die mit http:// oder https:// beginnt!"
 
-#: web/admin/edit_profile_result.php:197
+#: web/admin/edit_profile_result.php:187
 #, php-format
 msgid ""
 "Redirection set to <strong>%s</strong>, but will be ignored due to existing "
@@ -807,27 +986,27 @@ msgstr ""
 "Umleitung ist gesetzt auf <strong>%s</strong>. Dies wird jedoch ignoriert, "
 "da gerätespezifische Umleitungen ebenfalls konfiguriert sind."
 
-#: web/admin/edit_profile_result.php:199
+#: web/admin/edit_profile_result.php:189
 #, php-format
 msgid "Redirection set to <strong>%s</strong>"
 msgstr "Umleitung ist gesetzt auf <strong>%s</strong>"
 
-#: web/admin/edit_profile_result.php:203
+#: web/admin/edit_profile_result.php:193
 msgid "Redirection is <strong>OFF</strong>"
 msgstr "Umleitung ist <strong>ausgeschaltet</strong>"
 
-#: web/admin/edit_profile_result.php:227
+#: web/admin/edit_profile_result.php:210
 msgid "Supported EAP Type: "
 msgstr "Unterstützter EAP Typ: "
 
-#: web/admin/edit_profile_result.php:235
+#: web/admin/edit_profile_result.php:218
 #, php-format
 msgid ""
 "Supported EAP Type: <strong>%s</strong> is missing required information %s !"
 msgstr ""
 "Unterstützter EAP Typ: <strong>%s</strong> Wichtige Informationen fehlen %s!"
 
-#: web/admin/edit_profile_result.php:235
+#: web/admin/edit_profile_result.php:218
 msgid ""
 "The EAP type was added to the profile, but you need to complete the missing "
 "information before we can produce installers for you."
@@ -836,7 +1015,44 @@ msgstr ""
 "Informationen nachtragen, bevor Installationsprogramme für diese Profil "
 "erstellt werden können."
 
-#: web/admin/edit_profile_result.php:251
+#. / were made to the *Identity Provider* *LU* / integer number of IdP / (previously known as) Name
+#: web/admin/edit_profile_result.php:230
+#, php-format
+msgid ""
+"significant changes were made to a RADIUS deployment profile of the %s %s / "
+"%s / '%s'."
+msgstr ""
+"Es wurden erhebliche Änderungen vorgenommen an einem RADIUS Profil des %s %s"
+" / %s / '%s'."
+
+#: web/admin/edit_profile_result.php:232
+msgid ""
+"WARNING! A new trusted root CA was added, and it has the exact same name as "
+"a previously existing root CA. This may (but does not necessarily) mean that "
+"this is an attempt to insert an unauthorised trust root by disguising as the "
+"genuine one. The details are below:"
+msgstr ""
+"WARNUNG! Eine neue Wurzel-CA wurde hinzugefügt, und der Name der CA ist "
+"exakt identisch zu der bestehenden. Dies könnte heißen (muss aber nicht),"
+" dass "
+"hier versucht wird, eine unautorisierte Wurzel-CA einzuschleusen die sich als "
+"die originale ausgibt. Die Details folgen:"
+
+#: web/admin/edit_profile_result.php:236
+msgid ""
+"A new trusted root CA was added. The details are below:\n"
+"\n"
+msgstr "Eine neue Wurzel-CA wurde hinzugefügt. Die Details folgen:"
+
+#: web/admin/edit_profile_result.php:240
+msgid ""
+"A new acceptable server name for the authentication server was added. The "
+"details are below:"
+msgstr ""
+"Ein neuer erwarteter Servername für den Authentifizierungsserver wurde"
+" hinzugefügt. Die Details folgen:"
+
+#: web/admin/edit_profile_result.php:263
 msgid "Continue to Installer Fine-Tuning and Download"
 msgstr "Weiter zu den Installationsprogammen (Feintuning und Herunterladen)"
 
@@ -1251,6 +1467,15 @@ msgstr ""
 "Sie konnten nicht vollständig abgemeldet werden. Um sicherzustellen, dass "
 "Sie vollständig ausgeloggt sind, sollten Sie Ihren Browser schließen."
 
+#: web/admin/overview_certificates.php:73
+#, php-format
+msgid "Certificate Information for %s %s"
+msgstr "Zertifikatsinformationen für %s %s"
+
+#: web/admin/overview_certificates.php:92
+msgid "Request new Certificate"
+msgstr "Neues Zertifikat beantragen"
+
 #: web/admin/overview_federation.php:28
 #, php-format
 msgid "%s: %s Management"
@@ -1409,7 +1634,7 @@ msgstr "Status der Bereitstellung"
 
 #: web/admin/overview_federation.php:202 web/admin/overview_user.php:117
 #: web/admin/inc/manageDBLink.inc.php:159 web/lib/admin/UIElements.php:86
-#: web/lib/admin/UIElements.php:115
+#: web/lib/admin/UIElements.php:116
 #, php-format
 msgid "%s Name"
 msgstr "%s Name"
@@ -1575,7 +1800,7 @@ msgstr "Download-Statistik"
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr "<strong>EAP Typen</strong> (absteigende Präferenz):"
 
-#: web/admin/overview_idp.php:244 web/lib/admin/UIElements.php:413
+#: web/admin/overview_idp.php:244 web/lib/admin/UIElements.php:414
 msgid "OK"
 msgstr "OK"
 
@@ -1778,8 +2003,8 @@ msgstr "Sie verwalten keinen %s."
 msgid ""
 "Please ask your %s administrator to invite you to become an %s administrator."
 msgstr ""
-"Bitte wenden Sei sich an Ihren %s Administrator nach einem Einladungslink um "
-"%s Administator zu werden."
+"Bitte wenden Sie sich an Ihren %s Administrator und fragen Sie nach einem "
+"Einladungslink um %s Administrator zu werden."
 
 #: web/admin/overview_user.php:168
 #, php-format
@@ -1821,7 +2046,7 @@ msgstr ""
 "Sie sind der %s Administrator. Sie können neue Administratoren hinzufügen, "
 "die wiederum selbst neue Administratoren hinzufügen können."
 
-#: web/admin/inc/manageAdmins.inc.php:154 web/lib/admin/UIElements.php:106
+#: web/admin/inc/manageAdmins.inc.php:154 web/lib/admin/UIElements.php:107
 #, php-format
 msgid "%s Administrator"
 msgstr "%s Administrator"
@@ -2291,36 +2516,73 @@ msgid ""
 "The format of this option is: IPv4|IPv6|hostname:port . Forcing your users "
 "through a content filter of your own is a significant invasion of user self-"
 "determination. It also has technical issues. Please throughly read the "
-"discussion at %s before specifying a proxy with this option."
+"discussion at %s before specifying a proxy with this option. This feature is "
+"currently experimental and only has an effect in Apple installers."
 msgstr ""
 "Das Format für diese Option ist: IPv4|IPv6|hostname:Port. Sie erzwingen "
 "damit, dass Ihre Nutzer Ihren fest eingestellten Filter benutzen. Das ist "
 "ein signifikanter Eingriff in die Privatsphäre und Selbstbestimmtheit des "
 "Nutzers. Es ist auch auf technischer Ebene schwierig und fehleranfällig. "
-"Lesen Sie die Diskussion bei %s bevor Sie diese Option verwenden."
+"Lesen Sie die Diskussion bei %s bevor Sie diese Option verwenden. Diese "
+"Option ist derzeit experimentell und hat nur auf Apple Geräten Wirkung."
 
-#: web/lib/admin/OptionDisplay.php:275
+#: web/lib/admin/OptionDisplay.php:191
+#, php-format
+msgid "By opting in to OpenRoaming, you agree to be bound by the '%s'."
+msgstr ""
+"Mit der Bestätigung der Teilnahme an OpenRoaming stimmen Sie den '%s' zu."
+
+#: web/lib/admin/OptionDisplay.php:193
+#, php-format
+msgid ""
+"Note that your requirement to inform users about the OpenRoaming End User "
+"Terms & Conditions is fulfilled when directing your end users to the %s "
+"download portal for installer download. Any other means of providing the "
+"installers needs to present this information via its own channel."
+msgstr ""
+"Beachten Sie bitte dass Ihre Pflicht, die Nutzer über die OpenRoaming"
+" Endnutzer Nutzungsbedingungen zu informieren "
+"erfüllt ist, wenn Sie die Endnutzer die Installationsprogramme über das"
+" Downloadportal von %s herunterladen lassen. "
+"Wenn Installationsprogramme über einen anderen Weg bereitgestellt werden"
+" müssen Sie diese Verpflichtung anderweitig "
+"einlösen."
+
+#: web/lib/admin/OptionDisplay.php:195
+msgid ""
+"You are also aware that for best technical interoperability, you need to add "
+"a DNS entry into your realm's DNS zone."
+msgstr ""
+"Ihnen ist auch bewusst, dass für das vollständige Funktionieren auf"
+" technischer Ebene ein DNS Eintrag in der Zone Ihres RADIUS Realms nötig ist."
+
+#: web/lib/admin/OptionDisplay.php:197
+#, php-format
+msgid "Read <a href='%s'>these instructions</a>."
+msgstr "Lesen Sie <a href='%s'>diese Anweisungen</a>."
+
+#: web/lib/admin/OptionDisplay.php:283
 msgid "select language"
 msgstr "Sprache"
 
-#: web/lib/admin/OptionDisplay.php:276 web/lib/admin/UIElements.php:157
+#: web/lib/admin/OptionDisplay.php:284 web/lib/admin/UIElements.php:158
 msgid "default/other languages"
 msgstr "Standard/andere Sprachen"
 
-#: web/lib/admin/OptionDisplay.php:356
+#: web/lib/admin/OptionDisplay.php:364
 msgid "(default/other languages)"
 msgstr "Standard/andere Sprachen"
 
-#: web/lib/admin/OptionDisplay.php:391
+#: web/lib/admin/OptionDisplay.php:399
 msgid "file content"
 msgstr "Dateiinhalt"
 
 #. only modify in this one case
-#: web/lib/admin/OptionDisplay.php:402 web/lib/admin/UIElements.php:191
+#: web/lib/admin/OptionDisplay.php:410 web/lib/admin/UIElements.php:192
 msgid "on"
 msgstr "aktiv"
 
-#: web/lib/admin/OptionDisplay.php:402 web/lib/admin/UIElements.php:191
+#: web/lib/admin/OptionDisplay.php:410 web/lib/admin/UIElements.php:192
 msgid "off"
 msgstr "nicht aktiv"
 
@@ -2519,118 +2781,141 @@ msgstr "Profilbeschreibung"
 msgid "Custom Installer Name Suffix"
 msgstr "Eigenes Kürzel im Dateinamen"
 
-#: web/lib/admin/UIElements.php:107
+#: web/lib/admin/UIElements.php:106
+msgid "Opt-In to OpenRoaming"
+msgstr "Teilnahme an OpenRoaming"
+
+#: web/lib/admin/UIElements.php:108
 msgid "Real Name"
 msgstr "Name"
 
-#: web/lib/admin/UIElements.php:108
+#: web/lib/admin/UIElements.php:109
 msgid "E-Mail Address"
 msgstr "E-Mail Adresse"
 
-#: web/lib/admin/UIElements.php:109
+#: web/lib/admin/UIElements.php:110
 msgid "Remove/Disable SSID"
 msgstr "SSID entfernen/deaktivieren"
 
-#: web/lib/admin/UIElements.php:110
+#: web/lib/admin/UIElements.php:111
 msgid "Mandatory Content Filtering Proxy"
 msgstr "Erzwungener Filter Proxy"
 
-#: web/lib/admin/UIElements.php:111
+#: web/lib/admin/UIElements.php:112
 msgid "Custom CSS file for User Area"
 msgstr "Eigene CSS Datei für Nutzerbereich"
 
-#: web/lib/admin/UIElements.php:112
+#: web/lib/admin/UIElements.php:113
 #, php-format
 msgid "%s Logo"
 msgstr "%s Logo"
 
-#: web/lib/admin/UIElements.php:113
+#: web/lib/admin/UIElements.php:114
 msgid "Preferred Skin for User Area"
 msgstr "Anzeigevariante im Nutzerbereich"
 
-#: web/lib/admin/UIElements.php:114
+#: web/lib/admin/UIElements.php:115
 #, php-format
 msgid "Include %s branding in installers"
 msgstr "%s Name und/oder Logo in Installationsprogramme einbinden"
 
-#: web/lib/admin/UIElements.php:116
+#: web/lib/admin/UIElements.php:117
 #, php-format
 msgid "%s Homepage"
 msgstr "%s Homepage"
 
-#: web/lib/admin/UIElements.php:117
+#: web/lib/admin/UIElements.php:118
 #, php-format
 msgid "Custom text in %s Invitations"
 msgstr "Zusätzlicher Text in %s Einladungen"
 
-#: web/lib/admin/UIElements.php:118
+#: web/lib/admin/UIElements.php:119
 #, php-format
 msgid "Enable %s"
 msgstr "%s aktivieren"
 
-#: web/lib/admin/UIElements.php:119
+#: web/lib/admin/UIElements.php:120
 #, php-format
 msgid "%s: Do not terminate EAP"
 msgstr "%s: EAP Terminierung verhindern"
 
-#: web/lib/admin/UIElements.php:120
+#: web/lib/admin/UIElements.php:121
 #, php-format
 msgid "%s: max users per profile"
 msgstr "%s: Maximale Nutzerzahl pro Profil"
 
-#: web/lib/admin/UIElements.php:121
+#: web/lib/admin/UIElements.php:122
 #, php-format
 msgid "Mint %s with CA on creation"
 msgstr "%s mit vorausgefüllter CA erstellen"
 
-#: web/lib/admin/UIElements.php:223
+#: web/lib/admin/UIElements.php:224
 #, php-format
 msgid "General %s details"
 msgstr "Allgemeine %s Einstellungen"
 
-#: web/lib/admin/UIElements.php:241
+#: web/lib/admin/UIElements.php:242
 msgid "Global Helpdesk Details"
 msgstr "Angaben zum Helpdesk"
 
 #. we didn't actually get a CA!
-#: web/lib/admin/UIElements.php:338
+#: web/lib/admin/UIElements.php:339
 msgid "There was an error while retrieving the certificate from the database!"
 msgstr ""
 "Beim Abholen des Zertifikats aus der Datenbank ist ein Fehler aufgetreten!"
 
-#: web/lib/admin/UIElements.php:347
+#: web/lib/admin/UIElements.php:348
 msgid "There was an error processing the certificate!"
 msgstr "Fehler beim Verarbeiten des Zertifikats!"
 
-#: web/lib/admin/UIElements.php:356
+#: web/lib/admin/UIElements.php:357
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr "Es handelt sich um ein <strong>SERVER</strong> Zertifikat!"
 
-#: web/lib/admin/UIElements.php:374
+#: web/lib/admin/UIElements.php:375
 msgid "Preview of logo file"
 msgstr "Vorschau des Logos"
 
 #. we didn't actually get a file!
-#: web/lib/admin/UIElements.php:390
+#: web/lib/admin/UIElements.php:391
 msgid "There was an error while retrieving the file from the database!"
 msgstr "Beim Abholen der Datei aus der Datenbank ist ein Fehler aufgetreten!"
 
-#: web/lib/admin/UIElements.php:396
+#: web/lib/admin/UIElements.php:397
 msgid "File exists"
 msgstr "Datei existiert"
 
-#: web/lib/admin/UIElements.php:396
+#: web/lib/admin/UIElements.php:397
 msgid "Preview"
 msgstr "Vorschau"
 
-#: web/lib/admin/UIElements.php:414
+#: web/lib/admin/UIElements.php:415
 msgid "Remark"
 msgstr "Hinweis"
 
-#: web/lib/admin/UIElements.php:415
+#: web/lib/admin/UIElements.php:416
 msgid "Warning!"
 msgstr "Warnung!"
 
-#: web/lib/admin/UIElements.php:416
+#: web/lib/admin/UIElements.php:417
 msgid "Error!"
 msgstr "Fehler!"
+
+#~ msgid "Verify user input to contain realm suffix:"
+#~ msgstr "Realm Suffix bei Nutzereingabe validieren:"
+
+#~ msgid "Prefill user input with realm suffix:"
+#~ msgstr "Realm Suffix bei Nutzereingabe vorausfüllen:"
+
+#~ msgid "Darn! Could not get a proper profile handle!"
+#~ msgstr "Mist! Konnte keinen gültigen Handler auf ein Profil bekommen!"
+
+#~ msgid "and the input field will be prefilled with '<strong>@%s</strong>'."
+#~ msgstr "und das Eingabefeld wird vorausgefüllt mit '<strong>@%s</strong>'."
+
+#~ msgid ""
+#~ "Where possible, username inputs will be <strong>verified to end with @%s</"
+#~ "strong>%s"
+#~ msgstr ""
+#~ "Wo möglich, wird bei Nutzereingaben <strong> validiert dass sie mit @%s</"
+#~ "strong>%s enden"
