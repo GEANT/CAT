@@ -185,13 +185,13 @@ class OptionDisplay extends \core\common\Entity {
         $descriptions["media:force_proxy"] = sprintf(_("The format of this option is: IPv4|IPv6|hostname:port . Forcing your users through a content filter of your own is a significant invasion of user self-determination. It also has technical issues. Please throughly read the discussion at %s before specifying a proxy with this option. This feature is currently experimental and only has an effect in Apple installers."), "https://github.com/GEANT/CAT/issues/96");
         \core\common\Entity::outOfThePotatoes();
         $descriptions["media:openroaming"] = 
-                sprintf(_("By opting in to OpenRoaming, you agree to be bound by the '%s'."),"eduroam Ecosystem Broker OpenRoaming Identity Provider Policy").
+                sprintf(_("By opting in to OpenRoaming, you agree to be bound by the %s."),"eduroam Ecosystem Broker OpenRoaming Identity Provider Policy").
                 " ".
-                sprintf(_("Note that your requirement to inform users about the OpenRoaming End User Terms & Conditions is fulfilled when directing your end users to the %s download portal for installer download. Any other means of providing the installers needs to present this information via its own channel."),CONFIG['APPEARANCE']['product_name']).
+                sprintf(_("Note that your requirement to inform users about the OpenRoaming End User Terms and Conditions is fulfilled when directing your end users to the %s download portal for installer download. Any other means of providing the installers needs to present this information via its own channel."),CONFIG['APPEARANCE']['product_name']).
                 " ".
-                _("You are also aware that for best technical interoperability, you need to add a DNS entry into your realm's DNS zone.").
+                _("You are also aware that for best technical interoperability, you need to add a DNS entry into the DNS zone of your RADIUS realm.").
                 " ".
-                sprintf(_("Read <a href='%s'>these instructions</a>."),"https://wiki.geant.org/display/H2eduroam/Roaming+with+third+parties+based+on+Passpoint");
+                _("Read the instructions in the wiki.");
         if (!isset($descriptions[$input])) {
             return "";
         }
