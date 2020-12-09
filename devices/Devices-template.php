@@ -184,6 +184,21 @@ class Devices extends \core\common\Entity {
                     'redirect' => 1,
                 ],
             ],
+            'apple_global' => [
+                'group' => "apple",
+                'display' => _("Apple device"),
+                'match' => '(Mac OS X 1[01][._][0-9])|((iPad|iPhone|iPod);.*OS (\d+)_)',
+                'directory' => 'apple_mobileconfig',
+                'module' => 'mobileconfig_os_x',
+                'signer '=> 'mobileconfig_sign',
+                'options' => [
+                    'sign'=>1,
+                    'device_id'=>'OS_X',
+                    'mime'=>'application/x-apple-aspen-config',
+                    'clientcert' => Devices::SUPPORT_ECDSA,
+                    'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page. Later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."),
+                ],
+            ], 
             'apple_catalina' => [
                 'group' => "apple",
                 'display' => _("Apple macOS Catalina"),
@@ -192,6 +207,7 @@ class Devices extends \core\common\Entity {
                 'module' => 'mobileconfig_os_x',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
+                    'hidden' => 1,
                     'sign' => 1,
                     'device_id' => 'OS_X',
                     'mime' => 'application/x-apple-aspen-config',
@@ -207,6 +223,7 @@ class Devices extends \core\common\Entity {
                 'module' => 'mobileconfig_os_x',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
+                    'hidden' => 1,
                     'sign' => 1,
                     'device_id' => 'OS_X',
                     'mime' => 'application/x-apple-aspen-config',
@@ -222,6 +239,7 @@ class Devices extends \core\common\Entity {
                 'module' => 'mobileconfig_os_x',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
+                    'hidden' => 1,
                     'sign' => 1,
                     'device_id' => 'OS_X',
                     'mime' => 'application/x-apple-aspen-config',
@@ -237,6 +255,7 @@ class Devices extends \core\common\Entity {
                 'module' => 'mobileconfig_os_x',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
+                    'hidden' => 1,
                     'sign' => 1,
                     'device_id' => 'OS_X',
                     'mime' => 'application/x-apple-aspen-config',
@@ -251,6 +270,7 @@ class Devices extends \core\common\Entity {
                 'module' => 'mobileconfig_os_x',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
+                    'hidden' => 1,
                     'sign' => 1,
                     'device_id' => 'OS_X',
                     'mime' => 'application/x-apple-aspen-config',
@@ -265,6 +285,7 @@ class Devices extends \core\common\Entity {
                 'module' => 'mobileconfig_os_x',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
+                    'hidden' => 1,
                     'sign' => 1,
                     'device_id' => 'OS_X',
                     'mime' => 'application/x-apple-aspen-config',
@@ -279,6 +300,7 @@ class Devices extends \core\common\Entity {
                 'module' => 'mobileconfig_os_x',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
+                    'hidden' => 1,
                     'sign' => 1,
                     'device_id' => 'OS_X',
                     'mime' => 'application/x-apple-aspen-config',
@@ -293,6 +315,7 @@ class Devices extends \core\common\Entity {
                 'module' => 'mobileconfig_os_x',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
+                    'hidden' => 1,
                     'sign' => 1,
                     'device_id' => 'OS_X',
                     'mime' => 'application/x-apple-aspen-config',
@@ -307,34 +330,22 @@ class Devices extends \core\common\Entity {
                 'module' => 'mobileconfig_os_x',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
+                    'hidden' => 1,
                     'sign' => 1,
                     'device_id' => 'OS_X',
                     'mime' => 'application/x-apple-aspen-config',
                     'sb_message' => _("During the installation you will be first asked to enter settings for certificate and there you need to enter the import PIN shown on this page. Later you will be prompted to enter your password to allow making changes to the profile, this time it is your computer password."),
                 ],
             ],
-            'mobileconfig12' => [
-                'group' => "apple",
-                'display' => _("Apple iOS mobile devices"),
-                'match' => '(iPad|iPhone|iPod);.*OS (1[2-9])_',
-                'directory' => 'apple_mobileconfig',
-                'module' => 'mobileconfig_ios12plus',
-                'signer' => 'mobileconfig_sign',
-                'options' => [
-                    'sign' => 1,
-                    'device_id' => 'iOS',
-                    'mime' => 'application/x-apple-aspen-config',
-                    'sb_message' => _("During the installation you will be first asked to enter your passcode - this is your device security code! Later on you will be prompted for the password to the certificate and there you need to enter the import PIN shown on this page."),
-                ],
-            ],
             'mobileconfig' => [
                 'group' => "apple",
-                'display' => _("Apple iOS mobile devices (iOS 7-11)"),
+                'display' => _("Apple iOS mobile device (iOS 7-11)"),
                 'match' => '(iPad|iPhone|iPod);.*OS ([7-9]|1[0-1])_',
                 'directory' => 'apple_mobileconfig',
                 'module' => 'mobileconfig_ios7plus',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
+                    'hidden' => 1,
                     'sign' => 1,
                     'device_id' => 'iOS',
                     'mime' => 'application/x-apple-aspen-config',
@@ -343,12 +354,13 @@ class Devices extends \core\common\Entity {
             ],
             'mobileconfig-56' => [
                 'group' => "apple",
-                'display' => _("Apple iOS mobile devices (iOS 5 and 6)"),
+                'display' => _("Apple iOS mobile device (iOS 5 and 6)"),
                 'match' => '(iPad|iPhone|iPod);.*OS [56]_',
                 'directory' => 'apple_mobileconfig',
                 'module' => 'mobileconfig_ios5plus',
                 'signer' => 'mobileconfig_sign',
                 'options' => [
+                    'hidden' => 1,
                     'sign' => 1,
                     'device_id' => 'iOS',
                     'mime' => 'application/x-apple-aspen-config',
@@ -375,6 +387,47 @@ class Devices extends \core\common\Entity {
                     'message' => sprintf(_("After downloading the file, open the Chrome browser and browse to this URL: <a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</a>. Then, use the 'Import ONC file' button. The import is silent; the new network definitions will be added to the preferred networks.")),
                 ],
             ],
+            'android_recent' => [
+                'group' => "android",
+                'display' => _("Android 11 and higher"),
+                'match' => 'Android 1[1-9]',
+                'directory' => 'xml',
+                'module' => 'Lollipop',
+                'options' => [
+                    'mime' => 'application/eap-config',
+                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
+                            "geteduroam",
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=app.eduroam.geteduroam'>Google Play</a>, <a target='_blank' href='geteduroam-stable.apk'>" . _("as local download") . "</a>"),
+                ],
+            ],            
+            
+            'android_8_10' => [
+                'group' => "android",
+                'display' => _("Android 8 to 10"),
+                'match' => 'Android ([89]|10)',
+                'directory' => 'xml',
+                'module' => 'Lollipop',
+                'options' => [
+                    'mime' => 'application/eap-config',
+                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
+                            "geteduroam",
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=app.eduroam.geteduroam'>Google Play</a>, <a target='_blank' href='geteduroam-stable.apk'>" . _("as local download") . "</a>"),
+                ],
+            ],  
+            'android_4_7' => [
+                'group' => "android",
+                'display' => _("Android 4.7 to 7"),
+                'match' => 'Android [4-7]',
+                'directory' => 'xml',
+                'module' => 'Lollipop',
+                'options' => [
+                    'mime' => 'application/eap-config',
+                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
+                            "eduroamCAT",
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>, <a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>, <a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
+                ],
+            ],            
+            
             'android_q' => [
                 'group' => "android",
                 'display' => _("Android 10.0 Q"),
@@ -382,12 +435,11 @@ class Devices extends \core\common\Entity {
                 'directory' => 'xml',
                 'module' => 'Lollipop',
                 'options' => [
+                    'hidden' => 1,
                     'mime' => 'application/eap-config',
-                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
-                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
-                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
-                            "<a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>, <a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>, <a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
                 ],
             ],
             'android_pie' => [
@@ -397,12 +449,11 @@ class Devices extends \core\common\Entity {
                 'directory' => 'xml',
                 'module' => 'Lollipop',
                 'options' => [
+                    'hidden' => 1,
                     'mime' => 'application/eap-config',
-                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
-                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
-                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
-                            "<a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>, <a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>, <a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
                 ],
             ],
             'android_oreo' => [
@@ -412,12 +463,11 @@ class Devices extends \core\common\Entity {
                 'directory' => 'xml',
                 'module' => 'Lollipop',
                 'options' => [
+                    'hidden' => 1,
                     'mime' => 'application/eap-config',
-                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
-                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
-                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
-                            "<a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>, <a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>, <a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
                 ],
             ],
             'android_nougat' => [
@@ -427,12 +477,11 @@ class Devices extends \core\common\Entity {
                 'directory' => 'xml',
                 'module' => 'Lollipop',
                 'options' => [
+                    'hidden' => 1,
                     'mime' => 'application/eap-config',
-                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
-                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
-                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
-                            "<a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>, <a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>, <a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
                 ],
             ],
             'android_marshmallow' => [
@@ -442,12 +491,11 @@ class Devices extends \core\common\Entity {
                 'directory' => 'xml',
                 'module' => 'Lollipop',
                 'options' => [
+                    'hidden' => 1,
                     'mime' => 'application/eap-config',
-                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
-                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
-                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
-                            "<a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>, <a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>, <a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
                 ],
             ],
             'android_lollipop' => [
@@ -457,12 +505,11 @@ class Devices extends \core\common\Entity {
                 'directory' => 'xml',
                 'module' => 'Lollipop',
                 'options' => [
+                    'hidden' => 1,
                     'mime' => 'application/eap-config',
-                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
-                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
-                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
-                            "<a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>, <a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>, <a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
                 ],
             ],
             'android_kitkat' => [
@@ -472,12 +519,11 @@ class Devices extends \core\common\Entity {
                 'directory' => 'xml',
                 'module' => 'KitKat',
                 'options' => [
+                    'hidden' => 1,
                     'mime' => 'application/eap-config',
-                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
-                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
-                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
-                            "<a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>, <a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>, <a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
                 ],
             ],
             'android_43' => [
@@ -487,12 +533,11 @@ class Devices extends \core\common\Entity {
                 'directory' => 'xml',
                 'module' => 'KitKat',
                 'options' => [
+                    'hidden' => 1,
                     'mime' => 'application/eap-config',
-                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                    'message' => sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from these sites: %s and will use the configuration file downloaded from CAT to create all necessary settings."),
                             "eduroamCAT",
-                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
-                            "<a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>",
-                            "<a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>, <a target='_blank' href='https://www.amazon.com/dp/B01EACCX0S/'>Amazon Appstore</a>, <a target='_blank' href='eduroamCAT-stable.apk'>" . _("as local download") . "</a>"),
                 ],
             ],
             'android_legacy' => [
