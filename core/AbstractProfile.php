@@ -661,7 +661,12 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                 continue;
             }
             // create new array indexed by attribute name
-            $collapsedList[$attribute['name']][] = $attribute['value'];
+            
+            if (isset($attribute['device'])) {
+                $collapsedList[$attribute['name']][$attribute['device']][] = $attribute['value'];
+            } else {
+                $collapsedList[$attribute['name']][] = $attribute['value'];
+            } 
             // and keep all language-variant names in a separate sub-array
             if ($attribute['flag'] == "ML") {
                 $collapsedList[$attribute['name']]['langs'][$attribute['lang']] = $attribute['value'];
@@ -679,7 +684,6 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                 $collapsedList[$attribName][1] = $valueArray['langs']['en'] ?? $valueArray['langs']['C'] ?? $collapsedList[$attribName][0];
             }
         }
-
         return $collapsedList;
     }
 
