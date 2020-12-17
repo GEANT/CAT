@@ -416,7 +416,7 @@ class Devices extends \core\common\Entity {
             ],  
             'android_4_7' => [
                 'group' => "android",
-                'display' => _("Android 4.7 to 7"),
+                'display' => _("Android 4.3 to 7"),
                 'match' => 'Android [4-7]',
                 'directory' => 'xml',
                 'module' => 'Lollipop',
